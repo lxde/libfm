@@ -44,8 +44,10 @@ struct _FmMainWin
 {
 	GtkWindow parent;
 	/* add your public declarations here */
+	GtkWidget* toolbar;
 	GtkWidget* location;
 	GtkWidget* folder_view;
+	GtkWidget* statusbar;
 };
 
 struct _FmMainWinClass
