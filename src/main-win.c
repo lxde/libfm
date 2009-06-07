@@ -133,32 +133,43 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
 	fm_folder_view_chdir(self->folder_view, gtk_entry_get_text(entry));
 }
 
-static void on_file_clicked(FmFolderView* fv, int btn, FmFileInfo* fi, FmMainWin* win)
+static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn, FmMainWin* win)
 {
 	char* fpath, *uri;
 	GAppLaunchContext* ctx;
-	switch(btn)
+	switch(type)
 	{
 	case GDK_2BUTTON_PRESS: /* file activated */
-		g_debug("file clicked: %s", fi->disp_name);
-		fpath = g_build_filename(fv->cwd, fi->name, NULL);
-		if(fm_file_info_is_dir(fi))
+		if( btn == 1 ) /* left click */
 		{
-			fm_folder_view_chdir(win->folder_view, fpath);
-		}
-		else
-		{
-			uri = g_filename_to_uri(fpath, NULL, NULL);
-			ctx = gdk_app_launch_context_new();
-			gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
-			g_app_info_launch_default_for_uri(uri, ctx, NULL);
-			g_object_unref(ctx);
+			g_debug("file clicked: %s", fi->disp_name);
+			fpath = g_build_filename(fv->cwd, fi->name, NULL);
+			if(fm_file_info_is_dir(fi))
+			{
+				fm_folder_view_chdir(win->folder_view, fpath);
+			}
+			else
+			{
+				uri = g_filename_to_uri(fpath, NULL, NULL);
+				ctx = gdk_app_launch_context_new();
+				gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+				g_app_info_launch_default_for_uri(uri, ctx, NULL);
+				g_object_unref(ctx);
 
-			g_free(uri);
+				g_free(uri);
+			}
+			g_free(fpath);
 		}
-		g_free(fpath);
 		break;
 	case GDK_BUTTON_PRESS:
+		if( btn == 3 ) /* right click */
+		{
+			g_debug("right click!");
+		}
+		else if( btn == 2) /* middle click */
+		{
+			g_debug("middle click!");
+		}
 		break;
 	}
 }
@@ -177,7 +188,7 @@ static void fm_main_win_init(FmMainWin *self)
 	g_signal_connect(self->location, "activate", on_entry_activate, self);
 	self->folder_view = fm_folder_view_new( FM_FV_LIST_VIEW );
 	fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
-	g_signal_connect(self->folder_view, "file-clicked", on_file_clicked, self);
+	g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
 
 	/* create menu bar and toolbar */
 	ui = gtk_ui_manager_new();
@@ -200,7 +211,7 @@ static void fm_main_win_init(FmMainWin *self)
 	toolitem = gtk_tool_item_new();
 	gtk_container_add( toolitem, self->location );
 	gtk_tool_item_set_expand(toolitem, TRUE);
-	gtk_toolbar_insert((GtkToolbar*)self->toolbar, toolitem, -1);
+	gtk_toolbar_insert((GtkToolbar*)self->toolbar, toolitem, gtk_toolbar_get_n_items(self->toolbar) - 1 );
 
 	gtk_box_pack_start( (GtkBox*)vbox, self->folder_view, TRUE, TRUE, 0 );
 

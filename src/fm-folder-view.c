@@ -20,12 +20,13 @@
  */
 
 #include "fm-folder-view.h"
-
 #include "fm-folder.h"
 #include "fm-folder-model.h"
+#include "fm-gtk-marshal.h"
+#include "fm-gtk-marshal.h"
 
 enum{
-	FILE_CLICKED,
+	CLICKED,
 	N_SIGNALS
 };
 
@@ -36,6 +37,8 @@ G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
 static GList* fm_folder_get_selected_tree_paths(FmFolderView* fv);
 
+static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
+
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
 	GObjectClass *g_object_class;
@@ -43,37 +46,42 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
 	g_object_class->finalize = fm_folder_view_finalize;
 	fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
-    signals[ FILE_CLICKED ] =
-        g_signal_new ( "file-clicked",
+    signals[ CLICKED ] =
+        g_signal_new ( "clicked",
                        G_TYPE_FROM_CLASS( klass ),
                        G_SIGNAL_RUN_FIRST,
                        G_STRUCT_OFFSET ( FmFolderViewClass, file_clicked ),
                        NULL, NULL,
-                       g_cclosure_marshal_VOID__UINT_POINTER,
-                       G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER );
+                       fm_marshal_VOID__POINTER_UINT_UINT,
+                       G_TYPE_NONE, 3, G_TYPE_POINTER, G_TYPE_UINT, G_TYPE_UINT );
 
 }
 
-static void item_clicked( FmFolderView* fv, GtkTreePath* path, int btn )
+static void item_clicked( FmFolderView* fv, GtkTreePath* path, guint type, guint btn )
 {
 	GtkTreeIter it;
-	if(gtk_tree_model_get_iter(fv->model, &it, path))
+	if(path)
 	{
-		FmFileInfo* fi;
-		gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
-		g_signal_emit(fv, signals[FILE_CLICKED], 0, btn, fi);
-		fm_file_info_unref(fi);
+		if(gtk_tree_model_get_iter(fv->model, &it, path))
+		{
+			FmFileInfo* fi;
+			gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
+			g_signal_emit(fv, signals[CLICKED], 0, fi, type, btn);
+			fm_file_info_unref(fi);
+		}
 	}
+	else
+		g_signal_emit(fv, signals[CLICKED], 0, NULL, type, btn);
 }
 
 static void on_icon_view_item_activated(GtkIconView* iv, GtkTreePath* path, FmFolderView* fv)
 {
-	item_clicked(fv, path, GDK_2BUTTON_PRESS);
+	item_clicked(fv, path, GDK_2BUTTON_PRESS, 1);
 }
 
 static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTreeViewColumn* col, FmFolderView* fv)
 {
-	item_clicked(fv, path, GDK_2BUTTON_PRESS);
+	item_clicked(fv, path, GDK_2BUTTON_PRESS, 1);
 }
 
 static void fm_folder_view_init(FmFolderView *self)
@@ -158,6 +166,9 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 		}
 		g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
 		g_list_free(sels);
+
+		g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
+
 		gtk_widget_show(fv->view);
 		gtk_container_add(fv, fv->view);
 	}
@@ -304,3 +315,17 @@ guint fm_folder_get_n_selected_files(FmFolderView* fv)
 	return 0;
 }
 
+gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
+{
+	GList* sels = fm_folder_get_selected_tree_paths(fv);
+	if( evt->type == GDK_2BUTTON_PRESS )
+	{
+		if(sels)
+			goto _out;
+	}
+	item_clicked(fv, sels ? sels->data : NULL, evt->type, evt->button);
+_out:
+	g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free(sels);
+	return FALSE;
+}

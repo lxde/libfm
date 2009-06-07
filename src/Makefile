@@ -48,9 +48,10 @@ am__objects_1 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
 	libfm_demo-fm-folder.$(OBJEXT) \
 	libfm_demo-fm-file-info.$(OBJEXT) \
 	libfm_demo-fm-mime-type.$(OBJEXT) \
-	libfm_demo-fm-utils.$(OBJEXT)
+	libfm_demo-fm-utils.$(OBJEXT) libfm_demo-fm-marshal.$(OBJEXT)
 am__objects_2 = libfm_demo-fm-folder-view.$(OBJEXT) \
-	libfm_demo-fm-folder-model.$(OBJEXT)
+	libfm_demo-fm-folder-model.$(OBJEXT) \
+	libfm_demo-fm-gtk-marshal.$(OBJEXT)
 am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT)
 libfm_demo_OBJECTS = $(am_libfm_demo_OBJECTS)
@@ -172,35 +173,56 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = \
-    -DPACKAGE_DATA_DIR=\""$(datadir)/libfm-demo"\" \
-    -DPACKAGE_UI_DIR=\""$(datadir)/libfm-demo/ui"\" \
-    -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm-demo"\" \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm-demo/ui"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 libfm_SOURCES = \
-    fm.c fm.h \
-    fm-job.c fm-job.h \
-    fm-dir-list-job.c fm-dir-list-job.h \
-    fm-folder.c fm-folder.h \
-    fm-file-info.c fm-file-info.h \
-    fm-mime-type.c fm-mime-type.h \
-    fm-utils.c fm-utils.h
+	fm.c fm.h \
+	fm-job.c fm-job.h \
+	fm-dir-list-job.c fm-dir-list-job.h \
+	fm-folder.c fm-folder.h \
+	fm-file-info.c fm-file-info.h \
+	fm-mime-type.c fm-mime-type.h \
+	fm-utils.c fm-utils.h \
+	fm-marshal.c fm-marshal.h
 
 libfm_gtk_SOURCES = \
-    fm-folder-view.c fm-folder-view.h \
-    fm-folder-model.c fm-folder-model.h
+	fm-folder-view.c fm-folder-view.h \
+	fm-folder-model.c fm-folder-model.h \
+	fm-gtk-marshal.c fm-gtk-marshal.h
 
 libfm_demo_SOURCES = \
-    $(libfm_SOURCES) \
-    $(libfm_gtk_SOURCES) \
-    libfm-demo.c \
-    main-win.c main-win.h
+	$(libfm_SOURCES) \
+	$(libfm_gtk_SOURCES) \
+	libfm-demo.c \
+	main-win.c main-win.h
+
+
+# Workarounds to force the build
+BUILT_SOURCES = \
+	fm-marshal.h \
+	fm-marshal.c \
+	fm-gtk-marshal.h \
+	fm-gtk-marshal.c
+
+EXTRA_DIST = \
+	fm-marshal.list \
+	fm-gtk-marshal.list
+
+CLEANFILES = \
+	fm-marshal.h \
+	fm-marshal.c \
+	fm-gtk-marshal.h \
+	fm-gtk-marshal.c
 
 libfm_demo_CFLAGS = \
-    -D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/   \
-    -Werror-implicit-function-declaration
+	-D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/   \
+	-Werror-implicit-function-declaration
 
 libfm_demo_LDADD = -pthread -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgthread-2.0 -lrt -lgio-2.0 -lgobject-2.0 -lgmodule-2.0 -lglib-2.0   $(INTLLIBS)
-all: all-am
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .o .obj
@@ -271,7 +293,9 @@ include ./$(DEPDIR)/libfm_demo-fm-file-info.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder-model.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder-view.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder.Po
+include ./$(DEPDIR)/libfm_demo-fm-gtk-marshal.Po
 include ./$(DEPDIR)/libfm_demo-fm-job.Po
+include ./$(DEPDIR)/libfm_demo-fm-marshal.Po
 include ./$(DEPDIR)/libfm_demo-fm-mime-type.Po
 include ./$(DEPDIR)/libfm_demo-fm-utils.Po
 include ./$(DEPDIR)/libfm_demo-fm.Po
@@ -390,6 +414,20 @@ libfm_demo-fm-utils.obj: fm-utils.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-utils.obj `if test -f 'fm-utils.c'; then $(CYGPATH_W) 'fm-utils.c'; else $(CYGPATH_W) '$(srcdir)/fm-utils.c'; fi`
 
+libfm_demo-fm-marshal.o: fm-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-marshal.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-marshal.Tpo -c -o libfm_demo-fm-marshal.o `test -f 'fm-marshal.c' || echo '$(srcdir)/'`fm-marshal.c
+	mv -f $(DEPDIR)/libfm_demo-fm-marshal.Tpo $(DEPDIR)/libfm_demo-fm-marshal.Po
+#	source='fm-marshal.c' object='libfm_demo-fm-marshal.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-marshal.o `test -f 'fm-marshal.c' || echo '$(srcdir)/'`fm-marshal.c
+
+libfm_demo-fm-marshal.obj: fm-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-marshal.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-marshal.Tpo -c -o libfm_demo-fm-marshal.obj `if test -f 'fm-marshal.c'; then $(CYGPATH_W) 'fm-marshal.c'; else $(CYGPATH_W) '$(srcdir)/fm-marshal.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-marshal.Tpo $(DEPDIR)/libfm_demo-fm-marshal.Po
+#	source='fm-marshal.c' object='libfm_demo-fm-marshal.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-marshal.obj `if test -f 'fm-marshal.c'; then $(CYGPATH_W) 'fm-marshal.c'; else $(CYGPATH_W) '$(srcdir)/fm-marshal.c'; fi`
+
 libfm_demo-fm-folder-view.o: fm-folder-view.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-view.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-view.Tpo -c -o libfm_demo-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
 	mv -f $(DEPDIR)/libfm_demo-fm-folder-view.Tpo $(DEPDIR)/libfm_demo-fm-folder-view.Po
@@ -417,6 +455,20 @@ libfm_demo-fm-folder-model.obj: fm-folder-model.c
 #	source='fm-folder-model.c' object='libfm_demo-fm-folder-model.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
+
+libfm_demo-fm-gtk-marshal.o: fm-gtk-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-gtk-marshal.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo -c -o libfm_demo-fm-gtk-marshal.o `test -f 'fm-gtk-marshal.c' || echo '$(srcdir)/'`fm-gtk-marshal.c
+	mv -f $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo $(DEPDIR)/libfm_demo-fm-gtk-marshal.Po
+#	source='fm-gtk-marshal.c' object='libfm_demo-fm-gtk-marshal.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-gtk-marshal.o `test -f 'fm-gtk-marshal.c' || echo '$(srcdir)/'`fm-gtk-marshal.c
+
+libfm_demo-fm-gtk-marshal.obj: fm-gtk-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-gtk-marshal.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo -c -o libfm_demo-fm-gtk-marshal.obj `if test -f 'fm-gtk-marshal.c'; then $(CYGPATH_W) 'fm-gtk-marshal.c'; else $(CYGPATH_W) '$(srcdir)/fm-gtk-marshal.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo $(DEPDIR)/libfm_demo-fm-gtk-marshal.Po
+#	source='fm-gtk-marshal.c' object='libfm_demo-fm-gtk-marshal.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-gtk-marshal.obj `if test -f 'fm-gtk-marshal.c'; then $(CYGPATH_W) 'fm-gtk-marshal.c'; else $(CYGPATH_W) '$(srcdir)/fm-gtk-marshal.c'; fi`
 
 libfm_demo-libfm-demo.o: libfm-demo.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-libfm-demo.o -MD -MP -MF $(DEPDIR)/libfm_demo-libfm-demo.Tpo -c -o libfm_demo-libfm-demo.o `test -f 'libfm-demo.c' || echo '$(srcdir)/'`libfm-demo.c
@@ -520,13 +572,15 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(PROGRAMS)
 installdirs:
 	for dir in "$(DESTDIR)$(bindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -543,6 +597,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -550,6 +605,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
@@ -622,6 +678,19 @@ uninstall-am: uninstall-binPROGRAMS
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am uninstall-binPROGRAMS
 
+
+# GObject marshallers
+fm-marshal.h: fm-marshal.list
+	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+
+fm-marshal.c: fm-marshal.list
+	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+
+fm-gtk-marshal.h: fm-gtk-marshal.list
+	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+
+fm-gtk-marshal.c: fm-gtk-marshal.list
+	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
