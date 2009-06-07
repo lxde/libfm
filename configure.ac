@@ -5,7 +5,7 @@ AC_PREREQ([2.63])
 AC_INIT([libfm], [0.1], [http://libfm.sf.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
-AC_CONFIG_SRCDIR([src/pcmanfm.c])
+AC_CONFIG_SRCDIR([src/libfm-demo.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.

@@ -30,7 +30,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = pcmanfm$(EXEEXT)
+bin_PROGRAMS = libfm-demo$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -43,17 +43,19 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am__objects_1 = pcmanfm-fm.$(OBJEXT) pcmanfm-fm-job.$(OBJEXT) \
-	pcmanfm-fm-dir-list-job.$(OBJEXT) pcmanfm-fm-folder.$(OBJEXT) \
-	pcmanfm-fm-file-info.$(OBJEXT) pcmanfm-fm-mime-type.$(OBJEXT) \
-	pcmanfm-fm-utils.$(OBJEXT)
-am__objects_2 = pcmanfm-fm-folder-view.$(OBJEXT) \
-	pcmanfm-fm-folder-model.$(OBJEXT)
-am_pcmanfm_OBJECTS = $(am__objects_1) $(am__objects_2) \
-	pcmanfm-pcmanfm.$(OBJEXT) pcmanfm-main-win.$(OBJEXT)
-pcmanfm_OBJECTS = $(am_pcmanfm_OBJECTS)
-pcmanfm_DEPENDENCIES =
-pcmanfm_LINK = $(CCLD) $(pcmanfm_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+am__objects_1 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
+	libfm_demo-fm-dir-list-job.$(OBJEXT) \
+	libfm_demo-fm-folder.$(OBJEXT) \
+	libfm_demo-fm-file-info.$(OBJEXT) \
+	libfm_demo-fm-mime-type.$(OBJEXT) \
+	libfm_demo-fm-utils.$(OBJEXT)
+am__objects_2 = libfm_demo-fm-folder-view.$(OBJEXT) \
+	libfm_demo-fm-folder-model.$(OBJEXT)
+am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_2) \
+	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT)
+libfm_demo_OBJECTS = $(am_libfm_demo_OBJECTS)
+libfm_demo_DEPENDENCIES =
+libfm_demo_LINK = $(CCLD) $(libfm_demo_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -62,17 +64,17 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(pcmanfm_SOURCES)
-DIST_SOURCES = $(pcmanfm_SOURCES)
+SOURCES = $(libfm_demo_SOURCES)
+DIST_SOURCES = $(libfm_demo_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run aclocal-1.10
+ACLOCAL = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run aclocal-1.10
 ALL_LINGUAS = 
-AMTAR = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run tar
-AUTOCONF = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run automake-1.10
+AMTAR = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run tar
+AUTOCONF = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run automake-1.10
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -106,7 +108,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/pcman/Projects/pcmanfm2/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run makeinfo
 MENU_CACHE_CFLAGS = -I/usr/include/menu-cache -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
 MENU_CACHE_LIBS = -lmenu-cache -lglib-2.0  
 MKDIR_P = /bin/mkdir -p
@@ -127,10 +129,10 @@ STRIP =
 USE_NLS = yes
 VERSION = 0.1
 XGETTEXT = /usr/bin/xgettext
-abs_builddir = /home/pcman/Projects/pcmanfm2/src
-abs_srcdir = /home/pcman/Projects/pcmanfm2/src
-abs_top_builddir = /home/pcman/Projects/pcmanfm2
-abs_top_srcdir = /home/pcman/Projects/pcmanfm2
+abs_builddir = /home/pcman/Projects/libfm/branches/libfm/src
+abs_srcdir = /home/pcman/Projects/libfm/branches/libfm/src
+abs_top_builddir = /home/pcman/Projects/libfm/branches/libfm
+abs_top_srcdir = /home/pcman/Projects/libfm/branches/libfm
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -149,7 +151,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/pcman/Projects/pcmanfm2/install-sh
+install_sh = $(SHELL) /home/pcman/Projects/libfm/branches/libfm/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -158,7 +160,7 @@ mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /usr/local
+prefix = /usr
 program_transform_name = s,x,x,
 psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin
@@ -170,8 +172,8 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = \
-    -DPACKAGE_DATA_DIR=\""$(datadir)/pcmanfm"\" \
-    -DPACKAGE_UI_DIR=\""$(datadir)/pcmanfm/ui"\" \
+    -DPACKAGE_DATA_DIR=\""$(datadir)/libfm-demo"\" \
+    -DPACKAGE_UI_DIR=\""$(datadir)/libfm-demo/ui"\" \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 libfm_SOURCES = \
@@ -187,17 +189,17 @@ libfm_gtk_SOURCES = \
     fm-folder-view.c fm-folder-view.h \
     fm-folder-model.c fm-folder-model.h
 
-pcmanfm_SOURCES = \
+libfm_demo_SOURCES = \
     $(libfm_SOURCES) \
     $(libfm_gtk_SOURCES) \
-    pcmanfm.c \
+    libfm-demo.c \
     main-win.c main-win.h
 
-pcmanfm_CFLAGS = \
+libfm_demo_CFLAGS = \
     -D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/   \
     -Werror-implicit-function-declaration
 
-pcmanfm_LDADD = -pthread -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgthread-2.0 -lrt -lgio-2.0 -lgobject-2.0 -lgmodule-2.0 -lglib-2.0   $(INTLLIBS)
+libfm_demo_LDADD = -pthread -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgthread-2.0 -lrt -lgio-2.0 -lgobject-2.0 -lgmodule-2.0 -lglib-2.0   $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -254,9 +256,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-pcmanfm$(EXEEXT): $(pcmanfm_OBJECTS) $(pcmanfm_DEPENDENCIES) 
-	@rm -f pcmanfm$(EXEEXT)
-	$(pcmanfm_LINK) $(pcmanfm_OBJECTS) $(pcmanfm_LDADD) $(LIBS)
+libfm-demo$(EXEEXT): $(libfm_demo_OBJECTS) $(libfm_demo_DEPENDENCIES) 
+	@rm -f libfm-demo$(EXEEXT)
+	$(libfm_demo_LINK) $(libfm_demo_OBJECTS) $(libfm_demo_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -264,17 +266,17 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/pcmanfm-fm-dir-list-job.Po
-include ./$(DEPDIR)/pcmanfm-fm-file-info.Po
-include ./$(DEPDIR)/pcmanfm-fm-folder-model.Po
-include ./$(DEPDIR)/pcmanfm-fm-folder-view.Po
-include ./$(DEPDIR)/pcmanfm-fm-folder.Po
-include ./$(DEPDIR)/pcmanfm-fm-job.Po
-include ./$(DEPDIR)/pcmanfm-fm-mime-type.Po
-include ./$(DEPDIR)/pcmanfm-fm-utils.Po
-include ./$(DEPDIR)/pcmanfm-fm.Po
-include ./$(DEPDIR)/pcmanfm-main-win.Po
-include ./$(DEPDIR)/pcmanfm-pcmanfm.Po
+include ./$(DEPDIR)/libfm_demo-fm-dir-list-job.Po
+include ./$(DEPDIR)/libfm_demo-fm-file-info.Po
+include ./$(DEPDIR)/libfm_demo-fm-folder-model.Po
+include ./$(DEPDIR)/libfm_demo-fm-folder-view.Po
+include ./$(DEPDIR)/libfm_demo-fm-folder.Po
+include ./$(DEPDIR)/libfm_demo-fm-job.Po
+include ./$(DEPDIR)/libfm_demo-fm-mime-type.Po
+include ./$(DEPDIR)/libfm_demo-fm-utils.Po
+include ./$(DEPDIR)/libfm_demo-fm.Po
+include ./$(DEPDIR)/libfm_demo-libfm-demo.Po
+include ./$(DEPDIR)/libfm_demo-main-win.Po
 
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -290,159 +292,159 @@ include ./$(DEPDIR)/pcmanfm-pcmanfm.Po
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
-pcmanfm-fm.o: fm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm.Tpo -c -o pcmanfm-fm.o `test -f 'fm.c' || echo '$(srcdir)/'`fm.c
-	mv -f $(DEPDIR)/pcmanfm-fm.Tpo $(DEPDIR)/pcmanfm-fm.Po
-#	source='fm.c' object='pcmanfm-fm.o' libtool=no \
+libfm_demo-fm.o: fm.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm.Tpo -c -o libfm_demo-fm.o `test -f 'fm.c' || echo '$(srcdir)/'`fm.c
+	mv -f $(DEPDIR)/libfm_demo-fm.Tpo $(DEPDIR)/libfm_demo-fm.Po
+#	source='fm.c' object='libfm_demo-fm.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm.o `test -f 'fm.c' || echo '$(srcdir)/'`fm.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm.o `test -f 'fm.c' || echo '$(srcdir)/'`fm.c
 
-pcmanfm-fm.obj: fm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm.Tpo -c -o pcmanfm-fm.obj `if test -f 'fm.c'; then $(CYGPATH_W) 'fm.c'; else $(CYGPATH_W) '$(srcdir)/fm.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm.Tpo $(DEPDIR)/pcmanfm-fm.Po
-#	source='fm.c' object='pcmanfm-fm.obj' libtool=no \
+libfm_demo-fm.obj: fm.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm.Tpo -c -o libfm_demo-fm.obj `if test -f 'fm.c'; then $(CYGPATH_W) 'fm.c'; else $(CYGPATH_W) '$(srcdir)/fm.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm.Tpo $(DEPDIR)/libfm_demo-fm.Po
+#	source='fm.c' object='libfm_demo-fm.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm.obj `if test -f 'fm.c'; then $(CYGPATH_W) 'fm.c'; else $(CYGPATH_W) '$(srcdir)/fm.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm.obj `if test -f 'fm.c'; then $(CYGPATH_W) 'fm.c'; else $(CYGPATH_W) '$(srcdir)/fm.c'; fi`
 
-pcmanfm-fm-job.o: fm-job.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-job.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-job.Tpo -c -o pcmanfm-fm-job.o `test -f 'fm-job.c' || echo '$(srcdir)/'`fm-job.c
-	mv -f $(DEPDIR)/pcmanfm-fm-job.Tpo $(DEPDIR)/pcmanfm-fm-job.Po
-#	source='fm-job.c' object='pcmanfm-fm-job.o' libtool=no \
+libfm_demo-fm-job.o: fm-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-job.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-job.Tpo -c -o libfm_demo-fm-job.o `test -f 'fm-job.c' || echo '$(srcdir)/'`fm-job.c
+	mv -f $(DEPDIR)/libfm_demo-fm-job.Tpo $(DEPDIR)/libfm_demo-fm-job.Po
+#	source='fm-job.c' object='libfm_demo-fm-job.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-job.o `test -f 'fm-job.c' || echo '$(srcdir)/'`fm-job.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-job.o `test -f 'fm-job.c' || echo '$(srcdir)/'`fm-job.c
 
-pcmanfm-fm-job.obj: fm-job.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-job.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-job.Tpo -c -o pcmanfm-fm-job.obj `if test -f 'fm-job.c'; then $(CYGPATH_W) 'fm-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-job.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-job.Tpo $(DEPDIR)/pcmanfm-fm-job.Po
-#	source='fm-job.c' object='pcmanfm-fm-job.obj' libtool=no \
+libfm_demo-fm-job.obj: fm-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-job.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-job.Tpo -c -o libfm_demo-fm-job.obj `if test -f 'fm-job.c'; then $(CYGPATH_W) 'fm-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-job.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-job.Tpo $(DEPDIR)/libfm_demo-fm-job.Po
+#	source='fm-job.c' object='libfm_demo-fm-job.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-job.obj `if test -f 'fm-job.c'; then $(CYGPATH_W) 'fm-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-job.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-job.obj `if test -f 'fm-job.c'; then $(CYGPATH_W) 'fm-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-job.c'; fi`
 
-pcmanfm-fm-dir-list-job.o: fm-dir-list-job.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-dir-list-job.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-dir-list-job.Tpo -c -o pcmanfm-fm-dir-list-job.o `test -f 'fm-dir-list-job.c' || echo '$(srcdir)/'`fm-dir-list-job.c
-	mv -f $(DEPDIR)/pcmanfm-fm-dir-list-job.Tpo $(DEPDIR)/pcmanfm-fm-dir-list-job.Po
-#	source='fm-dir-list-job.c' object='pcmanfm-fm-dir-list-job.o' libtool=no \
+libfm_demo-fm-dir-list-job.o: fm-dir-list-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-dir-list-job.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-dir-list-job.Tpo -c -o libfm_demo-fm-dir-list-job.o `test -f 'fm-dir-list-job.c' || echo '$(srcdir)/'`fm-dir-list-job.c
+	mv -f $(DEPDIR)/libfm_demo-fm-dir-list-job.Tpo $(DEPDIR)/libfm_demo-fm-dir-list-job.Po
+#	source='fm-dir-list-job.c' object='libfm_demo-fm-dir-list-job.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-dir-list-job.o `test -f 'fm-dir-list-job.c' || echo '$(srcdir)/'`fm-dir-list-job.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-dir-list-job.o `test -f 'fm-dir-list-job.c' || echo '$(srcdir)/'`fm-dir-list-job.c
 
-pcmanfm-fm-dir-list-job.obj: fm-dir-list-job.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-dir-list-job.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-dir-list-job.Tpo -c -o pcmanfm-fm-dir-list-job.obj `if test -f 'fm-dir-list-job.c'; then $(CYGPATH_W) 'fm-dir-list-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-dir-list-job.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-dir-list-job.Tpo $(DEPDIR)/pcmanfm-fm-dir-list-job.Po
-#	source='fm-dir-list-job.c' object='pcmanfm-fm-dir-list-job.obj' libtool=no \
+libfm_demo-fm-dir-list-job.obj: fm-dir-list-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-dir-list-job.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-dir-list-job.Tpo -c -o libfm_demo-fm-dir-list-job.obj `if test -f 'fm-dir-list-job.c'; then $(CYGPATH_W) 'fm-dir-list-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-dir-list-job.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-dir-list-job.Tpo $(DEPDIR)/libfm_demo-fm-dir-list-job.Po
+#	source='fm-dir-list-job.c' object='libfm_demo-fm-dir-list-job.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-dir-list-job.obj `if test -f 'fm-dir-list-job.c'; then $(CYGPATH_W) 'fm-dir-list-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-dir-list-job.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-dir-list-job.obj `if test -f 'fm-dir-list-job.c'; then $(CYGPATH_W) 'fm-dir-list-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-dir-list-job.c'; fi`
 
-pcmanfm-fm-folder.o: fm-folder.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder.Tpo -c -o pcmanfm-fm-folder.o `test -f 'fm-folder.c' || echo '$(srcdir)/'`fm-folder.c
-	mv -f $(DEPDIR)/pcmanfm-fm-folder.Tpo $(DEPDIR)/pcmanfm-fm-folder.Po
-#	source='fm-folder.c' object='pcmanfm-fm-folder.o' libtool=no \
+libfm_demo-fm-folder.o: fm-folder.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder.Tpo -c -o libfm_demo-fm-folder.o `test -f 'fm-folder.c' || echo '$(srcdir)/'`fm-folder.c
+	mv -f $(DEPDIR)/libfm_demo-fm-folder.Tpo $(DEPDIR)/libfm_demo-fm-folder.Po
+#	source='fm-folder.c' object='libfm_demo-fm-folder.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder.o `test -f 'fm-folder.c' || echo '$(srcdir)/'`fm-folder.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder.o `test -f 'fm-folder.c' || echo '$(srcdir)/'`fm-folder.c
 
-pcmanfm-fm-folder.obj: fm-folder.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder.Tpo -c -o pcmanfm-fm-folder.obj `if test -f 'fm-folder.c'; then $(CYGPATH_W) 'fm-folder.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-folder.Tpo $(DEPDIR)/pcmanfm-fm-folder.Po
-#	source='fm-folder.c' object='pcmanfm-fm-folder.obj' libtool=no \
+libfm_demo-fm-folder.obj: fm-folder.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder.Tpo -c -o libfm_demo-fm-folder.obj `if test -f 'fm-folder.c'; then $(CYGPATH_W) 'fm-folder.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-folder.Tpo $(DEPDIR)/libfm_demo-fm-folder.Po
+#	source='fm-folder.c' object='libfm_demo-fm-folder.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder.obj `if test -f 'fm-folder.c'; then $(CYGPATH_W) 'fm-folder.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder.obj `if test -f 'fm-folder.c'; then $(CYGPATH_W) 'fm-folder.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder.c'; fi`
 
-pcmanfm-fm-file-info.o: fm-file-info.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-file-info.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-file-info.Tpo -c -o pcmanfm-fm-file-info.o `test -f 'fm-file-info.c' || echo '$(srcdir)/'`fm-file-info.c
-	mv -f $(DEPDIR)/pcmanfm-fm-file-info.Tpo $(DEPDIR)/pcmanfm-fm-file-info.Po
-#	source='fm-file-info.c' object='pcmanfm-fm-file-info.o' libtool=no \
+libfm_demo-fm-file-info.o: fm-file-info.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-file-info.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-file-info.Tpo -c -o libfm_demo-fm-file-info.o `test -f 'fm-file-info.c' || echo '$(srcdir)/'`fm-file-info.c
+	mv -f $(DEPDIR)/libfm_demo-fm-file-info.Tpo $(DEPDIR)/libfm_demo-fm-file-info.Po
+#	source='fm-file-info.c' object='libfm_demo-fm-file-info.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-file-info.o `test -f 'fm-file-info.c' || echo '$(srcdir)/'`fm-file-info.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-file-info.o `test -f 'fm-file-info.c' || echo '$(srcdir)/'`fm-file-info.c
 
-pcmanfm-fm-file-info.obj: fm-file-info.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-file-info.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-file-info.Tpo -c -o pcmanfm-fm-file-info.obj `if test -f 'fm-file-info.c'; then $(CYGPATH_W) 'fm-file-info.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-info.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-file-info.Tpo $(DEPDIR)/pcmanfm-fm-file-info.Po
-#	source='fm-file-info.c' object='pcmanfm-fm-file-info.obj' libtool=no \
+libfm_demo-fm-file-info.obj: fm-file-info.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-file-info.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-file-info.Tpo -c -o libfm_demo-fm-file-info.obj `if test -f 'fm-file-info.c'; then $(CYGPATH_W) 'fm-file-info.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-info.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-file-info.Tpo $(DEPDIR)/libfm_demo-fm-file-info.Po
+#	source='fm-file-info.c' object='libfm_demo-fm-file-info.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-file-info.obj `if test -f 'fm-file-info.c'; then $(CYGPATH_W) 'fm-file-info.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-info.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-file-info.obj `if test -f 'fm-file-info.c'; then $(CYGPATH_W) 'fm-file-info.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-info.c'; fi`
 
-pcmanfm-fm-mime-type.o: fm-mime-type.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-mime-type.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-mime-type.Tpo -c -o pcmanfm-fm-mime-type.o `test -f 'fm-mime-type.c' || echo '$(srcdir)/'`fm-mime-type.c
-	mv -f $(DEPDIR)/pcmanfm-fm-mime-type.Tpo $(DEPDIR)/pcmanfm-fm-mime-type.Po
-#	source='fm-mime-type.c' object='pcmanfm-fm-mime-type.o' libtool=no \
+libfm_demo-fm-mime-type.o: fm-mime-type.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-mime-type.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-mime-type.Tpo -c -o libfm_demo-fm-mime-type.o `test -f 'fm-mime-type.c' || echo '$(srcdir)/'`fm-mime-type.c
+	mv -f $(DEPDIR)/libfm_demo-fm-mime-type.Tpo $(DEPDIR)/libfm_demo-fm-mime-type.Po
+#	source='fm-mime-type.c' object='libfm_demo-fm-mime-type.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-mime-type.o `test -f 'fm-mime-type.c' || echo '$(srcdir)/'`fm-mime-type.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-mime-type.o `test -f 'fm-mime-type.c' || echo '$(srcdir)/'`fm-mime-type.c
 
-pcmanfm-fm-mime-type.obj: fm-mime-type.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-mime-type.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-mime-type.Tpo -c -o pcmanfm-fm-mime-type.obj `if test -f 'fm-mime-type.c'; then $(CYGPATH_W) 'fm-mime-type.c'; else $(CYGPATH_W) '$(srcdir)/fm-mime-type.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-mime-type.Tpo $(DEPDIR)/pcmanfm-fm-mime-type.Po
-#	source='fm-mime-type.c' object='pcmanfm-fm-mime-type.obj' libtool=no \
+libfm_demo-fm-mime-type.obj: fm-mime-type.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-mime-type.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-mime-type.Tpo -c -o libfm_demo-fm-mime-type.obj `if test -f 'fm-mime-type.c'; then $(CYGPATH_W) 'fm-mime-type.c'; else $(CYGPATH_W) '$(srcdir)/fm-mime-type.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-mime-type.Tpo $(DEPDIR)/libfm_demo-fm-mime-type.Po
+#	source='fm-mime-type.c' object='libfm_demo-fm-mime-type.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-mime-type.obj `if test -f 'fm-mime-type.c'; then $(CYGPATH_W) 'fm-mime-type.c'; else $(CYGPATH_W) '$(srcdir)/fm-mime-type.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-mime-type.obj `if test -f 'fm-mime-type.c'; then $(CYGPATH_W) 'fm-mime-type.c'; else $(CYGPATH_W) '$(srcdir)/fm-mime-type.c'; fi`
 
-pcmanfm-fm-utils.o: fm-utils.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-utils.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-utils.Tpo -c -o pcmanfm-fm-utils.o `test -f 'fm-utils.c' || echo '$(srcdir)/'`fm-utils.c
-	mv -f $(DEPDIR)/pcmanfm-fm-utils.Tpo $(DEPDIR)/pcmanfm-fm-utils.Po
-#	source='fm-utils.c' object='pcmanfm-fm-utils.o' libtool=no \
+libfm_demo-fm-utils.o: fm-utils.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-utils.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-utils.Tpo -c -o libfm_demo-fm-utils.o `test -f 'fm-utils.c' || echo '$(srcdir)/'`fm-utils.c
+	mv -f $(DEPDIR)/libfm_demo-fm-utils.Tpo $(DEPDIR)/libfm_demo-fm-utils.Po
+#	source='fm-utils.c' object='libfm_demo-fm-utils.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-utils.o `test -f 'fm-utils.c' || echo '$(srcdir)/'`fm-utils.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-utils.o `test -f 'fm-utils.c' || echo '$(srcdir)/'`fm-utils.c
 
-pcmanfm-fm-utils.obj: fm-utils.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-utils.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-utils.Tpo -c -o pcmanfm-fm-utils.obj `if test -f 'fm-utils.c'; then $(CYGPATH_W) 'fm-utils.c'; else $(CYGPATH_W) '$(srcdir)/fm-utils.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-utils.Tpo $(DEPDIR)/pcmanfm-fm-utils.Po
-#	source='fm-utils.c' object='pcmanfm-fm-utils.obj' libtool=no \
+libfm_demo-fm-utils.obj: fm-utils.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-utils.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-utils.Tpo -c -o libfm_demo-fm-utils.obj `if test -f 'fm-utils.c'; then $(CYGPATH_W) 'fm-utils.c'; else $(CYGPATH_W) '$(srcdir)/fm-utils.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-utils.Tpo $(DEPDIR)/libfm_demo-fm-utils.Po
+#	source='fm-utils.c' object='libfm_demo-fm-utils.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-utils.obj `if test -f 'fm-utils.c'; then $(CYGPATH_W) 'fm-utils.c'; else $(CYGPATH_W) '$(srcdir)/fm-utils.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-utils.obj `if test -f 'fm-utils.c'; then $(CYGPATH_W) 'fm-utils.c'; else $(CYGPATH_W) '$(srcdir)/fm-utils.c'; fi`
 
-pcmanfm-fm-folder-view.o: fm-folder-view.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder-view.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder-view.Tpo -c -o pcmanfm-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
-	mv -f $(DEPDIR)/pcmanfm-fm-folder-view.Tpo $(DEPDIR)/pcmanfm-fm-folder-view.Po
-#	source='fm-folder-view.c' object='pcmanfm-fm-folder-view.o' libtool=no \
+libfm_demo-fm-folder-view.o: fm-folder-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-view.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-view.Tpo -c -o libfm_demo-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
+	mv -f $(DEPDIR)/libfm_demo-fm-folder-view.Tpo $(DEPDIR)/libfm_demo-fm-folder-view.Po
+#	source='fm-folder-view.c' object='libfm_demo-fm-folder-view.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
 
-pcmanfm-fm-folder-view.obj: fm-folder-view.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder-view.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder-view.Tpo -c -o pcmanfm-fm-folder-view.obj `if test -f 'fm-folder-view.c'; then $(CYGPATH_W) 'fm-folder-view.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-view.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-folder-view.Tpo $(DEPDIR)/pcmanfm-fm-folder-view.Po
-#	source='fm-folder-view.c' object='pcmanfm-fm-folder-view.obj' libtool=no \
+libfm_demo-fm-folder-view.obj: fm-folder-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-view.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-view.Tpo -c -o libfm_demo-fm-folder-view.obj `if test -f 'fm-folder-view.c'; then $(CYGPATH_W) 'fm-folder-view.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-view.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-folder-view.Tpo $(DEPDIR)/libfm_demo-fm-folder-view.Po
+#	source='fm-folder-view.c' object='libfm_demo-fm-folder-view.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder-view.obj `if test -f 'fm-folder-view.c'; then $(CYGPATH_W) 'fm-folder-view.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-view.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-view.obj `if test -f 'fm-folder-view.c'; then $(CYGPATH_W) 'fm-folder-view.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-view.c'; fi`
 
-pcmanfm-fm-folder-model.o: fm-folder-model.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder-model.o -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder-model.Tpo -c -o pcmanfm-fm-folder-model.o `test -f 'fm-folder-model.c' || echo '$(srcdir)/'`fm-folder-model.c
-	mv -f $(DEPDIR)/pcmanfm-fm-folder-model.Tpo $(DEPDIR)/pcmanfm-fm-folder-model.Po
-#	source='fm-folder-model.c' object='pcmanfm-fm-folder-model.o' libtool=no \
+libfm_demo-fm-folder-model.o: fm-folder-model.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-model.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-model.Tpo -c -o libfm_demo-fm-folder-model.o `test -f 'fm-folder-model.c' || echo '$(srcdir)/'`fm-folder-model.c
+	mv -f $(DEPDIR)/libfm_demo-fm-folder-model.Tpo $(DEPDIR)/libfm_demo-fm-folder-model.Po
+#	source='fm-folder-model.c' object='libfm_demo-fm-folder-model.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder-model.o `test -f 'fm-folder-model.c' || echo '$(srcdir)/'`fm-folder-model.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-model.o `test -f 'fm-folder-model.c' || echo '$(srcdir)/'`fm-folder-model.c
 
-pcmanfm-fm-folder-model.obj: fm-folder-model.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-fm-folder-model.obj -MD -MP -MF $(DEPDIR)/pcmanfm-fm-folder-model.Tpo -c -o pcmanfm-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-fm-folder-model.Tpo $(DEPDIR)/pcmanfm-fm-folder-model.Po
-#	source='fm-folder-model.c' object='pcmanfm-fm-folder-model.obj' libtool=no \
+libfm_demo-fm-folder-model.obj: fm-folder-model.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-model.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-model.Tpo -c -o libfm_demo-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-folder-model.Tpo $(DEPDIR)/libfm_demo-fm-folder-model.Po
+#	source='fm-folder-model.c' object='libfm_demo-fm-folder-model.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
 
-pcmanfm-pcmanfm.o: pcmanfm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-pcmanfm.o -MD -MP -MF $(DEPDIR)/pcmanfm-pcmanfm.Tpo -c -o pcmanfm-pcmanfm.o `test -f 'pcmanfm.c' || echo '$(srcdir)/'`pcmanfm.c
-	mv -f $(DEPDIR)/pcmanfm-pcmanfm.Tpo $(DEPDIR)/pcmanfm-pcmanfm.Po
-#	source='pcmanfm.c' object='pcmanfm-pcmanfm.o' libtool=no \
+libfm_demo-libfm-demo.o: libfm-demo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-libfm-demo.o -MD -MP -MF $(DEPDIR)/libfm_demo-libfm-demo.Tpo -c -o libfm_demo-libfm-demo.o `test -f 'libfm-demo.c' || echo '$(srcdir)/'`libfm-demo.c
+	mv -f $(DEPDIR)/libfm_demo-libfm-demo.Tpo $(DEPDIR)/libfm_demo-libfm-demo.Po
+#	source='libfm-demo.c' object='libfm_demo-libfm-demo.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-pcmanfm.o `test -f 'pcmanfm.c' || echo '$(srcdir)/'`pcmanfm.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-libfm-demo.o `test -f 'libfm-demo.c' || echo '$(srcdir)/'`libfm-demo.c
 
-pcmanfm-pcmanfm.obj: pcmanfm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-pcmanfm.obj -MD -MP -MF $(DEPDIR)/pcmanfm-pcmanfm.Tpo -c -o pcmanfm-pcmanfm.obj `if test -f 'pcmanfm.c'; then $(CYGPATH_W) 'pcmanfm.c'; else $(CYGPATH_W) '$(srcdir)/pcmanfm.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-pcmanfm.Tpo $(DEPDIR)/pcmanfm-pcmanfm.Po
-#	source='pcmanfm.c' object='pcmanfm-pcmanfm.obj' libtool=no \
+libfm_demo-libfm-demo.obj: libfm-demo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-libfm-demo.obj -MD -MP -MF $(DEPDIR)/libfm_demo-libfm-demo.Tpo -c -o libfm_demo-libfm-demo.obj `if test -f 'libfm-demo.c'; then $(CYGPATH_W) 'libfm-demo.c'; else $(CYGPATH_W) '$(srcdir)/libfm-demo.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-libfm-demo.Tpo $(DEPDIR)/libfm_demo-libfm-demo.Po
+#	source='libfm-demo.c' object='libfm_demo-libfm-demo.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-pcmanfm.obj `if test -f 'pcmanfm.c'; then $(CYGPATH_W) 'pcmanfm.c'; else $(CYGPATH_W) '$(srcdir)/pcmanfm.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-libfm-demo.obj `if test -f 'libfm-demo.c'; then $(CYGPATH_W) 'libfm-demo.c'; else $(CYGPATH_W) '$(srcdir)/libfm-demo.c'; fi`
 
-pcmanfm-main-win.o: main-win.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-main-win.o -MD -MP -MF $(DEPDIR)/pcmanfm-main-win.Tpo -c -o pcmanfm-main-win.o `test -f 'main-win.c' || echo '$(srcdir)/'`main-win.c
-	mv -f $(DEPDIR)/pcmanfm-main-win.Tpo $(DEPDIR)/pcmanfm-main-win.Po
-#	source='main-win.c' object='pcmanfm-main-win.o' libtool=no \
+libfm_demo-main-win.o: main-win.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-main-win.o -MD -MP -MF $(DEPDIR)/libfm_demo-main-win.Tpo -c -o libfm_demo-main-win.o `test -f 'main-win.c' || echo '$(srcdir)/'`main-win.c
+	mv -f $(DEPDIR)/libfm_demo-main-win.Tpo $(DEPDIR)/libfm_demo-main-win.Po
+#	source='main-win.c' object='libfm_demo-main-win.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-main-win.o `test -f 'main-win.c' || echo '$(srcdir)/'`main-win.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-main-win.o `test -f 'main-win.c' || echo '$(srcdir)/'`main-win.c
 
-pcmanfm-main-win.obj: main-win.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -MT pcmanfm-main-win.obj -MD -MP -MF $(DEPDIR)/pcmanfm-main-win.Tpo -c -o pcmanfm-main-win.obj `if test -f 'main-win.c'; then $(CYGPATH_W) 'main-win.c'; else $(CYGPATH_W) '$(srcdir)/main-win.c'; fi`
-	mv -f $(DEPDIR)/pcmanfm-main-win.Tpo $(DEPDIR)/pcmanfm-main-win.Po
-#	source='main-win.c' object='pcmanfm-main-win.obj' libtool=no \
+libfm_demo-main-win.obj: main-win.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-main-win.obj -MD -MP -MF $(DEPDIR)/libfm_demo-main-win.Tpo -c -o libfm_demo-main-win.obj `if test -f 'main-win.c'; then $(CYGPATH_W) 'main-win.c'; else $(CYGPATH_W) '$(srcdir)/main-win.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-main-win.Tpo $(DEPDIR)/libfm_demo-main-win.Po
+#	source='main-win.c' object='libfm_demo-main-win.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcmanfm_CFLAGS) $(CFLAGS) -c -o pcmanfm-main-win.obj `if test -f 'main-win.c'; then $(CYGPATH_W) 'main-win.c'; else $(CYGPATH_W) '$(srcdir)/main-win.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-main-win.obj `if test -f 'main-win.c'; then $(CYGPATH_W) 'main-win.c'; else $(CYGPATH_W) '$(srcdir)/main-win.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

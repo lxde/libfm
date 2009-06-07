@@ -34,6 +34,8 @@ static guint signals[N_SIGNALS];
 static void fm_folder_view_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
+static GList* fm_folder_get_selected_tree_paths(FmFolderView* fv);
+
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
 	GObjectClass *g_object_class;
@@ -110,35 +112,52 @@ static void fm_folder_view_finalize(GObject *object)
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 {
-	GtkTreeViewColumn* col;
-	g_debug("old = %d, new=%d", fv->mode, mode);
 	if( mode != fv->mode )
 	{
-		fv->mode = mode;
+		GtkTreeViewColumn* col;
+		GtkTreeSelection* ts;
+		GList *sels, *l;
+
 		if( G_LIKELY(fv->view) )
+		{
+			/* preserve old selections */
+			sels = fm_folder_get_selected_tree_paths(fv);
 			gtk_widget_destroy(fv->view );
+		}
+		else
+			sels = NULL;
+
+		fv->mode = mode;
 		switch(fv->mode)
 		{
 		case FM_FV_COMPACT_VIEW:
 		case FM_FV_ICON_VIEW:
 			fv->view = gtk_icon_view_new();
-			gtk_icon_view_set_pixbuf_column(fv->view, COL_FILE_BIG_ICON);
-			gtk_icon_view_set_text_column(fv->view, COL_FILE_NAME);
-			gtk_icon_view_set_item_width(fv->view, 96);
+			gtk_icon_view_set_pixbuf_column((GtkIconView*)fv->view, COL_FILE_BIG_ICON);
+			gtk_icon_view_set_text_column((GtkIconView*)fv->view, COL_FILE_NAME);
+			gtk_icon_view_set_item_width((GtkIconView*)fv->view, 96);
 			g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
-			gtk_icon_view_set_model(fv->view, fv->model);
+			gtk_icon_view_set_model((GtkIconView*)fv->view, fv->model);
+			gtk_icon_view_set_selection_mode((GtkIconView*)fv->view, fv->sel_mode);
+			for(l = sels;l;l=l->next)
+				gtk_icon_view_select_path((GtkIconView*)fv->view, (GtkTreePath*)l->data);
 			break;
 		case FM_FV_LIST_VIEW:
 			fv->view = gtk_tree_view_new();
 			col = gtk_tree_view_column_new_with_attributes(NULL, gtk_cell_renderer_pixbuf_new(), "gicon", COL_FILE_GICON, NULL);
-			gtk_tree_view_append_column(fv->view, col);
+			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 			col = gtk_tree_view_column_new_with_attributes("Name", gtk_cell_renderer_text_new(), "text", COL_FILE_NAME, NULL);
-			gtk_tree_view_append_column(fv->view, col);
+			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 			g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
-			gtk_tree_view_set_model(fv->view, fv->model);
+			gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
+			ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
+			gtk_tree_selection_set_mode(ts, fv->sel_mode);
+			for(l = sels;l;l=l->next)
+				gtk_tree_selection_select_path(ts, (GtkTreePath*)l->data);
 			break;
 		}
-		fm_folder_view_set_selection_mode(fv, fv->sel_mode);
+		g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+		g_list_free(sels);
 		gtk_widget_show(fv->view);
 		gtk_container_add(fv, fv->view);
 	}
@@ -240,15 +259,47 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 
 const char* fm_folder_view_get_cwd(FmFolderView* fv)
 {
-	
+	return fv->cwd;
 }
 
-GList* fm_folder_get_selected(FmFolderView* fv)
+GList* fm_folder_get_selected_tree_paths(FmFolderView* fv)
 {
-	
+	GList *sels = NULL;
+	switch(fv->mode)
+	{
+	case FM_FV_LIST_VIEW:
+	{
+		GtkTreeSelection* sel;
+		sel = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
+		sels = gtk_tree_selection_get_selected_rows(sel, NULL);
+		break;
+	}
+	case FM_FV_ICON_VIEW:
+	case FM_FV_COMPACT_VIEW:
+		sels = gtk_icon_view_get_selected_items((GtkIconView*)fv->view);
+		break;
+	}
+	return sels;
 }
 
-guint fm_folder_get_n_selected(FmFolderView* fv)
+GList* fm_folder_get_selected_files(FmFolderView* fv)
+{
+	GList *l, *sels = fm_folder_get_selected_tree_paths(fv);
+	for(l = sels;l;l=l->next)
+	{
+		FmFileInfo* fi;
+		GtkTreeIter it;
+		GtkTreePath* tp = (GtkTreePath*)l->data;
+		gtk_tree_model_get_iter(fv->model, &it, l->data);
+		gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
+		gtk_tree_path_free(tp);
+		l->data = fi;
+	}
+	return sels;
+}
+
+/* FIXME: is this really useful? */
+guint fm_folder_get_n_selected_files(FmFolderView* fv)
 {
 	return 0;
 }

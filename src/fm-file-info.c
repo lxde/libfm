@@ -516,12 +516,6 @@ void fm_file_info_load_special_info( FmFileInfo* fi,
     }
 }
 
-void fm_file_info_list_free( GList* list )
-{
-    g_list_foreach( list, (GFunc)fm_file_info_unref, NULL );
-    g_list_free( list );
-}
-
 
 char* vfs_file_resolve_path( const char* cwd, const char* relative_path )
 {
@@ -592,3 +586,10 @@ char* vfs_file_resolve_path( const char* cwd, const char* relative_path )
 }
 
 #endif
+
+void fm_file_info_list_free( GList* list )
+{
+    g_list_foreach( list, (GFunc)fm_file_info_unref, NULL );
+    g_list_free( list );
+}
+

@@ -1,7 +1,7 @@
 /*
  *      folder-view.h
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -91,8 +91,8 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv);
 gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path);
 const char* fm_folder_view_get_cwd(FmFolderView* fv);
 
-GList* fm_folder_get_selected(FmFolderView* fv);
-guint fm_folder_get_n_selected(FmFolderView* fv);
+GList* fm_folder_get_selected_files(FmFolderView* fv);
+guint fm_folder_get_n_selected_files(FmFolderView* fv);
 
 G_END_DECLS
 

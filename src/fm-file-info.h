@@ -143,12 +143,13 @@ gboolean fm_file_info_open_file( FmFileInfo* fi,
 void fm_file_info_load_special_info( FmFileInfo* fi,
                                       const char* file_path );
 
-void fm_file_info_list_free( GList* list );
 
 /* resolve file path name */
 char* vfs_file_resolve_path( const char* cwd, const char* relative_path );
 
 #endif
+
+void fm_file_info_list_free( GList* list );
 
 G_END_DECLS
 

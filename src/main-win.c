@@ -28,27 +28,35 @@ G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
 
 static void on_new_win(GtkAction* act, FmMainWin* win);
 static void on_close_win(GtkAction* act, FmMainWin* win);
-static void on_change_mode(GtkAction* act, FmMainWin* win);
-static void on_sort(GtkAction* act, FmMainWin* win);
+static void on_show_hidden(GtkToggleAction* act, FmMainWin* win);
+static void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
+static void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
+static void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_about(GtkAction* act, FmMainWin* win);
 
 static const char main_menu_xml[] = 
 "<menubar>"
   "<menu name='File' action='FileMenu'>"
-    "<menuitem name='New' action='New' />"
-    "<menuitem name='Close' action='Close' />"
+    "<menuitem name='New' action='New'/>"
+    "<menuitem name='Close' action='Close'/>"
   "</menu>"
   "<menu name='View' action='ViewMenu'>"
-    "<menuitem name='IconView' action='IconView' />"
-    "<menuitem name='ListView' action='ListView' />"
-	"<separator />"
+    "<menuitem name='ShowHidden' action='ShowHidden'/>"
+    "<separator/>"
+    "<menuitem name='IconView' action='IconView'/>"
+    "<menuitem name='CompactView' action='CompactView'/>"
+    "<menuitem name='ListView' action='ListView'/>"
+	"<separator/>"
 	"<menu name='Sort' action='Sort'>"
-	  "<menuitem name='ByName' action='ByName' />"
-	  "<menuitem name='ByMTime' action='ByMTime' />"
+	  "<menuitem name='Desc' action='Desc'/>"
+	  "<menuitem name='Asc' action='Asc'/>"
+	  "<separator/>"
+	  "<menuitem name='ByName' action='ByName'/>"
+	  "<menuitem name='ByMTime' action='ByMTime'/>"
 	"</menu>"
   "</menu>"
   "<menu name='Help' action='HelpMenu'>"
-    "<menuitem name='About' action='About' />"
+    "<menuitem name='About' action='About'/>"
   "</menu>"
 "</menubar>";
 
@@ -58,13 +66,33 @@ static GtkActionEntry main_win_actions[]=
 		{"New", NULL, N_("_New Window"), "<CTRL>N", NULL, on_new_win},
 		{"Close", NULL, N_("_Close Window"), "<Ctrl>W", NULL, on_close_win},
 	{"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
-		{"IconView", NULL, N_("_Icon View"), NULL, NULL, on_change_mode},
-		{"ListView", NULL, N_("Detailed _List View"), NULL, NULL, on_change_mode},
 		{"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
-			{"ByName", NULL, N_("By _Name"), NULL, NULL, on_sort},
-			{"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, on_sort},
 	{"HelpMenu", NULL, N_("_Help"), NULL, NULL, NULL},
 		{"About", GTK_STOCK_ABOUT, NULL, NULL, NULL, on_about}
+};
+
+static GtkActionEntry main_win_toggle_actions[]=
+{
+	{"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, on_show_hidden, FALSE}
+};
+
+static GtkRadioActionEntry main_win_mode_actions[]=
+{
+	{"IconView", NULL, N_("_Icon View"), NULL, NULL, FM_FV_ICON_VIEW},
+	{"CompactView", NULL, N_("_Compact View"), NULL, NULL, FM_FV_COMPACT_VIEW},
+	{"ListView", NULL, N_("Detailed _List View"), NULL, NULL, FM_FV_LIST_VIEW},
+};
+
+static GtkRadioActionEntry main_win_sort_type_actions[]=
+{
+	{"Asc", NULL, N_("_Ascending"), NULL, NULL, GTK_SORT_ASCENDING},
+	{"Desc", NULL, N_("_Descending"), NULL, NULL, GTK_SORT_DESCENDING},
+};
+
+static GtkRadioActionEntry main_win_sort_by_actions[]=
+{
+	{"ByName", NULL, N_("By _Name"), NULL, NULL, 0},
+	{"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, 1}
 };
 
 static guint n_wins = 0;
@@ -72,11 +100,8 @@ static guint n_wins = 0;
 static void fm_main_win_class_init(FmMainWinClass *klass)
 {
 	GObjectClass *g_object_class;
-
 	g_object_class = G_OBJECT_CLASS(klass);
-
 	g_object_class->finalize = fm_main_win_finalize;
-
 	fm_main_win_parent_class = (GtkWindowClass*)g_type_class_peek(GTK_TYPE_WINDOW);
 }
 
@@ -99,6 +124,7 @@ static void on_file_clicked(FmFolderView* fv, int btn, FmFileInfo* fi, FmMainWin
 			FmMainWin* win = fm_main_win_new();
 			gtk_window_set_default_size(win, 640, 480);
 			fm_folder_view_chdir(win->folder_view, fpath);
+			gtk_entry_set_text(win->location, fpath);
 			gtk_window_present(win);
 		}
 		else
@@ -123,7 +149,8 @@ static void fm_main_win_init(FmMainWin *self)
 	GtkWidget* vbox, *menubar;
 	GtkUIManager* ui;
 	GtkActionGroup* act_grp;
-	
+	GtkAccelGroup* accel_grp;
+
 	++n_wins;
 
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -138,8 +165,14 @@ static void fm_main_win_init(FmMainWin *self)
 	gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
 	act_grp = gtk_action_group_new("MainWin");
 	gtk_action_group_add_actions(act_grp, main_win_actions, G_N_ELEMENTS(main_win_actions), self);
+	gtk_action_group_add_toggle_actions(act_grp, main_win_toggle_actions, G_N_ELEMENTS(main_win_toggle_actions), self);
+	gtk_action_group_add_radio_actions(act_grp, main_win_mode_actions, G_N_ELEMENTS(main_win_mode_actions), FM_FV_ICON_VIEW, on_change_mode, self);
+	gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_DESCENDING, on_sort_type, self);
+	gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, on_sort_by, self);
 	gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 	menubar = gtk_ui_manager_get_widget(ui, "/menubar");
+	accel_grp = gtk_ui_manager_get_accel_group(ui);
+	gtk_window_add_accel_group(self, accel_grp);
 
 	gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
 	gtk_box_pack_start( (GtkBox*)vbox, self->location, FALSE, TRUE, 0 );
@@ -187,30 +220,29 @@ void on_about(GtkAction* act, FmMainWin* win)
 	gtk_widget_destroy(dlg);
 }
 
-void on_change_mode(GtkAction* act, FmMainWin* win)
+void on_show_hidden(GtkToggleAction* act, FmMainWin* win)
 {
-	const char* name = gtk_action_get_name(act);
-	if(strcmp(name, "IconView") == 0)
-	{
-		fm_folder_view_set_mode( win->folder_view, FM_FV_ICON_VIEW );
-	}
-	else if(strcmp(name, "ListView") == 0)
-	{
-		fm_folder_view_set_mode( win->folder_view, FM_FV_LIST_VIEW );
-	}
+	gboolean active = gtk_toggle_action_get_active(act);
+	fm_folder_view_set_show_hidden( win->folder_view, active );
 }
 
-void on_sort(GtkAction* act, FmMainWin* win)
+void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
-	const char* name = gtk_action_get_name(act);
-	if(strcmp(name, "ByName") == 0)
-	{
-	}
-	else if(strcmp(name, "ByMTime") == 0)
-	{
-	}
+	int mode = gtk_radio_action_get_current_value(cur);
+	fm_folder_view_set_mode( win->folder_view, mode );
 }
 
+void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
+{
+	int val = gtk_radio_action_get_current_value(cur);
+//	fm_folder_view_set_sort_by(win->folder_view, val);
+}
+
+void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
+{
+	int val = gtk_radio_action_get_current_value(cur);
+//	fm_folder_view_set_sort_type(win->folder_view, val);
+}
 
 void on_new_win(GtkAction* act, FmMainWin* win)
 {
