@@ -57,6 +57,7 @@ struct _FmMainWinClass
 
 GType		fm_main_win_get_type		(void);
 GtkWidget*	fm_main_win_new			(void);
+void fm_main_win_chdir(FmMainWin* win, const char* path);
 
 G_END_DECLS
 

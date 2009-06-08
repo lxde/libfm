@@ -159,7 +159,7 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 			fpath = g_build_filename(fv->cwd, fi->name, NULL);
 			if(fm_file_info_is_dir(fi))
 			{
-				fm_folder_view_chdir(win->folder_view, fpath);
+				fm_main_win_chdir( win, fpath);
 			}
 			else
 			{
@@ -237,7 +237,7 @@ static void fm_main_win_init(FmMainWin *self)
 	gtk_container_add( (GtkContainer*)self, vbox );
 	gtk_widget_show_all(vbox);
 
-	fm_folder_view_chdir(self->folder_view, g_get_home_dir());
+	fm_main_win_chdir(self, g_get_home_dir());
 }
 
 
@@ -316,7 +316,7 @@ void on_close_win(GtkAction* act, FmMainWin* win)
 
 void on_go(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, gtk_entry_get_text(win->location));
+	fm_main_win_chdir( win, gtk_entry_get_text(win->location));
 }
 
 void on_go_up(GtkAction* act, FmMainWin* win)
@@ -324,33 +324,38 @@ void on_go_up(GtkAction* act, FmMainWin* win)
 	char* parent = g_path_get_dirname(fm_folder_view_get_cwd(win->folder_view));
 	if(parent)
 	{
-		fm_folder_view_chdir(win->folder_view, parent);
+		fm_main_win_chdir( win, parent);
 		g_free(parent);
 	}
 }
 
 void on_go_home(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, g_get_home_dir());
+	fm_main_win_chdir( win, g_get_home_dir());
 }
 
 void on_go_desktop(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
+	fm_main_win_chdir( win, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
 }
 
 void on_go_trash(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, "trash:/");
+	fm_main_win_chdir( win, "trash:/");
 }
 
 void on_go_computer(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, "computer:/");
+	fm_main_win_chdir( win, "computer:/");
 }
 
 void on_go_network(GtkAction* act, FmMainWin* win)
 {
-	fm_folder_view_chdir(win->folder_view, "network:/");
+	fm_main_win_chdir( win, "network:/");
 }
 
+void fm_main_win_chdir(FmMainWin* win, const char* path)
+{
+	gtk_entry_set_text(win->location, path);
+	fm_folder_view_chdir(win->folder_view, path);	
+}
