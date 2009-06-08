@@ -31,6 +31,10 @@ static void on_close_win(GtkAction* act, FmMainWin* win);
 static void on_go(GtkAction* act, FmMainWin* win);
 static void on_go_up(GtkAction* act, FmMainWin* win);
 static void on_go_home(GtkAction* act, FmMainWin* win);
+static void on_go_desktop(GtkAction* act, FmMainWin* win);
+static void on_go_trash(GtkAction* act, FmMainWin* win);
+static void on_go_computer(GtkAction* act, FmMainWin* win);
+static void on_go_network(GtkAction* act, FmMainWin* win);
 static void on_show_hidden(GtkToggleAction* act, FmMainWin* win);
 static void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
@@ -47,7 +51,12 @@ static const char main_menu_xml[] =
     "<menuitem name='Prev' action='Prev'/>"
     "<menuitem name='Next' action='Next'/>"
     "<menuitem name='Up' action='Up'/>"
+	"<separator/>"
     "<menuitem name='Home' action='Home'/>"
+    "<menuitem name='Desktop' action='Desktop'/>"
+    "<menuitem name='Computer' action='Computer'/>"
+    "<menuitem name='Trash' action='Trash'/>"
+    "<menuitem name='Network' action='Network'/>"
   "</menu>"
   "<menu name='View' action='ViewMenu'>"
     "<menuitem name='ShowHidden' action='ShowHidden'/>"
@@ -89,8 +98,12 @@ static GtkActionEntry main_win_actions[]=
 	{"GoMenu", NULL, N_("_Go"), NULL, NULL, NULL},
 		{"Prev", GTK_STOCK_GO_BACK, N_("Previous Folder"), "<Alt>Right", N_("Previous Folder"), on_go},
 		{"Next", GTK_STOCK_GO_FORWARD, N_("Next Folder"), "<Alt>Left", N_("Next Folder"), on_go},
-		{"Up", GTK_STOCK_GO_UP, N_("Go to parent Folder"), "<Alt>Up", N_("Go to parent Folder"), on_go_up},
-		{"Home", GTK_STOCK_HOME, N_("Go to Home Folder"), "<Alt>Home", N_("Go to Home Folder"), on_go_home},
+		{"Up", GTK_STOCK_GO_UP, N_("Parent Folder"), "<Alt>Up", N_("Go to parent Folder"), on_go_up},
+		{"Home", "user-home", N_("Home Folder"), "<Alt>Home", N_("Home Folder"), on_go_home},
+		{"Desktop", "user-desktop", N_("Desktop"), NULL, N_("Desktop Folder"), on_go_desktop},
+		{"Computer", "computer", N_("My Computer"), NULL, NULL, on_go_computer},
+		{"Trash", "user-trash", N_("Trash Can"), NULL, NULL, on_go_trash},
+		{"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, on_go_network},
 		{"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go}
 };
 
@@ -320,3 +333,24 @@ void on_go_home(GtkAction* act, FmMainWin* win)
 {
 	fm_folder_view_chdir(win->folder_view, g_get_home_dir());
 }
+
+void on_go_desktop(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_chdir(win->folder_view, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
+}
+
+void on_go_trash(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_chdir(win->folder_view, "trash:/");
+}
+
+void on_go_computer(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_chdir(win->folder_view, "computer:/");
+}
+
+void on_go_network(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_chdir(win->folder_view, "network:/");
+}
+

@@ -38,10 +38,7 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(GFileInfo* inf)
 	/* if display name is the same as its name, just use it. */
 	tmp = g_file_info_get_display_name(inf);
 	if( strcmp(tmp, fi->name) == 0 )
-	{
 		fi->disp_name = fi->name;
-		g_free(tmp);
-	}
 	else
 		fi->disp_name = g_strdup(tmp);
 

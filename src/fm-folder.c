@@ -116,10 +116,10 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 
 FmFolder* fm_folder_new(GFile* gf)
 {
+	GError* err = NULL;
 	FmFolder* folder = (FmFolder*)g_object_new(FM_TYPE_FOLDER, NULL);
 	folder->gf = (GFile*)g_object_ref(gf);
 
-	GError* err = NULL;
 	folder->mon = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &err);
 	if(folder->mon)
 	{
@@ -128,13 +128,16 @@ FmFolder* fm_folder_new(GFile* gf)
 	}
 	else
 	{
-		g_debug(err->message);
+		if(err)
+		{
+			g_debug(err->message);
+			g_error_free(err);
+		}
 	}
 
 	folder->job = fm_dir_list_job_new(gf);
 	g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
 	fm_job_run(folder->job);
-
 	return folder;
 }
 
