@@ -119,13 +119,22 @@ FmFolder* fm_folder_new(GFile* gf)
 	FmFolder* folder = (FmFolder*)g_object_new(FM_TYPE_FOLDER, NULL);
 	folder->gf = (GFile*)g_object_ref(gf);
 
+	GError* err = NULL;
+	folder->mon = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &err);
+	if(folder->mon)
+	{
+		g_file_monitor_set_rate_limit(folder->mon, MONITOR_RATE_LIMIT);
+		g_signal_connect(folder->mon, "changed", G_CALLBACK(on_folder_changed), folder );
+	}
+	else
+	{
+		g_debug(err->message);
+	}
+
 	folder->job = fm_dir_list_job_new(gf);
 	g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
 	fm_job_run(folder->job);
 
-	folder->mon = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, NULL);
-	g_file_monitor_set_rate_limit(folder->mon, MONITOR_RATE_LIMIT);
-	g_signal_connect(folder->mon, "changed", G_CALLBACK(on_folder_changed), folder );
 	return folder;
 }
 
