@@ -10,6 +10,7 @@ AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+AM_PROG_LIBTOOL
 
 # Checks for libraries.
 
@@ -26,6 +27,11 @@ pkg_modules="gtk+-2.0 >= 2.12.0 gthread-2.0 gio-unix-2.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
+
+gmodule_modules="gmodule-2.0"
+PKG_CHECK_MODULES(GLIB, [$gmodule_modules])
+AC_SUBST(GMODULE_CFLAGS)
+AC_SUBST(GMODULE_LIBS)
 
 menu_modules="libmenu-cache"
 PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])

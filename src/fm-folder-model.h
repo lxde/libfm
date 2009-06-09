@@ -80,7 +80,9 @@ struct _FmFolderModelClass
 
 GType fm_folder_model_get_type (void);
 
-FmFolderModel *fm_folder_model_new ( FmFolder* dir, gboolean show_hidden );
+FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
+
+void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden );
 
 void fm_folder_model_file_created( FmFolder* dir, FmFileInfo* file,
                                         FmFolderModel* list );

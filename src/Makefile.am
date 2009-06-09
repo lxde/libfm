@@ -18,6 +18,8 @@ libfm_SOURCES = \
 libfm_gtk_SOURCES = \
 	fm-folder-view.c fm-folder-view.h \
 	fm-folder-model.c fm-folder-model.h \
+        fm-path-entry.c fm-path-entry.h \
+        fm-file-menu.c fm-file-menu.h \
 	fm-gtk-marshal.c fm-gtk-marshal.h
 
 libfm_demo_SOURCES = \
@@ -61,3 +63,14 @@ libfm_demo_CFLAGS = \
 	-Werror-implicit-function-declaration
 
 libfm_demo_LDADD = @GTK_LIBS@ $(INTLLIBS)
+
+
+# A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget
+#lib_LTLIBRARIES=libfm-chooser-hack.la
+
+#libfm_chooser_hack_la_SOURCES=libfm-chooser-hack.c
+#libfm_chooser_hack_la_CFLAGS=@GTK_CFLAGS@
+#libfm_chooser_hack_la_LIBADD=@GMODULE_LIBS@
+#libfm_chooser_hack_la_LDFLAGS= \
+#        -no-undefined \
+#        -export-symbols-regex gtk

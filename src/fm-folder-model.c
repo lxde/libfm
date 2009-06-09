@@ -179,6 +179,22 @@ FmFolderModel *fm_folder_model_new ( FmFolder* dir, gboolean show_hidden )
     return list;
 }
 
+inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
+{
+	FmFolderItem* item = g_slice_new0(FmFolderItem);
+	item->inf = fm_file_info_ref(inf);
+	return item;
+}
+
+inline void fm_folder_item_free(FmFolderItem* item)
+{
+	fm_file_info_unref(item->inf);
+	g_slice_free(FmFolderItem, item);
+}
+
+static void _fm_folder_model_item_created( FmFolder* dir,
+                                 FmFolderItem* new_item,
+                                 FmFolderModel* list );
 
 static void _fm_folder_model_files_changed( FmFolder* dir, GSList* files,
                                         FmFolderModel* list )
@@ -192,8 +208,17 @@ static void _fm_folder_model_files_added( FmFolder* dir, GSList* files,
                                         FmFolderModel* list )
 {
 	GSList* l;
+	FmFileInfo* file;
 	for(l = files; l; l=l->next )
-		fm_folder_model_file_created( dir, (FmFileInfo*)l->data, list );
+	{
+		file = (FmFileInfo*)l->data;
+		if( !list->show_hidden && file->name[0] == '.')
+		{
+			list->hidden = g_list_prepend(list->hidden, fm_folder_item_new(file));
+			continue;
+		}
+		fm_folder_model_file_created( dir, file, list );
+	}
 }
 
 
@@ -662,12 +687,19 @@ void fm_folder_model_file_created( FmFolder* dir,
                                  FmFileInfo* file,
                                  FmFolderModel* list )
 {
+	FmFolderItem* new_item = fm_folder_item_new(file);
+	_fm_folder_model_item_created(dir, new_item, list);
+}
+
+void _fm_folder_model_item_created( FmFolder* dir,
+                                 FmFolderItem* new_item,
+                                 FmFolderModel* list )
+{
     GList* l;
     GtkTreeIter it;
     GtkTreePath* path;
 	FmFolderItem* item;
-	FmFolderItem* new_item = g_slice_new0(FmFolderItem);
-	new_item->inf = fm_file_info_ref(file);
+	FmFileInfo* file = new_item->inf;
 
     for( l = list->items; l; l = l->next )
     {
@@ -675,9 +707,7 @@ void fm_folder_model_file_created( FmFolder* dir,
         if( G_UNLIKELY( file == item->inf || strcmp(file->name, item->inf->name) == 0) )
         {
             /* The file is already in the list */
-			fm_file_info_unref(new_item->inf);
-			g_slice_free(FmFolderItem, new_item);
-			g_debug("duplicated");
+			fm_folder_item_free(new_item);
             return;
         }
         if( fm_folder_model_compare( item, new_item, list ) > 0 )
@@ -702,6 +732,7 @@ void fm_folder_model_file_created( FmFolder* dir,
     gtk_tree_model_row_inserted( GTK_TREE_MODEL(list), path, &it );
     gtk_tree_path_free( path );
 }
+
 
 void fm_folder_model_file_deleted( FmFolder* dir,
                                  FmFileInfo* file,
@@ -857,3 +888,44 @@ void fm_folder_model_show_thumbnails( FmFolderModel* list, gboolean is_big,
 }
 
 #endif
+
+void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden )
+{
+	FmFolderItem* item;
+	GList *l, *next;
+	if(model->show_hidden == show_hidden)
+		return;
+
+	model->show_hidden = show_hidden;
+	if(show_hidden) /* add previously hidden items back to the list */
+	{
+		for(l = model->hidden; l; l=l->next )
+		{
+			item = (FmFolderItem*)l->data;
+			if(item->inf->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
+				_fm_folder_model_item_created(model->dir, item->inf, model);
+		}
+		g_list_free(model->hidden);
+		model->hidden = NULL;
+	}
+	else /* move invisible items to hidden list */
+	{
+		for(l = model->items; l; l=next )
+		{
+			GtkTreePath* tp;
+			next = l->next;
+			item = (FmFolderItem*)l->data;
+			if(item->inf->name[0] == '.')
+			{
+				model->hidden = g_list_prepend(model->hidden, item);
+
+				tp = gtk_tree_path_new_from_indices( g_list_index(model->items, l->data), -1 );
+				/* tell everybody that we removed an item */
+				gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), tp );
+				gtk_tree_path_free( tp );
+				model->items = g_list_delete_link(model->items, l);
+			}
+		}
+	}
+}
+

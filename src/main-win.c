@@ -19,9 +19,12 @@
  *      MA 02110-1301, USA.
  */
 
+#include <glib/gi18n.h>
+
 #include "main-win.h"
 #include "fm-folder-view.h"
-#include <glib/gi18n.h>
+#include "fm-path-entry.h"
+#include "fm-file-menu.h"
 
 static void fm_main_win_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
@@ -43,47 +46,47 @@ static void on_about(GtkAction* act, FmMainWin* win);
 
 static const char main_menu_xml[] = 
 "<menubar>"
-  "<menu name='File' action='FileMenu'>"
-    "<menuitem name='New' action='New'/>"
-    "<menuitem name='Close' action='Close'/>"
+  "<menu action='FileMenu'>"
+    "<menuitem action='New'/>"
+    "<menuitem action='Close'/>"
   "</menu>"
-  "<menu name='Go' action='GoMenu'>"
-    "<menuitem name='Prev' action='Prev'/>"
-    "<menuitem name='Next' action='Next'/>"
-    "<menuitem name='Up' action='Up'/>"
+  "<menu action='GoMenu'>"
+    "<menuitem action='Prev'/>"
+    "<menuitem action='Next'/>"
+    "<menuitem action='Up'/>"
 	"<separator/>"
-    "<menuitem name='Home' action='Home'/>"
-    "<menuitem name='Desktop' action='Desktop'/>"
-    "<menuitem name='Computer' action='Computer'/>"
-    "<menuitem name='Trash' action='Trash'/>"
-    "<menuitem name='Network' action='Network'/>"
+    "<menuitem action='Home'/>"
+    "<menuitem action='Desktop'/>"
+    "<menuitem action='Computer'/>"
+    "<menuitem action='Trash'/>"
+    "<menuitem action='Network'/>"
   "</menu>"
-  "<menu name='View' action='ViewMenu'>"
-    "<menuitem name='ShowHidden' action='ShowHidden'/>"
+  "<menu action='ViewMenu'>"
+    "<menuitem action='ShowHidden'/>"
     "<separator/>"
-    "<menuitem name='IconView' action='IconView'/>"
-    "<menuitem name='CompactView' action='CompactView'/>"
-    "<menuitem name='ListView' action='ListView'/>"
+    "<menuitem action='IconView'/>"
+    "<menuitem action='CompactView'/>"
+    "<menuitem action='ListView'/>"
 	"<separator/>"
-	"<menu name='Sort' action='Sort'>"
-	  "<menuitem name='Desc' action='Desc'/>"
-	  "<menuitem name='Asc' action='Asc'/>"
+	"<menu action='Sort'>"
+	  "<menuitem action='Desc'/>"
+	  "<menuitem action='Asc'/>"
 	  "<separator/>"
-	  "<menuitem name='ByName' action='ByName'/>"
-	  "<menuitem name='ByMTime' action='ByMTime'/>"
+	  "<menuitem action='ByName'/>"
+	  "<menuitem action='ByMTime'/>"
 	"</menu>"
   "</menu>"
-  "<menu name='Help' action='HelpMenu'>"
-    "<menuitem name='About' action='About'/>"
+  "<menu action='HelpMenu'>"
+    "<menuitem action='About'/>"
   "</menu>"
 "</menubar>"
 "<toolbar>"
-	"<toolitem name='New' action='New'/>"
-	"<toolitem name='Prev' action='Prev'/>"
-	"<toolitem name='Next' action='Next'/>"
-	"<toolitem name='Up' action='Up'/>"
-	"<toolitem name='Home' action='Home'/>"
-	"<toolitem name='Go' action='Go'/>"
+	"<toolitem action='New'/>"
+	"<toolitem action='Prev'/>"
+	"<toolitem action='Next'/>"
+	"<toolitem action='Up'/>"
+	"<toolitem action='Home'/>"
+	"<toolitem action='Go'/>"
 "</toolbar>";
 
 static GtkActionEntry main_win_actions[]=
@@ -177,7 +180,9 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 	case GDK_BUTTON_PRESS:
 		if( btn == 3 ) /* right click */
 		{
-			g_debug("right click!");
+			GtkWidget* popup;
+			popup = fm_file_menu_new_for_file(fi);
+			gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
 		}
 		else if( btn == 2) /* middle click */
 		{
@@ -197,8 +202,9 @@ static void fm_main_win_init(FmMainWin *self)
 	++n_wins;
 
 	vbox = gtk_vbox_new(FALSE, 0);
-	self->location = gtk_entry_new();
+	self->location = fm_path_entry_new();
 	g_signal_connect(self->location, "activate", on_entry_activate, self);
+
 	self->folder_view = fm_folder_view_new( FM_FV_LIST_VIEW );
 	fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
 	g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
@@ -237,6 +243,7 @@ static void fm_main_win_init(FmMainWin *self)
 	gtk_container_add( (GtkContainer*)self, vbox );
 	gtk_widget_show_all(vbox);
 
+	fm_folder_view_set_show_hidden(self->folder_view, FALSE);
 	fm_main_win_chdir(self, g_get_home_dir());
 }
 
@@ -357,5 +364,5 @@ void on_go_network(GtkAction* act, FmMainWin* win)
 void fm_main_win_chdir(FmMainWin* win, const char* path)
 {
 	gtk_entry_set_text(win->location, path);
-	fm_folder_view_chdir(win->folder_view, path);	
+	fm_folder_view_chdir(win->folder_view, path);
 }

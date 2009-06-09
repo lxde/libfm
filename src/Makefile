@@ -30,6 +30,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 bin_PROGRAMS = libfm-demo$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -51,20 +53,28 @@ am__objects_1 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
 	libfm_demo-fm-utils.$(OBJEXT) libfm_demo-fm-marshal.$(OBJEXT)
 am__objects_2 = libfm_demo-fm-folder-view.$(OBJEXT) \
 	libfm_demo-fm-folder-model.$(OBJEXT) \
+	libfm_demo-fm-path-entry.$(OBJEXT) \
+	libfm_demo-fm-file-menu.$(OBJEXT) \
 	libfm_demo-fm-gtk-marshal.$(OBJEXT)
 am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT)
 libfm_demo_OBJECTS = $(am_libfm_demo_OBJECTS)
 libfm_demo_DEPENDENCIES =
-libfm_demo_LINK = $(CCLD) $(libfm_demo_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+libfm_demo_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libfm_demo_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 SOURCES = $(libfm_demo_SOURCES)
 DIST_SOURCES = $(libfm_demo_SOURCES)
 ETAGS = etags
@@ -73,6 +83,7 @@ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run aclocal-1.10
 ALL_LINGUAS = 
 AMTAR = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run tar
+AR = ar
 AUTOCONF = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run automake-1.10
@@ -86,12 +97,19 @@ CYGPATH_W = echo
 DATADIRNAME = share
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DSYMUTIL = 
+DUMPBIN = 
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
 EGREP = /bin/grep -E
 EXEEXT = 
+FGREP = /bin/grep -F
 GETTEXT_PACKAGE = pcmanfm
+GLIB_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
+GLIB_LIBS = -Wl,--export-dynamic -lgmodule-2.0 -lglib-2.0  
+GMODULE_CFLAGS = 
+GMODULE_LIBS = 
 GMSGFMT = /usr/bin/msgfmt
 GREP = /bin/grep
 GTK_CFLAGS = -D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/  
@@ -105,9 +123,13 @@ INTLTOOL_EXTRACT = /usr/bin/intltool-extract
 INTLTOOL_MERGE = /usr/bin/intltool-merge
 INTLTOOL_PERL = /usr/bin/perl
 INTLTOOL_UPDATE = /usr/bin/intltool-update
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
+LIBTOOL = $(SHELL) $(top_builddir)/libtool
+LIPO = 
+LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/pcman/Projects/libfm/branches/libfm/missing --run makeinfo
 MENU_CACHE_CFLAGS = -I/usr/include/menu-cache -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
@@ -115,7 +137,12 @@ MENU_CACHE_LIBS = -lmenu-cache -lglib-2.0
 MKDIR_P = /bin/mkdir -p
 MSGFMT = /usr/bin/msgfmt
 MSGMERGE = /usr/bin/msgmerge
+NM = /usr/bin/nm -B
+NMEDIT = 
+OBJDUMP = objdump
 OBJEXT = o
+OTOOL = 
+OTOOL64 = 
 PACKAGE = libfm
 PACKAGE_BUGREPORT = http://libfm.sf.net/
 PACKAGE_NAME = libfm
@@ -124,9 +151,11 @@ PACKAGE_TARNAME = libfm
 PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
+RANLIB = ranlib
+SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
-STRIP = 
+STRIP = strip
 USE_NLS = yes
 VERSION = 0.1
 XGETTEXT = /usr/bin/xgettext
@@ -135,20 +164,29 @@ abs_srcdir = /home/pcman/Projects/libfm/branches/libfm/src
 abs_top_builddir = /home/pcman/Projects/libfm/branches/libfm
 abs_top_srcdir = /home/pcman/Projects/libfm/branches/libfm
 ac_ct_CC = gcc
+ac_ct_DUMPBIN = 
 am__include = include
 am__leading_dot = .
 am__quote = 
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
+build = i686-pc-linux-gnu
 build_alias = 
+build_cpu = i686
+build_os = linux-gnu
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = i686-pc-linux-gnu
 host_alias = 
+host_cpu = i686
+host_os = linux-gnu
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -157,11 +195,12 @@ libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /urs
+prefix = /usr
 program_transform_name = s,x,x,
 psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin
@@ -190,6 +229,8 @@ libfm_SOURCES = \
 libfm_gtk_SOURCES = \
 	fm-folder-view.c fm-folder-view.h \
 	fm-folder-model.c fm-folder-model.h \
+        fm-path-entry.c fm-path-entry.h \
+        fm-file-menu.c fm-file-menu.h \
 	fm-gtk-marshal.c fm-gtk-marshal.h
 
 libfm_demo_SOURCES = \
@@ -225,7 +266,7 @@ all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj
+.SUFFIXES: .c .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -261,10 +302,11 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
 	  if test -f $$p \
+	     || test -f $$p1 \
 	  ; then \
 	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
-	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(bindir)/$$f'"; \
-	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(bindir)/$$f" || exit 1; \
+	   echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(binPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(bindir)/$$f'"; \
+	   $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(bindir)/$$f" || exit 1; \
 	  else :; fi; \
 	done
 
@@ -277,7 +319,11 @@ uninstall-binPROGRAMS:
 	done
 
 clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  f=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
+	  echo " rm -f $$p $$f"; \
+	  rm -f $$p $$f ; \
+	done
 libfm-demo$(EXEEXT): $(libfm_demo_OBJECTS) $(libfm_demo_DEPENDENCIES) 
 	@rm -f libfm-demo$(EXEEXT)
 	$(libfm_demo_LINK) $(libfm_demo_OBJECTS) $(libfm_demo_LDADD) $(LIBS)
@@ -290,6 +336,7 @@ distclean-compile:
 
 include ./$(DEPDIR)/libfm_demo-fm-dir-list-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-file-info.Po
+include ./$(DEPDIR)/libfm_demo-fm-file-menu.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder-model.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder-view.Po
 include ./$(DEPDIR)/libfm_demo-fm-folder.Po
@@ -297,6 +344,7 @@ include ./$(DEPDIR)/libfm_demo-fm-gtk-marshal.Po
 include ./$(DEPDIR)/libfm_demo-fm-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-marshal.Po
 include ./$(DEPDIR)/libfm_demo-fm-mime-type.Po
+include ./$(DEPDIR)/libfm_demo-fm-path-entry.Po
 include ./$(DEPDIR)/libfm_demo-fm-utils.Po
 include ./$(DEPDIR)/libfm_demo-fm.Po
 include ./$(DEPDIR)/libfm_demo-libfm-demo.Po
@@ -315,6 +363,13 @@ include ./$(DEPDIR)/libfm_demo-main-win.Po
 #	source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+.c.lo:
+	$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	mv -f $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+#	source='$<' object='$@' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LTCOMPILE) -c -o $@ $<
 
 libfm_demo-fm.o: fm.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm.Tpo -c -o libfm_demo-fm.o `test -f 'fm.c' || echo '$(srcdir)/'`fm.c
@@ -456,6 +511,34 @@ libfm_demo-fm-folder-model.obj: fm-folder-model.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-folder-model.obj `if test -f 'fm-folder-model.c'; then $(CYGPATH_W) 'fm-folder-model.c'; else $(CYGPATH_W) '$(srcdir)/fm-folder-model.c'; fi`
 
+libfm_demo-fm-path-entry.o: fm-path-entry.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path-entry.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path-entry.Tpo -c -o libfm_demo-fm-path-entry.o `test -f 'fm-path-entry.c' || echo '$(srcdir)/'`fm-path-entry.c
+	mv -f $(DEPDIR)/libfm_demo-fm-path-entry.Tpo $(DEPDIR)/libfm_demo-fm-path-entry.Po
+#	source='fm-path-entry.c' object='libfm_demo-fm-path-entry.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path-entry.o `test -f 'fm-path-entry.c' || echo '$(srcdir)/'`fm-path-entry.c
+
+libfm_demo-fm-path-entry.obj: fm-path-entry.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path-entry.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path-entry.Tpo -c -o libfm_demo-fm-path-entry.obj `if test -f 'fm-path-entry.c'; then $(CYGPATH_W) 'fm-path-entry.c'; else $(CYGPATH_W) '$(srcdir)/fm-path-entry.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-path-entry.Tpo $(DEPDIR)/libfm_demo-fm-path-entry.Po
+#	source='fm-path-entry.c' object='libfm_demo-fm-path-entry.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path-entry.obj `if test -f 'fm-path-entry.c'; then $(CYGPATH_W) 'fm-path-entry.c'; else $(CYGPATH_W) '$(srcdir)/fm-path-entry.c'; fi`
+
+libfm_demo-fm-file-menu.o: fm-file-menu.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-file-menu.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-file-menu.Tpo -c -o libfm_demo-fm-file-menu.o `test -f 'fm-file-menu.c' || echo '$(srcdir)/'`fm-file-menu.c
+	mv -f $(DEPDIR)/libfm_demo-fm-file-menu.Tpo $(DEPDIR)/libfm_demo-fm-file-menu.Po
+#	source='fm-file-menu.c' object='libfm_demo-fm-file-menu.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-file-menu.o `test -f 'fm-file-menu.c' || echo '$(srcdir)/'`fm-file-menu.c
+
+libfm_demo-fm-file-menu.obj: fm-file-menu.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-file-menu.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-file-menu.Tpo -c -o libfm_demo-fm-file-menu.obj `if test -f 'fm-file-menu.c'; then $(CYGPATH_W) 'fm-file-menu.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-menu.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-file-menu.Tpo $(DEPDIR)/libfm_demo-fm-file-menu.Po
+#	source='fm-file-menu.c' object='libfm_demo-fm-file-menu.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-file-menu.obj `if test -f 'fm-file-menu.c'; then $(CYGPATH_W) 'fm-file-menu.c'; else $(CYGPATH_W) '$(srcdir)/fm-file-menu.c'; fi`
+
 libfm_demo-fm-gtk-marshal.o: fm-gtk-marshal.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-gtk-marshal.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo -c -o libfm_demo-fm-gtk-marshal.o `test -f 'fm-gtk-marshal.c' || echo '$(srcdir)/'`fm-gtk-marshal.c
 	mv -f $(DEPDIR)/libfm_demo-fm-gtk-marshal.Tpo $(DEPDIR)/libfm_demo-fm-gtk-marshal.Po
@@ -497,6 +580,12 @@ libfm_demo-main-win.obj: main-win.c
 #	source='main-win.c' object='libfm_demo-main-win.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-main-win.obj `if test -f 'main-win.c'; then $(CYGPATH_W) 'main-win.c'; else $(CYGPATH_W) '$(srcdir)/main-win.c'; fi`
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -608,7 +697,7 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -651,7 +740,8 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic
+mostlyclean-am: mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool
 
 pdf: pdf-am
 
@@ -666,17 +756,18 @@ uninstall-am: uninstall-binPROGRAMS
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS
+	clean-generic clean-libtool ctags distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-binPROGRAMS
 
 
 # GObject marshallers
@@ -691,6 +782,16 @@ fm-gtk-marshal.h: fm-gtk-marshal.list
 
 fm-gtk-marshal.c: fm-gtk-marshal.list
 	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+
+# A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget
+#lib_LTLIBRARIES=libfm-chooser-hack.la
+
+#libfm_chooser_hack_la_SOURCES=libfm-chooser-hack.c
+#libfm_chooser_hack_la_CFLAGS=-D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/  
+#libfm_chooser_hack_la_LIBADD=
+#libfm_chooser_hack_la_LDFLAGS= \
+#        -no-undefined \
+#        -export-symbols-regex gtk
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
