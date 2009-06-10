@@ -25,6 +25,9 @@
 #include "fm-gtk-marshal.h"
 #include "fm-gtk-marshal.h"
 
+#include "exo/exo-icon-view.h"
+#include "exo/exo-tree-view.h"
+
 enum{
 	CLICKED,
 	N_SIGNALS
@@ -74,7 +77,7 @@ static void item_clicked( FmFolderView* fv, GtkTreePath* path, guint type, guint
 		g_signal_emit(fv, signals[CLICKED], 0, NULL, type, btn);
 }
 
-static void on_icon_view_item_activated(GtkIconView* iv, GtkTreePath* path, FmFolderView* fv)
+static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmFolderView* fv)
 {
 	item_clicked(fv, path, GDK_2BUTTON_PRESS, 1);
 }
@@ -124,7 +127,8 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 	{
 		GtkTreeViewColumn* col;
 		GtkTreeSelection* ts;
-		GList *sels, *l;
+		GList *sels, *l, *cells;
+		GtkCellRenderer* render;
 
 		if( G_LIKELY(fv->view) )
 		{
@@ -140,18 +144,50 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 		{
 		case FM_FV_COMPACT_VIEW:
 		case FM_FV_ICON_VIEW:
-			fv->view = gtk_icon_view_new();
-			gtk_icon_view_set_pixbuf_column((GtkIconView*)fv->view, COL_FILE_BIG_ICON);
-			gtk_icon_view_set_text_column((GtkIconView*)fv->view, COL_FILE_NAME);
-			gtk_icon_view_set_item_width((GtkIconView*)fv->view, 96);
+			fv->view = exo_icon_view_new();
+
+			render = gtk_cell_renderer_pixbuf_new();
+			g_object_set((GObject*)render, "follow-state", TRUE, NULL );
+			gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
+			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
+										"pixbuf", COL_FILE_BIG_ICON );
+
+			render = gtk_cell_renderer_text_new();
+			if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
+			{
+				g_object_set((GObject*)render,
+							 "xalign", 0.0,
+							 "yalign", 0.5,
+							 NULL );
+				exo_icon_view_set_layout_mode( (ExoIconView*)fv->view, EXO_ICON_VIEW_LAYOUT_COLS );
+				exo_icon_view_set_orientation( (ExoIconView*)fv->view, GTK_ORIENTATION_HORIZONTAL );
+			}
+			else /* big icon view */
+			{
+				g_object_set((GObject*)render,
+							 "wrap-mode", PANGO_WRAP_WORD_CHAR,
+							 "wrap-width", 90,
+							 "alignment", PANGO_ALIGN_CENTER,
+							 "yalign", 0.0,
+							 NULL );
+				exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
+				exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 110 );
+			}
+			gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
+			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
+										"text", COL_FILE_NAME );
+
+//			exo_icon_view_set_pixbuf_column((ExoIconView*)fv->view, COL_FILE_BIG_ICON);
+//			exo_icon_view_set_text_column((ExoIconView*)fv->view, COL_FILE_NAME);
+			exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
 			g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
-			gtk_icon_view_set_model((GtkIconView*)fv->view, fv->model);
-			gtk_icon_view_set_selection_mode((GtkIconView*)fv->view, fv->sel_mode);
+			exo_icon_view_set_model((ExoIconView*)fv->view, fv->model);
+			exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
 			for(l = sels;l;l=l->next)
-				gtk_icon_view_select_path((GtkIconView*)fv->view, (GtkTreePath*)l->data);
+				exo_icon_view_select_path((ExoIconView*)fv->view, (GtkTreePath*)l->data);
 			break;
-		case FM_FV_LIST_VIEW:
-			fv->view = gtk_tree_view_new();
+		case FM_FV_LIST_VIEW: /* detailed list view */
+			fv->view = exo_tree_view_new();
 			col = gtk_tree_view_column_new_with_attributes(NULL, gtk_cell_renderer_pixbuf_new(), "gicon", COL_FILE_GICON, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 			col = gtk_tree_view_column_new_with_attributes("Name", gtk_cell_renderer_text_new(), "text", COL_FILE_NAME, NULL);
@@ -196,7 +232,7 @@ void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode)
 		}
 		case FM_FV_ICON_VIEW:
 		case FM_FV_COMPACT_VIEW:
-			gtk_icon_view_set_selection_mode((GtkIconView*)fv->view, mode);
+			exo_icon_view_set_selection_mode((ExoIconView*)fv->view, mode);
 			break;
 		}
 	}
@@ -244,6 +280,9 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 {
 	GFile* gf;
+	FmFolderModel* model;
+	FmFolder* folder;
+	
 	if( G_UNLIKELY( !path ) )
 		return FALSE;
 	if( path[0] == '/' )
@@ -251,8 +290,8 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 	else
 		gf = g_file_new_for_uri(path);
 
-	FmFolder* folder = fm_folder_new(gf);
-	FmFolderModel* model = fm_folder_model_new(folder, fv->show_hidden);
+	folder = fm_folder_new(gf);
+	model = fm_folder_model_new(folder, fv->show_hidden);
 	gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
 	g_object_unref(folder);
 	g_object_unref(gf);
@@ -267,7 +306,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 		break;
 	case FM_FV_ICON_VIEW:
 	case FM_FV_COMPACT_VIEW:
-		gtk_icon_view_set_model(fv->view, model);
+		exo_icon_view_set_model(fv->view, model);
 		break;
 	}
 	fv->model = model;
@@ -293,7 +332,7 @@ GList* fm_folder_get_selected_tree_paths(FmFolderView* fv)
 	}
 	case FM_FV_ICON_VIEW:
 	case FM_FV_COMPACT_VIEW:
-		sels = gtk_icon_view_get_selected_items((GtkIconView*)fv->view);
+		sels = exo_icon_view_get_selected_items((ExoIconView*)fv->view);
 		break;
 	}
 	return sels;

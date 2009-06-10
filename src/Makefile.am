@@ -15,11 +15,25 @@ libfm_SOURCES = \
 	fm-utils.c fm-utils.h \
 	fm-marshal.c fm-marshal.h
 
+exo_SOURCES = \
+	exo/exo-icon-view.c \
+	exo/exo-private.c \
+	exo/exo-tree-view.c \
+	exo/exo-icon-view.h \
+	exo/exo-private.h \
+	exo/exo-tree-view.h \
+	exo/exo-marshal.c \
+	exo/exo-string.c \
+	exo/exo-marshal.h \
+	exo/exo-string.h
+
+
 libfm_gtk_SOURCES = \
+	$(exo_SOURCES) \
 	fm-folder-view.c fm-folder-view.h \
 	fm-folder-model.c fm-folder-model.h \
-        fm-path-entry.c fm-path-entry.h \
-        fm-file-menu.c fm-file-menu.h \
+	fm-path-entry.c fm-path-entry.h \
+	fm-file-menu.c fm-file-menu.h \
 	fm-gtk-marshal.c fm-gtk-marshal.h
 
 libfm_demo_SOURCES = \

@@ -51,12 +51,17 @@ am__objects_1 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
 	libfm_demo-fm-file-info.$(OBJEXT) \
 	libfm_demo-fm-mime-type.$(OBJEXT) \
 	libfm_demo-fm-utils.$(OBJEXT) libfm_demo-fm-marshal.$(OBJEXT)
-am__objects_2 = libfm_demo-fm-folder-view.$(OBJEXT) \
+am__objects_2 = libfm_demo-exo-icon-view.$(OBJEXT) \
+	libfm_demo-exo-private.$(OBJEXT) \
+	libfm_demo-exo-tree-view.$(OBJEXT) \
+	libfm_demo-exo-marshal.$(OBJEXT) \
+	libfm_demo-exo-string.$(OBJEXT)
+am__objects_3 = $(am__objects_2) libfm_demo-fm-folder-view.$(OBJEXT) \
 	libfm_demo-fm-folder-model.$(OBJEXT) \
 	libfm_demo-fm-path-entry.$(OBJEXT) \
 	libfm_demo-fm-file-menu.$(OBJEXT) \
 	libfm_demo-fm-gtk-marshal.$(OBJEXT)
-am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_2) \
+am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_3) \
 	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT)
 libfm_demo_OBJECTS = $(am_libfm_demo_OBJECTS)
 libfm_demo_DEPENDENCIES =
@@ -226,11 +231,24 @@ libfm_SOURCES = \
 	fm-utils.c fm-utils.h \
 	fm-marshal.c fm-marshal.h
 
+exo_SOURCES = \
+	exo/exo-icon-view.c \
+	exo/exo-private.c \
+	exo/exo-tree-view.c \
+	exo/exo-icon-view.h \
+	exo/exo-private.h \
+	exo/exo-tree-view.h \
+	exo/exo-marshal.c \
+	exo/exo-string.c \
+	exo/exo-marshal.h \
+	exo/exo-string.h
+
 libfm_gtk_SOURCES = \
+	$(exo_SOURCES) \
 	fm-folder-view.c fm-folder-view.h \
 	fm-folder-model.c fm-folder-model.h \
-        fm-path-entry.c fm-path-entry.h \
-        fm-file-menu.c fm-file-menu.h \
+	fm-path-entry.c fm-path-entry.h \
+	fm-file-menu.c fm-file-menu.h \
 	fm-gtk-marshal.c fm-gtk-marshal.h
 
 libfm_demo_SOURCES = \
@@ -334,6 +352,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/libfm_demo-exo-icon-view.Po
+include ./$(DEPDIR)/libfm_demo-exo-marshal.Po
+include ./$(DEPDIR)/libfm_demo-exo-private.Po
+include ./$(DEPDIR)/libfm_demo-exo-string.Po
+include ./$(DEPDIR)/libfm_demo-exo-tree-view.Po
 include ./$(DEPDIR)/libfm_demo-fm-dir-list-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-file-info.Po
 include ./$(DEPDIR)/libfm_demo-fm-file-menu.Po
@@ -482,6 +505,76 @@ libfm_demo-fm-marshal.obj: fm-marshal.c
 #	source='fm-marshal.c' object='libfm_demo-fm-marshal.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-marshal.obj `if test -f 'fm-marshal.c'; then $(CYGPATH_W) 'fm-marshal.c'; else $(CYGPATH_W) '$(srcdir)/fm-marshal.c'; fi`
+
+libfm_demo-exo-icon-view.o: exo/exo-icon-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-icon-view.o -MD -MP -MF $(DEPDIR)/libfm_demo-exo-icon-view.Tpo -c -o libfm_demo-exo-icon-view.o `test -f 'exo/exo-icon-view.c' || echo '$(srcdir)/'`exo/exo-icon-view.c
+	mv -f $(DEPDIR)/libfm_demo-exo-icon-view.Tpo $(DEPDIR)/libfm_demo-exo-icon-view.Po
+#	source='exo/exo-icon-view.c' object='libfm_demo-exo-icon-view.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-icon-view.o `test -f 'exo/exo-icon-view.c' || echo '$(srcdir)/'`exo/exo-icon-view.c
+
+libfm_demo-exo-icon-view.obj: exo/exo-icon-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-icon-view.obj -MD -MP -MF $(DEPDIR)/libfm_demo-exo-icon-view.Tpo -c -o libfm_demo-exo-icon-view.obj `if test -f 'exo/exo-icon-view.c'; then $(CYGPATH_W) 'exo/exo-icon-view.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-icon-view.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-exo-icon-view.Tpo $(DEPDIR)/libfm_demo-exo-icon-view.Po
+#	source='exo/exo-icon-view.c' object='libfm_demo-exo-icon-view.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-icon-view.obj `if test -f 'exo/exo-icon-view.c'; then $(CYGPATH_W) 'exo/exo-icon-view.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-icon-view.c'; fi`
+
+libfm_demo-exo-private.o: exo/exo-private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-private.o -MD -MP -MF $(DEPDIR)/libfm_demo-exo-private.Tpo -c -o libfm_demo-exo-private.o `test -f 'exo/exo-private.c' || echo '$(srcdir)/'`exo/exo-private.c
+	mv -f $(DEPDIR)/libfm_demo-exo-private.Tpo $(DEPDIR)/libfm_demo-exo-private.Po
+#	source='exo/exo-private.c' object='libfm_demo-exo-private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-private.o `test -f 'exo/exo-private.c' || echo '$(srcdir)/'`exo/exo-private.c
+
+libfm_demo-exo-private.obj: exo/exo-private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-private.obj -MD -MP -MF $(DEPDIR)/libfm_demo-exo-private.Tpo -c -o libfm_demo-exo-private.obj `if test -f 'exo/exo-private.c'; then $(CYGPATH_W) 'exo/exo-private.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-private.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-exo-private.Tpo $(DEPDIR)/libfm_demo-exo-private.Po
+#	source='exo/exo-private.c' object='libfm_demo-exo-private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-private.obj `if test -f 'exo/exo-private.c'; then $(CYGPATH_W) 'exo/exo-private.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-private.c'; fi`
+
+libfm_demo-exo-tree-view.o: exo/exo-tree-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-tree-view.o -MD -MP -MF $(DEPDIR)/libfm_demo-exo-tree-view.Tpo -c -o libfm_demo-exo-tree-view.o `test -f 'exo/exo-tree-view.c' || echo '$(srcdir)/'`exo/exo-tree-view.c
+	mv -f $(DEPDIR)/libfm_demo-exo-tree-view.Tpo $(DEPDIR)/libfm_demo-exo-tree-view.Po
+#	source='exo/exo-tree-view.c' object='libfm_demo-exo-tree-view.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-tree-view.o `test -f 'exo/exo-tree-view.c' || echo '$(srcdir)/'`exo/exo-tree-view.c
+
+libfm_demo-exo-tree-view.obj: exo/exo-tree-view.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-tree-view.obj -MD -MP -MF $(DEPDIR)/libfm_demo-exo-tree-view.Tpo -c -o libfm_demo-exo-tree-view.obj `if test -f 'exo/exo-tree-view.c'; then $(CYGPATH_W) 'exo/exo-tree-view.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-tree-view.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-exo-tree-view.Tpo $(DEPDIR)/libfm_demo-exo-tree-view.Po
+#	source='exo/exo-tree-view.c' object='libfm_demo-exo-tree-view.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-tree-view.obj `if test -f 'exo/exo-tree-view.c'; then $(CYGPATH_W) 'exo/exo-tree-view.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-tree-view.c'; fi`
+
+libfm_demo-exo-marshal.o: exo/exo-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-marshal.o -MD -MP -MF $(DEPDIR)/libfm_demo-exo-marshal.Tpo -c -o libfm_demo-exo-marshal.o `test -f 'exo/exo-marshal.c' || echo '$(srcdir)/'`exo/exo-marshal.c
+	mv -f $(DEPDIR)/libfm_demo-exo-marshal.Tpo $(DEPDIR)/libfm_demo-exo-marshal.Po
+#	source='exo/exo-marshal.c' object='libfm_demo-exo-marshal.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-marshal.o `test -f 'exo/exo-marshal.c' || echo '$(srcdir)/'`exo/exo-marshal.c
+
+libfm_demo-exo-marshal.obj: exo/exo-marshal.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-marshal.obj -MD -MP -MF $(DEPDIR)/libfm_demo-exo-marshal.Tpo -c -o libfm_demo-exo-marshal.obj `if test -f 'exo/exo-marshal.c'; then $(CYGPATH_W) 'exo/exo-marshal.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-marshal.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-exo-marshal.Tpo $(DEPDIR)/libfm_demo-exo-marshal.Po
+#	source='exo/exo-marshal.c' object='libfm_demo-exo-marshal.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-marshal.obj `if test -f 'exo/exo-marshal.c'; then $(CYGPATH_W) 'exo/exo-marshal.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-marshal.c'; fi`
+
+libfm_demo-exo-string.o: exo/exo-string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-string.o -MD -MP -MF $(DEPDIR)/libfm_demo-exo-string.Tpo -c -o libfm_demo-exo-string.o `test -f 'exo/exo-string.c' || echo '$(srcdir)/'`exo/exo-string.c
+	mv -f $(DEPDIR)/libfm_demo-exo-string.Tpo $(DEPDIR)/libfm_demo-exo-string.Po
+#	source='exo/exo-string.c' object='libfm_demo-exo-string.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-string.o `test -f 'exo/exo-string.c' || echo '$(srcdir)/'`exo/exo-string.c
+
+libfm_demo-exo-string.obj: exo/exo-string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-exo-string.obj -MD -MP -MF $(DEPDIR)/libfm_demo-exo-string.Tpo -c -o libfm_demo-exo-string.obj `if test -f 'exo/exo-string.c'; then $(CYGPATH_W) 'exo/exo-string.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-string.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-exo-string.Tpo $(DEPDIR)/libfm_demo-exo-string.Po
+#	source='exo/exo-string.c' object='libfm_demo-exo-string.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-exo-string.obj `if test -f 'exo/exo-string.c'; then $(CYGPATH_W) 'exo/exo-string.c'; else $(CYGPATH_W) '$(srcdir)/exo/exo-string.c'; fi`
 
 libfm_demo-fm-folder-view.o: fm-folder-view.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder-view.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder-view.Tpo -c -o libfm_demo-fm-folder-view.o `test -f 'fm-folder-view.c' || echo '$(srcdir)/'`fm-folder-view.c
