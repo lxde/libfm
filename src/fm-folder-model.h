@@ -92,7 +92,7 @@ void fm_folder_model_file_deleted( FmFolder* dir, FmFileInfo* file,
 
 void fm_folder_model_file_changed( FmFolder* dir, FmFileInfo* file,
                                         FmFolderModel* list );
-										
+
 /*
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );
 */

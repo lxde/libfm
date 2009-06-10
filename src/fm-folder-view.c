@@ -247,7 +247,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 		gf = g_file_new_for_uri(path);
 
 	FmFolder* folder = fm_folder_new(gf);
-	FmFolderModel* model = fm_folder_model_new(folder, FALSE);
+	FmFolderModel* model = fm_folder_model_new(folder, fv->show_hidden);
 	g_object_unref(folder);
 	g_object_unref(gf);
 

@@ -91,7 +91,18 @@ static void fm_folder_init(FmFolder *self)
 
 static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileMonitorEvent evt, FmFolder* folder)
 {
-	g_debug("folder %p changed: %d", folder, evt);
+	const char* names[]={
+		"G_FILE_MONITOR_EVENT_CHANGED",
+		"G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT",
+		"G_FILE_MONITOR_EVENT_DELETED",
+		"G_FILE_MONITOR_EVENT_CREATED",
+		"G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED",
+		"G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
+		"G_FILE_MONITOR_EVENT_UNMOUNTED"
+	};
+	char* file = g_file_get_basename(gf);
+	g_debug("folder %p %s event: %s", folder, file, names[evt]);
+	g_free(file);
 }
 
 /* FIXME: use our own implementation for local files. */

@@ -180,9 +180,17 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 	case GDK_BUTTON_PRESS:
 		if( btn == 3 ) /* right click */
 		{
-			GtkWidget* popup;
-			popup = fm_file_menu_new_for_file(fi);
-			gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
+			if(fi)
+			{
+				GtkWidget* popup;
+				popup = fm_file_menu_new_for_file(fi);
+				gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
+				g_signal_connect(popup, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+			}
+			else
+			{
+				
+			}
 		}
 		else if( btn == 2) /* middle click */
 		{

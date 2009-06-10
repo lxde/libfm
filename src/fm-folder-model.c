@@ -192,7 +192,7 @@ inline void fm_folder_item_free(FmFolderItem* item)
 	g_slice_free(FmFolderItem, item);
 }
 
-static void _fm_folder_model_item_created( FmFolder* dir,
+static void _fm_folder_model_insert_item( FmFolder* dir,
                                  FmFolderItem* new_item,
                                  FmFolderModel* list );
 
@@ -688,10 +688,10 @@ void fm_folder_model_file_created( FmFolder* dir,
                                  FmFolderModel* list )
 {
 	FmFolderItem* new_item = fm_folder_item_new(file);
-	_fm_folder_model_item_created(dir, new_item, list);
+	_fm_folder_model_insert_item(dir, new_item, list);
 }
 
-void _fm_folder_model_item_created( FmFolder* dir,
+void _fm_folder_model_insert_item( FmFolder* dir,
                                  FmFolderItem* new_item,
                                  FmFolderModel* list )
 {
@@ -903,7 +903,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 		{
 			item = (FmFolderItem*)l->data;
 			if(item->inf->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
-				_fm_folder_model_item_created(model->dir, item->inf, model);
+				_fm_folder_model_insert_item(model->dir, item, model);
 		}
 		g_list_free(model->hidden);
 		model->hidden = NULL;
