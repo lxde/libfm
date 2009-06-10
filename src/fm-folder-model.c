@@ -279,12 +279,16 @@ void fm_folder_model_set_folder( FmFolderModel* list, FmFolder* dir )
     {
         for( l = dir->files; l; l = l->next )
         {
-//            if( list->show_hidden ||
-//                    ((VFSFileInfo*)l->data)->disp_name[0] != '.' )
-            {
-                list->items = g_list_prepend( list->items, fm_file_info_ref(l->data) );
-                ++list->n_items;
-            }
+			if(((FmFileInfo*)l->data)->name[0] == '.') /* a hidden file */
+			{
+				if( ! list->show_hidden )
+				{
+					list->hidden = g_list_prepend(list->hidden, fm_folder_item_new((FmFileInfo*)l->data));
+					continue;
+				}
+			}
+			list->items = g_list_prepend( list->items, fm_folder_item_new((FmFileInfo*)l->data) );
+			++list->n_items;
         }
     }
 }
@@ -604,9 +608,9 @@ static gint fm_folder_model_compare( FmFolderItem* item1,
     int ret = 0;
 
     /* put folders before files */
-//    ret = vfs_file_info_is_dir(file1) - vfs_file_info_is_dir(file2);
-//    if( ret )
-//        return -ret;
+    ret = fm_file_info_is_dir(file1) - fm_file_info_is_dir(file2);
+    if( ret )
+        return -ret;
 
     /* FIXME: strings should not be treated as ASCII when sorted  */
     switch( list->sort_col )
@@ -659,18 +663,20 @@ void fm_folder_model_sort ( FmFolderModel* list )
     GList* l;
     int i;
 
-    if( list->n_items <=1 )
-        return;
+	/* if there is only one item */
+    if( ! list->items || ! list->items->next )
+		return;
 
     old_order = g_hash_table_new( g_direct_hash, g_direct_equal );
     /* save old order */
     for( i = 0, l = list->items; l; l = l->next, ++i )
         g_hash_table_insert( old_order, l, GINT_TO_POINTER(i) );
 
+g_debug("HERE0:%p", list->items);
     /* sort the list */
     list->items = g_list_sort_with_data( list->items,
                                          fm_folder_model_compare, list );
-
+g_debug("HERE1:%p", list->items);
     /* save new order */
     new_order = g_new( int, list->n_items );
     for( i = 0, l = list->items; l; l = l->next, ++i )
@@ -924,6 +930,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 				gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), tp );
 				gtk_tree_path_free( tp );
 				model->items = g_list_delete_link(model->items, l);
+				--model->n_items;
 			}
 		}
 	}

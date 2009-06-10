@@ -23,6 +23,7 @@
 
 #include "main-win.h"
 #include "fm-folder-view.h"
+#include "fm-folder-model.h"
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
 
@@ -130,8 +131,8 @@ static GtkRadioActionEntry main_win_sort_type_actions[]=
 
 static GtkRadioActionEntry main_win_sort_by_actions[]=
 {
-	{"ByName", NULL, N_("By _Name"), NULL, NULL, 0},
-	{"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, 1}
+	{"ByName", NULL, N_("By _Name"), NULL, NULL, COL_FILE_NAME},
+	{"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, COL_FILE_MTIME}
 };
 
 static guint n_wins = 0;
@@ -214,6 +215,8 @@ static void fm_main_win_init(FmMainWin *self)
 	g_signal_connect(self->location, "activate", on_entry_activate, self);
 
 	self->folder_view = fm_folder_view_new( FM_FV_LIST_VIEW );
+	fm_folder_view_set_show_hidden(self->folder_view, FALSE);
+	fm_folder_view_sort(self->folder_view, GTK_SORT_DESCENDING, COL_FILE_NAME);
 	fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
 	g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
 
@@ -307,13 +310,13 @@ void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
 	int val = gtk_radio_action_get_current_value(cur);
-//	fm_folder_view_set_sort_by(win->folder_view, val);
+	fm_folder_view_sort(win->folder_view, -1, val);
 }
 
 void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
 	int val = gtk_radio_action_get_current_value(cur);
-//	fm_folder_view_set_sort_type(win->folder_view, val);
+	fm_folder_view_sort(win->folder_view, val, -1);
 }
 
 void on_new_win(GtkAction* act, FmMainWin* win)

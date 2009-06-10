@@ -209,7 +209,12 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
 
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by)
 {
-	
+	if(type >=0)
+		fv->sort_type = type;
+	if(by >=0)
+		fv->sort_by = by;
+	if(fv->model)
+		gtk_tree_sortable_set_sort_column_id(fv->model, fv->sort_by, fv->sort_type);
 }
 
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
@@ -248,6 +253,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
 
 	FmFolder* folder = fm_folder_new(gf);
 	FmFolderModel* model = fm_folder_model_new(folder, fv->show_hidden);
+	gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
 	g_object_unref(folder);
 	g_object_unref(gf);
 
@@ -329,3 +335,4 @@ _out:
 	g_list_free(sels);
 	return FALSE;
 }
+
