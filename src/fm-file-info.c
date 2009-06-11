@@ -42,6 +42,8 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(GFileInfo* inf)
 	else
 		fi->disp_name = g_strdup(tmp);
 
+	fi->size = g_file_info_get_size(inf);
+
 	tmp = g_file_info_get_content_type(inf);
 	if( tmp )
 		fi->type = fm_mime_type_get_for_type( tmp );
@@ -121,7 +123,7 @@ void fm_file_info_set_name( FmFileInfo* fi, const char* name )
     fi->name = g_strdup( name );
 }
 
-off_t fm_file_info_get_size( FmFileInfo* fi )
+goffset fm_file_info_get_size( FmFileInfo* fi )
 {
     return fi->size;
 }
@@ -130,14 +132,17 @@ const char* fm_file_info_get_disp_size( FmFileInfo* fi )
 {
     if ( G_UNLIKELY( !fi->disp_size ) )
     {
-        char buf[ 64 ];
-        fm_file_size_to_str( buf, fi->size, use_si_prefix );
-        fi->disp_size = g_strdup( buf );
+		if( S_ISREG(fi->mode) )
+		{
+			char buf[ 64 ];
+			fm_file_size_to_str( buf, fi->size, use_si_prefix );
+			fi->disp_size = g_strdup( buf );
+		}
     }
     return fi->disp_size;
 }
 
-off_t fm_file_info_get_blocks( FmFileInfo* fi )
+goffset fm_file_info_get_blocks( FmFileInfo* fi )
 {
     return fi->blocks;
 }
@@ -196,6 +201,36 @@ gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path )
 	return g_content_type_can_be_executable(fi->type->type);
 }
 
+
+const char* fm_file_info_get_desc( FmFileInfo* fi )
+{
+	/* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
+    return fi->type ? fm_mime_type_get_description( fi->type ) : NULL;
+}
+
+const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
+{
+    if ( ! fi->disp_mtime )
+    {
+        char buf[ 64 ];
+        strftime( buf, sizeof( buf ),
+                  "%Y-%m-%d %H:%M",
+                  localtime( &fi->mtime ) );
+        fi->disp_mtime = g_strdup( buf );
+    }
+    return fi->disp_mtime;
+}
+
+time_t* fm_file_info_get_mtime( FmFileInfo* fi )
+{
+    return &fi->mtime;
+}
+
+time_t* fm_file_info_get_atime( FmFileInfo* fi )
+{
+    return &fi->atime;
+}
+
 #if 0
 void fm_file_info_reload_mime_type( FmFileInfo* fi,
                                      const char* full_path )
@@ -226,10 +261,6 @@ void fm_file_info_reload_mime_type( FmFileInfo* fi,
     vfs_mime_type_unref( old_mime_type );  /* FIXME: is vfs_mime_type_unref needed ?*/
 }
 
-const char* fm_file_info_get_mime_type_desc( FmFileInfo* fi )
-{
-    return vfs_mime_type_get_description( fi->type );
-}
 
 GdkPixbuf* fm_file_info_get_big_icon( FmFileInfo* fi )
 {
@@ -327,29 +358,6 @@ const char* fm_file_info_get_disp_owner( FmFileInfo* fi )
         fi->disp_owner = g_strdup_printf ( "%s:%s", user_name, group_name );
     }
     return fi->disp_owner;
-}
-
-const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
-{
-    if ( ! fi->disp_mtime )
-    {
-        char buf[ 64 ];
-        strftime( buf, sizeof( buf ),
-                  "%Y-%m-%d %H:%M",
-                  localtime( &fi->mtime ) );
-        fi->disp_mtime = g_strdup( buf );
-    }
-    return fi->disp_mtime;
-}
-
-time_t* fm_file_info_get_mtime( FmFileInfo* fi )
-{
-    return & fi->mtime;
-}
-
-time_t* fm_file_info_get_atime( FmFileInfo* fi )
-{
-    return & fi->atime;
 }
 
 static void get_file_perm_string( char* perm, mode_t mode )

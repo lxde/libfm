@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-char* fm_file_size_to_str( char* buf, guint64 size, gboolean si_prefix );
+char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix );
 
 G_END_DECLS
 

@@ -43,12 +43,12 @@ struct _FmFileInfo
     dev_t dev;
     uid_t uid;
     gid_t gid;
-    off_t size;
+    goffset size;
     time_t mtime;
     time_t atime;
 
     gulong blksize;
-    guint64 blocks;
+    goffset blocks;
 
     char* name; /* real name on file system */
     char* disp_name;  /* displayed name (in UTF-8) */
@@ -72,17 +72,15 @@ const char* fm_file_info_get_disp_name( FmFileInfo* fi );
 void fm_file_info_set_name( FmFileInfo* fi, const char* name );
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name );
 
-off_t fm_file_info_get_size( FmFileInfo* fi );
+goffset fm_file_info_get_size( FmFileInfo* fi );
 const char* fm_file_info_get_disp_size( FmFileInfo* fi );
 
-off_t fm_file_info_get_blocks( FmFileInfo* fi );
+goffset fm_file_info_get_blocks( FmFileInfo* fi );
 
 mode_t fm_file_info_get_mode( FmFileInfo* fi );
 gboolean fm_file_info_is_dir( FmFileInfo* fi );
 
 FmMimeType* fm_file_info_get_mime_type( FmFileInfo* fi );
-
-void fm_file_size_to_string( char* buf, guint64 size );
 
 gboolean fm_file_info_is_dir( FmFileInfo* fi );
 
@@ -97,6 +95,11 @@ gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
 /* Full path of the file is required by this function */
 gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path );
 
+const char* fm_file_info_get_desc( FmFileInfo* fi );
+const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
+time_t* fm_file_info_get_mtime( FmFileInfo* fi );
+time_t* fm_file_info_get_atime( FmFileInfo* fi );
+
 #if 0
 gboolean fm_file_info_get( FmFileInfo* fi,
                             const char* file_path,
@@ -105,14 +108,10 @@ gboolean fm_file_info_get( FmFileInfo* fi,
 void fm_file_info_reload_mime_type( FmFileInfo* fi,
                                      const char* full_path );
 
-const char* fm_file_info_get_mime_type_desc( FmFileInfo* fi );
 
 const char* fm_file_info_get_disp_owner( FmFileInfo* fi );
-const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 const char* fm_file_info_get_disp_perm( FmFileInfo* fi );
 
-time_t* fm_file_info_get_mtime( FmFileInfo* fi );
-time_t* fm_file_info_get_atime( FmFileInfo* fi );
 
 void fm_file_info_set_thumbnail_size( int big, int small );
 gboolean fm_file_info_load_thumbnail( FmFileInfo* fi,

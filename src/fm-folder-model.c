@@ -431,10 +431,10 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
         g_value_set_string( value, info->disp_name );
         break;
     case COL_FILE_SIZE:
-//        g_value_set_string( value, fm_file_info_get_disp_size(info) );
+        g_value_set_string( value, fm_file_info_get_disp_size(info) );
         break;
     case COL_FILE_DESC:
-//        g_value_set_string( value, fm_file_info_get_mime_type_desc( info ) );
+        g_value_set_string( value, fm_file_info_get_desc( info ) );
         break;
     case COL_FILE_PERM:
 //        g_value_set_string( value, fm_file_info_get_disp_perm(info) );
@@ -443,7 +443,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
 //        g_value_set_string( value, fm_file_info_get_disp_owner(info) );
         break;
     case COL_FILE_MTIME:
-//        g_value_set_string( value, fm_file_info_get_disp_mtime(info) );
+        g_value_set_string( value, fm_file_info_get_disp_mtime(info) );
         break;
     case COL_FILE_INFO:
         g_value_set_pointer( value, fm_file_info_ref( info ) );

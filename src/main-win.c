@@ -256,6 +256,8 @@ static void fm_main_win_init(FmMainWin *self)
 
 	fm_folder_view_set_show_hidden(self->folder_view, FALSE);
 	fm_main_win_chdir(self, g_get_home_dir());
+
+	gtk_widget_grab_focus(self->folder_view);
 }
 
 

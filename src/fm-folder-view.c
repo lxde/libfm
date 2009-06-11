@@ -19,6 +19,8 @@
  *      MA 02110-1301, USA.
  */
 
+#include <glib/gi18n.h>
+
 #include "fm-folder-view.h"
 #include "fm-folder.h"
 #include "fm-folder-model.h"
@@ -38,6 +40,8 @@ static guint signals[N_SIGNALS];
 static void fm_folder_view_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
+static gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
+
 static GList* fm_folder_get_selected_tree_paths(FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
@@ -45,8 +49,11 @@ static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderVie
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
 	GObjectClass *g_object_class;
+	GtkWidgetClass *widget_class;
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_folder_view_finalize;
+	widget_class = GTK_WIDGET_CLASS(klass);
+	widget_class->focus_in_event = fm_folder_view_focus_in;
 	fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
     signals[ CLICKED ] =
@@ -58,6 +65,17 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                        fm_marshal_VOID__POINTER_UINT_UINT,
                        G_TYPE_NONE, 3, G_TYPE_POINTER, G_TYPE_UINT, G_TYPE_UINT );
 
+}
+
+gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
+{
+	FmFolderView* fv = (FmFolderView*)widget;
+	if( fv->view )
+	{
+		gtk_widget_grab_focus(fv->view);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static void item_clicked( FmFolderView* fv, GtkTreePath* path, guint type, guint btn )
@@ -176,9 +194,6 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
 			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
 										"text", COL_FILE_NAME );
-
-//			exo_icon_view_set_pixbuf_column((ExoIconView*)fv->view, COL_FILE_BIG_ICON);
-//			exo_icon_view_set_text_column((ExoIconView*)fv->view, COL_FILE_NAME);
 			exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
 			g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
 			exo_icon_view_set_model((ExoIconView*)fv->view, fv->model);
@@ -188,10 +203,21 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			break;
 		case FM_FV_LIST_VIEW: /* detailed list view */
 			fv->view = exo_tree_view_new();
+
 			col = gtk_tree_view_column_new_with_attributes(NULL, gtk_cell_renderer_pixbuf_new(), "gicon", COL_FILE_GICON, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
-			col = gtk_tree_view_column_new_with_attributes("Name", gtk_cell_renderer_text_new(), "text", COL_FILE_NAME, NULL);
+			col = gtk_tree_view_column_new_with_attributes(_("Name"), gtk_cell_renderer_text_new(), "text", COL_FILE_NAME, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
+
+			col = gtk_tree_view_column_new_with_attributes(_("Description"), gtk_cell_renderer_text_new(), "text", COL_FILE_DESC, NULL);
+			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
+
+			col = gtk_tree_view_column_new_with_attributes(_("Size"), gtk_cell_renderer_text_new(), "text", COL_FILE_SIZE, NULL);
+			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
+
+			col = gtk_tree_view_column_new_with_attributes(_("Modified"), gtk_cell_renderer_text_new(), "text", COL_FILE_MTIME, NULL);
+			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
+
 			g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
 			gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
 			ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);

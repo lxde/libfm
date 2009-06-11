@@ -19,101 +19,73 @@
  *      MA 02110-1301, USA.
  */
 
+#include <glib/gi18n.h>
+#include <libintl.h>
+
 #include <stdio.h>
 #include "fm-utils.h"
 
-char* fm_file_size_to_str( char* buf, guint64 size, gboolean si_prefix )
+char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
 {
-    char * unit;
-    /* guint point; */
+    const char * unit;
     gfloat val;
 
-    /*
-       FIXME: Is floating point calculation slower than integer division?
-              Some profiling is needed here.
-    */
-    if ( size > ( ( guint64 ) 1 ) << 30 )
-    {
-        if ( size > ( ( guint64 ) 1 ) << 40 )
-        {
-            /*
-            size /= ( ( ( guint64 ) 1 << 40 ) / 10 );
-            point = ( guint ) ( size % 10 );
-            size /= 10;
-            */
-	        if(si_prefix)
-	        {
-	            val = ((gfloat)size) / (( guint64 ) 1000000000000 );
-	            unit = "TB";
-            }
-            else
-            {
-                val = ((gfloat)size) / ( ( guint64 ) 1 << 40 );
-                unit = "TiB";
-            }
-        }
-        else
-        {
-            /*
-            size /= ( ( 1 << 30 ) / 10 );
-            point = ( guint ) ( size % 10 );
-            size /= 10;
-            */
-	        if(si_prefix)
-	        {
-	            val = ((gfloat)size) / (( guint64 ) 1000000000 );
-	            unit = "GB";
-            }
-            else
-            {
-                val = ((gfloat)size) / ( ( guint64 ) 1 << 30 );
-                unit = "GiB";
-            }
-        }
-    }
-    else if ( size > ( 1 << 20 ) )
-    {
-        /*
-        size /= ( ( 1 << 20 ) / 10 );
-        point = ( guint ) ( size % 10 );
-        size /= 10;
-        */
-	    if(si_prefix)
-	    {
-	        val = ((gfloat)size) / (( guint64 ) 1000000 );
-	        unit = "MB";
-        }
-        else
-        {
-            val = ((gfloat)size) / ( ( guint64 ) 1 << 20 );
-            unit = "MiB";
-        }
-    }
-    else if ( size > ( 1 << 10 ) )
-    {
-        /*
-        size /= ( ( 1 << 10 ) / 10 );
-        point = size % 10;
-        size /= 10;
-        */
-	    if(si_prefix)
-	    {
-	        val = ((gfloat)size) / (( guint64 ) 1000 );
-	        unit = "KB";
-	    }
-	    else
-	    {
-	        val = ((gfloat)size) / ( ( guint64 ) 1 << 10 );
-            unit = "KiB";
-	    }
-    }
-    else
-    {
-        unit = size > 1 ? "Bytes" : "Byte";
-        sprintf( buf, "%u %s", ( guint ) size, unit );
-        return ;
-    }
-    /* sprintf( buf, "%llu.%u %s", size, point, unit ); */
+	if( si_prefix ) /* 1024 based */
+	{
+		if(size < 1024)
+		{
+			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+			return buf;
+		}
+		else if(size < ((goffset)1<<20))
+		{
+			val = ((gfloat)size)/((goffset)1<<10);
+			unit = _("KiB");
+		}
+		else if(size < ((goffset)1)<<30)
+		{
+			val = ((gfloat)size)/((goffset)1<<20);
+			unit = _("MiB");
+		}
+		else if(size < ((goffset)1)<<40)
+		{
+			val = ((gfloat)size)/((goffset)1<<30);
+			unit = _("GiB");
+		}
+		else if(size < ((goffset)1)<<50)
+		{
+			val = ((gfloat)size)/((goffset)1<<40);
+			unit = _("TiB");
+		}
+	}
+	else /* 1000 based */
+	{
+		if(size < 1000)
+		{
+			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+			return buf;
+		}
+		else if(size < (goffset)1000000)
+		{
+			val = ((gfloat)size)/((goffset)1000 );
+			unit = _("KB");
+		}
+		else if(size < (goffset)1000000000)
+		{
+			val = ((gfloat)size)/((goffset)1000000 );
+			unit = _("MB");
+		}
+		else if(size < (goffset)(gfloat)1000000000000)
+		{
+			val = ((gfloat)size)/((goffset)(gfloat)1000000000 );
+			unit = _("GB");
+		}
+		else if(size < (goffset)(gfloat)1000000000000000)
+		{
+			val = ((gfloat)size)/((goffset)(gfloat)1000000000000 );
+			unit = _("TB");
+		}
+	}
     sprintf( buf, "%.1f %s", val, unit );
 	return buf;
 }

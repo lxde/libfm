@@ -127,6 +127,7 @@ gpointer job_thread(FmDirListJob* job)
 
 					fi->mode = st.st_mode;
 					fi->mtime = st.st_mtime;
+					fi->size = st.st_size;
 
 					fi->type = fm_mime_type_get_from_file(fpath->str, fi->disp_name, &st);
 					fi->icon = g_object_ref(fi->type->icon);
