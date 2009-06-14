@@ -1,5 +1,5 @@
 /*
- *      fm-path-list.h
+ *      fm-file-properties.c
  *      
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      
@@ -19,39 +19,18 @@
  *      MA 02110-1301, USA.
  */
 
-#ifndef __FM_PATH_LIST_H__
-#define __FM_PATH_LIST_H__
+#ifndef __FM_FILE_PROPERTIES_H__
+#define __FM_FILE_PROPERTIES_H__
 
-#include <glib.h>
-#include "fm-path.h"
-#include "fm-file-info.h"
+#include <gtk/gtk.h>
+#include "fm-path-list.h"
 
 G_BEGIN_DECLS
 
-typedef struct _FmPathList FmPathList;
-struct _FmPathList
-{
-	guint n_ref;
-	GQueue list;
-};
-
-FmPathList* fm_path_list_new();
-FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
-FmPathList* fm_path_list_new_from_file_info_list(GList* fis);
-FmPathList* fm_path_list_new_from_file_info_slist(GSList* fis);
-
-FmPathList* fm_path_list_ref(FmPathList* pl);
-void fm_path_list_unref(FmPathList* pl);
-
-char* fm_path_list_to_uri_list(FmPathList* pl);
-guint fm_path_list_get_length(FmPathList* pl);
-void fm_path_list_add(FmPathList* pl, FmPath* path);
-//void fm_path_list_add_str(FmPathList* pl, const char* path_str);
-
-#define fm_path_list_peek_head_link(p)	g_queue_peek_head_link(&p->list)
-#define fm_path_list_peek_head(p)	(FmPath*)g_queue_peek_head(&p->list)
+/* FIXME: use list of FmFileInfo is much better here. */
+GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel);
+gboolean fm_show_file_properties(FmPathList* paths);
 
 G_END_DECLS
 
 #endif
-

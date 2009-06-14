@@ -25,65 +25,77 @@
 #include <stdio.h>
 #include "fm-utils.h"
 
+#define BI_KiB	((gdouble)1024.0)
+#define BI_MiB	((gdouble)1024.0 * 1024.0)
+#define BI_GiB	((gdouble)1024.0 * 1024.0 * 1024.0)
+#define BI_TiB	((gdouble)1024.0 * 1024.0 * 1024.0 * 1024.0)
+
+#define SI_KB	((gdouble)1000.0)
+#define SI_MB	((gdouble)1000.0 * 1000.0)
+#define SI_GB	((gdouble)1000.0 * 1000.0 * 1000.0)
+#define SI_TB	((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
+
 char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
 {
     const char * unit;
-    gfloat val;
+    gdouble val;
 
-	if( si_prefix ) /* 1024 based */
+	if( si_prefix ) /* 1000 based SI units */
 	{
-		if(size < 1024)
+		if(size < (goffset)SI_KB)
 		{
 			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
 			return buf;
 		}
-		else if(size < (gfloat)1024*1024)
+		val = (gdouble)size;
+		if(val < SI_MB)
 		{
-			val = ((gfloat)size)/((gfloat)1024);
-			unit = _("KiB");
-		}
-		else if(size < (gfloat)1024*1024*1024)
-		{
-			val = ((gfloat)size)/((gfloat)1024*1024);
-			unit = _("MiB");
-		}
-		else if(size < (gfloat)1024*1024*1024*1024)
-		{
-			val = ((gfloat)size)/((gfloat)1024*1024*1024);
-			unit = _("GiB");
-		}
-		else if(size < (gfloat)1024*1024*1024*1024*1024)
-		{
-			val = ((gfloat)size)/((gfloat)1024*1024*1024*1024);
-			unit = _("TiB");
-		}
-	}
-	else /* 1000 based */
-	{
-		if(size < 1000)
-		{
-			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
-			return buf;
-		}
-		else if(size < (goffset)1000000)
-		{
-			val = ((gfloat)size)/((goffset)1000 );
+			val /= SI_KB;
 			unit = _("KB");
 		}
-		else if(size < (goffset)1000000000)
+		else if(val < SI_GB)
 		{
-			val = ((gfloat)size)/((goffset)1000000 );
+			val /= SI_MB;
 			unit = _("MB");
 		}
-		else if(size < (goffset)(gfloat)1000000000000)
+		else if(val < SI_TB)
 		{
-			val = ((gfloat)size)/((goffset)(gfloat)1000000000 );
+			val /= SI_GB;
 			unit = _("GB");
 		}
-		else if(size < (goffset)(gfloat)1000000000000000)
+		else
 		{
-			val = ((gfloat)size)/((goffset)(gfloat)1000000000000 );
+			val /= SI_TB;
 			unit = _("TB");
+		}
+	}
+	else /* 1024-based binary prefix */
+	{
+		if(size < (goffset)BI_KiB)
+		{
+			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+			return buf;
+		}
+		val = (gdouble)size;
+		if(val < BI_MiB)
+		{
+			val /= BI_KiB;
+			unit = _("KiB");
+		}
+		else if(val < BI_GiB)
+		{
+			val /= BI_MiB;
+			unit = _("MiB");
+		}
+		else if(val < BI_TiB)
+		{
+			val /= BI_GiB;
+			unit = _("GiB");
+		}
+		else
+		{
+			val /= BI_TiB;
+			unit = _("TiB");
 		}
 	}
     sprintf( buf, "%.1f %s", val, unit );

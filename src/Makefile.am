@@ -41,6 +41,7 @@ libfm_gtk_SOURCES = \
 	fm-folder-model.c fm-folder-model.h \
 	fm-path-entry.c fm-path-entry.h \
 	fm-file-menu.c fm-file-menu.h \
+	fm-file-properties.c fm-file-properties.h \
 	fm-gtk-marshal.c fm-gtk-marshal.h \
 	$(NULL)
 

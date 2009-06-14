@@ -163,6 +163,24 @@ static GtkRadioActionEntry main_win_sort_by_actions[]=
 	{"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, COL_FILE_MTIME}
 };
 
+
+const char folder_menu_xml[]=
+"<popup>"
+  "<placeholder name='ph1'>"
+    "<menuitem action='NewTab'/>"
+    "<menuitem action='NewWin'/>"
+    "<menuitem action='Search'/>"
+  "</placeholder>"
+"</popup>";
+
+/* Action entries for pupup menus */
+static GtkActionEntry folder_menu_actions[]=
+{
+	{"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL, NULL},
+	{"NewWin", GTK_STOCK_NEW, N_("Open in New Window"), NULL, NULL, NULL},
+	{"Search", GTK_STOCK_FIND, NULL, NULL, NULL, NULL}
+};
+
 static guint n_wins = 0;
 
 static void fm_main_win_class_init(FmMainWinClass *klass)
@@ -212,8 +230,18 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 			{
 				GtkWidget* popup;
 				popup = fm_file_menu_new_for_file(fi);
-				gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
 				g_signal_connect(popup, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+
+				/* merge some specific menu items for folders */
+				if(fm_file_info_is_dir(fi))
+				{
+					GtkUIManager* ui = fm_file_menu_get_ui(popup);
+					GtkActionGroup* act_grp = fm_file_menu_get_action_group(popup);
+					gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
+					gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
+				}
+
+				gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
 			}
 			else
 			{

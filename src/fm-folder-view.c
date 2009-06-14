@@ -406,7 +406,12 @@ guint fm_folder_view_get_n_selected_files(FmFolderView* fv)
 
 gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 {
-	GList* sels = fm_folder_view_get_selected_tree_paths(fv);
+	GList* sels;
+	if( evt->type == GDK_BUTTON_PRESS )
+	{
+		/* FIXME: select rows if needed */
+	}
+	sels = fm_folder_view_get_selected_tree_paths(fv);
 	if( evt->type == GDK_2BUTTON_PRESS )
 	{
 		if(sels)

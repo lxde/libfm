@@ -90,38 +90,36 @@ static void deep_count(FmDeepCountJob* job, GFile* dir)
 	GError* err = NULL;
 	if(g_file_is_native(dir)) /* if it's a native file, use posix APIs */
 	{
-		while( !g_cancellable_is_cancelled(job->cancellable) )
+		char* dir_path = g_file_get_path(dir);
+		GDir* dir_ent = g_dir_open(dir_path, 0, NULL);
+		if(dir_ent)
 		{
-			char* dir_path = g_file_get_path(dir);
-			GDir* dir_ent = g_dir_open(dir_path, 0, NULL);
-			if(dir_ent)
+			char* basename;
+			struct stat st;
+			while( !g_cancellable_is_cancelled(job->cancellable)
+				&& (basename = g_dir_read_name(dir_ent)) )
 			{
-				char* basename;
-				struct stat st;
-				while( basename = g_dir_read_name(dir_ent) )
+				char* full_path = g_build_filename(dir_path, basename, NULL);
+				if( lstat(full_path, &st) == 0 )
 				{
-					char* full_path = g_build_filename(dir_path, basename, NULL);
-					if( lstat(full_path, &st) == 0 )
+					job->total_size += (goffset)st.st_size;
+					job->total_block_size += (st.st_blocks * st.st_blksize);
+					if( S_ISDIR(st.st_mode) )
 					{
-						job->total_size += (goffset)st.st_size;
-						job->total_block_size += (st.st_blocks * st.st_blksize);
-						if( S_ISDIR(st.st_mode) )
-						{
-							GFile* sub = g_file_new_for_path(full_path);
-							deep_count(job, sub);
-							g_object_unref(sub);
-						}
+						GFile* sub = g_file_new_for_path(full_path);
+						deep_count(job, sub);
+						g_object_unref(sub);
 					}
-					else
-					{
-						/* error! */
-					}
-					g_free(full_path);
 				}
-				g_dir_close(dir_ent);
+				else
+				{
+					/* error! */
+				}
+				g_free(full_path);
 			}
-			g_free(dir_path);
+			g_dir_close(dir_ent);
 		}
+		g_free(dir_path);
 	}
 	else /* use gio */
 	{

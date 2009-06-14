@@ -25,9 +25,21 @@
 
 #include <glib/gi18n.h>
 #include "fm-file-menu.h"
-#include "fm-utils.h"
-#include "fm-deep-count-job.h"
+#include "fm-path-list.h"
 
+#include "fm-file-properties.h"
+
+typedef struct _FmFileMenuData FmFileMenuData;
+struct _FmFileMenuData
+{
+	GList* file_infos;
+	gboolean same_type;
+	GtkUIManager* ui;
+	GtkActionGroup* act_grp;
+};
+
+static GQuark data_id = 0;
+#define	get_data(menu)	(FmFileMenuData*)g_object_get_qdata(menu, data_id);
 
 static void on_open(GtkAction* action, gpointer user_data);
 static void on_prop(GtkAction* action, gpointer user_data);
@@ -38,6 +50,8 @@ const char base_menu_xml[]=
   "<separator/>"
   "<placeholder name='ph1'/>"
   "<separator/>"
+  "<placeholder name='ph2'/>"
+  "<separator/>"
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
   "<menuitem action='Paste'/>"
@@ -47,19 +61,9 @@ const char base_menu_xml[]=
   "<menu action='SendTo'>"
   "</menu>"
   "<separator/>"
-  "<placeholder name='ph2'/>"
+  "<placeholder name='ph3'/>"
   "<separator/>"
   "<menuitem action='Prop'/>"
-"</popup>";
-
-const char folder_menu_xml[]=
-"<popup>"
-  "<placeholder name='ph1'>"
-//    "<menuitem action='NewTab'/>"
-    "<menuitem action='NewWin'/>"
-    "<separator/>"
-//    "<menuitem action='Search'/>"
-  "</placeholder>"
 "</popup>";
 
 
@@ -76,13 +80,16 @@ GtkActionEntry base_menu_actions[]=
 	{"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
 };
 
-GtkActionEntry folder_menu_actions[]=
-{
-	{"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL, on_open},
-	{"NewWin", GTK_STOCK_NEW, N_("Open in New Window"), NULL, NULL, on_open},
-	{"Search", GTK_STOCK_FIND, NULL, NULL, NULL, on_open}
-};
 
+void fm_file_menu_data_free(FmFileMenuData* data)
+{
+	g_list_foreach(data->file_infos, (GFunc)fm_file_info_unref, NULL);
+	g_list_free(data->file_infos);
+
+	g_object_unref(data->act_grp);
+	g_object_unref(data->ui);
+	g_slice_free(FmFileMenuData, data);
+}
 
 GtkWidget* fm_file_menu_new_for_file(FmFileInfo* fi)
 {
@@ -100,27 +107,30 @@ GtkWidget* fm_file_menu_new_for_files(GList* files)
 	GtkUIManager* ui;
 	GtkActionGroup* act_grp;
 	GtkAccelGroup* accel_grp;
+	FmFileInfo* fi;
+	FmFileMenuData* data = g_slice_new0(FmFileMenuData);
 
-	ui = gtk_ui_manager_new();
-	act_grp = gtk_action_group_new("Main");
-	gtk_action_group_add_actions(act_grp, base_menu_actions, G_N_ELEMENTS(base_menu_actions), NULL);
+	data->ui = ui = gtk_ui_manager_new();
+	data->act_grp = act_grp = gtk_action_group_new("Popup");
+
+	/* deep copy */
+	data->file_infos = g_list_copy(files);
+	g_list_foreach(data->file_infos, (GFunc)fm_file_info_ref, NULL);
+
+	gtk_action_group_add_actions(act_grp, base_menu_actions, G_N_ELEMENTS(base_menu_actions), data);
 	gtk_ui_manager_add_ui_from_string(ui, base_menu_xml, -1, NULL);
 	gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
-	/* if the files are of the same time */
-	FmFileInfo* fi = (FmFileInfo*)files->data;
-	if(fm_file_info_is_dir(fi))
-	{
-		gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
-		gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
-	}
+	/* FIXME: check if the files are of the same type */
+	data->same_type = TRUE;
 
+	fi = (FmFileInfo*)files->data;
 	if(fi->type)
 	{
 		GtkAction* act;
 		GList* apps = g_app_info_get_all_for_type(fi->type->type);
 		GList* l;
-		GString *xml = g_string_new("<popup><placeholder name='ph1'>");
+		GString *xml = g_string_new("<popup><placeholder name='ph2'>");
 		for(l=apps;l;l=l->next)
 		{
 			GAppInfo* app = l->data;
@@ -140,52 +150,44 @@ GtkWidget* fm_file_menu_new_for_files(GList* files)
 	}
 
 	menu = gtk_ui_manager_get_widget(ui, "/popup");
-	g_object_ref(menu);
-
-	g_object_unref(act_grp);
-	g_object_unref(ui);
+	if( G_UNLIKELY( 0 == data_id ) )
+		data_id = g_quark_from_static_string("FmFileMenuData");
+	g_object_set_qdata(menu, data_id, data);
+	/* destroy notify of g_object_set_qdata_full doesn't work here since
+	 * GtkUIManager holds reference to the menu, and when gtk_widget_destroy 
+	 * is called, ref_count won't be zero and hence the data cannot be freed. */
+	g_signal_connect_swapped(menu, "destroy", G_CALLBACK(fm_file_menu_data_free), data);
 	return menu;
+}
+
+GtkUIManager* fm_file_menu_get_ui(GtkWidget* menu)
+{
+	FmFileMenuData* data = get_data(menu);
+	return data->ui;
+}
+
+GtkActionGroup* fm_file_menu_get_action_group(GtkWidget* menu)
+{
+	FmFileMenuData* data = get_data(menu);
+	return data->act_grp;
+}
+
+GList* fm_file_menu_get_file_info_list(GtkWidget* menu)
+{
+	FmFileMenuData* data = get_data(menu);
+	return data->file_infos;
 }
 
 void on_open(GtkAction* action, gpointer user_data)
 {
-	
-}
 
-static gboolean on_timeout(FmDeepCountJob* dc)
-{
-	char size_str[128];
-	GtkLabel* label = g_object_get_data(dc, "total_size");
-	g_debug("total_size: %p", label);
-	fm_file_size_to_str(size_str, dc->total_size, FALSE);
-	gtk_label_set_text(label, size_str);
-	return TRUE;
-}
-
-static void on_finished(FmDeepCountJob* job, GtkLabel* label)
-{
-	g_debug("Finished!");
 }
 
 void on_prop(GtkAction* action, gpointer user_data)
 {
-	GtkBuilder* builder=gtk_builder_new();
-	GtkWidget* dlg, *total_size;
-	guint timeout;
-	GFile* gf = g_file_new_for_path(/*g_get_home_dir()*/ "/usr/share");
-	FmJob* job = fm_deep_count_job_new(gf);
-	g_object_unref(gf);
-
-	gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/file-prop.ui", NULL);
-	dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
-	total_size = (GtkWidget*)gtk_builder_get_object(builder, "total_size");
-	gtk_widget_show(dlg);
-	g_object_unref(builder);
-
-	g_object_set_data(job, "total_size", total_size);
-	timeout = g_timeout_add(500, (GSourceFunc)on_timeout, g_object_ref(job));
-	g_signal_connect_swapped(dlg, "delete-event", g_source_remove, timeout);
-	g_signal_connect(job, "finished", on_finished, total_size);
-
-	fm_job_run(job);
+	FmFileMenuData* data = (FmFileMenuData*)user_data;
+	FmPathList* pl = fm_path_list_new_from_file_info_list(data->file_infos);
+	fm_show_file_properties(pl);
+	fm_path_list_unref(pl);
 }
+

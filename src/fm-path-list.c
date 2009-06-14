@@ -65,3 +65,27 @@ void fm_path_list_add(FmPathList* pl, FmPath* path)
 {
 	g_queue_push_tail(&pl->list, fm_path_ref(path));
 }
+
+FmPathList* fm_path_list_new_from_file_info_list(GList* fis)
+{
+	FmPathList* list = fm_path_list_new();
+	GList* l;
+	for(l=fis;l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_path_list_add(list, fi->path);
+	}
+	return list;
+}
+
+FmPathList* fm_path_list_new_from_file_info_slist(GSList* fis)
+{
+	FmPathList* list = fm_path_list_new();
+	GSList* l;
+	for(l=fis;l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_path_list_add(list, fi->path);
+	}
+	return list;
+}
