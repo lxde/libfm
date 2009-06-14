@@ -92,6 +92,7 @@ FmFileInfo* fm_file_info_ref( FmFileInfo* fi )
 
 void fm_file_info_unref( FmFileInfo* fi )
 {
+	/* g_debug("unref file info: %d", fi->n_ref); */
     if ( g_atomic_int_dec_and_test( &fi->n_ref) )
     {
         fm_file_info_clear( fi );

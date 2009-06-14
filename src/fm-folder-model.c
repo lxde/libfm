@@ -253,7 +253,8 @@ void fm_folder_model_set_folder( FmFolderModel* list, FmFolder* dir )
         g_signal_handlers_disconnect_by_func( list->dir,
                                               on_thumbnail_loaded, list );
 */
-//        g_list_foreach( list->items, (GFunc)vfs_file_info_unref, NULL );
+		for(l=list->items;l;l=l->next)
+			fm_folder_item_free((FmFolderItem*)l->data);
         g_list_free( list->items );
         g_object_unref( list->dir );
     }

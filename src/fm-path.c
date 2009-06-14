@@ -155,8 +155,10 @@ FmPath*	fm_path_ref(FmPath* path)
 
 void fm_path_unref(FmPath* path)
 {
+	/* g_debug("fm_path_unref: %s, n_ref = %d", fm_path_to_str(path), path->n_ref); */
 	if(g_atomic_int_dec_and_test(&path->n_ref))
 	{
+		/* g_debug("free path: %s", path->name); */
 		if(G_LIKELY(path->parent))
 			fm_path_unref(path->parent);
 		g_free(path);

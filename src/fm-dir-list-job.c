@@ -89,6 +89,12 @@ static void fm_dir_list_job_finalize(GObject *object)
 	if(self->dir_gf)
 		g_object_unref(self->dir_gf);
 
+	if(self->files)
+	{
+		g_list_foreach(self->files, (GFunc)fm_file_info_unref, NULL);
+		g_list_free(self->files);
+	}
+
 	if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
