@@ -37,24 +37,24 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
 			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
 			return buf;
 		}
-		else if(size < ((goffset)1<<20))
+		else if(size < (gfloat)1024*1024)
 		{
-			val = ((gfloat)size)/((goffset)1<<10);
+			val = ((gfloat)size)/((gfloat)1024);
 			unit = _("KiB");
 		}
-		else if(size < ((goffset)1)<<30)
+		else if(size < (gfloat)1024*1024*1024)
 		{
-			val = ((gfloat)size)/((goffset)1<<20);
+			val = ((gfloat)size)/((gfloat)1024*1024);
 			unit = _("MiB");
 		}
-		else if(size < ((goffset)1)<<40)
+		else if(size < (gfloat)1024*1024*1024*1024)
 		{
-			val = ((gfloat)size)/((goffset)1<<30);
+			val = ((gfloat)size)/((gfloat)1024*1024*1024);
 			unit = _("GiB");
 		}
-		else if(size < ((goffset)1)<<50)
+		else if(size < (gfloat)1024*1024*1024*1024*1024)
 		{
-			val = ((gfloat)size)/((goffset)1<<40);
+			val = ((gfloat)size)/((gfloat)1024*1024*1024*1024);
 			unit = _("TiB");
 		}
 	}

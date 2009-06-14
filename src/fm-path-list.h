@@ -1,7 +1,7 @@
 /*
- *      fm.c
+ *      fm-path-list.h
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,17 +19,34 @@
  *      MA 02110-1301, USA.
  */
 
-#include "fm.h"
+#ifndef __FM_PATH_LIST_H__
+#define __FM_PATH_LIST_H__
+
+#include <glib.h>
 #include "fm-path.h"
 
-gboolean fm_init()
-{
-	g_thread_init(NULL);
-	fm_mime_type_init();
-	fm_path_init();
-}
+G_BEGIN_DECLS
 
-void fm_finalize()
+typedef struct _FmPathList FmPathList;
+struct _FmPathList
 {
-	
-}
+	guint n_ref;
+	GQueue list;
+};
+
+FmPathList* fm_path_list_new();
+FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
+
+FmPathList* fm_path_list_ref(FmPathList* pl);
+void fm_path_list_unref(FmPathList* pl);
+
+char* fm_path_list_to_uri_list(FmPathList* pl);
+guint fm_path_list_get_length(FmPathList* pl);
+void fm_path_list_add(FmPathList* pl, FmPath* path);
+//void fm_path_list_add_str(FmPathList* pl, const char* path_str);
+
+
+G_END_DECLS
+
+#endif
+

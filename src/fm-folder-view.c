@@ -195,6 +195,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
 										"text", COL_FILE_NAME );
 			exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
+			exo_icon_view_set_search_column((ExoIconView*)fv->view, COL_FILE_NAME);
 			g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
 			exo_icon_view_set_model((ExoIconView*)fv->view, fv->model);
 			exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
@@ -218,6 +219,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			col = gtk_tree_view_column_new_with_attributes(_("Modified"), gtk_cell_renderer_text_new(), "text", COL_FILE_MTIME, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
+			gtk_tree_view_set_search_column((GtkTreeView*)fv->view, COL_FILE_NAME);
 			g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
 			gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
 			ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);

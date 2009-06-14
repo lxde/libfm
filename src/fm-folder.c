@@ -183,7 +183,6 @@ static void fm_folder_finalize(GObject *object)
 }
 
 
-
 FmFolder*	fm_folder_new_for_path	(const char* path)
 {
 	GFile* gf = g_file_new_for_path(path);

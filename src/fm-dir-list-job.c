@@ -98,9 +98,9 @@ gpointer job_thread(FmDirListJob* job)
 	GFileEnumerator *enu;
 	GFileInfo *inf;
 	GError *err = NULL;
-	char* dir_path = g_file_get_path(job->gf);
-	if(dir_path) /* if this is a local path */
+	if(g_file_is_native(job->gf)) /* if this is a native file on real file system */
 	{
+		char* dir_path = g_file_get_path(job->gf);
 		GDir* dir = g_dir_open(dir_path, 0, NULL);
 		if( dir )
 		{

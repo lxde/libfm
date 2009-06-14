@@ -19,10 +19,18 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <glib/gi18n.h>
 #include "fm-file-menu.h"
+#include "fm-utils.h"
+#include "fm-deep-count-job.h"
+
 
 static void on_open(GtkAction* action, gpointer user_data);
+static void on_prop(GtkAction* action, gpointer user_data);
 
 const char base_menu_xml[]=
 "<popup>"
@@ -33,7 +41,11 @@ const char base_menu_xml[]=
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
   "<menuitem action='Paste'/>"
-//  "<menuitem action='SendTo'/>"
+  "<separator/>"
+  "<menuitem action='Rename'/>"
+  "<menuitem action='Link'/>"
+  "<menu action='SendTo'>"
+  "</menu>"
   "<separator/>"
   "<placeholder name='ph2'/>"
   "<separator/>"
@@ -51,13 +63,17 @@ const char folder_menu_xml[]=
 "</popup>";
 
 
+/* FIXME: how to show accel keys in the popup menu? */
 GtkActionEntry base_menu_actions[]=
 {
 	{"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, on_open},
-	{"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, on_open},
-	{"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, on_open},
-	{"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, on_open},
-	{"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_open}
+	{"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_open},
+	{"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_open},
+	{"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_open},
+	{"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
+	{"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
+	{"SendTo", NULL, N_("Send To"), NULL, NULL, NULL},
+	{"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
 };
 
 GtkActionEntry folder_menu_actions[]=
@@ -93,7 +109,6 @@ GtkWidget* fm_file_menu_new_for_files(GList* files)
 
 	/* if the files are of the same time */
 	FmFileInfo* fi = (FmFileInfo*)files->data;
-	
 	if(fm_file_info_is_dir(fi))
 	{
 		gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
@@ -137,3 +152,40 @@ void on_open(GtkAction* action, gpointer user_data)
 	
 }
 
+static gboolean on_timeout(FmDeepCountJob* dc)
+{
+	char size_str[128];
+	GtkLabel* label = g_object_get_data(dc, "total_size");
+	g_debug("total_size: %p", label);
+	fm_file_size_to_str(size_str, dc->total_size, FALSE);
+	gtk_label_set_text(label, size_str);
+	return TRUE;
+}
+
+static void on_finished(FmDeepCountJob* job, GtkLabel* label)
+{
+	g_debug("Finished!");
+}
+
+void on_prop(GtkAction* action, gpointer user_data)
+{
+	GtkBuilder* builder=gtk_builder_new();
+	GtkWidget* dlg, *total_size;
+	guint timeout;
+	GFile* gf = g_file_new_for_path(/*g_get_home_dir()*/ "/usr/share");
+	FmJob* job = fm_deep_count_job_new(gf);
+	g_object_unref(gf);
+
+	gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/file-prop.ui", NULL);
+	dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
+	total_size = (GtkWidget*)gtk_builder_get_object(builder, "total_size");
+	gtk_widget_show(dlg);
+	g_object_unref(builder);
+
+	g_object_set_data(job, "total_size", total_size);
+	timeout = g_timeout_add(500, (GSourceFunc)on_timeout, g_object_ref(job));
+	g_signal_connect_swapped(dlg, "delete-event", g_source_remove, timeout);
+	g_signal_connect(job, "finished", on_finished, total_size);
+
+	fm_job_run(job);
+}

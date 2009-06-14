@@ -51,6 +51,22 @@ static const char main_menu_xml[] =
     "<menuitem action='New'/>"
     "<menuitem action='Close'/>"
   "</menu>"
+  "<menu action='EditMenu'>"
+    "<menuitem action='Cut'/>"
+    "<menuitem action='Copy'/>"
+    "<menuitem action='Paste'/>"
+    "<menuitem action='Del'/>"
+	"<separator/>"
+    "<menuitem action='Rename'/>"
+    "<menuitem action='Link'/>"
+    "<menuitem action='MoveTo'/>"
+    "<menuitem action='CopyTo'/>"
+	"<separator/>"
+    "<menuitem action='SelAll'/>"
+    "<menuitem action='InvSel'/>"
+	"<separator/>"
+    "<menuitem action='Pref'/>"
+  "</menu>"
   "<menu action='GoMenu'>"
     "<menuitem action='Prev'/>"
     "<menuitem action='Next'/>"
@@ -95,6 +111,18 @@ static GtkActionEntry main_win_actions[]=
 	{"FileMenu", NULL, N_("_File"), NULL, NULL, NULL},
 		{"New", GTK_STOCK_NEW, N_("_New Window"), "<CTRL>N", NULL, on_new_win},
 		{"Close", GTK_STOCK_CLOSE, N_("_Close Window"), "<Ctrl>W", NULL, on_close_win},
+	{"EditMenu", NULL, N_("_Edit"), NULL, NULL, NULL},
+		{"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, NULL},
+		{"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, NULL},
+		{"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, NULL},
+		{"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, NULL},
+		{"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
+		{"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
+		{"MoveTo", NULL, N_("Move To..."), NULL, NULL, NULL},
+		{"CopyTo", NULL, N_("Copy To..."), NULL, NULL, NULL},
+		{"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, NULL},
+		{"InvSel", NULL, N_("Invert Selection"), NULL, NULL, NULL},
+		{"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
 	{"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
 		{"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
 	{"HelpMenu", NULL, N_("_Help"), NULL, NULL, NULL},
@@ -238,13 +266,16 @@ static void fm_main_win_init(FmMainWin *self)
 	gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
 	gtk_box_pack_start( (GtkBox*)vbox, self->toolbar, FALSE, TRUE, 0 );
 
+	/* the location bar */
 	toolitem = gtk_tool_item_new();
 	gtk_container_add( toolitem, self->location );
 	gtk_tool_item_set_expand(toolitem, TRUE);
 	gtk_toolbar_insert((GtkToolbar*)self->toolbar, toolitem, gtk_toolbar_get_n_items(self->toolbar) - 1 );
 
+	/* folder view */
 	gtk_box_pack_start( (GtkBox*)vbox, self->folder_view, TRUE, TRUE, 0 );
 
+	/* status bar */
 	self->statusbar = gtk_statusbar_new();
 	gtk_box_pack_start( (GtkBox*)vbox, self->statusbar, FALSE, TRUE, 0 );
 

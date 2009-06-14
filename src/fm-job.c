@@ -103,9 +103,11 @@ static void fm_job_finalize(GObject *object)
 
 gboolean fm_job_run(FmJob* job)
 {
-	FmJobClass* klass = (FmJobClass*)G_OBJECT_GET_CLASS(job);
+	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
 	if(klass->run)
+	{
 		return klass->run(job);
+	}
 	return FALSE;
 }
 

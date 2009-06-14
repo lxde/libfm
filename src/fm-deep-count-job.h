@@ -24,35 +24,41 @@
 #define __FM_DEEP_COUNT_JOB_H__
 
 #include "fm-job.h"
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-#define FM_DEEP_COUNTJOB_TYPE				(fm_deep_countjob_get_type())
-#define FM_DEEP_COUNTJOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_DEEP_COUNTJOB_TYPE, FmDeepCountjob))
-#define FM_DEEP_COUNTJOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_DEEP_COUNTJOB_TYPE, FmDeepCountjobClass))
-#define IS_FM_DEEP_COUNTJOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_DEEP_COUNTJOB_TYPE))
-#define IS_FM_DEEP_COUNTJOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_DEEP_COUNTJOB_TYPE))
+#define FM_DEEP_COUNT_JOB_TYPE				(fm_deep_count_job_get_type())
+#define FM_DEEP_COUNT_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
+			FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJob))
+#define FM_DEEP_COUNT_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
+			FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJobClass))
+#define IS_FM_DEEP_COUNT_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+			FM_DEEP_COUNT_JOB_TYPE))
+#define IS_FM_DEEP_COUNT_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
+			FM_DEEP_COUNT_JOB_TYPE))
 
-typedef struct _FmDeepCountjob			FmDeepCountjob;
-typedef struct _FmDeepCountjobClass		FmDeepCountjobClass;
+typedef struct _FmDeepCountJob			FmDeepCountJob;
+typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
 
-struct _FmDeepCountjob
+struct _FmDeepCountJob
 {
 	FmJob parent;
-	/* add your public declarations here */
+	GCancellable* cancellable;
+	GIOSchedulerJob* io_job;
+	GFile* gf;
+	goffset total_size;
+	goffset total_block_size;
+	guint count;
 };
 
-struct _FmDeepCountjobClass
+struct _FmDeepCountJobClass
 {
 	FmJobClass parent_class;
 };
 
-GType		fm_deep_countjob_get_type		(void);
-FmJob*	fm_deep_countjob_new			(void);
+GType		fm_deep_count_job_get_type(void);
+FmJob*	fm_deep_count_job_new(GFile* gf);
 
 G_END_DECLS
 

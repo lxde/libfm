@@ -45,24 +45,29 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am__objects_1 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
+am__objects_1 =
+am__objects_2 = libfm_demo-fm.$(OBJEXT) libfm_demo-fm-path.$(OBJEXT) \
+	libfm_demo-fm-path-list.$(OBJEXT) libfm_demo-fm-job.$(OBJEXT) \
 	libfm_demo-fm-dir-list-job.$(OBJEXT) \
+	libfm_demo-fm-deep-count-job.$(OBJEXT) \
 	libfm_demo-fm-folder.$(OBJEXT) \
 	libfm_demo-fm-file-info.$(OBJEXT) \
 	libfm_demo-fm-mime-type.$(OBJEXT) \
-	libfm_demo-fm-utils.$(OBJEXT) libfm_demo-fm-marshal.$(OBJEXT)
-am__objects_2 = libfm_demo-exo-icon-view.$(OBJEXT) \
+	libfm_demo-fm-utils.$(OBJEXT) libfm_demo-fm-marshal.$(OBJEXT) \
+	$(am__objects_1)
+am__objects_3 = libfm_demo-exo-icon-view.$(OBJEXT) \
 	libfm_demo-exo-private.$(OBJEXT) \
 	libfm_demo-exo-tree-view.$(OBJEXT) \
 	libfm_demo-exo-marshal.$(OBJEXT) \
-	libfm_demo-exo-string.$(OBJEXT)
-am__objects_3 = $(am__objects_2) libfm_demo-fm-folder-view.$(OBJEXT) \
+	libfm_demo-exo-string.$(OBJEXT) $(am__objects_1)
+am__objects_4 = $(am__objects_3) libfm_demo-fm-folder-view.$(OBJEXT) \
 	libfm_demo-fm-folder-model.$(OBJEXT) \
 	libfm_demo-fm-path-entry.$(OBJEXT) \
 	libfm_demo-fm-file-menu.$(OBJEXT) \
-	libfm_demo-fm-gtk-marshal.$(OBJEXT)
-am_libfm_demo_OBJECTS = $(am__objects_1) $(am__objects_3) \
-	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT)
+	libfm_demo-fm-gtk-marshal.$(OBJEXT) $(am__objects_1)
+am_libfm_demo_OBJECTS = $(am__objects_2) $(am__objects_4) \
+	libfm_demo-libfm-demo.$(OBJEXT) libfm_demo-main-win.$(OBJEXT) \
+	$(am__objects_1)
 libfm_demo_OBJECTS = $(am_libfm_demo_OBJECTS)
 libfm_demo_DEPENDENCIES =
 libfm_demo_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -216,20 +221,25 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
+NULL = 
 AM_CPPFLAGS = \
-	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm-demo"\" \
-	-DPACKAGE_UI_DIR=\""$(datadir)/libfm-demo/ui"\" \
+	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 libfm_SOURCES = \
 	fm.c fm.h \
+	fm-path.c fm-path.h \
+	fm-path-list.c fm-path-list.h \
 	fm-job.c fm-job.h \
 	fm-dir-list-job.c fm-dir-list-job.h \
+	fm-deep-count-job.c fm-deep-count-job.h \
 	fm-folder.c fm-folder.h \
 	fm-file-info.c fm-file-info.h \
 	fm-mime-type.c fm-mime-type.h \
 	fm-utils.c fm-utils.h \
-	fm-marshal.c fm-marshal.h
+	fm-marshal.c fm-marshal.h \
+	$(NULL)
 
 exo_SOURCES = \
 	exo/exo-icon-view.c \
@@ -241,7 +251,8 @@ exo_SOURCES = \
 	exo/exo-marshal.c \
 	exo/exo-string.c \
 	exo/exo-marshal.h \
-	exo/exo-string.h
+	exo/exo-string.h \
+	$(NULL)
 
 libfm_gtk_SOURCES = \
 	$(exo_SOURCES) \
@@ -249,13 +260,15 @@ libfm_gtk_SOURCES = \
 	fm-folder-model.c fm-folder-model.h \
 	fm-path-entry.c fm-path-entry.h \
 	fm-file-menu.c fm-file-menu.h \
-	fm-gtk-marshal.c fm-gtk-marshal.h
+	fm-gtk-marshal.c fm-gtk-marshal.h \
+	$(NULL)
 
 libfm_demo_SOURCES = \
 	$(libfm_SOURCES) \
 	$(libfm_gtk_SOURCES) \
 	libfm-demo.c \
-	main-win.c main-win.h
+	main-win.c main-win.h \
+	$(NULL)
 
 
 # Workarounds to force the build
@@ -263,17 +276,20 @@ BUILT_SOURCES = \
 	fm-marshal.h \
 	fm-marshal.c \
 	fm-gtk-marshal.h \
-	fm-gtk-marshal.c
+	fm-gtk-marshal.c \
+	$(NULL)
 
 EXTRA_DIST = \
 	fm-marshal.list \
-	fm-gtk-marshal.list
+	fm-gtk-marshal.list \
+	$(NULL)
 
 CLEANFILES = \
 	fm-marshal.h \
 	fm-marshal.c \
 	fm-gtk-marshal.h \
-	fm-gtk-marshal.c
+	fm-gtk-marshal.c \
+	$(NULL)
 
 libfm_demo_CFLAGS = \
 	-D_REENTRANT -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/directfb -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gio-unix-2.0/   \
@@ -357,6 +373,7 @@ include ./$(DEPDIR)/libfm_demo-exo-marshal.Po
 include ./$(DEPDIR)/libfm_demo-exo-private.Po
 include ./$(DEPDIR)/libfm_demo-exo-string.Po
 include ./$(DEPDIR)/libfm_demo-exo-tree-view.Po
+include ./$(DEPDIR)/libfm_demo-fm-deep-count-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-dir-list-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-file-info.Po
 include ./$(DEPDIR)/libfm_demo-fm-file-menu.Po
@@ -368,6 +385,8 @@ include ./$(DEPDIR)/libfm_demo-fm-job.Po
 include ./$(DEPDIR)/libfm_demo-fm-marshal.Po
 include ./$(DEPDIR)/libfm_demo-fm-mime-type.Po
 include ./$(DEPDIR)/libfm_demo-fm-path-entry.Po
+include ./$(DEPDIR)/libfm_demo-fm-path-list.Po
+include ./$(DEPDIR)/libfm_demo-fm-path.Po
 include ./$(DEPDIR)/libfm_demo-fm-utils.Po
 include ./$(DEPDIR)/libfm_demo-fm.Po
 include ./$(DEPDIR)/libfm_demo-libfm-demo.Po
@@ -408,6 +427,34 @@ libfm_demo-fm.obj: fm.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm.obj `if test -f 'fm.c'; then $(CYGPATH_W) 'fm.c'; else $(CYGPATH_W) '$(srcdir)/fm.c'; fi`
 
+libfm_demo-fm-path.o: fm-path.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path.Tpo -c -o libfm_demo-fm-path.o `test -f 'fm-path.c' || echo '$(srcdir)/'`fm-path.c
+	mv -f $(DEPDIR)/libfm_demo-fm-path.Tpo $(DEPDIR)/libfm_demo-fm-path.Po
+#	source='fm-path.c' object='libfm_demo-fm-path.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path.o `test -f 'fm-path.c' || echo '$(srcdir)/'`fm-path.c
+
+libfm_demo-fm-path.obj: fm-path.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path.Tpo -c -o libfm_demo-fm-path.obj `if test -f 'fm-path.c'; then $(CYGPATH_W) 'fm-path.c'; else $(CYGPATH_W) '$(srcdir)/fm-path.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-path.Tpo $(DEPDIR)/libfm_demo-fm-path.Po
+#	source='fm-path.c' object='libfm_demo-fm-path.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path.obj `if test -f 'fm-path.c'; then $(CYGPATH_W) 'fm-path.c'; else $(CYGPATH_W) '$(srcdir)/fm-path.c'; fi`
+
+libfm_demo-fm-path-list.o: fm-path-list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path-list.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path-list.Tpo -c -o libfm_demo-fm-path-list.o `test -f 'fm-path-list.c' || echo '$(srcdir)/'`fm-path-list.c
+	mv -f $(DEPDIR)/libfm_demo-fm-path-list.Tpo $(DEPDIR)/libfm_demo-fm-path-list.Po
+#	source='fm-path-list.c' object='libfm_demo-fm-path-list.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path-list.o `test -f 'fm-path-list.c' || echo '$(srcdir)/'`fm-path-list.c
+
+libfm_demo-fm-path-list.obj: fm-path-list.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-path-list.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-path-list.Tpo -c -o libfm_demo-fm-path-list.obj `if test -f 'fm-path-list.c'; then $(CYGPATH_W) 'fm-path-list.c'; else $(CYGPATH_W) '$(srcdir)/fm-path-list.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-path-list.Tpo $(DEPDIR)/libfm_demo-fm-path-list.Po
+#	source='fm-path-list.c' object='libfm_demo-fm-path-list.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-path-list.obj `if test -f 'fm-path-list.c'; then $(CYGPATH_W) 'fm-path-list.c'; else $(CYGPATH_W) '$(srcdir)/fm-path-list.c'; fi`
+
 libfm_demo-fm-job.o: fm-job.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-job.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-job.Tpo -c -o libfm_demo-fm-job.o `test -f 'fm-job.c' || echo '$(srcdir)/'`fm-job.c
 	mv -f $(DEPDIR)/libfm_demo-fm-job.Tpo $(DEPDIR)/libfm_demo-fm-job.Po
@@ -435,6 +482,20 @@ libfm_demo-fm-dir-list-job.obj: fm-dir-list-job.c
 #	source='fm-dir-list-job.c' object='libfm_demo-fm-dir-list-job.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-dir-list-job.obj `if test -f 'fm-dir-list-job.c'; then $(CYGPATH_W) 'fm-dir-list-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-dir-list-job.c'; fi`
+
+libfm_demo-fm-deep-count-job.o: fm-deep-count-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-deep-count-job.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-deep-count-job.Tpo -c -o libfm_demo-fm-deep-count-job.o `test -f 'fm-deep-count-job.c' || echo '$(srcdir)/'`fm-deep-count-job.c
+	mv -f $(DEPDIR)/libfm_demo-fm-deep-count-job.Tpo $(DEPDIR)/libfm_demo-fm-deep-count-job.Po
+#	source='fm-deep-count-job.c' object='libfm_demo-fm-deep-count-job.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-deep-count-job.o `test -f 'fm-deep-count-job.c' || echo '$(srcdir)/'`fm-deep-count-job.c
+
+libfm_demo-fm-deep-count-job.obj: fm-deep-count-job.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-deep-count-job.obj -MD -MP -MF $(DEPDIR)/libfm_demo-fm-deep-count-job.Tpo -c -o libfm_demo-fm-deep-count-job.obj `if test -f 'fm-deep-count-job.c'; then $(CYGPATH_W) 'fm-deep-count-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-deep-count-job.c'; fi`
+	mv -f $(DEPDIR)/libfm_demo-fm-deep-count-job.Tpo $(DEPDIR)/libfm_demo-fm-deep-count-job.Po
+#	source='fm-deep-count-job.c' object='libfm_demo-fm-deep-count-job.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -c -o libfm_demo-fm-deep-count-job.obj `if test -f 'fm-deep-count-job.c'; then $(CYGPATH_W) 'fm-deep-count-job.c'; else $(CYGPATH_W) '$(srcdir)/fm-deep-count-job.c'; fi`
 
 libfm_demo-fm-folder.o: fm-folder.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_demo_CFLAGS) $(CFLAGS) -MT libfm_demo-fm-folder.o -MD -MP -MF $(DEPDIR)/libfm_demo-fm-folder.Tpo -c -o libfm_demo-fm-folder.o `test -f 'fm-folder.c' || echo '$(srcdir)/'`fm-folder.c

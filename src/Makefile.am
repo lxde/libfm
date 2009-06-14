@@ -1,19 +1,25 @@
+NULL=
+
 AM_CPPFLAGS = \
-	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm-demo"\" \
-	-DPACKAGE_UI_DIR=\""$(datadir)/libfm-demo/ui"\" \
+	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 bin_PROGRAMS = libfm-demo
 
 libfm_SOURCES = \
 	fm.c fm.h \
+	fm-path.c fm-path.h \
+	fm-path-list.c fm-path-list.h \
 	fm-job.c fm-job.h \
 	fm-dir-list-job.c fm-dir-list-job.h \
+	fm-deep-count-job.c fm-deep-count-job.h \
 	fm-folder.c fm-folder.h \
 	fm-file-info.c fm-file-info.h \
 	fm-mime-type.c fm-mime-type.h \
 	fm-utils.c fm-utils.h \
-	fm-marshal.c fm-marshal.h
+	fm-marshal.c fm-marshal.h \
+	$(NULL)
 
 exo_SOURCES = \
 	exo/exo-icon-view.c \
@@ -25,7 +31,8 @@ exo_SOURCES = \
 	exo/exo-marshal.c \
 	exo/exo-string.c \
 	exo/exo-marshal.h \
-	exo/exo-string.h
+	exo/exo-string.h \
+	$(NULL)
 
 
 libfm_gtk_SOURCES = \
@@ -34,13 +41,15 @@ libfm_gtk_SOURCES = \
 	fm-folder-model.c fm-folder-model.h \
 	fm-path-entry.c fm-path-entry.h \
 	fm-file-menu.c fm-file-menu.h \
-	fm-gtk-marshal.c fm-gtk-marshal.h
+	fm-gtk-marshal.c fm-gtk-marshal.h \
+	$(NULL)
 
 libfm_demo_SOURCES = \
 	$(libfm_SOURCES) \
 	$(libfm_gtk_SOURCES) \
 	libfm-demo.c \
-	main-win.c main-win.h
+	main-win.c main-win.h \
+	$(NULL)
 
 # GObject marshallers
 fm-marshal.h: fm-marshal.list
@@ -60,17 +69,20 @@ BUILT_SOURCES= \
 	fm-marshal.h \
 	fm-marshal.c \
 	fm-gtk-marshal.h \
-	fm-gtk-marshal.c
+	fm-gtk-marshal.c \
+	$(NULL)
 
 EXTRA_DIST = \
 	fm-marshal.list \
-	fm-gtk-marshal.list
+	fm-gtk-marshal.list \
+	$(NULL)
 
 CLEANFILES = \
 	fm-marshal.h \
 	fm-marshal.c \
 	fm-gtk-marshal.h \
-	fm-gtk-marshal.c
+	fm-gtk-marshal.c \
+	$(NULL)
 
 libfm_demo_CFLAGS = \
 	@GTK_CFLAGS@ \

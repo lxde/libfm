@@ -23,7 +23,7 @@ AC_HEADER_STDC
 
 IT_PROG_INTLTOOL([0.40.0])
 
-pkg_modules="gtk+-2.0 >= 2.12.0 gthread-2.0 gio-unix-2.0"
+pkg_modules="gtk+-2.0 >= 2.16.0 gthread-2.0 gio-unix-2.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
@@ -45,5 +45,8 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    data/Makefile
+    data/ui/Makefile
+	po/Makefile.in
 ])
 AC_OUTPUT

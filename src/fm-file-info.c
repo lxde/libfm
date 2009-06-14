@@ -212,9 +212,9 @@ const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
 {
     if ( ! fi->disp_mtime )
     {
-        char buf[ 64 ];
+        char buf[ 128 ];
         strftime( buf, sizeof( buf ),
-                  "%Y-%m-%d %H:%M",
+                  "%x %R",
                   localtime( &fi->mtime ) );
         fi->disp_mtime = g_strdup( buf );
     }
