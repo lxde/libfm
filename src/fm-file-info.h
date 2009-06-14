@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "fm-path.h"
 #include "fm-mime-type.h"
 
 G_BEGIN_DECLS
@@ -50,7 +51,7 @@ struct _FmFileInfo
     gulong blksize;
     goffset blocks;
 
-    char* name; /* real name on file system */
+    FmPath* path; /* path of the file */
     char* disp_name;  /* displayed name (in UTF-8) */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
@@ -62,14 +63,14 @@ struct _FmFileInfo
 };
 
 FmFileInfo* fm_file_info_new();
-FmFileInfo* fm_file_info_new_from_gfileinfo(GFileInfo* inf);
+FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf);
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );
 
+FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );
 
-void fm_file_info_set_name( FmFileInfo* fi, const char* name );
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name );
 
 goffset fm_file_info_get_size( FmFileInfo* fi );

@@ -25,6 +25,7 @@
 
 #include "fm-job.h"
 #include <gio/gio.h>
+#include "fm-path.h"
 #include "fm-file-info.h"
 
 G_BEGIN_DECLS
@@ -45,8 +46,8 @@ typedef struct _FmDirListJobClass		FmDirListJobClass;
 struct _FmDirListJob
 {
 	FmJob parent;
-
-	GFile* gf;
+	FmPath* dir_path;
+	GFile* dir_gf;
 	GCancellable* cancellable;
 	GList* files;
 };
@@ -57,7 +58,8 @@ struct _FmDirListJobClass
 };
 
 GType		fm_dir_list_job_get_type		(void);
-FmJob*	    fm_dir_list_job_new			(GFile* gf);
+FmJob*	    fm_dir_list_job_new			 (FmPath* path);
+FmJob*	    fm_dir_list_job_new_for_gfile(GFile* gf);
 
 G_END_DECLS
 

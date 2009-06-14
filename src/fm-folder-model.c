@@ -212,7 +212,7 @@ static void _fm_folder_model_files_added( FmFolder* dir, GSList* files,
 	for(l = files; l; l=l->next )
 	{
 		file = (FmFileInfo*)l->data;
-		if( !list->show_hidden && file->name[0] == '.')
+		if( !list->show_hidden && file->path->name[0] == '.')
 		{
 			list->hidden = g_list_prepend(list->hidden, fm_folder_item_new(file));
 			continue;
@@ -279,7 +279,7 @@ void fm_folder_model_set_folder( FmFolderModel* list, FmFolder* dir )
     {
         for( l = dir->files; l; l = l->next )
         {
-			if(((FmFileInfo*)l->data)->name[0] == '.') /* a hidden file */
+			if(((FmFileInfo*)l->data)->path->name[0] == '.') /* a hidden file */
 			{
 				if( ! list->show_hidden )
 				{
@@ -710,7 +710,7 @@ void _fm_folder_model_insert_item( FmFolder* dir,
     for( l = list->items; l; l = l->next )
     {
         item = (FmFolderItem*)l->data;
-        if( G_UNLIKELY( file == item->inf || strcmp(file->name, item->inf->name) == 0) )
+        if( G_UNLIKELY( file == item->inf || strcmp(file->path->name, item->inf->path->name) == 0) )
         {
             /* The file is already in the list */
 			fm_folder_item_free(new_item);
@@ -836,7 +836,7 @@ gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFi
 
 void on_thumbnail_loaded( FmFolder* dir, VFSFileInfo* file, FmFolderModel* list )
 {
-    /* g_debug( "LOADED: %s", file->name ); */
+    /* g_debug( "LOADED: %s", file->path->name ); */
     fm_folder_model_file_changed( dir, file, list );
 }
 
@@ -887,7 +887,7 @@ void fm_folder_model_show_thumbnails( FmFolderModel* list, gboolean is_big,
             else
             {
                 vfs_thumbnail_loader_request( list->dir, file, is_big );
-                /* g_debug( "REQUEST: %s", file->name ); */
+                /* g_debug( "REQUEST: %s", file->path->name ); */
             }
         }
     }
@@ -908,7 +908,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 		for(l = model->hidden; l; l=l->next )
 		{
 			item = (FmFolderItem*)l->data;
-			if(item->inf->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
+			if(item->inf->path->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
 				_fm_folder_model_insert_item(model->dir, item, model);
 		}
 		g_list_free(model->hidden);
@@ -921,7 +921,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 			GtkTreePath* tp;
 			next = l->next;
 			item = (FmFolderItem*)l->data;
-			if(item->inf->name[0] == '.')
+			if(item->inf->path->name[0] == '.')
 			{
 				model->hidden = g_list_prepend(model->hidden, item);
 

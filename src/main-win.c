@@ -187,8 +187,7 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 	case GDK_2BUTTON_PRESS: /* file activated */
 		if( btn == 1 ) /* left click */
 		{
-			g_debug("file clicked: %s", fi->disp_name);
-			fpath = g_build_filename(fv->cwd, fi->name, NULL);
+			fpath = g_build_filename(fv->cwd, fm_file_info_get_name(fi), NULL);
 			if(fm_file_info_is_dir(fi))
 			{
 				fm_main_win_chdir( win, fpath);

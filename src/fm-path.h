@@ -56,6 +56,7 @@ FmPath*	fm_path_new_child(FmPath* parent, const char* basename);
 FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len);
 FmPath*	fm_path_new_relative(FmPath* parent, const char* relative_path);
 //FmPath*	fm_path_new_relative_len(FmPath* parent, const char* relative_path, int len);
+FmPath* fm_path_new_for_gfile(GFile* gf);
 
 /* predefined paths */
 FmPath* fm_path_get_root();

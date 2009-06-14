@@ -69,7 +69,6 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 	FmPath* path;
 	path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
 	path->n_ref = 1;
-	g_debug("parent=%p, basename=%s", parent, basename);
 	if(G_LIKELY(parent))
 		path->parent = fm_path_ref(parent);
 	else
@@ -132,6 +131,19 @@ _out:
 		name_len = strlen(relative_path);
 		path = fm_path_new_child_len(parent, relative_path, name_len);
 	}
+	return path;
+}
+
+FmPath* fm_path_new_for_gfile(GFile* gf)
+{
+	FmPath* path;
+	char* str;
+	if( g_file_is_native(gf) )
+		str = g_file_get_path(gf);
+	else
+		str = g_file_get_uri(gf);
+	path = fm_path_new(str);
+	g_free(str);
 	return path;
 }
 
@@ -217,16 +229,11 @@ GFile* fm_path_to_gfile(FmPath* path)
 {
 	GFile* gf;
 	char* str;
+	str = fm_path_to_str(path);
 	if(fm_path_is_native(path))
-	{
-		str = fm_path_to_str(path);
 		gf = g_file_new_for_path(str);
-	}
 	else
-	{
-		str = fm_path_to_uri(path);
 		gf = g_file_new_for_uri(str);
-	}
 	g_free(str);
 	return gf;
 }

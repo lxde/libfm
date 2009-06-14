@@ -25,6 +25,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include "fm-path.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info.h"
 
@@ -48,6 +49,7 @@ struct _FmFolder
 	GObject parent;
 
 	/* private */
+	FmPath* dir_path;
 	GFile* gf;
 	GFileMonitor* mon;
 	FmDirListJob* job;
@@ -64,7 +66,8 @@ struct _FmFolderClass
 };
 
 GType		fm_folder_get_type		(void);
-FmFolder*	fm_folder_new			(GFile* gf);
+FmFolder*	fm_folder_new			(FmPath* path);
+FmFolder*	fm_folder_new_for_gfile (GFile* gf);
 FmFolder*	fm_folder_new_for_path	(const char* path);
 FmFolder*	fm_folder_new_for_uri	(const char* uri);
 

@@ -30,6 +30,7 @@ enum {
 	N_SIGNALS
 };
 
+static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
 static void fm_folder_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
@@ -125,12 +126,13 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 	folder->job = NULL; /* the job object will be freed in idle handler. */
 }
 
-FmFolder* fm_folder_new(GFile* gf)
+FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
 {
 	GError* err = NULL;
 	FmFolder* folder = (FmFolder*)g_object_new(FM_TYPE_FOLDER, NULL);
-	folder->gf = (GFile*)g_object_ref(gf);
+	folder->dir_path = fm_path_ref(path);
 
+	folder->gf = (GFile*)g_object_ref(gf);
 	folder->mon = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &err);
 	if(folder->mon)
 	{
@@ -146,9 +148,17 @@ FmFolder* fm_folder_new(GFile* gf)
 		}
 	}
 
-	folder->job = fm_dir_list_job_new(gf);
+	folder->job = fm_dir_list_job_new(path);
 	g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
 	fm_job_run(folder->job);
+	return folder;
+}
+
+FmFolder* fm_folder_new(FmPath* path)
+{
+	GFile* gf = fm_path_to_gfile(path);
+	FmFolder* folder = fm_folder_new_internal(path, gf);
+	g_object_unref(gf);
 	return folder;
 }
 
@@ -169,6 +179,9 @@ static void fm_folder_finalize(GObject *object)
 		/* the job will be freed in idle handler. */
 	}
 
+	if(self->dir_path)
+		fm_path_unref(self->dir_path);
+
 	if(self->gf)
 		g_object_unref(self->gf);
 
@@ -182,19 +195,27 @@ static void fm_folder_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
-
-FmFolder*	fm_folder_new_for_path	(const char* path)
+FmFolder*	fm_folder_new_for_gfile	(GFile* gf)
 {
-	GFile* gf = g_file_new_for_path(path);
-	FmFolder* folder = fm_folder_new(gf);
-	g_object_unref(gf);
+	FmPath* path = fm_path_new_for_gfile(gf);
+	FmFolder* folder = fm_folder_new_internal(path, gf);
+	fm_path_unref(path);
 	return folder;
 }
 
+FmFolder*	fm_folder_new_for_path	(const char* path)
+{
+	FmPath* fm_path = fm_path_new(path);
+	FmFolder* folder = fm_folder_new(fm_path);
+	fm_path_unref(fm_path);
+	return folder;
+}
+
+/* FIXME: should we use GFile here? */
 FmFolder*	fm_folder_new_for_uri	(const char* uri)
 {
 	GFile* gf = g_file_new_for_uri(uri);
-	FmFolder* folder = fm_folder_new(gf);
+	FmFolder* folder = fm_folder_new_for_gfile(gf);
 	g_object_unref(gf);
 	return folder;	
 }

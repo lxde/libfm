@@ -29,16 +29,16 @@ FmFileInfo* fm_file_info_new ()
     return fi;
 }
 
-FmFileInfo* fm_file_info_new_from_gfileinfo(GFileInfo* inf)
+FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
 {
 	FmFileInfo* fi = fm_file_info_new();
 	const char* tmp;
-	fi->name = g_strdup(g_file_info_get_name(inf));
+	fi->path = fm_path_new_child(parent_dir, g_file_info_get_name(inf));
 
 	/* if display name is the same as its name, just use it. */
 	tmp = g_file_info_get_display_name(inf);
-	if( strcmp(tmp, fi->name) == 0 )
-		fi->disp_name = fi->name;
+	if( strcmp(tmp, fi->path->name) == 0 )
+		fi->disp_name = fi->path->name;
 	else
 		fi->disp_name = g_strdup(tmp);
 
@@ -57,15 +57,15 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(GFileInfo* inf)
 
 static void fm_file_info_clear( FmFileInfo* fi )
 {
-    if( fi->disp_name && fi->disp_name != fi->name )
+    if( fi->disp_name && fi->disp_name != fi->path->name )
     {
         g_free( fi->disp_name );
         fi->disp_name = NULL;
     }
-    if( fi->name )
+    if( fi->path )
     {
-        g_free( fi->name );
-        fi->name = NULL;
+        fm_path_unref(fi->path);
+        fi->path = NULL;
     }
     if( fi->disp_size )
     {
@@ -99,9 +99,14 @@ void fm_file_info_unref( FmFileInfo* fi )
     }
 }
 
+FmPath* fm_file_info_get_path( FmFileInfo* fi )
+{
+	return fi->path;
+}
+
 const char* fm_file_info_get_name( FmFileInfo* fi )
 {
-    return fi->name;
+    return fi->path->name;
 }
 
 /* Get displayed name encoded in UTF-8 */
@@ -112,15 +117,9 @@ const char* fm_file_info_get_disp_name( FmFileInfo* fi )
 
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name )
 {
-    if ( fi->disp_name && fi->disp_name != fi->name )
+    if ( fi->disp_name && fi->disp_name != fi->path->name )
         g_free( fi->disp_name );
     fi->disp_name = g_strdup( name );
-}
-
-void fm_file_info_set_name( FmFileInfo* fi, const char* name )
-{
-    g_free( fi->name );
-    fi->name = g_strdup( name );
 }
 
 goffset fm_file_info_get_size( FmFileInfo* fi )

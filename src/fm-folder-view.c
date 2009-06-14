@@ -42,7 +42,7 @@ G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
 static gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 
-static GList* fm_folder_get_selected_tree_paths(FmFolderView* fv);
+static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 
@@ -151,7 +151,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 		if( G_LIKELY(fv->view) )
 		{
 			/* preserve old selections */
-			sels = fm_folder_get_selected_tree_paths(fv);
+			sels = fm_folder_view_get_selected_tree_paths(fv);
 			gtk_widget_destroy(fv->view );
 		}
 		else
@@ -305,27 +305,22 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 	return fv->show_hidden;
 }
 
-gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path)
+gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
 {
 	GFile* gf;
 	FmFolderModel* model;
 	FmFolder* folder;
-	
-	if( G_UNLIKELY( !path ) )
-		return FALSE;
-	if( path[0] == '/' )
-		gf = g_file_new_for_path(path);
-	else
-		gf = g_file_new_for_uri(path);
 
-	folder = fm_folder_new(gf);
+	if( G_UNLIKELY( !path_str ) )
+		return FALSE;
+
+	folder = fm_folder_new_for_path(path_str);
 	model = fm_folder_model_new(folder, fv->show_hidden);
 	gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
 	g_object_unref(folder);
-	g_object_unref(gf);
 
 	g_free(fv->cwd);
-	fv->cwd = g_strdup(path);
+	fv->cwd = g_strdup(path_str);
 
 	switch(fv->mode)
 	{
@@ -346,7 +341,7 @@ const char* fm_folder_view_get_cwd(FmFolderView* fv)
 	return fv->cwd;
 }
 
-GList* fm_folder_get_selected_tree_paths(FmFolderView* fv)
+GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 {
 	GList *sels = NULL;
 	switch(fv->mode)
@@ -366,9 +361,9 @@ GList* fm_folder_get_selected_tree_paths(FmFolderView* fv)
 	return sels;
 }
 
-GList* fm_folder_get_selected_files(FmFolderView* fv)
+GList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
-	GList *l, *sels = fm_folder_get_selected_tree_paths(fv);
+	GList *l, *sels = fm_folder_view_get_selected_tree_paths(fv);
 	for(l = sels;l;l=l->next)
 	{
 		FmFileInfo* fi;
@@ -382,15 +377,33 @@ GList* fm_folder_get_selected_files(FmFolderView* fv)
 	return sels;
 }
 
+/* FIXME: optimize memory usage */
+FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
+{
+	GList* sels = fm_folder_view_get_selected_file_paths(fv);
+	GList* l;
+	FmPath* dir = fm_path_new(fv->cwd);
+	FmPathList* list = fm_path_list_new();
+	for(l=sels;l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_path_list_add(list, fi->path);
+		fm_file_info_unref(fi);
+	}
+	fm_path_unref(dir);
+	g_list_free(sels);
+	return list;
+}
+
 /* FIXME: is this really useful? */
-guint fm_folder_get_n_selected_files(FmFolderView* fv)
+guint fm_folder_view_get_n_selected_files(FmFolderView* fv)
 {
 	return 0;
 }
 
 gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 {
-	GList* sels = fm_folder_get_selected_tree_paths(fv);
+	GList* sels = fm_folder_view_get_selected_tree_paths(fv);
 	if( evt->type == GDK_2BUTTON_PRESS )
 	{
 		if(sels)
