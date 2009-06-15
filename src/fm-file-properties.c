@@ -54,7 +54,6 @@ static gboolean on_timeout(FmDeepCountJob* dc)
 {
 	char size_str[128];
 	FmFilePropData* data = get_data(dc);
-	g_debug("total_size: %llu", dc->total_size);
 	fm_file_size_to_str(size_str, dc->total_size, TRUE);
 	gtk_label_set_text(data->total_size, size_str);
 	return TRUE;
@@ -77,7 +76,9 @@ static void fm_file_prop_data_free(FmFilePropData* data)
 	if(data->timeout)
 		g_source_remove(data->timeout);
 	if(data->dc_job) /* FIXME: check if it's running */
+	{
 		fm_job_cancel(data->dc_job);
+	}
 	fm_path_list_unref(data->paths);
 	g_slice_free(FmFilePropData, data);
 }
@@ -97,6 +98,9 @@ GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
 
 	data = g_slice_new(FmFilePropData);
 	g_object_unref(gf);
+
+	data->paths = fm_path_list_ref(paths);
+	data->dc_job = job;
 
 	if(toplevel)
 	{
@@ -133,7 +137,7 @@ GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
 	g_object_set_qdata(job, data_id, data);
 	data->timeout = g_timeout_add(500, (GSourceFunc)on_timeout, g_object_ref(job));
 	g_signal_connect(dlg, "response", G_CALLBACK(on_response), data);
-	g_signal_connect(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
+	g_signal_connect_swapped(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
 	g_signal_connect(job, "finished", on_finished, data);
 
 	fm_job_run(job);

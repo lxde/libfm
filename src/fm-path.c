@@ -280,7 +280,6 @@ FmPath* fm_path_get_trash()
 
 gboolean fm_path_is_native(FmPath* path)
 {
-	g_debug("flags: %d, is native: %d", path->flags, (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE);
 	return (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE;
 }
 
