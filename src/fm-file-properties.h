@@ -23,7 +23,7 @@
 #define __FM_FILE_PROPERTIES_H__
 
 #include <gtk/gtk.h>
-#include "fm-path-list.h"
+#include "fm-path.h"
 
 G_BEGIN_DECLS
 

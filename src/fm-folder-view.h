@@ -25,7 +25,7 @@
 
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
-#include "fm-path-list.h"
+#include "fm-path.h"
 
 G_BEGIN_DECLS
 
@@ -92,7 +92,7 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv);
 gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str);
 const char* fm_folder_view_get_cwd(FmFolderView* fv);
 
-GList* fm_folder_view_get_selected_files(FmFolderView* fv);
+FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 guint fm_folder_view_get_n_selected_files(FmFolderView* fv);
 
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);

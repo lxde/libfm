@@ -592,9 +592,40 @@ char* vfs_file_resolve_path( const char* cwd, const char* relative_path )
 
 #endif
 
+/*
 void fm_file_info_list_free( GList* list )
 {
     g_list_foreach( list, (GFunc)fm_file_info_unref, NULL );
     g_list_free( list );
 }
+*/
 
+static FmListFuncs fm_list_funcs = 
+{
+	fm_file_info_ref,
+	fm_file_info_unref
+};
+
+FmFileInfoList* fm_file_info_list_new()
+{
+	return fm_list_new(&fm_list_funcs);
+}
+
+/* return TRUE if all files in the list are of the same type */
+gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
+{
+	/* FIXME: handle virtual files without mime-types */
+	if( ! fm_list_is_empty(list) )
+	{
+		GList* l = fm_list_peek_head_link(list);
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		l = l->next;
+		for(;l;l=l->next)
+		{
+			FmFileInfo* fi2 = (FmFileInfo*)l->data;
+			if(fi->type != fi2->type)
+				return FALSE;
+		}
+	}
+	return TRUE;
+}

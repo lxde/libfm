@@ -25,14 +25,14 @@
 
 #include <glib/gi18n.h>
 #include "fm-file-menu.h"
-#include "fm-path-list.h"
+#include "fm-path.h"
 
 #include "fm-file-properties.h"
 
 typedef struct _FmFileMenuData FmFileMenuData;
 struct _FmFileMenuData
 {
-	GList* file_infos;
+	FmFileInfoList* file_infos;
 	gboolean same_type;
 	GtkUIManager* ui;
 	GtkActionGroup* act_grp;
@@ -94,14 +94,14 @@ void fm_file_menu_data_free(FmFileMenuData* data)
 GtkWidget* fm_file_menu_new_for_file(FmFileInfo* fi)
 {
 	GtkWidget* menu;
-	GList* files = g_list_prepend(NULL, fm_file_info_ref(fi));
+	FmFileInfoList* files = fm_file_info_list_new();
+	fm_list_push_tail(files, fi);
 	menu = fm_file_menu_new_for_files(files);
-	fm_file_info_unref(fi);
-	g_list_free(files);
+	fm_list_unref(files);
 	return menu;
 }
 
-GtkWidget* fm_file_menu_new_for_files(GList* files)
+GtkWidget* fm_file_menu_new_for_files(FmFileInfoList* files)
 {
 	GtkWidget* menu;
 	GtkUIManager* ui;
@@ -113,40 +113,41 @@ GtkWidget* fm_file_menu_new_for_files(GList* files)
 	data->ui = ui = gtk_ui_manager_new();
 	data->act_grp = act_grp = gtk_action_group_new("Popup");
 
-	/* deep copy */
-	data->file_infos = g_list_copy(files);
-	g_list_foreach(data->file_infos, (GFunc)fm_file_info_ref, NULL);
+	data->file_infos = fm_list_ref(files);
 
 	gtk_action_group_add_actions(act_grp, base_menu_actions, G_N_ELEMENTS(base_menu_actions), data);
 	gtk_ui_manager_add_ui_from_string(ui, base_menu_xml, -1, NULL);
 	gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
-	/* FIXME: check if the files are of the same type */
-	data->same_type = TRUE;
+	/* check if the files are of the same type */
+	data->same_type = fm_file_info_list_is_same_type(files);
 
-	fi = (FmFileInfo*)files->data;
-	if(fi->type)
+	if(data->same_type) /* add specific menu items for this mime type */
 	{
-		GtkAction* act;
-		GList* apps = g_app_info_get_all_for_type(fi->type->type);
-		GList* l;
-		GString *xml = g_string_new("<popup><placeholder name='ph2'>");
-		for(l=apps;l;l=l->next)
+		fi = (FmFileInfo*)fm_list_peek_head(files);
+		if(fi->type)
 		{
-			GAppInfo* app = l->data;
-			act = gtk_action_new(g_app_info_get_id(app), 
-						g_app_info_get_name(app),
-						g_app_info_get_description(app), 
-						NULL);
-			gtk_action_set_gicon(act, g_app_info_get_icon(app));
-			gtk_action_group_add_action(act_grp, act);
-			g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
-			g_object_unref(app);
+			GtkAction* act;
+			GList* apps = g_app_info_get_all_for_type(fi->type->type);
+			GList* l;
+			GString *xml = g_string_new("<popup><placeholder name='ph2'>");
+			for(l=apps;l;l=l->next)
+			{
+				GAppInfo* app = l->data;
+				act = gtk_action_new(g_app_info_get_id(app), 
+							g_app_info_get_name(app),
+							g_app_info_get_description(app), 
+							NULL);
+				gtk_action_set_gicon(act, g_app_info_get_icon(app));
+				gtk_action_group_add_action(act_grp, act);
+				g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
+				g_object_unref(app);
+			}
+			g_list_free(apps);
+			g_string_append(xml, "</placeholder></popup>");
+			gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
+			g_string_free(xml, TRUE);
 		}
-		g_list_free(apps);
-		g_string_append(xml, "</placeholder></popup>");
-		gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
-		g_string_free(xml, TRUE);
 	}
 
 	menu = gtk_ui_manager_get_widget(ui, "/popup");
@@ -172,7 +173,7 @@ GtkActionGroup* fm_file_menu_get_action_group(GtkWidget* menu)
 	return data->act_grp;
 }
 
-GList* fm_file_menu_get_file_info_list(GtkWidget* menu)
+FmFileInfoList* fm_file_menu_get_file_info_list(GtkWidget* menu)
 {
 	FmFileMenuData* data = get_data(menu);
 	return data->file_infos;

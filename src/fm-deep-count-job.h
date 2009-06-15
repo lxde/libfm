@@ -24,7 +24,7 @@
 #define __FM_DEEP_COUNT_JOB_H__
 
 #include "fm-job.h"
-#include "fm-path-list.h"
+#include "fm-path.h"
 #include <gio/gio.h>
 
 G_BEGIN_DECLS

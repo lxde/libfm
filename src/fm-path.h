@@ -26,10 +26,13 @@
 #include <glib.h>
 #include <gio/gio.h>
 
+#include "fm-list.h"
+
 G_BEGIN_DECLS
 
 typedef struct _FmPath FmPath;
 typedef enum _FmPathFlags FmPathFlags;
+typedef FmList FmPathList;
 
 enum _FmPathFlags
 {
@@ -80,6 +83,17 @@ gboolean fm_path_is_native(FmPath* path);
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);
 GFile* fm_path_to_gfile(FmPath* path);
+
+
+/* path list */
+FmPathList* fm_path_list_new();
+FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
+FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
+FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
+FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
+
+char* fm_path_list_to_uri_list(FmPathList* pl);
+guint fm_path_list_get_length(FmPathList* pl);
 
 G_END_DECLS
 

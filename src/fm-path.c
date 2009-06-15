@@ -20,6 +20,7 @@
  */
 
 #include "fm-path.h"
+#include "fm-file-info.h"
 #include <string.h>
 
 static FmPath* root = NULL;
@@ -327,4 +328,66 @@ void fm_path_init()
 	/* build path object for trash can */
 	trash_root = fm_path_new_child(NULL, "trash:");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
+}
+
+
+
+/* path list */
+
+static FmListFuncs funcs = 
+{
+	fm_path_ref,
+	fm_path_unref
+};
+
+FmPathList* fm_path_list_new()
+{
+	return (FmPathList*)fm_list_new(&funcs);
+}
+
+FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
+{
+	FmPathList* pl = fm_path_list_new();	
+	return pl;
+}
+
+char* fm_path_list_to_uri_list(FmPathList* pl)
+{
+	return NULL;
+}
+
+FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
+{
+	FmPathList* list = fm_path_list_new();
+	GList* l;
+	for(l=fm_list_peek_head_link(fis);l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_list_push_tail(list, fi->path);
+	}
+	return list;	
+}
+
+FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
+{
+	FmPathList* list = fm_path_list_new();
+	GList* l;
+	for(l=fis;l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_list_push_tail(list, fi->path);
+	}
+	return list;
+}
+
+FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
+{
+	FmPathList* list = fm_path_list_new();
+	GSList* l;
+	for(l=fis;l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		fm_list_push_tail(list, fi->path);
+	}
+	return list;
 }

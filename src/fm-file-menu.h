@@ -28,15 +28,13 @@
 G_BEGIN_DECLS
 
 GtkWidget* fm_file_menu_new_for_file(FmFileInfo* fi);
-
-/* FIXME: the list should be copied and stored inside FmFileMenu */
-GtkWidget* fm_file_menu_new_for_files(GList* files);
+GtkWidget* fm_file_menu_new_for_files(FmFileInfoList* files);
 
 GtkUIManager* fm_file_menu_get_ui(GtkWidget* menu);
 GtkActionGroup* fm_file_menu_get_action_group(GtkWidget* menu);
 
-/* the files belongs to FmFileMenu and shouldn't be freed. */
-GList* fm_file_menu_get_file_info_list(GtkWidget* menu);
+/* call fm_file_info_list_unref() after the returned list is no more needed. */
+FmFileInfoList* fm_file_menu_get_file_info_list(GtkWidget* menu);
 
 G_END_DECLS
 

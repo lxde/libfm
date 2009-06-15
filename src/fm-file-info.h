@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "fm-list.h"
 #include "fm-path.h"
 #include "fm-mime-type.h"
 
@@ -37,6 +38,7 @@ typedef enum
 }FmFileInfoFlag;   /* For future use, not all supported now */
 
 typedef struct _FmFileInfo FmFileInfo;
+typedef FmList FmFileInfoList;
 
 struct _FmFileInfo
 {
@@ -149,7 +151,11 @@ char* vfs_file_resolve_path( const char* cwd, const char* relative_path );
 
 #endif
 
-void fm_file_info_list_free( GList* list );
+FmFileInfoList* fm_file_info_list_new();
+FmFileInfoList* fm_file_info_list_new_from_glist();
+
+/* return TRUE if all files in the list are of the same type */
+gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);
 
 G_END_DECLS
 

@@ -11,7 +11,6 @@ libfm_SOURCES = \
 	fm.c fm.h \
 	fm-list.c fm-list.h \
 	fm-path.c fm-path.h \
-	fm-path-list.c fm-path-list.h \
 	fm-job.c fm-job.h \
 	fm-dir-list-job.c fm-dir-list-job.h \
 	fm-file-ops-job.c fm-file-ops-job.h \

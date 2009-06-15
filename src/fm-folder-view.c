@@ -364,10 +364,12 @@ GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 	return sels;
 }
 
-GList* fm_folder_view_get_selected_files(FmFolderView* fv)
+FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
-	GList *l, *sels = fm_folder_view_get_selected_tree_paths(fv);
-	for(l = sels;l;l=l->next)
+	FmFileInfoList* fis = fm_file_info_list_new();
+	GList *sels = fm_folder_view_get_selected_tree_paths(fv);
+	GList *l, *next;
+	for(l = sels;l;l=next)
 	{
 		FmFileInfo* fi;
 		GtkTreeIter it;
@@ -375,26 +377,20 @@ GList* fm_folder_view_get_selected_files(FmFolderView* fv)
 		gtk_tree_model_get_iter(fv->model, &it, l->data);
 		gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
 		gtk_tree_path_free(tp);
+		next = l->next;
 		l->data = fi;
+		l->prev = l->next = NULL;
+		fm_list_push_tail_link(fis, l);
 	}
-	return sels;
+	return fis;
 }
 
 /* FIXME: optimize memory usage */
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
 {
-	GList* sels = fm_folder_view_get_selected_file_paths(fv);
-	GList* l;
-	FmPath* dir = fm_path_new(fv->cwd);
-	FmPathList* list = fm_path_list_new();
-	for(l=sels;l;l=l->next)
-	{
-		FmFileInfo* fi = (FmFileInfo*)l->data;
-		fm_list_push_tail(list, fi->path);
-		fm_file_info_unref(fi);
-	}
-	fm_path_unref(dir);
-	g_list_free(sels);
+	FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
+	FmPathList* list = fm_path_list_new_from_file_info_list(files);
+	fm_list_unref(files);
 	return list;
 }
 

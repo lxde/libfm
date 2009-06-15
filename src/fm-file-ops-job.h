@@ -24,7 +24,7 @@
 #define __FM_FILE_OPS_JOB_H__
 
 #include "fm-job.h"
-#include "fm-path-list.h"
+#include "fm-path.h"
 
 G_BEGIN_DECLS
 
