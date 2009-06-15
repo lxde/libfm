@@ -53,6 +53,8 @@ FmPath*	fm_path_new(const char* path)
 		{
 			FmPath* parent = fm_path_new_child_len(NULL, path, (sep - path)+1);
 			FmPath* ret;
+			/* FIXME: computer: is not remote, but a virtual path */
+			parent->flags |= FM_PATH_IS_REMOTE;
 			path = sep += 2;
 			while(*path == '/')
 				++path;			
@@ -68,11 +70,27 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 {
 	FmPath* path;
 	path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
+	path->flags = 0;
 	path->n_ref = 1;
 	if(G_LIKELY(parent))
+	{
+		path->flags = parent->flags;
 		path->parent = fm_path_ref(parent);
+	}
 	else
+	{
+		if(*basename == '/') /* it's a native full path */
+			path->flags |= FM_PATH_IS_NATIVE;
+		else
+		{
+			/* FIXME: trash:/, computer:/, network:/ are virtual paths */
+			path->flags |= FM_PATH_IS_VIRTUAL;
+
+			/* FIXME: http://, ftp://, smb://, ...etc. are remote paths */
+			path->flags |= FM_PATH_IS_REMOTE;
+		}
 		path->parent = NULL;
+	}
 	memcpy(path->name, basename, name_len);
 	path->name[name_len] = '\0';
 	return path;
@@ -262,7 +280,8 @@ FmPath* fm_path_get_trash()
 
 gboolean fm_path_is_native(FmPath* path)
 {
-	return TRUE;
+	g_debug("flags: %d, is native: %d", path->flags, (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE);
+	return (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE;
 }
 
 void fm_path_init()
@@ -308,4 +327,5 @@ void fm_path_init()
 
 	/* build path object for trash can */
 	trash_root = fm_path_new_child(NULL, "trash:");
+	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
 }

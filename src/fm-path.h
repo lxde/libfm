@@ -33,19 +33,24 @@ typedef enum _FmPathFlags FmPathFlags;
 
 enum _FmPathFlags
 {
-	FM_PATH_NONE,
-	FM_PATH_IS_URI = 1<<0,
+	FM_PATH_NONE = 0,
+	FM_PATH_IS_NATIVE = 1<<0,
 	FM_PATH_IS_REMOTE = 1<<1,
 	FM_PATH_IS_VIRTUAL = 1<<2,
-	FM_PATH_IS_TRASH = 1<<4,
-	FM_PATH_MOUNTABLE = 1<<8,
+	FM_PATH_IS_TRASH = 1<<3,
+
+	/* reserved for future use */
+	FM_PATH_IS_RESERVED0 = 1<<4,
+	FM_PATH_IS_RESERVED1 = 1<<5,
+	FM_PATH_IS_RESERVED2 = 1<<6,
+	FM_PATH_IS_RESERVED3 = 1<<7,
 };
 
 struct _FmPath
 {
 	gint n_ref;
-	FmPathFlags flags : 8;
 	FmPath* parent;
+	guchar flags; /* FmPathFlags flags : 8; */
 	char name[1];
 };
 
