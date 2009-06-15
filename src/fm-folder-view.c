@@ -390,7 +390,7 @@ FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
 	for(l=sels;l;l=l->next)
 	{
 		FmFileInfo* fi = (FmFileInfo*)l->data;
-		fm_path_list_add(list, fi->path);
+		fm_list_push_tail(list, fi->path);
 		fm_file_info_unref(fi);
 	}
 	fm_path_unref(dir);

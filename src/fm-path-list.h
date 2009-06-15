@@ -23,33 +23,21 @@
 #define __FM_PATH_LIST_H__
 
 #include <glib.h>
+#include "fm-list.h"
 #include "fm-path.h"
 #include "fm-file-info.h"
 
 G_BEGIN_DECLS
 
-typedef struct _FmPathList FmPathList;
-struct _FmPathList
-{
-	guint n_ref;
-	GQueue list;
-};
+typedef FmList FmPathList;
 
 FmPathList* fm_path_list_new();
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
 FmPathList* fm_path_list_new_from_file_info_list(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_slist(GSList* fis);
 
-FmPathList* fm_path_list_ref(FmPathList* pl);
-void fm_path_list_unref(FmPathList* pl);
-
 char* fm_path_list_to_uri_list(FmPathList* pl);
 guint fm_path_list_get_length(FmPathList* pl);
-void fm_path_list_add(FmPathList* pl, FmPath* path);
-//void fm_path_list_add_str(FmPathList* pl, const char* path_str);
-
-#define fm_path_list_peek_head_link(p)	g_queue_peek_head_link(&p->list)
-#define fm_path_list_peek_head(p)	(FmPath*)g_queue_peek_head(&p->list)
 
 G_END_DECLS
 

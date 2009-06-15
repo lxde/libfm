@@ -188,6 +188,6 @@ void on_prop(GtkAction* action, gpointer user_data)
 	FmFileMenuData* data = (FmFileMenuData*)user_data;
 	FmPathList* pl = fm_path_list_new_from_file_info_list(data->file_infos);
 	fm_show_file_properties(pl);
-	fm_path_list_unref(pl);
+	fm_list_unref(pl);
 }
 

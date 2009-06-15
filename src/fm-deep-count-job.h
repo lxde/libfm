@@ -24,6 +24,7 @@
 #define __FM_DEEP_COUNT_JOB_H__
 
 #include "fm-job.h"
+#include "fm-path-list.h"
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
@@ -46,7 +47,7 @@ struct _FmDeepCountJob
 	FmJob parent;
 	GCancellable* cancellable;
 	GIOSchedulerJob* io_job;
-	GFile* gf;
+	FmPathList* paths;
 	goffset total_size;
 	goffset total_block_size;
 	guint count;
@@ -58,7 +59,7 @@ struct _FmDeepCountJobClass
 };
 
 GType		fm_deep_count_job_get_type(void);
-FmJob*	fm_deep_count_job_new(GFile* gf);
+FmJob*	fm_deep_count_job_new(FmPathList* paths);
 
 G_END_DECLS
 

@@ -21,49 +21,26 @@
 
 #include "fm-path-list.h"
 
+static FmListFuncs funcs = 
+{
+	fm_path_ref,
+	fm_path_unref
+};
+
 FmPathList* fm_path_list_new()
 {
-	FmPathList* pl = g_slice_new(FmPathList);
-	g_queue_init(&pl->list);
-	pl->n_ref = 1;
-	return pl;
+	return (FmPathList*)fm_list_new(&funcs);
 }
 
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
-	FmPathList* pl = fm_path_list_new();
-	
+	FmPathList* pl = fm_path_list_new();	
 	return pl;
-}
-
-FmPathList* fm_path_list_ref(FmPathList* pl)
-{
-	g_atomic_int_inc(&pl->n_ref);
-	return pl;
-}
-
-void fm_path_list_unref(FmPathList* pl)
-{
-	if(g_atomic_int_dec_and_test(&pl->n_ref))
-	{
-		g_queue_foreach(&pl->list, (GFunc)fm_path_unref, NULL);
-		g_slice_free(FmPathList, pl);
-	}
 }
 
 char* fm_path_list_to_uri_list(FmPathList* pl)
 {
 	return NULL;
-}
-
-guint fm_path_list_get_length(FmPathList* pl)
-{
-	return pl->list.length;
-}
-
-void fm_path_list_add(FmPathList* pl, FmPath* path)
-{
-	g_queue_push_tail(&pl->list, fm_path_ref(path));
 }
 
 FmPathList* fm_path_list_new_from_file_info_list(GList* fis)
@@ -73,7 +50,7 @@ FmPathList* fm_path_list_new_from_file_info_list(GList* fis)
 	for(l=fis;l;l=l->next)
 	{
 		FmFileInfo* fi = (FmFileInfo*)l->data;
-		fm_path_list_add(list, fi->path);
+		fm_list_push_tail(list, fi->path);
 	}
 	return list;
 }
@@ -85,7 +62,7 @@ FmPathList* fm_path_list_new_from_file_info_slist(GSList* fis)
 	for(l=fis;l;l=l->next)
 	{
 		FmFileInfo* fi = (FmFileInfo*)l->data;
-		fm_path_list_add(list, fi->path);
+		fm_list_push_tail(list, fi->path);
 	}
 	return list;
 }

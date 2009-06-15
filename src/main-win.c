@@ -229,7 +229,9 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 			if(fi)
 			{
 				GtkWidget* popup;
-				popup = fm_file_menu_new_for_file(fi);
+				GList* sels = fm_folder_view_get_selected_files(fv);
+				popup = fm_file_menu_new_for_files(sels);
+				g_list_free(sels);
 				g_signal_connect(popup, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
 
 				/* merge some specific menu items for folders */

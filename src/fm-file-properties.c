@@ -79,7 +79,7 @@ static void fm_file_prop_data_free(FmFilePropData* data)
 	{
 		fm_job_cancel(data->dc_job);
 	}
-	fm_path_list_unref(data->paths);
+	fm_list_unref(data->paths);
 	g_slice_free(FmFilePropData, data);
 }
 
@@ -92,14 +92,12 @@ GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
 {
 	GtkBuilder* builder=gtk_builder_new();
 	GtkWidget* dlg, *total_size;
-	GFile* gf = fm_path_to_gfile(fm_path_list_peek_head(paths));
-	FmJob* job = fm_deep_count_job_new(gf);
+	FmJob* job = fm_deep_count_job_new(paths);
 	FmFilePropData* data;
 
 	data = g_slice_new(FmFilePropData);
-	g_object_unref(gf);
 
-	data->paths = fm_path_list_ref(paths);
+	data->paths = fm_list_ref(paths);
 	data->dc_job = job;
 
 	if(toplevel)
