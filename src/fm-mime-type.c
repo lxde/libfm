@@ -177,10 +177,10 @@ FmMimeType* fm_mime_type_get_from_file( const char* file_path,
 			{
 				char buf[4096];
 				int fd, len;
-				g_free(type);
 				fd = open(file_path, O_RDONLY);
 				if( fd >= 0 )
 				{
+					g_free(type);
 					len = read(fd, buf, 4096);
 					close(fd);
 					type = g_content_type_guess( NULL, buf, len, &uncertain );
