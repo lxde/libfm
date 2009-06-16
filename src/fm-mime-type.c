@@ -369,7 +369,7 @@ const char* fm_mime_type_get_type( FmMimeType* mime_type )
 }
 
 /* Get human-readable description of mime type */
-const char* fm_mime_type_get_description( FmMimeType* mime_type )
+const char* fm_mime_type_get_desc( FmMimeType* mime_type )
 {
 	/* FIXME: is locking needed here or not? */
     if ( G_UNLIKELY( ! mime_type->description ) )

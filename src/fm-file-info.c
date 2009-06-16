@@ -205,7 +205,7 @@ gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path )
 const char* fm_file_info_get_desc( FmFileInfo* fi )
 {
 	/* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
-    return fi->type ? fm_mime_type_get_description( fi->type ) : NULL;
+    return fi->type ? fm_mime_type_get_desc( fi->type ) : NULL;
 }
 
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
