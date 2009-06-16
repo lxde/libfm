@@ -23,6 +23,7 @@
 #include "fm-file-properties.h"
 #include "fm-deep-count-job.h"
 #include "fm-utils.h"
+#include "fm-path.h"
 
 #define UI_FILE		PACKAGE_UI_DIR"/file-prop.ui"
 #define	GET_WIDGET(name)	data->name = (GtkWidget*)gtk_builder_get_object(builder, #name);
@@ -41,14 +42,13 @@ struct _FmFilePropData
 	GtkWidget* mtime;
 	GtkWidget* atime;
 
-	FmPathList* paths;
+	FmFileInfoList* files;
 	guint timeout;
 	FmJob* dc_job;
 };
 
 static GQuark data_id = 0;
 #define	get_data(obj)	(FmFilePropData*)g_object_get_qdata(obj, data_id);
-
 
 static gboolean on_timeout(FmDeepCountJob* dc)
 {
@@ -79,7 +79,7 @@ static void fm_file_prop_data_free(FmFilePropData* data)
 	{
 		fm_job_cancel(data->dc_job);
 	}
-	fm_list_unref(data->paths);
+	fm_list_unref(data->files);
 	g_slice_free(FmFilePropData, data);
 }
 
@@ -88,17 +88,19 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 	gtk_widget_destroy(dlg);
 }
 
-GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
+GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean toplevel)
 {
 	GtkBuilder* builder=gtk_builder_new();
 	GtkWidget* dlg, *total_size;
-	FmJob* job = fm_deep_count_job_new(paths);
 	FmFilePropData* data;
+	FmPathList* paths;
 
 	data = g_slice_new(FmFilePropData);
 
-	data->paths = fm_list_ref(paths);
-	data->dc_job = job;
+	data->files = fm_list_ref(files);
+	paths = fm_path_list_new_from_file_info_list(files);
+	data->dc_job = fm_deep_count_job_new(paths);
+	fm_list_unref(paths);
 
 	if(toplevel)
 	{
@@ -117,7 +119,7 @@ GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
 	dlg = data->dlg;
 
 	if( G_UNLIKELY( 0 == data_id ) )
-		data_id = g_quark_from_static_string("FmFileMenuData");
+		data_id = g_quark_from_static_string("FmFileProp");
 	g_object_set_qdata(dlg, data_id, data);
 
 	GET_WIDGET(name);
@@ -132,19 +134,19 @@ GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel)
 
 	g_object_unref(builder);
 
-	g_object_set_qdata(job, data_id, data);
-	data->timeout = g_timeout_add(500, (GSourceFunc)on_timeout, g_object_ref(job));
+	g_object_set_qdata(data->dc_job, data_id, data);
+	data->timeout = g_timeout_add(500, (GSourceFunc)on_timeout, g_object_ref(data->dc_job));
 	g_signal_connect(dlg, "response", G_CALLBACK(on_response), data);
 	g_signal_connect_swapped(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
-	g_signal_connect(job, "finished", on_finished, data);
+	g_signal_connect(data->dc_job, "finished", on_finished, data);
 
-	fm_job_run(job);
+	fm_job_run(data->dc_job);
 	return dlg;
 }
 
-gboolean fm_show_file_properties(FmPathList* paths)
+gboolean fm_show_file_properties(FmFileInfoList* files)
 {
-	GtkWidget* dlg = fm_file_properties_widget_new(paths, TRUE);
+	GtkWidget* dlg = fm_file_properties_widget_new(files, TRUE);
 	gtk_widget_show(dlg);
 	return TRUE;
 }

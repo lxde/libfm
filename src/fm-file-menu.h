@@ -27,14 +27,33 @@
 
 G_BEGIN_DECLS
 
-GtkWidget* fm_file_menu_new_for_file(FmFileInfo* fi);
-GtkWidget* fm_file_menu_new_for_files(FmFileInfoList* files);
+typedef struct _FmFileMenu FmFileMenu;
+struct _FmFileMenu
+{
+	FmFileInfoList* file_infos;
+	gboolean same_type;
+	GtkUIManager* ui;
+	GtkActionGroup* act_grp;
 
-GtkUIManager* fm_file_menu_get_ui(GtkWidget* menu);
-GtkActionGroup* fm_file_menu_get_action_group(GtkWidget* menu);
+	/* <private> */
+	gboolean auto_destroy;
+	GtkWidget* menu;
+};
+
+FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, gboolean auto_destroy);
+FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_destroy);
+void fm_file_menu_destroy(FmFileMenu* menu);
+
+gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu);
+
+GtkUIManager* fm_file_menu_get_ui(FmFileMenu* menu);
+GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu);
+
+/* build the menu with GtkUIManager */
+GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 
 /* call fm_file_info_list_unref() after the returned list is no more needed. */
-FmFileInfoList* fm_file_menu_get_file_info_list(GtkWidget* menu);
+FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 G_END_DECLS
 

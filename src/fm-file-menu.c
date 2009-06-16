@@ -29,18 +29,6 @@
 
 #include "fm-file-properties.h"
 
-typedef struct _FmFileMenuData FmFileMenuData;
-struct _FmFileMenuData
-{
-	FmFileInfoList* file_infos;
-	gboolean same_type;
-	GtkUIManager* ui;
-	GtkActionGroup* act_grp;
-};
-
-static GQuark data_id = 0;
-#define	get_data(menu)	(FmFileMenuData*)g_object_get_qdata(menu, data_id);
-
 static void on_open(GtkAction* action, gpointer user_data);
 static void on_prop(GtkAction* action, gpointer user_data);
 
@@ -81,35 +69,39 @@ GtkActionEntry base_menu_actions[]=
 };
 
 
-void fm_file_menu_data_free(FmFileMenuData* data)
+void fm_file_menu_destroy(FmFileMenu* menu)
 {
-	g_list_foreach(data->file_infos, (GFunc)fm_file_info_unref, NULL);
-	g_list_free(data->file_infos);
+	if(menu->menu)
+		gtk_widget_destroy(menu->menu);
 
-	g_object_unref(data->act_grp);
-	g_object_unref(data->ui);
-	g_slice_free(FmFileMenuData, data);
+	if(menu->file_infos)
+		fm_list_unref(menu->file_infos);
+
+	g_object_unref(menu->act_grp);
+	g_object_unref(menu->ui);
+	g_slice_free(FmFileMenu, menu);
 }
 
-GtkWidget* fm_file_menu_new_for_file(FmFileInfo* fi)
+FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, gboolean auto_destroy)
 {
-	GtkWidget* menu;
+	FmFileMenu* menu;
 	FmFileInfoList* files = fm_file_info_list_new();
 	fm_list_push_tail(files, fi);
-	menu = fm_file_menu_new_for_files(files);
+	menu = fm_file_menu_new_for_files(files, auto_destroy);
 	fm_list_unref(files);
 	return menu;
 }
 
-GtkWidget* fm_file_menu_new_for_files(FmFileInfoList* files)
+FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_destroy)
 {
 	GtkWidget* menu;
 	GtkUIManager* ui;
 	GtkActionGroup* act_grp;
 	GtkAccelGroup* accel_grp;
 	FmFileInfo* fi;
-	FmFileMenuData* data = g_slice_new0(FmFileMenuData);
+	FmFileMenu* data = g_slice_new0(FmFileMenu);
 
+	data->auto_destroy = auto_destroy;
 	data->ui = ui = gtk_ui_manager_new();
 	data->act_grp = act_grp = gtk_action_group_new("Popup");
 
@@ -149,34 +141,35 @@ GtkWidget* fm_file_menu_new_for_files(FmFileInfoList* files)
 			g_string_free(xml, TRUE);
 		}
 	}
-
-	menu = gtk_ui_manager_get_widget(ui, "/popup");
-	if( G_UNLIKELY( 0 == data_id ) )
-		data_id = g_quark_from_static_string("FmFileMenuData");
-	g_object_set_qdata(menu, data_id, data);
-	/* destroy notify of g_object_set_qdata_full doesn't work here since
-	 * GtkUIManager holds reference to the menu, and when gtk_widget_destroy 
-	 * is called, ref_count won't be zero and hence the data cannot be freed. */
-	g_signal_connect_swapped(menu, "destroy", G_CALLBACK(fm_file_menu_data_free), data);
-	return menu;
+	return data;
 }
 
-GtkUIManager* fm_file_menu_get_ui(GtkWidget* menu)
+GtkUIManager* fm_file_menu_get_ui(FmFileMenu* menu)
 {
-	FmFileMenuData* data = get_data(menu);
-	return data->ui;
+	return menu->ui;
 }
 
-GtkActionGroup* fm_file_menu_get_action_group(GtkWidget* menu)
+GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu)
 {
-	FmFileMenuData* data = get_data(menu);
-	return data->act_grp;
+	return menu->act_grp;
 }
 
-FmFileInfoList* fm_file_menu_get_file_info_list(GtkWidget* menu)
+FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu)
 {
-	FmFileMenuData* data = get_data(menu);
-	return data->file_infos;
+	return menu->file_infos;
+}
+
+/* build the menu with GtkUIManager */
+GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
+{
+	if( ! menu->menu )
+	{
+		menu->menu = gtk_ui_manager_get_widget(menu->ui, "/popup");
+		if(menu->auto_destroy)
+			g_signal_connect_swapped(menu->menu, "selection-done",
+							G_CALLBACK(fm_file_menu_destroy), menu);
+	}
+	return menu->menu;
 }
 
 void on_open(GtkAction* action, gpointer user_data)
@@ -186,9 +179,12 @@ void on_open(GtkAction* action, gpointer user_data)
 
 void on_prop(GtkAction* action, gpointer user_data)
 {
-	FmFileMenuData* data = (FmFileMenuData*)user_data;
-	FmPathList* pl = fm_path_list_new_from_file_info_list(data->file_infos);
-	fm_show_file_properties(pl);
-	fm_list_unref(pl);
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	fm_show_file_properties(data->file_infos);
+}
+
+gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
+{
+	return menu->same_type;
 }
 

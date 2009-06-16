@@ -23,13 +23,13 @@
 #define __FM_FILE_PROPERTIES_H__
 
 #include <gtk/gtk.h>
-#include "fm-path.h"
+#include "fm-file-info.h"
 
 G_BEGIN_DECLS
 
 /* FIXME: use list of FmFileInfo is much better here. */
-GtkWidget* fm_file_properties_widget_new(FmPathList* paths, gboolean toplevel);
-gboolean fm_show_file_properties(FmPathList* paths);
+GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean toplevel);
+gboolean fm_show_file_properties(FmFileInfoList* files);
 
 G_END_DECLS
 

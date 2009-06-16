@@ -228,21 +228,22 @@ static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn,
 		{
 			if(fi)
 			{
-				GtkWidget* popup;
+				FmFileMenu* menu;
+				GtkMenu* popup;
 				FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-				popup = fm_file_menu_new_for_files(files);
+				menu = fm_file_menu_new_for_files(files, TRUE);
 				fm_list_unref(files);
-				g_signal_connect(popup, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
 
 				/* merge some specific menu items for folders */
-				if(fm_file_info_is_dir(fi))
+				if(fm_file_menu_is_single_file_type(menu) && fm_file_info_is_dir(fi))
 				{
-					GtkUIManager* ui = fm_file_menu_get_ui(popup);
-					GtkActionGroup* act_grp = fm_file_menu_get_action_group(popup);
+					GtkUIManager* ui = fm_file_menu_get_ui(menu);
+					GtkActionGroup* act_grp = fm_file_menu_get_action_group(menu);
 					gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
 					gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
 				}
 
+				popup = fm_file_menu_get_menu(menu);
 				gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
 			}
 			else
