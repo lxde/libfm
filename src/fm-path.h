@@ -93,7 +93,7 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
 char* fm_path_list_to_uri_list(FmPathList* pl);
-guint fm_path_list_get_length(FmPathList* pl);
+void fm_path_list_write_uri_list(FmPathList* pl, GString* buf);
 
 G_END_DECLS
 

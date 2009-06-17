@@ -26,12 +26,19 @@
 #include "fm-folder-model.h"
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
+#include "fm-clipboard.h"
 
 static void fm_main_win_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
 
 static void on_new_win(GtkAction* act, FmMainWin* win);
 static void on_close_win(GtkAction* act, FmMainWin* win);
+
+static void on_cut(GtkAction* act, FmMainWin* win);
+static void on_copy(GtkAction* act, FmMainWin* win);
+static void on_paste(GtkAction* act, FmMainWin* win);
+static void on_del(GtkAction* act, FmMainWin* win);
+
 static void on_go(GtkAction* act, FmMainWin* win);
 static void on_go_up(GtkAction* act, FmMainWin* win);
 static void on_go_home(GtkAction* act, FmMainWin* win);
@@ -112,9 +119,9 @@ static GtkActionEntry main_win_actions[]=
 		{"New", GTK_STOCK_NEW, N_("_New Window"), "<CTRL>N", NULL, on_new_win},
 		{"Close", GTK_STOCK_CLOSE, N_("_Close Window"), "<Ctrl>W", NULL, on_close_win},
 	{"EditMenu", NULL, N_("_Edit"), NULL, NULL, NULL},
-		{"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, NULL},
-		{"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, NULL},
-		{"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, NULL},
+		{"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, on_cut},
+		{"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, on_copy},
+		{"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, on_paste},
 		{"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, NULL},
 		{"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
 		{"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
@@ -439,4 +446,30 @@ void fm_main_win_chdir(FmMainWin* win, const char* path)
 {
 	gtk_entry_set_text(win->location, path);
 	fm_folder_view_chdir(win->folder_view, path);
+}
+
+void on_cut(GtkAction* act, FmMainWin* win)
+{
+	FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+	if(!fm_list_is_empty(files))
+		fm_clipboard_cut_files(win, files);
+	fm_list_unref(files);
+}
+
+void on_copy(GtkAction* act, FmMainWin* win)
+{
+	FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+	if(!fm_list_is_empty(files))
+		fm_clipboard_copy_files(win, files);
+	fm_list_unref(files);
+}
+
+void on_paste(GtkAction* act, FmMainWin* win)
+{
+	
+}
+
+void on_del(GtkAction* act, FmMainWin* win)
+{
+	
 }

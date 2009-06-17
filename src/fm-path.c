@@ -215,6 +215,7 @@ static int fm_path_strlen(FmPath* path)
 	return len;
 }
 
+/* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
 	int len = fm_path_strlen(path);
@@ -243,7 +244,20 @@ char* fm_path_to_str(FmPath* path)
 
 char* fm_path_to_uri(FmPath* path)
 {
-	return NULL;
+	char* uri = NULL;
+	char* str = fm_path_to_str(path);
+	if( G_LIKELY(str) )
+	{
+		if(str[0] == '/') /* absolute path */
+			uri = g_filename_to_uri(str, NULL, NULL);
+		else
+		{
+			/* FIXME: is this correct? */
+			uri = g_uri_escape_string(str, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
+		}
+		g_free(str);
+	}
+	return uri;
 }
 
 GFile* fm_path_to_gfile(FmPath* path)
@@ -353,7 +367,9 @@ FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 
 char* fm_path_list_to_uri_list(FmPathList* pl)
 {
-	return NULL;
+	GString* buf = g_string_sized_new(4096);
+	fm_path_list_write_uri_list(pl, buf);
+	return g_string_free(buf, FALSE);
 }
 
 FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
@@ -390,4 +406,18 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
 		fm_list_push_tail(list, fi->path);
 	}
 	return list;
+}
+
+void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
+{
+	GList* l;
+	for(l = fm_list_peek_head_link(pl); l; l=l->next)
+	{
+		FmPath* path = (FmPath*)l->data;
+		char* uri = fm_path_to_uri(path);
+		g_string_append(buf, uri);
+		g_free(uri);
+		if(l->next)
+			g_string_append(buf, "\r\n");
+	}
 }
