@@ -24,6 +24,7 @@
 #define __FM_JOB_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -43,8 +44,10 @@ typedef struct _FmJobClass		FmJobClass;
 struct _FmJob
 {
 	GObject parent;
-
 	gboolean cancel;
+
+	/* optional, should be created if the job uses gio */
+	GCancellable* cancellable;
 };
 
 struct _FmJobClass

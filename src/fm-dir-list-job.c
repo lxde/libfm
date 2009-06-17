@@ -20,6 +20,7 @@
  */
 
 #include "fm-dir-list-job.h"
+#include <gio/gio.h>
 #include <string.h>
 #include <glib/gstdio.h>
 
@@ -29,7 +30,6 @@ static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
 static gboolean fm_dir_list_job_run(FmDirListJob *job);
-static void fm_dir_list_job_cancel(FmDirListJob *job);
 static gpointer job_thread(FmDirListJob* job);
 
 
@@ -57,7 +57,6 @@ FmJob* fm_dir_list_job_new(FmPath* path)
 	 * should be done at the level of FmFolder instead? */
 	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
 	job->dir_path = fm_path_ref(path);
-	job->dir_gf = fm_path_to_gfile(path);
 	return (FmJob*)job;
 }
 
@@ -66,7 +65,6 @@ FmJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 	/* FIXME: should we cache this with hash table? Or, the cache
 	 * should be done at the level of FmFolder instead? */
 	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
-	job->dir_gf = (GFile*)g_object_ref(gf);
 	job->dir_path = fm_path_new_for_gfile(gf);
 	return (FmJob*)job;
 }
@@ -80,14 +78,8 @@ static void fm_dir_list_job_finalize(GObject *object)
 
 	self = FM_DIR_LIST_JOB(object);
 
-	if(self->cancellable)
-		g_object_unref(self->cancellable);
-
 	if(self->dir_path)
 		fm_path_unref(self->dir_path);
-
-	if(self->dir_gf)
-		g_object_unref(self->dir_gf);
 
 	if(self->files)
 	{
@@ -107,19 +99,13 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 	return thread != NULL;
 }
 
-void fm_dir_list_job_cancel(FmDirListJob *job)
-{
-	g_cancellable_cancel(job->cancellable);
-	FM_JOB_CLASS(fm_dir_list_job_parent_class)->cancel((FmJob*)job);
-}
-
 gpointer job_thread(FmDirListJob* job)
 {
 	GFileEnumerator *enu;
 	GFileInfo *inf;
 	GError *err = NULL;
-	/* FIXME: use fm_path_is_native later. */
-	if(g_file_is_native(job->dir_gf)) /* if this is a native file on real file system */
+
+	if(fm_path_is_native(job->dir_path)) /* if this is a native file on real file system */
 	{
 		char* dir_path = fm_path_to_str(job->dir_path);
 		GDir* dir = g_dir_open(dir_path, 0, NULL);
@@ -134,7 +120,7 @@ gpointer job_thread(FmDirListJob* job)
 				g_string_append_c(fpath, '/');
 				++dir_len;
 			}
-			while( name = g_dir_read_name(dir) )
+			while( ! FM_JOB(job)->cancel && (name = g_dir_read_name(dir)) )
 			{
 				struct stat st;
 				g_string_truncate(fpath, dir_len);
@@ -150,9 +136,11 @@ gpointer job_thread(FmDirListJob* job)
 					fi->mtime = st.st_mtime;
 					fi->size = st.st_size;
 
-					fi->type = fm_mime_type_get_from_file(fpath->str, fi->disp_name, &st);
-					fi->icon = g_object_ref(fi->type->icon);
-
+					if( ! FM_JOB(job)->cancel )
+					{
+						fi->type = fm_mime_type_get_from_file(fpath->str, fi->disp_name, &st);
+						fi->icon = g_object_ref(fi->type->icon);
+					}
 					job->files = g_list_prepend(job->files, fi);
 				}
 			}
@@ -163,11 +151,14 @@ gpointer job_thread(FmDirListJob* job)
 	}
 	else /* this is a virtual path or remote file system path */
 	{
-		enu = g_file_enumerate_children (job->dir_gf, "standard::*", 0, job->cancellable, &err);
-		while( !g_cancellable_is_cancelled(job->cancellable) )
+		FmJob* fmjob = FM_JOB(job);
+		GFile* gf = fm_path_to_gfile(job->dir_path);
+		enu = g_file_enumerate_children (gf, "standard::*", 0, fmjob->cancellable, &err);
+		g_object_unref(gf);
+		while( ! FM_JOB(job)->cancel )
 		{
 			FmFileInfo* fi;
-			inf = g_file_enumerator_next_file(enu, job->cancellable, &err);
+			inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
 			if(inf)
 			{
 				fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);

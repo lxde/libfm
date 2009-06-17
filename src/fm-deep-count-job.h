@@ -45,7 +45,6 @@ typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
 struct _FmDeepCountJob
 {
 	FmJob parent;
-	GCancellable* cancellable;
 	GIOSchedulerJob* io_job;
 	FmPathList* paths;
 	goffset total_size;

@@ -24,7 +24,6 @@
 #define __FM_DIR_LIST_JOB_H__
 
 #include "fm-job.h"
-#include <gio/gio.h>
 #include "fm-path.h"
 #include "fm-file-info.h"
 
@@ -47,8 +46,6 @@ struct _FmDirListJob
 {
 	FmJob parent;
 	FmPath* dir_path;
-	GFile* dir_gf;
-	GCancellable* cancellable;
 	GList* files;
 };
 

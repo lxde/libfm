@@ -26,7 +26,6 @@ static void fm_deep_count_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run(FmJob* job);
-static void fm_deep_count_job_cancel(FmJob* job);
 
 static gboolean job_func(GIOSchedulerJob *job, GCancellable *cancellable, gpointer user_data);
 
@@ -38,7 +37,6 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 	g_object_class->finalize = fm_deep_count_job_finalize;
 
 	job_class = FM_JOB_CLASS(klass);
-	job_class->cancel = fm_deep_count_job_cancel;
 	job_class->run = fm_deep_count_job_run;
 	job_class->finished = NULL;
 }
@@ -52,7 +50,7 @@ static void fm_deep_count_job_finalize(GObject *object)
 	g_return_if_fail(IS_FM_DEEP_COUNT_JOB(object));
 
 	self = FM_DEEP_COUNT_JOB(object);
-	g_object_unref(self->cancellable);
+
 	if(self->paths)
 		fm_list_unref(self->paths);
 	G_OBJECT_CLASS(fm_deep_count_job_parent_class)->finalize(object);
@@ -61,7 +59,6 @@ static void fm_deep_count_job_finalize(GObject *object)
 
 static void fm_deep_count_job_init(FmDeepCountJob *self)
 {
-	self->cancellable = g_cancellable_new();
 }
 
 
@@ -75,20 +72,16 @@ FmJob *fm_deep_count_job_new(FmPathList* paths)
 gboolean fm_deep_count_job_run(FmJob* job)
 {
 	FmDeepCountJob* dc = (FmDeepCountJob*)job;
-	g_io_scheduler_push_job(job_func, dc, 
+	job->cancellable = g_cancellable_new();
+	g_io_scheduler_push_job(job_func, dc,
 			(GDestroyNotify)g_object_unref,
-			G_PRIORITY_DEFAULT, dc->cancellable);
+			G_PRIORITY_DEFAULT, job->cancellable);
 	return TRUE;
-}
-
-void fm_deep_count_job_cancel(FmJob* job)
-{
-	FmDeepCountJob* dc = (FmDeepCountJob*)job;
-	g_cancellable_cancel(dc->cancellable);
 }
 
 static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 {
+	FmJob* fmjob = (FmJob*)job;
 	GError* err = NULL;
 	if(fm_path_is_native(fm_path)) /* if it's a native file, use posix APIs */
 	{
@@ -105,7 +98,7 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 		{
 			/* FIXME: error */
 		}
-		if(g_cancellable_is_cancelled(job->cancellable))
+		if(fmjob->cancel)
 			return;
 
 		if( S_ISDIR(st.st_mode) ) /* if it's a dir */
@@ -114,11 +107,12 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 			if(dir_ent)
 			{
 				char* basename;
-				while( !g_cancellable_is_cancelled(job->cancellable)
+				while( !fmjob->cancel
 					&& (basename = g_dir_read_name(dir_ent)) )
 				{
 					FmPath* sub = fm_path_new_child(fm_path, basename);
-					deep_count(job, sub);
+					if(!fmjob->cancel)
+						deep_count(job, sub);
 					fm_path_unref(sub);
 				}
 				g_dir_close(dir_ent);
@@ -138,7 +132,7 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 		GFile* gf = fm_path_to_gfile(fm_path);
 		GFileInfo* inf = g_file_query_info(gf, query_str, 
 								G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-								job->cancellable, &err);
+								fmjob->cancellable, &err);
 		if( inf )
 		{
 			GFileType type = g_file_info_get_file_type(inf);
@@ -147,7 +141,7 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 			guint32 blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
 			g_object_unref(inf);
 			
-			if(g_cancellable_is_cancelled(job->cancellable))
+			if(fmjob->cancel)
 				return;
 
 			++job->count;
@@ -159,30 +153,33 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 				GFileEnumerator* enu = g_file_enumerate_children(gf, 
 											query_str,
 											G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-											job->cancellable, &err);
-				while( !g_cancellable_is_cancelled(job->cancellable) )
+											fmjob->cancellable, &err);
+				while( !fmjob->cancel )
 				{
-					inf = g_file_enumerator_next_file(enu, job->cancellable, &err);
-					if(inf)
+					inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
+					if(!fmjob->cancel)
 					{
-//						if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
+						if(inf)
 						{
-							blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-							blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-							++job->count;
-							job->total_size += g_file_info_get_size(inf);
-							job->total_block_size += (blk * blk_size);
+							// if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
+							{
+								blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
+								blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
+								++job->count;
+								job->total_size += g_file_info_get_size(inf);
+								job->total_block_size += (blk * blk_size);
+							}
+							if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
+							{
+								FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
+								deep_count(job, sub);
+								fm_path_unref(sub);
+							}
 						}
-						if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
+						else
 						{
-							FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
-							deep_count(job, sub);
-							fm_path_unref(sub);
+							break; /* FIXME: error handling */
 						}
-					}
-					else
-					{
-						break; /* FIXME: error handling */
 					}
 					g_object_unref(inf);
 				}
@@ -223,7 +220,7 @@ gboolean job_func(GIOSchedulerJob *job, GCancellable *cancellable, gpointer user
 		if(!g_cancellable_is_cancelled(cancellable))
 			deep_count( dc, path );
 	}
-	if(g_cancellable_is_cancelled(cancellable))
+	if(FM_JOB(dc)->cancel)
 	{
 		g_io_scheduler_job_send_to_mainloop(job, on_cancelled, dc, NULL);	
 	}

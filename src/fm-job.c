@@ -96,6 +96,9 @@ static void fm_job_finalize(GObject *object)
 	g_return_if_fail(FM_IS_JOB(object));
 
 	self = FM_JOB(object);
+	
+	if(self->cancellable)
+		g_object_unref(self->cancellable);
 
 	if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
@@ -114,9 +117,12 @@ gboolean fm_job_run(FmJob* job)
 void fm_job_cancel(FmJob* job)
 {
 	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	if(klass->cancel)
-		return klass->cancel(job);
 	job->cancel = TRUE;
+	if(job->cancellable)
+		g_cancellable_cancel(job->cancellable);
+	/* FIXME: is this needed? */
+	if(klass->cancel)
+		klass->cancel(job);
 }
 
 /* private, should be called from working thread only */

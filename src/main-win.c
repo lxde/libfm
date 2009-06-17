@@ -279,7 +279,7 @@ static void fm_main_win_init(FmMainWin *self)
 	self->location = fm_path_entry_new();
 	g_signal_connect(self->location, "activate", on_entry_activate, self);
 
-	self->folder_view = fm_folder_view_new( FM_FV_LIST_VIEW );
+	self->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
 	fm_folder_view_set_show_hidden(self->folder_view, FALSE);
 	fm_folder_view_sort(self->folder_view, GTK_SORT_DESCENDING, COL_FILE_NAME);
 	fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
