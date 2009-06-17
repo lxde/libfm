@@ -20,11 +20,14 @@
  */
 
 #include "fm-job.h"
+#include "fm-marshal.h"
 
 enum {
 	FINISHED,
 	ERROR,
 	CANCELLED,
+	ASK,
+	PROGRESS,
 	N_SIGNALS
 };
 
@@ -57,6 +60,7 @@ static void fm_job_class_init(FmJobClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
+
     signals[ERROR] =
         g_signal_new( "error",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -65,6 +69,7 @@ static void fm_job_class_init(FmJobClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
+
     signals[CANCELLED] =
         g_signal_new( "cancelled",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -73,8 +78,17 @@ static void fm_job_class_init(FmJobClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
-}
 
+    signals[ASK] =
+        g_signal_new( "ask",
+                      G_TYPE_FROM_CLASS ( klass ),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET ( FmJobClass, ask ),
+                      NULL, NULL,
+                      fm_marshal_INT__POINTER_INT,
+                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+
+}
 
 static void fm_job_init(FmJob *self)
 {

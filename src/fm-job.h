@@ -57,6 +57,7 @@ struct _FmJobClass
 	void (*finished)(FmJob* job);
 	void (*error)(FmJob* job);
 	void (*cancelled)(FmJob* job);
+	gint (*ask)(FmJob* job, const char* question, gint options);
 
 	gboolean (*run)(FmJob* job);
 	void (*cancel)(FmJob* job);
