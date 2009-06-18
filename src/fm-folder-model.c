@@ -618,9 +618,9 @@ static gint fm_folder_model_compare( FmFolderItem* item1,
     {
     case COL_FILE_NAME:
 	{
-		char* key1 = g_utf8_collate_key_for_filename(file1->disp_name, -1);
-		char* key2 = g_utf8_collate_key_for_filename(file2->disp_name, -1);
-        ret = g_utf8_collate( key1, key2 );
+		gchar* key1 = g_utf8_collate_key_for_filename(file1->disp_name, -1);
+		gchar* key2 = g_utf8_collate_key_for_filename(file2->disp_name, -1);
+		ret = strcmp ( key1, key2 );
 		g_free( key1 );
 		g_free( key2 );
         break;
