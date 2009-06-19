@@ -41,6 +41,8 @@ G_BEGIN_DECLS
 typedef struct _FmJob			FmJob;
 typedef struct _FmJobClass		FmJobClass;
 
+typedef gpointer (*FmJobCallMainThreadFunc)(FmJob* job, gpointer user_data);
+
 struct _FmJob
 {
 	GObject parent;
@@ -48,6 +50,12 @@ struct _FmJob
 
 	/* optional, should be created if the job uses gio */
 	GCancellable* cancellable;
+
+	/* optional, used when blocking the job to call a callback in 
+	 * main thread is needed. */
+	GMutex* mutex;
+	GCond* cond;
+	/* GSList* async_calls; */
 };
 
 struct _FmJobClass
@@ -60,23 +68,52 @@ struct _FmJobClass
 	gint (*ask)(FmJob* job, const char* question, gint options);
 
 	gboolean (*run)(FmJob* job);
+	gboolean (*run_sync)(FmJob* job);
 	void (*cancel)(FmJob* job);
 };
 
 GType	fm_job_get_type		(void);
+
+/* base type of all file I/O jobs.
+ * not directly called by applications. */
 FmJob*	fm_job_new			(void);
 
+/* run an job asynchronously in another working thread, and 
+ * emit 'finished' signal in the main thread on its termination.
+ * the default implementation of FmJob::run() create a working
+ * thread, and calls fm_job_run_sync in it.
+ */
 gboolean fm_job_run(FmJob* job);
+
+/* run a job in current thread in a blocking fashion.  */
+gboolean fm_job_run_sync(FmJob* job);
+
+/* cancel the running job. */
 void fm_job_cancel(FmJob* job);
 
-/* private, should be called from working thread only */
+/* Following APIs are private to FmJob and should only be used in the
+ * implementation of classes derived from FmJob.
+ * Besides, they should be called from working thread only */
+
+gpointer fm_job_call_main_thread(FmJob* job, 
+					FmJobCallMainThreadFunc func, gpointer user_data);
+
+/* gpointer fm_job_call_main_thread_async(FmJob* job, GFunc func, gpointer user_data); */
+
+/* Used to implement FmJob::run() using gio inside.
+ * This API tried to initialize a GCancellable object for use with gio.
+ * If this function returns FALSE, that means the job is already 
+ * cancelled before the cancellable object is created.
+ * So the following I/O operations should be cancelled. */
+gboolean fm_job_init_cancellable(FmJob* job);
+
 void fm_job_finish(FmJob* job);
 
-/* private */
 void fm_job_emit_finished(FmJob* job);
 
-/* private */
 void fm_job_emit_cancelled(FmJob* job);
+
+gint fm_job_ask(FmJob* job, const char* question, gint options);
 
 G_END_DECLS
 

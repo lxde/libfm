@@ -29,7 +29,7 @@
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
-static gboolean fm_dir_list_job_run(FmDirListJob *job);
+static gboolean fm_dir_list_job_run_sync(FmDirListJob *job);
 static gpointer job_thread(FmDirListJob* job);
 
 
@@ -40,7 +40,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_dir_list_job_finalize;
 
-	job_class->run = fm_dir_list_job_run;
+	job_class->run_sync = fm_dir_list_job_run_sync;
 	fm_dir_list_job_parent_class = (GObjectClass*)g_type_class_peek(FM_TYPE_JOB);
 }
 
@@ -57,6 +57,7 @@ FmJob* fm_dir_list_job_new(FmPath* path)
 	 * should be done at the level of FmFolder instead? */
 	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
 	job->dir_path = fm_path_ref(path);
+	job->files = fm_file_info_list_new();
 	return (FmJob*)job;
 }
 
@@ -82,24 +83,13 @@ static void fm_dir_list_job_finalize(GObject *object)
 		fm_path_unref(self->dir_path);
 
 	if(self->files)
-	{
-		g_list_foreach(self->files, (GFunc)fm_file_info_unref, NULL);
-		g_list_free(self->files);
-	}
+		fm_list_unref(self->files);
 
 	if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
-
-
-gboolean fm_dir_list_job_run(FmDirListJob* job)
-{
-	GThread* thread = g_thread_create((GThreadFunc)job_thread, job, FALSE, NULL);
-	return thread != NULL;
-}
-
-gpointer job_thread(FmDirListJob* job)
+gboolean fm_dir_list_job_run_sync(FmDirListJob* job)
 {
 	GFileEnumerator *enu;
 	GFileInfo *inf;
@@ -141,7 +131,7 @@ gpointer job_thread(FmDirListJob* job)
 						fi->type = fm_mime_type_get_from_file(fpath->str, fi->disp_name, &st);
 						fi->icon = g_object_ref(fi->type->icon);
 					}
-					job->files = g_list_prepend(job->files, fi);
+					fm_list_push_tail_noref(job->files, fi);
 				}
 			}
 			g_string_free(fpath, TRUE);
@@ -152,7 +142,12 @@ gpointer job_thread(FmDirListJob* job)
 	else /* this is a virtual path or remote file system path */
 	{
 		FmJob* fmjob = FM_JOB(job);
-		GFile* gf = fm_path_to_gfile(job->dir_path);
+		GFile* gf;
+
+		if(!fm_job_init_cancellable(fmjob))
+			return FALSE;
+
+		gf = fm_path_to_gfile(job->dir_path);
 		enu = g_file_enumerate_children (gf, "standard::*", 0, fmjob->cancellable, &err);
 		g_object_unref(gf);
 		while( ! FM_JOB(job)->cancel )
@@ -162,7 +157,7 @@ gpointer job_thread(FmDirListJob* job)
 			if(inf)
 			{
 				fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);
-				job->files = g_list_prepend(job->files, fi);
+				fm_list_push_tail_noref(job->files, fi);
 			}
 			else
 				break; /* FIXME: error handling */
@@ -174,5 +169,10 @@ gpointer job_thread(FmDirListJob* job)
 
 	/* let the main thread know that we're done. */
 	fm_job_finish(job);
-	return NULL;
+	return TRUE;
+}
+
+FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
+{
+	return job->files;
 }

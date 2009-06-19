@@ -104,6 +104,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 	char* file = g_file_get_basename(gf);
 	g_debug("folder %p %s event: %s", folder, file, names[evt]);
 	g_free(file);
+	/* FIXME: need to query file info asynchronously and add them the the list. */
 }
 
 /* FIXME: use our own implementation for local files. */
@@ -111,10 +112,10 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 {
 	GList* l;
 	GSList* files = NULL;
-	g_debug("%d files are listed", g_list_length(job->files) );
+	g_debug("%d files are listed", fm_list_get_length(job->files) );
 	g_signal_handlers_disconnect_by_func(job, on_job_finished, folder);
 
-	for(l = job->files; l; l=l->next )
+	for(l = fm_list_peek_head_link(job->files); l; l=l->next )
 	{
 		FmFileInfo* inf = (FmFileInfo*)l->data;
 		files = g_slist_prepend(files, inf);
@@ -122,7 +123,7 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 
 	g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 
-//	g_object_unref(job);
+	/* g_object_unref(job); */
 	folder->job = NULL; /* the job object will be freed in idle handler. */
 }
 
@@ -223,4 +224,9 @@ FmFolder*	fm_folder_new_for_uri	(const char* uri)
 void fm_folder_reload(FmFolder* folder)
 {
 	
+}
+
+FmFileInfoList* fm_folder_get_files (FmFolder* folder)
+{
+	return folder->files;
 }

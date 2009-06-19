@@ -25,9 +25,8 @@
 static void fm_deep_count_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
-static gboolean fm_deep_count_job_run(FmJob* job);
-
-static gboolean job_func(GIOSchedulerJob *job, GCancellable *cancellable, gpointer user_data);
+static gboolean fm_deep_count_job_run_sync(FmJob* job);
+static void deep_count(FmDeepCountJob* job, FmPath* fm_path);
 
 static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 {
@@ -37,7 +36,7 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 	g_object_class->finalize = fm_deep_count_job_finalize;
 
 	job_class = FM_JOB_CLASS(klass);
-	job_class->run = fm_deep_count_job_run;
+	job_class->run_sync = fm_deep_count_job_run_sync;
 	job_class->finished = NULL;
 }
 
@@ -62,24 +61,34 @@ static void fm_deep_count_job_init(FmDeepCountJob *self)
 }
 
 
-FmJob *fm_deep_count_job_new(FmPathList* paths)
+FmJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
 {
 	FmDeepCountJob* job = (FmDeepCountJob*)g_object_new(FM_DEEP_COUNT_JOB_TYPE, NULL);
 	job->paths = fm_list_ref(paths);
+	job->flags = flags;
 	return (FmJob*)job;
 }
 
-gboolean fm_deep_count_job_run(FmJob* job)
+gboolean fm_deep_count_job_run_sync(FmJob* job)
 {
 	FmDeepCountJob* dc = (FmDeepCountJob*)job;
-	job->cancellable = g_cancellable_new();
-	g_io_scheduler_push_job(job_func, dc,
-			(GDestroyNotify)g_object_unref,
-			G_PRIORITY_DEFAULT, job->cancellable);
+	GList* l;
+
+	if(!fm_job_init_cancellable(job))
+		return FALSE;
+
+	l = fm_list_peek_head_link(dc->paths);
+	for(; l; l=l->next)
+	{
+		FmPath* path = (FmPath*)l->data;
+		if(!job->cancel)
+			deep_count( dc, path );
+	}
+	fm_job_finish(job);
 	return TRUE;
 }
 
-static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
+void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 {
 	FmJob* fmjob = (FmJob*)job;
 	GError* err = NULL;
@@ -196,38 +205,3 @@ static void deep_count(FmDeepCountJob* job, FmPath* fm_path)
 		g_object_unref(gf);
 	}
 }
-
-static gboolean on_cancelled(FmDeepCountJob* job)
-{
-	fm_job_emit_cancelled((FmJob*)job);
-	return FALSE;
-}
-
-static gboolean on_finished(FmDeepCountJob* job)
-{
-	fm_job_emit_finished((FmJob*)job);
-	return FALSE;
-}
-
-gboolean job_func(GIOSchedulerJob *job, GCancellable *cancellable, gpointer user_data)
-{
-	FmDeepCountJob* dc = (FmDeepCountJob*)user_data;
-	GList* l = fm_list_peek_head_link(dc->paths);
-	dc->io_job = job;
-	for(; l; l=l->next)
-	{
-		FmPath* path = (FmPath*)l->data;
-		if(!g_cancellable_is_cancelled(cancellable))
-			deep_count( dc, path );
-	}
-	if(FM_JOB(dc)->cancel)
-	{
-		g_io_scheduler_job_send_to_mainloop(job, on_cancelled, dc, NULL);	
-	}
-	else
-	{
-		g_io_scheduler_job_send_to_mainloop(job, on_finished, dc, NULL);	
-	}
-	return FALSE;
-}
-

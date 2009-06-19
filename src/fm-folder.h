@@ -53,7 +53,7 @@ struct _FmFolder
 	GFile* gf;
 	GFileMonitor* mon;
 	FmDirListJob* job;
-	GList* files;
+	FmFileInfoList* files;
 };
 
 struct _FmFolderClass
@@ -70,9 +70,10 @@ FmFolder*	fm_folder_new			(FmPath* path);
 FmFolder*	fm_folder_new_for_gfile (GFile* gf);
 FmFolder*	fm_folder_new_for_path	(const char* path);
 FmFolder*	fm_folder_new_for_uri	(const char* uri);
+FmFileInfoList* fm_folder_get_files (FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
 
 G_END_DECLS
 
-#endif /* __FM-FOLDER_H__ */
+#endif /* __FM_FOLDER_H__ */

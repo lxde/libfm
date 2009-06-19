@@ -177,7 +177,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 	if(data->single_type)
 		data->mime_type = data->fi->type; /* FIXME: do we need ref counting here? */
 	paths = fm_path_list_new_from_file_info_list(files);
-	data->dc_job = fm_deep_count_job_new(paths);
+	data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
 	fm_list_unref(paths);
 
 

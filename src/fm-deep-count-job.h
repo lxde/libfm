@@ -42,11 +42,20 @@ G_BEGIN_DECLS
 typedef struct _FmDeepCountJob			FmDeepCountJob;
 typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
 
+typedef enum _FmDeepCountJobFlags	FmDeepCountJobFlags;
+enum _FmDeepCountJobFlags
+{
+	FM_DC_JOB_DEFAULT = 0,
+	FM_DC_JOB_FOLLOW_LINKS = 1<<0,
+	FM_DC_JOB_SAME_FS = 1<<1,
+	FM_DC_JOB_DIFF_FS = 1<<2
+};
+
 struct _FmDeepCountJob
 {
 	FmJob parent;
-	GIOSchedulerJob* io_job;
 	FmPathList* paths;
+	FmDeepCountJobFlags flags;
 	goffset total_size;
 	goffset total_block_size;
 	guint count;
@@ -58,7 +67,7 @@ struct _FmDeepCountJobClass
 };
 
 GType		fm_deep_count_job_get_type(void);
-FmJob*	fm_deep_count_job_new(FmPathList* paths);
+FmJob*	fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags);
 
 G_END_DECLS
 
