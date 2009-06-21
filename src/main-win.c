@@ -466,7 +466,9 @@ void on_copy(GtkAction* act, FmMainWin* win)
 
 void on_paste(GtkAction* act, FmMainWin* win)
 {
-	
+	FmPath* path = fm_path_new(fm_folder_view_get_cwd(win->folder_view));
+	fm_clipboard_paste_files(win->folder_view, path);
+	fm_path_unref(path);
 }
 
 void on_del(GtkAction* act, FmMainWin* win)

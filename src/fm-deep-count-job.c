@@ -26,7 +26,9 @@ static void fm_deep_count_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run_sync(FmJob* job);
-static void deep_count(FmDeepCountJob* job, FmPath* fm_path);
+
+static void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev);
+static void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path);
 
 static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 {
@@ -82,126 +84,152 @@ gboolean fm_deep_count_job_run_sync(FmJob* job)
 	{
 		FmPath* path = (FmPath*)l->data;
 		if(!job->cancel)
-			deep_count( dc, path );
+		{
+			if(fm_path_is_native(path)) /* if it's a native file, use posix APIs */
+				deep_count_posix( dc, path, 0 );
+			else
+				deep_count_gio( dc, path );
+		}
 	}
 	fm_job_finish(job);
 	return TRUE;
 }
 
-void deep_count(FmDeepCountJob* job, FmPath* fm_path)
+void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev)
 {
 	FmJob* fmjob = (FmJob*)job;
 	GError* err = NULL;
-	if(fm_path_is_native(fm_path)) /* if it's a native file, use posix APIs */
-	{
-		char* path = fm_path_to_str(fm_path);
-		struct stat st;
+	char* path = fm_path_to_str(fm_path);
+	struct stat st;
+	int ret;
 
-		if( lstat(path, &st) == 0 )
+	if( G_UNLIKELY(job->flags & FM_DC_JOB_FOLLOW_LINKS) )
+		ret = stat(path, &st);
+	else
+		ret = lstat(path, &st);
+
+	if( ret == 0 )
+	{
+		if( dir_dev )
 		{
-			++job->count;
-			job->total_size += (goffset)st.st_size;
-			job->total_block_size += (st.st_blocks * st.st_blksize);
+			if( job->flags & FM_DC_JOB_SAME_FS )
+			{
+				if( st.st_dev != dir_dev )
+					return;
+			}
+			else if( job->flags & FM_DC_JOB_DIFF_FS )
+			{
+				if( st.st_dev == dir_dev )
+					return;
+			}
 		}
-		else
+		//g_debug("st_dev = %ld", st.st_dev);
+		++job->count;
+		job->total_size += (goffset)st.st_size;
+		job->total_block_size += (st.st_blocks * st.st_blksize);
+	}
+	else
+	{
+		/* FIXME: error */
+		return;
+	}
+	if(fmjob->cancel)
+		return;
+
+	if( S_ISDIR(st.st_mode) ) /* if it's a dir */
+	{
+		GDir* dir_ent = g_dir_open(path, 0, NULL);
+		if(dir_ent)
 		{
-			/* FIXME: error */
+			char* basename;
+			while( !fmjob->cancel
+				&& (basename = g_dir_read_name(dir_ent)) )
+			{
+				FmPath* sub = fm_path_new_child(fm_path, basename);
+				if(!fmjob->cancel)
+					deep_count_posix(job, sub, st.st_dev);
+				fm_path_unref(sub);
+			}
+			g_dir_close(dir_ent);
 		}
+	}
+	g_free(path);
+}
+
+void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
+{
+	FmJob* fmjob = (FmJob*)job;
+	GError* err = NULL;
+	const char query_str[] = 
+					G_FILE_ATTRIBUTE_STANDARD_TYPE","
+					G_FILE_ATTRIBUTE_STANDARD_NAME","
+					G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
+					G_FILE_ATTRIBUTE_STANDARD_SIZE","
+					G_FILE_ATTRIBUTE_UNIX_BLOCKS","
+					G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE;
+	GFile* gf = fm_path_to_gfile(fm_path);
+	GFileInfo* inf = g_file_query_info(gf, query_str, 
+							G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+							fmjob->cancellable, &err);
+	if( inf )
+	{
+		GFileType type = g_file_info_get_file_type(inf);
+//		if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
+		guint64 blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
+		guint32 blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
+		g_object_unref(inf);
+		
 		if(fmjob->cancel)
 			return;
 
-		if( S_ISDIR(st.st_mode) ) /* if it's a dir */
-		{
-			GDir* dir_ent = g_dir_open(path, 0, NULL);
-			if(dir_ent)
-			{
-				char* basename;
-				while( !fmjob->cancel
-					&& (basename = g_dir_read_name(dir_ent)) )
-				{
-					FmPath* sub = fm_path_new_child(fm_path, basename);
-					if(!fmjob->cancel)
-						deep_count(job, sub);
-					fm_path_unref(sub);
-				}
-				g_dir_close(dir_ent);
-			}
-		}
-		g_free(path);
-	}
-	else /* use gio */
-	{
-		const char query_str[] = 
-						G_FILE_ATTRIBUTE_STANDARD_TYPE","
-						G_FILE_ATTRIBUTE_STANDARD_NAME","
-						G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
-						G_FILE_ATTRIBUTE_STANDARD_SIZE","
-						G_FILE_ATTRIBUTE_UNIX_BLOCKS","
-						G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE;
-		GFile* gf = fm_path_to_gfile(fm_path);
-		GFileInfo* inf = g_file_query_info(gf, query_str, 
-								G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-								fmjob->cancellable, &err);
-		if( inf )
-		{
-			GFileType type = g_file_info_get_file_type(inf);
-//			if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
-			guint64 blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-			guint32 blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-			g_object_unref(inf);
-			
-			if(fmjob->cancel)
-				return;
+		++job->count;
+		job->total_size += g_file_info_get_size(inf);
+		job->total_block_size += (blk * blk_size);
 
-			++job->count;
-			job->total_size += g_file_info_get_size(inf);
-			job->total_block_size += (blk * blk_size);
-
-			if( type == G_FILE_TYPE_DIRECTORY )
+		if( type == G_FILE_TYPE_DIRECTORY )
+		{
+			GFileEnumerator* enu = g_file_enumerate_children(gf, 
+										query_str,
+										G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+										fmjob->cancellable, &err);
+			while( !fmjob->cancel )
 			{
-				GFileEnumerator* enu = g_file_enumerate_children(gf, 
-											query_str,
-											G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-											fmjob->cancellable, &err);
-				while( !fmjob->cancel )
+				inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
+				if(!fmjob->cancel)
 				{
-					inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
-					if(!fmjob->cancel)
+					if(inf)
 					{
-						if(inf)
+						// if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
 						{
-							// if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
-							{
-								blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-								blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-								++job->count;
-								job->total_size += g_file_info_get_size(inf);
-								job->total_block_size += (blk * blk_size);
-							}
-							if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
-							{
-								FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
-								deep_count(job, sub);
-								fm_path_unref(sub);
-							}
+							blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
+							blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
+							++job->count;
+							job->total_size += g_file_info_get_size(inf);
+							job->total_block_size += (blk * blk_size);
 						}
-						else
+						if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
 						{
-							break; /* FIXME: error handling */
+							FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
+							deep_count_gio(job, sub);
+							fm_path_unref(sub);
 						}
 					}
-					g_object_unref(inf);
+					else
+					{
+						break; /* FIXME: error handling */
+					}
 				}
-				g_file_enumerator_close(enu, NULL, &err);
-				g_object_unref(enu);
-			}
-			else
 				g_object_unref(inf);
+			}
+			g_file_enumerator_close(enu, NULL, &err);
+			g_object_unref(enu);
 		}
 		else
-		{
-			/* FIXME: error */
-		}
-		g_object_unref(gf);
+			g_object_unref(inf);
 	}
+	else
+	{
+		/* FIXME: error */
+	}
+	g_object_unref(gf);
 }

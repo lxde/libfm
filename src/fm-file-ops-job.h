@@ -24,6 +24,7 @@
 #define __FM_FILE_OPS_JOB_H__
 
 #include "fm-job.h"
+#include "fm-deep-count-job.h"
 #include "fm-path.h"
 
 G_BEGIN_DECLS
@@ -53,32 +54,54 @@ enum _FmFileOpType
 	FM_FILE_OP_CHOWN
 };
 
+typedef enum _FmFileOpOption FmFileOpOption;
+enum _FmFileOpOption
+{
+	FM_FILE_OP_RETRY = 1<<0,
+	FM_FILE_OP_CANCEL = 1<<1,
+	FM_FILE_OP_OVERWRITE = 1<<2,
+	FM_FILE_OP_SKIP = 1<<3,
+	FM_FILE_OP_RENAME = 1<<4,
+	FM_FILE_OP_YES = 1<<5,
+	FM_FILE_OP_NO = 1<<6,
+	FM_FILE_OP_APPLY_TO_ALL = 1<<31
+};
+
 struct _FmFileOpsJob
 {
 	FmJob parent;
 	FmFileOpType type;
 	FmPathList* srcs;
 	FmPath* dest;
+	FmDeepCountJob* dc;
 
-	FmJob* dc_job;
-	GCancellable* cancellable;
-	GIOSchedulerJob* io_job;
 	goffset total;
 	goffset finished;
+	goffset current;
 	goffset rate;
 	time_t started_time;
 	time_t elapsed_time;
 	time_t remaining_time;
+
+	gboolean recursive;
 };
 
 struct _FmFileOpsJobClass
 {
 	FmJobClass parent_class;
-	void (*do_operation)(FmFileOpsJob* job);
+	void (*cur_file)(FmPath* file);
+	void (*percent)(guint percent);
 };
 
-GType		fm_file_ops_job_get_type		(void);
-FmJob*	fm_file_ops_job_new(FmFileOpType type, FmPathList* srcs, FmPath* dest);
+GType	fm_file_ops_job_get_type		(void);
+FmJob*	fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
+void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
+
+/* This only work for chmod and chown jobs. */
+void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
+
+/* void fm_file_ops_job_set_chmod(FmFileOpsJob* job, guint new_mod); */
+/* void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid); */
 
 G_END_DECLS
 

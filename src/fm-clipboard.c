@@ -20,6 +20,7 @@
  */
 
 #include "fm-clipboard.h"
+#include "fm-file-ops-job.h"
 
 enum {
 	URI_LIST = 1,
@@ -96,7 +97,17 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 	}
 	g_free(uris);
 
+/*  for debug only
+	FmPathList* files;
+	files = fm_path_list_new();
+	FmPath* path = fm_path_new("/home/pcman/Downloads");
+	fm_list_push_tail_noref(files, path);
+*/
+
 	/* FIXME: run a job to handle the paste */
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
+	fm_file_ops_job_set_dest(job, dest_dir);
+	fm_job_run_sync(job);
 
 	fm_list_unref(files);
 	return TRUE;

@@ -14,6 +14,8 @@ libfm_SOURCES = \
 	fm-job.c fm-job.h \
 	fm-dir-list-job.c fm-dir-list-job.h \
 	fm-deep-count-job.c fm-deep-count-job.h \
+	fm-file-ops-job.c fm-file-ops-job.h \
+	fm-file-ops-job-xfer.c fm-file-ops-job-xfer.h \
 	fm-folder.c fm-folder.h \
 	fm-file-info.c fm-file-info.h \
 	fm-mime-type.c fm-mime-type.h \

@@ -180,7 +180,6 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 	data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
 	fm_list_unref(paths);
 
-
 	if(toplevel)
 	{
 		gtk_builder_add_from_file(builder, UI_FILE, NULL);
