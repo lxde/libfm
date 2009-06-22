@@ -7,85 +7,93 @@ AM_CPPFLAGS = \
 
 bin_PROGRAMS = libfm-demo
 
+base_SOURCES = \
+	base/fm-list.c base/fm-list.h \
+	base/fm-path.c base/fm-path.h \
+	base/fm-folder.c base/fm-folder.h \
+	base/fm-file-info.c base/fm-file-info.h \
+	base/fm-mime-type.c base/fm-mime-type.h \
+	base/fm-utils.c base/fm-utils.h \
+	base/fm-marshal.c base/fm-marshal.h \
+	$(NULL)
+
+job_SOURCES = \
+	job/fm-job.c job/fm-job.h \
+	job/fm-dir-list-job.c job/fm-dir-list-job.h \
+	job/fm-deep-count-job.c job/fm-deep-count-job.h \
+	job/fm-file-ops-job.c job/fm-file-ops-job.h \
+	job/fm-file-ops-job-xfer.c job/fm-file-ops-job-xfer.h \
+	$(NULL)
+
 libfm_SOURCES = \
 	fm.c fm.h \
-	fm-list.c fm-list.h \
-	fm-path.c fm-path.h \
-	fm-job.c fm-job.h \
-	fm-dir-list-job.c fm-dir-list-job.h \
-	fm-deep-count-job.c fm-deep-count-job.h \
-	fm-file-ops-job.c fm-file-ops-job.h \
-	fm-file-ops-job-xfer.c fm-file-ops-job-xfer.h \
-	fm-folder.c fm-folder.h \
-	fm-file-info.c fm-file-info.h \
-	fm-mime-type.c fm-mime-type.h \
-	fm-utils.c fm-utils.h \
-	fm-marshal.c fm-marshal.h \
+	$(base_SOURCES) \
+	$(job_SOURCES) \
 	$(NULL)
 
 exo_SOURCES = \
-	exo/exo-icon-view.c \
-	exo/exo-private.c \
-	exo/exo-tree-view.c \
-	exo/exo-icon-view.h \
-	exo/exo-private.h \
-	exo/exo-tree-view.h \
-	exo/exo-marshal.c \
-	exo/exo-string.c \
-	exo/exo-marshal.h \
-	exo/exo-string.h \
+	gtk/exo/exo-icon-view.c \
+	gtk/exo/exo-private.c \
+	gtk/exo/exo-tree-view.c \
+	gtk/exo/exo-icon-view.h \
+	gtk/exo/exo-private.h \
+	gtk/exo/exo-tree-view.h \
+	gtk/exo/exo-marshal.c \
+	gtk/exo/exo-string.c \
+	gtk/exo/exo-marshal.h \
+	gtk/exo/exo-string.h \
 	$(NULL)
 
 
 libfm_gtk_SOURCES = \
 	$(exo_SOURCES) \
-	fm-folder-view.c fm-folder-view.h \
-	fm-folder-model.c fm-folder-model.h \
-	fm-path-entry.c fm-path-entry.h \
-	fm-file-menu.c fm-file-menu.h \
-	fm-file-properties.c fm-file-properties.h \
-	fm-clipboard.c fm-clipboard.h \
-	fm-gtk-marshal.c fm-gtk-marshal.h \
+	gtk/fm-folder-view.c gtk/fm-folder-view.h \
+	gtk/fm-folder-model.c gtk/fm-folder-model.h \
+	gtk/fm-path-entry.c gtk/fm-path-entry.h \
+	gtk/fm-file-menu.c gtk/fm-file-menu.h \
+	gtk/fm-file-properties.c gtk/fm-file-properties.h \
+	gtk/fm-clipboard.c gtk/fm-clipboard.h \
+	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 
 libfm_demo_SOURCES = \
 	$(libfm_SOURCES) \
 	$(libfm_gtk_SOURCES) \
-	libfm-demo.c \
-	main-win.c main-win.h \
+	demo/libfm-demo.c \
+	demo/main-win.c demo/main-win.h \
 	$(NULL)
 
 # GObject marshallers
-fm-marshal.h: fm-marshal.list
+base/fm-marshal.h: base/fm-marshal.list
 	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
 
-fm-marshal.c: fm-marshal.list
+base/fm-marshal.c: base/fm-marshal.list
 	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
 
-fm-gtk-marshal.h: fm-gtk-marshal.list
+gtk/fm-gtk-marshal.h: gtk/fm-gtk-marshal.list
 	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
 
-fm-gtk-marshal.c: fm-gtk-marshal.list
+gtk/fm-gtk-marshal.c: gtk/fm-gtk-marshal.list
 	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
 
 # Workarounds to force the build
 BUILT_SOURCES= \
-	fm-marshal.h \
-	fm-marshal.c \
-	fm-gtk-marshal.h \
-	fm-gtk-marshal.c \
+	base/fm-marshal.h \
+	base/fm-marshal.c \
+	gtk/fm-gtk-marshal.h \
+	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
 EXTRA_DIST = \
-	fm-marshal.list \
-	fm-gtk-marshal.list \
+	base/fm-marshal.list \
+	base/fm-gtk-marshal.list \
 	$(NULL)
 
 CLEANFILES = \
-	fm-marshal.h \
-	fm-marshal.c \
-	fm-gtk-marshal.h \
-	fm-gtk-marshal.c \
+	base/fm-marshal.h \
+	base/fm-marshal.c \
+	gtk/fm-gtk-marshal.h \
+	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
 libfm_demo_CFLAGS = \
