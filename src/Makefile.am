@@ -1,6 +1,11 @@
 NULL=
 
 AM_CPPFLAGS = \
+	-I$(srcdir) \
+    -I$(srcdir)/base \
+    -I$(srcdir)/job \
+    -I$(srcdir)/gtk \
+    -I$(srcdir)/demo \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
