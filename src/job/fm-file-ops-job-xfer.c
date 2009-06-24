@@ -24,6 +24,7 @@
 
 const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
+	G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
 	G_FILE_ATTRIBUTE_STANDARD_NAME","
 	G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
 	G_FILE_ATTRIBUTE_STANDARD_SIZE","
@@ -48,10 +49,14 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		if( !_inf )
 		{
 			/* FIXME: error handling */
+			fm_job_emit_error(fmjob, err, FALSE);
 			return FALSE;
 		}
 		inf = _inf;
 	}
+	
+	/* showing currently processed file. */
+	fm_job_call_main_thread(job, fm_file_ops_emit_cur_file, g_file_info_get_display_name(inf));
 
 	is_virtual = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
 
@@ -64,6 +69,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 			if( !g_file_make_directory(dest, &fmjob->cancellable, &err) )
 			{
 				/* FIXME: error handling */
+				fm_job_emit_error(fmjob, err, FALSE);
 				return FALSE;
 			}
 			job->finished += g_file_info_get_size(inf);
@@ -77,7 +83,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 				{
 					GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
 					GFile* sub_dest = g_file_get_child(dest, g_file_info_get_name(inf));
-					g_debug("%s", g_file_info_get_name(inf));
+					//g_debug("%s", g_file_info_get_name(inf));
 					gboolean ret = fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
 					g_object_unref(sub);
 					g_object_unref(sub_dest);
@@ -93,6 +99,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 					if(err)
 					{
 						/* FIXME: error handling */
+						fm_job_emit_error(fmjob, err, FALSE);
 						return FALSE;
 					}
 					else /* EOF is reached */
@@ -109,7 +116,10 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 					G_FILE_COPY_ALL_METADATA,
 					&FM_JOB(job)->cancellable, 
 					progress_cb, fmjob, &err) )
+		{
+			fm_job_emit_error(fmjob, err, FALSE);
 			return FALSE;
+		}
 		job->finished += job->current;
 		job->current = 0;
 		break;

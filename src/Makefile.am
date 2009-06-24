@@ -58,6 +58,8 @@ libfm_gtk_SOURCES = \
 	gtk/fm-file-menu.c gtk/fm-file-menu.h \
 	gtk/fm-file-properties.c gtk/fm-file-properties.h \
 	gtk/fm-clipboard.c gtk/fm-clipboard.h \
+	gtk/fm-progress-dlg.c gtk/fm-progress-dlg.h \
+	gtk/fm-file-ops.c gtk/fm-file-ops.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 

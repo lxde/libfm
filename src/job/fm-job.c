@@ -206,7 +206,9 @@ void fm_job_cancel(FmJob* job)
 static gboolean on_idle_call(FmIdleCall* data)
 {
 	data->ret = data->func(data->job, data->user_data);
+	g_mutex_lock(data->job->mutex);
 	g_cond_broadcast(data->job->cond);
+	g_mutex_unlock(data->job->mutex);
 	return FALSE;
 }
 
@@ -221,8 +223,10 @@ gpointer fm_job_call_main_thread(FmJob* job,
 	data.job = job;
 	data.func = func;
 	data.user_data = user_data;
+	g_mutex_lock(job->mutex);
 	g_idle_add( on_idle_call, &data );
 	g_cond_wait(job->cond, job->mutex);
+	g_mutex_unlock(job->mutex);
 	return data.ret;
 }
 

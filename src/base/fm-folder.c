@@ -226,7 +226,7 @@ FmFolder*	fm_folder_new_for_uri	(const char* uri)
 
 void fm_folder_reload(FmFolder* folder)
 {
-	
+	/* FIXME: remove all items and re-run a dir list job. */
 }
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder)

@@ -27,6 +27,7 @@
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
+#include "fm-file-ops.h"
 
 static void fm_main_win_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
@@ -473,5 +474,8 @@ void on_paste(GtkAction* act, FmMainWin* win)
 
 void on_del(GtkAction* act, FmMainWin* win)
 {
-	
+	FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+	if( !fm_list_is_empty(files) )
+		fm_delete_files(files);
+	fm_list_unref(files);
 }

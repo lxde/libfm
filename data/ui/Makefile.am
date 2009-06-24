@@ -4,6 +4,7 @@ NULL=
 uidir=$(datadir)/libfm/ui
 ui_in_files= \
 	file-prop.glade \
+	progress.glade \
 	$(NULL)
 ui_DATA = $(ui_in_files:.glade=.ui)
 

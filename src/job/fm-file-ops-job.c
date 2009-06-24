@@ -155,13 +155,15 @@ static gboolean on_cancelled(FmFileOpsJob* job)
 
 gboolean copy_files(FmFileOpsJob* job)
 {
+	GList* l;
 	/* prepare the job, count total work needed with FmDeepCountJob */
-//	FmDeepCountJob* dc = fm_deep_count_job_new(fop_job->srcs, FM_DC_JOB_DEFAULT);
-//	fm_job_run_sync(fop_job->dc_job);
-	/* unref is not needed since the job will be freed in idle handler. */
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+	fm_job_run_sync(dc);
+	job->total = dc->total_size;
+	g_object_unref(dc);
+	g_debug("total size to copy: %llu", job->total);
 
-	GList* l = fm_list_peek_head_link(job->srcs);
-	for(; l; l=l->next)
+	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
 	{
 		FmPath* path = (FmPath*)l->data;
 		FmPath* _dest = fm_path_new_child(job->dest, path->name);
@@ -292,8 +294,15 @@ static gboolean delete_file(FmJob* job, GFile* gf, GFileInfo* inf, GError** err)
 
 gboolean delete_files(FmFileOpsJob* job)
 {
-#if 0
-	GList* l = fm_list_peek_head_link(job->srcs);
+	GList* l;
+	/* prepare the job, count total work needed with FmDeepCountJob */
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+	fm_job_run_sync(dc);
+	job->total = dc->total_size;
+	g_object_unref(dc);
+	g_debug("total size to copy: %llu", job->total);
+
+	l = fm_list_peek_head_link(job->srcs);
 	for(; !FM_JOB(job)->cancel && l;l=l->next)
 	{
 		GError* err = NULL;
@@ -303,7 +312,7 @@ gboolean delete_files(FmFileOpsJob* job)
 		if(!ret) /* error! */
 			g_error_free(err);
 	}
-#endif
+
 	return FALSE;
 }
 
@@ -318,3 +327,14 @@ gboolean chown_files(FmFileOpsJob* job)
 
 	return FALSE;
 }
+
+void fm_file_ops_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
+{
+	g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
+}
+
+void fm_file_ops_emit_percent(FmFileOpsJob* job, guint percent)
+{
+	g_signal_emit(job, signals[PERCENT], 0, percent);	
+}
+

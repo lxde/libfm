@@ -73,7 +73,6 @@ struct _FmFileOpsJob
 	FmFileOpType type;
 	FmPathList* srcs;
 	FmPath* dest;
-	FmDeepCountJob* dc;
 
 	goffset total;
 	goffset finished;
@@ -102,6 +101,9 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
 /* void fm_file_ops_job_set_chmod(FmFileOpsJob* job, guint new_mod); */
 /* void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid); */
+
+void fm_file_ops_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
+void fm_file_ops_emit_percent(FmFileOpsJob* job, guint percent);
 
 G_END_DECLS
 
