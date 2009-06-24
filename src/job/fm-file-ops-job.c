@@ -33,7 +33,7 @@ static guint signals[N_SIGNALS];
 
 static void fm_file_ops_job_finalize  			(GObject *object);
 
-static gboolean fm_file_ops_job_run_sync(FmJob* fm_job);
+static gboolean fm_file_ops_job_run(FmJob* fm_job);
 
 /* funcs for io jobs */
 static gboolean copy_files(FmFileOpsJob* job);
@@ -54,7 +54,7 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 	g_object_class->finalize = fm_file_ops_job_finalize;
 
 	job_class = FM_JOB_CLASS(klass);
-	job_class->run_sync = fm_file_ops_job_run_sync;
+	job_class->run = fm_file_ops_job_run;
 	job_class->finished = NULL;
 
     signals[CUR_FILE] =
@@ -109,7 +109,7 @@ FmJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 	return (FmJob*)job;
 }
 
-gboolean fm_file_ops_job_run_sync(FmJob* fm_job)
+gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
 	FmPath* tmp;
@@ -150,12 +150,6 @@ void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest)
 static gboolean on_cancelled(FmFileOpsJob* job)
 {
 	fm_job_emit_cancelled((FmJob*)job);
-	return FALSE;
-}
-
-static gboolean on_finished(FmFileOpsJob* job)
-{
-	fm_job_emit_finished((FmJob*)job);
 	return FALSE;
 }
 

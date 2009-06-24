@@ -29,7 +29,7 @@
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
-static gboolean fm_dir_list_job_run_sync(FmDirListJob *job);
+static gboolean fm_dir_list_job_run(FmDirListJob *job);
 static gpointer job_thread(FmDirListJob* job);
 
 
@@ -40,7 +40,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_dir_list_job_finalize;
 
-	job_class->run_sync = fm_dir_list_job_run_sync;
+	job_class->run = fm_dir_list_job_run;
 	fm_dir_list_job_parent_class = (GObjectClass*)g_type_class_peek(FM_TYPE_JOB);
 }
 
@@ -89,7 +89,7 @@ static void fm_dir_list_job_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
-gboolean fm_dir_list_job_run_sync(FmDirListJob* job)
+gboolean fm_dir_list_job_run(FmDirListJob* job)
 {
 	GFileEnumerator *enu;
 	GFileInfo *inf;
@@ -166,9 +166,6 @@ gboolean fm_dir_list_job_run_sync(FmDirListJob* job)
 		g_file_enumerator_close(enu, NULL, &err);
 		g_object_unref(enu);
 	}
-
-	/* let the main thread know that we're done. */
-	fm_job_finish(job);
 	return TRUE;
 }
 

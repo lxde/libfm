@@ -42,7 +42,7 @@ typedef struct _FmIdleCall
 static void fm_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmJob, fm_job, G_TYPE_OBJECT);
 
-static gboolean fm_job_real_run(FmJob* job);
+static gboolean fm_job_real_run_async(FmJob* job);
 static gboolean on_idle_cleanup(gpointer unused);
 static void job_thread(FmJob* job, gpointer unused);
 
@@ -62,7 +62,7 @@ static void fm_job_class_init(FmJobClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_job_finalize;
 
-	klass->run = fm_job_real_run;
+	klass->run_async = fm_job_real_run_async;
 
 	fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
@@ -157,31 +157,39 @@ static inline void init_mutex(FmJob* job)
 	}
 }
 
-gboolean fm_job_real_run(FmJob* job)
+gboolean fm_job_real_run_async(FmJob* job)
 {
 	g_thread_pool_push(thread_pool, job, NULL);
 	return TRUE;
 }
 
-gboolean fm_job_run(FmJob* job)
+gboolean fm_job_run_async(FmJob* job)
 {
 	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	return klass->run(job);
+	return klass->run_async(job);
 }
 
 /* run a job in current thread in a blocking fashion.  */
 gboolean fm_job_run_sync(FmJob* job)
 {
 	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	if(klass->run_sync)
-		return klass->run_sync(job);
-	return FALSE;
+	gboolean ret = klass->run(job);
+	if(job->cancel)
+		fm_job_emit_cancelled(job);
+	else
+		fm_job_emit_finished(job);
+	return ret;
 }
 
 /* this is called from working thread */
 void job_thread(FmJob* job, gpointer unused)
 {
-	fm_job_run_sync(job);
+	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+	klass->run(job);
+
+	/* let the main thread know that we're done, and free the job
+	 * in idle handler if neede. */
+	fm_job_finish(job);
 }
 
 void fm_job_cancel(FmJob* job)
@@ -278,7 +286,6 @@ gboolean on_idle_cleanup(gpointer unused)
 	for(l = jobs; l; l=l->next)
 	{
 		FmJob* job = (FmJob*)l->data;
-		/* FIXME: error handling? */
 		if(job->cancel)
 			fm_job_emit_cancelled(job);
 		else

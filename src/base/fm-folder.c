@@ -86,7 +86,7 @@ static void fm_folder_class_init(FmFolderClass *klass)
 
 static void fm_folder_init(FmFolder *self)
 {
-	
+	self->files = fm_file_info_list_new();
 }
 
 
@@ -112,18 +112,19 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 {
 	GList* l;
 	GSList* files = NULL;
+	/* actually manually disconnecting from 'finished' signal is not 
+	 * needed since the signal is only emit once, and later the job 
+	 * object will be distroyed very soon. */
+	/* g_signal_handlers_disconnect_by_func(job, on_job_finished, folder); */
 	g_debug("%d files are listed", fm_list_get_length(job->files) );
-	g_signal_handlers_disconnect_by_func(job, on_job_finished, folder);
-
 	for(l = fm_list_peek_head_link(job->files); l; l=l->next )
 	{
 		FmFileInfo* inf = (FmFileInfo*)l->data;
 		files = g_slist_prepend(files, inf);
+		fm_list_push_tail(folder->files, inf);
 	}
-
 	g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 
-	/* g_object_unref(job); */
 	folder->job = NULL; /* the job object will be freed in idle handler. */
 }
 
@@ -151,7 +152,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
 
 	folder->job = fm_dir_list_job_new(path);
 	g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
-	fm_job_run(folder->job);
+	fm_job_run_async(folder->job);
 	return folder;
 }
 
@@ -191,6 +192,8 @@ static void fm_folder_finalize(GObject *object)
 		g_signal_handlers_disconnect_by_func(self->mon, on_folder_changed, self);
 		g_object_unref(self->mon);
 	}
+
+	fm_list_unref(self->files);
 
 	if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);

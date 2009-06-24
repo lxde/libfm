@@ -216,7 +216,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 	g_signal_connect_swapped(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
 	g_signal_connect(data->dc_job, "finished", on_finished, data);
 
-	fm_job_run(data->dc_job);
+	fm_job_run_async(data->dc_job);
 
 	update_ui(data);
 

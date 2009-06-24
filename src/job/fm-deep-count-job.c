@@ -25,7 +25,7 @@
 static void fm_deep_count_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
-static gboolean fm_deep_count_job_run_sync(FmJob* job);
+static gboolean fm_deep_count_job_run(FmJob* job);
 
 static void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev);
 static void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path);
@@ -38,7 +38,7 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 	g_object_class->finalize = fm_deep_count_job_finalize;
 
 	job_class = FM_JOB_CLASS(klass);
-	job_class->run_sync = fm_deep_count_job_run_sync;
+	job_class->run = fm_deep_count_job_run;
 	job_class->finished = NULL;
 }
 
@@ -71,7 +71,7 @@ FmJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
 	return (FmJob*)job;
 }
 
-gboolean fm_deep_count_job_run_sync(FmJob* job)
+gboolean fm_deep_count_job_run(FmJob* job)
 {
 	FmDeepCountJob* dc = (FmDeepCountJob*)job;
 	GList* l;
@@ -91,7 +91,6 @@ gboolean fm_deep_count_job_run_sync(FmJob* job)
 				deep_count_gio( dc, path );
 		}
 	}
-	fm_job_finish(job);
 	return TRUE;
 }
 

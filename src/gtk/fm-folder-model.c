@@ -204,21 +204,23 @@ static void _fm_folder_model_files_changed( FmFolder* dir, GSList* files,
 		fm_folder_model_file_changed( dir, l->data, list );
 }
 
+static void _fm_folder_model_add_file( FmFolderModel* list, FmFileInfo* file )
+{
+	if( !list->show_hidden && file->path->name[0] == '.')
+	{
+		list->hidden = g_list_prepend(list->hidden, fm_folder_item_new(file));
+		return;
+	}
+	fm_folder_model_file_created( list->dir, file, list );
+}
+
 static void _fm_folder_model_files_added( FmFolder* dir, GSList* files,
                                         FmFolderModel* list )
 {
 	GSList* l;
 	FmFileInfo* file;
 	for(l = files; l; l=l->next )
-	{
-		file = (FmFileInfo*)l->data;
-		if( !list->show_hidden && file->path->name[0] == '.')
-		{
-			list->hidden = g_list_prepend(list->hidden, fm_folder_item_new(file));
-			continue;
-		}
-		fm_folder_model_file_created( dir, file, list );
-	}
+		_fm_folder_model_add_file(list, (FmFileInfo*)l->data);
 }
 
 
@@ -233,32 +235,25 @@ static void _fm_folder_model_files_removed( FmFolder* dir, GSList* files,
 void fm_folder_model_set_folder( FmFolderModel* list, FmFolder* dir )
 {
     GList* l;
-
     if( list->dir == dir )
         return;
-
     if ( list->dir )
     {
 /*
         g_signal_handlers_disconnect_by_func( list->dir,
                                               on_folder_loaded, list );
 */
-/*
         g_signal_handlers_disconnect_by_func( list->dir,
                                               _fm_folder_model_files_added, list );
         g_signal_handlers_disconnect_by_func( list->dir,
                                               fm_folder_model_file_deleted, list );
-        g_signal_ahandlers_disconnect_by_func( list->dir,
-                                              _fm_folder_model_files_changed, list );
         g_signal_handlers_disconnect_by_func( list->dir,
-                                              on_thumbnail_loaded, list );
-*/
+                                              _fm_folder_model_files_changed, list );
 		for(l=list->items;l;l=l->next)
 			fm_folder_item_free((FmFolderItem*)l->data);
         g_list_free( list->items );
         g_object_unref( list->dir );
     }
-
     list->dir = dir;
     list->items = NULL;
     list->n_items = 0;
@@ -276,21 +271,10 @@ void fm_folder_model_set_folder( FmFolderModel* list, FmFolder* dir )
     g_signal_connect( list->dir, "files-changed",
                       G_CALLBACK(_fm_folder_model_files_changed),
                       list );
-    if( dir && dir->files )
+    if( !fm_list_is_empty(dir->files) )
     {
-        for( l = dir->files; l; l = l->next )
-        {
-			if(((FmFileInfo*)l->data)->path->name[0] == '.') /* a hidden file */
-			{
-				if( ! list->show_hidden )
-				{
-					list->hidden = g_list_prepend(list->hidden, fm_folder_item_new((FmFileInfo*)l->data));
-					continue;
-				}
-			}
-			list->items = g_list_prepend( list->items, fm_folder_item_new((FmFileInfo*)l->data) );
-			++list->n_items;
-        }
+        for( l = fm_list_peek_head_link(dir->files); l; l = l->next )
+			_fm_folder_model_add_file( list, (FmFileInfo*)l->data );
     }
 }
 
@@ -673,11 +657,9 @@ void fm_folder_model_sort ( FmFolderModel* list )
     for( i = 0, l = list->items; l; l = l->next, ++i )
         g_hash_table_insert( old_order, l, GINT_TO_POINTER(i) );
 
-g_debug("HERE0:%p", list->items);
     /* sort the list */
     list->items = g_list_sort_with_data( list->items,
                                          fm_folder_model_compare, list );
-g_debug("HERE1:%p", list->items);
     /* save new order */
     new_order = g_new( int, list->n_items );
     for( i = 0, l = list->items; l; l = l->next, ++i )

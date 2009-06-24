@@ -67,34 +67,38 @@ struct _FmJobClass
 	void (*cancelled)(FmJob* job);
 	gint (*ask)(FmJob* job, const char* question, gint options);
 
+	gboolean (*run_async)(FmJob* job);
 	gboolean (*run)(FmJob* job);
-	gboolean (*run_sync)(FmJob* job);
 	void (*cancel)(FmJob* job);
 };
 
 GType	fm_job_get_type		(void);
 
-/* base type of all file I/O jobs.
+/* Base type of all file I/O jobs.
  * not directly called by applications. */
-FmJob*	fm_job_new			(void);
+/* FmJob*	fm_job_new			(void); */
 
-/* run an job asynchronously in another working thread, and 
- * emit 'finished' signal in the main thread on its termination.
- * the default implementation of FmJob::run() create a working
- * thread, and calls fm_job_run_sync in it.
+/* Run a job asynchronously in another working thread, and 
+ * emit 'finished' signal in the main thread after its termination.
+ * There is no need to call g_object_unref on a job running in 
+ * async fashion. The job object will be unrefed in idle handler
+ * automatically shortly after its termination.
+ * The default implementation of FmJob::run_async() create a working
+ * thread in thread pool, and calls FmJob::run() in it.
  */
-gboolean fm_job_run(FmJob* job);
+gboolean fm_job_run_async(FmJob* job);
 
-/* run a job in current thread in a blocking fashion.  */
+/* Run a job in current thread in a blocking fashion.
+ * A job running synchronously with this function should be unrefed
+ * later with g_object_unref when no longer needed. */
 gboolean fm_job_run_sync(FmJob* job);
 
-/* cancel the running job. */
+/* Cancel the running job. can be called from any thread. */
 void fm_job_cancel(FmJob* job);
 
 /* Following APIs are private to FmJob and should only be used in the
  * implementation of classes derived from FmJob.
  * Besides, they should be called from working thread only */
-
 gpointer fm_job_call_main_thread(FmJob* job, 
 					FmJobCallMainThreadFunc func, gpointer user_data);
 
@@ -107,6 +111,8 @@ gpointer fm_job_call_main_thread(FmJob* job,
  * So the following I/O operations should be cancelled. */
 gboolean fm_job_init_cancellable(FmJob* job);
 
+/* only call this at the end of working thread if you're going to 
+ * override FmJob::run() and use your own multi-threading mechnism. */
 void fm_job_finish(FmJob* job);
 
 void fm_job_emit_finished(FmJob* job);
