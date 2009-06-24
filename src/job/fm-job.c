@@ -78,11 +78,11 @@ static void fm_job_class_init(FmJobClass *klass)
     signals[ERROR] =
         g_signal_new( "error",
                       G_TYPE_FROM_CLASS ( klass ),
-                      G_SIGNAL_RUN_FIRST,
+                      G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0 );
+                      fm_marshal_BOOL__POINTER_BOOL,
+                      G_TYPE_BOOLEAN, 2, G_TYPE_POINTER, G_TYPE_BOOLEAN );
 
     signals[CANCELLED] =
         g_signal_new( "cancelled",
@@ -308,4 +308,36 @@ gboolean fm_job_init_cancellable(FmJob* job)
 		return FALSE;
 	}
 	return TRUE;
+}
+
+struct ErrData
+{
+	GError* err;
+	gboolean recoverable;
+};
+
+gpointer error_in_main_thread(FmJob* job, struct ErrData* data)
+{
+	gboolean ret;
+	g_signal_emit(job, signals[ERROR], 0, data->err, data->recoverable, &ret);
+	return GINT_TO_POINTER(ret);
+}
+
+/* Emit an error signal to notify the main thread when an error occurs.
+ * The return value of this function is the return value returned by
+ * the connected signal handlers.
+ * If recoverable is TRUE, the listener of this 'error' signal can
+ * return TRUE in signal handler to ask for retry of the failed operation.
+ * If recoverable is FALSE, the return value of this function is 
+ * always FALSE. If the error is fatal, the job might be aborted.
+ * Otherwise, the listener of 'error' signal can optionally cancel
+ * the job. */
+gboolean fm_job_emit_error(FmJob* job, GError* err, gboolean recoverable)
+{
+	gboolean ret;
+	struct ErrData data;
+	data.err = err;
+	data.recoverable = recoverable;
+	ret = (gboolean)fm_job_call_main_thread(job, error_in_main_thread, &data);
+	return recoverable ? ret : FALSE;
 }

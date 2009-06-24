@@ -121,7 +121,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 
 gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
-	return FALSE;	
+	return FALSE;
 }
 
 void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)

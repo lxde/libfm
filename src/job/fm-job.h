@@ -63,7 +63,7 @@ struct _FmJobClass
 	GObjectClass parent_class;
 
 	void (*finished)(FmJob* job);
-	void (*error)(FmJob* job);
+	gboolean (*error)(FmJob* job, GError* err, gboolean recoverable);
 	void (*cancelled)(FmJob* job);
 	gint (*ask)(FmJob* job, const char* question, gint options);
 
@@ -112,6 +112,17 @@ void fm_job_finish(FmJob* job);
 void fm_job_emit_finished(FmJob* job);
 
 void fm_job_emit_cancelled(FmJob* job);
+
+/* Emit an error signal to notify the main thread when an error occurs.
+ * The return value of this function is the return value returned by
+ * the connected signal handlers.
+ * If recoverable is TRUE, the listener of this 'error' signal can
+ * return TRUE in signal handler to ask for retry of the failed operation.
+ * If recoverable is FALSE, the return value of this function is 
+ * always FALSE. If the error is fatal, the job might be aborted.
+ * Otherwise, the listener of 'error' signal can optionally cancel
+ * the job. */
+gboolean fm_job_emit_error(FmJob* job, GError* err, gboolean recoverable);
 
 gint fm_job_ask(FmJob* job, const char* question, gint options);
 
