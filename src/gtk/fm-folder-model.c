@@ -590,47 +590,23 @@ static gint fm_folder_model_compare( FmFolderItem* item1,
     if( ret )
         return -ret;
 
-    /* FIXME: strings should not be treated as ASCII when sorted  */
     switch( list->sort_col )
     {
     case COL_FILE_NAME:
 	{
-		gchar* key1 = g_utf8_collate_key_for_filename(file1->disp_name, -1);
-		gchar* key2 = g_utf8_collate_key_for_filename(file2->disp_name, -1);
-		ret = strcmp ( key1, key2 );
-		g_free( key1 );
-		g_free( key2 );
+		const char* key1 = fm_file_info_get_collate_key(file1);
+		const char* key2 = fm_file_info_get_collate_key(file2);
+		ret = g_ascii_strcasecmp( key1, key2 );
         break;
 	}
     case COL_FILE_SIZE:
         ret = file1->size - file2->size;
         break;
-#if 0
-    case COL_FILE_DESC:
-	{
-/*
-		char* key1 = g_utf8_collate_key(file1->disp_name, -1);
-		char* key2 = g_utf8_collate_key(file2->disp_name, -1);
-        ret = g_utf8_collate( key1, key2 );
-		g_free( key1 );
-		g_free( key2 );
-*/
-        break;
-	}
-    case COL_FILE_PERM:
-        ret = g_ascii_strcasecmp( vfs_file_info_get_disp_perm(file1),
-                                  vfs_file_info_get_disp_perm(file2) );
-        break;
-    case COL_FILE_OWNER:
-        ret = g_ascii_strcasecmp( vfs_file_info_get_disp_owner(file1),
-                                  vfs_file_info_get_disp_owner(file2) );
-        break;
-#endif
     case COL_FILE_MTIME:
         ret = file1->mtime - file2->mtime;
         break;
     }
-    return list->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
+    return list->sort_order == GTK_SORT_ASCENDING ? -ret : ret;
 }
 
 void fm_folder_model_sort ( FmFolderModel* list )
@@ -682,7 +658,6 @@ void _fm_folder_model_insert_item( FmFolder* dir,
     GtkTreePath* path;
 	FmFolderItem* item;
 	FmFileInfo* file = new_item->inf;
-
     for( l = list->items; l; l = l->next )
     {
         item = (FmFolderItem*)l->data;

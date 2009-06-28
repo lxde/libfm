@@ -56,6 +56,12 @@ struct _FmFileInfo
 
     FmPath* path; /* path of the file */
     char* disp_name;  /* displayed name (in UTF-8) */
+    
+    /* FIXME: caching the collate key can greatly speed up sorting.
+     *        However, memory usage is greatly increased!.
+     *        Is there a better alternative solution?
+     */
+    char* collate_key; /* used to sort files by name */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
 	FmMimeType* type;
@@ -99,6 +105,7 @@ gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
 /* Full path of the file is required by this function */
 gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path );
 
+const char* fm_file_info_get_collate_key( FmFileInfo* fi );
 const char* fm_file_info_get_desc( FmFileInfo* fi );
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_mtime( FmFileInfo* fi );

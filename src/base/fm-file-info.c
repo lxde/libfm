@@ -66,6 +66,12 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
 
 static void fm_file_info_clear( FmFileInfo* fi )
 {
+    if( fi->collate_key )
+    {
+        if( fi->collate_key != fi->disp_name )
+            g_free(fi->collate_key);
+        fi->collate_key = NULL;
+    }
     if( fi->disp_name && fi->disp_name != fi->path->name )
     {
         g_free( fi->disp_name );
@@ -210,6 +216,18 @@ gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path )
 	return g_content_type_can_be_executable(fi->type->type);
 }
 
+const char* fm_file_info_get_collate_key( FmFileInfo* fi )
+{
+    if( G_UNLIKELY(!fi->collate_key) )
+    {
+        char* collate = g_utf8_collate_key_for_filename(fi->disp_name, -1);
+        if( strcmp(collate, fi->disp_name) )
+            fi->collate_key = collate;
+        else
+            fi->collate_key = fi->disp_name;
+    }
+    return fi->collate_key;
+}
 
 const char* fm_file_info_get_desc( FmFileInfo* fi )
 {
