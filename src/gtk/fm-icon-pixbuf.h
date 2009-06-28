@@ -1,7 +1,7 @@
 /*
- *      fm.h
+ *      fm-icon-pixbuf.h
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 PCMan <pcman@debian>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,16 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+
+#ifndef __FM_ICON_PIXBUF_H__
+#define __FM_ICON_PIXBUF_H__
+
+#include <gtk/gtk.h>
 #include "fm-icon.h"
-#include "fm-mime-type.h"
-#include "fm-file-info.h"
-#include "fm-folder.h"
-#include "fm-dir-list-job.h"
-#include "fm-path.h"
 
 G_BEGIN_DECLS
 
-gboolean fm_init();
-void fm_finalize();
+GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size);
 
 G_END_DECLS
+
+#endif /* __FM_ICON_PIXBUF_H__ */

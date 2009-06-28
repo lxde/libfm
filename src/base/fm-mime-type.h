@@ -17,6 +17,8 @@
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 
+#include "fm-icon.h"
+
 G_BEGIN_DECLS
 
 typedef struct _FmMimeType FmMimeType;
@@ -25,7 +27,7 @@ struct _FmMimeType
 {
     char* type; /* mime type name */
     char* description;  /* description of the mime type */
-	GIcon* icon;
+	FmIcon* icon;
 
     int n_ref;
 };
@@ -35,9 +37,9 @@ void fm_mime_type_init();
 void fm_mime_type_finalize();
 
 /* file name used in this API should be encoded in UTF-8 */
-FmMimeType* fm_mime_type_get_from_file_name( const char* ufile_name );
+FmMimeType* fm_mime_type_get_for_file_name( const char* ufile_name );
 
-FmMimeType* fm_mime_type_get_from_file( const char* file_path,  /* Should be on-disk encoding */
+FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,  /* Should be on-disk encoding */
                                           const char* base_name,  /* Should be in UTF-8 */
                                           struct stat* pstat );   /* Can be NULL */
 
@@ -47,7 +49,7 @@ FmMimeType* fm_mime_type_new( const char* type_name );
 FmMimeType* fm_mime_type_ref( FmMimeType* mime_type );
 void fm_mime_type_unref( gpointer mime_type_ );
 
-GIcon* fm_mime_type_get_icon( FmMimeType* mime_type );
+FmIcon* fm_mime_type_get_icon( FmMimeType* mime_type );
 
 /* Get mime-type string */
 const char* fm_mime_type_get_type( FmMimeType* mime_type );

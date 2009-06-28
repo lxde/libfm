@@ -12,6 +12,7 @@
 
 #include "fm-folder-model.h"
 #include "fm-file-info.h"
+#include "fm-icon-pixbuf.h"
 
 #include <gdk/gdk.h>
 
@@ -188,6 +189,10 @@ inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
 
 inline void fm_folder_item_free(FmFolderItem* item)
 {
+    if(item->big_icon)
+        g_object_unref(item->big_icon);
+    if(item->small_icon)
+        g_object_unref(item->small_icon);
 	fm_file_info_unref(item->inf);
 	g_slice_free(FmFolderItem, item);
 }
@@ -378,40 +383,27 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
     switch(column)
     {
 	case COL_FILE_GICON:
-		g_value_set_object(value, info->icon);
+		g_value_set_object(value, info->icon->gicon);
 		break;
     case COL_FILE_BIG_ICON:
 	{
 		if( G_UNLIKELY(!item->big_icon) )
 		{
-			char* names;
-			GdkPixbuf* pix;
-			if(!info->icon) return;
-
-			GtkIconInfo* ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), info->icon, 48, 0);
-			if(ii)
-			{
-				pix = gtk_icon_info_load_icon(ii, NULL);
-				gtk_icon_info_free(ii);
-				item->big_icon = pix;
-			}
+			if(!info->icon)
+                return;
+            item->big_icon = fm_icon_get_pixbuf(info->icon, 48);
 		}
 		g_value_set_object(value, item->big_icon);
         break;
 	}
     case COL_FILE_SMALL_ICON:
-		if( G_UNLIKELY(!item->big_icon) )
+		if( G_UNLIKELY(!item->small_icon) )
 		{
-			char* names;
-			GdkPixbuf* pix;
-			if(!info->icon) return;
-
-			GtkIconInfo* ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), info->icon, 24, 0);
-			pix = gtk_icon_info_load_icon(ii, NULL);
-			gtk_icon_info_free(ii);
-			item->small_icon = pix;
+			if(!info->icon)
+                return;
+            item->small_icon = fm_icon_get_pixbuf(info->icon, 24);
 		}
-		g_value_set_object(value, item->big_icon);
+		g_value_set_object(value, item->small_icon);
 		break;
     case COL_FILE_NAME:
         g_value_set_string( value, info->disp_name );

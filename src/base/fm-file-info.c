@@ -33,6 +33,8 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
 {
 	FmFileInfo* fi = fm_file_info_new();
 	const char* tmp;
+    GIcon* gicon;
+
 	fi->path = fm_path_new_child(parent_dir, g_file_info_get_name(inf));
 
 	/* if display name is the same as its name, just use it. */
@@ -49,9 +51,13 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
 		fi->type = fm_mime_type_get_for_type( tmp );
 
 	if( !fi->type )
-		fi->icon = g_object_ref(g_file_info_get_icon(inf));
+    {
+        gicon = g_file_info_get_icon(inf);
+        fi->icon = fm_icon_from_gicon(gicon);
+        g_object_unref(gicon);
+    }
 	else
-		fi->icon = g_object_ref(fi->type->icon);
+		fi->icon = fm_icon_ref(fi->type->icon);
 	return fi;
 }
 
@@ -79,7 +85,7 @@ static void fm_file_info_clear( FmFileInfo* fi )
 	}
     if( fi->icon )
     {
-		g_object_unref(fi->icon);
+		fm_icon_unref(fi->icon);
         fi->icon = NULL;
     }
 }

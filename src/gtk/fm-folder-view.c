@@ -168,7 +168,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			g_object_set((GObject*)render, "follow-state", TRUE, NULL );
 			gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
 			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
-										"pixbuf", COL_FILE_BIG_ICON );
+										"pixbuf", fv->mode == FM_FV_ICON_VIEW ? COL_FILE_BIG_ICON : COL_FILE_SMALL_ICON );
 
 			render = gtk_cell_renderer_text_new();
 			if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
@@ -205,7 +205,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 		case FM_FV_LIST_VIEW: /* detailed list view */
 			fv->view = exo_tree_view_new();
 
-			col = gtk_tree_view_column_new_with_attributes(NULL, gtk_cell_renderer_pixbuf_new(), "gicon", COL_FILE_GICON, NULL);
+			col = gtk_tree_view_column_new_with_attributes(NULL, gtk_cell_renderer_pixbuf_new(), "pixbuf", COL_FILE_SMALL_ICON, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 			col = gtk_tree_view_column_new_with_attributes(_("Name"), gtk_cell_renderer_text_new(), "text", COL_FILE_NAME, NULL);
 			gtk_tree_view_append_column((GtkTreeView*)fv->view, col);

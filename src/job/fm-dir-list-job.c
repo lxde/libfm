@@ -128,8 +128,8 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 
 					if( ! FM_JOB(job)->cancel )
 					{
-						fi->type = fm_mime_type_get_from_file(fpath->str, fi->disp_name, &st);
-						fi->icon = g_object_ref(fi->type->icon);
+						fi->type = fm_mime_type_get_for_native_file(fpath->str, fi->disp_name, &st);
+						fi->icon = fm_icon_ref(fi->type->icon);
 					}
 					fm_list_push_tail_noref(job->files, fi);
 				}

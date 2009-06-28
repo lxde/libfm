@@ -131,7 +131,7 @@ void fm_mime_type_finalize()
     g_hash_table_destroy( mime_hash );
 }
 
-FmMimeType* fm_mime_type_get_from_file_name( const char* ufile_name )
+FmMimeType* fm_mime_type_get_for_file_name( const char* ufile_name )
 {
 	FmMimeType* mime_type;
     char * type;
@@ -149,7 +149,7 @@ static FmMimeType* fm_mime_type_get_internal(char* type)
 }
 */
 
-FmMimeType* fm_mime_type_get_from_file( const char* file_path,
+FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
                                         const char* base_name,
                                         struct stat* pstat )
 {
@@ -229,14 +229,18 @@ FmMimeType* fm_mime_type_get_for_type( const char* type )
 FmMimeType* fm_mime_type_new( const char* type_name )
 {
     FmMimeType * mime_type = g_slice_new0( FmMimeType );
+    GIcon* gicon;
     mime_type->type = g_strdup( type_name );
     mime_type->n_ref = 1;
 
-	mime_type->icon = g_content_type_get_icon(mime_type->type);
+	gicon = g_content_type_get_icon(mime_type->type);
 	if( strcmp(mime_type->type, "inode/directory") == 0 )
-		g_themed_icon_prepend_name(mime_type->icon, "folder");
+		g_themed_icon_prepend_name(gicon, "folder");
 	else if( g_content_type_can_be_executable(mime_type->type) )
-		g_themed_icon_append_name(mime_type->icon, "application-x-executable");
+		g_themed_icon_append_name(gicon, "application-x-executable");
+
+    mime_type->icon = fm_icon_from_gicon(gicon);
+    g_object_unref(gicon);
 
 #if 0
   /* TODO: Special case desktop dir? That could be expensive with xdg dirs... */
@@ -262,12 +266,12 @@ void fm_mime_type_unref( gpointer mime_type_ )
     {
         g_free( mime_type->type );
         if ( mime_type->icon )
-            g_object_unref( mime_type->icon );
+            fm_icon_unref( mime_type->icon );
         g_slice_free( FmMimeType, mime_type );
     }
 }
 
-GIcon* fm_mime_type_get_icon( FmMimeType* mime_type )
+FmIcon* fm_mime_type_get_icon( FmMimeType* mime_type )
 {
 	return mime_type->icon;
 #if 0

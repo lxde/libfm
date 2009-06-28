@@ -2,10 +2,10 @@ NULL=
 
 AM_CPPFLAGS = \
 	-I$(srcdir) \
-    -I$(srcdir)/base \
-    -I$(srcdir)/job \
-    -I$(srcdir)/gtk \
-    -I$(srcdir)/demo \
+	-I$(srcdir)/base \
+	-I$(srcdir)/job \
+	-I$(srcdir)/gtk \
+	-I$(srcdir)/demo \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
@@ -19,6 +19,7 @@ base_SOURCES = \
 	base/fm-file-info.c base/fm-file-info.h \
 	base/fm-mime-type.c base/fm-mime-type.h \
 	base/fm-utils.c base/fm-utils.h \
+	base/fm-icon.c base/fm-icon.h \
 	base/fm-marshal.c base/fm-marshal.h \
 	$(NULL)
 
@@ -61,6 +62,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-clipboard.c gtk/fm-clipboard.h \
 	gtk/fm-progress-dlg.c gtk/fm-progress-dlg.h \
 	gtk/fm-file-ops.c gtk/fm-file-ops.h \
+	gtk/fm-icon-pixbuf.c gtk/fm-icon-pixbuf.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 

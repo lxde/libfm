@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "fm-icon.h"
 #include "fm-list.h"
 #include "fm-path.h"
 #include "fm-mime-type.h"
@@ -58,7 +59,7 @@ struct _FmFileInfo
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
 	FmMimeType* type;
-	GIcon* icon;
+	FmIcon* icon;
 
     /*<private>*/
     int n_ref;
