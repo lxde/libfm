@@ -317,7 +317,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
 	if(fv->model)
 		g_object_unref(fv->model);
 
-	folder = fm_folder_new_for_path(path_str);
+	folder = fm_folder_get_for_path(path_str);
 	model = fm_folder_model_new(folder, fv->show_hidden);
 	gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
 	g_object_unref(folder);

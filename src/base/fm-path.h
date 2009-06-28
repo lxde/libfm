@@ -85,6 +85,10 @@ char* fm_path_to_uri(FmPath* path);
 GFile* fm_path_to_gfile(FmPath* path);
 
 
+/* For used in hash tables */
+guint fm_path_hash(FmPath* path);
+gboolean fm_path_equal(FmPath* p1, FmPath* p2);
+
 /* path list */
 FmPathList* fm_path_list_new();
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);

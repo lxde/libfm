@@ -346,6 +346,28 @@ void fm_path_init()
 }
 
 
+/* For used in hash tables */
+
+/* FIXME: is this good enough? */
+guint fm_path_hash(FmPath* path)
+{
+    guint hash = g_str_hash(path->name);
+    if(path->parent)
+        hash ^= fm_path_hash(path->parent);
+    return hash;
+}
+
+gboolean fm_path_equal(FmPath* p1, FmPath* p2)
+{
+    if(p1 == p2)
+        return TRUE;
+    if( !p1 || !p2 )
+        return FALSE;
+    if( strcmp(p1->name, p2->name) && fm_path_equal(p1->parent, p2->parent) )
+        return TRUE;
+    return FALSE;
+}
+
 
 /* path list */
 

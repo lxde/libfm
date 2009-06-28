@@ -33,13 +33,14 @@ enum {
 };
 
 static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
+static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf);
 static void fm_folder_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
-static guint signals[N_SIGNALS];
-
 static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
+static guint signals[N_SIGNALS];
+static GHashTable* hash = NULL; /* FIXME: should this be guarded with a mutex? */
 
 static void fm_folder_class_init(FmFolderClass *klass)
 {
@@ -212,14 +213,35 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
 	return folder;
 }
 
-FmFolder* fm_folder_new(FmPath* path)
+FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 {
-	GFile* gf = fm_path_to_gfile(path);
-	FmFolder* folder = fm_folder_new_internal(path, gf);
-	g_object_unref(gf);
+    FmFolder* folder;
+    /* FIXME: should we provide a generic FmPath cache in fm-path.c 
+     * to associate all kinds of data structures with FmPaths? */
+
+    /* FIXME: should creation of the hash table be moved to fm_init()? */
+    if( G_LIKELY(hash) )
+        folder = (FmFolder*)g_hash_table_lookup(hash, path);
+    else
+    {
+        hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
+        folder = NULL;
+    }
+
+    if( G_UNLIKELY(!folder) )
+    {
+        GFile* _gf = NULL;
+        if(!gf)
+            _gf = gf = fm_path_to_gfile(path);
+        folder = fm_folder_new_internal(path, gf);
+        if(_gf)
+            g_object_unref(_gf);
+        g_hash_table_insert(hash, folder->dir_path, folder);
+    }
+    else
+        return (FmFolder*)g_object_ref(folder);
 	return folder;
 }
-
 
 static void fm_folder_finalize(GObject *object)
 {
@@ -236,6 +258,9 @@ static void fm_folder_finalize(GObject *object)
 		fm_job_cancel(self->job); /* FIXME: is this ok? */
 		/* the job will be freed in idle handler. */
 	}
+
+    /* remove from hash table */
+    g_hash_table_remove(hash, self->dir_path);
 
 	if(self->dir_path)
 		fm_path_unref(self->dir_path);
@@ -255,7 +280,7 @@ static void fm_folder_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
-FmFolder*	fm_folder_new_for_gfile	(GFile* gf)
+FmFolder*	fm_folder_get_for_gfile	(GFile* gf)
 {
 	FmPath* path = fm_path_new_for_gfile(gf);
 	FmFolder* folder = fm_folder_new_internal(path, gf);
@@ -263,19 +288,19 @@ FmFolder*	fm_folder_new_for_gfile	(GFile* gf)
 	return folder;
 }
 
-FmFolder*	fm_folder_new_for_path	(const char* path)
+FmFolder*	fm_folder_get_for_path	(const char* path)
 {
 	FmPath* fm_path = fm_path_new(path);
-	FmFolder* folder = fm_folder_new(fm_path);
+	FmFolder* folder = fm_folder_get_internal(fm_path, NULL);
 	fm_path_unref(fm_path);
 	return folder;
 }
 
 /* FIXME: should we use GFile here? */
-FmFolder*	fm_folder_new_for_uri	(const char* uri)
+FmFolder*	fm_folder_get_for_uri	(const char* uri)
 {
 	GFile* gf = g_file_new_for_uri(uri);
-	FmFolder* folder = fm_folder_new_for_gfile(gf);
+	FmFolder* folder = fm_folder_get_for_gfile(gf);
 	g_object_unref(gf);
 	return folder;	
 }
@@ -307,3 +332,9 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     GList* l = _fm_folder_get_file_by_name(folder, name);
     return l ? (FmFileInfo*)l->data : NULL;
 }
+
+FmFolder*	fm_folder_get(FmPath* path)
+{
+	return fm_folder_get_internal(path, NULL);
+}
+
