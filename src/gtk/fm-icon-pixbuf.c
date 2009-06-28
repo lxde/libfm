@@ -83,12 +83,20 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
             g_object_ref(pix);
     }
     else
-        pix = NULL;
+	{
+		char* str = g_icon_to_string(icon->gicon);
+		g_debug("unable to load icon %s", str);
+		g_free(str);
+        /* pix = NULL; */
+		pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown", 
+					size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+	}
 
     /* cache this! */
     ent = g_slice_new(PixEntry);
     ent->size = size;
     ent->pix = pix; 
+
     /* FIXME: maybe we should unload icons that nobody is using to reduce memory usage. */
     /* g_object_weak_ref(); */
     pixs = g_slist_prepend(pixs, ent);

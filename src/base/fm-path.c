@@ -353,7 +353,12 @@ guint fm_path_hash(FmPath* path)
 {
     guint hash = g_str_hash(path->name);
     if(path->parent)
+	{
+		/* this is learned from g_str_hash() of glib. */
+		hash = (hash << 5) - hash + '/';
+		/* this is learned from g_icon_hash() of gio. */
         hash ^= fm_path_hash(path->parent);
+	}
     return hash;
 }
 
