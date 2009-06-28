@@ -54,7 +54,12 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressData* data)
 
 static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressData* data)
 {
+    /* FIXME: Displaying currently processed file will slow down the 
+     * operation and waste CPU source due to showing the text with pango.
+     * Consider showing current file every 0.5 second. */
+    /*
 	gtk_label_set_text(data->current, cur_file);
+    */
 }
 
 static void on_error(FmFileOpsJob* job)

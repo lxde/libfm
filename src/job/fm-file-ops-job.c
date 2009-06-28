@@ -257,15 +257,11 @@ gboolean delete_files(FmFileOpsJob* job)
 	l = fm_list_peek_head_link(job->srcs);
 	for(; !FM_JOB(job)->cancel && l;l=l->next)
 	{
-		GError* err = NULL;
 		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL, &err);
+		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL);
 		g_object_unref(src);
 		if(!ret) /* error! */
-        {
-            fm_job_emit_error(job, err, FALSE);
-			g_error_free(err);
-        }
+            return FALSE;
 	}
 	return TRUE;
 }

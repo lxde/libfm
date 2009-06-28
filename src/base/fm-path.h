@@ -88,6 +88,7 @@ GFile* fm_path_to_gfile(FmPath* path);
 /* path list */
 FmPathList* fm_path_list_new();
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
+FmPathList* fm_path_list_new_from_uris(const char** uris);
 FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);

@@ -88,15 +88,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
 	if(!uris)
 		return FALSE;
-	files = fm_path_list_new();
-	for(uri = uris; *uri; ++uri)
-	{
-		char* unescaped = g_uri_unescape_string(*uri, NULL);
-		FmPath* path = fm_path_new(unescaped);
-		g_free(unescaped);
-		fm_list_push_tail(files, path);
-		fm_path_unref(path);
-	}
+	files = fm_path_list_new_from_uris(uris);
 	g_free(uris);
 
 	/* FIXME: distinguishing copy and cut. */

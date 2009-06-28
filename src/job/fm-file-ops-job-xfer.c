@@ -38,6 +38,8 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 	GFileInfo* _inf;
 	GError* err = NULL;
 	gboolean is_virtual;
+    GFileType type;
+    goffset size;
 	FmJob* fmjob = FM_JOB(job);
 
 	if( G_LIKELY(inf) )
@@ -53,13 +55,18 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		}
 		inf = _inf;
 	}
-	
+
 	/* showing currently processed file. */
 	fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
 
 	is_virtual = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
+    type = g_file_info_get_file_type(inf);
+    size = g_file_info_get_size(inf);
 
-	switch(g_file_info_get_file_type(inf))
+    if( _inf )
+        g_object_unref(_inf);
+
+	switch(type)
 	{
 	case G_FILE_TYPE_DIRECTORY:
 		{
@@ -68,11 +75,10 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
             /* FIXME: handle permissions */
 			if( !g_file_make_directory(dest, &fmjob->cancellable, &err) )
 			{
-				/* FIXME: error handling */
 				fm_job_emit_error(fmjob, err, FALSE);
 				return FALSE;
 			}
-			job->finished += g_file_info_get_size(inf);
+			job->finished += size;
 
 			enu = g_file_enumerate_children(src, query,
 								0, fmjob->cancellable, &err);
@@ -83,7 +89,6 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 				{
 					GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
 					GFile* sub_dest = g_file_get_child(dest, g_file_info_get_name(inf));
-					//g_debug("%s", g_file_info_get_name(inf));
 					gboolean ret = fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
 					g_object_unref(sub);
 					g_object_unref(sub_dest);
@@ -120,12 +125,13 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 			fm_job_emit_error(fmjob, err, FALSE);
 			return FALSE;
 		}
-		job->finished += job->current;
+		job->finished += size;
 		job->current = 0;
+
+        /* update progress */
+        fm_file_ops_job_emit_percent(job);
 		break;
 	}
-	if(_inf)
-		g_object_unref(_inf);
 	return TRUE;
 }
 
@@ -137,4 +143,6 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
 {
 	job->current = cur;
+    /* update progress */
+    fm_file_ops_job_emit_percent(job);
 }

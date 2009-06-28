@@ -176,14 +176,15 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 //		if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
 		guint64 blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
 		guint32 blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-		g_object_unref(inf);
-		
-		if(fmjob->cancel)
-			return;
 
 		++job->count;
 		job->total_size += g_file_info_get_size(inf);
 		job->total_block_size += (blk * blk_size);
+
+		g_object_unref(inf);
+
+		if(fmjob->cancel)
+			return;
 
 		if( type == G_FILE_TYPE_DIRECTORY )
 		{

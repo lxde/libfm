@@ -71,7 +71,6 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 {
 	FmPath* path;
 	path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
-	path->flags = 0;
 	path->n_ref = 1;
 	if(G_LIKELY(parent))
 	{
@@ -80,6 +79,7 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 	}
 	else
 	{
+    	path->flags = 0;
 		if(*basename == '/') /* it's a native full path */
 			path->flags |= FM_PATH_IS_NATIVE;
 		else
@@ -340,6 +340,7 @@ void fm_path_init()
 	desktop = fm_path_new_child(parent, name);
 
 	/* build path object for trash can */
+    /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
 	trash_root = fm_path_new_child(NULL, "trash:");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
 }
@@ -359,9 +360,31 @@ FmPathList* fm_path_list_new()
 	return (FmPathList*)fm_list_new(&funcs);
 }
 
+FmPathList* fm_path_list_new_from_uris(const char** uris)
+{
+    const char** uri;
+	FmPathList* pl = fm_path_list_new();
+	for(uri = uris; *uri; ++uri)
+	{
+		FmPath* path;
+		char* unescaped;
+        if(g_str_has_prefix(*uri, "file:"))
+            unescaped = g_filename_from_uri(*uri, NULL, NULL);
+        else
+            unescaped = g_uri_unescape_string(*uri, NULL);
+
+        path = fm_path_new(unescaped);
+		g_free(unescaped);
+		fm_list_push_tail_noref(pl, path);
+	}
+	return pl;
+}
+
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
-	FmPathList* pl = fm_path_list_new();	
+    char** uris = g_strsplit(uri_list, "\r\n", -1);
+	FmPathList* pl = fm_path_list_new_from_uris(uris);
+    g_strfreev(uris);
 	return pl;
 }
 

@@ -21,30 +21,39 @@
 
 #include "fm-file-ops-job-delete.h"
 
-gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, GError** err)
+static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
+                               G_FILE_ATTRIBUTE_STANDARD_NAME","
+                               G_FILE_ATTRIBUTE_STANDARD_SIZE","
+                               G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
+
+
+/* FIXME: cancel the job on errors */
+gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
+    GError* err = NULL;
     FmFileOpsJob* fjob = (FmFileOpsJob*)job;
 	gboolean is_dir;
     GFileInfo* _inf = NULL;
-    const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
-                           G_FILE_ATTRIBUTE_STANDARD_NAME","
-                           G_FILE_ATTRIBUTE_STANDARD_SIZE","
-                           G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
+
 	if( !inf)
 	{
 		_inf = inf = g_file_query_info(gf, query,
 							G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 							&job->cancellable, &err);
+        if(!_inf)
+        {
+            fm_job_emit_error(job, err, FALSE);
+            g_error_free(err);
+		    return FALSE;
+        }
 	}
 	if(!inf)
-    {
-        fm_job_emit_error(job, err, FALSE);
-        g_error_free(err);
 		return FALSE;
-    }
 
     /* currently processed file. */
     fm_file_ops_job_emit_cur_file(fjob, g_file_info_get_display_name(inf));
+
+    /* show progress */
     fjob->finished += g_file_info_get_size(inf);
     fm_file_ops_job_emit_percent(job);
 
@@ -61,27 +70,45 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, GErr
 		GFileEnumerator* enu = g_file_enumerate_children(gf, query,
 									G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 									job->cancellable, &err);
+        if(!enu)
+        {
+            fm_job_emit_error(job, err, FALSE);
+            g_error_free(err);
+		    g_object_unref(enu);
+		    return FALSE;
+        }
+
 		while( ! job->cancel )
 		{
 			inf = g_file_enumerator_next_file(enu, job->cancellable, &err);
 			if(inf)
 			{
 				GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-				fm_file_ops_job_delete_file(job, sub, inf, &err); /* FIXME: error handling? */
+				gboolean ret = fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
 				g_object_unref(sub);
 				g_object_unref(inf);
+                if(!ret)
+                    break;
 			}
 			else
 			{
-				break; /* FIXME: error handling */
+                if(err)
+                {
+                    fm_job_emit_error(job, err, FALSE);
+                    g_error_free(err);
+                    g_object_unref(enu);
+                    return FALSE;
+                }
+                else /* EOF */
+                    break;
 			}
 		}
 		g_object_unref(enu);
 	}
-    return g_file_delete(gf, &job->cancellable, &err);
+    return job->cancel ? FALSE : g_file_delete(gf, &job->cancellable, &err);
 }
 
-gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf, GError** err)
+gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     return TRUE;
 }
