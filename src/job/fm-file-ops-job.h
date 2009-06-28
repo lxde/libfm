@@ -78,6 +78,7 @@ struct _FmFileOpsJob
 	goffset finished;
 	goffset current;
 	goffset rate;
+    guint percent;
 	time_t started_time;
 	time_t elapsed_time;
 	time_t remaining_time;
@@ -102,8 +103,8 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 /* void fm_file_ops_job_set_chmod(FmFileOpsJob* job, guint new_mod); */
 /* void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid); */
 
-void fm_file_ops_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
-void fm_file_ops_emit_percent(FmFileOpsJob* job, guint percent);
+void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
+void fm_file_ops_job_emit_percent(FmFileOpsJob* job);
 
 G_END_DECLS
 

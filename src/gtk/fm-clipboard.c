@@ -84,6 +84,8 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 	GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
 	FmPathList* files;
 	char** uris = gtk_clipboard_wait_for_uris(clip), **uri;
+	gboolean is_copy = TRUE; /* FIXME: distinguishing copy and cut. */
+
 	if(!uris)
 		return FALSE;
 	files = fm_path_list_new();
@@ -97,13 +99,12 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 	}
 	g_free(uris);
 
-/*  for debug only */
-/*
-	files = fm_path_list_new();
-	FmPath* path = fm_path_new("/home/pcman/Projects/libfm");
-	fm_list_push_tail_noref(files, path);
-*/
-	fm_copy_files(files, dest_dir);
+	/* FIXME: distinguishing copy and cut. */
+	if( is_copy )
+		fm_copy_files(files, dest_dir);
+	else
+		fm_move_files(files, dest_dir);
+	
 	fm_list_unref(files);
 	return TRUE;
 }

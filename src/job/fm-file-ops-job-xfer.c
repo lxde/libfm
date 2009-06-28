@@ -19,7 +19,6 @@
  *      MA 02110-1301, USA.
  */
 
-
 #include "fm-file-ops-job-xfer.h"
 
 const char query[]=
@@ -56,7 +55,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 	}
 	
 	/* showing currently processed file. */
-	fm_job_call_main_thread(job, fm_file_ops_emit_cur_file, g_file_info_get_display_name(inf));
+	fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
 
 	is_virtual = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
 
@@ -66,6 +65,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		{
 			GFileEnumerator* enu;
 
+            /* FIXME: handle permissions */
 			if( !g_file_make_directory(dest, &fmjob->cancellable, &err) )
 			{
 				/* FIXME: error handling */

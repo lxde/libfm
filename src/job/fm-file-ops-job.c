@@ -21,6 +21,7 @@
 
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
+#include "fm-file-ops-job-delete.h"
 
 enum
 {
@@ -243,55 +244,6 @@ gboolean trash_files(FmFileOpsJob* job)
 	return FALSE;
 }
 
-static gboolean delete_file(FmJob* job, GFile* gf, GFileInfo* inf, GError** err)
-{
-#if 0
-	gboolean is_dir;
-	if( !inf)
-	{
-		inf = g_file_query_info(gf, 
-							G_FILE_ATTRIBUTE_STANDARD_TYPE","
-							G_FILE_ATTRIBUTE_STANDARD_NAME,
-							G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-							&job->cancellable, &err);
-	}
-	if(!inf) /* FIXME: error handling? */
-		return FALSE;
-	is_dir = (g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY);
-	g_object_unref(inf);
-
-	if( job->cancel )
-		return FALSE;
-
-	if( is_dir )
-	{
-		GFileEnumerator* enu = g_file_enumerate_children(dir,
-									G_FILE_ATTRIBUTE_STANDARD_TYPE","
-									G_FILE_ATTRIBUTE_STANDARD_NAME
-									G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-									job->cancellable, &err);
-		while( ! job->cancel )
-		{
-			inf = g_file_enumerator_next_file(enu, job->cancellable, &err);
-			if(inf)
-			{
-				GFile* sub = g_file_get_child(dir, g_file_info_get_name(inf));
-				delete_file(job, sub, inf, &err); /* FIXME: error handling? */
-				g_object_unref(sub);
-				g_object_unref(inf);
-			}
-			else
-			{
-				break; /* FIXME: error handling */
-			}
-		}
-		g_object_unref(enu);
-	}
-	else
-		return g_file_delete(gf, &job->cancellable, &err);
-#endif
-}
-
 gboolean delete_files(FmFileOpsJob* job)
 {
 	GList* l;
@@ -300,20 +252,22 @@ gboolean delete_files(FmFileOpsJob* job)
 	fm_job_run_sync(dc);
 	job->total = dc->total_size;
 	g_object_unref(dc);
-	g_debug("total size to copy: %llu", job->total);
+	g_debug("total size to delete: %llu", job->total);
 
 	l = fm_list_peek_head_link(job->srcs);
 	for(; !FM_JOB(job)->cancel && l;l=l->next)
 	{
 		GError* err = NULL;
 		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		gboolean ret = delete_file(job, src, NULL, &err);
+		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL, &err);
 		g_object_unref(src);
 		if(!ret) /* error! */
+        {
+            fm_job_emit_error(job, err, FALSE);
 			g_error_free(err);
+        }
 	}
-
-	return FALSE;
+	return TRUE;
 }
 
 gboolean chmod_files(FmFileOpsJob* job)
@@ -328,13 +282,28 @@ gboolean chown_files(FmFileOpsJob* job)
 	return FALSE;
 }
 
-void fm_file_ops_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
+static void emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
 	g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
 }
 
-void fm_file_ops_emit_percent(FmFileOpsJob* job, guint percent)
+void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
-	g_signal_emit(job, signals[PERCENT], 0, percent);	
+	fm_job_call_main_thread(job, emit_cur_file, cur_file);
+}
+
+static void emit_percent(FmFileOpsJob* job, gpointer percent)
+{
+	g_signal_emit(job, signals[PERCENT], 0, (guint)percent);
+}
+
+void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
+{
+    guint percent = (guint)(job->finished + job->current) * 100 / job->total;
+    if( percent > job->percent )
+    {
+    	fm_job_call_main_thread(job, emit_percent, (gpointer)percent);
+        job->percent = percent;
+    }
 }
 

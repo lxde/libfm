@@ -44,9 +44,12 @@ static void data_free(GtkWidget* dlg, FmProgressData* data)
 	g_slice_free(FmProgressData, data);
 }
 
-static void on_percent(FmFileOpsJob* job)
+static void on_percent(FmFileOpsJob* job, guint percent, FmProgressData* data)
 {
-	
+    char percent_text[64];
+    g_snprintf(percent_text, 64, "%d %%", percent);
+	gtk_progress_bar_set_fraction(data->progress, (gdouble)percent/100);
+    gtk_progress_bar_set_text(data->progress, percent_text);
 }
 
 static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressData* data)
@@ -78,7 +81,6 @@ GtkWidget* fm_progress_dlg_new(FmFileOpsJob* job)
 	GtkBuilder* builder = gtk_builder_new();
 
 	gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
-	g_debug(PACKAGE_UI_DIR "/progress.ui");
 
 	data->dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
 

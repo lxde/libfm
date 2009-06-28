@@ -27,9 +27,17 @@
 #include "fm-file-menu.h"
 #include "fm-path.h"
 
+#include "fm-clipboard.h"
+#include "fm-file-ops.h"
 #include "fm-file-properties.h"
 
 static void on_open(GtkAction* action, gpointer user_data);
+static void on_open_with(GtkAction* action, gpointer user_data);
+static void on_cut(GtkAction* action, gpointer user_data);
+static void on_copy(GtkAction* action, gpointer user_data);
+static void on_paste(GtkAction* action, gpointer user_data);
+static void on_delete(GtkAction* action, gpointer user_data);
+static void on_rename(GtkAction* action, gpointer user_data);
 static void on_prop(GtkAction* action, gpointer user_data);
 
 const char base_menu_xml[]=
@@ -43,6 +51,7 @@ const char base_menu_xml[]=
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
   "<menuitem action='Paste'/>"
+  "<menuitem action='Del'/>"
   "<separator/>"
   "<menuitem action='Rename'/>"
   "<menuitem action='Link'/>"
@@ -59,9 +68,10 @@ const char base_menu_xml[]=
 GtkActionEntry base_menu_actions[]=
 {
 	{"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, on_open},
-	{"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_open},
-	{"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_open},
-	{"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_open},
+	{"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_cut},
+	{"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_copy},
+	{"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_paste},
+	{"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, on_delete},
 	{"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
 	{"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
 	{"SendTo", NULL, N_("Send To"), NULL, NULL, NULL},
@@ -174,7 +184,54 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 
 void on_open(GtkAction* action, gpointer user_data)
 {
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	g_debug("%s", gtk_action_get_name(action));
+}
 
+void on_open_with(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	
+}
+
+void on_cut(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	FmPathList* files;
+	files = fm_path_list_new_from_file_info_list(data->file_infos);
+	fm_clipboard_copy_files(data->menu, files);
+	fm_list_unref(files);
+}
+
+void on_copy(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	FmPathList* files;
+	files = fm_path_list_new_from_file_info_list(data->file_infos);
+	fm_clipboard_copy_files(data->menu, files);
+	fm_list_unref(files);
+}
+
+void on_paste(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	/* fm_clipboard_paste_files(data->menu, ); */
+}
+
+void on_delete(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	FmPathList* files;
+	files = fm_path_list_new_from_file_info_list(data->file_infos);
+    if( !fm_list_is_empty(files) )
+	    fm_delete_files(files);
+	fm_list_unref(files);
+}
+
+void on_rename(GtkAction* action, gpointer user_data)
+{
+	FmFileMenu* data = (FmFileMenu*)user_data;
+	
 }
 
 void on_prop(GtkAction* action, gpointer user_data)

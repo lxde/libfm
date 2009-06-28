@@ -28,6 +28,7 @@ job_SOURCES = \
 	job/fm-deep-count-job.c job/fm-deep-count-job.h \
 	job/fm-file-ops-job.c job/fm-file-ops-job.h \
 	job/fm-file-ops-job-xfer.c job/fm-file-ops-job-xfer.h \
+	job/fm-file-ops-job-delete.c job/fm-file-ops-job-delete.h \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -93,7 +94,7 @@ BUILT_SOURCES= \
 
 EXTRA_DIST = \
 	base/fm-marshal.list \
-	base/fm-gtk-marshal.list \
+	gtk/fm-gtk-marshal.list \
 	$(NULL)
 
 CLEANFILES = \

@@ -228,6 +228,7 @@ static void _fm_folder_model_files_removed( FmFolder* dir, GSList* files,
                                             FmFolderModel* list )
 {
 	GSList* l;
+    g_debug("files removed!");
 	for(l = files; l; l=l->next )
 		fm_folder_model_file_deleted( dir, (FmFileInfo*)l->data, list );
 }
@@ -727,10 +728,10 @@ void fm_folder_model_file_deleted( FmFolder* dir,
                                  FmFileInfo* file,
                                  FmFolderModel* list )
 {
-#if 0
     GList* l;
     GtkTreePath* path;
-
+    FmFolderItem* item;
+#if 0
     /* If there is no file info, that means the dir itself was deleted. */
     if( G_UNLIKELY( ! file ) )
     {
@@ -747,24 +748,38 @@ void fm_folder_model_file_deleted( FmFolder* dir,
         gtk_tree_path_free( path );
         return;
     }
+#endif
 
-    if( ! list->show_hidden && vfs_file_info_get_name(file)[0] == '.' )
-        return;
+    if( ! list->show_hidden && file->path->name[0] == '.' ) /* if this is a hidden file */
+    {
+        for( l = list->hidden; l; l = l->next )
+        {
+            item = (FmFolderItem*)l->data;
+            if(item->inf == file)
+                break;
+        }
+        if( ! l )
+            return;
+        list->hidden = g_list_delete_link( list->hidden, l );
+        fm_folder_item_free( item );        
+    }
 
-    l = g_list_find( list->items, file );
+    for( l = list->items; l; l = l->next )
+    {
+        item = (FmFolderItem*)l->data;
+        if(item->inf == file)
+            break;
+    }
     if( ! l )
         return;
 
     path = gtk_tree_path_new_from_indices( g_list_index(list->items, l->data), -1 );
-
     gtk_tree_model_row_deleted( GTK_TREE_MODEL(list), path );
-
     gtk_tree_path_free( path );
 
     list->items = g_list_delete_link( list->items, l );
-    vfs_file_info_unref( file );
+    fm_folder_item_free( item );
     --list->n_items;
-#endif
 }
 
 void fm_folder_model_file_changed( FmFolder* dir,

@@ -20,6 +20,8 @@
  */
 
 #include "fm-folder.h"
+#include <string.h>
+
 
 #define MONITOR_RATE_LIMIT 5000
 
@@ -35,6 +37,9 @@ static void fm_folder_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
 static guint signals[N_SIGNALS];
+
+static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
+
 
 static void fm_folder_class_init(FmFolderClass *klass)
 {
@@ -89,9 +94,36 @@ static void fm_folder_init(FmFolder *self)
 	self->files = fm_file_info_list_new();
 }
 
+static gboolean on_idle(FmFolder* folder)
+{
+    GSList* l;
+    if(folder->files_to_add)
+    {
+        g_signal_emit(folder, signals[FILES_ADDED], 0, folder->files_to_add);
+        g_slist_free(folder->files_to_add);
+        folder->files_to_add = NULL;
+    }
+    if(folder->files_to_update)
+    {
+        g_signal_emit(folder, signals[FILES_CHANGED], 0, folder->files_to_update);
+        g_slist_free(folder->files_to_update);
+        folder->files_to_update = NULL;
+    }
+    if(folder->files_to_del)
+    {
+        g_signal_emit(folder, signals[FILES_REMOVED], 0, folder->files_to_del);
+        g_slist_free(folder->files_to_del);
+        folder->files_to_del = NULL;
+    }
+    folder->idle_handler = 0;
+    return FALSE;
+}
 
 static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileMonitorEvent evt, FmFolder* folder)
 {
+    GList* l;
+    FmFileInfo* fi;
+    char* name;
 	const char* names[]={
 		"G_FILE_MONITOR_EVENT_CHANGED",
 		"G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT",
@@ -105,6 +137,30 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 	g_debug("folder %p %s event: %s", folder, file, names[evt]);
 	g_free(file);
 	/* FIXME: need to query file info asynchronously and add them the the list. */
+
+    switch(evt)
+    {
+    case G_FILE_MONITOR_EVENT_CREATED:
+        break;
+    case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+        break;
+    case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
+        break;
+    case G_FILE_MONITOR_EVENT_DELETED:
+        name = g_file_get_basename(gf);
+        l = _fm_folder_get_file_by_name(folder, name);
+        if(l)
+        {
+            folder->files_to_del = g_slist_prepend(folder->files_to_del, l->data);
+            fm_list_delete_link_nounref(folder->files , l);
+        }
+        g_free(name);
+        break;
+    default:
+        return;
+    }
+    if(!folder->idle_handler)
+        folder->idle_handler = g_idle_add(on_idle, folder);
 }
 
 /* FIXME: use our own implementation for local files. */
@@ -232,4 +288,22 @@ void fm_folder_reload(FmFolder* folder)
 FmFileInfoList* fm_folder_get_files (FmFolder* folder)
 {
 	return folder->files;
+}
+
+GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
+{
+    GList* l = fm_list_peek_head_link(folder->files);
+    for(;l;l=l->next)
+    {
+        FmFileInfo* fi = (FmFileInfo*)l->data;
+        if(strcmp(fi->path->name, name) == 0)
+            return l;
+    }
+    return NULL;
+}
+
+FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
+{
+    GList* l = _fm_folder_get_file_by_name(folder, name);
+    return l ? (FmFileInfo*)l->data : NULL;
 }

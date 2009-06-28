@@ -105,6 +105,7 @@ void fm_list_remove_all(gpointer list, gpointer data);
 
 #define fm_list_link_index(l,l_)		g_queue_index((GQueue*)l,l_)
 #define fm_list_unlink(l,l_)			g_queue_unlink((GQueue*)l,l_)
+#define fm_list_delete_link_nounref(list, l_)    g_queue_delete_link((GQueue*)l,l_)
 void fm_list_delete_link(gpointer list, gpointer l_);
 
 G_END_DECLS
