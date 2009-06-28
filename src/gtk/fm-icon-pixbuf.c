@@ -71,7 +71,7 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
     }
 
     /* not found! load the icon from disk */
-    ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), icon->gicon, size, 0);
+    ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), icon->gicon, size, GTK_ICON_LOOKUP_FORCE_SIZE);
     if(ii)
     {
         pix = gtk_icon_info_load_icon(ii, NULL);

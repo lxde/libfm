@@ -54,7 +54,10 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
-        g_object_unref(gicon);
+        /* g_object_unref(gicon); this is not needed since 
+         * g_file_info_get_icon didn't increase ref_count.
+         * the object returned by g_file_info_get_icon is 
+         * owned by GFileInfo. */
     }
 	else
 		fi->icon = fm_icon_ref(fi->type->icon);

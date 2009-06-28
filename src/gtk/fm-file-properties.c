@@ -113,14 +113,27 @@ static void update_ui(FmFilePropData* data)
 
 	if( data->single_type ) /* all files are of the same mime-type */
 	{
-		GIcon* icon;
+		GIcon* icon = NULL;
 		/* FIXME: handle custom icons for some files */
+
+        /* FIXME: display special property pages for special files or
+         * some specified mime-types. */
+        if( data->single_file ) /* only one file is selected. */
+        {
+            FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(data->files);
+            if(fi->icon)
+                icon = fi->icon->gicon;
+        }
+
 		if(data->mime_type)
 		{
-			gtk_image_set_from_gicon(img, fm_mime_type_get_icon(data->mime_type),
-									 GTK_ICON_SIZE_DIALOG);
+            if(!icon)
+                icon = fm_mime_type_get_icon(data->mime_type);
 			gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
 		}
+
+        if(icon)
+            gtk_image_set_from_gicon(img, icon, GTK_ICON_SIZE_DIALOG);
 
 		if( data->single_file && fm_file_info_is_symlink(data->fi) )
 		{
