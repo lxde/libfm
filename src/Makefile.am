@@ -63,6 +63,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-progress-dlg.c gtk/fm-progress-dlg.h \
 	gtk/fm-file-ops.c gtk/fm-file-ops.h \
 	gtk/fm-icon-pixbuf.c gtk/fm-icon-pixbuf.h \
+	gtk/fm-cell-renderer-text.c gtk/fm-cell-renderer-text.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 
