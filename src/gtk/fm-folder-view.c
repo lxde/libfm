@@ -25,7 +25,7 @@
 #include "fm-folder.h"
 #include "fm-folder-model.h"
 #include "fm-gtk-marshal.h"
-#include "fm-gtk-marshal.h"
+#include "fm-cell-renderer-text.h"
 
 #include "exo/exo-icon-view.h"
 #include "exo/exo-tree-view.h"
@@ -170,7 +170,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
 										"pixbuf", fv->mode == FM_FV_ICON_VIEW ? COL_FILE_BIG_ICON : COL_FILE_SMALL_ICON );
 
-			render = gtk_cell_renderer_text_new();
+			render = fm_cell_renderer_text_new();
 			if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
 			{
 				g_object_set((GObject*)render,

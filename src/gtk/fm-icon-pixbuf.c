@@ -1,7 +1,7 @@
 /*
  *      fm-icon-pixbuf.c
  *      
- *      Copyright 2009 PCMan <pcman@debian>
+ *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
     /* cache this! */
     ent = g_slice_new(PixEntry);
     ent->size = size;
-    ent->pix = pix; 
+    ent->pix = pix;
 
     /* FIXME: maybe we should unload icons that nobody is using to reduce memory usage. */
     /* g_object_weak_ref(); */

@@ -128,7 +128,11 @@ static void update_ui(FmFilePropData* data)
 		if(data->mime_type)
 		{
             if(!icon)
-                icon = fm_mime_type_get_icon(data->mime_type);
+			{
+				FmIcon* ficon = fm_mime_type_get_icon(data->mime_type);
+				if(ficon)
+					icon = ficon->gicon;
+			}
 			gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
 		}
 
