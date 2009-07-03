@@ -90,6 +90,8 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
         /* pix = NULL; */
 		pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown", 
 					size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+        if(G_LIKELY(pix))
+            g_object_ref(pix);
 	}
 
     /* cache this! */
