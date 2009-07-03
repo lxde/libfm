@@ -140,10 +140,12 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
 							g_app_info_get_name(app),
 							g_app_info_get_description(app), 
 							NULL);
+				g_signal_connect(act, "activate", G_CALLBACK(on_open_with), data);
 				gtk_action_set_gicon(act, g_app_info_get_icon(app));
 				gtk_action_group_add_action(act_grp, act);
+				/* associate the app info object with the action */
+				g_object_set_data_full(act, "app", app, (GDestroyNotify)g_object_unref);
 				g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
-				g_object_unref(app);
 			}
 			g_list_free(apps);
 			g_string_append(xml, "</placeholder></popup>");
@@ -184,14 +186,60 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 
 void on_open(GtkAction* action, gpointer user_data)
 {
+	GdkAppLaunchContext* ctx;
 	FmFileMenu* data = (FmFileMenu*)user_data;
-	g_debug("%s", gtk_action_get_name(action));
+	GList* l = fm_list_peek_head_link(data->file_infos);
+
+	ctx = gdk_app_launch_context_new();
+	gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
+	gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+
+	/* FIXME: should handle folders, executable files, 
+	 *        and desktop entry files differently. */
+
+	/* FIXME: replace this with our own code since we already know the
+	 * file types and related apps in advance. */
+	for(; l; l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		FmPath* path = fi->path;
+		char* uri = fm_path_to_uri(path);
+		/* FIXME: set app icon */
+		/* gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app)); */
+		g_app_info_launch_default_for_uri( uri, ctx, NULL);
+		g_free(uri);
+	}
+	g_object_unref(ctx);
 }
 
 void on_open_with(GtkAction* action, gpointer user_data)
 {
+	GdkAppLaunchContext* ctx;
 	FmFileMenu* data = (FmFileMenu*)user_data;
-	
+	GAppInfo* app = (GAppInfo*)g_object_get_data(action, "app");
+	FmFileInfoList* files = data->file_infos;
+	GList* l = fm_list_peek_head_link(files);
+	char** uris = g_new0(char*, fm_list_get_length(files) + 1);
+	int i;
+	g_debug(gtk_action_get_name(action));
+	for(i=0; l; ++i, l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		FmPath* path = fi->path;
+		char* uri = fm_path_to_uri(path);
+		uris[i] = uri;
+	}
+
+	ctx = gdk_app_launch_context_new();
+	gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
+	gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app));
+	gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+
+	/* FIXME: error handling. */
+	g_app_info_launch_uris(app, uris, ctx, NULL);
+	g_object_unref(ctx);
+
+	g_free(uris);
 }
 
 void on_cut(GtkAction* action, gpointer user_data)
