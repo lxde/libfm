@@ -420,3 +420,66 @@ _out:
 	return FALSE;
 }
 
+void fm_folder_view_select_all(FmFolderView* fv)
+{
+    GtkTreeSelection * tree_sel;
+	switch(fv->mode)
+	{
+	case FM_FV_LIST_VIEW:
+        tree_sel = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
+        gtk_tree_selection_select_all(tree_sel);
+		break;
+	case FM_FV_ICON_VIEW:
+	case FM_FV_COMPACT_VIEW:
+        exo_icon_view_select_all((ExoIconView*)fv->view);
+		break;
+	}
+}
+
+void fm_folder_view_select_invert(FmFolderView* fv)
+{
+	switch(fv->mode)
+	{
+	case FM_FV_LIST_VIEW:
+		{
+			GtkTreeSelection *tree_sel;
+			GtkTreeIter it;
+			if(!gtk_tree_model_get_iter_first(fv->model, &it))
+				return;
+			tree_sel = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
+			do
+			{
+				if(gtk_tree_selection_iter_is_selected(tree_sel, &it))
+					gtk_tree_selection_unselect_iter(tree_sel, &it);
+				else
+					gtk_tree_selection_select_iter(tree_sel, &it);
+			}while( gtk_tree_model_iter_next(fv->model, &it ));
+			break;
+		}
+	case FM_FV_ICON_VIEW:
+	case FM_FV_COMPACT_VIEW:
+		{
+			GtkTreePath* path;
+			int i, n;
+			n = gtk_tree_model_iter_n_children(fv->model, NULL);
+			if(n == 0)
+				return;
+			path = gtk_tree_path_new_first();
+			for( i=0; i<n; ++i, gtk_tree_path_next(path) )
+			{
+				if ( exo_icon_view_path_is_selected((ExoIconView*)fv->view, path))
+					exo_icon_view_unselect_path((ExoIconView*)fv->view, path);
+				else
+					exo_icon_view_select_path((ExoIconView*)fv->view, path);
+			}
+			break;
+		}
+	}
+}
+
+/* select files by custom func, not yet implemented */
+void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data)
+{
+	
+}
+

@@ -40,6 +40,9 @@ static void on_copy(GtkAction* act, FmMainWin* win);
 static void on_paste(GtkAction* act, FmMainWin* win);
 static void on_del(GtkAction* act, FmMainWin* win);
 
+static void on_select_all(GtkAction* act, FmMainWin* win);
+static void on_invert_select(GtkAction* act, FmMainWin* win);
+
 static void on_go(GtkAction* act, FmMainWin* win);
 static void on_go_up(GtkAction* act, FmMainWin* win);
 static void on_go_home(GtkAction* act, FmMainWin* win);
@@ -52,6 +55,8 @@ static void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* 
 static void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_about(GtkAction* act, FmMainWin* win);
+
+static void on_location(GtkAction* act, FmMainWin* win);
 
 static const char main_menu_xml[] = 
 "<menubar>"
@@ -112,24 +117,25 @@ static const char main_menu_xml[] =
 	"<toolitem action='Up'/>"
 	"<toolitem action='Home'/>"
 	"<toolitem action='Go'/>"
-"</toolbar>";
+"</toolbar>"
+"<accelerator action='Location'/>";
 
 static GtkActionEntry main_win_actions[]=
 {
 	{"FileMenu", NULL, N_("_File"), NULL, NULL, NULL},
-		{"New", GTK_STOCK_NEW, N_("_New Window"), "<CTRL>N", NULL, on_new_win},
+		{"New", GTK_STOCK_NEW, N_("_New Window"), "<Ctrl>N", NULL, on_new_win},
 		{"Close", GTK_STOCK_CLOSE, N_("_Close Window"), "<Ctrl>W", NULL, on_close_win},
 	{"EditMenu", NULL, N_("_Edit"), NULL, NULL, NULL},
 		{"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, on_cut},
 		{"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, on_copy},
 		{"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, on_paste},
-		{"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, NULL},
+		{"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, on_del},
 		{"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
 		{"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
 		{"MoveTo", NULL, N_("Move To..."), NULL, NULL, NULL},
 		{"CopyTo", NULL, N_("Copy To..."), NULL, NULL, NULL},
-		{"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, NULL},
-		{"InvSel", NULL, N_("Invert Selection"), NULL, NULL, NULL},
+		{"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, on_select_all},
+		{"InvSel", NULL, N_("Invert Selection"), NULL, NULL, on_invert_select},
 		{"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
 	{"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
 		{"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
@@ -144,7 +150,9 @@ static GtkActionEntry main_win_actions[]=
 		{"Computer", "computer", N_("My Computer"), NULL, NULL, on_go_computer},
 		{"Trash", "user-trash", N_("Trash Can"), NULL, NULL, on_go_trash},
 		{"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, on_go_network},
-		{"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go}
+		{"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go},
+	/* FIXME: why this accelerator key doesn't work? */
+	{"Location", NULL, "Location", "<Alt>d", NULL, on_location}
 };
 
 static GtkActionEntry main_win_toggle_actions[]=
@@ -478,4 +486,20 @@ void on_del(GtkAction* act, FmMainWin* win)
 	if( !fm_list_is_empty(files) )
 		fm_delete_files(files);
 	fm_list_unref(files);
+}
+
+void on_select_all(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_select_all(win->folder_view);
+}
+
+void on_invert_select(GtkAction* act, FmMainWin* win)
+{
+	fm_folder_view_select_invert(win->folder_view);
+}
+
+void on_location(GtkAction* act, FmMainWin* win)
+{
+	g_debug("here!");
+	gtk_widget_grab_focus(win->location);
 }

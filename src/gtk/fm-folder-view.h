@@ -95,6 +95,11 @@ const char* fm_folder_view_get_cwd(FmFolderView* fv);
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 guint fm_folder_view_get_n_selected_files(FmFolderView* fv);
 
+void fm_folder_view_select_all(FmFolderView* fv);
+void fm_folder_view_select_invert(FmFolderView* fv);
+/* select files by custom func, not yet implemented */
+void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data);
+
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
 
 G_END_DECLS
