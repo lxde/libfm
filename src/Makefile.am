@@ -28,6 +28,7 @@ job_SOURCES = \
 	job/fm-dir-list-job.c job/fm-dir-list-job.h \
 	job/fm-deep-count-job.c job/fm-deep-count-job.h \
 	job/fm-file-ops-job.c job/fm-file-ops-job.h \
+	job/fm-file-info-job.c job/fm-file-info-job.h \
 	job/fm-file-ops-job-xfer.c job/fm-file-ops-job-xfer.h \
 	job/fm-file-ops-job-delete.c job/fm-file-ops-job-delete.h \
 	$(NULL)
@@ -64,6 +65,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-file-ops.c gtk/fm-file-ops.h \
 	gtk/fm-icon-pixbuf.c gtk/fm-icon-pixbuf.h \
 	gtk/fm-cell-renderer-text.c gtk/fm-cell-renderer-text.h \
+	gtk/fm-dnd-src.c gtk/fm-dnd-src.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 
