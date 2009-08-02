@@ -52,13 +52,15 @@ FmPath*	fm_path_new(const char* path)
 		}
 		else if( sep = strstr(path, ":/") ) /* if it's a URL */
 		{
-			FmPath* parent = fm_path_new_child_len(NULL, path, (sep - path)+1);
+			FmPath* parent;
 			FmPath* ret;
+            sep += 2;
+			while(*sep == '/')
+				++sep;
+            parent = fm_path_new_child_len(NULL, path, (sep - path)-1);
 			/* FIXME: computer: is not remote, but a virtual path */
 			parent->flags |= FM_PATH_IS_REMOTE;
-			path = sep += 2;
-			while(*path == '/')
-				++path;			
+			path = sep;
 			ret = fm_path_new_relative(parent, path);
 			fm_path_unref(parent);
 			return ret;
@@ -387,6 +389,11 @@ FmPathList* fm_path_list_new()
 	return (FmPathList*)fm_list_new(&funcs);
 }
 
+gboolean fm_list_is_path_list(FmList* list)
+{
+    return list->funcs == &funcs;
+}
+
 FmPathList* fm_path_list_new_from_uris(const char** uris)
 {
     const char** uri;
@@ -421,6 +428,25 @@ char* fm_path_list_to_uri_list(FmPathList* pl)
 	fm_path_list_write_uri_list(pl, buf);
 	return g_string_free(buf, FALSE);
 }
+
+/*
+char** fm_path_list_to_uris(FmPathList* pl)
+{
+	if( G_LIKELY(!fm_list_is_empty(pl)) )
+	{
+		GList* l = fm_list_peek_head_link(pl);
+		char** uris = g_new0(char*, fm_list_get_length(pl) + 1);
+		for(i=0; l; ++i, l=l->next)
+		{
+			FmFileInfo* fi = (FmFileInfo*)l->data;
+			FmPath* path = fi->path;
+			char* uri = fm_path_to_uri(path);
+			uris[i] = uri;
+		}
+	}
+	return NULL;
+}
+*/
 
 FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 {
