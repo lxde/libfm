@@ -122,7 +122,10 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
 			files_to_update = g_slist_prepend(files_to_update, fi2);
 		}
 		else
+        {
 			files_to_add = g_slist_prepend(files_to_add, fi);
+            fm_list_push_tail(folder->files, fi);
+        }
 	}
 	if(files_to_add)
 	{
@@ -197,6 +200,7 @@ gboolean on_idle(FmFolder* folder)
     if(folder->files_to_del)
     {
 		GSList* ll;
+        g_debug("files_to_del: %p", folder->files_to_del);
 		for(ll=folder->files_to_del;ll;ll=ll->next)
 		{
 			GList* l= (GList*)ll->data;
