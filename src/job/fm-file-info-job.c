@@ -126,7 +126,41 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
 		if( ! FM_JOB(job)->cancel )
 		{
 			fi->type = fm_mime_type_get_for_native_file(path, fi->disp_name, &st);
-			fi->icon = fm_icon_ref(fi->type->icon);
+
+            /* special handling for desktop entry files */
+            if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
+            {
+                char* fpath = fm_path_to_str(fi->path);
+                GKeyFile* kf = g_key_file_new();
+                GIcon* gicon = NULL;
+                if(g_key_file_load_from_file(kf, fpath, 0, NULL))
+                {
+                    char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
+                    char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
+                    if(icon_name)
+                    {
+                        if(g_path_is_absolute(icon_name))
+                        {
+                            GFile* gicon_file = g_file_new_for_path(icon_name);
+                            gicon = g_file_icon_new(gicon_file);
+                            g_object_unref(gicon_file);
+                        }
+                        else
+                            gicon = g_themed_icon_new(icon_name);
+                    }
+                    if(title)
+                        fi->disp_name = title;
+                }
+                if(gicon)
+                {
+                    fi->icon = fm_icon_from_gicon(gicon);
+                    g_object_unref(gicon);
+                }
+                else
+                    fi->icon = fm_icon_ref(fi->type->icon);
+            }
+            else
+                fi->icon = fm_icon_ref(fi->type->icon);
 		}
 	}
 	else

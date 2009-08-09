@@ -25,9 +25,9 @@ gboolean fm_init()
 {
 	g_thread_init(NULL);
 	g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
-	fm_mime_type_init();
 	fm_path_init();
     fm_icon_init();
+    fm_file_info_init();
 }
 
 void fm_finalize()

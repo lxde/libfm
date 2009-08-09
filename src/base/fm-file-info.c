@@ -29,7 +29,19 @@
 #include "fm-utils.h"
 
 static gboolean use_si_prefix = TRUE;
+static FmMimeType* desktop_type = NULL;
 
+/* intialize the file info system */
+void fm_file_info_init()
+{
+	fm_mime_type_init();
+    desktop_type = fm_mime_type_get_for_type("application/x-desktop");
+}
+
+void fm_file_info_finalize()
+{
+
+}
 
 FmFileInfo* fm_file_info_new ()
 {
@@ -254,8 +266,7 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
 
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
-//    return 0 != (fi->flags & VFS_FILE_INFO_DESKTOP_ENTRY);
-	return FALSE;
+	return fi->type == desktop_type;
 }
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )
