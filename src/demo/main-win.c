@@ -212,65 +212,58 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
 	fm_folder_view_chdir(self->folder_view, gtk_entry_get_text(entry));
 }
 
-static void on_file_clicked(FmFolderView* fv, FmFileInfo* fi, int type, int btn, FmMainWin* win)
+static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* fi, FmMainWin* win)
 {
 	char* fpath, *uri;
 	GAppLaunchContext* ctx;
 	switch(type)
 	{
-	case GDK_2BUTTON_PRESS: /* file activated */
-		if( btn == 1 ) /* left click */
+	case FM_FV_ACTIVATED: /* file activated */
+		fpath = g_build_filename(fv->cwd, fm_file_info_get_name(fi), NULL);
+		if(fm_file_info_is_dir(fi))
 		{
-			fpath = g_build_filename(fv->cwd, fm_file_info_get_name(fi), NULL);
-			if(fm_file_info_is_dir(fi))
-			{
-				fm_main_win_chdir( win, fpath);
-			}
-			else
-			{
-				uri = g_filename_to_uri(fpath, NULL, NULL);
-				ctx = gdk_app_launch_context_new();
-				gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
-				g_app_info_launch_default_for_uri(uri, ctx, NULL);
-				g_object_unref(ctx);
+			fm_main_win_chdir( win, fpath);
+		}
+		else
+		{
+			uri = g_filename_to_uri(fpath, NULL, NULL);
+			ctx = gdk_app_launch_context_new();
+			gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+			g_app_info_launch_default_for_uri(uri, ctx, NULL);
+			g_object_unref(ctx);
 
-				g_free(uri);
+			g_free(uri);
+		}
+		g_free(fpath);
+		break;
+	case FM_FV_CONTEXT_MENU:
+		if(fi)
+		{
+			FmFileMenu* menu;
+			GtkMenu* popup;
+			FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
+			menu = fm_file_menu_new_for_files(files, TRUE);
+			fm_list_unref(files);
+
+			/* merge some specific menu items for folders */
+			if(fm_file_menu_is_single_file_type(menu) && fm_file_info_is_dir(fi))
+			{
+				GtkUIManager* ui = fm_file_menu_get_ui(menu);
+				GtkActionGroup* act_grp = fm_file_menu_get_action_group(menu);
+				gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
+				gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
 			}
-			g_free(fpath);
+
+			popup = fm_file_menu_get_menu(menu);
+			gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
+		}
+		else /* no files are selected. Show context menu of current folder. */
+		{
+
 		}
 		break;
-	case GDK_BUTTON_PRESS:
-		if( btn == 3 ) /* right click */
-		{
-			if(fi)
-			{
-				FmFileMenu* menu;
-				GtkMenu* popup;
-				FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-				menu = fm_file_menu_new_for_files(files, TRUE);
-				fm_list_unref(files);
-
-				/* merge some specific menu items for folders */
-				if(fm_file_menu_is_single_file_type(menu) && fm_file_info_is_dir(fi))
-				{
-					GtkUIManager* ui = fm_file_menu_get_ui(menu);
-					GtkActionGroup* act_grp = fm_file_menu_get_action_group(menu);
-					gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
-					gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
-				}
-
-				popup = fm_file_menu_get_menu(menu);
-				gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
-			}
-			else
-			{
-				
-			}
-		}
-		else if( btn == 2) /* middle click */
-		{
-			g_debug("middle click!");
-		}
+	case FM_FV_MIDDLE_CLICK:
+		g_debug("middle click!");
 		break;
 	}
 }

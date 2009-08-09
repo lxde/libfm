@@ -26,6 +26,8 @@
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
 #include "fm-path.h"
+#include "fm-dnd-src.h"
+#include "fm-dnd-dest.h"
 
 G_BEGIN_DECLS
 
@@ -48,6 +50,17 @@ enum _FmFolderViewMode
 	FM_FV_COMPACT_VIEW
 };
 
+typedef enum _FmFolderViewClickType FmFolderViewClickType;
+enum _FmFolderViewClickType
+{
+	FM_FV_CLICK_NONE,
+	FM_FV_ACTIVATED, /* this can be triggered by both 
+						left single or double click depending on 
+						whether single-click activation is used or not. */
+	FM_FV_MIDDLE_CLICK,
+	FM_FV_CONTEXT_MENU
+};
+
 typedef struct _FmFolderView			FmFolderView;
 typedef struct _FmFolderViewClass		FmFolderViewClass;
 
@@ -65,12 +78,14 @@ struct _FmFolderView
 	GtkWidget* view;
 	GtkTreeModel* model;
 	char* cwd; /* FIXME: replace this with FmPath later. */
+	FmDndSrc* dnd_src; /* dnd source manager */
+	FmDndDest* dnd_dest; /* dnd dest manager */
 };
 
 struct _FmFolderViewClass
 {
 	GtkScrolledWindowClass parent_class;
-	void (*file_clicked)(FmFolderView* fv, FmFileInfo* file, int type, int btn);
+	void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
 };
 
 GType		fm_folder_view_get_type		(void);
