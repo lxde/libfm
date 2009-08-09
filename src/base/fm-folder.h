@@ -28,6 +28,7 @@
 #include "fm-path.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info.h"
+#include "fm-file-info-job.h"
 
 G_BEGIN_DECLS
 
@@ -60,6 +61,7 @@ struct _FmFolder
     GSList* files_to_add;
     GSList* files_to_update;
     GSList* files_to_del;
+    GSList* pending_jobs;
 };
 
 struct _FmFolderClass

@@ -127,9 +127,10 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 	ds->widget = w;
 	if( w )
 	{
+        g_object_add_weak_pointer(w, &ds->widget);
 		g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
-		g_signal_connect(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
-		g_signal_connect(w, "drag-end", G_CALLBACK(on_drag_end), ds);
+		g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
+		g_signal_connect_after(w, "drag-end", G_CALLBACK(on_drag_end), ds);
 	}
 }
 
@@ -166,7 +167,7 @@ on_drag_data_get ( GtkWidget *src_widget,
 		/* just store the pointer in GtkSelection since this is used 
 		 * within the same app. */
 		gtk_selection_data_set(sel_data, type, 8,
-								ds->files, sizeof(gpointer));
+								&ds->files, sizeof(gpointer));
 		break;
 	case FM_DND_SRC_TARGET_URI_LIST:
 		{
@@ -198,7 +199,6 @@ on_drag_begin ( GtkWidget *src_widget,
 				FmDndSrc* ds )
 {
 	/* block default handler */
-	g_signal_stop_emission_by_name(src_widget, "drag-begin");
 
     gtk_drag_set_icon_default( drag_context );
 

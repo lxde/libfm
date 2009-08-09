@@ -1,14 +1,23 @@
 /*
-*  C Interface: vfs-file-info
-*
-* Description: File information
-*
-*
-* Author: Hong Jen Yee (PCMan) <pcman.tw (AT) gmail.com>, (C) 2006
-*
-* Copyright: See COPYING file that comes with this distribution
-*
-*/
+ *      fm-file-info.h
+ *      
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *      MA 02110-1301, USA.
+ */
 
 #ifndef _FM_FILE_INFO_H_
 #define _FM_FILE_INFO_H_
@@ -43,8 +52,13 @@ typedef FmList FmFileInfoList;
 
 struct _FmFileInfo
 {
+    FmPath* path; /* path of the file */
+
     mode_t mode;
-    dev_t dev;
+    union {
+        const char* fs_id;
+        dev_t dev;
+    };
     uid_t uid;
     gid_t gid;
     goffset size;
@@ -54,9 +68,8 @@ struct _FmFileInfo
     gulong blksize;
     goffset blocks;
 
-    FmPath* path; /* path of the file */
     char* disp_name;  /* displayed name (in UTF-8) */
-    
+
     /* FIXME: caching the collate key can greatly speed up sorting.
      *        However, memory usage is greatly increased!.
      *        Is there a better alternative solution?
@@ -73,8 +86,12 @@ struct _FmFileInfo
 
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf);
+void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
+
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );
+
+void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src);
 
 FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
@@ -162,8 +179,13 @@ char* vfs_file_resolve_path( const char* cwd, const char* relative_path );
 FmFileInfoList* fm_file_info_list_new();
 FmFileInfoList* fm_file_info_list_new_from_glist();
 
+gboolean fm_list_is_file_info_list(FmList* list);
+
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);
+
+/* return TRUE if all files in the list are on the same fs */
+gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list);
 
 G_END_DECLS
 

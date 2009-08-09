@@ -1,14 +1,23 @@
 /*
-*  C Interface: ptk-file-list
-*
-* Description:
-*
-*
-* Author: Hong Jen Yee (PCMan) <pcman.tw (AT) gmail.com>, (C) 2006
-*
-* Copyright: See COPYING file that comes with this distribution
-*
-*/
+ *      fm-folder-model.h
+ *      
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *      MA 02110-1301, USA.
+ */
 
 #ifndef _FM_FOLDER_MODEL_H_
 #define _FM_FOLDER_MODEL_H_
@@ -84,14 +93,11 @@ FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
 
 void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden );
 
-void fm_folder_model_file_created( FmFolder* dir, FmFileInfo* file,
-                                        FmFolderModel* list );
+void fm_folder_model_file_created( FmFolderModel* model, FmFileInfo* file);
 
-void fm_folder_model_file_deleted( FmFolder* dir, FmFileInfo* file,
-                                        FmFolderModel* list );
+void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file);
 
-void fm_folder_model_file_changed( FmFolder* dir, FmFileInfo* file,
-                                        FmFolderModel* list );
+void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file);
 
 /*
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );

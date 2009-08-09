@@ -35,6 +35,10 @@ enum {
 static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
 static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf);
 static void fm_folder_finalize  			(GObject *object);
+
+static void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder);
+static gboolean on_idle(FmFolder* folder);
+
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
 static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
@@ -95,28 +99,112 @@ static void fm_folder_init(FmFolder *self)
 	self->files = fm_file_info_list_new();
 }
 
-static gboolean on_idle(FmFolder* folder)
+void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
+{
+	GList* l;
+	GSList* files_to_add = NULL;
+	GSList* files_to_update = NULL;
+
+	for(l=fm_list_peek_head_link(job->file_infos);l;l=l->next)
+	{
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		GList* l2 = _fm_folder_get_file_by_name(folder, fi->path->name);
+		if(l2) /* the file is already in the folder, update */
+		{
+			FmFileInfo* fi2 = (FmFileInfo*)l2->data;
+			fm_file_info_copy(fi2, fi);
+			files_to_update = g_slist_prepend(files_to_update, fi2);
+		}
+		else
+			files_to_add = g_slist_prepend(files_to_add, fi);
+	}
+	if(files_to_add)
+	{
+		g_signal_emit(folder, signals[FILES_ADDED], 0, files_to_add);
+		g_slist_free(files_to_add);
+	}
+	if(files_to_update)
+	{
+		g_debug("UPDATE!");
+		g_signal_emit(folder, signals[FILES_CHANGED], 0, files_to_update);
+		g_slist_free(files_to_update);
+	}
+
+	folder->pending_jobs = g_slist_remove(folder->pending_jobs, job);
+}
+
+gboolean on_idle(FmFolder* folder)
 {
     GSList* l;
-    if(folder->files_to_add)
-    {
-        g_signal_emit(folder, signals[FILES_ADDED], 0, folder->files_to_add);
-        g_slist_free(folder->files_to_add);
-        folder->files_to_add = NULL;
-    }
-    if(folder->files_to_update)
-    {
-        g_signal_emit(folder, signals[FILES_CHANGED], 0, folder->files_to_update);
-        g_slist_free(folder->files_to_update);
-        folder->files_to_update = NULL;
-    }
+	FmFileInfoJob* job = NULL;
+	FmPath* path;
+    folder->idle_handler = 0;
+
+	if(folder->files_to_update || folder->files_to_add)
+		job = (FmFileInfoJob*)fm_file_info_job_new(NULL);
+
+	if(folder->files_to_update)
+	{
+		for(l=folder->files_to_update;l;)
+		{
+			/* if a file is already in files_to_add, remove it. */
+			if(g_slist_find_custom(folder->files_to_add, l->data, (GCompareFunc)strcmp))
+			{
+				GSList* tmp = l;
+				l=l->next;
+				g_free(tmp->data);
+				g_slist_free_1(tmp);
+				if(G_UNLIKELY(tmp == folder->files_to_update))
+					folder->files_to_update = l;
+				continue;
+			}
+			path = fm_path_new_child(folder->dir_path, (char*)l->data);
+			fm_file_info_job_add(job, path);
+			fm_path_unref(path);
+			g_free(l->data);
+
+			l=l->next;
+		}
+		g_slist_free(folder->files_to_update);
+		folder->files_to_update = NULL;
+	}
+
+	if(folder->files_to_add)
+	{
+		for(l=folder->files_to_add;l;l=l->next)
+		{
+			path = fm_path_new_child(folder->dir_path, (char*)l->data);
+			fm_file_info_job_add(job, path);
+			fm_path_unref(path);
+			g_free(l->data);
+		}
+		g_slist_free(folder->files_to_add);
+		folder->files_to_add = NULL;
+	}
+
+	if(job)
+	{
+		g_signal_connect(job, "finished", on_file_info_finished, folder);
+		folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
+		fm_job_run_async(job);
+	}
+
     if(folder->files_to_del)
     {
+		GSList* ll;
+		g_debug("FILES_TO_DEL: %p", folder->files_to_del);
+		for(ll=folder->files_to_del;ll;ll=ll->next)
+		{
+			GList* l= (GList*)ll->data;
+			ll->data = l->data;
+			fm_list_delete_link_nounref(folder->files , l);
+		}
         g_signal_emit(folder, signals[FILES_REMOVED], 0, folder->files_to_del);
+		g_slist_foreach(folder->files_to_del, (GFunc)fm_file_info_unref, NULL);
         g_slist_free(folder->files_to_del);
         folder->files_to_del = NULL;
     }
-    folder->idle_handler = 0;
+
     return FALSE;
 }
 
@@ -134,34 +222,30 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 		"G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
 		"G_FILE_MONITOR_EVENT_UNMOUNTED"
 	};
-	char* file = g_file_get_basename(gf);
-	g_debug("folder %p %s event: %s", folder, file, names[evt]);
-	g_free(file);
-	/* FIXME: need to query file info asynchronously and add them the the list. */
 
+	name = g_file_get_basename(gf);
     switch(evt)
     {
     case G_FILE_MONITOR_EVENT_CREATED:
-        break;
-    case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+		folder->files_to_add = g_slist_append(folder->files_to_add, name);
         break;
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
+    case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+		folder->files_to_update = g_slist_append(folder->files_to_update, name);
         break;
     case G_FILE_MONITOR_EVENT_DELETED:
-        name = g_file_get_basename(gf);
         l = _fm_folder_get_file_by_name(folder, name);
-        if(l)
-        {
-            folder->files_to_del = g_slist_prepend(folder->files_to_del, l->data);
-            fm_list_delete_link_nounref(folder->files , l);
-        }
-        g_free(name);
+        if(l && !g_slist_find(folder->files_to_del, l) )
+            folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
+		g_free(name);
         break;
     default:
+		g_debug("folder %p %s event: %s", folder, name, names[evt]);
+		g_free(name);
         return;
     }
     if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add(on_idle, folder);
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_idle, folder, NULL);
 }
 
 /* FIXME: use our own implementation for local files. */
@@ -256,7 +340,19 @@ static void fm_folder_finalize(GObject *object)
 	{
 		g_signal_handlers_disconnect_by_func(self->job, on_job_finished, self);
 		fm_job_cancel(self->job); /* FIXME: is this ok? */
-		/* the job will be freed in idle handler. */
+		/* the job will be freed automatically in idle handler. */
+	}
+
+	if(self->pending_jobs)
+	{
+		GSList* l;
+		for(l = self->pending_jobs;l;l=l->next)
+		{
+			FmJob* job = FM_JOB(l->data);
+			g_signal_handlers_disconnect_by_func(job, on_job_finished, self);
+			fm_job_cancel(job);
+			/* the job will be freed automatically in idle handler. */
+		}
 	}
 
     /* remove from hash table */
@@ -272,6 +368,23 @@ static void fm_folder_finalize(GObject *object)
 	{
 		g_signal_handlers_disconnect_by_func(self->mon, on_folder_changed, self);
 		g_object_unref(self->mon);
+	}
+
+	if(self->idle_handler)
+	{
+		g_source_remove(self->idle_handler);
+		if(self->files_to_add)
+		{
+			g_slist_foreach(self->files_to_add, (GFunc)g_free, NULL);
+			g_slist_free(self->files_to_add);
+		}
+		if(self->files_to_update)
+		{
+			g_slist_foreach(self->files_to_update, (GFunc)g_free, NULL);
+			g_slist_free(self->files_to_update);
+		}
+		if(self->files_to_del)
+			g_slist_free(self->files_to_del);
 	}
 
 	fm_list_unref(self->files);

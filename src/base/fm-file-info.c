@@ -1,14 +1,23 @@
 /*
-*  C Implementation: vfs-file-info
-*
-* Description: File information
-*
-*
-* Author: Hong Jen Yee (PCMan) <pcman.tw (AT) gmail.com>, (C) 2006
-*
-* Copyright: See COPYING file that comes with this distribution
-*
-*/
+ *      fm-file-info.c
+ *      
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *      MA 02110-1301, USA.
+ */
 
 #include "fm-file-info.h"
 #include <glib.h>
@@ -29,13 +38,11 @@ FmFileInfo* fm_file_info_new ()
     return fi;
 }
 
-FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
+void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
-	FmFileInfo* fi = fm_file_info_new();
 	const char* tmp;
     GIcon* gicon;
-
-	fi->path = fm_path_new_child(parent_dir, g_file_info_get_name(inf));
+	g_return_if_fail(fi->path);
 
 	/* if display name is the same as its name, just use it. */
 	tmp = g_file_info_get_display_name(inf);
@@ -50,6 +57,16 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
 	if( tmp )
 		fi->type = fm_mime_type_get_for_type( tmp );
 
+    if(fm_path_is_native(fi->path))
+    {
+        fi->dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE);
+    }
+    else
+    {
+        tmp = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
+        fi->fs_id = g_intern_string(tmp);
+    }
+
 	if( !fi->type )
     {
         gicon = g_file_info_get_icon(inf);
@@ -61,6 +78,13 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
     }
 	else
 		fi->icon = fm_icon_ref(fi->type->icon);
+}
+
+FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
+{
+	FmFileInfo* fi = fm_file_info_new();
+	fi->path = fm_path_new_child(parent_dir, g_file_info_get_name(inf));
+	fm_file_info_set_from_gfileinfo(fi, inf);
 	return fi;
 }
 
@@ -113,6 +137,37 @@ void fm_file_info_unref( FmFileInfo* fi )
         fm_file_info_clear( fi );
         g_slice_free( FmFileInfo, fi );
     }
+}
+
+void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
+{
+    fm_file_info_clear(fi);
+    fi->path = fm_path_ref(src->path);
+
+    fi->mode = src->mode;
+    if(fm_path_is_native(fi->path))
+        fi->dev = src->dev;
+    else
+        fi->fs_id = src->fs_id;
+    fi->uid = src->uid;
+    fi->gid = src->gid;
+    fi->size = src->size;
+    fi->mtime = src->mtime;
+    fi->atime = src->atime;
+
+    fi->blksize = src->blksize;
+    fi->blocks = src->blocks;
+
+    if(src->disp_name == src->path->name)
+        fi->disp_name = src->disp_name;
+    else
+        fi->disp_name = g_strdup(src->disp_name);
+
+    fi->collate_key = g_strdup(src->collate_key);
+    fi->disp_size = g_strdup(src->disp_size);
+    fi->disp_mtime = g_strdup(src->disp_mtime);
+	fi->type = fm_mime_type_ref(src->type);
+	fi->icon = fm_icon_ref(src->icon);
 }
 
 FmPath* fm_file_info_get_path( FmFileInfo* fi )
@@ -638,6 +693,11 @@ FmFileInfoList* fm_file_info_list_new()
 	return fm_list_new(&fm_list_funcs);
 }
 
+gboolean fm_list_is_file_info_list(FmList* list)
+{
+    return list->funcs == &fm_list_funcs;
+}
+
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 {
@@ -652,6 +712,35 @@ gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 			FmFileInfo* fi2 = (FmFileInfo*)l->data;
 			if(fi->type != fi2->type)
 				return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+/* return TRUE if all files in the list are on the same fs */
+gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
+{
+	if( ! fm_list_is_empty(list) )
+	{
+		GList* l = fm_list_peek_head_link(list);
+		FmFileInfo* fi = (FmFileInfo*)l->data;
+		l = l->next;
+		for(;l;l=l->next)
+		{
+			FmFileInfo* fi2 = (FmFileInfo*)l->data;
+            gboolean is_native = fm_path_is_native(fi->path);
+            if( is_native != fm_path_is_native(fi2->path) )
+                return FALSE;
+            if( is_native )
+            {
+                if( fi->dev != fi2->dev )
+                    return FALSE;
+            }
+            else
+            {
+                if( fi->fs_id != fi2->fs_id )
+                    return FALSE;
+            }
 		}
 	}
 	return TRUE;

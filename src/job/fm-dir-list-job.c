@@ -23,14 +23,13 @@
 #include <gio/gio.h>
 #include <string.h>
 #include <glib/gstdio.h>
-
 #include "fm-mime-type.h"
+#include "fm-file-info-job.h"
 
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
 static gboolean fm_dir_list_job_run(FmDirListJob *job);
-static gpointer job_thread(FmDirListJob* job);
 
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
@@ -112,27 +111,16 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 			}
 			while( ! FM_JOB(job)->cancel && (name = g_dir_read_name(dir)) )
 			{
-				struct stat st;
+				FmFileInfo* fi;
 				g_string_truncate(fpath, dir_len);
 				g_string_append(fpath, name);
-				if( g_stat( fpath->str, &st ) == 0)
-				{
-					FmFileInfo* fi = fm_file_info_new();
-					char* type;
-					fi->path = fm_path_new_child(job->dir_path, name);
-					fi->disp_name = fi->path->name;
 
-					fi->mode = st.st_mode;
-					fi->mtime = st.st_mtime;
-					fi->size = st.st_size;
-
-					if( ! FM_JOB(job)->cancel )
-					{
-						fi->type = fm_mime_type_get_for_native_file(fpath->str, fi->disp_name, &st);
-						fi->icon = fm_icon_ref(fi->type->icon);
-					}
+				fi = fm_file_info_new();
+				fi->path = fm_path_new_child(job->dir_path, name);
+				if( fm_file_info_job_get_info_for_native_file(job, fi, fpath->str) )
 					fm_list_push_tail_noref(job->files, fi);
-				}
+				else /* failed! */
+					fm_file_info_unref(fi);
 			}
 			g_string_free(fpath, TRUE);
 			g_dir_close(dir);

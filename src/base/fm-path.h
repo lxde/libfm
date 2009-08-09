@@ -97,7 +97,10 @@ FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
+gboolean fm_list_is_path_list(FmList* list);
+
 char* fm_path_list_to_uri_list(FmPathList* pl);
+/* char** fm_path_list_to_uris(FmPathList* pl); */
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf);
 
 G_END_DECLS
