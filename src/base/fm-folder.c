@@ -112,6 +112,12 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
 		if(l2) /* the file is already in the folder, update */
 		{
 			FmFileInfo* fi2 = (FmFileInfo*)l2->data;
+			/* FIXME: will fm_file_info_copy here cause problems?
+			 *        the file info might be referenced by others, too.
+			 *        we're mofifying an object referenced by others.
+			 *        we should redesign the API, or document this clearly
+			 *        in future API doc.
+			 */
 			fm_file_info_copy(fi2, fi);
 			files_to_update = g_slist_prepend(files_to_update, fi2);
 		}
@@ -125,7 +131,6 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
 	}
 	if(files_to_update)
 	{
-		g_debug("UPDATE!");
 		g_signal_emit(folder, signals[FILES_CHANGED], 0, files_to_update);
 		g_slist_free(files_to_update);
 	}
@@ -192,7 +197,6 @@ gboolean on_idle(FmFolder* folder)
     if(folder->files_to_del)
     {
 		GSList* ll;
-		g_debug("FILES_TO_DEL: %p", folder->files_to_del);
 		for(ll=folder->files_to_del;ll;ll=ll->next)
 		{
 			GList* l= (GList*)ll->data;
@@ -204,7 +208,6 @@ gboolean on_idle(FmFolder* folder)
         g_slist_free(folder->files_to_del);
         folder->files_to_del = NULL;
     }
-
     return FALSE;
 }
 

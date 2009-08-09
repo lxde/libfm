@@ -23,7 +23,6 @@
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
-                               G_FILE_ATTRIBUTE_STANDARD_SIZE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
 
@@ -39,7 +38,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 	{
 		_inf = inf = g_file_query_info(gf, query,
 							G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-							&job->cancellable, &err);
+							job->cancellable, &err);
         if(!_inf)
         {
             fm_job_emit_error(job, err, FALSE);
@@ -54,7 +53,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
     fm_file_ops_job_emit_cur_file(fjob, g_file_info_get_display_name(inf));
 
     /* show progress */
-    fjob->finished += g_file_info_get_size(inf);
+    ++fjob->finished;
     fm_file_ops_job_emit_percent(job);
 
 	is_dir = (g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY);
@@ -105,7 +104,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 		}
 		g_object_unref(enu);
 	}
-    return job->cancel ? FALSE : g_file_delete(gf, &job->cancellable, &err);
+    return job->cancel ? FALSE : g_file_delete(gf, job->cancellable, &err);
 }
 
 gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf)

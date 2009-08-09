@@ -250,9 +250,9 @@ gboolean delete_files(FmFileOpsJob* job)
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
 	fm_job_run_sync(dc);
-	job->total = dc->total_size;
+	job->total = dc->count;
 	g_object_unref(dc);
-	g_debug("total size to delete: %llu", job->total);
+	g_debug("total number of files to delete: %llu", job->total);
 
 	l = fm_list_peek_head_link(job->srcs);
 	for(; !FM_JOB(job)->cancel && l;l=l->next)
