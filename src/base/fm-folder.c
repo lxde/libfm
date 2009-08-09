@@ -422,6 +422,7 @@ FmFolder*	fm_folder_get_for_uri	(const char* uri)
 	GFile* gf = g_file_new_for_uri(uri);
 	FmFolder* folder = fm_folder_get_for_gfile(gf);
 	g_object_unref(gf);
+g_debug("URI2: %s", uri);
 	return folder;	
 }
 
