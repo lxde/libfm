@@ -337,7 +337,6 @@ FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
         folder = fm_folder_new_internal(path, gf);
         if(_gf)
             g_object_unref(_gf);
-        g_debug("insert: %p", folder->dir_path);
         g_hash_table_insert(hash, folder->dir_path, folder);
     }
     else

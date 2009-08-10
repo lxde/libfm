@@ -224,8 +224,6 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 			g_file_enumerator_close(enu, NULL, &err);
 			g_object_unref(enu);
 		}
-		else
-			g_object_unref(inf);
 	}
 	else
 	{
