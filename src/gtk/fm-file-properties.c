@@ -85,7 +85,6 @@ static void on_finished(FmDeepCountJob* job, FmFilePropData* data)
 		g_source_remove(data->timeout);
 		data->timeout = 0;
 	}
-	g_debug("Finished!");
 	data->dc_job = NULL;
 }
 

@@ -229,6 +229,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     GList* l;
     FmFileInfo* fi;
     char* name;
+/*
     const char* names[]={
         "G_FILE_MONITOR_EVENT_CHANGED",
         "G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT",
@@ -238,7 +239,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
     };
-
+*/
     name = g_file_get_basename(gf);
     switch(evt)
     {
@@ -256,7 +257,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         g_free(name);
         break;
     default:
-        g_debug("folder %p %s event: %s", folder, name, names[evt]);
+        /* g_debug("folder %p %s event: %s", folder, name, names[evt]); */
         g_free(name);
         return;
     }
@@ -302,7 +303,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
     {
         if(err)
         {
-            g_debug(err->message);
+            g_debug("error creating file monitor: %s", err->message);
             g_error_free(err);
         }
     }
@@ -336,6 +337,7 @@ FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
         folder = fm_folder_new_internal(path, gf);
         if(_gf)
             g_object_unref(_gf);
+        g_debug("insert: %p", folder->dir_path);
         g_hash_table_insert(hash, folder->dir_path, folder);
     }
     else
@@ -373,7 +375,6 @@ static void fm_folder_finalize(GObject *object)
 
     /* remove from hash table */
     g_hash_table_remove(hash, self->dir_path);
-
     if(self->dir_path)
         fm_path_unref(self->dir_path);
 
@@ -417,7 +418,12 @@ FmFolder*    fm_folder_get_for_gfile    (GFile* gf)
     return folder;
 }
 
-FmFolder*    fm_folder_get_for_path    (const char* path)
+FmFolder* fm_folder_get_for_path(FmPath* path)
+{
+    return fm_folder_get_internal(path, NULL);
+}
+
+FmFolder* fm_folder_get_for_path_name(const char* path)
 {
     FmPath* fm_path = fm_path_new(path);
     FmFolder* folder = fm_folder_get_internal(fm_path, NULL);
@@ -431,8 +437,7 @@ FmFolder*    fm_folder_get_for_uri    (const char* uri)
     GFile* gf = g_file_new_for_uri(uri);
     FmFolder* folder = fm_folder_get_for_gfile(gf);
     g_object_unref(gf);
-g_debug("URI2: %s", uri);
-    return folder;    
+    return folder;
 }
 
 void fm_folder_reload(FmFolder* folder)

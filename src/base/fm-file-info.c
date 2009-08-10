@@ -33,13 +33,22 @@
 #include "fm-utils.h"
 
 static gboolean use_si_prefix = TRUE;
-static FmMimeType* desktop_type = NULL;
+static FmMimeType* desktop_entry_type = NULL;
+static FmMimeType* shortcut_type = NULL;
+static FmMimeType* mountable_type = NULL;
 
 /* intialize the file info system */
 void fm_file_info_init()
 {
 	fm_mime_type_init();
-    desktop_type = fm_mime_type_get_for_type("application/x-desktop");
+    desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop");
+
+    /* fake mime-types for mountable and shortcuts */
+    shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut");
+    shortcut_type->description = g_strdup(_("Shortcuts"));
+
+    mountable_type = fm_mime_type_get_for_type("inode/x-mountable");
+    mountable_type->description = g_strdup(_("Mount Point"));
 }
 
 void fm_file_info_finalize()
@@ -113,6 +122,19 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         }
     }
 
+    /* set file icon according to mime-type */
+	if( !fi->type || !fi->type->icon )
+    {
+        gicon = g_file_info_get_icon(inf);
+        fi->icon = fm_icon_from_gicon(gicon);
+        /* g_object_unref(gicon); this is not needed since 
+         * g_file_info_get_icon didn't increase ref_count.
+         * the object returned by g_file_info_get_icon is 
+         * owned by GFileInfo. */
+    }
+	else
+		fi->icon = fm_icon_ref(fi->type->icon);
+
     if( type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT )
     {
         const char* uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
@@ -122,6 +144,15 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->target = g_filename_from_uri(uri, NULL, NULL);
             else
                 fi->target = g_strdup(uri);
+        }
+
+        if( !fi->type )
+        {
+            /* FIXME: is this appropriate? */
+            if( type == G_FILE_TYPE_SHORTCUT )
+                fi->type = fm_mime_type_ref(shortcut_type);
+            else
+                fi->type = fm_mime_type_ref(mountable_type);
         }
         /* FIXME: how about target of symlinks? */
     }
@@ -135,18 +166,6 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         tmp = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
         fi->fs_id = g_intern_string(tmp);
     }
-
-	if( !fi->type )
-    {
-        gicon = g_file_info_get_icon(inf);
-        fi->icon = fm_icon_from_gicon(gicon);
-        /* g_object_unref(gicon); this is not needed since 
-         * g_file_info_get_icon didn't increase ref_count.
-         * the object returned by g_file_info_get_icon is 
-         * owned by GFileInfo. */
-    }
-	else
-		fi->icon = fm_icon_ref(fi->type->icon);
 
     fi->mtime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_MODIFIED);
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
@@ -329,7 +348,7 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
 
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
-	return fi->type == desktop_type;
+	return fi->type == desktop_entry_type;
 }
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )

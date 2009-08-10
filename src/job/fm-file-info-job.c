@@ -51,6 +51,7 @@ static void fm_file_info_job_finalize(GObject *object)
 	g_return_if_fail(IS_FM_FILE_INFO_JOB(object));
 
 	self = FM_FILE_INFO_JOB(object);
+    fm_list_unref(self->file_infos);
 
 	G_OBJECT_CLASS(fm_file_info_job_parent_class)->finalize(object);
 }

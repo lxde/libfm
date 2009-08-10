@@ -77,7 +77,7 @@ struct _FmFolderView
 
 	GtkWidget* view;
 	GtkTreeModel* model;
-	char* cwd; /* FIXME: replace this with FmPath later. */
+	FmPath* cwd;
 	FmDndSrc* dnd_src; /* dnd source manager */
 	FmDndDest* dnd_dest; /* dnd dest manager */
 };
@@ -107,8 +107,9 @@ int fm_folder_view_get_sort_by(FmFolderView* fv);
 void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show);
 gboolean fm_folder_view_get_show_hidden(FmFolderView* fv);
 
-gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str);
-const char* fm_folder_view_get_cwd(FmFolderView* fv);
+gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
+gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str);
+FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 guint fm_folder_view_get_n_selected_files(FmFolderView* fv);

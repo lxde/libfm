@@ -223,11 +223,10 @@ static void fm_folder_view_finalize(GObject *object)
     if( self->model )
         g_object_unref(self->model);
 
-
 	g_object_unref(self->dnd_src);
 	g_object_unref(self->dnd_dest);
 
-    g_free(self->cwd);
+    fm_path_unref(self->cwd);
 
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
@@ -435,14 +434,26 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
     return fv->show_hidden;
 }
 
-gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
+gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 {
-    FmFolderModel* model;
-    FmFolder* folder;
+	gboolean ret;
 	FmPath* path;
 
     if( G_UNLIKELY( !path_str ) )
         return FALSE;
+
+	path = fm_path_new(path_str);
+	if(!path) /* might be a malformed path */
+		return FALSE;
+	ret = fm_folder_view_chdir(fv, path);
+	fm_path_unref(path);
+	return ret;
+}
+
+gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
+{
+    FmFolderModel* model;
+    FmFolder* folder;
 
     if(fv->model)
 	{
@@ -450,17 +461,17 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
         g_object_unref(fv->model);
 	}
 
-    folder = fm_folder_get_for_path(path_str);
+    folder = fm_folder_get_for_path(path);
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
     g_object_unref(folder);
 
-    g_free(fv->cwd);
-    fv->cwd = g_strdup(path_str);
-
-	path = fm_path_new(fv->cwd);
+	/* FIXME: the signal handler should be able to cancel the loading. */
 	g_signal_emit(fv, signals[CHDIR], 0, path);
-	fm_path_unref(path);
+
+	if(fv->cwd)
+		fm_path_unref(fv->cwd);
+    fv->cwd = fm_path_ref(path);
 
     switch(fv->mode)
     {
@@ -481,7 +492,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
     return TRUE;
 }
 
-const char* fm_folder_view_get_cwd(FmFolderView* fv)
+FmPath* fm_folder_view_get_cwd(FmFolderView* fv)
 {
     return fv->cwd;
 }

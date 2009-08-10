@@ -41,6 +41,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 							job->cancellable, &err);
         if(!_inf)
         {
+            g_debug(err->message);
             fm_job_emit_error(job, err, FALSE);
             g_error_free(err);
 		    return FALSE;

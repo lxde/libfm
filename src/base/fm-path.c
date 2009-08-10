@@ -39,32 +39,70 @@ static FmPath* network_root = NULL;
 FmPath*	fm_path_new(const char* path)
 {
 	const char* sep;
-	if( path[0] == '/' ) /* is this is a absolute native path */
+    /* FIXME: need to canonicalize paths */
+
+	if( path[0] == '/' ) /* if this is a absolute native path */
 		return fm_path_new_relative(root, path + 1);
-	else
+    else if ( path[0] == '~' && (path[1] == '\0' || path[1]=='/') ) /* home dir */
+    {
+        ++path;
+        return *path ? fm_path_new_relative(home, path) : fm_path_ref(home);
+    }
+	else /* then this should be a URL */
 	{
-		if( 0 == strncmp(path, "trash:", 6) ) /* in trash */
-		{
-			path += 6;
-			while(*path == '/')
-				++path;
-			return fm_path_new_relative(trash_root, path);
-		}
-		else if( sep = strstr(path, ":/") ) /* if it's a URL */
-		{
-			FmPath* parent;
-			FmPath* ret;
-            sep += 2;
-			while(*sep == '/')
-				++sep;
-            parent = fm_path_new_child_len(NULL, path, (sep - path)-1);
-			/* FIXME: computer: is not remote, but a virtual path */
-			parent->flags |= FM_PATH_IS_REMOTE;
-			path = sep;
-			ret = fm_path_new_relative(parent, path);
-			fm_path_unref(parent);
-			return ret;
-		}
+        FmPath* parent, *ret;
+        char* colon = strchr(path, ':');
+        char* hier_part;
+        char* rest;
+        int root_len;
+
+        if( !colon ) /* this shouldn't happen */
+            return NULL; /* invalid path FIXME: should we treat it as relative path? */
+
+        hier_part = colon+1;
+        if( hier_part[0] == '/' )
+        {
+            if(hier_part[1] == '/') /* this is a scheme:// form URI */
+                rest = hier_part + 2;
+            else /* a malformed URI */
+                rest = hier_part + 1;
+
+            if(*rest == '/') /* :/// means there is no authoraty part */
+                ++rest;
+            else /* we are now at autority part, something like <username>@domain/ */
+            {
+                while( *rest && *rest != '/' )
+                    ++rest;
+                if(*rest == '/')
+                    ++rest;
+            }
+
+            if( strncmp(path, "trash:", 6) == 0 ) /* in trash:// */
+            {
+                if(*rest)
+                    return fm_path_new_relative(trash_root, rest);
+                else
+                    return fm_path_ref(trash_root);
+            }
+            /* other URIs */
+        }
+        else /* this URI doesn't have //, like mailto: */
+        {
+            /* FIXME: is this useful to file managers? */
+            rest = colon + 1;
+        }
+        root_len = (rest - path);
+        parent = fm_path_new_child_len(NULL, path, root_len);
+        /* FIXME: computer: is not remote, but a virtual path */
+        parent->flags |= FM_PATH_IS_REMOTE;
+        if(*rest)
+        {
+            ret = fm_path_new_relative(parent, rest);
+            fm_path_unref(parent);
+        }
+        else
+            ret = parent;
+        return ret;
 	}
 	return fm_path_new_relative(NULL, path);
 }
@@ -72,6 +110,11 @@ FmPath*	fm_path_new(const char* path)
 FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
 	FmPath* path;
+    if(parent) /* remove tailing slash if needed. */
+    {
+        while(basename[name_len-1] == '/')
+            --name_len;
+    }
 	path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
 	path->n_ref = 1;
 	if(G_LIKELY(parent))
@@ -120,6 +163,7 @@ FmPath*	fm_path_new_relative(FmPath* parent, const char* relative_path)
 	const char* sep;
 	gsize name_len;
 
+    /* FIXME: need to canonicalize paths */
 	if(parent == root)
 	{
 		if( 0 == strncmp(relative_path, home_dir + 1, home_len - 1) ) /* in home dir */
@@ -141,11 +185,19 @@ _out:
 	sep = strchr(relative_path, '/');
 	if(sep)
 	{
-		name_len = (sep - relative_path);
-		parent = fm_path_new_child_len(parent, relative_path, name_len);
-		relative_path = sep + 1;
-		path = fm_path_new_relative(parent, relative_path);
-		fm_path_unref(parent);
+        char* end = sep;
+        while(*end && *end == '/') /* prevent tailing slash or duplicated slashes. */
+            ++end;
+        name_len = (sep - relative_path);
+        parent = fm_path_new_child_len(parent, relative_path, name_len);
+        if(*end != '\0')
+        {
+            relative_path = end;
+            path = fm_path_new_relative(parent, relative_path);
+            fm_path_unref(parent);
+        }
+        else /* this is tailing slash */
+            path = parent;
 	}
 	else
 	{
@@ -179,17 +231,16 @@ void fm_path_unref(FmPath* path)
 	/* g_debug("fm_path_unref: %s, n_ref = %d", fm_path_to_str(path), path->n_ref); */
 	if(g_atomic_int_dec_and_test(&path->n_ref))
 	{
-		/* g_debug("free path: %s", path->name); */
 		if(G_LIKELY(path->parent))
 			fm_path_unref(path->parent);
 		g_free(path);
 	}
 }
 
-
+/* FIXME: should we use _dup_ instead of _get_ here? */
 FmPath* fm_path_get_parent(FmPath* path)
 {
-	return path->parent;
+	return path->parent ? fm_path_ref(path->parent) : NULL;
 }
 
 const char* fm_path_get_basename(FmPath* path)
@@ -210,7 +261,7 @@ static int fm_path_strlen(FmPath* path)
 		len += strlen(path->name);
 		if(G_UNLIKELY(!path->parent ))
 			break;
-		if(*path->parent->name != '/')
+		if(path->parent->parent)
 			++len; /* add a character for separator */
 		path = path->parent;
 	}
@@ -231,7 +282,7 @@ char* fm_path_to_str(FmPath* path)
 		memcpy(pbuf, p->name, name_len);
 		if( p->parent )
 		{
-			if(p->parent->name[0] != '/')
+			if(p->parent->parent)
 			{
 				--pbuf;
 				*pbuf = '/';
@@ -343,7 +394,7 @@ void fm_path_init()
 
 	/* build path object for trash can */
     /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
-	trash_root = fm_path_new_child(NULL, "trash:");
+	trash_root = fm_path_new_child(NULL, "trash:///");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
 }
 
