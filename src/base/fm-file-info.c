@@ -26,6 +26,10 @@
 #include <pwd.h> /* Query user name */
 #include <string.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "fm-utils.h"
 
 static gboolean use_si_prefix = TRUE;
@@ -54,7 +58,29 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
 	const char* tmp;
     GIcon* gicon;
+    GFileType type;
 	g_return_if_fail(fi->path);
+    type = g_file_info_get_file_type(inf);
+    fi->mode = 0;
+    switch(type)
+    {
+    case G_FILE_TYPE_REGULAR:
+        fi->mode |= S_IFREG;
+        break;
+    case G_FILE_TYPE_DIRECTORY:
+        fi->mode |= S_IFDIR;
+        break;
+    case G_FILE_TYPE_SYMBOLIC_LINK:
+        fi->mode |= S_IFLNK;
+        break;
+    case G_FILE_TYPE_SHORTCUT:
+        break;
+    case G_FILE_TYPE_MOUNTABLE:
+        break;
+    default:
+        fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
+    }
+    g_debug("type = %d", type);
 
 	/* if display name is the same as its name, just use it. */
 	tmp = g_file_info_get_display_name(inf);

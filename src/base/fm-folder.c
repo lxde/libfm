@@ -200,7 +200,6 @@ gboolean on_idle(FmFolder* folder)
     if(folder->files_to_del)
     {
 		GSList* ll;
-        g_debug("files_to_del: %p", folder->files_to_del);
 		for(ll=folder->files_to_del;ll;ll=ll->next)
 		{
 			GList* l= (GList*)ll->data;

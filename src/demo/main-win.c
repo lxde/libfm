@@ -493,6 +493,5 @@ void on_invert_select(GtkAction* act, FmMainWin* win)
 
 void on_location(GtkAction* act, FmMainWin* win)
 {
-	g_debug("here!");
 	gtk_widget_grab_focus(win->location);
 }

@@ -66,14 +66,14 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
     widget_class->focus_in_event = fm_folder_view_focus_in;
     fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
-    signals[ CLICKED ] =
-        g_signal_new ( "clicked",
-                       G_TYPE_FROM_CLASS( klass ),
-                       G_SIGNAL_RUN_FIRST,
-                       G_STRUCT_OFFSET ( FmFolderViewClass, clicked ),
-                       NULL, NULL,
-                       g_cclosure_marshal_VOID__UINT_POINTER,
-                       G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER );
+    signals[CLICKED]=
+        g_signal_new("clicked",
+                     G_TYPE_FROM_CLASS( klass ),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, clicked),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__UINT_POINTER,
+                     G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
 }
 
@@ -117,9 +117,9 @@ static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTr
 
 static void fm_folder_view_init(FmFolderView *self)
 {
-    gtk_scrolled_window_set_hadjustment(self, NULL);
-    gtk_scrolled_window_set_vadjustment(self, NULL);
-    gtk_scrolled_window_set_policy(self, GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_hadjustment((GtkScrolledWindow*)self, NULL);
+    gtk_scrolled_window_set_vadjustment((GtkScrolledWindow*)self, NULL);
+    gtk_scrolled_window_set_policy((GtkScrolledWindow*)self, GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     /* dnd support */
     self->dnd_src = fm_dnd_src_new(NULL);
@@ -285,13 +285,15 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
 		fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);
 
-        g_signal_connect_after(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
+        g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
         gtk_widget_show(fv->view);
-        gtk_container_add(fv, fv->view);
+        gtk_container_add((GtkContainer*)fv, fv->view);
     }
     else
-        g_debug("same mode");
+	{
+        /* g_debug("same mode"); */
+	}
 }
 
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv)
@@ -332,7 +334,8 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by)
     if(by >=0)
         fv->sort_by = by;
     if(fv->model)
-        gtk_tree_sortable_set_sort_column_id(fv->model, fv->sort_by, fv->sort_type);
+        gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fv->model),
+		                                     fv->sort_by, fv->sort_type);
 }
 
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
@@ -457,10 +460,33 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 {
     GList* sels;
     FmFolderViewClickType type = 0;
+
 	/* FIXME: handle single click activation */
     if( evt->type == GDK_BUTTON_PRESS )
     {
-        /* FIXME: select rows if needed */
+		/* special handling for ExoIconView */
+		if(evt->button != 1 && (fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW))
+		{
+			GtkTreePath* tp;
+			/* select the item on right click for ExoIconView */
+		    if(tp=exo_icon_view_get_path_at_pos((ExoIconView*)view, evt->x, evt->y))
+			{
+				/* if the hit item is not currently selected */
+				if(!exo_icon_view_path_is_selected((ExoIconView*)view, tp))
+				{
+					sels = exo_icon_view_get_selected_items(view);
+					if( sels ) /* if there are selected items */
+					{
+						exo_icon_view_unselect_all(view); /* unselect all items */
+						g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+						g_list_free(sels);
+					}
+					exo_icon_view_select_path((ExoIconView*)view, tp);
+				}
+				gtk_tree_path_free(tp);
+			}
+		}
+
 		if(evt->button == 2) /* middle click */
 			type = FM_FV_MIDDLE_CLICK;
 		else if(evt->button == 3) /* right click */

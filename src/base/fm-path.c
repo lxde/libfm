@@ -267,7 +267,6 @@ GFile* fm_path_to_gfile(FmPath* path)
 	GFile* gf;
 	char* str;
 	str = fm_path_to_str(path);
-    g_debug("URI: %s", str);
 	if(fm_path_is_native(path))
 		gf = g_file_new_for_path(str);
 	else
