@@ -309,9 +309,13 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir )
     }
 
     if( !fm_folder_get_is_loading(model->dir) ) /* if it's already loaded */
-        g_signal_emit(model, signals[LOADED], 0);
+        on_folder_loaded(model->dir, model); /* emit 'loaded' signal */
 }
 
+gboolean fm_folder_model_get_is_loading(FmFolderModel* model)
+{
+    return fm_folder_get_is_loading(model->dir);
+}
 
 GtkTreeModelFlags fm_folder_model_get_flags ( GtkTreeModel *tree_model )
 {

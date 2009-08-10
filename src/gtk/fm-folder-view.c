@@ -474,6 +474,10 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
     }
     fv->model = model;
 	g_signal_connect(model, "loaded", G_CALLBACK(on_model_loaded), fv);
+
+	if( ! fm_folder_model_get_is_loading(model) ) /* if the model is already loaded */
+		on_model_loaded(model, fv);
+
     return TRUE;
 }
 

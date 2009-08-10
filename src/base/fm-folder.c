@@ -264,7 +264,6 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_idle, folder, NULL);
 }
 
-/* FIXME: use our own implementation for local files. */
 static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 {
     GList* l;
@@ -282,8 +281,8 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
     if(G_LIKELY(files))
         g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 
-    g_signal_emit(folder, signals[LOADED], 0);
     folder->job = NULL; /* the job object will be freed in idle handler. */
+    g_signal_emit(folder, signals[LOADED], 0);
 }
 
 FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)

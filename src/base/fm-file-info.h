@@ -80,6 +80,8 @@ struct _FmFileInfo
 	FmMimeType* type;
 	FmIcon* icon;
 
+    char* target; /* target of shortcut or mountable. */
+
     /*<private>*/
     int n_ref;
 };

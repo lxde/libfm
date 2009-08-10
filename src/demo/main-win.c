@@ -224,6 +224,10 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 		{
 			fm_main_win_chdir( win, fpath);
 		}
+		else if(fi->target) /* FIXME: use accessor functions. */
+		{
+			fm_main_win_chdir( win, fi->target);
+		}
 		else
 		{
 			uri = g_filename_to_uri(fpath, NULL, NULL);
@@ -270,8 +274,8 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 
 static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
 {
-	gtk_statusbar_pop(win->statusbar, 0);
-	gtk_statusbar_push(win->statusbar, 0, msg);
+	gtk_statusbar_pop(win->statusbar, win->statusbar_ctx);
+	gtk_statusbar_push(win->statusbar, win->statusbar_ctx, msg);
 }
 
 static void fm_main_win_init(FmMainWin *self)
@@ -324,6 +328,7 @@ static void fm_main_win_init(FmMainWin *self)
 	/* status bar */
 	self->statusbar = gtk_statusbar_new();
 	gtk_box_pack_start( (GtkBox*)vbox, self->statusbar, FALSE, TRUE, 0 );
+	self->statusbar_ctx = gtk_statusbar_get_context_id(self->statusbar, "Main");
 
 	g_object_unref(act_grp);
 	g_object_unref(ui);

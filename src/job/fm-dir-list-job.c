@@ -26,6 +26,8 @@
 #include "fm-mime-type.h"
 #include "fm-file-info-job.h"
 
+extern const char gfile_info_query_flags[]; /* defined in fm-file-info-job.c */
+
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
@@ -136,7 +138,7 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 			return FALSE;
 
 		gf = fm_path_to_gfile(job->dir_path);
-		enu = g_file_enumerate_children (gf, "standard::*", 0, fmjob->cancellable, &err);
+		enu = g_file_enumerate_children (gf, gfile_info_query_flags, 0, fmjob->cancellable, &err);
 		g_object_unref(gf);
 		while( ! FM_JOB(job)->cancel )
 		{

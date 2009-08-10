@@ -88,6 +88,8 @@ GType fm_folder_model_get_type (void);
 
 FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
 
+gboolean fm_folder_model_get_is_loading(FmFolderModel* model);
+
 void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden );
 
 void fm_folder_model_file_created( FmFolderModel* model, FmFileInfo* file);

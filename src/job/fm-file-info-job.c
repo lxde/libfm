@@ -25,6 +25,8 @@
 static void fm_file_info_job_finalize  			(GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
+const char gfile_info_query_flags[]="standard::*,unix::*,time::*,access::*";
+
 G_DEFINE_TYPE(FmFileInfoJob, fm_file_info_job, FM_TYPE_JOB);
 
 
@@ -175,7 +177,7 @@ gboolean fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* 
 	if(!fm_job_init_cancellable(job))
 		return FALSE;
 	err = NULL;
-	inf = g_file_query_info(gf, "standard::*", 0, job->cancellable, &err);
+	inf = g_file_query_info(gf, gfile_info_query_flags, 0, job->cancellable, &err);
 	if( !inf )
 	{
 		fm_job_emit_error(job, err, FALSE);

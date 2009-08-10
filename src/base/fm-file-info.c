@@ -59,28 +59,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 	const char* tmp;
     GIcon* gicon;
     GFileType type;
+
 	g_return_if_fail(fi->path);
-    type = g_file_info_get_file_type(inf);
-    fi->mode = 0;
-    switch(type)
-    {
-    case G_FILE_TYPE_REGULAR:
-        fi->mode |= S_IFREG;
-        break;
-    case G_FILE_TYPE_DIRECTORY:
-        fi->mode |= S_IFDIR;
-        break;
-    case G_FILE_TYPE_SYMBOLIC_LINK:
-        fi->mode |= S_IFLNK;
-        break;
-    case G_FILE_TYPE_SHORTCUT:
-        break;
-    case G_FILE_TYPE_MOUNTABLE:
-        break;
-    default:
-        fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
-    }
-    g_debug("type = %d", type);
 
 	/* if display name is the same as its name, just use it. */
 	tmp = g_file_info_get_display_name(inf);
@@ -94,6 +74,57 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 	tmp = g_file_info_get_content_type(inf);
 	if( tmp )
 		fi->type = fm_mime_type_get_for_type( tmp );
+
+    fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
+
+    type = g_file_info_get_file_type(inf);
+    if( 0 == fi->mode ) /* if UNIX file mode is not available, compose a fake one. */
+    {
+        switch(type)
+        {
+        case G_FILE_TYPE_REGULAR:
+            fi->mode |= S_IFREG;
+            break;
+        case G_FILE_TYPE_DIRECTORY:
+            fi->mode |= S_IFDIR;
+            break;
+        case G_FILE_TYPE_SYMBOLIC_LINK:
+            fi->mode |= S_IFLNK;
+            break;
+        case G_FILE_TYPE_SHORTCUT:
+            break;
+        case G_FILE_TYPE_MOUNTABLE:
+            break;
+        }
+
+        /* if it's a special file but it doesn't have UNIX mode, compose a fake one. */
+        if(type == G_FILE_TYPE_SPECIAL && 0 == fi->mode)
+        {
+            if(strcmp(tmp, "inode/chardevice")==0)
+                fi->mode |= S_IFCHR;
+            else if(strcmp(tmp, "inode/blockdevice")==0)
+                fi->mode |= S_IFBLK;
+            else if(strcmp(tmp, "inode/fifo")==0)
+                fi->mode |= S_IFIFO;
+        #ifdef S_IFSOCK
+            else if(strcmp(tmp, "inode/socket")==0)
+                fi->mode |= S_IFSOCK;
+        #endif
+        }
+    }
+
+    if( type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT )
+    {
+        const char* uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
+        if( uri )
+        {
+            if(g_str_has_prefix(uri, "file:/"))
+                fi->target = g_filename_from_uri(uri, NULL, NULL);
+            else
+                fi->target = g_strdup(uri);
+        }
+        /* FIXME: how about target of symlinks? */
+    }
 
     if(fm_path_is_native(fi->path))
     {
@@ -116,6 +147,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     }
 	else
 		fi->icon = fm_icon_ref(fi->type->icon);
+
+    fi->mtime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+    fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
 }
 
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
@@ -149,6 +183,9 @@ static void fm_file_info_clear( FmFileInfo* fi )
         g_free( fi->disp_size );
         fi->disp_size = NULL;
     }
+
+    g_free(fi->target);
+
 	if( fi->type )
 	{
 		fm_mime_type_unref(fi->type);
@@ -329,13 +366,18 @@ const char* fm_file_info_get_desc( FmFileInfo* fi )
 
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
 {
-    if ( ! fi->disp_mtime )
+    /* FIXME: This can cause problems if the file really has mtime=0. */
+    /*        We'd better hide mtime for virtual files only. */
+    if(fi->mtime > 0)
     {
-        char buf[ 128 ];
-        strftime( buf, sizeof( buf ),
-                  "%x %R",
-                  localtime( &fi->mtime ) );
-        fi->disp_mtime = g_strdup( buf );
+        if ( ! fi->disp_mtime )
+        {
+            char buf[ 128 ];
+            strftime( buf, sizeof( buf ),
+                      "%x %R",
+                      localtime( &fi->mtime ) );
+            fi->disp_mtime = g_strdup( buf );
+        }
     }
     return fi->disp_mtime;
 }
