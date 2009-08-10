@@ -81,10 +81,7 @@ struct _FmFolderModelClass
 {
     GObjectClass parent;
     /* Default signal handlers */
-    void (*file_created)( FmFolder* dir, const char* file_name );
-    void (*file_deleted)( FmFolder* dir, const char* file_name );
-    void (*file_changed)( FmFolder* dir, const char* file_name );
-    void (*load_complete)( FmFolder* dir );
+    void (*loaded)( FmFolderModel* model );
 };
 
 GType fm_folder_model_get_type (void);

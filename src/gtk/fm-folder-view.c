@@ -31,6 +31,9 @@
 #include "exo/exo-tree-view.h"
 
 enum{
+    CHDIR,
+	LOADED,
+	STATUS,
     CLICKED,
     N_SIGNALS
 };
@@ -40,9 +43,13 @@ static guint signals[N_SIGNALS];
 static void fm_folder_view_finalize              (GObject *object);
 G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
-static gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
-
 static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
+
+static gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
+static void on_chdir(FmFolderView* fv, FmPath* dir_path);
+static void on_loaded(FmFolderView* fv, FmPath* dir_path);
+static void on_status(FmFolderView* fv, const char* msg);
+static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 
@@ -60,15 +67,47 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
     GObjectClass *g_object_class;
     GtkWidgetClass *widget_class;
+	FmFolderViewClass *fv_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_folder_view_finalize;
     widget_class = GTK_WIDGET_CLASS(klass);
-    widget_class->focus_in_event = fm_folder_view_focus_in;
+    widget_class->focus_in_event = on_folder_view_focus_in;
+    fv_class = FM_FOLDER_VIEW_CLASS(klass);
+    fv_class->chdir = on_chdir;
+    fv_class->loaded = on_loaded;
+
     fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
+
+    signals[CHDIR]=
+        g_signal_new("chdir",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, chdir),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+    signals[LOADED]=
+        g_signal_new("loaded",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, loaded),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+    signals[STATUS]=
+        g_signal_new("status",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, status),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
 
     signals[CLICKED]=
         g_signal_new("clicked",
-                     G_TYPE_FROM_CLASS( klass ),
+                     G_TYPE_FROM_CLASS(klass),
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewClass, clicked),
                      NULL, NULL,
@@ -77,7 +116,7 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
 
 }
 
-gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
+gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
 {
     FmFolderView* fv = (FmFolderView*)widget;
     if( fv->view )
@@ -86,6 +125,40 @@ gboolean fm_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
         return TRUE;
     }
     return FALSE;
+}
+
+void on_chdir(FmFolderView* fv, FmPath* dir_path)
+{
+	GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
+	if(GTK_WIDGET_REALIZED(toplevel))
+	{
+		GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+		gdk_window_set_cursor(toplevel->window, cursor);
+	}
+}
+
+void on_loaded(FmFolderView* fv, FmPath* dir_path)
+{
+	GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
+	if(GTK_WIDGET_REALIZED(toplevel))
+		gdk_window_set_cursor(toplevel->window, NULL);
+}
+
+void on_status(FmFolderView* fv, const char* msg)
+{
+
+}
+
+void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
+{
+	FmFolder* folder = model->dir;
+	char* msg;
+	/* FIXME: prevent direct access to data members */
+	g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
+
+	msg = g_strdup_printf("%d files are listed", fm_list_get_length(folder->files) );
+	g_signal_emit(fv, signals[STATUS], 0, msg);
+	g_free(msg);
 }
 
 static void item_clicked( FmFolderView* fv, GtkTreePath* path, FmFolderViewClickType type )
@@ -364,15 +437,18 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 
 gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
 {
-    GFile* gf;
     FmFolderModel* model;
     FmFolder* folder;
+	FmPath* path;
 
     if( G_UNLIKELY( !path_str ) )
         return FALSE;
 
     if(fv->model)
+	{
+		g_signal_handlers_disconnect_by_func(fv->model, on_model_loaded, fv);
         g_object_unref(fv->model);
+	}
 
     folder = fm_folder_get_for_path(path_str);
     model = fm_folder_model_new(folder, fv->show_hidden);
@@ -381,6 +457,10 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
 
     g_free(fv->cwd);
     fv->cwd = g_strdup(path_str);
+
+	path = fm_path_new(fv->cwd);
+	g_signal_emit(fv, signals[CHDIR], 0, path);
+	fm_path_unref(path);
 
     switch(fv->mode)
     {
@@ -393,6 +473,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, const char* path_str)
         break;
     }
     fv->model = model;
+	g_signal_connect(model, "loaded", G_CALLBACK(on_model_loaded), fv);
     return TRUE;
 }
 
@@ -482,6 +563,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 						g_list_free(sels);
 					}
 					exo_icon_view_select_path((ExoIconView*)view, tp);
+					exo_icon_view_set_cursor((ExoIconView*)view, tp, NULL, FALSE);
 				}
 				gtk_tree_path_free(tp);
 			}

@@ -71,6 +71,7 @@ struct _FmFolderClass
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
+    void (*loaded)(FmFolder* dir);
 };
 
 GType		fm_folder_get_type		(void);
@@ -81,6 +82,8 @@ FmFolder*	fm_folder_get_for_uri	(const char* uri);
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder);
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);
+
+gboolean fm_folder_get_is_loading(FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
 

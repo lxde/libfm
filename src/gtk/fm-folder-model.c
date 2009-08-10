@@ -28,6 +28,11 @@
 #include <string.h>
 #include <gio/gio.h>
 
+enum{
+	LOADED,
+    N_SIGNALS
+};
+
 typedef struct _FmFolderItem FmFolderItem;
 struct _FmFolderItem
 {
@@ -97,11 +102,12 @@ static void fm_folder_model_sort ( FmFolderModel* model );
 static void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
 
 /* signal handlers */
+static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
 //static void on_thumbnail_loaded( FmFolder* dir, VFSFileInfo* file, FmFolderModel* model );
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
-
+static guint signals[N_SIGNALS];
 
 void fm_folder_model_init ( FmFolderModel* model )
 {
@@ -121,6 +127,15 @@ void fm_folder_model_class_init ( FmFolderModelClass *klass )
     object_class = ( GObjectClass* ) klass;
 
     object_class->finalize = fm_folder_model_finalize;
+
+    signals[LOADED]=
+        g_signal_new("loaded",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderModelClass, loaded),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
 }
 
 void fm_folder_model_tree_model_init ( GtkTreeModelIface *iface )
@@ -253,16 +268,15 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir )
         return;
     if ( model->dir )
     {
-/*
-        g_signal_handlers_disconnect_by_func( model->dir,
-                                              on_folder_loaded, model);
-*/
         g_signal_handlers_disconnect_by_func( model->dir,
                                               _fm_folder_model_files_added, model);
         g_signal_handlers_disconnect_by_func( model->dir,
                                               _fm_folder_model_files_removed, model);
         g_signal_handlers_disconnect_by_func( model->dir,
                                               _fm_folder_model_files_changed, model);
+        g_signal_handlers_disconnect_by_func( model->dir,
+                                              on_folder_loaded, model);
+
 		for(l=model->items;l;l=l->next)
 			fm_folder_item_free((FmFolderItem*)l->data);
         g_list_free( model->items );
@@ -285,11 +299,17 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir )
     g_signal_connect( model->dir, "files-changed",
                       G_CALLBACK(_fm_folder_model_files_changed),
                       model);
+    g_signal_connect( model->dir, "loaded",
+                      G_CALLBACK(on_folder_loaded), model);
+
     if( !fm_list_is_empty(dir->files) )
     {
         for( l = fm_list_peek_head_link(dir->files); l; l = l->next )
 			_fm_folder_model_add_file( model, (FmFileInfo*)l->data );
     }
+
+    if( !fm_folder_get_is_loading(model->dir) ) /* if it's already loaded */
+        g_signal_emit(model, signals[LOADED], 0);
 }
 
 
@@ -917,3 +937,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 	}
 }
 
+void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
+{
+    g_signal_emit(model, signals[LOADED], 0);
+}

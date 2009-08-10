@@ -268,6 +268,12 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 	}
 }
 
+static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
+{
+	gtk_statusbar_pop(win->statusbar, 0);
+	gtk_statusbar_push(win->statusbar, 0, msg);
+}
+
 static void fm_main_win_init(FmMainWin *self)
 {
 	GtkWidget* vbox, *menubar, *toolitem;
@@ -286,6 +292,7 @@ static void fm_main_win_init(FmMainWin *self)
 	fm_folder_view_sort(self->folder_view, GTK_SORT_DESCENDING, COL_FILE_NAME);
 	fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
 	g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
+	g_signal_connect(self->folder_view, "status", on_status, self);
 
 	/* create menu bar and toolbar */
 	ui = gtk_ui_manager_new();

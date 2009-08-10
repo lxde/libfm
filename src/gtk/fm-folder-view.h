@@ -85,6 +85,9 @@ struct _FmFolderView
 struct _FmFolderViewClass
 {
 	GtkScrolledWindowClass parent_class;
+	void (*chdir)(FmFolderView* fv, FmPath* dir_path);
+	void (*loaded)(FmFolderView* fv, FmPath* dir_path);
+	void (*status)(FmFolderView* fv, const char* msg);
 	void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
 };
 
