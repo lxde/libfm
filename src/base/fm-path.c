@@ -36,6 +36,8 @@ static int desktop_len = 0;
 static FmPath* trash_root = NULL;
 static FmPath* network_root = NULL;
 
+static FmPath* apps_root = NULL;
+
 FmPath*	fm_path_new(const char* path)
 {
 	const char* sep;
@@ -346,6 +348,11 @@ FmPath* fm_path_get_trash()
 	return trash_root;
 }
 
+FmPath* fm_path_get_applications()
+{
+	return apps_root;
+}
+
 gboolean fm_path_is_native(FmPath* path)
 {
 	return (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE;
@@ -396,6 +403,9 @@ void fm_path_init()
     /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
 	trash_root = fm_path_new_child(NULL, "trash:///");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
+
+    apps_root = fm_path_new_child(NULL, "applications:///");
+	apps_root->flags |= (FM_PATH_IS_VIRTUAL);
 }
 
 

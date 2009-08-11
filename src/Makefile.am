@@ -112,9 +112,10 @@ CLEANFILES = \
 
 libfm_demo_CFLAGS = \
 	@GTK_CFLAGS@ \
+	@MENU_CACHE_CFLAGS@ \
 	-Werror-implicit-function-declaration
 
-libfm_demo_LDADD = @GTK_LIBS@ $(INTLLIBS)
+libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
 
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget

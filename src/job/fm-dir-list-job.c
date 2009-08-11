@@ -25,6 +25,7 @@
 #include <glib/gstdio.h>
 #include "fm-mime-type.h"
 #include "fm-file-info-job.h"
+#include <menu-cache.h>
 
 extern const char gfile_info_query_flags[]; /* defined in fm-file-info-job.c */
 
@@ -90,6 +91,49 @@ static void fm_dir_list_job_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
+gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
+{
+    FmFileInfo* fi;
+    MenuCache* mc = menu_cache_lookup("applications.menu");
+    MenuCacheDir* dir;
+    GList* l;
+    if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
+    {
+        char* tmp = g_strconcat("/", menu_cache_item_get_id(menu_cache_get_root_dir(mc)), dir_path, NULL);
+        g_debug(tmp);
+        dir = menu_cache_get_dir_from_path(mc, tmp);
+        g_free(tmp);
+    }
+    else
+        dir = menu_cache_get_root_dir(mc);
+    g_debug("dir = %p", dir);
+    for(l=menu_cache_dir_get_children(dir);l;l=l->next)
+    {
+        MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
+        GIcon* gicon;
+        if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
+            continue;
+        fi = fm_file_info_new();
+        fi->path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
+        fi->disp_name = g_strdup(menu_cache_item_get_name(item));
+        gicon = g_themed_icon_new(menu_cache_item_get_icon(item));
+        fi->icon = fm_icon_from_gicon(gicon);
+        g_object_unref(gicon);
+        if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+        {
+            fi->mode |= S_IFDIR;
+        }
+        else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+        {
+            fi->mode |= S_IFREG;
+        }
+        fm_list_push_tail_noref(job->files, fi);
+    }
+//            menu_cache_item_unref(dir);
+    menu_cache_unref(mc);
+    return TRUE;
+}
+
 gboolean fm_dir_list_job_run(FmDirListJob* job)
 {
 	GFileEnumerator *enu;
@@ -133,6 +177,12 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 	{
 		FmJob* fmjob = FM_JOB(job);
 		GFile* gf;
+        char* str = fm_path_to_str(job->dir_path);
+        /* handle some built-in virtual dirs */
+        // if( G_UNLIKELY(job->dir_path == fm_path_get_applications()) ) /* applications */
+        if( G_UNLIKELY( g_str_has_prefix(str, "applications://") ) ) /* applications */
+            return fm_dir_list_job_list_apps(job, str+15);
+        g_free(str);
 
 		if(!fm_job_init_cancellable(fmjob))
 			return FALSE;
