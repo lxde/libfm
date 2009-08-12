@@ -69,6 +69,8 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w);
 FmList* fm_dnd_dest_get_src_files(FmDndDest* dd);
 
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file);
+FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd);
+FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd);
 
 G_END_DECLS
 

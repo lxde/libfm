@@ -89,6 +89,7 @@ struct _FmFolderViewClass
 	void (*loaded)(FmFolderView* fv, FmPath* dir_path);
 	void (*status)(FmFolderView* fv, const char* msg);
 	void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
+    void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
 };
 
 GType		fm_folder_view_get_type		(void);
@@ -112,14 +113,13 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str);
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
-guint fm_folder_view_get_n_selected_files(FmFolderView* fv);
+FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
 
 void fm_folder_view_select_all(FmFolderView* fv);
 void fm_folder_view_select_invert(FmFolderView* fv);
 /* select files by custom func, not yet implemented */
 void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data);
 
-FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
 
 G_END_DECLS
 

@@ -50,6 +50,7 @@ struct _FmMainWin
 	GtkWidget* folder_view;
 	GtkWidget* statusbar;
     guint statusbar_ctx;
+    guint statusbar_ctx2;
 };
 
 struct _FmMainWinClass

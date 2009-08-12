@@ -364,6 +364,17 @@ FmList* fm_dnd_dest_get_src_files(FmDndDest* dd)
 	return dd->src_files;
 }
 
+FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd)
+{
+    return dd->dest_file;
+}
+
+FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd)
+{
+    return dd->dest_file ? dd->dest_file->path : NULL;
+}
+
+
 #if 0
 gboolean query_info(FmDndDest* dd, GdkDragContext* drag_context,
 					int x, int y, FmFileInfo** dest, GdkDragAction* action)

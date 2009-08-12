@@ -26,6 +26,7 @@
 #include "fm-folder-model.h"
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
+#include "fm-file-ops.h"
 
 #include "exo/exo-icon-view.h"
 #include "exo/exo-tree-view.h"
@@ -35,6 +36,7 @@ enum{
 	LOADED,
 	STATUS,
     CLICKED,
+    SEL_CHANGED,
     N_SIGNALS
 };
 
@@ -52,13 +54,14 @@ static void on_status(FmFolderView* fv, const char* msg);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
+static void on_sel_changed(GObject* obj, FmFolderView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
 static void on_dnd_dest_files_dropped(FmDndDest* dd, 
                                       GdkDragAction action,
                                       int info_type,
-                                      FmPathList* files, FmFolderView* fv);
+                                      FmList* files, FmFolderView* fv);
 
 static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 									   GdkDragAction* action, FmFolderView* fv);
@@ -114,6 +117,14 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
+    signals[SEL_CHANGED]=
+        g_signal_new("sel-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, sel_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
 }
 
 gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
@@ -294,6 +305,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
             exo_icon_view_set_search_column((ExoIconView*)fv->view, COL_FILE_NAME);
             g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
+            g_signal_connect(fv->view, "selection-changed", G_CALLBACK(on_sel_changed), fv);
             exo_icon_view_set_model((ExoIconView*)fv->view, fv->model);
             exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
             for(l = sels;l;l=l->next)
@@ -336,9 +348,10 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
             gtk_tree_view_set_search_column((GtkTreeView*)fv->view, COL_FILE_NAME);
-            g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
-            gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
             ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
+            g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
+            g_signal_connect(ts, "selection-changed", G_CALLBACK(on_sel_changed), fv);
+            gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
             gtk_tree_selection_set_mode(ts, fv->sel_mode);
             for(l = sels;l;l=l->next)
                 gtk_tree_selection_select_path(ts, (GtkTreePath*)l->data);
@@ -519,9 +532,12 @@ GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
-    FmFileInfoList* fis = fm_file_info_list_new();
+    FmFileInfoList* fis;
     GList *sels = fm_folder_view_get_selected_tree_paths(fv);
     GList *l, *next;
+    if(!sels)
+        return NULL;
+    fis = fm_file_info_list_new();
     for(l = sels;l;l=next)
     {
         FmFileInfo* fi;
@@ -541,15 +557,24 @@ FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
 {
     FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-    FmPathList* list = fm_path_list_new_from_file_info_list(files);
-    fm_list_unref(files);
+    FmPathList* list;
+    if(files)
+    {
+        list = fm_path_list_new_from_file_info_list(files);
+        fm_list_unref(files);
+    }
+    else
+        list = NULL;
     return list;
 }
 
-/* FIXME: is this really useful? */
-guint fm_folder_view_get_n_selected_files(FmFolderView* fv)
+void on_sel_changed(GObject* obj, FmFolderView* fv)
 {
-    return 0;
+    /* FIXME: this is inefficient, but currently there is no better way */
+    FmFileInfo* files = fm_folder_view_get_selected_files(fv);
+    g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
+    if(files)
+        fm_list_unref(files);
 }
 
 gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
@@ -635,9 +660,29 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 }
 
 void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                              int info_type, FmPathList* files, FmFolderView* fv)
+                              int info_type, FmList* files, FmFolderView* fv)
 {
-    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info);
+    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
+    if(fm_list_is_file_info_list(files))
+        files = fm_path_list_new_from_file_info_list(files);
+    else
+        fm_list_ref(files);
+    switch(action)
+    {
+    case GDK_ACTION_MOVE:
+        fm_move_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_COPY:
+        fm_copy_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_LINK:
+        // fm_link_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_ASK:
+        g_debug("TODO: GDK_ACTION_ASK");
+        break;
+    }
+    fm_list_unref(files);
 }
 
 gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,

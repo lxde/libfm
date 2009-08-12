@@ -273,6 +273,18 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
     }
 }
 
+static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* win)
+{
+    /* FIXME: poping an empty message is incorrect. */
+    gtk_statusbar_pop(win->statusbar, win->statusbar_ctx2);
+    if(!fm_list_is_empty(files))
+    {
+        char* msg = g_strdup_printf("%d items selected", fm_list_get_length(files));
+        gtk_statusbar_push(win->statusbar, win->statusbar_ctx2, msg);
+        g_free(msg);
+    }
+}
+
 static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
 {
     gtk_statusbar_pop(win->statusbar, win->statusbar_ctx);
@@ -298,6 +310,7 @@ static void fm_main_win_init(FmMainWin *self)
     fm_folder_view_set_selection_mode(self->folder_view, GTK_SELECTION_MULTIPLE);
     g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
     g_signal_connect(self->folder_view, "status", on_status, self);
+    g_signal_connect(self->folder_view, "sel-changed", on_sel_changed, self);
 
     /* create menu bar and toolbar */
     ui = gtk_ui_manager_new();
@@ -329,7 +342,8 @@ static void fm_main_win_init(FmMainWin *self)
     /* status bar */
     self->statusbar = gtk_statusbar_new();
     gtk_box_pack_start( (GtkBox*)vbox, self->statusbar, FALSE, TRUE, 0 );
-    self->statusbar_ctx = gtk_statusbar_get_context_id(self->statusbar, "Main");
+    self->statusbar_ctx = gtk_statusbar_get_context_id(self->statusbar, "status");
+    self->statusbar_ctx2 = gtk_statusbar_get_context_id(self->statusbar, "status2");
 
     g_object_unref(act_grp);
     g_object_unref(ui);
