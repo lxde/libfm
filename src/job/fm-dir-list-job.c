@@ -106,7 +106,7 @@ gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
     }
     else
         dir = menu_cache_get_root_dir(mc);
-    g_debug("dir = %p", dir);
+
     for(l=menu_cache_dir_get_children(dir);l;l=l->next)
     {
         MenuCacheItem* item = MENU_CACHE_ITEM(l->data);

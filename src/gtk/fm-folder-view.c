@@ -57,7 +57,7 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
 static void on_dnd_dest_files_dropped(FmDndDest* dd, 
                                       GdkDragAction action,
-                                      int info,
+                                      int info_type,
                                       FmPathList* files, FmFolderView* fv);
 
 static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
@@ -635,9 +635,9 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 }
 
 void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                              int info, FmPathList* files, FmFolderView* fv)
+                              int info_type, FmPathList* files, FmFolderView* fv)
 {
-    g_debug("%d files-dropped!", fm_list_get_length(files));
+    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info);
 }
 
 gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,

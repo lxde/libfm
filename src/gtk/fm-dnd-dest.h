@@ -52,23 +52,11 @@ extern GtkTargetEntry fm_default_dnd_dest_targets[];
 typedef struct _FmDndDest			FmDndDest;
 typedef struct _FmDndDestClass		FmDndDestClass;
 
-struct _FmDndDest
-{
-	GObject parent;
-	GtkWidget* widget;
-	guint scroll_timeout;
-	int info_type; /* type of src_files */
-	FmList* src_files;
-	guint32 src_dev; /* UNIX dev of source fs */
-	const char* src_fs_id; /* filesystem id of source fs */
-	FmFileInfo* dest_file;
-};
-
 struct _FmDndDestClass
 {
 	GObjectClass parent_class;
 	gboolean (*query_info)(int x, int y, int* suggested_action);
-	void (*files_dropped)(guint action, guint info, FmPathList* files);
+	void (*files_dropped)(guint action, guint info_type, FmPathList* files);
 };
 
 GType		fm_dnd_dest_get_type		(void);

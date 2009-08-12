@@ -10,6 +10,7 @@
      can we be compatible with KDE and GNOME?
 
 3. File operations: move, copy, trashing, ...
+     Implement correct error handling.
 
 4. Dnd
      Dnd destination, drop site handling.
@@ -49,3 +50,10 @@
 19.Enable showing .. in list view mode.
 
 20.Popup menu for blank area of the folder view.
+
+21.Emit 'sel-changed' signal on FmFolderView object to let the main
+      window update its status bar.
+
+22.Implement fm_list_concat_glist to add a GList* to FmList or to convert
+      a GList to FmList by fm_list_new followed by fm_list_concat_glist()
+

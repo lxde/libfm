@@ -24,6 +24,19 @@
 
 #include <string.h>
 
+struct _FmDndDest
+{
+	GObject parent;
+	GtkWidget* widget;
+	guint scroll_timeout;
+	int info_type; /* type of src_files */
+	FmList* src_files;
+    gboolean src_ready; /* whether src_files are retrived */
+	guint32 src_dev; /* UNIX dev of source fs */
+	const char* src_fs_id; /* filesystem id of source fs */
+	FmFileInfo* dest_file;
+};
+
 enum
 {
     QUERY_INFO,
@@ -178,12 +191,12 @@ gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* suggested_acti
 }
 
 static gboolean
-on_drag_motion ( GtkWidget *dest_widget,
-                 GdkDragContext *drag_context,
-                 gint x,
-                 gint y,
-                 guint time,
-                 FmDndDest* dd )
+on_drag_motion( GtkWidget *dest_widget,
+                GdkDragContext *drag_context,
+                gint x,
+                gint y,
+                guint time,
+                FmDndDest* dd )
 {
 	GdkDragAction action;
 	gboolean ret;
@@ -196,22 +209,28 @@ on_drag_motion ( GtkWidget *dest_widget,
 		if( target != GDK_NONE )
 		{
 			gtk_drag_get_data(dest_widget, drag_context, target, time);
-			/* dd->src_files should be set now */
-		}
+            /* run the main loop to block here waiting for
+             * 'drag-data-received' single being handled first. */
+            while(!dd->src_ready)
+                gtk_main_iteration_do(TRUE);
 
-		if( fm_list_is_file_info_list(dd->src_files) )
-		{
-			/* cache file system id of source files */
-			if( fm_file_info_list_is_same_fs(dd->src_files) )
-			{
-				FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
-				if(fm_path_is_native(fi->path))
-					dd->src_dev = fi->dev;
-				else
-					dd->src_fs_id = fi->fs_id;
-			}
+			/* dd->src_files should be set now */
+            if( dd->src_files && fm_list_is_file_info_list(dd->src_files) )
+            {
+                /* cache file system id of source files */
+                if( fm_file_info_list_is_same_fs(dd->src_files) )
+                {
+                    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
+                    if(fm_path_is_native(fi->path))
+                        dd->src_dev = fi->dev;
+                    else
+                        dd->src_fs_id = fi->fs_id;
+                }
+            }
 		}
 	}
+    if( !dd->src_files )
+        return FALSE;
 
 	action = drag_context->suggested_action;
     g_signal_emit(dd, signals[QUERY_INFO], 0, x, y, &action, &ret);
@@ -280,21 +299,17 @@ on_drag_drop ( GtkWidget *dest_widget,
 		gtk_drag_finish( drag_context, FALSE, FALSE, time );
 		return TRUE;
 	}
-/*
-	if( files )
-	{
-		g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, info, files);
-		fm_list_unref(files);
-	}
-*/
+
 	gtk_drag_finish( drag_context, TRUE, FALSE, time );
 
 	/* free cached source files */
 	if(dd->src_files)
 	{
+        g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files);
 		fm_list_unref(dd->src_files);
 		dd->src_files = NULL;
 	}
+    dd->info_type = 0;
     return TRUE;
 }
 
@@ -309,7 +324,6 @@ on_drag_data_received ( GtkWidget *dest_widget,
                         FmDndDest* dd )
 {
     FmList* files = NULL;
-
     switch(info)
     {
     case FM_DND_DEST_TARGET_FM_LIST:
@@ -338,7 +352,9 @@ on_drag_data_received ( GtkWidget *dest_widget,
     }
 	if(G_UNLIKELY(dd->src_files))
 		fm_list_unref(dd->src_files);
+    dd->info_type = info;
 	dd->src_files = files;
+    dd->src_ready = TRUE;
 }
 
 /* the returned list can be either FmPathList or FmFileInfoList */
