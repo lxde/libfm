@@ -50,6 +50,7 @@ static void on_go_desktop(GtkAction* act, FmMainWin* win);
 static void on_go_trash(GtkAction* act, FmMainWin* win);
 static void on_go_computer(GtkAction* act, FmMainWin* win);
 static void on_go_network(GtkAction* act, FmMainWin* win);
+static void on_go_apps(GtkAction* act, FmMainWin* win);
 static void on_show_hidden(GtkToggleAction* act, FmMainWin* win);
 static void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
@@ -90,6 +91,7 @@ static const char main_menu_xml[] =
     "<menuitem action='Computer'/>"
     "<menuitem action='Trash'/>"
     "<menuitem action='Network'/>"
+    "<menuitem action='Apps'/>"
   "</menu>"
   "<menu action='ViewMenu'>"
     "<menuitem action='ShowHidden'/>"
@@ -150,6 +152,7 @@ static GtkActionEntry main_win_actions[]=
         {"Computer", "computer", N_("My Computer"), NULL, NULL, on_go_computer},
         {"Trash", "user-trash", N_("Trash Can"), NULL, NULL, on_go_trash},
         {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, on_go_network},
+        {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), on_go_apps},
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go},
     /* FIXME: why this accelerator key doesn't work? */
     {"Location", NULL, "Location", "<Alt>d", NULL, on_location}
@@ -452,6 +455,11 @@ void on_go_computer(GtkAction* act, FmMainWin* win)
 void on_go_network(GtkAction* act, FmMainWin* win)
 {
     fm_main_win_chdir_by_name( win, "network:///");
+}
+
+void on_go_apps(GtkAction* act, FmMainWin* win)
+{
+    fm_main_win_chdir_by_name( win, "applications:///");
 }
 
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)

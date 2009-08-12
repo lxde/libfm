@@ -1,0 +1,51 @@
+1. API renaming:
+     when a returned value was allocated or ref_count is increased,
+     the API should use _dup_ rather than _get_.
+
+     currently there are inconsistent naming convention among different
+     modules. _get_for_, new_from_, _get_from_, and simply _get_ are used
+     in different places where APIs have similar behaviors.
+
+2. Better clipboard handling
+     can we be compatible with KDE and GNOME?
+
+3. File operations: move, copy, trashing, ...
+
+4. Dnd
+     Dnd destination, drop site handling.
+     For drag source, use file:///~/.gvfs/ rather than its original
+     URL scheme to be compatible with other programs
+
+5. Better file size calculations
+
+6. File monitoring with cache
+
+8. FmPathCache:
+      a general purpose cache to associated paths with already loaded
+      data associated those paths such as thumbnails or file monitors
+      to optimize memory usage and decrease duplicated I/O.
+
+9. Thumbnails, may be cached with FmPathCache
+
+10.Custom actions for specific file types.
+      integration with archivers is a must have
+
+11.Auto-completion for path entry
+
+12.API to empty trash
+
+13.Display paths in path entry with display name rather than real path
+
+14.Auto-mounting
+
+15.Mount volumes and mount points when needed
+
+16.Browse History for 'Back' and 'Forward'.
+
+17.A history menu
+
+18.path resolution and canonicalization: convert ../ and ./ gracefully
+
+19.Enable showing .. in list view mode.
+
+20.Popup menu for blank area of the folder view.

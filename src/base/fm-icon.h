@@ -43,6 +43,7 @@ void fm_icon_init();
 void fm_icon_finalize();
 
 FmIcon* fm_icon_from_gicon(GIcon* gicon);
+FmIcon* fm_icon_from_name(const char* name);
 FmIcon* fm_icon_ref(FmIcon* icon);
 void fm_icon_unref(FmIcon* icon);
 

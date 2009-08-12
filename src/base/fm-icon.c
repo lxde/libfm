@@ -55,6 +55,28 @@ FmIcon* fm_icon_from_gicon(GIcon* gicon)
     return icon;
 }
 
+FmIcon* fm_icon_from_name(const char* name)
+{
+    FmIcon* icon;
+    GIcon* gicon;
+    if(g_path_is_absolute(name))
+    {
+        GFile* gicon_file = g_file_new_for_path(name);
+        gicon = g_file_icon_new(gicon_file);
+        g_object_unref(gicon_file);
+    }
+    else
+        gicon = g_themed_icon_new(name);
+
+    if(G_LIKELY(gicon))
+    {
+        icon = fm_icon_from_gicon(gicon);
+        g_object_unref(gicon);
+        return icon;
+    }
+    return NULL;
+}
+
 /* FIXME: using mutex is a little bit expansive, but since we need
  * to handle hash table too, it might be necessary. */
 FmIcon* fm_icon_ref(FmIcon* icon)

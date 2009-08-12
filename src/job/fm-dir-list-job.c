@@ -116,9 +116,7 @@ gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
         fi = fm_file_info_new();
         fi->path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
         fi->disp_name = g_strdup(menu_cache_item_get_name(item));
-        gicon = g_themed_icon_new(menu_cache_item_get_icon(item));
-        fi->icon = fm_icon_from_gicon(gicon);
-        g_object_unref(gicon);
+        fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
         if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
         {
             fi->mode |= S_IFDIR;

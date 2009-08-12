@@ -135,30 +135,18 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
             {
                 char* fpath = fm_path_to_str(fi->path);
                 GKeyFile* kf = g_key_file_new();
-                GIcon* gicon = NULL;
+                FmIcon* icon = NULL;
                 if(g_key_file_load_from_file(kf, fpath, 0, NULL))
                 {
                     char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
                     char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
                     if(icon_name)
-                    {
-                        if(g_path_is_absolute(icon_name))
-                        {
-                            GFile* gicon_file = g_file_new_for_path(icon_name);
-                            gicon = g_file_icon_new(gicon_file);
-                            g_object_unref(gicon_file);
-                        }
-                        else
-                            gicon = g_themed_icon_new(icon_name);
-                    }
+                        icon = fm_icon_from_name(icon_name);
                     if(title)
                         fi->disp_name = title;
                 }
-                if(gicon)
-                {
-                    fi->icon = fm_icon_from_gicon(gicon);
-                    g_object_unref(gicon);
-                }
+                if(icon)
+                    fi->icon = icon;
                 else
                     fi->icon = fm_icon_ref(fi->type->icon);
             }
