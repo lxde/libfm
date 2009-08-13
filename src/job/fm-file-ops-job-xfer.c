@@ -46,7 +46,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		_inf = NULL;
 	else
 	{
-		_inf = g_file_query_info(src, query, 0, &fmjob->cancellable, &err);
+		_inf = g_file_query_info(src, query, 0, fmjob->cancellable, &err);
 		if( !_inf )
 		{
 			/* FIXME: error handling */
@@ -73,7 +73,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 			GFileEnumerator* enu;
 
             /* FIXME: handle permissions */
-			if( !g_file_make_directory(dest, &fmjob->cancellable, &err) )
+			if( !g_file_make_directory(dest, fmjob->cancellable, &err) )
 			{
 				fm_job_emit_error(fmjob, err, FALSE);
 				return FALSE;
@@ -119,7 +119,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 	default:
 		if( !g_file_copy(src, dest, 
 					G_FILE_COPY_ALL_METADATA,
-					&FM_JOB(job)->cancellable, 
+					FM_JOB(job)->cancellable, 
 					progress_cb, fmjob, &err) )
 		{
 			fm_job_emit_error(fmjob, err, FALSE);

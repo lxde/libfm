@@ -98,7 +98,7 @@ static void fm_file_ops_job_finalize(GObject *object)
 
 static void fm_file_ops_job_init(FmFileOpsJob *self)
 {
-	
+	fm_job_init_cancellable((FmJob*)self);
 }
 
 
@@ -114,9 +114,6 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
 	FmPath* tmp;
-
-	if(!fm_job_init_cancellable(fm_job))
-		return FALSE;
 
 	switch(job->type)
 	{

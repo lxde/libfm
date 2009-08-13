@@ -57,3 +57,7 @@
 22.Implement fm_list_concat_glist to add a GList* to FmList or to convert
       a GList to FmList by fm_list_new followed by fm_list_concat_glist()
 
+23.Emit pseudo 'changed' signals on file monitors which are not supported
+      by gio/gvfs, such as some remote file systems, after we do some
+      modifications in the dir.
+

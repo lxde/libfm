@@ -309,6 +309,11 @@ on_drag_drop ( GtkWidget *dest_widget,
 		fm_list_unref(dd->src_files);
 		dd->src_files = NULL;
 	}
+	if(dd->dest_file)
+	{
+		fm_file_info_unref(dd->dest_file);
+		dd->dest_file = NULL;
+	}
     dd->info_type = 0;
     return TRUE;
 }
