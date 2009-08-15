@@ -61,6 +61,8 @@ FmPath*	fm_path_new(const char* path)
         if( !colon ) /* this shouldn't happen */
             return NULL; /* invalid path FIXME: should we treat it as relative path? */
 
+        /* FIXME: convert file:/// to local native path */
+
         hier_part = colon+1;
         if( hier_part[0] == '/' )
         {

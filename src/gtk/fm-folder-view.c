@@ -618,11 +618,6 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 		else if(evt->button == 3) /* right click */
 			type = FM_FV_CONTEXT_MENU;
     }
-    else if( evt->type == GDK_2BUTTON_PRESS )
-    {
-		if(evt->button == 1) /* left double click */
-			type = FM_FV_ACTIVATED;
-    }
 
 	if( type != FM_FV_CLICK_NONE )
 	{
@@ -803,7 +798,7 @@ void fm_folder_view_select_invert(FmFolderView* fv)
     }
 }
 
-/* select files by custom func, not yet implemented */
+/* FIXME: select files by custom func, not yet implemented */
 void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data)
 {
     

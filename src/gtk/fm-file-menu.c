@@ -247,7 +247,7 @@ void on_cut(GtkAction* action, gpointer user_data)
 	FmFileMenu* data = (FmFileMenu*)user_data;
 	FmPathList* files;
 	files = fm_path_list_new_from_file_info_list(data->file_infos);
-	fm_clipboard_copy_files(data->menu, files);
+	fm_clipboard_cut_files(data->menu, files);
 	fm_list_unref(files);
 }
 

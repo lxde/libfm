@@ -37,6 +37,8 @@ static void on_close_win(GtkAction* act, FmMainWin* win);
 
 static void on_cut(GtkAction* act, FmMainWin* win);
 static void on_copy(GtkAction* act, FmMainWin* win);
+static void on_copy_to(GtkAction* act, FmMainWin* win);
+static void on_move_to(GtkAction* act, FmMainWin* win);
 static void on_paste(GtkAction* act, FmMainWin* win);
 static void on_del(GtkAction* act, FmMainWin* win);
 
@@ -134,8 +136,8 @@ static GtkActionEntry main_win_actions[]=
         {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, on_del},
         {"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
         {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
-        {"MoveTo", NULL, N_("Move To..."), NULL, NULL, NULL},
-        {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, NULL},
+        {"MoveTo", NULL, N_("Move To..."), NULL, NULL, on_move_to},
+        {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, on_copy_to},
         {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, on_select_all},
         {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, on_invert_select},
         {"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
@@ -527,6 +529,22 @@ void on_copy(GtkAction* act, FmMainWin* win)
     FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
     if(!fm_list_is_empty(files))
         fm_clipboard_copy_files(win, files);
+    fm_list_unref(files);
+}
+
+void on_copy_to(GtkAction* act, FmMainWin* win)
+{
+    FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+    if(!fm_list_is_empty(files))
+        fm_copy_files_to(files);
+    fm_list_unref(files);
+}
+
+void on_move_to(GtkAction* act, FmMainWin* win)
+{
+    FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+    if(!fm_list_is_empty(files))
+        fm_move_files_to(files);
     fm_list_unref(files);
 }
 

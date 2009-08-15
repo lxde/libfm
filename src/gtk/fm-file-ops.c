@@ -21,6 +21,7 @@
 
 #include "fm-file-ops.h"
 #include "fm-progress-dlg.h"
+#include <glib/gi18n.h>
 
 /* FIXME: only show the progress dialog if the job isn't finished 
  * in 1 sec. */
@@ -61,5 +62,58 @@ void fm_delete_files(FmPathList* files)
 	dlg = fm_progress_dlg_new(job);
 	gtk_window_present(dlg);
 	fm_job_run_async(job);
+}
+
+void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
+{
+    g_debug("HERE");
+    FmPath* dest = fm_select_folder(NULL);
+    if(dest)
+    {
+        if(is_move)
+            fm_move_files(files, dest);
+        else
+            fm_copy_files(files, dest);
+        fm_path_unref(dest);
+    }
+}
+
+void fm_rename_files(FmPathList* files)
+{
+    
+}
+
+void fm_rename_file(FmPath* file)
+{
+    FmPathList* pl = fm_path_list_new();
+    fm_list_push_tail(pl, file);
+    fm_rename_files(pl);
+    fm_list_unref(pl);
+}
+
+FmPath* fm_select_folder(GtkWindow* parent)
+{
+    FmPath* path;
+    GtkFileChooser* chooser;
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(_("Please select a folder"), 
+                                        parent, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+    gtk_dialog_set_alternative_button_order((GtkDialog*)chooser, 
+                                        GTK_RESPONSE_CANCEL,
+                                        GTK_RESPONSE_OK, NULL);
+    if( gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK )
+    {
+        char* file = gtk_file_chooser_get_filename(chooser);
+        if(!file)
+            file = gtk_file_chooser_get_uri(chooser);
+        path = fm_path_new(file);
+        g_free(file);
+    }
+    else
+        path = NULL;
+    gtk_widget_destroy((GtkWidget*)chooser);
+    return path;
 }
 
