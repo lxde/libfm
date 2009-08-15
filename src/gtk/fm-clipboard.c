@@ -96,7 +96,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 		fm_copy_files(files, dest_dir);
 	else
 		fm_move_files(files, dest_dir);
-	
+
 	fm_list_unref(files);
 	return TRUE;
 }

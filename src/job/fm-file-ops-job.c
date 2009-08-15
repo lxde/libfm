@@ -37,10 +37,6 @@ static void fm_file_ops_job_finalize  			(GObject *object);
 static gboolean fm_file_ops_job_run(FmJob* fm_job);
 
 /* funcs for io jobs */
-static gboolean copy_files(FmFileOpsJob* job);
-static gboolean move_files(FmFileOpsJob* job);
-static gboolean trash_files(FmFileOpsJob* job);
-static gboolean delete_files(FmFileOpsJob* job);
 static gboolean chmod_files(FmFileOpsJob* job);
 static gboolean chown_files(FmFileOpsJob* job);
 
@@ -118,16 +114,16 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 	switch(job->type)
 	{
 	case FM_FILE_OP_COPY:
-		copy_files(job);
+		fm_file_ops_job_copy_run(job);
 		break;
 	case FM_FILE_OP_MOVE:
-		move_files(job);
+		fm_file_ops_job_move_run(job);
 		break;
 	case FM_FILE_OP_TRASH:
-		trash_files(job);
+		fm_file_ops_job_trash_run(job);
 		break;
 	case FM_FILE_OP_DELETE:
-		delete_files(job);
+		fm_file_ops_job_delete_run(job);
 		break;
 	case FM_FILE_OP_CHMOD:
 		chmod_files(job);
@@ -149,118 +145,6 @@ static gboolean on_cancelled(FmFileOpsJob* job)
 {
 	fm_job_emit_cancelled((FmJob*)job);
 	return FALSE;
-}
-
-gboolean copy_files(FmFileOpsJob* job)
-{
-	GList* l;
-	/* prepare the job, count total work needed with FmDeepCountJob */
-	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
-	fm_job_run_sync(dc);
-	job->total = dc->total_size;
-	g_object_unref(dc);
-	g_debug("total size to copy: %llu", job->total);
-
-	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
-	{
-		FmPath* path = (FmPath*)l->data;
-		FmPath* _dest = fm_path_new_child(job->dest, path->name);
-		GFile* src = fm_path_to_gfile(path);
-		GFile* dest = fm_path_to_gfile(_dest);
-		fm_path_unref(_dest);
-		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
-			return FALSE;
-	}
-	return TRUE;
-}
-
-gboolean move_files(FmFileOpsJob* job)
-{
-#if 0
-	GFile *dest;
-	GFileInfo* inf;
-	GList* l;
-	GError* err = NULL;
-	guint32 dest_dev = 0;
-
-	g_return_val_if_fail(job->dest, FALSE);
-
-	dest = fm_path_to_gfile(job->dest);
-	inf = g_file_query_info(dest, G_FILE_ATTRIBUTE_UNIX_DEVICE, 0, cancellable, &err);
-	if(inf)
-	{
-		dest_dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE);
-		g_object_ref(inf);
-	}
-	else
-	{
-		/* FIXME: error */
-		g_object_unref(dest);
-		return FALSE;
-	}	
-
-	if( job->cancel )
-		return FALSE;
-
-	l = fm_list_peek_head_link(job->srcs);
-	for(;l;l=l->next)
-	{
-		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		guint32 src_dev = 0;
-		inf = g_file_query_info(src, G_FILE_ATTRIBUTE_UNIX_DEVICE, 0, cancellable, &err);
-		g_object_unref(src);
-		if(inf)
-		{
-			src_dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE);
-			g_object_ref(inf);
-		}
-		else
-		{
-			
-		}
-	}
-#endif
-	return FALSE;
-}
-
-gboolean trash_files(FmFileOpsJob* job)
-{
-/*
-	GList* l = fm_list_peek_head_link(job->srcs);
-	for(; !FM_JOB(job)->cancel && l;l=l->next)
-	{
-		GError* err = NULL;
-		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		if( !g_file_trash(src, cancellable, &err) )
-		{
-			g_debug(err->message);
-			g_error_free(err);
-		}
-	}
-*/
-	return FALSE;
-}
-
-gboolean delete_files(FmFileOpsJob* job)
-{
-	GList* l;
-	/* prepare the job, count total work needed with FmDeepCountJob */
-	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
-	fm_job_run_sync(dc);
-	job->total = dc->count;
-	g_object_unref(dc);
-	g_debug("total number of files to delete: %llu", job->total);
-
-	l = fm_list_peek_head_link(job->srcs);
-	for(; !FM_JOB(job)->cancel && l;l=l->next)
-	{
-		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL);
-		g_object_unref(src);
-		if(!ret) /* error! */
-            return FALSE;
-	}
-	return TRUE;
 }
 
 gboolean chmod_files(FmFileOpsJob* job)

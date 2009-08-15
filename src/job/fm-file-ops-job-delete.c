@@ -54,8 +54,14 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
     fm_file_ops_job_emit_cur_file(fjob, g_file_info_get_display_name(inf));
 
     /* show progress */
-    ++fjob->finished;
-    fm_file_ops_job_emit_percent(job);
+
+    /* NOTE: don't calculate progress when deleting source files for
+     * moving files across different filesystems */
+    if(fjob->type != FM_FILE_OP_MOVE)
+    {
+        ++fjob->finished;
+        fm_file_ops_job_emit_percent(job);
+    }
 
 	is_dir = (g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY);
 
@@ -111,4 +117,31 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     return TRUE;
+}
+
+gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
+{
+	GList* l;
+	/* prepare the job, count total work needed with FmDeepCountJob */
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+	fm_job_run_sync(dc);
+	job->total = dc->count;
+	g_object_unref(dc);
+	g_debug("total number of files to delete: %llu", job->total);
+
+	l = fm_list_peek_head_link(job->srcs);
+	for(; !FM_JOB(job)->cancel && l;l=l->next)
+	{
+		GFile* src = fm_path_to_gfile((FmPath*)l->data);
+		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL);
+		g_object_unref(src);
+		if(!ret) /* error! */
+            return FALSE;
+	}
+	return TRUE;
+}
+
+gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
+{
+    
 }

@@ -26,6 +26,7 @@
 #include "fm-job.h"
 #include "fm-path.h"
 #include <gio/gio.h>
+#include <sys/types.h>
 
 G_BEGIN_DECLS
 
@@ -45,10 +46,10 @@ typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
 typedef enum _FmDeepCountJobFlags	FmDeepCountJobFlags;
 enum _FmDeepCountJobFlags
 {
-	FM_DC_JOB_DEFAULT = 0,
-	FM_DC_JOB_FOLLOW_LINKS = 1<<0,
-	FM_DC_JOB_SAME_FS = 1<<1,
-	FM_DC_JOB_DIFF_FS = 1<<2
+	FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
+	FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
+	FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices */
+	FM_DC_JOB_DIFF_FS = 1<<2 /* only do deep count for files on different devices */
 };
 
 struct _FmDeepCountJob
@@ -59,6 +60,10 @@ struct _FmDeepCountJob
 	goffset total_size;
 	goffset total_block_size;
 	guint count;
+
+    /* private: used to count total size used when moving files */
+    dev_t dest_dev;
+    const char* dest_fs_id;
 };
 
 struct _FmDeepCountJobClass
@@ -66,8 +71,13 @@ struct _FmDeepCountJobClass
 	FmJobClass parent_class;
 };
 
-GType		fm_deep_count_job_get_type(void);
-FmJob*	fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags);
+GType fm_deep_count_job_get_type(void);
+FmJob* fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags);
+
+/* dev is UNIX device ID.
+ * fs_id is filesystem id in gio format (can be NULL).
+ */
+void fm_deep_count_job_set_dest(FmDeepCountJob* dc, dev_t dev, const char* fs_id);
 
 G_END_DECLS
 

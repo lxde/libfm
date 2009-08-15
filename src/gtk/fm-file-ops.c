@@ -37,7 +37,12 @@ void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 
 void fm_move_files(FmPathList* files, FmPath* dest_dir)
 {
-	
+	GtkWidget* dlg;
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
+	fm_file_ops_job_set_dest(job, dest_dir);
+	dlg = fm_progress_dlg_new(job);
+	gtk_window_present(dlg);
+	fm_job_run_async(job);
 }
 
 void fm_trash_files(FmPathList* files)

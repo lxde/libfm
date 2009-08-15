@@ -29,8 +29,10 @@
 G_BEGIN_DECLS
 
 gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf);
+gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job);
 
 gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf);
+gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job);
 
 G_END_DECLS
 

@@ -73,6 +73,7 @@ struct _FmFileOpsJob
 	FmFileOpType type;
 	FmPathList* srcs;
 	FmPath* dest;
+    const char* dest_fs_id;
 
 	goffset total;
 	goffset finished;

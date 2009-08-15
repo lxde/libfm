@@ -100,7 +100,6 @@ gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
     if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
     {
         char* tmp = g_strconcat("/", menu_cache_item_get_id(menu_cache_get_root_dir(mc)), dir_path, NULL);
-        g_debug(tmp);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }

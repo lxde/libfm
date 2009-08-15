@@ -20,6 +20,9 @@
  */
 
 #include "fm-file-ops-job-xfer.h"
+#include "fm-file-ops-job-delete.h"
+#include <string.h>
+#include <sys/types.h>
 
 const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -28,7 +31,8 @@ const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
 	G_FILE_ATTRIBUTE_STANDARD_SIZE","
 	G_FILE_ATTRIBUTE_UNIX_BLOCKS","
-	G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE;
+	G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
+    G_FILE_ATTRIBUTE_ID_FILESYSTEM;
 
 static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
 
@@ -137,7 +141,47 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 
 gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
-	return FALSE;
+	GFileInfo* _inf;
+	GError* err = NULL;
+	gboolean is_virtual;
+    GFileType type;
+    goffset size;
+	FmJob* fmjob = FM_JOB(job);
+    const char* src_fs_id;
+
+	if( G_LIKELY(inf) )
+		_inf = NULL;
+	else
+	{
+		_inf = g_file_query_info(src, query, 0, fmjob->cancellable, &err);
+		if( !_inf )
+		{
+			/* FIXME: error handling */
+			fm_job_emit_error(fmjob, err, FALSE);
+			return FALSE;
+		}
+		inf = _inf;
+	}
+
+	/* showing currently processed file. */
+	fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
+
+    src_fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
+    /* Check if source and destination are on the same device */
+    if( strcmp(src_fs_id, job->dest_fs_id) == 0 ) /* same device */
+        g_file_move(src, dest, G_FILE_COPY_ALL_METADATA, fmjob->cancellable, progress_cb, job, &err);
+    else /* use copy if they are on different devices */
+    {
+        /* use copy & delete */
+        fm_file_ops_job_copy_file(job, src, inf, dest);
+        fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
+    }
+
+    /* FIXME: error handling */
+
+    if( _inf )
+        g_object_unref(_inf);
+	return TRUE;
 }
 
 void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
@@ -145,4 +189,83 @@ void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
 	job->current = cur;
     /* update progress */
     fm_file_ops_job_emit_percent(job);
+}
+
+gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
+{
+	GList* l;
+	/* prepare the job, count total work needed with FmDeepCountJob */
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+	fm_job_run_sync(dc);
+	job->total = dc->total_size;
+	g_object_unref(dc);
+	g_debug("total size to copy: %llu", job->total);
+
+    /* FIXME: cancellation? */
+	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
+	{
+		FmPath* path = (FmPath*)l->data;
+		FmPath* _dest = fm_path_new_child(job->dest, path->name);
+		GFile* src = fm_path_to_gfile(path);
+		GFile* dest = fm_path_to_gfile(_dest);
+		fm_path_unref(_dest);
+		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
+			return FALSE;
+	}
+	return TRUE;
+}
+
+gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
+{
+	GFile *dest;
+	GFileInfo* inf;
+	GList* l;
+	GError* err = NULL;
+	FmJob* fmjob = FM_JOB(job);
+    dev_t dest_dev = 0;
+
+    /* get information of destination folder */
+	g_return_val_if_fail(job->dest, FALSE);
+	dest = fm_path_to_gfile(job->dest);
+    inf = g_file_query_info(dest, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
+                                  G_FILE_ATTRIBUTE_UNIX_DEVICE","
+                                  G_FILE_ATTRIBUTE_ID_FILESYSTEM","
+                                  G_FILE_ATTRIBUTE_UNIX_DEVICE, 0, 
+                                  fmjob->cancellable, &err);
+    if(inf)
+    {
+        job->dest_fs_id = g_intern_string(g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM));
+        dest_dev = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_DEVICE); /* needed by deep count */
+        g_object_unref(inf);
+    }
+    else
+    {
+        /* FIXME: error handling */
+        g_object_unref(dest);
+        return FALSE;
+    }
+
+	/* prepare the job, count total work needed with FmDeepCountJob */
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DIFF_FS);
+    fm_deep_count_job_set_dest(dc, dest_dev, job->dest_fs_id);
+	fm_job_run_sync(dc);
+	job->total = dc->total_size;
+
+	if( FM_JOB(dc)->cancel )
+		return FALSE;
+	g_object_unref(dc);
+	g_debug("total size to move: %llu, dest_fs: %s", job->total, job->dest_fs_id);
+
+    /* FIXME: cancellation? */
+	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
+	{
+		FmPath* path = (FmPath*)l->data;
+		FmPath* _dest = fm_path_new_child(job->dest, path->name);
+		GFile* src = fm_path_to_gfile(path);
+		GFile* dest = fm_path_to_gfile(_dest);
+		fm_path_unref(_dest);
+		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
+			return FALSE;
+	}
+    return TRUE;
 }

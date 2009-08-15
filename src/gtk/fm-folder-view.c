@@ -117,6 +117,9 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
+    /* Emitted when selection of the view got changed.
+     * Currently selected files are passed as the parameter.
+     * If there is no file selected, NULL is passed instead. */
     signals[SEL_CHANGED]=
         g_signal_new("sel-changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -167,7 +170,8 @@ void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 	/* FIXME: prevent direct access to data members */
 	g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
 
-	msg = g_strdup_printf("%d files are listed", fm_list_get_length(folder->files) );
+    /* FIXME: show number of hidden files and available disk spaces. */
+	msg = g_strdup_printf("%d files are listed.", fm_list_get_length(folder->files) );
 	g_signal_emit(fv, signals[STATUS], 0, msg);
 	g_free(msg);
 }

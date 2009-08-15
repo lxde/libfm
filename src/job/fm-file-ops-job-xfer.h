@@ -29,8 +29,10 @@
 G_BEGIN_DECLS
 
 gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest);
+gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job);
 
 gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest);
+gboolean fm_file_ops_job_move_run(FmFileOpsJob* job);
 
 G_END_DECLS
 

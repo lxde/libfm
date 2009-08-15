@@ -33,7 +33,7 @@
 
 11.Auto-completion for path entry
 
-12.API to empty trash
+12.API to empty trash (just deleting everything under trash:/// can make it.)
 
 13.Display paths in path entry with display name rather than real path
 
@@ -61,3 +61,9 @@
       by gio/gvfs, such as some remote file systems, after we do some
       modifications in the dir.
 
+24.Expose a set of dbus interfaces/services so other applications can call
+      libfm to do file operations without being linked with it.
+      Or, this should be implemented in the level of file managers, like in pcmanfm?
+      If this is going to be supported, write a freedesktop.org spec for it.
+
+25.Display tooltips for folder items

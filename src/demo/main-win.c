@@ -275,11 +275,32 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 
 static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* win)
 {
-    /* FIXME: poping an empty message is incorrect. */
-    gtk_statusbar_pop(win->statusbar, win->statusbar_ctx2);
-    if(!fm_list_is_empty(files))
+	/* popup previous message if there is any */
+	gtk_statusbar_pop(win->statusbar, win->statusbar_ctx2);
+    if(files)
     {
-        char* msg = g_strdup_printf("%d items selected", fm_list_get_length(files));
+        char* msg;
+        /* FIXME: display total size of all selected files. */
+        if(fm_list_get_length(files) == 1) /* only one file is selected */
+        {
+            FmFileInfo* fi = fm_list_peek_head(files);
+            const char* size_str = fm_file_info_get_disp_size(fi);
+            if(size_str)
+            {
+                msg = g_strdup_printf("\"%s\" (%s) %s", 
+                            fm_file_info_get_disp_name(fi),
+                            size_str ? size_str : "",
+                            fm_file_info_get_desc(fi));
+            }
+            else
+            {
+                msg = g_strdup_printf("\"%s\" %s", 
+                            fm_file_info_get_disp_name(fi),
+                            fm_file_info_get_desc(fi));
+            }
+        }
+        else
+            msg = g_strdup_printf("%d items selected", fm_list_get_length(files));
         gtk_statusbar_push(win->statusbar, win->statusbar_ctx2, msg);
         g_free(msg);
     }
@@ -511,9 +532,8 @@ void on_copy(GtkAction* act, FmMainWin* win)
 
 void on_paste(GtkAction* act, FmMainWin* win)
 {
-    FmPath* path = fm_path_new(fm_folder_view_get_cwd(win->folder_view));
+    FmPath* path = fm_folder_view_get_cwd(win->folder_view);
     fm_clipboard_paste_files(win->folder_view, path);
-    fm_path_unref(path);
 }
 
 void on_del(GtkAction* act, FmMainWin* win)

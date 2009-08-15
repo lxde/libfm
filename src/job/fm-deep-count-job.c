@@ -27,7 +27,7 @@ G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run(FmJob* job);
 
-static void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev);
+static void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path);
 static void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path);
 
 static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
@@ -86,7 +86,7 @@ gboolean fm_deep_count_job_run(FmJob* job)
 		if(!job->cancel)
 		{
 			if(fm_path_is_native(path)) /* if it's a native file, use posix APIs */
-				deep_count_posix( dc, path, 0 );
+				deep_count_posix( dc, path );
 			else
 				deep_count_gio( dc, path );
 		}
@@ -94,7 +94,7 @@ gboolean fm_deep_count_job_run(FmJob* job)
 	return TRUE;
 }
 
-void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev)
+void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
 {
 	FmJob* fmjob = (FmJob*)job;
 	GError* err = NULL;
@@ -109,20 +109,23 @@ void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev)
 
 	if( ret == 0 )
 	{
-		if( dir_dev )
-		{
-			if( job->flags & FM_DC_JOB_SAME_FS )
-			{
-				if( st.st_dev != dir_dev )
-					return;
-			}
-			else if( job->flags & FM_DC_JOB_DIFF_FS )
-			{
-				if( st.st_dev == dir_dev )
-					return;
-			}
-		}
-		//g_debug("st_dev = %ld", st.st_dev);
+        /* NOTE: if job->dest_dev is 0, that means our destination
+         * folder is not on native UNIX filesystem. Hence it's not
+         * on the same device. Our st.st_dev will always be non-zero
+         * since our file is on a native UNIX filesystem. */
+
+        /* only descends into files on the same filesystem */
+        if( job->flags & FM_DC_JOB_SAME_FS )
+        {
+            if( st.st_dev != job->dest_dev )
+                return;
+        }
+        /* only descends into files on the different filesystem */
+        else if( job->flags & FM_DC_JOB_DIFF_FS )
+        {
+            if( st.st_dev == job->dest_dev )
+                return;
+        }
 		++job->count;
 		job->total_size += (goffset)st.st_size;
 		job->total_block_size += (st.st_blocks * st.st_blksize);
@@ -146,7 +149,7 @@ void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path, dev_t dir_dev)
 			{
 				FmPath* sub = fm_path_new_child(fm_path, basename);
 				if(!fmjob->cancel)
-					deep_count_posix(job, sub, st.st_dev);
+					deep_count_posix(job, sub);
 				fm_path_unref(sub);
 			}
 			g_dir_close(dir_ent);
@@ -165,11 +168,13 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 					G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
 					G_FILE_ATTRIBUTE_STANDARD_SIZE","
 					G_FILE_ATTRIBUTE_UNIX_BLOCKS","
-					G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE;
+					G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
+                    G_FILE_ATTRIBUTE_ID_FILESYSTEM;
 	GFile* gf = fm_path_to_gfile(fm_path);
 	GFileInfo* inf = g_file_query_info(gf, query_str, 
-							G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-							fmjob->cancellable, &err);
+                        (job->flags & FM_DC_JOB_FOLLOW_LINKS) ? 
+                            0:G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                        fmjob->cancellable, &err);
 	if( inf )
 	{
 		GFileType type = g_file_info_get_file_type(inf);
@@ -188,46 +193,79 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 
 		if( type == G_FILE_TYPE_DIRECTORY )
 		{
-			GFileEnumerator* enu = g_file_enumerate_children(gf, 
-										query_str,
-										G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-										fmjob->cancellable, &err);
-			while( !fmjob->cancel )
-			{
-				inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
-				if(!fmjob->cancel)
-				{
-					if(inf)
-					{
-						// if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
-						{
-							blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-							blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-							++job->count;
-							job->total_size += g_file_info_get_size(inf);
-							job->total_block_size += (blk * blk_size);
-						}
-						if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
-						{
-							FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
-							deep_count_gio(job, sub);
-							fm_path_unref(sub);
-						}
-					}
-					else
-					{
-						break; /* FIXME: error handling */
-					}
-				}
-				g_object_unref(inf);
-			}
-			g_file_enumerator_close(enu, NULL, &err);
-			g_object_unref(enu);
+            GFileEnumerator* enu;
+            const char* fs_id;
+            gboolean descend;
+
+            /* check if we need to decends into the dir. */
+            fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
+
+            /* only descends into files on the same filesystem */
+            if( job->flags & FM_DC_JOB_SAME_FS )
+            {
+                if( g_strcmp0(fs_id, job->dest_fs_id) )
+                    descend = TRUE;
+            }
+            /* only descends into files on the different filesystem */
+            else if( job->flags & FM_DC_JOB_DIFF_FS )
+            {
+                if( g_strcmp0(fs_id, job->dest_fs_id) == 0 )
+                    descend = TRUE;
+            }
+            else
+                descend = FALSE;
+                    
+            if(descend)
+            {
+                enu = g_file_enumerate_children(gf, query_str,
+                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                    fmjob->cancellable, &err);
+                while( !fmjob->cancel )
+                {
+                    inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
+                    if(!fmjob->cancel)
+                    {
+                        if(inf)
+                        {
+                            // if( !g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL) )
+                            {
+                                blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
+                                blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
+                                ++job->count;
+                                job->total_size += g_file_info_get_size(inf);
+                                job->total_block_size += (blk * blk_size);
+                            }
+                            if( g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY )
+                            {
+                                FmPath* sub = fm_path_new_child(fm_path, g_file_info_get_name(inf));
+                                deep_count_gio(job, sub);
+                                fm_path_unref(sub);
+                            }
+                        }
+                        else
+                        {
+                            break; /* FIXME: error handling */
+                        }
+                    }
+                    g_object_unref(inf);
+                }
+                g_file_enumerator_close(enu, NULL, &err);
+                g_object_unref(enu);
+            }
 		}
+        g_object_unref(inf);
 	}
 	else
 	{
 		/* FIXME: error */
 	}
 	g_object_unref(gf);
+}
+
+/* dev is UNIX device ID. fs_id is filesystem id in gio format (can be NULL). */
+void fm_deep_count_job_set_dest(FmDeepCountJob* dc, dev_t dev, const char* fs_id)
+{
+    dc->dest_dev = dev;
+    if(fs_id)
+        dc->dest_fs_id = g_intern_string(fs_id);
 }
