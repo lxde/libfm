@@ -66,7 +66,6 @@ void fm_delete_files(FmPathList* files)
 
 void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
 {
-    g_debug("HERE");
     FmPath* dest = fm_select_folder(NULL);
     if(dest)
     {

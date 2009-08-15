@@ -742,16 +742,10 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 	}
 	else
 	{
+        /* FIXME: prevent direct access to data members. */
 		FmFolderModel* model = (FmFolderModel*)fv->model;
 		FmPath* dir_path =  model->dir->dir_path;
-		if( fm_path_is_native(dir_path) )
-		{
-			/*
-			FmFileInfo* fi;
-			fm_dnd_dest_set_dest_file(dd, fi);
-			*/
-			fm_dnd_dest_set_dest_file(dd, NULL);
-		}
+        fm_dnd_dest_set_dest_file(dd, model->dir->dir_fi);
 	}
 	return TRUE;
 }

@@ -282,6 +282,9 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
     if(G_LIKELY(files))
         g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 
+    if(job->dir_fi)
+        folder->dir_fi = fm_file_info_ref(job->dir_fi);
+
     folder->job = NULL; /* the job object will be freed in idle handler. */
     g_signal_emit(folder, signals[LOADED], 0);
 }
@@ -303,7 +306,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
     {
         if(err)
         {
-            g_debug("error creating file monitor: %s", err->message);
+            g_debug("error creating file monitor: %s, %d", err->message, err->code);
             g_error_free(err);
         }
     }
@@ -376,6 +379,9 @@ static void fm_folder_finalize(GObject *object)
     g_hash_table_remove(hash, self->dir_path);
     if(self->dir_path)
         fm_path_unref(self->dir_path);
+
+    if(self->dir_fi)
+        fm_file_info_unref(self->dir_fi);
 
     if(self->gf)
         g_object_unref(self->gf);

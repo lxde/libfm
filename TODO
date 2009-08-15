@@ -67,3 +67,7 @@
       If this is going to be supported, write a freedesktop.org spec for it.
 
 25.Display tooltips for folder items
+
+26.Warn the user for insufficient disk space before file operations.
+
+27.Periodically remove thumbnail caches.

@@ -186,8 +186,6 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 		job->total_size += g_file_info_get_size(inf);
 		job->total_block_size += (blk * blk_size);
 
-		g_object_unref(inf);
-
 		if(fmjob->cancel)
 			return;
 
@@ -213,7 +211,9 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
                     descend = TRUE;
             }
             else
-                descend = FALSE;
+                descend = TRUE;
+
+    		g_object_unref(inf);
                     
             if(descend)
             {
@@ -253,7 +253,10 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
                 g_object_unref(enu);
             }
 		}
-        g_object_unref(inf);
+        else
+        {
+            g_object_unref(inf);
+        }
 	}
 	else
 	{

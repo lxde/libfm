@@ -210,7 +210,7 @@ on_drag_motion( GtkWidget *dest_widget,
 		{
 			gtk_drag_get_data(dest_widget, drag_context, target, time);
             /* run the main loop to block here waiting for
-             * 'drag-data-received' single being handled first. */
+             * 'drag-data-received' signal being handled first. */
             while(!dd->src_ready)
                 gtk_main_iteration_do(TRUE);
 
@@ -263,6 +263,10 @@ on_drag_motion( GtkWidget *dest_widget,
 				action = GDK_ACTION_COPY;
 		}
 	}
+
+    /* FIXME: is this correct? */
+    if(ret && (drag_context->actions & action) == 0) /* if currently action is not allowed */
+        action = drag_context->suggested_action;
 
 	gdk_drag_status(drag_context, ret ? action : 0, time);
     return ret;

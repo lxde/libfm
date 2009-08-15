@@ -27,7 +27,7 @@
 #include "fm-file-info-job.h"
 #include <menu-cache.h>
 
-extern const char gfile_info_query_flags[]; /* defined in fm-file-info-job.c */
+extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
@@ -84,6 +84,9 @@ static void fm_dir_list_job_finalize(GObject *object)
 	if(self->dir_path)
 		fm_path_unref(self->dir_path);
 
+    if(self->dir_fi)
+        fm_file_info_unref(self->dir_fi);
+
 	if(self->files)
 		fm_list_unref(self->files);
 
@@ -135,12 +138,34 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 {
 	GFileEnumerator *enu;
 	GFileInfo *inf;
+    FmFileInfo* fi;
 	GError *err = NULL;
 
 	if(fm_path_is_native(job->dir_path)) /* if this is a native file on real file system */
 	{
-		char* dir_path = fm_path_to_str(job->dir_path);
-		GDir* dir = g_dir_open(dir_path, 0, NULL);
+		char* dir_path;
+		GDir* dir;
+        
+        dir_path = fm_path_to_str(job->dir_path);
+
+        fi = fm_file_info_new();
+        fi->path = fm_path_ref(job->dir_path);
+        if( fm_file_info_job_get_info_for_native_file(job, fi, dir_path) )
+        {
+            job->dir_fi = fi;
+            if(! fm_file_info_is_dir(fi))
+            {
+                fm_file_info_unref(fi);
+                return FALSE;
+            }
+        }
+        else
+        {
+            fm_file_info_unref(fi);
+            return FALSE;
+        }
+
+        dir = g_dir_open(dir_path, 0, NULL);
 		if( dir )
 		{
 			char* name;
@@ -154,7 +179,6 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 			}
 			while( ! FM_JOB(job)->cancel && (name = g_dir_read_name(dir)) )
 			{
-				FmFileInfo* fi;
 				g_string_truncate(fpath, dir_len);
 				g_string_append(fpath, name);
 
@@ -185,11 +209,30 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 			return FALSE;
 
 		gf = fm_path_to_gfile(job->dir_path);
-		enu = g_file_enumerate_children (gf, gfile_info_query_flags, 0, fmjob->cancellable, &err);
+        inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fmjob->cancellable, &err);
+        if(!inf )
+        {
+            g_debug("err (%d): %s", err->code, err->message);
+            g_object_unref(gf);
+            return FALSE;
+        }
+        /*G_FILE_ERROR_BADF*/
+        g_debug("file_type: %d", g_file_info_get_file_type(inf));
+        if( g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
+        {
+            g_object_unref(gf);
+            g_object_unref(inf);
+            return FALSE;
+        }
+
+        /* FIXME: should we use fm_file_info_new + fm_file_info_set_from_gfileinfo? */
+        job->dir_fi = fm_file_info_new_from_gfileinfo(job->dir_path->parent, inf);
+        g_object_unref(inf);
+
+		enu = g_file_enumerate_children (gf, gfile_info_query_attribs, 0, fmjob->cancellable, &err);
 		g_object_unref(gf);
 		while( ! FM_JOB(job)->cancel )
 		{
-			FmFileInfo* fi;
 			inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
 			if(inf)
 			{

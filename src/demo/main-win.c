@@ -62,6 +62,7 @@ static void on_about(GtkAction* act, FmMainWin* win);
 static void on_location(GtkAction* act, FmMainWin* win);
 
 static const char main_menu_xml[] = 
+"<accelerator action='Location'/>"
 "<menubar>"
   "<menu action='FileMenu'>"
     "<menuitem action='New'/>"
@@ -121,8 +122,7 @@ static const char main_menu_xml[] =
     "<toolitem action='Up'/>"
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
-"</toolbar>"
-"<accelerator action='Location'/>";
+"</toolbar>";
 
 static GtkActionEntry main_win_actions[]=
 {
@@ -518,40 +518,74 @@ void fm_main_win_chdir(FmMainWin* win, FmPath* path)
 
 void on_cut(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
-    if(!fm_list_is_empty(files))
-        fm_clipboard_cut_files(win, files);
-    fm_list_unref(files);
+    GtkWidget* focus = gtk_window_get_focus((GtkWindow*)win);
+    if(GTK_IS_EDITABLE(focus) &&
+       gtk_editable_get_selection_bounds((GtkEditable*)focus, NULL, NULL) )
+    {
+        gtk_editable_cut_clipboard((GtkEditable*)focus);
+    }
+    else
+    {
+        FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+        if(files)
+        {
+            fm_clipboard_cut_files(win, files);
+            fm_list_unref(files);
+        }
+    }
 }
 
 void on_copy(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
-    if(!fm_list_is_empty(files))
-        fm_clipboard_copy_files(win, files);
-    fm_list_unref(files);
+    GtkWidget* focus = gtk_window_get_focus((GtkWindow*)win);
+    if(GTK_IS_EDITABLE(focus) &&
+       gtk_editable_get_selection_bounds((GtkEditable*)focus, NULL, NULL) )
+    {
+        gtk_editable_copy_clipboard((GtkEditable*)focus);
+    }
+    else
+    {
+        FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+        if(files)
+        {
+            fm_clipboard_copy_files(win, files);
+            fm_list_unref(files);
+        }
+    }
 }
 
 void on_copy_to(GtkAction* act, FmMainWin* win)
 {
     FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
-    if(!fm_list_is_empty(files))
+    if(files)
+    {
         fm_copy_files_to(files);
-    fm_list_unref(files);
+        fm_list_unref(files);
+    }
 }
 
 void on_move_to(GtkAction* act, FmMainWin* win)
 {
     FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
-    if(!fm_list_is_empty(files))
+    if(files)
+    {
         fm_move_files_to(files);
-    fm_list_unref(files);
+        fm_list_unref(files);
+    }
 }
 
 void on_paste(GtkAction* act, FmMainWin* win)
 {
-    FmPath* path = fm_folder_view_get_cwd(win->folder_view);
-    fm_clipboard_paste_files(win->folder_view, path);
+    GtkWidget* focus = gtk_window_get_focus((GtkWindow*)win);
+    if(GTK_IS_EDITABLE(focus) )
+    {
+        gtk_editable_paste_clipboard((GtkEditable*)focus);
+    }
+    else
+    {
+        FmPath* path = fm_folder_view_get_cwd(win->folder_view);
+        fm_clipboard_paste_files(win->folder_view, path);
+    }
 }
 
 void on_del(GtkAction* act, FmMainWin* win)
@@ -574,5 +608,6 @@ void on_invert_select(GtkAction* act, FmMainWin* win)
 
 void on_location(GtkAction* act, FmMainWin* win)
 {
+    g_debug("XXXX");
     gtk_widget_grab_focus(win->location);
 }

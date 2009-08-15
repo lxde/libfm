@@ -54,6 +54,7 @@ struct _FmFolder
 	GFile* gf;
 	GFileMonitor* mon;
 	FmDirListJob* job;
+    FmFileInfo* dir_fi;
 	FmFileInfoList* files;
 
     /* for file monitor */

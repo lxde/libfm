@@ -46,6 +46,7 @@ struct _FmDirListJob
 {
 	FmJob parent;
 	FmPath* dir_path;
+    FmFileInfo* dir_fi;
 	FmFileInfoList* files;
 };
 
