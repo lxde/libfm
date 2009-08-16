@@ -176,7 +176,7 @@ static void emit_percent(FmFileOpsJob* job, gpointer percent)
 
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 {
-    guint percent = (guint)(job->finished + job->current) * 100 / job->total;
+    guint percent = job->total > 0 ? (guint)(job->finished + job->current) * 100 / job->total : 100;
     if( percent > job->percent )
     {
     	fm_job_call_main_thread(job, emit_percent, (gpointer)percent);

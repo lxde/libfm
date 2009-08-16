@@ -113,9 +113,6 @@ GList* load_bookmarks(const char* fpath)
 
 static void fm_bookmarks_init(FmBookmarks *self)
 {
-    FILE* f;
-    char buf[1024];
-    FmBookmarkItem* item;
     GList* items = NULL;
     char* fpath = g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
     GFile* gf = g_file_new_for_path(fpath);
