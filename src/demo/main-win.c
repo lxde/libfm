@@ -126,7 +126,12 @@ static const char main_menu_xml[] =
     "<toolitem action='Up'/>"
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
-"</toolbar>";
+"</toolbar>"
+"<popup>"
+  "<menuitem action='Paste'/>"
+  "<separator/>"
+  "<menuitem action='Prop'/>"
+"</popup>";
 
 static GtkActionEntry main_win_actions[]=
 {
@@ -164,7 +169,9 @@ static GtkActionEntry main_win_actions[]=
         {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
         {"EditBookmark", GTK_STOCK_EDIT, N_("Edit Bookmarks"), NULL, N_("Edit Bookmarks"), NULL},
     /* FIXME: why this accelerator key doesn't work? */
-    {"Location", NULL, "Location", "<Alt>d", NULL, on_location}
+    {"Location", NULL, "Location", "<Alt>d", NULL, on_location},
+    /* for popup menu */
+    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL}
 };
 
 static GtkActionEntry main_win_toggle_actions[]=
@@ -273,7 +280,8 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else /* no files are selected. Show context menu of current folder. */
         {
-
+            // g_debug("%s", G_OBJECT_TYPE_NAME(win->popup));
+            gtk_menu_popup(win->popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
         }
         break;
     case FM_FV_MIDDLE_CLICK:
@@ -386,7 +394,8 @@ static void fm_main_win_init(FmMainWin *self)
 
     gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
-    self->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
+    self->toolbar = g_object_ref(gtk_ui_manager_get_widget(ui, "/toolbar"));
+    self->popup = g_object_ref(gtk_ui_manager_get_widget(ui, "/popup"));
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(self, accel_grp);
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );

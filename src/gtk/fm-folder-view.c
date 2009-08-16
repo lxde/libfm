@@ -817,3 +817,7 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
     
 }
 
+FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
+{
+    return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+}
