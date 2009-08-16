@@ -46,7 +46,9 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
 
     if(info == KDE_CUT_SEL)
     {
-        /* FIXME: set application/kde-cutselection data */
+        /* set application/kde-cutselection data */
+        if(is_cut)
+            gtk_selection_data_set(sel, sel->target, 8, "1", 2);
         return;
     }
 
@@ -70,7 +72,6 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
 	{
 		fm_path_list_write_uri_list(files, uri_list);
 	}
-    g_debug("%s", uri_list->str);
 	gtk_selection_data_set(sel, sel->target, 8, uri_list->str, uri_list->len + 1);
 	g_string_free(uri_list, TRUE);
 }
@@ -94,8 +95,19 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
 
 gboolean check_kde_curselection(GtkClipboard* clip)
 {
-    /* FIXME: check application/x-kde-cutselection */
-    return FALSE;
+    /* Check application/x-kde-cutselection:
+     * If the content of this format is string "1", that means the
+     * file is cut in KDE (Dolphin). */
+    gboolean ret = FALSE;
+    GdkAtom atom = gdk_atom_intern_static_string(targets[KDE_CUT_SEL-1].target);
+    GtkSelectionData* data = gtk_clipboard_wait_for_contents(clip, atom);
+    if(data)
+    {
+        if(data->length > 0 && data->format == 8 && data->data[0] == '1')
+            ret = TRUE;
+        gtk_selection_data_free(data);
+    }
+    return ret;
 }
 
 gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)

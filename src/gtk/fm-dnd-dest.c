@@ -272,7 +272,7 @@ on_drag_motion( GtkWidget *dest_widget,
                 if(fm_path_is_native(path))
                     same_fs = (fi->dev == dd->dest_file->dev);
                 else /* FIXME: can we use direct comparison here? */
-                    same_fs = g_strcmp0(fi->fs_id, dd->dest_file->fs_id);
+                    same_fs = (0 == g_strcmp0(fi->fs_id, dd->dest_file->fs_id));
             }
             else
                 same_fs = FALSE;
