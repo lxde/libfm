@@ -20,6 +20,7 @@ base_SOURCES = \
 	base/fm-mime-type.c base/fm-mime-type.h \
 	base/fm-utils.c base/fm-utils.h \
 	base/fm-icon.c base/fm-icon.h \
+	base/fm-bookmarks.c base/fm-bookmarks.h \
 	base/fm-marshal.c base/fm-marshal.h \
 	$(NULL)
 
@@ -68,7 +69,6 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-src.c gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.c gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.c gtk/fm-gtk-utils.h \
-	gtk/fm-gtk-bookmarks.c gtk/fm-gtk-bookmarks.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 

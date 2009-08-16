@@ -19,49 +19,49 @@
  *      MA 02110-1301, USA.
  */
 
-#include "fm-gtk-bookmarks.h"
+#include "fm-bookmarks.h"
 #include <stdio.h>
 #include <string.h>
 
-static FmGtkBookmarks*	fm_gtk_bookmarks_new (void);
+static FmBookmarks*	fm_bookmarks_new (void);
 
-static void fm_gtk_bookmarks_finalize  			(GObject *object);
+static void fm_bookmarks_finalize  			(GObject *object);
 
-G_DEFINE_TYPE(FmGtkBookmarks, fm_gtk_bookmarks, G_TYPE_OBJECT);
+G_DEFINE_TYPE(FmBookmarks, fm_bookmarks, G_TYPE_OBJECT);
 
-static FmGtkBookmarks* singleton = NULL;
+static FmBookmarks* singleton = NULL;
 
-static void fm_gtk_bookmarks_class_init(FmGtkBookmarksClass *klass)
+static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 {
 	GObjectClass *g_object_class;
 	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_gtk_bookmarks_finalize;
+	g_object_class->finalize = fm_bookmarks_finalize;
 
 }
 
 
-static void fm_gtk_bookmarks_finalize(GObject *object)
+static void fm_bookmarks_finalize(GObject *object)
 {
-	FmGtkBookmarks *self;
+	FmBookmarks *self;
 
 	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_GTK_BOOKMARKS(object));
+	g_return_if_fail(IS_FM_BOOKMARKS(object));
 
-	self = FM_GTK_BOOKMARKS(object);
+	self = FM_BOOKMARKS(object);
     g_object_unref(self->mon);
 
-	G_OBJECT_CLASS(fm_gtk_bookmarks_parent_class)->finalize(object);
+	G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
 }
 
 static void on_changed( GFileMonitor* mon, GFile* gf, GFile* other, 
-                    GFileMonitorEvent evt, FmGtkBookmarks* bookmarks )
+                    GFileMonitorEvent evt, FmBookmarks* bookmarks )
 {
     /* reload bookmarks */
 }
 
-static FmGtkBookmarkItem* new_item(char* line)
+static FmBookmarkItem* new_item(char* line)
 {
-    FmGtkBookmarkItem* item = g_slice_new0(FmGtkBookmarkItem);
+    FmBookmarkItem* item = g_slice_new0(FmBookmarkItem);
     char* sep;
     sep = strchr(line, '\n');
     if(sep)
@@ -95,7 +95,7 @@ GList* load_bookmarks(const char* fpath)
 {
     FILE* f;
     char buf[1024];
-    FmGtkBookmarkItem* item;
+    FmBookmarkItem* item;
     GList* items = NULL;
 
     /* load the file */
@@ -107,14 +107,15 @@ GList* load_bookmarks(const char* fpath)
             items = g_list_prepend(items, item);
         }
     }
+    items = g_list_reverse(items);
     return items;
 }
 
-static void fm_gtk_bookmarks_init(FmGtkBookmarks *self)
+static void fm_bookmarks_init(FmBookmarks *self)
 {
     FILE* f;
     char buf[1024];
-    FmGtkBookmarkItem* item;
+    FmBookmarkItem* item;
     GList* items = NULL;
     char* fpath = g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
     GFile* gf = g_file_new_for_path(fpath);
@@ -126,24 +127,24 @@ static void fm_gtk_bookmarks_init(FmGtkBookmarks *self)
     g_free(fpath);
 }
 
-FmGtkBookmarks *fm_gtk_bookmarks_new(void)
+FmBookmarks *fm_bookmarks_new(void)
 {
-	return g_object_new(FM_GTK_BOOKMARKS_TYPE, NULL);
+	return g_object_new(FM_BOOKMARKS_TYPE, NULL);
 }
 
-FmGtkBookmarks* fm_gtk_bookmarks_get(void)
+FmBookmarks* fm_bookmarks_get(void)
 {
     if( G_LIKELY(singleton) )
         g_object_ref(singleton);
     else
     {
-        singleton = fm_gtk_bookmarks_new();
+        singleton = fm_bookmarks_new();
         g_object_add_weak_pointer(singleton, &singleton);
     }
     return singleton;
 }
 
-const GList* fm_gtk_bookmarks_list_all(FmGtkBookmarks* bookmarks)
+const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
 }

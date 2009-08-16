@@ -25,7 +25,7 @@
 
 #include <gtk/gtk.h>
 #include "fm.h"
-#include "fm-gtk-bookmarks.h"
+#include "fm-bookmarks.h"
 
 G_BEGIN_DECLS
 
@@ -54,7 +54,7 @@ struct _FmMainWin
     /* <private> */
     guint statusbar_ctx;
     guint statusbar_ctx2;
-    FmGtkBookmarks* bookmarks;
+    FmBookmarks* bookmarks;
 };
 
 struct _FmMainWinClass

@@ -20,8 +20,8 @@
  */
 
 
-#ifndef __FM_GTK_BOOKMARKS_H__
-#define __FM_GTK_BOOKMARKS_H__
+#ifndef __FM_BOOKMARKS_H__
+#define __FM_BOOKMARKS_H__
 
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -29,46 +29,46 @@
 
 G_BEGIN_DECLS
 
-#define FM_GTK_BOOKMARKS_TYPE				(fm_gtk_bookmarks_get_type())
-#define FM_GTK_BOOKMARKS(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_GTK_BOOKMARKS_TYPE, FmGtkBookmarks))
-#define FM_GTK_BOOKMARKS_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_GTK_BOOKMARKS_TYPE, FmGtkBookmarksClass))
-#define IS_FM_GTK_BOOKMARKS(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_GTK_BOOKMARKS_TYPE))
-#define IS_FM_GTK_BOOKMARKS_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_GTK_BOOKMARKS_TYPE))
+#define FM_BOOKMARKS_TYPE				(fm_bookmarks_get_type())
+#define FM_BOOKMARKS(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
+			FM_BOOKMARKS_TYPE, FmBookmarks))
+#define FM_BOOKMARKS_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
+			FM_BOOKMARKS_TYPE, FmBookmarksClass))
+#define IS_FM_BOOKMARKS(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+			FM_BOOKMARKS_TYPE))
+#define IS_FM_BOOKMARKS_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
+			FM_BOOKMARKS_TYPE))
 
-typedef struct _FmGtkBookmarks			FmGtkBookmarks;
-typedef struct _FmGtkBookmarksClass		FmGtkBookmarksClass;
-typedef struct _FmGtkBookmarkItem       FmGtkBookmarkItem;
+typedef struct _FmBookmarks			FmBookmarks;
+typedef struct _FmBookmarksClass		FmBookmarksClass;
+typedef struct _FmBookmarkItem       FmBookmarkItem;
 
-struct _FmGtkBookmarkItem
+struct _FmBookmarkItem
 {
     char* name;
     FmPath* path;
 };
 
-struct _FmGtkBookmarks
+struct _FmBookmarks
 {
 	GObject parent;
     GFileMonitor* mon;
     GList* items;
 };
 
-struct _FmGtkBookmarksClass
+struct _FmBookmarksClass
 {
     GObjectClass parent_class;
     void (*add)(int pos, GList* l);
     void (*remove)(int pos, GList* l);
 };
 
-GType fm_gtk_bookmarks_get_type(void);
-FmGtkBookmarks* fm_gtk_bookmarks_get(void);
+GType fm_bookmarks_get_type(void);
+FmBookmarks* fm_bookmarks_get(void);
 
 /* list all bookmark items in current bookmarks */
-const GList* fm_gtk_bookmarks_list_all(FmGtkBookmarks* bookmarks);
+const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
 
 G_END_DECLS
 
-#endif /* __FM_GTK_BOOKMARKS_H__ */
+#endif /* __FM_BOOKMARKS_H__ */
