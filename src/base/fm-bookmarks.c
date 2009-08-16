@@ -23,13 +23,23 @@
 #include <stdio.h>
 #include <string.h>
 
+enum
+{
+    CHANGED,
+    N_SIGNALS
+};
+
 static FmBookmarks*	fm_bookmarks_new (void);
 
 static void fm_bookmarks_finalize  			(GObject *object);
+static GList* load_bookmarks(const char* fpath);
+static void free_item(FmBookmarkItem* item);
+static char* get_bookmarks_file();
 
 G_DEFINE_TYPE(FmBookmarks, fm_bookmarks, G_TYPE_OBJECT);
 
 static FmBookmarks* singleton = NULL;
+static guint signals[N_SIGNALS];
 
 static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 {
@@ -37,8 +47,15 @@ static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_bookmarks_finalize;
 
+    signals[CHANGED] =
+        g_signal_new("changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmBookmarksClass, changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0 );
 }
-
 
 static void fm_bookmarks_finalize(GObject *object)
 {
@@ -48,15 +65,41 @@ static void fm_bookmarks_finalize(GObject *object)
 	g_return_if_fail(IS_FM_BOOKMARKS(object));
 
 	self = FM_BOOKMARKS(object);
+
+    g_list_foreach(self->items, (GFunc)free_item, NULL);
+    g_list_free(self->items);
+
     g_object_unref(self->mon);
 
 	G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
 }
 
+char* get_bookmarks_file()
+{
+    return g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
+}
+
+void free_item(FmBookmarkItem* item)
+{
+    g_debug("free: %s", item->name);
+    if(item->name != item->path->name)
+        g_free(item->name);
+    fm_path_unref(item->path);
+    g_slice_free(FmBookmarkItem, item);
+}
+
 static void on_changed( GFileMonitor* mon, GFile* gf, GFile* other, 
                     GFileMonitorEvent evt, FmBookmarks* bookmarks )
 {
+    char* fpath;
     /* reload bookmarks */
+    g_list_foreach(bookmarks->items, (GFunc)free_item, NULL);
+    g_list_free(bookmarks->items);
+
+    fpath = get_bookmarks_file();
+    bookmarks->items = load_bookmarks(fpath);
+    g_free(fpath);
+    g_signal_emit(bookmarks, signals[CHANGED], 0);
 }
 
 static FmBookmarkItem* new_item(char* line)
@@ -114,7 +157,7 @@ GList* load_bookmarks(const char* fpath)
 static void fm_bookmarks_init(FmBookmarks *self)
 {
     GList* items = NULL;
-    char* fpath = g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
+    char* fpath = get_bookmarks_file();
     GFile* gf = g_file_new_for_path(fpath);
 	self->mon = g_file_monitor_file(gf, 0, NULL, NULL);
     g_object_unref(gf);
@@ -141,7 +184,7 @@ FmBookmarks* fm_bookmarks_get(void)
     return singleton;
 }
 
-const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
+GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
 }

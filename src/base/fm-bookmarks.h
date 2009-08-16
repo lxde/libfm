@@ -59,15 +59,14 @@ struct _FmBookmarks
 struct _FmBookmarksClass
 {
     GObjectClass parent_class;
-    void (*add)(int pos, GList* l);
-    void (*remove)(int pos, GList* l);
+    void (*changed)();
 };
 
 GType fm_bookmarks_get_type(void);
 FmBookmarks* fm_bookmarks_get(void);
 
 /* list all bookmark items in current bookmarks */
-const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
+GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
 
 G_END_DECLS
 

@@ -50,6 +50,7 @@ struct _FmMainWin
 	GtkWidget* location;
 	GtkWidget* folder_view;
 	GtkWidget* statusbar;
+    GtkWidget* bookmarks_menu;
     GtkWidget* popup;
     /* <private> */
     guint statusbar_ctx;

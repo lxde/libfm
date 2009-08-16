@@ -182,30 +182,51 @@ static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
     fm_main_win_chdir(win, path);
 }
 
-static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
+static void create_bookmarks_menu(FmMainWin* win)
 {
-    FmBookmarks* bm;
     GList* l;
     int i = 0;
-    GtkWidget* mi = gtk_ui_manager_get_widget(ui, "/menubar/BookmarksMenu");
-    GtkWidget* menu = gtk_menu_item_get_submenu(mi);
-
-    /* FIXME: should delete old items first. */
-
-    bm = win->bookmarks = fm_bookmarks_get();
     /* FIXME: direct access to data member is not allowed */
-    for(l=bm->items;l;l=l->next)
+    for(l=win->bookmarks->items;l;l=l->next)
     {
         FmBookmarkItem* item = (FmBookmarkItem*)l->data;
         GtkWidget* mi = gtk_image_menu_item_new_with_label(item->name);
+        gtk_widget_show(mi);
         // gtk_image_menu_item_set_image(); // FIXME: set icons for menu items
-        g_object_set_data_full(mi, "path", item->path, (GDestroyNotify)fm_path_unref);
+        g_object_set_data_full(mi, "path", fm_path_ref(item->path), (GDestroyNotify)fm_path_unref);
         g_signal_connect(mi, "activate", G_CALLBACK(on_bookmark), win);
-        gtk_menu_shell_insert(menu, mi, i);
+        gtk_menu_shell_insert(win->bookmarks_menu, mi, i);
         ++i;
     }
     if(i > 0)
-        gtk_menu_shell_insert(menu, gtk_separator_menu_item_new(), i);
+        gtk_menu_shell_insert(win->bookmarks_menu, gtk_separator_menu_item_new(), i);
+}
+
+static void on_bookmarks_changed(FmBookmarks* bm, FmMainWin* win)
+{
+    /* delete old items first. */
+    GList* mis = gtk_container_get_children(win->bookmarks_menu);
+    GList* l;
+    for(l = mis;l;l=l->next)
+    {
+        GtkWidget* item = (GtkWidget*)l->data;
+        if( GTK_IS_SEPARATOR_MENU_ITEM(item) )
+            break;
+        gtk_widget_destroy(item);
+    }
+    g_list_free(mis);
+
+    create_bookmarks_menu(win);
+}
+
+static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
+{
+    GtkWidget* mi = gtk_ui_manager_get_widget(ui, "/menubar/BookmarksMenu");
+    win->bookmarks_menu = gtk_menu_item_get_submenu(mi);
+    win->bookmarks = fm_bookmarks_get();
+    g_signal_connect(win->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), win);
+
+    create_bookmarks_menu(win);
 }
 
 static void fm_main_win_init(FmMainWin *self)
@@ -295,6 +316,7 @@ static void fm_main_win_finalize(GObject *object)
     --n_wins;
 
     self = FM_MAIN_WIN(object);
+    g_object_unref(self->bookmarks);
 
     if (G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)(object);
