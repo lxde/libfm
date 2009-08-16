@@ -96,6 +96,10 @@ static const char main_menu_xml[] =
     "<menuitem action='Network'/>"
     "<menuitem action='Apps'/>"
   "</menu>"
+  "<menu action='BookmarksMenu'>"
+    "<menuitem action='AddBookmark'/>"
+    "<menuitem action='EditBookmark'/>"
+  "</menu>"
   "<menu action='ViewMenu'>"
     "<menuitem action='ShowHidden'/>"
     "<separator/>"
@@ -156,6 +160,9 @@ static GtkActionEntry main_win_actions[]=
         {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, on_go_network},
         {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), on_go_apps},
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go},
+    {"BookmarksMenu", NULL, N_("_Bookmarks"), NULL, NULL, NULL},
+        {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
+        {"EditBookmark", GTK_STOCK_EDIT, N_("Edit Bookmarks"), NULL, N_("Edit Bookmarks"), NULL},
     /* FIXME: why this accelerator key doesn't work? */
     {"Location", NULL, "Location", "<Alt>d", NULL, on_location}
 };
@@ -314,6 +321,38 @@ static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
     gtk_statusbar_push(win->statusbar, win->statusbar_ctx, msg);
 }
 
+static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
+{
+    FmPath* path = (FmPath*)g_object_get_data(mi, "path");
+    fm_main_win_chdir(win, path);
+}
+
+static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
+{
+    FmGtkBookmarks* bm;
+    GList* l;
+    int i = 0;
+    GtkWidget* mi = gtk_ui_manager_get_widget(ui, "/menubar/BookmarksMenu");
+    GtkWidget* menu = gtk_menu_item_get_submenu(mi);
+
+    /* FIXME: should delete old items first. */
+
+    bm = win->bookmarks = fm_gtk_bookmarks_get();
+    /* FIXME: direct access to data member is not allowed */
+    for(l=bm->items;l;l=l->next)
+    {
+        FmGtkBookmarkItem* item = (FmGtkBookmarkItem*)l->data;
+        GtkWidget* mi = gtk_image_menu_item_new_with_label(item->name);
+        // gtk_image_menu_item_set_image(); // FIXME: set icons for menu items
+        g_object_set_data_full(mi, "path", item->path, (GDestroyNotify)fm_path_unref);
+        g_signal_connect(mi, "activate", G_CALLBACK(on_bookmark), win);
+        gtk_menu_shell_insert(menu, mi, i);
+        ++i;
+    }
+    if(i > 0)
+        gtk_menu_shell_insert(menu, gtk_separator_menu_item_new(), i);
+}
+
 static void fm_main_win_init(FmMainWin *self)
 {
     GtkWidget* vbox, *menubar, *toolitem;
@@ -352,6 +391,9 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_window_add_accel_group(self, accel_grp);
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
     gtk_box_pack_start( (GtkBox*)vbox, self->toolbar, FALSE, TRUE, 0 );
+
+    /* load bookmarks menu */
+    load_bookmarks(self, ui);
 
     /* the location bar */
     toolitem = gtk_tool_item_new();

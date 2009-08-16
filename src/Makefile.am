@@ -68,6 +68,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-src.c gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.c gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.c gtk/fm-gtk-utils.h \
+	gtk/fm-gtk-bookmarks.c gtk/fm-gtk-bookmarks.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 
