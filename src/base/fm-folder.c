@@ -20,6 +20,7 @@
  */
 
 #include "fm-folder.h"
+#include "fm-marshal.h"
 #include <string.h>
 
 
@@ -30,6 +31,7 @@ enum {
     FILES_REMOVED,
     FILES_CHANGED,
     LOADED,
+    ERROR,
     N_SIGNALS
 };
 
@@ -101,6 +103,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
+
+    signals[ERROR] =
+        g_signal_new( "error",
+                      G_TYPE_FROM_CLASS ( klass ),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET ( FmFolderClass, error ),
+                      NULL, NULL,
+                      fm_marshal_BOOL__POINTER_BOOL,
+                      G_TYPE_BOOLEAN, 2, G_TYPE_POINTER, G_TYPE_BOOLEAN );
 }
 
 
@@ -289,6 +300,13 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
     g_signal_emit(folder, signals[LOADED], 0);
 }
 
+static gboolean on_job_err(FmDirListJob* job, GError* err, gboolean recoverable, FmFolder* folder)
+{
+	gboolean ret;
+	g_signal_emit(folder, signals[ERROR], 0, err, recoverable, &ret);
+    return ret;
+}
+
 FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
 {
     GError* err = NULL;
@@ -311,9 +329,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
         }
     }
 
-    folder->job = fm_dir_list_job_new(path);
-    g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
-    fm_job_run_async(folder->job);
+    fm_folder_reload(folder);
     return folder;
 }
 
@@ -359,6 +375,7 @@ static void fm_folder_finalize(GObject *object)
     if(self->job)
     {
         g_signal_handlers_disconnect_by_func(self->job, on_job_finished, self);
+        g_signal_handlers_disconnect_by_func(self->job, on_job_err, self);
         fm_job_cancel(self->job); /* FIXME: is this ok? */
         /* the job will be freed automatically in idle handler. */
     }
@@ -448,6 +465,24 @@ FmFolder*    fm_folder_get_for_uri    (const char* uri)
 void fm_folder_reload(FmFolder* folder)
 {
     /* FIXME: remove all items and re-run a dir list job. */
+    GSList* files_to_del = NULL;
+    GList* l = fm_list_peek_head_link(folder->files);
+    if(l)
+    {
+        for(;l;l=l->next)
+        {
+            FmFileInfo* fi = (FmFileInfo*)l->data;
+            files_to_del = g_slist_prepend(files_to_del, fi);
+        }
+        g_signal_emit(folder, signals[FILES_REMOVED], 0, files_to_del);
+        fm_list_clear(folder->files); /* fm_file_info_unref will be invoked. */
+        g_slist_free(files_to_del);
+    }
+
+    folder->job = fm_dir_list_job_new(folder->dir_path);
+    g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
+    g_signal_connect(folder->job, "error", G_CALLBACK(on_job_err), folder);
+    fm_job_run_async(folder->job);
 }
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder)

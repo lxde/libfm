@@ -27,6 +27,7 @@
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
 #include "fm-file-ops.h"
+#include "fm-gtk-utils.h"
 
 #include "exo/exo-icon-view.h"
 #include "exo/exo-tree-view.h"
@@ -52,6 +53,7 @@ static void on_chdir(FmFolderView* fv, FmPath* dir_path);
 static void on_loaded(FmFolderView* fv, FmPath* dir_path);
 static void on_status(FmFolderView* fv, const char* msg);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
+static gboolean on_folder_err(FmFolder* folder, GError* err, gboolean recoverable, FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 static void on_sel_changed(GObject* obj, FmFolderView* fv);
@@ -174,6 +176,18 @@ void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 	msg = g_strdup_printf("%d files are listed.", fm_list_get_length(folder->files) );
 	g_signal_emit(fv, signals[STATUS], 0, msg);
 	g_free(msg);
+}
+
+gboolean on_folder_err(FmFolder* folder, GError* err, gboolean recoverable, FmFolderView* fv)
+{
+    GtkWindow* parent = (GtkWindow*)gtk_widget_get_toplevel((GtkWidget*)fv);
+    if( err->domain == G_IO_ERROR )
+    {
+        if( err->code == G_IO_ERROR_NOT_MOUNTED && recoverable )
+            return fm_mount_path(parent, folder->dir_path);
+    }
+    fm_show_error(parent, err->message);
+    return FALSE;
 }
 
 static void item_clicked( FmFolderView* fv, GtkTreePath* path, FmFolderViewClickType type )
@@ -474,11 +488,16 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
 
     if(fv->model)
 	{
-		g_signal_handlers_disconnect_by_func(fv->model, on_model_loaded, fv);
-        g_object_unref(fv->model);
+        model = FM_FOLDER_MODEL(fv->model);
+		g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
+        if(model->dir)
+    		g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
+        g_object_unref(model);
 	}
 
     folder = fm_folder_get_for_path(path);
+    /* connect error handler */
+    g_signal_connect(folder, "error", on_folder_err, fv);
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
     g_object_unref(folder);

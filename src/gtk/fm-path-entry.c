@@ -23,8 +23,6 @@
 #include <gio/gio.h>
 #include <string.h>
 
-#if 0
-
 enum
 {
     COL_NAME,
@@ -34,12 +32,14 @@ enum
 
 typedef struct _FmPathEntry
 {
+    GtkEntry* entry;
 	GtkEntryCompletion* ec;
 	GFilenameCompleter* fc;
 }FmPathEntry;
 
 static void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* entry);
 
+#if 0
 static char* get_cwd( GtkEntry* entry )
 {
     char *real_path = vfs_file_resolve_path( NULL, gtk_entry_get_text(entry) );
@@ -129,13 +129,7 @@ static void update_completion( GtkEntry* entry,
     }
 }
 
-static void
-on_changed( GtkEntry* entry, gpointer user_data )
-{
-    GtkEntryCompletion* completion;
-    completion = gtk_entry_get_completion( entry );
-    update_completion( entry, completion );
-}
+
 
 static gboolean
 on_key_press( GtkWidget *entry, GdkEventKey* evt, gpointer user_data )
@@ -149,9 +143,37 @@ on_key_press( GtkWidget *entry, GdkEventKey* evt, gpointer user_data )
     return FALSE;
 }
 
-static gboolean
-on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
+#endif
+
+static void update_completion(FmPathEntry* pe, gboolean clear_old)
 {
+    GtkListStore* list = (GtkListStore*)gtk_entry_completion_get_model(pe->ec);
+	char** fns = g_filename_completer_get_completions(pe->fc, gtk_entry_get_text(pe->entry)), **fn;
+    if(clear_old)
+        gtk_list_store_clear(list);
+    if(fns)
+    {
+        for(fn=fns; *fn; ++fn)
+        {
+            GtkTreeIter it;
+            char* basename = g_path_get_basename(*fn);
+            gtk_list_store_append(list, &it);
+            gtk_list_store_set(list, &it, COL_NAME, basename, COL_PATH, *fn, -1);
+            g_free(basename);
+        }
+        g_strfreev(fns);
+    }
+}
+
+static void on_changed( GtkEntry* entry, gpointer user_data )
+{
+    FmPathEntry* pe = (FmPathEntry*)user_data;
+    update_completion(pe, TRUE);
+}
+
+static gboolean on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
+{
+    FmPathEntry* pe = (FmPathEntry*)user_data;
     GtkEntryCompletion* completion = gtk_entry_completion_new();
     GtkListStore* list = gtk_list_store_new( N_COLS, G_TYPE_STRING, G_TYPE_STRING );
     GtkCellRenderer* render;
@@ -170,26 +192,29 @@ on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
     gtk_entry_completion_set_popup_set_width( completion, TRUE );
 
     gtk_entry_set_completion( GTK_ENTRY(entry), completion );
-    g_signal_connect( G_OBJECT(entry), "changed", G_CALLBACK(on_changed), NULL );
+    g_signal_connect( G_OBJECT(entry), "changed", G_CALLBACK(on_changed), pe );
     g_object_unref( completion );
 
-
-	self->ec = gtk_entry_completion_new();
-	self->fc = g_filename_completer_new();
-	g_signal_connect(self->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), self);
-	g_filename_completer_set_dirs_only(self->fc, TRUE);
+	pe->ec = completion;
+	pe->fc = g_filename_completer_new();
+	g_signal_connect(pe->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), pe);
+	g_filename_completer_set_dirs_only(pe->fc, TRUE);
 
     return FALSE;
 }
 
-static gboolean
-on_focus_out( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
+static gboolean on_focus_out( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
 {
+    FmPathEntry* pe = (FmPathEntry*)user_data;
     g_signal_handlers_disconnect_by_func( entry, on_changed, NULL );
     gtk_entry_set_completion( GTK_ENTRY(entry), NULL );
+    pe->ec = NULL;
+    g_object_unref(pe->fc);
+    pe->fc = NULL;
     return FALSE;
 }
 
+#if 0
 static gboolean on_button_release(GtkEntry      *entry,
                                                                     GdkEventButton *evt,
                                                                     gpointer        user_data)
@@ -231,13 +256,29 @@ static gboolean on_button_release(GtkEntry      *entry,
 
 #endif
 
+static void path_entry_free(FmPathEntry* pe)
+{
+    g_slice_free(FmPathEntry, pe);
+}
+
 GtkWidget* fm_path_entry_new()
 {
     GtkWidget* entry = gtk_entry_new();
-#if 0
-    g_signal_connect( entry, "focus-in-event", G_CALLBACK(on_focus_in), NULL );
-    g_signal_connect( entry, "focus-out-event", G_CALLBACK(on_focus_out), NULL );
+    FmPathEntry* pe = g_slice_new0(FmPathEntry);
+    pe->entry = entry;
 
+    /* FIXME: replace GFilenameCompleter with our own implementation
+     * later is a better idea since both its quality and usability 
+     * are not good enough. */
+    /* GFilenameCompleter is buggy before this version. */
+    /* glib bug #586868 can cause seg faults */
+#if GLIB_CHECK_VERSION(2,20,4)
+    g_signal_connect( entry, "focus-in-event", G_CALLBACK(on_focus_in), pe );
+    g_signal_connect( entry, "focus-out-event", G_CALLBACK(on_focus_out), pe );
+    g_object_set_data_full(entry, "pe", pe, path_entry_free);
+#endif
+
+#if 0
     /* used to eat the tab key */
     g_signal_connect( entry, "key-press-event", G_CALLBACK(on_key_press), NULL );
     g_signal_connect( entry, "button-release-event", G_CALLBACK(on_button_release), NULL );
@@ -245,15 +286,7 @@ GtkWidget* fm_path_entry_new()
     return entry;
 }
 
-#if 0
-void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* entry)
+void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* pe)
 {
-	char** fns = g_filename_completer_get_completions(fc, gtk_entry_get_text(entry)), *fn;
-	for(fn=fns; *fn; ++fn)
-	{
-		g_debug(*fn);
-	}
-	g_strfreev(fns);
+    update_completion(pe, FALSE);
 }
-#endif
-

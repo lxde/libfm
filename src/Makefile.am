@@ -67,6 +67,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-cell-renderer-text.c gtk/fm-cell-renderer-text.h \
 	gtk/fm-dnd-src.c gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.c gtk/fm-dnd-dest.h \
+	gtk/fm-gtk-utils.c gtk/fm-gtk-utils.h \
 	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
 	$(NULL)
 

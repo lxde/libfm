@@ -20,6 +20,7 @@
  */
 
 #include "fm-dir-list-job.h"
+#include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <string.h>
 #include <glib/gstdio.h>
@@ -207,19 +208,31 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 
 		if(!fm_job_init_cancellable(fmjob))
 			return FALSE;
-
 		gf = fm_path_to_gfile(job->dir_path);
+
+_retry:
         inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fmjob->cancellable, &err);
         if(!inf )
         {
-            g_debug("err (%d): %s", err->code, err->message);
-            g_object_unref(gf);
-            return FALSE;
+            if( fm_job_emit_error(fmjob, err, TRUE) )
+            {
+                g_error_free(err);
+                err = NULL;
+                goto _retry;
+            }
+            else
+            {
+                g_object_unref(gf);
+                g_error_free(err);
+                return FALSE;
+            }
         }
-        /*G_FILE_ERROR_BADF*/
-        g_debug("file_type: %d", g_file_info_get_file_type(inf));
+
         if( g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
         {
+            err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("It's not a valid directory"));
+            fm_job_emit_error(fmjob, err, FALSE);
+            g_error_free(err);
             g_object_unref(gf);
             g_object_unref(inf);
             return FALSE;
