@@ -25,7 +25,7 @@
 static void fm_file_info_job_finalize  			(GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
-const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*";
+const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*,id::filesystem";
 
 G_DEFINE_TYPE(FmFileInfoJob, fm_file_info_job, FM_TYPE_JOB);
 

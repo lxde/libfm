@@ -35,6 +35,7 @@ struct _FmDndDest
 	guint32 src_dev; /* UNIX dev of source fs */
 	const char* src_fs_id; /* filesystem id of source fs */
 	FmFileInfo* dest_file;
+    guint idle; /* idle handler */
 };
 
 enum
@@ -86,6 +87,8 @@ on_drag_data_received ( GtkWidget *dest_widget,
                         guint info,
                         guint time,
                         FmDndDest* dd );
+
+static gboolean clear_src_cache(FmDndDest* dest);
 
 static guint signals[N_SIGNALS];
 
@@ -139,6 +142,9 @@ static void fm_dnd_dest_finalize(GObject *object)
     dd = FM_DND_DEST(object);
 
     fm_dnd_dest_set_widget(dd, NULL);
+
+    if(dd->idle)
+        g_source_remove(dd->idle);
 
 	if(dd->dest_file)
 		fm_file_info_unref(dd->dest_file);
@@ -201,6 +207,15 @@ on_drag_motion( GtkWidget *dest_widget,
 	GdkDragAction action;
 	gboolean ret;
 
+    /* if there is a idle handler scheduled to remove cached drag source */
+    if(dd->idle)
+    {
+        g_source_remove(dd->idle); /* remove the idle handler */
+        dd->idle = 0;
+        /* do it now */
+        clear_src_cache(dd);
+    }
+
 	/* cache drag source files */
 	if( G_UNLIKELY(!dd->src_files) )
 	{
@@ -252,10 +267,15 @@ on_drag_motion( GtkWidget *dest_widget,
 		else
 #endif
 		{
-			if(fm_path_is_native(path))
-				same_fs = (fi->dev == dd->dest_file->dev);
-			else
-				same_fs = (fi->fs_id == dd->dest_file->fs_id);
+            if(fm_path_is_native(path) == fm_path_is_native(fi->path))
+            {
+                if(fm_path_is_native(path))
+                    same_fs = (fi->dev == dd->dest_file->dev);
+                else /* FIXME: can we use direct comparison here? */
+                    same_fs = g_strcmp0(fi->fs_id, dd->dest_file->fs_id);
+            }
+            else
+                same_fs = FALSE;
 
 			if( same_fs )
 				action = GDK_ACTION_MOVE;
@@ -272,14 +292,34 @@ on_drag_motion( GtkWidget *dest_widget,
     return ret;
 }
 
+gboolean clear_src_cache(FmDndDest* dd)
+{
+	/* free cached source files */
+	if(dd->src_files)
+	{
+		fm_list_unref(dd->src_files);
+		dd->src_files = NULL;
+	}
+	if(dd->dest_file)
+	{
+		fm_file_info_unref(dd->dest_file);
+		dd->dest_file = NULL;
+	}
+    dd->info_type = 0;
+    dd->idle = 0;
+    return FALSE;
+}
+
 static gboolean
 on_drag_leave ( GtkWidget *dest_widget,
                 GdkDragContext *drag_context,
                 guint time,
                 FmDndDest* dd )
 {
-    /*  Don't call the default handler  */
 	gtk_drag_unhighlight(dest_widget);
+
+    /* FIXME: is there any better place to do this? */
+    dd->idle = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)clear_src_cache, dd, NULL);
 }
 
 static gboolean
@@ -290,11 +330,12 @@ on_drag_drop ( GtkWidget *dest_widget,
                guint time,
                FmDndDest* dd )
 {
+    gboolean ret = TRUE;
     GdkAtom target;
     target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
 
 	if( target == GDK_NONE )
-		return FALSE;
+		ret = FALSE;
 
 	/* if it's XDS */
 	if( target == gdk_atom_intern_static_string(fm_default_dnd_dest_targets[FM_DND_DEST_TARGET_XDS].target) )
@@ -304,12 +345,13 @@ on_drag_drop ( GtkWidget *dest_widget,
 		return TRUE;
 	}
 
-	gtk_drag_finish( drag_context, TRUE, FALSE, time );
+	gtk_drag_finish( drag_context, ret, FALSE, time );
 
 	/* free cached source files */
 	if(dd->src_files)
 	{
-        g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files);
+        if(ret)
+            g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files);
 		fm_list_unref(dd->src_files);
 		dd->src_files = NULL;
 	}
@@ -319,7 +361,7 @@ on_drag_drop ( GtkWidget *dest_widget,
 		dd->dest_file = NULL;
 	}
     dd->info_type = 0;
-    return TRUE;
+    return ret;
 }
 
 static void
