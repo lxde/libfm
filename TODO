@@ -24,6 +24,7 @@
      Dnd destination, drop site handling. => Almost done
      For drag source, use file:///~/.gvfs/ rather than its original
      URL scheme to be compatible with other programs => need more survey
+     Refuse drop if the user doesn't has access to destination dir.
 
 5. Better file size calculations
      prevent divided by zero problem. (calculate percentage when total size = 0)
@@ -106,3 +107,8 @@
 33.Fix the broken accelerators: Alt+D to move to location bar.
 
 34.GtkFileChooser style path button bar. (can take the one in gtk)
+
+35.Change file type-application association in property dialog.
+
+36.Move applications associated with a file to a seperate sub menu if
+     There are too many items.

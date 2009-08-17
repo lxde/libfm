@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.14"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="dlg">
     <property name="visible">True</property>
@@ -251,6 +251,18 @@
                     <child>
                       <object class="GtkComboBox" id="open_with">
                         <property name="visible">True</property>
+                        <child>
+                          <object class="GtkCellRendererPixbuf" id="icon_render"/>
+                          <attributes>
+                            <attribute name="gicon">0</attribute>
+                          </attributes>
+                        </child>
+                        <child>
+                          <object class="GtkCellRendererText" id="text_render"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

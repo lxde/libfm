@@ -81,7 +81,6 @@ char* get_bookmarks_file()
 
 void free_item(FmBookmarkItem* item)
 {
-    g_debug("free: %s", item->name);
     if(item->name != item->path->name)
         g_free(item->name);
     fm_path_unref(item->path);
