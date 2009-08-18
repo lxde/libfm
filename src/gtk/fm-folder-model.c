@@ -688,6 +688,7 @@ void _fm_folder_model_insert_item( FmFolder* dir,
     GtkTreePath* path;
 	FmFolderItem* item;
 	FmFileInfo* file = new_item->inf;
+
     for( l = model->items; l; l = l->next )
     {
         item = (FmFolderItem*)l->data;
@@ -932,7 +933,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 
 				tp = gtk_tree_path_new_from_indices( g_list_index(model->items, l->data), -1 );
 				/* tell everybody that we removed an item */
-				gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), tp );
+    				gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), tp );
 				gtk_tree_path_free( tp );
 				model->items = g_list_delete_link(model->items, l);
 				--model->n_items;

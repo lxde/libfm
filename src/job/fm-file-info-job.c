@@ -86,21 +86,32 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 {
 	GList* l;
 	FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
-	for(l = fm_list_peek_head_link(job->file_infos); !fmjob->cancel && l;l=l->next)
+	for(l = fm_list_peek_head_link(job->file_infos); !fmjob->cancel && l;)
 	{
 		FmFileInfo* fi = (FmFileInfo*)l->data;
+        GList* next = l->next;
 		if(fm_path_is_native(fi->path))
 		{
 			char* path_str = fm_path_to_str(fi->path);
-			fm_file_info_job_get_info_for_native_file(job, fi, path_str);
+			if(!fm_file_info_job_get_info_for_native_file(job, fi, path_str))
+            {
+                next = l->next;
+                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+            }
 			g_free(path_str);
 		}
 		else
 		{
 			GFile* gf = fm_path_to_gfile(fi->path);
-			fm_file_info_job_get_info_for_gfile(job, fi, gf);
+			if(!fm_file_info_job_get_info_for_gfile(job, fi, gf))
+            {
+                fm_file_info_unref(fi);
+                next = l->next;
+                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+            }
 			g_object_unref(gf);
 		}
+        l = next;
 	}
 	return TRUE;
 }
@@ -119,8 +130,7 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
 	if( g_stat( path, &st ) == 0 )
 	{
 		char* type;
-		fi->disp_name = fi->path->name;
-
+        fi->disp_name = fi->path->name;
 		fi->mode = st.st_mode;
 		fi->mtime = st.st_mtime;
 		fi->size = st.st_size;

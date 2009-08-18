@@ -145,6 +145,7 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
         else
         {
             files_to_add = g_slist_prepend(files_to_add, fi);
+            fm_file_info_ref(fi);
             fm_list_push_tail(folder->files, fi);
         }
     }
@@ -168,12 +169,12 @@ gboolean on_idle(FmFolder* folder)
     FmFileInfoJob* job = NULL;
     FmPath* path;
     folder->idle_handler = 0;
-
     if(folder->files_to_update || folder->files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL);
 
     if(folder->files_to_update)
     {
+        GSList* prev = NULL;
         for(l=folder->files_to_update;l;)
         {
             /* if a file is already in files_to_add, remove it. */
@@ -181,6 +182,8 @@ gboolean on_idle(FmFolder* folder)
             {
                 GSList* tmp = l;
                 l=l->next;
+                if(G_LIKELY(prev))
+                    prev->next = l;
                 g_free(tmp->data);
                 g_slist_free_1(tmp);
                 if(G_UNLIKELY(tmp == folder->files_to_update))
@@ -192,6 +195,7 @@ gboolean on_idle(FmFolder* folder)
             fm_path_unref(path);
             g_free(l->data);
 
+            prev = l;
             l=l->next;
         }
         g_slist_free(folder->files_to_update);
@@ -232,6 +236,7 @@ gboolean on_idle(FmFolder* folder)
         g_slist_free(folder->files_to_del);
         folder->files_to_del = NULL;
     }
+
     return FALSE;
 }
 
@@ -251,6 +256,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
     };
 */
+
     name = g_file_get_basename(gf);
     switch(evt)
     {
@@ -284,7 +290,7 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
      * needed since the signal is only emit once, and later the job 
      * object will be distroyed very soon. */
     /* g_signal_handlers_disconnect_by_func(job, on_job_finished, folder); */
-    for(l = fm_list_peek_head_link(job->files); l; l=l->next )
+    for(l = fm_list_peek_head_link(job->files); l; l=l->next)
     {
         FmFileInfo* inf = (FmFileInfo*)l->data;
         files = g_slist_prepend(files, inf);

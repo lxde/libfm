@@ -274,7 +274,7 @@ gint fm_job_ask(FmJob* job, const char* question, gint options)
 	data.options = options;
 	return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
 }
-
+#include<gtk/gtk.h>
 /* unref finished job objects in main thread on idle */
 gboolean on_idle_cleanup(gpointer unused)
 {

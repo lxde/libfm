@@ -235,8 +235,17 @@ void fm_file_info_unref( FmFileInfo* fi )
 
 void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
 {
+    FmPath* tmp_path = fm_path_ref(src->path);
+    FmMimeType* tmp_type = fm_mime_type_ref(src->type);
+    FmIcon* tmp_icon = fm_icon_ref(src->icon);
+    /* NOTE: we need to ref source first. Otherwise,
+     * if path, mime_type, and icon are identical in src
+     * and fi, calling fm_file_info_clear() first on fi
+     * might unref that. */
     fm_file_info_clear(fi);
-    fi->path = fm_path_ref(src->path);
+    fi->path = tmp_path;
+    fi->type = tmp_type;
+	fi->icon = tmp_icon;
 
     fi->mode = src->mode;
     if(fm_path_is_native(fi->path))
