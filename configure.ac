@@ -47,5 +47,6 @@ AC_CONFIG_FILES([
     data/Makefile
     data/ui/Makefile
     po/Makefile.in
+    libfm.pc
 ])
 AC_OUTPUT

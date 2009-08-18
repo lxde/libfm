@@ -94,7 +94,7 @@
 
 28.Show available disk space in status bar => related to #26.
 
-29.FmBookmarks to manage and monitor bookmarks.
+29.FmBookmarks to manage and monitor bookmarks. => partially done.
 
 30.Make libfm a real library.
 
@@ -112,3 +112,5 @@
 
 36.Move applications associated with a file to a seperate sub menu if
      There are too many items.
+
+37.Handle URL encoding and filename encodings later.
