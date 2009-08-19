@@ -25,13 +25,30 @@
 
 #include <gtk/gtk.h>
 #include "fm-path.h"
+#include "fm-file-ops-job.h"
 
 G_BEGIN_DECLS
 
+/* Convinient dialog functions */
 void fm_show_error(GtkWindow* parent, const char* msg);
 FmPath* fm_select_folder(GtkWindow* parent);
 
+/* Mount */
 gboolean fm_mount_path(GtkWindow* parent, FmPath* path);
+
+/* File operations */
+void fm_copy_files(FmPathList* files, FmPath* dest_dir);
+void fm_move_files(FmPathList* files, FmPath* dest_dir);
+
+void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move);
+#define fm_move_files_to(files)   fm_move_or_copy_files_to(files, TRUE)
+#define fm_copy_files_to(files)   fm_move_or_copy_files_to(files, FALSE)
+
+void fm_trash_files(FmPathList* files);
+void fm_delete_files(FmPathList* files);
+
+void fm_rename_files(FmPathList* files);
+void fm_rename_file(FmPath* file);
 
 G_END_DECLS
 

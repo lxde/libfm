@@ -25,6 +25,8 @@
 
 #include <glib/gi18n.h>
 #include "fm-gtk-utils.h"
+#include "fm-file-ops-job.h"
+#include "fm-progress-dlg.h"
 
 void fm_show_error(GtkWindow* parent, const char* msg)
 {
@@ -115,3 +117,70 @@ gboolean fm_mount_path(GtkWindow* parent, FmPath* path)
     return ret;
 }
 
+/* File operations */
+/* FIXME: only show the progress dialog if the job isn't finished 
+ * in 1 sec. */
+
+void fm_copy_files(FmPathList* files, FmPath* dest_dir)
+{
+	GtkWidget* dlg;
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
+	fm_file_ops_job_set_dest(job, dest_dir);
+	dlg = fm_progress_dlg_new(job);
+	gtk_window_present(dlg);
+	fm_job_run_async(job);
+}
+
+void fm_move_files(FmPathList* files, FmPath* dest_dir)
+{
+	GtkWidget* dlg;
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
+	fm_file_ops_job_set_dest(job, dest_dir);
+	dlg = fm_progress_dlg_new(job);
+	gtk_window_present(dlg);
+	fm_job_run_async(job);
+}
+
+void fm_trash_files(FmPathList* files)
+{
+	GtkWidget* dlg;
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
+	dlg = fm_progress_dlg_new(job);
+	gtk_window_present(dlg);
+	fm_job_run_async(job);
+}
+
+void fm_delete_files(FmPathList* files)
+{
+	GtkWidget* dlg;
+	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
+	dlg = fm_progress_dlg_new(job);
+	gtk_window_present(dlg);
+	fm_job_run_async(job);
+}
+
+void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
+{
+    FmPath* dest = fm_select_folder(NULL);
+    if(dest)
+    {
+        if(is_move)
+            fm_move_files(files, dest);
+        else
+            fm_copy_files(files, dest);
+        fm_path_unref(dest);
+    }
+}
+
+void fm_rename_files(FmPathList* files)
+{
+    
+}
+
+void fm_rename_file(FmPath* file)
+{
+    FmPathList* pl = fm_path_list_new();
+    fm_list_push_tail(pl, file);
+    fm_rename_files(pl);
+    fm_list_unref(pl);
+}

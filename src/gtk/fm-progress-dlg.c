@@ -80,6 +80,17 @@ static void on_finished(FmFileOpsJob* job, FmProgressData* data)
 	g_debug("finished!");
 }
 
+static void on_response(GtkDialog* dlg, gint id, FmProgressData* data)
+{
+    /* cancel the job */
+    if(id == GTK_RESPONSE_CANCEL || id == GTK_RESPONSE_DELETE_EVENT)
+    {
+        if(data->job)
+            fm_job_cancel(data->job);
+        gtk_widget_destroy(dlg);
+    }
+}
+
 GtkWidget* fm_progress_dlg_new(FmFileOpsJob* job)
 {
 	FmProgressData* data = g_slice_new(FmProgressData);
@@ -90,6 +101,7 @@ GtkWidget* fm_progress_dlg_new(FmFileOpsJob* job)
 	data->dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
 
 	data->job = (FmFileOpsJob*)g_object_ref(job);
+	g_signal_connect(data->dlg, "response", on_response, data);
 	g_signal_connect(data->dlg, "destroy", data_free, data);
 
 	data->act = (GtkWidget*)gtk_builder_get_object(builder, "action");
