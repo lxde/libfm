@@ -28,7 +28,7 @@
 #include "fm-path.h"
 
 #include "fm-clipboard.h"
-#include "fm-file-ops.h"
+#include "fm-gtk-utils.h"
 #include "fm-file-properties.h"
 
 static void on_open(GtkAction* action, gpointer user_data);

@@ -50,7 +50,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		_inf = NULL;
 	else
 	{
-		_inf = g_file_query_info(src, query, 0, fmjob->cancellable, &err);
+		_inf = g_file_query_info(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, fmjob->cancellable, &err);
 		if( !_inf )
 		{
 			/* FIXME: error handling */
@@ -122,10 +122,11 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 
 	default:
 		if( !g_file_copy(src, dest, 
-					G_FILE_COPY_ALL_METADATA,
+					G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS,
 					FM_JOB(job)->cancellable, 
 					progress_cb, fmjob, &err) )
 		{
+            g_debug("copy error: %s", err->message);
 			fm_job_emit_error(fmjob, err, FALSE);
 			return FALSE;
 		}

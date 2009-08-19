@@ -60,7 +60,6 @@ libfm_gtk_SOURCES = \
 	gtk/fm-file-properties.c \
 	gtk/fm-clipboard.c \
 	gtk/fm-progress-dlg.c \
-	gtk/fm-file-ops.c \
 	gtk/fm-icon-pixbuf.c \
 	gtk/fm-cell-renderer-text.c \
 	gtk/fm-dnd-src.c \
@@ -97,7 +96,6 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-file-properties.h \
 	gtk/fm-clipboard.h \
 	gtk/fm-progress-dlg.h \
-	gtk/fm-file-ops.h \
 	gtk/fm-icon-pixbuf.h \
 	gtk/fm-cell-renderer-text.h \
 	gtk/fm-dnd-src.h \
