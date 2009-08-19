@@ -27,7 +27,7 @@
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
-#include "fm-file-ops.h"
+#include "fm-gtk-utils.h"
 
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);

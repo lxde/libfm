@@ -20,7 +20,7 @@
  */
 
 #include "fm-clipboard.h"
-#include "fm-file-ops.h"
+#include "fm-gtk-utils.h"
 
 enum {
 	URI_LIST = 1,
