@@ -26,7 +26,6 @@
 #include "fm-folder-model.h"
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
-#include "fm-file-ops.h"
 #include "fm-gtk-utils.h"
 
 #include "exo/exo-icon-view.h"

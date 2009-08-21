@@ -188,6 +188,7 @@ static void update_ui(FmFilePropData* data)
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
         char* parent_str = fm_path_to_str(parent);
         fm_path_unref(parent);
+        gtk_label_set_text(data->name, fm_file_info_get_disp_name(data->fi));
         gtk_label_set_text(data->dir, parent_str);
         g_free(parent_str);
         gtk_label_set_text(data->mtime, fm_file_info_get_disp_mtime(data->fi));

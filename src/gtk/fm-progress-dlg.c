@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include "fm-progress-dlg.h"
+#include "fm-gtk-utils.h"
 
 typedef struct _FmProgressDlgData FmProgressData;
 struct _FmProgressDlgData
@@ -62,14 +63,15 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressData*
     */
 }
 
-static void on_error(FmFileOpsJob* job)
+static gboolean on_error(FmFileOpsJob* job, const char* msg, gboolean recoverable, FmProgressData* data)
 {
-	
+	fm_show_error(NULL, msg);
+    return FALSE;
 }
 
-static void on_ask(FmFileOpsJob* job)
+static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressData* data)
 {
-	
+    return fm_askv(NULL, question, options);
 }
 
 static void on_finished(FmFileOpsJob* job, FmProgressData* data)

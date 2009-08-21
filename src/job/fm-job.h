@@ -25,6 +25,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <stdarg.h>
 
 G_BEGIN_DECLS
 
@@ -130,7 +131,9 @@ void fm_job_emit_cancelled(FmJob* job);
  * the job. */
 gboolean fm_job_emit_error(FmJob* job, GError* err, gboolean recoverable);
 
-gint fm_job_ask(FmJob* job, const char* question, gint options);
+gint fm_job_ask(FmJob* job, const char* question, ...);
+gint fm_job_askv(FmJob* job, const char* question, const char** options);
+gint fm_job_ask_valist(FmJob* job, const char* question, va_list options);
 
 G_END_DECLS
 

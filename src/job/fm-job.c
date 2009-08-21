@@ -99,8 +99,8 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, ask ),
                       NULL, NULL,
-                      fm_marshal_INT__POINTER_INT,
-                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+                      fm_marshal_INT__POINTER_POINTER,
+                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_POINTER );
 
 }
 
@@ -257,7 +257,7 @@ void fm_job_emit_cancelled(FmJob* job)
 struct AskData
 {
 	const char* question;
-	gint options;
+	const char** options;
 };
 
 static gpointer ask_in_main_thread(FmJob* job, struct AskData* data)
@@ -267,14 +267,40 @@ static gpointer ask_in_main_thread(FmJob* job, struct AskData* data)
 	return GINT_TO_POINTER(ret);
 }
 
-gint fm_job_ask(FmJob* job, const char* question, gint options)
+gint fm_job_ask(FmJob* job, const char* question, ...)
+{
+    gint ret;
+    va_list args;
+    va_start (args, question);
+    ret = fm_job_ask_valist(job, question, args);
+    va_end (args);
+    return ret;
+}
+
+gint fm_job_askv(FmJob* job, const char* question, const char** options)
 {
 	struct AskData data;
 	data.question = question;
 	data.options = options;
 	return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
 }
-#include<gtk/gtk.h>
+
+gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
+{
+    GArray* opts = g_array_sized_new(TRUE, TRUE, sizeof(char*), 6);
+    gint ret;
+    const char* opt = va_arg(options, const char*);
+    while(opt)
+    {
+        g_array_append_val(opts, opt);
+        opt = va_arg (options, const char *);
+    }
+    ret = fm_job_askv(job, question, opts->data);
+    g_array_free(opts, TRUE);
+    return ret;
+}
+
+
 /* unref finished job objects in main thread on idle */
 gboolean on_idle_cleanup(gpointer unused)
 {

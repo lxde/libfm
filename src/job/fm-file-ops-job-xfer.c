@@ -195,10 +195,16 @@ void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
 gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 {
 	GList* l;
+    FmJob* fmjob = FM_JOB(job);
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
 	fm_job_run_sync(dc);
 	job->total = dc->total_size;
+    if(fmjob->cancel)
+    {
+        g_object_unref(dc);
+        return FALSE;
+    }
 	g_object_unref(dc);
 	g_debug("total size to copy: %llu", job->total);
 
