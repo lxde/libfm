@@ -28,8 +28,8 @@
 #include "fm-path.h"
 
 #include "fm-clipboard.h"
-#include "fm-gtk-utils.h"
 #include "fm-file-properties.h"
+#include "fm-gtk-utils.h"
 
 static void on_open(GtkAction* action, gpointer user_data);
 static void on_open_with(GtkAction* action, gpointer user_data);
