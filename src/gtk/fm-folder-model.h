@@ -63,7 +63,6 @@ struct _FmFolderModel
     /* <private> */
     FmFolder* dir;
     GSequence *items;
-    guint n_items;
 
     GSequence* hidden; /* items hidden by filter */
 
