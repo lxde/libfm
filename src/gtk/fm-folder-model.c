@@ -236,11 +236,9 @@ static void _fm_folder_model_files_changed( FmFolder* dir, GSList* files,
 static void _fm_folder_model_add_file( FmFolderModel* model, FmFileInfo* file )
 {
 	if( !model->show_hidden && file->path->name[0] == '.')
-	{
-		model->hidden = g_list_prepend(model->hidden, fm_folder_item_new(file));
-		return;
-	}
-	fm_folder_model_file_created( model, file);
+	    g_sequence_append( model->hidden, fm_folder_item_new(file));
+	else
+	    fm_folder_model_file_created( model, file);
 }
 
 static void _fm_folder_model_files_added( FmFolder* dir, GSList* files,
@@ -289,6 +287,7 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir )
     }
     model->dir = dir;
     model->items = g_sequence_new( NULL );
+    model->hidden = g_sequence_new( NULL );
     if( ! dir )
         return;
 
@@ -935,10 +934,11 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 		item = (FmFolderItem*) g_sequence_get( hidden_it );
 		if(item->inf->path->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
 		    _fm_folder_model_insert_item(model->dir, item, model);
-		items_it = g_sequence_iter_next( hidden_it );
+		hidden_it = g_sequence_iter_next( hidden_it );
 	    }
+	    /* remove all items in hidden list */
 	    g_sequence_free( model->hidden );
-	    model->hidden = NULL;
+	    model->hidden = g_sequence_new( NULL );
 	}
 	else /* move invisible items to hidden list */
 	{
@@ -946,17 +946,18 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 	    while (!g_sequence_iter_is_end( items_it )) 
 	    {
 		GtkTreePath* tp;
-		GSequenceIter *next = g_sequence_iter_next( items_it );
+		GSequenceIter *next_item_it = g_sequence_iter_next( items_it );
 		item = (FmFolderItem*) g_sequence_get( items_it );
 		if(item->inf->path->name[0] == '.')
 		{
-		    g_sequence_prepend( model->hidden, item );
-		    tp = gtk_tree_path_new_from_indices( g_sequence_iter_get_position( items_it ), -1 );
+		    gint delete_pos = g_sequence_iter_get_position( items_it );
+		    g_sequence_move( items_it, g_sequence_get_begin_iter( model->hidden) );
+		    tp = gtk_tree_path_new_from_indices( delete_pos, -1 );
 		    /* tell everybody that we removed an item */
 		    gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), tp );
 		    gtk_tree_path_free( tp );
-		    items_it = next;
 		}
+		items_it = next_item_it;
 	    }
 	}
 }
