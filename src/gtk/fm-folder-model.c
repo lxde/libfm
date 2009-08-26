@@ -915,8 +915,7 @@ void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden
 	    while (!g_sequence_iter_is_end( hidden_it )) 
 	    {
 		item = (FmFolderItem*) g_sequence_get( hidden_it );
-		if(item->inf->path->name[0]=='.') /* in the future there will be other filtered out files in the hidden list */
-		    _fm_folder_model_insert_item(model->dir, item, model);
+		_fm_folder_model_insert_item(model->dir, item, model);
 		hidden_it = g_sequence_iter_next( hidden_it );
 	    }
 	    /* remove all items in hidden list */
