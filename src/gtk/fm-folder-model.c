@@ -706,9 +706,9 @@ void _fm_folder_model_insert_item( FmFolder* dir,
 
 void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file)
 {
-    GSequenceIter *items_it;
-    GtkTreePath* path;
-    FmFolderItem* item;
+    GSequenceIter *seq_it;
+    /* not required for hidden files */
+    gboolean update_view;
 #if 0
     /* If there is no file info, that means the dir itself was deleted. */
     if( G_UNLIKELY( ! file ) )
@@ -735,38 +735,33 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file)
         return;
     }
 #endif
-
+    
     if( !model->show_hidden && file->path->name[0] == '.' ) /* if this is a hidden file */
     {
-
-	GSequenceIter *hidden_it = g_sequence_get_begin_iter( model->hidden );
-	while (!g_sequence_iter_is_end( hidden_it )) 
-	{
-            item = (FmFolderItem*) g_sequence_get( hidden_it );
-            if(item->inf == file)
-                break;
-	    hidden_it = g_sequence_iter_next( hidden_it );
-	}
-        if( hidden_it == g_sequence_get_end_iter( model->hidden ) )
-            return;
-	g_sequence_remove( hidden_it );
+	update_view = FALSE;
+	seq_it = g_sequence_get_begin_iter( model->hidden );
     }
-
-    items_it = g_sequence_get_begin_iter( model->items );
-    while (!g_sequence_iter_is_end( items_it )) 
+    else 
     {
-	item = (FmFolderItem*) g_sequence_get( items_it );
+	update_view = TRUE;
+	seq_it = g_sequence_get_begin_iter( model->items );
+    }
+    
+    while (!g_sequence_iter_is_end( seq_it )) 
+    {
+	FmFolderItem* item = (FmFolderItem*) g_sequence_get( seq_it );
 	if(item->inf == file)
 	    break;
-	items_it = g_sequence_iter_next( items_it );
+	seq_it = g_sequence_iter_next( seq_it );
     }
-    if( items_it == g_sequence_get_end_iter( model->items ) )
-	return;
 
-    path = gtk_tree_path_new_from_indices( g_sequence_iter_get_position( items_it ), -1 );
-    gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), path );
-    gtk_tree_path_free( path );
-    g_sequence_remove( items_it );
+    if ( update_view ) 
+    {
+	GtkTreePath* path = gtk_tree_path_new_from_indices( g_sequence_iter_get_position( seq_it ), -1 );
+	gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), path );
+	gtk_tree_path_free( path );
+    }
+    g_sequence_remove( seq_it );
 }
 
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file )
