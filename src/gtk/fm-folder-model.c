@@ -364,8 +364,6 @@ gboolean fm_folder_model_get_iter ( GtkTreeModel *tree_model,
     /* We simply store a pointer in the iter */
     iter->stamp = model->stamp;
     iter->user_data  = items_it;
-    iter->user_data2 = g_sequence_get( items_it );
-    iter->user_data3 = NULL;   /* unused */
 
     return TRUE;
 }
@@ -393,7 +391,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
                                gint column,
                                GValue *value )
 {
-    GSequence* l;
+    GSequenceIter* item_it;
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
     g_return_if_fail (FM_IS_FOLDER_MODEL (tree_model));
@@ -402,11 +400,11 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
 
     g_value_init(value, column_types[column] );
 
-    l = (GSequenceIter*) iter->user_data;
-    g_return_if_fail ( l != NULL );
+    item_it = (GSequenceIter*) iter->user_data;
+    g_return_if_fail ( item_it != NULL );
 
-	FmFolderItem* item = (FmFolderItem*)iter->user_data2;
-	FmFileInfo* info = item->inf;
+    FmFolderItem* item = (FmFolderItem*) g_sequence_get( item_it );
+    FmFileInfo* info = item->inf;
 
     switch(column)
     {
@@ -479,7 +477,6 @@ gboolean fm_folder_model_iter_next ( GtkTreeModel *tree_model,
 
     iter->stamp = model->stamp;
     iter->user_data = next_item_it;
-    iter->user_data2 = g_sequence_get( next_item_it );
 
     return TRUE;
 }
@@ -508,7 +505,6 @@ gboolean fm_folder_model_iter_children ( GtkTreeModel *tree_model,
     g_sequence_get_begin_iter( model->items );
     iter->stamp = model->stamp;
     iter->user_data  = items_it;
-    iter->user_data2 = g_sequence_get( items_it );
     return TRUE;
 }
 
@@ -555,7 +551,6 @@ gboolean fm_folder_model_iter_nth_child ( GtkTreeModel *tree_model,
 
     iter->stamp = model->stamp;
     iter->user_data  = items_it;
-    iter->user_data2 = g_sequence_get( items_it );
 
     return TRUE;
 }
@@ -702,8 +697,6 @@ void _fm_folder_model_insert_item( FmFolder* dir,
 
     it.stamp = model->stamp;
     it.user_data  = item_it;
-    it.user_data2 = g_sequence_get( item_it );
-    it.user_data3 = new_item->inf;
     
     path = gtk_tree_path_new_from_indices( g_sequence_iter_get_position( item_it ), -1 );
     gtk_tree_model_row_inserted( GTK_TREE_MODEL(model), path, &it );
@@ -815,7 +808,6 @@ void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file )
 
     it.stamp = model->stamp;
     it.user_data  = items_it;
-    it.user_data2 = g_sequence_get( items_it );
 
     path = gtk_tree_path_new_from_indices( g_sequence_iter_get_position( items_it ), -1 );
     gtk_tree_model_row_changed( GTK_TREE_MODEL(model), path, &it );
@@ -836,7 +828,6 @@ gboolean fm_folder_model_find_iter(  FmFolderModel* model, GtkTreeIter* it, VFSF
         {
             it->stamp = model->stamp;
             it->user_data = items_it;
-            it->user_data2 = fi2;
             return TRUE;
         }
 	items_it = g_sequence_iter_next( items_it );
