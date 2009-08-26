@@ -768,7 +768,6 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file)
     gtk_tree_model_row_deleted( GTK_TREE_MODEL(model), path );
     gtk_tree_path_free( path );
     g_sequence_remove( items_it );
-    fm_folder_item_free( item );
 }
 
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file )
