@@ -275,18 +275,11 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir )
         g_signal_handlers_disconnect_by_func( model->dir,
                                               on_folder_loaded, model);
 
-	it = g_sequence_get_begin_iter( model->items );
-	while (!g_sequence_iter_is_end( it )) 
-	{
-	    FmFolderItem *item = (FmFolderItem*) g_sequence_get( it );
-	    fm_folder_item_free( item );	    
-	    it = g_sequence_iter_next( it );
-	}
 	g_sequence_free( model->items );
         g_object_unref( model->dir );
     }
     model->dir = dir;
-    model->items = g_sequence_new( NULL );
+    model->items = g_sequence_new( fm_folder_item_free );
     model->hidden = g_sequence_new( NULL );
     if( ! dir )
         return;
