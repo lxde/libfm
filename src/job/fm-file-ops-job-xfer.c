@@ -36,7 +36,6 @@ const char query[]=
 
 static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
 
-/* FIXME: handle duplicated filenames and overwrite */
 gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
     gboolean ret = FALSE;
@@ -82,17 +81,32 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 FmFileOpOption opt = 0;
                 if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
                 {
+                    g_error_free(err);
+                    err = NULL;
                     opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
-                    if(opt == FM_FILE_OP_RENAME)
+                    switch(opt)
                     {
+                    case FM_FILE_OP_RENAME:
                         g_object_unref(dest);
                         dest = new_dest;
                         goto _retry_mkdir;
+                        break;
+                    case FM_FILE_OP_SKIP:
+                        goto _out;
+                        break;
+                    case FM_FILE_OP_OVERWRITE:
+                        break;
+                    case FM_FILE_OP_CANCEL:
+                        fm_job_cancel(FM_JOB(job));
+                        goto _out;
+                        break;
                     }
                 }
-                if(!opt)
+                if(!opt && opt != FM_FILE_OP_OVERWRITE )
+                {
                     fm_job_emit_error(fmjob, err, FALSE);
-				goto _out;
+                    goto _out;
+                }
 			}
 			job->finished += size;
 
@@ -144,21 +158,31 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                g_error_free(err);
+                err = NULL;
+
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
-                if(opt == FM_FILE_OP_RENAME)
+                switch(opt)
                 {
+                case FM_FILE_OP_RENAME:
                     g_object_unref(dest);
                     dest = new_dest;
                     goto _retry_copy;
-                }
-                else if(opt == FM_FILE_OP_OVERWRITE)
-                {
+                    break;
+                case FM_FILE_OP_OVERWRITE:
                     flags |= G_FILE_COPY_OVERWRITE;
+                    goto _retry_copy;
+                    break;
+                case FM_FILE_OP_CANCEL:
+                    fm_job_cancel(FM_JOB(job));
+                    break;
+                case FM_FILE_OP_SKIP:
+                    break;
                 }
+                goto _out;
             }
             if(!opt)
                 fm_job_emit_error(fmjob, err, FALSE);
-
 			goto _out;
 		}
 		job->finished += size;
@@ -207,7 +231,44 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     src_fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
     /* Check if source and destination are on the same device */
     if( strcmp(src_fs_id, job->dest_fs_id) == 0 ) /* same device */
-        g_file_move(src, dest, G_FILE_COPY_ALL_METADATA, fmjob->cancellable, progress_cb, job, &err);
+    {
+        FmFileOpOption opt = 0;
+        GFileCopyFlags flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
+        _retry_move:
+        if( !g_file_move(src, dest, flags, fmjob->cancellable, progress_cb, job, &err))
+        {
+            flags &= ~G_FILE_COPY_OVERWRITE;
+            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+            {
+                GFile* new_dest = NULL;
+                opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                g_error_free(err);
+                err = NULL;
+
+                switch(opt)
+                {
+                case FM_FILE_OP_RENAME:
+                    g_object_unref(dest);
+                    dest = new_dest;
+                    goto _retry_move;
+                    break;
+                case FM_FILE_OP_OVERWRITE:
+                    flags |= G_FILE_COPY_OVERWRITE;
+                    goto _retry_move;
+                    break;
+                case FM_FILE_OP_CANCEL:
+                    fm_job_cancel(FM_JOB(job));
+                    break;
+                case FM_FILE_OP_SKIP:
+                    break;
+                }
+                goto _out;
+            }
+            if(!opt)
+                fm_job_emit_error(fmjob, err, FALSE);
+            goto _out;
+        }
+    }
     else /* use copy if they are on different devices */
     {
         /* use copy & delete */
@@ -215,8 +276,8 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
         fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
     }
 
+_out:
     /* FIXME: error handling */
-
     if( _inf )
         g_object_unref(_inf);
 	return TRUE;
@@ -303,8 +364,7 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 	g_object_unref(dc);
 	g_debug("total size to move: %llu, dest_fs: %s", job->total, job->dest_fs_id);
 
-    /* FIXME: cancellation? */
-	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
+	for(l = fm_list_peek_head_link(job->srcs); !fmjob->cancel && l; l=l->next)
 	{
 		FmPath* path = (FmPath*)l->data;
 		FmPath* _dest = fm_path_new_child(job->dest, path->name);

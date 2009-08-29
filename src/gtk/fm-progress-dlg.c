@@ -92,15 +92,16 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 {
     int res;
     GtkBuilder* builder = gtk_builder_new();
-    GtkWidget *dlg, *src_icon, *dest_icon, *src_fi, *dest_fi, *filename;
+    GtkWidget *dlg, *src_icon, *dest_icon, *src_fi, *dest_fi, *filename, *apply_all;
     char* tmp;
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/ask-rename.ui", NULL);
-    dlg = gtk_builder_get_object(builder, "dlg");
-    src_icon = gtk_builder_get_object(builder, "src_icon");
-    src_fi = gtk_builder_get_object(builder, "src_fi");
-    dest_icon = gtk_builder_get_object(builder, "dest_icon");
-    dest_fi = gtk_builder_get_object(builder, "dest_fi");
-    filename = gtk_builder_get_object(builder, "filename");
+    dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
+    src_icon = (GtkWidget*)gtk_builder_get_object(builder, "src_icon");
+    src_fi = (GtkWidget*)gtk_builder_get_object(builder, "src_fi");
+    dest_icon = (GtkWidget*)gtk_builder_get_object(builder, "dest_icon");
+    dest_fi = (GtkWidget*)gtk_builder_get_object(builder, "dest_fi");
+    filename = (GtkWidget*)gtk_builder_get_object(builder, "filename");
+    apply_all = (GtkWidget*)gtk_builder_get_object(builder, "apply_all");
     gtk_window_set_transient_for(dlg, data->dlg);
 
     gtk_image_set_from_gicon(src_icon, src->icon->gicon, GTK_ICON_SIZE_DIALOG);
@@ -135,9 +136,18 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     case RESPONSE_OVERWRITE:
         res = FM_FILE_OP_OVERWRITE;
         break;
-    default:
+    case RESPONSE_SKIP:
         res = FM_FILE_OP_SKIP;
+        break;
+    default:
+        res = FM_FILE_OP_CANCEL;
     }
+
+    if(gtk_toggle_button_get_active(apply_all))
+    {
+        /* FIXME: set default action */
+    }
+
     gtk_widget_destroy(dlg);
 
     return res;

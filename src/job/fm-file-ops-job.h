@@ -58,6 +58,7 @@ enum _FmFileOpType
 typedef enum _FmFileOpOption FmFileOpOption;
 enum _FmFileOpOption
 {
+    FM_FILE_OP_CANCEL = 0,
 	FM_FILE_OP_OVERWRITE = 1<<0,
 	FM_FILE_OP_RENAME = 1<<1,
 	FM_FILE_OP_SKIP = 1<<2,
