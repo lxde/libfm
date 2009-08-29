@@ -39,11 +39,14 @@ static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
 /* FIXME: handle duplicated filenames and overwrite */
 gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
+    gboolean ret = FALSE;
 	GFileInfo* _inf;
 	GError* err = NULL;
 	gboolean is_virtual;
     GFileType type;
     goffset size;
+    GFile* new_dest;
+    GFileCopyFlags flags;
 	FmJob* fmjob = FM_JOB(job);
 
 	if( G_LIKELY(inf) )
@@ -55,7 +58,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		{
 			/* FIXME: error handling */
 			fm_job_emit_error(fmjob, err, FALSE);
-			return FALSE;
+			goto _out;
 		}
 		inf = _inf;
 	}
@@ -67,20 +70,29 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     type = g_file_info_get_file_type(inf);
     size = g_file_info_get_size(inf);
 
-    if( _inf )
-        g_object_unref(_inf);
-
 	switch(type)
 	{
 	case G_FILE_TYPE_DIRECTORY:
 		{
 			GFileEnumerator* enu;
-
+        _retry_mkdir:
             /* FIXME: handle permissions */
 			if( !g_file_make_directory(dest, fmjob->cancellable, &err) )
 			{
-				fm_job_emit_error(fmjob, err, FALSE);
-				return FALSE;
+                FmFileOpOption opt = 0;
+                if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+                {
+                    opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                    if(opt == FM_FILE_OP_RENAME)
+                    {
+                        g_object_unref(dest);
+                        dest = new_dest;
+                        goto _retry_mkdir;
+                    }
+                }
+                if(!opt)
+                    fm_job_emit_error(fmjob, err, FALSE);
+				goto _out;
 			}
 			job->finished += size;
 
@@ -99,7 +111,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 					if( G_UNLIKELY(!ret) )
 					{
 						/* FIXME: error handling */
-						return FALSE;
+						goto _out;
 					}
 					g_object_unref(inf);
 				}
@@ -109,11 +121,12 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 					{
 						/* FIXME: error handling */
 						fm_job_emit_error(fmjob, err, FALSE);
-						return FALSE;
+						goto _out;
 					}
 					else /* EOF is reached */
 						break;
 				}
+                ret = TRUE;
 			}
 			g_file_enumerator_close(enu, NULL, &err);
 			g_object_unref(enu);
@@ -121,23 +134,47 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		break;
 
 	default:
-		if( !g_file_copy(src, dest, 
-					G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS,
-					FM_JOB(job)->cancellable, 
-					progress_cb, fmjob, &err) )
+        flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
+    _retry_copy:
+		if( !g_file_copy(src, dest, flags, FM_JOB(job)->cancellable, 
+                progress_cb, fmjob, &err) )
 		{
-            g_debug("copy error: %s", err->message);
-			fm_job_emit_error(fmjob, err, FALSE);
-			return FALSE;
+            FmFileOpOption opt = 0;
+            flags &= ~G_FILE_COPY_OVERWRITE;
+
+            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+            {
+                opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                if(opt == FM_FILE_OP_RENAME)
+                {
+                    g_object_unref(dest);
+                    dest = new_dest;
+                    goto _retry_copy;
+                }
+                else if(opt == FM_FILE_OP_OVERWRITE)
+                {
+                    flags |= G_FILE_COPY_OVERWRITE;
+                }
+            }
+            if(!opt)
+                fm_job_emit_error(fmjob, err, FALSE);
+
+			goto _out;
 		}
 		job->finished += size;
 		job->current = 0;
 
         /* update progress */
         fm_file_ops_job_emit_percent(job);
+        ret = TRUE;
 		break;
 	}
-	return TRUE;
+_out:
+
+    if( _inf )
+        g_object_unref(_inf);
+
+    return ret;
 }
 
 gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
@@ -198,6 +235,9 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
     FmJob* fmjob = FM_JOB(job);
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+    /* let the deep count job share the same cancellable object. */
+    fm_job_set_cancellable(FM_JOB(dc), fmjob->cancellable);
+    /* FIXME: there is no way to cancel the deep count job here. */
 	fm_job_run_sync(dc);
 	job->total = dc->total_size;
     if(fmjob->cancel)
@@ -209,7 +249,7 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 	g_debug("total size to copy: %llu", job->total);
 
     /* FIXME: cancellation? */
-	for(l = fm_list_peek_head_link(job->srcs); l; l=l->next)
+	for(l = fm_list_peek_head_link(job->srcs); !fmjob->cancel && l; l=l->next)
 	{
 		FmPath* path = (FmPath*)l->data;
 		FmPath* _dest = fm_path_new_child(job->dest, path->name);

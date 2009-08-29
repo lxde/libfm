@@ -112,6 +112,12 @@ gpointer fm_job_call_main_thread(FmJob* job,
  * So the following I/O operations should be cancelled. */
 gboolean fm_job_init_cancellable(FmJob* job);
 
+/* Let the job use an existing cancellable object.
+ * This can be used when you wish to share a cancellable object
+ * among different jobs.
+ * This should only be called before the job is launched. */
+void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable);
+
 /* only call this at the end of working thread if you're going to 
  * override FmJob::run() and use your own multi-threading mechnism. */
 void fm_job_finish(FmJob* job);

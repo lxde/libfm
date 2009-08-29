@@ -347,6 +347,24 @@ gboolean fm_job_init_cancellable(FmJob* job)
 	return TRUE;
 }
 
+/* Let the job use an existing cancellable object.
+ * This can be used when you wish to share a cancellable object
+ * among different jobs.
+ * This should only be called before the job is launched. */
+void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable)
+{
+    if(G_UNLIKELY(job->cancellable))
+    {
+        g_object_unref(job->cancellable);
+    }
+    if(G_LIKELY(cancellable))
+    {
+        job->cancellable = (GCancellable*)g_object_ref(cancellable);
+    }
+    else
+        job->cancellable = NULL;
+}
+
 struct ErrData
 {
 	GError* err;

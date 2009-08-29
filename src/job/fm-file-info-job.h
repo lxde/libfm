@@ -52,11 +52,12 @@ struct _FmFileInfoJobClass
 	FmJobClass parent_class;
 };
 
-GType fm_file_info_job_get_type (void);
-FmJob* fm_file_info_job_new (FmPathList* files_to_query);
+GType fm_file_info_job_get_type(void);
+FmJob* fm_file_info_job_new(FmPathList* files_to_query);
 
 /* this can only be called before running the job. */
-void fm_file_info_job_add (FmFileInfoJob* job, FmPath* path);
+void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path);
+void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf);
 
 gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path);
 gboolean fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf);

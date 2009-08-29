@@ -120,6 +120,15 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                 g_error_free(err);
             }
         }
+
+        if(data->single_file) /* when only one file is shown */
+        {
+            /* if the user has changed its name */
+            if( g_strcmp0(data->fi->disp_name, gtk_entry_get_text(data->name)) )
+            {
+                /* FIXME: rename the file or set display name for it. */
+            }
+        }
     }
     gtk_widget_destroy(dlg);
 }
@@ -188,10 +197,10 @@ static void update_ui(FmFilePropData* data)
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
         char* parent_str = fm_path_to_str(parent);
         fm_path_unref(parent);
-        gtk_label_set_text(data->name, fm_file_info_get_disp_name(data->fi));
-        gtk_label_set_text(data->dir, parent_str);
+        gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
+        gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
         g_free(parent_str);
-        gtk_label_set_text(data->mtime, fm_file_info_get_disp_mtime(data->fi));
+        gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
     }
 
     on_timeout(data);

@@ -272,7 +272,12 @@ void on_delete(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     if( !fm_list_is_empty(files) )
-        fm_delete_files(files);
+    {
+        if(data->use_trash)
+            fm_trash_files(files);
+        else
+            fm_delete_files(files);
+    }
     fm_list_unref(files);
 }
 
@@ -303,3 +308,8 @@ gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
     return menu->same_type;
 }
 
+/* set whether the menu should use Trash instead of Delete. */
+void fm_file_menu_set_use_trash(FmFileMenu* menu, gboolean use_trash)
+{
+    menu->use_trash = use_trash;
+}

@@ -400,7 +400,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
                                gint column,
                                GValue *value )
 {
-    GList* l;
+    GSequenceIter* l;
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
     g_return_if_fail (FM_IS_FOLDER_MODEL (tree_model));
@@ -409,7 +409,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
 
     g_value_init(value, column_types[column] );
 
-    l = (GList*) iter->user_data;
+    l = (GSequenceIter*)iter->user_data;
     g_return_if_fail ( l != NULL );
 
 	FmFolderItem* item = (FmFolderItem*)iter->user_data2;

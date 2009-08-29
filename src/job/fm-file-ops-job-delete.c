@@ -148,7 +148,9 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
 	g_debug("total number of files to delete: %llu", fm_list_get_length(job->srcs));
-    job->total = job->srcs;
+    job->total = fm_list_get_length(job->srcs);
+
+    /* FIXME: we shouldn't trash a file already in trash:/// */
 
 	l = fm_list_peek_head_link(job->srcs);
 	for(; !fmjob->cancel && l;l=l->next)

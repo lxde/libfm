@@ -112,3 +112,7 @@
 
 36.Move applications associated with a file to a seperate sub menu if
      There are too many items.
+
+37.Offer some global options like whether to use Trash bin or not to ease
+     the development of file manager and all programs using this lib can
+     all have consistent behavior.
