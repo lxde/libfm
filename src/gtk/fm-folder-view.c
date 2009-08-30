@@ -735,8 +735,6 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 	case FM_FV_ICON_VIEW:
 	case FM_FV_COMPACT_VIEW:
 		{
-            //exo_icon_view_convert_widget_to_bin_window_coords();
-            //if(exo_icon_view_get_dest_item_at_pos(fv->view, x, y, &tp, NULL))
 			tp = exo_icon_view_get_path_at_pos(fv->view, x, y);
 			exo_icon_view_set_drag_dest_item(fv->view, tp, EXO_ICON_VIEW_DROP_INTO);
 			break;
