@@ -18,13 +18,15 @@
      Already works for FmDirListJob.
      Confirm before deleting/trashing.
      Rename/overwrite files appropriately when destination file
-     already exists.
+     already exists. => done
 
 4. Dnd
      Dnd destination, drop site handling. => Almost done
      For drag source, use file:///~/.gvfs/ rather than its original
      URL scheme to be compatible with other programs => need more survey
      Refuse drop if the user doesn't has access to destination dir.
+     Fix incorrect drop target item of icon view mode.
+     Fix incorrect design of 'query-info' signal.
 
 5. Better file size calculations
      prevent divided by zero problem. (calculate percentage when total size = 0)
@@ -94,7 +96,7 @@
 
 28.Show available disk space in status bar => related to #26.
 
-29.FmBookmarks to manage and monitor bookmarks.
+29.FmBookmarks to manage and monitor bookmarks. => partially done.
 
 30.Make libfm a real library.
 
@@ -103,6 +105,7 @@
 
 32.Install our own special xml file to mime database to provide some
      frequently-seen filetypes which are not included in shared-mime-info.
+     => partially done.
 
 33.Fix the broken accelerators: Alt+D to move to location bar.
 
@@ -116,3 +119,11 @@
 37.Offer some global options like whether to use Trash bin or not to ease
      the development of file manager and all programs using this lib can
      all have consistent behavior.
+
+38.Sync with libexo from its git repo to get the latest ExoIconView. => done.
+
+39.Support mount specific filesystem encoding in the future. Now we only
+     handle UTF-8 for simplicity.
+
+40.Find a way to share common configuration among all apps using libfm.
+

@@ -1,4 +1,4 @@
-/* $Id: exo-icon-view.h 20879 2006-04-14 11:23:42Z benny $ */
+/* $Id$ */
 /*-
  * Copyright (c) 2004-2006  os-cillation e.K.
  * Copyright (c) 2002,2004  Anders Carlsson <andersca@gnu.org>
@@ -22,7 +22,7 @@
  */
 
 /* Modified by Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- * on 2008.05.11 for use in PCManFM */
+ * on 2009-08-30 for use in libfm */
 
 /*
 #if !defined (EXO_INSIDE_EXO_H) && !defined (EXO_COMPILATION)
@@ -35,7 +35,7 @@
 
 #include <gtk/gtk.h>
 
-G_BEGIN_DECLS;
+G_BEGIN_DECLS
 
 typedef struct _ExoIconViewPrivate    ExoIconViewPrivate;
 typedef struct _ExoIconViewClass      ExoIconViewClass;
@@ -165,7 +165,6 @@ struct _ExoIconViewClass
   gboolean (*start_interactive_search)  (ExoIconView    *icon_view);
 
   /*< private >*/
-/*
   void (*reserved0) (void);
   void (*reserved1) (void);
   void (*reserved2) (void);
@@ -176,7 +175,6 @@ struct _ExoIconViewClass
   void (*reserved7) (void);
   void (*reserved8) (void);
   void (*reserved9) (void);
-*/
 };
 
 GType                 exo_icon_view_get_type                  (void) G_GNUC_CONST;
@@ -187,18 +185,6 @@ GtkWidget            *exo_icon_view_new_with_model            (GtkTreeModel     
 GtkTreeModel         *exo_icon_view_get_model                 (const ExoIconView        *icon_view);
 void                  exo_icon_view_set_model                 (ExoIconView              *icon_view,
                                                                GtkTreeModel             *model);
-
-#ifndef EXO_DISABLE_DEPRECATED
-gint                  exo_icon_view_get_text_column           (const ExoIconView        *icon_view);
-void                  exo_icon_view_set_text_column           (ExoIconView              *icon_view,
-                                                               gint                      column);
-gint                  exo_icon_view_get_markup_column         (const ExoIconView        *icon_view);
-void                  exo_icon_view_set_markup_column         (ExoIconView              *icon_view,
-                                                               gint                      column);
-gint                  exo_icon_view_get_pixbuf_column         (const ExoIconView        *icon_view);
-void                  exo_icon_view_set_pixbuf_column         (ExoIconView              *icon_view,
-                                                               gint                      column);
-#endif
 
 GtkOrientation        exo_icon_view_get_orientation           (const ExoIconView        *icon_view);
 void                  exo_icon_view_set_orientation           (ExoIconView              *icon_view,
@@ -348,6 +334,6 @@ void                          exo_icon_view_set_search_position_func  (ExoIconVi
                                                                        gpointer                      search_position_data,
                                                                        GDestroyNotify                search_position_destroy);
 
-G_END_DECLS;
+G_END_DECLS
 
 #endif /* __EXO_ICON_VIEW_H__ */
