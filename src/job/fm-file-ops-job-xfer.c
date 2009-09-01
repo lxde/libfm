@@ -140,9 +140,11 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 						goto _out;
 					}
 					else /* EOF is reached */
+                    {
+                        ret = TRUE;
 						break;
+                    }
 				}
-                ret = TRUE;
 			}
 			g_file_enumerator_close(enu, NULL, &err);
 			g_object_unref(enu);
@@ -209,7 +211,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
             }
             if(!opt)
             {
-                fm_job_emit_error(fmjob, err->message, FALSE);
+                fm_job_emit_error(fmjob, err, FALSE);
                 g_error_free(err);
             }
 			goto _out;

@@ -166,6 +166,11 @@ void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest)
 	job->dest = fm_path_ref(dest);
 }
 
+FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job)
+{
+    return job->dest;
+}
+
 static gboolean on_cancelled(FmFileOpsJob* job)
 {
 	fm_job_emit_cancelled((FmJob*)job);
