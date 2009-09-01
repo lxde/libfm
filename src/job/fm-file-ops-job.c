@@ -136,26 +136,19 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 	switch(job->type)
 	{
 	case FM_FILE_OP_COPY:
-		fm_file_ops_job_copy_run(job);
-		break;
+		return fm_file_ops_job_copy_run(job);
 	case FM_FILE_OP_MOVE:
-		fm_file_ops_job_move_run(job);
-		break;
+		return fm_file_ops_job_move_run(job);
 	case FM_FILE_OP_TRASH:
-		fm_file_ops_job_trash_run(job);
-		break;
+		return fm_file_ops_job_trash_run(job);
 	case FM_FILE_OP_DELETE:
-		fm_file_ops_job_delete_run(job);
-		break;
+		return fm_file_ops_job_delete_run(job);
     case FM_FILE_OP_LINK:
-        fm_file_ops_job_link_run(job);
-        break;
+        return fm_file_ops_job_link_run(job);
 	case FM_FILE_OP_CHMOD:
-		chmod_files(job);
-		break;
+		return chmod_files(job);
 	case FM_FILE_OP_CHOWN:
-		chown_files(job);
-		break;
+		return chown_files(job);
 	}
 	return TRUE;
 }

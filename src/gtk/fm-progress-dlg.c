@@ -168,6 +168,12 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
     g_debug("file operation is finished!");
 }
 
+static void on_cancelled(FmFileOpsJob* job, FmProgressDisplay* data)
+{
+    fm_progress_display_destroy(data);
+    g_debug("file operation is cancelled!");
+}
+
 static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 {
     /* cancel the job */
@@ -261,13 +267,13 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
 
 void ensure_dlg(FmProgressDisplay* data)
 {
-    if(!data->dlg)
-        on_show_dlg(data);
     if(data->delay_timeout)
     {
         g_source_remove(data->delay_timeout);
         data->delay_timeout = 0;
     }
+    if(!data->dlg)
+        on_show_dlg(data);
 }
 
 /* Show progress dialog for file operations */
@@ -283,6 +289,7 @@ FmProgressDisplay* fm_display_progress(FmFileOpsJob* job)
     g_signal_connect(job, "cur-file", G_CALLBACK(on_cur_file), data);
     g_signal_connect(job, "percent", G_CALLBACK(on_percent), data);
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
+    g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
     return data;
 }

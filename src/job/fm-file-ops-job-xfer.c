@@ -100,6 +100,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                         break;
                     case FM_FILE_OP_CANCEL:
                         fm_job_cancel(FM_JOB(job));
+                        ret = FALSE;
                         goto _out;
                         break;
                     }
@@ -203,6 +204,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
+                    ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
                     break;
@@ -241,6 +243,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     goffset size;
 	FmJob* fmjob = FM_JOB(job);
     const char* src_fs_id;
+    gboolean ret = TRUE;
 
 	if( G_LIKELY(inf) )
 		_inf = NULL;
@@ -289,6 +292,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
+                    ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
                     break;
@@ -296,7 +300,10 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 goto _out;
             }
             if(!opt)
+            {
                 fm_job_emit_error(fmjob, err, FALSE);
+                ret = FALSE;
+            }
             goto _out;
         }
     }
@@ -311,7 +318,7 @@ _out:
     /* FIXME: error handling */
     if( _inf )
         g_object_unref(_inf);
-	return TRUE;
+	return ret;
 }
 
 void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
@@ -349,7 +356,10 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 		GFile* dest = fm_path_to_gfile(_dest);
 		fm_path_unref(_dest);
 		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
+        {
+            fm_job_cancel(job);
 			return FALSE;
+        }
 	}
 	return TRUE;
 }
@@ -403,7 +413,10 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 		GFile* dest = fm_path_to_gfile(_dest);
 		fm_path_unref(_dest);
 		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
+        {
+            fm_job_cancel(job);
 			return FALSE;
+        }
 	}
     return TRUE;
 }
