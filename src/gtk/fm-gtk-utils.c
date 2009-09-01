@@ -277,9 +277,8 @@ void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
 	fm_file_ops_job_set_dest(job, dest_dir);
-	dlg = fm_progress_dlg_new(job);
-	gtk_window_present(dlg);
 	fm_job_run_async(job);
+    fm_display_progress(job);
 }
 
 void fm_move_files(FmPathList* files, FmPath* dest_dir)
@@ -287,27 +286,24 @@ void fm_move_files(FmPathList* files, FmPath* dest_dir)
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
 	fm_file_ops_job_set_dest(job, dest_dir);
-	dlg = fm_progress_dlg_new(job);
-	gtk_window_present(dlg);
 	fm_job_run_async(job);
+    fm_display_progress(job);
 }
 
 void fm_trash_files(FmPathList* files)
 {
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-	dlg = fm_progress_dlg_new(job);
-	gtk_window_present(dlg);
 	fm_job_run_async(job);
+    fm_display_progress(job);
 }
 
 void fm_delete_files(FmPathList* files)
 {
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-	dlg = fm_progress_dlg_new(job);
-	gtk_window_present(dlg);
 	fm_job_run_async(job);
+    fm_display_progress(job);
 }
 
 void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
