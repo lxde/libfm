@@ -127,3 +127,5 @@
 
 40.Find a way to share common configuration among all apps using libfm.
 
+41.Handle special files like FIFO, socket, ...etc.
+

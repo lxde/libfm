@@ -20,7 +20,10 @@
  */
 
 #include "fm-file-info-job.h"
-#include <glib/gstdio.h>
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 static void fm_file_info_job_finalize  			(GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
@@ -135,7 +138,7 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path)
 {
 	struct stat st;
-	if( g_stat( path, &st ) == 0 )
+	if( stat( path, &st ) == 0 )
 	{
 		char* type;
         fi->disp_name = fi->path->name;

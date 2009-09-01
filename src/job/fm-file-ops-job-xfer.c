@@ -23,6 +23,8 @@
 #include "fm-file-ops-job-delete.h"
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -147,6 +149,30 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		}
 		break;
 
+    case G_FILE_TYPE_SPECIAL:
+        /* only handle FIFO for local files */
+        if(g_file_is_native(src) && g_file_is_native(dest))
+        {
+            char* src_path = g_file_get_path(src);
+            struct stat src_st;
+            int r;
+            r = lstat(src_path, &src_st);
+            g_free(src_path);
+            if(r == 0)
+            {
+                /* Handle FIFO on native file systems. */
+                if(S_ISFIFO(src_st.st_mode))
+                {
+                    char* dest_path = g_file_get_path(dest);
+                    int r = mkfifo(dest_path, src_st.st_mode);
+                    g_free(dest_path);
+                    if( r == 0)
+                        break;
+                }
+                /* FIXME: how about blcok device, char device, and socket? */
+            }
+        }
+
 	default:
         flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
     _retry_copy:
@@ -182,7 +208,10 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 goto _out;
             }
             if(!opt)
-                fm_job_emit_error(fmjob, err, FALSE);
+            {
+                fm_job_emit_error(fmjob, err->message, FALSE);
+                g_error_free(err);
+            }
 			goto _out;
 		}
 		job->finished += size;
