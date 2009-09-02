@@ -146,7 +146,7 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 	{
 		char* dir_path;
 		GDir* dir;
-        
+
         dir_path = fm_path_to_str(job->dir_path);
 
         fi = fm_file_info_new();
@@ -182,7 +182,6 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 			{
 				g_string_truncate(fpath, dir_len);
 				g_string_append(fpath, name);
-
 				fi = fm_file_info_new();
 				fi->path = fm_path_new_child(job->dir_path, name);
 				if( fm_file_info_job_get_info_for_native_file(job, fi, fpath->str) )

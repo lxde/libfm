@@ -612,7 +612,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 		{
 			GtkTreePath* tp;
 			/* select the item on right click for ExoIconView */
-		    if(tp=exo_icon_view_get_path_at_pos((ExoIconView*)view, evt->x, evt->y))
+		    if(exo_icon_view_get_item_at_pos((ExoIconView*)view, evt->x, evt->y, &tp, NULL))
 			{
 				/* if the hit item is not currently selected */
 				if(!exo_icon_view_path_is_selected((ExoIconView*)view, tp))

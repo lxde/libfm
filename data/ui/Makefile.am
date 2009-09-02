@@ -5,6 +5,7 @@ uidir=$(datadir)/libfm/ui
 ui_in_files= \
 	file-prop.glade \
 	progress.glade \
+	ask-rename.glade \
 	$(NULL)
 ui_DATA = $(ui_in_files:.glade=.ui)
 
@@ -20,3 +21,4 @@ CLEANFILES = \
 %.ui: %.glade
 	cp $< $@
 #	$(top_builddir)/src/xml-purge $@
+

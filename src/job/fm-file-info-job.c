@@ -20,7 +20,10 @@
  */
 
 #include "fm-file-info-job.h"
-#include <glib/gstdio.h>
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 static void fm_file_info_job_finalize  			(GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
@@ -62,7 +65,7 @@ static void fm_file_info_job_init(FmFileInfoJob *self)
 	self->file_infos = fm_file_info_list_new();
 }
 
-FmJob* fm_file_info_job_new (FmPathList* files_to_query)
+FmJob* fm_file_info_job_new(FmPathList* files_to_query)
 {
 	GList* l;
 	FmJob* job = (FmJob*)g_object_new(FM_TYPE_FILE_INFO_JOB, NULL);
@@ -117,17 +120,25 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 }
 
 /* this can only be called before running the job. */
-void fm_file_info_job_add (FmFileInfoJob* job, FmPath* path)
+void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 {
 	FmFileInfo* fi = fm_file_info_new();
 	fi->path = fm_path_ref(path);
 	fm_list_push_tail_noref(job->file_infos, fi);
 }
 
+void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
+{
+    FmPath* path = fm_path_new_for_gfile(gf);
+	FmFileInfo* fi = fm_file_info_new();
+	fi->path = path;
+	fm_list_push_tail_noref(job->file_infos, fi);
+}
+
 gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path)
 {
 	struct stat st;
-	if( g_stat( path, &st ) == 0 )
+	if( stat( path, &st ) == 0 )
 	{
 		char* type;
         fi->disp_name = fi->path->name;

@@ -62,10 +62,9 @@ struct _FmFolderModel
     GObject parent;
     /* <private> */
     FmFolder* dir;
-    GList* items;
-    guint n_items;
+    GSequence *items;
 
-    GList* hidden; /* items hidden by filter */
+    GSequence* hidden; /* items hidden by filter */
 
     gboolean show_hidden : 1;
     gboolean big_thumbnail : 1;

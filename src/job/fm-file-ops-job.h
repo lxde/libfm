@@ -25,7 +25,7 @@
 
 #include "fm-job.h"
 #include "fm-deep-count-job.h"
-#include "fm-path.h"
+#include "fm-file-info.h"
 
 G_BEGIN_DECLS
 
@@ -50,6 +50,7 @@ enum _FmFileOpType
 	FM_FILE_OP_COPY,
 	FM_FILE_OP_TRASH,
 	FM_FILE_OP_DELETE,
+    FM_FILE_OP_LINK,
 	FM_FILE_OP_CHMOD,
 	FM_FILE_OP_CHOWN
 };
@@ -57,14 +58,11 @@ enum _FmFileOpType
 typedef enum _FmFileOpOption FmFileOpOption;
 enum _FmFileOpOption
 {
-	FM_FILE_OP_RETRY = 1<<0,
-	FM_FILE_OP_CANCEL = 1<<1,
-	FM_FILE_OP_OVERWRITE = 1<<2,
-	FM_FILE_OP_SKIP = 1<<3,
-	FM_FILE_OP_RENAME = 1<<4,
-	FM_FILE_OP_YES = 1<<5,
-	FM_FILE_OP_NO = 1<<6,
-	FM_FILE_OP_APPLY_TO_ALL = 1<<31
+    FM_FILE_OP_CANCEL = 0,
+	FM_FILE_OP_OVERWRITE = 1<<0,
+	FM_FILE_OP_RENAME = 1<<1,
+	FM_FILE_OP_SKIP = 1<<2,
+	FM_FILE_OP_SKIP_ERROR = 1<<3
 };
 
 struct _FmFileOpsJob
@@ -84,19 +82,22 @@ struct _FmFileOpsJob
 	time_t elapsed_time;
 	time_t remaining_time;
 
+    FmFileOpOption default_option;
 	gboolean recursive;
 };
 
 struct _FmFileOpsJobClass
 {
 	FmJobClass parent_class;
-	void (*cur_file)(FmPath* file);
-	void (*percent)(guint percent);
+	void (*cur_file)(FmFileOpsJob* job, FmPath* file);
+	void (*percent)(FmFileOpsJob* job, guint percent);
+    FmFileOpOption (*ask_rename)(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name);
 };
 
 GType	fm_file_ops_job_get_type		(void);
 FmJob*	fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
+FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 
 /* This only work for chmod and chown jobs. */
 void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
@@ -106,6 +107,7 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job);
+FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest);
 
 G_END_DECLS
 

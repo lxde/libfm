@@ -22,11 +22,14 @@
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
+#include "fm-marshal.h"
+#include "fm-file-info-job.h"
 
 enum
 {
 	CUR_FILE,
 	PERCENT,
+    ASK_RENAME,
 	N_SIGNALS
 };
 
@@ -35,10 +38,12 @@ static guint signals[N_SIGNALS];
 static void fm_file_ops_job_finalize  			(GObject *object);
 
 static gboolean fm_file_ops_job_run(FmJob* fm_job);
+/* static void fm_file_ops_job_cancel(FmJob* job); */
 
 /* funcs for io jobs */
 static gboolean chmod_files(FmFileOpsJob* job);
 static gboolean chown_files(FmFileOpsJob* job);
+gboolean fm_file_ops_job_link_run(FmFileOpsJob* job);
 
 
 G_DEFINE_TYPE(FmFileOpsJob, fm_file_ops_job, FM_TYPE_JOB);
@@ -71,6 +76,16 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__UINT,
                       G_TYPE_NONE, 1, G_TYPE_UINT );
+
+    signals[ASK_RENAME] =
+        g_signal_new( "ask-rename",
+                      G_TYPE_FROM_CLASS ( klass ),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET ( FmFileOpsJobClass, ask_rename ),
+                      NULL, NULL,
+                      fm_marshal_INT__POINTER_POINTER_POINTER,
+                      G_TYPE_INT, 3, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER );
+
 }
 
 
@@ -106,6 +121,13 @@ FmJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 	return (FmJob*)job;
 }
 
+/*
+void fm_file_ops_job_cancel(FmJob* job)
+{
+
+}
+*/
+
 gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
@@ -114,23 +136,19 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 	switch(job->type)
 	{
 	case FM_FILE_OP_COPY:
-		fm_file_ops_job_copy_run(job);
-		break;
+		return fm_file_ops_job_copy_run(job);
 	case FM_FILE_OP_MOVE:
-		fm_file_ops_job_move_run(job);
-		break;
+		return fm_file_ops_job_move_run(job);
 	case FM_FILE_OP_TRASH:
-		fm_file_ops_job_trash_run(job);
-		break;
+		return fm_file_ops_job_trash_run(job);
 	case FM_FILE_OP_DELETE:
-		fm_file_ops_job_delete_run(job);
-		break;
+		return fm_file_ops_job_delete_run(job);
+    case FM_FILE_OP_LINK:
+        return fm_file_ops_job_link_run(job);
 	case FM_FILE_OP_CHMOD:
-		chmod_files(job);
-		break;
+		return chmod_files(job);
 	case FM_FILE_OP_CHOWN:
-		chown_files(job);
-		break;
+		return chown_files(job);
 	}
 	return TRUE;
 }
@@ -139,6 +157,11 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest)
 {
 	job->dest = fm_path_ref(dest);
+}
+
+FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job)
+{
+    return job->dest;
 }
 
 static gboolean on_cancelled(FmFileOpsJob* job)
@@ -182,5 +205,103 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
     	fm_job_call_main_thread(job, emit_percent, (gpointer)percent);
         job->percent = percent;
     }
+}
+
+struct AskRename
+{
+    FmFileInfo* src_fi;
+    FmFileInfo* dest_fi;
+    char* new_name;
+    FmFileOpOption ret;
+};
+
+static void emit_ask_rename(FmFileOpsJob* job, struct AskRename* data)
+{
+    g_signal_emit(job, signals[ASK_RENAME], 0, data->src_fi, data->dest_fi, &data->new_name, &data->ret);
+}
+
+FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)
+{
+    struct AskRename data;
+    int ret = 0;
+    FmFileInfoJob* fijob = fm_file_info_job_new(NULL);
+    FmFileInfo *src_fi = NULL, *dest_fi = NULL;
+    FmPath *tmp;
+
+    if( !src_inf )
+        fm_file_info_job_add_gfile(fijob, src);
+    else
+    {
+        tmp = fm_path_new_for_gfile(src);
+        src_fi = fm_file_info_new_from_gfileinfo(tmp->parent, src_inf);
+        fm_path_unref(tmp);
+    }
+    fm_file_info_job_add_gfile(fijob, dest);
+
+    fm_job_set_cancellable(FM_JOB(fijob), FM_JOB(job)->cancellable);
+    fm_job_run_sync(FM_JOB(fijob));
+
+    /* FIXME, handle cancellation correctly */
+    if(FM_JOB(fijob)->cancel)
+    {
+        if(src_fi)
+            fm_file_info_unref(src_fi);
+        g_object_unref(fijob);
+        return 0;
+    }
+
+    if(!src_inf)
+        src_fi = fm_list_pop_head(fijob->file_infos);
+    dest_fi = fm_list_pop_head(fijob->file_infos);
+    g_object_unref(fijob);
+
+    data.ret = 0;
+    data.src_fi = src_fi;
+    data.dest_fi = dest_fi;
+    data.new_name = NULL;
+    fm_job_call_main_thread(job, emit_ask_rename, (gpointer)&data);
+
+    if(data.ret == FM_FILE_OP_RENAME)
+    {
+        if(data.new_name)
+        {
+            GFile* parent = g_file_get_parent(dest);
+            *new_dest = g_file_get_child(parent, data.new_name);
+            g_object_unref(parent);
+            g_free(data.new_name);
+        }
+    }
+
+    fm_file_info_unref(src_fi);
+    fm_file_info_unref(dest_fi);
+
+    return data.ret;
+}
+
+gboolean fm_file_ops_job_link_run(FmFileOpsJob* job)
+{
+	GList* l;
+    GError* err = NULL;
+    FmJob* fmjob = FM_JOB(job);
+    job->total = fm_list_get_length(job->srcs);
+	l = fm_list_peek_head_link(job->srcs);
+	for(; !fmjob->cancel && l;l=l->next)
+	{
+		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+        gboolean ret = g_file_make_symbolic_link(gf, "", fmjob->cancellable, &err);
+		g_object_unref(gf);
+        if(!ret)
+        {
+            if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
+            {
+//                fm_job_emit_error();
+                return FALSE;
+            }
+        }
+        else
+            ++job->finished;
+        fm_file_ops_job_emit_percent(job);
+	}
+    return TRUE;
 }
 

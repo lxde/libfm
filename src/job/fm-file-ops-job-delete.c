@@ -143,5 +143,57 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
 
 gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
 {
-    
+	GList* l;
+    GList* failed = NULL;
+    GError* err = NULL;
+    FmJob* fmjob = FM_JOB(job);
+	g_debug("total number of files to delete: %llu", fm_list_get_length(job->srcs));
+    job->total = fm_list_get_length(job->srcs);
+
+    /* FIXME: we shouldn't trash a file already in trash:/// */
+
+	l = fm_list_peek_head_link(job->srcs);
+	for(; !fmjob->cancel && l;l=l->next)
+	{
+		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+        gboolean ret = g_file_trash(gf, fmjob->cancellable, &err);
+		g_object_unref(gf);
+        if(!ret)
+        {
+            if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
+            {
+                /* if trashing is not supported by the file system */
+                failed = g_list_prepend(failed, (FmPath*)l->data);
+                /* will fallback to delete later. */
+                continue;
+            }
+            /* otherwise, it's caused by another reason */
+            /* FIXME: ask the user first before we returned? */
+            return FALSE;
+        }
+        else
+            ++job->finished;
+        fm_file_ops_job_emit_percent(job);
+	}
+
+    /* these files cannot be trashed due to lack of support from
+     * underlying file systems. */
+    if(failed)
+    {
+/*
+        char* msg = g_strdup_printf(
+                        _("These files cannot be moved to trash bin because"
+                        "the underlying file systems don't support this operation\n"
+                        "%s"
+                        "Are you want to delete them instead?"), files);
+        fm_job_ask(job, msg, );
+*/
+        /* fallback to delete! */
+        job->total = g_list_length(failed);
+        job->finished = 0;
+        fm_file_ops_job_emit_percent(job);
+        /* replace srcs with failed files and run delete job instead */
+        // fm_file_ops_job_delete_run(job);
+    }
+    return TRUE;
 }
