@@ -10,28 +10,26 @@ AM_CPPFLAGS = \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
-bin_PROGRAMS = libfm-demo
-
 base_SOURCES = \
-	base/fm-list.c base/fm-list.h \
-	base/fm-path.c base/fm-path.h \
-	base/fm-folder.c base/fm-folder.h \
-	base/fm-file-info.c base/fm-file-info.h \
-	base/fm-mime-type.c base/fm-mime-type.h \
-	base/fm-utils.c base/fm-utils.h \
-	base/fm-icon.c base/fm-icon.h \
-	base/fm-bookmarks.c base/fm-bookmarks.h \
-	base/fm-marshal.c base/fm-marshal.h \
+	base/fm-list.c \
+	base/fm-path.c \
+	base/fm-folder.c \
+	base/fm-file-info.c \
+	base/fm-mime-type.c \
+	base/fm-utils.c \
+	base/fm-icon.c \
+	base/fm-bookmarks.c \
+	base/fm-marshal.c \
 	$(NULL)
 
 job_SOURCES = \
-	job/fm-job.c job/fm-job.h \
-	job/fm-dir-list-job.c job/fm-dir-list-job.h \
-	job/fm-deep-count-job.c job/fm-deep-count-job.h \
-	job/fm-file-ops-job.c job/fm-file-ops-job.h \
-	job/fm-file-info-job.c job/fm-file-info-job.h \
-	job/fm-file-ops-job-xfer.c job/fm-file-ops-job-xfer.h \
-	job/fm-file-ops-job-delete.c job/fm-file-ops-job-delete.h \
+	job/fm-job.c \
+	job/fm-dir-list-job.c \
+	job/fm-deep-count-job.c  \
+	job/fm-file-ops-job.c \
+	job/fm-file-info-job.c \
+	job/fm-file-ops-job-xfer.c \
+	job/fm-file-ops-job-delete.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -53,30 +51,95 @@ exo_SOURCES = \
 	gtk/exo/exo-string.h \
 	$(NULL)
 
-
 libfm_gtk_SOURCES = \
 	$(exo_SOURCES) \
-	gtk/fm-folder-view.c gtk/fm-folder-view.h \
-	gtk/fm-folder-model.c gtk/fm-folder-model.h \
-	gtk/fm-path-entry.c gtk/fm-path-entry.h \
-	gtk/fm-file-menu.c gtk/fm-file-menu.h \
-	gtk/fm-file-properties.c gtk/fm-file-properties.h \
-	gtk/fm-clipboard.c gtk/fm-clipboard.h \
-	gtk/fm-progress-dlg.c gtk/fm-progress-dlg.h \
-	gtk/fm-icon-pixbuf.c gtk/fm-icon-pixbuf.h \
-	gtk/fm-cell-renderer-text.c gtk/fm-cell-renderer-text.h \
-	gtk/fm-dnd-src.c gtk/fm-dnd-src.h \
-	gtk/fm-dnd-dest.c gtk/fm-dnd-dest.h \
-	gtk/fm-gtk-utils.c gtk/fm-gtk-utils.h \
-	gtk/fm-gtk-marshal.c gtk/fm-gtk-marshal.h \
+	gtk/fm-folder-view.c \
+	gtk/fm-folder-model.c \
+	gtk/fm-path-entry.c \
+	gtk/fm-file-menu.c \
+	gtk/fm-file-properties.c \
+	gtk/fm-clipboard.c \
+	gtk/fm-progress-dlg.c \
+	gtk/fm-icon-pixbuf.c \
+	gtk/fm-cell-renderer-text.c \
+	gtk/fm-dnd-src.c \
+	gtk/fm-dnd-dest.c \
+	gtk/fm-gtk-utils.c \
+	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-libfm_demo_SOURCES = \
+LIBFM_INCLUDES = \
+	fm.h \
+	base/fm-list.h \
+	base/fm-path.h \
+	base/fm-folder.h \
+	base/fm-file-info.h \
+	base/fm-mime-type.h \
+	base/fm-utils.h \
+	base/fm-icon.h \
+	base/fm-bookmarks.h \
+	base/fm-marshal.h \
+	job/fm-job.h \
+	job/fm-dir-list-job.h \
+	job/fm-deep-count-job.h \
+	job/fm-file-ops-job.h \
+	job/fm-file-info-job.h \
+	job/fm-file-ops-job-xfer.h \
+	job/fm-file-ops-job-delete.h \
+	$(NULL)
+
+LIBFM_GTK_INCLUDES = \
+	gtk/fm-folder-view.h \
+	gtk/fm-folder-model.h \
+	gtk/fm-path-entry.h \
+	gtk/fm-file-menu.h \
+	gtk/fm-file-properties.h \
+	gtk/fm-clipboard.h \
+	gtk/fm-progress-dlg.h \
+	gtk/fm-icon-pixbuf.h \
+	gtk/fm-cell-renderer-text.h \
+	gtk/fm-dnd-src.h \
+	gtk/fm-dnd-dest.h \
+	gtk/fm-gtk-utils.h \
+	gtk/fm-gtk-marshal.h \
+	$(NULL)
+
+pkginclude_HEADERS = \
+	$(LIBFM_INCLUDES) \
+	$(LIBFM_GTK_INCLUDES) \
+	$(NULL)
+
+lib_LTLIBRARIES = libfm.la
+libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(libfm_gtk_SOURCES) \
+	$(NULL)
+
+libfm_la_CFLAGS = \
+	@GTK_CFLAGS@ \
+	@MENU_CACHE_CFLAGS@ \
+	-Werror-implicit-function-declaration
+
+libfm_la_LIBADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
+
+libfm_la_LDFLAGS = \
+	-no-undefined \
+	-export-symbols-regex fm \
+	$(NULL)
+
+
+bin_PROGRAMS = libfm-demo
+libfm_demo_SOURCES = \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \
 	$(NULL)
+
+libfm_demo_CFLAGS = \
+	@GTK_CFLAGS@ \
+	@MENU_CACHE_CFLAGS@ \
+	-Werror-implicit-function-declaration
+
+libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS) libfm.la
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
@@ -110,14 +173,6 @@ CLEANFILES = \
 	gtk/fm-gtk-marshal.h \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
-
-libfm_demo_CFLAGS = \
-	@GTK_CFLAGS@ \
-	@MENU_CACHE_CFLAGS@ \
-	-Werror-implicit-function-declaration
-
-libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
-
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget
 #lib_LTLIBRARIES=libfm-chooser-hack.la
