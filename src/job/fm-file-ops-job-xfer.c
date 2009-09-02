@@ -23,6 +23,8 @@
 #include "fm-file-ops-job-delete.h"
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -98,6 +100,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                         break;
                     case FM_FILE_OP_CANCEL:
                         fm_job_cancel(FM_JOB(job));
+                        ret = FALSE;
                         goto _out;
                         break;
                     }
@@ -138,14 +141,40 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 						goto _out;
 					}
 					else /* EOF is reached */
+                    {
+                        ret = TRUE;
 						break;
+                    }
 				}
-                ret = TRUE;
 			}
 			g_file_enumerator_close(enu, NULL, &err);
 			g_object_unref(enu);
 		}
 		break;
+
+    case G_FILE_TYPE_SPECIAL:
+        /* only handle FIFO for local files */
+        if(g_file_is_native(src) && g_file_is_native(dest))
+        {
+            char* src_path = g_file_get_path(src);
+            struct stat src_st;
+            int r;
+            r = lstat(src_path, &src_st);
+            g_free(src_path);
+            if(r == 0)
+            {
+                /* Handle FIFO on native file systems. */
+                if(S_ISFIFO(src_st.st_mode))
+                {
+                    char* dest_path = g_file_get_path(dest);
+                    int r = mkfifo(dest_path, src_st.st_mode);
+                    g_free(dest_path);
+                    if( r == 0)
+                        break;
+                }
+                /* FIXME: how about blcok device, char device, and socket? */
+            }
+        }
 
 	default:
         flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
@@ -175,6 +204,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
+                    ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
                     break;
@@ -182,7 +212,10 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 goto _out;
             }
             if(!opt)
+            {
                 fm_job_emit_error(fmjob, err, FALSE);
+                g_error_free(err);
+            }
 			goto _out;
 		}
 		job->finished += size;
@@ -210,6 +243,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     goffset size;
 	FmJob* fmjob = FM_JOB(job);
     const char* src_fs_id;
+    gboolean ret = TRUE;
 
 	if( G_LIKELY(inf) )
 		_inf = NULL;
@@ -258,6 +292,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
+                    ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
                     break;
@@ -265,7 +300,10 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 goto _out;
             }
             if(!opt)
+            {
                 fm_job_emit_error(fmjob, err, FALSE);
+                ret = FALSE;
+            }
             goto _out;
         }
     }
@@ -280,7 +318,7 @@ _out:
     /* FIXME: error handling */
     if( _inf )
         g_object_unref(_inf);
-	return TRUE;
+	return ret;
 }
 
 void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
@@ -318,7 +356,10 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 		GFile* dest = fm_path_to_gfile(_dest);
 		fm_path_unref(_dest);
 		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
+        {
+            fm_job_cancel(job);
 			return FALSE;
+        }
 	}
 	return TRUE;
 }
@@ -372,7 +413,10 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 		GFile* dest = fm_path_to_gfile(_dest);
 		fm_path_unref(_dest);
 		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
+        {
+            fm_job_cancel(job);
 			return FALSE;
+        }
 	}
     return TRUE;
 }

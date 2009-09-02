@@ -28,7 +28,14 @@
 
 G_BEGIN_DECLS
 
-GtkWidget* fm_progress_dlg_new(FmFileOpsJob* job);
+typedef struct _FmProgressDisplay FmProgressDisplay;
+
+
+/* Show progress dialog for file operations
+ * The returned data structure will be freed in idle handler automatically
+ * when it's not needed anymore.
+ */
+FmProgressDisplay* fm_display_progress(FmFileOpsJob* job);
 
 G_END_DECLS
 

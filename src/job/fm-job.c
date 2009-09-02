@@ -374,6 +374,7 @@ struct ErrData
 gpointer error_in_main_thread(FmJob* job, struct ErrData* data)
 {
 	gboolean ret;
+    g_debug("FmJob error: %s", data->err->message);
 	g_signal_emit(job, signals[ERROR], 0, data->err, data->recoverable, &ret);
 	return GINT_TO_POINTER(ret);
 }
