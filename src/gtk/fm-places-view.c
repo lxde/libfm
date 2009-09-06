@@ -22,6 +22,7 @@
 #include <glib/gi18n.h>
 #include "fm-places-view.h"
 #include "fm-gtk-utils.h"
+#include "fm-bookmarks.h"
 
 enum
 {
@@ -64,6 +65,8 @@ G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
 
 static GtkListStore* model = NULL;
 static GVolumeMonitor* vol_mon = NULL;
+static FmBookmarks* bookmarks = NULL;
+
 static guint signals[N_SIGNALS];
 
 static void fm_places_view_class_init(FmPlacesViewClass *klass)
@@ -122,7 +125,8 @@ static void fm_places_view_finalize(GObject *object)
         {
             PlaceItem* item;
             gtk_tree_model_get(model, COL_INFO, &item, -1);
-            place_item_free(item);
+            if(item)
+                place_item_free(item);
         }while(gtk_tree_model_iter_next(model, &it));
     }
     g_object_unref(model);
@@ -137,7 +141,7 @@ static void init_model()
     {
         GtkTreeIter it;
         PlaceItem* item;
-        GList *vols, *l;
+        GList *vols, *bms, *l;
         GIcon* icon;
         model = gtk_list_store_new(N_COLS, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
         g_object_add_weak_pointer(model, &model);
@@ -194,8 +198,18 @@ static void init_model()
         /* separator */
         gtk_list_store_append(model, &it);
 
-//        gtk_list_store_append(model, &it);
-//        gtk_list_store_set(model, &it, COL_ICON, icon, );
+        bookmarks = fm_bookmarks_get(); /* bookmarks */
+        bms = fm_bookmarks_list_all(bookmarks);
+        for(l=bms;l;l=l->next)
+        {
+            FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
+            item = g_slice_new0(PlaceItem);
+            item->type = PLACE_PATH;
+            item->path = fm_path_ref(bm->path);
+            item->icon = g_themed_icon_new("folder"); /* FIXME: get from FmIcon's cache */
+            gtk_list_store_append(model, &it);
+            gtk_list_store_set(model, &it, COL_ICON, item->icon, COL_LABEL, bm->name, COL_INFO, item, -1);
+        }
     }
     else
         g_object_ref(model);
@@ -233,7 +247,6 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_column_set_attributes( col, renderer,
                                          "text", COL_LABEL, NULL );
     gtk_tree_view_append_column ( self, col );
-//    g_signal_connect( view, "button-press-event", G_CALLBACK( on_button_press_event ), NULL );
 }
 
 

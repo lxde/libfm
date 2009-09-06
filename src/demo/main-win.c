@@ -232,7 +232,7 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
 
 static void fm_main_win_init(FmMainWin *self)
 {
-    GtkWidget* vbox, *menubar, *toolitem;
+    GtkWidget *vbox, *menubar, *toolitem, *scroll;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkAccelGroup* accel_grp;
@@ -248,7 +248,10 @@ static void fm_main_win_init(FmMainWin *self)
 
     /* places left pane */
     self->places_view = fm_places_view_new();
-    gtk_paned_add1(self->hpaned, self->places_view);
+    scroll = gtk_scrolled_window_new(NULL, NULL);
+    gtk_scrolled_window_set_policy(scroll, GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+    gtk_container_add(scroll, self->places_view);
+    gtk_paned_add1(self->hpaned, scroll);
 
     /* folder view */
     self->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
