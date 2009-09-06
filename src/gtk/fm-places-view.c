@@ -250,6 +250,8 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
         PlaceItem* item;
         FmPath* path;
         gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+        if(!item)
+            return;
         switch(item->type)
         {
         case PLACE_PATH:
