@@ -256,19 +256,21 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
             path = fm_path_ref(item->path);
             break;
         case PLACE_VOL:
-            if(g_volume_can_mount(item->vol))
+        {
+            GFile* gf;
+            GMount* mnt = g_volume_get_mount(item->vol);
+            if(!mnt)
             {
-                GMount* mnt;
-                GFile* gf;
                 if(!fm_mount_volume(NULL, item->vol))
                     return;
                 mnt = g_volume_get_mount(item->vol);
-                gf = g_mount_get_root(mnt);
-                g_object_unref(mnt);
-                path = fm_path_new_for_gfile(gf);
-                g_object_unref(gf);
             }
+            gf = g_mount_get_root(mnt);
+            g_object_unref(mnt);
+            path = fm_path_new_for_gfile(gf);
+            g_object_unref(gf);
             break;
+        }
         default:
             return;
         }
