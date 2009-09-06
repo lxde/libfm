@@ -22,6 +22,7 @@
 #include <glib/gi18n.h>
 
 #include "main-win.h"
+#include "fm-places-view.h"
 #include "fm-folder-view.h"
 #include "fm-folder-model.h"
 #include "fm-path-entry.h"
@@ -242,6 +243,14 @@ static void fm_main_win_init(FmMainWin *self)
     self->location = fm_path_entry_new();
     g_signal_connect(self->location, "activate", on_entry_activate, self);
 
+    self->hpaned = gtk_hpaned_new();
+    gtk_paned_set_position(self->hpaned, 150);
+
+    /* places left pane */
+    self->places_view = fm_places_view_new();
+    gtk_paned_add1(self->hpaned, self->places_view);
+
+    /* folder view */
     self->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
     fm_folder_view_set_show_hidden(self->folder_view, FALSE);
     fm_folder_view_sort(self->folder_view, GTK_SORT_DESCENDING, COL_FILE_NAME);
@@ -249,6 +258,11 @@ static void fm_main_win_init(FmMainWin *self)
     g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
     g_signal_connect(self->folder_view, "status", on_status, self);
     g_signal_connect(self->folder_view, "sel-changed", on_sel_changed, self);
+
+    gtk_paned_add2(self->hpaned, self->folder_view);
+
+    /* link places view with folder view. */
+    g_signal_connect_swapped(self->places_view, "chdir", G_CALLBACK(fm_main_win_chdir), self);
 
     /* create menu bar and toolbar */
     ui = gtk_ui_manager_new();
@@ -278,8 +292,7 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_tool_item_set_expand(toolitem, TRUE);
     gtk_toolbar_insert((GtkToolbar*)self->toolbar, toolitem, gtk_toolbar_get_n_items(self->toolbar) - 1 );
 
-    /* folder view */
-    gtk_box_pack_start( (GtkBox*)vbox, self->folder_view, TRUE, TRUE, 0 );
+    gtk_box_pack_start( (GtkBox*)vbox, self->hpaned, TRUE, TRUE, 0 );
 
     /* status bar */
     self->statusbar = gtk_statusbar_new();

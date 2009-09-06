@@ -24,6 +24,7 @@
 #define __FM_GTK_UTILS_H__
 
 #include <gtk/gtk.h>
+#include <gio/gio.h>
 #include <stdarg.h>
 
 #include "fm-path.h"
@@ -54,6 +55,7 @@ FmPath* fm_select_folder(GtkWindow* parent);
 
 /* Mount */
 gboolean fm_mount_path(GtkWindow* parent, FmPath* path);
+gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol);
 
 /* File operations */
 void fm_copy_files(FmPathList* files, FmPath* dest_dir);

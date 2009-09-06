@@ -48,6 +48,8 @@ struct _FmMainWin
 	/* add your public declarations here */
 	GtkWidget* toolbar;
 	GtkWidget* location;
+    GtkWidget* hpaned;
+    GtkWidget* places_view;
 	GtkWidget* folder_view;
 	GtkWidget* statusbar;
     GtkWidget* bookmarks_menu;

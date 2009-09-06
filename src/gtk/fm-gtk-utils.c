@@ -218,13 +218,19 @@ FmPath* fm_select_folder(GtkWindow* parent)
 struct MountData
 {
     GMainLoop *loop;
+    gboolean is_volume;
     GError* err;
 };
 
-void on_mounted(GFile *gf, GAsyncResult *res, struct MountData* data)
+void on_mounted(GObject* src, GAsyncResult *res, struct MountData* data)
 {
     GError* err = NULL;
-    if( !g_file_mount_enclosing_volume_finish(gf, res, &err) )
+    gboolean ret;
+    if(data->is_volume)
+        ret = g_volume_mount_finish(G_VOLUME(src), res, &err);
+    else
+        ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &err);
+    if( !ret )
         data->err = err;
     else
     {
@@ -234,16 +240,25 @@ void on_mounted(GFile *gf, GAsyncResult *res, struct MountData* data)
     g_main_loop_quit(data->loop);
 }
 
-gboolean fm_mount_path(GtkWindow* parent, FmPath* path)
+gboolean fm_mount_volume_or_path(GtkWindow* parent, GVolume* vol, FmPath* path)
 {
     gboolean ret = FALSE;
     struct MountData* data = g_new0(struct MountData, 1);
-    GFile* gf = fm_path_to_gfile(path);
     GMountOperation* op = gtk_mount_operation_new(parent);
     GCancellable* cancel = g_cancellable_new();
     data->loop = g_main_loop_new (NULL, TRUE);
 
-    g_file_mount_enclosing_volume(gf, 0, op, cancel, (GAsyncReadyCallback)on_mounted, data);
+    if(path)
+    {
+        GFile* gf = fm_path_to_gfile(path);
+        g_file_mount_enclosing_volume(gf, 0, op, cancel, (GAsyncReadyCallback)on_mounted, data);
+        g_object_unref(gf);
+    }
+    else
+    {
+        data->is_volume = TRUE;
+        g_volume_mount(vol, 0, op, cancel, (GAsyncReadyCallback)on_mounted, data);
+    }
 
     if (g_main_loop_is_running(data->loop))
     {
@@ -264,8 +279,17 @@ gboolean fm_mount_path(GtkWindow* parent, FmPath* path)
     g_free(data);
     g_object_unref(cancel);
     g_object_unref(op);
-    g_object_unref(gf);
     return ret;
+}
+
+gboolean fm_mount_path(GtkWindow* parent, FmPath* path)
+{
+    return fm_mount_volume_or_path(parent, NULL, path);
+}
+
+gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol)
+{
+    return fm_mount_volume_or_path(parent, vol, NULL);
 }
 
 /* File operations */

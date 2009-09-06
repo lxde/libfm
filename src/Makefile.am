@@ -55,6 +55,7 @@ libfm_gtk_SOURCES = \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
+	gtk/fm-places-view.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
 	gtk/fm-file-properties.c \
@@ -91,6 +92,7 @@ LIBFM_INCLUDES = \
 LIBFM_GTK_INCLUDES = \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
+	gtk/fm-places-view.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
 	gtk/fm-file-properties.h \
