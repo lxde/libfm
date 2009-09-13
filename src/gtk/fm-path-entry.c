@@ -2,6 +2,7 @@
  *      fm-path-entry.c
  *      
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 Jürgen Hötzel <juergen@archlinux.org>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
 #include <gio/gio.h>
 #include <string.h>
 
+/* treestore columns */
 enum
 {
     COL_NAME,
@@ -30,21 +32,31 @@ enum
     N_COLS
 };
 
-typedef struct _FmPathEntry
+
+#define FM_PATH_ENTRY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), FM_TYPE_PATH_ENTRY, FmPathEntryPrivate))
+
+typedef struct _FmPathEntryPrivate FmPathEntryPrivate;
+
+struct _FmPathEntryPrivate 
 {
-    GtkEntry* entry;
-	GtkEntryCompletion* ec;
-	GFilenameCompleter* fc;
-}FmPathEntry;
+    GtkEntryCompletion* ec;
+    GFilenameCompleter* fc;
+};
+
+G_DEFINE_TYPE (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY)
 
 static void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* entry);
 
 static void update_completion(FmPathEntry* pe, gboolean clear_old)
 {
-    GtkListStore* list = (GtkListStore*)gtk_entry_completion_get_model(pe->ec);
-	char** fns = g_filename_completer_get_completions(pe->fc, gtk_entry_get_text(pe->entry)), **fn;
+    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(pe);
+    GtkListStore* list = (GtkListStore*)gtk_entry_completion_get_model(private->ec);
+    gchar** fns = g_filename_completer_get_completions(private->fc, gtk_entry_get_text(GTK_ENTRY(pe)));
+    gchar** fn;
+
     if(clear_old)
         gtk_list_store_clear(list);
+
     if(fns)
     {
         for(fn=fns; *fn; ++fn)
@@ -61,14 +73,17 @@ static void update_completion(FmPathEntry* pe, gboolean clear_old)
 
 static void on_changed( GtkEntry* entry, gpointer user_data )
 {
-    FmPathEntry* pe = (FmPathEntry*)user_data;
-    if(pe->ec)
-        update_completion(pe, TRUE);
+    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE( entry );
+		       
+    if(private->ec)
+        update_completion(FM_PATH_ENTRY(entry), TRUE);
 }
 
-static gboolean on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
+static gboolean fm_path_entry_focus_in( GtkWidget *entry, GdkEventFocus* evt)
 {
-    FmPathEntry* pe = (FmPathEntry*)user_data;
+#if GLIB_CHECK_VERSION(2,20,4)
+    FmPathEntry* pe = FM_PATH_ENTRY(entry);
+    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE(entry);
     GtkEntryCompletion* completion = gtk_entry_completion_new();
     GtkListStore* list = gtk_list_store_new( N_COLS, G_TYPE_STRING, G_TYPE_STRING );
     GtkCellRenderer* render;
@@ -90,22 +105,28 @@ static gboolean on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user
     g_signal_connect( G_OBJECT(entry), "changed", G_CALLBACK(on_changed), pe );
     g_object_unref( completion );
 
-	pe->ec = completion;
-	pe->fc = g_filename_completer_new();
-	g_signal_connect(pe->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), pe);
-	g_filename_completer_set_dirs_only(pe->fc, TRUE);
 
+    private->ec = completion;
+    private->fc = g_filename_completer_new();
+    g_signal_connect(private->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), pe);
+    g_filename_completer_set_dirs_only(private->fc, TRUE);
+#endif
     return FALSE;
 }
 
-static gboolean on_focus_out( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
+static gboolean fm_path_entry_focus_out( GtkWidget *entry, GdkEventFocus* evt)
 {
-    FmPathEntry* pe = (FmPathEntry*)user_data;
+#if GLIB_CHECK_VERSION(2,20,4)
+    FmPathEntry* pe = FM_PATH_ENTRY(entry);
+    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE(entry );
+    
     g_signal_handlers_disconnect_by_func( entry, on_changed, NULL );
     gtk_entry_set_completion( GTK_ENTRY(entry), NULL );
-    pe->ec = NULL;
-    g_object_unref(pe->fc);
-    pe->fc = NULL;
+
+    private->ec = NULL;
+    g_object_unref(private->fc);
+    private->fc = NULL;
+#endif    
     return FALSE;
 }
 
@@ -114,24 +135,26 @@ static void path_entry_free(FmPathEntry* pe)
     g_slice_free(FmPathEntry, pe);
 }
 
+static void fm_path_entry_class_init (FmPathEntryClass *klass)
+{      
+    GtkWidgetClass* widget_class = (GtkWidgetClass*) klass;
+
+    widget_class->focus_in_event = fm_path_entry_focus_in;
+    widget_class->focus_out_event = fm_path_entry_focus_out;
+
+    g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
+}
+
+static void
+fm_path_entry_init (FmPathEntry *entry)
+{
+
+}
+
+
 GtkWidget* fm_path_entry_new()
 {
-    GtkWidget* entry = gtk_entry_new();
-    FmPathEntry* pe = g_slice_new0(FmPathEntry);
-    pe->entry = entry;
-
-    /* FIXME: replace GFilenameCompleter with our own implementation
-     * later is a better idea since both its quality and usability 
-     * are not good enough. */
-    /* GFilenameCompleter is buggy before this version. */
-    /* glib bug #586868 can cause seg faults */
-#if GLIB_CHECK_VERSION(2,20,4)
-    g_signal_connect( entry, "focus-in-event", G_CALLBACK(on_focus_in), pe );
-    g_signal_connect( entry, "focus-out-event", G_CALLBACK(on_focus_out), pe );
-    g_object_set_data_full(entry, "pe", pe, path_entry_free);
-#endif
-
-    return entry;
+    return GTK_WIDGET(g_object_new(fm_path_entry_get_type(), NULL));
 }
 
 void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* pe)

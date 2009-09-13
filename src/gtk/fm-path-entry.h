@@ -2,6 +2,7 @@
  *      fm-path-entry.h
  *      
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 Jürgen Hötzel <juergen@archlinux.org>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -28,7 +29,28 @@
 
 G_BEGIN_DECLS
 
-GtkWidget*	fm_path_entry_new			(void);
+#define FM_TYPE_PATH_ENTRY (fm_path_entry_get_type())
+#define FM_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), FM_TYPE_PATH_ENTRY, FmPathEntry))
+#define FM_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), FM_TYPE_PATH_ENTRY, FmPathEntryClass))
+#define IS_FM_TYPE_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FM_TYPE_PATH_ENTRY))
+#define IS_FM_TYPE_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FM_TYPE_PATH_ENTRY), FmPathEntry)
+
+typedef struct _FmPathEntry	FmPathEntry;
+typedef struct _FmPathEntryClass FmPathEntryClass;
+
+struct _FmPathEntry 
+{
+  GtkEntry parent_instance;
+};
+
+struct _FmPathEntryClass
+{
+  GtkEntryClass parent_class;
+};
+
+GType fm_path_entry_get_type(void);
+GtkWidget* fm_path_entry_new(void);
+
 
 G_END_DECLS
 
