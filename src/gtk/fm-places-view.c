@@ -23,6 +23,7 @@
 #include "fm-places-view.h"
 #include "fm-gtk-utils.h"
 #include "fm-bookmarks.h"
+#include "fm-file-menu.h"
 
 enum
 {
@@ -63,6 +64,10 @@ static void on_row_activated( GtkTreeView* view, GtkTreePath* tree_path, GtkTree
 static gboolean on_button_press(GtkWidget* view, GdkEventButton* evt);
 static gboolean on_button_release(GtkWidget* view, GdkEventButton* evt);
 
+static void on_mount(GtkAction* act, gpointer user_data);
+static void on_umount(GtkAction* act, gpointer user_data);
+static void on_eject(GtkAction* act, gpointer user_data);
+
 G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
 
 static GtkListStore* model = NULL;
@@ -71,6 +76,37 @@ static FmBookmarks* bookmarks = NULL;
 static GtkTreeIter sep_it = {0};
 
 static guint signals[N_SIGNALS];
+
+const char vol_menu_xml[]=
+"<popup>"
+  "<placeholder name='ph3'>"
+  "<menuitem action='Mount'/>"
+  "<menuitem action='Unmount'/>"
+  "<menuitem action='Eject'/>"
+  "</placeholder>"
+"</popup>";
+
+GtkActionEntry vol_menu_actions[]=
+{
+    {"Mount", NULL, N_("Mount Volume"), NULL, NULL, on_mount},
+    {"Unmount", NULL, N_("Unmount Volume"), NULL, NULL, on_umount},
+    {"Eject", NULL, N_("Eject Removable Media"), NULL, NULL, on_eject}
+};
+
+const char bookmark_menu_xml[]=
+"<popup>"
+  "<placeholder name='ph3'>"
+  "<menuitem action='RenameBm'/>"
+  "<menuitem action='RemoveBm'/>"
+  "</placeholder>"
+"</popup>";
+
+GtkActionEntry bm_menu_actions[]=
+{
+    {"RenameBm", NULL, N_("Rename Bookmark Item"), NULL, NULL, NULL},
+    {"RemoveBm", NULL, N_("Remove from Bookmark"), NULL, NULL, NULL}
+};
+
 
 static void fm_places_view_class_init(FmPlacesViewClass *klass)
 {
@@ -81,6 +117,7 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
 	g_object_class->finalize = fm_places_view_finalize;
 
     widget_class = GTK_WIDGET_CLASS(klass);
+    widget_class->button_press_event = on_button_press;
     widget_class->button_release_event = on_button_release;
 
     tv_class = GTK_TREE_VIEW_CLASS(klass);
@@ -382,21 +419,90 @@ gboolean on_button_release(GtkWidget* view, GdkEventButton* evt)
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
 }
 
+GtkWidget* place_item_get_menu(PlaceItem* item)
+{
+    GtkWidget* menu = NULL;
+    FmFileMenu* file_menu;
+    GtkUIManager* ui = gtk_ui_manager_new();
+    GtkActionGroup* act_grp = act_grp = gtk_action_group_new("Popup");
+
+    /* FIXME: merge with FmFileMenu when possible */
+    if(item->type == PLACE_PATH)
+    {
+        gtk_action_group_add_actions(act_grp, bm_menu_actions, G_N_ELEMENTS(bm_menu_actions), item);
+        gtk_ui_manager_add_ui_from_string(ui, bookmark_menu_xml, -1, NULL);
+    }
+    else if(item->type == PLACE_VOL)
+    {
+        gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
+        gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
+    }
+    else
+        goto _out;
+    gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+
+    menu = gtk_ui_manager_get_widget(ui, "/popup");
+    if(menu)
+    {
+        g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+        g_object_weak_ref(menu, g_object_unref, g_object_ref(ui));
+    }
+
+_out:
+    g_object_unref(act_grp);
+    g_object_unref(ui);
+    return menu;
+}
+
 gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
 {
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
-    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
+    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(view, evt);
+//    while(gtk_events_pending())
+//        gtk_main_iteration();
+
     if(evt->button == 3 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
     {
         GtkTreeIter it;
         if(gtk_tree_model_get_iter(model, &it, tp))
         {
             PlaceItem* item;
+            GtkWidget* menu;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
-            
+            menu = place_item_get_menu(item);
+            if(menu)
+                gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, evt->time);
         }
         gtk_tree_path_free(tp);
     }
     return ret;
+}
+
+void on_mount(GtkAction* act, gpointer user_data)
+{
+    PlaceItem* item = (PlaceItem*)user_data;
+    GMount* mnt = g_volume_get_mount(item->vol);
+    if(!mnt)
+    {
+        if(!fm_mount_volume(NULL, item->vol))
+            return;
+    }
+}
+
+void on_umount(GtkAction* act, gpointer user_data)
+{
+    PlaceItem* item = (PlaceItem*)user_data;
+    GMount* mnt = g_volume_get_mount(item->vol);
+    if(mnt)
+    {
+        fm_unmount_mount(NULL, mnt);
+        g_object_unref(mnt);
+    }
+}
+
+void on_eject(GtkAction* act, gpointer user_data)
+{
+    PlaceItem* item = (PlaceItem*)user_data;
+    fm_eject_volume(NULL, item->vol);
 }

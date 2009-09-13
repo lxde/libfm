@@ -56,6 +56,10 @@ FmPath* fm_select_folder(GtkWindow* parent);
 /* Mount */
 gboolean fm_mount_path(GtkWindow* parent, FmPath* path);
 gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol);
+gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount);
+gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol);
+gboolean fm_eject_mount(GtkWindow* parent, GMount* mount);
+gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol);
 
 /* File operations */
 void fm_copy_files(FmPathList* files, FmPath* dest_dir);
