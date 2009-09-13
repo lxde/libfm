@@ -434,8 +434,29 @@ GtkWidget* place_item_get_menu(PlaceItem* item)
     }
     else if(item->type == PLACE_VOL)
     {
+        GtkAction* act;
+        GMount* mnt;
         gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
         gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
+
+        mnt = g_volume_get_mount(item->vol);
+        if(mnt) /* mounted */
+        {
+            g_object_unref(mnt);
+            act = gtk_action_group_get_action(act_grp, "Mount");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        else /* not mounted */
+        {
+            act = gtk_action_group_get_action(act_grp, "Unmount");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+
+        if(g_volume_can_eject(item->vol))
+            act = gtk_action_group_get_action(act_grp, "Unmount");
+        else
+            act = gtk_action_group_get_action(act_grp, "Eject");
+        gtk_action_set_visible(act, FALSE);
     }
     else
         goto _out;
@@ -459,8 +480,6 @@ gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(view, evt);
-//    while(gtk_events_pending())
-//        gtk_main_iteration();
 
     if(evt->button == 3 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
     {
