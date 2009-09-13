@@ -45,6 +45,7 @@ typedef enum
     PLACE_VOL,
 }PlaceType;
 
+/* FIXME: need to replace GIcon with FmIcon later */
 typedef struct _PlaceItem
 {
     PlaceType type;
@@ -59,6 +60,7 @@ typedef struct _PlaceItem
 static void fm_places_view_finalize  			(GObject *object);
 
 static void on_row_activated( GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col);
+static gboolean on_button_press(GtkWidget* view, GdkEventButton* evt);
 static gboolean on_button_release(GtkWidget* view, GdkEventButton* evt);
 
 G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
@@ -378,4 +380,23 @@ gboolean on_button_release(GtkWidget* view, GdkEventButton* evt)
         gtk_tree_path_free(tp);
     }
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
+}
+
+gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
+{
+    GtkTreePath* tp;
+    GtkTreeViewColumn* col;
+    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
+    if(evt->button == 3 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
+    {
+        GtkTreeIter it;
+        if(gtk_tree_model_get_iter(model, &it, tp))
+        {
+            PlaceItem* item;
+            gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+            
+        }
+        gtk_tree_path_free(tp);
+    }
+    return ret;
 }

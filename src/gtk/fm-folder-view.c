@@ -344,6 +344,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			gtk_tree_view_column_set_expand(col, TRUE);
 			gtk_tree_view_column_set_resizable(col, TRUE);
 			gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
+            gtk_tree_view_column_set_fixed_width(col, 200);
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
 			render = gtk_cell_renderer_text_new();
@@ -367,7 +368,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_tree_view_set_search_column((GtkTreeView*)fv->view, COL_FILE_NAME);
             ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
             g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
-            g_signal_connect(ts, "selection-changed", G_CALLBACK(on_sel_changed), fv);
+            g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
             gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
             gtk_tree_selection_set_mode(ts, fv->sel_mode);
             for(l = sels;l;l=l->next)

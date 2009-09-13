@@ -168,7 +168,8 @@ static void update_completion(FmPathEntry* pe, gboolean clear_old)
 static void on_changed( GtkEntry* entry, gpointer user_data )
 {
     FmPathEntry* pe = (FmPathEntry*)user_data;
-    update_completion(pe, TRUE);
+    if(pe->ec)
+        update_completion(pe, TRUE);
 }
 
 static gboolean on_focus_in( GtkWidget *entry, GdkEventFocus* evt, gpointer user_data )
