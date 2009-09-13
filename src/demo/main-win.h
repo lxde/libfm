@@ -45,7 +45,8 @@ typedef struct _FmMainWinClass		FmMainWinClass;
 struct _FmMainWin
 {
 	GtkWindow parent;
-	/* add your public declarations here */
+
+    GtkUIManager* ui;
 	GtkWidget* toolbar;
 	GtkWidget* location;
     GtkWidget* hpaned;

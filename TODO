@@ -25,7 +25,7 @@
      For drag source, use file:///~/.gvfs/ rather than its original
      URL scheme to be compatible with other programs => need more survey
      Refuse drop if the user doesn't has access to destination dir.
-     Fix incorrect drop target item of icon view mode.
+     Fix incorrect drop target item of icon view mode. => done
      Fix incorrect design of 'query-info' signal.
 
 5. Better file size calculations
@@ -41,6 +41,8 @@
      a general purpose cache to associated paths with already loaded
      data associated those paths such as thumbnails or file monitors
      to optimize memory usage and decrease duplicated I/O.
+     => This might be cancelled due to difficulties to correctly implement
+        in a MT-safe way.
 
 9. Thumbnails, may be cached with FmPathCache to speed up loading.
      A FmThumbnailJob is needed.
@@ -59,7 +61,8 @@
 
 15.Mount volumes and mount points when needed
      This already works with remote URLs.
-     Need to be done for removable devices.
+     Need to be done for removable devices. => partially done
+     Now mounting works when the user click on a volume in side pane.
 
 16.Browse History for 'Back' and 'Forward'.
 
@@ -88,7 +91,7 @@
      If this is going to be supported, write a freedesktop.org spec for it.
      => low priority
 
-25.Display tooltips for folder items
+25.Display tooltips for folder items => low priority
 
 26.Warn the user for insufficient disk space before file operations.
 
@@ -98,7 +101,8 @@
 
 29.FmBookmarks to manage and monitor bookmarks. => partially done.
 
-30.Make libfm a real library.
+30.Make libfm a real library. => partially done
+     Need to seperate gtk+-dependet part from the core part.
 
 31.Bring some fallback icons (application-x-generic and folder) along with
      the package of libfm to work without icon themes.
@@ -107,11 +111,14 @@
      frequently-seen filetypes which are not included in shared-mime-info.
      => partially done.
 
-33.Fix the broken accelerators: Alt+D to move to location bar.
+33.Fix the broken accelerators: Alt+D to move to location bar. => done
+     If the GtkUIManager building them are destroyed, those keyboard
+     accelerators get removed, too. Keep the GtkUIManager can fix this.
 
 34.GtkFileChooser style path button bar. (can take the one in gtk)
 
 35.Change file type-application association in property dialog.
+     partially done, need to let the user choose a custom application.
 
 36.Move applications associated with a file to a seperate sub menu if
      There are too many items.
@@ -119,6 +126,7 @@
 37.Offer some global options like whether to use Trash bin or not to ease
      the development of file manager and all programs using this lib can
      all have consistent behavior.
+     Should we use lxconf here?
 
 38.Sync with libexo from its git repo to get the latest ExoIconView. => done.
 
@@ -126,6 +134,16 @@
      handle UTF-8 for simplicity.
 
 40.Find a way to share common configuration among all apps using libfm.
+     should we use lxconf?
 
 41.Handle special files like FIFO, socket, ...etc.
+     partially done for local UNIX fileystems.
 
+42.FmFileMenu should provide special menu items for special paths
+     For example:
+     Add a "Recover" popup menu item for files in trash:///
+     Provide totally different menus for items in computer:///
+     Provide "Uninstall" for items in applications:/// (requires integration with package-kit)
+
+43.Need to display marks on the icons of symlinks to let the users
+     know that they are symlinks

@@ -22,7 +22,6 @@
 /* this file is included by main-win.c */
 
 static const char main_menu_xml[] = 
-"<accelerator action='Location'/>"
 "<menubar>"
   "<menu action='FileMenu'>"
     "<menuitem action='New'/>"
@@ -91,7 +90,9 @@ static const char main_menu_xml[] =
   "<menuitem action='Paste'/>"
   "<separator/>"
   "<menuitem action='Prop'/>"
-"</popup>";
+"</popup>"
+"<accelerator action='Location'/>"
+"<accelerator action='Location2'/>";
 
 static GtkActionEntry main_win_actions[]=
 {
@@ -128,8 +129,9 @@ static GtkActionEntry main_win_actions[]=
     {"BookmarksMenu", NULL, N_("_Bookmarks"), NULL, NULL, NULL},
         {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
         {"EditBookmark", GTK_STOCK_EDIT, N_("Edit Bookmarks"), NULL, N_("Edit Bookmarks"), NULL},
-    /* FIXME: why this accelerator key doesn't work? */
-    {"Location", NULL, "Location", "<Alt>d", NULL, on_location},
+    /* for accelerators */
+    {"Location", NULL, NULL, "<Alt>d", NULL, on_location},
+    {"Location2", NULL, NULL, "<Ctrl>L", NULL, on_location},
     /* for popup menu */
     {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL}
 };

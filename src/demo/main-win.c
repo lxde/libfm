@@ -275,14 +275,16 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_action_group_add_radio_actions(act_grp, main_win_mode_actions, G_N_ELEMENTS(main_win_mode_actions), FM_FV_ICON_VIEW, on_change_mode, self);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, on_sort_type, self);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, on_sort_by, self);
-    gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
+    accel_grp = gtk_ui_manager_get_accel_group(ui);
+    gtk_window_add_accel_group(self, accel_grp);
+
+    gtk_ui_manager_insert_action_group(ui, act_grp, 0);
     gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
+
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
     self->toolbar = g_object_ref(gtk_ui_manager_get_widget(ui, "/toolbar"));
     self->popup = g_object_ref(gtk_ui_manager_get_widget(ui, "/popup"));
-    accel_grp = gtk_ui_manager_get_accel_group(ui);
-    gtk_window_add_accel_group(self, accel_grp);
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
     gtk_box_pack_start( (GtkBox*)vbox, self->toolbar, FALSE, TRUE, 0 );
 
@@ -304,7 +306,7 @@ static void fm_main_win_init(FmMainWin *self)
     self->statusbar_ctx2 = gtk_statusbar_get_context_id(self->statusbar, "status2");
 
     g_object_unref(act_grp);
-    g_object_unref(ui);
+    self->ui = ui;
 
     gtk_container_add( (GtkContainer*)self, vbox );
     gtk_widget_show_all(vbox);
@@ -332,6 +334,8 @@ static void fm_main_win_finalize(GObject *object)
     --n_wins;
 
     self = FM_MAIN_WIN(object);
+
+    g_object_unref(self->ui);
     g_object_unref(self->bookmarks);
 
     if (G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)
