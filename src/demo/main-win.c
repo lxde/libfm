@@ -29,6 +29,7 @@
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-utils.h"
+#include "fm-nav-history-menu.h"
 
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
@@ -232,9 +233,10 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
 
 static void fm_main_win_init(FmMainWin *self)
 {
-    GtkWidget *vbox, *menubar, *toolitem, *scroll;
+    GtkWidget *vbox, *menubar, *toolitem, *next_btn, *scroll;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
+    GtkAction* act;
     GtkAccelGroup* accel_grp;
 
     ++n_wins;
@@ -276,11 +278,27 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, on_sort_type, self);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, on_sort_by, self);
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+/*
+    act = g_object_new(FM_TYPE_NAV_HISTORY_ACTION, "name", "NextBtn", "stock-id", GTK_STOCK_GO_FORWARD, NULL);
+//    act = gtk_action_new("NextBtn", NULL, NULL, GTK_STOCK_GO_FORWARD);
+//    next_btn = gtk_menu_tool_button_new_from_stock(GTK_STOCK_GO_FORWARD);
+//    gtk_action_connect_proxy(act, next_btn);
+    //gtk_activatable_set_related_action(next_btn, act);
+    gtk_action_group_add_action(act_grp, act);
+*/
 
     gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
-    self->toolbar = g_object_ref(gtk_ui_manager_get_widget(ui, "/toolbar"));
-    self->popup = g_object_ref(gtk_ui_manager_get_widget(ui, "/popup"));
+    self->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
+
+    /* create 'Next' button manually and add a popup menu to it */
+    toolitem = g_object_new(GTK_TYPE_MENU_TOOL_BUTTON, NULL);
+    gtk_toolbar_insert(GTK_TOOLBAR(self->toolbar), toolitem, 2);
+    gtk_widget_show(GTK_WIDGET(toolitem));
+    act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Next");
+    gtk_activatable_set_related_action(toolitem, act);
+
+    self->popup = gtk_ui_manager_get_widget(ui, "/popup");
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(self, accel_grp);
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );

@@ -19,6 +19,7 @@ base_SOURCES = \
 	base/fm-utils.c \
 	base/fm-icon.c \
 	base/fm-bookmarks.c \
+	base/fm-nav-history.c \
 	base/fm-marshal.c \
 	$(NULL)
 
@@ -58,6 +59,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-places-view.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
+	gtk/fm-nav-history-menu.c \
 	gtk/fm-file-properties.c \
 	gtk/fm-clipboard.c \
 	gtk/fm-progress-dlg.c \
@@ -79,6 +81,7 @@ LIBFM_INCLUDES = \
 	base/fm-utils.h \
 	base/fm-icon.h \
 	base/fm-bookmarks.h \
+	base/fm-nav-history.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-dir-list-job.h \
@@ -95,6 +98,7 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-places-view.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
+	gtk/fm-nav-history-menu.h \
 	gtk/fm-file-properties.h \
 	gtk/fm-clipboard.h \
 	gtk/fm-progress-dlg.h \

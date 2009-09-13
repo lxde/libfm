@@ -82,7 +82,6 @@ static const char main_menu_xml[] =
 "<toolbar>"
     "<toolitem action='New'/>"
     "<toolitem action='Prev'/>"
-    "<toolitem action='Next'/>"
     "<toolitem action='Up'/>"
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
@@ -131,7 +130,8 @@ static GtkActionEntry main_win_actions[]=
     /* FIXME: why this accelerator key doesn't work? */
     {"Location", NULL, "Location", "<Alt>d", NULL, on_location},
     /* for popup menu */
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL}
+    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL},
+    {"NavHistory", NULL, "NavHistory", NULL, NULL, NULL}
 };
 
 static GtkActionEntry main_win_toggle_actions[]=
