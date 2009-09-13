@@ -214,22 +214,43 @@ FmPath* fm_select_folder(GtkWindow* parent)
     return path;
 }
 
+typedef enum {
+    MOUNT_VOLUME,
+    MOUNT_GFILE,
+    UMOUNT_MOUNT,
+    EJECT_MOUNT,
+    EJECT_VOLUME
+}MountAction;
 
 struct MountData
 {
     GMainLoop *loop;
-    gboolean is_volume;
+    MountAction action;
     GError* err;
 };
 
-void on_mounted(GObject* src, GAsyncResult *res, struct MountData* data)
+static void on_mount_action_finished(GObject* src, GAsyncResult *res, struct MountData* data)
 {
     GError* err = NULL;
     gboolean ret;
-    if(data->is_volume)
+    switch(data->action)
+    {
+    case MOUNT_VOLUME:
         ret = g_volume_mount_finish(G_VOLUME(src), res, &err);
-    else
+        break;
+    case MOUNT_GFILE:
         ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &err);
+        break;
+    case UMOUNT_MOUNT:
+        ret = g_mount_unmount_finish(G_MOUNT(src), res, &err);
+        break;
+    case EJECT_MOUNT:
+        ret = g_mount_eject_finish(G_MOUNT(src), res, &err);
+        break;
+    case EJECT_VOLUME:
+        ret = g_volume_eject_finish(G_VOLUME(src), res, &err);
+        break;
+    }
     if( !ret )
         data->err = err;
     else
@@ -251,13 +272,14 @@ gboolean fm_mount_volume_or_path(GtkWindow* parent, GVolume* vol, FmPath* path)
     if(path)
     {
         GFile* gf = fm_path_to_gfile(path);
-        g_file_mount_enclosing_volume(gf, 0, op, cancel, (GAsyncReadyCallback)on_mounted, data);
+        data->action = MOUNT_GFILE;
+        g_file_mount_enclosing_volume(gf, 0, op, cancel, (GAsyncReadyCallback)on_mount_action_finished, data);
         g_object_unref(gf);
     }
     else
     {
-        data->is_volume = TRUE;
-        g_volume_mount(vol, 0, op, cancel, (GAsyncReadyCallback)on_mounted, data);
+        data->action = MOUNT_VOLUME;
+        g_volume_mount(vol, 0, op, cancel, (GAsyncReadyCallback)on_mount_action_finished, data);
     }
 
     if (g_main_loop_is_running(data->loop))
@@ -291,6 +313,82 @@ gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol)
 {
     return fm_mount_volume_or_path(parent, vol, NULL);
 }
+
+gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount)
+{
+    struct MountData* data = g_new0(struct MountData, 1);
+    GCancellable* cancel = g_cancellable_new();
+    gboolean ret;
+    data->action = UMOUNT_MOUNT;
+    data->loop = g_main_loop_new (NULL, TRUE);
+
+    g_mount_unmount(mount, 0, cancel, on_mount_action_finished, data);
+
+    if (g_main_loop_is_running(data->loop))
+    {
+        GDK_THREADS_LEAVE();
+        g_main_loop_run(data->loop);
+        GDK_THREADS_ENTER();
+    }
+    g_main_loop_unref(data->loop);
+    ret = (data->err == NULL);
+    g_free(data);
+    g_object_unref(cancel);
+    return ret;
+}
+
+gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol)
+{
+    GMount* mount = g_volume_get_mount(vol);
+    gboolean ret;
+    if(!mount)
+        return FALSE;
+    ret = fm_unmount_mount(parent, mount);
+    g_object_unref(mount);
+    return ret;
+}
+
+static gboolean fm_eject(GtkWindow* parent, GMount* mount, GVolume* vol)
+{
+    struct MountData* data = g_new0(struct MountData, 1);
+    GCancellable* cancel = g_cancellable_new();
+    gboolean ret;
+    data->loop = g_main_loop_new (NULL, TRUE);
+
+    if(vol)
+    {
+        data->action = EJECT_VOLUME;
+        g_volume_eject(vol, 0, cancel, on_mount_action_finished, data);
+    }
+    else
+    {
+        data->action = EJECT_MOUNT;
+        g_mount_eject(mount, 0, cancel, on_mount_action_finished, data);
+    }
+
+    if (g_main_loop_is_running(data->loop))
+    {
+        GDK_THREADS_LEAVE();
+        g_main_loop_run(data->loop);
+        GDK_THREADS_ENTER();
+    }
+    g_main_loop_unref(data->loop);
+    ret = data->err == NULL;
+    g_free(data);
+    g_object_unref(cancel);
+    return ret;
+}
+
+gboolean fm_eject_mount(GtkWindow* parent, GMount* mount)
+{
+    return fm_eject(parent, mount, NULL);
+}
+
+gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol)
+{
+    return fm_eject(parent, NULL, vol);
+}
+
 
 /* File operations */
 /* FIXME: only show the progress dialog if the job isn't finished 
