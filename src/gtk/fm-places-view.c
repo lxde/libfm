@@ -251,13 +251,44 @@ static void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
         update_vol(item, &it);
 }
 
+static void add_bookmarks()
+{
+    PlaceItem* item;
+    GList *bms, *l;
+    GIcon* icon;
+    bms = fm_bookmarks_list_all(bookmarks);
+    for(l=bms;l;l=l->next)
+    {
+        FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
+        GtkTreeIter it;
+        item = g_slice_new0(PlaceItem);
+        item->type = PLACE_PATH;
+        item->path = fm_path_ref(bm->path);
+        item->icon = g_themed_icon_new("folder"); /* FIXME: get from FmIcon's cache */
+        gtk_list_store_append(model, &it);
+        gtk_list_store_set(model, &it, COL_ICON, item->icon, COL_LABEL, bm->name, COL_INFO, item, -1);
+    }
+}
+
+static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
+{
+    GtkTreeIter it = sep_it;
+    /* remove all old bookmarks */
+    if(gtk_tree_model_iter_next(model, &it))
+    {
+        while(gtk_list_store_remove(model, &it))
+            continue;
+    }
+    add_bookmarks();
+}
+
 static void init_model()
 {
     if(G_UNLIKELY(!model))
     {
         GtkTreeIter it;
         PlaceItem* item;
-        GList *vols, *bms, *l;
+        GList *vols, *l;
         GIcon* icon;
         model = gtk_list_store_new(N_COLS, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
         g_object_weak_ref(model, on_model_destroy, NULL);
@@ -310,17 +341,8 @@ static void init_model()
         g_list_free(vols);
 
         bookmarks = fm_bookmarks_get(); /* bookmarks */
-        bms = fm_bookmarks_list_all(bookmarks);
-        for(l=bms;l;l=l->next)
-        {
-            FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
-            item = g_slice_new0(PlaceItem);
-            item->type = PLACE_PATH;
-            item->path = fm_path_ref(bm->path);
-            item->icon = g_themed_icon_new("folder"); /* FIXME: get from FmIcon's cache */
-            gtk_list_store_append(model, &it);
-            gtk_list_store_set(model, &it, COL_ICON, item->icon, COL_LABEL, bm->name, COL_INFO, item, -1);
-        }
+        g_signal_connect(bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), NULL);
+        add_bookmarks();
     }
     else
         g_object_ref(model);
