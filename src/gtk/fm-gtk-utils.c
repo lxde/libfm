@@ -30,6 +30,9 @@
 #include "fm-progress-dlg.h"
 #include "fm-path-entry.h"
 
+static GtkDialog* 	_fm_get_user_input_dialog	(GtkWindow* parent, const char* title, const char* msg);
+static gchar* 		_fm_user_input_dialog_run	(GtkDialog* dlg, GtkEntry *entry);
+
 void fm_show_error(GtkWindow* parent, const char* msg)
 {
     GtkWidget* dlg = gtk_message_dialog_new(parent, 0, GTK_MESSAGE_ERROR,
@@ -80,7 +83,7 @@ int fm_askv(GtkWindow* parent, const char* question, const char** options)
     while(*options)
     {
         /* FIXME: handle button image and stock buttons */
-        GtkWidget* btn = gtk_dialog_add_button(dlg, *options, id);
+        GtkWidget* btn = gtk_dialog_add_button(GTK_DIALOG( dlg ), *options, id);
         ++options;
         ++id;
     }
@@ -108,34 +111,53 @@ int fm_ask_valist(GtkWindow* parent, const char* question, va_list options)
     return ret;
 }
 
-enum {
-    INPUT_STR,
-    INPUT_PATH,
-    INPUT_RENAME
-};
 
-char* _fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text, int type)
+
+gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text)
 {
-    char* str = NULL;
-    GtkWidget* dlg = gtk_dialog_new_with_buttons(title, parent, 0,
-                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-    GtkWidget* label = gtk_label_new(msg);
-    GtkWidget* entry;
-    if(type == INPUT_PATH)
-        entry = fm_path_entry_new();
-    else
-        entry = gtk_entry_new();
-    gtk_box_pack_start(GTK_DIALOG(dlg)->vbox, label, FALSE, TRUE, 6);
-    gtk_box_pack_start(GTK_DIALOG(dlg)->vbox, entry, FALSE, TRUE, 6);
-    gtk_container_set_border_width(GTK_DIALOG(dlg)->vbox, 10);
-    gtk_widget_show_all(dlg);
+    GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
+    GtkWidget* entry = gtk_entry_new();
+    
+    if(default_text && default_text[0])
+        gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
+
+    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );	
+}
+
+FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path)
+{
+
+    GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
+    GtkWidget* entry = gtk_entry_new();
+    char *str, *path_str = NULL;
+    FmPath* path;
+    
+    if(default_path) 
+    {
+        path_str = fm_path_to_str(default_path);
+        gtk_entry_set_text(GTK_ENTRY( entry ), path_str);
+    }
+
+    str = _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );	    
+    path = fm_path_new(str);
+
+    g_free(path_str);
+    g_free(str);
+    return path;
+}
+
+
+gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char* msg, const char* default_text) 
+{
+    GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
+
+    GtkWidget* entry = gtk_entry_new();
 
     if(default_text && default_text[0])
     {
-        gtk_entry_set_text(entry, default_text);
+        gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
         /* only select filename part without extension name. */
-        if(type == INPUT_RENAME && default_text[1])
+        if(default_text[1])
         {
             /* FIXME: handle the special case for *.tar.gz or *.tar.bz2 */
             const char* dot = g_utf8_strrchr(default_text, -1, '.');
@@ -158,6 +180,29 @@ char* _fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
         }
     }
 
+    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
+}
+
+static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title, const char* msg)
+{
+    GtkWidget* dlg = gtk_dialog_new_with_buttons(title, parent, 0,
+                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+    GtkWidget* label = gtk_label_new(msg);
+
+
+    gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), label, FALSE, TRUE, 6);
+
+    gtk_container_set_border_width(GTK_CONTAINER( GTK_DIALOG(dlg)->vbox ), 10);
+    return dlg;
+}
+
+static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry) 
+{
+    char* str = NULL;
+
+    gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), GTK_WIDGET( entry ), FALSE, TRUE, 6);
+    gtk_widget_show_all(dlg);
     while(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
         const char* pstr = gtk_entry_get_text(entry);
@@ -169,23 +214,6 @@ char* _fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
     }
     gtk_widget_destroy(dlg);
     return str;
-}
-
-char* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text)
-{
-    return _fm_get_user_input(parent, title, msg, default_text, FALSE);
-}
-
-FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path)
-{
-    char *str, *path_str = NULL;
-    if(default_path)
-        path_str = fm_path_to_str(default_path);
-    str=_fm_get_user_input(parent, title, msg, path_str, FALSE);
-    FmPath* path = fm_path_new(str);
-    g_free(path_str);
-    g_free(str);
-    return path;
 }
 
 FmPath* fm_select_folder(GtkWindow* parent)
@@ -452,7 +480,7 @@ void fm_rename_file(FmPath* file)
 {
     GFile* gf = fm_path_to_gfile(file), *parent, *dest;
     GError* err = NULL;
-    char* new_name = _fm_get_user_input(NULL, _("Rename File"), _("Please enter a new name:"), file->name, INPUT_RENAME);
+    gchar* new_name = fm_get_user_input_rename( NULL, _("Rename File"), _("Please enter a new name:"), file->name);
     if( !new_name )
         return;
     parent = g_file_get_parent(gf);
