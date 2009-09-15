@@ -147,3 +147,13 @@
 
 43.Need to display marks on the icons of symlinks to let the users
      know that they are symlinks
+
+44.Add a right pane to list all opened folders instead of using tabs.
+     Quite useful for wide screen and can save taskbar space.
+     Very convinient when you need to work with files in many different folders
+
+45.Support saving currently opened folders as a session, and the saved session
+     file can be loaded later by double click on it.
+     This is especially useful for developers and can be used for project management
+
+46.Write a geany plugin to utilize the FmFolderView.

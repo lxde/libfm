@@ -26,6 +26,7 @@
 #include <gtk/gtk.h>
 #include "fm.h"
 #include "fm-bookmarks.h"
+#include "fm-nav-history.h"
 
 G_BEGIN_DECLS
 
@@ -54,8 +55,10 @@ struct _FmMainWin
 	GtkWidget* folder_view;
 	GtkWidget* statusbar;
     GtkWidget* bookmarks_menu;
+    GtkWidget* history_menu;
     GtkWidget* popup;
     /* <private> */
+    FmNavHistory* nav_history;
     guint statusbar_ctx;
     guint statusbar_ctx2;
     FmBookmarks* bookmarks;
@@ -70,6 +73,7 @@ GType		fm_main_win_get_type		(void);
 GtkWidget*	fm_main_win_new			(void);
 void fm_main_win_chdir(FmMainWin* win, FmPath* path);
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str);
+void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path);
 
 G_END_DECLS
 

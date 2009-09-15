@@ -48,6 +48,8 @@ static void on_select_all(GtkAction* act, FmMainWin* win);
 static void on_invert_select(GtkAction* act, FmMainWin* win);
 
 static void on_go(GtkAction* act, FmMainWin* win);
+static void on_go_back(GtkAction* act, FmMainWin* win);
+static void on_go_forward(GtkAction* act, FmMainWin* win);
 static void on_go_up(GtkAction* act, FmMainWin* win);
 static void on_go_home(GtkAction* act, FmMainWin* win);
 static void on_go_desktop(GtkAction* act, FmMainWin* win);
@@ -231,6 +233,48 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
     create_bookmarks_menu(win);
 }
 
+static void on_history_item(GtkMenuItem* mi, FmMainWin* win)
+{
+    GList* l = g_object_get_data(mi, "path");
+    FmPath* path = (FmPath*)l->data;
+    fm_nav_history_jump(win->nav_history, l);
+    /* FIXME: should this be driven by signal emitted on FmNavHistory? */
+    fm_main_win_chdir_without_history(win, path);
+}
+
+static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
+{
+    GtkMenuShell* menu = (GtkMenuShell*)gtk_menu_tool_button_get_menu(btn);
+    GList *l;
+    FmPathList* nh = fm_nav_history_list(win->nav_history);
+    GList* cur = fm_nav_history_get_cur_link(win->nav_history);
+
+    /* delete old items */
+    gtk_container_foreach(menu, (GtkCallback)gtk_widget_destroy, NULL);
+
+    for(l = fm_list_peek_head_link(nh); l; l=l->next)
+    {
+        FmPath* path = (FmPath*)l->data;
+        char* str = fm_path_to_str(path);
+        GtkMenuItem* mi;
+        if( l == cur )
+        {
+            mi = gtk_check_menu_item_new_with_label(str);
+            gtk_check_menu_item_set_draw_as_radio(mi, TRUE);
+            gtk_check_menu_item_set_active(mi, TRUE);
+        }
+        else
+            mi = gtk_menu_item_new_with_label(str);
+
+        g_object_set_data_full(mi, "path", l, NULL);
+        g_signal_connect(mi, "activate", G_CALLBACK(on_history_item), win);
+        gtk_menu_shell_append(menu, mi);
+    }
+    fm_list_unref(nh);
+
+    gtk_widget_show_all( GTK_WIDGET(menu) );
+}
+
 static void fm_main_win_init(FmMainWin *self)
 {
     GtkWidget *vbox, *menubar, *toolitem, *next_btn, *scroll;
@@ -295,6 +339,12 @@ static void fm_main_win_init(FmMainWin *self)
     act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Next");
     gtk_activatable_set_related_action(toolitem, act);
 
+    /* set up history menu */
+    self->nav_history = fm_nav_history_new();
+    self->history_menu = gtk_menu_new();
+    gtk_menu_tool_button_set_menu(toolitem, self->history_menu);
+    g_signal_connect(toolitem, "show-menu", G_CALLBACK(on_show_history_menu), self);
+
     self->popup = gtk_ui_manager_get_widget(ui, "/popup");
 
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
@@ -347,6 +397,7 @@ static void fm_main_win_finalize(GObject *object)
 
     self = FM_MAIN_WIN(object);
 
+    g_object_unref(self->nav_history);
     g_object_unref(self->ui);
     g_object_unref(self->bookmarks);
 
@@ -411,6 +462,26 @@ void on_go(GtkAction* act, FmMainWin* win)
     fm_main_win_chdir_by_name( win, gtk_entry_get_text(win->location));
 }
 
+void on_go_back(GtkAction* act, FmMainWin* win)
+{
+    if(fm_nav_history_get_can_back(win->nav_history))
+    {
+        fm_nav_history_back(win->nav_history);
+        /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
+        fm_main_win_chdir_without_history(win, fm_nav_history_get_cur(win->nav_history));
+    }
+}
+
+void on_go_forward(GtkAction* act, FmMainWin* win)
+{
+    if(fm_nav_history_get_can_forward(win->nav_history))
+    {
+        fm_nav_history_forward(win->nav_history);
+        /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
+        fm_main_win_chdir_without_history(win, fm_nav_history_get_cur(win->nav_history));
+    }
+}
+
 void on_go_up(GtkAction* act, FmMainWin* win)
 {
     FmPath* parent = fm_path_get_parent(fm_folder_view_get_cwd(win->folder_view));
@@ -460,12 +531,20 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
     fm_path_unref(path);
 }
 
-void fm_main_win_chdir(FmMainWin* win, FmPath* path)
+void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 {
     char* path_str = fm_path_to_str(path);
     gtk_entry_set_text(win->location, path_str);
     g_free(path_str);
     fm_folder_view_chdir(win->folder_view, path);
+
+    /* fm_nav_history_set_cur(); */
+}
+
+void fm_main_win_chdir(FmMainWin* win, FmPath* path)
+{
+    fm_main_win_chdir_without_history(win, path);
+    fm_nav_history_chdir(win->nav_history, path);
 }
 
 void on_cut(GtkAction* act, FmMainWin* win)

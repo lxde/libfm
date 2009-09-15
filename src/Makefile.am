@@ -59,7 +59,6 @@ libfm_gtk_SOURCES = \
 	gtk/fm-places-view.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
-	gtk/fm-nav-history-menu.c \
 	gtk/fm-file-properties.c \
 	gtk/fm-clipboard.c \
 	gtk/fm-progress-dlg.c \
