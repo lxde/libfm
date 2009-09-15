@@ -228,7 +228,7 @@ static PlaceItem* find_vol(GVolume* vol, GtkTreeIter* _it)
 
 static void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
 {
-    /* g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi")); */
+    g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi"));
     add_vol(vol);
 }
 

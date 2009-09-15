@@ -81,7 +81,6 @@ static const char main_menu_xml[] =
 "<toolbar>"
     "<toolitem action='New'/>"
     "<toolitem action='Prev'/>"
-    "<toolitem action='Next'/>"
     "<toolitem action='Up'/>"
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
@@ -116,8 +115,8 @@ static GtkActionEntry main_win_actions[]=
     {"HelpMenu", NULL, N_("_Help"), NULL, NULL, NULL},
         {"About", GTK_STOCK_ABOUT, NULL, NULL, NULL, on_about},
     {"GoMenu", NULL, N_("_Go"), NULL, NULL, NULL},
-        {"Prev", GTK_STOCK_GO_BACK, N_("Previous Folder"), "<Alt>Right", N_("Previous Folder"), on_go},
-        {"Next", GTK_STOCK_GO_FORWARD, N_("Next Folder"), "<Alt>Left", N_("Next Folder"), on_go},
+        {"Prev", GTK_STOCK_GO_BACK, N_("Previous Folder"), "<Alt>Right", N_("Previous Folder"), on_go_back},
+        {"Next", GTK_STOCK_GO_FORWARD, N_("Next Folder"), "<Alt>Left", N_("Next Folder"), on_go_forward},
         {"Up", GTK_STOCK_GO_UP, N_("Parent Folder"), "<Alt>Up", N_("Go to parent Folder"), on_go_up},
         {"Home", "user-home", N_("Home Folder"), "<Alt>Home", N_("Home Folder"), on_go_home},
         {"Desktop", "user-desktop", N_("Desktop"), NULL, N_("Desktop Folder"), on_go_desktop},
@@ -133,7 +132,8 @@ static GtkActionEntry main_win_actions[]=
     {"Location", NULL, NULL, "<Alt>d", NULL, on_location},
     {"Location2", NULL, NULL, "<Ctrl>L", NULL, on_location},
     /* for popup menu */
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL}
+    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL},
+    {"NavHistory", NULL, "NavHistory", NULL, NULL, NULL}
 };
 
 static GtkActionEntry main_win_toggle_actions[]=
