@@ -97,7 +97,6 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-places-view.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
-	gtk/fm-nav-history-menu.h \
 	gtk/fm-file-properties.h \
 	gtk/fm-clipboard.h \
 	gtk/fm-progress-dlg.h \

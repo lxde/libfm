@@ -29,7 +29,6 @@
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-utils.h"
-#include "fm-nav-history-menu.h"
 
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);

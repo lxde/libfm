@@ -111,7 +111,7 @@ static gboolean fm_path_entry_focus_in( GtkWidget *entry, GdkEventFocus* evt)
     g_signal_connect(private->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), pe);
     g_filename_completer_set_dirs_only(private->fc, TRUE);
 #endif
-    return FALSE;
+    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_in_event(entry, evt);
 }
 
 static gboolean fm_path_entry_focus_out( GtkWidget *entry, GdkEventFocus* evt)
@@ -127,7 +127,7 @@ static gboolean fm_path_entry_focus_out( GtkWidget *entry, GdkEventFocus* evt)
     g_object_unref(private->fc);
     private->fc = NULL;
 #endif    
-    return FALSE;
+    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_out_event(entry, evt);
 }
 
 static void path_entry_free(FmPathEntry* pe)
