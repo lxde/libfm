@@ -275,27 +275,25 @@ static int fm_path_strlen(FmPath* path)
 /* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
-	int len = fm_path_strlen(path);
-	char* buf = g_new0(char, len+1), *pbuf = buf + len;
-	FmPath* p = path;
-	buf[len] = '\0';
-	for(;;)
+	int i, n_elements = 1;
+	gchar* buf, **path_elements;
+	FmPath *tmp_path = path->parent;
+
+	/* count number of path elements */
+	while (tmp_path) 
 	{
-		int name_len = strlen(p->name);
-		pbuf -= name_len;
-		memcpy(pbuf, p->name, name_len);
-		if( p->parent )
-		{
-			if(p->parent->parent)
-			{
-				--pbuf;
-				*pbuf = '/';
-			}
-			p = p->parent;
-		}
-		else
-			break;
+	    tmp_path=tmp_path->parent;
+	    n_elements++;
 	}
+	/* prepare array of path elements */
+	path_elements = (gchar**) g_new(gchar*, n_elements + 1 );
+	path_elements[n_elements] = 0;
+	for ( i = n_elements - 1, tmp_path = path; tmp_path; tmp_path = tmp_path->parent ) 
+	    path_elements[i--] = tmp_path->name;
+	
+	/* build path */
+	buf = g_build_pathv( "/", path_elements );
+	g_free( path_elements );
 	return buf;
 }
 
