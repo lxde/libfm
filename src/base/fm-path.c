@@ -42,9 +42,14 @@ FmPath*	fm_path_new(const char* path)
 {
 	const char* sep;
     /* FIXME: need to canonicalize paths */
-
-	if( path[0] == '/' ) /* if this is a absolute native path */
-		return fm_path_new_relative(root, path + 1);
+	
+    if( path[0] == '/' ) /* if this is a absolute native path */ 
+	if (path[1])
+	    return fm_path_new_relative(root, path + 1);
+	else
+	    /* special case: handle root dir */
+	    return fm_path_ref( root );
+    
     else if ( path[0] == '~' && (path[1] == '\0' || path[1]=='/') ) /* home dir */
     {
         ++path;
