@@ -49,4 +49,15 @@ AC_CONFIG_FILES([
     po/Makefile.in
     libfm.pc
 ])
+
 AC_OUTPUT
+
+if test x"$sysconfdir" = x'${prefix}/etc'; then
+    echo
+    echo
+    echo 'Error: sysconfdir is not /etc.'
+    echo 'Please consider passing --sysconfdir=/etc to configure.';
+    echo 'Otherwise default config files will be installed to wrong place.'
+    echo
+    echo
+fi

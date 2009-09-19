@@ -164,17 +164,17 @@ static GtkRadioActionEntry main_win_sort_by_actions[]=
 const char folder_menu_xml[]=
 "<popup>"
   "<placeholder name='ph1'>"
-    "<menuitem action='NewTab'/>"
+    /* "<menuitem action='NewTab'/>" */
     "<menuitem action='NewWin'/>"
-    "<menuitem action='Search'/>"
+    /* "<menuitem action='Search'/>" */
   "</placeholder>"
 "</popup>";
 
 /* Action entries for pupup menus */
 static GtkActionEntry folder_menu_actions[]=
 {
-    {"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL, NULL},
-    {"NewWin", GTK_STOCK_NEW, N_("Open in New Window"), NULL, NULL, NULL},
+    /* {"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL, on_open_in_new_tab}, */
+    {"NewWin", GTK_STOCK_NEW, N_("Open in New Window"), NULL, NULL, on_open_in_new_win},
     {"Search", GTK_STOCK_FIND, NULL, NULL, NULL, NULL}
 };
 

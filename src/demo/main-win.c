@@ -33,8 +33,12 @@
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
 
+/* static void on_new_tab(GtkAction* act, FmMainWin* win); */
 static void on_new_win(GtkAction* act, FmMainWin* win);
 static void on_close_win(GtkAction* act, FmMainWin* win);
+
+/* static void on_open_in_new_tab(GtkAction* act, FmMainWin* win); */
+static void on_open_in_new_win(GtkAction* act, FmMainWin* win);
 
 static void on_cut(GtkAction* act, FmMainWin* win);
 static void on_copy(GtkAction* act, FmMainWin* win);
@@ -123,7 +127,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
             {
                 GtkUIManager* ui = fm_file_menu_get_ui(menu);
                 GtkActionGroup* act_grp = fm_file_menu_get_action_group(menu);
-                gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), NULL);
+                gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), win);
                 gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
             }
 
@@ -332,6 +336,9 @@ static void fm_main_win_init(FmMainWin *self)
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
 
     self->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
+    /* FIXME: should make these optional */
+    gtk_toolbar_set_icon_size(self->toolbar, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_toolbar_set_style(self->toolbar, GTK_TOOLBAR_ICONS);
 
     /* create 'Next' button manually and add a popup menu to it */
     toolitem = g_object_new(GTK_TYPE_MENU_TOOL_BUTTON, NULL);
@@ -416,7 +423,7 @@ void on_about(GtkAction* act, FmMainWin* win)
     gtk_about_dialog_set_program_name(dlg, "libfm-demo");
     gtk_about_dialog_set_authors(dlg, authors);
     gtk_about_dialog_set_comments(dlg, "A demo program for libfm");
-    gtk_about_dialog_set_website(dlg, "http://libfm.sf.net/");
+    gtk_about_dialog_set_website(dlg, "http://pcmanfm.sf.net/");
     gtk_dialog_run(dlg);
     gtk_widget_destroy(dlg);
 }
@@ -449,7 +456,7 @@ void on_new_win(GtkAction* act, FmMainWin* win)
 {
     win = fm_main_win_new();
     gtk_window_set_default_size(win, 640, 480);
-    fm_folder_view_chdir(win->folder_view, fm_path_get_home());
+    fm_main_win_chdir(win, fm_path_get_home());
     gtk_window_present(win);
 }
 
@@ -457,6 +464,27 @@ void on_close_win(GtkAction* act, FmMainWin* win)
 {
     gtk_widget_destroy(win);
 }
+
+/* void on_open_in_new_tab(GtkAction* act, FmMainWin* win);
+{
+}
+*/
+
+void on_open_in_new_win(GtkAction* act, FmMainWin* win)
+{
+    FmPathList* sels = fm_folder_view_get_selected_file_paths(win->folder_view);
+    GList* l;
+    for( l = fm_list_peek_head_link(sels); l; l=l->next )
+    {
+        FmPath* path = (FmPath*)l->data;
+        win = fm_main_win_new();
+        gtk_window_set_default_size(win, 640, 480);
+        fm_main_win_chdir(win, path);
+        gtk_window_present(win);
+    }
+    fm_list_unref(sels);
+}
+
 
 void on_go(GtkAction* act, FmMainWin* win)
 {
