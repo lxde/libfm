@@ -23,6 +23,7 @@
 #include <libintl.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "fm-utils.h"
 
 #define BI_KiB	((gdouble)1024.0)
@@ -100,4 +101,27 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
 	}
     sprintf( buf, "%.1f %s", val, unit );
 	return buf;
+}
+
+gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int* val)
+{
+    char* str = g_key_file_get_value(kf, grp, key, NULL);
+    if(G_LIKELY(str))
+    {
+        *val = atoi(str);
+        g_free(str);
+    }
+    return str != NULL;
+}
+
+gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gboolean* val)
+{
+    gboolean ret;
+    char* str = g_key_file_get_value(kf, grp, key, NULL);
+    if(G_LIKELY(str))
+    {
+        *val = (str[0] == '1' || str[0] == 't');
+        g_free(str);
+    }
+    return str != NULL;
 }

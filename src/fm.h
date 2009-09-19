@@ -19,6 +19,7 @@
  *      MA 02110-1301, USA.
  */
 
+#include "fm-config.h"
 #include "fm-icon.h"
 #include "fm-mime-type.h"
 #include "fm-file-info.h"
@@ -28,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean fm_init();
+gboolean fm_init(FmConfig* config);
 void fm_finalize();
 
 G_END_DECLS

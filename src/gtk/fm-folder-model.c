@@ -19,6 +19,7 @@
  *      MA 02110-1301, USA.
  */
 
+#include "fm-config.h"
 #include "fm-folder-model.h"
 #include "fm-file-info.h"
 #include "fm-icon-pixbuf.h"
@@ -417,7 +418,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
 		{
 			if(!info->icon)
                 return;
-            item->big_icon = fm_icon_get_pixbuf(info->icon, 48);
+            item->big_icon = fm_icon_get_pixbuf(info->icon, fm_config->big_icon_size);
 		}
 		g_value_set_object(value, item->big_icon);
         break;
@@ -427,7 +428,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
 		{
 			if(!info->icon)
                 return;
-            item->small_icon = fm_icon_get_pixbuf(info->icon, 24);
+            item->small_icon = fm_icon_get_pixbuf(info->icon, fm_config->small_icon_size);
 		}
 		g_value_set_object(value, item->small_icon);
 		break;

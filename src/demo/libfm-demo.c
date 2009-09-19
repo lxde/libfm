@@ -21,11 +21,9 @@
 
 #include <config.h>
 #include <gtk/gtk.h>
-
 #include <stdio.h>
 
 #include "fm.h"
-
 #include "main-win.h"
 
 int main(int argc, char** argv)
@@ -33,13 +31,15 @@ int main(int argc, char** argv)
 	GtkWidget* w;
 	gtk_init(&argc, &argv);
 	
-	fm_init();
-	
+	fm_init(NULL);
+
 	w = fm_main_win_new();
 	gtk_window_set_default_size(w, 640, 480);
 	gtk_widget_show(w);
 	
 	gtk_main();
+
+    fm_finalize();
 
 	return 0;
 }

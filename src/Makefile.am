@@ -11,6 +11,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 base_SOURCES = \
+	base/fm-config.c \
 	base/fm-list.c \
 	base/fm-path.c \
 	base/fm-folder.c \
@@ -72,6 +73,7 @@ libfm_gtk_SOURCES = \
 
 LIBFM_INCLUDES = \
 	fm.h \
+	base/fm-config.h \
 	base/fm-list.h \
 	base/fm-path.h \
 	base/fm-folder.h \
