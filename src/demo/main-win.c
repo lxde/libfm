@@ -105,12 +105,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else
         {
-            uri = fm_path_to_uri(fi->path);
-            ctx = gdk_app_launch_context_new();
-            gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
-            g_app_info_launch_default_for_uri(uri, ctx, NULL);
-            g_object_unref(ctx);
-            g_free(uri);
+            fm_launch_file(win, NULL, fi);
         }
         break;
     case FM_FV_CONTEXT_MENU:

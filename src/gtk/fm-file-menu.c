@@ -24,6 +24,7 @@
 #endif
 
 #include <glib/gi18n.h>
+
 #include "fm-file-menu.h"
 #include "fm-path.h"
 
@@ -188,31 +189,19 @@ void on_open(GtkAction* action, gpointer user_data)
     GdkAppLaunchContext* ctx;
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_list_peek_head_link(data->file_infos);
+    GError* err = NULL;
 
     ctx = gdk_app_launch_context_new();
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
-    /* FIXME: should handle folders, executable files, 
-     *        and desktop entry files differently. */
-
-    /* FIXME: replace this with our own code since we already know the
-     * file types and related apps in advance. */
     for(; l; l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        FmPath* path = fi->path;
-        char* uri;
         if(fm_file_info_is_dir(fi) && data->folder_hook)
-        {
             data->folder_hook(fi, data->folder_hook_data);
-            continue;
-        }
-        uri = fm_path_to_uri(path);
-        /* FIXME: set app icon */
-        /* gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app)); */
-        g_app_info_launch_default_for_uri( uri, ctx, NULL);
-        g_free(uri);
+        else
+            fm_launch_file(data->menu, ctx, fi);
     }
     g_object_unref(ctx);
 }

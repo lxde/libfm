@@ -24,6 +24,7 @@
 #endif
 
 #include <glib/gi18n.h>
+#include <gio/gdesktopappinfo.h>
 
 #include "fm-gtk-utils.h"
 #include "fm-file-ops-job.h"
@@ -500,4 +501,64 @@ void fm_rename_file(FmPath* file)
     g_object_unref(gf);
 }
 
+gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi)
+{
+    char* uri;
+    GAppLaunchContext* _ctx = NULL;
+    gboolean ret = TRUE;
+    FmPath* path = fi->path;
+    GError* err = NULL;
 
+    if(!ctx)
+    {
+        ctx = _ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(widget));
+        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+    }
+
+    if(fm_file_info_is_desktop_entry(fi) && fm_path_is_native(path))
+    {
+        char* filename = fm_path_to_str(path);
+        GAppInfo* app = g_desktop_app_info_new_from_filename(filename);
+        if( !g_app_info_launch(app, NULL, ctx, &err) )
+        {
+            fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
+            g_error_free(err);
+            err = NULL;
+            ret = FALSE;
+        }
+        g_object_unref(app);
+        g_free(filename);
+    }
+    else
+    {
+        uri = fm_path_to_uri(path);
+        /* FIXME: set app icon */
+        /* gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app)); */
+
+        /* FIXME: replace this with our own code since we already know the
+         * file types and related apps in advance. */
+        if(!g_app_info_launch_default_for_uri( uri, ctx, &err))
+        {
+            fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
+            g_error_free(err);
+            err = NULL;
+            ret = FALSE;
+        }
+        g_free(uri);
+    }
+
+    if(_ctx)
+        g_object_unref(_ctx);
+    return ret;
+}
+
+gboolean fm_launch_files(GtkWidget* widget, GAppLaunchContext* ctx, GList* file_infos)
+{
+    /* FIXME: not yet implemented */
+
+    /* FIXME: should group files of the same type and pass multiple files
+     * of the same time at once to default app. */
+
+    return FALSE;
+}
