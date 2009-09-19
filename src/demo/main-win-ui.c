@@ -87,6 +87,13 @@ static const char main_menu_xml[] =
 "</toolbar>"
 "<popup>"
   "<menuitem action='Paste'/>"
+  "<menu action='Sort'>"
+    "<menuitem action='Desc'/>"
+    "<menuitem action='Asc'/>"
+    "<separator/>"
+    "<menuitem action='ByName'/>"
+    "<menuitem action='ByMTime'/>"
+  "</menu>"
   "<separator/>"
   "<menuitem action='Prop'/>"
 "</popup>"
@@ -103,7 +110,7 @@ static GtkActionEntry main_win_actions[]=
         {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, on_copy},
         {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, on_paste},
         {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, on_del},
-        {"Rename", NULL, N_("Rename"), "F2", NULL, NULL},
+        {"Rename", NULL, N_("Rename"), "F2", NULL, on_rename},
         {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
         {"MoveTo", NULL, N_("Move To..."), NULL, NULL, on_move_to},
         {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, on_copy_to},
@@ -132,8 +139,7 @@ static GtkActionEntry main_win_actions[]=
     {"Location", NULL, NULL, "<Alt>d", NULL, on_location},
     {"Location2", NULL, NULL, "<Ctrl>L", NULL, on_location},
     /* for popup menu */
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, NULL},
-    {"NavHistory", NULL, "NavHistory", NULL, NULL, NULL}
+    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
 };
 
 static GtkActionEntry main_win_toggle_actions[]=

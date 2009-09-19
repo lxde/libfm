@@ -29,6 +29,7 @@
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-utils.h"
+#include "fm-file-properties.h"
 
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
@@ -46,6 +47,7 @@ static void on_copy_to(GtkAction* act, FmMainWin* win);
 static void on_move_to(GtkAction* act, FmMainWin* win);
 static void on_paste(GtkAction* act, FmMainWin* win);
 static void on_del(GtkAction* act, FmMainWin* win);
+static void on_rename(GtkAction* act, FmMainWin* win);
 
 static void on_select_all(GtkAction* act, FmMainWin* win);
 static void on_invert_select(GtkAction* act, FmMainWin* win);
@@ -67,6 +69,7 @@ static void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* wi
 static void on_about(GtkAction* act, FmMainWin* win);
 
 static void on_location(GtkAction* act, FmMainWin* win);
+static void on_prop(GtkAction* action, FmMainWin* win);
 
 #include "main-win-ui.c" /* ui xml definitions and actions */
 
@@ -656,6 +659,17 @@ void on_del(GtkAction* act, FmMainWin* win)
     fm_list_unref(files);
 }
 
+void on_rename(GtkAction* act, FmMainWin* win)
+{
+    FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
+    if( !fm_list_is_empty(files) )
+    {
+        fm_rename_file(fm_list_peek_head(files));
+        /* FIXME: is it ok to only rename the first selected file here. */
+    }
+    fm_list_unref(files);
+}
+
 void on_select_all(GtkAction* act, FmMainWin* win)
 {
     fm_folder_view_select_all(win->folder_view);
@@ -669,4 +683,15 @@ void on_invert_select(GtkAction* act, FmMainWin* win)
 void on_location(GtkAction* act, FmMainWin* win)
 {
     gtk_widget_grab_focus(win->location);
+}
+
+void on_prop(GtkAction* action, FmMainWin* win)
+{
+    FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
+    /* FIXME: should prevent directly accessing data members */
+    FmFileInfo* fi = FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+    FmFileInfoList* files = fm_file_info_list_new();
+    fm_list_push_tail(files, fi);
+    fm_show_file_properties(files);
+    fm_list_unref(files);
 }
