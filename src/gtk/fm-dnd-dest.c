@@ -20,8 +20,10 @@
  */
 
 #include "fm-dnd-dest.h"
+#include "fm-gtk-utils.h"
 #include "fm-gtk-marshal.h"
 
+#include <glib/gi18n.h>
 #include <string.h>
 
 struct _FmDndDest
@@ -223,6 +225,17 @@ on_drag_motion( GtkWidget *dest_widget,
 		target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
 		if( target != GDK_NONE )
 		{
+            /* treat X direct save as a special case. */
+            if( target == gdk_atom_intern_static_string("XdndDirectSave0") )
+            {
+                /* FIXME: need a better way to handle this. */
+                action = drag_context->suggested_action;
+                g_signal_emit(dd, signals[QUERY_INFO], 0, x, y, &action, &ret);
+
+                gdk_drag_status(drag_context, action, time);
+                return TRUE;
+            }
+
 			gtk_drag_get_data(dest_widget, drag_context, target, time);
             /* run the main loop to block here waiting for
              * 'drag-data-received' signal being handled first. */
@@ -331,17 +344,47 @@ on_drag_drop ( GtkWidget *dest_widget,
                FmDndDest* dd )
 {
     gboolean ret = TRUE;
-    GdkAtom target;
+    GdkAtom target, xds;
     target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
 
 	if( target == GDK_NONE )
 		ret = FALSE;
 
 	/* if it's XDS */
-	if( target == gdk_atom_intern_static_string(fm_default_dnd_dest_targets[FM_DND_DEST_TARGET_XDS].target) )
+    xds = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[FM_DND_DEST_TARGET_XDS].target);
+	if( target == xds )
 	{
-        g_debug("XDS is not yet implemented");
-		gtk_drag_finish( drag_context, FALSE, FALSE, time );
+        guchar *data = NULL;
+        gint len = 0;
+        GdkAtom text_atom = gdk_atom_intern_static_string ("text/plain");
+        /* get filename from the source window */
+        if(gdk_property_get(drag_context->source_window, xds, text_atom,
+                            0, 1024, FALSE, NULL, NULL,
+                            &len, &data) && data)
+        {
+            FmFileInfo* dest = fm_dnd_dest_get_dest_file(dd);
+            if( dest && fm_file_info_is_dir(dest) )
+            {
+                FmPath* path = fm_path_new_child(dest->path, data);
+                char* uri = fm_path_to_uri(path);
+                /* setup the property */
+                gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds,
+                                   text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)uri,
+                                   strlen(uri) + 1);
+                fm_path_unref(path);
+                g_free(uri);
+            }
+        }
+        else
+        {
+            fm_show_error(gtk_widget_get_toplevel(dest_widget),
+                          _("XDirectSave failed."));
+            gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds,
+                               text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
+        }
+        g_free(data);
+        gtk_drag_get_data(dest_widget, drag_context, target, time);
+        /* we should call gtk_drag_finish later in data-received callback. */
 		return TRUE;
 	}
 
@@ -397,8 +440,18 @@ on_drag_data_received ( GtkWidget *dest_widget,
         }
         break;
     case FM_DND_DEST_TARGET_XDS:
-        /* FIXME: support XDS in the future. */
-
+        if( sel_data->format == 8 && sel_data->length == 1 && sel_data->data[0] == 'F')
+        {
+            gdk_property_change(GDK_DRAWABLE(drag_context->source_window),
+                               gdk_atom_intern_static_string ("XdndDirectSave0"),
+                               gdk_atom_intern_static_string ("text/plain"), 8,
+                               GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
+        }
+        else if(sel_data->format == 8 && sel_data->length == 1 && sel_data->data[0] == 'S')
+        {
+            /* XDS succeeds */
+        }
+        gtk_drag_finish(drag_context, TRUE, FALSE, time);
 		return;
     }
 	if(G_UNLIKELY(dd->src_files))

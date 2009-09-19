@@ -27,7 +27,7 @@
      Refuse drop if the user doesn't has access to destination dir.
      Fix incorrect drop target item of icon view mode. => done
      Fix incorrect design of 'query-info' signal.
-     Implement XDS support => pending
+     Implement XDS support => done, but in a quite dirty way.
 
 * Better file size calculations
      prevent divided by zero problem. (calculate percentage when total size = 0)
