@@ -78,7 +78,6 @@ GtkActionEntry base_menu_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
 };
 
-
 void fm_file_menu_destroy(FmFileMenu* menu)
 {
     if(menu->menu)
@@ -203,7 +202,13 @@ void on_open(GtkAction* action, gpointer user_data)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         FmPath* path = fi->path;
-        char* uri = fm_path_to_uri(path);
+        char* uri;
+        if(fm_file_info_is_dir(fi) && data->folder_hook)
+        {
+            data->folder_hook(fi, data->folder_hook_data);
+            continue;
+        }
+        uri = fm_path_to_uri(path);
         /* FIXME: set app icon */
         /* gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app)); */
         g_app_info_launch_default_for_uri( uri, ctx, NULL);
@@ -312,4 +317,10 @@ gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
 void fm_file_menu_set_use_trash(FmFileMenu* menu, gboolean use_trash)
 {
     menu->use_trash = use_trash;
+}
+
+void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data)
+{
+    menu->folder_hook = hook;
+    menu->folder_hook_data = user_data;
 }

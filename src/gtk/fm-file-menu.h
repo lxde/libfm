@@ -27,6 +27,8 @@
 
 G_BEGIN_DECLS
 
+typedef (*FmFileMenuFolderHook)(FmFileInfo* fi, gpointer user_data);
+
 typedef struct _FmFileMenu FmFileMenu;
 struct _FmFileMenu
 {
@@ -39,6 +41,9 @@ struct _FmFileMenu
     gboolean use_trash;
 	gboolean auto_destroy;
 	GtkWidget* menu;
+
+    FmFileMenuFolderHook folder_hook;
+    gpointer folder_hook_data;
 };
 
 FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, gboolean auto_destroy);
@@ -58,6 +63,8 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 
 /* call fm_file_info_list_unref() after the returned list is no more needed. */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
+
+void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data);
 
 G_END_DECLS
 

@@ -81,6 +81,12 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
     fm_folder_view_chdir_by_name(self->folder_view, gtk_entry_get_text(entry));
 }
 
+static void open_folder_hook(FmFileInfo* fi, gpointer user_data)
+{
+    FmMainWin* win = FM_MAIN_WIN(user_data);
+    fm_main_win_chdir(win, fi->path);
+}
+
 static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* fi, FmMainWin* win)
 {
     char* fpath, *uri;
@@ -114,6 +120,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
             GtkMenu* popup;
             FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
             menu = fm_file_menu_new_for_files(files, TRUE);
+            fm_file_menu_set_folder_hook(menu, open_folder_hook, win);
             fm_list_unref(files);
 
             /* merge some specific menu items for folders */
