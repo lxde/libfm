@@ -25,6 +25,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
 
 #include "fm-file-info.h"
 #include "fm-file-properties.h"
@@ -63,7 +65,6 @@ struct _FmFilePropData
     GtkWidget* group_access;
     GtkWidget* other_access;
     GtkWidget* executable;
-    GtkWidget* recursive;
 
     FmFileInfoList* files;
     FmFileInfo* fi;
@@ -150,25 +151,67 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
 static void update_permissions(FmFilePropData* data)
 {
-    FmFileInfo* fi;
+    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(data->files);
     GList *l;
     int sel;
-    mode_t owner_perm, group_perm, other_perm;
-    fi = (FmFileInfo*)fm_list_peek_head(data->files);
+    char* tmp;
+    gboolean all_native = fm_path_is_native(fi->path);
+    mode_t owner_perm = (fi->mode & S_IRWXU);
+    mode_t group_perm = (fi->mode & S_IRWXG);
+    mode_t other_perm = (fi->mode & S_IRWXO);
+    uid_t uid = fi->uid;
+    gid_t gid = fi->gid;
+    struct group* grp = NULL;
+    struct passwd* pw = NULL;
 
-    owner_perm = (fi->mode & S_IRWXU);
-    group_perm = (fi->mode & S_IRWXG);
-    other_perm = (fi->mode & S_IRWXO);
-
-    for(l=fm_list_peek_head_link(data->files); l; l=l->next)
+    for(l=fm_list_peek_head_link(data->files)->next; l; l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
+
+        if( !fm_path_is_native(fi->path) )
+            all_native = FALSE;
+
+        if( uid != fi->uid )
+            uid = -1;
+        if( gid != fi->gid )
+            gid = -1;
+
         if( owner_perm != -1 && owner_perm != (fi->mode & S_IRWXU) )
             owner_perm = -1;
         if( group_perm != -1 && group_perm != (fi->mode & S_IRWXG) )
             group_perm = -1;
         if( other_perm != -1 && other_perm != (fi->mode & S_IRWXO) )
             other_perm = -1;
+    }
+
+    if( all_native )
+    {
+        if( uid >= 0 )
+        {
+            pw = getpwuid(uid);
+            if(pw)
+                gtk_entry_set_text(data->owner, pw->pw_name);
+        }
+        if( gid >= 0 )
+        {
+            grp = getgrgid(gid);
+            if(grp)
+                gtk_entry_set_text(data->group, grp->gr_name);
+        }
+    }
+
+    if( uid >=0 && !pw )
+    {
+        tmp = g_strdup_printf("%u", uid);
+        gtk_entry_set_text(data->owner, tmp);
+        g_free(tmp);
+    }
+
+    if( gid >=0 && !grp )
+    {
+        tmp = g_strdup_printf("%u", gid);
+        gtk_entry_set_text(data->group, tmp);
+        g_free(tmp);
     }
 
     sel = 4;
@@ -423,7 +466,6 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(group_access);
     GET_WIDGET(other_access);
     GET_WIDGET(executable);
-    GET_WIDGET(recursive);
 
     g_object_unref(builder);
 

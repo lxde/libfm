@@ -146,6 +146,8 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
 		fi->mtime = st.st_mtime;
 		fi->size = st.st_size;
 		fi->dev = st.st_dev;
+        fi->uid = st.st_uid;
+        fi->gid = st.st_gid;
 
 		if( ! FM_JOB(job)->cancel )
 		{
