@@ -22,6 +22,10 @@
 #include <config.h>
 #include <glib/gi18n.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "fm-file-info.h"
 #include "fm-file-properties.h"
 #include "fm-deep-count-job.h"
@@ -37,6 +41,8 @@ typedef struct _FmFilePropData FmFilePropData;
 struct _FmFilePropData
 {
     GtkWidget* dlg;
+
+    /* General page */
     GtkWidget* icon;
     GtkWidget* name;
     GtkWidget* dir;
@@ -49,6 +55,15 @@ struct _FmFilePropData
     GtkWidget* size_on_disk;
     GtkWidget* mtime;
     GtkWidget* atime;
+
+    /* Permissions page */
+    GtkWidget* owner;
+    GtkWidget* group;
+    GtkWidget* owner_access;
+    GtkWidget* group_access;
+    GtkWidget* other_access;
+    GtkWidget* executable;
+    GtkWidget* recursive;
 
     FmFileInfoList* files;
     FmFileInfo* fi;
@@ -133,6 +148,72 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
     gtk_widget_destroy(dlg);
 }
 
+static void update_permissions(FmFilePropData* data)
+{
+    FmFileInfo* fi;
+    GList *l;
+    int sel;
+    mode_t owner_perm, group_perm, other_perm;
+    fi = (FmFileInfo*)fm_list_peek_head(data->files);
+
+    owner_perm = (fi->mode & S_IRWXU);
+    group_perm = (fi->mode & S_IRWXG);
+    other_perm = (fi->mode & S_IRWXO);
+
+    for(l=fm_list_peek_head_link(data->files); l; l=l->next)
+    {
+        FmFileInfo* fi = (FmFileInfo*)l->data;
+        if( owner_perm != -1 && owner_perm != (fi->mode & S_IRWXU) )
+            owner_perm = -1;
+        if( group_perm != -1 && group_perm != (fi->mode & S_IRWXG) )
+            group_perm = -1;
+        if( other_perm != -1 && other_perm != (fi->mode & S_IRWXO) )
+            other_perm = -1;
+    }
+
+    sel = 4;
+    if(owner_perm != -1)
+    {
+        if( (owner_perm & (S_IRUSR|S_IWUSR)) == (S_IRUSR|S_IWUSR) )
+            sel = 0;
+        else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IRUSR )
+            sel = 1;
+        else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IWUSR )
+            sel = 2;
+        else
+            sel = 3;
+    }
+    gtk_combo_box_set_active(data->owner_access, sel);
+
+    sel = 4;
+    if(group_perm != -1)
+    {
+        if( (group_perm & (S_IRGRP|S_IWGRP)) == (S_IRGRP|S_IWGRP) )
+            sel = 0;
+        else if( (group_perm & (S_IRGRP|S_IWGRP)) == S_IRGRP )
+            sel = 1;
+        else if( (group_perm & (S_IRGRP|S_IWGRP)) == S_IWGRP )
+            sel = 2;
+        else
+            sel = 3;
+    }
+    gtk_combo_box_set_active(data->group_access, sel);
+
+    sel = 4;
+    if(other_perm != -1)
+    {
+        if( (other_perm & (S_IROTH|S_IWOTH)) == (S_IROTH|S_IWOTH) )
+            sel = 0;
+        else if( (other_perm & (S_IROTH|S_IWOTH)) == S_IROTH )
+            sel = 1;
+        else if( (other_perm & (S_IROTH|S_IWOTH)) == S_IWOTH )
+            sel = 2;
+        else
+            sel = 3;
+    }
+    gtk_combo_box_set_active(data->other_access, sel);
+}
+
 static void update_ui(FmFilePropData* data)
 {
     GtkImage* img = (GtkImage*)data->icon;
@@ -202,6 +283,8 @@ static void update_ui(FmFilePropData* data)
         g_free(parent_str);
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
     }
+
+    update_permissions(data);
 
     on_timeout(data);
 }
@@ -333,6 +416,14 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(size_on_disk);
     GET_WIDGET(mtime);
     GET_WIDGET(atime);
+
+    GET_WIDGET(owner);
+    GET_WIDGET(group);
+    GET_WIDGET(owner_access);
+    GET_WIDGET(group_access);
+    GET_WIDGET(other_access);
+    GET_WIDGET(executable);
+    GET_WIDGET(recursive);
 
     g_object_unref(builder);
 
