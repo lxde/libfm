@@ -57,7 +57,6 @@ static const char main_menu_xml[] =
   "</menu>"
   "<menu action='BookmarksMenu'>"
     "<menuitem action='AddBookmark'/>"
-    "<menuitem action='EditBookmark'/>"
   "</menu>"
   "<menu action='ViewMenu'>"
     "<menuitem action='ShowHidden'/>"
@@ -134,7 +133,6 @@ static GtkActionEntry main_win_actions[]=
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, on_go},
     {"BookmarksMenu", NULL, N_("_Bookmarks"), NULL, NULL, NULL},
         {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
-        {"EditBookmark", GTK_STOCK_EDIT, N_("Edit Bookmarks"), NULL, N_("Edit Bookmarks"), NULL},
     /* for accelerators */
     {"Location", NULL, NULL, "<Alt>d", NULL, on_location},
     {"Location2", NULL, NULL, "<Ctrl>L", NULL, on_location},
