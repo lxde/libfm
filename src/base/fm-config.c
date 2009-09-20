@@ -77,7 +77,11 @@ static void fm_config_finalize(GObject *object)
 
 static void fm_config_init(FmConfig *self)
 {
-	
+    self->single_click = FM_CONFIG_DEFAULT_SINGLE_CLICK;
+    self->use_trash = FM_CONFIG_DEFAULT_USE_TRASH;
+    self->confirm_del = FM_CONFIG_DEFAULT_CONFIRM_DEL;
+    self->big_icon_size = FM_CONFIG_DEFAULT_BIG_ICON_SIZE;
+    self->small_icon_size = FM_CONFIG_DEFAULT_SMALL_ICON_SIZE;
 }
 
 

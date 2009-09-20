@@ -40,6 +40,13 @@ G_BEGIN_DECLS
 typedef struct _FmConfig			FmConfig;
 typedef struct _FmConfigClass		FmConfigClass;
 
+#define 	FM_CONFIG_DEFAULT_SINGLE_CLICK 		TRUE
+#define		FM_CONFIG_DEFAULT_USE_TRASH		TRUE
+#define		FM_CONFIG_DEFAULT_CONFIRM_DEL		TRUE
+
+#define		FM_CONFIG_DEFAULT_BIG_ICON_SIZE		48
+#define		FM_CONFIG_DEFAULT_SMALL_ICON_SIZE	24
+
 struct _FmConfig
 {
 	GObject parent;
