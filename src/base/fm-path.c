@@ -22,6 +22,7 @@
 #include "fm-path.h"
 #include "fm-file-info.h"
 #include <string.h>
+#include <limits.h>
 
 static FmPath* root = NULL;
 
@@ -280,25 +281,17 @@ static int fm_path_strlen(FmPath* path)
 /* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
-	int i, n_elements = 1;
-	gchar* buf, **path_elements;
+	gchar* buf, *path_elements[PATH_MAX];
+	int i = PATH_MAX - 1;
 	FmPath *tmp_path = path->parent;
 
-	/* count number of path elements */
-	while (tmp_path) 
-	{
-	    tmp_path=tmp_path->parent;
-	    n_elements++;
-	}
 	/* prepare array of path elements */
-	path_elements = (gchar**) g_new(gchar*, n_elements + 1 );
-	path_elements[n_elements] = 0;
-	for ( i = n_elements - 1, tmp_path = path; tmp_path; tmp_path = tmp_path->parent ) 
-	    path_elements[i--] = tmp_path->name;
+	path_elements[i] = 0;
+	for ( tmp_path = path; tmp_path; tmp_path = tmp_path->parent )
+	    path_elements[--i] = tmp_path->name;
 	
 	/* build path */
-	buf = g_build_pathv( "/", path_elements );
-	g_free( path_elements );
+	buf = g_build_pathv( "/", path_elements + i);
 	return buf;
 }
 
