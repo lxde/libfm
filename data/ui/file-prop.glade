@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface>
-  <requires lib="gtk+" version="2.14"/>
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="dlg">
     <property name="visible">True</property>
@@ -252,8 +252,12 @@
                     <child>
                       <object class="GtkComboBox" id="open_with">
                         <property name="visible">True</property>
+                        <property name="tooltip_text" translatable="yes">Select the application used to open files of this type </property>
                         <child>
                           <object class="GtkCellRendererPixbuf" id="icon_render"/>
+                          <attributes>
+                            <attribute name="gicon">0</attribute>
+                          </attributes>
                         </child>
                         <child>
                           <object class="GtkCellRendererText" id="text_render"/>
@@ -462,8 +466,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="owner_access">
+                                  <object class="GtkComboBox" id="owner_perm">
                                     <property name="visible">True</property>
+                                    <property name="tooltip_text" translatable="yes">Operations that the owner of the file can do</property>
                                     <property name="model">access_model</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrenderertext1"/>
@@ -479,8 +484,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="group_access">
+                                  <object class="GtkComboBox" id="group_perm">
                                     <property name="visible">True</property>
+                                    <property name="tooltip_text" translatable="yes">Operations that users of the same group with the owner of the file can do</property>
                                     <property name="model">access_model</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrenderertext2"/>
@@ -498,8 +504,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="other_access">
+                                  <object class="GtkComboBox" id="other_perm">
                                     <property name="visible">True</property>
+                                    <property name="tooltip_text" translatable="yes">Operations that all other users can do</property>
                                     <property name="model">access_model</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrenderertext3"/>
