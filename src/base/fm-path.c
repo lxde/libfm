@@ -278,21 +278,34 @@ static int fm_path_strlen(FmPath* path)
 	return len;
 }
 
+/* recursive internal implem. of fm_path_to_str returns end of current
+   build string */
+static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len) 
+{
+    gint name_len = strlen(path->name);
+    gchar* pbuf;
+    
+    if (!path->parent) 
+    {
+	*ret = g_new0(gchar, str_len + name_len + 1 );
+	pbuf = *ret;
+    }
+    else 
+    {
+	pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len );
+	if (path->parent->parent)
+	    *pbuf++ = G_DIR_SEPARATOR;
+    }
+    memcpy( pbuf, path->name, name_len );
+    return pbuf + name_len;
+}
+
 /* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
-	gchar* buf, *path_elements[PATH_MAX];
-	int i = PATH_MAX - 1;
-	FmPath *tmp_path = path->parent;
-
-	/* prepare array of path elements */
-	path_elements[i] = 0;
-	for ( tmp_path = path; tmp_path; tmp_path = tmp_path->parent )
-	    path_elements[--i] = tmp_path->name;
-	
-	/* build path */
-	buf = g_build_pathv( "/", path_elements + i);
-	return buf;
+    gchar *ret;
+    fm_path_to_str_int( path, &ret, 0 );
+    return ret;
 }
 
 char* fm_path_to_uri(FmPath* path)
