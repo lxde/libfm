@@ -292,7 +292,7 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
     }
     else 
     {
-	pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len );
+	pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len + 1 );
 	if (path->parent->parent)
 	    *pbuf++ = G_DIR_SEPARATOR;
     }
