@@ -21,16 +21,11 @@
  */
 
 #include "fm-path-entry.h"
-#include <gio/gio.h>
+/* for completion */
+#include "fm-folder-model.h"
 #include <string.h>
+#include <gio/gio.h>
 
-/* treestore columns */
-enum
-{
-    COL_NAME,
-    COL_PATH,
-    N_COLS
-};
 
 
 #define FM_PATH_ENTRY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), FM_TYPE_PATH_ENTRY, FmPathEntryPrivate))
@@ -39,125 +34,150 @@ typedef struct _FmPathEntryPrivate FmPathEntryPrivate;
 
 struct _FmPathEntryPrivate 
 {
-    GtkEntryCompletion* ec;
-    GFilenameCompleter* fc;
+    /* associated with a folder model */
+    FmFolderModel* model;
+    /* initialized once on folder model change for faster completion */
+    const gchar *model_path_str;
+    GtkEntryCompletion* completion;
 };
 
 G_DEFINE_TYPE (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY)
 
-static void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* entry);
+static void      fm_path_entry_activate         (GtkEntry *entry, gpointer user_data);
+static void 	 fm_path_entry_class_init 	(FmPathEntryClass *klass);
+static void 	 fm_path_entry_init 		(FmPathEntry *entry);
+static void 	 fm_path_entry_finalize 	(GObject *object);
+static gboolean  fm_path_entry_match_func 	(GtkEntryCompletion   *completion,
+						 const gchar          *key,
+						 GtkTreeIter          *iter,
+						 gpointer              user_data);
+static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
+						 GtkTreeModel       *model,
+						 GtkTreeIter        *iter,
+						 gpointer            user_data);
 
-static void update_completion(FmPathEntry* pe, gboolean clear_old)
+static void  fm_path_entry_activate (GtkEntry *entry, gpointer user_data) 
 {
-    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(pe);
-    GtkListStore* list = (GtkListStore*)gtk_entry_completion_get_model(private->ec);
-    gchar** fns = g_filename_completer_get_completions(private->fc, gtk_entry_get_text(GTK_ENTRY(pe)));
-    gchar** fn;
-
-    if(clear_old)
-        gtk_list_store_clear(list);
-
-    if(fns)
-    {
-        for(fn=fns; *fn; ++fn)
-        {
-            GtkTreeIter it;
-            char* basename = g_path_get_basename(*fn);
-            gtk_list_store_append(list, &it);
-            gtk_list_store_set(list, &it, COL_NAME, basename, COL_PATH, *fn, -1);
-            g_free(basename);
-        }
-        g_strfreev(fns);
-    }
-}
-
-static void on_changed( GtkEntry* entry, gpointer user_data )
-{
-    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE( entry );
-		       
-    if(private->ec)
-        update_completion(FM_PATH_ENTRY(entry), TRUE);
-}
-
-static gboolean fm_path_entry_focus_in( GtkWidget *entry, GdkEventFocus* evt)
-{
-#if GLIB_CHECK_VERSION(2,20,4)
-    FmPathEntry* pe = FM_PATH_ENTRY(entry);
-    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    GtkEntryCompletion* completion = gtk_entry_completion_new();
-    GtkListStore* list = gtk_list_store_new( N_COLS, G_TYPE_STRING, G_TYPE_STRING );
-    GtkCellRenderer* render;
-
-    gtk_entry_completion_set_minimum_key_length( completion, 1 );
-    gtk_entry_completion_set_model( completion, GTK_TREE_MODEL(list) );
-    g_object_unref( list );
-
-    /* gtk_entry_completion_set_text_column( completion, COL_PATH ); */
-    g_object_set( completion, "text-column", COL_PATH, NULL );
-    render = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start( (GtkCellLayout*)completion, render, TRUE );
-    gtk_cell_layout_add_attribute( (GtkCellLayout*)completion, render, "text", COL_NAME );
-
-    gtk_entry_completion_set_inline_completion( completion, TRUE );
-    gtk_entry_completion_set_popup_set_width( completion, TRUE );
-
-    gtk_entry_set_completion( GTK_ENTRY(entry), completion );
-    g_signal_connect( G_OBJECT(entry), "changed", G_CALLBACK(on_changed), pe );
-    g_object_unref( completion );
-
-
-    private->ec = completion;
-    private->fc = g_filename_completer_new();
-    g_signal_connect(private->fc, "got-completion-data", G_CALLBACK(on_got_completion_data), pe);
-    g_filename_completer_set_dirs_only(private->fc, TRUE);
-#endif
-    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_in_event(entry, evt);
-}
-
-static gboolean fm_path_entry_focus_out( GtkWidget *entry, GdkEventFocus* evt)
-{
-#if GLIB_CHECK_VERSION(2,20,4)
-    FmPathEntry* pe = FM_PATH_ENTRY(entry);
-    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE(entry );
-    
-    g_signal_handlers_disconnect_by_func( entry, on_changed, NULL );
-    gtk_entry_set_completion( GTK_ENTRY(entry), NULL );
-
-    private->ec = NULL;
-    g_object_unref(private->fc);
-    private->fc = NULL;
-#endif    
-    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_out_event(entry, evt);
-}
-
-static void path_entry_free(FmPathEntry* pe)
-{
-    g_slice_free(FmPathEntry, pe);
+    /* Chain up so that entry->activates_default is honored */
+    GTK_ENTRY_CLASS (fm_path_entry_parent_class)->activate (entry);
 }
 
 static void fm_path_entry_class_init (FmPathEntryClass *klass)
 {      
-    GtkWidgetClass* widget_class = (GtkWidgetClass*) klass;
-
-    widget_class->focus_in_event = fm_path_entry_focus_in;
-    widget_class->focus_out_event = fm_path_entry_focus_out;
-
+    GtkWidgetClass* widget_class = GTK_WIDGET_CLASS( klass );
+    GObjectClass* object_class = G_OBJECT_CLASS( klass );
+    GtkEntryClass* entry_class = GTK_ENTRY_CLASS( klass );
+    
+    object_class->finalize = fm_path_entry_finalize;
+    entry_class->activate = fm_path_entry_activate;
+    
     g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
 }
 
 static void
 fm_path_entry_init (FmPathEntry *entry)
 {
+    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    GtkEntryCompletion* completion = gtk_entry_completion_new();
+    GtkCellRenderer* render;
 
+    private->model = NULL;
+    private->model_path_str = NULL;
+    private->completion = completion;
+    
+    gtk_entry_completion_set_minimum_key_length( completion, 1 );
+    gtk_entry_completion_set_match_func( completion, fm_path_entry_match_func, entry, NULL );
+    g_signal_connect(G_OBJECT (completion), "match-selected", G_CALLBACK(fm_path_entry_match_selected), (gpointer)  NULL);
+    g_object_set( completion, "text-column", COL_FILE_NAME, NULL );
+    render = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start( (GtkCellLayout*)completion, render, TRUE );
+    gtk_cell_layout_add_attribute( (GtkCellLayout*)completion, render, "text", COL_FILE_NAME );
+    gtk_entry_completion_set_inline_completion( completion, TRUE );
+    gtk_entry_completion_set_popup_set_width( completion, TRUE );
+    gtk_entry_set_completion( GTK_ENTRY(entry), completion );
+    g_object_unref (G_OBJECT (completion));
+    
+    return GTK_WIDGET(entry);
 }
 
+static void
+fm_path_entry_finalize (GObject *object)
+{
+    FmPathEntryPrivate* private = FM_PATH_ENTRY_GET_PRIVATE(object);    
+    /* release the folder model reference */
+    if (G_LIKELY (private->model ) )
+	g_object_unref (G_OBJECT (private->model));
+}
 
 GtkWidget* fm_path_entry_new()
 {
-    return GTK_WIDGET(g_object_new(fm_path_entry_get_type(), NULL));
+    return g_object_new (FM_TYPE_PATH_ENTRY, NULL);
 }
 
-void on_got_completion_data(GFilenameCompleter* fc, FmPathEntry* pe)
+void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model) 
 {
-    update_completion(pe, FALSE);
+    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
+
+    if (private->model)
+	g_object_unref ( private->model );    
+    private->model = model;
+    private->model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
+    
+    g_object_ref( private->model );
+    gtk_entry_completion_set_model( private->completion, private->model );
 }
+
+static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
+					  const gchar          *key,
+					  GtkTreeIter          *iter,
+					  gpointer              user_data) 
+{
+    GtkTreeModel *model = gtk_entry_completion_get_model( completion );
+    FmPathEntry *pe = FM_PATH_ENTRY( user_data );
+    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( pe );
+    FmFileInfo *model_file_info;
+    gchar *model_file_name;
+    /* find sep in key */
+    gchar *key_file_name = strrchr( key, G_DIR_SEPARATOR ) + 1;
+    gboolean is_dir;
+    
+    /* no model loaded */
+    if (!model)
+	return FALSE;
+    
+    /* Check if path entry is part of folder model */
+    if ( !g_str_has_prefix ( key, private->model_path_str ) )
+	/* FIXME: Need fallback for folder based completion */
+	return FALSE;
+
+    /* get filename, info from model */
+    gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
+			COL_FILE_NAME, &model_file_name,
+			COL_FILE_INFO, &model_file_info,
+			-1);
+    is_dir = fm_file_info_is_dir( model_file_info );
+    fm_file_info_unref ( model_file_info );
+    
+    return (g_str_has_prefix( model_file_name, key_file_name) && is_dir);
+
+}
+
+static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
+						 GtkTreeModel       *model,
+						 GtkTreeIter        *iter,
+						 gpointer            user_data) 
+{
+    GtkWidget *entry = gtk_entry_completion_get_entry( widget );
+    gchar new_text[PATH_MAX];
+    FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY ( entry ) );
+    gchar *model_file_name;
+    gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
+			COL_FILE_NAME, &model_file_name,
+			-1);
+    g_sprintf( new_text, "%s/%s/", private->model_path_str, model_file_name );
+    gtk_entry_set_text( GTK_ENTRY(entry), new_text );
+    /* move the cursor to the end of entry */
+    gtk_editable_set_position (GTK_EDITABLE (entry), -1);
+    return TRUE;
+}
+

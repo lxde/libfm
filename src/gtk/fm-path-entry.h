@@ -27,6 +27,9 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
+/* required for completion */
+#include "fm-folder-model.h"
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_PATH_ENTRY (fm_path_entry_get_type())
@@ -49,7 +52,8 @@ struct _FmPathEntryClass
 };
 
 GType fm_path_entry_get_type(void);
-GtkWidget* fm_path_entry_new(void);
+GtkWidget* fm_path_entry_new();
+void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model);
 
 
 G_END_DECLS

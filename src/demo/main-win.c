@@ -88,6 +88,12 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
     fm_folder_view_chdir_by_name(self->folder_view, gtk_entry_get_text(entry));
 }
 
+static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data) 
+{
+    FmPathEntry* entry = FM_PATH_ENTRY(user_data);
+    fm_path_entry_set_model( entry, view->model );
+}
+
 static void open_folder_hook(FmFileInfo* fi, gpointer user_data)
 {
     FmMainWin* win = FM_MAIN_WIN(user_data);
@@ -294,8 +300,6 @@ static void fm_main_win_init(FmMainWin *self)
     ++n_wins;
 
     vbox = gtk_vbox_new(FALSE, 0);
-    self->location = fm_path_entry_new();
-    g_signal_connect(self->location, "activate", on_entry_activate, self);
 
     self->hpaned = gtk_hpaned_new();
     gtk_paned_set_position(self->hpaned, 150);
@@ -365,6 +369,10 @@ static void fm_main_win_init(FmMainWin *self)
     load_bookmarks(self, ui);
 
     /* the location bar */
+    self->location = fm_path_entry_new();
+    g_signal_connect(self->location, "activate", on_entry_activate, self);
+    g_signal_connect(self->folder_view, "loaded", G_CALLBACK(on_view_loaded), (gpointer) self->location);
+
     toolitem = gtk_tool_item_new();
     gtk_container_add( toolitem, self->location );
     gtk_tool_item_set_expand(toolitem, TRUE);
@@ -386,7 +394,7 @@ static void fm_main_win_init(FmMainWin *self)
 
     fm_folder_view_set_show_hidden(self->folder_view, FALSE);
     fm_main_win_chdir(self, fm_path_get_home());
-
+   
     gtk_widget_grab_focus(self->folder_view);
 }
 
