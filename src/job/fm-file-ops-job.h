@@ -51,8 +51,7 @@ enum _FmFileOpType
 	FM_FILE_OP_TRASH,
 	FM_FILE_OP_DELETE,
     FM_FILE_OP_LINK,
-	FM_FILE_OP_CHMOD,
-	FM_FILE_OP_CHOWN
+	FM_FILE_OP_CHANGE_ATTR
 };
 
 typedef enum _FmFileOpOption FmFileOpOption;
@@ -64,6 +63,10 @@ enum _FmFileOpOption
 	FM_FILE_OP_SKIP = 1<<2,
 	FM_FILE_OP_SKIP_ERROR = 1<<3
 };
+
+/* FIXME: maybe we should create derived classes for different kind
+ * of file operations rather than use one class to handle all kinds of
+ * file operations. */
 
 struct _FmFileOpsJob
 {
@@ -84,6 +87,12 @@ struct _FmFileOpsJob
 
     FmFileOpOption default_option;
 	gboolean recursive;
+
+    /* for chmod and chown */
+    guint32 uid;
+    guint32 gid;
+    mode_t new_mode;
+    mode_t new_mode_mask;
 };
 
 struct _FmFileOpsJobClass
@@ -99,11 +108,11 @@ FmJob*	fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 
-/* This only work for chmod and chown jobs. */
+/* This only work for change attr jobs. */
 void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
-/* void fm_file_ops_job_set_chmod(FmFileOpsJob* job, guint new_mod); */
-/* void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid); */
+void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask);
+void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid);
 
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job);

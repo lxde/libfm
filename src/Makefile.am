@@ -32,6 +32,7 @@ job_SOURCES = \
 	job/fm-file-info-job.c \
 	job/fm-file-ops-job-xfer.c \
 	job/fm-file-ops-job-delete.c \
+	job/fm-file-ops-job-change-attr.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -91,6 +92,7 @@ LIBFM_INCLUDES = \
 	job/fm-file-info-job.h \
 	job/fm-file-ops-job-xfer.h \
 	job/fm-file-ops-job-delete.h \
+	job/fm-file-ops-job-change-attr.h \
 	$(NULL)
 
 LIBFM_GTK_INCLUDES = \

@@ -36,8 +36,8 @@
 
 #include "fm-gtk-utils.h"
 
-#define UI_FILE        PACKAGE_UI_DIR"/file-prop.ui"
-#define    GET_WIDGET(name)    data->name = (GtkWidget*)gtk_builder_get_object(builder, #name);
+#define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
+#define     GET_WIDGET(name)    data->name = (GtkWidget*)gtk_builder_get_object(builder, #name);
 
 enum {
     READ_WRITE,
@@ -145,6 +145,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         int sel;
         const char* new_owner = gtk_entry_get_text(data->owner);
         const char* new_group = gtk_entry_get_text(data->group);
+        guint32 uid = -1, gid = -1;
+        mode_t new_mode = 0, new_mode_mask = 0;
 
         /* FIXME: if all files are native, it's possible to check
          * if the names are legal user and group names on the local
@@ -165,7 +167,22 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if( sel != NO_CHANGE ) /* need to change owner permission */
         {
             if(data->owner_perm_sel != sel) /* new value is different from original */
+            {
+                new_mode_mask |= S_IRUSR|S_IWUSR;
                 data->owner_perm_sel = sel;
+                switch(sel)
+                {
+                case READ_WRITE:
+                    new_mode |= S_IRUSR|S_IWUSR;
+                    break;
+                case READ_ONLY:
+                    new_mode |= S_IRUSR;
+                    break;
+                case WRITE_ONLY:
+                    new_mode |= S_IWUSR;
+                    break;
+                }
+            }
             else /* otherwise, no change */
                 data->owner_perm_sel = NO_CHANGE;
         }
@@ -176,7 +193,22 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if( sel != NO_CHANGE ) /* need to change group permission */
         {
             if(data->group_perm_sel != sel) /* new value is different from original */
+            {
+                new_mode_mask |= S_IRGRP|S_IWGRP;
                 data->group_perm_sel = sel;
+                switch(sel)
+                {
+                case READ_WRITE:
+                    new_mode |= S_IRGRP|S_IWGRP;
+                    break;
+                case READ_ONLY:
+                    new_mode |= S_IRGRP;
+                    break;
+                case WRITE_ONLY:
+                    new_mode |= S_IWGRP;
+                    break;
+                }
+            }
             else /* otherwise, no change */
                 data->group_perm_sel = NO_CHANGE;
         }
@@ -187,17 +219,37 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if( sel != NO_CHANGE ) /* need to change other permission */
         {
             if(data->other_perm_sel != sel) /* new value is different from original */
+            {
+                new_mode_mask |= S_IROTH|S_IWOTH;
+                switch(sel)
+                {
+                case READ_WRITE:
+                    new_mode |= S_IROTH|S_IWOTH;
+                    break;
+                case READ_ONLY:
+                    new_mode |= S_IROTH;
+                    break;
+                case WRITE_ONLY:
+                    new_mode |= S_IWOTH;
+                    break;
+                }
                 data->other_perm_sel = sel;
+            }
             else /* otherwise, no change */
                 data->other_perm_sel = NO_CHANGE;
         }
         else
             data->other_perm_sel = NO_CHANGE;
 
-        if(data->owner_perm_sel != NO_CHANGE || data->group_perm_sel != NO_CHANGE || data->other_perm_sel != NO_CHANGE)
+        if(new_mode_mask)
         {
             /* need to do chmod */
+            FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
             g_debug("need to chmod: %d, %d, %d", data->owner_perm_sel, data->group_perm_sel, data->other_perm_sel);
+            FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+            fm_file_ops_job_set_chmod(job, new_mode, new_mode_mask);
+            fm_job_run_async(job);
+            fm_list_unref(paths);
         }
 
         /* change default application for the mime-type */
@@ -342,7 +394,6 @@ static void update_permissions(FmFilePropData* data)
 static void update_ui(FmFilePropData* data)
 {
     GtkImage* img = (GtkImage*)data->icon;
-    const char* FILES_OF_MULTIPLE_TYPE = _("Files of different types");
 
     if( data->single_type ) /* all files are of the same mime-type */
     {
@@ -385,10 +436,9 @@ static void update_ui(FmFilePropData* data)
     else
     {
         gtk_image_set_from_stock(img, GTK_STOCK_DND_MULTIPLE, GTK_ICON_SIZE_DIALOG);
-        gtk_entry_set_text(data->name, FILES_OF_MULTIPLE_TYPE);
         gtk_widget_set_sensitive(data->name, FALSE);
 
-        gtk_label_set_text(data->type, FILES_OF_MULTIPLE_TYPE);
+        gtk_label_set_text(data->type, _("Files of different types"));
 
         gtk_widget_destroy(data->target_label);
         gtk_widget_destroy(data->target);
@@ -407,6 +457,11 @@ static void update_ui(FmFilePropData* data)
         gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
         g_free(parent_str);
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
+    }
+    else
+    {
+        gtk_entry_set_text(GTK_ENTRY(data->name), _("Multiple Files"));
+        gtk_widget_set_sensitive(data->name, FALSE);
     }
 
     update_permissions(data);
@@ -476,7 +531,7 @@ static void init_application_list(FmFilePropData* data)
             gtk_list_store_set(store, &it,
                                0, NULL,
                                1, _("Other Applications"),
-                               2, NULL);
+                               2, NULL, -1);
             gtk_combo_box_set_model(data->open_with, store);
             if(def_it.user_data) /* default app is found */
                 gtk_combo_box_set_active_iter(data->open_with, &def_it);
