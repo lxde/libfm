@@ -26,8 +26,6 @@
 #include <string.h>
 #include <gio/gio.h>
 
-
-
 #define FM_PATH_ENTRY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), FM_TYPE_PATH_ENTRY, FmPathEntryPrivate))
 
 typedef struct _FmPathEntryPrivate FmPathEntryPrivate;
@@ -43,7 +41,7 @@ struct _FmPathEntryPrivate
 
 G_DEFINE_TYPE (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY)
 
-static void      fm_path_entry_activate         (GtkEntry *entry, gpointer user_data);
+static void      fm_path_entry_activate         (GtkEntry *entry);
 static void 	 fm_path_entry_class_init 	(FmPathEntryClass *klass);
 static void 	 fm_path_entry_init 		(FmPathEntry *entry);
 static void 	 fm_path_entry_finalize 	(GObject *object);
@@ -56,7 +54,7 @@ static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
 						 GtkTreeIter        *iter,
 						 gpointer            user_data);
 
-static void  fm_path_entry_activate (GtkEntry *entry, gpointer user_data) 
+static void  fm_path_entry_activate (GtkEntry *entry )
 {
     /* Chain up so that entry->activates_default is honored */
     GTK_ENTRY_CLASS (fm_path_entry_parent_class)->activate (entry);
@@ -96,8 +94,6 @@ fm_path_entry_init (FmPathEntry *entry)
     gtk_entry_completion_set_popup_set_width( completion, TRUE );
     gtk_entry_set_completion( GTK_ENTRY(entry), completion );
     g_object_unref (G_OBJECT (completion));
-    
-    return GTK_WIDGET(entry);
 }
 
 static void
@@ -124,7 +120,7 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model)
     private->model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
     
     g_object_ref( private->model );
-    gtk_entry_completion_set_model( private->completion, private->model );
+    gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->model) );
 }
 
 static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
