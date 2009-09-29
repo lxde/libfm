@@ -133,8 +133,10 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( pe );
     FmFileInfo *model_file_info;
     gchar *model_file_name;
+    /* get original key (case sensitive) */
+    gchar *original_key = gtk_entry_get_text( gtk_entry_completion_get_entry( completion ) ) ;
     /* find sep in key */
-    gchar *key_file_name = strrchr( key, G_DIR_SEPARATOR ) + 1;
+    gchar *key_file_name = strrchr( original_key, G_DIR_SEPARATOR ) + 1;					      
     gboolean is_dir;
     
     /* no model loaded */
@@ -142,7 +144,7 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
 	return FALSE;
     
     /* Check if path entry is part of folder model */
-    if ( !g_str_has_prefix ( key, private->model_path_str ) )
+    if ( !g_str_has_prefix ( original_key, private->model_path_str ) )
 	/* FIXME: Need fallback for folder based completion */
 	return FALSE;
 
