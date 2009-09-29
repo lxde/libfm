@@ -84,7 +84,7 @@ fm_path_entry_init (FmPathEntry *entry)
     private->completion = completion;
     
     gtk_entry_completion_set_minimum_key_length( completion, 1 );
-    gtk_entry_completion_set_match_func( completion, fm_path_entry_match_func, entry, NULL );
+    gtk_entry_completion_set_match_func( completion, fm_path_entry_match_func, NULL, NULL );
     g_signal_connect(G_OBJECT (completion), "match-selected", G_CALLBACK(fm_path_entry_match_selected), (gpointer)  NULL);
     g_object_set( completion, "text-column", COL_FILE_NAME, NULL );
     render = gtk_cell_renderer_text_new();
@@ -129,12 +129,12 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
 					  gpointer              user_data) 
 {
     GtkTreeModel *model = gtk_entry_completion_get_model( completion );
-    FmPathEntry *pe = FM_PATH_ENTRY( user_data );
+    FmPathEntry *pe = FM_PATH_ENTRY( gtk_entry_completion_get_entry( completion ) );
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( pe );
     FmFileInfo *model_file_info;
     gchar *model_file_name;
     /* get original key (case sensitive) */
-    gchar *original_key = gtk_entry_get_text( gtk_entry_completion_get_entry( completion ) ) ;
+    const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(pe) ) ;
     /* find sep in key */
     gchar *key_file_name = strrchr( original_key, G_DIR_SEPARATOR ) + 1;					      
     gboolean is_dir;
