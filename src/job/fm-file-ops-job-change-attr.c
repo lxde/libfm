@@ -33,6 +33,8 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
     GError* err = NULL;
     GCancellable* cancellable = FM_JOB(job)->cancellable;
     GFileInfo* _inf = NULL;
+    GFileType type;
+    gboolean ret = TRUE;
 
     /* FIXME: need better error handling.
      * Some errors are recoverable or can be skipped. */
@@ -50,6 +52,8 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
 		    return FALSE;
         }
 	}
+
+    type = g_file_info_get_file_type(inf);
 
     /* change owner */
     if( job->uid != -1 && !g_file_set_attribute_uint32(gf, G_FILE_ATTRIBUTE_UNIX_UID,
@@ -77,6 +81,19 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
         guint32 mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
         mode &= ~job->new_mode_mask;
         mode |= (job->new_mode & job->new_mode_mask);
+
+        /* FIXME: this behavior should be optionally */
+        /* treat dirs with 'r' as 'rx' */
+        if(type == G_FILE_TYPE_DIRECTORY)
+        {
+            if(mode & S_IRUSR)
+                mode |= S_IXUSR;
+            if(mode & S_IRGRP)
+                mode |= S_IXGRP;
+            if(mode & S_IROTH)
+                mode |= S_IXOTH;
+        }
+
         /* new mode */
         if( !g_file_set_attribute_uint32(gf, G_FILE_ATTRIBUTE_UNIX_MODE,
                                          mode, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
@@ -91,7 +108,47 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
     if(_inf)
     	g_object_unref(_inf);
 
-    return TRUE;
+    if(job->recursive && type == G_FILE_TYPE_DIRECTORY)
+    {
+		GFileEnumerator* enu = g_file_enumerate_children(gf, query,
+									G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+									cancellable, &err);
+        if(!enu)
+        {
+            fm_job_emit_error(job, err, FALSE);
+            g_error_free(err);
+		    g_object_unref(enu);
+		    return FALSE;
+        }
+
+		while( ! FM_JOB(job)->cancel )
+		{
+			inf = g_file_enumerator_next_file(enu, cancellable, &err);
+			if(inf)
+			{
+				GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
+				ret = fm_file_ops_job_change_attr_file(job, sub, inf); /* FIXME: error handling? */
+				g_object_unref(sub);
+				g_object_unref(inf);
+                if(!ret)
+                    break;
+			}
+			else
+			{
+                if(err)
+                {
+                    fm_job_emit_error(job, err, FALSE);
+                    g_error_free(err);
+                    ret = FALSE;
+                    break;
+                }
+                else /* EOF */
+                    break;
+			}
+		}
+		g_object_unref(enu);
+    }
+    return ret;
 }
 
 gboolean fm_file_ops_job_change_attr_run(FmFileOpsJob* job)

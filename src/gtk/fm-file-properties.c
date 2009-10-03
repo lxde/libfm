@@ -31,6 +31,7 @@
 #include "fm-file-info.h"
 #include "fm-file-properties.h"
 #include "fm-deep-count-job.h"
+#include "fm-file-ops-job.h"
 #include "fm-utils.h"
 #include "fm-path.h"
 
@@ -77,13 +78,15 @@ struct _FmFilePropData
     int group_perm_sel;
     GtkWidget* other_perm;
     int other_perm_sel;
-    GtkWidget* executable;
+    GtkWidget* exec;
+    int exec_state;
 
     FmFileInfoList* files;
     FmFileInfo* fi;
     gboolean single_type;
     gboolean single_file;
     gboolean all_native;
+    gboolean has_dir;
     FmMimeType* mime_type;
     gpointer separator_iter_user_data;
     gpointer other_apps_iter_user_data;
@@ -241,13 +244,29 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         else
             data->other_perm_sel = NO_CHANGE;
 
+        if(!data->has_dir 
+           && !gtk_toggle_button_get_inconsistent(data->exec)
+           && gtk_toggle_button_get_active(data->exec) != data->exec_state)
+        {
+            new_mode_mask |= (S_IXUSR|S_IXGRP|S_IXOTH);
+            if(gtk_toggle_button_get_active(data->exec))
+                new_mode |= (S_IXUSR|S_IXGRP|S_IXOTH);
+        }
+
         if(new_mode_mask)
         {
+            /* FIXME: handle chown here */
             /* need to do chmod */
             FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
-            g_debug("need to chmod: %d, %d, %d", data->owner_perm_sel, data->group_perm_sel, data->other_perm_sel);
             FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
             fm_file_ops_job_set_chmod(job, new_mode, new_mode_mask);
+
+            if(data->has_dir)
+            {
+                if(fm_yes_no(data->dlg, _( "Do you want to recursively apply these changes to all files and sub-folders?" )))
+                    fm_file_ops_job_set_recursive(job, TRUE);
+            }
+
             fm_job_run_async(job);
             fm_list_unref(paths);
         }
@@ -276,6 +295,29 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
     gtk_widget_destroy(dlg);
 }
 
+static void on_exec_toggled(GtkToggleButton* btn, FmFilePropData* data)
+{
+    /* Bypass the default handler */
+    g_signal_stop_emission_by_name( btn, "toggled" );
+    /* Block this handler while we are changing the state of buttons,
+      or this handler will be called recursively. */
+    g_signal_handlers_block_matched( btn, G_SIGNAL_MATCH_FUNC, 0,
+                                     0, NULL, on_exec_toggled, NULL );
+
+    if( gtk_toggle_button_get_inconsistent( btn ) )
+    {
+        gtk_toggle_button_set_inconsistent( btn, FALSE );
+        gtk_toggle_button_set_active( btn, TRUE );
+    }
+    else if( gtk_toggle_button_get_active( btn ) )
+    {
+        gtk_toggle_button_set_inconsistent( btn, TRUE );
+    }
+
+    g_signal_handlers_unblock_matched( btn, G_SIGNAL_MATCH_FUNC, 0,
+                                       0, NULL, on_exec_toggled, NULL );
+}
+
 /* FIXME: this is too dirty. Need some refactor later. */
 static void update_permissions(FmFilePropData* data)
 {
@@ -283,14 +325,17 @@ static void update_permissions(FmFilePropData* data)
     GList *l;
     int sel;
     char* tmp;
-    data->all_native = fm_path_is_native(fi->path);
     mode_t owner_perm = (fi->mode & S_IRWXU);
     mode_t group_perm = (fi->mode & S_IRWXG);
     mode_t other_perm = (fi->mode & S_IRWXO);
+    mode_t exec_perm = (fi->mode & (S_IXUSR|S_IXGRP|S_IXOTH));
     uid_t uid = fi->uid;
     gid_t gid = fi->gid;
     struct group* grp = NULL;
     struct passwd* pw = NULL;
+
+    data->all_native = fm_path_is_native(fi->path);
+    data->has_dir = S_ISDIR(fi->mode) != FALSE;
 
     for(l=fm_list_peek_head_link(data->files)->next; l; l=l->next)
     {
@@ -298,6 +343,9 @@ static void update_permissions(FmFilePropData* data)
 
         if( !fm_path_is_native(fi->path) )
             data->all_native = FALSE;
+
+        if(S_ISDIR(fi->mode))
+            data->has_dir = TRUE;
 
         if( uid != fi->uid )
             uid = -1;
@@ -310,6 +358,9 @@ static void update_permissions(FmFilePropData* data)
             group_perm = -1;
         if( other_perm != -1 && other_perm != (fi->mode & S_IRWXO) )
             other_perm = -1;
+
+        if( exec_perm != (fi->mode & (S_IXUSR|S_IXGRP|S_IXOTH)) )
+            exec_perm = -1;
     }
 
     if( data->all_native )
@@ -355,7 +406,7 @@ static void update_permissions(FmFilePropData* data)
         else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IWUSR )
             sel = WRITE_ONLY;
         else
-            sel = NONE;
+            sel = NONE;            
     }
     gtk_combo_box_set_active(data->owner_perm, sel);
     data->owner_perm_sel = sel;
@@ -389,6 +440,33 @@ static void update_permissions(FmFilePropData* data)
     }
     gtk_combo_box_set_active(data->other_perm, sel);
     data->other_perm_sel = sel;
+
+    if(data->has_dir)
+        gtk_widget_hide( data->exec );
+
+    if( exec_perm != -1 )
+    {
+        gboolean xusr = (exec_perm & S_IXUSR) != 0;
+        gboolean xgrp = (exec_perm & S_IXGRP) != 0;
+        gboolean xoth = (exec_perm & S_IXOTH) != 0;
+        if( xusr == xgrp && xusr == xoth ) /* executable */
+        {
+            gtk_toggle_button_set_active(data->exec, xusr);
+            data->exec_state = xusr;
+        }
+        else /* inconsistent */
+        {
+            gtk_toggle_button_set_inconsistent(data->exec, TRUE);
+            g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
+            data->exec_state = -1;
+        }
+    }
+    else /* inconsistent */
+    {
+        gtk_toggle_button_set_inconsistent(data->exec, TRUE);
+        g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
+        data->exec_state = -1;
+    }
 }
 
 static void update_ui(FmFilePropData* data)
@@ -602,7 +680,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(owner_perm);
     GET_WIDGET(group_perm);
     GET_WIDGET(other_perm);
-    GET_WIDGET(executable);
+    GET_WIDGET(exec);
 
     g_object_unref(builder);
 

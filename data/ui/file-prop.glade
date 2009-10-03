@@ -3,7 +3,7 @@
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="dlg">
-    <property name="visible">True</property>
+    <property name="visible">False</property>
     <property name="border_width">6</property>
     <property name="title" translatable="yes">File Properties</property>
     <property name="resizable">False</property>
