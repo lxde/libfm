@@ -25,6 +25,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+
+#include <ctype.h>
+#include <stdlib.h>
 #include <pwd.h>
 #include <grp.h>
 
@@ -91,6 +94,9 @@ struct _FmFilePropData
     gpointer separator_iter_user_data;
     gpointer other_apps_iter_user_data;
     GAppInfo* new_app;
+    
+    uid_t uid;
+    gid_t gid;
 
     guint timeout;
     FmJob* dc_job;
@@ -141,6 +147,70 @@ static void fm_file_prop_data_free(FmFilePropData* data)
     g_slice_free(FmFilePropData, data);
 }
 
+static gboolean ensure_valid_owner(FmFilePropData* data)
+{
+    gboolean ret = TRUE;
+    const char* tmp = gtk_entry_get_text(data->owner);
+
+    data->uid = -1;
+    if(tmp && *tmp)
+    {
+        if(data->all_native && !isdigit(tmp[0])) /* entering names instead of numbers is only allowed for local files. */
+        {
+            struct passwd* pw;
+            if(!tmp || !*tmp || !(pw = getpwnam(tmp)))
+                ret = FALSE;
+            else
+                data->uid = pw->pw_uid;
+        }
+    }
+    else
+        ret = FALSE;
+
+    if(!ret)
+    {
+        fm_show_error(data->dlg, _("Please enter a valid user name or numeric id."));
+        gtk_widget_grab_focus(data->owner);
+    }
+
+    if(data->uid == -1)
+        data->uid = atoi(tmp);
+    
+    return ret;
+}
+
+static gboolean ensure_valid_group(FmFilePropData* data)
+{
+    gboolean ret = TRUE;
+    const char* tmp = gtk_entry_get_text(data->group);
+
+    data->gid = -1;
+    if(tmp && *tmp)
+    {
+        if(data->all_native && !isdigit(tmp[0])) /* entering names instead of numbers is only allowed for local files. */
+        {
+            struct group* gr;
+            if(!tmp || !*tmp || !(gr = getgrnam(tmp)))
+                ret = FALSE;
+            else
+                data->gid = gr->gr_gid;
+        }
+    }
+    else
+        ret = FALSE;
+
+    if(!ret)
+    {
+        fm_show_error(data->dlg, _("Please enter a valid group name or numeric id."));
+        gtk_widget_grab_focus(data->group);
+    }
+    if(data->gid == -1)
+        data->gid = atoi(tmp);
+
+    return ret;
+}
+
+
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
     if( response == GTK_RESPONSE_OK )
@@ -151,19 +221,30 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         guint32 uid = -1, gid = -1;
         mode_t new_mode = 0, new_mode_mask = 0;
 
+        if(!ensure_valid_owner(data) || !ensure_valid_group(data))
+        {
+            g_signal_stop_emission_by_name(dlg, "response");
+            return;
+        }
+
         /* FIXME: if all files are native, it's possible to check
          * if the names are legal user and group names on the local
          * machine prior to chown. */
         if(new_owner && *new_owner && g_strcmp0(data->orig_owner, new_owner))
         {
             /* change owner */
-            g_debug("chown user: %s", new_owner);
+            g_debug("change owner to: %d", data->uid);
         }
+        else
+            data->uid = -1;
+
         if(new_group && *new_group && g_strcmp0(data->orig_group, new_group))
         {
             /* change group */
-            g_debug("chown group: %s", new_group);
+            g_debug("change group to: %d", data->gid);
         }
+        else
+            data->gid = -1;
 
         /* check if chmod is needed here. */
         sel = gtk_combo_box_get_active(data->owner_perm);
@@ -253,13 +334,18 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                 new_mode |= (S_IXUSR|S_IXGRP|S_IXOTH);
         }
 
-        if(new_mode_mask)
+        if(new_mode_mask || data->uid != -1 || data->gid != -1)
         {
-            /* FIXME: handle chown here */
-            /* need to do chmod */
             FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
             FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
-            fm_file_ops_job_set_chmod(job, new_mode, new_mode_mask);
+
+            /* need to chown */
+            if(data->uid != -1 || data->gid != -1)
+                fm_file_ops_job_set_chown(job, data->uid, data->gid);
+
+            /* need to do chmod */
+            if(new_mode_mask)
+                fm_file_ops_job_set_chmod(job, new_mode, new_mode_mask);
 
             if(data->has_dir)
             {
@@ -395,6 +481,13 @@ static void update_permissions(FmFilePropData* data)
 
     data->orig_owner = g_strdup(gtk_entry_get_text(data->owner));
     data->orig_group = g_strdup(gtk_entry_get_text(data->group));
+
+    /* on local filesystems, only root can do chown. */
+    if( data->all_native && geteuid() != 0 )
+    {
+        gtk_editable_set_editable(data->owner, FALSE);
+        gtk_editable_set_editable(data->group, FALSE);
+    }
 
     sel = NO_CHANGE;
     if(owner_perm != -1)
@@ -677,6 +770,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 
     GET_WIDGET(owner);
     GET_WIDGET(group);
+
     GET_WIDGET(owner_perm);
     GET_WIDGET(group_perm);
     GET_WIDGET(other_perm);
