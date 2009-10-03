@@ -86,6 +86,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
+    fi->uid = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_UID);
+    fi->gid = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_GID);
+
     type = g_file_info_get_file_type(inf);
     if( 0 == fi->mode ) /* if UNIX file mode is not available, compose a fake one. */
     {

@@ -22,6 +22,7 @@
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
+#include "fm-file-ops-job-change-attr.h"
 #include "fm-marshal.h"
 #include "fm-file-info-job.h"
 
@@ -41,8 +42,6 @@ static gboolean fm_file_ops_job_run(FmJob* fm_job);
 /* static void fm_file_ops_job_cancel(FmJob* job); */
 
 /* funcs for io jobs */
-static gboolean chmod_files(FmFileOpsJob* job);
-static gboolean chown_files(FmFileOpsJob* job);
 gboolean fm_file_ops_job_link_run(FmFileOpsJob* job);
 
 
@@ -110,6 +109,10 @@ static void fm_file_ops_job_finalize(GObject *object)
 static void fm_file_ops_job_init(FmFileOpsJob *self)
 {
 	fm_job_init_cancellable((FmJob*)self);
+
+    /* for chown */
+    self->uid = -1;
+    self->gid = -1;
 }
 
 
@@ -145,10 +148,8 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 		return fm_file_ops_job_delete_run(job);
     case FM_FILE_OP_LINK:
         return fm_file_ops_job_link_run(job);
-	case FM_FILE_OP_CHMOD:
-		return chmod_files(job);
-	case FM_FILE_OP_CHOWN:
-		return chown_files(job);
+	case FM_FILE_OP_CHANGE_ATTR:
+		return fm_file_ops_job_change_attr_run(job);
 	}
 	return TRUE;
 }
@@ -164,21 +165,26 @@ FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job)
     return job->dest;
 }
 
+void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask)
+{
+    job->new_mode = new_mode;
+    job->new_mode_mask = new_mode_mask;
+}
+
+void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid)
+{
+    job->uid = uid;
+    job->gid = gid;
+}
+
+void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
+{
+    job->recursive = recursive;
+}
+
 static gboolean on_cancelled(FmFileOpsJob* job)
 {
 	fm_job_emit_cancelled((FmJob*)job);
-	return FALSE;
-}
-
-gboolean chmod_files(FmFileOpsJob* job)
-{
-
-	return FALSE;
-}
-
-gboolean chown_files(FmFileOpsJob* job)
-{
-
 	return FALSE;
 }
 

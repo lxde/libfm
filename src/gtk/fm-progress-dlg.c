@@ -235,9 +235,8 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     case FM_FILE_OP_LINK:
         title = _("Creating symlinks");
         break;
-	case FM_FILE_OP_CHMOD:
-	case FM_FILE_OP_CHOWN:
-        title = _("Changing file properties");
+	case FM_FILE_OP_CHANGE_ATTR:
+        title = _("Changing file attributes");
         break;
     }
     if(title)
