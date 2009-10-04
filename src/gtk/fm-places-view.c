@@ -506,7 +506,7 @@ gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
     if(evt->button == 3 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
     {
         GtkTreeIter it;
-        if(gtk_tree_model_get_iter(model, &it, tp))
+        if(gtk_tree_model_get_iter(model, &it, tp) && it.user_data != sep_it.user_data )
         {
             PlaceItem* item;
             GtkWidget* menu;

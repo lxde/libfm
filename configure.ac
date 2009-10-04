@@ -36,10 +36,15 @@ fi
 # intltool
 IT_PROG_INTLTOOL([0.40.0])
 
-pkg_modules="gtk+-2.0 >= 2.16.0 gthread-2.0 gio-unix-2.0"
+pkg_modules="gtk+-2.0 >= 2.16.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
+
+gio_modules="gthread-2.0 gio-unix-2.0"
+PKG_CHECK_MODULES(GIO, [$gio_modules])
+AC_SUBST(GIO_CFLAGS)
+AC_SUBST(GIO_LIBS)
 
 gmodule_modules="gmodule-2.0"
 PKG_CHECK_MODULES(GLIB, [$gmodule_modules])

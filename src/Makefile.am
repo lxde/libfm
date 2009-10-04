@@ -117,20 +117,39 @@ pkginclude_HEADERS = \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 
-lib_LTLIBRARIES = libfm.la
+lib_LTLIBRARIES = libfm.la libfm-gtk.la
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
-	$(libfm_gtk_SOURCES) \
 	$(NULL)
 
 libfm_la_CFLAGS = \
-	@GTK_CFLAGS@ \
+	@GIO_CFLAGS@ \
 	@MENU_CACHE_CFLAGS@ \
 	-Werror-implicit-function-declaration
 
-libfm_la_LIBADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
+libfm_la_LIBADD = @GIO_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
 
 libfm_la_LDFLAGS = \
+	-no-undefined \
+	-export-symbols-regex fm \
+	$(NULL)
+
+
+libfm_gtk_la_SOURCES = \
+	$(libfm_gtk_SOURCES) \
+	$(NULL)
+
+libfm_gtk_la_CFLAGS = \
+	@GTK_CFLAGS@ \
+	@GIO_CFLAGS@ \
+	-I$(srcdir) \
+	-I$(srcdir)/base \
+	-I$(srcdir)/job \
+	-Werror-implicit-function-declaration
+
+libfm_gtk_la_LIBADD = @GTK_LIBS@ @GIO_LIBS@ $(INTLLIBS) libfm.la
+
+libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex fm \
 	$(NULL)
@@ -147,7 +166,7 @@ libfm_demo_CFLAGS = \
 	@MENU_CACHE_CFLAGS@ \
 	-Werror-implicit-function-declaration
 
-libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS) libfm.la
+libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS) libfm.la libfm-gtk.la
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
