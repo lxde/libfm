@@ -94,6 +94,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                         goto _retry_mkdir;
                         break;
                     case FM_FILE_OP_SKIP:
+                        ret = TRUE;
                         goto _out;
                         break;
                     case FM_FILE_OP_OVERWRITE:
@@ -207,6 +208,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
+                    ret = TRUE;
                     break;
                 }
                 goto _out;
@@ -226,6 +228,11 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
         ret = TRUE;
 		break;
 	}
+
+    /* if this is a cross-device move operation, delete source files. */
+    if( ret && job->type == FM_FILE_OP_MOVE )
+        ret = fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
+
 _out:
 
     if( _inf )
@@ -295,6 +302,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
+                    ret = TRUE;
                     break;
                 }
                 goto _out;
@@ -310,9 +318,8 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     else /* use copy if they are on different devices */
     {
         /* use copy & delete */
+        /* source file will be deleted in fm_file_ops_job_copy_file() */
         ret = fm_file_ops_job_copy_file(job, src, inf, dest);
-        if(ret)
-            ret = fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
     }
 
 _out:
