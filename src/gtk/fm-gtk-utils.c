@@ -533,6 +533,7 @@ void fm_rename_file(FmPath* file)
     g_object_unref(gf);
 }
 
+
 gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi)
 {
     char* uri;

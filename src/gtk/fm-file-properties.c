@@ -38,6 +38,7 @@
 #include "fm-utils.h"
 #include "fm-path.h"
 
+#include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
 
 #define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
@@ -354,6 +355,10 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
 
             fm_job_run_async(job);
+
+            /* show progress dialog */
+            fm_display_progress(job);
+
             fm_list_unref(paths);
         }
 

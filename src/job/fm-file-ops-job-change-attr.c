@@ -38,7 +38,6 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
 
     /* FIXME: need better error handling.
      * Some errors are recoverable or can be skipped. */
-
 	if( !inf)
 	{
 		_inf = inf = g_file_query_info(gf, query,
@@ -82,15 +81,15 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
         mode &= ~job->new_mode_mask;
         mode |= (job->new_mode & job->new_mode_mask);
 
-        /* FIXME: this behavior should be optionally */
+        /* FIXME: this behavior should be optional. */
         /* treat dirs with 'r' as 'rx' */
         if(type == G_FILE_TYPE_DIRECTORY)
         {
-            if(mode & S_IRUSR)
+            if((job->new_mode_mask & S_IRUSR) && (mode & S_IRUSR))
                 mode |= S_IXUSR;
-            if(mode & S_IRGRP)
+            if((job->new_mode_mask & S_IRGRP) && (mode & S_IRGRP))
                 mode |= S_IXGRP;
-            if(mode & S_IROTH)
+            if((job->new_mode_mask & S_IROTH) && (mode & S_IROTH))
                 mode |= S_IXOTH;
         }
 
@@ -104,6 +103,12 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
             return FALSE;
         }
     }
+
+    /* currently processed file. */
+    fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
+
+    ++job->finished;
+    fm_file_ops_job_emit_percent(job);
 
     if(_inf)
     	g_object_unref(_inf);
