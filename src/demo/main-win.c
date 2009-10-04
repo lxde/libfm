@@ -662,8 +662,7 @@ void on_paste(GtkAction* act, FmMainWin* win)
 void on_del(GtkAction* act, FmMainWin* win)
 {
     FmPathList* files = fm_folder_view_get_selected_file_paths(win->folder_view);
-    if( !fm_list_is_empty(files) )
-        fm_delete_files(files);
+    fm_trash_or_delete_files(files);
     fm_list_unref(files);
 }
 

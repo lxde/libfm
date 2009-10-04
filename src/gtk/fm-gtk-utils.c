@@ -31,6 +31,8 @@
 #include "fm-progress-dlg.h"
 #include "fm-path-entry.h"
 
+#include "fm-config.h"
+
 static GtkDialog* 	_fm_get_user_input_dialog	(GtkWindow* parent, const char* title, const char* msg);
 static gchar* 		_fm_user_input_dialog_run	(GtkDialog* dlg, GtkEntry *entry);
 
@@ -455,6 +457,36 @@ void fm_delete_files(FmPathList* files)
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
 	fm_job_run_async(job);
     fm_display_progress(job);
+}
+
+void fm_trash_or_delete_files(FmPathList* files)
+{
+    if( !fm_list_is_empty(files) )
+    {
+        gboolean all_in_trash = TRUE;
+        if(fm_config->use_trash)
+        {
+            GList* l = fm_list_peek_head_link(files);
+            for(;l;l=l->next)
+            {
+                FmPath* path = FM_PATH(l->data);
+                if(!fm_path_is_trash(path))
+                    all_in_trash = FALSE;
+            }
+        }
+
+        /* files already in trash:/// should only be deleted and cannot be trashed again. */
+        if(fm_config->use_trash && !all_in_trash)
+        {
+            if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?")))
+                fm_trash_files(files);
+        }
+        else
+        {
+            if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?")))
+                fm_delete_files(files);
+        }
+    }
 }
 
 void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)

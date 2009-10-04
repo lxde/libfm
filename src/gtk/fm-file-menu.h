@@ -55,9 +55,6 @@ gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu);
 GtkUIManager* fm_file_menu_get_ui(FmFileMenu* menu);
 GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu);
 
-/* set whether the menu should use Trash instead of Delete. */
-void fm_file_menu_set_use_trash(FmFileMenu* menu, gboolean use_trash);
-
 /* build the menu with GtkUIManager */
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 

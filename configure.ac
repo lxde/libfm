@@ -20,6 +20,20 @@ AC_HEADER_STDC
 
 # Checks for library functions.
 
+# Large file support
+AC_ARG_ENABLE([largefile],
+    AS_HELP_STRING([--enable-largefile],
+        [enable Large file support (default: yes)]),
+    largefile=$enableval, largefile="yes")
+
+if test x"$largefile" = x"yes"; then
+  CPPFLAGS="$CPPFLAGS -D_LARGEFILE_SOURCE -D_REENTRANT -D_FILE_OFFSET_BITS=64"
+  AC_DEFINE(_LARGEFILE64_SOURCE, 1, [Whether to enable large file support])
+  AC_DEFINE(_FILE_OFFSET_BITS, 64, [File offset bits])
+fi
+
+
+# intltool
 IT_PROG_INTLTOOL([0.40.0])
 
 pkg_modules="gtk+-2.0 >= 2.16.0 gthread-2.0 gio-unix-2.0"

@@ -310,8 +310,9 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     else /* use copy if they are on different devices */
     {
         /* use copy & delete */
-        fm_file_ops_job_copy_file(job, src, inf, dest);
-        fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
+        ret = fm_file_ops_job_copy_file(job, src, inf, dest);
+        if(ret)
+            ret = fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
     }
 
 _out:

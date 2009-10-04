@@ -30,6 +30,8 @@
 
 G_BEGIN_DECLS
 
+#define FM_PATH(path)   ((FmPath*)path)
+
 typedef struct _FmPath FmPath;
 typedef enum _FmPathFlags FmPathFlags;
 typedef FmList FmPathList;
@@ -80,6 +82,7 @@ FmPath* fm_path_get_parent(FmPath* path);
 const char* fm_path_get_basename(FmPath* path);
 FmPathFlags fm_path_get_flags(FmPath* path);
 gboolean fm_path_is_native(FmPath* path);
+gboolean fm_path_is_trash(FmPath* path);
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

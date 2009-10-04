@@ -25,6 +25,8 @@
 
 #include <glib/gi18n.h>
 
+#include "fm-config.h"
+
 #include "fm-file-menu.h"
 #include "fm-path.h"
 
@@ -265,13 +267,7 @@ void on_delete(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    if( !fm_list_is_empty(files) )
-    {
-        if(data->use_trash)
-            fm_trash_files(files);
-        else
-            fm_delete_files(files);
-    }
+    fm_trash_or_delete_files(files);
     fm_list_unref(files);
 }
 
@@ -300,12 +296,6 @@ void on_prop(GtkAction* action, gpointer user_data)
 gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
 {
     return menu->same_type;
-}
-
-/* set whether the menu should use Trash instead of Delete. */
-void fm_file_menu_set_use_trash(FmFileMenu* menu, gboolean use_trash)
-{
-    menu->use_trash = use_trash;
 }
 
 void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data)

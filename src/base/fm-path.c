@@ -369,6 +369,11 @@ gboolean fm_path_is_native(FmPath* path)
 	return (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE;
 }
 
+gboolean fm_path_is_trash(FmPath* path)
+{
+	return (path->flags&FM_PATH_IS_TRASH) ? TRUE : FALSE;
+}
+
 void fm_path_init()
 {
 	const char* sep, *name;
