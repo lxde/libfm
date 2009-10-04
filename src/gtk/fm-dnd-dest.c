@@ -57,6 +57,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
 
 static void fm_dnd_dest_finalize              (GObject *object);
 static gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* suggested_action);
+static void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action, int info_type, FmList* files);
 
 static gboolean
 on_drag_motion ( GtkWidget *dest_widget,
@@ -108,6 +109,7 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
 
     dnd_dest_class = FM_DND_DEST_CLASS(klass);
 	dnd_dest_class->query_info = fm_dnd_dest_query_info;
+    dnd_dest_class->files_dropped = fm_dnd_dest_files_dropped;
 
     /* emitted when information of drop site is needed.
      * call fm_dnd_set_droppable() in its callback to
@@ -198,6 +200,40 @@ gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* suggested_acti
 	return TRUE;
 }
 
+void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
+                               int info_type, FmList* files)
+{
+	FmPath* dest;
+	dest = fm_dnd_dest_get_dest_path(dd);
+	if(!dest)
+		return;
+    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
+    if(fm_list_is_file_info_list(files))
+        files = fm_path_list_new_from_file_info_list(files);
+    else
+        fm_list_ref(files);
+
+    switch(action)
+    {
+    case GDK_ACTION_MOVE:
+        if(fm_path_is_trash_root(fm_dnd_dest_get_dest_path(dd)))
+            fm_trash_files(files);
+        else
+            fm_move_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_COPY:
+        fm_copy_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_LINK:
+        // fm_link_files(files, fm_dnd_dest_get_dest_path(dd));
+        break;
+    case GDK_ACTION_ASK:
+        g_debug("TODO: GDK_ACTION_ASK");
+        break;
+    }
+    fm_list_unref(files);
+}
+
 static gboolean
 on_drag_motion( GtkWidget *dest_widget,
                 GdkDragContext *drag_context,
@@ -269,16 +305,24 @@ on_drag_motion( GtkWidget *dest_widget,
 		FmPath* path = dd->dest_file->path;
 		gboolean same_fs;
 
-#if 0
-		/* FIXME: computer:// and network:// shouldn't received dnd */
-		if(fm_path_is_trash(path)) /* only move is allowed for trash */
-			action = GDK_ACTION_MOVE;
-		else if(fm_path_is_computer(path))
-			action = 0;
-		else if(fm_path_is_network(path))
-			action = 0;
-		else
-#endif
+        if(fm_path_is_trash(path))
+        {
+            if(fm_path_is_trash_root(path)) /* only move is allowed for trash */
+                action = GDK_ACTION_MOVE;
+            else
+            {
+                action = 0;
+                ret = FALSE;
+            }
+        }
+        else if(fm_path_is_virtual(path))
+        {
+    		/* FIXME: computer:// and network:// shouldn't received dnd */
+            /* FIXME: some special handling can be done with applications:/// */
+            action = 0;
+            ret = FALSE;
+        }
+        else
 		{
             if(fm_path_is_native(path) == fm_path_is_native(fi->path))
             {

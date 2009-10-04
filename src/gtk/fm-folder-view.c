@@ -59,11 +59,6 @@ static void on_sel_changed(GObject* obj, FmFolderView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
-static void on_dnd_dest_files_dropped(FmDndDest* dd, 
-                                      GdkDragAction action,
-                                      int info_type,
-                                      FmList* files, FmFolderView* fv);
-
 static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 									   GdkDragAction* action, FmFolderView* fv);
 
@@ -228,7 +223,6 @@ static void fm_folder_view_init(FmFolderView *self)
 
     self->dnd_dest = fm_dnd_dest_new(NULL);
     g_signal_connect(self->dnd_dest, "query-info", G_CALLBACK(on_dnd_dest_query_info), self);
-    g_signal_connect(self->dnd_dest, "files-dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
 }
 
 
@@ -674,37 +668,6 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 {
     FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
     fm_dnd_src_set_files(ds, files);
-    fm_list_unref(files);
-}
-
-void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                              int info_type, FmList* files, FmFolderView* fv)
-{
-	FmPath* dest;
-	dest = fm_dnd_dest_get_dest_path(dd);
-	if(!dest)
-		return;
-    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
-    if(fm_list_is_file_info_list(files))
-        files = fm_path_list_new_from_file_info_list(files);
-    else
-        fm_list_ref(files);
-
-    switch(action)
-    {
-    case GDK_ACTION_MOVE:
-        fm_move_files(files, fm_dnd_dest_get_dest_path(dd));
-        break;
-    case GDK_ACTION_COPY:
-        fm_copy_files(files, fm_dnd_dest_get_dest_path(dd));
-        break;
-    case GDK_ACTION_LINK:
-        // fm_link_files(files, fm_dnd_dest_get_dest_path(dd));
-        break;
-    case GDK_ACTION_ASK:
-        g_debug("TODO: GDK_ACTION_ASK");
-        break;
-    }
     fm_list_unref(files);
 }
 

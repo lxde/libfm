@@ -83,6 +83,8 @@ const char* fm_path_get_basename(FmPath* path);
 FmPathFlags fm_path_get_flags(FmPath* path);
 gboolean fm_path_is_native(FmPath* path);
 gboolean fm_path_is_trash(FmPath* path);
+gboolean fm_path_is_trash_root(FmPath* path);
+gboolean fm_path_is_virtual(FmPath* path);
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

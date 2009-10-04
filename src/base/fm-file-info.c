@@ -174,10 +174,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
 }
 
-FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf)
+FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 {
 	FmFileInfo* fi = fm_file_info_new();
-	fi->path = fm_path_new_child(parent_dir, g_file_info_get_name(inf));
+    fi->path = fm_path_ref(path);
 	fm_file_info_set_from_gfileinfo(fi, inf);
 	return fi;
 }

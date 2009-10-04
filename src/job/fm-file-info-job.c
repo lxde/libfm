@@ -70,7 +70,7 @@ FmJob* fm_file_info_job_new(FmPathList* files_to_query)
 	GList* l;
 	FmJob* job = (FmJob*)g_object_new(FM_TYPE_FILE_INFO_JOB, NULL);
 	FmFileInfoList* file_infos;
-	
+
 	if(files_to_query)
 	{
 		file_infos = ((FmFileInfoJob*)job)->file_infos;

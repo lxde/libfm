@@ -257,6 +257,21 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     };
 */
 
+    if(g_file_equal(gf, folder->gf))
+    {
+        g_debug("event of the folder itself: %d", evt);
+        /* FIXME: handle unmount events */
+        if(evt == G_FILE_MONITOR_EVENT_PRE_UNMOUNT)
+        {
+            g_debug("folder is going to be unmounted");
+        }
+        else if(evt == G_FILE_MONITOR_EVENT_UNMOUNTED)
+        {
+            g_debug("folder is unmounted");
+        }
+        return;
+    }
+
     name = g_file_get_basename(gf);
     switch(evt)
     {

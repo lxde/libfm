@@ -239,7 +239,7 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     else
     {
         tmp = fm_path_new_for_gfile(src);
-        src_fi = fm_file_info_new_from_gfileinfo(tmp->parent, src_inf);
+        src_fi = fm_file_info_new_from_gfileinfo(tmp, src_inf);
         fm_path_unref(tmp);
     }
     fm_file_info_job_add_gfile(fijob, dest);

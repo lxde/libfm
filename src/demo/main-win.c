@@ -145,7 +145,6 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else /* no files are selected. Show context menu of current folder. */
         {
-            // g_debug("%s", G_OBJECT_TYPE_NAME(win->popup));
             gtk_menu_popup(win->popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
         }
         break;

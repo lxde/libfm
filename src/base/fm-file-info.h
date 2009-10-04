@@ -91,7 +91,7 @@ void fm_file_info_init();
 void fm_file_info_finalize();
 
 FmFileInfo* fm_file_info_new();
-FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* parent_dir, GFileInfo* inf);
+FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
 
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );

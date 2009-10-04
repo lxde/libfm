@@ -39,18 +39,19 @@ static FmPath* network_root = NULL;
 
 static FmPath* apps_root = NULL;
 
-FmPath*	fm_path_new(const char* path)
+FmPath* fm_path_new(const char* path)
 {
 	const char* sep;
     /* FIXME: need to canonicalize paths */
-	
-    if( path[0] == '/' ) /* if this is a absolute native path */ 
-	if (path[1])
-	    return fm_path_new_relative(root, path + 1);
-	else
-	    /* special case: handle root dir */
-	    return fm_path_ref( root );
-    
+
+    if( path[0] == '/' ) /* if this is a absolute native path */
+    {
+        if (path[1])
+            return fm_path_new_relative(root, path + 1);
+        else
+            /* special case: handle root dir */
+            return fm_path_ref( root );
+    }
     else if ( path[0] == '~' && (path[1] == '\0' || path[1]=='/') ) /* home dir */
     {
         ++path;
@@ -68,7 +69,6 @@ FmPath*	fm_path_new(const char* path)
             return NULL; /* invalid path FIXME: should we treat it as relative path? */
 
         /* FIXME: convert file:/// to local native path */
-
         hier_part = colon+1;
         if( hier_part[0] == '/' )
         {
@@ -117,7 +117,7 @@ FmPath*	fm_path_new(const char* path)
 	return fm_path_new_relative(NULL, path);
 }
 
-FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
+FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
 	FmPath* path;
     if(parent) /* remove tailing slash if needed. */
@@ -139,11 +139,30 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 			path->flags |= FM_PATH_IS_NATIVE;
 		else
 		{
-			/* FIXME: trash:/, computer:/, network:/ are virtual paths */
-			path->flags |= FM_PATH_IS_VIRTUAL;
-
-			/* FIXME: http://, ftp://, smb://, ...etc. are remote paths */
-			path->flags |= FM_PATH_IS_REMOTE;
+            /* FIXME: do we have more efficient way here? */
+			/* FIXME: trash:///, computer:///, network:/// are virtual paths */
+            /* FIXME: add // if only trash:/ is supplied in basename */
+            if(strncmp(basename, "trash:", 6))
+            {
+    			path->flags |= FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL;
+            }
+            else if(strncmp(basename, "computer:", 9))
+            {
+    			path->flags |= FM_PATH_IS_VIRTUAL;
+            }
+            else if(strncmp(basename, "network:", 8))
+            {
+    			path->flags |= FM_PATH_IS_VIRTUAL;
+            }
+            else if(strncmp(basename, "applications:", 13))
+            {
+    			path->flags |= FM_PATH_IS_VIRTUAL;
+            }
+            else
+            {
+                /* FIXME: http://, ftp://, smb://, ...etc. are remote paths */
+                path->flags |= FM_PATH_IS_REMOTE;
+            }
 		}
 		path->parent = NULL;
 	}
@@ -152,7 +171,7 @@ FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 	return path;
 }
 
-FmPath*	fm_path_new_child(FmPath* parent, const char* basename)
+FmPath* fm_path_new_child(FmPath* parent, const char* basename)
 {
 	int baselen = strlen(basename);
 	return fm_path_new_child_len(parent, basename, baselen);
@@ -167,7 +186,7 @@ FmPath*	fm_path_new_relative_len(FmPath* parent, const char* relative_path, int 
 }
 */
 
-FmPath*	fm_path_new_relative(FmPath* parent, const char* relative_path)
+FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
 {
 	FmPath* path;
 	const char* sep;
@@ -372,6 +391,16 @@ gboolean fm_path_is_native(FmPath* path)
 gboolean fm_path_is_trash(FmPath* path)
 {
 	return (path->flags&FM_PATH_IS_TRASH) ? TRUE : FALSE;
+}
+
+gboolean fm_path_is_trash_root(FmPath* path)
+{
+    return path == trash_root;
+}
+
+gboolean fm_path_is_virtual(FmPath* path)
+{
+	return (path->flags&FM_PATH_IS_VIRTUAL) ? TRUE : FALSE;
 }
 
 void fm_path_init()

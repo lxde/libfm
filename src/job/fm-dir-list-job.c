@@ -238,7 +238,7 @@ _retry:
         }
 
         /* FIXME: should we use fm_file_info_new + fm_file_info_set_from_gfileinfo? */
-        job->dir_fi = fm_file_info_new_from_gfileinfo(job->dir_path->parent, inf);
+        job->dir_fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);
         g_object_unref(inf);
 
 		enu = g_file_enumerate_children (gf, gfile_info_query_attribs, 0, fmjob->cancellable, &err);
@@ -248,7 +248,9 @@ _retry:
 			inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
 			if(inf)
 			{
-				fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);
+                FmPath* sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+				fi = fm_file_info_new_from_gfileinfo(sub, inf);
+                fm_path_unref(sub);
 				fm_list_push_tail_noref(job->files, fi);
 			}
 			else
