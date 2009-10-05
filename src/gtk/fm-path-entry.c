@@ -26,6 +26,13 @@
 #include <string.h>
 #include <gio/gio.h>
 
+/* properties */
+enum
+{
+  PROP_0,
+  PROP_HIGHLIGHT_COMPLETION_MATCH
+};
+
 #define FM_PATH_ENTRY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), FM_TYPE_PATH_ENTRY, FmPathEntryPrivate))
 
 typedef struct _FmPathEntryPrivate FmPathEntryPrivate;
@@ -38,6 +45,7 @@ struct _FmPathEntryPrivate
     const gchar *model_path_str;
     /* Current len of the completion string */
     gint completion_len;	
+    gboolean highlight_completion_match;
     GtkEntryCompletion* completion;
 };
 
@@ -60,6 +68,14 @@ static void fm_path_entry_completion_render_func (GtkCellLayout *cell_layout,
 						  GtkTreeModel *model,
 						  GtkTreeIter *iter, 
 						  gpointer data);
+static void fm_path_entry_set_property 		(GObject *object, 
+						 guint prop_id,
+						 const GValue *value,
+						 GParamSpec *pspec);
+static void fm_path_entry_get_property 		(GObject *object, 
+						 guint prop_id,
+						 GValue *value,
+						 GParamSpec *pspec);
 
 static void  fm_path_entry_activate (GtkEntry *entry )
 {
@@ -72,11 +88,56 @@ static void fm_path_entry_class_init (FmPathEntryClass *klass)
     GtkWidgetClass* widget_class = GTK_WIDGET_CLASS( klass );
     GObjectClass* object_class = G_OBJECT_CLASS( klass );
     GtkEntryClass* entry_class = GTK_ENTRY_CLASS( klass );
-    
+
+    object_class->get_property = fm_path_entry_get_property;
+    object_class->set_property = fm_path_entry_set_property;
+    g_object_class_install_property (object_class,
+				     PROP_HIGHLIGHT_COMPLETION_MATCH,
+				     g_param_spec_boolean ("highlight-completion-match",
+							   "Highlight completion match",
+							   "Wheather to highlight the completion match",
+							   TRUE, G_PARAM_READWRITE));       
     object_class->finalize = fm_path_entry_finalize;
     entry_class->activate = fm_path_entry_activate;
-    
+
     g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
+}
+
+static void fm_path_entry_set_property (GObject *object, 
+					guint prop_id,
+					const GValue *value,
+					GParamSpec *pspec)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY (object);
+    FmPathEntryPrivate *private  = FM_PATH_ENTRY_GET_PRIVATE( entry );
+    
+    switch (prop_id) 
+    {
+    case PROP_HIGHLIGHT_COMPLETION_MATCH:
+	private->highlight_completion_match = g_value_get_boolean(value);
+	break;
+    default:
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
+}
+
+static void fm_path_entry_get_property (GObject *object, 
+				   guint prop_id,
+				   GValue *value,
+				   GParamSpec *pspec)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY (object);
+    FmPathEntryPrivate *private  = FM_PATH_ENTRY_GET_PRIVATE( entry );
+    
+    switch (prop_id) {
+    case PROP_HIGHLIGHT_COMPLETION_MATCH:
+	g_value_set_boolean( value, private->highlight_completion_match );
+	break;
+    default:
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
 }
 
 static void
@@ -90,7 +151,7 @@ fm_path_entry_init (FmPathEntry *entry)
     private->model_path_str = NULL;
     private->completion_len = 0;
     private->completion = completion;
-    
+    private->highlight_completion_match = TRUE;
     gtk_entry_completion_set_minimum_key_length( completion, 1 );
     gtk_entry_completion_set_match_func( completion, fm_path_entry_match_func, NULL, NULL );
     g_signal_connect(G_OBJECT (completion), "match-selected", G_CALLBACK(fm_path_entry_match_selected), (gpointer)  NULL);
@@ -98,8 +159,6 @@ fm_path_entry_init (FmPathEntry *entry)
     render = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start( (GtkCellLayout*)completion, render, TRUE );
     gtk_cell_layout_set_cell_data_func( GTK_CELL_LAYOUT(completion), render, fm_path_entry_completion_render_func, entry, NULL );
-    
-    gtk_cell_layout_add_attribute( (GtkCellLayout*)completion, render, "markup", COL_FILE_NAME );
     gtk_entry_completion_set_inline_completion( completion, TRUE );
     gtk_entry_completion_set_popup_set_width( completion, TRUE );
     gtk_entry_set_completion( GTK_ENTRY(entry), completion );
@@ -112,18 +171,23 @@ static void fm_path_entry_completion_render_func (GtkCellLayout *cell_layout,
 						  GtkTreeIter *iter, 
 						  gpointer data)
 {
-    gchar markup[PATH_MAX];
+
     gchar *model_file_name;
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY ( data ) );
-    gchar *trail = g_stpcpy( markup, "<b><u>" );
-
     gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
 			COL_FILE_NAME, &model_file_name, -1 );
-    trail = strncpy( trail, model_file_name, private->completion_len ) + private->completion_len;
-    trail = g_stpcpy( trail, "</u></b>" );
-    trail = g_stpcpy( trail, model_file_name + private->completion_len );
-
-    g_object_set(cell, "markup", markup, NULL );
+    if (private->highlight_completion_match) 
+    {
+	gchar markup[PATH_MAX];
+	gchar *trail = g_stpcpy( markup, "<b><u>" );
+	trail = strncpy( trail, model_file_name, private->completion_len ) + private->completion_len;
+	trail = g_stpcpy( trail, "</u></b>" );
+	trail = g_stpcpy( trail, model_file_name + private->completion_len );
+	g_object_set(cell, "markup", markup, NULL );
+    }
+    /* FIXME: We don't need a custom render func if we don't hightlight */
+    else
+	g_object_set(cell, "text", model_file_name, NULL);
 }
 
 static void
