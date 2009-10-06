@@ -395,7 +395,6 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
     GSequenceIter* item_it;
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
-    g_return_if_fail (FM_IS_FOLDER_MODEL (tree_model));
     g_return_if_fail (iter != NULL);
     g_return_if_fail (column < G_N_ELEMENTS(column_types) );
 
