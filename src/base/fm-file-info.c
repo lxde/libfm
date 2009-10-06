@@ -335,14 +335,8 @@ mode_t fm_file_info_get_mode( FmFileInfo* fi )
 
 gboolean fm_file_info_is_dir( FmFileInfo* fi )
 {
-    if ( S_ISDIR( fi->mode ) )
-        return TRUE;
-    if ( S_ISLNK( fi->mode ) &&
-         0 == strcmp( fi->type->type, "inode/directory" ) )
-    {
-        return TRUE;
-    }
-    return FALSE;
+    return (S_ISDIR( fi->mode ) || 
+	    (S_ISLNK( fi->mode ) && (0 == strcmp( fi->type->type, "inode/directory" ))));
 }
 
 gboolean fm_file_info_is_symlink( FmFileInfo* fi )
