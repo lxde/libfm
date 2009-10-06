@@ -250,7 +250,6 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
 			COL_FILE_INFO, &model_file_info,
 			-1);
     is_dir = fm_file_info_is_dir( model_file_info );
-    fm_file_info_unref ( model_file_info );
     
     return (g_str_has_prefix( model_file_name, key_file_name) && is_dir);
 

@@ -450,7 +450,7 @@ void fm_folder_model_get_value ( GtkTreeModel *tree_model,
         g_value_set_string( value, fm_file_info_get_disp_mtime(info) );
         break;
     case COL_FILE_INFO:
-        g_value_set_pointer( value, fm_file_info_ref( info ) );
+        g_value_set_pointer( value, info );
         break;
     }
 }

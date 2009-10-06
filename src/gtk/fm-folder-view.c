@@ -194,7 +194,6 @@ static void item_clicked( FmFolderView* fv, GtkTreePath* path, FmFolderViewClick
             FmFileInfo* fi;
             gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
             g_signal_emit(fv, signals[CLICKED], 0, type, fi);
-            fm_file_info_unref(fi);
         }
     }
     else
@@ -564,7 +563,7 @@ FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
         gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
         gtk_tree_path_free(tp);
         next = l->next;
-        l->data = fi;
+        l->data = fm_file_info_ref( fi );
         l->prev = l->next = NULL;
         fm_list_push_tail_link(fis, l);
     }
@@ -712,13 +711,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 		{
 			FmFileInfo* fi;
 			gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
-			if(fi)
-			{
-				fm_dnd_dest_set_dest_file(dd, fi);
-				fm_file_info_unref(fi);
-			}
-			else
-				fm_dnd_dest_set_dest_file(dd, NULL);
+			fm_dnd_dest_set_dest_file(dd, NULL);
 		}
 		gtk_tree_path_free(tp);
 	}
