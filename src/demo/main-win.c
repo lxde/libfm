@@ -572,11 +572,7 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
 
 void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 {
-    char* path_str = fm_path_to_str(path);
-    gtk_entry_set_text(win->location, path_str);
-    g_free(path_str);
     fm_folder_view_chdir(win->folder_view, path);
-
     /* fm_nav_history_set_cur(); */
 }
 

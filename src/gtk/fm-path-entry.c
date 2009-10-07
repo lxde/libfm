@@ -208,11 +208,14 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model)
 {
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
 
-    if (private->model)
+    if (private->model) 
+    {
 	g_object_unref ( private->model );    
+	g_free( private->model_path_str );
+    }
     private->model = model;
     private->model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
-    
+    gtk_entry_set_text(GTK_ENTRY(entry), private->model_path_str);
     g_object_ref( private->model );
     gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->model) );
 }
