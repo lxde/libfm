@@ -156,59 +156,56 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
 {
 	FmMimeType* mime_type;
 	struct stat st;
-	char* type = NULL;
 
 	if( !pstat )
 	{
 		pstat = &st;
 		if( stat( file_path, &st ) == -1 )
-			return NULL;
+		    return NULL;
 	}
+
 	if( S_ISREG(pstat->st_mode) )
 	{
-		if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
+	    if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
+		return fm_mime_type_get_for_type( "text/plain" );
+	    else
+	    {
+		gboolean uncertain;
+		char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
+		if( uncertain )
 		{
-			type = g_strdup("text/plain");
+		    char buf[4096];
+		    int fd, len;
+		    fd = open(file_path, O_RDONLY);
+		    if( fd >= 0 )
+		    {
+			g_free(type);
+			len = read(fd, buf, 4096);
+			close(fd);
+			type = g_content_type_guess( NULL, buf, len, &uncertain );
+		    }
 		}
-		else
-		{
-			gboolean uncertain;
-			type = g_content_type_guess( base_name, NULL, 0, &uncertain );
-			if( uncertain )
-			{
-				char buf[4096];
-				int fd, len;
-				fd = open(file_path, O_RDONLY);
-				if( fd >= 0 )
-				{
-					g_free(type);
-					len = read(fd, buf, 4096);
-					close(fd);
-					type = g_content_type_guess( NULL, buf, len, &uncertain );
-				}
-			}
-		}
+		mime_type = fm_mime_type_get_for_type( type );
+		g_free(type);
+		return mime_type;
+	    }
 	}
-	else if( S_ISDIR(pstat->st_mode) )
-	{
-		type = g_strdup("inode/directory");
-	}
-	else
-	{
-		if (S_ISCHR(pstat->st_mode))
-			type = g_strdup ("inode/chardevice");
-		else if (S_ISBLK(pstat->st_mode))
-			type = g_strdup ("inode/blockdevice");
-		else if (S_ISFIFO(pstat->st_mode))
-			type = g_strdup ("inode/fifo");
+
+	if( S_ISDIR(pstat->st_mode) )
+	    return fm_mime_type_get_for_type( "inode/directory" );
+	if (S_ISCHR(pstat->st_mode))
+	    return fm_mime_type_get_for_type( "inode/chardevice" );
+	if (S_ISBLK(pstat->st_mode))
+	    return fm_mime_type_get_for_type( "inode/blockdevice" );
+	if (S_ISFIFO(pstat->st_mode))
+	    return fm_mime_type_get_for_type( "inode/fifo" );
 #ifdef S_ISSOCK
-		else if (S_ISSOCK(pstat->st_mode))
-			type = g_strdup ("inode/socket");
+	if (S_ISSOCK(pstat->st_mode))
+	    return fm_mime_type_get_for_type( "inode/socket" );
 #endif
-	}
-    mime_type = fm_mime_type_get_for_type( type );
-	g_free(type);
-	return mime_type;
+	/* impossible */
+	g_error( "Invalid stat mode: %s", base_name );
+	return NULL;
 }
 
 FmMimeType* fm_mime_type_get_for_type( const char* type )
