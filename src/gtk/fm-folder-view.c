@@ -711,7 +711,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 		{
 			FmFileInfo* fi;
 			gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
-			fm_dnd_dest_set_dest_file(dd, NULL);
+			fm_dnd_dest_set_dest_file(dd, fi);
 		}
 		gtk_tree_path_free(tp);
 	}
