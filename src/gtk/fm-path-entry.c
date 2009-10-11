@@ -44,7 +44,6 @@ struct _FmPathEntryPrivate
     /* current model used for completion */
     FmFolderModel* completion_model;
     /* initialized once on folder model change for faster completion */
-    gchar *model_path_str;
     gchar *completion_model_path_str;
     /* Current len of the completion string */
     gint completion_len;	
@@ -197,7 +196,6 @@ fm_path_entry_init (FmPathEntry *entry)
 
     private->model = NULL;
     private->completion_model = NULL;
-    private->model_path_str = NULL;
     private->completion_model_path_str = NULL;
     private->completion_len = 0;
     private->completion = completion;
@@ -261,12 +259,11 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model)
     if (private->model) 
     {
 	g_object_unref ( private->model );    
-	g_free( private->model_path_str );
     }
     private->model = private->completion_model = model;
-    private->model_path_str = private->completion_model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
+    private->completion_model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
     
-    gtk_entry_set_text(GTK_ENTRY(entry), private->model_path_str);
+    gtk_entry_set_text(GTK_ENTRY(entry), private->completion_model_path_str);
     g_object_ref( private->model );
     g_object_ref( private->completion_model);
     gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->completion_model) );
@@ -321,7 +318,8 @@ static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
     gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
 			COL_FILE_NAME, &model_file_name,
 			-1);
-    g_sprintf( new_text, "%s/%s/", private->model_path_str, model_file_name );
+    g_sprintf( new_text, "%s/%s/", g_str_equal( private->completion_model_path_str, "/" )? "":private->completion_model_path_str,
+				     model_file_name );
     private->completion_len = 0;
     gtk_entry_set_text( GTK_ENTRY(entry), new_text );
     /* move the cursor to the end of entry */
