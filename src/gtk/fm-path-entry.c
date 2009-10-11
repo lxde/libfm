@@ -129,7 +129,7 @@ static void fm_path_entry_changed (GtkEditable *editable)
     {
 	gchar* new_path = g_path_get_dirname (original_key);
 	FmPath *new_fm_path = fm_path_new( new_path );
-	if ( new_path != NULL ) 
+	if ( new_fm_path != NULL ) 
 	{
 	    /* FIXME: set hidden parameter based on prev. model */
 	    FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);	
