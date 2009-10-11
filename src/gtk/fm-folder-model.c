@@ -891,6 +891,12 @@ void fm_folder_model_show_thumbnails( FmFolderModel* model, gboolean is_big,
 
 #endif
 
+gboolean fm_folder_model_set_show_hidden( FmFolderModel* model ) 
+{
+    return model->show_hidden;
+}
+
+
 void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden )
 {
 	FmFolderItem* item;
