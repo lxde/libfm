@@ -123,9 +123,10 @@ static void fm_path_entry_changed (GtkEditable *editable)
 
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
 
-    /* Check if path entry is part current completion folder model */
-    if (!g_str_equal( original_key, "" ) &&
-	!g_str_has_prefix ( original_key, private->completion_model_path_str ))
+    if (!(g_str_equal( original_key, "" ) ||
+	  /* Check if path entry is part current completion folder model */
+	  (g_str_has_prefix ( original_key, private->completion_model_path_str ) &&
+	   strchr( original_key + strlen( private->completion_model_path_str ), G_DIR_SEPARATOR ) == NULL))) 
     {
 	gchar* new_path = g_path_get_dirname (original_key);
 	FmPath *new_fm_path = fm_path_new( new_path );
