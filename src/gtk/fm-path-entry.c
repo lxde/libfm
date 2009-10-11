@@ -41,18 +41,21 @@ struct _FmPathEntryPrivate
 {
     /* associated with a folder model */
     FmFolderModel* model;
+    /* current model used for completion */
+    FmFolderModel* completion_model;
     /* initialized once on folder model change for faster completion */
-    const gchar *model_path_str;
+    gchar *model_path_str;
+    gchar *completion_model_path_str;
     /* Current len of the completion string */
     gint completion_len;	
     gboolean highlight_completion_match;
     GtkEntryCompletion* completion;
 };
 
-G_DEFINE_TYPE (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY)
-
 static void      fm_path_entry_activate         (GtkEntry *entry);
 static void 	 fm_path_entry_class_init 	(FmPathEntryClass *klass);
+static void	 fm_path_entry_editable_init	(GtkEditableClass *iface);
+static void 	 fm_path_entry_changed 		(GtkEditable *editable);
 static void 	 fm_path_entry_init 		(FmPathEntry *entry);
 static void 	 fm_path_entry_finalize 	(GObject *object);
 static gboolean  fm_path_entry_match_func 	(GtkEntryCompletion   *completion,
@@ -77,10 +80,15 @@ static void fm_path_entry_get_property 		(GObject *object,
 						 GValue *value,
 						 GParamSpec *pspec);
 
+G_DEFINE_TYPE_EXTENDED (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY, 
+			0, G_IMPLEMENT_INTERFACE( GTK_TYPE_EDITABLE, fm_path_entry_editable_init ) );
+
+static GtkEditableClass *parent_editable_interface = NULL;
+
 static void  fm_path_entry_activate (GtkEntry *entry )
 {
     /* Chain up so that entry->activates_default is honored */
-    GTK_ENTRY_CLASS (fm_path_entry_parent_class)->activate (entry);
+    GTK_ENTRY_CLASS (fm_path_entry_parent_class)->activate( entry);
 }
 
 static void fm_path_entry_class_init (FmPathEntryClass *klass)
@@ -101,6 +109,45 @@ static void fm_path_entry_class_init (FmPathEntryClass *klass)
     entry_class->activate = fm_path_entry_activate;
 
     g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
+}
+
+static void fm_path_entry_editable_init ( GtkEditableClass *iface )
+{
+    parent_editable_interface = g_type_interface_peek_parent (iface);
+    iface->changed = fm_path_entry_changed; 
+}
+
+static void fm_path_entry_changed (GtkEditable *editable)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY (editable);
+    FmPathEntryPrivate *private  = FM_PATH_ENTRY_GET_PRIVATE( entry );
+
+    const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
+
+    /* Check if path entry is part current completion folder model */
+    if ( !g_str_has_prefix ( original_key, private->completion_model_path_str ) ) 
+    {
+	gchar* new_path = g_path_get_dirname (original_key);
+	FmPath *new_fm_path = fm_path_new( new_path );
+	if ( new_path != NULL ) 
+	{
+	    /* FIXME: set hidden parameter based on prev. model */
+	    FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);	
+	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, FALSE );
+	    g_object_unref( private->completion_model );
+	    g_free( private->completion_model_path_str );
+	    private->completion_model_path_str = fm_path_to_str( new_fm->dir->dir_path );
+	    private->completion_model = new_fm;
+	    gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(new_fm) );
+	}
+	else 
+	{
+	    /* FIXME: Handle invalid Paths */
+	    g_warning( "Invalid Path: %s", new_path );
+	}
+	
+	
+    }
 }
 
 static void fm_path_entry_set_property (GObject *object, 
@@ -148,7 +195,9 @@ fm_path_entry_init (FmPathEntry *entry)
     GtkCellRenderer* render;
 
     private->model = NULL;
+    private->completion_model = NULL;
     private->model_path_str = NULL;
+    private->completion_model_path_str = NULL;
     private->completion_len = 0;
     private->completion = completion;
     private->highlight_completion_match = TRUE;
@@ -213,11 +262,13 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model)
 	g_object_unref ( private->model );    
 	g_free( private->model_path_str );
     }
-    private->model = model;
-    private->model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
+    private->model = private->completion_model = model;
+    private->model_path_str = private->completion_model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
+    
     gtk_entry_set_text(GTK_ENTRY(entry), private->model_path_str);
     g_object_ref( private->model );
-    gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->model) );
+    g_object_ref( private->completion_model);
+    gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->completion_model) );
 }
 
 static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
@@ -242,9 +293,8 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
     if (!model)
 	return FALSE;
     
-    /* Check if path entry is part of folder model */
-    if ( !g_str_has_prefix ( original_key, private->model_path_str ) )
-	/* FIXME: Need fallback for folder based completion */
+    /* Check if path entry is part current completion folder model */
+    if ( !g_str_has_prefix ( original_key, private->completion_model_path_str ) ) 
 	return FALSE;
 
     /* get filename, info from model */

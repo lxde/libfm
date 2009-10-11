@@ -100,8 +100,6 @@ static void fm_folder_model_set_default_sort_func( GtkTreeSortable *sortable,
                                                  GtkDestroyNotify destroy );
 static void fm_folder_model_sort ( FmFolderModel* model );
 
-static void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
-
 /* signal handlers */
 static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
