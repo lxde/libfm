@@ -91,7 +91,7 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
 
 gboolean fm_folder_model_get_is_loading(FmFolderModel* model);
 
-gboolean fm_folder_model_set_show_hidden( FmFolderModel* model );
+gboolean fm_folder_model_get_show_hidden( FmFolderModel* model );
 
 void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden );
 

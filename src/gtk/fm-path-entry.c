@@ -132,9 +132,10 @@ static void fm_path_entry_changed (GtkEditable *editable)
 	FmPath *new_fm_path = fm_path_new( new_path );
 	if ( new_fm_path != NULL ) 
 	{
-	    /* FIXME: set hidden parameter based on prev. model */
-	    FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);	
-	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, FALSE );
+	    /* set hidden parameter based on prev. model */
+	    gboolean show_hidden = fm_folder_model_get_show_hidden( private->completion_model );
+	    FmFolder *new_fm_folder = fm_folder_get_for_path( new_fm_path );
+	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, show_hidden );
 	    g_object_unref( private->completion_model );
 	    g_free( private->completion_model_path_str );
 	    private->completion_model_path_str = fm_path_to_str( new_fm->dir->dir_path );
