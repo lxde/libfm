@@ -123,17 +123,19 @@ static void fm_path_entry_changed (GtkEditable *editable)
 
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
 
-    /* Check if path entry is part current completion folder model */
-    if (!g_str_equal( original_key, "" ) &&
-	!g_str_has_prefix ( original_key, private->completion_model_path_str ))
+    if (!(g_str_equal( original_key, "" ) ||
+	  /* Check if path entry is part current completion folder model */
+	  (g_str_has_prefix ( original_key, private->completion_model_path_str ) &&
+	   strchr( original_key + strlen( private->completion_model_path_str ), G_DIR_SEPARATOR ) == NULL))) 
     {
 	gchar* new_path = g_path_get_dirname (original_key);
 	FmPath *new_fm_path = fm_path_new( new_path );
 	if ( new_fm_path != NULL ) 
 	{
-	    /* FIXME: set hidden parameter based on prev. model */
-	    FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);	
-	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, FALSE );
+	    /* set hidden parameter based on prev. model */
+	    gboolean show_hidden = fm_folder_model_get_show_hidden( private->completion_model );
+	    FmFolder *new_fm_folder = fm_folder_get_for_path( new_fm_path );
+	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, show_hidden );
 	    g_object_unref( private->completion_model );
 	    g_free( private->completion_model_path_str );
 	    private->completion_model_path_str = fm_path_to_str( new_fm->dir->dir_path );
