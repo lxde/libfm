@@ -476,9 +476,9 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
         return TRUE;
     if( !p1 || !p2 )
         return FALSE;
-    if( strcmp(p1->name, p2->name) && fm_path_equal(p1->parent, p2->parent) )
-        return TRUE;
-    return FALSE;
+    if( strcmp(p1->name, p2->name) != 0 )
+        return FALSE;
+    return fm_path_equal( p1->parent, p2->parent);
 }
 
 
