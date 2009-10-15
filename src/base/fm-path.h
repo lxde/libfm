@@ -95,6 +95,9 @@ GFile* fm_path_to_gfile(FmPath* path);
 guint fm_path_hash(FmPath* path);
 gboolean fm_path_equal(FmPath* p1, FmPath* p2);
 
+/* used for completion in fm_path_entry */
+gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n);
+
 /* path list */
 FmPathList* fm_path_list_new();
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);

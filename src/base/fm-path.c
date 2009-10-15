@@ -481,6 +481,33 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
     return fm_path_equal( p1->parent, p2->parent);
 }
 
+/* Check if this path contains absolute pathname str*/
+gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n) 
+{
+    const gchar *last_part;
+    /* default compare str len */
+    if (n == -1)
+	n = strlen( str );
+
+    /* end of recursion */
+    if ((path->parent == NULL) && g_str_equal ( path->name, "/" ) && n == 0 )
+	return TRUE;
+    
+    /* must also contain leading slash */
+    if (n < (strlen(path->name) + 1))
+	return FALSE;
+
+    /* check for current part mismatch */
+    last_part  = str + n - strlen(path->name) - 1;
+    if ( strncmp( last_part + 1, path->name, strlen(path->name)) != 0 )
+	return FALSE;
+    if ( *last_part != G_DIR_SEPARATOR )
+	return FALSE;
+
+    /* tail-end recursion */
+    return fm_path_equal_str( path->parent, str, n - strlen(path->name) - 1 );
+}
+
 
 /* path list */
 
