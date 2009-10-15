@@ -43,8 +43,6 @@ struct _FmPathEntryPrivate
     FmFolderModel* model;
     /* current model used for completion */
     FmFolderModel* completion_model;
-    /* initialized once on folder model change for faster completion */
-    gchar *completion_model_path_str;
     /* Current len of the completion string */
     gint completion_len;	
     gboolean highlight_completion_match;
@@ -120,16 +118,22 @@ static void fm_path_entry_changed (GtkEditable *editable)
 {
     FmPathEntry *entry = FM_PATH_ENTRY (editable);
     FmPathEntryPrivate *private  = FM_PATH_ENTRY_GET_PRIVATE( entry );
-
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
-
-    if (!(g_str_equal( original_key, "" ) ||
-	  /* Check if path entry is part current completion folder model */
-	  (g_str_has_prefix ( original_key, private->completion_model_path_str ) &&
-	   strchr( original_key + strlen( private->completion_model_path_str ), G_DIR_SEPARATOR ) == NULL))) 
+    /* len of directory part */
+    gint key_dir_len;
+    gchar *last_slash = strrchr( original_key, G_DIR_SEPARATOR );
+    
+    /* not path -> keep current completion model */
+    if ( last_slash == NULL ) 
+	return;
+    
+    /* Check if path entry is not part of current completion folder model */
+    key_dir_len = last_slash - original_key;
+    if (!fm_path_equal_str( private->completion_model->dir->dir_path, original_key, key_dir_len )) 
     {
 	gchar* new_path = g_path_get_dirname (original_key);
 	FmPath *new_fm_path = fm_path_new( new_path );
+	g_free(new_path);
 	if ( new_fm_path != NULL ) 
 	{
 	    /* set hidden parameter based on prev. model */
@@ -137,8 +141,6 @@ static void fm_path_entry_changed (GtkEditable *editable)
 	    FmFolder *new_fm_folder = fm_folder_get_for_path( new_fm_path );
 	    FmFolderModel *new_fm = fm_folder_model_new( new_fm_folder, show_hidden );
 	    g_object_unref( private->completion_model );
-	    g_free( private->completion_model_path_str );
-	    private->completion_model_path_str = fm_path_to_str( new_fm->dir->dir_path );
 	    private->completion_model = new_fm;
 	    gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(new_fm) );
 	}
@@ -147,8 +149,6 @@ static void fm_path_entry_changed (GtkEditable *editable)
 	    /* FIXME: Handle invalid Paths */
 	    g_warning( "Invalid Path: %s", new_path );
 	}
-	
-	
     }
 }
 
@@ -198,7 +198,6 @@ fm_path_entry_init (FmPathEntry *entry)
 
     private->model = NULL;
     private->completion_model = NULL;
-    private->completion_model_path_str = NULL;
     private->completion_len = 0;
     private->completion = completion;
     private->highlight_completion_match = TRUE;
@@ -257,24 +256,15 @@ GtkWidget* fm_path_entry_new()
 void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model) 
 {
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
-
-    if (private->model) 
-    {
-	g_object_unref ( private->model );    
-    }
-    private->model = private->completion_model = model;
-    private->completion_model_path_str = fm_path_to_str( FM_FOLDER_MODEL(model)->dir->dir_path );
-    if (!g_str_equal( private->completion_model_path_str, "" )) 
-    {
-	gchar *completion_model_path_str = g_strconcat( private->completion_model_path_str, "/", NULL );
-	g_free( private->completion_model_path_str );
-	private->completion_model_path_str = completion_model_path_str;
-    }
-    gtk_entry_set_text(GTK_ENTRY(entry), private->completion_model_path_str);
-    gtk_editable_set_position (GTK_EDITABLE (entry), -1);
-    g_object_ref( private->model );
-    g_object_ref( private->completion_model);
+    gchar *path_str = fm_path_to_str( model->dir->dir_path );
+    if (private->model)  
+	g_object_unref ( G_OBJECT(private->model) );    
+    private->model = g_object_ref( model );
+    private->completion_model = g_object_ref ( model );
     gtk_entry_completion_set_model( private->completion, GTK_TREE_MODEL(private->completion_model) );
+    gtk_entry_set_text(GTK_ENTRY(entry), path_str);
+    gtk_editable_set_position (GTK_EDITABLE (entry), -1);
+    g_free( path_str );
 }
 
 static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
@@ -289,29 +279,23 @@ static gboolean fm_path_entry_match_func (GtkEntryCompletion   *completion,
     gchar *model_file_name;
     /* get original key (case sensitive) */
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(pe) ) ;
-    /* find sep in key */
-    gchar *key_file_name = strrchr( original_key, G_DIR_SEPARATOR ) + 1;					      
     gboolean is_dir;
+    /* find sep in key */
+    gchar *key_last_slash = strrchr( original_key, G_DIR_SEPARATOR );
 
-    private->completion_len = strlen( key_file_name );
-    
-    /* no model loaded */
-    if (!model)
+    /* no model based completion possible */
+    if ((!model) || ( key_last_slash == NULL) )
 	return FALSE;
     
-    /* Check if path entry is part current completion folder model */
-    if ( !g_str_has_prefix ( original_key, private->completion_model_path_str ) ) 
-	return FALSE;
-
+    private->completion_len = strlen( key_last_slash + 1 );
+    
     /* get filename, info from model */
     gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
 			COL_FILE_NAME, &model_file_name,
 			COL_FILE_INFO, &model_file_info,
 			-1);
-    is_dir = fm_file_info_is_dir( model_file_info );
-    
-    return (g_str_has_prefix( model_file_name, key_file_name) && is_dir);
-
+	
+    return fm_file_info_is_dir( model_file_info ) && g_str_has_prefix( model_file_name, key_last_slash + 1);
 }
 
 static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
@@ -323,11 +307,16 @@ static gboolean  fm_path_entry_match_selected	(GtkEntryCompletion *widget,
     gchar new_text[PATH_MAX];
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY ( entry ) );
     gchar *model_file_name;
+    gchar *new_path;
     gtk_tree_model_get( GTK_TREE_MODEL( model ), iter, 
 			COL_FILE_NAME, &model_file_name,
 			-1);
-    g_sprintf( new_text, "%s/%s", g_str_equal( private->completion_model_path_str, "/" )? "":private->completion_model_path_str,
-				     model_file_name );
+    new_path = fm_path_to_str( private->completion_model->dir->dir_path );
+    g_sprintf( new_text, "%s/%s", 
+	       /* prevent leading double slash */
+	       g_str_equal( new_path, "/" )? "":new_path,
+	       model_file_name );
+    g_free( new_path );
     private->completion_len = 0;
     gtk_entry_set_text( GTK_ENTRY(entry), new_text );
     /* move the cursor to the end of entry */
