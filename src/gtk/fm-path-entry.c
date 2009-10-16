@@ -25,7 +25,7 @@
 #include "fm-folder-model.h"
 #include <string.h>
 #include <gio/gio.h>
-
+#include <gdk/gdkkeysyms.h>
 /* properties */
 enum
 {
@@ -50,6 +50,7 @@ struct _FmPathEntryPrivate
 };
 
 static void      fm_path_entry_activate         (GtkEntry *entry);
+static gboolean	 fm_path_entry_key_press 	(GtkWidget   *widget, GdkEventKey *event);
 static void 	 fm_path_entry_class_init 	(FmPathEntryClass *klass);
 static void	 fm_path_entry_editable_init	(GtkEditableClass *iface);
 static void 	 fm_path_entry_changed 		(GtkEditable *editable);
@@ -82,6 +83,22 @@ G_DEFINE_TYPE_EXTENDED (FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY,
 
 static GtkEditableClass *parent_editable_interface = NULL;
 
+static gboolean fm_path_entry_key_press (GtkWidget   *widget, GdkEventKey *event) {
+    FmPathEntry *entry = FM_PATH_ENTRY (widget);
+    switch (event->keyval)
+    {
+    case GDK_Tab:
+	/* complete selection */
+	if (gtk_editable_get_selection_bounds (GTK_EDITABLE(widget), NULL, NULL)) {
+	    gint position = strlen (gtk_entry_get_text (GTK_ENTRY (widget)));
+	    gtk_editable_select_region (GTK_EDITABLE(widget), position, position);
+	    return TRUE;
+	}
+	break;
+    }
+    return GTK_WIDGET_CLASS (fm_path_entry_parent_class)->key_press_event (widget, event);
+}
+
 static void  fm_path_entry_activate (GtkEntry *entry )
 {
     /* Chain up so that entry->activates_default is honored */
@@ -103,6 +120,8 @@ static void fm_path_entry_class_init (FmPathEntryClass *klass)
 							   "Wheather to highlight the completion match",
 							   TRUE, G_PARAM_READWRITE));       
     object_class->finalize = fm_path_entry_finalize;
+
+    widget_class->key_press_event = fm_path_entry_key_press;
     entry_class->activate = fm_path_entry_activate;
 
     g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
