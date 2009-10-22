@@ -958,13 +958,20 @@ const gchar* fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model,
 							   const gchar* prefix, 
 							   gboolean (*file_info_predicate)(FmFileInfo*) )
 {
-    GSequenceIter *item_it = g_sequence_get_begin_iter( model->items );
-    gint prefix_len = strlen( prefix );
+    GSequenceIter *item_it;
+    gint prefix_len;
     gchar common_suffix[PATH_MAX];
-    common_suffix[0] = 0;
     gboolean common_suffix_initialized = FALSE;
 
-    while (!g_sequence_iter_is_end( item_it )) 
+    if ( !model )
+	return;
+
+    prefix_len = strlen( prefix );
+    common_suffix[0] = 0;
+    
+    for ( item_it = g_sequence_get_begin_iter( model->items ); 
+	  !g_sequence_iter_is_end( item_it ); 
+	  item_it = g_sequence_iter_next( item_it )) 
     {
 	FmFolderItem* item = (FmFolderItem*) g_sequence_get (item_it );
 	gboolean predicate_ok = (file_info_predicate == NULL) || file_info_predicate( item->inf );
@@ -985,7 +992,6 @@ const gchar* fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model,
 	    }
 	    
 	}
-	item_it = g_sequence_iter_next( item_it );
     }
-    return g_strdup( common_suffix );
+    return (common_suffix[0])?g_strdup( common_suffix ):NULL;
 }
