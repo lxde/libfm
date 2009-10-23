@@ -52,9 +52,6 @@
      integration with archivers is a must have, but how?
      Maybe we can use the implementation proposed by KDE.
 
-* FmPathEntry: FmFolderModel based auto-completion needs fallback for
-     entries not part of current assigned folder model.
-
 * API to empty trash (just deleting everything under trash:/// can make it.)
 
 * Display paths in path entry with display name rather than real path
