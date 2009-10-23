@@ -101,8 +101,9 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file);
 
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file);
 
-const gchar* fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const gchar* prefix, 
-							   gboolean (*file_info_predicate)(FmFileInfo*) );
+void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const gchar* prefix, 
+							   gboolean (*file_info_predicate)(FmFileInfo*),
+							   gchar* common_suffix);
 
 /*
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );

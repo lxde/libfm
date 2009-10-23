@@ -954,15 +954,17 @@ void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
     g_signal_emit(model, signals[LOADED], 0);
 }
 
-const gchar* fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, 
-							   const gchar* prefix, 
-							   gboolean (*file_info_predicate)(FmFileInfo*) )
+void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, 
+						   const gchar* prefix, 
+						   gboolean (*file_info_predicate)(FmFileInfo*),
+						   gchar* common_suffix)
 {
     GSequenceIter *item_it;
     gint prefix_len;
-    gchar common_suffix[PATH_MAX];
     gboolean common_suffix_initialized = FALSE;
 
+    g_return_if_fail(common_suffix != NULL);
+    
     if ( !model )
 	return;
 
@@ -993,5 +995,4 @@ const gchar* fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model,
 	    
 	}
     }
-    return (common_suffix[0])?g_strdup( common_suffix ):NULL;
 }

@@ -51,6 +51,7 @@ struct _FmPathEntryPrivate
     GtkEntryCompletion* completion;
     /* automatic common suffix completion */
     gint  common_suffix_append_idle_id;
+    gchar common_suffix[PATH_MAX];
 };
 
 static void      fm_path_entry_activate         (GtkEntry *entry);
@@ -64,7 +65,7 @@ static void 	 fm_path_entry_do_insert_text 	(GtkEditable *editable,
 						 gint        *position);
 static gboolean  fm_path_entry_suffix_append_idle (gpointer user_data);
 static void 	 fm_path_entry_suffix_append_idle_destroy(gpointer user_data);
-static gchar*	 fm_path_entry_get_expand_path(FmPathEntry *entry);
+static gboolean	 fm_path_entry_update_expand_path(FmPathEntry *entry);
 static void 	 fm_path_entry_init 		(FmPathEntry *entry);
 static void 	 fm_path_entry_finalize 	(GObject *object);
 static gboolean  fm_path_entry_match_func 	(GtkEntryCompletion   *completion,
@@ -175,7 +176,7 @@ static void fm_path_entry_changed (GtkEditable *editable)
 	}
 	else 
 	{
-	    /* FIXME: Handle invalid Paths */
+	    /* FIXME: Handle invalid Paths */    
 	    g_warning( "Invalid Path: %s", new_path );
 	}
     }
@@ -186,39 +187,33 @@ static void fm_path_entry_do_insert_text ( GtkEditable *editable, const gchar *n
 {
     FmPathEntry *entry = FM_PATH_ENTRY (editable);
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE (entry);
-    gchar *completion_suffix;
     /* let the GtkEntry class handle the insert */
     (parent_editable_interface->do_insert_text) (editable, new_text, new_text_length, position);
     
     /* we have a common suffix -> add idle function */
-    if ((private->common_suffix_append_idle_id < 0) && (completion_suffix = fm_path_entry_get_expand_path(entry) ) )
-    {
+    if ((private->common_suffix_append_idle_id < 0) && (fm_path_entry_update_expand_path( entry )))
 	private->common_suffix_append_idle_id  = g_idle_add_full (G_PRIORITY_HIGH, 
 								  fm_path_entry_suffix_append_idle,
 								  entry, fm_path_entry_suffix_append_idle_destroy);
-	g_free( completion_suffix );
-    }
 }
 
 static gboolean fm_path_entry_suffix_append_idle ( gpointer user_data ) 
 {
     FmPathEntry *entry = FM_PATH_ENTRY(user_data);
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    gchar *completion_suffix = fm_path_entry_get_expand_path( entry );
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
 
     /* we have a common suffix -> insert/select it */
-    if (completion_suffix)
+    fm_path_entry_update_expand_path( entry );
+    if (private->common_suffix[0])
     {
 	gint suffix_offset = g_utf8_strlen( original_key, -1 );
 	gint suffix_offset_save = suffix_offset;
 	/* dont recur */
 	private->in_change = TRUE;
-	gtk_editable_insert_text (GTK_EDITABLE(entry), completion_suffix, -1,  &suffix_offset);
-	/* FixME: Required */
+	gtk_editable_insert_text (GTK_EDITABLE(entry), private->common_suffix, -1,  &suffix_offset);
 	gtk_editable_select_region (GTK_EDITABLE(entry), suffix_offset_save, -1);
 	private->in_change = FALSE;   
-	g_free( completion_suffix );
     }
     /* don't call again */
     return FALSE;
@@ -230,7 +225,7 @@ static void fm_path_entry_suffix_append_idle_destroy( gpointer user_data )
     FM_PATH_ENTRY_GET_PRIVATE(entry)->common_suffix_append_idle_id = -1;
 }
 
-static gchar* fm_path_entry_get_expand_path( FmPathEntry *entry )
+static gboolean fm_path_entry_update_expand_path( FmPathEntry *entry )
 {
     FmPathEntryPrivate *private = FM_PATH_ENTRY_GET_PRIVATE(entry);
     const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) ) ;
@@ -238,12 +233,15 @@ static gchar* fm_path_entry_get_expand_path( FmPathEntry *entry )
     gint key_dir_len;
     gchar *last_slash = strrchr( original_key, G_DIR_SEPARATOR );
 
+    private->common_suffix[0] = 0;
+
     /* get completion suffix */
-    if (last_slash)
-	return fm_folder_model_get_common_suffix_for_prefix( private->completion_model, 
+    if (last_slash) 
+	fm_folder_model_get_common_suffix_for_prefix( private->completion_model, 
 							     last_slash + 1,
-							     fm_file_info_is_dir );
-    return NULL;
+							     fm_file_info_is_dir,
+							     private->common_suffix);
+    return (private->common_suffix[0] != 0);
 }
 
 static void fm_path_entry_set_property (GObject *object, 
@@ -297,6 +295,7 @@ fm_path_entry_init (FmPathEntry *entry)
     private->completion = completion;
     private->highlight_completion_match = TRUE;
     private->common_suffix_append_idle_id = -1;
+    private->common_suffix[0] = 0;
     gtk_entry_completion_set_minimum_key_length( completion, 1 );
     gtk_entry_completion_set_match_func( completion, fm_path_entry_match_func, NULL, NULL );
     g_signal_connect(G_OBJECT (completion), "match-selected", G_CALLBACK(fm_path_entry_match_selected), (gpointer)  NULL);
