@@ -96,13 +96,15 @@ static GtkEditableClass *parent_editable_interface = NULL;
 
 static gboolean fm_path_entry_key_press (GtkWidget   *widget, GdkEventKey *event) {
     FmPathEntry *entry = FM_PATH_ENTRY (widget);
+
     switch (event->keyval)
     {
     case GDK_Tab:
-	/* FIXME: Not Implemented -> Complete Suffix */
-	break;
+	/* place the cursor at the end */
+	gtk_editable_set_position (GTK_EDITABLE (entry), -1);
+	return TRUE;
     }
-    return GTK_WIDGET_CLASS (fm_path_entry_parent_class)->key_press_event (widget, event);
+    return FALSE;
 }
 
 static void  fm_path_entry_activate (GtkEntry *entry )
@@ -126,8 +128,6 @@ static void fm_path_entry_class_init (FmPathEntryClass *klass)
 							   "Wheather to highlight the completion match",
 							   TRUE, G_PARAM_READWRITE));       
     object_class->finalize = fm_path_entry_finalize;
-
-    widget_class->key_press_event = fm_path_entry_key_press;
     entry_class->activate = fm_path_entry_activate;
 
     g_type_class_add_private (klass, sizeof (FmPathEntryPrivate));
@@ -306,6 +306,7 @@ fm_path_entry_init (FmPathEntry *entry)
     gtk_cell_layout_set_cell_data_func( GTK_CELL_LAYOUT(completion), render, fm_path_entry_completion_render_func, entry, NULL );
     gtk_entry_completion_set_inline_completion( completion, TRUE );
     gtk_entry_completion_set_popup_set_width( completion, TRUE );
+    g_signal_connect (G_OBJECT (entry), "key-press-event", G_CALLBACK (fm_path_entry_key_press), NULL);
     gtk_entry_set_completion( GTK_ENTRY(entry), completion );
     g_object_unref (G_OBJECT (completion));
 }
