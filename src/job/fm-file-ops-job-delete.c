@@ -20,6 +20,7 @@
  */
 
 #include "fm-file-ops-job-delete.h"
+#include "fm-monitor.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -33,6 +34,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
     FmFileOpsJob* fjob = (FmFileOpsJob*)job;
 	gboolean is_dir;
     GFileInfo* _inf = NULL;
+    gboolean ret = FALSE;
 
 	if( !inf)
 	{
@@ -73,16 +75,20 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 
     if( is_dir )
 	{
+        GFileMonitor* old_mon = fjob->src_folder_mon;
 		GFileEnumerator* enu = g_file_enumerate_children(gf, query,
 									G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 									job->cancellable, &err);
+        GSList* dir_mons;
         if(!enu)
         {
             fm_job_emit_error(job, err, FALSE);
             g_error_free(err);
-		    g_object_unref(enu);
 		    return FALSE;
         }
+
+        if(! g_file_is_native(gf))
+            fjob->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
 
 		while( ! job->cancel )
 		{
@@ -103,6 +109,9 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                     fm_job_emit_error(job, err, FALSE);
                     g_error_free(err);
                     g_object_unref(enu);
+                    if(fjob->src_folder_mon)
+                        g_object_unref(fjob->src_folder_mon);
+                    fjob->src_folder_mon = old_mon;
                     return FALSE;
                 }
                 else /* EOF */
@@ -110,8 +119,38 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 			}
 		}
 		g_object_unref(enu);
+
+        if(fjob->src_folder_mon)
+        {
+            /* FIXME: this is a little bit incorrect since we emit deleted signal before the
+             * dir is really deleted. */
+            g_file_monitor_emit_event(fjob->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
+            g_object_unref(fjob->src_folder_mon);
+        }
+        fjob->src_folder_mon = old_mon;
 	}
-    return job->cancel ? FALSE : g_file_delete(gf, job->cancellable, &err);
+    if(!job->cancel)
+    {
+        ret = g_file_delete(gf, job->cancellable, &err);
+        if(ret)
+        {
+            if(fjob->src_folder_mon)
+                g_file_monitor_emit_event(fjob->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
+        }
+        else
+        {
+            if(err)
+            {
+                fm_job_emit_error(job, err, FALSE);
+                g_error_free(err);
+                return FALSE;
+            }
+        }
+    }
+    else
+        ret = FALSE;
+ 
+    return ret;
 }
 
 gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf)
@@ -132,9 +171,27 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
 	l = fm_list_peek_head_link(job->srcs);
 	for(; !FM_JOB(job)->cancel && l;l=l->next)
 	{
+        GFileMonitor* mon;
 		GFile* src = fm_path_to_gfile((FmPath*)l->data);
-		gboolean ret = fm_file_ops_job_delete_file(job, src, NULL);
+		gboolean ret;
+        if( g_file_is_native(src) )
+            mon = NULL;
+        else
+        {
+            GFile* src_dir = g_file_get_parent(src);
+            mon = fm_monitor_lookup_dummy_monitor(src_dir);
+            job->src_folder_mon = mon;
+    		g_object_unref(src_dir);
+        }
+
+        ret = fm_file_ops_job_delete_file(job, src, NULL);
 		g_object_unref(src);
+
+        if(mon)
+        {
+            g_object_unref(mon);
+            job->src_folder_mon = NULL;
+        }
 		if(!ret) /* error! */
             return FALSE;
 	}

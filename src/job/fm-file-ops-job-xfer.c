@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include "fm-monitor.h"
 
 const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -112,6 +113,11 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                     goto _out;
                 }
 			}
+            else
+            {
+                if(job->dest_folder_mon)
+                    g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+            }
 			job->finished += size;
 
 			enu = g_file_enumerate_children(src, query,
@@ -121,11 +127,24 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 				inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
 				if( inf )
 				{
+                    gboolean ret;
+                    GFileMonitor* old_dest_mon = job->dest_folder_mon;
 					GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
 					GFile* sub_dest = g_file_get_child(dest, g_file_info_get_name(inf));
-					gboolean ret = fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
+                    
+                    if(g_file_is_native(dest))
+                        job->dest_folder_mon = NULL;
+                    else
+                        job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest);
+
+					ret = fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
 					g_object_unref(sub);
 					g_object_unref(sub_dest);
+
+                    if(job->dest_folder_mon)
+                        g_object_unref(job->dest_folder_mon);
+                    job->dest_folder_mon = old_dest_mon;
+
 					if( G_UNLIKELY(!ret) )
 					{
 						/* FIXME: error handling */
@@ -223,6 +242,12 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 		job->finished += size;
 		job->current = 0;
 
+        if( type != G_FILE_TYPE_DIRECTORY )
+        {
+            if(job->dest_folder_mon)
+                g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+        }
+
         /* update progress */
         fm_file_ops_job_emit_percent(job);
         ret = TRUE;
@@ -314,6 +339,13 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
             }
             goto _out;
         }
+        else
+        {
+            if(job->src_folder_mon)
+                g_file_monitor_emit_event(job->src_folder_mon, src, NULL, G_FILE_MONITOR_EVENT_DELETED);
+            if(job->dest_folder_mon)
+                g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+        }
     }
     else /* use copy if they are on different devices */
     {
@@ -338,6 +370,9 @@ void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
 
 gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 {
+    gboolean ret = TRUE;
+	GFile *dest_dir;
+    GFileMonitor *dest_mon;
 	GList* l;
     FmJob* fmjob = FM_JOB(job);
 	/* prepare the job, count total work needed with FmDeepCountJob */
@@ -355,36 +390,60 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 	g_object_unref(dc);
 	g_debug("total size to copy: %llu", job->total);
 
+    dest_dir = fm_path_to_gfile(job->dest);
+    /* get dummy file monitors for non-native filesystems */
+    if( g_file_is_native(dest_dir) )
+        dest_mon = NULL;
+    else
+    {
+        dest_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
+        job->dest_folder_mon = dest_mon;
+    }
+
     /* FIXME: cancellation? */
 	for(l = fm_list_peek_head_link(job->srcs); !fmjob->cancel && l; l=l->next)
 	{
 		FmPath* path = (FmPath*)l->data;
-		FmPath* _dest = fm_path_new_child(job->dest, path->name);
 		GFile* src = fm_path_to_gfile(path);
-		GFile* dest = fm_path_to_gfile(_dest);
-		fm_path_unref(_dest);
+		GFile* dest = g_file_get_child(dest_dir, path->name);
+        GFileMonitor *src_mon;
+
 		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
         {
             fm_job_cancel(job);
-			return FALSE;
+			ret = FALSE;
         }
+        g_object_unref(src);
+        g_object_unref(dest);
+
+        if(!ret)
+            break;
 	}
+
+    g_object_unref(dest_dir);
+    if(dest_mon)
+    {
+        g_object_unref(dest_mon);
+        job->dest_folder_mon = NULL;
+    }
 	return TRUE;
 }
 
 gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 {
-	GFile *dest;
+	GFile *dest_dir;
+    GFileMonitor *dest_mon;
 	GFileInfo* inf;
 	GList* l;
 	GError* err = NULL;
 	FmJob* fmjob = FM_JOB(job);
     dev_t dest_dev = 0;
+    gboolean ret = TRUE;
 
     /* get information of destination folder */
 	g_return_val_if_fail(job->dest, FALSE);
-	dest = fm_path_to_gfile(job->dest);
-    inf = g_file_query_info(dest, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
+	dest_dir = fm_path_to_gfile(job->dest);
+    inf = g_file_query_info(dest_dir, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
                                   G_FILE_ATTRIBUTE_UNIX_DEVICE","
                                   G_FILE_ATTRIBUTE_ID_FILESYSTEM","
                                   G_FILE_ATTRIBUTE_UNIX_DEVICE, 0, 
@@ -398,7 +457,7 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
     else
     {
         /* FIXME: error handling */
-        g_object_unref(dest);
+        g_object_unref(dest_dir);
         return FALSE;
     }
 
@@ -409,22 +468,64 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 	job->total = dc->total_size;
 
 	if( FM_JOB(dc)->cancel )
+    {
+        g_object_unref(dest_dir);
+        g_object_unref(dc);
 		return FALSE;
+    }
 	g_object_unref(dc);
 	g_debug("total size to move: %llu, dest_fs: %s", job->total, job->dest_fs_id);
 
+    /* get dummy file monitors for non-native filesystems */
+    if( g_file_is_native(dest_dir) )
+        dest_mon = NULL;
+    else
+    {
+        dest_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
+        job->dest_folder_mon = dest_mon;
+    }
+
 	for(l = fm_list_peek_head_link(job->srcs); !fmjob->cancel && l; l=l->next)
 	{
+        GFileMonitor *src_mon;
 		FmPath* path = (FmPath*)l->data;
-		FmPath* _dest = fm_path_new_child(job->dest, path->name);
 		GFile* src = fm_path_to_gfile(path);
-		GFile* dest = fm_path_to_gfile(_dest);
-		fm_path_unref(_dest);
+		GFile* dest = g_file_get_child(dest_dir, path->name);
+
+        /* get dummy file monitors for non-native filesystems */
+        if( g_file_is_native(src) )
+            src_mon = NULL;
+        else
+        {
+            GFile* src_dir = g_file_get_parent(src);
+            src_mon = fm_monitor_lookup_dummy_monitor(src_dir);
+            job->src_folder_mon = src_mon;
+    		g_object_unref(src_dir);
+        }
+
 		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
         {
             fm_job_cancel(job);
-			return FALSE;
+			ret = FALSE;
         }
+        g_object_unref(src);
+        g_object_unref(dest);
+
+        if(src_mon)
+        {
+            g_object_unref(src_mon);
+            job->src_folder_mon = NULL;
+        }
+
+        if(!ret)
+            break;
 	}
-    return TRUE;
+
+    g_object_unref(dest_dir);
+    if(dest_mon)
+    {
+        g_object_unref(dest_mon);
+        job->dest_folder_mon = NULL;
+    }
+    return ret;
 }

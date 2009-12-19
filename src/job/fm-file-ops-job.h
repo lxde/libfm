@@ -93,6 +93,10 @@ struct _FmFileOpsJob
     guint32 gid;
     mode_t new_mode;
     mode_t new_mode_mask;
+
+    /* dummy file monitors, used to simulate file event for remote file systems */
+    GFileMonitor* src_folder_mon;
+    GFileMonitor* dest_folder_mon;
 };
 
 struct _FmFileOpsJobClass

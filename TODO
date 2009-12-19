@@ -19,6 +19,7 @@
      Confirm before deleting/trashing.
      Rename/overwrite files appropriately when destination file
      already exists. => done
+     should provide multiple destination files for recovering trashed files.
 
 * Dnd
      Dnd destination, drop site handling. => Almost done

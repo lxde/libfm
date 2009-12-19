@@ -304,7 +304,6 @@ on_drag_motion( GtkWidget *dest_widget,
 		FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
 		FmPath* path = dd->dest_file->path;
 		gboolean same_fs;
-
         if(fm_path_is_trash(path))
         {
             if(fm_path_is_trash_root(path)) /* only move is allowed for trash */
@@ -315,7 +314,8 @@ on_drag_motion( GtkWidget *dest_widget,
                 ret = FALSE;
             }
         }
-        else if(fm_path_is_virtual(path))
+        /* FIXME: this seems to have some problems sometimes. */
+        else if(fm_path_is_virtual(path) && !fm_path_is_remote(path))
         {
     		/* FIXME: computer:// and network:// shouldn't received dnd */
             /* FIXME: some special handling can be done with applications:/// */

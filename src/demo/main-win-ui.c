@@ -140,7 +140,7 @@ static GtkActionEntry main_win_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
 };
 
-static GtkActionEntry main_win_toggle_actions[]=
+static GtkToggleActionEntry main_win_toggle_actions[]=
 {
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, on_show_hidden, FALSE}
 };
