@@ -102,6 +102,9 @@ static void fm_file_ops_job_finalize(GObject *object)
 	if(self->dest)
 		fm_path_unref(self->dest);
 
+    g_assert(self->src_folder_mon == NULL);
+    g_assert(self->dest_folder_mon == NULL);
+
 	G_OBJECT_CLASS(fm_file_ops_job_parent_class)->finalize(object);
 }
 
@@ -310,4 +313,3 @@ gboolean fm_file_ops_job_link_run(FmFileOpsJob* job)
 	}
     return TRUE;
 }
-

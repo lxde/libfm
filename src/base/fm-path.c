@@ -142,19 +142,19 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
             /* FIXME: do we have more efficient way here? */
 			/* FIXME: trash:///, computer:///, network:/// are virtual paths */
             /* FIXME: add // if only trash:/ is supplied in basename */
-            if(strncmp(basename, "trash:", 6))
+            if(strncmp(basename, "trash:", 6) == 0)
             {
     			path->flags |= FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL;
             }
-            else if(strncmp(basename, "computer:", 9))
+            else if(strncmp(basename, "computer:", 9) == 0)
             {
     			path->flags |= FM_PATH_IS_VIRTUAL;
             }
-            else if(strncmp(basename, "network:", 8))
+            else if(strncmp(basename, "network:", 8) == 0)
             {
     			path->flags |= FM_PATH_IS_VIRTUAL;
             }
-            else if(strncmp(basename, "applications:", 13))
+            else if(strncmp(basename, "applications:", 13) == 0)
             {
     			path->flags |= FM_PATH_IS_VIRTUAL;
             }
@@ -401,6 +401,11 @@ gboolean fm_path_is_trash_root(FmPath* path)
 gboolean fm_path_is_virtual(FmPath* path)
 {
 	return (path->flags&FM_PATH_IS_VIRTUAL) ? TRUE : FALSE;
+}
+
+gboolean fm_path_is_remote(FmPath* path)
+{
+	return (path->flags&FM_PATH_IS_REMOTE) ? TRUE : FALSE;
 }
 
 void fm_path_init()

@@ -20,11 +20,9 @@
  */
 
 #include "fm-folder.h"
+#include "fm-monitor.h"
 #include "fm-marshal.h"
 #include <string.h>
-
-
-#define MONITOR_RATE_LIMIT 5000
 
 enum {
     FILES_ADDED,
@@ -256,7 +254,6 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
     };
 */
-
     if(g_file_equal(gf, folder->gf))
     {
         g_debug("event of the folder itself: %d", evt);
@@ -335,20 +332,12 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
     folder->dir_path = fm_path_ref(path);
 
     folder->gf = (GFile*)g_object_ref(gf);
-    folder->mon = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &err);
+
+    folder->mon = fm_monitor_directory(gf, &err);
     if(folder->mon)
-    {
-        g_file_monitor_set_rate_limit(folder->mon, MONITOR_RATE_LIMIT);
         g_signal_connect(folder->mon, "changed", G_CALLBACK(on_folder_changed), folder );
-    }
     else
-    {
-        if(err)
-        {
-            g_debug("error creating file monitor: %s, %d", err->message, err->code);
-            g_error_free(err);
-        }
-    }
+        g_free(err);
 
     fm_folder_reload(folder);
     return folder;

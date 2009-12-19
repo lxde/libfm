@@ -1,7 +1,7 @@
 /*
- *      fm.h
+ *      fm-file-monitor.h
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,18 +19,22 @@
  *      MA 02110-1301, USA.
  */
 
-#include "fm-config.h"
-#include "fm-icon.h"
-#include "fm-mime-type.h"
-#include "fm-file-info.h"
-#include "fm-folder.h"
-#include "fm-dir-list-job.h"
-#include "fm-path.h"
-#include "fm-monitor.h"
+
+#ifndef __FM_FILE_MONITOR_H__
+#define __FM_FILE_MONITOR_H__
+
+#include <glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-gboolean fm_init(FmConfig* config);
-void fm_finalize();
+GFileMonitor* fm_monitor_directory(GFile* gf, GError** err);
+
+void fm_monitor_init();
+void fm_monitor_finalize();
+
+GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf);
 
 G_END_DECLS
+
+#endif /* __FM_FILE_MONITOR_H__ */

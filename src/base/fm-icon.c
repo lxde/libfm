@@ -22,7 +22,7 @@
 #include "fm-icon.h"
 
 static GHashTable* hash = NULL;
-G_LOCK_DEFINE(hash);
+G_LOCK_DEFINE_STATIC(hash);
 
 static GDestroyNotify destroy_func = NULL;
 

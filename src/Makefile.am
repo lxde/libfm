@@ -21,6 +21,8 @@ base_SOURCES = \
 	base/fm-icon.c \
 	base/fm-bookmarks.c \
 	base/fm-nav-history.c \
+	base/fm-monitor.c \
+	base/fm-dummy-monitor.c \
 	base/fm-marshal.c \
 	$(NULL)
 
@@ -84,6 +86,8 @@ LIBFM_INCLUDES = \
 	base/fm-icon.h \
 	base/fm-bookmarks.h \
 	base/fm-nav-history.h \
+	base/fm-monitor.h \
+	base/fm-dummy-monitor.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-dir-list-job.h \
@@ -123,11 +127,11 @@ libfm_la_SOURCES = \
 	$(NULL)
 
 libfm_la_CFLAGS = \
-	@GIO_CFLAGS@ \
-	@MENU_CACHE_CFLAGS@ \
+	$(GIO_CFLAGS) \
+	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration
 
-libfm_la_LIBADD = @GIO_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS)
+libfm_la_LIBADD = $(GIO_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS)
 
 libfm_la_LDFLAGS = \
 	-no-undefined \
@@ -140,14 +144,14 @@ libfm_gtk_la_SOURCES = \
 	$(NULL)
 
 libfm_gtk_la_CFLAGS = \
-	@GTK_CFLAGS@ \
-	@GIO_CFLAGS@ \
+	$(GTK_CFLAGS) \
+	$(GIO_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
 	-Werror-implicit-function-declaration
 
-libfm_gtk_la_LIBADD = @GTK_LIBS@ @GIO_LIBS@ $(INTLLIBS) libfm.la
+libfm_gtk_la_LIBADD = $(GTK_LIBS) $(GIO_LIBS) $(INTLLIBS) libfm.la
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
@@ -162,11 +166,11 @@ libfm_demo_SOURCES = \
 	$(NULL)
 
 libfm_demo_CFLAGS = \
-	@GTK_CFLAGS@ \
-	@MENU_CACHE_CFLAGS@ \
+	$(GTK_CFLAGS) \
+	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration
 
-libfm_demo_LDADD = @GTK_LIBS@ @MENU_CACHE_LIBS@ $(INTLLIBS) libfm.la libfm-gtk.la
+libfm_demo_LDADD = $(GTK_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS) libfm.la libfm-gtk.la
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
@@ -205,8 +209,8 @@ CLEANFILES = \
 #lib_LTLIBRARIES=libfm-chooser-hack.la
 
 #libfm_chooser_hack_la_SOURCES=libfm-chooser-hack.c
-#libfm_chooser_hack_la_CFLAGS=@GTK_CFLAGS@
-#libfm_chooser_hack_la_LIBADD=@GMODULE_LIBS@
+#libfm_chooser_hack_la_CFLAGS=$(GTK_CFLAGS)
+#libfm_chooser_hack_la_LIBADD=$(GMODULE_LIBS)
 #libfm_chooser_hack_la_LDFLAGS= \
 #        -no-undefined \
 #        -export-symbols-regex gtk

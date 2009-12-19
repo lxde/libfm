@@ -85,6 +85,7 @@ gboolean fm_path_is_native(FmPath* path);
 gboolean fm_path_is_trash(FmPath* path);
 gboolean fm_path_is_trash_root(FmPath* path);
 gboolean fm_path_is_virtual(FmPath* path);
+gboolean fm_path_is_remote(FmPath* path);
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

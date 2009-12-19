@@ -37,12 +37,14 @@ gboolean fm_init(FmConfig* config)
 
 	fm_path_init();
     fm_icon_init();
+    fm_monitor_init();
     fm_file_info_init();
 }
 
 void fm_finalize()
 {
 	fm_icon_finalize();
+    fm_monitor_finalize();
 
     fm_config_save(fm_config, NULL);
     g_object_unref(fm_config);
