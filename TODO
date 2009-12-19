@@ -1,17 +1,4 @@
-* API renaming:
-     when a returned value was allocated or ref_count is increased,
-     the API should use _dup_ rather than _get_.
-
-     currently there are inconsistent naming convention among different
-     modules. _get_for_, new_from_, _get_from_, and simply _get_ are used
-     in different places where APIs have similar behaviors.
-
-* Better clipboard handling => almost done
-     Can we be more compatible with GNOME and XFCE?
-     Already compatible with KDE/Dolphin
-     Partially compatible with gnome and xfce.
-     Clipboard operation done by libfm doesn't seem to be noticed by
-     nautilus. Cause? maybe related to clipboard monitoring?
+[High Priority]
 
 * File operations: move, copy, trashing, ...
      Implement correct error handling.
@@ -34,30 +21,12 @@
      prevent divided by zero problem. (calculate percentage when total size = 0)
      Some remote or virtual files doesn't have block size and block count.
 
-* File monitoring with cache
-     use a global hash table to cache all file monitors and share them
-     everywhere to prevent create many file monitors to monitor the same
-     path.
-
-* FmPathCache:
-     a general purpose cache to associated paths with already loaded
-     data associated those paths such as thumbnails or file monitors
-     to optimize memory usage and decrease duplicated I/O.
-     => This might be cancelled due to difficulties to correctly implement
-        in a MT-safe way.
-
-* Thumbnails, may be cached with FmPathCache to speed up loading.
+* Thumbnails, may be cached with hash table to speed up loading.
      A FmThumbnailJob is needed.
-
-* Custom actions for specific file types.
-     integration with archivers is a must have, but how?
-     Maybe we can use the implementation proposed by KDE.
 
 * API to empty trash (just deleting everything under trash:/// can make it.)
 
 * Display paths in path entry with display name rather than real path
-
-* Auto-mounting
 
 * Mount volumes and mount points when needed
      This already works with remote URLs.
@@ -71,35 +40,9 @@
 
 * path resolution and canonicalization: convert ../ and ./ gracefully
 
-* Enable showing .. in list view mode. => low priority
-
 * Popup menu for blank area of the folder view. => partially done
 
-* Implement fm_list_concat_glist to add a GList* to FmList or to convert
-     a GList to FmList by fm_list_new followed by fm_list_concat_glist()
-     => Not currently used, low priority
-
-* Emit pseudo 'changed' signals on file monitors which are not supported
-     by gio/gvfs, such as some remote file systems, after we do some
-     modifications in the dir.
-     This can be used with file monitor cache.
-
-* Expose a set of dbus interfaces/services so other applications can call
-     libfm to do file operations without being linked with it.
-     Or, this should be implemented in the level of file managers, like in pcmanfm?
-     If this is going to be supported, write a freedesktop.org spec for it.
-     => low priority
-
-* Display tooltips for folder items => low priority
-
-* Warn the user for insufficient disk space before file operations.
-
-* Provide a wizard to clean temporary files from the filesystem to get more
-     usable disk space. => a disk cleaner is needed.
-     This can be showed to the user when there is not available disk space.
-
-* Periodically remove thumbnail caches. (low priority)
-     Maybe it's a better idea to handle this in disk cleaner wizard.
+* Add "Create New" to popup menu of folder.
 
 * Show available disk space in status bar => related to #26.
 
@@ -109,16 +52,8 @@
 * Make libfm a real library. => partially done
      Need to seperate gtk+-dependet part from the core part.
 
-* Bring some fallback icons (application-x-generic and folder) along with
-     the package of libfm to work without icon themes.
-
-* GtkFileChooser style path button bar. (can take the one in gtk)
-
 * Change file type-application association in property dialog.
      partially done, need to let the user choose a custom application.
-
-* Move applications associated with a file to a seperate sub menu if
-     There are too many items.
 
 * Offer some global options like whether to use Trash bin or not to ease
      the development of file manager and all programs using this lib can
@@ -127,10 +62,6 @@
      class FmConfig can handle this part => partially done
      Maybe we can utilize XClientMessage to send notifications and let
      all apps using libfm to reload the config files. (similar to gtkrc and qt-config)
-
-* Support mount specific filesystem encoding in the future. Now we only
-     handle UTF-8 for simplicity.
-     Those settings can be stored in FmConfig?
 
 * Handle special files like FIFO, socket, ...etc.
      partially done for local UNIX fileystems.
@@ -144,18 +75,6 @@
 * Need to display marks on the icons of symlinks to let the users
      know that they are symlinks
 
-* Add a right pane to list all opened folders instead of using tabs.
-     Quite useful for wide screen and can save taskbar space.
-     Very convinient when you need to work with files in many different folders
-
-* Support saving currently opened folders as a session, and the saved session
-     file can be loaded later by double click on it.
-     This is especially useful for developers and can be used for project management
-
-* Write a geany plugin to utilize the FmFolderView.
-
-* File properties dialog is not complete => need to handle chmod, chown
-
 * File searching utility => Subclass FmFolder and provide FmSearchFiles
      The search result can be given to a GtkTreeModel for display.
 
@@ -163,8 +82,90 @@
      The API can be compatible with GtkFileFilter used by GtkFileChooser.
      The hidden parts can be stored in model->hidden GSequence.
 
+* Update icons when gtk+ icon theme gets changed.
+
+
+
+[Medium Priority]
+
+* API renaming:
+     when a returned value was allocated or ref_count is increased,
+     the API should use _dup_ rather than _get_.
+
+     currently there are inconsistent naming convention among different
+     modules. _get_for_, new_from_, _get_from_, and simply _get_ are used
+     in different places where APIs have similar behaviors.
+
+* Better clipboard handling => almost done
+     Can we be more compatible with GNOME and XFCE?
+     Already compatible with KDE/Dolphin
+     Partially compatible with gnome and xfce.
+     Clipboard operation done by libfm doesn't seem to be noticed by
+     nautilus. Cause? maybe related to clipboard monitoring?
+
+* Custom actions for specific file types.
+     integration with archivers is a must have, but how?
+     Maybe we can use the implementation proposed by KDE.
+
+* GtkFileChooser style path button bar. (can take the one in gtk)
+
+* Bring some fallback icons (application-x-generic and folder) along with
+     the package of libfm to work without icon themes.
+
+* Warn the user for insufficient disk space before file operations.
+
+* Support "Send To..."
+
+* Auto-mounting
+
+* Move applications associated with a file to a seperate sub menu if
+     There are too many items.
+
+* Support mount specific filesystem encoding in the future. Now we only
+     handle UTF-8 for simplicity.
+     Those settings can be stored in FmConfig?
+
+
+
+[Low Priority]
+
 * Add FmGesture to support mouse gesture. (low priority)
      Maybe this should in another lib to be used in other programs, too.
 
 * Hiding computer:///, network:///, and disable trash:/// if gvfs is not
-     available. (low priority)
+     available.
+
+* Implement fm_list_concat_glist to add a GList* to FmList or to convert
+     a GList to FmList by fm_list_new followed by fm_list_concat_glist()
+
+* Expose a set of dbus interfaces/services so other applications can call
+     libfm to do file operations without being linked with it.
+     Or, this should be implemented in the level of file managers, like in pcmanfm?
+     If this is going to be supported, write a freedesktop.org spec for it.
+
+* Display tooltips for folder items
+
+* Documentation, can be done with gtk-doc
+
+
+
+[Very Low Priority]
+
+* Provide a wizard to clean temporary files from the filesystem to get more
+     usable disk space. => a disk cleaner is needed.
+     This can be showed to the user when there is not available disk space.
+
+* Periodically remove thumbnail caches
+     Maybe it's a better idea to handle this in disk cleaner wizard.
+
+* Enable showing .. in list view mode.
+
+* Write a geany plugin to utilize the FmFolderView.
+
+* Add a right pane to list all opened folders instead of using tabs.
+     Quite useful for wide screen and can save taskbar space.
+     Very convinient when you need to work with files in many different folders
+
+* Support saving currently opened folders as a session, and the saved session
+     file can be loaded later by double click on it.
+     This is especially useful for developers and can be used for project management
