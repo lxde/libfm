@@ -337,7 +337,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
     if(folder->mon)
         g_signal_connect(folder->mon, "changed", G_CALLBACK(on_folder_changed), folder );
     else
-        g_free(err);
+        g_error_free(err);
 
     fm_folder_reload(folder);
     return folder;
@@ -376,7 +376,6 @@ FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 static void fm_folder_finalize(GObject *object)
 {
     FmFolder *self;
-
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FOLDER(object));
 

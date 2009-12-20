@@ -243,29 +243,38 @@ _retry:
 
 		enu = g_file_enumerate_children (gf, gfile_info_query_attribs, 0, fmjob->cancellable, &err);
 		g_object_unref(gf);
-		while( ! FM_JOB(job)->cancel )
-		{
-			inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
-			if(inf)
-			{
-                FmPath* sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
-				fi = fm_file_info_new_from_gfileinfo(sub, inf);
-                fm_path_unref(sub);
-				fm_list_push_tail_noref(job->files, fi);
-			}
-			else
+        if(enu)
+        {
+            while( ! FM_JOB(job)->cancel )
             {
-                if(err)
+                inf = g_file_enumerator_next_file(enu, fmjob->cancellable, &err);
+                if(inf)
                 {
-                    fm_job_emit_error(fmjob, err, FALSE);
-                    g_error_free(err);
+                    FmPath* sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+                    fi = fm_file_info_new_from_gfileinfo(sub, inf);
+                    fm_path_unref(sub);
+                    fm_list_push_tail_noref(job->files, fi);
                 }
-				break; /* FIXME: error handling */
+                else
+                {
+                    if(err)
+                    {
+                        fm_job_emit_error(fmjob, err, FALSE);
+                        g_error_free(err);
+                    }
+                    break; /* FIXME: error handling */
+                }
+                g_object_unref(inf);
             }
-			g_object_unref(inf);
-		}
-		g_file_enumerator_close(enu, NULL, &err);
-		g_object_unref(enu);
+            g_file_enumerator_close(enu, NULL, &err);
+            g_object_unref(enu);
+        }
+        else
+        {
+            fm_job_emit_error(fmjob, err, FALSE);
+            g_error_free(err);
+            return FALSE;
+        }
 	}
 	return TRUE;
 }
