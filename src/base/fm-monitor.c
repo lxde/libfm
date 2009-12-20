@@ -105,6 +105,19 @@ void fm_monitor_finalize()
     dummy_hash = NULL;
 }
 
+GFileMonitor* fm_monitor_lookup_monitor(GFile* gf)
+{
+    GFileMonitor* ret = NULL;
+    G_LOCK(hash);
+    ret = (GFileMonitor*)g_hash_table_lookup(hash, gf);
+    if(!ret && !g_file_is_native(gf))
+        ret = (GFileMonitor*)g_hash_table_lookup(dummy_hash, gf);
+    if(ret)
+        g_object_ref(ret);
+    G_UNLOCK(hash);
+    return ret;
+}
+
 GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf)
 {
     GFileMonitor* mon;

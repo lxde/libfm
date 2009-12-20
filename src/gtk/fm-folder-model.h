@@ -105,6 +105,8 @@ void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const g
 							   gboolean (*file_info_predicate)(FmFileInfo*),
 							   gchar* common_suffix);
 
+gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIter* it, const char* name);
+
 /*
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );
 */

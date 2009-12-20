@@ -767,6 +767,48 @@ void fm_folder_view_select_invert(FmFolderView* fv)
     }
 }
 
+void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
+{
+    if(fm_path_equal(path->parent, fv->cwd))
+    {
+        FmFolderModel* model = (FmFolderModel*)fv->model;
+        GtkTreeIter it;
+        if(fm_folder_model_find_iter_by_filename(model, &it, path->name))
+        {
+            switch(fv->mode)
+            {
+            case FM_FV_LIST_VIEW:
+                {
+                    GtkTreeSelection* sel = gtk_tree_view_get_selection(fv->view);
+                    gtk_tree_selection_select_iter(sel, &it);
+                }
+                break;
+            case FM_FV_ICON_VIEW:
+            case FM_FV_COMPACT_VIEW:
+                {
+                    GtkTreePath* tp = gtk_tree_model_get_path(model, &it);
+                    if(tp)
+                    {
+                        exo_icon_view_select_path(fv->view, tp);
+                        gtk_tree_path_free(tp);
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+
+void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
+{
+    GList* l;
+    for(l = fm_list_peek_head_link(paths);l; l=l->next)
+    {
+        FmPath* path = FM_PATH(l->data);
+        fm_folder_view_select_file_path(fv, path);
+    }
+}
+
 /* FIXME: select files by custom func, not yet implemented */
 void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data)
 {
