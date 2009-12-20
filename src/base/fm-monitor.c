@@ -108,6 +108,8 @@ void fm_monitor_finalize()
 GFileMonitor* fm_monitor_lookup_monitor(GFile* gf)
 {
     GFileMonitor* ret = NULL;
+    if(G_UNLIKELY(!gf))
+        return NULL;
     G_LOCK(hash);
     ret = (GFileMonitor*)g_hash_table_lookup(hash, gf);
     if(!ret && !g_file_is_native(gf))
@@ -122,7 +124,7 @@ GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf)
 {
     GFileMonitor* mon;
     char* scheme;
-    if(g_file_is_native(gf))
+    if(G_LIKELY(!gf || g_file_is_native(gf)))
         return NULL;
     scheme = g_file_get_uri_scheme(gf);
     if(scheme)

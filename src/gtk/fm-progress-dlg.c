@@ -253,7 +253,7 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     }
     else
     {
-        gtk_widget_destroy(dest);
+        gtk_widget_destroy(data->dest);
         gtk_widget_destroy(to_label);
     }
 

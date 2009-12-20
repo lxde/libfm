@@ -65,6 +65,11 @@ struct _FmBookmarksClass
 GType fm_bookmarks_get_type(void);
 FmBookmarks* fm_bookmarks_get(void);
 
+#define fm_bookmarks_append(bookmarks, path, name)  fm_bookmarks_insert(bookmarks, path, name, -1)
+FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const char* name, int pos);
+void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item);
+void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name);
+
 /* list all bookmark items in current bookmarks */
 GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
 

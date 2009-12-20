@@ -213,9 +213,14 @@ gboolean fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
         else
         {
             GFile* src_dir = g_file_get_parent(src);
-            mon = fm_monitor_lookup_dummy_monitor(src_dir);
-            job->src_folder_mon = mon;
-    		g_object_unref(src_dir);
+            if(src_dir)
+            {
+                mon = fm_monitor_lookup_dummy_monitor(src_dir);
+                job->src_folder_mon = mon;
+        		g_object_unref(src_dir);
+            }
+            else
+                job->src_folder_mon = mon = NULL;
         }
 
 		ret = fm_file_ops_job_change_attr_file(job, src, NULL);

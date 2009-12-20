@@ -86,11 +86,15 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 {
                     g_error_free(err);
                     err = NULL;
+                    if(new_dest)
+                    {
+                        g_object_unref(new_dest);
+                        new_dest = NULL;
+                    }
                     opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
                     switch(opt)
                     {
                     case FM_FILE_OP_RENAME:
-                        g_object_unref(dest);
                         dest = new_dest;
                         goto _retry_mkdir;
                         break;
@@ -209,7 +213,11 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
             {
                 g_error_free(err);
                 err = NULL;
-
+                if(new_dest)
+                {
+                    g_object_unref(new_dest);
+                    new_dest = NULL;
+                }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
                 switch(opt)
                 {
@@ -259,6 +267,8 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
         ret = fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
 
 _out:
+    if(new_dest)
+        g_object_unref(new_dest);
 
     if( _inf )
         g_object_unref(_inf);
@@ -276,6 +286,7 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 	FmJob* fmjob = FM_JOB(job);
     const char* src_fs_id;
     gboolean ret = TRUE;
+    GFile* new_dest = NULL;
 
 	if( G_LIKELY(inf) )
 		_inf = NULL;
@@ -306,7 +317,11 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
             flags &= ~G_FILE_COPY_OVERWRITE;
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
-                GFile* new_dest = NULL;
+                if(new_dest)
+                {
+                    g_object_unref(new_dest);
+                    new_dest = NULL;
+                }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
                 g_error_free(err);
                 err = NULL;
@@ -314,7 +329,6 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
                 switch(opt)
                 {
                 case FM_FILE_OP_RENAME:
-                    g_object_unref(dest);
                     dest = new_dest;
                     goto _retry_move;
                     break;
@@ -355,6 +369,9 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
     }
 
 _out:
+    if(new_dest)
+        g_object_unref(new_dest);
+
     /* FIXME: error handling */
     if( _inf )
         g_object_unref(_inf);
@@ -406,7 +423,6 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 		FmPath* path = (FmPath*)l->data;
 		GFile* src = fm_path_to_gfile(path);
 		GFile* dest = g_file_get_child(dest_dir, path->name);
-        GFileMonitor *src_mon;
 
 		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
         {
@@ -498,9 +514,14 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
         else
         {
             GFile* src_dir = g_file_get_parent(src);
-            src_mon = fm_monitor_lookup_dummy_monitor(src_dir);
-            job->src_folder_mon = src_mon;
-    		g_object_unref(src_dir);
+            if(src_dir)
+            {
+                src_mon = fm_monitor_lookup_dummy_monitor(src_dir);
+                job->src_folder_mon = src_mon;
+                g_object_unref(src_dir);
+            }
+            else
+                job->src_folder_mon = src_mon = NULL;
         }
 
 		if(!fm_file_ops_job_move_file(job, src, NULL, dest))

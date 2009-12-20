@@ -533,6 +533,16 @@ void fm_rename_file(FmPath* file)
     g_object_unref(gf);
 }
 
+void fm_empty_trash()
+{
+    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash bin?")))
+    {
+        FmPathList* paths = fm_path_list_new();
+        fm_list_push_tail(paths, fm_path_get_trash());
+        fm_delete_files(paths);
+        fm_list_unref(paths);
+    }
+}
 
 gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi)
 {

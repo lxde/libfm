@@ -41,6 +41,8 @@ G_DEFINE_TYPE(FmBookmarks, fm_bookmarks, G_TYPE_OBJECT);
 static FmBookmarks* singleton = NULL;
 static guint signals[N_SIGNALS];
 
+static guint idle_handler = 0;
+
 static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 {
 	GObjectClass *g_object_class;
@@ -65,6 +67,12 @@ static void fm_bookmarks_finalize(GObject *object)
 	g_return_if_fail(IS_FM_BOOKMARKS(object));
 
 	self = FM_BOOKMARKS(object);
+
+    if(idle_handler)
+    {
+        g_source_remove(idle_handler);
+        idle_handler = 0;
+    }
 
     g_list_foreach(self->items, (GFunc)free_item, NULL);
     g_list_free(self->items);
@@ -186,4 +194,64 @@ FmBookmarks* fm_bookmarks_get(void)
 GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
+}
+
+gboolean save_bookmarks(FmBookmarks* bookmarks)
+{
+    FILE* f;
+    FmBookmarkItem* item;
+    GList* l;
+    GString* buf = g_string_sized_new(1024);
+    char* fpath;
+
+    for( l=bookmarks->items; l; l=l->next )
+    {
+        char* uri;
+        item = (FmBookmarkItem*)l->data;
+        uri = fm_path_to_uri(item->path);
+        g_string_append(buf, uri);
+        g_free(uri);
+        g_string_append_c(buf, ' ');
+        g_string_append(buf, item->name);
+        g_string_append_c(buf, '\n');
+    }
+
+    fpath = get_bookmarks_file();
+    g_file_set_contents(fpath, buf->str, buf->len, NULL);
+    g_free(fpath);
+
+    g_string_free(buf, TRUE);
+    return FALSE;
+}
+
+void queue_save_bookmarks(FmBookmarks* bookmarks)
+{
+    if(idle_handler)
+        g_source_remove(idle_handler);
+    idle_handler = g_idle_add((GSourceFunc)save_bookmarks, bookmarks);
+}
+
+FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const char* name, int pos)
+{
+    FmBookmarkItem* item = g_slice_new0(FmBookmarkItem);
+    item->path = fm_path_ref(path);
+    item->name = g_strdup(name);
+    bookmarks->items = g_list_insert(bookmarks->items, item, pos);
+    g_debug("insert %s at %d", name, pos);
+    queue_save_bookmarks(bookmarks);
+    return item;
+}
+
+void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
+{
+    bookmarks->items = g_list_remove(bookmarks->items, item);
+    free_item(item);
+    queue_save_bookmarks(bookmarks);
+}
+
+void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name)
+{
+    g_free(item->name);
+    item->name = g_strdup(new_name);
+    queue_save_bookmarks(bookmarks);
 }

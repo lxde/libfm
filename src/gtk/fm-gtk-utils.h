@@ -77,6 +77,8 @@ void fm_trash_or_delete_files(FmPathList* files);
 /* void fm_rename_files(FmPathList* files); */
 void fm_rename_file(FmPath* file);
 
+void fm_empty_trash();
+
 gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi);
 gboolean fm_launch_files(GtkWidget* widget, GAppLaunchContext* ctx, GList* file_infos);
 

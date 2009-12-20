@@ -141,6 +141,19 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
         {
             if(err)
             {
+                if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
+                {
+                    /* special case for trash:/// */
+                    /* FIXME: is there any better way to handle this? */
+                    char* uri = g_file_get_uri(gf);
+                    if(g_strcmp0(uri, "trash:///") == 0)
+                    {
+                        g_free(uri);
+                        g_error_free(err);
+                        return TRUE;
+                    }
+                    g_free(uri);
+                }
                 fm_job_emit_error(job, err, FALSE);
                 g_error_free(err);
                 return FALSE;
@@ -179,9 +192,14 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
         else
         {
             GFile* src_dir = g_file_get_parent(src);
-            mon = fm_monitor_lookup_dummy_monitor(src_dir);
-            job->src_folder_mon = mon;
-    		g_object_unref(src_dir);
+            if(src_dir)
+            {
+                mon = fm_monitor_lookup_dummy_monitor(src_dir);
+                job->src_folder_mon = mon;
+                g_object_unref(src_dir);
+            }
+            else
+                job->src_folder_mon = mon = NULL;
         }
 
         ret = fm_file_ops_job_delete_file(job, src, NULL);
