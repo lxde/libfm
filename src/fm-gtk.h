@@ -27,7 +27,6 @@
 #include "fm-clipboard.h"
 #include "fm-dnd-dest.h"
 #include "fm-dnd-src.h"
-#include "fm-edit-bookmarks.h"
 #include "fm-file-menu.h"
 #include "fm-file-properties.h"
 #include "fm-folder-model.h"
