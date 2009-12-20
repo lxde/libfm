@@ -697,7 +697,8 @@ static void init_application_list(FmFilePropData* data)
                 }
                 g_object_unref(app);
             }
-            g_object_unref(def_app); /* free default app */
+            if(def_app)
+                g_object_unref(def_app); /* free default app */
             g_list_free(apps);
             gtk_list_store_append(store, &it); /* separator */
             data->separator_iter_user_data = it.user_data;
