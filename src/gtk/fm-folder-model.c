@@ -105,6 +105,9 @@ static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
 static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model);
 
+#define IS_HIDDEN_FILE(fn)  \
+    (fn[0] == '.' || g_str_has_suffix(fn, "~"))
+
 //static void on_thumbnail_loaded( FmFolder* dir, VFSFileInfo* file, FmFolderModel* model );
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
@@ -243,7 +246,7 @@ static void _fm_folder_model_files_changed(FmFolder* dir, GSList* files,
 
 static void _fm_folder_model_add_file(FmFolderModel* model, FmFileInfo* file)
 {
-    if( !model->show_hidden && file->path->name[0] == '.' )
+    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) )
         g_sequence_append( model->hidden, fm_folder_item_new(file) );
     else
         fm_folder_model_file_created(model, file);
@@ -743,7 +746,7 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     }
 #endif
 
-    if( !model->show_hidden && file->path->name[0] == '.' ) /* if this is a hidden file */
+    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) ) /* if this is a hidden file */
     {
         update_view = FALSE;
         seq_it = g_sequence_get_begin_iter(model->hidden);
@@ -778,7 +781,7 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     GtkTreeIter it;
     GtkTreePath* path;
 
-    if( !model->show_hidden && file->path->name[0] == '.' )
+    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) )
         return;
 
     items_it = g_sequence_get_begin_iter(model->items);
@@ -944,7 +947,7 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
             GtkTreePath* tp;
             GSequenceIter *next_item_it = g_sequence_iter_next(items_it);
             item = (FmFolderItem*)g_sequence_get(items_it);
-            if( item->inf->path->name[0] == '.' )
+            if( IS_HIDDEN_FILE(item->inf->path->name) )
             {
                 gint delete_pos = g_sequence_iter_get_position(items_it);
                 g_sequence_move( items_it, g_sequence_get_begin_iter(model->hidden) );

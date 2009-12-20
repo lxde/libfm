@@ -34,7 +34,6 @@
 #include "fm-folder-view.h"
 #include "fm-gtk-utils.h"
 #include "fm-icon-pixbuf.h"
-#include "fm-path-bar.h"
 #include "fm-path-entry.h"
 #include "fm-places-view.h"
 #include "fm-progress-dlg.h"
