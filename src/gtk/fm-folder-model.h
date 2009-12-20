@@ -74,6 +74,8 @@ struct _FmFolderModel
     GtkSortType sort_order;
     /* Random integer to check whether an iter belongs to our model */
     gint stamp;
+    
+    guint theme_change_handler;
 };
 
 struct _FmFolderModelClass

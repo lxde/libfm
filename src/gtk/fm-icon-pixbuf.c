@@ -22,6 +22,7 @@
 #include "fm-icon-pixbuf.h"
 
 static gboolean init = FALSE;
+static guint changed_handler = 0;
 
 typedef struct _PixEntry
 {
@@ -107,3 +108,22 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
     return pix;
 }
 
+static void on_icon_theme_changed(GtkIconTheme* theme, gpointer user_data)
+{
+    g_debug("icon theme changed!");
+    /* unload pixbufs cached in FmIcon's hash table. */
+    fm_icon_unload_user_data_cache();
+}
+
+void fm_icon_pixbuf_init()
+{
+    /* FIXME: GtkIconTheme object is different on different GdkScreen */
+    GtkIconTheme* theme = gtk_icon_theme_get_default();
+    changed_handler = g_signal_connect(theme, "changed", G_CALLBACK(on_icon_theme_changed), NULL);
+}
+
+void fm_icon_pixbuf_finalize()
+{
+    GtkIconTheme* theme = gtk_icon_theme_get_default();
+    g_signal_handler_disconnect(theme, changed_handler);
+}

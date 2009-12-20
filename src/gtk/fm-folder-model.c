@@ -103,6 +103,8 @@ static void fm_folder_model_sort(FmFolderModel* model);
 /* signal handlers */
 static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
+static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model);
+
 //static void on_thumbnail_loaded( FmFolder* dir, VFSFileInfo* file, FmFolderModel* model );
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
@@ -114,6 +116,9 @@ void fm_folder_model_init(FmFolderModel* model)
     model->sort_col = -1;
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
+    
+    model->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed", 
+                                                   G_CALLBACK(on_icon_theme_changed), model);
 }
 
 void fm_folder_model_class_init(FmFolderModelClass *klass)
@@ -188,6 +193,10 @@ void fm_folder_model_finalize(GObject *object)
     FmFolderModel* model = ( FmFolderModel* )object;
 
     fm_folder_model_set_folder(model, NULL);
+
+    g_signal_handler_disconnect(gtk_icon_theme_get_default(), 
+                                model->theme_change_handler);
+
     /* must chain up - finalize parent */
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
 }
@@ -952,6 +961,57 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
 void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
 {
     g_signal_emit(model, signals[LOADED], 0);
+}
+
+void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
+{
+    g_debug("reload folder icons: %s", model->dir->dir_path->name);
+    /* Reload icons */
+    GSequenceIter* it = g_sequence_get_begin_iter(model->items);
+    GtkTreePath* tp = gtk_tree_path_new_from_indices(0, -1);
+    for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
+    {
+        FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
+        gboolean changed = FALSE;
+        if(item->big_icon)
+        {
+            g_object_unref(item->big_icon);
+            item->big_icon = NULL;
+            changed = TRUE;
+        }
+        if(item->small_icon)
+        {
+            g_object_unref(item->small_icon);
+            item->small_icon = NULL;
+            changed = TRUE;
+        }
+        
+        if(changed)
+        {
+            GtkTreeIter tree_it = {0};
+            tree_it.stamp = model->stamp;
+            tree_it.user_data = it;
+            gtk_tree_model_row_changed(model, tp, &tree_it);
+        }
+        gtk_tree_path_next(tp);
+    }
+    gtk_tree_path_free(tp);
+
+    it = g_sequence_get_begin_iter(model->hidden);
+    for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
+    {
+        FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
+        if(item->big_icon)
+        {
+            g_object_unref(item->big_icon);
+            item->big_icon = NULL;
+        }
+        if(item->small_icon)
+        {
+            g_object_unref(item->small_icon);
+            item->small_icon = NULL;
+        }
+    }
 }
 
 void fm_folder_model_get_common_suffix_for_prefix(FmFolderModel* model,

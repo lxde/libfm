@@ -38,7 +38,7 @@ job_SOURCES = \
 	$(NULL)
 
 libfm_SOURCES = \
-	fm.c fm.h \
+	fm.c \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
 	$(NULL)
@@ -57,6 +57,7 @@ exo_SOURCES = \
 	$(NULL)
 
 libfm_gtk_SOURCES = \
+	fm-gtk.c \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
@@ -100,6 +101,7 @@ LIBFM_INCLUDES = \
 	$(NULL)
 
 LIBFM_GTK_INCLUDES = \
+	fm-gtk.h \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \

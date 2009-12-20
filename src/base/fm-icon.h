@@ -55,6 +55,8 @@ gpointer fm_icon_get_user_data(FmIcon* icon);
 void fm_icon_set_user_data(FmIcon* icon, gpointer user_data);
 void fm_icon_set_user_data_destroy(GDestroyNotify func);
 
+void fm_icon_unload_user_data_cache();
+
 void fm_icon_unload_cache();
 
 G_END_DECLS

@@ -1,7 +1,7 @@
 /*
- *      pcmanfm.c
+ *      fm-gtk.c
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,34 +19,21 @@
  *      MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <gtk/gtk.h>
-#include <stdio.h>
-
 #include "fm-gtk.h"
-#include "main-win.h"
 
-int main(int argc, char** argv)
+gboolean fm_gtk_init(FmConfig* config)
 {
-	GtkWidget* w;
-	gtk_init(&argc, &argv);
+    if( G_UNLIKELY(!fm_init(config)) )
+        return FALSE;
 
-	fm_gtk_init(NULL);
+    fm_icon_pixbuf_init();
 
-	w = fm_main_win_new();
-	gtk_window_set_default_size(w, 640, 480);
-	gtk_widget_show(w);
-
-    if(argc > 1)
-    {
-        FmPath* path = fm_path_new(argv[1]);
-        fm_main_win_chdir(w, path);
-        fm_path_unref(path);
-    }
-	
-	gtk_main();
-
-    fm_finalize();
-
-	return 0;
+    return TRUE;
 }
+
+void fm_gtk_finalize()
+{
+    fm_icon_pixbuf_finalize();
+    fm_finalize();
+}
+

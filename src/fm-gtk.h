@@ -1,7 +1,7 @@
 /*
- *      pcmanfm.c
+ *      fm-gtk.h
  *      
- *      Copyright 2009 PCMan <pcman@thinkpad>
+ *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,34 +19,31 @@
  *      MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <gtk/gtk.h>
-#include <stdio.h>
+#ifndef __FM_GTK_H__
+#define __FM_GTK_H__
 
-#include "fm-gtk.h"
-#include "main-win.h"
+#include "fm.h"
+#include "fm-cell-renderer-text.h"
+#include "fm-clipboard.h"
+#include "fm-dnd-dest.h"
+#include "fm-dnd-src.h"
+#include "fm-edit-bookmarks.h"
+#include "fm-file-menu.h"
+#include "fm-file-properties.h"
+#include "fm-folder-model.h"
+#include "fm-folder-view.h"
+#include "fm-gtk-utils.h"
+#include "fm-icon-pixbuf.h"
+#include "fm-path-bar.h"
+#include "fm-path-entry.h"
+#include "fm-places-view.h"
+#include "fm-progress-dlg.h"
 
-int main(int argc, char** argv)
-{
-	GtkWidget* w;
-	gtk_init(&argc, &argv);
+G_BEGIN_DECLS
 
-	fm_gtk_init(NULL);
+gboolean fm_gtk_init(FmConfig* config);
+void fm_gtk_finalize();
 
-	w = fm_main_win_new();
-	gtk_window_set_default_size(w, 640, 480);
-	gtk_widget_show(w);
+G_END_DECLS
 
-    if(argc > 1)
-    {
-        FmPath* path = fm_path_new(argv[1]);
-        fm_main_win_chdir(w, path);
-        fm_path_unref(path);
-    }
-	
-	gtk_main();
-
-    fm_finalize();
-
-	return 0;
-}
+#endif

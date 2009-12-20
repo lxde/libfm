@@ -96,6 +96,7 @@ static GtkTreeIter sep_it = {0};
 static GtkTreeIter trash_it = {0};
 static GFileMonitor* trash_monitor = NULL;
 static guint trash_idle = 0;
+static guint theme_change_handler = 0;
 
 /* FIXME: this value should be read from FmConfig */
 static int icon_size = 24;
@@ -222,6 +223,9 @@ static void on_model_destroy(gpointer unused, GObject* _model)
         }while(gtk_tree_model_iter_next(model, &it));
     }
     model = NULL;
+
+    g_signal_handler_disconnect(gtk_icon_theme_get_default(), theme_change_handler);
+    theme_change_handler = 0;
 
     g_object_unref(vol_mon);
     vol_mon = NULL;
@@ -365,6 +369,9 @@ static void init_model()
         FmIcon* icon;
         GFile* gf;
         GdkPixbuf* pix;
+
+        theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
+                                                G_CALLBACK(update_icons), NULL);
 
         model = gtk_list_store_new(N_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
         g_object_weak_ref(model, on_model_destroy, NULL);

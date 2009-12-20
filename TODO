@@ -24,8 +24,6 @@
 * Thumbnails, may be cached with hash table to speed up loading.
      A FmThumbnailJob is needed.
 
-* API to empty trash (just deleting everything under trash:/// can make it.)
-
 * Display paths in path entry with display name rather than real path
 
 * Mount volumes and mount points when needed
@@ -45,9 +43,6 @@
 * Add "Create New" to popup menu of folder. => partially done
 
 * Show available disk space in status bar => related to #26.
-
-* FmBookmarks to manage and monitor bookmarks. => partially done.
-     Need to refactor the API.
 
 * Make libfm a real library. => partially done
      Need to seperate gtk+-dependet part from the core part.

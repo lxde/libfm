@@ -19,14 +19,30 @@
  *      MA 02110-1301, USA.
  */
 
+#ifndef __LIBFM_FM_H__
+#define __LIBFM_FM_H__
+
+#include "fm-bookmarks.h"
 #include "fm-config.h"
-#include "fm-icon.h"
-#include "fm-mime-type.h"
+#include "fm-dummy-monitor.h"
 #include "fm-file-info.h"
 #include "fm-folder.h"
-#include "fm-dir-list-job.h"
-#include "fm-path.h"
+#include "fm-icon.h"
+#include "fm-list.h"
+#include "fm-marshal.h"
+#include "fm-mime-type.h"
 #include "fm-monitor.h"
+#include "fm-nav-history.h"
+#include "fm-path.h"
+#include "fm-utils.h"
+#include "fm-deep-count-job.h"
+#include "fm-dir-list-job.h"
+#include "fm-file-info-job.h"
+#include "fm-file-ops-job-change-attr.h"
+#include "fm-file-ops-job-delete.h"
+#include "fm-file-ops-job.h"
+#include "fm-file-ops-job-xfer.h"
+#include "fm-job.h"
 
 G_BEGIN_DECLS
 
@@ -34,3 +50,5 @@ gboolean fm_init(FmConfig* config);
 void fm_finalize();
 
 G_END_DECLS
+
+#endif

@@ -126,6 +126,22 @@ void fm_icon_unload_cache()
     G_UNLOCK(hash);
 }
 
+void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
+{
+    if(destroy_func && icon->user_data)
+    {
+        destroy_func(icon->user_data);
+        icon->user_data = NULL;
+    }
+}
+
+void fm_icon_unload_user_data_cache()
+{
+    G_LOCK(hash);
+    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, NULL);
+    G_UNLOCK(hash);
+}
+
 gpointer fm_icon_get_user_data(FmIcon* icon)
 {
     return icon->user_data;
