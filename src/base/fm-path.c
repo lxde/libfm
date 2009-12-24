@@ -306,14 +306,14 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
     
     if (!path->parent) 
     {
-	*ret = g_new0(gchar, str_len + name_len + 1 );
-	pbuf = *ret;
+        *ret = g_new0(gchar, str_len + name_len + 1 );
+        pbuf = *ret;
     }
     else 
     {
-	pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len + 1 );
-	if (path->parent->parent)
-	    *pbuf++ = G_DIR_SEPARATOR;
+        pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len + 1 );
+        if (path->parent->parent)
+            *pbuf++ = G_DIR_SEPARATOR;
     }
     memcpy( pbuf, path->name, name_len );
     return pbuf + name_len;
@@ -343,6 +343,21 @@ char* fm_path_to_uri(FmPath* path)
 		g_free(str);
 	}
 	return uri;
+}
+
+/* FIXME: maybe we can support different encoding for different mount points? */
+char* fm_path_display_name(FmPath* path)
+{
+    char* str = fm_path_to_str(path);
+    char* disp = g_filename_display_name(str);
+    g_free(str);
+    return disp;
+}
+
+/* FIXME: maybe we can support different encoding for different mount points? */
+char* fm_path_display_basename(FmPath* path)
+{
+    return g_filename_display_name(path->name);
 }
 
 GFile* fm_path_to_gfile(FmPath* path)
