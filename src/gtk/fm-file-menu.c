@@ -148,7 +148,6 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
                 /* associate the app info object with the action */
                 g_object_set_data_full(act, "app", app, (GDestroyNotify)g_object_unref);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
-                g_object_unref(app);
             }
             g_list_free(apps);
             g_string_append(xml, "</placeholder></popup>");
