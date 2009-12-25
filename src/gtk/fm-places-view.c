@@ -250,11 +250,9 @@ static void update_vol(PlaceItem* item, GtkTreeIter* it)
 
     name = g_volume_get_name(item->vol);
     if(item->icon)
-        g_object_unref(item->icon);
+        fm_icon_unref(item->icon);
     gicon = g_volume_get_icon(item->vol);
     icon = fm_icon_from_gicon(gicon);
-    if(item->icon)
-        fm_icon_unref(item->icon);
     item->icon = icon;
     g_object_unref(gicon);
 

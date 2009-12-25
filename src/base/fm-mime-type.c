@@ -167,27 +167,27 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
 	if( S_ISREG(pstat->st_mode) )
 	{
 	    if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
-		return fm_mime_type_get_for_type( "text/plain" );
+            return fm_mime_type_get_for_type( "text/plain" );
 	    else
 	    {
-		gboolean uncertain;
-		char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
-		if( uncertain )
-		{
-		    char buf[4096];
-		    int fd, len;
-		    fd = open(file_path, O_RDONLY);
-		    if( fd >= 0 )
-		    {
-			g_free(type);
-			len = read(fd, buf, 4096);
-			close(fd);
-			type = g_content_type_guess( NULL, buf, len, &uncertain );
-		    }
-		}
-		mime_type = fm_mime_type_get_for_type( type );
-		g_free(type);
-		return mime_type;
+            gboolean uncertain;
+            char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
+            if( uncertain )
+            {
+                char buf[4096];
+                int fd, len;
+                fd = open(file_path, O_RDONLY);
+                if( fd >= 0 )
+                {
+                    g_free(type);
+                    len = read(fd, buf, 4096);
+                    close(fd);
+                    type = g_content_type_guess( NULL, buf, len, &uncertain );
+                }
+            }
+            mime_type = fm_mime_type_get_for_type( type );
+            g_free(type);
+            return mime_type;
 	    }
 	}
 

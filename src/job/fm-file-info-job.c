@@ -138,19 +138,27 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path)
 {
 	struct stat st;
-	if( stat( path, &st ) == 0 )
+    gboolean is_link;
+	if( lstat( path, &st ) == 0 )
 	{
 		char* type;
         fi->disp_name = fi->path->name;
-		fi->mode = st.st_mode;
-		fi->mtime = st.st_mtime;
-		fi->size = st.st_size;
-		fi->dev = st.st_dev;
+        fi->mode = st.st_mode;
+        fi->mtime = st.st_mtime;
+        fi->size = st.st_size;
+        fi->dev = st.st_dev;
         fi->uid = st.st_uid;
         fi->gid = st.st_gid;
 
 		if( ! FM_JOB(job)->cancel )
 		{
+            /* FIXME: handle symlinks */
+            if(S_ISLNK(st.st_mode))
+            {
+                stat(path, &st);
+                fi->target = g_file_read_link(path, NULL);
+            }
+
 			fi->type = fm_mime_type_get_for_native_file(path, fi->disp_name, &st);
 
             /* special handling for desktop entry files */

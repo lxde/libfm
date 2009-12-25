@@ -601,7 +601,10 @@ static void update_ui(FmFilePropData* data)
 
         if( data->single_file && fm_file_info_is_symlink(data->fi) )
         {
-            /* FIXME: display symlink target */
+            gtk_widget_show(data->target_label);
+            gtk_widget_show(data->target);
+            gtk_label_set_text(data->target, data->fi->target);
+            // gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
         }
         else
         {
