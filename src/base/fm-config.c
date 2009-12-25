@@ -50,10 +50,11 @@ static void fm_config_class_init(FmConfigClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_config_finalize;
 
+    /* when a config key is changed, the signal can be emitted with detail. */
     signals[CHANGED]=
         g_signal_new("changed",
                      G_TYPE_FROM_CLASS(klass),
-                     G_SIGNAL_RUN_FIRST,
+                     G_SIGNAL_RUN_FIRST|G_SIGNAL_DETAILED,
                      G_STRUCT_OFFSET(FmConfigClass, changed),
                      NULL, NULL,
                      g_cclosure_marshal_VOID__VOID,
@@ -90,9 +91,10 @@ FmConfig *fm_config_new(void)
 	return (FmConfig*)g_object_new(FM_CONFIG_TYPE, NULL);
 }
 
-void fm_config_emit_changed(FmConfig* cfg)
+void fm_config_emit_changed(FmConfig* cfg, const char* changed_key)
 {
-    g_signal_emit(cfg, signals[CHANGED], 0);
+    GQuark detail = changed_key ? g_quark_from_string(changed_key) : 0;
+    g_signal_emit(cfg, signals[CHANGED], detail);
 }
 
 void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)

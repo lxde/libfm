@@ -45,24 +45,24 @@ void fm_show_error(GtkWindow* parent, const char* msg)
     gtk_widget_destroy(dlg);
 }
 
-int fm_yes_no(GtkWindow* parent, const char* question)
+gboolean fm_yes_no(GtkWindow* parent, const char* question)
 {
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
-    return ret;
+    return ret == GTK_RESPONSE_YES;
 }
 
-int fm_ok_cancel(GtkWindow* parent, const char* question)
+gboolean fm_ok_cancel(GtkWindow* parent, const char* question)
 {
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
-    return ret;
+    return ret == GTK_RESPONSE_OK;
 }
 
 int fm_ask(GtkWindow* parent, const char* question, ...)

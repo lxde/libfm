@@ -21,6 +21,7 @@
 
 #include <glib/gi18n.h>
 #include "fm-places-view.h"
+#include "fm-config.h"
 #include "fm-gtk-utils.h"
 #include "fm-bookmarks.h"
 #include "fm-file-menu.h"
@@ -84,6 +85,8 @@ static void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
 
 static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonitorEvent evt, gpointer user_data);
 
+static void on_use_trash_changed(FmConfig* cfg, gpointer unused);
+static void create_trash();
 static void update_icons();
 
 
@@ -97,6 +100,7 @@ static GtkTreeIter trash_it = {0};
 static GFileMonitor* trash_monitor = NULL;
 static guint trash_idle = 0;
 static guint theme_change_handler = 0;
+static guint config_change_handler = 0;
 
 /* FIXME: this value should be read from FmConfig */
 static int icon_size = 24;
@@ -227,12 +231,17 @@ static void on_model_destroy(gpointer unused, GObject* _model)
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), theme_change_handler);
     theme_change_handler = 0;
 
+    g_signal_handler_disconnect(fm_config, config_change_handler);
+    config_change_handler = 0;
+
     g_object_unref(vol_mon);
     vol_mon = NULL;
 
-    g_object_unref(trash_monitor);
-    trash_monitor = NULL;
-
+    if(trash_monitor)
+    {
+        g_object_unref(trash_monitor);
+        trash_monitor = NULL;
+    }
     if(trash_idle)
         g_source_remove(trash_idle);
     trash_idle = 0;
@@ -356,6 +365,29 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
     add_bookmarks();
 }
 
+void create_trash()
+{
+    GtkTreeIter it;
+    PlaceItem* item;
+    GdkPixbuf* pix;
+    GFile* gf;
+
+    gf = g_file_new_for_uri("trash:///");
+    trash_monitor = fm_monitor_directory(gf, NULL);
+    g_signal_connect(trash_monitor, "changed", G_CALLBACK(on_trash_changed), NULL);
+    g_object_unref(gf);
+
+    item = g_slice_new0(PlaceItem);
+    item->type = PLACE_PATH;
+    item->path = fm_path_get_trash();
+    item->icon = fm_icon_from_name("user-trash");
+    gtk_list_store_insert(model, &it, 2);
+    pix = fm_icon_get_pixbuf(item->icon, icon_size);
+    gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Trash"), COL_INFO, item, -1);
+    g_object_unref(pix);
+    trash_it = it;
+}
+
 static void init_model()
 {
     if(G_UNLIKELY(!model))
@@ -371,13 +403,11 @@ static void init_model()
         theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
                                                 G_CALLBACK(update_icons), NULL);
 
+        config_change_handler = g_signal_connect(fm_config, "changed::use_trash",
+                                                 G_CALLBACK(on_use_trash_changed), NULL);
+
         model = gtk_list_store_new(N_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
         g_object_weak_ref(model, on_model_destroy, NULL);
-
-        gf = g_file_new_for_uri("trash:///");
-        trash_monitor = fm_monitor_directory(gf, NULL);
-        g_signal_connect(trash_monitor, "changed", on_trash_changed, NULL);
-        g_object_unref(gf);
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
@@ -397,15 +427,8 @@ static void init_model()
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Desktop"), COL_INFO, item, -1);
         g_object_unref(pix);
 
-        item = g_slice_new0(PlaceItem);
-        item->type = PLACE_PATH;
-        item->path = fm_path_get_trash();
-        item->icon = fm_icon_from_name("user-trash");
-        gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, icon_size);
-        gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Trash"), COL_INFO, item, -1);
-        g_object_unref(pix);
-        trash_it = it;
+        if(fm_config->use_trash)
+            create_trash();
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
@@ -861,4 +884,26 @@ void update_icons()
             g_object_unref(pix);
         }
     }while( gtk_tree_model_iter_next(model, &it) );
+}
+
+void on_use_trash_changed(FmConfig* cfg, gpointer unused)
+{
+    if(cfg->use_trash && trash_it.user_data == NULL)
+        create_trash();
+    else
+    {
+        gtk_list_store_remove(GTK_LIST_STORE(model), &trash_it);
+        trash_it.user_data = NULL;
+
+        if(trash_monitor)
+        {
+            g_object_unref(trash_monitor);
+            trash_monitor = NULL;
+        }
+        if(trash_idle)
+        {
+            g_source_remove(trash_idle);
+            trash_idle = 0;
+        }
+    }
 }

@@ -77,7 +77,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf);
 
 void fm_config_save(FmConfig* cfg, const char* name);
 
-void fm_config_emit_changed(FmConfig* cfg);
+void fm_config_emit_changed(FmConfig* cfg, const char* changed_key);
 
 G_END_DECLS
 
