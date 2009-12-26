@@ -199,6 +199,8 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
 	    return fm_mime_type_get_for_type( "inode/blockdevice" );
 	if (S_ISFIFO(pstat->st_mode))
 	    return fm_mime_type_get_for_type( "inode/fifo" );
+	if (S_ISLNK(pstat->st_mode)) 
+	    return fm_mime_type_get_for_type( "inode/symlink" );
 #ifdef S_ISSOCK
 	if (S_ISSOCK(pstat->st_mode))
 	    return fm_mime_type_get_for_type( "inode/socket" );
