@@ -103,7 +103,7 @@ static guint theme_change_handler = 0;
 static guint config_change_handler = 0;
 
 /* FIXME: this value should be read from FmConfig */
-static int icon_size = 24;
+static int icon_size = 16;
 
 
 static guint signals[N_SIGNALS];
