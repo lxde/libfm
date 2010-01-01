@@ -166,6 +166,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fputs("\n[ui]\n", f);
             fprintf(f, "big_icon_size=%d\n", cfg->big_icon_size);
             fprintf(f, "small_icon_size=%d\n", cfg->small_icon_size);
+            fprintf(f, "pane_icon_size=%d\n", cfg->pane_icon_size);
             fclose(f);
         }
     }

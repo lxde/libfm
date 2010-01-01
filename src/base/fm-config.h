@@ -45,7 +45,8 @@ typedef struct _FmConfigClass		FmConfigClass;
 #define		FM_CONFIG_DEFAULT_CONFIRM_DEL		TRUE
 
 #define		FM_CONFIG_DEFAULT_BIG_ICON_SIZE		48
-#define		FM_CONFIG_DEFAULT_SMALL_ICON_SIZE	24
+#define		FM_CONFIG_DEFAULT_SMALL_ICON_SIZE	16
+#define		FM_CONFIG_DEFAULT_PANE_ICON_SIZE	16
 
 struct _FmConfig
 {
@@ -57,6 +58,7 @@ struct _FmConfig
 
     guint big_icon_size;
     guint small_icon_size;
+    guint pane_icon_size;
 };
 
 struct _FmConfigClass
