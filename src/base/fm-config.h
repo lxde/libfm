@@ -52,13 +52,19 @@ struct _FmConfig
 {
 	GObject parent;
 
-    gboolean single_click;
-    gboolean use_trash;
-    gboolean confirm_del;
+    gboolean single_click; /* single click to open file */
+    gboolean use_trash; /* delete file to trash bin */
+    gboolean confirm_del; /* ask before deleting files */
 
-    guint big_icon_size;
-    guint small_icon_size;
-    guint pane_icon_size;
+    guint big_icon_size;    /* size of big icons */
+    guint small_icon_size;  /* size of small icons */
+    guint pane_icon_size;   /* size of side pane icons */
+
+    gboolean show_thumbnail; /* show thumbnails */
+    guint thumb_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
+
+    char* terminal; /* command line to launch terminal emulator */
+    gboolean si_unit;   /* use SI prefix for file sizes */
 };
 
 struct _FmConfigClass

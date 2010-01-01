@@ -83,6 +83,7 @@ static void fm_config_init(FmConfig *self)
     self->confirm_del = FM_CONFIG_DEFAULT_CONFIRM_DEL;
     self->big_icon_size = FM_CONFIG_DEFAULT_BIG_ICON_SIZE;
     self->small_icon_size = FM_CONFIG_DEFAULT_SMALL_ICON_SIZE;
+    self->pane_icon_size = FM_CONFIG_DEFAULT_PANE_ICON_SIZE;
 }
 
 
