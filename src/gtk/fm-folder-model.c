@@ -105,6 +105,9 @@ static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
 static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model);
 
+static void on_big_icon_size_changed(FmConfig* cfg, FmFolderModel* model);
+static void on_small_icon_size_changed(FmConfig* cfg, FmFolderModel* model);
+
 #define IS_HIDDEN_FILE(fn)  \
     (fn[0] == '.' || g_str_has_suffix(fn, "~"))
 
@@ -122,6 +125,10 @@ void fm_folder_model_init(FmFolderModel* model)
     
     model->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed", 
                                                    G_CALLBACK(on_icon_theme_changed), model);
+
+    /* config change notifications */
+    g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), model);
+    g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), model);
 }
 
 void fm_folder_model_class_init(FmFolderModelClass *klass)
@@ -199,6 +206,9 @@ void fm_folder_model_finalize(GObject *object)
 
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), 
                                 model->theme_change_handler);
+
+    g_signal_handlers_disconnect_by_func(fm_config, on_big_icon_size_changed, object);
+    g_signal_handlers_disconnect_by_func(fm_config, on_small_icon_size_changed, object);
 
     /* must chain up - finalize parent */
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
@@ -966,7 +976,7 @@ void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
     g_signal_emit(model, signals[LOADED], 0);
 }
 
-void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
+static void reload_icons(FmFolderModel* model, gboolean big, gboolean small)
 {
     g_debug("reload folder icons: %s", model->dir->dir_path->name);
     /* Reload icons */
@@ -976,13 +986,13 @@ void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
     {
         FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
         gboolean changed = FALSE;
-        if(item->big_icon)
+        if(big && item->big_icon)
         {
             g_object_unref(item->big_icon);
             item->big_icon = NULL;
             changed = TRUE;
         }
-        if(item->small_icon)
+        if(small && item->small_icon)
         {
             g_object_unref(item->small_icon);
             item->small_icon = NULL;
@@ -1004,17 +1014,32 @@ void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
     for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
     {
         FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
-        if(item->big_icon)
+        if(big && item->big_icon)
         {
             g_object_unref(item->big_icon);
             item->big_icon = NULL;
         }
-        if(item->small_icon)
+        if(small && item->small_icon)
         {
             g_object_unref(item->small_icon);
             item->small_icon = NULL;
         }
-    }
+    }    
+}
+
+void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
+{
+    reload_icons(model, TRUE, TRUE);
+}
+
+void on_big_icon_size_changed(FmConfig* cfg, FmFolderModel* model)
+{
+    reload_icons(model, TRUE, FALSE);
+}
+
+void on_small_icon_size_changed(FmConfig* cfg, FmFolderModel* model)
+{
+    reload_icons(model, FALSE, TRUE);
 }
 
 void fm_folder_model_get_common_suffix_for_prefix(FmFolderModel* model,

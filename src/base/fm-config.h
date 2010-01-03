@@ -40,7 +40,7 @@ G_BEGIN_DECLS
 typedef struct _FmConfig			FmConfig;
 typedef struct _FmConfigClass		FmConfigClass;
 
-#define 	FM_CONFIG_DEFAULT_SINGLE_CLICK 		TRUE
+#define 	FM_CONFIG_DEFAULT_SINGLE_CLICK 		FALSE
 #define		FM_CONFIG_DEFAULT_USE_TRASH		TRUE
 #define		FM_CONFIG_DEFAULT_CONFIRM_DEL		TRUE
 

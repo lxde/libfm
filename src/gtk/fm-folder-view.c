@@ -21,6 +21,7 @@
 
 #include <glib/gi18n.h>
 
+#include "fm-config.h"
 #include "fm-folder-view.h"
 #include "fm-folder.h"
 #include "fm-folder-model.h"
@@ -39,6 +40,8 @@ enum{
     SEL_CHANGED,
     N_SIGNALS
 };
+
+#define SINGLE_CLICK_TIMEOUT    600
 
 static guint signals[N_SIGNALS];
 
@@ -61,6 +64,8 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
 static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 									   GdkDragAction* action, FmFolderView* fv);
+
+static void on_single_click_changed(FmConfig* cfg, FmFolderView* fv);
 
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
@@ -184,6 +189,20 @@ gboolean on_folder_err(FmFolder* folder, GError* err, gboolean recoverable, FmFo
     return FALSE;
 }
 
+void on_single_click_changed(FmConfig* cfg, FmFolderView* fv)
+{
+    switch(fv->mode)
+    {
+    case FM_FV_LIST_VIEW:
+        exo_tree_view_set_single_click((ExoTreeView*)fv->view, cfg->single_click);
+        break;
+    case FM_FV_ICON_VIEW:
+    case FM_FV_COMPACT_VIEW:
+        exo_icon_view_set_single_click((ExoIconView*)fv->view, cfg->single_click);
+        break;
+    }
+}
+
 static void item_clicked( FmFolderView* fv, GtkTreePath* path, FmFolderViewClickType type )
 {
     GtkTreeIter it;
@@ -215,6 +234,9 @@ static void fm_folder_view_init(FmFolderView *self)
     gtk_scrolled_window_set_hadjustment((GtkScrolledWindow*)self, NULL);
     gtk_scrolled_window_set_vadjustment((GtkScrolledWindow*)self, NULL);
     gtk_scrolled_window_set_policy((GtkScrolledWindow*)self, GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+    /* config change notifications */
+    g_signal_connect(fm_config, "changed::single_click", G_CALLBACK(on_single_click_changed), self);
 
     /* dnd support */
     self->dnd_src = fm_dnd_src_new(NULL);
@@ -248,6 +270,8 @@ static void fm_folder_view_finalize(GObject *object)
 	g_object_unref(self->dnd_dest);
 
     fm_path_unref(self->cwd);
+
+    g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
 
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
@@ -318,6 +342,9 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             g_signal_connect(fv->view, "selection-changed", G_CALLBACK(on_sel_changed), fv);
             exo_icon_view_set_model((ExoIconView*)fv->view, fv->model);
             exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
+            exo_icon_view_set_single_click((ExoIconView*)fv->view, fm_config->single_click);
+            exo_icon_view_set_single_click_timeout((ExoIconView*)fv->view, SINGLE_CLICK_TIMEOUT);
+
             for(l = sels;l;l=l->next)
                 exo_icon_view_select_path((ExoIconView*)fv->view, (GtkTreePath*)l->data);
             break;
@@ -339,6 +366,8 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 			gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
             gtk_tree_view_column_set_fixed_width(col, 200);
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
+            /* only this column is activable */
+            exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
 			render = gtk_cell_renderer_text_new();
             col = gtk_tree_view_column_new_with_attributes(_("Description"), render, "text", COL_FILE_DESC, NULL);
@@ -359,6 +388,11 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
             gtk_tree_view_set_search_column((GtkTreeView*)fv->view, COL_FILE_NAME);
+
+            gtk_tree_view_set_rubber_banding((GtkTreeView*)fv->view, TRUE);
+            exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
+            exo_tree_view_set_single_click_timeout((ExoTreeView*)fv->view, SINGLE_CLICK_TIMEOUT);
+
             ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
             g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
             g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
@@ -666,8 +700,11 @@ void fm_folder_view_select_all(FmFolderView* fv)
 void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 {
     FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-    fm_dnd_src_set_files(ds, files);
-    fm_list_unref(files);
+    if(files)
+    {
+        fm_dnd_src_set_files(ds, files);
+        fm_list_unref(files);
+    }
 }
 
 gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
