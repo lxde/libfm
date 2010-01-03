@@ -84,8 +84,8 @@ static void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
                                        int info_type, FmList* files, FmPlacesView* view);
 
 static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonitorEvent evt, gpointer user_data);
-
 static void on_use_trash_changed(FmConfig* cfg, gpointer unused);
+static void on_pane_icon_size_changed(FmConfig* cfg, gpointer unused);
 static void create_trash();
 static void update_icons();
 
@@ -100,11 +100,8 @@ static GtkTreeIter trash_it = {0};
 static GFileMonitor* trash_monitor = NULL;
 static guint trash_idle = 0;
 static guint theme_change_handler = 0;
-static guint config_change_handler = 0;
-
-/* FIXME: this value should be read from FmConfig */
-static int icon_size = 16;
-
+static guint use_trash_change_handler = 0;
+static guint pane_icon_size_change_handler = 0;
 
 static guint signals[N_SIGNALS];
 
@@ -231,8 +228,11 @@ static void on_model_destroy(gpointer unused, GObject* _model)
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), theme_change_handler);
     theme_change_handler = 0;
 
-    g_signal_handler_disconnect(fm_config, config_change_handler);
-    config_change_handler = 0;
+    g_signal_handler_disconnect(fm_config, use_trash_change_handler);
+    use_trash_change_handler = 0;
+
+    g_signal_handler_disconnect(fm_config, pane_icon_size_change_handler);
+    pane_icon_size_change_handler = 0;
 
     g_object_unref(vol_mon);
     vol_mon = NULL;
@@ -265,7 +265,7 @@ static void update_vol(PlaceItem* item, GtkTreeIter* it)
     item->icon = icon;
     g_object_unref(gicon);
 
-    pix = fm_icon_get_pixbuf(item->icon, icon_size);
+    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, it, COL_ICON, pix, COL_LABEL, name, -1);
     g_object_unref(pix);
     g_free(name);
@@ -335,7 +335,7 @@ static void add_bookmarks()
     PlaceItem* item;
     GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
-    GdkPixbuf* pix = fm_icon_get_pixbuf(icon, icon_size);
+    GdkPixbuf* pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
     bms = fm_bookmarks_list_all(bookmarks);
     for(l=bms;l;l=l->next)
     {
@@ -382,10 +382,13 @@ void create_trash()
     item->path = fm_path_get_trash();
     item->icon = fm_icon_from_name("user-trash");
     gtk_list_store_insert(model, &it, 2);
-    pix = fm_icon_get_pixbuf(item->icon, icon_size);
+    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Trash"), COL_INFO, item, -1);
     g_object_unref(pix);
     trash_it = it;
+
+    if(0 == trash_idle)
+        trash_idle = g_idle_add((GSourceFunc)update_trash, NULL);
 }
 
 static void init_model()
@@ -403,8 +406,11 @@ static void init_model()
         theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
                                                 G_CALLBACK(update_icons), NULL);
 
-        config_change_handler = g_signal_connect(fm_config, "changed::use_trash",
+        use_trash_change_handler = g_signal_connect(fm_config, "changed::use_trash",
                                                  G_CALLBACK(on_use_trash_changed), NULL);
+
+        pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
+                                                 G_CALLBACK(on_pane_icon_size_changed), NULL);
 
         model = gtk_list_store_new(N_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
         g_object_weak_ref(model, on_model_destroy, NULL);
@@ -414,7 +420,7 @@ static void init_model()
         item->path = fm_path_get_home();
         item->icon = fm_icon_from_name("user-home");
         gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, icon_size);
+        pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, item->path->name, COL_INFO, item, -1);
         g_object_unref(pix);
 
@@ -423,7 +429,7 @@ static void init_model()
         item->path = fm_path_get_desktop();
         item->icon = fm_icon_from_name("user-desktop");
         gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, icon_size);
+        pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Desktop"), COL_INFO, item, -1);
         g_object_unref(pix);
 
@@ -435,7 +441,7 @@ static void init_model()
         item->path = fm_path_new("applications:///");
         item->icon = fm_icon_from_name("system-software-install");
         gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, icon_size);
+        pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Applications"), COL_INFO, item, -1);
         g_object_unref(pix);
 
@@ -464,8 +470,6 @@ static void init_model()
     }
     else
         g_object_ref(model);
-    
-    trash_idle = g_idle_add((GSourceFunc)update_trash, NULL);
 }
 
 static gboolean sep_func( GtkTreeModel* model, GtkTreeIter* it, gpointer data )
@@ -837,27 +841,30 @@ void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
 
 gboolean update_trash(gpointer user_data)
 {
-    GFile* gf = g_file_new_for_uri("trash:///");
-    GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
-    g_object_unref(gf);
-    if(inf)
+    if(fm_config->use_trash)
     {
-        FmIcon* icon;
-        const char* icon_name;
-        PlaceItem* item;
-        GdkPixbuf* pix;
-        guint32 n = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT);
-        g_object_unref(inf);
-        icon_name = n > 0 ? "user-trash-full" : "user-trash";
-        icon = fm_icon_from_name(icon_name);
-        gtk_tree_model_get(model, &trash_it, COL_INFO, &item, -1);
-        if(item->icon)
-            fm_icon_unref(item->icon);
-        item->icon = icon;
-        /* update the icon */
-        pix = fm_icon_get_pixbuf(item->icon, icon_size);
-        gtk_list_store_set(model, &trash_it, COL_ICON, pix, -1);
-        g_object_unref(pix);
+        GFile* gf = g_file_new_for_uri("trash:///");
+        GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
+        g_object_unref(gf);
+        if(inf)
+        {
+            FmIcon* icon;
+            const char* icon_name;
+            PlaceItem* item;
+            GdkPixbuf* pix;
+            guint32 n = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT);
+            g_object_unref(inf);
+            icon_name = n > 0 ? "user-trash-full" : "user-trash";
+            icon = fm_icon_from_name(icon_name);
+            gtk_tree_model_get(model, &trash_it, COL_INFO, &item, -1);
+            if(item->icon)
+                fm_icon_unref(item->icon);
+            item->icon = icon;
+            /* update the icon */
+            pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+            gtk_list_store_set(model, &trash_it, COL_ICON, pix, -1);
+            g_object_unref(pix);
+        }
     }
     return FALSE;
 }
@@ -879,7 +886,7 @@ void update_icons()
             PlaceItem* item;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
             /* FIXME: get icon size from FmConfig */
-            GdkPixbuf* pix = fm_icon_get_pixbuf(item->icon, 24);
+            GdkPixbuf* pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
             gtk_list_store_set(model, &it, COL_ICON, pix, -1);
             g_object_unref(pix);
         }
@@ -906,4 +913,9 @@ void on_use_trash_changed(FmConfig* cfg, gpointer unused)
             trash_idle = 0;
         }
     }
+}
+
+void on_pane_icon_size_changed(FmConfig* cfg, gpointer unused)
+{
+    update_icons();
 }
