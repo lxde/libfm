@@ -170,6 +170,7 @@ static void fm_path_entry_changed(GtkEditable *editable)
             gboolean show_hidden = fm_folder_model_get_show_hidden(priv->completion_model);
             FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);
             FmFolderModel *new_fm = fm_folder_model_new(new_fm_folder, show_hidden);
+            fm_path_unref(new_fm_path);
             g_object_unref(new_fm_folder);
             g_object_unref(priv->completion_model);
             priv->completion_model = new_fm;
@@ -341,8 +342,11 @@ fm_path_entry_finalize(GObject *object)
 {
     FmPathEntryPrivate* priv = FM_PATH_ENTRY_GET_PRIVATE(object);
     /* release the folder model reference */
-    if( priv->model )
-        g_object_unref( G_OBJECT(priv->model) );
+    if(priv->model)
+        g_object_unref(priv->model);
+
+    if(priv->completion_model)
+        g_object_unref(priv->completion_model);
 
     /* drop idle func for suffix completion */
     if( priv->common_suffix_append_idle_id > 0 )
@@ -362,7 +366,9 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmFolderModel* model)
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
     gchar *path_str = fm_path_to_str(model->dir->dir_path);
     if( priv->model )
-        g_object_unref( G_OBJECT(priv->model) );
+        g_object_unref( priv->model );
+    if( priv->completion_model )
+        g_object_unref(priv->completion_model);
     priv->model = g_object_ref(model);
     priv->completion_model = g_object_ref(model);
     gtk_entry_completion_set_model( priv->completion, GTK_TREE_MODEL(priv->completion_model) );

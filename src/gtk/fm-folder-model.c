@@ -201,9 +201,12 @@ void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface)
 void fm_folder_model_finalize(GObject *object)
 {
     FmFolderModel* model = ( FmFolderModel* )object;
-
+    /*
+    char* str = fm_path_to_str(model->dir->dir_path);
+    g_debug("FINALIZE FOLDER MODEL(%p): %s", model, str);
+    g_free(str);
+    */
     fm_folder_model_set_folder(model, NULL);
-
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), 
                                 model->theme_change_handler);
 
