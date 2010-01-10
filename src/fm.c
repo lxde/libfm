@@ -23,6 +23,7 @@
 
 gboolean fm_init(FmConfig* config)
 {
+    char* path;
 	g_thread_init(NULL);
 	g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
 
@@ -39,6 +40,11 @@ gboolean fm_init(FmConfig* config)
     fm_icon_init();
     fm_monitor_init();
     fm_file_info_init();
+    
+    /* override gnome-terminal */
+    path = g_strconcat(PACKAGE_LIB_DIR ":", g_getenv("PATH"), NULL);
+    g_setenv("PATH", path, TRUE);
+    g_free(path);
 }
 
 void fm_finalize()

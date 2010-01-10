@@ -563,14 +563,17 @@ gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* f
     {
         char* filename = fm_path_to_str(path);
         GAppInfo* app = g_desktop_app_info_new_from_filename(filename);
-        if( !g_app_info_launch(app, NULL, ctx, &err) )
+        if(app)
         {
-            fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
-            g_error_free(err);
-            err = NULL;
-            ret = FALSE;
+            if( !g_app_info_launch(app, NULL, ctx, &err) )
+            {
+                fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
+                g_error_free(err);
+                err = NULL;
+                ret = FALSE;
+            }
+            g_object_unref(app);
         }
-        g_object_unref(app);
         g_free(filename);
     }
     else
