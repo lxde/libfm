@@ -103,6 +103,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
+    cfg->terminal = g_key_file_get_string(kf, "config", "terminal", NULL);
 
     fm_key_file_get_int(kf, "ui", "big_icon_size", &cfg->big_icon_size);
     fm_key_file_get_int(kf, "ui", "small_icon_size", &cfg->small_icon_size);
@@ -164,6 +165,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "single_click=%d\n", cfg->single_click);
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
+            fprintf(f, "terminal=%s\n", cfg->terminal);
             fputs("\n[ui]\n", f);
             fprintf(f, "big_icon_size=%d\n", cfg->big_icon_size);
             fprintf(f, "small_icon_size=%d\n", cfg->small_icon_size);
