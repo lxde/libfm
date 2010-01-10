@@ -208,7 +208,7 @@ static void fm_path_entry_do_insert_text(GtkEditable *editable, const gchar *new
     /* let the GtkEntry class handle the insert */
     (parent_editable_interface->do_insert_text)(editable, new_text, new_text_length, position);
 
-    if( gtk_widget_has_focus((GtkWidget*)editable) )
+    if( gtk_widget_has_focus((GtkWidget*)editable) && priv->completion_model )
     {
         /* we have a common suffix -> add idle function */
         if( (priv->common_suffix_append_idle_id < 0) && ( fm_path_entry_update_expand_path(entry) ) )
@@ -328,7 +328,6 @@ fm_path_entry_init(FmPathEntry *entry)
     gtk_entry_completion_set_popup_set_width(completion, TRUE);
     g_signal_connect(G_OBJECT(entry), "key-press-event", G_CALLBACK(fm_path_entry_key_press), NULL);
     gtk_entry_set_completion(GTK_ENTRY(entry), completion);
-    g_object_unref( G_OBJECT(completion) );
 }
 
 static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
@@ -360,7 +359,9 @@ static void
 fm_path_entry_finalize(GObject *object)
 {
     FmPathEntryPrivate* priv = FM_PATH_ENTRY_GET_PRIVATE(object);
-    
+
+    g_object_unref(priv->completion);
+
     if(priv->path)
         fm_path_unref(priv->path);
 
@@ -400,11 +401,13 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* mo
     {
         priv->model = g_object_ref(model);
         priv->completion_model = g_object_ref(model);
+        gtk_entry_set_completion(GTK_ENTRY(entry), priv->completion);
     }
     else
     {
         priv->model = NULL;
         priv->completion_model = NULL;
+        gtk_entry_set_completion(GTK_ENTRY(entry), NULL);
     }
     gtk_entry_completion_set_model( priv->completion, (GtkTreeModel*)priv->completion_model );
     priv->in_change = TRUE;
