@@ -68,6 +68,7 @@ AC_CONFIG_FILES([
     po/Makefile.in
     libfm.pc
 ])
+AC_CONFIG_FILES([data/gnome-terminal], [chmod +x data/gnome-terminal])
 
 AC_OUTPUT
 

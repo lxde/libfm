@@ -5,3 +5,6 @@ mime_DATA = libfm.xml
 
 libfmconfdir = $(sysconfdir)/xdg/libfm
 libfmconf_DATA = libfm.conf
+
+pkglib_SCRIPTS = gnome-terminal
+CLEANFILES = $(pkglib_SCRIPTS)

@@ -1,0 +1,41 @@
+#! /bin/sh
+# Wrapper script to launch alternative terminal emulator in glib/gio.
+# This file is part of libfm. (http://pcmanfm.sf.net/)
+
+DIRNAME=`dirname $0`
+
+SKIP=`expr length "$DIRNAME"`
+SKIP=`expr $SKIP + 2`
+LEN=`expr length "$PATH"`
+LEN=`expr $LEN - $SKIP + 1`
+PATH=`expr substr "$PATH" $SKIP $LEN`
+export PATH
+
+# Read config files of libfm
+# Try user config file first, then the system-wide one in /etc/xdg/libfm
+CONFIG_HOME=
+if test -z "$XDG_CONFIG_HOME"; then
+    CONFIG_HOME="$HOME/.config"
+else
+    CONFIG_HOME="$XDG_CONFIG_HOME"
+fi
+
+TERMINAL=
+for DIR in "$CONFIG_HOME" "/etc/xdg"; do
+    CONFIG_FILE="$DIR/libfm/libfm.conf"
+    TERMINAL=`grep 'terminal=' $CONFIG_FILE`
+    LEN=`expr length "$TERMINAL"`
+    LEN=`expr "$LEN" - 9`
+    TERMINAL=`expr substr "$TERMINAL" 10 $LEN`
+    echo $TERMINAL
+    if test "$TERMINAL"; then
+        break
+    fi
+done
+
+# no available terminal config
+if test -z "$TERMINAL"; then
+    exit 1
+fi
+
+exec $TERMINAL $@
