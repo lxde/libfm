@@ -170,14 +170,27 @@ static void fm_path_entry_changed(GtkEditable *editable)
             /* set hidden parameter based on prev. model */
             /* FIXME: this is not very good */
             gboolean show_hidden = priv->completion_model ? fm_folder_model_get_show_hidden(priv->completion_model) : FALSE;
-            FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);
-            FmFolderModel *new_fm = fm_folder_model_new(new_fm_folder, show_hidden);
-            fm_path_unref(new_fm_path);
-            g_object_unref(new_fm_folder);
             if(priv->completion_model)
                 g_object_unref(priv->completion_model);
-            priv->completion_model = new_fm;
-            gtk_entry_completion_set_model( priv->completion, GTK_TREE_MODEL(new_fm) );
+            if(priv->model && fm_path_equal(priv->model->dir->dir_path, new_fm_path))
+            {
+                if(priv->path)
+                    fm_path_unref(priv->path);
+                priv->path = fm_path_ref(priv->model->dir->dir_path);
+                fm_path_unref(new_fm_path);
+                priv->completion_model = g_object_ref(priv->model);
+            }
+            else
+            {
+                FmFolder *new_fm_folder = fm_folder_get_for_path(new_fm_path);
+                FmFolderModel *new_fm = fm_folder_model_new(new_fm_folder, show_hidden);
+                g_object_unref(new_fm_folder);
+                priv->completion_model = new_fm;
+                if(priv->path)
+                    fm_path_unref(priv->path);
+                priv->path = new_fm_path;
+            }
+            gtk_entry_completion_set_model( priv->completion, GTK_TREE_MODEL(priv->completion_model) );
         }
         else
         {
@@ -195,11 +208,14 @@ static void fm_path_entry_do_insert_text(GtkEditable *editable, const gchar *new
     /* let the GtkEntry class handle the insert */
     (parent_editable_interface->do_insert_text)(editable, new_text, new_text_length, position);
 
-    /* we have a common suffix -> add idle function */
-    if( (priv->common_suffix_append_idle_id < 0) && ( fm_path_entry_update_expand_path(entry) ) )
-        priv->common_suffix_append_idle_id  = g_idle_add_full(G_PRIORITY_HIGH,
-                                                                 fm_path_entry_suffix_append_idle,
-                                                                 entry, fm_path_entry_suffix_append_idle_destroy);
+    if( gtk_widget_has_focus((GtkWidget*)editable) )
+    {
+        /* we have a common suffix -> add idle function */
+        if( (priv->common_suffix_append_idle_id < 0) && ( fm_path_entry_update_expand_path(entry) ) )
+            priv->common_suffix_append_idle_id  = g_idle_add_full(G_PRIORITY_HIGH,
+                                                                     fm_path_entry_suffix_append_idle,
+                                                                     entry, fm_path_entry_suffix_append_idle_destroy);
+    }
 }
 
 static gboolean fm_path_entry_suffix_append_idle(gpointer user_data)
@@ -390,9 +406,10 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* mo
         priv->model = NULL;
         priv->completion_model = NULL;
     }
-
     gtk_entry_completion_set_model( priv->completion, (GtkTreeModel*)priv->completion_model );
+    priv->in_change = TRUE;
     gtk_entry_set_text(GTK_ENTRY(entry), path_str);
+    priv->in_change = FALSE;
     gtk_editable_set_position(GTK_EDITABLE(entry), -1);
     g_free(path_str);
 }
