@@ -263,9 +263,12 @@ static void fm_folder_view_finalize(GObject *object)
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
 
     self = FM_FOLDER_VIEW(object);
-    if( self->model )
-        g_object_unref(self->model);
-
+    if(self->folder)
+    {
+        g_object_unref(self->folder);
+        if( self->model )
+            g_object_unref(self->model);
+    }
 	g_object_unref(self->dnd_src);
 	g_object_unref(self->dnd_dest);
 
@@ -508,33 +511,11 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 	return ret;
 }
 
-gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
+static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 {
     FmFolderModel* model;
-    FmFolder* folder;
-
-    if(fv->model)
-	{
-        model = FM_FOLDER_MODEL(fv->model);
-		g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
-        if(model->dir)
-    		g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
-        g_object_unref(model);
-	}
-
-    folder = fm_folder_get_for_path(path);
-    /* connect error handler */
-    g_signal_connect(folder, "error", on_folder_err, fv);
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
-    g_object_unref(folder);
-
-	/* FIXME: the signal handler should be able to cancel the loading. */
-	g_signal_emit(fv, signals[CHDIR], 0, path);
-
-	if(fv->cwd)
-		fm_path_unref(fv->cwd);
-    fv->cwd = fm_path_ref(path);
 
     switch(fv->mode)
     {
@@ -547,11 +528,57 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         break;
     }
     fv->model = model;
-	g_signal_connect(model, "loaded", G_CALLBACK(on_model_loaded), fv);
+    on_model_loaded(model, fv);
+}
 
-	if( ! fm_folder_model_get_is_loading(model) ) /* if the model is already loaded */
-		on_model_loaded(model, fv);
+gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
+{
+    FmFolderModel* model;
+    FmFolder* folder;
 
+    if(fv->folder)
+    {
+        g_object_unref(fv->folder);
+        fv->folder = NULL;
+        if(fv->model)
+        {
+            model = FM_FOLDER_MODEL(fv->model);
+            g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
+            if(model->dir)
+                g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
+            g_object_unref(model);
+            fv->model = NULL;
+        }
+    }
+
+	/* FIXME: the signal handler should be able to cancel the loading. */
+	g_signal_emit(fv, signals[CHDIR], 0, path);
+	if(fv->cwd)
+		fm_path_unref(fv->cwd);
+    fv->cwd = fm_path_ref(path);
+
+    fv->folder = folder = fm_folder_get_for_path(path);
+    if(folder)
+    {
+        /* connect error handler */
+        g_signal_connect(folder, "loaded", on_folder_loaded, fv);
+        g_signal_connect(folder, "error", on_folder_err, fv);
+        if(fm_folder_get_is_loading(folder))
+        {
+            switch(fv->mode)
+            {
+            case FM_FV_LIST_VIEW:
+                gtk_tree_view_set_model(fv->view, NULL);
+                break;
+            case FM_FV_ICON_VIEW:
+            case FM_FV_COMPACT_VIEW:
+                exo_icon_view_set_model(fv->view, NULL);
+                break;
+            }
+        }
+        else
+            on_folder_loaded(folder, fv);
+    }
     return TRUE;
 }
 

@@ -22,6 +22,7 @@
 #include "fm-dnd-dest.h"
 #include "fm-gtk-utils.h"
 #include "fm-gtk-marshal.h"
+#include "fm-file-info-job.h"
 
 #include <glib/gi18n.h>
 #include <string.h>
@@ -301,6 +302,7 @@ on_drag_motion( GtkWidget *dest_widget,
 
 	if( dd->dest_file ) /* if info of destination path is available */
 	{
+        /* FIXME: src_files might not be a FmFileInfoList, but FmPathList. */
 		FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
 		FmPath* path = dd->dest_file->path;
 		gboolean same_fs;
@@ -451,6 +453,14 @@ on_drag_drop ( GtkWidget *dest_widget,
     return ret;
 }
 
+/* FIXME: this is a little bit dirty... */
+static void on_src_file_info_finished(FmFileInfoJob* job, FmDndDest* dd)
+{
+    dd->src_files = fm_list_ref(job->file_infos);
+    dd->info_type = FM_DND_DEST_TARGET_FM_LIST;
+    dd->src_ready = TRUE;
+}
+
 static void
 on_drag_data_received ( GtkWidget *dest_widget,
                         GdkDragContext *drag_context,
@@ -500,9 +510,22 @@ on_drag_data_received ( GtkWidget *dest_widget,
     }
 	if(G_UNLIKELY(dd->src_files))
 		fm_list_unref(dd->src_files);
-    dd->info_type = info;
-	dd->src_files = files;
-    dd->src_ready = TRUE;
+
+    if(info == FM_DND_DEST_TARGET_FM_LIST)
+    {
+        dd->info_type = info;
+        dd->src_files = files;
+        dd->src_ready = TRUE;
+    }
+    else if(info == FM_DND_DEST_TARGET_URI_LIST)
+    {
+        /* convert FmPathList to FmFileInfoList */
+        FmFileInfoJob* job = fm_file_info_job_new(files);
+        dd->src_files = NULL;
+        fm_list_unref(files);
+        g_signal_connect(job, "finished", G_CALLBACK(on_src_file_info_finished), dd);
+        fm_job_run_async(job);
+    }
 }
 
 /* the returned list can be either FmPathList or FmFileInfoList */

@@ -28,6 +28,7 @@
 #include "fm-path.h"
 #include "fm-dnd-src.h"
 #include "fm-dnd-dest.h"
+#include "fm-folder.h"
 
 G_BEGIN_DECLS
 
@@ -76,6 +77,7 @@ struct _FmFolderView
 	gboolean show_hidden;
 
 	GtkWidget* view;
+    FmFolder* folder;
 	GtkTreeModel* model;
 	FmPath* cwd;
 	FmDndSrc* dnd_src; /* dnd source manager */

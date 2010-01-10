@@ -93,7 +93,7 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
 static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data) 
 {
     FmPathEntry* entry = FM_PATH_ENTRY(user_data);
-    fm_path_entry_set_model( entry, view->model );
+    fm_path_entry_set_model( entry, view->folder->dir_path, view->model );
 }
 
 static void open_folder_hook(FmFileInfo* fi, gpointer user_data)
