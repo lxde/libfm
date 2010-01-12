@@ -300,6 +300,7 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
                                              on_folder_loaded, model);
 
         g_sequence_free(model->items);
+        g_sequence_free(model->hidden);
         g_object_unref(model->dir);
     }
     model->dir = dir;

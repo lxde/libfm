@@ -422,6 +422,7 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
                                          GtkTreeIter          *iter,
                                          gpointer user_data)
 {
+    gboolean ret;
     GtkTreeModel *model = gtk_entry_completion_get_model(completion);
     FmPathEntry *pe = FM_PATH_ENTRY( gtk_entry_completion_get_entry(completion) );
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(pe);
@@ -445,7 +446,9 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
                        COL_FILE_INFO, &model_file_info,
                        -1);
 
-    return fm_file_info_is_dir(model_file_info) && g_str_has_prefix(model_file_name, key_last_slash + 1);
+    ret = fm_file_info_is_dir(model_file_info) && g_str_has_prefix(model_file_name, key_last_slash + 1);
+    g_free(model_file_name);
+    return ret;
 }
 
 static gboolean  fm_path_entry_match_selected(GtkEntryCompletion *widget,

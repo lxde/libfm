@@ -239,6 +239,7 @@ static void on_model_destroy(gpointer unused, GObject* _model)
 
     if(trash_monitor)
     {
+        g_signal_handlers_disconnect_by_func(trash_monitor, on_trash_changed, NULL);
         g_object_unref(trash_monitor);
         trash_monitor = NULL;
     }
@@ -904,6 +905,7 @@ void on_use_trash_changed(FmConfig* cfg, gpointer unused)
 
         if(trash_monitor)
         {
+            g_signal_handlers_disconnect_by_func(trash_monitor, on_trash_changed, NULL);
             g_object_unref(trash_monitor);
             trash_monitor = NULL;
         }

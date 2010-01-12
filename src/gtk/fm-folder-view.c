@@ -272,7 +272,8 @@ static void fm_folder_view_finalize(GObject *object)
 	g_object_unref(self->dnd_src);
 	g_object_unref(self->dnd_dest);
 
-    fm_path_unref(self->cwd);
+    if(self->cwd)
+        fm_path_unref(self->cwd);
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
 
