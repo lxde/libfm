@@ -151,7 +151,7 @@ static void fm_path_entry_changed(GtkEditable *editable)
     gint key_dir_len;
     gchar *last_slash = strrchr(original_key, G_DIR_SEPARATOR);
 
-    if( priv->in_change )
+    if( priv->in_change || !priv->path )
         return;
 
     /* not path -> keep current completion model */
