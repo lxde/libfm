@@ -266,10 +266,9 @@ void fm_path_unref(FmPath* path)
 	}
 }
 
-/* FIXME: should we use _dup_ instead of _get_ here? */
 FmPath* fm_path_get_parent(FmPath* path)
 {
-	return path->parent ? fm_path_ref(path->parent) : NULL;
+	return path->parent;
 }
 
 const char* fm_path_get_basename(FmPath* path)

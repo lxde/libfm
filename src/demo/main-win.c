@@ -270,7 +270,7 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
     for(l = fm_list_peek_head_link(nh); l; l=l->next)
     {
         FmPath* path = (FmPath*)l->data;
-        char* str = fm_path_to_str(path);
+        char* str = fm_path_display_name(path);
         GtkMenuItem* mi;
         if( l == cur )
         {
@@ -280,6 +280,7 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
         }
         else
             mi = gtk_menu_item_new_with_label(str);
+        g_free(str);
 
         g_object_set_data_full(mi, "path", l, NULL);
         g_signal_connect(mi, "activate", G_CALLBACK(on_history_item), win);
@@ -527,10 +528,7 @@ void on_go_up(GtkAction* act, FmMainWin* win)
 {
     FmPath* parent = fm_path_get_parent(fm_folder_view_get_cwd(win->folder_view));
     if(parent)
-    {
         fm_main_win_chdir( win, parent);
-        fm_path_unref(parent);
-    }
 }
 
 void on_go_home(GtkAction* act, FmMainWin* win)

@@ -89,6 +89,10 @@ static void on_pane_icon_size_changed(FmConfig* cfg, gpointer unused);
 static void create_trash();
 static void update_icons();
 
+static void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
+static void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
+static void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
+
 
 G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
 
@@ -184,15 +188,19 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
 
 static void place_item_free(PlaceItem* item)
 {
+    g_debug("free item: %p", item);
     switch(item->type)
     {
     case PLACE_PATH:
+        g_debug("path(%d) = %s", item->path->n_ref, fm_path_to_str(item->path));
         fm_path_unref(item->path);
         break;
     case PLACE_VOL:
         g_object_unref(item->vol);
         break;
     }
+    if(item->icon)
+        fm_icon_unref(item->icon);
     g_slice_free(PlaceItem, item);
 }
 
@@ -219,7 +227,7 @@ static void on_model_destroy(gpointer unused, GObject* _model)
         {
             PlaceItem* item;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
-            if(item)
+            if(G_LIKELY(item))
                 place_item_free(item);
         }while(gtk_tree_model_iter_next(model, &it));
     }
@@ -234,6 +242,9 @@ static void on_model_destroy(gpointer unused, GObject* _model)
     g_signal_handler_disconnect(fm_config, pane_icon_size_change_handler);
     pane_icon_size_change_handler = 0;
 
+    g_signal_handlers_disconnect_by_func(vol_mon, on_vol_added, NULL);
+    g_signal_handlers_disconnect_by_func(vol_mon, on_vol_removed, NULL);
+    g_signal_handlers_disconnect_by_func(vol_mon, on_vol_changed, NULL);
     g_object_unref(vol_mon);
     vol_mon = NULL;
 
@@ -306,13 +317,13 @@ static PlaceItem* find_vol(GVolume* vol, GtkTreeIter* _it)
     return NULL;
 }
 
-static void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
+void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
 {
     g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi"));
     add_vol(vol);
 }
 
-static void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
+void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
 {
     PlaceItem* item;
     GtkTreeIter it;
@@ -322,7 +333,7 @@ static void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
         gtk_list_store_remove(model, &it);
 }
 
-static void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
+void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
 {
     PlaceItem* item;
     GtkTreeIter it;
@@ -380,7 +391,7 @@ void create_trash()
 
     item = g_slice_new0(PlaceItem);
     item->type = PLACE_PATH;
-    item->path = fm_path_get_trash();
+    item->path = fm_path_ref(fm_path_get_trash());
     item->icon = fm_icon_from_name("user-trash");
     gtk_list_store_insert(model, &it, 2);
     pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
@@ -418,7 +429,7 @@ static void init_model()
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
-        item->path = fm_path_get_home();
+        item->path = fm_path_ref(fm_path_get_home());
         item->icon = fm_icon_from_name("user-home");
         gtk_list_store_append(model, &it);
         pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
@@ -427,7 +438,7 @@ static void init_model()
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
-        item->path = fm_path_get_desktop();
+        item->path = fm_path_ref(fm_path_get_desktop());
         item->icon = fm_icon_from_name("user-desktop");
         gtk_list_store_append(model, &it);
         pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
@@ -439,7 +450,7 @@ static void init_model()
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
-        item->path = fm_path_new("applications:///");
+        item->path = fm_path_ref(fm_path_get_applications());
         item->icon = fm_icon_from_name("system-software-install");
         gtk_list_store_append(model, &it);
         pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
@@ -451,7 +462,6 @@ static void init_model()
         g_signal_connect(vol_mon, "volume-added", G_CALLBACK(on_vol_added), NULL);
         g_signal_connect(vol_mon, "volume-removed", G_CALLBACK(on_vol_removed), NULL);
         g_signal_connect(vol_mon, "volume-changed", G_CALLBACK(on_vol_changed), NULL);
-        g_object_add_weak_pointer(vol_mon, &vol_mon);
 
         /* separator */
         gtk_list_store_append(model, &sep_it);
@@ -900,8 +910,11 @@ void on_use_trash_changed(FmConfig* cfg, gpointer unused)
         create_trash();
     else
     {
+        PlaceItem *item;
+        gtk_tree_model_get(model, &trash_it, COL_INFO, &item, -1);
         gtk_list_store_remove(GTK_LIST_STORE(model), &trash_it);
         trash_it.user_data = NULL;
+        place_item_free(item);
 
         if(trash_monitor)
         {

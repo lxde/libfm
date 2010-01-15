@@ -388,6 +388,7 @@ GtkWidget* fm_path_entry_new()
 void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* model)
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    /* FIXME: should we use UTF-8 encoded display name here? */
     gchar *path_str = fm_path_to_str(path);
     if(priv->path)
         fm_path_unref(priv->path);
@@ -464,6 +465,7 @@ static gboolean  fm_path_entry_match_selected(GtkEntryCompletion *widget,
     gtk_tree_model_get(GTK_TREE_MODEL(model), iter,
                        COL_FILE_NAME, &model_file_name,
                        -1);
+    /* FIXME: should we use UTF-8 encoded display name here? */
     new_path = fm_path_to_str(priv->completion_model->dir->dir_path);
     g_sprintf(new_text, "%s/%s",
               /* prevent leading double slash */

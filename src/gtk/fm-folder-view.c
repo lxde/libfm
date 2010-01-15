@@ -539,6 +539,8 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
 
     if(fv->folder)
     {
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
         g_object_unref(fv->folder);
         fv->folder = NULL;
         if(fv->model)
