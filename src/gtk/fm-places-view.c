@@ -188,11 +188,9 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
 
 static void place_item_free(PlaceItem* item)
 {
-    g_debug("free item: %p", item);
     switch(item->type)
     {
     case PLACE_PATH:
-        g_debug("path(%d) = %s", item->path->n_ref, fm_path_to_str(item->path));
         fm_path_unref(item->path);
         break;
     case PLACE_VOL:

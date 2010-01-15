@@ -24,8 +24,6 @@
 * Thumbnails, may be cached with hash table to speed up loading.
      A FmThumbnailJob is needed.
 
-* Display paths in path entry with display name rather than real path
-
 * Mount volumes and mount points when needed
      This already works with remote URLs.
      Need to be done for removable devices. => partially done
@@ -33,33 +31,16 @@
      Not available yet in computer:///
 
 * Browse History for 'Back' and 'Forward'. => almost done but still buggy
-
-* A history menu => almost done but still buggy
+  A history menu => almost done but still buggy
 
 * path resolution and canonicalization: convert ../ and ./ gracefully
 
-* Popup menu for blank area of the folder view. => partially done
-
 * Add "Create New" to popup menu of folder. => partially done
 
-* Show available disk space in status bar => related to #26.
-
-* Make libfm a real library. => partially done
-     Need to seperate gtk+-dependet part from the core part.
+* Show available disk space in status bar => done, but in a slightly dirty way.
 
 * Change file type-application association in property dialog.
      partially done, need to let the user choose a custom application.
-
-* Offer some global options like whether to use Trash bin or not to ease
-     the development of file manager and all programs using this lib can
-     all have consistent behavior.
-     should we use lxconf? Not a good idea for now
-     class FmConfig can handle this part => partially done
-     Maybe we can utilize XClientMessage to send notifications and let
-     all apps using libfm to reload the config files. (similar to gtkrc and qt-config)
-
-* Handle special files like FIFO, socket, ...etc.
-     partially done for local UNIX fileystems.
 
 * FmFileMenu should provide special menu items for special paths
      For example:
@@ -76,8 +57,6 @@
 * Add filter to FmFolderModel, so we can only show specific files.
      The API can be compatible with GtkFileFilter used by GtkFileChooser.
      The hidden parts can be stored in model->hidden GSequence.
-
-* Update icons when gtk+ icon theme gets changed.
 
 * Select destination files when copy or move is finished.
   Can use g_object_set_data to associate a FmFolderView with FmJob.
