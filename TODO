@@ -1,5 +1,19 @@
 [High Priority]
 
+* API redesign: maybe abstract classes like FmBasicView or FmBasicWin were needed.
+     in this way, both desktop window and folder views can have the same behavior
+     through the same interface.
+
+     example:
+     FmBasicView
+     {
+         sort();
+         show_hidden();
+         get_popup_menu_ui();
+         get_selected_files();
+         select_all();
+     }
+
 * File operations: move, copy, trashing, ...
      Implement correct error handling.
      Already works for FmDirListJob.
@@ -7,6 +21,10 @@
      Rename/overwrite files appropriately when destination file
      already exists. => done
      should provide multiple destination files for recovering trashed files.
+
+* File monitor:
+     Queue files which are already processed in file operations, and send
+     change notifications in timeout handlers to improve performance.
 
 * Dnd
      Dnd destination, drop site handling. => Almost done

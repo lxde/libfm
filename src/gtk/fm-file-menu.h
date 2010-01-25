@@ -58,7 +58,7 @@ GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu);
 /* build the menu with GtkUIManager */
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 
-/* call fm_file_info_list_unref() after the returned list is no more needed. */
+/* call fm_list_ref() if you need to own reference to the returned list. */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data);
