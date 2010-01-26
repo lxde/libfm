@@ -23,6 +23,7 @@
 #include "fm-file-info.h"
 #include <string.h>
 #include <limits.h>
+#include <glib/gi18n.h>
 
 static FmPath* root = NULL;
 
@@ -345,17 +346,48 @@ char* fm_path_to_uri(FmPath* path)
 }
 
 /* FIXME: maybe we can support different encoding for different mount points? */
-char* fm_path_display_name(FmPath* path)
+char* fm_path_display_name(FmPath* path, gboolean human_readable)
 {
-    char* str = fm_path_to_str(path);
-    char* disp = g_filename_display_name(str);
-    g_free(str);
+    char* disp;
+    if(human_readable)
+    {
+        if(G_LIKELY(path->parent))
+        {
+            char* disp_parent = fm_path_display_name(path->parent, TRUE);
+            char* disp_base = fm_path_display_basename(path);
+            disp = g_build_filename( disp_parent, disp_base, NULL);
+            g_free(disp_parent);
+            g_free(disp_base);
+        }
+        else
+            disp = fm_path_display_basename(path);
+    }
+    else
+    {
+        char* str = fm_path_to_str(path);
+        disp = g_filename_display_name(str);
+        g_free(str);
+    }
     return disp;
 }
 
 /* FIXME: maybe we can support different encoding for different mount points? */
 char* fm_path_display_basename(FmPath* path)
 {
+    if(G_UNLIKELY(!path->parent)) /* root element */
+    {
+        if( !fm_path_is_native(path) && fm_path_is_virtual(path) )
+        {
+            if(fm_path_is_trash_root(path))
+                return g_strdup(_("Trash Can"));
+            if(g_str_has_prefix(path->name, "computer:/"))
+                return g_strdup(_("My Computer"));
+            if(g_str_has_prefix(path->name, "applications:/"))
+                return g_strdup(_("Applications"));
+            if(g_str_has_prefix(path->name, "network:/"))
+                return g_strdup(_("Network"));
+        }
+    }
     return g_filename_display_name(path->name);
 }
 

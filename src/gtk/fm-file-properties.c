@@ -630,7 +630,7 @@ static void update_ui(FmFilePropData* data)
     if( data->single_file )
     {
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
-        char* parent_str = fm_path_display_name(parent);
+        char* parent_str = fm_path_display_name(parent, TRUE);
         gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
         gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
         g_free(parent_str);

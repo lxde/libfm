@@ -247,7 +247,7 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
 
     if(dest = fm_file_ops_job_get_dest(data->job))
     {
-        char* dest_str = fm_path_display_name(dest);
+        char* dest_str = fm_path_display_name(dest, TRUE);
         gtk_label_set_text(to, dest_str);
         g_free(dest_str);
     }

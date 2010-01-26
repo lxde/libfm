@@ -137,7 +137,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
     
     if(default_path) 
     {
-        path_str = fm_path_display_name(default_path);
+        path_str = fm_path_display_name(default_path, FALSE);
         gtk_entry_set_text(GTK_ENTRY( entry ), path_str);
     }
 

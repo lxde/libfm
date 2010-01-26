@@ -91,7 +91,7 @@ char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);
 GFile* fm_path_to_gfile(FmPath* path);
 
-char* fm_path_display_name(FmPath* path);
+char* fm_path_display_name(FmPath* path, gboolean human_readable);
 char* fm_path_display_basename(FmPath* path);
 
 /* For used in hash tables */

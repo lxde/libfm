@@ -270,7 +270,7 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
     for(l = fm_list_peek_head_link(nh); l; l=l->next)
     {
         FmPath* path = (FmPath*)l->data;
-        char* str = fm_path_display_name(path);
+        char* str = fm_path_display_name(path, TRUE);
         GtkMenuItem* mi;
         if( l == cur )
         {

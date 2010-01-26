@@ -389,7 +389,7 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* mo
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
     /* FIXME: should we use UTF-8 encoded display name here? */
-    gchar *path_str = fm_path_to_str(path);
+    gchar *path_str = fm_path_display_name(path, FALSE);
     if(priv->path)
         fm_path_unref(priv->path);
     priv->path = fm_path_ref(path);
