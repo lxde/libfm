@@ -19,7 +19,11 @@
  *      MA 02110-1301, USA.
  */
 
-#include <glib/gi18n.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
 
 #include "fm-config.h"
 #include "fm-folder-view.h"

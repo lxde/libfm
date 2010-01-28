@@ -19,11 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-path.h"
 #include "fm-file-info.h"
 #include <string.h>
 #include <limits.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 static FmPath* root = NULL;
 

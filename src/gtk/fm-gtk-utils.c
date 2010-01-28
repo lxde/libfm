@@ -23,7 +23,7 @@
 #include <config.h>
 #endif
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>
 
 #include "fm-gtk-utils.h"

@@ -23,7 +23,7 @@
 #include <config.h>
 #endif
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include "fm-config.h"
 
@@ -116,6 +116,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
     data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
     data->act_grp = act_grp = gtk_action_group_new("Popup");
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     data->file_infos = fm_list_ref(files);
 

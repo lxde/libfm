@@ -30,9 +30,7 @@
 #define __EXO_PRIVATE_H__
 
 #include <gtk/gtk.h>
-
-/*#include <glib/gi18n-lib.h>*/
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 G_BEGIN_DECLS;
 

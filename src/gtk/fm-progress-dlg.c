@@ -22,7 +22,7 @@
 #include <config.h>
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #define SHOW_DLG_DELAY  1000
 
@@ -101,6 +101,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     GtkBuilder* builder = gtk_builder_new();
     GtkWidget *dlg, *src_icon, *dest_icon, *src_fi, *dest_fi, *filename, *apply_all;
     char* tmp;
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     ensure_dlg(data);
 
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/ask-rename.ui", NULL);
@@ -201,6 +202,7 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     GtkWidget* to, *to_label;
     FmPath* dest;
     const char* title = NULL;
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
 
     data->dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");

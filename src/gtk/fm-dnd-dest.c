@@ -19,12 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-dnd-dest.h"
 #include "fm-gtk-utils.h"
 #include "fm-gtk-marshal.h"
 #include "fm-file-info-job.h"
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <string.h>
 
 struct _FmDndDest

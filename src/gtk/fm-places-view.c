@@ -19,7 +19,11 @@
  *      MA 02110-1301, USA.
  */
 
-#include <glib/gi18n.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
 #include "fm-places-view.h"
 #include "fm-config.h"
 #include "fm-gtk-utils.h"
@@ -598,6 +602,7 @@ GtkWidget* place_item_get_menu(PlaceItem* item)
     FmFileMenu* file_menu;
     GtkUIManager* ui = gtk_ui_manager_new();
     GtkActionGroup* act_grp = act_grp = gtk_action_group_new("Popup");
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     /* FIXME: merge with FmFileMenu when possible */
     if(item->type == PLACE_PATH)

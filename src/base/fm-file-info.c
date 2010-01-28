@@ -19,9 +19,13 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-file-info.h"
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <grp.h> /* Query group name */
 #include <pwd.h> /* Query user name */
 #include <string.h>

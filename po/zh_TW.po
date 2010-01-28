@@ -1,0 +1,479 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-29 06:37+0800\n"
+"PO-Revision-Date: 2010-01-29 06:30+0800\n"
+"Last-Translator: Hong Jen Yee (PCMan) <pcman.tw@gmail.com>\n"
+"Language-Team: zh_TW <zh_TW@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: TAIWAN\n"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>存取控制</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>檔案類型：</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>群組：</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>最後存取：</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>最後修改：</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>位置:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>開啟程式(_W)：</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>其它：</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>擁有者：</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>磁碟上的大小：</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>目標：%s</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>檔案大小總計：</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>群組(_G)：</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>擁有者(_O)：</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "檔案屬性"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "將檔案標示為可執行"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "無"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:21
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "讀和寫"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "只能讀取"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "選取一應用程式來開啟這類型的檔案"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "只能寫入"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "一般(_G)"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "權限(_P)"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "確認取代檔案"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "檔案名稱(_N):"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "覆寫(&O)"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "重新命名(_R)"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "略過(_S)"
+
+#: ../data/ui/ask-rename.glade.h:10
+#, fuzzy
+msgid "with the following file?"
+msgstr "以下列檔案？"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>正在處理：</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>進度：</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:5
+msgid "<b>To:</b>"
+msgstr "<b>到：</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "Preparing..."
+msgstr "準備中..."
+
+#: ../src/gtk/fm-folder-view.c:364
+msgid "Name"
+msgstr "名稱"
+
+#: ../src/gtk/fm-folder-view.c:381
+msgid "Description"
+msgstr "描述"
+
+#: ../src/gtk/fm-folder-view.c:387
+msgid "Size"
+msgstr "大小"
+
+#: ../src/gtk/fm-folder-view.c:393
+msgid "Modified"
+msgstr "修改"
+
+#: ../src/gtk/fm-gtk-utils.c:43
+msgid "Error"
+msgstr "錯誤"
+
+#: ../src/gtk/fm-gtk-utils.c:226
+msgid "Please select a folder"
+msgstr "選擇一個資料夾"
+
+#: ../src/gtk/fm-gtk-utils.c:481
+msgid "Do you want to move the selected files to trash bin?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:486
+msgid "Do you want to delete the selected files?"
+msgstr "您真的要刪除已選的檔案？"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Rename File"
+msgstr "重新命名檔案"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Please enter a new name:"
+msgstr "請輸入新名稱："
+
+#: ../src/gtk/fm-gtk-utils.c:538
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "是否確定要清空垃圾桶？"
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Mount Volume"
+msgstr "掛載裝置(_M)"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Unmount Volume"
+msgstr "卸載裝置(_U)"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Eject Removable Media"
+msgstr "退出可移除媒體"
+
+#: ../src/gtk/fm-places-view.c:142 ../src/gtk/fm-places-view.c:724
+msgid "Rename Bookmark Item"
+msgstr "重新命名書籤項目"
+
+#: ../src/gtk/fm-places-view.c:143
+msgid "Remove from Bookmark"
+msgstr "從書籤刪除"
+
+#: ../src/gtk/fm-places-view.c:155
+msgid "Empty Trash"
+msgstr "清空垃圾統"
+
+#: ../src/gtk/fm-places-view.c:400
+msgid "Trash"
+msgstr "垃圾桶"
+
+#: ../src/gtk/fm-places-view.c:447
+msgid "Desktop"
+msgstr "桌面"
+
+#: ../src/gtk/fm-places-view.c:459
+msgid "Applications"
+msgstr "應用程式"
+
+#: ../src/gtk/fm-places-view.c:725
+msgid "Enter a new name:"
+msgstr "輸入新名稱："
+
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "正在移動檔案"
+
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "正在複製檔案"
+
+#: ../src/gtk/fm-progress-dlg.c:232
+msgid "Trashing files"
+msgstr "正將檔案移到垃圾桶"
+
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "正在刪除檔案"
+
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "建立符號連結"
+
+#: ../src/gtk/fm-progress-dlg.c:241
+msgid "Changing file attributes"
+msgstr "變更檔案屬性"
+
+#: ../src/gtk/fm-file-menu.c:78
+msgid "Rename"
+msgstr "重新命名"
+
+#: ../src/gtk/fm-file-menu.c:79
+msgid "Create Symlink"
+msgstr "建立符號連結"
+
+#: ../src/gtk/fm-file-menu.c:80
+msgid "Send To"
+msgstr "傳送到"
+
+#: ../src/gtk/fm-file-properties.c:173
+msgid "Please enter a valid user name or numeric id."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:205
+msgid "Please enter a valid group name or numeric id."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:353
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
+
+#: ../src/gtk/fm-file-properties.c:620
+msgid "Files of different types"
+msgstr "多種不同類型的檔案"
+
+#: ../src/gtk/fm-file-properties.c:641
+msgid "Multiple Files"
+msgstr "多個檔案"
+
+#: ../src/gtk/fm-file-properties.c:712
+msgid "Other Applications"
+msgstr "其他應用程式"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave 失敗"
+
+#: ../src/job/fm-dir-list-job.c:236
+#, c-format
+msgid "It's not a valid directory"
+msgstr "這不是一個有效的目錄。"
+
+#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
+#, fuzzy, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%s Byte"
+msgstr[1] ""
+
+#: ../src/base/fm-utils.c:59
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:64
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:69
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:74
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:88
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:93
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:98
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:103
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "捷徑"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "掛載點"
+
+#~ msgid "_File"
+#~ msgstr "檔案(_F)"
+
+#~ msgid "_New Window"
+#~ msgstr "開新視窗"
+
+#~ msgid "_Close Window"
+#~ msgstr "關閉視窗(_C)"
+
+#~ msgid "_Edit"
+#~ msgstr "編輯(_E)"
+
+#~ msgid "Move To..."
+#~ msgstr "移動到..."
+
+#~ msgid "Copy To..."
+#~ msgstr "複製到..."
+
+#~ msgid "Invert Selection"
+#~ msgstr "反相選取"
+
+#~ msgid "_View"
+#~ msgstr "檢視(_V)"
+
+#~ msgid "_Sort Files"
+#~ msgstr "排序檔案(_S)"
+
+#~ msgid "_Help"
+#~ msgstr "說明(_H)"
+
+#~ msgid "_Go"
+#~ msgstr "到(_G)"
+
+#~ msgid "Previous Folder"
+#~ msgstr "上一個資料夾"
+
+#~ msgid "Next Folder"
+#~ msgstr "下一個資料夾"
+
+#~ msgid "Parent Folder"
+#~ msgstr "上一層資料夾"
+
+#~ msgid "Go to parent Folder"
+#~ msgstr "到上一層資料夾"
+
+#~ msgid "Home Folder"
+#~ msgstr "家目錄"
+
+#~ msgid "Desktop Folder"
+#~ msgstr "桌面資料夾"
+
+#~ msgid "My Computer"
+#~ msgstr "我的電腦"
+
+#~ msgid "Trash Can"
+#~ msgstr "垃圾桶"
+
+#~ msgid "Network Drives"
+#~ msgstr "網路磁碟機"
+
+#~ msgid "Installed Applications"
+#~ msgstr "已安裝的應用程式"
+
+#~ msgid "_Bookmarks"
+#~ msgstr "書籤(_B)"
+
+#~ msgid "Add To Bookmarks"
+#~ msgstr "新增到書籤"
+
+#~ msgid "Folder"
+#~ msgstr "資料夾"
+
+#~ msgid "Blank FIle"
+#~ msgstr "空白檔案"
+
+#~ msgid "Show _Hidden"
+#~ msgstr "顯示隱藏檔案(_H)"
+
+#~ msgid "_Icon View"
+#~ msgstr "圖示檢視"
+
+#~ msgid "_Compact View"
+#~ msgstr "簡潔清單檢視(_C)"
+
+#~ msgid "Detailed _List View"
+#~ msgstr "詳細清單檢視(_L)"
+
+#~ msgid "By _Name"
+#~ msgstr "依名稱(&N)"
+
+#~ msgid "By _Modification Time"
+#~ msgstr "依修改時間(_M)"
+
+#~ msgid "Open in New Window"
+#~ msgstr "在新視窗中開啟"

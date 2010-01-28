@@ -19,11 +19,21 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+#include <glib/gi18n-lib.h>
 #include "fm.h"
 
 gboolean fm_init(FmConfig* config)
 {
     char* path;
+
+#ifdef ENABLE_NLS
+    bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+#endif
+
 	g_thread_init(NULL);
 	g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
 

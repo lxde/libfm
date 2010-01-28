@@ -20,7 +20,7 @@
  */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -735,6 +735,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     FmFilePropData* data;
     FmPathList* paths;
 
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     data = g_slice_new0(FmFilePropData);
 
     data->files = fm_list_ref(files);

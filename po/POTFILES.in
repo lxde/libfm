@@ -15,5 +15,3 @@ src/job/fm-file-ops-job-delete.c
 
 src/base/fm-utils.c
 src/base/fm-file-info.c
-
-src/demo/main-win-ui.c

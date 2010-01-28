@@ -25,7 +25,7 @@
 #include <config.h>
 #endif
 
-#include<glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "exo-tree-view.h"
 #include "exo-string.h"
 #include "exo-marshal.h"

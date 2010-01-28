@@ -1,0 +1,2 @@
+# The strings in demo program shouldn't be added to the lib.
+src/demo/main-win-ui.c
