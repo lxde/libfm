@@ -47,7 +47,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 	gboolean is_virtual;
     GFileType type;
     goffset size;
-    GFile* new_dest;
+    GFile* new_dest = NULL;
     GFileCopyFlags flags;
 	FmJob* fmjob = FM_JOB(job);
 
