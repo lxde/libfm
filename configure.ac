@@ -73,7 +73,7 @@ AC_CONFIG_FILES([data/gnome-terminal], [chmod +x data/gnome-terminal])
 
 AC_OUTPUT
 
-if test x"$sysconfdir" = x'${prefix}/etc'; then
+if test x"$sysconfdir" != x'${prefix}/etc'; then
     echo
     echo
     echo 'Error: sysconfdir is not /etc.'
