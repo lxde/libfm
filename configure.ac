@@ -56,6 +56,14 @@ PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
 
+AC_ARG_ENABLE(demo,
+	[AC_HELP_STRING([--enable-demo],
+		[build libfm-demo file manager @<:@default=no@:>@])],
+	[enable_demo="${enableval}"],
+	[enable_demo=no]
+)
+AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes") 
+
 GETTEXT_PACKAGE=libfm
 AC_SUBST(GETTEXT_PACKAGE)
 AM_GLIB_GNU_GETTEXT

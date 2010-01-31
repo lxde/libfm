@@ -1,3 +1,4 @@
+if ENABLE_DEMO
 NULL=
 
 # GtkBuilder UI definition files
@@ -21,4 +22,4 @@ CLEANFILES = \
 %.ui: %.glade
 	cp $< $@
 #	$(top_builddir)/src/xml-purge $@
-
+endif

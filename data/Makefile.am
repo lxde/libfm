@@ -1,3 +1,4 @@
+if ENABLE_DEMO
 SUBDIRS=ui
 
 mimedir = $(datadir)/mime/packages
@@ -8,3 +9,4 @@ libfmconf_DATA = libfm.conf
 
 pkglib_SCRIPTS = gnome-terminal
 CLEANFILES = $(pkglib_SCRIPTS)
+endif

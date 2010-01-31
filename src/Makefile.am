@@ -161,7 +161,7 @@ libfm_gtk_la_LDFLAGS = \
 	-export-symbols-regex fm \
 	$(NULL)
 
-
+if ENABLE_DEMO
 bin_PROGRAMS = libfm-demo
 libfm_demo_SOURCES = \
 	demo/libfm-demo.c \
@@ -174,6 +174,7 @@ libfm_demo_CFLAGS = \
 	-Werror-implicit-function-declaration
 
 libfm_demo_LDADD = $(GTK_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS) libfm.la libfm-gtk.la
+endif
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
