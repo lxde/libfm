@@ -1,18 +1,18 @@
 /*
  *      fm-job.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -130,7 +130,7 @@ static void fm_job_finalize(GObject *object)
 
 	if(self->cancellable)
 		g_object_unref(self->cancellable);
-		
+
 	if(self->mutex)
 		g_mutex_free(self->mutex);
 
@@ -215,7 +215,7 @@ static gboolean on_idle_call(FmIdleCall* data)
 /* Following APIs are private to FmJob and should only be used in the
  * implementation of classes derived from FmJob.
  * Besides, they should be called from working thread only */
-gpointer fm_job_call_main_thread(FmJob* job, 
+gpointer fm_job_call_main_thread(FmJob* job,
 				FmJobCallMainThreadFunc func, gpointer user_data)
 {
 	FmIdleCall data;
@@ -230,10 +230,12 @@ gpointer fm_job_call_main_thread(FmJob* job,
 	return data.ret;
 }
 
+/*
 gpointer fm_job_call_main_thread_async(FmJob* job, GFunc func, gpointer user_data)
 {
-	/* FIXME: implement async calls to improve performance. */
+	//FIXME: implement async calls to improve performance.
 }
+*/
 
 void fm_job_finish(FmJob* job)
 {
@@ -328,7 +330,7 @@ gboolean on_idle_cleanup(gpointer unused)
 
 /* Used to implement FmJob::run() using gio inside.
  * This API tried to initialize a GCancellable object for use with gio.
- * If this function returns FALSE, that means the job is already 
+ * If this function returns FALSE, that means the job is already
  * cancelled before the cancellable object is created.
  * So the following I/O operations should be cancelled. */
 gboolean fm_job_init_cancellable(FmJob* job)
@@ -336,7 +338,7 @@ gboolean fm_job_init_cancellable(FmJob* job)
 	/* creating a cancellable object in working thread should be ok? */
 	job->cancellable = g_cancellable_new();
 	/* it's possible that the user calls fm_job_cancel before we
-	 * create the cancellable object, so g_cancellable_is_cancelled 
+	 * create the cancellable object, so g_cancellable_is_cancelled
 	 * might return FALSE due to racing condition. */
 	if( G_UNLIKELY(job->cancel) )
 	{
@@ -384,7 +386,7 @@ gpointer error_in_main_thread(FmJob* job, struct ErrData* data)
  * the connected signal handlers.
  * If recoverable is TRUE, the listener of this 'error' signal can
  * return TRUE in signal handler to ask for retry of the failed operation.
- * If recoverable is FALSE, the return value of this function is 
+ * If recoverable is FALSE, the return value of this function is
  * always FALSE. If the error is fatal, the job might be aborted.
  * Otherwise, the listener of 'error' signal can optionally cancel
  * the job. */

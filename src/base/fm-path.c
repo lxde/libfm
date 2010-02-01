@@ -1,18 +1,18 @@
 /*
  *      fm-path.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -203,10 +203,12 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
 		if( 0 == strncmp(relative_path, home_dir + 1, home_len - 1) ) /* in home dir */
 		{
 			if( relative_path[home_len - 1] == '\0' ) /* this is the home dir */
+            {
 				if(G_LIKELY(home))
 					return fm_path_ref(home);
 				else
 					goto _out;
+            }
 			if( 0 == strncmp(relative_path, desktop_dir + home_len + 1, desktop_len - home_len -1) ) /* in desktop dir */
 			{
 				if(relative_path[desktop_len - 1] == '\0') /* this is the desktop dir */
@@ -303,17 +305,17 @@ static int fm_path_strlen(FmPath* path)
 
 /* recursive internal implem. of fm_path_to_str returns end of current
    build string */
-static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len) 
+static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
 {
     gint name_len = strlen(path->name);
     gchar* pbuf;
-    
-    if (!path->parent) 
+
+    if (!path->parent)
     {
         *ret = g_new0(gchar, str_len + name_len + 1 );
         pbuf = *ret;
     }
-    else 
+    else
     {
         pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len + 1 );
         if (path->parent->parent)
@@ -537,7 +539,7 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 }
 
 /* Check if this path contains absolute pathname str*/
-gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n) 
+gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
 {
     const gchar *last_part;
     /* default compare str len */
@@ -547,7 +549,7 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
     /* end of recursion */
     if ((path->parent == NULL) && g_str_equal ( path->name, "/" ) && n == 0 )
 	return TRUE;
-    
+
     /* must also contain leading slash */
     if (n < (strlen(path->name) + 1))
 	return FALSE;
@@ -566,7 +568,7 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
 
 /* path list */
 
-static FmListFuncs funcs = 
+static FmListFuncs funcs =
 {
 	fm_path_ref,
 	fm_path_unref
@@ -645,7 +647,7 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 		FmFileInfo* fi = (FmFileInfo*)l->data;
 		fm_list_push_tail(list, fi->path);
 	}
-	return list;	
+	return list;
 }
 
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
