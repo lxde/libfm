@@ -203,12 +203,12 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
 		if( 0 == strncmp(relative_path, home_dir + 1, home_len - 1) ) /* in home dir */
 		{
 			if( relative_path[home_len - 1] == '\0' ) /* this is the home dir */
-            {
+	                {
 				if(G_LIKELY(home))
 					return fm_path_ref(home);
 				else
 					goto _out;
-            }
+            		}
 			if( 0 == strncmp(relative_path, desktop_dir + home_len + 1, desktop_len - home_len -1) ) /* in desktop dir */
 			{
 				if(relative_path[desktop_len - 1] == '\0') /* this is the desktop dir */
