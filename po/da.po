@@ -1,0 +1,386 @@
+# Danish translation PCManFM libfm.
+# Copyright (C) 2010 PCmanFM & Joe Hansen.
+# This file is distributed under the same license as the PCManFM libfm package.
+# Joe Hansen (joedalton2@yahoo.dk), 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-04 05:26+0000\n"
+"PO-Revision-Date: 2010-02-04 06:27+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Adgangskontrol</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Filtype:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Gruppe:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Sidste adgang:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Sidste ændring:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Placering:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Åbn _med:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Andre:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Ejer:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Størrelse på harddisk:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Mål:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Samlet størrelse på filer:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Grupper:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Ejer:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Filegenskaber"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Gør filen eksekverbar"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Ingen"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Handlinger som alle andre brugere kan udføre"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Handlinger som ejeren af filen kan udføre"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
+msgstr ""
+"Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Læs og skriv"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Skrivebeskyttet"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Vælg programmet som bruges til at åbne filer af denne type "
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Kun skriv"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Generelt"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_Tilladelser"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Der er allerede en fil med det samme navn på denne placering.</b>\n"
+"\n"
+"Ønsker du at erstatte den eksisterende fil"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Anvend dette tilvalg til alle eksisterende filer"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Bekræft overskrivning af filer"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Filnavn:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Overskriv"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "Om_døb"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Spring over"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "med den følgende fil?"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Behandler:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Status:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:5
+msgid "<b>To:</b>"
+msgstr "<b>Til:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "Preparing..."
+msgstr "Forbereder..."
+
+#: ../src/gtk/fm-folder-view.c:364
+msgid "Name"
+msgstr "Navn"
+
+#: ../src/gtk/fm-folder-view.c:381
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ../src/gtk/fm-folder-view.c:387
+msgid "Size"
+msgstr "Størrelse"
+
+#: ../src/gtk/fm-folder-view.c:393
+msgid "Modified"
+msgstr "Ændret"
+
+#: ../src/gtk/fm-gtk-utils.c:43
+msgid "Error"
+msgstr "Fejl"
+
+#: ../src/gtk/fm-gtk-utils.c:226
+msgid "Please select a folder"
+msgstr "Vælg venligst en mappe"
+
+#: ../src/gtk/fm-gtk-utils.c:481
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Ønsker du at flytte de valgte filer til skraldespanden?"
+
+#: ../src/gtk/fm-gtk-utils.c:486
+msgid "Do you want to delete the selected files?"
+msgstr "Ønsker du at slette de valgte filer?"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Rename File"
+msgstr "Omdøb fil"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Please enter a new name:"
+msgstr "Indtast venligst et nyt navn:"
+
+#: ../src/gtk/fm-gtk-utils.c:538
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Er du sikker på at du ønsker at tømme skraldespanden?"
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Mount Volume"
+msgstr "Monter arkiv"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Unmount Volume"
+msgstr "Afmonter arkiv"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Eject Removable Media"
+msgstr "Skub eksternt medie ud"
+
+#: ../src/gtk/fm-places-view.c:142 ../src/gtk/fm-places-view.c:724
+msgid "Rename Bookmark Item"
+msgstr "Omdøb bogmærkepunkt"
+
+#: ../src/gtk/fm-places-view.c:143
+msgid "Remove from Bookmark"
+msgstr "Fjern fra bogmærker"
+
+#: ../src/gtk/fm-places-view.c:155
+msgid "Empty Trash"
+msgstr "Tom skraldespand"
+
+#: ../src/gtk/fm-places-view.c:400
+msgid "Trash"
+msgstr "Skraldespand"
+
+#: ../src/gtk/fm-places-view.c:447
+msgid "Desktop"
+msgstr "Skrivebord"
+
+#: ../src/gtk/fm-places-view.c:459
+msgid "Applications"
+msgstr "Programmer"
+
+#: ../src/gtk/fm-places-view.c:725
+msgid "Enter a new name:"
+msgstr "Indtast et nyt navn:"
+
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "Flytter filer"
+
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "Kopierer filer"
+
+#: ../src/gtk/fm-progress-dlg.c:232
+msgid "Trashing files"
+msgstr "Smider filer ud"
+
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "Sletter filer"
+
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "Opretter symbolske henvisninger"
+
+#: ../src/gtk/fm-progress-dlg.c:241
+msgid "Changing file attributes"
+msgstr "Ændrer filattributter"
+
+#: ../src/gtk/fm-file-menu.c:78
+msgid "Rename"
+msgstr "Omdøb"
+
+#: ../src/gtk/fm-file-menu.c:79
+msgid "Create Symlink"
+msgstr "Opret symbolsk henvisning"
+
+#: ../src/gtk/fm-file-menu.c:80
+msgid "Send To"
+msgstr "Send til"
+
+#: ../src/gtk/fm-file-properties.c:173
+msgid "Please enter a valid user name or numeric id."
+msgstr "Indtast venligst et gyldigt brugernavn eller numerisk id."
+
+#: ../src/gtk/fm-file-properties.c:205
+msgid "Please enter a valid group name or numeric id."
+msgstr "Indtast venligst et gyldigt gruppenavn eller numerisk id."
+
+#: ../src/gtk/fm-file-properties.c:353
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
+
+#: ../src/gtk/fm-file-properties.c:620
+msgid "Files of different types"
+msgstr "Filer af forskellige typer"
+
+#: ../src/gtk/fm-file-properties.c:641
+msgid "Multiple Files"
+msgstr "Flere filer"
+
+#: ../src/gtk/fm-file-properties.c:712
+msgid "Other Applications"
+msgstr "Andre programmer"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave mislykkedes."
+
+#: ../src/job/fm-dir-list-job.c:236
+#, c-format
+msgid "It's not a valid directory"
+msgstr "Det er ikke en gyldig mappe"
+
+#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u byte"
+
+#: ../src/base/fm-utils.c:59
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:64
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:69
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:74
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:88
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:93
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:98
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:103
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Genveje"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Monteringspunkt"
