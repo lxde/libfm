@@ -56,9 +56,7 @@ gboolean fm_init(FmConfig* config)
     g_setenv("PATH", path, TRUE);
     g_free(path);
 
-/* FIXME: return TRUE or return FALSE, and WHY?
-   a return MUST be here, since the function is NOT void */
-    return;
+    return TRUE;
 }
 
 void fm_finalize()
