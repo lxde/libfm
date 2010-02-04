@@ -39,6 +39,13 @@
      prevent divided by zero problem. (calculate percentage when total size = 0)
      Some remote or virtual files doesn't have block size and block count.
 
+* Inter-process config change notifications:
+     fm_config_notify should cache all notfications.
+     Then, pack all changed values in a buffer and pass it to a notifier
+     function set with fm_config_set_notify_hook.
+     fm-gtk can use this hook to send the changed values via X11
+     root window properties or dbus.
+
 * Thumbnails, may be cached with hash table to speed up loading.
      A FmThumbnailJob is needed.
 
