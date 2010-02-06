@@ -1,0 +1,383 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: libfm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-06 14:46+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <sh.yaron@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Hebrew\n"
+"X-Poedit-Country: ISRAEL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>בקרת גישה</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>סוג הקובץ:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>קבוצה:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>גישה אחרונה:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>שינוי אחרון:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>מיקום:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>פתיחה _באמצעות:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>אחר:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>בעלים:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>גודל על הכונן:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>יעד:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>סך גודל הקבצים:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_קבוצה:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_בעלים:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "מאפייני הקובץ"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "הפיכת הקובץ לניתן להפעלה"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "ללא"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "פעולות אותן יכולים לבצע כלל המשתמשים"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "פעולות אותן יכולים לבצע רק הבעלים של הקובץ"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users of the same group with the owner of the file can do"
+msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים יכולים לבצע על הקובץ"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "קריאה וכתיבה"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "קריאה בלבד"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "כתיבה בלבד"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_כללי"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "ה_רשאות"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>ישנו כבר קובץ באותו השם במיקום זה.</b>\n"
+"\n"
+"האם להחליף את הקובץ הקיים"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "יש להחיל אפשרות זו לכל הקבצים הקיימים"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "אישור החלפת קבצים"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "שם הקובץ:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_שכתוב"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_שינוי שם"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_דילוג"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "בקבצים הבאים?"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>מעבד:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>תהליך:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:5
+msgid "<b>To:</b>"
+msgstr "<b>אל:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "Preparing..."
+msgstr "בהכנות..."
+
+#: ../src/gtk/fm-folder-view.c:364
+msgid "Name"
+msgstr "שם"
+
+#: ../src/gtk/fm-folder-view.c:381
+msgid "Description"
+msgstr "תיאור"
+
+#: ../src/gtk/fm-folder-view.c:387
+msgid "Size"
+msgstr "גודל"
+
+#: ../src/gtk/fm-folder-view.c:393
+msgid "Modified"
+msgstr "מועד השינוי"
+
+#: ../src/gtk/fm-gtk-utils.c:43
+msgid "Error"
+msgstr "שגיאה"
+
+#: ../src/gtk/fm-gtk-utils.c:226
+msgid "Please select a folder"
+msgstr "נא לבחור בתיקייה"
+
+#: ../src/gtk/fm-gtk-utils.c:481
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
+
+#: ../src/gtk/fm-gtk-utils.c:486
+msgid "Do you want to delete the selected files?"
+msgstr "האם למחוק את הקבצים הנבחרים?"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Rename File"
+msgstr "שינוי שם קובץ"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Please enter a new name:"
+msgstr "נא להזין שם חדש:"
+
+#: ../src/gtk/fm-gtk-utils.c:538
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "האם לפנות את סל האשפה?"
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Mount Volume"
+msgstr "עיגון כרך"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Unmount Volume"
+msgstr "ניתוק כרך"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Eject Removable Media"
+msgstr "שליפת מדיה נתיקה"
+
+#: ../src/gtk/fm-places-view.c:142
+#: ../src/gtk/fm-places-view.c:724
+msgid "Rename Bookmark Item"
+msgstr "שינוי שם לפריט סימנייה"
+
+#: ../src/gtk/fm-places-view.c:143
+msgid "Remove from Bookmark"
+msgstr "הסרה מהסימניות"
+
+#: ../src/gtk/fm-places-view.c:155
+msgid "Empty Trash"
+msgstr "פינוי האשפה"
+
+#: ../src/gtk/fm-places-view.c:400
+msgid "Trash"
+msgstr "אשפה"
+
+#: ../src/gtk/fm-places-view.c:447
+msgid "Desktop"
+msgstr "שולחן עבודה"
+
+#: ../src/gtk/fm-places-view.c:459
+msgid "Applications"
+msgstr "יישומים"
+
+#: ../src/gtk/fm-places-view.c:725
+msgid "Enter a new name:"
+msgstr "הזנת שם חדש:"
+
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "קבצים מועברים"
+
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "קבצים מועתקים"
+
+#: ../src/gtk/fm-progress-dlg.c:232
+msgid "Trashing files"
+msgstr "קבצים מועברים לאשפה"
+
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "קבצים נמחקים"
+
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "נוצר קישור סימבולי"
+
+#: ../src/gtk/fm-progress-dlg.c:241
+msgid "Changing file attributes"
+msgstr "שינוי תכונות הקובץ"
+
+#: ../src/gtk/fm-file-menu.c:78
+msgid "Rename"
+msgstr "שינוי שם"
+
+#: ../src/gtk/fm-file-menu.c:79
+msgid "Create Symlink"
+msgstr "יצירת קישור סימבולי"
+
+#: ../src/gtk/fm-file-menu.c:80
+msgid "Send To"
+msgstr "שליחה אל"
+
+#: ../src/gtk/fm-file-properties.c:173
+msgid "Please enter a valid user name or numeric id."
+msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
+
+#: ../src/gtk/fm-file-properties.c:205
+msgid "Please enter a valid group name or numeric id."
+msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
+
+#: ../src/gtk/fm-file-properties.c:353
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
+
+#: ../src/gtk/fm-file-properties.c:620
+msgid "Files of different types"
+msgstr "קבצים מסוגים שונים"
+
+#: ../src/gtk/fm-file-properties.c:641
+msgid "Multiple Files"
+msgstr "מספר קבצים"
+
+#: ../src/gtk/fm-file-properties.c:712
+msgid "Other Applications"
+msgstr "יישומים אחרים"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave כשלה."
+
+#: ../src/job/fm-dir-list-job.c:236
+#, c-format
+msgid "It's not a valid directory"
+msgstr "זו אינה תיקייה תקנית"
+
+#: ../src/base/fm-utils.c:52
+#: ../src/base/fm-utils.c:81
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u בתים"
+
+#: ../src/base/fm-utils.c:59
+msgid "KB"
+msgstr "ק\"ב"
+
+#: ../src/base/fm-utils.c:64
+msgid "MB"
+msgstr "מ\"ב"
+
+#: ../src/base/fm-utils.c:69
+msgid "GB"
+msgstr "ג\"ב"
+
+#: ../src/base/fm-utils.c:74
+msgid "TB"
+msgstr "ט\"ב"
+
+#: ../src/base/fm-utils.c:88
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:93
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:98
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:103
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "קיצורי דרך"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "נקודת עגינה"
+
