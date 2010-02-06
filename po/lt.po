@@ -230,7 +230,7 @@ msgstr "Atjungti skirsnį"
 
 #: ../src/gtk/fm-places-view.c:125
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Atjungti išorinį įrenginį"
 
 #: ../src/gtk/fm-places-view.c:138 ../src/gtk/fm-places-view.c:719
 msgid "Rename Bookmark Item"
