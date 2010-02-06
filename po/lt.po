@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -84,15 +85,15 @@ msgstr "Joks"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Operacijos, kurias gali atlikti kiti vartotojai"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Operacijos, kurias gali atlikti failo savininkas"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users of the same group with the owner of the file can do"
-msgstr ""
+msgstr "Operacijos, kurias gali atlikti vartotojai, esantys savininko grupėje"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -104,7 +105,7 @@ msgstr "Tik skaityti"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Pasirinkite programą atverti tokių tipų failus"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -124,14 +125,17 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Šiame aplanke jau yra failas tokiu pačiu pavadinimu.</b>\n"
+"\n"
+"Ar norite pakeisti failą nauju"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Pritaikyti šią nuostatą visiems failams"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Patvirtinti failų pakeitimą"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -151,7 +155,7 @@ msgstr "P_raleisti"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "su šiuo failu?"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
@@ -198,11 +202,11 @@ msgstr "Pasirinkite aplanką"
 
 #: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
 
 #: ../src/gtk/fm-gtk-utils.c:486
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Ar norite ištrinti pasirinktus failus?"
 
 #: ../src/gtk/fm-gtk-utils.c:516
 msgid "Rename File"
@@ -228,14 +232,13 @@ msgstr "Atjungti skirsnį"
 msgid "Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:138
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:138 ../src/gtk/fm-places-view.c:719
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Pervadinti žymelę"
 
 #: ../src/gtk/fm-places-view.c:139
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Pašalinti iš žymelių"
 
 #: ../src/gtk/fm-places-view.c:151
 msgid "Empty Trash"
@@ -245,13 +248,11 @@ msgstr "Ištuštinti šiukšlinę"
 msgid "Trash"
 msgstr "Šiukšlinė"
 
-#: ../src/gtk/fm-places-view.c:443
-#: ../src/demo/main-win-ui.c:134
+#: ../src/gtk/fm-places-view.c:443 ../src/demo/main-win-ui.c:134
 msgid "Desktop"
 msgstr "Darbastalis"
 
-#: ../src/gtk/fm-places-view.c:455
-#: ../src/demo/main-win-ui.c:138
+#: ../src/gtk/fm-places-view.c:455 ../src/demo/main-win-ui.c:138
 msgid "Applications"
 msgstr "Programos"
 
@@ -283,13 +284,11 @@ msgstr "Kuriamos sisteminės nuorodos"
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 
-#: ../src/gtk/fm-file-menu.c:78
-#: ../src/demo/main-win-ui.c:118
+#: ../src/gtk/fm-file-menu.c:78 ../src/demo/main-win-ui.c:118
 msgid "Rename"
 msgstr "Pervadinti"
 
-#: ../src/gtk/fm-file-menu.c:79
-#: ../src/demo/main-win-ui.c:119
+#: ../src/gtk/fm-file-menu.c:79 ../src/demo/main-win-ui.c:119
 msgid "Create Symlink"
 msgstr "Sukurti sisteminę nuorodą"
 
@@ -299,15 +298,15 @@ msgstr "Siųsti į"
 
 #: ../src/gtk/fm-file-properties.c:173
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Prašome įvesti teisingą vartotojo vardą arba numerį"
 
 #: ../src/gtk/fm-file-properties.c:205
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Prašome įvesti teisingą grupės pavadinimą arba numerį"
 
 #: ../src/gtk/fm-file-properties.c:353
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir poaplankiams?"
 
 #: ../src/gtk/fm-file-properties.c:620
 msgid "Files of different types"
@@ -330,8 +329,7 @@ msgstr "XDirectSave nepavyko."
 msgid "It's not a valid directory"
 msgstr "Tai nėra tinkamas aplankas"
 
-#: ../src/base/fm-utils.c:48
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:48 ../src/base/fm-utils.c:77
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -424,19 +422,19 @@ msgstr "_Eiti"
 
 #: ../src/demo/main-win-ui.c:130
 msgid "Previous Folder"
-msgstr ""
+msgstr "Ankstesnis aplankas"
 
 #: ../src/demo/main-win-ui.c:131
 msgid "Next Folder"
-msgstr ""
+msgstr "Vėlesnis aplankas"
 
 #: ../src/demo/main-win-ui.c:132
 msgid "Parent Folder"
-msgstr ""
+msgstr "Aukštesnis aplankas"
 
 #: ../src/demo/main-win-ui.c:132
 msgid "Go to parent Folder"
-msgstr ""
+msgstr "Aukštyn"
 
 #: ../src/demo/main-win-ui.c:133
 msgid "Home Folder"
@@ -502,8 +500,8 @@ msgstr "Pagal pavadi_nimą"
 msgid "By _Modification Time"
 msgstr "Pagal pakeitimo _laiką"
 
-#. {"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL, G_CALLBACK(on_open_in_new_tab)},
+#. {"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL,
+#. G_CALLBACK(on_open_in_new_tab)},
 #: ../src/demo/main-win-ui.c:190
 msgid "Open in New Window"
 msgstr "Atverti naujame lange"
-
