@@ -255,6 +255,9 @@
                         <property name="tooltip_text" translatable="yes">Select the application used to open files of this type </property>
                         <child>
                           <object class="GtkCellRendererPixbuf" id="icon_render"/>
+                          <attributes>
+                            <attribute name="gicon">0</attribute>
+                          </attributes>
                         </child>
                         <child>
                           <object class="GtkCellRendererText" id="text_render"/>
