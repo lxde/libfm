@@ -31,6 +31,7 @@
 #include "fm-file-menu.h"
 #include "fm-monitor.h"
 #include "fm-icon-pixbuf.h"
+#include "fm-cell-renderer-pixbuf.h"
 
 enum
 {
@@ -490,12 +491,24 @@ static gboolean sep_func( GtkTreeModel* model, GtkTreeIter* it, gpointer data )
     return it->user_data == sep_it.user_data;
 }
 
+static void on_renderer_icon_size_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)user_data;
+    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->pane_icon_size, fm_config->pane_icon_size);
+}
+
+static void on_cell_renderer_pixbuf_destroy(gpointer user_data, GObject* render)
+{
+    g_signal_handler_disconnect(fm_config, GPOINTER_TO_UINT(user_data));
+}
+
 static void fm_places_view_init(FmPlacesView *self)
 {
     GtkTreeViewColumn* col;
     GtkCellRenderer* renderer;
     GtkTargetList* targets;
     GdkPixbuf* pix;
+    guint handler;
 
     init_model();
     gtk_tree_view_set_model(self, model);
@@ -505,7 +518,11 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_set_row_separator_func(self, (GtkTreeViewRowSeparatorFunc)sep_func, NULL, NULL );
 
     col = gtk_tree_view_column_new();
-    renderer = gtk_cell_renderer_pixbuf_new();
+    renderer = fm_cell_renderer_pixbuf_new();
+    handler = g_signal_connect(fm_config, "changed::pane_icon_size", G_CALLBACK(on_renderer_icon_size_changed), renderer);
+    g_object_weak_ref(renderer, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+    fm_cell_renderer_pixbuf_set_fixed_size(renderer, fm_config->pane_icon_size, fm_config->pane_icon_size);
+
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
     gtk_tree_view_column_set_attributes( col, renderer,
                                          "pixbuf", COL_ICON, NULL );
