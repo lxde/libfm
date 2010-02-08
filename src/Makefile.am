@@ -70,6 +70,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-progress-dlg.c \
 	gtk/fm-icon-pixbuf.c \
 	gtk/fm-cell-renderer-text.c \
+	gtk/fm-cell-renderer-pixbuf.c \
 	gtk/fm-dnd-src.c \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-gtk-utils.c \

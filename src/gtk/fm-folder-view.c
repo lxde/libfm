@@ -31,6 +31,7 @@
 #include "fm-folder-model.h"
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
+#include "fm-cell-renderer-pixbuf.h"
 #include "fm-gtk-utils.h"
 
 #include "exo/exo-icon-view.h"
@@ -286,6 +287,23 @@ static void fm_folder_view_finalize(GObject *object)
 }
 
 
+static void on_big_icon_size_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)user_data;
+    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
+}
+
+static void on_small_icon_size_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)user_data;
+    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
+}
+
+static void on_cell_renderer_pixbuf_destroy(gpointer user_data, GObject* render)
+{
+    g_signal_handler_disconnect(fm_config, GPOINTER_TO_UINT(user_data));
+}
+
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 {
     if( mode != fv->mode )
@@ -314,15 +332,20 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         case FM_FV_ICON_VIEW:
             fv->view = exo_icon_view_new();
 
-            render = gtk_cell_renderer_pixbuf_new();
+            render = fm_cell_renderer_pixbuf_new();
             g_object_set((GObject*)render, "follow-state", TRUE, NULL );
             gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
             gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
                                         "pixbuf", fv->mode == FM_FV_ICON_VIEW ? COL_FILE_BIG_ICON : COL_FILE_SMALL_ICON );
+            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
+                                        "info", COL_FILE_INFO );
 
-            render = fm_cell_renderer_text_new();
             if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
             {
+                guint handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), render);
+                g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+                fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
+                render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
                              "xalign", 0.0,
                              "yalign", 0.5,
@@ -332,6 +355,10 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             }
             else /* big icon view */
             {
+                guint handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), render);
+                g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+                fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
+                render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
                              "wrap-mode", PANGO_WRAP_WORD_CHAR,
                              "wrap-width", 90,
@@ -359,11 +386,14 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         case FM_FV_LIST_VIEW: /* detailed list view */
             fv->view = exo_tree_view_new();
 
-			render = gtk_cell_renderer_pixbuf_new();
+			render = fm_cell_renderer_pixbuf_new();
+            fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
             col = gtk_tree_view_column_new();
 			gtk_tree_view_column_set_title(col, _("Name"));
 			gtk_tree_view_column_pack_start(col, render, FALSE);
-			gtk_tree_view_column_set_attributes(col, render, "pixbuf", COL_FILE_SMALL_ICON, NULL);
+			gtk_tree_view_column_set_attributes(col, render,
+                                                "pixbuf", COL_FILE_SMALL_ICON,
+                                                "info", COL_FILE_INFO, NULL);
 			render = gtk_cell_renderer_text_new();
 			g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 			gtk_tree_view_column_pack_start(col, render, TRUE);
