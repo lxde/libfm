@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
-"Report-Msgid-Bugs-To: yupadmin@gmail.com\n"
-"POT-Creation-Date: 2010-02-07 04:36+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -184,19 +184,19 @@ msgstr "<b>До:</b>"
 msgid "Preparing..."
 msgstr "Підготовлюю..."
 
-#: ../src/gtk/fm-folder-view.c:364
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:381
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:387
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:393
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "Змінено"
 
@@ -228,43 +228,43 @@ msgstr "Вкажіть нову назву:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr "Приєднати диск"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr "Від’єднати диск"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr "Витягнути диск або медіа"
 
-#: ../src/gtk/fm-places-view.c:142 ../src/gtk/fm-places-view.c:724
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "Видалити з закладки"
 
-#: ../src/gtk/fm-places-view.c:155
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:400
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-view.c:447
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:459
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "Програми"
 
-#: ../src/gtk/fm-places-view.c:725
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 

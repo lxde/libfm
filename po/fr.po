@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 14:46+0000\n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: 2010-02-06 22:09+0100\n"
 "Last-Translator: Julien Lavergne <gilir@ubuntu.com>\n"
 "Language-Team: \n"
@@ -100,7 +100,8 @@ msgstr "Opérations que le propriétaire du fichier peut faire"
 msgid ""
 "Operations that users of the same group with the owner of the file can do"
 msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
+"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
+"faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -183,19 +184,19 @@ msgstr ""
 msgid "Preparing..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:364
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:381
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:387
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/gtk/fm-folder-view.c:393
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "Modifié"
 
@@ -227,43 +228,43 @@ msgstr "Entrez un nouveau nom:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:142 ../src/gtk/fm-places-view.c:724
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "Renommer Signets"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "Enlever des Signets"
 
-#: ../src/gtk/fm-places-view.c:155
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "Vider la Corbeille"
 
-#: ../src/gtk/fm-places-view.c:400
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "Corbeille"
 
-#: ../src/gtk/fm-places-view.c:447
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "Bureau"
 
-#: ../src/gtk/fm-places-view.c:459
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "Applications"
 
-#: ../src/gtk/fm-places-view.c:725
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
@@ -315,7 +316,8 @@ msgstr "Entrer un nom de groupe ou un id numérique valide"
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
+"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
+"sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:620
 msgid "Files of different types"

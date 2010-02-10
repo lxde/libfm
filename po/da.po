@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-04 05:26+0000\n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: 2010-02-04 06:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -183,19 +183,19 @@ msgstr "<b>Til:</b>"
 msgid "Preparing..."
 msgstr "Forbereder..."
 
-#: ../src/gtk/fm-folder-view.c:364
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:381
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/gtk/fm-folder-view.c:387
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/gtk/fm-folder-view.c:393
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "Ændret"
 
@@ -227,43 +227,43 @@ msgstr "Indtast venligst et nyt navn:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Er du sikker på at du ønsker at tømme skraldespanden?"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr "Monter arkiv"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr "Afmonter arkiv"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr "Skub eksternt medie ud"
 
-#: ../src/gtk/fm-places-view.c:142 ../src/gtk/fm-places-view.c:724
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "Omdøb bogmærkepunkt"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "Fjern fra bogmærker"
 
-#: ../src/gtk/fm-places-view.c:155
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "Tom skraldespand"
 
-#: ../src/gtk/fm-places-view.c:400
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "Skraldespand"
 
-#: ../src/gtk/fm-places-view.c:447
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "Skrivebord"
 
-#: ../src/gtk/fm-places-view.c:459
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "Programmer"
 
-#: ../src/gtk/fm-places-view.c:725
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "Indtast et nyt navn:"
 

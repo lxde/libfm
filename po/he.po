@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 14:46+0000\n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -95,7 +95,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "פעולות אותן יכולים לבצע רק הבעלים של הקובץ"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Operations that users of the same group with the owner of the file can do"
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
 msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים יכולים לבצע על הקובץ"
 
 #: ../data/ui/file-prop.glade.h:22
@@ -179,19 +180,19 @@ msgstr "<b>אל:</b>"
 msgid "Preparing..."
 msgstr "בהכנות..."
 
-#: ../src/gtk/fm-folder-view.c:364
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "שם"
 
-#: ../src/gtk/fm-folder-view.c:381
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "תיאור"
 
-#: ../src/gtk/fm-folder-view.c:387
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "גודל"
 
-#: ../src/gtk/fm-folder-view.c:393
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "מועד השינוי"
 
@@ -223,44 +224,43 @@ msgstr "נא להזין שם חדש:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "האם לפנות את סל האשפה?"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr "עיגון כרך"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr "ניתוק כרך"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr "שליפת מדיה נתיקה"
 
-#: ../src/gtk/fm-places-view.c:142
-#: ../src/gtk/fm-places-view.c:724
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "שינוי שם לפריט סימנייה"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "הסרה מהסימניות"
 
-#: ../src/gtk/fm-places-view.c:155
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../src/gtk/fm-places-view.c:400
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "אשפה"
 
-#: ../src/gtk/fm-places-view.c:447
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "שולחן עבודה"
 
-#: ../src/gtk/fm-places-view.c:459
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "יישומים"
 
-#: ../src/gtk/fm-places-view.c:725
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
@@ -309,7 +309,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #: ../src/gtk/fm-file-properties.c:353
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
 #: ../src/gtk/fm-file-properties.c:620
@@ -333,8 +334,7 @@ msgstr "XDirectSave כשלה."
 msgid "It's not a valid directory"
 msgstr "זו אינה תיקייה תקנית"
 
-#: ../src/base/fm-utils.c:52
-#: ../src/base/fm-utils.c:81
+#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -380,4 +380,3 @@ msgstr "קיצורי דרך"
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "נקודת עגינה"
-
