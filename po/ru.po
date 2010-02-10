@@ -1,0 +1,388 @@
+# Copyright (C) 2010 PCmanFM & Oleg Koptev.
+# This file is distributed under the same license as the PCManFM libfm package.
+# Oleg Koptev <koptev.oleg@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lxfm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-01 05:25+0000\n"
+"PO-Revision-Date: 2010-02-10 11:21+0300\n"
+"Last-Translator: Koptev Oleg <koptev.oleg@gmail.com>\n"
+"Language-Team: Russian <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Управление доступом</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Тип файла:<b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Группа:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Время последнего доступа:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Последнее изменение:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Расположение:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Открыть _с:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Прочее:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Владелец:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Размер на диске:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Цель:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Общий размер файлов:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Группа:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Владелец:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Свойства файла"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Сделать исполняемым"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Ничего"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Права всех остальных пользователей"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Права владельца файла"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users of the same group with the owner of the file can do"
+msgstr "Права группы, к которй принадлежит владелец файла"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Чтение и запись"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Только для чтения"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Выберите приложения для запуска файла"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Только для записи"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Общее"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "Права _доступа"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Файл с таким именем уже существует в выбранном каталоге.</b>\n"
+"\n"
+"Заменить существующий файл"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Применить ко всем файлам"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Подтверждение перемещения файлов"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Имя файла:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Заменить"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Переименовать"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "П_ропустить"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "этим файлом?"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Выполняется:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Выполнено:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:5
+msgid "<b>To:</b>"
+msgstr "<b>В:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "Preparing..."
+msgstr "Подготовка..."
+
+#: ../src/gtk/fm-folder-view.c:364
+msgid "Name"
+msgstr "Имя"
+
+#: ../src/gtk/fm-folder-view.c:381
+msgid "Description"
+msgstr "Описание"
+
+#: ../src/gtk/fm-folder-view.c:387
+msgid "Size"
+msgstr "Размер"
+
+#: ../src/gtk/fm-folder-view.c:393
+msgid "Modified"
+msgstr "Изменён"
+
+#: ../src/gtk/fm-gtk-utils.c:43
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../src/gtk/fm-gtk-utils.c:226
+msgid "Please select a folder"
+msgstr "Выберите каталог"
+
+#: ../src/gtk/fm-gtk-utils.c:481
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Хотите переместить выбранные файлы?"
+
+#: ../src/gtk/fm-gtk-utils.c:486
+msgid "Do you want to delete the selected files?"
+msgstr "Хотите удалить выбранные файлы?"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Rename File"
+msgstr "Переименовать файл"
+
+#: ../src/gtk/fm-gtk-utils.c:516
+msgid "Please enter a new name:"
+msgstr "Введите новое имя:"
+
+#: ../src/gtk/fm-gtk-utils.c:538
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Хотите очистить корзину?"
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Mount Volume"
+msgstr "Монтировать том"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Unmount Volume"
+msgstr "Размонтировать том"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Eject Removable Media"
+msgstr "Извлечь диск"
+
+#: ../src/gtk/fm-places-view.c:142
+#: ../src/gtk/fm-places-view.c:724
+msgid "Rename Bookmark Item"
+msgstr "Переименовать закладку"
+
+#: ../src/gtk/fm-places-view.c:143
+msgid "Remove from Bookmark"
+msgstr "Удалить из закладок"
+
+#: ../src/gtk/fm-places-view.c:155
+msgid "Empty Trash"
+msgstr "Очистить корзину"
+
+#: ../src/gtk/fm-places-view.c:400
+msgid "Trash"
+msgstr "Корзина"
+
+#: ../src/gtk/fm-places-view.c:447
+msgid "Desktop"
+msgstr "Рабочий стол"
+
+#: ../src/gtk/fm-places-view.c:459
+msgid "Applications"
+msgstr "Приложения"
+
+#: ../src/gtk/fm-places-view.c:725
+msgid "Enter a new name:"
+msgstr "Введите новое имя:"
+
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "Перемещение файлов"
+
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "Копирование файлов"
+
+#: ../src/gtk/fm-progress-dlg.c:232
+msgid "Trashing files"
+msgstr "Удаление файлов в корзину"
+
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "Удаление файлов"
+
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "Создание символьных ссылок"
+
+#: ../src/gtk/fm-progress-dlg.c:241
+msgid "Changing file attributes"
+msgstr "Изменить атрибуты файла"
+
+#: ../src/gtk/fm-file-menu.c:78
+msgid "Rename"
+msgstr "Переименовать"
+
+#: ../src/gtk/fm-file-menu.c:79
+msgid "Create Symlink"
+msgstr "Создать символьную ссылку"
+
+#: ../src/gtk/fm-file-menu.c:80
+msgid "Send To"
+msgstr "Отправить"
+
+#: ../src/gtk/fm-file-properties.c:173
+msgid "Please enter a valid user name or numeric id."
+msgstr "Введите правильное имя пользователя или цифровой идентификатор."
+
+#: ../src/gtk/fm-file-properties.c:205
+msgid "Please enter a valid group name or numeric id."
+msgstr "Введите правильное имя группы или цифровой идентификатор."
+
+#: ../src/gtk/fm-file-properties.c:353
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Применить ко всем вложенным файлам и каталогам?"
+
+#: ../src/gtk/fm-file-properties.c:620
+msgid "Files of different types"
+msgstr "Файлы разных типов"
+
+#: ../src/gtk/fm-file-properties.c:641
+msgid "Multiple Files"
+msgstr "Несколько файлов"
+
+#: ../src/gtk/fm-file-properties.c:712
+msgid "Other Applications"
+msgstr "Прочие приложения"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "Ошибка XDirectSave."
+
+#: ../src/job/fm-dir-list-job.c:236
+#, c-format
+msgid "It's not a valid directory"
+msgstr "Неверный каталог"
+
+#: ../src/base/fm-utils.c:52
+#: ../src/base/fm-utils.c:81
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u байт"
+msgstr[1] "%u байта"
+msgstr[2] "%u байтов"
+
+#: ../src/base/fm-utils.c:59
+msgid "KB"
+msgstr "КБ"
+
+#: ../src/base/fm-utils.c:64
+msgid "MB"
+msgstr "МБ"
+
+#: ../src/base/fm-utils.c:69
+msgid "GB"
+msgstr "ГБ"
+
+#: ../src/base/fm-utils.c:74
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:88
+msgid "KiB"
+msgstr "КиБ"
+
+#: ../src/base/fm-utils.c:93
+msgid "MiB"
+msgstr "МиБ"
+
+#: ../src/base/fm-utils.c:98
+msgid "GiB"
+msgstr "ГиБ"
+
+#: ../src/base/fm-utils.c:103
+msgid "TiB"
+msgstr "ТиБ"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Ярлыки"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Точка монтирования"
+
