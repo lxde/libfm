@@ -99,12 +99,30 @@ static void fm_dir_list_job_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
-gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
+static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
 {
+    GMainLoop* mainloop = (GMainLoop*)user_data;
+    g_main_loop_quit(mainloop);
+}
+
+static gpointer list_apps(FmJob* fmjob, gpointer user_data)
+{
+    FmDirListJob* job = (FmDirListJob*)fmjob;
+    const char* dir_path = (const char*)user_data;
     FmFileInfo* fi;
     MenuCache* mc = menu_cache_lookup("applications.menu");
     MenuCacheDir* dir;
     GList* l;
+
+    /* ensure that the menu cache is loaded */
+    if(! menu_cache_get_root_dir(mc)) /* if it's not yet loaded */
+    {
+        GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
+        gpointer notify_id = menu_cache_add_reload_notify(mc, on_menu_cache_reload, mainloop);
+        g_main_loop_run(mainloop);
+        menu_cache_remove_reload_notify(mc, notify_id);
+    }
+
     if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
     {
         char* tmp = g_strconcat("/", menu_cache_item_get_id(menu_cache_get_root_dir(mc)), dir_path, NULL);
@@ -134,8 +152,13 @@ gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
         }
         fm_list_push_tail_noref(job->files, fi);
     }
-//            menu_cache_item_unref(dir);
     menu_cache_unref(mc);
+}
+
+gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
+{
+    /* Calling libmenu-cache is only allowed in main thread. */
+    fm_job_call_main_thread(job, list_apps, dir_path);
     return TRUE;
 }
 
