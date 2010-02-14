@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Spanish (Castilian) translation for libfm package.
+# Copyright (C) 2010 the LXDE team
+# This file is distributed under the same license as the libfm package.
+# Hugo Florentino <sysadmin@cips.cu>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1\n"
+"Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-10 01:24+0100\n"
-"PO-Revision-Date: 2010-02-06 22:09+0100\n"
-"Last-Translator: Julien Lavergne <gilir@ubuntu.com>\n"
+"PO-Revision-Date: 2010-02-09 11:50-0500\n"
+"Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -22,110 +22,111 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Contrôle d'accès</b>"
+msgstr "<b>Control de accesso</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Type de fichier:</b>"
+msgstr "<b>Tipo de archivo:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>Groupe:</b>"
+msgstr "<b>Grupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Dernier Accès:</b>"
+msgstr "<b>Último acceso:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Dernière Modification:</b>"
+msgstr "<b>Última modificación:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>Emplacement:</b>"
+msgstr "<b>Ubicación:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Ouvrir _avec:</b>"
+msgstr "<b>Abrir _con:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Autre:</b>"
+msgstr "<b>Otro:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>Propriétaire:</b>"
+msgstr "<b>Propietario:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>Taille sur le disque:</b>"
+msgstr "<b>Tamaño en disco:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>Cible:</b>"
+msgstr "<b>Destino:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Taille Totale des Fichiers:</b>"
+msgstr "<b>Tamaño total de los archivos:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_Groupe:</b>"
+msgstr "<b>_Grupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>_Propriétaire:</b>"
+msgstr "<b>_Propietario:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Propriétés du Fichier"
+msgstr "Propiedades del archivo"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Rendre le fichier exécutable"
+msgstr "Hacer el fichero ejecutable"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "Rien"
+msgstr "Ninguna"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Opérations que tous les autres utilisateurs peuvent faire"
+msgstr "Operaciones que pueden hacer los otros usuarios"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "Opérations que le propriétaire du fichier peut faire"
+msgstr "Operaciones que puede hacer el propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid ""
 "Operations that users of the same group with the owner of the file can do"
 msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
-"faire"
+"Operaciones que pueden hacer los usuarios del mismo grupo que el propietario "
+"del archivo"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Lecture et Écriture"
+msgstr "Lectura y escritura"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Lecture seule"
+msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers"
+msgstr ""
+"Seleccione la aplicación utilizada para abrir los archivos de este tipo"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Écriture seule"
+msgstr "Sólo escritura"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_Générale"
+msgstr "_General"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_Permissions"
+msgstr "_Permisos"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -133,256 +134,256 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Il y a déjà un fichier avec le même nom à cet emplacement.</b>\n"
+"<b>En esta ubicación ya existe un archivo con el mismo nombre.</b>\n"
 "\n"
-"Voulez-vous remplacer le fichier existant ?"
+"¿Desea reemplazar el archivo existente"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Appliquer cette option à tous les fichiers existants"
+msgstr "Aplicar esta opción a todos los archivos existentes"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Confirmer le remplacement du fichier"
+msgstr "Confirmar el reemplazo de archivos"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Nom du fichier:"
+msgstr "Nombre del archivo:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Remplacer"
+msgstr "_Sobreescribir"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "_Renommer"
+msgstr "_Renombrar"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "_Omitir"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "avec le fichier suivant ?"
+msgstr "con el siguiente archivo?"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Procesando:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Progreso:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:5
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Hacia:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:7
 msgid "Preparing..."
-msgstr ""
+msgstr "Preparando..."
 
 #: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
-msgstr "Nom"
+msgstr "Nombre"
 
 #: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
-msgstr "Description"
+msgstr "Descripción"
 
 #: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
-msgstr "Taille"
+msgstr "Tamaño"
 
 #: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
-msgstr "Modifié"
+msgstr "Modificado"
 
 #: ../src/gtk/fm-gtk-utils.c:43
 msgid "Error"
-msgstr "Erreur"
+msgstr "Error"
 
 #: ../src/gtk/fm-gtk-utils.c:226
 msgid "Please select a folder"
-msgstr "Sélectionner un dossier"
+msgstr "Por favor, seleccione una carpeta"
 
 #: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to move the selected files to trash bin?"
-msgstr "Voulez-vous déplacer les fichiers sélectionnés dans la corbeille ?"
+msgstr "¿Desea mover los archivos seleccionados a la papelera?"
 
 #: ../src/gtk/fm-gtk-utils.c:486
 msgid "Do you want to delete the selected files?"
-msgstr "Voulez-vous supprimer les fichiers sélectionnés ?"
+msgstr "¿Desea eliminar los archivos seleccionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:516
 msgid "Rename File"
-msgstr "Renommer le fichier"
+msgstr "Renombrar archivo"
 
 #: ../src/gtk/fm-gtk-utils.c:516
 msgid "Please enter a new name:"
-msgstr "Entrez un nouveau nom:"
+msgstr "Por favor, introduzca un nuevo nombre:"
 
 #: ../src/gtk/fm-gtk-utils.c:538
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
+msgstr "¿Está seguro de desear vaciar la papelera?"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
-msgstr ""
+msgstr "Montar volumen"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Desmontar volumen"
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Expulsar medio extraíble"
 
 #: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
-msgstr "Renommer Signets"
+msgstr "Renombrar marcador"
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
-msgstr "Enlever des Signets"
+msgstr "Quitar de los marcadores"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr "Vider la Corbeille"
+msgstr "Vaciar papelera"
 
 #: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
-msgstr "Corbeille"
+msgstr "Papelera"
 
 #: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
-msgstr "Bureau"
+msgstr "Escritorio"
 
 #: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
-msgstr "Applications"
+msgstr "Aplicaciones"
 
 #: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
-msgstr "Entrer un nouveau nom:"
+msgstr "Introduzca un nuevo nombre:"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
-msgstr "Déplace les fichiers"
+msgstr "Moviendo los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:229
 msgid "Copying files"
-msgstr "Copie les fichiers"
+msgstr "Copiando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:232
 msgid "Trashing files"
-msgstr "Jette les fichiers "
+msgstr "Botando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:235
 msgid "Deleting files"
-msgstr "Supprime les fichiers"
+msgstr "Eliminando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:238
 msgid "Creating symlinks"
-msgstr "Créé des liens symboliques"
+msgstr "Creando enlaces simbólicos"
 
 #: ../src/gtk/fm-progress-dlg.c:241
 msgid "Changing file attributes"
-msgstr "Change des attributs de fichiers"
+msgstr "Cambiando atributos de archivo"
 
 #: ../src/gtk/fm-file-menu.c:78
 msgid "Rename"
-msgstr "Renomme"
+msgstr "Renombrar"
 
 #: ../src/gtk/fm-file-menu.c:79
 msgid "Create Symlink"
-msgstr "Crée Lien Symbolique"
+msgstr "Crear enlace simbólico"
 
 #: ../src/gtk/fm-file-menu.c:80
 msgid "Send To"
-msgstr "Envoie A"
+msgstr "Enviar a"
 
 #: ../src/gtk/fm-file-properties.c:173
 msgid "Please enter a valid user name or numeric id."
-msgstr "Entrer un nom d'utilisateur ou un id numérique valide"
+msgstr "Por favor, introduzca un nombre de usuario o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:205
 msgid "Please enter a valid group name or numeric id."
-msgstr "Entrer un nom de groupe ou un id numérique valide"
+msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:353
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
-"sous-dossiers ?"
+"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
+"subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:620
 msgid "Files of different types"
-msgstr "Fichiers de différents types"
+msgstr "Archivos de tipos diferentes"
 
 #: ../src/gtk/fm-file-properties.c:641
 msgid "Multiple Files"
-msgstr "Fichiers Multiples"
+msgstr "Múltiples archivos"
 
 #: ../src/gtk/fm-file-properties.c:712
 msgid "Other Applications"
-msgstr "Autres applications"
+msgstr "Otras aplicaciones"
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave ha fallado."
 
 #: ../src/job/fm-dir-list-job.c:236
 #, c-format
 msgid "It's not a valid directory"
-msgstr "Ce n'est pas un dossier valide"
+msgstr "No es un directorio válido"
 
 #: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
 
 #: ../src/base/fm-utils.c:59
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:64
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:69
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:74
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:88
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:93
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:98
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:52
 msgid "Shortcuts"
-msgstr "Raccourcis"
+msgstr "Atajos"
 
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
-msgstr "Point de Montage"
+msgstr "Punto de montaje"

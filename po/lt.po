@@ -1,9 +1,9 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 05:07+0000\n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -94,7 +94,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Operacijos, kurias gali atlikti failo savininkas"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Operations that users of the same group with the owner of the file can do"
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
 msgstr "Operacijos, kurias gali atlikti vartotojai, esantys savininko grupėje"
 
 #: ../data/ui/file-prop.glade.h:22
@@ -178,19 +179,19 @@ msgstr "<b>Į:</b>"
 msgid "Preparing..."
 msgstr "Ruošiamasi..."
 
-#: ../src/gtk/fm-folder-view.c:360
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-view.c:377
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-view.c:383
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-view.c:389
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "Pakeista"
 
@@ -222,75 +223,75 @@ msgstr "Įveskite naują pavadinimą:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
-#: ../src/gtk/fm-places-view.c:123
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr "Prijungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr "Atjungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr "Atjungti išorinį įrenginį"
 
-#: ../src/gtk/fm-places-view.c:138 ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "Pervadinti žymelę"
 
-#: ../src/gtk/fm-places-view.c:139
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "Pašalinti iš žymelių"
 
-#: ../src/gtk/fm-places-view.c:151
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "Ištuštinti šiukšlinę"
 
-#: ../src/gtk/fm-places-view.c:396
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "Šiukšlinė"
 
-#: ../src/gtk/fm-places-view.c:443 ../src/demo/main-win-ui.c:134
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "Darbastalis"
 
-#: ../src/gtk/fm-places-view.c:455 ../src/demo/main-win-ui.c:138
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "Programos"
 
-#: ../src/gtk/fm-places-view.c:720
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-progress-dlg.c:224
+#: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
 msgstr "Perkeliami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:229
 msgid "Copying files"
 msgstr "Kopijuojami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:230
+#: ../src/gtk/fm-progress-dlg.c:232
 msgid "Trashing files"
 msgstr "Išmetami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:235
 msgid "Deleting files"
 msgstr "Ištrinami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:236
+#: ../src/gtk/fm-progress-dlg.c:238
 msgid "Creating symlinks"
 msgstr "Kuriamos sisteminės nuorodos"
 
-#: ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:241
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/demo/main-win-ui.c:118
+#: ../src/gtk/fm-file-menu.c:78
 msgid "Rename"
 msgstr "Pervadinti"
 
-#: ../src/gtk/fm-file-menu.c:79 ../src/demo/main-win-ui.c:119
+#: ../src/gtk/fm-file-menu.c:79
 msgid "Create Symlink"
 msgstr "Sukurti sisteminę nuorodą"
 
@@ -307,8 +308,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Prašome įvesti teisingą grupės pavadinimą arba numerį"
 
 #: ../src/gtk/fm-file-properties.c:353
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir poaplankiams?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir "
+"poaplankiams?"
 
 #: ../src/gtk/fm-file-properties.c:620
 msgid "Files of different types"
@@ -322,16 +326,16 @@ msgstr "Keli failai"
 msgid "Other Applications"
 msgstr "Kitos programos"
 
-#: ../src/gtk/fm-dnd-dest.c:427
+#: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
-#: ../src/job/fm-dir-list-job.c:232
+#: ../src/job/fm-dir-list-job.c:236
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Tai nėra tinkamas aplankas"
 
-#: ../src/base/fm-utils.c:48 ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -339,172 +343,138 @@ msgstr[0] "%u baitas"
 msgstr[1] "%u baitai"
 msgstr[2] "%u baitų"
 
-#: ../src/base/fm-utils.c:55
+#: ../src/base/fm-utils.c:59
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:60
+#: ../src/base/fm-utils.c:64
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:65
+#: ../src/base/fm-utils.c:69
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:70
+#: ../src/base/fm-utils.c:74
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:88
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:89
+#: ../src/base/fm-utils.c:93
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:94
+#: ../src/base/fm-utils.c:98
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:99
+#: ../src/base/fm-utils.c:103
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-file-info.c:48
+#: ../src/base/fm-file-info.c:52
 msgid "Shortcuts"
 msgstr "Nuorodos"
 
-#: ../src/base/fm-file-info.c:51
+#: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Prijungimo taškas"
 
-#: ../src/demo/main-win-ui.c:110
-msgid "_File"
-msgstr "_Failas"
+#~ msgid "_File"
+#~ msgstr "_Failas"
 
-#: ../src/demo/main-win-ui.c:111
-msgid "_New Window"
-msgstr "_Naujas langas"
+#~ msgid "_New Window"
+#~ msgstr "_Naujas langas"
 
-#: ../src/demo/main-win-ui.c:112
-msgid "_Close Window"
-msgstr "_Uždaryti langą"
+#~ msgid "_Close Window"
+#~ msgstr "_Uždaryti langą"
 
-#: ../src/demo/main-win-ui.c:113
-msgid "_Edit"
-msgstr "_Keisti"
+#~ msgid "_Edit"
+#~ msgstr "_Keisti"
 
-#: ../src/demo/main-win-ui.c:120
-msgid "Move To..."
-msgstr "Perkelti į..."
+#~ msgid "Move To..."
+#~ msgstr "Perkelti į..."
 
-#: ../src/demo/main-win-ui.c:121
-msgid "Copy To..."
-msgstr "Kopijuoti į..."
+#~ msgid "Copy To..."
+#~ msgstr "Kopijuoti į..."
 
-#: ../src/demo/main-win-ui.c:123
-msgid "Invert Selection"
-msgstr "Pasirinkti atvirkščiai"
+#~ msgid "Invert Selection"
+#~ msgstr "Pasirinkti atvirkščiai"
 
-#: ../src/demo/main-win-ui.c:125
-msgid "_View"
-msgstr "_Rodyti"
+#~ msgid "_View"
+#~ msgstr "_Rodyti"
 
-#: ../src/demo/main-win-ui.c:126
-msgid "_Sort Files"
-msgstr "_Rūšiuoti failus"
+#~ msgid "_Sort Files"
+#~ msgstr "_Rūšiuoti failus"
 
-#: ../src/demo/main-win-ui.c:127
-msgid "_Help"
-msgstr "_Pagalba"
+#~ msgid "_Help"
+#~ msgstr "_Pagalba"
 
-#: ../src/demo/main-win-ui.c:129
-msgid "_Go"
-msgstr "_Eiti"
+#~ msgid "_Go"
+#~ msgstr "_Eiti"
 
-#: ../src/demo/main-win-ui.c:130
-msgid "Previous Folder"
-msgstr "Ankstesnis aplankas"
+#~ msgid "Previous Folder"
+#~ msgstr "Ankstesnis aplankas"
 
-#: ../src/demo/main-win-ui.c:131
-msgid "Next Folder"
-msgstr "Vėlesnis aplankas"
+#~ msgid "Next Folder"
+#~ msgstr "Vėlesnis aplankas"
 
-#: ../src/demo/main-win-ui.c:132
-msgid "Parent Folder"
-msgstr "Aukštesnis aplankas"
+#~ msgid "Parent Folder"
+#~ msgstr "Aukštesnis aplankas"
 
-#: ../src/demo/main-win-ui.c:132
-msgid "Go to parent Folder"
-msgstr "Aukštyn"
+#~ msgid "Go to parent Folder"
+#~ msgstr "Aukštyn"
 
-#: ../src/demo/main-win-ui.c:133
-msgid "Home Folder"
-msgstr "Namų katalogas"
+#~ msgid "Home Folder"
+#~ msgstr "Namų katalogas"
 
-#: ../src/demo/main-win-ui.c:134
-msgid "Desktop Folder"
-msgstr "Darbastalio katalogas"
+#~ msgid "Desktop Folder"
+#~ msgstr "Darbastalio katalogas"
 
-#: ../src/demo/main-win-ui.c:135
-msgid "My Computer"
-msgstr "Mano kompiuteris"
+#~ msgid "My Computer"
+#~ msgstr "Mano kompiuteris"
 
-#: ../src/demo/main-win-ui.c:136
-msgid "Trash Can"
-msgstr "Šiukšlinė"
+#~ msgid "Trash Can"
+#~ msgstr "Šiukšlinė"
 
-#: ../src/demo/main-win-ui.c:137
-msgid "Network Drives"
-msgstr "Diskai tinkle"
+#~ msgid "Network Drives"
+#~ msgstr "Diskai tinkle"
 
-#: ../src/demo/main-win-ui.c:138
-msgid "Installed Applications"
-msgstr "Įdiegtos programos"
+#~ msgid "Installed Applications"
+#~ msgstr "Įdiegtos programos"
 
-#: ../src/demo/main-win-ui.c:140
-msgid "_Bookmarks"
-msgstr "Ž_ymelės"
+#~ msgid "_Bookmarks"
+#~ msgstr "Ž_ymelės"
 
-#: ../src/demo/main-win-ui.c:141
-msgid "Add To Bookmarks"
-msgstr "Pridėti į žymeles"
+#~ msgid "Add To Bookmarks"
+#~ msgstr "Pridėti į žymeles"
 
-#: ../src/demo/main-win-ui.c:147
-msgid "Folder"
-msgstr "Aplankas"
+#~ msgid "Folder"
+#~ msgstr "Aplankas"
 
-#: ../src/demo/main-win-ui.c:148
-msgid "Blank FIle"
-msgstr "Tuščias failas"
+#~ msgid "Blank FIle"
+#~ msgstr "Tuščias failas"
 
-#: ../src/demo/main-win-ui.c:154
-msgid "Show _Hidden"
-msgstr "Rod_yti paslėptus"
+#~ msgid "Show _Hidden"
+#~ msgstr "Rod_yti paslėptus"
 
-#: ../src/demo/main-win-ui.c:159
-msgid "_Icon View"
-msgstr "P_iktogramų peržiūra"
+#~ msgid "_Icon View"
+#~ msgstr "P_iktogramų peržiūra"
 
-#: ../src/demo/main-win-ui.c:160
-msgid "_Compact View"
-msgstr "_Kompaktiška peržiūra"
+#~ msgid "_Compact View"
+#~ msgstr "_Kompaktiška peržiūra"
 
-#: ../src/demo/main-win-ui.c:161
-msgid "Detailed _List View"
-msgstr "_Detali peržiūra"
+#~ msgid "Detailed _List View"
+#~ msgstr "_Detali peržiūra"
 
-#: ../src/demo/main-win-ui.c:172
-msgid "By _Name"
-msgstr "Pagal pavadi_nimą"
+#~ msgid "By _Name"
+#~ msgstr "Pagal pavadi_nimą"
 
-#: ../src/demo/main-win-ui.c:173
-msgid "By _Modification Time"
-msgstr "Pagal pakeitimo _laiką"
+#~ msgid "By _Modification Time"
+#~ msgstr "Pagal pakeitimo _laiką"
 
-#. {"NewTab", GTK_STOCK_NEW, N_("Open in New Tab"), NULL, NULL,
-#. G_CALLBACK(on_open_in_new_tab)},
-#: ../src/demo/main-win-ui.c:190
-msgid "Open in New Window"
-msgstr "Atverti naujame lange"
+#~ msgid "Open in New Window"
+#~ msgstr "Atverti naujame lange"

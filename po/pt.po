@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-02 05:21+0000\n"
+"POT-Creation-Date: 2010-02-10 01:24+0100\n"
 "PO-Revision-Date: 2010-02-02 12:13-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
@@ -99,8 +99,11 @@ msgid "Operations that the owner of the file can do"
 msgstr "Operações que o dono do ficheiro pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Operations that users of the same group with the owner of the file can do"
-msgstr "Operações que os utilizadores do mesmo grupo que o dono do ficheiro podem fazer"
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
+msgstr ""
+"Operações que os utilizadores do mesmo grupo que o dono do ficheiro podem "
+"fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -183,19 +186,19 @@ msgstr "<b>Para:</b>"
 msgid "Preparing..."
 msgstr "Preparando..."
 
-#: ../src/gtk/fm-folder-view.c:364
+#: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:381
+#: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:387
+#: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:393
+#: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
 msgstr "Modificado"
 
@@ -227,44 +230,43 @@ msgstr "Por favor, indique o novo nome:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Você tem certeza que deseja esvaziar o lixo?"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
 msgstr "Montar Volume"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
 msgstr "Desmontar Volume"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
 msgstr "Ejectar Média Amovível"
 
-#: ../src/gtk/fm-places-view.c:142
-#: ../src/gtk/fm-places-view.c:724
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
 msgstr "Renomear Marcador"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
 msgstr "Remover dos Marcadores"
 
-#: ../src/gtk/fm-places-view.c:155
+#: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
 msgstr "Esvaziar Lixo"
 
-#: ../src/gtk/fm-places-view.c:400
+#: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
 msgstr "Lixo"
 
-#: ../src/gtk/fm-places-view.c:447
+#: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
 msgstr "Área de Trabalho"
 
-#: ../src/gtk/fm-places-view.c:459
+#: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
 msgstr "Aplicações"
 
-#: ../src/gtk/fm-places-view.c:725
+#: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
 msgstr "Ondique o novo nome:"
 
@@ -313,7 +315,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:353
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Deseja aplicar estas modificações a todas os ficheiros e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:620
@@ -337,8 +340,7 @@ msgstr "Falha de XDirectSave."
 msgid "It's not a valid directory"
 msgstr "Não é um directório válido"
 
-#: ../src/base/fm-utils.c:52
-#: ../src/base/fm-utils.c:81
+#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -384,4 +386,3 @@ msgstr "Atalhos"
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Ponto de Montagem"
-
