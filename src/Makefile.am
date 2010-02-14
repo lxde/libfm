@@ -63,6 +63,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
+	gtk/fm-app-menu-view.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
 	gtk/fm-file-properties.c \
@@ -107,6 +108,7 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
+	gtk/fm-app-menu-view.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
 	gtk/fm-file-properties.h \
@@ -150,12 +152,13 @@ libfm_gtk_la_SOURCES = \
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GIO_CFLAGS) \
+	$(MENU_CACHE_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
 	-Werror-implicit-function-declaration
 
-libfm_gtk_la_LIBADD = $(GTK_LIBS) $(GIO_LIBS) $(INTLLIBS) libfm.la
+libfm_gtk_la_LIBADD = $(GTK_LIBS) $(GIO_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS) libfm.la
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
