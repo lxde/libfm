@@ -241,10 +241,10 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                 err = NULL;
                             }
                             g_object_unref(app);
+                            continue;
                         }
                     }
                     g_free(filename);
-                    continue;
                 }
             }
             if(fi->type && fi->type->type)

@@ -629,7 +629,6 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
 {
     FmFileLauncher launcher = {
         choose_app,
-        NULL,
         on_open_folder,
         on_launch_error
     };
