@@ -133,14 +133,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else
         {
-            FmFileLauncher launcher = {
-                NULL,
-                NULL,
-                NULL,
-                NULL
-            };
-
-            fm_launch_file(ctx, fi, &launcher, win);
+            fm_launch_file_simple(win, NULL, fi, open_folder_func, win);
         }
         break;
     case FM_FV_CONTEXT_MENU:
