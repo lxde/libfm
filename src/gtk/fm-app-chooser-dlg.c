@@ -24,6 +24,7 @@
 
 #include <glib/gi18n-lib.h>
 #include <string.h>
+#include <unistd.h>
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
 #include <menu-cache.h>
@@ -41,6 +42,46 @@ struct _AppChooserData
     GtkWidget* use_terminal;
     FmMimeType* mime_type;
 };
+
+GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
+                                               const char *application_name,
+                                               gboolean terminal)
+{
+    GAppInfo* app = NULL;
+    char* dirname = g_build_filename (g_get_user_data_dir (), "applications", NULL);
+
+    if(g_mkdir_with_parents(dirname, 0700) == 0)
+    {
+        char* filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, application_name);
+        int fd = g_mkstemp (filename);
+        if(fd != -1)
+        {
+            GString* content = g_string_sized_new(256);
+            g_string_printf(content,
+                "[Desktop Entry]\n"
+                "Type=Application\n"
+                "Name=%s\n"
+                "Exec=%s\n"
+                "NoDisplay=true\n",
+                application_name,
+                commandline
+            );
+            if(terminal)
+                g_string_append_printf(content,
+                    "Terminal=%s\n", terminal ? "true" : "false");
+            if(g_file_set_contents(filename, content->str, content->len, NULL))
+            {
+                char* desktop_id = g_path_get_basename(filename);
+                app = g_desktop_app_info_new(desktop_id);
+                g_free(desktop_id);
+            }
+            close(fd);
+        }
+        g_free(filename);
+    }
+    g_free(dirname);
+    return app;
+}
 
 static void on_dlg_destroy(AppChooserData* data, GObject* dlg)
 {
@@ -164,7 +205,6 @@ GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_defa
             {
                 char* _cmdline = NULL;
                 gboolean arg_found = FALSE;
-                GAppInfoCreateFlags flags = 0;
                 char* bin1 = get_binary(cmdline, &arg_found);
                 g_debug("bin1 = %s", bin1);
                 /* see if command line contains %f, %F, %u, or %U. */
@@ -231,9 +271,8 @@ GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_defa
                     }
                 }
 
-                if( gtk_toggle_button_get_active(data->use_terminal))
-                    flags |= G_APP_INFO_CREATE_NEEDS_TERMINAL;
-                app = g_app_info_create_from_commandline(cmdline, NULL, flags, NULL);
+                /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
+                app = fm_app_info_create_from_commandline(cmdline, bin1, gtk_toggle_button_get_active(data->use_terminal));
             _out:
                 g_free(bin1);
                 g_free(_cmdline);
