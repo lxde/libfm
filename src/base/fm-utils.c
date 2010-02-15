@@ -282,6 +282,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     uri = fm_path_to_uri(fi->path);
                     l->data = uri;
                 }
+                fis = g_list_reverse(fis);
                 g_app_info_launch_uris(app, fis, ctx, err);
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
@@ -294,6 +295,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
 
     if(folders)
     {
+        folders = g_list_reverse(folders);
         if(launcher->open_folder)
         {
             launcher->open_folder(ctx, folders, user_data, &err);
