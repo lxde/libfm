@@ -61,7 +61,7 @@
 
 * path resolution and canonicalization: convert ../ and ./ gracefully
 
-* Add "Create New" to popup menu of folder. => partially done
+* Add "Create New" to popup menu of folder. => partially done, quite dirty.
 
 * Show available disk space in status bar => done, but in a slightly dirty way.
 
@@ -82,6 +82,8 @@
   Can use g_object_set_data to associate a FmFolderView with FmJob.
 
 * Support symlink creation.
+
+* Keyboard shortcuts in folder view.
 
 
 [Medium Priority]

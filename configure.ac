@@ -41,13 +41,13 @@ PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-gio_modules="gthread-2.0 gio-unix-2.0"
+gio_modules="gthread-2.0 gio-unix-2.0 glib-2.0 >= 2.18.0"
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
 
 gmodule_modules="gmodule-2.0"
-PKG_CHECK_MODULES(GLIB, [$gmodule_modules])
+PKG_CHECK_MODULES(GMODULE, [$gmodule_modules])
 AC_SUBST(GMODULE_CFLAGS)
 AC_SUBST(GMODULE_LIBS)
 
