@@ -33,8 +33,10 @@
 #include "fm-clipboard.h"
 #include "fm-file-properties.h"
 #include "fm-gtk-utils.h"
+#include "fm-app-chooser-dlg.h"
 
 static void on_open(GtkAction* action, gpointer user_data);
+static void on_open_with_app(GtkAction* action, gpointer user_data);
 static void on_open_with(GtkAction* action, gpointer user_data);
 static void on_cut(GtkAction* action, gpointer user_data);
 static void on_copy(GtkAction* action, gpointer user_data);
@@ -50,6 +52,7 @@ const char base_menu_xml[]=
   "<placeholder name='ph1'/>"
   "<separator/>"
   "<placeholder name='ph2'/>"
+  "<menuitem action='OpenWith'/>"
   "<separator/>"
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
@@ -71,6 +74,7 @@ const char base_menu_xml[]=
 GtkActionEntry base_menu_actions[]=
 {
     {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, on_open},
+    {"OpenWith", NULL, N_("Open With..."), NULL, NULL, on_open_with},
     {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_cut},
     {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_copy},
     {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_paste},
@@ -143,7 +147,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
                             g_app_info_get_name(app),
                             g_app_info_get_description(app), 
                             NULL);
-                g_signal_connect(act, "activate", G_CALLBACK(on_open_with), data);
+                g_signal_connect(act, "activate", G_CALLBACK(on_open_with_app), data);
                 gtk_action_set_gicon(act, g_app_info_get_icon(app));
                 gtk_action_group_add_action(act_grp, act);
                 /* associate the app info object with the action */
@@ -209,16 +213,13 @@ void on_open(GtkAction* action, gpointer user_data)
     g_object_unref(ctx);
 }
 
-void on_open_with(GtkAction* action, gpointer user_data)
+static void open_with_app(FmFileMenu* data, GAppInfo* app)
 {
     GdkAppLaunchContext* ctx;
-    FmFileMenu* data = (FmFileMenu*)user_data;
-    GAppInfo* app = (GAppInfo*)g_object_get_data(action, "app");
     FmFileInfoList* files = data->file_infos;
     GList* l = fm_list_peek_head_link(files);
     char** uris = g_new0(char*, fm_list_get_length(files) + 1);
     int i;
-    g_debug(gtk_action_get_name(action));
     for(i=0; l; ++i, l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
@@ -237,6 +238,36 @@ void on_open_with(GtkAction* action, gpointer user_data)
     g_object_unref(ctx);
 
     g_free(uris);
+}
+
+void on_open_with_app(GtkAction* action, gpointer user_data)
+{
+    FmFileMenu* data = (FmFileMenu*)user_data;
+    GAppInfo* app = (GAppInfo*)g_object_get_data(action, "app");
+    g_debug("%s", gtk_action_get_name(action));
+    open_with_app(data, app);
+}
+
+void on_open_with(GtkAction* action, gpointer user_data)
+{
+    FmFileMenu* data = (FmFileMenu*)user_data;
+    FmFileInfoList* files = data->file_infos;
+    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(files);
+    FmMimeType* mime_type;
+    GAppInfo* app;
+
+    if(data->same_type && fi->type && fi->type->type)
+        mime_type = fi->type;
+    else
+        mime_type = NULL;
+
+    app = fm_choose_app_for_mime_type(NULL, mime_type, TRUE);
+
+    if(app)
+    {
+        open_with_app(data, app);
+        g_object_unref(app);
+    }
 }
 
 void on_cut(GtkAction* action, gpointer user_data)

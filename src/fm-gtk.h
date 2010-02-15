@@ -24,6 +24,7 @@
 
 #include "fm.h"
 #include "fm-cell-renderer-text.h"
+#include "fm-cell-renderer-pixbuf.h"
 #include "fm-clipboard.h"
 #include "fm-dnd-dest.h"
 #include "fm-dnd-src.h"
@@ -36,6 +37,8 @@
 #include "fm-path-entry.h"
 #include "fm-places-view.h"
 #include "fm-progress-dlg.h"
+#include "fm-app-chooser-dlg.h"
+#include "fm-app-menu-view.h"
 
 G_BEGIN_DECLS
 

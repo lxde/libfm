@@ -667,7 +667,7 @@ static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
         /* if the user chooses "Other Applications..." */
         if(it.user_data == data->other_apps_iter_user_data)
         {
-            /* FIXME: let the user choose a app or add custom actions here. */
+            /* let the user choose a app or add custom actions here. */
             GAppInfo* app = fm_choose_app_for_mime_type(data->dlg, data->mime_type, FALSE);
             if(app)
             {
@@ -761,7 +761,7 @@ static void init_application_list(FmFilePropData* data)
             data->other_apps_iter_user_data = it.user_data;
             gtk_list_store_set(store, &it,
                                0, NULL,
-                               1, _("Other Applications"),
+                               1, _("Customize"),
                                2, NULL, -1);
             gtk_combo_box_set_model(data->open_with, store);
             if(def_it.user_data) /* default app is found */
