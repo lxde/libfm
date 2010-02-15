@@ -34,6 +34,11 @@ static void fm_nav_history_class_init(FmNavHistoryClass *klass)
 	g_object_class->finalize = fm_nav_history_finalize;
 }
 
+static void fm_nav_history_item_free(FmNavHistoryItem* item)
+{
+    fm_path_unref(item->path);
+    g_slice_free(FmNavHistoryItem, item);
+}
 
 static void fm_nav_history_finalize(GObject *object)
 {
@@ -43,15 +48,15 @@ static void fm_nav_history_finalize(GObject *object)
 	g_return_if_fail(IS_FM_NAV_HISTORY(object));
 
 	self = FM_NAV_HISTORY(object);
-    fm_list_unref(self->paths);
+    g_queue_foreach(&self->items, (GFunc)fm_nav_history_item_free, NULL);
+    g_queue_clear(&self->items);
 
 	G_OBJECT_CLASS(fm_nav_history_parent_class)->finalize(object);
 }
 
-
 static void fm_nav_history_init(FmNavHistory *self)
 {
-	self->paths = fm_path_list_new();
+	g_queue_init(&self->items);
 }
 
 
@@ -60,15 +65,15 @@ FmNavHistory *fm_nav_history_new(void)
 	return g_object_new(FM_NAV_HISTORY_TYPE, NULL);
 }
 
-
-FmPathList* fm_nav_history_list(FmNavHistory* nh)
+/* The returned GList belongs to FmNavHistory and shouldn't be freed. */
+GList* fm_nav_history_list(FmNavHistory* nh)
 {
-    return fm_list_ref(nh->paths);
+    return nh->items.head;
 }
 
-FmPath* fm_nav_history_get_cur(FmNavHistory* nh)
+const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
 {
-    return nh->cur ? (FmPath*)nh->cur->data : NULL;
+    return nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
 }
 
 GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
@@ -81,8 +86,12 @@ gboolean fm_nav_history_get_can_forward(FmNavHistory* nh)
     return nh->cur ? (nh->cur->prev != NULL) : FALSE;
 }
 
-void fm_nav_history_forward(FmNavHistory* nh)
+void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
 {
+    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
+    if(tmp) /* remember current scroll pos */
+        tmp->scroll_pos = old_scroll_pos;
+
     if(nh->cur && nh->cur->prev)
         nh->cur = nh->cur->prev;
 }
@@ -92,36 +101,57 @@ gboolean fm_nav_history_get_can_back(FmNavHistory* nh)
     return nh->cur ? (nh->cur->next != NULL) : FALSE;
 }
 
-void fm_nav_history_back(FmNavHistory* nh)
+void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos)
 {
+    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
+    if(tmp) /* remember current scroll pos */
+        tmp->scroll_pos = old_scroll_pos;
+
     if(nh->cur && nh->cur->next)
         nh->cur = nh->cur->next;
 }
 
-void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path)
+void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
 {
-    FmPath* tmp;
-    while( fm_list_peek_head_link(nh->paths) != nh->cur )
+    FmNavHistoryItem* tmp;
+
+    /* if we're not at the top of the queue, remove all items beyond us. */
+    while(nh->items.head != nh->cur)
     {
-        tmp = fm_list_pop_head(nh->paths);
-        fm_path_unref(tmp);
+        tmp = g_queue_pop_head(&nh->items);
+        fm_nav_history_item_free(tmp);
     }
-    tmp = nh->cur ? (FmPath*)nh->cur->data : NULL;
-    if( !tmp || !fm_path_equal(tmp, path) )
+
+    /* now we're at the top of the queue. */
+    tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
+    if(tmp) /* remember current scroll pos */
+        tmp->scroll_pos = old_scroll_pos;
+
+    if( !tmp || !fm_path_equal(tmp->path, path) ) /* we're not chdir to the same path */
     {
-        fm_list_push_head(nh->paths, path);
-        nh->cur = fm_list_peek_head_link(nh->paths);
+        tmp = g_queue_peek_head(&nh->items);
+
+        /* add a new item */
+        tmp = g_slice_new0(FmNavHistoryItem);
+        tmp->path = fm_path_ref(path);
+        g_queue_push_head(&nh->items, tmp);
+        nh->cur = fm_list_peek_head_link(&nh->items);
     }
 }
 
-void fm_nav_history_jump(FmNavHistory* nh, GList* l)
+void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos)
 {
+    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
+    if(tmp) /* remember current scroll pos */
+        tmp->scroll_pos = old_scroll_pos;
+
     nh->cur = l;
 }
 
 void fm_nav_history_clear(FmNavHistory* nh)
 {
-    fm_list_clear(nh->paths);
+    g_queue_foreach(&nh->items, (GFunc)fm_nav_history_item_free, NULL);
+    g_queue_clear(&nh->items);
 }
 
 void fm_nav_history_set_max(FmNavHistory* nh, guint num)
@@ -129,10 +159,10 @@ void fm_nav_history_set_max(FmNavHistory* nh, guint num)
     nh->n_max = num;
     if(num >=0)
     {
-        while(fm_list_get_length(nh->paths) > num)
+        while(g_queue_get_length(&nh->items) > num)
         {
-            FmPath* path = (FmPath*)fm_list_pop_tail(nh->paths);
-            fm_path_unref(path);
+            FmNavHistoryItem* item = (FmNavHistoryItem*)g_queue_pop_tail(&nh->items);
+            fm_nav_history_item_free(item);
         }
     }
 }

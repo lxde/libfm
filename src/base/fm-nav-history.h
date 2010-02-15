@@ -24,10 +24,11 @@
 #define __FM_NAV_HISTORY_H__
 
 #include <glib-object.h>
-#include "fm-list.h"
 #include "fm-path.h"
 
 G_BEGIN_DECLS
+
+/* FIXME: Do we really need GObject for such a simple data structure? */
 
 #define FM_NAV_HISTORY_TYPE				(fm_nav_history_get_type())
 #define FM_NAV_HISTORY(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
@@ -40,12 +41,19 @@ G_BEGIN_DECLS
 			FM_NAV_HISTORY_TYPE))
 
 typedef struct _FmNavHistory			FmNavHistory;
+typedef struct _FmNavHistoryItem		FmNavHistoryItem;
 typedef struct _FmNavHistoryClass		FmNavHistoryClass;
+
+struct _FmNavHistoryItem
+{
+    FmPath* path;
+    int scroll_pos;
+};
 
 struct _FmNavHistory
 {
 	GObject parent;
-    FmPathList* paths;
+    GQueue items;
     GList* cur;
     guint n_max;
 };
@@ -58,15 +66,16 @@ struct _FmNavHistoryClass
 GType		fm_nav_history_get_type		(void);
 FmNavHistory*	fm_nav_history_new			(void);
 
-FmPathList* fm_nav_history_list(FmNavHistory* nh);
-FmPath* fm_nav_history_get_cur(FmNavHistory* nh);
+/* The returned GList belongs to FmNavHistory and shouldn't be freed. */
+GList* fm_nav_history_list(FmNavHistory* nh);
+const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh);
 GList* fm_nav_history_get_cur_link(FmNavHistory* nh);
 gboolean fm_nav_history_get_can_back(FmNavHistory* nh);
-void fm_nav_history_back(FmNavHistory* nh);
+void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos);
 gboolean fm_nav_history_get_can_forward(FmNavHistory* nh);
-void fm_nav_history_forward(FmNavHistory* nh);
-void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path);
-void fm_nav_history_jump(FmNavHistory* nh, GList* l);
+void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos);
+void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos);
+void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos);
 void fm_nav_history_clear(FmNavHistory* nh);
 void fm_nav_history_set_max(FmNavHistory* nh, guint num);
 

@@ -55,10 +55,6 @@
      Now mounting works when the user click on a volume in side pane.
      Not available yet in computer:///
 
-* Browse History for 'Back' and 'Forward'. => almost done but still buggy
-  A history menu => almost done but still buggy
-  FmNavHistory: should remember previous scroll positions.
-
 * path resolution and canonicalization: convert ../ and ./ gracefully
 
 * Add "Create New" to popup menu of folder. => partially done, quite dirty.
