@@ -32,6 +32,7 @@
 
 #include "fm-clipboard.h"
 #include "fm-file-properties.h"
+#include "fm-utils.h"
 #include "fm-gtk-utils.h"
 #include "fm-app-chooser-dlg.h"
 
@@ -218,14 +219,8 @@ void on_open(GtkAction* action, gpointer user_data)
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
-    for(; l; l=l->next)
-    {
-        FmFileInfo* fi = (FmFileInfo*)l->data;
-        if(fm_file_info_is_dir(fi) && data->folder_hook)
-            data->folder_hook(fi, data->folder_hook_data);
-        else
-            fm_launch_file(data->menu, ctx, fi);
-    }
+    fm_launch_files_simple(NULL, ctx, l, data->folder_func, data->folder_func_data);
+
     g_object_unref(ctx);
 }
 
@@ -346,8 +341,8 @@ gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
     return menu->same_type;
 }
 
-void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data)
+void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data)
 {
-    menu->folder_hook = hook;
-    menu->folder_hook_data = user_data;
+    menu->folder_func = func;
+    menu->folder_func_data = user_data;
 }

@@ -30,6 +30,7 @@
 #include "fm-file-ops-job.h"
 #include "fm-progress-dlg.h"
 #include "fm-path-entry.h"
+#include "fm-app-chooser-dlg.h"
 
 #include "fm-config.h"
 
@@ -544,6 +545,7 @@ void fm_empty_trash()
     }
 }
 
+#if 0
 gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi)
 {
     char* uri;
@@ -598,13 +600,49 @@ gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* f
         g_object_unref(_ctx);
     return ret;
 }
+#endif
 
-gboolean fm_launch_files(GtkWidget* widget, GAppLaunchContext* ctx, GList* file_infos)
+
+static GAppInfo* choose_app(GList* file_infos, FmMimeType* mime_type, gpointer user_data, GError** err)
 {
-    /* FIXME: not yet implemented */
-
-    /* FIXME: should group files of the same type and pass multiple files
-     * of the same time at once to default app. */
-
-    return FALSE;
+    gpointer* data = (gpointer*)user_data;
+    GtkWindow* parent = (GtkWindow*)data[0];
+    return fm_choose_app_for_mime_type(parent, mime_type, mime_type != NULL);
 }
+
+static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err, gpointer user_data)
+{
+    gpointer* data = (gpointer*)user_data;
+    GtkWindow* parent = (GtkWindow*)data[0];
+    fm_show_error(parent, err->message);
+    return TRUE;
+}
+
+static gboolean on_open_folder(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
+{
+    gpointer* data = (gpointer*)user_data;
+    FmLaunchFolderFunc func = (FmLaunchFolderFunc)data[1];
+    return func(ctx, folder_infos, data[2], err);
+}
+
+gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* file_infos, FmLaunchFolderFunc func, gpointer user_data)
+{
+    FmFileLauncher launcher = {
+        choose_app,
+        NULL,
+        on_open_folder,
+        on_launch_error
+    };
+    gpointer data[] = {parent, func, user_data};
+    return fm_launch_files(ctx, file_infos, &launcher, data);
+}
+
+gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* file_info, FmLaunchFolderFunc func, gpointer user_data)
+{
+    gboolean ret;
+    GList* files = g_list_prepend(NULL, file_info);
+    ret = fm_launch_files_simple(parent, ctx, files, func, user_data);
+    g_list_free(files);
+    return ret;
+}
+

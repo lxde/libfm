@@ -125,8 +125,8 @@ gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
 
-/* Full path of the file is required by this function */
-gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path );
+/* if the mime-type is executable, such as shell script, python script, ... */
+gboolean fm_file_info_is_executable_type( FmFileInfo* fi);
 
 const char* fm_file_info_get_collate_key( FmFileInfo* fi );
 const char* fm_file_info_get_desc( FmFileInfo* fi );
@@ -134,53 +134,7 @@ const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_atime( FmFileInfo* fi );
 
-#if 0
-gboolean fm_file_info_get( FmFileInfo* fi,
-                            const char* file_path,
-                            const char* base_name );
 
-void fm_file_info_reload_mime_type( FmFileInfo* fi,
-                                     const char* full_path );
-
-
-const char* fm_file_info_get_disp_owner( FmFileInfo* fi );
-const char* fm_file_info_get_disp_perm( FmFileInfo* fi );
-
-
-void fm_file_info_set_thumbnail_size( int big, int small );
-gboolean fm_file_info_load_thumbnail( FmFileInfo* fi,
-                                       const char* full_path,
-                                       gboolean big );
-gboolean fm_file_info_is_thumbnail_loaded( FmFileInfo* fi,
-                                            gboolean big );
-
-GdkPixbuf* fm_file_info_get_big_icon( FmFileInfo* fi );
-GdkPixbuf* fm_file_info_get_small_icon( FmFileInfo* fi );
-
-GdkPixbuf* fm_file_info_get_big_thumbnail( FmFileInfo* fi );
-GdkPixbuf* fm_file_info_get_small_thumbnail( FmFileInfo* fi );
-
-
-
-/* Full path of the file is required by this function */
-gboolean fm_file_info_is_text( FmFileInfo* fi, const char* file_path );
-
-/*
-* Run default action of specified file.
-* Full path of the file is required by this function.
-*/
-gboolean fm_file_info_open_file( FmFileInfo* fi,
-                                  const char* file_path,
-                                  GError** err );
-
-void fm_file_info_load_special_info( FmFileInfo* fi,
-                                      const char* file_path );
-
-
-/* resolve file path name */
-char* vfs_file_resolve_path( const char* cwd, const char* relative_path );
-
-#endif
 
 FmFileInfoList* fm_file_info_list_new();
 FmFileInfoList* fm_file_info_list_new_from_glist();

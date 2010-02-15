@@ -29,6 +29,7 @@
 
 #include "fm-path.h"
 #include "fm-file-ops-job.h"
+#include "fm-utils.h"
 
 G_BEGIN_DECLS
 
@@ -79,8 +80,8 @@ void fm_rename_file(FmPath* file);
 
 void fm_empty_trash();
 
-gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi);
-gboolean fm_launch_files(GtkWidget* widget, GAppLaunchContext* ctx, GList* file_infos);
+gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* file_infos, FmLaunchFolderFunc func, gpointer user_data);
+gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* file_info, FmLaunchFolderFunc func, gpointer user_data);
 
 G_END_DECLS
 

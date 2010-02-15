@@ -24,10 +24,9 @@
 
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
+#include "fm-gtk-utils.h"
 
 G_BEGIN_DECLS
-
-typedef (*FmFileMenuFolderHook)(FmFileInfo* fi, gpointer user_data);
 
 typedef struct _FmFileMenu FmFileMenu;
 struct _FmFileMenu
@@ -42,8 +41,8 @@ struct _FmFileMenu
 	gboolean auto_destroy;
 	GtkWidget* menu;
 
-    FmFileMenuFolderHook folder_hook;
-    gpointer folder_hook_data;
+    FmLaunchFolderFunc folder_func;
+    gpointer folder_func_data;
 };
 
 FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, gboolean auto_destroy);
@@ -61,7 +60,7 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 /* call fm_list_ref() if you need to own reference to the returned list. */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
-void fm_file_menu_set_folder_hook(FmFileMenu* menu, FmFileMenuFolderHook hook, gpointer user_data);
+void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
 
 G_END_DECLS
 

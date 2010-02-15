@@ -359,6 +359,7 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
 	return fi->type == desktop_entry_type;
+    /* return g_strcmp0(fi->type->type, "application/x-desktop") == 0; */
 }
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )
@@ -367,7 +368,7 @@ gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )
 }
 
 /* full path of the file is required by this function */
-gboolean fm_file_info_is_executable( FmFileInfo* fi, const char* file_path )
+gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
 {
 	// FIXME: didn't check access rights.
 //    return mime_type_is_executable_file( file_path, fi->type->type );
