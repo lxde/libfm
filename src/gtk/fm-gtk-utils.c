@@ -545,64 +545,6 @@ void fm_empty_trash()
     }
 }
 
-#if 0
-gboolean fm_launch_file(GtkWidget* widget, GAppLaunchContext* ctx, FmFileInfo* fi)
-{
-    char* uri;
-    GAppLaunchContext* _ctx = NULL;
-    gboolean ret = TRUE;
-    FmPath* path = fi->path;
-    GError* err = NULL;
-
-    if(!ctx)
-    {
-        ctx = _ctx = gdk_app_launch_context_new();
-        gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(widget));
-        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
-    }
-
-    if(fm_file_info_is_desktop_entry(fi) && fm_path_is_native(path))
-    {
-        char* filename = fm_path_to_str(path);
-        GAppInfo* app = g_desktop_app_info_new_from_filename(filename);
-        if(app)
-        {
-            if( !g_app_info_launch(app, NULL, ctx, &err) )
-            {
-                fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
-                g_error_free(err);
-                err = NULL;
-                ret = FALSE;
-            }
-            g_object_unref(app);
-        }
-        g_free(filename);
-    }
-    else
-    {
-        uri = fm_path_to_uri(path);
-        /* FIXME: set app icon */
-        /* gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app)); */
-
-        /* FIXME: replace this with our own code since we already know the
-         * file types and related apps in advance. */
-        if(!g_app_info_launch_default_for_uri( uri, ctx, &err))
-        {
-            fm_show_error((GtkWindow*)gtk_widget_get_toplevel(widget), err->message);
-            g_error_free(err);
-            err = NULL;
-            ret = FALSE;
-        }
-        g_free(uri);
-    }
-
-    if(_ctx)
-        g_object_unref(_ctx);
-    return ret;
-}
-#endif
-
-
 static GAppInfo* choose_app(GList* file_infos, FmMimeType* mime_type, gpointer user_data, GError** err)
 {
     gpointer* data = (gpointer*)user_data;
@@ -633,7 +575,19 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
         on_launch_error
     };
     gpointer data[] = {parent, func, user_data};
-    return fm_launch_files(ctx, file_infos, &launcher, data);
+    GAppLaunchContext* _ctx = NULL;
+    gboolean ret;
+    if(ctx == NULL)
+    {
+        _ctx = ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(ctx, parent ? gtk_widget_get_screen(parent) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+        /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+    }
+    ret = fm_launch_files(ctx, file_infos, &launcher, data);
+    if(_ctx)
+        g_object_unref(_ctx);
+    return ret;
 }
 
 gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* file_info, FmLaunchFolderFunc func, gpointer user_data)

@@ -210,18 +210,10 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 
 void on_open(GtkAction* action, gpointer user_data)
 {
-    GdkAppLaunchContext* ctx;
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_list_peek_head_link(data->file_infos);
     GError* err = NULL;
-
-    ctx = gdk_app_launch_context_new();
-    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
-    gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
-
-    fm_launch_files_simple(NULL, ctx, l, data->folder_func, data->folder_func_data);
-
-    g_object_unref(ctx);
+    fm_launch_files_simple(gtk_widget_get_toplevel(data->menu), NULL, l, data->folder_func, data->folder_func_data);
 }
 
 static void open_with_app(FmFileMenu* data, GAppInfo* app)
