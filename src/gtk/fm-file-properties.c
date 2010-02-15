@@ -41,6 +41,8 @@
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
 
+#include "fm-app-chooser-dlg.h"
+
 #define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
 #define     GET_WIDGET(name)    data->name = (GtkWidget*)gtk_builder_get_object(builder, #name);
 
@@ -92,9 +94,11 @@ struct _FmFilePropData
     gboolean all_native;
     gboolean has_dir;
     FmMimeType* mime_type;
-    gpointer separator_iter_user_data;
+    GtkTreeIter separator_iter;
     gpointer other_apps_iter_user_data;
+    GAppInfo* def_app;
     GAppInfo* new_app;
+    GtkTreeIter prev_sel;
     
     uid_t uid;
     gid_t gid;
@@ -651,7 +655,7 @@ static gboolean is_row_separator(GtkTreeModel* model, GtkTreeIter* it, gpointer 
 {
     FmFilePropData* data = (FmFilePropData*)user_data;
     /* FIXME: this is dirty but it works! */
-    return data->separator_iter_user_data == it->user_data;
+    return data->separator_iter.user_data == it->user_data;
 }
 
 static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
@@ -664,12 +668,59 @@ static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
         if(it.user_data == data->other_apps_iter_user_data)
         {
             /* FIXME: let the user choose a app or add custom actions here. */
+            GAppInfo* app = fm_choose_app_for_mime_type(data->dlg, data->mime_type, FALSE);
+            if(app)
+            {
+                gboolean found = FALSE;
+                /* see if it's already in the list to prevent duplication */
+                if(gtk_tree_model_get_iter_first(model, &it))
+                {
+                    GAppInfo *_app;
+                    do
+                    {
+                        gtk_tree_model_get(model, &it, 2, &_app, -1);
+                        if(_app)
+                        {
+                            found = g_app_info_equal(app, _app);
+                            g_object_unref(_app);
+                        }
+                        if(found)
+                            break;
+                    }while(gtk_tree_model_iter_next(model, &it));
+                }
+
+                /* if it's not found, add it to the list */
+                if(!found)
+                {
+                    gtk_list_store_insert_before(model, &it, &data->separator_iter);
+                    gtk_list_store_set(model, &it,
+                                       0, g_app_info_get_icon(app),
+                                       1, g_app_info_get_name(app),
+                                       2, app, -1);
+                    data->prev_sel = it;
+                    // data->new_app = app;
+                    gtk_combo_box_set_active_iter(cb, &it);
+                }
+                else
+                {
+                    g_object_unref(app);
+                    gtk_combo_box_set_active_iter(cb, &it);
+                }
+            }
+            else if(data->prev_sel.user_data)
+                gtk_combo_box_set_active_iter(cb, &data->prev_sel);
         }
         else /* an application in the list is selected */
         {
             if(data->new_app) /* unref the old one */
                 g_object_unref(data->new_app);
             gtk_tree_model_get(model, &it, 2, &data->new_app, -1);
+            if(data->new_app && data->def_app && g_app_info_equal(data->new_app, data->def_app))
+            {
+                g_object_unref(data->new_app);
+                data->new_app = NULL;
+            }
+            data->prev_sel = it;
         }
     }
 }
@@ -696,6 +747,7 @@ static void init_application_list(FmFilePropData* data)
                 {
                     /* this is the default app */
                     def_it = it;
+                    data->def_app = app;
                 }
                 g_object_unref(app);
             }
@@ -703,7 +755,7 @@ static void init_application_list(FmFilePropData* data)
                 g_object_unref(def_app); /* free default app */
             g_list_free(apps);
             gtk_list_store_append(store, &it); /* separator */
-            data->separator_iter_user_data = it.user_data;
+            data->separator_iter = it;
 
             gtk_list_store_append(store, &it); /* other applications */
             data->other_apps_iter_user_data = it.user_data;
@@ -713,7 +765,10 @@ static void init_application_list(FmFilePropData* data)
                                2, NULL, -1);
             gtk_combo_box_set_model(data->open_with, store);
             if(def_it.user_data) /* default app is found */
+            {
+                data->prev_sel = def_it;
                 gtk_combo_box_set_active_iter(data->open_with, &def_it);
+            }
             gtk_combo_box_set_row_separator_func(data->open_with, is_row_separator, data, NULL);
             g_object_unref(store);
 

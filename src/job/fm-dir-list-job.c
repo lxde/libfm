@@ -132,25 +132,32 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
     else
         dir = menu_cache_get_root_dir(mc);
 
-    for(l=menu_cache_dir_get_children(dir);l;l=l->next)
+    if(dir)
     {
-        MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
-        GIcon* gicon;
-        if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
-            continue;
-        fi = fm_file_info_new();
-        fi->path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
-        fi->disp_name = g_strdup(menu_cache_item_get_name(item));
-        fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
-        if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+        FmMimeType* shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut");
+        for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
-            fi->mode |= S_IFDIR;
+            MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
+            GIcon* gicon;
+            if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
+                continue;
+            fi = fm_file_info_new();
+            fi->path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
+            fi->disp_name = g_strdup(menu_cache_item_get_name(item));
+            fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
+            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+            {
+                fi->mode |= S_IFDIR;
+            }
+            else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+            {
+                fi->mode |= S_IFREG;
+                fi->target = menu_cache_item_get_file_path(item);
+            }
+            fi->type = fm_mime_type_ref(shortcut_type);
+            fm_list_push_tail_noref(job->files, fi);
         }
-        else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-        {
-            fi->mode |= S_IFREG;
-        }
-        fm_list_push_tail_noref(job->files, fi);
+        fm_mime_type_unref(shortcut_type);
     }
     menu_cache_unref(mc);
 }

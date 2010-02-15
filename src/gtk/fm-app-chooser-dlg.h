@@ -1,5 +1,5 @@
 /*
- *      fm-app-menu-view.h
+ *      fm-app-chooser-dlg.h
  *      
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      
@@ -20,20 +20,20 @@
  */
 
 
-#ifndef __FM_APP_MENU_VIEW_H__
-#define __FM_APP_MENU_VIEW_H__
+#ifndef __FM_APP_CHOOSER_DLG_H__
+#define __FM_APP_CHOOSER_DLG_H__
 
 #include <gtk/gtk.h>
+#include <gio/gio.h>
+#include "fm-mime-type.h"
 
 G_BEGIN_DECLS
 
-GtkWidget*	fm_app_menu_view_new(void);
-GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view);
-char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view);
-char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view);
-gboolean fm_app_menu_view_is_app_selected(GtkTreeView* view);
-gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it);
+GtkWidget*	fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default);
+GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_default);
+
+GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, gboolean can_set_default);
 
 G_END_DECLS
 
-#endif /* __FM_APP_MENU_VIEW_H__ */
+#endif /* __FM_APP_CHOOSER_DLG_H__ */

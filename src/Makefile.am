@@ -64,6 +64,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
 	gtk/fm-app-menu-view.c \
+	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
 	gtk/fm-file-properties.c \
@@ -109,6 +110,7 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
 	gtk/fm-app-menu-view.h \
+	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
 	gtk/fm-file-properties.h \

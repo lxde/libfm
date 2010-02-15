@@ -78,7 +78,7 @@ static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
                     else
                     {
                         char* dot = strrchr((char*)menu_cache_item_get_icon(item), '.');
-                        if(dot && (strcmp(dot+1, "png") == 0 || strcmp(dot+1, "svg") == 0))
+                        if(dot && (strcmp(dot+1, "png") == 0 || strcmp(dot+1, "svg") == 0 || strcmp(dot+1, "xpm") == 0))
                         {
                             char* name = g_strndup(menu_cache_item_get_icon(item), dot - menu_cache_item_get_icon(item));
                             gicon = g_themed_icon_new(name);
@@ -163,14 +163,28 @@ GtkWidget *fm_app_menu_view_new(void)
 
 GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
 {
-    char* path = fm_app_menu_view_get_selected_app_desktop_file(view);
-    if(path)
+    char* id = fm_app_menu_view_get_selected_app_desktop_id(view);
+    if(id)
     {
-        GDesktopAppInfo* app = g_desktop_app_info_new_from_filename(path);
-        g_free(path);
+        GDesktopAppInfo* app = g_desktop_app_info_new(id);
+        g_free(id);
         return app;
     }
     return NULL;
+}
+
+char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
+{
+    GtkTreeIter it;
+    GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    if(gtk_tree_selection_get_selected(sel, NULL, &it))
+    {
+        MenuCacheItem* item;
+        gtk_tree_model_get(store, &it, COL_ITEM, &item, -1);
+        if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+            return g_strdup(menu_cache_item_get_id(item));
+    }
+    return NULL;    
 }
 
 char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
@@ -188,4 +202,22 @@ char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
         }
     }
     return NULL;    
+}
+
+gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it)
+{
+    MenuCacheItem* item;
+    gtk_tree_model_get(store, it, COL_ITEM, &item, -1);
+    if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+        return TRUE;
+    return FALSE;
+}
+
+gboolean fm_app_menu_view_is_app_selected(GtkTreeView* view)
+{
+    GtkTreeIter it;
+    GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    if(gtk_tree_selection_get_selected(sel, NULL, &it))
+        return fm_app_menu_view_is_item_app(view, &it);
+    return FALSE;
 }

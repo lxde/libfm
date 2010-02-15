@@ -6,6 +6,7 @@ ui_in_files= \
 	file-prop.glade \
 	progress.glade \
 	ask-rename.glade \
+	app-chooser.glade \
 	$(NULL)
 ui_DATA = $(ui_in_files:.glade=.ui)
 
