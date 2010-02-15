@@ -141,6 +141,8 @@ GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->status = (GtkWidget*)gtk_builder_get_object(builder, "status");
     data->mime_type = mime_type;
 
+    gtk_dialog_set_alternative_button_order(data->dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
+
     if(!can_set_default)
         gtk_widget_hide(data->set_default);
 

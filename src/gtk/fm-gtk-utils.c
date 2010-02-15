@@ -121,7 +121,8 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
     GtkWidget* entry = gtk_entry_new();
-    
+    gtk_entry_set_activates_default(entry, TRUE);
+
     if(default_text && default_text[0])
         gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
 
@@ -135,6 +136,8 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
     GtkWidget* entry = gtk_entry_new();
     char *str, *path_str = NULL;
     FmPath* path;
+
+    gtk_entry_set_activates_default(entry, TRUE);
     
     if(default_path) 
     {
@@ -154,8 +157,8 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char* msg, const char* default_text) 
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
-
     GtkWidget* entry = gtk_entry_new();
+    gtk_entry_set_activates_default(entry, TRUE);
 
     if(default_text && default_text[0])
     {
@@ -189,15 +192,21 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
 
 static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title, const char* msg)
 {
-    GtkWidget* dlg = gtk_dialog_new_with_buttons(title, parent, 0,
+    GtkWidget* dlg = gtk_dialog_new_with_buttons(title, parent, GTK_DIALOG_NO_SEPARATOR,
                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                 GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
     GtkWidget* label = gtk_label_new(msg);
+    gtk_misc_set_alignment(label, 0.0, 0.5);
 
+    gtk_dialog_set_alternative_button_order(dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
+    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(dlg), 6);
+    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(dlg), label, FALSE, TRUE, 6);
 
-    gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), label, FALSE, TRUE, 6);
+    gtk_container_set_border_width((GtkBox*)gtk_dialog_get_content_area(dlg), 12);
+    gtk_container_set_border_width(dlg, 5);
+    gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
+    gtk_window_set_default_size(dlg, 480, -1);
 
-    gtk_container_set_border_width(GTK_CONTAINER( GTK_DIALOG(dlg)->vbox ), 10);
     return dlg;
 }
 
