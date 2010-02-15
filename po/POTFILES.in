@@ -1,6 +1,7 @@
 data/ui/file-prop.glade
 data/ui/ask-rename.glade
 data/ui/progress.glade
+data/ui/app-chooser.glade
 
 src/gtk/fm-folder-view.c
 src/gtk/fm-gtk-utils.c
