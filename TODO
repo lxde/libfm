@@ -116,9 +116,6 @@
 
 * Auto-mounting
 
-* Move applications associated with a file to a seperate sub menu if
-     There are too many items.
-
 * Support mount specific filesystem encoding in the future. Now we only
      handle UTF-8 for simplicity.
      Those settings can be stored in FmConfig?

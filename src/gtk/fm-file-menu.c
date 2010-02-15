@@ -52,7 +52,6 @@ const char base_menu_xml[]=
   "<placeholder name='ph1'/>"
   "<separator/>"
   "<placeholder name='ph2'/>"
-  "<menuitem action='OpenWith'/>"
   "<separator/>"
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
@@ -69,12 +68,12 @@ const char base_menu_xml[]=
   "<menuitem action='Prop'/>"
 "</popup>";
 
-
 /* FIXME: how to show accel keys in the popup menu? */
 GtkActionEntry base_menu_actions[]=
 {
     {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, on_open},
     {"OpenWith", NULL, N_("Open With..."), NULL, NULL, on_open_with},
+    {"OpenWithMenu", NULL, N_("Open With..."), NULL, NULL, NULL},
     {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_cut},
     {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_copy},
     {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_paste},
@@ -116,6 +115,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
     GtkAccelGroup* accel_grp;
     FmFileInfo* fi;
     FmFileMenu* data = g_slice_new0(FmFileMenu);
+    GString* xml;
 
     data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
@@ -131,6 +131,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
     /* check if the files are of the same type */
     data->same_type = fm_file_info_list_is_same_type(files);
 
+    xml = g_string_new("<popup><placeholder name='ph2'>");
     if(data->same_type) /* add specific menu items for this mime type */
     {
         fi = (FmFileInfo*)fm_list_peek_head(files);
@@ -139,7 +140,10 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
             GtkAction* act;
             GList* apps = g_app_info_get_all_for_type(fi->type->type);
             GList* l;
-            GString *xml = g_string_new("<popup><placeholder name='ph2'>");
+            gboolean use_sub = g_list_length(apps) > 5;
+            if(use_sub)
+                g_string_append(xml, "<menu action='OpenWithMenu'>");
+
             for(l=apps;l;l=l->next)
             {
                 GAppInfo* app = l->data;
@@ -154,12 +158,24 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
                 g_object_set_data_full(act, "app", app, (GDestroyNotify)g_object_unref);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
             }
+
             g_list_free(apps);
-            g_string_append(xml, "</placeholder></popup>");
-            gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
-            g_string_free(xml, TRUE);
+            if(use_sub)
+            {
+                g_string_append(xml, 
+                    "<separator/>"
+                    "<menuitem action='OpenWith'/>"
+                    "</menu>");
+            }
+            else
+                g_string_append(xml, "<menuitem action='OpenWith'/>");
         }
     }
+    else
+        g_string_append(xml, "<menuitem action='OpenWith'/>");
+    g_string_append(xml, "</placeholder></popup>");
+    gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
+    g_string_free(xml, TRUE);
     return data;
 }
 
