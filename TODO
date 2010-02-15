@@ -57,6 +57,7 @@
 
 * Browse History for 'Back' and 'Forward'. => almost done but still buggy
   A history menu => almost done but still buggy
+  FmNavHistory: should remember previous scroll positions.
 
 * path resolution and canonicalization: convert ../ and ./ gracefully
 
@@ -64,17 +65,11 @@
 
 * Show available disk space in status bar => done, but in a slightly dirty way.
 
-* Change file type-application association in property dialog.
-     partially done, need to let the user choose a custom application.
-
 * FmFileMenu should provide special menu items for special paths
      For example:
      Add a "Recover" popup menu item for files in trash:///
      Provide totally different menus for items in computer:///
      Provide "Uninstall" for items in applications:/// (requires integration with package-kit)
-
-* Need to display marks on the icons of symlinks to let the users
-     know that they are symlinks
 
 * File searching utility => Subclass FmFolder and provide FmSearchFiles
      The search result can be given to a GtkTreeModel for display.
@@ -86,7 +81,7 @@
 * Select destination files when copy or move is finished.
   Can use g_object_set_data to associate a FmFolderView with FmJob.
 
-* FmNavHistory: should remember previous scroll positions.
+* Support symlink creation.
 
 
 [Medium Priority]
@@ -153,6 +148,10 @@
 
 
 [Very Low Priority]
+
+* Fork gvfs to make it gnome-free.
+
+* Add gio extension modules to override the ones provided by gvfs.
 
 * Provide a wizard to clean temporary files from the filesystem to get more
      usable disk space. => a disk cleaner is needed.
