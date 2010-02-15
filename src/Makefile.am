@@ -118,6 +118,7 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-progress-dlg.h \
 	gtk/fm-icon-pixbuf.h \
 	gtk/fm-cell-renderer-text.h \
+	gtk/fm-cell-renderer-pixbuf.h \
 	gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.h \
