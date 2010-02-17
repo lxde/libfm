@@ -310,7 +310,7 @@ static PlaceItem* find_vol(GVolume* vol, GtkTreeIter* _it)
             PlaceItem* item;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
 
-            if(item->type == PLACE_VOL && item->vol == vol)
+            if(item && item->type == PLACE_VOL && item->vol == vol)
             {
                 *_it = it;
                 return item;
@@ -333,7 +333,10 @@ void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
     item = find_vol(vol, &it);
     /* g_debug("remove vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi")); */
     if(item)
+    {
         gtk_list_store_remove(model, &it);
+        place_item_free(item);
+    }
 }
 
 void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
