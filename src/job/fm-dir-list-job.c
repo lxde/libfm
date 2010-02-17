@@ -120,6 +120,7 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
         GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
         gpointer notify_id = menu_cache_add_reload_notify(mc, on_menu_cache_reload, mainloop);
         g_main_loop_run(mainloop);
+        g_main_loop_unref(mainloop);
         menu_cache_remove_reload_notify(mc, notify_id);
     }
 

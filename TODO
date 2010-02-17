@@ -1,19 +1,5 @@
 [High Priority]
 
-* API redesign: maybe abstract classes like FmBasicView or FmBasicWin were needed.
-     in this way, both desktop window and folder views can have the same behavior
-     through the same interface.
-
-     example:
-     FmBasicView
-     {
-         sort();
-         show_hidden();
-         get_popup_menu_ui();
-         get_selected_files();
-         select_all();
-     }
-
 * File operations: move, copy, trashing, ...
      Implement correct error handling.
      Already works for FmDirListJob.
@@ -38,13 +24,6 @@
 * Better file size calculations
      prevent divided by zero problem. (calculate percentage when total size = 0)
      Some remote or virtual files doesn't have block size and block count.
-
-* Inter-process config change notifications:
-     fm_config_notify should cache all notfications.
-     Then, pack all changed values in a buffer and pass it to a notifier
-     function set with fm_config_set_notify_hook.
-     fm-gtk can use this hook to send the changed values via X11
-     root window properties or dbus.
 
 * Thumbnails, may be cached with hash table to speed up loading.
      A FmThumbnailJob is needed.
@@ -82,6 +61,7 @@
 * Keyboard shortcuts in folder view.
 
 
+
 [Medium Priority]
 
 * API renaming:
@@ -91,6 +71,20 @@
      currently there are inconsistent naming convention among different
      modules. _get_for_, new_from_, _get_from_, and simply _get_ are used
      in different places where APIs have similar behaviors.
+
+* API redesign: maybe abstract classes like FmBasicView or FmBasicWin were needed.
+     in this way, both desktop window and folder views can have the same behavior
+     through the same interface.
+
+     example:
+     FmBasicView
+     {
+         sort();
+         show_hidden();
+         get_popup_menu_ui();
+         get_selected_files();
+         select_all();
+     }
 
 * Better clipboard handling => almost done
      Can we be more compatible with GNOME and XFCE?
@@ -119,13 +113,23 @@
      Those settings can be stored in FmConfig?
 
 
+* Inter-process config change notifications:
+     fm_config_notify should cache all notfications.
+     Then, pack all changed values in a buffer and pass it to a notifier
+     function set with fm_config_set_notify_hook.
+     fm-gtk can use this hook to send the changed values via X11
+     root window properties or dbus.
+
 
 [Low Priority]
+
+* Constraint memory usage of FmIcon cache. Periodically removed rarely
+     used items might be needed.
 
 * Add FmGesture to support mouse gesture. (low priority)
      Maybe this should in another lib to be used in other programs, too.
 
-* Hiding computer:///, network:///, and disable trash:/// if gvfs is not
+* Hide computer:///, network:///, and disable trash:/// if gvfs is not
      available.
 
 * Implement fm_list_concat_glist to add a GList* to FmList or to convert

@@ -710,6 +710,8 @@ void on_mount(GtkAction* act, gpointer user_data)
         if(!fm_mount_volume(NULL, item->vol))
             return;
     }
+    else
+        g_object_unref(mnt);
 }
 
 void on_umount(GtkAction* act, gpointer user_data)
