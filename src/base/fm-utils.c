@@ -317,5 +317,7 @@ gboolean fm_launch_file(GAppLaunchContext* ctx, FmFileInfo* file, FmFileLauncher
     GList* files = g_list_prepend(NULL, file);
     fm_launch_files(ctx, files, launcher, user_data);
     g_list_free(files);
+
+    return TRUE;
 }
 
