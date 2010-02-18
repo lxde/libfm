@@ -146,7 +146,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
         loaded = g_key_file_load_from_file(kf, file_or_id, 0, err);
     else
     {
-        char* tmp = g_strconcat("applications/", file_or_id);
+        char* tmp = g_strconcat("applications/", file_or_id, NULL);
         loaded = g_key_file_load_from_data_dirs(kf, tmp, NULL, 0, err);
         g_free(tmp);
     }
