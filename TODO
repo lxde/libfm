@@ -26,7 +26,8 @@
      Some remote or virtual files doesn't have block size and block count.
 
 * Thumbnails, may be cached with hash table to speed up loading.
-     A FmThumbnailJob is needed.
+     Partially done, needs caching mechanism and more tests.
+     Need to support external thumbnailers.
 
 * Mount volumes and mount points when needed
      This already works with remote URLs.

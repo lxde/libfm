@@ -30,6 +30,13 @@
 #include <string.h>
 #include <gio/gio.h>
 
+/* #define ENABLE_DEBUG */
+#ifdef ENABLE_DEBUG
+#define DEBUG(...)  g_debug(__VA_ARGS__)
+#else
+#define DEBUG(...)
+#endif
+
 enum {
     LOADED,
     N_SIGNALS
@@ -1004,7 +1011,7 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
     guint size = fm_thumbnail_request_get_size(req);
     GSequenceIter* seq_it;
 
-    g_debug("thumbnail loaded for %s, %p, size = %d", fi->path->name, pix, size);
+    DEBUG("thumbnail loaded for %s, %p, size = %d", fi->path->name, pix, size);
 
     /* remove the request from list */
     model->thumbnail_requests = g_list_remove(model->thumbnail_requests, req);
