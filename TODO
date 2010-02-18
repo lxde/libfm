@@ -28,6 +28,11 @@
 * Thumbnails, may be cached with hash table to speed up loading.
      Partially done, needs caching mechanism and more tests.
      Need to support external thumbnailers.
+     Cache loaded thumbnails in hash table and use FmPath as keys.
+     Rotate by EXIF tag
+     Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
+     Limit the max size of file for which thumbnail should be generated.
+     Don't generate thumbnail for remote file systems?
 
 * Mount volumes and mount points when needed
      This already works with remote URLs.

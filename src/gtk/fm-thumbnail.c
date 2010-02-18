@@ -23,6 +23,15 @@
 #include <config.h>
 #endif
 
+/* TODO:
+ * Cache loaded thumbnails in hash table and use FmPath as keys.
+ * Rotate by EXIF tag
+ * Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
+ * Limit the max size of file for which thumbnail should be generated.
+ * Don't generate thumbnail for remote file systems?
+ * Need to support external thumbnailers.
+ * */
+
 #include "fm-thumbnail.h"
 #include <string.h>
 #include <stdlib.h>
@@ -763,28 +772,8 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
     if( ins = g_file_read(gf, generator_cancellable, NULL) )
     {
         GdkPixbuf* ori_pix;
-        GdkPixbufLoader* loader;
-        char buf[4096];
         gssize len;
-
-        loader = gdk_pixbuf_loader_new();
-        /* read the image file */
-        while( (len = g_input_stream_read(ins, buf, sizeof(buf), generator_cancellable, NULL)) > 0)
-            gdk_pixbuf_loader_write(loader, buf, len, NULL);
-        gdk_pixbuf_loader_close(loader, NULL);
-        g_input_stream_close(ins, NULL, NULL);
-        g_object_unref(ins);
-
-        if(len != -1) /* no error */
-        {
-            ori_pix = gdk_pixbuf_loader_get_pixbuf(loader);
-            if(ori_pix)
-                ori_pix = (GdkPixbuf*)g_object_ref(ori_pix);
-        }
-        else
-            ori_pix = NULL;
-        g_object_unref(loader); /* free the pixbuf loader and retains the loaded image */
-
+        ori_pix = gdk_pixbuf_new_from_stream(ins, generator_cancellable, NULL);
         if(ori_pix) /* if the original image is successfully loaded */
         {
             int width = gdk_pixbuf_get_width(ori_pix);
