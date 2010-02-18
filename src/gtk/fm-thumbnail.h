@@ -47,6 +47,8 @@ GdkPixbuf* fm_thumbnail_request_get_pixbuf(FmThumbnailRequest* req);
 
 FmFileInfo* fm_thumbnail_request_get_file_info(FmThumbnailRequest* req);
 
+guint fm_thumbnail_request_get_size(FmThumbnailRequest* req);
+
 G_END_DECLS
 
 #endif /* __FM_THUMBNAIL_H__ */

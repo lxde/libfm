@@ -54,6 +54,12 @@ enum{
   N_FOLDER_MODEL_COLS
 };
 
+typedef enum{
+    FM_FOLDER_MODEL_THUMBNAIL_BIG,
+    FM_FOLDER_MODEL_THUMBNAIL_SMALL,
+    FM_FOLDER_MODEL_THUMBNAIL_EXTRA
+}FmFolderModelThumbnailSize;
+
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
 
@@ -63,12 +69,9 @@ struct _FmFolderModel
     /* <private> */
     FmFolder* dir;
     GSequence *items;
-
     GSequence* hidden; /* items hidden by filter */
 
     gboolean show_hidden : 1;
-    gboolean big_thumbnail : 1;
-    int max_thumbnail;
 
     int sort_col;
     GtkSortType sort_order;
@@ -76,6 +79,9 @@ struct _FmFolderModel
     gint stamp;
     
     guint theme_change_handler;
+
+    guint n_thumbnail_users[3];
+    GList* thumbnail_requests[3];
 };
 
 struct _FmFolderModelClass
@@ -113,12 +119,8 @@ gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIte
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );
 */
 
-/*
-
-
-void fm_folder_model_show_thumbnails( FmFolderModel* list, gboolean is_big,
-                                    int max_file_size );
-*/
+void fm_folder_model_load_thumbnails( FmFolderModel* model, FmFolderModelThumbnailSize size);
+void fm_folder_model_unload_thumbnails( FmFolderModel* model, FmFolderModelThumbnailSize size);
 
 G_END_DECLS
 

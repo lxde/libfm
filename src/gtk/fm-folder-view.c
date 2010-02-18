@@ -72,6 +72,8 @@ static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 
 static void on_single_click_changed(FmConfig* cfg, FmFolderView* fv);
 
+inline static FmFolderModelThumbnailSize view_mode_to_thumbnail_size_type(FmFolderViewMode mode);
+
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
     GObjectClass *g_object_class;
@@ -312,6 +314,18 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         GtkTreeSelection* ts;
         GList *sels, *l, *cells;
         GtkCellRenderer* render;
+        FmFolderModel* model = (FmFolderModel*)fv->model;
+
+        if( G_LIKELY(model) )
+        {
+            FmFolderModelThumbnailSize old_thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
+            FmFolderModelThumbnailSize new_thumb_size = view_mode_to_thumbnail_size_type(mode);
+            if(old_thumb_size != new_thumb_size)
+            {
+                fm_folder_model_unload_thumbnails(model, old_thumb_size);
+                fm_folder_model_load_thumbnails(model, new_thumb_size);
+            }
+        }
 
         if( G_LIKELY(fv->view) )
         {
@@ -549,6 +563,8 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 {
     FmFolderModel* model;
+    FmFolderModelThumbnailSize thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
+
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
 
@@ -559,11 +575,13 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
         break;
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
         exo_icon_view_set_model(fv->view, model);
         break;
     }
     fv->model = model;
     on_model_loaded(model, fv);
+    fm_folder_model_load_thumbnails(model, thumb_size);
 }
 
 gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
@@ -579,7 +597,11 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         fv->folder = NULL;
         if(fv->model)
         {
+            FmFolderModelThumbnailSize thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
+
             model = FM_FOLDER_MODEL(fv->model);
+            fm_folder_model_unload_thumbnails(model, thumb_size);
+
             g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
@@ -919,4 +941,23 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
     return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+}
+
+static FmFolderModelThumbnailSize view_mode_to_thumbnail_size_type(FmFolderViewMode mode)
+{
+    FmFolderModelThumbnailSize thumb_size = -1;
+    switch(mode)
+    {
+    case FM_FV_ICON_VIEW:
+        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_BIG;
+        break;
+    case FM_FV_THUMBNAIL_VIEW:
+        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_EXTRA;
+        break;
+    case FM_FV_COMPACT_VIEW:
+    case FM_FV_LIST_VIEW:
+        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_SMALL;
+        break;
+    }
+    return thumb_size;
 }
