@@ -39,6 +39,7 @@
 #include "fm-progress-dlg.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
+#include "fm-thumbnail.h"
 
 G_BEGIN_DECLS
 

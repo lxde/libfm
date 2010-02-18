@@ -27,6 +27,7 @@ gboolean fm_gtk_init(FmConfig* config)
         return FALSE;
 
     fm_icon_pixbuf_init();
+    fm_thumbnail_init();
 
     return TRUE;
 }
@@ -34,6 +35,8 @@ gboolean fm_gtk_init(FmConfig* config)
 void fm_gtk_finalize()
 {
     fm_icon_pixbuf_finalize();
+    fm_thumbnail_finalize();
+
     fm_finalize();
 }
 

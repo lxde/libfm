@@ -76,6 +76,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-src.c \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-gtk-utils.c \
+	gtk/fm-thumbnail.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -122,6 +123,7 @@ LIBFM_GTK_INCLUDES = \
 	gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.h \
+	gtk/fm-thumbnail.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
