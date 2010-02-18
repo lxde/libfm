@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-10 01:24+0100\n"
-"PO-Revision-Date: 2010-02-02 12:13-0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"POT-Creation-Date: 2010-02-18 04:07+0000\n"
+"PO-Revision-Date: 2010-02-18 12:37-0000\n"
+"Last-Translator: Sergio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -99,11 +99,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Operações que o dono do ficheiro pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid ""
-"Operations that users of the same group with the owner of the file can do"
-msgstr ""
-"Operações que os utilizadores do mesmo grupo que o dono do ficheiro podem "
-"fazer"
+msgid "Operations that users of the same group with the owner of the file can do"
+msgstr "Operações que os utilizadores do mesmo grupo que o dono do ficheiro podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -186,6 +183,53 @@ msgstr "<b>Para:</b>"
 msgid "Preparing..."
 msgstr "Preparando..."
 
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Linha de comandos a executar:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Tipo de Ficheiro a Abrir:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Estes códigos especiais podem ser usados na linha de comandos:</b>\n"
+"  <b>%f</b>: Representa o nome  do ficheiro\n"
+"  <b>%F:</b> Representa nome de vários ficheiros\n"
+"  <b>%u</b>: Representa a URI do ficheiro\n"
+"  <b>%U</b>: Representa várias URIs"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Escolha Uma Aplicação"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Linha de Comandos Personalizada"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Executar no emulador de terminal"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Aplicação Instalada"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Define a aplicação seleccionada como omissa para este tipo de ficheiro"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Navegar"
+
 #: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
 msgstr "Nome"
@@ -202,31 +246,31 @@ msgstr "Tamanho"
 msgid "Modified"
 msgstr "Modificado"
 
-#: ../src/gtk/fm-gtk-utils.c:43
+#: ../src/gtk/fm-gtk-utils.c:44
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:226
+#: ../src/gtk/fm-gtk-utils.c:236
 msgid "Please select a folder"
 msgstr "Seleccione uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:491
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Você deseja mover os ficheiros seleccionados para o lixo?"
 
-#: ../src/gtk/fm-gtk-utils.c:486
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja apagar os ficheiros seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Rename File"
 msgstr "Renomear Ficheiro"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Please enter a new name:"
 msgstr "Por favor, indique o novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:538
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Você tem certeza que deseja esvaziar o lixo?"
 
@@ -242,7 +286,8 @@ msgstr "Desmontar Volume"
 msgid "Eject Removable Media"
 msgstr "Ejectar Média Amovível"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "Renomear Marcador"
 
@@ -254,19 +299,19 @@ msgstr "Remover dos Marcadores"
 msgid "Empty Trash"
 msgstr "Esvaziar Lixo"
 
-#: ../src/gtk/fm-places-view.c:401
+#: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
 msgstr "Lixo"
 
-#: ../src/gtk/fm-places-view.c:448
+#: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
 msgstr "Área de Trabalho"
 
-#: ../src/gtk/fm-places-view.c:460
+#: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Aplicações"
 
-#: ../src/gtk/fm-places-view.c:742
+#: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Ondique o novo nome:"
 
@@ -294,88 +339,97 @@ msgstr "Criando ligações simbólicas"
 msgid "Changing file attributes"
 msgstr "Modificando atributos do ficheiro"
 
-#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:76
+#: ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr "Abrir Com..."
+
+#: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83
 msgid "Create Symlink"
 msgstr "Criar ligações simbólicas"
 
-#: ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Send To"
 msgstr "Enviar Para"
 
-#: ../src/gtk/fm-file-properties.c:173
+#: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
 msgstr "Indique um utilizador ou identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:205
+#: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:353
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:357
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Deseja aplicar estas modificações a todas os ficheiros e sub-pastas?"
 
-#: ../src/gtk/fm-file-properties.c:620
+#: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
 msgstr "Ficheiros de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:641
+#: ../src/gtk/fm-file-properties.c:645
 msgid "Multiple Files"
 msgstr "Múltiplos Ficheiros"
 
-#: ../src/gtk/fm-file-properties.c:712
-msgid "Other Applications"
-msgstr "Outras Aplicações"
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr "Personalizar"
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "Falha de XDirectSave."
 
-#: ../src/job/fm-dir-list-job.c:236
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Aplicações Instaladas"
+
+#: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Não é um directório válido"
 
-#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
+#: ../src/base/fm-utils.c:53
+#: ../src/base/fm-utils.c:82
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bytes"
 msgstr[1] "%u bytes"
 
-#: ../src/base/fm-utils.c:59
+#: ../src/base/fm-utils.c:60
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:64
+#: ../src/base/fm-utils.c:65
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:69
+#: ../src/base/fm-utils.c:70
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:74
+#: ../src/base/fm-utils.c:75
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:89
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:93
+#: ../src/base/fm-utils.c:94
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:98
+#: ../src/base/fm-utils.c:99
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:103
+#: ../src/base/fm-utils.c:104
 msgid "TiB"
 msgstr "TiB"
 
@@ -386,3 +440,4 @@ msgstr "Atalhos"
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Ponto de Montagem"
+
