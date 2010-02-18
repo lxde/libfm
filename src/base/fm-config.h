@@ -47,6 +47,7 @@ typedef struct _FmConfigClass		FmConfigClass;
 #define		FM_CONFIG_DEFAULT_BIG_ICON_SIZE		48
 #define		FM_CONFIG_DEFAULT_SMALL_ICON_SIZE	16
 #define		FM_CONFIG_DEFAULT_PANE_ICON_SIZE	16
+#define		FM_CONFIG_DEFAULT_THUMBNAIL_SIZE	128
 
 struct _FmConfig
 {
@@ -59,6 +60,7 @@ struct _FmConfig
     guint big_icon_size;    /* size of big icons */
     guint small_icon_size;  /* size of small icons */
     guint pane_icon_size;   /* size of side pane icons */
+    guint thumbnail_size;   /* size of thumbnail icons */
 
     gboolean show_thumbnail; /* show thumbnails */
     guint thumb_max;    /* show thumbnails for files smaller than 'thumb_max' KB */

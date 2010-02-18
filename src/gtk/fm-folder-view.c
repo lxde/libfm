@@ -205,6 +205,7 @@ void on_single_click_changed(FmConfig* cfg, FmFolderView* fv)
         break;
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
         exo_icon_view_set_single_click((ExoIconView*)fv->view, cfg->single_click);
         break;
     }
@@ -315,6 +316,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         GList *sels, *l, *cells;
         GtkCellRenderer* render;
         FmFolderModel* model = (FmFolderModel*)fv->model;
+        int icon_col;
 
         if( G_LIKELY(model) )
         {
@@ -344,19 +346,31 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         {
         case FM_FV_COMPACT_VIEW:
         case FM_FV_ICON_VIEW:
+        case FM_FV_THUMBNAIL_VIEW:
             fv->view = exo_icon_view_new();
 
             render = fm_cell_renderer_pixbuf_new();
             g_object_set((GObject*)render, "follow-state", TRUE, NULL );
             gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
-            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
-                                        "pixbuf", fv->mode == FM_FV_ICON_VIEW ? COL_FILE_BIG_ICON : COL_FILE_SMALL_ICON );
-            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
-                                        "info", COL_FILE_INFO );
+            switch(fv->mode)
+            {
+            case FM_FV_THUMBNAIL_VIEW:
+                icon_col = COL_FILE_THUMBNAIL;
+                break;
+            case FM_FV_COMPACT_VIEW:
+                icon_col = COL_FILE_SMALL_ICON;
+                break;
+            case FM_FV_ICON_VIEW:
+            default:
+                icon_col = COL_FILE_BIG_ICON;
+                break;
+            }
+            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render, "pixbuf", icon_col );
+            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render, "info", COL_FILE_INFO );
 
             if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
             {
-                guint handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), render);
+                guint handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), render);
                 g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
                 fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
                 render = fm_cell_renderer_text_new();
@@ -367,20 +381,40 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                 exo_icon_view_set_layout_mode( (ExoIconView*)fv->view, EXO_ICON_VIEW_LAYOUT_COLS );
                 exo_icon_view_set_orientation( (ExoIconView*)fv->view, GTK_ORIENTATION_HORIZONTAL );
             }
-            else /* big icon view */
+            else /* big icon view or thumbnail view */
             {
-                guint handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), render);
-                g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
-                fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
-                render = fm_cell_renderer_text_new();
-                g_object_set((GObject*)render,
-                             "wrap-mode", PANGO_WRAP_WORD_CHAR,
-                             "wrap-width", 90,
-                             "alignment", PANGO_ALIGN_CENTER,
-                             "yalign", 0.0,
-                             NULL );
-                exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
-                exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 110 );
+                guint handler;
+                if(fv->mode == FM_FV_ICON_VIEW)
+                {
+                    handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), render);
+                    g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+                    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
+                    render = fm_cell_renderer_text_new();
+                    /* FIXME: set the sizes of cells according to iconsize */
+                    g_object_set((GObject*)render,
+                                 "wrap-mode", PANGO_WRAP_WORD_CHAR,
+                                 "wrap-width", 90,
+                                 "alignment", PANGO_ALIGN_CENTER,
+                                 "yalign", 0.0,
+                                 NULL );
+                    exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
+                    exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 110 );
+                }
+                else
+                {
+                    // handler = g_signal_connect(fm_config, "changed::thumbnail_size", G_CALLBACK(on_thumbnail_size_changed), render);
+                    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->thumbnail_size, fm_config->thumbnail_size);
+                    render = fm_cell_renderer_text_new();
+                    /* FIXME: set the sizes of cells according to iconsize */
+                    g_object_set((GObject*)render,
+                                 "wrap-mode", PANGO_WRAP_WORD_CHAR,
+                                 "wrap-width", 180,
+                                 "alignment", PANGO_ALIGN_CENTER,
+                                 "yalign", 0.0,
+                                 NULL );
+                    exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 8 );
+                    exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 200 );
+                }
             }
             gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
             gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render,
@@ -498,6 +532,7 @@ void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode)
         }
         case FM_FV_ICON_VIEW:
         case FM_FV_COMPACT_VIEW:
+        case FM_FV_THUMBNAIL_VIEW:
             exo_icon_view_set_selection_mode((ExoIconView*)fv->view, mode);
             break;
         }
@@ -631,6 +666,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
                 break;
             case FM_FV_ICON_VIEW:
             case FM_FV_COMPACT_VIEW:
+            case FM_FV_THUMBNAIL_VIEW:
                 exo_icon_view_set_model(fv->view, NULL);
                 break;
             }
@@ -660,6 +696,7 @@ GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
     }
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
         sels = exo_icon_view_get_selected_items((ExoIconView*)fv->view);
         break;
     }
@@ -722,7 +759,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
     if( evt->type == GDK_BUTTON_PRESS )
     {
 		/* special handling for ExoIconView */
-		if(evt->button != 1 && (fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW))
+		if(evt->button != 1 && (fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW || fv->mode==FM_FV_THUMBNAIL_VIEW))
 		{
 			GtkTreePath* tp;
 			/* select the item on right click for ExoIconView */
@@ -778,6 +815,7 @@ void fm_folder_view_select_all(FmFolderView* fv)
         break;
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
         exo_icon_view_select_all((ExoIconView*)fv->view);
         break;
     }
@@ -820,6 +858,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 		}
 	case FM_FV_ICON_VIEW:
 	case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
 		{
 			tp = exo_icon_view_get_path_at_pos(fv->view, x, y);
 			exo_icon_view_set_drag_dest_item(fv->view, tp, EXO_ICON_VIEW_DROP_INTO);
@@ -871,6 +910,7 @@ void fm_folder_view_select_invert(FmFolderView* fv)
         }
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
         {
             GtkTreePath* path;
             int i, n;
@@ -908,6 +948,7 @@ void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
                 break;
             case FM_FV_ICON_VIEW:
             case FM_FV_COMPACT_VIEW:
+            case FM_FV_THUMBNAIL_VIEW:
                 {
                     GtkTreePath* tp = gtk_tree_model_get_path(model, &it);
                     if(tp)

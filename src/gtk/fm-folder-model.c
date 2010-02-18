@@ -41,6 +41,7 @@ struct _FmFolderItem
     FmFileInfo* inf;
     GdkPixbuf* big_icon;
     GdkPixbuf* small_icon;
+    GdkPixbuf* thumbnail;
 };
 
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface);
@@ -170,6 +171,7 @@ void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
 
     column_types [ COL_FILE_BIG_ICON ] = GDK_TYPE_PIXBUF;
     column_types [ COL_FILE_SMALL_ICON ] = GDK_TYPE_PIXBUF;
+    column_types [ COL_FILE_THUMBNAIL ] = GDK_TYPE_PIXBUF;
     column_types [ COL_FILE_NAME ] = G_TYPE_STRING;
     column_types [ COL_FILE_DESC ] = G_TYPE_STRING;
     column_types [ COL_FILE_SIZE ] = G_TYPE_STRING;
@@ -445,6 +447,13 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
     case COL_FILE_GICON:
         g_value_set_object(value, info->icon->gicon);
         break;
+    case COL_FILE_THUMBNAIL:
+        if( item->thumbnail )
+        {
+            g_value_set_object(value, item->thumbnail);
+            break;
+        }
+        /* if thumbnail is not availble, get big icon instead. */
     case COL_FILE_BIG_ICON:
     {
         if( G_UNLIKELY(!item->big_icon) )
@@ -1131,8 +1140,8 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
         size_type = FM_FOLDER_MODEL_THUMBNAIL_BIG;
     else if(size == fm_config->small_icon_size)
         size_type = FM_FOLDER_MODEL_THUMBNAIL_SMALL;
-//    else if(size == fm_config->thumbnail_icon_size)
-//        size_type = FM_FOLDER_MODEL_THUMBNAIL_EXTRA;
+    else if(size == fm_config->thumbnail_size)
+        size_type = FM_FOLDER_MODEL_THUMBNAIL_EXTRA;
     else
         return;
 
@@ -1161,6 +1170,9 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
                 item->small_icon = g_object_ref(pix);
                 break;
             case FM_FOLDER_MODEL_THUMBNAIL_EXTRA:
+                if(item->thumbnail)
+                    g_object_unref(item->thumbnail);
+                item->thumbnail = g_object_ref(pix);
                 break;
             }
             gtk_tree_model_row_changed(model, tp, &it);
@@ -1178,7 +1190,8 @@ void fm_folder_model_load_thumbnails( FmFolderModel* model, FmFolderModelThumbna
     {
         GSequenceIter* it = g_sequence_get_begin_iter(model->items);
         /* FIXME: handle changes of fm_config->big_icon_size */
-        int req_sizes[] = {fm_config->big_icon_size, fm_config->small_icon_size, fm_config->big_icon_size};
+        int req_sizes[] = {fm_config->big_icon_size, fm_config->small_icon_size, fm_config->thumbnail_size};
+        g_debug("REQ_SIZE: %d", req_sizes[size]);
         for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
         {
             FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
@@ -1201,8 +1214,56 @@ void fm_folder_model_unload_thumbnails( FmFolderModel* model, FmFolderModelThumb
     /* no other people needs thumbnail of this size */
     if(0 == model->n_thumbnail_users[size])
     {
+        GSequenceIter* it = g_sequence_get_begin_iter(model->items);
+        GtkTreeIter _it;
+        GtkTreePath* tp;
+
         g_list_foreach(model->thumbnail_requests[size], (GFunc)fm_thumbnail_request_cancel, NULL);
         g_list_free(model->thumbnail_requests[size]);
         model->thumbnail_requests[size] = NULL;
+
+        /* FIXME: will this cause problems? */
+        switch(size)
+        {
+        case FM_FOLDER_MODEL_THUMBNAIL_BIG:
+            for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
+            {
+                FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
+                if(item->big_icon)
+                {
+                    g_object_unref(item->big_icon);
+                    item->big_icon = NULL;
+                }
+            }
+            break;
+        case FM_FOLDER_MODEL_THUMBNAIL_SMALL:
+            for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
+            {
+                FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
+                if(item->big_icon)
+                {
+                    g_object_unref(item->small_icon);
+                    item->small_icon = NULL;
+                }
+            }
+            break;
+        case FM_FOLDER_MODEL_THUMBNAIL_EXTRA:
+            for( ; !g_sequence_iter_is_end(it); it = g_sequence_iter_next(it) )
+            {
+                FmFolderItem* item = (FmFolderItem*)g_sequence_get(it);
+                if(item->thumbnail)
+                {
+                    g_object_unref(item->thumbnail);
+                    item->thumbnail = NULL;
+                }
+            }
+            break;
+        }
+        _it.stamp = model->stamp;
+        _it.user_data = it;
+        tp = fm_folder_model_get_path(model, &_it);
+        /* FIXME: is this needed? */
+//        gtk_tree_model_row_changed(model, tp, &_it);
+        gtk_tree_path_free(tp);
     }
 }
