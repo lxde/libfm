@@ -186,9 +186,8 @@ msgid "<b>Command line to execute:</b>"
 msgstr "<b>Línea de comandos a ejecutar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "<b>Tipo de archivo a abrirse:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -339,7 +338,7 @@ msgstr "Cambiando atributos de archivo"
 
 #: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "Abrir con..."
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -375,16 +374,15 @@ msgstr "Múltiples archivos"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "Personalizar"
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
 
 #: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
 msgid "Installed Applications"
-msgstr "Otras aplicaciones"
+msgstr "Aplicaciones instaladas"
 
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
