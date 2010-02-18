@@ -71,8 +71,10 @@ static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 									   GdkDragAction* action, FmFolderView* fv);
 
 static void on_single_click_changed(FmConfig* cfg, FmFolderView* fv);
+static void on_big_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
+static void on_small_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
+static void on_thumbnail_size_changed(FmConfig* cfg, FmFolderView* fv);
 
-inline static FmFolderModelThumbnailSize view_mode_to_thumbnail_size_type(FmFolderViewMode mode);
 
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
@@ -285,26 +287,41 @@ static void fm_folder_view_finalize(GObject *object)
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
 
+    if(self->icon_size_changed_handler)
+        g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
+
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
 }
 
 
-static void on_big_icon_size_changed(FmConfig* cfg, gpointer user_data)
+static void set_icon_size(FmFolderView* fv, guint icon_size)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)user_data;
-    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
+    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)fv->renderer_pixbuf;
+    fm_cell_renderer_pixbuf_set_fixed_size(render, icon_size, icon_size);
+    fm_folder_model_set_icon_size(fv->model, icon_size);
+
+    if( fv->mode != FM_FV_LIST_VIEW ) /* this is an ExoIconView */
+    {
+        /* FIXME: reset ExoIconView item sizes */
+    }
 }
 
-static void on_small_icon_size_changed(FmConfig* cfg, gpointer user_data)
+static void on_big_icon_size_changed(FmConfig* cfg, FmFolderView* fv)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)user_data;
-    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
+    set_icon_size(fv, cfg->big_icon_size);
 }
 
-static void on_cell_renderer_pixbuf_destroy(gpointer user_data, GObject* render)
+static void on_small_icon_size_changed(FmConfig* cfg, FmFolderView* fv)
 {
-    g_signal_handler_disconnect(fm_config, GPOINTER_TO_UINT(user_data));
+    set_icon_size(fv, cfg->small_icon_size);
+}
+
+static void on_thumbnail_size_changed(FmConfig* cfg, FmFolderView* fv)
+{
+    /* FIXME: thumbnail and icons should have different sizes */
+    /* maybe a separate API: fm_folder_model_set_thumbnail_size() */
+    set_icon_size(fv, cfg->thumbnail_size);
 }
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
@@ -316,18 +333,8 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         GList *sels, *l, *cells;
         GtkCellRenderer* render;
         FmFolderModel* model = (FmFolderModel*)fv->model;
-        int icon_col;
-
-        if( G_LIKELY(model) )
-        {
-            FmFolderModelThumbnailSize old_thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
-            FmFolderModelThumbnailSize new_thumb_size = view_mode_to_thumbnail_size_type(mode);
-            if(old_thumb_size != new_thumb_size)
-            {
-                fm_folder_model_unload_thumbnails(model, old_thumb_size);
-                fm_folder_model_load_thumbnails(model, new_thumb_size);
-            }
-        }
+        int icon_size = 0;
+        guint handler;
 
         if( G_LIKELY(fv->view) )
         {
@@ -341,6 +348,12 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         else
             sels = NULL;
 
+        if(fv->icon_size_changed_handler)
+        {
+            g_signal_handler_disconnect(fm_config, fv->icon_size_changed_handler);
+            fv->icon_size_changed_handler = 0;
+        }
+
         fv->mode = mode;
         switch(fv->mode)
         {
@@ -350,29 +363,22 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             fv->view = exo_icon_view_new();
 
             render = fm_cell_renderer_pixbuf_new();
+            fv->renderer_pixbuf = render;
+
             g_object_set((GObject*)render, "follow-state", TRUE, NULL );
             gtk_cell_layout_pack_start((GtkCellLayout*)fv->view, render, TRUE);
-            switch(fv->mode)
-            {
-            case FM_FV_THUMBNAIL_VIEW:
-                icon_col = COL_FILE_THUMBNAIL;
-                break;
-            case FM_FV_COMPACT_VIEW:
-                icon_col = COL_FILE_SMALL_ICON;
-                break;
-            case FM_FV_ICON_VIEW:
-            default:
-                icon_col = COL_FILE_BIG_ICON;
-                break;
-            }
-            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render, "pixbuf", icon_col );
+            gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render, "pixbuf", COL_FILE_ICON );
             gtk_cell_layout_add_attribute((GtkCellLayout*)fv->view, render, "info", COL_FILE_INFO );
 
             if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
             {
-                guint handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), render);
-                g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
-                fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
+                handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), fv);
+                fv->icon_size_changed_handler = handler;
+                icon_size = fm_config->small_icon_size;
+                fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
+                if(model)
+                    fm_folder_model_set_icon_size(model, icon_size);
+
                 render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
                              "xalign", 0.0,
@@ -383,12 +389,15 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             }
             else /* big icon view or thumbnail view */
             {
-                guint handler;
                 if(fv->mode == FM_FV_ICON_VIEW)
                 {
-                    handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), render);
-                    g_object_weak_ref(render, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
-                    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->big_icon_size, fm_config->big_icon_size);
+                    handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), fv);
+                    fv->icon_size_changed_handler = handler;
+                    icon_size = fm_config->big_icon_size;
+                    fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
+                    if(model)
+                        fm_folder_model_set_icon_size(model, icon_size);
+
                     render = fm_cell_renderer_text_new();
                     /* FIXME: set the sizes of cells according to iconsize */
                     g_object_set((GObject*)render,
@@ -402,8 +411,13 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                 }
                 else
                 {
-                    // handler = g_signal_connect(fm_config, "changed::thumbnail_size", G_CALLBACK(on_thumbnail_size_changed), render);
-                    fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->thumbnail_size, fm_config->thumbnail_size);
+                    handler = g_signal_connect(fm_config, "changed::thumbnail_size", G_CALLBACK(on_thumbnail_size_changed), fv);
+                    fv->icon_size_changed_handler = handler;
+                    icon_size = fm_config->thumbnail_size;
+                    fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
+                    if(model)
+                        fm_folder_model_set_icon_size(model, icon_size);
+
                     render = fm_cell_renderer_text_new();
                     /* FIXME: set the sizes of cells according to iconsize */
                     g_object_set((GObject*)render,
@@ -435,12 +449,19 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             fv->view = exo_tree_view_new();
 
 			render = fm_cell_renderer_pixbuf_new();
-            fm_cell_renderer_pixbuf_set_fixed_size(render, fm_config->small_icon_size, fm_config->small_icon_size);
+            fv->renderer_pixbuf = render;
+            handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), fv);
+            fv->icon_size_changed_handler = handler;
+            icon_size = fm_config->small_icon_size;
+            fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
+            if(model)
+                fm_folder_model_set_icon_size(model, icon_size);
+
             col = gtk_tree_view_column_new();
 			gtk_tree_view_column_set_title(col, _("Name"));
 			gtk_tree_view_column_pack_start(col, render, FALSE);
 			gtk_tree_view_column_set_attributes(col, render,
-                                                "pixbuf", COL_FILE_SMALL_ICON,
+                                                "pixbuf", COL_FILE_ICON,
                                                 "info", COL_FILE_INFO, NULL);
 			render = gtk_cell_renderer_text_new();
 			g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
@@ -490,6 +511,8 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         }
         g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(sels);
+
+        /* FIXME: maybe calling set_icon_size here is a good idea */
 
 		gtk_drag_source_set(fv->view, GDK_BUTTON1_MASK,
 			fm_default_dnd_src_targets, N_FM_DND_SRC_DEFAULT_TARGETS,
@@ -598,7 +621,7 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 {
     FmFolderModel* model;
-    FmFolderModelThumbnailSize thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
+    guint icon_size = 0;
 
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(model, fv->sort_by, fv->sort_type);
@@ -607,16 +630,27 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
     {
     case FM_FV_LIST_VIEW:
         gtk_tree_view_set_model(fv->view, model);
+        icon_size = fm_config->small_icon_size;
+        fm_folder_model_set_icon_size(model, icon_size);
         break;
     case FM_FV_ICON_VIEW:
+        icon_size = fm_config->big_icon_size;
+        fm_folder_model_set_icon_size(model, icon_size);
+        exo_icon_view_set_model(fv->view, model);
+        break;
     case FM_FV_COMPACT_VIEW:
+        icon_size = fm_config->small_icon_size;
+        fm_folder_model_set_icon_size(model, icon_size);
+        exo_icon_view_set_model(fv->view, model);
+        break;
     case FM_FV_THUMBNAIL_VIEW:
+        icon_size = fm_config->thumbnail_size;
+        fm_folder_model_set_icon_size(model, icon_size);
         exo_icon_view_set_model(fv->view, model);
         break;
     }
     fv->model = model;
     on_model_loaded(model, fv);
-    fm_folder_model_load_thumbnails(model, thumb_size);
 }
 
 gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
@@ -632,11 +666,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         fv->folder = NULL;
         if(fv->model)
         {
-            FmFolderModelThumbnailSize thumb_size = view_mode_to_thumbnail_size_type(fv->mode);
-
             model = FM_FOLDER_MODEL(fv->model);
-            fm_folder_model_unload_thumbnails(model, thumb_size);
-
             g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
@@ -982,23 +1012,4 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
     return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
-}
-
-static FmFolderModelThumbnailSize view_mode_to_thumbnail_size_type(FmFolderViewMode mode)
-{
-    FmFolderModelThumbnailSize thumb_size = -1;
-    switch(mode)
-    {
-    case FM_FV_ICON_VIEW:
-        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_BIG;
-        break;
-    case FM_FV_THUMBNAIL_VIEW:
-        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_EXTRA;
-        break;
-    case FM_FV_COMPACT_VIEW:
-    case FM_FV_LIST_VIEW:
-        thumb_size = FM_FOLDER_MODEL_THUMBNAIL_SMALL;
-        break;
-    }
-    return thumb_size;
 }

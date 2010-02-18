@@ -134,7 +134,7 @@ const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_atime( FmFileInfo* fi );
 
-
+gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 
 FmFileInfoList* fm_file_info_list_new();
 FmFileInfoList* fm_file_info_list_new_from_glist();

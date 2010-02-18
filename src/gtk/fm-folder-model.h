@@ -42,9 +42,7 @@ G_BEGIN_DECLS
 /* Columns of folder view */
 enum{
   COL_FILE_GICON = 0,
-  COL_FILE_BIG_ICON,
-  COL_FILE_SMALL_ICON,
-  COL_FILE_THUMBNAIL,
+  COL_FILE_ICON,
   COL_FILE_NAME,
   COL_FILE_SIZE,
   COL_FILE_DESC,
@@ -54,12 +52,6 @@ enum{
   COL_FILE_INFO,
   N_FOLDER_MODEL_COLS
 };
-
-typedef enum{
-    FM_FOLDER_MODEL_THUMBNAIL_BIG,
-    FM_FOLDER_MODEL_THUMBNAIL_SMALL,
-    FM_FOLDER_MODEL_THUMBNAIL_EXTRA
-}FmFolderModelThumbnailSize;
 
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
@@ -80,9 +72,8 @@ struct _FmFolderModel
     gint stamp;
     
     guint theme_change_handler;
-
-    guint n_thumbnail_users[3];
-    GList* thumbnail_requests[3];
+    guint icon_size;
+    GList* thumbnail_requests;
 };
 
 struct _FmFolderModelClass
@@ -116,12 +107,15 @@ void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const g
 
 gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIter* it, const char* name);
 
+void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size);
+guint fm_folder_model_get_icon_size(FmFolderModel* model);
+
+
+/* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
+
 /*
 gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );
 */
-
-void fm_folder_model_load_thumbnails( FmFolderModel* model, FmFolderModelThumbnailSize size);
-void fm_folder_model_unload_thumbnails( FmFolderModel* model, FmFolderModelThumbnailSize size);
 
 G_END_DECLS
 

@@ -80,6 +80,9 @@ struct _FmFolderView
 	GtkWidget* view;
     FmFolder* folder;
 	GtkTreeModel* model;
+    GtkCellRenderer* renderer_pixbuf;
+    guint icon_size_changed_handler;
+
 	FmPath* cwd;
 	FmDndSrc* dnd_src; /* dnd source manager */
 	FmDndDest* dnd_dest; /* dnd dest manager */

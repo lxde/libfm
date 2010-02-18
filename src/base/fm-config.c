@@ -85,6 +85,7 @@ static void fm_config_init(FmConfig *self)
     self->small_icon_size = FM_CONFIG_DEFAULT_SMALL_ICON_SIZE;
     self->pane_icon_size = FM_CONFIG_DEFAULT_PANE_ICON_SIZE;
     self->thumbnail_size = FM_CONFIG_DEFAULT_THUMBNAIL_SIZE;
+    self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
 }
 
 
@@ -110,6 +111,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "small_icon_size", &cfg->small_icon_size);
     fm_key_file_get_int(kf, "ui", "pane_icon_size", &cfg->pane_icon_size);
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
+    fm_key_file_get_int(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
 }
 
 void fm_config_load_from_file(FmConfig* cfg, const char* name)
@@ -174,6 +176,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "small_icon_size=%d\n", cfg->small_icon_size);
             fprintf(f, "pane_icon_size=%d\n", cfg->pane_icon_size);
             fprintf(f, "thumbnail_size=%d\n", cfg->thumbnail_size);
+            fprintf(f, "show_thumbnail=%d\n", cfg->show_thumbnail);
             fclose(f);
         }
     }

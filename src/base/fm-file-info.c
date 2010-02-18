@@ -375,6 +375,15 @@ gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
 	return g_content_type_can_be_executable(fi->type->type);
 }
 
+gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
+{
+    if( ! S_ISREG(fi->mode) ||
+        fm_file_info_is_desktop_entry(fi) ||
+        fm_file_info_is_unknown_type(fi))
+        return FALSE;
+    return TRUE;
+}
+
 const char* fm_file_info_get_collate_key( FmFileInfo* fi )
 {
     if( G_UNLIKELY(!fi->collate_key) )
