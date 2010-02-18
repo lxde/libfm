@@ -24,7 +24,6 @@
 #endif
 
 /* TODO:
- * Cache loaded thumbnails in hash table and use FmPath as keys.
  * Rotate by EXIF tag
  * Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
  * Limit the max size of file for which thumbnail should be generated.
@@ -37,7 +36,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define ENABLE_DEBUG
+/* #define ENABLE_DEBUG */
 #ifdef ENABLE_DEBUG
 #define DEBUG(...)  g_debug(__VA_ARGS__)
 #else
@@ -77,6 +76,20 @@ struct _FmThumbnailRequest
     GdkPixbuf* pix;
 };
 
+typedef struct _ThumbnailCacheItem ThumbnailCacheItem;
+struct _ThumbnailCacheItem
+{
+    guint size;
+    GdkPixbuf* pix;
+};
+
+typedef struct _ThumbnailCache ThumbnailCache;
+struct _ThumbnailCache
+{
+    FmPath* path;
+    GSList* items;
+};
+
 /* FIXME: use thread pool */
 
 G_LOCK_DEFINE_STATIC(queue);
@@ -88,6 +101,7 @@ static GThread* loader_thread_id = NULL;
 /* generate thumbnails for files */
 static GQueue generator_queue = G_QUEUE_INIT;
 static GThread* generator_thread_id = NULL;
+static GCancellable* generator_cancellable = NULL;
 
 static ThumbnailTask* cur_loading = NULL;
 static ThumbnailTask* cur_generating = NULL;
@@ -97,14 +111,11 @@ static GQueue ready_queue = G_QUEUE_INIT;
 /* idle handler to call ready callback */
 static guint ready_idle_handler = 0;
 
-
 /* cached thumbnails */
-static guint* sizes = NULL;
-static GHashTable* hashes = NULL;
-
-static GCancellable* generator_cancellable = NULL;
+static GHashTable* hash = NULL;
 
 static char* thumb_dir = NULL;
+
 
 static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi);
 static gpointer load_thumbnail_thread(gpointer user_data);
@@ -165,6 +176,61 @@ static gint comp_request(FmThumbnailRequest* a, FmThumbnailRequest* b)
     return a->size - b->size;
 }
 
+/* called when cached pixbuf get destroyed */
+static void on_pixbuf_destroy(ThumbnailCache* cache, GdkPixbuf* pix)
+{
+    GSList* l;
+    /* remove it from cache */
+    DEBUG("remove from cache!");
+    for(l=cache->items;l;l=l->next)
+    {
+        ThumbnailCacheItem* item = (ThumbnailCacheItem*)l->data;
+        if(item->pix == pix)
+        {
+            cache->items = g_slist_delete_link(cache->items, l);
+            g_slice_free(ThumbnailCacheItem, item);
+            if(!cache->items)
+            {
+                g_hash_table_remove(hash, cache->path);
+                fm_path_unref(cache->path);
+                g_slice_free(ThumbnailCache, cache);
+            }
+            break;
+        }
+    }
+}
+
+inline static void cache_thumbnail_in_hash(FmPath* path, GdkPixbuf* pix, guint size)
+{
+    ThumbnailCache* cache;
+    ThumbnailCacheItem* item;
+    GSList* l = NULL;
+    cache = (ThumbnailCache*)g_hash_table_lookup(hash, path);
+    if(cache)
+    {
+        for(l=cache->items;l;l=l->next)
+        {
+            item = (ThumbnailCacheItem*)l->data;
+            if(item->size == size)
+                break;
+        }
+    }
+    else
+    {
+        cache = g_slice_new0(ThumbnailCache);
+        cache->path = fm_path_ref(path);
+        g_hash_table_insert(hash, cache->path, cache);
+    }
+    if(!l) /* the item is not in cache->items */
+    {
+        item = g_slice_new(ThumbnailCacheItem);
+        item->size = size;
+        item->pix = pix;
+        cache->items = g_slist_prepend(cache->items, item);
+        g_object_weak_ref(pix, (GWeakNotify)on_pixbuf_destroy, cache);
+    }
+}
+
 /* called with queue lock held */
 void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, GdkPixbuf* large_pix)
 {
@@ -208,6 +274,10 @@ void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, GdkPixbuf
             g_object_unref(cached_pix);
         cached_pix = req->pix ? g_object_ref(req->pix) : NULL;
         cached_size = req->size;
+
+        /* cache this in hash table */
+        if(cached_pix)
+            cache_thumbnail_in_hash(req->fi->path, cached_pix, cached_size);
 
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
@@ -441,7 +511,24 @@ gpointer load_thumbnail_thread(gpointer user_data)
     return NULL;
 }
 
-/* called with queue locked */
+/* should be called with queue locked */
+inline static GdkPixbuf* find_thumbnail_in_hash(FmPath* path, guint size)
+{
+    ThumbnailCache* cache = (ThumbnailCache*)g_hash_table_lookup(hash, path);
+    if(cache)
+    {
+        GSList* l;
+        for(l=cache->items;l;l=l->next)
+        {
+            ThumbnailCacheItem* item = (ThumbnailCacheItem*)l->data;
+            if(item->size == size)
+                return item->pix;
+        }
+    }
+    return NULL;
+}
+
+/* should be called with queue locked */
 ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
 {
     GList* l;
@@ -462,8 +549,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
 {
     FmThumbnailRequest* req;
     ThumbnailTask* task;
-    gboolean found = FALSE;
-
+    GdkPixbuf* pix;
 
     req = g_slice_new(FmThumbnailRequest);
     req->fi = fm_file_info_ref(src_file);
@@ -471,21 +557,21 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     req->callback = callback;
     req->user_data = user_data;
     req->pix = NULL;
-#ifdef ENABLE_DEBUG
-    if(!fm_file_info_is_image(src_file))
-        return req;
-#endif
 
     DEBUG("request thumbnail: %s", src_file->path->name);
 
     G_LOCK(queue);
 
-    DEBUG("size of queue: %d", g_queue_get_length(&loader_queue));
-    
     /* FIXME: find in the cache first to see if thumbnail is already cached */
-    if(found)
+    pix = find_thumbnail_in_hash(src_file->path, size);
+    if(pix)
     {
+        DEBUG("cache found!");
+        req->pix = (GdkPixbuf*)g_object_ref(pix);
         /* call the ready callback in main loader_thread_id from idle handler. */
+        g_queue_push_tail(&ready_queue, req);
+        if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
+            ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
         G_UNLOCK(queue);
         return req;
     }
@@ -634,10 +720,13 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 void fm_thumbnail_init()
 {
     thumb_dir = g_build_filename(g_get_home_dir(), ".thumbnails", NULL);
+    hash = g_hash_table_new(fm_path_hash, fm_path_equal);
 }
 
 void fm_thumbnail_finalize()
 {
+    g_hash_table_destroy(hash);
+    hash = NULL;
     /* FIXME: cancel all pending requests... */
     g_free(thumb_dir);
 }
@@ -713,27 +802,34 @@ GdkPixbuf* scale_pix(GdkPixbuf* ori_pix, int size)
     /* keep aspect ratio and scale to thumbnail size: 128 or 256 */
     int width = gdk_pixbuf_get_width(ori_pix);
     int height = gdk_pixbuf_get_height(ori_pix);
+    int new_width;
+    int new_height;
 
     if(width > height)
     {
         gdouble aspect = (gdouble)height / width;
-        width = size;
-        height = size * aspect;
+        new_width = size;
+        new_height = size * aspect;
     }
     else if(width < height)
     {
         gdouble aspect = (gdouble)width / height;
-        height = size;
-        width = size * aspect;
+        new_height = size;
+        new_width = size * aspect;
     }
     else
     {
-        width = height = size;
+        new_width = new_height = size;
     }
-    if(width != size || height != size)
-        scaled_pix = gdk_pixbuf_scale_simple(ori_pix, width, height, GDK_INTERP_BILINEAR);
-    else
+
+    if((new_width == width && new_height == height) ||
+       (size > width && size > height )) /* don't scale up */
+    {
+        /* if size is not changed or original size is smaller, use original size. */
         scaled_pix = (GdkPixbuf*)g_object_ref(ori_pix);
+    }
+    else
+        scaled_pix = gdk_pixbuf_scale_simple(ori_pix, new_width, new_height, GDK_INTERP_BILINEAR);
 
     return scaled_pix;
 }

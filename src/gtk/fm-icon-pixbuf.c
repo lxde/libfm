@@ -52,15 +52,6 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
     GSList *pixs, *l;
     PixEntry* ent;
 
-    /* FIXME: this should be moved to fm_gtk_init() instaed */
-    if(!init)
-    {
-        fm_icon_set_user_data_destroy( (GDestroyNotify)destroy_pixbufs );
-        init = TRUE;
-        /* FIXME: we should connect to GtkIconTheme 'changed' signal to 
-         * unload all cached icons. */
-    }
-
     pixs = (GSList*)fm_icon_get_user_data(icon);
     for( l = pixs; l; l=l->next )
     {
@@ -120,6 +111,8 @@ void fm_icon_pixbuf_init()
     /* FIXME: GtkIconTheme object is different on different GdkScreen */
     GtkIconTheme* theme = gtk_icon_theme_get_default();
     changed_handler = g_signal_connect(theme, "changed", G_CALLBACK(on_icon_theme_changed), NULL);
+
+    fm_icon_set_user_data_destroy( (GDestroyNotify)destroy_pixbufs );
 }
 
 void fm_icon_pixbuf_finalize()
