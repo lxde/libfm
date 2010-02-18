@@ -48,6 +48,7 @@ struct _FmFolderItem
     FmFileInfo* inf;
     GdkPixbuf* icon;
     gboolean is_thumbnail : 1;
+    gboolean thumbnail_loading : 1;
     gboolean thumbnail_failed : 1;
 };
 
@@ -450,12 +451,13 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
         g_value_set_object(value, item->icon);
 
         /* if we want to show a thumbnail */
-        if(fm_config->show_thumbnail && !item->is_thumbnail && !item->thumbnail_failed)
+        if(fm_config->show_thumbnail && !item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
         {
             if(fm_file_info_can_thumbnail(item->inf))
             {
                 FmThumbnailRequest* req = fm_thumbnail_request(item->inf, model->icon_size, on_thumbnail_loaded, model);
                 model->thumbnail_requests = g_list_prepend(model->thumbnail_requests, req);
+                item->thumbnail_loading = TRUE;
             }
             else
             {
@@ -918,6 +920,7 @@ static void reload_icons(FmFolderModel* model)
             g_object_unref(item->icon);
             item->icon = NULL;
             item->is_thumbnail = FALSE;
+            item->thumbnail_loading = FALSE;
             tree_it.stamp = model->stamp;
             tree_it.user_data = it;
             gtk_tree_model_row_changed(model, tp, &tree_it);
@@ -1036,6 +1039,7 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
         {
             item->thumbnail_failed = TRUE;
         }
+        item->thumbnail_loading = FALSE;
     }
 }
 
