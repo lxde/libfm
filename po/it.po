@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-10 01:24+0100\n"
-"PO-Revision-Date: 2010-02-17 23:39+0100\n"
+"PO-Revision-Date: 2010-02-19 09:39+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,47 +66,47 @@ msgstr "<b>Obbiettivo:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Dimensione totale dei file:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Gruppo:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>_Proprietario:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Proprietà del file"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Rendi il file eseguibile"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Operazioni che tutti gli altri utenti possono fare"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Operazioni ch il proprietario del file pò fare"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users of the same group with the owner of the file can do"
-msgstr ""
+msgstr "Operazioni che possono fare gli utenti appartenenti allo stesso gruppo con il proprietario del file"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "Lettura e Scrittura"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "Sola Lettura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
