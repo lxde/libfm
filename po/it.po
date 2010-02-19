@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-10 01:24+0100\n"
-"PO-Revision-Date: 2010-02-19 09:39+0100\n"
+"PO-Revision-Date: 2010-02-19 17:49+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,19 +110,19 @@ msgstr "Sola Lettura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "Sola Scrittura"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_Generale"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "_Permessi"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -130,207 +130,210 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Esiste già un file con lo stesso nome in questa posizione.</b>\n"
+"\n"
+"Vuoi sovrascrivere il file esistente"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Applica questa opzione a tutti i file esistenti"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Conferma per sostituire i file"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Nome file:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Sovrascivi"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Rinomina"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "S_alta"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "con il seguente file?"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>In elaborazione:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Avanzamento.</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:5
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>A:</v>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:7
 msgid "Preparing..."
-msgstr ""
+msgstr "In preparazione..."
 
 #: ../src/gtk/fm-folder-view.c:392
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ../src/gtk/fm-folder-view.c:411
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: ../src/gtk/fm-folder-view.c:417
 msgid "Size"
-msgstr ""
+msgstr "Dimensione"
 
 #: ../src/gtk/fm-folder-view.c:423
 msgid "Modified"
-msgstr ""
+msgstr "Modificato"
 
 #: ../src/gtk/fm-gtk-utils.c:43
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: ../src/gtk/fm-gtk-utils.c:226
 msgid "Please select a folder"
-msgstr ""
+msgstr "Per favore, seleziona una cartella"
 
 #: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Vuoi muovere i file selezionati nel cestino?"
 
 #: ../src/gtk/fm-gtk-utils.c:486
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Vuoi cancellare i file selezionati?"
 
 #: ../src/gtk/fm-gtk-utils.c:516
 msgid "Rename File"
-msgstr ""
+msgstr "Rinomina File"
 
 #: ../src/gtk/fm-gtk-utils.c:516
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Per favore inserisci un nuovo nome:"
 
 #: ../src/gtk/fm-gtk-utils.c:538
 msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+msgstr "Sei sicuro di voler svuotare il cestino?"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
-msgstr ""
+msgstr "Monta Volume"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Smona Volume"
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Espelli dispositivo removibile"
 
 #: ../src/gtk/fm-places-view.c:143
 #: ../src/gtk/fm-places-view.c:741
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Rinomina il segnalibro"
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Rimuovi dai segnalibri"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr ""
+msgstr "Svuota cestino"
 
 #: ../src/gtk/fm-places-view.c:401
 msgid "Trash"
-msgstr ""
+msgstr "Cestino"
 
 #: ../src/gtk/fm-places-view.c:448
 msgid "Desktop"
-msgstr ""
+msgstr "Scrivania"
 
 #: ../src/gtk/fm-places-view.c:460
 msgid "Applications"
-msgstr ""
+msgstr "Applicazioni"
 
 #: ../src/gtk/fm-places-view.c:742
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Inserisci un nuovo nome:"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
-msgstr ""
+msgstr "Sposto i file"
 
 #: ../src/gtk/fm-progress-dlg.c:229
 msgid "Copying files"
-msgstr ""
+msgstr "Copio i file"
 
 #: ../src/gtk/fm-progress-dlg.c:232
 msgid "Trashing files"
-msgstr ""
+msgstr "Cestino i file"
 
 #: ../src/gtk/fm-progress-dlg.c:235
 msgid "Deleting files"
-msgstr ""
+msgstr "Cancello i file"
 
 #: ../src/gtk/fm-progress-dlg.c:238
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Creo collegamenti simbolici"
 
 #: ../src/gtk/fm-progress-dlg.c:241
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Cambio gli attributi del file"
 
 #: ../src/gtk/fm-file-menu.c:78
 msgid "Rename"
-msgstr ""
+msgstr "Rinomina"
 
 #: ../src/gtk/fm-file-menu.c:79
 msgid "Create Symlink"
-msgstr ""
+msgstr "Crea collegamento simbolico"
 
 #: ../src/gtk/fm-file-menu.c:80
 msgid "Send To"
-msgstr ""
+msgstr "Invia a"
 
 #: ../src/gtk/fm-file-properties.c:173
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Per favore digita un nome utente o un id numerico valido."
 
 #: ../src/gtk/fm-file-properties.c:205
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Per favore digita un nome gruppo o id numerico valido."
 
 #: ../src/gtk/fm-file-properties.c:353
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
 
 #: ../src/gtk/fm-file-properties.c:620
 msgid "Files of different types"
-msgstr ""
+msgstr "File di diverso tipo"
 
 #: ../src/gtk/fm-file-properties.c:641
 msgid "Multiple Files"
-msgstr ""
+msgstr "File multipli"
 
 #: ../src/gtk/fm-file-properties.c:712
 msgid "Other Applications"
-msgstr ""
+msgstr "Altre applicazioni"
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave fallito."
 
 #: ../src/job/fm-dir-list-job.c:236
 #, c-format
 msgid "It's not a valid directory"
-msgstr ""
+msgstr "Non è una cartella valida"
 
 #: ../src/base/fm-utils.c:52
 #: ../src/base/fm-utils.c:81
