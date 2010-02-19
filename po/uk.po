@@ -1,19 +1,20 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-16 04:07+0000\n"
+"POT-Creation-Date: 2010-02-19 22:35+0100\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -98,7 +99,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Операції, які може виконувати тільки власник"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Operations that users of the same group with the owner of the file can do"
+msgid ""
+"Operations that users of the same group with the owner of the file can do"
 msgstr "Операції, які можуть виконувати користувачі з групи власника"
 
 #: ../data/ui/file-prop.glade.h:22
@@ -229,19 +231,192 @@ msgstr "Встановити вибрану програму як типову �
 msgid "_Browse"
 msgstr "_Переглянути"
 
-#: ../src/gtk/fm-folder-view.c:392
+#: ../src/gtk/exo/exo-icon-view.c:679
+msgid "Column Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:680
+msgid "Space which is inserted between grid column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:696
+msgid "Number of columns"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:697
+msgid "Number of columns to display"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:711
+msgid "Enable Search"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:712
+msgid "View allows user to search through columns interactively"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:729
+msgid "Width for each item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:730
+msgid "The width used for each item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:748
+msgid "Layout mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:749
+msgid "The layout mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:765
+msgid "Margin"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:766
+msgid "Space which is inserted at the edges of the icon view"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:782
+msgid "Markup column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:783
+msgid "Model column used to retrieve the text if using Pango markup"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:797
+msgid "Icon View Model"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:798
+msgid "The model for the icon view"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:811
+msgid "Orientation"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:812
+msgid ""
+"How the text and icon of each item are positioned relative to each other"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:828
+msgid "Pixbuf column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:829
+msgid "Model column used to retrieve the icon pixbuf from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:844
+msgid "Reorderable"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:845
+msgid "View is reorderable"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:860
+msgid "Row Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:861
+msgid "Space which is inserted between grid rows"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:875
+msgid "Search Column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:876
+msgid "Model column to search through when searching through item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:890
+msgid "Selection mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:891
+#, fuzzy
+msgid "The selection mode"
+msgstr "Будь-ласка, виберіть каталог"
+
+#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
+msgid "Single Click"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
+msgid "Whether the items in the view can be activated with single clicks"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
+msgid "Single Click Timeout"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
+msgid ""
+"The amount of time after which the item under the mouse cursor will be "
+"selected automatically in single click mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:939
+msgid "Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:940
+msgid "Space which is inserted between cells of an item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:955
+msgid "Text column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:956
+msgid "Model column used to retrieve the text from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:963
+msgid "Selection Box Color"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:964
+msgid "Color of the selection box"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:970
+msgid "Selection Box Alpha"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:971
+msgid "Opacity of the selection box"
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-dlg.c:95
+#, fuzzy
+msgid "Use selected application to open files"
+msgstr "Виберіть програму для відкриття файлів цього типу"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:411
+#: ../src/gtk/fm-folder-view.c:480
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:417
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:423
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Modified"
 msgstr "Змінено"
 
@@ -285,7 +460,7 @@ msgstr "Від’єднати диск"
 msgid "Eject Removable Media"
 msgstr "Витягнути диск або медіа"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -297,19 +472,19 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:401
+#: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-view.c:448
+#: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:460
+#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
 msgid "Applications"
 msgstr "Програми"
 
-#: ../src/gtk/fm-places-view.c:742
+#: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -362,8 +537,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підкаталогів?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
+"підкаталогів?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -385,10 +563,18 @@ msgstr "XDirectSave не вдалося"
 msgid "Installed Applications"
 msgstr "Заінстальовані програми"
 
-#: ../src/job/fm-dir-list-job.c:266
+#: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Це не є властивий каталог"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Ярлики"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Точка монтування"
 
 #: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
 #, c-format
@@ -430,10 +616,15 @@ msgstr "ГіБ"
 msgid "TiB"
 msgstr "ТіБ"
 
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Ярлики"
+#: ../src/base/fm-path.c:388
+#, fuzzy
+msgid "Trash Can"
+msgstr "Смітник"
 
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Точка монтування"
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr ""
+
+#: ../src/base/fm-path.c:394
+msgid "Network"
+msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-10 01:24+0100\n"
+"POT-Creation-Date: 2010-02-19 22:35+0100\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -182,47 +182,266 @@ msgstr "<b>Para:</b>"
 msgid "Preparing..."
 msgstr "Preparando..."
 
-#: ../src/gtk/fm-folder-view.c:392
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Tipo de arquivo:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Outros aplicativos"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Outros aplicativos"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:679
+msgid "Column Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:680
+msgid "Space which is inserted between grid column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:696
+msgid "Number of columns"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:697
+msgid "Number of columns to display"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:711
+msgid "Enable Search"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:712
+msgid "View allows user to search through columns interactively"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:729
+msgid "Width for each item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:730
+msgid "The width used for each item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:748
+msgid "Layout mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:749
+msgid "The layout mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:765
+msgid "Margin"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:766
+msgid "Space which is inserted at the edges of the icon view"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:782
+msgid "Markup column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:783
+msgid "Model column used to retrieve the text if using Pango markup"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:797
+msgid "Icon View Model"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:798
+msgid "The model for the icon view"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:811
+msgid "Orientation"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:812
+msgid ""
+"How the text and icon of each item are positioned relative to each other"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:828
+msgid "Pixbuf column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:829
+msgid "Model column used to retrieve the icon pixbuf from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:844
+msgid "Reorderable"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:845
+msgid "View is reorderable"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:860
+msgid "Row Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:861
+msgid "Space which is inserted between grid rows"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:875
+msgid "Search Column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:876
+msgid "Model column to search through when searching through item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:890
+msgid "Selection mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:891
+#, fuzzy
+msgid "The selection mode"
+msgstr "Favor selecionar uma pasta"
+
+#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
+msgid "Single Click"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
+msgid "Whether the items in the view can be activated with single clicks"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
+msgid "Single Click Timeout"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
+msgid ""
+"The amount of time after which the item under the mouse cursor will be "
+"selected automatically in single click mode"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:939
+msgid "Spacing"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:940
+msgid "Space which is inserted between cells of an item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:955
+msgid "Text column"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:956
+msgid "Model column used to retrieve the text from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:963
+msgid "Selection Box Color"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:964
+msgid "Color of the selection box"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:970
+msgid "Selection Box Alpha"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:971
+msgid "Opacity of the selection box"
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-dlg.c:95
+#, fuzzy
+msgid "Use selected application to open files"
+msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:411
+#: ../src/gtk/fm-folder-view.c:480
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:417
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:423
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Modified"
 msgstr "Modificado"
 
-#: ../src/gtk/fm-gtk-utils.c:43
+#: ../src/gtk/fm-gtk-utils.c:44
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:226
+#: ../src/gtk/fm-gtk-utils.c:236
 msgid "Please select a folder"
 msgstr "Favor selecionar uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:491
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:486
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:538
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
@@ -238,7 +457,7 @@ msgstr "Desmontar volume"
 msgid "Eject Removable Media"
 msgstr "Ejetar mídia removível"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "Renomear ítem dos Favoritos"
 
@@ -250,19 +469,19 @@ msgstr "Remover dos Favoritos"
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: ../src/gtk/fm-places-view.c:401
+#: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
 msgstr "Lixeira"
 
-#: ../src/gtk/fm-places-view.c:448
+#: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
 msgstr "Área de trabalho"
 
-#: ../src/gtk/fm-places-view.c:460
+#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
 msgid "Applications"
 msgstr "Aplicativos"
 
-#: ../src/gtk/fm-places-view.c:742
+#: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Digitar um novo nome:"
 
@@ -290,92 +509,62 @@ msgstr "Criando links simbólicos"
 msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
-#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83
 msgid "Create Symlink"
 msgstr "Criar links simbólicos"
 
-#: ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Send To"
 msgstr "Enviar para"
 
-#: ../src/gtk/fm-file-properties.c:173
+#: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
 msgstr "Favor digitar um nome de usuário ou identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:205
+#: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:353
+#: ../src/gtk/fm-file-properties.c:357
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Você deseja aplicar estas modificações de forma recursiva a todos os "
 "arquivos e sub-pastas?"
 
-#: ../src/gtk/fm-file-properties.c:620
+#: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
 msgstr "Arquivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:641
+#: ../src/gtk/fm-file-properties.c:645
 msgid "Multiple Files"
 msgstr "Múltiplos arquivos"
 
-#: ../src/gtk/fm-file-properties.c:712
-msgid "Other Applications"
-msgstr "Outros aplicativos"
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "XDirectSave falhou."
 
-#: ../src/job/fm-dir-list-job.c:236
+#: ../src/gtk/fm-app-menu-view.c:150
+#, fuzzy
+msgid "Installed Applications"
+msgstr "Outros aplicativos"
+
+#: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Não é um diretório válido"
-
-#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u bytes"
-msgstr[1] "%u bytes"
-
-#: ../src/base/fm-utils.c:59
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:64
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:69
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:74
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:88
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:93
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:98
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:103
-msgid "TiB"
-msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:52
 msgid "Shortcuts"
@@ -384,3 +573,55 @@ msgstr "Atalhos"
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Ponto de montagem"
+
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u bytes"
+msgstr[1] "%u bytes"
+
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-path.c:388
+#, fuzzy
+msgid "Trash Can"
+msgstr "Lixeira"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr ""
+
+#: ../src/base/fm-path.c:394
+msgid "Network"
+msgstr ""
