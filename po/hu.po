@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-10 01:24+0100\n"
+"POT-Creation-Date: 2010-02-19 22:47+0100\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -186,47 +186,94 @@ msgstr "<b>Ide:</b>"
 msgid "Preparing..."
 msgstr "Előkészítés..."
 
-#: ../src/gtk/fm-folder-view.c:392
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "Megnyitandó fájltípus:"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Válassz alkalmazást"
+
+#: ../data/ui/app-chooser.glade.h:10
+#, fuzzy
+msgid "Custom Command Line"
+msgstr "_Parancssor: "
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Telepített alkalmazások"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "A választott alkalmazás legyen alap"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Böngészés"
+
+#: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Név"
 
-#: ../src/gtk/fm-folder-view.c:411
+#: ../src/gtk/fm-folder-view.c:480
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/gtk/fm-folder-view.c:417
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Size"
 msgstr "Méret"
 
-#: ../src/gtk/fm-folder-view.c:423
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Modified"
 msgstr "Módosítva"
 
-#: ../src/gtk/fm-gtk-utils.c:43
+#: ../src/gtk/fm-gtk-utils.c:44
 msgid "Error"
 msgstr "Hiba"
 
-#: ../src/gtk/fm-gtk-utils.c:226
+#: ../src/gtk/fm-gtk-utils.c:236
 msgid "Please select a folder"
 msgstr "Válassz egy mappát"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:491
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "A kukába dobod a kijelölt fájlokat?"
 
-#: ../src/gtk/fm-gtk-utils.c:486
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Törlöd a kijelölt fájlokat?"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Rename File"
 msgstr "Fájl átnevezése"
 
-#: ../src/gtk/fm-gtk-utils.c:516
+#: ../src/gtk/fm-gtk-utils.c:526
 msgid "Please enter a new name:"
 msgstr "Adj egy új nevet:"
 
-#: ../src/gtk/fm-gtk-utils.c:538
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Kiüríted a kukát?"
 
@@ -242,7 +289,7 @@ msgstr "Kötet lecsatolása"
 msgid "Eject Removable Media"
 msgstr "Eltávolítható média kiadása"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:741
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "Könyvjelző elem átnevezése"
 
@@ -254,19 +301,19 @@ msgstr "Törlés a könyvjelzőkből"
 msgid "Empty Trash"
 msgstr "Üres kuka"
 
-#: ../src/gtk/fm-places-view.c:401
+#: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
 msgstr "Kuka"
 
-#: ../src/gtk/fm-places-view.c:448
+#: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
 msgstr "Munkaasztal"
 
-#: ../src/gtk/fm-places-view.c:460
+#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
 msgid "Applications"
 msgstr "Alkalmazások"
 
-#: ../src/gtk/fm-places-view.c:742
+#: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Adj egy új nevet:"
 
@@ -294,88 +341,274 @@ msgstr "Szimlinkek létrehozása"
 msgid "Changing file attributes"
 msgstr "Fájl attribútumok cseréje"
 
-#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#, fuzzy
+msgid "Open With..."
+msgstr "Megnyitás _ezzel:"
+
+#: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83
 msgid "Create Symlink"
 msgstr "Szimlink létrehozása"
 
-#: ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Send To"
 msgstr "Küldés ide"
 
-#: ../src/gtk/fm-file-properties.c:173
+#: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
 msgstr "Adj érvényes felhasználó nevet vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:205
+#: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
 msgstr "Adj érvényes csoport neve vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:353
+#: ../src/gtk/fm-file-properties.c:357
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és mappára?"
 
-#: ../src/gtk/fm-file-properties.c:620
+#: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
 msgstr "Különböző típusú fájlok"
 
-#: ../src/gtk/fm-file-properties.c:641
+#: ../src/gtk/fm-file-properties.c:645
 msgid "Multiple Files"
 msgstr "Több fájl"
 
-#: ../src/gtk/fm-file-properties.c:712
-msgid "Other Applications"
-msgstr "Más alkalmazások"
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "Az XDirectSave meghiúsult."
 
-#: ../src/job/fm-dir-list-job.c:236
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Telepített alkalmazások"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:95
+#, fuzzy
+msgid "Use selected application to open files"
+msgstr "A választott alkalmazás legyen alap"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:679
+msgid "Column Spacing"
+msgstr "Oszloptáv"
+
+#: ../src/gtk/exo/exo-icon-view.c:680
+msgid "Space which is inserted between grid column"
+msgstr "Az oszlopok közti táv"
+
+#: ../src/gtk/exo/exo-icon-view.c:696
+msgid "Number of columns"
+msgstr "Oszlopszám"
+
+#: ../src/gtk/exo/exo-icon-view.c:697
+msgid "Number of columns to display"
+msgstr "Megjelenített oszlopok száma"
+
+#: ../src/gtk/exo/exo-icon-view.c:711
+msgid "Enable Search"
+msgstr "Keresés bekapcsolva"
+
+#: ../src/gtk/exo/exo-icon-view.c:712
+msgid "View allows user to search through columns interactively"
+msgstr "Lehetővé teszik az oszlopok közti interaktív keresést"
+
+#: ../src/gtk/exo/exo-icon-view.c:729
+msgid "Width for each item"
+msgstr "Elemek szélessége"
+
+#: ../src/gtk/exo/exo-icon-view.c:730
+msgid "The width used for each item"
+msgstr "Az egyes elemekhez használt szélesség"
+
+#: ../src/gtk/exo/exo-icon-view.c:748
+msgid "Layout mode"
+msgstr "Rendezési mód"
+
+#: ../src/gtk/exo/exo-icon-view.c:749
+msgid "The layout mode"
+msgstr "Az elrendezés módja"
+
+#: ../src/gtk/exo/exo-icon-view.c:765
+msgid "Margin"
+msgstr "Margó"
+
+#: ../src/gtk/exo/exo-icon-view.c:766
+msgid "Space which is inserted at the edges of the icon view"
+msgstr "Az ikonnézet széleihez tett táv"
+
+#: ../src/gtk/exo/exo-icon-view.c:782
+#, fuzzy
+msgid "Markup column"
+msgstr "Pixbuf oszlop"
+
+#: ../src/gtk/exo/exo-icon-view.c:783
+msgid "Model column used to retrieve the text if using Pango markup"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:797
+#, fuzzy
+msgid "Icon View Model"
+msgstr "_Ikon nézet"
+
+#: ../src/gtk/exo/exo-icon-view.c:798
+msgid "The model for the icon view"
+msgstr "Az ikon nézethez tartozó model"
+
+#: ../src/gtk/exo/exo-icon-view.c:811
+msgid "Orientation"
+msgstr "Elrendezés"
+
+#: ../src/gtk/exo/exo-icon-view.c:812
+#, fuzzy
+msgid ""
+"How the text and icon of each item are positioned relative to each other"
+msgstr "Hogy legyen a szöveg és az ikon elhelyezve relatívan a többihez képest"
+
+#: ../src/gtk/exo/exo-icon-view.c:828
+msgid "Pixbuf column"
+msgstr "Pixbuf oszlop"
+
+#: ../src/gtk/exo/exo-icon-view.c:829
+msgid "Model column used to retrieve the icon pixbuf from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:844
+msgid "Reorderable"
+msgstr "Újrarendezhető"
+
+#: ../src/gtk/exo/exo-icon-view.c:845
+msgid "View is reorderable"
+msgstr "A nézet újrarendezhető"
+
+#: ../src/gtk/exo/exo-icon-view.c:860
+msgid "Row Spacing"
+msgstr "Sor Térköz"
+
+#: ../src/gtk/exo/exo-icon-view.c:861
+msgid "Space which is inserted between grid rows"
+msgstr "Térköz ami a rács sorok közé kerül"
+
+#: ../src/gtk/exo/exo-icon-view.c:875
+msgid "Search Column"
+msgstr "Kereső Oszlop"
+
+#: ../src/gtk/exo/exo-icon-view.c:876
+msgid "Model column to search through when searching through item"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:890
+msgid "Selection mode"
+msgstr "Kijelölő mód"
+
+#: ../src/gtk/exo/exo-icon-view.c:891
+msgid "The selection mode"
+msgstr "Kijelölés mód"
+
+#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
+msgid "Single Click"
+msgstr "Kattintás"
+
+#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
+msgid "Whether the items in the view can be activated with single clicks"
+msgstr ""
+"Az elemek bekapcsolhatóak legyenek e a nézetben egy egyszerű kattintással"
+
+#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
+msgid "Single Click Timeout"
+msgstr "Szimpla kattintás időtúllépése"
+
+#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
+msgid ""
+"The amount of time after which the item under the mouse cursor will be "
+"selected automatically in single click mode"
+msgstr ""
+"Az időtartam amely szükséges egy elem kijelöléséhez a kurzor rajtatartásával"
+
+#: ../src/gtk/exo/exo-icon-view.c:939
+msgid "Spacing"
+msgstr "Térköz"
+
+#: ../src/gtk/exo/exo-icon-view.c:940
+msgid "Space which is inserted between cells of an item"
+msgstr "Térköz amely az elem cellái közé kerül"
+
+#: ../src/gtk/exo/exo-icon-view.c:955
+msgid "Text column"
+msgstr "Szövegoszlop"
+
+#: ../src/gtk/exo/exo-icon-view.c:956
+msgid "Model column used to retrieve the text from"
+msgstr ""
+
+#: ../src/gtk/exo/exo-icon-view.c:963
+msgid "Selection Box Color"
+msgstr "Kijelölő doboz színe"
+
+#: ../src/gtk/exo/exo-icon-view.c:964
+msgid "Color of the selection box"
+msgstr "Kijelölődoboz színe"
+
+#: ../src/gtk/exo/exo-icon-view.c:970
+msgid "Selection Box Alpha"
+msgstr "Kijelölő doboz alfa"
+
+#: ../src/gtk/exo/exo-icon-view.c:971
+msgid "Opacity of the selection box"
+msgstr "Kijelölő dobod telítettsége"
+
+#: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Érvénytelen mappa"
 
-#: ../src/base/fm-utils.c:52 ../src/base/fm-utils.c:81
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bájt"
 msgstr[1] "%u bájt"
 
-#: ../src/base/fm-utils.c:59
+#: ../src/base/fm-utils.c:60
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:64
+#: ../src/base/fm-utils.c:65
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:69
+#: ../src/base/fm-utils.c:70
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:74
+#: ../src/base/fm-utils.c:75
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:89
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:93
+#: ../src/base/fm-utils.c:94
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:98
+#: ../src/base/fm-utils.c:99
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:103
+#: ../src/base/fm-utils.c:104
 msgid "TiB"
 msgstr "TiB"
 
@@ -386,6 +619,23 @@ msgstr "Gyorsbillentyűk"
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Csatolási pont"
+
+#: ../src/base/fm-path.c:388
+#, fuzzy
+msgid "Trash Can"
+msgstr "Kuka"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr "Saját gép"
+
+#: ../src/base/fm-path.c:394
+#, fuzzy
+msgid "Network"
+msgstr "Hálózati meghajtók"
+
+#~ msgid "Other Applications"
+#~ msgstr "Más alkalmazások"
 
 #~ msgid "Copyright (C) 2009"
 #~ msgstr "Copyright (C) 2009"
@@ -615,23 +865,11 @@ msgstr "Csatolási pont"
 #~ msgid "Desktop Folder"
 #~ msgstr "Aszal mappa"
 
-#~ msgid "My Computer"
-#~ msgstr "Saját gép"
-
-#~ msgid "Network Drives"
-#~ msgstr "Hálózati meghajtók"
-
-#~ msgid "Installed Applications"
-#~ msgstr "Telepített alkalmazások"
-
 #~ msgid "_Bookmarks"
 #~ msgstr "_Könyvjelzők"
 
 #~ msgid "Show _Hidden"
 #~ msgstr "_Rejtett"
-
-#~ msgid "_Icon View"
-#~ msgstr "_Ikon nézet"
 
 #~ msgid "_Compact View"
 #~ msgstr "_Tömör nézet"
@@ -729,12 +967,6 @@ msgstr "Csatolási pont"
 #~ "     * thunar-vfs and libexo: Benedikt Meurer\n"
 #~ "     * gnome-mount: David Zeuthen"
 
-#~ msgid "Choose an Application"
-#~ msgstr "Válassz alkalmazást"
-
-#~ msgid "File Type To be Opened:"
-#~ msgstr "Megnyitandó fájltípus:"
-
 #~ msgid "Opened in Terminal"
 #~ msgstr "Megnyitás Terminálban"
 
@@ -744,15 +976,6 @@ msgstr "Csatolási pont"
 #~ msgstr ""
 #~ "Válassz egy alkalmazást az alábbi listákból, vagy add meg a parancsot "
 #~ "kézzel:"
-
-#~ msgid "Set selected application to default action"
-#~ msgstr "A választott alkalmazás legyen alap"
-
-#~ msgid "_Browse"
-#~ msgstr "_Böngészés"
-
-#~ msgid "_Command Line:"
-#~ msgstr "_Parancssor: "
 
 #~ msgid "_Recommended Applications"
 #~ msgstr "Ajánlott alkalmazások"
@@ -940,116 +1163,6 @@ msgstr "Csatolási pont"
 
 #~ msgid "_Desktop"
 #~ msgstr "Asztal"
-
-#~ msgid "Column Spacing"
-#~ msgstr "Oszloptáv"
-
-#~ msgid "Space which is inserted between grid column"
-#~ msgstr "Az oszlopok közti táv"
-
-#~ msgid "Number of columns"
-#~ msgstr "Oszlopszám"
-
-#~ msgid "Number of columns to display"
-#~ msgstr "Megjelenített oszlopok száma"
-
-#~ msgid "Enable Search"
-#~ msgstr "Keresés bekapcsolva"
-
-#~ msgid "View allows user to search through columns interactively"
-#~ msgstr "Lehetővé teszik az oszlopok közti interaktív keresést"
-
-#~ msgid "Width for each item"
-#~ msgstr "Elemek szélessége"
-
-#~ msgid "The width used for each item"
-#~ msgstr "Az egyes elemekhez használt szélesség"
-
-#~ msgid "Layout mode"
-#~ msgstr "Rendezési mód"
-
-#~ msgid "The layout mode"
-#~ msgstr "Az elrendezés módja"
-
-#~ msgid "Margin"
-#~ msgstr "Margó"
-
-#~ msgid "Space which is inserted at the edges of the icon view"
-#~ msgstr "Az ikonnézet széleihez tett táv"
-
-#~ msgid "The model for the icon view"
-#~ msgstr "Az ikon nézethez tartozó model"
-
-#~ msgid "Orientation"
-#~ msgstr "Elrendezés"
-
-#, fuzzy
-#~ msgid ""
-#~ "How the text and icon of each item are positioned relative to each other"
-#~ msgstr ""
-#~ "Hogy legyen a szöveg és az ikon elhelyezve relatívan a többihez képest"
-
-#~ msgid "Pixbuf column"
-#~ msgstr "Pixbuf oszlop"
-
-#~ msgid "Reorderable"
-#~ msgstr "Újrarendezhető"
-
-#~ msgid "View is reorderable"
-#~ msgstr "A nézet újrarendezhető"
-
-#~ msgid "Row Spacing"
-#~ msgstr "Sor Térköz"
-
-#~ msgid "Space which is inserted between grid rows"
-#~ msgstr "Térköz ami a rács sorok közé kerül"
-
-#~ msgid "Search Column"
-#~ msgstr "Kereső Oszlop"
-
-#~ msgid "Selection mode"
-#~ msgstr "Kijelölő mód"
-
-#~ msgid "The selection mode"
-#~ msgstr "Kijelölés mód"
-
-#~ msgid "Single Click"
-#~ msgstr "Kattintás"
-
-#~ msgid "Whether the items in the view can be activated with single clicks"
-#~ msgstr ""
-#~ "Az elemek bekapcsolhatóak legyenek e a nézetben egy egyszerű kattintással"
-
-#~ msgid "Single Click Timeout"
-#~ msgstr "Szimpla kattintás időtúllépése"
-
-#~ msgid ""
-#~ "The amount of time after which the item under the mouse cursor will be "
-#~ "selected automatically in single click mode"
-#~ msgstr ""
-#~ "Az időtartam amely szükséges egy elem kijelöléséhez a kurzor "
-#~ "rajtatartásával"
-
-#~ msgid "Spacing"
-#~ msgstr "Térköz"
-
-#~ msgid "Space which is inserted between cells of an item"
-#~ msgstr "Térköz amely az elem cellái közé kerül"
-
-#~ msgid "Text column"
-#~ msgstr "Szövegoszlop"
-
-#~ msgid "Selection Box Color"
-#~ msgstr "Kijelölő doboz színe"
-
-#~ msgid "Color of the selection box"
-#~ msgstr "Kijelölődoboz színe"
-
-#~ msgid "Selection Box Alpha"
-#~ msgstr "Kijelölő doboz alfa"
-
-#~ msgid "Opacity of the selection box"
-#~ msgstr "Kijelölő dobod telítettsége"
 
 #~ msgid "audio"
 #~ msgstr "hang"
@@ -1415,9 +1528,6 @@ msgstr "Csatolási pont"
 
 #~ msgid "Extract _To"
 #~ msgstr "Kibontás ide"
-
-#~ msgid "Open _with..."
-#~ msgstr "Megnyitás _ezzel:"
 
 #~ msgid "Compress"
 #~ msgstr "Tömörít"

@@ -11,9 +11,14 @@ src/gtk/fm-file-menu.c
 src/gtk/fm-file-properties.c
 src/gtk/fm-dnd-dest.c
 src/gtk/fm-app-menu-view.c
+src/gtk/fm-app-chooser-dlg.c
+
+src/gtk/exo/exo-icon-view.c
+src/gtk/exo/exo-tree-view.c
 
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
 
 src/base/fm-utils.c
 src/base/fm-file-info.c
+src/base/fm-path.c
