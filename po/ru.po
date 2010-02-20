@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: 2010-02-10 11:21+0300\n"
 "Last-Translator: Koptev Oleg <koptev.oleg@gmail.com>\n"
 "Language-Team: Russian <LL@li.org>\n"
@@ -18,6 +18,90 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Тип файла:<b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Прочие приложения"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Прочие приложения"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "Выберите приложения для запуска файла"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Файл с таким именем уже существует в выбранном каталоге.</b>\n"
+"\n"
+"Заменить существующий файл"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Применить ко всем файлам"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Подтверждение перемещения файлов"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Имя файла:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Заменить"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Переименовать"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "П_ропустить"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "этим файлом?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -128,44 +212,6 @@ msgstr "_Общее"
 msgid "_Permissions"
 msgstr "Права _доступа"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>Файл с таким именем уже существует в выбранном каталоге.</b>\n"
-"\n"
-"Заменить существующий файл"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "Применить ко всем файлам"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "Подтверждение перемещения файлов"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "Имя файла:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Заменить"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "_Переименовать"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "П_ропустить"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "этим файлом?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -185,52 +231,70 @@ msgstr "<b>В:</b>"
 msgid "Preparing..."
 msgstr "Подготовка..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr "<b>Выполнить в командной строке:</b>"
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Ярлыки"
 
-#: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Тип открываемого файла:<b>"
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Точка монтирования"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
+#: ../src/base/fm-path.c:388
+#, fuzzy
+msgid "Trash Can"
+msgstr "Корзина"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
 msgstr ""
-"<b>Специальные параметры командной строки:</b>\n"
-"  <b>%f</b>: Представляет имя одиночного файла\n"
-"  <b>%F:</b> Представляет имена нескольких файлов\n"
-"  <b>%u</b>: Представляет путь одиночного файла\n"
-"  <b>%U</b>: Представляет пути нескольких файлов"
 
-#: ../data/ui/app-chooser.glade.h:9
-msgid "Choose An Application"
-msgstr "Выбрать приложение"
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Приложения"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
-msgstr "Пользовательская команда"
+#: ../src/base/fm-path.c:394
+msgid "Network"
+msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr "Выполнить в эмуляторе терминала"
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u байт"
+msgstr[1] "%u байта"
+msgstr[2] "%u байтов"
 
-#: ../data/ui/app-chooser.glade.h:12
-msgid "Installed Application"
-msgstr "Установленное приложение"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "КБ"
 
-#: ../data/ui/app-chooser.glade.h:13
-msgid "Set selected application as default action of this file type"
-msgstr "Выберать приложение, запускаемое по умолчанию для этого типа файлов"
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "МБ"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr "_Обзор"
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "ГБ"
+
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "КиБ"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "МиБ"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "ГиБ"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "ТиБ"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -405,6 +469,56 @@ msgstr "Выберите приложения для запуска файла"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+#, fuzzy
+msgid "Installed Applications"
+msgstr "Прочие приложения"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "Ошибка XDirectSave."
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Переименовать"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Создать символьную ссылку"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Отправить"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Введите правильное имя пользователя или цифровой идентификатор."
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Введите правильное имя группы или цифровой идентификатор."
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Применить ко всем вложенным файлам и каталогам?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "Файлы разных типов"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "Несколько файлов"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Имя"
@@ -481,10 +595,6 @@ msgstr "Корзина"
 msgid "Desktop"
 msgstr "Рабочий стол"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "Приложения"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
@@ -513,117 +623,7 @@ msgstr "Создание символьных ссылок"
 msgid "Changing file attributes"
 msgstr "Изменить атрибуты файла"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr "Открыть с..."
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Переименовать"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Создать символьную ссылку"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Отправить"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "Введите правильное имя пользователя или цифровой идентификатор."
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "Введите правильное имя группы или цифровой идентификатор."
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Применить ко всем вложенным файлам и каталогам?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "Файлы разных типов"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "Несколько файлов"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr "Настроить"
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "Ошибка XDirectSave."
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "Прочие приложения"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Неверный каталог"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Ярлыки"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Точка монтирования"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u байт"
-msgstr[1] "%u байта"
-msgstr[2] "%u байтов"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "КБ"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "МБ"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "ГБ"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "ТБ"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "КиБ"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "МиБ"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "ГиБ"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "ТиБ"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Корзина"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr ""
-
-#: ../src/base/fm-path.c:394
-msgid "Network"
-msgstr ""

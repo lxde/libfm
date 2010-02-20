@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -17,6 +17,91 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Командна стрічка для виконання:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Тип файлу для відкриття:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Ці спеціальні коди можна використати в командній стрічці:</b>\n"
+" <b>%f</b>: репрезентує назву одного файлу\n"
+" <b>%F:</b> репрезентує назву багатьох файлів\n"
+" <b>%u</b>: репрезентує URI файлу\n"
+" <b>%U</b>: репрезентує багато URI"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Вибрати програму"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Інша командна стрічка"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Запустити емулятор терміналу"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Заінстальовані програми"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Встановити вибрану програму як типову дію для файлів цього типу"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Переглянути"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Вже існує файл з такою назвою в цьому місці.</b>\n"
+"\n"
+"Ви бажаєте замінити існуючий файл"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Застосувати цю опцію до всіх існуючих файлів?"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Підтвердити заміщення файлів"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Назва файлу:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Перезаписати"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "Пе_рейменувати"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "Пр_опустити"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "наступним файлом?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -127,44 +212,6 @@ msgstr "_Загальне"
 msgid "_Permissions"
 msgstr "_Дозволи"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>Вже існує файл з такою назвою в цьому місці.</b>\n"
-"\n"
-"Ви бажаєте замінити існуючий файл"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "Застосувати цю опцію до всіх існуючих файлів?"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "Підтвердити заміщення файлів"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "Назва файлу:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Перезаписати"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "Пе_рейменувати"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "Пр_опустити"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "наступним файлом?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -184,52 +231,70 @@ msgstr "<b>До:</b>"
 msgid "Preparing..."
 msgstr "Підготовлюю..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr "<b>Командна стрічка для виконання:</b>"
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Ярлики"
 
-#: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Тип файлу для відкриття:</b>"
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Точка монтування"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
+#: ../src/base/fm-path.c:388
+#, fuzzy
+msgid "Trash Can"
+msgstr "Смітник"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
 msgstr ""
-"<b>Ці спеціальні коди можна використати в командній стрічці:</b>\n"
-" <b>%f</b>: репрезентує назву одного файлу\n"
-" <b>%F:</b> репрезентує назву багатьох файлів\n"
-" <b>%u</b>: репрезентує URI файлу\n"
-" <b>%U</b>: репрезентує багато URI"
 
-#: ../data/ui/app-chooser.glade.h:9
-msgid "Choose An Application"
-msgstr "Вибрати програму"
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Програми"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
-msgstr "Інша командна стрічка"
+#: ../src/base/fm-path.c:394
+msgid "Network"
+msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr "Запустити емулятор терміналу"
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u байт"
+msgstr[1] "%u байт"
+msgstr[2] "%u байт"
 
-#: ../data/ui/app-chooser.glade.h:12
-msgid "Installed Application"
-msgstr "Заінстальовані програми"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "КБ"
 
-#: ../data/ui/app-chooser.glade.h:13
-msgid "Set selected application as default action of this file type"
-msgstr "Встановити вибрану програму як типову дію для файлів цього типу"
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "МБ"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr "_Переглянути"
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "ГБ"
+
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "КіБ"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "МіБ"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "ГіБ"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "ТіБ"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -404,6 +469,57 @@ msgstr "Виберіть програму для відкриття файлів
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Заінстальовані програми"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave не вдалося"
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr "Відкрити з..."
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Створити символьне посилання"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Вислати до"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Введіть властиву назву користувача або чисельне id."
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Введіть властиву назву групи або чисельне id."
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
+"підкаталогів?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "Файли різних типів"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "Кілька файлів"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr "Налаштувати"
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Назва"
@@ -480,10 +596,6 @@ msgstr "Смітник"
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "Програми"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
@@ -512,119 +624,7 @@ msgstr "Створення символьних посилань"
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr "Відкрити з..."
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Перейменувати"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Створити символьне посилання"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Вислати до"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "Введіть властиву назву користувача або чисельне id."
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "Введіть властиву назву групи або чисельне id."
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
-"підкаталогів?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "Файли різних типів"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "Кілька файлів"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr "Налаштувати"
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave не вдалося"
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "Заінстальовані програми"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Це не є властивий каталог"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Ярлики"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Точка монтування"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u байт"
-msgstr[1] "%u байт"
-msgstr[2] "%u байт"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "КБ"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "МБ"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "ГБ"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "ТБ"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "КіБ"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "МіБ"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "ГіБ"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "ТіБ"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Смітник"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr ""
-
-#: ../src/base/fm-path.c:394
-msgid "Network"
-msgstr ""

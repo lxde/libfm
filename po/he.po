@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -13,6 +13,90 @@ msgstr ""
 "X-Poedit-Language: Hebrew\n"
 "X-Poedit-Country: ISRAEL\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>סוג הקובץ:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "יישומים אחרים"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "יישומים אחרים"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>ישנו כבר קובץ באותו השם במיקום זה.</b>\n"
+"\n"
+"האם להחליף את הקובץ הקיים"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "יש להחיל אפשרות זו לכל הקבצים הקיימים"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "אישור החלפת קבצים"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "שם הקובץ:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_שכתוב"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_שינוי שם"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_דילוג"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "בקבצים הבאים?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -123,44 +207,6 @@ msgstr "_כללי"
 msgid "_Permissions"
 msgstr "ה_רשאות"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>ישנו כבר קובץ באותו השם במיקום זה.</b>\n"
-"\n"
-"האם להחליף את הקובץ הקיים"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "יש להחיל אפשרות זו לכל הקבצים הקיימים"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "אישור החלפת קבצים"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "שם הקובץ:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_שכתוב"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "_שינוי שם"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_דילוג"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "בקבצים הבאים?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -180,51 +226,69 @@ msgstr "<b>אל:</b>"
 msgid "Preparing..."
 msgstr "בהכנות..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "קיצורי דרך"
 
-#: ../data/ui/app-chooser.glade.h:2
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "נקודת עגינה"
+
+#: ../src/base/fm-path.c:388
 #, fuzzy
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>סוג הקובץ:</b>"
+msgid "Trash Can"
+msgstr "אשפה"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
-msgid "Choose An Application"
-msgstr "יישומים אחרים"
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "יישומים"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
+#: ../src/base/fm-path.c:394
+msgid "Network"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr ""
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u בתים"
 
-#: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
-msgid "Installed Application"
-msgstr "יישומים אחרים"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "ק\"ב"
 
-#: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
-msgid "Set selected application as default action of this file type"
-msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "מ\"ב"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr ""
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "ג\"ב"
+
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "ט\"ב"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -399,6 +463,56 @@ msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מ�
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+#, fuzzy
+msgid "Installed Applications"
+msgstr "יישומים אחרים"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave כשלה."
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "שינוי שם"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "יצירת קישור סימבולי"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "שליחה אל"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "קבצים מסוגים שונים"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "מספר קבצים"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "שם"
@@ -475,10 +589,6 @@ msgstr "אשפה"
 msgid "Desktop"
 msgstr "שולחן עבודה"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "יישומים"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
@@ -507,117 +617,7 @@ msgstr "נוצר קישור סימבולי"
 msgid "Changing file attributes"
 msgstr "שינוי תכונות הקובץ"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "שינוי שם"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "יצירת קישור סימבולי"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "שליחה אל"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "קבצים מסוגים שונים"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "מספר קבצים"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr ""
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave כשלה."
-
-#: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
-msgid "Installed Applications"
-msgstr "יישומים אחרים"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "זו אינה תיקייה תקנית"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "קיצורי דרך"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "נקודת עגינה"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u בתים"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "ק\"ב"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "מ\"ב"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "ג\"ב"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "ט\"ב"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "TiB"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "אשפה"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr ""
-
-#: ../src/base/fm-path.c:394
-msgid "Network"
-msgstr ""

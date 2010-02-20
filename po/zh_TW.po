@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: 2010-01-29 06:30+0800\n"
 "Last-Translator: Hong Jen Yee (PCMan) <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
@@ -16,6 +16,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>檔案類型：</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "其他應用程式"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "已安裝的應用程式"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "選取一應用程式來開啟這類型的檔案"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "確認取代檔案"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "檔案名稱(_N):"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "覆寫(&O)"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "重新命名(_R)"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "略過(_S)"
+
+#: ../data/ui/ask-rename.glade.h:10
+#, fuzzy
+msgid "with the following file?"
+msgstr "以下列檔案？"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -126,42 +208,6 @@ msgstr "一般(_G)"
 msgid "_Permissions"
 msgstr "權限(_P)"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "確認取代檔案"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "檔案名稱(_N):"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "覆寫(&O)"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "重新命名(_R)"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "略過(_S)"
-
-#: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
-msgid "with the following file?"
-msgstr "以下列檔案？"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -181,51 +227,69 @@ msgstr "<b>到：</b>"
 msgid "Preparing..."
 msgstr "準備中..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "捷徑"
 
-#: ../data/ui/app-chooser.glade.h:2
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "掛載點"
+
+#: ../src/base/fm-path.c:388
+msgid "Trash Can"
+msgstr "垃圾桶"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr "我的電腦"
+
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "應用程式"
+
+#: ../src/base/fm-path.c:394
 #, fuzzy
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>檔案類型：</b>"
+msgid "Network"
+msgstr "網路磁碟機"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
-msgstr ""
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, fuzzy, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%s Byte"
+msgstr[1] ""
 
-#: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
-msgid "Choose An Application"
-msgstr "其他應用程式"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "KB"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
-msgstr ""
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "MB"
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr ""
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "GB"
 
-#: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
-msgid "Installed Application"
-msgstr "已安裝的應用程式"
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "TB"
 
-#: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
-msgid "Set selected application as default action of this file type"
-msgstr "選取一應用程式來開啟這類型的檔案"
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr ""
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -402,6 +466,55 @@ msgstr "選取一應用程式來開啟這類型的檔案"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "已安裝的應用程式"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave 失敗"
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "重新命名"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "建立符號連結"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "傳送到"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "多種不同類型的檔案"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "多個檔案"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "名稱"
@@ -478,10 +591,6 @@ msgstr "垃圾桶"
 msgid "Desktop"
 msgstr "桌面"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "應用程式"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
@@ -510,119 +619,10 @@ msgstr "建立符號連結"
 msgid "Changing file attributes"
 msgstr "變更檔案屬性"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "重新命名"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "建立符號連結"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "傳送到"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr ""
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr ""
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "多種不同類型的檔案"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "多個檔案"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr ""
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave 失敗"
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "已安裝的應用程式"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "這不是一個有效的目錄。"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "捷徑"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "掛載點"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, fuzzy, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%s Byte"
-msgstr[1] ""
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "TiB"
-
-#: ../src/base/fm-path.c:388
-msgid "Trash Can"
-msgstr "垃圾桶"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr "我的電腦"
-
-#: ../src/base/fm-path.c:394
-#, fuzzy
-msgid "Network"
-msgstr "網路磁碟機"
 
 #~ msgid "_File"
 #~ msgstr "檔案(_F)"

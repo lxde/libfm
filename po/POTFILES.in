@@ -17,3 +17,4 @@ src/gtk/fm-gtk-utils.c
 src/gtk/fm-places-view.c
 src/gtk/fm-progress-dlg.c
 src/job/fm-dir-list-job.c
+src/job/fm-file-ops-job-delete.c

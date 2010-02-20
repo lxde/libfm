@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: 2010-02-19 17:49+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -15,6 +15,90 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Tipo di file:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Altre applicazioni"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Altre applicazioni"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Esiste già un file con lo stesso nome in questa posizione.</b>\n"
+"\n"
+"Vuoi sovrascrivere il file esistente"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Applica questa opzione a tutti i file esistenti"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Conferma per sostituire i file"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Nome file:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Sovrascivi"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Rinomina"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "S_alta"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "con il seguente file?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -127,44 +211,6 @@ msgstr "_Generale"
 msgid "_Permissions"
 msgstr "_Permessi"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>Esiste già un file con lo stesso nome in questa posizione.</b>\n"
-"\n"
-"Vuoi sovrascrivere il file esistente"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "Applica questa opzione a tutti i file esistenti"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "Conferma per sostituire i file"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "Nome file:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Sovrascivi"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "_Rinomina"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "S_alta"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "con il seguente file?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -184,51 +230,69 @@ msgstr "<b>A:</v>"
 msgid "Preparing..."
 msgstr "In preparazione..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Scorciatoia"
 
-#: ../data/ui/app-chooser.glade.h:2
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Punto di montaggio"
+
+#: ../src/base/fm-path.c:388
 #, fuzzy
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Tipo di file:</b>"
+msgid "Trash Can"
+msgstr "Cestino"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
-msgid "Choose An Application"
-msgstr "Altre applicazioni"
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Applicazioni"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
+#: ../src/base/fm-path.c:394
+msgid "Network"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr ""
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u byte"
 
-#: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
-msgid "Installed Application"
-msgstr "Altre applicazioni"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "KB"
 
-#: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
-msgid "Set selected application as default action of this file type"
-msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo"
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "MB"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr ""
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -403,6 +467,56 @@ msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+#, fuzzy
+msgid "Installed Applications"
+msgstr "Altre applicazioni"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave fallito."
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Rinomina"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Crea collegamento simbolico"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Invia a"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Per favore digita un nome utente o un id numerico valido."
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Per favore digita un nome gruppo o id numerico valido."
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "File di diverso tipo"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "File multipli"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Nome"
@@ -479,10 +593,6 @@ msgstr "Cestino"
 msgid "Desktop"
 msgstr "Scrivania"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "Applicazioni"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
@@ -511,117 +621,7 @@ msgstr "Creo collegamenti simbolici"
 msgid "Changing file attributes"
 msgstr "Cambio gli attributi del file"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Rinomina"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Crea collegamento simbolico"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Invia a"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "Per favore digita un nome utente o un id numerico valido."
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "Per favore digita un nome gruppo o id numerico valido."
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "File di diverso tipo"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "File multipli"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr ""
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave fallito."
-
-#: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
-msgid "Installed Applications"
-msgstr "Altre applicazioni"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Non è una cartella valida"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Scorciatoia"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Punto di montaggio"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u byte"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "TiB"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Cestino"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr ""
-
-#: ../src/base/fm-path.c:394
-msgid "Network"
-msgstr ""

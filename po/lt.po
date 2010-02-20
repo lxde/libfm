@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -12,6 +12,90 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Failo tipas:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Kitos programos"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Įdiegtos programos"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "Pasirinkite programą atverti tokių tipų failus"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Šiame aplanke jau yra failas tokiu pačiu pavadinimu.</b>\n"
+"\n"
+"Ar norite pakeisti failą nauju"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Pritaikyti šią nuostatą visiems failams"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Patvirtinti failų pakeitimą"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Failo pavadinimas:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Perrašyti"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "P_ervadinti"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "P_raleisti"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "su šiuo failu?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -122,44 +206,6 @@ msgstr "_Bendra"
 msgid "_Permissions"
 msgstr "_Leidimai"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>Šiame aplanke jau yra failas tokiu pačiu pavadinimu.</b>\n"
-"\n"
-"Ar norite pakeisti failą nauju"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "Pritaikyti šią nuostatą visiems failams"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "Patvirtinti failų pakeitimą"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "Failo pavadinimas:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Perrašyti"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "P_ervadinti"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "P_raleisti"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "su šiuo failu?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -179,51 +225,70 @@ msgstr "<b>Į:</b>"
 msgid "Preparing..."
 msgstr "Ruošiamasi..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Nuorodos"
 
-#: ../data/ui/app-chooser.glade.h:2
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Prijungimo taškas"
+
+#: ../src/base/fm-path.c:388
+msgid "Trash Can"
+msgstr "Šiukšlinė"
+
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr "Mano kompiuteris"
+
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Programos"
+
+#: ../src/base/fm-path.c:394
 #, fuzzy
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Failo tipas:</b>"
+msgid "Network"
+msgstr "Diskai tinkle"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
-msgstr ""
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u baitas"
+msgstr[1] "%u baitai"
+msgstr[2] "%u baitų"
 
-#: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
-msgid "Choose An Application"
-msgstr "Kitos programos"
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "KB"
 
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Custom Command Line"
-msgstr ""
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "MB"
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr ""
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "GB"
 
-#: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
-msgid "Installed Application"
-msgstr "Įdiegtos programos"
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "TB"
 
-#: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
-msgid "Set selected application as default action of this file type"
-msgstr "Pasirinkite programą atverti tokių tipų failus"
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr ""
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -400,6 +465,57 @@ msgstr "Pasirinkite programą atverti tokių tipų failus"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Įdiegtos programos"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave nepavyko."
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Pervadinti"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Sukurti sisteminę nuorodą"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Siųsti į"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Prašome įvesti teisingą vartotojo vardą arba numerį"
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Prašome įvesti teisingą grupės pavadinimą arba numerį"
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir "
+"poaplankiams?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "Skirtingų tipų failai"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "Keli failai"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Pavadinimas"
@@ -476,10 +592,6 @@ msgstr "Šiukšlinė"
 msgid "Desktop"
 msgstr "Darbastalis"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "Programos"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
@@ -508,122 +620,10 @@ msgstr "Kuriamos sisteminės nuorodos"
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Pervadinti"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Sukurti sisteminę nuorodą"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Siųsti į"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "Prašome įvesti teisingą vartotojo vardą arba numerį"
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "Prašome įvesti teisingą grupės pavadinimą arba numerį"
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir "
-"poaplankiams?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "Skirtingų tipų failai"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "Keli failai"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr ""
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave nepavyko."
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "Įdiegtos programos"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Tai nėra tinkamas aplankas"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Nuorodos"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Prijungimo taškas"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u baitas"
-msgstr[1] "%u baitai"
-msgstr[2] "%u baitų"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "TiB"
-
-#: ../src/base/fm-path.c:388
-msgid "Trash Can"
-msgstr "Šiukšlinė"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr "Mano kompiuteris"
-
-#: ../src/base/fm-path.c:394
-#, fuzzy
-msgid "Network"
-msgstr "Diskai tinkle"
 
 #~ msgid "_File"
 #~ msgstr "_Failas"

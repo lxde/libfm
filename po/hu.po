@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
+"POT-Creation-Date: 2010-02-20 15:33+0800\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -17,6 +17,91 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-Poedit-Language: Hungarian\n"
 "X-Poedit-Country: HUNGARY\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File Type To be Opened:</b>"
+msgstr "Megnyitandó fájltípus:"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>Those special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
+#, fuzzy
+msgid "Choose An Application"
+msgstr "Válassz alkalmazást"
+
+#: ../data/ui/app-chooser.glade.h:10
+#, fuzzy
+msgid "Custom Command Line"
+msgstr "_Parancssor: "
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:12
+#, fuzzy
+msgid "Installed Application"
+msgstr "Telepített alkalmazások"
+
+#: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
+msgid "Set selected application as default action of this file type"
+msgstr "A választott alkalmazás legyen alap"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Böngészés"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Már van egy ilyen nevű fájl itt.</b>\n"
+"\n"
+"Felülírod a létező fájlt"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Alkalmazás minden fájlra"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Fájlok cseréjének megerősítése"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "A fájl neve:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Felülír"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "Át_nevezés"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Kihagy"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "a következő fájllal?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -129,44 +214,6 @@ msgstr "Általá_nos"
 msgid "_Permissions"
 msgstr "_Jogok"
 
-#: ../data/ui/ask-rename.glade.h:1
-msgid ""
-"<b>There is already a file with the same name in this location.</b>\n"
-"\n"
-"Do you want to replace the existing file"
-msgstr ""
-"<b>Már van egy ilyen nevű fájl itt.</b>\n"
-"\n"
-"Felülírod a létező fájlt"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Apply this option to all existing files"
-msgstr "Alkalmazás minden fájlra"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "Confirm to replace files"
-msgstr "Fájlok cseréjének megerősítése"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "A fájl neve:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Felülír"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "Át_nevezés"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Kihagy"
-
-#: ../data/ui/ask-rename.glade.h:10
-msgid "with the following file?"
-msgstr "a következő fájllal?"
-
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
@@ -186,52 +233,70 @@ msgstr "<b>Ide:</b>"
 msgid "Preparing..."
 msgstr "Előkészítés..."
 
-#: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Gyorsbillentyűk"
 
-#: ../data/ui/app-chooser.glade.h:2
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Csatolási pont"
+
+#: ../src/base/fm-path.c:388
 #, fuzzy
-msgid "<b>File Type To be Opened:</b>"
-msgstr "Megnyitandó fájltípus:"
+msgid "Trash Can"
+msgstr "Kuka"
 
-#: ../data/ui/app-chooser.glade.h:4
-#, no-c-format
-msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
-msgstr ""
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr "Saját gép"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Alkalmazások"
+
+#: ../src/base/fm-path.c:394
 #, fuzzy
-msgid "Choose An Application"
-msgstr "Válassz alkalmazást"
+msgid "Network"
+msgstr "Hálózati meghajtók"
 
-#: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
-msgid "Custom Command Line"
-msgstr "_Parancssor: "
+#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u bájt"
+msgstr[1] "%u bájt"
 
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Execute in terminal emulator"
-msgstr ""
+#: ../src/base/fm-utils.c:60
+msgid "KB"
+msgstr "KB"
 
-#: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
-msgid "Installed Application"
-msgstr "Telepített alkalmazások"
+#: ../src/base/fm-utils.c:65
+msgid "MB"
+msgstr "MB"
 
-#: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
-msgid "Set selected application as default action of this file type"
-msgstr "A választott alkalmazás legyen alap"
+#: ../src/base/fm-utils.c:70
+msgid "GB"
+msgstr "GB"
 
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Browse"
-msgstr "_Böngészés"
+#: ../src/base/fm-utils.c:75
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:89
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:94
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:99
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:104
+msgid "TiB"
+msgstr "TiB"
 
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
@@ -410,6 +475,56 @@ msgstr "A választott alkalmazás legyen alap"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Telepített alkalmazások"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "Az XDirectSave meghiúsult."
+
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#, fuzzy
+msgid "Open With..."
+msgstr "Megnyitás _ezzel:"
+
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Átnevezés"
+
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Szimlink létrehozása"
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Küldés ide"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Adj érvényes felhasználó nevet vagy azonosítót"
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Adj érvényes csoport neve vagy azonosítót"
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és mappára?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr "Különböző típusú fájlok"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "Több fájl"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr ""
+
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Név"
@@ -486,10 +601,6 @@ msgstr "Kuka"
 msgid "Desktop"
 msgstr "Munkaasztal"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
-msgid "Applications"
-msgstr "Alkalmazások"
-
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
 msgstr "Adj egy új nevet:"
@@ -518,121 +629,10 @@ msgstr "Szimlinkek létrehozása"
 msgid "Changing file attributes"
 msgstr "Fájl attribútumok cseréje"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-#, fuzzy
-msgid "Open With..."
-msgstr "Megnyitás _ezzel:"
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Átnevezés"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Szimlink létrehozása"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Küldés ide"
-
-#: ../src/gtk/fm-file-properties.c:177
-msgid "Please enter a valid user name or numeric id."
-msgstr "Adj érvényes felhasználó nevet vagy azonosítót"
-
-#: ../src/gtk/fm-file-properties.c:209
-msgid "Please enter a valid group name or numeric id."
-msgstr "Adj érvényes csoport neve vagy azonosítót"
-
-#: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és mappára?"
-
-#: ../src/gtk/fm-file-properties.c:624
-msgid "Files of different types"
-msgstr "Különböző típusú fájlok"
-
-#: ../src/gtk/fm-file-properties.c:645
-msgid "Multiple Files"
-msgstr "Több fájl"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr ""
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "Az XDirectSave meghiúsult."
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "Telepített alkalmazások"
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Érvénytelen mappa"
-
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Gyorsbillentyűk"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Csatolási pont"
-
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u bájt"
-msgstr[1] "%u bájt"
-
-#: ../src/base/fm-utils.c:60
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:65
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:70
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:75
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:89
-msgid "KiB"
-msgstr "KiB"
-
-#: ../src/base/fm-utils.c:94
-msgid "MiB"
-msgstr "MiB"
-
-#: ../src/base/fm-utils.c:99
-msgid "GiB"
-msgstr "GiB"
-
-#: ../src/base/fm-utils.c:104
-msgid "TiB"
-msgstr "TiB"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Kuka"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr "Saját gép"
-
-#: ../src/base/fm-path.c:394
-#, fuzzy
-msgid "Network"
-msgstr "Hálózati meghajtók"
 
 #~ msgid "Other Applications"
 #~ msgstr "Más alkalmazások"
