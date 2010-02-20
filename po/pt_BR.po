@@ -2,16 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Og Maciel <ogmaciel@gnome.org>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2010-02-19 22:35+0100\n"
-=======
-"POT-Creation-Date: 2010-02-19 22:47+0100\n"
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
+"POT-Creation-Date: 2010-02-19 04:07+0000\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -38,15 +34,15 @@ msgstr "<b>Grupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>⁄ltimo acesso:</b>"
+msgstr "<b>√öltimo acesso:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>⁄ltima modificaÁ„o:</b>"
+msgstr "<b>√öltima modifica√ß√£o:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>LocalizaÁ„o:</b>"
+msgstr "<b>Localiza√ß√£o:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
@@ -86,7 +82,7 @@ msgstr "Propriedades do arquivo"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Tornar o arquivo execut·vel"
+msgstr "Tornar o arquivo execut√°vel"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
@@ -94,16 +90,15 @@ msgstr "Nenhum"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "OperaÁıes que todos outros usu·rios podem fazer"
+msgstr "Opera√ß√µes que todos outros usu√°rios podem fazer"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "OperaÁıes que o dono do arquivo pode fazer"
+msgstr "Opera√ß√µes que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid ""
-"Operations that users of the same group with the owner of the file can do"
-msgstr "OperaÁıes que usu·rios do mesmo grupo do dono do arquivo podem fazer"
+msgid "Operations that users of the same group with the owner of the file can do"
+msgstr "Opera√ß√µes que usu√°rios do mesmo grupo do dono do arquivo podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -127,7 +122,7 @@ msgstr "_Geral"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_Permissıes"
+msgstr "_Permiss√µes"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -135,13 +130,13 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>J· existe um arquivo com este nome nesta localizaÁ„o.</b>\n"
+"<b>J√° existe um arquivo com este nome nesta localiza√ß√£o.</b>\n"
 "\n"
-"VocÍ deseja substituir o arquivo atual"
+"Voc√™ deseja substituir o arquivo atual"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Aplicar esta opÁ„o em todos os arquivos atuais"
+msgstr "Aplicar esta op√ß√£o em todos os arquivos atuais"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -188,12 +183,11 @@ msgstr "Preparando..."
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Linha de comando para executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Tipo de arquivo:</b>"
+msgstr "<b>Tipo de arquivo para abrir:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -204,217 +198,43 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Estes c√≥digos especiais podem ser usados na linha de comando:</b>\n"
+" <b>%f</b>: Representa um nome de arquivo √∫nico\n"
+" <b>%F:</b> Representa m√∫ltiplos nomes de arquivos\n"
+" <b>%u</b>: Representa um √∫nico URI do arquivo\n"
+" <b>%U</b>: Representa m√∫ltiplo URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
 msgid "Choose An Application"
-msgstr "Outros aplicativos"
+msgstr "Escolha um aplicativo"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Linha de comando personalizada"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Executar no emulador de terminal"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "Installed Application"
-msgstr "Outros aplicativos"
+msgstr "Aplicativos instalados"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "Set selected application as default action of this file type"
-msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
+msgstr "Definir o aplicativo selecionado como a a√ß√£o padr√£o para este tipo de arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Navegar"
 
-<<<<<<< HEAD
-#: ../src/gtk/exo/exo-icon-view.c:679
-msgid "Column Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:680
-msgid "Space which is inserted between grid column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:696
-msgid "Number of columns"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:697
-msgid "Number of columns to display"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:711
-msgid "Enable Search"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:712
-msgid "View allows user to search through columns interactively"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:729
-msgid "Width for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:730
-msgid "The width used for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:748
-msgid "Layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:749
-msgid "The layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:765
-msgid "Margin"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:766
-msgid "Space which is inserted at the edges of the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:782
-msgid "Markup column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:783
-msgid "Model column used to retrieve the text if using Pango markup"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:797
-msgid "Icon View Model"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:798
-msgid "The model for the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:811
-msgid "Orientation"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:812
-msgid ""
-"How the text and icon of each item are positioned relative to each other"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:828
-msgid "Pixbuf column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:829
-msgid "Model column used to retrieve the icon pixbuf from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:844
-msgid "Reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:845
-msgid "View is reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:860
-msgid "Row Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:861
-msgid "Space which is inserted between grid rows"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:875
-msgid "Search Column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:876
-msgid "Model column to search through when searching through item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:890
-msgid "Selection mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:891
-#, fuzzy
-msgid "The selection mode"
-msgstr "Favor selecionar uma pasta"
-
-#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
-msgid "Single Click"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
-msgid "Whether the items in the view can be activated with single clicks"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
-msgid "Single Click Timeout"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
-msgid ""
-"The amount of time after which the item under the mouse cursor will be "
-"selected automatically in single click mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:939
-msgid "Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:940
-msgid "Space which is inserted between cells of an item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:955
-msgid "Text column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:956
-msgid "Model column used to retrieve the text from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:963
-msgid "Selection Box Color"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:964
-msgid "Color of the selection box"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:970
-msgid "Selection Box Alpha"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:971
-msgid "Opacity of the selection box"
-msgstr ""
-
-#: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
-msgid "Use selected application to open files"
-msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
-
-#: ../src/gtk/fm-app-chooser-dlg.c:102
-msgid "Execute custom command line to open files"
-msgstr ""
-
-=======
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Nome"
 
 #: ../src/gtk/fm-folder-view.c:480
 msgid "Description"
-msgstr "DescriÁ„o"
+msgstr "Descri√ß√£o"
 
 #: ../src/gtk/fm-folder-view.c:486
 msgid "Size"
@@ -434,11 +254,11 @@ msgstr "Favor selecionar uma pasta"
 
 #: ../src/gtk/fm-gtk-utils.c:491
 msgid "Do you want to move the selected files to trash bin?"
-msgstr "VocÍ deseja mover os arquivos selecionados para a lixeira?"
+msgstr "Voc√™ deseja mover os arquivos selecionados para a lixeira?"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr "VocÍ deseja excluir os arquivos selecionados?"
+msgstr "Voc√™ deseja excluir os arquivos selecionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:526
 msgid "Rename File"
@@ -450,7 +270,7 @@ msgstr "Favor digitar um novo nome:"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "VocÍ tem certeza que deseja esvaziar a lixeira?"
+msgstr "Voc√™ tem certeza que deseja esvaziar a lixeira?"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -462,11 +282,11 @@ msgstr "Desmontar volume"
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr "Ejetar mÌdia removÌvel"
+msgstr "Ejetar m√≠dia remov√≠vel"
 
 #: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
-msgstr "Renomear Ìtem dos Favoritos"
+msgstr "Renomear √≠tem dos Favoritos"
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
@@ -482,9 +302,9 @@ msgstr "Lixeira"
 
 #: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
-msgstr "¡rea de trabalho"
+msgstr "√Årea de trabalho"
 
-#: ../src/gtk/fm-places-view.c:463 ../src/base/fm-path.c:392
+#: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Aplicativos"
 
@@ -510,7 +330,7 @@ msgstr "Excluindo arquivos"
 
 #: ../src/gtk/fm-progress-dlg.c:238
 msgid "Creating symlinks"
-msgstr "Criando links simbÛlicos"
+msgstr "Criando links simb√≥licos"
 
 #: ../src/gtk/fm-progress-dlg.c:241
 msgid "Changing file attributes"
@@ -518,7 +338,7 @@ msgstr "Modificando atributos do arquivo"
 
 #: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "Abrir com..."
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -526,7 +346,7 @@ msgstr "Renomear"
 
 #: ../src/gtk/fm-file-menu.c:83
 msgid "Create Symlink"
-msgstr "Criar links simbÛlicos"
+msgstr "Criar links simb√≥licos"
 
 #: ../src/gtk/fm-file-menu.c:84
 msgid "Send To"
@@ -534,18 +354,15 @@ msgstr "Enviar para"
 
 #: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
-msgstr "Favor digitar um nome de usu·rio ou identificador numÈrico v·lido."
+msgstr "Favor digitar um nome de usu√°rio ou identificador num√©rico v√°lido."
 
 #: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
-msgstr "Favor digitar um nome de grupo identificador numÈrico v·lido."
+msgstr "Favor digitar um nome de grupo identificador num√©rico v√°lido."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"VocÍ deseja aplicar estas modificaÁıes de forma recursiva a todos os "
-"arquivos e sub-pastas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Voc√™ deseja aplicar estas modifica√ß√µes de forma recursiva a todos os arquivos e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -553,213 +370,25 @@ msgstr "Arquivos de tipos diferentes"
 
 #: ../src/gtk/fm-file-properties.c:645
 msgid "Multiple Files"
-msgstr "M˙ltiplos arquivos"
+msgstr "M√∫ltiplos arquivos"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "Personalizar"
 
 #: ../src/gtk/fm-dnd-dest.c:431
 msgid "XDirectSave failed."
 msgstr "XDirectSave falhou."
 
 #: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
 msgid "Installed Applications"
-msgstr "Outros aplicativos"
+msgstr "Aplicativos instalados"
 
-<<<<<<< HEAD
-=======
-#: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
-msgid "Use selected application to open files"
-msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
-
-#: ../src/gtk/fm-app-chooser-dlg.c:102
-msgid "Execute custom command line to open files"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:679
-msgid "Column Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:680
-msgid "Space which is inserted between grid column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:696
-msgid "Number of columns"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:697
-msgid "Number of columns to display"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:711
-msgid "Enable Search"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:712
-msgid "View allows user to search through columns interactively"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:729
-msgid "Width for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:730
-msgid "The width used for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:748
-msgid "Layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:749
-msgid "The layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:765
-msgid "Margin"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:766
-msgid "Space which is inserted at the edges of the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:782
-msgid "Markup column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:783
-msgid "Model column used to retrieve the text if using Pango markup"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:797
-msgid "Icon View Model"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:798
-msgid "The model for the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:811
-msgid "Orientation"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:812
-msgid ""
-"How the text and icon of each item are positioned relative to each other"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:828
-msgid "Pixbuf column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:829
-msgid "Model column used to retrieve the icon pixbuf from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:844
-msgid "Reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:845
-msgid "View is reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:860
-msgid "Row Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:861
-msgid "Space which is inserted between grid rows"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:875
-msgid "Search Column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:876
-msgid "Model column to search through when searching through item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:890
-msgid "Selection mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:891
-#, fuzzy
-msgid "The selection mode"
-msgstr "Favor selecionar uma pasta"
-
-#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
-msgid "Single Click"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
-msgid "Whether the items in the view can be activated with single clicks"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
-msgid "Single Click Timeout"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
-msgid ""
-"The amount of time after which the item under the mouse cursor will be "
-"selected automatically in single click mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:939
-msgid "Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:940
-msgid "Space which is inserted between cells of an item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:955
-msgid "Text column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:956
-msgid "Model column used to retrieve the text from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:963
-msgid "Selection Box Color"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:964
-msgid "Color of the selection box"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:970
-msgid "Selection Box Alpha"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:971
-msgid "Opacity of the selection box"
-msgstr ""
-
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
-msgstr "N„o È um diretÛrio v·lido"
+msgstr "N√£o √© um diret√≥rio v√°lido"
 
-<<<<<<< HEAD
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Atalhos"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Ponto de montagem"
-
-=======
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 #: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
 #, c-format
 msgid "%u byte"
@@ -799,27 +428,10 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Lixeira"
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Atalhos"
 
-<<<<<<< HEAD
-=======
 #: ../src/base/fm-file-info.c:55
 msgid "Mount Point"
 msgstr "Ponto de montagem"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Lixeira"
-
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr ""
-
-#: ../src/base/fm-path.c:394
-msgid "Network"
-msgstr ""
