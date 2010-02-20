@@ -26,9 +26,7 @@
      Some remote or virtual files doesn't have block size and block count.
 
 * Thumbnails, may be cached with hash table to speed up loading.
-     Partially done, needs caching mechanism and more tests.
      Need to support external thumbnailers.
-     Rotate by EXIF tag
      Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
      Limit the max size of file for which thumbnail should be generated.
      Don't generate thumbnail for remote file systems?
@@ -65,6 +63,7 @@
 
 * Keyboard shortcuts in folder view.
 
+* Add reserved data members to structs to padding for future expansion.
 
 
 [Medium Priority]

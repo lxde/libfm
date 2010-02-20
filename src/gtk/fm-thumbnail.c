@@ -24,7 +24,6 @@
 #endif
 
 /* TODO:
- * Rotate by EXIF tag
  * Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
  * Limit the max size of file for which thumbnail should be generated.
  * Don't generate thumbnail for remote file systems?
@@ -35,6 +34,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+/* FIXME: this function prototype seems to be missing in header files of GdkPixbuf. Bug report to them. */
+gboolean gdk_pixbuf_set_option(GdkPixbuf *pixbuf, const gchar *key, const gchar *value);
+
 
 /* #define ENABLE_DEBUG */
 #ifdef ENABLE_DEBUG
@@ -343,7 +346,7 @@ void load_thumbnails(ThumbnailTask* task)
             /* large_pix is freed in is_thumbnail_outdated() if it's out of date. */
             /* generate large size thumbnail */
             task->flags |= GENERATE_LARGE;
-            normal_pix = NULL;
+            large_pix = NULL;
         }
     }
 
@@ -869,34 +872,63 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
     {
         GdkPixbuf* ori_pix;
         gssize len;
+        const char* orientation_str;
         ori_pix = gdk_pixbuf_new_from_stream(ins, generator_cancellable, NULL);
+        orientation_str = gdk_pixbuf_get_option(ori_pix, "orientation");
         if(ori_pix) /* if the original image is successfully loaded */
         {
             int width = gdk_pixbuf_get_width(ori_pix);
             int height = gdk_pixbuf_get_height(ori_pix);
+            gboolean need_save;
 
             if(task->flags & GENERATE_NORMAL)
             {
                 /* don't create thumbnails for images which are too small */
                 if(width <=128 && height <= 128)
+                {
                     normal_pix = (GdkPixbuf*)g_object_ref(ori_pix);
+                    need_save = FALSE;
+                }
                 else
                 {
                     normal_pix = scale_pix(ori_pix, 128);
-                    save_thumbnail_to_disk(task, normal_pix, task->normal_path);
+                    need_save = TRUE;
                 }
+                if(orientation_str)
+                {
+                    GdkPixbuf* rotated;
+                    gdk_pixbuf_set_option(normal_pix, "orientation", orientation_str);
+                    rotated = gdk_pixbuf_apply_embedded_orientation(normal_pix);
+                    g_object_unref(normal_pix);
+                    normal_pix = rotated;
+                }
+                if(need_save)
+                    save_thumbnail_to_disk(task, normal_pix, task->normal_path);
             }
 
             if(task->flags & GENERATE_LARGE)
             {
                 /* don't create thumbnails for images which are too small */
                 if(width <=256 && height <= 256)
+                {
                     large_pix = (GdkPixbuf*)g_object_ref(ori_pix);
+                    need_save = FALSE;
+                }
                 else
                 {
                     large_pix = scale_pix(ori_pix, 256);
-                    save_thumbnail_to_disk(task, large_pix, task->large_path);
+                    need_save = TRUE;
                 }
+                if(orientation_str)
+                {
+                    GdkPixbuf* rotated;
+                    gdk_pixbuf_set_option(large_pix, "orientation", orientation_str);
+                    rotated = gdk_pixbuf_apply_embedded_orientation(large_pix);
+                    g_object_unref(large_pix);
+                    large_pix = rotated;
+                }
+                if(need_save)
+                    save_thumbnail_to_disk(task, large_pix, task->large_path);
             }
             g_object_unref(ori_pix);
         }
