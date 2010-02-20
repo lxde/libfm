@@ -48,7 +48,6 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 	g_object_class->finalize = fm_dir_list_job_finalize;
 
 	job_class->run = fm_dir_list_job_run;
-	fm_dir_list_job_parent_class = (GObjectClass*)g_type_class_peek(FM_TYPE_JOB);
 }
 
 

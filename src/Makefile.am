@@ -29,6 +29,7 @@ base_SOURCES = \
 
 job_SOURCES = \
 	job/fm-job.c \
+	job/fm-simple-job.c \
 	job/fm-dir-list-job.c \
 	job/fm-deep-count-job.c  \
 	job/fm-file-ops-job.c \
@@ -96,6 +97,7 @@ LIBFM_INCLUDES = \
 	base/fm-dummy-monitor.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
+	job/fm-simple-job.h \
 	job/fm-dir-list-job.h \
 	job/fm-deep-count-job.h \
 	job/fm-file-ops-job.h \
