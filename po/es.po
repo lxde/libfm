@@ -7,11 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2010-02-19 22:35+0100\n"
-=======
-"POT-Creation-Date: 2010-02-19 22:47+0100\n"
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -238,7 +234,6 @@ msgstr ""
 msgid "_Browse"
 msgstr "_Explorar"
 
-<<<<<<< HEAD
 #: ../src/gtk/exo/exo-icon-view.c:679
 msgid "Column Spacing"
 msgstr ""
@@ -413,8 +408,6 @@ msgstr ""
 msgid "Execute custom command line to open files"
 msgstr ""
 
-=======
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
 msgstr "Nombre"
@@ -574,180 +567,6 @@ msgstr "XDirectSave ha fallado."
 msgid "Installed Applications"
 msgstr "Aplicaciones instaladas"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
-msgid "Use selected application to open files"
-msgstr ""
-"Seleccione la aplicación utilizada para abrir los archivos de este tipo"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:102
-msgid "Execute custom command line to open files"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:679
-msgid "Column Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:680
-msgid "Space which is inserted between grid column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:696
-msgid "Number of columns"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:697
-msgid "Number of columns to display"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:711
-msgid "Enable Search"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:712
-msgid "View allows user to search through columns interactively"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:729
-msgid "Width for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:730
-msgid "The width used for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:748
-msgid "Layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:749
-msgid "The layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:765
-msgid "Margin"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:766
-msgid "Space which is inserted at the edges of the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:782
-msgid "Markup column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:783
-msgid "Model column used to retrieve the text if using Pango markup"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:797
-msgid "Icon View Model"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:798
-msgid "The model for the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:811
-msgid "Orientation"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:812
-msgid ""
-"How the text and icon of each item are positioned relative to each other"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:828
-msgid "Pixbuf column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:829
-msgid "Model column used to retrieve the icon pixbuf from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:844
-msgid "Reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:845
-msgid "View is reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:860
-msgid "Row Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:861
-msgid "Space which is inserted between grid rows"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:875
-msgid "Search Column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:876
-msgid "Model column to search through when searching through item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:890
-msgid "Selection mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:891
-#, fuzzy
-msgid "The selection mode"
-msgstr "Por favor, seleccione una carpeta"
-
-#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
-msgid "Single Click"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
-msgid "Whether the items in the view can be activated with single clicks"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
-msgid "Single Click Timeout"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
-msgid ""
-"The amount of time after which the item under the mouse cursor will be "
-"selected automatically in single click mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:939
-msgid "Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:940
-msgid "Space which is inserted between cells of an item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:955
-msgid "Text column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:956
-msgid "Model column used to retrieve the text from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:963
-msgid "Selection Box Color"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:964
-msgid "Color of the selection box"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:970
-msgid "Selection Box Alpha"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:971
-msgid "Opacity of the selection box"
-msgstr ""
-
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
@@ -805,18 +624,6 @@ msgstr "TiB"
 msgid "Trash Can"
 msgstr "Papelera"
 
-<<<<<<< HEAD
-=======
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Punto de montaje"
-
-#: ../src/base/fm-path.c:388
-#, fuzzy
-msgid "Trash Can"
-msgstr "Papelera"
-
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 #: ../src/base/fm-path.c:390
 msgid "My Computer"
 msgstr ""

@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-=======
-# The strings in demo program shouldn't be added to the lib.
-src/demo/main-win.c
->>>>>>> 4ff3cc6930a2080bc773a72f27472b519b26ae20
 src/demo/main-win-ui.c
 src/demo/main-win.c
