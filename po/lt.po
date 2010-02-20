@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 15:33+0800\n"
+"POT-Creation-Date: 2010-02-20 15:41+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -225,31 +225,6 @@ msgstr "<b>Į:</b>"
 msgid "Preparing..."
 msgstr "Ruošiamasi..."
 
-#: ../src/base/fm-file-info.c:52
-msgid "Shortcuts"
-msgstr "Nuorodos"
-
-#: ../src/base/fm-file-info.c:55
-msgid "Mount Point"
-msgstr "Prijungimo taškas"
-
-#: ../src/base/fm-path.c:388
-msgid "Trash Can"
-msgstr "Šiukšlinė"
-
-#: ../src/base/fm-path.c:390
-msgid "My Computer"
-msgstr "Mano kompiuteris"
-
-#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
-msgid "Applications"
-msgstr "Programos"
-
-#: ../src/base/fm-path.c:394
-#, fuzzy
-msgid "Network"
-msgstr "Diskai tinkle"
-
 #: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
 #, c-format
 msgid "%u byte"
@@ -290,204 +265,54 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/gtk/exo/exo-icon-view.c:679
-msgid "Column Spacing"
-msgstr ""
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Nuorodos"
 
-#: ../src/gtk/exo/exo-icon-view.c:680
-msgid "Space which is inserted between grid column"
-msgstr ""
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Prijungimo taškas"
 
-#: ../src/gtk/exo/exo-icon-view.c:696
-msgid "Number of columns"
-msgstr ""
+#: ../src/base/fm-path.c:388
+msgid "Trash Can"
+msgstr "Šiukšlinė"
 
-#: ../src/gtk/exo/exo-icon-view.c:697
-msgid "Number of columns to display"
-msgstr ""
+#: ../src/base/fm-path.c:390
+msgid "My Computer"
+msgstr "Mano kompiuteris"
 
-#: ../src/gtk/exo/exo-icon-view.c:711
-msgid "Enable Search"
-msgstr ""
+#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Programos"
 
-#: ../src/gtk/exo/exo-icon-view.c:712
-msgid "View allows user to search through columns interactively"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:729
-msgid "Width for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:730
-msgid "The width used for each item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:748
-msgid "Layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:749
-msgid "The layout mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:765
-msgid "Margin"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:766
-msgid "Space which is inserted at the edges of the icon view"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:782
-msgid "Markup column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:783
-msgid "Model column used to retrieve the text if using Pango markup"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:797
+#: ../src/base/fm-path.c:394
 #, fuzzy
-msgid "Icon View Model"
-msgstr "P_iktogramų peržiūra"
+msgid "Network"
+msgstr "Diskai tinkle"
 
-#: ../src/gtk/exo/exo-icon-view.c:798
-msgid "The model for the icon view"
-msgstr ""
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "Perkeliami failai"
 
-#: ../src/gtk/exo/exo-icon-view.c:811
-msgid "Orientation"
-msgstr ""
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "Kopijuojami failai"
 
-#: ../src/gtk/exo/exo-icon-view.c:812
-msgid ""
-"How the text and icon of each item are positioned relative to each other"
-msgstr ""
+#: ../src/gtk/fm-progress-dlg.c:232
+msgid "Trashing files"
+msgstr "Išmetami failai"
 
-#: ../src/gtk/exo/exo-icon-view.c:828
-msgid "Pixbuf column"
-msgstr ""
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "Ištrinami failai"
 
-#: ../src/gtk/exo/exo-icon-view.c:829
-msgid "Model column used to retrieve the icon pixbuf from"
-msgstr ""
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "Kuriamos sisteminės nuorodos"
 
-#: ../src/gtk/exo/exo-icon-view.c:844
-msgid "Reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:845
-msgid "View is reorderable"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:860
-msgid "Row Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:861
-msgid "Space which is inserted between grid rows"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:875
-msgid "Search Column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:876
-msgid "Model column to search through when searching through item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:890
-#, fuzzy
-msgid "Selection mode"
-msgstr "Pasirinkti atvirkščiai"
-
-#: ../src/gtk/exo/exo-icon-view.c:891
-#, fuzzy
-msgid "The selection mode"
-msgstr "Pasirinkite aplanką"
-
-#: ../src/gtk/exo/exo-icon-view.c:906 ../src/gtk/exo/exo-tree-view.c:201
-msgid "Single Click"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:907 ../src/gtk/exo/exo-tree-view.c:202
-msgid "Whether the items in the view can be activated with single clicks"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:923 ../src/gtk/exo/exo-tree-view.c:218
-msgid "Single Click Timeout"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:924 ../src/gtk/exo/exo-tree-view.c:219
-msgid ""
-"The amount of time after which the item under the mouse cursor will be "
-"selected automatically in single click mode"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:939
-msgid "Spacing"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:940
-msgid "Space which is inserted between cells of an item"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:955
-msgid "Text column"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:956
-msgid "Model column used to retrieve the text from"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:963
-msgid "Selection Box Color"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:964
-msgid "Color of the selection box"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:970
-msgid "Selection Box Alpha"
-msgstr ""
-
-#: ../src/gtk/exo/exo-icon-view.c:971
-msgid "Opacity of the selection box"
-msgstr ""
-
-#: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
-msgid "Use selected application to open files"
-msgstr "Pasirinkite programą atverti tokių tipų failus"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:102
-msgid "Execute custom command line to open files"
-msgstr ""
-
-#: ../src/gtk/fm-app-menu-view.c:150
-msgid "Installed Applications"
-msgstr "Įdiegtos programos"
-
-#: ../src/gtk/fm-dnd-dest.c:431
-msgid "XDirectSave failed."
-msgstr "XDirectSave nepavyko."
-
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
-msgid "Open With..."
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:82
-msgid "Rename"
-msgstr "Pervadinti"
-
-#: ../src/gtk/fm-file-menu.c:83
-msgid "Create Symlink"
-msgstr "Sukurti sisteminę nuorodą"
-
-#: ../src/gtk/fm-file-menu.c:84
-msgid "Send To"
-msgstr "Siųsti į"
+#: ../src/gtk/fm-progress-dlg.c:241
+msgid "Changing file attributes"
+msgstr "Keičiami failo atributai"
 
 #: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
@@ -515,50 +340,6 @@ msgstr "Keli failai"
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
 msgstr ""
-
-#: ../src/gtk/fm-folder-view.c:461
-msgid "Name"
-msgstr "Pavadinimas"
-
-#: ../src/gtk/fm-folder-view.c:480
-msgid "Description"
-msgstr "Aprašymas"
-
-#: ../src/gtk/fm-folder-view.c:486
-msgid "Size"
-msgstr "Dydis"
-
-#: ../src/gtk/fm-folder-view.c:492
-msgid "Modified"
-msgstr "Pakeista"
-
-#: ../src/gtk/fm-gtk-utils.c:44
-msgid "Error"
-msgstr "Klaida"
-
-#: ../src/gtk/fm-gtk-utils.c:236
-msgid "Please select a folder"
-msgstr "Pasirinkite aplanką"
-
-#: ../src/gtk/fm-gtk-utils.c:491
-msgid "Do you want to move the selected files to trash bin?"
-msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
-
-#: ../src/gtk/fm-gtk-utils.c:496
-msgid "Do you want to delete the selected files?"
-msgstr "Ar norite ištrinti pasirinktus failus?"
-
-#: ../src/gtk/fm-gtk-utils.c:526
-msgid "Rename File"
-msgstr "Pervadinti failą"
-
-#: ../src/gtk/fm-gtk-utils.c:526
-msgid "Please enter a new name:"
-msgstr "Įveskite naują pavadinimą:"
-
-#: ../src/gtk/fm-gtk-utils.c:548
-msgid "Are you sure you want to empty the trash bin?"
-msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -596,34 +377,99 @@ msgstr "Darbastalis"
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-progress-dlg.c:226
-msgid "Moving files"
-msgstr "Perkeliami failai"
+#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+msgid "Open With..."
+msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:229
-msgid "Copying files"
-msgstr "Kopijuojami failai"
+#: ../src/gtk/fm-file-menu.c:82
+msgid "Rename"
+msgstr "Pervadinti"
 
-#: ../src/gtk/fm-progress-dlg.c:232
-msgid "Trashing files"
-msgstr "Išmetami failai"
+#: ../src/gtk/fm-file-menu.c:83
+msgid "Create Symlink"
+msgstr "Sukurti sisteminę nuorodą"
 
-#: ../src/gtk/fm-progress-dlg.c:235
-msgid "Deleting files"
-msgstr "Ištrinami failai"
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Send To"
+msgstr "Siųsti į"
 
-#: ../src/gtk/fm-progress-dlg.c:238
-msgid "Creating symlinks"
-msgstr "Kuriamos sisteminės nuorodos"
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave nepavyko."
 
-#: ../src/gtk/fm-progress-dlg.c:241
-msgid "Changing file attributes"
-msgstr "Keičiami failo atributai"
+#: ../src/gtk/fm-app-chooser-dlg.c:95
+#, fuzzy
+msgid "Use selected application to open files"
+msgstr "Pasirinkite programą atverti tokių tipų failus"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:461
+msgid "Name"
+msgstr "Pavadinimas"
+
+#: ../src/gtk/fm-folder-view.c:480
+msgid "Description"
+msgstr "Aprašymas"
+
+#: ../src/gtk/fm-folder-view.c:486
+msgid "Size"
+msgstr "Dydis"
+
+#: ../src/gtk/fm-folder-view.c:492
+msgid "Modified"
+msgstr "Pakeista"
+
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Įdiegtos programos"
+
+#: ../src/gtk/fm-gtk-utils.c:44
+msgid "Error"
+msgstr "Klaida"
+
+#: ../src/gtk/fm-gtk-utils.c:236
+msgid "Please select a folder"
+msgstr "Pasirinkite aplanką"
+
+#: ../src/gtk/fm-gtk-utils.c:491
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
+
+#: ../src/gtk/fm-gtk-utils.c:496
+msgid "Do you want to delete the selected files?"
+msgstr "Ar norite ištrinti pasirinktus failus?"
+
+#: ../src/gtk/fm-gtk-utils.c:526
+msgid "Rename File"
+msgstr "Pervadinti failą"
+
+#: ../src/gtk/fm-gtk-utils.c:526
+msgid "Please enter a new name:"
+msgstr "Įveskite naują pavadinimą:"
+
+#: ../src/gtk/fm-gtk-utils.c:548
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
 #: ../src/job/fm-dir-list-job.c:267
 #, c-format
 msgid "It's not a valid directory"
 msgstr "Tai nėra tinkamas aplankas"
+
+#, fuzzy
+#~ msgid "Icon View Model"
+#~ msgstr "P_iktogramų peržiūra"
+
+#, fuzzy
+#~ msgid "Selection mode"
+#~ msgstr "Pasirinkti atvirkščiai"
+
+#, fuzzy
+#~ msgid "The selection mode"
+#~ msgstr "Pasirinkite aplanką"
 
 #~ msgid "_File"
 #~ msgstr "_Failas"
