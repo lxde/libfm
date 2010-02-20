@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 15:41+0800\n"
-"PO-Revision-Date: 2010-02-04 06:27+0000\n"
+"POT-Creation-Date: 2010-02-20 07:44+0000\n"
+"PO-Revision-Date: 2010-02-20 09:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -18,12 +18,11 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Kommandolinje der skal køres:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Filtype der skal åbnes:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,33 +33,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Disse specielle koder kan bruges på kommandolinjen:</b>/n"
+"  <b>%f</b>: Repræsenterer et enkelt filnavn\n"
+"  <b>%F</b>: Repræsenterer flere filnavne\n"
+"  <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
+"  <b>%U</b>: Repræsenterer flere URI'er"
 
 #: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
 msgid "Choose An Application"
-msgstr "Andre programmer"
+msgstr "Vælg et program"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Tilpasset kommandolinje"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Kør i terminalemulator"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "Installed Application"
-msgstr "Andre programmer"
+msgstr "Installeret program"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "Set selected application as default action of this file type"
-msgstr "Vælg programmet som bruges til at åbne filer af denne type "
+msgstr "Angiv valgt program som standardhandling for denne filtype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Gennemse"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -277,13 +278,12 @@ msgid "Mount Point"
 msgstr "Monteringspunkt"
 
 #: ../src/base/fm-path.c:388
-#, fuzzy
 msgid "Trash Can"
 msgstr "Skraldespand"
 
 #: ../src/base/fm-path.c:390
 msgid "My Computer"
-msgstr ""
+msgstr "Min computer"
 
 #: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
@@ -291,7 +291,7 @@ msgstr "Programmer"
 
 #: ../src/base/fm-path.c:394
 msgid "Network"
-msgstr ""
+msgstr "Netværk"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
@@ -341,7 +341,7 @@ msgstr "Flere filer"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "Tilpas"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -381,7 +381,7 @@ msgstr "Indtast et nyt navn:"
 
 #: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "Åbn med..."
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -400,13 +400,12 @@ msgid "XDirectSave failed."
 msgstr "XDirectSave mislykkedes."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
 msgid "Use selected application to open files"
-msgstr "Vælg programmet som bruges til at åbne filer af denne type "
+msgstr "Vælg markeret program til at åbne filer med"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Kør tilpasset kommandolinje for at åbne filer"
 
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
@@ -425,9 +424,8 @@ msgid "Modified"
 msgstr "Ændret"
 
 #: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
 msgid "Installed Applications"
-msgstr "Andre programmer"
+msgstr "Installerede programmer"
 
 #: ../src/gtk/fm-gtk-utils.c:44
 msgid "Error"
@@ -462,6 +460,4 @@ msgstr "Er du sikker på at du ønsker at tømme skraldespanden?"
 msgid "It's not a valid directory"
 msgstr "Det er ikke en gyldig mappe"
 
-#, fuzzy
-#~ msgid "The selection mode"
-#~ msgstr "Vælg venligst en mappe"
+
