@@ -39,10 +39,10 @@ typedef FmList FmPathList;
 enum _FmPathFlags
 {
 	FM_PATH_NONE = 0,
-	FM_PATH_IS_NATIVE = 1<<0,
-	FM_PATH_IS_REMOTE = 1<<1,
-	FM_PATH_IS_VIRTUAL = 1<<2,
-	FM_PATH_IS_TRASH = 1<<3,
+	FM_PATH_IS_NATIVE = 1<<0, /* This is a native path to UNIX, like /home */
+	FM_PATH_IS_LOCAL = 1<<1, /* This path refers  to a file on local filesystem */
+	FM_PATH_IS_VIRTUAL = 1<<2, /* This path is virtual and it doesn't exist on real filesystem */
+	FM_PATH_IS_TRASH = 1<<3, /* This path is under trash:/// */
 
 	/* reserved for future use */
 	FM_PATH_IS_RESERVED0 = 1<<4,
@@ -85,7 +85,7 @@ gboolean fm_path_is_native(FmPath* path);
 gboolean fm_path_is_trash(FmPath* path);
 gboolean fm_path_is_trash_root(FmPath* path);
 gboolean fm_path_is_virtual(FmPath* path);
-gboolean fm_path_is_remote(FmPath* path);
+gboolean fm_path_is_local(FmPath* path);
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

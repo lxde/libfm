@@ -108,8 +108,6 @@ FmPath* fm_path_new(const char* path)
         }
         root_len = (rest - path);
         parent = fm_path_new_child_len(NULL, path, root_len);
-        /* FIXME: computer: is not remote, but a virtual path */
-        parent->flags |= FM_PATH_IS_REMOTE;
         if(*rest)
         {
             ret = fm_path_new_relative(parent, rest);
@@ -141,33 +139,24 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 	{
     	path->flags = 0;
 		if(*basename == '/') /* it's a native full path */
-			path->flags |= FM_PATH_IS_NATIVE;
+        {
+			path->flags |= FM_PATH_IS_NATIVE|FM_PATH_IS_LOCAL;
+            /* FIXME: should we add FM_PATH_IS_LOCAL HERE? */
+            /* For example: a FUSE mounted remote filesystem is a native path, but it's not local. */
+        }
 		else
 		{
             /* FIXME: do we have more efficient way here? */
 			/* FIXME: trash:///, computer:///, network:/// are virtual paths */
             /* FIXME: add // if only trash:/ is supplied in basename */
-            if(strncmp(basename, "trash:", 6) == 0)
-            {
-    			path->flags |= FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL;
-            }
+            if(strncmp(basename, "trash:", 6) == 0) /* trashed files are on local filesystems */
+    			path->flags |= FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL;
             else if(strncmp(basename, "computer:", 9) == 0)
-            {
     			path->flags |= FM_PATH_IS_VIRTUAL;
-            }
             else if(strncmp(basename, "network:", 8) == 0)
-            {
     			path->flags |= FM_PATH_IS_VIRTUAL;
-            }
             else if(strncmp(basename, "applications:", 13) == 0)
-            {
     			path->flags |= FM_PATH_IS_VIRTUAL;
-            }
-            else
-            {
-                /* FIXME: http://, ftp://, smb://, ...etc. are remote paths */
-                path->flags |= FM_PATH_IS_REMOTE;
-            }
 		}
 		path->parent = NULL;
 	}
@@ -455,9 +444,9 @@ gboolean fm_path_is_virtual(FmPath* path)
 	return (path->flags&FM_PATH_IS_VIRTUAL) ? TRUE : FALSE;
 }
 
-gboolean fm_path_is_remote(FmPath* path)
+gboolean fm_path_is_local(FmPath* path)
 {
-	return (path->flags&FM_PATH_IS_REMOTE) ? TRUE : FALSE;
+	return (path->flags&FM_PATH_IS_LOCAL) ? TRUE : FALSE;
 }
 
 void fm_path_init()
@@ -504,7 +493,7 @@ void fm_path_init()
 	/* build path object for trash can */
     /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
 	trash_root = fm_path_new_child(NULL, "trash:///");
-	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL);
+	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
 
     apps_root = fm_path_new_child(NULL, "applications:///");
 	apps_root->flags |= (FM_PATH_IS_VIRTUAL);

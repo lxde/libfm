@@ -8,6 +8,8 @@
      already exists. => done
      should provide multiple destination files for recovering trashed files.
 
+* Recover previously trashed files.
+
 * File monitor:
      Queue files which are already processed in file operations, and send
      change notifications in timeout handlers to improve performance.
@@ -64,6 +66,9 @@
 * Keyboard shortcuts in folder view.
 
 * Add reserved data members to structs to padding for future expansion.
+
+* Use a forked version of xdg_mime included in glib/gio to do faster mime-type detection.
+
 
 
 [Medium Priority]
