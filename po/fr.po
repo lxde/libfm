@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 15:41+0800\n"
+"POT-Creation-Date: 2010-02-20 07:44+0000\n"
 "PO-Revision-Date: 2010-02-19 11:00+0100\n"
 "Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
 "Language-Team: \n"
@@ -57,9 +57,7 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
-"fichiers"
+msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,11 +182,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid ""
-"Operations that users of the same group with the owner of the file can do"
-msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
-"faire"
+msgid "Operations that users of the same group with the owner of the file can do"
+msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -281,7 +276,6 @@ msgid "Mount Point"
 msgstr "Point de Montage"
 
 #: ../src/base/fm-path.c:388
-#, fuzzy
 msgid "Trash Can"
 msgstr "Corbeille"
 
@@ -295,7 +289,7 @@ msgstr "Applications"
 
 #: ../src/base/fm-path.c:394
 msgid "Network"
-msgstr ""
+msgstr "Réseau"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
@@ -330,11 +324,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
-"sous-dossiers ?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -405,13 +396,12 @@ msgid "XDirectSave failed."
 msgstr "Échec de XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
 msgid "Use selected application to open files"
-msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers"
+msgstr "Utiliser l'application sélectionnée les fichiers"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
@@ -466,6 +456,5 @@ msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 msgid "It's not a valid directory"
 msgstr "Ce n'est pas un dossier valide"
 
-#, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Sélectionner un dossier"
