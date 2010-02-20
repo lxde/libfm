@@ -321,3 +321,77 @@ gboolean fm_launch_file(GAppLaunchContext* ctx, FmFileInfo* file, FmFileLauncher
     return TRUE;
 }
 
+
+char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
+{
+    int len = strlen(filename);
+    int i = 0;
+    char* ret = g_malloc(len + 1), *p = ret;
+    for(; i < len; )
+    {
+        if(filename[i] == '.')
+        {
+            if(filename[i+1] == '.' && filename[i+2] == '/' || filename[i+2] == '\0' ) /* .. */
+            {
+                if(i == 0 && expand_cwd) /* .. is first element */
+                {
+                    const char* cwd = g_get_current_dir();
+                    int cwd_len;
+                    const char* sep = strrchr(cwd, '/');
+                    if(sep && sep != cwd)
+                        cwd_len = (sep - cwd);
+                    else
+                        cwd_len = strlen(cwd);
+                    ret = g_realloc(ret, len + cwd_len + 1 - 1);
+                    memcpy(ret, cwd, cwd_len);
+                    p = ret + cwd_len;
+                }
+                else /* other .. in the path */
+                {
+                    --p;
+                    if(p > ret && *p == '/') /* strip trailing / if it's not root */
+                        --p;
+                    while(p > ret && *p != '/') /* strip basename */
+                        --p;
+                    if(*p != '/' || p == ret) /* strip trailing / if it's not root */
+                        ++p;
+                }
+                i += 2;
+                continue;
+            }
+            else if(filename[i+1] == '/' || filename[i+1] == '\0' ) /* . */
+            {
+                if(i == 0 && expand_cwd) /* first element */
+                {
+                    const char* cwd = g_get_current_dir();
+                    int cwd_len = strlen(cwd);
+                    ret = g_realloc(ret, len + cwd_len + 1);
+                    memcpy(ret, cwd, cwd_len);
+                    p = ret + cwd_len;
+                }
+                ++i;
+                continue;
+            }
+        }
+        for(; i < len; ++p)
+        {
+            /* prevent duplicated / */
+            if(filename[i] == '/' && (p > ret && *(p-1) == '/'))
+            {
+                ++i;
+                break;
+            }
+            *p = filename[i];
+            ++i;
+            if(*p == '/')
+            {
+                ++p;
+                break;
+            }
+        }
+    }
+    if((p-1) > ret && *(p-1) == '/') /* strip trailing / */
+        --p;
+    *p = 0;
+    return ret;
+}
