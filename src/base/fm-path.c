@@ -128,6 +128,16 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
         while(basename[name_len-1] == '/')
             --name_len;
     }
+
+    /* special case for . and .. */
+    if(basename[0] == '.' && (name_len == 1 || (name_len == 2 && basename[1] == '.')))
+    {
+        if(name_len == 1) /* . */
+            return parent ? fm_path_ref(parent) : NULL;
+        else /* .. */
+            return parent && parent->parent ? fm_path_ref(parent->parent) : NULL;
+    }
+
 	path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
 	path->n_ref = 1;
 	if(G_LIKELY(parent))
@@ -192,12 +202,12 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
 		if( 0 == strncmp(relative_path, home_dir + 1, home_len - 1) ) /* in home dir */
 		{
 			if( relative_path[home_len - 1] == '\0' ) /* this is the home dir */
-	                {
+            {
 				if(G_LIKELY(home))
 					return fm_path_ref(home);
 				else
-					goto _out;
-            		}
+					goto _resolve_relative_path;
+            }
 			if( 0 == strncmp(relative_path, desktop_dir + home_len + 1, desktop_len - home_len -1) ) /* in desktop dir */
 			{
 				if(relative_path[desktop_len - 1] == '\0') /* this is the desktop dir */
@@ -206,15 +216,38 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
 			}
 		}
 	}
-_out:
+_resolve_relative_path:
 	sep = strchr(relative_path, '/');
 	if(sep)
 	{
         char* end = sep;
+
         while(*end && *end == '/') /* prevent tailing slash or duplicated slashes. */
             ++end;
+
         name_len = (sep - relative_path);
-        parent = fm_path_new_child_len(parent, relative_path, name_len);
+        if(relative_path[0] == '.' && (name_len == 1 || (name_len == 2  && relative_path[1] == '.')) ) /* . or .. */
+        {
+            if(name_len == 1) /* . => current dir */
+            {
+                relative_path = end;
+                if(*end == '\0')
+                    return fm_path_ref(parent); /* . is the last component */
+                else
+                {
+                    relative_path = end; /* skip this component */
+                    goto _resolve_relative_path;
+                }
+            }
+            else /* .. jump to parent dir => */
+            {
+                if(parent->parent)
+                    parent = fm_path_ref(parent->parent);
+            }
+        }
+        else
+            parent = fm_path_new_child_len(parent, relative_path, name_len);
+
         if(*end != '\0')
         {
             relative_path = end;
@@ -224,10 +257,23 @@ _out:
         else /* this is tailing slash */
             path = parent;
 	}
-	else
+	else /* this is the last component in the path */
 	{
 		name_len = strlen(relative_path);
-		path = fm_path_new_child_len(parent, relative_path, name_len);
+        if(relative_path[0] == '.' && (name_len == 1 || (name_len == 2  && relative_path[1] == '.')) ) /* . or .. */
+        {
+            if(name_len == 1) /* . => current dir */
+                path = fm_path_ref(parent); /* . is the last component */
+            else /* .. jump to parent dir => */
+            {
+                if(parent->parent)
+                    path = fm_path_ref(parent->parent);
+                else
+                    path = fm_path_ref(parent);
+            }
+        }
+        else
+    		path = fm_path_new_child_len(parent, relative_path, name_len);
 	}
 	return path;
 }
