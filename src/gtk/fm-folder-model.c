@@ -673,6 +673,8 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
 {
     FmFileInfo* file1 = item1->inf;
     FmFileInfo* file2 = item2->inf;
+    const char* key1;
+    const char* key2;
     int ret = 0;
 
     /* put folders before files */
@@ -684,16 +686,27 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
     {
     case COL_FILE_NAME:
     {
-        const char* key1 = fm_file_info_get_collate_key(file1);
-        const char* key2 = fm_file_info_get_collate_key(file2);
+_sort_by_name:
+        key1 = fm_file_info_get_collate_key(file1);
+        key2 = fm_file_info_get_collate_key(file2);
         ret = g_ascii_strcasecmp(key1, key2);
         break;
     }
     case COL_FILE_SIZE:
         ret = file1->size - file2->size;
+        if(0 == ret)
+            goto _sort_by_name;
         break;
     case COL_FILE_MTIME:
         ret = file1->mtime - file2->mtime;
+        if(0 == ret)
+            goto _sort_by_name;
+        break;
+    case COL_FILE_DESC:
+        /* FIXME: this is very slow */
+        ret = g_utf8_collate(fm_file_info_get_desc(file1), fm_file_info_get_desc(file2));
+        if(0 == ret)
+            goto _sort_by_name;
         break;
     }
     return model->sort_order == GTK_SORT_ASCENDING ? -ret : ret;

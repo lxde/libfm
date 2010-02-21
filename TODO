@@ -111,15 +111,18 @@
      the package of libfm to work without icon themes.
 
 * Warn the user for insufficient disk space before file operations.
+     GFileInfo:G_FILE_ATTRIBUTE_FILESYSTEM_FREE before calculating
+     total size, and store this value in FmFileOpsJob.
+     During calculation, if total size already exceeds free space available,
+     prompt the user, and also provide an option to skip this.
 
-* Support "Send To..."
+* Support "Send To..." => Need to see how thunar does this.
 
-* Auto-mounting
+* Auto-mounting => partially done
 
 * Support mount specific filesystem encoding in the future. Now we only
      handle UTF-8 for simplicity.
      Those settings can be stored in FmConfig?
-
 
 * Inter-process config change notifications:
      fm_config_notify should cache all notfications.
@@ -127,6 +130,11 @@
      function set with fm_config_set_notify_hook.
      fm-gtk can use this hook to send the changed values via X11
      root window properties or dbus.
+
+* Implement our own gio extension points to override some bad stuff in gio/gvfs.
+     Pass highest priority value to g_io_extension_point_implement() if we're
+     under LXDE might be a good idea.
+
 
 
 [Low Priority]

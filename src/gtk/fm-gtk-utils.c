@@ -39,7 +39,7 @@ static gchar* 		_fm_user_input_dialog_run	(GtkDialog* dlg, GtkEntry *entry);
 
 void fm_show_error(GtkWindow* parent, const char* msg)
 {
-    GtkWidget* dlg = gtk_message_dialog_new(parent, GTK_DIALOG_NO_SEPARATOR,
+    GtkWidget* dlg = gtk_message_dialog_new(parent, 0,
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_OK, msg);
     gtk_window_set_title((GtkWindow*)dlg, _("Error"));
