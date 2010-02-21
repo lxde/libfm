@@ -47,8 +47,7 @@ struct _FmFileLauncher
 };
 
 gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLauncher* launcher, gpointer user_data);
-gboolean fm_launch_file(GAppLaunchContext* ctx, FmFileInfo* file, FmFileLauncher* launcher, gpointer user_data);
-
+gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data);
 gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, GError** err);
 
 G_END_DECLS

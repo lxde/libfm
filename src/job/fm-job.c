@@ -181,6 +181,33 @@ gboolean fm_job_run_sync(FmJob* job)
 	return ret;
 }
 
+static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
+{
+    g_main_loop_quit(mainloop);
+}
+
+/* Run a job in current thread in a blocking fashion and an additional 
+ * mainloop being created to prevent blocking of user interface.
+ * A job running synchronously with this function should be unrefed
+ * later with g_object_unref when no longer needed. */
+gboolean fm_job_run_sync_with_mainloop(FmJob* job)
+{
+    GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
+    gboolean ret;
+    g_object_ref(job); /* acquire a ref because later it will be unrefed in idle handler. */
+    g_signal_connect(job, "finished", G_CALLBACK(on_sync_job_finished), mainloop);
+    ret = fm_job_run_async(job);
+    if(ret)
+    {
+        g_main_loop_run(mainloop);
+        g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
+    }
+    else
+        g_object_unref(job);
+    g_main_loop_unref(mainloop);
+    return ret;
+}
+
 /* this is called from working thread */
 void job_thread(FmJob* job, gpointer unused)
 {

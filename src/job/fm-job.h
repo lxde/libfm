@@ -94,6 +94,12 @@ gboolean fm_job_run_async(FmJob* job);
  * later with g_object_unref when no longer needed. */
 gboolean fm_job_run_sync(FmJob* job);
 
+/* Run a job in current thread in a blocking fashion and an additional 
+ * mainloop being created to prevent blocking of user interface.
+ * A job running synchronously with this function should be unrefed
+ * later with g_object_unref when no longer needed. */
+gboolean fm_job_run_sync_with_mainloop(FmJob* job);
+
 /* Cancel the running job. can be called from any thread. */
 void fm_job_cancel(FmJob* job);
 

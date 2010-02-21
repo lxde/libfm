@@ -348,6 +348,11 @@ gboolean fm_file_info_is_symlink( FmFileInfo* fi )
     return S_ISLNK( fi->mode ) ? TRUE : FALSE;
 }
 
+gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
+{
+    return fi->type == shortcut_type;
+}
+
 gboolean fm_file_info_is_image( FmFileInfo* fi )
 {
     /* FIXME: We had better use functions of xdg_mime to check this */

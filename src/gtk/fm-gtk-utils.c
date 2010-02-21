@@ -599,6 +599,29 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     return ret;
 }
 
+gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* paths, FmLaunchFolderFunc func, gpointer user_data)
+{
+    FmFileLauncher launcher = {
+        choose_app,
+        on_open_folder,
+        on_launch_error
+    };
+    gpointer data[] = {parent, func, user_data};
+    GAppLaunchContext* _ctx = NULL;
+    gboolean ret;
+    if(ctx == NULL)
+    {
+        _ctx = ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(ctx, parent ? gtk_widget_get_screen(parent) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+        /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+    }
+    ret = fm_launch_paths(ctx, paths, &launcher, data);
+    if(_ctx)
+        g_object_unref(_ctx);
+    return ret;
+}
+
 gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* file_info, FmLaunchFolderFunc func, gpointer user_data)
 {
     gboolean ret;
@@ -608,3 +631,11 @@ gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFile
     return ret;
 }
 
+gboolean fm_launch_path_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmPath* path, FmLaunchFolderFunc func, gpointer user_data)
+{
+    gboolean ret;
+    GList* files = g_list_prepend(NULL, path);
+    ret = fm_launch_paths_simple(parent, ctx, files, func, user_data);
+    g_list_free(files);
+    return ret;
+}

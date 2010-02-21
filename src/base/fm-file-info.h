@@ -119,6 +119,8 @@ gboolean fm_file_info_is_dir( FmFileInfo* fi );
 
 gboolean fm_file_info_is_symlink( FmFileInfo* fi );
 
+gboolean fm_file_info_is_shortcut( FmFileInfo* fi );
+
 gboolean fm_file_info_is_image( FmFileInfo* fi );
 
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );

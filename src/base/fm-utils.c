@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fm-utils.h"
+#include "fm-file-info-job.h"
 
 #define BI_KiB	((gdouble)1024.0)
 #define BI_MiB	((gdouble)1024.0 * 1024.0)
@@ -247,6 +248,13 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     g_free(filename);
                 }
             }
+            else /* not a native path */
+            {
+                if(fm_file_info_is_shortcut(fi) && !fm_file_info_is_dir(fi))
+                {
+                    /* FIXME: special handling for shortcuts */
+                }
+            }
             if(fi->type && fi->type->type)
             {
                 fis = g_hash_table_lookup(hash, fi->type->type);
@@ -311,16 +319,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     }
     return TRUE;
 }
-
-gboolean fm_launch_file(GAppLaunchContext* ctx, FmFileInfo* file, FmFileLauncher* launcher, gpointer user_data)
-{
-    GList* files = g_list_prepend(NULL, file);
-    fm_launch_files(ctx, files, launcher, user_data);
-    g_list_free(files);
-
-    return TRUE;
-}
-
 
 char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
 {
@@ -393,5 +391,25 @@ char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
     if((p-1) > ret && *(p-1) == '/') /* strip trailing / */
         --p;
     *p = 0;
+    return ret;
+}
+
+gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
+{
+    FmJob* job = fm_file_info_job_new(NULL);
+    GList* l;
+    gboolean ret;
+    for(l=paths;l;l=l->next)
+        fm_file_info_job_add(job, (FmPath*)l->data);
+    ret = fm_job_run_sync_with_mainloop(job);
+    if(ret)
+    {
+        GList* file_infos = fm_list_peek_head_link(FM_FILE_INFO_JOB(job)->file_infos);
+        if(file_infos)
+            ret = fm_launch_files(ctx, file_infos, launcher, user_data);
+        else
+            ret = FALSE;
+    }
+    g_object_unref(job);
     return ret;
 }
