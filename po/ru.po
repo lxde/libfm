@@ -186,9 +186,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Права владельца файла"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Права группы, к которй принадлежит владелец файла"
+msgstr "Права группы, к которой принадлежит владелец файла"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
