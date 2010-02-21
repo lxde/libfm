@@ -1,26 +1,24 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-21 04:20+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Vykdyti komandą:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Failo tipas:</b>"
+msgstr "<b>Atidaromo failo tipas:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -31,11 +29,15 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Komandinėje eilutėje gali būti naudojami šie specialūs kodai:</b>\n"
+" <b>%f</b>: reiškia vieno failo pavadinimą\n"
+" <b>%F:</b> reiškia kelių failų pavadinimus\n"
+" <b>%u</b>: reiškia vieną failo URI\n"
+" <b>%U</b>: reiškia kelis URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
 msgid "Choose An Application"
-msgstr "Kitos programos"
+msgstr "Pasirinkite programą"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
@@ -43,21 +45,19 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Vykdyti terminale"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "Installed Application"
-msgstr "Įdiegtos programos"
+msgstr "Įdiegta programa"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "Set selected application as default action of this file type"
 msgstr "Pasirinkite programą atverti tokių tipų failus"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Naršyti"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -178,7 +178,6 @@ msgid "Operations that the owner of the file can do"
 msgstr "Operacijos, kurias gali atlikti failo savininkas"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
 msgstr "Operacijos, kurias gali atlikti vartotojai, esantys savininko grupėje"
 
@@ -286,9 +285,8 @@ msgid "Applications"
 msgstr "Programos"
 
 #: ../src/base/fm-path.c:429
-#, fuzzy
 msgid "Network"
-msgstr "Diskai tinkle"
+msgstr "Tinklas"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
@@ -323,11 +321,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Prašome įvesti teisingą grupės pavadinimą arba numerį"
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir "
-"poaplankiams?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ar norite rekursyviai pritaikyti šiuos pakeitimus visiems failams ir poaplankiams?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -339,7 +334,7 @@ msgstr "Keli failai"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "Derinti"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -379,7 +374,7 @@ msgstr "Įveskite naują pavadinimą:"
 
 #: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "Atverti su..."
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -398,9 +393,8 @@ msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
 msgid "Use selected application to open files"
-msgstr "Pasirinkite programą atverti tokių tipų failus"
+msgstr "Naudoti pasirinktą programą atverti failams"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
@@ -457,20 +451,17 @@ msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Nurodytas aplankas yra neteisingas"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Tai nėra tinkamas aplankas"
 
-#, fuzzy
 #~ msgid "Icon View Model"
 #~ msgstr "P_iktogramų peržiūra"
 
-#, fuzzy
 #~ msgid "Selection mode"
 #~ msgstr "Pasirinkti atvirkščiai"
 
-#, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Pasirinkite aplanką"
 
