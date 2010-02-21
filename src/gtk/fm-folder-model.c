@@ -52,6 +52,13 @@ struct _FmFolderItem
     gboolean thumbnail_failed : 1;
 };
 
+enum ReloadFlags
+{
+    RELOAD_ICONS = 1 << 0,
+    RELOAD_THUMBNAILS = 1 << 1,
+    RELOAD_BOTH = (RELOAD_ICONS | RELOAD_THUMBNAILS)
+};
+
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface);
 static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface);
 static void fm_folder_model_drag_source_init(GtkTreeDragSourceIface *iface);
@@ -115,13 +122,19 @@ static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
 static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model);
 
-
 static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data);
+
+static void on_show_thumbnail_changed(FmConfig* cfg, gpointer user_data);
+
+static void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data);
+
+static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data);
+
+static void reload_icons(FmFolderModel* model, enum ReloadFlags flags);
 
 #define IS_HIDDEN_FILE(fn)  \
     (fn[0] == '.' || g_str_has_suffix(fn, "~"))
 
-//static void on_thumbnail_loaded( FmFolder* dir, VFSFileInfo* file, FmFolderModel* model );
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
 static guint signals[N_SIGNALS];
@@ -132,10 +145,14 @@ void fm_folder_model_init(FmFolderModel* model)
     model->sort_col = -1;
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
-    
+
     model->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed", 
                                                    G_CALLBACK(on_icon_theme_changed), model);
+    g_signal_connect(fm_config, "changed::show_thumbnail", G_CALLBACK(on_show_thumbnail_changed), model);
+    g_signal_connect(fm_config, "changed::thumbnail_local", G_CALLBACK(on_thumbnail_local_changed), model);
+    g_signal_connect(fm_config, "changed::thumbnail_max", G_CALLBACK(on_thumbnail_max_changed), model);
 
+    model->thumbnail_max = fm_config->thumbnail_max << 10;
 }
 
 void fm_folder_model_class_init(FmFolderModelClass *klass)
@@ -216,6 +233,10 @@ void fm_folder_model_finalize(GObject *object)
     fm_folder_model_set_folder(model, NULL);
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), 
                                 model->theme_change_handler);
+
+    g_signal_handlers_disconnect_by_func(fm_config, on_show_thumbnail_changed, model);
+    g_signal_handlers_disconnect_by_func(fm_config, on_thumbnail_local_changed, model);
+    g_signal_handlers_disconnect_by_func(fm_config, on_thumbnail_max_changed, model);
 
     g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
     g_list_free(model->thumbnail_requests);
@@ -451,17 +472,24 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
         g_value_set_object(value, item->icon);
 
         /* if we want to show a thumbnail */
-        if(fm_config->show_thumbnail && !item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
+        /* if we're on local filesystem or thumbnailing for remote files is allowed */
+        if(fm_config->show_thumbnail && (fm_path_is_local(item->inf->path) || !fm_config->thumbnail_local))
         {
-            if(fm_file_info_can_thumbnail(item->inf))
+            if(!item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
             {
-                FmThumbnailRequest* req = fm_thumbnail_request(item->inf, model->icon_size, on_thumbnail_loaded, model);
-                model->thumbnail_requests = g_list_prepend(model->thumbnail_requests, req);
-                item->thumbnail_loading = TRUE;
-            }
-            else
-            {
-                item->thumbnail_failed = TRUE;
+                if(fm_file_info_can_thumbnail(item->inf))
+                {
+                    if(item->inf->size > 0 && item->inf->size <= (fm_config->thumbnail_max << 10))
+                    {
+                        FmThumbnailRequest* req = fm_thumbnail_request(item->inf, model->icon_size, on_thumbnail_loaded, model);
+                        model->thumbnail_requests = g_list_prepend(model->thumbnail_requests, req);
+                        item->thumbnail_loading = TRUE;
+                    }
+                }
+                else
+                {
+                    item->thumbnail_failed = TRUE;
+                }
             }
         }
         break;
@@ -898,12 +926,12 @@ void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
     g_signal_emit(model, signals[LOADED], 0);
 }
 
-static void reload_icons(FmFolderModel* model)
+void reload_icons(FmFolderModel* model, enum ReloadFlags flags)
 {
     /* reload icons */
     GSequenceIter* it = g_sequence_get_begin_iter(model->items);
     GtkTreePath* tp = gtk_tree_path_new_from_indices(0, -1);
-    
+
     if(model->thumbnail_requests)
     {
         g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
@@ -917,13 +945,17 @@ static void reload_icons(FmFolderModel* model)
         if(item->icon)
         {
             GtkTreeIter tree_it = {0};
-            g_object_unref(item->icon);
-            item->icon = NULL;
-            item->is_thumbnail = FALSE;
-            item->thumbnail_loading = FALSE;
-            tree_it.stamp = model->stamp;
-            tree_it.user_data = it;
-            gtk_tree_model_row_changed(model, tp, &tree_it);
+            if((flags & RELOAD_ICONS && !item->is_thumbnail) ||
+               (flags & RELOAD_THUMBNAILS && item->is_thumbnail))
+            {
+                g_object_unref(item->icon);
+                item->icon = NULL;
+                item->is_thumbnail = FALSE;
+                item->thumbnail_loading = FALSE;
+                tree_it.stamp = model->stamp;
+                tree_it.user_data = it;
+                gtk_tree_model_row_changed(model, tp, &tree_it);
+            }
         }
         gtk_tree_path_next(tp);
     }
@@ -937,13 +969,15 @@ static void reload_icons(FmFolderModel* model)
         {
             g_object_unref(item->icon);
             item->icon = NULL;
+            item->is_thumbnail = FALSE;
+            item->thumbnail_loading = FALSE;
         }
     }
 }
 
 void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
 {
-    reload_icons(model);
+    reload_icons(model, RELOAD_ICONS);
 }
 
 void fm_folder_model_get_common_suffix_for_prefix(FmFolderModel* model,
@@ -1048,10 +1082,167 @@ void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size)
     if(model->icon_size == icon_size)
         return;
     model->icon_size = icon_size;
-    reload_icons(model);
+    reload_icons(model, RELOAD_BOTH);
 }
 
 guint fm_folder_model_get_icon_size(FmFolderModel* model)
 {
     return model->icon_size;
+}
+
+void on_show_thumbnail_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmFolderModel* model = (FmFolderModel*)user_data;
+    reload_icons(model, RELOAD_THUMBNAILS);  
+}
+
+static GList* find_in_pending_thumbnail_requests(FmFolderModel* model, FmFileInfo* fi)
+{
+    GList* reqs = model->thumbnail_requests, *l;
+    for(l=reqs;l;l=l->next)
+    {
+        FmThumbnailRequest* req = (FmThumbnailRequest*)l->data;
+        FmFileInfo* fi2 = fm_thumbnail_request_get_file_info(req);
+        if(0 == g_strcmp0(fi->path->name, fi2->path->name))
+            return l;
+    }
+    return NULL;
+}
+
+static void reload_thumbnail(FmFolderModel* model, GSequenceIter* seq_it, FmFolderItem* item)
+{
+    GtkTreeIter it;
+    GtkTreePath* tp;
+    if(item->is_thumbnail)
+    {
+        g_object_unref(item->icon);
+        item->icon = NULL;
+        it.stamp = model->stamp;
+        it.user_data = seq_it;
+        tp = fm_folder_model_get_path(model, &it);
+        gtk_tree_model_row_changed(model, tp, &it);
+        gtk_tree_path_free(tp);
+    }
+}
+
+/* FIXME: how about hidden files? */
+void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmFolderModel* model = (FmFolderModel*)user_data;
+    FmThumbnailRequest* req;
+    GList* new_reqs = NULL;
+    GSequenceIter* seq_it;
+    FmFileInfo* fi;
+
+    if(cfg->thumbnail_local)
+    {
+        GList* l; /* remove non-local files from thumbnail requests */
+        for(l = model->thumbnail_requests; l; )
+        {
+            GList* next = l->next;
+            req = (FmThumbnailRequest*)l->data;
+            fi = fm_thumbnail_request_get_file_info(req);
+            if(!fm_path_is_local(fi->path))
+            {
+                fm_thumbnail_request_cancel(req);
+                model->thumbnail_requests = g_list_delete_link(model->thumbnail_requests, l);
+                /* FIXME: item->thumbnail_loading should be set to FALSE. */
+            }
+            l = next;
+        }
+    }
+    seq_it = g_sequence_get_begin_iter(model->items);
+    while( !g_sequence_iter_is_end(seq_it) )
+    {
+        FmFolderItem* item = (FmFolderItem*)g_sequence_get(seq_it);
+        fi = item->inf;
+        if(cfg->thumbnail_local)
+        {
+            /* add all non-local files to thumbnail requests */
+            if(!fm_path_is_local(fi->path))
+                reload_thumbnail(model, seq_it, item);
+        }
+        else
+        {
+            /* add all non-local files to thumbnail requests */
+            if(!fm_path_is_local(fi->path))
+            {
+                req = fm_thumbnail_request(fi, model->icon_size, on_thumbnail_loaded, model);
+                new_reqs = g_list_append(new_reqs, req);
+            }
+        }
+        seq_it = g_sequence_iter_next(seq_it);
+    }
+    if(new_reqs)
+        model->thumbnail_requests = g_list_concat(model->thumbnail_requests, new_reqs);
+}
+
+/* FIXME: how about hidden files? */
+void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmFolderModel* model = (FmFolderModel*)user_data;
+    FmThumbnailRequest* req;
+    GList* new_reqs = NULL, *l;
+    GSequenceIter* seq_it;
+    FmFileInfo* fi;
+    guint thumbnail_max_bytes = fm_config->thumbnail_max << 10;
+
+    if(cfg->thumbnail_max)
+    {
+         /* remove files which are too big from thumbnail requests */
+        for(l = model->thumbnail_requests; l; )
+        {
+            GList* next = l->next;
+            req = (FmThumbnailRequest*)l->data;
+            fi = fm_thumbnail_request_get_file_info(req);
+            if(fi->size > (cfg->thumbnail_max << 10))
+            {
+                fm_thumbnail_request_cancel(req);
+                model->thumbnail_requests = g_list_delete_link(model->thumbnail_requests, l);
+            }
+            l = next;
+        }
+    }
+    seq_it = g_sequence_get_begin_iter(model->items);
+    while( !g_sequence_iter_is_end(seq_it) )
+    {
+        FmFolderItem* item = (FmFolderItem*)g_sequence_get(seq_it);
+        fi = item->inf;
+        if(cfg->thumbnail_max)
+        {
+            if(thumbnail_max_bytes > model->thumbnail_max)
+            {
+                if(fi->size < thumbnail_max_bytes && fi->size > model->thumbnail_max )
+                {
+                    if(!item->thumbnail_failed && fm_file_info_can_thumbnail(fi))
+                    {
+                        req = fm_thumbnail_request(fi, model->icon_size, on_thumbnail_loaded, model);
+                        new_reqs = g_list_append(new_reqs, req);
+                    }
+                }
+            }
+            else
+            {
+                if(fi->size > thumbnail_max_bytes)
+                    reload_thumbnail(model, seq_it, item);
+            }
+        }
+        else /* no limit, all files can be added */
+        {
+            /* add all files to thumbnail requests */
+            if(!item->is_thumbnail && !item->thumbnail_loading && !item->thumbnail_failed && fm_file_info_can_thumbnail(fi))
+            {
+                GList* l = find_in_pending_thumbnail_requests(model, fi);
+                if(!l)
+                {
+                    req = fm_thumbnail_request(fi, model->icon_size, on_thumbnail_loaded, model);
+                    new_reqs = g_list_append(new_reqs, req);
+                }
+            }
+        }
+        seq_it = g_sequence_iter_next(seq_it);
+    }
+    if(new_reqs)
+        model->thumbnail_requests = g_list_concat(model->thumbnail_requests, new_reqs);
+    model->thumbnail_max = thumbnail_max_bytes;
 }

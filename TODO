@@ -18,6 +18,7 @@
      Dnd destination, drop site handling. => Almost done
      For drag source, use file:///~/.gvfs/ rather than its original
      URL scheme to be compatible with other programs => need more survey
+         => g_file_new_for_uri, and then g_file_get_path can return gvfs fuse path.
      Refuse drop if the user doesn't has access to destination dir.
      Fix incorrect drop target item of icon view mode. => done
      Fix incorrect design of 'query-info' signal.
@@ -26,8 +27,6 @@
 * Thumbnails, may be cached with hash table to speed up loading.
      Need to support external thumbnailers.
      Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
-     Limit the max size of file for which thumbnail should be generated.
-     Don't generate thumbnail for remote file systems?
      Size of cell renderers and ExoIconView item size must be adjusted for Thumbnail View.
 
 * Mount volumes and mount points when needed
@@ -38,6 +37,7 @@
 
 * path resolution and canonicalization: convert ../ and ./ gracefully
      Partially done. fm_path_new_relative and fm_path_new_child handles . and ..
+     Need to show canonicalized paths in location bar.
 
 * Add "Create New" to popup menu of folder. => partially done, quite dirty.
 

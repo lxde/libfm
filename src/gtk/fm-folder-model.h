@@ -73,6 +73,8 @@ struct _FmFolderModel
     
     guint theme_change_handler;
     guint icon_size;
+
+    guint thumbnail_max;
     GList* thumbnail_requests;
 };
 

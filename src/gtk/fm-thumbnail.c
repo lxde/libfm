@@ -25,8 +25,6 @@
 
 /* TODO:
  * Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
- * Limit the max size of file for which thumbnail should be generated.
- * Don't generate thumbnail for remote file systems?
  * Need to support external thumbnailers.
  * */
 

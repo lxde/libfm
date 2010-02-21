@@ -50,6 +50,8 @@ typedef struct _FmConfigClass		FmConfigClass;
 #define		FM_CONFIG_DEFAULT_THUMBNAIL_SIZE	128
 
 #define		FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
+#define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 
 struct _FmConfig
 {
@@ -65,7 +67,8 @@ struct _FmConfig
     guint thumbnail_size;   /* size of thumbnail icons */
 
     gboolean show_thumbnail; /* show thumbnails */
-    guint thumb_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
+    gboolean thumbnail_local; /* show thumbnails for local files only */
+    guint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
 
     char* terminal; /* command line to launch terminal emulator */
     gboolean si_unit;   /* use SI prefix for file sizes */
