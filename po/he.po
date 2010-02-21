@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 15:41+0800\n"
+"POT-Creation-Date: 2010-02-21 12:16+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -26,7 +26,7 @@ msgstr "<b>סוג הקובץ:</b>"
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
 msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
+"<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
 "  <b>%F:</b> Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
@@ -179,8 +179,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "פעולות אותן יכולים לבצע רק הבעלים של הקובץ"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid ""
-"Operations that users of the same group with the owner of the file can do"
+#, fuzzy
+msgid "Operations that users in the same group as the owner of the file can do"
 msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים יכולים לבצע על הקובץ"
 
 #: ../data/ui/file-prop.glade.h:22
@@ -226,42 +226,42 @@ msgstr "<b>אל:</b>"
 msgid "Preparing..."
 msgstr "בהכנות..."
 
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
 msgstr[1] "%u בתים"
 
-#: ../src/base/fm-utils.c:60
+#: ../src/base/fm-utils.c:61
 msgid "KB"
 msgstr "ק\"ב"
 
-#: ../src/base/fm-utils.c:65
+#: ../src/base/fm-utils.c:66
 msgid "MB"
 msgstr "מ\"ב"
 
-#: ../src/base/fm-utils.c:70
+#: ../src/base/fm-utils.c:71
 msgid "GB"
 msgstr "ג\"ב"
 
-#: ../src/base/fm-utils.c:75
+#: ../src/base/fm-utils.c:76
 msgid "TB"
 msgstr "ט\"ב"
 
-#: ../src/base/fm-utils.c:89
+#: ../src/base/fm-utils.c:90
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:94
+#: ../src/base/fm-utils.c:95
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:99
+#: ../src/base/fm-utils.c:100
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:104
+#: ../src/base/fm-utils.c:105
 msgid "TiB"
 msgstr "TiB"
 
@@ -273,20 +273,20 @@ msgstr "קיצורי דרך"
 msgid "Mount Point"
 msgstr "נקודת עגינה"
 
-#: ../src/base/fm-path.c:388
+#: ../src/base/fm-path.c:423
 #, fuzzy
 msgid "Trash Can"
 msgstr "אשפה"
 
-#: ../src/base/fm-path.c:390
+#: ../src/base/fm-path.c:425
 msgid "My Computer"
 msgstr ""
 
-#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "יישומים"
 
-#: ../src/base/fm-path.c:394
+#: ../src/base/fm-path.c:429
 msgid "Network"
 msgstr ""
 
@@ -453,10 +453,13 @@ msgstr "נא להזין שם חדש:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "האם לפנות את סל האשפה?"
 
-#: ../src/job/fm-dir-list-job.c:267
+#: ../src/job/fm-dir-list-job.c:266
 #, c-format
-msgid "It's not a valid directory"
-msgstr "זו אינה תיקייה תקנית"
+msgid "The specified directory is not valid"
+msgstr ""
+
+#~ msgid "It's not a valid directory"
+#~ msgstr "זו אינה תיקייה תקנית"
 
 #, fuzzy
 #~ msgid "The selection mode"

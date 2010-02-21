@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 15:41+0800\n"
+"POT-Creation-Date: 2010-02-21 12:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
 msgid ""
-"<b>Those special codes can be used in the command line:</b>\n"
+"<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
 "  <b>%F:</b> Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
@@ -175,8 +175,7 @@ msgid "Operations that the owner of the file can do"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:21
-msgid ""
-"Operations that users of the same group with the owner of the file can do"
+msgid "Operations that users in the same group as the owner of the file can do"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
@@ -222,42 +221,42 @@ msgstr ""
 msgid "Preparing..."
 msgstr ""
 
-#: ../src/base/fm-utils.c:53 ../src/base/fm-utils.c:82
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/base/fm-utils.c:60
+#: ../src/base/fm-utils.c:61
 msgid "KB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:65
+#: ../src/base/fm-utils.c:66
 msgid "MB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:70
+#: ../src/base/fm-utils.c:71
 msgid "GB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:75
+#: ../src/base/fm-utils.c:76
 msgid "TB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:89
+#: ../src/base/fm-utils.c:90
 msgid "KiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:94
+#: ../src/base/fm-utils.c:95
 msgid "MiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:99
+#: ../src/base/fm-utils.c:100
 msgid "GiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:104
+#: ../src/base/fm-utils.c:105
 msgid "TiB"
 msgstr ""
 
@@ -269,19 +268,19 @@ msgstr ""
 msgid "Mount Point"
 msgstr ""
 
-#: ../src/base/fm-path.c:388
+#: ../src/base/fm-path.c:423
 msgid "Trash Can"
 msgstr ""
 
-#: ../src/base/fm-path.c:390
+#: ../src/base/fm-path.c:425
 msgid "My Computer"
 msgstr ""
 
-#: ../src/base/fm-path.c:392 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr ""
 
-#: ../src/base/fm-path.c:394
+#: ../src/base/fm-path.c:429
 msgid "Network"
 msgstr ""
 
@@ -446,7 +445,7 @@ msgstr ""
 msgid "Are you sure you want to empty the trash bin?"
 msgstr ""
 
-#: ../src/job/fm-dir-list-job.c:267
+#: ../src/job/fm-dir-list-job.c:266
 #, c-format
-msgid "It's not a valid directory"
+msgid "The specified directory is not valid"
 msgstr ""
