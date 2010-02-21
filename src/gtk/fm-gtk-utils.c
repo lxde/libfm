@@ -455,18 +455,24 @@ void fm_move_files(FmPathList* files, FmPath* dest_dir)
 
 void fm_trash_files(FmPathList* files)
 {
-	GtkWidget* dlg;
-	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-	fm_job_run_async(job);
-    fm_display_progress(job);
+    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?")))
+    {
+    	GtkWidget* dlg;
+        FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
+        fm_job_run_async(job);
+        fm_display_progress(job);
+    }
 }
 
 void fm_delete_files(FmPathList* files)
 {
-	GtkWidget* dlg;
-	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-	fm_job_run_async(job);
-    fm_display_progress(job);
+    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?")))
+    {
+        GtkWidget* dlg;
+        FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
+        fm_job_run_async(job);
+        fm_display_progress(job);
+    }
 }
 
 void fm_trash_or_delete_files(FmPathList* files)
@@ -487,15 +493,9 @@ void fm_trash_or_delete_files(FmPathList* files)
 
         /* files already in trash:/// should only be deleted and cannot be trashed again. */
         if(fm_config->use_trash && !all_in_trash)
-        {
-            if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?")))
-                fm_trash_files(files);
-        }
+            fm_trash_files(files);
         else
-        {
-            if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?")))
-                fm_delete_files(files);
-        }
+            fm_delete_files(files);
     }
 }
 
