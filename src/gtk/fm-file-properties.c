@@ -354,7 +354,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             if(data->has_dir)
             {
-                if(fm_yes_no(data->dlg, _( "Do you want to recursively apply these changes to all files and sub-folders?" )))
+                if(fm_yes_no(data->dlg, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 

@@ -39,8 +39,8 @@ G_BEGIN_DECLS
 void fm_show_error(GtkWindow* parent, const char* msg);
 
 /* Ask the user a yes-no question. */
-gboolean fm_yes_no(GtkWindow* parent, const char* question);
-gboolean fm_ok_cancel(GtkWindow* parent, const char* question);
+gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes);
+gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_ok);
 
 /* Ask the user a question with a NULL-terminated array of
  * options provided. The return value was index of the selected option. */

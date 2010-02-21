@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-21 12:16+0800\n"
-"PO-Revision-Date: 2010-02-21 12:18+0800\n"
+"PO-Revision-Date: 2010-02-21 19:06+0800\n"
 "Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>要執行的指令：</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -34,6 +34,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>這些特殊代號可以在命令列參數中使用：</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -41,11 +46,11 @@ msgstr "選擇應用程式"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "自訂指令"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "在終端機模擬器中執行"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -57,7 +62,7 @@ msgstr "將選取的應用程式設定為這類型檔案的預設程式"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "瀏覽(_B)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -65,10 +70,13 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>指定的位置已經有同名檔案存在。</b>\n"
+"\n"
+"你想取代存在的檔案嗎？"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "套用這個選項到所有檔案"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -168,15 +176,15 @@ msgstr "無"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "所有使用者都能進行的操作"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "檔案擁有者能夠進行的操作"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "和檔案擁有者同群組的使用者能夠進行的操作"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -221,7 +229,8 @@ msgstr "<b>到：</b>"
 msgid "Preparing..."
 msgstr "準備中..."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -275,7 +284,8 @@ msgstr "垃圾桶"
 msgid "My Computer"
 msgstr "我的電腦"
 
-#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:427
+#: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "應用程式"
 
@@ -309,15 +319,14 @@ msgstr "變更檔案屬性"
 
 #: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "請輸入有效的使用者名稱或數字 id"
 
 #: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "請輸入有效的群組名稱或數字 id"
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -330,7 +339,7 @@ msgstr "多個檔案"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "自訂"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -344,7 +353,8 @@ msgstr "卸載裝置(_U)"
 msgid "Eject Removable Media"
 msgstr "退出可移除媒體"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "重新命名書籤項目"
 
@@ -354,7 +364,7 @@ msgstr "從書籤刪除"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr "清空垃圾統"
+msgstr "清空垃圾桶"
 
 #: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
@@ -368,9 +378,10 @@ msgstr "桌面"
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:76
+#: ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "以其他程式開啟"
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -394,7 +405,7 @@ msgstr "以選取的應用程式來開啟檔案"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "執行特定的命令列來開啟檔案"
 
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
@@ -426,7 +437,7 @@ msgstr "選擇一個資料夾"
 
 #: ../src/gtk/fm-gtk-utils.c:491
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "你想要將選取的檔案移到垃圾桶嗎？"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
@@ -447,7 +458,7 @@ msgstr "是否確定要清空垃圾桶？"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "指定的目錄是無效的"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "這不是一個有效的目錄。"
@@ -463,81 +474,56 @@ msgstr ""
 #, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "選擇一個資料夾"
-
 #~ msgid "_File"
 #~ msgstr "檔案(_F)"
-
 #~ msgid "_New Window"
 #~ msgstr "開新視窗"
-
 #~ msgid "_Close Window"
 #~ msgstr "關閉視窗(_C)"
-
 #~ msgid "_Edit"
 #~ msgstr "編輯(_E)"
-
 #~ msgid "Move To..."
 #~ msgstr "移動到..."
-
 #~ msgid "Copy To..."
 #~ msgstr "複製到..."
-
 #~ msgid "_View"
 #~ msgstr "檢視(_V)"
-
 #~ msgid "_Sort Files"
 #~ msgstr "排序檔案(_S)"
-
 #~ msgid "_Help"
 #~ msgstr "說明(_H)"
-
 #~ msgid "_Go"
 #~ msgstr "到(_G)"
-
 #~ msgid "Previous Folder"
 #~ msgstr "上一個資料夾"
-
 #~ msgid "Next Folder"
 #~ msgstr "下一個資料夾"
-
 #~ msgid "Parent Folder"
 #~ msgstr "上一層資料夾"
-
 #~ msgid "Go to parent Folder"
 #~ msgstr "到上一層資料夾"
-
 #~ msgid "Home Folder"
 #~ msgstr "家目錄"
-
 #~ msgid "Desktop Folder"
 #~ msgstr "桌面資料夾"
-
 #~ msgid "_Bookmarks"
 #~ msgstr "書籤(_B)"
-
 #~ msgid "Add To Bookmarks"
 #~ msgstr "新增到書籤"
-
 #~ msgid "Folder"
 #~ msgstr "資料夾"
-
 #~ msgid "Blank FIle"
 #~ msgstr "空白檔案"
-
 #~ msgid "Show _Hidden"
 #~ msgstr "顯示隱藏檔案(_H)"
-
 #~ msgid "_Compact View"
 #~ msgstr "簡潔清單檢視(_C)"
-
 #~ msgid "Detailed _List View"
 #~ msgstr "詳細清單檢視(_L)"
-
 #~ msgid "By _Name"
 #~ msgstr "依名稱(&N)"
-
 #~ msgid "By _Modification Time"
 #~ msgstr "依修改時間(_M)"
-
 #~ msgid "Open in New Window"
 #~ msgstr "在新視窗中開啟"
+

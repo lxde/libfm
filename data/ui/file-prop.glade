@@ -255,9 +255,6 @@
                         <property name="tooltip_text" translatable="yes">Select the application used to open files of this type </property>
                         <child>
                           <object class="GtkCellRendererPixbuf" id="icon_render"/>
-                          <attributes>
-                            <attribute name="gicon">0</attribute>
-                          </attributes>
                         </child>
                         <child>
                           <object class="GtkCellRendererText" id="text_render"/>
@@ -605,6 +602,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
+                <property name="has_default">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="gtk_widget_destroy" object="filePropertiesDlg"/>

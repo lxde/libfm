@@ -39,28 +39,33 @@ static gchar* 		_fm_user_input_dialog_run	(GtkDialog* dlg, GtkEntry *entry);
 
 void fm_show_error(GtkWindow* parent, const char* msg)
 {
-    GtkWidget* dlg = gtk_message_dialog_new(parent, 0, GTK_MESSAGE_ERROR,
+    GtkWidget* dlg = gtk_message_dialog_new(parent, GTK_DIALOG_NO_SEPARATOR,
+                                            GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_OK, msg);
     gtk_window_set_title((GtkWindow*)dlg, _("Error"));
     gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
 }
 
-gboolean fm_yes_no(GtkWindow* parent, const char* question)
+gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
+                                GTK_DIALOG_NO_SEPARATOR, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
+    gtk_dialog_set_default_response(dlg, default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
     return ret == GTK_RESPONSE_YES;
 }
 
-gboolean fm_ok_cancel(GtkWindow* parent, const char* question)
+gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_ok)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
+                                GTK_DIALOG_NO_SEPARATOR, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
+    gtk_dialog_set_default_response(dlg, default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
     return ret == GTK_RESPONSE_OK;
@@ -80,7 +85,8 @@ int fm_askv(GtkWindow* parent, const char* question, const char** options)
 {
     int ret;
     guint id = 1;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
+                                GTK_DIALOG_NO_SEPARATOR, 
                                 GTK_MESSAGE_QUESTION, 0, question);
     /* FIXME: need to handle defualt button and alternative button
      * order problems. */
@@ -455,7 +461,7 @@ void fm_move_files(FmPathList* files, FmPath* dest_dir)
 
 void fm_trash_files(FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?")))
+    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?"), TRUE))
     {
     	GtkWidget* dlg;
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
@@ -466,7 +472,7 @@ void fm_trash_files(FmPathList* files)
 
 void fm_delete_files(FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?")))
+    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?"), TRUE))
     {
         GtkWidget* dlg;
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
@@ -545,7 +551,7 @@ void fm_rename_file(FmPath* file)
 
 void fm_empty_trash()
 {
-    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash bin?")))
+    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash bin?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
         fm_list_push_tail(paths, fm_path_get_trash());
