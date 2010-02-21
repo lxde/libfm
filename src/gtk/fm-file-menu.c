@@ -60,8 +60,10 @@ const char base_menu_xml[]=
   "<menuitem action='Del'/>"
   "<separator/>"
   "<menuitem action='Rename'/>"
+/* TODO: implement symlink creation and "send to".
   "<menuitem action='Link'/>"
   "<menu action='SendTo'>"
+*/
   "</menu>"
   "<separator/>"
   "<placeholder name='ph3'/>"

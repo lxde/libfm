@@ -229,3 +229,9 @@ CLEANFILES = \
 #libfm_chooser_hack_la_LDFLAGS= \
 #        -no-undefined \
 #        -export-symbols-regex gtk
+
+# Little program to optimize size of xml files
+noinst_PROGRAMS=xml-purge
+xml_purge_SOURCES=xml-purge.c
+xml_purge_CFLAGS=$(GIO_CFLAGS)
+xml_purge_LDADD=$(GIO_LIBS)

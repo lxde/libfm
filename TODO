@@ -62,6 +62,7 @@
 * Support symlink creation.
 
 * Keyboard shortcuts in folder view.
+     => Done in pcmanfm.
 
 * Add reserved data members to structs to padding for future expansion.
 
