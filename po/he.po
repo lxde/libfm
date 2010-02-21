@@ -1,8 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-21 04:20+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -11,12 +12,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Hebrew\n"
-"X-Poedit-Country: ISRAEL\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: ISRAEL\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>שורת הפקודה להפעלה:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 #, fuzzy
@@ -32,33 +33,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>ניתן להשתמש בקודים מיוחדים אלה בשורת הפקודה:</b>\n"
+"  <b>%f</b>: לייצוג שם קובץ בודד\n"
+"  <b>%F:</b> לייצוג מספר שמות קבצים\n"
+"  <b>%u</b>: לייצוג כתובת אחידה לקובץ\n"
+"  <b>%U</b>: לייצוג מספר כתובות אחידות"
 
 #: ../data/ui/app-chooser.glade.h:9
-#, fuzzy
 msgid "Choose An Application"
-msgstr "יישומים אחרים"
+msgstr "בחירת יישום"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "שורת פקודה מותאמת אישית"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "הפעלת הדמיית מסוף"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "Installed Application"
-msgstr "יישומים אחרים"
+msgstr "יישום מותקן"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "Set selected application as default action of this file type"
-msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+msgstr "הגדרת היישום הנבחר כפעולת ברירת המחדל לסוג קובץ זה"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_עיון"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -323,8 +326,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -461,6 +463,5 @@ msgstr ""
 #~ msgid "It's not a valid directory"
 #~ msgstr "זו אינה תיקייה תקנית"
 
-#, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "נא לבחור בתיקייה"
