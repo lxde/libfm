@@ -254,6 +254,8 @@ static void fm_folder_view_init(FmFolderView *self)
 
     self->dnd_dest = fm_dnd_dest_new(NULL);
     g_signal_connect(self->dnd_dest, "query-info", G_CALLBACK(on_dnd_dest_query_info), self);
+    
+    self->mode = -1;
 }
 
 
