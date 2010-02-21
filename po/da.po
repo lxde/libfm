@@ -2,12 +2,12 @@
 # Copyright (C) 2010 PCmanFM & Joe Hansen.
 # This file is distributed under the same license as the PCManFM libfm package.
 # Joe Hansen (joedalton2@yahoo.dk), 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 04:20+0000\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: 2010-02-20 09:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -183,7 +183,8 @@ msgstr "Handlinger som ejeren af filen kan udføre"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
+msgstr ""
+"Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -324,8 +325,10 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indtast venligst et gyldigt gruppenavn eller numerisk id."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -375,19 +378,19 @@ msgstr "Skrivebord"
 msgid "Enter a new name:"
 msgstr "Indtast et nyt navn:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Åbn med..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "Omdøb"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "Opret symbolsk henvisning"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "Send til"
 
@@ -403,19 +406,19 @@ msgstr "Vælg markeret program til at åbne filer med"
 msgid "Execute custom command line to open files"
 msgstr "Kør tilpasset kommandolinje for at åbne filer"
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "Ændret"
 
@@ -423,31 +426,31 @@ msgstr "Ændret"
 msgid "Installed Applications"
 msgstr "Installerede programmer"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Fejl"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "Vælg venligst en mappe"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ønsker du at flytte de valgte filer til skraldespanden?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "Ønsker du at slette de valgte filer?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "Omdøb fil"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "Indtast venligst et nyt navn:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
 

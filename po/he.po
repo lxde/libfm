@@ -1,9 +1,9 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 04:20+0000\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -323,7 +323,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -374,19 +375,19 @@ msgstr "שולחן עבודה"
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "פתיחה באמצעות..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "שינוי שם"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "יצירת קישור סימבולי"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "שליחה אל"
 
@@ -402,19 +403,19 @@ msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
 msgid "Execute custom command line to open files"
 msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "שם"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "תיאור"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "גודל"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "מועד השינוי"
 
@@ -422,31 +423,31 @@ msgstr "מועד השינוי"
 msgid "Installed Applications"
 msgstr "יישומים מותקנים"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "שגיאה"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "נא לבחור בתיקייה"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "האם למחוק את הקבצים הנבחרים?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "שינוי שם קובץ"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "נא להזין שם חדש:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "האם לפנות את סל האשפה?"
 

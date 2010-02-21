@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -383,19 +383,19 @@ msgstr "Стільниця"
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Відкрити з..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "Створити символьне посилання"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "Вислати до"
 
@@ -412,19 +412,19 @@ msgstr "Виберіть програму для відкриття файлів
 msgid "Execute custom command line to open files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "Змінено"
 
@@ -432,31 +432,31 @@ msgstr "Змінено"
 msgid "Installed Applications"
 msgstr "Заінстальовані програми"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Помилка"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "Ви бажаєте видалити вибрані файли?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: 2010-02-19 11:00+0100\n"
 "Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
 "Language-Team: \n"
@@ -383,19 +383,19 @@ msgstr "Bureau"
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Ouvrir avec..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "Renomme"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "Crée Lien Symbolique"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "Envoie A"
 
@@ -411,19 +411,19 @@ msgstr "Utiliser l'application sélectionnée les fichiers"
 msgid "Execute custom command line to open files"
 msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "Modifié"
 
@@ -431,31 +431,31 @@ msgstr "Modifié"
 msgid "Installed Applications"
 msgstr "Applications installées"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Erreur"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "Sélectionner un dossier"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Voulez-vous déplacer les fichiers sélectionnés dans la corbeille ?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "Voulez-vous supprimer les fichiers sélectionnés ?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "Renommer le fichier"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "Entrez un nouveau nom:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 

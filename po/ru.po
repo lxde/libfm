@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 04:20+0000\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: 2010-02-20 19:27+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
 "Language-Team: gnome-cyr\n"
@@ -14,7 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
@@ -329,7 +330,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введите правильное имя группы или цифровой идентификатор."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Применить ко всем вложенным файлам и каталогам?"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -380,19 +382,19 @@ msgstr "Рабочий стол"
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Открыть с..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "Переименовать"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "Создать символьную ссылку"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "Отправить"
 
@@ -408,19 +410,19 @@ msgstr "Использоватье выбранное приложение дл�
 msgid "Execute custom command line to open files"
 msgstr "Выполнить пользовательскую команду для открытия файлов"
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "Имя"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "Описание"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "Изменён"
 
@@ -428,31 +430,31 @@ msgstr "Изменён"
 msgid "Installed Applications"
 msgstr "Прочие приложения"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "Выберите каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Хотите переместить выбранные файлы?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "Хотите удалить выбранные файлы?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "Переименовать файл"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "Введите новое имя:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Хотите очистить корзину?"
 
@@ -503,8 +505,11 @@ msgstr "Неправильно указан каталог"
 #~ msgid "Orientation"
 #~ msgstr "Ориентация"
 
-#~ msgid "How the text and icon of each item are positioned relative to each other"
-#~ msgstr "Определяет расположение значков и подписей каждого элемента по отношению друг к другу"
+#~ msgid ""
+#~ "How the text and icon of each item are positioned relative to each other"
+#~ msgstr ""
+#~ "Определяет расположение значков и подписей каждого элемента по отношению "
+#~ "друг к другу"
 
 #~ msgid "Row Spacing"
 #~ msgstr "Интервал между рядами"

@@ -2,12 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Og Maciel <ogmaciel@gnome.org>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 04:20+0000\n"
+"POT-Creation-Date: 2010-02-22 00:36+0100\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -57,7 +57,9 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
+msgstr ""
+"Define o aplicativo selecionado como a ação padrão para este tipo de "
+"arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +185,8 @@ msgstr "Operações que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
+msgstr ""
+"Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -324,8 +327,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Você deseja aplicar estas modificações de forma recursiva a todos os arquivos e sub-pastas?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Você deseja aplicar estas modificações de forma recursiva a todos os "
+"arquivos e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -375,19 +381,19 @@ msgstr "Área de trabalho"
 msgid "Enter a new name:"
 msgstr "Digitar um novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Abrir com..."
 
-#: ../src/gtk/fm-file-menu.c:82
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
 msgstr "Criar links simbólicos"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
 msgstr "Enviar para"
 
@@ -403,19 +409,19 @@ msgstr "Usar o aplicativo selecionado para abrir arquivos"
 msgid "Execute custom command line to open files"
 msgstr "Executar linhas de comando personalizadas para abrir arquivos"
 
-#: ../src/gtk/fm-folder-view.c:461
+#: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:480
+#: ../src/gtk/fm-folder-view.c:486
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:492
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:498
 msgid "Modified"
 msgstr "Modificado"
 
@@ -423,31 +429,31 @@ msgstr "Modificado"
 msgid "Installed Applications"
 msgstr "Aplicativos instalados"
 
-#: ../src/gtk/fm-gtk-utils.c:44
+#: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:236
+#: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
 msgstr "Favor selecionar uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:491
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:526
+#: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
