@@ -50,8 +50,7 @@ void fm_show_error(GtkWindow* parent, const char* msg)
 gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
-                                GTK_DIALOG_NO_SEPARATOR, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
     gtk_dialog_set_default_response(dlg, default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
     ret = gtk_dialog_run((GtkDialog*)dlg);
@@ -62,8 +61,7 @@ gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes
 gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_ok)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
-                                GTK_DIALOG_NO_SEPARATOR, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
     gtk_dialog_set_default_response(dlg, default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
     ret = gtk_dialog_run((GtkDialog*)dlg);
@@ -85,8 +83,7 @@ int fm_askv(GtkWindow* parent, const char* question, const char** options)
 {
     int ret;
     guint id = 1;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent,
-                                GTK_DIALOG_NO_SEPARATOR, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, 0, question);
     /* FIXME: need to handle defualt button and alternative button
      * order problems. */
