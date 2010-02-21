@@ -459,7 +459,7 @@ msgstr "Хотите очистить корзину?"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Неправильно указан каталог"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Неверный каталог"
