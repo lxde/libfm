@@ -20,9 +20,8 @@ msgid "<b>Command line to execute:</b>"
 msgstr "<b>שורת הפקודה להפעלה:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>סוג הקובץ:</b>"
+msgstr "<b>סוג הקובץ לפתיחה:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -182,9 +181,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "פעולות אותן יכולים לבצע רק הבעלים של הקובץ"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים יכולים לבצע על הקובץ"
+msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים של הקובץ יכולים לבצע על הקובץ"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -277,13 +275,12 @@ msgid "Mount Point"
 msgstr "נקודת עגינה"
 
 #: ../src/base/fm-path.c:423
-#, fuzzy
 msgid "Trash Can"
-msgstr "אשפה"
+msgstr "פח אשפה"
 
 #: ../src/base/fm-path.c:425
 msgid "My Computer"
-msgstr ""
+msgstr "המחשב שלי"
 
 #: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
@@ -291,7 +288,7 @@ msgstr "יישומים"
 
 #: ../src/base/fm-path.c:429
 msgid "Network"
-msgstr ""
+msgstr "רשת"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
@@ -339,7 +336,7 @@ msgstr "מספר קבצים"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "התאמה אישית"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -379,7 +376,7 @@ msgstr "הזנת שם חדש:"
 
 #: ../src/gtk/fm-file-menu.c:76 ../src/gtk/fm-file-menu.c:77
 msgid "Open With..."
-msgstr ""
+msgstr "פתיחה באמצעות..."
 
 #: ../src/gtk/fm-file-menu.c:82
 msgid "Rename"
@@ -398,13 +395,12 @@ msgid "XDirectSave failed."
 msgstr "XDirectSave כשלה."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
 msgid "Use selected application to open files"
-msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
 
 #: ../src/gtk/fm-folder-view.c:461
 msgid "Name"
@@ -423,9 +419,8 @@ msgid "Modified"
 msgstr "מועד השינוי"
 
 #: ../src/gtk/fm-app-menu-view.c:150
-#, fuzzy
 msgid "Installed Applications"
-msgstr "יישומים אחרים"
+msgstr "יישומים מותקנים"
 
 #: ../src/gtk/fm-gtk-utils.c:44
 msgid "Error"
@@ -458,7 +453,7 @@ msgstr "האם לפנות את סל האשפה?"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "התיקייה שצוינה אינה תקנית"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "זו אינה תיקייה תקנית"
