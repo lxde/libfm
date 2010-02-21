@@ -2,12 +2,12 @@
 # Copyright (C) 2010 PCmanFM & Joe Hansen.
 # This file is distributed under the same license as the PCManFM libfm package.
 # Joe Hansen (joedalton2@yahoo.dk), 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-21 04:20+0000\n"
 "PO-Revision-Date: 2010-02-20 09:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -25,7 +25,7 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Filtype der skal åbnes:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -33,10 +33,9 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Disse specielle koder kan bruges på kommandolinjen:</b>/n  <b>%f</b>: "
-"Repræsenterer et enkelt filnavn\n"
-"  <b>%F</b>: Repræsenterer flere filnavne\n"
-"  <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
+"<b>Disse specielle koder kan bruges på kommandolinjen:</b>/n <b>%f</b>: Repræsenterer et enkelt filnavn\n"
+" <b>%F</b>: Repræsenterer flere filnavne\n"
+" <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
 "  <b>%U</b>: Repræsenterer flere URI'er"
 
 #: ../data/ui/app-chooser.glade.h:9
@@ -182,10 +181,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Handlinger som ejeren af filen kan udføre"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
+msgstr "Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -326,10 +323,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indtast venligst et gyldigt gruppenavn eller numerisk id."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -453,12 +448,12 @@ msgstr "Indtast venligst et nyt navn:"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "Er du sikker på at du ønsker at tømme skraldespanden?"
+msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
 
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Den angivne mappe er ikke gyldig"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Det er ikke en gyldig mappe"
