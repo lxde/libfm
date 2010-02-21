@@ -8,3 +8,8 @@ libfmconf_DATA = libfm.conf
 
 pkglib_SCRIPTS = gnome-terminal
 CLEANFILES = $(pkglib_SCRIPTS)
+
+EXTRA_DIST= \
+	$(libfmconf_DATA) \
+	$(mime_DATA)
+
