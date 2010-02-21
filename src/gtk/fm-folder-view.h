@@ -45,7 +45,6 @@ G_BEGIN_DECLS
 typedef enum _FmFolderViewMode FmFolderViewMode;
 enum _FmFolderViewMode
 {
-	FM_FV_NONE,
 	FM_FV_ICON_VIEW,
 	FM_FV_COMPACT_VIEW,
     FM_FV_THUMBNAIL_VIEW,
