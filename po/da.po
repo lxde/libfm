@@ -33,9 +33,10 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Disse specielle koder kan bruges på kommandolinjen:</b>/n <b>%f</b>: Repræsenterer et enkelt filnavn\n"
-" <b>%F</b>: Repræsenterer flere filnavne\n"
-" <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
+"<b>Disse specielle koder kan bruges på kommandolinjen:</b>\n"
+"  <b>%f</b>: Repræsenterer et enkelt filnavn\n"
+"  <b>%F</b>: Repræsenterer flere filnavne\n"
+"  <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
 "  <b>%U</b>: Repræsenterer flere URI'er"
 
 #: ../data/ui/app-chooser.glade.h:9
