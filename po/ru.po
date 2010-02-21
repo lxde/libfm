@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 12:16+0800\n"
+"POT-Creation-Date: 2010-02-21 04:20+0000\n"
 "PO-Revision-Date: 2010-02-20 19:27+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
 "Language-Team: gnome-cyr\n"
@@ -14,12 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Generator: Virtaal 0.5.2\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -30,7 +29,7 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Тип открываемого файла:<b>"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -331,8 +330,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введите правильное имя группы или цифровой идентификатор."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Применить ко всем вложенным файлам и каталогам?"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -506,11 +504,8 @@ msgstr ""
 #~ msgid "Orientation"
 #~ msgstr "Ориентация"
 
-#~ msgid ""
-#~ "How the text and icon of each item are positioned relative to each other"
-#~ msgstr ""
-#~ "Определяет расположение значков и подписей каждого элемента по отношению "
-#~ "друг к другу"
+#~ msgid "How the text and icon of each item are positioned relative to each other"
+#~ msgstr "Определяет расположение значков и подписей каждого элемента по отношению друг к другу"
 
 #~ msgid "Row Spacing"
 #~ msgstr "Интервал между рядами"
