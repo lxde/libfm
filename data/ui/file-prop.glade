@@ -487,7 +487,7 @@
                                 <child>
                                   <object class="GtkComboBox" id="group_perm">
                                     <property name="visible">True</property>
-                                    <property name="tooltip_text" translatable="yes">Operations that users of the same group with the owner of the file can do</property>
+                                    <property name="tooltip_text" translatable="yes">Operations that users in the same group as the owner of the file can do</property>
                                     <property name="model">access_model</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrenderertext2"/>

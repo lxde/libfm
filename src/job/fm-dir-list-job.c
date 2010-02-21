@@ -263,7 +263,7 @@ _retry:
 
         if( g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
         {
-            err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("It's not a valid directory"));
+            err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
             fm_job_emit_error(fmjob, err, FALSE);
             g_error_free(err);
             g_object_unref(gf);
