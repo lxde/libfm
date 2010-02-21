@@ -29,6 +29,7 @@ enum {
     FILES_REMOVED,
     FILES_CHANGED,
     LOADED,
+    UNMOUNT,
     ERROR,
     N_SIGNALS
 };
@@ -98,6 +99,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        G_TYPE_FROM_CLASS ( klass ),
                        G_SIGNAL_RUN_FIRST,
                        G_STRUCT_OFFSET ( FmFolderClass, loaded ),
+                       NULL, NULL,
+                       g_cclosure_marshal_VOID__VOID,
+                       G_TYPE_NONE, 0);
+
+    signals[ UNMOUNT ] =
+        g_signal_new ( "unmount",
+                       G_TYPE_FROM_CLASS ( klass ),
+                       G_SIGNAL_RUN_FIRST,
+                       G_STRUCT_OFFSET ( FmFolderClass, unmount ),
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
@@ -264,6 +274,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         }
         else if(evt == G_FILE_MONITOR_EVENT_UNMOUNTED)
         {
+            g_signal_emit(folder, signals[UNMOUNT], 0);
             g_debug("folder is unmounted");
         }
         return;

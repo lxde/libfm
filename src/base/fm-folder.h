@@ -73,7 +73,13 @@ struct _FmFolderClass
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
     void (*loaded)(FmFolder* dir);
+    void (*unmount)(FmFolder* dir);
 	gboolean (*error)(FmFolder* dir, GError* err, gboolean recoverable);
+
+    void (*reserved1)(void);
+    void (*reserved2)(void);
+    void (*reserved3)(void);
+    void (*reserved4)(void);
 };
 
 GType		fm_folder_get_type		(void);

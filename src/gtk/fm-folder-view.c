@@ -299,6 +299,10 @@ static void set_icon_size(FmFolderView* fv, guint icon_size)
 {
     FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)fv->renderer_pixbuf;
     fm_cell_renderer_pixbuf_set_fixed_size(render, icon_size, icon_size);
+
+    if(!fv->model)
+        return;
+
     fm_folder_model_set_icon_size(fv->model, icon_size);
 
     if( fv->mode != FM_FV_LIST_VIEW ) /* this is an ExoIconView */
@@ -618,6 +622,22 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 	return ret;
 }
 
+static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
+{
+    switch(fv->mode)
+    {
+    case FM_FV_LIST_VIEW:
+        gtk_tree_view_set_model(fv->view, NULL);
+        break;
+    case FM_FV_ICON_VIEW:
+    case FM_FV_COMPACT_VIEW:
+    case FM_FV_THUMBNAIL_VIEW:
+        exo_icon_view_set_model(fv->view, NULL);
+        break;
+    }
+    fv->model = NULL;
+}
+
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 {
     FmFolderModel* model;
@@ -661,6 +681,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
     if(fv->folder)
     {
         g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_unmounted, fv);
         g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
         g_object_unref(fv->folder);
         fv->folder = NULL;
@@ -686,6 +707,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
     {
         /* connect error handler */
         g_signal_connect(folder, "loaded", on_folder_loaded, fv);
+        g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
         g_signal_connect(folder, "error", on_folder_err, fv);
         if(fm_folder_get_is_loading(folder))
         {
@@ -784,6 +806,9 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 {
     GList* sels;
     FmFolderViewClickType type = 0;
+
+    if(!fv->model)
+        return FALSE;
 
 	/* FIXME: handle single click activation */
     if( evt->type == GDK_BUTTON_PRESS )
