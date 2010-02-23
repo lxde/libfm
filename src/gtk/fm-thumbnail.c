@@ -128,6 +128,7 @@ static void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task);
 static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task);
 inline static GdkPixbuf* scale_pix(GdkPixbuf* ori_pix, int size);
 static void save_thumbnail_to_disk(ThumbnailTask* task, GdkPixbuf* pix, const char* path);
+static gchar* build_thumb_filename(const gchar* md5, gboolean large);
 
 static void fm_thumbnail_request_free(FmThumbnailRequest* req)
 {
@@ -449,7 +450,7 @@ gpointer load_thumbnail_thread(gpointer user_data)
             char* uri;
             char* thumb_path;
             const char* md5;
-
+	    
             G_UNLOCK(queue);
             uri = fm_path_to_uri(task->fi->path);
 
@@ -458,41 +459,8 @@ gpointer load_thumbnail_thread(gpointer user_data)
             md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
 
             task->uri = uri;
-            if(task->flags & LOAD_NORMAL)
-            {
-                if(G_UNLIKELY(!normal_path))
-                {
-                    normal_path = g_build_filename(thumb_dir, "normal/00000000000000000000000000000000.png", NULL);
-                    normal_prefix = strlen(g_get_home_dir()) + 20;
-                    normal_path[normal_prefix -1] = '\0';
-                    /* ensure thumbnail directory */
-                    g_mkdir_with_parents(normal_path, 0700);
-                    normal_path[normal_prefix -1] = '/';
-                }
-                memcpy(normal_path + normal_prefix, md5, 32);
-                // DEBUG("normal_path: %s", normal_path);
-                task->normal_path = normal_path;
-            }
-            else
-                task->normal_path = NULL;
-
-            if(task->flags & LOAD_LARGE)
-            {
-                if(G_UNLIKELY(!normal_path))
-                {
-                    large_path = g_build_filename(thumb_dir, "large/00000000000000000000000000000000.png", NULL);
-                    large_prefix = strlen(g_get_home_dir()) + 19;
-                    large_path[large_prefix -1] = '\0';
-                    /* ensure thumbnail directory */
-                    g_mkdir_with_parents(large_path, 0700);
-                    large_path[large_prefix -1] = '/';
-                }
-                memcpy(large_path + large_prefix, md5, 32);
-                // DEBUG("large_path: %s", large_path);
-                task->large_path = large_path;
-            }
-            else
-                task->large_path = NULL;
+	    task->normal_path = (task->flags & LOAD_NORMAL)? build_thumb_filename( md5, FALSE ):NULL;
+	    task->large_path = (task->flags & LOAD_LARGE)? build_thumb_filename( md5, TRUE ):NULL;
 
             load_thumbnails(task);
 
@@ -510,6 +478,23 @@ gpointer load_thumbnail_thread(gpointer user_data)
     g_free(large_path);
     g_checksum_free(sum);
     return NULL;
+}
+
+static gchar* build_thumb_filename( const gchar* md5, gboolean large ) 
+{
+
+    /* FIXME: strlen calc can be done at class initialization time */
+    gchar *filename = g_slice_alloc0( strlen( thumb_dir ) + strlen( "normal/00000000000000000000000000000000.png" ) );
+    g_sprintf( filename, "%s/%s", thumb_dir, large? "large":"normal" );
+
+    /* ensure thumbnail directory exists */    
+    g_mkdir_with_parents(filename, 0700);		
+
+    /* append  MD5.png */
+    filename[strlen( filename )] = G_DIR_SEPARATOR;
+    strcat( filename, md5 );
+    strcat( filename, ".png" );
+    return filename;
 }
 
 /* should be called with queue locked */
