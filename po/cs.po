@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-22 21:52+0100\n"
-"PO-Revision-Date: 2010-02-23 22:15+0100\n"
+"PO-Revision-Date: 2010-02-23 23:11+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "MIME-Version: 1.0\n"
@@ -64,19 +64,18 @@ msgid "_Browse"
 msgstr "Procházet"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Toto umístění obsahuje soubor se stejným jménem.</b>\n"
+"<b>Toto umístění obsahuje soubor se stejným názvem.</b>\n"
 "\n"
 "Chcete nahradit stávající soubor"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Použít tuto možnost na všechny existující soubory"
+msgstr "Použít tuto možnost na všechny soubory"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -99,9 +98,8 @@ msgid "_Skip"
 msgstr "Pře_skočit"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "with the following file?"
-msgstr "spolu s následujícím souborem?"
+msgstr "s následujícím souborem?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -305,7 +303,6 @@ msgid "Copying files"
 msgstr "Kopírování souborů"
 
 #: ../src/gtk/fm-progress-dlg.c:232
-#, fuzzy
 msgid "Trashing files"
 msgstr "Přesouvám soubory do koše"
 
@@ -318,7 +315,6 @@ msgid "Creating symlinks"
 msgstr "Creating symlinks"
 
 #: ../src/gtk/fm-progress-dlg.c:241
-#, fuzzy
 msgid "Changing file attributes"
 msgstr "Mění se atributy souborů"
 
