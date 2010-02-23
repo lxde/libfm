@@ -1,0 +1,467 @@
+# Czech translation for libfm package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the libfm package.
+# Radek Tříška <radek@fastlinux.eu>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Libfm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-22 21:52+0100\n"
+"PO-Revision-Date: 2010-02-23 22:15+0100\n"
+"Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
+"Language-Team: Czech <radek@fastlinux.eu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Příkaz ke spuštění:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr " <b>Typ souboru k otevření:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>V příkazech mohou být použity tyto speciální kódy:</b>\n"
+"  <b>%f</b>: Představuje jeden soubor\n"
+"  <b>%F:</b> Představuje více souborů\n"
+"  <b>%u</b>: Představuje jednu URI adresu\n"
+"  <b>%U</b>: Představuje více URI adres"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Vyberte aplikaci"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Vlastní příkaz"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Spustit v emulátoru terminálu"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Nainstalované aplikace"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Nastavit vybranou aplikaci jako výchozí pro tento typ souboru"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "Procházet"
+
+#: ../data/ui/ask-rename.glade.h:1
+#, fuzzy
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Toto umístění obsahuje soubor se stejným jménem.</b>\n"
+"\n"
+"Chcete nahradit stávající soubor"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Použít tuto možnost na všechny existující soubory"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Potvrďte pro nahrazení souborů"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Název souboru:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "Přepsat"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "Přejmenovat"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "Pře_skočit"
+
+#: ../data/ui/ask-rename.glade.h:10
+#, fuzzy
+msgid "with the following file?"
+msgstr "spolu s následujícím souborem?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Řízení přístupu</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Typ souboru:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Skupina:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Poslední přístup:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Poslední změna:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Umístění:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Otevřít pomocí:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Ostatní:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Vlastník:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Velikost na disku:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Cíl:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Celková velikost souborů:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>Skupina:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>Vlastník:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Vlastnosti souboru"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Nastavit soubor jako spustitelný"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Žádné"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Operace povolené ostatním uživatelům"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Operace povolené vlastníku souboru"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr "Operace povolené uživatelům ve stejné skupině jako vlastník souboru"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Číst a zapisovat"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Pouze číst"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Vyberte aplikaci pro otevírání souborů tohoto typu"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Pouze zapisovat"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "Obecné"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_Práva"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Probíhá zpracování:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Průběh:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:5
+msgid "<b>To:</b>"
+msgstr "<b>Do:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "Preparing..."
+msgstr "Připravuje se..."
+
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u bajt "
+msgstr[1] "%u bajtů"
+msgstr[2] "%u bajtů"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:52
+msgid "Shortcuts"
+msgstr "Zkratky"
+
+#: ../src/base/fm-file-info.c:55
+msgid "Mount Point"
+msgstr "Přípojný bod"
+
+#: ../src/base/fm-path.c:423
+msgid "Trash Can"
+msgstr "Koš"
+
+#: ../src/base/fm-path.c:425
+msgid "My Computer"
+msgstr "Můj počítač"
+
+#: ../src/base/fm-path.c:427
+#: ../src/gtk/fm-places-view.c:463
+msgid "Applications"
+msgstr "Aplikace"
+
+#: ../src/base/fm-path.c:429
+msgid "Network"
+msgstr "Síť"
+
+#: ../src/gtk/fm-progress-dlg.c:226
+msgid "Moving files"
+msgstr "Přesun souborů"
+
+#: ../src/gtk/fm-progress-dlg.c:229
+msgid "Copying files"
+msgstr "Kopírování souborů"
+
+#: ../src/gtk/fm-progress-dlg.c:232
+#, fuzzy
+msgid "Trashing files"
+msgstr "Přesouvám soubory do koše"
+
+#: ../src/gtk/fm-progress-dlg.c:235
+msgid "Deleting files"
+msgstr "Mazání souborů"
+
+#: ../src/gtk/fm-progress-dlg.c:238
+msgid "Creating symlinks"
+msgstr "Creating symlinks"
+
+#: ../src/gtk/fm-progress-dlg.c:241
+#, fuzzy
+msgid "Changing file attributes"
+msgstr "Mění se atributy souborů"
+
+#: ../src/gtk/fm-file-properties.c:177
+msgid "Please enter a valid user name or numeric id."
+msgstr "Prosím zadejte platné jméno nebo číselné id uživatele."
+
+#: ../src/gtk/fm-file-properties.c:209
+msgid "Please enter a valid group name or numeric id."
+msgstr "Prosím zadejte platné jméno nebo číselné id skupiny."
+
+#: ../src/gtk/fm-file-properties.c:357
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "Files of different types"
+msgstr " Soubory různých typů"
+
+#: ../src/gtk/fm-file-properties.c:645
+msgid "Multiple Files"
+msgstr "Více souborů"
+
+#: ../src/gtk/fm-file-properties.c:764
+msgid "Customize"
+msgstr "Přizpůsobit"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Mount Volume"
+msgstr "Připojit svazek"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Unmount Volume"
+msgstr "Odpojit svazek"
+
+#: ../src/gtk/fm-places-view.c:130
+msgid "Eject Removable Media"
+msgstr "Vysunout vyměnitelné medium"
+
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:746
+msgid "Rename Bookmark Item"
+msgstr "Přejmenovat záložku"
+
+#: ../src/gtk/fm-places-view.c:144
+msgid "Remove from Bookmark"
+msgstr "Odebrat ze záložek"
+
+#: ../src/gtk/fm-places-view.c:156
+msgid "Empty Trash"
+msgstr "Vyprázdnit koš"
+
+#: ../src/gtk/fm-places-view.c:404
+msgid "Trash"
+msgstr "Koš"
+
+#: ../src/gtk/fm-places-view.c:451
+msgid "Desktop"
+msgstr "Pracovní plocha"
+
+#: ../src/gtk/fm-places-view.c:747
+msgid "Enter a new name:"
+msgstr "Vložte nový název:"
+
+#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:79
+msgid "Open With..."
+msgstr "Otevřít pomocí..."
+
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: ../src/gtk/fm-file-menu.c:85
+msgid "Create Symlink"
+msgstr "Vytvořit odkaz"
+
+#: ../src/gtk/fm-file-menu.c:86
+msgid "Send To"
+msgstr "Poslat do"
+
+#: ../src/gtk/fm-dnd-dest.c:431
+msgid "XDirectSave failed."
+msgstr "XDirectSave selhal."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:95
+msgid "Use selected application to open files"
+msgstr "Použít vybranou aplikaci pro otevření souborů"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Execute custom command line to open files"
+msgstr "Spustit vlastní příkaz pro otevření souborů"
+
+#: ../src/gtk/fm-folder-view.c:467
+msgid "Name"
+msgstr "Název"
+
+#: ../src/gtk/fm-folder-view.c:486
+msgid "Description"
+msgstr "Popis"
+
+#: ../src/gtk/fm-folder-view.c:492
+msgid "Size"
+msgstr "Velikost"
+
+#: ../src/gtk/fm-folder-view.c:498
+msgid "Modified"
+msgstr "Změněno"
+
+#: ../src/gtk/fm-app-menu-view.c:150
+msgid "Installed Applications"
+msgstr "Nainstalované aplikace"
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr "Chyba"
+
+#: ../src/gtk/fm-gtk-utils.c:239
+msgid "Please select a folder"
+msgstr "Prosím vyberte složku"
+
+#: ../src/gtk/fm-gtk-utils.c:461
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Chcete přesunout vybrané soubory do koše?"
+
+#: ../src/gtk/fm-gtk-utils.c:472
+msgid "Do you want to delete the selected files?"
+msgstr "Opravdu chcete odstranit vybrané soubory?"
+
+#: ../src/gtk/fm-gtk-utils.c:529
+msgid "Rename File"
+msgstr "Přejmenovat soubor"
+
+#: ../src/gtk/fm-gtk-utils.c:529
+msgid "Please enter a new name:"
+msgstr "Prosím zadejte nový název:"
+
+#: ../src/gtk/fm-gtk-utils.c:551
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Skutečně chcete vyprázdnit složku koše?"
+
+#: ../src/job/fm-dir-list-job.c:266
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "Zadaná složka není platná"
+
