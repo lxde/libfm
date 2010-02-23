@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:52+0100\n"
-"PO-Revision-Date: 2010-02-20 14:46-0000\n"
-"Last-Translator: Sergio Marques <smarquespt@gmail.com>\n"
+"POT-Creation-Date: 2010-02-23 04:08+0000\n"
+"PO-Revision-Date: 2010-02-23 13:57-0000\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -27,7 +27,7 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Tipo de Ficheiro a Abrir:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -184,11 +184,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Operações que o dono do ficheiro pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operações que os utilizadores do mesmo grupo que o dono do ficheiro podem "
-"fazer"
+msgstr "Operações que os utilizadores no mesmo grupo do dono do ficheiro podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -233,7 +230,8 @@ msgstr "<b>Para:</b>"
 msgid "Preparing..."
 msgstr "Preparando..."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -288,7 +286,8 @@ msgstr "Lixo"
 msgid "My Computer"
 msgstr "Meu Computador"
 
-#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:427
+#: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Aplicações"
 
@@ -329,8 +328,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Deseja aplicar estas modificações a todas os ficheiros e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:624
@@ -357,7 +355,8 @@ msgstr "Desmontar Volume"
 msgid "Eject Removable Media"
 msgstr "Ejectar Média Amovível"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr "Renomear Marcador"
 
@@ -381,7 +380,8 @@ msgstr "Área de Trabalho"
 msgid "Enter a new name:"
 msgstr "Ondique o novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Abrir Com..."
 
@@ -460,7 +460,7 @@ msgstr "Você tem certeza que deseja esvaziar o lixo?"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "O directório especificado é inválido"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Não é um directório válido"
@@ -468,3 +468,4 @@ msgstr ""
 #, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Seleccione uma pasta"
+
