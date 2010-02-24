@@ -1,20 +1,19 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:52+0100\n"
+"POT-Creation-Date: 2010-02-24 04:08+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -27,7 +26,7 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Тип файлу для відкриття:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -36,10 +35,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Ці спеціальні коди можна використати в командній стрічці:</b>\n"
-" <b>%f</b>: репрезентує назву одного файлу\n"
-" <b>%F:</b> репрезентує назву багатьох файлів\n"
-" <b>%u</b>: репрезентує URI файлу\n"
-" <b>%U</b>: репрезентує багато URI"
+" <b>%f</b>: означає назву одного файлу\n"
+" <b>%F:</b> означає назву багатьох файлів\n"
+" <b>%u</b>: означає URI файлу\n"
+" <b>%U</b>: означає багато URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -184,9 +183,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Операції, які може виконувати тільки власник"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Операції, які можуть виконувати користувачі з групи власника"
+msgstr "Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -280,13 +278,12 @@ msgid "Mount Point"
 msgstr "Точка монтування"
 
 #: ../src/base/fm-path.c:423
-#, fuzzy
 msgid "Trash Can"
 msgstr "Смітник"
 
 #: ../src/base/fm-path.c:425
 msgid "My Computer"
-msgstr ""
+msgstr "Мій Комп’ютер"
 
 #: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
@@ -294,7 +291,7 @@ msgstr "Програми"
 
 #: ../src/base/fm-path.c:429
 msgid "Network"
-msgstr ""
+msgstr "Мережа"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
@@ -329,11 +326,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:357
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
-"підкаталогів?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підкаталогів?"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
@@ -404,13 +398,12 @@ msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
-#, fuzzy
 msgid "Use selected application to open files"
-msgstr "Виберіть програму для відкриття файлів цього типу"
+msgstr "Використати вибрану програму для відкриття файлів цього типу"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Виконати власну команду для відкриття файлів"
 
 #: ../src/gtk/fm-folder-view.c:467
 msgid "Name"
@@ -463,11 +456,10 @@ msgstr "Ви дійсно бажаєте очистити смітник?"
 #: ../src/job/fm-dir-list-job.c:266
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Вказана тека неправильна"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властивий каталог"
 
-#, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Будь-ласка, виберіть каталог"
