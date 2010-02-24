@@ -128,7 +128,6 @@ static void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task);
 static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task);
 inline static GdkPixbuf* scale_pix(GdkPixbuf* ori_pix, int size);
 static void save_thumbnail_to_disk(ThumbnailTask* task, GdkPixbuf* pix, const char* path);
-static gchar* build_thumb_filename(const gchar* md5, gboolean large);
 
 static void fm_thumbnail_request_free(FmThumbnailRequest* req)
 {
@@ -434,10 +433,14 @@ gpointer load_thumbnail_thread(gpointer user_data)
 {
     ThumbnailTask* task;
     GChecksum* sum = g_checksum_new(G_CHECKSUM_MD5);
-    char* normal_path = NULL;
-    int normal_prefix;
-    char* large_path = NULL;
-    int large_prefix;
+    gchar* normal_path  = g_build_filename(thumb_dir, "normal/00000000000000000000000000000000.png", NULL);
+    gchar* normal_basename = strrchr(normal_path, '/') + 1;
+    gchar* large_path = g_build_filename(thumb_dir, "large/00000000000000000000000000000000.png", NULL);
+    gchar* large_basename = strrchr(large_path, '/') + 1;
+
+    /* ensure thumbnail directories exists */    
+    g_mkdir_with_parents(normal_path, 0700);		
+    g_mkdir_with_parents(large_path, 0700);		
 
     for(;;)
     {
@@ -459,8 +462,11 @@ gpointer load_thumbnail_thread(gpointer user_data)
             md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
 
             task->uri = uri;
-	    task->normal_path = (task->flags & LOAD_NORMAL)? build_thumb_filename( md5, FALSE ):NULL;
-	    task->large_path = (task->flags & LOAD_LARGE)? build_thumb_filename( md5, TRUE ):NULL;
+
+	    if (task->flags & LOAD_NORMAL)
+		memcpy( normal_basename, md5, 32 );
+	    if (task->flags & LOAD_LARGE)
+		memcpy( large_basename, md5, 32 );
 
             load_thumbnails(task);
 
@@ -478,23 +484,6 @@ gpointer load_thumbnail_thread(gpointer user_data)
     g_free(large_path);
     g_checksum_free(sum);
     return NULL;
-}
-
-static gchar* build_thumb_filename( const gchar* md5, gboolean large ) 
-{
-
-    /* FIXME: strlen calc can be done at class initialization time */
-    gchar *filename = g_slice_alloc0( strlen( thumb_dir ) + strlen( "normal/00000000000000000000000000000000.png" ) );
-    g_sprintf( filename, "%s/%s", thumb_dir, large? "large":"normal" );
-
-    /* ensure thumbnail directory exists */    
-    g_mkdir_with_parents(filename, 0700);		
-
-    /* append  MD5.png */
-    filename[strlen( filename )] = G_DIR_SEPARATOR;
-    strcat( filename, md5 );
-    strcat( filename, ".png" );
-    return filename;
 }
 
 /* should be called with queue locked */
