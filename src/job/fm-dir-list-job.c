@@ -125,7 +125,7 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
 
     if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
     {
-        char* tmp = g_strconcat("/", menu_cache_item_get_id(menu_cache_get_root_dir(mc)), dir_path, NULL);
+        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path, NULL);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }
@@ -165,7 +165,7 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
 gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
 {
     /* Calling libmenu-cache is only allowed in main thread. */
-    fm_job_call_main_thread(job, list_apps, dir_path);
+    fm_job_call_main_thread(FM_JOB(job), list_apps, dir_path);
     return TRUE;
 }
 
@@ -185,7 +185,7 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 
         fi = fm_file_info_new();
         fi->path = fm_path_ref(job->dir_path);
-        if( fm_file_info_job_get_info_for_native_file(job, fi, dir_path) )
+        if( fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, dir_path) )
         {
             job->dir_fi = fi;
             if(! fm_file_info_is_dir(fi))
@@ -218,7 +218,7 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 				g_string_append(fpath, name);
 				fi = fm_file_info_new();
 				fi->path = fm_path_new_child(job->dir_path, name);
-				if( fm_file_info_job_get_info_for_native_file(job, fi, fpath->str) )
+				if( fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, fpath->str) )
 					fm_list_push_tail_noref(job->files, fi);
 				else /* failed! */
 					fm_file_info_unref(fi);

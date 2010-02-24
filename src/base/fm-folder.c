@@ -227,7 +227,7 @@ gboolean on_idle(FmFolder* folder)
     {
         g_signal_connect(job, "finished", on_file_info_finished, folder);
         folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
-        fm_job_run_async(job);
+        fm_job_run_async(FM_JOB(job));
     }
 
     if(folder->files_to_del)
@@ -396,7 +396,7 @@ static void fm_folder_finalize(GObject *object)
     {
         g_signal_handlers_disconnect_by_func(self->job, on_job_finished, self);
         g_signal_handlers_disconnect_by_func(self->job, on_job_err, self);
-        fm_job_cancel(self->job); /* FIXME: is this ok? */
+        fm_job_cancel(FM_JOB(self->job)); /* FIXME: is this ok? */
         /* the job will be freed automatically in idle handler. */
     }
 
@@ -502,7 +502,7 @@ void fm_folder_reload(FmFolder* folder)
     folder->job = fm_dir_list_job_new(folder->dir_path);
     g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
     g_signal_connect(folder->job, "error", G_CALLBACK(on_job_err), folder);
-    fm_job_run_async(folder->job);
+    fm_job_run_async(FM_JOB(folder->job));
 }
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder)

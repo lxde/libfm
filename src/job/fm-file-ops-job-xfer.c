@@ -264,7 +264,7 @@ gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 
     /* if this is a cross-device move operation, delete source files. */
     if( ret && job->type == FM_FILE_OP_MOVE )
-        ret = fm_file_ops_job_delete_file(job, src, inf); /* delete the source file. */
+        ret = fm_file_ops_job_delete_file(FM_JOB(job), src, inf); /* delete the source file. */
 
 _out:
     if(new_dest)
@@ -397,7 +397,7 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
     /* let the deep count job share the same cancellable object. */
     fm_job_set_cancellable(FM_JOB(dc), fmjob->cancellable);
     /* FIXME: there is no way to cancel the deep count job here. */
-	fm_job_run_sync(dc);
+	fm_job_run_sync(FM_JOB(dc));
 	job->total = dc->total_size;
     if(fmjob->cancel)
     {
@@ -426,7 +426,7 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 
 		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
         {
-            fm_job_cancel(job);
+            fm_job_cancel(FM_JOB(job));
 			ret = FALSE;
         }
         g_object_unref(src);
@@ -480,7 +480,7 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DIFF_FS);
     fm_deep_count_job_set_dest(dc, dest_dev, job->dest_fs_id);
-	fm_job_run_sync(dc);
+	fm_job_run_sync(FM_JOB(dc));
 	job->total = dc->total_size;
 
 	if( FM_JOB(dc)->cancel )
@@ -526,7 +526,7 @@ gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
 
 		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
         {
-            fm_job_cancel(job);
+            fm_job_cancel(FM_JOB(job));
 			ret = FALSE;
         }
         g_object_unref(src);

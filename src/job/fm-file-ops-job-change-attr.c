@@ -48,7 +48,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
         if(!_inf)
         {
             g_debug(err->message);
-            fm_job_emit_error(job, err, FALSE);
+            fm_job_emit_error(FM_JOB(job), err, FALSE);
             g_error_free(err);
 		    return FALSE;
         }
@@ -63,7 +63,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
                                                   job->uid, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                                   cancellable, &err) )
         {
-            fm_job_emit_error(job, err, FALSE);
+            fm_job_emit_error(FM_JOB(job), err, FALSE);
             g_error_free(err);
             return FALSE;
         }
@@ -77,7 +77,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
                                                   job->gid, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                                   cancellable, &err) )
         {
-            fm_job_emit_error(job, err, FALSE);
+            fm_job_emit_error(FM_JOB(job), err, FALSE);
             g_error_free(err);
 
             if(changed && job->src_folder_mon)
@@ -111,7 +111,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
                                          mode, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                          cancellable, &err) )
         {
-            fm_job_emit_error(job, err, FALSE);
+            fm_job_emit_error(FM_JOB(job), err, FALSE);
             g_error_free(err);
             if(changed && job->src_folder_mon)
                 g_file_monitor_emit_event(job->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED);
@@ -140,7 +140,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
 									cancellable, &err);
         if(!enu)
         {
-            fm_job_emit_error(job, err, FALSE);
+            fm_job_emit_error(FM_JOB(job), err, FALSE);
             g_error_free(err);
 		    return FALSE;
         }
@@ -164,7 +164,7 @@ gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInf
 			{
                 if(err)
                 {
-                    fm_job_emit_error(job, err, FALSE);
+                    fm_job_emit_error(FM_JOB(job), err, FALSE);
                     g_error_free(err);
                     ret = FALSE;
                     break;
@@ -193,7 +193,7 @@ gboolean fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
     if(job->recursive)
     {
         FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
-        fm_job_run_sync(dc);
+        fm_job_run_sync(FM_JOB(dc));
         job->total = dc->count;
         g_object_unref(dc);
     }

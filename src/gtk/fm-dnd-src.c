@@ -127,7 +127,7 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 	ds->widget = w;
 	if( w )
 	{
-        g_object_add_weak_pointer(w, &ds->widget);
+        g_object_add_weak_pointer(G_OBJECT(w), &ds->widget);
 		g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
 		g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
 		g_signal_connect_after(w, "drag-end", G_CALLBACK(on_drag_end), ds);

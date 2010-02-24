@@ -158,7 +158,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
                 gtk_action_set_gicon(act, g_app_info_get_icon(app));
                 gtk_action_group_add_action(act_grp, act);
                 /* associate the app info object with the action */
-                g_object_set_data_full(act, "app", app, (GDestroyNotify)g_object_unref);
+                g_object_set_data_full(G_OBJECT(act), "app", app, (GDestroyNotify)g_object_unref);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
             }
 
@@ -215,7 +215,7 @@ void on_open(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_list_peek_head_link(data->file_infos);
     GError* err = NULL;
-    fm_launch_files_simple(gtk_widget_get_toplevel(data->menu), NULL, l, data->folder_func, data->folder_func_data);
+    fm_launch_files_simple(GTK_WINDOW(gtk_widget_get_toplevel(data->menu)), NULL, l, data->folder_func, data->folder_func_data);
 }
 
 static void open_with_app(FmFileMenu* data, GAppInfo* app)
@@ -248,7 +248,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
 void on_open_with_app(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    GAppInfo* app = (GAppInfo*)g_object_get_data(action, "app");
+    GAppInfo* app = (GAppInfo*)g_object_get_data(G_OBJECT(action), "app");
     g_debug("%s", gtk_action_get_name(action));
     open_with_app(data, app);
 }

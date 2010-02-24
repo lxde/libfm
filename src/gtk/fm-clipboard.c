@@ -200,7 +200,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
         if(uris)
         {
-        	files = fm_path_list_new_from_uris(uris);
+        	files = fm_path_list_new_from_uris((const char **)uris);
             g_strfreev(uris);
 
             if( is_cut )

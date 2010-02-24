@@ -34,13 +34,13 @@ int main(int argc, char** argv)
 	fm_gtk_init(NULL);
 
 	w = fm_main_win_new();
-	gtk_window_set_default_size(w, 640, 480);
+	gtk_window_set_default_size(GTK_WINDOW(w), 640, 480);
 	gtk_widget_show(w);
 
     if(argc > 1)
     {
         FmPath* path = fm_path_new(argv[1]);
-        fm_main_win_chdir(w, path);
+        fm_main_win_chdir(FM_MAIN_WIN(w), path);
         fm_path_unref(path);
     }
 	

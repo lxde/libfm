@@ -97,7 +97,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 		if(fm_path_is_native(fi->path))
 		{
 			char* path_str = fm_path_to_str(fi->path);
-			if(!fm_file_info_job_get_info_for_native_file(job, fi, path_str))
+			if(!fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str))
             {
                 next = l->next;
                 fm_list_delete_link(job->file_infos, l); /* also calls unref */
@@ -107,7 +107,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 		else
 		{
 			GFile* gf = fm_path_to_gfile(fi->path);
-			if(!fm_file_info_job_get_info_for_gfile(job, fi, gf))
+			if(!fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf))
             {
                 fm_file_info_unref(fi);
                 next = l->next;

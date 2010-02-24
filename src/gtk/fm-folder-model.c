@@ -330,8 +330,8 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         g_object_unref(model->dir);
     }
     model->dir = dir;
-    model->items = g_sequence_new(fm_folder_item_free);
-    model->hidden = g_sequence_new(fm_folder_item_free);
+    model->items = g_sequence_new((GDestroyNotify)fm_folder_item_free);
+    model->hidden = g_sequence_new((GDestroyNotify)fm_folder_item_free);
     if( !dir )
         return;
 
@@ -967,7 +967,7 @@ void reload_icons(FmFolderModel* model, enum ReloadFlags flags)
                 item->thumbnail_loading = FALSE;
                 tree_it.stamp = model->stamp;
                 tree_it.user_data = it;
-                gtk_tree_model_row_changed(model, tp, &tree_it);
+                gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &tree_it);
             }
         }
         gtk_tree_path_next(tp);
@@ -1074,12 +1074,12 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
         item = (FmFolderItem*)g_sequence_get(seq_it);
         if(pix)
         {
-            GtkTreePath* tp = fm_folder_model_get_path(model, &it);
+            GtkTreePath* tp = fm_folder_model_get_path(GTK_TREE_MODEL(model), &it);
             if(item->icon)
                 g_object_unref(item->icon);
             item->icon = g_object_ref(pix);
             item->is_thumbnail = TRUE;
-            gtk_tree_model_row_changed(model, tp, &it);
+            gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
             gtk_tree_path_free(tp);
         }
         else
@@ -1132,8 +1132,8 @@ static void reload_thumbnail(FmFolderModel* model, GSequenceIter* seq_it, FmFold
         item->icon = NULL;
         it.stamp = model->stamp;
         it.user_data = seq_it;
-        tp = fm_folder_model_get_path(model, &it);
-        gtk_tree_model_row_changed(model, tp, &it);
+        tp = fm_folder_model_get_path(GTK_TREE_MODEL(model), &it);
+        gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
         gtk_tree_path_free(tp);
     }
 }

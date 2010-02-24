@@ -108,7 +108,7 @@ static void fm_job_init(FmJob *self)
 {
 	/* create the thread pool if it doesn't exist. */
 	if( G_UNLIKELY(!thread_pool) )
-		thread_pool = g_thread_pool_new(job_thread, NULL, -1, FALSE, NULL);
+		thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
 	++n_jobs;
 }
 
@@ -251,7 +251,7 @@ gpointer fm_job_call_main_thread(FmJob* job,
 	data.func = func;
 	data.user_data = user_data;
 	g_mutex_lock(job->mutex);
-	g_idle_add( on_idle_call, &data );
+	g_idle_add( (GSourceFunc)on_idle_call, &data );
 	g_cond_wait(job->cond, job->mutex);
 	g_mutex_unlock(job->mutex);
 	return data.ret;

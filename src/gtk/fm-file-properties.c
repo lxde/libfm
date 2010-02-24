@@ -117,10 +117,10 @@ static gboolean on_timeout(FmFilePropData* data)
     if(G_LIKELY(dc))
     {
         fm_file_size_to_str(size_str, dc->total_size, TRUE);
-        gtk_label_set_text(data->total_size, size_str);
+        gtk_label_set_text(GTK_LABEL(data->total_size), size_str);
 
         fm_file_size_to_str(size_str, dc->total_block_size, TRUE);
-        gtk_label_set_text(data->size_on_disk, size_str);
+        gtk_label_set_text(GTK_LABEL(data->size_on_disk), size_str);
     }
     gdk_threads_leave();
     return TRUE;
@@ -155,7 +155,7 @@ static void fm_file_prop_data_free(FmFilePropData* data)
 static gboolean ensure_valid_owner(FmFilePropData* data)
 {
     gboolean ret = TRUE;
-    const char* tmp = gtk_entry_get_text(data->owner);
+    const char* tmp = gtk_entry_get_text(GTK_ENTRY(data->owner));
 
     data->uid = -1;
     if(tmp && *tmp)
@@ -174,7 +174,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(data->dlg, _("Please enter a valid user name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid user name or numeric id."));
         gtk_widget_grab_focus(data->owner);
     }
 
@@ -187,7 +187,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
 static gboolean ensure_valid_group(FmFilePropData* data)
 {
     gboolean ret = TRUE;
-    const char* tmp = gtk_entry_get_text(data->group);
+    const char* tmp = gtk_entry_get_text(GTK_ENTRY(data->group));
 
     data->gid = -1;
     if(tmp && *tmp)
@@ -206,7 +206,7 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(data->dlg, _("Please enter a valid group name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid group name or numeric id."));
         gtk_widget_grab_focus(data->group);
     }
     if(data->gid == -1)
@@ -221,8 +221,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
     if( response == GTK_RESPONSE_OK )
     {
         int sel;
-        const char* new_owner = gtk_entry_get_text(data->owner);
-        const char* new_group = gtk_entry_get_text(data->group);
+        const char* new_owner = gtk_entry_get_text(GTK_ENTRY(data->owner));
+        const char* new_group = gtk_entry_get_text(GTK_ENTRY(data->group));
         guint32 uid = -1, gid = -1;
         mode_t new_mode = 0, new_mode_mask = 0;
 
@@ -252,7 +252,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->gid = -1;
 
         /* check if chmod is needed here. */
-        sel = gtk_combo_box_get_active(data->owner_perm);
+        sel = gtk_combo_box_get_active(GTK_COMBO_BOX(data->owner_perm));
         if( sel != NO_CHANGE ) /* need to change owner permission */
         {
             if(data->owner_perm_sel != sel) /* new value is different from original */
@@ -278,7 +278,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         else
             data->owner_perm_sel = NO_CHANGE;
 
-        sel = gtk_combo_box_get_active(data->group_perm);
+        sel = gtk_combo_box_get_active(GTK_COMBO_BOX(data->group_perm));
         if( sel != NO_CHANGE ) /* need to change group permission */
         {
             if(data->group_perm_sel != sel) /* new value is different from original */
@@ -304,7 +304,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         else
             data->group_perm_sel = NO_CHANGE;
 
-        sel = gtk_combo_box_get_active(data->other_perm);
+        sel = gtk_combo_box_get_active(GTK_COMBO_BOX(data->other_perm));
         if( sel != NO_CHANGE ) /* need to change other permission */
         {
             if(data->other_perm_sel != sel) /* new value is different from original */
@@ -331,11 +331,11 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->other_perm_sel = NO_CHANGE;
 
         if(!data->has_dir 
-           && !gtk_toggle_button_get_inconsistent(data->exec)
-           && gtk_toggle_button_get_active(data->exec) != data->exec_state)
+           && !gtk_toggle_button_get_inconsistent(GTK_TOGGLE_BUTTON(data->exec))
+           && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->exec)) != data->exec_state)
         {
             new_mode_mask |= (S_IXUSR|S_IXGRP|S_IXOTH);
-            if(gtk_toggle_button_get_active(data->exec))
+            if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->exec)))
                 new_mode |= (S_IXUSR|S_IXGRP|S_IXOTH);
         }
 
@@ -354,11 +354,11 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             if(data->has_dir)
             {
-                if(fm_yes_no(data->dlg, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
+                if(fm_yes_no(GTK_WINDOW(data->dlg), _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
-            fm_job_run_async(job);
+            fm_job_run_async(FM_JOB(job));
 
             /* show progress dialog */
             fm_display_progress(job);
@@ -373,7 +373,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             g_app_info_set_as_default_for_type(data->new_app, data->mime_type->type, &err);
             if(err)
             {
-                fm_show_error(dlg, err->message);
+                fm_show_error(GTK_WINDOW(dlg), err->message);
                 g_error_free(err);
             }
         }
@@ -381,13 +381,13 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if(data->single_file) /* when only one file is shown */
         {
             /* if the user has changed its name */
-            if( g_strcmp0(data->fi->disp_name, gtk_entry_get_text(data->name)) )
+            if( g_strcmp0(data->fi->disp_name, gtk_entry_get_text(GTK_ENTRY(data->name))) )
             {
                 /* FIXME: rename the file or set display name for it. */
             }
         }
     }
-    gtk_widget_destroy(dlg);
+    gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
 static void on_exec_toggled(GtkToggleButton* btn, FmFilePropData* data)
@@ -464,38 +464,38 @@ static void update_permissions(FmFilePropData* data)
         {
             pw = getpwuid(uid);
             if(pw)
-                gtk_entry_set_text(data->owner, pw->pw_name);
+                gtk_entry_set_text(GTK_ENTRY(data->owner), pw->pw_name);
         }
         if( gid >= 0 )
         {
             grp = getgrgid(gid);
             if(grp)
-                gtk_entry_set_text(data->group, grp->gr_name);
+                gtk_entry_set_text(GTK_ENTRY(data->group), grp->gr_name);
         }
     }
 
     if( uid >=0 && !pw )
     {
         tmp = g_strdup_printf("%u", uid);
-        gtk_entry_set_text(data->owner, tmp);
+        gtk_entry_set_text(GTK_ENTRY(data->owner), tmp);
         g_free(tmp);
     }
 
     if( gid >=0 && !grp )
     {
         tmp = g_strdup_printf("%u", gid);
-        gtk_entry_set_text(data->group, tmp);
+        gtk_entry_set_text(GTK_ENTRY(data->group), tmp);
         g_free(tmp);
     }
 
-    data->orig_owner = g_strdup(gtk_entry_get_text(data->owner));
-    data->orig_group = g_strdup(gtk_entry_get_text(data->group));
+    data->orig_owner = g_strdup(gtk_entry_get_text(GTK_ENTRY(data->owner)));
+    data->orig_group = g_strdup(gtk_entry_get_text(GTK_ENTRY(data->group)));
 
     /* on local filesystems, only root can do chown. */
     if( data->all_native && geteuid() != 0 )
     {
-        gtk_editable_set_editable(data->owner, FALSE);
-        gtk_editable_set_editable(data->group, FALSE);
+        gtk_editable_set_editable(GTK_EDITABLE(data->owner), FALSE);
+        gtk_editable_set_editable(GTK_EDITABLE(data->group), FALSE);
     }
 
     sel = NO_CHANGE;
@@ -510,7 +510,7 @@ static void update_permissions(FmFilePropData* data)
         else
             sel = NONE;            
     }
-    gtk_combo_box_set_active(data->owner_perm, sel);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(data->owner_perm), sel);
     data->owner_perm_sel = sel;
 
     sel = NO_CHANGE;
@@ -525,7 +525,7 @@ static void update_permissions(FmFilePropData* data)
         else
             sel = NONE;
     }
-    gtk_combo_box_set_active(data->group_perm, sel);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(data->group_perm), sel);
     data->group_perm_sel = sel;
 
     sel = NO_CHANGE;
@@ -540,7 +540,7 @@ static void update_permissions(FmFilePropData* data)
         else
             sel = NONE;
     }
-    gtk_combo_box_set_active(data->other_perm, sel);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(data->other_perm), sel);
     data->other_perm_sel = sel;
 
     if(data->has_dir)
@@ -553,19 +553,19 @@ static void update_permissions(FmFilePropData* data)
         gboolean xoth = (exec_perm & S_IXOTH) != 0;
         if( xusr == xgrp && xusr == xoth ) /* executable */
         {
-            gtk_toggle_button_set_active(data->exec, xusr);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->exec), xusr);
             data->exec_state = xusr;
         }
         else /* inconsistent */
         {
-            gtk_toggle_button_set_inconsistent(data->exec, TRUE);
+            gtk_toggle_button_set_inconsistent(GTK_TOGGLE_BUTTON(data->exec), TRUE);
             g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
             data->exec_state = -1;
         }
     }
     else /* inconsistent */
     {
-        gtk_toggle_button_set_inconsistent(data->exec, TRUE);
+        gtk_toggle_button_set_inconsistent(GTK_TOGGLE_BUTTON(data->exec), TRUE);
         g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
         data->exec_state = -1;
     }
@@ -597,7 +597,7 @@ static void update_ui(FmFilePropData* data)
                 if(ficon)
                     icon = ficon->gicon;
             }
-            gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
+            gtk_label_set_text(GTK_LABEL(data->type), fm_mime_type_get_desc(data->mime_type));
         }
 
         if(icon)
@@ -607,7 +607,7 @@ static void update_ui(FmFilePropData* data)
         {
             gtk_widget_show(data->target_label);
             gtk_widget_show(data->target);
-            gtk_label_set_text(data->target, data->fi->target);
+            gtk_label_set_text(GTK_LABEL(data->target), data->fi->target);
             // gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
         }
         else
@@ -621,7 +621,7 @@ static void update_ui(FmFilePropData* data)
         gtk_image_set_from_stock(img, GTK_STOCK_DND_MULTIPLE, GTK_ICON_SIZE_DIALOG);
         gtk_widget_set_sensitive(data->name, FALSE);
 
-        gtk_label_set_text(data->type, _("Files of different types"));
+        gtk_label_set_text(GTK_LABEL(data->type), _("Files of different types"));
 
         gtk_widget_destroy(data->target_label);
         gtk_widget_destroy(data->target);
@@ -668,7 +668,7 @@ static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
         if(it.user_data == data->other_apps_iter_user_data)
         {
             /* let the user choose a app or add custom actions here. */
-            GAppInfo* app = fm_choose_app_for_mime_type(data->dlg, data->mime_type, FALSE);
+            GAppInfo* app = fm_choose_app_for_mime_type(GTK_WINDOW(data->dlg), data->mime_type, FALSE);
             if(app)
             {
                 gboolean found = FALSE;
@@ -692,7 +692,7 @@ static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
                 /* if it's not found, add it to the list */
                 if(!found)
                 {
-                    gtk_list_store_insert_before(model, &it, &data->separator_iter);
+                    gtk_list_store_insert_before(GTK_LIST_STORE(model), &it, &data->separator_iter);
                     gtk_list_store_set(model, &it,
                                        0, g_app_info_get_icon(app),
                                        1, g_app_info_get_name(app),
@@ -763,13 +763,13 @@ static void init_application_list(FmFilePropData* data)
                                0, NULL,
                                1, _("Customize"),
                                2, NULL, -1);
-            gtk_combo_box_set_model(data->open_with, store);
+            gtk_combo_box_set_model(GTK_COMBO_BOX(data->open_with), store);
             if(def_it.user_data) /* default app is found */
             {
                 data->prev_sel = def_it;
-                gtk_combo_box_set_active_iter(data->open_with, &def_it);
+                gtk_combo_box_set_active_iter(GTK_COMBO_BOX(data->open_with), &def_it);
             }
-            gtk_combo_box_set_row_separator_func(data->open_with, is_row_separator, data, NULL);
+            gtk_combo_box_set_row_separator_func(GTK_COMBO_BOX(data->open_with), is_row_separator, data, NULL);
             g_object_unref(store);
 
             g_signal_connect(data->open_with, "changed",
@@ -807,7 +807,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     {
         gtk_builder_add_from_file(builder, UI_FILE, NULL);
         GET_WIDGET(dlg);
-        gtk_dialog_set_alternative_button_order(data->dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
+        gtk_dialog_set_alternative_button_order(GTK_DIALOG(data->dlg), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
     }
     else
     {

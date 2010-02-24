@@ -229,7 +229,7 @@ inline static void cache_thumbnail_in_hash(FmPath* path, GdkPixbuf* pix, guint s
         item->size = size;
         item->pix = pix;
         cache->items = g_slist_prepend(cache->items, item);
-        g_object_weak_ref(pix, (GWeakNotify)on_pixbuf_destroy, cache);
+        g_object_weak_ref(G_OBJECT(pix), (GWeakNotify)on_pixbuf_destroy, cache);
     }
 }
 
@@ -706,7 +706,7 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 void fm_thumbnail_init()
 {
     thumb_dir = g_build_filename(g_get_home_dir(), ".thumbnails", NULL);
-    hash = g_hash_table_new(fm_path_hash, fm_path_equal);
+    hash = g_hash_table_new((GHashFunc)fm_path_hash, fm_path_equal);
 }
 
 void fm_thumbnail_finalize()
@@ -856,7 +856,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
         GdkPixbuf* ori_pix;
         gssize len;
         const char* orientation_str;
-        ori_pix = gdk_pixbuf_new_from_stream(ins, generator_cancellable, NULL);
+        ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
         orientation_str = gdk_pixbuf_get_option(ori_pix, "orientation");
         if(ori_pix) /* if the original image is successfully loaded */
         {

@@ -642,7 +642,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
     char** uris = g_strsplit(uri_list, "\r\n", -1);
-	FmPathList* pl = fm_path_list_new_from_uris(uris);
+	FmPathList* pl = fm_path_list_new_from_uris((const char **)uris);
     g_strfreev(uris);
 	return pl;
 }

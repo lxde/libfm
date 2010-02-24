@@ -62,7 +62,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
     if(fjob->type != FM_FILE_OP_MOVE)
     {
         ++fjob->finished;
-        fm_file_ops_job_emit_percent(job);
+        fm_file_ops_job_emit_percent(FM_FILE_OPS_JOB(job));
     }
 
 	is_dir = (g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY);
@@ -176,7 +176,7 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
 	GList* l;
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
-	fm_job_run_sync(dc);
+	fm_job_run_sync(FM_JOB(dc));
 	job->total = dc->count;
 	g_object_unref(dc);
 	g_debug("total number of files to delete: %llu", job->total);
@@ -202,7 +202,7 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
                 job->src_folder_mon = mon = NULL;
         }
 
-        ret = fm_file_ops_job_delete_file(job, src, NULL);
+        ret = fm_file_ops_job_delete_file(FM_JOB(job), src, NULL);
 		g_object_unref(src);
 
         if(mon)

@@ -192,7 +192,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     dd->widget = w;
     if( w )
     {
-		g_object_add_weak_pointer(w, &dd->widget);
+		g_object_add_weak_pointer(G_OBJECT(w), &dd->widget);
         g_signal_connect_after(w, "drag-motion", G_CALLBACK(on_drag_motion), dd);
         g_signal_connect(w, "drag-leave", G_CALLBACK(on_drag_leave), dd);
         g_signal_connect(w, "drag-drop", G_CALLBACK(on_drag_drop), dd );
@@ -493,7 +493,7 @@ on_drag_data_received ( GtkWidget *dest_widget,
         {
             gchar **uris;
             uris = gtk_selection_data_get_uris( sel_data );
-			files = fm_path_list_new_from_uris(uris);
+			files = fm_path_list_new_from_uris((const char **)uris);
             g_free(uris);
         }
         break;
@@ -528,7 +528,7 @@ on_drag_data_received ( GtkWidget *dest_widget,
         dd->src_files = NULL;
         fm_list_unref(files);
         g_signal_connect(job, "finished", G_CALLBACK(on_src_file_info_finished), dd);
-        fm_job_run_async(job);
+        fm_job_run_async(FM_JOB(job));
     }
 }
 

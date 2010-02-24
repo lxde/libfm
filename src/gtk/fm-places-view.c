@@ -224,15 +224,15 @@ static void fm_places_view_finalize(GObject *object)
 static void on_model_destroy(gpointer unused, GObject* _model)
 {
     GtkTreeIter it;
-    if(gtk_tree_model_get_iter_first(model, &it))
+    if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
     {
         do
         {
             PlaceItem* item;
-            gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
             if(G_LIKELY(item))
                 place_item_free(item);
-        }while(gtk_tree_model_iter_next(model, &it));
+        }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
     }
     model = NULL;
 
@@ -303,19 +303,19 @@ static PlaceItem* find_vol(GVolume* vol, GtkTreeIter* _it)
     GtkTreeIter it;
     PlaceItem* item;
     /* FIXME: don't need to find from the first iter */
-    if(gtk_tree_model_get_iter_first(model, &it))
+    if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
     {
         do
         {
             PlaceItem* item;
-            gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
 
             if(item && item->type == PLACE_VOL && item->vol == vol)
             {
                 *_it = it;
                 return item;
             }
-        }while(it.user_data != sep_it.user_data && gtk_tree_model_iter_next(model, &it));
+        }while(it.user_data != sep_it.user_data && gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
     }
     return NULL;
 }
@@ -375,7 +375,7 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 {
     GtkTreeIter it = sep_it;
     /* remove all old bookmarks */
-    if(gtk_tree_model_iter_next(model, &it))
+    if(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it))
     {
         while(gtk_list_store_remove(model, &it))
             continue;
@@ -431,7 +431,7 @@ static void init_model()
                                                  G_CALLBACK(on_pane_icon_size_changed), NULL);
 
         model = gtk_list_store_new(N_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
-        g_object_weak_ref(model, on_model_destroy, NULL);
+        g_object_weak_ref(G_OBJECT(model), on_model_destroy, NULL);
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
@@ -514,17 +514,17 @@ static void fm_places_view_init(FmPlacesView *self)
     guint handler;
 
     init_model();
-    gtk_tree_view_set_model(self, model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(self), model);
     g_object_unref(model);
 
-    gtk_tree_view_set_headers_visible(self, FALSE);
-    gtk_tree_view_set_row_separator_func(self, (GtkTreeViewRowSeparatorFunc)sep_func, NULL, NULL );
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
+    gtk_tree_view_set_row_separator_func(GTK_TREE_VIEW(self), (GtkTreeViewRowSeparatorFunc)sep_func, NULL, NULL );
 
     col = gtk_tree_view_column_new();
     renderer = fm_cell_renderer_pixbuf_new();
     handler = g_signal_connect(fm_config, "changed::pane_icon_size", G_CALLBACK(on_renderer_icon_size_changed), renderer);
-    g_object_weak_ref(renderer, (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
-    fm_cell_renderer_pixbuf_set_fixed_size(renderer, fm_config->pane_icon_size, fm_config->pane_icon_size);
+    g_object_weak_ref(G_OBJECT(renderer), (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+    fm_cell_renderer_pixbuf_set_fixed_size(FM_CELL_RENDERER_PIXBUF(renderer), fm_config->pane_icon_size, fm_config->pane_icon_size);
 
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
     gtk_tree_view_column_set_attributes( col, renderer,
@@ -535,7 +535,7 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_column_pack_start( col, renderer, TRUE );
     gtk_tree_view_column_set_attributes( col, renderer,
                                          "text", COL_LABEL, NULL );
-    gtk_tree_view_append_column ( self, col );
+    gtk_tree_view_append_column ( GTK_TREE_VIEW(self), col );
 
 /*
     gtk_drag_source_set(fv->view, GDK_BUTTON1_MASK,
@@ -563,11 +563,11 @@ GtkWidget *fm_places_view_new(void)
 void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
 {
     GtkTreeIter it;
-    if(gtk_tree_model_get_iter(model, &it, tree_path))
+    if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tree_path))
     {
         PlaceItem* item;
         FmPath* path;
-        gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
         if(!item)
             return;
         switch(item->type)
@@ -608,9 +608,9 @@ gboolean on_button_release(GtkWidget* view, GdkEventButton* evt)
 {
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
-    if(evt->button == 1 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
+    if(evt->button == 1 && gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
     {
-        gtk_tree_view_row_activated(view, tp, col);
+        gtk_tree_view_row_activated(GTK_TREE_VIEW(view), tp, col);
         gtk_tree_path_free(tp);
     }
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
@@ -672,7 +672,7 @@ GtkWidget* place_item_get_menu(PlaceItem* item)
     if(menu)
     {
         g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
-        g_object_weak_ref(menu, g_object_unref, g_object_ref(ui));
+        g_object_weak_ref(G_OBJECT(menu), g_object_unref, g_object_ref(ui));
     }
 
 _out:
@@ -687,17 +687,17 @@ gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
     GtkTreeViewColumn* col;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(view, evt);
 
-    if(evt->button == 3 && gtk_tree_view_get_path_at_pos(view, evt->x, evt->y, &tp, &col, NULL, NULL))
+    if(evt->button == 3 && gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
     {
         GtkTreeIter it;
-        if(gtk_tree_model_get_iter(model, &it, tp) && it.user_data != sep_it.user_data )
+        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp) && it.user_data != sep_it.user_data )
         {
             PlaceItem* item;
             GtkWidget* menu;
-            gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
             menu = place_item_get_menu(item);
             if(menu)
-                gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, evt->time);
+                gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
         }
         gtk_tree_path_free(tp);
     }
@@ -775,7 +775,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
         }
         else
         {
-            GtkTreePath* sep = gtk_tree_model_get_path(model, &sep_it);
+            GtkTreePath* sep = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &sep_it);
             if(gtk_tree_path_compare(sep, tp) < 0) /* tp is after sep */
             {
                 *action = GDK_ACTION_LINK;
@@ -791,7 +791,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
     }
     else
     {
-        tp = gtk_tree_path_new_from_indices(gtk_tree_model_iter_n_children(model, NULL)-1, -1);
+        tp = gtk_tree_path_new_from_indices(gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL)-1, -1);
         pos = GTK_TREE_VIEW_DROP_AFTER;
         *action = GDK_ACTION_LINK;
     }
@@ -840,7 +840,7 @@ void on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
             GtkTreePath* tp = view->dest_row;
             if(tp)
             {
-                GtkTreePath* sep = gtk_tree_model_get_path(model, &sep_it);
+                GtkTreePath* sep = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &sep_it);
                 int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
                 gtk_tree_path_free(sep);
                 if(view->dest_pos == GTK_TREE_VIEW_DROP_BEFORE)
@@ -892,7 +892,7 @@ gboolean update_trash(gpointer user_data)
             g_object_unref(inf);
             icon_name = n > 0 ? "user-trash-full" : "user-trash";
             icon = fm_icon_from_name(icon_name);
-            gtk_tree_model_get(model, &trash_it, COL_INFO, &item, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &trash_it, COL_INFO, &item, -1);
             if(item->icon)
                 fm_icon_unref(item->icon);
             item->icon = icon;
@@ -915,18 +915,18 @@ void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonit
 void update_icons()
 {
     GtkTreeIter it;
-    gtk_tree_model_get_iter_first(model, &it);
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it);
     do{
         if(it.user_data != sep_it.user_data)
         {
             PlaceItem* item;
-            gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
             /* FIXME: get icon size from FmConfig */
             GdkPixbuf* pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
             gtk_list_store_set(model, &it, COL_ICON, pix, -1);
             g_object_unref(pix);
         }
-    }while( gtk_tree_model_iter_next(model, &it) );
+    }while( gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it) );
 }
 
 void on_use_trash_changed(FmConfig* cfg, gpointer unused)
@@ -936,7 +936,7 @@ void on_use_trash_changed(FmConfig* cfg, gpointer unused)
     else
     {
         PlaceItem *item;
-        gtk_tree_model_get(model, &trash_it, COL_INFO, &item, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &trash_it, COL_INFO, &item, -1);
         gtk_list_store_remove(GTK_LIST_STORE(model), &trash_it);
         trash_it.user_data = NULL;
         place_item_free(item);

@@ -198,7 +198,7 @@ static void emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
-	fm_job_call_main_thread(job, emit_cur_file, cur_file);
+	fm_job_call_main_thread(FM_JOB(job), emit_cur_file, cur_file);
 }
 
 static void emit_percent(FmFileOpsJob* job, gpointer percent)
@@ -211,7 +211,7 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
     guint percent = job->total > 0 ? (guint)(job->finished + job->current) * 100 / job->total : 100;
     if( percent > job->percent )
     {
-    	fm_job_call_main_thread(job, emit_percent, (gpointer)percent);
+    	fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
         job->percent = percent;
     }
 }
@@ -268,7 +268,7 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     data.src_fi = src_fi;
     data.dest_fi = dest_fi;
     data.new_name = NULL;
-    fm_job_call_main_thread(job, emit_ask_rename, (gpointer)&data);
+    fm_job_call_main_thread(FM_JOB(job), emit_ask_rename, (gpointer)&data);
 
     if(data.ret == FM_FILE_OP_RENAME)
     {

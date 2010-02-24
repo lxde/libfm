@@ -61,8 +61,8 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data
     {
         char percent_text[64];
         g_snprintf(percent_text, 64, "%d %%", percent);
-        gtk_progress_bar_set_fraction(data->progress, (gdouble)percent/100);
-        gtk_progress_bar_set_text(data->progress, percent_text);
+        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(data->progress), (gdouble)percent/100);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(data->progress), percent_text);
     }
 }
 
@@ -78,20 +78,20 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 static gboolean on_error(FmFileOpsJob* job, GError* err, gboolean recoverable, FmProgressDisplay* data)
 {
     ensure_dlg(data);
-    fm_show_error(data->dlg, err->message);
+    fm_show_error(GTK_WINDOW(data->dlg), err->message);
     return FALSE;
 }
 
 static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressDisplay* data)
 {
     ensure_dlg(data);
-    return fm_askv(data->dlg, question, options);
+    return fm_askv(GTK_WINDOW(data->dlg), question, options);
 }
 
 static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
 {
-    const char* old_name = g_object_get_data(entry, "old_name");
-    const char* new_name = gtk_entry_get_text(entry);
+    const char* old_name = g_object_get_data(G_OBJECT(entry), "old_name");
+    const char* new_name = gtk_entry_get_text(GTK_ENTRY(entry));
     gtk_widget_set_sensitive(rename, new_name && *new_name && g_strcmp0(old_name, new_name));
 }
 
@@ -112,26 +112,26 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     dest_fi = (GtkWidget*)gtk_builder_get_object(builder, "dest_fi");
     filename = (GtkWidget*)gtk_builder_get_object(builder, "filename");
     apply_all = (GtkWidget*)gtk_builder_get_object(builder, "apply_all");
-    gtk_window_set_transient_for(dlg, data->dlg);
+    gtk_window_set_transient_for(GTK_WINDOW(dlg), data->dlg);
 
-    gtk_image_set_from_gicon(src_icon, src->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(GTK_IMAGE(src_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
     tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
                           fm_file_info_get_desc(src),
                           fm_file_info_get_disp_size(src),
                           fm_file_info_get_disp_mtime(src));
-    gtk_label_set_text(src_fi, tmp);
+    gtk_label_set_text(GTK_LABEL(src_fi), tmp);
     g_free(tmp);
 
-    gtk_image_set_from_gicon(dest_icon, src->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(GTK_IMAGE(dest_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
     tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
                           fm_file_info_get_desc(dest),
                           fm_file_info_get_disp_size(dest),
                           fm_file_info_get_disp_mtime(dest));
-    gtk_label_set_text(dest_fi, tmp);
+    gtk_label_set_text(GTK_LABEL(dest_fi), tmp);
     g_free(tmp);
 
-    gtk_entry_set_text(filename, dest->disp_name);
-    g_object_set_data(filename, "old_name", dest->disp_name);
+    gtk_entry_set_text(GTK_ENTRY(filename), dest->disp_name);
+    g_object_set_data(G_OBJECT(filename), "old_name", dest->disp_name);
     g_signal_connect(filename, "changed", on_filename_changed, gtk_builder_get_object(builder, "rename"));
 
     g_object_unref(builder);
@@ -140,7 +140,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     switch(res)
     {
     case RESPONSE_RENAME:
-        *new_name = g_strdup(gtk_entry_get_text(filename));
+        *new_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(filename)));
         res = FM_FILE_OP_RENAME;
         break;
     case RESPONSE_OVERWRITE:
@@ -153,7 +153,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
         res = FM_FILE_OP_CANCEL;
     }
 
-    if(gtk_toggle_button_get_active(apply_all))
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(apply_all)))
     {
         /* FIXME: set default action */
     }
@@ -181,8 +181,8 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
     if(id == GTK_RESPONSE_CANCEL || id == GTK_RESPONSE_DELETE_EVENT)
     {
         if(data->job)
-            fm_job_cancel(data->job);
-        gtk_widget_destroy(dlg);
+            fm_job_cancel(FM_JOB(data->job));
+        gtk_widget_destroy(GTK_WIDGET(dlg));
     }
 }
 
@@ -190,7 +190,7 @@ static gboolean on_update_dlg(FmProgressDisplay* data)
 {
     if(data->old_cur_file != data->cur_file)
     {
-        gtk_label_set_text(data->current, data->cur_file);
+        gtk_label_set_text(GTK_LABEL(data->current), data->cur_file);
         data->old_cur_file = data->cur_file;
     }
     return TRUE;
@@ -243,14 +243,14 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     }
     if(title)
     {
-        gtk_window_set_title(data->dlg, title);
-        gtk_label_set_text(data->act, title);
+        gtk_window_set_title(GTK_WINDOW(data->dlg), title);
+        gtk_label_set_text(GTK_LABEL(data->act), title);
     }
 
     if(dest = fm_file_ops_job_get_dest(data->job))
     {
         char* dest_str = fm_path_display_name(dest, TRUE);
-        gtk_label_set_text(to, dest_str);
+        gtk_label_set_text(GTK_LABEL(to), dest_str);
         g_free(dest_str);
     }
     else
@@ -259,7 +259,7 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
         gtk_widget_destroy(to_label);
     }
 
-    gtk_window_present(data->dlg);
+    gtk_window_present(GTK_WINDOW(data->dlg));
     data->update_timeout = g_timeout_add(500, (GSourceFunc)on_update_dlg, data);
 
     data->delay_timeout = 0;
@@ -299,7 +299,7 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
 {
     if(data->job)
     {
-        fm_job_cancel(data->job);
+        fm_job_cancel(FM_JOB(data->job));
 
         g_signal_handlers_disconnect_by_func(data->job, on_ask, data);
         g_signal_handlers_disconnect_by_func(data->job, on_ask_rename, data);

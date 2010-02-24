@@ -186,7 +186,7 @@ FmBookmarks* fm_bookmarks_get(void)
     else
     {
         singleton = fm_bookmarks_new();
-        g_object_add_weak_pointer(singleton, &singleton);
+        g_object_add_weak_pointer(G_OBJECT(singleton), &singleton);
     }
     return singleton;
 }

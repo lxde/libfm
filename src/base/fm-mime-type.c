@@ -245,9 +245,9 @@ FmMimeType* fm_mime_type_new( const char* type_name )
 
 	gicon = g_content_type_get_icon(mime_type->type);
 	if( strcmp(mime_type->type, "inode/directory") == 0 )
-		g_themed_icon_prepend_name(gicon, "folder");
+		g_themed_icon_prepend_name(G_THEMED_ICON(gicon), "folder");
 	else if( g_content_type_can_be_executable(mime_type->type) )
-		g_themed_icon_append_name(gicon, "application-x-executable");
+		g_themed_icon_append_name(G_THEMED_ICON(gicon), "application-x-executable");
 
     mime_type->icon = fm_icon_from_gicon(gicon);
     g_object_unref(gicon);

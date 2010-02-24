@@ -400,7 +400,7 @@ gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* l
     GList* l;
     gboolean ret;
     for(l=paths;l;l=l->next)
-        fm_file_info_job_add(job, (FmPath*)l->data);
+        fm_file_info_job_add(FM_FILE_INFO_JOB(job), (FmPath*)l->data);
     ret = fm_job_run_sync_with_mainloop(job);
     if(ret)
     {

@@ -52,7 +52,7 @@ gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
-    gtk_dialog_set_default_response(dlg, default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
+    gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
     return ret == GTK_RESPONSE_YES;
@@ -63,7 +63,7 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
-    gtk_dialog_set_default_response(dlg, default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
+    gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
     return ret == GTK_RESPONSE_OK;
@@ -124,7 +124,7 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
     GtkWidget* entry = gtk_entry_new();
-    gtk_entry_set_activates_default(entry, TRUE);
+    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
 
     if(default_text && default_text[0])
         gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
@@ -140,7 +140,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
     char *str, *path_str = NULL;
     FmPath* path;
 
-    gtk_entry_set_activates_default(entry, TRUE);
+    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
     
     if(default_path) 
     {
@@ -161,7 +161,7 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
     GtkWidget* entry = gtk_entry_new();
-    gtk_entry_set_activates_default(entry, TRUE);
+    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
 
     if(default_text && default_text[0])
     {
@@ -184,9 +184,9 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
             }
 */
             if(dot)
-                gtk_editable_select_region(entry, 0, g_utf8_pointer_to_offset(default_text, dot));
+                gtk_editable_select_region(GTK_EDITABLE(entry), 0, g_utf8_pointer_to_offset(default_text, dot));
             else
-                gtk_editable_select_region(entry, 0, -1);
+                gtk_editable_select_region(GTK_EDITABLE(entry), 0, -1);
         }
     }
 
@@ -199,16 +199,16 @@ static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title
                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                 GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
     GtkWidget* label = gtk_label_new(msg);
-    gtk_misc_set_alignment(label, 0.0, 0.5);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
-    gtk_dialog_set_alternative_button_order(dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
-    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(dlg), 6);
-    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(dlg), label, FALSE, TRUE, 6);
+    gtk_dialog_set_alternative_button_order(GTK_DIALOG(dlg), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
+    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg)), 6);
+    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg)), label, FALSE, TRUE, 6);
 
-    gtk_container_set_border_width((GtkBox*)gtk_dialog_get_content_area(dlg), 12);
-    gtk_container_set_border_width(dlg, 5);
-    gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
-    gtk_window_set_default_size(dlg, 480, -1);
+    gtk_container_set_border_width(GTK_CONTAINER((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg))), 12);
+    gtk_container_set_border_width(GTK_CONTAINER(dlg), 5);
+    gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_OK);
+    gtk_window_set_default_size(GTK_WINDOW(dlg), 480, -1);
 
     return dlg;
 }
@@ -218,7 +218,7 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
     char* str = NULL;
 
     gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), GTK_WIDGET( entry ), FALSE, TRUE, 6);
-    gtk_widget_show_all(dlg);
+    gtk_widget_show_all(GTK_WIDGET(dlg));
     while(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
         const char* pstr = gtk_entry_get_text(entry);
@@ -228,7 +228,7 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
             break;
         }
     }
-    gtk_widget_destroy(dlg);
+    gtk_widget_destroy(GTK_WIDGET(dlg));
     return str;
 }
 
@@ -442,18 +442,18 @@ void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 {
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
-	fm_file_ops_job_set_dest(job, dest_dir);
+	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
 	fm_job_run_async(job);
-    fm_display_progress(job);
+    fm_display_progress(FM_FILE_OPS_JOB(job));
 }
 
 void fm_move_files(FmPathList* files, FmPath* dest_dir)
 {
 	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
-	fm_file_ops_job_set_dest(job, dest_dir);
+	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
 	fm_job_run_async(job);
-    fm_display_progress(job);
+    fm_display_progress(FM_FILE_OPS_JOB(job));
 }
 
 void fm_trash_files(FmPathList* files)
@@ -463,7 +463,7 @@ void fm_trash_files(FmPathList* files)
     	GtkWidget* dlg;
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
         fm_job_run_async(job);
-        fm_display_progress(job);
+        fm_display_progress(FM_FILE_OPS_JOB(job));
     }
 }
 
@@ -474,7 +474,7 @@ void fm_delete_files(FmPathList* files)
         GtkWidget* dlg;
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
         fm_job_run_async(job);
-        fm_display_progress(job);
+        fm_display_progress(FM_FILE_OPS_JOB(job));
     }
 }
 
@@ -592,8 +592,8 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     if(ctx == NULL)
     {
         _ctx = ctx = gdk_app_launch_context_new();
-        gdk_app_launch_context_set_screen(ctx, parent ? gtk_widget_get_screen(parent) : gdk_screen_get_default());
-        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+        gdk_app_launch_context_set_screen(GDK_APP_LAUNCH_CONTEXT(ctx), parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(GDK_APP_LAUNCH_CONTEXT(ctx), gtk_get_current_event_time());
         /* FIXME: how to handle gdk_app_launch_context_set_icon? */
     }
     ret = fm_launch_files(ctx, file_infos, &launcher, data);
@@ -615,8 +615,8 @@ gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     if(ctx == NULL)
     {
         _ctx = ctx = gdk_app_launch_context_new();
-        gdk_app_launch_context_set_screen(ctx, parent ? gtk_widget_get_screen(parent) : gdk_screen_get_default());
-        gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+        gdk_app_launch_context_set_screen(GDK_APP_LAUNCH_CONTEXT(ctx), parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(GDK_APP_LAUNCH_CONTEXT(ctx), gtk_get_current_event_time());
         /* FIXME: how to handle gdk_app_launch_context_set_icon? */
     }
     ret = fm_launch_paths(ctx, paths, &launcher, data);

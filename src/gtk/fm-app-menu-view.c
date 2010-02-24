@@ -129,7 +129,7 @@ GtkWidget *fm_app_menu_view_new(void)
                                             (GBoxedCopyFunc)menu_cache_item_ref,
                                             (GBoxedFreeFunc)menu_cache_item_unref);
         store = gtk_tree_store_new(N_COLS, G_TYPE_ICON, /*GDK_TYPE_PIXBUF, */G_TYPE_STRING, menu_cache_item_type);
-        g_object_weak_ref(store, (GWeakNotify)destroy_store, NULL);
+        g_object_weak_ref(G_OBJECT(store), (GWeakNotify)destroy_store, NULL);
 
         menu_cache = menu_cache_lookup("applications.menu");
         if(menu_cache)
@@ -155,7 +155,7 @@ GtkWidget *fm_app_menu_view_new(void)
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", COL_TITLE, NULL);
 
-    gtk_tree_view_append_column(view, col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
 
     g_object_unref(store);
     return view;
@@ -180,7 +180,7 @@ char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
     if(gtk_tree_selection_get_selected(sel, NULL, &it))
     {
         MenuCacheItem* item;
-        gtk_tree_model_get(store, &it, COL_ITEM, &item, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
             return g_strdup(menu_cache_item_get_id(item));
     }
@@ -194,7 +194,7 @@ char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
     if(gtk_tree_selection_get_selected(sel, NULL, &it))
     {
         MenuCacheItem* item;
-        gtk_tree_model_get(store, &it, COL_ITEM, &item, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
         {
             char* path = menu_cache_item_get_file_path(item);
@@ -207,7 +207,7 @@ char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
 gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it)
 {
     MenuCacheItem* item;
-    gtk_tree_model_get(store, it, COL_ITEM, &item, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(store), it, COL_ITEM, &item, -1);
     if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
         return TRUE;
     return FALSE;
