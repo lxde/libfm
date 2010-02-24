@@ -463,11 +463,17 @@ gpointer load_thumbnail_thread(gpointer user_data)
 
             task->uri = uri;
 
-	    if (task->flags & LOAD_NORMAL)
+	    if (task->flags & LOAD_NORMAL) 
+	    {
 		memcpy( normal_basename, md5, 32 );
-	    if (task->flags & LOAD_LARGE)
+		task->normal_path = normal_path;
+	    }
+	    if (task->flags & LOAD_LARGE) 
+	    {
 		memcpy( large_basename, md5, 32 );
-
+		task->large_path = large_path;
+	    }
+	    
             load_thumbnails(task);
 
             g_checksum_reset(sum);
