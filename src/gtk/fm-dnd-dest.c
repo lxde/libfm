@@ -383,6 +383,7 @@ on_drag_leave ( GtkWidget *dest_widget,
 
     /* FIXME: is there any better place to do this? */
     dd->idle = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)clear_src_cache, dd, NULL);
+    return TRUE;
 }
 
 static gboolean
