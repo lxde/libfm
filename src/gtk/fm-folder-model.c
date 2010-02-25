@@ -887,7 +887,7 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
     FmFolderItem* item;
     GList *l, *next;
     GSequenceIter *items_it;
-
+    g_return_if_fail(model != NULL);
     if( model->show_hidden == show_hidden )
         return;
 
