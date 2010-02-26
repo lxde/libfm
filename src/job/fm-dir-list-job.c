@@ -160,6 +160,7 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
         fm_mime_type_unref(shortcut_type);
     }
     menu_cache_unref(mc);
+    return NULL;
 }
 
 gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
