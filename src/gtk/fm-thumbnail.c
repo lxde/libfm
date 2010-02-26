@@ -1,18 +1,18 @@
 /*
  *      fm-thumbnail.c
- *      
+ *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -145,7 +145,7 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
     }
     fm_file_info_unref(task->fi);
 
-    /* if those strings are dynamically allocated, free them. */    
+    /* if those strings are dynamically allocated, free them. */
     if(task->flags & ALLOC_STRINGS)
     {
         g_free(task->uri);
@@ -438,9 +438,9 @@ gpointer load_thumbnail_thread(gpointer user_data)
     gchar* large_path = g_build_filename(thumb_dir, "large/00000000000000000000000000000000.png", NULL);
     gchar* large_basename = strrchr(large_path, '/') + 1;
 
-    /* ensure thumbnail directories exists */    
-    g_mkdir_with_parents(normal_path, 0700);		
-    g_mkdir_with_parents(large_path, 0700);		
+    /* ensure thumbnail directories exists */
+    g_mkdir_with_parents(normal_path, 0700);
+    g_mkdir_with_parents(large_path, 0700);
 
     for(;;)
     {
@@ -453,7 +453,7 @@ gpointer load_thumbnail_thread(gpointer user_data)
             char* uri;
             char* thumb_path;
             const char* md5;
-	    
+
             G_UNLOCK(queue);
             uri = fm_path_to_uri(task->fi->path);
 
@@ -463,17 +463,17 @@ gpointer load_thumbnail_thread(gpointer user_data)
 
             task->uri = uri;
 
-	    if (task->flags & LOAD_NORMAL) 
-	    {
-		memcpy( normal_basename, md5, 32 );
-		task->normal_path = normal_path;
-	    }
-	    if (task->flags & LOAD_LARGE) 
-	    {
-		memcpy( large_basename, md5, 32 );
-		task->large_path = large_path;
-	    }
-	    
+            if (task->flags & LOAD_NORMAL)
+            {
+                memcpy( normal_basename, md5, 32 );
+                task->normal_path = normal_path;
+            }
+            if (task->flags & LOAD_LARGE)
+            {
+                memcpy( large_basename, md5, 32 );
+                task->large_path = large_path;
+            }
+
             load_thumbnails(task);
 
             g_checksum_reset(sum);
