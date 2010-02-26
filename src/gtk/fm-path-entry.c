@@ -208,7 +208,7 @@ static void fm_path_entry_do_insert_text(GtkEditable *editable, const gchar *new
     /* let the GtkEntry class handle the insert */
     (parent_editable_interface->do_insert_text)(editable, new_text, new_text_length, position);
 
-    if( gtk_widget_has_focus((GtkWidget*)editable) && priv->completion_model )
+    if( GTK_WIDGET_HAS_FOCUS(editable) && priv->completion_model )
     {
         /* we have a common suffix -> add idle function */
         if( (priv->common_suffix_append_idle_id < 0) && ( fm_path_entry_update_expand_path(entry) ) )

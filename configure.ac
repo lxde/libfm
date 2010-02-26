@@ -51,7 +51,7 @@ PKG_CHECK_MODULES(GMODULE, [$gmodule_modules])
 AC_SUBST(GMODULE_CFLAGS)
 AC_SUBST(GMODULE_LIBS)
 
-menu_modules="libmenu-cache"
+menu_modules="libmenu-cache >= 0.3.1"
 PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
@@ -63,6 +63,21 @@ AC_ARG_ENABLE(demo,
 	[enable_demo=no]
 )
 AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes")
+
+AC_ARG_ENABLE(debug,
+	[AC_HELP_STRING([--enable-debug],
+		[build libfm with debug support @<:@default=no@:>@])],
+	[enable_debug="${enableval}"],
+	[enable_debug=no]
+)
+if test "$enable_debug" = "yes"; then
+    # turn on debug and disable optimization
+    CPPFLAGS="$CPPFLAGS -DG_ENABLE_DEBUG -O0 -g"
+else
+    # turn off glib debug checks
+    CPPFLAGS="$CPPFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
+fi
+
 
 GETTEXT_PACKAGE=libfm
 AC_SUBST(GETTEXT_PACKAGE)
