@@ -62,7 +62,7 @@ AC_ARG_ENABLE(demo,
 	[enable_demo="${enableval}"],
 	[enable_demo=no]
 )
-AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes") 
+AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes")
 
 GETTEXT_PACKAGE=libfm
 AC_SUBST(GETTEXT_PACKAGE)
@@ -77,7 +77,6 @@ AC_CONFIG_FILES([
     po/Makefile.in
     libfm.pc
 ])
-AC_CONFIG_FILES([data/gnome-terminal], [chmod +x data/gnome-terminal])
 
 AC_OUTPUT
 

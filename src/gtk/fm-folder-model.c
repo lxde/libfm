@@ -146,7 +146,7 @@ void fm_folder_model_init(FmFolderModel* model)
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
 
-    model->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed", 
+    model->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
                                                    G_CALLBACK(on_icon_theme_changed), model);
     g_signal_connect(fm_config, "changed::show_thumbnail", G_CALLBACK(on_show_thumbnail_changed), model);
     g_signal_connect(fm_config, "changed::thumbnail_local", G_CALLBACK(on_thumbnail_local_changed), model);
@@ -231,7 +231,7 @@ void fm_folder_model_finalize(GObject *object)
     g_free(str);
     */
     fm_folder_model_set_folder(model, NULL);
-    g_signal_handler_disconnect(gtk_icon_theme_get_default(), 
+    g_signal_handler_disconnect(gtk_icon_theme_get_default(),
                                 model->theme_change_handler);
 
     g_signal_handlers_disconnect_by_func(fm_config, on_show_thumbnail_changed, model);
@@ -678,9 +678,9 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
     int ret = 0;
 
     /* put folders before files */
-    ret = fm_file_info_is_dir(file1) - fm_file_info_is_dir(file2);
+    ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
     if( ret )
-        return -ret;
+        return ret;
 
     switch( model->sort_col )
     {
@@ -709,7 +709,7 @@ _sort_by_name:
             goto _sort_by_name;
         break;
     }
-    return model->sort_order == GTK_SORT_ASCENDING ? -ret : ret;
+    return model->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
 }
 
 void fm_folder_model_sort(FmFolderModel* model)
@@ -1106,7 +1106,7 @@ guint fm_folder_model_get_icon_size(FmFolderModel* model)
 void on_show_thumbnail_changed(FmConfig* cfg, gpointer user_data)
 {
     FmFolderModel* model = (FmFolderModel*)user_data;
-    reload_icons(model, RELOAD_THUMBNAILS);  
+    reload_icons(model, RELOAD_THUMBNAILS);
 }
 
 static GList* find_in_pending_thumbnail_requests(FmFolderModel* model, FmFileInfo* fi)

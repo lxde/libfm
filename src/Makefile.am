@@ -142,9 +142,14 @@ libfm_la_SOURCES = \
 libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-Werror-implicit-function-declaration
+	-Werror-implicit-function-declaration \
+	$(NULL)
 
-libfm_la_LIBADD = $(GIO_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS)
+libfm_la_LIBADD = \
+	$(GIO_LIBS) \
+	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	$(NULL)
 
 libfm_la_LDFLAGS = \
 	-no-undefined \
@@ -165,7 +170,13 @@ libfm_gtk_la_CFLAGS = \
 	-I$(srcdir)/job \
 	-Werror-implicit-function-declaration
 
-libfm_gtk_la_LIBADD = $(GTK_LIBS) $(GIO_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS) libfm.la
+libfm_gtk_la_LIBADD = \
+	$(GTK_LIBS) \
+	$(GIO_LIBS) \
+	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	$(NULL)
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
@@ -182,9 +193,16 @@ libfm_demo_SOURCES = \
 libfm_demo_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-Werror-implicit-function-declaration
+	-Werror-implicit-function-declaration \
+	$(NULL)
 
-libfm_demo_LDADD = $(GTK_LIBS) $(MENU_CACHE_LIBS) $(INTLLIBS) libfm.la libfm-gtk.la
+libfm_demo_LDADD = \
+	$(GTK_LIBS) \
+	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	libfm-gtk.la \
+	$(NULL)
 endif
 
 # GObject marshallers
@@ -218,6 +236,24 @@ CLEANFILES = \
 	base/fm-marshal.c \
 	gtk/fm-gtk-marshal.h \
 	gtk/fm-gtk-marshal.c \
+	$(NULL)
+
+# Wrapper program named gnome-terminal used to override the default terminal
+# of glib/gio since it calls gnome-terminal when a term is needed, and this
+# is hard coded in glib.
+pkglib_PROGRAMS=gnome-terminal
+
+gnome_terminal_SOURCES = \
+	gnome-terminal-wrapper.c \
+	$(NULL)
+
+gnome_terminal_CFLAGS = \
+	$(GTK_CFLAGS) \
+	-Werror-implicit-function-declaration \
+	$(NULL)
+
+gnome_terminal_LDADD = \
+	$(GTK_LIBS) \
 	$(NULL)
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget

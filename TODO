@@ -68,6 +68,8 @@
 
 * Use a forked version of xdg_mime included in glib/gio to do faster mime-type detection.
 
+* Bug: clicking on detailed view's column to change sorting didn't update the sort sub menu in main menu.
+
 
 
 [Medium Priority]
