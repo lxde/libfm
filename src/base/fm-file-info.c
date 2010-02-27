@@ -1,18 +1,18 @@
 /*
  *      fm-file-info.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -134,9 +134,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
-        /* g_object_unref(gicon); this is not needed since 
+        /* g_object_unref(gicon); this is not needed since
          * g_file_info_get_icon didn't increase ref_count.
-         * the object returned by g_file_info_get_icon is 
+         * the object returned by g_file_info_get_icon is
          * owned by GFileInfo. */
     }
 	else
@@ -339,7 +339,7 @@ mode_t fm_file_info_get_mode( FmFileInfo* fi )
 
 gboolean fm_file_info_is_dir( FmFileInfo* fi )
 {
-    return (S_ISDIR( fi->mode ) || 
+    return (S_ISDIR( fi->mode ) ||
 	    (S_ISLNK( fi->mode ) && (0 == strcmp( fi->type->type, "inode/directory" ))));
 }
 
@@ -351,6 +351,11 @@ gboolean fm_file_info_is_symlink( FmFileInfo* fi )
 gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
 {
     return fi->type == shortcut_type;
+}
+
+gboolean fm_file_info_is_mountable(FmFileInfo* fi)
+{
+    return fi->type == mountable_type;
 }
 
 gboolean fm_file_info_is_image( FmFileInfo* fi )
@@ -401,6 +406,11 @@ const char* fm_file_info_get_collate_key( FmFileInfo* fi )
             fi->collate_key = fi->disp_name;
     }
     return fi->collate_key;
+}
+
+const char* fm_file_info_get_target( FmFileInfo* fi )
+{
+    return fi->target;
 }
 
 const char* fm_file_info_get_desc( FmFileInfo* fi )
@@ -806,7 +816,7 @@ void fm_file_info_list_free( GList* list )
 }
 */
 
-static FmListFuncs fm_list_funcs = 
+static FmListFuncs fm_list_funcs =
 {
 	fm_file_info_ref,
 	fm_file_info_unref

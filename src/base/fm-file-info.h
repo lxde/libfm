@@ -1,18 +1,18 @@
 /*
  *      fm-file-info.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -121,6 +121,8 @@ gboolean fm_file_info_is_symlink( FmFileInfo* fi );
 
 gboolean fm_file_info_is_shortcut( FmFileInfo* fi );
 
+gboolean fm_file_info_is_mountable( FmFileInfo* fi );
+
 gboolean fm_file_info_is_image( FmFileInfo* fi );
 
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );
@@ -129,6 +131,8 @@ gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
 
 /* if the mime-type is executable, such as shell script, python script, ... */
 gboolean fm_file_info_is_executable_type( FmFileInfo* fi);
+
+const char* fm_file_info_get_target( FmFileInfo* fi );
 
 const char* fm_file_info_get_collate_key( FmFileInfo* fi );
 const char* fm_file_info_get_desc( FmFileInfo* fi );
