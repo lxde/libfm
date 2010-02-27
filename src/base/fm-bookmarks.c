@@ -163,7 +163,6 @@ GList* load_bookmarks(const char* fpath)
 
 static void fm_bookmarks_init(FmBookmarks *self)
 {
-//    GList* items = NULL;
     char* fpath = get_bookmarks_file();
     GFile* gf = g_file_new_for_path(fpath);
 	self->mon = g_file_monitor_file(gf, 0, NULL, NULL);
@@ -198,7 +197,6 @@ GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 
 gboolean save_bookmarks(FmBookmarks* bookmarks)
 {
-//    FILE* f;
     FmBookmarkItem* item;
     GList* l;
     GString* buf = g_string_sized_new(1024);

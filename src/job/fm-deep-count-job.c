@@ -97,7 +97,6 @@ gboolean fm_deep_count_job_run(FmJob* job)
 void deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
 {
 	FmJob* fmjob = (FmJob*)job;
-//	GError* err = NULL;
 	char* path = fm_path_to_str(fm_path);
 	struct stat st;
 	int ret;

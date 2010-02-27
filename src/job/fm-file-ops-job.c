@@ -137,7 +137,6 @@ void fm_file_ops_job_cancel(FmJob* job)
 gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
-//	FmPath* tmp;
 
 	switch(job->type)
 	{
@@ -232,7 +231,6 @@ static void emit_ask_rename(FmFileOpsJob* job, struct AskRename* data)
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)
 {
     struct AskRename data;
-//    int ret = 0;
     FmFileInfoJob* fijob = fm_file_info_job_new(NULL);
     FmFileInfo *src_fi = NULL, *dest_fi = NULL;
     FmPath *tmp;
