@@ -463,6 +463,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             if(model)
                 fm_folder_model_set_icon_size(model, icon_size);
 
+            gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(fv->view), TRUE);
             col = gtk_tree_view_column_new();
 			gtk_tree_view_column_set_title(col, _("Name"));
 			gtk_tree_view_column_pack_start(col, render, FALSE);
