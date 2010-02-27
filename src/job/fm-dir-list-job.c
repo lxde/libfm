@@ -134,10 +134,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 
     de_name = g_getenv("XDG_CURRENT_DESKTOP");
     if(de_name)
-    {
-        de_name = "LXDE";
         de_flag = menu_cache_get_desktop_env_flag(mc, de_name);
-    }
     else
         de_flag = (guint32)-1;
 
@@ -160,7 +157,9 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
             FmPath* item_path;
             GIcon* gicon;
             /* also hide menu items which should be hidden in current DE. */
-            if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP || !menu_cache_app_get_is_visible(item, de_flag))
+            if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
+                continue;
+            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP && !menu_cache_app_get_is_visible(item, de_flag))
                 continue;
             item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
             fi = _fm_file_info_new_from_menu_cache_item(item_path, item);
