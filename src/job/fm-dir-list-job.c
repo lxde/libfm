@@ -98,11 +98,6 @@ static void fm_dir_list_job_finalize(GObject *object)
 		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
-static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
-{
-    GMainLoop* mainloop = (GMainLoop*)user_data;
-    g_main_loop_quit(mainloop);
-}
 
 /* defined in fm-file-info.c */
 FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item);
@@ -114,7 +109,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     MenuCache* mc;
     MenuCacheDir* dir;
     GList* l;
-    char* path_str, *p;
+    char* path_str, *p, ch;
     const char* menu_name;
     const char* dir_path;
     /* example: menu://applications.menu/DesktopSettings */
@@ -126,22 +121,14 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     menu_name = p;
     while(*p && *p != '/')
         ++p;
+    ch = *p;
     *p = '\0';
-    mc = menu_cache_lookup(menu_name);
-    *p = '/';
-    dir_path = p; /* path of menu dir, such as: /Internet */
-
+    mc = menu_cache_lookup_sync(menu_name);
     /* ensure that the menu cache is loaded */
-    if(! menu_cache_get_root_dir(mc)) /* if it's not yet loaded */
-    {
-        GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
-        gpointer notify_id = menu_cache_add_reload_notify(mc, on_menu_cache_reload, mainloop);
-        g_main_loop_run(mainloop);
-        g_main_loop_unref(mainloop);
-        menu_cache_remove_reload_notify(mc, notify_id);
-        if( !menu_cache_get_root_dir(mc) ) /* the load failed */
-            return NULL;
-    }
+    if(!mc) /* if it's not loaded */
+        return NULL;
+    *p = ch;
+    dir_path = p; /* path of menu dir, such as: /Internet */
 
     /* the menu should be loaded now */
     if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
@@ -155,6 +142,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 
     if(dir)
     {
+        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, dir);
         for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
             MenuCacheItem* item = MENU_CACHE_ITEM(l->data);

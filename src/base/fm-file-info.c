@@ -187,10 +187,8 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 	return fi;
 }
 
-FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
+void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
-    FmFileInfo* fi = fm_file_info_new();
-    fi->path = fm_path_ref(path);
     fi->disp_name = g_strdup(menu_cache_item_get_name(item));
     fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
@@ -203,6 +201,13 @@ FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* 
         fi->target = menu_cache_item_get_file_path(item);
     }
     fi->type = fm_mime_type_ref(shortcut_type);
+}
+
+FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
+{
+    FmFileInfo* fi = fm_file_info_new();
+    fi->path = fm_path_ref(path);
+    _fm_file_info_set_from_menu_cache_item(fi, item);
     return fi;
 }
 

@@ -584,7 +584,7 @@ void on_go_network(GtkAction* act, FmMainWin* win)
 
 void on_go_apps(GtkAction* act, FmMainWin* win)
 {
-    fm_main_win_chdir_by_name( win, "menu://applications.menu");
+    fm_main_win_chdir(win, fm_path_get_apps_menu());
 }
 
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
