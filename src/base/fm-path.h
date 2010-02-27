@@ -69,11 +69,11 @@ FmPath*	fm_path_new_relative(FmPath* parent, const char* relative_path);
 FmPath* fm_path_new_for_gfile(GFile* gf);
 
 /* predefined paths */
-FmPath* fm_path_get_root();
-FmPath* fm_path_get_home();
+FmPath* fm_path_get_root(); /* / */
+FmPath* fm_path_get_home(); /* home directory */
 FmPath* fm_path_get_desktop();
-FmPath* fm_path_get_trash();
-FmPath* fm_path_get_applications();
+FmPath* fm_path_get_trash(); /* trash:/// */
+FmPath* fm_path_get_apps_menu(); /* menu://applications.menu/ */
 
 FmPath*	fm_path_ref(FmPath* path);
 void fm_path_unref(FmPath* path);

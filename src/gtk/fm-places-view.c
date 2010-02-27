@@ -1,18 +1,18 @@
 /*
  *      fm-places-view.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -160,7 +160,7 @@ enum {
     FM_DND_DEST_TARGET_BOOOKMARK = N_FM_DND_DEST_DEFAULT_TARGETS + 1
 };
 
-GtkTargetEntry dnd_dest_targets[] = 
+GtkTargetEntry dnd_dest_targets[] =
 {
     {"application/x-bookmark", GTK_TARGET_SAME_WIDGET, FM_DND_DEST_TARGET_BOOOKMARK}
 };
@@ -456,7 +456,7 @@ static void init_model()
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
-        item->path = fm_path_ref(fm_path_get_applications());
+        item->path = fm_path_ref(fm_path_get_apps_menu());
         item->icon = fm_icon_from_name("system-software-install");
         gtk_list_store_append(model, &it);
         pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
@@ -743,7 +743,7 @@ void on_remove_bm(GtkAction* act, gpointer user_data)
 void on_rename_bm(GtkAction* act, gpointer user_data)
 {
     PlaceItem* item = (PlaceItem*)user_data;
-    char* new_name = fm_get_user_input(NULL, _("Rename Bookmark Item"), 
+    char* new_name = fm_get_user_input(NULL, _("Rename Bookmark Item"),
                                         _("Enter a new name:"), item->bm_item->name);
     if(new_name)
     {
@@ -771,7 +771,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
         /* FIXME: this is inefficient. we should record the index of separator instead. */
         if(pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE || pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER)
         {
-            
+
         }
         else
         {

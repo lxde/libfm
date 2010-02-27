@@ -472,7 +472,7 @@ FmPath* fm_path_get_trash()
 	return trash_root;
 }
 
-FmPath* fm_path_get_applications()
+FmPath* fm_path_get_apps_menu()
 {
 	return apps_root;
 }
