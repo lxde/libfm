@@ -523,7 +523,7 @@ void fm_path_init()
 	trash_root = fm_path_new_child(NULL, "trash:///");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
 
-    apps_root = fm_path_new_child(NULL, "menu://applications.menu/");
+    apps_root = fm_path_new_child(NULL, "menu://applications/");
 	apps_root->flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 }
 

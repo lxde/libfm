@@ -127,8 +127,9 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                         ++dir_name;
                     ch = *dir_name;
                     *dir_name = '\0';
+                    menu_name = g_strconcat(menu_name, ".menu", NULL);
                     mc = menu_cache_lookup_sync(menu_name);
-                    *dir_name = ch;
+                    g_free(menu_name);
 
                     if(*dir_name && !(*dir_name == '/' && dir_name[1]=='\0') )
                     {

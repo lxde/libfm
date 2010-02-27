@@ -110,7 +110,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     MenuCacheDir* dir;
     GList* l;
     char* path_str, *p, ch;
-    const char* menu_name;
+    char* menu_name;
     const char* dir_path;
     guint32 de_flag;
     const char* de_name;
@@ -125,7 +125,9 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
         ++p;
     ch = *p;
     *p = '\0';
+    menu_name = g_strconcat(menu_name, ".menu", NULL);
     mc = menu_cache_lookup_sync(menu_name);
+    g_free(menu_name);
     /* ensure that the menu cache is loaded */
     if(!mc) /* if it's not loaded */
         return NULL;
