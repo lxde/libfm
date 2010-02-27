@@ -1,18 +1,18 @@
 /*
  *      fm-utils.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -134,7 +134,7 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
 
 static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_infos)
 {
-    
+
 }
 
 gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, GError** err)
@@ -207,7 +207,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             folders = g_list_prepend(folders, fi);
         else
         {
-            /* FIXME: handle shortcuts, such as the items in applications:/// */
+            /* FIXME: handle shortcuts, such as the items in menu:// */
             if(fm_path_is_native(fi->path))
             {
                 char* filename;

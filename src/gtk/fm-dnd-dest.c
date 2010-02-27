@@ -1,18 +1,18 @@
 /*
  *      fm-dnd-dest.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -52,7 +52,7 @@ enum
     N_SIGNALS
 };
 
-GtkTargetEntry fm_default_dnd_dest_targets[] = 
+GtkTargetEntry fm_default_dnd_dest_targets[] =
 {
     {"application/x-fmlist-ptr", GTK_TARGET_SAME_APP, FM_DND_DEST_TARGET_FM_LIST},
     {"text/uri-list", 0, FM_DND_DEST_TARGET_URI_LIST}, /* text/uri-list */
@@ -167,7 +167,7 @@ static void fm_dnd_dest_finalize(GObject *object)
 
 static void fm_dnd_dest_init(FmDndDest *self)
 {
-    
+
 }
 
 
@@ -324,7 +324,7 @@ on_drag_motion( GtkWidget *dest_widget,
         else if(fm_path_is_virtual(path))
         {
     		/* FIXME: computer:// and network:// shouldn't received dnd */
-            /* FIXME: some special handling can be done with applications:/// */
+            /* FIXME: some special handling can be done with menu:// */
             action = 0;
             ret = FALSE;
         }
@@ -586,7 +586,7 @@ gboolean query_info(FmDndDest* dd, GdkDragContext* drag_context,
 				*action = GDK_ACTION_MOVE;
 				drag_context->actions = GDK_ACTION_MOVE;
 			}
-			
+
 			fm_file_info_unref(dest);
 		}
 		else

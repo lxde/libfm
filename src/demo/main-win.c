@@ -1,18 +1,18 @@
 /*
  *      main-win.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -94,7 +94,7 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
     fm_folder_view_chdir_by_name(FM_FOLDER_VIEW(self->folder_view), gtk_entry_get_text(entry));
 }
 
-static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data) 
+static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data)
 {
     const FmNavHistoryItem* item;
     FmMainWin* win = (FmMainWin*)user_data;
@@ -189,14 +189,14 @@ static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* w
             const char* size_str = fm_file_info_get_disp_size(fi);
             if(size_str)
             {
-                msg = g_strdup_printf("\"%s\" (%s) %s", 
+                msg = g_strdup_printf("\"%s\" (%s) %s",
                             fm_file_info_get_disp_name(fi),
                             size_str ? size_str : "",
                             fm_file_info_get_desc(fi));
             }
             else
             {
-                msg = g_strdup_printf("\"%s\" %s", 
+                msg = g_strdup_printf("\"%s\" %s",
                             fm_file_info_get_disp_name(fi),
                             fm_file_info_get_desc(fi));
             }
@@ -415,7 +415,7 @@ static void fm_main_win_init(FmMainWin *self)
 
     fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(self->folder_view), FALSE);
     fm_main_win_chdir(self, fm_path_get_home());
-   
+
     gtk_widget_grab_focus(self->folder_view);
 }
 
@@ -584,7 +584,7 @@ void on_go_network(GtkAction* act, FmMainWin* win)
 
 void on_go_apps(GtkAction* act, FmMainWin* win)
 {
-    fm_main_win_chdir_by_name( win, "applications:///");
+    fm_main_win_chdir_by_name( win, "menu://applications.menu");
 }
 
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
@@ -761,9 +761,9 @@ _retry:
         if(!err) /* select the newly created file */
         {
             /*FIXME: this doesn't work since the newly created file will
-             * only be shown after file-created event was fired on its 
-             * folder's monitor and after FmFolder handles it in idle 
-             * handler. So, we cannot select it since it's not yet in 
+             * only be shown after file-created event was fired on its
+             * folder's monitor and after FmFolder handles it in idle
+             * handler. So, we cannot select it since it's not yet in
              * the folder model now. */
             /* fm_folder_view_select_file_path(fv, dest); */
         }
@@ -795,9 +795,9 @@ _retry:
         if(!err) /* select the newly created file */
         {
             /*FIXME: this doesn't work since the newly created file will
-             * only be shown after file-created event was fired on its 
-             * folder's monitor and after FmFolder handles it in idle 
-             * handler. So, we cannot select it since it's not yet in 
+             * only be shown after file-created event was fired on its
+             * folder's monitor and after FmFolder handles it in idle
+             * handler. So, we cannot select it since it's not yet in
              * the folder model now. */
             /* fm_folder_view_select_file_path(fv, dest); */
         }
@@ -805,7 +805,7 @@ _retry:
     }
     else /* templates */
     {
-        
-    }    
+
+    }
     fm_path_unref(dest);
 }

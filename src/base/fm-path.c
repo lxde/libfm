@@ -99,7 +99,7 @@ FmPath* fm_path_new(const char* path)
                 else
                     return fm_path_ref(trash_root);
             }
-            /* other URIs */
+            /* other URIs which requires special handling, like computer:/// */
         }
         else /* this URI doesn't have //, like mailto: */
         {
@@ -160,13 +160,13 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 			/* FIXME: trash:///, computer:///, network:/// are virtual paths */
             /* FIXME: add // if only trash:/ is supplied in basename */
             if(strncmp(basename, "trash:", 6) == 0) /* trashed files are on local filesystems */
-    			path->flags |= FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL;
+    			path->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
             else if(strncmp(basename, "computer:", 9) == 0)
     			path->flags |= FM_PATH_IS_VIRTUAL;
             else if(strncmp(basename, "network:", 8) == 0)
     			path->flags |= FM_PATH_IS_VIRTUAL;
-            else if(strncmp(basename, "applications:", 13) == 0)
-    			path->flags |= FM_PATH_IS_VIRTUAL;
+            else if(strncmp(basename, "menu:", 5) == 0)
+    			path->flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 		}
 		path->parent = NULL;
 	}
@@ -423,8 +423,15 @@ char* fm_path_display_basename(FmPath* path)
                 return g_strdup(_("Trash Can"));
             if(g_str_has_prefix(path->name, "computer:/"))
                 return g_strdup(_("My Computer"));
-            if(g_str_has_prefix(path->name, "applications:/"))
-                return g_strdup(_("Applications"));
+            if(g_str_has_prefix(path->name, "menu:/"))
+            {
+                /* FIXME: this should be more flexible */
+                const char* p = path->name + 5;
+                while(p == '/')
+                    ++p;
+                if(g_str_has_prefix(p, "applications.menu"))
+                    return g_strdup(_("Applications"));
+            }
             if(g_str_has_prefix(path->name, "network:/"))
                 return g_strdup(_("Network"));
         }
@@ -468,31 +475,6 @@ FmPath* fm_path_get_trash()
 FmPath* fm_path_get_applications()
 {
 	return apps_root;
-}
-
-gboolean fm_path_is_native(FmPath* path)
-{
-	return (path->flags&FM_PATH_IS_NATIVE) ? TRUE : FALSE;
-}
-
-gboolean fm_path_is_trash(FmPath* path)
-{
-	return (path->flags&FM_PATH_IS_TRASH) ? TRUE : FALSE;
-}
-
-gboolean fm_path_is_trash_root(FmPath* path)
-{
-    return path == trash_root;
-}
-
-gboolean fm_path_is_virtual(FmPath* path)
-{
-	return (path->flags&FM_PATH_IS_VIRTUAL) ? TRUE : FALSE;
-}
-
-gboolean fm_path_is_local(FmPath* path)
-{
-	return (path->flags&FM_PATH_IS_LOCAL) ? TRUE : FALSE;
 }
 
 void fm_path_init()
@@ -541,8 +523,8 @@ void fm_path_init()
 	trash_root = fm_path_new_child(NULL, "trash:///");
 	trash_root->flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
 
-    apps_root = fm_path_new_child(NULL, "applications:///");
-	apps_root->flags |= (FM_PATH_IS_VIRTUAL);
+    apps_root = fm_path_new_child(NULL, "menu://applications.menu/");
+	apps_root->flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 }
 
 

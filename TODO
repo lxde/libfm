@@ -70,6 +70,8 @@
 
 * Bug: clicking on detailed view's column to change sorting didn't update the sort sub menu in main menu.
 
+* Bug file properties dialog failed to show atime.
+
 
 
 [Medium Priority]

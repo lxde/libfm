@@ -35,6 +35,7 @@
 #include <unistd.h>
 
 #include "fm-utils.h"
+#include <menu-cache.h>
 
 static gboolean use_si_prefix = TRUE;
 static FmMimeType* desktop_entry_type = NULL;
@@ -184,6 +185,25 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
     fi->path = fm_path_ref(path);
 	fm_file_info_set_from_gfileinfo(fi, inf);
 	return fi;
+}
+
+FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
+{
+    FmFileInfo* fi = fm_file_info_new();
+    fi->path = fm_path_ref(path);
+    fi->disp_name = g_strdup(menu_cache_item_get_name(item));
+    fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
+    if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+    {
+        fi->mode |= S_IFDIR;
+    }
+    else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+    {
+        fi->mode |= S_IFREG;
+        fi->target = menu_cache_item_get_file_path(item);
+    }
+    fi->type = fm_mime_type_ref(shortcut_type);
+    return fi;
 }
 
 static void fm_file_info_clear( FmFileInfo* fi )

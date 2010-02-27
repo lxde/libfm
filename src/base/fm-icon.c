@@ -1,18 +1,18 @@
 /*
  *      fm-icon.c
- *      
+ *
  *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -57,22 +57,25 @@ FmIcon* fm_icon_from_gicon(GIcon* gicon)
 
 FmIcon* fm_icon_from_name(const char* name)
 {
-    FmIcon* icon;
-    GIcon* gicon;
-    if(g_path_is_absolute(name))
+    if(G_LIKELY(name))
     {
-        GFile* gicon_file = g_file_new_for_path(name);
-        gicon = g_file_icon_new(gicon_file);
-        g_object_unref(gicon_file);
-    }
-    else
-        gicon = g_themed_icon_new(name);
+        FmIcon* icon;
+        GIcon* gicon;
+        if(g_path_is_absolute(name))
+        {
+            GFile* gicon_file = g_file_new_for_path(name);
+            gicon = g_file_icon_new(gicon_file);
+            g_object_unref(gicon_file);
+        }
+        else
+            gicon = g_themed_icon_new(name);
 
-    if(G_LIKELY(gicon))
-    {
-        icon = fm_icon_from_gicon(gicon);
-        g_object_unref(gicon);
-        return icon;
+        if(G_LIKELY(gicon))
+        {
+            icon = fm_icon_from_gicon(gicon);
+            g_object_unref(gicon);
+            return icon;
+        }
     }
     return NULL;
 }

@@ -1,18 +1,18 @@
 /*
  *      fm-path.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -43,9 +43,9 @@ enum _FmPathFlags
 	FM_PATH_IS_LOCAL = 1<<1, /* This path refers  to a file on local filesystem */
 	FM_PATH_IS_VIRTUAL = 1<<2, /* This path is virtual and it doesn't exist on real filesystem */
 	FM_PATH_IS_TRASH = 1<<3, /* This path is under trash:/// */
+	FM_PATH_IS_XDG_MENU = 1<<4, /* This path is under menu:/// */
 
 	/* reserved for future use */
-	FM_PATH_IS_RESERVED0 = 1<<4,
 	FM_PATH_IS_RESERVED1 = 1<<5,
 	FM_PATH_IS_RESERVED2 = 1<<6,
 	FM_PATH_IS_RESERVED3 = 1<<7,
@@ -81,11 +81,13 @@ void fm_path_unref(FmPath* path);
 FmPath* fm_path_get_parent(FmPath* path);
 const char* fm_path_get_basename(FmPath* path);
 FmPathFlags fm_path_get_flags(FmPath* path);
-gboolean fm_path_is_native(FmPath* path);
-gboolean fm_path_is_trash(FmPath* path);
-gboolean fm_path_is_trash_root(FmPath* path);
-gboolean fm_path_is_virtual(FmPath* path);
-gboolean fm_path_is_local(FmPath* path);
+
+#define fm_path_is_native(path) (fm_path_get_flags(path)&FM_PATH_IS_NATIVE)
+#define fm_path_is_trash(path) (fm_path_get_flags(path)&FM_PATH_IS_TRASH)
+#define fm_path_is_trash_root(path) (path == fm_path_get_trash())
+#define fm_path_is_virtual(path) (fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)
+#define fm_path_is_local(path) (fm_path_get_flags(path)&FM_PATH_IS_LOCAL)
+#define fm_path_is_xdg_menu(path) (fm_path_get_flags(path)&FM_PATH_IS_XDG_MENU)
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

@@ -1,18 +1,18 @@
 /*
  *      fm-dir-list-job.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -53,7 +53,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 
 static void fm_dir_list_job_init(FmDirListJob *self)
 {
-	
+
 }
 
 
@@ -104,14 +104,32 @@ static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
     g_main_loop_quit(mainloop);
 }
 
-static gpointer list_apps(FmJob* fmjob, gpointer user_data)
+/* defined in fm-file-info.c */
+FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item);
+
+static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 {
     FmDirListJob* job = (FmDirListJob*)fmjob;
-    const char* dir_path = (const char*)user_data;
     FmFileInfo* fi;
-    MenuCache* mc = menu_cache_lookup("applications.menu");
+    MenuCache* mc;
     MenuCacheDir* dir;
     GList* l;
+    char* path_str, *p;
+    const char* menu_name;
+    const char* dir_path;
+    /* example: menu://applications.menu/DesktopSettings */
+
+    path_str = fm_path_to_str(job->dir_path);
+    p = path_str + 5; /* skip menu: */
+    while(*p == '/')
+        ++p;
+    menu_name = p;
+    while(*p && *p != '/')
+        ++p;
+    *p = '\0';
+    mc = menu_cache_lookup(menu_name);
+    *p = '/';
+    dir_path = p; /* path of menu dir, such as: /Internet */
 
     /* ensure that the menu cache is loaded */
     if(! menu_cache_get_root_dir(mc)) /* if it's not yet loaded */
@@ -121,8 +139,11 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
         g_main_loop_run(mainloop);
         g_main_loop_unref(mainloop);
         menu_cache_remove_reload_notify(mc, notify_id);
+        if( !menu_cache_get_root_dir(mc) ) /* the load failed */
+            return NULL;
     }
 
+    /* the menu should be loaded now */
     if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
     {
         char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path, NULL);
@@ -134,39 +155,30 @@ static gpointer list_apps(FmJob* fmjob, gpointer user_data)
 
     if(dir)
     {
-        FmMimeType* shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut");
         for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
             MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
+            FmPath* item_path;
             GIcon* gicon;
+            /* FIXME: hide menu items which should be hidden in current DE. */
             if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
                 continue;
-            fi = fm_file_info_new();
-            fi->path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
-            fi->disp_name = g_strdup(menu_cache_item_get_name(item));
-            fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
-            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
-            {
-                fi->mode |= S_IFDIR;
-            }
-            else if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-            {
-                fi->mode |= S_IFREG;
-                fi->target = menu_cache_item_get_file_path(item);
-            }
-            fi->type = fm_mime_type_ref(shortcut_type);
+            item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
+            fi = _fm_file_info_new_from_menu_cache_item(item_path, item);
+            fm_path_unref(item_path);
             fm_list_push_tail_noref(job->files, fi);
         }
-        fm_mime_type_unref(shortcut_type);
     }
     menu_cache_unref(mc);
+
+    g_free(path_str);
     return NULL;
 }
 
-gboolean fm_dir_list_job_list_apps(FmDirListJob* job, const char* dir_path)
+gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
 {
     /* Calling libmenu-cache is only allowed in main thread. */
-    fm_job_call_main_thread(FM_JOB(job), list_apps, dir_path);
+    fm_job_call_main_thread(FM_JOB(job), list_menu_items, NULL);
     return TRUE;
 }
 
@@ -233,12 +245,9 @@ gboolean fm_dir_list_job_run(FmDirListJob* job)
 	{
 		FmJob* fmjob = FM_JOB(job);
 		GFile* gf;
-        char* str = fm_path_to_str(job->dir_path);
         /* handle some built-in virtual dirs */
-        // if( G_UNLIKELY(job->dir_path == fm_path_get_applications()) ) /* applications */
-        if( G_UNLIKELY( g_str_has_prefix(str, "applications://") ) ) /* applications */
-            return fm_dir_list_job_list_apps(job, str+15);
-        g_free(str);
+        if( fm_path_is_xdg_menu(job->dir_path) ) /* xdg menu:// */
+            return fm_dir_list_job_list_xdg_menu(job);
 
 		if(!fm_job_init_cancellable(fmjob))
 			return FALSE;
