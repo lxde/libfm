@@ -122,7 +122,7 @@ gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int
 
 gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gboolean* val)
 {
-    gboolean ret;
+//    gboolean ret;
     char* str = g_key_file_get_value(kf, grp, key, NULL);
     if(G_LIKELY(str))
     {

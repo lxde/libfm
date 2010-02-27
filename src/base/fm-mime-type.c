@@ -95,7 +95,7 @@ static void on_mime_cache_changed( VFSFileMonitor* fm,
 
 void fm_mime_type_init()
 {
-    FmMimeType* tmp;
+    //FmMimeType* tmp;
 #if 0
     GtkIconTheme * theme;
     MimeCache** caches;

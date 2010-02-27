@@ -40,13 +40,13 @@ static char* desktop_dir = NULL;
 static int desktop_len = 0;
 
 static FmPath* trash_root = NULL;
-static FmPath* network_root = NULL;
+/*defined but not used
+static FmPath* network_root = NULL;*/
 
 static FmPath* apps_root = NULL;
 
 FmPath* fm_path_new(const char* path)
 {
-	const char* sep;
     /* FIXME: need to canonicalize paths */
 
     if( path[0] == '/' ) /* if this is a absolute native path */
@@ -220,7 +220,7 @@ _resolve_relative_path:
 	sep = strchr(relative_path, '/');
 	if(sep)
 	{
-        char* end = sep;
+        const char* end = sep;
 
         while(*end && *end == '/') /* prevent tailing slash or duplicated slashes. */
             ++end;

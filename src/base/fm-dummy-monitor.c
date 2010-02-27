@@ -32,7 +32,7 @@ static gboolean cancel()
 
 static void fm_dummy_monitor_class_init(FmDummyMonitorClass *klass)
 {
-	GObjectClass *g_object_class;
+//	GObjectClass *g_object_class;
     GFileMonitorClass* fm_class = G_FILE_MONITOR_CLASS(klass);
     fm_class->cancel = cancel;
 /*

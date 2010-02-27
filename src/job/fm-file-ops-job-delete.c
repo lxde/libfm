@@ -79,7 +79,6 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 		GFileEnumerator* enu = g_file_enumerate_children(gf, query,
 									G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 									job->cancellable, &err);
-        GSList* dir_mons;
         if(!enu)
         {
             fm_job_emit_error(job, err, FALSE);
@@ -222,7 +221,7 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
     GList* failed = NULL;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-	g_debug("total number of files to delete: %llu", fm_list_get_length(job->srcs));
+	g_debug("total number of files to delete: %u", fm_list_get_length(job->srcs));
     job->total = fm_list_get_length(job->srcs);
 
     /* FIXME: we shouldn't trash a file already in trash:/// */

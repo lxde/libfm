@@ -280,9 +280,6 @@ gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf
 {
 	GFileInfo* _inf;
 	GError* err = NULL;
-	gboolean is_virtual;
-    GFileType type;
-    goffset size;
 	FmJob* fmjob = FM_JOB(job);
     const char* src_fs_id;
     gboolean ret = TRUE;

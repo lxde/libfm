@@ -251,7 +251,7 @@ gboolean on_idle(FmFolder* folder)
 static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileMonitorEvent evt, FmFolder* folder)
 {
     GList* l;
-    FmFileInfo* fi;
+//    FmFileInfo* fi;
     char* name;
 /*
     const char* names[]={

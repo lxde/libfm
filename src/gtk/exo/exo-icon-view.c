@@ -3576,12 +3576,7 @@ exo_icon_view_paint_item (ExoIconView     *icon_view,
   GtkStateType         state;
   GdkRectangle         cell_area;
   gboolean             rtl;
-  cairo_t             *cr;
   GList               *lp;
-  gint                 x_0;
-  gint                 y_0;
-  gint                 x_1;
-  gint                 y_1;
 
   if (G_UNLIKELY (icon_view->priv->model == NULL))
     return;
