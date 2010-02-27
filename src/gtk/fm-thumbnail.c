@@ -850,11 +850,10 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
     {
         GdkPixbuf* ori_pix;
         gssize len;
-        const char* orientation_str;
         ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
-        orientation_str = gdk_pixbuf_get_option(ori_pix, "orientation");
         if(ori_pix) /* if the original image is successfully loaded */
         {
+            const char* orientation_str = gdk_pixbuf_get_option(ori_pix, "orientation");
             int width = gdk_pixbuf_get_width(ori_pix);
             int height = gdk_pixbuf_get_height(ori_pix);
             gboolean need_save;
