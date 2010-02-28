@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Greek\n"
 "X-Poedit-Country: GREECE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\\n\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -45,11 +46,11 @@ msgstr "Εκτέλεση στο τερματικό"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Εγκατεστημένη εφαρμογή"
+msgstr "Εγκατεστημένες εφαρμογές"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αρχεία αυτού του τύπου"
+msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους τα αρχεία"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -61,13 +62,13 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα σε αυτόν τον κατάλογο.</b>\n"
+"<b>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα σε αυτό τον κατάλογο.</b>\n"
 "\n"
 "Θέλετε να αντικαταστήσετε το υπάρχον αρχείο"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Εφαρμογή της επιλογής για όλα τα υπάρχοντα αρχεία"
+msgstr "Εφαρμογή της επιλογής σε όλα τα υπάρχοντα αρχεία"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -79,7 +80,7 @@ msgstr "Όνομα αρχείου:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Αντικατάσταση"
+msgstr "_Αντικατάσταση "
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
@@ -91,7 +92,7 @@ msgstr "_Παράληψη"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "με το ακόλουθο αρχείο;"
+msgstr "με το ακόλουθο αρχείο"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -99,7 +100,7 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Έλεγχος πρόσβασης</b>"
+msgstr "Έλεγχος πρόσβασης"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
@@ -127,7 +128,7 @@ msgstr "<b>Άνοιγμα _με:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Άλλοι:</b>"
+msgstr "<b>Άλλο:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
@@ -138,13 +139,12 @@ msgid "<b>Size on Disk:</b>"
 msgstr "<b>Μέγεθος στο δίσκο:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Target:</b>"
 msgstr "<b>Στόχος:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Συνολικό μέγεθος αρχείων:</b>"
+msgstr "<b>Συνολικό μέγεθος των αρχείων:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
@@ -176,11 +176,11 @@ msgstr "Λειτουργίες που μπορεί να κάνει ο ιδιοκ
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Λειτουργίες που μπορούν να κάνουν οι χρήστες που είναι στην ίδια ομάδα με τον ιδιοκτήτη του αρχείου"
+msgstr "Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με τον ιδιοκτήτη του αρχείου"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Ανάγνωση και εγγραφή"
+msgstr "Ανάγνωση και Εγγραφή"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
@@ -188,263 +188,268 @@ msgstr "Μόνο ανάγνωση"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού του τύπου"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "Μόνο εγγραφή"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_Γενικά"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "_Δικαιώματα"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Επεξεργασία:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Πρόοδος:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:5
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Προς:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:7
 msgid "Preparing..."
-msgstr ""
+msgstr "Προετοιμασία ..."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "% u byte"
+msgstr[1] "% u byte"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Συντομεύσεις"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Σημείο προσάρτησης"
 
 #: ../src/base/fm-path.c:423
 msgid "Trash Can"
-msgstr ""
+msgstr "Κάδος απορριμάτων"
 
 #: ../src/base/fm-path.c:425
 msgid "My Computer"
-msgstr ""
+msgstr "Ο υπολογιστής μου"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433
+#: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
-msgstr ""
+msgstr "Εφαρμογές"
 
 #: ../src/base/fm-path.c:436
 msgid "Network"
-msgstr ""
+msgstr "Δίκτυο"
 
 #: ../src/gtk/fm-progress-dlg.c:226
 msgid "Moving files"
-msgstr ""
+msgstr "Μετακίνηση αρχείων"
 
 #: ../src/gtk/fm-progress-dlg.c:229
 msgid "Copying files"
-msgstr ""
+msgstr "Αντιγραφή αρχείων"
 
 #: ../src/gtk/fm-progress-dlg.c:232
 msgid "Trashing files"
-msgstr ""
+msgstr "Μετακίνηση στον κάδο απορριμάτων"
 
 #: ../src/gtk/fm-progress-dlg.c:235
 msgid "Deleting files"
-msgstr ""
+msgstr "Διαγραφή αρχείων"
 
 #: ../src/gtk/fm-progress-dlg.c:238
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Δημιουργία συμβολικών συνδέσμων"
 
 #: ../src/gtk/fm-progress-dlg.c:241
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Αλλαγή χαρακτηριστικών αρχείου"
 
 #: ../src/gtk/fm-file-properties.c:177
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα χρήστη ή αριθμό id."
 
 #: ../src/gtk/fm-file-properties.c:209
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομάδας ή αριθμό id."
 
 #: ../src/gtk/fm-file-properties.c:357
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:624
 msgid "Files of different types"
-msgstr ""
+msgstr "Αρχεία διαφορετικών τύπων"
 
 #: ../src/gtk/fm-file-properties.c:645
 msgid "Multiple Files"
-msgstr ""
+msgstr "Πολλαπλά αρχείων"
 
 #: ../src/gtk/fm-file-properties.c:764
 msgid "Customize"
-msgstr ""
+msgstr "Προσαρμογή"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
-msgstr ""
+msgstr "Προσάρτηση τόμου"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Αποπροσάρτηση τόμου"
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Εξαγωγή αφαιρούμενου μέσου"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Αφαίρεση από τους σελιδοδείκτες"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr ""
+msgstr "Άδειασμα απορριμμάτων"
 
 #: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
-msgstr ""
+msgstr "Απορρίματα"
 
 #: ../src/gtk/fm-places-view.c:451
 msgid "Desktop"
-msgstr ""
+msgstr "Επιφάνεια εργασίας"
 
 #: ../src/gtk/fm-places-view.c:747
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
-msgstr ""
+msgstr "Άνοιγμα με..."
 
 #: ../src/gtk/fm-file-menu.c:84
 msgid "Rename"
-msgstr ""
+msgstr "Μετονομασία"
 
 #: ../src/gtk/fm-file-menu.c:85
 msgid "Create Symlink"
-msgstr ""
+msgstr "Δημιουργία συμβολικού συνδέσμου"
 
 #: ../src/gtk/fm-file-menu.c:86
 msgid "Send To"
-msgstr ""
+msgstr "Αποστολή προς"
 
 #: ../src/gtk/fm-dnd-dest.c:432
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave απέτυχε."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:95
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Χρήση επιλεγμένης εφαρμογής για το άνοιγμα των αρχείων"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Εκτέλεση προσαρμοσμένης εντολής για το άνοιγμα των αρχείων"
 
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: ../src/gtk/fm-folder-view.c:487
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: ../src/gtk/fm-folder-view.c:493
 msgid "Size"
-msgstr ""
+msgstr "Μέγεθος"
 
 #: ../src/gtk/fm-folder-view.c:499
 msgid "Modified"
-msgstr ""
+msgstr "Τροποποιήθηκε"
 
 #: ../src/gtk/fm-app-menu-view.c:150
 msgid "Installed Applications"
-msgstr ""
+msgstr "Εγκατεστημένες εφαρμογές"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Σφάλμα"
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε ένα φάκελο"
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
 
 #: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
 
 #: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
-msgstr ""
+msgstr "Μετονομασία αρχείου"
 
 #: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Παρακαλώ εισάγετε ένα νέο όνομα:"
 
 #: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+msgstr "Είστε σίγουροι ότι θέλετε να αδειάσει ο κάδος απορριμάτων;"
 
 #: ../src/job/fm-dir-list-job.c:276
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Ο συγκεκριμένος κατάλογος δεν είναι έγκυρος"
+
