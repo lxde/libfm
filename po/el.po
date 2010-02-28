@@ -19,7 +19,7 @@ msgstr "<b>Εντολή προς εκτέλεση:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Τύπος αρχείου προς άνοιγμα:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -29,7 +29,7 @@ msgid ""
 "  <b>%F:</b> Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
-msgstr ""
+msgstr "<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</b> \\ <b>n% f:</b> Αντιπροσωπεύει ένα όνομα αρχείου \\ <b>n% F:</b> Αντιπροσωπεύει πολλαπλά ονόματα αρχείων \\ <b>n% u:</b> Αντιπροσωπεύει ένα ενιαίο URI του αρχείου \\ <b>n% U:</b> Αντιπροσωπεύει πολλαπλές URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -37,11 +37,11 @@ msgstr "Επιλέξτε μια εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Προσαρμοσμένη εντολή"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Εκτέλεση στο τερματικό"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -49,11 +49,11 @@ msgstr "Εγκατεστημένη εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αρχεία αυτού του τύπου"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Αναζήτηση"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -61,46 +61,49 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα σε αυτόν τον κατάλογο.</b>\n"
+"\n"
+"Θέλετε να αντικαταστήσετε το υπάρχον αρχείο"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Εφαρμογή της επιλογής για όλα τα υπάρχοντα αρχεία"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Επιβεβαίωση αντικατάστασης αρχείων"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Όνομα αρχείου:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Αντικατάσταση"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Μετονομασία"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "_Παράληψη"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "με το ακόλουθο αρχείο;"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Έλεγχος πρόσβασης</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Τύπος αρχείου:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
