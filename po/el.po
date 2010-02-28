@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
@@ -44,7 +45,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Εγκατεστημένη εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
@@ -216,8 +217,7 @@ msgstr ""
 msgid "Preparing..."
 msgstr ""
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -272,8 +272,7 @@ msgstr ""
 msgid "My Computer"
 msgstr ""
 
-#: ../src/base/fm-path.c:433
-#: ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr ""
 
@@ -341,8 +340,7 @@ msgstr ""
 msgid "Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
 msgid "Rename Bookmark Item"
 msgstr ""
 
@@ -366,8 +364,7 @@ msgstr ""
 msgid "Enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:78
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr ""
 
@@ -447,4 +444,3 @@ msgstr ""
 #, c-format
 msgid "The specified directory is not valid"
 msgstr ""
-
