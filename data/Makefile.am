@@ -1,6 +1,4 @@
-if ENABLE_DEMO
 SUBDIRS=ui
-endif
 
 mimedir = $(datadir)/mime/packages
 mime_DATA = libfm.xml
