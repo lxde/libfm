@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 04:09+0000\n"
-"PO-Revision-Date: 2010-02-28 02:45+0100\n"
+"POT-Creation-Date: 2010-02-28 04:08+0000\n"
+"PO-Revision-Date: 2010-03-01 02:01+0100\n"
 "Last-Translator: Christoph Wickert <cwickert@fedoraproject.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Anwendung auswählen"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Befehlszeile"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -68,27 +68,27 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Auswahl auf alle Dateien anwenden"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Ersetzen von Dateien bestätigen"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Dateiname:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "Ü_berschreiben"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Umbenennen"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "Über_springen"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
@@ -156,11 +156,11 @@ msgstr "<b>_Besitzer:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Dateieigenschaften"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Datei als Programm ausführen"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
@@ -261,11 +261,11 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-file-info.c:52
+#: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
 msgstr "Verknüpfungen"
 
-#: ../src/base/fm-file-info.c:55
+#: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
 msgstr ""
 
@@ -277,12 +277,12 @@ msgstr "Papierkorb"
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:427
+#: ../src/base/fm-path.c:433
 #: ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: ../src/base/fm-path.c:429
+#: ../src/base/fm-path.c:436
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -400,19 +400,19 @@ msgstr ""
 msgid "Execute custom command line to open files"
 msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 
-#: ../src/gtk/fm-folder-view.c:467
+#: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:487
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:493
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:498
+#: ../src/gtk/fm-folder-view.c:499
 msgid "Modified"
 msgstr "Geändert"
 
@@ -426,15 +426,15 @@ msgstr "Fehler"
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr ""
+msgstr "Ordner wählen"
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
 #: ../src/gtk/fm-gtk-utils.c:472
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Gewählte Dateien löschen?"
 
 #: ../src/gtk/fm-gtk-utils.c:529
 msgid "Rename File"
@@ -442,14 +442,14 @@ msgstr "Datei umbennen"
 
 #: ../src/gtk/fm-gtk-utils.c:529
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Neuen Namen eingeben:"
 
 #: ../src/gtk/fm-gtk-utils.c:551
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
-#: ../src/job/fm-dir-list-job.c:267
+#: ../src/job/fm-dir-list-job.c:276
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Das angegebene Verzeichnis ist ungültig"
 
