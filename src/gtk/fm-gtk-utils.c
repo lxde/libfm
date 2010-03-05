@@ -1,18 +1,18 @@
 /*
  *      fm-gtk-utils.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman@debian>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -50,7 +50,7 @@ void fm_show_error(GtkWindow* parent, const char* msg)
 gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
     ret = gtk_dialog_run((GtkDialog*)dlg);
@@ -61,7 +61,7 @@ gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes
 gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_ok)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
     ret = gtk_dialog_run((GtkDialog*)dlg);
@@ -83,7 +83,7 @@ int fm_askv(GtkWindow* parent, const char* question, const char** options)
 {
     int ret;
     guint id = 1;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0, 
+    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, 0, question);
     /* FIXME: need to handle defualt button and alternative button
      * order problems. */
@@ -129,7 +129,7 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
     if(default_text && default_text[0])
         gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
 
-    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );	
+    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
 }
 
 FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path)
@@ -141,14 +141,14 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
     FmPath* path;
 
     gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
-    
-    if(default_path) 
+
+    if(default_path)
     {
         path_str = fm_path_display_name(default_path, FALSE);
         gtk_entry_set_text(GTK_ENTRY( entry ), path_str);
     }
 
-    str = _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );	    
+    str = _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
     path = fm_path_new(str);
 
     g_free(path_str);
@@ -157,7 +157,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 }
 
 
-gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char* msg, const char* default_text) 
+gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char* msg, const char* default_text)
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
     GtkWidget* entry = gtk_entry_new();
@@ -213,7 +213,7 @@ static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title
     return dlg;
 }
 
-static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry) 
+static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
 {
     char* str = NULL;
 
@@ -236,12 +236,12 @@ FmPath* fm_select_folder(GtkWindow* parent)
 {
     FmPath* path;
     GtkFileChooser* chooser;
-    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(_("Please select a folder"), 
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(_("Please select a folder"),
                                         parent, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
                                         NULL);
-    gtk_dialog_set_alternative_button_order((GtkDialog*)chooser, 
+    gtk_dialog_set_alternative_button_order((GtkDialog*)chooser,
                                         GTK_RESPONSE_CANCEL,
                                         GTK_RESPONSE_OK, NULL);
     if( gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK )
@@ -435,7 +435,7 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol)
 
 
 /* File operations */
-/* FIXME: only show the progress dialog if the job isn't finished 
+/* FIXME: only show the progress dialog if the job isn't finished
  * in 1 sec. */
 
 void fm_copy_files(FmPathList* files, FmPath* dest_dir)
@@ -467,15 +467,18 @@ void fm_trash_files(FmPathList* files)
     }
 }
 
+static void fm_delete_files_internal(FmPathList* files)
+{
+    GtkWidget* dlg;
+    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
+    fm_job_run_async(job);
+    fm_display_progress(FM_FILE_OPS_JOB(job));
+}
+
 void fm_delete_files(FmPathList* files)
 {
     if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?"), TRUE))
-    {
-        GtkWidget* dlg;
-        FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-        fm_job_run_async(job);
-        fm_display_progress(FM_FILE_OPS_JOB(job));
-    }
+        fm_delete_files_internal(files);
 }
 
 void fm_trash_or_delete_files(FmPathList* files)
@@ -518,7 +521,7 @@ void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
 /*
 void fm_rename_files(FmPathList* files)
 {
-    
+
 }
 */
 
@@ -552,7 +555,7 @@ void fm_empty_trash()
     {
         FmPathList* paths = fm_path_list_new();
         fm_list_push_tail(paths, fm_path_get_trash());
-        fm_delete_files(paths);
+        fm_delete_files_internal(paths);
         fm_list_unref(paths);
     }
 }
