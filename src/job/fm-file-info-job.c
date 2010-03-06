@@ -192,6 +192,7 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
         fi->disp_name = fi->path->name;
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
+        fi->atime = st.st_atime;
         fi->size = st.st_size;
         fi->dev = st.st_dev;
         fi->uid = st.st_uid;

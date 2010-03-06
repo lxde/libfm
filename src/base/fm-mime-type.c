@@ -19,6 +19,9 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include "fm-mime-type.h"
 
@@ -27,6 +30,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+
+#ifdef HAVE_MMAP
+#include <sys/mman.h>
+#endif
 
 /* FIXME: how can we handle reload of xdg mime? */
 
@@ -183,15 +190,27 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
             char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
             if( uncertain )
             {
-                char buf[4096];
                 int fd, len;
                 fd = open(file_path, O_RDONLY);
                 if( fd >= 0 )
                 {
-                    g_free(type);
+                #ifdef HAVE_MMAP
+                    const char* buf;
+                    len = pstat->st_size > 4096 ? 4096 : pstat->st_size;
+                    buf = (const char*)mmap(NULL, len, PROT_READ, MAP_PRIVATE, fd, 0);
+                    if(G_LIKELY(buf != MAP_FAILED))
+                    {
+                        g_free(type);
+                        type = g_content_type_guess( NULL, buf, len, &uncertain );
+                        munmap(buf, len);
+                    }
+                #else
+                    char buf[4096];
                     len = read(fd, buf, 4096);
-                    close(fd);
+                    g_free(type);
                     type = g_content_type_guess( NULL, buf, len, &uncertain );
+                #endif
+                    close(fd);
                 }
             }
             mime_type = fm_mime_type_get_for_type( type );

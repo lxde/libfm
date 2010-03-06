@@ -1,18 +1,18 @@
 /*
  *      fm-file-properties.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <time.h>
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -99,7 +100,7 @@ struct _FmFilePropData
     GAppInfo* def_app;
     GAppInfo* new_app;
     GtkTreeIter prev_sel;
-    
+
     uid_t uid;
     gid_t gid;
 
@@ -180,7 +181,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
 
     if(data->uid == -1)
         data->uid = atoi(tmp);
-    
+
     return ret;
 }
 
@@ -330,7 +331,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         else
             data->other_perm_sel = NO_CHANGE;
 
-        if(!data->has_dir 
+        if(!data->has_dir
            && !gtk_toggle_button_get_inconsistent(GTK_TOGGLE_BUTTON(data->exec))
            && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->exec)) != data->exec_state)
         {
@@ -508,7 +509,7 @@ static void update_permissions(FmFilePropData* data)
         else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IWUSR )
             sel = WRITE_ONLY;
         else
-            sel = NONE;            
+            sel = NONE;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(data->owner_perm), sel);
     data->owner_perm_sel = sel;
@@ -633,12 +634,19 @@ static void update_ui(FmFilePropData* data)
     /* FIXME: check if all files has the same parent dir, mtime, or atime */
     if( data->single_file )
     {
+        char buf[128];
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
         char* parent_str = fm_path_display_name(parent, TRUE);
         gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
         gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
         g_free(parent_str);
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
+
+        /* FIXME: need to encapsulate this in an libfm API. */
+        strftime( buf, sizeof( buf ),
+                  "%x %R",
+                  localtime( &data->fi->atime ) );
+        gtk_label_set_text(GTK_LABEL(data->atime), buf);
     }
     else
     {
