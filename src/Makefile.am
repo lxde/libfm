@@ -230,6 +230,7 @@ BUILT_SOURCES= \
 EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
+	demo/main-win-ui.c \
 	$(NULL)
 
 CLEANFILES = \
