@@ -4,8 +4,8 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: libfm
-Description: 
-Requires: gtk+-2.0 >= 2.16.0 gthread-2.0 gio-unix-2.0
+Description: A glib/gio-based lib used to develop file managers providing some file management utilities.
+Requires: gthread-2.0 gio-unix-2.0
 Version: @VERSION@
-Libs: -L${libdir} -lfm -lfm-gtk
+Libs: -L${libdir} -lfm
 Cflags: -I${includedir}/libfm

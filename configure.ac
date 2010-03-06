@@ -92,6 +92,7 @@ AC_CONFIG_FILES([
     data/ui/Makefile
     po/Makefile.in
     libfm.pc
+    libfm-gtk.pc
 ])
 
 AC_OUTPUT

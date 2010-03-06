@@ -82,7 +82,8 @@ libfm_gtk_SOURCES = \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-LIBFM_INCLUDES = \
+libfmincludedir = $(includedir)/libfm/libfm
+libfminclude_HEADERS = \
 	fm.h \
 	base/fm-config.h \
 	base/fm-list.h \
@@ -108,7 +109,8 @@ LIBFM_INCLUDES = \
 	job/fm-file-ops-job-change-attr.h \
 	$(NULL)
 
-LIBFM_GTK_INCLUDES = \
+libfmgtkincludedir = $(includedir)/libfm/libfm
+libfmgtkinclude_HEADERS = \
 	fm-gtk.h \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
