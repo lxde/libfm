@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:52+0100\n"
+"POT-Creation-Date: 2010-03-06 17:01+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -265,11 +265,11 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-file-info.c:52
+#: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
 msgstr "Nuorodos"
 
-#: ../src/base/fm-file-info.c:55
+#: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
 msgstr "Prijungimo taškas"
 
@@ -281,35 +281,35 @@ msgstr "Šiukšlinė"
 msgid "My Computer"
 msgstr "Mano kompiuteris"
 
-#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Programos"
 
-#: ../src/base/fm-path.c:429
+#: ../src/base/fm-path.c:436
 msgid "Network"
 msgstr "Tinklas"
 
-#: ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:257
 msgid "Moving files"
 msgstr "Perkeliami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:229
+#: ../src/gtk/fm-progress-dlg.c:260
 msgid "Copying files"
 msgstr "Kopijuojami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:263
 msgid "Trashing files"
 msgstr "Išmetami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:235
+#: ../src/gtk/fm-progress-dlg.c:266
 msgid "Deleting files"
 msgstr "Ištrinami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:238
+#: ../src/gtk/fm-progress-dlg.c:269
 msgid "Creating symlinks"
 msgstr "Kuriamos sisteminės nuorodos"
 
-#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:272
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 
@@ -392,7 +392,7 @@ msgstr "Sukurti sisteminę nuorodą"
 msgid "Send To"
 msgstr "Siųsti į"
 
-#: ../src/gtk/fm-dnd-dest.c:431
+#: ../src/gtk/fm-dnd-dest.c:432
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
@@ -404,19 +404,19 @@ msgstr "Naudoti pasirinktą programą atverti failams"
 msgid "Execute custom command line to open files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:467
+#: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:487
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:493
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-view.c:498
+#: ../src/gtk/fm-folder-view.c:499
 msgid "Modified"
 msgstr "Pakeista"
 
@@ -436,23 +436,23 @@ msgstr "Pasirinkite aplanką"
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
 
-#: ../src/gtk/fm-gtk-utils.c:472
+#: ../src/gtk/fm-gtk-utils.c:480
 msgid "Do you want to delete the selected files?"
 msgstr "Ar norite ištrinti pasirinktus failus?"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:532
 msgid "Rename File"
 msgstr "Pervadinti failą"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:532
 msgid "Please enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-gtk-utils.c:551
+#: ../src/gtk/fm-gtk-utils.c:554
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
-#: ../src/job/fm-dir-list-job.c:266
+#: ../src/job/fm-dir-list-job.c:276
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Nurodytas aplankas yra neteisingas"

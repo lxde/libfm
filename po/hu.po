@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:52+0100\n"
+"POT-Creation-Date: 2010-03-06 17:01+0800\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -272,11 +272,11 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-file-info.c:52
+#: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: ../src/base/fm-file-info.c:55
+#: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
 msgstr "Csatolási pont"
 
@@ -289,36 +289,36 @@ msgstr "Kuka"
 msgid "My Computer"
 msgstr "Saját gép"
 
-#: ../src/base/fm-path.c:427 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
 msgid "Applications"
 msgstr "Alkalmazások"
 
-#: ../src/base/fm-path.c:429
+#: ../src/base/fm-path.c:436
 #, fuzzy
 msgid "Network"
 msgstr "Hálózati meghajtók"
 
-#: ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:257
 msgid "Moving files"
 msgstr "Fájlok mozgatása"
 
-#: ../src/gtk/fm-progress-dlg.c:229
+#: ../src/gtk/fm-progress-dlg.c:260
 msgid "Copying files"
 msgstr "Fájlok másolása"
 
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:263
 msgid "Trashing files"
 msgstr "Fájlok kidobása"
 
-#: ../src/gtk/fm-progress-dlg.c:235
+#: ../src/gtk/fm-progress-dlg.c:266
 msgid "Deleting files"
 msgstr "Fájlok törlése"
 
-#: ../src/gtk/fm-progress-dlg.c:238
+#: ../src/gtk/fm-progress-dlg.c:269
 msgid "Creating symlinks"
 msgstr "Szimlinkek létrehozása"
 
-#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:272
 msgid "Changing file attributes"
 msgstr "Fájl attribútumok cseréje"
 
@@ -400,7 +400,7 @@ msgstr "Szimlink létrehozása"
 msgid "Send To"
 msgstr "Küldés ide"
 
-#: ../src/gtk/fm-dnd-dest.c:431
+#: ../src/gtk/fm-dnd-dest.c:432
 msgid "XDirectSave failed."
 msgstr "Az XDirectSave meghiúsult."
 
@@ -413,19 +413,19 @@ msgstr "A választott alkalmazás legyen alap"
 msgid "Execute custom command line to open files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:467
+#: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Név"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:487
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:493
 msgid "Size"
 msgstr "Méret"
 
-#: ../src/gtk/fm-folder-view.c:498
+#: ../src/gtk/fm-folder-view.c:499
 msgid "Modified"
 msgstr "Módosítva"
 
@@ -445,23 +445,23 @@ msgstr "Válassz egy mappát"
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "A kukába dobod a kijelölt fájlokat?"
 
-#: ../src/gtk/fm-gtk-utils.c:472
+#: ../src/gtk/fm-gtk-utils.c:480
 msgid "Do you want to delete the selected files?"
 msgstr "Törlöd a kijelölt fájlokat?"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:532
 msgid "Rename File"
 msgstr "Fájl átnevezése"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:532
 msgid "Please enter a new name:"
 msgstr "Adj egy új nevet:"
 
-#: ../src/gtk/fm-gtk-utils.c:551
+#: ../src/gtk/fm-gtk-utils.c:554
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Kiüríted a kukát?"
 
-#: ../src/job/fm-dir-list-job.c:266
+#: ../src/job/fm-dir-list-job.c:276
 #, c-format
 msgid "The specified directory is not valid"
 msgstr ""

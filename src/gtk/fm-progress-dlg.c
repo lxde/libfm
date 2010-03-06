@@ -1,18 +1,18 @@
 /*
  *      fm-progress-dlg.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -45,6 +45,8 @@ struct _FmProgressDisplay
     GtkWidget* current;
     GtkWidget* progress;
 
+    FmFileOpOption default_opt;
+
     char* cur_file;
     const char* old_cur_file;
 
@@ -68,7 +70,7 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data
 
 static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDisplay* data)
 {
-    /* FIXME: Displaying currently processed file will slow down the 
+    /* FIXME: Displaying currently processed file will slow down the
      * operation and waste CPU source due to showing the text with pango.
      * Consider showing current file every 0.5 second. */
     g_free(data->cur_file);
@@ -101,6 +103,12 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     GtkBuilder* builder = gtk_builder_new();
     GtkWidget *dlg, *src_icon, *dest_icon, *src_fi, *dest_fi, *filename, *apply_all;
     char* tmp;
+    const char* disp_size;
+
+    /* return default operation if the user has set it */
+    if(data->default_opt)
+        return data->default_opt;
+
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     ensure_dlg(data);
 
@@ -115,18 +123,40 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_window_set_transient_for(GTK_WINDOW(dlg), data->dlg);
 
     gtk_image_set_from_gicon(GTK_IMAGE(src_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
-    tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
-                          fm_file_info_get_desc(src),
-                          fm_file_info_get_disp_size(src),
-                          fm_file_info_get_disp_mtime(src));
+    disp_size = fm_file_info_get_disp_size(src);
+    if(disp_size)
+    {
+        tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
+                              fm_file_info_get_desc(src),
+                              disp_size,
+                              fm_file_info_get_disp_mtime(src));
+    }
+    else
+    {
+        tmp = g_strdup_printf("Type: %s\nModified: %s",
+                              fm_file_info_get_desc(src),
+                              fm_file_info_get_disp_mtime(src));
+    }
+
     gtk_label_set_text(GTK_LABEL(src_fi), tmp);
     g_free(tmp);
 
     gtk_image_set_from_gicon(GTK_IMAGE(dest_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
-    tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
-                          fm_file_info_get_desc(dest),
-                          fm_file_info_get_disp_size(dest),
-                          fm_file_info_get_disp_mtime(dest));
+    disp_size = fm_file_info_get_disp_size(dest);
+    if(disp_size)
+    {
+        tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
+                              fm_file_info_get_desc(dest),
+                              fm_file_info_get_disp_size(dest),
+                              fm_file_info_get_disp_mtime(dest));
+    }
+    else
+    {
+        tmp = g_strdup_printf("Type: %s\nModified: %s",
+                              fm_file_info_get_desc(dest),
+                              fm_file_info_get_disp_mtime(dest));
+    }
+
     gtk_label_set_text(GTK_LABEL(dest_fi), tmp);
     g_free(tmp);
 
@@ -155,7 +185,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(apply_all)))
     {
-        /* FIXME: set default action */
+        if(res == RESPONSE_OVERWRITE || res == RESPONSE_SKIP)
+            data->default_opt = res;
     }
 
     gtk_widget_destroy(dlg);
