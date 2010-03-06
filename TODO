@@ -39,10 +39,6 @@
      Partially done. fm_path_new_relative and fm_path_new_child handles . and ..
      Need to show canonicalized paths in location bar.
 
-* Add "Create New" to popup menu of folder. => partially done, quite dirty.
-
-* Show available disk space in status bar => done, but in a slightly dirty way.
-
 * FmFileMenu should provide special menu items for special paths
      For example:
      Add a "Recover" popup menu item for files in trash:///
@@ -139,6 +135,12 @@
 * Implement our own gio extension points to override some bad stuff in gio/gvfs.
      Pass highest priority value to g_io_extension_point_implement() if we're
      under LXDE might be a good idea.
+
+* Add "Create New" to popup menu of folder. => partially done, quite dirty.
+     ==> need refactor
+
+* Show available disk space in status bar => done, but in a slightly dirty way.
+     ==> need refactor
 
 
 
