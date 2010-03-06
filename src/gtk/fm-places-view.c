@@ -442,14 +442,18 @@ static void init_model()
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, item->path->name, COL_INFO, item, -1);
         g_object_unref(pix);
 
-        item = g_slice_new0(PlaceItem);
-        item->type = PLACE_PATH;
-        item->path = fm_path_ref(fm_path_get_desktop());
-        item->icon = fm_icon_from_name("user-desktop");
-        gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
-        gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Desktop"), COL_INFO, item, -1);
-        g_object_unref(pix);
+        /* Only show desktop in side pane when the user has a desktop dir. */
+        if(g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
+        {
+            item = g_slice_new0(PlaceItem);
+            item->type = PLACE_PATH;
+            item->path = fm_path_ref(fm_path_get_desktop());
+            item->icon = fm_icon_from_name("user-desktop");
+            gtk_list_store_append(model, &it);
+            pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+            gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, _("Desktop"), COL_INFO, item, -1);
+            g_object_unref(pix);
+        }
 
         if(fm_config->use_trash)
             create_trash();
