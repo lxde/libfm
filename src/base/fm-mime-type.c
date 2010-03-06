@@ -1,18 +1,18 @@
 /*
  *      fm-mime-type.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -155,7 +155,7 @@ FmMimeType* fm_mime_type_get_for_file_name( const char* ufile_name )
 /*
 static FmMimeType* fm_mime_type_get_internal(char* type)
 {
-	FmMimeType* 
+	FmMimeType*
 }
 */
 
@@ -208,7 +208,7 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
 	    return fm_mime_type_get_for_type( "inode/blockdevice" );
 	if (S_ISFIFO(pstat->st_mode))
 	    return fm_mime_type_get_for_type( "inode/fifo" );
-	if (S_ISLNK(pstat->st_mode)) 
+	if (S_ISLNK(pstat->st_mode))
 	    return fm_mime_type_get_for_type( "inode/symlink" );
 #ifdef S_ISSOCK
 	if (S_ISSOCK(pstat->st_mode))

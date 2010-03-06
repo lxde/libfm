@@ -5,10 +5,10 @@
 -->
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
 
-    <mime-type type="text/plain">
-        <glob pattern="*.ini"/>
-        <glob pattern="*.inf"/>
-    </mime-type>
+  <mime-type type="text/plain">
+    <glob pattern="*.ini"/>
+    <glob pattern="*.inf"/>
+  </mime-type>
 
   <mime-type type="application/x-ms-dos-executable">
     <glob pattern="*.com" />
@@ -45,8 +45,8 @@
     <glob pattern="*.so.[0-9].*" />
   </mime-type>
 
-  <mime-type type="application/x-shared-library-la">
-    <glob pattern="*.a" />
+  <mime-type type="application/x-desktop">
+    <glob pattern="*.directory"/>
   </mime-type>
 
 </mime-info>
