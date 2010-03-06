@@ -208,6 +208,38 @@ libfm_demo_LDADD = \
 	$(NULL)
 endif
 
+
+# GIO module implementing some extension points
+
+giomodules_LTLIBRARIES = libgiofm.la
+
+libgiofm_la_SOURCES= \
+	gio/module.c \
+	gio/fm-app-lookup.c \
+	gio/fm-app-lookup.h \
+	$(NULL)
+
+libgiofm_la_CFLAGS = \
+	$(GIO_CFLAGS) \
+	-DGIO_MODULE_DIR=\"$(GIO_MODULE_DIR)\"	\
+	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
+	-DG_DISABLE_DEPRECATED \
+	$(NULL)
+
+libgiofm_la_LDFLAGS = 	\
+	-export_dynamic \
+	-avoid-version \
+	-module \
+	-no-undefined \
+	-export-symbols-regex '^g_io_module_(load|unload|query)'
+	$(NULL)
+
+libgiofm_la_LIBADD = \
+	$(GIO_LIBS) \
+	$(INTLLIBS) \
+	$(NULL)
+
+
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
 	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@

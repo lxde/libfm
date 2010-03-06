@@ -79,6 +79,10 @@ else
     CPPFLAGS="$CPPFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
 fi
 
+# GIO extension module
+giomodulesdir=$libdir/gio/modules
+AC_SUBST(giomodulesdir)
+
 
 GETTEXT_PACKAGE=libfm
 AC_SUBST(GETTEXT_PACKAGE)
