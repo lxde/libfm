@@ -600,7 +600,8 @@ void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
     if(show != fv->show_hidden )
     {
         fv->show_hidden = show;
-        fm_folder_model_set_show_hidden(FM_FOLDER_MODEL(fv->model), show);
+        if(G_LIKELY(fv->model))
+            fm_folder_model_set_show_hidden(FM_FOLDER_MODEL(fv->model), show);
     }
 }
 
