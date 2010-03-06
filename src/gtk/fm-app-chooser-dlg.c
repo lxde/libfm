@@ -1,18 +1,18 @@
 /*
  *      fm-app-chooser-dlg.c
- *      
+ *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -94,7 +94,7 @@ static void on_switch_page(GtkNotebook* nb, GtkWidget* page, gint num, AppChoose
     {
         gtk_label_set_text(GTK_LABEL(data->status), _("Use selected application to open files"));
         gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK,
-                        fm_app_menu_view_is_app_selected(GTK_TREE_VIEW(data->apps_view)));        
+                        fm_app_menu_view_is_app_selected(GTK_TREE_VIEW(data->apps_view)));
     }
     else /* custom app */
     {
@@ -130,6 +130,7 @@ GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     GtkBuilder* builder = gtk_builder_new();
     AppChooserData* data = g_slice_new0(AppChooserData);
 
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/app-chooser.ui", NULL);
     data->dlg = (GtkWidget*)gtk_builder_get_object(builder, "dlg");
     data->notebook = (GtkWidget*)gtk_builder_get_object(builder, "notebook");
