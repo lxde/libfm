@@ -85,6 +85,8 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
             g_free(scheme);
         }
     }
+    else
+        descend = FALSE;
 
     if( descend )
 	{
