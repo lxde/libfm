@@ -38,11 +38,11 @@ struct _FmDndDest
 	guint scroll_timeout;
 	int info_type; /* type of src_files */
 	FmList* src_files;
-    gboolean src_ready; /* whether src_files are retrived */
 	guint32 src_dev; /* UNIX dev of source fs */
 	const char* src_fs_id; /* filesystem id of source fs */
 	FmFileInfo* dest_file;
     guint idle; /* idle handler */
+    GMainLoop* mainloop; /* used to block when retriving data */
 };
 
 enum
@@ -161,6 +161,9 @@ static void fm_dnd_dest_finalize(GObject *object)
 	if(dd->src_files)
 		fm_list_unref(dd->src_files);
 
+    if(dd->mainloop)
+        g_main_loop_unref(dd->mainloop);
+
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->finalize(object);
 }
 
@@ -213,6 +216,7 @@ void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
 	if(!dest)
 		return;
     g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
+
     if(fm_list_is_file_info_list(files))
         files = fm_path_list_new_from_file_info_list(files);
     else
@@ -277,11 +281,17 @@ on_drag_motion( GtkWidget *dest_widget,
                 return TRUE;
             }
 
+            g_debug("try to cache src_files");
+            dd->mainloop = g_main_loop_new(NULL, TRUE);
 			gtk_drag_get_data(dest_widget, drag_context, target, time);
             /* run the main loop to block here waiting for
              * 'drag-data-received' signal being handled first. */
-            while(!dd->src_ready)
-                gtk_main_iteration_do(TRUE);
+            /* it's possible that g_main_loop_quit is called before we really run the loop. */
+            if(g_main_loop_is_running(dd->mainloop))
+                g_main_loop_run(dd->mainloop);
+            g_main_loop_unref(dd->mainloop);
+            dd->mainloop = NULL;
+            g_debug("src_files cached: %p", dd->src_files);
 
 			/* dd->src_files should be set now */
             if( dd->src_files && fm_list_is_file_info_list(dd->src_files) )
@@ -379,8 +389,8 @@ on_drag_leave ( GtkWidget *dest_widget,
                 guint time,
                 FmDndDest* dd )
 {
+    g_debug("drag leave");
 	gtk_drag_unhighlight(dest_widget);
-
     /* FIXME: is there any better place to do this? */
     dd->idle = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)clear_src_cache, dd, NULL);
     return TRUE;
@@ -397,6 +407,7 @@ on_drag_drop ( GtkWidget *dest_widget,
     gboolean ret = TRUE;
     GdkAtom target, xds;
     target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
+    g_debug("drag drop");
 
 	if( target == GDK_NONE )
 		ret = FALSE;
@@ -446,8 +457,12 @@ on_drag_drop ( GtkWidget *dest_widget,
 	{
         if(ret)
             g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files);
-		fm_list_unref(dd->src_files);
-		dd->src_files = NULL;
+        /* it's possible that src_files is already freed in idle handler */
+        if(dd->src_files)
+        {
+            fm_list_unref(dd->src_files);
+            dd->src_files = NULL;
+        }
 	}
 	if(dd->dest_file)
 	{
@@ -463,7 +478,7 @@ static void on_src_file_info_finished(FmFileInfoJob* job, FmDndDest* dd)
 {
     dd->src_files = fm_list_ref(job->file_infos);
     dd->info_type = FM_DND_DEST_TARGET_FM_LIST;
-    dd->src_ready = TRUE;
+    g_main_loop_quit(dd->mainloop);
 }
 
 static void
@@ -477,6 +492,7 @@ on_drag_data_received ( GtkWidget *dest_widget,
                         FmDndDest* dd )
 {
     FmList* files = NULL;
+    g_debug("data received: %d", info);
     switch(info)
     {
     case FM_DND_DEST_TARGET_FM_LIST:
@@ -514,13 +530,16 @@ on_drag_data_received ( GtkWidget *dest_widget,
 		return;
     }
 	if(G_UNLIKELY(dd->src_files))
+    {
 		fm_list_unref(dd->src_files);
+        dd->src_files = NULL;
+    }
 
     if(info == FM_DND_DEST_TARGET_FM_LIST)
     {
         dd->info_type = info;
         dd->src_files = files;
-        dd->src_ready = TRUE;
+        g_main_loop_quit(dd->mainloop);
     }
     else if(info == FM_DND_DEST_TARGET_URI_LIST)
     {
@@ -528,6 +547,7 @@ on_drag_data_received ( GtkWidget *dest_widget,
         FmFileInfoJob* job = fm_file_info_job_new(files);
         dd->src_files = NULL;
         fm_list_unref(files);
+        /* g_main_loop_quit(dd->mainloop); will be called in on_src_file_info_finished() */
         g_signal_connect(job, "finished", G_CALLBACK(on_src_file_info_finished), dd);
         fm_job_run_async(FM_JOB(job));
     }

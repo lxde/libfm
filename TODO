@@ -57,9 +57,6 @@
 
 * Support symlink creation.
 
-* Keyboard shortcuts in folder view.
-     => Done in pcmanfm.
-
 * Add reserved data members to structs to padding for future expansion.
 
 * Use a forked version of xdg_mime included in glib/gio to do faster mime-type detection.
@@ -69,6 +66,9 @@
 * Bug file properties dialog failed to show atime.
 
 * Implement our own empty trash API since delete a file in trash:/// with g_file_delete really sucks.
+
+* Implement our own trash can since the one provided by gvfs really sucks!
+
 
 
 [Medium Priority]
