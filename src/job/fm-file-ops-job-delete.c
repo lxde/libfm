@@ -1,18 +1,18 @@
 /*
  *      fm-file-ops-job-delete.c
- *      
+ *
  *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -32,7 +32,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = (FmFileOpsJob*)job;
-	gboolean is_dir;
+	gboolean is_dir, descend;
     GFileInfo* _inf = NULL;
     gboolean ret = FALSE;
 
@@ -73,7 +73,20 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 	if( job->cancel )
 		return FALSE;
 
-    if( is_dir )
+    if(is_dir)
+    {
+        descend = TRUE;
+        /* special handling for trash:/// */
+        if(!g_file_is_native(gf))
+        {
+            char* scheme = g_file_get_uri_scheme(gf);
+            if(g_strcmp0(scheme, "trash") == 0)
+                descend = FALSE;
+            g_free(scheme);
+        }
+    }
+
+    if( descend )
 	{
         GFileMonitor* old_mon = fjob->src_folder_mon;
 		GFileEnumerator* enu = g_file_enumerate_children(gf, query,
@@ -144,14 +157,14 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                 {
                     /* special case for trash:/// */
                     /* FIXME: is there any better way to handle this? */
-                    char* uri = g_file_get_uri(gf);
-                    if(g_strcmp0(uri, "trash:///") == 0)
+                    char* scheme = g_file_get_uri_scheme(gf);
+                    if(g_strcmp0(scheme, "trash") == 0)
                     {
-                        g_free(uri);
+                        g_free(scheme);
                         g_error_free(err);
                         return TRUE;
                     }
-                    g_free(uri);
+                    g_free(scheme);
                 }
                 fm_job_emit_error(job, err, FALSE);
                 g_error_free(err);
@@ -161,7 +174,7 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
     }
     else
         ret = FALSE;
- 
+
     return ret;
 }
 
@@ -174,7 +187,7 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
 {
 	GList* l;
 	/* prepare the job, count total work needed with FmDeepCountJob */
-	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_PREPARE_DELETE);
 	fm_job_run_sync(FM_JOB(dc));
 	job->total = dc->count;
 	g_object_unref(dc);

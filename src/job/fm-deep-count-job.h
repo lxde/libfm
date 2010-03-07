@@ -1,18 +1,18 @@
 /*
  *      fm-deep-count-job.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -49,7 +49,8 @@ enum _FmDeepCountJobFlags
 	FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
 	FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
 	FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices */
-	FM_DC_JOB_DIFF_FS = 1<<2 /* only do deep count for files on different devices */
+	FM_DC_JOB_DIFF_FS = 1<<2, /* only do deep count for files on different devices */
+    FM_DC_JOB_PREPARE_DELETE = 1 <<3 /* special handling for deleting files */
 };
 
 struct _FmDeepCountJob

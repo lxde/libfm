@@ -1,18 +1,18 @@
 /*
  *      fm-deep-count-job.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -161,7 +161,7 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 {
 	FmJob* fmjob = (FmJob*)job;
 	GError* err = NULL;
-	const char query_str[] = 
+	const char query_str[] =
 					G_FILE_ATTRIBUTE_STANDARD_TYPE","
 					G_FILE_ATTRIBUTE_STANDARD_NAME","
 					G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
@@ -170,8 +170,8 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
 					G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
                     G_FILE_ATTRIBUTE_ID_FILESYSTEM;
 	GFile* gf = fm_path_to_gfile(fm_path);
-	GFileInfo* inf = g_file_query_info(gf, query_str, 
-                        (job->flags & FM_DC_JOB_FOLLOW_LINKS) ? 
+	GFileInfo* inf = g_file_query_info(gf, query_str,
+                        (job->flags & FM_DC_JOB_FOLLOW_LINKS) ?
                             0:G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                         fmjob->cancellable, &err);
 	if( inf )
@@ -194,26 +194,31 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
             const char* fs_id;
             gboolean descend;
 
-            /* check if we need to decends into the dir. */
-            fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
-
-            /* only descends into files on the same filesystem */
-            if( job->flags & FM_DC_JOB_SAME_FS )
-            {
-                if( g_strcmp0(fs_id, job->dest_fs_id) )
-                    descend = TRUE;
-            }
-            /* only descends into files on the different filesystem */
-            else if( job->flags & FM_DC_JOB_DIFF_FS )
-            {
-                if( g_strcmp0(fs_id, job->dest_fs_id) == 0 )
-                    descend = TRUE;
-            }
+            /* trash:/// doesn't support deleting files recursively */
+            if(job->flags & FM_DC_JOB_PREPARE_DELETE && fm_path_is_trash(fm_path))
+                descend = FALSE;
             else
-                descend = TRUE;
+            {
+                /* check if we need to decends into the dir. */
+                fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
 
+                /* only descends into files on the same filesystem */
+                if( job->flags & FM_DC_JOB_SAME_FS )
+                {
+                    if( g_strcmp0(fs_id, job->dest_fs_id) )
+                        descend = TRUE;
+                }
+                /* only descends into files on the different filesystem */
+                else if( job->flags & FM_DC_JOB_DIFF_FS )
+                {
+                    if( g_strcmp0(fs_id, job->dest_fs_id) == 0 )
+                        descend = TRUE;
+                }
+                else
+                    descend = TRUE;
+            }
     		g_object_unref(inf);
-                    
+
             if(descend)
             {
                 enu = g_file_enumerate_children(gf, query_str,
