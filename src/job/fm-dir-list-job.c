@@ -127,10 +127,38 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     *p = '\0';
     menu_name = g_strconcat(menu_name, ".menu", NULL);
     mc = menu_cache_lookup_sync(menu_name);
-    g_free(menu_name);
     /* ensure that the menu cache is loaded */
     if(!mc) /* if it's not loaded */
-        return NULL;
+    {
+        /* try to set $XDG_MENU_PREFIX to "lxde-" for lxmenu-data */
+        const char* menu_prefix = g_getenv("XDG_MENU_PREFIX");
+        if(g_strcmp0(menu_prefix, "lxde-")) /* if current value is not lxde- */
+        {
+            char* old_prefix = g_strdup(menu_prefix);
+            g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
+            mc = menu_cache_lookup_sync(menu_name);
+            /* restore original environment variable */
+            if(old_prefix)
+            {
+                g_setenv("XDG_MENU_PREFIX", old_prefix, TRUE);
+                g_free(old_prefix);
+            }
+            else
+                g_unsetenv("XDG_MENU_PREFIX");
+
+            if(!mc)
+            {
+                g_free(menu_name);
+                return NULL;
+            }
+        }
+        else
+        {
+            g_free(menu_name);
+            return NULL;
+        }
+    }
+    g_free(menu_name);
     *p = ch;
     dir_path = p; /* path of menu dir, such as: /Internet */
 
