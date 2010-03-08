@@ -99,5 +99,73 @@ static void app_lookup_iface_init(GDesktopAppInfoLookupIface *iface)
 /* FIXME: implement our own browser lookup method not depending on gconf. */
 GAppInfo *get_default_for_uri_scheme(GDesktopAppInfoLookup *lookup, const char *scheme)
 {
-    return NULL;
+    GAppInfo* app;
+    GKeyFile* kf;
+    const char* key;
+    char* fname;
+    char* cmd = NULL;
+
+    /* web browser */
+    if(g_ascii_strcasecmp(scheme, "http")==0 || g_ascii_strcasecmp(scheme, "https")==0)
+        key = "WebBrowser";
+    else if(g_ascii_strcasecmp(scheme, "mailto")==0)
+        key = "MailClient";
+    else /* we don't know this */
+        return;
+
+    kf = g_key_file_new();
+
+    /* try user config first */
+    fname = g_build_filename(g_get_user_config_dir(), "libfm/pref-apps.conf", NULL);
+    if(g_key_file_load_from_file(kf, fname, 0, NULL))
+    {
+        cmd = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
+        if(cmd && !*cmd)
+        {
+            g_free(cmd);
+            cmd = NULL;
+        }
+    }
+    g_free(fname);
+
+    if(!cmd) /* system-wide */
+    {
+        const gchar* const *dirs = g_get_system_config_dirs();
+        int i, n;
+        if(g_key_file_load_from_file(kf, fname, 0, NULL))
+            cmd = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
+        n = g_strv_length(dirs);
+        for( i = n - 1; i > 0; --i )
+        {
+            fname = g_build_filename(dirs[i], "libfm/pref-apps.conf", NULL);
+            if( g_key_file_load_from_file(kf, fname, 0, NULL) )
+                cmd = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
+            g_free(fname);
+            if(cmd)
+            {
+                if(*cmd)
+                    break;
+                else
+                {
+                    g_free(cmd);
+                    cmd = NULL;
+                }
+            }
+        }
+    }
+
+    g_key_file_free(kf);
+
+    if(!cmd)
+        return NULL;
+
+    if(g_str_has_suffix(cmd, ".desktop")) /* this is a desktop id */
+        app = g_desktop_app_info_new(cmd);
+    else
+        app = g_app_info_create_from_commandline(cmd, NULL, G_APP_INFO_CREATE_SUPPORTS_URIS, NULL);
+
+    g_debug("app for %s is %s", scheme, cmd);
+    g_free(cmd);
+
+    return app;
 }

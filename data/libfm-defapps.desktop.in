@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Preferred Applications
+Name[zh_TW]=偏好的應用程式
+Icon=preferences-desktop
+Exec=libfm-defapps
+StartupNotify=true
+Categories=Settings;DesktopSettings;X-LXDE-Settings;GTK;
+NotShowIn=GNOME;XFCE;

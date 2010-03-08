@@ -186,8 +186,29 @@ libfm_gtk_la_LDFLAGS = \
 	-export-symbols-regex fm \
 	$(NULL)
 
+bin_PROGRAMS = libfm-defapps
+
+libfm_defapps_SOURCES = \
+	tools/libfm-defapps.c \
+	$(NULL)
+
+libfm_defapps_CFLAGS = \
+	$(GTK_CFLAGS) \
+	$(MENU_CACHE_CFLAGS) \
+	-Werror-implicit-function-declaration \
+	$(NULL)
+
+libfm_defapps_LDADD = \
+	$(GTK_LIBS) \
+	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	libfm-gtk.la \
+	$(NULL)
+
+
 if ENABLE_DEMO
-bin_PROGRAMS = libfm-demo
+bin_PROGRAMS += libfm-demo
 libfm_demo_SOURCES = \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \

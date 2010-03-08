@@ -94,6 +94,7 @@ AC_CONFIG_FILES([
     src/Makefile
     data/Makefile
     data/ui/Makefile
+    data/libfm-defapps.desktop
     po/Makefile.in
     libfm.pc
     libfm-gtk.pc
