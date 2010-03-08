@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 17:01+0800\n"
+"POT-Creation-Date: 2010-03-08 18:10+0800\n"
 "PO-Revision-Date: 2010-02-20 19:27+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
 "Language-Team: gnome-cyr\n"
@@ -233,6 +233,39 @@ msgstr "<b>В:</b>"
 msgid "Preparing..."
 msgstr "Подготовка..."
 
+#: ../data/ui/default-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>Тип файла:<b>"
+
+#: ../data/ui/default-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:3
+#, fuzzy
+msgid "<b>Web Browser</b>"
+msgstr "<b>Владелец:</b>"
+
+#: ../data/ui/default-apps.glade.h:4
+#, fuzzy
+msgid "Command line:"
+msgstr "Пользовательская команда"
+
+#: ../data/ui/default-apps.glade.h:5
+msgid "File Associations"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "Приложения"
+
+#: ../data/ui/default-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "Прочие приложения"
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -289,7 +322,7 @@ msgstr "Корзина"
 msgid "My Computer"
 msgstr "Мой компьютер"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Приложения"
 
@@ -321,28 +354,28 @@ msgstr "Создание символьных ссылок"
 msgid "Changing file attributes"
 msgstr "Изменить атрибуты файла"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:178
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введите правильное имя пользователя или цифровой идентификатор."
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:210
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введите правильное имя группы или цифровой идентификатор."
 
-#: ../src/gtk/fm-file-properties.c:357
+#: ../src/gtk/fm-file-properties.c:358
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Применить ко всем вложенным файлам и каталогам?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Файлы разных типов"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Несколько файлов"
 
-#: ../src/gtk/fm-file-properties.c:764
+#: ../src/gtk/fm-file-properties.c:772
 msgid "Customize"
 msgstr "Настроить"
 
@@ -358,7 +391,7 @@ msgstr "Размонтировать том"
 msgid "Eject Removable Media"
 msgstr "Извлечь диск"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Переименовать закладку"
 
@@ -374,11 +407,11 @@ msgstr "Очистить корзину"
 msgid "Trash"
 msgstr "Корзина"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Рабочий стол"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
 
@@ -398,7 +431,7 @@ msgstr "Создать символьную ссылку"
 msgid "Send To"
 msgstr "Отправить"
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr "Ошибка XDirectSave."
 
@@ -458,7 +491,7 @@ msgstr "Введите новое имя:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Хотите очистить корзину?"
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:304
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Неправильно указан каталог"

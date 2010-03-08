@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 17:01+0800\n"
+"POT-Creation-Date: 2010-03-08 18:10+0800\n"
 "PO-Revision-Date: 2010-03-06 16:59+0800\n"
 "Last-Translator: Hong Jen Yee (PCMan) <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
@@ -229,6 +229,39 @@ msgstr "<b>到：</b>"
 msgid "Preparing..."
 msgstr "準備中..."
 
+#: ../data/ui/default-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>檔案類型：</b>"
+
+#: ../data/ui/default-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:3
+#, fuzzy
+msgid "<b>Web Browser</b>"
+msgstr "<b>擁有者：</b>"
+
+#: ../data/ui/default-apps.glade.h:4
+#, fuzzy
+msgid "Command line:"
+msgstr "自訂指令"
+
+#: ../data/ui/default-apps.glade.h:5
+msgid "File Associations"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "應用程式"
+
+#: ../data/ui/default-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "已安裝的應用程式"
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -283,7 +316,7 @@ msgstr "垃圾桶"
 msgid "My Computer"
 msgstr "我的電腦"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "應用程式"
 
@@ -315,28 +348,28 @@ msgstr "建立符號連結"
 msgid "Changing file attributes"
 msgstr "變更檔案屬性"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:178
 msgid "Please enter a valid user name or numeric id."
 msgstr "請輸入有效的使用者名稱或數字 id"
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:210
 msgid "Please enter a valid group name or numeric id."
 msgstr "請輸入有效的群組名稱或數字 id"
 
-#: ../src/gtk/fm-file-properties.c:357
+#: ../src/gtk/fm-file-properties.c:358
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "多種不同類型的檔案"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "多個檔案"
 
-#: ../src/gtk/fm-file-properties.c:764
+#: ../src/gtk/fm-file-properties.c:772
 msgid "Customize"
 msgstr "自訂"
 
@@ -352,7 +385,7 @@ msgstr "卸載裝置(_U)"
 msgid "Eject Removable Media"
 msgstr "退出可移除媒體"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "重新命名書籤項目"
 
@@ -368,11 +401,11 @@ msgstr "清空垃圾桶"
 msgid "Trash"
 msgstr "垃圾桶"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "桌面"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
 
@@ -392,7 +425,7 @@ msgstr "建立符號連結"
 msgid "Send To"
 msgstr "傳送到"
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失敗"
 
@@ -452,7 +485,7 @@ msgstr "請輸入新名稱："
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "是否確定要清空垃圾桶？"
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:304
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "指定的目錄是無效的"

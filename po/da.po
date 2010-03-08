@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 17:01+0800\n"
+"POT-Creation-Date: 2010-03-08 18:10+0800\n"
 "PO-Revision-Date: 2010-02-20 09:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -229,6 +229,39 @@ msgstr "<b>Til:</b>"
 msgid "Preparing..."
 msgstr "Forbereder..."
 
+#: ../data/ui/default-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>Filtype:</b>"
+
+#: ../data/ui/default-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:3
+#, fuzzy
+msgid "<b>Web Browser</b>"
+msgstr "<b>Ejer:</b>"
+
+#: ../data/ui/default-apps.glade.h:4
+#, fuzzy
+msgid "Command line:"
+msgstr "Tilpasset kommandolinje"
+
+#: ../data/ui/default-apps.glade.h:5
+msgid "File Associations"
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "Programmer"
+
+#: ../data/ui/default-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "Installerede programmer"
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -284,7 +317,7 @@ msgstr "Skraldespand"
 msgid "My Computer"
 msgstr "Min computer"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Programmer"
 
@@ -316,29 +349,29 @@ msgstr "Opretter symbolske henvisninger"
 msgid "Changing file attributes"
 msgstr "Ændrer filattributter"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:178
 msgid "Please enter a valid user name or numeric id."
 msgstr "Indtast venligst et gyldigt brugernavn eller numerisk id."
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:210
 msgid "Please enter a valid group name or numeric id."
 msgstr "Indtast venligst et gyldigt gruppenavn eller numerisk id."
 
-#: ../src/gtk/fm-file-properties.c:357
+#: ../src/gtk/fm-file-properties.c:358
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Filer af forskellige typer"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Flere filer"
 
-#: ../src/gtk/fm-file-properties.c:764
+#: ../src/gtk/fm-file-properties.c:772
 msgid "Customize"
 msgstr "Tilpas"
 
@@ -354,7 +387,7 @@ msgstr "Afmonter arkiv"
 msgid "Eject Removable Media"
 msgstr "Skub eksternt medie ud"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Omdøb bogmærkepunkt"
 
@@ -370,11 +403,11 @@ msgstr "Tom skraldespand"
 msgid "Trash"
 msgstr "Skraldespand"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Skrivebord"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Indtast et nyt navn:"
 
@@ -394,7 +427,7 @@ msgstr "Opret symbolsk henvisning"
 msgid "Send To"
 msgstr "Send til"
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr "XDirectSave mislykkedes."
 
@@ -454,7 +487,7 @@ msgstr "Indtast venligst et nyt navn:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:304
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Den angivne mappe er ikke gyldig"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 17:01+0800\n"
+"POT-Creation-Date: 2010-03-08 18:10+0800\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -233,6 +233,40 @@ msgstr "<b>Ide:</b>"
 msgid "Preparing..."
 msgstr "Előkészítés..."
 
+#: ../data/ui/default-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>Fájlméret</b>"
+
+#: ../data/ui/default-apps.glade.h:2
+#, fuzzy
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Tapéta</b>"
+
+#: ../data/ui/default-apps.glade.h:3
+#, fuzzy
+msgid "<b>Web Browser</b>"
+msgstr "<b>Más felhasználók:</b>"
+
+#: ../data/ui/default-apps.glade.h:4
+#, fuzzy
+msgid "Command line:"
+msgstr "Parancs:"
+
+#: ../data/ui/default-apps.glade.h:5
+msgid "File Associations"
+msgstr "Fájltársítások"
+
+#: ../data/ui/default-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "Más alkalmazások"
+
+#: ../data/ui/default-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "Más alkalmazások"
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -289,7 +323,7 @@ msgstr "Kuka"
 msgid "My Computer"
 msgstr "Saját gép"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Alkalmazások"
 
@@ -322,28 +356,28 @@ msgstr "Szimlinkek létrehozása"
 msgid "Changing file attributes"
 msgstr "Fájl attribútumok cseréje"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:178
 msgid "Please enter a valid user name or numeric id."
 msgstr "Adj érvényes felhasználó nevet vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:210
 msgid "Please enter a valid group name or numeric id."
 msgstr "Adj érvényes csoport neve vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:357
+#: ../src/gtk/fm-file-properties.c:358
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és mappára?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Különböző típusú fájlok"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Több fájl"
 
-#: ../src/gtk/fm-file-properties.c:764
+#: ../src/gtk/fm-file-properties.c:772
 msgid "Customize"
 msgstr ""
 
@@ -359,7 +393,7 @@ msgstr "Kötet lecsatolása"
 msgid "Eject Removable Media"
 msgstr "Eltávolítható média kiadása"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Könyvjelző elem átnevezése"
 
@@ -375,11 +409,11 @@ msgstr "Üres kuka"
 msgid "Trash"
 msgstr "Kuka"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Munkaasztal"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Adj egy új nevet:"
 
@@ -400,7 +434,7 @@ msgstr "Szimlink létrehozása"
 msgid "Send To"
 msgstr "Küldés ide"
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr "Az XDirectSave meghiúsult."
 
@@ -461,7 +495,7 @@ msgstr "Adj egy új nevet:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Kiüríted a kukát?"
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:304
 #, c-format
 msgid "The specified directory is not valid"
 msgstr ""
@@ -586,9 +620,6 @@ msgstr ""
 
 #~ msgid "Opacity of the selection box"
 #~ msgstr "Kijelölő dobod telítettsége"
-
-#~ msgid "Other Applications"
-#~ msgstr "Más alkalmazások"
 
 #~ msgid "Copyright (C) 2009"
 #~ msgstr "Copyright (C) 2009"
@@ -942,9 +973,6 @@ msgstr ""
 #~ msgid "Add _Custom Action"
 #~ msgstr "Egyéni művelet hozáadása"
 
-#~ msgid "File Associations"
-#~ msgstr "Fájltársítások"
-
 #~ msgid "Known File Types:"
 #~ msgstr "Ismert fájl típusok:"
 
@@ -953,9 +981,6 @@ msgstr ""
 
 #~ msgid "Move _Up"
 #~ msgstr "Mozgatás _fel:"
-
-#~ msgid "<b>Other Users:</b>"
-#~ msgstr "<b>Más felhasználók:</b>"
 
 #~ msgid "Execute"
 #~ msgstr "Futtat"
@@ -974,9 +999,6 @@ msgstr ""
 
 #~ msgid "<b>File Name Contains:</b>"
 #~ msgstr "<b>Fájlnév tartalma:</b>"
-
-#~ msgid "<b>File Size</b>"
-#~ msgstr "<b>Fájlméret</b>"
 
 #~ msgid "<b>File Types to Search</b>"
 #~ msgstr "<b>Keresendő fájltípusok</b>"
@@ -1069,9 +1091,6 @@ msgstr ""
 
 #~ msgid "<b>Colors</b>"
 #~ msgstr "<b>Színek</b>"
-
-#~ msgid "<b>Wallpaper</b>"
-#~ msgstr "<b>Tapéta</b>"
 
 #~ msgid "Disable \"Trash Can\" and delete files from disk directly"
 #~ msgstr "\"Lomtár\" kikapcsolása, s a fájlok közvetlen törlése"
@@ -1466,9 +1485,6 @@ msgstr ""
 #~ msgstr ""
 #~ "\n"
 #~ "Kész!"
-
-#~ msgid "Command:"
-#~ msgstr "Parancs:"
 
 #~ msgid "File System"
 #~ msgstr "Fájlrendszer"
