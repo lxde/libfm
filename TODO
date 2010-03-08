@@ -142,6 +142,9 @@
 * Show available disk space in status bar => done, but in a slightly dirty way.
      ==> need refactor
 
+* While create user-custom desktop files, search for existing ones, and only
+     add new mime-types to existing user-custom desktop files to prevent creating
+     too many duplicated desktop files for the same app.
 
 
 [Low Priority]
