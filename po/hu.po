@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 18:10+0800\n"
+"POT-Creation-Date: 2010-03-09 22:23+0800\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -267,6 +267,16 @@ msgstr "Más alkalmazások"
 msgid "System Applications"
 msgstr "Más alkalmazások"
 
+#: ../data/ui/default-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -356,30 +366,26 @@ msgstr "Szimlinkek létrehozása"
 msgid "Changing file attributes"
 msgstr "Fájl attribútumok cseréje"
 
-#: ../src/gtk/fm-file-properties.c:178
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr "Adj érvényes felhasználó nevet vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:210
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "Adj érvényes csoport neve vagy azonosítót"
 
-#: ../src/gtk/fm-file-properties.c:358
+#: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és mappára?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:628
 msgid "Files of different types"
 msgstr "Különböző típusú fájlok"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:656
 msgid "Multiple Files"
 msgstr "Több fájl"
-
-#: ../src/gtk/fm-file-properties.c:772
-msgid "Customize"
-msgstr ""
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -417,20 +423,20 @@ msgstr "Munkaasztal"
 msgid "Enter a new name:"
 msgstr "Adj egy új nevet:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
 #, fuzzy
 msgid "Open With..."
 msgstr "Megnyitás _ezzel:"
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Create Symlink"
 msgstr "Szimlink létrehozása"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:87
 msgid "Send To"
 msgstr "Küldés ide"
 
@@ -438,12 +444,12 @@ msgstr "Küldés ide"
 msgid "XDirectSave failed."
 msgstr "Az XDirectSave meghiúsult."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 #, fuzzy
 msgid "Use selected application to open files"
 msgstr "A választott alkalmazás legyen alap"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr ""
 
@@ -463,7 +469,7 @@ msgstr "Méret"
 msgid "Modified"
 msgstr "Módosítva"
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Telepített alkalmazások"
 

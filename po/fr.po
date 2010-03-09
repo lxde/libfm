@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 04:11+0000\n"
+"POT-Creation-Date: 2010-03-09 22:23+0800\n"
 "PO-Revision-Date: 2010-02-19 11:00+0100\n"
 "Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
 "Language-Team: \n"
@@ -57,7 +57,9 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
+msgstr ""
+"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
+"fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +185,9 @@ msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
+msgstr ""
+"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
+"faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -255,6 +259,16 @@ msgstr "Applications favorites"
 #: ../data/ui/default-apps.glade.h:7
 msgid "System Applications"
 msgstr "Applications systèmes"
+
+#: ../data/ui/default-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -343,29 +357,28 @@ msgstr "Créé des liens symboliques"
 msgid "Changing file attributes"
 msgstr "Change des attributs de fichiers"
 
-#: ../src/gtk/fm-file-properties.c:178
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr "Entrer un nom d'utilisateur ou un id numérique valide"
 
-#: ../src/gtk/fm-file-properties.c:210
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
-#: ../src/gtk/fm-file-properties.c:358
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
+#: ../src/gtk/fm-file-properties.c:351
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
+"sous-dossiers ?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:628
 msgid "Files of different types"
 msgstr "Fichiers de différents types"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:656
 msgid "Multiple Files"
 msgstr "Fichiers Multiples"
-
-#: ../src/gtk/fm-file-properties.c:772
-msgid "Customize"
-msgstr "Personnaliser"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -403,19 +416,19 @@ msgstr "Bureau"
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
 msgid "Open With..."
 msgstr "Ouvrir avec..."
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Rename"
 msgstr "Renomme"
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Create Symlink"
 msgstr "Crée Lien Symbolique"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:87
 msgid "Send To"
 msgstr "Envoie A"
 
@@ -423,11 +436,11 @@ msgstr "Envoie A"
 msgid "XDirectSave failed."
 msgstr "Échec de XDirectSave."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
 msgstr "Utiliser l'application sélectionnée les fichiers"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 
@@ -447,7 +460,7 @@ msgstr "Taille"
 msgid "Modified"
 msgstr "Modifié"
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Applications installées"
 
@@ -483,6 +496,9 @@ msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Le répertoire spécifié est invalide"
+
+#~ msgid "Customize"
+#~ msgstr "Personnaliser"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Ce n'est pas un dossier valide"

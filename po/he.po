@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 18:10+0800\n"
+"POT-Creation-Date: 2010-03-09 22:23+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -260,6 +260,16 @@ msgstr "יישומים"
 msgid "System Applications"
 msgstr "יישומים מותקנים"
 
+#: ../data/ui/default-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+
+#: ../data/ui/default-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -347,30 +357,26 @@ msgstr "נוצר קישור סימבולי"
 msgid "Changing file attributes"
 msgstr "שינוי תכונות הקובץ"
 
-#: ../src/gtk/fm-file-properties.c:178
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
 
-#: ../src/gtk/fm-file-properties.c:210
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
-#: ../src/gtk/fm-file-properties.c:358
+#: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:628
 msgid "Files of different types"
 msgstr "קבצים מסוגים שונים"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:656
 msgid "Multiple Files"
 msgstr "מספר קבצים"
-
-#: ../src/gtk/fm-file-properties.c:772
-msgid "Customize"
-msgstr "התאמה אישית"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -408,19 +414,19 @@ msgstr "שולחן עבודה"
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
 msgid "Open With..."
 msgstr "פתיחה באמצעות..."
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Rename"
 msgstr "שינוי שם"
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:86
 msgid "Create Symlink"
 msgstr "יצירת קישור סימבולי"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:87
 msgid "Send To"
 msgstr "שליחה אל"
 
@@ -428,11 +434,11 @@ msgstr "שליחה אל"
 msgid "XDirectSave failed."
 msgstr "XDirectSave כשלה."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
 msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
 
@@ -452,7 +458,7 @@ msgstr "גודל"
 msgid "Modified"
 msgstr "מועד השינוי"
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "יישומים מותקנים"
 
@@ -488,6 +494,9 @@ msgstr "האם לפנות את סל האשפה?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "התיקייה שצוינה אינה תקנית"
+
+#~ msgid "Customize"
+#~ msgstr "התאמה אישית"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "זו אינה תיקייה תקנית"
