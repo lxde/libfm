@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 18:10+0800\n"
+"POT-Creation-Date: 2010-03-09 04:11+0000\n"
 "PO-Revision-Date: 2010-02-19 11:00+0100\n"
 "Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
 "Language-Team: \n"
@@ -25,7 +25,7 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Type de fichier à ouvrir :</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "<b>Ces codes spéciaux peuvent être utilisé en ligne de commande:</b>\n"
 "  <b>%f</b>: Représente un unique nom de fichier\n"
-"  <b>%F:</b> Représente plusieurs nom de fichier\n"
+"  <b>%F:</b> Représente plusieurs noms de fichier\n"
 "  <b>%u</b>: Représente une unique URI d'un fichier\n"
 "  <b>%U</b>: Représente plusieurs URI"
 
@@ -57,9 +57,7 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
-"fichiers"
+msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,11 +182,8 @@ msgid "Operations that the owner of the file can do"
 msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
-"faire"
+msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -234,37 +229,32 @@ msgid "Preparing..."
 msgstr "Préparation..."
 
 #: ../data/ui/default-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Type de fichier:</b>"
+msgstr "<b>Client mail</b>"
 
 #: ../data/ui/default-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Émulateur de terminal</b>"
 
 #: ../data/ui/default-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Propriétaire:</b>"
+msgstr "<b>Navigateur web</b>"
 
 #: ../data/ui/default-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "Ligne de commande personnalisée"
+msgstr "Ligne de commande"
 
 #: ../data/ui/default-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Associations de fichier"
 
 #: ../data/ui/default-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Applications"
+msgstr "Applications favorites"
 
 #: ../data/ui/default-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Applications installées"
+msgstr "Applications systèmes"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -362,11 +352,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
 #: ../src/gtk/fm-file-properties.c:358
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
-"sous-dossiers ?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -495,7 +482,7 @@ msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 #: ../src/job/fm-dir-list-job.c:304
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Le répertoire spécifié est invalide"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Ce n'est pas un dossier valide"
