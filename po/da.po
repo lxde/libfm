@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:23+0800\n"
+"POT-Creation-Date: 2010-03-09 22:39+0800\n"
 "PO-Revision-Date: 2010-02-20 09:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -229,46 +229,46 @@ msgstr "<b>Til:</b>"
 msgid "Preparing..."
 msgstr "Forbereder..."
 
-#: ../data/ui/default-apps.glade.h:1
+#: ../data/ui/preferred-apps.glade.h:1
 #, fuzzy
 msgid "<b>Mail client</b>"
 msgstr "<b>Filtype:</b>"
 
-#: ../data/ui/default-apps.glade.h:2
+#: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:3
+#: ../data/ui/preferred-apps.glade.h:3
 #, fuzzy
 msgid "<b>Web Browser</b>"
 msgstr "<b>Ejer:</b>"
 
-#: ../data/ui/default-apps.glade.h:4
+#: ../data/ui/preferred-apps.glade.h:4
 #, fuzzy
 msgid "Command line:"
 msgstr "Tilpasset kommandolinje"
 
-#: ../data/ui/default-apps.glade.h:5
+#: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6
 #, fuzzy
 msgid "Preferred Applications"
 msgstr "Programmer"
 
-#: ../data/ui/default-apps.glade.h:7
+#: ../data/ui/preferred-apps.glade.h:7
 #, fuzzy
 msgid "System Applications"
 msgstr "Installerede programmer"
 
-#: ../data/ui/default-apps.glade.h:8
+#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:9
+#: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 

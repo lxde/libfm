@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:23+0800\n"
+"POT-Creation-Date: 2010-03-09 22:39+0800\n"
 "PO-Revision-Date: 2010-02-26 20:59+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -232,46 +232,46 @@ msgstr "<b>A:</v>"
 msgid "Preparing..."
 msgstr "In preparazione..."
 
-#: ../data/ui/default-apps.glade.h:1
+#: ../data/ui/preferred-apps.glade.h:1
 #, fuzzy
 msgid "<b>Mail client</b>"
 msgstr "<b>Tipo di file:</b>"
 
-#: ../data/ui/default-apps.glade.h:2
+#: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:3
+#: ../data/ui/preferred-apps.glade.h:3
 #, fuzzy
 msgid "<b>Web Browser</b>"
 msgstr "<b>Proprietario:</b>"
 
-#: ../data/ui/default-apps.glade.h:4
+#: ../data/ui/preferred-apps.glade.h:4
 #, fuzzy
 msgid "Command line:"
 msgstr "Comando personalizzato"
 
-#: ../data/ui/default-apps.glade.h:5
+#: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6
 #, fuzzy
 msgid "Preferred Applications"
 msgstr "Applicazioni"
 
-#: ../data/ui/default-apps.glade.h:7
+#: ../data/ui/preferred-apps.glade.h:7
 #, fuzzy
 msgid "System Applications"
 msgstr "Applicazioni installate"
 
-#: ../data/ui/default-apps.glade.h:8
+#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
 
-#: ../data/ui/default-apps.glade.h:9
+#: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 
