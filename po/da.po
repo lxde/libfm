@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 23:54+0800\n"
-"PO-Revision-Date: 2010-02-20 09:27+0000\n"
+"POT-Creation-Date: 2010-03-09 14:48+0000\n"
+"PO-Revision-Date: 2010-03-09 20:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -230,47 +230,44 @@ msgid "Preparing..."
 msgstr "Forbereder..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Filtype:</b>"
+msgstr "<b>Postklient</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Terminalemulator</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Ejer:</b>"
+msgstr "<b>Internetbrowser</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "Tilpasset kommandolinje"
+msgstr "Kommandolinje:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Filassociationer"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Programmer"
+msgstr "Foretrukne programmer"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Installerede programmer"
+msgstr "Systemprogrammer"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Den foretrukne postklient vil blive brugt til at udarbejde e-post når du "
+"klikker på e-post-adresser."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Den foretrukne internetbrowser vil blive brugt til at åbne internetadresser."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -445,10 +442,6 @@ msgstr "Vælg markeret program til at åbne filer med"
 msgid "Execute custom command line to open files"
 msgstr "Kør tilpasset kommandolinje for at åbne filer"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:185
-msgid "Customize"
-msgstr "Tilpas"
-
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Navn"
@@ -501,6 +494,9 @@ msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Den angivne mappe er ikke gyldig"
+
+#~ msgid "Customize"
+#~ msgstr "Tilpas"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Det er ikke en gyldig mappe"
