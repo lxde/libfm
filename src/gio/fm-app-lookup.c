@@ -26,6 +26,15 @@
 #include "fm-app-lookup.h"
 #include <gio/gdesktopappinfo.h>
 
+#ifndef G_IMPLEMENT_INTERFACE_DYNAMIC /* this macro is only provided in glib > 2.24 */
+    #define G_IMPLEMENT_INTERFACE_DYNAMIC(TYPE_IFACE, iface_init)       { \
+      const GInterfaceInfo g_implement_interface_info = { \
+        (GInterfaceInitFunc) iface_init, NULL, NULL      \
+      }; \
+      g_type_module_add_interface (type_module, g_define_type_id, TYPE_IFACE, &g_implement_interface_info); \
+    }
+#endif
+
 static void app_lookup_iface_init(GDesktopAppInfoLookupIface *iface);
 static GObject* fm_app_lookup_constructor(GType type, guint n_props, GObjectConstructParam *props);
 static void fm_app_lookup_finalize  			(GObject *object);
