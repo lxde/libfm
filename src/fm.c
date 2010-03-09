@@ -25,6 +25,8 @@
 #include <glib/gi18n-lib.h>
 #include "fm.h"
 
+GQuark fm_qdata_id = 0;
+
 gboolean fm_init(FmConfig* config)
 {
     char* path;
@@ -55,6 +57,8 @@ gboolean fm_init(FmConfig* config)
     path = g_strconcat(PACKAGE_LIB_DIR ":", g_getenv("PATH"), NULL);
     g_setenv("PATH", path, TRUE);
     g_free(path);
+
+    fm_qdata_id = g_quark_from_static_string("fm_qdata_id");
 
     return TRUE;
 }

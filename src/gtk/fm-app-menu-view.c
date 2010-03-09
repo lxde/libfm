@@ -1,18 +1,18 @@
 /*
  *      fm-app-menu-view.c
- *      
+ *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -124,14 +124,21 @@ GtkWidget *fm_app_menu_view_new(void)
     if(!store)
     {
         static GType menu_cache_item_type = 0;
+        char* oldenv;
         if(G_UNLIKELY(!menu_cache_item_type))
-            menu_cache_item_type = g_boxed_type_register_static("MenuCacheItem", 
+            menu_cache_item_type = g_boxed_type_register_static("MenuCacheItem",
                                             (GBoxedCopyFunc)menu_cache_item_ref,
                                             (GBoxedFreeFunc)menu_cache_item_unref);
         store = gtk_tree_store_new(N_COLS, G_TYPE_ICON, /*GDK_TYPE_PIXBUF, */G_TYPE_STRING, menu_cache_item_type);
         g_object_weak_ref(G_OBJECT(store), (GWeakNotify)destroy_store, NULL);
 
+        /* ensure that we're using lxmenu-data */
+        oldenv = g_strdup(g_getenv("XDG_MENU_PREFIX"));
+        g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
         menu_cache = menu_cache_lookup("applications.menu");
+        g_setenv("XDG_MENU_PREFIX", oldenv, TRUE);
+        g_free(oldenv);
+
         if(menu_cache)
         {
             MenuCacheDir* dir = menu_cache_get_root_dir(menu_cache);
@@ -184,7 +191,7 @@ char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
             return g_strdup(menu_cache_item_get_id(item));
     }
-    return NULL;    
+    return NULL;
 }
 
 char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
@@ -201,7 +208,7 @@ char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
             return path;
         }
     }
-    return NULL;    
+    return NULL;
 }
 
 gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it)

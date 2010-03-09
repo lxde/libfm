@@ -37,6 +37,7 @@
 #include "fm-path-entry.h"
 #include "fm-places-view.h"
 #include "fm-progress-dlg.h"
+#include "fm-app-chooser-combo-box.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
 #include "fm-thumbnail.h"

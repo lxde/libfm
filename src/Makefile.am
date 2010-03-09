@@ -67,6 +67,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-places-view.c \
 	gtk/fm-app-menu-view.c \
 	gtk/fm-app-chooser-dlg.c \
+	gtk/fm-app-chooser-combo-box.c \
 	gtk/fm-path-entry.c \
 	gtk/fm-file-menu.c \
 	gtk/fm-file-properties.c \
@@ -117,6 +118,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-places-view.h \
 	gtk/fm-app-menu-view.h \
 	gtk/fm-app-chooser-dlg.h \
+	gtk/fm-app-chooser-combo-box.h \
 	gtk/fm-path-entry.h \
 	gtk/fm-file-menu.h \
 	gtk/fm-file-properties.h \
@@ -194,6 +196,7 @@ libfm_defapps_SOURCES = \
 
 libfm_defapps_CFLAGS = \
 	$(GTK_CFLAGS) \
+	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)

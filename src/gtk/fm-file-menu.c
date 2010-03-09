@@ -25,6 +25,7 @@
 
 #include <glib/gi18n-lib.h>
 
+#include "fm.h"
 #include "fm-config.h"
 
 #include "fm-file-menu.h"
@@ -158,7 +159,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, gboolean auto_dest
                 gtk_action_set_gicon(act, g_app_info_get_icon(app));
                 gtk_action_group_add_action(act_grp, act);
                 /* associate the app info object with the action */
-                g_object_set_data_full(G_OBJECT(act), "app", app, (GDestroyNotify)g_object_unref);
+                g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, (GDestroyNotify)g_object_unref);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
             }
 
@@ -248,7 +249,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
 void on_open_with_app(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    GAppInfo* app = (GAppInfo*)g_object_get_data(G_OBJECT(action), "app");
+    GAppInfo* app = (GAppInfo*)g_object_get_qdata(G_OBJECT(action), fm_qdata_id);
     g_debug("%s", gtk_action_get_name(action));
     open_with_app(data, app);
 }

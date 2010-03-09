@@ -42,7 +42,7 @@
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
 
-#include "fm-app-chooser-dlg.h"
+#include "fm-app-chooser-combo-box.h"
 
 #define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
 #define     GET_WIDGET(name)    data->name = (GtkWidget*)gtk_builder_get_object(builder, #name);
@@ -95,11 +95,6 @@ struct _FmFilePropData
     gboolean all_native;
     gboolean has_dir;
     FmMimeType* mime_type;
-    GtkTreeIter separator_iter;
-    gpointer other_apps_iter_user_data;
-    GAppInfo* def_app;
-    GAppInfo* new_app;
-    GtkTreeIter prev_sel;
 
     uid_t uid;
     gid_t gid;
@@ -147,8 +142,6 @@ static void fm_file_prop_data_free(FmFilePropData* data)
         g_source_remove(data->timeout);
     if(data->dc_job) /* FIXME: check if it's running */
         fm_job_cancel(data->dc_job);
-    if(data->new_app)
-        g_object_unref(data->new_app);
     fm_list_unref(data->files);
     g_slice_free(FmFilePropData, data);
 }
@@ -367,15 +360,25 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             fm_list_unref(paths);
         }
 
-        /* change default application for the mime-type */
-        if(data->new_app && data->mime_type && data->mime_type->type)
+        /* change default application for the mime-type if needed */
+        if(data->mime_type && data->mime_type->type)
         {
+            GAppInfo* app;
+            gboolean default_app_changed = FALSE;
             GError* err = NULL;
-            g_app_info_set_as_default_for_type(data->new_app, data->mime_type->type, &err);
-            if(err)
+            app = fm_app_chooser_combo_box_get_selected(data->open_with, &default_app_changed);
+            if(app)
             {
-                fm_show_error(GTK_WINDOW(dlg), err->message);
-                g_error_free(err);
+                if(default_app_changed)
+                {
+                    g_app_info_set_as_default_for_type(app, data->mime_type->type, &err);
+                    if(err)
+                    {
+                        fm_show_error(GTK_WINDOW(dlg), err->message);
+                        g_error_free(err);
+                    }
+                }
+                g_object_unref(app);
             }
         }
 
@@ -659,130 +662,12 @@ static void update_ui(FmFilePropData* data)
     on_timeout(data);
 }
 
-static gboolean is_row_separator(GtkTreeModel* model, GtkTreeIter* it, gpointer user_data)
-{
-    FmFilePropData* data = (FmFilePropData*)user_data;
-    /* FIXME: this is dirty but it works! */
-    return data->separator_iter.user_data == it->user_data;
-}
-
-static void on_app_selected(GtkComboBox* cb, FmFilePropData* data)
-{
-    GtkTreeIter it;
-    if( gtk_combo_box_get_active_iter(cb, &it) )
-    {
-        GtkTreeModel* model = gtk_combo_box_get_model(cb);
-        /* if the user chooses "Other Applications..." */
-        if(it.user_data == data->other_apps_iter_user_data)
-        {
-            /* let the user choose a app or add custom actions here. */
-            GAppInfo* app = fm_choose_app_for_mime_type(GTK_WINDOW(data->dlg), data->mime_type, FALSE);
-            if(app)
-            {
-                gboolean found = FALSE;
-                /* see if it's already in the list to prevent duplication */
-                if(gtk_tree_model_get_iter_first(model, &it))
-                {
-                    GAppInfo *_app;
-                    do
-                    {
-                        gtk_tree_model_get(model, &it, 2, &_app, -1);
-                        if(_app)
-                        {
-                            found = g_app_info_equal(app, _app);
-                            g_object_unref(_app);
-                        }
-                        if(found)
-                            break;
-                    }while(gtk_tree_model_iter_next(model, &it));
-                }
-
-                /* if it's not found, add it to the list */
-                if(!found)
-                {
-                    gtk_list_store_insert_before(GTK_LIST_STORE(model), &it, &data->separator_iter);
-                    gtk_list_store_set(model, &it,
-                                       0, g_app_info_get_icon(app),
-                                       1, g_app_info_get_name(app),
-                                       2, app, -1);
-                    data->prev_sel = it;
-                    // data->new_app = app;
-                    gtk_combo_box_set_active_iter(cb, &it);
-                }
-                else
-                {
-                    g_object_unref(app);
-                    gtk_combo_box_set_active_iter(cb, &it);
-                }
-            }
-            else if(data->prev_sel.user_data)
-                gtk_combo_box_set_active_iter(cb, &data->prev_sel);
-        }
-        else /* an application in the list is selected */
-        {
-            if(data->new_app) /* unref the old one */
-                g_object_unref(data->new_app);
-            gtk_tree_model_get(model, &it, 2, &data->new_app, -1);
-            if(data->new_app && data->def_app && g_app_info_equal(data->new_app, data->def_app))
-            {
-                g_object_unref(data->new_app);
-                data->new_app = NULL;
-            }
-            data->prev_sel = it;
-        }
-    }
-}
-
 static void init_application_list(FmFilePropData* data)
 {
     if(data->single_type && data->mime_type)
     {
         if(g_strcmp0(data->mime_type->type, "inode/directory"))
-        {
-            GtkListStore* store = gtk_list_store_new(3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_APP_INFO);
-            GtkTreeIter it ,def_it = {0};
-            GList *apps = g_app_info_get_all_for_type(data->mime_type->type), *l;
-            GAppInfo* def_app = g_app_info_get_default_for_type(data->mime_type->type, FALSE);
-            for(l = apps; l; l = l->next)
-            {
-                GAppInfo* app = G_APP_INFO(l->data);
-                gtk_list_store_append(store, &it);
-                gtk_list_store_set(store, &it,
-                                   0, g_app_info_get_icon(app),
-                                   1, g_app_info_get_name(app),
-                                   2, app, -1);
-                if(g_app_info_equal(app, def_app))
-                {
-                    /* this is the default app */
-                    def_it = it;
-                    data->def_app = app;
-                }
-                g_object_unref(app);
-            }
-            if(def_app)
-                g_object_unref(def_app); /* free default app */
-            g_list_free(apps);
-            gtk_list_store_append(store, &it); /* separator */
-            data->separator_iter = it;
-
-            gtk_list_store_append(store, &it); /* other applications */
-            data->other_apps_iter_user_data = it.user_data;
-            gtk_list_store_set(store, &it,
-                               0, NULL,
-                               1, _("Customize"),
-                               2, NULL, -1);
-            gtk_combo_box_set_model(GTK_COMBO_BOX(data->open_with), store);
-            if(def_it.user_data) /* default app is found */
-            {
-                data->prev_sel = def_it;
-                gtk_combo_box_set_active_iter(GTK_COMBO_BOX(data->open_with), &def_it);
-            }
-            gtk_combo_box_set_row_separator_func(GTK_COMBO_BOX(data->open_with), is_row_separator, data, NULL);
-            g_object_unref(store);
-
-            g_signal_connect(data->open_with, "changed",
-                             G_CALLBACK(on_app_selected), data);
-        }
+            fm_app_chooser_combo_box_setup_for_mime_type(data->open_with, data->mime_type);
         else /* shouldn't allow set file association for folders. */
         {
             gtk_widget_destroy(data->open_with_label);

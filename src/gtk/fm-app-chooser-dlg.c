@@ -25,6 +25,7 @@
 #include <glib/gi18n-lib.h>
 #include <string.h>
 #include <unistd.h>
+#include "fm.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
 #include <menu-cache.h>
@@ -164,7 +165,7 @@ GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
 
     g_object_unref(builder);
 
-    g_object_set_data_full(G_OBJECT(data->dlg), "data", data, (GDestroyNotify)on_dlg_destroy);
+    g_object_set_qdata_full(G_OBJECT(data->dlg), fm_qdata_id, data, (GDestroyNotify)on_dlg_destroy);
     g_signal_connect(data->notebook, "switch-page", G_CALLBACK(on_switch_page), data);
     on_switch_page(GTK_NOTEBOOK(data->notebook), NULL, 0, data);
     tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(data->apps_view));
@@ -195,7 +196,7 @@ inline static char* get_binary(const char* cmdline, gboolean* arg_found)
 GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_default)
 {
     GAppInfo* app = NULL;
-    AppChooserData* data = (AppChooserData*)g_object_get_data(G_OBJECT(dlg), "data");
+    AppChooserData* data = (AppChooserData*)g_object_get_qdata(G_OBJECT(dlg), fm_qdata_id);
     switch( gtk_notebook_get_current_page(GTK_NOTEBOOK(data->notebook)) )
     {
     case 0: /* all applications */

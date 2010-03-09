@@ -253,15 +253,6 @@
                       <object class="GtkComboBox" id="open_with">
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes">Select the application used to open files of this type </property>
-                        <child>
-                          <object class="GtkCellRendererPixbuf" id="icon_render"/>
-                        </child>
-                        <child>
-                          <object class="GtkCellRendererText" id="text_render"/>
-                          <attributes>
-                            <attribute name="text">1</attribute>
-                          </attributes>
-                        </child>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

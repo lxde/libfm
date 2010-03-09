@@ -231,7 +231,7 @@ static void create_bookmarks_menu(FmMainWin* win)
         GtkWidget* mi = gtk_image_menu_item_new_with_label(item->name);
         gtk_widget_show(mi);
         // gtk_image_menu_item_set_image(); // FIXME: set icons for menu items
-        g_object_set_data_full(G_OBJECT(mi), "path", fm_path_ref(item->path), (GDestroyNotify)fm_path_unref);
+        g_object_set_qdata_full(G_OBJECT(mi), fm_qdata_id, fm_path_ref(item->path), (GDestroyNotify)fm_path_unref);
         g_signal_connect(mi, "activate", G_CALLBACK(on_bookmark), win);
         gtk_menu_shell_insert(GTK_MENU_SHELL(win->bookmarks_menu), mi, i);
         ++i;
@@ -269,7 +269,7 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
 
 static void on_history_item(GtkMenuItem* mi, FmMainWin* win)
 {
-    GList* l = g_object_get_data(G_OBJECT(mi), "path");
+    GList* l = g_object_get_qdata(G_OBJECT(mi), fm_qdata_id);
     const FmNavHistoryItem* item = (FmNavHistoryItem*)l->data;
     int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
     fm_nav_history_jump(win->nav_history, l, scroll_pos);
@@ -303,7 +303,7 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
             mi = gtk_menu_item_new_with_label(str);
         g_free(str);
 
-        g_object_set_data_full(G_OBJECT(mi), "path", l, NULL);
+        g_object_set_qdata_full(G_OBJECT(mi), fm_qdata_id, l, NULL);
         g_signal_connect(mi, "activate", G_CALLBACK(on_history_item), win);
         gtk_menu_shell_append(menu, mi);
     }

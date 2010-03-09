@@ -46,6 +46,8 @@
 
 G_BEGIN_DECLS
 
+extern GQuark fm_qdata_id; /* a quark value used to associate data with objects */
+
 gboolean fm_init(FmConfig* config);
 void fm_finalize();
 
