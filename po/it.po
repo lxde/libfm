@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-09 23:54+0800\n"
-"PO-Revision-Date: 2010-03-09 18:41+0100\n"
+"PO-Revision-Date: 2010-03-09 20:39+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgstr "<b>Avanzamento.</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:5
 msgid "<b>To:</b>"
-msgstr "<b>A:</v>"
+msgstr "<b>A:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:7
@@ -234,7 +234,7 @@ msgstr "<b>Client Mail</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Emulatore di Terminale"
+msgstr "<b>Emulatore di Terminale</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -258,7 +258,7 @@ msgstr "Applicazioni di sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Il client Mail preferito sarà usato per comporre emali quando cliccherai un indirizzo E-mail"
+msgstr "Il client Mail preferito sarà usato per comporre email quando cliccherai un indirizzo E-mail"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
