@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-08 18:10+0800\n"
-"PO-Revision-Date: 2010-02-23 13:57-0000\n"
+"POT-Creation-Date: 2010-03-09 04:11+0000\n"
+"PO-Revision-Date: 2010-03-09 12:33-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -185,8 +185,7 @@ msgstr "Operações que o dono do ficheiro pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operações que os utilizadores no mesmo grupo do dono do ficheiro podem fazer"
+msgstr "Operações que os utilizadores no mesmo grupo do dono do ficheiro podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -232,39 +231,35 @@ msgid "Preparing..."
 msgstr "Preparando..."
 
 #: ../data/ui/default-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Tipo de arquivo:</b>"
+msgstr "<b>Cliente de E-mail</b>"
 
 #: ../data/ui/default-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b> Emulador de Terminal</b>"
 
 #: ../data/ui/default-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Dono:</b>"
+msgstr "<b>Navegador Web</b>"
 
 #: ../data/ui/default-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "Linha de Comandos Personalizada"
+msgstr "Linha de comandos:"
 
 #: ../data/ui/default-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Associação de Ficheiros"
 
 #: ../data/ui/default-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Aplicações"
+msgstr "Aplicações Preferenciais"
 
 #: ../data/ui/default-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Aplicações Instaladas"
+msgstr "Aplicações do Sistema"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -319,7 +314,8 @@ msgstr "Lixo"
 msgid "My Computer"
 msgstr "Meu Computador"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:433
+#: ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Aplicações"
 
@@ -360,8 +356,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:358
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Deseja aplicar estas modificações a todas os ficheiros e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -388,7 +383,8 @@ msgstr "Desmontar Volume"
 msgid "Eject Removable Media"
 msgstr "Ejectar Média Amovível"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Renomear Marcador"
 
@@ -412,7 +408,8 @@ msgstr "Área de Trabalho"
 msgid "Enter a new name:"
 msgstr "Ondique o novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:78 ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:78
+#: ../src/gtk/fm-file-menu.c:79
 msgid "Open With..."
 msgstr "Abrir Com..."
 
@@ -499,3 +496,4 @@ msgstr "O directório especificado é inválido"
 #, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Seleccione uma pasta"
+
