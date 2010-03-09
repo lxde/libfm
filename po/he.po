@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -442,6 +442,10 @@ msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
 msgid "Execute custom command line to open files"
 msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "התאמה אישית"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "שם"
@@ -494,9 +498,6 @@ msgstr "האם לפנות את סל האשפה?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "התיקייה שצוינה אינה תקנית"
-
-#~ msgid "Customize"
-#~ msgstr "התאמה אישית"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "זו אינה תיקייה תקנית"

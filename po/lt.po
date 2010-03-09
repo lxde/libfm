@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -442,6 +442,10 @@ msgstr "Naudoti pasirinktą programą atverti failams"
 msgid "Execute custom command line to open files"
 msgstr ""
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Derinti"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Pavadinimas"
@@ -494,9 +498,6 @@ msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Nurodytas aplankas yra neteisingas"
-
-#~ msgid "Customize"
-#~ msgstr "Derinti"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Tai nėra tinkamas aplankas"

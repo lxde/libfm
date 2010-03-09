@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 14:48+0000\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: 2010-02-20 19:27+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
 "Language-Team: gnome-cyr\n"
@@ -440,6 +440,10 @@ msgstr "Использоватье выбранное приложение дл�
 msgid "Execute custom command line to open files"
 msgstr "Выполнить пользовательскую команду для открытия файлов"
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Настроить"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Имя"
@@ -492,9 +496,6 @@ msgstr "Хотите очистить корзину?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Неправильно указан каталог"
-
-#~ msgid "Customize"
-#~ msgstr "Настроить"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Неверный каталог"

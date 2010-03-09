@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -449,6 +449,10 @@ msgstr "Використати вибрану програму для відкр
 msgid "Execute custom command line to open files"
 msgstr "Виконати власну команду для відкриття файлів"
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Налаштувати"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Назва"
@@ -501,9 +505,6 @@ msgstr "Ви дійсно бажаєте очистити смітник?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Вказана тека неправильна"
-
-#~ msgid "Customize"
-#~ msgstr "Налаштувати"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властивий каталог"

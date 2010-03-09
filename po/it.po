@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: 2010-02-26 20:59+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -447,6 +447,10 @@ msgstr "Utilizza l'applicazione selezionata per aprire i file"
 msgid "Execute custom command line to open files"
 msgstr "Esegui comando personalizzato per aprire i file"
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Personalizza"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Nome"
@@ -499,9 +503,6 @@ msgstr "Sei sicuro di voler svuotare il cestino?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "La cartella specificata non è valida"
-
-#~ msgid "Customize"
-#~ msgstr "Personalizza"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Non è una cartella valida"

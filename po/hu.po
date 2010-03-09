@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PCMan File Manager 0.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: 2010-01-31 02:32+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.debian.org>\n"
@@ -451,6 +451,10 @@ msgstr "A választott alkalmazás legyen alap"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:468

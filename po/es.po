@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 22:39+0800\n"
+"POT-Creation-Date: 2010-03-09 23:54+0800\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -450,6 +450,10 @@ msgstr "Utilizar la aplicación seleccionada para abrir los archivos"
 msgid "Execute custom command line to open files"
 msgstr "Ejecutar línea de comandos personalizada para abrir los archivos"
 
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Personalizar"
+
 #: ../src/gtk/fm-folder-view.c:468
 msgid "Name"
 msgstr "Nombre"
@@ -502,9 +506,6 @@ msgstr "¿Está seguro de desear vaciar la papelera?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "El directorio especificado no es válido"
-
-#~ msgid "Customize"
-#~ msgstr "Personalizar"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "No es un directorio válido"
