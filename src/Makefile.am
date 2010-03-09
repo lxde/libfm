@@ -188,20 +188,20 @@ libfm_gtk_la_LDFLAGS = \
 	-export-symbols-regex fm \
 	$(NULL)
 
-bin_PROGRAMS = libfm-defapps
+bin_PROGRAMS = libfm-pref-apps
 
-libfm_defapps_SOURCES = \
-	tools/libfm-defapps.c \
+libfm_pref_apps_SOURCES = \
+	tools/libfm-pref-apps.c \
 	$(NULL)
 
-libfm_defapps_CFLAGS = \
+libfm_pref_apps_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
-libfm_defapps_LDADD = \
+libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \

@@ -13,7 +13,7 @@ libfmconf_DATA = \
 
 desktopdir=$(datadir)/applications
 desktop_DATA= \
-	libfm-defapps.desktop \
+	libfm-pref-apps.desktop \
 	$(NULL)
 
 EXTRA_DIST= \

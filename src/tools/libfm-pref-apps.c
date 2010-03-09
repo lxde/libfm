@@ -1,5 +1,5 @@
 /*
- *      libfm-defapps.c
+ *      libfm-prefapps.c
  *
  *      Copyright 2010 PCMan <pcman.tw@gmail.com>
  *
@@ -143,7 +143,7 @@ int main(int argc, char** argv)
     fm_gtk_init(NULL);
 
     b = gtk_builder_new();
-    gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/default-apps.ui", NULL);
+    gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/preferred-apps.ui", NULL);
     dlg = GTK_WIDGET(gtk_builder_get_object(b, "dlg"));
     browser = GTK_WIDGET(gtk_builder_get_object(b, "browser"));
     mail_client = GTK_WIDGET(gtk_builder_get_object(b, "mail_client"));

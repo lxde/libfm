@@ -2,7 +2,7 @@ data/ui/app-chooser.glade
 data/ui/ask-rename.glade
 data/ui/file-prop.glade
 data/ui/progress.glade
-data/ui/default-apps.glade
+data/ui/preferred-apps.glade
 src/base/fm-utils.c
 src/base/fm-file-info.c
 src/base/fm-path.c
@@ -17,4 +17,4 @@ src/gtk/fm-app-menu-view.c
 src/gtk/fm-gtk-utils.c
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
-src/tools/libfm-defapps.c
+src/tools/libfm-pref-apps.c
