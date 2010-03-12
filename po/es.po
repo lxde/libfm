@@ -2,12 +2,12 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the libfm package.
 # Hugo Florentino <sysadmin@cips.cu>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 23:54+0800\n"
+"POT-Creation-Date: 2010-03-12 04:08+0000\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -57,9 +57,7 @@ msgstr "Aplicación instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Establecer la aplicación seleccionada como predeterminada  para abrir los "
-"archivos de este tipo"
+msgstr "Establecer la aplicación seleccionada como predeterminada  para abrir los archivos de este tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -185,9 +183,7 @@ msgstr "Operaciones permitidas al propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operaciones permitidas a los usuarios del mismo grupo que el propietario del "
-"archivo"
+msgstr "Operaciones permitidas a los usuarios del mismo grupo que el propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -199,8 +195,7 @@ msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
-"Seleccione la aplicación utilizada para abrir los archivos de este tipo"
+msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -234,47 +229,40 @@ msgid "Preparing..."
 msgstr "Preparando..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "<b>Cliente de correo</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Emulador de terminal</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Propietario:</b>"
+msgstr "<b>Navegador web</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "Línea de comandos personalizada"
+msgstr "Línea de comandos:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Asociaciones de archivos"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Aplicaciones"
+msgstr "Aplicaciones preferidas"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Aplicaciones instaladas"
+msgstr "Aplicaciones del sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "El cliente de correo preferido se utilizará para redactar los mensajes cuando haga clic en las direcciones de correo."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "El navegador preferido se utilizará para abrir los hipervínculos."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -372,11 +360,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
-"subcarpetas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "¿Desea aplicar recursivamente estos cambios a todos los archivos y subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:628
 msgid "Files of different types"
