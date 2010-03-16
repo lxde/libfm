@@ -98,10 +98,11 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
     app = g_desktop_app_info_new_from_keyfile(dummy);
 
     g_key_file_free(dummy);
+    g_debug("cmd = %s", cmd);
     if(app)
     {
         GList* uris = NULL, *l;
-        for(l = files; l; l=l->next)
+        for(l = fm_list_peek_head_link(files); l; l=l->next)
         {
             FmPath* path = FM_PATH(l->data);
             uris = g_list_prepend(uris, fm_path_to_uri(path));
@@ -116,7 +117,6 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
 
 gboolean fm_archiver_create_archive(FmArchiver* archiver, GAppLaunchContext* ctx, FmPathList* files)
 {
-    g_debug("here: %p", files);
     if(archiver->create_cmd && files)
         launch_program(archiver, ctx, archiver->create_cmd, files, NULL);
     return FALSE;
