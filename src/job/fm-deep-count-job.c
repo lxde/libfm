@@ -195,7 +195,7 @@ void deep_count_gio(FmDeepCountJob* job, FmPath* fm_path)
             gboolean descend;
 
             /* trash:/// doesn't support deleting files recursively */
-            if(job->flags & FM_DC_JOB_PREPARE_DELETE && fm_path_is_trash(fm_path))
+            if(job->flags & FM_DC_JOB_PREPARE_DELETE && fm_path_is_trash(fm_path) && ! fm_path_is_trash_root(fm_path))
                 descend = FALSE;
             else
             {

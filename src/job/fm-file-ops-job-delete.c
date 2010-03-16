@@ -81,7 +81,13 @@ gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
         {
             char* scheme = g_file_get_uri_scheme(gf);
             if(g_strcmp0(scheme, "trash") == 0)
-                descend = FALSE;
+            {
+                /* little trick: basename of trash root is /. */
+                char* basename = g_file_get_basename(gf);
+                if(basename[0] != G_DIR_SEPARATOR)
+                    descend = FALSE;
+                g_free(basename);
+            }
             g_free(scheme);
         }
     }
