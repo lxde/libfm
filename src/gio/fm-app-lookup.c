@@ -85,7 +85,6 @@ void fm_app_lookup_register(GIOModule *module)
 {
     gint priority;
     fm_app_lookup_register_type(G_TYPE_MODULE (module));
-
     /* check if we're in gnome, if true, use lower priority.
      * otherwise, use a high priority to override gvfs gconf module.
      * priority of the gconf module of gvfs is 10. */
@@ -120,7 +119,7 @@ GAppInfo *get_default_for_uri_scheme(GDesktopAppInfoLookup *lookup, const char *
     else if(g_ascii_strcasecmp(scheme, "mailto")==0)
         key = "MailClient";
     else /* we don't know this */
-        return;
+        return NULL;
 
     kf = g_key_file_new();
 
