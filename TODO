@@ -63,11 +63,13 @@
 
 * Bug: clicking on detailed view's column to change sorting didn't update the sort sub menu in main menu.
 
-* Bug file properties dialog failed to show atime.
-
 * Implement our own empty trash API since delete a file in trash:/// with g_file_delete really sucks.
 
 * Implement our own trash can since the one provided by gvfs really sucks!
+
+* Maybe we can add a gtk+ module and register our own implementation of GtkFileChooserWidget.
+
+* Handle self-mangled symlinks.
 
 
 
@@ -105,6 +107,7 @@
 * Custom actions for specific file types.
      integration with archivers is a must have, but how?
      Maybe we can use the implementation proposed by KDE.
+     (Compress / Extract are now supported in another way.)
 
 * GtkFileChooser style path button bar. (can take the one in gtk)
 
