@@ -16,9 +16,15 @@ desktop_DATA= \
 	libfm-pref-apps.desktop \
 	$(NULL)
 
+libfmdatafilesdir = $(datadir)/libfm
+libfmdatafiles_DATA = \
+	archivers.list \
+	$(NULL)
+
 EXTRA_DIST= \
 	$(libfmconf_DATA) \
 	$(mime_DATA) \
+	$(libfmdatafiles_DATA) \
 	$(desktop_DATA) \
 	$(NULL)
 

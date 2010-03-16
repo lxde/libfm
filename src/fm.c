@@ -52,6 +52,7 @@ gboolean fm_init(FmConfig* config)
     fm_icon_init();
     fm_monitor_init();
     fm_file_info_init();
+    _fm_archiver_init();
 
     /* override gnome-terminal */
     path = g_strconcat(PACKAGE_LIB_DIR ":", g_getenv("PATH"), NULL);
@@ -67,6 +68,7 @@ void fm_finalize()
 {
 	fm_icon_finalize();
     fm_monitor_finalize();
+    _fm_archiver_finalize();
 
     fm_config_save(fm_config, NULL);
     g_object_unref(fm_config);

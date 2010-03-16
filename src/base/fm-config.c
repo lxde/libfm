@@ -1,18 +1,18 @@
 /*
  *      fm-config.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -108,6 +108,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
     cfg->terminal = g_key_file_get_string(kf, "config", "terminal", NULL);
+    cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
 
@@ -176,6 +177,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
             if(cfg->terminal)
                 fprintf(f, "terminal=%s\n", cfg->terminal);
+            if(cfg->archiver)
+                fprintf(f, "archiver=%s\n", cfg->archiver);
             fprintf(f, "thumbnail_local=%d\n", cfg->thumbnail_local);
             fprintf(f, "thumbnail_max=%d\n", cfg->thumbnail_max);
             fputs("\n[ui]\n", f);
