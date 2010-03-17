@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 17:57+0000\n"
+"POT-Creation-Date: 2010-03-17 04:11+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -409,21 +409,33 @@ msgstr "Стільниця"
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Відкрити з..."
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Створити символьне посилання"
 
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Вислати до"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Спакувати..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Розпакувати сюди"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Розпакувати до..."
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
