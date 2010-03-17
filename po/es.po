@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-12 04:08+0000\n"
+"POT-Creation-Date: 2010-03-17 04:11+0000\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -407,21 +407,33 @@ msgstr "Escritorio"
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Abrir con..."
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Crear enlace simbólico"
 
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Enviar a"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Comprimir..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Extraer aquí"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Estraer a..."
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
