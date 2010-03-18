@@ -13,12 +13,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 "Language: ru\n"
+"X-Generator: Virtaal 0.5.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: RUSSIAN FEDERATION\n"
-"X-Generator: Virtaal 0.5.2\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -61,7 +61,7 @@ msgstr "Установленное приложение"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Выберать приложение, запускаемое по умолчанию для этого типа файлов"
+msgstr "Выбрать приложение, запускаемое по умолчанию для этого типа файлов"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -135,7 +135,7 @@ msgstr "<b>Расположение:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Открыть _с:</b>"
+msgstr "<b>Открыть _с помощью:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
@@ -414,7 +414,7 @@ msgstr "Введите новое имя:"
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr "Открыть с..."
+msgstr "Открыть с помощью..."
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
