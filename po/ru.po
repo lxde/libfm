@@ -75,7 +75,7 @@ msgid ""
 msgstr ""
 "<b>Файл с таким именем уже существует в выбранном каталоге.</b>\n"
 "\n"
-"Заменить существующий файл"
+"Заменить существующий файл?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -199,7 +199,7 @@ msgstr "Только для чтения"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Выберите приложения для запуска файла"
+msgstr "Выберите приложение для запуска файла"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -446,7 +446,7 @@ msgstr "Ошибка XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Использоватье выбранное приложение для открытия файлов"
+msgstr "Использовать выбранное приложение для открытия файлов"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
