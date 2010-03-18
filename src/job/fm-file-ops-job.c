@@ -127,12 +127,6 @@ FmJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 	return (FmJob*)job;
 }
 
-/*
-void fm_file_ops_job_cancel(FmJob* job)
-{
-
-}
-*/
 
 gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
@@ -184,12 +178,6 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
     job->recursive = recursive;
 }
 
-static gboolean on_cancelled(FmFileOpsJob* job)
-{
-	fm_job_emit_cancelled((FmJob*)job);
-	return FALSE;
-}
-
 static void emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
 	g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
@@ -207,7 +195,17 @@ static void emit_percent(FmFileOpsJob* job, gpointer percent)
 
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 {
-    guint percent = job->total > 0 ? (guint)(job->finished + job->current) * 100 / job->total : 100;
+    guint percent;
+    if(job->total > 0)
+    {
+        gdouble dpercent = (gdouble)(job->finished + job->current_file_finished) / job->total;
+        percent = (guint)(dpercent * 100);
+        if(percent > 100)
+            percent = 100;
+    }
+    else
+        percent = 100;
+
     if( percent > job->percent )
     {
     	fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
@@ -245,11 +243,11 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     }
     fm_file_info_job_add_gfile(fijob, dest);
 
-    fm_job_set_cancellable(FM_JOB(fijob), FM_JOB(job)->cancellable);
+    fm_job_set_cancellable(FM_JOB(fijob), fm_job_get_cancellable(FM_JOB(job)));
     fm_job_run_sync(FM_JOB(fijob));
 
     /* FIXME, handle cancellation correctly */
-    if(FM_JOB(fijob)->cancel)
+    if( fm_job_is_cancelled(FM_JOB(fijob)) )
     {
         if(src_fi)
             fm_file_info_unref(src_fi);
@@ -292,10 +290,10 @@ gboolean fm_file_ops_job_link_run(FmFileOpsJob* job)
     FmJob* fmjob = FM_JOB(job);
     job->total = fm_list_get_length(job->srcs);
 	l = fm_list_peek_head_link(job->srcs);
-	for(; !fmjob->cancel && l;l=l->next)
+	for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
 	{
 		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
-        gboolean ret = g_file_make_symbolic_link(gf, "", fmjob->cancellable, &err);
+        gboolean ret = g_file_make_symbolic_link(gf, "", fm_job_get_cancellable(fmjob), &err);
 		g_object_unref(gf);
         if(!ret)
         {

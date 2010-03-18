@@ -30,12 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _FmProgressDisplay FmProgressDisplay;
 
-
-/* Show progress dialog for file operations
+/* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
  */
-FmProgressDisplay* fm_display_progress(FmFileOpsJob* job);
+FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job);
 
 G_END_DECLS
 

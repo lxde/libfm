@@ -78,7 +78,7 @@ struct _FmFileOpsJob
 
 	goffset total;
 	goffset finished;
-	goffset current;
+	goffset current_file_finished;
 	goffset rate;
     guint percent;
 	time_t started_time;

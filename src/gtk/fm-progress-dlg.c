@@ -39,11 +39,18 @@ struct _FmProgressDisplay
     FmFileOpsJob* job;
 
     /* private */
+    GtkWidget* icon;
+    GtkWidget* msg;
     GtkWidget* act;
     GtkWidget* src;
     GtkWidget* dest;
     GtkWidget* current;
     GtkWidget* progress;
+    GtkWidget* remaining_time;
+    GtkWidget* error_pane;
+    GtkWidget* error_msg;
+    GtkTextBuffer* error_buf;
+    GtkTextTag* bold_tag;
 
     FmFileOpOption default_opt;
 
@@ -52,6 +59,10 @@ struct _FmProgressDisplay
 
     guint delay_timeout;
     guint update_timeout;
+    guint speed_timeout;
+    time_t elapsed_time;
+    gboolean handling_error : 1;
+    gboolean has_error : 1;
 };
 
 static void ensure_dlg(FmProgressDisplay* data);
@@ -77,11 +88,35 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
     data->cur_file = g_strdup(cur_file);
 }
 
-static gboolean on_error(FmFileOpsJob* job, GError* err, gboolean recoverable, FmProgressDisplay* data)
+static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSeverity severity, FmProgressDisplay* data)
 {
+    GtkTextIter it;
+    data->handling_error = TRUE;
+    data->has_error = TRUE;
+
     ensure_dlg(data);
-    fm_show_error(GTK_WINDOW(data->dlg), err->message);
-    return FALSE;
+
+/*
+    FIXME: Need to mount volumes on demand here, too.
+    if( err->domain == G_IO_ERROR )
+    {
+        if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
+            if(fm_mount_path(parent, dest_path))
+                return FM_JOB_RETRY;
+    }
+*/
+
+    gtk_text_buffer_get_end_iter(data->error_buf, &it);
+    gtk_text_buffer_insert_with_tags(data->error_buf, &it, data->cur_file, -1, data->bold_tag, NULL);
+    gtk_text_buffer_insert(data->error_buf, &it, _(": "), -1);
+    gtk_text_buffer_insert(data->error_buf, &it, err->message, -1);
+    gtk_text_buffer_insert(data->error_buf, &it, "\n", 1);
+
+    if(!GTK_WIDGET_VISIBLE(data->error_pane))
+        gtk_widget_show(data->error_pane);
+
+    data->handling_error = FALSE;
+    return FM_JOB_CONTINUE;
 }
 
 static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressDisplay* data)
@@ -108,6 +143,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     /* return default operation if the user has set it */
     if(data->default_opt)
         return data->default_opt;
+
+    data->handling_error = TRUE;
 
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     ensure_dlg(data);
@@ -191,18 +228,59 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     gtk_widget_destroy(dlg);
 
+    data->handling_error = FALSE;
+
     return res;
 }
 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
-    fm_progress_display_destroy(data);
-    g_debug("file operation is finished!");
+    if(data->speed_timeout)
+    {
+        g_source_remove(data->speed_timeout);
+        data->speed_timeout = 0;
+    }
+
+    if(data->update_timeout)
+    {
+        g_source_remove(data->update_timeout);
+        data->update_timeout = 0;
+    }
+
+    if(data->dlg)
+    {
+        /* errors happened */
+        if(data->has_error && data->dlg)
+        {
+            gtk_label_set_text(GTK_LABEL(data->current), "");
+            gtk_label_set_text(GTK_LABEL(data->remaining_time), "00:00:00");
+            gtk_dialog_set_response_sensitive(GTK_DIALOG(data->dlg), GTK_RESPONSE_CANCEL, FALSE);
+            gtk_dialog_add_button(GTK_DIALOG(data->dlg), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
+
+            gtk_image_set_from_stock(data->icon, GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
+
+            gtk_widget_show(data->msg);
+            if(fm_job_is_cancelled(data->job))
+            {
+                gtk_label_set_text(GTK_LABEL(data->msg), _("The file operation is cancelled and there are some errors."));
+                gtk_window_set_title(GTK_WINDOW(data->dlg),
+                                     _("Cancelled"));
+            }
+            else
+            {
+                gtk_label_set_text(GTK_LABEL(data->msg), _("The file operation is finished, but there are some errors."));
+                gtk_window_set_title(GTK_WINDOW(data->dlg),
+                                     _("Finished"));
+            }
+        }
+        else
+            fm_progress_display_destroy(data);
+        g_debug("file operation is finished!");
+    }
 }
 
 static void on_cancelled(FmFileOpsJob* job, FmProgressDisplay* data)
 {
-    fm_progress_display_destroy(data);
     g_debug("file operation is cancelled!");
 }
 
@@ -212,9 +290,14 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
     if(id == GTK_RESPONSE_CANCEL || id == GTK_RESPONSE_DELETE_EVENT)
     {
         if(data->job)
+        {
             fm_job_cancel(FM_JOB(data->job));
-        gtk_widget_destroy(GTK_WIDGET(dlg));
+            if(id != GTK_RESPONSE_CANCEL)
+                fm_progress_display_destroy(data);
+        }
     }
+    else if(id == GTK_RESPONSE_CLOSE)
+        fm_progress_display_destroy(data);    
 }
 
 static gboolean on_update_dlg(FmProgressDisplay* data)
@@ -233,6 +316,8 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     GtkWidget* to, *to_label;
     FmPath* dest;
     const char* title = NULL;
+    GtkTextTagTable* tag_table = gtk_text_tag_table_new();
+
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
 
@@ -242,13 +327,51 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
 
     to_label = (GtkWidget*)gtk_builder_get_object(builder, "to_label");
     to = (GtkWidget*)gtk_builder_get_object(builder, "dest");
+    data->icon = (GtkWidget*)gtk_builder_get_object(builder, "icon");
+    data->msg = (GtkWidget*)gtk_builder_get_object(builder, "msg");
     data->act = (GtkWidget*)gtk_builder_get_object(builder, "action");
     data->src = (GtkWidget*)gtk_builder_get_object(builder, "src");
     data->dest = (GtkWidget*)gtk_builder_get_object(builder, "dest");
     data->current = (GtkWidget*)gtk_builder_get_object(builder, "current");
     data->progress = (GtkWidget*)gtk_builder_get_object(builder, "progress");
+    data->error_pane = (GtkWidget*)gtk_builder_get_object(builder, "error_pane");
+    data->error_msg = (GtkWidget*)gtk_builder_get_object(builder, "error_msg");
+    data->remaining_time = (GtkWidget*)gtk_builder_get_object(builder, "remaining_time");
+
+    data->bold_tag = gtk_text_tag_new("bold");
+    g_object_set(data->bold_tag, "weight", PANGO_WEIGHT_BOLD, NULL);
+    gtk_text_tag_table_add(tag_table, data->bold_tag);
+    data->error_buf = gtk_text_buffer_new(tag_table);
+    g_object_unref(tag_table);
+    gtk_text_view_set_buffer(GTK_TEXT_VIEW(data->error_msg), data->error_buf);
 
     g_object_unref(builder);
+
+    /* set the src label */
+    if(data->job->srcs)
+    {
+        GList* l = fm_list_peek_head_link(data->job->srcs);
+        int i;
+        char* disp;
+        FmPath* path;
+        GString* str = g_string_sized_new(512);
+        path = FM_PATH(l->data);
+        disp = fm_path_display_basename(path);
+        g_string_assign(str, disp);
+        g_free(disp);
+        for( i =1, l=l->next; i < 10 && l; l=l->next, ++i)
+        {
+            path = FM_PATH(l->data);
+            g_string_append(str, _(", "));
+            disp = fm_path_display_basename(path);
+            g_string_append(str, disp);
+            g_free(disp);
+        }
+        if(l)
+            g_string_append(str, "...");
+        gtk_label_set_text(data->src, str->str);
+        g_string_free(str, TRUE);
+    }
 
     /* FIXME: use accessor functions instead */
     switch(data->job->type)
@@ -308,8 +431,51 @@ void ensure_dlg(FmProgressDisplay* data)
         on_show_dlg(data);
 }
 
-/* Show progress dialog for file operations */
-FmProgressDisplay* fm_display_progress(FmFileOpsJob* job)
+static gboolean on_speed_timeout(FmProgressDisplay* data)
+{
+    goffset speed_bps;
+    gdouble remaining_time;
+
+    if(!data->handling_error)
+    {
+        ++data->elapsed_time;
+        speed_bps = data->job->finished / data->elapsed_time;
+        if(speed_bps == 0)
+            speed_bps = 1;
+
+        /* g_debug("%llu, %llu", data->job->total, data->job->finished + data->job->current_file_finished); */
+        remaining_time = (gdouble)(data->job->total - data->job->finished - data->job->current_file_finished) / speed_bps;
+        /* g_debug("rem: %llu", (guint64)remaining_time); */
+
+        if(data->remaining_time)
+        {
+            char time_str[32];
+            guint secs = (guint)remaining_time;
+            guint mins = 0;
+            guint hrs = 0;
+            if(secs > 60)
+            {
+                mins = secs / 60;
+                secs %= 60;
+                if(mins > 60)
+                {
+                    hrs = mins / 60;
+                    mins %= 60;
+                }
+            }
+            g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
+            gtk_label_set_text(data->remaining_time, time_str);
+        }
+    }
+
+    return TRUE;
+}
+
+/* Run the file operation job with a progress dialog.
+ * The returned data structure will be freed in idle handler automatically
+ * when it's not needed anymore.
+ */
+FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job)
 {
     FmProgressDisplay* data = g_slice_new0(FmProgressDisplay);
     data->job = (FmFileOpsJob*)g_object_ref(job);
@@ -322,6 +488,9 @@ FmProgressDisplay* fm_display_progress(FmFileOpsJob* job)
     g_signal_connect(job, "percent", G_CALLBACK(on_percent), data);
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
+
+    data->speed_timeout = g_timeout_add(1000, (GSourceFunc)on_speed_timeout, data);
+	fm_job_run_async(job);
 
     return data;
 }
@@ -351,7 +520,11 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
         g_source_remove(data->update_timeout);
 
     if(data->dlg)
+    {
+        g_object_unref(data->error_buf);
+        g_object_unref(data->bold_tag);
         gtk_widget_destroy(data->dlg);
+    }
 
     g_slice_free(FmProgressDisplay, data);
 }

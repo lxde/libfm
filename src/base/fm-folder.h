@@ -28,6 +28,7 @@
 #include "fm-path.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info.h"
+#include "fm-job.h"
 #include "fm-file-info-job.h"
 
 G_BEGIN_DECLS
@@ -74,7 +75,7 @@ struct _FmFolderClass
     void (*files_changed)(FmFolder* dir, GSList* files);
     void (*loaded)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
-	gboolean (*error)(FmFolder* dir, GError* err, gboolean recoverable);
+	FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
 
     void (*reserved1)(void);
     void (*reserved2)(void);

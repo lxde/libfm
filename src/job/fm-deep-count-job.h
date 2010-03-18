@@ -48,8 +48,8 @@ enum _FmDeepCountJobFlags
 {
 	FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
 	FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
-	FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices */
-	FM_DC_JOB_DIFF_FS = 1<<2, /* only do deep count for files on different devices */
+	FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices. what's the use case of this? */
+	FM_DC_JOB_PREPARE_MOVE = 1<<2, /* special handling for moving files. only do deep count for files on different devices */
     FM_DC_JOB_PREPARE_DELETE = 1 <<3 /* special handling for deleting files */
 };
 

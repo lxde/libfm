@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <menu-cache.h>
+#include <errno.h>
 
 static void fm_file_info_job_finalize  			(GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
@@ -65,6 +66,7 @@ static void fm_file_info_job_finalize(GObject *object)
 static void fm_file_info_job_init(FmFileInfoJob *self)
 {
 	self->file_infos = fm_file_info_list_new();
+    fm_job_init_cancellable(FM_JOB(self));
 }
 
 FmJob* fm_file_info_job_new(FmPathList* files_to_query)
@@ -93,15 +95,24 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 {
 	GList* l;
 	FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
-	for(l = fm_list_peek_head_link(job->file_infos); !fmjob->cancel && l;)
+    GError* err = NULL;
+
+	for(l = fm_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
 	{
 		FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
+
 		if(fm_path_is_native(fi->path))
 		{
 			char* path_str = fm_path_to_str(fi->path);
-			if(!fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str))
+			if(!_fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str, &err))
             {
+                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                g_error_free(err);
+                err = NULL;
+                if(act == FM_JOB_RETRY)
+                    continue; /* retry */
+
                 next = l->next;
                 fm_list_delete_link(job->file_infos, l); /* also calls unref */
             }
@@ -154,8 +165,14 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
             }
 
 			gf = fm_path_to_gfile(fi->path);
-			if(!fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf))
+			if(!_fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf, &err))
             {
+                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                g_error_free(err);
+                err = NULL;
+                if(act == FM_JOB_RETRY)
+                    continue; /* retry */
+
                 next = l->next;
                 fm_list_delete_link(job->file_infos, l); /* also calls unref */
             }
@@ -182,10 +199,11 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 	fm_list_push_tail_noref(job->file_infos, fi);
 }
 
-gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path)
+gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
 {
 	struct stat st;
     gboolean is_link;
+_retry:
 	if( lstat( path, &st ) == 0 )
 	{
 		char* type;
@@ -198,7 +216,7 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
         fi->uid = st.st_uid;
         fi->gid = st.st_gid;
 
-		if( ! FM_JOB(job)->cancel )
+		if( ! fm_job_is_cancelled(FM_JOB(job)) )
 		{
             /* FIXME: handle symlinks */
             if(S_ISLNK(st.st_mode))
@@ -247,24 +265,20 @@ gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, c
 		}
 	}
 	else
+    {
+        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
 		return FALSE;
+    }
 	return TRUE;
 }
 
-gboolean fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf)
+gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
 {
 	GFileInfo* inf;
-	GError* err;
-	if(!fm_job_init_cancellable(job))
-		return FALSE;
-	err = NULL;
-	inf = g_file_query_info(gf, gfile_info_query_attribs, 0, job->cancellable, &err);
+	inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(job), &err);
 	if( !inf )
-	{
-		fm_job_emit_error(job, err, FALSE);
-		g_error_free(err);
 		return FALSE;
-	}
 	fm_file_info_set_from_gfileinfo(fi, inf);
+
 	return TRUE;
 }

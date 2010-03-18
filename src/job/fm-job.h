@@ -44,10 +44,29 @@ typedef struct _FmJobClass		FmJobClass;
 
 typedef gpointer (*FmJobCallMainThreadFunc)(FmJob* job, gpointer user_data);
 
+typedef enum _FmJobErrorSeverity FmJobErrorSeverity;
+enum _FmJobErrorSeverity
+{
+    FM_JOB_ERROR_WARNING, /* not an error, just a warning */
+    FM_JOB_ERROR_MILD, /* no big deal, can be ignored most of the time */
+    FM_JOB_ERROR_MODERATE, /* moderate errors */
+    FM_JOB_ERROR_SEVERE, /* severe errors, whether to abort operation depends on error handlers */
+    FM_JOB_ERROR_CRITICAL /* critical errors, the operation is aborted */
+};
+
+typedef enum _FmJobErrorAction FmJobErrorAction;
+enum _FmJobErrorAction
+{
+    FM_JOB_CONTINUE, /* ignore the error and continue remaining work */
+    FM_JOB_RETRY, /* retry the previously failed operation. (not every kind of job support this) */
+    FM_JOB_ABORT /* abort the whole job */
+};
+
 struct _FmJob
 {
 	GObject parent;
-	gboolean cancel;
+	gboolean cancel : 1;
+	gboolean running : 1;
 
 	/* optional, should be created if the job uses gio */
 	GCancellable* cancellable;
@@ -56,7 +75,6 @@ struct _FmJob
 	 * main thread is needed. */
 	GMutex* mutex;
 	GCond* cond;
-	/* GSList* async_calls; */
 };
 
 struct _FmJobClass
@@ -64,7 +82,7 @@ struct _FmJobClass
 	GObjectClass parent_class;
 
 	void (*finished)(FmJob* job);
-	gboolean (*error)(FmJob* job, GError* err, gboolean recoverable);
+	FmJobErrorAction (*error)(FmJob* job, GError* err, FmJobErrorSeverity severity);
 	void (*cancelled)(FmJob* job);
 	gint (*ask)(FmJob* job, const char* question, gint options);
 
@@ -73,11 +91,22 @@ struct _FmJobClass
 	void (*cancel)(FmJob* job);
 };
 
-GType	fm_job_get_type		(void);
 
 /* Base type of all file I/O jobs.
  * not directly called by applications. */
+
 /* FmJob*	fm_job_new			(void); */
+GType	fm_job_get_type		(void);
+
+/* return TRUE if the job is already cancelled */
+gboolean fm_job_is_cancelled(FmJob* job);
+
+/* return TRUE if the job is still running */
+gboolean fm_job_is_running(FmJob* job);
+
+
+/* FIXME: requiring g_object_unref() is actually a better idea
+ * due to API consistency. Need to re-think this part. */
 
 /* Run a job asynchronously in another working thread, and 
  * emit 'finished' signal in the main thread after its termination.
@@ -109,14 +138,17 @@ void fm_job_cancel(FmJob* job);
 gpointer fm_job_call_main_thread(FmJob* job, 
 					FmJobCallMainThreadFunc func, gpointer user_data);
 
-/* gpointer fm_job_call_main_thread_async(FmJob* job, GFunc func, gpointer user_data); */
+/* Used by derived classes to implement FmJob::run() using gio inside.
+ * This API tried to initialize a GCancellable object for use with gio and
+ * should only be called once in the constructor of derived classes which
+ * require the use of GCancellable. */
+void fm_job_init_cancellable(FmJob* job);
 
 /* Used to implement FmJob::run() using gio inside.
  * This API tried to initialize a GCancellable object for use with gio.
- * If this function returns FALSE, that means the job is already 
- * cancelled before the cancellable object is created.
- * So the following I/O operations should be cancelled. */
-gboolean fm_job_init_cancellable(FmJob* job);
+ * Prior to calling this API, fm_job_init_cancellable() should be
+ * called first to initiate GCancellable object. Otherwise NULL is returned. */
+GCancellable* fm_job_get_cancellable(FmJob* job);
 
 /* Let the job use an existing cancellable object.
  * This can be used when you wish to share a cancellable object
@@ -132,16 +164,18 @@ void fm_job_emit_finished(FmJob* job);
 
 void fm_job_emit_cancelled(FmJob* job);
 
-/* Emit an error signal to notify the main thread when an error occurs.
+/* Emit an 'error' signal to notify the main thread when an error occurs.
  * The return value of this function is the return value returned by
  * the connected signal handlers.
- * If recoverable is TRUE, the listener of this 'error' signal can
- * return TRUE in signal handler to ask for retry of the failed operation.
- * If recoverable is FALSE, the return value of this function is 
- * always FALSE. If the error is fatal, the job might be aborted.
- * Otherwise, the listener of 'error' signal can optionally cancel
- * the job. */
-gboolean fm_job_emit_error(FmJob* job, GError* err, gboolean recoverable);
+ * If severity is FM_JOB_ERROR_CRITICAL, the returned value is ignored and
+ * fm_job_cancel() is called to abort the job. Otherwise, the signal
+ * handler of this error can return FM_JOB_RETRY to ask for retrying the
+ * failed operation, return FM_JOB_CONTINUE to ignore the error and
+ * continue the remaining job, or return FM_JOB_ABORT to abort the job.
+ * If FM_JOB_ABORT is returned by the signal handler, fm_job_cancel
+ * will be called in fm_job_emit_error().
+ */
+FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity severity);
 
 gint fm_job_ask(FmJob* job, const char* question, ...);
 gint fm_job_askv(FmJob* job, const char* question, const char** options);

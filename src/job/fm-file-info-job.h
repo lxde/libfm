@@ -59,8 +59,8 @@ FmJob* fm_file_info_job_new(FmPathList* files_to_query);
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path);
 void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf);
 
-gboolean fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path);
-gboolean fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf);
+gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err);
+gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err);
 
 G_END_DECLS
 

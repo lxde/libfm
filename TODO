@@ -1,12 +1,11 @@
 [High Priority]
 
 * File operations: move, copy, trashing, ...
-     Implement correct error handling.
-     Already works for FmDirListJob.
-     Confirm before deleting/trashing.
-     Rename/overwrite files appropriately when destination file
-     already exists. => done
+     Improve error handling.
      should provide multiple destination files for recovering trashed files.
+     Check available disk size prior to moving/copying.
+     Do mounting on demand.
+     Calculate speed and show remaining time.
 
 * Recover previously trashed files.
 

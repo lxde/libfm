@@ -110,7 +110,7 @@ static gboolean on_timeout(FmFilePropData* data)
     FmDeepCountJob* dc = data->dc_job;
     gdk_threads_enter();
 
-    if(G_LIKELY(dc))
+    if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
         fm_file_size_to_str(size_str, dc->total_size, TRUE);
         gtk_label_set_text(GTK_LABEL(data->total_size), size_str);
@@ -352,11 +352,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
-            fm_job_run_async(FM_JOB(job));
-
             /* show progress dialog */
-            fm_display_progress(job);
-
+            fm_file_ops_job_run_with_progress(job);
             fm_list_unref(paths);
         }
 

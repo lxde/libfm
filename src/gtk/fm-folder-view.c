@@ -60,7 +60,7 @@ static void on_chdir(FmFolderView* fv, FmPath* dir_path);
 static void on_loaded(FmFolderView* fv, FmPath* dir_path);
 static void on_status(FmFolderView* fv, const char* msg);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
-static gboolean on_folder_err(FmFolder* folder, GError* err, gboolean recoverable, FmFolderView* fv);
+static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 static void on_sel_changed(GObject* obj, FmFolderView* fv);
@@ -186,16 +186,17 @@ void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 	g_free(msg);
 }
 
-gboolean on_folder_err(FmFolder* folder, GError* err, gboolean recoverable, FmFolderView* fv)
+FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
 {
     GtkWindow* parent = (GtkWindow*)gtk_widget_get_toplevel((GtkWidget*)fv);
     if( err->domain == G_IO_ERROR )
     {
-        if( err->code == G_IO_ERROR_NOT_MOUNTED && recoverable )
-            return fm_mount_path(parent, folder->dir_path);
+        if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
+            if(fm_mount_path(parent, folder->dir_path))
+                return FM_JOB_RETRY;
     }
     fm_show_error(parent, err->message);
-    return FALSE;
+    return FM_JOB_CONTINUE;
 }
 
 void on_single_click_changed(FmConfig* cfg, FmFolderView* fv)

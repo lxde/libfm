@@ -118,8 +118,8 @@ static void fm_folder_class_init(FmFolderClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFolderClass, error ),
                       NULL, NULL,
-                      fm_marshal_BOOL__POINTER_BOOL,
-                      G_TYPE_BOOLEAN, 2, G_TYPE_POINTER, G_TYPE_BOOLEAN );
+                      fm_marshal_INT__POINTER_INT,
+                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
 }
 
 
@@ -328,10 +328,10 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
     g_signal_emit(folder, signals[LOADED], 0);
 }
 
-static gboolean on_job_err(FmDirListJob* job, GError* err, gboolean recoverable, FmFolder* folder)
+static FmJobErrorAction on_job_err(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
 {
-	gboolean ret;
-	g_signal_emit(folder, signals[ERROR], 0, err, recoverable, &ret);
+	FmJobErrorAction ret;
+	g_signal_emit(folder, signals[ERROR], 0, err, severity, &ret);
     return ret;
 }
 
