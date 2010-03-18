@@ -43,7 +43,7 @@ static FmMimeType* shortcut_type = NULL;
 static FmMimeType* mountable_type = NULL;
 
 /* intialize the file info system */
-void fm_file_info_init()
+void _fm_file_info_init()
 {
 	fm_mime_type_init();
     desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop");
@@ -56,7 +56,7 @@ void fm_file_info_init()
     mountable_type->description = g_strdup(_("Mount Point"));
 }
 
-void fm_file_info_finalize()
+void _fm_file_info_finalize()
 {
 
 }

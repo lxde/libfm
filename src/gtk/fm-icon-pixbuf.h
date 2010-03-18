@@ -28,8 +28,8 @@
 
 G_BEGIN_DECLS
 
-void fm_icon_pixbuf_init();
-void fm_icon_pixbuf_finalize();
+void _fm_icon_pixbuf_init();
+void _fm_icon_pixbuf_finalize();
 
 GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size);
 

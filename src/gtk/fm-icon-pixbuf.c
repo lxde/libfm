@@ -106,7 +106,7 @@ static void on_icon_theme_changed(GtkIconTheme* theme, gpointer user_data)
     fm_icon_unload_user_data_cache();
 }
 
-void fm_icon_pixbuf_init()
+void _fm_icon_pixbuf_init()
 {
     /* FIXME: GtkIconTheme object is different on different GdkScreen */
     GtkIconTheme* theme = gtk_icon_theme_get_default();
@@ -115,7 +115,7 @@ void fm_icon_pixbuf_init()
     fm_icon_set_user_data_destroy( (GDestroyNotify)destroy_pixbufs );
 }
 
-void fm_icon_pixbuf_finalize()
+void _fm_icon_pixbuf_finalize()
 {
     GtkIconTheme* theme = gtk_icon_theme_get_default();
     g_signal_handler_disconnect(theme, changed_handler);

@@ -30,8 +30,8 @@ G_BEGIN_DECLS
 
 GFileMonitor* fm_monitor_directory(GFile* gf, GError** err);
 
-void fm_monitor_init();
-void fm_monitor_finalize();
+void _fm_monitor_init();
+void _fm_monitor_finalize();
 
 GFileMonitor* fm_monitor_lookup_monitor(GFile* gf);
 GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf);

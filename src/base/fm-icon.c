@@ -26,14 +26,14 @@ G_LOCK_DEFINE_STATIC(hash);
 
 static GDestroyNotify destroy_func = NULL;
 
-void fm_icon_init()
+void _fm_icon_init()
 {
     if(G_UNLIKELY(hash))
         return;
     hash = g_hash_table_new(g_icon_hash, g_icon_equal);
 }
 
-void fm_icon_finalize()
+void _fm_icon_finalize()
 {
     g_hash_table_destroy(hash);
     hash = NULL;

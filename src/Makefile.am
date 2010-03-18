@@ -160,7 +160,7 @@ libfm_la_LIBADD = \
 
 libfm_la_LDFLAGS = \
 	-no-undefined \
-	-export-symbols-regex fm \
+	-export-symbols-regex ^fm \
 	$(NULL)
 
 
@@ -187,7 +187,7 @@ libfm_gtk_la_LIBADD = \
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
-	-export-symbols-regex fm \
+	-export-symbols-regex ^fm \
 	$(NULL)
 
 bin_PROGRAMS = libfm-pref-apps

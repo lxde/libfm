@@ -698,13 +698,13 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
     return req->size;
 }
 
-void fm_thumbnail_init()
+void _fm_thumbnail_init()
 {
     thumb_dir = g_build_filename(g_get_home_dir(), ".thumbnails", NULL);
     hash = g_hash_table_new((GHashFunc)fm_path_hash, fm_path_equal);
 }
 
-void fm_thumbnail_finalize()
+void _fm_thumbnail_finalize()
 {
     g_hash_table_destroy(hash);
     hash = NULL;

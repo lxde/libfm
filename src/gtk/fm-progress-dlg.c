@@ -277,6 +277,8 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
             fm_progress_display_destroy(data);
         g_debug("file operation is finished!");
     }
+    else
+        fm_progress_display_destroy(data);
 }
 
 static void on_cancelled(FmFileOpsJob* job, FmProgressDisplay* data)

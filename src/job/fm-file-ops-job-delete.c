@@ -303,6 +303,8 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
         job->total = g_list_length(failed);
         job->finished = 0;
         fm_file_ops_job_emit_percent(job);
+        g_list_foreach(failed, (GFunc)fm_path_unref, NULL);
+        g_list_free(failed);
         /* replace srcs with failed files and run delete job instead */
         // fm_file_ops_job_delete_run(job);
     }

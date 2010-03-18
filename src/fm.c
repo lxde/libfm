@@ -48,10 +48,10 @@ gboolean fm_init(FmConfig* config)
         fm_config_load_from_file(fm_config, NULL);
     }
 
-	fm_path_init();
-    fm_icon_init();
-    fm_monitor_init();
-    fm_file_info_init();
+	_fm_path_init();
+    _fm_icon_init();
+    _fm_monitor_init();
+    _fm_file_info_init();
     _fm_archiver_init();
 
     /* override gnome-terminal */
@@ -66,8 +66,8 @@ gboolean fm_init(FmConfig* config)
 
 void fm_finalize()
 {
-	fm_icon_finalize();
-    fm_monitor_finalize();
+	_fm_icon_finalize();
+    _fm_monitor_finalize();
     _fm_archiver_finalize();
 
     fm_config_save(fm_config, NULL);

@@ -91,7 +91,7 @@ GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
     return ret;
 }
 
-void fm_monitor_init()
+void _fm_monitor_init()
 {
     hash = g_hash_table_new_full(g_file_hash, g_file_equal, g_object_unref, NULL);
     dummy_hash = g_hash_table_new_full(g_file_hash, g_file_equal, g_object_unref, NULL);
@@ -103,7 +103,7 @@ static gboolean remove_key(GFile* key, GFileMonitor* value, gpointer user_data)
     return TRUE;
 }
 
-void fm_monitor_finalize()
+void _fm_monitor_finalize()
 {
     g_hash_table_foreach_remove(hash, (GHFunc)remove_key, NULL);
     g_hash_table_destroy(hash);

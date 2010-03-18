@@ -32,9 +32,9 @@ typedef struct _FmThumbnailRequest FmThumbnailRequest;
 
 typedef void (*FmThumbnailReadyCallback)(FmThumbnailRequest*, gpointer);
 
-void fm_thumbnail_init();
+void _fm_thumbnail_init();
 
-void fm_thumbnail_finalize();
+void _fm_thumbnail_finalize();
 
 FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
                                     guint size,

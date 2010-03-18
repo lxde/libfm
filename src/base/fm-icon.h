@@ -39,8 +39,8 @@ struct _FmIcon
 };
 
 /* must be called before using FmIcon */
-void fm_icon_init();
-void fm_icon_finalize();
+void _fm_icon_init();
+void _fm_icon_finalize();
 
 FmIcon* fm_icon_from_gicon(GIcon* gicon);
 FmIcon* fm_icon_from_name(const char* name);

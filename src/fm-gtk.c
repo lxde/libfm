@@ -26,16 +26,16 @@ gboolean fm_gtk_init(FmConfig* config)
     if( G_UNLIKELY(!fm_init(config)) )
         return FALSE;
 
-    fm_icon_pixbuf_init();
-    fm_thumbnail_init();
+    _fm_icon_pixbuf_init();
+    _fm_thumbnail_init();
 
     return TRUE;
 }
 
 void fm_gtk_finalize()
 {
-    fm_icon_pixbuf_finalize();
-    fm_thumbnail_finalize();
+    _fm_icon_pixbuf_finalize();
+    _fm_thumbnail_finalize();
 
     fm_finalize();
 }

@@ -87,8 +87,8 @@ struct _FmFileInfo
 };
 
 /* intialize the file info system */
-void fm_file_info_init();
-void fm_file_info_finalize();
+void _fm_file_info_init();
+void _fm_file_info_finalize();
 
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);

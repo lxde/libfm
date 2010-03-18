@@ -477,7 +477,7 @@ FmPath* fm_path_get_apps_menu()
     return apps_root;
 }
 
-void fm_path_init()
+void _fm_path_init()
 {
     const char* sep, *name;
     FmPath* tmp, *parent;

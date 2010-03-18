@@ -59,7 +59,7 @@ struct _FmPath
 	char name[1];
 };
 
-void fm_path_init();
+void _fm_path_init();
 
 FmPath*	fm_path_new(const char* path);
 FmPath*	fm_path_new_child(FmPath* parent, const char* basename);
