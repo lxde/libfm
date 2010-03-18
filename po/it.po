@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Andrea Florio <andrea@opensuse.org>, 2010
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 23:54+0800\n"
+"POT-Creation-Date: 2010-03-18 04:11+0000\n"
 "PO-Revision-Date: 2010-03-09 20:39+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -264,8 +264,7 @@ msgstr "Il client Mail preferito sarà usato per comporre email quando clicchera
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Il Browser Web preferito sarà usato per aprire collegamenti ipertestuali."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -320,8 +319,7 @@ msgstr "Cestino"
 msgid "My Computer"
 msgstr "Il Mio Computer"
 
-#: ../src/base/fm-path.c:433
-#: ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Applicazioni"
 
@@ -385,8 +383,7 @@ msgstr "Smona Volume"
 msgid "Eject Removable Media"
 msgstr "Espelli dispositivo removibile"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Rinomina il segnalibro"
 
@@ -410,22 +407,33 @@ msgstr "Scrivania"
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-file-menu.c:79
-#: ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Apri con..."
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Rinomina"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Crea collegamento simbolico"
 
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Invia a"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Comprimi..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Estrai qui"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Estrai in..."
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
@@ -499,7 +507,5 @@ msgstr "La cartella specificata non è valida"
 #~ msgid "It's not a valid directory"
 #~ msgstr "Non è una cartella valida"
 
-#, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "Per favore, seleziona una cartella"
-
