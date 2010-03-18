@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 23:54+0800\n"
+"POT-Creation-Date: 2010-03-18 23:15+0800\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -221,13 +221,22 @@ msgstr "<b>Processabdo:</b>"
 msgid "<b>Progress:</b>"
 msgstr "<b>Progresso:</b>"
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr ""
+
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Processabdo:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
 msgstr "<b>Para:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
 msgstr "Preparando..."
 
@@ -337,27 +346,51 @@ msgstr "Aplicativos"
 msgid "Network"
 msgstr "Rede"
 
-#: ../src/gtk/fm-progress-dlg.c:257
+#: ../src/gtk/fm-progress-dlg.c:111
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:265
+msgid "The file operation is cancelled and there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:267
+msgid "Cancelled"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:271
+msgid "The file operation is finished, but there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:273
+msgid "Finished"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:365
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:380
 msgid "Moving files"
 msgstr "Movendo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:260
+#: ../src/gtk/fm-progress-dlg.c:383
 msgid "Copying files"
 msgstr "Copiando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:263
+#: ../src/gtk/fm-progress-dlg.c:386
 msgid "Trashing files"
 msgstr "Esvaziando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:266
+#: ../src/gtk/fm-progress-dlg.c:389
 msgid "Deleting files"
 msgstr "Excluindo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:269
+#: ../src/gtk/fm-progress-dlg.c:392
 msgid "Creating symlinks"
 msgstr "Criando links simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:272
+#: ../src/gtk/fm-progress-dlg.c:395
 msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
@@ -376,11 +409,11 @@ msgstr ""
 "Você deseja aplicar estas modificações de forma recursiva a todos os "
 "arquivos e sub-pastas?"
 
-#: ../src/gtk/fm-file-properties.c:628
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Arquivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:656
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Múltiplos arquivos"
 
@@ -420,21 +453,33 @@ msgstr "Área de trabalho"
 msgid "Enter a new name:"
 msgstr "Digitar um novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:79 ../src/gtk/fm-file-menu.c:80
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Abrir com..."
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Criar links simbólicos"
 
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Enviar para"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
@@ -452,19 +497,19 @@ msgstr "Executar linhas de comando personalizadas para abrir arquivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:468
+#: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:487
+#: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:493
+#: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:499
+#: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
 msgstr "Modificado"
 
@@ -480,27 +525,28 @@ msgstr "Erro"
 msgid "Please select a folder"
 msgstr "Favor selecionar uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:480
+#: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:532
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:532
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
-#: ../src/job/fm-dir-list-job.c:304
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "O diretório especificado não é válido"

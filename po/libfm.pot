@@ -1,27 +1,29 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-18 23:15+0800\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Hebrew\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: ISRAEL\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>שורת הפקודה להפעלה:</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>סוג הקובץ לפתיחה:</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -32,35 +34,30 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>ניתן להשתמש בקודים מיוחדים אלה בשורת הפקודה:</b>\n"
-"  <b>%f</b>: לייצוג שם קובץ בודד\n"
-"  <b>%F:</b> לייצוג מספר שמות קבצים\n"
-"  <b>%u</b>: לייצוג כתובת אחידה לקובץ\n"
-"  <b>%U</b>: לייצוג מספר כתובות אחידות"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "בחירת יישום"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "שורת פקודה מותאמת אישית"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "הפעלת הדמיית מסוף"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "יישום מותקן"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "הגדרת היישום הנבחר כפעולת ברירת המחדל לסוג קובץ זה"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_עיון"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -68,206 +65,197 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>ישנו כבר קובץ באותו השם במיקום זה.</b>\n"
-"\n"
-"האם להחליף את הקובץ הקיים"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "יש להחיל אפשרות זו לכל הקבצים הקיימים"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "אישור החלפת קבצים"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "שם הקובץ:"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_שכתוב"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "_שינוי שם"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "_דילוג"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "בקבצים הבאים?"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr "---"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>בקרת גישה</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>סוג הקובץ:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>קבוצה:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>גישה אחרונה:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>שינוי אחרון:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>מיקום:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>פתיחה _באמצעות:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>אחר:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>בעלים:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>גודל על הכונן:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>יעד:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>סך גודל הקבצים:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_קבוצה:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>_בעלים:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "מאפייני הקובץ"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "הפיכת הקובץ לניתן להפעלה"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "ללא"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "פעולות אותן יכולים לבצע כלל המשתמשים"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "פעולות אותן יכולים לבצע רק הבעלים של הקובץ"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "פעולות שמשתמשים מאותה הקבוצה כמו הבעלים של הקובץ יכולים לבצע על הקובץ"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "קריאה וכתיבה"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "קריאה בלבד"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "כתיבה בלבד"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_כללי"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "ה_רשאות"
+msgstr ""
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>מעבד:</b>"
+msgstr ""
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>תהליך:</b>"
+msgstr ""
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
 msgstr ""
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>מעבד:</b>"
+msgstr ""
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>אל:</b>"
+msgstr ""
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr "בהכנות..."
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>סוג הקובץ:</b>"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>בעלים:</b>"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "שורת פקודה מותאמת אישית"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "יישומים"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "יישומים מותקנים"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
@@ -283,64 +271,64 @@ msgstr ""
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u בתים"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr "ק\"ב"
+msgstr ""
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr "מ\"ב"
+msgstr ""
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr "ג\"ב"
+msgstr ""
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr "ט\"ב"
+msgstr ""
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr "KiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr "MiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr "GiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr "TiB"
+msgstr ""
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "קיצורי דרך"
+msgstr ""
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "נקודת עגינה"
+msgstr ""
 
 #: ../src/base/fm-path.c:423
 msgid "Trash Can"
-msgstr "פח אשפה"
+msgstr ""
 
 #: ../src/base/fm-path.c:425
 msgid "My Computer"
-msgstr "המחשב שלי"
+msgstr ""
 
 #: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
-msgstr "יישומים"
+msgstr ""
 
 #: ../src/base/fm-path.c:436
 msgid "Network"
-msgstr "רשת"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:111
 msgid ": "
@@ -368,100 +356,100 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:380
 msgid "Moving files"
-msgstr "קבצים מועברים"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383
 msgid "Copying files"
-msgstr "קבצים מועתקים"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:386
 msgid "Trashing files"
-msgstr "קבצים מועברים לאשפה"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:389
 msgid "Deleting files"
-msgstr "קבצים נמחקים"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:392
 msgid "Creating symlinks"
-msgstr "נוצר קישור סימבולי"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:395
 msgid "Changing file attributes"
-msgstr "שינוי תכונות הקובץ"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr "קבצים מסוגים שונים"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr "מספר קבצים"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
-msgstr "עיגון כרך"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
-msgstr "ניתוק כרך"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr "שליפת מדיה נתיקה"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
-msgstr "שינוי שם לפריט סימנייה"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
-msgstr "הסרה מהסימניות"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr "פינוי האשפה"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:404
 msgid "Trash"
-msgstr "אשפה"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
-msgstr "שולחן עבודה"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
-msgstr "הזנת שם חדש:"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr "פתיחה באמצעות..."
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
-msgstr "שינוי שם"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
-msgstr "יצירת קישור סימבולי"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
-msgstr "שליחה אל"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
@@ -477,76 +465,70 @@ msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
-msgstr "XDirectSave כשלה."
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr "התאמה אישית"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
-msgstr "שם"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
-msgstr "תיאור"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
-msgstr "גודל"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
-msgstr "מועד השינוי"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "יישומים מותקנים"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr "שגיאה"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr "נא לבחור בתיקייה"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
-msgstr "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
-msgstr "האם למחוק את הקבצים הנבחרים?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
-msgstr "שינוי שם קובץ"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
-msgstr "נא להזין שם חדש:"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "האם לפנות את סל האשפה?"
+msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "התיקייה שצוינה אינה תקנית"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "זו אינה תיקייה תקנית"
-
-#~ msgid "The selection mode"
-#~ msgstr "נא לבחור בתיקייה"
+msgstr ""
