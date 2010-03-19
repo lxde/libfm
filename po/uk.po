@@ -1,20 +1,19 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
+"POT-Creation-Date: 2010-03-19 04:11+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -185,8 +184,7 @@ msgstr "Операції, які може виконувати тільки вл
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
+msgstr "Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -223,12 +221,11 @@ msgstr "<b>Поступ:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Сталися такі помилки:</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Обробляю:</b>"
+msgstr "<b>Залишилось часу:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -269,17 +266,12 @@ msgid "System Applications"
 msgstr "Системні програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Улюблений поштовий клієнт, що буде використаний для створення електронного "
-"листа, коли ви клікаєте на e-mail адресу"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Улюблений поштовий клієнт, що буде використаний для створення електронного листа, коли ви клікаєте на e-mail адресу"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
+msgstr "Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -347,49 +339,49 @@ msgstr "Мережа"
 
 #: ../src/gtk/fm-progress-dlg.c:111
 msgid ": "
-msgstr ""
+msgstr ":"
 
 #: ../src/gtk/fm-progress-dlg.c:265
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
 #: ../src/gtk/fm-progress-dlg.c:267
 msgid "Cancelled"
-msgstr ""
+msgstr "Відмінено"
 
 #: ../src/gtk/fm-progress-dlg.c:271
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
 #: ../src/gtk/fm-progress-dlg.c:273
 msgid "Finished"
-msgstr ""
+msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:367
 msgid ", "
-msgstr ""
+msgstr "."
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
@@ -402,11 +394,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
-"підкаталогів?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підкаталогів?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
