@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-28 04:08+0000\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: 2010-02-28 17:10+0100\n"
 "Last-Translator: Piotr Sokół <piotr.sokol@10g.pl>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Polish\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -211,18 +212,67 @@ msgstr ""
 msgid "<b>Progress:</b>"
 msgstr ""
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr ""
+
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Typ:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
 msgstr ""
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
 msgstr ""
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../data/ui/preferred-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>Typ:</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "Programy"
+
+#: ../data/ui/preferred-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "Programy"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -278,8 +328,7 @@ msgstr "Kosz"
 msgid "My Computer"
 msgstr "Komputer"
 
-#: ../src/base/fm-path.c:433
-#: ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Programy"
 
@@ -287,52 +336,73 @@ msgstr "Programy"
 msgid "Network"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:111
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:265
+msgid "The file operation is cancelled and there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:267
+msgid "Cancelled"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:271
+msgid "The file operation is finished, but there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:273
+msgid "Finished"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:367
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:229
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:235
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:238
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:351
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
 msgstr ""
 
 #: ../src/gtk/fm-places-view.c:128
@@ -347,8 +417,7 @@ msgstr "Odmontuj wolumen"
 msgid "Eject Removable Media"
 msgstr "Wysuń nośnik wymienny"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Zmień nazwę zakładki"
 
@@ -364,60 +433,75 @@ msgstr "Opróżnij kosz"
 msgid "Trash"
 msgstr "Kosz"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Pulpit"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Proszę wprowadzić nową nazwę:"
 
-#: ../src/gtk/fm-file-menu.c:78
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr ""
+
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr ""
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
 msgstr ""
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:468
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
 msgstr "Nazwa"
 
-#: ../src/gtk/fm-folder-view.c:487
+#: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-view.c:493
+#: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
 msgstr "Rozmiar"
 
-#: ../src/gtk/fm-folder-view.c:499
+#: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
 msgstr ""
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr ""
 
@@ -429,28 +513,28 @@ msgstr "Błąd"
 msgid "Please select a folder"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:472
+#: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:551
+#: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
 msgstr ""
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr ""
-

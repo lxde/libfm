@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 04:11+0000\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: 2010-03-18 20:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -219,13 +219,22 @@ msgstr "<b>Behandler:</b>"
 msgid "<b>Progress:</b>"
 msgstr "<b>Status:</b>"
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr ""
+
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Behandler:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
 msgstr "<b>Til:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
 msgstr "Forbereder..."
 
@@ -333,27 +342,51 @@ msgstr "Programmer"
 msgid "Network"
 msgstr "Netværk"
 
-#: ../src/gtk/fm-progress-dlg.c:257
+#: ../src/gtk/fm-progress-dlg.c:111
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:265
+msgid "The file operation is cancelled and there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:267
+msgid "Cancelled"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:271
+msgid "The file operation is finished, but there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:273
+msgid "Finished"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:367
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Flytter filer"
 
-#: ../src/gtk/fm-progress-dlg.c:260
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Kopierer filer"
 
-#: ../src/gtk/fm-progress-dlg.c:263
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Smider filer ud"
 
-#: ../src/gtk/fm-progress-dlg.c:266
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Sletter filer"
 
-#: ../src/gtk/fm-progress-dlg.c:269
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Opretter symbolske henvisninger"
 
-#: ../src/gtk/fm-progress-dlg.c:272
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Ændrer filattributter"
 
@@ -371,11 +404,11 @@ msgid ""
 msgstr ""
 "Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
 
-#: ../src/gtk/fm-file-properties.c:628
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Filer af forskellige typer"
 
-#: ../src/gtk/fm-file-properties.c:656
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Flere filer"
 
@@ -459,19 +492,19 @@ msgstr "Kør tilpasset kommandolinje for at åbne filer"
 msgid "Customize"
 msgstr "Tilpas"
 
-#: ../src/gtk/fm-folder-view.c:468
+#: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:487
+#: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/gtk/fm-folder-view.c:493
+#: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/gtk/fm-folder-view.c:499
+#: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
 msgstr "Ændret"
 
@@ -487,27 +520,28 @@ msgstr "Fejl"
 msgid "Please select a folder"
 msgstr "Vælg venligst en mappe"
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ønsker du at flytte de valgte filer til skraldespanden?"
 
-#: ../src/gtk/fm-gtk-utils.c:480
+#: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
 msgstr "Ønsker du at slette de valgte filer?"
 
-#: ../src/gtk/fm-gtk-utils.c:532
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
 msgstr "Omdøb fil"
 
-#: ../src/gtk/fm-gtk-utils.c:532
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
 msgstr "Indtast venligst et nyt navn:"
 
-#: ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
 
-#: ../src/job/fm-dir-list-job.c:304
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Den angivne mappe er ikke gyldig"

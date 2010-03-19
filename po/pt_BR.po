@@ -2,12 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Og Maciel <ogmaciel@gnome.org>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-19 04:11+0000\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -57,7 +57,9 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Define o aplicativo selecionado como a aÃÂ§ÃÂ£o padrÃÂ£o para este tipo de arquivo"
+msgstr ""
+"Define o aplicativo selecionado como a aÃÂ§ÃÂ£o padrÃÂ£o para este "
+"tipo de arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +185,9 @@ msgstr "OperaÃÂ§ÃÂµes que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "OperaÃÂ§ÃÂµes que usuÃÂ¡rios no mesmo grupo que o dono do arquivo podem fazer"
+msgstr ""
+"OperaÃÂ§ÃÂµes que usuÃÂ¡rios no mesmo grupo que o dono do arquivo "
+"podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -265,8 +269,12 @@ msgid "System Applications"
 msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "O cliente de e-mail preferido serÃ¡ usado para compor e-mails quando vocÃª clicar nos endereÃ§os de e-mail."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"O cliente de e-mail preferido serÃ¡ usado para compor e-mails quando vocÃª "
+"clicar nos endereÃ§os de e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -385,15 +393,20 @@ msgstr "Modificando atributos do arquivo"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr "Favor digitar um nome de usuÃÂ¡rio ou identificador numÃÂ©rico vÃÂ¡lido."
+msgstr ""
+"Favor digitar um nome de usuÃÂ¡rio ou identificador numÃÂ©rico "
+"vÃÂ¡lido."
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo identificador numÃÂ©rico vÃÂ¡lido."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "VocÃÂª deseja aplicar estas modificaÃÂ§ÃÂµes de forma recursiva a todos os arquivos e sub-pastas?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"VocÃÂª deseja aplicar estas modificaÃÂ§ÃÂµes de forma recursiva a "
+"todos os arquivos e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"

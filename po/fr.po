@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: 2010-02-19 11:00+0100\n"
 "Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
 "Language-Team: \n"
@@ -362,31 +362,31 @@ msgstr ""
 msgid "Finished"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:367
 msgid ", "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Déplace les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Copie les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Jette les fichiers "
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Supprime les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Créé des liens symboliques"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Change des attributs de fichiers"
 
