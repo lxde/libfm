@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-28 04:08+0000\n"
-"PO-Revision-Date: 2010-03-01 02:01+0100\n"
+"POT-Creation-Date: 2010-03-19 04:11+0000\n"
+"PO-Revision-Date: 2010-03-19 15:02+0100\n"
 "Last-Translator: Christoph Wickert <cwickert@fedoraproject.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Befehlszeile zum Ausführen:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Dateityp zum Öffnen:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,6 +34,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Folgende Parameter können in der Befehlszeile genutzt werden:</b>\n"
+"  <b>%f</b>: Name einer einzelnen Datei\n"
+"  <b>%F</b>: Namen mehrerer Dateien\n"
+"  <b>%u</b>: URI einer einzelnen Datei\n"
+"  <b>%U</b>: URIs mehrerer Dateien"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -45,19 +50,19 @@ msgstr "Befehlszeile"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Im Terminal-Emulator ausführen"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Installierte Anwendung"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Gewählte Anwendung als Vorgabe für diesen Dateityp benutzen"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Durchsuchen"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -65,6 +70,9 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Eine Datei mit diesem Namen existiert bereits an diesem Ort.</b>\n"
+"\n"
+"Wollen sie die vorhandene Datei"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -92,11 +100,11 @@ msgstr "Über_springen"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "durch folgende Datei ersetzen?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
@@ -168,15 +176,15 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Vorgänge, die alle Benutzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -188,7 +196,7 @@ msgstr "Nur lesen"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Wählen Sie die Anwendung zum Öffnen dieses Dateityps"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -205,29 +213,74 @@ msgstr "_Berechtigungen"
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Ausführen:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
 msgstr "<b>Fortschritt:</b>"
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Einige Fehler sind aufgetreten:</b>"
+
 #: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Verbleibende Zeit:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
 msgstr "<b>Nach:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
 msgstr "Vorbereiten..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>E-Mail-Client</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Terminal-Emulator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Web-Browser</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Befehlszeile:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Dateizuordnungen"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Bevorzugte Anwendungen"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "Installierte Anwendungen"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks genutzt."
 
 #: ../src/base/fm-utils.c:54
 #: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u Byte"
+msgstr[1] "%u Bytes"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -278,7 +331,7 @@ msgid "My Computer"
 msgstr "Mein Computer"
 
 #: ../src/base/fm-path.c:433
-#: ../src/gtk/fm-places-view.c:463
+#: ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Anwendungen"
 
@@ -286,53 +339,75 @@ msgstr "Anwendungen"
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:111
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:265
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Die Dateioperation wurde abgebrochen und es gab einige Fehler."
+
+#: ../src/gtk/fm-progress-dlg.c:267
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+#: ../src/gtk/fm-progress-dlg.c:271
+msgid "The file operation is finished, but there are some errors."
+msgstr "Der Vorgang wurd abgeschlossen, aber es traten Fehler auf."
+
+#: ../src/gtk/fm-progress-dlg.c:273
+msgid "Finished"
+msgstr "Beendet"
+
+#: ../src/gtk/fm-progress-dlg.c:367
+msgid ", "
+msgstr ","
+
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Dateien werden verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:229
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Dateien werden kopiert"
 
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Dateien werden in den Papierkorb verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:235
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Dateien werden gelöscht"
 
-#: ../src/gtk/fm-progress-dlg.c:238
+# Verknüpfung oder Link?
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Symbolische Verknüpfung erzeugen"
 
-#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Dateiattribute ändern"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Bitte gültigen Benutzernamen oder numerische ID eingeben."
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
-#: ../src/gtk/fm-file-properties.c:357
+# Direkte Anrede: Wollen Sie... ????
+#: ../src/gtk/fm-file-properties.c:351
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Dateien unterschiedlicher Typen"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr "Anpassen"
+msgstr "Mehrere Dateien"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -347,7 +422,7 @@ msgid "Eject Removable Media"
 msgstr ""
 
 #: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
@@ -363,60 +438,76 @@ msgstr "Papierkorb leeren"
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Desktop"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-file-menu.c:78
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Öffnen mit.."
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Verknüpfung anlegen"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Senden an"
 
-#: ../src/gtk/fm-dnd-dest.c:432
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Komprimieren..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Hier entpacken"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Entpacken nach..."
+
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr ""
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Gewählte Anwendung zum Öffnen von Dateien nutzen"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 
-#: ../src/gtk/fm-folder-view.c:468
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Anpassen"
+
+#: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:487
+#: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:493
+#: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:499
+#: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
 msgstr "Geändert"
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Installierte Anwendungen"
 
@@ -428,27 +519,29 @@ msgstr "Fehler"
 msgid "Please select a folder"
 msgstr "Ordner wählen"
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
-#: ../src/gtk/fm-gtk-utils.c:472
+#: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
 msgstr "Gewählte Dateien löschen?"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
 msgstr "Datei umbennen"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-gtk-utils.c:551
+#: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
-#: ../src/job/fm-dir-list-job.c:276
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Das angegebene Verzeichnis ist ungültig"
