@@ -2,12 +2,12 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the libfm package.
 # Hugo Florentino <sysadmin@cips.cu>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
+"POT-Creation-Date: 2010-03-19 04:11+0000\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -57,9 +57,7 @@ msgstr "Aplicación instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Establecer la aplicación seleccionada como predeterminada  para abrir los "
-"archivos de este tipo"
+msgstr "Establecer la aplicación seleccionada como predeterminada  para abrir los archivos de este tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -185,9 +183,7 @@ msgstr "Operaciones permitidas al propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operaciones permitidas a los usuarios del mismo grupo que el propietario del "
-"archivo"
+msgstr "Operaciones permitidas a los usuarios del mismo grupo que el propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -199,8 +195,7 @@ msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
-"Seleccione la aplicación utilizada para abrir los archivos de este tipo"
+msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -225,12 +220,11 @@ msgstr "<b>Progreso:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Ocurrieron algunos errores:</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Procesando:</b>"
+msgstr "<b>Tiempo restante:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -271,12 +265,8 @@ msgid "System Applications"
 msgstr "Aplicaciones del sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"El cliente de correo preferido se utilizará para redactar los mensajes "
-"cuando haga clic en las direcciones de correo."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "El cliente de correo preferido se utilizará para redactar los mensajes cuando haga clic en las direcciones de correo."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -347,49 +337,49 @@ msgstr "Red"
 
 #: ../src/gtk/fm-progress-dlg.c:111
 msgid ": "
-msgstr ""
+msgstr ":"
 
 #: ../src/gtk/fm-progress-dlg.c:265
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "La operación de archivos se ha cancelado y hay algunos errores."
 
 #: ../src/gtk/fm-progress-dlg.c:267
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #: ../src/gtk/fm-progress-dlg.c:271
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "La operación sobre archivos ha finalizado, pero hay algunos errores"
 
 #: ../src/gtk/fm-progress-dlg.c:273
 msgid "Finished"
-msgstr ""
+msgstr "Finalizado"
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:367
 msgid ", "
-msgstr ""
+msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Moviendo los archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Copiando los archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Botando los archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Eliminando los archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Creando enlaces simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Cambiando atributos de archivo"
 
@@ -402,11 +392,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
-"subcarpetas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "¿Desea aplicar recursivamente estos cambios a todos los archivos y subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
