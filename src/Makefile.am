@@ -247,7 +247,7 @@ libgiofm_la_SOURCES= \
 
 libgiofm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
-	-DGIO_MODULE_DIR=\"$(GIO_MODULE_DIR)\"	\
+	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
 	-DG_DISABLE_DEPRECATED \
 	$(NULL)
