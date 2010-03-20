@@ -32,6 +32,7 @@
 #include "fm-monitor.h"
 #include "fm-icon-pixbuf.h"
 #include "fm-cell-renderer-pixbuf.h"
+#include "fm-file-info-job.h"
 
 enum
 {
@@ -54,7 +55,6 @@ typedef enum
     PLACE_VOL,
 }PlaceType;
 
-/* FIXME: need to replace GIcon with FmIcon later */
 typedef struct _PlaceItem
 {
     PlaceType type;
@@ -353,22 +353,45 @@ static void add_bookmarks()
     PlaceItem* item;
     GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
-    GdkPixbuf* pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    FmIcon* remote_icon = NULL;
+    GdkPixbuf* folder_pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    GdkPixbuf* remote_pix = NULL;
     bms = fm_bookmarks_list_all(bookmarks);
     for(l=bms;l;l=l->next)
     {
         FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
         GtkTreeIter it;
+        GdkPixbuf* pix;
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;
         item->path = fm_path_ref(bm->path);
-        item->icon = fm_icon_ref(icon);
+        if(fm_path_is_native(item->path))
+        {
+            item->icon = fm_icon_ref(icon);
+            pix = folder_pix;
+        }
+        else
+        {
+            if(G_UNLIKELY(!remote_icon))
+            {
+                remote_icon = fm_icon_from_name("folder-remote");
+                remote_pix = fm_icon_get_pixbuf(remote_icon, fm_config->pane_icon_size);
+            }
+            item->icon = fm_icon_ref(remote_icon);
+            pix = remote_pix;
+        }
         item->bm_item = bm;
         gtk_list_store_append(model, &it);
         gtk_list_store_set(model, &it, COL_ICON, pix, COL_LABEL, bm->name, COL_INFO, item, -1);
     }
-    g_object_unref(pix);
+    g_object_unref(folder_pix);
     fm_icon_unref(icon);
+    if(remote_icon)
+    {
+        fm_icon_unref(remote_icon);
+        if(remote_pix)
+            g_object_unref(remote_pix);
+    }
 }
 
 static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
