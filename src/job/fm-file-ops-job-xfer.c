@@ -292,7 +292,6 @@ _retry_query_src_info:
                 switch(opt)
                 {
                 case FM_FILE_OP_RENAME:
-                    g_object_unref(dest);
                     dest = new_dest;
                     goto _retry_copy;
                     break;
