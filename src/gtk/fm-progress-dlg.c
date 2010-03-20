@@ -129,7 +129,13 @@ static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
 {
     const char* old_name = g_object_get_data(G_OBJECT(entry), "old_name");
     const char* new_name = gtk_entry_get_text(GTK_ENTRY(entry));
-    gtk_widget_set_sensitive(rename, new_name && *new_name && g_strcmp0(old_name, new_name));
+    gboolean can_rename = new_name && *new_name && g_strcmp0(old_name, new_name);
+    gtk_widget_set_sensitive(rename, can_rename);
+    if(can_rename)
+    {
+        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(entry));
+        gtk_dialog_set_default_response(dlg, gtk_dialog_get_response_for_widget(dlg, rename));
+    }
 }
 
 static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name, FmProgressDisplay* data)
