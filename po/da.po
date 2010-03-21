@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-20 02:22+0800\n"
-"PO-Revision-Date: 2010-03-18 20:27+0000\n"
+"POT-Creation-Date: 2010-03-21 16:57+0000\n"
+"PO-Revision-Date: 2010-03-21 20:27+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -221,12 +221,11 @@ msgstr "<b>Status:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Fejl opstod:</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Behandler:</b>"
+msgstr "<b>Tid tilbage:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -326,67 +325,67 @@ msgstr "Genveje"
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../src/base/fm-path.c:423
+#: ../src/base/fm-path.c:435
 msgid "Trash Can"
 msgstr "Skraldespand"
 
-#: ../src/base/fm-path.c:425
+#: ../src/base/fm-path.c:437
 msgid "My Computer"
 msgstr "Min computer"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
 msgid "Applications"
 msgstr "Programmer"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:448
 msgid "Network"
 msgstr "Netværk"
 
 #: ../src/gtk/fm-progress-dlg.c:111
 msgid ": "
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:265
-msgid "The file operation is cancelled and there are some errors."
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:267
-msgid "Cancelled"
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:271
-msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Filhandlingen er afbrudt og der er nogle fejl."
 
 #: ../src/gtk/fm-progress-dlg.c:273
+msgid "Cancelled"
+msgstr "Afbrudt"
+
+#: ../src/gtk/fm-progress-dlg.c:277
+msgid "The file operation is finished, but there are some errors."
+msgstr "Filhandlingen er færdig, men der er nogle fejl."
+
+#: ../src/gtk/fm-progress-dlg.c:279
 msgid "Finished"
-msgstr ""
+msgstr "Færdig"
 
-#: ../src/gtk/fm-progress-dlg.c:367
+#: ../src/gtk/fm-progress-dlg.c:373
 msgid ", "
-msgstr ""
+msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:382
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Moving files"
 msgstr "Flytter filer"
 
-#: ../src/gtk/fm-progress-dlg.c:385
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Copying files"
 msgstr "Kopierer filer"
 
-#: ../src/gtk/fm-progress-dlg.c:388
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Trashing files"
 msgstr "Smider filer ud"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Deleting files"
 msgstr "Sletter filer"
 
-#: ../src/gtk/fm-progress-dlg.c:394
+#: ../src/gtk/fm-progress-dlg.c:400
 msgid "Creating symlinks"
 msgstr "Opretter symbolske henvisninger"
 
-#: ../src/gtk/fm-progress-dlg.c:397
+#: ../src/gtk/fm-progress-dlg.c:403
 msgid "Changing file attributes"
 msgstr "Ændrer filattributter"
 
@@ -424,7 +423,7 @@ msgstr "Afmonter arkiv"
 msgid "Eject Removable Media"
 msgstr "Skub eksternt medie ud"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:773
 msgid "Rename Bookmark Item"
 msgstr "Omdøb bogmærkepunkt"
 
@@ -436,15 +435,15 @@ msgstr "Fjern fra bogmærker"
 msgid "Empty Trash"
 msgstr "Tom skraldespand"
 
-#: ../src/gtk/fm-places-view.c:404
+#: ../src/gtk/fm-places-view.c:427
 msgid "Trash"
 msgstr "Skraldespand"
 
-#: ../src/gtk/fm-places-view.c:454
+#: ../src/gtk/fm-places-view.c:477
 msgid "Desktop"
 msgstr "Skrivebord"
 
-#: ../src/gtk/fm-places-view.c:751
+#: ../src/gtk/fm-places-view.c:774
 msgid "Enter a new name:"
 msgstr "Indtast et nyt navn:"
 
@@ -500,11 +499,11 @@ msgstr "Navn"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/gtk/fm-folder-view.c:494
+#: ../src/gtk/fm-folder-view.c:495
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/gtk/fm-folder-view.c:500
+#: ../src/gtk/fm-folder-view.c:501
 msgid "Modified"
 msgstr "Ændret"
 
