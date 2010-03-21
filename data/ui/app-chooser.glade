@@ -156,7 +156,7 @@
                             <property name="visible">True</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;b&gt;These special codes can be used in the command line:&lt;/b&gt;
-  &lt;b&gt;%f&lt;/b&gt;: Represents a single file name
+  &lt;b&gt;%f:&lt;/b&gt; Represents a single file name
   &lt;b&gt;%F:&lt;/b&gt; Represents multiple file names
   &lt;b&gt;%u&lt;/b&gt;: Represents a single URI of the file
   &lt;b&gt;%U&lt;/b&gt;: Represents multiple URIs</property>
