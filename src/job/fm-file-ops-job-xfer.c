@@ -497,6 +497,8 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
         job->dest_folder_mon = dest_mon;
     }
 
+    fm_file_ops_job_emit_prepared(job);
+
 	for(l = fm_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
 	{
 		FmPath* path = (FmPath*)l->data;
@@ -583,6 +585,8 @@ _retry_query_dest_info:
         dest_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
         job->dest_folder_mon = dest_mon;
     }
+
+    fm_file_ops_job_emit_prepared(job);
 
 	for(l = fm_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
 	{
