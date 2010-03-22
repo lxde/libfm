@@ -62,7 +62,6 @@ struct _FmProgressDisplay
 
     GTimer* timer;
 
-    gboolean handling_error : 1;
     gboolean has_error : 1;
 };
 
@@ -121,7 +120,9 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
     if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_CANCELLED)
         return;
 
-    data->handling_error = TRUE;
+    if(data->timer)
+        g_timer_stop(data->timer);
+
     data->has_error = TRUE;
 
     ensure_dlg(data);
@@ -145,7 +146,8 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
     if(!GTK_WIDGET_VISIBLE(data->error_pane))
         gtk_widget_show(data->error_pane);
 
-    data->handling_error = FALSE;
+    if(data->timer)
+        g_timer_continue(data->timer);
     return FM_JOB_CONTINUE;
 }
 
@@ -180,7 +182,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     if(data->default_opt)
         return data->default_opt;
 
-    data->handling_error = TRUE;
+    if(data->timer)
+        g_timer_stop(data->timer);
 
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     ensure_dlg(data);
@@ -264,7 +267,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     gtk_widget_destroy(dlg);
 
-    data->handling_error = FALSE;
+    if(data->timer)
+        g_timer_continue(data->timer);
 
     return res;
 }
