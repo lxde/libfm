@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-20 02:22+0800\n"
-"PO-Revision-Date: 2010-03-19 15:02+0100\n"
-"Last-Translator: Christoph Wickert <cwickert@fedoraproject.org>\n"
+"POT-Creation-Date: 2010-03-23 04:11+0000\n"
+"PO-Revision-Date: 2010-03-23 19:11+0100\n"
+"Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,9 +184,7 @@ msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen "
-"können"
+msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,18 +267,15 @@ msgid "System Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail Adressen klicken."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks genutzt."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -325,70 +320,71 @@ msgstr "Verknüpfungen"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Einhängepunkt"
 
-#: ../src/base/fm-path.c:423
+#: ../src/base/fm-path.c:435
 msgid "Trash Can"
 msgstr "Papierkorb"
 
-#: ../src/base/fm-path.c:425
+#: ../src/base/fm-path.c:437
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:445
+#: ../src/gtk/fm-places-view.c:490
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:448
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../src/gtk/fm-progress-dlg.c:111
+#: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Die Dateioperation wurde abgebrochen und es gab einige Fehler."
 
-#: ../src/gtk/fm-progress-dlg.c:267
+#: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#: ../src/gtk/fm-progress-dlg.c:271
+#: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
 msgstr "Der Vorgang wurd abgeschlossen, aber es traten Fehler auf."
 
-#: ../src/gtk/fm-progress-dlg.c:273
+#: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
 msgstr "Beendet"
 
-#: ../src/gtk/fm-progress-dlg.c:367
+#: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:382
+#: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
 msgstr "Dateien werden verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:385
+#: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
 msgstr "Dateien werden kopiert"
 
-#: ../src/gtk/fm-progress-dlg.c:388
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
 msgstr "Dateien werden in den Papierkorb verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
 msgstr "Dateien werden gelöscht"
 
 # Verknüpfung oder Link?
-#: ../src/gtk/fm-progress-dlg.c:394
+#: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
 msgstr "Symbolische Verknüpfung erzeugen"
 
-#: ../src/gtk/fm-progress-dlg.c:397
+#: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
 msgstr "Dateiattribute ändern"
 
@@ -402,11 +398,8 @@ msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
-"werden?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -424,11 +417,14 @@ msgstr "Dateisystem einhängen"
 msgid "Unmount Volume"
 msgstr "Dateisystem aushängen"
 
+# besser: Wechseldatenträger?
 #: ../src/gtk/fm-places-view.c:130
+#, fuzzy
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Wechselmedium auswerfen"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:773
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
@@ -440,19 +436,20 @@ msgstr "Lesezeichen entfernen"
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
-#: ../src/gtk/fm-places-view.c:404
+#: ../src/gtk/fm-places-view.c:427
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: ../src/gtk/fm-places-view.c:454
+#: ../src/gtk/fm-places-view.c:477
 msgid "Desktop"
 msgstr "Desktop"
 
-#: ../src/gtk/fm-places-view.c:751
+#: ../src/gtk/fm-places-view.c:774
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Öffnen mit.."
 
@@ -504,11 +501,11 @@ msgstr "Name"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:494
+#: ../src/gtk/fm-folder-view.c:495
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:500
+#: ../src/gtk/fm-folder-view.c:501
 msgid "Modified"
 msgstr "Geändert"
 
@@ -544,8 +541,10 @@ msgstr "Neuen Namen eingeben:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Das angegebene Verzeichnis ist ungültig"
+
