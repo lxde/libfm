@@ -608,21 +608,36 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
             GMount* mnt = g_volume_get_mount(item->vol);
             if(!mnt)
             {
-                if(!fm_mount_volume(NULL, item->vol))
+                GtkWindow* parent = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+                if(!fm_mount_volume(parent, item->vol, TRUE))
                     return;
                 mnt = g_volume_get_mount(item->vol);
+                if(!mnt)
+                {
+                    g_debug("GMount is invalid after successful g_volume_mount().\nThis is quite possible a gvfs bug.\nSee https://bugzilla.gnome.org/show_bug.cgi?id=552168");
+                    return;
+                }
             }
             gf = g_mount_get_root(mnt);
             g_object_unref(mnt);
-            path = fm_path_new_for_gfile(gf);
-            g_object_unref(gf);
+            if(gf)
+            {
+                path = fm_path_new_for_gfile(gf);
+                g_object_unref(gf);
+            }
+            else
+                path = NULL;
             break;
         }
         default:
             return;
         }
-        g_signal_emit(view, signals[CHDIR], 0, path);
-        fm_path_unref(path);
+
+        if(path)
+        {
+            g_signal_emit(view, signals[CHDIR], 0, path);
+            fm_path_unref(path);
+        }
     }
 }
 
@@ -737,7 +752,7 @@ void on_mount(GtkAction* act, gpointer user_data)
     GMount* mnt = g_volume_get_mount(item->vol);
     if(!mnt)
     {
-        if(!fm_mount_volume(NULL, item->vol))
+        if(!fm_mount_volume(NULL, item->vol, TRUE))
             return;
     }
     else
@@ -750,7 +765,7 @@ void on_umount(GtkAction* act, gpointer user_data)
     GMount* mnt = g_volume_get_mount(item->vol);
     if(mnt)
     {
-        fm_unmount_mount(NULL, mnt);
+        fm_unmount_mount(NULL, mnt, TRUE);
         g_object_unref(mnt);
     }
 }
@@ -758,7 +773,7 @@ void on_umount(GtkAction* act, gpointer user_data)
 void on_eject(GtkAction* act, gpointer user_data)
 {
     PlaceItem* item = (PlaceItem*)user_data;
-    fm_eject_volume(NULL, item->vol);
+    fm_eject_volume(NULL, item->vol, TRUE);
 }
 
 void on_remove_bm(GtkAction* act, gpointer user_data)

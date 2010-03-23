@@ -258,7 +258,8 @@ FmPath* fm_select_folder(GtkWindow* parent)
     return path;
 }
 
-typedef enum {
+typedef enum
+{
     MOUNT_VOLUME,
     MOUNT_GFILE,
     UMOUNT_MOUNT,
@@ -271,59 +272,85 @@ struct MountData
     GMainLoop *loop;
     MountAction action;
     GError* err;
+    gboolean ret;
 };
 
-static void on_mount_action_finished(GObject* src, GAsyncResult *res, struct MountData* data)
+static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer user_data)
 {
-    GError* err = NULL;
-    gboolean ret;
+    struct MountData* data = user_data;
+
     switch(data->action)
     {
     case MOUNT_VOLUME:
-        ret = g_volume_mount_finish(G_VOLUME(src), res, &err);
+        data->ret = g_volume_mount_finish(G_VOLUME(src), res, &data->err);
         break;
     case MOUNT_GFILE:
-        ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &err);
+        data->ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &data->err);
         break;
     case UMOUNT_MOUNT:
-        ret = g_mount_unmount_finish(G_MOUNT(src), res, &err);
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        data->ret = g_mount_unmount_with_operation_finish(G_MOUNT(src), res, &data->err);
+#else
+        data->ret = g_mount_unmount_finish(G_MOUNT(src), res, &data->err);
+#endif
         break;
     case EJECT_MOUNT:
-        ret = g_mount_eject_finish(G_MOUNT(src), res, &err);
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        data->ret = g_mount_eject_with_operation_finish(G_MOUNT(src), res, &data->err);
+#else
+        data->ret = g_mount_eject_finish(G_MOUNT(src), res, &data->err);
+#endif
         break;
     case EJECT_VOLUME:
-        ret = g_volume_eject_finish(G_VOLUME(src), res, &err);
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        data->ret = g_volume_eject_with_operation_finish(G_VOLUME(src), res, &data->err);
+#else
+        data->ret = g_volume_eject_finish(G_VOLUME(src), res, &data->err);
+#endif
         break;
-    }
-    if( !ret )
-        data->err = err;
-    else
-    {
-        if(err)
-            g_error_free(err);
     }
     g_main_loop_quit(data->loop);
 }
 
-gboolean fm_mount_volume_or_path(GtkWindow* parent, GVolume* vol, FmPath* path)
+gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboolean interactive)
 {
-    gboolean ret = FALSE;
+    gboolean ret;
     struct MountData* data = g_new0(struct MountData, 1);
-    GMountOperation* op = gtk_mount_operation_new(parent);
-    GCancellable* cancel = g_cancellable_new();
-    data->loop = g_main_loop_new (NULL, TRUE);
+    GMountOperation* op = interactive ? gtk_mount_operation_new(parent) : NULL;
+    GCancellable* cancellable = g_cancellable_new();
 
-    if(path)
+    data->loop = g_main_loop_new (NULL, TRUE);
+    data->action = action;
+
+    switch(data->action)
     {
-        GFile* gf = fm_path_to_gfile(path);
-        data->action = MOUNT_GFILE;
-        g_file_mount_enclosing_volume(gf, 0, op, cancel, (GAsyncReadyCallback)on_mount_action_finished, data);
-        g_object_unref(gf);
-    }
-    else
-    {
-        data->action = MOUNT_VOLUME;
-        g_volume_mount(vol, 0, op, cancel, (GAsyncReadyCallback)on_mount_action_finished, data);
+    case MOUNT_VOLUME:
+        g_volume_mount(G_VOLUME(obj), 0, op, cancellable, on_mount_action_finished, data);
+        break;
+    case MOUNT_GFILE:
+        g_file_mount_enclosing_volume(G_FILE(obj), 0, op, cancellable, on_mount_action_finished, data);
+        break;
+    case UMOUNT_MOUNT:
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        g_mount_unmount_with_operation(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
+#else
+        g_mount_unmount(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, cancellable, on_mount_action_finished, data);
+#endif
+        break;
+    case EJECT_MOUNT:
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        g_mount_eject_with_operation(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
+#else
+        g_mount_eject(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, cancellable, on_mount_action_finished, data);
+#endif
+        break;
+    case EJECT_VOLUME:
+#if GLIB_CHECK_VERSION(2, 22, 0)
+        g_volume_eject_with_operation(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
+#else
+        g_volume_eject(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, cancellable, on_mount_action_finished, data);
+#endif
+        break;
     }
 
     if (g_main_loop_is_running(data->loop))
@@ -334,103 +361,78 @@ gboolean fm_mount_volume_or_path(GtkWindow* parent, GVolume* vol, FmPath* path)
     }
     g_main_loop_unref(data->loop);
 
+    ret = data->ret;
     if(data->err)
     {
-        fm_show_error(parent, data->err->message);
+        if(interactive)
+        {
+            if(data->err->domain == G_IO_ERROR && data->err->code == G_IO_ERROR_FAILED)
+            {
+                /* Generate a more human-readable error message instead of using a gvfs one. */
+
+                /* The original error message is something like:
+                 * Error unmounting: umount exited with exit code 1:
+                 * helper failed with: umount: only root can unmount
+                 * UUID=18cbf00c-e65f-445a-bccc-11964bdea05d from /media/sda4 */
+
+                /* Why they pass this back to us?
+                 * This is not human-readable for the users at all. */
+
+                if(strstr(data->err->message, "only root can "))
+                {
+                    g_debug("%s", data->err->message);
+                    g_free(data->err->message);
+                    data->err->message = g_strdup(_("Only sytem administrator have the permission to do this."));
+                }
+            }
+            fm_show_error(parent, data->err->message);
+        }
         g_error_free(data->err);
     }
-    else
-        ret = TRUE;
 
     g_free(data);
-    g_object_unref(cancel);
+    g_object_unref(cancellable);
     g_object_unref(op);
     return ret;
 }
 
-gboolean fm_mount_path(GtkWindow* parent, FmPath* path)
+gboolean fm_mount_path(GtkWindow* parent, FmPath* path, gboolean interactive)
 {
-    return fm_mount_volume_or_path(parent, NULL, path);
-}
-
-gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol)
-{
-    return fm_mount_volume_or_path(parent, vol, NULL);
-}
-
-gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount)
-{
-    struct MountData* data = g_new0(struct MountData, 1);
-    GCancellable* cancel = g_cancellable_new();
-    gboolean ret;
-    data->action = UMOUNT_MOUNT;
-    data->loop = g_main_loop_new (NULL, TRUE);
-
-    g_mount_unmount(mount, 0, cancel, on_mount_action_finished, data);
-
-    if (g_main_loop_is_running(data->loop))
-    {
-        GDK_THREADS_LEAVE();
-        g_main_loop_run(data->loop);
-        GDK_THREADS_ENTER();
-    }
-    g_main_loop_unref(data->loop);
-    ret = (data->err == NULL);
-    g_free(data);
-    g_object_unref(cancel);
+    GFile* gf = fm_path_to_gfile(path);
+    gboolean ret = fm_do_mount(parent, G_OBJECT(gf), MOUNT_GFILE, interactive);
+    g_object_unref(gf);
     return ret;
 }
 
-gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol)
+gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
+{
+    return fm_do_mount(parent, G_OBJECT(vol), MOUNT_VOLUME, interactive);
+}
+
+gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount, gboolean interactive)
+{
+    return fm_do_mount(parent, G_OBJECT(mount), UMOUNT_MOUNT, interactive);
+}
+
+gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 {
     GMount* mount = g_volume_get_mount(vol);
     gboolean ret;
     if(!mount)
         return FALSE;
-    ret = fm_unmount_mount(parent, mount);
+    ret = fm_do_mount(parent, G_OBJECT(vol), UMOUNT_MOUNT, interactive);
     g_object_unref(mount);
     return ret;
 }
 
-static gboolean fm_eject(GtkWindow* parent, GMount* mount, GVolume* vol)
+gboolean fm_eject_mount(GtkWindow* parent, GMount* mount, gboolean interactive)
 {
-    struct MountData* data = g_new0(struct MountData, 1);
-    GCancellable* cancel = g_cancellable_new();
-    gboolean ret;
-    data->loop = g_main_loop_new (NULL, TRUE);
-
-    if(vol)
-    {
-        data->action = EJECT_VOLUME;
-        g_volume_eject(vol, 0, cancel, on_mount_action_finished, data);
-    }
-    else
-    {
-        data->action = EJECT_MOUNT;
-        g_mount_eject(mount, 0, cancel, on_mount_action_finished, data);
-    }
-
-    if (g_main_loop_is_running(data->loop))
-    {
-        GDK_THREADS_LEAVE();
-        g_main_loop_run(data->loop);
-        GDK_THREADS_ENTER();
-    }
-    g_main_loop_unref(data->loop);
-    ret = data->err == NULL;
-    g_free(data);
-    g_object_unref(cancel);
-    return ret;
+    return fm_do_mount(parent, G_OBJECT(mount), EJECT_MOUNT, interactive);
 }
 
-gboolean fm_eject_mount(GtkWindow* parent, GMount* mount)
+gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 {
-    return fm_eject(parent, mount, NULL);
-}
-
-gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol)
-{
-    return fm_eject(parent, NULL, vol);
+    return fm_do_mount(parent, G_OBJECT(vol), EJECT_VOLUME, interactive);
 }
 
 
