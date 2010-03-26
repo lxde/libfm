@@ -31,28 +31,31 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Te posebne znake lahko uporabite v ukazni vrstici:</b>\n"
+"  <b>%f</b>: predstavlja eno ime datoteke\n"
+"  <b>%F</b>: predstavlja več imen datotek\n"
+"  <b>%u</b>: predstavlja en URI datoteke\n"
+"  <b>%U</b>: predstavlja več URI datotek"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
 msgstr "Izberi program"
 
 #: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
 msgid "Custom Command Line"
-msgstr "Možnosti ukazne vrstice:\n"
+msgstr "Ukazna vrstica po meri"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
 msgstr "Odpri v konzoli"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "Installed Application"
-msgstr "Spremeni nastavitve programa"
+msgstr "Nameščen program"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Nastavi izbrani program kot privzeto dejanje za datoteke tega tipa"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -64,15 +67,17 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Na tem mestu datoteka z enakim imenom že obstaja.</b>\n"
+"\n"
+"Ali želite zamenjati obstoječo datoteko"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "To možnost uporabi za vse obstoječe datoteke"
 
 #: ../data/ui/ask-rename.glade.h:5
-#, fuzzy
 msgid "Confirm to replace files"
-msgstr "Shrani stisnjene datoteke v ..."
+msgstr "Potrdi zamenjavo datotek"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -91,18 +96,16 @@ msgid "_Skip"
 msgstr "_Preskoči"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "with the following file?"
-msgstr "Izvažanje celotne datoteke s prednastavitvijo %s"
+msgstr "s to datoteko?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
 msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
-#, fuzzy
 msgid "<b>Access Control</b>"
-msgstr "Vrstica &krmiljenja"
+msgstr "<b>Dostop<b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
@@ -142,7 +145,7 @@ msgstr "<b>Velikost na disku:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Cilj:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
@@ -161,9 +164,8 @@ msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "Make the file executable"
-msgstr "Izberi izvršljivo datoteko"
+msgstr "Naredi datoteko izvršljivo"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
@@ -171,15 +173,15 @@ msgstr "Brez"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Dejanja, ki jih lahko izvršijo vsi ostali uporabniki"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Dejanja, ki jih lahko izvrši lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -191,7 +193,7 @@ msgstr "Samo branje"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Izberite program s katerim želite odpreti datoteke tega tipa"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -215,9 +217,8 @@ msgid "<b>Progress:</b>"
 msgstr "<b>Končano:</b>"
 
 #: ../data/ui/progress.glade.h:4
-#, fuzzy
 msgid "<b>Some errors occurred:</b>"
-msgstr "N: Napake se sklicujejo na datoteko"
+msgstr "<b>Prišlo je do napak:<b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -234,14 +235,12 @@ msgid "Preparing..."
 msgstr "Pripravljam..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "BitTorrent odjemalec"
+msgstr "<b>Poštni odjemalec</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
-#, fuzzy
 msgid "<b>Terminal Emulator</b>"
-msgstr "Ukaz za zagon konzole:"
+msgstr "<b>Konzola</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -266,11 +265,11 @@ msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr ""
+msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni odjemalec"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Za odprtje spletnega naslova bo uporabljen privzeti spletni brskalnik"
 
 #: ../src/base/fm-utils.c:54
 #: ../src/base/fm-utils.c:83
@@ -345,7 +344,7 @@ msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Dejanje nad datoteko je bila prekinjeno in prišlo je do napak"
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
@@ -353,11 +352,11 @@ msgstr "Prekinjeno"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Dejanje nad datoteko je bila končano, a je prišlo do napak"
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Končano"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
@@ -389,11 +388,11 @@ msgstr "Spreminjanje atributov datotek"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Vnesite veljavno uporabniško ime ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Vnesite veljavno ime skupine ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
@@ -421,17 +420,12 @@ msgstr "Izvrzi izmenljiv medij"
 
 #: ../src/gtk/fm-places-view.c:143
 #: ../src/gtk/fm-places-view.c:773
-#, fuzzy
 msgid "Rename Bookmark Item"
-msgstr ""
-"Testni predmet 1\n"
-"Testni predmet 2\n"
-"Testni predmet 3"
+msgstr "Preimenuj zaznamek"
 
 #: ../src/gtk/fm-places-view.c:144
-#, fuzzy
 msgid "Remove from Bookmark"
-msgstr "Odstrani s seznama"
+msgstr "Odstrani iz zaznamkov"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
@@ -463,9 +457,8 @@ msgid "Create Symlink"
 msgstr "Ustvari simbolno povezavo"
 
 #: ../src/gtk/fm-file-menu.c:91
-#, fuzzy
 msgid "Send To"
-msgstr "Pošljiii na/v/k"
+msgstr "Pošlji na/v/k"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
@@ -480,21 +473,20 @@ msgid "Extract To..."
 msgstr "Izvleci v"
 
 #: ../src/gtk/fm-dnd-dest.c:443
-#, fuzzy
 msgid "XDirectSave failed."
-msgstr "XDirectSave failed."
+msgstr "XDirectSave ni uspel."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Datoteke odpri z izbranim programom"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Za odprtje datotek izvrši ukaz po meri"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Prilagodi"
 
 #: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
@@ -526,11 +518,11 @@ msgstr "Izberite ciljno mapo"
 
 #: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Želite premakniti izbrane datoteke v koš?"
 
 #: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Želite izbrisati izbrane datoteke v koš?"
 
 #: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
@@ -542,7 +534,7 @@ msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+msgstr "Ste prepričani, da želite izprazniti koš?"
 
 #: ../src/job/fm-dir-list-job.c:229
 #: ../src/job/fm-dir-list-job.c:238
