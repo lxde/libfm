@@ -251,7 +251,6 @@ msgid "Command line:"
 msgstr "Ukazna vrstica:"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid "File Associations"
 msgstr "Datotečne povezave"
 
