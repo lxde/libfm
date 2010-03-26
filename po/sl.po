@@ -129,9 +129,8 @@ msgid "<b>Open _with:</b>"
 msgstr "<b>Odpri _z:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Other:</b>"
-msgstr "Drugo ..."
+msgstr "<b>Drugo:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
@@ -183,23 +182,20 @@ msgid "Operations that users in the same group as the owner of the file can do"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
-#, fuzzy
 msgid "Read and Write"
-msgstr "Ni mogoče pisati na %s"
+msgstr "Branje in pisanje"
 
 #: ../data/ui/file-prop.glade.h:23
-#, fuzzy
 msgid "Read only"
-msgstr "Samo ikone"
+msgstr "Samo branje"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
-#, fuzzy
 msgid "Write only"
-msgstr "Samo ikone"
+msgstr "Samo pisanje"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
@@ -224,9 +220,8 @@ msgid "<b>Some errors occurred:</b>"
 msgstr "N: Napake se sklicujejo na datoteko"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "Preostali čas:"
+msgstr "<b>Preostali čas:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -249,9 +244,8 @@ msgid "<b>Terminal Emulator</b>"
 msgstr "Ukaz za zagon konzole:"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "V brskalniku"
+msgstr "<b>Spletni brskalnik</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
@@ -263,14 +257,12 @@ msgid "File Associations"
 msgstr "Datotečne povezave"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "<b>Privzeti programi</b>"
+msgstr "Privzeti programi"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "_Vse aplikacije"
+msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
@@ -323,24 +315,20 @@ msgid "TiB"
 msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
-#, fuzzy
 msgid "Shortcuts"
-msgstr "Naloženih %d bližnjic\n"
+msgstr "Bližnjice"
 
 #: ../src/base/fm-file-info.c:56
-#, fuzzy
 msgid "Mount Point"
-msgstr "Sandy Point"
+msgstr "Priklopna točka"
 
 #: ../src/base/fm-path.c:435
-#, fuzzy
 msgid "Trash Can"
-msgstr "Ni se mogoče povezati"
+msgstr "Koš"
 
 #: ../src/base/fm-path.c:437
-#, fuzzy
 msgid "My Computer"
-msgstr "Znova zaženi računalnik"
+msgstr "Moj računalnik"
 
 #: ../src/base/fm-path.c:445
 #: ../src/gtk/fm-places-view.c:490
@@ -360,9 +348,8 @@ msgid "The file operation is cancelled and there are some errors."
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:301
-#, fuzzy
 msgid "Cancelled"
-msgstr "Ustvarjanje torrenta prekinjeno"
+msgstr "Prekinjeno"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
@@ -377,34 +364,28 @@ msgid ", "
 msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:416
-#, fuzzy
 msgid "Moving files"
-msgstr "Vse datoteke"
+msgstr "Premikanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:419
-#, fuzzy
 msgid "Copying files"
-msgstr "Vse datoteke"
+msgstr "Kopiranje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:422
-#, fuzzy
 msgid "Trashing files"
-msgstr "Vse datoteke"
+msgstr "Brisanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:425
-#, fuzzy
 msgid "Deleting files"
-msgstr "Vse datoteke"
+msgstr "Brisanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:428
-#, fuzzy
 msgid "Creating symlinks"
-msgstr "Ustvarjanje profila šuma"
+msgstr "Ustvarjanje simbolnih povezav"
 
 #: ../src/gtk/fm-progress-dlg.c:431
-#, fuzzy
 msgid "Changing file attributes"
-msgstr "Začetek datoteke"
+msgstr "Spreminjanje atributov datotek"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
@@ -423,24 +404,20 @@ msgid "Files of different types"
 msgstr "Datoteke različnih tipov"
 
 #: ../src/gtk/fm-file-properties.c:653
-#, fuzzy
 msgid "Multiple Files"
-msgstr "Ni mogoče izvoziti več datotek."
+msgstr "Več datotek"
 
 #: ../src/gtk/fm-places-view.c:128
-#, fuzzy
 msgid "Mount Volume"
-msgstr "Začetna glasnost:"
+msgstr "Priklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "Unmount Volume"
-msgstr "Začetna glasnost:"
+msgstr "Odklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:130
-#, fuzzy
 msgid "Eject Removable Media"
-msgstr "Ne predvaja se noben medij"
+msgstr "Izvrzi izmenljiv medij"
 
 #: ../src/gtk/fm-places-view.c:143
 #: ../src/gtk/fm-places-view.c:773
@@ -457,9 +434,8 @@ msgid "Remove from Bookmark"
 msgstr "Odstrani s seznama"
 
 #: ../src/gtk/fm-places-view.c:156
-#, fuzzy
 msgid "Empty Trash"
-msgstr "Prazen račun"
+msgstr "Izprazni koš"
 
 #: ../src/gtk/fm-places-view.c:427
 msgid "Trash"
@@ -470,29 +446,26 @@ msgid "Desktop"
 msgstr "Namizje"
 
 #: ../src/gtk/fm-places-view.c:774
-#, fuzzy
 msgid "Enter a new name:"
-msgstr "Vnesite ime nove verige"
+msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-file-menu.c:83
 #: ../src/gtk/fm-file-menu.c:84
-#, fuzzy
 msgid "Open With..."
-msgstr "<b>Odpri _z:</b>"
+msgstr "Odpri z..."
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Preimenuj"
 
 #: ../src/gtk/fm-file-menu.c:90
-#, fuzzy
 msgid "Create Symlink"
-msgstr "Ustvaritev \"%1$s\": %2$s ni uspela"
+msgstr "Ustvari simbolno povezavo"
 
 #: ../src/gtk/fm-file-menu.c:91
 #, fuzzy
 msgid "Send To"
-msgstr "Povezujem se z %s"
+msgstr "Pošljiii na/v/k"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
@@ -509,7 +482,7 @@ msgstr "Izvleci v"
 #: ../src/gtk/fm-dnd-dest.c:443
 #, fuzzy
 msgid "XDirectSave failed."
-msgstr "Prenos %s je spodletel"
+msgstr "XDirectSave failed."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
@@ -536,23 +509,20 @@ msgid "Size"
 msgstr "Velikost"
 
 #: ../src/gtk/fm-folder-view.c:501
-#, fuzzy
 msgid "Modified"
-msgstr " (spremenjeno)"
+msgstr "Spremenjeno"
 
 #: ../src/gtk/fm-app-menu-view.c:157
-#, fuzzy
 msgid "Installed Applications"
-msgstr "_Vse aplikacije"
+msgstr "Nameščeni programi"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
 msgstr "Napaka"
 
 #: ../src/gtk/fm-gtk-utils.c:239
-#, fuzzy
 msgid "Please select a folder"
-msgstr "Izbor ciljne mape"
+msgstr "Izberite ciljno mapo"
 
 #: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
@@ -567,9 +537,8 @@ msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
 #: ../src/gtk/fm-gtk-utils.c:528
-#, fuzzy
 msgid "Please enter a new name:"
-msgstr "Vnesite ime nove verige"
+msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
@@ -578,7 +547,7 @@ msgstr ""
 #: ../src/job/fm-dir-list-job.c:229
 #: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory is not valid"
-msgstr "'%s' ni veljavna datoteka POT."
+msgstr "Navedena mapa ni veljavna"
 
