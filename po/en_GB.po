@@ -1,0 +1,548 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: libfm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-28 04:12+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Steve Cook (Yorvyk) <yorvik.ubunto@googlemail.com>\n"
+"Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Command line to execute:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>File Type to be opened:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Choose an Application"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Custom Command Line"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Execute in terminal emulator"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Installed Application"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Set selected application as default action of this file type"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Browse"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Apply this option to all existing files"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Confirm to replace files"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "File Name:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Overwrite"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Rename"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Skip"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "with the following file?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Access Control</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>File Type:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Group:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Last Access:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Last Modification:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Location:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Open _with:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Other:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Owner:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Size on Disk:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Target:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Total Size of Files:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Group:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Owner:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "File Properties"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Make the file executable"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "None"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Operations that all other users can do"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Operations that the owner of the file can do"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr "Operations that users in the same group as the owner of the file can do"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Read and Write"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Read only"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Select the application used to open files of this type "
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Write only"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_General"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_Permissions"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Processing:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Progress:</b>"
+
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Some errors occurred:</b>"
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Time remaining:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
+msgid "<b>To:</b>"
+msgstr "<b>To:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:9
+msgid "Preparing..."
+msgstr "Preparing..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+msgid "<b>Mail client</b>"
+msgstr "<b>Mail client</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Terminal Emulator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Web Browser</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Command line:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "File Associations"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Preferred Applications"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "System Applications"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "The preferred Web Browser will be used to open hyperlinks."
+
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:53
+msgid "Shortcuts"
+msgstr "Shortcuts"
+
+#: ../src/base/fm-file-info.c:56
+msgid "Mount Point"
+msgstr "Mount Point"
+
+#: ../src/base/fm-path.c:435
+msgid "Trash Can"
+msgstr "Trash Can"
+
+#: ../src/base/fm-path.c:437
+msgid "My Computer"
+msgstr "My Computer"
+
+#: ../src/base/fm-path.c:445
+#: ../src/gtk/fm-places-view.c:490
+msgid "Applications"
+msgstr "Applications"
+
+#: ../src/base/fm-path.c:448
+msgid "Network"
+msgstr "Network"
+
+#: ../src/gtk/fm-progress-dlg.c:142
+msgid ": "
+msgstr ": "
+
+#: ../src/gtk/fm-progress-dlg.c:299
+msgid "The file operation is cancelled and there are some errors."
+msgstr "The file operation is cancelled and there are some errors."
+
+#: ../src/gtk/fm-progress-dlg.c:301
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: ../src/gtk/fm-progress-dlg.c:305
+msgid "The file operation is finished, but there are some errors."
+msgstr "The file operation is finished, but there are some errors."
+
+#: ../src/gtk/fm-progress-dlg.c:307
+msgid "Finished"
+msgstr "Finished"
+
+#: ../src/gtk/fm-progress-dlg.c:401
+msgid ", "
+msgstr ", "
+
+#: ../src/gtk/fm-progress-dlg.c:416
+msgid "Moving files"
+msgstr "Moving files"
+
+#: ../src/gtk/fm-progress-dlg.c:419
+msgid "Copying files"
+msgstr "Copying files"
+
+#: ../src/gtk/fm-progress-dlg.c:422
+#, fuzzy
+msgid "Trashing files"
+msgstr "Trashing files"
+
+#: ../src/gtk/fm-progress-dlg.c:425
+msgid "Deleting files"
+msgstr "Deleting files"
+
+#: ../src/gtk/fm-progress-dlg.c:428
+msgid "Creating symlinks"
+msgstr "Creating symlinks"
+
+#: ../src/gtk/fm-progress-dlg.c:431
+msgid "Changing file attributes"
+msgstr "Changing file attributes"
+
+#: ../src/gtk/fm-file-properties.c:171
+msgid "Please enter a valid user name or numeric id."
+msgstr "Please enter a valid user name or numeric id."
+
+#: ../src/gtk/fm-file-properties.c:203
+msgid "Please enter a valid group name or numeric id."
+msgstr "Please enter a valid group name or numeric id."
+
+#: ../src/gtk/fm-file-properties.c:351
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Do you want to recursively apply these changes to all files and sub-folders?"
+
+#: ../src/gtk/fm-file-properties.c:625
+msgid "Files of different types"
+msgstr "Files of different types"
+
+#: ../src/gtk/fm-file-properties.c:653
+msgid "Multiple Files"
+msgstr "Multiple Files"
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Mount Volume"
+msgstr "Mount Volume"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "Unmount Volume"
+msgstr "Unmount Volume"
+
+#: ../src/gtk/fm-places-view.c:130
+msgid "Eject Removable Media"
+msgstr "Eject Removable Media"
+
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:788
+msgid "Rename Bookmark Item"
+msgstr "Rename Bookmark Item"
+
+#: ../src/gtk/fm-places-view.c:144
+msgid "Remove from Bookmark"
+msgstr "Remove from Bookmark"
+
+#: ../src/gtk/fm-places-view.c:156
+#, fuzzy
+msgid "Empty Trash"
+msgstr "Empty Rubbish"
+
+#: ../src/gtk/fm-places-view.c:427
+msgid "Trash"
+msgstr "Rubbish"
+
+#: ../src/gtk/fm-places-view.c:477
+msgid "Desktop"
+msgstr "Desktop"
+
+#: ../src/gtk/fm-places-view.c:789
+msgid "Enter a new name:"
+msgstr "Enter a new name:"
+
+#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:84
+msgid "Open With..."
+msgstr "Open With..."
+
+#: ../src/gtk/fm-file-menu.c:89
+msgid "Rename"
+msgstr "Rename"
+
+#: ../src/gtk/fm-file-menu.c:90
+msgid "Create Symlink"
+msgstr "Create Symlink"
+
+#: ../src/gtk/fm-file-menu.c:91
+msgid "Send To"
+msgstr "Send To"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Compress..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Extract Here"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Extract To..."
+
+#: ../src/gtk/fm-dnd-dest.c:443
+msgid "XDirectSave failed."
+msgstr "XDirectSave failed."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:96
+msgid "Use selected application to open files"
+msgstr "Use selected application to open files"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:103
+msgid "Execute custom command line to open files"
+msgstr "Execute custom command line to open files"
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Customise"
+
+#: ../src/gtk/fm-folder-view.c:469
+msgid "Name"
+msgstr "Name"
+
+#: ../src/gtk/fm-folder-view.c:488
+msgid "Description"
+msgstr "Description"
+
+#: ../src/gtk/fm-folder-view.c:495
+msgid "Size"
+msgstr "Size"
+
+#: ../src/gtk/fm-folder-view.c:501
+msgid "Modified"
+msgstr "Modified"
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr "Installed Applications"
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr "Error"
+
+#: ../src/gtk/fm-gtk-utils.c:239
+msgid "Please select a folder"
+msgstr "Please select a folder"
+
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only sytem administrator have the permission to do this."
+msgstr "Only sytem administrator have the permission to do this."
+
+#: ../src/gtk/fm-gtk-utils.c:461
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Do you want to move the selected files to trash bin?"
+
+#: ../src/gtk/fm-gtk-utils.c:478
+msgid "Do you want to delete the selected files?"
+msgstr "Do you want to delete the selected files?"
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Rename File"
+msgstr "Rename File"
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Please enter a new name:"
+msgstr "Please enter a new name:"
+
+#: ../src/gtk/fm-gtk-utils.c:552
+#, fuzzy
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Are you sure you want to empty the rubbish bin?"
+
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "The specified directory is not valid"
+
