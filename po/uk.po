@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-19 04:11+0000\n"
+"POT-Creation-Date: 2010-03-24 04:12+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -30,13 +30,13 @@ msgstr "<b>Тип файлу для відкриття:</b>"
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Ці спеціальні коди можна використати в командній стрічці:</b>\n"
 " <b>%f</b>: означає назву одного файлу\n"
-" <b>%F:</b> означає назву багатьох файлів\n"
+" <b>%F</b>: означає назву багатьох файлів\n"
 " <b>%u</b>: означає URI файлу\n"
 " <b>%U</b>: означає багато URI"
 
@@ -321,67 +321,67 @@ msgstr "Ярлики"
 msgid "Mount Point"
 msgstr "Точка монтування"
 
-#: ../src/base/fm-path.c:423
+#: ../src/base/fm-path.c:435
 msgid "Trash Can"
 msgstr "Смітник"
 
-#: ../src/base/fm-path.c:425
+#: ../src/base/fm-path.c:437
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
 msgid "Applications"
 msgstr "Програми"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:448
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/gtk/fm-progress-dlg.c:111
+#: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:267
+#: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:271
+#: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:273
+#: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:367
+#: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
 msgstr "."
 
-#: ../src/gtk/fm-progress-dlg.c:382
+#: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:385
+#: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:388
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:394
+#: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:397
+#: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
@@ -417,7 +417,7 @@ msgstr "Від’єднати диск"
 msgid "Eject Removable Media"
 msgstr "Витягнути диск або медіа"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -429,15 +429,15 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:404
+#: ../src/gtk/fm-places-view.c:427
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-view.c:454
+#: ../src/gtk/fm-places-view.c:477
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:751
+#: ../src/gtk/fm-places-view.c:789
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -493,11 +493,11 @@ msgstr "Назва"
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:494
+#: ../src/gtk/fm-folder-view.c:495
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:500
+#: ../src/gtk/fm-folder-view.c:501
 msgid "Modified"
 msgstr "Змінено"
 
@@ -513,23 +513,27 @@ msgstr "Помилка"
 msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:459
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only sytem administrator have the permission to do this."
+msgstr "Тільки системний адміністратор може це зробити"
+
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:476
+#: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
 msgstr "Ви бажаєте видалити вибрані файли?"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:550
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 

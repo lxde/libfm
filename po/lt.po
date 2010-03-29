@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -26,13 +26,13 @@ msgstr "<b>Atidaromo failo tipas:</b>"
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Komandinėje eilutėje gali būti naudojami šie specialūs kodai:</b>\n"
 " <b>%f</b>: reiškia vieno failo pavadinimą\n"
-" <b>%F:</b> reiškia kelių failų pavadinimus\n"
+" <b>%F</b>: reiškia kelių failų pavadinimus\n"
 " <b>%u</b>: reiškia vieną failo URI\n"
 " <b>%U</b>: reiškia kelis URIs"
 
@@ -360,31 +360,31 @@ msgstr ""
 msgid "Finished"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:367
 msgid ", "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Perkeliami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Kopijuojami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Išmetami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Ištrinami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Kuriamos sisteminės nuorodos"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 

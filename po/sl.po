@@ -1,28 +1,27 @@
-# Spanish (Castilian) translation for libfm package.
-# Copyright (C) 2010 the LXDE team
-# This file is distributed under the same license as the libfm package.
-# Hugo Florentino <sysadmin@cips.cu>, 2010.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 0.1\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-24 04:12+0000\n"
-"PO-Revision-Date: 2010-02-09 11:50-0500\n"
-"Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2010-03-29 04:12+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
+"Language-Team: paxman <paxmanpwnz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: SLOVENIA\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>Línea de comandos a ejecutar:</b>"
+msgstr "<b>Izvedi ukaz:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Tipo de archivo a abrirse:</b>"
+msgstr "<b>Odpri tip datoteke:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -33,35 +32,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>En la línea de comandos pueden utilizarse estos códigos especiales:</b>\n"
-" <b>%f</b>: Representa el nombre de un solo archivo\n"
-" <b>%F</b>: Representa múltiples nombres de archivos\n"
-" <b>%u</b>: Representa un solo URI del archivo\n"
-" <b>%U</b>: Representa múltiples URIs"
+"<b>Te posebne znake lahko uporabite v ukazni vrstici:</b>\n"
+"  <b>%f</b>: predstavlja eno ime datoteke\n"
+"  <b>%F</b>: predstavlja več imen datotek\n"
+"  <b>%u</b>: predstavlja en URI datoteke\n"
+"  <b>%U</b>: predstavlja več URI datotek"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Seleccione una aplicación"
+msgstr "Izberi program"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Línea de comandos personalizada"
+msgstr "Ukazna vrstica po meri"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Ejecutar en el emulador de terminal"
+msgstr "Odpri v konzoli"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Aplicación instalada"
+msgstr "Nameščen program"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Establecer la aplicación seleccionada como predeterminada  para abrir los archivos de este tipo"
+msgstr "Nastavi izbrani program kot privzeto dejanje za datoteke tega tipa"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_Explorar"
+msgstr "_Brskaj"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -69,37 +68,37 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>En esta ubicación ya existe un archivo con el mismo nombre.</b>\n"
+"<b>Na tem mestu datoteka z enakim imenom že obstaja.</b>\n"
 "\n"
-"¿Desea reemplazar el archivo existente"
+"Ali želite zamenjati obstoječo datoteko"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Aplicar esta opción a todos los archivos existentes"
+msgstr "To možnost uporabi za vse obstoječe datoteke"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Confirmar el reemplazo de archivos"
+msgstr "Potrdi zamenjavo datotek"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Nombre del archivo:"
+msgstr "Ime datoteke:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Sobreescribir"
+msgstr "_Prepiši"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "_Renombrar"
+msgstr "_Preimenuj"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "_Omitir"
+msgstr "_Preskoči"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "con el siguiente archivo?"
+msgstr "s to datoteko?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -107,177 +106,179 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Control de accesso</b>"
+msgstr "<b>Dostop<b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "<b>Tip datoteke:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>Grupo:</b>"
+msgstr "<b>Skupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Último acceso:</b>"
+msgstr "<b>Zadnji dostop:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Última modificación:</b>"
+msgstr "<b>Zadnja sprememba:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>Ubicación:</b>"
+msgstr "<b>Mesto:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Abrir _con:</b>"
+msgstr "<b>Odpri _z:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Otro:</b>"
+msgstr "<b>Drugo:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>Propietario:</b>"
+msgstr "<b>Lastnik:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>Tamaño en disco:</b>"
+msgstr "<b>Velikost na disku:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>Destino:</b>"
+msgstr "<b>Cilj:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Tamaño total de los archivos:</b>"
+msgstr "<b>Skupna velikost datotek:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_Grupo:</b>"
+msgstr "<b>_Skupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>_Propietario:</b>"
+msgstr "<b>_Lastnik</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Propiedades del archivo"
+msgstr "Lastnosti datoteke"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Hacer el fichero ejecutable"
+msgstr "Naredi datoteko izvršljivo"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "Ninguna"
+msgstr "Brez"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Operaciones permitidas al resto de los usuarios"
+msgstr "Dejanja, ki jih lahko izvršijo vsi ostali uporabniki"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "Operaciones permitidas al propietario del archivo"
+msgstr "Dejanja, ki jih lahko izvrši lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operaciones permitidas a los usuarios del mismo grupo que el propietario del archivo"
+msgstr "Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Lectura y escritura"
+msgstr "Branje in pisanje"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Sólo lectura"
+msgstr "Samo branje"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo"
+msgstr "Izberite program s katerim želite odpreti datoteke tega tipa"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Sólo escritura"
+msgstr "Samo pisanje"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_General"
+msgstr "_Splošno"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_Permisos"
+msgstr "_Dovoljenja"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Procesando:</b>"
+msgstr "<b>Obdelujem:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>Progreso:</b>"
+msgstr "<b>Končano:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Ocurrieron algunos errores:</b>"
+msgstr "<b>Prišlo je do napak:<b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Tiempo restante:</b>"
+msgstr "<b>Preostali čas:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>Hacia:</b>"
+msgstr "<b>Cilj:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr "Preparando..."
+msgstr "Pripravljam..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Cliente de correo</b>"
+msgstr "<b>Poštni odjemalec</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Emulador de terminal</b>"
+msgstr "<b>Konzola</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr "<b>Navegador web</b>"
+msgstr "<b>Spletni brskalnik</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr "Línea de comandos:"
+msgstr "Ukazna vrstica:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "Asociaciones de archivos"
+msgstr "Datotečne povezave"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr "Aplicaciones preferidas"
+msgstr "Privzeti programi"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr "Aplicaciones del sistema"
+msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "El cliente de correo preferido se utilizará para redactar los mensajes cuando haga clic en las direcciones de correo."
+msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni odjemalec"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "El navegador web preferido se utilizará para abrir los hipervínculos."
+msgstr "Za odprtje spletnega naslova bo uporabljen privzeti spletni brskalnik"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "%u bit"
+msgstr[1] "%u bita"
+msgstr[2] "%u biti"
+msgstr[3] "%u bitov"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -313,47 +314,47 @@ msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "Atajos"
+msgstr "Bližnjice"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "Punto de montaje"
+msgstr "Priklopna točka"
 
 #: ../src/base/fm-path.c:435
 msgid "Trash Can"
-msgstr "Papelera"
+msgstr "Koš"
 
 #: ../src/base/fm-path.c:437
 msgid "My Computer"
-msgstr "Mi PC"
+msgstr "Moj računalnik"
 
 #: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
 msgid "Applications"
-msgstr "Aplicaciones"
+msgstr "Programi"
 
 #: ../src/base/fm-path.c:448
 msgid "Network"
-msgstr "Red"
+msgstr "Omrežje"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr "La operación de archivos se ha cancelado y hay algunos errores."
+msgstr "Dejanje nad datoteko je bila prekinjeno in prišlo je do napak"
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr "Cancelado"
+msgstr "Prekinjeno"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr "La operación sobre archivos ha finalizado, pero hay algunos errores."
+msgstr "Dejanje nad datoteko je bila končano, a je prišlo do napak"
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr "Finalizado"
+msgstr "Končano"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
@@ -361,188 +362,182 @@ msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
-msgstr "Moviendo archivos"
+msgstr "Premikanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
-msgstr "Copiando archivos"
+msgstr "Kopiranje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr "Enviando archivos a la papelera"
+msgstr "Brisanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
-msgstr "Eliminando archivos"
+msgstr "Brisanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
-msgstr "Creando enlaces simbólicos"
+msgstr "Ustvarjanje simbolnih povezav"
 
 #: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
-msgstr "Cambiando atributos de archivo"
+msgstr "Spreminjanje atributov datotek"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr "Por favor, introduzca un nombre de usuario o id. numérica válida."
+msgstr "Vnesite veljavno uporabniško ime ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
+msgstr "Vnesite veljavno ime skupine ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "¿Desea aplicar recursivamente estos cambios a todos los archivos y subcarpetas?"
+msgstr "Želite rekurzivno uporabiti spremembe na vseh podmapah in datotekah?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr "Archivos de tipos diferentes"
+msgstr "Datoteke različnih tipov"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr "Múltiples archivos"
+msgstr "Več datotek"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
-msgstr "Montar volumen"
+msgstr "Priklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "Unmount Volume"
-msgstr "Desmontar volumen"
+msgstr "Odklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:130
 msgid "Eject Removable Media"
-msgstr "Expulsar medio extraíble"
+msgstr "Izvrzi izmenljiv medij"
 
 #: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
 msgid "Rename Bookmark Item"
-msgstr "Renombrar marcador"
+msgstr "Preimenuj zaznamek"
 
 #: ../src/gtk/fm-places-view.c:144
 msgid "Remove from Bookmark"
-msgstr "Quitar de los marcadores"
+msgstr "Odstrani iz zaznamkov"
 
 #: ../src/gtk/fm-places-view.c:156
 msgid "Empty Trash"
-msgstr "Vaciar papelera"
+msgstr "Izprazni koš"
 
 #: ../src/gtk/fm-places-view.c:427
 msgid "Trash"
-msgstr "Papelera"
+msgstr "Koš"
 
 #: ../src/gtk/fm-places-view.c:477
 msgid "Desktop"
-msgstr "Escritorio"
+msgstr "Namizje"
 
 #: ../src/gtk/fm-places-view.c:789
 msgid "Enter a new name:"
-msgstr "Introduzca un nuevo nombre:"
+msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr "Abrir con..."
+msgstr "Odpri z..."
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
-msgstr "Renombrar"
+msgstr "Preimenuj"
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
-msgstr "Crear enlace simbólico"
+msgstr "Ustvari simbolno povezavo"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
-msgstr "Enviar a"
+msgstr "Pošlji na/v/k"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr "Comprimir..."
+msgstr "Stisni..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr "Extraer aquí"
+msgstr "Izvleci tu"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr "Estraer a..."
+msgstr "Izvleci v"
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
-msgstr "XDirectSave ha fallado."
+msgstr "XDirectSave ni uspel."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Utilizar la aplicación seleccionada para abrir los archivos"
+msgstr "Datoteke odpri z izbranim programom"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
+msgstr "Za odprtje datotek izvrši ukaz po meri"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr "Personalizar"
+msgstr "Prilagodi"
 
 #: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
-msgstr "Nombre"
+msgstr "Ime"
 
 #: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
-msgstr "Descripción"
+msgstr "Opis"
 
 #: ../src/gtk/fm-folder-view.c:495
 msgid "Size"
-msgstr "Tamaño"
+msgstr "Velikost"
 
 #: ../src/gtk/fm-folder-view.c:501
 msgid "Modified"
-msgstr "Modificado"
+msgstr "Spremenjeno"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "Aplicaciones instaladas"
+msgstr "Nameščeni programi"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr "Error"
+msgstr "Napaka"
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr "Por favor, seleccione una carpeta"
+msgstr "Izberite ciljno mapo"
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only sytem administrator have the permission to do this."
-msgstr "Sólo el administrador del sistema tiene el permiso para hacer esto."
+msgstr "Le sistemski administrator ima pravico za to dejanje"
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr "¿Desea mover los archivos seleccionados a la papelera?"
+msgstr "Želite premakniti izbrane datoteke v koš?"
 
 #: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
-msgstr "¿Desea eliminar los archivos seleccionados?"
+msgstr "Želite izbrisati izbrane datoteke v koš?"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
-msgstr "Renombrar archivo"
+msgstr "Preimenuj datoteko"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
-msgstr "Por favor, introduzca un nuevo nombre:"
+msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "¿Está seguro que desea vaciar la papelera?"
+msgstr "Ste prepričani, da želite izprazniti koš?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "El directorio especificado no es válido"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "No es un directorio válido"
-
-#~ msgid "The selection mode"
-#~ msgstr "Por favor, seleccione una carpeta"
+msgstr "Navedena mapa ni veljavna"

@@ -1,18 +1,18 @@
 /*
  *      fm-file-ops-job.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -118,6 +118,7 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask);
 void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid);
 
+void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job);
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest);

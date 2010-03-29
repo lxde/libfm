@@ -192,7 +192,7 @@ FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity
     if( err->domain == G_IO_ERROR )
     {
         if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
-            if(fm_mount_path(parent, folder->dir_path))
+            if(fm_mount_path(parent, folder->dir_path, TRUE))
                 return FM_JOB_RETRY;
     }
     fm_show_error(parent, err->message);
@@ -491,6 +491,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
 			render = gtk_cell_renderer_text_new();
+            g_object_set(render, "xalign", 1.0, NULL);
             col = gtk_tree_view_column_new_with_attributes(_("Size"), render, "text", COL_FILE_SIZE, NULL);
 			gtk_tree_view_column_set_sort_column_id(col, COL_FILE_SIZE);
 			gtk_tree_view_column_set_resizable(col, TRUE);

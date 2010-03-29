@@ -55,12 +55,12 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 FmPath* fm_select_folder(GtkWindow* parent);
 
 /* Mount */
-gboolean fm_mount_path(GtkWindow* parent, FmPath* path);
-gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol);
-gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount);
-gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol);
-gboolean fm_eject_mount(GtkWindow* parent, GMount* mount);
-gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol);
+gboolean fm_mount_path(GtkWindow* parent, FmPath* path, gboolean interactive);
+gboolean fm_mount_volume(GtkWindow* parent, GVolume* vol, gboolean interactive);
+gboolean fm_unmount_mount(GtkWindow* parent, GMount* mount, gboolean interactive);
+gboolean fm_unmount_volume(GtkWindow* parent, GVolume* vol, gboolean interactive);
+gboolean fm_eject_mount(GtkWindow* parent, GMount* mount, gboolean interactive);
+gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive);
 
 /* File operations */
 void fm_copy_files(FmPathList* files, FmPath* dest_dir);

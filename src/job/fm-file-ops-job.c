@@ -28,6 +28,7 @@
 
 enum
 {
+    PREPARED,
 	CUR_FILE,
 	PERCENT,
     ASK_RENAME,
@@ -57,6 +58,16 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 	job_class = FM_JOB_CLASS(klass);
 	job_class->run = fm_file_ops_job_run;
 	job_class->finished = NULL;
+
+    /* preperation of the file operation is done, ready to start copying/deleting... */
+    signals[PREPARED] =
+        g_signal_new( "prepared",
+                      G_TYPE_FROM_CLASS ( klass ),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET ( FmFileOpsJobClass, cur_file ),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0 );
 
     signals[CUR_FILE] =
         g_signal_new( "cur-file",
@@ -211,6 +222,16 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
     	fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
         job->percent = percent;
     }
+}
+
+static void emit_prepared(FmFileOpsJob* job, gpointer user_data)
+{
+	g_signal_emit(job, signals[PREPARED], 0);
+}
+
+void fm_file_ops_job_emit_prepared(FmFileOpsJob* job)
+{
+    fm_job_call_main_thread(FM_JOB(job), emit_prepared, NULL);
 }
 
 struct AskRename

@@ -123,10 +123,16 @@ FmPath* fm_path_new(const char* path)
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     FmPath* path;
-    if(parent) /* remove tailing slash if needed. */
+    gboolean append_slash = FALSE;
+    if(G_LIKELY(parent)) /* remove tailing slash if needed. */
     {
         while(basename[name_len-1] == '/')
             --name_len;
+    }
+    else /* this is root of the fs */
+    {
+        if(basename[name_len-1] != G_DIR_SEPARATOR)
+            append_slash = TRUE; /* ensure path of root fs is ended with /, such as sftp://xxx.xxx.net/ */
     }
 
     /* special case for . and .. */
@@ -138,7 +144,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
             return parent && parent->parent ? fm_path_ref(parent->parent) : NULL;
     }
 
-    path = (FmPath*)g_malloc(sizeof(FmPath) + name_len);
+    path = (FmPath*)g_malloc(sizeof(FmPath) + (G_UNLIKELY(append_slash) ? name_len + 1 : name_len));
     path->n_ref = 1;
     if(G_LIKELY(parent))
     {
@@ -171,7 +177,13 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
         path->parent = NULL;
     }
     memcpy(path->name, basename, name_len);
-    path->name[name_len] = '\0';
+    if(G_UNLIKELY(append_slash))
+    {
+        path->name[name_len] = G_DIR_SEPARATOR;
+        path->name[name_len + 1] = '\0';
+    }
+    else
+        path->name[name_len] = '\0';
     return path;
 }
 
@@ -353,7 +365,7 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
     else
     {
         pbuf = fm_path_to_str_int( path->parent, ret, str_len + name_len + 1 );
-        if (path->parent->parent)
+        if (path->parent->parent) /* if parent dir is not root */
             *pbuf++ = G_DIR_SEPARATOR;
     }
     memcpy( pbuf, path->name, name_len );

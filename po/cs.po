@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:52+0100\n"
+"POT-Creation-Date: 2010-03-20 02:22+0800\n"
 "PO-Revision-Date: 2010-02-23 23:11+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
@@ -29,13 +29,13 @@ msgstr " <b>Typ souboru k otevření:</b>"
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>V příkazech mohou být použity tyto speciální kódy:</b>\n"
 "  <b>%f</b>: Představuje jeden soubor\n"
-"  <b>%F:</b> Představuje více souborů\n"
+"  <b>%F</b>: Představuje více souborů\n"
 "  <b>%u</b>: Představuje jednu URI adresu\n"
 "  <b>%U</b>: Představuje více URI adres"
 
@@ -218,18 +218,69 @@ msgstr "<b>Probíhá zpracování:</b>"
 msgid "<b>Progress:</b>"
 msgstr "<b>Průběh:</b>"
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr ""
+
 #: ../data/ui/progress.glade.h:5
+#, fuzzy
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Probíhá zpracování:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
 msgstr "<b>Do:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
 msgstr "Připravuje se..."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../data/ui/preferred-apps.glade.h:1
+#, fuzzy
+msgid "<b>Mail client</b>"
+msgstr "<b>Typ souboru:</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:3
+#, fuzzy
+msgid "<b>Web Browser</b>"
+msgstr "<b>Vlastník:</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+#, fuzzy
+msgid "Command line:"
+msgstr "Vlastní příkaz"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:6
+#, fuzzy
+msgid "Preferred Applications"
+msgstr "Aplikace"
+
+#: ../data/ui/preferred-apps.glade.h:7
+#, fuzzy
+msgid "System Applications"
+msgstr "Nainstalované aplikace"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -269,11 +320,11 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-file-info.c:52
+#: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
 msgstr "Zkratky"
 
-#: ../src/base/fm-file-info.c:55
+#: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
 msgstr "Přípojný bod"
 
@@ -285,62 +336,82 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Můj počítač"
 
-#: ../src/base/fm-path.c:427
-#: ../src/gtk/fm-places-view.c:463
+#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
 msgid "Applications"
 msgstr "Aplikace"
 
-#: ../src/base/fm-path.c:429
+#: ../src/base/fm-path.c:436
 msgid "Network"
 msgstr "Síť"
 
-#: ../src/gtk/fm-progress-dlg.c:226
+#: ../src/gtk/fm-progress-dlg.c:111
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:265
+msgid "The file operation is cancelled and there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:267
+msgid "Cancelled"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:271
+msgid "The file operation is finished, but there are some errors."
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:273
+msgid "Finished"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:367
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:382
 msgid "Moving files"
 msgstr "Přesun souborů"
 
-#: ../src/gtk/fm-progress-dlg.c:229
+#: ../src/gtk/fm-progress-dlg.c:385
 msgid "Copying files"
 msgstr "Kopírování souborů"
 
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:388
 msgid "Trashing files"
 msgstr "Přesouvám soubory do koše"
 
-#: ../src/gtk/fm-progress-dlg.c:235
+#: ../src/gtk/fm-progress-dlg.c:391
 msgid "Deleting files"
 msgstr "Mazání souborů"
 
-#: ../src/gtk/fm-progress-dlg.c:238
+#: ../src/gtk/fm-progress-dlg.c:394
 msgid "Creating symlinks"
 msgstr "Creating symlinks"
 
-#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:397
 msgid "Changing file attributes"
 msgstr "Mění se atributy souborů"
 
-#: ../src/gtk/fm-file-properties.c:177
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr "Prosím zadejte platné jméno nebo číselné id uživatele."
 
-#: ../src/gtk/fm-file-properties.c:209
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím zadejte platné jméno nebo číselné id skupiny."
 
-#: ../src/gtk/fm-file-properties.c:357
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:351
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr " Soubory různých typů"
 
-#: ../src/gtk/fm-file-properties.c:645
+#: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
 msgstr "Více souborů"
-
-#: ../src/gtk/fm-file-properties.c:764
-msgid "Customize"
-msgstr "Přizpůsobit"
 
 #: ../src/gtk/fm-places-view.c:128
 msgid "Mount Volume"
@@ -354,8 +425,7 @@ msgstr "Odpojit svazek"
 msgid "Eject Removable Media"
 msgstr "Vysunout vyměnitelné medium"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:746
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
 msgid "Rename Bookmark Item"
 msgstr "Přejmenovat záložku"
 
@@ -371,60 +441,75 @@ msgstr "Vyprázdnit koš"
 msgid "Trash"
 msgstr "Koš"
 
-#: ../src/gtk/fm-places-view.c:451
+#: ../src/gtk/fm-places-view.c:454
 msgid "Desktop"
 msgstr "Pracovní plocha"
 
-#: ../src/gtk/fm-places-view.c:747
+#: ../src/gtk/fm-places-view.c:751
 msgid "Enter a new name:"
 msgstr "Vložte nový název:"
 
-#: ../src/gtk/fm-file-menu.c:78
-#: ../src/gtk/fm-file-menu.c:79
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Otevřít pomocí..."
 
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
 msgstr "Přejmenovat"
 
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
 msgstr "Vytvořit odkaz"
 
-#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
 msgstr "Poslat do"
 
-#: ../src/gtk/fm-dnd-dest.c:431
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr ""
+
+#: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
 msgstr "XDirectSave selhal."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:95
+#: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
 msgstr "Použít vybranou aplikaci pro otevření souborů"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
 msgstr "Spustit vlastní příkaz pro otevření souborů"
 
-#: ../src/gtk/fm-folder-view.c:467
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Přizpůsobit"
+
+#: ../src/gtk/fm-folder-view.c:469
 msgid "Name"
 msgstr "Název"
 
-#: ../src/gtk/fm-folder-view.c:486
+#: ../src/gtk/fm-folder-view.c:488
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:494
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/gtk/fm-folder-view.c:498
+#: ../src/gtk/fm-folder-view.c:500
 msgid "Modified"
 msgstr "Změněno"
 
-#: ../src/gtk/fm-app-menu-view.c:150
+#: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Nainstalované aplikace"
 
@@ -436,28 +521,28 @@ msgstr "Chyba"
 msgid "Please select a folder"
 msgstr "Prosím vyberte složku"
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:459
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Chcete přesunout vybrané soubory do koše?"
 
-#: ../src/gtk/fm-gtk-utils.c:472
+#: ../src/gtk/fm-gtk-utils.c:476
 msgid "Do you want to delete the selected files?"
 msgstr "Opravdu chcete odstranit vybrané soubory?"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Rename File"
 msgstr "Přejmenovat soubor"
 
-#: ../src/gtk/fm-gtk-utils.c:529
+#: ../src/gtk/fm-gtk-utils.c:528
 msgid "Please enter a new name:"
 msgstr "Prosím zadejte nový název:"
 
-#: ../src/gtk/fm-gtk-utils.c:551
+#: ../src/gtk/fm-gtk-utils.c:550
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Skutečně chcete vyprázdnit složku koše?"
 
-#: ../src/job/fm-dir-list-job.c:266
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Zadaná složka není platná"
-

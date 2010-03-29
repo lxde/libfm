@@ -59,9 +59,9 @@ struct _FmProgressDisplay
 
     guint delay_timeout;
     guint update_timeout;
-    guint speed_timeout;
-    time_t elapsed_time;
-    gboolean handling_error : 1;
+
+    GTimer* timer;
+
     gboolean has_error : 1;
 };
 
@@ -72,10 +72,36 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data
 {
     if(data->dlg)
     {
+        GTimeVal cur_time;
         char percent_text[64];
         g_snprintf(percent_text, 64, "%d %%", percent);
         gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(data->progress), (gdouble)percent/100);
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(data->progress), percent_text);
+
+        gdouble elapsed = g_timer_elapsed(data->timer, NULL);
+        if(elapsed >= 0.5)
+        {
+            gdouble remaining = elapsed * (100 - percent) / percent;
+            if(data->remaining_time)
+            {
+                char time_str[32];
+                guint secs = (guint)remaining;
+                guint mins = 0;
+                guint hrs = 0;
+                if(secs > 60)
+                {
+                    mins = secs / 60;
+                    secs %= 60;
+                    if(mins > 60)
+                    {
+                        hrs = mins / 60;
+                        mins %= 60;
+                    }
+                }
+                g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
+                gtk_label_set_text(data->remaining_time, time_str);
+            }
+        }
     }
 }
 
@@ -91,7 +117,12 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSeverity severity, FmProgressDisplay* data)
 {
     GtkTextIter it;
-    data->handling_error = TRUE;
+    if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_CANCELLED)
+        return;
+
+    if(data->timer)
+        g_timer_stop(data->timer);
+
     data->has_error = TRUE;
 
     ensure_dlg(data);
@@ -115,7 +146,8 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
     if(!GTK_WIDGET_VISIBLE(data->error_pane))
         gtk_widget_show(data->error_pane);
 
-    data->handling_error = FALSE;
+    if(data->timer)
+        g_timer_continue(data->timer);
     return FM_JOB_CONTINUE;
 }
 
@@ -129,7 +161,13 @@ static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
 {
     const char* old_name = g_object_get_data(G_OBJECT(entry), "old_name");
     const char* new_name = gtk_entry_get_text(GTK_ENTRY(entry));
-    gtk_widget_set_sensitive(rename, new_name && *new_name && g_strcmp0(old_name, new_name));
+    gboolean can_rename = new_name && *new_name && g_strcmp0(old_name, new_name);
+    gtk_widget_set_sensitive(rename, can_rename);
+    if(can_rename)
+    {
+        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(entry));
+        gtk_dialog_set_default_response(dlg, gtk_dialog_get_response_for_widget(dlg, rename));
+    }
 }
 
 static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name, FmProgressDisplay* data)
@@ -144,7 +182,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     if(data->default_opt)
         return data->default_opt;
 
-    data->handling_error = TRUE;
+    if(data->timer)
+        g_timer_stop(data->timer);
 
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     ensure_dlg(data);
@@ -228,19 +267,14 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     gtk_widget_destroy(dlg);
 
-    data->handling_error = FALSE;
+    if(data->timer)
+        g_timer_continue(data->timer);
 
     return res;
 }
 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
-    if(data->speed_timeout)
-    {
-        g_source_remove(data->speed_timeout);
-        data->speed_timeout = 0;
-    }
-
     if(data->update_timeout)
     {
         g_source_remove(data->update_timeout);
@@ -299,7 +333,7 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
         }
     }
     else if(id == GTK_RESPONSE_CLOSE)
-        fm_progress_display_destroy(data);    
+        fm_progress_display_destroy(data);
 }
 
 static gboolean on_update_dlg(FmProgressDisplay* data)
@@ -433,44 +467,9 @@ void ensure_dlg(FmProgressDisplay* data)
         on_show_dlg(data);
 }
 
-static gboolean on_speed_timeout(FmProgressDisplay* data)
+static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
 {
-    goffset speed_bps;
-    gdouble remaining_time;
-
-    if(!data->handling_error)
-    {
-        ++data->elapsed_time;
-        speed_bps = data->job->finished / data->elapsed_time;
-        if(speed_bps == 0)
-            speed_bps = 1;
-
-        /* g_debug("%llu, %llu", data->job->total, data->job->finished + data->job->current_file_finished); */
-        remaining_time = (gdouble)(data->job->total - data->job->finished - data->job->current_file_finished) / speed_bps;
-        /* g_debug("rem: %llu", (guint64)remaining_time); */
-
-        if(data->remaining_time)
-        {
-            char time_str[32];
-            guint secs = (guint)remaining_time;
-            guint mins = 0;
-            guint hrs = 0;
-            if(secs > 60)
-            {
-                mins = secs / 60;
-                secs %= 60;
-                if(mins > 60)
-                {
-                    hrs = mins / 60;
-                    mins %= 60;
-                }
-            }
-            g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
-            gtk_label_set_text(data->remaining_time, time_str);
-        }
-    }
-
-    return TRUE;
+    data->timer = g_timer_new();
 }
 
 /* Run the file operation job with a progress dialog.
@@ -486,12 +485,12 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job)
     g_signal_connect(job, "ask", G_CALLBACK(on_ask), data);
     g_signal_connect(job, "ask-rename", G_CALLBACK(on_ask_rename), data);
     g_signal_connect(job, "error", G_CALLBACK(on_error), data);
+    g_signal_connect(job, "prepared", G_CALLBACK(on_prepared), data);
     g_signal_connect(job, "cur-file", G_CALLBACK(on_cur_file), data);
     g_signal_connect(job, "percent", G_CALLBACK(on_percent), data);
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
-    data->speed_timeout = g_timeout_add(1000, (GSourceFunc)on_speed_timeout, data);
 	fm_job_run_async(job);
 
     return data;
@@ -511,6 +510,9 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
         g_signal_handlers_disconnect_by_func(data->job, on_finished, data);
 
         g_object_unref(data->job);
+
+        if(data->timer)
+            g_timer_destroy(data->timer);
     }
 
     g_free(data->cur_file);
