@@ -1,8 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 04:11+0000\n"
+"POT-Creation-Date: 2010-03-29 04:12+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
@@ -11,8 +12,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 "X-Poedit-Language: Slovenian\n"
-"X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: SLOVENIA\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -270,8 +271,7 @@ msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti p
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Za odprtje spletnega naslova bo uporabljen privzeti spletni brskalnik"
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -328,8 +328,7 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Moj računalnik"
 
-#: ../src/base/fm-path.c:445
-#: ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
 msgid "Applications"
 msgstr "Programi"
 
@@ -417,8 +416,7 @@ msgstr "Odklopi nosilec"
 msgid "Eject Removable Media"
 msgstr "Izvrzi izmenljiv medij"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:773
+#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj zaznamek"
 
@@ -438,12 +436,11 @@ msgstr "Koš"
 msgid "Desktop"
 msgstr "Namizje"
 
-#: ../src/gtk/fm-places-view.c:774
+#: ../src/gtk/fm-places-view.c:789
 msgid "Enter a new name:"
 msgstr "Vnesite novo ime:"
 
-#: ../src/gtk/fm-file-menu.c:83
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Odpri z..."
 
@@ -515,30 +512,32 @@ msgstr "Napaka"
 msgid "Please select a folder"
 msgstr "Izberite ciljno mapo"
 
-#: ../src/gtk/fm-gtk-utils.c:459
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only sytem administrator have the permission to do this."
+msgstr "Le sistemski administrator ima pravico za to dejanje"
+
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Želite premakniti izbrane datoteke v koš?"
 
-#: ../src/gtk/fm-gtk-utils.c:476
+#: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
 msgstr "Želite izbrisati izbrane datoteke v koš?"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
 msgstr "Vnesite novo ime:"
 
-#: ../src/gtk/fm-gtk-utils.c:550
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ste prepričani, da želite izprazniti koš?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Navedena mapa ni veljavna"
-
