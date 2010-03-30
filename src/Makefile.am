@@ -310,12 +310,12 @@ gnome_terminal_SOURCES = \
 	$(NULL)
 
 gnome_terminal_CFLAGS = \
-	$(GTK_CFLAGS) \
+	$(GLIB_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 gnome_terminal_LDADD = \
-	$(GTK_LIBS) \
+	$(GLIB_LIBS) \
 	$(NULL)
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget
