@@ -43,6 +43,7 @@ enum{
 	STATUS,
     CLICKED,
     SEL_CHANGED,
+    SORT_CHANGED,
     N_SIGNALS
 };
 
@@ -64,6 +65,7 @@ static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorS
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 static void on_sel_changed(GObject* obj, FmFolderView* fv);
+static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
@@ -138,6 +140,16 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__POINTER,
                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+    /* Emitted when sorting of the view got changed. */
+    signals[SORT_CHANGED]=
+        g_signal_new("sort-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, sort_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
 }
 
 gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
@@ -656,6 +668,7 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), fv->sort_by, fv->sort_type);
+    g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
 
     switch(fv->mode)
     {
@@ -700,6 +713,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         {
             model = FM_FOLDER_MODEL(fv->model);
             g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
+            g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
             g_object_unref(model);
@@ -811,6 +825,18 @@ void on_sel_changed(GObject* obj, FmFolderView* fv)
     g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
     if(files)
         fm_list_unref(files);
+}
+
+void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
+{
+    int col;
+    GtkSortType order;
+    if(gtk_tree_sortable_get_sort_column_id(sortable, &col, &order))
+    {
+        fv->sort_by = col;
+        fv->sort_type = order;
+        g_signal_emit(fv, signals[SORT_CHANGED], 0);
+    }
 }
 
 gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
