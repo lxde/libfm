@@ -142,7 +142,7 @@ static guint signals[N_SIGNALS];
 void fm_folder_model_init(FmFolderModel* model)
 {
     model->sort_order = -1;
-    model->sort_col = -1;
+    model->sort_col = GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID;
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
 
@@ -708,6 +708,8 @@ _sort_by_name:
         if(0 == ret)
             goto _sort_by_name;
         break;
+    default:
+        return 0;
     }
     return model->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
 }

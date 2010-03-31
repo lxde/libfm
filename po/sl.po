@@ -1,16 +1,17 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-29 04:12+0000\n"
+"POT-Creation-Date: 2010-03-31 13:59+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -182,7 +183,9 @@ msgstr "Dejanja, ki jih lahko izvrši lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik datoteke"
+msgstr ""
+"Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik "
+"datoteke"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -264,8 +267,12 @@ msgid "System Applications"
 msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni odjemalec"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni "
+"odjemalec"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -393,7 +400,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Vnesite veljavno ime skupine ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Želite rekurzivno uporabiti spremembe na vseh podmapah in datotekah?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -484,19 +492,19 @@ msgstr "Za odprtje datotek izvrši ukaz po meri"
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-folder-view.c:469
+#: ../src/gtk/fm-folder-view.c:471
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-view.c:488
+#: ../src/gtk/fm-folder-view.c:490
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-view.c:495
+#: ../src/gtk/fm-folder-view.c:497
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/gtk/fm-folder-view.c:501
+#: ../src/gtk/fm-folder-view.c:503
 msgid "Modified"
 msgstr "Spremenjeno"
 

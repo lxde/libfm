@@ -257,6 +257,8 @@ static void fm_folder_view_init(FmFolderView *self)
     g_signal_connect(self->dnd_dest, "query-info", G_CALLBACK(on_dnd_dest_query_info), self);
 
     self->mode = -1;
+    self->sort_type = GTK_SORT_ASCENDING;
+    self->sort_by = COL_FILE_NAME;
 }
 
 
@@ -578,7 +580,8 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
 
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by)
 {
-    if(type >=0)
+    /* (int) is needed here since enum seems to be treated as unsigned int so -1 becomes > 0 */
+    if((int)type >=0)
         fv->sort_type = type;
     if(by >=0)
         fv->sort_by = by;

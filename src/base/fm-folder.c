@@ -1,18 +1,18 @@
 /*
  *      fm-folder.c
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -262,7 +262,11 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
     };
+    name = g_file_get_basename(gf);
+    g_debug("folder: %p, file %s event: %s", folder, name, names[evt]);
+    g_free(name);
 */
+
     if(g_file_equal(gf, folder->gf))
     {
         g_debug("event of the folder itself: %d", evt);
@@ -308,8 +312,8 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 {
     GList* l;
     GSList* files = NULL;
-    /* actually manually disconnecting from 'finished' signal is not 
-     * needed since the signal is only emit once, and later the job 
+    /* actually manually disconnecting from 'finished' signal is not
+     * needed since the signal is only emit once, and later the job
      * object will be distroyed very soon. */
     /* g_signal_handlers_disconnect_by_func(job, on_job_finished, folder); */
     for(l = fm_list_peek_head_link(job->files); l; l=l->next)
@@ -356,7 +360,7 @@ FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
 FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 {
     FmFolder* folder;
-    /* FIXME: should we provide a generic FmPath cache in fm-path.c 
+    /* FIXME: should we provide a generic FmPath cache in fm-path.c
      * to associate all kinds of data structures with FmPaths? */
 
     /* FIXME: should creation of the hash table be moved to fm_init()? */
