@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
-"PO-Revision-Date: 2010-02-23 23:11+0100\n"
+"POT-Creation-Date: 2010-04-01 04:13+0000\n"
+"PO-Revision-Date: 2010-04-02 00:38+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "MIME-Version: 1.0\n"
@@ -33,10 +33,10 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>V příkazech mohou být použity tyto speciální kódy:</b>\n"
+"<b>V příkazové řádce mohou být použity tyto speciální kódy:</b>\n"
 "  <b>%f</b>: Představuje jeden soubor\n"
-"  <b>%F</b>: Představuje více souborů\n"
-"  <b>%u</b>: Představuje jednu URI adresu\n"
+"  <b>%F:</b> Představuje více souborů\n"
+"  <b>%u</b>: Představuje jednu URI adresu souboru\n"
 "  <b>%U</b>: Představuje více URI adres"
 
 #: ../data/ui/app-chooser.glade.h:9
@@ -220,12 +220,11 @@ msgstr "<b>Průběh:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Došlo k chybám:</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Probíhá zpracování:</b>"
+msgstr "<b>Zbývající čas:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -238,49 +237,43 @@ msgid "Preparing..."
 msgstr "Připravuje se..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Typ souboru:</b>"
+msgstr "<b>Emailový klient</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Emulátor terminálu</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Vlastník:</b>"
+msgstr "<b>WWW prohlížeč</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "Command line:"
-msgstr "Vlastní příkaz"
+msgstr "Příkazový řádek:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Asociace souborů"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Aplikace"
+msgstr "Preferované aplikace"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Nainstalované aplikace"
+msgstr "Systémové aplikace"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Při kliknutí na emailové adresy bude pro psaní zprávy použit preferovaný emailový klient."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW prohlížeč. "
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -336,7 +329,8 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Můj počítač"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445
+#: ../src/gtk/fm-places-view.c:490
 msgid "Applications"
 msgstr "Aplikace"
 
@@ -346,27 +340,27 @@ msgstr "Síť"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr ":"
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Souborová operace je zrušena a došlo k chybám."
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr ""
+msgstr "Zrušeno"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Souborová operace je dokončena, ale došlo k chybám."
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Dokončeno"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
@@ -401,8 +395,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím zadejte platné jméno nebo číselné id skupiny."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -425,7 +418,8 @@ msgstr "Odpojit svazek"
 msgid "Eject Removable Media"
 msgstr "Vysunout vyměnitelné medium"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:788
 msgid "Rename Bookmark Item"
 msgstr "Přejmenovat záložku"
 
@@ -449,7 +443,8 @@ msgstr "Pracovní plocha"
 msgid "Enter a new name:"
 msgstr "Vložte nový název:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Otevřít pomocí..."
 
@@ -467,15 +462,15 @@ msgstr "Poslat do"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr ""
+msgstr "Komprimovat..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr ""
+msgstr "Rozbalit zde"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr ""
+msgstr "Rozbalit do..."
 
 #: ../src/gtk/fm-dnd-dest.c:443
 msgid "XDirectSave failed."
@@ -523,7 +518,7 @@ msgstr "Prosím vyberte složku"
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only sytem administrator have the permission to do this."
-msgstr ""
+msgstr "Toto má právo provádět pouze systémový správce."
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
@@ -545,8 +540,10 @@ msgstr "Prosím zadejte nový název:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Skutečně chcete vyprázdnit složku koše?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Zadaná složka není platná"
+
