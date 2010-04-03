@@ -390,7 +390,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 
                 render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
-                             "xalign", 0.0,
+                             "xalign", 1.0,
                              "yalign", 0.5,
                              NULL );
                 exo_icon_view_set_layout_mode( (ExoIconView*)fv->view, EXO_ICON_VIEW_LAYOUT_COLS );
@@ -413,6 +413,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                                  "wrap-mode", PANGO_WRAP_WORD_CHAR,
                                  "wrap-width", 90,
                                  "alignment", PANGO_ALIGN_CENTER,
+                                 "xalign", 0.5,
                                  "yalign", 0.0,
                                  NULL );
                     exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
@@ -433,6 +434,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                                  "wrap-mode", PANGO_WRAP_WORD_CHAR,
                                  "wrap-width", 180,
                                  "alignment", PANGO_ALIGN_CENTER,
+                                 "xalign", 0.5,
                                  "yalign", 0.0,
                                  NULL );
                     exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 8 );
