@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-31 13:59+0800\n"
-"PO-Revision-Date: 2010-02-19 11:00+0100\n"
-"Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
+"PO-Revision-Date: 2010-04-07 10:02+0200\n"
+"Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -273,8 +275,8 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
-"votre client courriel favori sera utilisé pour composer les courriels quand "
-"vous cliquerez sur des adresses courriels"
+"Votre client courriel favori sera utilisé pour composer les courriels quand "
+"vous cliquerez sur des adresses courriels."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -345,7 +347,7 @@ msgstr "Réseau"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ":"
+msgstr " : "
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
@@ -525,6 +527,7 @@ msgstr "Sélectionner un dossier"
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only sytem administrator have the permission to do this."
 msgstr ""
+"Seuls les administrateurs système ont la permission de faire cette action."
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
