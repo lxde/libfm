@@ -511,7 +511,7 @@ msgid "Please select a folder"
 msgstr "נא לבחור בתיקייה"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
+msgid "Only system administrators have the permission to do this."
 msgstr "רק למנהל המערכת ישנן ההרשאות לעשות זאת."
 
 #: ../src/gtk/fm-gtk-utils.c:461

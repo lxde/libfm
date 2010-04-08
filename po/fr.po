@@ -525,7 +525,7 @@ msgid "Please select a folder"
 msgstr "Sélectionner un dossier"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
+msgid "Only system administrators have the permission to do this."
 msgstr ""
 "Seuls les administrateurs système ont la permission de faire cette action."
 
