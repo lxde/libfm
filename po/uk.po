@@ -524,7 +524,7 @@ msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть каталог"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
+msgid "Only system administrators have the permission to do this."
 msgstr "Тільки системний адміністратор може це зробити"
 
 #: ../src/gtk/fm-gtk-utils.c:461

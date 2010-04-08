@@ -518,8 +518,8 @@ msgid "Please select a folder"
 msgstr "Please select a folder"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
-msgstr "Only sytem administrator have the permission to do this."
+msgid "Only system administrators have the permission to do this."
+msgstr "Only system administrators have the permission to do this."
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"

@@ -382,7 +382,7 @@ gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboole
                 {
                     g_debug("%s", data->err->message);
                     g_free(data->err->message);
-                    data->err->message = g_strdup(_("Only sytem administrator have the permission to do this."));
+                    data->err->message = g_strdup(_("Only system administrators have the permission to do this."));
                 }
             }
             fm_show_error(parent, data->err->message);

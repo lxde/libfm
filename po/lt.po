@@ -520,7 +520,7 @@ msgid "Please select a folder"
 msgstr "Pasirinkite aplanką"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
+msgid "Only system administrators have the permission to do this."
 msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:461
