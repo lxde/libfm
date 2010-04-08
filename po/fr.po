@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-31 13:59+0800\n"
-"PO-Revision-Date: 2010-04-07 10:02+0200\n"
+"PO-Revision-Date: 2010-04-08 10:13+0200\n"
 "Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -201,7 +201,7 @@ msgstr "Lecture seule"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers"
+msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -379,7 +379,7 @@ msgstr "Copie les fichiers"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr "Jette les fichiers "
+msgstr "Jette les fichiers"
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
