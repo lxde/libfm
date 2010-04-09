@@ -402,7 +402,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 
                 render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
-                             "xalign", 1.0,
+                             "xalign", 1.0, /* FIXME: why this needs to be 1.0? */
                              "yalign", 0.5,
                              NULL );
                 exo_icon_view_set_layout_mode( (ExoIconView*)fv->view, EXO_ICON_VIEW_LAYOUT_COLS );
