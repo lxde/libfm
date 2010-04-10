@@ -1,18 +1,18 @@
 /*
  *      fm-file-info-job.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -40,10 +40,19 @@ G_BEGIN_DECLS
 
 typedef struct _FmFileInfoJob			FmFileInfoJob;
 typedef struct _FmFileInfoJobClass		FmFileInfoJobClass;
+typedef enum _FmFileInfoJobFlags        FmFileInfoJobFlags;
+
+enum _FmFileInfoJobFlags
+{
+    FM_FILE_INFO_JOB_NONE = 0,
+    FM_FILE_INFO_JOB_FOLLOW_SYMLINK = 1 << 0, /* FIXME: not yet implemented */
+    FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 << 1 /* FIXME: not yet implemented */
+};
 
 struct _FmFileInfoJob
 {
 	FmJob parent;
+    FmFileInfoJobFlags flags;
 	FmFileInfoList* file_infos;
 };
 
@@ -53,7 +62,7 @@ struct _FmFileInfoJobClass
 };
 
 GType fm_file_info_job_get_type(void);
-FmJob* fm_file_info_job_new(FmPathList* files_to_query);
+FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags);
 
 /* this can only be called before running the job. */
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path);

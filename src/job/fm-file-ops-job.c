@@ -250,7 +250,7 @@ static void emit_ask_rename(FmFileOpsJob* job, struct AskRename* data)
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)
 {
     struct AskRename data;
-    FmFileInfoJob* fijob = fm_file_info_job_new(NULL);
+    FmFileInfoJob* fijob = fm_file_info_job_new(NULL, 0);
     FmFileInfo *src_fi = NULL, *dest_fi = NULL;
     FmPath *tmp;
 

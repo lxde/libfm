@@ -17,3 +17,6 @@ ltmain.sh
 missing
 install-sh
 
+*.mo
+POTFILES.in
+*-marshal.[ch]

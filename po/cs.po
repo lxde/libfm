@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-01 04:13+0000\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: 2010-04-02 00:38+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
@@ -265,15 +265,20 @@ msgid "System Applications"
 msgstr "Systémové aplikace"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Při kliknutí na emailové adresy bude pro psaní zprávy použit preferovaný emailový klient."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Při kliknutí na emailové adresy bude pro psaní zprávy použit preferovaný "
+"emailový klient."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW prohlížeč. "
+msgstr ""
+"Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW "
+"prohlížeč. "
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -329,8 +334,7 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Můj počítač"
 
-#: ../src/base/fm-path.c:445
-#: ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Aplikace"
 
@@ -395,7 +399,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím zadejte platné jméno nebo číselné id skupiny."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -406,45 +411,43 @@ msgstr " Soubory různých typů"
 msgid "Multiple Files"
 msgstr "Více souborů"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Připojit svazek"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Odpojit svazek"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Vysunout vyměnitelné medium"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Přejmenovat záložku"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Odebrat ze záložek"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Vyprázdnit koš"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Koš"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Pracovní plocha"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Vložte nový název:"
 
-#: ../src/gtk/fm-file-menu.c:83
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Otevřít pomocí..."
 
@@ -472,7 +475,7 @@ msgstr "Rozbalit zde"
 msgid "Extract To..."
 msgstr "Rozbalit do..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave selhal."
 
@@ -488,19 +491,19 @@ msgstr "Spustit vlastní příkaz pro otevření souborů"
 msgid "Customize"
 msgstr "Přizpůsobit"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Název"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Změněno"
 
@@ -540,10 +543,8 @@ msgstr "Prosím zadejte nový název:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Skutečně chcete vyprázdnit složku koše?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Zadaná složka není platná"
-

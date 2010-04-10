@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: 2010-03-23 19:11+0100\n"
 "Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
@@ -335,7 +335,7 @@ msgstr "Papierkorb"
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Anwendungen"
 
@@ -416,41 +416,41 @@ msgstr "Dateien unterschiedlicher Typen"
 msgid "Multiple Files"
 msgstr "Mehrere Dateien"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Dateisystem einhängen"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Dateisystem aushängen"
 
 # besser: Wechseldatenträger?
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 #, fuzzy
 msgid "Eject Removable Media"
 msgstr "Wechselmedium auswerfen"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Lesezeichen entfernen"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Desktop"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
@@ -482,7 +482,7 @@ msgstr "Hier entpacken"
 msgid "Extract To..."
 msgstr "Entpacken nach..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr ""
 
@@ -498,19 +498,19 @@ msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 msgid "Customize"
 msgstr "Anpassen"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Geändert"
 

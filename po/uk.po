@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -336,7 +336,7 @@ msgstr "Смітник"
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Програми"
 
@@ -415,39 +415,39 @@ msgstr "Файли різних типів"
 msgid "Multiple Files"
 msgstr "Кілька файлів"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Приєднати диск"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Від’єднати диск"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Витягнути диск або медіа"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Видалити з закладки"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -479,7 +479,7 @@ msgstr "Розпакувати сюди"
 msgid "Extract To..."
 msgstr "Розпакувати до..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -495,19 +495,19 @@ msgstr "Виконати власну команду для відкриття �
 msgid "Customize"
 msgstr "Налаштувати"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Змінено"
 

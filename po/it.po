@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: 2010-03-31 09:47+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -57,7 +57,9 @@ msgstr "Applicazioni installate"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Imposta l'applicazione selezionata come azione predefinita per questo tipo di file"
+msgstr ""
+"Imposta l'applicazione selezionata come azione predefinita per questo tipo "
+"di file"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +185,9 @@ msgstr "Operazioni ch il proprietario del file pò fare"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operazioni che possono fare gli utenti appartenenti allo stesso gruppo del il proprietario del file"
+msgstr ""
+"Operazioni che possono fare gli utenti appartenenti allo stesso gruppo del "
+"il proprietario del file"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -265,15 +269,19 @@ msgid "System Applications"
 msgstr "Applicazioni di sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Il client Mail preferito sarà usato per comporre email quando cliccherai un indirizzo E-mail"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Il client Mail preferito sarà usato per comporre email quando cliccherai un "
+"indirizzo E-mail"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Il Browser Web preferito sarà usato per aprire collegamenti ipertestuali."
+msgstr ""
+"Il Browser Web preferito sarà usato per aprire collegamenti ipertestuali."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -328,8 +336,7 @@ msgstr "Cestino"
 msgid "My Computer"
 msgstr "Il Mio Computer"
 
-#: ../src/base/fm-path.c:445
-#: ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Applicazioni"
 
@@ -394,7 +401,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Per favore digita un nome gruppo o id numerico valido."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -405,45 +413,43 @@ msgstr "File di diverso tipo"
 msgid "Multiple Files"
 msgstr "File multipli"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Monta Volume"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Smona Volume"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Espelli dispositivo removibile"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Rinomina il segnalibro"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Rimuovi dai segnalibri"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Svuota cestino"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Cestino"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Scrivania"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-file-menu.c:83
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Apri con..."
 
@@ -471,7 +477,7 @@ msgstr "Estrai qui"
 msgid "Extract To..."
 msgstr "Estrai in..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallito."
 
@@ -487,19 +493,19 @@ msgstr "Esegui comando personalizzato per aprire i file"
 msgid "Customize"
 msgstr "Personalizza"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Dimensione"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Modificato"
 
@@ -539,8 +545,7 @@ msgstr "Per favore inserisci un nuovo nome:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Sei sicuro di voler svuotare il cestino?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
@@ -548,6 +553,6 @@ msgstr "La cartella specificata non è valida"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Non è una cartella valida"
+
 #~ msgid "The selection mode"
 #~ msgstr "Per favore, seleziona una cartella"
-

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -332,7 +332,7 @@ msgstr "Šiukšlinė"
 msgid "My Computer"
 msgstr "Mano kompiuteris"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Programos"
 
@@ -411,39 +411,39 @@ msgstr "Skirtingų tipų failai"
 msgid "Multiple Files"
 msgstr "Keli failai"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Prijungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Atjungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Atjungti išorinį įrenginį"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Pervadinti žymelę"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Pašalinti iš žymelių"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Ištuštinti šiukšlinę"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Šiukšlinė"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Darbastalis"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
@@ -475,7 +475,7 @@ msgstr ""
 msgid "Extract To..."
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
@@ -491,19 +491,19 @@ msgstr ""
 msgid "Customize"
 msgstr "Derinti"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Pakeista"
 

@@ -1,9 +1,9 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 04:12+0000\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
@@ -264,8 +264,11 @@ msgid "System Applications"
 msgstr "יישומי המערכת"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "לקוח הדוא\"ל המועדף ישמש לחיבור הודעות דוא\"ל חדשות בעת לחיצה על כתובת דוא\"ל"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"לקוח הדוא\"ל המועדף ישמש לחיבור הודעות דוא\"ל חדשות בעת לחיצה על כתובת דוא\"ל"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -326,7 +329,7 @@ msgstr "פח אשפה"
 msgid "My Computer"
 msgstr "המחשב שלי"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "יישומים"
 
@@ -391,7 +394,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -402,39 +406,39 @@ msgstr "קבצים מסוגים שונים"
 msgid "Multiple Files"
 msgstr "מספר קבצים"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "עיגון כרך"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "ניתוק כרך"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "שליפת מדיה נתיקה"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "שינוי שם לפריט סימנייה"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "הסרה מהסימניות"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "אשפה"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "שולחן עבודה"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
@@ -466,7 +470,7 @@ msgstr "חילוץ לכאן"
 msgid "Extract To..."
 msgstr "חילוץ אל..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave כשלה."
 
@@ -482,19 +486,19 @@ msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קב
 msgid "Customize"
 msgstr "התאמה אישית"
 
-#: ../src/gtk/fm-folder-view.c:473
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "שם"
 
-#: ../src/gtk/fm-folder-view.c:492
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "תיאור"
 
-#: ../src/gtk/fm-folder-view.c:499
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "גודל"
 
-#: ../src/gtk/fm-folder-view.c:505
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "מועד השינוי"
 

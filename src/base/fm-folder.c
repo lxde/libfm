@@ -178,7 +178,7 @@ gboolean on_idle(FmFolder* folder)
     FmPath* path;
     folder->idle_handler = 0;
     if(folder->files_to_update || folder->files_to_add)
-        job = (FmFileInfoJob*)fm_file_info_job_new(NULL);
+        job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
 
     if(folder->files_to_update)
     {

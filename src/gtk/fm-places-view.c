@@ -96,6 +96,7 @@ static void update_icons();
 static void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
 static void on_vol_removed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
 static void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data);
+static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data);
 
 static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data);
 
@@ -259,6 +260,8 @@ static void on_model_destroy(gpointer unused, GObject* _model)
     g_signal_handlers_disconnect_by_func(vol_mon, on_vol_added, NULL);
     g_signal_handlers_disconnect_by_func(vol_mon, on_vol_removed, NULL);
     g_signal_handlers_disconnect_by_func(vol_mon, on_vol_changed, NULL);
+    g_signal_handlers_disconnect_by_func(vol_mon, on_mount_added, NULL);
+
     g_object_unref(vol_mon);
     vol_mon = NULL;
 
@@ -282,6 +285,7 @@ static void update_vol(PlaceItem* item, GtkTreeIter* it)
     GIcon* gicon;
     char* name;
     GdkPixbuf* pix;
+    GMount* mount;
 
     name = g_volume_get_name(item->vol);
     if(item->fi->icon)
@@ -291,6 +295,28 @@ static void update_vol(PlaceItem* item, GtkTreeIter* it)
     item->fi->icon = icon;
     g_object_unref(gicon);
 
+    mount = g_volume_get_mount(item->vol);
+    g_debug("mount: %p", mount);
+    if(mount)
+    {
+        if(!item->fi->path)
+        {
+            GFile* gf = g_mount_get_root(mount);
+            FmPath* path = fm_path_new_for_gfile(gf);
+            g_debug("mount path: %s", path->name);
+            g_object_unref(gf);
+            item->fi->path = path;
+        }
+        g_object_unref(mount);
+    }
+    else
+    {
+        if(item->fi->path)
+        {
+            fm_path_unref(item->fi->path);
+            item->fi->path = NULL;
+        }
+    }
     /*
      get mount path here
     if(job && item->fi->path)
@@ -366,6 +392,26 @@ void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
         update_vol(item, &it);
 }
 
+void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
+{
+    GVolume* vol = g_mount_get_volume(mount);
+    if(vol)
+    {
+        PlaceItem *item;
+        GtkTreeIter it;
+        item = find_vol(vol, &it);
+        if(item && item->type == PLACE_VOL && !item->fi->path)
+        {
+            GFile* gf = g_mount_get_root(mount);
+            FmPath* path = fm_path_new_for_gfile(gf);
+            g_debug("mount path: %s", path->name);
+            g_object_unref(gf);
+            item->fi->path = path;
+        }
+        g_object_unref(vol);
+    }
+}
+
 static void add_bookmarks(FmFileInfoJob* job)
 {
     PlaceItem* item;
@@ -417,7 +463,7 @@ static void add_bookmarks(FmFileInfoJob* job)
 
 static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 {
-    FmFileInfoJob* job = fm_file_info_job_new(NULL);
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
     GtkTreeIter it = sep_it;
     /* remove all old bookmarks */
     if(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it))
@@ -470,7 +516,7 @@ static void init_model()
         FmIcon* icon;
         GFile* gf;
         GdkPixbuf* pix;
-        FmFileInfoJob* job = fm_file_info_job_new(NULL);
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
 
         theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
                                                 G_CALLBACK(update_icons), NULL);
@@ -529,6 +575,7 @@ static void init_model()
         g_signal_connect(vol_mon, "volume-added", G_CALLBACK(on_vol_added), NULL);
         g_signal_connect(vol_mon, "volume-removed", G_CALLBACK(on_vol_removed), NULL);
         g_signal_connect(vol_mon, "volume-changed", G_CALLBACK(on_vol_changed), NULL);
+        g_signal_connect(vol_mon, "mount-added", G_CALLBACK(on_mount_added), NULL);
 
         /* separator */
         gtk_list_store_append(model, &sep_it);
@@ -846,6 +893,7 @@ void on_empty_trash(GtkAction* act, gpointer user_data)
 gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 			GdkDragAction* action, FmPlacesView* view)
 {
+    gboolean ret = TRUE;
     GtkTreeViewDropPosition pos;
 	GtkTreePath* tp = NULL;
     GtkTreeViewColumn* col;
@@ -893,7 +941,10 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
     }
     fm_dnd_dest_set_dest_file(view->dnd_dest, dest);
     if(dest)
+    {
+        ret = FALSE;
         fm_file_info_unref(dest);
+    }
     gtk_tree_view_set_drag_dest_row((GtkTreeView*)view, tp, pos);
 
     if(view->dest_row)
@@ -901,7 +952,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
     view->dest_row = tp;
     view->dest_pos = pos;
 
-	return TRUE;
+	return ret;
 }
 
 gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,

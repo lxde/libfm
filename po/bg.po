@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 13:59+0800\n"
+"POT-Creation-Date: 2010-04-10 23:58+0800\n"
 "PO-Revision-Date: 2010-04-08 15:28+0200\n"
 "Last-Translator: Радослав Иванов <rec_ku@hotmail.com>\n"
 "Language-Team: MIME-Version: 1.0\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
@@ -18,7 +19,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
-"MIME-Version: 1.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -275,7 +275,9 @@ msgid "System Applications"
 msgstr "Системни програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
 msgstr ""
 "Предпочитаният пощенски клиент ще се използва за обработка и изпращане\n"
 "на съобщения до електронните пощи, когато кликнете върху E-mail адрес. "
@@ -286,8 +288,7 @@ msgstr ""
 "Предпочитаният Браузър ще се използва\n"
 "за отварянае на скрити връзки."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -342,8 +343,7 @@ msgstr "Кошче"
 msgid "My Computer"
 msgstr "Моят компютър"
 
-#: ../src/base/fm-path.c:445
-#: ../src/gtk/fm-places-view.c:490
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
 msgstr "Приложения"
 
@@ -412,7 +412,8 @@ msgstr ""
 "или цифрово ID."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Искате ли да приложите тези промени на всички файлове и поддиректории?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -423,45 +424,43 @@ msgstr "Различни видове файлове"
 msgid "Multiple Files"
 msgstr "Множество файлове"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Монтиране на дял"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Демонтиране на дял"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Извади устройството за външна памет"
 
-#: ../src/gtk/fm-places-view.c:143
-#: ../src/gtk/fm-places-view.c:788
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
 msgstr "Преименувай отметките"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Премахни от Отметки"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Изпразни Кошчето"
 
-#: ../src/gtk/fm-places-view.c:427
+#: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
 msgstr "Кошче"
 
-#: ../src/gtk/fm-places-view.c:477
+#: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
 msgstr "Работен плот"
 
-#: ../src/gtk/fm-places-view.c:789
+#: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
 msgstr "Въведете ново име:"
 
-#: ../src/gtk/fm-file-menu.c:83
-#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Отвори със..."
 
@@ -489,7 +488,7 @@ msgstr "Разархивирай тук"
 msgid "Extract To..."
 msgstr "Разархивирай във..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave пропадна."
 
@@ -509,19 +508,19 @@ msgstr ""
 msgid "Customize"
 msgstr "Промени"
 
-#: ../src/gtk/fm-folder-view.c:471
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Име"
 
-#: ../src/gtk/fm-folder-view.c:490
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Описание"
 
-#: ../src/gtk/fm-folder-view.c:497
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/gtk/fm-folder-view.c:503
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Променен"
 
@@ -538,7 +537,8 @@ msgid "Please select a folder"
 msgstr "Моля, изберете папка"
 
 #: ../src/gtk/fm-gtk-utils.c:385
-msgid "Only sytem administrator have the permission to do this."
+#, fuzzy
+msgid "Only system administrators have the permission to do this."
 msgstr "Единствено администратора има привилегии да направи това."
 
 #: ../src/gtk/fm-gtk-utils.c:461
@@ -561,10 +561,8 @@ msgstr "Моля, въведете ново име:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Наистина ли искате да изпразните кошчето?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Посочената директория на съществува."
-

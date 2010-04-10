@@ -406,7 +406,7 @@ char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
 
 gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
 {
-    FmJob* job = fm_file_info_job_new(NULL);
+    FmJob* job = fm_file_info_job_new(NULL, 0);
     GList* l;
     gboolean ret;
     for(l=paths;l;l=l->next)

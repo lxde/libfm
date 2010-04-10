@@ -658,7 +658,12 @@ static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
         exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
         break;
     }
-    fv->model = NULL;
+    if(fv->model)
+    {
+        g_signal_handlers_disconnect_by_func(fv->model, on_sort_col_changed, fv);
+        g_object_unref(fv->model);
+        fv->model = NULL;
+    }
 }
 
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
@@ -747,6 +752,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
                 exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
                 break;
             }
+            fv->model = NULL;
         }
         else
             on_folder_loaded(folder, fv);
@@ -976,7 +982,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 		FmPath* dir_path =  model->dir->dir_path;
         fm_dnd_dest_set_dest_file(dd, model->dir->dir_fi);
 	}
-	return TRUE;
+	return FALSE;
 }
 
 
