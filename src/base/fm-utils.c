@@ -1,7 +1,7 @@
 /*
  *      fm-utils.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -330,22 +330,28 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     return TRUE;
 }
 
-char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
+char* fm_canonicalize_filename(const char* filename, const char* cwd)
 {
+    char* _cwd = NULL;
     int len = strlen(filename);
     int i = 0;
     char* ret = g_malloc(len + 1), *p = ret;
+    if(!cwd)
+        cwd = _cwd = g_get_current_dir();
     for(; i < len; )
     {
         if(filename[i] == '.')
         {
             if(filename[i+1] == '.' && filename[i+2] == '/' || filename[i+2] == '\0' ) /* .. */
             {
-                if(i == 0 && expand_cwd) /* .. is first element */
+                if(i == 0) /* .. is first element */
                 {
-                    const char* cwd = g_get_current_dir();
                     int cwd_len;
-                    const char* sep = strrchr(cwd, '/');
+                    const char* sep;
+                    if(!cwd)
+                        cwd = _cwd = g_get_current_dir();
+
+                    sep = strrchr(cwd, '/');
                     if(sep && sep != cwd)
                         cwd_len = (sep - cwd);
                     else
@@ -369,10 +375,12 @@ char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
             }
             else if(filename[i+1] == '/' || filename[i+1] == '\0' ) /* . */
             {
-                if(i == 0 && expand_cwd) /* first element */
+                if(i == 0) /* first element */
                 {
-                    const char* cwd = g_get_current_dir();
-                    int cwd_len = strlen(cwd);
+                    int cwd_len;
+                    if(!cwd)
+                        cwd = _cwd = g_get_current_dir();
+                    cwd_len = strlen(cwd);
                     ret = g_realloc(ret, len + cwd_len + 1);
                     memcpy(ret, cwd, cwd_len);
                     p = ret + cwd_len;
@@ -401,6 +409,8 @@ char* fm_canonicalize_filename(const char* filename, gboolean expand_cwd)
     if((p-1) > ret && *(p-1) == '/') /* strip trailing / */
         --p;
     *p = 0;
+    if(_cwd)
+        g_free(_cwd);
     return ret;
 }
 
