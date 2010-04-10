@@ -81,6 +81,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-gtk-utils.c \
 	gtk/fm-thumbnail.c \
+	gtk/fm-tab-label.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -133,6 +134,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.h \
 	gtk/fm-thumbnail.h \
+	gtk/fm-tab-label.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
