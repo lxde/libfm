@@ -205,6 +205,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 
 gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* action)
 {
+    g_debug("query: dd->dest_file = %p", dd->dest_file);
 	if( dd->dest_file ) /* if info of destination path is available */
 	{
         /* FIXME: src_files might not be a FmFileInfoList, but FmPathList. */
@@ -227,16 +228,15 @@ gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* action)
         }
         else
 		{
-            if(fm_path_is_native(path) == fm_path_is_native(fi->path))
+            if(dd->src_dev || dd->src_fs_id)
             {
                 if(fm_path_is_native(path))
-                    same_fs = (fi->dev == dd->dest_file->dev);
+                    same_fs = dd->src_dev && (dd->src_dev == dd->dest_file->dev);
                 else /* FIXME: can we use direct comparison here? */
-                    same_fs = (0 == g_strcmp0(fi->fs_id, dd->dest_file->fs_id));
+                    same_fs = dd->src_fs_id && (0 == g_strcmp0(dd->src_fs_id, dd->dest_file->fs_id));
             }
             else
                 same_fs = FALSE;
-
 			if( same_fs )
 				*action = GDK_ACTION_MOVE;
 			else
@@ -414,7 +414,7 @@ on_drag_drop ( GtkWidget *dest_widget,
     gboolean ret = TRUE;
     GdkAtom target, xds;
     target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
-    g_debug("drag drop");
+    /* g_debug("drag drop"); */
 
 	if( target == GDK_NONE)
 		ret = FALSE;
@@ -499,7 +499,7 @@ on_drag_data_received ( GtkWidget *dest_widget,
                         FmDndDest* dd )
 {
     FmList* files = NULL;
-    g_debug("data received: %d", info);
+    /* g_debug("data received: %d", info); */
     switch(info)
     {
     case FM_DND_DEST_TARGET_FM_LIST:

@@ -910,7 +910,13 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
                 PlaceItem* item;
                 gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
                 if(item && item->fi->path)
-                    dest = fm_file_info_ref(item->fi);
+                {
+                    if(!fm_path_is_virtual(item->fi->path)
+                       || fm_path_is_trash_root(item->fi->path))
+                    {
+                        dest = fm_file_info_ref(item->fi);
+                    }
+                }
                 else
                     *action = 0;
             }
