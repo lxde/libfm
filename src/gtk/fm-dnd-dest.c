@@ -62,7 +62,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
 
 static void fm_dnd_dest_finalize              (GObject *object);
 static gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* suggested_action);
-static void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action, int info_type, FmList* files);
+static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action, int info_type, FmList* files);
 
 static gboolean
 on_drag_motion ( GtkWidget *dest_widget,
@@ -135,9 +135,9 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
                        G_TYPE_FROM_CLASS( klass ),
                        G_SIGNAL_RUN_LAST,
                        G_STRUCT_OFFSET ( FmDndDestClass, files_dropped ),
-                       NULL, NULL,
-                       fm_marshal_VOID__UINT_UINT_POINTER,
-                       G_TYPE_NONE, 3, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER );
+                       g_signal_accumulator_true_handled, NULL,
+                       fm_marshal_BOOL__UINT_UINT_POINTER,
+                       G_TYPE_BOOLEAN, 3, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER );
 }
 
 
@@ -208,13 +208,13 @@ gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* suggested_acti
 	return TRUE;
 }
 
-void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                               int info_type, FmList* files)
+gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
+                                        int info_type, FmList* files)
 {
 	FmPath* dest;
 	dest = fm_dnd_dest_get_dest_path(dd);
 	if(!dest)
-		return;
+		return FALSE;
     g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
 
     if(fm_list_is_file_info_list(files))
@@ -241,6 +241,7 @@ void fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
         break;
     }
     fm_list_unref(files);
+    return TRUE;
 }
 
 static gboolean
@@ -314,7 +315,7 @@ on_drag_motion( GtkWidget *dest_widget,
 	action = drag_context->suggested_action;
     g_signal_emit(dd, signals[QUERY_INFO], 0, x, y, &action, &ret);
 
-	if( dd->dest_file ) /* if info of destination path is available */
+	if( dd->dest_file && action ) /* if info of destination path is available */
 	{
         /* FIXME: src_files might not be a FmFileInfoList, but FmPathList. */
 		FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
@@ -358,8 +359,9 @@ on_drag_motion( GtkWidget *dest_widget,
 	}
 
     /* FIXME: is this correct? */
-    if(ret && (drag_context->actions & action) == 0) /* if currently action is not allowed */
-        action = drag_context->suggested_action;
+    /* if currently action is not allowed */
+//    if(ret && (drag_context->actions & action) == 0)
+//        action = 0;
 
 	gdk_drag_status(drag_context, ret ? action : 0, time);
     return ret;
@@ -409,7 +411,7 @@ on_drag_drop ( GtkWidget *dest_widget,
     target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
     g_debug("drag drop");
 
-	if( target == GDK_NONE )
+	if( target == GDK_NONE)
 		ret = FALSE;
 
 	/* if it's XDS */
@@ -456,7 +458,7 @@ on_drag_drop ( GtkWidget *dest_widget,
 	if(dd->src_files)
 	{
         if(ret)
-            g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files);
+            g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files, &ret);
         /* it's possible that src_files is already freed in idle handler */
         if(dd->src_files)
         {
@@ -569,53 +571,6 @@ FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd)
 {
     return dd->dest_file ? dd->dest_file->path : NULL;
 }
-
-
-#if 0
-gboolean query_info(FmDndDest* dd, GdkDragContext* drag_context,
-					int x, int y, FmFileInfo** dest, GdkDragAction* action)
-{
-	GdkDragAction action;
-	FmFileInfo* dest = NULL;
-	gboolean ret;
-
-	/* cache drag source */
-	if( G_UNLIKELY(!dd->src_files) )
-	{
-		GdkAtom target;
-		target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
-		if( target != GDK_NONE )
-		{
-			gtk_drag_get_data(dest_widget, drag_context, target, time);
-			/* dd->src_files should be set now */
-		}
-	}
-
-	action = drag_context->suggested_action;
-    g_signal_emit(dd, signals[QUERY_INFO], 0, x, y, &dest, &action, &ret);
-#if 0
-	if( dest ) /* if info of destination path is available */
-	{
-		if(fm_list_is_file_info_list(dd->src_files))
-		{
-			FmPath* path = dest->path;
-
-			/* only move is allowed when dest is trash. */
-			if(fm_path_is_trash(path))
-			{
-				*action = GDK_ACTION_MOVE;
-				drag_context->actions = GDK_ACTION_MOVE;
-			}
-
-			fm_file_info_unref(dest);
-		}
-		else
-			*action = GDK_ACTION_ASK;
-	}
-#endif
-	return ;
-}
-#endif
 
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
 {

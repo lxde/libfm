@@ -153,6 +153,8 @@ gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);
 /* return TRUE if all files in the list are on the same fs */
 gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list);
 
+#define FM_FILE_INFO(ptr)    ((FmFileInfo*)ptr)
+
 G_END_DECLS
 
 #endif
