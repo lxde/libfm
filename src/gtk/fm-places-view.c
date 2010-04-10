@@ -85,7 +85,7 @@ static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
                             			GdkDragAction* action, FmPlacesView* view);
 
 static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                                       int info_type, FmList* files, FmPlacesView* view);
+                                       int info_type, FmFileInfoList* files, FmPlacesView* view);
 
 static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonitorEvent evt, gpointer user_data);
 static void on_use_trash_changed(FmConfig* cfg, gpointer unused);
@@ -296,14 +296,12 @@ static void update_vol(PlaceItem* item, GtkTreeIter* it)
     g_object_unref(gicon);
 
     mount = g_volume_get_mount(item->vol);
-    g_debug("mount: %p", mount);
     if(mount)
     {
         if(!item->fi->path)
         {
             GFile* gf = g_mount_get_root(mount);
             FmPath* path = fm_path_new_for_gfile(gf);
-            g_debug("mount path: %s", path->name);
             g_object_unref(gf);
             item->fi->path = path;
         }
@@ -962,19 +960,14 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 }
 
 gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
-                               int info_type, FmList* files, FmPlacesView* view)
+                               int info_type, FmFileInfoList* files, FmPlacesView* view)
 {
 	FmPath* dest;
     GList* l;
     gboolean ret = FALSE;
 
 	dest = fm_dnd_dest_get_dest_path(dd);
-    g_debug("action= %d, %d files-dropped!, info_type: %d", action, fm_list_get_length(files), info_type);
-
-    if(fm_list_is_file_info_list(files))
-        files = fm_path_list_new_from_file_info_list(files);
-    else
-        fm_list_ref(files);
+    /* g_debug("action= %d, %d files-dropped!, info_type: %d", action, fm_list_get_length(files), info_type); */
 
     if(!dest && action == GDK_ACTION_LINK) /* add bookmarks */
     {
@@ -989,24 +982,14 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
             for( l=fm_list_peek_head_link(files); l; l=l->next, ++idx )
             {
                 FmBookmarkItem* item;
-                if(fm_list_is_file_info_list(files))
-                {
-                    FmFileInfo* fi = (FmFileInfo*)l->data;
+                FmFileInfo* fi = FM_FILE_INFO(l->data);
+                if(fm_file_info_is_dir(fi))
                     item = fm_bookmarks_insert( bookmarks, fi->path, fi->disp_name, idx);
-                }
-                else
-                {
-                    FmPath* path = (FmPath*)l->data;
-                    char* disp_name = g_filename_display_name(path->name);
-                    item = fm_bookmarks_insert( bookmarks, path, disp_name, idx);
-                    g_free(disp_name);
-                }
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
         }
         ret = TRUE;
     }
-    fm_list_unref(files);
 
     if(view->dest_row)
     {
@@ -1108,7 +1091,7 @@ void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     PlaceItem* item;
     FmFileInfo* fi;
 
-    g_debug("file info job finished");
+    /* g_debug("file info job finished"); */
     jobs = g_slist_remove(jobs, job);
 
     if(!gtk_tree_model_get_iter_first(model, &it))

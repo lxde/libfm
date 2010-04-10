@@ -205,7 +205,6 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 
 gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* action)
 {
-    g_debug("query: dd->dest_file = %p", dd->dest_file);
 	if( dd->dest_file ) /* if info of destination path is available */
 	{
         /* FIXME: src_files might not be a FmFileInfoList, but FmPathList. */
