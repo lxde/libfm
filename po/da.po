@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-03-24 20:27+0000\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"PO-Revision-Date: 2010-04-13 19:18+0200\n"
+"Last-Translator: Vidar Jon Bauge <vidarjb@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -521,7 +523,7 @@ msgstr "Vælg venligst en mappe"
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only system administrators have the permission to do this."
-msgstr "Kun systemadministratorser har rettigheder til dette."
+msgstr "Kun systemadministratorer har rettigheder til dette."
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
