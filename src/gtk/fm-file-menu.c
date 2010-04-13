@@ -261,15 +261,16 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     GdkAppLaunchContext* ctx;
     FmFileInfoList* files = data->file_infos;
     GList* l = fm_list_peek_head_link(files);
-    char** uris = g_new0(char*, fm_list_get_length(files) + 1);
+    GList* uris = NULL;
     int i;
     for(i=0; l; ++i, l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         FmPath* path = fi->path;
         char* uri = fm_path_to_uri(path);
-        uris[i] = uri;
+        uris = g_list_prepend(uris, uri);
     }
+    uris = g_list_reverse(uris);
 
     ctx = gdk_app_launch_context_new();
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
@@ -280,7 +281,8 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     g_app_info_launch_uris(app, uris, ctx, NULL);
     g_object_unref(ctx);
 
-    g_free(uris);
+    g_list_foreach(uris, (GFunc)g_free, NULL);
+    g_list_free(uris);
 }
 
 void on_open_with_app(GtkAction* action, gpointer user_data)
