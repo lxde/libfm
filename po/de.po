@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-03-23 19:11+0100\n"
+"POT-Creation-Date: 2010-04-13 04:14+0000\n"
+"PO-Revision-Date: 2010-04-13 20:19+0100\n"
 "Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -184,9 +184,7 @@ msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen "
-"können"
+msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,18 +267,15 @@ msgid "System Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail Adressen klicken."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks genutzt."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -335,7 +330,8 @@ msgstr "Papierkorb"
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445
+#: ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Anwendungen"
 
@@ -345,7 +341,7 @@ msgstr "Netzwerk"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr ":"
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
@@ -402,11 +398,8 @@ msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
-"werden?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -430,7 +423,8 @@ msgstr "Dateisystem aushängen"
 msgid "Eject Removable Media"
 msgstr "Wechselmedium auswerfen"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147
+#: ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
@@ -442,19 +436,20 @@ msgstr "Lesezeichen entfernen"
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Desktop"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:83
+#: ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
 msgstr "Öffnen mit.."
 
@@ -482,7 +477,7 @@ msgstr "Hier entpacken"
 msgid "Extract To..."
 msgstr "Entpacken nach..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr ""
 
@@ -526,9 +521,11 @@ msgstr "Fehler"
 msgid "Please select a folder"
 msgstr "Ordner wählen"
 
+# oder doch Systemadministratoren?
 #: ../src/gtk/fm-gtk-utils.c:385
+#, fuzzy
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
@@ -550,8 +547,10 @@ msgstr "Neuen Namen eingeben:"
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Das angegebene Verzeichnis ist ungültig"
+
