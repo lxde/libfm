@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-04-14 22:44+0200\n"
+"PO-Revision-Date: 2010-04-15 18:22+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fo\n"
@@ -214,11 +214,11 @@ msgstr "_Loyvi"
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Tilgangi:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Støða:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
@@ -226,17 +226,17 @@ msgstr ""
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Tíð eftir:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Til:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "Fyrireiki..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
@@ -244,19 +244,19 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Útstøðarhermari</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Net kagari</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Stýriboðaslinja:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Fílusambindingar"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "Kervis-nýtsluskipanir"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
