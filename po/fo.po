@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-04-15 18:22+0200\n"
+"PO-Revision-Date: 2010-04-15 21:43+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fo\n"
@@ -280,108 +280,110 @@ msgstr ""
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u být"
+msgstr[1] "%u být"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Snarvegir"
 
 #: ../src/base/fm-file-info.c:56
+#, fuzzy
 msgid "Mount Point"
-msgstr ""
+msgstr "Ísetingarstað"
 
 #: ../src/base/fm-path.c:435
 msgid "Trash Can"
-msgstr ""
+msgstr "Ruskspann"
 
 #: ../src/base/fm-path.c:437
 msgid "My Computer"
-msgstr ""
+msgstr "Mín telda"
 
 #: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
-msgstr ""
+msgstr "Nýtsluskipanir"
 
 #: ../src/base/fm-path.c:448
 msgid "Network"
-msgstr ""
+msgstr "Net"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Fíluatgerðin er avbrotin, og har eru nøkur brek."
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr ""
+msgstr "Avbrotið"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Fíluatgerðin er liðug, men har eru nakrar villur"
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Liðugt"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
-msgstr ""
+msgstr "Flyti fílur"
 
 #: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
-msgstr ""
+msgstr "Avriti fílur"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr ""
+msgstr "Tveiti fílur út"
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
-msgstr ""
+msgstr "Striki fílur"
 
 #: ../src/gtk/fm-progress-dlg.c:428
+#, fuzzy
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Stovni tykisligar leinkjur"
 
 #: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
@@ -402,11 +404,11 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Fílur av ymsum slagi"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "Fleiri fílur"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
@@ -418,63 +420,64 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Skumpa leysamiðil út"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Nýnevn bókamerkisliðin"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Tak burtur úr bókamerkjum"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "Tøm ruskspannina"
 
 #: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
-msgstr ""
+msgstr "Ruskspann"
 
 #: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
-msgstr ""
+msgstr "Skriviborð"
 
 #: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Skriva eitt nýtt navn:"
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr ""
+msgstr "Lat upp við..."
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
-msgstr ""
+msgstr "Nýnevn"
 
+# symlink kann eita tykislig leinkja
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
-msgstr ""
+msgstr "Stovna symlink"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
-msgstr ""
+msgstr "Send til"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr ""
+msgstr "Stappa..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr ""
+msgstr "Pakka út her"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr ""
+msgstr "Pakka út til..."
 
 #: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave miseydnaðist"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
@@ -490,31 +493,31 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
-msgstr ""
+msgstr "Frágreiðing"
 
 #: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
-msgstr ""
+msgstr "Stødd"
 
 #: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
-msgstr ""
+msgstr "Broytt"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Innlagdar nýtsluskipanir"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Brek"
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr ""
+msgstr "Vinarliga vel eina skjáttu"
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only system administrators have the permission to do this."
@@ -522,23 +525,23 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Vil tú flyta tær valdu fílurnar í ruskspannina"
 
 #: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Vil tú strika tær valdu fíurnar"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
-msgstr ""
+msgstr "Nýnevn fílu"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Vinarliga skriva eitt nýtt navn"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+msgstr "Er tú viss/ur í at tøma ruskspannina?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
