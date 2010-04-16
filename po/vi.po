@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-04-16 12:42+0200\n"
+"PO-Revision-Date: 2010-04-16 13:17+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
@@ -265,24 +265,24 @@ msgstr "Các ứng dụng ưa thích"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr "Các ứng dụng hệ thống"
+msgstr " ứng dụng hệ thống"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Mail khách hàng ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Trình duyệt Web ưa thích khi bạn sử dụng để mở liên kết nhanh"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Số ít%u byteSố nhiều%u byte"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -318,27 +318,27 @@ msgstr ""
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Phím tắt"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Điểm tăng lên"
 
 #: ../src/base/fm-path.c:435
 msgid "Trash Can"
-msgstr ""
+msgstr "Thùng rác"
 
 #: ../src/base/fm-path.c:437
 msgid "My Computer"
-msgstr ""
+msgstr "Máy tính của tôi"
 
 #: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
 msgid "Applications"
-msgstr ""
+msgstr "Các ứng dụng"
 
 #: ../src/base/fm-path.c:448
 msgid "Network"
-msgstr ""
+msgstr "Mạng"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
@@ -346,19 +346,19 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Hoạt động của tập tin đã bị hủy và có một số lỗi"
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr ""
+msgstr "Hủy"
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Hoạt độngj của tập tin đã hoàn thành, nhưng có môt số lỗi."
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Hoàn thành"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
@@ -366,92 +366,95 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
-msgstr ""
+msgstr "Đang di chuyển các tập tin"
 
 #: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
-msgstr ""
+msgstr "Đang sao chép các tập tin"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr ""
+msgstr "Đang vô hiệu các tập tin"
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
-msgstr ""
+msgstr "Đang xóa các tập tin"
 
 #: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Đang tạo liên kết tượng trưng"
 
 #: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Đang thay đổi thuộc tính tập tin"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "vui lòng điền tên người dùng hay số id  hợp lệ"
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Vui lòng điền tên nhóm hay số id hợp lệ"
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và tiểu tập "
+"tin không?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Những tập tin khác loại"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "Nhiều tập tin"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "Âm thanh  ngoài"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Không âm thanh ngoài"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Loại bỏ thiết bị truyền thông rời"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Đổi tên mục đánh dấu trang"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Loại bỏ khỏi đánh dấu trang"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "Làm sạch thùng rác"
 
 #: ../src/gtk/fm-places-view.c:500
 msgid "Trash"
-msgstr ""
+msgstr "Rác"
 
 #: ../src/gtk/fm-places-view.c:554
 msgid "Desktop"
-msgstr ""
+msgstr "Máy để bàn"
 
 #: ../src/gtk/fm-places-view.c:877
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Nhập tên mới:"
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr ""
+msgstr "Mở bằng ..."
 
 #: ../src/gtk/fm-file-menu.c:89
+#, fuzzy
 msgid "Rename"
-msgstr ""
+msgstr "Đổi tên"
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
