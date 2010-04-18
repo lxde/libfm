@@ -72,7 +72,7 @@ FmPath* fm_path_new(const char* path)
 
         /* return root instead of NULL for invalid URIs. fix #2988010. */
         if( !colon ) /* this shouldn't happen */
-            return root; /* invalid path FIXME: should we treat it as relative path? */
+            return fm_path_ref(root); /* invalid path FIXME: should we treat it as relative path? */
 
         /* FIXME: convert file:/// to local native path */
         hier_part = colon+1;
