@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
@@ -335,7 +335,7 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Moj računalnik"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Programi"
 
@@ -424,7 +424,7 @@ msgstr "Odklopi nosilec"
 msgid "Eject Removable Media"
 msgstr "Izvrzi izmenljiv medij"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj zaznamek"
 
@@ -436,15 +436,15 @@ msgstr "Odstrani iz zaznamkov"
 msgid "Empty Trash"
 msgstr "Izprazni koš"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Koš"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Namizje"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Vnesite novo ime:"
 
@@ -476,7 +476,7 @@ msgstr "Izvleci tu"
 msgid "Extract To..."
 msgstr "Izvleci v"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave ni uspel."
 

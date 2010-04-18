@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -336,7 +336,7 @@ msgstr "Papelera"
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Aplicaciones"
 
@@ -427,7 +427,7 @@ msgstr "Desmontar volumen"
 msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
@@ -439,15 +439,15 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Papelera"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Escritorio"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
 
@@ -479,7 +479,7 @@ msgstr "Extraer aquí"
 msgid "Extract To..."
 msgstr "Estraer a..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
 

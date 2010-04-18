@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: 2010-02-20 19:27+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
 "Language-Team: gnome-cyr\n"
@@ -337,7 +337,7 @@ msgstr "Корзина"
 msgid "My Computer"
 msgstr "Мой компьютер"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Приложения"
 
@@ -426,7 +426,7 @@ msgstr "Размонтировать том"
 msgid "Eject Removable Media"
 msgstr "Извлечь диск"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Переименовать закладку"
 
@@ -438,15 +438,15 @@ msgstr "Удалить из закладок"
 msgid "Empty Trash"
 msgstr "Очистить корзину"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Корзина"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Рабочий стол"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
 
@@ -478,7 +478,7 @@ msgstr "Извлечь в текущую папку"
 msgid "Extract To..."
 msgstr "Извлечь в..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "Ошибка XDirectSave."
 

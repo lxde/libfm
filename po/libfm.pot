@@ -1,30 +1,29 @@
-# Danish translation PCManFM libfm.
-# Copyright (C) 2010 PCmanFM & Joe Hansen.
-# This file is distributed under the same license as the PCManFM libfm package.
-# Joe Hansen (joedalton2@yahoo.dk), 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: master\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-18 02:56+0200\n"
-"PO-Revision-Date: 2010-04-13 19:18+0200\n"
-"Last-Translator: Vidar Jon Bauge <vidarjb@gmail.com>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>Kommandolinje der skal køres:</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Filtype der skal åbnes:</b>"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,35 +34,30 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Disse specielle koder kan bruges på kommandolinjen:</b>\n"
-"  <b>%f</b>: Repræsenterer et enkelt filnavn\n"
-"  <b>%F</b>: Repræsenterer flere filnavne\n"
-"  <b>%u</b>: Repræsenterer en enkelt URI i filen\n"
-"  <b>%U</b>: Repræsenterer flere URI'er"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Vælg et program"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Tilpasset kommandolinje"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Kør i terminalemulator"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Installeret program"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Angiv valgt program som standardhandling for denne filtype"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_Gennemse"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -71,485 +65,474 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Der er allerede en fil med det samme navn på denne placering.</b>\n"
-"\n"
-"Ønsker du at erstatte den eksisterende fil"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Anvend dette tilvalg til alle eksisterende filer"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Bekræft overskrivning af filer"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Filnavn:"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Overskriv"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "Om_døb"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "_Spring over"
+msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "med den følgende fil?"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr "---"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Adgangskontrol</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Filtype:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>Gruppe:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Sidste adgang:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Sidste ændring:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>Placering:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Åbn _med:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Andre:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>Ejer:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>Størrelse på harddisk:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>Mål:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Samlet størrelse på filer:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_Grupper:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>_Ejer:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Filegenskaber"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Gør filen eksekverbar"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "Ingen"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Handlinger som alle andre brugere kan udføre"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "Handlinger som ejeren af filen kan udføre"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
 msgstr ""
-"Handlinger som brugere af den samme gruppe som ejeren af filen kan udføre"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Læs og skriv"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Skrivebeskyttet"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Vælg programmet som bruges til at åbne filer af denne type "
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Kun skriv"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_Generelt"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_Tilladelser"
+msgstr ""
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Behandler:</b>"
+msgstr ""
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>Status:</b>"
+msgstr ""
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Fejl opstod:</b>"
+msgstr ""
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Tid tilbage:</b>"
+msgstr ""
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>Til:</b>"
+msgstr ""
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr "Forbereder..."
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Postklient</b>"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminalemulator</b>"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr "<b>Internetbrowser</b>"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr "Kommandolinje:"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "Filassociationer"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr "Foretrukne programmer"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr "Systemprogrammer"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
-"Den foretrukne postklient vil blive brugt til at udarbejde e-post når du "
-"klikker på e-post-adresser."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
-"Den foretrukne internetbrowser vil blive brugt til at åbne internetadresser."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u byte"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr "KB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr "MB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr "GB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr "TB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr "KiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr "MiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr "GiB"
+msgstr ""
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr "TiB"
+msgstr ""
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "Genveje"
+msgstr ""
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "Monteringspunkt"
+msgstr ""
 
 #: ../src/base/fm-path.c:435
 msgid "Trash Can"
-msgstr "Skraldespand"
+msgstr ""
 
 #: ../src/base/fm-path.c:437
 msgid "My Computer"
-msgstr "Min computer"
+msgstr ""
 
 #: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
-msgstr "Programmer"
+msgstr ""
 
 #: ../src/base/fm-path.c:448
 msgid "Network"
-msgstr "Netværk"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ": "
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr "Filhandlingen er afbrudt og der er nogle fejl."
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr "Afbrudt"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr "Filhandlingen er færdig, men der er nogle fejl."
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr "Færdig"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ", "
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
-msgstr "Flytter filer"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
-msgstr "Kopierer filer"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr "Smider filer ud"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
-msgstr "Sletter filer"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
-msgstr "Opretter symbolske henvisninger"
+msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
-msgstr "Ændrer filattributter"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr "Indtast venligst et gyldigt brugernavn eller numerisk id."
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr "Indtast venligst et gyldigt gruppenavn eller numerisk id."
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Ønsker du rekursivt at anvende disse ændringer på alle filer og undermapper?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr "Filer af forskellige typer"
+msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr "Flere filer"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr "Monter arkiv"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr "Afmonter arkiv"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr "Skub eksternt medie ud"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
-msgstr "Omdøb bogmærkepunkt"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr "Fjern fra bogmærker"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr "Tom skraldespand"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr "Skraldespand"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr "Skrivebord"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr "Indtast et nyt navn:"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr "Åbn med..."
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:89
 msgid "Rename"
-msgstr "Omdøb"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
-msgstr "Opret symbolsk henvisning"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
-msgstr "Send til"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr "Komprimer..."
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr "Pak ud her"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr "Pak ud til..."
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr "XDirectSave mislykkedes."
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Vælg markeret program til at åbne filer med"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Kør tilpasset kommandolinje for at åbne filer"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr "Tilpas"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
-msgstr "Navn"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
-msgstr "Beskrivelse"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
-msgstr "Størrelse"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
-msgstr "Ændret"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "Installerede programmer"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr "Fejl"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr "Vælg venligst en mappe"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only system administrators have the permission to do this."
-msgstr "Kun systemadministratorer har rettigheder til dette."
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr "Ønsker du at flytte de valgte filer til skraldespanden?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
-msgstr "Ønsker du at slette de valgte filer?"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
-msgstr "Omdøb fil"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
-msgstr "Indtast venligst et nyt navn:"
+msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "Er du sikker på, at du ønsker at tømme skraldespanden?"
+msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "Den angivne mappe er ikke gyldig"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "Det er ikke en gyldig mappe"
+msgstr ""

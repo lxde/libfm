@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: 2010-04-06 18:40+0200\n"
 "Last-Translator: Artur <mazdac@gmail.com>\n"
 "Language-Team: \n"
@@ -339,7 +339,7 @@ msgstr "Kosz"
 msgid "My Computer"
 msgstr "Komputer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Programy"
 
@@ -430,7 +430,7 @@ msgstr "Odmontuj wolumen"
 msgid "Eject Removable Media"
 msgstr "Wysuń nośnik wymienny"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Zmień nazwę zakładki"
 
@@ -442,15 +442,15 @@ msgstr "Usuń zakładkę"
 msgid "Empty Trash"
 msgstr "Opróżnij kosz"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Kosz"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Pulpit"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Proszę wprowadzić nową nazwę:"
 
@@ -482,7 +482,7 @@ msgstr "Rozpakuj tutaj"
 msgid "Extract To..."
 msgstr "Rozpakuj do..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave nie powiódł się"
 
