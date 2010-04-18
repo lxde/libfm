@@ -1097,13 +1097,17 @@ void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     if(!gtk_tree_model_get_iter_first(model, &it))
         return;
 
+    if(fm_list_is_empty(job->file_infos))
+        return;
+
     /* optimize for one file case */
     if(fm_list_get_length(job->file_infos) == 1)
     {
+        fi = FM_FILE_INFO(fm_list_peek_head(job->file_infos));
         do {
             item = NULL;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
-            if( item->fi->path && fm_path_equal(item->fi->path, fi->path) )
+            if( item && item->fi && item->fi->path && fm_path_equal(item->fi->path, fi->path) )
             {
                 fm_file_info_unref(item->fi);
                 item->fi = fm_file_info_ref(fi);
@@ -1116,7 +1120,7 @@ void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
         do {
             item = NULL;
             gtk_tree_model_get(model, &it, COL_INFO, &item, -1);
-            if( item && item->fi->path )
+            if( item && item->fi && item->fi->path )
             {
                 for(l = fm_list_peek_head_link(job->file_infos); l; l = l->next )
                 {
