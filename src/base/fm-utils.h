@@ -35,21 +35,6 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
 
 char* fm_canonicalize_filename(const char* filename, const char* cwd);
 
-typedef gboolean (*FmLaunchFolderFunc)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
-
-typedef struct _FmFileLauncher FmFileLauncher;
-struct _FmFileLauncher
-{
-    GAppInfo* (*get_app)(GList* file_infos, FmMimeType* mime_type, gpointer user_data, GError** err);
-    /* gboolean (*before_open)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data); */
-    gboolean (*open_folder)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
-    gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);
-};
-
-gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLauncher* launcher, gpointer user_data);
-gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data);
-gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, GError** err);
-
 G_END_DECLS
 
 #endif

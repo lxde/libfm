@@ -70,6 +70,7 @@
 
 * Handle self-mangled symlinks.
 
+* Make fm_launch_paths more user-friendly so pcmanfm can use it to handle files_to_open.
 
 
 [Medium Priority]

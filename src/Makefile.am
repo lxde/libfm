@@ -20,6 +20,7 @@ base_SOURCES = \
 	base/fm-file-info.c \
 	base/fm-mime-type.c \
 	base/fm-utils.c \
+	base/fm-file-launcher.c \
 	base/fm-icon.c \
 	base/fm-bookmarks.c \
 	base/fm-nav-history.c \
@@ -95,6 +96,7 @@ libfminclude_HEADERS = \
 	base/fm-file-info.h \
 	base/fm-mime-type.h \
 	base/fm-utils.h \
+	base/fm-file-launcher.h \
 	base/fm-icon.h \
 	base/fm-bookmarks.h \
 	base/fm-nav-history.h \
