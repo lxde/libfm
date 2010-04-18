@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 23:58+0800\n"
-"PO-Revision-Date: 2010-04-15 21:43+0200\n"
+"PO-Revision-Date: 2010-04-18 00:30+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fo\n"
@@ -58,8 +58,10 @@ msgid "Installed Application"
 msgstr "Innløgd nýtsluskipan"
 
 #: ../data/ui/app-chooser.glade.h:13
+#, fuzzy
 msgid "Set selected application as default action of this file type"
 msgstr ""
+"Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -89,11 +91,11 @@ msgstr "Fílunavn:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "Skriva _omaná"
+msgstr "_Skriva omaná"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "Endu_rnevn"
+msgstr "_Endurnevn"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
@@ -129,7 +131,7 @@ msgstr "<b>Broytt seinast:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Lega:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
@@ -222,7 +224,7 @@ msgstr "<b>Støða:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Nakrar villur fyrikomu:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -240,7 +242,7 @@ msgstr "Fyrireiki..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Postviðskiftarit</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
@@ -260,7 +262,7 @@ msgstr "Fílusambindingar"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Framumtiknar nýtsluskipanir"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
@@ -273,8 +275,9 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
+#, fuzzy
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Framumtikni vevkagarin verður nýttur at lata upp "
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
