@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: 2010-03-31 09:47+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -336,7 +336,7 @@ msgstr "Cestino"
 msgid "My Computer"
 msgstr "Il Mio Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Applicazioni"
 
@@ -425,7 +425,7 @@ msgstr "Smona Volume"
 msgid "Eject Removable Media"
 msgstr "Espelli dispositivo removibile"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Rinomina il segnalibro"
 
@@ -437,15 +437,15 @@ msgstr "Rimuovi dai segnalibri"
 msgid "Empty Trash"
 msgstr "Svuota cestino"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Cestino"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Scrivania"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
 
@@ -477,7 +477,7 @@ msgstr "Estrai qui"
 msgid "Extract To..."
 msgstr "Estrai in..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallito."
 

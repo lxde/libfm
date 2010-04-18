@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 23:58+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -336,7 +336,7 @@ msgstr "Смітник"
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:569
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Програми"
 
@@ -427,7 +427,7 @@ msgstr "Від’єднати диск"
 msgid "Eject Removable Media"
 msgstr "Витягнути диск або медіа"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:876
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -439,15 +439,15 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:500
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-view.c:554
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Стільниця"
 
-#: ../src/gtk/fm-places-view.c:877
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -479,7 +479,7 @@ msgstr "Розпакувати сюди"
 msgid "Extract To..."
 msgstr "Розпакувати до..."
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
