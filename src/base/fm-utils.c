@@ -342,7 +342,7 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     {
         if(filename[i] == '.')
         {
-            if(filename[i+1] == '.' && filename[i+2] == '/' || filename[i+2] == '\0' ) /* .. */
+            if(filename[i+1] == '.' && (filename[i+2] == '/' || filename[i+2] == '\0') ) /* .. */
             {
                 if(i == 0) /* .. is first element */
                 {
@@ -378,11 +378,9 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 if(i == 0) /* first element */
                 {
                     int cwd_len;
-                    if(!cwd)
-                        cwd = _cwd = g_get_current_dir();
                     cwd_len = strlen(cwd);
                     ret = g_realloc(ret, len + cwd_len + 1);
-                    memcpy(ret, cwd, cwd_len);
+                    memcpy(ret, cwd, cwd_len + 1);
                     p = ret + cwd_len;
                 }
                 ++i;

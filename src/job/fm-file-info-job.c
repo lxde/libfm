@@ -103,6 +103,8 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 		FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
 
+        job->current = fi->path;
+
 		if(fm_path_is_native(fi->path))
 		{
 			char* path_str = fm_path_to_str(fi->path);
@@ -282,4 +284,10 @@ gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile*
 	fm_file_info_set_from_gfileinfo(fi, inf);
 
 	return TRUE;
+}
+
+/* This API should only be called in error handler */
+FmPath* fm_file_info_job_get_current(FmFileInfoJob* job)
+{
+    return job->current;
 }

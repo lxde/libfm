@@ -54,6 +54,7 @@ struct _FmFileInfoJob
 	FmJob parent;
     FmFileInfoJobFlags flags;
 	FmFileInfoList* file_infos;
+    FmPath* current;
 };
 
 struct _FmFileInfoJobClass
@@ -70,6 +71,9 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf);
 
 gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err);
 gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err);
+
+/* This API should only be called in error handler */
+FmPath* fm_file_info_job_get_current(FmFileInfoJob* job);
 
 G_END_DECLS
 
