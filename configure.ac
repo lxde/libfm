@@ -19,7 +19,8 @@ AC_HEADER_STDC
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_CHECK_FUNCS(mmap)
+AC_FUNC_MMAP
+AC_CHECK_LIB(m, pow)
 
 # Large file support
 AC_ARG_ENABLE([largefile],
