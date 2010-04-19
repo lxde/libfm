@@ -77,6 +77,7 @@ static void on_big_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmFolderView* fv);
 
+static void cancel_pending_row_activated(FmFolderView* fv);
 
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
@@ -247,9 +248,38 @@ static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmFo
     item_clicked(fv, path, FM_FV_ACTIVATED);
 }
 
+static gboolean on_idle_tree_view_row_activated(FmFolderView* fv)
+{
+    GtkTreePath* path;
+    if(gtk_tree_row_reference_valid(fv->activated_row_ref))
+    {
+        path = gtk_tree_row_reference_get_path(fv->activated_row_ref);
+        item_clicked(fv, path, FM_FV_ACTIVATED);
+    }
+    gtk_tree_row_reference_free(fv->activated_row_ref);
+    fv->activated_row_ref = NULL;
+    fv->row_activated_idle = 0;
+    return FALSE;
+}
+
 static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTreeViewColumn* col, FmFolderView* fv)
 {
-    item_clicked(fv, path, FM_FV_ACTIVATED);
+    /* Due to GTK+ and libexo bugs, here a workaround is needed.
+     * https://bugzilla.gnome.org/show_bug.cgi?id=612802
+     * http://bugzilla.xfce.org/show_bug.cgi?id=6230
+     * Gtk+ 2.20+ changed its behavior, which is really bad.
+     * row-activated signal is now issued in the second button-press events
+     * rather than double click events. The content of the view and model
+     * gets changed in row-activated signal handler before button-press-event
+     * handling is finished, and this breaks button-press handler of ExoTreeView
+     * and causing some selection-related bugs since select function cannot be reset.*/
+
+    cancel_pending_row_activated(fv);
+    if(fv->model)
+    {
+        fv->activated_row_ref = gtk_tree_row_reference_new(GTK_TREE_MODEL(fv->model), path);
+        g_idle_add((GSourceFunc)on_idle_tree_view_row_activated, fv);
+    }
 }
 
 static void fm_folder_view_init(FmFolderView *self)
@@ -303,6 +333,8 @@ static void fm_folder_view_finalize(GObject *object)
         fm_path_unref(self->cwd);
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
+
+    cancel_pending_row_activated(self);
 
     if(self->icon_size_changed_handler)
         g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
@@ -528,6 +560,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             ts = gtk_tree_view_get_selection((GtkTreeView*)fv->view);
             g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
             g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
+            /*cancel_pending_row_activated(fv);*/ /* FIXME: is this needed? */
             gtk_tree_view_set_model((GtkTreeView*)fv->view, fv->model);
             gtk_tree_selection_set_mode(ts, fv->sel_mode);
             for(l = sels;l;l=l->next)
@@ -650,6 +683,7 @@ static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
     switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
+        cancel_pending_row_activated(fv);
         gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), NULL);
         break;
     case FM_FV_ICON_VIEW:
@@ -678,6 +712,7 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
     switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
+        cancel_pending_row_activated(fv);
         gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), model);
         icon_size = fm_config->small_icon_size;
         fm_folder_model_set_icon_size(model, icon_size);
@@ -744,6 +779,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
             switch(fv->mode)
             {
             case FM_FV_LIST_VIEW:
+                cancel_pending_row_activated(fv);
                 gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), NULL);
                 break;
             case FM_FV_ICON_VIEW:
@@ -1080,4 +1116,15 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
     return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+}
+
+static void cancel_pending_row_activated(FmFolderView* fv)
+{
+    if(fv->row_activated_idle)
+    {
+        g_source_remove(fv->row_activated_idle);
+        fv->row_activated_idle = 0;
+        gtk_tree_row_reference_free(fv->activated_row_ref);
+        fv->activated_row_ref = NULL;
+    }
 }

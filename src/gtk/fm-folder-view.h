@@ -85,6 +85,10 @@ struct _FmFolderView
 	FmPath* cwd;
 	FmDndSrc* dnd_src; /* dnd source manager */
 	FmDndDest* dnd_dest; /* dnd dest manager */
+
+    /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
+    GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
+    guint row_activated_idle;
 };
 
 struct _FmFolderViewClass
