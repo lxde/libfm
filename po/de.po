@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"POT-Creation-Date: 2010-04-19 04:16+0000\n"
 "PO-Revision-Date: 2010-04-13 20:19+0100\n"
 "Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
@@ -172,7 +172,7 @@ msgstr "Datei als Programm ausführen"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "Keine"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
@@ -184,9 +184,7 @@ msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen "
-"können"
+msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -240,7 +238,6 @@ msgid "Preparing..."
 msgstr "Vorbereiten..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
 msgstr "<b>E-Mail-Client</b>"
 
@@ -269,12 +266,8 @@ msgid "System Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail Adressen klicken."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -327,19 +320,19 @@ msgstr "Verknüpfungen"
 msgid "Mount Point"
 msgstr "Einhängepunkt"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Papierkorb"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -402,11 +395,8 @@ msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
-"werden?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -426,7 +416,6 @@ msgstr "Dateisystem aushängen"
 
 # besser: Wechseldatenträger?
 #: ../src/gtk/fm-places-view.c:134
-#, fuzzy
 msgid "Eject Removable Media"
 msgstr "Wechselmedium auswerfen"
 
@@ -483,8 +472,9 @@ msgid "Extract To..."
 msgstr "Entpacken nach..."
 
 #: ../src/gtk/fm-dnd-dest.c:449
+#, fuzzy
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave fehlgeschlagen."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
@@ -528,7 +518,6 @@ msgstr "Ordner wählen"
 
 # oder doch Systemadministratoren?
 #: ../src/gtk/fm-gtk-utils.c:385
-#, fuzzy
 msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
