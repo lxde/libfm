@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-18 02:56+0200\n"
-"PO-Revision-Date: 2010-04-16 13:17+0200\n"
+"PO-Revision-Date: 2010-04-22 10:09+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -104,7 +104,7 @@ msgstr "Với các tập tin sau đây?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
@@ -286,35 +286,35 @@ msgstr[0] "Số ít%u byteSố nhiều%u byte"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
@@ -342,7 +342,7 @@ msgstr "Mạng"
 
 #: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
@@ -362,7 +362,7 @@ msgstr "Hoàn thành"
 
 #: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
@@ -458,94 +458,94 @@ msgstr "Đổi tên"
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Create Symlink"
-msgstr ""
+msgstr "Tạo liên kết "
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Send To"
-msgstr ""
+msgstr "Gửi tới"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr ""
+msgstr "Nén"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr ""
+msgstr "Giải nén ở đây"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr ""
+msgstr "Giải nén tại.."
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "Trực tiếp lưu thất bại"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Sử dụng ứng dụng đã chọn để mở các tập tin"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Thực hiện tùy chỉnh dòng lệnh để mở các tập tin"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Tùy chỉnh"
 
 #: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
 #: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
-msgstr ""
+msgstr "Mô tả"
 
 #: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
-msgstr ""
+msgstr "Kích thước"
 
 #: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
-msgstr ""
+msgstr "Sưả đổi lần"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Cài đặt ứng dụng"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Lỗi"
 
 #: ../src/gtk/fm-gtk-utils.c:239
 msgid "Please select a folder"
-msgstr ""
+msgstr "Vui long chọn thư mục"
 
 #: ../src/gtk/fm-gtk-utils.c:385
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Chỉ có quản trị hệ thống mới được phép làm điều này"
 
 #: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
 #: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Bạn có muốn xóa ongcác tập tin đẫ chọn không?"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
-msgstr ""
+msgstr "Dổi tên tập tin"
 
 #: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Vui lòng nhập tên mới:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Các thư mục chỉ định không hợp lệ"
