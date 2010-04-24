@@ -525,7 +525,7 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Le sistemski administrators ima pravico za to dejanje"
 
 #: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+msgid "Do you want to move the selected files to trash can?"
 msgstr "Želite premakniti izbrane datoteke v koš?"
 
 #: ../src/gtk/fm-gtk-utils.c:478
@@ -541,7 +541,7 @@ msgid "Please enter a new name:"
 msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste prepričani, da želite izprazniti koš?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238

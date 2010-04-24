@@ -524,7 +524,7 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Chỉ có quản trị hệ thống mới được phép làm điều này"
 
 #: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+msgid "Do you want to move the selected files to trash can?"
 msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
 #: ../src/gtk/fm-gtk-utils.c:478
@@ -540,7 +540,7 @@ msgid "Please enter a new name:"
 msgstr "Vui lòng nhập tên mới:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+msgid "Are you sure you want to empty the trash can?"
 msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238

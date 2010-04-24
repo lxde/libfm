@@ -58,7 +58,7 @@ struct _FmConfig
 	GObject parent;
 
     gboolean single_click; /* single click to open file */
-    gboolean use_trash; /* delete file to trash bin */
+    gboolean use_trash; /* delete file to trash can */
     gboolean confirm_del; /* ask before deleting files */
 
     guint big_icon_size;    /* size of big icons */

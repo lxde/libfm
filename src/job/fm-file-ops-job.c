@@ -43,7 +43,7 @@ static gboolean fm_file_ops_job_run(FmJob* fm_job);
 /* static void fm_file_ops_job_cancel(FmJob* job); */
 
 /* funcs for io jobs */
-gboolean fm_file_ops_job_link_run(FmFileOpsJob* job);
+gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job);
 
 
 G_DEFINE_TYPE(FmFileOpsJob, fm_file_ops_job, FM_TYPE_JOB);
@@ -146,17 +146,19 @@ gboolean fm_file_ops_job_run(FmJob* fm_job)
 	switch(job->type)
 	{
 	case FM_FILE_OP_COPY:
-		return fm_file_ops_job_copy_run(job);
+		return _fm_file_ops_job_copy_run(job);
 	case FM_FILE_OP_MOVE:
-		return fm_file_ops_job_move_run(job);
+		return _fm_file_ops_job_move_run(job);
 	case FM_FILE_OP_TRASH:
-		return fm_file_ops_job_trash_run(job);
+		return _fm_file_ops_job_trash_run(job);
+	case FM_FILE_OP_UNTRASH:
+		return _fm_file_ops_job_untrash_run(job);
 	case FM_FILE_OP_DELETE:
-		return fm_file_ops_job_delete_run(job);
+		return _fm_file_ops_job_delete_run(job);
     case FM_FILE_OP_LINK:
-        return fm_file_ops_job_link_run(job);
+        return _fm_file_ops_job_link_run(job);
 	case FM_FILE_OP_CHANGE_ATTR:
-		return fm_file_ops_job_change_attr_run(job);
+		return _fm_file_ops_job_change_attr_run(job);
 	}
 	return FALSE;
 }
@@ -304,7 +306,7 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     return data.ret;
 }
 
-gboolean fm_file_ops_job_link_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 {
 	GList* l;
     GError* err = NULL;

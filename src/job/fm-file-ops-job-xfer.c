@@ -27,7 +27,7 @@
 #include <unistd.h>
 #include "fm-monitor.h"
 
-const char query[]=
+static const char query[]=
 	G_FILE_ATTRIBUTE_STANDARD_TYPE","
 	G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
 	G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -39,7 +39,7 @@ const char query[]=
 
 static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
 
-gboolean fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
+gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
     /* FIXME: prevent copying to self or copying parent dir to child. */
     gboolean ret = FALSE;
@@ -74,10 +74,7 @@ _retry_query_src_info:
 
 	is_virtual = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
     type = g_file_info_get_file_type(inf);
-/*
-    size = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-    size *= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
-*/
+
     size = g_file_info_get_size(inf);
     mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
@@ -189,7 +186,7 @@ _retry_query_src_info:
                             else
                                 job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest);
 
-                            ret = fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
+                            ret = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
                             g_object_unref(sub);
                             g_object_unref(sub_dest);
 
@@ -340,7 +337,7 @@ _retry_query_src_info:
 
     /* if this is a cross-device move operation, delete source files. */
     if( ret && job->type == FM_FILE_OP_MOVE )
-        ret = fm_file_ops_job_delete_file(FM_JOB(job), src, inf); /* delete the source file. */
+        ret = _fm_file_ops_job_delete_file(FM_JOB(job), src, inf); /* delete the source file. */
 
     if(new_dest)
         g_object_unref(new_dest);
@@ -348,7 +345,7 @@ _retry_query_src_info:
     return ret;
 }
 
-gboolean fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
+gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
     /* FIXME: prevent moving to self or moving parent dir to child. */
 	GError* err = NULL;
@@ -376,7 +373,7 @@ _retry_query_src_info:
 
     src_fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
     /* Check if source and destination are on the same device */
-    if( g_strcmp0(src_fs_id, job->dest_fs_id) == 0 ) /* same device */
+    if( job->type == FM_FILE_OP_UNTRASH || g_strcmp0(src_fs_id, job->dest_fs_id) == 0 ) /* same device */
     {
         FmFileOpOption opt = 0;
         guint64 size;
@@ -384,7 +381,6 @@ _retry_query_src_info:
 
         /* showing currently processed file. */
         fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
-
         _retry_move:
         if( !g_file_move(src, dest, flags, fm_job_get_cancellable(fmjob), progress_cb, job, &err))
         {
@@ -447,8 +443,8 @@ _retry_query_src_info:
     else /* use copy if they are on different devices */
     {
         /* use copy & delete */
-        /* source file will be deleted in fm_file_ops_job_copy_file() */
-        ret = fm_file_ops_job_copy_file(job, src, inf, dest);
+        /* source file will be deleted in _fm_file_ops_job_copy_file() */
+        ret = _fm_file_ops_job_copy_file(job, src, inf, dest);
     }
 
     if(new_dest)
@@ -465,7 +461,7 @@ void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
     fm_file_ops_job_emit_percent(job);
 }
 
-gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
 	GFile *dest_dir;
@@ -505,7 +501,7 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 		GFile* src = fm_path_to_gfile(path);
 		GFile* dest = g_file_get_child(dest_dir, path->name);
 
-		if(!fm_file_ops_job_copy_file(job, src, NULL, dest))
+		if(!_fm_file_ops_job_copy_file(job, src, NULL, dest))
 			ret = FALSE;
         g_object_unref(src);
         g_object_unref(dest);
@@ -523,7 +519,7 @@ gboolean fm_file_ops_job_copy_run(FmFileOpsJob* job)
 	return TRUE;
 }
 
-gboolean fm_file_ops_job_move_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_move_run(FmFileOpsJob* job)
 {
 	GFile *dest_dir;
     GFileMonitor *dest_mon;
@@ -611,7 +607,7 @@ _retry_query_dest_info:
                 job->src_folder_mon = src_mon = NULL;
         }
 
-		if(!fm_file_ops_job_move_file(job, src, NULL, dest))
+		if(!_fm_file_ops_job_move_file(job, src, NULL, dest))
 			ret = FALSE;
         g_object_unref(src);
         g_object_unref(dest);

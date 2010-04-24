@@ -92,6 +92,8 @@ void fm_delete_files(FmPathList* files);
 /* trash or delete files according to FmConfig::use_trash. */
 void fm_trash_or_delete_files(FmPathList* files);
 
+void fm_untrash_files(FmPathList* files);
+
 /* void fm_rename_files(FmPathList* files); */
 void fm_rename_file(FmPath* file);
 

@@ -20,6 +20,7 @@
  */
 
 #include "fm-file-ops-job-delete.h"
+#include "fm-file-ops-job-xfer.h"
 #include "fm-monitor.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -28,7 +29,7 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
 
 
 /* FIXME: cancel the job on errors */
-gboolean fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
+gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = (FmFileOpsJob*)job;
@@ -46,6 +47,7 @@ _retry_query_info:
         {
             FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
             g_error_free(err);
+            err = NULL;
             if(act == FM_JOB_RETRY)
                 goto _retry_query_info;
             else if(act == FM_JOB_ABORT)
@@ -110,6 +112,7 @@ _retry_query_info:
         {
             FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
             g_error_free(err);
+            err = NULL;
             return FALSE;
         }
 
@@ -122,7 +125,7 @@ _retry_query_info:
 			if(inf)
 			{
 				GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-				fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
+				_fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
 				g_object_unref(sub);
 				g_object_unref(inf);
 			}
@@ -133,6 +136,7 @@ _retry_query_info:
                     FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
                     /* FM_JOB_RETRY is not supported here */
                     g_error_free(err);
+                    err = NULL;
                     g_object_unref(enu);
                     if(fjob->src_folder_mon)
                         g_object_unref(fjob->src_folder_mon);
@@ -177,12 +181,14 @@ _retry_delete:
                     {
                         g_free(scheme);
                         g_error_free(err);
+                        err = NULL;
                         return TRUE;
                     }
                     g_free(scheme);
                 }
                 act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
+                err = NULL;
                 if(act == FM_JOB_RETRY)
                     goto _retry_delete;
                 return FALSE;
@@ -195,12 +201,8 @@ _retry_delete:
     return ret;
 }
 
-gboolean fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf)
-{
-    return TRUE;
-}
 
-gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
 {
 	GList* l;
     gboolean ret = TRUE;
@@ -242,7 +244,7 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
                 job->src_folder_mon = mon = NULL;
         }
 
-        ret = fm_file_ops_job_delete_file(FM_JOB(job), src, NULL);
+        ret = _fm_file_ops_job_delete_file(FM_JOB(job), src, NULL);
 		g_object_unref(src);
 
         if(mon)
@@ -254,7 +256,7 @@ gboolean fm_file_ops_job_delete_run(FmFileOpsJob* job)
 	return ret;
 }
 
-gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_trash_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
 	GList* l;
@@ -272,21 +274,28 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
 	for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
 	{
 		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+_retry_trash:
         ret = g_file_trash(gf, fm_job_get_cancellable(fmjob), &err);
 		g_object_unref(gf);
         if(!ret)
         {
+            /* if trashing is not supported by the file system */
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
-            {
-                /* if trashing is not supported by the file system */
                 fm_list_push_tail(unsupported, FM_PATH(l->data));
-                continue;
+            else
+            {
+                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                g_error_free(err);
+                err = NULL;
+                if(act == FM_JOB_RETRY)
+                    goto _retry_trash;
+                else if(act == FM_JOB_ABORT)
+                    return FALSE;
             }
-            /* otherwise, it's caused by another reason */
-            /* FIXME: ask the user first before we returned? */
+            g_error_free(err);
+            err = NULL;
         }
-        else
-            ++job->finished;
+        ++job->finished;
         fm_file_ops_job_emit_percent(job);
 	}
 
@@ -300,5 +309,73 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
          * The API must be re-designed later. */
         g_object_set_data_full(job, "trash-unsupported", unsupported, fm_list_unref);
     }
+    return TRUE;
+}
+
+static const char trash_query[]=
+	G_FILE_ATTRIBUTE_STANDARD_TYPE","
+	G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
+	G_FILE_ATTRIBUTE_STANDARD_NAME","
+	G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
+	G_FILE_ATTRIBUTE_STANDARD_SIZE","
+	G_FILE_ATTRIBUTE_UNIX_BLOCKS","
+	G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
+    G_FILE_ATTRIBUTE_ID_FILESYSTEM","
+    "trash::orig-path";
+
+gboolean _fm_file_ops_job_untrash_run(FmFileOpsJob* job)
+{
+    gboolean ret = TRUE;
+	GList* l;
+    GError* err = NULL;
+    FmJob* fmjob = FM_JOB(job);
+    job->total = fm_list_get_length(job->srcs);
+    fm_file_ops_job_emit_prepared(job);
+
+	l = fm_list_peek_head_link(job->srcs);
+	for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
+	{
+		GFile* gf;
+        GFileInfo* inf;
+        FmPath* path = FM_PATH(l->data);
+        if(!fm_path_is_trash(path))
+            continue;
+        gf = fm_path_to_gfile(path);
+_retry_get_orig_path:
+        inf = g_file_query_info(gf, trash_query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, fm_job_get_cancellable(fmjob), &err);
+        if(inf)
+        {
+            char* orig_path_str = g_file_info_get_attribute_as_string(inf, "trash::orig-path");
+            if(orig_path_str)
+            {
+                GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
+                g_free(orig_path_str);
+
+                /* FIXME: ensure the existence of parent folder. */
+                ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);
+            }
+            g_object_unref(inf);
+        }
+        else
+        {
+            if(err)
+            {
+                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                g_error_free(err);
+                err = NULL;
+                if(act == FM_JOB_RETRY)
+                    goto _retry_get_orig_path;
+                else if(act == FM_JOB_ABORT)
+                {
+                    g_object_unref(gf);
+                    return FALSE;
+                }
+            }
+        }
+
+        ++job->finished;
+        fm_file_ops_job_emit_percent(job);
+	}
+
     return TRUE;
 }

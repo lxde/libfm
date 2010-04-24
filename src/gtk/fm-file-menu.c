@@ -45,6 +45,7 @@ static void on_cut(GtkAction* action, gpointer user_data);
 static void on_copy(GtkAction* action, gpointer user_data);
 static void on_paste(GtkAction* action, gpointer user_data);
 static void on_delete(GtkAction* action, gpointer user_data);
+static void on_untrash(GtkAction* action, gpointer user_data);
 static void on_rename(GtkAction* action, gpointer user_data);
 static void on_compress(GtkAction* action, gpointer user_data);
 static void on_extract_here(GtkAction* action, gpointer user_data);
@@ -79,20 +80,20 @@ const char base_menu_xml[]=
 /* FIXME: how to show accel keys in the popup menu? */
 GtkActionEntry base_menu_actions[]=
 {
-    {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, on_open},
-    {"OpenWith", NULL, N_("Open With..."), NULL, NULL, on_open_with},
+    {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, G_CALLBACK(on_open)},
+    {"OpenWith", NULL, N_("Open With..."), NULL, NULL, G_CALLBACK(on_open_with)},
     {"OpenWithMenu", NULL, N_("Open With..."), NULL, NULL, NULL},
-    {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, on_cut},
-    {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, on_copy},
-    {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, on_paste},
-    {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, on_delete},
-    {"Rename", NULL, N_("Rename"), "F2", NULL, on_rename},
+    {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, G_CALLBACK(on_cut)},
+    {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, G_CALLBACK(on_copy)},
+    {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, G_CALLBACK(on_paste)},
+    {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
+    {"Rename", NULL, N_("Rename"), "F2", NULL, G_CALLBACK(on_rename)},
     {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
     {"SendTo", NULL, N_("Send To"), NULL, NULL, NULL},
-    {"Compress", NULL, N_("Compress..."), NULL, NULL, on_compress},
-    {"Extract", NULL, N_("Extract Here"), NULL, NULL, on_extract_here},
-    {"Extract2", NULL, N_("Extract To..."), NULL, NULL, on_extract_to},
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, on_prop}
+    {"Compress", NULL, N_("Compress..."), NULL, NULL, G_CALLBACK(on_compress)},
+    {"Extract", NULL, N_("Extract Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
+    {"Extract2", NULL, N_("Extract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
+    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK(on_prop)}
 };
 
 void fm_file_menu_destroy(FmFileMenu* menu)
@@ -127,6 +128,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkAccelGroup* accel_grp;
+    GtkAction* act;
     FmFileInfo* fi;
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
@@ -153,7 +155,6 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
         fi = (FmFileInfo*)fm_list_peek_head(files);
         if(fi->type)
         {
-            GtkAction* act;
             GList* apps = g_app_info_get_all_for_type(fi->type->type);
             GList* l;
             gboolean use_sub = g_list_length(apps) > 5;
@@ -198,7 +199,7 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
         FmArchiver* archiver = fm_archiver_get_default();
         if(archiver)
         {
-            FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(data->file_infos);
+            fi = (FmFileInfo*)fm_list_peek_head(files);
             if(fm_archiver_is_mime_type_supported(archiver, fi->type->type))
             {
                 if(data->cwd && archiver->extract_to_cmd)
@@ -212,6 +213,48 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     }
     else
         g_string_append(xml, "<menuitem action='Compress'/>");
+    g_string_append(xml, "</placeholder></popup>");
+
+    /* Special handling for some virtual filesystems */
+    g_string_append(xml, "<popup><placeholder name='ph1'>");
+    if(fm_file_info_list_is_same_fs(files))
+    {
+        fi = (FmFileInfo*)fm_list_peek_head(files);
+        if(fm_path_is_virtual(fi->path))
+        {
+            /* if all of the files are all in trash */
+            if(fm_path_is_trash(fi->path))
+            {
+                gboolean can_restore = TRUE;
+                GList* l;
+                /* only immediate children of trash:/// can be restored. */
+                for(l = fm_list_peek_head_link(files);l;l=l->next)
+                {
+                    FmPath* trash_path = FM_FILE_INFO(l->data)->path;
+                    if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
+                    {
+                        can_restore = FALSE;
+                        break;
+                    }
+                }
+
+                if(can_restore)
+                {
+                    act = gtk_action_new("UnTrash",
+                                        _("_Restore"),
+                                        _("Restore trashed files to original paths"),
+                                NULL);
+                    g_signal_connect(act, "activate", G_CALLBACK(on_untrash), data);
+                    gtk_action_group_add_action(act_grp, act);
+                    g_string_append(xml, "<menuitem action='UnTrash'/>");
+                }
+            }
+            else
+            {
+                g_debug("%s", fi->fs_id);
+            }
+        }
+    }
     g_string_append(xml, "</placeholder></popup>");
 
     gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
@@ -345,6 +388,15 @@ void on_delete(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_trash_or_delete_files(files);
+    fm_list_unref(files);
+}
+
+void on_untrash(GtkAction* action, gpointer user_data)
+{
+    FmFileMenu* data = (FmFileMenu*)user_data;
+    FmPathList* files;
+    files = fm_path_list_new_from_file_info_list(data->file_infos);
+    fm_untrash_files(files);
     fm_list_unref(files);
 }
 

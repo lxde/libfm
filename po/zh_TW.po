@@ -519,7 +519,7 @@ msgid "Only system administrators have the permission to do this."
 msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+msgid "Do you want to move the selected files to trash can?"
 msgstr "你想要將選取的檔案移到垃圾桶嗎？"
 
 #: ../src/gtk/fm-gtk-utils.c:478
@@ -535,7 +535,7 @@ msgid "Please enter a new name:"
 msgstr "請輸入新名稱："
 
 #: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238

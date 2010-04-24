@@ -525,7 +525,7 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Endast en systemadministratör kan utföra detta."
 
 #: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+msgid "Do you want to move the selected files to trash can?"
 msgstr "Vill du flytta de markerade filerna till papperskorgen?"
 
 #: ../src/gtk/fm-gtk-utils.c:478
@@ -541,7 +541,7 @@ msgid "Please enter a new name:"
 msgstr "Ange nytt namn:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+msgid "Are you sure you want to empty the trash can?"
 msgstr "Är du säker på att du vill tömma papperskorgen?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238

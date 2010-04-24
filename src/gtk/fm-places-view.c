@@ -555,7 +555,7 @@ static void init_model()
         }
 
         if(fm_config->use_trash)
-            create_trash(); /* FIXME: how to handle trash bin? */
+            create_trash(); /* FIXME: how to handle trash can? */
 
         item = g_slice_new0(PlaceItem);
         item->type = PLACE_PATH;

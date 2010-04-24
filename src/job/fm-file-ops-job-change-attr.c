@@ -29,7 +29,7 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_UNIX_MODE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
-gboolean fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf)
+gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     GCancellable* cancellable = fm_job_get_cancellable(FM_JOB(job));
@@ -170,7 +170,7 @@ _retry_enum_children:
 			if(inf)
 			{
 				GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-				ret = fm_file_ops_job_change_attr_file(job, sub, inf); /* FIXME: error handling? */
+				ret = _fm_file_ops_job_change_attr_file(job, sub, inf); /* FIXME: error handling? */
 				g_object_unref(sub);
 				g_object_unref(inf);
                 if(!ret)
@@ -204,7 +204,7 @@ _retry_enum_children:
     return ret;
 }
 
-gboolean fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
+gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 {
 	GList* l;
 	/* prepare the job, count total work needed with FmDeepCountJob */
@@ -243,7 +243,7 @@ gboolean fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
                 job->src_folder_mon = mon = NULL;
         }
 
-		ret = fm_file_ops_job_change_attr_file(job, src, NULL);
+		ret = _fm_file_ops_job_change_attr_file(job, src, NULL);
 		g_object_unref(src);
 
         if(mon)

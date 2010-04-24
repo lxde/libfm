@@ -443,7 +443,6 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 
 void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 {
-	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
 	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
     fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
@@ -451,7 +450,6 @@ void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 
 void fm_move_files(FmPathList* files, FmPath* dest_dir)
 {
-	GtkWidget* dlg;
 	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
 	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
     fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
@@ -459,17 +457,21 @@ void fm_move_files(FmPathList* files, FmPath* dest_dir)
 
 void fm_trash_files(FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash bin?"), TRUE))
+    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash can?"), TRUE))
     {
-    	GtkWidget* dlg;
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
         fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
     }
 }
 
+void fm_untrash_files(FmPathList* files)
+{
+    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_UNTRASH, files);
+    fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+}
+
 static void fm_delete_files_internal(FmPathList* files)
 {
-    GtkWidget* dlg;
     FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
     fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
 }
@@ -550,7 +552,7 @@ void fm_rename_file(FmPath* file)
 
 void fm_empty_trash()
 {
-    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash bin?"), TRUE))
+    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash can?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
         fm_list_push_tail(paths, fm_path_get_trash());
