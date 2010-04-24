@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"POT-Creation-Date: 2010-04-25 03:06+0800\n"
 "PO-Revision-Date: 2010-04-24 11:24+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -324,67 +324,89 @@ msgstr "Phím tắt"
 msgid "Mount Point"
 msgstr "Điểm tăng lên"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Thùng rác"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "Máy tính của tôi"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Các ứng dụng"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Mạng"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Hoạt động của tập tin đã bị hủy và có một số lỗi"
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Hủy"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "Hoạt độngj của tập tin đã hoàn thành, nhưng có môt số lỗi."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Hoàn thành"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can becausethe underlying file systems "
+"don't support this operation.\n"
+"Are you want to delete them instead?"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Đang di chuyển các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Đang sao chép các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Đang vô hiệu các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Đang xóa các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Đang tạo liên kết tượng trưng"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
@@ -447,33 +469,41 @@ msgstr "Máy để bàn"
 msgid "Enter a new name:"
 msgstr "Nhập tên mới:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Mở bởi ..."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Đổi tên"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Tạo liên kết "
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Gửi tới"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Nén"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Giải nén ở đây"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Giải nén tại.."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -491,19 +521,19 @@ msgstr "Thực hiện tùy chỉnh dòng lệnh để mở các tập tin"
 msgid "Customize"
 msgstr "Tùy chỉnh"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Name"
 msgstr "Tên"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:536
 msgid "Description"
 msgstr "Mô tả"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:543
 msgid "Size"
 msgstr "Kích thước"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:549
 msgid "Modified"
 msgstr "Sưả đổi lần"
 
@@ -523,23 +553,23 @@ msgstr "Vui long chọn thư mục"
 msgid "Only system administrators have the permission to do this."
 msgstr "Chỉ có quản trị hệ thống mới được phép làm điều này"
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:460
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to delete the selected files?"
 msgstr "Bạn có muốn xóa ongcác tập tin đẫ chọn không?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Rename File"
 msgstr "Dổi tên tập tin"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Please enter a new name:"
 msgstr "Vui lòng nhập tên mới:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
+#: ../src/gtk/fm-gtk-utils.c:555
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 

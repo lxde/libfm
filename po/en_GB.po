@@ -1,9 +1,9 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 04:13+0000\n"
+"POT-Creation-Date: 2010-04-25 03:06+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Steve Cook (Yorvyk) <yorvik.ubunto@googlemail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
@@ -181,7 +181,8 @@ msgstr "Operations that the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operations that users in the same group as the owner of the file can do"
+msgstr ""
+"Operations that users in the same group as the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -263,8 +264,12 @@ msgid "System Applications"
 msgstr "System Applications"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -333,51 +338,73 @@ msgstr "Applications"
 msgid "Network"
 msgstr "Network"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "The file operation is cancelled and there are some errors."
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "The file operation is finished, but there are some errors."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Finished"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can becausethe underlying file systems "
+"don't support this operation.\n"
+"Are you want to delete them instead?"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Moving files"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Copying files"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Transferring to Rubbish Bin"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Deleting files"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Creating symlinks"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Changing file attributes"
 
@@ -390,8 +417,10 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Please enter a valid group name or numeric id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -438,33 +467,41 @@ msgstr "Desktop"
 msgid "Enter a new name:"
 msgstr "Enter a new name:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Open With..."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Rename"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Create Symlink"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Send To"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Compress..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Extract Here"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Extract To..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -514,23 +551,23 @@ msgstr "Please select a folder"
 msgid "Only system administrators have the permission to do this."
 msgstr "Only system administrators have the permission to do this."
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:460
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Do you want to move the selected files to trash can?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to delete the selected files?"
 msgstr "Do you want to delete the selected files?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Rename File"
 msgstr "Rename File"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Please enter a new name:"
 msgstr "Please enter a new name:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
+#: ../src/gtk/fm-gtk-utils.c:555
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Are you sure you want to empty the Rubbish Bin?"
 

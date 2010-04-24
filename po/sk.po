@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"POT-Creation-Date: 2010-04-25 03:06+0800\n"
 "PO-Revision-Date: 2010-04-11 12:33+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -329,67 +329,89 @@ msgstr "Skratky"
 msgid "Mount Point"
 msgstr "Bod pripojenia"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Kôš"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "Môj počítač"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Aplikácie"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Sieť"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Operácia so súborom je zrušená a vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Zrušené"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "Operácia so súborom je dokončená, ale vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Dokončené"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can becausethe underlying file systems "
+"don't support this operation.\n"
+"Are you want to delete them instead?"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr "c"
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Presúvajú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Kopírujú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Presúvajú sa súbory do Koša"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Mažú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Vytvárajú sa symbolické odkazy"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Menia sa atribúty súborov"
 
@@ -450,33 +472,42 @@ msgstr "Plocha"
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Otvoriť pomocou..."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Premenovať"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Vytvoriť symbolický odkaz"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Poslať do"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Komprimovať..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Rozbaliť sem"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Rozbaliť do..."
+
+#: ../src/gtk/fm-file-menu.c:244
+#, fuzzy
+msgid "_Restore"
+msgstr "_Plocha"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -494,19 +525,19 @@ msgstr "Definovať vlastný príkazový riadok na otvorenie súborov"
 msgid "Customize"
 msgstr "Prispôsobiť"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Name"
 msgstr "Názov"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:536
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:543
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:549
 msgid "Modified"
 msgstr "Zmenené"
 
@@ -526,23 +557,23 @@ msgstr "Prosím, vyberte priečinok"
 msgid "Only system administrators have the permission to do this."
 msgstr "Oprávenie vykonať túto operáciu majú iba správcovia systému."
 
-#: ../src/gtk/fm-gtk-utils.c:461
+#: ../src/gtk/fm-gtk-utils.c:460
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Chcete presunúť vybrané súbory do Koša?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to delete the selected files?"
 msgstr "Chcete prepísať vybrané súbory?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:533
 msgid "Please enter a new name:"
 msgstr "Prosím, zadajte nový názov:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
+#: ../src/gtk/fm-gtk-utils.c:555
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
 
@@ -844,9 +875,6 @@ msgstr "Uvedený adresár nie je platný"
 
 #~ msgid "_Advanced"
 #~ msgstr "_Rozšírené"
-
-#~ msgid "_Desktop"
-#~ msgstr "_Plocha"
 
 #~ msgid "_Volume Management"
 #~ msgstr "_Správa zväzkov"
