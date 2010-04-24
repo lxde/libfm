@@ -261,7 +261,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(apply_all)))
     {
-        if(res == RESPONSE_OVERWRITE || res == RESPONSE_SKIP)
+        if(res == RESPONSE_OVERWRITE || res == FM_FILE_OP_SKIP)
             data->default_opt = res;
     }
 
