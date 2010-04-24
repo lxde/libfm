@@ -323,6 +323,32 @@ static const char trash_query[]=
     G_FILE_ATTRIBUTE_ID_FILESYSTEM","
     "trash::orig-path";
 
+static gboolean ensure_parent_dir(FmJob* job, GFile* orig_path)
+{
+    GFile* parent = g_file_get_parent(orig_path);
+    gboolean ret = g_file_query_exists(parent, fm_job_get_cancellable(job));
+    if(!ret)
+    {
+        GError* err = NULL;
+_retry_mkdir:
+        if(!g_file_make_directory_with_parents(parent, fm_job_get_cancellable(job), &err))
+        {
+            if(!fm_job_is_cancelled(job))
+            {
+                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                g_error_free(err);
+                err = NULL;
+                if(act == FM_JOB_RETRY)
+                    goto _retry_mkdir;
+            }
+        }
+        else
+            ret = TRUE;
+    }
+    g_object_unref(parent);
+    return ret;
+}
+
 gboolean _fm_file_ops_job_untrash_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
@@ -351,8 +377,9 @@ _retry_get_orig_path:
                 GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
                 g_free(orig_path_str);
 
-                /* FIXME: ensure the existence of parent folder. */
-                ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);
+                /* ensure the existence of parent folder. */
+                if(ensure_parent_dir(job, orig_path))
+                    ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);
             }
             g_object_unref(inf);
         }
