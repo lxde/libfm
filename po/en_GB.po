@@ -1,8 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"POT-Creation-Date: 2010-04-24 04:13+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Steve Cook (Yorvyk) <yorvik.ubunto@googlemail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
@@ -180,8 +181,7 @@ msgstr "Operations that the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operations that users in the same group as the owner of the file can do"
+msgstr "Operations that users in the same group as the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -263,12 +263,8 @@ msgid "System Applications"
 msgstr "System Applications"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -321,19 +317,19 @@ msgstr "Shortcuts"
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Trash Can"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "My Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Applications"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Network"
 
@@ -370,9 +366,8 @@ msgid "Copying files"
 msgstr "Copying files"
 
 #: ../src/gtk/fm-progress-dlg.c:422
-#, fuzzy
 msgid "Trashing files"
-msgstr "Trashing files"
+msgstr "Transferring to Rubbish Bin"
 
 #: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
@@ -395,10 +390,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Please enter a valid group name or numeric id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Do you want to recursively apply these changes to all files and sub-folders?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -489,19 +482,19 @@ msgstr "Execute custom command line to open files"
 msgid "Customize"
 msgstr "Customise"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:536
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:543
 msgid "Size"
 msgstr "Size"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:549
 msgid "Modified"
 msgstr "Modified"
 
@@ -538,9 +531,8 @@ msgid "Please enter a new name:"
 msgstr "Please enter a new name:"
 
 #: ../src/gtk/fm-gtk-utils.c:552
-#, fuzzy
 msgid "Are you sure you want to empty the trash bin?"
-msgstr "Are you sure you want to empty the rubbish bin?"
+msgstr "Are you sure you want to empty the Rubbish Bin?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
