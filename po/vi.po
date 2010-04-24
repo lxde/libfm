@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-18 02:56+0200\n"
-"PO-Revision-Date: 2010-04-22 10:09+0200\n"
+"PO-Revision-Date: 2010-04-24 11:24+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
@@ -449,10 +449,9 @@ msgstr "Nhập tên mới:"
 
 #: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
 msgid "Open With..."
-msgstr "Mở bằng ..."
+msgstr "Mở bởi ..."
 
 #: ../src/gtk/fm-file-menu.c:89
-#, fuzzy
 msgid "Rename"
 msgstr "Đổi tên"
 
