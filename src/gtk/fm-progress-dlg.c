@@ -316,6 +316,24 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
     }
     else
         fm_progress_display_destroy(data);
+
+    /* sepcial handling for trash
+     * FIXME: need to refactor this to use a more elegant way later. */
+    if(job->type == FM_FILE_OP_TRASH)
+    {
+        FmPathList* unsupported = (FmPathList*)g_object_get_data(job, "trash-unsupported");
+        /* some files cannot be trashed because underlying filesystems don't support it. */
+        if(unsupported) /* delete them instead */
+        {
+            if(fm_yes_no(NULL, _("Some files cannot be moved to trash can because"
+                        "the underlying file systems don't support this operation.\n"
+                        "Are you want to delete them instead?"), TRUE))
+            {
+                FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
+                fm_file_ops_job_run_with_progress(job);
+            }
+        }
+    }
 }
 
 static void on_cancelled(FmFileOpsJob* job, FmProgressDisplay* data)

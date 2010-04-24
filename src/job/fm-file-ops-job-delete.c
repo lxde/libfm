@@ -258,7 +258,7 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
 	GList* l;
-    GList* failed = NULL;
+    FmPathList* unsupported = fm_path_list_new();
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
 	g_debug("total number of files to delete: %u", fm_list_get_length(job->srcs));
@@ -279,8 +279,7 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
             {
                 /* if trashing is not supported by the file system */
-                failed = g_list_prepend(failed, (FmPath*)l->data);
-                /* will fallback to delete later. */
+                fm_list_push_tail(unsupported, FM_PATH(l->data));
                 continue;
             }
             /* otherwise, it's caused by another reason */
@@ -293,24 +292,13 @@ gboolean fm_file_ops_job_trash_run(FmFileOpsJob* job)
 
     /* these files cannot be trashed due to lack of support from
      * underlying file systems. */
-    if(failed)
+    if(fm_list_is_empty(unsupported))
+        fm_list_unref(unsupported);
+    else
     {
-/*
-        char* msg = g_strdup_printf(
-                        _("These files cannot be moved to trash bin because"
-                        "the underlying file systems don't support this operation\n"
-                        "%s"
-                        "Are you want to delete them instead?"), files);
-        fm_job_ask(job, msg, );
-*/
-        /* fallback to delete! */
-        job->total = g_list_length(failed);
-        job->finished = 0;
-        fm_file_ops_job_emit_percent(job);
-        g_list_foreach(failed, (GFunc)fm_path_unref, NULL);
-        g_list_free(failed);
-        /* replace srcs with failed files and run delete job instead */
-        // fm_file_ops_job_delete_run(job);
+        /* FIXME: this is a dirty hack to fallback to delete if trash is not available.
+         * The API must be re-designed later. */
+        g_object_set_data_full(job, "trash-unsupported", unsupported, fm_list_unref);
     }
     return TRUE;
 }
