@@ -19,7 +19,10 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
+
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
 #include <glib/gi18n-lib.h>
@@ -202,14 +205,14 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     disp_size = fm_file_info_get_disp_size(src);
     if(disp_size)
     {
-        tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
+        tmp = g_strdup_printf(_("Type: %s\nSize: %s\nModified: %s"),
                               fm_file_info_get_desc(src),
                               disp_size,
                               fm_file_info_get_disp_mtime(src));
     }
     else
     {
-        tmp = g_strdup_printf("Type: %s\nModified: %s",
+        tmp = g_strdup_printf(_("Type: %s\nModified: %s"),
                               fm_file_info_get_desc(src),
                               fm_file_info_get_disp_mtime(src));
     }
@@ -221,14 +224,14 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     disp_size = fm_file_info_get_disp_size(dest);
     if(disp_size)
     {
-        tmp = g_strdup_printf("Type: %s\nSize: %s\nModified: %s",
+        tmp = g_strdup_printf(_("Type: %s\nSize: %s\nModified: %s"),
                               fm_file_info_get_desc(dest),
                               fm_file_info_get_disp_size(dest),
                               fm_file_info_get_disp_mtime(dest));
     }
     else
     {
-        tmp = g_strdup_printf("Type: %s\nModified: %s",
+        tmp = g_strdup_printf(_("Type: %s\nModified: %s"),
                               fm_file_info_get_desc(dest),
                               fm_file_info_get_disp_mtime(dest));
     }
