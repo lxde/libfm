@@ -392,7 +392,8 @@ gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboole
 
     g_free(data);
     g_object_unref(cancellable);
-    g_object_unref(op);
+    if(op)
+        g_object_unref(op);
     return ret;
 }
 
