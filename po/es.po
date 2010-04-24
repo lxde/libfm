@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:06+0800\n"
+"POT-Creation-Date: 2010-04-25 03:19+0800\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -381,9 +381,9 @@ msgstr "Finalizado"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can becausethe underlying file systems "
+"Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
-"Are you want to delete them instead?"
+"Do you want to delete them instead?"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:422

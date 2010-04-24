@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:06+0800\n"
+"POT-Creation-Date: 2010-04-25 03:19+0800\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -368,9 +368,9 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can becausethe underlying file systems "
+"Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
-"Are you want to delete them instead?"
+"Do you want to delete them instead?"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:422

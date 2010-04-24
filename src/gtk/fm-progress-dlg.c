@@ -325,9 +325,9 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
         /* some files cannot be trashed because underlying filesystems don't support it. */
         if(unsupported) /* delete them instead */
         {
-            if(fm_yes_no(NULL, _("Some files cannot be moved to trash can because"
+            if(fm_yes_no(NULL, _("Some files cannot be moved to trash can because "
                         "the underlying file systems don't support this operation.\n"
-                        "Are you want to delete them instead?"), TRUE))
+                        "Do you want to delete them instead?"), TRUE))
             {
                 FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
                 fm_file_ops_job_run_with_progress(job);

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:06+0800\n"
+"POT-Creation-Date: 2010-04-25 03:19+0800\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -381,9 +381,9 @@ msgstr "Закінчено"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can becausethe underlying file systems "
+"Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
-"Are you want to delete them instead?"
+"Do you want to delete them instead?"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:422
