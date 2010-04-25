@@ -169,24 +169,30 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
         /* only select filename part without extension name. */
         if(default_text[1])
         {
-            /* FIXME: handle the special case for *.tar.gz or *.tar.bz2 */
+            /* FIXME: handle the special case for *.tar.gz or *.tar.bz2
+             * We should exam the file extension with g_content_type_guess, and
+             * find out a longest valid extension name.
+             * For example, the extension name of foo.tar.gz is .tar.gz, not .gz. */
             const char* dot = g_utf8_strrchr(default_text, -1, '.');
-/*
-            const char* dot = default_text;
-            while( dot = g_utf8_strchr(dot + 1, -1, '.') )
-            {
-                gboolean uncertain;
-                if(g_content_type_guess(dot, NULL, 0, &uncertain))
-                {
-                    gtk_editable_select_region(entry, 0, g_utf8_pointer_to_offset(default_text, dot));
-                    break;
-                }
-            }
-*/
             if(dot)
                 gtk_editable_select_region(GTK_EDITABLE(entry), 0, g_utf8_pointer_to_offset(default_text, dot));
             else
                 gtk_editable_select_region(GTK_EDITABLE(entry), 0, -1);
+            /*
+            const char* dot = default_text;
+            while( dot = g_utf8_strchr(dot + 1, -1, '.') )
+            {
+                gboolean uncertain;
+                char* type = g_content_type_guess(dot-1, NULL, 0, &uncertain);
+                if(!g_content_type_is_unknown(type))
+                {
+                    g_free(type);
+                    gtk_editable_select_region(entry, 0, g_utf8_pointer_to_offset(default_text, dot));
+                    break;
+                }
+                g_free(type);
+            }
+            */
         }
     }
 
@@ -216,9 +222,18 @@ static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title
 static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
 {
     char* str = NULL;
+    int sel_start, sel_end;
+    gboolean has_sel;
 
+    /* FIXME: this workaround is used to overcome bug of gtk+.
+     * gtk+ seems to ignore select region and select all text for entry in dialog. */
+    has_sel = gtk_editable_get_selection_bounds(GTK_EDITABLE(entry), &sel_start, &sel_end);
     gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), GTK_WIDGET( entry ), FALSE, TRUE, 6);
     gtk_widget_show_all(GTK_WIDGET(dlg));
+
+    if(has_sel)
+        gtk_editable_select_region(GTK_EDITABLE(entry), sel_start, sel_end);
+
     while(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
         const char* pstr = gtk_entry_get_text(entry);
@@ -519,12 +534,6 @@ void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
     }
 }
 
-/*
-void fm_rename_files(FmPathList* files)
-{
-
-}
-*/
 
 void fm_rename_file(FmPath* file)
 {
