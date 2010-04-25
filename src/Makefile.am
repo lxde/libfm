@@ -211,7 +211,6 @@ libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
-	libfm.la \
 	libfm-gtk.la \
 	$(NULL)
 
