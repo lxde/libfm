@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-25 03:19+0800\n"
-"PO-Revision-Date: 2010-04-25 13:09+0200\n"
+"PO-Revision-Date: 2010-04-26 18:07+0200\n"
 "Last-Translator: Радослав <Rec.ku@hotmail.com>\n"
 "Language-Team: MIME-Version: 1.0\n"
 "Language: bg\n"
@@ -363,6 +363,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Вид: %s\n"
+"Размер: %s\n"
+"Променен: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -370,6 +373,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Вин: %s\n"
+"Променен: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -393,6 +398,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Някои файлове не могат да бъдат изхвърлени в коша, защото основните файлови "
+"системи не поддържат\n"
+"тази операция. Желаете ли да ги изтриете въпреки това?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -485,7 +493,7 @@ msgstr "Въведете ново име:"
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr "Отвори със..."
+msgstr "Отвори с..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
@@ -513,11 +521,11 @@ msgstr "Разархивирай в..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Възстановяване"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Възстанови изхвърлените файлове"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
