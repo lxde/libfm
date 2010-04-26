@@ -1,16 +1,16 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:19+0800\n"
+"POT-Creation-Date: 2010-04-26 06:51+0000\n"
 "PO-Revision-Date: 2010-04-25 02:24+0200\n"
-"Last-Translator:  <edhunter@sidux.com>\n"
+"Last-Translator: <edhunter@sidux.com>\n"
 "Language-Team: Greek\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -31,8 +31,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</"
-"b>\n"
+"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</b>\n"
 " <b>%f</b>: Αντιπροσωπεύει ένα όνομα αρχείου\n"
 " <b>%F</b>: Αντιπροσωπεύει πολλαπλά ονόματα αρχείων\n"
 " <b>%u</b>: Αντιπροσωπεύει ένα ενιαίο URI του αρχείου\n"
@@ -56,9 +55,7 @@ msgstr "Εγκατεστημένη εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους "
-"τα αρχεία"
+msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους τα αρχεία"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,9 +181,7 @@ msgstr "Λειτουργίες που μπορεί να κάνει ο ιδιοκ
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με "
-"τον ιδιοκτήτη του αρχείου"
+msgstr "Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με τον ιδιοκτήτη του αρχείου"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -198,9 +193,7 @@ msgstr "Μόνο ανάγνωση"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
-"Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού "
-"του τύπου"
+msgstr "Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού του τύπου"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -270,18 +263,12 @@ msgid "System Applications"
 msgstr "Εφαρμογές συστήματος"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή "
-"ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα "
-"υπερσυνδέσεων."
+msgstr "Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα υπερσυνδέσεων."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -388,10 +375,11 @@ msgstr "Ολοκληρώθηκε"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Μερικά αρχεία δε μπορούν να μετακινηθούν στα απορρίμματα γιατί το σύστημα αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
+"Αντί αυτού, θέλετε να διαγράψετε οριστικά τα αρχεία;"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -430,10 +418,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομάδας ή αριθμό id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -513,7 +499,7 @@ msgstr "_Επαναφορά"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Επαναφορά των διαγραφέντων αρχείων στους αρχικούς τους καταλόγους"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -555,31 +541,31 @@ msgstr "Εγκατεστημένες εφαρμογές"
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Παρακαλώ επιλέξτε ένα φάκελο"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Μόνο ο διαχειριστής του συστήματος έχει δικαίωμα να το κάνει."
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Μετονομασία αρχείου"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Παρακαλώ εισάγετε ένα νέο όνομα:"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Είστε σίγουροι ότι θέλετε να αδειάσει ο κάδος απορριμάτων;"
 
