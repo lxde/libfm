@@ -2,12 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Sérgio Marques <smarquespt@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:19+0800\n"
+"POT-Creation-Date: 2010-04-27 04:13+0000\n"
 "PO-Revision-Date: 2010-03-25 16:15-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
@@ -185,8 +185,7 @@ msgstr "Operações permitidas ao dono do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operações permitidas aos utilizadores do mesmo grupo do dono do ficheiro"
+msgstr "Operações permitidas aos utilizadores do mesmo grupo do dono do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -268,12 +267,8 @@ msgid "System Applications"
 msgstr "Aplicações do Sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"O Cliente de E-mail preferido será utilizado para escrever mensagens ao "
-"clicar nos endereços de E-mail."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "O Cliente de E-mail preferido será utilizado para escrever mensagens ao clicar nos endereços de E-mail."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -353,6 +348,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Tamanho: %s\n"
+"Modificado: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -360,6 +358,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Modificado: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -379,10 +379,11 @@ msgstr "Concluída"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Alguns ficheiros não podem ser movidos para o lixo, porque o sistema de ficheiros subjacente não suporta esta operação.\n"
+"Deseja apagá-los permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -421,8 +422,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Deseja aplicar estas modificações a todas os ficheiros e sub-pastas?"
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -499,11 +499,11 @@ msgstr "Extrair Para..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Restaurar os ficheiros no lixo para os locais originais"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -545,31 +545,31 @@ msgstr "Aplicações Instaladas"
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Seleccione uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Apenas o administrador do sistema tem permissões para o fazer."
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Deseja mover os ficheiros seleccionados para o lixo?"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Deseja apagar os ficheiros seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Renomear Ficheiro"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Indique o novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Tem a certeza que pretende esvaziar o lixo?"
 
