@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:19+0800\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-04-18 00:30+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -525,19 +525,19 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Frágreiðing"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Stødd"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Broytt"
 
@@ -549,31 +549,31 @@ msgstr "Innlagdar nýtsluskipanir"
 msgid "Error"
 msgstr "Brek"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Vinarliga vel eina skjáttu"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Vil tú flyta tær valdu fílurnar í ruskspannina"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Vil tú strika tær valdu fíurnar"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Nýnevn fílu"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Vinarliga skriva eitt nýtt navn"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Er tú viss/ur í at tøma ruskspannina?"
 

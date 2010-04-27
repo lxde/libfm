@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 03:19+0800\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-01-31 12:27-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -523,19 +523,19 @@ msgstr "Executar linhas de comando personalizadas para abrir arquivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Modificado"
 
@@ -547,31 +547,31 @@ msgstr "Aplicativos instalados"
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Favor selecionar uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Somente administradores de sistemas tem permissão para fazer isto."
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 

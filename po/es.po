@@ -2,12 +2,12 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the libfm package.
 # Hugo Florentino <sysadmin@cips.cu>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 04:13+0000\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -57,7 +57,9 @@ msgstr "Aplicación instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Establecer la aplicación seleccionada como predeterminada  para abrir los archivos de este tipo"
+msgstr ""
+"Establecer la aplicación seleccionada como predeterminada  para abrir los "
+"archivos de este tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +185,9 @@ msgstr "Operaciones permitidas al propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operaciones permitidas a los usuarios del mismo grupo que el propietario del archivo"
+msgstr ""
+"Operaciones permitidas a los usuarios del mismo grupo que el propietario del "
+"archivo"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -195,7 +199,8 @@ msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo"
+msgstr ""
+"Seleccione la aplicación utilizada para abrir los archivos de este tipo"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -265,8 +270,12 @@ msgid "System Applications"
 msgstr "Aplicaciones del sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "El cliente de correo preferido se utilizará para redactar los mensajes cuando haga clic en las direcciones de correo."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"El cliente de correo preferido se utilizará para redactar los mensajes "
+"cuando haga clic en las direcciones de correo."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -377,10 +386,12 @@ msgstr "Finalizado"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Algunos archivos no pueden moverse a la papelera porque el subsistema de archivos no permite esta operación.\n"
+"Algunos archivos no pueden moverse a la papelera porque el subsistema de "
+"archivos no permite esta operación.\n"
 "¿Desea eliminarlos en su lugar?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
@@ -420,8 +431,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "¿Desea aplicar recursivamente estos cambios a todos los archivos y subcarpetas?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
+"subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -519,19 +533,19 @@ msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Modificado"
 
@@ -543,31 +557,31 @@ msgstr "Aplicaciones instaladas"
 msgid "Error"
 msgstr "Error"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Por favor, seleccione una carpeta"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Sólo el administrador del sistema tiene el permiso para hacer esto."
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "¿Desea mover los archivos seleccionados a la papelera?"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "¿Desea eliminar los archivos seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Por favor, introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
 

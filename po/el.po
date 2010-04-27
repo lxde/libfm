@@ -1,9 +1,9 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-26 06:51+0000\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-04-25 02:24+0200\n"
 "Last-Translator: <edhunter@sidux.com>\n"
 "Language-Team: Greek\n"
@@ -31,7 +31,8 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</b>\n"
+"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</"
+"b>\n"
 " <b>%f</b>: Αντιπροσωπεύει ένα όνομα αρχείου\n"
 " <b>%F</b>: Αντιπροσωπεύει πολλαπλά ονόματα αρχείων\n"
 " <b>%u</b>: Αντιπροσωπεύει ένα ενιαίο URI του αρχείου\n"
@@ -55,7 +56,9 @@ msgstr "Εγκατεστημένη εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους τα αρχεία"
+msgstr ""
+"Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους "
+"τα αρχεία"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -181,7 +184,9 @@ msgstr "Λειτουργίες που μπορεί να κάνει ο ιδιοκ
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με τον ιδιοκτήτη του αρχείου"
+msgstr ""
+"Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με "
+"τον ιδιοκτήτη του αρχείου"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -193,7 +198,9 @@ msgstr "Μόνο ανάγνωση"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού του τύπου"
+msgstr ""
+"Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού "
+"του τύπου"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -263,12 +270,18 @@ msgid "System Applications"
 msgstr "Εφαρμογές συστήματος"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή "
+"ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα υπερσυνδέσεων."
+msgstr ""
+"Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα "
+"υπερσυνδέσεων."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -375,10 +388,12 @@ msgstr "Ολοκληρώθηκε"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Μερικά αρχεία δε μπορούν να μετακινηθούν στα απορρίμματα γιατί το σύστημα αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
+"Μερικά αρχεία δε μπορούν να μετακινηθούν στα απορρίμματα γιατί το σύστημα "
+"αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
 "Αντί αυτού, θέλετε να διαγράψετε οριστικά τα αρχεία;"
 
 #: ../src/gtk/fm-progress-dlg.c:422
@@ -418,8 +433,10 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομάδας ή αριθμό id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -517,19 +534,19 @@ msgstr "Εκτέλεση προσαρμοσμένης εντολής για το
 msgid "Customize"
 msgstr "Προσαρμογή"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Τροποποιήθηκε"
 

@@ -1,19 +1,20 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-25 04:13+0000\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -184,7 +185,8 @@ msgstr "Операції, які може виконувати тільки вл
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
+msgstr ""
+"Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -266,12 +268,17 @@ msgid "System Applications"
 msgstr "Системні програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Улюблений поштовий клієнт, що буде використаний для створення електронного листа, коли ви клікаєте на e-mail адресу"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Улюблений поштовий клієнт, що буде використаний для створення електронного "
+"листа, коли ви клікаєте на e-mail адресу"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
+msgstr ""
+"Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -379,10 +386,12 @@ msgstr "Закінчено"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Деякі файли не можна перенести в смітник, тому що поточна файлова система не підтримує цю операцію.\n"
+"Деякі файли не можна перенести в смітник, тому що поточна файлова система не "
+"підтримує цю операцію.\n"
 " Ви бажаєте замість цього видалити їх?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
@@ -422,8 +431,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підкаталогів?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і "
+"підкаталогів?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -521,19 +533,19 @@ msgstr "Виконати власну команду для відкриття �
 msgid "Customize"
 msgstr "Налаштувати"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Змінено"
 
@@ -545,31 +557,31 @@ msgstr "Заінстальовані програми"
 msgid "Error"
 msgstr "Помилка"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Тільки системний адміністратор може це зробити"
 
-#: ../src/gtk/fm-gtk-utils.c:460
+#: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Ви бажаєте видалити вибрані файли?"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:533
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:555
+#: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 

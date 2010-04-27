@@ -388,9 +388,11 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         FmFolderModel* model = (FmFolderModel*)fv->model;
         int icon_size = 0;
         guint handler;
+        gboolean has_focus;
 
         if( G_LIKELY(fv->view) )
         {
+            has_focus = GTK_WIDGET_HAS_FOCUS(fv->view);
             /* preserve old selections */
             sels = fm_folder_view_get_selected_tree_paths(fv);
             gtk_widget_destroy(fv->view );
@@ -399,7 +401,10 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
              * reuse the widget when available. */
         }
         else
+        {
             sels = NULL;
+            has_focus = FALSE;
+        }
 
         if(fv->icon_size_changed_handler)
         {
@@ -586,6 +591,9 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 
         gtk_widget_show(fv->view);
         gtk_container_add((GtkContainer*)fv, fv->view);
+
+        if(has_focus) /* restore the focus if needed. */
+            gtk_widget_grab_focus(fv->view);
     }
     else
 	{

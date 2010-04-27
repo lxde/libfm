@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 04:13+0000\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: 2010-04-13 20:19+0100\n"
 "Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
@@ -184,7 +184,9 @@ msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
+msgstr ""
+"Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen "
+"können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -266,8 +268,12 @@ msgid "System Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
+"Sie auf E-Mail Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -336,52 +342,74 @@ msgstr "Anwendungen"
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Die Dateioperation wurde abgebrochen und es gab einige Fehler."
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "Der Vorgang wurd abgeschlossen, aber es traten Fehler auf."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Beendet"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Dateien werden verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Dateien werden kopiert"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Dateien werden in den Papierkorb verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Dateien werden gelöscht"
 
 # Verknüpfung oder Link?
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Symbolische Verknüpfung erzeugen"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Dateiattribute ändern"
 
@@ -395,8 +423,11 @@ msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
+"werden?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -443,33 +474,41 @@ msgstr "Desktop"
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Öffnen mit.."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Verknüpfung anlegen"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Senden an"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Komprimieren..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Hier entpacken"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Entpacken nach..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 #, fuzzy
@@ -488,19 +527,19 @@ msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 msgid "Customize"
 msgstr "Anpassen"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:536
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:549
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Geändert"
 
@@ -512,33 +551,35 @@ msgstr "Installierte Anwendungen"
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Ordner wählen"
 
 # oder doch Systemadministratoren?
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
-#: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+#: ../src/gtk/fm-gtk-utils.c:475
+#, fuzzy
+msgid "Do you want to move the selected files to trash can?"
 msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Gewählte Dateien löschen?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Datei umbennen"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+#: ../src/gtk/fm-gtk-utils.c:564
+#, fuzzy
+msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
