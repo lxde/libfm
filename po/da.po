@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-04-13 19:18+0200\n"
+"POT-Creation-Date: 2010-04-27 04:13+0000\n"
+"PO-Revision-Date: 2010-04-27 19:18+0200\n"
 "Last-Translator: Vidar Jon Bauge <vidarjb@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -354,6 +354,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Størrelse: %s\n"
+"Ændret: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -361,6 +364,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Ændret: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -384,6 +389,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Nogle filer kan ikke flyttes til papirkurven da det underliggende filsystem "
+"ikke understøtter denne handling.\n"
+"Ønsker du at slette dem i steden for?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -501,11 +509,11 @@ msgstr "Pak ud til..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Gendan"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Gendan slettede filer til deres oprindelige sti"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -523,19 +531,19 @@ msgstr "Kør tilpasset kommandolinje for at åbne filer"
 msgid "Customize"
 msgstr "Tilpas"
 
-#: ../src/gtk/fm-folder-view.c:522
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:541
+#: ../src/gtk/fm-folder-view.c:536
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/gtk/fm-folder-view.c:548
+#: ../src/gtk/fm-folder-view.c:543
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/gtk/fm-folder-view.c:554
+#: ../src/gtk/fm-folder-view.c:549
 msgid "Modified"
 msgstr "Ændret"
 
