@@ -885,6 +885,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
 {
     GList* sels;
     FmFolderViewClickType type = 0;
+    GtkTreePath* tp;
 
     if(!fv->model)
         return FALSE;
@@ -893,27 +894,46 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
     if( evt->type == GDK_BUTTON_PRESS )
     {
 		/* special handling for ExoIconView */
-		if(evt->button != 1 && (fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW || fv->mode==FM_FV_THUMBNAIL_VIEW))
+		if(evt->button != 1)
 		{
-			GtkTreePath* tp;
-			/* select the item on right click for ExoIconView */
-		    if(exo_icon_view_get_item_at_pos((ExoIconView*)view, evt->x, evt->y, &tp, NULL))
-			{
-				/* if the hit item is not currently selected */
-				if(!exo_icon_view_path_is_selected((ExoIconView*)view, tp))
-				{
-					sels = exo_icon_view_get_selected_items((const struct ExoIconView *)view);
-					if( sels ) /* if there are selected items */
-					{
-						exo_icon_view_unselect_all(EXO_ICON_VIEW(view)); /* unselect all items */
-						g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
-						g_list_free(sels);
-					}
-					exo_icon_view_select_path((ExoIconView*)view, tp);
-					exo_icon_view_set_cursor((ExoIconView*)view, tp, NULL, FALSE);
-				}
-				gtk_tree_path_free(tp);
-			}
+            if(fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW || fv->mode==FM_FV_THUMBNAIL_VIEW)
+            {
+                /* select the item on right click for ExoIconView */
+                if(exo_icon_view_get_item_at_pos(EXO_ICON_VIEW(view), evt->x, evt->y, &tp, NULL))
+                {
+                    /* if the hit item is not currently selected */
+                    if(!exo_icon_view_path_is_selected(EXO_ICON_VIEW(view), tp))
+                    {
+                        sels = exo_icon_view_get_selected_items((const struct ExoIconView *)view);
+                        if( sels ) /* if there are selected items */
+                        {
+                            exo_icon_view_unselect_all(EXO_ICON_VIEW(view)); /* unselect all items */
+                            g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+                            g_list_free(sels);
+                        }
+                        exo_icon_view_select_path(EXO_ICON_VIEW(view), tp);
+                        exo_icon_view_set_cursor(EXO_ICON_VIEW(view), tp, NULL, FALSE);
+                    }
+                    gtk_tree_path_free(tp);
+                }
+            }
+            else if( fv->mode == FM_FV_LIST_VIEW
+                     && evt->window == gtk_tree_view_get_bin_window(GTK_TREE_VIEW(view)))
+            {
+                /* special handling for ExoTreeView */
+                /* Fix #2986834: MAJOR PROBLEM: Deletes Wrong File Frequently. */
+                if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, NULL, NULL, NULL))
+                {
+                    GtkTreeSelection* tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+                    if(!gtk_tree_selection_path_is_selected(tree_sel, tp))
+                    {
+                        gtk_tree_selection_unselect_all(tree_sel);
+                        gtk_tree_selection_select_path(tree_sel, tp);
+                        gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
+                    }
+                    gtk_tree_path_free(tp);
+                }
+            }
 		}
 
 		if(evt->button == 2) /* middle click */
