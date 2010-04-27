@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-25 03:19+0800\n"
-"PO-Revision-Date: 2010-04-24 11:24+0200\n"
+"PO-Revision-Date: 2010-04-27 12:00+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -351,6 +351,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"loại: %s\n"
+"Kích thước: %s\n"
+"Số lần sửa đổi: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -358,6 +361,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Loại: %s\n"
+"Số lần sửa đổi: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -381,6 +386,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Một số tập tin không thể được chuyển đến thùng rác có thể bởi vì hệ thống "
+"tập tin cơ bản không hỗ trợ hoạt động này \\ n.Bạn có muốn xóa chúng để thay "
+"thế?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -499,11 +507,11 @@ msgstr "Giải nén tại.."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Khôi phục"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Khôi phục các tập tin đã xóa về lại dạng gốc"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
