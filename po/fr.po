@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"POT-Creation-Date: 2010-04-28 04:14+0000\n"
 "PO-Revision-Date: 2010-04-08 10:13+0200\n"
 "Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
@@ -59,9 +59,7 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
-"fichiers"
+msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -187,9 +185,7 @@ msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
-"faire"
+msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -271,12 +267,8 @@ msgid "System Applications"
 msgstr "Applications systèmes"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Votre client courriel favori sera utilisé pour composer les courriels quand "
-"vous cliquerez sur des adresses courriels."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Votre client courriel favori sera utilisé pour composer les courriels quand vous cliquerez sur des adresses courriels."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -356,6 +348,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Taille: %s\n"
+"Modifié: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -363,6 +358,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Modifié: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -382,10 +379,11 @@ msgstr "Terminés"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Certains fichier ne peuvent pas être déplacer vers la corbeille car le système de fichier ne supporte pas cette opération.\n"
+"Voulez-vous les supprimer définitivement ?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -424,11 +422,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
-"sous-dossiers ?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -504,11 +499,11 @@ msgstr "Extraire vers..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Restaurer"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "_Restaurer les fichiers à leur emplacements originaux"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -556,8 +551,7 @@ msgstr "Sélectionner un dossier"
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
-"Seuls les administrateurs système ont la permission de faire cette action."
+msgstr "Seuls les administrateurs système ont la permission de faire cette action."
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
