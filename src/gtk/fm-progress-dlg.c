@@ -120,8 +120,13 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSeverity severity, FmProgressDisplay* data)
 {
     GtkTextIter it;
-    if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_CANCELLED)
-        return;
+    if(err->domain == G_IO_ERROR)
+    {
+        if(err->code == G_IO_ERROR_CANCELLED)
+            return FM_JOB_ABORT;
+        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
+            return FM_JOB_CONTINUE;
+    }
 
     if(data->timer)
         g_timer_stop(data->timer);

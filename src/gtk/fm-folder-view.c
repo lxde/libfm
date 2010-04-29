@@ -207,6 +207,8 @@ FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity
         if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
             if(fm_mount_path(parent, folder->dir_path, TRUE))
                 return FM_JOB_RETRY;
+        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
+            return FM_JOB_CONTINUE;
     }
     fm_show_error(parent, err->message);
     return FM_JOB_CONTINUE;

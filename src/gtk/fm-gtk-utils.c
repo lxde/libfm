@@ -381,26 +381,32 @@ gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboole
     {
         if(interactive)
         {
-            if(data->err->domain == G_IO_ERROR && data->err->code == G_IO_ERROR_FAILED)
+            if(data->err->domain == G_IO_ERROR)
             {
-                /* Generate a more human-readable error message instead of using a gvfs one. */
-
-                /* The original error message is something like:
-                 * Error unmounting: umount exited with exit code 1:
-                 * helper failed with: umount: only root can unmount
-                 * UUID=18cbf00c-e65f-445a-bccc-11964bdea05d from /media/sda4 */
-
-                /* Why they pass this back to us?
-                 * This is not human-readable for the users at all. */
-
-                if(strstr(data->err->message, "only root can "))
+                if(data->err->code == G_IO_ERROR_FAILED)
                 {
-                    g_debug("%s", data->err->message);
-                    g_free(data->err->message);
-                    data->err->message = g_strdup(_("Only system administrators have the permission to do this."));
+                    /* Generate a more human-readable error message instead of using a gvfs one. */
+
+                    /* The original error message is something like:
+                     * Error unmounting: umount exited with exit code 1:
+                     * helper failed with: umount: only root can unmount
+                     * UUID=18cbf00c-e65f-445a-bccc-11964bdea05d from /media/sda4 */
+
+                    /* Why they pass this back to us?
+                     * This is not human-readable for the users at all. */
+
+                    if(strstr(data->err->message, "only root can "))
+                    {
+                        g_debug("%s", data->err->message);
+                        g_free(data->err->message);
+                        data->err->message = g_strdup(_("Only system administrators have the permission to do this."));
+                    }
                 }
+                else if(data->err->code == G_IO_ERROR_FAILED_HANDLED)
+                    interactive = FALSE;
             }
-            fm_show_error(parent, data->err->message);
+            if(interactive)
+                fm_show_error(parent, data->err->message);
         }
         g_error_free(data->err);
     }
