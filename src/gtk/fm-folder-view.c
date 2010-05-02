@@ -932,14 +932,18 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
             {
                 /* special handling for ExoTreeView */
                 /* Fix #2986834: MAJOR PROBLEM: Deletes Wrong File Frequently. */
-                if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, NULL, NULL, NULL))
+                GtkTreeViewColumn* col;
+                if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
                 {
                     GtkTreeSelection* tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
                     if(!gtk_tree_selection_path_is_selected(tree_sel, tp))
                     {
                         gtk_tree_selection_unselect_all(tree_sel);
-                        gtk_tree_selection_select_path(tree_sel, tp);
-                        gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
+                        if(col == exo_tree_view_get_activable_column(EXO_TREE_VIEW(view)))
+                        {
+                            gtk_tree_selection_select_path(tree_sel, tp);
+                            gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
+                        }
                     }
                     gtk_tree_path_free(tp);
                 }
