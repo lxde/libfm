@@ -360,7 +360,8 @@ fm_path_entry_finalize(GObject *object)
 {
     FmPathEntryPrivate* priv = FM_PATH_ENTRY_GET_PRIVATE(object);
 
-    g_object_unref(priv->completion);
+    if(priv->completion)
+        g_object_unref(priv->completion);
 
     if(priv->path)
         fm_path_unref(priv->path);
@@ -408,6 +409,11 @@ void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* mo
     {
         priv->model = NULL;
         priv->completion_model = NULL;
+        if(priv->completion)
+        {
+            g_object_unref(priv->completion);
+            priv->completion = NULL;
+        }
         gtk_entry_set_completion(GTK_ENTRY(entry), NULL);
     }
     gtk_entry_completion_set_model( priv->completion, (GtkTreeModel*)priv->completion_model );
