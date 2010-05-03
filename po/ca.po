@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-05-03 15:30+0200\n"
-"Last-Translator: Josep <papapep@gmail.com>\n"
+"PO-Revision-Date: 2010-05-03 18:37+0100\n"
+"Last-Translator: el_libre -- www.catmidia.cat <el.libre@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -391,198 +391,203 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Alguns arxius no es poden moure a la paperera perquè els sistemes de fitxers "
+"subjacents no admeten aquesta operació. \n"
+"Vols eliminar-los de totes maneres?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
-msgstr ""
+msgstr "S'estan movent els fitxers"
 
 #: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
-msgstr ""
+msgstr "S'estan copiant els fitxers"
 
 #: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
-msgstr ""
+msgstr "Enviant arxius a la paperera"
 
 #: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
-msgstr ""
+msgstr "S'estan suprimint els fitxers"
 
 #: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Creant enllaços simbòlics"
 
 #: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Canvia atributs d'arxiu"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Si us plau, introdueix un nom d'usuari/a vàlid o id numèrica."
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Si us plau, introdueix un nom de grup vàlid o id numèrica."
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"Vols aplicar aquests canvis de forma recursiva a tots els arxius i "
+"subcarpetes?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Arxius de diferents tipus"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "diversos fitxers"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "Munta el volum"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Desmunta el volum"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Expulsa els suports extraïbles"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Canvia el nom del marcador"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Suprimeix de les adreces d'interès"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "Buida la paperera"
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr ""
+msgstr "Paperera"
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr ""
+msgstr "Escriptori"
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Introdueix el nou nom: "
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "Obre amb..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "Reanomena"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "Crea enllaç simbòlic"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "Envia a"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "Comprimeix"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "Extreu aquí"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "Extreu a..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Restaura"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Restaura arxius de la paperera a les seves rutes originals"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave fallit."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Executa la línia de comandes personalitzada per obrir arxius"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Personalitza"
 
 #: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
-msgstr ""
+msgstr "Mida"
 
 #: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
-msgstr ""
+msgstr "Modificat"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Aplicacions instal·lades"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "Si us plau, Selecciona una carpeta."
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Vols moure els fitxers seleccionats a la paperera?"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Vols suprimir els arxius seleccionats?"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
-msgstr ""
+msgstr "Canvia el nom del fitxer"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Si us plau, escriu un nom nou:"
 
 #: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Estàs segur/a que vols buidar la paperera?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "El directori especificat no és vàlid"
