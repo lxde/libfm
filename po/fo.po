@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-04-18 00:30+0200\n"
+"PO-Revision-Date: 2010-05-03 01:09+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -58,7 +58,6 @@ msgid "Installed Application"
 msgstr "Innløgd nýtsluskipan"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "Set selected application as default action of this file type"
 msgstr ""
 "Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
@@ -274,11 +273,12 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Tann framumtikni postviðskiftarin, verður nýttur at skriva t-post tá ið tú "
+"trýstur á t-post bústaðir."
 
 #: ../data/ui/preferred-apps.glade.h:9
-#, fuzzy
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Framumtikni vevkagarin verður nýttur at lata upp "
+msgstr "Framumtikni vevkagarin verður nýttur at lata upp alnetsbústaðir við."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -324,7 +324,6 @@ msgid "Shortcuts"
 msgstr "Snarvegir"
 
 #: ../src/base/fm-file-info.c:56
-#, fuzzy
 msgid "Mount Point"
 msgstr "Ísetingarstað"
 
@@ -355,6 +354,8 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Slag: %s\n"
+"Stødd: %sBroytt: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -362,6 +363,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Slag: %s\n"
+"Broytt: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
@@ -373,7 +376,7 @@ msgstr "Avbrotið"
 
 #: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
-msgstr "Fíluatgerðin er liðug, men har eru nakrar villur"
+msgstr "Fíluatgerðin er liðug, men har eru nakrar villur."
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
@@ -385,6 +388,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Summar fílur kunnu ikki flytast til ruskspannina, tí at tað undirliggjandi "
+"kervið ikki stuðlar hesari atgerð.\n"
+"Vil tú strika tær í staðin?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
@@ -407,26 +413,27 @@ msgid "Deleting files"
 msgstr "Striki fílur"
 
 #: ../src/gtk/fm-progress-dlg.c:449
-#, fuzzy
 msgid "Creating symlinks"
 msgstr "Stovni tykisligar leinkjur"
 
 #: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Broyti fílueginleikar"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Vinarliga skriva inn eitt lógligt brúkaranavn ella talsamleika."
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Vinarliga skriva inn eitt lógligt bólkanavn ella talsamleika."
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"Vil tú endurkvæmiliga nýta hesar broytingar til allar fílur og "
+"undirskjáttur?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
@@ -436,13 +443,14 @@ msgstr "Fílur av ymsum slagi"
 msgid "Multiple Files"
 msgstr "Fleiri fílur"
 
+# Enskt volume, danskt arkiv
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "Íset skjalasavn"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Úrset skjalasavn"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
@@ -503,27 +511,27 @@ msgstr "Pakka út til..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Endurstovna"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Endurstovna strikaðar fílur til teirra upprunaligu leið"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr "XDirectSave miseydnaðist"
+msgstr "XDirectSave miseydnaðist."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Nýt tað valdu nýtsluskipaninna at lata fílur við"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Koyr tilgjørdu stýriboðsregluna til at lata upp fílur við"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Tilsniða"
 
 #: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
@@ -555,15 +563,15 @@ msgstr "Vinarliga vel eina skjáttu"
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Einans kervisfyrisitarir hava rættindi til at gerða hetta."
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Vil tú flyta tær valdu fílurnar í ruskspannina"
+msgstr "Vil tú flyta tær valdu fílurnar í ruskspannina?"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr "Vil tú strika tær valdu fíurnar"
+msgstr "Vil tú strika tær valdu fíurnar?"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
@@ -571,7 +579,7 @@ msgstr "Nýnevn fílu"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr "Vinarliga skriva eitt nýtt navn"
+msgstr "Vinarliga skriva eitt nýtt navn:"
 
 #: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
@@ -581,4 +589,4 @@ msgstr "Er tú viss/ur í at tøma ruskspannina?"
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Tann tilskilaða skjáttan er ikki lóglig"
