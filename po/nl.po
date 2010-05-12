@@ -270,7 +270,7 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "De Webbrowser van uw keuze zal gebruikt worden om hyperlinks te openen."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
-#, c-format, fuzzy
+#, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
