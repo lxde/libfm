@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"X-Generator: Pootle 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Bestanden van verschillende types"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
@@ -423,15 +423,15 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "Volume Aankoppelen"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Volume Ontkoppelen"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Verwisselbare Media uitwerpen"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
@@ -443,51 +443,51 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "Prullenbak legen"
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr ""
+msgstr "Prullenbak"
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr ""
+msgstr "Bureaublad"
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Voer een nieuwe naam in:"
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "Openen met..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "Hernoemen"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "Symlink aanmaken"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "Sturen naar"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "Comprimeren..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "Hier uitpakken"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "Uitpakken naar"
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Herstellen"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
@@ -507,31 +507,31 @@ msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Aanpassen"
 
 #: ../src/gtk/fm-folder-view.c:524
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: ../src/gtk/fm-folder-view.c:543
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #: ../src/gtk/fm-folder-view.c:550
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: ../src/gtk/fm-folder-view.c:556
 msgid "Modified"
-msgstr ""
+msgstr "Aangepast"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Geïnstalleerde Toepassingen"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
@@ -539,19 +539,19 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:402
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Alleen systeem beheerders hebben de rechten om dit te doen."
 
 #: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Wilt u de geselecteerde bestanden naar de prullenbak verplaatsen?"
 
 #: ../src/gtk/fm-gtk-utils.c:502
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Wilt u de geselecteerde bestanden verwijderen?"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Rename File"
-msgstr ""
+msgstr "Bestand hernoemen"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Please enter a new name:"
@@ -559,7 +559,7 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:570
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Weet u zeker dat u de prullenbak wilt legen?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
