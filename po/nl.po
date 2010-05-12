@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -298,19 +298,19 @@ msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Snelkoppelingen"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
@@ -318,23 +318,23 @@ msgstr ""
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr ""
+msgstr "Prullenbak"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
-msgstr ""
+msgstr "Mijn Computer"
 
 #: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
-msgstr ""
+msgstr "Toepassingen"
 
 #: ../src/base/fm-path.c:449
 msgid "Network"
-msgstr ""
+msgstr "Netwerk"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ""
+msgstr ":"
 
 #: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
@@ -357,7 +357,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:313
 msgid "The file operation is finished, but there are some errors."
@@ -365,7 +365,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:315
 msgid "Finished"
-msgstr ""
+msgstr "Voltooid"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid ""
@@ -379,23 +379,23 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:442
 msgid "Moving files"
-msgstr ""
+msgstr "Bestanden verplaatsen"
 
 #: ../src/gtk/fm-progress-dlg.c:445
 msgid "Copying files"
-msgstr ""
+msgstr "Bestanden kopiëren"
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Trashing files"
-msgstr ""
+msgstr "Bestanden weggooien"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Deleting files"
-msgstr ""
+msgstr "Bestanden verwijderen"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Symlinks aanmaken"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Changing file attributes"
