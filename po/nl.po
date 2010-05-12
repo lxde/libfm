@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"POT-Creation-Date: 2010-05-12 08:37+0000\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,23 +42,23 @@ msgstr "Kies Een Applicatie"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Aangepaste Opdrachtregel"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Uitvoeren in terminal emulator"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Geïnstalleerde Applicatie"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Stel geselecteerde applicatie in als de standaard actie voor dit bestandstype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Bladeren"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -66,6 +66,9 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Er is al een bestand met deze naam in deze map.</b>\n"
+"\n"
+"Wilt u het bestaande bestand overschrijven"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -73,31 +76,31 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Bevesting om bestanden te vervangen"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Bestandsnaam:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Overschrijven"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Hernoemen"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "_Overslaan"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "met het volgende bestand?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
@@ -105,11 +108,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Bestandstype:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
@@ -259,9 +262,7 @@ msgid "System Applications"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
@@ -331,11 +332,11 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:145
+#: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -343,61 +344,60 @@ msgid ""
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:302
+#: ../src/gtk/fm-progress-dlg.c:307
 msgid "The file operation is cancelled and there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:304
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "Cancelled"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:308
+#: ../src/gtk/fm-progress-dlg.c:313
 msgid "The file operation is finished, but there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "Finished"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:427
 msgid ", "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:437
+#: ../src/gtk/fm-progress-dlg.c:442
 msgid "Moving files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:440
+#: ../src/gtk/fm-progress-dlg.c:445
 msgid "Copying files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:443
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Trashing files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:446
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Deleting files"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:449
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Creating symlinks"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:452
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Changing file attributes"
 msgstr ""
 
@@ -410,8 +410,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -510,19 +509,19 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:522
+#: ../src/gtk/fm-folder-view.c:524
 msgid "Name"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:541
+#: ../src/gtk/fm-folder-view.c:543
 msgid "Description"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:548
+#: ../src/gtk/fm-folder-view.c:550
 msgid "Size"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:554
+#: ../src/gtk/fm-folder-view.c:556
 msgid "Modified"
 msgstr ""
 
@@ -538,27 +537,27 @@ msgstr ""
 msgid "Please select a folder"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:400
+#: ../src/gtk/fm-gtk-utils.c:402
 msgid "Only system administrators have the permission to do this."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:475
+#: ../src/gtk/fm-gtk-utils.c:481
 msgid "Do you want to move the selected files to trash can?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:502
 msgid "Do you want to delete the selected files?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Rename File"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Please enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:564
+#: ../src/gtk/fm-gtk-utils.c:570
 msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
