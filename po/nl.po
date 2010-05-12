@@ -226,28 +226,28 @@ msgstr "<b>Tijd resterend:</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Naar:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "Voorbereiden..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>E-mailprogramma</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Terminal Emulator</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Webbrowser</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Opdracht regel:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
@@ -263,7 +263,7 @@ msgstr "Systeem Toepassingen"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr ""
+msgstr "Het E-mailprogramma van uw keuze zal gebruikt worden om E-mails te schrijven als u op een E-mail adres klikt."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
