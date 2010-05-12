@@ -120,23 +120,23 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>Laatste Aanpassing:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Locatie:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>Openen _met:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>Andere:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
@@ -144,7 +144,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Doel:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
@@ -152,27 +152,27 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>_Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Bestandseigenschappen"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Bestand uitvoerbaar maken"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Handelingen die alle andere gebruikers kunnen doen"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
