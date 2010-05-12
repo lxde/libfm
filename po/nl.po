@@ -38,7 +38,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Kies Een Applicatie"
+msgstr "Kies Een Toepassing"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
@@ -50,11 +50,11 @@ msgstr "Uitvoeren in terminal emulator"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Geïnstalleerde Applicatie"
+msgstr "Geïnstalleerde Toepassing"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Stel geselecteerde applicatie in als de standaard actie voor dit bestandstype"
+msgstr "Stel geselecteerde toepassing in als de standaard actie voor dit bestandstype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
