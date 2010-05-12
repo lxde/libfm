@@ -267,34 +267,34 @@ msgstr "Het E-mailprogramma van uw keuze zal gebruikt worden om E-mails te schri
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "De Webbrowser van uw keuze zal gebruikt worden om hyperlinks te openen."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
-#, c-format
+#, c-format, fuzzy
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
