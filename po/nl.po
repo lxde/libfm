@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-12 08:37+0000\n"
+"POT-Creation-Date: 2010-05-13 08:37+0000\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -140,7 +140,7 @@ msgstr "<b>Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>Grootte op Schijf:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
@@ -200,7 +200,7 @@ msgstr "Alleen schrijven"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_Algemeen"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
@@ -209,7 +209,7 @@ msgstr "_Toestemmingen"
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Verwerken:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
@@ -343,6 +343,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Grootte: %s\n"
+"Aangepast: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
@@ -350,6 +353,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Type: %s\n"
+"Aangepast: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:307
 msgid "The file operation is cancelled and there are some errors."
@@ -372,10 +377,12 @@ msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Sommige bestanden kunnen niet naar de prullenbak verplaatst worden omdat het onderliggende bestandssysteem dit niet ondersteund.\n"
+"Wilt u ze in plaats daarvan verwijderen?"
 
 #: ../src/gtk/fm-progress-dlg.c:427
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:442
 msgid "Moving files"
@@ -419,7 +426,7 @@ msgstr "Bestanden van verschillende types"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "Meerdere Bestanden"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
@@ -435,11 +442,11 @@ msgstr "Verwisselbare Media uitwerpen"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Hernoem Bladwijzer Item"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Verwijderen uit Bladwijzer"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
@@ -495,11 +502,11 @@ msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave mislukt."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Gebruik de geselecteerde toepassing om deze bestanden te openen"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
@@ -535,7 +542,7 @@ msgstr "Error"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "Selecteer alstublieft een map"
 
 #: ../src/gtk/fm-gtk-utils.c:402
 msgid "Only system administrators have the permission to do this."
@@ -555,7 +562,7 @@ msgstr "Bestand hernoemen"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Voer alstublieft een nieuwe naam in:"
 
 #: ../src/gtk/fm-gtk-utils.c:570
 msgid "Are you sure you want to empty the trash can?"
