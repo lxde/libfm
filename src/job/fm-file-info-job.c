@@ -240,17 +240,20 @@ _retry:
                 {
                     char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
                     char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
-                    if(icon_name && icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
+                    if(icon_name)
                     {
-                        char* dot = strrchr(icon_name, '.');
-                        /* remove file extension */
-                        if(dot)
+                        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
                         {
-                            ++dot;
-                            if(strcmp(dot, "png") == 0 ||
-                               strcmp(dot, "svg") == 0 ||
-                               strcmp(dot, "xpm") == 0)
-                               *(dot-1) = '\0';
+                            char* dot = strrchr(icon_name, '.');
+                            /* remove file extension */
+                            if(dot)
+                            {
+                                ++dot;
+                                if(strcmp(dot, "png") == 0 ||
+                                   strcmp(dot, "svg") == 0 ||
+                                   strcmp(dot, "xpm") == 0)
+                                   *(dot-1) = '\0';
+                            }
                         }
                         icon = fm_icon_from_name(icon_name);
                         g_free(icon_name);
