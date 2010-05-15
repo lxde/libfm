@@ -35,7 +35,7 @@ struct _FmDndDest
 {
 	GObject parent;
 	GtkWidget* widget;
-	guint scroll_timeout;
+
 	int info_type; /* type of src_files */
 	FmList* src_files;
 	guint32 src_dev; /* UNIX dev of source fs */
@@ -43,6 +43,8 @@ struct _FmDndDest
 	FmFileInfo* dest_file;
     guint idle; /* idle handler */
     GMainLoop* mainloop; /* used to block when retriving data */
+
+    guint scroll_timeout; /* auto scroll on dnd */
 };
 
 enum
@@ -59,6 +61,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
     { "XdndDirectSave0", 0, FM_DND_DEST_TARGET_XDS, } /* X direct save */
 };
 
+#define SCROLL_EDGE_SIZE 15
 
 static void fm_dnd_dest_finalize              (GObject *object);
 static gboolean fm_dnd_dest_query_info(FmDndDest* dd, int x, int y, int* action);
@@ -163,6 +166,9 @@ static void fm_dnd_dest_finalize(GObject *object)
 
     if(dd->mainloop)
         g_main_loop_unref(dd->mainloop);
+
+    if(dd->scroll_timeout)
+        g_source_remove(dd->scroll_timeout);
 
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->finalize(object);
 }
@@ -331,6 +337,65 @@ gboolean cache_src_file_infos(FmDndDest* dd, GtkWidget *dest_widget,
     return FALSE;
 }
 
+static gboolean on_auto_scroll(FmDndDest* dd)
+{
+    GtkWidget* parent = gtk_widget_get_parent(dd->widget);
+    GtkScrolledWindow* scroll = GTK_SCROLLED_WINDOW(parent);
+    GtkAdjustment* va = gtk_scrolled_window_get_vadjustment(scroll);
+    GtkAdjustment* ha = gtk_scrolled_window_get_hadjustment(scroll);
+    int x, y;
+    gdk_window_get_pointer(dd->widget->window, &x, &y, NULL);
+
+    if(va)
+    {
+        if(y < SCROLL_EDGE_SIZE) /* scroll up */
+        {
+            if(va->value > va->lower)
+            {
+                va->value -= va->step_increment;
+                if(va->value < va->lower)
+                    va->value = va->lower;
+            }
+        }
+        else if(y > (dd->widget->allocation.height - SCROLL_EDGE_SIZE))
+        {
+            /* scroll down */
+            if(va->value < va->upper - va->page_size)
+            {
+                va->value += va->step_increment;
+                if(va->value > va->upper - va->page_size)
+                    va->value = va->upper - va->page_size;
+            }
+        }
+        gtk_adjustment_value_changed(va);
+    }
+
+    if(ha)
+    {
+        if(x < SCROLL_EDGE_SIZE) /* scroll to left */
+        {
+            if(ha->value > ha->lower)
+            {
+                ha->value -= ha->step_increment;
+                if(ha->value < ha->lower)
+                    ha->value = ha->lower;
+            }
+        }
+        else if(x > (dd->widget->allocation.width - SCROLL_EDGE_SIZE))
+        {
+            /* scroll to right */
+            if(ha->value < ha->upper - ha->page_size)
+            {
+                ha->value += ha->step_increment;
+                if(ha->value > ha->upper - ha->page_size)
+                    ha->value = ha->upper - ha->page_size;
+            }
+        }
+        gtk_adjustment_value_changed(ha);
+    }
+    return TRUE;
+}
+
 static gboolean
 on_drag_motion( GtkWidget *dest_widget,
                 GdkDragContext *drag_context,
@@ -368,6 +433,15 @@ on_drag_motion( GtkWidget *dest_widget,
         action = drag_context->suggested_action;
 
 	gdk_drag_status(drag_context, action, time);
+
+    if(0 == dd->scroll_timeout) /* install a scroll timeout if needed */
+    {
+        GtkWidget* parent = gtk_widget_get_parent(dd->widget);
+        if(parent && GTK_IS_SCROLLED_WINDOW(parent))
+        {
+            dd->scroll_timeout = gdk_threads_add_timeout(150, (GSourceFunc)on_auto_scroll, dd);
+        }
+    }
     return (action != 0);
 }
 
@@ -399,6 +473,12 @@ on_drag_leave ( GtkWidget *dest_widget,
 	gtk_drag_unhighlight(dest_widget);
     /* FIXME: is there any better place to do this? */
     dd->idle = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)clear_src_cache, dd, NULL);
+
+    if(dd->scroll_timeout)
+    {
+        g_source_remove(dd->scroll_timeout);
+        dd->scroll_timeout = 0;
+    }
     return TRUE;
 }
 
