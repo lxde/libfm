@@ -82,7 +82,7 @@ int main(int argc, char** argv)
     path = sep + 1;
     g_setenv("PATH", path, TRUE);
 
-    if(argc < 2) /* only execute the temrinal emulator */
+    if((argc < 2) && terminal) /* only execute the temrinal emulator */
     {
         sep = strchr(terminal, ' ');
         if(sep)
@@ -90,7 +90,7 @@ int main(int argc, char** argv)
         argv[0] = terminal;
     }
 
-    if( strcmp(argv[1], "-x") == 0 ) /* gnome-terminal -x */
+    if( (argc >= 2) && (strcmp(argv[1], "-x") == 0) ) /* gnome-terminal -x */
     {
         /* this is mostly called from glib/gio */
         int term_argc;
