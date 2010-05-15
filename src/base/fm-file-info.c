@@ -189,8 +189,31 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 
 void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
+    const char* icon_name = menu_cache_item_get_icon(item);
     fi->disp_name = g_strdup(menu_cache_item_get_name(item));
-    fi->icon = fm_icon_from_name(menu_cache_item_get_icon(item));
+    if(icon_name)
+    {
+        char* tmp_name = NULL;
+        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
+        {
+            char* dot = strrchr(icon_name, '.');
+            /* remove file extension, this is a hack to fix non-standard desktop entry files */
+            if(G_UNLIKELY(dot))
+            {
+                ++dot;
+                if(strcmp(dot, "png") == 0 ||
+                   strcmp(dot, "svg") == 0 ||
+                   strcmp(dot, "xpm") == 0)
+                {
+                    tmp_name = g_strndup(icon_name, dot - icon_name - 1);
+                    icon_name = tmp_name;
+                }
+            }
+        }
+        fi->icon = fm_icon_from_name(icon_name);
+        if(G_UNLIKELY(tmp_name))
+            g_free(tmp_name);
+    }
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
     {
         fi->mode |= S_IFDIR;
