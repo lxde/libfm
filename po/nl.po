@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 08:37+0000\n"
+"POT-Creation-Date: 2010-05-17 04:18+0000\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"X-Generator: Pootle 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -25,6 +25,9 @@ msgstr ""
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr ""
+" \t\r\n"
+"\r\n"
+"<b>Bestand dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -72,7 +75,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Pas deze optie op alle bestaande bestanden toe"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -116,7 +119,7 @@ msgstr "<b>Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>Laatst gebruikt:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
@@ -148,7 +151,7 @@ msgstr "<b>Doel:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Totale grootte van :</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
@@ -255,7 +258,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Aanbevolen Programma's"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
@@ -314,7 +317,7 @@ msgstr "Snelkoppelingen"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Aankoppelingspunt"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
@@ -356,23 +359,23 @@ msgstr ""
 "Type: %s\n"
 "Aangepast: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#: ../src/gtk/fm-progress-dlg.c:313
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "Voltooid"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
@@ -380,31 +383,31 @@ msgstr ""
 "Sommige bestanden kunnen niet naar de prullenbak verplaatst worden omdat het onderliggende bestandssysteem dit niet ondersteund.\n"
 "Wilt u ze in plaats daarvan verwijderen?"
 
-#: ../src/gtk/fm-progress-dlg.c:427
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:442
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "Bestanden verplaatsen"
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "Bestanden kopiëren"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "Bestanden weggooien"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "Bestanden verwijderen"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "Symlinks aanmaken"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr ""
 
@@ -500,7 +503,7 @@ msgstr "_Herstellen"
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:449
+#: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
 msgstr "XDirectSave mislukt."
 
@@ -572,4 +575,4 @@ msgstr "Weet u zeker dat u de prullenbak wilt legen?"
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "De specificeerde map is niet juist"
