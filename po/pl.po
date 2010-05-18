@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-10 04:15+0000\n"
-"PO-Revision-Date: 2010-05-12 00:00+0100\n"
+"PO-Revision-Date: 2010-05-12 23:44+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "Zainstalowane programy"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Ustawienie domyślnego programu dla tego typu plików"
+msgstr "Domyślnie dla tego typu plików"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -72,16 +72,17 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Istnieje już plik o tej samej nazwie.</b>\n"
-"Nadpisać go?"
+"<b>Plik o takiej samej nazwie znajduje się już w położeniu docelowym.</b>\n"
+"\n"
+"Zastąpić plik"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Zastosuj opcję do wszystkich istniejących plików"
+msgstr "Wykonanie czynności dla wszystkich plików"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Potwierdź nadpisanie plików"
+msgstr "Zastępowanie plików"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -101,7 +102,7 @@ msgstr "_Pomiń"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "aktualnym plikiem?"
+msgstr "następującym plikiem?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -214,7 +215,7 @@ msgstr "_Uprawnienia"
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Przetwarzanie:</b>"
+msgstr "<b>Bieżący plik:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
@@ -231,7 +232,7 @@ msgstr "<b>Pozostały czas:</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>Do:</b>"
+msgstr "<b>Położenie docelowe:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
