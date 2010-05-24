@@ -453,11 +453,16 @@ const char* fm_file_info_get_collate_key( FmFileInfo* fi )
 {
     if( G_UNLIKELY(!fi->collate_key) )
     {
-        char* collate = g_utf8_collate_key_for_filename(fi->disp_name, -1);
+        char* casefold = g_utf8_casefold(fi->disp_name, -1);
+        char* collate = g_utf8_collate_key_for_filename(casefold, -1);
+        g_free(casefold);
         if( strcmp(collate, fi->disp_name) )
             fi->collate_key = collate;
         else
+        {
             fi->collate_key = fi->disp_name;
+            g_free(collate);
+        }
     }
     return fi->collate_key;
 }
