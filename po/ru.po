@@ -7,18 +7,19 @@ msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-27 04:13+0000\n"
-"PO-Revision-Date: 2010-02-20 19:27+0400\n"
-"Last-Translator: boobaloo <koptev.oleg@gmail,com>\n"
+"PO-Revision-Date: 2010-05-25 18:16+0200\n"
+"Last-Translator: Max <mpui@tut.by>\n"
 "Language-Team: gnome-cyr\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.1\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
-"X-Generator: Virtaal 0.5.2\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -199,7 +200,7 @@ msgstr "Только для чтения"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Выберите приложение для запуска файла"
+msgstr "Выберите приложение для запуска файла "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -242,7 +243,7 @@ msgstr "Подготовка..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Почтовый клиент<b>"
+msgstr "<b>Почтовый клиент</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
