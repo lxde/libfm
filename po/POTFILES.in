@@ -19,3 +19,4 @@ src/gtk/fm-gtk-utils.c
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
 src/tools/libfm-pref-apps.c
+data/libfm-pref-apps.desktop.in
