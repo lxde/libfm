@@ -24,10 +24,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
-" \t\r\n"
-"\r\n"
-"<b>Bestand dat moet worden geopend:</b>"
+msgstr "<b>Bestand dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
