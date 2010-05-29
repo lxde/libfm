@@ -29,40 +29,40 @@
 
 G_BEGIN_DECLS
 
-#define FM_FILE_OPS_JOB_TYPE				(fm_file_ops_job_get_type())
-#define FM_FILE_OPS_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_FILE_OPS_JOB_TYPE, FmFileOpsJob))
-#define FM_FILE_OPS_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_FILE_OPS_JOB_TYPE, FmFileOpsJobClass))
-#define IS_FM_FILE_OPS_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_FILE_OPS_JOB_TYPE))
-#define IS_FM_FILE_OPS_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_FILE_OPS_JOB_TYPE))
+#define FM_FILE_OPS_JOB_TYPE                (fm_file_ops_job_get_type())
+#define FM_FILE_OPS_JOB(obj)                (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_FILE_OPS_JOB_TYPE, FmFileOpsJob))
+#define FM_FILE_OPS_JOB_CLASS(klass)        (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_FILE_OPS_JOB_TYPE, FmFileOpsJobClass))
+#define IS_FM_FILE_OPS_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_FILE_OPS_JOB_TYPE))
+#define IS_FM_FILE_OPS_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_FILE_OPS_JOB_TYPE))
 
-typedef struct _FmFileOpsJob			FmFileOpsJob;
-typedef struct _FmFileOpsJobClass		FmFileOpsJobClass;
+typedef struct _FmFileOpsJob            FmFileOpsJob;
+typedef struct _FmFileOpsJobClass        FmFileOpsJobClass;
 
 typedef enum _FmFileOpType FmFileOpType;
 enum _FmFileOpType
 {
-	FM_FILE_OP_NONE,
-	FM_FILE_OP_MOVE,
-	FM_FILE_OP_COPY,
-	FM_FILE_OP_TRASH,
-	FM_FILE_OP_UNTRASH,
-	FM_FILE_OP_DELETE,
+    FM_FILE_OP_NONE,
+    FM_FILE_OP_MOVE,
+    FM_FILE_OP_COPY,
+    FM_FILE_OP_TRASH,
+    FM_FILE_OP_UNTRASH,
+    FM_FILE_OP_DELETE,
     FM_FILE_OP_LINK,
-	FM_FILE_OP_CHANGE_ATTR
+    FM_FILE_OP_CHANGE_ATTR
 };
 
 typedef enum _FmFileOpOption FmFileOpOption;
 enum _FmFileOpOption
 {
     FM_FILE_OP_CANCEL = 0,
-	FM_FILE_OP_OVERWRITE = 1<<0,
-	FM_FILE_OP_RENAME = 1<<1,
-	FM_FILE_OP_SKIP = 1<<2,
-	FM_FILE_OP_SKIP_ERROR = 1<<3
+    FM_FILE_OP_OVERWRITE = 1<<0,
+    FM_FILE_OP_RENAME = 1<<1,
+    FM_FILE_OP_SKIP = 1<<2,
+    FM_FILE_OP_SKIP_ERROR = 1<<3
 };
 
 /* FIXME: maybe we should create derived classes for different kind
@@ -71,22 +71,24 @@ enum _FmFileOpOption
 
 struct _FmFileOpsJob
 {
-	FmJob parent;
-	FmFileOpType type;
-	FmPathList* srcs;
-	FmPath* dest;
+    FmJob parent;
+    FmFileOpType type;
+    FmPathList* srcs;
+    FmPath* dest;
     const char* dest_fs_id;
 
-	goffset total;
-	goffset finished;
-	goffset current_file_finished;
-	goffset rate;
+    goffset total;
+    goffset finished;
+    goffset current_file_finished;
+    /* goffset rate; */
     guint percent;
-	time_t started_time;
-	time_t elapsed_time;
-	time_t remaining_time;
-
+/*
+    time_t started_time;
+    time_t elapsed_time;
+    time_t remaining_time;
     FmFileOpOption default_option;
+*/
+
     union
     {
         gboolean recursive; /* used by chmod/chown only */
@@ -106,14 +108,14 @@ struct _FmFileOpsJob
 
 struct _FmFileOpsJobClass
 {
-	FmJobClass parent_class;
-	void (*cur_file)(FmFileOpsJob* job, FmPath* file);
-	void (*percent)(FmFileOpsJob* job, guint percent);
+    FmJobClass parent_class;
+    void (*cur_file)(FmFileOpsJob* job, FmPath* file);
+    void (*percent)(FmFileOpsJob* job, guint percent);
     FmFileOpOption (*ask_rename)(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name);
 };
 
-GType	fm_file_ops_job_get_type		(void);
-FmJob*	fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
+GType fm_file_ops_job_get_type        (void);
+FmJob* fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 

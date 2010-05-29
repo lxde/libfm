@@ -51,7 +51,7 @@ gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* in
     GFileCopyFlags flags;
 	FmJob* fmjob = FM_JOB(job);
     guint32 mode;
-g_debug("file: %s", g_file_get_path(src));
+
 	if( G_LIKELY(inf) )
 		g_object_ref(inf);
 	else
@@ -95,12 +95,16 @@ _retry_query_src_info:
                 {
                     g_error_free(err);
                     err = NULL;
+
+                    g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                     if(new_dest)
                     {
                         g_object_unref(new_dest);
                         new_dest = NULL;
                     }
                     opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                    g_object_unref(dest);
+
                     switch(opt)
                     {
                     case FM_FILE_OP_RENAME:
@@ -288,12 +292,15 @@ _retry_query_src_info:
             {
                 g_error_free(err);
                 err = NULL;
+
+                g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                 if(new_dest)
                 {
                     g_object_unref(new_dest);
                     new_dest = NULL;
                 }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                g_object_unref(dest);
                 switch(opt)
                 {
                 case FM_FILE_OP_RENAME:
@@ -395,12 +402,15 @@ _retry_query_src_info:
             flags &= ~G_FILE_COPY_OVERWRITE;
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                 if(new_dest)
                 {
                     g_object_unref(new_dest);
                     new_dest = NULL;
                 }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                g_object_unref(dest);
+
                 g_error_free(err);
                 err = NULL;
 
