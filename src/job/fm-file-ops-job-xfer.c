@@ -404,7 +404,61 @@ _retry_query_src_info:
                     break;
                 case FM_FILE_OP_OVERWRITE:
                     flags |= G_FILE_COPY_OVERWRITE;
-                    goto _retry_move;
+                    if(g_file_info_get_file_type(inf) == G_FILE_TYPE_DIRECTORY) /* merge dirs */
+                    {
+                        GFileEnumerator* enu = g_file_enumerate_children(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                                                        fm_job_get_cancellable(job), &err);
+                        if(enu)
+                        {
+                            GFileInfo* child_inf;
+                            while(!fm_job_is_cancelled(job))
+                            {
+                                child_inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(job), &err);
+                                if(child_inf)
+                                {
+                                    GFile* child = g_file_get_child(src, g_file_info_get_name(child_inf));
+                                    GFile* child_dest = g_file_get_child(dest, g_file_info_get_name(child_inf));
+                                    _fm_file_ops_job_move_file(job, child, child_inf, child_dest);
+                                    g_object_unref(child);
+                                    g_object_unref(child_dest);
+                                    g_object_unref(child_inf);
+                                }
+                                else
+                                {
+                                    if(err) /* error */
+                                    {
+                                        FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                                        g_error_free(err);
+                                        err = NULL;
+                                    }
+                                    else /* EOF */
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            g_object_unref(enu);
+                        }
+                        else
+                        {
+                            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                            g_error_free(err);
+                            err = NULL;
+                            /* if(act == FM_JOB_RETRY)
+                                goto _retry_move; */
+                        }
+
+                        /* remove source dir after its content is merged with destination dir */
+                        if(!g_file_delete(src, fm_job_get_cancellable(job), &err))
+                        {
+                            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                            g_error_free(err);
+                            err = NULL;
+                            /* FIXME: should this be recoverable? */
+                        }
+                    }
+                    else /* the destination is a file, just overwrite it. */
+                        goto _retry_move;
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
