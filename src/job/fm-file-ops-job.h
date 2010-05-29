@@ -87,7 +87,11 @@ struct _FmFileOpsJob
 	time_t remaining_time;
 
     FmFileOpOption default_option;
-	gboolean recursive;
+    union
+    {
+        gboolean recursive; /* used by chmod/chown only */
+        gboolean skip_dir_content; /* used by _fm_file_ops_job_copy_file */
+    };
 
     /* for chmod and chown */
     guint32 uid;
