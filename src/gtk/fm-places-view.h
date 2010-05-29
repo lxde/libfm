@@ -53,7 +53,7 @@ struct _FmPlacesView
 struct _FmPlacesViewClass
 {
 	GtkTreeViewClass parent_class;
-    void (*chdir)(FmPath* path);
+    void (*chdir)(guint button, FmPath* path);
 };
 
 GType		fm_places_view_get_type		(void);

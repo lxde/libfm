@@ -68,6 +68,7 @@ typedef struct _PlaceItem
 
 static void fm_places_view_finalize  			(GObject *object);
 
+static void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path);
 static void on_row_activated( GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col);
 static gboolean on_button_press(GtkWidget* view, GdkEventButton* evt);
 static gboolean on_button_release(GtkWidget* view, GdkEventButton* evt);
@@ -190,8 +191,8 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
                      G_SIGNAL_RUN_LAST,
                      G_STRUCT_OFFSET(FmPlacesViewClass, chdir),
                      NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
-                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+                     g_cclosure_marshal_VOID__UINT_POINTER,
+                     G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 }
 
 
@@ -673,7 +674,7 @@ GtkWidget *fm_places_view_new(void)
 	return g_object_new(FM_PLACES_VIEW_TYPE, NULL);
 }
 
-void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
+void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
 {
     GtkTreeIter it;
     if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tree_path))
@@ -700,7 +701,7 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
                 mnt = g_volume_get_mount(item->vol);
                 if(!mnt)
                 {
-                    g_debug("GMount is invalid after successful g_volume_mount().\nThis is quite possible a gvfs bug.\nSee https://bugzilla.gnome.org/show_bug.cgi?id=552168");
+                    g_debug("GMount is invalid after successful g_volume_mount().\nThis is quite possibly a gvfs bug.\nSee https://bugzilla.gnome.org/show_bug.cgi?id=552168");
                     return;
                 }
             }
@@ -721,10 +722,15 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
 
         if(path)
         {
-            g_signal_emit(view, signals[CHDIR], 0, path);
+            g_signal_emit(view, signals[CHDIR], 0, button, path);
             fm_path_unref(path);
         }
     }
+}
+
+void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
+{
+    activate_row(view, 1, tree_path);
 }
 
 void fm_places_select(FmPlacesView* pv, FmPath* path)
@@ -815,19 +821,30 @@ gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
     GtkTreeViewColumn* col;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(view, evt);
 
-    if(evt->button == 3 && gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+    if(evt->button == 2) /* middle click */
     {
-        GtkTreeIter it;
-        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp) && it.user_data != sep_it.user_data )
+        if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
         {
-            PlaceItem* item;
-            GtkWidget* menu;
-            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
-            menu = place_item_get_menu(item);
-            if(menu)
-                gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+            activate_row(view, 2, tp);
+            gtk_tree_path_free(tp);
         }
-        gtk_tree_path_free(tp);
+    }
+    else if(evt->button == 3) /* right click */
+    {
+        if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+        {
+            GtkTreeIter it;
+            if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp) && it.user_data != sep_it.user_data )
+            {
+                PlaceItem* item;
+                GtkWidget* menu;
+                gtk_tree_model_get(GTK_TREE_MODEL(model), &it, COL_INFO, &item, -1);
+                menu = place_item_get_menu(item);
+                if(menu)
+                    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+            }
+            gtk_tree_path_free(tp);
+        }
     }
     return ret;
 }

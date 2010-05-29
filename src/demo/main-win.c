@@ -310,6 +310,11 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
     gtk_widget_show_all( GTK_WIDGET(menu) );
 }
 
+static void on_places_chdir(FmPlacesView* view, guint button, FmPath* path, FmMainWin* win)
+{
+    fm_main_win_chdir(win, path);
+}
+
 static void fm_main_win_init(FmMainWin *self)
 {
     GtkWidget *vbox, *menubar, *toolitem, *next_btn, *scroll;
@@ -344,7 +349,7 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_paned_add2(GTK_PANED(self->hpaned), self->folder_view);
 
     /* link places view with folder view. */
-    g_signal_connect_swapped(self->places_view, "chdir", G_CALLBACK(fm_main_win_chdir), self);
+    g_signal_connect(self->places_view, "chdir", G_CALLBACK(on_places_chdir), self);
 
     /* create menu bar and toolbar */
     ui = gtk_ui_manager_new();
