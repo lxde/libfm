@@ -78,9 +78,15 @@ int main(int argc, char** argv)
     }
     /* Remove /usr/lib/libfm from PATH */
     path = g_getenv("PATH");
-    sep = strchr(path, ':');
-    path = sep + 1;
-    g_setenv("PATH", path, TRUE);
+    if(path && g_str_has_prefix(path, PACKAGE_LIB_DIR))
+    {
+        sep = strchr(path, ':');
+        if(sep)
+        {
+            path = sep + 1;
+            g_setenv("PATH", path, TRUE);
+        }
+    }
 
     if((argc < 2) && terminal) /* only execute the temrinal emulator */
     {
