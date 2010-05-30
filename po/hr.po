@@ -3,20 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Ivica Kolić<ikoli@yahoo.com>, YEAR.
 # Ivica Kolić<ikoli@yahoo.com> <>, 2010.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-26 04:49+0000\n"
+"POT-Creation-Date: 2010-05-30 04:52+0000\n"
 "PO-Revision-Date: 2010-05-27 01:22+0200\n"
 "Last-Translator: Ivica Kolić<ikoli@yahoo.com> <>\n"
 "Language-Team: Croatian (hr) <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -35,6 +33,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Ovi posebni kodovi mogu biti korišteni u naredbenom retku:</b>\n"
+" <b>%f</b>:predstavljaju jedno ime datoteke\n"
+" <b>%F</b>: predstavljaju višestruka imena datoteka\n"
+" <b>%u</b>: predstavljaju jedan URI datoteke\n"
+" <b>%U</b>: predstavljaju višestruke URI-je"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -255,21 +258,19 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Željeni programi"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
 msgstr "Programi sustava"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr " "
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -316,7 +317,7 @@ msgstr "Prečaci"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Točka montiranja"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
@@ -326,7 +327,7 @@ msgstr "Smeće"
 msgid "My Computer"
 msgstr "Moje računalo"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Programi"
 
@@ -376,8 +377,7 @@ msgstr "Završeno"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
@@ -418,8 +418,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite valjano ime grupe ili brojčani id"
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -430,39 +429,39 @@ msgstr "Datoteke različitog tipa"
 msgid "Multiple Files"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:132
-msgid "Mount Volume"
-msgstr ""
-
 #: ../src/gtk/fm-places-view.c:133
+msgid "Mount Volume"
+msgstr "Montiraj uređaj"
+
+#: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj stavku zabilješke"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:149
 msgid "Remove from Bookmark"
 msgstr "Ukloni iz zabilješki"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
 msgstr "Isprazni smeće"
 
-#: ../src/gtk/fm-places-view.c:498
+#: ../src/gtk/fm-places-view.c:499
 msgid "Trash"
 msgstr "Smeće"
 
-#: ../src/gtk/fm-places-view.c:552
+#: ../src/gtk/fm-places-view.c:553
 msgid "Desktop"
 msgstr "Radna površina"
 
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:892
 msgid "Enter a new name:"
 msgstr "Unesi novo ime:"
 
