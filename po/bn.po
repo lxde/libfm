@@ -19,11 +19,11 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>যে কমান্ড লাইনটি কার্যকর করতে হবে:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>যে ধরনের ফাইল খুলতে হবে:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,30 +34,36 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>কমান্ড লাইনে এই বিশেষ কোডগুলো ব্যবহার করা যায়:</b>\n"
+"  <b>%f</b>: একটি ফাইলের নাম বোঝায়\n"
+"  <b>%F</b>: একাধিক ফাইলের নাম বোঝায়\n"
+"  <b>%u</b>: ফাইলের একটি URI বোঝায় \n"
+"  <b>%U</b>: একাধিক URI বোঝায়"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "একটি অ্যাপ্লিকেশন বাছাই করুন"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "স্বনির্ধারিত কমান্ড লাইন"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
+"এই ফাইলের জন্য নির্বাচিত অ্যাপ্লিকেশনকে ডিফল্ট অ্যাকশন হিসাবে নির্ধারণ করুন"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "ব্রাউজ (_B)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -65,274 +71,279 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>এখানে একই নামে ইতোমধ্যে একটি ফাইল আছে।</b>\n"
+"\n"
+" আপনি কি উপস্থিত ফাইলটি প্রতিস্থাপন করতে চান"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "উপস্থিত সকল ফাইলে এই অপশনটি প্রয়োগ করুন"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "ফাইল প্রতিস্থাপন করা নিশ্চিত করুন"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "ফাইল নাম:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "প্রতিস্থাপন (_O)"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "পুনরায় নামকরণ করুন (_R)"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "এড়িয়ে যান (_S)"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "নিম্নলিখিত ফাইলের সাথে?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>কন্ট্রোলে প্রবেশাধিকার</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>ফাইল টাইপ:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>গ্রুপ:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>শেষ প্রবেশাধিকার:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>শেষ পরিবর্তন:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>অবস্থান:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>অন্য অ্যাপ্লিকেশনে খুলুন (_O):</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>অন্যান্য:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>মালিক:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>ডিস্কে আকার:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>লক্ষ্য:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>ফাইলের সম্পূর্ন আকার:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>গ্রুপ (_G):</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>মালিক (_O):</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "ফাইলের বৈশিষ্ট্যাবলী"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "ফাইলটিকে কার্যকরী করুন"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "কোনটি না"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "অন্যান্য সকল ব্যবহারকারী যে কাজ করে থাকে"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "ফাইলের মালিক যে কাজ করতে পারে"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "একই গ্রুপের ব্যবহারকারী মালিক হিসাবে যে কাজ করতে পারে"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "লিখুন এবং পড়ুন"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "শুধুমাত্র পাঠযোগ্য"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "এই ধরনের ফাইল খুলতে যে অ্যাপ্লিকেশন ব্যবহার করা হয় তা নির্বাচন করুন"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "শুধুমাত্র লিখুন"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "সাধারণ (_G)"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "অনুমোদন (_P)"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>প্রক্রিয়াধীন:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>অগ্রগতি:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>কিছু ত্রুটি ঘটেছে:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>অবশিষ্ট সময়:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>প্রতি:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "প্রস্তুত করা হচ্ছে..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>মেইল ক্লায়েন্ট</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>টার্মিনাল ইমিউলেটর</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>ওয়েব ব্রাউজার</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "কমান্ড লাইন:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "সংশ্লিষ্ট ফাইলসমুহ"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "পছন্দনীয় অ্যাপ্লিকেশন"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "সিস্টেম অ্যাপ্লিকেশন"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"আপনি যখন ইমেইল ঠিকানায় ক্লিক করবেন তখন ইমেইল লিখতে পছন্দনীয় মেইল ক্লায়েন্ট "
+"ব্যবহার করা হবে।"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "হাইপারলিঙ্ক খুলতে পছন্দনীয় ওয়েব ব্রাউজার ব্যবহার করা হবে।"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u বাইট"
+msgstr[1] "%u বাইট"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "কিলোবাইট"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "মেগাবাইট"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "গিগাবাইট"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "টেরাবাইট"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "কিবিবাইট"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "মিবিবাইট"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "গিবিবাইট"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "টিবিবাইট"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "শর্টকাট"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "মাউন্ট পয়েন্ট"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr ""
+msgstr "আবর্জনা বাক্স"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
-msgstr ""
+msgstr "আমার কম্পিউটার"
 
 #: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
-msgstr ""
+msgstr "অ্যাপ্লিকেশন"
 
 #: ../src/base/fm-path.c:449
 msgid "Network"
-msgstr ""
+msgstr "নেটওয়ার্ক"
 
 #: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
 #, c-format
@@ -341,6 +352,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"টাইপ: %s\n"
+"আকার: %s\n"
+"পরিবর্তিত: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
@@ -348,22 +362,24 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"টাইপ: %s\n"
+"পরিবর্তিত: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "ফাইল অপারেশনটি বাতিল হয়েছে এবং কিছু ত্রুটি রয়েছে।"
 
 #: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
-msgstr ""
+msgstr "বাতিলকৃত"
 
 #: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "ফাইল অপারেশন শেষ হয়েছে, কিন্তু কিছু ত্রুটি রয়েছে।"
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
-msgstr ""
+msgstr "শেষ হয়েছে"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
@@ -371,198 +387,203 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"কিছু ফাইল আবর্জনা বাক্সে সরানোর যায় না কারণ মূল ফাইল সিস্টেম অপারেশনটি "
+"সমর্থন করে না।\n"
+"এর বদলে আপনি কি ফাইলগুলো মুছে ফেলতে চান?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
-msgstr ""
+msgstr "ফাইল সরানো হচ্ছে"
 
 #: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
-msgstr ""
+msgstr "ফাইল অনুলেপন করা হচ্ছে"
 
 #: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
-msgstr ""
+msgstr "ফাইল ফেলে দেয়া হচ্ছে"
 
 #: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
-msgstr ""
+msgstr "ফাইল মুছে ফেলা হচ্ছে"
 
 #: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
-msgstr ""
+msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 
 #: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
-msgstr ""
+msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "অনুগ্রহ করে একটি ব্যবহারকারীর কার্যকর নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "অনুগ্রহ করে একটি কার্যকর গ্রুপের নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"আপনি কি সব ফাইল ও সাবফোল্ডারে এই পরিবর্তনসমুহ পুনরাবৃত্তাকারে প্রয়োগ করতে "
+"চান‌?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "বিভিন্ন ধরনের ফাইল"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "অনেকগুলো ফাইল"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "ভলিউম মাউন্ট করুন"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "ভলিউম আনমাউন্ট করুন"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "স্থানান্তরযোগ্য মিডিয়া অপসারন করুন"
 
 #: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "বুকমার্ক আইটেম নামান্তর করুন"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "বুকমার্ক থেকে অপসারণ করুন"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "আবর্জনা বাক্স খালি করুন"
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr ""
+msgstr "আবর্জনা"
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr ""
+msgstr "ডেক্সটপ"
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr ""
+msgstr "নতুন একটি নাম দিন:"
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "অন্য অ্যাপ্লিকেশনে খুলুন..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "পুনরায় নামকরণ"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "সিমলিঙ্ক তৈরি করুন"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "প্রেরণ করুন"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "কমপ্রেস..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "এখানে সম্প্রসারণ করুন"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "সম্প্রসারণ করুন..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "পুনরায় জমা করুন (_R)"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "ফাইল খোলার জন্য নির্বাচিত অ্যাপ্লিকেশন ব্যবহার করুন"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "ফাইল খোলার জন্য পছন্দসই কমান্ড লাইন কার্যকর করুন"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "স্বনির্ধারণ করুন"
 
 #: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
-msgstr ""
+msgstr "নাম"
 
 #: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
-msgstr ""
+msgstr "বর্ণনা"
 
 #: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
-msgstr ""
+msgstr "আকার"
 
 #: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
-msgstr ""
+msgstr "পরিবর্তিত"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "ত্রুটি "
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "কেবলমাত্র সিস্টেম প্রশাসকের এটি করার অনুমোদন আছে।"
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "আপনি কি নির্বাচিত ফাইল আবর্জনা বাক্সে ফেলতে চান‌?"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "আপনি কি নির্বাচিত ফাইল অপসারণ করতে চান?"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
-msgstr ""
+msgstr "ফাইল পুনরায় নামকরণ করুন"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "অনুগ্রহ করে একটি নতুন নাম দিন:"
 
 #: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "আপনি কি নিশ্চিত যে আপনি আবর্জনা বাক্স খালি করে ফেলতে চান?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "সুনির্দিষ্ট ডিরেক্টরিটি কার্যকর নেই"
