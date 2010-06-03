@@ -1,24 +1,25 @@
-# SOME DESCRIPTIVE TITLE.
+#Croatian translation for libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Ivica Kolić<ikoli@yahoo.com>, YEAR.
-# Ivica Kolić<ikoli@yahoo.com> <>, 2010.
+# This file is distributed under the same license as thelibfm package.
+# Ivica Kolić<ikoli@yahoo.com>, 2010.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-30 04:52+0000\n"
-"PO-Revision-Date: 2010-05-27 01:22+0200\n"
+"POT-Creation-Date: 2010-06-02 04:53+0000\n"
+"PO-Revision-Date: 2010-06-03 02:17+0200\n"
 "Last-Translator: Ivica Kolić<ikoli@yahoo.com> <>\n"
 "Language-Team: Croatian (hr) <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Naredbeni redak za izvršiti:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -99,7 +100,7 @@ msgstr "_Preskoči"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "sa slijedećom datotekom?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -265,7 +266,9 @@ msgid "System Applications"
 msgstr "Programi sustava"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
@@ -361,7 +364,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Datotečna operacija je otkazana i postoje neke greške."
 
 #: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
@@ -369,7 +372,7 @@ msgstr "Otkazano"
 
 #: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Datotečna operacije je završena,ali ima grešaka."
 
 #: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
@@ -377,9 +380,13 @@ msgstr "Završeno"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Neke datoteke ne mogu biti maknute u smeće jer datotečni sustav ne podržava "
+"ovu operaciju.\n"
+"Želite li ih izbrisati?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
@@ -418,7 +425,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite valjano ime grupe ili brojčani id"
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -427,7 +435,7 @@ msgstr "Datoteke različitog tipa"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "Višestruke datoteke"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Mount Volume"
@@ -435,11 +443,11 @@ msgstr "Montiraj uređaj"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Demontiraj uređaj"
 
 #: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Izbaci uklonjivi medij"
 
 #: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
@@ -483,7 +491,7 @@ msgstr "Pošalji za"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "Komprimiraj..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
@@ -511,7 +519,7 @@ msgstr "Koristi odabrani program za otvaranje datoteka"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Izvrši prilagođeni naredbeni redak za otvaranje datoteka"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
