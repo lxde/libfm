@@ -1,30 +1,31 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Serbian translation for Libfm package
+# Copyright (C) 2010 the LXDE team
+# This file is distributed under the same license as the Libfm package.
+# Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010.
 #
-#, fuzzy
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-06-07 12:24+0100\n"
+"Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n% "
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Serbian\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Наредба за покретање:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Тип датотеке за отварање:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,30 +36,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Наредби можете придружити и специјалне променљиве:</b>\n"
+"  <b>%f</b>: Путања до датотеке\n"
+"  <b>%F</b>: Путање до датотека\n"
+"  <b>%u</b>: Путања до локације (URI)\n"
+"  <b>%U</b>: Путање до локација (URIs)"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "Изаберите програм"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Прила наредба"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Покрени у емулатору терминала"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Постојећи програми"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Означите одабрани програм као подразумеван за овај тип датотека"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "Пре_тражи"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -73,31 +79,31 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Потврдите преписивање датотека"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Име датотеке:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Препиши"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "П_реименуј"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "Пре_скочи"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "са следећом датотеком?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
@@ -259,16 +265,15 @@ msgid "System Applications"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -277,65 +282,67 @@ msgstr[1] ""
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "КБ"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "МБ"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "ГБ"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "ТБ"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "КиБ"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "МиБ"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "ГиБ"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "ТиБ"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Пречице"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Тачка монтирања"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr ""
+msgstr "Непотребно"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
-msgstr ""
+msgstr "Рачунар"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:567
 msgid "Applications"
-msgstr ""
+msgstr "Програми"
 
 #: ../src/base/fm-path.c:449
 msgid "Network"
-msgstr ""
+msgstr "Мрежа"
 
 #: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
-msgstr ""
+msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:208
+#: ../src/gtk/fm-progress-dlg.c:227
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -343,7 +350,8 @@ msgid ""
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:215
+#: ../src/gtk/fm-progress-dlg.c:234
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -356,7 +364,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
-msgstr ""
+msgstr "Поништено"
 
 #: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
@@ -364,34 +372,35 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
-msgstr ""
+msgstr "Завршено"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Неке датотеке се не могу преместити у Непотребно јер примарни систем датотека не подржава\n"
+" ову операцију. Желите ли да их трајно уклоните?"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
-msgstr ""
+msgstr "Премештање датотека"
 
 #: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
-msgstr ""
+msgstr "Умножавање датотека"
 
 #: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
-msgstr ""
+msgstr "Премештање у Непотребно"
 
 #: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
-msgstr ""
+msgstr "Брисање датотека"
 
 #: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
@@ -410,8 +419,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:625
@@ -434,7 +442,8 @@ msgstr ""
 msgid "Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:147
+#: ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr ""
 
@@ -458,7 +467,8 @@ msgstr ""
 msgid "Enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr ""
 
@@ -562,8 +572,10 @@ msgstr ""
 msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr ""
+
