@@ -2,8 +2,8 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the Libfm package.
 # Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
@@ -72,10 +72,14 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Датотека са истим именом већ постоји на овој локацији.</b>\n"
+"\n"
+"Желите ли да замените постојећу датотеку"
 
 #: ../data/ui/ask-rename.glade.h:4
+#, fuzzy
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Примени ово подешавање на све постојеће датотеке"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -107,178 +111,179 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Контрола приступа</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Врста датотеке:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>Група:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>Последњи приступ:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>Последњи пут измењено:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Путања:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>Отвори по_моћу:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>Остали:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>Власник:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>Заузет простор:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Одредиште:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Величина (укупно):</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Група:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>_Власник:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Особине датотеке"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Учини датотеку извршном"
 
 #: ../data/ui/file-prop.glade.h:18
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "Ниједан"
 
 #: ../data/ui/file-prop.glade.h:19
+#, fuzzy
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Сви други корисници могу извршити следеће радње"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Власник датотеке може извршити радње"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "Корисници исте групе као власник датотеке могу извршити радње"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "Читање и писање"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "Само читање"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Изаберите програм за отварање датотека ове врсте"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "Само писање"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "Оп_ште"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "_Дозволе"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Радим са: </b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Напредак: </b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Догодиле су се неке грешке: </b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Преостало време: </b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>У место: </b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "Припрема..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Програм за пријем е-поште</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Емулатор терминала</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Прегледач веба</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Наредба:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Придруживања датотека"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Подразумевани програми"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "Системски програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr ""
+msgstr "Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се користити за писање е-писама."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "За отварање интернет адреса користиће се подразумевани Прегледач веба."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
-#, c-format
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#, c-format, fuzzy
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u бајт"
+msgstr[1] "%u бајтова"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -328,8 +333,7 @@ msgstr "Непотребно"
 msgid "My Computer"
 msgstr "Рачунар"
 
-#: ../src/base/fm-path.c:446
-#: ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Програми"
 
@@ -341,26 +345,29 @@ msgstr "Мрежа"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:208
-#: ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
 #, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Врста: %s\n"
+"Величина: %s\n"
+"Измењено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:215
-#: ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Врста: %s\n"
+"Измењено: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Радња над датотеком је поништена. Догодиле су се неке грешке."
 
 #: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
@@ -368,7 +375,7 @@ msgstr "Поништено"
 
 #: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Радња над датотеком је завршена, али су се догодиле и неке грешке."
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
@@ -404,178 +411,175 @@ msgstr "Брисање датотека"
 
 #: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Прављење меких веза"
 
 #: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Измена особина датотеке"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Унесите исправно корисничко име или ИД број."
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Унесите исправно име групе или ИД број."
 
 #: ../src/gtk/fm-file-properties.c:351
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Желите ли да рекурзивно применим ову радњу на све датотеке и поддиректоријуме?"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "Датотеке различитих врста"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "Вишеструке датотеке"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "Монтирај"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Демонтирај"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Избаци преносиви медиј"
 
-#: ../src/gtk/fm-places-view.c:147
-#: ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Преименуј обележивач"
 
 #: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Уклони обележивач"
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "Обриши датотеке из Непотребно"
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr ""
+msgstr "Непотребно"
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr ""
+msgstr "Радна површ"
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Унесите ново име:"
 
-#: ../src/gtk/fm-file-menu.c:84
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "Отвори помоћу..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "Преименуј"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "Направи меку везу"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "Пошаљи..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "Направи архиву..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "Распакуј овде"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "Распакуј..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "По_врати"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Врати датотеке из Непотребно на оригиналне локације"
 
 #: ../src/gtk/fm-dnd-dest.c:449
+#, fuzzy
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave није успело."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Користи изабрани програм за отварање датотека"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Покрени произвољну наредбу за отварање датотека"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Прилагоди"
 
 #: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
-msgstr ""
+msgstr "Величина"
 
 #: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
-msgstr ""
+msgstr "Измењено"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Доступни програми"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Грешка"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "Изаберите директоријум"
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Ову радњу може извршити само администратор система."
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Желите ли да преместите одабране датотеке у Непотребно?"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Желите ли да обришете одабране датотеке?"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
-msgstr ""
+msgstr "Преименуј датотеку"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Унесите ново име: "
 
 #: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Јесте ли сигурни да желите да обришете датотеке из Непотребно?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
-
+msgstr "Задати директоријум није исправан"
