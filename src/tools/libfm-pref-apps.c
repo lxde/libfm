@@ -90,7 +90,7 @@ static init_apps()
                 if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
                 {
                     /* workarounds for firefox since it doesn't have correct categories. */
-                    if( strcmp(menu_cache_item_get_id(item), "firefox.desktop") == 0)
+                    if((strcmp(menu_cache_item_get_id(item), "firefox.desktop") == 0) || (strcmp(menu_cache_item_get_id(item), "MozillaFirefox.desktop") == 0))
                     {
                         app = g_desktop_app_info_new(menu_cache_item_get_id(item));
                         if(app)
