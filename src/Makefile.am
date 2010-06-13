@@ -12,6 +12,17 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
 
+if ENABLE_UDISKS
+udisks_SOURCES= \
+	udisks/fm-udisks.c \
+	udisks/fm-udisks.h \
+	udisks/g-udisks-volume-monitor.c \
+	udisks/g-udisks-volume-monitor.h \
+	$(NULL)
+else
+udisks_SOURCES=
+endif
+
 base_SOURCES = \
 	base/fm-config.c \
 	base/fm-list.c \
@@ -46,6 +57,7 @@ libfm_SOURCES = \
 	fm.c \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
+	$(udisks_SOURCES) \
 	$(NULL)
 
 exo_SOURCES = \
@@ -153,12 +165,14 @@ libfm_la_SOURCES = \
 libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
+	$(DBUS_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(DBUS_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)
 
@@ -294,6 +308,9 @@ EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
 	demo/main-win-ui.c \
+	udisks/gen-binding \
+	udisks/udisks.h \
+	udisks/udisks-device.h \
 	$(NULL)
 
 CLEANFILES = \
