@@ -25,6 +25,8 @@
 
 #include "g-udisks-volume-monitor.h"
 #include <dbus/dbus-glib.h>
+#include "dbus-utils.h"
+#include "udisks.h"
 
 struct _GUdisksVolumeMonitor
 {
@@ -102,14 +104,14 @@ static void g_udisks_volume_monitor_init(GUdisksVolumeMonitor *self)
         DBusGProxy* proxy;
         GPtrArray* ret;
         self->udisks_proxy = dbus_g_proxy_new_for_name(self->con, "org.freedesktop.UDisks", "/org/freedesktop/UDisks", "org.freedesktop.UDisks");
-        if(dbus_g_proxy_call(self->udisks_proxy, "EnumerateDevices", NULL, G_TYPE_INVALID,
-                             dbus_g_type_get_collection("GPtrArray", DBUS_TYPE_G_OBJECT_PATH), &ret,
-                             G_TYPE_INVALID))
+
+        if(org_freedesktop_UDisks_enumerate_devices(self->udisks_proxy, &ret, NULL))
         {
             int i;
             char** paths = (char**)ret->pdata;
             for(i=0; i<ret->len;++i)
                 on_device_added(self->udisks_proxy, paths[i], self);
+            g_ptr_array_free(ret, TRUE);
         }
 
         dbus_g_proxy_add_signal(self->udisks_proxy, "DeviceAdded", DBUS_TYPE_G_OBJECT_PATH, G_TYPE_INVALID);
@@ -182,12 +184,9 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
                                         "org.freedesktop.UDisks",
                                         obj_path,
                                         "org.freedesktop.DBus.Properties");
-    GHashTable* props;
     GError* err = NULL;
-
-    if(dbus_g_proxy_call(dev_proxy, "GetAll", &err,
-                      G_TYPE_STRING, "org.freedesktop.UDisks.Device", G_TYPE_INVALID,
-                      dbus_g_type_get_map("GHashTable", G_TYPE_STRING, G_TYPE_VALUE), &props, G_TYPE_INVALID))
+    GHashTable* props = dbus_get_all_props(dev_proxy, "org.freedesktop.UDisks.Device", &err);
+    if(props)
     {
         g_debug("%d properties are returned", g_hash_table_size(props));
         GValue* val = (GValue*)g_hash_table_lookup(props, "IdLabel");

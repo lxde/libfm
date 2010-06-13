@@ -18,6 +18,8 @@ udisks_SOURCES= \
 	udisks/fm-udisks.h \
 	udisks/g-udisks-volume-monitor.c \
 	udisks/g-udisks-volume-monitor.h \
+	udisks/dbus-utils.c \
+	udisks/dbus-utils.h \
 	$(NULL)
 else
 udisks_SOURCES=
