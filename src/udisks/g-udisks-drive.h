@@ -22,6 +22,7 @@
 #define __G_UDISKS_DRIVE_H__
 
 #include <gio/gio.h>
+#include "g-udisks-device.h"
 
 G_BEGIN_DECLS
 
@@ -40,14 +41,13 @@ G_BEGIN_DECLS
 
 typedef struct _GUDisksDrive            GUDisksDrive;
 typedef struct _GUDisksDriveClass        GUDisksDriveClass;
-typedef struct _GUDisksDrivePrivate        GUDisksDrivePrivate;
 
 struct _GUDisksDrive
 {
     GObject parent;
-    /* add your public declarations here */
-
-    GUDisksDrivePrivate *priv;
+    GUDisksDevice* dev;
+    GIcon* icon;
+    char* name;
 };
 
 struct _GUDisksDriveClass
@@ -56,8 +56,8 @@ struct _GUDisksDriveClass
 };
 
 
-GType        g_udisks_drive_get_type        (void);
-GDrive*    g_udisks_drive_new            (void);
+GType        g_udisks_drive_get_type(void);
+GDrive*    g_udisks_drive_new(GUDisksDevice* dev);
 
 
 G_END_DECLS

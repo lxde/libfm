@@ -29,18 +29,18 @@ G_BEGIN_DECLS
 
 #define G_UDISKS_VOLUME_MONITOR_TYPE				(g_udisks_volume_monitor_get_type())
 #define G_UDISKS_VOLUME_MONITOR(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			G_UDISKS_VOLUME_MONITOR_TYPE, GUdisksVolumeMonitor))
+			G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitor))
 #define G_UDISKS_VOLUME_MONITOR_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			G_UDISKS_VOLUME_MONITOR_TYPE, GUdisksVolumeMonitorClass))
+			G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitorClass))
 #define G_IS_UDISKS_VOLUME_MONITOR(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
 			G_UDISKS_VOLUME_MONITOR_TYPE))
 #define G_IS_UDISKS_VOLUME_MONITOR_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			G_UDISKS_VOLUME_MONITOR_TYPE))
 
-typedef struct _GUdisksVolumeMonitor			GUdisksVolumeMonitor;
-typedef struct _GUdisksVolumeMonitorClass		GUdisksVolumeMonitorClass;
+typedef struct _GUDisksVolumeMonitor			GUDisksVolumeMonitor;
+typedef struct _GUDisksVolumeMonitorClass		GUDisksVolumeMonitorClass;
 
-struct _GUdisksVolumeMonitorClass
+struct _GUDisksVolumeMonitorClass
 {
 	GNativeVolumeMonitorClass parent_class;
 };

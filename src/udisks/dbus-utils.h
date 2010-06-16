@@ -30,6 +30,48 @@ G_BEGIN_DECLS
 // char* dbus_get_prop(DBusGProxy* proxy, const char* iface, const char* prop);
 GHashTable* dbus_get_all_props(DBusGProxy* proxy, const char* iface, GError** err);
 
+static inline const char* dbus_prop_str(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_string(val) : NULL;
+}
+
+static inline char* dbus_prop_dup_str(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_dup_string(val) : NULL;
+}
+
+static inline gboolean dbus_prop_bool(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_boolean(val) : FALSE;
+}
+
+static inline gint dbus_prop_int(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_int(val) : 0;
+}
+
+static inline guint dbus_prop_uint(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_uint(val) : 0;
+}
+
+static inline gint64 dbus_prop_int64(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_int64(val) : 0;
+}
+
+static inline guint64 dbus_prop_uint64(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_value_get_uint64(val) : 0;
+}
+
 // GHashTable* dbus_get_prop_async();
 // GHashTable* dbus_get_all_props_async();
 

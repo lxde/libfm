@@ -18,6 +18,14 @@ udisks_SOURCES= \
 	udisks/fm-udisks.h \
 	udisks/g-udisks-volume-monitor.c \
 	udisks/g-udisks-volume-monitor.h \
+	udisks/g-udisks-device.c \
+	udisks/g-udisks-device.h \
+	udisks/g-udisks-volume.c \
+	udisks/g-udisks-volume.h \
+	udisks/g-udisks-drive.c \
+	udisks/g-udisks-drive.h \
+	udisks/g-udisks-mount.c \
+	udisks/g-udisks-mount.h \
 	udisks/dbus-utils.c \
 	udisks/dbus-utils.h \
 	$(NULL)

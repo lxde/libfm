@@ -19,6 +19,7 @@
 
 #include "g-udisks-drive.h"
 
+
 static void g_udisks_drive_drive_iface_init (GVolumeIface * iface);
 static void g_udisks_drive_finalize            (GObject *object);
 
@@ -75,6 +76,8 @@ static void g_udisks_drive_finalize(GObject *object)
     g_return_if_fail(G_IS_UDISKS_DRIVE(object));
 
     self = G_UDISKS_DRIVE(object);
+    if(self->dev)
+        g_object_unref(self->dev);
 
     G_OBJECT_CLASS(g_udisks_drive_parent_class)->finalize(object);
 }
@@ -82,14 +85,15 @@ static void g_udisks_drive_finalize(GObject *object)
 
 static void g_udisks_drive_init(GUDisksDrive *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE(self,
-        G_TYPE_UDISKS_DRIVE, GUDisksDrivePrivate);
 
 }
 
 
-GDrive *g_udisks_drive_new(void)
+GDrive *g_udisks_drive_new(GUDisksDevice* dev)
 {
-    return g_object_new(G_TYPE_UDISKS_DRIVE, NULL);
+    GUDisksDrive* drv = (GUDisksDrive*)g_object_new(G_TYPE_UDISKS_DRIVE, NULL);
+    drv->dev = g_object_ref(dev);
+
+    return (GDrive*)drv;
 }
 

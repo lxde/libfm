@@ -22,6 +22,7 @@
 #define __G_UDISKS_VOLUME_H__
 
 #include <gio/gio.h>
+#include "g-udisks-device.h"
 
 G_BEGIN_DECLS
 
@@ -41,14 +42,24 @@ G_BEGIN_DECLS
 typedef struct _GUDisksVolume            GUDisksVolume;
 typedef struct _GUDisksVolumeClass        GUDisksVolumeClass;
 
+struct _GUDisksVolume
+{
+    GObject parent;
+    GUDisksDevice* dev;
+    GIcon* icon;
+    char* name;
+    GDrive* drive;
+    GMount* mount;
+};
+
 struct _GUDisksVolumeClass
 {
     GObjectClass parent_class;
 };
 
 
-GType        g_udisks_volume_get_type        (void);
-GVolume*    g_udisks_volume_new            (void);
+GType        g_udisks_volume_get_type(void);
+GVolume*    g_udisks_volume_new(GUDisksDevice* dev);
 
 
 G_END_DECLS
