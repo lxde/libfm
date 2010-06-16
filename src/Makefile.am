@@ -28,6 +28,7 @@ base_SOURCES = \
 	base/fm-dummy-monitor.c \
 	base/fm-archiver.c \
 	base/fm-marshal.c \
+	base/fm-file-search.c \
 	$(NULL)
 
 job_SOURCES = \
@@ -104,6 +105,7 @@ libfminclude_HEADERS = \
 	base/fm-dummy-monitor.h \
 	base/fm-archiver.h \
 	base/fm-marshal.h \
+	base/fm-file-search.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
 	job/fm-dir-list-job.h \
