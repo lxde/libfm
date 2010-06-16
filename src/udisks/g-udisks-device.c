@@ -1,17 +1,17 @@
 //      g-udisks-device.c
-//      
+//
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      
+//
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
 //      the Free Software Foundation; either version 2 of the License, or
 //      (at your option) any later version.
-//      
+//
 //      This program is distributed in the hope that it will be useful,
 //      but WITHOUT ANY WARRANTY; without even the implied warranty of
 //      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //      GNU General Public License for more details.
-//      
+//
 //      You should have received a copy of the GNU General Public License
 //      along with this program; if not, write to the Free Software
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -34,45 +34,27 @@ static void g_udisks_device_class_init(GUDisksDeviceClass *klass)
     g_object_class->finalize = g_udisks_device_finalize;
 }
 
-
-static void g_udisks_device_finalize(GObject *object)
+static clear_props(GUDisksDevice* dev)
 {
-    GUDisksDevice *self;
+    g_free(dev->dev_file);
+    g_free(dev->dev_file_presentation);
+    g_free(dev->name);
+    g_free(dev->icon_name);
+    g_free(dev->usage);
+    g_free(dev->type);
+    g_free(dev->uuid);
+    g_free(dev->label);
+    g_free(dev->vender);
+    g_free(dev->model);
+    g_free(dev->conn_iface);
+    g_free(dev->media);
+    g_free(dev->partition_slave);
 
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(G_IS_UDISKS_DEVICE(object));
-
-    self = G_UDISKS_DEVICE(object);
-
-    g_free(self->obj_path);
-    g_free(self->dev_file);
-    g_free(self->dev_file_presentation);
-    g_free(self->name);
-    g_free(self->icon_name);
-    g_free(self->usage);
-    g_free(self->type);
-    g_free(self->uuid);
-    g_free(self->label);
-    g_free(self->vender);
-    g_free(self->model);
-    g_free(self->conn_iface);
-    g_free(self->media);
-
-    g_strfreev(self->mount_paths);
-
-    G_OBJECT_CLASS(g_udisks_device_parent_class)->finalize(object);
+    g_strfreev(dev->mount_paths);
 }
 
-
-static void g_udisks_device_init(GUDisksDevice *self)
+static set_props(GUDisksDevice* dev, GHashTable* props)
 {
-}
-
-
-GUDisksDevice *g_udisks_device_new(const char* obj_path, GHashTable* props)
-{
-    GUDisksDevice* dev = (GUDisksDevice*)g_object_new(G_TYPE_UDISKS_DEVICE, NULL);
-    dev->obj_path = g_strdup(obj_path);
     dev->dev_file = dbus_prop_dup_str(props, "DeviceFile");
     dev->dev_file_presentation = dbus_prop_dup_str(props, "DeviceFilePresentation");
     dev->is_sys_internal = dbus_prop_bool(props, "DeviceIsSystemInternal");
@@ -117,14 +99,47 @@ GUDisksDevice *g_udisks_device_new(const char* obj_path, GHashTable* props)
     dev->conn_iface = dbus_prop_dup_str(props, "DriveConnectionInterface");
     dev->media = dbus_prop_dup_str(props, "DriveMedia");
 
-    /* we need to handle partiton slaves */
+    dev->partition_slave = dbus_prop_dup_obj_path(props, "PartitionSlave");
 
-    /* how to use LUKS? */
+    /* how to support LUKS? */
 /*
     'LuksHolder'                              read      'o'
     'LuksCleartextSlave'                      read      'o'
-    'PartitionSlave'                          read      'o'
 */
+
+}
+
+static void g_udisks_device_finalize(GObject *object)
+{
+    GUDisksDevice *self;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(G_IS_UDISKS_DEVICE(object));
+
+    self = G_UDISKS_DEVICE(object);
+
+    g_free(self->obj_path);
+    clear_props(self);
+
+    G_OBJECT_CLASS(g_udisks_device_parent_class)->finalize(object);
+}
+
+
+static void g_udisks_device_init(GUDisksDevice *self)
+{
+}
+
+
+GUDisksDevice *g_udisks_device_new(const char* obj_path, GHashTable* props)
+{
+    GUDisksDevice* dev = (GUDisksDevice*)g_object_new(G_TYPE_UDISKS_DEVICE, NULL);
+    dev->obj_path = g_strdup(obj_path);
+    set_props(dev, props);
     return dev;
 }
 
+void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props)
+{
+    clear_props(dev);
+    set_props(dev, props);
+}

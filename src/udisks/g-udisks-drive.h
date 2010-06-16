@@ -59,6 +59,7 @@ struct _GUDisksDriveClass
 GType        g_udisks_drive_get_type(void);
 GDrive*    g_udisks_drive_new(GUDisksDevice* dev);
 
+void g_udisks_drive_changed(GUDisksDrive* drv);
 
 G_END_DECLS
 

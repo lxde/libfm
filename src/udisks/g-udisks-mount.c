@@ -17,6 +17,10 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "g-udisks-mount.h"
 
 static void g_udisks_mount_mount_iface_init(GMountIface *iface);
@@ -43,6 +47,8 @@ static void g_udisks_mount_finalize(GObject *object)
     g_return_if_fail(G_IS_UDISKS_MOUNT(object));
 
     self = G_UDISKS_MOUNT(object);
+    if(self->root)
+        g_object_unref(self->root);
 
     G_OBJECT_CLASS(g_udisks_mount_parent_class)->finalize(object);
 }
@@ -50,24 +56,25 @@ static void g_udisks_mount_finalize(GObject *object)
 
 static void g_udisks_mount_init(GUDisksMount *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE(self,
-        G_TYPE_UDISKS_MOUNT, GUDisksMountPrivate);
-
 }
 
 
-GMount *g_udisks_mount_new(void)
+GMount *g_udisks_mount_new(GUDisksVolume* vol)
 {
-    return g_object_new(G_TYPE_UDISKS_MOUNT, NULL);
+    GUDisksMount* mnt = g_object_new(G_TYPE_UDISKS_MOUNT, NULL);
+    /* we don't do g_object_ref here to prevent circular reference. */
+    mnt->vol = vol;
+    return mnt;
 }
 
 static gboolean g_udisks_mount_can_eject (GMount* base)
 {
-
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 }
 
 static gboolean g_udisks_mount_can_unmount (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
@@ -78,11 +85,13 @@ static void g_udisks_mount_eject_data_free (gpointer _data)
 
 static void g_udisks_mount_eject (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_eject_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 
@@ -94,62 +103,74 @@ static void g_udisks_mount_eject_with_operation_data_free (gpointer _data)
 
 static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_eject_with_operation_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 
 static GDrive* g_udisks_mount_get_drive (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static GIcon* g_udisks_mount_get_icon (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static char* g_udisks_mount_get_name (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static GFile* g_udisks_mount_get_root (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static char* g_udisks_mount_get_uuid (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static GVolume* g_udisks_mount_get_volume (GMount* base)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void g_udisks_mount_guess_content_type_data_free (gpointer _data)
 {
 
+
 }
 
 static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_rescan, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_guess_content_type_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 
 
 static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean force_rescan, GCancellable* cancellable, int* result_length1, GError** error)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
@@ -160,11 +181,13 @@ static void g_udisks_mount_remount_data_free (gpointer _data)
 
 static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_remount_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 
@@ -175,11 +198,13 @@ static void g_udisks_mount_unmount_data_free (gpointer _data)
 
 static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_unmount_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 
@@ -191,11 +216,13 @@ static void g_udisks_mount_unmount_with_operation_data_free (gpointer _data)
 
 static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static void udisks_mount_unmount_with_operation_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
 {
+    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
 }
 

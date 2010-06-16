@@ -215,13 +215,17 @@ gboolean is_supported(void)
 GList* get_connected_drives(GVolumeMonitor *mon)
 {
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
-    return umon->drives;
+    GList* drvs = g_list_copy(umon->drives);
+    g_list_foreach(drvs, (GFunc)g_object_ref, NULL);
+    return drvs;
 }
 
 GList* get_volumes(GVolumeMonitor *mon)
 {
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
-    return umon->volumes;
+    GList* vols = g_list_copy(umon->volumes);
+    g_list_foreach(vols, (GFunc)g_object_ref, NULL);
+    return vols;
 }
 
 GList* get_mounts(GVolumeMonitor *mon)
@@ -324,13 +328,14 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
         }
         g_object_unref(dev_proxy);
     }
+    g_debug("device_added: %s", obj_path);
 }
 
 void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_data)
 {
     GUDisksVolumeMonitor* mon = G_UDISKS_VOLUME_MONITOR(user_data);
     GList* l;
-    l = find_device(mon, obj_path);
+    l = find_device_l(mon, obj_path);
     if(l)
     {
         GUDisksDevice* dev = G_UDISKS_DEVICE(l->data);
@@ -359,11 +364,42 @@ void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
         g_object_unref(dev);
     }
     g_debug("device_removed: %s", obj_path);
-    
+
 }
 
 void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_data)
 {
     GUDisksVolumeMonitor* mon = G_UDISKS_VOLUME_MONITOR(user_data);
+    GUDisksDevice* dev = find_device(mon, obj_path);
+    if(dev)
+    {
+        DBusGProxy *dev_proxy = dbus_g_proxy_new_for_name(mon->con,
+                                            "org.freedesktop.UDisks",
+                                            obj_path,
+                                            "org.freedesktop.DBus.Properties");
+
+        GError* err = NULL;
+        GHashTable* props = dbus_get_all_props(dev_proxy, "org.freedesktop.UDisks.Device", &err);
+        if(props)
+        {
+            GUDisksDrive* drv = find_drive(mon, dev);
+            GUDisksVolume* vol = find_volume(mon, dev);
+            g_udisks_device_update(dev, props);
+            g_hash_table_destroy(props);
+
+            if(drv)
+            {
+                g_signal_emit(mon, sig_drive_changed, 0, drv);
+                g_udisks_drive_changed(drv);
+            }
+
+            if(vol)
+            {
+                g_signal_emit(mon, sig_volume_changed, 0, vol);
+                g_udisks_volume_changed(vol);
+            }
+        }
+        g_object_unref(dev_proxy);
+    }
     g_debug("device_changed: %s", obj_path);
 }

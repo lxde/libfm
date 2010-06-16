@@ -17,8 +17,16 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "g-udisks-drive.h"
 
+static guint sig_changed;
+static guint sig_disconnected;
+static guint sig_eject_button;
+static guint sig_stop_button;
 
 static void g_udisks_drive_drive_iface_init (GVolumeIface * iface);
 static void g_udisks_drive_finalize            (GObject *object);
@@ -66,6 +74,12 @@ void g_udisks_drive_drive_iface_init (GVolumeIface * iface)
     iface->stop = g_gdu_drive_stop;
     iface->stop_finish = g_gdu_drive_stop_finish;
 */
+
+    sig_changed = g_signal_lookup("changed", G_TYPE_DRIVE);
+    sig_disconnected = g_signal_lookup("disconnected", G_TYPE_DRIVE);
+    sig_eject_button = g_signal_lookup("eject-button", G_TYPE_DRIVE);
+    sig_stop_button = g_signal_lookup("stop-button", G_TYPE_DRIVE);
+
 }
 
 static void g_udisks_drive_finalize(GObject *object)
@@ -97,3 +111,8 @@ GDrive *g_udisks_drive_new(GUDisksDevice* dev)
     return (GDrive*)drv;
 }
 
+
+void g_udisks_drive_changed(GUDisksDrive* drv)
+{
+    g_signal_emit(drv, sig_changed, 0);
+}

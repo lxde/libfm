@@ -36,10 +36,22 @@ static inline const char* dbus_prop_str(GHashTable* props, const char* name)
     return val ? g_value_get_string(val) : NULL;
 }
 
+static inline const char* dbus_prop_obj_path(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? (char*)g_value_get_boxed(val) : NULL;
+}
+
 static inline char* dbus_prop_dup_str(GHashTable* props, const char* name)
 {
     GValue* val = (GValue*)g_hash_table_lookup(props, name);
     return val ? g_value_dup_string(val) : NULL;
+}
+
+static inline const char* dbus_prop_dup_obj_path(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? g_strdup((char*)g_value_get_boxed(val)) : NULL;
 }
 
 static inline gboolean dbus_prop_bool(GHashTable* props, const char* name)

@@ -1,17 +1,17 @@
 //      g-udisks-device.h
-//      
+//
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      
+//
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
 //      the Free Software Foundation; either version 2 of the License, or
 //      (at your option) any later version.
-//      
+//
 //      This program is distributed in the hope that it will be useful,
 //      but WITHOUT ANY WARRANTY; without even the implied warranty of
 //      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //      GNU General Public License for more details.
-//      
+//
 //      You should have received a copy of the GNU General Public License
 //      along with this program; if not, write to the Free Software
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -88,6 +88,7 @@ struct _GUDisksDevice
     char* model;
     char* conn_iface;
     char* media;
+    char* partition_slave;
 };
 
 struct _GUDisksDeviceClass
@@ -99,6 +100,7 @@ struct _GUDisksDeviceClass
 GType g_udisks_device_get_type (void);
 GUDisksDevice* g_udisks_device_new (const char* obj_path, GHashTable* props);
 
+void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props);
 
 G_END_DECLS
 

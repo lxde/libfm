@@ -17,34 +17,21 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "g-udisks-volume.h"
+#include <string.h>
+
+static guint sig_changed;
+static guint sig_removed;
 
 static void g_udisks_volume_volume_iface_init (GVolumeIface * iface);
 static void g_udisks_volume_finalize            (GObject *object);
 
-static gboolean g_udisks_volume_can_eject (GVolume* base);
-static gboolean g_udisks_volume_can_mount (GVolume* base);
-static void g_udisks_volume_eject_data_free (gpointer _data);
-static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data);
-static void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res, gpointer user_data);
 // static gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data);
-static void g_udisks_volume_eject_with_operation_data_free (gpointer _data);
-static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data);
-static void udisks_volume_eject_with_operation_ready (GObject* source_object, GAsyncResult* res, gpointer user_data);
 // static gboolean g_udisks_volume_eject_with_operation_co (UdisksVolumeEjectWithOperationData* data);
-static char** g_udisks_volume_enumerate_identifiers (GVolume* base);
-static GFile* g_udisks_volume_get_activation_root (GVolume* base);
-static GDrive* g_udisks_volume_get_drive (GVolume* base);
-static GIcon* g_udisks_volume_get_icon (GVolume* base);
-static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind);
-static GMount* g_udisks_volume_get_mount (GVolume* base);
-static char* g_udisks_volume_get_name (GVolume* base);
-static char* g_udisks_volume_get_uuid (GVolume* base);
-static void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* callback_target);
-static gboolean g_udisks_volume_should_automount (GVolume* base);
-static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error);
-static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResult* res, GError** error);
-
 
 G_DEFINE_TYPE_EXTENDED (GUDisksVolume, g_udisks_volume, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (G_TYPE_VOLUME,
@@ -59,6 +46,26 @@ static void g_udisks_volume_class_init(GUDisksVolumeClass *klass)
     g_object_class->finalize = g_udisks_volume_finalize;
 }
 
+static void g_udisks_volume_clear(GUDisksVolume* vol)
+{
+    if(vol->mount)
+    {
+        g_object_unref(vol->mount);
+        vol->mount = NULL;
+    }
+
+    if(vol->icon)
+    {
+        g_object_unref(vol->icon);
+        vol->icon = NULL;
+    }
+
+    if(vol->name)
+    {
+        g_free(vol->name);
+        vol->name = NULL;
+    }
+}
 
 static void g_udisks_volume_finalize(GObject *object)
 {
@@ -71,28 +78,8 @@ static void g_udisks_volume_finalize(GObject *object)
     if(self->dev)
         g_object_unref(self->dev);
 
+    g_udisks_volume_clear(self);
     G_OBJECT_CLASS(g_udisks_volume_parent_class)->finalize(object);
-}
-
-static void g_udisks_volume_volume_iface_init (GVolumeIface * iface)
-{
-//    g_udisks_volume_parent_iface = g_type_interface_peek_parent (iface);
-    iface->can_eject = g_udisks_volume_can_eject;
-    iface->can_mount = g_udisks_volume_can_mount;
-    iface->eject = g_udisks_volume_eject;
-    iface->eject_finish = g_udisks_volume_eject_finish;
-    iface->eject_with_operation = g_udisks_volume_eject_with_operation;
-    iface->eject_with_operation_finish = g_udisks_volume_eject_with_operation_finish;
-    iface->enumerate_identifiers = g_udisks_volume_enumerate_identifiers;
-    iface->get_activation_root = g_udisks_volume_get_activation_root;
-    iface->get_drive = g_udisks_volume_get_drive;
-    iface->get_icon = g_udisks_volume_get_icon;
-    iface->get_identifier = g_udisks_volume_get_identifier;
-    iface->get_mount = g_udisks_volume_get_mount;
-    iface->get_name = g_udisks_volume_get_name;
-    iface->get_uuid = g_udisks_volume_get_uuid;
-    iface->mount_fn = g_udisks_volume_mount_fn;
-    iface->should_automount = g_udisks_volume_should_automount;
 }
 
 static void g_udisks_volume_init(GUDisksVolume *self)
@@ -105,96 +92,117 @@ GVolume *g_udisks_volume_new(GUDisksDevice* dev)
 {
     GUDisksVolume* vol = (GUDisksVolume*)g_object_new(G_TYPE_UDISKS_VOLUME, NULL);
     vol->dev = g_object_ref(dev);
-
     return (GVolume*)vol;
 }
 
-gboolean g_udisks_volume_can_eject (GVolume* base)
+static gboolean g_udisks_volume_can_eject (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return vol->dev->is_ejectable;
 }
 
-gboolean g_udisks_volume_can_mount (GVolume* base)
+static gboolean g_udisks_volume_can_mount (GVolume* base)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return FALSE;
 }
 
-void g_udisks_volume_eject_data_free (gpointer _data)
+static void g_udisks_volume_eject_data_free (gpointer _data)
 {
 
 }
 
-void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
+static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
 
 }
 
-void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
+static void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(source_object);
 
 }
 
 // gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data)
 
-void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
+static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
 
 }
 
-void udisks_volume_eject_with_operation_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
+static void udisks_volume_eject_with_operation_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(source_object);
 
 }
 
-char** g_udisks_volume_enumerate_identifiers (GVolume* base)
+static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return NULL;
+    char** kinds = g_new0(char*, 4);
+    kinds[0] = g_strdup(G_VOLUME_IDENTIFIER_KIND_LABEL);
+    kinds[1] = g_strdup(G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    kinds[2] = g_strdup(G_VOLUME_IDENTIFIER_KIND_UUID);
+    kinds[3] = NULL;
+    return kinds;
 }
 
-GFile* g_udisks_volume_get_activation_root (GVolume* base)
+static GFile* g_udisks_volume_get_activation_root (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return NULL;
+    /* FIXME: is this corrcet? */
+    return vol->mount ? g_mount_get_root(vol->mount) : NULL;
 }
 
-GDrive* g_udisks_volume_get_drive (GVolume* base)
+static GDrive* g_udisks_volume_get_drive (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return vol->drive;
+    return vol->drive ? (GDrive*)g_object_ref(vol->drive) : NULL;
 }
 
-GIcon* g_udisks_volume_get_icon (GVolume* base)
+static GIcon* g_udisks_volume_get_icon (GVolume* base)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     if(!vol->icon)
     {
         /* FIXME: this is for testing only, need to be properly set later */
         vol->icon = g_themed_icon_new("drive-harddisk");
     }
-    return vol->icon;
+    return (GIcon*)g_object_ref(vol->icon);
 }
 
-char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
+static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    if(kind)
+    {
+        if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_LABEL) == 0)
+            return g_strdup(vol->dev->label);
+        else if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE) == 0)
+            return g_strdup(vol->dev->dev_file);
+        else if(strcmp(kind, G_VOLUME_IDENTIFIER_KIND_UUID) == 0)
+            return g_strdup(vol->dev->uuid);
+    }
     return NULL;
 }
 
-GMount* g_udisks_volume_get_mount (GVolume* base)
+static GMount* g_udisks_volume_get_mount (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return NULL;
+    return vol->mount ? (GMount*)g_object_ref(vol->mount) : NULL;
 }
 
-char* g_udisks_volume_get_name (GVolume* base)
+static char* g_udisks_volume_get_name (GVolume* base)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     if(!vol->name)
     {
@@ -216,31 +224,32 @@ char* g_udisks_volume_get_name (GVolume* base)
     return g_strdup(vol->name);
 }
 
-char* g_udisks_volume_get_uuid (GVolume* base)
+static char* g_udisks_volume_get_uuid (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return g_strdup(vol->dev->uuid);
 }
 
-void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* callback_target)
+static void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* callback_target)
 {
+    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
 
 }
 
-gboolean g_udisks_volume_should_automount (GVolume* base)
+static gboolean g_udisks_volume_should_automount (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return vol->dev->auto_mount;
 }
 
-gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
+static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return FALSE;
 }
 
-gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResult* res, GError** error)
+static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
 /*
@@ -254,4 +263,41 @@ gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResul
     return result;
 */
     return FALSE;
+}
+
+
+static void g_udisks_volume_volume_iface_init (GVolumeIface * iface)
+{
+//    g_udisks_volume_parent_iface = g_type_interface_peek_parent (iface);
+    iface->can_eject = g_udisks_volume_can_eject;
+    iface->can_mount = g_udisks_volume_can_mount;
+    iface->eject = g_udisks_volume_eject;
+    iface->eject_finish = g_udisks_volume_eject_finish;
+    iface->eject_with_operation = g_udisks_volume_eject_with_operation;
+    iface->eject_with_operation_finish = g_udisks_volume_eject_with_operation_finish;
+    iface->enumerate_identifiers = g_udisks_volume_enumerate_identifiers;
+    iface->get_activation_root = g_udisks_volume_get_activation_root;
+    iface->get_drive = g_udisks_volume_get_drive;
+    iface->get_icon = g_udisks_volume_get_icon;
+    iface->get_identifier = g_udisks_volume_get_identifier;
+    iface->get_mount = g_udisks_volume_get_mount;
+    iface->get_name = g_udisks_volume_get_name;
+    iface->get_uuid = g_udisks_volume_get_uuid;
+    iface->mount_fn = g_udisks_volume_mount_fn;
+    iface->should_automount = g_udisks_volume_should_automount;
+
+    sig_changed = g_signal_lookup("changed", G_TYPE_VOLUME);
+    sig_removed = g_signal_lookup("removed", G_TYPE_VOLUME);
+}
+
+void g_udisks_volume_changed(GUDisksVolume* vol)
+{
+    g_udisks_volume_clear(vol);
+    g_signal_emit(vol, sig_changed, 0);
+}
+
+void g_udisks_volume_removed(GUDisksVolume* vol)
+{
+    vol->drive = NULL;
+    g_signal_emit(vol, sig_removed, 0);
 }

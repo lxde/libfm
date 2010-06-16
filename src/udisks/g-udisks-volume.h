@@ -61,6 +61,8 @@ struct _GUDisksVolumeClass
 GType        g_udisks_volume_get_type(void);
 GVolume*    g_udisks_volume_new(GUDisksDevice* dev);
 
+void g_udisks_volume_changed(GUDisksVolume* vol);
+void g_udisks_volume_removed(GUDisksVolume* vol);
 
 G_END_DECLS
 
