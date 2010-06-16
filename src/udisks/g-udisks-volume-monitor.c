@@ -23,7 +23,6 @@
 #include <config.h>
 #endif
 
-#include <dbus/dbus-glib.h>
 #include "dbus-utils.h"
 #include "udisks.h"
 
@@ -31,17 +30,6 @@
 #include "g-udisks-device.h"
 #include "g-udisks-drive.h"
 #include "g-udisks-volume.h"
-
-struct _GUDisksVolumeMonitor
-{
-    GNativeVolumeMonitor parent;
-    DBusGConnection* con;
-    DBusGProxy* udisks_proxy;
-
-    GList* devices;
-    GList* drives;
-    GList* volumes;
-};
 
 static guint sig_drive_changed;
 static guint sig_drive_connected;
@@ -165,6 +153,18 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
     G_OBJECT_CLASS(g_udisks_volume_monitor_parent_class)->finalize(object);
 }
 
+static update_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
+{
+    if(vol->dev->partition_slave)
+    {
+        GUDisksDevice* dev = find_device(mon, vol->dev->partition_slave);
+        if(dev)
+        {
+            GUDisksDrive* drv = find_drive(mon, dev);
+            vol->drive = drv;
+        }
+    }
+}
 
 static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
 {
@@ -191,6 +191,10 @@ static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
         dbus_g_proxy_connect_signal(self->udisks_proxy, "DeviceAdded", G_CALLBACK(on_device_added), self, NULL);
         dbus_g_proxy_connect_signal(self->udisks_proxy, "DeviceRemoved", G_CALLBACK(on_device_removed), self, NULL);
         dbus_g_proxy_connect_signal(self->udisks_proxy, "DeviceChanged", G_CALLBACK(on_device_changed), self, NULL);
+
+        /* find drives for volumes */
+        if(self->volumes && self->drives)
+            g_list_foreach(self->volumes, (GFunc)update_drive, self);
     }
 }
 
@@ -202,6 +206,7 @@ GNativeVolumeMonitor *g_udisks_volume_monitor_new(void)
 
 GMount* get_mount_for_mount_path(const char *mount_path, GCancellable *cancellable)
 {
+    /* TODO */
 
     return NULL;
 }
@@ -231,24 +236,47 @@ GList* get_volumes(GVolumeMonitor *mon)
 GList* get_mounts(GVolumeMonitor *mon)
 {
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
-    return NULL;
+    GList* l;
+    GList* mnts = NULL;
+    for(l = umon->volumes; l; l=l->next)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        if(vol->mount)
+            mnts = g_list_prepend(mnts, g_object_ref(vol->mount));
+    }
+    return mnts;
 }
 
 GVolume *get_volume_for_uuid(GVolumeMonitor *mon, const char *uuid)
 {
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
+    GList* l;
+    for(l = umon->volumes; l; l=l->next)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        if(g_strcmp0(vol->dev->uuid, uuid) == 0)
+            return (GVolume*)g_object_ref(vol);
+    }
     return NULL;
 }
 
 GMount *get_mount_for_uuid(GVolumeMonitor *mon, const char *uuid)
 {
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
+    GList* l;
+    for(l = umon->volumes; l; l=l->next)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        if(g_strcmp0(vol->dev->uuid, uuid) == 0)
+            return g_volume_get_mount(G_VOLUME(vol));
+    }
     return NULL;
 }
 
 /* signal added in 2.17 */
 void drive_eject_button(GVolumeMonitor *mon, GDrive *drive)
 {
+    /* TODO */
     GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
 
 }
@@ -307,18 +335,22 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
 
             mon->devices = g_list_prepend(mon->devices, dev);
 
-            if(dev->is_drive && !find_drive(mon, dev))
+            /* FIXME: how should we treat sys internal devices? */
+            if(!dev->is_hidden && !dev->is_sys_internal)
             {
-                GUDisksDrive* drv = g_udisks_drive_new(dev);
-                mon->drives = g_list_prepend(mon->drives, drv);
-                g_signal_emit(mon, sig_drive_connected, 0, drv);
-            }
+                if(dev->is_drive && !find_drive(mon, dev))
+                {
+                    GUDisksDrive* drv = g_udisks_drive_new(mon, dev);
+                    mon->drives = g_list_prepend(mon->drives, drv);
+                    g_signal_emit(mon, sig_drive_connected, 0, drv);
+                }
 
-            if(g_strcmp0(dev->usage, "filesystem") == 0 && !find_volume(mon, dev))
-            {
-                GUDisksVolume* vol = g_udisks_volume_new(dev);
-                mon->volumes = g_list_prepend(mon->volumes, vol);
-                g_signal_emit(mon, sig_volume_added, 0, vol);
+                if(g_strcmp0(dev->usage, "filesystem") == 0 && !find_volume(mon, dev))
+                {
+                    GUDisksVolume* vol = g_udisks_volume_new(mon, dev);
+                    mon->volumes = g_list_prepend(mon->volumes, vol);
+                    g_signal_emit(mon, sig_volume_added, 0, vol);
+                }
             }
         }
         else
@@ -349,6 +381,8 @@ void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
                 GUDisksDrive* drv = G_UDISKS_DRIVE(l->data);
                 mon->drives = g_list_delete_link(mon->drives, l);
                 g_signal_emit(mon, sig_drive_disconnected, 0, drv);
+                g_udisks_drive_disconnected(drv);
+                drv->mon = NULL;
                 g_object_unref(drv);
             }
         }
@@ -359,6 +393,9 @@ void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
             GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
             mon->volumes = g_list_delete_link(mon->volumes, l);
             g_signal_emit(mon, sig_volume_removed, 0, vol);
+            g_udisks_volume_removed(vol);
+            vol->mon = NULL;
+            vol->drive = NULL;
             g_object_unref(vol);
         }
         g_object_unref(dev);
@@ -395,6 +432,8 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
 
             if(vol)
             {
+                /* associate volumes and their parent drives */
+                update_drive(vol, mon);
                 g_signal_emit(mon, sig_volume_changed, 0, vol);
                 g_udisks_volume_changed(vol);
             }

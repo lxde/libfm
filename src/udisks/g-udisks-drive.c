@@ -103,11 +103,11 @@ static void g_udisks_drive_init(GUDisksDrive *self)
 }
 
 
-GDrive *g_udisks_drive_new(GUDisksDevice* dev)
+GDrive *g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 {
     GUDisksDrive* drv = (GUDisksDrive*)g_object_new(G_TYPE_UDISKS_DRIVE, NULL);
     drv->dev = g_object_ref(dev);
-
+    drv->mon = mon;
     return (GDrive*)drv;
 }
 
@@ -115,4 +115,9 @@ GDrive *g_udisks_drive_new(GUDisksDevice* dev)
 void g_udisks_drive_changed(GUDisksDrive* drv)
 {
     g_signal_emit(drv, sig_changed, 0);
+}
+
+void g_udisks_drive_disconnected(GUDisksDrive* drv)
+{
+    g_signal_emit(drv, sig_disconnected, 0);
 }

@@ -23,12 +23,15 @@
 
 #include "g-udisks-volume.h"
 #include <string.h>
+#include "udisks.h"
 
 static guint sig_changed;
 static guint sig_removed;
 
 static void g_udisks_volume_volume_iface_init (GVolumeIface * iface);
 static void g_udisks_volume_finalize            (GObject *object);
+
+static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data);
 
 // static gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data);
 // static gboolean g_udisks_volume_eject_with_operation_co (UdisksVolumeEjectWithOperationData* data);
@@ -88,10 +91,11 @@ static void g_udisks_volume_init(GUDisksVolume *self)
 }
 
 
-GVolume *g_udisks_volume_new(GUDisksDevice* dev)
+GVolume *g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 {
     GUDisksVolume* vol = (GUDisksVolume*)g_object_new(G_TYPE_UDISKS_VOLUME, NULL);
     vol->dev = g_object_ref(dev);
+    vol->mon = mon;
     return (GVolume*)vol;
 }
 
@@ -113,11 +117,11 @@ static void g_udisks_volume_eject_data_free (gpointer _data)
 
 }
 
-static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
+static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-
+    g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
 static void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
@@ -129,11 +133,16 @@ static void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res
 
 // gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data)
 
-static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer user_data)
+static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-
+    DBusGProxy* proxy = dbus_g_proxy_new_for_name(vol->mon->con,
+                            "org.freedesktop.UDisks",
+                            vol->dev->obj_path,
+                            "org.freedesktop.UDisks.Device");
+//    org_freedesktop_UDisks_Device_drive_eject_async(proxy, NULL, cb, vol);
+    g_object_unref(proxy);
 }
 
 static void udisks_volume_eject_with_operation_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
@@ -234,7 +243,6 @@ static void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMo
 {
     /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)

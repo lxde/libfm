@@ -24,29 +24,41 @@
 #define __G_UDISKS_VOLUME_MONITOR_H__
 
 #include <gio/gio.h>
+#include <dbus/dbus-glib.h>
 
 G_BEGIN_DECLS
 
-#define G_UDISKS_VOLUME_MONITOR_TYPE				(g_udisks_volume_monitor_get_type())
-#define G_UDISKS_VOLUME_MONITOR(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitor))
-#define G_UDISKS_VOLUME_MONITOR_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitorClass))
-#define G_IS_UDISKS_VOLUME_MONITOR(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			G_UDISKS_VOLUME_MONITOR_TYPE))
-#define G_IS_UDISKS_VOLUME_MONITOR_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			G_UDISKS_VOLUME_MONITOR_TYPE))
+#define G_UDISKS_VOLUME_MONITOR_TYPE                (g_udisks_volume_monitor_get_type())
+#define G_UDISKS_VOLUME_MONITOR(obj)                (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitor))
+#define G_UDISKS_VOLUME_MONITOR_CLASS(klass)        (G_TYPE_CHECK_CLASS_CAST((klass),\
+            G_UDISKS_VOLUME_MONITOR_TYPE, GUDisksVolumeMonitorClass))
+#define G_IS_UDISKS_VOLUME_MONITOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            G_UDISKS_VOLUME_MONITOR_TYPE))
+#define G_IS_UDISKS_VOLUME_MONITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            G_UDISKS_VOLUME_MONITOR_TYPE))
 
-typedef struct _GUDisksVolumeMonitor			GUDisksVolumeMonitor;
-typedef struct _GUDisksVolumeMonitorClass		GUDisksVolumeMonitorClass;
+typedef struct _GUDisksVolumeMonitor            GUDisksVolumeMonitor;
+typedef struct _GUDisksVolumeMonitorClass       GUDisksVolumeMonitorClass;
+
+struct _GUDisksVolumeMonitor
+{
+    GNativeVolumeMonitor parent;
+    DBusGConnection* con;
+    DBusGProxy* udisks_proxy;
+
+    GList* devices;
+    GList* drives;
+    GList* volumes;
+};
 
 struct _GUDisksVolumeMonitorClass
 {
-	GNativeVolumeMonitorClass parent_class;
+    GNativeVolumeMonitorClass parent_class;
 };
 
-GType		g_udisks_volume_monitor_get_type		(void);
-GNativeVolumeMonitor*	g_udisks_volume_monitor_new			(void);
+GType       g_udisks_volume_monitor_get_type        (void);
+GNativeVolumeMonitor*   g_udisks_volume_monitor_new         (void);
 
 G_END_DECLS
 
