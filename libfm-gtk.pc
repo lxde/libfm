@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libfm-gtk
+Description: A glib/gio-based lib used to develop file managers providing some file management utilities and related-widgets missing in gtk+/glib.
+Requires: gtk+-2.0 >= 2.16.0 gthread-2.0 gio-unix-2.0 libfm >= 0.1.12
+Version: 0.1.12
+Libs: -L${libdir} -lfm-gtk
+Cflags: -I${includedir}/libfm
