@@ -449,7 +449,7 @@ msgstr "Monta Volume"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr "Smona Volume"
+msgstr "Smonta Volume"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
