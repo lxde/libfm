@@ -255,6 +255,29 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
                                         data->callback,
                                         data->user_data,
                                         NULL);
+
+        /* FIXME: ensure we have working mount paths to generate GMount object. */
+        if(data->vol->dev->mount_paths)
+        {
+            char** p = data->vol->dev->mount_paths;
+            for(; *p; ++p)
+                if(strcmp(*p, OUT_mount_path) == 0)
+                    break;
+            if(!*p) /* OUT_mount_path is not in mount_paths */
+            {
+                int len = g_strv_length(data->vol->dev->mount_paths);
+                data->vol->dev->mount_paths = g_realloc(data->vol->dev->mount_paths, + 2);
+                memcpy(data->vol->dev->mount_paths, data->vol->dev->mount_paths + sizeof(char*), len * sizeof(char*));
+                data->vol->dev->mount_paths[0] = g_strdup(OUT_mount_path);
+            }
+        }
+        else
+        {
+            data->vol->dev->mount_paths = g_new0(char*, 2);
+            data->vol->dev->mount_paths[0] = g_strdup(OUT_mount_path);
+            data->vol->dev->mount_paths[1] = NULL;
+        }
+
     }
     g_simple_async_result_complete(res);
     g_object_unref(res);
@@ -263,7 +286,6 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     g_object_unref(data->proxy);
     g_slice_free(AsyncData, data);
 
-    /* FIXME: make sure we have GMount object. */
 }
 
 static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
