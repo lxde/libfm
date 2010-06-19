@@ -22,7 +22,7 @@
 #define __G_UDISKS_DEVICE_H__
 
 #include <glib-object.h>
-// #include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib.h>
 
 G_BEGIN_DECLS
 
@@ -101,6 +101,8 @@ GType g_udisks_device_get_type (void);
 GUDisksDevice* g_udisks_device_new (const char* obj_path, GHashTable* props);
 
 void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props);
+
+DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con);
 
 G_END_DECLS
 

@@ -32,7 +32,6 @@ typedef struct
     DBusGProxy* proxy;
     DBusGProxyCall* call;
     gboolean success;
-    GError* error;
 }AsyncData;
 
 static void g_udisks_mount_mount_iface_init(GMountIface *iface);
@@ -199,7 +198,6 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
                                                    data->callback,
                                                    data->user_data,
                                                    error);
-        data->error = error;
     }
     else
     {
@@ -209,7 +207,7 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
                                         data->user_data,
                                         NULL);
     }
-    g_simple_async_result_complete_in_idle(res);
+    g_simple_async_result_complete(res);
     g_object_unref(res);
 
     g_object_unref(data->mnt);
@@ -231,10 +229,7 @@ static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFl
         GUDisksDevice* dev = mnt->vol->dev;
         GUDisksVolumeMonitor* mon = mnt->vol->mon;
         AsyncData* data = g_slice_new(AsyncData);
-        DBusGProxy* proxy = dbus_g_proxy_new_for_name(mon->con,
-                                "org.freedesktop.UDisks",
-                                dev->obj_path,
-                                "org.freedesktop.UDisks.Device");
+        DBusGProxy* proxy = g_udisks_device_get_proxy(dev, mon->con);
         data->mnt = g_object_ref(mnt);
         data->callback = callback;
         data->user_data = user_data;

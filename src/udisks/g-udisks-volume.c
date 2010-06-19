@@ -24,7 +24,18 @@
 #include "g-udisks-volume.h"
 #include <string.h>
 #include "udisks.h"
+#include "udisks-device.h"
 #include "g-udisks-mount.h"
+
+typedef struct
+{
+    GUDisksVolume* vol;
+    GAsyncReadyCallback callback;
+    gpointer user_data;
+    DBusGProxy* proxy;
+    DBusGProxyCall* call;
+    gboolean success;
+}AsyncData;
 
 static guint sig_changed;
 static guint sig_removed;
@@ -226,11 +237,67 @@ static char* g_udisks_volume_get_uuid (GVolume* base)
     return g_strdup(vol->dev->uuid);
 }
 
-static void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* callback_target)
+static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *error, gpointer user_data)
+{
+    AsyncData* data = (AsyncData*)user_data;
+    GSimpleAsyncResult* res;
+    if(error)
+    {
+        res = g_simple_async_result_new_from_error(data->vol,
+                                                   data->callback,
+                                                   data->user_data,
+                                                   error);
+    }
+    else
+    {
+        data->success = TRUE;
+        res = g_simple_async_result_new(data->vol,
+                                        data->callback,
+                                        data->user_data,
+                                        NULL);
+    }
+    g_simple_async_result_complete(res);
+    g_object_unref(res);
+
+    g_object_unref(data->vol);
+    g_object_unref(data->proxy);
+    g_slice_free(AsyncData, data);
+
+    /* FIXME: make sure we have GMount object. */
+}
+
+static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
+{
+    AsyncData* data = (AsyncData*)user_data;
+    dbus_g_proxy_cancel_call(data->proxy, data->call);
+}
+
+static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* user_data)
 {
     /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    GUDisksDevice* dev = vol->dev;
+    GUDisksVolumeMonitor* mon = vol->mon;
+    AsyncData* data = g_slice_new(AsyncData);
+    DBusGProxy* proxy = g_udisks_device_get_proxy(dev, mon->con);
+    data->vol = g_object_ref(vol);
+    data->callback = callback;
+    data->user_data = user_data;
+    data->proxy = proxy;
 
+    data->call = org_freedesktop_UDisks_Device_filesystem_mount_async(
+                    proxy, "auto", NULL, mount_callback, data);
+    if(cancellable)
+        g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_mount_cancelled), data);
+
+}
+
+static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
+{
+    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    AsyncData* data = (AsyncData*)g_async_result_get_user_data(res);
+    g_simple_async_result_propagate_error(res, error);
+    return data->success;
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)
@@ -280,6 +347,7 @@ static void g_udisks_volume_volume_iface_init (GVolumeIface * iface)
     iface->get_name = g_udisks_volume_get_name;
     iface->get_uuid = g_udisks_volume_get_uuid;
     iface->mount_fn = g_udisks_volume_mount_fn;
+    iface->mount_finish = g_udisks_volume_mount_finish;
     iface->should_automount = g_udisks_volume_should_automount;
 
     sig_changed = g_signal_lookup("changed", G_TYPE_VOLUME);

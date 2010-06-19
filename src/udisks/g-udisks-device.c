@@ -144,3 +144,12 @@ void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props)
     clear_props(dev);
     set_props(dev, props);
 }
+
+DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con)
+{
+    DBusGProxy* proxy = dbus_g_proxy_new_for_name(con,
+                            "org.freedesktop.UDisks",
+                            dev->obj_path,
+                            "org.freedesktop.UDisks.Device");
+    return proxy;
+}
