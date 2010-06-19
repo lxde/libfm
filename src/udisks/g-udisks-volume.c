@@ -230,6 +230,7 @@ static void g_udisks_volume_mount_fn (GVolume* base, GMountMountFlags flags, GMo
 {
     /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)
