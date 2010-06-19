@@ -22,9 +22,22 @@
 #endif
 
 #include "g-udisks-mount.h"
+#include "udisks-device.h"
+
+typedef struct
+{
+    GUDisksMount* mnt;
+    GAsyncReadyCallback callback;
+    gpointer user_data;
+    DBusGProxy* proxy;
+    DBusGProxyCall* call;
+    gboolean success;
+}AsyncData;
 
 static void g_udisks_mount_mount_iface_init(GMountIface *iface);
 static void g_udisks_mount_finalize            (GObject *object);
+
+static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data);
 
 G_DEFINE_TYPE_EXTENDED (GUDisksMount, g_udisks_mount, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (G_TYPE_MOUNT,
@@ -83,15 +96,15 @@ static void g_udisks_mount_eject_data_free (gpointer _data)
 
 }
 
-static void g_udisks_mount_eject (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
+static void g_udisks_mount_eject (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
-static void udisks_mount_eject_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
+static gboolean udisks_mount_eject_finish(GMount* base, GAsyncResult* res, gpointer user_data)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
@@ -101,67 +114,71 @@ static void g_udisks_mount_eject_with_operation_data_free (gpointer _data)
 
 }
 
-static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
+static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
-static void udisks_mount_eject_with_operation_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
+static gboolean udisks_mount_eject_with_operation_finish(GMount* base, GAsyncResult* res, gpointer user_data)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
 static GDrive* g_udisks_mount_get_drive (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    return mnt->vol ? g_volume_get_drive(G_VOLUME(mnt->vol)) : NULL;
 }
 
 static GIcon* g_udisks_mount_get_icon (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    return mnt->vol ? g_volume_get_icon(G_VOLUME(mnt->vol)) : NULL;
 }
 
 static char* g_udisks_mount_get_name (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    return mnt->vol ? g_volume_get_name(G_VOLUME(mnt->vol)) : NULL;
 }
 
 static GFile* g_udisks_mount_get_root (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    if(!mnt->root && mnt->vol->dev->is_mounted && mnt->vol->dev->mount_paths)
+    {
+        /* TODO */
+        mnt->root = g_file_new_for_path(mnt->vol->dev->mount_paths[0]);
+    }
+    return mnt->root ? (GFile*)g_object_ref(mnt->root) : NULL;
 }
 
 static char* g_udisks_mount_get_uuid (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    return mnt->vol ? g_volume_get_uuid(G_VOLUME(mnt->vol)) : NULL;
 }
 
 static GVolume* g_udisks_mount_get_volume (GMount* base)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    return (GVolume*)mnt->vol;
 }
 
 static void g_udisks_mount_guess_content_type_data_free (gpointer _data)
 {
 
-
 }
 
-static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_rescan, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
+static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_rescan, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
-static void udisks_mount_guess_content_type_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
+static void udisks_mount_guess_content_type_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
 
@@ -174,56 +191,87 @@ static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean for
 
 }
 
-static void g_udisks_mount_remount_data_free (gpointer _data)
-{
-
-}
-
-static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
+static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
 
 }
 
-static void udisks_mount_remount_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
+static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
-
+    g_udisks_mount_unmount_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
-static void g_udisks_mount_unmount_data_free (gpointer _data)
+static gboolean g_udisks_mount_unmount_finish(GMount* base, GAsyncResult* res, gpointer user_data)
 {
-
+    /* TODO */
+    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+    return TRUE;
 }
 
-static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
+static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_data)
+{
+    AsyncData* data = (AsyncData*)user_data;
+    GSimpleAsyncResult* res;
+    if(error)
+    {
+        res = g_simple_async_result_new_from_error(data->mnt,
+                                                   data->callback,
+                                                   data->user_data,
+                                                   error);
+    }
+    else
+    {
+        data->success = TRUE;
+        res = g_simple_async_result_new(data->mnt,
+                                        data->callback,
+                                        data->user_data,
+                                        NULL);
+    }
+    g_simple_async_result_complete_in_idle(res);
+    g_object_unref(res);
+
+    g_object_unref(data->mnt);
+    g_object_unref(data->proxy);
+    g_slice_free(AsyncData, data);
+}
+
+static void on_unmount_cancelled(GCancellable* cancellable, gpointer user_data)
+{
+    AsyncData* data = (AsyncData*)user_data;
+    dbus_g_proxy_cancel_call(data->proxy, data->call);
+}
+
+static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    if(mnt->vol)
+    {
+        GUDisksDevice* dev = mnt->vol->dev;
+        GUDisksVolumeMonitor* mon = mnt->vol->mon;
+        AsyncData* data = g_slice_new(AsyncData);
+        DBusGProxy* proxy = dbus_g_proxy_new_for_name(mon->con,
+                                "org.freedesktop.UDisks",
+                                dev->obj_path,
+                                "org.freedesktop.UDisks.Device");
+        data->mnt = g_object_ref(mnt);
+        data->callback = callback;
+        data->user_data = user_data;
+        data->proxy = proxy;
+        // GSimpleAsyncResult* res = g_simple_async_result_new(base, callback, user_data, NULL);
+        data->call = org_freedesktop_UDisks_Device_filesystem_unmount_async(
+                        proxy, NULL, unmount_callback, data);
+        if(cancellable)
+            g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_unmount_cancelled), data);
+    }
 }
 
-static void udisks_mount_unmount_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
+static gboolean g_udisks_mount_unmount_with_operation_finish(GMount* base, GAsyncResult* res, gpointer user_data)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
-
-}
-
-
-static void g_udisks_mount_unmount_with_operation_data_free (gpointer _data)
-{
-
-}
-
-static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback _callback_, gpointer _user_data_)
-{
+    /* TODO */
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
-}
-
-static void udisks_mount_unmount_with_operation_ready (GObject* source_object, GAsyncResult* _res_, gpointer _user_data_)
-{
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
-
+    AsyncData* data = (AsyncData*)g_async_result_get_user_data(res);
+    return data->success;
 }
 
 void g_udisks_mount_mount_iface_init(GMountIface *iface)
@@ -237,9 +285,9 @@ void g_udisks_mount_mount_iface_init(GMountIface *iface)
     iface->can_unmount = g_udisks_mount_can_unmount;
     iface->can_eject = g_udisks_mount_can_eject;
     iface->unmount = g_udisks_mount_unmount;
-    // iface->unmount_finish = g_udisks_mount_unmount_finish;
+    iface->unmount_finish = g_udisks_mount_unmount_finish;
     iface->unmount_with_operation = g_udisks_mount_unmount_with_operation;
-    // iface->unmount_with_operation_finish = g_udisks_mount_unmount_with_operation_finish;
+    iface->unmount_with_operation_finish = g_udisks_mount_unmount_with_operation_finish;
     iface->eject = g_udisks_mount_eject;
     // iface->eject_finish = g_udisks_mount_eject_finish;
     iface->eject_with_operation = g_udisks_mount_eject_with_operation;

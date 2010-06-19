@@ -80,7 +80,8 @@ static set_props(GUDisksDevice* dev, GHashTable* props)
     dev->auto_mount = dbus_prop_bool(props, "DevicePresentationNopolicy");
 
     dev->mounted_by_uid = dbus_prop_uint(props, "DeviceMountedByUid");
-//    dev->mount_paths = dbus_prop_strv(props, "DeviceMountPaths");
+    dev->mount_paths = dbus_prop_dup_strv(props, "DeviceMountPaths");
+
     dev->dev_size = dbus_prop_uint64(props, "DeviceSize");
     dev->partition_size = dbus_prop_uint64(props, "PartitionSize");
 

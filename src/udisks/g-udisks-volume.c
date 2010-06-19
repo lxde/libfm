@@ -24,6 +24,7 @@
 #include "g-udisks-volume.h"
 #include <string.h>
 #include "udisks.h"
+#include "g-udisks-mount.h"
 
 static guint sig_changed;
 static guint sig_removed;
@@ -107,49 +108,30 @@ static gboolean g_udisks_volume_can_eject (GVolume* base)
 
 static gboolean g_udisks_volume_can_mount (GVolume* base)
 {
-    /* TODO */
+    /* TODO: FIXME, is this correct? */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return FALSE;
-}
-
-static void g_udisks_volume_eject_data_free (gpointer _data)
-{
-
+    return !vol->dev->is_mounted;
 }
 
 static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
-static void udisks_volume_eject_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
-{
-    /* TODO */
-    GUDisksVolume* vol = G_UDISKS_VOLUME(source_object);
-
-}
-
-// gboolean g_udisks_volume_eject_co (UdisksVolumeEjectData* data)
-
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    if(vol->drive && g_drive_can_eject(vol->drive))
+        g_drive_eject(G_DRIVE(vol->drive), flags, cancellable, callback, user_data);
+#if 0
     DBusGProxy* proxy = dbus_g_proxy_new_for_name(vol->mon->con,
                             "org.freedesktop.UDisks",
                             vol->dev->obj_path,
                             "org.freedesktop.UDisks.Device");
 //    org_freedesktop_UDisks_Device_drive_eject_async(proxy, NULL, cb, vol);
     g_object_unref(proxy);
-}
-
-static void udisks_volume_eject_with_operation_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
-{
-    /* TODO */
-    GUDisksVolume* vol = G_UDISKS_VOLUME(source_object);
-
+#endif
 }
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
@@ -206,6 +188,11 @@ static char* g_udisks_volume_get_identifier (GVolume* base, const char* kind)
 static GMount* g_udisks_volume_get_mount (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    if(vol->dev->is_mounted && !vol->mount)
+    {
+        /* FIXME: will this work? */
+        vol->mount = g_udisks_mount_new(vol);
+    }
     return vol->mount ? (GMount*)g_object_ref(vol->mount) : NULL;
 }
 

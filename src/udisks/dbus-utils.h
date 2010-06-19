@@ -42,6 +42,12 @@ static inline const char* dbus_prop_obj_path(GHashTable* props, const char* name
     return val ? (char*)g_value_get_boxed(val) : NULL;
 }
 
+static inline const char** dbus_prop_strv(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? (const char**)g_value_get_boxed(val) : NULL;
+}
+
 static inline char* dbus_prop_dup_str(GHashTable* props, const char* name)
 {
     GValue* val = (GValue*)g_hash_table_lookup(props, name);
@@ -52,6 +58,12 @@ static inline const char* dbus_prop_dup_obj_path(GHashTable* props, const char* 
 {
     GValue* val = (GValue*)g_hash_table_lookup(props, name);
     return val ? g_strdup((char*)g_value_get_boxed(val)) : NULL;
+}
+
+static inline const char* dbus_prop_dup_strv(GHashTable* props, const char* name)
+{
+    GValue* val = (GValue*)g_hash_table_lookup(props, name);
+    return val ? (char**)g_value_dup_boxed(val) : NULL;
 }
 
 static inline gboolean dbus_prop_bool(GHashTable* props, const char* name)
