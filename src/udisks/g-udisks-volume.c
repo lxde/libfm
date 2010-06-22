@@ -119,7 +119,7 @@ static gboolean g_udisks_volume_can_eject (GVolume* base)
 
 static gboolean g_udisks_volume_can_mount (GVolume* base)
 {
-    /* TODO: FIXME, is this correct? */
+    /* FIXME, is this correct? */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return !vol->dev->is_mounted;
 }
@@ -133,16 +133,9 @@ static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCan
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    g_debug("g_udisks_volume_eject_with_operation: %p", vol->drive);
     if(vol->drive && g_drive_can_eject(vol->drive))
         g_drive_eject(G_DRIVE(vol->drive), flags, cancellable, callback, user_data);
-#if 0
-    DBusGProxy* proxy = dbus_g_proxy_new_for_name(vol->mon->con,
-                            "org.freedesktop.UDisks",
-                            vol->dev->obj_path,
-                            "org.freedesktop.UDisks.Device");
-//    org_freedesktop_UDisks_Device_drive_eject_async(proxy, NULL, cb, vol);
-    g_object_unref(proxy);
-#endif
 }
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
@@ -296,7 +289,7 @@ static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
 
 static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* user_data)
 {
-    /* TODO */
+    /* FIXME: need to make sure this works correctly */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     GUDisksDevice* dev = vol->dev;
     GUDisksVolumeMonitor* mon = vol->mon;

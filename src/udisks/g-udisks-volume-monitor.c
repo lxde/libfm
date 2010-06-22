@@ -336,7 +336,7 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
             mon->devices = g_list_prepend(mon->devices, dev);
 
             /* FIXME: how should we treat sys internal devices? */
-            if(!dev->is_hidden && !dev->is_sys_internal)
+            if(!dev->is_hidden /* && !dev->is_sys_internal*/ )
             {
                 if(dev->is_drive && !find_drive(mon, dev))
                 {

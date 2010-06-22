@@ -64,6 +64,7 @@ static set_props(GUDisksDevice* dev, GHashTable* props)
     dev->is_optic_disc = dbus_prop_bool(props, "DeviceIsOpticalDisc");
     dev->is_mounted = dbus_prop_bool(props, "DeviceIsMounted");
     dev->is_media_available = dbus_prop_bool(props, "DeviceIsMediaAvailable");
+    dev->is_media_change_notification_polling = dbus_prop_bool(props, "DeviceIsMediaChangeDetectionPolling");
     dev->is_luks = dbus_prop_bool(props, "DeviceIsLuks");
     dev->is_luks_clear_text = dbus_prop_bool(props, "DeviceIsLuksCleartext");
     dev->is_linux_md_component = dbus_prop_bool(props, "DeviceIsLinuxMdComponent");

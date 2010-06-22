@@ -57,6 +57,7 @@ struct _GUDisksDevice
     gboolean is_optic_disc : 1;
     gboolean is_mounted : 1;
     gboolean is_media_available : 1;
+    gboolean is_media_change_notification_polling : 1;
     gboolean is_luks : 1;
     gboolean is_luks_clear_text : 1;
     gboolean is_linux_md_component : 1;
