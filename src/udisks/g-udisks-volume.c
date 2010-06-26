@@ -168,7 +168,7 @@ static GIcon* g_udisks_volume_get_icon (GVolume* base)
     if(!vol->icon)
     {
         const char* icon_name = g_udisks_device_get_icon_name(vol->dev);
-        vol->icon = g_themed_icon_new(icon_name);
+        vol->icon = g_themed_icon_new_with_default_fallbacks(icon_name);
     }
     return (GIcon*)g_object_ref(vol->icon);
 }

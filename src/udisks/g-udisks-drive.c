@@ -260,7 +260,7 @@ static GIcon* g_udisks_drive_get_icon (GDrive* base)
     if(!drv->icon)
     {
         const char* icon_name = g_udisks_device_get_icon_name(drv->dev);
-        drv->icon = g_themed_icon_new(icon_name);
+        drv->icon = g_themed_icon_new_with_default_fallbacks(icon_name);
     }
     return (GIcon*)g_object_ref(drv->icon);
 }

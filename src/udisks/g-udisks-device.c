@@ -158,10 +158,10 @@ DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con)
 
 const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
 {
-    const char* icon_name;
+    const char* icon_name = NULL;
     if(dev->icon_name && *dev->icon_name)
         icon_name = dev->icon_name;
-    else if(dev->media && *dev->media)
+    else if(dev->media && *dev->media) /* by media type */
     {
         if(strcmp (dev->media, "flash_cf") == 0)
             icon_name = "media-flash-cf";
@@ -185,10 +185,25 @@ const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
             icon_name = "media-flash";
         else if(dev->is_optic_disc)
             icon_name = "media-optical";
+    }
+    else if(dev->conn_iface && *dev->conn_iface) /* by connection interface */
+    {
+        if(g_str_has_prefix(dev->conn_iface, "ata"))
+            icon_name = dev->is_removable ? "drive-removable-media-ata" : "drive-harddisk-ata";
+        else if(g_str_has_prefix (dev->conn_iface, "scsi"))
+            icon_name = dev->is_removable ? "drive-removable-media-scsi" : "drive-harddisk-scsi";
+        else if(strcmp (dev->conn_iface, "usb") == 0)
+            icon_name = dev->is_removable ? "drive-removable-media-usb" : "drive-harddisk-usb";
+        else if (strcmp (dev->conn_iface, "firewire") == 0)
+            icon_name = dev->is_removable ? "drive-removable-media-ieee1394" : "drive-harddisk-ieee1394";
+    }
+
+    if(!icon_name)
+    {
+        if(dev->is_removable)
+            icon_name = "drive-removable-media";
         else
             icon_name = "drive-harddisk";
     }
-    else
-        icon_name = "drive-harddisk";
     return icon_name;
 }
