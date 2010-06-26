@@ -17,10 +17,49 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "g-udisks-device.h"
 #include "dbus-utils.h"
 #include "udisks-device.h"
 #include <string.h>
+#include <glib/gi18n-lib.h>
+
+/* This array is taken from gnome-disk-utility: gdu-volume.c
+ * Copyright (C) 2007 David Zeuthen, licensed under GNU LGPL
+ */
+static const struct
+{
+        const char *disc_type;
+        const char *icon_name;
+        const char *ui_name;
+        const char *ui_name_blank;
+} disc_data[] = {
+  /* Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank */
+  {"optical_cd",             "media-optical-cd-rom",        N_("CD-ROM Disc"),     N_("Blank CD-ROM Disc")},
+  {"optical_cd_r",           "media-optical-cd-r",          N_("CD-R Disc"),       N_("Blank CD-R Disc")},
+  {"optical_cd_rw",          "media-optical-cd-rw",         N_("CD-RW Disc"),      N_("Blank CD-RW Disc")},
+  {"optical_dvd",            "media-optical-dvd-rom",       N_("DVD-ROM Disc"),    N_("Blank DVD-ROM Disc")},
+  {"optical_dvd_r",          "media-optical-dvd-r",         N_("DVD-ROM Disc"),    N_("Blank DVD-ROM Disc")},
+  {"optical_dvd_rw",         "media-optical-dvd-rw",        N_("DVD-RW Disc"),     N_("Blank DVD-RW Disc")},
+  {"optical_dvd_ram",        "media-optical-dvd-ram",       N_("DVD-RAM Disc"),    N_("Blank DVD-RAM Disc")},
+  {"optical_dvd_plus_r",     "media-optical-dvd-r-plus",    N_("DVD+R Disc"),      N_("Blank DVD+R Disc")},
+  {"optical_dvd_plus_rw",    "media-optical-dvd-rw-plus",   N_("DVD+RW Disc"),     N_("Blank DVD+RW Disc")},
+  {"optical_dvd_plus_r_dl",  "media-optical-dvd-dl-r-plus", N_("DVD+R DL Disc"),   N_("Blank DVD+R DL Disc")},
+  {"optical_dvd_plus_rw_dl", "media-optical-dvd-dl-r-plus", N_("DVD+RW DL Disc"),  N_("Blank DVD+RW DL Disc")},
+  {"optical_bd",             "media-optical-bd-rom",        N_("Blu-Ray Disc"),    N_("Blank Blu-Ray Disc")},
+  {"optical_bd_r",           "media-optical-bd-r",          N_("Blu-Ray R Disc"),  N_("Blank Blu-Ray R Disc")},
+  {"optical_bd_re",          "media-optical-bd-re",         N_("Blu-Ray RW Disc"), N_("Blank Blu-Ray RW Disc")},
+  {"optical_hddvd",          "media-optical-hddvd-rom",     N_("HD DVD Disc"),     N_("Blank HD DVD Disc")},
+  {"optical_hddvd_r",        "media-optical-hddvd-r",       N_("HD DVD-R Disc"),   N_("Blank HD DVD-R Disc")},
+  {"optical_hddvd_rw",       "media-optical-hddvd-rw",      N_("HD DVD-RW Disc"),  N_("Blank HD DVD-RW Disc")},
+  {"optical_mo",             "media-optical-mo",            N_("MO Disc"),         N_("Blank MO Disc")},
+  {"optical_mrw",            "media-optical-mrw",           N_("MRW Disc"),        N_("Blank MRW Disc")},
+  {"optical_mrw_w",          "media-optical-mrw-w",         N_("MRW/W Disc"),      N_("Blank MRW/W Disc")},
+  {NULL, NULL, NULL, NULL}
+};
 
 static void g_udisks_device_finalize            (GObject *object);
 
@@ -88,7 +127,7 @@ static set_props(GUDisksDevice* dev, GHashTable* props)
     dev->partition_size = dbus_prop_uint64(props, "PartitionSize");
 
     dev->luks_unlocked_by_uid = dbus_prop_uint(props, "LuksCleartextUnlockedByUid");
-//    dev->num_audio_tracks = dbus_prop_uint(props, "OpticalDiscNumAudioTracks");
+    dev->num_audio_tracks = dbus_prop_uint(props, "OpticalDiscNumAudioTracks");
 
     dev->name = dbus_prop_dup_str(props, "DevicePresentationName");
     dev->icon_name = dbus_prop_dup_str(props, "DevicePresentationIconName");
@@ -163,28 +202,48 @@ const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
         icon_name = dev->icon_name;
     else if(dev->media && *dev->media) /* by media type */
     {
-        if(strcmp (dev->media, "flash_cf") == 0)
-            icon_name = "media-flash-cf";
-        else if(strcmp (dev->media, "flash_ms") == 0)
-            icon_name = "media-flash-ms";
-        else if(strcmp (dev->media, "flash_sm") == 0)
-            icon_name = "media-flash-sm";
-        else if(strcmp (dev->media, "flash_sd") == 0)
-            icon_name = "media-flash-sd";
-        else if(strcmp (dev->media, "flash_sdhc") == 0)
-            icon_name = "media-flash-sd";
-        else if(strcmp (dev->media, "flash_mmc") == 0)
-            icon_name = "media-flash-sd";
-        else if(strcmp (dev->media, "floppy") == 0)
-            icon_name = "media-floppy";
-        else if(strcmp (dev->media, "floppy_zip") == 0)
-            icon_name = "media-floppy-zip";
-        else if(strcmp (dev->media, "floppy_jaz") == 0)
-            icon_name = "media-floppy-jaz";
-        else if(g_str_has_prefix (dev->media, "flash"))
-            icon_name = "media-flash";
-        else if(dev->is_optic_disc)
-            icon_name = "media-optical";
+        if(dev->is_optic_disc)
+        {
+            if(dev->num_audio_tracks > 0)
+                icon_name = "media-optical-audio";
+            else
+            {
+                int i;
+                icon_name = "media-optical";
+                for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
+                {
+                    if(strcmp(dev->media, disc_data[i].disc_type) == 0)
+                    {
+                        if(dev->is_disc_blank)
+                            icon_name = disc_data[i].icon_name;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(strcmp (dev->media, "flash_cf") == 0)
+                icon_name = "media-flash-cf";
+            else if(strcmp (dev->media, "flash_ms") == 0)
+                icon_name = "media-flash-ms";
+            else if(strcmp (dev->media, "flash_sm") == 0)
+                icon_name = "media-flash-sm";
+            else if(strcmp (dev->media, "flash_sd") == 0)
+                icon_name = "media-flash-sd";
+            else if(strcmp (dev->media, "flash_sdhc") == 0)
+                icon_name = "media-flash-sd";
+            else if(strcmp (dev->media, "flash_mmc") == 0)
+                icon_name = "media-flash-sd";
+            else if(strcmp (dev->media, "floppy") == 0)
+                icon_name = "media-floppy";
+            else if(strcmp (dev->media, "floppy_zip") == 0)
+                icon_name = "media-floppy-zip";
+            else if(strcmp (dev->media, "floppy_jaz") == 0)
+                icon_name = "media-floppy-jaz";
+            else if(g_str_has_prefix (dev->media, "flash"))
+                icon_name = "media-flash";
+        }
     }
     else if(dev->conn_iface && *dev->conn_iface) /* by connection interface */
     {
@@ -207,3 +266,48 @@ const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
     }
     return icon_name;
 }
+
+const char* g_udisks_device_get_disc_name(GUDisksDevice* dev)
+{
+    const char* name = NULL;
+    if(!dev->is_optic_disc)
+        return NULL;
+    if(dev->media && *dev->media)
+    {
+        if(dev->num_audio_tracks > 0 && g_str_has_prefix(dev->media, "optical_cd"))
+            name = "Audio CD";
+        else
+        {
+            int i;
+            for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
+            {
+                if(strcmp(dev->media, disc_data[i].disc_type) == 0)
+                {
+                    if(dev->is_disc_blank)
+                        name = disc_data[i].ui_name_blank;
+                    else
+                        name = disc_data[i].ui_name;
+                    break;
+                }
+            }
+        }
+    }
+
+    if(!name)
+    {
+        if(dev->is_disc_blank)
+            name = _("Blank Optical Disc");
+        else
+            name = _("Optical Disc");
+    }
+    return name;
+}
+
+gboolean g_udisks_device_is_volume(GUDisksDevice* dev)
+{
+    /* also treat blank optical discs as volumes here to be compatible with gvfs.
+     * FIXME: this is useless unless we support burn:///
+     * So, should we support this? Personally I think it's a bad idea. */
+    return (g_strcmp0(dev->usage, "filesystem") == 0 || dev->is_disc_blank);
+}
+

@@ -296,9 +296,21 @@ static GDriveStartStopType g_udisks_drive_get_start_stop_type (GDrive* base)
 
 static GList* g_udisks_drive_get_volumes (GDrive* base)
 {
+    /* FIXME: is it a better idea to save all volumes in GUDisksDrive instead? */
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    /* TODO */
-    return NULL;
+    GList* vols = g_volume_monitor_get_volumes(drv->mon);
+    GList* l;
+    GList* ret = NULL;
+    for(l = vols;l;l=l->next)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        if(vol->drive == drv)
+            ret = g_list_prepend(ret, vol);
+        else
+            g_object_unref(vol);
+    }
+    g_list_free(vols);
+    return ret;
 }
 
 static gboolean g_udisks_drive_has_media (GDrive* base)

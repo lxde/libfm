@@ -76,6 +76,7 @@ struct _GUDisksDevice
     guint64 dev_size;
     guint64 partition_size;
 
+    guint num_audio_tracks;
     guint luks_unlocked_by_uid;
 
     char* name;
@@ -106,6 +107,11 @@ void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props);
 DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con);
 
 const char* g_udisks_device_get_icon_name(GUDisksDevice* dev);
+
+/* this is only valid if the device contains a optic disc */
+const char* g_udisks_device_get_disc_name(GUDisksDevice* dev);
+
+gboolean g_udisks_device_is_volume(GUDisksDevice* dev);
 
 G_END_DECLS
 

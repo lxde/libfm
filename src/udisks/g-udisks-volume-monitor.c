@@ -155,15 +155,23 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
 
 static update_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
 {
-    if(vol->dev->partition_slave)
+    /* set association between drive and volumes here */
+    GUDisksDevice* dev;
+    if(vol->dev->is_drive) /* it's a drive itself (cdrom is an example) */
+        dev = vol->dev;
+    else if(vol->dev->partition_slave)
+        dev = find_device(mon, vol->dev->partition_slave);
+    else
+        dev = NULL;
+
+    /* no ref_count handling is needed. volume manager owns all the objects. */
+    if(dev)
     {
-        GUDisksDevice* dev = find_device(mon, vol->dev->partition_slave);
-        if(dev)
-        {
-            GUDisksDrive* drv = find_drive(mon, dev);
-            vol->drive = drv;
-        }
+        GUDisksDrive* drv = find_drive(mon, dev);
+        vol->drive = drv;
     }
+    else
+        vol->drive = NULL;
 }
 
 static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
@@ -391,7 +399,7 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
                 if(dev->is_drive)
                     add_drive(mon, dev);
 
-                if(g_strcmp0(dev->usage, "filesystem") == 0)
+                if(g_udisks_device_is_volume(dev))
                     add_volume(mon, dev);
             }
         }
@@ -472,13 +480,13 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
                 g_udisks_volume_changed(vol);
 
                 /* it's no longer a volume */
-                if(g_strcmp0(dev->usage, "filesystem"))
+                if(!g_udisks_device_is_volume(dev->usage))
                     remove_volume(mon, dev);
             }
             else
             {
                 /* we got a usable volume now */
-                if(g_strcmp0(dev->usage, "filesystem") == 0)
+                if(g_udisks_device_is_volume)
                     add_volume(mon, dev);
             }
         }

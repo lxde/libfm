@@ -22,6 +22,7 @@
 #endif
 
 #include "g-udisks-volume.h"
+#include <glib/gi18n-lib.h>
 #include <string.h>
 #include "udisks.h"
 #include "udisks-device.h"
@@ -206,19 +207,27 @@ static char* g_udisks_volume_get_name (GVolume* base)
     if(!vol->name)
     {
         GUDisksDevice* dev = vol->dev;
-        /* build name */
+        /* build a human readable name */
 
         /* FIXME: find a better way to build a nicer volume name */
         if(dev->label && *dev->label)
             vol->name = g_strdup(dev->label);
+/*
+        else if(vol->dev->partition_size > 0)
+        {
+            char* size_str = g_format_size_for_display(vol->dev->partition_size);
+            vol->name = g_strdup_printf("%s Filesystem", size_str);
+            g_free(size_str);
+        }
+*/
+        else if(dev->is_optic_disc)
+            vol->name = g_strdup(g_udisks_device_get_disc_name(dev));
         else if(dev->dev_file_presentation && *dev->dev_file_presentation)
             vol->name = g_path_get_basename(dev->dev_file_presentation);
         else if(dev->dev_file && *dev->dev_file)
             vol->name = g_path_get_basename(vol->dev->dev_file);
         else
-        {
-            vol->name = g_strdup(vol->dev->obj_path);
-        }
+            vol->name = g_path_get_basename(vol->dev->obj_path);
     }
     return g_strdup(vol->name);
 }
