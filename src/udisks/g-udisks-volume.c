@@ -131,12 +131,33 @@ static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCan
     g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
+typedef struct
+{
+    GUDisksVolume* vol;
+    GAsyncReadyCallback callback;
+    gpointer user_data;
+}EjectData;
+
+static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_data)
+{
+    EjectData* data = (EjectData*)user_data;
+    if(data->callback)
+        data->callback(data->vol, res, data->user_data);
+    g_object_unref(data->vol);
+    g_slice_free(EjectData, data);
+}
+
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    g_debug("g_udisks_volume_eject_with_operation: %p", vol->drive);
     if(vol->drive && g_drive_can_eject(vol->drive))
-        g_drive_eject(G_DRIVE(vol->drive), flags, cancellable, callback, user_data);
+    {
+        EjectData* data = g_slice_new(EjectData);
+        data->vol = g_object_ref(vol);
+        data->callback = callback;
+        data->user_data = user_data;
+        g_drive_eject(G_DRIVE(vol->drive), flags, cancellable, on_drive_ejected, data);
+    }
 }
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
@@ -329,28 +350,18 @@ static gboolean g_udisks_volume_should_automount (GVolume* base)
     return vol->dev->auto_mount;
 }
 
-static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
-{
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return FALSE;
-}
-
 static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-/*
-    gboolean result;
-    UdisksVolumeEjectWithOperationData* _data_;
-    if (g_simple_async_result_propagate_error (G_SIMPLE_ASYNC_RESULT (res), error)) {
-        return FALSE;
-    }
-    _data_ = g_simple_async_result_get_op_res_gpointer (G_SIMPLE_ASYNC_RESULT (res));
-    result = _data_->result;
-    return result;
-*/
-    return FALSE;
+    /* FIXME: is this correct? */
+    return g_drive_eject_with_operation_finish(G_DRIVE(vol->drive), res, error);
 }
 
+static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
+{
+    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    return g_udisks_volume_eject_with_operation_finish(base, res, error);
+}
 
 static void g_udisks_volume_volume_iface_init (GVolumeIface * iface)
 {

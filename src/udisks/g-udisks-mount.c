@@ -92,11 +92,35 @@ static gboolean g_udisks_mount_can_unmount (GMount* base)
     return mnt->vol ? mnt->vol->dev->is_mounted : FALSE;
 }
 
+typedef struct
+{
+    GUDisksMount* mnt;
+    GAsyncReadyCallback callback;
+    gpointer user_data;
+}EjectData;
+
+static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_data)
+{
+    EjectData* data = (EjectData*)user_data;
+    if(data->callback)
+        data->callback(data->mnt, res, data->user_data);
+    g_object_unref(data->mnt);
+    g_slice_free(EjectData, data);
+}
+
 static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    if(mnt->vol)
-        g_volume_eject(mnt->vol, flags, cancellable, callback, user_data);
+    GDrive* drv = g_mount_get_drive(base);
+    if(drv)
+    {
+        EjectData* data = g_slice_new(EjectData);
+        data->mnt = g_object_ref(mnt);
+        data->callback = callback;
+        data->user_data = user_data;
+        g_drive_eject(drv, flags, cancellable, on_drive_ejected, data);
+        g_object_unref(drv);
+    }
 }
 
 static gboolean g_udisks_mount_eject_with_operation_finish(GMount* base, GAsyncResult* res, GError** error)
@@ -166,20 +190,22 @@ static void g_udisks_mount_guess_content_type_data_free (gpointer _data)
 static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_rescan, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
-}
-
-static void udisks_mount_guess_content_type_ready (GObject* source_object, GAsyncResult* res, gpointer user_data)
-{
-    GUDisksMount* mnt = G_UDISKS_MOUNT(source_object);
-
+    // g_content_type_guess_for_tree
 }
 
 
 static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean force_rescan, GCancellable* cancellable, int* result_length1, GError** error)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    if(mnt->root)
+    {
+        char** ret;
+        GFile* root = g_udisks_mount_get_root(mnt);
+        ret = g_content_type_guess_for_tree(root);
+        g_object_unref(root);
+        return ret;
+    }
+    return NULL;
 }
 
 static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
@@ -285,5 +311,5 @@ void g_udisks_mount_mount_iface_init(GMountIface *iface)
     iface->eject_with_operation_finish = g_udisks_mount_eject_with_operation_finish;
     iface->guess_content_type = g_udisks_mount_guess_content_type;
     // iface->guess_content_type_finish = g_udisks_mount_guess_content_type_finish;
-    // iface->guess_content_type_sync = g_udisks_mount_guess_content_type_sync;
+    iface->guess_content_type_sync = g_udisks_mount_guess_content_type_sync;
 }

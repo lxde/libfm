@@ -153,7 +153,7 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
     G_OBJECT_CLASS(g_udisks_volume_monitor_parent_class)->finalize(object);
 }
 
-static update_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
+static update_volume_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
 {
     /* set association between drive and volumes here */
     GUDisksDevice* dev;
@@ -202,7 +202,7 @@ static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
 
         /* find drives for volumes */
         if(self->volumes && self->drives)
-            g_list_foreach(self->volumes, (GFunc)update_drive, self);
+            g_list_foreach(self->volumes, (GFunc)update_volume_drive, self);
     }
 }
 
@@ -355,6 +355,15 @@ static void remove_drive(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
         g_signal_emit(mon, sig_drive_disconnected, 0, drv);
         g_udisks_drive_disconnected(drv);
         drv->mon = NULL;
+        for(l = mon->volumes; l; l=l->next)
+        {
+            GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+            if(vol->drive == drv)
+            {
+                vol->drive = NULL;
+                /* FIXME: emit sigal for volume change */
+            }
+        }
         g_object_unref(drv);
     }
 }
@@ -474,13 +483,12 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
 
             if(vol)
             {
-                /* associate volumes and their parent drives */
-                update_drive(vol, mon);
+                update_volume_drive(vol, mon);
                 g_signal_emit(mon, sig_volume_changed, 0, vol);
                 g_udisks_volume_changed(vol);
 
                 /* it's no longer a volume */
-                if(!g_udisks_device_is_volume(dev->usage))
+                if(!g_udisks_device_is_volume(dev))
                     remove_volume(mon, dev);
             }
             else

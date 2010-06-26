@@ -96,6 +96,43 @@ static gboolean g_udisks_drive_can_stop (GDrive* base)
     return FALSE;
 }
 
+static GList* g_udisks_drive_get_volumes (GDrive* base)
+{
+    /* FIXME: is it a better idea to save all volumes in GUDisksDrive instead? */
+    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    GList* vols = g_volume_monitor_get_volumes(G_VOLUME_MONITOR(drv->mon));
+    GList* l;
+    GList* ret = NULL;
+    for(l = vols;l;l=l->next)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        if(vol->drive == drv)
+            ret = g_list_prepend(ret, vol);
+        else
+            g_object_unref(vol);
+    }
+    g_list_free(vols);
+    return ret;
+}
+
+static void on_eject_cancelled(GCancellable* cancellable, gpointer user_data);
+
+static void finish_eject(GSimpleAsyncResult* res, EjectData* data)
+{
+    g_simple_async_result_complete(res);
+    g_object_unref(res);
+
+    g_object_unref(data->drv);
+    if(data->cancellable)
+    {
+        g_signal_handlers_disconnect_by_func(data->cancellable, on_eject_cancelled, data);
+        g_object_unref(data->cancellable);
+    }
+    if(data->proxy)
+        g_object_unref(data->proxy);
+    g_slice_free(EjectData, data);
+}
+
 static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
 {
     EjectData* data = (EjectData*)user_data;
@@ -115,18 +152,11 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
                                         data->user_data,
                                         NULL);
     }
-    g_simple_async_result_complete(res);
-    g_object_unref(res);
-
-    g_object_unref(data->drv);
-    g_object_unref(data->cancellable);
-    g_object_unref(data->proxy);
-    g_slice_free(EjectData, data);
+    finish_eject(res, data);
 }
 
 static void do_eject(EjectData* data)
 {
-    g_debug("HERE");
     data->proxy = g_udisks_device_get_proxy(data->drv->dev, data->drv->mon->con);
     data->call = org_freedesktop_UDisks_Device_drive_eject_async(
                         data->proxy,
@@ -140,24 +170,24 @@ static void unmount_before_eject(EjectData* data);
 static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
 {
     GError* err = NULL;
+    /* FIXME: with this approach, we could have racing condition.
+     * Someone may mount other volumes before we finishing unmounting them all. */
     gboolean success = g_mount_unmount_finish(mnt, res, &err);
     if(success)
     {
-        if(data->mounts)
+        if(data->mounts) /* we still have some volumes on this drive mounted */
             unmount_before_eject(data);
-        else
+        else /* all unmounted, do the eject. */
             do_eject(data);
     }
     else
     {
-        /* TODO */
         GSimpleAsyncResult* res;
         res = g_simple_async_result_new_from_error(data->drv,
                                                    data->callback,
                                                    data->user_data,
                                                    err);
-        g_error_free(err);
-        /* FIXME: cleanup and cancel the eject */
+        finish_eject(res, data);
     }
 }
 
@@ -166,9 +196,10 @@ static void unmount_before_eject(EjectData* data)
     GMount* mnt = G_MOUNT(data->mounts->data);
     data->mounts = g_list_delete_link(data->mounts, data->mounts);
     /* pop the first GMount in the list. */
-    g_mount_eject_with_operation(mnt, data->flags, data->op,
+    g_mount_unmount_with_operation(mnt, data->flags, data->op,
                                  data->cancellable,
                                  on_unmounted, data);
+    /* FIXME: Notify volume monitor!! */
     g_object_unref(mnt);
 }
 
@@ -183,10 +214,10 @@ static void on_eject_cancelled(GCancellable* cancellable, gpointer user_data)
 static void g_udisks_drive_eject_with_operation (GDrive* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    GList* vols = g_drive_get_volumes(base);
+    GList* vols = g_udisks_drive_get_volumes(base);
     GList* mounts = NULL;
     EjectData* data;
-g_debug("g_udisks_drive_eject_with_operation");
+
     /* umount all volumes/mounts first */
     if(vols)
     {
@@ -215,6 +246,12 @@ g_debug("g_udisks_drive_eject_with_operation");
 
     if(mounts) /* unmount all GMounts first, and do eject in ready callback */
     {
+        /* NOTE: is this really needed?
+         * I read the source code of UDisks and found it calling "eject"
+         * command internally. According to manpage of "eject", it unmounts
+         * partitions before ejecting the device. So I don't think that we
+         * need to unmount ourselves. However, without this, we won't have
+         * correct "mount-pre-unmount" signals. So, let's do it. */
         data->mounts = mounts;
         unmount_before_eject(data);
     }
@@ -233,8 +270,6 @@ static gboolean g_udisks_drive_eject_with_operation_finish (GDrive* base, GAsync
 static void g_udisks_drive_eject (GDrive* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-g_debug("g_udisks_drive_eject");
-
     g_udisks_drive_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
@@ -292,25 +327,6 @@ static GDriveStartStopType g_udisks_drive_get_start_stop_type (GDrive* base)
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return G_DRIVE_START_STOP_TYPE_UNKNOWN;
-}
-
-static GList* g_udisks_drive_get_volumes (GDrive* base)
-{
-    /* FIXME: is it a better idea to save all volumes in GUDisksDrive instead? */
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    GList* vols = g_volume_monitor_get_volumes(drv->mon);
-    GList* l;
-    GList* ret = NULL;
-    for(l = vols;l;l=l->next)
-    {
-        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
-        if(vol->drive == drv)
-            ret = g_list_prepend(ret, vol);
-        else
-            g_object_unref(vol);
-    }
-    g_list_free(vols);
-    return ret;
 }
 
 static gboolean g_udisks_drive_has_media (GDrive* base)
