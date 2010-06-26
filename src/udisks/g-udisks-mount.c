@@ -31,7 +31,6 @@ typedef struct
     gpointer user_data;
     DBusGProxy* proxy;
     DBusGProxyCall* call;
-    gboolean success;
 }AsyncData;
 
 static void g_udisks_mount_mount_iface_init(GMountIface *iface);
@@ -182,17 +181,66 @@ static GVolume* g_udisks_mount_get_volume (GMount* base)
     return (GVolume*)mnt->vol;
 }
 
-static void g_udisks_mount_guess_content_type_data_free (gpointer _data)
+typedef struct
 {
+    GUDisksMount* mnt;
+    GAsyncReadyCallback callback;
+    gpointer user_data;
+    GFile* root;
+}GuessContentData;
 
+
+static char** g_udisks_mount_guess_content_type_finish (GMount* base, GAsyncResult* res, GError** error)
+{
+    g_simple_async_result_propagate_error(res, error);
+    return g_strdupv((char**)g_simple_async_result_get_op_res_gpointer(res));
+}
+
+static void guess_content_data_free(GuessContentData* data)
+{
+    g_object_unref(data->mnt);
+    if(data->root);
+        g_object_unref(data->root);
+    g_slice_free(GuessContentData, data);
+}
+
+static gboolean guess_content_job(GIOSchedulerJob *job, GCancellable* cancellable, gpointer user_data)
+{
+    GuessContentData* data = (GuessContentData*)user_data;
+    char** content_types;
+    GSimpleAsyncResult* res;
+    content_types = g_content_type_guess_for_tree(data->root);
+    res = g_simple_async_result_new(data->mnt,
+                                    data->callback,
+                                    data->user_data,
+                                    NULL);
+    g_simple_async_result_set_op_res_gpointer(res, content_types, g_strfreev);
+    g_simple_async_result_complete_in_idle(res);
+    g_object_unref(res);
+    return FALSE;
 }
 
 static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_rescan, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    // g_content_type_guess_for_tree
+    GFile* root = g_udisks_mount_get_root(base);
+    g_debug("guess content type");
+    if(root)
+    {
+        /* FIXME: this is not really cancellable. */
+        GuessContentData* data = g_slice_new(GuessContentData);
+        /* NOTE: this should be an asynchronous action, but
+         * g_content_type_guess_for_tree provided by glib is not
+         * cancellable. So, we got some problems here.
+         * If we really want a perfect asynchronous implementation,
+         * another option is using fork() to implement this. */
+        data->mnt = g_object_ref(mnt);
+        data->root = root;
+        data->callback = callback;
+        data->user_data = user_data;
+        g_io_scheduler_push_job(guess_content_job, data, guess_content_data_free, G_PRIORITY_DEFAULT, cancellable);
+    }
 }
-
 
 static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean force_rescan, GCancellable* cancellable, int* result_length1, GError** error)
 {
@@ -211,7 +259,7 @@ static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean for
 static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-
+    /* TODO */
 }
 
 static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_data)
@@ -227,11 +275,11 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
     }
     else
     {
-        data->success = TRUE;
         res = g_simple_async_result_new(data->mnt,
                                         data->callback,
                                         data->user_data,
                                         NULL);
+        g_simple_async_result_set_op_res_gboolean(res, TRUE);
     }
     g_simple_async_result_complete(res);
     g_object_unref(res);
@@ -273,11 +321,8 @@ static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFl
 
 static gboolean g_udisks_mount_unmount_with_operation_finish(GMount* base, GAsyncResult* res, GError** error)
 {
-    /* TODO */
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    AsyncData* data = (AsyncData*)g_async_result_get_user_data(res);
-    g_simple_async_result_propagate_error(res, error);
-    return data->success;
+    return !g_simple_async_result_propagate_error(res, error);
 }
 
 static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
@@ -310,6 +355,6 @@ void g_udisks_mount_mount_iface_init(GMountIface *iface)
     iface->eject_with_operation = g_udisks_mount_eject_with_operation;
     iface->eject_with_operation_finish = g_udisks_mount_eject_with_operation_finish;
     iface->guess_content_type = g_udisks_mount_guess_content_type;
-    // iface->guess_content_type_finish = g_udisks_mount_guess_content_type_finish;
+    iface->guess_content_type_finish = g_udisks_mount_guess_content_type_finish;
     iface->guess_content_type_sync = g_udisks_mount_guess_content_type_sync;
 }

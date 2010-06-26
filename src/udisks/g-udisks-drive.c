@@ -37,7 +37,6 @@ typedef struct
     gpointer user_data;
     DBusGProxy* proxy;
     DBusGProxyCall* call;
-    gboolean success;
     GList* mounts;
 }EjectData;
 
@@ -146,11 +145,11 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     }
     else
     {
-        data->success = TRUE;
         res = g_simple_async_result_new(data->drv,
                                         data->callback,
                                         data->user_data,
                                         NULL);
+        g_simple_async_result_set_op_res_gboolean(res, TRUE);
     }
     finish_eject(res, data);
 }
@@ -188,6 +187,7 @@ static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
                                                    data->user_data,
                                                    err);
         finish_eject(res, data);
+        g_error_free(err);
     }
 }
 
@@ -262,9 +262,7 @@ static void g_udisks_drive_eject_with_operation (GDrive* base, GMountUnmountFlag
 static gboolean g_udisks_drive_eject_with_operation_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    EjectData* data = (EjectData*)g_async_result_get_user_data(res);
-    g_simple_async_result_propagate_error(res, error);
-    return data->success;
+    return !g_simple_async_result_propagate_error(res, error);
 }
 
 static void g_udisks_drive_eject (GDrive* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)

@@ -28,6 +28,7 @@
 G_BEGIN_DECLS
 
 gboolean _fm_udisks_init();
+void _fm_udisks_finalize();
 
 G_END_DECLS
 

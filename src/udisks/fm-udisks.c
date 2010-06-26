@@ -32,3 +32,8 @@ gboolean _fm_udisks_init()
         99
     );
 }
+
+void _fm_udisks_finalize()
+{
+    g_io_scheduler_cancel_all_jobs();
+}

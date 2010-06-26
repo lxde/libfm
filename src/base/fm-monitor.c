@@ -97,17 +97,9 @@ void _fm_monitor_init()
     dummy_hash = g_hash_table_new_full(g_file_hash, g_file_equal, g_object_unref, NULL);
 }
 
-static gboolean remove_key(GFile* key, GFileMonitor* value, gpointer user_data)
-{
-    g_object_unref(value);
-    return TRUE;
-}
-
 void _fm_monitor_finalize()
 {
-    g_hash_table_foreach_remove(hash, (GHFunc)remove_key, NULL);
     g_hash_table_destroy(hash);
-    g_hash_table_foreach_remove(dummy_hash, (GHFunc)remove_key, NULL);
     g_hash_table_destroy(dummy_hash);
     hash = NULL;
     dummy_hash = NULL;

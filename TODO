@@ -7,8 +7,6 @@
      Do mounting on demand.
      Calculate speed and show remaining time.
 
-* Recover previously trashed files.
-
 * File monitor:
      Queue files which are already processed in file operations, and send
      change notifications in timeout handlers to improve performance.
@@ -40,7 +38,6 @@
 
 * FmFileMenu should provide special menu items for special paths
      For example:
-     Add a "Recover" popup menu item for files in trash:///
      Provide totally different menus for items in computer:///
      Provide "Uninstall" for items in applications:/// (requires integration with package-kit)
 
@@ -193,8 +190,6 @@
      Maybe it's a better idea to handle this in disk cleaner wizard.
 
 * Enable showing .. in list view mode.
-
-* Write a geany plugin to utilize the FmFolderView.
 
 * Add a right pane to list all opened folders instead of using tabs.
      Quite useful for wide screen and can save taskbar space.

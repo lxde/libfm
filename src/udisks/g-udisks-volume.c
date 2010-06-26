@@ -35,7 +35,7 @@ typedef struct
     gpointer user_data;
     DBusGProxy* proxy;
     DBusGProxyCall* call;
-    gboolean success;
+    GCancellable* cancellable;
 }AsyncData;
 
 static guint sig_changed;
@@ -259,10 +259,17 @@ static char* g_udisks_volume_get_uuid (GVolume* base)
     return g_strdup(vol->dev->uuid);
 }
 
+static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
+{
+    AsyncData* data = (AsyncData*)user_data;
+    dbus_g_proxy_cancel_call(data->proxy, data->call);
+}
+
 static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *error, gpointer user_data)
 {
     AsyncData* data = (AsyncData*)user_data;
     GSimpleAsyncResult* res;
+    g_debug("mount callback!!");
     if(error)
     {
         res = g_simple_async_result_new_from_error(data->vol,
@@ -272,11 +279,11 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     }
     else
     {
-        data->success = TRUE;
         res = g_simple_async_result_new(data->vol,
                                         data->callback,
                                         data->user_data,
                                         NULL);
+        g_simple_async_result_set_op_res_gboolean(res, TRUE);
 
         /* FIXME: ensure we have working mount paths to generate GMount object. */
         if(data->vol->dev->mount_paths)
@@ -304,16 +311,15 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     g_simple_async_result_complete(res);
     g_object_unref(res);
 
+    if(data->cancellable)
+    {
+        g_signal_handlers_disconnect_by_func(data->cancellable, on_mount_cancelled, data);
+        g_object_unref(data->cancellable);
+    }
     g_object_unref(data->vol);
     g_object_unref(data->proxy);
     g_slice_free(AsyncData, data);
 
-}
-
-static void on_mount_cancelled(GCancellable* cancellable, gpointer user_data)
-{
-    AsyncData* data = (AsyncData*)user_data;
-    dbus_g_proxy_cancel_call(data->proxy, data->call);
 }
 
 static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, void* user_data)
@@ -328,20 +334,22 @@ static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMou
     data->callback = callback;
     data->user_data = user_data;
     data->proxy = proxy;
-
+g_debug("mount_fn");
     data->call = org_freedesktop_UDisks_Device_filesystem_mount_async(
-                    proxy, "auto", NULL, mount_callback, data);
+                    proxy, dev->type ? dev->type : "auto", NULL, mount_callback, data);
     if(cancellable)
+    {
+        data->cancellable = g_object_ref(cancellable);
         g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_mount_cancelled), data);
-
+    }
+    g_usleep(2*G_USEC_PER_SEC);
+    g_main_context_wakeup(NULL);
 }
 
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    AsyncData* data = (AsyncData*)g_async_result_get_user_data(res);
-    g_simple_async_result_propagate_error(res, error);
-    return data->success;
+    return !g_simple_async_result_propagate_error(res, error);
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)

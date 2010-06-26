@@ -118,7 +118,7 @@ static set_props(GUDisksDevice* dev, GHashTable* props)
     dev->is_disc_blank = dbus_prop_bool(props, "OpticalDiscIsBlank");
 
     dev->is_hidden = dbus_prop_bool(props, "DevicePresentationHide");
-    dev->auto_mount = dbus_prop_bool(props, "DevicePresentationNopolicy");
+    dev->auto_mount = !dbus_prop_bool(props, "DevicePresentationNopolicy");
 
     dev->mounted_by_uid = dbus_prop_uint(props, "DeviceMountedByUid");
     dev->mount_paths = dbus_prop_dup_strv(props, "DeviceMountPaths");

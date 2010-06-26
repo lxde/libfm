@@ -293,7 +293,7 @@ struct MountData
 static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer user_data)
 {
     struct MountData* data = user_data;
-
+g_debug("on_mount_action_finished");
     switch(data->action)
     {
     case MOUNT_VOLUME:
@@ -374,6 +374,7 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
         g_main_loop_run(data->loop);
         GDK_THREADS_ENTER();
     }
+
     g_main_loop_unref(data->loop);
 
     ret = data->ret;

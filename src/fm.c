@@ -78,6 +78,10 @@ void fm_finalize()
     _fm_monitor_finalize();
     _fm_archiver_finalize();
 
+#ifdef USE_UDISKS
+    _fm_udisks_finalize();
+#endif
+
     fm_config_save(fm_config, NULL);
     g_object_unref(fm_config);
     fm_config = NULL;
