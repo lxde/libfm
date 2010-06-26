@@ -317,6 +317,56 @@ GList* find_volume_l(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
     return NULL;
 }
 
+static void add_drive(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+{
+    if(!find_drive(mon, dev))
+    {
+        GUDisksDrive* drv = g_udisks_drive_new(mon, dev);
+        mon->drives = g_list_prepend(mon->drives, drv);
+        g_signal_emit(mon, sig_drive_connected, 0, drv);
+    }
+}
+
+static void add_volume(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+{
+    if(!find_volume(mon, dev))
+    {
+        GUDisksVolume* vol = g_udisks_volume_new(mon, dev);
+        mon->volumes = g_list_prepend(mon->volumes, vol);
+        g_signal_emit(mon, sig_volume_added, 0, vol);
+    }
+}
+
+static void remove_drive(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+{
+    GList* l = find_drive_l(mon, dev);
+    if(l)
+    {
+        GUDisksDrive* drv = G_UDISKS_DRIVE(l->data);
+        mon->drives = g_list_delete_link(mon->drives, l);
+        g_signal_emit(mon, sig_drive_disconnected, 0, drv);
+        g_udisks_drive_disconnected(drv);
+        drv->mon = NULL;
+        g_object_unref(drv);
+    }
+}
+
+static void remove_volume(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+{
+    GList* l = find_volume_l(mon, dev);
+    if(l)
+    {
+        GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
+        mon->volumes = g_list_delete_link(mon->volumes, l);
+        g_signal_emit(mon, sig_volume_removed, 0, vol);
+        g_udisks_volume_removed(vol);
+        vol->mon = NULL;
+        vol->drive = NULL;
+        g_object_unref(vol);
+    }
+}
+
+
 void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data)
 {
     GUDisksVolumeMonitor* mon = G_UDISKS_VOLUME_MONITOR(user_data);
@@ -338,19 +388,11 @@ void on_device_added(DBusGProxy* proxy, const char* obj_path, gpointer user_data
             /* FIXME: how should we treat sys internal devices? */
             if(!dev->is_hidden /* && !dev->is_sys_internal*/ )
             {
-                if(dev->is_drive && !find_drive(mon, dev))
-                {
-                    GUDisksDrive* drv = g_udisks_drive_new(mon, dev);
-                    mon->drives = g_list_prepend(mon->drives, drv);
-                    g_signal_emit(mon, sig_drive_connected, 0, drv);
-                }
+                if(dev->is_drive)
+                    add_drive(mon, dev);
 
-                if(g_strcmp0(dev->usage, "filesystem") == 0 && !find_volume(mon, dev))
-                {
-                    GUDisksVolume* vol = g_udisks_volume_new(mon, dev);
-                    mon->volumes = g_list_prepend(mon->volumes, vol);
-                    g_signal_emit(mon, sig_volume_added, 0, vol);
-                }
+                if(g_strcmp0(dev->usage, "filesystem") == 0)
+                    add_volume(mon, dev);
             }
         }
         else
@@ -374,30 +416,9 @@ void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
         mon->devices = g_list_delete_link(mon->devices, l);
 
         if(dev->is_drive)
-        {
-            l = find_drive_l(mon, dev);
-            if(l)
-            {
-                GUDisksDrive* drv = G_UDISKS_DRIVE(l->data);
-                mon->drives = g_list_delete_link(mon->drives, l);
-                g_signal_emit(mon, sig_drive_disconnected, 0, drv);
-                g_udisks_drive_disconnected(drv);
-                drv->mon = NULL;
-                g_object_unref(drv);
-            }
-        }
+            remove_drive(mon, dev);
 
-        l = find_volume_l(mon, dev);
-        if(l)
-        {
-            GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
-            mon->volumes = g_list_delete_link(mon->volumes, l);
-            g_signal_emit(mon, sig_volume_removed, 0, vol);
-            g_udisks_volume_removed(vol);
-            vol->mon = NULL;
-            vol->drive = NULL;
-            g_object_unref(vol);
-        }
+        remove_volume(mon, dev);
         g_object_unref(dev);
     }
     g_debug("device_removed: %s", obj_path);
@@ -421,6 +442,11 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
         {
             GUDisksDrive* drv = find_drive(mon, dev);
             GUDisksVolume* vol = find_volume(mon, dev);
+            /*
+            gboolean is_drive = dev->is_drive;
+            char* usage = g_strdup(dev->usage);
+            */
+
             g_udisks_device_update(dev, props);
             g_hash_table_destroy(props);
 
@@ -428,6 +454,14 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
             {
                 g_signal_emit(mon, sig_drive_changed, 0, drv);
                 g_udisks_drive_changed(drv);
+                /* it's no longer a drive */
+                if(!dev->is_drive)
+                    remove_drive(mon, dev);
+            }
+            else
+            {
+                if(dev->is_drive)
+                    add_drive(mon, dev);
             }
 
             if(vol)
@@ -436,6 +470,16 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
                 update_drive(vol, mon);
                 g_signal_emit(mon, sig_volume_changed, 0, vol);
                 g_udisks_volume_changed(vol);
+
+                /* it's no longer a volume */
+                if(g_strcmp0(dev->usage, "filesystem"))
+                    remove_volume(mon, dev);
+            }
+            else
+            {
+                /* we got a usable volume now */
+                if(g_strcmp0(dev->usage, "filesystem") == 0)
+                    add_volume(mon, dev);
             }
         }
         g_object_unref(dev_proxy);

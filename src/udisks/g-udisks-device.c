@@ -20,6 +20,7 @@
 #include "g-udisks-device.h"
 #include "dbus-utils.h"
 #include "udisks-device.h"
+#include <string.h>
 
 static void g_udisks_device_finalize            (GObject *object);
 
@@ -153,4 +154,41 @@ DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con)
                             dev->obj_path,
                             "org.freedesktop.UDisks.Device");
     return proxy;
+}
+
+const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
+{
+    const char* icon_name;
+    if(dev->icon_name && *dev->icon_name)
+        icon_name = dev->icon_name;
+    else if(dev->media && *dev->media)
+    {
+        if(strcmp (dev->media, "flash_cf") == 0)
+            icon_name = "media-flash-cf";
+        else if(strcmp (dev->media, "flash_ms") == 0)
+            icon_name = "media-flash-ms";
+        else if(strcmp (dev->media, "flash_sm") == 0)
+            icon_name = "media-flash-sm";
+        else if(strcmp (dev->media, "flash_sd") == 0)
+            icon_name = "media-flash-sd";
+        else if(strcmp (dev->media, "flash_sdhc") == 0)
+            icon_name = "media-flash-sd";
+        else if(strcmp (dev->media, "flash_mmc") == 0)
+            icon_name = "media-flash-sd";
+        else if(strcmp (dev->media, "floppy") == 0)
+            icon_name = "media-floppy";
+        else if(strcmp (dev->media, "floppy_zip") == 0)
+            icon_name = "media-floppy-zip";
+        else if(strcmp (dev->media, "floppy_jaz") == 0)
+            icon_name = "media-floppy-jaz";
+        else if(g_str_has_prefix (dev->media, "flash"))
+            icon_name = "media-flash";
+        else if(dev->is_optic_disc)
+            icon_name = "media-optical";
+        else
+            icon_name = "drive-harddisk";
+    }
+    else
+        icon_name = "drive-harddisk";
+    return icon_name;
 }

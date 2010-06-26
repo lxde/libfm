@@ -164,12 +164,11 @@ static GDrive* g_udisks_volume_get_drive (GVolume* base)
 
 static GIcon* g_udisks_volume_get_icon (GVolume* base)
 {
-    /* TODO */
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     if(!vol->icon)
     {
-        /* FIXME: this is for testing only, need to be properly set later */
-        vol->icon = g_themed_icon_new("drive-harddisk");
+        const char* icon_name = g_udisks_device_get_icon_name(vol->dev);
+        vol->icon = g_themed_icon_new(icon_name);
     }
     return (GIcon*)g_object_ref(vol->icon);
 }

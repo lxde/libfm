@@ -257,8 +257,12 @@ static char** g_udisks_drive_enumerate_identifiers (GDrive* base)
 static GIcon* g_udisks_drive_get_icon (GDrive* base)
 {
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    /* TODO */
-    return NULL;
+    if(!drv->icon)
+    {
+        const char* icon_name = g_udisks_device_get_icon_name(drv->dev);
+        drv->icon = g_themed_icon_new(icon_name);
+    }
+    return (GIcon*)g_object_ref(drv->icon);
 }
 
 static char* g_udisks_drive_get_identifier (GDrive* base, const char* kind)

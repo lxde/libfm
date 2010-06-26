@@ -105,6 +105,8 @@ void g_udisks_device_update(GUDisksDevice* dev, GHashTable* props);
 
 DBusGProxy* g_udisks_device_get_proxy(GUDisksDevice* dev, DBusGConnection* con);
 
+const char* g_udisks_device_get_icon_name(GUDisksDevice* dev);
+
 G_END_DECLS
 
 #endif /* __G_UDISKS_DEVICE_H__ */
