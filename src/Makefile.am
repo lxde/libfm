@@ -88,6 +88,7 @@ job_SOURCES = \
 	job/fm-file-ops-job-xfer.c \
 	job/fm-file-ops-job-delete.c \
 	job/fm-file-ops-job-change-attr.c \
+	job/fm-file-search-job.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -176,6 +177,7 @@ libfminclude_HEADERS = \
 	job/fm-file-ops-job-xfer.h \
 	job/fm-file-ops-job-delete.h \
 	job/fm-file-ops-job-change-attr.h \
+	job/fm-file-search-job.h \
 	$(NULL)
 
 libfmgtkincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
