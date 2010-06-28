@@ -10,7 +10,7 @@ gboolean fm_file_search_job_run(FmFileSearchJob* job);
 G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 
 static void for_each_target_folder(gpointer data, gpointer user_data);
-static void on_target_folder_loaded(FmFolder * folder, gpointer data);
+static void on_target_folder_file_list_loaded(FmFileInfoList * list, FmFileSearchJob * job);
 static void for_each_file_info(gpointer data, gpointer user_data);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
@@ -78,20 +78,18 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 static void for_each_target_folder(gpointer data, gpointer user_data)
 {
-	/* TODO: free folder when done */
-	FmFolder * folder = fm_folder_get(FM_PATH(data));
+	/* TODO: handle if the job is canceled since this is called by a for each */
 
-	g_signal_connect(folder, "loaded", on_target_folder_loaded, FM_FILE_SEARCH_JOB(user_data));
+	/* TODO: free job when finished using it */
+	FmJob * file_list_job = fm_dir_list_job_new(FM_PATH(data));
+	if(fm_job_run_sync(file_list_job))
+		on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), FM_FILE_SEARCH_JOB(user_data));
+	/* else emit error */
 }
 
-static void on_target_folder_loaded(FmFolder * folder, gpointer data)
+static void on_target_folder_file_list_loaded(FmFileInfoList * list, FmFileSearchJob * job)
 {
-	FmFileSearchJob * job = FM_FILE_SEARCH_JOB(data);
-
-	/* TODO: free possible_files when done */
-	FmFileInfoList * possible_files = fm_folder_get_files(folder);
-
-	fm_list_foreach(possible_files, for_each_file_info, job);
+	fm_list_foreach(list, for_each_file_info, job);
 }
 
 static void for_each_file_info(gpointer data, gpointer user_data)
@@ -101,6 +99,10 @@ static void for_each_file_info(gpointer data, gpointer user_data)
 
 	if(strstr(fm_file_info_get_name(FM_FILE_INFO(data)), FM_FILE_SEARCH_JOB(user_data)->target) != NULL)
 		fm_list_push_tail(FM_FILE_SEARCH_JOB(user_data)->files, FM_FILE_INFO(data)); /* should be referenced because the file list will be freed ? */
+
+	/* TODO: checking that mime matches */
+	/* TODO: checking contents of files */
+	/* TODO: use mime type when possible to prevent the unneeded checking of file contents */
 
 	/* recurse upon each directory */
 	if(fm_file_info_is_dir(FM_FILE_INFO(data)))

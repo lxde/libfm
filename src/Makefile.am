@@ -308,7 +308,7 @@ libfm_pref_apps_LDADD = \
 
 
 if ENABLE_DEMO
-bin_PROGRAMS += libfm-demo
+bin_PROGRAMS += libfm-demo libfm-file-search-cli-demo
 libfm_demo_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	demo/libfm-demo.c \
@@ -332,6 +332,24 @@ libfm_demo_LDADD = \
 	$(INTLLIBS) \
 	libfm.la \
 	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
+libfm_file_search_cli_demo_SOURCES = \
+	demo/libfm-file-search-cli-demo.c \
+	$(NULL)
+
+libfm_file_search_cli_demo_CFLAGS = \
+	$(GTK_CFLAGS) \
+	$(MENU_CACHE_CFLAGS) \
+	-Werror-implicit-function-declaration \
+	$(NULL)
+
+libfm_file_search_cli_demo_LDADD = \
+	$(GTK_LIBS) \
+	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	libfm-gtk.la \
 	$(NULL)
 endif
 

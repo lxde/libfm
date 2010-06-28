@@ -26,6 +26,7 @@ struct _FmFileSearchJob
 {
 	FmJob parent;
 
+	/* private */
 	FmFileInfoList* files;
 	char * target;
 	GSList * target_folders;

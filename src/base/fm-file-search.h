@@ -4,6 +4,7 @@
 #include <glib-object.h>
 
 #include "fm-mime-type.h"
+#include "fm-folder.h"
 
 G_BEGIN_DECLS
 
@@ -22,7 +23,7 @@ typedef struct _FmFileSearchClass	FmFileSearchClass;
 
 struct _FmFileSearch
 {
-	GObject parent;
+	FmFolder parent;
 
 	/* private */
 	char * target;
@@ -33,11 +34,14 @@ struct _FmFileSearch
 
 struct _FmFileSearchClass
 {
-	GObjectClass parent_class;
+	FmFolderClass parent_class;
 };
 
 
 GType		fm_file_search_get_type		(void);
+
+/* target_folders should be a GSList of FmPaths */
+FmFileSearch * fm_file_search_new(char * target, GSList * target_folders, FmMimeType * target_type, gboolean check_type);
 
 G_END_DECLS
 
