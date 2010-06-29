@@ -54,14 +54,15 @@ FmFileSearch * fm_file_search_new(char * target, GSList * target_folders, FmMime
 
 	file_search->target = g_strdup(target);
 	file_search->target_folders = g_slist_copy(target_folders);
-	file_search->target_type = fm_mime_type_ref(target_type);
+	file_search->target_type = target_type; /* does this need to be referenced */
 	file_search->check_type = check_type;
 
 	FmJob * file_search_job = fm_file_search_job_new(file_search);
 
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, file_search);
 
-	fm_job_run_async(file_search_job);
+	//fm_job_run_async(file_search_job);
+	fm_job_run_sync(file_search_job);
 }
 
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search)
@@ -70,5 +71,5 @@ static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * se
 
 	folder->files = fm_file_search_job_get_files(job);
 
-	g_signal_emit_by_name(folder, "loaded", NULL);
+	g_signal_emit_by_name(folder, "loaded", folder, NULL);
 }
