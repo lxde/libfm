@@ -9,9 +9,9 @@ gboolean fm_file_search_job_run(FmFileSearchJob* job);
 
 G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 
-static void for_each_target_folder(gpointer data, gpointer user_data);
+static void for_each_target_folder(FmPath * path, FmFileSearchJob * job);
 static void on_target_folder_file_list_loaded(FmFileInfoList * list, FmFileSearchJob * job);
-static void for_each_file_info(gpointer data, gpointer user_data);
+static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -61,7 +61,7 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 	job->files = fm_file_info_list_new();
 	job->target = g_strdup(search->target);
 	job->target_folders = g_slist_copy(search->target_folders);
-	job->target_type = fm_mime_type_ref(search->target_type);
+	job->target_type = search->target_type; /* does this need to be referenced */
 	job->check_type = search->check_type;
 
 	return (FmJob*)job;
@@ -71,42 +71,63 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 {
 	/* TODO: error handling (what sort of errors could occur?) */
 
-	g_slist_foreach(job->target_folders, for_each_target_folder, job);
+	//g_slist_foreach(job->target_folders, for_each_target_folder, job);
 
+	
+
+	GSList * folders = job->target_folders;
+
+	while(folders != NULL)
+	{
+		FmPath * path = FM_PATH(folders->data);
+		for_each_target_folder(path, job);
+		folders = folders->next;
+	}
+	
 	return TRUE;
 }
 
-static void for_each_target_folder(gpointer data, gpointer user_data)
+static void for_each_target_folder(FmPath * path, FmFileSearchJob * job)
 {
 	/* TODO: handle if the job is canceled since this is called by a for each */
 
 	/* TODO: free job when finished using it */
-	FmJob * file_list_job = fm_dir_list_job_new(FM_PATH(data));
-	if(fm_job_run_sync(file_list_job))
-		on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), FM_FILE_SEARCH_JOB(user_data));
+	FmJob * file_list_job = fm_dir_list_job_new(path);
+	fm_job_run_sync(file_list_job);
+	//on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), job);
 	/* else emit error */
 }
 
-static void on_target_folder_file_list_loaded(FmFileInfoList * list, FmFileSearchJob * job)
+static void on_target_folder_file_list_loaded(FmFileInfoList * info_list, FmFileSearchJob * job)
 {
-	fm_list_foreach(list, for_each_file_info, job);
+	GQueue queue = info_list->list;
+	GList * file_info = g_queue_peek_head_link(&queue);
+
+	while(file_info != NULL)
+	{
+		FmFileInfo * info = FM_FILE_INFO(file_info->data);
+		for_each_file_info(info, job);
+		file_info = file_info->next;
+	}
+
+	//fm_list_foreach(list, for_each_file_info, job);
 }
 
-static void for_each_file_info(gpointer data, gpointer user_data)
+static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job)
 {
 	
 	/* TODO: handle if the job is canceled since this is called by a for each */
 
-	if(strstr(fm_file_info_get_name(FM_FILE_INFO(data)), FM_FILE_SEARCH_JOB(user_data)->target) != NULL)
-		fm_list_push_tail(FM_FILE_SEARCH_JOB(user_data)->files, FM_FILE_INFO(data)); /* should be referenced because the file list will be freed ? */
+	if(strstr(fm_file_info_get_name(info), job->target != NULL))
+		fm_list_push_tail(job->files, info); /* should be referenced because the file list will be freed ? */
 
 	/* TODO: checking that mime matches */
 	/* TODO: checking contents of files */
 	/* TODO: use mime type when possible to prevent the unneeded checking of file contents */
 
 	/* recurse upon each directory */
-	if(fm_file_info_is_dir(FM_FILE_INFO(data)))
-		for_each_target_folder(FM_FILE_SEARCH_JOB(user_data), fm_file_info_get_path(FM_FILE_INFO(data)));
+	if(fm_file_info_is_dir(info))
+		for_each_target_folder(fm_file_info_get_path(info),job);
 }
 
 FmFileInfoList* fm_file_search_job_get_files(FmFileSearchJob* job)
