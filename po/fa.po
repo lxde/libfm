@@ -3,27 +3,29 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-06-30 17:21+0200\n"
+"Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>خط فرمان برای اجرا</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>انواع فایل ها برای باز شدن:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,6 +36,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>این کدهای مخصوصا می توانن در خط فرمان استفاده شوند: </b>\n"
+"<b>%f</b>: نشان دهنده ی تنها یک فایل است.\n"
+"<b>%F</b>:نشان دهنده ی چندین فایل است.\n"
+"<b>%u</b>: نشان دهنده ی یک URI به تنهایی است.\n"
+"<b>%U</b>: نشان دهنده ی چندین URI است."
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
