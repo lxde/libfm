@@ -1,5 +1,7 @@
 #include "fm-file-search-job.h"
 
+#include <gio/gio.h>
+
 #include "fm-folder.h"
 #include "fm-list.h"
 #include <string.h> /* for strstr */
@@ -9,9 +11,8 @@ gboolean fm_file_search_job_run(FmFileSearchJob* job);
 
 G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 
-static void for_each_target_folder(FmPath * path, FmFileSearchJob * job);
-static void on_target_folder_file_list_loaded(FmFileInfoList * list, FmFileSearchJob * job);
-static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job);
+static void for_each_target_folder(GFile * path, FmFileSearchJob * job);
+static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -22,7 +23,6 @@ static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 
 	job_class->run = fm_file_search_job_run;
 }
-
 
 static void fm_file_search_job_init(FmFileSearchJob * self)
 {
@@ -44,6 +44,9 @@ static void fm_file_search_job_finalize(GObject * object)
 	if(self->target)
 		g_free(self->target);
 		
+	if(self->target_contains)
+		g_free(self->target_contains);
+
 	if(self->target_folders)
 		g_slist_free(self->target_folders);
 
@@ -60,9 +63,9 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 
 	job->files = fm_file_info_list_new();
 	job->target = g_strdup(search->target);
+	job->target_contains = g_strdup(search->target_contains);
 	job->target_folders = g_slist_copy(search->target_folders);
 	job->target_type = search->target_type; /* does this need to be referenced */
-	job->check_type = search->check_type;
 
 	return (FmJob*)job;
 }
@@ -75,47 +78,42 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 	while(folders != NULL)
 	{
-		FmPath * path = FM_PATH(folders->data);
+		GFile * path = G_FILE(folders->data); //each one should represent a directory
+		/* emit error if one is not a directory */
 		for_each_target_folder(path, job);
+
 		folders = folders->next;
 	}
 	
 	return TRUE;
 }
 
-static void for_each_target_folder(FmPath * path, FmFileSearchJob * job)
+static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 {
 	/* TODO: handle if the job is canceled since this is called by a for each */
 
-	/* TODO: free job when finished using it */
-	FmJob * file_list_job = fm_dir_list_job_new(path);
-	fm_job_run_sync(file_list_job);
-	on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), job);
-	/* else emit error */
-}
+	GFileEnumerator * enumerator = g_file_enumerate_children(path, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
-static void on_target_folder_file_list_loaded(FmFileInfoList * info_list, FmFileSearchJob * job)
-{
-	GQueue queue = info_list->list;
-	GList * file_info = g_queue_peek_head_link(&queue);
+	GFileInfo * file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
 
 	while(file_info != NULL)
 	{
-		FmFileInfo * info = FM_FILE_INFO(file_info->data);
-		for_each_file_info(info, job);
-		file_info = file_info->next;
+		for_each_file_info(file_info, path, job);
+		file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
 	}
 }
 
-static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job)
+static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {
 	
 	/* TODO: handle if the job is canceled since this is called by a for each */
-
-	if(strstr(fm_file_info_get_name(info), job->target) != NULL)
+	
+	if(strstr(g_file_info_get_display_name(info), job->target) != NULL)
 	{
-		//printf("%s\n", fm_file_info_get_name(info));
-		fm_list_push_tail_noref(job->files, info); /* should be referenced because the file list will be freed ? */
+		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
+		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(fm_path_new_for_gfile(file), info);
+
+		fm_list_push_tail_noref(job->files, file_info); /* should be referenced because the file list will be freed ? */
 	}
 
 	/* TODO: checking that mime matches */
@@ -123,8 +121,11 @@ static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job)
 	/* TODO: use mime type when possible to prevent the unneeded checking of file contents */
 
 	/* recurse upon each directory */
-	if(fm_file_info_is_dir(info))
-		for_each_target_folder(fm_file_info_get_path(info),job);
+	if(g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
+	{
+		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
+		for_each_target_folder(file,job);
+	}
 }
 
 FmFileInfoList* fm_file_search_job_get_files(FmFileSearchJob* job)

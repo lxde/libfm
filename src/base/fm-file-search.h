@@ -27,9 +27,11 @@ struct _FmFileSearch
 
 	/* private */
 	char * target;
+	char * target_contains;
 	GSList * target_folders;
-	FmMimeType * target_type;
 	gboolean check_type;
+	FmMimeType * target_type;
+	
 };
 
 struct _FmFileSearchClass
@@ -40,8 +42,13 @@ struct _FmFileSearchClass
 
 GType		fm_file_search_get_type		(void);
 
-/* target_folders should be a GSList of FmPaths */
-FmFileSearch * fm_file_search_new(char * target, GSList * target_folders, FmMimeType * target_type, gboolean check_type);
+/* 
+target: the target file name, if NULL it is not used to determine matches
+target_contains: the target file needs to contain the following string, if NULL it is not used to determine matches, does not work on all types
+target_folders: should be a GSList of GFiles representing directories that are to be searched
+target_type: target mime type, if NULL it is not used to determine matches
+*/
+FmFileSearch * fm_file_search_new(char * target , char* target_contains, GSList * target_folders, FmMimeType * target_type);
 
 G_END_DECLS
 

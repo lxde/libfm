@@ -15,16 +15,14 @@ static void fm_file_search_class_init(FmFileSearchClass *klass)
 	g_object_class = G_OBJECT_CLASS(klass);
 	g_object_class->finalize = fm_file_search_finalize;
 	fm_file_search_parent_class = g_type_class_peek(FM_TYPE_FOLDER);
-
-	/* TODO: Set up signals here if needed */
 }
 
 static void fm_file_search_init(FmFileSearch *self)
 {
 	self->target = NULL;
+	self->target_contains = NULL;
 	self->target_folders = NULL;
 	self->target_type = NULL;
-	self->check_type = FALSE;
 }
 
 static void fm_file_search_finalize(GObject * object)
@@ -37,6 +35,9 @@ static void fm_file_search_finalize(GObject * object)
 
 	if(self->target)
 		g_free(self->target);
+
+	if(self->target_contains)
+		g_free(self->target_contains);
 		
 	if(self->target_folders)
 		g_slist_free(self->target_folders);
@@ -48,27 +49,20 @@ static void fm_file_search_finalize(GObject * object)
         (* G_OBJECT_CLASS(fm_file_search_parent_class)->finalize)(object);
 }
 
-FmFileSearch * fm_file_search_new(char * target, GSList * target_folders, FmMimeType * target_type, gboolean check_type)
+FmFileSearch * fm_file_search_new(char * target , char* target_contains, GSList * target_folders, FmMimeType * target_type)
 {
 	FmFileSearch * file_search = FM_FILE_SEARCH(g_object_new(FM_TYPE_FILE_SEARCH, NULL));
 
 	file_search->target = g_strdup(target);
+	file_search->target_contains = g_strdup(target_contains);
 	file_search->target_folders = g_slist_copy(target_folders);
 	file_search->target_type = target_type; /* does this need to be referenced */
-	file_search->check_type = check_type;
 
 	FmJob * file_search_job = fm_file_search_job_new(file_search);
 
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, file_search);
 
-	//fm_job_run_async(file_search_job);
-	fm_job_run_sync(file_search_job);
-
-	FmFolder * folder = FM_FOLDER(file_search);
-
-	folder->files = fm_file_search_job_get_files(file_search_job);
-
-	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, fil
+	fm_job_run_async(file_search_job);
 
 	return file_search;
 }
