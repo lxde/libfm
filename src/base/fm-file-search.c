@@ -63,6 +63,14 @@ FmFileSearch * fm_file_search_new(char * target, GSList * target_folders, FmMime
 
 	//fm_job_run_async(file_search_job);
 	fm_job_run_sync(file_search_job);
+
+	FmFolder * folder = FM_FOLDER(file_search);
+
+	folder->files = fm_file_search_job_get_files(file_search_job);
+
+	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, fil
+
+	return file_search;
 }
 
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search)
