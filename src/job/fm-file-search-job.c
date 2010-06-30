@@ -69,11 +69,7 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 
 gboolean fm_file_search_job_run(FmFileSearchJob * job)
 {
-	/* TODO: error handling (what sort of errors could occur?) */
-
-	//g_slist_foreach(job->target_folders, for_each_target_folder, job);
-
-	
+	/* TODO: error handling (what sort of errors could occur?) */	
 
 	GSList * folders = job->target_folders;
 
@@ -94,7 +90,7 @@ static void for_each_target_folder(FmPath * path, FmFileSearchJob * job)
 	/* TODO: free job when finished using it */
 	FmJob * file_list_job = fm_dir_list_job_new(path);
 	fm_job_run_sync(file_list_job);
-	//on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), job);
+	on_target_folder_file_list_loaded(fm_dir_dist_job_get_files(file_list_job), job);
 	/* else emit error */
 }
 
@@ -109,8 +105,6 @@ static void on_target_folder_file_list_loaded(FmFileInfoList * info_list, FmFile
 		for_each_file_info(info, job);
 		file_info = file_info->next;
 	}
-
-	//fm_list_foreach(list, for_each_file_info, job);
 }
 
 static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job)
@@ -118,8 +112,11 @@ static void for_each_file_info(FmFileInfo * info, FmFileSearchJob * job)
 	
 	/* TODO: handle if the job is canceled since this is called by a for each */
 
-	if(strstr(fm_file_info_get_name(info), job->target != NULL))
-		fm_list_push_tail(job->files, info); /* should be referenced because the file list will be freed ? */
+	if(strstr(fm_file_info_get_name(info), job->target) != NULL)
+	{
+		//printf("%s\n", fm_file_info_get_name(info));
+		fm_list_push_tail_noref(job->files, info); /* should be referenced because the file list will be freed ? */
+	}
 
 	/* TODO: checking that mime matches */
 	/* TODO: checking contents of files */
