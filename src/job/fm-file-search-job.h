@@ -29,9 +29,9 @@ struct _FmFileSearchJob
 	/* private */
 	FmFileInfoList* files;
 	char * target;
+	char * target_contains;
 	GSList * target_folders;
 	FmMimeType * target_type;
-	gboolean check_type;
 };
 
 struct _FmFileSearchJobClass
