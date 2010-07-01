@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 
 	GSList * target_folders = g_slist_append(target_folders, path);
 
-	search = fm_file_search_new(argv[2], NULL,target_folders, NULL);
+	search = fm_file_search_new(argv[2], argv[3],target_folders, NULL);
 
 	g_signal_connect(search, "loaded", on_search_loaded, loop);
 

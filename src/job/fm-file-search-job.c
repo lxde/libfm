@@ -1,10 +1,11 @@
 #include "fm-file-search-job.h"
 
-#include <gio/gio.h>
-
-#include "fm-folder.h"
-#include "fm-list.h"
+#include <gio/gio.h> /* for GFile, GFileInfo, GFileEnumerator */
 #include <string.h> /* for strstr */
+
+#include "fm-list.h"
+
+#define BUFFER_SIZE 1024
 
 static void fm_file_search_job_finalize(GObject * object);
 gboolean fm_file_search_job_run(FmFileSearchJob* job);
@@ -13,6 +14,9 @@ G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job);
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -76,12 +80,11 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 	GSList * folders = job->target_folders;
 
-	while(folders != NULL)
+	while(folders != NULL && !fm_job_is_cancelled(FM_JOB(job)))
 	{
 		GFile * path = G_FILE(folders->data); //each one should represent a directory
 		/* emit error if one is not a directory */
 		for_each_target_folder(path, job);
-
 		folders = folders->next;
 	}
 	
@@ -90,30 +93,35 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 {
-	/* TODO: handle if the job is canceled since this is called by a for each */
-
+	/* this seems awful slow loading all info, speed up by loading minimum and loading full when needed */
 	GFileEnumerator * enumerator = g_file_enumerate_children(path, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
 	GFileInfo * file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
 
-	while(file_info != NULL)
+	while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job)))
 	{
 		for_each_file_info(file_info, path, job);
 		file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
 	}
+
+	g_file_enumerator_close(enumerator, NULL, NULL);
 }
 
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
-{
-	
-	/* TODO: handle if the job is canceled since this is called by a for each */
-	
+{	
 	if(strstr(g_file_info_get_display_name(info), job->target) != NULL)
 	{
 		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(fm_path_new_for_gfile(file), info);
+		g_object_unref(file);
 
-		fm_list_push_tail_noref(job->files, file_info); /* should be referenced because the file list will be freed ? */
+		if(job->target_contains != NULL)
+		{
+			if(file_content_search(info, parent, job))
+				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
+		}
+		else
+			fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
 	}
 
 	/* TODO: checking that mime matches */
@@ -125,7 +133,37 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 	{
 		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 		for_each_target_folder(file,job);
+		g_object_unref(file);
 	}
+
+	g_object_unref(info);
+}
+
+static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+{
+	return file_content_search_ginputstream(info, parent, job);
+}
+
+static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+{
+	gboolean ret = FALSE;
+	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
+	GFileInputStream * io = g_file_read(file, NULL, NULL);
+	char buffer[BUFFER_SIZE];
+
+	g_input_stream_read(io, &buffer, BUFFER_SIZE, NULL, NULL);
+
+	if(strstr(buffer, job->target_contains) != NULL)
+		ret = TRUE;
+
+	g_input_stream_close(io, NULL, NULL);
+	g_object_unref(file);
+	return ret;
+}
+
+static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+{
+
 }
 
 FmFileInfoList* fm_file_search_job_get_files(FmFileSearchJob* job)
