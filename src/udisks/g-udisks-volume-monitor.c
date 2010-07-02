@@ -31,6 +31,10 @@
 #include "g-udisks-drive.h"
 #include "g-udisks-volume.h"
 
+/* FIXME: later we need to remove this when gio-udisks becomes an
+ * independent gio module. */
+#include "fm-config.h"
+
 static guint sig_drive_changed;
 static guint sig_drive_connected;
 static guint sig_drive_disconnected;
@@ -413,8 +417,9 @@ static void remove_volume(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 
 static void _g_udisks_device_added(GUDisksDevice* dev, GUDisksVolumeMonitor* mon, gboolean emit_signal)
 {
-    /* FIXME: how should we treat sys internal devices? */
-    if(!dev->is_hidden /* && !dev->is_sys_internal*/ )
+    /* FIXME: how should we treat sys internal devices?
+     * make this optional */
+    if(!dev->is_hidden && (!dev->is_sys_internal || fm_config->show_internal_volumes) )
     {
         if(dev->is_drive)
             add_drive(mon, dev, emit_signal);
