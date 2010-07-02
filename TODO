@@ -7,7 +7,7 @@
      Do mounting on demand.
      Calculate speed and show remaining time.
 
-* Recover previously trashed files.
+* Fix idle handlers with proper g_source_is_destroyed().
 
 * File monitor:
      Queue files which are already processed in file operations, and send
