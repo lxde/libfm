@@ -23,6 +23,7 @@
 
 #include "g-udisks-mount.h"
 #include "udisks-device.h"
+#include "dbus-utils.h"
 
 typedef struct
 {
@@ -268,10 +269,12 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
     GSimpleAsyncResult* res;
     if(error)
     {
+        error = g_udisks_error_to_gio_error(error);
         res = g_simple_async_result_new_from_error(data->mnt,
                                                    data->callback,
                                                    data->user_data,
                                                    error);
+        g_error_free(error);
     }
     else
     {

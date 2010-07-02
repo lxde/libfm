@@ -26,6 +26,7 @@
 #include "g-udisks-volume.h"
 #include <string.h>
 #include "udisks-device.h"
+#include "dbus-utils.h"
 
 typedef struct
 {
@@ -138,10 +139,12 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     GSimpleAsyncResult* res;
     if(error)
     {
+        error = g_udisks_error_to_gio_error(error);
         res = g_simple_async_result_new_from_error(data->drv,
                                                    data->callback,
                                                    data->user_data,
                                                    error);
+        g_error_free(error);
     }
     else
     {
@@ -182,12 +185,14 @@ static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
     else
     {
         GSimpleAsyncResult* res;
+        GError* error = g_udisks_error_to_gio_error(err);
+        g_error_free(err);
         res = g_simple_async_result_new_from_error(data->drv,
                                                    data->callback,
                                                    data->user_data,
                                                    err);
         finish_eject(res, data);
-        g_error_free(err);
+        g_error_free(error);
     }
 }
 

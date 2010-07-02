@@ -43,11 +43,17 @@ static guint sig_volume_added;
 static guint sig_volume_changed;
 static guint sig_volume_removed;
 
+static void g_udisks_device_added(GUDisksDevice* dev, GUDisksVolumeMonitor* mon);
+static void g_udisks_device_changed(GUDisksDevice* dev, GUDisksVolumeMonitor* mon);
+static void g_udisks_device_removed(GUDisksDevice* dev, GUDisksVolumeMonitor* mon);
+
+typedef void (*GUDisksDeviceEventHandler)(GUDisksDevice*, GUDisksVolumeMonitor*);
+
 typedef struct
 {
-    guint signal;
-    GObject* obj;
-}QueuedSignal;
+    GUDisksDevice* dev;
+    GUDisksDeviceEventHandler func;
+}QueuedEvent;
 
 static void g_udisks_volume_monitor_finalize            (GObject *object);
 static GMount* get_mount_for_mount_path(const char *mount_path, GCancellable *cancellable);
@@ -135,13 +141,13 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
     {
         GList* l;
         g_source_remove(self->idle_handler);
-        for(l = self->queued_sigs; l; l=l->next)
+        for(l = self->queued_events; l; l=l->next)
         {
-            QueuedSignal* qs = (QueuedSignal*)l->data;
-            g_object_unref(qs->obj);
-            g_slice_free(QueuedSignal, qs);
+            QueuedEvent* q = (QueuedEvent*)l->data;
+            g_object_unref(q->dev);
+            g_slice_free(QueuedEvent, q);
         }
-        g_list_free(self->queued_sigs);
+        g_list_free(self->queued_events);
     }
 
     if(self->udisks_proxy)
@@ -173,33 +179,6 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
     G_OBJECT_CLASS(g_udisks_volume_monitor_parent_class)->finalize(object);
 }
 
-static gboolean on_idle(GUDisksVolumeMonitor* mon)
-{
-    GList* l;
-    for(l = mon->queued_sigs; l; l=l->next)
-    {
-        QueuedSignal* qs = (QueuedSignal*)l->data;
-        g_signal_emit(mon, qs->signal, 0, qs->obj);
-        g_object_unref(qs->obj);
-        g_slice_free(QueuedSignal, qs);
-    }
-    mon->queued_sigs = NULL;
-    mon->idle_handler = 0;
-    return FALSE;
-}
-
-static void queued_signal(GUDisksVolumeMonitor* mon, guint sig, GObject* obj)
-{
-    QueuedSignal* qs = g_slice_new(QueuedSignal);
-    qs->signal = sig;
-    qs->obj = g_object_ref(obj);
-    mon->queued_sigs = g_list_append(mon->queued_sigs, qs);
-
-    if(mon->idle_handler)
-        g_source_remove(mon->idle_handler);
-    mon->idle_handler = g_idle_add((GSourceFunc)on_idle, mon);
-}
-
 static update_volume_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
 {
     /* set association between drive and volumes here */
@@ -226,7 +205,6 @@ static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
     self->con = dbus_g_bus_get(DBUS_BUS_SYSTEM, NULL);
     if(self->con)
     {
-        DBusGProxy* proxy;
         GPtrArray* ret;
         /* FIXME: handle disconnecting from dbus */
         self->udisks_proxy = dbus_g_proxy_new_for_name(self->con, "org.freedesktop.UDisks", "/org/freedesktop/UDisks", "org.freedesktop.UDisks");
@@ -380,7 +358,7 @@ static void add_drive(GUDisksVolumeMonitor* mon, GUDisksDevice* dev, gboolean em
         GUDisksDrive* drv = g_udisks_drive_new(mon, dev);
         mon->drives = g_list_prepend(mon->drives, drv);
         if(emit_signal)
-            queued_signal(mon, sig_drive_connected, drv);
+            g_signal_emit(mon, sig_drive_connected, 0, drv);
     }
 }
 
@@ -391,7 +369,7 @@ static void add_volume(GUDisksVolumeMonitor* mon, GUDisksDevice* dev, gboolean e
         GUDisksVolume* vol = g_udisks_volume_new(mon, dev);
         mon->volumes = g_list_prepend(mon->volumes, vol);
         if(emit_signal)
-            queued_signal(mon, sig_volume_added, vol);
+            g_signal_emit(mon, sig_volume_added, 0, vol);
     }
 }
 
@@ -402,7 +380,7 @@ static void remove_drive(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
     {
         GUDisksDrive* drv = G_UDISKS_DRIVE(l->data);
         mon->drives = g_list_delete_link(mon->drives, l);
-        queued_signal(mon, sig_drive_disconnected, drv);
+        g_signal_emit(mon, sig_drive_disconnected, 0, drv);
         g_udisks_drive_disconnected(drv);
         drv->mon = NULL;
         for(l = mon->volumes; l; l=l->next)
@@ -425,12 +403,110 @@ static void remove_volume(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
     {
         GUDisksVolume* vol = G_UDISKS_VOLUME(l->data);
         mon->volumes = g_list_delete_link(mon->volumes, l);
-        queued_signal(mon, sig_volume_removed, vol);
+        g_signal_emit(mon, sig_volume_removed, 0, vol);
         g_udisks_volume_removed(vol);
         vol->mon = NULL;
         vol->drive = NULL;
         g_object_unref(vol);
     }
+}
+
+static void _g_udisks_device_added(GUDisksDevice* dev, GUDisksVolumeMonitor* mon, gboolean emit_signal)
+{
+    /* FIXME: how should we treat sys internal devices? */
+    if(!dev->is_hidden /* && !dev->is_sys_internal*/ )
+    {
+        if(dev->is_drive)
+            add_drive(mon, dev, emit_signal);
+
+        if(g_udisks_device_is_volume(dev))
+            add_volume(mon, dev, emit_signal);
+    }
+}
+
+static void g_udisks_device_added(GUDisksDevice* dev, GUDisksVolumeMonitor* mon)
+{
+    g_debug("g_udisks_device_added");
+    _g_udisks_device_added(dev, mon, TRUE);
+}
+
+static void g_udisks_device_changed(GUDisksDevice* dev, GUDisksVolumeMonitor* mon)
+{
+    GUDisksDrive* drv = find_drive(mon, dev);
+    GUDisksVolume* vol = find_volume(mon, dev);
+    /*
+    gboolean is_drive = dev->is_drive;
+    char* usage = g_strdup(dev->usage);
+    */
+    g_debug("g_udisks_device_changed");
+    if(drv)
+    {
+        g_signal_emit(mon, sig_drive_changed, 0, drv);
+        g_udisks_drive_changed(drv);
+        /* it's no longer a drive */
+        if(!dev->is_drive)
+            remove_drive(mon, dev);
+    }
+    else
+    {
+        if(dev->is_drive)
+            add_drive(mon, dev, TRUE);
+    }
+
+    if(vol)
+    {
+        update_volume_drive(vol, mon);
+        g_signal_emit(mon, sig_volume_changed, 0, vol);
+        g_udisks_volume_changed(vol);
+
+        /* it's no longer a volume */
+        if(!g_udisks_device_is_volume(dev))
+            remove_volume(mon, dev);
+    }
+    else
+    {
+        /* we got a usable volume now */
+        if(g_udisks_device_is_volume(dev))
+            add_volume(mon, dev, TRUE);
+    }
+}
+
+static void g_udisks_device_removed(GUDisksDevice* dev, GUDisksVolumeMonitor* mon)
+{
+    g_debug("g_udisks_device_removed");
+
+    if(dev->is_drive)
+        remove_drive(mon, dev);
+
+    remove_volume(mon, dev);
+}
+
+static gboolean on_idle(GUDisksVolumeMonitor* mon)
+{
+    GList* l;
+    g_debug("on_idle: %d", g_list_length(mon->queued_events));
+    for(l = mon->queued_events; l; l=l->next)
+    {
+        QueuedEvent* q = (QueuedEvent*)l->data;
+        q->func(q->dev, mon);
+        g_object_unref(q->dev);
+        g_slice_free(QueuedEvent, q);
+    }
+    g_list_free(mon->queued_events);
+    mon->queued_events = NULL;
+    mon->idle_handler = 0;
+    return FALSE;
+}
+
+static void g_udisks_device_queue_event(GUDisksDevice* dev, GUDisksDeviceEventHandler func, GUDisksVolumeMonitor* mon)
+{
+    QueuedEvent* q = g_slice_new(QueuedEvent);
+    q->dev = g_object_ref(dev);
+    q->func = func;
+    mon->queued_events = g_list_append(mon->queued_events, q);
+
+    if(0 == mon->idle_handler)
+        mon->idle_handler = g_idle_add_full(G_PRIORITY_HIGH, (GSourceFunc)on_idle, mon, NULL);
 }
 
 static void add_device(GUDisksVolumeMonitor* mon, DBusGProxy* proxy, const char* obj_path, gboolean emit_signal)
@@ -449,16 +525,10 @@ static void add_device(GUDisksVolumeMonitor* mon, DBusGProxy* proxy, const char*
             g_hash_table_destroy(props);
 
             mon->devices = g_list_prepend(mon->devices, dev);
-
-            /* FIXME: how should we treat sys internal devices? */
-            if(!dev->is_hidden /* && !dev->is_sys_internal*/ )
-            {
-                if(dev->is_drive)
-                    add_drive(mon, dev, emit_signal);
-
-                if(g_udisks_device_is_volume(dev))
-                    add_volume(mon, dev, emit_signal);
-            }
+            if(emit_signal)
+                g_udisks_device_queue_event(dev, g_udisks_device_added, mon);
+            else
+                _g_udisks_device_added(dev, mon, FALSE);
         }
         else
         {
@@ -487,10 +557,7 @@ void on_device_removed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
         GUDisksDevice* dev = G_UDISKS_DEVICE(l->data);
         mon->devices = g_list_delete_link(mon->devices, l);
 
-        if(dev->is_drive)
-            remove_drive(mon, dev);
-
-        remove_volume(mon, dev);
+        g_udisks_device_queue_event(dev, g_udisks_device_removed, mon);
         g_object_unref(dev);
     }
     g_debug("device_removed: %s", obj_path);
@@ -512,48 +579,13 @@ void on_device_changed(DBusGProxy* proxy, const char* obj_path, gpointer user_da
         GHashTable* props = dbus_get_all_props(dev_proxy, "org.freedesktop.UDisks.Device", &err);
         if(props)
         {
-            GUDisksDrive* drv = find_drive(mon, dev);
-            GUDisksVolume* vol = find_volume(mon, dev);
-            /*
-            gboolean is_drive = dev->is_drive;
-            char* usage = g_strdup(dev->usage);
-            */
-
             g_udisks_device_update(dev, props);
             g_hash_table_destroy(props);
 
-            if(drv)
-            {
-                queued_signal(mon, sig_drive_changed, drv);
-                g_udisks_drive_changed(drv);
-                /* it's no longer a drive */
-                if(!dev->is_drive)
-                    remove_drive(mon, dev);
-            }
-            else
-            {
-                if(dev->is_drive)
-                    add_drive(mon, dev, TRUE);
-            }
-
-            if(vol)
-            {
-                update_volume_drive(vol, mon);
-                queued_signal(mon, sig_volume_changed, vol);
-                g_udisks_volume_changed(vol);
-
-                /* it's no longer a volume */
-                if(!g_udisks_device_is_volume(dev))
-                    remove_volume(mon, dev);
-            }
-            else
-            {
-                /* we got a usable volume now */
-                if(g_udisks_device_is_volume(dev))
-                    add_volume(mon, dev, TRUE);
-            }
+            g_udisks_device_queue_event(dev, g_udisks_device_changed, mon);
         }
         g_object_unref(dev_proxy);
     }
     g_debug("device_changed: %s", obj_path);
 }
+

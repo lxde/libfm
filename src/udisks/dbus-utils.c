@@ -24,6 +24,7 @@
 #endif
 
 #include "dbus-utils.h"
+#include <gio/gio.h>
 
 GHashTable* dbus_get_all_props(DBusGProxy* proxy, const char* iface, GError** err)
 {
@@ -33,3 +34,16 @@ GHashTable* dbus_get_all_props(DBusGProxy* proxy, const char* iface, GError** er
                       dbus_g_type_get_map("GHashTable", G_TYPE_STRING, G_TYPE_VALUE), &props, G_TYPE_INVALID);
     return props;
 }
+
+
+GError* g_udisks_error_to_gio_error(GError* error)
+{
+    if(error)
+    {
+        int code = G_IO_ERROR_FAILED;
+        error = g_error_new_literal(G_IO_ERROR, code, error->message);
+        return error;
+    }
+    return NULL;
+}
+

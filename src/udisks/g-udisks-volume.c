@@ -27,6 +27,7 @@
 #include "udisks.h"
 #include "udisks-device.h"
 #include "g-udisks-mount.h"
+#include "dbus-utils.h"
 
 typedef struct
 {
@@ -272,10 +273,12 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     g_debug("mount callback!!");
     if(error)
     {
+        error = g_udisks_error_to_gio_error(error);
         res = g_simple_async_result_new_from_error(data->vol,
                                                    data->callback,
                                                    data->user_data,
                                                    error);
+        g_error_free(error);
     }
     else
     {
@@ -334,7 +337,9 @@ static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMou
     data->callback = callback;
     data->user_data = user_data;
     data->proxy = proxy;
-g_debug("mount_fn");
+
+    g_debug("mount_fn");
+
     data->call = org_freedesktop_UDisks_Device_filesystem_mount_async(
                     proxy, dev->type ? dev->type : "auto", NULL, mount_callback, data);
     if(cancellable)
@@ -342,8 +347,6 @@ g_debug("mount_fn");
         data->cancellable = g_object_ref(cancellable);
         g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_mount_cancelled), data);
     }
-    g_usleep(2*G_USEC_PER_SEC);
-    g_main_context_wakeup(NULL);
 }
 
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)

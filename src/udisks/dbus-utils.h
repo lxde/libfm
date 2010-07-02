@@ -99,6 +99,8 @@ static inline guint64 dbus_prop_uint64(GHashTable* props, const char* name)
 // GHashTable* dbus_get_prop_async();
 // GHashTable* dbus_get_all_props_async();
 
+GError* g_udisks_error_to_gio_error(GError* error);
+
 G_END_DECLS
 
 #endif /* __DBUS_UTILS_H__ */

@@ -51,7 +51,7 @@ struct _GUDisksVolumeMonitor
     GList* drives;
     GList* volumes;
     guint idle_handler;
-    GList* queued_sigs;
+    GList* queued_events;
 };
 
 struct _GUDisksVolumeMonitorClass
