@@ -2,6 +2,12 @@
 
 #include <gio/gio.h> /* for GFile, GFileInfo, GFileEnumerator */
 #include <string.h> /* for strstr */
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
 
 #include "fm-list.h"
 
@@ -17,6 +23,7 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean search(char * haystack, char * needle);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -109,7 +116,7 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {	
-	if(strstr(g_file_info_get_display_name(info), job->target) != NULL)
+	if(search(g_file_info_get_display_name(info), job->target))
 	{
 		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(fm_path_new_for_gfile(file), info);
@@ -141,11 +148,24 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 
 static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {
-	return file_content_search_ginputstream(info, parent, job);
+	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
+	FmPath * path = fm_path_new_for_gfile(file);
+	gboolean ret = FALSE;
+
+	if(fm_path_is_native(path))
+		ret = file_content_search_mmap(info, parent, job);
+	else
+		ret = file_content_search_ginputstream(info, parent, job);
+
+	fm_path_unref(path);
+	g_object_unref(file);
+	return ret;
 }
 
 static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {
+	/* add error checking */
+
 	gboolean ret = FALSE;
 	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 	GFileInputStream * io = g_file_read(file, NULL, NULL);
@@ -153,7 +173,7 @@ static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * paren
 
 	g_input_stream_read(io, &buffer, BUFFER_SIZE, NULL, NULL);
 
-	if(strstr(buffer, job->target_contains) != NULL)
+	if(search(buffer, job->target_contains))
 		ret = TRUE;
 
 	g_input_stream_close(io, NULL, NULL);
@@ -163,10 +183,42 @@ static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * paren
 
 static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {
+	/* add error checking */
 
+	gboolean ret = FALSE;
+	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
+	struct stat sb;
+	off_t len;
+	char * p;
+	int fd;
+
+	fd = open(g_file_get_path(file), O_RDONLY);
+	fstat(fd, &sb);
+	p = mmap(0, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
+	close(fd);
+
+	if(search(p, job->target_contains))
+		ret = TRUE;
+
+	munmap (p, sb.st_size);
+	g_object_unref(file);
+	return ret;
 }
 
-FmFileInfoList* fm_file_search_job_get_files(FmFileSearchJob* job)
+static gboolean search(char * haystack, char * needle)
+{
+	/* TODO: replace this with a more accurate search */
+
+	gboolean ret = FALSE;
+
+	if(strstr(haystack, needle) != NULL)
+		ret = TRUE;
+
+	return ret;
+}
+
+
+FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)
 {
 	return job->files;
 }

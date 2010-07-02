@@ -26,7 +26,7 @@ struct _FmFileSearchJob
 	FmJob parent;
 
 	/* private */
-	FmFileInfoList* files;
+	FmFileInfoList * files;
 	char * target;
 	char * target_contains;
 	GSList * target_folders;
@@ -40,7 +40,7 @@ struct _FmFileSearchJobClass
 
 GType		fm_file_search_job_get_type		(void);
 FmJob * fm_file_search_job_new(FmFileSearch * search);
-FmFileInfoList* fm_file_search_job_get_files(FmFileSearchJob* job);
+FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job);
 
 G_END_DECLS
 
