@@ -13,6 +13,8 @@
 
 #define BUFFER_SIZE 1024
 
+extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
+
 static void fm_file_search_job_finalize(GObject * object);
 gboolean fm_file_search_job_run(FmFileSearchJob* job);
 
@@ -21,8 +23,8 @@ G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job);
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
-static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
-static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
+static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean search(char * haystack, char * needle);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
@@ -76,7 +78,7 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 	job->target = g_strdup(search->target);
 	job->target_contains = g_strdup(search->target_contains);
 	job->target_folders = g_slist_copy(search->target_folders);
-	job->target_type = search->target_type; /* does this need to be referenced */
+	job->target_type = search->target_type; /* does this need to be referenced ? */
 
 	return (FmJob*)job;
 }
@@ -100,49 +102,56 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 {
-	/* this seems awful slow loading all info, speed up by loading minimum and loading full when needed */
-	GFileEnumerator * enumerator = g_file_enumerate_children(path, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	/*TODO: error checking */
 
-	GFileInfo * file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
+	GFileEnumerator * enumerator = g_file_enumerate_children(path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), NULL);
+
+	GFileInfo * file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), NULL);
 
 	while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job)))
 	{
 		for_each_file_info(file_info, path, job);
-		file_info = g_file_enumerator_next_file(enumerator, NULL, NULL);
+		file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), NULL);
 	}
 
-	g_file_enumerator_close(enumerator, NULL, NULL);
+	g_file_enumerator_close(enumerator, fm_job_get_cancellable(job), NULL);
+	g_object_unref(enumerator);
 }
 
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {	
-	if(search(g_file_info_get_display_name(info), job->target))
-	{
-		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
-		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(fm_path_new_for_gfile(file), info);
-		g_object_unref(file);
+	/* TODO: error checkig */
 
-		if(job->target_contains != NULL)
+	char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
+	char * name = g_file_info_get_name(info); /* does not need to be freed */
+	GFile * file = g_file_get_child(parent, name);
+
+	if(search(display_name, job->target))
+	{
+		FmPath * path = fm_path_new_for_gfile(file);
+		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
+
+		if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR)
 		{
 			if(file_content_search(info, parent, job))
 				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
+			else
+				fm_file_info_unref(file_info);
 		}
 		else
 			fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
+		
+		fm_path_unref(path);
 	}
 
 	/* TODO: checking that mime matches */
-	/* TODO: checking contents of files */
 	/* TODO: use mime type when possible to prevent the unneeded checking of file contents */
 
 	/* recurse upon each directory */
 	if(g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
-	{
-		GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 		for_each_target_folder(file,job);
-		g_object_unref(file);
-	}
 
+	g_object_unref(file);
 	g_object_unref(info);
 }
 
@@ -153,61 +162,114 @@ static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSear
 	gboolean ret = FALSE;
 
 	if(fm_path_is_native(path))
-		ret = file_content_search_mmap(info, parent, job);
+		ret = file_content_search_mmap(file, info, job);
 	else
-		ret = file_content_search_ginputstream(info, parent, job);
+		ret = file_content_search_ginputstream(file, info, job);
 
 	fm_path_unref(path);
 	g_object_unref(file);
 	return ret;
 }
 
-static gboolean file_content_search_ginputstream(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job)
 {
-	/* add error checking */
+	/* TODO: add error checking */
 
 	gboolean ret = FALSE;
-	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
 	GFileInputStream * io = g_file_read(file, NULL, NULL);
-	char buffer[BUFFER_SIZE];
+	goffset size = g_file_info_get_size(file_info);
 
-	g_input_stream_read(io, &buffer, BUFFER_SIZE, NULL, NULL);
+	/* FIXME: should I limit the maximum size to read? */
+
+	char buffer[size];
+
+	g_input_stream_read(io, &buffer, size, NULL, NULL);
 
 	if(search(buffer, job->target_contains))
 		ret = TRUE;
 
 	g_input_stream_close(io, NULL, NULL);
-	g_object_unref(file);
 	return ret;
 }
 
-static gboolean file_content_search_mmap(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job)
 {
-	/* add error checking */
+	/* FIXME: Is this error checking ok or is it overkill? */
 
 	gboolean ret = FALSE;
-	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
-	struct stat sb;
-	off_t len;
-	char * p;
+	size_t size = (size_t)g_file_info_get_size(file_info);
+	char * path = g_file_get_path(file);
+	char * contents;
 	int fd;
+	
+	fd = open(path, O_RDONLY);
+	if(fd == -1)
+	{
+		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not open file descriptor for %s\n", path);
+		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		g_free(path);
+		g_object_unref(error);
+		
+		if(action == FM_JOB_ABORT)
+			fm_job_cancel(job);
+		else
+			return FALSE;
+	}
 
-	fd = open(g_file_get_path(file), O_RDONLY);
-	fstat(fd, &sb);
-	p = mmap(0, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
-	close(fd);
+	contents = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
+	if(contents == MAP_FAILED)
+	{
+		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not mmap %s\n", path);
+		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		g_free(path);
+		g_object_unref(error);
+		
+		if(action == FM_JOB_ABORT)
+			fm_job_cancel(job);
+		else
+			return FALSE;
+	}
 
-	if(search(p, job->target_contains))
+	if(close(fd) == -1)
+	{
+		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not close file descriptor for %s\n", path);
+		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+
+		g_object_unref(error);
+		
+		if(action == FM_JOB_ABORT)
+		{
+			g_free(path);
+			fm_job_cancel(job);
+		}
+	}
+
+
+	if(search(contents, job->target_contains))
 		ret = TRUE;
 
-	munmap (p, sb.st_size);
-	g_object_unref(file);
+	munmap(contents, size);
+	if(munmap(contents, size) == -1)
+	{
+		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not munmap %s\n", path);
+		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+
+		g_object_unref(error);
+		
+		if(action == FM_JOB_ABORT)
+		{
+			g_free(path);
+			fm_job_cancel(job);
+		}
+	}
+
+	g_free(path);
 	return ret;
 }
 
 static gboolean search(char * haystack, char * needle)
 {
-	/* TODO: replace this with a more accurate search */
+	/* TODO: replace this with a fuzzy search */
 
 	gboolean ret = FALSE;
 
