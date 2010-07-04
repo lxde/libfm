@@ -63,19 +63,37 @@ PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
 
+AC_ARG_ENABLE(udisks,
+    [AC_HELP_STRING([--enable-udisks],
+        [build libfm with udisks support (Linux only) @<:@default=yes@:>@])],
+    [enable_udisks="${enableval}"],
+    [enable_udisks=no]
+)
+AM_CONDITIONAL(ENABLE_UDISKS, test x"$enable_udisks" = x"yes")
+if test x"$enable_udisks" = x"yes"; then
+    # turn on udisks support
+    AC_DEFINE_UNQUOTED(USE_UDISKS, [1], [Enable UDisks support])
+
+    # test for availability of dbus
+    dbus_modules="dbus-glib-1"
+    PKG_CHECK_MODULES(DBUS, [$dbus_modules])
+    AC_SUBST(DBUS_CFLAGS)
+    AC_SUBST(DBUS_LIBS)
+fi
+
 AC_ARG_ENABLE(demo,
-	[AC_HELP_STRING([--enable-demo],
-		[build libfm-demo file manager @<:@default=no@:>@])],
-	[enable_demo="${enableval}"],
-	[enable_demo=no]
+    [AC_HELP_STRING([--enable-demo],
+        [build libfm-demo file manager @<:@default=no@:>@])],
+    [enable_demo="${enableval}"],
+    [enable_demo=no]
 )
 AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes")
 
 AC_ARG_ENABLE(debug,
-	[AC_HELP_STRING([--enable-debug],
-		[build libfm with debug support @<:@default=no@:>@])],
-	[enable_debug="${enableval}"],
-	[enable_debug=no]
+    [AC_HELP_STRING([--enable-debug],
+        [build libfm with debug support @<:@default=no@:>@])],
+    [enable_debug="${enableval}"],
+    [enable_debug=no]
 )
 if test "$enable_debug" = "yes"; then
     # turn on debug and disable optimization

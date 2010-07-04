@@ -34,8 +34,8 @@
 
 #include "fm-config.h"
 
-static GtkDialog* 	_fm_get_user_input_dialog	(GtkWindow* parent, const char* title, const char* msg);
-static gchar* 		_fm_user_input_dialog_run	(GtkDialog* dlg, GtkEntry *entry);
+static GtkDialog*   _fm_get_user_input_dialog   (GtkWindow* parent, const char* title, const char* msg);
+static gchar*       _fm_user_input_dialog_run   (GtkDialog* dlg, GtkEntry *entry);
 
 void fm_show_error(GtkWindow* parent, const char* msg)
 {
@@ -293,7 +293,7 @@ struct MountData
 static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer user_data)
 {
     struct MountData* data = user_data;
-
+g_debug("on_mount_action_finished");
     switch(data->action)
     {
     case MOUNT_VOLUME:
@@ -327,7 +327,7 @@ static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer u
     g_main_loop_quit(data->loop);
 }
 
-gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboolean interactive)
+static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboolean interactive)
 {
     gboolean ret;
     struct MountData* data = g_new0(struct MountData, 1);
@@ -374,6 +374,7 @@ gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboole
         g_main_loop_run(data->loop);
         GDK_THREADS_ENTER();
     }
+
     g_main_loop_unref(data->loop);
 
     ret = data->ret;
@@ -464,15 +465,15 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 
 void fm_copy_files(FmPathList* files, FmPath* dest_dir)
 {
-	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
-	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
+    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
+    fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
     fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
 }
 
 void fm_move_files(FmPathList* files, FmPath* dest_dir)
 {
-	FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
-	fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
+    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
+    fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
     fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
 }
 

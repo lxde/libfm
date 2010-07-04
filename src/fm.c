@@ -25,6 +25,10 @@
 #include <glib/gi18n-lib.h>
 #include "fm.h"
 
+#ifdef USE_UDISKS
+#include "udisks/fm-udisks.h"
+#endif
+
 GQuark fm_qdata_id = 0;
 
 gboolean fm_init(FmConfig* config)
@@ -36,8 +40,8 @@ gboolean fm_init(FmConfig* config)
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 #endif
 
-	g_thread_init(NULL);
-	g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
+    g_thread_init(NULL);
+    g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
 
     if(config)
         fm_config = (FmConfig*)g_object_ref(config);
@@ -48,11 +52,15 @@ gboolean fm_init(FmConfig* config)
         fm_config_load_from_file(fm_config, NULL);
     }
 
-	_fm_path_init();
+    _fm_path_init();
     _fm_icon_init();
     _fm_monitor_init();
     _fm_file_info_init();
     _fm_archiver_init();
+
+#ifdef USE_UDISKS
+    _fm_udisks_init();
+#endif
 
     /* override gnome-terminal */
     path = g_strconcat(PACKAGE_LIB_DIR ":", g_getenv("PATH"), NULL);
@@ -66,9 +74,13 @@ gboolean fm_init(FmConfig* config)
 
 void fm_finalize()
 {
-	_fm_icon_finalize();
+    _fm_icon_finalize();
     _fm_monitor_finalize();
     _fm_archiver_finalize();
+
+#ifdef USE_UDISKS
+    _fm_udisks_finalize();
+#endif
 
     fm_config_save(fm_config, NULL);
     g_object_unref(fm_config);

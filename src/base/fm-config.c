@@ -38,17 +38,17 @@ FmConfig* fm_config = NULL;
 
 static guint signals[N_SIGNALS];
 
-static void fm_config_finalize  			(GObject *object);
+static void fm_config_finalize              (GObject *object);
 
 G_DEFINE_TYPE(FmConfig, fm_config, G_TYPE_OBJECT);
 
 
 static void fm_config_class_init(FmConfigClass *klass)
 {
-	GObjectClass *g_object_class;
+    GObjectClass *g_object_class;
 
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_config_finalize;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_config_finalize;
 
     /* when a config key is changed, the signal can be emitted with detail. */
     signals[CHANGED]=
@@ -65,14 +65,14 @@ static void fm_config_class_init(FmConfigClass *klass)
 
 static void fm_config_finalize(GObject *object)
 {
-	FmConfig *self;
+    FmConfig *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_CONFIG(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_CONFIG(object));
 
-	self = FM_CONFIG(object);
+    self = FM_CONFIG(object);
 
-	G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
 
 
@@ -93,7 +93,7 @@ static void fm_config_init(FmConfig *self)
 
 FmConfig *fm_config_new(void)
 {
-	return (FmConfig*)g_object_new(FM_CONFIG_TYPE, NULL);
+    return (FmConfig*)g_object_new(FM_CONFIG_TYPE, NULL);
 }
 
 void fm_config_emit_changed(FmConfig* cfg, const char* changed_key)
@@ -111,6 +111,10 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
+
+#ifdef USE_UDISKS
+    fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
+#endif
 
     fm_key_file_get_int(kf, "ui", "big_icon_size", &cfg->big_icon_size);
     fm_key_file_get_int(kf, "ui", "small_icon_size", &cfg->small_icon_size);
@@ -175,6 +179,10 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "single_click=%d\n", cfg->single_click);
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
+#ifdef USE_UDISKS
+            fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
+#endif
+
             if(cfg->terminal)
                 fprintf(f, "terminal=%s\n", cfg->terminal);
             if(cfg->archiver)
