@@ -3,15 +3,10 @@
 #include <gio/gio.h> /* for GFile, GFileInfo, GFileEnumerator */
 #include <string.h> /* for strstr */
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <sys/mman.h>
 
 #include "fm-list.h"
-
-#define BUFFER_SIZE 1024
 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
@@ -22,7 +17,7 @@ G_DEFINE_TYPE(FmFileSearchJob, fm_file_search_job, FM_TYPE_JOB);
 
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job);
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
-static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
+static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearchJob * job);
 static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean search(char * haystack, char * needle);
@@ -102,25 +97,45 @@ gboolean fm_file_search_job_run(FmFileSearchJob * job)
 
 static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 {
-	/*TODO: error checking */
+	/* FIXME: 	I added error checking.
+				I think I freed up the resources as well. */
 
-	GFileEnumerator * enumerator = g_file_enumerate_children(path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), NULL);
+	GError * error;
+	FmJobErrorAction action;
+	GFileEnumerator * enumerator = g_file_enumerate_children(path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), error);
 
-	GFileInfo * file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), NULL);
-
-	while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job)))
+	if(enumerator == NULL)
+		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+	else /* enumerator opened correctly */
 	{
-		for_each_file_info(file_info, path, job);
-		file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), NULL);
+		GFileInfo * file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), error);
+
+		while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job))) /* g_file_enumerator_next_file returns NULL on error but NULL on finished too */
+		{
+			for_each_file_info(file_info, path, job);
+			file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), error);
+		}
+
+		if(error != NULL) /* this should catch g_file_enumerator_next_file errors if they pop up */
+			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+
+		if(!g_file_enumerator_close(enumerator, fm_job_get_cancellable(job), error))
+			action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
 	}
 
-	g_file_enumerator_close(enumerator, fm_job_get_cancellable(job), NULL);
-	g_object_unref(enumerator);
+	if(enumerator != NULL)
+		g_object_unref(enumerator);
+
+	if(error != NULL)
+		g_error_free(error);
+
+	if(action == FM_JOB_ABORT)
+		fm_job_cancel(job);
 }
 
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
 {	
-	/* TODO: error checkig */
+	/* TODO: error checking ? */
 
 	char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
 	char * name = g_file_info_get_name(info); /* does not need to be freed */
@@ -133,69 +148,91 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 
 		if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR)
 		{
-			if(file_content_search(info, parent, job))
-				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
+			if(file_content_search(file, info, job))
+				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
 			else
 				fm_file_info_unref(file_info);
 		}
 		else
-			fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created ? */
+			fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
 		
 		fm_path_unref(path);
 	}
 
-	/* TODO: checking that mime matches */
-	/* TODO: use mime type when possible to prevent the unneeded checking of file contents */
+	/*	TODO: 	checking that mime matches
+				use mime type when possible to prevent the unneeded checking of file contents */
 
 	/* recurse upon each directory */
 	if(g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
 		for_each_target_folder(file,job);
 
-	g_object_unref(file);
-	g_object_unref(info);
+	if(file != NULL)
+		g_object_unref(file);
+
+	if(info != NULL)
+		g_object_unref(info);
 }
 
-static gboolean file_content_search(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
+static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearchJob * job)
 {
-	GFile * file = g_file_get_child(parent, g_file_info_get_name(info));
-	FmPath * path = fm_path_new_for_gfile(file);
 	gboolean ret = FALSE;
 
-	if(fm_path_is_native(path))
+	if(g_file_is_native(file))
 		ret = file_content_search_mmap(file, info, job);
 	else
 		ret = file_content_search_ginputstream(file, info, job);
 
-	fm_path_unref(path);
-	g_object_unref(file);
 	return ret;
 }
 
 static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job)
 {
-	/* TODO: add error checking */
+	/* FIXME: 	I added error checking.
+				I think I freed up the resources as well. */
 
+	GError * error;
+	FmJobErrorAction action;
 	gboolean ret = FALSE;
-	GFileInputStream * io = g_file_read(file, NULL, NULL);
-	goffset size = g_file_info_get_size(file_info);
+	GFileInputStream * io = g_file_read(file, fm_job_get_cancellable(job), error);
 
-	/* FIXME: should I limit the maximum size to read? */
+	if(io == G_IO_ERROR_FAILED)
+		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+	else /* input stream successfully opened */
+	{
+		/* FIXME: should I limit the size to read? */
+		goffset size = g_file_info_get_size(file_info);
+		char buffer[size];
+	
+		if(g_input_stream_read(io, &buffer, size, fm_job_get_cancellable(job), error) == -1)
+			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		else /* file successfully read into buffer */
+		{
+			if(search(buffer, job->target_contains))
+				ret = TRUE;
+		}
+		if(!g_input_stream_close(io, fm_job_get_cancellable(job), error))
+				action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+	}
 
-	char buffer[size];
+	if (io != NULL)
+		g_object_unref(io);
 
-	g_input_stream_read(io, &buffer, size, NULL, NULL);
+	if(error != NULL)
+		g_error_free(error);
 
-	if(search(buffer, job->target_contains))
-		ret = TRUE;
+	if(action == FM_JOB_ABORT)
+		fm_job_cancel(job);
 
-	g_input_stream_close(io, NULL, NULL);
 	return ret;
 }
 
 static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job)
 {
-	/* FIXME: Is this error checking ok or is it overkill? */
+	/* FIXME: 	I reimplemented the error checking; I think it is more sane now. 
+				I think I freed up the resources as well.*/
 
+	GError * error;
+	FmJobErrorAction action;
 	gboolean ret = FALSE;
 	size_t size = (size_t)g_file_info_get_size(file_info);
 	char * path = g_file_get_path(file);
@@ -205,65 +242,45 @@ static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, Fm
 	fd = open(path, O_RDONLY);
 	if(fd == -1)
 	{
-		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not open file descriptor for %s\n", path);
-		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
-		g_free(path);
-		g_object_unref(error);
-		
-		if(action == FM_JOB_ABORT)
-			fm_job_cancel(job);
-		else
-			return FALSE;
+		error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not open file descriptor for %s\n", path);
+		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
 	}
-
-	contents = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
-	if(contents == MAP_FAILED)
+	else /* the fd was opened correctly */
 	{
-		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not mmap %s\n", path);
-		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
-		g_free(path);
-		g_object_unref(error);
-		
-		if(action == FM_JOB_ABORT)
-			fm_job_cancel(job);
-		else
-			return FALSE;
-	}
-
-	if(close(fd) == -1)
-	{
-		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not close file descriptor for %s\n", path);
-		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
-
-		g_object_unref(error);
-		
-		if(action == FM_JOB_ABORT)
+		contents = mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
+		if(contents == MAP_FAILED)
 		{
-			g_free(path);
-			fm_job_cancel(job);
+			error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not mmap %s\n", path);
+			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		}
+		else /* the file was maped to memory correctly */
+		{
+			if(search(contents, job->target_contains))
+				ret = TRUE;
+
+			if(munmap(contents, size) == -1)
+			{
+				error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not munmap %s\n", path);
+				action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+			}
+		}
+
+		if(close(fd) == -1)
+		{
+			error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not close file descriptor for %s\n", path);
+			action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
 		}
 	}
 
+	if(error != NULL)
+		g_error_free(error);
 
-	if(search(contents, job->target_contains))
-		ret = TRUE;
+	if(path != NULL)
+		g_free(path);
 
-	munmap(contents, size);
-	if(munmap(contents, size) == -1)
-	{
-		GError * error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not munmap %s\n", path);
-		FmJobErrorAction action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+	if(action == FM_JOB_ABORT)
+		fm_job_cancel(job);
 
-		g_object_unref(error);
-		
-		if(action == FM_JOB_ABORT)
-		{
-			g_free(path);
-			fm_job_cancel(job);
-		}
-	}
-
-	g_free(path);
 	return ret;
 }
 
@@ -278,7 +295,6 @@ static gboolean search(char * haystack, char * needle)
 
 	return ret;
 }
-
 
 FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)
 {
