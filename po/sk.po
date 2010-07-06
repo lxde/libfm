@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-06 08:51+0000\n"
-"PO-Revision-Date: 2010-07-06 12:17+0100\n"
+"PO-Revision-Date: 2010-07-06 12:20+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -386,7 +386,7 @@ msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Niektoré súbory nie je možné presunúť do koša, pretože súborový systém, na ktorom ležia nepodporuje túto operáciu.\n"
+"Niektoré súbory nie je možné presunúť do Koša, pretože súborový systém, na ktorom ležia nepodporuje túto operáciu.\n"
 "Chcete ich namiesto toho zmazať?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -504,13 +504,12 @@ msgid "Extract To..."
 msgstr "Rozbaliť do..."
 
 #: ../src/gtk/fm-file-menu.c:244
-#, fuzzy
 msgid "_Restore"
-msgstr "_Plocha"
+msgstr "_Obnoviť"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Obnoviť súbory z Koša na pôvodné miesto"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
