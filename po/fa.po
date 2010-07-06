@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-07-06 13:08+0200\n"
-"Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
+"PO-Revision-Date: 2010-07-06 21:23+0330\n"
+"Last-Translator: Hamidreza Davoodi <hrdavodi@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -59,8 +59,7 @@ msgstr "نرم‌افزارهای نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
+msgstr "نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -78,11 +77,11 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "این گزینه‌ را بر روی فایل ها موجود بکار ببر"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "تایید جایگزین کردن فایل ها"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -102,158 +101,158 @@ msgstr "ـگذشتن"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "همراه با فایل پیش رو؟"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "۰۰۰"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>کنترل دسترسی</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>نوع فایل:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>گروه:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>آخرین دسترسی:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>آخرین تغییردهی:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>محل:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>باز کن با:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>دیگران:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>مالک:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>بزرگی روی دیسک:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>هدف:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>مجموع اندازه ی فایلها:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_گروه</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>مالک</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "مشخصات فایل"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "فایل را اجرایی کن"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "هیچ"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "عملیاتی که دیگر کاربران هم می توانند انجام دهند"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "عملیاتی که دارنده فایل می تواند انجام دهد"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "خواندن و نوشیت"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "فقط خواندنی"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "برای این نوغ فایل برنامه‌های استفاده شده را انتخاب کن"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "فقط خواندنی"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_عمومی"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "_مجوزها"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>پردازش:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>جریان:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>تعدادی خطا رخ داد:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>زمان باقی مانده:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>به:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "آماده سازی..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>رایانامه بر</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>پایانه‌ی شبیه ساز</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>مرورگر وب</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "خط فرمان:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
@@ -261,23 +260,22 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "نرم‌افزارهای برگزیده"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "نرم‌افزارهای سیستمی"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده خواهد شد."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "مرورگر برگزیده برای باز گردن فرا لینک ها استفاده خواهد شد."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -285,19 +283,19 @@ msgstr[0] "%u بایت"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "کیلوبایت"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "مگابایت"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "گیگابایت"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "ترا بایت"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
@@ -317,132 +315,141 @@ msgstr ""
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "میانبر ها"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "نقطه‌ی اتصال"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr ""
+msgstr "سطل زباله"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
-msgstr ""
+msgstr "کامپیوتر من"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:567
 msgid "Applications"
-msgstr ""
+msgstr "نرم‌افزارها"
 
 #: ../src/base/fm-path.c:449
 msgid "Network"
-msgstr ""
+msgstr "شبکه"
 
 #: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
-msgstr ""
+msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:208
+#: ../src/gtk/fm-progress-dlg.c:227
 #, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"نوع: %s\n"
+"بزرگی: %s\n"
+"تغییر: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:215
+#: ../src/gtk/fm-progress-dlg.c:234
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"نوع: %s\n"
+"تغییر: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "عملیات فایل لغو شده و  تعدادی خطا رخ داده است"
 
 #: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
-msgstr ""
+msgstr "لغو شده"
 
 #: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "عملیات فایل به پایان رسید ولی تعدادی خطا وجود داشته."
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
-msgstr ""
+msgstr "به پایان رسیده"
 
 #: ../src/gtk/fm-progress-dlg.c:328
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل سیستم این عمل را پشتیبانی نمی کند.\n"
+"بجای اینکار ایا می خواهید آنها را پاک کنید ؟"
 
 #: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
-msgstr ""
+msgstr "،"
 
 #: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
-msgstr ""
+msgstr "جا‌به‌جایی فایلها"
 
 #: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
-msgstr ""
+msgstr "روبرداری از فایلها"
 
 #: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
-msgstr ""
+msgstr "انتقال به زباله دان"
 
 #: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
-msgstr ""
+msgstr "پاک کردن فایل"
 
 #: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
-msgstr ""
+msgstr "لینک نمادین"
 
 #: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
-msgstr ""
+msgstr "تغییر مشخصه ها"
 
 #: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "لطفا یک نام کاربری یا مشخصه‌ی عددی وارد کنید."
 
 #: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "لطفا یک نام گروه یا مشخصه‌ی عددی وارد کنید."
 
 #: ../src/gtk/fm-file-properties.c:351
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت شود؟"
 
 #: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
-msgstr ""
+msgstr "فایل هایی از نوع متفاوت"
 
 #: ../src/gtk/fm-file-properties.c:653
 msgid "Multiple Files"
-msgstr ""
+msgstr "چندین فایل"
 
 #: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
-msgstr ""
+msgstr "اتصال بخش"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
-msgstr ""
+msgstr "قطع بخش"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "در آوردن رسانه‌ی قابل حمل"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:147
+#: ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr ""
 
@@ -452,126 +459,129 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
-msgstr ""
+msgstr "خالی کردن زباله دان"
 
 #: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
-msgstr ""
+msgstr "زباله"
 
 #: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
-msgstr ""
+msgstr "میزکار"
 
 #: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
-msgstr ""
+msgstr "یک نام جدید وارد کنید:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "باز کنید با..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "تغییر نام"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "لینکی نمادین بساز"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "بفرست به"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "فشرده سازی..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "همینجا استخراج کن"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "استخراج کن در..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_بازیافت"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "بازیافت کن فایلهای زباله‌دان را به مسیر اصلی"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave ناموفق بود."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "از نرم‌افزارهای انتخابی برای باز کردن فایل ها استفاده کن"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "اجرای سفارشی خط فرمان برای باز کردن فایل ها"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "سفارشی سازی"
 
 #: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
-msgstr ""
+msgstr "توضیحات"
 
 #: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
-msgstr ""
+msgstr "اندازه"
 
 #: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
-msgstr ""
+msgstr "تغییر"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "نرم‌افزارهای نصب‌شده"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "خطا"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "لطفا یک پوشه انتخاب کنید"
 
 #: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "فقط مدیران سیستم اجازه ی اینکار را دارند."
 
 #: ../src/gtk/fm-gtk-utils.c:475
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "آیا می خواهید فایلهای انتخابی را به زباله‌دان منتقل کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "آیا می خواهید فایل های انتخاب شده را حذف کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
-msgstr ""
+msgstr "تغییر نام فایل"
 
 #: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "لطفا یک نام تازه وارد کنید:"
 
 #: ../src/gtk/fm-gtk-utils.c:564
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "آیا از خالی کردن زباله دان  اطمینان دارید؟"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "دایرکتوری مشخص شده معتبر نیست"
+
