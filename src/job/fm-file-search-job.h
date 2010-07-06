@@ -29,8 +29,17 @@ struct _FmFileSearchJob
 	FmFileInfoList * files;
 	char * target;
 	char * target_contains;
-	GSList * target_folders;
+	FmFileSearchMode target_mode;
+	FmFileSearchMode content_mode;
+	FmPathList * target_folders;
 	FmMimeType * target_type;
+	gboolean case_sensitive;
+	gboolean recursive;
+	gboolean show_hidden;
+	gboolean check_minimum_size;
+	gboolean check_maximum_size;
+	goffset minimum_size;
+	goffset maximum_size;
 };
 
 struct _FmFileSearchJobClass
