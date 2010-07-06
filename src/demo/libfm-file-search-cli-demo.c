@@ -29,13 +29,20 @@ int main(int argc, char** argv)
 
 	FmFileSearch * search;
 
-	GFile * path = g_file_new_for_path(argv[1]);
+	//GFile * path = g_file_new_for_path(argv[1]);
 
-	GSList * target_folders = g_slist_append(target_folders, path);
+	//GSList * target_folders = g_slist_append(target_folders, path);
 
-	search = fm_file_search_new(argv[2], argv[3],target_folders, NULL);
+	FmPath * path = fm_path_new(argv[1]);
+
+	FmPathList * target_folders = fm_path_list_new();
+
+	fm_list_push_tail(target_folders, path);
+
+	search = fm_file_search_new(argv[2], argv[3],target_folders);
 
 	g_signal_connect(search, "loaded", on_search_loaded, loop);
+	fm_file_search_run(search);
 
 	g_main_run(loop);
 	

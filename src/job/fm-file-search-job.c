@@ -21,6 +21,7 @@ static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearch
 static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean search(char * haystack, char * needle);
+static void load_target_folders(FmPath * path, gpointer user_data);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -51,12 +52,12 @@ static void fm_file_search_job_finalize(GObject * object)
 
 	if(self->target)
 		g_free(self->target);
-		
+
 	if(self->target_contains)
 		g_free(self->target_contains);
 
 	if(self->target_folders)
-		g_slist_free(self->target_folders);
+		fm_list_unref(self->target_folders);
 
 	if(self->target_type)
 		fm_mime_type_unref(self->target_type);
@@ -70,10 +71,15 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 	FmFileSearchJob * job = (FmJob*)g_object_new(FM_TYPE_FILE_SEARCH_JOB, NULL);
 
 	job->files = fm_file_info_list_new();
-	job->target = g_strdup(search->target);
-	job->target_contains = g_strdup(search->target_contains);
-	job->target_folders = g_slist_copy(search->target_folders);
-	job->target_type = search->target_type; /* does this need to be referenced ? */
+	job->target = fm_file_search_get_target(search);
+	job->target_contains = fm_file_search_get_target_contains(search);
+
+	job->target_folders = NULL; /* list of GFile * */
+	fm_list_foreach(search->target_folders, load_target_folders, job);
+	//job->target_type = fm_file_search_get_target_type(search);
+
+	job->show_hidden = search->show_hidden;
+	job->recursive = search->recursive;
 
 	return (FmJob*)job;
 }
@@ -113,6 +119,10 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 		while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job))) /* g_file_enumerator_next_file returns NULL on error but NULL on finished too */
 		{
 			for_each_file_info(file_info, path, job);
+
+			if(file_info != NULL)
+				g_object_unref(file_info);
+
 			file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), error);
 		}
 
@@ -137,40 +147,41 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 {	
 	/* TODO: error checking ? */
 
-	char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
-	char * name = g_file_info_get_name(info); /* does not need to be freed */
-	GFile * file = g_file_get_child(parent, name);
-
-	if(search(display_name, job->target))
+	if(!g_file_info_get_is_hidden(info) || job->show_hidden)
 	{
-		FmPath * path = fm_path_new_for_gfile(file);
-		FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
 
-		if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR)
+		char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
+		char * name = g_file_info_get_name(info); /* does not need to be freed */
+		GFile * file = g_file_get_child(parent, name);
+	
+		if(search(display_name, job->target))
 		{
-			if(file_content_search(file, info, job))
-				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+			FmPath * path = fm_path_new_for_gfile(file);
+			FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
+
+			if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR)
+			{
+				if(file_content_search(file, info, job))
+					fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+				else
+					fm_file_info_unref(file_info);
+			}
 			else
-				fm_file_info_unref(file_info);
-		}
-		else
-			fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
 		
-		fm_path_unref(path);
-	}
+			fm_path_unref(path);
+		}
 
-	/*	TODO: 	checking that mime matches
-				use mime type when possible to prevent the unneeded checking of file contents */
+		/*	TODO: 	checking that mime matches
+					use mime type when possible to prevent the unneeded checking of file contents */
 
-	/* recurse upon each directory */
-	if(g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
-		for_each_target_folder(file,job);
+		/* recurse upon each directory */
+		if(job->recursive &&g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
+			for_each_target_folder(file,job);
 
-	if(file != NULL)
-		g_object_unref(file);
-
-	if(info != NULL)
-		g_object_unref(info);
+		if(file != NULL)
+			g_object_unref(file);
+	}	
 }
 
 static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearchJob * job)
@@ -189,7 +200,7 @@ static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_
 {
 	/* FIXME: 	I added error checking.
 				I think I freed up the resources as well. */
-
+	/* TODO: 	Rewrite this to read into a buffer, but check across the break for matches */
 	GError * error;
 	FmJobErrorAction action;
 	gboolean ret = FALSE;
@@ -294,6 +305,12 @@ static gboolean search(char * haystack, char * needle)
 		ret = TRUE;
 
 	return ret;
+}
+
+static void load_target_folders(FmPath * path, gpointer user_data)
+{
+	FmFileSearchJob * job = FM_FILE_SEARCH_JOB(user_data);
+	job->target_folders = g_slist_append(job->target_folders, fm_path_to_gfile(path));
 }
 
 FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)

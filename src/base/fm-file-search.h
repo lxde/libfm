@@ -20,6 +20,14 @@ G_BEGIN_DECLS
 
 typedef struct _FmFileSearch		FmFileSearch;
 typedef struct _FmFileSearchClass	FmFileSearchClass;
+typedef enum _FmFileSearchMode 	FmFileSearchMode;
+
+enum _FmFileSearchMode
+{
+	FM_FILE_SEARCH_MODE_EXACT,
+	FM_FILE_SEARCH_MODE_FUZZY,
+	FM_FILE_SEARCH_MODE_REGEX
+};
 
 struct _FmFileSearch
 {
@@ -28,10 +36,17 @@ struct _FmFileSearch
 	/* private */
 	char * target;
 	char * target_contains;
-	GSList * target_folders;
-	gboolean check_type;
+	FmFileSearchMode target_mode;
+	FmFileSearchMode content_mode;
+	FmPathList * target_folders;
 	FmMimeType * target_type;
-	
+	gboolean case_sensitive;
+	gboolean recursive;
+	gboolean show_hidden;
+	gboolean check_minimum_size;
+	gboolean check_maximum_size;
+	goffset minimum_size;
+	goffset maximum_size;
 };
 
 struct _FmFileSearchClass
@@ -39,16 +54,25 @@ struct _FmFileSearchClass
 	FmFolderClass parent_class;
 };
 
-
 GType		fm_file_search_get_type		(void);
-
-/* 
-target: the target file name, if NULL it is not used to determine matches
-target_contains: the target file needs to contain the following string, if NULL it is not used to determine matches, does not work on all types
-target_folders: should be a GSList of GFiles representing directories that are to be searched
-target_type: target mime type, if NULL it is not used to determine matches
-*/
-FmFileSearch * fm_file_search_new(char * target , char* target_contains, GSList * target_folders, FmMimeType * target_type);
+FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathList * target_folders);
+void fm_file_search_run(FmFileSearch * search);
+char * fm_file_search_get_target(FmFileSearch * search);
+void fm_file_search_set_target(FmFileSearch * search, char * target);
+char * fm_file_search_get_target_contains(FmFileSearch * search);
+void fm_file_search_set_target_contains(FmFileSearch * search, char * target_contains);
+FmFileSearchMode fm_file_search_get_target_mode(FmFileSearch * search);
+void fm_file_search_set_target_mode(FmFileSearch * search, FmFileSearchMode target_mode);
+FmFileSearchMode fm_file_search_get_content_mode(FmFileSearch * search);
+void fm_file_search_set_content_mode(FmFileSearch * search, FmFileSearchMode content_mode);
+FmPathList * fm_file_search_get_target_folders(FmFileSearch * search);
+void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * target_folders);
+gboolean fm_file_search_get_case_sensitive(FmFileSearch * search);
+void fm_file_search_set_case_sensitive(FmFileSearch * search, gboolean case_sensitive);
+gboolean fm_file_search_get_recursive(FmFileSearch * search);
+void fm_file_search_set_recursive(FmFileSearch * search, gboolean recursive);
+gboolean fm_file_search_get_show_hidden(FmFileSearch * search);
+void fm_file_search_set_show_hidden(FmFileSearch * search, gboolean show_hidden);
 
 G_END_DECLS
 
