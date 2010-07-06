@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-07-05 22:01+0200\n"
+"PO-Revision-Date: 2010-07-06 13:08+0200\n"
 "Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -63,9 +63,8 @@ msgstr ""
 "نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Browse"
-msgstr "ـباز کن"
+msgstr "_مرور‌کن"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -282,7 +281,7 @@ msgstr ""
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "مفرد%u بایتجمع%u بایت ها"
+msgstr[0] "%u بایت"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
