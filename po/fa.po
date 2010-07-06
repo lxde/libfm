@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-06-30 17:21+0200\n"
+"PO-Revision-Date: 2010-07-05 22:01+0200\n"
 "Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -23,9 +23,8 @@ msgid "<b>Command line to execute:</b>"
 msgstr "<b>خط فرمان برای اجرا</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>انواع فایل ها برای باز شدن:</b>"
+msgstr "<b>نوع فایل باز شده:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -36,7 +35,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>این کدهای مخصوصا می توانن در خط فرمان استفاده شوند: </b>\n"
+"<b>این کدهای ویژه می توانند در خط فرمان استفاده شوند: </b>\n"
 "<b>%f</b>: نشان دهنده ی تنها یک فایل است.\n"
 "<b>%F</b>:نشان دهنده ی چندین فایل است.\n"
 "<b>%u</b>: نشان دهنده ی یک URI به تنهایی است.\n"
@@ -44,27 +43,29 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "یک برنامه ی انتخاب کنید"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "خط فرمان سفارشی"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "اجرا در پایانه ی شبیه ساز"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "نرم‌افزارهای نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
+"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
 
 #: ../data/ui/app-chooser.glade.h:14
+#, fuzzy
 msgid "_Browse"
-msgstr ""
+msgstr "ـباز کن"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -72,6 +73,9 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b> از قبل فایلی با همین نام در این آدرس وجود داشته.</b>\n"
+"\n"
+"ایا می خواهید با فایل موجود جایگزین کنید ؟"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -83,19 +87,19 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "نام فایل:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "ـرونوشت"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "ـتغییر نام"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "ـگذشتن"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
@@ -278,8 +282,7 @@ msgstr ""
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "مفرد%u بایتجمع%u بایت ها"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
