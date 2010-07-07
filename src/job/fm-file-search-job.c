@@ -57,7 +57,7 @@ static void fm_file_search_job_finalize(GObject * object)
 		g_free(self->target_contains);
 
 	if(self->target_folders)
-		fm_list_unref(self->target_folders);
+		g_slist_free(self->target_folders);
 
 	if(self->target_type)
 		fm_mime_type_unref(self->target_type);
@@ -76,7 +76,7 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 
 	job->target_folders = NULL; /* list of GFile * */
 	fm_list_foreach(search->target_folders, load_target_folders, job);
-	//job->target_type = fm_file_search_get_target_type(search);
+	job->target_type = fm_file_search_get_target_type(search);
 
 	job->show_hidden = search->show_hidden;
 	job->recursive = search->recursive;
@@ -154,29 +154,46 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 		char * name = g_file_info_get_name(info); /* does not need to be freed */
 		GFile * file = g_file_get_child(parent, name);
 	
-		if(search(display_name, job->target))
+		if(job->target == NULL || search(display_name, job->target)) /* target search */
 		{
 			FmPath * path = fm_path_new_for_gfile(file);
 			FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
+			
+			/*FIXME: the file matching does not work, but I could not track down the problem yet */
+			//FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
+			//char * file_type = fm_mime_type_get_type(file_mime);
+			//char * target_file_type = (job->target_type != NULL ? fm_mime_type_get_type(job->target_type) : NULL);
 
-			if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR)
-			{
-				if(file_content_search(file, info, job))
-					fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+			//if(job->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
+			//{
+				if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR) /* target content search */
+				{
+					if(file_content_search(file, info, job))
+						fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+					else
+						fm_file_info_unref(file_info);
+				}
 				else
-					fm_file_info_unref(file_info);
-			}
-			else
-				fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
-		
-			fm_path_unref(path);
+					fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+			//}
+			//else
+			//	fm_file_info_unref(file_info);
+
+			if(path != NULL)
+				fm_path_unref(path);
+
+			//if(file_type != NULL)
+			//	g_free(file_type);
+
+			//if(target_file_type != NULL)
+			//	g_free(target_file_type);
 		}
 
 		/*	TODO: 	checking that mime matches
 					use mime type when possible to prevent the unneeded checking of file contents */
 
 		/* recurse upon each directory */
-		if(job->recursive &&g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
+		if(job->recursive && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
 			for_each_target_folder(file,job);
 
 		if(file != NULL)
@@ -186,7 +203,7 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 
 static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearchJob * job)
 {
-	gboolean ret = FALSE;
+	gboolean ret = TRUE;
 
 	if(g_file_is_native(file))
 		ret = file_content_search_mmap(file, info, job);
