@@ -31,7 +31,7 @@ struct _FmFileSearchJob
 	char * target_contains;
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
-	FmPathList * target_folders;
+	GSList * target_folders;
 	FmMimeType * target_type;
 	gboolean case_sensitive;
 	gboolean recursive;

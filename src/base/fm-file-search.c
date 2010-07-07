@@ -137,6 +137,16 @@ void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * targe
 	search->target_folders = fm_list_ref(target_folders);
 }
 
+FmMimeType * fm_file_search_get_target_type(FmFileSearch * search)
+{
+	return search->target_type;
+}
+
+void fm_file_search_set_target_type(FmFileSearch * search, FmMimeType * target_type)
+{
+	search->target_type = target_type;
+}
+
 gboolean fm_file_search_get_case_sensitive(FmFileSearch * search)
 {
 	return search->case_sensitive;

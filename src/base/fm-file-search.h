@@ -67,6 +67,8 @@ FmFileSearchMode fm_file_search_get_content_mode(FmFileSearch * search);
 void fm_file_search_set_content_mode(FmFileSearch * search, FmFileSearchMode content_mode);
 FmPathList * fm_file_search_get_target_folders(FmFileSearch * search);
 void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * target_folders);
+FmMimeType * fm_file_search_get_target_type(FmFileSearch * search);
+void fm_file_search_set_target_type(FmFileSearch * search, FmMimeType * target_type);
 gboolean fm_file_search_get_case_sensitive(FmFileSearch * search);
 void fm_file_search_set_case_sensitive(FmFileSearch * search, gboolean case_sensitive);
 gboolean fm_file_search_get_recursive(FmFileSearch * search);
