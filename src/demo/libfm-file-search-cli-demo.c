@@ -16,6 +16,8 @@ static char * path_list = NULL;
 static char * target_type = NULL;
 static gboolean not_recursive = FALSE;
 static gboolean show_hidden = FALSE;
+static gboolean regex_target = FALSE;
+static gboolean regex_content = FALSE;
 
 static GOptionEntry entries[] =
 {
@@ -25,6 +27,8 @@ static GOptionEntry entries[] =
 	{"type", 'y', 0, G_OPTION_ARG_STRING, &target_type, "system string representation of type of files to search", NULL},
 	{"norecurse", 'r', 0, G_OPTION_ARG_NONE, &not_recursive, "disables recursively searching directories", NULL},
 	{"showhidden", 's', 0, G_OPTION_ARG_NONE, &show_hidden, "enables searching hidden files", NULL},
+	{"regextarget", 'e', 0, G_OPTION_ARG_NONE, &regex_target, "enables regex target searching", NULL},
+	{"regexcontent", 'g', 0, G_OPTION_ARG_NONE, &regex_content, "enables regex target searching", NULL},
 	{NULL}
 };
 
@@ -65,11 +69,16 @@ int main(int argc, char** argv)
 		fm_list_push_tail(target_folders, path);
 		path_list_token = strtok(NULL, ":");
 	}
-
 	search = fm_file_search_new(target, target_contains, target_folders);
 
 	fm_file_search_set_show_hidden(search, show_hidden);
 	fm_file_search_set_recursive(search, !not_recursive);
+
+	if(regex_target)
+		fm_file_search_set_target_mode(search, FM_FILE_SEARCH_MODE_REGEX);
+
+	if(regex_content)
+		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_REGEX);
 
 	g_signal_connect(search, "loaded", on_search_loaded, loop);
 	fm_file_search_run(search);
