@@ -8,6 +8,13 @@
 
 #include "fm-list.h"
 
+
+typedef enum _SearchType
+{
+	SEARCH_TYPE_FILE_NAME,
+	SEARCH_TYPE_CONTENT
+} SearchType;
+
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
 static void fm_file_search_job_finalize(GObject * object);
@@ -20,7 +27,7 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 static gboolean file_content_search(GFile * file, GFileInfo * info, FmFileSearchJob * job);
 static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
 static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, FmFileSearchJob * job);
-static gboolean search(char * haystack, char * needle);
+static gboolean search(char * haystack, char * needle, SearchType type, FmFileSearchJob * job);
 static void load_target_folders(FmPath * path, gpointer user_data);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
@@ -56,6 +63,12 @@ static void fm_file_search_job_finalize(GObject * object)
 	if(self->target_contains)
 		g_free(self->target_contains);
 
+	if(self->target_regex)
+		g_regex_unref(self->target_regex);
+
+	if(self->target_contains_regex)
+		g_regex_unref(self->target_contains_regex);
+
 	if(self->target_folders)
 		g_slist_free(self->target_folders);
 
@@ -72,7 +85,18 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 
 	job->files = fm_file_info_list_new();
 	job->target = fm_file_search_get_target(search);
+	job->target_mode = search->target_mode;
+	if(job->target_mode == FM_FILE_SEARCH_MODE_REGEX && job->target != NULL)
+	{
+		job->target_regex = g_regex_new(job->target, G_REGEX_OPTIMIZE, 0, NULL);
+	}
+
 	job->target_contains = fm_file_search_get_target_contains(search);
+	job->content_mode = search->content_mode;
+	if(job->content_mode == FM_FILE_SEARCH_MODE_REGEX && job->target_contains != NULL)
+	{
+		job->target_contains_regex = g_regex_new(job->target_contains, G_REGEX_OPTIMIZE, 0, NULL);
+	}
 
 	job->target_folders = NULL; /* list of GFile * */
 	fm_list_foreach(search->target_folders, load_target_folders, job);
@@ -111,7 +135,7 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 	GFileEnumerator * enumerator = g_file_enumerate_children(path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), error);
 
 	if(enumerator == NULL)
-		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 	else /* enumerator opened correctly */
 	{
 		GFileInfo * file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), error);
@@ -127,10 +151,10 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 		}
 
 		if(error != NULL) /* this should catch g_file_enumerator_next_file errors if they pop up */
-			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+			action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 
-		if(!g_file_enumerator_close(enumerator, fm_job_get_cancellable(job), error))
-			action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+		if(!g_file_enumerator_close(enumerator, fm_job_get_cancellable(FM_JOB(job)), error))
+			action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
 	}
 
 	if(enumerator != NULL)
@@ -140,7 +164,7 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 		g_error_free(error);
 
 	if(action == FM_JOB_ABORT)
-		fm_job_cancel(job);
+		fm_job_cancel(FM_JOB(job));
 }
 
 static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
@@ -150,22 +174,20 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 	if(!g_file_info_get_is_hidden(info) || job->show_hidden)
 	{
 
-		char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
-		char * name = g_file_info_get_name(info); /* does not need to be freed */
+		const char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
+		const char * name = g_file_info_get_name(info); /* does not need to be freed */
 		GFile * file = g_file_get_child(parent, name);
 	
-		if(job->target == NULL || search(display_name, job->target)) /* target search */
+		if(job->target == NULL || search(display_name, job->target, SEARCH_TYPE_FILE_NAME, job)) /* target search */
 		{
 			FmPath * path = fm_path_new_for_gfile(file);
 			FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
-			
-			/*FIXME: the file matching does not work, but I could not track down the problem yet */
-			//FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
-			//char * file_type = fm_mime_type_get_type(file_mime);
-			//char * target_file_type = (job->target_type != NULL ? fm_mime_type_get_type(job->target_type) : NULL);
+			FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
+			const char * file_type = fm_mime_type_get_type(file_mime);
+			const char * target_file_type = (job->target_type != NULL ? fm_mime_type_get_type(job->target_type) : NULL);
 
-			//if(job->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
-			//{
+			if(job->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
+			{
 				if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR) /* target content search */
 				{
 					if(file_content_search(file, info, job))
@@ -175,18 +197,12 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 				}
 				else
 					fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
-			//}
-			//else
-			//	fm_file_info_unref(file_info);
+			}
+			else
+				fm_file_info_unref(file_info);
 
 			if(path != NULL)
 				fm_path_unref(path);
-
-			//if(file_type != NULL)
-			//	g_free(file_type);
-
-			//if(target_file_type != NULL)
-			//	g_free(target_file_type);
 		}
 
 		/*	TODO: 	checking that mime matches
@@ -224,22 +240,22 @@ static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_
 	GFileInputStream * io = g_file_read(file, fm_job_get_cancellable(job), error);
 
 	if(io == G_IO_ERROR_FAILED)
-		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 	else /* input stream successfully opened */
 	{
 		/* FIXME: should I limit the size to read? */
 		goffset size = g_file_info_get_size(file_info);
 		char buffer[size];
 	
-		if(g_input_stream_read(io, &buffer, size, fm_job_get_cancellable(job), error) == -1)
-			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		if(g_input_stream_read(G_INPUT_STREAM(io), &buffer, size, fm_job_get_cancellable(job), error) == -1)
+			action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 		else /* file successfully read into buffer */
 		{
-			if(search(buffer, job->target_contains))
+			if(search(buffer, job->target_contains, SEARCH_TYPE_CONTENT, job))
 				ret = TRUE;
 		}
 		if(!g_input_stream_close(io, fm_job_get_cancellable(job), error))
-				action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+				action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
 	}
 
 	if (io != NULL)
@@ -249,7 +265,7 @@ static gboolean file_content_search_ginputstream(GFile * file, GFileInfo * file_
 		g_error_free(error);
 
 	if(action == FM_JOB_ABORT)
-		fm_job_cancel(job);
+		fm_job_cancel(FM_JOB(job));
 
 	return ret;
 }
@@ -271,7 +287,7 @@ static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, Fm
 	if(fd == -1)
 	{
 		error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not open file descriptor for %s\n", path);
-		action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+		action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 	}
 	else /* the fd was opened correctly */
 	{
@@ -279,24 +295,24 @@ static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, Fm
 		if(contents == MAP_FAILED)
 		{
 			error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not mmap %s\n", path);
-			action = fm_job_emit_error(job, error, FM_JOB_ERROR_SEVERE);
+			action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_SEVERE);
 		}
 		else /* the file was maped to memory correctly */
 		{
-			if(search(contents, job->target_contains))
+			if(search(contents, job->target_contains, SEARCH_TYPE_CONTENT, job))
 				ret = TRUE;
 
 			if(munmap(contents, size) == -1)
 			{
 				error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not munmap %s\n", path);
-				action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+				action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
 			}
 		}
 
 		if(close(fd) == -1)
 		{
 			error = g_error_new(G_FILE_ERROR, G_FILE_ERROR_FAILED, "Could not close file descriptor for %s\n", path);
-			action = fm_job_emit_error(job, error, FM_JOB_ERROR_MILD);
+			action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
 		}
 	}
 
@@ -307,20 +323,30 @@ static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, Fm
 		g_free(path);
 
 	if(action == FM_JOB_ABORT)
-		fm_job_cancel(job);
+		fm_job_cancel(FM_JOB(job));
 
 	return ret;
 }
 
-static gboolean search(char * haystack, char * needle)
+static gboolean search(char * haystack, char * needle, SearchType type, FmFileSearchJob * job)
 {
 	/* TODO: replace this with a fuzzy search */
 
 	gboolean ret = FALSE;
+	FmFileSearchMode mode = ( type == SEARCH_TYPE_FILE_NAME ? job->target_mode : job->content_mode );
 
-	if(strstr(haystack, needle) != NULL)
-		ret = TRUE;
-
+	if(mode == FM_FILE_SEARCH_MODE_REGEX)
+	{
+		if(type == SEARCH_TYPE_FILE_NAME)
+			ret = g_regex_match(job->target_regex, haystack, 0, NULL);
+		else
+			ret = g_regex_match(job->target_contains_regex, haystack, 0, NULL);
+	}
+	else
+	{
+		if(strstr(haystack, needle) != NULL)
+			ret = TRUE;
+	}
 	return ret;
 }
 

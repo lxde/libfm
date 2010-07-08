@@ -31,6 +31,8 @@ struct _FmFileSearchJob
 	char * target_contains;
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
+	GRegex * target_regex;
+	GRegex * target_contains_regex;
 	GSList * target_folders;
 	FmMimeType * target_type;
 	gboolean case_sensitive;
