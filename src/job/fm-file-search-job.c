@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <fnmatch.h>
 
 #include "fm-list.h"
 
@@ -341,6 +342,12 @@ static gboolean search(char * haystack, char * needle, SearchType type, FmFileSe
 			ret = g_regex_match(job->target_regex, haystack, 0, NULL);
 		else
 			ret = g_regex_match(job->target_contains_regex, haystack, 0, NULL);
+	}
+	else if(mode == FM_FILE_SEARCH_MODE_EXACT)
+	{
+		/* use FNM_CASEFOLD when adding case insensitive search */
+		if(fnmatch(needle, haystack, 0) == 0)
+			ret = TRUE;
 	}
 	else
 	{
