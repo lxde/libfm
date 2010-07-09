@@ -18,6 +18,9 @@ static gboolean not_recursive = FALSE;
 static gboolean show_hidden = FALSE;
 static gboolean regex_target = FALSE;
 static gboolean regex_content = FALSE;
+static gboolean exact_target = FALSE;
+static gboolean exact_content = FALSE;
+static char * type = NULL;
 
 static GOptionEntry entries[] =
 {
@@ -29,6 +32,9 @@ static GOptionEntry entries[] =
 	{"showhidden", 's', 0, G_OPTION_ARG_NONE, &show_hidden, "enables searching hidden files", NULL},
 	{"regextarget", 'e', 0, G_OPTION_ARG_NONE, &regex_target, "enables regex target searching", NULL},
 	{"regexcontent", 'g', 0, G_OPTION_ARG_NONE, &regex_content, "enables regex target searching", NULL},
+	{"exacttarget", 'x', 0, G_OPTION_ARG_NONE, &exact_target, "enables regex target searching", NULL},
+	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
+	{"type", 'z', 0, G_OPTION_ARG_STRING, &type, "type of file to search for", NULL},
 	{NULL}
 };
 
@@ -76,9 +82,19 @@ int main(int argc, char** argv)
 
 	if(regex_target)
 		fm_file_search_set_target_mode(search, FM_FILE_SEARCH_MODE_REGEX);
+	else if(exact_target)
+		fm_file_search_set_target_mode(search, FM_FILE_SEARCH_MODE_EXACT);
 
 	if(regex_content)
 		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_REGEX);
+	else if(exact_content)
+		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_EXACT);
+
+	if(type != NULL)
+	{
+		FmMimeType * mime = fm_mime_type_get_for_type(type);
+		fm_file_search_set_target_type(search, mime);
+	}
 
 	g_signal_connect(search, "loaded", on_search_loaded, loop);
 	fm_file_search_run(search);
