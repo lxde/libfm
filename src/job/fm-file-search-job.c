@@ -115,6 +115,10 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 	job->show_hidden = search->show_hidden;
 	job->recursive = search->recursive;
 
+	job->check_minimum_size = search->check_minimum_size;
+	job->check_maximum_size = search->check_maximum_size;
+	job->minimum_size = search->minimum_size;
+	job->maximum_size = search->maximum_size;
 
 	return (FmJob*)job;
 }
@@ -184,47 +188,47 @@ static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob
 
 	if(!g_file_info_get_is_hidden(info) || job->show_hidden)
 	{
-
-		const char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
-		const char * name = g_file_info_get_name(info); /* does not need to be freed */
-		GFile * file = g_file_get_child(parent, name);
-	
-		if(job->target == NULL || search(display_name, job->target, SEARCH_TYPE_FILE_NAME, job)) /* target search */
+		if((!job->check_minimum_size || g_file_info_get_size(info) >= job->minimum_size) && (!job->check_maximum_size || g_file_info_get_size(info) <= job->maximum_size)) /* file size check */
 		{
-			FmPath * path = fm_path_new_for_gfile(file);
-			FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
-			FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
-			const char * file_type = fm_mime_type_get_type(file_mime);
-			const char * target_file_type = (job->target_type != NULL ? fm_mime_type_get_type(job->target_type) : NULL);
+			const char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
+			const char * name = g_file_info_get_name(info); /* does not need to be freed */
+			GFile * file = g_file_get_child(parent, name);
 
-			if(job->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
+			if(job->target == NULL || search(display_name, job->target, SEARCH_TYPE_FILE_NAME, job)) /* target search */
 			{
-				if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR) /* target content search */
+				FmPath * path = fm_path_new_for_gfile(file);
+				FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
+				FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
+				const char * file_type = fm_mime_type_get_type(file_mime);
+				const char * target_file_type = (job->target_type != NULL ? fm_mime_type_get_type(job->target_type) : NULL);
+
+				if(job->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
 				{
-					if(file_content_search(file, info, job))
-						fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+					if(job->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR) /* target content search */
+					{
+						if(file_content_search(file, info, job))
+							fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+						else
+							fm_file_info_unref(file_info);
+					}
 					else
-						fm_file_info_unref(file_info);
+						fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
 				}
 				else
-					fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
+					fm_file_info_unref(file_info);
+
+				if(path != NULL)
+					fm_path_unref(path);
 			}
-			else
-				fm_file_info_unref(file_info);
 
-			if(path != NULL)
-				fm_path_unref(path);
+
+			/* recurse upon each directory */
+			if(job->recursive && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
+				for_each_target_folder(file,job);
+
+			if(file != NULL)
+				g_object_unref(file);
 		}
-
-		/*	TODO: 	checking that mime matches
-					use mime type when possible to prevent the unneeded checking of file contents */
-
-		/* recurse upon each directory */
-		if(job->recursive && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
-			for_each_target_folder(file,job);
-
-		if(file != NULL)
-			g_object_unref(file);
 	}	
 }
 
@@ -341,8 +345,6 @@ static gboolean file_content_search_mmap(GFile * file, GFileInfo * file_info, Fm
 
 static gboolean search(char * haystack, char * needle, SearchType type, FmFileSearchJob * job)
 {
-	/* TODO: replace this with a fuzzy search */
-
 	gboolean ret = FALSE;
 	FmFileSearchMode mode = ( type == SEARCH_TYPE_FILE_NAME ? job->target_mode : job->content_mode );
 

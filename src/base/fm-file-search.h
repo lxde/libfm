@@ -75,6 +75,14 @@ gboolean fm_file_search_get_recursive(FmFileSearch * search);
 void fm_file_search_set_recursive(FmFileSearch * search, gboolean recursive);
 gboolean fm_file_search_get_show_hidden(FmFileSearch * search);
 void fm_file_search_set_show_hidden(FmFileSearch * search, gboolean show_hidden);
+gboolean fm_file_search_get_check_minimum_size(FmFileSearch * search);
+void fm_file_search_set_check_minimum_size(FmFileSearch * search, gboolean check_minimum_size);
+gboolean fm_file_search_get_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size);
+void fm_file_search_set_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size);
+goffset fm_file_search_get_minimum_size(FmFileSearch * search);
+void fm_file_search_set_minimum_size(FmFileSearch * search, goffset minimum_size);
+goffset fm_file_search_get_maximum_size(FmFileSearch * search);
+void fm_file_search_set_maximum_size(FmFileSearch * search, goffset maximum_size);
 
 G_END_DECLS
 

@@ -177,6 +177,46 @@ void fm_file_search_set_show_hidden(FmFileSearch * search, gboolean show_hidden)
 	search->show_hidden = show_hidden;
 }
 
+gboolean fm_file_search_get_check_minimum_size(FmFileSearch * search)
+{
+	return search->check_minimum_size;
+}
+
+void fm_file_search_set_check_minimum_size(FmFileSearch * search, gboolean check_minimum_size)
+{
+	search->check_minimum_size = check_minimum_size;
+}
+
+gboolean fm_file_search_get_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size)
+{
+	return search->check_maximum_size;
+}
+
+void fm_file_search_set_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size)
+{
+	search->check_maximum_size = check_maximum_size;
+}
+
+goffset fm_file_search_get_minimum_size(FmFileSearch * search)
+{
+	return search->minimum_size;
+}
+
+void fm_file_search_set_minimum_size(FmFileSearch * search, goffset minimum_size)
+{
+	search->minimum_size = minimum_size;
+}
+
+goffset fm_file_search_get_maximum_size(FmFileSearch * search)
+{
+	return search->maximum_size;
+}
+
+void fm_file_search_set_maximum_size(FmFileSearch * search, goffset maximum_size)
+{
+	search->maximum_size = maximum_size;
+}
+
 /* utility functions */
 
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search)
