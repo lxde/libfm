@@ -21,6 +21,7 @@ static gboolean regex_content = FALSE;
 static gboolean exact_target = FALSE;
 static gboolean exact_content = FALSE;
 static char * type = NULL;
+static gboolean case_sensitive = FALSE;
 
 static GOptionEntry entries[] =
 {
@@ -35,6 +36,7 @@ static GOptionEntry entries[] =
 	{"exacttarget", 'x', 0, G_OPTION_ARG_NONE, &exact_target, "enables regex target searching", NULL},
 	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
 	{"type", 'z', 0, G_OPTION_ARG_STRING, &type, "type of file to search for", NULL},
+	{"casesensitive", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive, "enables case sensitive searching", NULL},
 	{NULL}
 };
 
@@ -89,6 +91,9 @@ int main(int argc, char** argv)
 		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_REGEX);
 	else if(exact_content)
 		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_EXACT);
+
+	if(case_sensitive)
+		fm_file_search_set_case_sensitive(search, TRUE);
 
 	if(type != NULL)
 	{

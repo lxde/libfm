@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#define _GNU_SOURCE 1
 #include <fnmatch.h>
 
 #include "fm-list.h"
-
 
 typedef enum _SearchType
 {
@@ -87,16 +87,25 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 	job->files = fm_file_info_list_new();
 	job->target = fm_file_search_get_target(search);
 	job->target_mode = search->target_mode;
+
+	job->case_sensitive = search->case_sensitive;
+
 	if(job->target_mode == FM_FILE_SEARCH_MODE_REGEX && job->target != NULL)
 	{
-		job->target_regex = g_regex_new(job->target, G_REGEX_OPTIMIZE, 0, NULL);
+		if(job->case_sensitive)
+			job->target_regex = g_regex_new(job->target, G_REGEX_OPTIMIZE, 0, NULL);
+		else
+			job->target_regex = g_regex_new(job->target, G_REGEX_OPTIMIZE | G_REGEX_CASELESS, 0, NULL);
 	}
 
 	job->target_contains = fm_file_search_get_target_contains(search);
 	job->content_mode = search->content_mode;
 	if(job->content_mode == FM_FILE_SEARCH_MODE_REGEX && job->target_contains != NULL)
 	{
-		job->target_contains_regex = g_regex_new(job->target_contains, G_REGEX_OPTIMIZE, 0, NULL);
+		if(job->case_sensitive)
+			job->target_contains_regex = g_regex_new(job->target_contains, G_REGEX_OPTIMIZE, 0, NULL);
+		else
+			job->target_contains_regex = g_regex_new(job->target_contains, G_REGEX_OPTIMIZE | G_REGEX_CASELESS, 0, NULL);
 	}
 
 	job->target_folders = NULL; /* list of GFile * */
@@ -105,6 +114,7 @@ FmJob * fm_file_search_job_new(FmFileSearch * search)
 
 	job->show_hidden = search->show_hidden;
 	job->recursive = search->recursive;
+
 
 	return (FmJob*)job;
 }
@@ -345,9 +355,16 @@ static gboolean search(char * haystack, char * needle, SearchType type, FmFileSe
 	}
 	else if(mode == FM_FILE_SEARCH_MODE_EXACT)
 	{
-		/* use FNM_CASEFOLD when adding case insensitive search */
-		if(fnmatch(needle, haystack, 0) == 0)
-			ret = TRUE;
+		if(job->case_sensitive)
+		{
+			if(fnmatch(needle, haystack, 0) == 0)
+				ret = TRUE;
+		}
+		else
+		{
+			if(fnmatch(needle, haystack, FNM_CASEFOLD) == 0)
+				ret = TRUE;
+		}
 	}
 	else
 	{
