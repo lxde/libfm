@@ -22,6 +22,8 @@ static gboolean exact_target = FALSE;
 static gboolean exact_content = FALSE;
 static char * type = NULL;
 static gboolean case_sensitive = FALSE;
+static gint64 minimum_size = -1;
+static gint64 maximum_size = -1;
 
 static GOptionEntry entries[] =
 {
@@ -37,6 +39,8 @@ static GOptionEntry entries[] =
 	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
 	{"type", 'z', 0, G_OPTION_ARG_STRING, &type, "type of file to search for", NULL},
 	{"casesensitive", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive, "enables case sensitive searching", NULL},
+	{"minimumsize", 'u', 0,G_OPTION_ARG_INT64, &minimum_size, "minimum size of file that is a match", NULL},
+	{"maximumsize", 'w', 0, G_OPTION_ARG_INT64, &maximum_size, "maximum size of file taht is a match", NULL},
 	{NULL}
 };
 
@@ -94,6 +98,18 @@ int main(int argc, char** argv)
 
 	if(case_sensitive)
 		fm_file_search_set_case_sensitive(search, TRUE);
+
+	if(minimum_size >= 0)
+	{
+		fm_file_search_set_check_minimum_size(search, TRUE);
+		fm_file_search_set_minimum_size(search, minimum_size);
+	}
+
+	if(maximum_size >= 0)
+	{
+		fm_file_search_set_check_maximum_size(search, TRUE);
+		fm_file_search_set_maximum_size(search, maximum_size);
+	}
 
 	if(type != NULL)
 	{
