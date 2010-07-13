@@ -19,4 +19,4 @@ install-sh
 
 *.mo
 POTFILES.in
-*-marshal.[ch]
+fm-*-marshal.[ch]
