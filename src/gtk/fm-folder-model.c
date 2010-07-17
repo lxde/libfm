@@ -689,7 +689,12 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
 _sort_by_name:
         key1 = fm_file_info_get_collate_key(file1);
         key2 = fm_file_info_get_collate_key(file2);
-        ret = g_ascii_strcasecmp(key1, key2);
+        /*
+        collate keys are already passed to g_utf8_casefold, no need to
+        use strcasecmp here (and g_utf8_collate_key returns a string of
+        which case cannot be ignored)
+        */
+        ret = g_strcmp0(key1, key2);
         break;
     }
     case COL_FILE_SIZE:
