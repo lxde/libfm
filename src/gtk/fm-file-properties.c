@@ -636,10 +636,15 @@ static void update_ui(FmFilePropData* data)
     {
         char buf[128];
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
-        char* parent_str = fm_path_display_name(parent, TRUE);
+        char* parent_str = parent ? fm_path_display_name(parent, TRUE) : NULL;
         gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
-        gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
-        g_free(parent_str);
+        if(parent_str)
+        {
+            gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
+            g_free(parent_str);
+        }
+        else
+            gtk_label_set_text(GTK_LABEL(data->dir), "");
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
 
         /* FIXME: need to encapsulate this in an libfm API. */
