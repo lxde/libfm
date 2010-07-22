@@ -1,13 +1,22 @@
 #include "fm-file-search.h"
 
-#include "fm-folder.h"
-#include "fm-file-search-job.h"
+#include <string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#define _GNU_SOURCE 1
+#include <fnmatch.h>
 
 static void fm_file_search_finalize(GObject * object);
+
 
 G_DEFINE_TYPE(FmFileSearch, fm_file_search, FM_TYPE_FOLDER);
 
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search);
+
+static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data);
+static gboolean file_content_search_mmap(FmFileSearchFuncData * data);
+static gboolean content_search(char * haystack, FmFileSearchFuncData * data);
 
 static void fm_file_search_class_init(FmFileSearchClass *klass)
 {
@@ -19,19 +28,23 @@ static void fm_file_search_class_init(FmFileSearchClass *klass)
 
 static void fm_file_search_init(FmFileSearch *self)
 {
-	self->target = NULL;
-	self->target_contains = NULL;
-	self->target_mode = FM_FILE_SEARCH_MODE_FUZZY;
-	self->content_mode = FM_FILE_SEARCH_MODE_FUZZY;
+	self->rules = NULL;
 	self->target_folders = NULL;
-	self->target_type = NULL;
-	self->case_sensitive = FALSE;
-	self->recursive = TRUE;
-	self->show_hidden = FALSE;
-	self->check_minimum_size = FALSE;
-	self->check_maximum_size = FALSE;
-	self->minimum_size = 0;
-	self->maximum_size = 0;
+	self->settings = g_slice_new(FmFileSearchSettings);
+
+	/*set up settings */
+	self->settings->target = NULL;
+	self->settings->target_contains = NULL;
+	self->settings->target_mode = FM_FILE_SEARCH_MODE_EXACT;
+	self->settings->content_mode = FM_FILE_SEARCH_MODE_EXACT;
+	self->settings->target_type = NULL;
+	self->settings->case_sensitive = FALSE;
+	self->settings->recursive = TRUE;
+	self->settings->show_hidden = FALSE;
+	self->settings->check_minimum_size = FALSE;
+	self->settings->check_maximum_size = FALSE;
+	self->settings->minimum_size = 0;
+	self->settings->maximum_size = 0;
 }
 
 static void fm_file_search_finalize(GObject * object)
@@ -42,20 +55,38 @@ static void fm_file_search_finalize(GObject * object)
 
 	self = FM_FILE_SEARCH(object);
 
-	if(self->target)
-		g_free(self->target);
-
-	if(self->target_contains)
-		g_free(self->target_contains);
+	if(self->rules)
+		g_slist_free(self->rules);
 
 	if(self->target_folders)
 		fm_list_unref(self->target_folders);
+	
+	/* free things in settings */
 
-	if(self->target_type)
-		fm_mime_type_unref(self->target_type);
+	if(self->settings->target)
+		g_free(self->settings->target);
+
+	if(self->settings->target_contains)
+		g_free(self->settings->target_contains);
+
+	if(self->settings->target_type)
+		fm_mime_type_unref(self->settings->target_type);
+
+	if(self->settings)
+		g_slice_free(FmFileSearchSettings, self->settings);
 
 	if (G_OBJECT_CLASS(fm_file_search_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_file_search_parent_class)->finalize)(object);
+}
+
+void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * func, gpointer user_data)
+{
+	FmFileSearchRule * rule = g_slice_new(FmFileSearchRule);
+
+	rule->function = func;
+	rule->user_data = user_data;
+
+	search->rules = g_slist_append(search->rules, rule);
 }
 
 FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathList * target_folders)
@@ -71,7 +102,7 @@ FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathL
 
 void fm_file_search_run(FmFileSearch * search)
 {
-	FmJob * file_search_job = fm_file_search_job_new(search);
+	FmJob * file_search_job = fm_file_search_job_new(search->rules, search->target_folders, search->settings);
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, search);
 	fm_job_run_async(file_search_job);	
 }
@@ -80,48 +111,48 @@ void fm_file_search_run(FmFileSearch * search)
 
 char * fm_file_search_get_target(FmFileSearch * search)
 {
-	return g_strdup(search->target);
+	return g_strdup(search->settings->target);
 }
 
 void fm_file_search_set_target(FmFileSearch * search, char * target)
 {
-	if(search->target)
-		g_free(search->target);
+	if(search->settings->target)
+		g_free(search->settings->target);
 
-	search->target = g_strdup(target);
+	search->settings->target = g_strdup(target);
 }
 
 char * fm_file_search_get_target_contains(FmFileSearch * search)
 {
-	return g_strdup(search->target_contains);
+	return g_strdup(search->settings->target_contains);
 }
 
 void fm_file_search_set_target_contains(FmFileSearch * search, char * target_contains)
 {
-	if(search->target_contains)
-		g_free(search->target_contains);
+	if(search->settings->target_contains)
+		g_free(search->settings->target_contains);
 
-	search->target_contains = g_strdup(target_contains);
+	search->settings->target_contains = g_strdup(target_contains);
 }
 
 FmFileSearchMode fm_file_search_get_target_mode(FmFileSearch * search)
 {
-	return search->target_mode;
+	return search->settings->target_mode;
 }
 
 void fm_file_search_set_target_mode(FmFileSearch * search, FmFileSearchMode target_mode)
 {
-	search->target_mode = target_mode;
+	search->settings->target_mode = target_mode;
 }
 
 FmFileSearchMode fm_file_search_get_content_mode(FmFileSearch * search)
 {
-	return search->content_mode;
+	return search->settings->content_mode;
 }
 
 void fm_file_search_set_content_mode(FmFileSearch * search, FmFileSearchMode content_mode)
 {
-	search->content_mode = content_mode;
+	search->settings->content_mode = content_mode;
 }
 
 FmPathList * fm_file_search_get_target_folders(FmFileSearch * search)
@@ -139,82 +170,82 @@ void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * targe
 
 FmMimeType * fm_file_search_get_target_type(FmFileSearch * search)
 {
-	return search->target_type;
+	return search->settings->target_type;
 }
 
 void fm_file_search_set_target_type(FmFileSearch * search, FmMimeType * target_type)
 {
-	search->target_type = target_type;
+	search->settings->target_type = target_type;
 }
 
 gboolean fm_file_search_get_case_sensitive(FmFileSearch * search)
 {
-	return search->case_sensitive;
+	return search->settings->case_sensitive;
 }
 
 void fm_file_search_set_case_sensitive(FmFileSearch * search, gboolean case_sensitive)
 {
-	search->case_sensitive = case_sensitive;
+	search->settings->case_sensitive = case_sensitive;
 }
 
 gboolean fm_file_search_get_recursive(FmFileSearch * search)
 {
-	return search->recursive;
+	return search->settings->recursive;
 }
 
 void fm_file_search_set_recursive(FmFileSearch * search, gboolean recursive)
 {
-	search->recursive = recursive;
+	search->settings->recursive = recursive;
 }
 
 gboolean fm_file_search_get_show_hidden(FmFileSearch * search)
 {
-	return search->show_hidden;
+	return search->settings->show_hidden;
 }
 
 void fm_file_search_set_show_hidden(FmFileSearch * search, gboolean show_hidden)
 {
-	search->show_hidden = show_hidden;
+	search->settings->show_hidden = show_hidden;
 }
 
 gboolean fm_file_search_get_check_minimum_size(FmFileSearch * search)
 {
-	return search->check_minimum_size;
+	return search->settings->check_minimum_size;
 }
 
 void fm_file_search_set_check_minimum_size(FmFileSearch * search, gboolean check_minimum_size)
 {
-	search->check_minimum_size = check_minimum_size;
+	search->settings->check_minimum_size = check_minimum_size;
 }
 
 gboolean fm_file_search_get_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size)
 {
-	return search->check_maximum_size;
+	return search->settings->check_maximum_size;
 }
 
 void fm_file_search_set_check_maximum_size(FmFileSearch * search, gboolean check_maximum_size)
 {
-	search->check_maximum_size = check_maximum_size;
+	search->settings->check_maximum_size = check_maximum_size;
 }
 
 goffset fm_file_search_get_minimum_size(FmFileSearch * search)
 {
-	return search->minimum_size;
+	return search->settings->minimum_size;
 }
 
 void fm_file_search_set_minimum_size(FmFileSearch * search, goffset minimum_size)
 {
-	search->minimum_size = minimum_size;
+	search->settings->minimum_size = minimum_size;
 }
 
 goffset fm_file_search_get_maximum_size(FmFileSearch * search)
 {
-	return search->maximum_size;
+	return search->settings->maximum_size;
 }
 
 void fm_file_search_set_maximum_size(FmFileSearch * search, goffset maximum_size)
 {
-	search->maximum_size = maximum_size;
+	search->settings->maximum_size = maximum_size;
 }
 
 /* utility functions */
