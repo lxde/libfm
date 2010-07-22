@@ -3,6 +3,7 @@
 
 #include <glib-object.h>
 
+#include "fm-file-search-job.h"
 #include "fm-mime-type.h"
 #include "fm-folder.h"
 
@@ -20,33 +21,13 @@ G_BEGIN_DECLS
 
 typedef struct _FmFileSearch		FmFileSearch;
 typedef struct _FmFileSearchClass	FmFileSearchClass;
-typedef enum _FmFileSearchMode 	FmFileSearchMode;
-
-enum _FmFileSearchMode
-{
-	FM_FILE_SEARCH_MODE_EXACT,
-	FM_FILE_SEARCH_MODE_FUZZY,
-	FM_FILE_SEARCH_MODE_REGEX
-};
 
 struct _FmFileSearch
 {
 	FmFolder parent;
-
-	/* private */
-	char * target;
-	char * target_contains;
-	FmFileSearchMode target_mode;
-	FmFileSearchMode content_mode;
+	GSList * rules;
 	FmPathList * target_folders;
-	FmMimeType * target_type;
-	gboolean case_sensitive;
-	gboolean recursive;
-	gboolean show_hidden;
-	gboolean check_minimum_size;
-	gboolean check_maximum_size;
-	goffset minimum_size;
-	goffset maximum_size;
+	FmFileSearchSettings * settings;
 };
 
 struct _FmFileSearchClass
@@ -55,6 +36,7 @@ struct _FmFileSearchClass
 };
 
 GType		fm_file_search_get_type		(void);
+void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * func, gpointer user_data);
 FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathList * target_folders);
 void fm_file_search_run(FmFileSearch * search);
 char * fm_file_search_get_target(FmFileSearch * search);

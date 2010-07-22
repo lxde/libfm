@@ -20,7 +20,6 @@ static gboolean regex_target = FALSE;
 static gboolean regex_content = FALSE;
 static gboolean exact_target = FALSE;
 static gboolean exact_content = FALSE;
-static char * type = NULL;
 static gboolean case_sensitive = FALSE;
 static gint64 minimum_size = -1;
 static gint64 maximum_size = -1;
@@ -37,7 +36,6 @@ static GOptionEntry entries[] =
 	{"regexcontent", 'g', 0, G_OPTION_ARG_NONE, &regex_content, "enables regex target searching", NULL},
 	{"exacttarget", 'x', 0, G_OPTION_ARG_NONE, &exact_target, "enables regex target searching", NULL},
 	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
-	{"type", 'z', 0, G_OPTION_ARG_STRING, &type, "type of file to search for", NULL},
 	{"casesensitive", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive, "enables case sensitive searching", NULL},
 	{"minimumsize", 'u', 0,G_OPTION_ARG_INT64, &minimum_size, "minimum size of file that is a match", NULL},
 	{"maximumsize", 'w', 0, G_OPTION_ARG_INT64, &maximum_size, "maximum size of file taht is a match", NULL},
@@ -69,7 +67,7 @@ int main(int argc, char** argv)
 	context = g_option_context_new(" - test for libfm file search");
 	g_option_context_add_main_entries(context, entries, NULL);
 	g_option_context_parse(context, &argc, &argv, NULL);
-	
+
 	FmFileSearch * search;
 
 	char * path_list_token = strtok(path_list, ":");
@@ -111,11 +109,26 @@ int main(int argc, char** argv)
 		fm_file_search_set_maximum_size(search, maximum_size);
 	}
 
-	if(type != NULL)
+	if(target_type != NULL)
 	{
-		FmMimeType * mime = fm_mime_type_get_for_type(type);
+		FmMimeType * mime = fm_mime_type_get_for_type(target_type);
 		fm_file_search_set_target_type(search, mime);
 	}
+
+	if(minimum_size >= 0)
+		fm_file_search_add_search_func(search, fm_file_search_minimum_size_rule, NULL);
+
+	if(maximum_size >= 0)
+		fm_file_search_add_search_func(search, fm_file_search_maximum_size_rule, NULL);
+
+	if(target != NULL)
+		fm_file_search_add_search_func(search, fm_file_search_target_rule, NULL);
+
+	if(target_type != NULL)
+		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, NULL);
+
+	if(target_contains != NULL)
+		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, NULL);
 
 	g_signal_connect(search, "loaded", on_search_loaded, loop);
 	fm_file_search_run(search);

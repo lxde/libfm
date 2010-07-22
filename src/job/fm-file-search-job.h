@@ -2,7 +2,6 @@
 #define __FM_FILE_SEARCH_JOB_H__
 
 #include "fm-job.h"
-#include "fm-file-search.h"
 #include "fm-file-info.h"
 #include "fm-mime-type.h"
 
@@ -21,19 +20,27 @@ G_BEGIN_DECLS
 typedef struct _FmFileSearchJob			FmFileSearchJob;
 typedef struct _FmFileSearchJobClass		FmFileSearchJobClass;
 
-struct _FmFileSearchJob
-{
-	FmJob parent;
 
-	/* private */
-	FmFileInfoList * files;
+/* shared data types */
+
+typedef enum _FmFileSearchMode 	FmFileSearchMode;
+typedef struct _FmFileSearchRule FmFileSearchRule;
+typedef struct _FmFileSearchFuncData FmFileSearchFuncData;
+typedef struct _FmFileSearchSettings FmFileSearchSettings;
+typedef gboolean (*FmFileSearchFunc)(FmFileSearchFuncData *, gpointer);
+
+enum _FmFileSearchMode
+{
+	FM_FILE_SEARCH_MODE_EXACT,
+	FM_FILE_SEARCH_MODE_REGEX
+};
+
+struct _FmFileSearchSettings
+{
 	char * target;
 	char * target_contains;
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
-	GRegex * target_regex;
-	GRegex * target_contains_regex;
-	GSList * target_folders;
 	FmMimeType * target_type;
 	gboolean case_sensitive;
 	gboolean recursive;
@@ -44,14 +51,50 @@ struct _FmFileSearchJob
 	goffset maximum_size;
 };
 
+struct _FmFileSearchRule
+{
+	FmFileSearchFunc function;
+	gpointer user_data;
+};
+
+struct _FmFileSearchFuncData
+{
+	GFile * current_file;
+	GFileInfo * current_file_info;
+	FmFileSearchSettings * settings;
+	GRegex * target_regex;
+	GRegex * target_contains_regex;
+	FmFileSearchJob * job;
+};
+
+/* end of shared data types */
+
+struct _FmFileSearchJob
+{
+	FmJob parent;
+	FmFileInfoList * files;
+	GSList * rules;
+	FmPathList * target_folders;
+	FmFileSearchSettings * settings;
+	GRegex * target_regex;
+	GRegex * target_contains_regex;
+};
+
 struct _FmFileSearchJobClass
 {
 	FmJobClass parent_class;
 };
 
 GType		fm_file_search_job_get_type		(void);
-FmJob * fm_file_search_job_new(FmFileSearch * search);
+FmJob * fm_file_search_job_new(GSList * rules, FmPathList * target_folders, FmFileSearchSettings * settings);
 FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job);
+
+/* rules */
+gboolean fm_file_search_target_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
 
 G_END_DECLS
 
