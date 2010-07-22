@@ -225,57 +225,6 @@ static gboolean run_rules_for_each_file_info(GFileInfo * info, GFile * parent, F
 	return ret;
 }
 
-
-//static void for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job)
-//{	
-	/* TODO: error checking ? */
-
-//	if(!g_file_info_get_is_hidden(info) || job->settings->show_hidden)
-//	{
-//		if((!job->settings->check_minimum_size || g_file_info_get_size(info) >= job->settings->minimum_size) && (!job->settings->check_maximum_size || g_file_info_get_size(info) <= job->settings->maximum_size)) /* file size check */
-//		{
-//			const char * display_name = g_file_info_get_display_name(info); /* does not need to be freed */
-//			const char * name = g_file_info_get_name(info); /* does not need to be freed */
-//			GFile * file = g_file_get_child(parent, name);
-
-//			if(job->settings->target == NULL || search(display_name, job->settings->target, SEARCH_TYPE_FILE_NAME, job)) /* target search */
-//			{
-//				FmPath * path = fm_path_new_for_gfile(file);
-//				FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, info);
-//				FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
-//				const char * file_type = fm_mime_type_get_type(file_mime);
-//				const char * target_file_type = (job->settings->target_type != NULL ? fm_mime_type_get_type(job->settings->target_type) : NULL);
-
-//				if(job->settings->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0) /* mime type search */
-//				{
-//					if(job->settings->target_contains != NULL && g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR) /* target content search */
-//					{
-//						if(file_content_search(file, info, job))
-//							fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
-//						else
-//							fm_file_info_unref(file_info);
-//					}
-//					else
-//						fm_list_push_tail_noref(job->files, file_info); /* file info is referenced when created */
-//				}
-//				else
-//					fm_file_info_unref(file_info);
-//
-//				if(path != NULL)
-//					fm_path_unref(path);
-//			}
-
-
-			/* recurse upon each directory */
-//			if(job->settings->recursive && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
-//				for_each_target_folder(file,job);
-
-//			if(file != NULL)
-//				g_object_unref(file);
-//		}
-//	}	
-//}
-
 static void load_target_folders(FmPath * path, gpointer user_data)
 {
 	FmFileSearchJob * job = FM_FILE_SEARCH_JOB(user_data);
