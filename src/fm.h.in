@@ -57,6 +57,7 @@
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-job.h"
+#include "fm-file-search.h"
 
 G_BEGIN_DECLS
 

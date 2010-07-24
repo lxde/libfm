@@ -145,11 +145,13 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 				const char * name = g_file_info_get_name(file_info); /* does not need to be freed */
 				GFile * file = g_file_get_child(path, name);
 				FmPath * path = fm_path_new_for_gfile(file);
-				FmFileInfo * info = fm_file_info_new_from_gfileinfo(path, file_info);
-				fm_list_push_tail_noref(job->files, info); /* file info is referenced when created */
+				if(path != NULL)
+				{
+					FmFileInfo * info = fm_file_info_new_from_gfileinfo(path, file_info);
+					fm_list_push_tail_noref(job->files, info); /* file info is referenced when created */
 
 				/* TODO: emit file added signal to be handled by the FmFileSearch */
-
+				}
 				if(path != NULL)
 					fm_path_unref(path);
 
@@ -411,13 +413,15 @@ gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer u
 {
 	gboolean ret = FALSE;
 
+	FmMimeType * target_type = user_data;
+
 	FmPath * path = fm_path_new_for_gfile(data->current_file);
 	FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, data->current_file_info);
 	FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
 	const char * file_type = fm_mime_type_get_type(file_mime);
-	const char * target_file_type = (data->settings->target_type != NULL ? fm_mime_type_get_type(data->settings->target_type) : NULL);
+	const char * target_file_type = fm_mime_type_get_type(target_type);
 
-	if(data->settings->target_type == NULL || g_strcmp0(file_type, target_file_type) == 0)
+	if(g_strcmp0(file_type, target_file_type) == 0)
 		ret = TRUE;
 
 	if(file_mime != NULL)
@@ -436,7 +440,9 @@ gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer 
 {
 	gboolean ret = FALSE;
 
-	if((!data->settings->check_minimum_size || g_file_info_get_size(data->current_file_info) >= data->settings->minimum_size))
+	goffset * minimum_size = user_data;
+
+	if(g_file_info_get_size(data->current_file_info) >= *minimum_size)
 		ret = TRUE;
 
 	return ret;
@@ -446,7 +452,9 @@ gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer 
 {
 	gboolean ret = FALSE;
 
-	if((!data->settings->check_maximum_size || g_file_info_get_size(data->current_file_info) <= data->settings->maximum_size))
+	goffset * maximum_size = user_data;
+
+	if(g_file_info_get_size(data->current_file_info) <= *maximum_size)
 		ret = TRUE;
 
 	return ret;

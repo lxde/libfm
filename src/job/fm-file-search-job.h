@@ -41,14 +41,9 @@ struct _FmFileSearchSettings
 	char * target_contains;
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
-	FmMimeType * target_type;
 	gboolean case_sensitive;
 	gboolean recursive;
 	gboolean show_hidden;
-	gboolean check_minimum_size;
-	gboolean check_maximum_size;
-	goffset minimum_size;
-	goffset maximum_size;
 };
 
 struct _FmFileSearchRule
