@@ -134,6 +134,8 @@ void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
 /* select files by custom func, not yet implemented */
 void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data);
 
+/* new for FmFileSearch */
+gboolean fm_folder_view_chdir_by_folder(FmFolderView * fv, FmFolder * folder);
 
 G_END_DECLS
 

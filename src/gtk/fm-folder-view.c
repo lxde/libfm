@@ -1162,3 +1162,64 @@ static void cancel_pending_row_activated(FmFolderView* fv)
         fv->activated_row_ref = NULL;
     }
 }
+
+gboolean fm_folder_view_chdir_by_folder(FmFolderView * fv, FmFolder * folder)
+{
+    FmFolderModel* model;
+
+    if(fv->folder)
+    {
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_unmounted, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
+        g_object_unref(fv->folder);
+        fv->folder = NULL;
+        if(fv->model)
+        {
+            model = FM_FOLDER_MODEL(fv->model);
+            g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
+            g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
+            if(model->dir)
+                g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
+            g_object_unref(model);
+            fv->model = NULL;
+        }
+    }
+
+	/*FIXME: SET THE CURRENT WORKING DIRECTORY SOMEHOW ??? */
+
+	/* FIXME: the signal handler should be able to cancel the loading. */
+	g_signal_emit(fv, signals[CHDIR], 0, path);
+	if(fv->cwd)
+		fm_path_unref(fv->cwd);
+	/* should not directly access path */
+    fv->cwd = fm_path_ref(folder->dir_path);
+
+    fv->folder = folder;
+    if(folder)
+    {
+        /* connect error handler */
+        g_signal_connect(folder, "loaded", on_folder_loaded, fv);
+        g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
+        g_signal_connect(folder, "error", on_folder_err, fv);
+        if(fm_folder_get_is_loading(folder))
+        {
+            switch(fv->mode)
+            {
+            case FM_FV_LIST_VIEW:
+                cancel_pending_row_activated(fv);
+                gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), NULL);
+                break;
+            case FM_FV_ICON_VIEW:
+            case FM_FV_COMPACT_VIEW:
+            case FM_FV_THUMBNAIL_VIEW:
+                exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
+                break;
+            }
+            fv->model = NULL;
+        }
+        else
+            on_folder_loaded(folder, fv);
+    }
+    return TRUE;
+}

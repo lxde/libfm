@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <gio/gio.h>
 #include <glib.h>
+#include <gtk/gtk.h>
 
-#include "fm-file-search.h"
-#include "fm-folder.h"
-#include "fm-file-info.h"
-#include "fm-path.h"
-#include "fm.h"
+#include "fm-gtk.h"
 
 #include <string.h>
 
@@ -52,16 +49,22 @@ static void on_search_loaded(gpointer data, gpointer user_data)
 {
 	FmFileInfoList * info_list = fm_folder_get_files(FM_FOLDER(data));
 	fm_list_foreach(info_list, print_files, NULL);
-	g_main_loop_quit((GMainLoop*)user_data);
+	gtk_main_quit();
 }
 
 int main(int argc, char** argv)
 {
+	gtk_init(&argc, &argv);
+
+	fm_gtk_init(NULL);
+	/*
 	g_type_init();
 	fm_init(NULL);
 
 	GMainLoop * loop = g_main_loop_new(NULL, FALSE);
-	
+	*/	
+
+
 	GOptionContext * context;
 
 	context = g_option_context_new(" - test for libfm file search");
@@ -98,42 +101,46 @@ int main(int argc, char** argv)
 		fm_file_search_set_case_sensitive(search, TRUE);
 
 	if(minimum_size >= 0)
-	{
-		fm_file_search_set_check_minimum_size(search, TRUE);
-		fm_file_search_set_minimum_size(search, minimum_size);
-	}
+		fm_file_search_add_search_func(search, fm_file_search_minimum_size_rule, &minimum_size);
 
 	if(maximum_size >= 0)
-	{
-		fm_file_search_set_check_maximum_size(search, TRUE);
-		fm_file_search_set_maximum_size(search, maximum_size);
-	}
-
-	if(target_type != NULL)
-	{
-		FmMimeType * mime = fm_mime_type_get_for_type(target_type);
-		fm_file_search_set_target_type(search, mime);
-	}
-
-	if(minimum_size >= 0)
-		fm_file_search_add_search_func(search, fm_file_search_minimum_size_rule, NULL);
-
-	if(maximum_size >= 0)
-		fm_file_search_add_search_func(search, fm_file_search_maximum_size_rule, NULL);
+		fm_file_search_add_search_func(search, fm_file_search_maximum_size_rule, &maximum_size);
 
 	if(target != NULL)
 		fm_file_search_add_search_func(search, fm_file_search_target_rule, NULL);
 
 	if(target_type != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, NULL);
+	{
+		FmMimeType * mime = fm_mime_type_get_for_type(target_type);
+		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, mime);
+	}
 
 	if(target_contains != NULL)
 		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, NULL);
 
-	g_signal_connect(search, "loaded", on_search_loaded, loop);
+	//g_signal_connect(search, "loaded", on_search_loaded, NULL);
+
+	GtkWidget * window;
+	FmFolderModel * model;
+	GtkWidget * tree;
+
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+	model = fm_folder_model_new(FM_FOLDER(search), TRUE);
+
+	GtkWidget * view = fm_folder_view_new(FM_FV_LIST_VIEW);
+	fm_folder_view_chdir_by_folder(FM_FOLDER_VIEW(view), FM_FOLDER(search));
+
+	gtk_container_add(GTK_CONTAINER(window), view);
+
+	gtk_widget_show(view);
+	gtk_widget_show(window);
+
 	fm_file_search_run(search);
 
-	g_main_run(loop);
-	
+	//g_main_run(loop);
+	gtk_main();
+
 	return 0;
 }
