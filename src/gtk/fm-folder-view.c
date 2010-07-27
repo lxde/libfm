@@ -1189,11 +1189,15 @@ gboolean fm_folder_view_chdir_by_folder(FmFolderView * fv, FmFolder * folder)
 	/*FIXME: SET THE CURRENT WORKING DIRECTORY SOMEHOW ??? */
 
 	/* FIXME: the signal handler should be able to cancel the loading. */
-	g_signal_emit(fv, signals[CHDIR], 0, path);
+
+	if(folder->dir_path != NULL)
+	{
+	g_signal_emit(fv, signals[CHDIR], 0, folder->dir_path);
 	if(fv->cwd)
 		fm_path_unref(fv->cwd);
 	/* should not directly access path */
     fv->cwd = fm_path_ref(folder->dir_path);
+	}
 
     fv->folder = folder;
     if(folder)
