@@ -39,31 +39,11 @@ static GOptionEntry entries[] =
 	{NULL}
 };
 
-static void print_files(gpointer data, gpointer user_data)
-{
-	FmFileInfo * info = FM_FILE_INFO(data);
-	printf("%s\n", fm_file_info_get_disp_name(info));
-}
-
-static void on_search_loaded(gpointer data, gpointer user_data)
-{
-	FmFileInfoList * info_list = fm_folder_get_files(FM_FOLDER(data));
-	fm_list_foreach(info_list, print_files, NULL);
-	gtk_main_quit();
-}
-
 int main(int argc, char** argv)
 {
 	gtk_init(&argc, &argv);
 
 	fm_gtk_init(NULL);
-	/*
-	g_type_init();
-	fm_init(NULL);
-
-	GMainLoop * loop = g_main_loop_new(NULL, FALSE);
-	*/	
-
 
 	GOptionContext * context;
 
@@ -118,8 +98,6 @@ int main(int argc, char** argv)
 	if(target_contains != NULL)
 		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, NULL);
 
-	//g_signal_connect(search, "loaded", on_search_loaded, NULL);
-
 	GtkWidget * window;
 	FmFolderModel * model;
 	GtkWidget * tree;
@@ -139,7 +117,6 @@ int main(int argc, char** argv)
 
 	fm_file_search_run(search);
 
-	//g_main_run(loop);
 	gtk_main();
 
 	return 0;
