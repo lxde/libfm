@@ -416,7 +416,9 @@ static void fm_folder_finalize(GObject *object)
     }
 
     /* remove from hash table */
-    g_hash_table_remove(hash, self->dir_path);
+	if(hash)
+    	g_hash_table_remove(hash, self->dir_path);
+
     if(self->dir_path)
         fm_path_unref(self->dir_path);
 

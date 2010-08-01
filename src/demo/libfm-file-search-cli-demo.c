@@ -17,7 +17,8 @@ static gboolean regex_target = FALSE;
 static gboolean regex_content = FALSE;
 static gboolean exact_target = FALSE;
 static gboolean exact_content = FALSE;
-static gboolean case_sensitive = FALSE;
+static gboolean case_sensitive_target = FALSE;
+static gboolean case_sensitive_content = FALSE;
 static gint64 minimum_size = -1;
 static gint64 maximum_size = -1;
 
@@ -33,7 +34,8 @@ static GOptionEntry entries[] =
 	{"regexcontent", 'g', 0, G_OPTION_ARG_NONE, &regex_content, "enables regex target searching", NULL},
 	{"exacttarget", 'x', 0, G_OPTION_ARG_NONE, &exact_target, "enables regex target searching", NULL},
 	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
-	{"casesensitive", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive, "enables case sensitive searching", NULL},
+	{"casesensitivetarget", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive_target, "enables case sensitive target searching", NULL},
+	{"casesensitivecontent", 'i', 0, G_OPTION_ARG_NONE, &case_sensitive_content, "enables case sensitive content searching", NULL},
 	{"minimumsize", 'u', 0,G_OPTION_ARG_INT64, &minimum_size, "minimum size of file that is a match", NULL},
 	{"maximumsize", 'w', 0, G_OPTION_ARG_INT64, &maximum_size, "maximum size of file taht is a match", NULL},
 	{NULL}
@@ -58,11 +60,12 @@ int main(int argc, char** argv)
 
 	while(path_list_token != NULL)
 	{
+		g_print("%s\n", path_list_token); /*TODO: Remove */
 		FmPath * path = fm_path_new(path_list_token);
 		fm_list_push_tail(target_folders, path);
 		path_list_token = strtok(NULL, ":");
 	}
-	search = fm_file_search_new(target, target_contains, target_folders);
+	search = fm_file_search_new(target_folders);
 
 	fm_file_search_set_show_hidden(search, show_hidden);
 	fm_file_search_set_recursive(search, !not_recursive);
@@ -77,8 +80,11 @@ int main(int argc, char** argv)
 	else if(exact_content)
 		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_EXACT);
 
-	if(case_sensitive)
-		fm_file_search_set_case_sensitive(search, TRUE);
+	if(case_sensitive_target)
+		fm_file_search_set_case_sensitive_target(search, TRUE);
+
+	if(case_sensitive_content)
+		fm_file_search_set_case_sensitive_content(search, TRUE);
 
 	if(minimum_size >= 0)
 		fm_file_search_add_search_func(search, fm_file_search_minimum_size_rule, &minimum_size);
@@ -87,7 +93,7 @@ int main(int argc, char** argv)
 		fm_file_search_add_search_func(search, fm_file_search_maximum_size_rule, &maximum_size);
 
 	if(target != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_rule, NULL);
+		fm_file_search_add_search_func(search, fm_file_search_target_rule, target);
 
 	if(target_type != NULL)
 	{
@@ -96,7 +102,7 @@ int main(int argc, char** argv)
 	}
 
 	if(target_contains != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, NULL);
+		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, target_contains);
 
 	GtkWidget * window;
 	FmFolderModel * model;

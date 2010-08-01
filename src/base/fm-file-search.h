@@ -37,20 +37,18 @@ struct _FmFileSearchClass
 
 GType		fm_file_search_get_type		(void);
 void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * func, gpointer user_data);
-FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathList * target_folders);
+FmFileSearch * fm_file_search_new(FmPathList * target_folders);
 void fm_file_search_run(FmFileSearch * search);
-char * fm_file_search_get_target(FmFileSearch * search);
-void fm_file_search_set_target(FmFileSearch * search, char * target);
-char * fm_file_search_get_target_contains(FmFileSearch * search);
-void fm_file_search_set_target_contains(FmFileSearch * search, char * target_contains);
 FmFileSearchMode fm_file_search_get_target_mode(FmFileSearch * search);
 void fm_file_search_set_target_mode(FmFileSearch * search, FmFileSearchMode target_mode);
 FmFileSearchMode fm_file_search_get_content_mode(FmFileSearch * search);
 void fm_file_search_set_content_mode(FmFileSearch * search, FmFileSearchMode content_mode);
 FmPathList * fm_file_search_get_target_folders(FmFileSearch * search);
 void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * target_folders);
-gboolean fm_file_search_get_case_sensitive(FmFileSearch * search);
-void fm_file_search_set_case_sensitive(FmFileSearch * search, gboolean case_sensitive);
+gboolean fm_file_search_get_case_sensitive_target(FmFileSearch * search);
+void fm_file_search_set_case_sensitive_target(FmFileSearch * search, gboolean case_sensitive);
+gboolean fm_file_search_get_case_sensitive_content(FmFileSearch * search);
+void fm_file_search_set_case_sensitive_content(FmFileSearch * search, gboolean case_sensitive);
 gboolean fm_file_search_get_recursive(FmFileSearch * search);
 void fm_file_search_set_recursive(FmFileSearch * search, gboolean recursive);
 gboolean fm_file_search_get_show_hidden(FmFileSearch * search);

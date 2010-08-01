@@ -33,11 +33,10 @@ static void fm_file_search_init(FmFileSearch *self)
 	self->settings = g_slice_new(FmFileSearchSettings);
 
 	/*set up settings */
-	self->settings->target = NULL;
-	self->settings->target_contains = NULL;
 	self->settings->target_mode = FM_FILE_SEARCH_MODE_EXACT;
 	self->settings->content_mode = FM_FILE_SEARCH_MODE_EXACT;
-	self->settings->case_sensitive = FALSE;
+	self->settings->case_sensitive_target = FALSE;
+	self->settings->case_sensitive_content = FALSE;
 	self->settings->recursive = TRUE;
 	self->settings->show_hidden = FALSE;
 }
@@ -58,12 +57,6 @@ static void fm_file_search_finalize(GObject * object)
 	
 	/* free things in settings */
 
-	if(self->settings->target)
-		g_free(self->settings->target);
-
-	if(self->settings->target_contains)
-		g_free(self->settings->target_contains);
-
 	if(self->settings)
 		g_slice_free(FmFileSearchSettings, self->settings);
 
@@ -81,16 +74,10 @@ void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * fu
 	search->rules = g_slist_append(search->rules, rule);
 }
 
-FmFileSearch * fm_file_search_new(char * target , char* target_contains, FmPathList * target_folders)
+FmFileSearch * fm_file_search_new(FmPathList * target_folders)
 {
 	FmFileSearch * file_search = FM_FILE_SEARCH(g_object_new(FM_TYPE_FILE_SEARCH, NULL));
 
-	FmPath * path;
-
-	FM_FOLDER(file_search)->dir_path = path;
-
-	fm_file_search_set_target(file_search, target);
-	fm_file_search_set_target_contains(file_search, target_contains);
 	fm_file_search_set_target_folders(file_search, target_folders);
 
 	return file_search;
@@ -104,32 +91,6 @@ void fm_file_search_run(FmFileSearch * search)
 }
 
 /* Get/Set Methods */
-
-char * fm_file_search_get_target(FmFileSearch * search)
-{
-	return g_strdup(search->settings->target);
-}
-
-void fm_file_search_set_target(FmFileSearch * search, char * target)
-{
-	if(search->settings->target)
-		g_free(search->settings->target);
-
-	search->settings->target = g_strdup(target);
-}
-
-char * fm_file_search_get_target_contains(FmFileSearch * search)
-{
-	return g_strdup(search->settings->target_contains);
-}
-
-void fm_file_search_set_target_contains(FmFileSearch * search, char * target_contains)
-{
-	if(search->settings->target_contains)
-		g_free(search->settings->target_contains);
-
-	search->settings->target_contains = g_strdup(target_contains);
-}
 
 FmFileSearchMode fm_file_search_get_target_mode(FmFileSearch * search)
 {
@@ -164,14 +125,24 @@ void fm_file_search_set_target_folders(FmFileSearch * search, FmPathList * targe
 	search->target_folders = fm_list_ref(target_folders);
 }
 
-gboolean fm_file_search_get_case_sensitive(FmFileSearch * search)
+gboolean fm_file_search_get_case_sensitive_target(FmFileSearch * search)
 {
-	return search->settings->case_sensitive;
+	return search->settings->case_sensitive_target;
 }
 
-void fm_file_search_set_case_sensitive(FmFileSearch * search, gboolean case_sensitive)
+void fm_file_search_set_case_sensitive_target(FmFileSearch * search, gboolean case_sensitive_target)
 {
-	search->settings->case_sensitive = case_sensitive;
+	search->settings->case_sensitive_target = case_sensitive_target;
+}
+
+gboolean fm_file_search_get_case_sensitive_content(FmFileSearch * search)
+{
+	return search->settings->case_sensitive_content;
+}
+
+void fm_file_search_set_case_sensitive_content(FmFileSearch * search, gboolean case_sensitive_content)
+{
+	search->settings->case_sensitive_content = case_sensitive_content;
 }
 
 gboolean fm_file_search_get_recursive(FmFileSearch * search)
