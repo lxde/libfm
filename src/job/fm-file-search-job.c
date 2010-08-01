@@ -21,9 +21,9 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job);
 static gboolean run_rules_for_each_file_info(GFileInfo * info, GFile * parent, FmFileSearchJob * job);
 static void load_target_folders(FmPath * path, gpointer user_data);
 
-static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data);
-static gboolean file_content_search_mmap(FmFileSearchFuncData * data);
-static gboolean content_search(char * haystack, FmFileSearchFuncData * data);
+static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFuncData * data);
+static gboolean file_content_search_mmap(char * needle, FmFileSearchFuncData * data);
+static gboolean content_search(char* needle, char * haystack, FmFileSearchFuncData * data);
 
 static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 {
@@ -61,13 +61,6 @@ static void fm_file_search_job_finalize(GObject * object)
 	if(self->settings)
 		g_slice_free(FmFileSearchSettings, self->settings);
 
-	if(self->target_regex)
-		g_regex_unref(self->target_regex);
-
-
-	if(self->target_contains_regex)
-		g_regex_unref(self->target_contains_regex);
-
 	if (G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)(object);
 }
@@ -83,23 +76,7 @@ FmJob * fm_file_search_job_new(GSList * rules, FmPathList * target_folders, FmFi
 	job->target_folders = NULL;
 	fm_list_foreach(target_folders, load_target_folders, job);
 
-	job->settings = g_slice_dup(FmFileSearchSettings, settings); 
-
-	if(job->settings->target_mode == FM_FILE_SEARCH_MODE_REGEX && job->settings->target != NULL)
-	{
-		if(job->settings->case_sensitive)
-			job->target_regex = g_regex_new(job->settings->target, G_REGEX_OPTIMIZE, 0, NULL);
-		else
-			job->target_regex = g_regex_new(job->settings->target, G_REGEX_OPTIMIZE | G_REGEX_CASELESS, 0, NULL);
-	}
-
-	if(job->settings->content_mode == FM_FILE_SEARCH_MODE_REGEX && job->settings->target_contains != NULL)
-	{
-		if(job->settings->case_sensitive)
-			job->target_contains_regex = g_regex_new(job->settings->target_contains, G_REGEX_OPTIMIZE, 0, NULL);
-		else
-			job->target_contains_regex = g_regex_new(job->settings->target_contains, G_REGEX_OPTIMIZE | G_REGEX_CASELESS, 0, NULL);
-	}
+	job->settings = g_slice_dup(FmFileSearchSettings, settings);
 
 	return (FmJob*)job;
 }
@@ -196,8 +173,6 @@ static gboolean run_rules_for_each_file_info(GFileInfo * info, GFile * parent, F
 		data->current_file = file;
 		data->current_file_info = info;
 		data->settings = job->settings;
-		data->target_regex = job->target_regex;
-		data->target_contains_regex = job->target_contains_regex;
 		data->job = job;
 
 		GSList * rules = job->rules;
@@ -240,7 +215,7 @@ FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)
 
 /* functions for content search rule */
 
-static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data)
+static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFuncData * data)
 {
 	/* FIXME: 	I added error checking.
 				I think I freed up the resources as well. */
@@ -262,7 +237,7 @@ static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data)
 			action = fm_job_emit_error(FM_JOB(data->job), error, FM_JOB_ERROR_SEVERE);
 		else /* file successfully read into buffer */
 		{
-			if(content_search(buffer, data))
+			if(content_search(needle, buffer, data))
 				ret = TRUE;
 		}
 		if(!g_input_stream_close(io, fm_job_get_cancellable(data->job), &error))
@@ -281,7 +256,7 @@ static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data)
 	return ret;
 }
 
-static gboolean file_content_search_mmap(FmFileSearchFuncData * data)
+static gboolean file_content_search_mmap(char * needle, FmFileSearchFuncData * data)
 {
 	/* FIXME: 	I reimplemented the error checking; I think it is more sane now. 
 				I think I freed up the resources as well.*/
@@ -310,7 +285,7 @@ static gboolean file_content_search_mmap(FmFileSearchFuncData * data)
 		}
 		else /* the file was maped to memory correctly */
 		{
-			if(content_search(contents, data))
+			if(content_search(needle, contents, data))
 				ret = TRUE;
 
 			if(munmap(contents, size) == -1)
@@ -339,24 +314,24 @@ static gboolean file_content_search_mmap(FmFileSearchFuncData * data)
 	return ret;
 }
 
-static gboolean content_search(char * haystack, FmFileSearchFuncData * data)
+static gboolean content_search(char* needle, char * haystack, FmFileSearchFuncData * data)
 {
 	gboolean ret = FALSE;
 
 	if(data->settings->content_mode == FM_FILE_SEARCH_MODE_REGEX)
 	{
-		ret = g_regex_match(data->target_contains_regex, haystack, 0, NULL);
+		ret = g_regex_match_simple(needle, haystack, (!data->settings->case_sensitive_content) ? G_REGEX_CASELESS : 0, 0);
 	}
 	else
 	{
-		if(data->settings->case_sensitive)
+		if(data->settings->case_sensitive_content)
 		{
-			if(fnmatch(data->settings->target_contains, haystack, 0) == 0)
+			if(fnmatch(needle, haystack, 0) == 0)
 				ret = TRUE;
 		}
 		else
 		{
-			if(fnmatch(data->settings->target_contains, haystack, FNM_CASEFOLD) == 0)
+			if(fnmatch(needle, haystack, FNM_CASEFOLD) == 0)
 				ret = TRUE;
 		}
 	}
@@ -375,18 +350,18 @@ gboolean fm_file_search_target_rule(FmFileSearchFuncData * data, gpointer user_d
 
 	if(data->settings->target_mode == FM_FILE_SEARCH_MODE_REGEX)
 	{
-		ret = g_regex_match(data->target_regex, display_name, 0, NULL);
+		ret = g_regex_match_simple(user_data, display_name, (!data->settings->case_sensitive_target) ? G_REGEX_CASELESS : 0, 0);
 	}
 	else
 	{
-		if(data->settings->case_sensitive)
+		if(data->settings->case_sensitive_target)
 		{
-			if(fnmatch(data->settings->target, display_name, 0) == 0)
+			if(fnmatch(user_data, display_name, 0) == 0)
 				ret = TRUE;
 		}
 		else
 		{
-			if(fnmatch(data->settings->target, display_name, FNM_CASEFOLD) == 0)
+			if(fnmatch(user_data, display_name, FNM_CASEFOLD) == 0)
 				ret = TRUE;
 		}
 	}
@@ -401,9 +376,9 @@ gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpoint
 	if(g_file_info_get_file_type(data->current_file_info) == G_FILE_TYPE_REGULAR && g_file_info_get_size(data->current_file_info) > 0)
 	{
 		if(g_file_is_native(data->current_file))
-			ret = file_content_search_mmap(data);
+			ret = file_content_search_mmap(user_data, data);
 		else
-			ret = file_content_search_ginputstream(data);
+			ret = file_content_search_ginputstream(user_data, data);
 	}
 
 	return ret;

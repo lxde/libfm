@@ -37,11 +37,10 @@ enum _FmFileSearchMode
 
 struct _FmFileSearchSettings
 {
-	char * target;
-	char * target_contains;
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
-	gboolean case_sensitive;
+	gboolean case_sensitive_target;
+	gboolean case_sensitive_content;
 	gboolean recursive;
 	gboolean show_hidden;
 };
@@ -57,8 +56,6 @@ struct _FmFileSearchFuncData
 	GFile * current_file;
 	GFileInfo * current_file_info;
 	FmFileSearchSettings * settings;
-	GRegex * target_regex;
-	GRegex * target_contains_regex;
 	FmFileSearchJob * job;
 };
 
