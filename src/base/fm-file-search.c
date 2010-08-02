@@ -13,10 +13,7 @@ static void fm_file_search_finalize(GObject * object);
 G_DEFINE_TYPE(FmFileSearch, fm_file_search, FM_TYPE_FOLDER);
 
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search);
-
-static gboolean file_content_search_ginputstream(FmFileSearchFuncData * data);
-static gboolean file_content_search_mmap(FmFileSearchFuncData * data);
-static gboolean content_search(char * haystack, FmFileSearchFuncData * data);
+static void on_job_files_added(FmFileSearchJob * job, GSList * files_added, FmFileSearch * search);
 
 static void fm_file_search_class_init(FmFileSearchClass *klass)
 {
@@ -174,4 +171,12 @@ static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * se
 	folder->files = fm_file_search_job_get_files(job);
 
 	g_signal_emit_by_name(folder, "loaded", folder, NULL);
+}
+
+static void on_job_files_added(FmFileSearchJob * job, GSList * files_added, FmFileSearch * search)
+{
+	FM_FOLDER(search)->files_to_add = g_slist_copy(files_added);
+	g_signal_emit_by_name(FM_FOLDER(search), "files-added", FM_FOLDER(search), FM_FOLDER(search)->files_to_add);
+	g_slist_free(FM_FOLDER(search)->files_to_add);
+	FM_FOLDER(search)->files_to_add = NULL;
 }
