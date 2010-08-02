@@ -83,6 +83,7 @@ FmFileSearch * fm_file_search_new(FmPathList * target_folders)
 void fm_file_search_run(FmFileSearch * search)
 {
 	FmJob * file_search_job = fm_file_search_job_new(search->rules, search->target_folders, search->settings);
+	g_signal_connect(file_search_job, "files-added", on_job_files_added, search);
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, search);
 	fm_job_run_async(file_search_job);	
 }
@@ -176,7 +177,7 @@ static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * se
 static void on_job_files_added(FmFileSearchJob * job, GSList * files_added, FmFileSearch * search)
 {
 	FM_FOLDER(search)->files_to_add = g_slist_copy(files_added);
-	g_signal_emit_by_name(FM_FOLDER(search), "files-added", FM_FOLDER(search), FM_FOLDER(search)->files_to_add);
+	g_signal_emit_by_name(FM_FOLDER(search), "files-added", FM_FOLDER(search)->files_to_add);
 	g_slist_free(FM_FOLDER(search)->files_to_add);
 	FM_FOLDER(search)->files_to_add = NULL;
 }
