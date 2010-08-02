@@ -70,11 +70,15 @@ struct _FmFileSearchJob
 	FmFileSearchSettings * settings;
 	GRegex * target_regex;
 	GRegex * target_contains_regex;
+
+	GSList * files_to_add;
 };
 
 struct _FmFileSearchJobClass
 {
 	FmJobClass parent_class;
+
+    void (*files_added)(FmFileSearchJob *, GSList * files);
 };
 
 GType		fm_file_search_job_get_type		(void);

@@ -60,7 +60,6 @@ int main(int argc, char** argv)
 
 	while(path_list_token != NULL)
 	{
-		g_print("%s\n", path_list_token); /*TODO: Remove */
 		FmPath * path = fm_path_new(path_list_token);
 		fm_list_push_tail(target_folders, path);
 		path_list_token = strtok(NULL, ":");

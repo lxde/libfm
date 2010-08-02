@@ -10,6 +10,13 @@
 
 #include "fm-list.h"
 
+enum {
+    FILES_ADDED,
+    N_SIGNALS
+};
+
+static guint signals[N_SIGNALS];
+
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
 static void fm_file_search_job_finalize(GObject * object);
@@ -33,6 +40,15 @@ static void fm_file_search_job_class_init(FmFileSearchJobClass * klass)
 	g_object_class->finalize = fm_file_search_job_finalize;
 
 	job_class->run = fm_file_search_job_run;
+
+	signals[ FILES_ADDED ] =
+        g_signal_new ( "files-added",
+                       G_TYPE_FROM_CLASS ( klass ),
+                       G_SIGNAL_RUN_FIRST,
+                       G_STRUCT_OFFSET ( FmFileSearchJobClass, files_added ),
+                       NULL, NULL,
+                       g_cclosure_marshal_VOID__POINTER,
+                       G_TYPE_NONE, 1, G_TYPE_POINTER );
 }
 
 static void fm_file_search_job_init(FmFileSearchJob * self)
@@ -61,6 +77,9 @@ static void fm_file_search_job_finalize(GObject * object)
 	if(self->settings)
 		g_slice_free(FmFileSearchSettings, self->settings);
 
+	if(self->files_to_add)
+		g_slist_free(self->files_to_add);
+
 	if (G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)(object);
 }
@@ -77,6 +96,8 @@ FmJob * fm_file_search_job_new(GSList * rules, FmPathList * target_folders, FmFi
 	fm_list_foreach(target_folders, load_target_folders, job);
 
 	job->settings = g_slice_dup(FmFileSearchSettings, settings);
+
+	job->files_to_add = NULL;
 
 	return (FmJob*)job;
 }
@@ -126,8 +147,10 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 				{
 					FmFileInfo * info = fm_file_info_new_from_gfileinfo(path, file_info);
 					fm_list_push_tail_noref(job->files, info); /* file info is referenced when created */
-
-				/* TODO: emit file added signal to be handled by the FmFileSearch */
+					job->files_to_add = g_slist_prepend(job->files_to_add, info);
+					g_signal_emit(job, signals[FILES_ADDED], 0, job->files_to_add);
+        			g_slist_free(job->files_to_add);
+					job->files_to_add = NULL;
 				}
 				if(path != NULL)
 					fm_path_unref(path);
