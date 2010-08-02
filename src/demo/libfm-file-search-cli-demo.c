@@ -108,6 +108,7 @@ int main(int argc, char** argv)
 	GtkWidget * tree;
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size(window, 400, 300);
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
 	model = fm_folder_model_new(FM_FOLDER(search), TRUE);
