@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 04:18+0000\n"
+"POT-Creation-Date: 2010-08-07 05:44+0000\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,7 +217,7 @@ msgstr "<b>Vooruitgang:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Een paar foutmeldingen zijn opgetreden:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -324,7 +324,7 @@ msgstr "Prullenbak"
 msgid "My Computer"
 msgstr "Mijn Computer"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Toepassingen"
 
@@ -424,43 +424,43 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Bestanden van verschillende types"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:658
 msgid "Multiple Files"
 msgstr "Meerdere Bestanden"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "Mount Volume"
 msgstr "Volume Aankoppelen"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
 msgstr "Volume Ontkoppelen"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
 msgstr "Verwisselbare Media uitwerpen"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Hernoem Bladwijzer Item"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:149
 msgid "Remove from Bookmark"
 msgstr "Verwijderen uit Bladwijzer"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
 msgstr "Prullenbak legen"
 
-#: ../src/gtk/fm-places-view.c:498
+#: ../src/gtk/fm-places-view.c:499
 msgid "Trash"
 msgstr "Prullenbak"
 
-#: ../src/gtk/fm-places-view.c:552
+#: ../src/gtk/fm-places-view.c:553
 msgid "Desktop"
 msgstr "Bureaublad"
 
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:892
 msgid "Enter a new name:"
 msgstr "Voer een nieuwe naam in:"
 
@@ -498,7 +498,7 @@ msgstr "_Herstellen"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Haal bestanden in de prullenbak terug"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
@@ -544,27 +544,27 @@ msgstr "Error"
 msgid "Please select a folder"
 msgstr "Selecteer alstublieft een map"
 
-#: ../src/gtk/fm-gtk-utils.c:402
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Alleen systeem beheerders hebben de rechten om dit te doen."
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Wilt u de geselecteerde bestanden naar de prullenbak verplaatsen?"
 
-#: ../src/gtk/fm-gtk-utils.c:502
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Wilt u de geselecteerde bestanden verwijderen?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Bestand hernoemen"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Voer alstublieft een nieuwe naam in:"
 
-#: ../src/gtk/fm-gtk-utils.c:570
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Weet u zeker dat u de prullenbak wilt legen?"
 
