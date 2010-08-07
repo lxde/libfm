@@ -95,10 +95,7 @@ int main(int argc, char** argv)
 		fm_file_search_add_search_func(search, fm_file_search_target_rule, target);
 
 	if(target_type != NULL)
-	{
-		FmMimeType * mime = fm_mime_type_get_for_type(target_type);
-		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, mime);
-	}
+		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, target_type);
 
 	if(target_contains != NULL)
 		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, target_contains);

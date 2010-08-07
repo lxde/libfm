@@ -27,7 +27,18 @@ typedef enum _FmFileSearchMode 	FmFileSearchMode;
 typedef struct _FmFileSearchRule FmFileSearchRule;
 typedef struct _FmFileSearchFuncData FmFileSearchFuncData;
 typedef struct _FmFileSearchSettings FmFileSearchSettings;
+typedef struct _FmFileSearchModifiedTimeRuleData FmFileSearchModifiedTimeRuleData;
 typedef gboolean (*FmFileSearchFunc)(FmFileSearchFuncData *, gpointer);
+
+struct _FmFileSearchModifiedTimeRuleData
+{
+	int start_d;
+	int start_m;
+	int start_y;
+	int end_d;
+	int end_m;
+	int end_y;
+};
 
 enum _FmFileSearchMode
 {
@@ -91,6 +102,7 @@ gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpoint
 gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_modified_time_rule(FmFileSearchFuncData * data, gpointer user_data);
 
 G_END_DECLS
 

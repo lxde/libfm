@@ -39,6 +39,7 @@ GType		fm_file_search_get_type		(void);
 void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * func, gpointer user_data);
 FmFileSearch * fm_file_search_new(FmPathList * target_folders);
 void fm_file_search_run(FmFileSearch * search);
+void fm_file_search_cancel(FmFileSearch * search);
 FmFileSearchMode fm_file_search_get_target_mode(FmFileSearch * search);
 void fm_file_search_set_target_mode(FmFileSearch * search, FmFileSearchMode target_mode);
 FmFileSearchMode fm_file_search_get_content_mode(FmFileSearch * search);
