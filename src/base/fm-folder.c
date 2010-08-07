@@ -392,10 +392,10 @@ static void fm_folder_finalize(GObject *object)
     FmFolder *self;
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FOLDER(object));
-
+ 
     self = FM_FOLDER(object);
 
-    if(self->job)
+    if(FM_IS_DIR_LIST_JOB(self->job))
     {
         g_signal_handlers_disconnect_by_func(self->job, on_job_finished, self);
         g_signal_handlers_disconnect_by_func(self->job, on_job_err, self);
@@ -410,13 +410,13 @@ static void fm_folder_finalize(GObject *object)
         {
             FmJob* job = FM_JOB(l->data);
             g_signal_handlers_disconnect_by_func(job, on_job_finished, self);
-            fm_job_cancel(job);
+            //fm_job_cancel(job);
             /* the job will be freed automatically in idle handler. */
         }
     }
 
     /* remove from hash table */
-	if(hash)
+	if(hash && self->dir_path)
     	g_hash_table_remove(hash, self->dir_path);
 
     if(self->dir_path)
@@ -451,7 +451,8 @@ static void fm_folder_finalize(GObject *object)
             g_slist_free(self->files_to_del);
     }
 
-    fm_list_unref(self->files);
+	if(self->files != NULL)
+    	fm_list_unref(self->files);
 
     if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);

@@ -25,6 +25,10 @@ static void fm_file_search_class_init(FmFileSearchClass *klass)
 
 static void fm_file_search_init(FmFileSearch *self)
 {
+	FM_FOLDER(self)->files = fm_file_info_list_new();
+
+	FM_FOLDER(self)->dir_path = NULL;
+
 	self->rules = NULL;
 	self->target_folders = NULL;
 	self->settings = g_slice_new(FmFileSearchSettings);
@@ -51,8 +55,12 @@ static void fm_file_search_finalize(GObject * object)
 
 	if(self->target_folders)
 		fm_list_unref(self->target_folders);
-	
-	/* free things in settings */
+
+	if(FM_FOLDER(self)->job)
+	{
+		g_signal_handlers_disconnect_by_func(FM_FOLDER(self)->job, on_job_files_added, self);
+		g_signal_handlers_disconnect_by_func(FM_FOLDER(self)->job, on_file_search_job_finished, self);
+	}
 
 	if(self->settings)
 		g_slice_free(FmFileSearchSettings, self->settings);
@@ -86,6 +94,18 @@ void fm_file_search_run(FmFileSearch * search)
 	g_signal_connect(file_search_job, "files-added", on_job_files_added, search);
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, search);
 	fm_job_run_async(file_search_job);	
+	FM_FOLDER(search)->job = file_search_job;
+}
+
+void fm_file_search_cancel(FmFileSearch * search)
+{
+	//if(FM_IS_FILE_SEARCH(search) && FM_IS_FILE_SEARCH_JOB(FM_FOLDER(search)->job))
+	//{
+		//g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_job_files_added, search);
+		//g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_file_search_job_finished, search);
+		//fm_job_cancel(FM_FOLDER(search)->job);
+		//FM_FOLDER(search)->job = NULL;
+	//}
 }
 
 /* Get/Set Methods */
@@ -172,6 +192,8 @@ static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * se
 	folder->files = fm_file_search_job_get_files(job);
 
 	g_signal_emit_by_name(folder, "loaded", folder, NULL);
+
+	folder->job = NULL;
 }
 
 static void on_job_files_added(FmFileSearchJob * job, GSList * files_added, FmFileSearch * search)

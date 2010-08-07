@@ -54,7 +54,7 @@ struct _FmFolder
 	FmPath* dir_path;
 	GFile* gf;
 	GFileMonitor* mon;
-	FmDirListJob* job;
+	FmJob* job; /* changed so it can store FmFileSearchJob too to make the loading checks work */
     FmFileInfo* dir_fi;
 	FmFileInfoList* files;
 

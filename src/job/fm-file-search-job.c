@@ -66,19 +66,34 @@ static void fm_file_search_job_finalize(GObject * object)
 	self = FM_FILE_SEARCH_JOB(object);
 
 	if(self->files)
+	{
 		fm_list_unref(self->files);
+		self->files = NULL;
+	}
 
 	if(self->rules)
+	{
 		g_slist_free(self->rules);
+		self->rules = NULL;
+	}
 
 	if(self->target_folders)
+	{
 		g_slist_free(self->target_folders);
+		self->target_folders = NULL;
+	}
 
 	if(self->settings)
+	{
 		g_slice_free(FmFileSearchSettings, self->settings);
+		self->settings = NULL;
+	}
 
 	if(self->files_to_add)
+	{
 		g_slist_free(self->files_to_add);
+		self->files_to_add = NULL;
+	}
 
 	if (G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)(object);
@@ -125,7 +140,7 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 				I think I freed up the resources as well. */
 
 	GError * error = NULL;
-	FmJobErrorAction action;
+	FmJobErrorAction action = FM_JOB_CONTINUE;
 	GFileEnumerator * enumerator = g_file_enumerate_children(path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), &error);
 
 	if(enumerator == NULL)
@@ -136,8 +151,6 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 
 		while(file_info != NULL && !fm_job_is_cancelled(FM_JOB(job))) /* g_file_enumerator_next_file returns NULL on error but NULL on finished too */
 		{
-			//for_each_file_info(file_info, path, job);
-
 			if(run_rules_for_each_file_info(file_info, path, job))
 			{
 				const char * name = g_file_info_get_name(file_info); /* does not need to be freed */
@@ -152,15 +165,25 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
         			g_slist_free(job->files_to_add);
 					job->files_to_add = NULL;
 				}
+
 				if(path != NULL)
+				{
 					fm_path_unref(path);
+					path = NULL;
+				}
 
 				if(file != NULL)
+				{
 					g_object_unref(file);
+					file = NULL;
+				}
 			}
 
 			if(file_info != NULL)
+			{
 				g_object_unref(file_info);
+				file_info = NULL;
+			}
 
 			file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), &error);
 		}
@@ -173,12 +196,18 @@ static void for_each_target_folder(GFile * path, FmFileSearchJob * job)
 	}
 
 	if(enumerator != NULL)
+	{
 		g_object_unref(enumerator);
+		enumerator = NULL;
+	}
 
 	if(error != NULL)
+	{
 		g_error_free(error);
+		error = NULL;
+	}
 
-	if(action == FM_JOB_ABORT)
+	if(job != NULL && action == FM_JOB_ABORT )
 		fm_job_cancel(FM_JOB(job));
 }
 
@@ -200,7 +229,7 @@ static gboolean run_rules_for_each_file_info(GFileInfo * info, GFile * parent, F
 
 		GSList * rules = job->rules;
 
-		while(rules != NULL)
+		while(rules != NULL && !fm_job_is_cancelled(FM_JOB(job)))
 		{
 			FmFileSearchRule * search_rule = rules->data;
 
@@ -218,8 +247,16 @@ static gboolean run_rules_for_each_file_info(GFileInfo * info, GFile * parent, F
 		if(job->settings->recursive && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
 			for_each_target_folder(file,job);
 
-		g_object_unref(file);
-		g_slice_free(FmFileSearchFuncData, data);
+		if(file != NULL)
+		{
+			g_object_unref(file);
+			file = NULL;
+		}
+		if(data != NULL)
+		{
+			g_slice_free(FmFileSearchFuncData, data);
+			data = NULL;
+		}
 	}
 
 	return ret;
@@ -244,7 +281,7 @@ static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFunc
 				I think I freed up the resources as well. */
 	/* TODO: 	Rewrite this to read into a buffer, but check across the break for matches */
 	GError * error = NULL;
-	FmJobErrorAction action;
+	FmJobErrorAction action = FM_JOB_CONTINUE;
 	gboolean ret = FALSE;
 	GFileInputStream * io = g_file_read(data->current_file, fm_job_get_cancellable(data->job), &error);
 
@@ -268,10 +305,16 @@ static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFunc
 	}
 
 	if (io != NULL)
+	{
 		g_object_unref(io);
+		io = NULL;
+	}
 
 	if(error != NULL)
+	{
 		g_error_free(error);
+		error = NULL;
+	}
 
 	if(action == FM_JOB_ABORT)
 		fm_job_cancel(FM_JOB(data->job));
@@ -285,7 +328,7 @@ static gboolean file_content_search_mmap(char * needle, FmFileSearchFuncData * d
 				I think I freed up the resources as well.*/
 
 	GError * error = NULL;
-	FmJobErrorAction action;
+	FmJobErrorAction action = FM_JOB_CONTINUE;
 	gboolean ret = FALSE;
 	size_t size = (size_t)g_file_info_get_size(data->current_file_info);
 	char * path = g_file_get_path(data->current_file);
@@ -326,10 +369,16 @@ static gboolean file_content_search_mmap(char * needle, FmFileSearchFuncData * d
 	}
 
 	if(error != NULL)
+	{
 		g_error_free(error);
+		error = NULL;
+	}
 
 	if(path != NULL)
+	{
 		g_free(path);
+		path = NULL;
+	}
 
 	if(action == FM_JOB_ABORT)
 		fm_job_cancel(FM_JOB(data->job));
@@ -411,25 +460,33 @@ gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer u
 {
 	gboolean ret = FALSE;
 
-	FmMimeType * target_type = user_data;
+	char * target_type = user_data;
 
 	FmPath * path = fm_path_new_for_gfile(data->current_file);
 	FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, data->current_file_info);
 	FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
 	const char * file_type = fm_mime_type_get_type(file_mime);
-	const char * target_file_type = fm_mime_type_get_type(target_type);
 
-	if(g_strcmp0(file_type, target_file_type) == 0)
+	if(g_strcmp0(file_type, target_type) == 0)
 		ret = TRUE;
 
 	if(file_mime != NULL)
+	{
 		fm_mime_type_unref(file_mime);
+		file_mime = NULL;
+	}
 
 	if(file_info != NULL)
+	{
 		fm_file_info_unref(file_info);
+		file_info = NULL;
+	}
 
 	if(path != NULL)
+	{
 		fm_path_unref(path);
+		path = NULL;
+	}
 
 	return ret;
 }
@@ -440,7 +497,7 @@ gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer 
 
 	goffset * minimum_size = user_data;
 
-	if(g_file_info_get_size(data->current_file_info) >= *minimum_size)
+	if(g_file_info_get_size(data->current_file_info) >= *minimum_size && g_file_info_get_file_type(data->current_file_info) != G_FILE_TYPE_DIRECTORY)
 		ret = TRUE;
 
 	return ret;
@@ -452,7 +509,44 @@ gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer 
 
 	goffset * maximum_size = user_data;
 
-	if(g_file_info_get_size(data->current_file_info) <= *maximum_size)
+	if(g_file_info_get_size(data->current_file_info) <= *maximum_size && g_file_info_get_file_type(data->current_file_info) != G_FILE_TYPE_DIRECTORY)
+		ret = TRUE;
+
+	return ret;
+}
+
+gboolean fm_file_search_modified_time_rule(FmFileSearchFuncData * data, gpointer user_data)
+{
+	gboolean ret = FALSE;
+
+	FmFileSearchModifiedTimeRuleData * time_data = (FmFileSearchModifiedTimeRuleData *)user_data;
+	GTimeVal mod_time;
+	g_file_info_get_modification_time(data->current_file_info, &mod_time);
+
+	time_t current_time = time(NULL);
+	struct tm starting_time;
+	struct tm ending_time;
+
+	starting_time.tm_sec = 0;
+	starting_time.tm_min = 0;
+	starting_time.tm_hour = 0;
+	starting_time.tm_mday = time_data->start_d;
+	starting_time.tm_mon = time_data->start_m;
+	starting_time.tm_year = time_data->start_y - 1900;
+	starting_time.tm_isdst = localtime(&current_time)->tm_isdst;
+
+	ending_time.tm_sec = 59;
+	ending_time.tm_min = 59;
+	ending_time.tm_hour = 23;
+	ending_time.tm_mday = time_data->end_d;
+	ending_time.tm_mon = time_data->end_m;
+	ending_time.tm_year = time_data->end_y - 1900;
+	ending_time.tm_isdst = starting_time.tm_isdst;
+
+	time_t start = mktime(&starting_time);
+	time_t end = mktime(&ending_time);
+
+	if(mod_time.tv_sec >= start && mod_time.tv_sec <= end)
 		ret = TRUE;
 
 	return ret;
