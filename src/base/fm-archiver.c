@@ -147,7 +147,7 @@ FmArchiver* fm_archiver_get_default()
             for(l = archivers; l; l=l->next)
             {
                 FmArchiver* archiver = (FmArchiver*)l->data;
-                if( strcmp(fm_config->archiver, archiver->program) == 0 )
+                if( g_strcmp0(fm_config->archiver, archiver->program) == 0 )
                 {
                     default_archiver = archiver;
                     break;
