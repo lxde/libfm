@@ -37,55 +37,98 @@ static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_info
 
 }
 
-gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, GError** err)
+gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, FmFileLauncher* launcher, gpointer user_data)
 {
-    GKeyFile* kf = g_key_file_new();
-    gboolean loaded;
     gboolean ret = FALSE;
+    GAppInfo* app;
+    gboolean is_absolute_path = g_path_is_absolute(file_or_id);
+    GList* _uris = NULL;
+    GError* err = NULL;
 
-    if(g_path_is_absolute(file_or_id))
-        loaded = g_key_file_load_from_file(kf, file_or_id, 0, err);
+    /* Let GDesktopAppInfo try first. */
+    if(is_absolute_path)
+        app = g_desktop_app_info_new_from_filename(file_or_id);
     else
-    {
-        char* tmp = g_strconcat("applications/", file_or_id, NULL);
-        loaded = g_key_file_load_from_data_dirs(kf, tmp, NULL, 0, err);
-        g_free(tmp);
-    }
+        app = g_desktop_app_info_new(file_or_id);
 
-    if(loaded)
+    if(!app) /* gio failed loading it. Let's see what's going on */
     {
-        GList* _uris = NULL;
-        GAppInfo* app = NULL;
-        char* type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "Type", NULL);
-        if(type)
+        gboolean loaded;
+        GKeyFile* kf = g_key_file_new();
+
+        /* load the desktop entry file ourselves */
+        if(is_absolute_path)
+            loaded = g_key_file_load_from_file(kf, file_or_id, 0, &err);
+        else
         {
-            if(strcmp(type, "Application") == 0)
-                app = g_desktop_app_info_new_from_keyfile(kf);
-            else if(strcmp(type, "Link") == 0)
+            char* tmp = g_strconcat("applications/", file_or_id, NULL);
+            loaded = g_key_file_load_from_data_dirs(kf, tmp, NULL, 0, &err);
+            g_free(tmp);
+        }
+        if(loaded)
+        {
+            char* type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "Type", NULL);
+            /* gio only supports "Application" type. Let's handle other types ourselves. */
+            if(type)
             {
-                char* url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "URL", NULL);
-                if(url)
+                if(strcmp(type, "Link") == 0)
                 {
-                    char* scheme = g_uri_parse_scheme(url);
-                    if(scheme)
+                    char* url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "URL", &err);
+                    if(url)
                     {
-                        /* Damn! this actually relies on gconf to work. */
-                        /* FIXME: use our own way to get a usable browser later. */
-                        app = g_app_info_get_default_for_uri_scheme(scheme);
-                        uris = _uris = g_list_prepend(NULL, url);
-                        g_free(scheme);
+                        char* scheme = g_uri_parse_scheme(url);
+                        if(scheme)
+                        {
+                            if(strcmp(scheme, "file") == 0)
+                            {
+                                /* OK, it's a file. We can handle it! */
+                                /* FIXME: prevent recursive invocation of desktop entry file.
+                                 * e.g: If this URL points to the another desktop entry file, and it
+                                 * points to yet another desktop entry file, this can create a
+                                 * infinite loop. This is a extremely rare case. */
+                                FmPath* path = fm_path_new(url);
+                                _uris = g_list_prepend(_uris, path);
+                                ret = fm_launch_paths(ctx, _uris, launcher, user_data);
+                                g_list_free(_uris);
+                                fm_path_unref(path);
+                                _uris = NULL;
+                            }
+                            else
+                            {
+                                /* Damn! this actually relies on gconf to work. */
+                                /* FIXME: use our own way to get a usable browser later. */
+                                app = g_app_info_get_default_for_uri_scheme(scheme);
+                                uris = _uris = g_list_prepend(NULL, url);
+                            }
+                            g_free(scheme);
+                        }
                     }
                 }
+                else if(strcmp(type, "Directory") == 0)
+                {
+                    /* FIXME: how should this work? It's not defined in the spec. :-( */
+                }
+                g_free(type);
             }
-            else if(strcmp(type, "Directory") == 0)
-            {
-                /* FIXME: how should this work? It's not defined in the spec. */
-            }
-            if(app)
-                ret = g_app_info_launch_uris(app, uris, ctx, err);
         }
+        g_key_file_free(kf);
     }
-    g_key_file_free(kf);
+    
+    if(app)
+        ret = g_app_info_launch_uris(app, uris, ctx, &err);
+
+    if(err)
+    {
+        if(launcher->error)
+            launcher->error(ctx, err, user_data);
+        g_error_free(err);
+    }
+
+    if(_uris)
+    {
+        g_list_foreach(_uris, (GFunc)g_free, NULL);
+        g_list_free(_uris);
+    }
 
     return ret;
 }
@@ -115,7 +158,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     /* if it's a desktop entry file, directly launch it. */
                     filename = fm_path_to_str(fi->path);
-                    if(!fm_launch_desktop_entry(ctx, filename, NULL, &err))
+                    if(!fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data))
                     {
                         if(launcher->error)
                             launcher->error(ctx, err, user_data);
@@ -155,7 +198,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* FIXME: special handling for shortcuts */
                     if(fm_path_is_xdg_menu(fi->path) && fi->target)
                     {
-                        if(!fm_launch_desktop_entry(ctx, fi->target, NULL, &err))
+                        if(!fm_launch_desktop_entry(ctx, fi->target, NULL, launcher, user_data))
                         {
                             if(launcher->error)
                                 launcher->error(ctx, err, user_data);
