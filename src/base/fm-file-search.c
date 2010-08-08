@@ -99,13 +99,13 @@ void fm_file_search_run(FmFileSearch * search)
 
 void fm_file_search_cancel(FmFileSearch * search)
 {
-	//if(FM_IS_FILE_SEARCH(search) && FM_IS_FILE_SEARCH_JOB(FM_FOLDER(search)->job))
-	//{
-		//g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_job_files_added, search);
-		//g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_file_search_job_finished, search);
-		//fm_job_cancel(FM_FOLDER(search)->job);
-		//FM_FOLDER(search)->job = NULL;
-	//}
+	if(FM_IS_FILE_SEARCH(search) && FM_IS_FILE_SEARCH_JOB(FM_FOLDER(search)->job))
+	{
+		g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_job_files_added, search);
+		g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_file_search_job_finished, search);
+		fm_job_cancel(FM_FOLDER(search)->job);
+		FM_FOLDER(search)->job = NULL;
+	}
 }
 
 /* Get/Set Methods */

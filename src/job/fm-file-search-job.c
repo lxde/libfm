@@ -1,11 +1,13 @@
 #include "fm-file-search-job.h"
 
-#include <gio/gio.h> /* for GFile, GFileInfo, GFileEnumerator */
-#include <string.h> /* for strstr */
+#include <gio/gio.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
-#define _GNU_SOURCE 1
+#include <string.h>
+#include <ctype.h>
+
+#define _GNU_SOURCE
 #include <fnmatch.h>
 
 #include "fm-list.h"
@@ -16,7 +18,7 @@ enum {
 };
 
 static guint signals[N_SIGNALS];
-
+ 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
 static void fm_file_search_job_finalize(GObject * object);
@@ -275,6 +277,34 @@ FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)
 
 /* functions for content search rule */
 
+static void lowercase(char * s)
+{
+	int i = 0;
+	while(s[i])
+	{
+		s[i]= tolower(s[i]);
+		i++;
+	}
+}
+
+static gboolean strstr_nocase(char * haystack, char * needle)
+{
+	gboolean ret = FALSE;
+	char * haystack_nocase = g_strdup(haystack);
+	char * needle_nocase = g_strdup(needle);
+
+	lowercase(haystack_nocase);
+	lowercase(needle_nocase);
+
+	if(strstr(haystack_nocase, needle_nocase) != NULL)
+		ret = TRUE;
+
+	g_free(haystack_nocase);
+	g_free(needle_nocase);
+
+	return ret;
+}
+
 static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFuncData * data)
 {
 	/* FIXME: 	I added error checking.
@@ -391,22 +421,16 @@ static gboolean content_search(char* needle, char * haystack, FmFileSearchFuncDa
 	gboolean ret = FALSE;
 
 	if(data->settings->content_mode == FM_FILE_SEARCH_MODE_REGEX)
-	{
 		ret = g_regex_match_simple(needle, haystack, (!data->settings->case_sensitive_content) ? G_REGEX_CASELESS : 0, 0);
-	}
-	else
+
+	else if(data->settings->case_sensitive_content)
 	{
-		if(data->settings->case_sensitive_content)
-		{
-			if(fnmatch(needle, haystack, 0) == 0)
-				ret = TRUE;
-		}
-		else
-		{
-			if(fnmatch(needle, haystack, FNM_CASEFOLD) == 0)
-				ret = TRUE;
-		}
+	 	if(strstr(haystack, needle) != NULL)
+			ret = TRUE;
 	}
+
+	else if(strstr_nocase(haystack, needle))
+		ret = TRUE;
 
 	return ret;
 }
