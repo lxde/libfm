@@ -698,10 +698,15 @@ _sort_by_name:
         break;
     }
     case COL_FILE_SIZE:
-        ret = file1->size - file2->size;
-        if(0 == ret)
+    {
+        /* to support files more than 2Gb */
+        goffset diff = file1->size - file2->size;
+        if(0 == diff)
             goto _sort_by_name;
+        else
+            ret = diff > 0 ? 1 : -1;
         break;
+    }
     case COL_FILE_MTIME:
         ret = file1->mtime - file2->mtime;
         if(0 == ret)
