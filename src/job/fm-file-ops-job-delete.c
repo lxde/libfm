@@ -371,11 +371,10 @@ _retry_get_orig_path:
         inf = g_file_query_info(gf, trash_query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, fm_job_get_cancellable(fmjob), &err);
         if(inf)
         {
-            char* orig_path_str = g_file_info_get_attribute_as_string(inf, "trash::orig-path");
+            const char* orig_path_str = g_file_info_get_attribute_byte_string(inf, "trash::orig-path");
             if(orig_path_str)
             {
                 GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
-                g_free(orig_path_str);
 
                 /* ensure the existence of parent folder. */
                 if(ensure_parent_dir(job, orig_path))
