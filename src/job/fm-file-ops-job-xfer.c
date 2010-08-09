@@ -19,6 +19,10 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
 #include <string.h>
@@ -26,6 +30,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "fm-monitor.h"
+#include <glib/gi18n-lib.h>
 
 static const char query[]=
     G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -38,6 +43,38 @@ static const char query[]=
     G_FILE_ATTRIBUTE_ID_FILESYSTEM;
 
 static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
+
+gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest)
+{
+    GError* err = NULL;
+    if(g_file_equal(src, dest))
+    {
+        err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+            _("Source and destination are the same."));
+    }
+    else if(g_file_info_get_file_type(src_inf) == G_FILE_TYPE_DIRECTORY
+            && g_file_has_prefix(dest, src) )
+    {
+        const char* msg = NULL;
+        if(job->type == FM_FILE_OP_MOVE)
+            msg = _("Cannot move a folder into its sub folder");
+        else if(job->type == FM_FILE_OP_COPY)
+            msg = _("Cannot copy a folder into its sub folder");
+        else
+            msg = _("Destination is a sub folder of source");
+        err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED, msg);
+    }
+    if(err)
+    {
+        if(!fm_job_is_cancelled(FM_JOB(job)))
+        {
+            fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(src_inf));
+            fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        }
+        g_error_free(err);
+    }
+    return (err == NULL);
+}
 
 gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
@@ -68,6 +105,12 @@ _retry_query_src_info:
                 goto _retry_query_src_info;
             return FALSE;
         }
+    }
+
+    if(!_fm_file_ops_job_check_paths(job, src, inf, dest))
+    {
+        g_object_unref(inf);
+        return FALSE;
     }
 
     /* if this is a cross-device move operation, delete source files. */
@@ -404,6 +447,12 @@ _retry_query_src_info:
                 goto _retry_query_src_info;
             return FALSE;
         }
+    }
+
+    if(!_fm_file_ops_job_check_paths(job, src, inf, dest))
+    {
+        g_object_unref(inf);
+        return FALSE;
     }
 
     src_fs_id = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_ID_FILESYSTEM);
