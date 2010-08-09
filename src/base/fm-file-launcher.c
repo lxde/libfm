@@ -79,7 +79,11 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
                         char* scheme = g_uri_parse_scheme(url);
                         if(scheme)
                         {
-                            if(strcmp(scheme, "file") == 0)
+                            if(strcmp(scheme, "file") == 0 ||
+                               strcmp(scheme, "trash") == 0 ||
+                               strcmp(scheme, "network") == 0 ||
+                               strcmp(scheme, "computer") == 0 ||
+                               strcmp(scheme, "menu") == 0)
                             {
                                 /* OK, it's a file. We can handle it! */
                                 /* FIXME: prevent recursive invocation of desktop entry file.
@@ -113,7 +117,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
         }
         g_key_file_free(kf);
     }
-    
+
     if(app)
         ret = g_app_info_launch_uris(app, uris, ctx, &err);
 
@@ -158,13 +162,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     /* if it's a desktop entry file, directly launch it. */
                     filename = fm_path_to_str(fi->path);
-                    if(!fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data))
-                    {
-                        if(launcher->error)
-                            launcher->error(ctx, err, user_data);
-                        g_error_free(err);
-                        err = NULL;
-                    }
+                    fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
                     continue;
                 }
                 else if(fm_file_info_is_executable_type(fi))
@@ -198,13 +196,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* FIXME: special handling for shortcuts */
                     if(fm_path_is_xdg_menu(fi->path) && fi->target)
                     {
-                        if(!fm_launch_desktop_entry(ctx, fi->target, NULL, launcher, user_data))
-                        {
-                            if(launcher->error)
-                                launcher->error(ctx, err, user_data);
-                            g_error_free(err);
-                            err = NULL;
-                        }
+                        fm_launch_desktop_entry(ctx, fi->target, NULL, launcher, user_data);
                         continue;
                     }
                 }
