@@ -97,6 +97,18 @@ static void fm_file_search_job_finalize(GObject * object)
 		self->files_to_add = NULL;
 	}
 
+	if(self->target_regex)
+	{
+		g_regex_unref(self->target_regex);
+		self->target_regex = NULL;
+	}
+
+	if(self->target_contains_regex)
+	{
+		g_regex_unref(self->target_contains_regex);
+		self->target_contains_regex = NULL;
+	}
+
 	if (G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)
 		(* G_OBJECT_CLASS(fm_file_search_job_parent_class)->finalize)(object);
 }
@@ -115,6 +127,10 @@ FmJob * fm_file_search_job_new(GSList * rules, FmPathList * target_folders, FmFi
 	job->settings = g_slice_dup(FmFileSearchSettings, settings);
 
 	job->files_to_add = NULL;
+
+	job->target_regex = NULL;
+
+	job->target_contains_regex = NULL;
 
 	return (FmJob*)job;
 }
@@ -420,8 +436,17 @@ static gboolean content_search(char* needle, char * haystack, FmFileSearchFuncDa
 {
 	gboolean ret = FALSE;
 
-	if(data->settings->content_mode == FM_FILE_SEARCH_MODE_REGEX)
-		ret = g_regex_match_simple(needle, haystack, (!data->settings->case_sensitive_content) ? G_REGEX_CASELESS : 0, 0);
+	if(fm_job_is_cancelled(FM_JOB(data->job)))
+		return ret;
+
+	else if(data->settings->content_mode == FM_FILE_SEARCH_MODE_REGEX)
+	{
+		if(data->job->target_contains_regex == NULL)
+			data->job->target_contains_regex = g_regex_new(needle, (!data->settings->case_sensitive_content) ? G_REGEX_CASELESS : 0, 0, NULL);
+
+
+		ret = g_regex_match(data->job->target_contains_regex, haystack, 0, NULL);
+	}
 
 	else if(data->settings->case_sensitive_content)
 	{
@@ -446,7 +471,10 @@ gboolean fm_file_search_target_rule(FmFileSearchFuncData * data, gpointer user_d
 
 	if(data->settings->target_mode == FM_FILE_SEARCH_MODE_REGEX)
 	{
-		ret = g_regex_match_simple(user_data, display_name, (!data->settings->case_sensitive_target) ? G_REGEX_CASELESS : 0, 0);
+		if(data->job->target_regex == NULL)
+			data->job->target_regex = g_regex_new(user_data, (!data->settings->case_sensitive_target) ? G_REGEX_CASELESS : 0, 0, NULL);
+
+		ret = g_regex_match(data->job->target_regex, display_name, 0, NULL);
 	}
 	else
 	{
