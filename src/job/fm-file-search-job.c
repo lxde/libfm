@@ -293,24 +293,12 @@ FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job)
 
 /* functions for content search rule */
 
-static void lowercase(char * s)
-{
-	int i = 0;
-	while(s[i])
-	{
-		s[i]= tolower(s[i]);
-		i++;
-	}
-}
-
 static gboolean strstr_nocase(char * haystack, char * needle)
 {
 	gboolean ret = FALSE;
-	char * haystack_nocase = g_strdup(haystack);
-	char * needle_nocase = g_strdup(needle);
 
-	lowercase(haystack_nocase);
-	lowercase(needle_nocase);
+	char * haystack_nocase = g_utf8_strdown(haystack, -1);
+	char * needle_nocase = g_utf8_strdown(needle, -1);
 
 	if(strstr(haystack_nocase, needle_nocase) != NULL)
 		ret = TRUE;
