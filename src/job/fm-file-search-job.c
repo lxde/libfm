@@ -324,16 +324,41 @@ static gboolean file_content_search_ginputstream(char * needle, FmFileSearchFunc
 	else /* input stream successfully opened */
 	{
 		/* FIXME: should I limit the size to read? */
-		goffset size = g_file_info_get_size(data->current_file_info);
+		goffset size = 512 + sizeof(needle);
+		goffset to_be_read = size;
 		char buffer[size];
 	
-		if(g_input_stream_read(G_INPUT_STREAM(io), &buffer, size, fm_job_get_cancellable(data->job), error) == -1)
+		goffset read = g_input_stream_read(G_INPUT_STREAM(io), &buffer, to_be_read, fm_job_get_cancellable(data->job), error);
+
+		if(read == -1)
 			action = fm_job_emit_error(FM_JOB(data->job), error, FM_JOB_ERROR_SEVERE);
-		else /* file successfully read into buffer */
+		else
 		{
 			if(content_search(needle, buffer, data))
 				ret = TRUE;
+			else
+			{
+				while(read == to_be_read)
+				{
+					to_be_read = 512;
+
+					int i;
+					for(i = 0; i < sizeof(needle); i++)
+					{
+						buffer[i] = buffer[i+512];
+					}
+
+					read = g_input_stream_read(G_INPUT_STREAM(io), &buffer[sizeof(needle)], to_be_read, fm_job_get_cancellable(data->job), error);
+
+					if(content_search(needle, buffer, data))
+					{
+						ret = TRUE;
+						break;
+					}
+				}
+			}
 		}
+
 		if(!g_input_stream_close(io, fm_job_get_cancellable(data->job), &error))
 				action = fm_job_emit_error(FM_JOB(data->job), error, FM_JOB_ERROR_MILD);
 	}
@@ -487,9 +512,9 @@ gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpoint
 
 	if(g_file_info_get_file_type(data->current_file_info) == G_FILE_TYPE_REGULAR && g_file_info_get_size(data->current_file_info) > 0)
 	{
-		if(g_file_is_native(data->current_file))
-			ret = file_content_search_mmap(user_data, data);
-		else
+		//if(g_file_is_native(data->current_file))
+		//	ret = file_content_search_mmap(user_data, data);
+		//else
 			ret = file_content_search_ginputstream(user_data, data);
 	}
 
