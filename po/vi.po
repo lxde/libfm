@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
-"PO-Revision-Date: 2010-04-27 12:00+0200\n"
-"Last-Translator: Mario <mb@mariobehling.de>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-08-09 05:44+0000\n"
+"PO-Revision-Date: 2010-08-16 21:09+0700\n"
+"Last-Translator: Tran Duy Hung <nguyentieuhau@gmail.com>\n"
+"Language-Team: LXDE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.1\n"
+"X-Poedit-Language: Vietnamese\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -51,7 +52,7 @@ msgstr "Dòng lệnh tùy biến"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Tực hiện trong thiết bị đầu cuối emulator"
+msgstr "Thực hiện trong thiết bị đầu cuối emulator"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -72,7 +73,7 @@ msgid ""
 "Do you want to replace the existing file"
 msgstr ""
 "<b>Đã có một tập tin trùng tên trong đây.</b>\n"
-"Bạn có muốn thay thế tập tin hiện tại ko"
+"Bạn có muốn thay thế tập tin hiện tại không"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -124,7 +125,7 @@ msgstr "<b>Truy cập gần nhất:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Lần sữa đổi gần nhất:</b>"
+msgstr "<b>Lần sửa đổi gần nhất:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
@@ -132,11 +133,11 @@ msgstr "<b>Vị trí:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b> Mở với:</b>"
+msgstr "<b>Mở với:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>khác:</b>"
+msgstr "<b>Khác:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
@@ -148,7 +149,7 @@ msgstr "<b>Kích thước trên đĩa:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>Mục tiêu:</b>"
+msgstr "<b>Đích:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
@@ -184,9 +185,7 @@ msgstr "Những hoạt động mà người sở hữu tập tin có thể thự
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Những hoạt động mà người dùng trong cùng nhóm là chủ sở hữu tập tin có thể "
-"thực hiện"
+msgstr "Những hoạt động mà người dùng trong cùng nhóm là chủ sở hữu tập tin có thể thực hiện"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -210,7 +209,7 @@ msgstr "_Tổng hợp"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_"
+msgstr "_Quyền"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
@@ -223,7 +222,7 @@ msgstr "<b>Phát triển:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>một số lỗi xảy ra:</b>"
+msgstr "<b>Một số lỗi xảy ra:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -241,7 +240,7 @@ msgstr "Đang chuẩn bị..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Thư khách hàng</b>"
+msgstr "<b>Ứng dụng thư</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
@@ -265,24 +264,22 @@ msgstr "Các ứng dụng ưa thích"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr " ứng dụng hệ thống"
+msgstr "Ứng dụng hệ thống"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Mail khách hàng ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Ứng dụng thư ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Trình duyệt Web ưa thích khi bạn sử dụng để mở liên kết nhanh"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "Số ít%u byteSố nhiều%u byte"
+msgstr[0] "%u byte"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -322,7 +319,7 @@ msgstr "Phím tắt"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "Điểm tăng lên"
+msgstr "Điểm gắn"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
@@ -332,7 +329,8 @@ msgstr "Thùng rác"
 msgid "My Computer"
 msgstr "Máy tính của tôi"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Các ứng dụng"
 
@@ -344,18 +342,20 @@ msgstr "Mạng"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213
+#: ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
-"loại: %s\n"
+"Loại: %s\n"
 "Kích thước: %s\n"
 "Số lần sửa đổi: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -374,7 +374,7 @@ msgstr "Hủy"
 
 #: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
-msgstr "Hoạt độngj của tập tin đã hoàn thành, nhưng có môt số lỗi."
+msgstr "Hoạt động của tập tin đã hoàn thành, nhưng có môt số lỗi."
 
 #: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
@@ -382,13 +382,11 @@ msgstr "Hoàn thành"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Một số tập tin không thể được chuyển đến thùng rác có thể bởi vì hệ thống "
-"tập tin cơ bản không hỗ trợ hoạt động này \\ n.Bạn có muốn xóa chúng để thay "
-"thế?"
+"Một số tập tin không thể được chuyển đến thùng rác có thể bởi vì hệ thống tập tin cơ bản không hỗ trợ hoạt động này.\n"
+" Bạn có muốn xóa chúng để thay thế?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
@@ -418,48 +416,40 @@ msgstr "Đang tạo liên kết tượng trưng"
 msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
-msgid "byte"
-msgid_plural "bytes"
-msgstr[0] "Số ít%u byteSố nhiều%u byte"
-
-#: ../src/gtk/fm-file-properties.c:176
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
-msgstr "vui lòng điền tên người dùng hay số id  hợp lệ"
+msgstr "Vui lòng điền tên người dùng hay số id hợp lệ"
 
-#: ../src/gtk/fm-file-properties.c:208
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "Vui lòng điền tên nhóm hay số id hợp lệ"
 
-#: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và tiểu tập "
-"tin không?"
+#: ../src/gtk/fm-file-properties.c:351
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và những thư mục con không?"
 
-#: ../src/gtk/fm-file-properties.c:630
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "Những tập tin khác loại"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:658
 msgid "Multiple Files"
 msgstr "Nhiều tập tin"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Mount Volume"
-msgstr "Âm thanh  ngoài"
+msgstr "Kết nối thiết bị"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
-msgstr "Không âm thanh ngoài"
+msgstr "Ngắt kết nối thiết bị"
 
 #: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
 msgstr "Loại bỏ thiết bị truyền thông rời"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Đổi tên mục đánh dấu trang"
 
@@ -483,9 +473,10 @@ msgstr "Máy để bàn"
 msgid "Enter a new name:"
 msgstr "Nhập tên mới:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr "Mở bởi ..."
+msgstr "Mở bởi..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
@@ -509,7 +500,7 @@ msgstr "Giải nén ở đây"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr "Giải nén tại.."
+msgstr "Giải nén tại..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
@@ -521,7 +512,7 @@ msgstr "Khôi phục các tập tin đã xóa về lại dạng gốc"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
-msgstr "Trực tiếp lưu thất bại"
+msgstr "XDirectSave thất bại."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
@@ -549,7 +540,7 @@ msgstr "Kích thước"
 
 #: ../src/gtk/fm-folder-view.c:556
 msgid "Modified"
-msgstr "Sưả đổi lần"
+msgstr "Sửa đổi lần"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
@@ -561,7 +552,7 @@ msgstr "Lỗi"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr "Vui long chọn thư mục"
+msgstr "Vui lòng chọn thư mục"
 
 #: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
@@ -573,11 +564,11 @@ msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
 #: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
-msgstr "Bạn có muốn xóa ongcác tập tin đẫ chọn không?"
+msgstr "Bạn có muốn xóa các tập tin đã chọn không?"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
-msgstr "Dổi tên tập tin"
+msgstr "Đổi tên tập tin"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
@@ -587,24 +578,10 @@ msgstr "Vui lòng nhập tên mới:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Các thư mục chỉ định không hợp lệ"
 
-#: ../src/job/fm-file-ops-job-xfer.c:53
-msgid "Source and destination are the same."
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:60
-msgid "Cannot move a folder into its sub folder"
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:62
-msgid "Cannot copy a folder into its sub folder"
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:64
-msgid "Destination is a sub folder of source"
-msgstr ""
