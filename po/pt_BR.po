@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-05 04:13+0000\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: 2010-06-19 12:04-0300\n"
 "Last-Translator: Sérgio Brandão Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -57,7 +57,8 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
+msgstr ""
+"Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +184,8 @@ msgstr "Operações que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
+msgstr ""
+"Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -265,15 +267,18 @@ msgid "System Applications"
 msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "O cliente de e-mail preferido será usado para compor e-mails quando você clicar nos endereços de e-mail."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"O cliente de e-mail preferido será usado para compor e-mails quando você "
+"clicar nos endereços de e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "O navegador web preferido será usado para abrir hyperlinks."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -328,8 +333,7 @@ msgstr "Lixeira"
 msgid "My Computer"
 msgstr "Meu computador"
 
-#: ../src/base/fm-path.c:446
-#: ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Aplicativos"
 
@@ -341,8 +345,7 @@ msgstr "Rede"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -353,8 +356,7 @@ msgstr ""
 "Tamanho: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220
-#: ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -363,117 +365,127 @@ msgstr ""
 "Tipo: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr "A operação do arquivo foi cancelada e aconteceram alguns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: ../src/gtk/fm-progress-dlg.c:313
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr "A operação do arquivo terminou, mas aconteceram alguns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "Terminou"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arquivos não podem ser movidos para a lixeira devido a falta de suporte do sistema de arquivos.\n"
+"Alguns arquivos não podem ser movidos para a lixeira devido a falta de "
+"suporte do sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
-#: ../src/gtk/fm-progress-dlg.c:427
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:442
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "Movendo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "Copiando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "Esvaziando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "Excluindo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "Criando links simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#, fuzzy
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Favor digitar um nome de usuário ou identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo ou identificador numérico válido."
 
-#: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Você deseja aplicar estas modificações de forma recursiva a todos os arquivos e subpastas?"
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Você deseja aplicar estas modificações de forma recursiva a todos os "
+"arquivos e subpastas?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Arquivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Múltiplos arquivos"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 msgid "Mount Volume"
 msgstr "Montar volume"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
 msgstr "Desmontar volume"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
 msgstr "Ejetar mídia removível"
 
-#: ../src/gtk/fm-places-view.c:147
-#: ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Renomear item dos marcadores"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:149
 msgid "Remove from Bookmark"
 msgstr "Remover dos marcadores"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: ../src/gtk/fm-places-view.c:498
+#: ../src/gtk/fm-places-view.c:499
 msgid "Trash"
 msgstr "Lixeira"
 
-#: ../src/gtk/fm-places-view.c:552
+#: ../src/gtk/fm-places-view.c:553
 msgid "Desktop"
 msgstr "Área de trabalho"
 
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:892
 msgid "Enter a new name:"
 msgstr "Digitar um novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:84
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Abrir com..."
 
@@ -507,9 +519,10 @@ msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr "Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
+msgstr ""
+"Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
 
-#: ../src/gtk/fm-dnd-dest.c:449
+#: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
 msgstr "XDirectSave falhou."
 
@@ -553,39 +566,54 @@ msgstr "Erro"
 msgid "Please select a folder"
 msgstr "Favor selecionar uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:402
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Somente administradores do sistema tem permissão para fazer isto."
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:502
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:570
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "O diretório especificado não é válido"
 
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""
+
 #~ msgid "It's not a valid directory"
 #~ msgstr "Não é um diretório válido"
+
 #~ msgid "The selection mode"
 #~ msgstr "Favor selecionar uma pasta"
-

@@ -1,13 +1,13 @@
-#Croatian translation for libfm package.
+# Croatian translation for libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as thelibfm package.
 # Ivica Kolić<ikoli@yahoo.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 04:53+0000\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: 2010-06-03 02:17+0200\n"
 "Last-Translator: Ivica Kolić<ikoli@yahoo.com> <>\n"
 "Language-Team: Croatian (hr) <>\n"
@@ -416,24 +416,31 @@ msgstr ""
 msgid "Changing file attributes"
 msgstr "Promjena atributa datoteke"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Unesite valjano korisničko ime ili brojčani id"
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite valjano ime grupe ili brojčani id"
 
-#: ../src/gtk/fm-file-properties.c:351
+#: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Datoteke različitog tipa"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Višestruke datoteke"
 
@@ -553,27 +560,27 @@ msgstr "Greška"
 msgid "Please select a folder"
 msgstr "Odaberite mapu"
 
-#: ../src/gtk/fm-gtk-utils.c:402
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Samo administrator sustava ima dozvole ovo učiniti"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Želite li maknuti odabrane datoteke u smeće"
 
-#: ../src/gtk/fm-gtk-utils.c:502
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Želite li izbrisati odabrane datoteke"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Preimenuj datoteku"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Unesite novo ime:"
 
-#: ../src/gtk/fm-gtk-utils.c:570
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Jeste li sigurni da želite isprazniti smeće?"
 
@@ -582,3 +589,19 @@ msgstr "Jeste li sigurni da želite isprazniti smeće?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Određeni direktorij nije valjan"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""

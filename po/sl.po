@@ -1,16 +1,17 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-03 07:42+0000\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -182,7 +183,9 @@ msgstr "Dejanja, ki jih lahko izvrši lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik datoteke"
+msgstr ""
+"Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik "
+"datoteke"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -264,8 +267,12 @@ msgid "System Applications"
 msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni odjemalec"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni "
+"odjemalec"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -379,10 +386,12 @@ msgstr "Končano"
 #: ../src/gtk/fm-progress-dlg.c:335
 #, fuzzy
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Nekaterih datotek ni mogoče premakniti v koš, saj datotečni sistem ne podpira te operacije. \n"
+"Nekaterih datotek ni mogoče premakniti v koš, saj datotečni sistem ne "
+"podpira te operacije. \n"
 "Želite namesto tega izbrisati datoteke?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -413,23 +422,33 @@ msgstr "Ustvarjanje simbolnih povezav"
 msgid "Changing file attributes"
 msgstr "Spreminjanje atributov datotek"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#, fuzzy
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "%u bit"
+msgstr[1] "%u bita"
+msgstr[2] "%u biti"
+msgstr[3] "%u bitov"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Vnesite veljavno uporabniško ime ali številčni ID"
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Vnesite veljavno ime skupine ali številčni ID"
 
-#: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Želite rekurzivno uporabiti spremembe na vseh podmapah in datotekah?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Datoteke različnih tipov"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Več datotek"
 
@@ -549,27 +568,27 @@ msgstr "Napaka"
 msgid "Please select a folder"
 msgstr "Izberite ciljno mapo"
 
-#: ../src/gtk/fm-gtk-utils.c:402
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Le sistemski administrators ima pravico za to dejanje"
 
-#: ../src/gtk/fm-gtk-utils.c:481
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Želite premakniti izbrane datoteke v koš?"
 
-#: ../src/gtk/fm-gtk-utils.c:502
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Želite izbrisati izbrane datoteke v koš?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Vnesite novo ime:"
 
-#: ../src/gtk/fm-gtk-utils.c:570
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste prepričani, da želite izprazniti koš?"
 
@@ -578,3 +597,19 @@ msgstr "Ste prepričani, da želite izprazniti koš?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Navedena mapa ni veljavna"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""

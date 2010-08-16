@@ -18,6 +18,6 @@ src/gtk/fm-app-menu-view.c
 src/gtk/fm-gtk-utils.c
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
-src/job/fm-file-ops-xfer.c
+src/job/fm-file-ops-job-xfer.c
 src/tools/libfm-pref-apps.c
 data/libfm-pref-apps.desktop.in

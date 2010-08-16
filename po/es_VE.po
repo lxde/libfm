@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -406,7 +406,7 @@ msgstr "Papelera"
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 #, fuzzy
 msgid "Applications"
 msgstr "Aplicaciones"
@@ -416,12 +416,12 @@ msgstr "Aplicaciones"
 msgid "Network"
 msgstr "Red"
 
-#: ../src/gtk/fm-progress-dlg.c:145
+#: ../src/gtk/fm-progress-dlg.c:150
 #, fuzzy
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -429,86 +429,93 @@ msgid ""
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:302
+#: ../src/gtk/fm-progress-dlg.c:309
 #, fuzzy
 msgid "The file operation is cancelled and there are some errors."
 msgstr "La operación de archivos se ha cancelado y hay algunos errores."
 
-#: ../src/gtk/fm-progress-dlg.c:304
+#: ../src/gtk/fm-progress-dlg.c:311
 #, fuzzy
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: ../src/gtk/fm-progress-dlg.c:308
+#: ../src/gtk/fm-progress-dlg.c:315
 #, fuzzy
 msgid "The file operation is finished, but there are some errors."
 msgstr "La operación sobre archivos ha finalizado, pero hay algunos errores."
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:317
 #, fuzzy
 msgid "Finished"
 msgstr "Finalizado"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:429
 #, fuzzy
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:437
+#: ../src/gtk/fm-progress-dlg.c:444
 #, fuzzy
 msgid "Moving files"
 msgstr "Moviendo archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:440
+#: ../src/gtk/fm-progress-dlg.c:447
 #, fuzzy
 msgid "Copying files"
 msgstr "Copiando archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:443
+#: ../src/gtk/fm-progress-dlg.c:450
 #, fuzzy
 msgid "Trashing files"
 msgstr "Enviando archivos a la papelera"
 
-#: ../src/gtk/fm-progress-dlg.c:446
+#: ../src/gtk/fm-progress-dlg.c:453
 #, fuzzy
 msgid "Deleting files"
 msgstr "Eliminando archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:449
+#: ../src/gtk/fm-progress-dlg.c:456
 #, fuzzy
 msgid "Creating symlinks"
 msgstr "Creando enlaces simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:452
+#: ../src/gtk/fm-progress-dlg.c:459
 #, fuzzy
 msgid "Changing file attributes"
 msgstr "Cambiando atributos de archivo"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#, fuzzy
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
+
+#: ../src/gtk/fm-file-properties.c:176
 #, fuzzy
 msgid "Please enter a valid user name or numeric id."
 msgstr "Por favor, introduzca un nombre de usuario o id. numérica válida."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 #, fuzzy
 msgid "Please enter a valid group name or numeric id."
 msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
-#: ../src/gtk/fm-file-properties.c:351
+#: ../src/gtk/fm-file-properties.c:356
 #, fuzzy
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
@@ -516,57 +523,57 @@ msgstr ""
 "¿Desea aplicar recursivamente estos cambios a todos los archivos y "
 "subcarpetas?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 #, fuzzy
 msgid "Files of different types"
 msgstr "Archivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 #, fuzzy
 msgid "Multiple Files"
 msgstr "Múltiples archivos"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:133
 #, fuzzy
 msgid "Mount Volume"
 msgstr "Montar volumen"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:134
 #, fuzzy
 msgid "Unmount Volume"
 msgstr "Desmontar volumen"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:135
 #, fuzzy
 msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 #, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:149
 #, fuzzy
 msgid "Remove from Bookmark"
 msgstr "Quitar de los marcadores"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:161
 #, fuzzy
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:498
+#: ../src/gtk/fm-places-view.c:499
 #, fuzzy
 msgid "Trash"
 msgstr "Papelera"
 
-#: ../src/gtk/fm-places-view.c:552
+#: ../src/gtk/fm-places-view.c:553
 #, fuzzy
 msgid "Desktop"
 msgstr "Escritorio"
 
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:892
 #, fuzzy
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
@@ -614,7 +621,7 @@ msgstr ""
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:449
+#: ../src/gtk/fm-dnd-dest.c:529
 #, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
@@ -634,22 +641,22 @@ msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:522
+#: ../src/gtk/fm-folder-view.c:524
 #, fuzzy
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gtk/fm-folder-view.c:541
+#: ../src/gtk/fm-folder-view.c:543
 #, fuzzy
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/gtk/fm-folder-view.c:548
+#: ../src/gtk/fm-folder-view.c:550
 #, fuzzy
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:554
+#: ../src/gtk/fm-folder-view.c:556
 #, fuzzy
 msgid "Modified"
 msgstr "Modificado"
@@ -669,32 +676,32 @@ msgstr "Error"
 msgid "Please select a folder"
 msgstr "Por favor, seleccione una carpeta"
 
-#: ../src/gtk/fm-gtk-utils.c:400
+#: ../src/gtk/fm-gtk-utils.c:403
 #, fuzzy
 msgid "Only system administrators have the permission to do this."
 msgstr "Sólo el administrador del sistema tiene el permiso para hacer esto."
 
-#: ../src/gtk/fm-gtk-utils.c:475
+#: ../src/gtk/fm-gtk-utils.c:482
 #, fuzzy
 msgid "Do you want to move the selected files to trash can?"
 msgstr "¿Desea mover los archivos seleccionados a la papelera?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:503
 #, fuzzy
 msgid "Do you want to delete the selected files?"
 msgstr "¿Desea eliminar los archivos seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 #, fuzzy
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 #, fuzzy
 msgid "Please enter a new name:"
 msgstr "Por favor, introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-gtk-utils.c:564
+#: ../src/gtk/fm-gtk-utils.c:571
 #, fuzzy
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
@@ -704,6 +711,22 @@ msgstr "¿Está seguro que desea vaciar la papelera?"
 #, fuzzy, c-format
 msgid "The specified directory is not valid"
 msgstr "El directorio especificado no es válido"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "No es un directorio válido"

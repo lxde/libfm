@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 05:44+0000\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: 2010-04-05 14:54+0200\n"
 "Last-Translator: Horatio <hosoka@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,8 @@ msgstr "Geïnstalleerde Toepassing"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Stel geselecteerde toepassing in als de standaard actie voor dit bestandstype"
+msgstr ""
+"Stel geselecteerde toepassing in als de standaard actie voor dit bestandstype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -180,7 +181,8 @@ msgstr "Handelingen die de eigenaar van het bestand kan doen"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Handelingen die gebruikers van dezelfde groep als de eigenaar kunnen doen"
+msgstr ""
+"Handelingen die gebruikers van dezelfde groep als de eigenaar kunnen doen"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -262,12 +264,17 @@ msgid "System Applications"
 msgstr "Systeem Toepassingen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Het E-mailprogramma van uw keuze zal gebruikt worden om E-mails te schrijven als u op een E-mail adres klikt."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Het E-mailprogramma van uw keuze zal gebruikt worden om E-mails te schrijven "
+"als u op een E-mail adres klikt."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "De Webbrowser van uw keuze zal gebruikt worden om hyperlinks te openen."
+msgstr ""
+"De Webbrowser van uw keuze zal gebruikt worden om hyperlinks te openen."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -374,10 +381,12 @@ msgstr "Voltooid"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Sommige bestanden kunnen niet naar de prullenbak verplaatst worden omdat het onderliggende bestandssysteem dit niet ondersteund.\n"
+"Sommige bestanden kunnen niet naar de prullenbak verplaatst worden omdat het "
+"onderliggende bestandssysteem dit niet ondersteund.\n"
 "Wilt u ze in plaats daarvan verwijderen?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -408,23 +417,31 @@ msgstr "Symlinks aanmaken"
 msgid "Changing file attributes"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#, fuzzy
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Bestanden van verschillende types"
 
-#: ../src/gtk/fm-file-properties.c:658
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Meerdere Bestanden"
 
@@ -573,3 +590,19 @@ msgstr "Weet u zeker dat u de prullenbak wilt legen?"
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "De specificeerde map is niet juist"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""

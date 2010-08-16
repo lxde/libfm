@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-06 08:51+0000\n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
 "PO-Revision-Date: 2010-07-06 12:20+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -58,7 +58,8 @@ msgstr "Nainštalovaná aplikácia"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Nastaviť vybranú aplikáciu ako predvolenú operáciu pre tento typ súboru"
+msgstr ""
+"Nastaviť vybranú aplikáciu ako predvolenú operáciu pre tento typ súboru"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,7 +185,9 @@ msgstr "Operácie, ktoré môže robiť vlastník súboru"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operácie, ktoré môžu robiť používatelia v rovnakej skupine ako vlastník súboru"
+msgstr ""
+"Operácie, ktoré môžu robiť používatelia v rovnakej skupine ako vlastník "
+"súboru"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -266,15 +269,19 @@ msgid "System Applications"
 msgstr "Systémové aplikácie"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Na písanie emailov po kliknutí na emailovú adresu sa použije uprednostňovaný poštový klient"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Na písanie emailov po kliknutí na emailovú adresu sa použije uprednostňovaný "
+"poštový klient"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Na otvorenie hyperodkazov sa použije uprednostňovaný webový prehliadač."
+msgstr ""
+"Na otvorenie hyperodkazov sa použije uprednostňovaný webový prehliadač."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -330,8 +337,7 @@ msgstr "Kôš"
 msgid "My Computer"
 msgstr "Môj počítač"
 
-#: ../src/base/fm-path.c:446
-#: ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Aplikácie"
 
@@ -343,8 +349,7 @@ msgstr "Sieť"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -355,8 +360,7 @@ msgstr ""
 "Veľkosť: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220
-#: ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -383,10 +387,12 @@ msgstr "Dokončené"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Niektoré súbory nie je možné presunúť do Koša, pretože súborový systém, na ktorom ležia nepodporuje túto operáciu.\n"
+"Niektoré súbory nie je možné presunúť do Koša, pretože súborový systém, na "
+"ktorom ležia nepodporuje túto operáciu.\n"
 "Chcete ich namiesto toho zmazať?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -417,23 +423,32 @@ msgstr "Vytvárajú sa symbolické odkazy"
 msgid "Changing file attributes"
 msgstr "Menia sa atribúty súborov"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#, fuzzy
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "%u bajt"
+msgstr[1] "%u bajty"
+msgstr[2] "%u bajtov"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Prosím, zadajte platné meno používateľa alebo jeho číselný ID."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím, zadajte platné meno skupiny alebo jej číselný ID."
 
-#: ../src/gtk/fm-file-properties.c:351
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete tieto zmeny použiť rekurzívne na všetky súbory a podadresáre?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Súbory rozličných typov"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Viacero súborov"
 
@@ -449,8 +464,7 @@ msgstr "Odpojiť zväzok"
 msgid "Eject Removable Media"
 msgstr "Vysunúť prenosné médium"
 
-#: ../src/gtk/fm-places-view.c:148
-#: ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
@@ -474,8 +488,7 @@ msgstr "Plocha"
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
-#: ../src/gtk/fm-file-menu.c:84
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Otvoriť pomocou..."
 
@@ -579,12 +592,27 @@ msgstr "Prosím, zadajte nový názov:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Uvedený adresár nie je platný"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr ""
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr ""
 
 #~ msgid "Copyright (C) 2005 - 2008"
 #~ msgstr "Copyright (C) 2005 - 2008"
@@ -1304,21 +1332,18 @@ msgstr "Uvedený adresár nie je platný"
 #~ msgstr ", Voľné miesto: %s (Celkom: %s )"
 
 #~ msgid "%d item selected (%s)%s"
-
 #~ msgid_plural "%d items selected (%s)%s"
 #~ msgstr[0] "%d vybraná položka (%s)%s"
 #~ msgstr[1] "%d vybrané položky (%s)%s"
 #~ msgstr[2] "%d vybraných položiek (%s)%s"
 
 #~ msgid "%d hidden"
-
 #~ msgid_plural "%d hidden"
 #~ msgstr[0] "%d skrytý"
 #~ msgstr[1] "%d skryté"
 #~ msgstr[2] "%d skrytých"
 
 #~ msgid "%d visible item (%s)%s"
-
 #~ msgid_plural "%d visible items (%s)%s"
 #~ msgstr[0] "%d viditeľná položka (%s)%s"
 #~ msgstr[1] "%d viditeľné položky (%s)%s"
