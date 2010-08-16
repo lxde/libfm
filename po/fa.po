@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-09 05:44+0000\n"
 "PO-Revision-Date: 2010-07-11 17:57+0200\n"
 "Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,8 +59,7 @@ msgstr "نرم‌افزارهای نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
+msgstr "نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -186,8 +185,7 @@ msgstr "عملیاتی که دارنده فایل می تواند انجام د�
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
+msgstr "عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,12 +267,8 @@ msgid "System Applications"
 msgstr "نرم‌افزارهای سیستمی"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده "
-"خواهد شد."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده خواهد شد."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -316,7 +310,7 @@ msgstr "گیبی بایت"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "تی‌ای بی"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
@@ -384,12 +378,10 @@ msgstr "به پایان رسیده"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل "
-"سیستم این عمل را پشتیبانی نمی کند.\n"
+"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل سیستم این عمل را پشتیبانی نمی کند.\n"
 "بجای اینکار ایا می خواهید آنها را پاک کنید ؟"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -420,32 +412,23 @@ msgstr "لینک نمادین"
 msgid "Changing file attributes"
 msgstr "تغییر مشخصه ها"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
-msgid "byte"
-msgid_plural "bytes"
-msgstr[0] "%u بایت"
-
-#: ../src/gtk/fm-file-properties.c:176
+#: ../src/gtk/fm-file-properties.c:171
 msgid "Please enter a valid user name or numeric id."
 msgstr "لطفا یک نام کاربری یا مشخصه‌ی عددی وارد کنید."
 
-#: ../src/gtk/fm-file-properties.c:208
+#: ../src/gtk/fm-file-properties.c:203
 msgid "Please enter a valid group name or numeric id."
 msgstr "لطفا یک نام گروه یا مشخصه‌ی عددی وارد کنید."
 
-#: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت "
-"شود؟"
+#: ../src/gtk/fm-file-properties.c:351
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت شود؟"
 
-#: ../src/gtk/fm-file-properties.c:630
+#: ../src/gtk/fm-file-properties.c:625
 msgid "Files of different types"
 msgstr "فایل هایی از نوع متفاوت"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:658
 msgid "Multiple Files"
 msgstr "چندین فایل"
 
@@ -463,11 +446,11 @@ msgstr "در آوردن رسانه‌ی قابل حمل"
 
 #: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "تغییر نام ایتم نشانک"
 
 #: ../src/gtk/fm-places-view.c:149
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "حذف از نشانک "
 
 #: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
@@ -594,19 +577,3 @@ msgstr "آیا از خالی کردن زباله دان  اطمینان داری
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "دایرکتوری مشخص شده معتبر نیست"
-
-#: ../src/job/fm-file-ops-job-xfer.c:53
-msgid "Source and destination are the same."
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:60
-msgid "Cannot move a folder into its sub folder"
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:62
-msgid "Cannot copy a folder into its sub folder"
-msgstr ""
-
-#: ../src/job/fm-file-ops-job-xfer.c:64
-msgid "Destination is a sub folder of source"
-msgstr ""
