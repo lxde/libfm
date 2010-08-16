@@ -100,6 +100,8 @@ FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job);
 gboolean fm_file_search_target_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_target_type_list_rule(FmFileSearchFuncData * data, gpointer user_data);
+gboolean fm_file_search_target_type_generic_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
 gboolean fm_file_search_modified_time_rule(FmFileSearchFuncData * data, gpointer user_data);

@@ -556,6 +556,80 @@ gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer u
 	return ret;
 }
 
+gboolean fm_file_search_target_type_list_rule(FmFileSearchFuncData * data, gpointer user_data)
+{
+	gboolean ret = FALSE;
+
+	char ** target_type_list = user_data;
+
+	FmPath * path = fm_path_new_for_gfile(data->current_file);
+	FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, data->current_file_info);
+	FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
+	const char * file_type = fm_mime_type_get_type(file_mime);
+
+	int i;
+	for(i = 0; target_type_list[i]; ++i)
+	{
+		if(g_content_type_is_a(file_type, target_type_list[i]))
+			ret = TRUE;		
+	}
+
+	if(file_mime != NULL)
+	{
+		fm_mime_type_unref(file_mime);
+		file_mime = NULL;
+	}
+
+	if(file_info != NULL)
+	{
+		fm_file_info_unref(file_info);
+		file_info = NULL;
+	}
+
+	if(path != NULL)
+	{
+		fm_path_unref(path);
+		path = NULL;
+	}
+
+	return ret;
+}
+
+gboolean fm_file_search_target_type_generic_rule(FmFileSearchFuncData * data, gpointer user_data)
+{
+	gboolean ret = FALSE;
+
+	char * target_type = user_data;
+
+	FmPath * path = fm_path_new_for_gfile(data->current_file);
+	FmFileInfo * file_info = fm_file_info_new_from_gfileinfo(path, data->current_file_info);
+	FmMimeType * file_mime = fm_file_info_get_mime_type(file_info);
+	const char * file_type = fm_mime_type_get_type(file_mime);
+
+	if(g_str_has_prefix(file_type, target_type))
+		ret = TRUE;
+
+	if(file_mime != NULL)
+	{
+		fm_mime_type_unref(file_mime);
+		file_mime = NULL;
+	}
+
+	if(file_info != NULL)
+	{
+		fm_file_info_unref(file_info);
+		file_info = NULL;
+	}
+
+	if(path != NULL)
+	{
+		fm_path_unref(path);
+		path = NULL;
+	}
+
+	return ret;
+}
+
 gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer user_data)
 {
 	gboolean ret = FALSE;
