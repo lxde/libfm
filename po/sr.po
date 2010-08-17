@@ -2,21 +2,20 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the Libfm package.
 # Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-17 05:42+0000\n"
 "PO-Revision-Date: 2010-06-07 12:24+0100\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -78,7 +77,6 @@ msgstr ""
 "Желите ли да замените постојећу датотеку"
 
 #: ../data/ui/ask-rename.glade.h:4
-#, fuzzy
 msgid "Apply this option to all existing files"
 msgstr "Примени ово подешавање на све постојеће датотеке"
 
@@ -175,14 +173,12 @@ msgid "Make the file executable"
 msgstr "Учини датотеку извршном"
 
 #: ../data/ui/file-prop.glade.h:18
-#, fuzzy
 msgid "None"
 msgstr "Ниједан"
 
 #: ../data/ui/file-prop.glade.h:19
-#, fuzzy
 msgid "Operations that all other users can do"
-msgstr "Сви други корисници могу извршити следеће радње"
+msgstr "Радње које су дозвољене осталим корисницима"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
@@ -272,12 +268,8 @@ msgid "System Applications"
 msgstr "Системски програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се "
-"користити за писање е-писама."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се користити за писање е-писама."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -388,12 +380,10 @@ msgstr "Завршено"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Неке датотеке се не могу преместити у Непотребно јер примарни систем "
-"датотека не подржава\n"
+"Неке датотеке се не могу преместити у Непотребно јер примарни систем датотека не подржава\n"
 " ову операцију. Желите ли да их трајно уклоните?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -440,11 +430,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Унесите исправно име групе или ИД број."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Желите ли да рекурзивно применим ову радњу на све датотеке и "
-"поддиректоријуме?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Желите ли да рекурзивно применим ову радњу на све датотеке и поддиректоријуме?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -527,7 +514,6 @@ msgid "Restore trashed files to original paths"
 msgstr "Врати датотеке из Непотребно на оригиналне локације"
 
 #: ../src/gtk/fm-dnd-dest.c:529
-#, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave није успело."
 
@@ -603,16 +589,16 @@ msgstr "Задати директоријум није исправан"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Извор и одредиште су исти."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Не може се премештати директоријум у његов поддиректоријум"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Не може се умножавати директоријум у његов поддиректоријум"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Одредиште је поддиректоријум извора"
