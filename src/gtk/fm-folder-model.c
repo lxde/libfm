@@ -256,14 +256,14 @@ FmFolderModel *fm_folder_model_new(FmFolder* dir, gboolean show_hidden)
     return model;
 }
 
-inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
+static inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
 {
     FmFolderItem* item = g_slice_new0(FmFolderItem);
     item->inf = fm_file_info_ref(inf);
     return item;
 }
 
-inline void fm_folder_item_free(FmFolderItem* item)
+static inline void fm_folder_item_free(FmFolderItem* item)
 {
     if( item->icon )
         g_object_unref(item->icon);
