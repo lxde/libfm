@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-09 05:44+0000\n"
+"POT-Creation-Date: 2010-08-17 05:42+0000\n"
 "PO-Revision-Date: 2010-07-11 17:57+0200\n"
 "Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -412,23 +412,28 @@ msgstr "لینک نمادین"
 msgid "Changing file attributes"
 msgstr "تغییر مشخصه ها"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "بایت"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "لطفا یک نام کاربری یا مشخصه‌ی عددی وارد کنید."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "لطفا یک نام گروه یا مشخصه‌ی عددی وارد کنید."
 
-#: ../src/gtk/fm-file-properties.c:351
+#: ../src/gtk/fm-file-properties.c:356
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت شود؟"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "فایل هایی از نوع متفاوت"
 
-#: ../src/gtk/fm-file-properties.c:658
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "چندین فایل"
 
@@ -577,3 +582,20 @@ msgstr "آیا از خالی کردن زباله دان  اطمینان داری
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "دایرکتوری مشخص شده معتبر نیست"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+#, fuzzy
+msgid "Source and destination are the same."
+msgstr "مبداء و مقصد یکسان است."
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr "نمی توان یک پوشه را به پوشه زیرین خودش منتقل کرد"
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr "نمی توان پوشه ای راه به پوشه ی زیرین خودش کپی کرد"
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr "مقصد زیر پوشه از منبع است"
