@@ -584,7 +584,6 @@ msgid "The specified directory is not valid"
 msgstr "دایرکتوری مشخص شده معتبر نیست"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
-#, fuzzy
 msgid "Source and destination are the same."
 msgstr "مبداء و مقصد یکسان است."
 
