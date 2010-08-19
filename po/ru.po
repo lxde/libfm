@@ -385,7 +385,7 @@ msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Некоторые файлы не могут быть помещены в корзину, поскольку файловая система не поддкрживает эту операцию.\n"
+"Некоторые файлы не могут быть помещены в корзину, поскольку файловая система не поддерживает эту операцию.\n"
 "Вы всё равно хотите их удалить?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
