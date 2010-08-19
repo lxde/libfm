@@ -420,8 +420,8 @@ msgstr "Изменить атрибуты файла"
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
-msgstr[1] "байт"
-msgstr[2] "байт"
+msgstr[1] "байта"
+msgstr[2] "байтов"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
