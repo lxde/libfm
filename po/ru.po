@@ -417,7 +417,6 @@ msgid "Changing file attributes"
 msgstr "Изменить атрибуты файла"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
@@ -591,12 +590,10 @@ msgid "The specified directory is not valid"
 msgstr "Неправильно указан каталог"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
-#, fuzzy
 msgid "Source and destination are the same."
 msgstr "Источник и путь назначения совпадают."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
-#, fuzzy
 msgid "Cannot move a folder into its sub folder"
 msgstr "Не удается переместить папку в свою подпапку"
 
