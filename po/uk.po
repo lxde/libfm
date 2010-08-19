@@ -1,20 +1,19 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-19 07:55+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -185,8 +184,7 @@ msgstr "Операції, які може виконувати тільки вл
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
+msgstr "Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -268,17 +266,12 @@ msgid "System Applications"
 msgstr "Системні програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Улюблений поштовий клієнт, що буде використаний для створення електронного "
-"листа, коли Ви клацаєте на e-mail адресу"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Улюблений поштовий клієнт, що буде використаний для створення електронного листа, коли Ви клацаєте на e-mail адресу"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
+msgstr "Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -386,12 +379,10 @@ msgstr "Закінчено"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Деякі файли не можна перенести в смітник, тому що поточна файлова система не "
-"підтримує цю операцію.\n"
+"Деякі файли не можна перенести в смітник, тому що поточна файлова система не підтримує цю операцію.\n"
 " Ви бажаєте замість цього видалити їх?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -423,12 +414,11 @@ msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u байт"
-msgstr[1] "%u байт"
-msgstr[2] "%u байт"
+msgstr[0] "байт"
+msgstr[1] "байти"
+msgstr[2] "байт"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -439,10 +429,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -600,19 +588,19 @@ msgstr "Вказана тека неправильна"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Вихідна тека і тека призначення однакові."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Не можу перемістити теку в її підтеку"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Не можу скопіювати теку в її підтеку"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Тека призначення є підтекою вихідної теки"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властива тека"
