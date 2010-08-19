@@ -595,15 +595,15 @@ msgstr "Источник и путь назначения совпадают."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Не удается переместить папку в свою подпапку"
+msgstr "Не удается переместить каталог в свой подкаталог"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Не удается скопировать папку в свою подпапку"
+msgstr "Не удается скопировать каталог в свой подкаталог"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr "Назначение это подпапка в источнике"
+msgstr "Путь назначения — подкаталог источника"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Неверный каталог"
