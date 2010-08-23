@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-23 05:45+0000\n"
 "PO-Revision-Date: 2010-04-08 10:13+0200\n"
 "Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
@@ -59,9 +59,7 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
-"fichiers"
+msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -187,9 +185,7 @@ msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
-"faire"
+msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -271,12 +267,8 @@ msgid "System Applications"
 msgstr "Applications systèmes"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Votre client courriel favori sera utilisé pour composer les courriels quand "
-"vous cliquerez sur des adresses courriels."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Votre client courriel favori sera utilisé pour composer les courriels quand vous cliquerez sur des adresses courriels."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -387,12 +379,10 @@ msgstr "Terminés"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Certains fichier ne peuvent pas être déplacer vers la corbeille car le "
-"système de fichier ne supporte pas cette opération.\n"
+"Certains fichier ne peuvent pas être déplacer vers la corbeille car le système de fichier ne supporte pas cette opération.\n"
 "Voulez-vous les supprimer définitivement ?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -424,7 +414,6 @@ msgid "Changing file attributes"
 msgstr "Change des attributs de fichiers"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u octet"
@@ -439,11 +428,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
-"sous-dossiers ?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -571,8 +557,7 @@ msgstr "Sélectionner un dossier"
 
 #: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
-msgstr ""
-"Seuls les administrateurs système ont la permission de faire cette action."
+msgstr "Seuls les administrateurs système ont la permission de faire cette action."
 
 #: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
@@ -602,19 +587,19 @@ msgstr "Le répertoire spécifié est invalide"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "La source et la destination sont les mêmes"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Ne peut déplacer un dossier dans son propre sous-dossier"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Ne peut copier un dossier dans son propre sous-dossier"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "La destination est un sous-dossier de la source."
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Ce n'est pas un dossier valide"
