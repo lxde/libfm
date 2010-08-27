@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-27 04:42+0000\n"
 "PO-Revision-Date: 2010-04-13 20:19+0100\n"
 "Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
 "Language-Team: German\n"
@@ -184,9 +184,7 @@ msgstr "Vorgänge, die der Besitzer der Datei ausführen kann"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen "
-"können"
+msgstr "Vorgänge, die die Benutzer in der gleichen Gruppe wie der Besitzer ausführen können"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -268,12 +266,8 @@ msgid "System Applications"
 msgstr "Installierte Anwendungen"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail Adressen klicken."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn Sie auf E-Mail Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -353,6 +347,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Typ: %s\n"
+"Größe: %s\n"
+"Geändert: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
@@ -360,6 +357,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Typ: %s\n"
+"geändert: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
@@ -379,10 +378,11 @@ msgstr "Beendet"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Einige Dateien können nicht in den Papierkorb verschoben werden, da die zugrundeliegenden Dateisysteme den Vorgang nicht unterstützen.\n"
+"Sollen die Dateien stattdessen gelöscht werden?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
@@ -414,7 +414,6 @@ msgid "Changing file attributes"
 msgstr "Dateiattribute ändern"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u Byte"
@@ -430,11 +429,8 @@ msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
-"werden?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet werden?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -511,11 +507,12 @@ msgstr "Entpacken nach..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "Wiede_rherstellen"
 
 #: ../src/gtk/fm-file-menu.c:245
+#, fuzzy
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Dateien an ihrem ursprünglichen Ort wiederherstellen"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 #, fuzzy
@@ -568,7 +565,6 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
 #: ../src/gtk/fm-gtk-utils.c:482
-#, fuzzy
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
@@ -585,7 +581,6 @@ msgid "Please enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
 #: ../src/gtk/fm-gtk-utils.c:571
-#, fuzzy
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
@@ -597,16 +592,16 @@ msgstr "Das angegebene Verzeichnis ist ungültig"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Quelle und Ziel sind identisch"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Ein Ordner kann nicht in seinen Unterordner verschoben werden"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Ein Ordner kann nicht in seinen Unterordner kopiert werden"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Das Ziel ist ein Unterordner der Quelle"
