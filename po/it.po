@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Andrea Florio <andrea@opensuse.org>, 2010
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-08-28 05:45+0000\n"
 "PO-Revision-Date: 2010-04-25 01:58+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -57,9 +57,7 @@ msgstr "Applicazioni installate"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Imposta l'applicazione selezionata come azione predefinita per questo tipo "
-"di file"
+msgstr "Imposta l'applicazione selezionata come azione predefinita per questo tipo di file"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -185,9 +183,7 @@ msgstr "Operazioni ch il proprietario del file pò fare"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operazioni che possono fare gli utenti appartenenti allo stesso gruppo del "
-"il proprietario del file"
+msgstr "Operazioni che possono fare gli utenti appartenenti allo stesso gruppo del il proprietario del file"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,17 +265,12 @@ msgid "System Applications"
 msgstr "Applicazioni di sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Il client Mail preferito sarà usato per comporre email quando cliccherai un "
-"indirizzo E-mail"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Il client Mail preferito sarà usato per comporre email quando cliccherai un indirizzo E-mail"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Il Browser Web preferito sarà usato per aprire collegamenti ipertestuali."
+msgstr "Il Browser Web preferito sarà usato per aprire collegamenti ipertestuali."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -386,12 +377,10 @@ msgstr "Finito"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alcuni file non possono essere spostati nel cestino perchè il file system in "
-"uso non supporta questa operazione. \n"
+"Alcuni file non possono essere spostati nel cestino perchè il file system in uso non supporta questa operazione. \n"
 "Vuoi invece cancellarli?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -423,11 +412,10 @@ msgid "Changing file attributes"
 msgstr "Cambio gli attributi del file"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u byte"
+msgstr[0] "byte"
+msgstr[1] "byte"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -438,8 +426,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Per favore digita un nome gruppo o id numerico valido."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -598,19 +585,19 @@ msgstr "La cartella specificata non è valida"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Sorgente e destinazione sono uguali."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Impossibile muovere una cartella in una sua sotto cartella"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Impossibile copiare una cartella in una sua sotto cartella"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "La destinazione è una sotto cartella della sorgente "
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Non è una cartella valida"
