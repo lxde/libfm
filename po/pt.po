@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Sérgio Marques <smarquespt@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-29 07:59+0000\n"
-"PO-Revision-Date: 2010-03-25 16:15-0000\n"
+"PO-Revision-Date: 2010-08-30 02:17-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -274,7 +274,8 @@ msgstr "O Cliente de E-mail preferido será utilizado para escrever mensagens ao
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "O Navegador Web preferido será utilizado para abrir hiperligações."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -329,7 +330,8 @@ msgstr "Lixo"
 msgid "My Computer"
 msgstr "Meu Computador"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Aplicações"
 
@@ -341,7 +343,8 @@ msgstr "Rede"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213
+#: ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -352,7 +355,8 @@ msgstr ""
 "Tamanho: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -413,7 +417,8 @@ msgstr "Criando ligações simbólicas"
 msgid "Changing file attributes"
 msgstr "A modificar os atributos do ficheiro"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117
+#: ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -451,7 +456,8 @@ msgstr "Desmontar Volume"
 msgid "Eject Removable Media"
 msgstr "Ejectar Disco Amovível"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Renomear Marcador"
 
@@ -475,7 +481,8 @@ msgstr "Área de Trabalho"
 msgid "Enter a new name:"
 msgstr "Indique o novo nome:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Abrir Com..."
 
@@ -579,7 +586,8 @@ msgstr "Indique o novo nome:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Tem a certeza que pretende esvaziar o lixo?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
@@ -587,7 +595,7 @@ msgstr "O directório especificado é inválido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr "Origem e desrino são o mesmo."
+msgstr "Origem e destino são idênticos."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
@@ -600,3 +608,4 @@ msgstr "Não é possível copiar uma pasta para a sua sub-pasta"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "O destino é uma sub-pasta da origem"
+
