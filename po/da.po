@@ -7,16 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
-"PO-Revision-Date: 2010-04-27 19:18+0200\n"
-"Last-Translator: Vidar Jon Bauge <vidarjb@gmail.com>\n"
+"POT-Creation-Date: 2010-09-01 05:45+0000\n"
+"PO-Revision-Date: 2010-09-02 19:18+0200\n"
+"Last-Translator: Joe Hansen (joedalton2@yahoo.dk)\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -422,11 +421,10 @@ msgid "Changing file attributes"
 msgstr "Ændrer filattributter"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u byte"
+msgstr[0] "byte"
+msgstr[1] "byte"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -598,19 +596,18 @@ msgstr "Den angivne mappe er ikke gyldig"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Kilde og destination er ens."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Kan ikke flytte en mappe til sin egen undermappe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Kan ikke kopiere en mappe til sin egen undermappe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Destinatiion er en undermappe af kilde"
 
-#~ msgid "It's not a valid directory"
-#~ msgstr "Det er ikke en gyldig mappe"
+
