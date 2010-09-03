@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-09-03 05:47+0000\n"
 "PO-Revision-Date: 2010-04-07 10:10+0200\n"
 "Last-Translator: Indalecio <ifreiria@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,9 +59,7 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Establecer como predeterminado o aplicativo seleccionado para abrir os "
-"ficheiros deste tipo "
+msgstr "Establecer como predeterminado o aplicativo seleccionado para abrir os ficheiros deste tipo "
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -187,9 +185,7 @@ msgstr "Operacións permitidas ao propietario do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operacións permitidas aos usuarios do mesmo grupo que o propietario do "
-"ficheiro"
+msgstr "Operacións permitidas aos usuarios do mesmo grupo que o propietario do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -271,12 +267,8 @@ msgid "System Applications"
 msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"O cliente de correo preferido utilizarase para redactar as mensaxes cando "
-"faga clic nos enderezos de correo electrónico."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "O cliente de correo preferido utilizarase para redactar as mensaxes cando faga clic nos enderezos de correo electrónico."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -356,6 +348,10 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Tamaño: %s\n"
+"Modificado: %s\r\n"
+"\t"
 
 #: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
@@ -363,6 +359,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Modificado: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
@@ -382,8 +380,7 @@ msgstr "Finalizado"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
@@ -416,11 +413,10 @@ msgid "Changing file attributes"
 msgstr "Cambiando atributos do ficheiro"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -431,11 +427,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Introduza un nome de grupo ou id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Desexa aplicar recursivamente estes cambios a todos os ficheiros e "
-"subcartafoles?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Desexa aplicar recursivamente estes cambios a todos os ficheiros e subcartafoles?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
