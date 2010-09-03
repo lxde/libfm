@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 05:47+0000\n"
-"PO-Revision-Date: 2010-04-07 10:10+0200\n"
-"Last-Translator: Indalecio <ifreiria@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-09-03 18:36+0100\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
+"X-Poedit-Language: Galician\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -274,7 +275,8 @@ msgstr "O cliente de correo preferido utilizarase para redactar as mensaxes cand
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "O navegador web preferido utilizarase para abrir as ligazóns."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -329,7 +331,8 @@ msgstr "Caldeiro do lixo"
 msgid "My Computer"
 msgstr "O meu computador"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Aplicativos"
 
@@ -341,7 +344,8 @@ msgstr "Rede"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213
+#: ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -353,7 +357,8 @@ msgstr ""
 "Modificado: %s\r\n"
 "\t"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -383,6 +388,8 @@ msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Algúns ficheiros non poden enviarse ao cesto do lixo porque o subsistema de ficheiros non permite esta operación.\n"
+"Desexa eliminarlos no seu canto?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
@@ -412,7 +419,8 @@ msgstr "Creando ligazóns simbólicas"
 msgid "Changing file attributes"
 msgstr "Cambiando atributos do ficheiro"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117
+#: ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -450,7 +458,8 @@ msgstr "Desmontar volume"
 msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíbel"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Renomear marcador"
 
@@ -474,7 +483,8 @@ msgstr "Escritorio"
 msgid "Enter a new name:"
 msgstr "Introduza un nome novo:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Abrir con..."
 
@@ -504,11 +514,11 @@ msgstr "Extraer a..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Restaura os ficheiros do cesto lixo cara a súa localización orixinal"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
@@ -578,7 +588,8 @@ msgstr "Introduza un nome novo:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Está seguro que desexa baleirar o caldeiro do lixo?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
@@ -586,16 +597,17 @@ msgstr "O directorio especificado non é válido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "A orixe e o destino son o mesmo."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Nón é posíbel mover un cartafol cara o seu subcartafol"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Nón é posíbel copiar un cartafol dentro dun seu subcartafol"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "O destino é un subcartafol da orixe"
+
