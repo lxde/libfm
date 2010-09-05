@@ -1,29 +1,29 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Turkish translation of libfm.
+# Copyright (C) 2010 PCmanFM & Mehmet Gülmenen.
+# This file is distributed under the same license as the libfm package.
+# Mehmet Gülmen <memetgulmen@gmail.com>, 2010
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-09-04 05:49+0000\n"
+"PO-Revision-Date: 2010-09-05 04:28+0200\n"
+"Last-Translator: Mehmet Gülmen <memetgulmen@gmail.com>\n"
+"Language-Team: tr <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Country: TURKEY\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Çalıştırılacak komut satırı:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Açılacak Dosya Türü:</b"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,30 +34,33 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Komut satırında şu özel kodlar kullanılabilir:</b>\n"
+"  <b>%f</b>: Tek dosya adını temsil eder\n"
+"  <b>%F</b>: Birden fazla dosya adını temsil eder  <b>%u</b>: Tek bir dosya URI'sini temsil eder  <b>%U</b>: Birden fazla dosya URI'sini temsil eder"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "Bir Uygulama Seç"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Özel Komut Satırı"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Uçbirimde çalıştır"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Kurulu Uygulama"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Seçili uygulamayı bu dosya türü için varsayılan olarak ayarla"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Tara"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -65,525 +68,542 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Bu konumda aynı isimde başka bir dosya bulunuyor.</b>\n"
+"\n"
+"Varolan dosyayı değiştirmek istiyor musunuz?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Bu seçeneği bütün dosyalar için uygula"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Dosyayı değiştirmeyi onayla"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Dosya Adı:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "Ü_zerine Yaz"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Yeniden Adlandır"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "_Atla"
 
+# Doesn't this line need some explanation?
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Erişim Kontrolü</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Dosya Türü:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>Grubu:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>Son Erişim:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>Son Değişiklik:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Konumu:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>Ş_ununla Aç:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>Diğer:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>Sahibi:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>Diskteki Boyutu:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Hedef:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Dosyaların Toplam Boyutu:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Grubu:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>Sahibi:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Dosya Özellikleri"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Dosya çalıştırılabilsin"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "Hiçbiri"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Tüm kullanıcıların gerçekleştirebileceği eylemler"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Sadece dosya sahibinin gerçekleştirebileceği eylemler"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "Dosya sahibi ile aynı grupta yer alanların gerçekleştirebileceği eylemler"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "Okuma ve Yazma"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "Sadece okunabilir"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Bu dosya türünü açmak için uygulama seç"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "Sadece yazılabilir"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_Genel"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "İ_zinler"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>İşlenen Dosya:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>İlerleme</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Bazı hatalar ortaya çıktı:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Kalan Süre:</b>"
 
+# Not all languages belong to Indo-European language family.
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
+#, fuzzy
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Şuraya:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "Hazırlanıyor..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Posta sunucusu</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Uçbirim Öykünücüsü</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Web Tarayıcısı</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Komut satırı:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "İlişkilendirilmiş Dosya Türleri"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Tercih Edilen Uygulamalar"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "Sistem Uygulamaları"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Tercih edilen Posta Sunucusu E-posta adreslerine tıkladığınızda posta oluşturmak için kullanılacak."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Tercih edilen Web Tarayıcısı bağlantılara açmak üzere kullanılacak."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u bayt"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Kısayollar"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Bağlama Noktası"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr ""
+msgstr "Çöp Kutusu"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
-msgstr ""
+msgstr "Bilgisayarım"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446
+#: ../src/gtk/fm-places-view.c:568
 msgid "Applications"
-msgstr ""
+msgstr "Uygulamalar"
 
 #: ../src/base/fm-path.c:449
 msgid "Network"
-msgstr ""
+msgstr "Ağ"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ""
+msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213
+#: ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Türü: %s\n"
+"Boyutu: %s\n"
+"Son değişiklik: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Türü: %s\n"
+"Son değişiklik: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Eylem iptal edildi ve bazı hatalar ortaya çıktı."
 
 #: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
-msgstr ""
+msgstr "İptal edildi"
 
 #: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Eylem tamamlandı ve bazı hatalar ortaya çıktı."
 
 #: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
-msgstr ""
+msgstr "Tamamlandı"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Bazı dosyalar dosya sistemi bu eylemi desteklemediğinden dolayı çöp kutusuna gönderilemiyor.\n"
+"Bunun yerine kalıcı olarak silmek ister misiniz?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
-msgstr ""
+msgstr "Dosyalar taşınıyor"
 
 #: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
-msgstr ""
+msgstr "Dosyalar kopyalanıyor"
 
 #: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
-msgstr ""
+msgstr "Dosyalar çöpe taşınıyor"
 
 #: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
-msgstr ""
+msgstr "Dosyalar siliniyor"
 
 #: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Bağlantı Oluşturuluyor"
 
 #: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Dosya öznitelikleri değiştiriliyor"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117
+#: ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
+msgstr[0] "bayt"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Lütfen geçerli bir kullanıcı adı ya da sayısal kimliği giriniz."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Lütfen geçerli bir grup adı ya da sayısal kimliği giriniz."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Bu değişiklikleri bütüm dosyalara ve alt dizinlere uygulamak istiyor musunuz?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr ""
+msgstr "Farklı türlerdeki dosyalar"
 
 #: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
-msgstr ""
+msgstr "Birden Çok Dosya"
 
 #: ../src/gtk/fm-places-view.c:133
 msgid "Mount Volume"
-msgstr ""
+msgstr "Bölümü Bağla"
 
 #: ../src/gtk/fm-places-view.c:134
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Bölümü Ayır"
 
 #: ../src/gtk/fm-places-view.c:135
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Kaldırılabilir Aygıtı Çıkar"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Yer İmini Yeniden Adlandır"
 
 #: ../src/gtk/fm-places-view.c:149
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Yer İmlerinden Kaldır"
 
 #: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
-msgstr ""
+msgstr "Çöp Kutusunu Boşalt"
 
 #: ../src/gtk/fm-places-view.c:499
 msgid "Trash"
-msgstr ""
+msgstr "Çöp Kutusu"
 
 #: ../src/gtk/fm-places-view.c:553
 msgid "Desktop"
-msgstr ""
+msgstr "Masaüstü"
 
 #: ../src/gtk/fm-places-view.c:892
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Yeni bir isim girin:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "Şununla aç..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden Adlandır"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "Bağlantı Oluştur"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "Gönder"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "Sıkıştır..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "Buraya çıkar"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "Çıkarılacak konum..."
 
 #: ../src/gtk/fm-file-menu.c:244
 msgid "_Restore"
-msgstr ""
+msgstr "_Geri al"
 
 #: ../src/gtk/fm-file-menu.c:245
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Çöpteki dosyaları yerlerine al"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave başarısız."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Dosyaları seçilen uygulamayla aç"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Dosyaları açmak için özel bir komut çalıştır"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Özelleştir"
 
 #: ../src/gtk/fm-folder-view.c:524
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: ../src/gtk/fm-folder-view.c:543
 msgid "Description"
-msgstr ""
+msgstr "Tanım"
 
 #: ../src/gtk/fm-folder-view.c:550
 msgid "Size"
-msgstr ""
+msgstr "Boyut"
 
 #: ../src/gtk/fm-folder-view.c:556
 msgid "Modified"
-msgstr ""
+msgstr "Son Değişiklik"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Kurulu Uygulamalar"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "Lütfen bir dizin seçin"
 
 #: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Bunu sadece sistem yöneticisinin yapmaya yetkisi var."
 
 #: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Seçilen dosyaları çöp kutusuna göndermek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Seçilen dosyaları silmek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
-msgstr ""
+msgstr "Dosyayı Yeniden Adlandır"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Lütfen yeni bir isim girin:"
 
 #: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Çöp kutusunu gerçekten boşaltmak istiyor musunuz?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229
+#: ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Belirtilen dizin geçerli bir dizin değil"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Kaynak ve hedef dosyalar aynı."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Dizin kendi alt-dizinine taşınamaz"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Dizin kendi alt-dizinine kopyalanamaz"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Hedef kaynağa ait bir alt-dizin"
+
