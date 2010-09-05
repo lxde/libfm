@@ -2,12 +2,12 @@
 # Copyright (C) 2010 PCmanFM & Mehmet Gülmenen.
 # This file is distributed under the same license as the libfm package.
 # Mehmet Gülmen <memetgulmen@gmail.com>, 2010
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-04 05:49+0000\n"
+"POT-Creation-Date: 2010-09-05 05:47+0000\n"
 "PO-Revision-Date: 2010-09-05 04:28+0200\n"
 "Last-Translator: Mehmet Gülmen <memetgulmen@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
@@ -99,7 +99,7 @@ msgstr "_Atla"
 # Doesn't this line need some explanation?
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "şu dosyayla?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -226,10 +226,9 @@ msgstr "<b>Bazı hatalar ortaya çıktı:</b>"
 msgid "<b>Time remaining:</b>"
 msgstr "<b>Kalan Süre:</b>"
 
-# Not all languages belong to Indo-European language family.
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+# Not all languages belong to Indo-European language family.
 #: ../data/ui/progress.glade.h:7
-#, fuzzy
 msgid "<b>To:</b>"
 msgstr "<b>Şuraya:</b>"
 
@@ -274,8 +273,7 @@ msgstr "Tercih edilen Posta Sunucusu E-posta adreslerine tıkladığınızda pos
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Tercih edilen Web Tarayıcısı bağlantılara açmak üzere kullanılacak."
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -329,8 +327,7 @@ msgstr "Çöp Kutusu"
 msgid "My Computer"
 msgstr "Bilgisayarım"
 
-#: ../src/base/fm-path.c:446
-#: ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
 msgid "Applications"
 msgstr "Uygulamalar"
 
@@ -342,8 +339,7 @@ msgstr "Ağ"
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:213
-#: ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -354,8 +350,7 @@ msgstr ""
 "Boyutu: %s\n"
 "Son değişiklik: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220
-#: ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -416,8 +411,7 @@ msgstr "Bağlantı Oluşturuluyor"
 msgid "Changing file attributes"
 msgstr "Dosya öznitelikleri değiştiriliyor"
 
-#: ../src/gtk/fm-file-properties.c:117
-#: ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bayt"
@@ -454,8 +448,7 @@ msgstr "Bölümü Ayır"
 msgid "Eject Removable Media"
 msgstr "Kaldırılabilir Aygıtı Çıkar"
 
-#: ../src/gtk/fm-places-view.c:148
-#: ../src/gtk/fm-places-view.c:891
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
 msgid "Rename Bookmark Item"
 msgstr "Yer İmini Yeniden Adlandır"
 
@@ -479,8 +472,7 @@ msgstr "Masaüstü"
 msgid "Enter a new name:"
 msgstr "Yeni bir isim girin:"
 
-#: ../src/gtk/fm-file-menu.c:84
-#: ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Şununla aç..."
 
@@ -584,8 +576,7 @@ msgstr "Lütfen yeni bir isim girin:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Çöp kutusunu gerçekten boşaltmak istiyor musunuz?"
 
-#: ../src/job/fm-dir-list-job.c:229
-#: ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
@@ -606,4 +597,3 @@ msgstr "Dizin kendi alt-dizinine kopyalanamaz"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Hedef kaynağa ait bir alt-dizin"
-
