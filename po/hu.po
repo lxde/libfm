@@ -2,12 +2,12 @@
 # Copyright (C) 2010 The LXDE Team
 # This file is distributed under the same license as the libfm package.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-09-06 05:47+0000\n"
 "PO-Revision-Date: 2010-07-25 13:23+0200\n"
 "Last-Translator: Laszlo Dvornik <dvornik@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -58,9 +58,7 @@ msgstr "Telepített alkalmazás"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"A kijelölt alkalmazás beállítása alapértelmezett műveletnek ehhez a "
-"fájltípushoz"
+msgstr "A kijelölt alkalmazás beállítása alapértelmezett műveletnek ehhez a fájltípushoz"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -186,9 +184,7 @@ msgstr "Műveletek, amiket a fájl tulajdonosa tehet"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Műveletek, amiket a fájl tulajdonosával egyező csoportban lévő felhasználók "
-"tehetnek"
+msgstr "Műveletek, amiket a fájl tulajdonosával egyező csoportban lévő felhasználók tehetnek"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -200,8 +196,7 @@ msgstr "Csak olvasás"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
-"Válaszd ki az ilyen típusú fájlok megnyitásához használandó alkalmazást"
+msgstr "Válaszd ki az ilyen típusú fájlok megnyitásához használandó alkalmazást"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -271,18 +266,12 @@ msgid "System Applications"
 msgstr "Rendszeralkalmazások"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Ha e-mail címre kattintasz, az alapértelmezett levelezőkliens lesz használva "
-"a levélíráshoz."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Ha e-mail címre kattintasz, az alapértelmezett levelezőkliens lesz használva a levélíráshoz."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Hiperhivatkozások megnyitásához az alapértelmezett webböngésző lesz "
-"használva."
+msgstr "Hiperhivatkozások megnyitásához az alapértelmezett webböngésző lesz használva."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -389,12 +378,10 @@ msgstr "Befejezve"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Néhány fájlt nem lehet áthelyezni a kukába, mivel az alattuk lévő "
-"fájlrendszer nem támogatja ezt a műveletet.\n"
+"Néhány fájlt nem lehet áthelyezni a kukába, mivel az alattuk lévő fájlrendszer nem támogatja ezt a műveletet.\n"
 "Törlöd őket inkább?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -426,7 +413,6 @@ msgid "Changing file attributes"
 msgstr "Fájljellemzők megváltozatása"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bájt"
@@ -441,8 +427,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Adj meg egy érvényes csoportnevet vagy numerikus azonosítót."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és almappára?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -601,16 +586,16 @@ msgstr "A megadott könyvtár érvénytelen"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "A forrás és cél egyezik"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Mappa nem mozgatható almappájába"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Mappa nem másolható almappájába"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "A cél a forrás almappája"
