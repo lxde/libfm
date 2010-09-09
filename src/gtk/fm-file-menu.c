@@ -420,36 +420,45 @@ void on_compress(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
-    GAppLaunchContext* ctx = gdk_app_launch_context_new();
     FmArchiver* archiver = fm_archiver_get_default();
-    files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_archiver_create_archive(archiver, ctx, files);
-    fm_list_unref(files);
-    g_object_unref(ctx);
+    if(archiver)
+    {
+        GAppLaunchContext* ctx = gdk_app_launch_context_new();
+        files = fm_path_list_new_from_file_info_list(data->file_infos);
+        fm_archiver_create_archive(archiver, ctx, files);
+        fm_list_unref(files);
+        g_object_unref(ctx);
+    }
 }
 
 void on_extract_here(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
-    GAppLaunchContext* ctx = gdk_app_launch_context_new();
     FmArchiver* archiver = fm_archiver_get_default();
-    files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_archiver_extract_archives_to(archiver, ctx, files, data->cwd);
-    fm_list_unref(files);
-    g_object_unref(ctx);
+    if(archiver)
+    {
+        GAppLaunchContext* ctx = gdk_app_launch_context_new();
+        files = fm_path_list_new_from_file_info_list(data->file_infos);
+        fm_archiver_extract_archives_to(archiver, ctx, files, data->cwd);
+        fm_list_unref(files);
+        g_object_unref(ctx);
+    }
 }
 
 void on_extract_to(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
-    GAppLaunchContext* ctx = gdk_app_launch_context_new();
     FmArchiver* archiver = fm_archiver_get_default();
-    files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_archiver_extract_archives(archiver, ctx, files);
-    fm_list_unref(files);
-    g_object_unref(ctx);
+    if(archiver)
+    {
+        GAppLaunchContext* ctx = gdk_app_launch_context_new();
+        files = fm_path_list_new_from_file_info_list(data->file_infos);
+        fm_archiver_extract_archives(archiver, ctx, files);
+        fm_list_unref(files);
+        g_object_unref(ctx);
+    }
 }
 
 void on_prop(GtkAction* action, gpointer user_data)
