@@ -204,28 +204,23 @@ static update_volume_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
         vol->drive = NULL;
 }
 
-static void enumerate_devices_async_callback(DBusGProxy *proxy, GPtrArray *OUT_devices, GError *error, gpointer user_data)
-{
-    GUDisksVolumeMonitor *mon = G_UDISKS_VOLUME_MONITOR(user_data);
-    int i;
-    char** paths = (char**)OUT_devices->pdata;
-    for(i=0; i < OUT_devices->len; ++i)
-    {
-        add_device(mon, mon->udisks_proxy, paths[i], TRUE);
-        g_debug("%s", paths[i]);
-    }
-    g_ptr_array_free(OUT_devices, TRUE);
-}
-
 static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
 {
     self->con = dbus_g_bus_get(DBUS_BUS_SYSTEM, NULL);
     if(self->con)
     {
+        GPtrArray* ret;
         /* FIXME: handle disconnecting from dbus */
         self->udisks_proxy = dbus_g_proxy_new_for_name(self->con, "org.freedesktop.UDisks", "/org/freedesktop/UDisks", "org.freedesktop.UDisks");
 
-        org_freedesktop_UDisks_enumerate_devices_async(self->udisks_proxy, enumerate_devices_async_callback, self);
+        if(org_freedesktop_UDisks_enumerate_devices(self->udisks_proxy, &ret, NULL))
+        {
+            int i;
+            char** paths = (char**)ret->pdata;
+            for(i=0; i<ret->len;++i)
+                add_device(self, self->udisks_proxy, paths[i], FALSE);
+            g_ptr_array_free(ret, TRUE);
+        }
 
         dbus_g_proxy_add_signal(self->udisks_proxy, "DeviceAdded", DBUS_TYPE_G_OBJECT_PATH, G_TYPE_INVALID);
         dbus_g_proxy_add_signal(self->udisks_proxy, "DeviceRemoved", DBUS_TYPE_G_OBJECT_PATH, G_TYPE_INVALID);
