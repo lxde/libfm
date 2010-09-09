@@ -129,16 +129,26 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     GtkActionGroup* act_grp;
     GtkAccelGroup* accel_grp;
     GtkAction* act;
-    FmFileInfo* fi;
+    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(files);
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
+
+    data->file_infos = fm_list_ref(files);
+
+    /* check if the files are of the same type */
+    data->same_type = fm_file_info_list_is_same_type(files);
+
+    /* check if the files are on the same filesystem */
+    data->same_fs = fm_file_info_list_is_same_fs(files);
+
+    data->all_virtual = data->same_fs && fm_path_is_virtual(fi->path);
+    data->all_trash = data->same_fs && fm_path_is_trash(fi->path);
 
     data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
     data->act_grp = act_grp = gtk_action_group_new("Popup");
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
-    data->file_infos = fm_list_ref(files);
     if(cwd)
         data->cwd = fm_path_ref(cwd);
 
@@ -146,14 +156,10 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     gtk_ui_manager_add_ui_from_string(ui, base_menu_xml, -1, NULL);
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
-    /* check if the files are of the same type */
-    data->same_type = fm_file_info_list_is_same_type(files);
-
     xml = g_string_new("<popup><placeholder name='ph2'>");
     if(data->same_type) /* add specific menu items for this mime type */
     {
-        fi = (FmFileInfo*)fm_list_peek_head(files);
-        if(fi->type)
+        if(fi->type && !data->all_virtual ) /* the file has a valid mime-type and its not virtual */
         {
             GList* apps = g_app_info_get_all_for_type(fi->type->type);
             GList* l;
@@ -193,67 +199,79 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     g_string_append(xml, "</placeholder></popup>");
 
     /* archiver integration */
-    g_string_append(xml, "<popup><placeholder name='ph3'>");
-    if(data->same_type)
+    if(!data->all_virtual)
     {
-        FmArchiver* archiver = fm_archiver_get_default();
-        if(archiver)
+        g_string_append(xml, "<popup><placeholder name='ph3'>");
+        if(data->same_type)
         {
-            fi = (FmFileInfo*)fm_list_peek_head(files);
-            if(fm_archiver_is_mime_type_supported(archiver, fi->type->type))
+            FmArchiver* archiver = fm_archiver_get_default();
+            if(archiver)
             {
-                if(data->cwd && archiver->extract_to_cmd)
-                    g_string_append(xml, "<menuitem action='Extract'/>");
-                if(archiver->extract_cmd)
-                    g_string_append(xml, "<menuitem action='Extract2'/>");
+                fi = (FmFileInfo*)fm_list_peek_head(files);
+                if(fm_archiver_is_mime_type_supported(archiver, fi->type->type))
+                {
+                    if(data->cwd && archiver->extract_to_cmd)
+                        g_string_append(xml, "<menuitem action='Extract'/>");
+                    if(archiver->extract_cmd)
+                        g_string_append(xml, "<menuitem action='Extract2'/>");
+                }
+                else
+                    g_string_append(xml, "<menuitem action='Compress'/>");
             }
-            else
-                g_string_append(xml, "<menuitem action='Compress'/>");
         }
+        else
+            g_string_append(xml, "<menuitem action='Compress'/>");
+        g_string_append(xml, "</placeholder></popup>");
     }
-    else
-        g_string_append(xml, "<menuitem action='Compress'/>");
-    g_string_append(xml, "</placeholder></popup>");
 
     /* Special handling for some virtual filesystems */
     g_string_append(xml, "<popup><placeholder name='ph1'>");
-    if(fm_file_info_list_is_same_fs(files))
+    if(data->all_virtual)
     {
-        fi = (FmFileInfo*)fm_list_peek_head(files);
-        if(fm_path_is_virtual(fi->path))
+        /* if all of the files are in trash */
+        if(data->all_trash)
         {
-            /* if all of the files are all in trash */
-            if(fm_path_is_trash(fi->path))
+            gboolean can_restore = TRUE;
+            GList* l;
+            /* only immediate children of trash:/// can be restored. */
+            for(l = fm_list_peek_head_link(files);l;l=l->next)
             {
-                gboolean can_restore = TRUE;
-                GList* l;
-                /* only immediate children of trash:/// can be restored. */
-                for(l = fm_list_peek_head_link(files);l;l=l->next)
+                FmPath* trash_path = FM_FILE_INFO(l->data)->path;
+                if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
                 {
-                    FmPath* trash_path = FM_FILE_INFO(l->data)->path;
-                    if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
-                    {
-                        can_restore = FALSE;
-                        break;
-                    }
+                    can_restore = FALSE;
+                    break;
                 }
+            }
 
-                if(can_restore)
-                {
-                    act = gtk_action_new("UnTrash",
-                                        _("_Restore"),
-                                        _("Restore trashed files to original paths"),
-                                NULL);
-                    g_signal_connect(act, "activate", G_CALLBACK(on_untrash), data);
-                    gtk_action_group_add_action(act_grp, act);
-                    g_string_append(xml, "<menuitem action='UnTrash'/>");
-                }
-            }
-            else
+            if(can_restore)
             {
-                g_debug("%s", fi->fs_id);
+                act = gtk_action_new("UnTrash",
+                                    _("_Restore"),
+                                    _("Restore trashed files to original paths"),
+                            NULL);
+                g_signal_connect(act, "activate", G_CALLBACK(on_untrash), data);
+                gtk_action_group_add_action(act_grp, act);
+                g_string_append(xml, "<menuitem action='UnTrash'/>");
             }
+
+            act = gtk_ui_manager_get_action(ui, "/popup/Open");
+            gtk_action_set_visible(act, FALSE);
         }
+        else
+        {
+            /* do not provide these items for other virtual files */
+            act = gtk_ui_manager_get_action(ui, "/popup/Cut");
+            gtk_action_set_visible(act, FALSE);
+            act = gtk_ui_manager_get_action(ui, "/popup/Copy");
+            gtk_action_set_visible(act, FALSE);
+            act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+            gtk_action_set_visible(act, FALSE);
+            act = gtk_ui_manager_get_action(ui, "/popup/Del");
+            gtk_action_set_visible(act, FALSE);
+        }
+        act = gtk_ui_manager_get_action(ui, "/popup/Rename");
+        gtk_action_set_visible(act, FALSE);
     }
     g_string_append(xml, "</placeholder></popup>");
 
