@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 0.1.11\n"
+"Project-Id-Version: libfm 0.1.13\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
-"PO-Revision-Date: 2010-05-05 15:37+0900\n"
+"POT-Creation-Date: 2010-09-11 11:03+0900\n"
+"PO-Revision-Date: 2010-09-11 11:08+0900\n"
 "Last-Translator: Hironao Komatsu <hironao@users.sourceforge.net>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -419,10 +419,9 @@ msgid "Changing file attributes"
 msgstr "ファイルの属性を変更しています"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u バイト"
+msgstr[0] "バイト"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -593,16 +592,16 @@ msgstr "指定されたディレクトリは無効です"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "送り元と送り先が同一です。"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "フォルダをその下位フォルダに移動することはできません。"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "フォルダをその下位フォルダにコピーすることはできません。"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "送り先は送り元の下位フォルダです。"
