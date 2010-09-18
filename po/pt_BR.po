@@ -2,12 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Og Maciel <ogmaciel@gnome.org>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-09-17 05:53+0000\n"
 "PO-Revision-Date: 2010-06-19 12:04-0300\n"
 "Last-Translator: Sérgio Brandão Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -57,8 +57,7 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
+msgstr "Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,8 +183,7 @@ msgstr "Operações que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
+msgstr "Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -267,12 +265,8 @@ msgid "System Applications"
 msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"O cliente de e-mail preferido será usado para compor e-mails quando você "
-"clicar nos endereços de e-mail."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "O cliente de e-mail preferido será usado para compor e-mails quando você clicar nos endereços de e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -383,12 +377,10 @@ msgstr "Terminou"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arquivos não podem ser movidos para a lixeira devido a falta de "
-"suporte do sistema de arquivos.\n"
+"Alguns arquivos não podem ser movidos para a lixeira devido a falta de suporte do sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -420,11 +412,10 @@ msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -435,11 +426,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Você deseja aplicar estas modificações de forma recursiva a todos os "
-"arquivos e subpastas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Você deseja aplicar estas modificações de forma recursiva a todos os arquivos e subpastas?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -513,14 +501,13 @@ msgstr "Extrair aqui"
 msgid "Extract To..."
 msgstr "Extrair em..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Restaurar"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
-msgstr ""
-"Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
+msgstr "Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
 
 #: ../src/gtk/fm-dnd-dest.c:529
 msgid "XDirectSave failed."
@@ -598,19 +585,19 @@ msgstr "O diretório especificado não é válido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Origem e destino são iguais."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Não posso mover uma pasta para a sua subpasta"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Não posso copiar uma pasta para a sua subpasta"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "O destino é uma subpasta da origem"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Não é um diretório válido"
