@@ -1,3 +1,7 @@
+include $(top_srcdir)/Makefile.decl
+
+SUBDIRS=tests
+
 NULL=
 
 AM_CPPFLAGS = \
@@ -314,7 +318,7 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-EXTRA_DIST = \
+EXTRA_DIST += \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
 	demo/main-win-ui.c \

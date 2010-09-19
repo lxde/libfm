@@ -81,6 +81,9 @@ if test x"$enable_udisks" = x"yes"; then
     AC_SUBST(DBUS_LIBS)
 fi
 
+#check for gtk-doc
+GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
+
 AC_ARG_ENABLE(demo,
     [AC_HELP_STRING([--enable-demo],
         [build libfm-demo file manager @<:@default=no@:>@])],
@@ -127,10 +130,14 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    src/tests/Makefile
     data/Makefile
     data/ui/Makefile
     data/libfm-pref-apps.desktop
     po/Makefile.in
+    docs/Makefile
+    docs/reference/Makefile
+    docs/reference/libfm/Makefile
     libfm.pc
     libfm-gtk.pc
 ])
