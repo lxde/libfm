@@ -1,18 +1,18 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-09-19 06:09+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Steve Cook (Yorvyk) <yorvik.ubunto@googlemail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED KINGDOM\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -69,7 +69,7 @@ msgid ""
 msgstr ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
-"Do you want to replace the existing file"
+"Do you want to replace the existing file?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -181,8 +181,7 @@ msgstr "Operations that the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operations that users in the same group as the owner of the file can do"
+msgstr "Operations that users in the same group as the owner of the file can do"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -264,12 +263,8 @@ msgid "System Applications"
 msgstr "System Applications"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -324,7 +319,7 @@ msgstr "Mount Point"
 
 #: ../src/base/fm-path.c:436
 msgid "Trash Can"
-msgstr "Trash Can"
+msgstr "Rubbish Bin"
 
 #: ../src/base/fm-path.c:438
 msgid "My Computer"
@@ -380,12 +375,10 @@ msgstr "Finished"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don’t support this operation.\n"
+"Some files cannot be moved to the rubbish bin because the underlying file systems don’t support this operation.\n"
 "Do you want to delete them instead?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -417,11 +410,10 @@ msgid "Changing file attributes"
 msgstr "Changing file attributes"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -432,10 +424,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Please enter a valid group name or numeric id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Do you want to recursively apply these changes to all files and sub-folders?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -467,7 +457,7 @@ msgstr "Remove from Bookmark"
 
 #: ../src/gtk/fm-places-view.c:161
 msgid "Empty Trash"
-msgstr "Empty Rubbish"
+msgstr "Empty rubbish"
 
 #: ../src/gtk/fm-places-view.c:499
 msgid "Trash"
@@ -483,7 +473,7 @@ msgstr "Enter a new name:"
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr "Open With..."
+msgstr "Open with..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
@@ -495,7 +485,7 @@ msgstr "Create Symlink"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr "Send To"
+msgstr "Send to"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
@@ -503,17 +493,17 @@ msgstr "Compress..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr "Extract Here"
+msgstr "Extract here"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr "Extract To..."
+msgstr "Extract to..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Restore"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Restore deleted files"
 
@@ -567,7 +557,7 @@ msgstr "Only system administrators have the permission to do this."
 
 #: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Do you want to move the selected files to trash can?"
+msgstr "Do you want to move the selected files to rubbish bin?"
 
 #: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
@@ -593,16 +583,16 @@ msgstr "The specified directory is not valid"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Source and destination are the same."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Cannot move a folder into its sub-folder"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Cannot copy a folder into its sub-folder"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Destination is a sub-folder of source"
