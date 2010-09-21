@@ -1,6 +1,7 @@
 include $(top_srcdir)/Makefile.decl
 
-SUBDIRS=tests
+# current dir needs to be built before tests
+SUBDIRS=. tests
 
 NULL=
 

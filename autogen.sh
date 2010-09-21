@@ -13,11 +13,19 @@ if [ "$AM_INSTALLED_VERSION" != "1.10" \
     exit 1
 fi
 
-set -x
-
 if [ "x${ACLOCAL_DIR}" != "x" ]; then
-  ACLOCAL_ARG=-I ${ACLOCAL_DIR}
+    ACLOCAL_ARG=-I ${ACLOCAL_DIR}
 fi
+
+if gtkdocize; then
+    echo "Files needed by gtk-doc are generated."
+else
+    echo "You need gtk-doc to build this package."
+    echo "http://www.gtk.org/gtk-doc/"
+    exit 1
+fi
+
+set -x
 
 ${ACLOCAL:-aclocal$AM_VERSION} ${ACLOCAL_ARG}
 ${AUTOHEADER:-autoheader$AC_VERSION} --force
@@ -25,7 +33,5 @@ AUTOMAKE=$AUTOMAKE libtoolize -c --automake --force
 AUTOMAKE=$AUTOMAKE intltoolize -c --automake --force
 $AUTOMAKE --add-missing --copy --include-deps
 ${AUTOCONF:-autoconf$AC_VERSION}
-
-gtkdocize --flavour no-tmpl || exit 1
 
 rm -rf autom4te.cache
