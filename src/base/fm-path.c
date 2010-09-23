@@ -209,6 +209,26 @@ on_error: /* this is not a valid URI */
     return fm_path_ref(root_path);
 }
 
+#if 0
+static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* basename, int name_len)
+{
+    FmPath* current;
+    /* This is a way to reuse cached FmPath objects created for $HOME and desktop dir.
+     * Since most of the files a user may use are under $HOME, reusing this can
+     * more or less reduce memory usage. However, this may slow things down a little. */
+    for(current = desktop_path; current; current = current->parent)
+    {
+        if(fm_path_equal(current->parent, parent))
+        {
+            if(strncmp(basename, current->name, name_len) == 0 && current->name[name_len] == '\0')
+                return fm_path_ref(current);
+            break;
+        }
+    }
+    return NULL;
+}
+#endif
+
 /**
  * fm_path_new_child_len
  * @parent: a parent path
@@ -231,6 +251,16 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 
     if(G_LIKELY(parent)) /* remove slashes if needed. */
     {
+        #if 0 /* This saves some memory, but it's too inefficient. */
+        /* Optimization: reuse existing FmPaths */
+        if(fm_path_is_native(parent))
+        {
+            path = _fm_path_reuse_existing_paths(parent, basename, name_len);
+            if(G_UNLIKELY(path))
+                return path;
+        }
+        #endif
+
         flags = parent->flags; /* inherit flags of parent */
         while(basename[0] == '/')
         {
@@ -361,6 +391,17 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             path = fm_path_ref(parent);
         else
         {
+#if 0       /* FIXME: Let's optimize this later. Make things working first is more important. */
+            /* use some pre-defined paths when possible */
+            if(G_UNLIKELY(parent == root_path))
+            {
+                if(strcmp(home_dir + 1, rel) == 0)
+                    return fm_path_ref(home_path);
+                if(strcmp(desktop_dir + 1, rel) == 0)
+                    return fm_path_ref(desktop_dir);
+            }
+#endif
+
             sep = strchr(rel, '/');
             if(sep)
             {
@@ -369,7 +410,9 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
                 fm_path_unref(new_parent);
             }
             else
+            {
                 path = fm_path_new_child(parent, rel);
+            }
         }
     }
     else /* this is actaully a full path */
@@ -563,6 +606,27 @@ const char* fm_path_get_basename(FmPath* path)
 FmPathFlags fm_path_get_flags(FmPath* path)
 {
     return path->flags;
+}
+
+/**
+ * fm_path_has_prefix
+ * @path: a sub path
+ * @prefix: a prefix
+ *
+ * Check if @prefix is a prefix of @path.
+ * For example: /usr/share is the prefix of /usr/share/docs/libfm
+ * but /etc is not.
+ *
+ * Returns: TRUE if @prefix is the prefix of @path.
+ */
+gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix)
+{
+    for(; path; path = path->parent)
+    {
+        if(fm_path_equal(path, prefix))
+            return TRUE;
+    }
+    return FALSE;
 }
 
 static int fm_path_strlen(FmPath* path)

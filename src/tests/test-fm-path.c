@@ -206,25 +206,6 @@ static void test_uri_parsing()
     TEST_PARSING(fm_path_new_for_uri, NULL,
         "/");
 
-    path = fm_path_new_for_uri("trash:///");
-    g_assert(path == fm_path_get_trash());
-    fm_path_unref(path);
-
-    path = fm_path_new_for_uri("trash:///xxx");
-    g_assert(path->parent == fm_path_get_trash());
-    fm_path_unref(path);
-
-    path = fm_path_new_for_uri("menu://");
-    g_assert(path == fm_path_get_apps_menu());
-    fm_path_unref(path);
-
-    path = fm_path_new_for_uri("menu://applications");
-    g_assert(path == fm_path_get_apps_menu());
-    fm_path_unref(path);
-
-    path = fm_path_new_for_uri("menu://applications/test/");
-    g_assert(path->parent == fm_path_get_apps_menu());
-    fm_path_unref(path);
 }
 
 static void test_path_parsing()
@@ -381,6 +362,55 @@ static void test_path_child()
 */
 }
 
+static void test_predefined_paths()
+{
+    FmPath* path;
+    char* tmp;
+
+    path = fm_path_new_for_uri("trash:///");
+    g_assert(path == fm_path_get_trash());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("trash:///xxx");
+    g_assert(path->parent == fm_path_get_trash());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://");
+    g_assert(path == fm_path_get_apps_menu());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://applications");
+    g_assert(path == fm_path_get_apps_menu());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://applications/test/");
+    g_assert(path->parent == fm_path_get_apps_menu());
+    fm_path_unref(path);
+
+/*
+    path = fm_path_new_for_path(g_get_home_dir());
+    g_assert(path == fm_path_get_home());
+    fm_path_unref(path);
+
+    tmp = g_build_filename(g_get_home_dir(), "xxxx", "xx", NULL);
+    path = fm_path_new_for_path(tmp);
+    g_debug("path->name=%s", path->parent->parent->name);
+    g_assert(path->parent->parent == fm_path_get_home());
+    fm_path_unref(path);
+    g_free(tmp);
+
+    path = fm_path_new_for_path(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP));
+    g_assert(path == fm_path_get_desktop());
+    fm_path_unref(path);
+
+    tmp = g_build_filename(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), "xxxx", "xx", NULL);
+    path = fm_path_new_for_path(tmp);
+    g_assert(path->parent->parent == fm_path_get_desktop());
+    fm_path_unref(path);
+    g_free(tmp);
+*/
+}
+
 int main (int   argc, char *argv[])
 {
     g_type_init();
@@ -390,6 +420,7 @@ int main (int   argc, char *argv[])
     g_test_add_func("/FmPath/new_child_len", test_path_child);
     g_test_add_func("/FmPath/path_parsing", test_path_parsing);
     g_test_add_func("/FmPath/uri_parsing", test_uri_parsing);
+    g_test_add_func("/FmPath/predefined_paths", test_predefined_paths);
 
     return g_test_run();
 }
