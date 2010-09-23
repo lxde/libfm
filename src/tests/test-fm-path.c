@@ -165,15 +165,25 @@ static void test_uri_parsing()
 
     TEST_PARSING(fm_path_new_for_uri, "menu:///");
 */
-    TEST_PARSING(fm_path_new_for_uri, "menu://application/",
-        "menu://application/");
+    TEST_PARSING(fm_path_new_for_uri, "menu://applications/",
+        "menu://applications/");
 
-    TEST_PARSING(fm_path_new_for_uri, "menu://application/xxxx",
-        "menu://application/", "xxxx");
+    TEST_PARSING(fm_path_new_for_uri, "menu://applications/xxxx",
+        "menu://applications/", "xxxx");
 
-    TEST_PARSING(fm_path_new_for_uri, "menu://application/xxxx/",
-        "menu://application/", "xxxx");
+    TEST_PARSING(fm_path_new_for_uri, "menu://applications/xxxx/",
+        "menu://applications/", "xxxx");
 
+    TEST_PARSING(fm_path_new_for_uri, "menu://settings/xxxx/",
+        "menu://settings/", "xxxx");
+
+    TEST_PARSING(fm_path_new_for_uri, "menu://settings",
+        "menu://settings/");
+
+/*  This is not yet implemented
+    TEST_PARSING(fm_path_new_for_uri, "applications://xxx",
+        "menu://applications/", "xxx");
+*/
     // test invalid URIs, should fallback to root.
     TEST_PARSING(fm_path_new_for_uri, "invalid_uri",
         "/");
@@ -202,6 +212,18 @@ static void test_uri_parsing()
 
     path = fm_path_new_for_uri("trash:///xxx");
     g_assert(path->parent == fm_path_get_trash());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://");
+    g_assert(path == fm_path_get_apps_menu());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://applications");
+    g_assert(path == fm_path_get_apps_menu());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("menu://applications/test/");
+    g_assert(path->parent == fm_path_get_apps_menu());
     fm_path_unref(path);
 }
 

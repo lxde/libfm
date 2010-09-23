@@ -107,30 +107,30 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
 
     flags = 0;
     host_len = 0;
-    if(g_ascii_strncasecmp(uri, "file", scheme_len) == 0) /* handles file:/// */
+    if(scheme_len == 4 && g_ascii_strncasecmp(uri, "file", 4) == 0) /* handles file:/// */
     {
         if(remaining)
             *remaining = host;
         return fm_path_ref(root_path);
     }
     /* special handling for some known schemes */
-    else if(g_ascii_strncasecmp(uri, "trash", scheme_len) == 0) /* trashed files are on local filesystems */
+    else if(scheme_len == 5 && g_ascii_strncasecmp(uri, "trash", 5) == 0) /* trashed files are on local filesystems */
     {
         if(remaining)
             *remaining = host;
         return fm_path_ref(trash_root_path);
     }
-    else if(g_ascii_strncasecmp(uri, "computer", scheme_len) == 0)
+    else if(scheme_len == 8 && g_ascii_strncasecmp(uri, "computer", 8) == 0)
     {
         flags |= FM_PATH_IS_VIRTUAL;
         host_end = host;
     }
-    else if(g_ascii_strncasecmp(uri, "network", scheme_len) == 0)
+    else if(scheme_len == 7 && g_ascii_strncasecmp(uri, "network", 7) == 0)
     {
         flags |= FM_PATH_IS_VIRTUAL;
         host_end = host;
     }
-    else if(g_ascii_strncasecmp(uri, "mailto:", scheme_len) == 0)
+    else if(scheme_len == 6 && g_ascii_strncasecmp(uri, "mailto", 6) == 0)
     {
         /* is any special handling needed? */
         if(remaining)
@@ -152,17 +152,21 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         while(host_end < uri_end && *host_end != '/') /* find the end of host name */
             ++host_end;
         host_len = (host_end - host);
-    /*
-        if(g_ascii_strncasecmp(uri, "applications", scheme_len) == 0)
-        {
-        }
-    */
-        if(g_ascii_strncasecmp(uri, "menu", scheme_len) == 0)
+        if(scheme_len == 4 && g_ascii_strncasecmp(uri, "menu", 4) == 0)
         {
             if(host_len == 0) /* fallback to applications */
             {
                 host = "applications";
                 host_len = 12;
+                if(remaining)
+                    *remaining = uri_end;
+                return fm_path_ref(apps_root_path);
+            }
+            else if(host_len == 12 && strncmp(host, "applications", 12) == 0)
+            {
+                if(remaining)
+                    *remaining = host_end;
+                return fm_path_ref(apps_root_path);
             }
             flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
         }
@@ -205,6 +209,16 @@ on_error: /* this is not a valid URI */
     return fm_path_ref(root_path);
 }
 
+/**
+ * fm_path_new_child_len
+ * @parent: a parent path
+ * @basename: basename of a direct child of @parent directory in glib
+ * filename encoding. (can be non-UTF-8).
+ * @len: length of basename
+ *
+ * Returns: a newly created FmPath for the path. You have to call
+ * fm_path_unref() when it's no longer needed.
+ */
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     FmPath* path;
@@ -268,6 +282,15 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     return path;
 }
 
+/**
+ * fm_path_new_child
+ * @parent: a parent path
+ * @basename: basename of a direct child of @parent directory in glib
+ * filename encoding. (can be non-UTF-8).
+ *
+ * Returns: a newly created FmPath for the path. You have to call
+ * fm_path_unref() when it's no longer needed.
+ */
 FmPath* fm_path_new_child(FmPath* parent, const char* basename)
 {
     if(G_LIKELY(basename && *basename))
@@ -278,6 +301,15 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
 
+/**
+ * fm_path_new_for_gfile
+ * @gf: a GFile object
+ * 
+ * This function converts a GFile object to FmPath.
+ * 
+ * Returns: a newly created FmPath for the path. You have to call
+ * fm_path_unref() when it's no longer needed.
+ */
 FmPath* fm_path_new_for_gfile(GFile* gf)
 {
     FmPath* path;
@@ -296,20 +328,35 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
     return path;
 }
 
+/**
+ * fm_path_new_relative
+ * @parent: a parent path
+ * @rel: a path relative to @parent in glib filename encoding. (can be
+ * non-UTF-8). However this should not be a escaped ASCII string used in
+ * URI. If you're building a relative path for a URI, and the relative
+ * path is escaped, you have to unescape it first.
+ * 
+ * For example, if @parent is "http://wiki.lxde.org/" and @rel is
+ * "zh/%E9%A6%96%E9%A0%81", you have to unescape the relative path
+ * prior to passing it to fm_path_new_relative().
+ *
+ * If @parent is NULL, this works the same as fm_path_new_for_str(@rel)
+ *
+ * Returns: a newly created FmPath for the path. You have to call
+ * fm_path_unref() when it's no longer needed.
+ */
 FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
 {
     FmPath* path;
     if(G_UNLIKELY(!rel || !*rel)) /* relative path is empty */
         return parent ? fm_path_ref(parent) : fm_path_ref(root_path); /* return parent */
-g_debug("REL = '%s'", rel);
+
     if(G_LIKELY(parent))
     {
         char* sep;
         /* remove leading slashes */
         while(*rel == '/')
-        {
             ++rel;
-        }
         if(!*rel)
             path = fm_path_ref(parent);
         else
@@ -326,12 +373,7 @@ g_debug("REL = '%s'", rel);
         }
     }
     else /* this is actaully a full path */
-    {
-        if(*rel == '/') /* this is a POSIX path */
-            path = fm_path_new_for_path(rel);
-        else /* treat is as a URI */
-            path = fm_path_new_for_uri(rel);
-    }
+        path = fm_path_new_for_str(rel);
     return path;
 }
 
@@ -381,7 +423,6 @@ static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unes
         return fm_path_ref(root_path);
 
     root = _fm_path_new_uri_root(uri, strlen(uri), &rel_path, need_unescape);
-    g_debug("root->name = %s, rel_path = '%s'", root->name, rel_path);
     if(*rel_path)
     {
         if(need_unescape)
