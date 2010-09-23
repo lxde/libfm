@@ -64,6 +64,147 @@ static inline FmPath* _fm_path_new_internal(FmPath* parent, const char* name, in
     return path;
 }
 
+/**
+ * _fm_path_new_uri_root
+ * @uri: the uri in the form scheme://user@host/remaining/path
+ * @len: length of the uri
+ * @remaining: retrive the remaining path
+ *
+ * This function create a root FmpPath element for scheme://user@host/,
+ * and return the remaining part in @remaining.
+ */
+static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** remaining, gboolean need_unescape)
+{
+    FmPath* path;
+    char* buf;
+    const char* uri_end = uri + len;
+    const char* host;
+    const char* host_end;
+    char* unescaped_host = NULL;
+    int scheme_len, host_len;
+    int flags;
+
+    /* A generic URI: scheme://user@host/remaining/path */
+    if(!g_ascii_isalpha(uri[0])) /* invalid */
+        goto on_error;
+
+    for(scheme_len = 1; scheme_len < len && uri[scheme_len] != ':';) /* find the : after scheme */
+    {
+        char ch = uri[scheme_len];
+        if(g_ascii_isalnum(ch) || ch == '+' || ch == '-' || ch == '.') /* valid scheme characters */
+            ++scheme_len;
+        else /* this is not a valid URI */
+            goto on_error;
+    }
+
+    if(scheme_len == len) /* there is no : in the URI, it's invalid */
+        goto on_error;
+
+    /* now there should be // following :, or no slashes at all, such as mailto:someone@somewhere.net */
+    host = uri + scheme_len + 1;
+    while(*host == '/' && host < uri_end) /* skip the slashes */
+        ++host;
+
+    flags = 0;
+    host_len = 0;
+    if(g_ascii_strncasecmp(uri, "file", scheme_len) == 0) /* handles file:/// */
+    {
+        if(remaining)
+            *remaining = host;
+        return fm_path_ref(root_path);
+    }
+    /* special handling for some known schemes */
+    else if(g_ascii_strncasecmp(uri, "trash", scheme_len) == 0) /* trashed files are on local filesystems */
+    {
+        if(remaining)
+            *remaining = host;
+        return fm_path_ref(trash_root_path);
+    }
+    else if(g_ascii_strncasecmp(uri, "computer", scheme_len) == 0)
+    {
+        flags |= FM_PATH_IS_VIRTUAL;
+        host_end = host;
+    }
+    else if(g_ascii_strncasecmp(uri, "network", scheme_len) == 0)
+    {
+        flags |= FM_PATH_IS_VIRTUAL;
+        host_end = host;
+    }
+    else if(g_ascii_strncasecmp(uri, "mailto:", scheme_len) == 0)
+    {
+        /* is any special handling needed? */
+        if(remaining)
+            *remaining = uri_end;
+        if(need_unescape)
+        {
+            unescaped_host = g_uri_unescape_string(uri, NULL);
+            path = _fm_path_new_internal(NULL, unescaped_host, strlen(unescaped_host), 0);
+            g_free(unescaped_host);
+        }
+        else
+            path = _fm_path_new_internal(NULL, uri, len, 0);
+        return path;
+    }
+    else /* it's a normal remote URI */
+    {
+        /* now we're at username@hostname, the authenticaion part */
+        host_end = host;
+        while(host_end < uri_end && *host_end != '/') /* find the end of host name */
+            ++host_end;
+        host_len = (host_end - host);
+    /*
+        if(g_ascii_strncasecmp(uri, "applications", scheme_len) == 0)
+        {
+        }
+    */
+        if(g_ascii_strncasecmp(uri, "menu", scheme_len) == 0)
+        {
+            if(host_len == 0) /* fallback to applications */
+            {
+                host = "applications";
+                host_len = 12;
+            }
+            flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
+        }
+
+        if(need_unescape)
+        {
+            unescaped_host = g_uri_unescape_segment(host, host_end, NULL);
+            host = unescaped_host;
+            host_len = strlen(host);
+        }
+    }
+
+    if(remaining)
+        *remaining = host_end;
+
+    /* it's reasonable to have double slashes :// for URIs other than mailto: */
+    len = scheme_len + 3 + host_len + 1;
+    path = _fm_path_alloc(NULL, len, flags);
+    buf = path->name;
+    memcpy(buf, uri, scheme_len); /* the scheme */
+    buf += scheme_len;
+    memcpy(buf, "://", 3); /* :// */
+    buf += 3;
+    if(host_len > 0) /* host name */
+    {
+        memcpy(buf, host, host_len);
+        buf += host_len;
+    }
+    buf[0] = '/'; /* the trailing / */
+    buf[1] = '\0';
+
+    g_free(unescaped_host);
+
+    return path;
+
+on_error: /* this is not a valid URI */
+    /* FIXME: should we return root or NULL? */
+    if(remaining)
+        *remaining = uri + len;
+    return fm_path_ref(root_path);
+}
+
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     FmPath* path;
@@ -103,75 +244,9 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     {
         /* remove duplicated leading slashes and treat them as one / */
         if(G_UNLIKELY(basename[0] == '/')) /* this is a posix path */
-        {
-            /* FIXME: actually, POSIX allows the use of leading double slashes // */
-            while(basename[1] == '/') /* skip duplicated '/' */
-            {
-                ++basename;
-                --name_len;
-            }
-
-            if(basename[1] == '\0') /* this is / */
-                return fm_path_ref(root_path);
-            else /* fallback to fm_path_rel */
-            {
-                while(*basename && *basename == '/')
-                    ++basename;
-                return fm_path_new_relative(root_path, basename);
-            }
-            flags = FM_PATH_IS_NATIVE|FM_PATH_IS_LOCAL;
-        }
+            return fm_path_ref(root_path);
         else /* This is something like: trash:///, computer:/// sftp://user@host/ */
-        {
-            const char* colon = strchr(basename, ':');
-            const char* host;
-            const char* host_end;
-            int scheme_len, host_len;
-            char* p, *pend = basename + name_len;
-
-            if(!colon || colon > pend) /* invalid */
-                return fm_path_ref(root_path);
-
-            flags = 0;
-            if(g_ascii_strncasecmp(basename, "trash:", 6) == 0) /* trashed files are on local filesystems */
-                flags |= (FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
-            else if(g_ascii_strncasecmp(basename, "computer:", 9) == 0)
-                flags |= FM_PATH_IS_VIRTUAL;
-            else if(g_ascii_strncasecmp(basename, "network:", 8) == 0)
-                flags |= FM_PATH_IS_VIRTUAL;
-            else if(g_ascii_strncasecmp(basename, "menu:", 5) == 0)
-                flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
-            else if(g_ascii_strncasecmp(basename, "mailto:", 7) == 0)
-            {
-                /* any special handling? */
-                return _fm_path_new_internal(NULL, basename, name_len, 0);
-            }
-            /* it's reasonable to have double slashes :// for URIs other than mailto: */
-            /* scheme://user@hostname/ */
-            scheme_len = colon - basename;
-            host = colon + 1;
-            while(*host == '/' && host < pend) /* skip // following : */
-                ++host;
-            host_end = host;
-            while(*host_end && *host_end != '/' && host_end < pend) /* find the end of host name */
-                ++host_end;
-            host_len = (host_end - host);
-            name_len = scheme_len + 3 + host_len + 1; /* the buffer length required */
-            path = _fm_path_alloc(NULL, name_len, flags);
-            p = path->name;
-            memcpy(p, basename, scheme_len); /* the scheme */
-            p += scheme_len;
-            memcpy(p, "://", 3); /* :// */
-            p += 3;
-            if(host_len > 0) /* host name */
-            {
-                memcpy(p, host, host_len);
-                p += host_len;
-            }
-            p[0] = '/'; /* the trailing / */
-            p[1] = '\0';
-            return path;
-        }
+            return _fm_path_new_uri_root(basename, name_len, NULL, FALSE);
     }
 
     /* remove tailing slashes */
@@ -203,96 +278,6 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
 
-#if 0
-FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path)
-{
-    FmPath* path;
-    const char* sep;
-    gsize name_len;
-
-    /* FIXME: need to canonicalize paths */
-    if(parent == root_path)
-    {
-        if( 0 == strncmp(relative_path, home_dir + 1, home_len - 1) ) /* in home dir */
-        {
-            if( relative_path[home_len - 1] == '\0' ) /* this is the home dir */
-            {
-                if(G_LIKELY(home_path))
-                    return fm_path_ref(home_path);
-                else
-                    goto _resolve_relative_path;
-            }
-            if( 0 == strncmp(relative_path, desktop_dir + home_len + 1, desktop_len - home_len -1) ) /* in desktop_path dir */
-            {
-                if(relative_path[desktop_len - 1] == '\0') /* this is the desktop_path dir */
-                    return fm_path_ref(desktop_path);
-                return fm_path_new_relative(desktop_path, relative_path + desktop_len + 1);
-            }
-        }
-    }
-_resolve_relative_path:
-    sep = strchr(relative_path, '/');
-    if(sep)
-    {
-        const char* end = sep;
-
-        while(*end && *end == '/') /* prevent tailing slash or duplicated slashes. */
-            ++end;
-
-        name_len = (sep - relative_path);
-        if(relative_path[0] == '.' && (name_len == 1 || (name_len == 2  && relative_path[1] == '.')) ) /* . or .. */
-        {
-            if(name_len == 1) /* . => current dir */
-            {
-                relative_path = end;
-                if(*end == '\0')
-                    return fm_path_ref(parent); /* . is the last component */
-                else
-                {
-                    relative_path = end; /* skip this component */
-                    goto _resolve_relative_path;
-                }
-            }
-            else /* .. jump to parent dir => */
-            {
-                if(parent->parent)
-                    parent = fm_path_ref(parent->parent);
-            }
-        }
-        else
-            parent = fm_path_new_child_len(parent, relative_path, name_len);
-
-        if(*end != '\0')
-        {
-            relative_path = end;
-            path = fm_path_new_relative(parent, relative_path);
-            fm_path_unref(parent);
-        }
-        else /* this is tailing slash */
-            path = parent;
-    }
-    else /* this is the last component in the path */
-    {
-        name_len = strlen(relative_path);
-        if(relative_path[0] == '.' && (name_len == 1 || (name_len == 2  && relative_path[1] == '.')) ) /* . or .. */
-        {
-            if(name_len == 1) /* . => current dir */
-                path = fm_path_ref(parent); /* . is the last component */
-            else /* .. jump to parent dir => */
-            {
-                if(parent->parent)
-                    path = fm_path_ref(parent->parent);
-                else
-                    path = fm_path_ref(parent);
-            }
-        }
-        else
-            path = fm_path_new_child_len(parent, relative_path, name_len);
-    }
-    return path;
-}
-#endif
-
 FmPath* fm_path_new_for_gfile(GFile* gf)
 {
     FmPath* path;
@@ -316,7 +301,7 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
     FmPath* path;
     if(G_UNLIKELY(!rel || !*rel)) /* relative path is empty */
         return parent ? fm_path_ref(parent) : fm_path_ref(root_path); /* return parent */
-
+g_debug("REL = '%s'", rel);
     if(G_LIKELY(parent))
     {
         char* sep;
@@ -390,78 +375,24 @@ FmPath* fm_path_new_for_path(const char* path_name)
  */
 static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unescape)
 {
-    FmPath* path;
-    char* scheme;
+    FmPath* path, *root;
+    char* rel_path;
     if(!uri || !*uri)
         return fm_path_ref(root_path);
 
-    path = NULL;
-    scheme = g_uri_parse_scheme(uri);
-    if(scheme)
+    root = _fm_path_new_uri_root(uri, strlen(uri), &rel_path, need_unescape);
+    g_debug("root->name = %s, rel_path = '%s'", root->name, rel_path);
+    if(*rel_path)
     {
-        if(strcmp(scheme, "file") == 0) /* it's a local file */
-        {
-            char* pathname = g_filename_from_uri(uri, NULL, NULL);
-            if(pathname)
-            {
-                path = fm_path_new_for_path(pathname);
-                g_free(pathname);
-            }
-        }
-        else /* it's a remote URI */
-        {
-            /* normally, a URI looks like this:
-             * scheme://user@host/path/to/file/
-             * For example:
-             * file:///home/pcman/
-             * http://lxde.org/
-             * sftp://pcman@somehost.org:22/
-             */
-            int scheme_len = strlen(scheme);
-            char *unescape, *p;
-            if(need_unescape)
-                uri = unescape = g_uri_unescape_string(uri, NULL);
-            p = uri + scheme_len;
-            if(*p == ':') /* after scheme should be the : */
-            {
-                FmPath* parent;
-                ++p;
-                /* skip the slashes */
-                while(*p == '/')
-                    ++p;
-                if(*p) /* we're now at the host part */
-                {
-                    /* some uris don't have user@host parts */
-                    if(g_ascii_strcasecmp(scheme, "computer") == 0 ||
-                       g_ascii_strcasecmp(scheme, "network") == 0 ||
-                       g_ascii_strcasecmp(scheme, "trash") == 0)
-                    {
-                        /* FIXME: any special handling? */
-                    }
-                    else
-                    {
-                        while(*p && *p != '/')
-                            ++p;
-                    }
-                    /* if after hostname there is a /, include it */
-                    if(*p == '/')
-                        ++p;
-                }
-                parent = fm_path_new_child_len(NULL, uri, p - uri);
-                if(*p)
-                    path = fm_path_new_relative(parent, p);
-                else
-                    path = fm_path_ref(parent);
-                fm_path_unref(parent);
-            }
-            if(need_unescape)
-                g_free(unescape);
-        }
-        g_free(scheme);
+        if(need_unescape)
+            rel_path = g_uri_unescape_string(rel_path, NULL);
+        path = fm_path_new_relative(root, rel_path);
+        fm_path_unref(root);
+        if(need_unescape)
+            g_free((char*)rel_path);
     }
-
-    if(!path) /* this is not a valid URI, return root instead */
-        path = fm_path_ref(root_path); /* return root */
+    else
+        path = root;
     return path;
 }
 

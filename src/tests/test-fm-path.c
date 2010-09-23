@@ -53,7 +53,7 @@ static void test_uri_parsing()
         "/", "test", "path");
 
     TEST_PARSING(fm_path_new_for_uri, "file://test/path",
-        "/", "path"); /* file://test/ is treated as host string */
+        "/", "test", "path");
 
     TEST_PARSING(fm_path_new_for_uri, "http://test/path/",
         "http://test/", "path");
@@ -196,6 +196,13 @@ static void test_uri_parsing()
     TEST_PARSING(fm_path_new_for_uri, NULL,
         "/");
 
+    path = fm_path_new_for_uri("trash:///");
+    g_assert(path == fm_path_get_trash());
+    fm_path_unref(path);
+
+    path = fm_path_new_for_uri("trash:///xxx");
+    g_assert(path->parent == fm_path_get_trash());
+    fm_path_unref(path);
 }
 
 static void test_path_parsing()
