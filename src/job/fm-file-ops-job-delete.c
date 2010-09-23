@@ -274,11 +274,29 @@ gboolean _fm_file_ops_job_trash_run(FmFileOpsJob* job)
 	for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
 	{
 		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+        GFileInfo* inf;
 _retry_trash:
+        if(inf)
+        {
+            inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, 0, fmjob->cancellable, &err);
+            /* currently processed file. */
+            fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
+        }
+        else
+        {
+            char* basename = g_file_get_basename(gf);
+            char* disp = g_filename_display_name(basename);
+            g_free(basename);
+            ret = FALSE;
+            fm_file_ops_job_emit_cur_file(job, disp);
+            g_free(disp);
+            goto _on_error;
+        }
         ret = g_file_trash(gf, fm_job_get_cancellable(fmjob), &err);
 		g_object_unref(gf);
         if(!ret)
         {
+        _on_error:
             /* if trashing is not supported by the file system */
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
                 fm_list_push_tail(unsupported, FM_PATH(l->data));
@@ -372,9 +390,12 @@ _retry_get_orig_path:
         if(inf)
         {
             const char* orig_path_str = g_file_info_get_attribute_byte_string(inf, "trash::orig-path");
+
+            fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
+
             if(orig_path_str)
             {
-                GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
+                GFile* orig_path = g_file_new_for_uri(orig_path_str);
 
                 /* ensure the existence of parent folder. */
                 if(ensure_parent_dir(job, orig_path))
@@ -384,6 +405,12 @@ _retry_get_orig_path:
         }
         else
         {
+            char* basename = g_file_get_basename(gf);
+            char* disp = g_filename_display_name(basename);
+            g_free(basename);
+            fm_file_ops_job_emit_cur_file(job, disp);
+            g_free(disp);
+
             if(err)
             {
                 FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
