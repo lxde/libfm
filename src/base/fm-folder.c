@@ -502,7 +502,7 @@ void fm_folder_reload(FmFolder* folder)
         g_slist_free(files_to_del);
     }
 
-    folder->job = fm_dir_list_job_new(folder->dir_path);
+    folder->job = fm_dir_list_job_new(folder->dir_path, FALSE);
     g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
     g_signal_connect(folder->job, "error", G_CALLBACK(on_job_err), folder);
     fm_job_run_async(FM_JOB(folder->job));

@@ -57,12 +57,11 @@ static void fm_dir_list_job_init(FmDirListJob *self)
 }
 
 
-FmJob* fm_dir_list_job_new(FmPath* path)
+FmJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {
-	/* FIXME: should we cache this with hash table? Or, the cache
-	 * should be done at the level of FmFolder instead? */
 	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
 	job->dir_path = fm_path_ref(path);
+    job->dir_only = dir_only;
 	job->files = fm_file_info_list_new();
 	return (FmJob*)job;
 }
@@ -191,6 +190,9 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
                 continue;
             if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP && !menu_cache_app_get_is_visible(item, de_flag))
                 continue;
+
+            if(G_UNLIKELY(job->dir_only) && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
+                continue;
             item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
             fi = _fm_file_info_new_from_menu_cache_item(item_path, item);
             fm_path_unref(item_path);
@@ -258,6 +260,15 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
         {
             g_string_truncate(fpath, dir_len);
             g_string_append(fpath, name);
+
+            if(job->dir_only) /* if we only want directories */
+            {
+                struct stat st;
+                /* FIXME: this results in an additional stat() call, which is inefficient */
+                if(stat(fpath->str, &st) == -1 || !S_ISDIR(st.st_mode))
+                    continue;
+            }
+
             fi = fm_file_info_new();
             fi->path = fm_path_new_child(job->dir_path, name);
 
@@ -295,6 +306,7 @@ static gboolean fm_dir_list_job_run_gio(FmDirListJob* job)
 	GError *err = NULL;
     FmJob* fmjob = FM_JOB(job);
     GFile* gf;
+    const char* query;
 
     /* handle some built-in virtual dirs */
     if( fm_path_is_xdg_menu(job->dir_path) ) /* xdg menu:// */
@@ -334,7 +346,19 @@ _retry:
     job->dir_fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);
     g_object_unref(inf);
 
-    enu = g_file_enumerate_children (gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(fmjob), &err);
+    if(G_UNLIKELY(job->dir_only))
+    {
+        query = G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_NAME","
+                G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP","
+                G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK","G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
+                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","G_FILE_ATTRIBUTE_STANDARD_ICON","
+                G_FILE_ATTRIBUTE_STANDARD_SIZE","G_FILE_ATTRIBUTE_STANDARD_TARGET_URI","
+                "unix::*,time::*,access::*,id::filesystem";
+    }
+    else
+        query = gfile_info_query_attribs;
+
+    enu = g_file_enumerate_children (gf, query, 0, fm_job_get_cancellable(fmjob), &err);
     g_object_unref(gf);
     if(enu)
     {
@@ -343,7 +367,18 @@ _retry:
             inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
             if(inf)
             {
-                FmPath* sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+                FmPath* sub;
+                if(G_UNLIKELY(job->dir_only))
+                {
+                    /* FIXME: handle symlinks */
+                    if(g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
+                    {
+                        g_object_unref(inf);
+                        continue;
+                    }
+                }
+
+                sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
                 fi = fm_file_info_new_from_gfileinfo(sub, inf);
                 fm_path_unref(sub);
                 fm_list_push_tail_noref(job->files, fi);

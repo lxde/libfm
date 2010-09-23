@@ -46,6 +46,7 @@ struct _FmDirListJob
 {
 	FmJob parent;
 	FmPath* dir_path;
+    gboolean dir_only;
     FmFileInfo* dir_fi;
 	FmFileInfoList* files;
 };
@@ -56,7 +57,7 @@ struct _FmDirListJobClass
 };
 
 GType		fm_dir_list_job_get_type		(void);
-FmJob*	    fm_dir_list_job_new			 (FmPath* path);
+FmJob*	    fm_dir_list_job_new			 (FmPath* path, gboolean dir_only);
 FmJob*	    fm_dir_list_job_new_for_gfile(GFile* gf);
 FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job);
 
