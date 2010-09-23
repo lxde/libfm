@@ -61,17 +61,24 @@ struct _FmPath
 
 void _fm_path_init();
 
-FmPath*	fm_path_new(const char* path);
-FmPath*	fm_path_new_child(FmPath* parent, const char* basename);
-FmPath*	fm_path_new_child_len(FmPath* parent, const char* basename, int name_len);
-FmPath*	fm_path_new_relative(FmPath* parent, const char* relative_path);
-//FmPath*	fm_path_new_relative_len(FmPath* parent, const char* relative_path, int len);
+/* fm_path_new is deprecated. Use fm_path_new_for_str */
+#define fm_path_new(path)   fm_path_new_for_str(path)
+
+FmPath* fm_path_new_for_path(const char* path_name);
+FmPath* fm_path_new_for_uri(const char* uri);
+FmPath* fm_path_new_for_display_name(const char* path_name);
+FmPath* fm_path_new_for_str(const char* path_str);
+FmPath* fm_path_new_for_commandline_arg(const char* arg);
+
+FmPath* fm_path_new_child(FmPath* parent, const char* basename);
+FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len);
+FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path);
 FmPath* fm_path_new_for_gfile(GFile* gf);
 
 /* predefined paths */
 FmPath* fm_path_get_root(); /* / */
 FmPath* fm_path_get_home(); /* home directory */
-FmPath* fm_path_get_desktop();
+FmPath* fm_path_get_desktop(); /* $HOME/Desktop */
 FmPath* fm_path_get_trash(); /* trash:/// */
 FmPath* fm_path_get_apps_menu(); /* menu://applications.menu/ */
 

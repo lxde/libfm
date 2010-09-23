@@ -19,5 +19,5 @@ TEST_PROGS += fm-path
 fm_path_SOURCES = test-fm-path.c
 fm_path_LDADD= \
 	$(GLIB_LIBS) \
-	$(top_builddir)/src/libfm.la \
+	../libfm.la \
 	$(NULL)
