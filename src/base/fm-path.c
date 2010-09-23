@@ -792,6 +792,8 @@ void _fm_path_init()
     root_path = _fm_path_new_internal(NULL, "/", 1, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
     home_dir = g_get_home_dir();
     home_len = strlen(home_dir);
+    while(home_dir[home_len - 1] == '/')
+        --home_len;
 
     /* build path object for home dir */
     name = home_dir + 1; /* skip leading / */
@@ -799,16 +801,21 @@ void _fm_path_init()
     while( sep = strchr(name, '/') )
     {
         int len = (sep - name);
-        /* ref counting is not a problem here since this path component
-         * will exist till the termination of the program. So mem leak is ok. */
-        tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+        if(len > 0)
+        {
+            /* ref counting is not a problem here since this path component
+             * will exist till the termination of the program. So mem leak is ok. */
+            tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+            parent = tmp;
+        }
         name = sep + 1;
-        parent = tmp;
     }
     home_path = _fm_path_new_internal(parent, name, strlen(name), FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
 
     desktop_dir = g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
     desktop_len = strlen(desktop_dir);
+    while(desktop_dir[desktop_len - 1] == '/')
+        --desktop_len;
 
     /* build path object for desktop_path dir */
     name = desktop_dir + home_len + 1; /* skip home_path dir part / */
@@ -816,11 +823,14 @@ void _fm_path_init()
     while( sep = strchr(name, '/') )
     {
         int len = (sep - name);
-        /* ref counting is not a problem here since this path component
-         * will exist till the termination of the program. So mem leak is ok. */
-        tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+        if(len > 0)
+        {
+            /* ref counting is not a problem here since this path component
+             * will exist till the termination of the program. So mem leak is ok. */
+            tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+            parent = tmp;
+        }
         name = sep + 1;
-        parent = tmp;
     }
     desktop_path = _fm_path_new_internal(parent, name, strlen(name), FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
 
