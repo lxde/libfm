@@ -29,9 +29,9 @@ enum
     N_SIGNALS
 };
 
-static FmBookmarks*	fm_bookmarks_new (void);
+static FmBookmarks* fm_bookmarks_new (void);
 
-static void fm_bookmarks_finalize  			(GObject *object);
+static void fm_bookmarks_finalize           (GObject *object);
 static GList* load_bookmarks(const char* fpath);
 static void free_item(FmBookmarkItem* item);
 static char* get_bookmarks_file();
@@ -45,9 +45,9 @@ static guint idle_handler = 0;
 
 static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 {
-	GObjectClass *g_object_class;
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_bookmarks_finalize;
+    GObjectClass *g_object_class;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_bookmarks_finalize;
 
     signals[CHANGED] =
         g_signal_new("changed",
@@ -61,12 +61,12 @@ static void fm_bookmarks_class_init(FmBookmarksClass *klass)
 
 static void fm_bookmarks_finalize(GObject *object)
 {
-	FmBookmarks *self;
+    FmBookmarks *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_BOOKMARKS(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_BOOKMARKS(object));
 
-	self = FM_BOOKMARKS(object);
+    self = FM_BOOKMARKS(object);
 
     if(idle_handler)
     {
@@ -79,7 +79,7 @@ static void fm_bookmarks_finalize(GObject *object)
 
     g_object_unref(self->mon);
 
-	G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
 }
 
 char* get_bookmarks_file()
@@ -120,19 +120,7 @@ static FmBookmarkItem* new_item(char* line)
     if(sep)
         *sep = '\0';
 
-    /* FIXME: this is no longer needed once fm_path_new can convert file:/// to / */
-    if(g_str_has_prefix(line, "file:/"))
-    {
-        char* fpath = g_filename_from_uri(line, NULL, NULL);
-        item->path = fm_path_new(fpath);
-        g_free(fpath);
-    }
-    else
-    {
-        /* FIXME: is unescape needed? */
-        item->path = fm_path_new(line);
-    }
-
+    item->path = fm_path_new_for_uri(line);
     if(sep)
         item->name = g_strdup(sep+1);
     else
@@ -165,7 +153,7 @@ static void fm_bookmarks_init(FmBookmarks *self)
 {
     char* fpath = get_bookmarks_file();
     GFile* gf = g_file_new_for_path(fpath);
-	self->mon = g_file_monitor_file(gf, 0, NULL, NULL);
+    self->mon = g_file_monitor_file(gf, 0, NULL, NULL);
     g_object_unref(gf);
     g_signal_connect(self->mon, "changed", G_CALLBACK(on_changed), self);
 
@@ -175,7 +163,7 @@ static void fm_bookmarks_init(FmBookmarks *self)
 
 FmBookmarks *fm_bookmarks_new(void)
 {
-	return g_object_new(FM_BOOKMARKS_TYPE, NULL);
+    return g_object_new(FM_BOOKMARKS_TYPE, NULL);
 }
 
 FmBookmarks* fm_bookmarks_get(void)
@@ -251,5 +239,13 @@ void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const cha
 {
     g_free(item->name);
     item->name = g_strdup(new_name);
+    queue_save_bookmarks(bookmarks);
+}
+
+void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
+{
+    // GList* l = g_list_find(biikmarks->items, item);
+    bookmarks->items = g_list_remove(bookmarks->items, item);
+    bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     queue_save_bookmarks(bookmarks);
 }
