@@ -100,6 +100,7 @@ static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
 
     if(0 == as->timeout) /* install a scroll timeout if needed */
         as->timeout = gdk_threads_add_timeout(150, (GSourceFunc)on_auto_scroll, as);
+    return FALSE;
 }
 
 static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
