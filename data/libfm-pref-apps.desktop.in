@@ -1,8 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Preferred Applications
-Name[it_IT]=Applicazioni preferite
-Name[zh_TW]=偏好的應用程式
+_Name=Preferred Applications
 Icon=preferences-desktop
 Exec=libfm-pref-apps
 StartupNotify=true

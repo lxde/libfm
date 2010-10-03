@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-03 05:47+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-06-07 16:07+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,8 @@ msgstr "Innløgd nýtsluskipan"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
+msgstr ""
+"Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -197,7 +198,8 @@ msgstr "Einans lesa"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Vel nýtsluskipanina ið nýtast skal til at lata upp fílur av hesum slag "
+msgstr ""
+"Vel nýtsluskipanina ið nýtast skal til at lata upp fílur av hesum slag "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -258,7 +260,7 @@ msgstr "Stýriboðaslinja:"
 msgid "File Associations"
 msgstr "Fílusambindingar"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Framumtiknar nýtsluskipanir"
 
@@ -267,8 +269,12 @@ msgid "System Applications"
 msgstr "Kervis-nýtsluskipanir"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Tann framumtikni postviðskiftarin, verður nýttur at skriva t-post tá ið tú trýstur á t-post bústaðir."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Tann framumtikni postviðskiftarin, verður nýttur at skriva t-post tá ið tú "
+"trýstur á t-post bústaðir."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -321,19 +327,19 @@ msgstr "Snarvegir"
 msgid "Mount Point"
 msgstr "Ísetingarstað"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Ruskspann"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Mín telda"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Nýtsluskipanir"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Net"
 
@@ -379,10 +385,12 @@ msgstr "Liðugt"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Summar fílur kunnu ikki flytast til ruskspannina, tí at tað undirliggjandi kervið ikki stuðlar hesari atgerð.\n"
+"Summar fílur kunnu ikki flytast til ruskspannina, tí at tað undirliggjandi "
+"kervið ikki stuðlar hesari atgerð.\n"
 "Vil tú strika tær í staðin?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -428,8 +436,10 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Vinarliga skriva inn eitt lógligt bólkanavn ella talsamleika."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Vil tú endurkvæmiliga nýta hesar broytingar til allar fílur og undirskjáttur?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Vil tú endurkvæmiliga nýta hesar broytingar til allar fílur og undirskjáttur?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -440,39 +450,32 @@ msgid "Multiple Files"
 msgstr "Fleiri fílur"
 
 # Enskt volume, danskt arkiv
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Íset skjalasavn"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Úrset skjalasavn"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Skumpa leysamiðil út"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Nýnevn bókamerkisliðin"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Tak burtur úr bókamerkjum"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Tøm ruskspannina"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Ruskspann"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Skriviborð"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Skriva eitt nýtt navn:"
 
@@ -505,15 +508,15 @@ msgstr "Pakka út her"
 msgid "Extract To..."
 msgstr "Pakka út til..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Endurstovna"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Endurstovna strikaðar fílur til teirra upprunaligu leið"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave miseydnaðist."
 
@@ -529,19 +532,19 @@ msgstr "Koyr tilgjørdu stýriboðsregluna til at lata upp fílur við"
 msgid "Customize"
 msgstr "Tilsniða"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Frágreiðing"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Stødd"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Broytt"
 
@@ -581,8 +584,8 @@ msgstr "Vinarliga skriva eitt nýtt navn:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Er tú viss/ur í at tøma ruskspannina?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Tann tilskilaða skjáttan er ikki lóglig"
@@ -602,3 +605,9 @@ msgstr "Kann ikki avrita ein faldara til sín egna undirfaldara"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Máli er ein undirfaldar av kelduni"
+
+#~ msgid "Trash"
+#~ msgstr "Ruskspann"
+
+#~ msgid "Desktop"
+#~ msgstr "Skriviborð"

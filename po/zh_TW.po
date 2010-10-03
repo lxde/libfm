@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-08-16 19:31+0800\n"
 "Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
@@ -258,7 +258,7 @@ msgstr "命令列："
 msgid "File Associations"
 msgstr "檔案關聯"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "偏好的應用程式"
 
@@ -322,19 +322,19 @@ msgstr "捷徑"
 msgid "Mount Point"
 msgstr "掛載點"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "垃圾桶"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "我的電腦"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "應用程式"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "網路"
 
@@ -441,39 +441,32 @@ msgstr "多種不同類型的檔案"
 msgid "Multiple Files"
 msgstr "多個檔案"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "掛載裝置(_M)"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "卸載裝置(_U)"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "退出可移除媒體"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "重新命名書籤項目"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "從書籤刪除"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "清空垃圾桶"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "垃圾桶"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "桌面"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
 
@@ -505,15 +498,15 @@ msgstr "解壓縮到此處"
 msgid "Extract To..."
 msgstr "解壓縮到..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "復原(_R)"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "還原刪除的檔案到原本的位置"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失敗"
 
@@ -529,19 +522,19 @@ msgstr "執行特定的命令列來開啟檔案"
 msgid "Customize"
 msgstr "自訂"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "名稱"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "描述"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "大小"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "修改"
 
@@ -581,8 +574,8 @@ msgstr "請輸入新名稱："
 msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "指定的目錄是無效的"
@@ -602,6 +595,12 @@ msgstr "無法將資料夾複製到子資料夾內"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "目的資料夾是來源資料夾的子資料夾"
+
+#~ msgid "Trash"
+#~ msgstr "垃圾桶"
+
+#~ msgid "Desktop"
+#~ msgstr "桌面"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "這不是一個有效的目錄。"

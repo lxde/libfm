@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-23 05:45+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-04-08 10:13+0200\n"
 "Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
@@ -59,7 +59,9 @@ msgstr "Application installée"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Sélectionner l'application par défaut à utiliser pour ouvrir ce type de fichiers"
+msgstr ""
+"Sélectionner l'application par défaut à utiliser pour ouvrir ce type de "
+"fichiers"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -185,7 +187,9 @@ msgstr "Opérations que le propriétaire du fichier peut faire"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Opérations que les utilisateurs du même groupe que le propriétaire peuvent faire"
+msgstr ""
+"Opérations que les utilisateurs du même groupe que le propriétaire peuvent "
+"faire"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -258,7 +262,7 @@ msgstr "Ligne de commande"
 msgid "File Associations"
 msgstr "Associations de fichier"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Applications favorites"
 
@@ -267,8 +271,12 @@ msgid "System Applications"
 msgstr "Applications systèmes"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Votre client courriel favori sera utilisé pour composer les courriels quand vous cliquerez sur des adresses courriels."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Votre client courriel favori sera utilisé pour composer les courriels quand "
+"vous cliquerez sur des adresses courriels."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -321,19 +329,19 @@ msgstr "Raccourcis"
 msgid "Mount Point"
 msgstr "Point de Montage"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Corbeille"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Mon ordinateur"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Applications"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Réseau"
 
@@ -379,10 +387,12 @@ msgstr "Terminés"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Certains fichier ne peuvent pas être déplacer vers la corbeille car le système de fichier ne supporte pas cette opération.\n"
+"Certains fichier ne peuvent pas être déplacer vers la corbeille car le "
+"système de fichier ne supporte pas cette opération.\n"
 "Voulez-vous les supprimer définitivement ?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -428,8 +438,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Entrer un nom de groupe ou un id numérique valide"
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Voulez-vous appliquer récursivement ces changements à tous les fichiers et sous-dossiers ?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Voulez-vous appliquer récursivement ces changements à tous les fichiers et "
+"sous-dossiers ?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -439,39 +452,32 @@ msgstr "Fichiers de différents types"
 msgid "Multiple Files"
 msgstr "Fichiers Multiples"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Monter le volume"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Démonter le volume"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Éjecter le média amovible"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Renommer Signets"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Enlever des Signets"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Vider la Corbeille"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Corbeille"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Bureau"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
@@ -503,15 +509,15 @@ msgstr "Extraire ici"
 msgid "Extract To..."
 msgstr "Extraire vers..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Restaurer"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "_Restaurer les fichiers à leur emplacements originaux"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "Échec de XDirectSave."
 
@@ -527,19 +533,19 @@ msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 msgid "Customize"
 msgstr "Personnaliser"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Modifié"
 
@@ -557,7 +563,8 @@ msgstr "Sélectionner un dossier"
 
 #: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
-msgstr "Seuls les administrateurs système ont la permission de faire cette action."
+msgstr ""
+"Seuls les administrateurs système ont la permission de faire cette action."
 
 #: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
@@ -579,8 +586,8 @@ msgstr "Entrez un nouveau nom:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Le répertoire spécifié est invalide"
@@ -600,6 +607,12 @@ msgstr "Ne peut copier un dossier dans son propre sous-dossier"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "La destination est un sous-dossier de la source."
+
+#~ msgid "Trash"
+#~ msgstr "Corbeille"
+
+#~ msgid "Desktop"
+#~ msgstr "Bureau"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Ce n'est pas un dossier valide"

@@ -1,16 +1,17 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-31 05:48+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matej Gačnik <paxmanpwnz@gmail.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -182,7 +183,9 @@ msgstr "Dejanja, ki jih lahko izvrši lastnik datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik datoteke"
+msgstr ""
+"Dejanja, ki jih lahko izvršijo uporabniki iz iste skupine kot lastnik "
+"datoteke"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -255,7 +258,7 @@ msgstr "Ukazna vrstica:"
 msgid "File Associations"
 msgstr "Datotečne povezave"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Privzeti programi"
 
@@ -264,8 +267,12 @@ msgid "System Applications"
 msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni odjemalec"
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Ob kliku na E-mail naslov bo za sestavo sporočila uporabljen privzeti poštni "
+"odjemalec"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -320,19 +327,19 @@ msgstr "Bližnjice"
 msgid "Mount Point"
 msgstr "Priklopna točka"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Koš"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Moj računalnik"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Programi"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Omrežje"
 
@@ -379,10 +386,12 @@ msgstr "Končano"
 #: ../src/gtk/fm-progress-dlg.c:335
 #, fuzzy
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Nekaterih datotek ni mogoče premakniti v koš, saj datotečni sistem ne podpira te operacije. \n"
+"Nekaterih datotek ni mogoče premakniti v koš, saj datotečni sistem ne "
+"podpira te operacije. \n"
 "Želite namesto tega izbrisati datoteke?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -431,7 +440,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Vnesite veljavno ime skupine ali številčni ID"
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Želite rekurzivno uporabiti spremembe na vseh podmapah in datotekah?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -442,39 +452,32 @@ msgstr "Datoteke različnih tipov"
 msgid "Multiple Files"
 msgstr "Več datotek"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Priklopi nosilec"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Odklopi nosilec"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Izvrzi izmenljiv medij"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj zaznamek"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Odstrani iz zaznamkov"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Izprazni koš"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Koš"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Namizje"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Vnesite novo ime:"
 
@@ -506,15 +509,15 @@ msgstr "Izvleci tu"
 msgid "Extract To..."
 msgstr "Izvleci v"
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Obnovi"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Obnovi datoteke v smeteh na svojo prvotno mesto"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave ni uspel."
 
@@ -530,19 +533,19 @@ msgstr "Za odprtje datotek izvrši ukaz po meri"
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Spremenjeno"
 
@@ -582,8 +585,8 @@ msgstr "Vnesite novo ime:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste prepričani, da želite izprazniti koš?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Navedena mapa ni veljavna"
@@ -603,3 +606,9 @@ msgstr "Mape ni mogoče kopirati v njeno podmapo."
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Cilj je podmapa izvora."
+
+#~ msgid "Trash"
+#~ msgstr "Koš"
+
+#~ msgid "Desktop"
+#~ msgstr "Namizje"

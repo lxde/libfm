@@ -2,12 +2,12 @@
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Og Maciel <ogmaciel@gnome.org>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-17 05:53+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-06-19 12:04-0300\n"
 "Last-Translator: Sérgio Brandão Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -57,7 +57,8 @@ msgstr "Aplicativo instalado"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
+msgstr ""
+"Define o aplicativo selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -183,7 +184,8 @@ msgstr "Operações que o dono do arquivo pode fazer"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
+msgstr ""
+"Operações que usuários no mesmo grupo que o dono do arquivo podem fazer"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -256,7 +258,7 @@ msgstr "Linha de comando:"
 msgid "File Associations"
 msgstr "Associações de arquivos"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Aplicativos preferidos"
 
@@ -265,8 +267,12 @@ msgid "System Applications"
 msgstr "Aplicativos do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "O cliente de e-mail preferido será usado para compor e-mails quando você clicar nos endereços de e-mail."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"O cliente de e-mail preferido será usado para compor e-mails quando você "
+"clicar nos endereços de e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -319,19 +325,19 @@ msgstr "Atalhos"
 msgid "Mount Point"
 msgstr "Ponto de montagem"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Lixeira"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Meu computador"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Aplicativos"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Rede"
 
@@ -377,10 +383,12 @@ msgstr "Terminou"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arquivos não podem ser movidos para a lixeira devido a falta de suporte do sistema de arquivos.\n"
+"Alguns arquivos não podem ser movidos para a lixeira devido a falta de "
+"suporte do sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -426,8 +434,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Favor digitar um nome de grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Você deseja aplicar estas modificações de forma recursiva a todos os arquivos e subpastas?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Você deseja aplicar estas modificações de forma recursiva a todos os "
+"arquivos e subpastas?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -437,39 +448,32 @@ msgstr "Arquivos de tipos diferentes"
 msgid "Multiple Files"
 msgstr "Múltiplos arquivos"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Montar volume"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Desmontar volume"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Ejetar mídia removível"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Renomear item dos marcadores"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Remover dos marcadores"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Lixeira"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Área de trabalho"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Digitar um novo nome:"
 
@@ -507,9 +511,10 @@ msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
-msgstr "Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
+msgstr ""
+"Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave falhou."
 
@@ -525,19 +530,19 @@ msgstr "Executar linhas de comando personalizadas para abrir arquivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Descrição"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Modificado"
 
@@ -577,8 +582,8 @@ msgstr "Favor digitar um novo nome:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "O diretório especificado não é válido"
@@ -598,6 +603,12 @@ msgstr "Não posso copiar uma pasta para a sua subpasta"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "O destino é uma subpasta da origem"
+
+#~ msgid "Trash"
+#~ msgstr "Lixeira"
+
+#~ msgid "Desktop"
+#~ msgstr "Área de trabalho"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Não é um diretório válido"

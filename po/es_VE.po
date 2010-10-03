@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -315,7 +315,7 @@ msgstr "Línea de comandos:"
 msgid "File Associations"
 msgstr "Asociaciones de archivos"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 #, fuzzy
 msgid "Preferred Applications"
 msgstr "Aplicaciones preferidas"
@@ -396,22 +396,22 @@ msgstr "Atajos"
 msgid "Mount Point"
 msgstr "Punto de montaje"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 #, fuzzy
 msgid "Trash Can"
 msgstr "Papelera"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 #, fuzzy
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 #, fuzzy
 msgid "Applications"
 msgstr "Aplicaciones"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 #, fuzzy
 msgid "Network"
 msgstr "Red"
@@ -533,47 +533,38 @@ msgstr "Archivos de tipos diferentes"
 msgid "Multiple Files"
 msgstr "Múltiples archivos"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 #, fuzzy
 msgid "Mount Volume"
 msgstr "Montar volumen"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 #, fuzzy
 msgid "Unmount Volume"
 msgstr "Desmontar volumen"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 #, fuzzy
 msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 #, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 #, fuzzy
 msgid "Remove from Bookmark"
 msgstr "Quitar de los marcadores"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 #, fuzzy
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:499
-#, fuzzy
-msgid "Trash"
-msgstr "Papelera"
-
-#: ../src/gtk/fm-places-view.c:553
-#, fuzzy
-msgid "Desktop"
-msgstr "Escritorio"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 #, fuzzy
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
@@ -613,15 +604,15 @@ msgstr "Extraer aquí"
 msgid "Extract To..."
 msgstr "Estraer a..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 #, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
@@ -641,22 +632,22 @@ msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 #, fuzzy
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 #, fuzzy
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 #, fuzzy
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 #, fuzzy
 msgid "Modified"
 msgstr "Modificado"
@@ -706,8 +697,8 @@ msgstr "Por favor, introduzca un nuevo nombre:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, fuzzy, c-format
 msgid "The specified directory is not valid"
 msgstr "El directorio especificado no es válido"
@@ -727,6 +718,14 @@ msgstr ""
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Trash"
+#~ msgstr "Papelera"
+
+#, fuzzy
+#~ msgid "Desktop"
+#~ msgstr "Escritorio"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "No es un directorio válido"

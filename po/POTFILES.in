@@ -21,3 +21,4 @@ src/job/fm-file-ops-job-delete.c
 src/job/fm-file-ops-job-xfer.c
 src/tools/libfm-pref-apps.c
 data/libfm-pref-apps.desktop.in
+

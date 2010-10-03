@@ -12,9 +12,11 @@ libfmconf_DATA = \
 	$(NULL)
 
 desktopdir=$(datadir)/applications
-desktop_DATA= \
-	libfm-pref-apps.desktop \
+desktop_in_files= \
+	libfm-pref-apps.desktop.in \
 	$(NULL)
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
 
 libfmdatafilesdir = $(datadir)/libfm
 libfmdatafiles_DATA = \

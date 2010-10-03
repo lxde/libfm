@@ -2,20 +2,21 @@
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the Libfm package.
 # Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-17 05:42+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-06-07 12:24+0100\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -259,7 +260,7 @@ msgstr "Наредба:"
 msgid "File Associations"
 msgstr "Придруживања датотека"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Подразумевани програми"
 
@@ -268,8 +269,12 @@ msgid "System Applications"
 msgstr "Системски програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се користити за писање е-писама."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се "
+"користити за писање е-писама."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -322,19 +327,19 @@ msgstr "Пречице"
 msgid "Mount Point"
 msgstr "Тачка монтирања"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Непотребно"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Рачунар"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Програми"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Мрежа"
 
@@ -380,10 +385,12 @@ msgstr "Завршено"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Неке датотеке се не могу преместити у Непотребно јер примарни систем датотека не подржава\n"
+"Неке датотеке се не могу преместити у Непотребно јер примарни систем "
+"датотека не подржава\n"
 " ову операцију. Желите ли да их трајно уклоните?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -430,8 +437,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Унесите исправно име групе или ИД број."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Желите ли да рекурзивно применим ову радњу на све датотеке и поддиректоријуме?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Желите ли да рекурзивно применим ову радњу на све датотеке и "
+"поддиректоријуме?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -441,39 +451,32 @@ msgstr "Датотеке различитих врста"
 msgid "Multiple Files"
 msgstr "Вишеструке датотеке"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Монтирај"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Демонтирај"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Избаци преносиви медиј"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Преименуј обележивач"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Уклони обележивач"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Обриши датотеке из Непотребно"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Непотребно"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Радна површ"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Унесите ново име:"
 
@@ -505,15 +508,15 @@ msgstr "Распакуј овде"
 msgid "Extract To..."
 msgstr "Распакуј..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "По_врати"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Врати датотеке из Непотребно на оригиналне локације"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave није успело."
 
@@ -529,19 +532,19 @@ msgstr "Покрени произвољну наредбу за отварање
 msgid "Customize"
 msgstr "Прилагоди"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Име"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Величина"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Измењено"
 
@@ -581,8 +584,8 @@ msgstr "Унесите ново име: "
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Јесте ли сигурни да желите да обришете датотеке из Непотребно?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Задати директоријум није исправан"
@@ -602,3 +605,9 @@ msgstr "Не може се умножавати директоријум у ње
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Одредиште је поддиректоријум извора"
+
+#~ msgid "Trash"
+#~ msgstr "Непотребно"
+
+#~ msgid "Desktop"
+#~ msgstr "Радна површ"

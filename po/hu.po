@@ -2,12 +2,12 @@
 # Copyright (C) 2010 The LXDE Team
 # This file is distributed under the same license as the libfm package.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-06 05:47+0000\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-07-25 13:23+0200\n"
 "Last-Translator: Laszlo Dvornik <dvornik@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -58,7 +58,9 @@ msgstr "Telepített alkalmazás"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "A kijelölt alkalmazás beállítása alapértelmezett műveletnek ehhez a fájltípushoz"
+msgstr ""
+"A kijelölt alkalmazás beállítása alapértelmezett műveletnek ehhez a "
+"fájltípushoz"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,7 +186,9 @@ msgstr "Műveletek, amiket a fájl tulajdonosa tehet"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Műveletek, amiket a fájl tulajdonosával egyező csoportban lévő felhasználók tehetnek"
+msgstr ""
+"Műveletek, amiket a fájl tulajdonosával egyező csoportban lévő felhasználók "
+"tehetnek"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -196,7 +200,8 @@ msgstr "Csak olvasás"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Válaszd ki az ilyen típusú fájlok megnyitásához használandó alkalmazást"
+msgstr ""
+"Válaszd ki az ilyen típusú fájlok megnyitásához használandó alkalmazást"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -257,7 +262,7 @@ msgstr "Parancssor:"
 msgid "File Associations"
 msgstr "Fájltársítások"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Alapértelmezett alkalmazások"
 
@@ -266,12 +271,18 @@ msgid "System Applications"
 msgstr "Rendszeralkalmazások"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Ha e-mail címre kattintasz, az alapértelmezett levelezőkliens lesz használva a levélíráshoz."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Ha e-mail címre kattintasz, az alapértelmezett levelezőkliens lesz használva "
+"a levélíráshoz."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Hiperhivatkozások megnyitásához az alapértelmezett webböngésző lesz használva."
+msgstr ""
+"Hiperhivatkozások megnyitásához az alapértelmezett webböngésző lesz "
+"használva."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -320,19 +331,19 @@ msgstr "Parancsikonok"
 msgid "Mount Point"
 msgstr "Csatolási pont"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Kuka"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Számítógép"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Alkalmazások"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Hálózat"
 
@@ -378,10 +389,12 @@ msgstr "Befejezve"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Néhány fájlt nem lehet áthelyezni a kukába, mivel az alattuk lévő fájlrendszer nem támogatja ezt a műveletet.\n"
+"Néhány fájlt nem lehet áthelyezni a kukába, mivel az alattuk lévő "
+"fájlrendszer nem támogatja ezt a műveletet.\n"
 "Törlöd őket inkább?"
 
 #: ../src/gtk/fm-progress-dlg.c:429
@@ -427,7 +440,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Adj meg egy érvényes csoportnevet vagy numerikus azonosítót."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és almappára?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -438,39 +452,32 @@ msgstr "Különböző típusú fájlok"
 msgid "Multiple Files"
 msgstr "Több fájl"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Kötet csatolása"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Kötet leválasztása"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Cserélhető adathordozó kiadása"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Könyvjelző elem átnevezése"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Eltávolítás a könyvjelzőből"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "Kuka"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "Asztal"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Írd be egy új nevet:"
 
@@ -502,15 +509,15 @@ msgstr "Kibontás ide"
 msgid "Extract To..."
 msgstr "Kibontás..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Visszaállítás"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Kukába áthelyezett fájlok visszaállítása az eredeti útvonalakba"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave sikertelen."
 
@@ -526,19 +533,19 @@ msgstr "Egyéni parancs végrehajtása a fájlok megnyitásához"
 msgid "Customize"
 msgstr "Testreszabás"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Név"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Méret"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Módosítva"
 
@@ -578,8 +585,8 @@ msgstr "Adj meg egy új nevet:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Biztos kiüríted a kukát?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "A megadott könyvtár érvénytelen"
@@ -599,3 +606,9 @@ msgstr "Mappa nem másolható almappájába"
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "A cél a forrás almappája"
+
+#~ msgid "Trash"
+#~ msgstr "Kuka"
+
+#~ msgid "Desktop"
+#~ msgstr "Asztal"

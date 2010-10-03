@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -257,7 +257,7 @@ msgstr "কমান্ড লাইন:"
 msgid "File Associations"
 msgstr "সংশ্লিষ্ট ফাইলসমুহ"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "পছন্দনীয় অ্যাপ্লিকেশন"
 
@@ -324,19 +324,19 @@ msgstr "শর্টকাট"
 msgid "Mount Point"
 msgstr "মাউন্ট পয়েন্ট"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "আবর্জনা বাক্স"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "আমার কম্পিউটার"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "অ্যাপ্লিকেশন"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "নেটওয়ার্ক"
 
@@ -447,39 +447,32 @@ msgstr "বিভিন্ন ধরনের ফাইল"
 msgid "Multiple Files"
 msgstr "অনেকগুলো ফাইল"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "ভলিউম মাউন্ট করুন"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "ভলিউম আনমাউন্ট করুন"
 
-#: ../src/gtk/fm-places-view.c:135
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "স্থানান্তরযোগ্য মিডিয়া অপসারন করুন"
 
-#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "বুকমার্ক আইটেম নামান্তর করুন"
 
-#: ../src/gtk/fm-places-view.c:149
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "বুকমার্ক থেকে অপসারণ করুন"
 
-#: ../src/gtk/fm-places-view.c:161
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "আবর্জনা বাক্স খালি করুন"
 
-#: ../src/gtk/fm-places-view.c:499
-msgid "Trash"
-msgstr "আবর্জনা"
-
-#: ../src/gtk/fm-places-view.c:553
-msgid "Desktop"
-msgstr "ডেক্সটপ"
-
-#: ../src/gtk/fm-places-view.c:892
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "নতুন একটি নাম দিন:"
 
@@ -511,15 +504,15 @@ msgstr "এখানে সম্প্রসারণ করুন"
 msgid "Extract To..."
 msgstr "সম্প্রসারণ করুন..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "পুনরায় জমা করুন (_R)"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
-#: ../src/gtk/fm-dnd-dest.c:529
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
@@ -535,19 +528,19 @@ msgstr "ফাইল খোলার জন্য পছন্দসই কম�
 msgid "Customize"
 msgstr "স্বনির্ধারণ করুন"
 
-#: ../src/gtk/fm-folder-view.c:524
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "নাম"
 
-#: ../src/gtk/fm-folder-view.c:543
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-folder-view.c:550
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "আকার"
 
-#: ../src/gtk/fm-folder-view.c:556
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "পরিবর্তিত"
 
@@ -587,8 +580,8 @@ msgstr "অনুগ্রহ করে একটি নতুন নাম দ�
 msgid "Are you sure you want to empty the trash can?"
 msgstr "আপনি কি নিশ্চিত যে আপনি আবর্জনা বাক্স খালি করে ফেলতে চান?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "সুনির্দিষ্ট ডিরেক্টরিটি কার্যকর নেই"
@@ -608,3 +601,9 @@ msgstr ""
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr ""
+
+#~ msgid "Trash"
+#~ msgstr "আবর্জনা"
+
+#~ msgid "Desktop"
+#~ msgstr "ডেক্সটপ"

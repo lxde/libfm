@@ -202,9 +202,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     GtkTreePath* tp, *sep;
     gboolean ret = FALSE;
     GdkDragAction action = 0;
-GList* l;
-for(l = drag_context->targets;l;l=l->next)
-    g_debug("%s", gdk_atom_name(l->data));
+
     target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     if(target == GDK_NONE)
         return FALSE;
@@ -236,7 +234,8 @@ for(l = drag_context->targets;l;l=l->next)
         }
         else /* drop between items, create bookmark items for dragged files */
         {
-            if(fm_places_model_path_is_bookmark(model, tp)) /* tp is after separator */
+            if( (!tp || fm_places_model_path_is_bookmark(model, tp))
+               && get_bookmark_drag_dest(view, &tp, &pos)) /* tp is after separator */
             {
                 action = GDK_ACTION_LINK;
                 ret = TRUE;

@@ -133,7 +133,6 @@ AC_CONFIG_FILES([
     src/tests/Makefile
     data/Makefile
     data/ui/Makefile
-    data/libfm-pref-apps.desktop
     po/Makefile.in
     docs/Makefile
     docs/reference/Makefile
