@@ -45,7 +45,7 @@ static FmMimeType* mountable_type = NULL;
 /* intialize the file info system */
 void _fm_file_info_init()
 {
-	fm_mime_type_init();
+    fm_mime_type_init();
     desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop");
 
     /* fake mime-types for mountable and shortcuts */
@@ -70,24 +70,24 @@ FmFileInfo* fm_file_info_new ()
 
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
-	const char* tmp;
+    const char* tmp;
     GIcon* gicon;
     GFileType type;
 
-	g_return_if_fail(fi->path);
+    g_return_if_fail(fi->path);
 
-	/* if display name is the same as its name, just use it. */
-	tmp = g_file_info_get_display_name(inf);
-	if( strcmp(tmp, fi->path->name) == 0 )
-		fi->disp_name = fi->path->name;
-	else
-		fi->disp_name = g_strdup(tmp);
+    /* if display name is the same as its name, just use it. */
+    tmp = g_file_info_get_display_name(inf);
+    if( strcmp(tmp, fi->path->name) == 0 )
+        fi->disp_name = fi->path->name;
+    else
+        fi->disp_name = g_strdup(tmp);
 
-	fi->size = g_file_info_get_size(inf);
+    fi->size = g_file_info_get_size(inf);
 
-	tmp = g_file_info_get_content_type(inf);
-	if( tmp )
-		fi->type = fm_mime_type_get_for_type( tmp );
+    tmp = g_file_info_get_content_type(inf);
+    if( tmp )
+        fi->type = fm_mime_type_get_for_type( tmp );
 
     fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
@@ -131,7 +131,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     }
 
     /* set file icon according to mime-type */
-	if( !fi->type || !fi->type->icon )
+    if( !fi->type || !fi->type->icon )
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
@@ -140,8 +140,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
          * the object returned by g_file_info_get_icon is
          * owned by GFileInfo. */
     }
-	else
-		fi->icon = fm_icon_ref(fi->type->icon);
+    else
+        fi->icon = fm_icon_ref(fi->type->icon);
 
     if( type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT )
     {
@@ -181,10 +181,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 {
-	FmFileInfo* fi = fm_file_info_new();
+    FmFileInfo* fi = fm_file_info_new();
     fi->path = fm_path_ref(path);
-	fm_file_info_set_from_gfileinfo(fi, inf);
-	return fi;
+    fm_file_info_set_from_gfileinfo(fi, inf);
+    return fi;
 }
 
 void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
@@ -260,14 +260,14 @@ static void fm_file_info_clear( FmFileInfo* fi )
 
     g_free(fi->target);
 
-	if( fi->type )
-	{
-		fm_mime_type_unref(fi->type);
-		fi->type = NULL;
-	}
+    if( fi->type )
+    {
+        fm_mime_type_unref(fi->type);
+        fi->type = NULL;
+    }
     if( fi->icon )
     {
-		fm_icon_unref(fi->icon);
+        fm_icon_unref(fi->icon);
         fi->icon = NULL;
     }
 }
@@ -280,7 +280,7 @@ FmFileInfo* fm_file_info_ref( FmFileInfo* fi )
 
 void fm_file_info_unref( FmFileInfo* fi )
 {
-	/* g_debug("unref file info: %d", fi->n_ref); */
+    /* g_debug("unref file info: %d", fi->n_ref); */
     if ( g_atomic_int_dec_and_test( &fi->n_ref) )
     {
         fm_file_info_clear( fi );
@@ -300,7 +300,7 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
     fm_file_info_clear(fi);
     fi->path = tmp_path;
     fi->type = tmp_type;
-	fi->icon = tmp_icon;
+    fi->icon = tmp_icon;
 
     fi->mode = src->mode;
     if(fm_path_is_native(fi->path))
@@ -324,13 +324,13 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
     fi->collate_key = g_strdup(src->collate_key);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
-	fi->type = fm_mime_type_ref(src->type);
-	fi->icon = fm_icon_ref(src->icon);
+    fi->type = fm_mime_type_ref(src->type);
+    fi->icon = fm_icon_ref(src->icon);
 }
 
 FmPath* fm_file_info_get_path( FmFileInfo* fi )
 {
-	return fi->path;
+    return fi->path;
 }
 
 const char* fm_file_info_get_name( FmFileInfo* fi )
@@ -366,12 +366,12 @@ const char* fm_file_info_get_disp_size( FmFileInfo* fi )
 {
     if ( G_UNLIKELY( !fi->disp_size ) )
     {
-		if( S_ISREG(fi->mode) )
-		{
-			char buf[ 64 ];
-			fm_file_size_to_str( buf, fi->size, use_si_prefix );
-			fi->disp_size = g_strdup( buf );
-		}
+        if( S_ISREG(fi->mode) )
+        {
+            char buf[ 64 ];
+            fm_file_size_to_str( buf, fi->size, use_si_prefix );
+            fi->disp_size = g_strdup( buf );
+        }
     }
     return fi->disp_size;
 }
@@ -394,7 +394,7 @@ mode_t fm_file_info_get_mode( FmFileInfo* fi )
 gboolean fm_file_info_is_dir( FmFileInfo* fi )
 {
     return (S_ISDIR( fi->mode ) ||
-	    (S_ISLNK( fi->mode ) && (0 == strcmp( fi->type->type, "inode/directory" ))));
+        (S_ISLNK( fi->mode ) && (0 == strcmp( fi->type->type, "inode/directory" ))));
 }
 
 gboolean fm_file_info_is_symlink( FmFileInfo* fi )
@@ -422,21 +422,21 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
 
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
-	return fi->type == desktop_entry_type;
+    return fi->type == desktop_entry_type;
     /* return g_strcmp0(fi->type->type, "application/x-desktop") == 0; */
 }
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )
 {
-	return g_content_type_is_unknown(fi->type->type);
+    return g_content_type_is_unknown(fi->type->type);
 }
 
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
 {
-	// FIXME: didn't check access rights.
+    // FIXME: didn't check access rights.
 //    return mime_type_is_executable_file( file_path, fi->type->type );
-	return g_content_type_can_be_executable(fi->type->type);
+    return g_content_type_can_be_executable(fi->type->type);
 }
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
@@ -474,7 +474,7 @@ const char* fm_file_info_get_target( FmFileInfo* fi )
 
 const char* fm_file_info_get_desc( FmFileInfo* fi )
 {
-	/* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
+    /* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
     return fi->type ? fm_mime_type_get_desc( fi->type ) : NULL;
 }
 
@@ -508,13 +508,13 @@ time_t* fm_file_info_get_atime( FmFileInfo* fi )
 
 static FmListFuncs fm_list_funcs =
 {
-	fm_file_info_ref,
-	fm_file_info_unref
+    fm_file_info_ref,
+    fm_file_info_unref
 };
 
 FmFileInfoList* fm_file_info_list_new()
 {
-	return fm_list_new(&fm_list_funcs);
+    return fm_list_new(&fm_list_funcs);
 }
 
 gboolean fm_list_is_file_info_list(FmList* list)
@@ -525,33 +525,33 @@ gboolean fm_list_is_file_info_list(FmList* list)
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 {
-	/* FIXME: handle virtual files without mime-types */
-	if( ! fm_list_is_empty(list) )
-	{
-		GList* l = fm_list_peek_head_link(list);
-		FmFileInfo* fi = (FmFileInfo*)l->data;
-		l = l->next;
-		for(;l;l=l->next)
-		{
-			FmFileInfo* fi2 = (FmFileInfo*)l->data;
-			if(fi->type != fi2->type)
-				return FALSE;
-		}
-	}
-	return TRUE;
+    /* FIXME: handle virtual files without mime-types */
+    if( ! fm_list_is_empty(list) )
+    {
+        GList* l = fm_list_peek_head_link(list);
+        FmFileInfo* fi = (FmFileInfo*)l->data;
+        l = l->next;
+        for(;l;l=l->next)
+        {
+            FmFileInfo* fi2 = (FmFileInfo*)l->data;
+            if(fi->type != fi2->type)
+                return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 /* return TRUE if all files in the list are on the same fs */
 gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
 {
-	if( ! fm_list_is_empty(list) )
-	{
-		GList* l = fm_list_peek_head_link(list);
-		FmFileInfo* fi = (FmFileInfo*)l->data;
-		l = l->next;
-		for(;l;l=l->next)
-		{
-			FmFileInfo* fi2 = (FmFileInfo*)l->data;
+    if( ! fm_list_is_empty(list) )
+    {
+        GList* l = fm_list_peek_head_link(list);
+        FmFileInfo* fi = (FmFileInfo*)l->data;
+        l = l->next;
+        for(;l;l=l->next)
+        {
+            FmFileInfo* fi2 = (FmFileInfo*)l->data;
             gboolean is_native = fm_path_is_native(fi->path);
             if( is_native != fm_path_is_native(fi2->path) )
                 return FALSE;
@@ -565,7 +565,7 @@ gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
                 if( fi->fs_id != fi2->fs_id )
                     return FALSE;
             }
-		}
-	}
-	return TRUE;
+        }
+    }
+    return TRUE;
 }

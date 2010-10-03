@@ -1,21 +1,23 @@
-//      fm-places-model.c
-//      
-//      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      
-//      This program is free software; you can redistribute it and/or modify
-//      it under the terms of the GNU General Public License as published by
-//      the Free Software Foundation; either version 2 of the License, or
-//      (at your option) any later version.
-//      
-//      This program is distributed in the hope that it will be useful,
-//      but WITHOUT ANY WARRANTY; without even the implied warranty of
-//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//      GNU General Public License for more details.
-//      
-//      You should have received a copy of the GNU General Public License
-//      along with this program; if not, write to the Free Software
-//      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//      MA 02110-1301, USA.
+/*
+ *      fm-places-model.c
+ *
+ *      Copyright 2010 PCMan <pcman.tw@gmail.com>
+ *
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 2 of the License, or
+ *      (at your option) any later version.
+ *
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program; if not, write to the Free Software
+ *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *      MA 02110-1301, USA.
+ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -565,8 +567,8 @@ static void fm_places_model_drag_source_init(GtkTreeDragSourceIface *iface)
 }
 
 G_DEFINE_TYPE_WITH_CODE (FmPlacesModel, fm_places_model, GTK_TYPE_LIST_STORE,
-			 G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_SOURCE,
-						fm_places_model_drag_source_init))
+             G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_SOURCE,
+                        fm_places_model_drag_source_init))
 
 
 static void fm_places_model_finalize(GObject *object)
