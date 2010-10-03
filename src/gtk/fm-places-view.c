@@ -202,7 +202,9 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     GtkTreePath* tp, *sep;
     gboolean ret = FALSE;
     GdkDragAction action = 0;
-
+GList* l;
+for(l = drag_context->targets;l;l=l->next)
+    g_debug("%s", gdk_atom_name(l->data));
     target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     if(target == GDK_NONE)
         return FALSE;

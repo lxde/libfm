@@ -445,7 +445,7 @@ static void fm_places_model_init(FmPlacesModel *self)
 
     gtk_list_store_set_column_types(GTK_LIST_STORE(self), FM_PLACES_MODEL_N_COLS, types);
 
-    self->theme_change_handler = g_signal_connect(gtk_icon_theme_get_default(), "changed",
+    self->theme_change_handler = g_signal_connect_swapped(gtk_icon_theme_get_default(), "changed",
                                             G_CALLBACK(update_icons), self);
 
     self->use_trash_change_handler = g_signal_connect(fm_config, "changed::use_trash",
