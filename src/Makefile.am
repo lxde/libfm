@@ -94,6 +94,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
+	gtk/fm-places-model.c \
 	gtk/fm-app-menu-view.c \
 	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-app-chooser-combo-box.c \
@@ -149,6 +150,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
+	gtk/fm-places-model.h \
 	gtk/fm-app-menu-view.h \
 	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-app-chooser-combo-box.h \

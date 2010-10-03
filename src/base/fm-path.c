@@ -334,9 +334,9 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
 /**
  * fm_path_new_for_gfile
  * @gf: a GFile object
- * 
+ *
  * This function converts a GFile object to FmPath.
- * 
+ *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
@@ -365,7 +365,7 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
  * non-UTF-8). However this should not be a escaped ASCII string used in
  * URI. If you're building a relative path for a URI, and the relative
  * path is escaped, you have to unescape it first.
- * 
+ *
  * For example, if @parent is "http://wiki.lxde.org/" and @rel is
  * "zh/%E9%A6%96%E9%A0%81", you have to unescape the relative path
  * prior to passing it to fm_path_new_relative().
@@ -454,7 +454,7 @@ FmPath* fm_path_new_for_path(const char* path_name)
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
- * 
+ *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
@@ -488,7 +488,7 @@ static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unes
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
- * 
+ *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
@@ -502,10 +502,10 @@ FmPath* fm_path_new_for_uri(const char* uri)
  * @path_name: a UTF-8 encoded display name for the path
  * It can either be a POSIX path in UTF-8 encoding, or an unescaped URI
  * (can contain non-ASCII characters and spaces)
- * 
+ *
  * You can call fm_path_display_name() to convert a FmPath to a
  * UTF-8 encoded name ready for being displayed in the GUI.
- * 
+ *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
@@ -542,7 +542,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
  *
  * You can call fm_path_to_str() to convert a FmPath back to its string
  * presentation.
- * 
+ *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
@@ -861,8 +861,10 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
     if(p1 == p2)
         return TRUE;
-    if( !p1 || !p2 )
-        return FALSE;
+    if(!p1)
+        return !p2 ? TRUE:FALSE;
+    if(!p2)
+        return !p1 ? TRUE:FALSE;
     if( strcmp(p1->name, p2->name) != 0 )
         return FALSE;
     return fm_path_equal( p1->parent, p2->parent);
@@ -924,15 +926,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
     FmPathList* pl = fm_path_list_new();
     for(uri = uris; *uri; ++uri)
     {
-        FmPath* path;
-        char* unescaped;
-        if(g_str_has_prefix(*uri, "file:"))
-            unescaped = g_filename_from_uri(*uri, NULL, NULL);
-        else
-            unescaped = g_uri_unescape_string(*uri, NULL);
-
-        path = fm_path_new(unescaped);
-        g_free(unescaped);
+        FmPath* path = fm_path_new(*uri);
         fm_list_push_tail_noref(pl, path);
     }
     return pl;

@@ -595,9 +595,12 @@ void on_go_apps(GtkAction* act, FmMainWin* win)
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
 {
     FmPath* path;
-    gtk_entry_set_text(GTK_ENTRY(win->location), path_str);
-    path = fm_path_new(path_str);
+    char* tmp;
+    path = fm_path_new_for_str(path_str);
     fm_folder_view_chdir(FM_FOLDER_VIEW(win->folder_view), path);
+    tmp = fm_path_display_name(path, FALSE);
+    gtk_entry_set_text(GTK_ENTRY(win->location), tmp);
+    g_free(tmp);
     fm_path_unref(path);
 }
 
