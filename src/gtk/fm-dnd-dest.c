@@ -373,12 +373,24 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     dd->info_type = info;
 }
 
-gboolean fm_dnd_dest_drag_motion(FmDndDest* dd, GdkDragContext *drag_context,
-                                 GdkAtom target, guint time)
+GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
+{
+    int i;
+    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
+    {
+        GdkAtom target = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target);
+        if(fm_drag_context_has_target(drag_context, target))
+            return target;
+    }
+    return GDK_NONE;
+}
+
+gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 {
     gboolean ret = FALSE;
     GtkWidget *dest_widget = dd->widget;
     int i;
+
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
     {
         if(gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target) == target)

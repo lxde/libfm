@@ -71,15 +71,18 @@ void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file);
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd);
 FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd);
 
-gboolean fm_drag_context_has_target(GdkDragContext* ctx, GdkAtom target);
+#define fm_drag_context_has_target(ctx, target) \
+    (g_list_find(ctx->targets, target) != NULL)
+
 #define fm_drag_context_has_target_name(ctx, name)  \
     fm_drag_context_has_target(ctx, gdk_atom_intern_static_string(name))
 
 gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
              gint x, gint y, GtkSelectionData *sel_data, guint info, guint time);
 
-gboolean fm_dnd_dest_drag_motion(FmDndDest* dd, GdkDragContext *drag_context,
-                                 GdkAtom target, guint time);
+gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target);
+
+GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context);
 
 gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                                GdkAtom target, guint time);

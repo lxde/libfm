@@ -416,16 +416,15 @@ static GtkTreePath* get_drop_path(FmFolderView* fv, gint x, gint y)
         {
             GtkTreeViewDropPosition pos;
             GtkTreeViewColumn* col;
-            if(gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)fv->view, x, y,
-                            &tp, NULL))
+            gtk_tree_view_convert_widget_to_bin_window_coords(GTK_TREE_VIEW(fv->view), x, y, &x, &y);
+            /* if(gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)fv->view, x, y, &tp, NULL)) */
+            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fv->view), x, y, &tp, &col, NULL, NULL))
             {
-/*
                 if(gtk_tree_view_column_get_sort_column_id(col)!=COL_FILE_NAME)
                 {
                     gtk_tree_path_free(tp);
                     tp = NULL;
                 }
-*/
             }
             gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(fv->view), tp, GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
             break;
@@ -461,7 +460,7 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
 
     ret = FALSE;
     /* files are being dragged */
-    if(fm_dnd_dest_drag_motion(fv->dnd_dest, drag_context, target, time))
+    if(fm_dnd_dest_is_target_supported(fv->dnd_dest, target))
     {
         GtkTreePath* tp = get_drop_path(fv, x, y);
         if(tp)

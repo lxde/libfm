@@ -220,7 +220,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
         action = ret ? GDK_ACTION_MOVE : 0; /* bookmark items can only be moved */
     }
     /* try FmDndDest */
-    else if(fm_dnd_dest_drag_motion(view->dnd_dest, drag_context, target, time))
+    else if(fm_dnd_dest_is_target_supported(view->dnd_dest, target))
     {
         /* the user is dragging files. get FmFileInfo of drop site. */
         if(pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE || pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) /* drag into items */
