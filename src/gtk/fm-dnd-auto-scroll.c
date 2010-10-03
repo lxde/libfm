@@ -97,9 +97,15 @@ static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
                                gint x, gint y, guint time, gpointer user_data)
 {
     FmDndAutoScroll* as = (FmDndAutoScroll*)user_data;
-
+    /* FIXME: this is a dirty hack for GTK_TREE_MODEL_ROW. When dragging GTK_TREE_MODEL_ROW
+     * we cannot receive "drag-leave" message. So weied! Is it a gtk+ bug? */
+    GdkAtom target = gtk_drag_dest_find_target(widget, drag_context, NULL);
+    if(target == GDK_NONE)
+        return FALSE;
     if(0 == as->timeout) /* install a scroll timeout if needed */
+    {
         as->timeout = gdk_threads_add_timeout(150, (GSourceFunc)on_auto_scroll, as);
+    }
     return FALSE;
 }
 

@@ -205,10 +205,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
 
     target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     if(target == GDK_NONE)
-    {
-        gdk_drag_status(drag_context, 0, time);
         return FALSE;
-    }
 
     gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)view, x, y, &tp, &pos);
 
@@ -406,7 +403,6 @@ static void fm_places_view_init(FmPlacesView *self)
                                          "text", FM_PLACES_MODEL_COL_LABEL, NULL );
     gtk_tree_view_append_column ( GTK_TREE_VIEW(self), col );
 
-    /* FIXME: implement gtk_tree_drag_source_row_draggable() to disable dragging of volumes */
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,
                       dnd_src_targets, G_N_ELEMENTS(dnd_src_targets), GDK_ACTION_MOVE);
 
@@ -491,16 +487,27 @@ void fm_places_select(FmPlacesView* pv, FmPath* path)
 
 }
 
-gboolean on_button_release(GtkWidget* view, GdkEventButton* evt)
+gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
 {
-    GtkTreePath* tp;
-    GtkTreeViewColumn* col;
-    if(evt->button == 1 && gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+    FmPlacesView* view = FM_PLACES_VIEW(widget);
+    if(view->clicked_row)
     {
-        gtk_tree_view_row_activated(GTK_TREE_VIEW(view), tp, col);
-        gtk_tree_path_free(tp);
+        if(evt->button == 1)
+        {
+            GtkTreePath* tp;
+            GtkTreeViewColumn* col;
+            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+            {
+                if(gtk_tree_path_compare(tp, view->clicked_row) == 0)
+                    gtk_tree_view_row_activated(GTK_TREE_VIEW(view), view->clicked_row, col);
+                gtk_tree_path_free(tp);
+            }
+        }
+
+        gtk_tree_path_free(view->clicked_row);
+        view->clicked_row = NULL;
     }
-    return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(view, evt);
+    return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
 }
 
 GtkWidget* place_item_get_menu(FmPlaceItem* item)
@@ -568,36 +575,39 @@ _out:
     return menu;
 }
 
-gboolean on_button_press(GtkWidget* view, GdkEventButton* evt)
+gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
 {
+    FmPlacesView* view = FM_PLACES_VIEW(widget);
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
-    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(view, evt);
+    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
 
-    if(evt->button == 2) /* middle click */
+    gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL);
+    view->clicked_row = tp;
+    if(tp)
     {
-        if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+        switch(evt->button) /* middle click */
         {
+        case 1: /* left click */
+            break;
+        case 2: /* middle click */
             activate_row(view, 2, tp);
-            gtk_tree_path_free(tp);
-        }
-    }
-    else if(evt->button == 3) /* right click */
-    {
-        if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
-        {
-            GtkTreeIter it;
-            if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
-                && !fm_places_model_iter_is_separator(model, &it) )
+            break;
+        case 3: /* right click */
             {
-                FmPlaceItem* item;
-                GtkWidget* menu;
-                gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-                menu = place_item_get_menu(item);
-                if(menu)
-                    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+                GtkTreeIter it;
+                if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
+                    && !fm_places_model_iter_is_separator(model, &it) )
+                {
+                    FmPlaceItem* item;
+                    GtkWidget* menu;
+                    gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+                    menu = place_item_get_menu(item);
+                    if(menu)
+                        gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+                }
             }
-            gtk_tree_path_free(tp);
+            break;
         }
     }
     return ret;

@@ -71,9 +71,6 @@ static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
-static gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
-									   GdkDragAction* action, FmFolderView* fv);
-
 static void on_single_click_changed(FmConfig* cfg, FmFolderView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
@@ -452,11 +449,9 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
     gboolean ret;
     GdkDragAction action = 0;
     GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
+
     if(target == GDK_NONE)
-    {
-        gdk_drag_status(drag_context, 0, time);
         return FALSE;
-    }
 
     ret = FALSE;
     /* files are being dragged */
@@ -489,11 +484,12 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
     return ret;
 }
 
-static gboolean on_drag_leave(GtkWidget *dest_widget,
+static void on_drag_leave(GtkWidget *dest_widget,
                                 GdkDragContext *drag_context,
                                 guint time,
                                 FmFolderView* fv)
 {
+    g_debug("ON_DRAG_LEAVE");
     fm_dnd_dest_drag_leave(fv->dnd_dest, drag_context, time);
 }
 
@@ -1142,62 +1138,6 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
         fm_dnd_src_set_files(ds, files);
         fm_list_unref(files);
     }
-}
-
-gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
-			GdkDragAction* action, FmFolderView* fv)
-{
-	GtkTreePath* tp = NULL;
-	gboolean droppable = TRUE;
-    switch(fv->mode)
-    {
-    case FM_FV_LIST_VIEW:
-		{
-			GtkTreeViewDropPosition pos;
-			GtkTreeViewColumn* col;
-			if(gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)fv->view, x, y,
-							&tp, NULL))
-			{
-/*
-				if(gtk_tree_view_column_get_sort_column_id(col)!=COL_FILE_NAME)
-				{
-					gtk_tree_path_free(tp);
-					tp = NULL;
-				}
-*/
-			}
-			gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(fv->view), tp, GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
-			break;
-		}
-	case FM_FV_ICON_VIEW:
-	case FM_FV_COMPACT_VIEW:
-    case FM_FV_THUMBNAIL_VIEW:
-		{
-			tp = exo_icon_view_get_path_at_pos((const struct ExoIconView *)fv->view, x, y);
-			exo_icon_view_set_drag_dest_item(EXO_ICON_VIEW(fv->view), tp, EXO_ICON_VIEW_DROP_INTO);
-			break;
-		}
-	}
-
-	if(tp)
-	{
-		GtkTreeIter it;
-		if(gtk_tree_model_get_iter(fv->model, &it, tp))
-		{
-			FmFileInfo* fi;
-			gtk_tree_model_get(fv->model, &it, COL_FILE_INFO, &fi, -1);
-			fm_dnd_dest_set_dest_file(dd, fi);
-		}
-		gtk_tree_path_free(tp);
-	}
-	else
-	{
-        /* FIXME: prevent direct access to data members. */
-		FmFolderModel* model = (FmFolderModel*)fv->model;
-		FmPath* dir_path =  model->dir->dir_path;
-        fm_dnd_dest_set_dest_file(dd, model->dir->dir_fi);
-	}
-	return FALSE;
 }
 
 
