@@ -47,7 +47,7 @@ static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
 gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest)
 {
     GError* err = NULL;
-    if(g_file_equal(src, dest))
+    if(job->type == FM_FILE_OP_MOVE && g_file_equal(src, dest))
     {
         err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
             _("Source and destination are the same."));
