@@ -371,6 +371,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     dd->src_files = files;
     dd->waiting_data = FALSE;
     dd->info_type = info;
+    return TRUE;
 }
 
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
