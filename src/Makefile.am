@@ -245,6 +245,7 @@ libfm_pref_apps_LDADD = \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
 	libfm-gtk.la \
+	libfm.la \
 	$(NULL)
 
 
