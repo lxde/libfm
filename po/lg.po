@@ -1,0 +1,609 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"PO-Revision-Date: 2010-10-15 23:19+0200\n"
+"Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
+"Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
+"Language: lg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Kiragiro</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Kika kya fayiro ekinaabikkulibwa:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Obubonero buno bulin'amakulu ga njawlo mu kiwandikiro:</b>\n"
+"  <b>%f</b>: We kaba waddawo erinnya lya fayiro emu\n"
+"  <b>%F</b>: We kaba wadawo mannya ga fayiro ezisukka mu emu\n"
+"  <b>%u</b>: We kaba waddawo ndagiriro ey'oku yintaneti emu\n"
+"  <b>%U</b>: We kabawaddawo ndagiriro ez'oku yintaneti ezisukkamu emu"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Londa puloguramu"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Wandika ekiragiriro kyo"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Omulimu gukolere okuva mu kiwandikiro"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Puloguramu ewangidwa ku kompyuta"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Puloguramu erondedwa y,eba ekola ku fayiro ez'ekika kino bulijjo"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Yandaaza"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Wasangidwawo fayiro endala nga erinnya lye lirimu.</b>\n"
+"\n"
+"Fayiro eyo esooke egyibwewo?"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Ekirondedwa kitegekebwe ne ku fayiro endala zonna eziriwo"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Kakasa nti fayiro ezisangidwawo za kugyibwawo"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Erinnya lya fayiro:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Gyawo esangidwawo"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Kyusa erinnya"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Buuka"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "waddewo fayiro eno?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Eby'endukusa</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Kika kya fayiro:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Guluupu:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Amabikkula agaasemba:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Amakyuka agaasemba:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Obusangiro:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>B_ikkuza:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Balala:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Nyini yo:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Ebbanga eritwalibwa ku disiki:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Kigenderwa:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Obunene obw'endagiriro ya fayiro:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Guluupu:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Nyini yo:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Ebikwata ku fayiro"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Fayiro efuuke puloguramu"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Bwereere"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Buli omu by'ayinza okukola"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Nyini fayiro by'ayinza okukola"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr "Abafaananya nyini fayiro guluupu bye bayinza okukola"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Kugibikkula n'okugiwandikamu"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Kugibikkula kwokka"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Londa puloguramu enaakozesebwanga okubikkula fayiro ez'ekika kino "
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Kuwandika kwokka"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Ebitalibimu"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_Ndukusa"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Nkola ku:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>We gutuuse:</b>"
+
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Musangidwamu obuzibu buno:</b>"
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Ebulayo:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
+msgid "<b>To:</b>"
+msgstr "<b>Egende mu:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:9
+msgid "Preparing..."
+msgstr "Ntegeka..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+msgid "<b>Mail client</b>"
+msgstr "<b>Puloguramu eya email</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Kika kya kiwandikiro</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Ekyandaaza</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Ekiragiro:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Ebika bya fayiro ne puloguramu ezibikolako"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Puloguramu ennondemu"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "Puloguramu eziteekateeka sisitemu"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Puloguramu ennondemu eya email y'enaatandikanga ng'okoonye ku ndagiriro eya "
+"email."
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Ekyandaaza ky'olonzemu kye kinaakozesebwanga okukebera ennyunzi."
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "bayiti %u"
+msgstr[1] "bayiti %u"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:53
+msgid "Shortcuts"
+msgstr "Panya"
+
+#: ../src/base/fm-file-info.c:56
+msgid "Mount Point"
+msgstr "Awawangirwa"
+
+#: ../src/base/fm-path.c:436
+msgid "Trash Can"
+msgstr "Bisuulidwa"
+
+#: ../src/base/fm-path.c:438
+msgid "My Computer"
+msgstr "Kompyuta Yange"
+
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+msgid "Applications"
+msgstr "Puloguramu"
+
+#: ../src/base/fm-path.c:449
+msgid "Network"
+msgstr "Kayungirizi"
+
+#: ../src/gtk/fm-progress-dlg.c:150
+msgid ": "
+msgstr ": "
+
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"Kika: %s\n"
+"Bunene: %s\n"
+"Amakyusa: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Kika: %s\n"
+"Amakyusa: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:309
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Ekibadde kikolebwa ku fayiro kisazidwamu era mubaddemu n'obulemu."
+
+#: ../src/gtk/fm-progress-dlg.c:311
+msgid "Cancelled"
+msgstr "Kisazidwamu"
+
+#: ../src/gtk/fm-progress-dlg.c:315
+msgid "The file operation is finished, but there are some errors."
+msgstr "Omulimu guwedde, naye mubaddemu ku bulemu."
+
+#: ../src/gtk/fm-progress-dlg.c:317
+msgid "Finished"
+msgstr "Guwedde"
+
+#: ../src/gtk/fm-progress-dlg.c:335
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+"Fayiro ezimu tekisobose okuzitwala mu bisuulidwa olw'okubanga sisitemu eza "
+"fayiro kwe ziri tezikikkiriza.\n"
+"Nzigyewobugya?"
+
+#: ../src/gtk/fm-progress-dlg.c:429
+msgid ", "
+msgstr ", "
+
+#: ../src/gtk/fm-progress-dlg.c:444
+msgid "Moving files"
+msgstr "Fayiro nzijjulula"
+
+#: ../src/gtk/fm-progress-dlg.c:447
+msgid "Copying files"
+msgstr "Fayiro nzikolamu koppi"
+
+#: ../src/gtk/fm-progress-dlg.c:450
+msgid "Trashing files"
+msgstr "Fayiro nziteeka mu bisuulidwa"
+
+#: ../src/gtk/fm-progress-dlg.c:453
+msgid "Deleting files"
+msgstr "Fayiro nzigyawo"
+
+#: ../src/gtk/fm-progress-dlg.c:456
+msgid "Creating symlinks"
+msgstr "Nkolawo nyunzi"
+
+#: ../src/gtk/fm-progress-dlg.c:459
+msgid "Changing file attributes"
+msgstr "Nkyusa atiributo za fayiro"
+
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "bayiti"
+msgstr[1] "bayiti"
+
+#: ../src/gtk/fm-file-properties.c:176
+msgid "Please enter a valid user name or numeric id."
+msgstr "Wandika erinnya oba namba ya mukozesa ebikkirizibwa."
+
+#: ../src/gtk/fm-file-properties.c:208
+msgid "Please enter a valid group name or numeric id."
+msgstr "Wandika erinnya oba namba ya guluupu ebikkirizibwa."
+
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Enkyuka zino nzikole ku fayiro zonna n'amaterekero agali munda mu lino?"
+
+#: ../src/gtk/fm-file-properties.c:630
+msgid "Files of different types"
+msgstr "Fayiro ez'ebika ebyawufu"
+
+#: ../src/gtk/fm-file-properties.c:663
+msgid "Multiple Files"
+msgstr "Fayiro ezisukka mu emu"
+
+#: ../src/gtk/fm-places-view.c:133
+msgid "Mount Volume"
+msgstr "Wanga ekibondo"
+
+#: ../src/gtk/fm-places-view.c:134
+msgid "Unmount Volume"
+msgstr "Wangula ekibondo"
+
+#: ../src/gtk/fm-places-view.c:135
+msgid "Eject Removable Media"
+msgstr "Wandula ekitereka data ekigyikamu"
+
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+msgid "Rename Bookmark Item"
+msgstr "Kyusa erinnya ly'akakwatakifo"
+
+#: ../src/gtk/fm-places-view.c:149
+msgid "Remove from Bookmark"
+msgstr "Gyawo akakwatakifo"
+
+#: ../src/gtk/fm-places-view.c:161
+msgid "Empty Trash"
+msgstr "Kunkumula ebisuulidwa"
+
+#: ../src/gtk/fm-places-view.c:499
+msgid "Trash"
+msgstr "Bisuulidwa"
+
+#: ../src/gtk/fm-places-view.c:553
+msgid "Desktop"
+msgstr "Awakolerwa"
+
+#: ../src/gtk/fm-places-view.c:892
+msgid "Enter a new name:"
+msgstr "Wandika erinnya ppya:"
+
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+msgid "Open With..."
+msgstr "Bikkuza..."
+
+#: ../src/gtk/fm-file-menu.c:90
+msgid "Rename"
+msgstr "Kyusa erinnya"
+
+#: ../src/gtk/fm-file-menu.c:91
+msgid "Create Symlink"
+msgstr "Kolawo nyunzi"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Send To"
+msgstr "Sindikira"
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Compress..."
+msgstr "Pakira..."
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract Here"
+msgstr "Pakulira wano"
+
+#: ../src/gtk/fm-file-menu.c:95
+msgid "Extract To..."
+msgstr "Pakulira..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr "_Zawo"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr "Fayiro eziri mu bisuulidwa zizewo gyezagyibwa"
+
+#: ../src/gtk/fm-dnd-dest.c:529
+msgid "XDirectSave failed."
+msgstr "Omulimu ogwa XDirectSave gugaanye."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:96
+msgid "Use selected application to open files"
+msgstr "Fayiro zibikkuze puloguramu erondedwa"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:103
+msgid "Execute custom command line to open files"
+msgstr "Fayiro zibukkuze ekiragiro ky'owandise"
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Wekyusize"
+
+#: ../src/gtk/fm-folder-view.c:524
+msgid "Name"
+msgstr "Linnya"
+
+#: ../src/gtk/fm-folder-view.c:543
+msgid "Description"
+msgstr "Okunnyonyola"
+
+#: ../src/gtk/fm-folder-view.c:550
+msgid "Size"
+msgstr "Bunene"
+
+#: ../src/gtk/fm-folder-view.c:556
+msgid "Modified"
+msgstr "Amakyusa"
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr "Puloguramu eziwangidwa"
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr "Kiremya"
+
+#: ../src/gtk/fm-gtk-utils.c:254
+msgid "Please select a folder"
+msgstr "Londa tterekero"
+
+#: ../src/gtk/fm-gtk-utils.c:403
+msgid "Only system administrators have the permission to do this."
+msgstr "Kino kiyinzibwa bateesiteesi ba sisitemu bokka."
+
+#: ../src/gtk/fm-gtk-utils.c:482
+msgid "Do you want to move the selected files to trash can?"
+msgstr "Fayiro z'olonze nzitwale mu bisuulidwa?"
+
+#: ../src/gtk/fm-gtk-utils.c:503
+msgid "Do you want to delete the selected files?"
+msgstr "Fayiro z'olonze nzigyewo?"
+
+#: ../src/gtk/fm-gtk-utils.c:549
+msgid "Rename File"
+msgstr "Fayiro gikyuse erinnya"
+
+#: ../src/gtk/fm-gtk-utils.c:549
+msgid "Please enter a new name:"
+msgstr "Wandika erinnya ppya:"
+
+#: ../src/gtk/fm-gtk-utils.c:571
+msgid "Are you sure you want to empty the trash can?"
+msgstr "Okakasa nti oyagala okukunkumula ebisuulidwa?"
+
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "Ky'olonze tekikkirizidwa"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr "Ennono n'ekigenderwa bye bimu."
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr "Tekisoboka okujjulula tterekero ligende mu eririri munda ate"
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr "Tekisoboka okuteeka kopi y'etterekero munda mw'eririri munda ate"
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr "Gyoyagala okutwala wali munda mwalyo ate"

@@ -1,0 +1,612 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-16 19:25+0800\n"
+"PO-Revision-Date: 2010-08-25 13:51+0200\n"
+"Last-Translator: Анік <xabzan9tka@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Выканаць у загадным радку:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Тып файла для адкрыцця:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format, 
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Спецыяльныя коды загаднага радку:</b>\n"
+"<b>%f</b>: Паказвае імя аднаго файла\n"
+"<b>%F</b>: Паказвае імёны некалькіх файлаў\n"
+"<b>%u</b>: Паказвае шлях аднаго файла\n"
+"<b>%U</b>: Паказвае шляхі некалькіх файлаў"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Выбярыце праграму"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Іншы загадны радок"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Выканаць у эмулятары тэрмінала"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Усталяваная праграма"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Абраць праграму, якая па змаўчанні адчыняе дадзены тып файлаў"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Агляд"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Файл з такім імём ужо існуе ў абраным каталёгу</b>\n"
+"\n"
+"Вы жадаеце замяніць існуючы файл?"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Ужыць да ўсіх файлаў"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Пацвярджэнне перамяшчэння файлаў"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Імя файла:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Замяніць"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Пераіменаваць"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "Пр_апусціць"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "з наступным файлам?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Кіраванне доступам</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Тып файла:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Група:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Апошні доступ:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Апошняе змяненне:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Месцазнаходжанне:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Адчыніць _з дапамогай:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Іншае:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Уладальнік:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Памер на дыску:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Мэта:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Агульны памер файлаў:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Група:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Уладальнік:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Уласцівасці файлу"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Зрабіць файл выконваемым"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Нічога"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Правы ўсіх астатніх карыстачоў"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Правы уладальніка файла"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr "Правы групы, у якой знаходзіцца ўладальнік файла"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Чытанне і запіс"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Толькі чытанне"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Абярыце праграму для запуску файлаў гэтага тыпу"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Толькі запіс"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Агульныя"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "Правы _доступу"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Выконваецца</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Выканана:</b>"
+
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Узніклі памылкі:</b>"
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Застаўшыся час:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
+msgid "<b>To:</b>"
+msgstr "<b>У:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:9
+msgid "Preparing..."
+msgstr "Падрыхтоўка..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+msgid "<b>Mail client</b>"
+msgstr "<b>Паштовы кліент</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Эмулятар тэрміналу</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Веб-браўзер</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Загадны радок:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Файлавыя асацыяцыі"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Пераважныя праграмы"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "Сістэмныя праграмы"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Пераважны паштовы кліент, які будзе выкарыстоўвацца для стварэння "
+"электроннага ліста, калі вы пстрыкніце па e-mail адрасу."
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Пераважны вэб-браўзер, які будзе выкарыстоўвацца для адкрыцця спасылак "
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u байт"
+msgstr[1] "%u байта"
+msgstr[2] "%u байт"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr "КБ"
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr "МБ"
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr "ГБ"
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr "КіБ"
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr "МіБ"
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr "ГіБ"
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr "ТіБ"
+
+#: ../src/base/fm-file-info.c:53
+msgid "Shortcuts"
+msgstr "Цэтлікі"
+
+#: ../src/base/fm-file-info.c:56
+msgid "Mount Point"
+msgstr "Кропка манціравання"
+
+#: ../src/base/fm-path.c:436
+msgid "Trash Can"
+msgstr "Сметніца"
+
+#: ../src/base/fm-path.c:438
+msgid "My Computer"
+msgstr "Мой кампутар"
+
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:568
+msgid "Applications"
+msgstr "Праграмы"
+
+#: ../src/base/fm-path.c:449
+msgid "Network"
+msgstr "Сетка"
+
+#: ../src/gtk/fm-progress-dlg.c:150
+msgid ": "
+msgstr ":"
+
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"Тып: %s\n"
+"Памер: %s\n"
+"Зменены: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Тып: %s\n"
+"Зменены: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:309
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Аперацыя над файламі будзе адменена і ёсць некаторыя памылкі."
+
+#: ../src/gtk/fm-progress-dlg.c:311
+msgid "Cancelled"
+msgstr "Адменена"
+
+#: ../src/gtk/fm-progress-dlg.c:315
+msgid "The file operation is finished, but there are some errors."
+msgstr "Аперацыя над файламі завешана, але ёсць некаторыя памылкі."
+
+#: ../src/gtk/fm-progress-dlg.c:317
+msgid "Finished"
+msgstr "Завершана"
+
+#: ../src/gtk/fm-progress-dlg.c:335
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+"Некаторыя файлы не могуць быць змешчаны ў сметніцу, паколькі файлавая "
+"сістэма не падтрымлівае гэтую аперацыю.\n"
+"Вы ўсё роўна жадаеце выдаліць іх?"
+
+#: ../src/gtk/fm-progress-dlg.c:429
+msgid ", "
+msgstr ","
+
+#: ../src/gtk/fm-progress-dlg.c:444
+msgid "Moving files"
+msgstr "Перамяшчэнне файлаў"
+
+#: ../src/gtk/fm-progress-dlg.c:447
+msgid "Copying files"
+msgstr "Капіяванне файлаў"
+
+#: ../src/gtk/fm-progress-dlg.c:450
+msgid "Trashing files"
+msgstr "Выдаленне файлаў у сметніцу"
+
+#: ../src/gtk/fm-progress-dlg.c:453
+msgid "Deleting files"
+msgstr "Выдаленне файлаў"
+
+#: ../src/gtk/fm-progress-dlg.c:456
+msgid "Creating symlinks"
+msgstr "Стварэнне сімвалічных спасылак"
+
+#: ../src/gtk/fm-progress-dlg.c:459
+msgid "Changing file attributes"
+msgstr "Змяніць атрыбуты файла"
+
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "байт  "
+msgstr[1] "байта"
+msgstr[2] "байт"
+
+#: ../src/gtk/fm-file-properties.c:176
+msgid "Please enter a valid user name or numeric id."
+msgstr "Увядзіце сапраўднае імя карыстальніка ці лічбавы id."
+
+#: ../src/gtk/fm-file-properties.c:208
+msgid "Please enter a valid group name or numeric id."
+msgstr "Увядзіце сапраўднае імя групы ці лічбавы id."
+
+#: ../src/gtk/fm-file-properties.c:356
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Вы жадаеце прымяніць змены да ўкладзеных файлаў і тэчак?"
+
+#: ../src/gtk/fm-file-properties.c:630
+msgid "Files of different types"
+msgstr "Файлы розных тыпаў"
+
+#: ../src/gtk/fm-file-properties.c:663
+msgid "Multiple Files"
+msgstr "Некалькі файлаў"
+
+#: ../src/gtk/fm-places-view.c:133
+msgid "Mount Volume"
+msgstr "Манціраваць дыск "
+
+#: ../src/gtk/fm-places-view.c:134
+msgid "Unmount Volume"
+msgstr "Адманціраваць дыск "
+
+#: ../src/gtk/fm-places-view.c:135
+msgid "Eject Removable Media"
+msgstr "Выняць дыск"
+
+#: ../src/gtk/fm-places-view.c:148 ../src/gtk/fm-places-view.c:891
+msgid "Rename Bookmark Item"
+msgstr "Пераіменаваць закладку"
+
+#: ../src/gtk/fm-places-view.c:149
+msgid "Remove from Bookmark"
+msgstr "Выдаліць з закладак"
+
+#: ../src/gtk/fm-places-view.c:161
+msgid "Empty Trash"
+msgstr "Ачысціць сметніцу"
+
+#: ../src/gtk/fm-places-view.c:499
+msgid "Trash"
+msgstr "Сметніца"
+
+#: ../src/gtk/fm-places-view.c:553
+msgid "Desktop"
+msgstr "Працоўны стол"
+
+#: ../src/gtk/fm-places-view.c:892
+msgid "Enter a new name:"
+msgstr "Увядзіце новае імя:"
+
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+msgid "Open With..."
+msgstr "Адкрыць з дапамогай..."
+
+#: ../src/gtk/fm-file-menu.c:90
+msgid "Rename"
+msgstr "Пераіменаваць"
+
+#: ../src/gtk/fm-file-menu.c:91
+msgid "Create Symlink"
+msgstr "Стварыць сімвальную спасылку"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Send To"
+msgstr "Адправіць"
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Compress..."
+msgstr "Спакаваць..."
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract Here"
+msgstr "Распакаваць сюды"
+
+#: ../src/gtk/fm-file-menu.c:95
+msgid "Extract To..."
+msgstr "Распакаваць у ..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr "_Аднавіць"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr "Аднавіць файлы са сметніцы да пачатковага стану"
+
+#: ../src/gtk/fm-dnd-dest.c:529
+msgid "XDirectSave failed."
+msgstr "Памылка XDirectSave."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:96
+msgid "Use selected application to open files"
+msgstr "Ужываць абраную праграму для адкрыцця файлаў"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:103
+msgid "Execute custom command line to open files"
+msgstr "Выканаць уласны загад для адкрыцця файлаў"
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Наладзіць"
+
+#: ../src/gtk/fm-folder-view.c:524
+msgid "Name"
+msgstr "Імя"
+
+#: ../src/gtk/fm-folder-view.c:543
+msgid "Description"
+msgstr "Апісанне"
+
+#: ../src/gtk/fm-folder-view.c:550
+msgid "Size"
+msgstr "Памер"
+
+#: ../src/gtk/fm-folder-view.c:556
+msgid "Modified"
+msgstr "Зменена"
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr "Усталяваныя праграмы"
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr "Памылка"
+
+#: ../src/gtk/fm-gtk-utils.c:254
+msgid "Please select a folder"
+msgstr "Калі ласка, абярыце тэчку"
+
+#: ../src/gtk/fm-gtk-utils.c:403
+msgid "Only system administrators have the permission to do this."
+msgstr "Толькі сістэмны адміністратар мае дазвол на гэта."
+
+#: ../src/gtk/fm-gtk-utils.c:482
+msgid "Do you want to move the selected files to trash can?"
+msgstr "Жадаеце перамясціць абраныя файлы ў сметніцу?"
+
+#: ../src/gtk/fm-gtk-utils.c:503
+msgid "Do you want to delete the selected files?"
+msgstr "Жадаеце перамясціць абраныя файлы ?"
+
+#: ../src/gtk/fm-gtk-utils.c:549
+msgid "Rename File"
+msgstr "Пераіменаваць файл"
+
+#: ../src/gtk/fm-gtk-utils.c:549
+msgid "Please enter a new name:"
+msgstr "Увядзіце новае імя:"
+
+#: ../src/gtk/fm-gtk-utils.c:571
+msgid "Are you sure you want to empty the trash can?"
+msgstr "Жадаеце ачысціць сметніцу?"
+
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "Указаны каталог не існуе"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr "Старое і новае месца супадаюць "
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr "Не магчыма перамясціць тэчку ў падтэчку"
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr "Не магчыма капіяваць тэчку ў падтэчку"
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr "Тэчка прызначэння - падтэчка выходнай тэчкі"
