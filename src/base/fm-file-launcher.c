@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include "fm-file-launcher.h"
 #include "fm-file-info-job.h"
+#include "fm-app-info.h"
 
 static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_infos)
 {
@@ -119,7 +120,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
     }
 
     if(app)
-        ret = g_app_info_launch_uris(app, uris, ctx, &err);
+        ret = fm_app_info_launch_uris(app, uris, ctx, &err);
 
     if(err)
     {
@@ -237,7 +238,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);
-                g_app_info_launch_uris(app, fis, ctx, err);
+                fm_app_info_launch_uris(app, fis, ctx, err);
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);

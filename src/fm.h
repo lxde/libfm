@@ -22,6 +22,7 @@
 #ifndef __LIBFM_FM_H__
 #define __LIBFM_FM_H__
 
+#include "fm-app-info.h"
 #include "fm-archiver.h"
 #include "fm-bookmarks.h"
 #include "fm-config.h"

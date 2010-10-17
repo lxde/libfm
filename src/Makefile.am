@@ -53,6 +53,7 @@ base_SOURCES = \
 	base/fm-monitor.c \
 	base/fm-dummy-monitor.c \
 	base/fm-archiver.c \
+	base/fm-app-info.c \
 	base/fm-marshal.c \
 	$(NULL)
 
@@ -132,6 +133,7 @@ libfminclude_HEADERS = \
 	base/fm-monitor.h \
 	base/fm-dummy-monitor.h \
 	base/fm-archiver.h \
+	base/fm-app-info.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -338,24 +340,6 @@ CLEANFILES = \
 	base/fm-marshal.c \
 	gtk/fm-gtk-marshal.h \
 	gtk/fm-gtk-marshal.c \
-	$(NULL)
-
-# Wrapper program named gnome-terminal used to override the default terminal
-# of glib/gio since it calls gnome-terminal when a term is needed, and this
-# is hard coded in glib.
-pkglib_PROGRAMS=gnome-terminal
-
-gnome_terminal_SOURCES = \
-	gnome-terminal-wrapper.c \
-	$(NULL)
-
-gnome_terminal_CFLAGS = \
-	$(GLIB_CFLAGS) \
-	-Werror-implicit-function-declaration \
-	$(NULL)
-
-gnome_terminal_LDADD = \
-	$(GLIB_LIBS) \
 	$(NULL)
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget

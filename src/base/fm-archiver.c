@@ -25,6 +25,7 @@
 
 #include "fm-config.h"
 #include "fm-archiver.h"
+#include "fm-app-info.h"
 #include <gio/gdesktopappinfo.h>
 #include <string.h>
 
@@ -107,7 +108,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
             FmPath* path = FM_PATH(l->data);
             uris = g_list_prepend(uris, fm_path_to_uri(path));
         }
-        g_app_info_launch_uris(app, uris, ctx, NULL);
+        fm_app_info_launch_uris(app, uris, ctx, NULL);
         g_list_foreach(uris, (GFunc)g_free, NULL);
         g_list_free(uris);
     }

@@ -37,6 +37,7 @@
 #include "fm-gtk-utils.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-archiver.h"
+#include "fm-app-info.h"
 
 static void on_open(GtkAction* action, gpointer user_data);
 static void on_open_with_app(GtkAction* action, gpointer user_data);
@@ -339,7 +340,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
     /* FIXME: error handling. */
-    g_app_info_launch_uris(app, uris, ctx, NULL);
+    fm_app_info_launch_uris(app, uris, ctx, NULL);
     g_object_unref(ctx);
 
     g_list_foreach(uris, (GFunc)g_free, NULL);
