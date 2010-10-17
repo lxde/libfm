@@ -117,20 +117,7 @@ static char* expand_exec_macros(GAppInfo* app, GKeyFile* kf, GList* gfiles)
         append_file_to_cmd(G_FILE(gfiles->data), cmd);
     }
 
-    terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
-    /* add terminal emulator command */
-    if(terminal)
-    {
-        /* FIXME: this is unsafe */
-        if(strstr(fm_config->terminal, "%s"))
-            ret = g_strdup_printf(fm_config->terminal, cmd->str);
-        else /* if %s is not found, fallback to -e */
-            ret = g_strdup_printf("%s -e %s", fm_config->terminal, cmd->str);
-        g_string_free(cmd, TRUE);
-    }
-    else
-        ret = g_string_free(cmd, FALSE);
-    return ret;
+    return g_string_free(cmd, FALSE);
 }
 
 struct ChildSetup
@@ -148,22 +135,47 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
+static char* expand_terminal(char* cmd)
+{
+    char* ret;
+    /* add terminal emulator command */
+    /* FIXME: this is very unsafe */
+    if(strstr(fm_config->terminal, "%s"))
+        ret = g_strdup_printf(fm_config->terminal, cmd);
+    else /* if %s is not found, fallback to -e */
+        ret = g_strdup_printf("%s -e %s", fm_config->terminal, cmd);
+    return ret;
+}
+
 gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
 {
     gboolean ret = FALSE;
     char* cmd, *path;
     char** argv;
     int argc;
+    gboolean use_terminal;
 
     cmd = expand_exec_macros(appinfo, kf, gfiles);
-    g_debug("FmApp: launch command: <%s>", cmd);
+    use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
+    if(use_terminal)
+    {
+        char* term_cmd = expand_terminal(cmd);
+        g_free(cmd);
+        cmd = term_cmd;
+    }
+
+    g_debug("launch command: <%s>", cmd);
     if(g_shell_parse_argv(cmd, &argc, &argv, err))
     {
         struct ChildSetup data;
         if(ctx)
         {
             data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
-            data.sn_id = g_app_launch_context_get_startup_notify_id(ctx, appinfo, gfiles);
+            /* FIXME: console programs should use sn_id of terminal emulator instead. */
+            if(!use_terminal)
+                data.sn_id = g_app_launch_context_get_startup_notify_id(ctx, appinfo, gfiles);
+            else
+                data.sn_id = NULL;
         }
         else
         {
@@ -252,6 +264,6 @@ gboolean fm_app_info_launch_default_for_uri(const char *uri,
                                             GError **error)
 {
     /* FIXME: implement this */
-    return FALSE;
+    return g_app_info_launch_default_for_uri(uri, launch_context, error);
 }
 
