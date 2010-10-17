@@ -170,9 +170,19 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
         struct ChildSetup data;
         if(ctx)
         {
+            gboolean use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
             data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
-            /* FIXME: console programs should use sn_id of terminal emulator instead. */
-            if(!use_terminal)
+
+            if(!use_sn)
+            {
+                /* if the app doesn't explicitly ask us not to use sn,
+                 * use it by default, unless it's a console app. */
+                if(!g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
+                    use_sn = !use_terminal; /* we only use sn for GUI apps by default */
+                /* FIXME: console programs should use sn_id of terminal emulator instead. */
+            }
+
+            if(use_sn)
                 data.sn_id = g_app_launch_context_get_startup_notify_id(ctx, appinfo, gfiles);
             else
                 data.sn_id = NULL;
