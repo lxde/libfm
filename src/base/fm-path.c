@@ -926,7 +926,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
     FmPathList* pl = fm_path_list_new();
     for(uri = uris; *uri; ++uri)
     {
-        FmPath* path = fm_path_new(*uri);
+        FmPath* path = fm_path_new_for_uri(*uri);
         fm_list_push_tail_noref(pl, path);
     }
     return pl;

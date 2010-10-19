@@ -163,7 +163,7 @@ static void fm_path_entry_changed(GtkEditable *editable)
     if( !fm_path_equal_str(priv->path, original_key, key_dir_len) )
     {
         gchar* new_path = g_path_get_dirname(original_key);
-        FmPath *new_fm_path = fm_path_new(new_path);
+        FmPath *new_fm_path = fm_path_new_for_str(new_path);
         g_free(new_path);
         if( new_fm_path != NULL )
         {

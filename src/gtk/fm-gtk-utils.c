@@ -149,7 +149,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
     }
 
     str = _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
-    path = fm_path_new(str);
+    path = fm_path_new_for_str(str);
 
     g_free(path_str);
     g_free(str);
@@ -261,11 +261,9 @@ FmPath* fm_select_folder(GtkWindow* parent)
                                         GTK_RESPONSE_OK, NULL);
     if( gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK )
     {
-        char* file = gtk_file_chooser_get_filename(chooser);
-        if(!file)
-            file = gtk_file_chooser_get_uri(chooser);
-        path = fm_path_new(file);
-        g_free(file);
+        GFile* file = gtk_file_chooser_get_file(chooser);
+        path = fm_path_new_for_gfile(file);
+        g_object_unref(file);
     }
     else
         path = NULL;

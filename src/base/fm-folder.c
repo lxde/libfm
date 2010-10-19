@@ -334,8 +334,8 @@ static void on_job_finished(FmDirListJob* job, FmFolder* folder)
 
 static FmJobErrorAction on_job_err(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
 {
-	FmJobErrorAction ret;
-	g_signal_emit(folder, signals[ERROR], 0, err, severity, &ret);
+    FmJobErrorAction ret;
+    g_signal_emit(folder, signals[ERROR], 0, err, severity, &ret);
     return ret;
 }
 
@@ -470,7 +470,7 @@ FmFolder* fm_folder_get_for_path(FmPath* path)
 
 FmFolder* fm_folder_get_for_path_name(const char* path)
 {
-    FmPath* fm_path = fm_path_new(path);
+    FmPath* fm_path = fm_path_new_for_str(path);
     FmFolder* folder = fm_folder_get_internal(fm_path, NULL);
     fm_path_unref(fm_path);
     return folder;
