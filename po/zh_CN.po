@@ -19,11 +19,11 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>要执行的命令行：</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>要打开的文件类型：</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -34,30 +34,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>以下特殊代码可以在终端中使用：</b>\n"
+"  <b>%f</b>：代表单个文件名\n"
+"  <b>%F</b>：代表多个文件名\n"
+"  <b>%u</b>：代表单个文件 URI\n"
+"  <b>%U</b>：代表多个 URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "选择一个应用程序"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "自定义命令行"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "在终端模拟器中执行"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "已安装的应用程序"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "将选择的应用程序作为对这种文件类型的默认操作"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "浏览(_B)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -65,274 +70,276 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>该位置已经存在一个同名的文件。</b>\n"
+"\n"
+"您是否想替换现有的文件"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "将该操作应用于所有存在的文件。"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "确认文件替换"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "文件名："
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "覆盖(_O)"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "重命名(_R)"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "跳过(_S)"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "针对以下文件？"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>访问控制</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>文件类型：</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>组：</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>上次访问：</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>上次修改：</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>位置：</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>打开方式(_W)：</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>其他：</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>属于：</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>磁盘上的大小：</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>目标：</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>文件总大小：</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>组(_G)：</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>属于(_O)：</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "文件属性"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "使文件可执行"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "所有其他用户可以进行的操作"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "文件的拥有者可以进行的操作"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "与文件拥有者在同一组的用户可以进行的操作"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "读写"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "只读"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "选择用于打开此类文件的应用程序 "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "只写"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "常规(_G)"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "权限(_P)"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>处理：</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>进度：</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>出现了一些错误：</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>剩余时间：</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>到：</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "正在准备..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>邮件客户端</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>终端模拟器</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>网络浏览器</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "命令行："
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "文件关联"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr ""
+msgstr "优先使用的应用程序"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "系统应用程序"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
-msgstr ""
+msgstr "优先使用的邮件客户端将会用于您点击电子邮件地址时撰写邮件。"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "用于打开超链接的优先网络浏览器。"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u 字节"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "快捷方式"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "挂载点"
 
 #: ../src/base/fm-path.c:729
 msgid "Trash Can"
-msgstr ""
+msgstr "回收站"
 
 #: ../src/base/fm-path.c:731
 msgid "My Computer"
-msgstr ""
+msgstr "我的电脑"
 
 #: ../src/base/fm-path.c:739
 msgid "Applications"
-msgstr ""
+msgstr "应用程序"
 
 #: ../src/base/fm-path.c:742
 msgid "Network"
-msgstr ""
+msgstr "网络"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ""
+msgstr "："
 
 #: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
@@ -341,6 +348,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"类型：%s\n"
+"大小：%s\n"
+"修改时间：%s"
 
 #: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
@@ -348,22 +358,24 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"类型：%s\n"
+"修改时间：%s"
 
 #: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "文件操作被取消，并且出现了一些错误。"
 
 #: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
-msgstr ""
+msgstr "取消"
 
 #: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "文件操作完成，但出现了一些错误。"
 
 #: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
-msgstr ""
+msgstr "完成"
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
@@ -371,212 +383,214 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"有些文件无法移到回收站，因为所处的文件系统不支持该操作。\n"
+"您想直接删除它们吗？"
 
 #: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
-msgstr ""
+msgstr "，"
 
 #: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
-msgstr ""
+msgstr "移动文件"
 
 #: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
-msgstr ""
+msgstr "复制文件"
 
 #: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
-msgstr ""
+msgstr "将文件移到回收站"
 
 #: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
-msgstr ""
+msgstr "正在删除文件"
 
 #: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
-msgstr ""
+msgstr "正在创建符号链接"
 
 #: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
-msgstr ""
+msgstr "正在修改文件属性"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
+msgstr[0] "字节"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "请输入一个有效的用户名或数字标识。"
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "请输入一个有效的组名或数字标识"
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "您想递归地将这些操作应用于所有的文件及子文件夹吗？"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr ""
+msgstr "不同类型的文件"
 
 #: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
-msgstr ""
+msgstr "多个文件"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr ""
+msgstr "挂载卷"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr ""
+msgstr "卸载卷"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "弹出可移动媒质"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "重命名书签项"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "从书签中移除"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
-msgstr ""
+msgstr "清空回收站"
 
 #: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
-msgstr ""
+msgstr "输入新名称："
 
 #: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr ""
+msgstr "打开方式..."
 
 #: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 #: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
-msgstr ""
+msgstr "创建符号链接"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
-msgstr ""
+msgstr "发送到"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
-msgstr ""
+msgstr "压缩..."
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
-msgstr ""
+msgstr "提取到此处"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "提取到..."
 
 #: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
-msgstr ""
+msgstr "还原(_R)"
 
 #: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "将移到回收站的文件还原到原位置"
 
 #: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave 失败。"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "使用选择的应用程序打开文件"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "执行自定义的命令打开文件"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "自定义"
 
 #: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 #: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
-msgstr ""
+msgstr "修改"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "已安装的应用程序"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "请选择一个文件夹"
 
 #: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "只有系统管理员有权执行此操作。"
 
 #: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "您想将选择的文件移到回收站吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "您想删除选择的文件吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
-msgstr ""
+msgstr "重命名文件"
 
 #: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "请输入一个新名称："
 
 #: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "您确定想清空回收站吗？"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "指定的目录无效"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "源位置和目的位置相同"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "无法将文件夹移动到其子文件夹中"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "无法将文件夹复制到其子文件夹中"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "目标位置是源位置的子文件夹"
