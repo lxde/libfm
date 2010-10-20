@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-04 02:06+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-10-20 08:19+0200\n"
+"Last-Translator: Yinghua_Wang <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -76,7 +77,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "将该操作应用于所有存在的文件。"
+msgstr "将该操作应用于所有存在的文件"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -299,19 +300,19 @@ msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr "KiB"
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr "MiB"
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr "GiB"
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr "TiB"
+msgstr "TB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
@@ -425,7 +426,7 @@ msgstr "请输入一个有效的用户名或数字标识。"
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "请输入一个有效的组名或数字标识"
+msgstr "请输入一个有效的组名或数字标识。"
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -581,7 +582,7 @@ msgstr "指定的目录无效"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr "源位置和目的位置相同"
+msgstr "源位置和目的位置相同。"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
