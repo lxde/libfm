@@ -114,6 +114,7 @@ static char* expand_exec_macros(GAppInfo* app, GKeyFile* kf, GList* gfiles)
     if(gfiles && !files_added)
     {
         /* treat as %f */
+        g_string_append_c(cmd, ' ');
         append_file_to_cmd(G_FILE(gfiles->data), cmd);
     }
 
