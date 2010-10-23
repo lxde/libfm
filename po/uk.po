@@ -1,21 +1,19 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the PACKAGE package.
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 23:31+0800\n"
+"POT-Creation-Date: 2010-10-23 06:11+0000\n"
 "PO-Revision-Date: 2010-02-07 13:10+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
@@ -186,8 +184,7 @@ msgstr "Операції, які може виконувати тільки вл
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
+msgstr "Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,27 +266,20 @@ msgid "System Applications"
 msgstr "Системні програми"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Улюблений поштовий клієнт, що буде використаний для створення електронного "
-"листа, коли Ви клацаєте на e-mail адресу"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Улюблений поштовий клієнт, що буде використаний для створення електронного листа, коли Ви клацаєте на e-mail адресу"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
+msgstr "Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Кілька файлів"
+msgstr "Запустити файл"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Запустити емулятор терміналу"
+msgstr "Запустити в _емуляторі терміналу"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -355,11 +345,11 @@ msgstr "Програми"
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/gtk/fm-progress-dlg.c:151
+#: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -370,7 +360,7 @@ msgstr ""
 "Розмір: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -379,57 +369,55 @@ msgstr ""
 "Тип: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Деякі файли не можна перенести в смітник, тому що поточна файлова система не "
-"підтримує цю операцію.\n"
+"Деякі файли не можна перенести в смітник, тому що поточна файлова система не підтримує цю операцію.\n"
 " Ви бажаєте замість цього видалити їх?"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
@@ -449,10 +437,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -475,7 +461,7 @@ msgid "Eject Removable Media"
 msgstr "Витягнути знімний пристрій"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -487,7 +473,7 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -519,15 +505,15 @@ msgstr "Розпакувати сюди"
 msgid "Extract To..."
 msgstr "Розпакувати до..."
 
-#: ../src/gtk/fm-file-menu.c:258
+#: ../src/gtk/fm-file-menu.c:252
 msgid "_Restore"
 msgstr "_Відновити"
 
-#: ../src/gtk/fm-file-menu.c:259
+#: ../src/gtk/fm-file-menu.c:253
 msgid "Restore trashed files to original paths"
 msgstr "Відновити перенесені файли в смітнику до початкового стану"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:448
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -594,18 +580,6 @@ msgstr "Вкажіть нову назву:"
 #: ../src/gtk/fm-gtk-utils.c:593
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
-
-#: ../src/gtk/fm-gtk-file-launcher.c:86
-#, c-format
-msgid ""
-"This text file '%s' seems to be an executable script.\n"
-"What do you want to do with it?"
-msgstr ""
-
-#: ../src/gtk/fm-gtk-file-launcher.c:93
-#, c-format
-msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
