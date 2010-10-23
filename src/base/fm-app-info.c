@@ -183,7 +183,7 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
             if(G_LIKELY(kf))
                 use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
             else
-                use_sn = (flags & G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION) != 0;
+                use_sn = TRUE;
             data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
 
             if(!use_sn)
