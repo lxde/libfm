@@ -3,6 +3,7 @@ data/ui/ask-rename.glade
 data/ui/file-prop.glade
 data/ui/progress.glade
 data/ui/preferred-apps.glade
+data/ui/exec-file.glade
 src/base/fm-utils.c
 src/base/fm-file-info.c
 src/base/fm-path.c

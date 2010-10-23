@@ -38,6 +38,7 @@
 #include "fm-app-chooser-dlg.h"
 #include "fm-archiver.h"
 #include "fm-app-info.h"
+#include "fm-gtk-file-launcher.h"
 
 static void on_open(GtkAction* action, gpointer user_data);
 static void on_open_with_app(GtkAction* action, gpointer user_data);

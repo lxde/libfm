@@ -173,18 +173,35 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
-                        app = g_app_info_create_from_commandline(filename, NULL, 0, NULL);
-                        if(app)
+                        if(launcher->exec_file)
                         {
-                            if(!g_app_info_launch(app, NULL, ctx, &err))
+                            FmFileLauncherExecAction act = launcher->exec_file(fi, user_data);
+                            GAppInfoCreateFlags flags = 0;
+                            switch(act)
                             {
-                                if(launcher->error)
-                                    launcher->error(ctx, err, user_data);
-                                g_error_free(err);
-                                err = NULL;
+                            case FM_FILE_LAUNCHER_EXEC_IN_TERMINAL:
+                                flags |= G_APP_INFO_CREATE_NEEDS_TERMINAL;
+                                /* NOTE: no break here */
+                            case FM_FILE_LAUNCHER_EXEC:
+                                app = g_app_info_create_from_commandline(filename, NULL, flags, NULL);
+                                if(app)
+                                {
+                                    if(!fm_app_info_launch(app, NULL, ctx, &err))
+                                    {
+                                        if(launcher->error)
+                                            launcher->error(ctx, err, user_data);
+                                        g_error_free(err);
+                                        err = NULL;
+                                    }
+                                    g_object_unref(app);
+                                    continue;
+                                }
+                                break;
+                            case FM_FILE_LAUNCHER_EXEC_OPEN:
+                                break;
+                            case FM_FILE_LAUNCHER_EXEC_CANCEL:
+                                continue;
                             }
-                            g_object_unref(app);
-                            continue;
                         }
                     }
                     g_free(filename);

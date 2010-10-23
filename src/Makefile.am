@@ -111,6 +111,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-dnd-auto-scroll.c \
 	gtk/fm-gtk-utils.c \
+	gtk/fm-gtk-file-launcher.c \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
 	gtk/fm-gtk-marshal.c \
@@ -168,6 +169,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-dnd-auto-scroll.h \
 	gtk/fm-gtk-utils.h \
+	gtk/fm-gtk-file-launcher.h \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
 	gtk/fm-gtk-marshal.h \

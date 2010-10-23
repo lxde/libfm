@@ -32,6 +32,7 @@
 #include "fm-file-properties.h"
 #include "fm-folder-model.h"
 #include "fm-folder-view.h"
+#include "fm-gtk-file-launcher.h"
 #include "fm-gtk-utils.h"
 #include "fm-icon-pixbuf.h"
 #include "fm-path-entry.h"

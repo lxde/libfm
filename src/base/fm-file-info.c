@@ -420,6 +420,13 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
     return FALSE;
 }
 
+gboolean fm_file_info_is_text( FmFileInfo* fi )
+{
+    if(g_content_type_is_a(fi->type->type, "text/plain"))
+        return TRUE;
+    return FALSE;
+}
+
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
     return fi->type == desktop_entry_type;

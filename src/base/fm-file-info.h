@@ -125,6 +125,8 @@ gboolean fm_file_info_is_mountable( FmFileInfo* fi );
 
 gboolean fm_file_info_is_image( FmFileInfo* fi );
 
+gboolean fm_file_info_is_text( FmFileInfo* fi );
+
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
