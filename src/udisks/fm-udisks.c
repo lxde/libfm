@@ -32,11 +32,11 @@ gboolean _fm_udisks_init()
     {
         g_io_extension_point_register(G_NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME);
     }
+
     /* register our own volume monitor to override the one provided in gvfs. */
     g_io_extension_point_implement(G_NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME,
         G_UDISKS_VOLUME_MONITOR_TYPE,
-        "udisks-monitor",
-        99
+        "udisks-monitor", 2 /* the gdu monitor provided by gvfs uses priority 3 */
     );
 }
 
