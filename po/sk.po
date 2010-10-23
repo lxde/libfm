@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
+"POT-Creation-Date: 2010-10-23 22:33+0800\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -281,6 +282,16 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 "Na otvorenie hyperodkazov sa použije uprednostňovaný webový prehliadač."
 
+#: ../data/ui/exec-file.glade.h:1
+#, fuzzy
+msgid "Execute File"
+msgstr "Spustiť"
+
+#: ../data/ui/exec-file.glade.h:2
+#, fuzzy
+msgid "Execute in _Terminal"
+msgstr "Spustiť v emulátore terminálu"
+
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
@@ -345,11 +356,11 @@ msgstr "Aplikácie"
 msgid "Network"
 msgstr "Sieť"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -360,7 +371,7 @@ msgstr ""
 "Veľkosť: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -369,23 +380,23 @@ msgstr ""
 "Typ: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Operácia so súborom je zrušená a vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "Cancelled"
 msgstr "Zrušené"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
 msgstr "Operácia so súborom je dokončená, ale vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "Finished"
 msgstr "Dokončené"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -395,31 +406,31 @@ msgstr ""
 "ktorom ležia nepodporuje túto operáciu.\n"
 "Chcete ich namiesto toho zmazať?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:430
 msgid ", "
 msgstr "c"
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:445
 msgid "Moving files"
 msgstr "Presúvajú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Copying files"
 msgstr "Kopírujú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Trashing files"
 msgstr "Presúvajú sa súbory do Koša"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Deleting files"
 msgstr "Mažú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Creating symlinks"
 msgstr "Vytvárajú sa symbolické odkazy"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Changing file attributes"
 msgstr "Menia sa atribúty súborov"
 
@@ -464,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Vysunúť prenosné médium"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
 msgid "Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
@@ -476,47 +487,47 @@ msgstr "Odstrániť zo záložiek"
 msgid "Empty Trash"
 msgstr "Vyprázdniť Kôš"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:661
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Otvoriť pomocou..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
 msgstr "Premenovať"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
 msgstr "Vytvoriť symbolický odkaz"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
 msgstr "Poslať do"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
 msgstr "Komprimovať..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
 msgstr "Rozbaliť sem"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
 msgstr "Rozbaliť do..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "_Obnoviť"
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "Obnoviť súbory z Koša na pôvodné miesto"
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "XDirectSave zlyhalo."
 
@@ -556,33 +567,45 @@ msgstr "Nainštalované aplikácie"
 msgid "Error"
 msgstr "Chyba"
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:278
 msgid "Please select a folder"
 msgstr "Prosím, vyberte priečinok"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:425
 msgid "Only system administrators have the permission to do this."
 msgstr "Oprávenie vykonať túto operáciu majú iba správcovia systému."
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:504
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Chcete presunúť vybrané súbory do Koša?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:525
 msgid "Do you want to delete the selected files?"
 msgstr "Chcete prepísať vybrané súbory?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Please enter a new name:"
 msgstr "Prosím, zadajte nový názov:"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:593
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:86
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:93
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -693,9 +716,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "To:"
 #~ msgstr "Kam:"
-
-#~ msgid "Execute"
-#~ msgstr "Spustiť"
 
 #~ msgid "Set GID"
 #~ msgstr "SETGID"
@@ -1122,8 +1142,8 @@ msgstr "Cieľ je podpriečinkom zdroja"
 #~ "1. spustiť správcu XSETTINGS alebo\n"
 #~ "2. jednoducho uviesť tému ikon v súbore ~/.gtkrc-2.0.</b>\n"
 #~ "Napríklad ak chcete použiť tému ikon Tango pridajte riadok:\n"
-#~ "<i><b>gtk-icon-theme-name=\"Tango\"</b></i> do svojho súboru ~/.gtkrc-"
-#~ "2.0. (ak neexistuje vytvorte ho)\n"
+#~ "<i><b>gtk-icon-theme-name=\"Tango\"</b></i> do svojho súboru ~/."
+#~ "gtkrc-2.0. (ak neexistuje vytvorte ho)\n"
 #~ "\n"
 #~ "<b>POZN.: Téma ikon, ktorú vyberiete by mala byť kompatibilná s GNOME "
 #~ "inak nebude možné správne zobraziť ikony súborov.</b>  Kvôli rozdielom v "

@@ -6,6 +6,7 @@ data/ui/preferred-apps.glade
 data/ui/exec-file.glade
 src/base/fm-utils.c
 src/base/fm-file-info.c
+src/base/fm-file-launcher.c
 src/base/fm-path.c
 src/gtk/fm-progress-dlg.c
 src/gtk/fm-file-properties.c
@@ -17,6 +18,7 @@ src/gtk/fm-app-chooser-combo-box.c
 src/gtk/fm-folder-view.c
 src/gtk/fm-app-menu-view.c
 src/gtk/fm-gtk-utils.c
+src/gtk/fm-gtk-file-launcher.c
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
 src/job/fm-file-ops-job-xfer.c
