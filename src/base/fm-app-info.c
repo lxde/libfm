@@ -155,9 +155,17 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
     char** argv;
     int argc;
     gboolean use_terminal;
+    GAppInfoCreateFlags flags;
 
     cmd = expand_exec_macros(appinfo, kf, gfiles);
-    use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
+    if(G_LIKELY(kf))
+        use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
+    else
+    {
+        flags = GPOINTER_TO_UINT(g_object_get_data(appinfo, "flags"));
+        use_terminal = (flags & G_APP_INFO_CREATE_NEEDS_TERMINAL) != 0;
+    }
+
     if(use_terminal)
     {
         char* term_cmd = expand_terminal(cmd);
@@ -171,14 +179,18 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
         struct ChildSetup data;
         if(ctx)
         {
-            gboolean use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
+            gboolean use_sn;
+            if(G_LIKELY(kf))
+                use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
+            else
+                use_sn = (flags & G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION) != 0;
             data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
 
             if(!use_sn)
             {
                 /* if the app doesn't explicitly ask us not to use sn,
                  * use it by default, unless it's a console app. */
-                if(!g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
+                if(!kf || !g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
                     use_sn = !use_terminal; /* we only use sn for GUI apps by default */
                 /* FIXME: console programs should use sn_id of terminal emulator instead. */
             }
@@ -195,7 +207,11 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
         }
         g_debug("sn_id = %s", data.sn_id);
 
-        path = g_key_file_get_string(kf, "Desktop Entry", "Path", NULL);
+        if(G_LIKELY(kf))
+            path = g_key_file_get_string(kf, "Desktop Entry", "Path", NULL);
+        else
+            path = NULL;
+
         ret = g_spawn_async(path, argv, NULL,
                             G_SPAWN_SEARCH_PATH,
                             child_setup, &data, NULL, err);
@@ -239,6 +255,15 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                     ret = do_launch(appinfo, kf, files, launch_context, error);
                 g_key_file_free(kf);
             }
+            else
+            {
+                /* If this is created with fm_app_info_create_from_commandline() */
+                if(g_object_get_data(appinfo, "flags"))
+                {
+                    supported = TRUE;
+                    ret = do_launch(appinfo, NULL, files, launch_context, error);
+                }
+            }
         }
     }
     else
@@ -278,3 +303,12 @@ gboolean fm_app_info_launch_default_for_uri(const char *uri,
     return g_app_info_launch_default_for_uri(uri, launch_context, error);
 }
 
+GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
+                                              const char *application_name,
+                                              GAppInfoCreateFlags flags,
+                                              GError **error)
+{
+    GAppInfo* app = g_app_info_create_from_commandline(commandline, application_name, flags, error);
+    g_object_set_data(app, "flags", GUINT_TO_POINTER(flags));
+    return app;
+}

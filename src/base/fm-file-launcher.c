@@ -183,7 +183,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                 flags |= G_APP_INFO_CREATE_NEEDS_TERMINAL;
                                 /* NOTE: no break here */
                             case FM_FILE_LAUNCHER_EXEC:
-                                app = g_app_info_create_from_commandline(filename, NULL, flags, NULL);
+                                app = fm_app_info_create_from_commandline(filename, NULL, flags, NULL);
                                 if(app)
                                 {
                                     if(!fm_app_info_launch(app, NULL, ctx, &err))

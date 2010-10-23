@@ -35,6 +35,11 @@ gboolean fm_app_info_launch_default_for_uri(const char *uri,
                                             GAppLaunchContext *launch_context,
                                             GError **error);
 
+GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
+                                              const char *application_name,
+                                              GAppInfoCreateFlags flags,
+                                              GError **error);
+
 G_END_DECLS
 
 #endif /* __FM_APP_INFO_H__ */
