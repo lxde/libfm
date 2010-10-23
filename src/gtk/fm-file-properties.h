@@ -29,7 +29,7 @@ G_BEGIN_DECLS
 
 /* FIXME: use list of FmFileInfo is much better here. */
 GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean toplevel);
-gboolean fm_show_file_properties(FmFileInfoList* files);
+gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files);
 
 G_END_DECLS
 

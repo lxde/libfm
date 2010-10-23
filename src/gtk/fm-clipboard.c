@@ -200,13 +200,19 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
         if(uris)
         {
+            GtkWindow* parent;
+            if(dest_widget)
+                parent = gtk_widget_get_toplevel(parent);
+            else
+                parent = NULL;
+
         	files = fm_path_list_new_from_uris((const char **)uris);
             g_strfreev(uris);
 
             if( is_cut )
-                fm_move_files(files, dest_dir);
+                fm_move_files(parent, files, dest_dir);
             else
-                fm_copy_files(files, dest_dir);
+                fm_copy_files(parent, files, dest_dir);
             fm_list_unref(files);
 
             return TRUE;

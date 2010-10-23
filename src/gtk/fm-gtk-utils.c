@@ -485,48 +485,48 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 /* FIXME: only show the progress dialog if the job isn't finished
  * in 1 sec. */
 
-void fm_copy_files(FmPathList* files, FmPath* dest_dir)
+void fm_copy_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
     FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
     fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
-    fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
 }
 
-void fm_move_files(FmPathList* files, FmPath* dest_dir)
+void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
     FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
     fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
-    fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
 }
 
-void fm_trash_files(FmPathList* files)
+void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to move the selected files to trash can?"), TRUE))
+    if(!fm_config->confirm_del || fm_yes_no(parent, _("Do you want to move the selected files to trash can?"), TRUE))
     {
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-        fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+        fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
     }
 }
 
-void fm_untrash_files(FmPathList* files)
+void fm_untrash_files(GtkWindow* parent, FmPathList* files)
 {
     FmJob* job = fm_file_ops_job_new(FM_FILE_OP_UNTRASH, files);
-    fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
 }
 
-static void fm_delete_files_internal(FmPathList* files)
+static void fm_delete_files_internal(GtkWindow* parent, FmPathList* files)
 {
     FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-    fm_file_ops_job_run_with_progress(FM_FILE_OPS_JOB(job));
+    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
 }
 
-void fm_delete_files(FmPathList* files)
+void fm_delete_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(NULL, _("Do you want to delete the selected files?"), TRUE))
-        fm_delete_files_internal(files);
+    if(!fm_config->confirm_del || fm_yes_no(parent, _("Do you want to delete the selected files?"), TRUE))
+        fm_delete_files_internal(parent, files);
 }
 
-void fm_trash_or_delete_files(FmPathList* files)
+void fm_trash_or_delete_files(GtkWindow* parent, FmPathList* files)
 {
     if( !fm_list_is_empty(files) )
     {
@@ -544,36 +544,36 @@ void fm_trash_or_delete_files(FmPathList* files)
 
         /* files already in trash:/// should only be deleted and cannot be trashed again. */
         if(fm_config->use_trash && !all_in_trash)
-            fm_trash_files(files);
+            fm_trash_files(parent, files);
         else
-            fm_delete_files(files);
+            fm_delete_files(parent, files);
     }
 }
 
-void fm_move_or_copy_files_to(FmPathList* files, gboolean is_move)
+void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_move)
 {
-    FmPath* dest = fm_select_folder(NULL);
+    FmPath* dest = fm_select_folder(parent);
     if(dest)
     {
         if(is_move)
-            fm_move_files(files, dest);
+            fm_move_files(parent, files, dest);
         else
-            fm_copy_files(files, dest);
+            fm_copy_files(parent, files, dest);
         fm_path_unref(dest);
     }
 }
 
 
-void fm_rename_file(FmPath* file)
+void fm_rename_file(GtkWindow* parent, FmPath* file)
 {
-    GFile* gf = fm_path_to_gfile(file), *parent, *dest;
+    GFile* gf = fm_path_to_gfile(file), *parent_gf, *dest;
     GError* err = NULL;
-    gchar* new_name = fm_get_user_input_rename( NULL, _("Rename File"), _("Please enter a new name:"), file->name);
+    gchar* new_name = fm_get_user_input_rename( parent, _("Rename File"), _("Please enter a new name:"), file->name);
     if( !new_name )
         return;
-    parent = g_file_get_parent(gf);
+    parent_gf = g_file_get_parent(gf);
     dest = g_file_get_child(parent, new_name);
-    g_object_unref(parent);
+    g_object_unref(parent_gf);
     if(!g_file_move(gf, dest,
                 G_FILE_COPY_ALL_METADATA|
                 G_FILE_COPY_NO_FALLBACK_FOR_MOVE|
@@ -581,20 +581,20 @@ void fm_rename_file(FmPath* file)
                 NULL, /* make this cancellable later. */
                 NULL, NULL, &err))
     {
-        fm_show_error(NULL, err->message);
+        fm_show_error(parent, err->message);
         g_error_free(err);
     }
     g_object_unref(dest);
     g_object_unref(gf);
 }
 
-void fm_empty_trash()
+void fm_empty_trash(GtkWindow* parent)
 {
-    if(fm_yes_no(NULL, _("Are you sure you want to empty the trash can?"), TRUE))
+    if(fm_yes_no(parent, _("Are you sure you want to empty the trash can?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
         fm_list_push_tail(paths, fm_path_get_trash());
-        fm_delete_files_internal(paths);
+        fm_delete_files_internal(parent, paths);
         fm_list_unref(paths);
     }
 }

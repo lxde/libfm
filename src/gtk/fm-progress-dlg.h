@@ -34,7 +34,7 @@ typedef struct _FmProgressDisplay FmProgressDisplay;
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
  */
-FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job);
+FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job);
 
 G_END_DECLS
 

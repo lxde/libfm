@@ -154,6 +154,7 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
                                    int info_type, FmList* files)
 {
     FmPath* dest;
+    GtkWidget* parent;
     dest = fm_dnd_dest_get_dest_path(dd);
     if(!dest)
         return FALSE;
@@ -164,19 +165,20 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
     else
         fm_list_ref(files);
 
+    parent = gtk_widget_get_toplevel(dd->widget);
     switch(action)
     {
     case GDK_ACTION_MOVE:
         if(fm_path_is_trash_root(fm_dnd_dest_get_dest_path(dd)))
-            fm_trash_files(files);
+            fm_trash_files(parent, files);
         else
-            fm_move_files(files, fm_dnd_dest_get_dest_path(dd));
+            fm_move_files(parent, files, fm_dnd_dest_get_dest_path(dd));
         break;
     case GDK_ACTION_COPY:
-        fm_copy_files(files, fm_dnd_dest_get_dest_path(dd));
+        fm_copy_files(parent, files, fm_dnd_dest_get_dest_path(dd));
         break;
     case GDK_ACTION_LINK:
-        // fm_link_files(files, fm_dnd_dest_get_dest_path(dd));
+        // fm_link_files(parent, files, fm_dnd_dest_get_dest_path(dd));
         break;
     case GDK_ACTION_ASK:
         g_debug("TODO: GDK_ACTION_ASK");

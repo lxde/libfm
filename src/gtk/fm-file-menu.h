@@ -40,6 +40,7 @@ struct _FmFileMenu
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkWidget* menu;
+    GtkWindow* parent;
 
     FmLaunchFolderFunc folder_func;
     gpointer folder_func_data;
@@ -47,8 +48,8 @@ struct _FmFileMenu
     FmPath* cwd;
 };
 
-FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy);
-FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy);
+FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy);
+FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy);
 void fm_file_menu_destroy(FmFileMenu* menu);
 
 gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu);

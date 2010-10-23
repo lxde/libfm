@@ -100,6 +100,9 @@ GtkActionEntry base_menu_actions[]=
 
 void fm_file_menu_destroy(FmFileMenu* menu)
 {
+    if(menu->parent)
+        g_object_unref(menu->parent);
+
     if(menu->menu)
         gtk_widget_destroy(menu->menu);
 
@@ -114,17 +117,17 @@ void fm_file_menu_destroy(FmFileMenu* menu)
     g_slice_free(FmFileMenu, menu);
 }
 
-FmFileMenu* fm_file_menu_new_for_file(FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy)
+FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy)
 {
     FmFileMenu* menu;
     FmFileInfoList* files = fm_file_info_list_new();
     fm_list_push_tail(files, fi);
-    menu = fm_file_menu_new_for_files(files, cwd, auto_destroy);
+    menu = fm_file_menu_new_for_files(parent, files, cwd, auto_destroy);
     fm_list_unref(files);
     return menu;
 }
 
-FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
+FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
 {
     GtkWidget* menu;
     GtkUIManager* ui;
@@ -135,6 +138,9 @@ FmFileMenu* fm_file_menu_new_for_files(FmFileInfoList* files, FmPath* cwd, gbool
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
 
+    data->parent = g_object_ref(parent); /* FIXME: is this really needed? */
+    /* FIXME: should we connect to "destroy" signal of parent and set data->parent to NULL when
+     * it's detroyed? */
     data->file_infos = fm_list_ref(files);
 
     /* check if the files are of the same type */
@@ -304,9 +310,13 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
     if( ! menu->menu )
     {
         menu->menu = gtk_ui_manager_get_widget(menu->ui, "/popup");
+        gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
+
         if(menu->auto_destroy)
+        {
             g_signal_connect_swapped(menu->menu, "selection-done",
                             G_CALLBACK(fm_file_menu_destroy), menu);
+        }
     }
     return menu->menu;
 }
@@ -316,7 +326,7 @@ void on_open(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_list_peek_head_link(data->file_infos);
     GError* err = NULL;
-    fm_launch_files_simple(GTK_WINDOW(gtk_widget_get_toplevel(data->menu)), NULL, l, data->folder_func, data->folder_func_data);
+    fm_launch_files_simple(data->parent, NULL, l, data->folder_func, data->folder_func_data);
 }
 
 static void open_with_app(FmFileMenu* data, GAppInfo* app)
@@ -369,7 +379,7 @@ void on_open_with(GtkAction* action, gpointer user_data)
     else
         mime_type = NULL;
 
-    app = fm_choose_app_for_mime_type(NULL, mime_type, TRUE);
+    app = fm_choose_app_for_mime_type(data->parent, mime_type, TRUE);
 
     if(app)
     {
@@ -383,7 +393,7 @@ void on_cut(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_cut_files(data->menu, files);
+    fm_clipboard_cut_files(data->parent, files);
     fm_list_unref(files);
 }
 
@@ -392,7 +402,7 @@ void on_copy(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_copy_files(data->menu, files);
+    fm_clipboard_copy_files(data->parent, files);
     fm_list_unref(files);
 }
 
@@ -407,7 +417,7 @@ void on_delete(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_trash_or_delete_files(files);
+    fm_trash_or_delete_files(data->parent, files);
     fm_list_unref(files);
 }
 
@@ -416,7 +426,7 @@ void on_untrash(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_untrash_files(files);
+    fm_untrash_files(data->parent, files);
     fm_list_unref(files);
 }
 
@@ -425,15 +435,8 @@ void on_rename(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfo* fi = fm_list_peek_head(data->file_infos);
     if(fi)
-        fm_rename_file(fi->path);
-    /* FIXME: is it ok to only rename the first selected file here. */
-/*
-    FmPathList* files;
-    files = fm_path_list_new_from_file_info_list(data->file_infos);
-    if( !fm_list_is_empty(files) )
-        fm_delete_files(files);
-    fm_list_unref(files);
-*/
+        fm_rename_file(data->parent, fi->path);
+    /* FIXME: is it ok to only rename the first selected file here? */
 }
 
 void on_compress(GtkAction* action, gpointer user_data)
@@ -484,7 +487,7 @@ void on_extract_to(GtkAction* action, gpointer user_data)
 void on_prop(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    fm_show_file_properties(data->file_infos);
+    fm_show_file_properties(data->parent, data->file_infos);
 }
 
 gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)

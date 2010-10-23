@@ -38,6 +38,7 @@ enum
 
 struct _FmProgressDisplay
 {
+    GtkWidget* parent;
     GtkWidget* dlg;
     FmFileOpsJob* job;
 
@@ -337,7 +338,7 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
                         "Do you want to delete them instead?"), TRUE))
             {
                 FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
-                fm_file_ops_job_run_with_progress(job);
+                fm_file_ops_job_run_with_progress(data->parent, job);
             }
         }
     }
@@ -504,7 +505,7 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
  */
-FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job)
+FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {
     FmProgressDisplay* data = g_slice_new0(FmProgressDisplay);
     data->job = (FmFileOpsJob*)g_object_ref(job);

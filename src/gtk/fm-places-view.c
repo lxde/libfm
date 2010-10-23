@@ -605,7 +605,10 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
                     gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
                     menu = place_item_get_menu(item);
                     if(menu)
+                    {
+                        gtk_menu_attach_to_widget(menu, widget, NULL);
                         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+                    }
                 }
             }
             break;
@@ -668,7 +671,12 @@ void on_rename_bm(GtkAction* act, gpointer user_data)
 
 void on_empty_trash(GtkAction* act, gpointer user_data)
 {
-    fm_empty_trash();
+    /* FIXME: This is very dirty, but it's inevitable. :-( */
+    GSList* proxies = gtk_action_get_proxies(act);
+    GtkWidget* menu_item = proxies->data ? GTK_WIDGET(proxies->data) : NULL;
+    GtkWidget* menu = gtk_widget_get_parent(menu_item);
+    GtkWidget* view = gtk_menu_get_attach_widget(menu);
+    fm_empty_trash(view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL);
 }
 
 gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,

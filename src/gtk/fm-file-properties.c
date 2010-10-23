@@ -358,7 +358,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
 
             /* show progress dialog */
-            fm_file_ops_job_run_with_progress(job);
+            fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
             fm_list_unref(paths);
         }
 
@@ -756,9 +756,11 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     return dlg;
 }
 
-gboolean fm_show_file_properties(FmFileInfoList* files)
+gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
 {
     GtkWidget* dlg = fm_file_properties_widget_new(files, TRUE);
+    if(parent)
+        gtk_window_set_transient_for(dlg, parent);
     gtk_widget_show(dlg);
     return TRUE;
 }

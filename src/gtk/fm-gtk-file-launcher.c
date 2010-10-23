@@ -72,6 +72,7 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     GtkWidget* dlg, *msg, *icon;
     char* msg_str;
     int res;
+    gtk_builder_set_translation_domain(b, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/exec-file.ui", NULL);
     dlg = gtk_builder_get_object(b, "dlg");
     msg = gtk_builder_get_object(b, "msg");
