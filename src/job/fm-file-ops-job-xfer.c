@@ -197,7 +197,7 @@ _retry_query_src_info:
                         mode |= (S_IRUSR|S_IWUSR); /* ensure we have rw permission to this file. */
                         if( !g_file_set_attribute_uint32(dest, G_FILE_ATTRIBUTE_UNIX_MODE,
                                                          mode, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-                                                         fm_job_get_cancellable(job), &err) )
+                                                         fm_job_get_cancellable(FM_JOB(job)), &err) )
                         {
                             FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                             g_error_free(err);
@@ -494,13 +494,13 @@ _retry_query_src_info:
                     if(g_file_info_get_file_type(inf) == G_FILE_TYPE_DIRECTORY) /* merge dirs */
                     {
                         GFileEnumerator* enu = g_file_enumerate_children(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-                                                                        fm_job_get_cancellable(job), &err);
+                                                                        fm_job_get_cancellable(FM_JOB(job)), &err);
                         if(enu)
                         {
                             GFileInfo* child_inf;
-                            while(!fm_job_is_cancelled(job))
+                            while(!fm_job_is_cancelled(FM_JOB(job)))
                             {
-                                child_inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(job), &err);
+                                child_inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(FM_JOB(job)), &err);
                                 if(child_inf)
                                 {
                                     GFile* child = g_file_get_child(src, g_file_info_get_name(child_inf));
@@ -536,7 +536,7 @@ _retry_query_src_info:
                         }
 
                         /* remove source dir after its content is merged with destination dir */
-                        if(!g_file_delete(src, fm_job_get_cancellable(job), &err))
+                        if(!g_file_delete(src, fm_job_get_cancellable(FM_JOB(job)), &err))
                         {
                             FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                             g_error_free(err);
@@ -689,7 +689,7 @@ _retry_query_dest_info:
     }
     else
     {
-        FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+        FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MODERATE);
         if(act == FM_JOB_RETRY)
             goto _retry_query_dest_info;
         else

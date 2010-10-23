@@ -103,7 +103,7 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data
                     }
                 }
                 g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
-                gtk_label_set_text(data->remaining_time, time_str);
+                gtk_label_set_text(GTK_LABEL(data->remaining_time), time_str);
             }
         }
     }
@@ -174,7 +174,7 @@ static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
     gtk_widget_set_sensitive(rename, can_rename);
     if(can_rename)
     {
-        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(entry));
+        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(GTK_WIDGET(entry)));
         gtk_dialog_set_default_response(dlg, gtk_dialog_get_response_for_widget(dlg, rename));
     }
 }
@@ -302,10 +302,10 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
             gtk_dialog_set_response_sensitive(GTK_DIALOG(data->dlg), GTK_RESPONSE_CANCEL, FALSE);
             gtk_dialog_add_button(GTK_DIALOG(data->dlg), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
 
-            gtk_image_set_from_stock(data->icon, GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
+            gtk_image_set_from_stock(GTK_IMAGE(data->icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
 
             gtk_widget_show(data->msg);
-            if(fm_job_is_cancelled(data->job))
+            if(fm_job_is_cancelled(FM_JOB(data->job)))
             {
                 gtk_label_set_text(GTK_LABEL(data->msg), _("The file operation is cancelled and there are some errors."));
                 gtk_window_set_title(GTK_WINDOW(data->dlg),
@@ -329,7 +329,7 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
      * FIXME: need to refactor this to use a more elegant way later. */
     if(job->type == FM_FILE_OP_TRASH)
     {
-        FmPathList* unsupported = (FmPathList*)g_object_get_data(job, "trash-unsupported");
+        FmPathList* unsupported = (FmPathList*)g_object_get_data(G_OBJECT(job), "trash-unsupported");
         /* some files cannot be trashed because underlying filesystems don't support it. */
         if(unsupported) /* delete them instead */
         {
@@ -338,7 +338,7 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
                         "Do you want to delete them instead?"), TRUE))
             {
                 FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
-                fm_file_ops_job_run_with_progress(data->parent, job);
+                fm_file_ops_job_run_with_progress(GTK_WINDOW(data->parent), job);
             }
         }
     }
@@ -434,7 +434,7 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
         }
         if(l)
             g_string_append(str, "...");
-        gtk_label_set_text(data->src, str->str);
+        gtk_label_set_text(GTK_LABEL(data->src), str->str);
         g_string_free(str, TRUE);
     }
 
@@ -520,7 +520,7 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
-	fm_job_run_async(job);
+	fm_job_run_async(FM_JOB(job));
 
     return data;
 }

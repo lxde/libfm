@@ -207,7 +207,7 @@ _retry_query_info:
                     fm_job_get_cancellable(fmjob), &err);
         if(!inf)
         {
-            FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
             g_error_free(err);
             err = NULL;
             if(act == FM_JOB_RETRY)
@@ -290,7 +290,7 @@ _retry_query_info:
                         if(err) /* error! */
                         {
                             /* FM_JOB_RETRY is not supported */
-                            FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
                             g_error_free(err);
                             err = NULL;
                         }
@@ -306,7 +306,7 @@ _retry_query_info:
             }
             else
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)

@@ -149,7 +149,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
             FmFileMenu* menu;
             GtkMenu* popup;
             FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-            menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
+            menu = fm_file_menu_new_for_files(GTK_WINDOW(win), files, fm_folder_view_get_cwd(fv), TRUE);
             fm_file_menu_set_folder_func(menu, open_folder_func, win);
             fm_list_unref(files);
 
@@ -388,7 +388,7 @@ static void fm_main_win_init(FmMainWin *self)
     g_signal_connect(toolitem, "show-menu", G_CALLBACK(on_show_history_menu), self);
 
     self->popup = gtk_ui_manager_get_widget(ui, "/popup");
-    gtk_menu_attach_to_widget(self->popup, GTK_WIDGET(self), NULL);
+    gtk_menu_attach_to_widget(GTK_MENU(self->popup), GTK_WIDGET(self), NULL);
 
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
     gtk_box_pack_start( (GtkBox*)vbox, self->toolbar, FALSE, TRUE, 0 );
@@ -694,7 +694,7 @@ void on_paste(GtkAction* act, FmMainWin* win)
 void on_del(GtkAction* act, FmMainWin* win)
 {
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
-    fm_trash_or_delete_files(win, files);
+    fm_trash_or_delete_files(GTK_WINDOW(win), files);
     fm_list_unref(files);
 }
 
@@ -703,7 +703,7 @@ void on_rename(GtkAction* act, FmMainWin* win)
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if( !fm_list_is_empty(files) )
     {
-        fm_rename_file(win, fm_list_peek_head(files));
+        fm_rename_file(GTK_WINDOW(win), fm_list_peek_head(files));
         /* FIXME: is it ok to only rename the first selected file here. */
     }
     fm_list_unref(files);
@@ -731,7 +731,7 @@ void on_prop(GtkAction* action, FmMainWin* win)
     FmFileInfo* fi = FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
     FmFileInfoList* files = fm_file_info_list_new();
     fm_list_push_tail(files, fi);
-    fm_show_file_properties(win, files);
+    fm_show_file_properties(GTK_WINDOW(win), files);
     fm_list_unref(files);
 }
 

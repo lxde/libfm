@@ -110,7 +110,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 			char* path_str = fm_path_to_str(fi->path);
 			if(!_fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -170,7 +170,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 			gf = fm_path_to_gfile(fi->path);
 			if(!_fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)

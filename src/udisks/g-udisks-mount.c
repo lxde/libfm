@@ -126,7 +126,7 @@ static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlag
 static gboolean g_udisks_mount_eject_with_operation_finish(GMount* base, GAsyncResult* res, GError** error)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    return g_volume_eject_with_operation_finish(mnt->vol, res, error);
+    return g_volume_eject_with_operation_finish(G_VOLUME(mnt->vol), res, error);
 }
 
 static void g_udisks_mount_eject (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
@@ -193,8 +193,8 @@ typedef struct
 
 static char** g_udisks_mount_guess_content_type_finish (GMount* base, GAsyncResult* res, GError** error)
 {
-    g_simple_async_result_propagate_error(res, error);
-    return g_strdupv((char**)g_simple_async_result_get_op_res_gpointer(res));
+    g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
+    return g_strdupv((char**)g_simple_async_result_get_op_res_gpointer(G_SIMPLE_ASYNC_RESULT(res)));
 }
 
 static void guess_content_data_free(GuessContentData* data)
@@ -249,7 +249,7 @@ static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean for
     if(mnt->root)
     {
         char** ret;
-        GFile* root = g_udisks_mount_get_root(mnt);
+        GFile* root = g_udisks_mount_get_root(G_MOUNT(mnt));
         ret = g_content_type_guess_for_tree(root);
         g_object_unref(root);
         return ret;
@@ -325,7 +325,7 @@ static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFl
 static gboolean g_udisks_mount_unmount_with_operation_finish(GMount* base, GAsyncResult* res, GError** error)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
-    return !g_simple_async_result_propagate_error(res, error);
+    return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)

@@ -77,26 +77,26 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     dlg = gtk_builder_get_object(b, "dlg");
     msg = gtk_builder_get_object(b, "msg");
     icon = gtk_builder_get_object(b, "icon");
-    gtk_image_set_from_gicon(icon, file->icon->gicon, GTK_ICON_SIZE_DIALOG);
-    gtk_box_set_homogeneous(gtk_dialog_get_action_area(dlg), FALSE);
+    gtk_image_set_from_gicon(GTK_IMAGE(icon), file->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(GTK_DIALOG(dlg))), FALSE);
 
     /* If it's a script, ask the user first. */
     if(fm_file_info_is_text(file)) /* if this is a text file (script) */
     {
         msg_str = g_strdup_printf(_("This text file '%s' seems to be an executable script.\nWhat do you want to do with it?"), fm_file_info_get_disp_name(file));
-        gtk_dialog_set_default_response(dlg, FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
+        gtk_dialog_set_default_response(GTK_DIALOG(dlg), FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
     }
     else
     {
         GtkWidget* open = gtk_builder_get_object(b, "open");
         gtk_widget_destroy(open);
         msg_str = g_strdup_printf(_("This file '%s' is executable. Do you want to execute it?"), fm_file_info_get_disp_name(file));
-        gtk_dialog_set_default_response(dlg, FM_FILE_LAUNCHER_EXEC);
+        gtk_dialog_set_default_response(GTK_DIALOG(dlg), FM_FILE_LAUNCHER_EXEC);
     }
-    gtk_label_set_text(msg, msg_str);
+    gtk_label_set_text(GTK_LABEL(msg), msg_str);
     g_free(msg_str);
 
-    res = gtk_dialog_run(dlg);
+    res = gtk_dialog_run(GTK_DIALOG(dlg));
     gtk_widget_destroy(dlg);
     g_object_unref(b);
 

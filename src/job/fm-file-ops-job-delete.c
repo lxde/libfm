@@ -209,7 +209,7 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
 	/* prepare the job, count total work needed with FmDeepCountJob */
 	FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_PREPARE_DELETE);
     /* let the deep count job share the same cancellable */
-    fm_job_set_cancellable(dc, fm_job_get_cancellable(FM_JOB(job)));
+    fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(FM_JOB(job)));
 	fm_job_run_sync(FM_JOB(dc));
 	job->total = dc->count;
 	g_object_unref(dc);
@@ -303,7 +303,7 @@ _retry_trash:
                 fm_list_push_tail(unsupported, FM_PATH(l->data));
             else
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -326,7 +326,7 @@ _retry_trash:
     {
         /* FIXME: this is a dirty hack to fallback to delete if trash is not available.
          * The API must be re-designed later. */
-        g_object_set_data_full(job, "trash-unsupported", unsupported, fm_list_unref);
+        g_object_set_data_full(G_OBJECT(job), "trash-unsupported", unsupported, fm_list_unref);
     }
     return TRUE;
 }
@@ -399,7 +399,7 @@ _retry_get_orig_path:
                 GFile* orig_path = g_file_new_for_uri(orig_path_str);
 
                 /* ensure the existence of parent folder. */
-                if(ensure_parent_dir(job, orig_path))
+                if(ensure_parent_dir(FM_JOB(job), orig_path))
                     ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);
             }
             g_object_unref(inf);
@@ -414,7 +414,7 @@ _retry_get_orig_path:
 
             if(err)
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)

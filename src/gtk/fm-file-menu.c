@@ -310,7 +310,7 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
     if( ! menu->menu )
     {
         menu->menu = gtk_ui_manager_get_widget(menu->ui, "/popup");
-        gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
+        gtk_menu_attach_to_widget(GTK_MENU(menu->menu), GTK_WIDGET(menu->parent), NULL);
 
         if(menu->auto_destroy)
         {

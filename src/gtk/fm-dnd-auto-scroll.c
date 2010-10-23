@@ -156,7 +156,7 @@ void fm_dnd_set_dest_auto_scroll(GtkWidget* drag_dest_widget,
 
     if(G_UNLIKELY(!hadj && !vadj))
     {
-        g_object_set_qdata_full(drag_dest_widget, data_id, NULL, NULL);
+        g_object_set_qdata_full(G_OBJECT(drag_dest_widget), data_id, NULL, NULL);
         return;
     }
 
@@ -185,5 +185,5 @@ void fm_dnd_unset_dest_auto_scroll(GtkWidget* drag_dest_widget)
 {
     if(G_UNLIKELY(data_id == 0))
         data_id = g_quark_from_static_string("FmDndAutoScroll");
-    g_object_set_qdata_full(drag_dest_widget, data_id, NULL, NULL);
+    g_object_set_qdata_full(G_OBJECT(drag_dest_widget), data_id, NULL, NULL);
 }

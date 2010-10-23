@@ -170,12 +170,12 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
     {
     case GDK_ACTION_MOVE:
         if(fm_path_is_trash_root(fm_dnd_dest_get_dest_path(dd)))
-            fm_trash_files(parent, files);
+            fm_trash_files(GTK_WINDOW(parent), files);
         else
-            fm_move_files(parent, files, fm_dnd_dest_get_dest_path(dd));
+            fm_move_files(GTK_WINDOW(parent), files, fm_dnd_dest_get_dest_path(dd));
         break;
     case GDK_ACTION_COPY:
-        fm_copy_files(parent, files, fm_dnd_dest_get_dest_path(dd));
+        fm_copy_files(GTK_WINDOW(parent), files, fm_dnd_dest_get_dest_path(dd));
         break;
     case GDK_ACTION_LINK:
         // fm_link_files(parent, files, fm_dnd_dest_get_dest_path(dd));

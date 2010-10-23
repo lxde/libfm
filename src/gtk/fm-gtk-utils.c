@@ -572,7 +572,7 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     if( !new_name )
         return;
     parent_gf = g_file_get_parent(gf);
-    dest = g_file_get_child(parent, new_name);
+    dest = g_file_get_child(G_FILE(parent), new_name);
     g_object_unref(parent_gf);
     if(!g_file_move(gf, dest,
                 G_FILE_COPY_ALL_METADATA|

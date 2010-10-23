@@ -142,7 +142,7 @@ GAppInfo *get_default_for_uri_scheme(GDesktopAppInfoLookup *lookup, const char *
         int i, n;
         if(g_key_file_load_from_file(kf, fname, 0, NULL))
             desktop_id = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
-        n = g_strv_length(dirs);
+        n = g_strv_length((gchar **)dirs);
         for( i = n - 1; i > 0; --i )
         {
             fname = g_build_filename(dirs[i], "libfm/pref-apps.conf", NULL);

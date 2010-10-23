@@ -909,7 +909,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
             }
             g_object_unref(ori_pix);
         }
-        g_input_stream_close(ins, NULL, NULL);
+        g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
     }
 
     G_LOCK(queue);

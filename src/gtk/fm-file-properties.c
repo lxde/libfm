@@ -368,7 +368,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
             GError* err = NULL;
-            app = fm_app_chooser_combo_box_get_selected(data->open_with, &default_app_changed);
+            app = fm_app_chooser_combo_box_get_selected(GTK_COMBO_BOX(data->open_with), &default_app_changed);
             if(app)
             {
                 if(default_app_changed)
@@ -760,7 +760,7 @@ gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
 {
     GtkWidget* dlg = fm_file_properties_widget_new(files, TRUE);
     if(parent)
-        gtk_window_set_transient_for(dlg, parent);
+        gtk_window_set_transient_for(GTK_WINDOW(dlg), parent);
     gtk_widget_show(dlg);
     return TRUE;
 }

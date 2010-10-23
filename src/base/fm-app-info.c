@@ -162,7 +162,7 @@ gboolean do_launch(GAppInfo* appinfo, GKeyFile* kf, GList* gfiles, GAppLaunchCon
         use_terminal = g_key_file_get_boolean(kf, "Desktop Entry", "Terminal", NULL);
     else
     {
-        flags = GPOINTER_TO_UINT(g_object_get_data(appinfo, "flags"));
+        flags = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(appinfo), "flags"));
         use_terminal = (flags & G_APP_INFO_CREATE_NEEDS_TERMINAL) != 0;
     }
 
@@ -245,7 +245,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
-            const char* file = g_desktop_app_info_get_filename(appinfo);
+            const char* file = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
             if(file) /* this is a desktop entry file */
             {
                 /* load the desktop entry file to obtain more info */
@@ -258,7 +258,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
             else
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
-                if(g_object_get_data(appinfo, "flags"))
+                if(g_object_get_data(G_OBJECT(appinfo), "flags"))
                 {
                     supported = TRUE;
                     ret = do_launch(appinfo, NULL, files, launch_context, error);
@@ -309,6 +309,6 @@ GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
                                               GError **error)
 {
     GAppInfo* app = g_app_info_create_from_commandline(commandline, application_name, flags, error);
-    g_object_set_data(app, "flags", GUINT_TO_POINTER(flags));
+    g_object_set_data(G_OBJECT(app), "flags", GUINT_TO_POINTER(flags));
     return app;
 }

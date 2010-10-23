@@ -430,7 +430,7 @@ static GtkTreePath* get_drop_path(FmFolderView* fv, gint x, gint y)
     case FM_FV_COMPACT_VIEW:
     case FM_FV_THUMBNAIL_VIEW:
         {
-            tp = exo_icon_view_get_path_at_pos((const struct ExoIconView *)fv->view, x, y);
+            tp = exo_icon_view_get_path_at_pos((const struct ExoIconView *)(const struct ExoIconView *)fv->view, x, y);
             exo_icon_view_set_drag_dest_item(EXO_ICON_VIEW(fv->view), tp, EXO_ICON_VIEW_DROP_INTO);
             break;
         }
@@ -730,7 +730,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
         g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
-        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment(fv), gtk_scrolled_window_get_vadjustment(fv));
+        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(fv)), gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(fv)));
 
         gtk_widget_show(fv->view);
         gtk_container_add((GtkContainer*)fv, fv->view);
@@ -1055,7 +1055,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
                     /* if the hit item is not currently selected */
                     if(!exo_icon_view_path_is_selected(EXO_ICON_VIEW(view), tp))
                     {
-                        sels = exo_icon_view_get_selected_items((const struct ExoIconView *)view);
+                        sels = exo_icon_view_get_selected_items((const struct ExoIconView *)(const struct ExoIconView *)view);
                         if( sels ) /* if there are selected items */
                         {
                             exo_icon_view_unselect_all(EXO_ICON_VIEW(view)); /* unselect all items */

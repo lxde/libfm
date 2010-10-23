@@ -267,7 +267,7 @@ static void g_udisks_drive_eject_with_operation (GDrive* base, GMountUnmountFlag
 static gboolean g_udisks_drive_eject_with_operation_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
     GUDisksDrive* drv = G_UDISKS_DRIVE(base);
-    return !g_simple_async_result_propagate_error(res, error);
+    return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static void g_udisks_drive_eject (GDrive* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)

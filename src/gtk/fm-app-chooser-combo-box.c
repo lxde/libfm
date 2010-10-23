@@ -61,7 +61,7 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
     if(it.user_data == data->other_apps_iter.user_data)
     {
         /* let the user choose an app or add custom actions here. */
-        GtkWidget* parent = gtk_widget_get_toplevel(cb);
+        GtkWidget* parent = gtk_widget_get_toplevel(GTK_WIDGET(cb));
         GAppInfo* app = fm_choose_app_for_mime_type(GTK_WINDOW(parent), data->mime_type, FALSE);
         if(app)
         {
@@ -196,7 +196,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     g_object_unref(store);
 
     g_signal_connect(combo, "changed", G_CALLBACK(on_app_selected), data);
-    g_object_set_qdata_full(combo, fm_qdata_id, data, (GDestroyNotify)free_data);
+    g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, (GDestroyNotify)free_data);
 }
 
 /* returns the currently selected app. is_sel_changed (can be NULL) will retrive a
@@ -213,7 +213,7 @@ GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is
         gtk_tree_model_get(model, &it, 2, &app, -1);
         if(is_sel_changed)
         {
-            FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(combo, fm_qdata_id);
+            FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(G_OBJECT(combo), fm_qdata_id);
             *is_sel_changed = (it.user_data != data->initial_sel_iter.user_data);
         }
         return app;
@@ -225,6 +225,6 @@ GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is
  * the returned GList is owned by the combo box and shouldn't be freed. */
 GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo)
 {
-    FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(combo, fm_qdata_id);
+    FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(G_OBJECT(combo), fm_qdata_id);
     return data->custom_apps;
 }

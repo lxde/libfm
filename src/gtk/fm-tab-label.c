@@ -105,11 +105,11 @@ static void fm_tab_label_init(FmTabLabel *self)
 GtkWidget *fm_tab_label_new(const char* text)
 {
     FmTabLabel* label = (FmTabLabel*)g_object_new(FM_TYPE_TAB_LABEL, NULL);
-    gtk_label_set_text(label->label, text);
+    gtk_label_set_text(GTK_LABEL(label->label), text);
 	return (GtkWidget*)label;
 }
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text)
 {
-    gtk_label_set_text(label->label, text);
+    gtk_label_set_text(GTK_LABEL(label->label), text);
 }

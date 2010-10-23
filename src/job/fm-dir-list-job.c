@@ -188,7 +188,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
             /* also hide menu items which should be hidden in current DE. */
             if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
                 continue;
-            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP && !menu_cache_app_get_is_visible(item, de_flag))
+            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), de_flag))
                 continue;
 
             if(G_UNLIKELY(job->dir_only) && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
@@ -277,7 +277,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
                 fm_list_push_tail_noref(job->files, fi);
             else /* failed! */
             {
-                FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -391,7 +391,7 @@ _retry:
                     g_error_free(err);
                     /* FM_JOB_RETRY is not supported. */
                     if(act == FM_JOB_ABORT)
-                        fm_job_cancel(job);
+                        fm_job_cancel(FM_JOB(job));
                 }
                 break; /* FIXME: error handling */
             }

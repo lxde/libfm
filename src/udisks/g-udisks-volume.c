@@ -352,7 +352,7 @@ static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMou
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    return !g_simple_async_result_propagate_error(res, error);
+    return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static gboolean g_udisks_volume_should_automount (GVolume* base)
