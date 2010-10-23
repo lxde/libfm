@@ -1,13 +1,12 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 23:31+0800\n"
+"POT-Creation-Date: 2010-10-23 06:11+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
-"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -265,25 +264,20 @@ msgid "System Applications"
 msgstr "יישומי המערכת"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"לקוח הדוא\"ל המועדף ישמש לחיבור הודעות דוא\"ל חדשות בעת לחיצה על כתובת דוא\"ל"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "לקוח הדוא\"ל המועדף ישמש לחיבור הודעות דוא\"ל חדשות בעת לחיצה על כתובת דוא\"ל"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "דפדפן האינטרנט המועדף ישמש לפתיחת קישורים."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "מספר קבצים"
+msgstr "הפעלת קובץ"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "הפעלת הדמיית מסוף"
+msgstr "הפעלה במ_סוף"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -348,11 +342,11 @@ msgstr "יישומים"
 msgid "Network"
 msgstr "רשת"
 
-#: ../src/gtk/fm-progress-dlg.c:151
+#: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -363,7 +357,7 @@ msgstr ""
 "גודל: %s\n"
 "השתנה: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -372,57 +366,55 @@ msgstr ""
 "סוג: %s\n"
 "השתנה: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr "פעולת הקבצים בוטלה וישנן כמה שגיאות."
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "בוטלה"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr "פעולת הקבצים הסתיימה, אך ישנן כמה שגיאות."
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "הסתיימה"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"לא ניתן להעביר כמה מן הקבצים אל האשפה כיוון שמערכות הקבצים המארחות אותם אינן "
-"תומכות בפעולה זו.\n"
+"לא ניתן להעביר כמה מן הקבצים אל האשפה כיוון שמערכות הקבצים המארחות אותם אינן תומכות בפעולה זו.\n"
 "האם למחוק אותם במקום?"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "קבצים מועברים"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "קבצים מועתקים"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "קבצים מועברים לאשפה"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "קבצים נמחקים"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "נוצר קישור סימבולי"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr "שינוי תכונות הקובץ"
 
@@ -441,8 +433,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -466,7 +457,7 @@ msgid "Eject Removable Media"
 msgstr "שליפת מדיה נתיקה"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "שינוי שם לפריט סימנייה"
 
@@ -478,7 +469,7 @@ msgstr "הסרה מהסימניות"
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
@@ -510,15 +501,15 @@ msgstr "חילוץ לכאן"
 msgid "Extract To..."
 msgstr "חילוץ אל..."
 
-#: ../src/gtk/fm-file-menu.c:258
+#: ../src/gtk/fm-file-menu.c:252
 msgid "_Restore"
 msgstr "_שחזור"
 
-#: ../src/gtk/fm-file-menu.c:259
+#: ../src/gtk/fm-file-menu.c:253
 msgid "Restore trashed files to original paths"
 msgstr "שחזור קבצים שנשלחו לאשפה לתיקיותיהם המקוריות"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:448
 msgid "XDirectSave failed."
 msgstr "XDirectSave כשלה."
 
@@ -585,18 +576,6 @@ msgstr "נא להזין שם חדש:"
 #: ../src/gtk/fm-gtk-utils.c:593
 msgid "Are you sure you want to empty the trash can?"
 msgstr "האם לפנות את סל האשפה?"
-
-#: ../src/gtk/fm-gtk-file-launcher.c:86
-#, c-format
-msgid ""
-"This text file '%s' seems to be an executable script.\n"
-"What do you want to do with it?"
-msgstr ""
-
-#: ../src/gtk/fm-gtk-file-launcher.c:93
-#, c-format
-msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
