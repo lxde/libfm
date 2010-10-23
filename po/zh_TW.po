@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 22:33+0800\n"
+"POT-Creation-Date: 2010-10-23 23:31+0800\n"
 "PO-Revision-Date: 2010-10-23 22:34+0800\n"
 "Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
@@ -259,8 +259,7 @@ msgstr "命令列："
 msgid "File Associations"
 msgstr "檔案關聯"
 
-#: ../data/ui/preferred-apps.glade.h:6
-#: ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "偏好的應用程式"
 
@@ -269,7 +268,9 @@ msgid "System Applications"
 msgstr "系統應用程式"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
 msgstr "當點擊 E-mail 位址時，偏好的郵件軟體將會被用來編輯信件。"
 
 #: ../data/ui/preferred-apps.glade.h:9
@@ -284,8 +285,7 @@ msgstr "執行檔案"
 msgid "Execute in _Terminal"
 msgstr "在終端機內執行(_T)"
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -351,8 +351,7 @@ msgstr "網路"
 msgid ": "
 msgstr "："
 
-#: ../src/gtk/fm-progress-dlg.c:214
-#: ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -363,8 +362,7 @@ msgstr ""
 "大小：%s\n"
 "修改：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:221
-#: ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -391,7 +389,8 @@ msgstr "已完成"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 "因為檔案系統不支援，有些檔案無法被移到垃圾桶\n"
@@ -425,8 +424,7 @@ msgstr "建立符號連結"
 msgid "Changing file attributes"
 msgstr "變更檔案屬性"
 
-#: ../src/gtk/fm-file-properties.c:117
-#: ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "位元組"
@@ -440,7 +438,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "請輸入有效的群組名稱或數字 id"
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -464,8 +463,7 @@ msgid "Eject Removable Media"
 msgstr "退出可移除媒體"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96
-#: ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
 msgid "Rename Bookmark Item"
 msgstr "重新命名書籤項目"
 
@@ -481,8 +479,7 @@ msgstr "清空垃圾桶"
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
 
-#: ../src/gtk/fm-file-menu.c:86
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "以其他程式開啟"
 
@@ -600,8 +597,7 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "這個檔案 '%s' 是可執行檔，你是否想要執行它？"
 
-#: ../src/job/fm-dir-list-job.c:231
-#: ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
@@ -625,8 +621,10 @@ msgstr "目的資料夾是來源資料夾的子資料夾"
 
 #~ msgid "Trash"
 #~ msgstr "垃圾桶"
+
 #~ msgid "Desktop"
 #~ msgstr "桌面"
+
 #~ msgid "It's not a valid directory"
 #~ msgstr "這不是一個有效的目錄。"
 
@@ -641,56 +639,81 @@ msgstr "目的資料夾是來源資料夾的子資料夾"
 #, fuzzy
 #~ msgid "The selection mode"
 #~ msgstr "選擇一個資料夾"
+
 #~ msgid "_File"
 #~ msgstr "檔案(_F)"
+
 #~ msgid "_New Window"
 #~ msgstr "開新視窗"
+
 #~ msgid "_Close Window"
 #~ msgstr "關閉視窗(_C)"
+
 #~ msgid "_Edit"
 #~ msgstr "編輯(_E)"
+
 #~ msgid "Move To..."
 #~ msgstr "移動到..."
+
 #~ msgid "Copy To..."
 #~ msgstr "複製到..."
+
 #~ msgid "_View"
 #~ msgstr "檢視(_V)"
+
 #~ msgid "_Sort Files"
 #~ msgstr "排序檔案(_S)"
+
 #~ msgid "_Help"
 #~ msgstr "說明(_H)"
+
 #~ msgid "_Go"
 #~ msgstr "到(_G)"
+
 #~ msgid "Previous Folder"
 #~ msgstr "上一個資料夾"
+
 #~ msgid "Next Folder"
 #~ msgstr "下一個資料夾"
+
 #~ msgid "Parent Folder"
 #~ msgstr "上一層資料夾"
+
 #~ msgid "Go to parent Folder"
 #~ msgstr "到上一層資料夾"
+
 #~ msgid "Home Folder"
 #~ msgstr "家目錄"
+
 #~ msgid "Desktop Folder"
 #~ msgstr "桌面資料夾"
+
 #~ msgid "_Bookmarks"
 #~ msgstr "書籤(_B)"
+
 #~ msgid "Add To Bookmarks"
 #~ msgstr "新增到書籤"
+
 #~ msgid "Folder"
 #~ msgstr "資料夾"
+
 #~ msgid "Blank FIle"
 #~ msgstr "空白檔案"
+
 #~ msgid "Show _Hidden"
 #~ msgstr "顯示隱藏檔案(_H)"
+
 #~ msgid "_Compact View"
 #~ msgstr "簡潔清單檢視(_C)"
+
 #~ msgid "Detailed _List View"
 #~ msgstr "詳細清單檢視(_L)"
+
 #~ msgid "By _Name"
 #~ msgstr "依名稱(&N)"
+
 #~ msgid "By _Modification Time"
 #~ msgstr "依修改時間(_M)"
+
 #~ msgid "Open in New Window"
 #~ msgstr "在新視窗中開啟"
-
