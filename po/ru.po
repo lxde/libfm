@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 06:11+0000\n"
+"POT-Creation-Date: 2010-10-24 06:10+0000\n"
 "PO-Revision-Date: 2010-09-03 14:22+0200\n"
 "Last-Translator: Max <mpui@tut.by>\n"
 "Language-Team: gnome-cyr\n"
@@ -348,11 +348,11 @@ msgstr "Приложения"
 msgid "Network"
 msgstr "Сеть"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -363,7 +363,7 @@ msgstr ""
 "Размер: %s\n"
 "Изменён: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -372,23 +372,23 @@ msgstr ""
 "Тип: %s\n"
 "Изменён: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операция над файлами была отменена с ошибками."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операция над файлами была завершена с ошибками."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "Finished"
 msgstr "Завершено"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
@@ -396,31 +396,31 @@ msgstr ""
 "Некоторые файлы не могут быть помещены в корзину, поскольку файловая система не поддерживает эту операцию.\n"
 "Вы всё равно хотите их удалить?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:430
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:445
 msgid "Moving files"
 msgstr "Перемещение файлов"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Copying files"
 msgstr "Копирование файлов"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Trashing files"
 msgstr "Удаление файлов в корзину"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Deleting files"
 msgstr "Удаление файлов"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Creating symlinks"
 msgstr "Создание символьных ссылок"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Changing file attributes"
 msgstr "Изменить атрибуты файла"
 
@@ -464,7 +464,7 @@ msgid "Eject Removable Media"
 msgstr "Извлечь диск"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
 msgid "Rename Bookmark Item"
 msgstr "Переименовать закладку"
 
@@ -476,7 +476,7 @@ msgstr "Удалить из закладок"
 msgid "Empty Trash"
 msgstr "Очистить корзину"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:661
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
 
@@ -508,15 +508,15 @@ msgstr "Извлечь в текущую папку"
 msgid "Extract To..."
 msgstr "Извлечь в..."
 
-#: ../src/gtk/fm-file-menu.c:252
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "_Восстановить"
 
-#: ../src/gtk/fm-file-menu.c:253
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "Восстановление файлов из корзины"
 
-#: ../src/gtk/fm-dnd-dest.c:448
+#: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
 msgstr "Ошибка XDirectSave."
 
@@ -583,6 +583,20 @@ msgstr "Введите новое имя:"
 #: ../src/gtk/fm-gtk-utils.c:593
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Хотите очистить корзину?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:86
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+"Этот текстовый файл «%s», судя по всему, является исполняемым скриптом.\n"
+"Какое действие вы хотите выполнить?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:93
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr "Файл «%s» является исполняемым. Хотите его запустить?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
