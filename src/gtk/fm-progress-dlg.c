@@ -441,22 +441,22 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
     /* FIXME: use accessor functions instead */
     switch(data->job->type)
     {
-	case FM_FILE_OP_MOVE:
+    case FM_FILE_OP_MOVE:
         title = _("Moving files");
         break;
-	case FM_FILE_OP_COPY:
+    case FM_FILE_OP_COPY:
         title = _("Copying files");
         break;
-	case FM_FILE_OP_TRASH:
+    case FM_FILE_OP_TRASH:
         title = _("Trashing files");
         break;
-	case FM_FILE_OP_DELETE:
+    case FM_FILE_OP_DELETE:
         title = _("Deleting files");
         break;
     case FM_FILE_OP_LINK:
         title = _("Creating symlinks");
         break;
-	case FM_FILE_OP_CHANGE_ATTR:
+    case FM_FILE_OP_CHANGE_ATTR:
         title = _("Changing file attributes");
         break;
     }
@@ -501,6 +501,18 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
     data->timer = g_timer_new();
 }
 
+/* This should be called from main thread. Since other parts accessing
+ * data->parent are all run in main thread, this theoratically shouldn't
+ * cause racing condition. */
+static void on_parent_destroy(GtkWidget* parent, gpointer user_data)
+{
+    /* parent window is destroyed */
+    FmProgressDisplay* data = (FmProgressDisplay*)user_data;
+    data->parent = NULL;
+    g_signal_handlers_disconnect_by_func(parent, on_parent_destroy, data);
+    g_object_unref(parent);
+}
+
 /* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
@@ -509,6 +521,8 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
 {
     FmProgressDisplay* data = g_slice_new0(FmProgressDisplay);
     data->job = (FmFileOpsJob*)g_object_ref(job);
+    data->parent = g_object_ref(parent);
+    g_signal_connect(parent, "destroy", G_CALLBACK(on_parent_destroy), data);
     data->delay_timeout = g_timeout_add(SHOW_DLG_DELAY, (GSourceFunc)on_show_dlg, data);
 
     g_signal_connect(job, "ask", G_CALLBACK(on_ask), data);
@@ -520,7 +534,7 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
-	fm_job_run_async(FM_JOB(job));
+    fm_job_run_async(FM_JOB(job));
 
     return data;
 }
@@ -542,6 +556,12 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
 
         if(data->timer)
             g_timer_destroy(data->timer);
+    }
+
+    if(data->parent)
+    {
+        g_signal_handlers_disconnect_by_func(data->parent, on_parent_destroy, data);
+        g_object_unref(data->parent);
     }
 
     g_free(data->cur_file);
