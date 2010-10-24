@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 23:31+0800\n"
-"PO-Revision-Date: 2010-09-02 19:18+0200\n"
+"POT-Creation-Date: 2010-10-24 06:10+0000\n"
+"PO-Revision-Date: 2010-10-24 19:18+0200\n"
 "Last-Translator: Joe Hansen (joedalton2@yahoo.dk)\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -280,14 +280,12 @@ msgstr ""
 "Den foretrukne internetbrowser vil blive brugt til at åbne internetadresser."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Flere filer"
+msgstr "Kør fil"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Kør i terminalemulator"
+msgstr "Kør i _terminal"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -597,11 +595,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Denne tekstfil '%s' ser ud til at være et kørbart skript.\n"
+"Hvad ønsker du, der skal ske med den?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "Denne fil '%s' er kørbar. Ønsker du at køre den?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
