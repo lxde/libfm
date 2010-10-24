@@ -77,8 +77,8 @@ struct _FmFileInfo
     char* collate_key; /* used to sort files by name */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
-	FmMimeType* type;
-	FmIcon* icon;
+    FmMimeType* type;
+    FmIcon* icon;
 
     char* target; /* target of shortcut or mountable. */
 
@@ -103,6 +103,7 @@ FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );
 
+void fm_file_info_set_path(FmFileInfo* fi, FmPath* path);
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name );
 
 goffset fm_file_info_get_size( FmFileInfo* fi );

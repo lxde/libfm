@@ -137,9 +137,7 @@ static void update_vol(FmPlacesModel* model, FmPlaceItem* item, GtkTreeIter* it,
 
     if(!fm_path_equal(item->fi->path, path))
     {
-        if(item->fi->path)
-            fm_path_unref(item->fi->path);
-        item->fi->path = path ? fm_path_ref(path) : NULL;
+        fm_file_info_set_path(item->fi, path);
         if(path)
         {
             if(job)
@@ -151,6 +149,7 @@ static void update_vol(FmPlacesModel* model, FmPlaceItem* item, GtkTreeIter* it,
                 g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
                 fm_job_run_async(FM_JOB(job));
             }
+            fm_path_unref(path);
         }
     }
 
@@ -245,7 +244,9 @@ void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
             FmPath* path = fm_path_new_for_gfile(gf);
             g_debug("mount path: %s", path->name);
             g_object_unref(gf);
-            item->fi->path = path;
+            fm_file_info_set_path(item->fi, path);
+            if(path)
+                fm_path_unref(path);
             item->vol_mounted = TRUE;
 
             /* inform the view to update mount indicator */

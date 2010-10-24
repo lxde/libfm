@@ -404,6 +404,7 @@ static void fm_places_view_init(FmPlacesView *self)
                                          "text", FM_PLACES_MODEL_COL_LABEL, NULL );
 
     renderer = gtk_cell_renderer_pixbuf_new();
+    self->mount_indicator_renderer = renderer;
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(col), renderer,
                                        fm_places_model_mount_indicator_cell_data_func,
@@ -504,10 +505,50 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         {
             GtkTreePath* tp;
             GtkTreeViewColumn* col;
-            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+            int cell_x;
+            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, &cell_x, NULL))
             {
+                /* check if we release the button on the row we previously clicked. */
                 if(gtk_tree_path_compare(tp, view->clicked_row) == 0)
+                {
+                    /* check if we click on the "eject" icon. */
+                    int start, cell_w;
+                    gtk_tree_view_column_cell_get_position(col, view->mount_indicator_renderer,
+                                                           &start, &cell_w);
+                    if(cell_x > start && cell_x < (start + cell_w)) /* click on eject icon */
+                    {
+                        GtkTreeIter it;
+                        /* do eject if needed */
+                        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
+                        {
+                            FmPlaceItem* item;
+                            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+                            if(item && item->vol_mounted)
+                            {
+                                GtkWidget* toplevel = gtk_widget_get_toplevel(view);
+                                /* eject the volume */
+                                if(g_volume_can_eject(item->vol))
+                                    fm_eject_volume(toplevel, item->vol, TRUE);
+                                else /* not ejectable, do unmount */
+                                {
+                                    GMount* mnt = g_volume_get_mount(item->vol);
+                                    if(mnt)
+                                    {
+                                        fm_unmount_mount(toplevel, mnt, TRUE);
+                                        g_object_unref(mnt);
+                                    }
+                                }
+                                gtk_tree_path_free(tp);
+
+                                gtk_tree_path_free(view->clicked_row);
+                                view->clicked_row = NULL;
+                                return TRUE;
+                            }
+                        }
+                    }
+                    /* activate the clicked row. */
                     gtk_tree_view_row_activated(GTK_TREE_VIEW(view), view->clicked_row, col);
+                }
                 gtk_tree_path_free(tp);
             }
         }
@@ -589,6 +630,7 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
+    int cell_x;
 
     gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL);
     view->clicked_row = tp;
@@ -651,6 +693,7 @@ void on_umount(GtkAction* act, gpointer user_data)
 void on_eject(GtkAction* act, gpointer user_data)
 {
     FmPlaceItem* item = (FmPlaceItem*)user_data;
+    /* FIXME: get the toplevel window here */
     fm_eject_volume(NULL, item->vol, TRUE);
 }
 

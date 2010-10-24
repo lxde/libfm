@@ -361,6 +361,25 @@ const char* fm_file_info_get_disp_name( FmFileInfo* fi )
     return fi->disp_name;
 }
 
+void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
+{
+    if(fi->path)
+    {
+        if(fi->path->name == fi->disp_name)
+            fi->disp_name = NULL;
+        fm_path_unref(fi->path);
+    }
+
+    if(path)
+    {
+        fi->path = fm_path_ref(path);
+        /* FIXME: need to handle UTF-8 issue here */
+        fi->disp_name = fi->path->name;
+    }
+    else
+        fi->path = NULL;
+}
+
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name )
 {
     if ( fi->disp_name && fi->disp_name != fi->path->name )
