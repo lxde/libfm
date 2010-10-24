@@ -127,9 +127,13 @@ static void update_vol(FmPlacesModel* model, FmPlaceItem* item, GtkTreeIter* it,
         path = fm_path_new_for_gfile(gf);
         g_object_unref(gf);
         g_object_unref(mount);
+        item->vol_mounted = TRUE;
     }
     else
+    {
         path = NULL;
+        item->vol_mounted = FALSE;
+    }
 
     if(!fm_path_equal(item->fi->path, path))
     {
@@ -219,6 +223,7 @@ void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     FmPlaceItem* item;
     GtkTreeIter it;
+    g_debug("vol-changed");
     item = find_vol(model, vol, &it);
     if(item)
         update_vol(model, item, &it, NULL);
@@ -235,11 +240,18 @@ void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
         item = find_vol(model, vol, &it);
         if(item && item->type == FM_PLACES_ITEM_VOL && !item->fi->path)
         {
+            GtkTreePath* tp;
             GFile* gf = g_mount_get_root(mount);
             FmPath* path = fm_path_new_for_gfile(gf);
             g_debug("mount path: %s", path->name);
             g_object_unref(gf);
             item->fi->path = path;
+            item->vol_mounted = TRUE;
+
+            /* inform the view to update mount indicator */
+            tp = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
+            gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
+            gtk_tree_path_free(tp);
         }
         g_object_unref(vol);
     }
@@ -355,6 +367,18 @@ static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFi
 static void update_icons(FmPlacesModel* model)
 {
     GtkTreeIter it;
+    FmIcon* icon;
+    GdkPixbuf* pix;
+
+    /* update the eject icon */
+    icon = fm_icon_from_name("media-eject");
+    pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    fm_icon_unref(icon);
+    if(model->eject_icon)
+        g_object_unref(model->eject_icon);
+    model->eject_icon = pix;
+
+    /* reload icon for every item */
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it);
     do{
         if(it.user_data != model->sep_it.user_data)
@@ -362,7 +386,7 @@ static void update_icons(FmPlacesModel* model)
             FmPlaceItem* item;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
             /* FIXME: get icon size from FmConfig */
-            GdkPixbuf* pix = fm_icon_get_pixbuf(item->fi->icon, fm_config->pane_icon_size);
+            pix = fm_icon_get_pixbuf(item->fi->icon, fm_config->pane_icon_size);
             gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
             g_object_unref(pix);
         }
@@ -455,6 +479,10 @@ static void fm_places_model_init(FmPlacesModel *self)
 
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
+    icon = fm_icon_from_name("media-eject");
+    pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    fm_icon_unref(icon);
+    self->eject_icon = pix;
 
     item = g_slice_new0(FmPlaceItem);
     item->type = FM_PLACES_ITEM_PATH;
@@ -638,4 +666,18 @@ static void fm_places_model_class_init(FmPlacesModelClass *klass)
 GtkListStore *fm_places_model_new(void)
 {
     return g_object_new(FM_TYPE_PLACES_MODEL, NULL);
+}
+
+void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
+                                           GtkCellRenderer *render,
+                                           GtkTreeModel *tree_model,
+                                           GtkTreeIter *it,
+                                           gpointer user_data)
+{
+    FmPlaceItem* item;
+    GdkPixbuf* pix = NULL;
+    gtk_tree_model_get(tree_model, it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+    if(item && item->vol_mounted)
+        pix = FM_PLACES_MODEL(tree_model)->eject_icon;
+    g_object_set(render, "pixbuf", pix, NULL);
 }

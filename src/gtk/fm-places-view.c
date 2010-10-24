@@ -365,7 +365,6 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
         gtk_tree_path_free(dest_tp);
 }
 
-
 static void fm_places_view_init(FmPlacesView *self)
 {
     GtkTreeViewColumn* col;
@@ -400,8 +399,16 @@ static void fm_places_view_init(FmPlacesView *self)
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start( col, renderer, TRUE );
+    g_object_set(renderer, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_tree_view_column_set_attributes( col, renderer,
                                          "text", FM_PLACES_MODEL_COL_LABEL, NULL );
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start( col, renderer, FALSE );
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(col), renderer,
+                                       fm_places_model_mount_indicator_cell_data_func,
+                                       NULL, NULL);
+
     gtk_tree_view_append_column ( GTK_TREE_VIEW(self), col );
 
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,

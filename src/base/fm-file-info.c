@@ -242,16 +242,27 @@ static void fm_file_info_clear( FmFileInfo* fi )
             g_free(fi->collate_key);
         fi->collate_key = NULL;
     }
-    if( fi->disp_name && fi->disp_name != fi->path->name )
-    {
-        g_free( fi->disp_name );
-        fi->disp_name = NULL;
-    }
+
     if( fi->path )
     {
+        if(G_LIKELY(fi->disp_name) && fi->disp_name != fi->path->name)
+        {
+            g_free( fi->disp_name );
+            fi->disp_name = NULL;
+        }
+
         fm_path_unref(fi->path);
         fi->path = NULL;
     }
+    else
+    {
+        if(fi->disp_name)
+        {
+            g_free(fi->disp_name);
+            fi->disp_name = NULL;
+        }
+    }
+
     if( fi->disp_size )
     {
         g_free( fi->disp_size );
