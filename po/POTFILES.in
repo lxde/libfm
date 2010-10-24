@@ -25,3 +25,5 @@ src/job/fm-file-ops-job-xfer.c
 src/tools/libfm-pref-apps.c
 data/libfm-pref-apps.desktop.in
 
+src/gtk/fm-places-model.c
+src/udisks/g-udisks-device.c

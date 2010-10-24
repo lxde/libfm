@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 23:31+0800\n"
+"POT-Creation-Date: 2010-10-24 11:11+0200\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -348,7 +348,7 @@ msgstr "Kôš"
 msgid "My Computer"
 msgstr "Môj počítač"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
 msgid "Applications"
 msgstr "Aplikácie"
 
@@ -629,11 +629,199 @@ msgstr "Nie je možné skopírovať priečinok do jeho podpriečinka"
 msgid "Destination is a sub folder of source"
 msgstr "Cieľ je podpriečinkom zdroja"
 
-#~ msgid "Trash"
-#~ msgstr "Kôš"
+#: ../src/gtk/fm-places-model.c:426
+msgid "Trash"
+msgstr "Kôš"
 
-#~ msgid "Desktop"
-#~ msgstr "Plocha"
+#: ../src/gtk/fm-places-model.c:480
+msgid "Desktop"
+msgstr "Plocha"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "Disk CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:41
+#, fuzzy
+msgid "Blank CD-ROM Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "Disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "Disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#, fuzzy
+msgid "Blank DVD-ROM Disc"
+msgstr "Prázdny disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr "Disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr "Prázdny disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "Disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "Prázdny disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "DVD+R DL Disc"
+msgstr "Disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "Blank DVD+R DL Disc"
+msgstr "Prázdny disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "DVD+RW DL Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "Blank DVD+RW DL Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blu-Ray Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blank Blu-Ray Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blu-Ray R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blank Blu-Ray R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blu-Ray RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blank Blu-Ray RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "HD DVD Disc"
+msgstr "Disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "Blank HD DVD Disc"
+msgstr "Prázdny disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "HD DVD-R Disc"
+msgstr "Disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "Blank HD DVD-R Disc"
+msgstr "Prázdny disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "HD DVD-RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "Blank HD DVD-RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "MO Disc"
+msgstr "Disk CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "Blank MO Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "MRW Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "Blank MRW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "MRW/W Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "Blank MRW/W Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:299
+#, fuzzy
+msgid "Blank Optical Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr ""
 
 #~ msgid "Copyright (C) 2005 - 2008"
 #~ msgstr "Copyright (C) 2005 - 2008"
@@ -1657,54 +1845,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "External %s"
 #~ msgstr "Externá %s"
-
-#~ msgid "CD-ROM Disc"
-#~ msgstr "Disk CD-ROM"
-
-#~ msgid "Blank CD-R Disc"
-#~ msgstr "Prázdny disk CD-R"
-
-#~ msgid "CD-R Disc"
-#~ msgstr "Disk CD-R"
-
-#~ msgid "Blank CD-RW Disc"
-#~ msgstr "Prázdny disk CD-RW"
-
-#~ msgid "CD-RW Disc"
-#~ msgstr "Disk CD-RW"
-
-#~ msgid "DVD-ROM Disc"
-#~ msgstr "Disk DVD-ROM"
-
-#~ msgid "Blank DVD-RAM Disc"
-#~ msgstr "Prázdny disk DVD-ROM"
-
-#~ msgid "DVD-RAM Disc"
-#~ msgstr "Disk DVD-ROM"
-
-#~ msgid "Blank DVD-R Disc"
-#~ msgstr "Prázdny disk DVD-R"
-
-#~ msgid "DVD-R Disc"
-#~ msgstr "Disk DVD-R"
-
-#~ msgid "Blank DVD-RW Disc"
-#~ msgstr "Prázdny disk DVD-RW"
-
-#~ msgid "DVD-RW Disc"
-#~ msgstr "Disk DVD-RW"
-
-#~ msgid "Blank DVD+R Disc"
-#~ msgstr "Prázdny disk DVD+R"
-
-#~ msgid "DVD+R Disc"
-#~ msgstr "Disk DVD+R"
-
-#~ msgid "Blank DVD+RW Disc"
-#~ msgstr "Prázdny disk DVD-RW"
-
-#~ msgid "DVD+RW Disc"
-#~ msgstr "Disk DVD-RW"
 
 #~ msgid "Audio Disc"
 #~ msgstr "Zvukový disk"
