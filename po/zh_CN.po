@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2010-10-24 21:03+0200\n"
 "PO-Revision-Date: 2010-10-24 11:06+0200\n"
 "Last-Translator: Yinghua_Wang <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,7 +338,7 @@ msgstr "回收站"
 msgid "My Computer"
 msgstr "我的电脑"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "应用程序"
 
@@ -462,7 +462,7 @@ msgid "Eject Removable Media"
 msgstr "弹出可移动媒质"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "重命名书签项"
 
@@ -474,7 +474,7 @@ msgstr "从书签中移除"
 msgid "Empty Trash"
 msgstr "清空回收站"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "输入新名称："
 
@@ -618,12 +618,12 @@ msgstr "无法将文件夹复制到其子文件夹中"
 msgid "Destination is a sub folder of source"
 msgstr "目标位置是源位置的子文件夹"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 #, fuzzy
 msgid "Trash"
 msgstr "回收站"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr ""
 
