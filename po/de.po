@@ -276,7 +276,7 @@ msgstr "Der bevorzugte Web-Browser wird zum Öffnen von Hyperlinks genutzt."
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "Datei Ausführen"
+msgstr "Datei ausführen"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
@@ -379,7 +379,7 @@ msgstr "Abgebrochen"
 
 #: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
-msgstr "Der Vorgang wurd abgeschlossen, aber es traten Fehler auf."
+msgstr "Der Vorgang wurde abgeschlossen, aber es traten Fehler auf."
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "Finished"
@@ -416,7 +416,7 @@ msgstr "Dateien werden gelöscht"
 # Verknüpfung oder Link?
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Creating symlinks"
-msgstr "Symbolische Verknüpfung erzeugen"
+msgstr "Symbolische Verknüpfung werden erstellt"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Changing file attributes"
@@ -481,7 +481,7 @@ msgstr "Neuen Namen eingeben:"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr "Öffnen mit.."
+msgstr "Öffnen mit…"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
@@ -497,7 +497,7 @@ msgstr "Senden an"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr "Komprimieren..."
+msgstr "Komprimieren…"
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
@@ -505,7 +505,7 @@ msgstr "Hier entpacken"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "Entpacken nach..."
+msgstr "Entpacken nach…"
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
@@ -574,7 +574,7 @@ msgstr "Gewählte Dateien löschen?"
 
 #: ../src/gtk/fm-gtk-utils.c:571
 msgid "Rename File"
-msgstr "Datei umbennen"
+msgstr "Datei umbenennen"
 
 #: ../src/gtk/fm-gtk-utils.c:571
 msgid "Please enter a new name:"
@@ -590,13 +590,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Die Textdatei '%s' scheint ausführbar zu sein.\n"
-"Was möchten sie damit tun?"
+"Die Textdatei »%s« scheint ausführbar zu sein.\n"
+"Was möchten Sie damit tun?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format, fuzzy
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Die Datei '%s' ist ausführbar. Möchten sie diese ausführen?"
+msgstr "Die Datei »%s« ist ausführbar. Möchten Sie diese ausführen?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -695,20 +695,24 @@ msgid "Blank DVD+RW Disc"
 msgstr "DVD+RW-Rohling"
 
 #: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL Medium"
 
 #: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Leeres DVD+R DL Medium"
 
 #: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+ DL Medium (wiederbeschreibbar)"
 
 #: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Leeres DVD+ DL Medium (wiederbeschreibbar)"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
@@ -719,20 +723,24 @@ msgid "Blank Blu-Ray Disc"
 msgstr "Blu-Ray-Rohling"
 
 #: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray Medium"
 
 #: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Leeres Blu-Ray Medium"
 
 #: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray Medium (wiederbeschreibbar)"
 
 #: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Leeres Blu-Ray Medium (wiederbeschreibbar)"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
@@ -766,30 +774,33 @@ msgstr "MO-Medium"
 #: ../src/udisks/g-udisks-device.c:58
 #, fuzzy
 msgid "Blank MO Disc"
-msgstr "Leere MO"
+msgstr "Leeres MO Medium"
 
 #: ../src/udisks/g-udisks-device.c:59
 #, fuzzy
 msgid "MRW Disc"
-msgstr "MRW-Medium"
+msgstr "MRW Medium"
 
 #: ../src/udisks/g-udisks-device.c:59
 #, fuzzy
 msgid "Blank MRW Disc"
-msgstr "Leeres MRW"
+msgstr "Leeres MRW Medium"
 
 #: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W Medium"
 
 #: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Leeres MRW/W Medium"
 
 #: ../src/udisks/g-udisks-device.c:299
+#, fuzzy
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Leeres optisches Medium"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optisches Medium"
