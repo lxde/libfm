@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Radek Tříška <radek@fastlinux.eu>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2010-10-26 06:12+0000\n"
 "PO-Revision-Date: 2010-04-02 00:38+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -266,28 +266,20 @@ msgid "System Applications"
 msgstr "Systémové aplikace"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Při kliknutí na emailové adresy bude pro psaní zprávy použit preferovaný "
-"emailový klient."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Při kliknutí na emailové adresy bude pro psaní zprávy použit preferovaný emailový klient."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW "
-"prohlížeč. "
+msgstr "Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW prohlížeč. "
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Více souborů"
+msgstr "Spustit soubor"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Spustit v emulátoru terminálu"
+msgstr "Spustit v _terminálu"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -345,7 +337,7 @@ msgstr "Koš"
 msgid "My Computer"
 msgstr "Můj počítač"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Aplikace"
 
@@ -364,6 +356,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Typ: %s\n"
+"velikost: %s\n"
+"změněno: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
@@ -371,6 +366,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Typ: %s\n"
+"Změněno: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "The file operation is cancelled and there are some errors."
@@ -389,11 +386,13 @@ msgid "Finished"
 msgstr "Dokončeno"
 
 #: ../src/gtk/fm-progress-dlg.c:336
+#, fuzzy
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Některé soubory nelze přesunout do koše, podkladový souborový systém tuto operaci nepodporuje.\n"
+"Chcete je smazat?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
 msgid ", "
@@ -424,12 +423,11 @@ msgid "Changing file attributes"
 msgstr "Mění se atributy souborů"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u bajt "
-msgstr[1] "%u bajtů"
-msgstr[2] "%u bajtů"
+msgstr[0] "bajt"
+msgstr[1] "bajty"
+msgstr[2] "bajtů"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -440,8 +438,7 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím zadejte platné jméno nebo číselné id skupiny."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -465,7 +462,7 @@ msgid "Eject Removable Media"
 msgstr "Vysunout vyměnitelné medium"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Přejmenovat záložku"
 
@@ -477,7 +474,7 @@ msgstr "Odebrat ze záložek"
 msgid "Empty Trash"
 msgstr "Vyprázdnit koš"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Vložte nový název:"
 
@@ -511,11 +508,11 @@ msgstr "Rozbalit do..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
-msgstr ""
+msgstr "Obnovit"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Obnovit soubory z koše do původních umístění"
 
 #: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
@@ -591,11 +588,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Textový soubor '%s' vypadá jako spustitelný skript.\n"
+"Co s ním budete dělat?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "Soubor '%s' je spustitelný.  Chcete jej spustit?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -605,52 +604,53 @@ msgstr "Zadaná složka není platná"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Zdroj a cíl jsou shodné"
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Nelze přesunout složku samu do sebe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Nelze kopírovat složku samu do sebe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Cílové umístění je uvnitř zdrojové složky"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Koš"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Pracovní plocha"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "Disk CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Prázdný disk CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "Disk CD-R"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Prázdný disk CD-R"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "Disk CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Prázdný disk CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
