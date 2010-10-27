@@ -80,7 +80,7 @@ msgstr "Použít tuto možnost na všechny soubory"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Potvrďte pro nahrazení souborů"
+msgstr "Potvrdit nahrazení souborů"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -357,8 +357,8 @@ msgid ""
 "Modified: %s"
 msgstr ""
 "Typ: %s\n"
-"velikost: %s\n"
-"změněno: %s"
+"Velikost: %s\n"
+"Změněno: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
