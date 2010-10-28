@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2010-10-28 06:14+0000\n"
 "PO-Revision-Date: 2010-07-11 17:57+0200\n"
 "Last-Translator: Hamidreza <n3gb0y@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -59,8 +59,7 @@ msgstr "نرم‌افزارهای نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
+msgstr "نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -186,8 +185,7 @@ msgstr "عملیاتی که دارنده فایل می تواند انجام د�
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
+msgstr "عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -269,26 +267,20 @@ msgid "System Applications"
 msgstr "نرم‌افزارهای سیستمی"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده "
-"خواهد شد."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده خواهد شد."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "مرورگر برگزیده برای باز گردن فرا لینک ها استفاده خواهد شد."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "چندین فایل"
+msgstr "اجرای فایل"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "اجرا در پایانه ی شبیه ساز"
+msgstr "اجرا در ترمینال"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -344,7 +336,7 @@ msgstr "سطل زباله"
 msgid "My Computer"
 msgstr "کامپیوتر من"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "نرم‌افزارها"
 
@@ -394,12 +386,10 @@ msgstr "به پایان رسیده"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل "
-"سیستم این عمل را پشتیبانی نمی کند.\n"
+"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل سیستم این عمل را پشتیبانی نمی کند.\n"
 "بجای اینکار ایا می خواهید آنها را پاک کنید ؟"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -444,11 +434,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "لطفا یک نام گروه یا مشخصه‌ی عددی وارد کنید."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت "
-"شود؟"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت شود؟"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -471,7 +458,7 @@ msgid "Eject Removable Media"
 msgstr "در آوردن رسانه‌ی قابل حمل"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "تغییر نام ایتم نشانک"
 
@@ -483,7 +470,7 @@ msgstr "حذف از نشانک "
 msgid "Empty Trash"
 msgstr "خالی کردن زباله دان"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "یک نام جدید وارد کنید:"
 
@@ -625,15 +612,16 @@ msgstr "نمی توان پوشه ای راه به پوشه ی زیرین خود�
 msgid "Destination is a sub folder of source"
 msgstr "مقصد زیر پوشه از منبع است"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "زباله"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "میزکار"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
 msgstr ""
