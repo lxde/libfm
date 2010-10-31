@@ -1,16 +1,16 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2010-10-31 06:12+0000\n"
 "PO-Revision-Date: 2010-04-25 02:24+0200\n"
 "Last-Translator: <edhunter@sidux.com>\n"
 "Language-Team: Greek\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -31,8 +31,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</"
-"b>\n"
+"<b>Αυτοί οι ειδικοί κωδικοί μπορούν να χρησιμοποιηθούν στη γραμμή εντολών:</b>\n"
 " <b>%f</b>: Αντιπροσωπεύει ένα όνομα αρχείου\n"
 " <b>%F</b>: Αντιπροσωπεύει πολλαπλά ονόματα αρχείων\n"
 " <b>%u</b>: Αντιπροσωπεύει ένα ενιαίο URI του αρχείου\n"
@@ -56,9 +55,7 @@ msgstr "Εγκατεστημένη εφαρμογή"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους "
-"τα αρχεία"
+msgstr "Όρισε την επιλεγμένη εφαρμογή ως προεπιλεγμένη ενέργεια για αυτού του είδους τα αρχεία"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,9 +181,7 @@ msgstr "Λειτουργίες που μπορεί να κάνει ο ιδιοκ
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με "
-"τον ιδιοκτήτη του αρχείου"
+msgstr "Λειτουργίες που μπορούν να κάνουν οι χρήστες που ανήκουν στην ίδια ομάδα με τον ιδιοκτήτη του αρχείου"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -198,9 +193,7 @@ msgstr "Μόνο ανάγνωση"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
-"Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού "
-"του τύπου"
+msgstr "Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού του τύπου"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -270,28 +263,20 @@ msgid "System Applications"
 msgstr "Εφαρμογές συστήματος"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή "
-"ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Το προτιμώμενο πρόγραμμα αλληλογραφίας θα χρησιμοποιηθεί για τη συγγραφή ηλεκτρονικών μηνυμάτων όταν κάνετε κλικ σε κάποια διεύθυνση αλληλογραφίας."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα "
-"υπερσυνδέσεων."
+msgstr "Ο προτιμώμενος περιηγητής ιστού θα χρησιμοποιηθεί για το άνοιγμα υπερσυνδέσεων."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Πολλαπλά αρχείων"
+msgstr "Εκτέλεση αρχείου"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Εκτέλεση στο τερματικό"
+msgstr "Εκτέλεση στο _τερματικό"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -348,7 +333,7 @@ msgstr "Κάδος απορριμάτων"
 msgid "My Computer"
 msgstr "Ο υπολογιστής μου"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Εφαρμογές"
 
@@ -398,12 +383,10 @@ msgstr "Ολοκληρώθηκε"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Μερικά αρχεία δε μπορούν να μετακινηθούν στα απορρίμματα γιατί το σύστημα "
-"αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
+"Μερικά αρχεία δε μπορούν να μετακινηθούν στα απορρίμματα γιατί το σύστημα αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
 "Αντί αυτού, θέλετε να διαγράψετε οριστικά τα αρχεία;"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -449,10 +432,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομάδας ή αριθμό id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -475,7 +456,7 @@ msgid "Eject Removable Media"
 msgstr "Εξαγωγή αφαιρούμενου μέσου"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
 
@@ -487,7 +468,7 @@ msgstr "Αφαίρεση από τους σελιδοδείκτες"
 msgid "Empty Trash"
 msgstr "Άδειασμα απορριμμάτων"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
@@ -601,11 +582,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Το αρχείο κειμένου '%s' φαίνεται να είναι ένα εκτελέσιμο script.\n"
+"Τι θέλετε να κάνετε;"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "Αυτό το αρχείο '%s' είναι εκτελέσιμο. Θέλετε να το εκτελέσετε;"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -629,171 +612,172 @@ msgstr "Δε γίνεται η αντιγραφή ενός φακέλου σε �
 msgid "Destination is a sub folder of source"
 msgstr "Ο προορισμός είναι υποφάκελος της πηγής"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Απορρίματα"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Επιφάνεια εργασίας"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "Δίσκος CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Άδειος δίσκος CD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "Δίσκος CD-R"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Άδειος δίσκος CD-R"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "Δίσκος CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος CD-RW"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "ΔίσκοςDVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "Δίσκος DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "Δίσκος DVD-RAM"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD-RAM"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "Δίσκος DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "Δίσκος DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "Δίσκος DVD+R DL"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD+R DL"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "Δίσκος DVD+RW DL"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Άδειος δίσκος DVD+RW DL"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Δίσκος Blu-Ray"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Άδειος δίσκος Blu-Ray"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Δίσκος Blu-Ray R"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Άδειος δίσκος Blu-Ray R"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Δίσκος Blu-Ray RW"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος Blu-Ray RW"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "Δίσκος HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "Άδειος δίσκος HD DVD"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "Δίσκος HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Άδειος δίσκος HD DVD-R"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "Δίσκος HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος HD DVD-RW"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "Δίσκος MO"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Άδειος δίσκος MO"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "Δίσκος MRW"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Άδειος δίσκος MRW"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "Δίσκος MRW/W"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Άδειος δίσκος MRW/W"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Άδειος οπτικός δίσκος"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Οπτικός δίσκος"
