@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
-"PO-Revision-Date: 2010-06-07 12:24+0100\n"
-"Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
+"POT-Creation-Date: 2010-11-01 10:46+0000\n"
+"PO-Revision-Date: 2010-11-02 01:34+0100\n"
+"Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -50,7 +49,7 @@ msgstr "Izaberite program"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Prila naredba"
+msgstr "Koristi proizvoljnu naredbu"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -62,11 +61,11 @@ msgstr "Postojeći programi"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Označite odabrani program kao podrazumevan za ovaj tip datoteka"
+msgstr "Uvek otvori ovaj tip datoteka ovim programom"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "Pre_traži"
+msgstr "_Razgledaj"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -80,7 +79,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Primeni ovo podešavaǌe na sve postojeće datoteke"
+msgstr "Primeni ovo podešavanje na sve postojeće datoteke"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -180,7 +179,7 @@ msgstr "Nijedan"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Radǌe koje su dozvoǉene ostalim korisnicima"
+msgstr "Radnje koje su dozvoljene ostalim korisnicima"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
@@ -261,7 +260,8 @@ msgstr "Naredba:"
 msgid "File Associations"
 msgstr "Pridruživanja datoteka"
 
-#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Podrazumevani programi"
 
@@ -270,34 +270,29 @@ msgid "System Applications"
 msgstr "Sistemski programi"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Kada kliknete na adrese e-pošte podrazumevani program za e-poštu će se "
-"koristiti za pisanje e-pisama."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Kada kliknete na adrese e-pošte podrazumevani program za e-poštu će se koristiti za pisanje e-pisama."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Za otvaranje internet adresa koristiće se podrazumevani Pregledač veba."
+msgstr "Za otvaranje internet adresa koristiće se podrazumevani Pregledač veba."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Višestruke datoteke"
+msgstr "Pokreni datoteku"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Pokreni u emulatoru terminala"
+msgstr "Pokreni u emulatoru _terminala"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
-#, fuzzy, c-format
+#: ../src/base/fm-utils.c:54
+#: ../src/base/fm-utils.c:83
+#, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bajt"
-msgstr[1] "%u bajtova"
+msgstr[1] "%u bajta"
+msgstr[2] "%u bajta"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
@@ -347,7 +342,8 @@ msgstr "Nepotrebno"
 msgid "My Computer"
 msgstr "Računar"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739
+#: ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Programi"
 
@@ -359,7 +355,8 @@ msgstr "Mreža"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:214
+#: ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -370,7 +367,8 @@ msgstr ""
 "Veličina: %s\n"
 "Izmenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:221
+#: ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -397,12 +395,10 @@ msgstr "Završeno"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Neke datoteke se ne mogu premestiti u Nepotrebno jer primarni sistem "
-"datoteka ne podržava\n"
+"Neke datoteke se ne mogu premestiti u Nepotrebno jer primarni sistem datoteka ne podržava\n"
 " ovu operaciju. Želite li da ih trajno uklonite?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -433,12 +429,13 @@ msgstr "Pravljenje mekih veza"
 msgid "Changing file attributes"
 msgstr "Izmena osobina datoteke"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
+#: ../src/gtk/fm-file-properties.c:117
+#: ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bajt"
-msgstr[1] "%u bajtova"
+msgstr[1] "%u bajta"
+msgstr[2] "%u bajta"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -449,11 +446,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite ispravno ime grupe ili ID broj."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Želite li da rekurzivno primenim ovu radnju na sve datoteke i "
-"poddirektorijume?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Želite li da rekurzivno primenim ovu radnju na sve datoteke i poddirektorijume?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -476,7 +470,8 @@ msgid "Eject Removable Media"
 msgstr "Izbaci prenosivi medij"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96
+#: ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj obeleživač"
 
@@ -488,11 +483,12 @@ msgstr "Ukloni obeleživač"
 msgid "Empty Trash"
 msgstr "Obriši datoteke iz Nepotrebno"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Unesite novo ime:"
 
-#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Otvori pomoću..."
 
@@ -578,11 +574,11 @@ msgstr "Ovu radnju može izvršiti samo administrator sistema."
 
 #: ../src/gtk/fm-gtk-utils.c:504
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Želite li da premestite odabrane datoteke u Nepotrebno?"
+msgstr "Želite li da premestite izabrane datoteke u Nepotrebno?"
 
 #: ../src/gtk/fm-gtk-utils.c:525
 msgid "Do you want to delete the selected files?"
-msgstr "Želite li da obrišete odabrane datoteke?"
+msgstr "Želite li da obrišete izabrane datoteke?"
 
 #: ../src/gtk/fm-gtk-utils.c:571
 msgid "Rename File"
@@ -602,13 +598,18 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Datoteka „%s“ je označena kao izvršna skripta.\n"
+"Šta želite da uradite sa njom?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
+"Datoteka „%s“ je označena kao program.\n"
+"Želite li da je pokrenete?"
 
-#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:231
+#: ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
@@ -620,181 +621,208 @@ msgstr "Izvor i odredište su isti."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Ne može se premeštati direktorijum u ǌegov poddirektorijum"
+msgstr "Ne može se premeštati direktorijum u njegov poddirektorijum"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Ne može se umnožavati direktorijum u ǌegov poddirektorijum"
+msgstr "Ne može se umnožavati direktorijum u njegov poddirektorijum"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Odredište je poddirektorijum izvora"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Nepotrebno"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Radna površ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "Običan disk"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Prazan jednom-upisiv disk"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "Jednom-upisiv disk"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Prazan jednom-upisiv disk"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "Piši-briši disk"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Prazan piši-briši disk"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "Jednom upisivi DVD disk"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Prazan jednom-upisivi DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "Piši-briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Prazan piši-briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:47
+#, fuzzy
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "Memorijski - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:47
+#, fuzzy
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Prazan - DVD memorijski disk"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "Jednom upisivi + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Prazan jednom-upisivi + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "Piši-briši + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "Prazan piši-briši + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "Jednom upisivi + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Prazan jednom upisivi + DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "Piši+briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Prazan piši+briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Jednom-upisiv disk"
 
 #: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Prazan jednom-upisiv disk"
 
 #: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Prazan jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Piši-briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Prazan piši-briši disk"
 
 #: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "Jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "Prazan jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "Jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Prazan jednom upisivi - DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "Piši-briši DVD disk"
 
 #: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Prazan piši-briši disk"
 
 #: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
 msgid "MO Disc"
-msgstr ""
+msgstr "CD disk"
 
 #: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Prazan disk"
 
 #: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
 msgid "MRW Disc"
-msgstr ""
+msgstr "Piši-briši CD disk"
 
 #: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Prazan piši-briši CD disk"
 
 #: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "Piši-briši CD disk"
 
 #: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Prazan piši-briši CD disk"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Prazan optički disk"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optički disk"
+
