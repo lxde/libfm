@@ -3,17 +3,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 06:10+0000\n"
+"POT-Creation-Date: 2010-11-15 06:13+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: ISRAEL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Hebrew\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: ISRAEL\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -334,7 +334,7 @@ msgstr "פח אשפה"
 msgid "My Computer"
 msgstr "המחשב שלי"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "יישומים"
 
@@ -457,7 +457,7 @@ msgid "Eject Removable Media"
 msgstr "שליפת מדיה נתיקה"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "שינוי שם לפריט סימנייה"
 
@@ -469,7 +469,7 @@ msgstr "הסרה מהסימניות"
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
@@ -613,11 +613,175 @@ msgstr "לא ניתן להעתיק תיקייה אל אחת מתת־התיקיו
 msgid "Destination is a sub folder of source"
 msgstr "היעד היא תת־תיקייה של המקור"
 
-#~ msgid "Trash"
-#~ msgstr "אשפה"
+#: ../src/gtk/fm-places-model.c:451
+msgid "Trash"
+msgstr "אשפה"
 
-#~ msgid "Desktop"
-#~ msgstr "שולחן עבודה"
+#: ../src/gtk/fm-places-model.c:509
+msgid "Desktop"
+msgstr "שולחן עבודה"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "תקליטור CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr "תקליטור CD-ROM ריק"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "תקליטור CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "תקליטור CD-R ריק"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "תקליטור CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "תקליטור CD-RW ריק"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "תקליטור DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr "תקליטור DVD-ROM ריק"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "תקליטור DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "תקליטור DVD-RW ריק"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr "תקליטור DVD-RAM"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr "תקליטור DVD-RAM ריק"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "תקליטור DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "תקליטור DVD+R ריק"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "תקליטור DVD+RW"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "תקליטור DVD+RW ריק"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "DVD+R DL Disc"
+msgstr "תקליטור DVD+R דו־שכבתי"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "Blank DVD+R DL Disc"
+msgstr "תקליטור DVD+R דו־שכבתי ריק"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "DVD+RW DL Disc"
+msgstr "תקליטור DVD+RW דו־שכבתי"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "Blank DVD+RW DL Disc"
+msgstr "תקליטור DVD+RW דו־שכבתי ריק"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blu-Ray Disc"
+msgstr "תקליטור Blu-Ray"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blank Blu-Ray Disc"
+msgstr "תקליטור Blu-Ray ריק"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blu-Ray R Disc"
+msgstr "תקליטור Blu-Ray R"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blank Blu-Ray R Disc"
+msgstr "תקליטור Blu-Ray R ריק"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blu-Ray RW Disc"
+msgstr "תקליטור Blu-Ray RW"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blank Blu-Ray RW Disc"
+msgstr "תקליטור Blu-Ray RW ריק"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "HD DVD Disc"
+msgstr "תקליטור HD DVD"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "Blank HD DVD Disc"
+msgstr "תקליטור HD DVD ריק"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "HD DVD-R Disc"
+msgstr "תקליטור HD DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "Blank HD DVD-R Disc"
+msgstr "תקליטור HD DVD-R ריק"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "HD DVD-RW Disc"
+msgstr "תקליטור HD DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "Blank HD DVD-RW Disc"
+msgstr "תקליטור HD DVD-RW ריק"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "MO Disc"
+msgstr "תקליטור MO"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "Blank MO Disc"
+msgstr "תקליטור MO ריק"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "MRW Disc"
+msgstr "תקליטור MRW"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "Blank MRW Disc"
+msgstr "תקליטור MRW ריק"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "MRW/W Disc"
+msgstr "תקליטור MRW/W"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "Blank MRW/W Disc"
+msgstr "תקליטור MRW/W ריק"
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr "תקליטור אופטי ריק"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr "תקליטור אופטי"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "זו אינה תיקייה תקנית"
