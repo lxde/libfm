@@ -31,6 +31,14 @@
 
 #include "fm-config.h"
 
+/* for open() */
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+/* for read() */
+#include <unistd.h>
+
 typedef struct _LaunchData LaunchData;
 struct _LaunchData
 {
@@ -65,6 +73,27 @@ static int on_launch_ask(const char* msg, const char** btn_labels, int default_b
     return fm_askv(data->parent, msg, btn_labels);
 }
 
+static gboolean file_is_executable_script(FmFileInfo* file)
+{
+    /* We don't execute remote files */
+    if(fm_path_is_local(file->path) && fm_file_info_is_text(file) && fm_file_info_get_size(file) > 2)
+    {
+        /* check if the first two bytes of the file is #! */
+        char* path = fm_path_to_str(file->path);
+        int fd = open(path, O_RDONLY);
+        g_free(path);
+        if(fd != -1)
+        {
+            char buf[4];
+            ssize_t r = read(fd, buf, 2);
+            close(fd);
+            if(r == 2 && buf[0] == '#' && buf[1] == '!')
+                return TRUE; /* the file contains #! in first two bytes */
+        }
+    }
+    return FALSE;
+}
+
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
     LaunchData* data = (LaunchData*)user_data;
@@ -81,7 +110,7 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(GTK_DIALOG(dlg))), FALSE);
 
     /* If it's a script, ask the user first. */
-    if(fm_file_info_is_text(file)) /* if this is a text file (script) */
+    if(file_is_executable_script(file)) /* if this is an executable script file */
     {
         msg_str = g_strdup_printf(_("This text file '%s' seems to be an executable script.\nWhat do you want to do with it?"), fm_file_info_get_disp_name(file));
         gtk_dialog_set_default_response(GTK_DIALOG(dlg), FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
