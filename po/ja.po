@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 0.1.13\n"
+"Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
-"PO-Revision-Date: 2010-09-11 11:08+0900\n"
+"POT-Creation-Date: 2010-11-17 20:39+0900\n"
+"PO-Revision-Date: 2010-11-17 20:52+0900\n"
 "Last-Translator: Hironao Komatsu <hironao@users.sourceforge.net>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -280,14 +280,12 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "既定のウェブブラウザはハイパーリンクを開くのに使われます。"
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "複数のファイル"
+msgstr "ファイルを実行する"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "端末エミュレータで実行する"
+msgstr "端末で実行する(_T)"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -343,7 +341,7 @@ msgstr "ゴミ箱"
 msgid "My Computer"
 msgstr "マイコンピュータ"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "アプリケーション"
 
@@ -468,7 +466,7 @@ msgid "Eject Removable Media"
 msgstr "リムーバブル・メディアを取り出す"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する"
 
@@ -480,7 +478,7 @@ msgstr "ブックマークから削除する"
 msgid "Empty Trash"
 msgstr "空のゴミ箱"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "新しい名前を入力してください:"
 
@@ -594,11 +592,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"このテキストファイル '%s' は実行可能スクリプトのようです。\n"
+"これをどうしますか？"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "このファイル '%s' は実行可能ファイルです。実行しますか？"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -622,171 +622,171 @@ msgstr "フォルダをその下位フォルダにコピーすることはでき
 msgid "Destination is a sub folder of source"
 msgstr "送り先は送り元の下位フォルダです。"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "ゴミ箱"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "デスクトップ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "空の CD-ROM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "空の CD-R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "空の CD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "空の DVD-ROM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "空の DVD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "空の DVD-RAM ディスク"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "空の DVD+R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "空の DVD+RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL ディスク"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "空の DVD+R DL ディスク"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL ディスク"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "空の DVD+RW DL ディスク"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray ディスク"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "空の Blu-Ray ディスク"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "空の Blu-Ray R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "空の Blu-Ray RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "HD DVD ディスク"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "空の HD DVD ディスク"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "空の HD DVD-R ディスク"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "空の HD DVD-RW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO ディスク"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "空の MO ディスク"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "空の MRW ディスク"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W ディスク"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "空の MRW/W ディスク"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "空の光ディスク"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "光ディスク"
