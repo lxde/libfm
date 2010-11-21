@@ -42,7 +42,6 @@ G_BEGIN_DECLS
 typedef struct _FmFileOpsJob            FmFileOpsJob;
 typedef struct _FmFileOpsJobClass        FmFileOpsJobClass;
 
-typedef enum _FmFileOpType FmFileOpType;
 enum _FmFileOpType
 {
     FM_FILE_OP_NONE,
@@ -54,8 +53,8 @@ enum _FmFileOpType
     FM_FILE_OP_LINK,
     FM_FILE_OP_CHANGE_ATTR
 };
+typedef enum _FmFileOpType FmFileOpType;
 
-typedef enum _FmFileOpOption FmFileOpOption;
 enum _FmFileOpOption
 {
     FM_FILE_OP_CANCEL = 0,
@@ -64,6 +63,7 @@ enum _FmFileOpOption
     FM_FILE_OP_SKIP = 1<<2,
     FM_FILE_OP_SKIP_ERROR = 1<<3
 };
+typedef enum _FmFileOpOption FmFileOpOption;
 
 /* FIXME: maybe we should create derived classes for different kind
  * of file operations rather than use one class to handle all kinds of

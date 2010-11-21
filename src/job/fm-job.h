@@ -44,7 +44,6 @@ typedef struct _FmJobClass		FmJobClass;
 
 typedef gpointer (*FmJobCallMainThreadFunc)(FmJob* job, gpointer user_data);
 
-typedef enum _FmJobErrorSeverity FmJobErrorSeverity;
 enum _FmJobErrorSeverity
 {
     FM_JOB_ERROR_WARNING, /* not an error, just a warning */
@@ -53,14 +52,15 @@ enum _FmJobErrorSeverity
     FM_JOB_ERROR_SEVERE, /* severe errors, whether to abort operation depends on error handlers */
     FM_JOB_ERROR_CRITICAL /* critical errors, the operation is aborted */
 };
+typedef enum _FmJobErrorSeverity FmJobErrorSeverity;
 
-typedef enum _FmJobErrorAction FmJobErrorAction;
 enum _FmJobErrorAction
 {
     FM_JOB_CONTINUE, /* ignore the error and continue remaining work */
     FM_JOB_RETRY, /* retry the previously failed operation. (not every kind of job support this) */
     FM_JOB_ABORT /* abort the whole job */
 };
+typedef enum _FmJobErrorAction FmJobErrorAction;
 
 struct _FmJob
 {

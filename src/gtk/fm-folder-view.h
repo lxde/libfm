@@ -42,7 +42,6 @@ G_BEGIN_DECLS
 #define IS_FM_FOLDER_VIEW_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_FOLDER_VIEW_TYPE))
 
-typedef enum _FmFolderViewMode FmFolderViewMode;
 enum _FmFolderViewMode
 {
 	FM_FV_ICON_VIEW,
@@ -50,8 +49,8 @@ enum _FmFolderViewMode
     FM_FV_THUMBNAIL_VIEW,
 	FM_FV_LIST_VIEW
 };
+typedef enum _FmFolderViewMode FmFolderViewMode;
 
-typedef enum _FmFolderViewClickType FmFolderViewClickType;
 enum _FmFolderViewClickType
 {
 	FM_FV_CLICK_NONE,
@@ -61,6 +60,7 @@ enum _FmFolderViewClickType
 	FM_FV_MIDDLE_CLICK,
 	FM_FV_CONTEXT_MENU
 };
+typedef enum _FmFolderViewClickType FmFolderViewClickType;
 
 typedef struct _FmFolderView			FmFolderView;
 typedef struct _FmFolderViewClass		FmFolderViewClass;

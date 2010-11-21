@@ -33,7 +33,6 @@ G_BEGIN_DECLS
 #define FM_PATH(path)   ((FmPath*)path)
 
 typedef struct _FmPath FmPath;
-typedef enum _FmPathFlags FmPathFlags;
 typedef FmList FmPathList;
 
 enum _FmPathFlags
@@ -50,6 +49,7 @@ enum _FmPathFlags
 	FM_PATH_IS_RESERVED2 = 1<<6,
 	FM_PATH_IS_RESERVED3 = 1<<7,
 };
+typedef enum _FmPathFlags FmPathFlags;
 
 struct _FmPath
 {

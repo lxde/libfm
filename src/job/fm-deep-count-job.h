@@ -43,7 +43,6 @@ G_BEGIN_DECLS
 typedef struct _FmDeepCountJob			FmDeepCountJob;
 typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
 
-typedef enum _FmDeepCountJobFlags	FmDeepCountJobFlags;
 enum _FmDeepCountJobFlags
 {
 	FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
@@ -52,6 +51,7 @@ enum _FmDeepCountJobFlags
 	FM_DC_JOB_PREPARE_MOVE = 1<<2, /* special handling for moving files. only do deep count for files on different devices */
     FM_DC_JOB_PREPARE_DELETE = 1 <<3 /* special handling for deleting files */
 };
+typedef enum _FmDeepCountJobFlags	FmDeepCountJobFlags;
 
 struct _FmDeepCountJob
 {
