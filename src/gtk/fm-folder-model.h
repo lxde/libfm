@@ -53,6 +53,8 @@ enum{
   N_FOLDER_MODEL_COLS
 };
 
+#define FM_FOLDER_MODEL_COL_IS_VALID(col)	(col >= COL_FILE_GICON && col < N_FOLDER_MODEL_COLS)
+
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
 

@@ -51,6 +51,8 @@ enum _FmFolderViewMode
 };
 typedef enum _FmFolderViewMode FmFolderViewMode;
 
+#define FM_FOLDER_VIEW_MODE_IS_VALID(mode)	(mode >= FM_FV_ICON_VIEW && mode <= FM_FV_LIST_VIEW)
+
 enum _FmFolderViewClickType
 {
 	FM_FV_CLICK_NONE,
@@ -61,6 +63,7 @@ enum _FmFolderViewClickType
 	FM_FV_CONTEXT_MENU
 };
 typedef enum _FmFolderViewClickType FmFolderViewClickType;
+#define FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID(type)	(type > FM_FV_CLICK_NONE && type <= FM_FV_CONTEXT_MENU)
 
 typedef struct _FmFolderView			FmFolderView;
 typedef struct _FmFolderViewClass		FmFolderViewClass;

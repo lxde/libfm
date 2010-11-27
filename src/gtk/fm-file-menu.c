@@ -384,6 +384,10 @@ void on_open_with(GtkAction* action, gpointer user_data)
     if(app)
     {
         open_with_app(data, app);
+        /* add the app to apps that support this file type. */
+        if(mime_type)
+            g_app_info_add_supports_type(app, mime_type->type, NULL);
+        /* FIXME: what to do if mime_type is NULL? */
         g_object_unref(app);
     }
 }
