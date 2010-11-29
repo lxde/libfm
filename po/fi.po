@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Suoritettava komentorivi:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -34,6 +34,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Näitä erikoiskoodeja voidaan käyttää komentorivissä:</b>\n"
+" <b>%f</b>: Tarkoittaa yhtä tiedostonimeä\n"
+" <b>%F</b>: Tarkoittaa useampaa tiedostonimeä\n"
+" <b>%u</b>: Tarkoittaa yhden tiedoston URI:a\n"
+" <b>%U</b>: Tarkoittaa useampaa URI:a"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -41,7 +46,7 @@ msgstr "Valitse sovellus"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Omavalintainen komentorivi"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -273,9 +278,8 @@ msgid "Execute File"
 msgstr "Suorita tiedosto"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Suorita päätteessä"
+msgstr "Suorita _päätteessä"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -509,7 +513,7 @@ msgstr "Palauta roskakorin tiedostot alkuperäisiin sijainteihin"
 
 #: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave epäonnistui."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
@@ -734,49 +738,50 @@ msgid "Blank HD DVD Disc"
 msgstr "Tyhjä HD DVD-levy"
 
 #: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R-levy"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Tyhjä HD DVD-R-levy"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW-levy"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Tyhjä HD DVD-RW-levy"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO-levy"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Tyhjä MO-levy"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW-levy"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Tyhjä MRW-levy"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W-levy"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Tyhjä MRW/W-levy"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Tyhjä optinen levy"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optinen levy"
