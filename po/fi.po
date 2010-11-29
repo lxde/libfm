@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2010-11-26 07:03+0000\n"
 "PO-Revision-Date: 2010-07-09 16:01+0200\n"
 "Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n!=0);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -179,9 +179,7 @@ msgstr "Toimenpiteet, jorka tiedoston omistaja voi tehdä"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Toimenpiteet, jotka samassa ryhmässä kuin omistaja olevat käyttäjät voivat "
-"tehdä"
+msgstr "Toimenpiteet, jotka samassa ryhmässä kuin omistaja olevat käyttäjät voivat tehdä"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -263,21 +261,16 @@ msgid "System Applications"
 msgstr "Järjestelmäsovellukset"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Oletussähköpostisovellusta käytetään sähköpostien luomiseen, kun napsautat "
-"sähköpostiosoitetta."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Oletussähköpostisovellusta käytetään sähköpostien luomiseen, kun napsautat sähköpostiosoitetta."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Oletus-WWW-selainta käytetään hyperlinkkien avaamiseen."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Nimeä tiedosto uudelleen"
+msgstr "Suorita tiedosto"
 
 #: ../data/ui/exec-file.glade.h:2
 #, fuzzy
@@ -339,7 +332,7 @@ msgstr "Roskakori"
 msgid "My Computer"
 msgstr "Oma tietokone"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Sovellukset"
 
@@ -389,12 +382,10 @@ msgstr "Valmis"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Joitain tiedostoja ei voida siirtää roskakoriin, koska käytettävät "
-"tiedostojärjestelmät eivät tue tätä toimenpidettä.\n"
+"Joitain tiedostoja ei voida siirtää roskakoriin, koska käytettävät tiedostojärjestelmät eivät tue tätä toimenpidettä.\n"
 "Poistetaanko tiedostot?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -426,26 +417,22 @@ msgid "Changing file attributes"
 msgstr "Muutetaan tiedoston ominaisuuksia"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u tavua"
-msgstr[1] "%u tavu"
+msgstr[0] "%u tavu"
+msgstr[1] "%u tavua"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Anna kelvolline käyttäjänimi tai numero id."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Anna kelvolline ryhmänimi tai numero id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Hyväksytäänkö nämä muutokset rekursiivisesti kaikkii tiedostoihin ja "
-"alihakemistoihin?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Hyväksytäänkö nämä muutokset rekursiivisesti kaikkii tiedostoihin ja alihakemistoihin?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -468,7 +455,7 @@ msgid "Eject Removable Media"
 msgstr "Irrota poistettava laite"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Nimeä kirjanmerkki uudelleen"
 
@@ -480,7 +467,7 @@ msgstr "Poista kirjanmerkeistä"
 msgid "Empty Trash"
 msgstr "Tyhjennä roskakori"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Anna uusi nimi:"
 
@@ -530,7 +517,7 @@ msgstr "Käytä valittua sovellusta tiedostojen avaamiseen"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Suorita oma komento tiedostojen avaamiseksi"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
@@ -588,17 +575,19 @@ msgstr "Anna uusi nimi:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Tyhjennetäänkö roskakori?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Tämä tekstitiedosto '%s' vaikuttasi suoritettavalta skriptiltä.\n"
+"Mitä tahdot tehdä sille?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "Tämä tiedosto '%s' on suoritettava. Tahdotko suorittaa sen?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -608,88 +597,89 @@ msgstr "Annettu hakemisto ei ole kelvollinen"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Lähde ja kohde ovat samat."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Kansiota ei voi siirtää sen omaan alikansioon"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Kansiota ei voi kopioida sen omaan alikansioon"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Kohde on lähteen alikansio"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Roskakori"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Työpöytä"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM levy"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Tyhjä CD-ROM levy"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R levy"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Tyhjä CD-R levy"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW levy"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Tyhjä CD-RW levy"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM levy"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Tyhjä DVD-ROM levy"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW levy"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Tyhjä DVD-RW levy"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM levy"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Tyhjiä DVD-RAM levy"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R levy"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Tyhjiä DVD+R levy"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW levy"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
