@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-26 06:12+0000\n"
-"PO-Revision-Date: 2010-10-26 12:12-0300\n"
+"PO-Revision-Date: 2010-12-11 09:24-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr ""
 "<b>Estes códigos especiais podem ser usados na linha de comando:</b>\n"
 "  <b>%f</b>: representa um único nome de arquivo\n"
 "  <b>%F</b>: representa vários nomes de arquivos\n"
-"  <b>%u</b>: representa um único URI de um arquivo\n"
+"  <b>%u</b>: representa um único URI do arquivo\n"
 "  <b>%U</b>: representa vários URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
@@ -510,7 +510,7 @@ msgstr "Extrair aqui"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "Extrair em..."
+msgstr "Extrair para..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
@@ -530,7 +530,7 @@ msgstr "Usar o aplicativo selecionado para abrir arquivos"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Executar linhas de comando personalizadas para abrir arquivos"
+msgstr "Executar linha de comando personalizada para abrir arquivos"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
@@ -594,13 +594,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Este arquivo de texto '%s' parece ser um script executável.\n"
+"Esse arquivo de texto '%s' parece ser um script executável.\n"
 "O que você deseja fazer com ele?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:93
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Este arquivo '%s' é executável. Você deseja executá-lo?"
+msgstr "Esse arquivo '%s' é executável. Você deseja executá-lo?"
 
 #: ../src/job/fm-dir-list-job.c:231
 #: ../src/job/fm-dir-list-job.c:240
