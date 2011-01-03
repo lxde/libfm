@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 0.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: libfm 0.1.15\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/projects/lxde/support\n"
 "POT-Creation-Date: 2010-10-28 06:14+0000\n"
-"PO-Revision-Date: 2010-10-28 06:52-0500\n"
+"PO-Revision-Date: 2011-01-01 06:45-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
-"Language-Team: \n"
+"Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -23,7 +23,7 @@ msgstr "<b>Línea de comandos a ejecutar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Tipo de archivo a abrirse:</b>"
+msgstr "<b>Tipo de archivo a abrir:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,10 +35,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>En la línea de comandos pueden utilizarse estos códigos especiales:</b>\n"
-" <b>%f</b>: Representa el nombre de un solo archivo\n"
-" <b>%F</b>: Representa múltiples nombres de archivos\n"
-" <b>%u</b>: Representa un solo URI del archivo\n"
-" <b>%U</b>: Representa múltiples URIs"
+"  <b>%f</b>: Representa el nombre de un solo archivo\n"
+"  <b>%F</b>: Representa múltiples nombres de archivos\n"
+"  <b>%u</b>: Representa un solo URI del archivo\n"
+"  <b>%U</b>: Representa múltiples URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -196,7 +196,7 @@ msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo"
+msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -339,7 +339,7 @@ msgid "My Computer"
 msgstr "Mi PC"
 
 #: ../src/base/fm-path.c:739
-#: ../src/gtk/fm-places-model.c:524
+#: ../src/gtk/fm-places-model.c:495
 msgid "Applications"
 msgstr "Aplicaciones"
 
@@ -349,7 +349,7 @@ msgstr "Red"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214
 #: ../src/gtk/fm-progress-dlg.c:233
@@ -466,7 +466,7 @@ msgstr "Expulsar medio extraíble"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96
-#: ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:660
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
@@ -478,7 +478,7 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:661
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
 
@@ -509,7 +509,7 @@ msgstr "Extraer aquí"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "Estraer a..."
+msgstr "Extraer a..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
@@ -624,15 +624,16 @@ msgstr "Imposible copiar una carpeta en su subcarpeta"
 msgid "Destination is a sub folder of source"
 msgstr "El destino es una subcarpeta del origen"
 
-#: ../src/gtk/fm-places-model.c:451
+#: ../src/gtk/fm-places-model.c:426
 msgid "Trash"
 msgstr "Papelera"
 
-#: ../src/gtk/fm-places-model.c:509
+#: ../src/gtk/fm-places-model.c:480
 msgid "Desktop"
 msgstr "Escritorio"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are
+#. describing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
 msgstr "Disco CD-ROM"
@@ -794,9 +795,3 @@ msgstr "Disco óptico en blanco"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "No es un directorio válido"
-#~ msgid "The selection mode"
-#~ msgstr "Por favor, seleccione una carpeta"
-
