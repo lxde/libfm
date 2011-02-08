@@ -26,6 +26,7 @@
 #include "fm-config.h"
 #include "fm-archiver.h"
 #include "fm-app-info.h"
+#include "fm-utils.h"
 #include <gio/gdesktopappinfo.h>
 #include <string.h>
 
@@ -62,6 +63,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
     char* _cmd = NULL;
     const char* dir_place_holder;
     GKeyFile* dummy;
+    char* tmp;
 
     if(dir && (dir_place_holder = strstr(cmd, "%d")))
     {
@@ -71,15 +73,22 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
             dir_str = fm_path_to_uri(dir);
         else
         {
-            char* quote;
             GFile* gf = fm_path_to_gfile(dir);
             /* FIXME: convert dir to fuse-based local path if needed. */
             dir_str = g_file_get_path(gf);
             g_object_unref(gf);
-            quote = g_shell_quote(dir_str);
-            g_free(dir_str);
-            dir_str = quote;
         }
+
+        /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
+        tmp = fm_str_replace(dir_str, "%", "%%");
+        g_free(dir_str);
+        dir_str = tmp;
+
+        /* quote the path or URI */
+        tmp = g_shell_quote(dir_str);
+        g_free(dir_str);
+        dir_str = tmp;
+
         len = strlen(cmd) - 2 + strlen(dir_str) + 1;
         _cmd = g_malloc(len);
         len = (dir_place_holder - cmd);
@@ -94,8 +103,9 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
     dummy = g_key_file_new();
     g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Type", "Application");
     g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Name", archiver->program);
-    g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Exec", cmd);
 
+    /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
+    g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Exec", cmd);
     app = g_desktop_app_info_new_from_keyfile(dummy);
 
     g_key_file_free(dummy);

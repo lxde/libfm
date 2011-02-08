@@ -29,84 +29,85 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fm-utils.h"
 #include "fm-file-info-job.h"
 
-#define BI_KiB	((gdouble)1024.0)
-#define BI_MiB	((gdouble)1024.0 * 1024.0)
-#define BI_GiB	((gdouble)1024.0 * 1024.0 * 1024.0)
-#define BI_TiB	((gdouble)1024.0 * 1024.0 * 1024.0 * 1024.0)
+#define BI_KiB  ((gdouble)1024.0)
+#define BI_MiB  ((gdouble)1024.0 * 1024.0)
+#define BI_GiB  ((gdouble)1024.0 * 1024.0 * 1024.0)
+#define BI_TiB  ((gdouble)1024.0 * 1024.0 * 1024.0 * 1024.0)
 
-#define SI_KB	((gdouble)1000.0)
-#define SI_MB	((gdouble)1000.0 * 1000.0)
-#define SI_GB	((gdouble)1000.0 * 1000.0 * 1000.0)
-#define SI_TB	((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
+#define SI_KB   ((gdouble)1000.0)
+#define SI_MB   ((gdouble)1000.0 * 1000.0)
+#define SI_GB   ((gdouble)1000.0 * 1000.0 * 1000.0)
+#define SI_TB   ((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
 
 char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
 {
     const char * unit;
     gdouble val;
 
-	if( si_prefix ) /* 1000 based SI units */
-	{
-		if(size < (goffset)SI_KB)
-		{
-			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
-			return buf;
-		}
-		val = (gdouble)size;
-		if(val < SI_MB)
-		{
-			val /= SI_KB;
-			unit = _("KB");
-		}
-		else if(val < SI_GB)
-		{
-			val /= SI_MB;
-			unit = _("MB");
-		}
-		else if(val < SI_TB)
-		{
-			val /= SI_GB;
-			unit = _("GB");
-		}
-		else
-		{
-			val /= SI_TB;
-			unit = _("TB");
-		}
-	}
-	else /* 1024-based binary prefix */
-	{
-		if(size < (goffset)BI_KiB)
-		{
-			sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
-			return buf;
-		}
-		val = (gdouble)size;
-		if(val < BI_MiB)
-		{
-			val /= BI_KiB;
-			unit = _("KiB");
-		}
-		else if(val < BI_GiB)
-		{
-			val /= BI_MiB;
-			unit = _("MiB");
-		}
-		else if(val < BI_TiB)
-		{
-			val /= BI_GiB;
-			unit = _("GiB");
-		}
-		else
-		{
-			val /= BI_TiB;
-			unit = _("TiB");
-		}
-	}
+    if( si_prefix ) /* 1000 based SI units */
+    {
+        if(size < (goffset)SI_KB)
+        {
+            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            return buf;
+        }
+        val = (gdouble)size;
+        if(val < SI_MB)
+        {
+            val /= SI_KB;
+            unit = _("KB");
+        }
+        else if(val < SI_GB)
+        {
+            val /= SI_MB;
+            unit = _("MB");
+        }
+        else if(val < SI_TB)
+        {
+            val /= SI_GB;
+            unit = _("GB");
+        }
+        else
+        {
+            val /= SI_TB;
+            unit = _("TB");
+        }
+    }
+    else /* 1024-based binary prefix */
+    {
+        if(size < (goffset)BI_KiB)
+        {
+            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            return buf;
+        }
+        val = (gdouble)size;
+        if(val < BI_MiB)
+        {
+            val /= BI_KiB;
+            unit = _("KiB");
+        }
+        else if(val < BI_GiB)
+        {
+            val /= BI_MiB;
+            unit = _("MiB");
+        }
+        else if(val < BI_TiB)
+        {
+            val /= BI_GiB;
+            unit = _("GiB");
+        }
+        else
+        {
+            val /= BI_TiB;
+            unit = _("TiB");
+        }
+    }
     sprintf( buf, "%.1f %s", val, unit );
-	return buf;
+    return buf;
 }
 
 gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int* val)
@@ -211,4 +212,21 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     if(_cwd)
         g_free(_cwd);
     return ret;
+}
+
+char* fm_str_replace(char* str, char* old, char* new)
+{
+    int i;
+    int len = strlen(str);
+    char* found;
+    GString* buf = g_string_sized_new(len);
+    while(found = strstr(str, old))
+    {
+        g_string_append_len(buf, str, (found - str));
+        g_string_append(buf, new);
+        str = found + 1;
+    }
+    for(; *str; ++str)
+        g_string_append_c(buf, *str);
+    return g_string_free(buf, FALSE);
 }

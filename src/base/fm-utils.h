@@ -35,6 +35,8 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
 
 char* fm_canonicalize_filename(const char* filename, const char* cwd);
 
+char* fm_str_replace(char* str, char* old, char* new);
+
 G_END_DECLS
 
 #endif
