@@ -183,7 +183,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                 flags |= G_APP_INFO_CREATE_NEEDS_TERMINAL;
                                 /* NOTE: no break here */
                             case FM_FILE_LAUNCHER_EXEC:
-                                app = fm_app_info_create_from_commandline(filename, NULL, flags, NULL);
+                            {
+                                /* filename may contain spaces. Fix #3143296 */
+                                char* quoted = g_shell_quote(filename);
+                                app = fm_app_info_create_from_commandline(quoted, NULL, flags, NULL);
+                                g_free(quoted);
                                 if(app)
                                 {
                                     if(!fm_app_info_launch(app, NULL, ctx, &err))
@@ -197,6 +201,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                     continue;
                                 }
                                 break;
+                            }
                             case FM_FILE_LAUNCHER_EXEC_OPEN:
                                 break;
                             case FM_FILE_LAUNCHER_EXEC_CANCEL:
