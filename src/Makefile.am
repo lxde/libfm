@@ -277,6 +277,9 @@ endif
 
 
 # GIO module implementing some extension points
+# This only works for glib < 2.27
+# Glib >= 2.27 uses x-scheme-handler.
+if !HAVE_SCHEME_HANDLER
 
 giomodules_LTLIBRARIES = libgiofm.la
 
@@ -305,6 +308,8 @@ libgiofm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)
+
+endif
 
 
 # GObject marshallers

@@ -37,7 +37,7 @@ static GtkWidget*mail_client;
 static GList* browsers = NULL;
 static GList* mail_clients = NULL;
 
-/* examine desktop files under Internet and Officesubmenus to find out browsers and mail clients */
+/* examine desktop files under Internet and Office submenus to find out browsers and mail clients */
 static init_apps()
 {
     MenuCache* mc = menu_cache_lookup_sync("applications.menu");
@@ -194,7 +194,10 @@ int main(int argc, char** argv)
         if(app)
         {
             if(is_changed)
-                g_key_file_set_string(kf, "Preferred Applications", "WebBrowser", g_app_info_get_id(app));
+            {
+//                g_key_file_set_string(kf, "Preferred Applications", "WebBrowser", g_app_info_get_id(app));
+                g_app_info_set_as_default_for_type(app, "x-scheme-handler/http", NULL);
+            }
             g_object_unref(app);
         }
         custom_apps = fm_app_chooser_combo_box_get_custom_apps(GTK_COMBO_BOX(browser));
@@ -218,7 +221,10 @@ int main(int argc, char** argv)
         if(app)
         {
             if(is_changed)
-                g_key_file_set_string(kf, "Preferred Applications", "MailClient", g_app_info_get_id(app));
+            {
+                // g_key_file_set_string(kf, "Preferred Applications", "MailClient", g_app_info_get_id(app));
+                g_app_info_set_as_default_for_type(app, "x-scheme-handler/mailto", NULL);
+            }
             g_object_unref(app);
         }
         custom_apps = fm_app_chooser_combo_box_get_custom_apps(GTK_COMBO_BOX(mail_client));
@@ -259,5 +265,5 @@ int main(int argc, char** argv)
 
     fm_gtk_finalize();
 
-	return 0;
+    return 0;
 }

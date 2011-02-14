@@ -37,7 +37,7 @@
 
 static void app_lookup_iface_init(GDesktopAppInfoLookupIface *iface);
 static GObject* fm_app_lookup_constructor(GType type, guint n_props, GObjectConstructParam *props);
-static void fm_app_lookup_finalize  			(GObject *object);
+static void fm_app_lookup_finalize              (GObject *object);
 static GAppInfo *get_default_for_uri_scheme(GDesktopAppInfoLookup *lookup, const char *scheme);
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED(FmAppLookup, fm_app_lookup, G_TYPE_OBJECT, 0,
@@ -46,10 +46,10 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED(FmAppLookup, fm_app_lookup, G_TYPE_OBJECT, 0,
 
 static void fm_app_lookup_class_init(FmAppLookupClass *klass)
 {
-	GObjectClass *g_object_class;
-	g_object_class = G_OBJECT_CLASS(klass);
+    GObjectClass *g_object_class;
+    g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->constructor = fm_app_lookup_constructor;
-	g_object_class->finalize = fm_app_lookup_finalize;
+    g_object_class->finalize = fm_app_lookup_finalize;
 }
 
 static void fm_app_lookup_class_finalize(FmAppLookupClass *klass)
@@ -66,13 +66,13 @@ GObject* fm_app_lookup_constructor(GType type, guint n_props, GObjectConstructPa
 
 static void fm_app_lookup_finalize(GObject *object)
 {
-	FmAppLookup *self;
+    FmAppLookup *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_APP_LOOKUP(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_APP_LOOKUP(object));
 
-	self = FM_APP_LOOKUP(object);
-	G_OBJECT_CLASS(fm_app_lookup_parent_class)->finalize(object);
+    self = FM_APP_LOOKUP(object);
+    G_OBJECT_CLASS(fm_app_lookup_parent_class)->finalize(object);
 }
 
 
@@ -108,68 +108,9 @@ static void app_lookup_iface_init(GDesktopAppInfoLookupIface *iface)
 GAppInfo *get_default_for_uri_scheme(GDesktopAppInfoLookup *lookup, const char *scheme)
 {
     GAppInfo* app;
-    GKeyFile* kf;
-    const char* key;
-    char* fname;
-    char* desktop_id = NULL;
-
-    /* web browser */
-    if(g_ascii_strcasecmp(scheme, "http")==0 || g_ascii_strcasecmp(scheme, "https")==0)
-        key = "WebBrowser";
-    else if(g_ascii_strcasecmp(scheme, "mailto")==0)
-        key = "MailClient";
-    else /* we don't know this */
-        return NULL;
-
-    kf = g_key_file_new();
-
-    /* try user config first */
-    fname = g_build_filename(g_get_user_config_dir(), "libfm/pref-apps.conf", NULL);
-    if(g_key_file_load_from_file(kf, fname, 0, NULL))
-    {
-        desktop_id = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
-        if(desktop_id && !*desktop_id)
-        {
-            g_free(desktop_id);
-            desktop_id = NULL;
-        }
-    }
-    g_free(fname);
-
-    if(!desktop_id) /* system-wide */
-    {
-        const gchar* const *dirs = g_get_system_config_dirs();
-        int i, n;
-        if(g_key_file_load_from_file(kf, fname, 0, NULL))
-            desktop_id = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
-        n = g_strv_length((gchar **)dirs);
-        for( i = n - 1; i > 0; --i )
-        {
-            fname = g_build_filename(dirs[i], "libfm/pref-apps.conf", NULL);
-            if( g_key_file_load_from_file(kf, fname, 0, NULL) )
-                desktop_id = g_key_file_get_string(kf, "Preferred Applications", key, NULL);
-            g_free(fname);
-            if(desktop_id)
-            {
-                if(*desktop_id)
-                    break;
-                else
-                {
-                    g_free(desktop_id);
-                    desktop_id = NULL;
-                }
-            }
-        }
-    }
-
-    g_key_file_free(kf);
-
-    if(!desktop_id)
-        return NULL;
-
-    app = g_desktop_app_info_new(desktop_id);
-
-    g_free(desktop_id);
-
+    /* use a way compatible with glib >= 2.27 */
+    char* mime_type = g_strconcat("x-scheme-handler/", scheme, NULL);
+    app = g_app_info_get_default_for_type(mime_type, FALSE);
+    g_free(mime_type);
     return app;
 }

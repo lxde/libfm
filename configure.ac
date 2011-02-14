@@ -63,6 +63,18 @@ PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
 
+# special checks for glib/gio 2.27 since it contains backward imcompatible changes.
+# glib 2.26 uses G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME extension point while
+# glib 2.27 uses x-scheme-handler/* mime-type to register handlers.
+PKG_CHECK_MODULES(GLIB2_27, [glib-2.0 >= 2.27.0],
+    [have_scheme_handler="yes"],
+    [have_scheme_handler="no"])
+AM_CONDITIONAL(HAVE_SCHEME_HANDLER, test "x$have_scheme_handler" = "xyes")
+if test "x$have_scheme_handler" = "xyes"; then
+    AC_DEFINE_UNQUOTED(HAVE_SCHEME_HANDLER, [1], [Have x-scheme/uri handler support])
+fi
+
+
 AC_ARG_ENABLE(udisks,
     [AC_HELP_STRING([--enable-udisks],
         [build libfm with udisks support (Linux only) @<:@default=yes@:>@])],
