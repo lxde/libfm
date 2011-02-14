@@ -88,38 +88,38 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
 
     if( S_ISREG(pstat->st_mode) )
     {
-		gboolean uncertain;
-		char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
-		if( uncertain )
-		{
-			int fd, len;
-			if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
-				return fm_mime_type_get_for_type( "text/plain" );
-			fd = open(file_path, O_RDONLY);
-			if( fd >= 0 )
-			{
-			#ifdef HAVE_MMAP
-				const char* buf;
-				len = pstat->st_size > 4096 ? 4096 : pstat->st_size;
-				buf = (const char*)mmap(NULL, len, PROT_READ, MAP_PRIVATE, fd, 0);
-				if(G_LIKELY(buf != MAP_FAILED))
-				{
-					g_free(type);
-					type = g_content_type_guess( NULL, buf, len, &uncertain );
-					munmap(buf, len);
-				}
-			#else
-				char buf[4096];
-				len = read(fd, buf, 4096);
-				g_free(type);
-				type = g_content_type_guess( NULL, buf, len, &uncertain );
-			#endif
-				close(fd);
-			}
-		}
-		mime_type = fm_mime_type_get_for_type( type );
-		g_free(type);
-		return mime_type;
+        gboolean uncertain;
+        char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
+        if( uncertain )
+        {
+            int fd, len;
+            if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
+                return fm_mime_type_get_for_type( "text/plain" );
+            fd = open(file_path, O_RDONLY);
+            if( fd >= 0 )
+            {
+            #ifdef HAVE_MMAP
+                const char* buf;
+                len = pstat->st_size > 4096 ? 4096 : pstat->st_size;
+                buf = (const char*)mmap(NULL, len, PROT_READ, MAP_PRIVATE, fd, 0);
+                if(G_LIKELY(buf != MAP_FAILED))
+                {
+                    g_free(type);
+                    type = g_content_type_guess( NULL, buf, len, &uncertain );
+                    munmap(buf, len);
+                }
+            #else
+                char buf[4096];
+                len = read(fd, buf, 4096);
+                g_free(type);
+                type = g_content_type_guess( NULL, buf, len, &uncertain );
+            #endif
+                close(fd);
+            }
+        }
+        mime_type = fm_mime_type_get_for_type( type );
+        g_free(type);
+        return mime_type;
     }
 
     if( S_ISDIR(pstat->st_mode) )
@@ -137,8 +137,10 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
         return fm_mime_type_get_for_type( "inode/socket" );
 #endif
     /* impossible */
-    g_error( "Invalid stat mode: %s", base_name );
-    return NULL;
+    g_debug( "Invalid stat mode: %d, %s", pstat->st_mode & S_IFMT, base_name );
+    /* FIXME: some files under /proc/self has st_mode = 0, which causes problems.
+     *        currently we treat them as files of unknown type. */
+    return fm_mime_type_get_for_type( "application/octet-stream" );
 }
 
 FmMimeType* fm_mime_type_get_for_type( const char* type )
