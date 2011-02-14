@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-24 11:11+0200\n"
-"PO-Revision-Date: 2011-02-12 22:28+0200\n"
+"PO-Revision-Date: 2011-02-14 15:03+0200\n"
 "Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
 "Language: sl\n"
@@ -442,11 +442,11 @@ msgstr[3] "bajtov"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Vnesite veljavno uporabniško ime ali ID"
+msgstr "Vnesite veljavno uporabniško ime ali ID."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Vnesite veljavno ime skupine ali ID"
+msgstr "Vnesite veljavno ime skupine ali ID."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -573,7 +573,7 @@ msgstr "Izberite mapo"
 
 #: ../src/gtk/fm-gtk-utils.c:425
 msgid "Only system administrators have the permission to do this."
-msgstr "Za to dejanje imajo pravico le skrbniki sistema"
+msgstr "Za to dejanje imajo pravico le skrbniki sistema."
 
 #: ../src/gtk/fm-gtk-utils.c:504
 msgid "Do you want to move the selected files to trash can?"
@@ -621,15 +621,15 @@ msgstr "Izvor in cilj sta enaka."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Mape ni mogoče premakniti v njeno podmapo."
+msgstr "Mape ni mogoče premakniti v njeno podmapo"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Mape ni mogoče kopirati v njeno podmapo."
+msgstr "Mape ni mogoče kopirati v njeno podmapo"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr "Cilj je podmapa izvora."
+msgstr "Cilj je podmapa izvora"
 
 #: ../src/gtk/fm-places-model.c:426
 msgid "Trash"
