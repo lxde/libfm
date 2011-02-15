@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -277,42 +277,42 @@ msgstr ""
 msgid "Execute in _Terminal"
 msgstr ""
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr ""
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr ""
 
@@ -332,7 +332,7 @@ msgstr ""
 msgid "My Computer"
 msgstr ""
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr ""
 
@@ -452,7 +452,7 @@ msgid "Eject Removable Media"
 msgstr ""
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr ""
 
@@ -464,7 +464,7 @@ msgstr ""
 msgid "Empty Trash"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr ""
 
@@ -572,14 +572,14 @@ msgstr ""
 msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
@@ -606,11 +606,11 @@ msgstr ""
 msgid "Destination is a sub folder of source"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr ""
 

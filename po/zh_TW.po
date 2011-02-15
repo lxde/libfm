@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-10-23 22:34+0800\n"
 "Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
@@ -285,41 +285,41 @@ msgstr "執行檔案"
 msgid "Execute in _Terminal"
 msgstr "在終端機內執行(_T)"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u 位元組"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -339,7 +339,7 @@ msgstr "垃圾桶"
 msgid "My Computer"
 msgstr "我的電腦"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "應用程式"
 
@@ -463,7 +463,7 @@ msgid "Eject Removable Media"
 msgstr "退出可移除媒體"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "重新命名書籤項目"
 
@@ -475,7 +475,7 @@ msgstr "從書籤刪除"
 msgid "Empty Trash"
 msgstr "清空垃圾桶"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
 
@@ -583,7 +583,7 @@ msgstr "請輸入新名稱："
 msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -592,7 +592,7 @@ msgstr ""
 "這個文字檔 '%s' 似乎是可執行的 script。\n"
 "你想要進行什麼操作？"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "這個檔案 '%s' 是可執行檔，你是否想要執行它？"
@@ -619,11 +619,11 @@ msgstr "無法將資料夾複製到子資料夾內"
 msgid "Destination is a sub folder of source"
 msgstr "目的資料夾是來源資料夾的子資料夾"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "垃圾桶"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "桌面"
 

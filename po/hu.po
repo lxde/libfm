@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-28 06:14+0000\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-10-28 17:46+0200\n"
 "Last-Translator: Laszlo Dvornik <dvornik@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -292,42 +292,42 @@ msgstr "Fájl futtatása"
 msgid "Execute in _Terminal"
 msgstr "Futtatás _terminálban"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bájt"
 msgstr[1] "%u bájt"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -593,7 +593,7 @@ msgstr "Adj meg egy új nevet:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Biztos kiüríted a kukát?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -602,7 +602,7 @@ msgstr ""
 "'%s' szöveges fájl futtatható parancsfájlnak tűnik.\n"
 "Mit szeretnél tenni vele?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' fájl futtatható. Futtatni szeretnéd?"

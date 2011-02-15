@@ -6,15 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/projects/lxde/support\n"
-"POT-Creation-Date: 2010-10-28 06:14+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2011-01-01 06:45-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -58,7 +58,9 @@ msgstr "Aplicación instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Establecer la aplicación seleccionada como predeterminada para abrir los archivos de este tipo"
+msgstr ""
+"Establecer la aplicación seleccionada como predeterminada para abrir los "
+"archivos de este tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -184,7 +186,9 @@ msgstr "Operaciones permitidas al propietario del archivo"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Operaciones permitidas a los usuarios del mismo grupo que el propietario del archivo"
+msgstr ""
+"Operaciones permitidas a los usuarios del mismo grupo que el propietario del "
+"archivo"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -196,7 +200,8 @@ msgstr "Sólo lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Seleccione la aplicación utilizada para abrir los archivos de este tipo "
+msgstr ""
+"Seleccione la aplicación utilizada para abrir los archivos de este tipo "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -257,8 +262,7 @@ msgstr "Línea de comandos:"
 msgid "File Associations"
 msgstr "Asociaciones de archivos"
 
-#: ../data/ui/preferred-apps.glade.h:6
-#: ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Aplicaciones preferidas"
 
@@ -267,8 +271,12 @@ msgid "System Applications"
 msgstr "Aplicaciones del sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "El cliente de correo preferido se utilizará para redactar los mensajes cuando haga clic en las direcciones de correo."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"El cliente de correo preferido se utilizará para redactar los mensajes "
+"cuando haga clic en las direcciones de correo."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -282,43 +290,42 @@ msgstr "Ejecutar archivo"
 msgid "Execute in _Terminal"
 msgstr "Ejecutar en la _terminal"
 
-#: ../src/base/fm-utils.c:54
-#: ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
 msgstr[1] "%u bytes"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -338,8 +345,7 @@ msgstr "Papelera"
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:739
-#: ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Aplicaciones"
 
@@ -351,8 +357,7 @@ msgstr "Red"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:214
-#: ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -363,8 +368,7 @@ msgstr ""
 "Tamaño: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221
-#: ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -391,10 +395,12 @@ msgstr "Finalizado"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Algunos archivos no pueden moverse a la papelera porque el subsistema de archivos no permite esta operación.\n"
+"Algunos archivos no pueden moverse a la papelera porque el subsistema de "
+"archivos no permite esta operación.\n"
 "¿Desea eliminarlos en su lugar?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -425,8 +431,7 @@ msgstr "Creando enlaces simbólicos"
 msgid "Changing file attributes"
 msgstr "Cambiando atributos de archivo"
 
-#: ../src/gtk/fm-file-properties.c:117
-#: ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -441,8 +446,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "¿Desea aplicar recursivamente estos cambios a todos los archivos y subcarpetas?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
+"subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -465,8 +473,7 @@ msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96
-#: ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
 
@@ -478,12 +485,11 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-file-menu.c:86
-#: ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Abrir con..."
 
@@ -587,7 +593,7 @@ msgstr "Por favor, introduzca un nuevo nombre:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -596,13 +602,12 @@ msgstr ""
 "Este archivo de texto '%s' parece ser un script ejecutable.\n"
 "¿Qué desea hacer con él?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Este archivo '%s' es ejecutable. ¿Desea ejecutarlo?"
 
-#: ../src/job/fm-dir-list-job.c:231
-#: ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
@@ -624,16 +629,15 @@ msgstr "Imposible copiar una carpeta en su subcarpeta"
 msgid "Destination is a sub folder of source"
 msgstr "El destino es una subcarpeta del origen"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Papelera"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Escritorio"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are
-#. describing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
 msgstr "Disco CD-ROM"
@@ -658,13 +662,11 @@ msgstr "Disco CD-RW"
 msgid "Blank CD-RW Disc"
 msgstr "Disco CD-RW en blanco"
 
-#: ../src/udisks/g-udisks-device.c:44
-#: ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "Disco DVD-ROM"
 
-#: ../src/udisks/g-udisks-device.c:44
-#: ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "Disco DVD-ROM en blanco"
 

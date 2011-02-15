@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-26 07:03+0000\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-07-09 16:01+0200\n"
 "Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n!=0);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -184,7 +184,9 @@ msgstr "Toimenpiteet, jorka tiedoston omistaja voi tehdä"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr "Toimenpiteet, jotka samassa ryhmässä kuin omistaja olevat käyttäjät voivat tehdä"
+msgstr ""
+"Toimenpiteet, jotka samassa ryhmässä kuin omistaja olevat käyttäjät voivat "
+"tehdä"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -266,8 +268,12 @@ msgid "System Applications"
 msgstr "Järjestelmäsovellukset"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Oletussähköpostisovellusta käytetään sähköpostien luomiseen, kun napsautat sähköpostiosoitetta."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Oletussähköpostisovellusta käytetään sähköpostien luomiseen, kun napsautat "
+"sähköpostiosoitetta."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -281,42 +287,42 @@ msgstr "Suorita tiedosto"
 msgid "Execute in _Terminal"
 msgstr "Suorita _päätteessä"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u tavua"
 msgstr[1] "%u tavu"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -386,10 +392,12 @@ msgstr "Valmis"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Joitain tiedostoja ei voida siirtää roskakoriin, koska käytettävät tiedostojärjestelmät eivät tue tätä toimenpidettä.\n"
+"Joitain tiedostoja ei voida siirtää roskakoriin, koska käytettävät "
+"tiedostojärjestelmät eivät tue tätä toimenpidettä.\n"
 "Poistetaanko tiedostot?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -435,8 +443,11 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Anna kelvolline ryhmänimi tai numero id."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Hyväksytäänkö nämä muutokset rekursiivisesti kaikkii tiedostoihin ja alihakemistoihin?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Hyväksytäänkö nämä muutokset rekursiivisesti kaikkii tiedostoihin ja "
+"alihakemistoihin?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -623,8 +634,7 @@ msgstr "Roskakori"
 msgid "Desktop"
 msgstr "Työpöytä"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are
-#. decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
 msgstr "CD-ROM-levy"

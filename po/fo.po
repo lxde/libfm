@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 04:59+0000\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-06-07 16:07+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
@@ -59,7 +59,8 @@ msgstr "Innløgd nýtsluskipan"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
+msgstr ""
+"Set tað valdu nýtsluskipaninna at verða forsett atgerð fyri hesum fíluslag"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -197,7 +198,8 @@ msgstr "Einans lesa"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Vel nýtsluskipanina ið nýtast skal til at lata upp fílur av hesum slag "
+msgstr ""
+"Vel nýtsluskipanina ið nýtast skal til at lata upp fílur av hesum slag "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -267,8 +269,12 @@ msgid "System Applications"
 msgstr "Kervis-nýtsluskipanir"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "Tann framumtikni postviðskiftarin, verður nýttur at skriva t-post tá ið tú trýstur á t-post bústaðir."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Tann framumtikni postviðskiftarin, verður nýttur at skriva t-post tá ið tú "
+"trýstur á t-post bústaðir."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -282,42 +288,42 @@ msgstr "Inna fílu"
 msgid "Execute in _Terminal"
 msgstr "Inna í ú_tstøð"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u být"
 msgstr[1] "%u být"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -387,10 +393,12 @@ msgstr "Liðugt"
 
 #: ../src/gtk/fm-progress-dlg.c:336
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Summar fílur kunnu ikki flytast til ruskspannina, tí at tað undirliggjandi kervið ikki stuðlar hesari atgerð.\n"
+"Summar fílur kunnu ikki flytast til ruskspannina, tí at tað undirliggjandi "
+"kervið ikki stuðlar hesari atgerð.\n"
 "Vil tú strika tær í staðin?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
@@ -436,8 +444,10 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Vinarliga skriva inn eitt lógligt bólkanavn ella talsamleika."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Vil tú endurkvæmiliga nýta hesar broytingar til allar fílur og undirskjáttur?"
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Vil tú endurkvæmiliga nýta hesar broytingar til allar fílur og undirskjáttur?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -582,14 +592,14 @@ msgstr "Vinarliga skriva eitt nýtt navn:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Er tú viss/ur í at tøma ruskspannina?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Hendan fílan '%s' er inningarfør. Vil tú inna hana?"
@@ -624,8 +634,7 @@ msgstr "Ruskspann"
 msgid "Desktop"
 msgstr "Skriviborð"
 
-#. Translator: The word "blank" is used as an adjective, e.g. we are
-#. decsribing discs that are already blank
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
 msgstr "CD-ROM diskur"

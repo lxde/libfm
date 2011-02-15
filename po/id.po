@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-09-08 16:05+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian Translation Team <id@li.org>\n"
@@ -289,41 +289,41 @@ msgstr "Berkas Berganda"
 msgid "Execute in _Terminal"
 msgstr "Jalankan di emulator terminal"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -343,7 +343,7 @@ msgstr "Tong Sampah"
 msgid "My Computer"
 msgstr "Komputerku"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Aplikasi"
 
@@ -470,7 +470,7 @@ msgid "Eject Removable Media"
 msgstr "Keluarkan Media Yang Dapat Dilepas"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 msgid "Rename Bookmark Item"
 msgstr "Ubah Nama Butir Penanda Tautan"
 
@@ -482,7 +482,7 @@ msgstr "Hapus dari Penanda Tautan"
 msgid "Empty Trash"
 msgstr "Kosongkan Tong Sampah"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
 msgstr "Masukkan nama baru:"
 
@@ -590,14 +590,14 @@ msgstr "Silakan masukkan sebuah nama baru:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Anda yakin ingin mengosongkan tong sampah?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
@@ -624,11 +624,11 @@ msgstr "Tak bisa menyalin folder ke dalam sub foldernya"
 msgid "Destination is a sub folder of source"
 msgstr "Tujuan adalah sub folder dari sumber"
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
 msgstr "Tong Sampah"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
 msgstr "Desktop"
 

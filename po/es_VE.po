@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 11:11+0200\n"
+"POT-Creation-Date: 2011-02-15 09:19+0100\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -350,49 +350,49 @@ msgstr "Múltiples archivos"
 msgid "Execute in _Terminal"
 msgstr "Ejecutar en el emulador de terminal"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, fuzzy, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
 msgstr[1] "%u bytes"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 #, fuzzy
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 #, fuzzy
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 #, fuzzy
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 #, fuzzy
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 #, fuzzy
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 #, fuzzy
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 #, fuzzy
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 #, fuzzy
 msgid "TiB"
 msgstr "TiB"
@@ -417,7 +417,7 @@ msgstr "Papelera"
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:495
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 #, fuzzy
 msgid "Applications"
 msgstr "Aplicaciones"
@@ -560,7 +560,7 @@ msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:660
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
 #, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
@@ -575,7 +575,7 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:661
+#: ../src/gtk/fm-places-view.c:711
 #, fuzzy
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
@@ -708,14 +708,14 @@ msgstr "Por favor, introduzca un nuevo nombre:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:86
+#: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:93
+#: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
@@ -742,12 +742,12 @@ msgstr ""
 msgid "Destination is a sub folder of source"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:426
+#: ../src/gtk/fm-places-model.c:451
 #, fuzzy
 msgid "Trash"
 msgstr "Papelera"
 
-#: ../src/gtk/fm-places-model.c:480
+#: ../src/gtk/fm-places-model.c:509
 #, fuzzy
 msgid "Desktop"
 msgstr "Escritorio"
