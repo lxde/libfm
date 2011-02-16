@@ -139,9 +139,9 @@ _retry_query_src_info:
             if( !fm_job_is_cancelled(fmjob) &&
                 !g_file_make_directory(dest, fm_job_get_cancellable(fmjob), &err) )
             {
-                FmFileOpOption opt = 0;
                 if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
                 {
+                    FmFileOpOption opt = 0;
                     g_error_free(err);
                     err = NULL;
 
@@ -344,12 +344,12 @@ _retry_query_src_info:
         if( !g_file_copy(src, dest, flags, fm_job_get_cancellable(fmjob),
                          progress_cb, fmjob, &err) )
         {
-            FmFileOpOption opt = 0;
             flags &= ~G_FILE_COPY_OVERWRITE;
 
             /* handle existing files */
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                FmFileOpOption opt = 0;
                 g_error_free(err);
                 err = NULL;
 
@@ -381,7 +381,7 @@ _retry_query_src_info:
                     break;
                 }
             }
-            if(!opt && err)
+            if(err)
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
@@ -459,7 +459,6 @@ _retry_query_src_info:
     /* Check if source and destination are on the same device */
     if( job->type == FM_FILE_OP_UNTRASH || g_strcmp0(src_fs_id, job->dest_fs_id) == 0 ) /* same device */
     {
-        FmFileOpOption opt = 0;
         guint64 size;
         GFileCopyFlags flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
 
@@ -471,6 +470,7 @@ _retry_query_src_info:
             flags &= ~G_FILE_COPY_OVERWRITE;
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                FmFileOpOption opt = 0;
                 g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                 if(new_dest)
                 {
@@ -556,7 +556,7 @@ _retry_query_src_info:
                     break;
                 }
             }
-            if(!opt && err)
+            if(err)
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
