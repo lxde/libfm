@@ -21,50 +21,65 @@
 
 #include "fm-tab-label.h"
 
-typedef struct _FmTabLabelPrivate			FmTabLabelPrivate;
+typedef struct _FmTabLabelPrivate           FmTabLabelPrivate;
 
-#define FM_TAB_LABEL_GET_PRIVATE(obj)		(G_TYPE_INSTANCE_GET_PRIVATE((obj),\
-			FM_TYPE_TAB_LABEL, FmTabLabelPrivate))
+#define FM_TAB_LABEL_GET_PRIVATE(obj)       (G_TYPE_INSTANCE_GET_PRIVATE((obj),\
+            FM_TYPE_TAB_LABEL, FmTabLabelPrivate))
 
-static void fm_tab_label_finalize  			(GObject *object);
+static void fm_tab_label_finalize           (GObject *object);
 
 G_DEFINE_TYPE(FmTabLabel, fm_tab_label, GTK_TYPE_EVENT_BOX);
 
 static void fm_tab_label_class_init(FmTabLabelClass *klass)
 {
-	GObjectClass *g_object_class;
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_tab_label_finalize;
+    GObjectClass *g_object_class;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_tab_label_finalize;
 
     /* special style used by close button */
-	gtk_rc_parse_string(
-		"style \"close-btn-style\" {\n"
+    gtk_rc_parse_string(
+        "style \"close-btn-style\" {\n"
             "GtkWidget::focus-padding = 0\n"
             "GtkWidget::focus-line-width = 0\n"
             "xthickness = 0\n"
             "ythickness = 0\n"
-		"}\n"
-		"widget \"*.tab-close-btn\" style \"close-btn-style\""
-	);
+        "}\n"
+        "widget \"*.tab-close-btn\" style \"close-btn-style\""
+    );
 }
 
 static void fm_tab_label_finalize(GObject *object)
 {
-	FmTabLabel *self;
+    FmTabLabel *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_TAB_LABEL(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_TAB_LABEL(object));
 
-	self = FM_TAB_LABEL(object);
+    self = FM_TAB_LABEL(object);
 
-	G_OBJECT_CLASS(fm_tab_label_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_tab_label_parent_class)->finalize(object);
 }
 
 static void on_close_btn_style_set(GtkWidget *btn, GtkRcStyle *prev, gpointer data)
 {
-	gint w, h;
-	gtk_icon_size_lookup_for_settings(gtk_widget_get_settings(btn), GTK_ICON_SIZE_MENU, &w, &h);
-	gtk_widget_set_size_request(btn, w + 2, h + 2);
+    gint w, h;
+    gtk_icon_size_lookup_for_settings(gtk_widget_get_settings(btn), GTK_ICON_SIZE_MENU, &w, &h);
+    gtk_widget_set_size_request(btn, w + 2, h + 2);
+}
+
+static gboolean on_query_tooltip(GtkWidget *widget, gint x, gint y,
+                                 gboolean    keyboard_mode,
+                                 GtkTooltip *tooltip, gpointer user_data)
+{
+    /* We should only show the tooltip if the text is ellipsized */
+    GtkLabel* label = GTK_LABEL(widget);
+    PangoLayout* layout = gtk_label_get_layout(label);
+    if(pango_layout_is_ellipsized(layout))
+    {
+        gtk_tooltip_set_text(tooltip, gtk_label_get_text(label));
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static void fm_tab_label_init(FmTabLabel *self)
@@ -75,7 +90,9 @@ static void fm_tab_label_init(FmTabLabel *self)
     hbox = gtk_hbox_new( FALSE, 0 );
 
     self->label = gtk_label_new("");
+    gtk_widget_set_has_tooltip(self->label, TRUE);
     gtk_box_pack_start(GTK_BOX(hbox), self->label, FALSE, FALSE, 4 );
+    g_signal_connect(self->label, "query-tooltip", G_CALLBACK(on_query_tooltip), self);
 
     self->close_btn = gtk_button_new();
     gtk_button_set_focus_on_click ( GTK_BUTTON ( self->close_btn ), FALSE );
@@ -106,7 +123,7 @@ GtkWidget *fm_tab_label_new(const char* text)
 {
     FmTabLabel* label = (FmTabLabel*)g_object_new(FM_TYPE_TAB_LABEL, NULL);
     gtk_label_set_text(GTK_LABEL(label->label), text);
-	return (GtkWidget*)label;
+    return (GtkWidget*)label;
 }
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text)
