@@ -363,7 +363,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         }
 
         /* change default application for the mime-type if needed */
-        if(data->mime_type && data->mime_type->type)
+        if(data->mime_type && data->mime_type->type && data->open_with)
         {
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
@@ -634,6 +634,7 @@ static void update_ui(FmFilePropData* data)
 
         gtk_widget_destroy(data->open_with_label);
         gtk_widget_destroy(data->open_with);
+        data->open_with = data->open_with_label = NULL;
     }
 
     /* FIXME: check if all files has the same parent dir, mtime, or atime */
@@ -679,6 +680,7 @@ static void init_application_list(FmFilePropData* data)
         {
             gtk_widget_destroy(data->open_with_label);
             gtk_widget_destroy(data->open_with);
+            data->open_with = data->open_with_label = NULL;
         }
     }
 }
