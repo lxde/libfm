@@ -349,6 +349,22 @@ g_debug("on_mount_action_finished");
     g_main_loop_quit(data->loop);
 }
 
+static void prepare_unmount(GMount* mount)
+{
+    /* ensure that CWD is not on the mounted filesystem. */
+    char* cwd_str = g_get_current_dir();
+    GFile* cwd = g_file_new_for_path(cwd_str);
+    GFile* root = g_mount_get_root(mount);
+    g_free(cwd_str);
+    /* FIXME: This cannot cover 100% cases since symlinks are not checked.
+     * There may be other cases that cwd is actually under mount root
+     * but checking prefix is not enough. We already did our best, though. */
+    if(g_file_has_prefix(cwd, root))
+        g_chdir("/");
+    g_object_unref(cwd);
+    g_object_unref(root);
+}
+
 static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action, gboolean interactive)
 {
     gboolean ret;
@@ -368,6 +384,7 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
         g_file_mount_enclosing_volume(G_FILE(obj), 0, op, cancellable, on_mount_action_finished, data);
         break;
     case UMOUNT_MOUNT:
+        prepare_unmount(G_MOUNT(obj));
 #if GLIB_CHECK_VERSION(2, 22, 0)
         g_mount_unmount_with_operation(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
 #else
@@ -375,6 +392,7 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
 #endif
         break;
     case EJECT_MOUNT:
+        prepare_unmount(G_MOUNT(obj));
 #if GLIB_CHECK_VERSION(2, 22, 0)
         g_mount_eject_with_operation(G_MOUNT(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
 #else
@@ -382,11 +400,16 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
 #endif
         break;
     case EJECT_VOLUME:
+        {
+            GMount* mnt = g_volume_get_mount(G_VOLUME(obj));
+            prepare_unmount(mnt);
+            g_object_unref(mnt);
 #if GLIB_CHECK_VERSION(2, 22, 0)
-        g_volume_eject_with_operation(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
+            g_volume_eject_with_operation(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
 #else
-        g_volume_eject(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, cancellable, on_mount_action_finished, data);
+            g_volume_eject(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, cancellable, on_mount_action_finished, data);
 #endif
+        }
         break;
     }
 
