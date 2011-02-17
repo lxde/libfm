@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 2.12 -->
   <!-- interface-naming-policy toplevel-contextual -->
@@ -8,17 +8,14 @@
     <property name="default_width">480</property>
     <property name="type_hint">dialog</property>
     <property name="gravity">north-east</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
             <property name="border_width">6</property>
-            <property name="orientation">vertical</property>
             <property name="spacing">18</property>
             <child>
               <object class="GtkLabel" id="msg">
@@ -69,6 +66,7 @@
                       <object class="GtkLabel" id="dest">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
+                        <property name="ellipsize">middle</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -200,7 +198,6 @@
             </child>
             <child>
               <object class="GtkVBox" id="error_pane">
-                <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="label1">
