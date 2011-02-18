@@ -98,6 +98,15 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
             fd = open(file_path, O_RDONLY);
             if( fd >= 0 )
             {
+                /* #3086703 - PCManFM crashes on non existent directories.
+                 * http://sourceforge.net/tracker/?func=detail&aid=3086703&group_id=156956&atid=801864
+                 *
+                 * NOTE: do not use mmap here. Though we can get little
+                 * performance gain, this makes our program more vulnerable
+                 * to I/O errors. If the mapped file is truncated by other
+                 * processes or I/O errors happen, we may receive SIGBUS.
+                 * It's a pity that we cannot use mmap for speed up here. */
+            /*
             #ifdef HAVE_MMAP
                 const char* buf;
                 len = pstat->st_size > 4096 ? 4096 : pstat->st_size;
@@ -109,11 +118,12 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
                     munmap(buf, len);
                 }
             #else
+            */
                 char buf[4096];
                 len = read(fd, buf, 4096);
                 g_free(type);
                 type = g_content_type_guess( NULL, buf, len, &uncertain );
-            #endif
+            /* #endif */
                 close(fd);
             }
         }
