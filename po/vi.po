@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-10-27 01:25+0700\n"
-"Last-Translator: Duy Hung Tran <nguyentieuhau@gmail.com>\n"
+"PO-Revision-Date: 2011-03-07 03:49+0200\n"
+"Last-Translator: Duy Hung <nguyentieuhau@gmail.com>\n"
 "Language-Team: LXDE\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Language: Vietnamese\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -429,10 +429,9 @@ msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
+msgstr[0] "byte"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
