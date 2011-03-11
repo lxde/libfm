@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-03-11 17:22+0200\n"
+"PO-Revision-Date: 2011-03-11 17:37+0200\n"
 "Last-Translator: enginmanap <enginmanap@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -199,7 +199,7 @@ msgstr "Sadece okunabilir"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Bu dosya türünü açmak için uygulama seç"
+msgstr "Bu dosya türünü açmak için uygulama seç "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -353,7 +353,7 @@ msgstr "Ağ"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
