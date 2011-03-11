@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-09-05 04:28+0200\n"
-"Last-Translator: Mehmet Gülmen <memetgulmen@gmail.com>\n"
+"PO-Revision-Date: 2011-03-11 17:22+0200\n"
+"Last-Translator: enginmanap <enginmanap@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
-"Language: \n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Country: TURKEY\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -24,7 +25,7 @@ msgstr "<b>Çalıştırılacak komut satırı:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Açılacak Dosya Türü:</b"
+msgstr "<b>Açılacak Dosya Türü:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -37,8 +38,9 @@ msgid ""
 msgstr ""
 "<b>Komut satırında şu özel kodlar kullanılabilir:</b>\n"
 "  <b>%f</b>: Tek dosya adını temsil eder\n"
-"  <b>%F</b>: Birden fazla dosya adını temsil eder  <b>%u</b>: Tek bir dosya "
-"URI'sini temsil eder  <b>%U</b>: Birden fazla dosya URI'sini temsil eder"
+"  <b>%F</b>: Birden fazla dosya adını temsil eder\n"
+"    <b>%u</b>: Tek bir dosya URI'sini temsil eder\n"
+"  <b>%U</b>: Birden fazla dosya URI'sini temsil eder"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -70,9 +72,8 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Bu konumda aynı isimde başka bir dosya bulunuyor.</b>\n"
-"\n"
-"Varolan dosyayı değiştirmek istiyor musunuz?"
+"<b>Bu konumda aynı isimde başka bir dosya bulunuyor.</b>Varolan dosyayı "
+"değiştirmek istiyor musunuz"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -161,7 +162,7 @@ msgstr "<b>_Grubu:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>Sahibi:</b>"
+msgstr "<b>_Sahibi:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
@@ -169,7 +170,7 @@ msgstr "Dosya Özellikleri"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Dosya çalıştırılabilsin"
+msgstr "Dosya çalıştırılabilir yap"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
@@ -219,7 +220,7 @@ msgstr "<b>İşlenen Dosya:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>İlerleme</b>"
+msgstr "<b>İlerleme:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
@@ -281,14 +282,12 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "Tercih edilen Web Tarayıcısı bağlantılara açmak üzere kullanılacak."
 
 #: ../data/ui/exec-file.glade.h:1
-#, fuzzy
 msgid "Execute File"
-msgstr "Birden Çok Dosya"
+msgstr "Dosyayı Çalıştır"
 
 #: ../data/ui/exec-file.glade.h:2
-#, fuzzy
 msgid "Execute in _Terminal"
-msgstr "Uçbirimde çalıştır"
+msgstr "Uçbirimde Çalıştır"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
@@ -596,11 +595,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"Bu metin dosyası '%s' çalıştırılabilir olarak görünüyor.\n"
+"Dosya ile ne yapmak istiyorsunuz?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "'%s' çalıştırılabilir bir dosya. Çalıştırmak istiyor musunuz?"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -635,160 +636,160 @@ msgstr "Masaüstü"
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM Disk"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Boş CD-ROM Disk"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R Disk"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Boş CD-R Disk"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Boş CD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM Disk"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Boş DVD-ROM Disk"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Boş DVD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM Disk"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Boş DVD-RAM Disk"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R Disk"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Boş DVD+R Disk"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "Boş DVD+RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL Disk"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Boş DVD+R DL Disk"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL Disk"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Boş DVD+RW DL Disk"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray Disk"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Boş Blu-Ray Disk"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R Disk"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Boş Blu-Ray R Disk"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Boş Blu-Ray RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "HD DVD Disk"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "Boş HD DVD Disk"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R Disk"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Boş HD DVD-R Disk"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Boş HD DVD-RW Disk"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO Disk"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Boş MO Disk"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW Disk"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Boş MRW Disk"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W Disk"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Boş MRW/W Disk"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Boş Optik Disk"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optik Disk"
