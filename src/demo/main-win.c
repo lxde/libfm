@@ -78,6 +78,8 @@ static void on_location(GtkAction* act, FmMainWin* win);
 static void on_create_new(GtkAction* action, FmMainWin* win);
 static void on_prop(GtkAction* action, FmMainWin* win);
 
+static void update_statusbar(FmMainWin* win);
+
 #include "main-win-ui.c" /* ui xml definitions and actions */
 
 static guint n_wins = 0;
@@ -96,16 +98,29 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
     fm_folder_view_chdir(FM_FOLDER_VIEW(self->folder_view), path);
 }
 
+static void update_statusbar(FmMainWin* win)
+{
+    char* msg;
+    FmFolderModel* model = fm_folder_view_get_model(win->folder_view);
+    FmFolder* folder = fm_folder_view_get_folder(win->folder_view);
+    if(model && folder)
+    {
+        int total_files = fm_list_get_length(folder->files);
+        int shown_files = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL);
+
+        /* FIXME: do not access data members. */
+        msg = g_strdup_printf("%d files are listed (%d hidden).", shown_files, (total_files - shown_files) );
+        gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
+        gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
+        g_free(msg);
+    }
+}
+
 static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data)
 {
     const FmNavHistoryItem* item;
     FmMainWin* win = (FmMainWin*)user_data;
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
-    char* msg;
-    FmFolderModel* model = fm_folder_view_get_model(view);
-    FmFolder* folder = fm_folder_view_get_folder(view);
-    int total files;
-    int shown_files;
 
     fm_path_entry_set_path( entry, path );
 
@@ -114,13 +129,7 @@ static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data
     gtk_adjustment_set_value( gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(view)), item->scroll_pos);
 
     /* update status bar */
-    /* FIXME: show number of hidden files and available disk spaces.
-     * FIXME: do not access data members. */
-    total_files = fm_list_get_length(folder->files);
-    msg = g_strdup_printf("%d files are listed.", total_files );
-    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
-    gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
-    g_free(msg);
+    update_statusbar(win);
 }
 
 static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
@@ -480,6 +489,7 @@ void on_show_hidden(GtkToggleAction* act, FmMainWin* win)
 {
     gboolean active = gtk_toggle_action_get_active(act);
     fm_folder_view_set_show_hidden( FM_FOLDER_VIEW(win->folder_view), active );
+    update_statusbar(win);
 }
 
 void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
