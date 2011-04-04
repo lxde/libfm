@@ -53,7 +53,6 @@ struct _FmPathEntryClass
 
 GType fm_path_entry_get_type(void);
 GtkWidget* fm_path_entry_new();
-// void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* model);
 void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path);
 
 /* The function does not increase ref count. The caller is responsible for calling

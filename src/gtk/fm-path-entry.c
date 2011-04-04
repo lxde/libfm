@@ -45,7 +45,7 @@ struct _FmPathEntryPrivate
     FmFolderModel* model;
 
     /* name of parent dir */
-    char* parent_dirname;
+    char* parent_dir;
     /* length of parent dir */
     gint parent_len;
 
@@ -57,10 +57,6 @@ struct _FmPathEntryPrivate
 
     /* length of basename typed by the user */
     gint typed_basename_len;
-
-    /* automatic common suffix completion */
-    gint common_suffix_append_idle_id;
-    gchar *common_suffix;
 };
 
 typedef struct
@@ -84,31 +80,12 @@ static void  fm_path_entry_editable_init(GtkEditableClass *iface);
 static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEvent  *event);
 static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEvent  *event);
 static void      fm_path_entry_changed(GtkEditable *editable, gpointer user_data);
-static void      fm_path_entry_do_insert_text(GtkEditable *editable,
-                                              const gchar *new_text,
-                                              gint new_text_length,
-                                              gint        *position,
-                                              gpointer user_data);
-static gboolean  fm_path_entry_suffix_append_idle(gpointer user_data);
-static void      fm_path_entry_suffix_append_idle_destroy(gpointer user_data);
-static char*     fm_path_entry_find_common_suffix(FmPathEntry *entry);
 static void      fm_path_entry_init(FmPathEntry *entry);
 static void      fm_path_entry_finalize(GObject *object);
 static gboolean  fm_path_entry_match_func(GtkEntryCompletion   *completion,
                                           const gchar          *key,
                                           GtkTreeIter          *iter,
                                           gpointer user_data);
-static gboolean  fm_path_entry_match_selected(GtkEntryCompletion *widget,
-                                              GtkTreeModel       *model,
-                                              GtkTreeIter        *iter,
-                                              gpointer user_data);
-static gboolean  fm_path_entry_insert_prefix(GtkEntryCompletion *widget,
-                                             gchar* prefix,
-                                             gpointer user_data);
-static gboolean  fm_path_entry_cursor_on_match(GtkEntryCompletion *widget,
-                                               GtkTreeModel       *model,
-                                               GtkTreeIter        *iter,
-                                               gpointer user_data);
 static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
                                                  GtkCellRenderer *cell,
                                                  GtkTreeModel *model,
@@ -131,12 +108,17 @@ static GtkEditableClass *parent_editable_interface = NULL;
 static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data)
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
+    FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    char* text;
+    int pos;
     switch( event->keyval )
     {
     case GDK_Tab:
-        /* place the cursor at the end */
-        gtk_editable_set_position(GTK_EDITABLE(entry), -1);
-        return TRUE;
+        {
+            gtk_entry_completion_insert_prefix(priv->completion);
+            gtk_editable_set_position(GTK_EDITABLE(entry), -1);
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -195,12 +177,30 @@ static void fm_path_entry_editable_init(GtkEditableClass *iface)
     /* iface->do_insert_text = fm_path_entry_do_insert_text; */
 }
 
+static void clear_completion(FmPathEntryPrivate* priv)
+{
+    if(priv->parent_dir)
+    {
+        priv->parent_len = 0;
+        g_free(priv->parent_dir);
+        priv->parent_dir = NULL;
+        /* cancel running dir-listing jobs */
+        g_cancellable_cancel(priv->cancellable);
+        /* clear current model */
+        gtk_list_store_clear(GTK_LIST_STORE(priv->model));
+    }
+    priv->typed_basename_len = 0;
+}
+
 static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEvent  *event)
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     /* activate auto-completion */
     gtk_entry_set_completion(entry, priv->completion);
+
+    /* listen to 'changed' signal for auto-completion */
+    g_signal_connect(entry, "changed", G_CALLBACK(fm_path_entry_changed), NULL);
     return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_in_event(widget, event);
 }
 
@@ -210,8 +210,14 @@ static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEvent  *eve
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     /* de-activate auto-completion */
     gtk_entry_set_completion(entry, NULL);
-    if(priv->cancellable) /* cancel dir listing in progress */
-        g_cancellable_cancel(priv->cancellable);
+
+    /* release all resources allocated for completion. */
+    clear_completion(priv);
+
+    /* disconnect from 'changed' signal since we don't do auto-completion
+     * when we have no keyboard focus. */
+    g_signal_handlers_disconnect_by_func(entry, fm_path_entry_changed, NULL);
+
     return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_out_event(widget, event);
 }
 
@@ -221,14 +227,22 @@ static void on_dir_list_finished(gpointer user_data)
     FmPathEntry* entry = data->entry;
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     GList* l;
-    GtkListStore* new_model = gtk_list_store_new(1, G_TYPE_STRING);
+    GtkListStore* new_model;
+
+    /* final chance to check cancellable */
+    if(g_cancellable_is_cancelled(priv->cancellable))
+        return;
+
+    new_model = gtk_list_store_new(1, G_TYPE_STRING);
     /* g_debug("dir list is finished!"); */
 
     /* update the model */
     for(l = data->subdirs; l; l=l->next)
     {
         char* name = l->data;
-        gtk_list_store_insert_with_values(new_model, NULL, -1, 0, name, -1);
+        char* full_path = g_strconcat(priv->parent_dir, name, NULL);
+        gtk_list_store_insert_with_values(new_model, NULL, -1, 0, full_path, -1);
+        g_free(full_path);
     }
 
     if(priv->model)
@@ -311,39 +325,33 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
     GtkWidget* widget = GTK_WIDGET(entry);
     const gchar *path_str, *sep;
 
-    /* don't touch auto-completion if we don't have input focus */
-    if(!GTK_WIDGET_HAS_FOCUS(widget))
-        return;
-
     /* find parent dir of current path */
     path_str = gtk_entry_get_text( GTK_ENTRY(entry) );
     sep = g_utf8_strrchr(path_str, -1, G_DIR_SEPARATOR);
     if(sep) /* we found a parent dir */
     {
-        int parent_len = (sep - path_str);
-        if(parent_len == 0) /* special case for / */
-            parent_len = 1;
-
-        if(!priv->parent_dirname
+        int parent_len = (sep - path_str) + 1; /* includes the dir separator / */
+        if(!priv->parent_dir
            || priv->parent_len != parent_len
-           || strncmp(priv->parent_dirname, path_str, parent_len ))
+           || strncmp(priv->parent_dir, path_str, parent_len ))
         {
             /* parent dir has been changed, reload dir list */
             ListSubDirNames* data = g_slice_new0(ListSubDirNames);
-            g_free(priv->parent_dirname);
-            priv->parent_dirname = g_strndup(path_str, parent_len);
+            g_free(priv->parent_dir);
+            priv->parent_dir = g_strndup(path_str, parent_len);
             priv->parent_len = parent_len;
-            /* g_debug("parent dir is changed to %s", priv->parent_dirname); */
+            /* g_debug("parent dir is changed to %s", priv->parent_dir); */
 
+            /* FIXME: convert utf-8 encoded path to on-disk encoding. */
             data->entry = entry;
-            if(priv->parent_dirname[0] == '~') /* special case for home dir */
+            if(priv->parent_dir[0] == '~') /* special case for home dir */
             {
-                char* expand = g_strconcat(g_get_home_dir(), priv->parent_dirname + 1, NULL);
+                char* expand = g_strconcat(g_get_home_dir(), priv->parent_dir + 1, NULL);
                 data->dir = g_file_new_for_commandline_arg(expand);
                 g_free(expand);
             }
             else
-                data->dir = g_file_new_for_commandline_arg(priv->parent_dirname);
+                data->dir = g_file_new_for_commandline_arg(priv->parent_dir);
 
             /* clear current model */
             gtk_list_store_clear(GTK_LIST_STORE(priv->model));
@@ -357,129 +365,11 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
                                     data, (GDestroyNotify)list_sub_dir_names_free,
                                     G_PRIORITY_LOW, priv->cancellable);
         }
-
         /* calculate the length of remaining part after / */
         priv->typed_basename_len = strlen(sep + 1);
     }
-    else
-    {
-        priv->parent_len = 0;
-        g_free(priv->parent_dirname);
-        priv->parent_dirname = NULL;
-        /* cancel running dir-listing jobs */
-        g_cancellable_cancel(priv->cancellable);
-        /* clear current model */
-        gtk_list_store_clear(GTK_LIST_STORE(priv->model));
-
-        priv->typed_basename_len = 0;
-        g_free(priv->common_suffix);
-        priv->common_suffix = NULL;
-        if(priv->common_suffix_append_idle_id >=0)
-        {
-            g_source_remove(priv->common_suffix_append_idle_id);
-            priv->common_suffix_append_idle_id = -1;
-        }
-    }
-}
-
-static void fm_path_entry_do_insert_text(GtkEditable *editable, const gchar *new_text,
-                                         gint new_text_length, gint *position,
-                                         gpointer user_data)
-{
-    FmPathEntry *entry = FM_PATH_ENTRY(editable);
-    FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-
-    /* inline autocompletion */
-    if( GTK_WIDGET_HAS_FOCUS(editable) && priv->model )
-    {
-        /* we have a common suffix -> add idle function */
-        g_free(priv->common_suffix);
-        priv->common_suffix = fm_path_entry_find_common_suffix(entry);
-        if( (priv->common_suffix_append_idle_id < 0) && priv->common_suffix )
-            priv->common_suffix_append_idle_id  = g_idle_add_full(G_PRIORITY_HIGH,
-                                                                  fm_path_entry_suffix_append_idle,
-                                                                  entry, NULL);
-    }
-}
-
-static gboolean fm_path_entry_suffix_append_idle(gpointer user_data)
-{
-    FmPathEntry *entry = FM_PATH_ENTRY(user_data);
-    FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    const gchar *original_key = gtk_entry_get_text( GTK_ENTRY(entry) );
-
-    /* we have a common suffix -> insert/select it */
-    if( priv->common_suffix )
-    {
-        gint suffix_offset = g_utf8_strlen(original_key, -1);
-        gint suffix_offset_save = suffix_offset;
-
-        /* don't recur */
-        g_signal_handlers_block_by_func(entry, fm_path_entry_changed, NULL);
-        g_signal_handlers_block_by_func(entry, fm_path_entry_do_insert_text, NULL);
-
-        gtk_editable_insert_text(GTK_EDITABLE(entry), priv->common_suffix + priv->typed_basename_len, -1,  &suffix_offset);
-        gtk_editable_select_region(GTK_EDITABLE(entry), suffix_offset_save, -1);
-
-        g_signal_handlers_unblock_by_func(entry, fm_path_entry_changed, NULL);
-        g_signal_handlers_unblock_by_func(entry, fm_path_entry_do_insert_text, NULL);
-    }
-    priv->common_suffix_append_idle_id = -1;
-    /* don't call again */
-    return FALSE;
-}
-
-static char* fm_path_entry_find_common_suffix(FmPathEntry *entry)
-{
-    FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    GtkTreeIter iter;
-    gchar *prefix = NULL;
-    gboolean valid;
-    const gchar *key;
-
-    key = gtk_entry_get_text(GTK_ENTRY(entry));
-    key += priv->parent_len;
-    while(*key == G_DIR_SEPARATOR)
-        ++key;
-
-    valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(priv->model),
-                     &iter);
-    while (valid)
-    {
-        gchar *text;
-        gtk_tree_model_get(GTK_TREE_MODEL(priv->model), &iter, 0, &text, -1);
-        if (text && g_str_has_prefix (text, key))
-        {
-            if (!prefix)
-                prefix = g_strdup (text);
-            else
-            {
-                gchar *p = prefix;
-                gchar *q = text;
-                while (*p && *p == *q)
-                {
-                    p++;
-                    q++;
-                }
-                *p = '\0';
-                if (p > prefix)
-                {
-                    /* strip a partial multibyte character */
-                    q = g_utf8_find_prev_char (prefix, p);
-                    switch(g_utf8_get_char_validated(q, p - q))
-                    {
-                    case (gunichar)-2:
-                    case (gunichar)-1:
-                      *q = 0;
-                    default: ;
-                    }
-                }
-            }
-        }
-        g_free (text);
-        valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(priv->model), &iter);
-    }
-    return prefix;
+    else /* clear all autocompletion thing. */
+        clear_completion(priv);
 }
 
 static void fm_path_entry_set_property(GObject *object,
@@ -530,21 +420,27 @@ fm_path_entry_init(FmPathEntry *entry)
     priv->completion = completion;
     priv->cancellable = g_cancellable_new();
     priv->highlight_completion_match = TRUE;
-    priv->common_suffix_append_idle_id = -1;
-    priv->common_suffix = NULL;
     gtk_entry_completion_set_minimum_key_length(completion, 1);
 
     gtk_entry_completion_set_match_func(completion, fm_path_entry_match_func, NULL, NULL);
-    g_signal_connect(completion, "match-selected", G_CALLBACK(fm_path_entry_match_selected), (gpointer)NULL);
-    g_signal_connect(completion, "insert-prefix", G_CALLBACK(fm_path_entry_insert_prefix), (gpointer)NULL);
-    g_signal_connect(completion, "cursor-on-match", G_CALLBACK(fm_path_entry_cursor_on_match), (gpointer)NULL);
     g_object_set(completion, "text_column", 0, NULL);
-
     gtk_entry_completion_set_model(completion, priv->model);
 
     render = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start( (GtkCellLayout*)completion, render, TRUE );
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion), render, fm_path_entry_completion_render_func, entry, NULL);
+
+    /* NOTE: this is to avoid a bug of gtk+.
+     * The inline selection provided by GtkEntry is buggy.
+     * If we change the content of the entry, it still stores
+     * the old prefix sometimes so things don't work as expected.
+     * So, unfortunately, we're not able to use this nice feature.
+     *
+     * Please see gtk_entry_completion_key_press() of gtk/gtkentry.c
+     * and look for completion->priv->completion_prefix.
+     */
+    gtk_entry_completion_set_inline_selection(completion, FALSE);
+
     gtk_entry_completion_set_inline_completion(completion, TRUE);
     gtk_entry_completion_set_popup_set_width(completion, TRUE);
     gtk_entry_completion_set_popup_single_match(completion, FALSE);
@@ -552,9 +448,7 @@ fm_path_entry_init(FmPathEntry *entry)
     /* connect to these signals rather than overriding default handlers since
      * we want to invoke our handlers before the default ones provided by Gtk. */
     g_signal_connect(entry, "key-press-event", G_CALLBACK(fm_path_entry_key_press), NULL);
-    g_signal_connect(entry, "changed", G_CALLBACK(fm_path_entry_changed), NULL);
     g_signal_connect(entry, "activate", G_CALLBACK(fm_path_entry_activate), NULL);
-    g_signal_connect_after(entry, "insert-text", G_CALLBACK(fm_path_entry_do_insert_text), NULL);
 }
 
 static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
@@ -563,13 +457,18 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
                                                  GtkTreeIter *iter,
                                                  gpointer data)
 {
+    gchar *full_path;
     gchar *model_file_name;
+    int model_file_name_len;
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY(data) );
     gtk_tree_model_get(GTK_TREE_MODEL(model), iter,
-                       0, &model_file_name, -1);
+                       0, &full_path, -1);
+    model_file_name = full_path + priv->parent_len;
+    model_file_name_len = strlen(model_file_name);
+
     if( priv->highlight_completion_match )
     {
-        int buf_len = strlen(model_file_name) + 14 + 1;
+        int buf_len = model_file_name_len + 14 + 1;
         gchar* markup = g_malloc(buf_len);
         gchar *trail = g_stpcpy(markup, "<b><u>");
         trail = strncpy(trail, model_file_name, priv->typed_basename_len) + priv->typed_basename_len;
@@ -581,7 +480,7 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
     /* FIXME: We don't need a custom render func if we don't hightlight */
     else
         g_object_set(cell, "text", model_file_name, NULL);
-    g_free(model_file_name);
+    g_free(full_path);
 }
 
 static void
@@ -595,8 +494,7 @@ fm_path_entry_finalize(GObject *object)
     if(priv->path)
         fm_path_unref(priv->path);
 
-    g_free(priv->parent_dirname);
-    g_free(priv->common_suffix);
+    g_free(priv->parent_dir);
 
     if(priv->model)
         g_object_unref(priv->model);
@@ -607,22 +505,12 @@ fm_path_entry_finalize(GObject *object)
         g_object_unref(priv->cancellable);
     }
 
-    /* drop idle func for suffix completion */
-    if( priv->common_suffix_append_idle_id > 0 )
-        g_source_remove(priv->common_suffix_append_idle_id);
-
     (*G_OBJECT_CLASS(fm_path_entry_parent_class)->finalize)(object);
 }
 
 GtkWidget* fm_path_entry_new()
 {
     return g_object_new(FM_TYPE_PATH_ENTRY, NULL);
-}
-
-/* deprecated, kept for backward compatibility only. */
-void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* model)
-{
-    fm_path_entry_set_path(entry, path);
 }
 
 void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
@@ -650,69 +538,21 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
     GtkTreeModel *model = gtk_entry_completion_get_model(completion);
     FmPathEntry *entry = FM_PATH_ENTRY( gtk_entry_completion_get_entry(completion) );
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    char* name;
+    char *model_full_path, *model_basename;
+    const char* typed_basename;
     /* we don't use the case-insensitive key provided by entry completion here */
-    key = gtk_entry_get_text(entry) + priv->parent_len;
-    while(*key == G_DIR_SEPARATOR)
-        ++key;
-    gtk_tree_model_get(model, iter, 0, &name, -1);
-    if(name[0] == '.' && key[0] != '.')
+    typed_basename = gtk_entry_get_text(entry) + priv->parent_len;
+    gtk_tree_model_get(model, iter, 0, &model_full_path, -1);
+    model_basename = model_full_path + priv->parent_len;
+
+    if(model_basename[0] == '.' && typed_basename[0] != '.')
         ret = FALSE; /* ignore hidden files when needed. */
-    else if(*name == '\0')
-        ret = TRUE;
     else
-        ret = g_str_has_prefix(name, key); /* FIXME: should we be case insensitive here? */
-    g_free(name);
+        ret = g_str_has_prefix(model_basename, typed_basename); /* FIXME: should we be case insensitive here? */
+    g_free(model_full_path);
     return ret;
 }
 
-static gboolean  fm_path_entry_match_selected(GtkEntryCompletion *widget,
-                                              GtkTreeModel       *model,
-                                              GtkTreeIter        *iter,
-                                              gpointer user_data)
-{
-    GtkWidget *entry = gtk_entry_completion_get_entry(widget);
-    FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    char* name;
-    char* full_path;
-    FmPath* parent_path;
-
-    gtk_tree_model_get(model, iter, 0, &name, -1);
-    full_path = g_build_filename(priv->parent_dirname, name, NULL);
-    g_free(name);
-
-    name = g_filename_display_name(full_path);
-    g_free(full_path);
-    gtk_entry_set_text(entry, name);
-    g_free(name);
-
-    /* move the cursor to the end of entry */
-    gtk_editable_set_position(GTK_EDITABLE(entry), -1);
-    return TRUE;
-}
-
-static gboolean  fm_path_entry_cursor_on_match(GtkEntryCompletion *widget,
-                                               GtkTreeModel       *model,
-                                               GtkTreeIter        *iter,
-                                               gpointer user_data)
-{
-    /* FIXME: why this doesn't work?
-     * Maybe we only store basenames rather than full paths in model.
-     * So gtk+ cannot match them automatically and this never works. */
-    g_debug("cursor on match");
-    return TRUE;
-}
-
-static gboolean  fm_path_entry_insert_prefix(GtkEntryCompletion *widget,
-                                             gchar* prefix,
-                                             gpointer user_data)
-{
-    /* FIXME: why this doesn't work?
-     * Maybe we only store basenames rather than full paths in model.
-     * So gtk+ cannot match them automatically and this never works. */
-    g_debug("insert prefix: %s", prefix);
-    return TRUE;
-}
 
 FmPath* fm_path_entry_get_path(FmPathEntry *entry)
 {
