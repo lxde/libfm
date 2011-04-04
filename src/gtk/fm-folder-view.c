@@ -61,7 +61,6 @@ static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
 static gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 static void on_chdir(FmFolderView* fv, FmPath* dir_path);
 static void on_loaded(FmFolderView* fv, FmPath* dir_path);
-static void on_status(FmFolderView* fv, const char* msg);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
 static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv);
 
@@ -107,15 +106,6 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      G_TYPE_FROM_CLASS(klass),
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewClass, loaded),
-                     NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
-                     G_TYPE_NONE, 1, G_TYPE_POINTER);
-
-    signals[STATUS]=
-        g_signal_new("status",
-                     G_TYPE_FROM_CLASS(klass),
-                     G_SIGNAL_RUN_FIRST,
-                     G_STRUCT_OFFSET(FmFolderViewClass, status),
                      NULL, NULL,
                      g_cclosure_marshal_VOID__POINTER,
                      G_TYPE_NONE, 1, G_TYPE_POINTER);
@@ -180,22 +170,12 @@ void on_loaded(FmFolderView* fv, FmPath* dir_path)
         gdk_window_set_cursor(toplevel->window, NULL);
 }
 
-void on_status(FmFolderView* fv, const char* msg)
-{
-
-}
-
 void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 {
     FmFolder* folder = model->dir;
     char* msg;
     /* FIXME: prevent direct access to data members */
     g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
-
-    /* FIXME: show number of hidden files and available disk spaces. */
-    msg = g_strdup_printf("%d files are listed.", fm_list_get_length(folder->files) );
-    g_signal_emit(fv, signals[STATUS], 0, msg);
-    g_free(msg);
 }
 
 FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
@@ -903,7 +883,6 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         if(fv->model)
         {
             model = FM_FOLDER_MODEL(fv->model);
-            g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
             g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
@@ -1246,4 +1225,14 @@ static void cancel_pending_row_activated(FmFolderView* fv)
         gtk_tree_row_reference_free(fv->activated_row_ref);
         fv->activated_row_ref = NULL;
     }
+}
+
+FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
+{
+    return FM_FOLDER_MODEL(fv->model);
+}
+
+FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
+{
+    return fv->model ? FM_FOLDER_MODEL(fv->model)->dir : NULL;
 }

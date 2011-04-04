@@ -101,11 +101,26 @@ static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data
     const FmNavHistoryItem* item;
     FmMainWin* win = (FmMainWin*)user_data;
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
+    char* msg;
+    FmFolderModel* model = fm_folder_view_get_model(view);
+    FmFolder* folder = fm_folder_view_get_folder(view);
+    int total files;
+    int shown_files;
+
     fm_path_entry_set_path( entry, path );
 
     /* scroll to recorded position */
     item = fm_nav_history_get_cur(win->nav_history);
     gtk_adjustment_set_value( gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(view)), item->scroll_pos);
+
+    /* update status bar */
+    /* FIXME: show number of hidden files and available disk spaces.
+     * FIXME: do not access data members. */
+    total_files = fm_list_get_length(folder->files);
+    msg = g_strdup_printf("%d files are listed.", total_files );
+    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
+    gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
+    g_free(msg);
 }
 
 static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
@@ -208,12 +223,6 @@ static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* w
         gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2, msg);
         g_free(msg);
     }
-}
-
-static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
-{
-    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
-    gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
 }
 
 static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
@@ -345,7 +354,7 @@ static void fm_main_win_init(FmMainWin *self)
     fm_folder_view_sort(FM_FOLDER_VIEW(self->folder_view), GTK_SORT_ASCENDING, COL_FILE_NAME);
     fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(self->folder_view), GTK_SELECTION_MULTIPLE);
     g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
-    g_signal_connect(self->folder_view, "status", on_status, self);
+    g_signal_connect(self->folder_view, "loaded", on_view_loaded, self);
     g_signal_connect(self->folder_view, "sel-changed", on_sel_changed, self);
 
     gtk_paned_add2(GTK_PANED(self->hpaned), self->folder_view);
@@ -400,7 +409,6 @@ static void fm_main_win_init(FmMainWin *self)
     /* the location bar */
     self->location = fm_path_entry_new();
     g_signal_connect(self->location, "activate", on_entry_activate, self);
-    g_signal_connect(self->folder_view, "loaded", G_CALLBACK(on_view_loaded), (gpointer) self);
 
     toolitem = gtk_tool_item_new();
     gtk_container_add( GTK_CONTAINER(toolitem), self->location );

@@ -29,65 +29,66 @@
 #include "fm-dnd-src.h"
 #include "fm-dnd-dest.h"
 #include "fm-folder.h"
+#include "fm-folder-model.h"
 
 G_BEGIN_DECLS
 
-#define FM_FOLDER_VIEW_TYPE				(fm_folder_view_get_type())
-#define FM_FOLDER_VIEW(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_FOLDER_VIEW_TYPE, FmFolderView))
-#define FM_FOLDER_VIEW_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_FOLDER_VIEW_TYPE, FmFolderViewClass))
-#define IS_FM_FOLDER_VIEW(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_FOLDER_VIEW_TYPE))
-#define IS_FM_FOLDER_VIEW_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_FOLDER_VIEW_TYPE))
+#define FM_FOLDER_VIEW_TYPE             (fm_folder_view_get_type())
+#define FM_FOLDER_VIEW(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_FOLDER_VIEW_TYPE, FmFolderView))
+#define FM_FOLDER_VIEW_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_FOLDER_VIEW_TYPE, FmFolderViewClass))
+#define IS_FM_FOLDER_VIEW(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_FOLDER_VIEW_TYPE))
+#define IS_FM_FOLDER_VIEW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_FOLDER_VIEW_TYPE))
 
 enum _FmFolderViewMode
 {
-	FM_FV_ICON_VIEW,
-	FM_FV_COMPACT_VIEW,
+    FM_FV_ICON_VIEW,
+    FM_FV_COMPACT_VIEW,
     FM_FV_THUMBNAIL_VIEW,
-	FM_FV_LIST_VIEW
+    FM_FV_LIST_VIEW
 };
 typedef enum _FmFolderViewMode FmFolderViewMode;
 
-#define FM_FOLDER_VIEW_MODE_IS_VALID(mode)	(mode >= FM_FV_ICON_VIEW && mode <= FM_FV_LIST_VIEW)
+#define FM_FOLDER_VIEW_MODE_IS_VALID(mode)  (mode >= FM_FV_ICON_VIEW && mode <= FM_FV_LIST_VIEW)
 
 enum _FmFolderViewClickType
 {
-	FM_FV_CLICK_NONE,
-	FM_FV_ACTIVATED, /* this can be triggered by both
-						left single or double click depending on
-						whether single-click activation is used or not. */
-	FM_FV_MIDDLE_CLICK,
-	FM_FV_CONTEXT_MENU
+    FM_FV_CLICK_NONE,
+    FM_FV_ACTIVATED, /* this can be triggered by both
+                        left single or double click depending on
+                        whether single-click activation is used or not. */
+    FM_FV_MIDDLE_CLICK,
+    FM_FV_CONTEXT_MENU
 };
 typedef enum _FmFolderViewClickType FmFolderViewClickType;
-#define FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID(type)	(type > FM_FV_CLICK_NONE && type <= FM_FV_CONTEXT_MENU)
+#define FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID(type)    (type > FM_FV_CLICK_NONE && type <= FM_FV_CONTEXT_MENU)
 
-typedef struct _FmFolderView			FmFolderView;
-typedef struct _FmFolderViewClass		FmFolderViewClass;
+typedef struct _FmFolderView            FmFolderView;
+typedef struct _FmFolderViewClass       FmFolderViewClass;
 
 struct _FmFolderView
 {
-	GtkScrolledWindow parent;
+    GtkScrolledWindow parent;
 
-	FmFolderViewMode mode;
-	GtkSelectionMode sel_mode;
-	GtkSortType sort_type;
-	int sort_by;
+    FmFolderViewMode mode;
+    GtkSelectionMode sel_mode;
+    GtkSortType sort_type;
+    int sort_by;
 
-	gboolean show_hidden;
+    gboolean show_hidden;
 
-	GtkWidget* view;
+    GtkWidget* view;
     FmFolder* folder;
-	GtkTreeModel* model;
+    GtkTreeModel* model;
     GtkCellRenderer* renderer_pixbuf;
     guint icon_size_changed_handler;
 
-	FmPath* cwd;
-	FmDndSrc* dnd_src; /* dnd source manager */
-	FmDndDest* dnd_dest; /* dnd dest manager */
+    FmPath* cwd;
+    FmDndSrc* dnd_src; /* dnd source manager */
+    FmDndDest* dnd_dest; /* dnd dest manager */
 
     /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
     GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
@@ -96,17 +97,17 @@ struct _FmFolderView
 
 struct _FmFolderViewClass
 {
-	GtkScrolledWindowClass parent_class;
-	void (*chdir)(FmFolderView* fv, FmPath* dir_path);
-	void (*loaded)(FmFolderView* fv, FmPath* dir_path);
-	void (*status)(FmFolderView* fv, const char* msg);
-	void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
+    GtkScrolledWindowClass parent_class;
+    void (*chdir)(FmFolderView* fv, FmPath* dir_path);
+    void (*loaded)(FmFolderView* fv, FmPath* dir_path);
+    void (*status)(FmFolderView* fv, const char* msg);
+    void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
     void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
     void (*sort_changed)(FmFolderView* fv);
 };
 
-GType		fm_folder_view_get_type		(void);
-GtkWidget*	fm_folder_view_new			(FmFolderViewMode mode);
+GType       fm_folder_view_get_type     (void);
+GtkWidget*  fm_folder_view_new          (FmFolderViewMode mode);
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode);
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv);
@@ -128,6 +129,9 @@ FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
+
+FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
+FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
 
 void fm_folder_view_select_all(FmFolderView* fv);
 void fm_folder_view_select_invert(FmFolderView* fv);
