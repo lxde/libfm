@@ -67,13 +67,6 @@ typedef struct
     GCancellable* cancellable;
 }ListSubDirNames;
 
-/*
- * We only show basenames rather than full paths in the drop down list.
- * So inline autocompletion provided by GtkEntryCompletion does not work
- * since nothing in the list can match the text in entry.
- * We have to handle many things ourselves.
- */
-
 static void      fm_path_entry_activate(GtkEntry *entry, gpointer user_data);
 static gboolean  fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data);
 static void      fm_path_entry_class_init(FmPathEntryClass *klass);
@@ -105,7 +98,11 @@ G_DEFINE_TYPE_EXTENDED( FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY,
                        0, G_IMPLEMENT_INTERFACE(GTK_TYPE_EDITABLE, fm_path_entry_editable_init) );
 
 
-/* customized model used for entry completion to save memory */
+/* customized model used for entry completion to save memory.
+ * GtkEntryCompletion requires that we store full paths in the model
+ * to work, but we only want to store basenames to save memory.
+ * So we created a custom model to do this. */
+
 enum {
     COL_BASENAME,
     COL_FULL_PATH,
