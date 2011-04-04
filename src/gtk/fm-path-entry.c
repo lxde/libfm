@@ -104,7 +104,41 @@ static void fm_path_entry_get_property(GObject *object,
 G_DEFINE_TYPE_EXTENDED( FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY,
                        0, G_IMPLEMENT_INTERFACE(GTK_TYPE_EDITABLE, fm_path_entry_editable_init) );
 
+
+/* customized model used for entry completion to save memory */
+enum {
+    COL_BASENAME,
+    COL_FULL_PATH,
+    N_COLS
+};
+
+#define FM_TYPE_PATH_ENTRY_MODEL (fm_path_entry_model_get_type())
+
+typedef struct _FmPathEntryModel FmPathEntryModel;
+typedef struct _FmPathEntryModelClass FmPathEntryModelClass;
+
+struct _FmPathEntryModel
+{
+    GtkListStore parent_instance;
+    FmPathEntry* entry;
+};
+
+struct _FmPathEntryModelClass
+{
+    GtkListStoreClass parent_class;
+};
+
+static GType fm_path_entry_model_get_type(void);
+static void fm_path_entry_model_iface_init(GtkTreeModelIface *iface);
+static GtkTreeModel* fm_path_entry_model_new(FmPathEntry* entry);
+
+G_DEFINE_TYPE_EXTENDED( FmPathEntryModel, fm_path_entry_model, GTK_TYPE_LIST_STORE,
+                       0, G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_path_entry_model_iface_init) );
+
+/* end declaration of the customized model. */
+
 static GtkEditableClass *parent_editable_interface = NULL;
+static GtkTreeModelIface *parent_tree_model_interface = NULL;
 
 static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data)
 {
@@ -239,16 +273,14 @@ static void on_dir_list_finished(gpointer user_data)
     if(g_cancellable_is_cancelled(data->cancellable))
         return;
 
-    new_model = gtk_list_store_new(1, G_TYPE_STRING);
+    new_model = fm_path_entry_model_new(entry);
     /* g_debug("dir list is finished!"); */
 
     /* update the model */
     for(l = data->subdirs; l; l=l->next)
     {
         char* name = l->data;
-        char* full_path = g_strconcat(priv->parent_dir, name, NULL);
-        gtk_list_store_insert_with_values(new_model, NULL, -1, 0, full_path, -1);
-        g_free(full_path);
+        gtk_list_store_insert_with_values(new_model, NULL, -1, COL_BASENAME, name, -1);
     }
 
     if(priv->model)
@@ -428,14 +460,14 @@ fm_path_entry_init(FmPathEntry *entry)
     GtkEntryCompletion* completion = gtk_entry_completion_new();
     GtkCellRenderer* render;
 
-    priv->model = gtk_list_store_new(1, G_TYPE_STRING);
+    priv->model = fm_path_entry_model_new(entry);
     priv->completion = completion;
     priv->cancellable = g_cancellable_new();
     priv->highlight_completion_match = TRUE;
     gtk_entry_completion_set_minimum_key_length(completion, 1);
 
     gtk_entry_completion_set_match_func(completion, fm_path_entry_match_func, NULL, NULL);
-    g_object_set(completion, "text_column", 0, NULL);
+    g_object_set(completion, "text_column", COL_FULL_PATH, NULL);
     gtk_entry_completion_set_model(completion, priv->model);
 
     render = gtk_cell_renderer_text_new();
@@ -469,13 +501,11 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
                                                  GtkTreeIter *iter,
                                                  gpointer data)
 {
-    gchar *full_path;
     gchar *model_file_name;
     int model_file_name_len;
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY(data) );
     gtk_tree_model_get(GTK_TREE_MODEL(model), iter,
-                       0, &full_path, -1);
-    model_file_name = full_path + priv->parent_len;
+                       COL_BASENAME, &model_file_name, -1);
     model_file_name_len = strlen(model_file_name);
 
     if( priv->highlight_completion_match )
@@ -492,7 +522,7 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
     /* FIXME: We don't need a custom render func if we don't hightlight */
     else
         g_object_set(cell, "text", model_file_name, NULL);
-    g_free(full_path);
+    g_free(model_file_name);
 }
 
 static void
@@ -550,18 +580,17 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
     GtkTreeModel *model = gtk_entry_completion_get_model(completion);
     FmPathEntry *entry = FM_PATH_ENTRY( gtk_entry_completion_get_entry(completion) );
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    char *model_full_path, *model_basename;
+    char *model_basename;
     const char* typed_basename;
     /* we don't use the case-insensitive key provided by entry completion here */
     typed_basename = gtk_entry_get_text(entry) + priv->parent_len;
-    gtk_tree_model_get(model, iter, 0, &model_full_path, -1);
-    model_basename = model_full_path + priv->parent_len;
+    gtk_tree_model_get(model, iter, COL_BASENAME, &model_basename, -1);
 
     if(model_basename[0] == '.' && typed_basename[0] != '.')
         ret = FALSE; /* ignore hidden files when needed. */
     else
         ret = g_str_has_prefix(model_basename, typed_basename); /* FIXME: should we be case insensitive here? */
-    g_free(model_full_path);
+    g_free(model_basename);
     return ret;
 }
 
@@ -570,4 +599,47 @@ FmPath* fm_path_entry_get_path(FmPathEntry *entry)
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
     return priv->path;
+}
+
+/* custom tree model implementation. */
+static void fm_path_entry_model_init(FmPathEntryModel *model)
+{
+    GType cols[] = {G_TYPE_STRING, G_TYPE_STRING};
+    gtk_list_store_set_column_types(GTK_LIST_STORE(model), G_N_ELEMENTS(cols), cols);
+}
+
+static void fm_path_entry_model_class_init(FmPathEntryModelClass *klass)
+{
+}
+
+static void fm_path_entry_model_get_value(GtkTreeModel *tree_model,
+                                          GtkTreeIter  *iter,
+                                          gint          column,
+                                          GValue       *value)
+{
+    FmPathEntryModel *model = (FmPathEntryModel*)tree_model;
+    GtkListStore* store = GTK_LIST_STORE(model);
+    if(column == COL_FULL_PATH)
+    {
+        FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(model->entry);
+        char* full_path;
+        parent_tree_model_interface->get_value(tree_model, iter, COL_BASENAME, value);
+        full_path = g_strconcat(priv->parent_dir, g_value_get_string(value), NULL);
+        g_value_take_string(value, full_path);
+    }
+    else
+        parent_tree_model_interface->get_value(tree_model, iter, column, value);
+}
+
+static void fm_path_entry_model_iface_init(GtkTreeModelIface *iface)
+{
+    parent_tree_model_interface = g_type_interface_peek_parent(iface);
+    iface->get_value = fm_path_entry_model_get_value;
+}
+
+static GtkTreeModel* fm_path_entry_model_new(FmPathEntry* entry)
+{
+    FmPathEntryModel* model = g_object_new(FM_TYPE_PATH_ENTRY_MODEL, NULL);
+    model->entry = entry;
+    return model;
 }
