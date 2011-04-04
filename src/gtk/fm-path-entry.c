@@ -64,6 +64,7 @@ typedef struct
     FmPathEntry* entry;
     GFile* dir;
     GList* subdirs;
+    GCancellable* cancellable;
 }ListSubDirNames;
 
 /*
@@ -185,7 +186,12 @@ static void clear_completion(FmPathEntryPrivate* priv)
         g_free(priv->parent_dir);
         priv->parent_dir = NULL;
         /* cancel running dir-listing jobs */
-        g_cancellable_cancel(priv->cancellable);
+        if(priv->cancellable)
+        {
+            g_cancellable_cancel(priv->cancellable);
+            g_object_unref(priv->cancellable);
+            priv->cancellable = NULL;
+        }
         /* clear current model */
         gtk_list_store_clear(GTK_LIST_STORE(priv->model));
     }
@@ -230,7 +236,7 @@ static void on_dir_list_finished(gpointer user_data)
     GtkListStore* new_model;
 
     /* final chance to check cancellable */
-    if(g_cancellable_is_cancelled(priv->cancellable))
+    if(g_cancellable_is_cancelled(data->cancellable))
         return;
 
     new_model = gtk_list_store_new(1, G_TYPE_STRING);
@@ -313,6 +319,7 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
 static void list_sub_dir_names_free(ListSubDirNames* data)
 {
     g_object_unref(data->dir);
+    g_object_unref(data->cancellable);
     g_list_foreach(data->subdirs, (GFunc)g_free, NULL);
     g_list_free(data->subdirs);
     g_slice_free(ListSubDirNames, data);
@@ -357,13 +364,18 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             gtk_list_store_clear(GTK_LIST_STORE(priv->model));
 
             /* cancel running dir-listing jobs */
-            g_cancellable_cancel(priv->cancellable);
+            if(priv->cancellable)
+            {
+                g_cancellable_cancel(priv->cancellable);
+                g_object_unref(priv->cancellable);
+            }
 
             /* launch a new job to do dir listing */
-            g_cancellable_reset(priv->cancellable);
+            data->cancellable = g_cancellable_new();
+            priv->cancellable = (GCancellable*)g_object_ref(data->cancellable);
             g_io_scheduler_push_job(list_sub_dirs,
                                     data, (GDestroyNotify)list_sub_dir_names_free,
-                                    G_PRIORITY_LOW, priv->cancellable);
+                                    G_PRIORITY_LOW, data->cancellable);
         }
         /* calculate the length of remaining part after / */
         priv->typed_basename_len = strlen(sep + 1);
@@ -443,7 +455,7 @@ fm_path_entry_init(FmPathEntry *entry)
 
     gtk_entry_completion_set_inline_completion(completion, TRUE);
     gtk_entry_completion_set_popup_set_width(completion, TRUE);
-    gtk_entry_completion_set_popup_single_match(completion, FALSE);
+    /* gtk_entry_completion_set_popup_single_match(completion, FALSE); */
 
     /* connect to these signals rather than overriding default handlers since
      * we want to invoke our handlers before the default ones provided by Gtk. */
