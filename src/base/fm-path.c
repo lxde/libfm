@@ -926,8 +926,18 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
     FmPathList* pl = fm_path_list_new();
     for(uri = uris; *uri; ++uri)
     {
-        FmPath* path = fm_path_new_for_uri(*uri);
-        fm_list_push_tail_noref(pl, path);
+        const char* puri = *uri;
+        if(puri[0] != '\0') /* ensure that it's not an empty string */
+        {
+            FmPath* path;
+            if(puri[0] == '/')
+                path = fm_path_new_for_path(puri);
+            else if(strstr(puri, "://"))
+                path = fm_path_new_for_uri(puri);
+            else /* it's not a valid path or URI */
+                continue;
+            fm_list_push_tail_noref(pl, path);
+        }
     }
     return pl;
 }

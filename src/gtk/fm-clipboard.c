@@ -209,12 +209,14 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
             files = fm_path_list_new_from_uris((const char **)uris);
             g_strfreev(uris);
 
-            if( is_cut )
-                fm_move_files(parent, files, dest_dir);
-            else
-                fm_copy_files(parent, files, dest_dir);
+            if(!fm_list_is_empty(files))
+            {
+                if( is_cut )
+                    fm_move_files(parent, files, dest_dir);
+                else
+                    fm_copy_files(parent, files, dest_dir);
+            }
             fm_list_unref(files);
-
             return TRUE;
         }
     }
