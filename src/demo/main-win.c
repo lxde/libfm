@@ -92,7 +92,8 @@ static void fm_main_win_class_init(FmMainWinClass *klass)
 
 static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
 {
-    fm_folder_view_chdir_by_name(FM_FOLDER_VIEW(self->folder_view), gtk_entry_get_text(entry));
+    FmPath* path = fm_path_entry_get_path(FM_PATH_ENTRY(entry));
+    fm_folder_view_chdir(FM_FOLDER_VIEW(self->folder_view), path);
 }
 
 static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data)
@@ -100,7 +101,7 @@ static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data
     const FmNavHistoryItem* item;
     FmMainWin* win = (FmMainWin*)user_data;
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
-    fm_path_entry_set_model( entry, path, view->model );
+    fm_path_entry_set_path( entry, path );
 
     /* scroll to recorded position */
     item = fm_nav_history_get_cur(win->nav_history);
@@ -135,7 +136,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else if(fi->target) /* FIXME: use accessor functions. */
         {
-			/* FIXME: use FmPath here. */
+            /* FIXME: use FmPath here. */
             fm_main_win_chdir_by_name( win, fi->target);
         }
         else
@@ -178,8 +179,8 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 
 static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* win)
 {
-	/* popup previous message if there is any */
-	gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2);
+    /* popup previous message if there is any */
+    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2);
     if(files)
     {
         char* msg;

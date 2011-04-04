@@ -1,19 +1,19 @@
 /*
  *      fm-path-entry.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2009 Jürgen Hötzel <juergen@archlinux.org>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -38,10 +38,10 @@ G_BEGIN_DECLS
 #define IS_FM_TYPE_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FM_TYPE_PATH_ENTRY))
 #define IS_FM_TYPE_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FM_TYPE_PATH_ENTRY), FmPathEntry)
 
-typedef struct _FmPathEntry	FmPathEntry;
+typedef struct _FmPathEntry FmPathEntry;
 typedef struct _FmPathEntryClass FmPathEntryClass;
 
-struct _FmPathEntry 
+struct _FmPathEntry
 {
   GtkEntry parent_instance;
 };
@@ -53,8 +53,12 @@ struct _FmPathEntryClass
 
 GType fm_path_entry_get_type(void);
 GtkWidget* fm_path_entry_new();
-void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* model);
+// void fm_path_entry_set_model(FmPathEntry *entry, FmPath* path, FmFolderModel* model);
+void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path);
 
+/* The function does not increase ref count. The caller is responsible for calling
+ * fm_path_ref if it wants to keep the path. */
+FmPath* fm_path_entry_get_path(FmPathEntry *entry);
 
 G_END_DECLS
 
