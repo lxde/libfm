@@ -1,18 +1,18 @@
 /*
  *      fm-folder.h
- *      
+ *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      
+ *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
  *      (at your option) any later version.
- *      
+ *
  *      This program is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU General Public License for more details.
- *      
+ *
  *      You should have received a copy of the GNU General Public License
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -33,30 +33,30 @@
 
 G_BEGIN_DECLS
 
-#define FM_TYPE_FOLDER				(fm_folder_get_type())
-#define FM_FOLDER(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_TYPE_FOLDER, FmFolder))
-#define FM_FOLDER_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_TYPE_FOLDER, FmFolderClass))
-#define FM_IS_FOLDER(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_TYPE_FOLDER))
-#define FM_IS_FOLDER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_TYPE_FOLDER))
+#define FM_TYPE_FOLDER              (fm_folder_get_type())
+#define FM_FOLDER(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_TYPE_FOLDER, FmFolder))
+#define FM_FOLDER_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_TYPE_FOLDER, FmFolderClass))
+#define FM_IS_FOLDER(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_TYPE_FOLDER))
+#define FM_IS_FOLDER_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_TYPE_FOLDER))
 
-typedef struct _FmFolder			FmFolder;
-typedef struct _FmFolderClass		FmFolderClass;
+typedef struct _FmFolder            FmFolder;
+typedef struct _FmFolderClass       FmFolderClass;
 
 struct _FmFolder
 {
-	GObject parent;
+    GObject parent;
 
-	/* private */
-	FmPath* dir_path;
-	GFile* gf;
-	GFileMonitor* mon;
-	FmDirListJob* job;
+    /* private */
+    FmPath* dir_path;
+    GFile* gf;
+    GFileMonitor* mon;
+    FmDirListJob* job;
     FmFileInfo* dir_fi;
-	FmFileInfoList* files;
+    FmFileInfoList* files;
 
     /* for file monitor */
     guint idle_handler;
@@ -68,14 +68,14 @@ struct _FmFolder
 
 struct _FmFolderClass
 {
-	GObjectClass parent_class;
+    GObjectClass parent_class;
 
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
     void (*loaded)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
-	FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
+    FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
 
     void (*reserved1)(void);
     void (*reserved2)(void);
@@ -83,12 +83,11 @@ struct _FmFolderClass
     void (*reserved4)(void);
 };
 
-GType		fm_folder_get_type		(void);
-FmFolder*	fm_folder_get(FmPath* path);
-FmFolder*	fm_folder_get_for_gfile(GFile* gf);
-FmFolder*	fm_folder_get_for_path(FmPath* path);
-FmFolder*	fm_folder_get_for_path_name(const char* path);
-FmFolder*	fm_folder_get_for_uri(const char* uri);
+GType       fm_folder_get_type      (void);
+FmFolder*   fm_folder_get(FmPath* path);
+FmFolder*   fm_folder_get_for_gfile(GFile* gf);
+FmFolder*   fm_folder_get_for_path_name(const char* path);
+FmFolder*   fm_folder_get_for_uri(const char* uri);
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder);
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);

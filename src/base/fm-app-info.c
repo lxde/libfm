@@ -105,6 +105,7 @@ static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GK
                 /* append the file path of the desktop file */
                 if(full_desktop_path)
                 {
+                    /* FIXME: how about quoting here? */
                     char* desktop_location = g_path_get_dirname(full_desktop_path);
                     g_string_append(cmd, desktop_location);
                     g_free(desktop_location);

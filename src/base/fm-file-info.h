@@ -132,6 +132,8 @@ gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
 
+gboolean fm_file_info_is_hidden(FmFileInfo* fi);
+
 /* if the mime-type is executable, such as shell script, python script, ... */
 gboolean fm_file_info_is_executable_type( FmFileInfo* fi);
 

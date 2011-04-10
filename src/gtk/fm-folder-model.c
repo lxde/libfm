@@ -132,10 +132,6 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data);
 
 static void reload_icons(FmFolderModel* model, enum ReloadFlags flags);
 
-#define IS_HIDDEN_FILE(fn)  \
-    (fn[0] == '.' || g_str_has_suffix(fn, "~"))
-
-
 static GType column_types[ N_FOLDER_MODEL_COLS ];
 static guint signals[N_SIGNALS];
 
@@ -285,7 +281,7 @@ static void _fm_folder_model_files_changed(FmFolder* dir, GSList* files,
 
 static void _fm_folder_model_add_file(FmFolderModel* model, FmFileInfo* file)
 {
-    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) )
+    if( !model->show_hidden && fm_file_info_is_hidden(file) )
         g_sequence_append( model->hidden, fm_folder_item_new(file) );
     else
         fm_folder_model_file_created(model, file);
@@ -824,7 +820,7 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     }
 #endif
 
-    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) ) /* if this is a hidden file */
+    if( !model->show_hidden && fm_file_info_is_hidden(file) ) /* if this is a hidden file */
     {
         update_view = FALSE;
         seq_it = g_sequence_get_begin_iter(model->hidden);
@@ -859,7 +855,7 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     GtkTreeIter it;
     GtkTreePath* path;
 
-    if( !model->show_hidden && IS_HIDDEN_FILE(file->path->name) )
+    if( !model->show_hidden && fm_file_info_is_hidden(file) )
         return;
 
     items_it = g_sequence_get_begin_iter(model->items);
@@ -932,7 +928,7 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
             GtkTreePath* tp;
             GSequenceIter *next_item_it = g_sequence_iter_next(items_it);
             item = (FmFolderItem*)g_sequence_get(items_it);
-            if( IS_HIDDEN_FILE(item->inf->path->name) )
+            if( fm_file_info_is_hidden(item->inf) )
             {
                 gint delete_pos = g_sequence_iter_get_position(items_it);
                 g_sequence_move( items_it, g_sequence_get_begin_iter(model->hidden) );

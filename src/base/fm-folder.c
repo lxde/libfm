@@ -463,11 +463,6 @@ FmFolder*    fm_folder_get_for_gfile    (GFile* gf)
     return folder;
 }
 
-FmFolder* fm_folder_get_for_path(FmPath* path)
-{
-    return fm_folder_get_internal(path, NULL);
-}
-
 FmFolder* fm_folder_get_for_path_name(const char* path)
 {
     FmPath* fm_path = fm_path_new_for_str(path);

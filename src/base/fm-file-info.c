@@ -476,6 +476,15 @@ gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
     return g_content_type_can_be_executable(fi->type->type);
 }
 
+gboolean fm_file_info_is_hidden(FmFileInfo* fi)
+{
+    const char* name = fi->path->name;
+    /* files with . prefix or ~ suffix are regarded as hidden files.
+     * dirs with . prefix are regarded as hidden dirs. */
+    return (name[0] == '.' ||
+       (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")) );
+}
+
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */

@@ -897,7 +897,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         fm_path_unref(fv->cwd);
     fv->cwd = fm_path_ref(path);
 
-    fv->folder = folder = fm_folder_get_for_path(path);
+    fv->folder = folder = fm_folder_get(path);
     if(folder)
     {
         /* connect error handler */
