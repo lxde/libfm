@@ -901,6 +901,18 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
     return fm_path_equal_str( path->parent, str, n - strlen(path->name) - 1 );
 }
 
+/* calculate how many elements are in this path. */
+int fm_path_depth(FmPath* path)
+{
+    int depth = 1;
+    while(path->parent)
+    {
+        ++depth;
+        path = path->parent;
+    }
+    return depth;
+}
+
 
 /* path list */
 
