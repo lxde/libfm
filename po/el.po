@@ -4,15 +4,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-04-25 02:24+0200\n"
-"Last-Translator: <edhunter@sidux.com>\n"
+"PO-Revision-Date: 2011-04-18 08:25+0200\n"
+"Last-Translator: George <forfolias@gmail.com>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -108,7 +108,7 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr " <b>Έλεγχος πρόσβασης</b>"
+msgstr "<b>Έλεγχος πρόσβασης</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
@@ -406,7 +406,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:430
 msgid ", "
-msgstr " ,"
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:445
 msgid "Moving files"
