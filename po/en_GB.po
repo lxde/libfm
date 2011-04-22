@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-04-09 15:38+0200\n"
+"PO-Revision-Date: 2011-04-22 22:09+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -22,7 +22,7 @@ msgstr "<b>Command line to execute:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>File Type to be opened:</b>"
+msgstr "<b>File type to be opened:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -41,7 +41,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Choose an Application"
+msgstr "Choose an application"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
@@ -57,7 +57,7 @@ msgstr "Installed Application"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Set selected application as default action of this file type"
+msgstr "Set selected application as default action for this file type"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -239,7 +239,7 @@ msgstr "Preparing..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Mail client</b>"
+msgstr "<b>Mail Client</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
@@ -434,11 +434,11 @@ msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Please enter a valid user name or numeric id."
+msgstr "Please enter a valid user name or numeric ID."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Please enter a valid group name or numeric id."
+msgstr "Please enter a valid group name or numeric ID."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -477,7 +477,7 @@ msgstr "Remove from Bookmark"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
-msgstr "Empty rubbish"
+msgstr "Empty Rubbish Bin"
 
 #: ../src/gtk/fm-places-view.c:711
 msgid "Enter a new name:"
