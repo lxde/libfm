@@ -19,6 +19,7 @@ src/gtk/fm-folder-view.c
 src/gtk/fm-app-menu-view.c
 src/gtk/fm-gtk-utils.c
 src/gtk/fm-gtk-file-launcher.c
+src/gtk/fm-dir-tree-model.c
 src/job/fm-dir-list-job.c
 src/job/fm-file-ops-job-delete.c
 src/job/fm-file-ops-job-xfer.c

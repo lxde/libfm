@@ -27,6 +27,8 @@
 
 #include "main-win.h"
 #include "fm-places-view.h"
+#include "fm-dir-tree-model.h"
+#include "fm-dir-tree-view.h"
 #include "fm-folder-view.h"
 #include "fm-folder-model.h"
 #include "fm-path-entry.h"
@@ -75,6 +77,8 @@ static void on_about(GtkAction* act, FmMainWin* win);
 
 static void on_location(GtkAction* act, FmMainWin* win);
 
+static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, FmMainWin* win);
+
 static void on_create_new(GtkAction* action, FmMainWin* win);
 static void on_prop(GtkAction* action, FmMainWin* win);
 
@@ -83,6 +87,7 @@ static void update_statusbar(FmMainWin* win);
 #include "main-win-ui.c" /* ui xml definitions and actions */
 
 static guint n_wins = 0;
+static FmDirTreeModel* dir_tree_model = NULL;
 
 static void fm_main_win_class_init(FmMainWinClass *klass)
 {
@@ -95,7 +100,7 @@ static void fm_main_win_class_init(FmMainWinClass *klass)
 static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
 {
     FmPath* path = fm_path_entry_get_path(FM_PATH_ENTRY(entry));
-    fm_folder_view_chdir(FM_FOLDER_VIEW(self->folder_view), path);
+    fm_main_win_chdir_without_history(self, path);
 }
 
 static void update_statusbar(FmMainWin* win)
@@ -332,7 +337,16 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
 
 static void on_places_chdir(FmPlacesView* view, guint button, FmPath* path, FmMainWin* win)
 {
+    g_signal_handlers_block_by_func(win->dirtree_view, on_dirtree_chdir, win);
     fm_main_win_chdir(win, path);
+    g_signal_handlers_unblock_by_func(win->dirtree_view, on_dirtree_chdir, win);
+}
+
+static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, FmMainWin* win)
+{
+    g_signal_handlers_block_by_func(win->places_view, on_places_chdir, win);
+    fm_main_win_chdir(win, path);
+    g_signal_handlers_unblock_by_func(win->places_view, on_places_chdir, win);
 }
 
 static void fm_main_win_init(FmMainWin *self)
@@ -351,11 +365,48 @@ static void fm_main_win_init(FmMainWin *self)
     gtk_paned_set_position(GTK_PANED(self->hpaned), 150);
 
     /* places left pane */
+    self->left_pane = gtk_notebook_new();
+    /* places */
     self->places_view = fm_places_view_new();
     scroll = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(scroll), self->places_view);
-    gtk_paned_add1(GTK_PANED(self->hpaned), scroll);
+    gtk_notebook_append_page(self->left_pane, scroll, gtk_label_new("Places"));
+
+    /* dir tree */
+    self->dirtree_view = fm_dir_tree_view_new();
+    if(dir_tree_model)
+        g_object_ref(dir_tree_model);
+    else
+    {
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
+        GList* l;
+        /* query FmFileInfo for home dir and root dir, and then,
+         * add them to dir tree model */
+        fm_file_info_job_add(job, fm_path_get_home());
+        fm_file_info_job_add(job, fm_path_get_root());
+
+        /* FIXME: maybe it's cleaner to use run_async here? */
+        fm_job_run_sync_with_mainloop(FM_JOB(job));
+
+        dir_tree_model = fm_dir_tree_model_new();
+        for(l = fm_list_peek_head_link(job->file_infos); l; l = l->next)
+        {
+            FmFileInfo* fi = FM_FILE_INFO(l->data);
+            fm_dir_tree_model_add_root(dir_tree_model, fi, NULL);
+        }
+        g_object_unref(job);
+
+        g_object_add_weak_pointer(dir_tree_model, &dir_tree_model);
+    }
+    gtk_tree_view_set_model(self->dirtree_view, dir_tree_model);
+    g_object_unref(dir_tree_model);
+
+    scroll = gtk_scrolled_window_new(NULL, NULL);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_container_add(GTK_CONTAINER(scroll), self->dirtree_view);
+    gtk_notebook_append_page(self->left_pane, scroll, gtk_label_new("DirTree"));
+    gtk_paned_add1(GTK_PANED(self->hpaned), self->left_pane);
 
     /* folder view */
     self->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
@@ -370,6 +421,7 @@ static void fm_main_win_init(FmMainWin *self)
 
     /* link places view with folder view. */
     g_signal_connect(self->places_view, "chdir", G_CALLBACK(on_places_chdir), self);
+    g_signal_connect(self->dirtree_view, "chdir", G_CALLBACK(on_dirtree_chdir), self);
 
     /* create menu bar and toolbar */
     ui = gtk_ui_manager_new();
@@ -618,7 +670,7 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
     FmPath* path;
     char* tmp;
     path = fm_path_new_for_str(path_str);
-    fm_folder_view_chdir(FM_FOLDER_VIEW(win->folder_view), path);
+    fm_main_win_chdir_without_history(win, path);
     tmp = fm_path_display_name(path, FALSE);
     gtk_entry_set_text(GTK_ENTRY(win->location), tmp);
     g_free(tmp);
@@ -628,6 +680,7 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
 void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 {
     fm_folder_view_chdir(FM_FOLDER_VIEW(win->folder_view), path);
+    fm_dir_tree_view_chdir(FM_DIR_TREE_VIEW(win->dirtree_view), path);
     /* fm_nav_history_set_cur(); */
 }
 
