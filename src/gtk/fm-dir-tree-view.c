@@ -19,7 +19,6 @@
 
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
-#include "fm-folder.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 
@@ -32,13 +31,38 @@ enum
 static guint signals[N_SIGNALS];
 
 static void fm_dir_tree_view_finalize            (GObject *object);
+static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view);
 
 G_DEFINE_TYPE(FmDirTreeView, fm_dir_tree_view, GTK_TYPE_TREE_VIEW)
+
+static void cancel_pending_chdir(FmDirTreeView *view)
+{
+    if(view->cur_expanded_folder)
+    {
+        g_signal_handlers_disconnect_by_func(view->cur_expanded_folder, on_folder_loaded, view);
+        g_object_unref(view->cur_expanded_folder);
+        view->cur_expanded_folder = NULL;
+    }
+    memset(&view->cur_expanded_it, 0, sizeof(GtkTreeIter));
+
+    g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
+    g_slist_free(view->paths_to_expand);
+    view->paths_to_expand = NULL;
+}
 
 static gboolean on_test_expand_row(GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path)
 {
     FmDirTreeModel* model = FM_DIR_TREE_MODEL(gtk_tree_view_get_model(tree_view));
+    FmDirTreeView* view = FM_DIR_TREE_VIEW(tree_view);
     fm_dir_tree_model_expand_row(model, iter, path);
+
+    /* if a pending selection via previous call to chdir is in progress, cancel it. */
+    if(view->paths_to_expand &&
+       view->cur_expanded_it.user_data != iter->user_data)
+    {
+        cancel_pending_chdir(view);
+    }
+
     return FALSE;
 }
 
@@ -165,16 +189,10 @@ static void on_sel_changed(GtkTreeSelection* tree_sel, FmDirTreeView* view)
 {
     /* if a pending selection via previous call to chdir is in progress, cancel it. */
     if(view->paths_to_expand)
-    {
-        g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
-        g_slist_free(view->paths_to_expand);
-        view->paths_to_expand = NULL;
-    }
+        cancel_pending_chdir(view);
 
     emit_chdir_if_needed(view, tree_sel, 1);
 }
-
-static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view);
 
 static void fm_dir_tree_view_finalize(GObject *object)
 {
@@ -184,18 +202,8 @@ static void fm_dir_tree_view_finalize(GObject *object)
     g_return_if_fail(FM_IS_DIR_TREE_VIEW(object));
 
     view = FM_DIR_TREE_VIEW(object);
-
     if(G_UNLIKELY(view->paths_to_expand))
-    {
-        GtkTreeModel* model = gtk_tree_view_get_model(view);
-        FmFolder* folder;
-
-        gtk_tree_model_get(model, FM_DIR_TREE_MODEL_COL_FOLDER, &folder, -1);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_loaded, view);
-
-        g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
-        g_slist_free(view->paths_to_expand);
-    }
+        cancel_pending_chdir(view);
 
     if(view->cwd)
         fm_path_unref(view->cwd);
@@ -255,7 +263,9 @@ static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view)
     FmPath* path;
     /* disconnect the handler since we only need it once */
     g_signal_handlers_disconnect_by_func(folder, on_folder_loaded, view);
-    g_debug("folder loaded");
+    g_object_unref(view->cur_expanded_folder);
+    view->cur_expanded_folder = NULL;
+
     /* after the folder is loaded, the files should have been added to
      * the tree model */
 
@@ -266,18 +276,18 @@ static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view)
     if(view->paths_to_expand)
     {
         /* continue expanding next pending path */
-        expand_pending_path(view, gtk_tree_view_get_model(view), &view->currently_expanded_it);
+        expand_pending_path(view, gtk_tree_view_get_model(view), &view->cur_expanded_it);
     }
     else /* this is the last one and we're done, select the item */
     {
         GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
         GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
-        GtkTreePath* tp = gtk_tree_model_get_path(model, &view->currently_expanded_it);
-        gtk_tree_selection_select_iter(ts, &view->currently_expanded_it);
+        GtkTreePath* tp = gtk_tree_model_get_path(model, &view->cur_expanded_it);
+        gtk_tree_selection_select_iter(ts, &view->cur_expanded_it);
         gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view), tp, NULL, FALSE, 0.0, 0.0);
         gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
         gtk_tree_path_free(tp);
-        memset(&view->currently_expanded_it, 0, sizeof(view->currently_expanded_it));
+        memset(&view->cur_expanded_it, 0, sizeof(view->cur_expanded_it));
     }
     fm_path_unref(path);
 }
@@ -288,18 +298,23 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
     GtkTreeIter it;
     g_return_if_fail(view->paths_to_expand);
     path = FM_PATH(view->paths_to_expand->data);
-g_debug("expand_pending_path: %s", path->name);
+
     if(find_iter_by_path(model, &it, parent_iter, path))
     {
         FmFolder* folder;
         GtkTreePath* tp;
-        view->currently_expanded_it = it;
+        view->cur_expanded_it = it;
 
         tp = gtk_tree_model_get_path(model, &it); /* it now point to the root item */
         gtk_tree_view_expand_row(view, tp, FALSE);
         gtk_tree_path_free(tp);
         /* after being expanded, the row now owns a FmFolder object. */
         gtk_tree_model_get(model, &it, FM_DIR_TREE_MODEL_COL_FOLDER, &folder, -1);
+
+        if(view->cur_expanded_folder) /* This should not happen. Otherwise it's a bug. */
+            g_object_unref(view->cur_expanded_folder);
+        view->cur_expanded_folder = FM_FOLDER(g_object_ref(folder));
+
         if(fm_folder_get_is_loading(folder)) /* the folder is not yet loaded */
             g_signal_connect(folder, "loaded", G_CALLBACK(on_folder_loaded), view);
         else /* the folder is loaded */
@@ -328,14 +343,9 @@ void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
 
     /* cancel previous pending tree expansion */
     if(view->paths_to_expand)
-    {
-        g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
-        g_slist_free(view->paths_to_expand);
-        view->paths_to_expand = NULL;
-    }
+        cancel_pending_chdir(view);
 
     do { /* add path elements one by one to a list */
-        g_debug("prepend: %s", path->name);
         view->paths_to_expand = g_slist_prepend(view->paths_to_expand, fm_path_ref(path));
         if(fm_path_equal(path, root))
             break;

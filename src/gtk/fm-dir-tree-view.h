@@ -23,6 +23,7 @@
 
 #include <gtk/gtk.h>
 #include "fm-path.h"
+#include "fm-folder.h"
 
 G_BEGIN_DECLS
 
@@ -48,8 +49,11 @@ struct _FmDirTreeView
     FmPath* cwd;
 
     /* <private> */
+
+    /* used for chdir */
     GSList* paths_to_expand;
-    GtkTreeIter currently_expanded_it;
+    GtkTreeIter cur_expanded_it;
+    FmFolder* cur_expanded_folder;
 };
 
 struct _FmDirTreeViewClass
