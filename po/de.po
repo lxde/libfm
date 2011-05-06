@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-04-13 20:19+0100\n"
-"Last-Translator: Lutz Thuns <lOtz1009@opensuse.org>\n"
+"PO-Revision-Date: 2011-05-03 09:39+0200\n"
+"Last-Translator: Lutz <lthuns@opensuse.org>\n"
 "Language-Team: German\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Language: German\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -596,7 +597,7 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
