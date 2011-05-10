@@ -52,8 +52,6 @@ struct _FmMainWin
     GtkWidget* location;
     GtkWidget* hpaned;
     GtkWidget* left_pane;
-    GtkWidget* dirtree_view;
-    GtkWidget* places_view;
     GtkWidget* folder_view;
     GtkWidget* statusbar;
     GtkWidget* bookmarks_menu;

@@ -491,9 +491,17 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
     activate_row(FM_PLACES_VIEW(view), 1, tree_path);
 }
 
-void fm_places_select(FmPlacesView* pv, FmPath* path)
+void fm_places_chdir(FmPlacesView* pv, FmPath* path)
 {
-
+    GtkTreeIter it;
+    GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pv));
+    GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(pv));
+    if(fm_places_model_find_path(model, &it, path))
+    {
+        gtk_tree_selection_select_iter(ts, &it);
+    }
+    else
+        gtk_tree_selection_unselect_all(ts);
 }
 
 gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)

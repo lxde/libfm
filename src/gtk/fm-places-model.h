@@ -101,8 +101,8 @@ struct _FmPlacesModelClass
 };
 
 
-GType        fm_places_model_get_type        (void);
-GtkListStore*    fm_places_model_new            (void);
+GType fm_places_model_get_type        (void);
+GtkListStore* fm_places_model_new            (void);
 
 const GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
 
@@ -117,6 +117,8 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
                                            GtkTreeModel *tree_model,
                                            GtkTreeIter *it,
                                            gpointer user_data);
+
+gboolean fm_places_model_find_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path);
 
 G_END_DECLS
 

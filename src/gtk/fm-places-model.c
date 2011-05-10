@@ -682,3 +682,23 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
         pix = FM_PLACES_MODEL(tree_model)->eject_icon;
     g_object_set(render, "pixbuf", pix, NULL);
 }
+
+gboolean fm_places_model_find_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path)
+{
+    GtkTreeIter it;
+    GtkTreeModel* model_ = GTK_TREE_MODEL(model);
+    if(gtk_tree_model_get_iter_first(model_, &it))
+    {
+        FmPlaceItem* item;
+        do{
+            item = NULL;
+            gtk_tree_model_get(model_, &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+            if(item && item->fi && fm_path_equal(item->fi->path, path))
+            {
+                *iter = it;
+                return TRUE;
+            }
+        }while(gtk_tree_model_iter_next(model_, &it));
+    }
+    return FALSE;
+}
