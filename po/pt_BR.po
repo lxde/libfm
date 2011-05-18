@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-05-18 20:05-0300\n"
+"PO-Revision-Date: 2011-05-18 20:12-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "Language: pt_BR\n"
@@ -137,7 +137,7 @@ msgstr "<b>Abrir _com:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Outros:</b>"
+msgstr "<b>Outro:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
@@ -395,7 +395,7 @@ msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arquivos não podem ser movidos para a lixeira devido a falta de suporte do sistema de arquivos.\n"
+"Alguns arquivos não podem ser movidos para a lixeira devido à falta de suporte pelo sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:430
