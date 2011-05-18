@@ -8,23 +8,23 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-04-05 14:54+0200\n"
-"Last-Translator: Horatio <hosoka@hotmail.com>\n"
+"PO-Revision-Date: 2011-05-18 16:56+0200\n"
+"Last-Translator: Pjotr <pliniusminor@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Opdrachtregel om uit te voeren:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Bestand dat moet worden geopend:</b>"
+msgstr "<b>Bestandstype dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,6 +35,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Deze speciale codes kunt u gebruiken in de opdrachtregel:</b>\n"
+"  <b>%f</b>: Representeert een enkele bestandsnaam\n"
+"  <b>%F</b>: Representeert meerdere bestandsnamen\n"
+"  <b>%u</b>: Representeert een enkele URI van het bestand\n"
+"  <b>%U</b>: Representeert meerdere URI's"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -46,7 +51,7 @@ msgstr "Aangepaste Opdrachtregel"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Uitvoeren in terminal emulator"
+msgstr "Uitvoeren in terminal-emulator"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -55,7 +60,7 @@ msgstr "Geïnstalleerde Toepassing"
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
-"Stel geselecteerde toepassing in als de standaard actie voor dit bestandstype"
+"Stel geselecteerde toepassing in als de standaardactie voor dit bestandstype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -67,17 +72,17 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Er is al een bestand met deze naam in deze map.</b>\n"
+"<b>Er is al een bestand met deze naam op deze plek.</b>\n"
 "\n"
 "Wilt u het bestaande bestand overschrijven"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Pas deze optie op alle bestaande bestanden toe"
+msgstr "Pas deze optie toe op alle bestaande bestanden"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Bevesting om bestanden te vervangen"
+msgstr "Bevestigen om bestanden te vervangen"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
