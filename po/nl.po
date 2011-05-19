@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-05-18 19:35+0200\n"
+"PO-Revision-Date: 2011-05-19 12:40+0200\n"
 "Last-Translator: Pjotr <pliniusminor@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -72,7 +72,7 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Er is al een bestand met deze naam op deze plek.</b>\n"
+"<b>Er is al een bestand met dezelfde naam op deze plek.</b>\n"
 "\n"
 "Wilt u het bestaande bestand overschrijven"
 
@@ -110,7 +110,7 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Toegangscontrole</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
@@ -187,7 +187,8 @@ msgstr "Handelingen die de eigenaar van het bestand kan doen"
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
 msgstr ""
-"Handelingen die gebruikers van dezelfde groep als de eigenaar kunnen doen"
+"Handelingen die gebruikers van dezelfde groep als de bestandeigenaar kunnen "
+"doen"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -199,7 +200,7 @@ msgstr "Alleen-lezen"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Selecteer de toepassing om bestanden van dit type te openen"
+msgstr "Selecteer de toepassing om bestanden van dit type te openen "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -355,7 +356,7 @@ msgstr "Netwerk"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
@@ -383,7 +384,7 @@ msgstr "De bestandsoperatie is afgeblazen en er zijn enkele fouten."
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "Cancelled"
-msgstr "Geannulleerd"
+msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
@@ -432,7 +433,6 @@ msgid "Changing file attributes"
 msgstr "Bestandseigenschappen aan het veranderen"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u byte"
@@ -471,7 +471,7 @@ msgstr "Medium Ontkoppelen"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr "Verwisselbare Media uitwerpen"
+msgstr "Verwijderbare Media uitwerpen"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
@@ -624,7 +624,7 @@ msgstr "Kan een map niet verplaatsen naar zijn eigen submap"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Kan een map niet kopieren naar zijn eigen submap"
+msgstr "Kan een map niet kopiëren naar zijn eigen submap"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
