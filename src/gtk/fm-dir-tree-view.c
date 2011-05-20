@@ -284,7 +284,7 @@ static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view)
         GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
         GtkTreePath* tp = gtk_tree_model_get_path(model, &view->cur_expanded_it);
         gtk_tree_selection_select_iter(ts, &view->cur_expanded_it);
-        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view), tp, NULL, FALSE, 0.0, 0.0);
+        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view), tp, NULL, TRUE, 0.5, 0.5);
         gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
         gtk_tree_path_free(tp);
         memset(&view->cur_expanded_it, 0, sizeof(view->cur_expanded_it));
