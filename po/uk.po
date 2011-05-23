@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-05-06 10:36+0200\n"
+"PO-Revision-Date: 2011-05-22 22:55+0200\n"
 "Last-Translator: Y P <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -636,7 +636,7 @@ msgstr "Смітник"
 
 #: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
-msgstr "Стільниця"
+msgstr "Робочий стіл"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
