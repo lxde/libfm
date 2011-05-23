@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2010-10-26 12:54-0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2011-05-14 02:19+0200\n"
+"Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: PORTUGAL\n"
 
@@ -37,10 +38,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Estes códigos especiais podem ser usados na linha de comandos:</b>\n"
-"  <b>%f</b>: Representa o nome  do ficheiro\n"
-"  <b>%F</b>: Representa nome de vários ficheiros\n"
-"  <b>%u</b>: Representa a URI do ficheiro\n"
-"  <b>%U</b>: Representa várias URIs"
+"<b>%f</b>: Representa o nome  do ficheiro\n"
+"<b>%F</b>: Representa nome de vários ficheiros\n"
+"<b>%u</b>: Representa a URI do ficheiro\n"
+"<b>%U</b>: Representa várias URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -425,7 +426,7 @@ msgstr "A apagar ficheiros"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Creating symlinks"
-msgstr "Criando ligações simbólicas"
+msgstr "A criar ligações simbólicas"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Changing file attributes"
@@ -456,7 +457,7 @@ msgstr "Ficheiros de tipos diferentes"
 
 #: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
-msgstr "Ficheiros múltiplos "
+msgstr "Ficheiros múltiplos"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
@@ -597,7 +598,7 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Parece que o ficheiro \"%s\" é um \"script\" executável.\n"
+"Parece que o ficheiro \"%s\" é um script executável.\n"
 "O que pretende fazer com o ficheiro?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
@@ -666,7 +667,7 @@ msgstr "DVD-ROM"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "DVD_ROM vazio"
+msgstr "DVD-ROM vazio"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
