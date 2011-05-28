@@ -664,6 +664,7 @@ _out:
     }
 
     g_signal_emit(folder, signals[FS_INFO], 0);
+    g_object_unref(folder);
 }
 
 void fm_folder_query_filesystem_info(FmFolder* folder)
@@ -675,7 +676,7 @@ void fm_folder_query_filesystem_info(FmFolder* folder)
                 G_FILE_ATTRIBUTE_FILESYSTEM_SIZE","
                 G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
                 G_PRIORITY_LOW, folder->fs_size_cancellable,
-                on_query_filesystem_info_finished, folder);
+                on_query_filesystem_info_finished, g_object_ref(folder));
     }
 }
 
