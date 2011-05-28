@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-05-19 12:40+0200\n"
+"PO-Revision-Date: 2011-05-28 17:10+0200\n"
 "Last-Translator: Pjotr <pliniusminor@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -51,7 +51,7 @@ msgstr "Aangepaste Opdrachtregel"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Uitvoeren in terminal-emulator"
+msgstr "Uitvoeren in terminalvenster"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -178,16 +178,16 @@ msgstr "Geen"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Handelingen die alle andere gebruikers kunnen doen"
+msgstr "Bewerkingen die alle andere gebruikers kunnen doen"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "Handelingen die de eigenaar van het bestand kan doen"
+msgstr "Bewerkingen die de eigenaar van het bestand kan doen"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
 msgstr ""
-"Handelingen die gebruikers van dezelfde groep als de bestandeigenaar kunnen "
+"Bewerkingen die gebruikers van dezelfde groep als de bestandeigenaar kunnen "
 "doen"
 
 #: ../data/ui/file-prop.glade.h:22
@@ -247,7 +247,7 @@ msgstr "<b>E-mailprogramma</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminal-emulator</b>"
+msgstr "<b>Terminavenster</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -332,7 +332,7 @@ msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "Snelkoppelingen"
+msgstr "Sneltoetsen"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
@@ -426,11 +426,11 @@ msgstr "Bestanden aan het verwijderen"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Creating symlinks"
-msgstr "Bezig het aanmaken van symbolische koppelingen"
+msgstr "Bezig met aanmaken van symbolische koppelingen"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Changing file attributes"
-msgstr "Bestandseigenschappen aan het veranderen"
+msgstr "Bestandeigenschappen aan het veranderen"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
@@ -645,7 +645,7 @@ msgstr "CD-ROM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "Onbeschreven CD-ROM-schijf"
+msgstr "Lege CD-ROM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
@@ -653,7 +653,7 @@ msgstr "CD-R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "Onbeschreven CD-R-schijf"
+msgstr "Lege CD-R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
@@ -661,7 +661,7 @@ msgstr "CD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "Onbeschreven CD-RW-schijf"
+msgstr "Lege CD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
@@ -669,7 +669,7 @@ msgstr "DVD-ROM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "Onbeschreven DVD-ROM-schijf"
+msgstr "Lege DVD-ROM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
@@ -677,7 +677,7 @@ msgstr "DVD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "Onbeschreven DVD-RW-schijf"
+msgstr "Lege DVD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
@@ -685,7 +685,7 @@ msgstr "DVD-RAM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "Onbeschreven DVD-RAM-schijf"
+msgstr "Lege DVD-RAM-schijf"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
@@ -693,7 +693,7 @@ msgstr "DVD+R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "Onbeschreven DVD+R-schijf"
+msgstr "Lege DVD+R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
@@ -701,7 +701,7 @@ msgstr "DVD+RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "Onbeschreven DVD+RW-schijf"
+msgstr "Lege DVD+RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
@@ -709,7 +709,7 @@ msgstr "DVD+R DL-schijf"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "Onbeschreven DVD+R DL-schijf"
+msgstr "Lege DVD+R DL-schijf"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
@@ -717,7 +717,7 @@ msgstr "DVD+RW DL-schijf"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "Onbeschreven DVD+RW DL-schijf"
+msgstr "Lege DVD+RW DL-schijf"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
@@ -725,7 +725,7 @@ msgstr "Blu-Ray-schijf"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr "Onbeschreven Blu-Ray-schijf"
+msgstr "Lege Blu-Ray-schijf"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
@@ -733,7 +733,7 @@ msgstr "Blu-Ray R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr "Onbeschreven Blu-Ray R-schijf"
+msgstr "Lege Blu-Ray R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
@@ -741,7 +741,7 @@ msgstr "Blu-Ray RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "Onbeschreven Blu-Ray RW-schijf"
+msgstr "Lege Blu-Ray RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
@@ -749,7 +749,7 @@ msgstr "HD DVD-schijf"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "Onbeschreven HD DVD-schijf"
+msgstr "Lege HD DVD-schijf"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
@@ -757,7 +757,7 @@ msgstr "HD DVD-R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "Onbeschreven HD DVD-R-schijf"
+msgstr "Lege HD DVD-R-schijf"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
@@ -765,7 +765,7 @@ msgstr "HD DVD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "Onbeschreven HD DVD-RW-schijf"
+msgstr "Lege HD DVD-RW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
@@ -773,7 +773,7 @@ msgstr "MO-schijf"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr "Onbeschreven MO-schijf"
+msgstr "Lege MO-schijf"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
@@ -781,7 +781,7 @@ msgstr "MRW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr "Onbeschreven MRW-schijf"
+msgstr "Lege MRW-schijf"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
@@ -789,11 +789,11 @@ msgstr "MRW/W-schijf"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr "Onbeschreven MRW/W-schijf"
+msgstr "Lege MRW/W-schijf"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "Onbeschreven Optische Schijf"
+msgstr "Lege Optische Schijf"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
