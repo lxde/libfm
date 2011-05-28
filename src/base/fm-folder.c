@@ -657,8 +657,11 @@ static void on_query_filesystem_info_finished(GObject *src, GAsyncResult *res, F
     g_object_unref(inf);
 
 _out:
-    g_object_unref(folder->fs_size_cancellable);
-    folder->fs_size_cancellable = NULL;
+    if(folder->fs_size_cancellable)
+    {
+        g_object_unref(folder->fs_size_cancellable);
+        folder->fs_size_cancellable = NULL;
+    }
 
     g_signal_emit(folder, signals[FS_INFO], 0);
 }

@@ -59,6 +59,7 @@ struct _FmMainWin
     GtkWidget* history_menu;
     GtkWidget* popup;
     /* <private> */
+    FmFolder* folder;
     FmNavHistory* nav_history;
     guint statusbar_ctx;
     guint statusbar_ctx2;

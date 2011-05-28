@@ -81,6 +81,7 @@ static void on_create_new(GtkAction* action, FmMainWin* win);
 static void on_prop(GtkAction* action, FmMainWin* win);
 
 static void update_statusbar(FmMainWin* win);
+static void on_folder_fs_info(FmFolder* folder, FmMainWin* win);
 
 #include "main-win-ui.c" /* ui xml definitions and actions */
 
@@ -467,6 +468,7 @@ GtkWidget* fm_main_win_new(void)
 static void fm_main_win_finalize(GObject *object)
 {
     FmMainWin *win;
+    FmFolder* folder;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_MAIN_WIN(object));
@@ -478,6 +480,12 @@ static void fm_main_win_finalize(GObject *object)
     g_object_unref(win->nav_history);
     g_object_unref(win->ui);
     g_object_unref(win->bookmarks);
+
+    if(win->folder)
+    {
+        g_signal_handlers_disconnect_by_func(win->folder, on_folder_fs_info, win);
+        g_object_unref(win->folder);
+    }
 
     if (G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)(object);
@@ -663,17 +671,18 @@ static void on_folder_fs_info(FmFolder* folder, FmMainWin* win)
 void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 {
     FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
-    FmFolder* folder = fm_folder_view_get_folder(fv);
-    if(folder)
+    if(win->folder)
     {
-        g_signal_handlers_disconnect_by_func(folder, on_folder_fs_info, win);
+        g_signal_handlers_disconnect_by_func(win->folder, on_folder_fs_info, win);
+        g_object_unref(win->folder);
     }
 
     fm_folder_view_chdir(fv, path);
     fm_side_pane_chdir(FM_SIDE_PANE(win->left_pane), path);
 
-    folder = fm_folder_view_get_folder(fv);
-    g_signal_connect(folder, "fs-info", G_CALLBACK(on_folder_fs_info), win);
+    win->folder = fm_folder_view_get_folder(fv);
+    g_object_ref(win->folder);
+    g_signal_connect(win->folder, "fs-info", G_CALLBACK(on_folder_fs_info), win);
 
     update_statusbar(win);
     /* fm_nav_history_set_cur(); */
