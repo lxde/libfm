@@ -64,6 +64,13 @@ struct _FmFolder
     GSList* files_to_update;
     GSList* files_to_del;
     GSList* pending_jobs;
+
+    /* filesystem info */
+    guint64 fs_total_size;
+    guint64 fs_free_size;
+    GCancellable* fs_size_cancellable;
+    gboolean has_fs_info : 1;
+    gboolean fs_info_not_avail : 1;
 };
 
 struct _FmFolderClass
@@ -75,12 +82,11 @@ struct _FmFolderClass
     void (*files_changed)(FmFolder* dir, GSList* files);
     void (*loaded)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
+    void (*changed)(FmFolder* dir);
+    void (*removed)(FmFolder* dir);
+    void (*content_changed)(FmFolder* dir);
+    void (*fs_info)(FmFolder* dir);
     FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
-
-    void (*reserved1)(void);
-    void (*reserved2)(void);
-    void (*reserved3)(void);
-    void (*reserved4)(void);
 };
 
 GType       fm_folder_get_type      (void);
@@ -95,6 +101,9 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 gboolean fm_folder_get_is_loading(FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
+
+gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size);
+void fm_folder_query_filesystem_info(FmFolder* folder);
 
 G_END_DECLS
 

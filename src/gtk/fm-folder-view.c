@@ -42,7 +42,6 @@
 enum{
     CHDIR,
     LOADED,
-    STATUS,
     CLICKED,
     SEL_CHANGED,
     SORT_CHANGED,
@@ -1234,5 +1233,5 @@ FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
 
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
 {
-    return fv->model ? FM_FOLDER_MODEL(fv->model)->dir : NULL;
+    return fv->folder;
 }

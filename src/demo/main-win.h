@@ -54,6 +54,7 @@ struct _FmMainWin
     GtkWidget* left_pane;
     GtkWidget* folder_view;
     GtkWidget* statusbar;
+    GtkWidget* vol_status;
     GtkWidget* bookmarks_menu;
     GtkWidget* history_menu;
     GtkWidget* popup;
