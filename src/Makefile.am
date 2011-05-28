@@ -220,6 +220,7 @@ libfm_gtk_la_SOURCES = \
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GIO_CFLAGS) \
+	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
@@ -229,6 +230,7 @@ libfm_gtk_la_CFLAGS = \
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(GIO_LIBS) \
+	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
