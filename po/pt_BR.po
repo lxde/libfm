@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-15 09:19+0100\n"
-"PO-Revision-Date: 2011-05-18 20:14-0300\n"
+"PO-Revision-Date: 2011-06-10 16:59-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "Language: pt_BR\n"
@@ -71,13 +71,13 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>Já existe um arquivo com este nome nesta localização.</b>\n"
+"<b>Já existe um arquivo com o mesmo nome nessa localização.</b>\n"
 "\n"
 "Você deseja substituir o arquivo atual"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Aplicar esta opção em todos os arquivos existentes"
+msgstr "Aplicar esta opção a todos os arquivos existentes"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -443,7 +443,7 @@ msgstr "Favor digitar um nome de grupo ou identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Você deseja aplicar estas modificações de forma recursiva a todos os arquivos e subpastas?"
+msgstr "Você deseja aplicar essas modificações de forma recursiva a todos os arquivos e subpastas?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
