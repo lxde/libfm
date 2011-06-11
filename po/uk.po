@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-05-22 22:55+0200\n"
+"PO-Revision-Date: 2011-06-11 20:08+0200\n"
 "Last-Translator: Y P <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Country: Ukraine\n"
 "X-Poedit-Language: Ukrainian\n"
@@ -610,12 +610,11 @@ msgstr "Цей файл '%s' можна запустити. Ви бажаєте 
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Немає підтеки>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Підготовлюю..."
+msgstr "Завантажую..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -810,15 +809,15 @@ msgstr "Оптичний диск"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
 msgid "Places"
-msgstr ""
+msgstr "Місця"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr ""
+msgstr "Дерево тек"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Віддалене"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властива тека"
