@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2010-10-29 14:48+0200\n"
 "Last-Translator: Yinghua_Wang <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -445,7 +445,7 @@ msgstr "您想递归地将这些操作应用于所有的文件及子文件夹吗
 msgid "Files of different types"
 msgstr "不同类型的文件"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "多个文件"
 
@@ -462,7 +462,7 @@ msgid "Eject Removable Media"
 msgstr "弹出可移动媒质"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "重命名书签项"
 
@@ -474,7 +474,7 @@ msgstr "从书签中移除"
 msgid "Empty Trash"
 msgstr "清空回收站"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "输入新名称："
 
@@ -530,19 +530,19 @@ msgstr "执行自定义的命令打开文件"
 msgid "Customize"
 msgstr "自定义"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "名称"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "描述"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "大小"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "修改"
 
@@ -558,27 +558,27 @@ msgstr "错误"
 msgid "Please select a folder"
 msgstr "请选择一个文件夹"
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "只有系统管理员有权执行此操作。"
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "您想将选择的文件移到回收站吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "您想删除选择的文件吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "重命名文件"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "请输入一个新名称："
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "您确定想清空回收站吗？"
 
@@ -595,6 +595,15 @@ msgstr ""
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "“%s”这个文件是可执行文件。您想执行它吗？"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "正在准备..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337

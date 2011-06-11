@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -431,7 +431,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgid "Eject Removable Media"
 msgstr ""
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr ""
 
@@ -460,7 +460,7 @@ msgstr ""
 msgid "Empty Trash"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr ""
 
@@ -516,19 +516,19 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr ""
 
@@ -544,27 +544,27 @@ msgstr ""
 msgid "Please select a folder"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
@@ -578,6 +578,14 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+msgid "Loading..."
 msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2011-03-11 17:37+0200\n"
 "Last-Translator: enginmanap <enginmanap@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
@@ -452,7 +452,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Farklı türlerdeki dosyalar"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Birden Çok Dosya"
 
@@ -469,7 +469,7 @@ msgid "Eject Removable Media"
 msgstr "Kaldırılabilir Aygıtı Çıkar"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "Yer İmini Yeniden Adlandır"
 
@@ -481,7 +481,7 @@ msgstr "Yer İmlerinden Kaldır"
 msgid "Empty Trash"
 msgstr "Çöp Kutusunu Boşalt"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Yeni bir isim girin:"
 
@@ -537,19 +537,19 @@ msgstr "Dosyaları açmak için özel bir komut çalıştır"
 msgid "Customize"
 msgstr "Özelleştir"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "İsim"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Tanım"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Boyut"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Son Değişiklik"
 
@@ -565,27 +565,27 @@ msgstr "Hata"
 msgid "Please select a folder"
 msgstr "Lütfen bir dizin seçin"
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "Bunu sadece sistem yöneticisinin yapmaya yetkisi var."
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Seçilen dosyaları çöp kutusuna göndermek istiyor musunuz?"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "Seçilen dosyaları silmek istiyor musunuz?"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "Dosyayı Yeniden Adlandır"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "Lütfen yeni bir isim girin:"
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Çöp kutusunu gerçekten boşaltmak istiyor musunuz?"
 
@@ -602,6 +602,15 @@ msgstr ""
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' çalıştırılabilir bir dosya. Çalıştırmak istiyor musunuz?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Hazırlanıyor..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337

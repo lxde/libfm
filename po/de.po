@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2011-05-03 09:39+0200\n"
 "Last-Translator: Lutz <lthuns@opensuse.org>\n"
 "Language-Team: German\n"
@@ -457,7 +457,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Dateien unterschiedlicher Typen"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Mehrere Dateien"
 
@@ -475,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Wechselmedium auswerfen"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
@@ -487,7 +487,7 @@ msgstr "Lesezeichen entfernen"
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
@@ -543,19 +543,19 @@ msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 msgid "Customize"
 msgstr "Anpassen"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Geändert"
 
@@ -572,27 +572,27 @@ msgid "Please select a folder"
 msgstr "Ordner wählen"
 
 # oder doch Systemadministratoren?
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "Gewählte Dateien löschen?"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "Datei umbenennen"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
@@ -609,6 +609,15 @@ msgstr ""
 #, fuzzy, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Die Datei »%s« ist ausführbar. Möchten Sie diese ausführen?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Vorbereiten..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337

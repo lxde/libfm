@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2011-02-14 15:03+0200\n"
 "Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
 "Language-Team: paxman <paxmanpwnz@gmail.com>\n"
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Datoteke različnih vrst"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Več datotek"
 
@@ -475,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Izvrzi odstranljiv nosilec"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj zaznamek"
 
@@ -487,7 +487,7 @@ msgstr "Odstrani zaznamek"
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Vnesite novo ime:"
 
@@ -543,19 +543,19 @@ msgstr "Datoteke odprite z ukazom po meri"
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Spremenjeno"
 
@@ -571,27 +571,27 @@ msgstr "Napaka"
 msgid "Please select a folder"
 msgstr "Izberite mapo"
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "Za to dejanje imajo pravico le skrbniki sistema."
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ali želite premakniti izbrane datoteke v smeti?"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "Ali želite izbrisati izbrane datoteke?"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "Vnesite novo ime:"
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ali ste prepričani, da želite izprazniti smeti?"
 
@@ -608,6 +608,15 @@ msgstr ""
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Datoteka '%s' je izvedljiva. Ali jo želite izvesti?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Pripravljanje ..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337

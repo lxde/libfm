@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2011-01-04 23:09+0200\n"
 "Last-Translator: Julius <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -453,7 +453,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Skirtingų tipų failai"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Keli failai"
 
@@ -470,7 +470,7 @@ msgid "Eject Removable Media"
 msgstr "Atjungti išorinį įrenginį"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "Pervadinti žymelę"
 
@@ -482,7 +482,7 @@ msgstr "Pašalinti iš žymelių"
 msgid "Empty Trash"
 msgstr "Ištuštinti šiukšlinę"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
@@ -538,19 +538,19 @@ msgstr "Vykdyti komandą atverti failus"
 msgid "Customize"
 msgstr "Derinti"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Pakeista"
 
@@ -566,27 +566,27 @@ msgstr "Klaida"
 msgid "Please select a folder"
 msgstr "Pasirinkite aplanką"
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "Šie veiksmai leidžiami tik sistemos administratoriams."
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "Ar norite ištrinti pasirinktus failus?"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "Pervadinti failą"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
@@ -603,6 +603,16 @@ msgstr ""
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "„%s“ yra vykdomasis failas. Ar norite jį vykdyti?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+#, fuzzy
+msgid "<No Sub Folder>"
+msgstr "Vėlesnis aplankas"
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Ruošiamasi..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -839,9 +849,6 @@ msgstr "Optinis diskas"
 
 #~ msgid "Previous Folder"
 #~ msgstr "Ankstesnis aplankas"
-
-#~ msgid "Next Folder"
-#~ msgstr "Vėlesnis aplankas"
 
 #~ msgid "Parent Folder"
 #~ msgstr "Aukštesnis aplankas"

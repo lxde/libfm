@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 09:19+0100\n"
+"POT-Creation-Date: 2011-06-11 21:25+0800\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -458,7 +458,7 @@ msgstr "Chcete tieto zmeny použiť rekurzívne na všetky súbory a podadresár
 msgid "Files of different types"
 msgstr "Súbory rozličných typov"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Viacero súborov"
 
@@ -475,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Vysunúť prenosné médium"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:710
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
@@ -487,7 +487,7 @@ msgstr "Odstrániť zo záložiek"
 msgid "Empty Trash"
 msgstr "Vyprázdniť Kôš"
 
-#: ../src/gtk/fm-places-view.c:711
+#: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
@@ -543,19 +543,19 @@ msgstr "Definovať vlastný príkazový riadok na otvorenie súborov"
 msgid "Customize"
 msgstr "Prispôsobiť"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "Názov"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Zmenené"
 
@@ -571,27 +571,27 @@ msgstr "Chyba"
 msgid "Please select a folder"
 msgstr "Prosím, vyberte priečinok"
 
-#: ../src/gtk/fm-gtk-utils.c:425
+#: ../src/gtk/fm-gtk-utils.c:448
 msgid "Only system administrators have the permission to do this."
 msgstr "Oprávenie vykonať túto operáciu majú iba správcovia systému."
 
-#: ../src/gtk/fm-gtk-utils.c:504
+#: ../src/gtk/fm-gtk-utils.c:527
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Chcete presunúť vybrané súbory do Koša?"
 
-#: ../src/gtk/fm-gtk-utils.c:525
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Do you want to delete the selected files?"
 msgstr "Chcete prepísať vybrané súbory?"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:594
 msgid "Please enter a new name:"
 msgstr "Prosím, zadajte nový názov:"
 
-#: ../src/gtk/fm-gtk-utils.c:593
+#: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
 
@@ -606,6 +606,15 @@ msgstr ""
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+#, fuzzy
+msgid "<No Sub Folder>"
+msgstr "Žiadny podadresár"
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+msgid "Loading..."
+msgstr "Načítava sa..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -1531,9 +1540,6 @@ msgstr ""
 #~ msgid "_Edit Bookmarks"
 #~ msgstr "_Upraviť záložky"
 
-#~ msgid "Loading..."
-#~ msgstr "Načítava sa..."
-
 #~ msgid ", Free space: %s (Total: %s )"
 #~ msgstr ", Voľné miesto: %s (Celkom: %s )"
 
@@ -1697,9 +1703,6 @@ msgstr ""
 
 #~ msgid "File System"
 #~ msgstr "Súborový systém"
-
-#~ msgid "No Sub Folder"
-#~ msgstr "Žiadny podadresár"
 
 #~ msgid "E_xtract"
 #~ msgstr "_Rozbaliť"
