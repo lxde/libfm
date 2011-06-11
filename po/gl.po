@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 21:25+0800\n"
-"PO-Revision-Date: 2010-11-07 12:11+0100\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"PO-Revision-Date: 2011-06-11 19:04+0200\n"
+"Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Language: Galician\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -37,10 +37,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Na liña de ordes poden utilizarse estes códigos especiais:</b>\n"
-"<b>%f</b>: Representa o nome dun só ficheiro\n"
-"<b>%F</b>: Representa múltiples nomes de ficheiros\n"
-"<b>%u</b>: Representa un só URI do ficheiro\n"
-"<b>%U</b>: Representa múltiples URIs"
+"  <b>%f</b>: Representa o nome dun só ficheiro\n"
+"  <b>%F</b>: Representa múltiples nomes de ficheiros\n"
+"  <b>%u</b>: Representa un só URI do ficheiro\n"
+"  <b>%U</b>: Representa múltiples URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -62,7 +62,7 @@ msgstr "Aplicativo instalado"
 msgid "Set selected application as default action of this file type"
 msgstr ""
 "Establecer como predeterminado o aplicativo seleccionado para abrir os "
-"ficheiros deste tipo "
+"ficheiros deste tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -610,12 +610,11 @@ msgstr "Este ficheiro «%s» é executábel. Desexa executalo?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Sen subcartafol>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Preparando..."
+msgstr "Cargando..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
