@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-02 23:24+0200\n"
+"PO-Revision-Date: 2011-06-11 21:20+0200\n"
 "Last-Translator: Pjotr <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -609,12 +609,11 @@ msgstr "Dit bestand '%s' is uitvoerbaar. Wilt u het uitvoeren?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Geen submap>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Aan het voorbereiden..."
+msgstr "Aan het laden..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -809,12 +808,12 @@ msgstr "Optische Schijf"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
 msgid "Places"
-msgstr ""
+msgstr "Locaties"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr ""
+msgstr "Boomstructuur mappen"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Op afstand"
