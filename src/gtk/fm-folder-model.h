@@ -53,7 +53,7 @@ enum{
   N_FOLDER_MODEL_COLS
 };
 
-#define FM_FOLDER_MODEL_COL_IS_VALID(col)	(col >= COL_FILE_GICON && col < N_FOLDER_MODEL_COLS)
+#define FM_FOLDER_MODEL_COL_IS_VALID(col)   (col >= COL_FILE_GICON && col < N_FOLDER_MODEL_COLS)
 
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
@@ -93,7 +93,7 @@ FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
 
 void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
 
-gboolean fm_folder_model_get_is_loading(FmFolderModel* model);
+gboolean fm_folder_model_get_is_loaded(FmFolderModel* model);
 
 gboolean fm_folder_model_get_show_hidden( FmFolderModel* model );
 
@@ -106,8 +106,8 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file);
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file);
 
 void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const gchar* prefix,
-							   gboolean (*file_info_predicate)(FmFileInfo*),
-							   gchar* common_suffix);
+                               gboolean (*file_info_predicate)(FmFileInfo*),
+                               gchar* common_suffix);
 
 gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIter* it, const char* name);
 

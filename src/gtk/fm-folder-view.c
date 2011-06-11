@@ -903,7 +903,9 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         g_signal_connect(folder, "loaded", on_folder_loaded, fv);
         g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
         g_signal_connect(folder, "error", on_folder_err, fv);
-        if(fm_folder_get_is_loading(folder))
+        if(fm_folder_get_is_loaded(folder))
+            on_folder_loaded(folder, fv);
+        else
         {
             switch(fv->mode)
             {
@@ -919,8 +921,6 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
             }
             fv->model = NULL;
         }
-        else
-            on_folder_loaded(folder, fv);
     }
     return TRUE;
 }
@@ -1213,6 +1213,11 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
     return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+}
+
+gboolean fm_folder_view_get_is_loaded(FmFolderView* fv)
+{
+    return fv->folder && fm_folder_get_is_loaded(fv->folder);
 }
 
 static void cancel_pending_row_activated(FmFolderView* fv)

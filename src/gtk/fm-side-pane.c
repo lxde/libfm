@@ -31,6 +31,7 @@
 enum
 {
     CHDIR,
+    MODE_CHANGED,
     N_SIGNALS
 };
 static guint signals[N_SIGNALS];
@@ -71,6 +72,15 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
+
+    signals[MODE_CHANGED] =
+        g_signal_new("mode-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmSidePaneClass, mode_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0, G_TYPE_NONE);
 }
 
 
@@ -105,6 +115,13 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y, gboolean *push_in,
 
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
     direction = gtk_widget_get_direction (widget);
+
+    /* make the menu as wide as the button when needed */
+    if(menu_req.width < GTK_WIDGET(button)->allocation.width)
+    {
+        menu_req.width = GTK_WIDGET(button)->allocation.width;
+        gtk_widget_set_size_request(GTK_WIDGET(menu), menu_req.width, -1);
+    }
 
     screen = gtk_widget_get_screen (GTK_WIDGET (menu));
     monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
@@ -142,8 +159,8 @@ static void on_menu_btn_clicked(GtkButton* btn, FmSidePane* sp)
 static void on_mode_changed(GtkRadioAction* act, GtkRadioAction *current, FmSidePane* sp)
 {
     FmSidePaneMode mode = gtk_radio_action_get_current_value(act);
-    g_debug("mode = %d", mode);
-    fm_side_pane_set_mode(sp, mode);
+    if(mode != sp->mode)
+        fm_side_pane_set_mode(sp, mode);
 }
 
 static void fm_side_pane_init(FmSidePane *sp)
@@ -305,6 +322,12 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     }
     gtk_widget_show(sp->view);
     gtk_container_add(GTK_CONTAINER(sp->scroll), sp->view);
+
+    g_signal_emit(sp, signals[MODE_CHANGED], 0);
+
+    /* update the popup menu */
+    gtk_radio_action_set_current_value(gtk_ui_manager_get_action(sp->ui, "/popup/Places"),
+                                       sp->mode);
 }
 
 FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp)
@@ -312,3 +335,7 @@ FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp)
     return sp->mode;
 }
 
+GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp)
+{
+    return sp->title_bar;
+}

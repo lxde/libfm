@@ -68,6 +68,7 @@ struct _FmSidePaneClass
 {
     GtkVBoxClass parent_class;
     void (*chdir)(FmSidePane* sp, guint button, FmPath* path);
+    void (*mode_changed)(FmSidePane* sp);
 };
 
 
@@ -79,6 +80,8 @@ void fm_side_pane_chdir(FmSidePane* sp, FmPath* path);
 
 void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode);
 FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp);
+
+GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp);
 
 G_END_DECLS
 

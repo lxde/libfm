@@ -98,7 +98,7 @@ FmFolder*   fm_folder_get_for_uri(const char* uri);
 FmFileInfoList* fm_folder_get_files (FmFolder* folder);
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
-gboolean fm_folder_get_is_loading(FmFolder* folder);
+gboolean fm_folder_get_is_loaded(FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
 

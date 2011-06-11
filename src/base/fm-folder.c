@@ -610,9 +610,9 @@ FmFolder* fm_folder_get(FmPath* path)
     return fm_folder_get_internal(path, NULL);
 }
 
-gboolean fm_folder_get_is_loading(FmFolder* folder)
+gboolean fm_folder_get_is_loaded(FmFolder* folder)
 {
-    return (folder->job != NULL);
+    return (folder->job == NULL);
 }
 
 gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size)

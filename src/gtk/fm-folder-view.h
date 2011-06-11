@@ -127,6 +127,8 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str);
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 
+gboolean fm_folder_view_get_is_loaded(FmFolderView* fv);
+
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
 
