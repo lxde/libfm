@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 21:25+0800\n"
+"POT-Creation-Date: 2011-06-11 19:32+0200\n"
 "PO-Revision-Date: 2011-01-04 23:09+0200\n"
 "Last-Translator: Julius <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -804,6 +804,18 @@ msgstr "Tuščias optinis diskas"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optinis diskas"
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Tai nėra tinkamas aplankas"

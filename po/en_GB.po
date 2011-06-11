@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 21:25+0800\n"
+"POT-Creation-Date: 2011-06-11 19:32+0200\n"
 "PO-Revision-Date: 2011-04-22 22:09+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
@@ -800,3 +800,15 @@ msgstr "Blank Optical Disc"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optical Disc"
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""

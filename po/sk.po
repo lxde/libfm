@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 21:25+0800\n"
+"POT-Creation-Date: 2011-06-11 19:32+0200\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -832,6 +832,18 @@ msgstr "Prázdny disk CD-R"
 msgid "Optical Disc"
 msgstr ""
 
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+msgid "Directory Tree"
+msgstr "Strom adresárov"
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
 #~ msgid "Copyright (C) 2005 - 2008"
 #~ msgstr "Copyright (C) 2005 - 2008"
 
@@ -1584,9 +1596,6 @@ msgstr ""
 
 #~ msgid "Location"
 #~ msgstr "Umiestnenie"
-
-#~ msgid "Directory Tree"
-#~ msgstr "Strom adresárov"
 
 #~ msgid "Unable to mount device"
 #~ msgstr "Nepodarilo sa pripojiť zariadenie"
