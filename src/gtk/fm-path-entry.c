@@ -169,6 +169,8 @@ static void  fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
     /* special handling for home dir */
     if(full_path[0] == '~' && full_path[1] == G_DIR_SEPARATOR)
         priv->path = fm_path_new_relative(fm_path_get_home(), full_path + 2);
+    else if(full_path[0] == '~' && full_path[1] == 0)
+        priv->path = fm_path_ref(fm_path_get_home());
     else
         priv->path = fm_path_new_for_str(full_path);
 
