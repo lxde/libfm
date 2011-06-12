@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-12 08:13+0200\n"
+"PO-Revision-Date: 2011-06-12 22:29+0200\n"
 "Last-Translator: Alexander <kazancas@gmail.com>\n"
 "Language-Team: gnome-cyr\n"
 "Language: ru\n"
@@ -608,7 +608,7 @@ msgstr "Файл «%s» является исполняемым. Хотите е
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr "<Не поддиректирия>"
+msgstr "<Нет поддиректорий>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
 msgid "Loading..."
