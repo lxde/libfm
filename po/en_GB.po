@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-04-22 22:09+0200\n"
+"PO-Revision-Date: 2011-06-12 15:43+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -603,12 +603,11 @@ msgstr "This file '%s' is executable. Do you want to execute it?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<No Sub Folder>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Preparing..."
+msgstr "Loading..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -803,12 +802,12 @@ msgstr "Optical Disc"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
 msgid "Places"
-msgstr ""
+msgstr "Places"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr ""
+msgstr "Directory Tree"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Remote"
