@@ -1,22 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# libfm
+# Copyright (C) 2011
+# This file is distributed under the same license as the libfm package.
+# Pjotr, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
 "PO-Revision-Date: 2011-06-12 12:34+0200\n"
 "Last-Translator: Pjotr <>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Dutch\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -478,7 +477,7 @@ msgstr "Verwijderbare Media uitwerpen"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
-msgstr "Hernoem Bladwijzer-element"
+msgstr "Hernoem Bladwijzerelement"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
@@ -815,7 +814,7 @@ msgstr "Locaties"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr "Boomstructuur mappen"
+msgstr "Boomstructuur van mappen"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
