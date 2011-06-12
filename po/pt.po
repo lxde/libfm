@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-05-14 02:19+0200\n"
+"PO-Revision-Date: 2011-06-12 17:12+0200\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -608,12 +608,11 @@ msgstr "O ficheiro \"%s\" é um executável. Pretende executá-lo?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Nenhuma subpasta>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "A preparar..."
+msgstr "A carregar..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -808,12 +807,12 @@ msgstr "Disco ótico"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
 msgid "Places"
-msgstr ""
+msgstr "Locais"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr ""
+msgstr "Árvore de diretórios "
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Remoto"
