@@ -1,5 +1,5 @@
-# libfm
-# Copyright (C) 2011
+# Dutch translations of the libfm package.
+# Copyright (C) the author of the libfm package.
 # This file is distributed under the same license as the libfm package.
 # Pjotr, 2011.
 #
@@ -8,23 +8,22 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-12 12:34+0200\n"
-"Last-Translator: Pjotr <>\n"
+"PO-Revision-Date: 2011-05-28 17:10+0200\n"
+"Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
 msgstr "<b>Opdrachtregel om uit te voeren:</b>"
 
-# Een extensie wordt niet geopend, een bestand wel...
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Bestandtype dat moet worden geopend:</b>"
+msgstr "<b>Bestandstype dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -49,12 +48,10 @@ msgstr "Kies Een Toepassing"
 msgid "Custom Command Line"
 msgstr "Aangepaste Opdrachtregel"
 
-# "terminal emulator" heb ik bewust consequent overal als "terminalvenster" vertaald. Standaardterm Gnome (Ubuntu), wekt geen verwarring. "Venster" impliceert reeds dat het een emulatie betreft.
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
 msgstr "Uitvoeren in terminalvenster"
 
-# "Installed" kan in het Engels beide betekenissen hebben; dit lijkt me de meest logische keuze. "Applicatie" heb ik overal consequent vertaald als "Toepassing": goed Nederlands, en je ziet het ook in Gnome.
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
 msgstr "Geïnstalleerde Toepassing"
@@ -62,7 +59,7 @@ msgstr "Geïnstalleerde Toepassing"
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
-"Stel geselecteerde toepassing in als de standaardactie voor dit bestandtype"
+"Stel geselecteerde toepassing in als de standaardactie voor dit bestandstype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -88,7 +85,7 @@ msgstr "Bevestigen om bestanden te vervangen"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Bestandnaam:"
+msgstr "Bestandsnaam:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
@@ -112,11 +109,11 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Toegangcontrole</b>"
+msgstr "<b>Toegangscontrole</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>Bestandstype:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
@@ -168,7 +165,7 @@ msgstr "<b>_Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Bestandeigenschappen"
+msgstr "Bestandseigenschappen"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
@@ -249,7 +246,7 @@ msgstr "<b>E-mailprogramma</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminalvenster</b>"
+msgstr "<b>Terminavenster</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -261,7 +258,7 @@ msgstr "Opdrachtregel:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "Bestandassociaties"
+msgstr "Bestandsassociaties"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
@@ -382,7 +379,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:310
 msgid "The file operation is cancelled and there are some errors."
-msgstr "De bestandoperatie is afgeblazen en er zijn enkele fouten."
+msgstr "De bestandsoperatie is afgeblazen en er zijn enkele fouten."
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "Cancelled"
@@ -390,7 +387,7 @@ msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
-msgstr "De bestandoperatie is voltooid, maar er zijn enkele fouten."
+msgstr "De bestandsoperatie is voltooid, maar er zijn enkele fouten."
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "Finished"
@@ -437,8 +434,8 @@ msgstr "Bestandeigenschappen aan het veranderen"
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "byte"
-msgstr[1] "bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -446,7 +443,7 @@ msgstr "Gelieve een geldige gebruikersnaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Gelieve een geldige groepnaam of numerieke ID in te voeren."
+msgstr "Gelieve een geldige groepsnaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -477,7 +474,7 @@ msgstr "Verwijderbare Media uitwerpen"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
-msgstr "Hernoem Bladwijzerelement"
+msgstr "Hernoem Bladwijzer-element"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
@@ -533,7 +530,7 @@ msgstr "XDirectSave mislukt."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Gebruik geselecteerde toepassing om bestanden te openen"
+msgstr "Gebruik de geselecteerde toepassing om bestanden te openen"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
@@ -593,7 +590,7 @@ msgstr "Gelieve een nieuwe naam in te voeren:"
 
 #: ../src/gtk/fm-gtk-utils.c:616
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Weet u zeker dat u de prullenbak wil legen?"
+msgstr "Weet u zeker dat u de prullenbak wilt legen?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
