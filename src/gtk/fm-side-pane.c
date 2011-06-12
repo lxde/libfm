@@ -168,6 +168,7 @@ static void fm_side_pane_init(FmSidePane *sp)
     GtkActionGroup* act_grp = gtk_action_group_new("SidePane");
     GtkWidget* hbox;
 
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
     sp->title_bar = gtk_hbox_new(FALSE, 0);
     sp->menu_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(sp->menu_label), 0.0, 0.5);
