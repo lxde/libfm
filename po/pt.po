@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-12 17:12+0200\n"
+"PO-Revision-Date: 2011-06-12 17:20+0200\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -38,7 +38,7 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Estes códigos especiais podem ser usados na linha de comandos:</b>\n"
-"<b>%f</b>: Representa o nome  do ficheiro\n"
+"<b>%f</b>: Representa o nome do ficheiro\n"
 "<b>%F</b>: Representa nome de vários ficheiros\n"
 "<b>%u</b>: Representa a URI do ficheiro\n"
 "<b>%U</b>: Representa várias URIs"
@@ -249,7 +249,7 @@ msgstr "<b>Cliente de correio</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b> Emulador de terminal</b>"
+msgstr "<b>Emulador de terminal</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -316,19 +316,19 @@ msgstr "TB"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
-msgstr "KiB"
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:96
 msgid "MiB"
-msgstr "MiB"
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:101
 msgid "GiB"
-msgstr "GiB"
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:106
 msgid "TiB"
-msgstr "TiB"
+msgstr "TB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
@@ -811,7 +811,7 @@ msgstr "Locais"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr "Árvore de diretórios "
+msgstr "Árvore de diretórios"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
