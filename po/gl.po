@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-11 19:04+0200\n"
+"PO-Revision-Date: 2011-06-12 18:58+0200\n"
 "Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -202,7 +202,7 @@ msgstr "Só lectura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Escolla o aplicativo utilizado para abrir os ficheiros deste tipo"
+msgstr "Escolla o aplicativo utilizado para abrir os ficheiros deste tipo "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -809,12 +809,12 @@ msgstr "Disco óptico"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
 msgid "Places"
-msgstr ""
+msgstr "Lugares"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
 msgid "Directory Tree"
-msgstr ""
+msgstr "Árbore de directorios"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Remoto"
