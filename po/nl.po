@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-11 19:32+0200\n"
-"PO-Revision-Date: 2011-06-11 21:20+0200\n"
+"PO-Revision-Date: 2011-06-12 12:29+0200\n"
 "Last-Translator: Pjotr <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -22,9 +22,10 @@ msgstr ""
 msgid "<b>Command line to execute:</b>"
 msgstr "<b>Opdrachtregel om uit te voeren:</b>"
 
+# Een extensie wordt niet geopend, een bestand wel...
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Bestandstype dat moet worden geopend:</b>"
+msgstr "<b>Bestandtype dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -49,10 +50,12 @@ msgstr "Kies Een Toepassing"
 msgid "Custom Command Line"
 msgstr "Aangepaste Opdrachtregel"
 
+# "terminal emulator" heb ik bewust consequent overal als "terminalvenster" vertaald. Standaardterm Gnome (Ubuntu), wekt geen verwarring. "Venster" impliceert reeds dat het een emulatie betreft.
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
 msgstr "Uitvoeren in terminalvenster"
 
+# "Installed" kan in het Engels beide betekenissen hebben; dit lijkt me de meest logische keuze. "Applicatie" heb ik overal consequent vertaald als "Toepassing": goed Nederlands, en je ziet het ook in Gnome.
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
 msgstr "Geïnstalleerde Toepassing"
@@ -435,8 +438,8 @@ msgstr "Bestandeigenschappen aan het veranderen"
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
