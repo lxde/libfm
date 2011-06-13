@@ -23,7 +23,7 @@ msgstr "<b>Opdrachtregel om uit te voeren:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Bestandstype dat moet worden geopend:</b>"
+msgstr "<b>Bestandtype dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,8 +35,8 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Deze speciale codes kunt u gebruiken in de opdrachtregel:</b>\n"
-"  <b>%f</b>: Representeert een enkele bestandsnaam\n"
-"  <b>%F</b>: Representeert meerdere bestandsnamen\n"
+"  <b>%f</b>: Representeert een enkele bestandnaam\n"
+"  <b>%F</b>: Representeert meerdere bestandnamen\n"
 "  <b>%u</b>: Representeert een enkele URI van het bestand\n"
 "  <b>%U</b>: Representeert meerdere URI's"
 
@@ -59,7 +59,7 @@ msgstr "Geïnstalleerde Toepassing"
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
-"Stel geselecteerde toepassing in als de standaardactie voor dit bestandstype"
+"Stel gekozen toepassing in als standaardactie voor dit bestandtype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -85,7 +85,7 @@ msgstr "Bevestigen om bestanden te vervangen"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Bestandsnaam:"
+msgstr "Bestandnaam:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
@@ -109,11 +109,11 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Toegangscontrole</b>"
+msgstr "<b>Toegangcontrole</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Bestandstype:</b>"
+msgstr "<b>Bestandtype:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
@@ -165,7 +165,7 @@ msgstr "<b>_Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Bestandseigenschappen"
+msgstr "Bestandeigenschappen"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
@@ -246,7 +246,7 @@ msgstr "<b>E-mailprogramma</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminavenster</b>"
+msgstr "<b>Terminalvenster</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
@@ -258,11 +258,11 @@ msgstr "Opdrachtregel:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "Bestandsassociaties"
+msgstr "Bestandassociaties"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr "Voorkeurstoepassingen"
+msgstr "Voorkeurtoepassingen"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
@@ -379,7 +379,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "De bestandsoperatie is afgeblazen en er zijn enkele fouten."
+msgstr "De bestandoperatie is afgeblazen en er zijn enkele fouten."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
@@ -387,7 +387,7 @@ msgstr "Geannuleerd"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "De bestandsoperatie is voltooid, maar er zijn enkele fouten."
+msgstr "De bestandoperatie is voltooid, maar er zijn enkele fouten."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
@@ -413,7 +413,7 @@ msgstr "Bestanden aan het verplaatsen"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
-msgstr "Bestanden aan het kopieren"
+msgstr "Bestanden aan het kopiëren"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
@@ -439,11 +439,11 @@ msgstr[1] "%u bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Gelieve een geldige gebruikersnaam of numerieke ID in te voeren."
+msgstr "Gelieve een geldige gebruikernaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Gelieve een geldige groepsnaam of numerieke ID in te voeren."
+msgstr "Gelieve een geldige groepnaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -474,7 +474,7 @@ msgstr "Verwijderbare Media uitwerpen"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
-msgstr "Hernoem Bladwijzer-element"
+msgstr "Hernoem Bladwijzerelement"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
@@ -542,11 +542,11 @@ msgstr "XDirectSave mislukt."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Gebruik de geselecteerde toepassing om bestanden te openen"
+msgstr "Gebruik gekozen toepassing om bestanden te openen"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Voer een aangepaste opdrachtregel uit om bestanden te openen"
+msgstr "Voer aangepaste opdrachtregel uit om bestanden te openen"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
@@ -587,7 +587,7 @@ msgstr "Omschrijving"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
-msgstr "Gelieve een map te selecteren"
+msgstr "Gelieve een map te kiezen"
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
@@ -595,11 +595,11 @@ msgstr "Alleen systeembeheerders hebben het recht om dit te doen."
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Wilt u de geselecteerde bestanden naar de prullenbak verplaatsen?"
+msgstr "Wilt u de gekozen bestanden naar de prullenbak verplaatsen?"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Wilt u de geselecteerde bestanden verwijderen?"
+msgstr "Wilt u de gekozen bestanden verwijderen?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
@@ -611,7 +611,7 @@ msgstr "Gelieve een nieuwe naam in te voeren:"
 
 #: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Weet u zeker dat u de prullenbak wilt legen?"
+msgstr "Weet u zeker dat u de prullenbak wil legen?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
