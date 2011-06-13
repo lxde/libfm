@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 22:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -780,11 +780,11 @@ msgstr ""
 msgid "Optical Disc"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 22:28+0800\n"
 "PO-Revision-Date: 2010-04-02 00:38+0100\n"
 "Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
@@ -804,11 +804,11 @@ msgstr "Prázdný optický disk"
 msgid "Optical Disc"
 msgstr "Optický disk"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr ""
 

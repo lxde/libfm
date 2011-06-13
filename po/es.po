@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 22:28+0800\n"
 "PO-Revision-Date: 2011-06-12 04:51+0200\n"
 "Last-Translator: Hugo <sysadmin@cips.cu>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
@@ -807,11 +807,11 @@ msgstr "Disco óptico en blanco"
 msgid "Optical Disc"
 msgstr "Disco óptico"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr "Lugares"
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr "Árbol de directorio"
 

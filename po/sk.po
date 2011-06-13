@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 22:28+0800\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -832,11 +832,11 @@ msgstr "Prázdny disk CD-R"
 msgid "Optical Disc"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr "Strom adresárov"
 

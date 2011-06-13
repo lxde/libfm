@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 22:28+0800\n"
 "PO-Revision-Date: 2011-03-11 17:37+0200\n"
 "Last-Translator: enginmanap <enginmanap@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
@@ -803,11 +803,11 @@ msgstr "Boş Optik Disk"
 msgid "Optical Disc"
 msgstr "Optik Disk"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr ""
 
