@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:53+0800\n"
-"PO-Revision-Date: 2011-03-16 22:46+0200\n"
-"Last-Translator: Cilyan <gaknar@gmail.com>\n"
+"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"PO-Revision-Date: 2011-06-12 16:12+0200\n"
+"Last-Translator: Mathieu <mathieu.millot@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -215,14 +215,15 @@ msgstr "_Générale"
 msgid "_Permissions"
 msgstr "_Permissions"
 
+# En cours: <Nom du fichier en cours de copie/déplacement>
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Procédé :</b>"
+msgstr "<b>En cours :</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>Progrès:</b>"
+msgstr "<b>Progression :</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
@@ -235,7 +236,7 @@ msgstr "<b>Temps restant :</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>À:</b>"
+msgstr "<b>Vers :</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
@@ -507,19 +508,19 @@ msgstr "Ouvrir avec..."
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
-msgstr "Renomme"
+msgstr "Renommer"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
-msgstr "Crée Lien Symbolique"
+msgstr "Créer un lien symbolique"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr "Envoie A"
+msgstr "Envoyer A"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr "Compression..."
+msgstr "Compresser..."
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
@@ -631,12 +632,11 @@ msgstr "Ce fichier '%s' est exécutable. Voulez vous l'exécuter ?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Pas de sous dossier>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Préparation..."
+msgstr "Chargement..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -829,8 +829,16 @@ msgstr "CD vierge"
 msgid "Optical Disc"
 msgstr "CD"
 
-#~ msgid "It's not a valid directory"
-#~ msgstr "Ce n'est pas un dossier valide"
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
+msgid "Places"
+msgstr "Emplacements"
 
-#~ msgid "The selection mode"
-#~ msgstr "Sélectionner un dossier"
+# l'arborescence de fichiers, qui est l'organisation hiérarchique des fichiers sur une partition, et dans certains cas de partitions entre elles, par exemple: partitions virtuelles (« lecteurs logiques ») dans des partitions réelles. @wikipedia
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
+msgid "Directory Tree"
+msgstr "Arborescence"
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
