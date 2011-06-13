@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 23:27+0200\n"
 "PO-Revision-Date: 2011-06-13 19:19+0200\n"
 "Last-Translator: Pjotr <>\n"
 "Language-Team: Dutch\n"
@@ -59,8 +59,7 @@ msgstr "Geïnstalleerde Toepassing"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Stel gekozen toepassing in als standaardactie voor dit bestandtype"
+msgstr "Stel gekozen toepassing in als standaardactie voor dit bestandtype"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"

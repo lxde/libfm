@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
+"POT-Creation-Date: 2011-06-13 23:27+0200\n"
 "PO-Revision-Date: 2011-06-11 20:17+0200\n"
 "Last-Translator: Sérgio <ikisham@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -826,16 +826,3 @@ msgstr "Disco óptico em branco"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr "Locais"
-
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr "Árvore de diretórios"
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr "Remoto"
-

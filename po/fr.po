@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-11 19:32+0200\n"
+"POT-Creation-Date: 2011-06-13 23:27+0200\n"
 "PO-Revision-Date: 2011-06-12 16:12+0200\n"
 "Last-Translator: Mathieu <mathieu.millot@gmail.com>\n"
 "Language-Team: \n"
@@ -492,11 +492,12 @@ msgstr "Entrer un nouveau nom:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Emplacements"
 
+# l'arborescence de fichiers, qui est l'organisation hiérarchique des fichiers sur une partition, et dans certains cas de partitions entre elles, par exemple: partitions virtuelles (« lecteurs logiques ») dans des partitions réelles. @wikipedia
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Arborescence"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
@@ -828,17 +829,3 @@ msgstr "CD vierge"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "CD"
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:296
-msgid "Places"
-msgstr "Emplacements"
-
-# l'arborescence de fichiers, qui est l'organisation hiérarchique des fichiers sur une partition, et dans certains cas de partitions entre elles, par exemple: partitions virtuelles (« lecteurs logiques ») dans des partitions réelles. @wikipedia
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:306
-msgid "Directory Tree"
-msgstr "Arborescence"
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr ""
-
