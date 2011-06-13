@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
+"POT-Creation-Date: 2011-06-13 23:53+0800\n"
 "PO-Revision-Date: 2010-08-25 13:51+0200\n"
 "Last-Translator: Анік <xabzan9tka@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -378,23 +378,23 @@ msgstr ""
 "Тып: %s\n"
 "Зменены: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Аперацыя над файламі будзе адменена і ёсць некаторыя памылкі."
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Адменена"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Аперацыя над файламі завешана, але ёсць некаторыя памылкі."
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Завершана"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -404,31 +404,31 @@ msgstr ""
 "сістэма не падтрымлівае гэтую аперацыю.\n"
 "Вы ўсё роўна жадаеце выдаліць іх?"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Перамяшчэнне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Капіяванне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Выдаленне файлаў у сметніцу"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Выдаленне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Стварэнне сімвалічных спасылак"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Змяніць атрыбуты файла"
 
@@ -488,6 +488,18 @@ msgstr "Ачысціць сметніцу"
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Увядзіце новае імя:"
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -565,31 +577,40 @@ msgstr "Усталяваныя праграмы"
 msgid "Error"
 msgstr "Памылка"
 
-#: ../src/gtk/fm-gtk-utils.c:278
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Апісанне"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Калі ласка, абярыце тэчку"
 
-#: ../src/gtk/fm-gtk-utils.c:448
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "Толькі сістэмны адміністратар мае дазвол на гэта."
 
-#: ../src/gtk/fm-gtk-utils.c:527
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Жадаеце перамясціць абраныя файлы ў сметніцу?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "Жадаеце перамясціць абраныя файлы ?"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Пераіменаваць файл"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Увядзіце новае імя:"
 
-#: ../src/gtk/fm-gtk-utils.c:616
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Жадаеце ачысціць сметніцу?"
 
@@ -803,16 +824,4 @@ msgstr ""
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
 msgstr ""

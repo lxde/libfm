@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
+"POT-Creation-Date: 2011-06-13 23:53+0800\n"
 "PO-Revision-Date: 2010-10-29 14:48+0200\n"
 "Last-Translator: Yinghua_Wang <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -370,23 +370,23 @@ msgstr ""
 "类型：%s\n"
 "修改时间：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "文件操作被取消，并且出现了一些错误。"
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "取消"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "文件操作完成，但出现了一些错误。"
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "完成"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -395,31 +395,31 @@ msgstr ""
 "有些文件无法移到回收站，因为所处的文件系统不支持该操作。\n"
 "您想直接删除它们吗？"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr "，"
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "移动文件"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "复制文件"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "将文件移到回收站"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "正在删除文件"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "正在创建符号链接"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "正在修改文件属性"
 
@@ -477,6 +477,18 @@ msgstr "清空回收站"
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "输入新名称："
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -554,31 +566,40 @@ msgstr "已安装的应用程序"
 msgid "Error"
 msgstr "错误"
 
-#: ../src/gtk/fm-gtk-utils.c:278
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "描述"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "请选择一个文件夹"
 
-#: ../src/gtk/fm-gtk-utils.c:448
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "只有系统管理员有权执行此操作。"
 
-#: ../src/gtk/fm-gtk-utils.c:527
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "您想将选择的文件移到回收站吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "您想删除选择的文件吗？"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "重命名文件"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "请输入一个新名称："
 
-#: ../src/gtk/fm-gtk-utils.c:616
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "您确定想清空回收站吗？"
 
@@ -795,15 +816,3 @@ msgstr "空光盘"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "光盘"
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr ""

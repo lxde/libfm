@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
+"POT-Creation-Date: 2011-06-13 23:53+0800\n"
 "PO-Revision-Date: 2010-07-09 16:01+0200\n"
 "Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -374,23 +374,23 @@ msgstr ""
 "Tyyppi: %s\n"
 "Muokattu: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Tiedosto-operaatio on peruutettu, ja virheitä ilmaantui."
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Peruutettu"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Tiedosto-operaatio on valmis, mutta virheitä ilmaantui."
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Valmis"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -400,31 +400,31 @@ msgstr ""
 "tiedostojärjestelmät eivät tue tätä toimenpidettä.\n"
 "Poistetaanko tiedostot?"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Siirretään tiedostoja"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Kopioidaan tiedostoja"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Siirretään tiedostoja roskakoriin"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Poistetaan tiedostoja"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Luodaan symbolista merkkiä"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Muutetaan tiedoston ominaisuuksia"
 
@@ -485,6 +485,18 @@ msgstr "Tyhjennä roskakori"
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Anna uusi nimi:"
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -562,31 +574,40 @@ msgstr "Asennetut sovellukset"
 msgid "Error"
 msgstr "Virhe"
 
-#: ../src/gtk/fm-gtk-utils.c:278
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Kuvaus"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Valitse kansio"
 
-#: ../src/gtk/fm-gtk-utils.c:448
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "Vain järjestelmän pääkäyttäjällä on oikeudet tehdä tämä."
 
-#: ../src/gtk/fm-gtk-utils.c:527
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Siirretäänkö valitut tiedostot roskakoriin?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "Poistetaanko valitut tiedostot?"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Nimeä tiedosto uudelleen"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Anna uusi nimi:"
 
-#: ../src/gtk/fm-gtk-utils.c:616
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Tyhjennetäänkö roskakori?"
 
@@ -804,15 +825,3 @@ msgstr "Tyhjä optinen levy"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optinen levy"
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr ""

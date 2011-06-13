@@ -37,32 +37,34 @@
 static GtkDialog*   _fm_get_user_input_dialog   (GtkWindow* parent, const char* title, const char* msg);
 static gchar*       _fm_user_input_dialog_run   (GtkDialog* dlg, GtkEntry *entry);
 
-void fm_show_error(GtkWindow* parent, const char* msg)
+void fm_show_error(GtkWindow* parent, const char* title, const char* msg)
 {
     GtkWidget* dlg = gtk_message_dialog_new(parent, 0,
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_OK, msg);
-    gtk_window_set_title((GtkWindow*)dlg, _("Error"));
+    gtk_window_set_title((GtkWindow*)dlg, title ? title : _("Error"));
     gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
 }
 
-gboolean fm_yes_no(GtkWindow* parent, const char* question, gboolean default_yes)
+gboolean fm_yes_no(GtkWindow* parent, const char* title, const char* question, gboolean default_yes)
 {
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
+    gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Confirm"));
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
     return ret == GTK_RESPONSE_YES;
 }
 
-gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_ok)
+gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question, gboolean default_ok)
 {
     int ret;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
+    gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Confirm"));
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
     ret = gtk_dialog_run((GtkDialog*)dlg);
     gtk_widget_destroy(dlg);
@@ -77,12 +79,12 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* question, gboolean default_
  * @...: a NULL terminated list of button labels
  * Returns: the index of selected button, or -1 if the dialog is closed.
  */
-int fm_ask(GtkWindow* parent, const char* question, ...)
+int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 {
     int ret;
     va_list args;
     va_start (args, question);
-    ret = fm_ask_valist(parent, question, args);
+    ret = fm_ask_valist(parent, title, question, args);
     va_end (args);
     return ret;
 }
@@ -95,12 +97,13 @@ int fm_ask(GtkWindow* parent, const char* question, ...)
  * @options: a NULL terminated list of button labels
  * Returns: the index of selected button, or -1 if the dialog is closed.
  */
-int fm_askv(GtkWindow* parent, const char* question, const char** options)
+int fm_askv(GtkWindow* parent, const char* title, const char* question, const char** options)
 {
     int ret;
     guint id = 1;
     GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
                                 GTK_MESSAGE_QUESTION, 0, question);
+    gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Question"));
     /* FIXME: need to handle defualt button and alternative button
      * order problems. */
     while(*options)
@@ -127,7 +130,7 @@ int fm_askv(GtkWindow* parent, const char* question, const char** options)
  * @options: a NULL terminated list of button labels
  * Returns: the index of selected button, or -1 if the dialog is closed.
  */
-int fm_ask_valist(GtkWindow* parent, const char* question, va_list options)
+int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va_list options)
 {
     GArray* opts = g_array_sized_new(TRUE, TRUE, sizeof(char*), 6);
     gint ret;
@@ -137,7 +140,7 @@ int fm_ask_valist(GtkWindow* parent, const char* question, va_list options)
         g_array_append_val(opts, opt);
         opt = va_arg (options, const char *);
     }
-    ret = fm_askv(parent, question, opts->data);
+    ret = fm_askv(parent, title, question, opts->data);
     g_array_free(opts, TRUE);
     return ret;
 }
@@ -271,11 +274,12 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
     return str;
 }
 
-FmPath* fm_select_folder(GtkWindow* parent)
+FmPath* fm_select_folder(GtkWindow* parent, const char* title)
 {
     FmPath* path;
     GtkFileChooser* chooser;
-    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(_("Please select a folder"),
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
+                                        title ? title : _("Please select a folder"),
                                         parent, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
@@ -452,7 +456,7 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
                     interactive = FALSE;
             }
             if(interactive)
-                fm_show_error(parent, data->err->message);
+                fm_show_error(parent, NULL, data->err->message);
         }
         g_error_free(data->err);
     }
@@ -524,7 +528,7 @@ void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(parent, _("Do you want to move the selected files to trash can?"), TRUE))
+    if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
     {
         FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
         fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
@@ -545,7 +549,7 @@ static void fm_delete_files_internal(GtkWindow* parent, FmPathList* files)
 
 void fm_delete_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(parent, _("Do you want to delete the selected files?"), TRUE))
+    if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to delete the selected files?"), TRUE))
         fm_delete_files_internal(parent, files);
 }
 
@@ -575,7 +579,7 @@ void fm_trash_or_delete_files(GtkWindow* parent, FmPathList* files)
 
 void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_move)
 {
-    FmPath* dest = fm_select_folder(parent);
+    FmPath* dest = fm_select_folder(parent, NULL);
     if(dest)
     {
         if(is_move)
@@ -604,7 +608,7 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
                 NULL, /* make this cancellable later. */
                 NULL, NULL, &err))
     {
-        fm_show_error(parent, err->message);
+        fm_show_error(parent, NULL, err->message);
         g_error_free(err);
     }
     g_object_unref(dest);
@@ -613,7 +617,7 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
 
 void fm_empty_trash(GtkWindow* parent)
 {
-    if(fm_yes_no(parent, _("Are you sure you want to empty the trash can?"), TRUE))
+    if(fm_yes_no(parent, NULL, _("Are you sure you want to empty the trash can?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
         fm_list_push_tail(paths, fm_path_get_trash());

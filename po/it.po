@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
+"POT-Creation-Date: 2011-06-13 23:53+0800\n"
 "PO-Revision-Date: 2010-04-25 01:58+0100\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -377,23 +377,23 @@ msgstr ""
 "Tipo: %s\n"
 "Modificato: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "L'operazione sul file è stata annullata e ci sono alcuni errori."
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Annulato"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "L'operazione sul file  terminata, ma ci sono alcuni errori."
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Finito"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -403,31 +403,31 @@ msgstr ""
 "uso non supporta questa operazione. \n"
 "Vuoi invece cancellarli?"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Sposto i file"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Copio i file"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Cestino i file"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Cancello i file"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Creo collegamenti simbolici"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Cambio gli attributi del file"
 
@@ -486,6 +486,18 @@ msgstr "Svuota cestino"
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
+
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -563,31 +575,40 @@ msgstr "Applicazioni installate"
 msgid "Error"
 msgstr "Errore"
 
-#: ../src/gtk/fm-gtk-utils.c:278
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Descrizione"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Per favore, seleziona una cartella"
 
-#: ../src/gtk/fm-gtk-utils.c:448
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "Solo l'amministratore del sistema ha permesso di fare questo."
 
-#: ../src/gtk/fm-gtk-utils.c:527
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Vuoi muovere i file selezionati nel cestino?"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "Vuoi cancellare i file selezionati?"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Rinomina File"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Per favore inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:616
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Sei sicuro di voler svuotare il cestino?"
 
@@ -804,18 +825,6 @@ msgstr "Disco ottico vuoto"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco ottico"
-
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr ""
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Non è una cartella valida"

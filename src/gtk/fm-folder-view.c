@@ -188,7 +188,7 @@ FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity
         else if(err->code == G_IO_ERROR_FAILED_HANDLED)
             return FM_JOB_CONTINUE;
     }
-    fm_show_error(parent, err->message);
+    fm_show_error(parent, NULL, err->message);
     return FM_JOB_CONTINUE;
 }
 

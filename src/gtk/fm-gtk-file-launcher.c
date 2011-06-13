@@ -56,7 +56,7 @@ static GAppInfo* choose_app(GList* file_infos, FmMimeType* mime_type, gpointer u
 static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err, gpointer user_data)
 {
     LaunchData* data = (LaunchData*)user_data;
-    fm_show_error(data->parent, err->message);
+    fm_show_error(data->parent, NULL, err->message);
     return TRUE;
 }
 
@@ -70,7 +70,7 @@ static int on_launch_ask(const char* msg, const char** btn_labels, int default_b
 {
     LaunchData* data = (LaunchData*)user_data;
     /* FIXME: set default button properly */
-    return fm_askv(data->parent, msg, btn_labels);
+    return fm_askv(data->parent, NULL, msg, btn_labels);
 }
 
 static gboolean file_is_executable_script(FmFileInfo* file)

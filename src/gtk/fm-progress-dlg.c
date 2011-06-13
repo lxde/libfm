@@ -163,7 +163,7 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
 static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressDisplay* data)
 {
     ensure_dlg(data);
-    return fm_askv(GTK_WINDOW(data->dlg), question, options);
+    return fm_askv(GTK_WINDOW(data->dlg), NULL, question, options);
 }
 
 static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
@@ -286,12 +286,14 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
+    GtkWidget* parent;
     if(data->update_timeout)
     {
         g_source_remove(data->update_timeout);
         data->update_timeout = 0;
     }
 
+    parent = data->parent;
     if(data->dlg)
     {
         /* errors happened */
@@ -333,7 +335,8 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
         /* some files cannot be trashed because underlying filesystems don't support it. */
         if(unsupported) /* delete them instead */
         {
-            if(fm_yes_no(NULL, _("Some files cannot be moved to trash can because "
+            if(fm_yes_no(GTK_WINDOW(parent), NULL,
+                        _("Some files cannot be moved to trash can because "
                         "the underlying file systems don't support this operation.\n"
                         "Do you want to delete them instead?"), TRUE))
             {

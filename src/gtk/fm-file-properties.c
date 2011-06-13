@@ -173,7 +173,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid user name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), NULL, _("Please enter a valid user name or numeric id."));
         gtk_widget_grab_focus(data->owner);
     }
 
@@ -205,7 +205,7 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid group name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), NULL, _("Please enter a valid group name or numeric id."));
         gtk_widget_grab_focus(data->group);
     }
     if(data->gid == -1)
@@ -353,7 +353,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             if(data->has_dir)
             {
-                if(fm_yes_no(GTK_WINDOW(data->dlg), _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
+                if(fm_yes_no(GTK_WINDOW(data->dlg), NULL, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
@@ -376,7 +376,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     g_app_info_set_as_default_for_type(app, data->mime_type->type, &err);
                     if(err)
                     {
-                        fm_show_error(GTK_WINDOW(dlg), err->message);
+                        fm_show_error(GTK_WINDOW(dlg), NULL, err->message);
                         g_error_free(err);
                     }
                 }

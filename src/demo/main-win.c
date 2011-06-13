@@ -840,7 +840,7 @@ _retry:
                 err = NULL;
                 goto _retry;
             }
-            fm_show_error(GTK_WINDOW(win), err->message);
+            fm_show_error(GTK_WINDOW(win), NULL, err->message);
             g_error_free(err);
         }
 
@@ -874,7 +874,7 @@ _retry:
                 err = NULL;
                 goto _retry;
             }
-            fm_show_error(GTK_WINDOW(win), err->message);
+            fm_show_error(GTK_WINDOW(win), NULL, err->message);
             g_error_free(err);
         }
 

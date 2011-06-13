@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 22:28+0800\n"
-"PO-Revision-Date: 2011-06-13 22:30+0800\n"
+"POT-Creation-Date: 2011-06-13 23:53+0800\n"
+"PO-Revision-Date: 2011-06-13 23:53+0800\n"
 "Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: \n"
@@ -374,23 +374,23 @@ msgstr ""
 "類型：%s\n"
 "修改：%s"
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "檔案操作已取消，且過程中有錯誤發生。"
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "檔案操作已完成，但過程中有錯誤發生。"
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "已完成"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
@@ -398,31 +398,31 @@ msgstr ""
 "因為檔案系統不支援，有些檔案無法被移到垃圾桶\n"
 "你是否要直接刪除這些檔案？"
 
-#: ../src/gtk/fm-progress-dlg.c:430
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:445
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "正在移動檔案"
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "正在複製檔案"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "正將檔案移到垃圾桶"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "正在刪除檔案"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "建立符號連結"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "變更檔案屬性"
 
@@ -481,6 +481,20 @@ msgstr "清空垃圾桶"
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
 msgstr "輸入新名稱："
+
+#: ../src/gtk/fm-side-pane.c:49
+#: ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr "位置"
+
+#: ../src/gtk/fm-side-pane.c:50
+#: ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr "目錄樹"
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr "遠端"
 
 #: ../src/gtk/fm-file-menu.c:86
 #: ../src/gtk/fm-file-menu.c:87
@@ -559,31 +573,40 @@ msgstr "已安裝的應用程式"
 msgid "Error"
 msgstr "錯誤"
 
-#: ../src/gtk/fm-gtk-utils.c:278
+#: ../src/gtk/fm-gtk-utils.c:55
+#: ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+msgid "Question"
+msgstr "問題"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "選擇一個資料夾"
 
-#: ../src/gtk/fm-gtk-utils.c:448
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "只有系統管理員有權限進行這項操作。"
 
-#: ../src/gtk/fm-gtk-utils.c:527
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "你想要將選取的檔案移到垃圾桶嗎？"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "您真的要刪除已選的檔案？"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "重新命名檔案"
 
-#: ../src/gtk/fm-gtk-utils.c:594
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "請輸入新名稱："
 
-#: ../src/gtk/fm-gtk-utils.c:616
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
@@ -802,20 +825,6 @@ msgstr ""
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:49
-#: ../src/gtk/fm-side-pane.c:297
-msgid "Places"
-msgstr "位置"
-
-#: ../src/gtk/fm-side-pane.c:50
-#: ../src/gtk/fm-side-pane.c:307
-msgid "Directory Tree"
-msgstr "目錄樹"
-
-#: ../src/gtk/fm-side-pane.c:51
-msgid "Remote"
-msgstr "遠端"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "這不是一個有效的目錄。"

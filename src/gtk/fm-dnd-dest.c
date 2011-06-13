@@ -446,7 +446,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             }
             else
             {
-                fm_show_error(gtk_widget_get_toplevel(dest_widget),
+                fm_show_error(gtk_widget_get_toplevel(dest_widget), NULL,
                               _("XDirectSave failed."));
                 gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,
                                    text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
