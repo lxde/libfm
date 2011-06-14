@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2011-06-13 19:19+0200\n"
+"PO-Revision-Date: 2011-06-14 11:12+0200\n"
 "Last-Translator: Pjotr <>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -534,7 +533,7 @@ msgstr "_Herstellen"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr "Zet bestanden vanuit de prullenbak terug naar oorspronkelijke plekken"
+msgstr "Zet bestanden vanuit de prullenbak terug op oorspronkelijke plekken"
 
 #: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
@@ -578,12 +577,11 @@ msgstr "Fout"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Bevestigen"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Omschrijving"
+msgstr "Vraag"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
