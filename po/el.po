@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2011-04-18 08:25+0200\n"
+"PO-Revision-Date: 2011-06-16 11:39+0200\n"
 "Last-Translator: George <forfolias@gmail.com>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -491,15 +491,15 @@ msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Τοποθεσίες"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Δέντρο καταλόγων"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Απομακρυσμένο"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -579,12 +579,11 @@ msgstr "Σφάλμα"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Επιβεβαίωση"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Περιγραφή"
+msgstr "Ερώτηση"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -629,13 +628,13 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Αυτό το αρχείο '%s' είναι εκτελέσιμο. Θέλετε να το εκτελέσετε;"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
+#, fuzzy
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<χωρίς υποφάκελο>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Προετοιμασία..."
+msgstr "Φόρτωση..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
