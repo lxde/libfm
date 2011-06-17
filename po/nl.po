@@ -1,4 +1,4 @@
-# Dutch translations of the libfm package.
+# Dutch translation for the libfm package.
 # Copyright (C) the author of the libfm package.
 # This file is distributed under the same license as the libfm package.
 # Pjotr, 2011.
@@ -9,9 +9,9 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
 "PO-Revision-Date: 2011-06-14 11:12+0200\n"
-"Last-Translator: Pjotr <>\n"
+"Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
-"Language: nl\n"
+"Language: nl (Dutch)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -152,7 +152,7 @@ msgstr "<b>Doel:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Totale omvang van Bestanden:</b>"
+msgstr "<b>Totale Omvang van Bestanden:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
@@ -283,7 +283,7 @@ msgstr ""
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "Bestand uitvoeren"
+msgstr "Bestand Uitvoeren"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
@@ -400,7 +400,7 @@ msgid ""
 msgstr ""
 "Sommige bestanden kunnen niet naar de prullenbak worden verplaatst, omdat de "
 "onderliggende bestandssystemen dit niet ondersteunen.\n"
-"Wilt u ze in plaats daarvan verwijderen?"
+"Wilt u hen in plaats daarvan verwijderen?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
@@ -408,27 +408,27 @@ msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
-msgstr "Bestanden aan het verplaatsen"
+msgstr "Bestanden verplaatsen"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
-msgstr "Bestanden aan het kopiëren"
+msgstr "Bestanden kopiëren"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
-msgstr "Bestanden aan het weggooien"
+msgstr "Bestanden weggooien"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
-msgstr "Bestanden aan het verwijderen"
+msgstr "Bestanden verwijderen"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "Bezig met aanmaken van symbolische koppelingen"
+msgstr "Symbolische koppelingen aanmaken"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
-msgstr "Bestandeigenschappen aan het veranderen"
+msgstr "Bestandeigenschappen veranderen"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
@@ -601,7 +601,7 @@ msgstr "Wilt u de gekozen bestanden verwijderen?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "Bestand hernoemen"
+msgstr "Bestand Hernoemen"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
