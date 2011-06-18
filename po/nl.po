@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2011-06-14 11:12+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
-"Language: nl (Dutch)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl (Dutch)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/ui/app-chooser.glade.h:1
