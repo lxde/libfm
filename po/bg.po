@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2010-10-27 09:33+0200\n"
+"PO-Revision-Date: 2011-06-20 19:13+0200\n"
 "Last-Translator: Радослав <Rec.ku@hotmail.com>\n"
 "Language-Team: MIME-Version: 1.0\n"
 "Language: bg\n"
@@ -176,7 +176,7 @@ msgstr "Направи файла изпълняем"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "Нищо"
+msgstr "Няма"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
@@ -342,7 +342,7 @@ msgstr "Преки пътища"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "Точка на монтиране"
+msgstr "Място на монтиране"
 
 #: ../src/base/fm-path.c:729
 msgid "Trash Can"
@@ -500,15 +500,15 @@ msgstr "Въведете ново име:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Места"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Дърво от директории"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Отдалечен"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -592,12 +592,11 @@ msgstr "Грешка"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Потвърди"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Описание"
+msgstr "Въпрос"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -643,12 +642,11 @@ msgstr "Този файл: \"'%s'\" е изпълним. Желаете ли д�
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Няма поддиректория>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Подготвяне..."
+msgstr "Зареждане..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
