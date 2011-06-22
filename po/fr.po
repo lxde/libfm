@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2011-06-12 16:12+0200\n"
+"PO-Revision-Date: 2011-06-22 07:06+0200\n"
 "Last-Translator: Mathieu <mathieu.millot@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -501,7 +501,7 @@ msgstr "Arborescence"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Réseau"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -581,12 +581,11 @@ msgstr "Erreur"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Description"
+msgstr "Question"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
