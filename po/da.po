@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2010-10-25 19:18+0200\n"
-"Last-Translator: Joe Hansen (joedalton2@yahoo.dk)\n"
+"PO-Revision-Date: 2011-06-27 16:14+0200\n"
+"Last-Translator: Kristian <kristian9k@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -487,7 +488,7 @@ msgstr "Indtast et nyt navn:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Steder"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
@@ -575,12 +576,11 @@ msgstr "Fejl"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Bekræft"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Beskrivelse"
+msgstr "Spørgsmål"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
