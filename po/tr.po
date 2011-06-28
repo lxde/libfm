@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2011-03-11 17:37+0200\n"
-"Last-Translator: enginmanap <enginmanap@gmail.com>\n"
+"PO-Revision-Date: 2011-06-18 21:38+0200\n"
+"Last-Translator: Necdet <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -487,19 +487,19 @@ msgstr "Yeni bir isim girin:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Yerler"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Dizin Ağacı"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Uzak"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr "Şununla aç..."
+msgstr "Birlikte Aç..."
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
@@ -575,12 +575,11 @@ msgstr "Hata"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Onayla"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Tanım"
+msgstr "Soru"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -626,12 +625,11 @@ msgstr "'%s' çalıştırılabilir bir dosya. Çalıştırmak istiyor musunuz?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Alt Dizin Yok>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Hazırlanıyor..."
+msgstr "Yükleniyor..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
