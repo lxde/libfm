@@ -42,7 +42,6 @@ struct _FmDndDest
     const char* src_fs_id; /* filesystem id of source fs */
     FmFileInfo* dest_file;
     guint idle; /* idle handler */
-    GMainLoop* mainloop; /* used to block when retriving data */
 
     gboolean waiting_data;
 };
@@ -66,7 +65,7 @@ static GdkAtom xds_target_atom = 0;
 
 
 static void fm_dnd_dest_finalize              (GObject *object);
-static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action, int info_type, FmList* files);
+static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action, int info_type, FmList* files);
 
 static gboolean clear_src_cache(FmDndDest* dest);
 
@@ -89,13 +88,13 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
 
     /* emitted when files are dropped on dest widget. */
     signals[ FILES_DROPPED ] =
-        g_signal_new ( "files-dropped",
-                       G_TYPE_FROM_CLASS( klass ),
-                       G_SIGNAL_RUN_LAST,
-                       G_STRUCT_OFFSET ( FmDndDestClass, files_dropped ),
-                       g_signal_accumulator_true_handled, NULL,
-                       fm_marshal_BOOL__UINT_UINT_POINTER,
-                       G_TYPE_BOOLEAN, 3, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER );
+        g_signal_new("files-dropped",
+                     G_TYPE_FROM_CLASS( klass ),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET ( FmDndDestClass, files_dropped ),
+                     g_signal_accumulator_true_handled, NULL,
+                     fm_marshal_BOOL__INT_INT_UINT_UINT_POINTER,
+                     G_TYPE_BOOLEAN, 5, G_TYPE_INT, G_TYPE_INT, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER);
 
     xds_target_atom = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[FM_DND_DEST_TARGET_XDS].target);
 }
@@ -120,9 +119,6 @@ static void fm_dnd_dest_finalize(GObject *object)
 
     if(dd->src_files)
         fm_list_unref(dd->src_files);
-
-    if(dd->mainloop)
-        g_main_loop_unref(dd->mainloop);
 
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->finalize(object);
 }
@@ -150,7 +146,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
         g_object_add_weak_pointer(G_OBJECT(w), &dd->widget);
 }
 
-gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
+gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
                                    int info_type, FmList* files)
 {
     FmPath* dest;
@@ -188,56 +184,6 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
     return TRUE;
 }
 
-inline static
-gboolean cache_src_file_infos(FmDndDest* dd, GtkWidget *dest_widget,
-                        gint x, gint y, GdkDragContext *drag_context)
-{
-    GdkAtom target;
-    target = gtk_drag_dest_find_target( dest_widget, drag_context, NULL );
-    if( target != GDK_NONE )
-    {
-        GdkDragAction action;
-        gboolean ret;
-        /* treat X direct save as a special case. */
-        if( target == gdk_atom_intern_static_string("XdndDirectSave0") )
-        {
-            /* FIXME: need a better way to handle this. */
-            action = drag_context->suggested_action;
-            g_signal_emit(dd, signals[QUERY_INFO], 0, x, y, &action, &ret);
-
-            gdk_drag_status(drag_context, action, time);
-            return TRUE;
-        }
-
-        /* g_debug("try to cache src_files"); */
-        dd->mainloop = g_main_loop_new(NULL, TRUE);
-        gtk_drag_get_data(dest_widget, drag_context, target, time);
-        /* run the main loop to block here waiting for
-         * 'drag-data-received' signal being handled first. */
-        /* it's possible that g_main_loop_quit is called before we really run the loop. */
-        if(g_main_loop_is_running(dd->mainloop))
-            g_main_loop_run(dd->mainloop);
-        g_main_loop_unref(dd->mainloop);
-        dd->mainloop = NULL;
-        /* g_debug("src_files cached: %p", dd->src_files); */
-
-        /* dd->src_files should be set now */
-        if( dd->src_files && fm_list_is_file_info_list(dd->src_files) )
-        {
-            /* cache file system id of source files */
-            if( fm_file_info_list_is_same_fs(dd->src_files) )
-            {
-                FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(dd->src_files);
-                if(fm_path_is_native(fi->path))
-                    dd->src_dev = fi->dev;
-                else
-                    dd->src_fs_id = fi->fs_id;
-            }
-        }
-    }
-    return FALSE;
-}
-
 gboolean clear_src_cache(FmDndDest* dd)
 {
     /* free cached source files */
@@ -259,15 +205,6 @@ gboolean clear_src_cache(FmDndDest* dd)
     dd->waiting_data = FALSE;
     return FALSE;
 }
-
-/* FIXME: this is a little bit dirty... */
-static void on_src_file_info_finished(FmFileInfoJob* job, FmDndDest* dd)
-{
-    dd->src_files = fm_list_ref(job->file_infos);
-    dd->info_type = FM_DND_DEST_TARGET_FM_LIST;
-    g_main_loop_quit(dd->mainloop);
-}
-
 
 /* the returned list can be either FmPathList or FmFileInfoList */
 /* check with fm_list_is_path_list() and fm_list_is_file_info_list(). */
@@ -406,7 +343,7 @@ gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 }
 
 gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
-                               GdkAtom target, guint time)
+                               GdkAtom target, int x, int y, guint time)
 {
     gboolean ret = FALSE;
     GtkWidget* dest_widget = dd->widget;
@@ -461,7 +398,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
         if(dd->src_files)
         {
             /* emit files-dropped signal */
-            g_signal_emit(dd, signals[FILES_DROPPED], 0, drag_context->action, dd->info_type, dd->src_files, &ret);
+            g_signal_emit(dd, signals[FILES_DROPPED], 0, x, y, drag_context->action, dd->info_type, dd->src_files, &ret);
         }
         else /* we don't have the data */
         {
@@ -492,6 +429,17 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 {
     GdkDragAction action;
     FmFileInfo* dest = dd->dest_file;
+
+    if(!dd->src_files)  /* we didn't have any data, cache it */
+    {
+        action = 0;
+        if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
+        {
+            /* retrieve the source files */
+            gtk_drag_get_data(dd->widget, drag_context, target, time);
+            dd->waiting_data = TRUE;
+        }
+    }
 
     if(!dest || !dest->path)
         return FALSE;
@@ -533,16 +481,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             }
             else /* we don't know on which device the dragged source files are. */
                 action = 0;
-        }
-    }
-    else /* we didn't have any data */
-    {
-        action = 0;
-        if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
-        {
-            /* retrieve the source files */
-            gtk_drag_get_data(dd->widget, drag_context, target, time);
-            dd->waiting_data = TRUE;
         }
     }
 

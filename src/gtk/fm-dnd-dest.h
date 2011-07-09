@@ -55,7 +55,7 @@ typedef struct _FmDndDestClass      FmDndDestClass;
 struct _FmDndDestClass
 {
     GObjectClass parent_class;
-    gboolean (*files_dropped)(guint action, guint info_type, FmFileInfoList* files);
+    gboolean (*files_dropped)(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
 };
 
 GType       fm_dnd_dest_get_type        (void);
@@ -85,7 +85,7 @@ gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target);
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context);
 
 gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
-                               GdkAtom target, guint time);
+                               GdkAtom target, int x, int y, guint time);
 
 GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                              GdkDragContext* drag_context,

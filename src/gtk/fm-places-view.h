@@ -46,8 +46,6 @@ struct _FmPlacesView
 {
     GtkTreeView parent;
     FmDndDest* dnd_dest;
-    GtkTreePath* dest_row;
-    GtkTreeViewDropPosition dest_pos;
     GtkTreePath* clicked_row;
     GtkCellRendererPixbuf* mount_indicator_renderer;
 };

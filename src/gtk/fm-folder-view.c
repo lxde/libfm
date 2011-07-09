@@ -378,7 +378,7 @@ static gboolean on_drag_drop(GtkWidget *dest_widget,
     gboolean ret = FALSE;
     GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     if(target != GDK_NONE)
-        ret = fm_dnd_dest_drag_drop(fv->dnd_dest, drag_context, target, time);
+        ret = fm_dnd_dest_drag_drop(fv->dnd_dest, drag_context, target, x, y, time);
     return ret;
 }
 
@@ -468,7 +468,6 @@ static void on_drag_leave(GtkWidget *dest_widget,
                                 guint time,
                                 FmFolderView* fv)
 {
-    g_debug("ON_DRAG_LEAVE");
     fm_dnd_dest_drag_leave(fv->dnd_dest, drag_context, time);
 }
 
