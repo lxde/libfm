@@ -1,22 +1,22 @@
 # Polish translation of libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Piotr Sokół <psokol@jabster.pl>, 2010.
+# Piotr Sokół <psokol@jabster.pl>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2010-12-21 18:50+0200\n"
-"Last-Translator: Artur <mazdac@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2011-07-11 12:59+0200\n"
+"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
+"Language-Team: Polish <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
+"%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -52,7 +52,7 @@ msgstr "Własne polecenie"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Uruchamianie w emulatorze terminala"
+msgstr "Uruchomienie w emulatorze terminala"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -366,7 +366,7 @@ msgid ""
 msgstr ""
 "Typ: %s\n"
 "Rozmiar: %s\n"
-"Zmodyfikowano: %s"
+"Czas modyfikacji: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
@@ -375,7 +375,7 @@ msgid ""
 "Modified: %s"
 msgstr ""
 "Typ: %s\n"
-"Zmodyfikowano: %s"
+"Czas modyfikacji: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
@@ -387,7 +387,7 @@ msgstr "Anulowano"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "Operacja została ukończona ale wystąpiły błędy."
+msgstr "Operacja została ukończona, ale wystąpiły błędy."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
@@ -399,8 +399,8 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Pewne pliki nie mogą zostać przeniesione do kosza ponieważ system plików, na "
-"którym się znajdują nie obsługuje tej operacji.\n"
+"Pewne pliki nie mogą zostać przeniesione do kosza, ponieważ system plików, "
+"na którym się znajdują, nie obsługuje tej operacji.\n"
 "Zamiast tego usunąć je trwale?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
@@ -490,15 +490,15 @@ msgstr "Proszę wprowadzić nową nazwę:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Położenia"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Drzewo katalogów"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Zdalne"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -546,7 +546,7 @@ msgstr "Otwiera plik za pomocą wybranego programu"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Otwiera plik za pomocą własnego polecenia"
+msgstr "Otwiera plik za pomocą wprowadzonego polecenia"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
@@ -578,12 +578,11 @@ msgstr "Błąd"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Potwierdzenie"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Opis"
+msgstr "Pytanie"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -631,12 +630,11 @@ msgstr "Plik „%s” jest plikiem wykonywalnym. Uruchomić go?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Pusty>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Przygotowywanie..."
+msgstr "Wczytywanie..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
