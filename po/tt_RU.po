@@ -8,23 +8,23 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-13 23:27+0200\n"
-"PO-Revision-Date: 2011-06-28 22:06+0200\n"
-"Last-Translator: Ali <aysabzevar@gmail.com>\n"
+"PO-Revision-Date: 2011-07-15 08:28+0200\n"
+"Last-Translator: Ainur <ainur.shakirov.tt@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fa\n"
+"Language: tt_RU\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>خط فرمان برای اجرا</b>"
+msgstr "<b>Команда юлында үтәргә:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>نوع فایل باز شده:</b>"
+msgstr "<b>Ачыла торган файлның төре:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,36 +35,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>این کدهای ویژه می توانند در خط فرمان استفاده شوند: </b>\n"
-"<b>%f</b>: نشان دهنده ی تنها یک فایل است.\n"
-"<b>%F</b>:نشان دهنده ی چندین فایل است.\n"
-"<b>%u</b>: نشان دهنده ی یک URI به تنهایی است.\n"
-"<b>%U</b>: نشان دهنده ی چندین URI است."
+"<b>Команда юлында кулланучы мәхсүс ачкычлар</b>\n"
+"  <b>%f</b>: Ялгыз файл исемен чагылдыра\n"
+"  <b>%F</b>: Бернича файл исемен чагылдыра\n"
+"  <b>%u</b>: Ялгыз файл юлын чагылдыра\n"
+"  <b>%U</b>: Берничә файл юлын чагылдыра"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "یک برنامه ی انتخاب کنید"
+msgstr "Кушымтаны сайлау"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "خط فرمان سفارشی"
+msgstr "Куланнучы команда юлы"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "اجرا در پایانه ی شبیه ساز"
+msgstr "Терминал эмуляторында үтәү"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "نرم‌افزارهای نصب شده"
+msgstr "Куелган кушымта"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
+msgstr "Бу файл төре өчен җибәрелүче кушымтаны сайлагыз"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_مرور‌کن"
+msgstr "_Карау"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -72,287 +71,284 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b> از قبل فایلی با همین نام در این آدرس وجود داشته.</b>\n"
+"<b>Бу каталогта мондый исемле файл инде бар.</b>\n"
 "\n"
-"ایا می خواهید با فایل موجود جایگزین کنید ؟"
+"Бу файлны алыштырыргамы?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "این گزینه‌ را بر روی فایل ها موجود بکار ببر"
+msgstr "Барлык файлларга бу көйләүне куллану"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "تایید جایگزین کردن فایل ها"
+msgstr "Файл алыштыруны раслау"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "نام فایل:"
+msgstr "Файл исеме:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "ـرونوشت"
+msgstr "_Алыштыру"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "ـتغییر نام"
+msgstr "Икенче исем _кушу"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "ـگذشتن"
+msgstr "_Сикерү"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "همراه با فایل پیش رو؟"
+msgstr "бу файл белән?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr "۰۰۰"
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>کنترل دسترسی</b>"
+msgstr "<b>Керү белән идарә итү</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>نوع فایل:</b>"
+msgstr "<b>Файл төре:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>گروه:</b>"
+msgstr "<b>Төркем:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>آخرین دسترسی:</b>"
+msgstr "<b>Ахыргы керү:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>آخرین تغییردهی:</b>"
+msgstr "<b>Ахыргы үзгәреш:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>محل:</b>"
+msgstr "<b>Урын:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>باز کن با:</b>"
+msgstr "<b>... _белән ачырга:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>دیگران:</b>"
+msgstr "<b>Башкалар:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>مالک:</b>"
+msgstr "<b>Хуҗа:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>بزرگی روی دیسک:</b>"
+msgstr "<b>Дисктагы зурлык:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>هدف:</b>"
+msgstr "<b>Максат:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>مجموع اندازه ی فایلها:</b>"
+msgstr "<b>Файлларның тулаем зурлыгы:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_گروه</b>"
+msgstr "<b>_Төркем:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>مالک</b>"
+msgstr "<b>_Хуҗа:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "مشخصات فایل"
+msgstr "Файл үзенчәлекләре"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "فایل را اجرایی کن"
+msgstr "Файлны үтәүче итергә"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "هیچ"
+msgstr "Юк"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "عملیاتی که دیگر کاربران هم می توانند انجام دهند"
+msgstr "Башка кулланучыларның хокуклары"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "عملیاتی که دارنده فایل می تواند انجام دهد"
+msgstr "Файл хуҗасының хокуклары"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام دهند"
+msgstr "Файл хуҗасы кергән төркемнең хокуклары"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "خواندن و نوشیت"
+msgstr "Уку һәм Язу"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "فقط خواندنی"
+msgstr "Уку гына"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "برای این نوغ فایل برنامه‌های استفاده شده را انتخاب کن"
+msgstr "Бу файлны ачучы кушымтаны сайлагыз "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "فقط خواندنی"
+msgstr "Язу гына"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_عمومی"
+msgstr "_Төп"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_مجوزها"
+msgstr "_Керү хокуклары"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>پردازش:</b>"
+msgstr "<b>Башкарыла:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>جریان:</b>"
+msgstr "<b>Башкарылды:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>تعدادی خطا رخ داد:</b>"
+msgstr "<b>Хаталар барлыкка килделәр:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>زمان باقی مانده:</b>"
+msgstr "<b>Вакыт калды:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>به:</b>"
+msgstr "<b>Монда:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr "آماده سازی..."
+msgstr "Әзерләү..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>رایانامه بر</b>"
+msgstr "<b>Почта клиенты</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>پایانه‌ی شبیه ساز</b>"
+msgstr "<b>Терминал эмуляторы</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr "<b>مرورگر وب</b>"
+msgstr "<b>Веб-браузер</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr "خط فرمان:"
+msgstr "Команда юлы:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "روابط بین فایلی"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr "نرم‌افزارهای برگزیده"
+msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr "نرم‌افزارهای سیستمی"
+msgstr "Система кушымталары"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
-"وقتی روی نام رایانامه ای کلیک کنید رایانه‌بر برگزیده برای رسانده نامه استفاده "
-"خواهد شد."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "مرورگر برگزیده برای باز گردن فرا لینک ها استفاده خواهد شد."
+msgstr ""
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "اجرای فایل"
+msgstr "Файлны җибәрү"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "اجرا در ترمینال"
+msgstr "_Терминалда җибәрү"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u بایت"
+msgstr[0] ""
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
-msgstr "کیلوبایت"
+msgstr "КБ"
 
 #: ../src/base/fm-utils.c:67
 msgid "MB"
-msgstr "مگابایت"
+msgstr "МБ"
 
 #: ../src/base/fm-utils.c:72
 msgid "GB"
-msgstr "گیگابایت"
+msgstr "ГБ"
 
 #: ../src/base/fm-utils.c:77
 msgid "TB"
-msgstr "ترا بایت"
+msgstr "ТБ"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
-msgstr "کیبی بایت"
+msgstr "КиБ"
 
 #: ../src/base/fm-utils.c:96
 msgid "MiB"
-msgstr "میبی بایت"
+msgstr "МиБ"
 
 #: ../src/base/fm-utils.c:101
 msgid "GiB"
-msgstr "گیبی بایت"
+msgstr "ГиБ"
 
 #: ../src/base/fm-utils.c:106
 msgid "TiB"
-msgstr "تی‌ای بی"
+msgstr "ТиБ"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "میانبر ها"
+msgstr ""
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "نقطه‌ی اتصال"
+msgstr "Кору ноктасы"
 
 #: ../src/base/fm-path.c:729
 msgid "Trash Can"
-msgstr "سطل زباله"
+msgstr "Чүп чиләге"
 
 #: ../src/base/fm-path.c:731
 msgid "My Computer"
-msgstr "کامپیوتر من"
+msgstr "Минем компьютер"
 
 #: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
-msgstr "نرم‌افزارها"
+msgstr "Кушымталар"
 
 #: ../src/base/fm-path.c:742
 msgid "Network"
-msgstr "شبکه"
+msgstr "Челтәр"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
@@ -361,9 +357,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
-"نوع: %s\n"
-"بزرگی: %s\n"
-"تغییر: %s"
+"Төр: %s\n"
+"Зурлык: %s\n"
+"Үзгәргән: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
@@ -371,24 +367,24 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
-"نوع: %s\n"
-"تغییر: %s"
+"Төр: %s\n"
+"Үзгәргән: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "عملیات فایل لغو شده و  تعدادی خطا رخ داده است"
+msgstr "Файл операциясе гамәлдән чыгарылды, ялгышлар бар."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
-msgstr "لغو شده"
+msgstr "Гамәлдән чыгарылды"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "عملیات فایل به پایان رسید ولی تعدادی خطا وجود داشته."
+msgstr "Файл операциясе ялгышлар белән үтәлде."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
-msgstr "به پایان رسیده"
+msgstr "Үтәлде"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
@@ -396,219 +392,216 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل "
-"سیستم این عمل را پشتیبانی نمی کند.\n"
-"بجای اینکار ایا می خواهید آنها را پاک کنید ؟"
+"Кайбер файллар чүп чиләгенә күчерелмәде, чөнки бу эшне файл системасы "
+"тотмый.\n"
+"Сез моннан соң да файлларны бетерәсегез киләме?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
-msgstr "،"
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
-msgstr "جا‌به‌جایی فایلها"
+msgstr "Файлны күчерү"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
-msgstr "روبرداری از فایلها"
+msgstr "Файлның күчермәсен алу"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
-msgstr "انتقال به زباله دان"
+msgstr "Файлны чүп чиләгенә күчерә"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
-msgstr "پاک کردن فایل"
+msgstr "Файлны бетерү"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "لینک نمادین"
+msgstr "Тамгалы сылтама төзү"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
-msgstr "تغییر مشخصه ها"
+msgstr "Файл аергычларын үзгәртү"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "بایت"
+msgstr[0] ""
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "لطفا یک نام کاربری یا مشخصه‌ی عددی وارد کنید."
+msgstr "Дөрес булган кулланучы исемен яки тиңләштерү санын кертегез."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "لطفا یک نام گروه یا مشخصه‌ی عددی وارد کنید."
+msgstr "Дөрес булган төркем исемен яки тиңләштерү санын кертегез."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"آیا می خواهید تمام تغییرات را به صورت مکرر روی همه فایلها و زیر شاخه ها ثبت "
-"شود؟"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr "فایل هایی از نوع متفاوت"
+msgstr "Төрле төп файллары"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr "چندین فایل"
+msgstr "Берничә файл"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr "اتصال بخش"
+msgstr "Логик дискны кору"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr "قطع بخش"
+msgstr ""
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr "در آوردن رسانه‌ی قابل حمل"
+msgstr "Алынмалы дискны чыгару"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
 msgid "Rename Bookmark Item"
-msgstr "تغییر نام ایتم نشانک"
+msgstr "Кыстыргычның исемен үзгәртү"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
-msgstr "حذف از نشانک "
+msgstr "Кыстыргычлардан бетерү"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
-msgstr "خالی کردن زباله دان"
+msgstr "Чүп чиләген чистарту"
 
 #: ../src/gtk/fm-places-view.c:719
 msgid "Enter a new name:"
-msgstr "یک نام جدید وارد کنید:"
+msgstr "Яңа исем кертегез:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr "مکان‌ها"
+msgstr "Урыннар"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr "شاخه پوشه"
+msgstr "Директорияләр агачы"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Челтәр"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr "باز کنید با..."
+msgstr "... белән ачырга"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
-msgstr "تغییر نام"
+msgstr "Исемне үзгәртү"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
-msgstr "لینکی نمادین بساز"
+msgstr "Тамгалы сылтама төзү"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr "بفرست به"
+msgstr "Озатырга"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr "فشرده سازی..."
+msgstr "Архивка өстәү..."
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
-msgstr "همینجا استخراج کن"
+msgstr "Монда тартып чыгару"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "استخراج کن در..."
+msgstr "... тартып чыгару"
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
-msgstr "_بازیافت"
+msgstr "_Төзәтү"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr "بازیافت کن فایلهای زباله‌دان را به مسیر اصلی"
+msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:450
 msgid "XDirectSave failed."
-msgstr "XDirectSave ناموفق بود."
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "از نرم‌افزارهای انتخابی برای باز کردن فایل ها استفاده کن"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "اجرای سفارشی خط فرمان برای باز کردن فایل ها"
+msgstr ""
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr "سفارشی سازی"
+msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
-msgstr "نام"
+msgstr "Исем"
 
 #: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
-msgstr "توضیحات"
+msgstr "Тасвирлама"
 
 #: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
-msgstr "اندازه"
+msgstr "Зурлык"
 
 #: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
-msgstr "تغییر"
+msgstr "Үзгәргән"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "نرم‌افزارهای نصب‌شده"
+msgstr "Куелган кушымталар"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr "خطا"
+msgstr "Хата"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Раслау"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "توضیحات"
+msgstr "Сорау"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
-msgstr "لطفا یک پوشه انتخاب کنید"
+msgstr "Каталогны сайлагыз"
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
-msgstr "فقط مدیران سیستم اجازه ی اینکار را دارند."
+msgstr "Бу эшне үтәү өчен сезгә система администраторы хокуклары кирәк."
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "آیا می خواهید فایلهای انتخابی را به زباله‌دان منتقل کنید؟"
+msgstr "Сез сайланган файлларны чыннан да чүп чиләгенә күчерәсегез киләме?"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "آیا می خواهید فایل های انتخاب شده را حذف کنید؟"
+msgstr "Сез сайланган файлларны чыннан да бетерәсегез киләме?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "تغییر نام فایل"
+msgstr "Файлга икенче исем кушу"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
-msgstr "لطفا یک نام تازه وارد کنید:"
+msgstr "Яңа исем кушыгыз:"
 
 #: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
-msgstr "آیا از خالی کردن زباله دان  اطمینان دارید؟"
+msgstr "Сез чыннан да чүп чиләген чистартырга телисезме?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
@@ -616,210 +609,209 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"این فایل متنی '%s' به نظر یک اسکریپت اجرایی است.\n"
-"می خواهید با او چکار کنید؟"
+"«%s» текст файлы үтәлүче скрипт булуы ихтимал.\n"
+"Җибәреп карыйсыгыз киләме?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "این فایل '%s' اجرایی است. آیا می خواهید اجرایش کنید؟"
+msgstr "«%s» файлы үтәлүче. Җибәрәсегез киләме?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Астындагы каталоглар юк>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "آماده سازی..."
+msgstr "Йөкләү..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "دایرکتوری مشخص شده معتبر نیست"
+msgstr "Каталог дөрес күрсәтелмәгән"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr "مبداء و مقصد یکسان است."
+msgstr "Чыганак һәм максат туры килә."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "نمی توان یک پوشه را به پوشه زیرین خودش منتقل کرد"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "نمی توان پوشه ای راه به پوشه ی زیرین خودش کپی کرد"
+msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr "مقصد زیر پوشه از منبع است"
+msgstr ""
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
-msgstr "زباله"
+msgstr "Чүп чиләге"
 
 #: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
-msgstr "میزکار"
+msgstr "Эш өстәле"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "دیسک فشرده"
+msgstr "СD диск"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "دیسک خالی"
+msgstr "Буш CD-диск"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr "دیسک فقط خواندنی"
+msgstr "CD-R диск"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "دیسک خالی فقط خواندنی"
+msgstr "Буш CD-R диск"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr "دیسک نوشتنی و خواندنی"
+msgstr "CD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "دیسک خالی نوشتنی و خواندنی"
+msgstr "Буш CD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr "دیسک فشرده DVD"
+msgstr "DVD-ROM диск"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "دیسک فشرده خوان خالی"
+msgstr "Буш DVD-ROM диск"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr "دیسک فشرده‌ی خواندنی و نوشتنی"
+msgstr "DVD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "دیسک فشرده‌ی خالی نوشتنی و خواندنی"
+msgstr "Буш DVD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr "دیسک فشرده فقط خواندنی"
+msgstr "DVD-RAM диск"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "دیسک فشرده فقط خواندنی خام"
+msgstr "Буш DVD-RAM диск"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr "دیسک DVD+R"
+msgstr "DVD+R диск"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "دیسک DVD+R خام"
+msgstr "Буш DVD+R диск"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr "دیسک DVD+RW"
+msgstr "DVD+RW диск"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "دیسک خام DVD+RW"
+msgstr "Буш DVD+RW диск"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "دیسک دولایه DVD+R"
+msgstr "DVD+R DL диск"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "دیسک دولایه خام DVD+R"
+msgstr "Буш DVD+R DL диск"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr "دیسک دو لایه DVD+RW"
+msgstr "DVD+RW DL диск"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "دیسک دولایه خام DVD+RW"
+msgstr "Буш DVD+RW DL диск"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr "دیسک Blue-Ray"
+msgstr "Blu-Ray диск"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr "دیسک Blue-Ray خام"
+msgstr "Буш Blu-Ray диск"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr "دیسک Blue-Ray R"
+msgstr "Blu-Ray R диск"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr "دیسک خام Blue-Ray R"
+msgstr "Буш Blu-Ray R диск"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr "دیسک خام Blue-Ray RW"
+msgstr "Blu-Ray RW диск"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "دیسک خام Blue-Ray RW"
+msgstr "Буш Blu-Ray RW диск"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr "دیسک HD DVD"
+msgstr "HD DVD диск"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "دیسک خام HD DVD"
+msgstr "Буш HD DVD диск"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr "دیسک HD DVD-R"
+msgstr "HD DVD-R диск"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "دیسک خام HD DVD-R"
+msgstr "Буш HD DVD-R диск"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr "دیسک HD DVD-RW"
+msgstr "HD DVD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "دیسک خام HD DVD-RW"
+msgstr "Буш HD DVD-RW диск"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr "دیسک MO"
+msgstr "MO диск"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr "دیسک خام MO"
+msgstr "Буш MO диск"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr "دیسک MRW"
+msgstr "MRW диск"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr "دیسک خام MRW"
+msgstr "Буш MRW диск"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr "دیسک MRW/W"
+msgstr "MRW/W диск"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr "دیسک خام MRW/W"
+msgstr "Буш MRW/W диск"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "دیسک نوری خام"
+msgstr "Буш оптикал диск"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "دیسک نوری"
+msgstr "Оптикал диск"
