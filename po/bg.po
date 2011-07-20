@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-06-20 19:13+0200\n"
 "Last-Translator: Радослав <Rec.ku@hotmail.com>\n"
 "Language-Team: MIME-Version: 1.0\n"
@@ -482,7 +482,7 @@ msgid "Eject Removable Media"
 msgstr "Извади устройството за външна памет"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Преименувай Отметката"
 
@@ -494,7 +494,7 @@ msgstr "Премахни от Отметки"
 msgid "Empty Trash"
 msgstr "Изпразни Кошчето"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Въведете ново име:"
 
@@ -546,7 +546,7 @@ msgstr "_Възстановяване"
 msgid "Restore trashed files to original paths"
 msgstr "Възстанови изхвърлените файлове"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave пропадна."
 
@@ -566,19 +566,19 @@ msgstr ""
 msgid "Customize"
 msgstr "Промени"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Име"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Описание"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Променен"
 

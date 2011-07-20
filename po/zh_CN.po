@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-06-19 13:16+0200\n"
 "Last-Translator: Yinghua_Wang <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,7 +462,7 @@ msgid "Eject Removable Media"
 msgstr "弹出可移动媒质"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "重命名书签项"
 
@@ -474,7 +474,7 @@ msgstr "从书签中移除"
 msgid "Empty Trash"
 msgstr "清空回收站"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "输入新名称："
 
@@ -526,7 +526,7 @@ msgstr "还原(_R)"
 msgid "Restore trashed files to original paths"
 msgstr "将移到回收站的文件还原到原位置"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失败。"
 
@@ -542,19 +542,19 @@ msgstr "执行自定义的命令打开文件"
 msgid "Customize"
 msgstr "自定义"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "名称"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "描述"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "大小"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "修改"
 

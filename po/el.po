@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-06-16 11:39+0200\n"
 "Last-Translator: George <forfolias@gmail.com>\n"
 "Language-Team: Greek\n"
@@ -473,7 +473,7 @@ msgid "Eject Removable Media"
 msgstr "Εξαγωγή αφαιρούμενου μέσου"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
 
@@ -485,7 +485,7 @@ msgstr "Αφαίρεση από τους σελιδοδείκτες"
 msgid "Empty Trash"
 msgstr "Άδειασμα απορριμμάτων"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
@@ -537,7 +537,7 @@ msgstr "_Επαναφορά"
 msgid "Restore trashed files to original paths"
 msgstr "Επαναφορά των διαγραφέντων αρχείων στους αρχικούς τους καταλόγους"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave απέτυχε."
 
@@ -553,19 +553,19 @@ msgstr "Εκτέλεση προσαρμοσμένης εντολής για το
 msgid "Customize"
 msgstr "Προσαρμογή"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Τροποποιήθηκε"
 

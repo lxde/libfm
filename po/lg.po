@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-06-14 14:12+0200\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
@@ -468,7 +468,7 @@ msgid "Eject Removable Media"
 msgstr "Wandula ekitereka data ekigyikamu"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Kyusa erinnya ly'akakwatakifo"
 
@@ -480,7 +480,7 @@ msgstr "Gyawo akakwatakifo"
 msgid "Empty Trash"
 msgstr "Kunkumula ebisuulidwa"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Wandika erinnya ppya:"
 
@@ -532,7 +532,7 @@ msgstr "_Zawo"
 msgid "Restore trashed files to original paths"
 msgstr "Fayiro eziri mu bisuulidwa zizewo gyezagyibwa"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "Omulimu ogwa XDirectSave gugaanye."
 
@@ -548,19 +548,19 @@ msgstr "Fayiro zibukkuze ekiragiro ky'owandise"
 msgid "Customize"
 msgstr "Wekyusize"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Linnya"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Okunnyonyola"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Bunene"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Amakyusa"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2010-06-07 16:07+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -471,7 +471,7 @@ msgid "Eject Removable Media"
 msgstr "Skumpa leysamiðil út"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Nýnevn bókamerkisliðin"
 
@@ -483,7 +483,7 @@ msgstr "Tak burtur úr bókamerkjum"
 msgid "Empty Trash"
 msgstr "Tøm ruskspannina"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Skriva eitt nýtt navn:"
 
@@ -536,7 +536,7 @@ msgstr "_Endurstovna"
 msgid "Restore trashed files to original paths"
 msgstr "Endurstovna strikaðar fílur til teirra upprunaligu leið"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave miseydnaðist."
 
@@ -552,19 +552,19 @@ msgstr "Koyr tilgjørdu stýriboðsregluna til at lata upp fílur við"
 msgid "Customize"
 msgstr "Tilsniða"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Frágreiðing"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Stødd"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Broytt"
 

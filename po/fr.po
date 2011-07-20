@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-06-22 07:06+0200\n"
 "Last-Translator: Mathieu <mathieu.millot@gmail.com>\n"
 "Language-Team: \n"
@@ -474,7 +474,7 @@ msgid "Eject Removable Media"
 msgstr "Éjecter le média amovible"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Renommer Signets"
 
@@ -486,7 +486,7 @@ msgstr "Enlever des Signets"
 msgid "Empty Trash"
 msgstr "Vider la Corbeille"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
@@ -539,7 +539,7 @@ msgstr "_Restaurer"
 msgid "Restore trashed files to original paths"
 msgstr "_Restaurer les fichiers à leur emplacements originaux"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "Échec de XDirectSave."
 
@@ -555,19 +555,19 @@ msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 msgid "Customize"
 msgstr "Personnaliser"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Modifié"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
@@ -560,7 +560,7 @@ msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 #, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
@@ -575,7 +575,7 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 #, fuzzy
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
@@ -635,7 +635,7 @@ msgstr ""
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 #, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
@@ -655,22 +655,22 @@ msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 #, fuzzy
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 #, fuzzy
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 #, fuzzy
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 #, fuzzy
 msgid "Modified"
 msgstr "Modificado"

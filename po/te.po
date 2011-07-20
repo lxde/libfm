@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2011-07-12 19:24+0200\n"
 "Last-Translator: PraveenIlla <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -465,7 +465,7 @@ msgid "Eject Removable Media"
 msgstr "తీసివేయదగిన మాధ్యమాన్ని నెట్టివేయి"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "ఇష్టాంశము పేరుమార్చు"
 
@@ -477,7 +477,7 @@ msgstr "ఇష్టాంశము నుండి తొలగించు"
 msgid "Empty Trash"
 msgstr "చెత్తబుట్టను ఖాళీచేయండి"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "ఒక కొత్త పేరును ఇవ్వండి:"
 
@@ -529,7 +529,7 @@ msgstr "తిరిగివుంచు (_R)"
 msgid "Restore trashed files to original paths"
 msgstr "చెత్తబుట్టకు తరలించిన ఫైళ్ళను వాటి పూర్వ స్థానములలో తిరిగివుంచు"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave విఫలమైంది."
 
@@ -545,19 +545,19 @@ msgstr "ఫైళ్ళను తెరుచుటకు అనురూపి�
 msgid "Customize"
 msgstr "అనురూపించు"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "పేరు"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "వివరణ"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "పరిమాణం"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "సవరించబడినది"
 

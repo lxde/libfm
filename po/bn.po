@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -471,7 +471,7 @@ msgid "Eject Removable Media"
 msgstr "স্থানান্তরযোগ্য মিডিয়া অপসারন করুন"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "বুকমার্ক আইটেম নামান্তর করুন"
 
@@ -483,7 +483,7 @@ msgstr "বুকমার্ক থেকে অপসারণ করুন"
 msgid "Empty Trash"
 msgstr "আবর্জনা বাক্স খালি করুন"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "নতুন একটি নাম দিন:"
 
@@ -535,7 +535,7 @@ msgstr "পুনরায় জমা করুন (_R)"
 msgid "Restore trashed files to original paths"
 msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
@@ -551,19 +551,19 @@ msgstr "ফাইল খোলার জন্য পছন্দসই কম�
 msgid "Customize"
 msgstr "স্বনির্ধারণ করুন"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "নাম"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "আকার"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "পরিবর্তিত"
 

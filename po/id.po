@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2010-09-08 16:05+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian Translation Team <id@li.org>\n"
@@ -470,7 +470,7 @@ msgid "Eject Removable Media"
 msgstr "Keluarkan Media Yang Dapat Dilepas"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Ubah Nama Butir Penanda Tautan"
 
@@ -482,7 +482,7 @@ msgstr "Hapus dari Penanda Tautan"
 msgid "Empty Trash"
 msgstr "Kosongkan Tong Sampah"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Masukkan nama baru:"
 
@@ -534,7 +534,7 @@ msgstr "_Pulihkan"
 msgid "Restore trashed files to original paths"
 msgstr "Kembalikan berkas yang dibuang ke tong sampah ke path aslinya"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave gagal."
 
@@ -550,19 +550,19 @@ msgstr "Jalankan baris perintah ubahan untuk membuka berkas"
 msgid "Customize"
 msgstr "Sesuaikan"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Nama"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Keterangan"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Diubah"
 

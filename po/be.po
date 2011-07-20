@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-13 23:27+0200\n"
+"POT-Creation-Date: 2011-07-20 16:25+0200\n"
 "PO-Revision-Date: 2010-08-25 13:51+0200\n"
 "Last-Translator: Анік <xabzan9tka@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -473,7 +473,7 @@ msgid "Eject Removable Media"
 msgstr "Выняць дыск"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:718
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Пераіменаваць закладку"
 
@@ -485,7 +485,7 @@ msgstr "Выдаліць з закладак"
 msgid "Empty Trash"
 msgstr "Ачысціць сметніцу"
 
-#: ../src/gtk/fm-places-view.c:719
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Увядзіце новае імя:"
 
@@ -537,7 +537,7 @@ msgstr "_Аднавіць"
 msgid "Restore trashed files to original paths"
 msgstr "Аднавіць файлы са сметніцы да пачатковага стану"
 
-#: ../src/gtk/fm-dnd-dest.c:450
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "Памылка XDirectSave."
 
@@ -553,19 +553,19 @@ msgstr "Выканаць уласны загад для адкрыцця фай�
 msgid "Customize"
 msgstr "Наладзіць"
 
-#: ../src/gtk/fm-folder-view.c:589
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Імя"
 
-#: ../src/gtk/fm-folder-view.c:608
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Апісанне"
 
-#: ../src/gtk/fm-folder-view.c:615
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Памер"
 
-#: ../src/gtk/fm-folder-view.c:621
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Зменена"
 
