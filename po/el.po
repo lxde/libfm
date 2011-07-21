@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-20 16:25+0200\n"
-"PO-Revision-Date: 2011-06-16 11:39+0200\n"
+"PO-Revision-Date: 2011-07-21 06:39+0200\n"
 "Last-Translator: George <forfolias@gmail.com>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -200,7 +200,7 @@ msgstr "Μόνο ανάγνωση"
 msgid "Select the application used to open files of this type "
 msgstr ""
 "Επιλέξτε την εφαρμογή που θα χρησιμοποιείται για το άνοιγμα αρχείων αυτού "
-"του τύπου"
+"του τύπου "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -628,9 +628,8 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Αυτό το αρχείο '%s' είναι εκτελέσιμο. Θέλετε να το εκτελέσετε;"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
-#, fuzzy
 msgid "<No Sub Folder>"
-msgstr "<χωρίς υποφάκελο>"
+msgstr "<Χωρίς υποφάκελο>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
 msgid "Loading..."
