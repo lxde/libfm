@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-20 16:25+0200\n"
-"PO-Revision-Date: 2011-07-15 08:28+0200\n"
+"PO-Revision-Date: 2011-07-22 09:39+0200\n"
 "Last-Translator: Ainur <ainur.shakirov.tt@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tt_RU\n"
@@ -35,7 +35,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Команда юлында кулланучы мәхсүс ачкычлар</b>\n"
+"<b>Команда юлында кулланучы махсус ачкычлар</b>\n"
 "  <b>%f</b>: Ялгыз файл исемен чагылдыра\n"
 "  <b>%F</b>: Бернича файл исемен чагылдыра\n"
 "  <b>%u</b>: Ялгыз файл юлын чагылдыра\n"
@@ -93,7 +93,7 @@ msgstr "_Алыштыру"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "Икенче исем _кушу"
+msgstr "_Икенче исем кушу"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
@@ -165,7 +165,7 @@ msgstr "<b>_Хуҗа:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Файл үзенчәлекләре"
+msgstr "Файл сыйфатлары"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
@@ -256,11 +256,11 @@ msgstr "Команда юлы:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Файл бәйләнешләре"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Яратылган кушымталар"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
@@ -271,10 +271,12 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Хат язу өчен электрон почта адресына чигертсәң, яратылган почта клиенты "
+"кулланылачак."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Сылтамаларны ачу өчен яратылган веб-браузер кулланылачак."
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -288,7 +290,7 @@ msgstr "_Терминалда җибәрү"
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
+msgstr[0] "%u байт"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
@@ -324,7 +326,7 @@ msgstr "ТиБ"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Сылтамалар"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
@@ -418,7 +420,7 @@ msgstr "Файлны бетерү"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "Тамгалы сылтама төзү"
+msgstr "Символик сылтама төзү"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
@@ -427,7 +429,7 @@ msgstr "Файл аергычларын үзгәртү"
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
+msgstr[0] "байт"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -440,11 +442,11 @@ msgstr "Дөрес булган төркем исемен яки тиңләшт�
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Барлыр эчкә салынган файлларга һәм каталогларга кулланыргамы?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr "Төрле төп файллары"
+msgstr "Төрле файллар"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
@@ -456,7 +458,7 @@ msgstr "Логик дискны кору"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Логик дискны корудан чыгару"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
@@ -485,7 +487,7 @@ msgstr "Урыннар"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr "Директорияләр агачы"
+msgstr "Каталоглар агачы"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
@@ -517,7 +519,7 @@ msgstr "Монда тартып чыгару"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "... тартып чыгару"
+msgstr "Монда тартып чыгару..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
@@ -525,23 +527,23 @@ msgstr "_Төзәтү"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Файлларны чүп чиләгеннән тергезү"
 
 #: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave хатасы."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Файлларны ачу өчен сайланган кушымтаны кулланырга"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Файлларны ачу өчен кулланучы командасын башкарырга"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Көйләү"
 
 #: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
@@ -610,7 +612,7 @@ msgid ""
 "What do you want to do with it?"
 msgstr ""
 "«%s» текст файлы үтәлүче скрипт булуы ихтимал.\n"
-"Җибәреп карыйсыгыз киләме?"
+"Нинди эш корырга телисез?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
@@ -637,15 +639,15 @@ msgstr "Чыганак һәм максат туры килә."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Каталогны үз эчендә булган каталогка күчереп булмый"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Каталогны үз эчендә булган каталогка күчермә ясап булмый"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Килү ноктасы - чыганакның үз эчендәге каталог"
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
