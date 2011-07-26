@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-20 16:25+0200\n"
-"PO-Revision-Date: 2011-07-22 09:39+0200\n"
+"PO-Revision-Date: 2011-07-26 11:20+0200\n"
 "Last-Translator: Ainur <ainur.shakirov.tt@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tt_RU\n"
@@ -55,11 +55,11 @@ msgstr "Терминал эмуляторында үтәү"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Куелган кушымта"
+msgstr "Урнаштырылган кушымта"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Бу файл төре өчен җибәрелүче кушымтаны сайлагыз"
+msgstr "Бу файл төрен ачу өчен кушымтаны сайлагыз"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -101,7 +101,7 @@ msgstr "_Сикерү"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "бу файл белән?"
+msgstr "бу файл беләнме?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -222,7 +222,7 @@ msgstr "<b>Башкарылды:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Хаталар барлыкка килделәр:</b>"
+msgstr "<b>Хаталар барлыкка килде:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
@@ -374,7 +374,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "Файл операциясе гамәлдән чыгарылды, ялгышлар бар."
+msgstr "Файл операциясе хаталар аркасында гамәлдән чыгарылды."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
@@ -382,7 +382,7 @@ msgstr "Гамәлдән чыгарылды"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "Файл операциясе ялгышлар белән үтәлде."
+msgstr "Файл операциясе хаталар белән үтәлде."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
@@ -479,7 +479,7 @@ msgstr "Чүп чиләген чистарту"
 
 #: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
-msgstr "Яңа исем кертегез:"
+msgstr "Яңа исем кушыгыз:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
@@ -507,11 +507,11 @@ msgstr "Тамгалы сылтама төзү"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr "Озатырга"
+msgstr "Тапшырырга"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr "Архивка өстәү..."
+msgstr "Кысырга..."
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
@@ -523,11 +523,11 @@ msgstr "Монда тартып чыгару..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
-msgstr "_Төзәтү"
+msgstr "_Торгызу"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr "Файлларны чүп чиләгеннән тергезү"
+msgstr "Файлларны чүп чиләгеннән торгызу"
 
 #: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
@@ -639,15 +639,15 @@ msgstr "Чыганак һәм максат туры килә."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Каталогны үз эчендә булган каталогка күчереп булмый"
+msgstr "Каталогны үз эченә алган каталогына күчереп булмый"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Каталогны үз эчендә булган каталогка күчермә ясап булмый"
+msgstr "Каталогны үз эченә алган каталогына күчермә ясап булмый"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr "Килү ноктасы - чыганакның үз эчендәге каталог"
+msgstr "Килү ноктасы - чыганакның үз эченә алган каталог"
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
