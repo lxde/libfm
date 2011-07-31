@@ -1,5 +1,8 @@
 include $(top_srcdir)/Makefile.decl
 
+# for use in libtool -version-info
+ABI_VERSION=1:0:0
+
 # current dir needs to be built before tests
 SUBDIRS=. tests
 
@@ -210,6 +213,7 @@ libfm_la_LIBADD = \
 libfm_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
 	$(NULL)
 
 
@@ -239,6 +243,7 @@ libfm_gtk_la_LIBADD = \
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
 	$(NULL)
 
 bin_PROGRAMS = libfm-pref-apps
@@ -346,6 +351,7 @@ BUILT_SOURCES= \
 EXTRA_DIST += \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
+	gtk/exo/README \
 	demo/main-win-ui.c \
 	udisks/gen-binding \
 	udisks/udisks.h \

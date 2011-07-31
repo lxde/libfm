@@ -1,8 +1,10 @@
 洪任諭 (Hong Jen Yee, aka PCMan) <pcman.tw@gmail.com>
+Jürgen Hötzel <juergen@archlinux.org>
 
 External source code taken from other projects:
  * ExoIconView, ExoTreeView, along with the source code in src/exo:
-        os-cillation e.K, Anders Carlsson, & Benedikt Meurer
+        os-cillation e.K, Anders Carlsson, Jannis Pohlmann <jannis@xfce.org>
+        and Benedikt Meurer
  * Udisks support contains several lines of source code from
         gnome-disk-utility(gdu-volume.c):
         Copyright (C) 2007 David Zeuthen, licensed under GNU LGPL
