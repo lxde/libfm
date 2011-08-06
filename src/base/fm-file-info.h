@@ -36,7 +36,8 @@
 
 G_BEGIN_DECLS
 
-typedef enum
+/* Some flags are defined for future use and are not supported now */
+enum _FmFileInfoFlag
 {
     FM_FILE_INFO_NONE = 0,
     FM_FILE_INFO_HOME_DIR = (1 << 0),
@@ -45,7 +46,8 @@ typedef enum
     FM_FILE_INFO_MOUNT_POINT = (1 << 3),
     FM_FILE_INFO_REMOTE = (1 << 4),
     FM_FILE_INFO_VIRTUAL = (1 << 5)
-}FmFileInfoFlag;   /* For future use, not all supported now */
+};
+typedef enum _FmFileInfoFlag FmFileInfoFlag;
 
 typedef struct _FmFileInfo FmFileInfo;
 typedef FmList FmFileInfoList;
