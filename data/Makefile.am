@@ -27,6 +27,7 @@ EXTRA_DIST= \
 	$(libfmconf_DATA) \
 	$(mime_DATA) \
 	$(libfmdatafiles_DATA) \
+	$(desktop_in_files) \
 	$(desktop_DATA) \
 	$(NULL)
 

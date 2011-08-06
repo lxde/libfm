@@ -4,7 +4,7 @@
 AC_PREREQ([2.63])
 AC_INIT([libfm], [0.1.15], [http://libfm.sf.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-
+AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -38,6 +38,7 @@ fi
 # intltool
 IT_PROG_INTLTOOL([0.40.0])
 
+# modules required
 pkg_modules="gtk+-2.0 >= 2.16.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
@@ -79,6 +80,7 @@ if test "x$have_scheme_handler" = "xyes"; then
     AC_DEFINE_UNQUOTED(HAVE_SCHEME_HANDLER, [1], [Have x-scheme/uri handler support])
 fi
 
+#optional features
 
 AC_ARG_ENABLE(udisks,
     [AC_HELP_STRING([--enable-udisks],

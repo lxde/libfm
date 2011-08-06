@@ -7,6 +7,7 @@ SUBDIRS=src po data docs
 EXTRA_DIST += \
 	libfm.pc.in \
 	libfm-gtk.pc.in \
+	po/libfm.pot \
 	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig

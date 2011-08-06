@@ -1,5 +1,3 @@
-include $(top_srcdir)/Makefile.decl
-
 # for use in libtool -version-info
 ABI_VERSION=1:0:0
 
@@ -348,7 +346,7 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-EXTRA_DIST += \
+EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
 	gtk/exo/README \

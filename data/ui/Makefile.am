@@ -13,6 +13,7 @@ ui_in_files= \
 ui_DATA = $(ui_in_files:.glade=.ui)
 
 EXTRA_DIST = \
+	$(ui_in_files) \
 	$(ui_DATA) \
 	$(NULL)
 
