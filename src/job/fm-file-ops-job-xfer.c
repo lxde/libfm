@@ -166,8 +166,11 @@ _retry_query_src_info:
                         fm_file_ops_job_emit_percent(job);
                         job->skip_dir_content = TRUE;
                         ret = FALSE;
+                        dir_created = TRUE; /* pretend that dir creation succeeded */
                         break;
                     case FM_FILE_OP_OVERWRITE:
+                        ret = TRUE;
+                        dir_created = TRUE; /* pretend that dir creation succeeded */
                         break;
                     case FM_FILE_OP_CANCEL:
                         fm_job_cancel(FM_JOB(job));
@@ -182,6 +185,7 @@ _retry_query_src_info:
                     err = NULL;
                     if(act == FM_JOB_RETRY)
                         goto _retry_mkdir;
+                    ret = FALSE;
                 }
                 job->finished += size;
                 fm_file_ops_job_emit_percent(job);
@@ -204,10 +208,11 @@ _retry_query_src_info:
                             err = NULL;
                             if(act == FM_JOB_RETRY)
                                 goto _retry_chmod_for_dir;
+                            /* FIXME: some filesystems may not support this. */
                         }
-                        else
-                            dir_created = TRUE;
                     }
+                    dir_created = TRUE;
+                    ret = TRUE;
                 }
                 job->finished += size;
                 fm_file_ops_job_emit_percent(job);
@@ -215,6 +220,9 @@ _retry_query_src_info:
                 if(job->dest_folder_mon)
                     g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
             }
+
+            if(!dir_created) /* if target dir is not created, don't copy dir content */
+                job->skip_dir_content = TRUE;
 
             /* the dest dir is created. let's copy its content. */
             /* FIXME: handle the case when the dir cannot be created. */
@@ -274,13 +282,28 @@ _retry_query_src_info:
                                 g_error_free(err);
                                 err = NULL;
                                 /* FM_JOB_RETRY is not supported here */
+                                ret = FALSE;
                             }
                             else /* EOF is reached */
                             {
                                 /* all files are successfully copied. */
-                                if(!fm_job_is_cancelled(fmjob)
-                                    && (n_children == n_copied))
-                                    ret = TRUE;
+                                if(fm_job_is_cancelled(fmjob))
+                                    ret = FALSE;
+                                else
+                                {
+                                    if(dir_created) /* target dir is created */
+                                    {
+                                        /* some files are not copied */
+                                        if(n_children != n_copied)
+                                        {
+                                            /* if the copy actions are skipped deliberately, it's ok */
+                                            if(job->skip_dir_content)
+                                                ret = TRUE;
+                                        }
+                                    }
+                                    else
+                                        ret = FALSE;
+                                }
                                 break;
                             }
                         }
@@ -296,6 +319,10 @@ _retry_query_src_info:
                     if(act == FM_JOB_RETRY)
                         goto _retry_enum_children;
                 }
+            }
+            else /* the operation is cancelled */
+            {
+                ret = FALSE;
             }
             job->skip_dir_content = FALSE;
         }
@@ -411,7 +438,6 @@ _retry_query_src_info:
         fm_file_ops_job_emit_percent(job);
         break;
     }
-
     /* if this is a cross-device move operation, delete source files. */
     /* ret == TRUE means the copy is successful. */
     if( !fm_job_is_cancelled(fmjob) && ret && delete_src )
