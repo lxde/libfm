@@ -1,8 +1,8 @@
 /*
  *      exo-marshal.c
  *
- *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *
+ *      Written by Benedikt Meurer <benny@xfce.org>.
+ *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
  *      the Free Software Foundation; either version 2 of the License, or
@@ -18,6 +18,9 @@
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *      MA 02110-1301, USA.
  */
+
+/* Modified by Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ * on 2009-08-30 for use in libfm */
 
 #include	<glib-object.h>
 
