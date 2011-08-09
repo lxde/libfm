@@ -2,7 +2,7 @@ include $(top_srcdir)/Makefile.decl
 
 NULL=
 
-SUBDIRS=src po data docs
+SUBDIRS=src po data
 
 EXTRA_DIST += \
 	libfm.pc.in \
