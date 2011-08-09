@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-08-07 17:39+0200\n"
+"PO-Revision-Date: 2011-08-09 22:45+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -37,10 +37,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Спецыяльныя коды загаднага радка:</b>\n"
-"<b>%f</b>: Паказвае назву аднаго файла\n"
-"<b>%F</b>: Паказвае назвы некалькіх файлаў\n"
-"<b>%u</b>: Паказвае шлях аднаго файла\n"
-"<b>%U</b>: Паказвае шляхі некалькіх файлаў"
+"  <b>%f</b>: Паказвае назву аднаго файла\n"
+"  <b>%F</b>: Паказвае назвы некалькіх файлаў\n"
+"  <b>%u</b>: Паказвае шлях аднаго файла\n"
+"  <b>%U</b>: Паказвае шляхі некалькіх файлаў"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -102,7 +102,7 @@ msgstr "Пр_апусціць"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "з наступным файлам?"
+msgstr "наступным файлам?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -134,7 +134,7 @@ msgstr "<b>Месцазнаходжанне:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Адкрыць _з дапамогай:</b>"
+msgstr "<b>Адкрываць:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
@@ -355,7 +355,7 @@ msgstr "Сетка"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
@@ -526,7 +526,7 @@ msgstr "Распакаваць сюды"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "Распакаваць у ..."
+msgstr "Распакаваць у..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
@@ -598,11 +598,11 @@ msgstr "Жадаеце перамясціць абраныя файлы ў см�
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Жадаеце перамясціць абраныя файлы ?"
+msgstr "Жадаеце перамясціць абраныя файлы?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "Перайменаваць файл"
+msgstr "Перайменаванне файла"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
