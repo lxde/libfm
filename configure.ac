@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [0.1.16], [http://libfm.sf.net/])
+AC_INIT([libfm], [0.1.16.1], [http://pcmanfm.sorceforge.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
