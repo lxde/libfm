@@ -162,6 +162,24 @@ AC_CONFIG_FILES([
 
 AC_OUTPUT
 
+echo
+echo "Libfm $VERSION Configuration Summary:"
+echo
+echo "prefix:                                                 $prefix"
+echo "sysconfdir:                                             $sysconfdir"
+echo "Enable compiler flags and other support for debugging:  $enable_debug"
+echo "Build udisks support (Linux only, experimental):        $enable_udisks"
+echo "Build demo program src/demo/libfm-demo:                 $enable_demo"
+echo "Large file support:                                     $largefile"
+if test x"$have_scheme_handler" = x"no"; then
+echo "GIO module for preferred apps (for glib < 2.28 only):   $giomodulesdir";
+else
+echo "GIO module for preferred apps (for glib < 2.28 only):   not required";
+fi
+echo "Build API doc with gtk-doc (required for make dist):    $enable_gtk_doc"
+echo
+echo
+
 if test x"$sysconfdir" != x'/etc'; then
     echo
     echo
