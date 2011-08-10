@@ -90,7 +90,7 @@ msgstr "Nome file:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Sovrascivi"
+msgstr "_Sovrascrivi"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
