@@ -19,6 +19,7 @@
 
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
+#include "../gtk-compat.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 

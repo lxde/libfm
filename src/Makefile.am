@@ -18,6 +18,17 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
 
+glib_compat_SOURCES= \
+	glib-compat.c \
+	glib-compat.h \
+	$(NULL)
+
+gtk_compat_SOURCES= \
+	$(glib_compat_SOURCES) \
+	gtk-compat.c \
+	gtk-compat.h \
+	$(NULL)
+
 if ENABLE_UDISKS
 udisks_SOURCES= \
 	udisks/fm-udisks.c \
@@ -72,6 +83,7 @@ job_SOURCES = \
 
 libfm_SOURCES = \
 	fm.c \
+	$(glib_compat_SOURCES) \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
 	$(udisks_SOURCES) \
@@ -92,6 +104,7 @@ exo_SOURCES = \
 
 libfm_gtk_SOURCES = \
 	fm-gtk.c \
+	$(gtk_compat_SOURCES) \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
@@ -247,6 +260,7 @@ libfm_gtk_la_LDFLAGS = \
 bin_PROGRAMS = libfm-pref-apps
 
 libfm_pref_apps_SOURCES = \
+	$(gtk_compat_SOURCES) \
 	tools/libfm-pref-apps.c \
 	$(NULL)
 
@@ -269,6 +283,7 @@ libfm_pref_apps_LDADD = \
 if ENABLE_DEMO
 bin_PROGRAMS += libfm-demo
 libfm_demo_SOURCES = \
+	$(gtk_compat_SOURCES) \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \
 	$(NULL)
@@ -297,6 +312,7 @@ if !HAVE_SCHEME_HANDLER
 giomodules_LTLIBRARIES = libgiofm.la
 
 libgiofm_la_SOURCES= \
+	$(glib_compat_SOURCES) \
 	gio/module.c \
 	gio/fm-app-lookup.c \
 	gio/fm-app-lookup.h \
