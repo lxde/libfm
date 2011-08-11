@@ -156,6 +156,7 @@ AC_CONFIG_FILES([
     docs/Makefile
     docs/reference/Makefile
     docs/reference/libfm/Makefile
+    docs/reference/libfm/version.xml
     libfm.pc
     libfm-gtk.pc
 ])
