@@ -31,7 +31,7 @@ G_BEGIN_DECLS
     #define gdk_display_get_app_launch_context(dpy) gdk_app_launch_context_new()
 #endif
 
-#if !GTK_CHECK_VERSION(2, 20, 0)
+#if !GTK_CHECK_VERSION(2, 20, 1)
     #define GDK_KEY_Left    GDK_Left
     #define GDK_KEY_Right   GDK_Right
 #endif
