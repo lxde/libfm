@@ -19,8 +19,8 @@
  *      MA 02110-1301, USA.
  */
 
-#ifndef __GLIB_COMPAT_H__
-#define __GLIB_COMPAT_H__
+#ifndef __GTK_COMPAT_H__
+#define __GTK_COMPAT_H__
 #include <gtk/gtk.h>
 #include "glib-compat.h"
 
