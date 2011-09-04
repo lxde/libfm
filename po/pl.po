@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-07-11 12:59+0200\n"
+"PO-Revision-Date: 2011-09-04 22:20+0200\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
 "Language: pl\n"
@@ -122,11 +122,11 @@ msgstr "<b>Grupa:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Ostatni dostęp:</b>"
+msgstr "<b>Czas ostatniego dostępu:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Ostatnia modyfikacja:</b>"
+msgstr "<b>Czas modyfikacji:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
@@ -134,7 +134,7 @@ msgstr "<b>Położenie:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Otwierany za p_omocą:</b>"
+msgstr "<b>Otwieranie za p_omocą:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
@@ -166,7 +166,7 @@ msgstr "<b>_Właściciel:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Właściwości pliku"
+msgstr "Właściwości"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
@@ -566,7 +566,7 @@ msgstr "Rozmiar"
 
 #: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
-msgstr "Zmodyfikowany"
+msgstr "Czas modyfikacji"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
