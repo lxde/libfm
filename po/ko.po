@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-09-07 13:50+0200\n"
+"Last-Translator: Sanghyeon <sanxiyn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>그룹:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
@@ -129,11 +129,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>기타:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>소유자:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
@@ -149,11 +149,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>그룹(_G):</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>소유자(_O):</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
@@ -181,11 +181,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "읽기 및 쓰기"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "읽기 전용"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
@@ -193,7 +193,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "쓰기 전용"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "권한(_P)"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
