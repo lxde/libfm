@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-06-14 11:12+0200\n"
+"PO-Revision-Date: 2011-09-08 11:12+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
 "Language: nl (Dutch)\n"
@@ -42,11 +42,11 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Kies Een Toepassing"
+msgstr "Kies een toepassing"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Aangepaste Opdrachtregel"
+msgstr "Aangepaste opdrachtregel"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -54,7 +54,7 @@ msgstr "Uitvoeren in terminalvenster"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Geïnstalleerde Toepassing"
+msgstr "Geïnstalleerde toepassing"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
@@ -120,11 +120,11 @@ msgstr "<b>Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Laatste Toegang:</b>"
+msgstr "<b>Laatste toegang:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Laatste Aanpassing:</b>"
+msgstr "<b>Laatste aanpassing:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
@@ -144,7 +144,7 @@ msgstr "<b>Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>Grootte op Schijf:</b>"
+msgstr "<b>Grootte op schijf:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
@@ -152,7 +152,7 @@ msgstr "<b>Doel:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Totale Omvang van Bestanden:</b>"
+msgstr "<b>Totale omvang van bestanden:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
@@ -190,7 +190,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Lezen en Schrijven"
+msgstr "Lezen en schrijven"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
@@ -283,11 +283,11 @@ msgstr ""
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "Bestand Uitvoeren"
+msgstr "Bestand uitvoeren"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Uitvoeren in _Terminal"
+msgstr "Uitvoeren in _terminal"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
@@ -456,28 +456,28 @@ msgstr "Bestanden van verschillende types"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr "Meerdere Bestanden"
+msgstr "Meerdere bestanden"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr "Medium Aankoppelen"
+msgstr "Medium aankoppelen"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr "Medium Ontkoppelen"
+msgstr "Medium ontkoppelen"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr "Verwijderbare Media uitwerpen"
+msgstr "Verwijderbare media uitwerpen"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr "Hernoem Bladwijzerelement"
+msgstr "Hernoem bladwijzerelement"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
-msgstr "Verwijderen uit Bladwijzer"
+msgstr "Verwijderen uit bladwijzer"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
@@ -569,7 +569,7 @@ msgstr "Aangepast"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "Geïnstalleerde Toepassingen"
+msgstr "Geïnstalleerde toepassingen"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
@@ -601,7 +601,7 @@ msgstr "Wilt u de gekozen bestanden verwijderen?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "Bestand Hernoemen"
+msgstr "Bestand hernoemen"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
@@ -818,8 +818,8 @@ msgstr "Lege MRW/W-schijf"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "Lege Optische Schijf"
+msgstr "Lege optische schijf"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "Optische Schijf"
+msgstr "Optische schijf"
