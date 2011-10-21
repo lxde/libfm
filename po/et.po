@@ -3,28 +3,28 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-10-21 02:42+0200\n"
+"Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Käivitatav käsurida:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Avatav failitüüp:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -35,30 +35,35 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Need erikoodid on kasutatavad käsureal:</b>\n"
+"  <b>%f</b>: Väljendab üksikut failinime\n"
+"  <b>%F</b>: Väljendab mitut failinime\n"
+"  <b>%u</b>: Väljendab ühte faili URI-i\n"
+"  <b>%U</b>: Väljendab mitut URI-i"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr ""
+msgstr "Vali rakendus"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Omavalikuline käsurida"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Käivita terminalis"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr ""
+msgstr "Paigaldatud rakendus"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
+msgstr "Sea valitud rakendus vaikimisi tegevuseks selle failitüübi puhul"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr ""
+msgstr "_Sirvi"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -66,282 +71,287 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Sellise nimega fail on juba olemas.</b>\n"
+"\n"
+"Kas soovid olemasoleva faili üle kirjutada?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Rakenda sama toiming kõigile failidele"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Küsi failide asendamisel kinnitust"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Faili nimi:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Kirjuta üle"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr ""
+msgstr "_Nimeta ümber"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr ""
+msgstr "_Jäta vahele"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr ""
+msgstr "järgneva failiga?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Juurdepääsu kontroll</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Failitüüp:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr ""
+msgstr "<b>Grupp:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>Viimati loetud:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>Viimati muudetud:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Asukoht:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>Ava _teise rakendusega:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr ""
+msgstr "<b>Muu:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr ""
+msgstr "<b>Omanik:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>Suurus kettal:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Sihtkoht:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Failide kogusuurus:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Grupp:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>_Omanik:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr ""
+msgstr "Faili omadused"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr ""
+msgstr "Muuda fail käivitatavaks"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr ""
+msgstr "Ei midagi"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr ""
+msgstr "Kõigi kasutajate sooritatavad toimingud"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr ""
+msgstr "Faili omaniku sooritatavad toimingud"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
+msgstr "Faili omanikuga samas grupis olevate kasutajate toimingud"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr ""
+msgstr "Lugeda ja kirjutada"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr ""
+msgstr "Ainult lugeda"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr ""
+msgstr "Vali selle failitüübi avamiseks kasutatav programm "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr ""
+msgstr "Ainult kirjutada"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr ""
+msgstr "_Üldine"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr ""
+msgstr "Õi_gused"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Töötlemine:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Edenemine:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Mõned vead juhtusid:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Järgijäänud aeg:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Kuhu:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr ""
+msgstr "Valmistumine..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Meili programm</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Terminaliemulaator</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Veebilehitseja</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Käsurida:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Faili assotsiatsioon"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Eelistatud rakendused"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr ""
+msgstr "Süsteemsed rakendused"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Kui klõpsate e-maili aadressil, kasutatakse eelistatud meiliklienti kirja "
+"koostamiseks."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Eelistatud veebilehitsejat kasutatakse veebiviitade avamisel"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr ""
+msgstr "Käivita fail"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr ""
+msgstr "Käivita terminalis"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u bait"
+msgstr[1] "%u baiti"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:67
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:72
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:77
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:96
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:101
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:106
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr ""
+msgstr "Otseteed"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr ""
+msgstr "Haakepunkt"
 
 #: ../src/base/fm-path.c:729
 msgid "Trash Can"
-msgstr ""
+msgstr "Prügikast"
 
 #: ../src/base/fm-path.c:731
 msgid "My Computer"
-msgstr ""
+msgstr "Minu arvuti"
 
 #: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
-msgstr ""
+msgstr "Rakendused"
 
 #: ../src/base/fm-path.c:742
 msgid "Network"
-msgstr ""
+msgstr "Võrk"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
@@ -350,6 +360,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Tüüp: %s\n"
+"Suurus: %s\n"
+"Muudetud: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
@@ -357,22 +370,24 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Tüüp: %s\n"
+"Muudetud: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Failitoiming on tühistatud ja tekkis vigu."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
-msgstr ""
+msgstr "Tühistatud"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Failitoiming on lõpetatud, kuid tuli ette ka vigu"
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
-msgstr ""
+msgstr "Valmis"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
@@ -380,214 +395,218 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Mõningaid faile ei saanud prügikasti liigutada kuna nende failisüsteem ei "
+"võimalda seda toimingut.\n"
+"Kas sa soovid need hoopis kustutada?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
-msgstr ""
+msgstr "Failide ümbertõstmine"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
-msgstr ""
+msgstr "Failide kopeerimine"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
-msgstr ""
+msgstr "Failide saatmine prügikasti"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
-msgstr ""
+msgstr "Failide kustutamine"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Asukohaviitade loomine"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Failiomaduste muutmine"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "bait"
+msgstr[1] "baiti"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Palun sisesta kehtiv kasutajanimi või id number."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Palun sisesta kehtiv grupi nimetus või id number."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"Kas soovid rakendada need toimingud kõigile failidele ja alamkataloogidele?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr ""
+msgstr "Erinevat tüüpi failid"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr ""
+msgstr "Mitmed failid"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr ""
+msgstr "Haagi andmekandja"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Haagi andmekandja lahti"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Väljasta ird-andmekandja"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Muuda järjehoidja nime"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Eemalda järjehoidja"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
-msgstr ""
+msgstr "Tühjenda prügikast"
 
 #: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Sisesta uus nimi:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Asukohad"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Kataloogipuu"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Võrgus"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr ""
+msgstr "Ava rakendusega..."
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
-msgstr ""
+msgstr "Nimeta ümber"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
-msgstr ""
+msgstr "Loo nimeviit"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr ""
+msgstr "Saada"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr ""
+msgstr "Paki kokku..."
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
-msgstr ""
+msgstr "Paki lahti siia"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr ""
+msgstr "Paki lahti asukohta..."
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
-msgstr ""
+msgstr "_Taasta"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Liiguta fail prügikastist selle algsesse asukohta"
 
 #: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave ebaõnnestus."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Kasuta valitud rakendust failide avamiseks"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Kohandatud käskluse abil failide avamine"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Kohanda"
 
 #: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
-msgstr ""
+msgstr "Suurus"
 
 #: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
-msgstr ""
+msgstr "Muudetud"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Paigaldatud rakendused"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Kinnita"
 
 #: ../src/gtk/fm-gtk-utils.c:106
 msgid "Question"
-msgstr ""
+msgstr "Küsimus"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
-msgstr ""
+msgstr "Palun vali kaust"
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Vajab süsteemihaldaja kasutusõigusi."
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Kas soovid tõsta valitud failid prügikasti?"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Kas soovid valitud failid lõplikult kustutada?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr ""
+msgstr "Nimeta fail ümber"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Palun sisesta uus nimi:"
 
 #: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Kas kindlasti soovid prügikasti tühjendada?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
@@ -595,207 +614,209 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"See tekstifail '%s' näib olevat käivitatav skript.\n"
+"Mida soovid sellega teha?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "See fail '%s' on käivitatav. Kas soovid selle käivitada?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Alamkaustu pole>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
 msgid "Loading..."
-msgstr ""
+msgstr "Laadimine..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Määratud kataloog ei ole korrektne"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Lähte- ja sihtkoht on samad."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Kataloogi ei saa liigutada tema enda alamkausta"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Kataloogi ei saa kopeerida tema enda alamkausta"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Sihtkoht on lähtekataloogi alamkaust"
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
-msgstr ""
+msgstr "Prügikast"
 
 #: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
-msgstr ""
+msgstr "Töölaud"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD ketas"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "Tühi CD ketas"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R ketas"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "Tühi CD-R ketas"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "Tühi CD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM ketas"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "Tühi DVD-ROM ketas"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "Tühi DVD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM ketas"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "Tühi DVD-RAM ketas"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R ketas"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "Tühi DVD+R ketas"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "Tühi DVD+RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL ketas"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "Tühi DVD+R DL ketas"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL ketas"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "Tühi DVD+RW DL ketas"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray ketas"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Tühi Blu-Ray ketas"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R ketas"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Tühi Blu-Ray R ketas"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Tühi Blu-Ray RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "HD DVD ketas"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "Tühi HD DVD ketas"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R ketas"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "Tühi HD DVD-R ketas"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "Tühi HD DVD-RW ketas"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO ketas"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "Tühi MO ketas"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW ketas"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "Tühi MRW ketas"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W ketas"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "Tühi MRW/W ketas"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Tühi optiline ketas"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Optiline ketas"
