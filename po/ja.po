@@ -484,15 +484,15 @@ msgstr "新しい名前を入力してください:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "場所"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "ディレクトリツリー"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "リモート"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -572,12 +572,11 @@ msgstr "エラー"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "説明"
+msgstr "質問"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -623,12 +622,11 @@ msgstr "このファイル '%s' は実行可能ファイルです。実行しま
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<サブフォルダはありません>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "準備中..."
+msgstr "読み込み中..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337

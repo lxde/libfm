@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-10-21 02:42+0200\n"
-"Last-Translator: Anari <anari.jalakas@gmail.com>\n"
+"PO-Revision-Date: 2011-10-24 03:10+0200\n"
+"Last-Translator: veeall <marek.allvee@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
@@ -222,11 +222,11 @@ msgstr "<b>Edenemine:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Mõned vead juhtusid:</b>"
+msgstr "<b>Tekkinud vead:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Järgijäänud aeg:</b>"
+msgstr "<b>Järelejäänud aeg:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -375,7 +375,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "Failitoiming on tühistatud ja tekkis vigu."
+msgstr "Failitoiming on tühistatud, tekkisid mõned vead."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
@@ -421,7 +421,7 @@ msgstr "Failide kustutamine"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "Asukohaviitade loomine"
+msgstr "Nimeviitade loomine"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
