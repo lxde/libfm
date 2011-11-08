@@ -11,6 +11,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC
 AM_PROG_LIBTOOL
 
+# Vala
+AM_PROG_VALAC([0.13.0])
+
 # Checks for libraries.
 
 # Checks for header files.
@@ -149,6 +152,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    src/actions/Makefile
     src/tests/Makefile
     data/Makefile
     data/ui/Makefile

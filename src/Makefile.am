@@ -1,14 +1,19 @@
 # for use in libtool -version-info
 ABI_VERSION=1:0:0
 
-# current dir needs to be built before tests
-SUBDIRS=. tests
-
 NULL=
+
+# current dir needs to be built before tests
+SUBDIRS= \
+	actions \
+	. \
+	tests \
+	$(NULL)
 
 AM_CPPFLAGS = \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
+	-I$(srcdir)/actions \
 	-I$(srcdir)/job \
 	-I$(srcdir)/gtk \
 	-I$(srcdir)/demo \
@@ -219,6 +224,7 @@ libfm_la_LIBADD = \
 	$(MENU_CACHE_LIBS) \
 	$(DBUS_LIBS) \
 	$(INTLLIBS) \
+	$(srcdir)/actions/libfmactions.la \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
@@ -362,6 +368,11 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
+# Vala vapi files
+VAPI_FILES = \
+	vapi/libfm.vapi \
+	$(NULL)
+
 EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
@@ -370,6 +381,7 @@ EXTRA_DIST = \
 	udisks/gen-binding \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
+	$(VAPI_FILES) \
 	$(NULL)
 
 CLEANFILES = \

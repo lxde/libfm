@@ -5,6 +5,7 @@ NULL=
 AM_CPPFLAGS = \
 	-I../ \
 	-I../base \
+	-I../actions \
 	-I../job \
 	-I../gtk \
 	$(GIO_CFLAGS) \
