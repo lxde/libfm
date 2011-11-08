@@ -171,7 +171,7 @@ public class FileActionMenu : FileActionObject {
 				// runtime dynamic item list
 				string output;
 				int exit_status;
-				var command = file_action_expand_parameters(item_id_prefix[1:-1], files);
+				var command = FileActionParameters.expand(item_id_prefix[1:-1], files);
 				if(Process.spawn_command_line_sync(command, out output, null, out exit_status)
 					&& exit_status == 0) {
 					string[] item_ids = output.split(";");
@@ -244,9 +244,9 @@ public class FileActionItem {
 
 	private FileActionItem(FileActionObject action, List<FileInfo> files) {
 		this.action = action;
-		name = file_action_expand_parameters(action.name, files, true);
-		desc = file_action_expand_parameters(action.desc, files, true);
-		icon = file_action_expand_parameters(action.icon, files, false);
+		name = FileActionParameters.expand(action.name, files, true);
+		desc = FileActionParameters.expand(action.desc, files, true);
+		icon = FileActionParameters.expand(action.icon, files, false);
 	}
 
 	public unowned string? get_name() {

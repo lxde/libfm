@@ -163,31 +163,64 @@ public class FileActionCondition {
 
 		if(try_exec != null) {
 			var exec_path = Environment.find_program_in_path(
-					file_action_expand_parameters(try_exec, files));
+					FileActionParameters.expand(try_exec, files));
 			if(!FileUtils.test(exec_path, FileTest.IS_EXECUTABLE)) {
 				return false;
 			}
 		}
 
 		if(show_if_registered != null) {
-			var service = file_action_expand_parameters(show_if_registered, files);
-			// TODO, check if the dbus service is registered
-			return false;  // we do not support this now
+			var service = FileActionParameters.expand(show_if_registered, files);
+			// References:
+			// http://people.freedesktop.org/~david/eggdbus-20091014/eggdbus-interface-org.freedesktop.DBus.html#eggdbus-method-org.freedesktop.DBus.NameHasOwner
+			// glib source code: gio/tests/gdbus-names.c
+			try {
+				var con = Bus.get_sync(BusType.SESSION);
+				var result = con.call_sync("org.freedesktop.DBus",
+											"/org/freedesktop/DBus",
+											"org.freedesktop.DBus",
+											"NameHasOwner",
+											new Variant("(s)", service),
+											new VariantType("(b)"),
+											DBusCallFlags.NONE, -1);
+				bool name_has_owner;
+				result.get("(b)", out name_has_owner);
+				// stdout.printf("check if service: %s is in use: %d\n", service, (int)name_has_owner);
+				if(!name_has_owner)
+					return false;
+			}
+			catch(IOError err) {
+				return false;
+			}
 		}
 
 		if(show_if_true != null) {
-			var cmd = file_action_expand_parameters(show_if_true, files);
+			var cmd = FileActionParameters.expand(show_if_true, files);
 			int exit_status;
-			// FIXME: should we pass the command to sh instead?
-			if(!Process.spawn_command_line_sync(cmd, null, null, out exit_status)
-				|| exit_status != 0)
+			// FIXME: Process.spawn cannot handle shell commands. Use Posix.system() instead.
+			//if(!Process.spawn_command_line_sync(cmd, null, null, out exit_status)
+			//	|| exit_status != 0)
+			//	return false;
+			exit_status = Posix.system(cmd);
+			if(exit_status != 0)
 				return false;
 		}
 
 		if(show_if_running != null) {
-			var process_name = file_action_expand_parameters(show_if_running, files);
-			// FIXME: how to check if a process is running?
-			return false;  // we do not support this now
+			var process_name = FileActionParameters.expand(show_if_running, files);
+			var pgrep = Environment.find_program_in_path("pgrep");
+			bool running = false;
+			// pgrep is not fully portable, but we don't have better options here
+			if(pgrep != null) {
+				int exit_status;
+				if(Process.spawn_command_line_sync(@"$pgrep -x '$process_name'", 
+												null, null, out exit_status)) {
+					if(exit_status == 0)
+						running = true;
+				}
+			}
+			if(!running)
+				return false;
 		}
 
 		if(mime_types != null) {

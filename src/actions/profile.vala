@@ -57,7 +57,7 @@ public class FileActionProfile {
 	}
 
 	public bool launch(AppLaunchContext ctx, List<FileInfo> files, out string? output) {
-		var exec = file_action_expand_parameters(exec, files);
+		var exec = FileActionParameters.expand(exec, files);
 		bool ret = false;
 		if(exec_mode == FileActionExecMode.DISPLAY_OUTPUT) {
 			int exit_status;

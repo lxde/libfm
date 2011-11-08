@@ -20,8 +20,10 @@
 //      
 
 namespace Fm {
+	
+namespace FileActionParameters {
 
-public string? file_action_expand_parameters(string? templ, List<FileInfo> files, bool for_display = false) {
+public string? expand(string? templ, List<FileInfo> files, bool for_display = false) {
 	if(templ == null)
 		return null;
 	var result = new StringBuilder();
@@ -95,7 +97,7 @@ public string? file_action_expand_parameters(string? templ, List<FileInfo> files
 				break;
 			case 'p':	// port number of the (first) URI
 				// FIXME: how to support this correctly?
-				result.append("0");
+				// result.append("0");
 				break;
 			case 's':	// scheme of the (first) URI
 				// FIXME: how to support this correctly?
@@ -169,4 +171,45 @@ public string? file_action_expand_parameters(string? templ, List<FileInfo> files
 	return (owned) result.str;
 }
 
+public bool is_plural(string? exec) {
+	if(exec == null)
+		return false;
+	var result = new StringBuilder();
+	var len = exec.length;
+	// the first relevent code encountered in Exec parameter
+	// determines whether the command accepts singular or plural forms
+	for(var i = 0; i < len; ++i) {
+		var ch = exec[i];
+		if(ch == '%') {
+			++i;
+			ch = exec[i];
+			switch(ch) {
+			case 'B':
+			case 'D':
+			case 'F':
+			case 'M':
+			case 'O':
+			case 'U':
+			case 'W':
+			case 'X':
+				return true;	// plural
+			case 'b':
+			case 'd':
+			case 'f':
+			case 'm':
+			case 'o':
+			case 'u':
+			case 'w':
+			case 'x':
+				return false;	// singular
+			default:
+				// irrelevent code, skip
+				break;
+			}
+		}
+	}
+	return false; // singular form by default
 }
+
+} // namespace FileActionParameter
+} // namespace Fm
