@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [0.1.17], [http://pcmanfm.sorceforge.net/])
+AC_INIT([libfm], [0.1.99], [http://pcmanfm.sorceforge.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
@@ -47,12 +47,12 @@ PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-glib_modules="glib-2.0 >= 2.18.0 gobject-2.0 >= 2.24.0"
+glib_modules="glib-2.0 >= 2.24.0 gobject-2.0 >= 2.26.0"
 PKG_CHECK_MODULES(GLIB, [$glib_modules])
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
-gio_modules="gthread-2.0 gio-unix-2.0 >= 2.24.0 glib-2.0 >= 2.24.0 gobject-2.0"
+gio_modules="gthread-2.0 gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0 gobject-2.0"
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
