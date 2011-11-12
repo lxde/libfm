@@ -153,8 +153,18 @@ static void on_custom_action(GtkAction* act, FmFileMenu* data)
 static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionItem* item)
 {
 	GtkAction* act;
-	if(!(fm_file_action_item_get_target(item) & FM_FILE_ACTION_TARGET_CONTEXT))
+	if(!item) /* separator */
+	{
+		g_string_append(xml, "<separator/>");
 		return;
+	}
+
+	if(fm_file_action_item_is_action(item))
+	{
+		if(!(fm_file_action_item_get_target(item) & FM_FILE_ACTION_TARGET_CONTEXT))
+			return;
+	}
+
 	act = gtk_action_new(fm_file_action_item_get_id(item),
 						fm_file_action_item_get_name(item),
 						fm_file_action_item_get_desc(item),

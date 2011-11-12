@@ -33,11 +33,13 @@ public class FileActionProfile {
 
 	public FileActionProfile(KeyFile kf, string profile_name) {
 		id = profile_name;
-		name = Utils.key_file_get_string(kf, profile_name, "Name");
-		exec = Utils.key_file_get_string(kf, profile_name, "Exec");
+		string group_name = @"X-Action-Profile $profile_name";
+		name = Utils.key_file_get_string(kf, group_name, "Name");
+		exec = Utils.key_file_get_string(kf, group_name, "Exec");
+		// stdout.printf("id: %s, Exec: %s\n", id, exec);
 
-		path = Utils.key_file_get_string(kf, profile_name, "Path");
-		var s = Utils.key_file_get_string(kf, profile_name, "ExecutionMode");
+		path = Utils.key_file_get_string(kf, group_name, "Path");
+		var s = Utils.key_file_get_string(kf, group_name, "ExecutionMode");
 		if(s == "Normal")
 			exec_mode = FileActionExecMode.NORMAL;
 		else if( s == "Terminal")
@@ -49,22 +51,29 @@ public class FileActionProfile {
 		else
 			exec_mode = FileActionExecMode.NORMAL;
 
-		startup_notify = Utils.key_file_get_bool(kf, profile_name, "StartupNotify");
-		startup_wm_class = Utils.key_file_get_string(kf, profile_name, "StartupWMClass");
-		exec_as = Utils.key_file_get_string(kf, profile_name, "ExecuteAs");
-		
-		condition = new FileActionCondition(kf, profile_name);
+		startup_notify = Utils.key_file_get_bool(kf, group_name, "StartupNotify");
+		startup_wm_class = Utils.key_file_get_string(kf, group_name, "StartupWMClass");
+		exec_as = Utils.key_file_get_string(kf, group_name, "ExecuteAs");
+
+		condition = new FileActionCondition(kf, group_name);
 	}
 
-	public bool launch(AppLaunchContext ctx, List<FileInfo> files, out string? output) {
-		var exec = FileActionParameters.expand(exec, files);
+	private bool launch_once(AppLaunchContext ctx, FileInfo? first_file, List<FileInfo> files, out string? output) {
+		if(exec == null)
+			return false;
+		var exec_cmd = FileActionParameters.expand(exec, files, false, first_file);
+		stdout.printf("Profile: %s\nlaunch command: %s\n\n", id, exec_cmd);
 		bool ret = false;
 		if(exec_mode == FileActionExecMode.DISPLAY_OUTPUT) {
-			int exit_status;
-			ret = Process.spawn_command_line_sync(exec, out output, 
-												   null, out exit_status);
-			if(ret)
-				ret = (exit_status == 0);
+			try{
+				int exit_status;
+				ret = Process.spawn_command_line_sync(exec_cmd, out output, 
+													   null, out exit_status);
+				if(ret)
+					ret = (exit_status == 0);
+			}
+			catch(SpawnError err) {
+			}
 		}
 		else {
 			/*
@@ -87,12 +96,43 @@ public class FileActionProfile {
 			// Maybe we should leave all %% alone and don't translate
 			// them to %. Then GAppInfo will translate them to %, not
 			// codes specified in DES.
-			ret = Process.spawn_command_line_async(exec);
+			try {
+				ret = Process.spawn_command_line_async(exec_cmd);
+			}
+			catch(SpawnError err) {
+			}
+		}
+		return ret;
+	}
+
+	public bool launch(AppLaunchContext ctx, List<FileInfo> files, out string? output) {
+		bool plural_form = FileActionParameters.is_plural(exec);
+		bool ret;
+		if(plural_form) { // plural form command, handle all files at a time
+			ret = launch_once(ctx, files.first().data, files, out output);
+		}
+		else { // singular form command, run once for each file
+			StringBuilder all_output = null;
+			if(output != null)
+				all_output = new StringBuilder();
+			foreach(unowned FileInfo fi in files) {
+				string one_output;
+				launch_once(ctx, fi, files, out one_output);
+				if(all_output != null && one_output != null) {
+					// FIXME: how to handle multiple output strings properly?
+					all_output.append(one_output); // is it ok to join them all?
+					all_output.append("\n");
+				}
+			}
+			if(all_output != null && output != null)
+				output = (owned) all_output.str;
+			ret = true;
 		}
 		return ret;
 	}
 
 	public bool match(List<FileInfo> files) {
+		stdout.printf("  match profile: %s\n", id);
 		return condition.match(files);
 	}
 

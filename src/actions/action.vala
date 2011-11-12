@@ -96,16 +96,13 @@ public class FileAction : FileActionObject {
 			target |= FileActionTarget.LOCATION;
 		if(Utils.key_file_get_bool(kf, "Desktop Entry", "TargetToolbar"))
 			target |= FileActionTarget.TOOLBAR;
-
 		toolbar_label = Utils.key_file_get_locale_string(kf, "Desktop Entry", "ToolbarLabel");
 
 		string[] profile_names = Utils.key_file_get_string_list(kf, "Desktop Entry", "Profiles");
 		if(profile_names != null) {
 			foreach(string profile_name in profile_names) {
 				// stdout.printf("%s", profile);
-				string group = @"X-Action-Profile $profile_name";
-				stdout.printf("load profile: %s\n", group);
-				profiles.prepend(new FileActionProfile(kf, group));
+				profiles.prepend(new FileActionProfile(kf, profile_name));
 			}
 			profiles.reverse();
 		}
@@ -113,6 +110,7 @@ public class FileAction : FileActionObject {
 
 	public bool match(List<FileInfo> files, out unowned FileActionProfile matched_profile) {
 		matched_profile = null;
+		// stdout.printf("FileAction.match: %s\n", id);
 		if(hidden || !enabled)
 			return false;
 
@@ -121,9 +119,11 @@ public class FileAction : FileActionObject {
 		foreach(unowned FileActionProfile profile in profiles) {
 			if(profile.match(files)) {
 				matched_profile = profile;
+				// stdout.printf("  profile matched!\n\n");
 				return true;
 			}
 		}
+		// stdout.printf("\n");
 		return false;
 	}
 
@@ -157,10 +157,12 @@ public class FileActionMenu : FileActionObject {
 	}
 
 	public bool match(List<FileInfo> files) {
+		// stdout.printf("FileActionMenu.match: %s\n", id);
 		if(hidden || !enabled)
 			return false;
 		if(!condition.match(files))
 			return false;
+		// stdout.printf("menu matched!: %s\n\n", id);
 		return true;
 	}
 
@@ -188,7 +190,7 @@ public class FileActionMenu : FileActionObject {
 				if(child_action != null) {
 					child_action.has_parent = true;
 					cached_children.append(child_action);
-					stdout.printf("add child: %s to menu: %s\n", item_id, id);
+					// stdout.printf("add child: %s to menu: %s\n", item_id, id);
 				}
 			}
 		}
@@ -206,10 +208,8 @@ public class FileActionItem {
 		FileActionItem item = null;
 		if(action_obj.type == FileActionType.MENU) {
 			var menu = (FileActionMenu)action_obj;
-			stdout.printf("match condition for menu %s\n", menu.id);
 			if(menu.match(files)) {
 				item = new FileActionItem.from_menu(menu, files);
-				stdout.printf("condition matched for menu: %s\n", menu.id);
 				// eliminate empty menus
 				if(item.children == null)
 					item = null;
@@ -219,10 +219,8 @@ public class FileActionItem {
 			// handle profiles here
 			var action = (FileAction)action_obj;
 			unowned FileActionProfile profile;
-			stdout.printf("match condition for action %s\n", action.id);
 			if(action.match(files, out profile)) {
 				item = new FileActionItem.from_action(action, profile, files);
-				stdout.printf("condition matched for action: %s\n", action.id);
 			}
 		}
 		return item;
@@ -236,9 +234,14 @@ public class FileActionItem {
 	public FileActionItem.from_menu(FileActionMenu menu, List<FileInfo> files) {
 		this(menu, files);
 		foreach(FileActionObject action_obj in menu.cached_children) {
-			FileActionItem subitem = new_for_action_object(action_obj, files);
-			if(subitem != null)
-				children.append(subitem);
+			if(action_obj == null) { // separator
+				children.append(null);
+			}
+			else { // action item or menu
+				FileActionItem subitem = new_for_action_object(action_obj, files);
+				if(subitem != null)
+					children.append(subitem);
+			}
 		}
 	}
 
@@ -306,7 +309,7 @@ public class FileActionItem {
 
 private void load_actions_from_dir(string dirname, string? id_prefix) {
 	try {
-		stdout.printf("loading from: %s\n", dirname);
+		// stdout.printf("loading from: %s\n", dirname);
 		var dir = Dir.open(dirname);
 		if(dir != null) {
 			weak string? name;
@@ -317,7 +320,7 @@ private void load_actions_from_dir(string dirname, string? id_prefix) {
 					break;
 				// found a file in file-manager/actions dir, get its full path
 				var full_path = GLib.Path.build_filename(dirname, name);
-				stdout.printf("\nfound %s\n", full_path);
+				// stdout.printf("\nfound %s\n", full_path);
 
 				// see if it's a sub dir
 				if(FileUtils.test(full_path, FileTest.IS_DIR)) {
@@ -333,22 +336,22 @@ private void load_actions_from_dir(string dirname, string? id_prefix) {
 							FileActionObject action = null;
 							if(type == null || type == "Action") {
 								action = new FileAction.from_keyfile(kf);
-								stdout.printf("load action: %s\n", id);
+								// stdout.printf("load action: %s\n", id);
 							}
 							else if(type == "Menu") {
 								action = new FileActionMenu.from_keyfile(kf);
-								stdout.printf("load menu: %s\n", id);
+								// stdout.printf("load menu: %s\n", id);
 							}
 							else {
 								continue;
 							}
 							action.id = id;
 							all_actions.insert(id, action); // add the id/action pair to hash table
-							stdout.printf("add to cache %s\n", id);
+							// stdout.printf("add to cache %s\n", id);
 						}
 					}
 					else {
-						stdout.printf("cache found for action: %s\n", id);
+						// stdout.printf("cache found for action: %s\n", id);
 					}
 				}
 			}
@@ -369,10 +372,10 @@ public List<FileActionItem>? get_actions_for_files(List<Fm.FileInfo> files) {
 	var action_it = HashTableIter<string, FileActionObject>(all_actions);
 	FileActionObject action_obj = null;
 	while(action_it.next(null, out action_obj)) {
-		stdout.printf("id = %s\n", action_obj.id);
+		// stdout.printf("id = %s\n", action_obj.id);
 		if(action_obj.type == FileActionType.MENU) { // this is a menu
 			FileActionMenu menu = (FileActionMenu)action_obj;
-			stdout.printf("menu: %s\n", menu.name);
+			// stdout.printf("menu: %s\n", menu.name);
 			// associate child items with menus
 			menu.cache_children(files, menu.items_list);
 		}

@@ -23,11 +23,15 @@ namespace Fm {
 	
 namespace FileActionParameters {
 
-public string? expand(string? templ, List<FileInfo> files, bool for_display = false) {
+public string? expand(string? templ, List<FileInfo> files, bool for_display = false, FileInfo? first_file = null) {
 	if(templ == null)
 		return null;
 	var result = new StringBuilder();
 	var len = templ.length;
+
+	if(first_file == null)
+		first_file = files.first().data;
+
 	for(var i = 0; i < len; ++i) {
 		var ch = templ[i];
 		if(ch == '%') {
@@ -35,43 +39,61 @@ public string? expand(string? templ, List<FileInfo> files, bool for_display = fa
 			ch = templ[i];
 			switch(ch) {
 			case 'b':	// (first) basename
-				unowned FileInfo fi = files.first().data;
-				result.append(for_display ? fi.get_name() : Shell.quote(fi.get_name()));
+				if(for_display)
+					result.append(Filename.display_name(first_file.get_name()));
+				else
+					result.append(Shell.quote(first_file.get_name()));
 				break;
 			case 'B':	// space-separated list of basenames
 				foreach(unowned FileInfo fi in files) {
-					result.append(for_display ? fi.get_name() : Shell.quote(fi.get_name()));
+					if(for_display)
+						result.append(Shell.quote(Filename.display_name(fi.get_name())));
+					else
+						result.append(Shell.quote(fi.get_name()));
 					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case 'c':	// count of selected items
 				result.append_printf("%u", files.length());
 				break;
 			case 'd':	// (first) base directory
 				// FIXME: should the base dir be a URI?
-				unowned FileInfo fi = files.first().data;
-				unowned Fm.Path base_dir = fi.get_path().get_parent();
+				unowned Fm.Path base_dir = first_file.get_path().get_parent();
 				var str = base_dir.to_str();
-				result.append(for_display ? Shell.quote(str) : str);
+				if(for_display)
+					str = Filename.display_name(str);
+				result.append(Shell.quote(str));
 				break;
 			case 'D':	// space-separated list of base directory of each selected items
 				foreach(unowned FileInfo fi in files) {
 					unowned Fm.Path base_dir = fi.get_path().get_parent();
 					var str = base_dir.to_str();
-					result.append(for_display ? Shell.quote(str) : str);
+					if(for_display)
+						str = Filename.display_name(str);
+					result.append(Shell.quote(str));
 					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case 'f':	// (first) file name
-				// FIXME: UTF-8 encoding?
-				unowned FileInfo fi = files.first().data;
-				result.append(Shell.quote(fi.get_path().to_str()));
+				var filename = first_file.get_path().to_str();
+				if(for_display)
+					filename = Filename.display_name(filename);
+				result.append(Shell.quote(filename));
 				break;
 			case 'F':	// space-separated list of selected file names
 				foreach(unowned FileInfo fi in files) {
-					result.append(Shell.quote(fi.get_path().to_str()));
+					var filename = fi.get_path().to_str();
+					if(for_display)
+						filename = Filename.display_name(filename);
+					result.append(Shell.quote(filename));
 					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case 'h':	// hostname of the (first) URI
 				// FIXME: how to support this correctly?
@@ -100,30 +122,28 @@ public string? expand(string? templ, List<FileInfo> files, bool for_display = fa
 				// result.append("0");
 				break;
 			case 's':	// scheme of the (first) URI
-				// FIXME: how to support this correctly?
-				unowned FileInfo fi = files.first().data;
-				var uri = fi.get_path().to_uri();
+				var uri = first_file.get_path().to_uri();
 				result.append(Uri.parse_scheme(uri));
 				break;
 			case 'u':	// (first) URI
-				unowned FileInfo fi = files.first().data;
-				result.append(fi.get_path().to_uri());
+				result.append(first_file.get_path().to_uri());
 				break;
 			case 'U':	// space-separated list of selected URIs
 				foreach(unowned FileInfo fi in files) {
 					result.append(fi.get_path().to_uri());
 					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case 'w':	// (first) basename without the extension
-				unowned FileInfo fi = files.first().data;
-				unowned string basename = fi.get_name();
+				unowned string basename = first_file.get_name();
 				int pos = basename.last_index_of_char('.');
-				// FIXME: for_display ? Shell.quote(str) : str);
+				// FIXME: handle non-UTF8 filenames
 				if(pos == -1)
-					result.append(basename);
+					result.append(Shell.quote(basename));
 				else {
-					result.append_len(basename, pos);
+					result.append(Shell.quote(basename[0:pos]));
 				}
 				break;
 			case 'W':	// space-separated list of basenames without their extension
@@ -132,30 +152,39 @@ public string? expand(string? templ, List<FileInfo> files, bool for_display = fa
 					int pos = basename.last_index_of_char('.');
 					// FIXME: for_display ? Shell.quote(str) : str);
 					if(pos == -1)
-						result.append(basename);
+						result.append(Shell.quote(basename));
 					else {
-						result.append_len(basename, pos);
+						result.append(Shell.quote(basename[0:pos]));
 					}
 					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case 'x':	// (first) extension
-				unowned FileInfo fi = files.first().data;
-				unowned string basename = fi.get_name();
+				unowned string basename = first_file.get_name();
 				int pos = basename.last_index_of_char('.');
-				if(pos >= 0) {
-					result.append(basename.substring(pos + 1));
-				}
+				unowned string ext;
+				if(pos >= 0)
+					ext = (string)((uint8*)basename + pos + 1);
+				else
+					ext = "";
+				result.append(Shell.quote(ext));
 				break;
 			case 'X':	// space-separated list of extensions
 				foreach(unowned FileInfo fi in files) {
 					unowned string basename = fi.get_name();
 					int pos = basename.last_index_of_char('.');
-					if(pos >= 0) {
-						result.append(basename.substring(pos + 1));
-						result.append_c(' ');
-					}
+					unowned string ext;
+					if(pos >= 0)
+						ext = (string)((uint8*)basename + pos + 1);
+					else
+						ext = "";
+					result.append(Shell.quote(ext));
+					result.append_c(' ');
 				}
+				if(result.str[result.len-1] == ' ') // remove trailing space
+					result.truncate(result.len-1);
 				break;
 			case '%':	// the % character
 				result.append_c('%');
