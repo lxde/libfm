@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-06-14 11:05+0200\n"
+"PO-Revision-Date: 2011-11-22 14:48+0200\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -61,8 +61,7 @@ msgstr "Aplicação instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr ""
-"Definir a aplicação selecionada como omissa para este tipo de ficheiros"
+msgstr "Definir a aplicação selecionada como padrão para este tipo de ficheiros"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
