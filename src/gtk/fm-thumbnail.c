@@ -851,6 +851,9 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
         GdkPixbuf* ori_pix;
         gssize len;
         ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
+        g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
+        g_object_unref(ins);
+
         if(ori_pix) /* if the original image is successfully loaded */
         {
             const char* orientation_str = gdk_pixbuf_get_option(ori_pix, "orientation");
@@ -909,7 +912,6 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
             }
             g_object_unref(ori_pix);
         }
-        g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
     }
 
     G_LOCK(queue);
