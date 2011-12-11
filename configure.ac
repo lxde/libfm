@@ -103,6 +103,24 @@ if test x"$enable_udisks" = x"yes"; then
     AC_SUBST(DBUS_LIBS)
 fi
 
+AC_ARG_ENABLE([exif],
+    AS_HELP_STRING([--disable-exif],
+        [disable libexif which is used for faster thumbnail loading.]),
+    [enable_exif="${enableval}"],
+    [enable_exif=yes]
+)
+AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" != x"no")
+AS_IF([test x"$enable_exif" != x"no"], [
+    # turn on libexif support
+    AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif])
+
+    # test for availability of libexif
+    exif_modules="libexif"
+    PKG_CHECK_MODULES(EXIF, [$exif_modules])
+    AC_SUBST(EXIF_CFLAGS)
+    AC_SUBST(EXIF_LIBS)
+])
+
 #check for gtk-doc
 GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
 
@@ -174,6 +192,7 @@ echo "prefix:                                                 $prefix"
 echo "sysconfdir:                                             $sysconfdir"
 echo "Enable compiler flags and other support for debugging:  $enable_debug"
 echo "Build udisks support (Linux only, experimental):        $enable_udisks"
+echo "Build with libexif for faster thumbnail loading:        $enable_exif"
 echo "Build demo program src/demo/libfm-demo:                 $enable_demo"
 echo "Large file support:                                     $largefile"
 if test x"$have_scheme_handler" = x"no"; then

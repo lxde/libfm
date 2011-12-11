@@ -243,6 +243,7 @@ libfm_gtk_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
+	$(EXIF_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
@@ -253,6 +254,7 @@ libfm_gtk_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	$(NULL)

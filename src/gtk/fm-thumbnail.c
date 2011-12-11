@@ -33,6 +33,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#ifdef USE_EXIF
+#include <libexif/exif-loader.h>
+#endif
+
 /* FIXME: this function prototype seems to be missing in header files of GdkPixbuf. Bug report to them. */
 gboolean gdk_pixbuf_set_option(GdkPixbuf *pixbuf, const gchar *key, const gchar *value);
 
@@ -849,9 +853,44 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 
     if( ins = g_file_read(gf, generator_cancellable, NULL) )
     {
-        GdkPixbuf* ori_pix;
+        GdkPixbuf* ori_pix = NULL;
         gssize len;
+#ifdef USE_EXIF
+		/* use libexif to extract thumbnails embedded in jpeg files */
+        const FmMimeType* mime_type = task->fi->type;
+        if(strcmp(mime_type->type, "image/jpeg") == 0) /* if this is a jpeg file */
+        {
+			/* try to extract thumbnails embedded in jpeg files */
+			ExifLoader *exif_loader = exif_loader_new();
+			ExifData *exif_data;
+			while(!g_cancellable_is_cancelled(generator_cancellable)) {
+				char buf[4096];
+				gssize read_size = g_input_stream_read(ins, buf, 4096, generator_cancellable, NULL);
+				if(read_size == 0) /* EOF */
+					break;
+				if(exif_loader_write(exif_loader, buf, read_size) == 0)
+					break; /* no more EXIF data */
+			}
+			exif_data = exif_loader_get_data(exif_loader);
+			exif_loader_unref(exif_loader);
+			if(exif_data)
+			{
+				if(exif_data->data) /* if an embedded thumbnail is available */
+				{
+					/* load the embedded jpeg thumbnail */
+					GInputStream* mem_stream = g_memory_input_stream_new_from_data(exif_data->data, exif_data->size, NULL);
+					ori_pix = gdk_pixbuf_new_from_stream(mem_stream, generator_cancellable, NULL);
+					/* FIXME: how to apply orientation tag for this? maybe use libexif? */
+					g_object_unref(mem_stream);
+				}
+				exif_data_unref(exif_data);
+			}
+		}
+		if(!ori_pix)
+			ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
+#else
         ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
+#endif
         g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
         g_object_unref(ins);
 
