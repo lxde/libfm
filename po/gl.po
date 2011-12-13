@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-06-14 11:31+0200\n"
+"PO-Revision-Date: 2011-12-13 23:57+0200\n"
 "Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -61,7 +61,7 @@ msgstr "Aplicativo instalado"
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
 msgstr ""
-"Establecer como predeterminado o aplicativo seleccionado para abrir os "
+"Estabelecer como predeterminado o aplicativo seleccionado para abrir os "
 "ficheiros deste tipo"
 
 #: ../data/ui/app-chooser.glade.h:14
@@ -476,7 +476,7 @@ msgstr "Expulsar medio extraíbel"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr "Renomear marcador"
+msgstr "Renomear elemento marcador"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
