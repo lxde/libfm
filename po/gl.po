@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-12-13 23:57+0200\n"
+"PO-Revision-Date: 2011-12-14 14:39+0200\n"
 "Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -40,7 +40,7 @@ msgstr ""
 "  <b>%f</b>: Representa o nome dun só ficheiro\n"
 "  <b>%F</b>: Representa múltiples nomes de ficheiros\n"
 "  <b>%u</b>: Representa un só URI do ficheiro\n"
-"  <b>%U</b>: Representa múltiples URIs"
+"  <b>%U</b>: Representa múltiples URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -172,7 +172,7 @@ msgstr "Propiedades do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Facer o ficheiro executábel"
+msgstr "Facer que o ficheiro sexa executábel"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
@@ -277,7 +277,7 @@ msgid ""
 "mail addresses."
 msgstr ""
 "O cliente de correo preferido utilizarase para redactar as mensaxes cando "
-"faga clic nos enderezos de correo electrónico."
+"prema nos enderezos de correo electrónico."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -380,7 +380,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "A operación de ficheiro cancelouse e producironse algúns erros."
+msgstr "A operación de ficheiro foi cancelada e producíronse algúns erros."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
@@ -388,7 +388,7 @@ msgstr "Cancelado"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "A operación de ficheiro rematou, pero hai algúns erros."
+msgstr "A operación de ficheiro rematou, mais hai algúns erros."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
@@ -440,11 +440,11 @@ msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Escriba un nome de usuario ou unha id. numérica válida."
+msgstr "Escriba un nome de usuario ou unha ID. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Escriba un nome de grupo ou id. numérica válida."
+msgstr "Escriba un nome de grupo ou ID. numérica válida."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -496,7 +496,7 @@ msgstr "Lugares"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr "Árbore de directorios"
+msgstr "Árbore de cartafoles"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
@@ -620,7 +620,7 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Este ficheiro texto «%s» semella ser un script executábel.\n"
+"Este ficheiro de texto «%s» semella ser un script executábel.\n"
 "Que desexa facer con el?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
@@ -660,7 +660,7 @@ msgstr "O destino é un subcartafol da orixe"
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
-msgstr "Cesto do lixo"
+msgstr "Lixo"
 
 #: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
