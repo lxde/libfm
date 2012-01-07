@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-11-25 21:11+0100\n"
-"Last-Translator: Klemen Košir <klemen.kosir@gmx.com>\n"
+"PO-Revision-Date: 2012-01-07 15:58+0200\n"
+"Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -580,7 +582,7 @@ msgstr "Napaka"
 #: ../src/gtk/fm-gtk-utils.c:55
 #: ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr "Potrdi"
+msgstr "Potrditev"
 
 #: ../src/gtk/fm-gtk-utils.c:106
 msgid "Question"
@@ -829,4 +831,3 @@ msgstr "Prazen optični disk"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optični disk"
-
