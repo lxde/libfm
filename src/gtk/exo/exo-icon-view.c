@@ -3354,6 +3354,10 @@ exo_icon_view_layout (ExoIconView *icon_view)
   exo_icon_view_set_adjustment_upper (priv->hadjustment, priv->width);
   exo_icon_view_set_adjustment_upper (priv->vadjustment, priv->height);
 
+  if (priv->width != GTK_WIDGET (icon_view)->requisition.width
+      || priv->height != GTK_WIDGET (icon_view)->requisition.height)
+    gtk_widget_queue_resize_no_redraw (GTK_WIDGET (icon_view));
+
   if (GTK_WIDGET_REALIZED (icon_view))
     {
       gdk_window_resize (priv->bin_window,
