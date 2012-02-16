@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2010-07-09 16:01+0200\n"
-"Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
+"PO-Revision-Date: 2012-02-16 18:58+0200\n"
+"Last-Translator: GoaHead <b7701050@nwldx.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=0);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -232,7 +233,7 @@ msgstr "<b>Jäljellä oleva aika:</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<p>Kohde:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
@@ -455,7 +456,7 @@ msgstr "Erityyppiset tiedostot"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr ""
+msgstr "Useita Tiedostoja"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
@@ -488,15 +489,15 @@ msgstr "Anna uusi nimi:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "Kirjanmerkit"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "Hakemistopuu"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Etähakemistot"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -576,12 +577,11 @@ msgstr "Virhe"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "Vahvista"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "Kuvaus"
+msgstr "Kysymys"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -627,12 +627,11 @@ msgstr "Tämä tiedosto '%s' on suoritettava. Tahdotko suorittaa sen?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Ei alikansiota>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Valmistellaan..."
+msgstr "Ladataan..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -778,7 +777,6 @@ msgid "Blank HD DVD Disc"
 msgstr "Tyhjä HD DVD-levy"
 
 #: ../src/udisks/g-udisks-device.c:56
-#, fuzzy
 msgid "HD DVD-R Disc"
 msgstr "HD DVD-R-levy"
 
