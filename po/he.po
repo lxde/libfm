@@ -4,15 +4,16 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: 2011-11-13 15:40+0200\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: ISRAEL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+"X-Poedit-Country: ISRAEL\n"
 "X-Poedit-Language: Hebrew\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -57,7 +58,7 @@ msgstr "יישום מותקן"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "הגדרת היישום הנבחר כפעולת ברירת המחדל לסוג קובץ זה"
+msgstr "הגדרת היישום הנבחר כפעולת בררת המחדל לסוג קובץ זה"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
@@ -238,7 +239,7 @@ msgstr "בהכנות..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>לקוח הדוא\"ל</b>"
+msgstr "<b>לקוח הדוא״ל</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
@@ -269,7 +270,7 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
-"לקוח הדוא\"ל המועדף ישמש לחיבור הודעות דוא\"ל חדשות בעת לחיצה על כתובת דוא\"ל"
+"לקוח הדוא״ל המועדף ישמש לכתיבת הודעות דוא״ל חדשות בעת לחיצה על כתובת דוא״ל."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -292,19 +293,19 @@ msgstr[1] "%u בתים"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
-msgstr "ק\"ב"
+msgstr "ק״ב"
 
 #: ../src/base/fm-utils.c:67
 msgid "MB"
-msgstr "מ\"ב"
+msgstr "מ״ב"
 
 #: ../src/base/fm-utils.c:72
 msgid "GB"
-msgstr "ג\"ב"
+msgstr "ג״ב"
 
 #: ../src/base/fm-utils.c:77
 msgid "TB"
-msgstr "ט\"ב"
+msgstr "ט״ב"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
@@ -348,7 +349,7 @@ msgstr "רשת"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
@@ -482,15 +483,15 @@ msgstr "הזנת שם חדש:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr ""
+msgstr "מיקומים"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr ""
+msgstr "עץ התיקיות"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "מרוחק"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -570,12 +571,11 @@ msgstr "שגיאה"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr ""
+msgstr "אישור"
 
 #: ../src/gtk/fm-gtk-utils.c:106
-#, fuzzy
 msgid "Question"
-msgstr "תיאור"
+msgstr "שאלה"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -621,12 +621,11 @@ msgstr "הקובץ '%s' ניתן להפעלה. האם ברצונך לפהעיל 
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<אין תיקיות משנה>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "בהכנות..."
+msgstr "בטעינה..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -640,11 +639,11 @@ msgstr "המקור והיעד זהים."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "לא ניתן להעביר תיקייה אל אחת מתת־התיקיות שלה."
+msgstr "לא ניתן להעביר תיקייה אל אחת מתת־התיקיות שלה"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "לא ניתן להעתיק תיקייה אל אחת מתת־התיקיות שלה."
+msgstr "לא ניתן להעתיק תיקייה אל אחת מתת־התיקיות שלה"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
