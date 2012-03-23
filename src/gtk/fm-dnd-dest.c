@@ -149,7 +149,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
                                    int info_type, FmList* files)
 {
-    FmPath* dest;
+    FmPath* dest, *src;
     GtkWidget* parent;
     dest = fm_dnd_dest_get_dest_path(dd);
     if(!dest)
@@ -160,6 +160,15 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
         files = fm_path_list_new_from_file_info_list(files);
     else
         fm_list_ref(files);
+
+    // Check if source and destination are the same
+    src = (FmPath*) fm_list_peek_head(files);
+    src = fm_path_get_parent (src);
+    if(fm_path_equal (src ,dest)) 
+    {
+        fm_list_unref(files);
+        return FALSE;
+    }
 
     parent = gtk_widget_get_toplevel(dd->widget);
     switch(action)
