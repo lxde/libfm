@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2012-02-16 18:58+0200\n"
-"Last-Translator: GoaHead <b7701050@nwldx.com>\n"
+"PO-Revision-Date: 2012-03-23 15:17+0200\n"
+"Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -36,10 +36,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Näitä erikoiskoodeja voidaan käyttää komentorivissä:</b>\n"
-" <b>%f</b>: Tarkoittaa yhtä tiedostonimeä\n"
-" <b>%F</b>: Tarkoittaa useampaa tiedostonimeä\n"
-" <b>%u</b>: Tarkoittaa yhden tiedoston URI:a\n"
-" <b>%U</b>: Tarkoittaa useampaa URI:a"
+"  <b>%f</b>: Tarkoittaa yhtä tiedostonimeä\n"
+"  <b>%F</b>: Tarkoittaa useampaa tiedostonimeä\n"
+"  <b>%u</b>: Tarkoittaa yhden tiedoston URI:a\n"
+"  <b>%U</b>: Tarkoittaa useampaa URI:a"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -199,7 +199,7 @@ msgstr "Vain luku"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Valitse tämän tyyppisten tiedostojen avaamiseen käytetty sovellus"
+msgstr "Valitse tämän tyyppisten tiedostojen avaamiseen käytetty sovellus "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -233,7 +233,7 @@ msgstr "<b>Jäljellä oleva aika:</b>"
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<p>Kohde:</b>"
+msgstr "<b>Kohde:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
@@ -242,7 +242,7 @@ msgstr "Valmistellaan..."
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>Sähköposti</b>"
+msgstr "<b>Sähköpostisovellus</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
@@ -292,8 +292,8 @@ msgstr "Suorita _päätteessä"
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u tavua"
-msgstr[1] "%u tavu"
+msgstr[0] "%u tavu"
+msgstr[1] "%u tavua"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
@@ -423,7 +423,7 @@ msgstr "Poistetaan tiedostoja"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "Luodaan symbolista merkkiä"
+msgstr "Luodaan symbolisia linkkejä"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
@@ -432,22 +432,22 @@ msgstr "Muutetaan tiedoston ominaisuuksia"
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u tavu"
-msgstr[1] "%u tavua"
+msgstr[0] "tavu"
+msgstr[1] "tavua"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Anna kelvolline käyttäjänimi tai numero id."
+msgstr "Anna kelvollinen käyttäjänimi tai numeerinen id."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Anna kelvolline ryhmänimi tai numero id."
+msgstr "Anna kelvollinen ryhmänimi tai numeerinen id."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"Hyväksytäänkö nämä muutokset rekursiivisesti kaikkii tiedostoihin ja "
+"Hyväksytäänkö nämä muutokset rekursiivisesti kaikkiin tiedostoihin ja "
 "alihakemistoihin?"
 
 #: ../src/gtk/fm-file-properties.c:630
@@ -456,7 +456,7 @@ msgstr "Erityyppiset tiedostot"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr "Useita Tiedostoja"
+msgstr "Useita tiedostoja"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
@@ -513,7 +513,7 @@ msgstr "Luo symbolinen linkki"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr "Lähetä..."
+msgstr "Lähetä"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
@@ -617,13 +617,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Tämä tekstitiedosto '%s' vaikuttasi suoritettavalta skriptiltä.\n"
+"Tämä tekstitiedosto \"%s\" vaikuttasi suoritettavalta skriptiltä.\n"
 "Mitä tahdot tehdä sille?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Tämä tiedosto '%s' on suoritettava. Tahdotko suorittaa sen?"
+msgstr "Tämä tiedosto \"%s\" on suoritettava. Tahdotko suorittaa sen?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
@@ -710,7 +710,7 @@ msgstr "DVD-RAM-levy"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "Tyhjiä DVD-RAM-levy"
+msgstr "Tyhjä DVD-RAM-levy"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
@@ -718,7 +718,7 @@ msgstr "DVD+R-levy"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "Tyhjiä DVD+R-levy"
+msgstr "Tyhjä DVD+R-levy"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
