@@ -376,18 +376,17 @@ _retry_query_src_info:
             /* handle existing files */
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                GFile* dest_cp = new_dest;
                 FmFileOpOption opt = 0;
                 g_error_free(err);
                 err = NULL;
 
-                g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
-                if(new_dest)
-                {
-                    g_object_unref(new_dest);
-                    new_dest = NULL;
-                }
+                new_dest = NULL;
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
-                g_object_unref(dest);
+                if(!new_dest) /* restoring status quo */
+                    new_dest = dest_cp;
+                else if(dest_cp) /* we got new new_dest, forget old one */
+                    g_object_unref(dest_cp);
                 switch(opt)
                 {
                 case FM_FILE_OP_RENAME:
