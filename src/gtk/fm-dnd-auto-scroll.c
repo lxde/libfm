@@ -43,6 +43,18 @@ static gboolean on_auto_scroll(FmDndAutoScroll* as)
 
     gdk_window_get_pointer(widget->window, &x, &y, NULL);
 
+    /*
+       HACK.
+       Sometimes we do not get drag-leave signal. (Why?)
+       This check prevents infinite scrolling.
+    */
+    if (y < 0 || y > widget->allocation.height ||
+        x < 0 || x > widget->allocation.width)
+    {
+        as->timeout = 0;
+        return FALSE;
+    }
+
     if(va)
     {
         if(y < SCROLL_EDGE_SIZE) /* scroll up */
