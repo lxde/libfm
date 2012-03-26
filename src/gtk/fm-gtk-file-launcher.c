@@ -150,6 +150,10 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     LaunchData data = {parent, func, user_data};
     GAppLaunchContext* _ctx = NULL;
     gboolean ret;
+
+    if (!func)
+        launcher.open_folder = NULL;
+
     if(ctx == NULL)
     {
         _ctx = ctx = gdk_app_launch_context_new();

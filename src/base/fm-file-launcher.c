@@ -151,7 +151,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     {
         GList* fis;
         fi = (FmFileInfo*)l->data;
-        if(fm_file_info_is_dir(fi))
+        if (launcher->open_folder && fm_file_info_is_dir(fi))
             folders = g_list_prepend(folders, fi);
         else
         {
@@ -224,6 +224,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     }
                 }
             }
+
             if(fi->type && fi->type->type)
             {
                 fis = g_hash_table_lookup(hash, fi->type->type);
