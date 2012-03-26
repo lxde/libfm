@@ -63,7 +63,10 @@ static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err, gpointer us
 static gboolean on_open_folder(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
 {
     LaunchData* data = (LaunchData*)user_data;
-    return data->folder_func(ctx, folder_infos, data->user_data, err);
+    if (data->folder_func)
+        return data->folder_func(ctx, folder_infos, data->user_data, err);
+    else
+        return FALSE;
 }
 
 static int on_launch_ask(const char* msg, const char** btn_labels, int default_btn, gpointer user_data)
