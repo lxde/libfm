@@ -130,3 +130,8 @@ void fm_tab_label_set_text(FmTabLabel* label, const char* text)
 {
     gtk_label_set_text(GTK_LABEL(label->label), text);
 }
+
+void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text)
+{
+    gtk_widget_set_tooltip_text(GTK_WIDGET(label->label), text);
+}

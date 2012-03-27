@@ -56,6 +56,7 @@ GType fm_tab_label_get_type(void);
 GtkWidget* fm_tab_label_new(const char* text);
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text);
+void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text);
 
 G_END_DECLS
 
