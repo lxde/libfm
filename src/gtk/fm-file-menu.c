@@ -230,6 +230,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
 
+    unsigned items_num = fm_list_get_length(files);
+
     data->parent = g_object_ref(parent); /* FIXME: is this really needed? */
     /* FIXME: should we connect to "destroy" signal of parent and set data->parent to NULL when
      * it's detroyed? */
@@ -388,6 +390,18 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         gtk_action_set_visible(act, FALSE);
     }
     g_string_append(xml, "</placeholder></popup>");
+
+    if (items_num != 1 || !fm_file_info_is_dir(fm_list_peek_head(files)))
+    {
+        act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+        gtk_action_set_visible(act, FALSE);
+    }
+
+    if (items_num != 1)
+    {
+        act = gtk_ui_manager_get_action(ui, "/popup/Rename");
+        gtk_action_set_visible(act, FALSE);
+    }
 
     gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
 
