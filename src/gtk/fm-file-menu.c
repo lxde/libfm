@@ -519,7 +519,11 @@ void on_copy(GtkAction* action, gpointer user_data)
 void on_paste(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    /* fm_clipboard_paste_files(data->menu, ); */
+    FmFileInfo* fi = fm_list_peek_head(data->file_infos);
+    if (fi)
+    {
+        fm_clipboard_paste_files(data->parent, fi->path);
+    }
 }
 
 void on_delete(GtkAction* action, gpointer user_data)
