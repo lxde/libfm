@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-08-09 22:45+0200\n"
+"PO-Revision-Date: 2012-04-04 23:30+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
@@ -74,7 +74,7 @@ msgid ""
 msgstr ""
 "<b>Файл з такой назвай ужо існуе ў выбраным месцы</b>\n"
 "\n"
-"Жадаеце замяніць існуючы файл?"
+"Замяніць наяўны файл?"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -594,11 +594,11 @@ msgstr "Толькі сістэмны адміністратар мае дазв
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Жадаеце перамясціць абраныя файлы ў сметніцу?"
+msgstr "Перамясціць вылучаныя файлы ў сметніцу?"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Жадаеце перамясціць абраныя файлы?"
+msgstr "Жадаеце сцерці вылучаныя файлы?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
