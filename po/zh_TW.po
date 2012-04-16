@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2012-04-14 08:28+0200\n"
+"PO-Revision-Date: 2012-04-16 05:32+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -38,10 +38,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>這些特殊代號可以在命令列參數中使用：</b>\n"
-"  <b>%f</b>: Represents a single file name\n"
-"  <b>%F</b>: Represents multiple file names\n"
-"  <b>%u</b>: Represents a single URI of the file\n"
-"  <b>%U</b>: Represents multiple URIs"
+"  <b>%f</b>: 代表單一檔案名稱\n"
+"  <b>%F</b>: 代表多個檔案名稱\n"
+"  <b>%u</b>: 代表單一檔案 URI\n"
+"  <b>%U</b>: 代表多個 URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -53,7 +53,7 @@ msgstr "自訂指令"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "在終端機模擬器中執行"
+msgstr "在終端機模擬器執行"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
@@ -73,9 +73,9 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b>指定的位置已經有同名檔案存在。</b>\n"
+"<b>指定的位置已經有同名檔案。</b>\n"
 "\n"
-"你想取代存在的檔案嗎？"
+"要取代已有的檔案嗎？"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -87,7 +87,7 @@ msgstr "確認取代檔案"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "檔案名稱:"
+msgstr "檔案名稱："
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
@@ -131,7 +131,7 @@ msgstr "<b>最後修改：</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>位置:</b>"
+msgstr "<b>位置：</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
@@ -139,7 +139,7 @@ msgstr "<b>開啟程式(_W)：</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>其它：</b>"
+msgstr "<b>其他：</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
@@ -254,7 +254,7 @@ msgstr "<b>網頁瀏覽器</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr "命令列："
+msgstr "指令列："
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
@@ -272,11 +272,11 @@ msgstr "系統應用程式"
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
-msgstr "當點擊 E-mail 位址時，偏好的郵件軟體將會被用來編輯信件。"
+msgstr "當點擊電子郵件位址時，會用偏好的郵件軟體來編輯信件。"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "偏好的網頁瀏覽器將被用來開啟超連結"
+msgstr "會用偏好的網頁瀏覽器來開啟超連結"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -284,7 +284,7 @@ msgstr "執行檔案"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "在終端機內執行(_T)"
+msgstr "在終端機執行(_T)"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
@@ -399,7 +399,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
-msgstr ""
+msgstr "、"
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
@@ -441,7 +441,7 @@ msgstr "請輸入有效的群組名稱或數字 id"
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "你是否要將變更套用到目錄下所有檔案和子目錄？"
+msgstr "是否要將變更套用到目錄下所有檔案和子目錄？"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -453,11 +453,11 @@ msgstr "多個檔案"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr "掛載裝置(_M)"
+msgstr "掛載裝置"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr "卸載裝置(_U)"
+msgstr "卸載裝置"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
@@ -578,7 +578,7 @@ msgstr "問題"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
-msgstr "選擇一個資料夾"
+msgstr "請選擇資料夾"
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
@@ -586,11 +586,11 @@ msgstr "只有系統管理員有權限進行這項操作。"
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "你想要將選取的檔案移到垃圾桶嗎？"
+msgstr "想要將選取的檔案移到垃圾桶嗎？"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "您真的要刪除已選的檔案？"
+msgstr "真的要刪除已選的檔案？"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
@@ -620,7 +620,7 @@ msgstr "這個檔案 '%s' 是可執行檔，你是否想要執行它？"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr "沒有子資料夾"
+msgstr "<沒有子資料夾>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
 msgid "Loading..."
