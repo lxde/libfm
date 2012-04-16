@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2012-04-16 06:38+0200\n"
+"PO-Revision-Date: 2012-04-16 06:51+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -432,11 +432,11 @@ msgstr[0] "位元組"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "請輸入有效的使用者名稱或數字 id"
+msgstr "請輸入有效的使用者名稱或數字ID"
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "請輸入有效的群組名稱或數字 id"
+msgstr "請輸入有效的群組名稱或數字ID"
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -630,7 +630,7 @@ msgstr "載入中..."
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "指定的目錄是無效的"
+msgstr "指定的目錄無效"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
