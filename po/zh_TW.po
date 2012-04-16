@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2012-04-16 05:32+0200\n"
+"PO-Revision-Date: 2012-04-16 06:38+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -37,11 +37,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>這些特殊代號可以在命令列參數中使用：</b>\n"
-"  <b>%f</b>: 代表單一檔案名稱\n"
-"  <b>%F</b>: 代表多個檔案名稱\n"
-"  <b>%u</b>: 代表單一檔案 URI\n"
-"  <b>%U</b>: 代表多個 URI"
+"<b>這些特殊代號可以在指令列參數使用：</b>\n"
+"  <b>%f</b>：代表單一檔案名稱\n"
+"  <b>%F</b>：代表多個檔案名稱\n"
+"  <b>%u</b>：代表單一檔案 URI\n"
+"  <b>%U</b>：代表多個 URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -199,7 +199,7 @@ msgstr "只能讀取"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "選取一應用程式來開啟這類型的檔案"
+msgstr "選取用來開啟這類型檔案的應用程式"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -494,7 +494,7 @@ msgstr "遠端"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr "以其他程式開啟"
+msgstr "以其他程式開啟..."
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
