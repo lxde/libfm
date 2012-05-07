@@ -38,6 +38,7 @@
 #include "fm-path.h"
 #include "fm-utils.h"
 #include "fm-file-launcher.h"
+#include "fm-thumbnailer.h"
 #include "fm-deep-count-job.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info-job.h"

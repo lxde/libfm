@@ -516,13 +516,9 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
             {
                 if(fm_file_info_can_thumbnail(item->inf))
                 {
-                    goffset size = fm_file_info_get_size(item->inf);
-                    if(size > 0 && size <= (fm_config->thumbnail_max << 10))
-                    {
-                        FmThumbnailRequest* req = fm_thumbnail_request(item->inf, model->icon_size, on_thumbnail_loaded, model);
-                        model->thumbnail_requests = g_list_prepend(model->thumbnail_requests, req);
-                        item->thumbnail_loading = TRUE;
-                    }
+					FmThumbnailRequest* req = fm_thumbnail_request(item->inf, model->icon_size, on_thumbnail_loaded, model);
+					model->thumbnail_requests = g_list_prepend(model->thumbnail_requests, req);
+					item->thumbnail_loading = TRUE;
                 }
                 else
                 {
@@ -1248,14 +1244,17 @@ void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
 
     if(cfg->thumbnail_max)
     {
-         /* remove files which are too big from thumbnail requests */
+         /* remove files which are too big from thumbnail requests
+          * FIXME: should this part be put in fm-thumbnail.c instead? */
         for(l = model->thumbnail_requests; l; )
         {
             GList* next = l->next;
             req = (FmThumbnailRequest*)l->data;
             fi = fm_thumbnail_request_get_file_info(req);
-            size = fm_file_info_get_size(fi);
-            if(size > (cfg->thumbnail_max << 10))
+            /* call fm_file_info_is_image() here to see if the thumbnail
+             * is generated with built-in GdkPixbuf thumbnailer.
+             * We don't limit file sizes for external thumbnailers */
+            if(fm_file_info_is_image(fi) && fm_file_info_get_size(fi) > (cfg->thumbnail_max << 10))
             {
                 fm_thumbnail_request_cancel(req);
                 model->thumbnail_requests = g_list_delete_link(model->thumbnail_requests, l);
@@ -1270,22 +1269,28 @@ void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
         fi = item->inf;
         if(cfg->thumbnail_max)
         {
-            size = fm_file_info_get_size(fi);
+			/* if the new size limit for image files becomes bigger,
+			 * find out image files which can be thumbnailed under the
+			 * new file size limit. */
             if(thumbnail_max_bytes > model->thumbnail_max)
             {
+				/* this file is previously beyond our limit, but now it's
+				 * below the new limit. so, generate a thumbnail for it. */
+				size = fm_file_info_get_size(fi);
                 if(size < thumbnail_max_bytes && size > model->thumbnail_max )
                 {
-                    if(!item->thumbnail_failed && fm_file_info_can_thumbnail(fi))
+					/* check if we can really thumbnail the file and call
+					 * fm_file_info_is_image() to see if it's an image file 
+					 * for which the thumbnails are created by the built-in GdkPixbuf
+					 * thumbnailer. We don't apply the file size limit
+					 * for external thumbnailers now. */
+                    if(!item->thumbnail_failed && fm_file_info_can_thumbnail(fi)
+						&& fm_file_info_is_image(fi))
                     {
                         req = fm_thumbnail_request(fi, model->icon_size, on_thumbnail_loaded, model);
                         new_reqs = g_list_append(new_reqs, req);
                     }
                 }
-            }
-            else
-            {
-                if(size > thumbnail_max_bytes)
-                    reload_thumbnail(model, seq_it, item);
             }
         }
         else /* no limit, all files can be added */

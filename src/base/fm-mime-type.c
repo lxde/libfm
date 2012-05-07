@@ -210,6 +210,12 @@ void fm_mime_type_unref( gpointer mime_type_ )
         g_free( mime_type->type );
         if ( mime_type->icon )
             fm_icon_unref( mime_type->icon );
+        if(mime_type->thumbnailers)
+        {
+			/* Note: we do not own references for FmThumbnailer here.
+			 * Just free the list */
+			g_list_free(mime_type->thumbnailers);
+		}
         g_slice_free( FmMimeType, mime_type );
     }
 }
@@ -222,6 +228,11 @@ FmIcon* fm_mime_type_get_icon( FmMimeType* mime_type )
 const char* fm_mime_type_get_type( FmMimeType* mime_type )
 {
     return mime_type->type;
+}
+
+GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
+{
+	return mime_type->thumbnailers;
 }
 
 /* Get human-readable description of mime type */

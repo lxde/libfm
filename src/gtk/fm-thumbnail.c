@@ -29,6 +29,7 @@
  * */
 
 #include "fm-thumbnail.h"
+#include "fm-config.h"
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -298,13 +299,31 @@ void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, GdkPixbuf
     thumbnail_task_free(task);
 }
 
-inline static gboolean is_thumbnail_outdated(GdkPixbuf* thumb_pix, const char* path, time_t mtime)
+static gboolean is_thumbnail_outdated(GdkPixbuf* thumb_pix, const char* thumbnail_path, time_t mtime)
 {
     const char* thumb_mtime = gdk_pixbuf_get_option(thumb_pix, "tEXt::Thumb::MTime");
+    gboolean outdated = FALSE;
+	if(thumb_mtime)
+	{
+		if(atol(thumb_mtime) != mtime)
+			outdated = TRUE;
+	}
+	else
+	{
+		/* if the thumbnail png file does not contain "tEXt::Thumb::MTime" value,
+		 * we compare the mtime of the thumbnail with its original directly. */
+		struct stat statbuf;
+		if(stat(thumbnail_path, &statbuf) == 0) /* get mtime of the thumbnail file */
+		{
+			if(mtime > statbuf.st_mtime)
+				outdated = TRUE;
+		}
+	}
+
     /* out of date, delete it */
-    if( !thumb_mtime || atol(thumb_mtime) != mtime )
+    if(outdated)
     {
-        unlink(path); /* delete the out-dated thumbnail. */
+        unlink(thumbnail_path); /* delete the out-dated thumbnail. */
         g_object_unref(thumb_pix);
         return TRUE;
     }
@@ -738,7 +757,17 @@ gpointer generate_thumbnail_thread(gpointer user_data)
             G_UNLOCK(queue);
 
             if(fm_file_info_is_image(task->fi))
-                generate_thumbnails_with_gdk_pixbuf(task);
+            {
+				/* FIXME: if the built-in thumbnail generation fails
+				 * still call external thumbnailer to handle it. 
+				 * 
+				 * We should only handle those mime-types supported
+				 * by GdkPixbuf listed by gdk_pixbuf_get_formats(). */
+				 
+				/* if the image file is too large, don't generate thumbnail for it. */
+				if(fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10))
+					generate_thumbnails_with_gdk_pixbuf(task);
+            }
             else
                 generate_thumbnails_with_thumbnailers(task);
 
@@ -974,9 +1003,46 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 
 void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 {
-    /* TODO: external thumbnailer support */
+	/* external thumbnailer support */
+	GdkPixbuf* normal_pix = NULL;
+	GdkPixbuf* large_pix = NULL;
+	FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
+	/* TODO: we need to add timeout for external thumbnailers.
+	 * If a thumbnailer program is broken or locked for unknown reason,
+	 * the thumbnailer process should be killed once a timeout is reached. */
+	if(mime_type)
+	{
+		GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
+		GList* l;
+		int generated = 0;
+		for(l = thumbnailers; l; l = l->next)
+		{
+			FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
+			g_debug("generate thumbnail with: %s", thumbnailer->id);
+			if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
+			{
+				if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->normal_path, 128))
+				{
+					generated |= GENERATE_NORMAL;
+					normal_pix = gdk_pixbuf_new_from_file(task->normal_path, NULL);
+				}
+			}
+			if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
+			{
+				if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->large_path, 256))
+				{
+					generated |= GENERATE_LARGE;
+					large_pix = gdk_pixbuf_new_from_file(task->normal_path, NULL);
+				}
+			}
+
+			/* if both large and normal thumbnails are generated, quit */
+			if(generated == task->flags)
+				break;
+		}
+	}
     G_LOCK(queue);
-    thumbnail_task_finish(task, NULL, NULL);
+    thumbnail_task_finish(task, normal_pix, large_pix);
     cur_generating = NULL;
     G_UNLOCK(queue);
 }

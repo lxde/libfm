@@ -27,6 +27,7 @@
 #include <glib/gstdio.h>
 
 #include "fm-icon.h"
+#include "fm-thumbnailer.h"
 
 G_BEGIN_DECLS
 
@@ -37,6 +38,9 @@ struct _FmMimeType
     char* type; /* mime type name */
     char* description;  /* description of the mime type */
 	FmIcon* icon;
+
+	/* thumbnailers installed for the mime-type */
+    GList* thumbnailers; /* FmMimeType does "not" own the FmThumbnailer objects */
 
     int n_ref;
 };
@@ -65,6 +69,11 @@ const char* fm_mime_type_get_type( FmMimeType* mime_type );
 
 /* Get human-readable description of mime-type */
 const char* fm_mime_type_get_desc( FmMimeType* mime_type );
+
+/* Get installed external thumbnailers for the mime-type.
+ * Returns a list of FmThumbnailer.
+ * The returned GList is owned by FmMimeType and should not be freed. */
+GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type);
 
 #if 0
 /*

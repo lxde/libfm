@@ -1,7 +1,7 @@
 /*
  *      fm-file-info.c
  *
- *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -588,7 +588,8 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */
-    if(!(fi->mode & S_IFREG) ||
+    if( fi->size == 0 || /* don't generate thumbnails for empty files */
+		!(fi->mode & S_IFREG) ||
         fm_file_info_is_desktop_entry(fi) ||
         fm_file_info_is_unknown_type(fi))
         return FALSE;
