@@ -88,12 +88,13 @@ gboolean fm_nav_history_get_can_forward(FmNavHistory* nh)
 
 void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
 {
-    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
-    if(tmp) /* remember current scroll pos */
-        tmp->scroll_pos = old_scroll_pos;
-
     if(nh->cur && nh->cur->prev)
+    {
+		FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
+		if(tmp) /* remember current scroll pos */
+			tmp->scroll_pos = old_scroll_pos;
         nh->cur = nh->cur->prev;
+	}
 }
 
 gboolean fm_nav_history_get_can_back(FmNavHistory* nh)
@@ -103,12 +104,13 @@ gboolean fm_nav_history_get_can_back(FmNavHistory* nh)
 
 void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos)
 {
-    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
-    if(tmp) /* remember current scroll pos */
-        tmp->scroll_pos = old_scroll_pos;
-
-    if(nh->cur && nh->cur->next)
+	if(nh->cur && nh->cur->next)
+	{
+		FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
+		if(tmp) /* remember current scroll pos */
+			tmp->scroll_pos = old_scroll_pos;
         nh->cur = nh->cur->next;
+	}
 }
 
 void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
@@ -116,8 +118,12 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
     FmNavHistoryItem* tmp;
 
     /* if we're not at the top of the queue, remove all items beyond us. */
-    while(nh->items.head != nh->cur)
+    while(nh->items.head != nh->cur && !g_queue_is_empty(&nh->items))
     {
+		/* FIXME: #3411314: pcmanfm crash on unmount.
+		 * While tracing the bug, I noted that sometimes nh->items
+		 * becomes empty, but nh->cur still points to somewhere.
+		 * The cause is not yet known. */
         tmp = g_queue_pop_head(&nh->items);
         fm_nav_history_item_free(tmp);
     }
@@ -135,7 +141,7 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
         tmp = g_slice_new0(FmNavHistoryItem);
         tmp->path = fm_path_ref(path);
         g_queue_push_head(&nh->items, tmp);
-        nh->cur = fm_list_peek_head_link(&nh->items);
+        nh->cur = g_queue_peek_head_link(&nh->items);
     }
 }
 
@@ -157,13 +163,13 @@ void fm_nav_history_clear(FmNavHistory* nh)
 void fm_nav_history_set_max(FmNavHistory* nh, guint num)
 {
     nh->n_max = num;
-    if(num >=0)
-    {
-        while(g_queue_get_length(&nh->items) > num)
-        {
-            FmNavHistoryItem* item = (FmNavHistoryItem*)g_queue_pop_tail(&nh->items);
-            fm_nav_history_item_free(item);
-        }
-    }
+    if(num < 1)
+		num = 1;
+	while(g_queue_get_length(&nh->items) > num)
+	{
+		FmNavHistoryItem* item = (FmNavHistoryItem*)g_queue_pop_tail(&nh->items);
+		fm_nav_history_item_free(item);
+		/* FIXME: nh->cur may become invalid!!! */
+	}
 }
 
