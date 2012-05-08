@@ -386,10 +386,18 @@ static void update_icons(FmPlacesModel* model)
         {
             FmPlaceItem* item;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-            /* FIXME: get icon size from FmConfig */
-            pix = fm_icon_get_pixbuf(item->fi->icon, fm_config->pane_icon_size);
-            gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
-            g_object_unref(pix);
+			if(item)
+			{
+				pix = fm_icon_get_pixbuf(item->fi->icon, fm_config->pane_icon_size);
+				gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
+				g_object_unref(pix);
+			}
+			else
+			{
+				/* #3497049 - PCManFM crashed with SIGSEV in update_icons().
+				 * Item should not be null. Otherwise there must be a bug. */
+				g_debug("bug? FmPlaceItem* item should not be null.");
+			}
         }
     }while( gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it) );
 }
