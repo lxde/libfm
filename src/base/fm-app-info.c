@@ -148,10 +148,22 @@ static char* expand_terminal(char* cmd)
     char* ret;
     /* add terminal emulator command */
     /* FIXME: this is very unsafe */
-    if(strstr(fm_config->terminal, "%s"))
+    
+    if(fm_config->terminal && strstr(fm_config->terminal, "%s"))
         ret = g_strdup_printf(fm_config->terminal, cmd);
     else /* if %s is not found, fallback to -e */
-        ret = g_strdup_printf("%s -e %s", fm_config->terminal, cmd);
+    {
+		const char* term = fm_config->terminal;
+		/* bug #3457335: Crash on application start with Terminal=true. */
+		if(!term) /* fallback to xterm if a terminal emulator is not found. */
+		{
+			/* FIXME: we should not hard code xterm here. :-(
+			 * It's better to prompt the user and let he or she set
+			 * his preferred terminal emulator. */
+			term = "xterm";
+		}
+        ret = g_strdup_printf("%s -e %s", term, cmd);
+	}
     return ret;
 }
 
