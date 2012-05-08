@@ -203,8 +203,8 @@ void _fm_archiver_init()
     GKeyFile *kf = g_key_file_new();
     if(g_key_file_load_from_file(kf, PACKAGE_DATA_DIR "/archivers.list", 0, NULL))
     {
-        int n_archivers;
-        char** programs = g_key_file_get_groups(kf, &n_archivers);
+        gsize n_archivers;
+        gchar** programs = g_key_file_get_groups(kf, &n_archivers);
         if(programs)
         {
             int i;
