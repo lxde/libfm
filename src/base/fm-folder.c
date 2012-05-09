@@ -562,6 +562,14 @@ void fm_folder_reload(FmFolder* folder)
     /* FIXME: remove all items and re-run a dir list job. */
     GSList* files_to_del = NULL;
     GList* l = fm_list_peek_head_link(folder->files);
+
+	/* cancel running dir listing job if there is any. */
+	if(folder->job && fm_job_is_running(folder->job))
+	{
+		fm_job_cancel(folder->job);
+		folder->job = NULL;
+	}
+
     if(l)
     {
         for(;l;l=l->next)
