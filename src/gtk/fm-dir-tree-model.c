@@ -47,6 +47,9 @@ static void fm_dir_tree_model_finalize            (GObject *object);
 static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface);
 static GtkTreePath *fm_dir_tree_model_get_path ( GtkTreeModel *tree_model, GtkTreeIter *iter );
 
+static inline void item_to_tree_iter(FmDirTreeModel* model, GList* item_l, GtkTreeIter* it);
+static inline GtkTreePath* item_to_tree_path(FmDirTreeModel* model, GList* item_l);
+
 G_DEFINE_TYPE_WITH_CODE( FmDirTreeModel, fm_dir_tree_model, G_TYPE_OBJECT,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_dir_tree_model_tree_model_init)
                         /* G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_DRAG_SOURCE, fm_dir_tree_model_drag_source_init)
@@ -69,16 +72,20 @@ static inline void _g_list_foreach_l(GList* list, GFunc func, gpointer user_data
 static void item_queue_subdir_check(FmDirTreeModel* model, GList* item_l);
 */
 
-static void item_reload_icon(FmDirTreeModel* model, FmDirTreeItem* item, GtkTreePath* tp)
+static void item_reload_icon(FmDirTreeModel* model, GList* item_l, GtkTreePath* tp)
 {
     GtkTreeIter it;
     GList* l;
-    FmDirTreeItem* child;
+	FmDirTreeItem *item, *child;
+	g_return_if_fail(item_l && tp);
+	item = item_l->data;
+	g_return_if_fail(item);
 
     if(item->icon)
     {
         g_object_unref(item->icon);
         item->icon = NULL;
+        item_to_tree_iter(model, item_l, &it);
         gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
     }
 
