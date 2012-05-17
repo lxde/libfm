@@ -452,8 +452,10 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
         {
             /* FIXME: prevent direct access to data members. */
             FmFolderModel* model = (FmFolderModel*)fv->model;
-            FmPath* dir_path =  model->dir->dir_path;
-            fm_dnd_dest_set_dest_file(fv->dnd_dest, model->dir->dir_fi);
+            if (model)
+                fm_dnd_dest_set_dest_file(fv->dnd_dest, model->dir->dir_fi);
+            else
+				fm_dnd_dest_set_dest_file(fv->dnd_dest, NULL);
         }
         action = fm_dnd_dest_get_default_action(fv->dnd_dest, drag_context, target);
         ret = action != 0;
