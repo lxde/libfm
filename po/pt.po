@@ -1,15 +1,15 @@
 # Portuguese translation for libfm package.
 # Copyright (C) 2010 THE libfm'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
-# Sérgio Marques <smarquespt@gmail.com>, 2010.
+# Sérgio Marques <smarquespt@gmail.com>, 2010-2012.
 # Adaptado ao acordo ortográfico de 1990
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-11-22 14:48+0200\n"
-"Last-Translator: Sérgio <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2012-05-18 10:38-0000\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -38,10 +38,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Estes códigos especiais podem ser usados na linha de comandos:</b>\n"
-"<b>%f</b>: Representa o nome do ficheiro\n"
-"<b>%F</b>: Representa nome de vários ficheiros\n"
-"<b>%u</b>: Representa a URI do ficheiro\n"
-"<b>%U</b>: Representa várias URIs"
+"<b>%f</b>: representa o nome do ficheiro\n"
+"<b>%F</b>: representa o nome de vários ficheiros\n"
+"<b>%u</b>: representa o URI do ficheiro\n"
+"<b>%U</b>: representa vários URIs"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -61,11 +61,11 @@ msgstr "Aplicação instalada"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Definir a aplicação selecionada como padrão para este tipo de ficheiros"
+msgstr "Definir a aplicação selecionada como pré-definida para este tipo de ficheiros"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_Navegar"
+msgstr "_Explorar"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -75,7 +75,7 @@ msgid ""
 msgstr ""
 "<b>Já existe, neste local, um ficheiro com o mesmo nome.</b>\n"
 "\n"
-"Deseja substituir o ficheiro existente"
+"Pretende substituir o ficheiro existente"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
@@ -95,7 +95,7 @@ msgstr "S_obrescrever"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "_Renomear"
+msgstr "_Mudar nome"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
@@ -187,9 +187,7 @@ msgstr "Operações permitidas ao dono do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Operações permitidas aos utilizadores que pertençam ao grupo do dono do "
-"ficheiro"
+msgstr "Operações permitidas aos utilizadores que pertençam ao grupo do dono do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
@@ -197,7 +195,7 @@ msgstr "Leitura e escrita"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Apenas leitura"
+msgstr "Só leitura"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
@@ -205,7 +203,7 @@ msgstr "Selecione a aplicação utilizada para abrir ficheiros deste tipo "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Apenas escrita"
+msgstr "Só escrita"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
@@ -218,7 +216,7 @@ msgstr "_Permissões"
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Processando:</b>"
+msgstr "<b>A processar:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
@@ -262,7 +260,8 @@ msgstr "Linha de comandos:"
 msgid "File Associations"
 msgstr "Associação de ficheiros"
 
-#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Aplicações preferidas"
 
@@ -271,12 +270,8 @@ msgid "System Applications"
 msgstr "Aplicações do sistema"
 
 #: ../data/ui/preferred-apps.glade.h:8
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"O cliente de correio preferido será utilizado para escrever mensagens ao "
-"clicar nos endereços de correio."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "O cliente de correio preferido será utilizado para escrever mensagens ao clicar nos endereços eletrónicos."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
@@ -290,7 +285,8 @@ msgstr "Executar ficheiro"
 msgid "Execute in _Terminal"
 msgstr "Executar no _terminal"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:55
+#: ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -345,7 +341,8 @@ msgstr "Lixo"
 msgid "My Computer"
 msgstr "Meu computador"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
+#: ../src/base/fm-path.c:739
+#: ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Aplicações"
 
@@ -357,7 +354,8 @@ msgstr "Rede"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:214
+#: ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -368,7 +366,8 @@ msgstr ""
 "Tamanho: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:221
+#: ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -395,13 +394,11 @@ msgstr "Concluída"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns ficheiros não podem ser movidos para o lixo, porque o sistema de "
-"ficheiros subjacente não suporta esta operação.\n"
-"Deseja apagá-los permanentemente?"
+"Alguns ficheiros não podem ser movidos para o lixo, porque o sistema de ficheiros subjacente não suporta esta operação.\n"
+"Eliminar permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
@@ -417,11 +414,11 @@ msgstr "A copiar ficheiros"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
-msgstr "A eliminar ficheiros"
+msgstr "A destruir ficheiros"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
-msgstr "A apagar ficheiros"
+msgstr "A eliminar ficheiros"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
@@ -431,7 +428,8 @@ msgstr "A criar ligações simbólicas"
 msgid "Changing file attributes"
 msgstr "A modificar os atributos do ficheiro"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:117
+#: ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -446,9 +444,8 @@ msgid "Please enter a valid group name or numeric id."
 msgstr "Indique um grupo ou um identificador numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:356
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Deseja aplicar estas modificações a todos os ficheiros e subpastas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Pretende aplicar estas alterações a todos os ficheiros e subpastas?"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
@@ -471,9 +468,10 @@ msgid "Eject Removable Media"
 msgstr "Ejetar disco amovível"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
+#: ../src/gtk/fm-places-view.c:96
+#: ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr "Renomear marcador"
+msgstr "Mudar nome do marcador"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
@@ -487,11 +485,13 @@ msgstr "Esvaziar lixo"
 msgid "Enter a new name:"
 msgstr "Indique o novo nome:"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+#: ../src/gtk/fm-side-pane.c:49
+#: ../src/gtk/fm-side-pane.c:297
 msgid "Places"
 msgstr "Locais"
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+#: ../src/gtk/fm-side-pane.c:50
+#: ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
 msgstr "Árvore de diretórios"
 
@@ -499,17 +499,18 @@ msgstr "Árvore de diretórios"
 msgid "Remote"
 msgstr "Remoto"
 
-#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:86
+#: ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Abrir com..."
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
-msgstr "Renomear"
+msgstr "Mudar nome"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
-msgstr "Criar ligações simbólicas"
+msgstr "Criar ligação simbólica"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
@@ -541,7 +542,7 @@ msgstr "Falha no XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Usar a aplicação selecionada para abrir os ficheiros"
+msgstr "Utilizar a aplicação selecionada para abrir os ficheiros"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
@@ -575,13 +576,14 @@ msgstr "Aplicações instaladas"
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+#: ../src/gtk/fm-gtk-utils.c:55
+#: ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
 msgstr "Confirmar"
 
 #: ../src/gtk/fm-gtk-utils.c:106
 msgid "Question"
-msgstr "Questão"
+msgstr "Pergunta"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
@@ -589,19 +591,19 @@ msgstr "Selecione uma pasta"
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
-msgstr "Apenas o administrador do sistema tem permissões para o fazer."
+msgstr "Só o administrador do sistema tem permissões para o fazer."
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Deseja mover os ficheiros selecionados para o lixo?"
+msgstr "Mover os ficheiros selecionados para o lixo?"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Deseja apagar os ficheiros selecionados?"
+msgstr "Eliminar os ficheiros selecionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "Renomear ficheiro"
+msgstr "Mudar nome do ficheiro"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
@@ -609,7 +611,7 @@ msgstr "Indique o novo nome:"
 
 #: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Tem a certeza que pretende esvaziar o lixo?"
+msgstr "Tem a certeza de que pretende esvaziar o lixo?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
@@ -623,7 +625,7 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "O ficheiro \"%s\" é um executável. Pretende executá-lo?"
+msgstr "O ficheiro \"%s\" é um executável. Executar?"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
@@ -633,7 +635,8 @@ msgstr "<Nenhuma subpasta>"
 msgid "Loading..."
 msgstr "A carregar..."
 
-#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:231
+#: ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
@@ -688,11 +691,13 @@ msgstr "CD-RW"
 msgid "Blank CD-RW Disc"
 msgstr "CD-RW vazio"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "DVD-ROM"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "DVD-ROM vazio"
 
@@ -823,3 +828,4 @@ msgstr "Disco ótico vazio"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco ótico"
+
