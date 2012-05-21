@@ -241,7 +241,7 @@ static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* w
 
 static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
 {
-    FmPath* path = (FmPath*)g_object_get_data(G_OBJECT(mi), "path");
+    FmPath* path = (FmPath*)g_object_get_qdata(G_OBJECT(mi), fm_qdata_id);
     fm_main_win_chdir(win, path);
 }
 
