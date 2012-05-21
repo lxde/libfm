@@ -68,6 +68,7 @@ typedef struct _FmPlaceItem
 {
     FmPlaceType type : 6;
     gboolean vol_mounted : 1;
+    FmIcon* icon;
     FmFileInfo* fi;
     union
     {
