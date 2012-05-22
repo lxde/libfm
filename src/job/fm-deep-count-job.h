@@ -59,7 +59,7 @@ struct _FmDeepCountJob
 	FmPathList* paths;
 	FmDeepCountJobFlags flags;
 	goffset total_size;
-	goffset total_block_size;
+	goffset total_ondisk_size;
 	guint count;
 
     /* private: used to count total size used when moving files */

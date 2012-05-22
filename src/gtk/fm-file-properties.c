@@ -119,8 +119,8 @@ static gboolean on_timeout(FmFilePropData* data)
         gtk_label_set_text(GTK_LABEL(data->total_size), str);
         g_free(str);
 
-        fm_file_size_to_str(size_str, dc->total_block_size, TRUE);
-        str = g_strdup_printf("%s (%'llu %s)", size_str, dc->total_block_size, ngettext("byte", "bytes", dc->total_block_size));
+        fm_file_size_to_str(size_str, dc->total_ondisk_size, TRUE);
+        str = g_strdup_printf("%s (%'llu %s)", size_str, dc->total_ondisk_size, ngettext("byte", "bytes", dc->total_ondisk_size));
         gtk_label_set_text(GTK_LABEL(data->size_on_disk), str);
         g_free(str);
     }

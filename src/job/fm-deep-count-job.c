@@ -36,10 +36,8 @@ static const char query_str[] =
                 G_FILE_ATTRIBUTE_STANDARD_NAME","
                 G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
                 G_FILE_ATTRIBUTE_STANDARD_SIZE","
-                G_FILE_ATTRIBUTE_UNIX_BLOCKS","
-                G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
+                G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE","
                 G_FILE_ATTRIBUTE_ID_FILESYSTEM;
-
 
 static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 {
@@ -121,7 +119,7 @@ _retry_stat:
     {
         ++job->count;
         job->total_size += (goffset)st.st_size;
-        job->total_block_size += (st.st_blocks * st.st_blksize);
+        job->total_ondisk_size += (st.st_blocks * 512);
 
         /* NOTE: if job->dest_dev is 0, that means our destination
          * folder is not on native UNIX filesystem. Hence it's not
@@ -173,7 +171,7 @@ _retry_stat:
                         if(job->flags & FM_DC_JOB_PREPARE_MOVE)
                         {
                             ++job->total_size;
-                            ++job->total_block_size;
+                            ++job->total_ondisk_size;
                             ++job->count;
                         }
                     }
@@ -192,8 +190,7 @@ gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
     FmJob* fmjob = FM_JOB(job);
     GError* err = NULL;
     GFileType type;
-    guint64 blk;
-    guint32 blk_size;
+    guint64 block_count;
     const char* fs_id;
     gboolean descend;
 
@@ -223,13 +220,11 @@ _retry_query_info:
     }
 
     type = g_file_info_get_file_type(inf);
-    blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-    blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
     descend = TRUE;
 
     ++job->count;
     job->total_size += g_file_info_get_size(inf);
-    job->total_block_size += (blk * blk_size);
+    job->total_ondisk_size += g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE);
 
     /* prepare for moving across different devices */
     if( job->flags & FM_DC_JOB_PREPARE_MOVE )
@@ -239,7 +234,7 @@ _retry_query_info:
         {
             /* files on different device requires an additional 'delete' for the source file. */
             ++job->total_size; /* this is for the additional delete */
-            ++job->total_block_size;
+            ++job->total_ondisk_size;
             ++job->count;
         }
         else
