@@ -28,6 +28,7 @@
 #include "fm.h"
 #include "fm-app-chooser-dlg.h"
 #include "fm-app-menu-view.h"
+#include "fm-gtk-utils.h"
 #include <menu-cache.h>
 #include <gio/gdesktopappinfo.h>
 
@@ -41,6 +42,7 @@ struct _AppChooserData
     GtkWidget* set_default;
     GtkWidget* status;
     GtkWidget* use_terminal;
+    GtkWidget* browse_btn;
     FmMimeType* mime_type;
 };
 
@@ -123,6 +125,31 @@ static void on_cmdline_changed(GtkEditable* cmdline, AppChooserData* data)
     }
 }
 
+static gboolean exec_filter_func(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+	if(g_content_type_can_be_executable(filter_info->mime_type))
+		return TRUE;
+	return FALSE;
+}
+
+static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
+{
+	FmPath* file;
+	GtkFileFilter* filter = gtk_file_filter_new();
+	gtk_file_filter_add_custom(filter,
+		GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
+	/* gtk_file_filter_set_name(filter, _("Executable files")); */
+	file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
+
+	if(file)
+	{
+		char* binary = fm_path_to_str(file);
+		gtk_entry_set_text(GTK_ENTRY(data->cmdline), binary);
+		g_free(binary);
+		fm_path_unref(file);
+	}
+}
+
 GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default)
 {
     GtkWidget* scroll;
@@ -141,6 +168,7 @@ GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->set_default = (GtkWidget*)gtk_builder_get_object(builder, "set_default");
     data->use_terminal = (GtkWidget*)gtk_builder_get_object(builder, "use_terminal");
     data->status = (GtkWidget*)gtk_builder_get_object(builder, "status");
+    data->browse_btn = (GtkWidget*)gtk_builder_get_object(builder, "browse_btn");
     data->mime_type = mime_type;
 
     gtk_dialog_set_alternative_button_order(GTK_DIALOG(data->dlg), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
@@ -164,6 +192,8 @@ GtkWidget *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     gtk_widget_grab_focus(data->apps_view);
 
     g_object_unref(builder);
+
+	g_signal_connect(data->browse_btn, "clicked", G_CALLBACK(on_browse_btn_clicked), data);
 
     g_object_set_qdata_full(G_OBJECT(data->dlg), fm_qdata_id, data, (GDestroyNotify)on_dlg_destroy);
     g_signal_connect(data->notebook, "switch-page", G_CALLBACK(on_switch_page), data);
