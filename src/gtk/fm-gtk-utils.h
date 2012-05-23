@@ -52,8 +52,16 @@ int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va
 char* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text);
 FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path);
 
+void fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser);
 /* Ask the user to select a folder. */
 FmPath* fm_select_folder(GtkWindow* parent, const char* title);
+/* TODO: support selecting multiple files */
+FmPath* fm_select_file(GtkWindow* parent, 
+						const char* title,
+						const char* default_folder,
+						gboolean local_only,
+						gboolean show_preview,
+						/* filter1, filter2, ..., NULL */ ...);
 
 /* Mount */
 gboolean fm_mount_path(GtkWindow* parent, FmPath* path, gboolean interactive);

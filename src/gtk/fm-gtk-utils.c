@@ -274,6 +274,86 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
     return str;
 }
 
+static void on_update_img_preview( GtkFileChooser *chooser, GtkImage* img )
+{
+    char* file = gtk_file_chooser_get_preview_filename(chooser);
+    GdkPixbuf* pix = NULL;
+    if(file)
+    {
+        pix = gdk_pixbuf_new_from_file_at_scale( file, 128, 128, TRUE, NULL );
+        g_free( file );
+    }
+    if(pix)
+    {
+        gtk_file_chooser_set_preview_widget_active(chooser, TRUE);
+        gtk_image_set_from_pixbuf(img, pix);
+        g_object_unref(pix);
+    }
+    else
+    {
+        gtk_image_clear(img);
+        gtk_file_chooser_set_preview_widget_active(chooser, FALSE);
+    }
+}
+
+void fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser)
+{
+	GtkWidget* img_preview = gtk_image_new();
+	gtk_misc_set_alignment(GTK_MISC(img_preview), 0.5, 0.0);
+	gtk_widget_set_size_request(img_preview, 128, 128);
+	gtk_file_chooser_set_preview_widget(chooser, img_preview);
+	g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
+}
+
+/* TODO: support selecting multiple files */
+FmPath* fm_select_file(GtkWindow* parent, 
+						const char* title, 
+						const char* default_folder,
+						gboolean local_only,
+						gboolean show_preview,
+						/* filter1, filter2, ..., NULL */ ...)
+{
+    FmPath* path;
+    GtkFileChooser* chooser;
+    GtkFileFilter* filter;
+    va_list args;
+
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
+                                        title, parent, GTK_FILE_CHOOSER_ACTION_OPEN,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+    gtk_dialog_set_alternative_button_order((GtkDialog*)chooser,
+                                        GTK_RESPONSE_CANCEL,
+                                        GTK_RESPONSE_OK, NULL);
+	if(local_only)
+		gtk_file_chooser_set_local_only(chooser, TRUE);
+
+	if(default_folder)
+		gtk_file_chooser_set_current_folder(chooser, default_folder);
+
+    va_start(args, show_preview);
+    while(filter = va_arg(args, GtkFileFilter*))
+    {
+		gtk_file_chooser_add_filter(chooser, filter);
+    }
+    va_end (args);
+
+	if(show_preview)
+		fm_add_image_preview_to_file_chooser(chooser);
+
+    if(gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK)
+    {
+        GFile* file = gtk_file_chooser_get_file(chooser);
+        path = fm_path_new_for_gfile(file);
+        g_object_unref(file);
+    }
+    else
+        path = NULL;
+    gtk_widget_destroy((GtkWidget*)chooser);
+    return path;
+}
+
 FmPath* fm_select_folder(GtkWindow* parent, const char* title)
 {
     FmPath* path;
