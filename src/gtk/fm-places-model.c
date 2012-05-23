@@ -274,7 +274,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
         FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
         GtkTreeIter it;
         GdkPixbuf* pix;
-        FmPath* path = fm_path_ref(bm->path);
+        FmPath* path = bm->path;
         item = g_slice_new0(FmPlaceItem);
         item->type = FM_PLACES_ITEM_PATH;
         item->fi = fm_file_info_new();
@@ -500,7 +500,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     item = g_slice_new0(FmPlaceItem);
     item->type = FM_PLACES_ITEM_PATH;
     item->fi = fm_file_info_new();
-    path = fm_path_ref(fm_path_get_home());
+    path = fm_path_get_home();
     fm_file_info_set_path(item->fi, path);
     item->icon = fm_icon_from_name("user-home");
     gtk_list_store_append(model, &it);
@@ -515,8 +515,7 @@ static void fm_places_model_init(FmPlacesModel *self)
         item = g_slice_new0(FmPlaceItem);
         item->type = FM_PLACES_ITEM_PATH;
         item->fi = fm_file_info_new();
-        path = fm_path_ref(fm_path_get_desktop());
-        fm_file_info_set_path(item->fi, path);
+        fm_file_info_set_path(item->fi, fm_path_get_desktop());
         item->icon = fm_icon_from_name("user-desktop");
         gtk_list_store_append(model, &it);
         pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);

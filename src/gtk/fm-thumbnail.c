@@ -321,7 +321,7 @@ void load_thumbnails(ThumbnailTask* task)
     if(task->flags & LOAD_NORMAL)
     {
         normal_pix = gdk_pixbuf_new_from_file(normal_path, NULL);
-        if(!normal_pix || is_thumbnail_outdated(normal_pix, normal_path, *(fm_file_info_get_mtime(task->fi))))
+        if(!normal_pix || is_thumbnail_outdated(normal_pix, normal_path, fm_file_info_get_mtime(task->fi)))
         {
             /* normal_pix is freed in is_thumbnail_outdated() if it's out of date. */
             /* generate normal size thumbnail */
@@ -339,7 +339,7 @@ void load_thumbnails(ThumbnailTask* task)
     if(task->flags & LOAD_LARGE)
     {
         large_pix = gdk_pixbuf_new_from_file(large_path, NULL);
-        if(!large_pix || is_thumbnail_outdated(large_pix, large_path, *(fm_file_info_get_mtime(task->fi))))
+        if(!large_pix || is_thumbnail_outdated(large_pix, large_path, fm_file_info_get_mtime(task->fi)))
         {
             /* large_pix is freed in is_thumbnail_outdated() if it's out of date. */
             /* generate large size thumbnail */
@@ -825,7 +825,7 @@ void save_thumbnail_to_disk(ThumbnailTask* task, GdkPixbuf* pix, const char* pat
     if(fd != -1)
     {
         char mtime_str[100];
-        g_snprintf( mtime_str, 100, "%lu", *(fm_file_info_get_mtime(task->fi)) );
+        g_snprintf( mtime_str, 100, "%lu", fm_file_info_get_mtime(task->fi));
         chmod( tmpfile, 0600 );  /* only the owner can read it. */
         gdk_pixbuf_save( pix, tmpfile, "png", NULL,
                          "tEXt::Thumb::URI", task->uri,

@@ -654,14 +654,14 @@ const char* fm_file_info_get_disp_mtime(FmFileInfo* fi)
     return fi->disp_mtime;
 }
 
-time_t* fm_file_info_get_mtime(FmFileInfo* fi)
+time_t fm_file_info_get_mtime(FmFileInfo* fi)
 {
-    return &fi->mtime;
+    return fi->mtime;
 }
 
-time_t* fm_file_info_get_atime(FmFileInfo* fi)
+time_t fm_file_info_get_atime(FmFileInfo* fi)
 {
-    return &fi->atime;
+    return fi->atime;
 }
 
 uid_t fm_file_info_get_uid(FmFileInfo* fi)
