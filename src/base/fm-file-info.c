@@ -37,6 +37,8 @@
 #include "fm-utils.h"
 #include <menu-cache.h>
 
+#define COLLATE_USING_DISPLAY_NAME	((char*)-1)
+
 static gboolean use_si_prefix = TRUE;
 static FmMimeType* desktop_entry_type = NULL;
 static FmMimeType* shortcut_type = NULL;
@@ -63,7 +65,7 @@ void _fm_file_info_finalize()
 
 FmFileInfo* fm_file_info_new ()
 {
-    FmFileInfo * fi = g_slice_new0( FmFileInfo );
+    FmFileInfo * fi = g_slice_new0(FmFileInfo);
     fi->n_ref = 1;
     return fi;
 }
@@ -78,7 +80,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     /* if display name is the same as its name, just use it. */
     tmp = g_file_info_get_display_name(inf);
-    if( strcmp(tmp, fi->path->name) == 0 )
+    if(strcmp(tmp, fi->path->name) == 0)
         fi->disp_name = fi->path->name;
     else
         fi->disp_name = g_strdup(tmp);
@@ -86,8 +88,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->size = g_file_info_get_size(inf);
 
     tmp = g_file_info_get_content_type(inf);
-    if( tmp )
-        fi->type = fm_mime_type_get_for_type( tmp );
+    if(tmp)
+        fi->type = fm_mime_type_get_for_type(tmp);
 
     fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
@@ -95,7 +97,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->gid = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_GID);
 
     type = g_file_info_get_file_type(inf);
-    if( 0 == fi->mode ) /* if UNIX file mode is not available, compose a fake one. */
+    if(0 == fi->mode) /* if UNIX file mode is not available, compose a fake one. */
     {
         switch(type)
         {
@@ -131,7 +133,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     }
 
     /* set file icon according to mime-type */
-    if( !fi->type || !fi->type->icon )
+    if(!fi->type || !fi->type->icon)
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
@@ -143,10 +145,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     else
         fi->icon = fm_icon_ref(fi->type->icon);
 
-    if( type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT )
+    if(type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT)
     {
         const char* uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
-        if( uri )
+        if(uri)
         {
             if(g_str_has_prefix(uri, "file:/"))
                 fi->target = g_filename_from_uri(uri, NULL, NULL);
@@ -154,10 +156,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->target = g_strdup(uri);
         }
 
-        if( !fi->type )
+        if(!fi->type)
         {
             /* FIXME: is this appropriate? */
-            if( type == G_FILE_TYPE_SHORTCUT )
+            if(type == G_FILE_TYPE_SHORTCUT)
                 fi->type = fm_mime_type_ref(shortcut_type);
             else
                 fi->type = fm_mime_type_ref(mountable_type);
@@ -234,20 +236,20 @@ FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* 
     return fi;
 }
 
-static void fm_file_info_clear( FmFileInfo* fi )
+static void fm_file_info_clear(FmFileInfo* fi)
 {
-    if( fi->collate_key )
+    if(fi->collate_key)
     {
-        if( fi->collate_key != fi->disp_name )
+        if(fi->collate_key != COLLATE_USING_DISPLAY_NAME)
             g_free(fi->collate_key);
         fi->collate_key = NULL;
     }
 
-    if( fi->path )
+    if(fi->path)
     {
         if(G_LIKELY(fi->disp_name) && fi->disp_name != fi->path->name)
         {
-            g_free( fi->disp_name );
+            g_free(fi->disp_name);
             fi->disp_name = NULL;
         }
 
@@ -263,39 +265,39 @@ static void fm_file_info_clear( FmFileInfo* fi )
         }
     }
 
-    if( fi->disp_size )
+    if(fi->disp_size)
     {
-        g_free( fi->disp_size );
+        g_free(fi->disp_size);
         fi->disp_size = NULL;
     }
 
     g_free(fi->target);
 
-    if( fi->type )
+    if(fi->type)
     {
         fm_mime_type_unref(fi->type);
         fi->type = NULL;
     }
-    if( fi->icon )
+    if(fi->icon)
     {
         fm_icon_unref(fi->icon);
         fi->icon = NULL;
     }
 }
 
-FmFileInfo* fm_file_info_ref( FmFileInfo* fi )
+FmFileInfo* fm_file_info_ref(FmFileInfo* fi)
 {
-    g_atomic_int_inc( &fi->n_ref );
+    g_atomic_int_inc(&fi->n_ref);
     return fi;
 }
 
-void fm_file_info_unref( FmFileInfo* fi )
+void fm_file_info_unref(FmFileInfo* fi)
 {
     /* g_debug("unref file info: %d", fi->n_ref); */
-    if ( g_atomic_int_dec_and_test( &fi->n_ref) )
+    if (g_atomic_int_dec_and_test(&fi->n_ref))
     {
-        fm_file_info_clear( fi );
-        g_slice_free( FmFileInfo, fi );
+        fm_file_info_clear(fi);
+        g_slice_free(FmFileInfo, fi);
     }
 }
 
@@ -332,25 +334,28 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
     else
         fi->disp_name = g_strdup(src->disp_name);
 
-    fi->collate_key = g_strdup(src->collate_key);
+	if(src->collate_key == COLLATE_USING_DISPLAY_NAME)
+		fi->collate_key = COLLATE_USING_DISPLAY_NAME;
+	else
+		fi->collate_key = g_strdup(src->collate_key);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
     fi->type = fm_mime_type_ref(src->type);
     fi->icon = fm_icon_ref(src->icon);
 }
 
-FmPath* fm_file_info_get_path( FmFileInfo* fi )
+FmPath* fm_file_info_get_path(FmFileInfo* fi)
 {
     return fi->path;
 }
 
-const char* fm_file_info_get_name( FmFileInfo* fi )
+const char* fm_file_info_get_name(FmFileInfo* fi)
 {
     return fi->path->name;
 }
 
 /* Get displayed name encoded in UTF-8 */
-const char* fm_file_info_get_disp_name( FmFileInfo* fi )
+const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
     if(G_UNLIKELY(!fi->disp_name))
     {
@@ -374,62 +379,63 @@ void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
     {
         fi->path = fm_path_ref(path);
         /* FIXME: need to handle UTF-8 issue here */
-        fi->disp_name = fi->path->name;
+        if(!fi->disp_name)
+			fi->disp_name = fi->path->name;
     }
     else
         fi->path = NULL;
 }
 
-void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name )
+void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
-    if ( fi->disp_name && fi->disp_name != fi->path->name )
-        g_free( fi->disp_name );
-    fi->disp_name = g_strdup( name );
+    if (fi->disp_name && fi->disp_name != fi->path->name)
+        g_free(fi->disp_name);
+    fi->disp_name = g_strdup(name);
 }
 
-goffset fm_file_info_get_size( FmFileInfo* fi )
+goffset fm_file_info_get_size(FmFileInfo* fi)
 {
     return fi->size;
 }
 
-const char* fm_file_info_get_disp_size( FmFileInfo* fi )
+const char* fm_file_info_get_disp_size(FmFileInfo* fi)
 {
-    if ( G_UNLIKELY( !fi->disp_size ) )
+    if (G_UNLIKELY(!fi->disp_size))
     {
-        if( S_ISREG(fi->mode) )
+        if(S_ISREG(fi->mode))
         {
             char buf[ 64 ];
-            fm_file_size_to_str( buf, fi->size, use_si_prefix );
-            fi->disp_size = g_strdup( buf );
+            fm_file_size_to_str(buf, fi->size, use_si_prefix);
+            fi->disp_size = g_strdup(buf);
         }
     }
     return fi->disp_size;
 }
 
-goffset fm_file_info_get_blocks( FmFileInfo* fi )
+goffset fm_file_info_get_blocks(FmFileInfo* fi)
 {
     return fi->blocks;
 }
 
-FmMimeType* fm_file_info_get_mime_type( FmFileInfo* fi )
+FmMimeType* fm_file_info_get_mime_type(FmFileInfo* fi)
 {
     return fi->type ? fm_mime_type_ref(fi->type) : NULL;
 }
 
-mode_t fm_file_info_get_mode( FmFileInfo* fi )
+mode_t fm_file_info_get_mode(FmFileInfo* fi)
 {
     return fi->mode;
 }
 
-gboolean fm_file_info_is_dir( FmFileInfo* fi )
+gboolean fm_file_info_is_dir(FmFileInfo* fi)
 {
-    return (S_ISDIR( fi->mode ) ||
-        (S_ISLNK( fi->mode ) && (0 == strcmp( fi->type->type, "inode/directory" ))));
+    return (S_ISDIR(fi->mode) ||
+        (S_ISLNK(fi->mode) && (0 == strcmp(fi->type->type, "inode/directory"))));
 }
 
-gboolean fm_file_info_is_symlink( FmFileInfo* fi )
+gboolean fm_file_info_is_symlink(FmFileInfo* fi)
 {
-    return S_ISLNK( fi->mode ) ? TRUE : FALSE;
+    return S_ISLNK(fi->mode) ? TRUE : FALSE;
 }
 
 gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
@@ -442,37 +448,37 @@ gboolean fm_file_info_is_mountable(FmFileInfo* fi)
     return fi->type == mountable_type;
 }
 
-gboolean fm_file_info_is_image( FmFileInfo* fi )
+gboolean fm_file_info_is_image(FmFileInfo* fi)
 {
     /* FIXME: We had better use functions of xdg_mime to check this */
-    if ( ! strncmp( "image/", fi->type->type, 6 ) )
+    if (!strncmp("image/", fi->type->type, 6))
         return TRUE;
     return FALSE;
 }
 
-gboolean fm_file_info_is_text( FmFileInfo* fi )
+gboolean fm_file_info_is_text(FmFileInfo* fi)
 {
     if(g_content_type_is_a(fi->type->type, "text/plain"))
         return TRUE;
     return FALSE;
 }
 
-gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
+gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
 {
     return fi->type == desktop_entry_type;
     /* return g_strcmp0(fi->type->type, "application/x-desktop") == 0; */
 }
 
-gboolean fm_file_info_is_unknown_type( FmFileInfo* fi )
+gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 {
     return g_content_type_is_unknown(fi->type->type);
 }
 
 /* full path of the file is required by this function */
-gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
+gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
     // FIXME: didn't check access rights.
-//    return mime_type_is_executable_file( file_path, fi->type->type );
+//    return mime_type_is_executable_file(file_path, fi->type->type);
     return g_content_type_can_be_executable(fi->type->type);
 }
 
@@ -482,72 +488,81 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
     /* files with . prefix or ~ suffix are regarded as hidden files.
      * dirs with . prefix are regarded as hidden dirs. */
     return (name[0] == '.' ||
-       (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")) );
+       (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
 }
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */
-    if( !(fi->mode & S_IFREG) ||
+    if(!(fi->mode & S_IFREG) ||
         fm_file_info_is_desktop_entry(fi) ||
         fm_file_info_is_unknown_type(fi))
         return FALSE;
     return TRUE;
 }
 
-const char* fm_file_info_get_collate_key( FmFileInfo* fi )
+
+const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 {
-    if( G_UNLIKELY(!fi->collate_key) )
+    if(G_UNLIKELY(!fi->collate_key))
     {
         char* casefold = g_utf8_casefold(fi->disp_name, -1);
         char* collate = g_utf8_collate_key_for_filename(casefold, -1);
         g_free(casefold);
-        if( strcmp(collate, fi->disp_name) )
+        if(strcmp(collate, fi->disp_name))
             fi->collate_key = collate;
         else
         {
-            fi->collate_key = fi->disp_name;
+			/* if the collate key is the same as the display name,
+			 * then there is no need to save it.
+			 * Just use the display name directly. */
+            fi->collate_key = COLLATE_USING_DISPLAY_NAME;
             g_free(collate);
         }
     }
+    else
+    {
+		if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
+			return fm_file_info_get_disp_name(fi);
+	}
     return fi->collate_key;
 }
 
-const char* fm_file_info_get_target( FmFileInfo* fi )
+const char* fm_file_info_get_target(FmFileInfo* fi)
 {
     return fi->target;
 }
 
-const char* fm_file_info_get_desc( FmFileInfo* fi )
+const char* fm_file_info_get_desc(FmFileInfo* fi)
 {
     /* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
-    return fi->type ? fm_mime_type_get_desc( fi->type ) : NULL;
+    return fi->type ? fm_mime_type_get_desc(fi->type) : NULL;
 }
 
-const char* fm_file_info_get_disp_mtime( FmFileInfo* fi )
+const char* fm_file_info_get_disp_mtime(FmFileInfo* fi)
 {
     /* FIXME: This can cause problems if the file really has mtime=0. */
     /*        We'd better hide mtime for virtual files only. */
     if(fi->mtime > 0)
     {
-        if ( ! fi->disp_mtime )
+        if (!fi->disp_mtime)
         {
             char buf[ 128 ];
-            strftime( buf, sizeof( buf ),
+            strftime(buf, sizeof(buf),
                       "%x %R",
-                      localtime( &fi->mtime ) );
-            fi->disp_mtime = g_strdup( buf );
+                      localtime(&fi->mtime));
+            fi->disp_mtime = g_strdup(buf);
         }
     }
     return fi->disp_mtime;
 }
 
-time_t* fm_file_info_get_mtime( FmFileInfo* fi )
+time_t* fm_file_info_get_mtime(FmFileInfo* fi)
 {
     return &fi->mtime;
 }
 
-time_t* fm_file_info_get_atime( FmFileInfo* fi )
+time_t* fm_file_info_get_atime(FmFileInfo* fi)
 {
     return &fi->atime;
 }
@@ -572,7 +587,7 @@ gboolean fm_list_is_file_info_list(FmList* list)
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 {
     /* FIXME: handle virtual files without mime-types */
-    if( ! fm_list_is_empty(list) )
+    if(!fm_list_is_empty(list))
     {
         GList* l = fm_list_peek_head_link(list);
         FmFileInfo* fi = (FmFileInfo*)l->data;
@@ -590,7 +605,7 @@ gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 /* return TRUE if all files in the list are on the same fs */
 gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
 {
-    if( ! fm_list_is_empty(list) )
+    if(!fm_list_is_empty(list))
     {
         GList* l = fm_list_peek_head_link(list);
         FmFileInfo* fi = (FmFileInfo*)l->data;
@@ -599,16 +614,16 @@ gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
         {
             FmFileInfo* fi2 = (FmFileInfo*)l->data;
             gboolean is_native = fm_path_is_native(fi->path);
-            if( is_native != fm_path_is_native(fi2->path) )
+            if(is_native != fm_path_is_native(fi2->path))
                 return FALSE;
-            if( is_native )
+            if(is_native)
             {
-                if( fi->dev != fi2->dev )
+                if(fi->dev != fi2->dev)
                     return FALSE;
             }
             else
             {
-                if( fi->fs_id != fi2->fs_id )
+                if(fi->fs_id != fi2->fs_id)
                     return FALSE;
             }
         }
