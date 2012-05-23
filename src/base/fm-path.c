@@ -995,7 +995,7 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
     for(l=fm_list_peek_head_link(fis);l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1007,7 +1007,7 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1019,7 +1019,7 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }

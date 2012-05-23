@@ -447,7 +447,7 @@ void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
         switch(item->type)
         {
         case FM_PLACES_ITEM_PATH:
-            path = fm_path_ref(item->fi->path);
+            path = fm_path_ref(fm_file_info_get_path(item->fi));
             break;
         case FM_PLACES_ITEM_VOL:
         {
@@ -585,7 +585,7 @@ GtkWidget* place_item_get_menu(FmPlaceItem* item)
             gtk_action_group_add_actions(act_grp, bm_menu_actions, G_N_ELEMENTS(bm_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, bookmark_menu_xml, -1, NULL);
         }
-        else if(fm_path_is_trash_root(item->fi->path))
+        else if(fm_path_is_trash_root(fm_file_info_get_path(item->fi)))
         {
             gtk_action_group_add_actions(act_grp, trash_menu_actions, G_N_ELEMENTS(trash_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, trash_menu_xml, -1, NULL);
@@ -766,7 +766,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
                 FmBookmarkItem* item;
                 FmFileInfo* fi = FM_FILE_INFO(l->data);
                 if(fm_file_info_is_dir(fi))
-                    item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fi->path, fm_file_info_get_disp_name(fi), idx);
+                    item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(tp);

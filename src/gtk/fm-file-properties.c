@@ -427,41 +427,43 @@ static void update_permissions(FmFilePropData* data)
     GList *l;
     int sel;
     char* tmp;
-    mode_t owner_perm = (fi->mode & S_IRWXU);
-    mode_t group_perm = (fi->mode & S_IRWXG);
-    mode_t other_perm = (fi->mode & S_IRWXO);
-    mode_t exec_perm = (fi->mode & (S_IXUSR|S_IXGRP|S_IXOTH));
-    uid_t uid = fi->uid;
-    gid_t gid = fi->gid;
+    mode_t fi_mode = fm_file_info_get_mode(fi);
+    mode_t owner_perm = (fi_mode & S_IRWXU);
+    mode_t group_perm = (fi_mode & S_IRWXG);
+    mode_t other_perm = (fi_mode & S_IRWXO);
+    mode_t exec_perm = (fi_mode & (S_IXUSR|S_IXGRP|S_IXOTH));
+    uid_t uid = fm_file_info_get_uid(fi);
+    gid_t gid = fm_file_info_get_gid(fi);
     struct group* grp = NULL;
     struct passwd* pw = NULL;
 
-    data->all_native = fm_path_is_native(fi->path);
-    data->has_dir = S_ISDIR(fi->mode) != FALSE;
+    data->all_native = fm_path_is_native(fm_file_info_get_path(fi));
+    data->has_dir = S_ISDIR(fi_mode) != FALSE;
 
     for(l=fm_list_peek_head_link(data->files)->next; l; l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
 
-        if( !fm_path_is_native(fi->path) )
+        if( !fm_path_is_native(fm_file_info_get_path(fi)) )
             data->all_native = FALSE;
 
-        if(S_ISDIR(fi->mode))
+        fi_mode = fm_file_info_get_mode(fi);
+        if(S_ISDIR(fi_mode))
             data->has_dir = TRUE;
 
-        if( uid != fi->uid )
+        if( uid != fm_file_info_get_uid(fi) )
             uid = -1;
-        if( gid != fi->gid )
+        if( gid != fm_file_info_get_gid(fi) )
             gid = -1;
 
-        if( owner_perm != -1 && owner_perm != (fi->mode & S_IRWXU) )
+        if( owner_perm != -1 && owner_perm != (fi_mode & S_IRWXU) )
             owner_perm = -1;
-        if( group_perm != -1 && group_perm != (fi->mode & S_IRWXG) )
+        if( group_perm != -1 && group_perm != (fi_mode & S_IRWXG) )
             group_perm = -1;
-        if( other_perm != -1 && other_perm != (fi->mode & S_IRWXO) )
+        if( other_perm != -1 && other_perm != (fi_mode & S_IRWXO) )
             other_perm = -1;
 
-        if( exec_perm != (fi->mode & (S_IXUSR|S_IXGRP|S_IXOTH)) )
+        if( exec_perm != (fi_mode & (S_IXUSR|S_IXGRP|S_IXOTH)) )
             exec_perm = -1;
     }
 
@@ -592,8 +594,9 @@ static void update_ui(FmFilePropData* data)
         if( data->single_file ) /* only one file is selected. */
         {
             FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(data->files);
-            if(fi->icon)
-                icon = fi->icon->gicon;
+            FmIcon* fi_icon = fm_file_info_get_icon(fi);
+            if(fi_icon)
+                icon = fi_icon->gicon;
         }
 
         if(data->mime_type)
@@ -614,7 +617,7 @@ static void update_ui(FmFilePropData* data)
         {
             gtk_widget_show(data->target_label);
             gtk_widget_show(data->target);
-            gtk_label_set_text(GTK_LABEL(data->target), data->fi->target);
+            gtk_label_set_text(GTK_LABEL(data->target), fm_file_info_get_target(data->fi));
             // gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
         }
         else
@@ -657,7 +660,7 @@ static void update_ui(FmFilePropData* data)
         /* FIXME: need to encapsulate this in an libfm API. */
         strftime( buf, sizeof( buf ),
                   "%x %R",
-                  localtime( &data->fi->atime ) );
+                  localtime( fm_file_info_get_atime(data->fi) ) );
         gtk_label_set_text(GTK_LABEL(data->atime), buf);
     }
     else
@@ -701,7 +704,7 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     data->single_file = (fm_list_get_length(files) == 1);
     data->fi = fm_list_peek_head(files);
     if(data->single_type)
-        data->mime_type = data->fi->type; /* FIXME: do we need ref counting here? */
+        data->mime_type = fm_file_info_get_mime_type(data->fi); /* FIXME: do we need ref counting here? */
     paths = fm_path_list_new_from_file_info_list(files);
     data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
     fm_list_unref(paths);

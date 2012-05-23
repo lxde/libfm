@@ -229,6 +229,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(files);
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
+    FmMimeType* mime_type = fm_file_info_get_mime_type(fi);
+    FmPath* path = fm_file_info_get_path(fi);
 
     unsigned items_num = fm_list_get_length(files);
 
@@ -243,8 +245,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* check if the files are on the same filesystem */
     data->same_fs = fm_file_info_list_is_same_fs(files);
 
-    data->all_virtual = data->same_fs && fm_path_is_virtual(fi->path);
-    data->all_trash = data->same_fs && fm_path_is_trash(fi->path);
+    data->all_virtual = data->same_fs && fm_path_is_virtual(path);
+    data->all_trash = data->same_fs && fm_path_is_trash(path);
 
     data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
@@ -261,9 +263,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     xml = g_string_new("<popup><placeholder name='ph2'>");
     if(data->same_type) /* add specific menu items for this mime type */
     {
-        if(fi->type && !data->all_virtual ) /* the file has a valid mime-type and its not virtual */
+        if(mime_type && !data->all_virtual ) /* the file has a valid mime-type and its not virtual */
         {
-            GList* apps = g_app_info_get_all_for_type(fi->type->type);
+            GList* apps = g_app_info_get_all_for_type(mime_type->type);
             GList* l;
             gboolean use_sub = g_list_length(apps) > 5;
             if(use_sub)
@@ -324,7 +326,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             if(archiver)
             {
                 fi = (FmFileInfo*)fm_list_peek_head(files);
-                if(fm_archiver_is_mime_type_supported(archiver, fi->type->type))
+                if(fm_archiver_is_mime_type_supported(archiver, mime_type->type))
                 {
                     if(data->cwd && archiver->extract_to_cmd)
                         g_string_append(xml, "<menuitem action='Extract'/>");
@@ -352,7 +354,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             /* only immediate children of trash:/// can be restored. */
             for(l = fm_list_peek_head_link(files);l;l=l->next)
             {
-                FmPath* trash_path = FM_FILE_INFO(l->data)->path;
+                FmPath* trash_path = fm_file_info_get_path(FM_FILE_INFO(l->data));
                 if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
                 {
                     can_restore = FALSE;
@@ -459,7 +461,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     for(i=0; l; ++i, l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        FmPath* path = fi->path;
+        FmPath* path = fm_file_info_get_path(fi);
         char* uri = fm_path_to_uri(path);
         uris = g_list_prepend(uris, uri);
     }
@@ -494,8 +496,8 @@ void on_open_with(GtkAction* action, gpointer user_data)
     FmMimeType* mime_type;
     GAppInfo* app;
 
-    if(data->same_type && fi->type && fi->type->type)
-        mime_type = fi->type;
+    if(data->same_type)
+        mime_type = fm_file_info_get_mime_type(fi);
     else
         mime_type = NULL;
 
@@ -510,6 +512,8 @@ void on_open_with(GtkAction* action, gpointer user_data)
         /* FIXME: what to do if mime_type is NULL? */
         g_object_unref(app);
     }
+    if(mime_type)
+        fm_mime_type_unref(mime_type);
 }
 
 void on_cut(GtkAction* action, gpointer user_data)
@@ -536,7 +540,7 @@ void on_paste(GtkAction* action, gpointer user_data)
     FmFileInfo* fi = fm_list_peek_head(data->file_infos);
     if (fi)
     {
-        fm_clipboard_paste_files(data->parent, fi->path);
+        fm_clipboard_paste_files(data->parent, fm_file_info_get_path(fi));
     }
 }
 
@@ -563,7 +567,7 @@ void on_rename(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfo* fi = fm_list_peek_head(data->file_infos);
     if(fi)
-        fm_rename_file(data->parent, fi->path);
+        fm_rename_file(data->parent, fm_file_info_get_path(fi));
     /* FIXME: is it ok to only rename the first selected file here? */
 }
 

@@ -155,14 +155,16 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             folders = g_list_prepend(folders, fi);
         else
         {
+            FmPath* path = fm_file_info_get_path(fi);
+            FmMimeType* mime_type;
             /* FIXME: handle shortcuts, such as the items in menu:// */
-            if(fm_path_is_native(fi->path))
+            if(fm_path_is_native(path))
             {
                 char* filename;
                 if(fm_file_info_is_desktop_entry(fi))
                 {
                     /* if it's a desktop entry file, directly launch it. */
-                    filename = fm_path_to_str(fi->path);
+                    filename = fm_path_to_str(path);
                     fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
                     continue;
                 }
@@ -172,7 +174,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
 					GFile* gfile;
 					gboolean fs_supports_exec = TRUE;
                     /* if it's an executable file, directly execute it. */
-                    filename = fm_path_to_str(fi->path);
+                    filename = fm_path_to_str(path);
 
 					#if 0
 					/* NOTE: by default we don't execute files on NTFS & FAT.
@@ -242,20 +244,27 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 if(fm_file_info_is_shortcut(fi) && !fm_file_info_is_dir(fi))
                 {
                     /* FIXME: special handling for shortcuts */
-                    if(fm_path_is_xdg_menu(fi->path) && fi->target)
+                    if(fm_path_is_xdg_menu(path))
                     {
-                        fm_launch_desktop_entry(ctx, fi->target, NULL, launcher, user_data);
-                        continue;
+                        const char* target = fm_file_info_get_target(fi);
+                        if(target)
+                        {
+                            fm_launch_desktop_entry(ctx, target, NULL, launcher, user_data);
+                            continue;
+                        }
                     }
                 }
             }
 
-            if(fi->type && fi->type->type)
+            mime_type = fm_file_info_get_mime_type(fi);
+            if(mime_type && mime_type->type)
             {
-                fis = g_hash_table_lookup(hash, fi->type->type);
+                fis = g_hash_table_lookup(hash, mime_type->type);
                 fis = g_list_prepend(fis, fi);
-                g_hash_table_insert(hash, fi->type->type, fis);
+                g_hash_table_insert(hash, mime_type->type, fis);
             }
+            if(mime_type)
+                fm_mime_type_unref(mime_type);
         }
     }
 
@@ -272,8 +281,10 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             {
                 if(launcher->get_app)
                 {
-                    FmMimeType* mime_type = ((FmFileInfo*)fis->data)->type;
+                    FmMimeType* mime_type = fm_file_info_get_mime_type((FmFileInfo*)fis->data);
                     app = launcher->get_app(fis, mime_type, user_data, NULL);
+                    if(mime_type)
+                        fm_mime_type_unref(mime_type);
                 }
             }
             if(app)
@@ -282,7 +293,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     char* uri;
                     fi = (FmFileInfo*)l->data;
-                    uri = fm_path_to_uri(fi->path);
+                    uri = fm_path_to_uri(fm_file_info_get_path(fi));
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);

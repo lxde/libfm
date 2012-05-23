@@ -52,42 +52,6 @@ typedef enum _FmFileInfoFlag FmFileInfoFlag;
 typedef struct _FmFileInfo FmFileInfo;
 typedef FmList FmFileInfoList;
 
-struct _FmFileInfo
-{
-    FmPath* path; /* path of the file */
-
-    mode_t mode;
-    union {
-        const char* fs_id;
-        dev_t dev;
-    };
-    uid_t uid;
-    gid_t gid;
-    goffset size;
-    time_t mtime;
-    time_t atime;
-
-    gulong blksize;
-    goffset blocks;
-
-    char* disp_name;  /* displayed name (in UTF-8) */
-
-    /* FIXME: caching the collate key can greatly speed up sorting.
-     *        However, memory usage is greatly increased!.
-     *        Is there a better alternative solution?
-     */
-    char* collate_key; /* used to sort files by name */
-    char* disp_size;  /* displayed human-readable file size */
-    char* disp_mtime; /* displayed last modification time */
-    FmMimeType* type;
-    FmIcon* icon;
-
-    char* target; /* target of shortcut or mountable. */
-
-    /*<private>*/
-    int n_ref;
-};
-
 /* intialize the file info system */
 void _fm_file_info_init();
 void _fm_file_info_finalize();
@@ -95,6 +59,8 @@ void _fm_file_info_finalize();
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
+
+gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
 
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );
@@ -146,6 +112,11 @@ const char* fm_file_info_get_desc( FmFileInfo* fi );
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_mtime( FmFileInfo* fi );
 time_t* fm_file_info_get_atime( FmFileInfo* fi );
+FmIcon* fm_file_info_get_icon( FmFileInfo* fi );
+uid_t fm_file_info_get_uid( FmFileInfo* fi );
+gid_t fm_file_info_get_gid( FmFileInfo* fi );
+const char* fm_file_info_get_fs_id( FmFileInfo* fi );
+dev_t fm_file_info_get_dev( FmFileInfo* fi );
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 

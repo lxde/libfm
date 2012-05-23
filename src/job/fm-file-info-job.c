@@ -83,7 +83,7 @@ FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags
         {
             FmPath* path = (FmPath*)l->data;
             FmFileInfo* fi = fm_file_info_new();
-            fi->path = fm_path_ref(path);
+            fm_file_info_set_path(fi, path);
             fm_list_push_tail_noref(file_infos, fi);
         }
     }
@@ -102,12 +102,13 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
+        FmPath* path = fm_file_info_get_path(fi);
 
-        job->current = fi->path;
+        job->current = path;
 
-        if(fm_path_is_native(fi->path))
+        if(fm_path_is_native(path))
         {
-            char* path_str = fm_path_to_str(fi->path);
+            char* path_str = fm_path_to_str(path);
             if(!_fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str, &err))
             {
                 FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
@@ -124,14 +125,14 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
         else
         {
             GFile* gf;
-            if(fm_path_is_virtual(fi->path))
+            if(fm_path_is_virtual(path))
             {
                 /* this is a xdg menu */
-                if(fm_path_is_xdg_menu(fi->path))
+                if(fm_path_is_xdg_menu(path))
                 {
                     MenuCache* mc;
                     MenuCacheDir* dir;
-                    char* path_str = fm_path_to_str(fi->path);
+                    char* path_str = fm_path_to_str(path);
                     char* menu_name = path_str + 5, ch;
                     char* dir_name;
                     while(*menu_name == '/')
@@ -167,7 +168,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                 }
             }
 
-            gf = fm_path_to_gfile(fi->path);
+            gf = fm_path_to_gfile(fm_file_info_get_path(fi));
             if(!_fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf, &err))
             {
                 FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
@@ -190,7 +191,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 {
     FmFileInfo* fi = fm_file_info_new();
-    fi->path = fm_path_ref(path);
+    fm_file_info_set_path(fi, path);
     fm_list_push_tail_noref(job->file_infos, fi);
 }
 
@@ -198,87 +199,15 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
     FmFileInfo* fi = fm_file_info_new();
-    fi->path = path;
+    fm_file_info_set_path(fi, path);
+    fm_path_unref(path);
     fm_list_push_tail_noref(job->file_infos, fi);
 }
 
 gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
 {
-    struct stat st;
-    gboolean is_link;
-_retry:
-    if( lstat( path, &st ) == 0 )
-    {
-        char* type;
-        /* By default we use the real file base name for display.
-         * FIXME: if the base name is not in UTF-8 encoding, we
-         * need to convert it to UTF-8 for display and save its
-         * UTF-8 version in fi->display_name */
-        fi->disp_name = NULL;
-        fi->mode = st.st_mode;
-        fi->mtime = st.st_mtime;
-        fi->atime = st.st_atime;
-        fi->size = st.st_size;
-        fi->dev = st.st_dev;
-        fi->uid = st.st_uid;
-        fi->gid = st.st_gid;
-
-        if( ! fm_job_is_cancelled(FM_JOB(job)) )
-        {
-            /* FIXME: handle symlinks */
-            if(S_ISLNK(st.st_mode))
-            {
-                stat(path, &st);
-                fi->target = g_file_read_link(path, NULL);
-            }
-
-            fi->type = fm_mime_type_get_for_native_file(path, fm_file_info_get_disp_name(fi), &st);
-
-            /* special handling for desktop entry files */
-            if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
-            {
-                char* fpath = fm_path_to_str(fi->path);
-                GKeyFile* kf = g_key_file_new();
-                FmIcon* icon = NULL;
-                if(g_key_file_load_from_file(kf, fpath, 0, NULL))
-                {
-                    char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
-                    char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
-                    if(icon_name)
-                    {
-                        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-                        {
-                            char* dot = strrchr(icon_name, '.');
-                            /* remove file extension */
-                            if(dot)
-                            {
-                                ++dot;
-                                if(strcmp(dot, "png") == 0 ||
-                                   strcmp(dot, "svg") == 0 ||
-                                   strcmp(dot, "xpm") == 0)
-                                   *(dot-1) = '\0';
-                            }
-                        }
-                        icon = fm_icon_from_name(icon_name);
-                        g_free(icon_name);
-                    }
-                    if(title) /* Use title of the desktop entry for display */
-                        fi->disp_name = title;
-                }
-                if(icon)
-                    fi->icon = icon;
-                else
-                    fi->icon = fm_icon_ref(fi->type->icon);
-            }
-            else
-                fi->icon = fm_icon_ref(fi->type->icon);
-        }
-    }
-    else
-    {
-        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
-        return FALSE;
-    }
+    if( ! fm_job_is_cancelled(FM_JOB(job)) )
+        return fm_file_info_set_from_native_file(fi, path, err);
     return TRUE;
 }
 

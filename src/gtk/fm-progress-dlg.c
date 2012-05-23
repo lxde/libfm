@@ -186,6 +186,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     GtkWidget *dlg, *src_icon, *dest_icon, *src_fi, *dest_fi, *filename, *apply_all;
     char* tmp;
     const char* disp_size;
+    FmPath* path = fm_file_info_get_path(dest);
+    FmIcon* icon = fm_file_info_get_icon(src);
 
     /* return default operation if the user has set it */
     if(data->default_opt)
@@ -207,7 +209,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     apply_all = (GtkWidget*)gtk_builder_get_object(builder, "apply_all");
     gtk_window_set_transient_for(GTK_WINDOW(dlg), data->dlg);
 
-    gtk_image_set_from_gicon(GTK_IMAGE(src_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(GTK_IMAGE(src_icon), icon->gicon, GTK_ICON_SIZE_DIALOG);
     disp_size = fm_file_info_get_disp_size(src);
     if(disp_size)
     {
@@ -226,7 +228,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(GTK_LABEL(src_fi), tmp);
     g_free(tmp);
 
-    gtk_image_set_from_gicon(GTK_IMAGE(dest_icon), src->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(GTK_IMAGE(dest_icon), icon->gicon, GTK_ICON_SIZE_DIALOG);
     disp_size = fm_file_info_get_disp_size(dest);
     if(disp_size)
     {
@@ -245,7 +247,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(GTK_LABEL(dest_fi), tmp);
     g_free(tmp);
 
-    tmp = g_filename_display_name(dest->path->name);
+    tmp = g_filename_display_name(path->name);
     gtk_entry_set_text(GTK_ENTRY(filename), tmp);
     g_free(tmp);
     g_object_set_data(G_OBJECT(filename), "old_name", fm_file_info_get_disp_name(dest));

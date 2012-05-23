@@ -330,6 +330,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
     FmDirTreeModel* model = FM_DIR_TREE_MODEL(tree_model);
     GList* item_l;
     FmDirTreeItem* item;
+    FmIcon* icon;
 
     g_return_if_fail (iter->stamp == model->stamp);
 
@@ -340,10 +341,10 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
     switch(column)
     {
     case FM_DIR_TREE_MODEL_COL_ICON:
-        if(item->fi && item->fi->icon)
+        if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
         {
             if(!item->icon)
-                item->icon = fm_icon_get_pixbuf(item->fi->icon, model->icon_size);
+                item->icon = fm_icon_get_pixbuf(icon, model->icon_size);
             g_value_set_object(value, item->icon);
         }
         else
@@ -366,7 +367,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
         g_value_set_pointer( value, item->fi);
         break;
     case FM_DIR_TREE_MODEL_COL_PATH:
-        g_value_set_pointer( value, item->fi ? item->fi->path : NULL);
+        g_value_set_pointer( value, item->fi ? fm_file_info_get_path(item->fi) : NULL);
         break;
     case FM_DIR_TREE_MODEL_COL_FOLDER:
         g_value_set_pointer( value, item->folder);
@@ -612,9 +613,10 @@ static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePa
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     FmDirTreeItem* item = fm_dir_tree_item_new(model, parent_l);
     item->fi = fm_file_info_ref(fi);
+    FmPath* path = fm_file_info_get_path(fi);
 
     /* fm_file_info_is_hidden() is slower here*/
-    if(!model->show_hidden && fi->path->name[0] == '.') /* hidden folder */
+    if(!model->show_hidden && path->name[0] == '.') /* hidden folder */
     {
         parent_item->hidden_children = g_list_prepend(parent_item->hidden_children, item);
         item_l = parent_item->hidden_children;
@@ -645,8 +647,9 @@ static GList* children_by_name(FmDirTreeModel* model, GList* children, const cha
     for(l = children; l; l=l->next, ++i)
     {
         FmDirTreeItem* item = (FmDirTreeItem*)l->data;
+        FmPath* path;
         if(G_LIKELY(item->fi) &&
-           G_UNLIKELY(strcmp(item->fi->path->name, name) == 0))
+           G_UNLIKELY(strcmp((path = fm_file_info_get_path(item->fi))->name, name) == 0))
         {
             if(idx)
                 *idx = i;
@@ -742,7 +745,8 @@ static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l
         if(fm_file_info_is_dir(fi)) /* TODO: maybe adding files can be allowed later */
         {
             /* ensure that the file is not yet in our model */
-            GList* new_item_l = children_by_name(model, item->children, fi->path->name, NULL);
+            FmPath* path = fm_file_info_get_path(fi);
+            GList* new_item_l = children_by_name(model, item->children, path->name, NULL);
             if(!new_item_l)
                 new_item_l = insert_file_info(model, item_l, tp, fi);
         }
@@ -759,7 +763,8 @@ static void on_folder_files_removed(FmFolder* folder, GSList* files, GList* item
     for(l = files; l; l = l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
-        GList* rm_item_l = children_by_name(model, item->children, fi->path->name, NULL);
+        FmPath* path = fm_file_info_get_path(fi);
+        GList* rm_item_l = children_by_name(model, item->children, path->name, NULL);
         if(rm_item_l)
             remove_item(model, rm_item_l);
     }
@@ -779,7 +784,8 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
         int idx;
-        GList* changed_item_l = children_by_name(model, item->children, fi->path->name, &idx);
+        FmPath* path = fm_file_info_get_path(fi);
+        GList* changed_item_l = children_by_name(model, item->children, path->name, &idx);
         /* g_debug("changed file: %s", fi->path->name); */
         if(changed_item_l)
         {
@@ -819,7 +825,7 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     if(item->n_expand == 0)
     {
         /* dynamically load content of the folder. */
-        FmFolder* folder = fm_folder_get(item->fi->path);
+        FmFolder* folder = fm_folder_get(fm_file_info_get_path(item->fi));
         item->folder = folder;
 
         /* associate the data with loaded handler */

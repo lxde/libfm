@@ -142,7 +142,7 @@ static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gp
     FmMainWin* win = FM_MAIN_WIN(user_data);
     GList* l = folder_infos;
     FmFileInfo* fi = (FmFileInfo*)l->data;
-    fm_main_win_chdir(win, fi->path);
+    fm_main_win_chdir(win, fm_file_info_get_path(fi));
     l=l->next;
     for(; l; l=l->next)
     {
@@ -159,20 +159,22 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
     switch(type)
     {
     case FM_FV_ACTIVATED: /* file activated */
+    {
+        char* target;
         if(fm_file_info_is_dir(fi))
         {
-            fm_main_win_chdir( win, fi->path);
+            fm_main_win_chdir( win, fm_file_info_get_path(fi));
         }
-        else if(fi->target) /* FIXME: use accessor functions. */
+        else if((target = fm_file_info_get_target(fi)))
         {
-            /* FIXME: use FmPath here. */
-            fm_main_win_chdir_by_name( win, fi->target);
+            fm_main_win_chdir_by_name( win, target);
         }
         else
         {
             fm_launch_file_simple(GTK_WINDOW(win), NULL, fi, open_folder_func, win);
         }
         break;
+    }
     case FM_FV_CONTEXT_MENU:
         if(fi)
         {

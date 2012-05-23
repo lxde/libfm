@@ -78,11 +78,12 @@ static int on_launch_ask(const char* msg, const char** btn_labels, int default_b
 
 static gboolean file_is_executable_script(FmFileInfo* file)
 {
+    FmPath* path = fm_file_info_get_path(file);
     /* We don't execute remote files */
-    if(fm_path_is_local(file->path) && fm_file_info_is_text(file) && fm_file_info_get_size(file) > 2)
+    if(fm_path_is_local(path) && fm_file_info_is_text(file) && fm_file_info_get_size(file) > 2)
     {
         /* check if the first two bytes of the file is #! */
-        char* path = fm_path_to_str(file->path);
+        char* path = fm_path_to_str(path);
         int fd = open(path, O_RDONLY);
         g_free(path);
         if(fd != -1)
@@ -104,12 +105,13 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     GtkWidget* dlg, *msg, *icon;
     char* msg_str;
     int res;
+    FmIcon* fi_icon = fm_file_info_get_icon(file);
     gtk_builder_set_translation_domain(b, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/exec-file.ui", NULL);
     dlg = gtk_builder_get_object(b, "dlg");
     msg = gtk_builder_get_object(b, "msg");
     icon = gtk_builder_get_object(b, "icon");
-    gtk_image_set_from_gicon(GTK_IMAGE(icon), file->icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(GTK_IMAGE(icon), fi_icon->gicon, GTK_ICON_SIZE_DIALOG);
     gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(GTK_DIALOG(dlg))), FALSE);
 
     /* If it's a script, ask the user first. */

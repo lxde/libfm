@@ -278,7 +278,7 @@ void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, GdkPixbuf
 
         /* cache this in hash table */
         if(cached_pix)
-            cache_thumbnail_in_hash(req->fi->path, cached_pix, cached_size);
+            cache_thumbnail_in_hash(fm_file_info_get_path(req->fi), cached_pix, cached_size);
 
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
@@ -321,7 +321,7 @@ void load_thumbnails(ThumbnailTask* task)
     if(task->flags & LOAD_NORMAL)
     {
         normal_pix = gdk_pixbuf_new_from_file(normal_path, NULL);
-        if(!normal_pix || is_thumbnail_outdated(normal_pix, normal_path, task->fi->mtime))
+        if(!normal_pix || is_thumbnail_outdated(normal_pix, normal_path, *(fm_file_info_get_mtime(task->fi))))
         {
             /* normal_pix is freed in is_thumbnail_outdated() if it's out of date. */
             /* generate normal size thumbnail */
@@ -339,7 +339,7 @@ void load_thumbnails(ThumbnailTask* task)
     if(task->flags & LOAD_LARGE)
     {
         large_pix = gdk_pixbuf_new_from_file(large_path, NULL);
-        if(!large_pix || is_thumbnail_outdated(large_pix, large_path, task->fi->mtime))
+        if(!large_pix || is_thumbnail_outdated(large_pix, large_path, *(fm_file_info_get_mtime(task->fi))))
         {
             /* large_pix is freed in is_thumbnail_outdated() if it's out of date. */
             /* generate large size thumbnail */
@@ -455,7 +455,7 @@ gpointer load_thumbnail_thread(gpointer user_data)
             const char* md5;
 
             G_UNLOCK(queue);
-            uri = fm_path_to_uri(task->fi->path);
+            uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
             /* generate filename for the thumbnail */
             g_checksum_update(sum, uri, -1);
@@ -516,7 +516,7 @@ ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
     for( l = queue->head; l; l=l->next )
     {
         ThumbnailTask* task = (ThumbnailTask*)l->data;
-        if(G_UNLIKELY(task->fi == fi || fm_path_equal(task->fi->path, fi->path)))
+        if(G_UNLIKELY(task->fi == fi || fm_path_equal(fm_file_info_get_path(task->fi), fm_file_info_get_path(fi))))
             return task;
     }
     return NULL;
@@ -531,6 +531,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     FmThumbnailRequest* req;
     ThumbnailTask* task;
     GdkPixbuf* pix;
+    FmPath* src_path = fm_file_info_get_path(src_file);
 
     req = g_slice_new(FmThumbnailRequest);
     req->fi = fm_file_info_ref(src_file);
@@ -539,12 +540,12 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     req->user_data = user_data;
     req->pix = NULL;
 
-    DEBUG("request thumbnail: %s", src_file->path->name);
+    DEBUG("request thumbnail: %s", src_path->name);
 
     G_LOCK(queue);
 
     /* FIXME: find in the cache first to see if thumbnail is already cached */
-    pix = find_thumbnail_in_hash(src_file->path, size);
+    pix = find_thumbnail_in_hash(src_path, size);
     if(pix)
     {
         DEBUG("cache found!");
@@ -824,7 +825,7 @@ void save_thumbnail_to_disk(ThumbnailTask* task, GdkPixbuf* pix, const char* pat
     if(fd != -1)
     {
         char mtime_str[100];
-        g_snprintf( mtime_str, 100, "%lu", task->fi->mtime );
+        g_snprintf( mtime_str, 100, "%lu", *(fm_file_info_get_mtime(task->fi)) );
         chmod( tmpfile, 0600 );  /* only the owner can read it. */
         gdk_pixbuf_save( pix, tmpfile, "png", NULL,
                          "tEXt::Thumb::URI", task->uri,
@@ -839,7 +840,7 @@ void save_thumbnail_to_disk(ThumbnailTask* task, GdkPixbuf* pix, const char* pat
 void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 {
     /* FIXME: only formats supported by GdkPixbuf should be handled this way. */
-    GFile* gf = fm_path_to_gfile(task->fi->path);
+    GFile* gf = fm_path_to_gfile(fm_file_info_get_path(task->fi));
     GFileInputStream* ins;
     GdkPixbuf* normal_pix = NULL;
     GdkPixbuf* large_pix = NULL;

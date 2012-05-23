@@ -29,6 +29,7 @@
 #include <grp.h> /* Query group name */
 #include <pwd.h> /* Query user name */
 #include <string.h>
+#include <errno.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -43,6 +44,42 @@ static gboolean use_si_prefix = TRUE;
 static FmMimeType* desktop_entry_type = NULL;
 static FmMimeType* shortcut_type = NULL;
 static FmMimeType* mountable_type = NULL;
+
+struct _FmFileInfo
+{
+    FmPath* path; /* path of the file */
+
+    mode_t mode;
+    union {
+        const char* fs_id;
+        dev_t dev;
+    };
+    uid_t uid;
+    gid_t gid;
+    goffset size;
+    time_t mtime;
+    time_t atime;
+
+    gulong blksize;
+    goffset blocks;
+
+    char* disp_name;  /* displayed name (in UTF-8) */
+
+    /* FIXME: caching the collate key can greatly speed up sorting.
+     *        However, memory usage is greatly increased!.
+     *        Is there a better alternative solution?
+     */
+    char* collate_key; /* used to sort files by name */
+    char* disp_size;  /* displayed human-readable file size */
+    char* disp_mtime; /* displayed last modification time */
+    FmMimeType* type;
+    FmIcon* icon;
+
+    char* target; /* target of shortcut or mountable. */
+
+    /*<private>*/
+    int n_ref;
+};
 
 /* intialize the file info system */
 void _fm_file_info_init()
@@ -68,6 +105,82 @@ FmFileInfo* fm_file_info_new ()
     FmFileInfo * fi = g_slice_new0(FmFileInfo);
     fi->n_ref = 1;
     return fi;
+}
+
+gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
+{
+    struct stat st;
+    gboolean is_link;
+    if(lstat(path, &st) == 0)
+    {
+        char* type;
+        /* By default we use the real file base name for display.
+         * FIXME: if the base name is not in UTF-8 encoding, we
+         * need to convert it to UTF-8 for display and save its
+         * UTF-8 version in fi->display_name */
+        fi->disp_name = NULL;
+        fi->mode = st.st_mode;
+        fi->mtime = st.st_mtime;
+        fi->atime = st.st_atime;
+        fi->size = st.st_size;
+        fi->dev = st.st_dev;
+        fi->uid = st.st_uid;
+        fi->gid = st.st_gid;
+
+        /* FIXME: handle symlinks */
+        if(S_ISLNK(st.st_mode))
+        {
+            stat(path, &st);
+            fi->target = g_file_read_link(path, NULL);
+        }
+
+        fi->type = fm_mime_type_get_for_native_file(path, fm_file_info_get_disp_name(fi), &st);
+
+        /* special handling for desktop entry files */
+        if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
+        {
+            char* fpath = fm_path_to_str(fi->path);
+            GKeyFile* kf = g_key_file_new();
+            FmIcon* icon = NULL;
+            if(g_key_file_load_from_file(kf, fpath, 0, NULL))
+            {
+                char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
+                char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
+                if(icon_name)
+                {
+                    if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
+                    {
+                        char* dot = strrchr(icon_name, '.');
+                        /* remove file extension */
+                        if(dot)
+                        {
+                            ++dot;
+                            if(strcmp(dot, "png") == 0 ||
+                               strcmp(dot, "svg") == 0 ||
+                               strcmp(dot, "xpm") == 0)
+                               *(dot-1) = '\0';
+                        }
+                    }
+                    icon = fm_icon_from_name(icon_name);
+                    g_free(icon_name);
+                }
+                if(title) /* Use title of the desktop entry for display */
+                    fi->disp_name = title;
+            }
+            if(icon)
+                fi->icon = icon;
+            else
+                fi->icon = fm_icon_ref(fi->type->icon);
+        }
+        else
+            fi->icon = fm_icon_ref(fi->type->icon);
+    }
+    else
+    {
+        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
+        return FALSE;
+    }
+    return TRUE;
 }
 
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
@@ -337,6 +450,11 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
     fi->icon = fm_icon_ref(src->icon);
 }
 
+FmIcon* fm_file_info_get_icon(FmFileInfo* fi)
+{
+    return fi->icon;
+}
+
 FmPath* fm_file_info_get_path(FmFileInfo* fi)
 {
     return fi->path;
@@ -544,6 +662,26 @@ time_t* fm_file_info_get_mtime(FmFileInfo* fi)
 time_t* fm_file_info_get_atime(FmFileInfo* fi)
 {
     return &fi->atime;
+}
+
+uid_t fm_file_info_get_uid(FmFileInfo* fi)
+{
+    return fi->uid;
+}
+
+gid_t fm_file_info_get_gid(FmFileInfo* fi)
+{
+    return fi->gid;
+}
+
+const char* fm_file_info_get_fs_id(FmFileInfo* fi)
+{
+    return fi->fs_id;
+}
+
+dev_t fm_file_info_get_dev(FmFileInfo* fi)
+{
+    return fi->dev;
 }
 
 static FmListFuncs fm_list_funcs =

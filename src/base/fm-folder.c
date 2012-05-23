@@ -189,7 +189,8 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
     for(l=fm_list_peek_head_link(job->file_infos);l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        GList* l2 = _fm_folder_get_file_by_name(folder, fi->path->name);
+        FmPath* path = fm_file_info_get_path(fi);
+        GList* l2 = _fm_folder_get_file_by_name(folder, path->name);
         if(l2) /* the file is already in the folder, update */
         {
             FmFileInfo* fi2 = (FmFileInfo*)l2->data;
@@ -601,7 +602,8 @@ GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     for(;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        if(strcmp(fi->path->name, name) == 0)
+        FmPath* path = fm_file_info_get_path(fi);
+        if(strcmp(path->name, name) == 0)
             return l;
     }
     return NULL;

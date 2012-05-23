@@ -222,7 +222,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     dir_path = fm_path_to_str(job->dir_path);
 
     fi = fm_file_info_new();
-    fi->path = fm_path_ref(job->dir_path);
+    fm_file_info_set_path(fi, job->dir_path);
     if( _fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, dir_path, NULL) )
     {
         if(! fm_file_info_is_dir(fi))
@@ -258,6 +258,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
         }
         while( ! fm_job_is_cancelled(FM_JOB(job)) && (name = g_dir_read_name(dir)) )
         {
+            FmPath* new_path;
             g_string_truncate(fpath, dir_len);
             g_string_append(fpath, name);
 
@@ -270,7 +271,9 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             }
 
             fi = fm_file_info_new();
-            fi->path = fm_path_new_child(job->dir_path, name);
+            new_path = fm_path_new_child(job->dir_path, name);
+            fm_file_info_set_path(fi, new_path);
+            fm_path_unref(new_path);
 
         _retry:
             if( _fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, fpath->str, &err) )

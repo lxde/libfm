@@ -229,7 +229,7 @@ FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd)
 
 FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd)
 {
-    return dd->dest_file ? dd->dest_file->path : NULL;
+    return dd->dest_file ? fm_file_info_get_path(dd->dest_file) : NULL;
 }
 
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
@@ -259,10 +259,10 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
             {
                 FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
                 /* get the device of the first dragged source file */
-                if(fm_path_is_native(fi->path))
-                    dd->src_dev = fi->dev;
+                if(fm_path_is_native(fm_file_info_get_path(fi)))
+                    dd->src_dev = fm_file_info_get_dev(fi);
                 else
-                    dd->src_fs_id = fi->fs_id;
+                    dd->src_fs_id = fm_file_info_get_fs_id(fi);
             }
         }
     }
@@ -380,7 +380,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                 FmFileInfo* dest = fm_dnd_dest_get_dest_file(dd);
                 if( dest && fm_file_info_is_dir(dest) )
                 {
-                    FmPath* path = fm_path_new_child(dest->path, data);
+                    FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
                     gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,
@@ -450,7 +450,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         }
     }
 
-    if(!dest || !dest->path)
+    if(!dest || !fm_file_info_get_path(dest))
         return FALSE;
 
     /* this is XDirectSave */
@@ -459,7 +459,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
     if(dd->src_files) /* we have got drag source files */
     {
-        FmPath* dest_path = dest->path;
+        FmPath* dest_path = fm_file_info_get_path(dest);
         if(fm_path_is_trash(dest_path))
         {
             if(fm_path_is_trash_root(dest_path)) /* we can only move files to trash can */
@@ -483,9 +483,9 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             {
                 /* compare the device/filesystem id against that of destination file */
                 if(fm_path_is_native(dest_path))
-                    same_fs = dd->src_dev && (dd->src_dev == dest->dev);
+                    same_fs = dd->src_dev && (dd->src_dev == fm_file_info_get_dev(dest));
                 else /* FIXME: can we use direct comparison here? */
-                    same_fs = dd->src_fs_id && (0 == g_strcmp0(dd->src_fs_id, dest->fs_id));
+                    same_fs = dd->src_fs_id && (0 == g_strcmp0(dd->src_fs_id, fm_file_info_get_fs_id(dest)));
                 action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
             }
             else /* we don't know on which device the dragged source files are. */
