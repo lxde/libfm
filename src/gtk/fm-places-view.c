@@ -1,7 +1,7 @@
 /*
  *      fm-places-view.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -766,7 +766,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
                 FmBookmarkItem* item;
                 FmFileInfo* fi = FM_FILE_INFO(l->data);
                 if(fm_file_info_is_dir(fi))
-                    item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fi->path, fi->disp_name, idx);
+                    item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fi->path, fm_file_info_get_disp_name(fi), idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(tp);

@@ -37,7 +37,7 @@
 #include "fm-utils.h"
 #include <menu-cache.h>
 
-#define COLLATE_USING_DISPLAY_NAME	((char*)-1)
+#define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
 static gboolean use_si_prefix = TRUE;
 static FmMimeType* desktop_entry_type = NULL;
@@ -81,7 +81,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     /* if display name is the same as its name, just use it. */
     tmp = g_file_info_get_display_name(inf);
     if(strcmp(tmp, fi->path->name) == 0)
-        fi->disp_name = fi->path->name;
+        fi->disp_name = NULL;
     else
         fi->disp_name = g_strdup(tmp);
 
@@ -245,40 +245,36 @@ static void fm_file_info_clear(FmFileInfo* fi)
         fi->collate_key = NULL;
     }
 
-    if(fi->path)
+    if(G_LIKELY(fi->path))
     {
-        if(G_LIKELY(fi->disp_name) && fi->disp_name != fi->path->name)
-        {
-            g_free(fi->disp_name);
-            fi->disp_name = NULL;
-        }
-
         fm_path_unref(fi->path);
         fi->path = NULL;
     }
-    else
+
+    if(G_UNLIKELY(fi->disp_name))
     {
-        if(fi->disp_name)
-        {
-            g_free(fi->disp_name);
-            fi->disp_name = NULL;
-        }
+        g_free(fi->disp_name);
+        fi->disp_name = NULL;
     }
 
-    if(fi->disp_size)
+    if(G_LIKELY(fi->disp_size))
     {
         g_free(fi->disp_size);
         fi->disp_size = NULL;
     }
 
-    g_free(fi->target);
+    if(G_UNLIKELY(fi->target))
+    {
+        g_free(fi->target);
+        fi->target = NULL;
+    }
 
-    if(fi->type)
+    if(G_LIKELY(fi->type))
     {
         fm_mime_type_unref(fi->type);
         fi->type = NULL;
     }
-    if(fi->icon)
+    if(G_LIKELY(fi->icon))
     {
         fm_icon_unref(fi->icon);
         fi->icon = NULL;
@@ -329,15 +325,12 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
     fi->blksize = src->blksize;
     fi->blocks = src->blocks;
 
-    if(src->disp_name == src->path->name)
-        fi->disp_name = src->disp_name;
-    else
-        fi->disp_name = g_strdup(src->disp_name);
+    fi->disp_name = g_strdup(src->disp_name); /* disp_name might be NULL */
 
-	if(src->collate_key == COLLATE_USING_DISPLAY_NAME)
-		fi->collate_key = COLLATE_USING_DISPLAY_NAME;
-	else
-		fi->collate_key = g_strdup(src->collate_key);
+    if(src->collate_key == COLLATE_USING_DISPLAY_NAME)
+        fi->collate_key = COLLATE_USING_DISPLAY_NAME;
+    else
+        fi->collate_key = g_strdup(src->collate_key);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
     fi->type = fm_mime_type_ref(src->type);
@@ -357,39 +350,24 @@ const char* fm_file_info_get_name(FmFileInfo* fi)
 /* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
-    if(G_UNLIKELY(!fi->disp_name))
-    {
-        /* FIXME: this is not guaranteed to be UTF-8.
-         * Encoding conversion is needed here. */
-        return fi->path->name;
-    }
-    return fi->disp_name;
+    return G_LIKELY(!fi->disp_name) ? fi->path->name : fi->disp_name;
 }
 
 void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
 {
     if(fi->path)
-    {
-        if(fi->path->name == fi->disp_name)
-            fi->disp_name = NULL;
         fm_path_unref(fi->path);
-    }
 
     if(path)
-    {
         fi->path = fm_path_ref(path);
-        /* FIXME: need to handle UTF-8 issue here */
-        if(!fi->disp_name)
-			fi->disp_name = fi->path->name;
-    }
     else
         fi->path = NULL;
 }
 
+/* if disp name is set to NULL, we use the real filename for display. */
 void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
-    if (fi->disp_name && fi->disp_name != fi->path->name)
-        g_free(fi->disp_name);
+    g_free(fi->disp_name);
     fi->disp_name = g_strdup(name);
 }
 
@@ -506,25 +484,26 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 {
     if(G_UNLIKELY(!fi->collate_key))
     {
-        char* casefold = g_utf8_casefold(fi->disp_name, -1);
+        const char* disp_name = fm_file_info_get_disp_name(fi);
+        char* casefold = g_utf8_casefold(disp_name, -1);
         char* collate = g_utf8_collate_key_for_filename(casefold, -1);
         g_free(casefold);
-        if(strcmp(collate, fi->disp_name))
+        if(strcmp(collate, disp_name))
             fi->collate_key = collate;
         else
         {
-			/* if the collate key is the same as the display name,
-			 * then there is no need to save it.
-			 * Just use the display name directly. */
+            /* if the collate key is the same as the display name,
+             * then there is no need to save it.
+             * Just use the display name directly. */
             fi->collate_key = COLLATE_USING_DISPLAY_NAME;
             g_free(collate);
         }
     }
     else
     {
-		if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
-			return fm_file_info_get_disp_name(fi);
-	}
+        if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
+            return fm_file_info_get_disp_name(fi);
+    }
     return fi->collate_key;
 }
 

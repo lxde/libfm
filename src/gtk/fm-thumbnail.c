@@ -1,7 +1,7 @@
 /*
  *      fm-thumbnail.c
  *
- *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -930,8 +930,6 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 {
     /* TODO: external thumbnailer support */
-    DEBUG("external thumbnailer is needed for %s", task->fi->disp_name);
-
     G_LOCK(queue);
     thumbnail_task_finish(task, NULL, NULL);
     cur_generating = NULL;

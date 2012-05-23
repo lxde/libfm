@@ -1,7 +1,7 @@
 /*
  *      fm-folder-model.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -321,6 +321,7 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         g_signal_handlers_disconnect_by_func(model->dir,
                                              on_folder_loaded, model);
 
+        /* FIXME: need to emit 'row-deleted' signals for all files */
         g_sequence_free(model->items);
         g_sequence_free(model->hidden);
         g_object_unref(model->dir);
@@ -491,7 +492,7 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
         break;
     }
     case COL_FILE_NAME:
-        g_value_set_string(value, info->disp_name);
+        g_value_set_string(value, fm_file_info_get_disp_name(info));
         break;
     case COL_FILE_SIZE:
         g_value_set_string( value, fm_file_info_get_disp_size(info) );
@@ -1025,17 +1026,18 @@ void fm_folder_model_get_common_suffix_for_prefix(FmFolderModel* model,
         FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
         gboolean predicate_ok = (file_info_predicate == NULL) || file_info_predicate(item->inf);
         gint i = 0;
-        if( predicate_ok && g_str_has_prefix(item->inf->disp_name, prefix) )
+        if( predicate_ok && g_str_has_prefix(fm_file_info_get_disp_name(item->inf), prefix) )
         {
+            const char* disp_name = fm_file_info_get_disp_name(item->inf);
             /* first match -> init */
             if( !common_suffix_initialized )
             {
-                strcpy(common_suffix,  item->inf->disp_name + prefix_len);
+                strcpy(common_suffix,  disp_name + prefix_len);
                 common_suffix_initialized = TRUE;
             }
             else
             {
-                while( common_suffix[i] == item->inf->disp_name[prefix_len + i] )
+                while( common_suffix[i] == disp_name[prefix_len + i] )
                     i++;
                 common_suffix[i] = 0;
             }

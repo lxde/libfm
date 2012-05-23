@@ -388,7 +388,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if(data->single_file) /* when only one file is shown */
         {
             /* if the user has changed its name */
-            if( g_strcmp0(data->fi->disp_name, gtk_entry_get_text(GTK_ENTRY(data->name))) )
+            if( g_strcmp0(fm_file_info_get_disp_name(data->fi), gtk_entry_get_text(GTK_ENTRY(data->name))) )
             {
                 /* FIXME: rename the file or set display name for it. */
             }

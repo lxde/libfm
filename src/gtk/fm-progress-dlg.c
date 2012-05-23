@@ -248,7 +248,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     tmp = g_filename_display_name(dest->path->name);
     gtk_entry_set_text(GTK_ENTRY(filename), tmp);
     g_free(tmp);
-    g_object_set_data(G_OBJECT(filename), "old_name", dest->disp_name);
+    g_object_set_data(G_OBJECT(filename), "old_name", fm_file_info_get_disp_name(dest));
     g_signal_connect(filename, "changed", on_filename_changed, gtk_builder_get_object(builder, "rename"));
 
     g_object_unref(builder);
