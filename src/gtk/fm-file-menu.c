@@ -512,8 +512,6 @@ void on_open_with(GtkAction* action, gpointer user_data)
         /* FIXME: what to do if mime_type is NULL? */
         g_object_unref(app);
     }
-    if(mime_type)
-        fm_mime_type_unref(mime_type);
 }
 
 void on_cut(GtkAction* action, gpointer user_data)
