@@ -69,49 +69,22 @@ typedef enum _FmFolderViewClickType FmFolderViewClickType;
 typedef struct _FmFolderView            FmFolderView;
 typedef struct _FmFolderViewClass       FmFolderViewClass;
 
-struct _FmFolderView
-{
-    GtkScrolledWindow parent;
-
-    FmFolderViewMode mode;
-    GtkSelectionMode sel_mode;
-    GtkSortType sort_type;
-    int sort_by;
-
-    gboolean show_hidden;
-
-    GtkWidget* view;
-    FmFolder* folder;
-    GtkTreeModel* model;
-    GtkCellRenderer* renderer_pixbuf;
-    guint icon_size_changed_handler;
-
-    FmPath* cwd;
-    FmDndSrc* dnd_src; /* dnd source manager */
-    FmDndDest* dnd_dest; /* dnd dest manager */
-
-    /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
-    GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
-    guint row_activated_idle;
-};
-
 struct _FmFolderViewClass
 {
     GtkScrolledWindowClass parent_class;
     void (*chdir)(FmFolderView* fv, FmPath* dir_path);
     void (*loaded)(FmFolderView* fv, FmPath* dir_path);
-    void (*status)(FmFolderView* fv, const char* msg);
     void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
     void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
     void (*sort_changed)(FmFolderView* fv);
+    FmJobErrorAction (*error)(FmFolderView* fv, GError* err, FmJobErrorSeverity severity);
 };
 
-GType       fm_folder_view_get_type     (void);
-GtkWidget*  fm_folder_view_new          (FmFolderViewMode mode);
+GType       fm_folder_view_get_type(void);
+GtkWidget*  fm_folder_view_new(FmFolderViewMode mode);
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode);
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv);
-void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model);
 
 void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode);
 GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv);
@@ -128,22 +101,24 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str);
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 
-gboolean fm_folder_view_get_is_loaded(FmFolderView* fv);
+FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
+void fm_folder_view_set_folder(FmFolderView* fv, FmFolder* folder);
+
+FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
+void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model);
+
+gboolean fm_folder_view_is_loaded(FmFolderView* fv);
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
-
-FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
-FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
 
 void fm_folder_view_select_all(FmFolderView* fv);
 void fm_folder_view_select_invert(FmFolderView* fv);
 void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path);
 void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
 
-/* select files by custom func, not yet implemented */
-void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_data);
-
+/* TODO: select files by custom func, not yet implemented */
+void fm_folder_view_select_custom(FmFolderView* fv, GFunc filter, gpointer user_data);
 
 G_END_DECLS
 

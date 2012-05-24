@@ -98,7 +98,7 @@ static void fm_main_win_class_init(FmMainWinClass *klass)
 static void on_entry_activate(GtkEntry* entry, FmMainWin* win)
 {
     FmPath* path = fm_path_entry_get_path(FM_PATH_ENTRY(entry));
-    fm_main_win_chdir_without_history(win, path);
+    fm_main_win_chdir(win, path);
 }
 
 static void update_statusbar(FmMainWin* win)
@@ -127,7 +127,7 @@ static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data
     FmMainWin* win = (FmMainWin*)user_data;
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
 
-    fm_path_entry_set_path( entry, path );
+    fm_path_entry_set_path(entry, path);
 
     /* scroll to recorded position */
     item = fm_nav_history_get_cur(win->nav_history);
@@ -199,7 +199,9 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else /* no files are selected. Show context menu of current folder. */
         {
-            gtk_menu_popup(GTK_MENU(win->popup), NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+            FmFolder* folder = fm_folder_view_get_folder(fv);
+            if(folder && fm_folder_is_valid(folder))
+                gtk_menu_popup(GTK_MENU(win->popup), NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
         }
         break;
     case FM_FV_MIDDLE_CLICK:
@@ -641,7 +643,7 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
     FmPath* path;
     char* tmp;
     path = fm_path_new_for_str(path_str);
-    fm_main_win_chdir_without_history(win, path);
+    fm_main_win_chdir(win, path);
     tmp = fm_path_display_name(path, FALSE);
     gtk_entry_set_text(GTK_ENTRY(win->location), tmp);
     g_free(tmp);
@@ -693,6 +695,7 @@ void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 void fm_main_win_chdir(FmMainWin* win, FmPath* path)
 {
     int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
+    g_debug("history chdir");
     fm_nav_history_chdir(win->nav_history, path, scroll_pos);
     fm_main_win_chdir_without_history(win, path);
 }
@@ -805,7 +808,7 @@ void on_location(GtkAction* act, FmMainWin* win)
 void on_prop(GtkAction* action, FmMainWin* win)
 {
     FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
-    FmFolder* folder = fv->model ? FM_FOLDER_MODEL(fv->model)->dir : NULL;
+    FmFolder* folder = fm_folder_view_get_folder(fv);
     if(folder)
     {
         FmFileInfo* fi = fm_folder_get_info(folder);

@@ -25,6 +25,7 @@
 
 #include <glib/gi18n-lib.h>
 
+#include "fm-marshal.h"
 #include "fm-config.h"
 #include "fm-folder-view.h"
 #include "fm-folder.h"
@@ -45,7 +46,34 @@ enum{
     CLICKED,
     SEL_CHANGED,
     SORT_CHANGED,
+    ERROR,
     N_SIGNALS
+};
+
+struct _FmFolderView
+{
+    GtkScrolledWindow parent;
+
+    FmFolderViewMode mode;
+    GtkSelectionMode sel_mode;
+    GtkSortType sort_type;
+    int sort_by;
+
+    gboolean show_hidden;
+
+    GtkWidget* view;
+    FmFolder* folder;
+    GtkTreeModel* model;
+    GtkCellRenderer* renderer_pixbuf;
+    guint icon_size_changed_handler;
+
+    FmPath* cwd;
+    FmDndSrc* dnd_src; /* dnd source manager */
+    FmDndDest* dnd_dest; /* dnd dest manager */
+
+    /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
+    GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
+    guint row_activated_idle;
 };
 
 #define SINGLE_CLICK_TIMEOUT    600
@@ -62,11 +90,12 @@ static gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 static void on_chdir(FmFolderView* fv, FmPath* dir_path);
 static void on_loaded(FmFolderView* fv, FmPath* dir_path);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
-static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv);
+static FmJobErrorAction on_folder_error(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 static void on_sel_changed(GObject* obj, FmFolderView* fv);
 static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv);
+FmJobErrorAction on_error(FmFolderView* fv, GError* err, FmJobErrorSeverity severity);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
@@ -94,6 +123,7 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
     fv_class = FM_FOLDER_VIEW_CLASS(klass);
     fv_class->chdir = on_chdir;
     fv_class->loaded = on_loaded;
+    fv_class->error = on_error;
 
     fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
@@ -145,6 +175,16 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);
+
+    /* emitted when errors happen */
+    signals[ERROR]=
+        g_signal_new("error",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, error),
+                     NULL, NULL,
+                     fm_marshal_INT__POINTER_INT,
+                     G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT);
 }
 
 gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
@@ -183,23 +223,37 @@ void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
     g_signal_emit(fv, signals[LOADED], 0, fm_folder_get_path(folder));
 }
 
-FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
+FmJobErrorAction on_error(FmFolderView* fv, GError* err, FmJobErrorSeverity severity)
 {
     GtkWindow* parent = (GtkWindow*)gtk_widget_get_toplevel((GtkWidget*)fv);
     if(err->domain == G_IO_ERROR)
     {
         if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
         {
-            if(fm_mount_path(parent, fm_folder_get_path(folder), TRUE))
+            FmPath* path = fm_folder_view_get_cwd(fv);
+            if(fm_mount_path(parent, path, TRUE))
                 return FM_JOB_RETRY;
         }
         else if(err->code == G_IO_ERROR_NOT_DIRECTORY)
+        {
+            /* FIXME: when viewing an invalid dir which does not exist... */
             return FM_JOB_CONTINUE;
+        }
         else if(err->code == G_IO_ERROR_FAILED_HANDLED)
             return FM_JOB_CONTINUE;
     }
     fm_show_error(parent, NULL, err->message);
     return FM_JOB_CONTINUE;
+}
+
+FmJobErrorAction on_folder_error(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
+{
+    FmJobErrorAction ret;
+    if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_FAILED_HANDLED)
+        ret = G_IO_ERROR_FAILED_HANDLED;
+    else
+        g_signal_emit(fv, signals[ERROR], 0, err, severity, &ret);
+    return ret;
 }
 
 void on_single_click_changed(FmConfig* cfg, FmFolderView* fv)
@@ -308,7 +362,7 @@ static void unset_folder(FmFolderView* fv)
         g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
         g_signal_handlers_disconnect_by_func(fv->folder, on_folder_removed, fv);
         g_signal_handlers_disconnect_by_func(fv->folder, on_folder_unmounted, fv);
-        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_error, fv);
         g_object_unref(fv->folder);
         fv->folder = NULL;
     }
@@ -871,18 +925,6 @@ static void on_folder_reload(FmFolder* folder, FmFolderView* fv)
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 {
     FmFolderModel* model;
-    guint icon_size = 0;
-
-    /* NOTE: when fm_folder_reload() is called, "loaded" signal will
-     * be induced. In this case, we already have a model in use and
-     * there is no need to create a new one.
-     * FIXME: an alternative fix is to emit "reload" signal when a 
-     * folder is goind to reload. So we can remove the old model and
-     * create a new one later once the folder finishes loading.
-     * This can be more efficient sometimes but requires API changes. */
-    if(fv->model != NULL)
-		return;
-
     model = fm_folder_model_new(folder, fv->show_hidden);
     fm_folder_view_set_model(fv, model);
     g_object_unref(model);
@@ -890,6 +932,7 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 
 static void on_folder_removed(FmFolder* folder, FmFolderView* fv)
 {
+    fm_folder_view_set_model(fv, NULL);
 }
 
 gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
@@ -915,7 +958,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         g_signal_connect(folder, "loaded", on_folder_loaded, fv);
         g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
         g_signal_connect(folder, "removed", on_folder_removed, fv);
-        g_signal_connect(folder, "error", on_folder_err, fv);
+        g_signal_connect(folder, "error", on_folder_error, fv);
         /* FIXME: fm_folder_reload also triggers "loaded" signal. */
         if(fm_folder_is_loaded(folder))
             on_folder_loaded(folder, fv);
@@ -1091,6 +1134,11 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
     return FALSE;
 }
 
+/* TODO: select files by custom func, not yet implemented */
+void fm_folder_view_select_custom(FmFolderView* fv, GFunc filter, gpointer user_data)
+{
+}
+
 void fm_folder_view_select_all(FmFolderView* fv)
 {
     GtkTreeSelection * tree_sel;
@@ -1215,7 +1263,7 @@ FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
     return fv->folder ? fm_folder_get_info(fv->folder) : NULL;
 }
 
-gboolean fm_folder_view_get_is_loaded(FmFolderView* fv)
+gboolean fm_folder_view_is_loaded(FmFolderView* fv)
 {
     return fv->folder && fm_folder_is_loaded(fv->folder);
 }
@@ -1241,6 +1289,10 @@ FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
     return fv->folder;
 }
 
+void fm_folder_view_set_folder(FmFolderView* fv, FmFolder* folder)
+{
+    /* TODO: */
+}
 
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
 {
