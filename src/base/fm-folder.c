@@ -374,7 +374,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     GList* l;
     char* name;
 
-    const char* names[]={
+    /* const char* names[]={
         "G_FILE_MONITOR_EVENT_CHANGED",
         "G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT",
         "G_FILE_MONITOR_EVENT_DELETED",
@@ -382,29 +382,29 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED",
         "G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
-    };
+    }; */
     name = g_file_get_basename(gf);
-    g_debug("folder: %p, file %s event: %s", folder, name, names[evt]);
+    /* g_debug("folder: %p, file %s event: %s", folder, name, names[evt]); */
     g_free(name);
 
     if(g_file_equal(gf, folder->gf))
     {
         GError* err = NULL;
-        g_debug("event of the folder itself: %d", evt);
+        /* g_debug("event of the folder itself: %d", evt); */
         /* FIXME: handle unmount events */
         switch(evt)
         {
         case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
-            g_debug("folder is going to be unmounted");
+            /* g_debug("folder is going to be unmounted"); */
             break;
         case G_FILE_MONITOR_EVENT_UNMOUNTED:
             g_signal_emit(folder, signals[UNMOUNT], 0);
-            g_debug("folder is unmounted");
+            /* g_debug("folder is unmounted"); */
             queue_reload(folder);
             break;
         case G_FILE_MONITOR_EVENT_DELETED:
             g_signal_emit(folder, signals[REMOVED], 0);
-            g_debug("folder is deleted");
+            /* g_debug("folder is deleted"); */
             break;
         case G_FILE_MONITOR_EVENT_CREATED:
             queue_reload(folder);
@@ -414,7 +414,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             g_signal_emit(folder, signals[CHANGED], 0);
             /* update volume info */
             fm_folder_query_filesystem_info(folder);
-            g_debug("folder is changed");
+            /* g_debug("folder is changed"); */
             break;
         }
         return;
@@ -512,6 +512,15 @@ FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
     return folder;
 }
 
+static void free_job(FmFolder* folder)
+{
+	g_signal_handlers_disconnect_by_func(folder->job, on_job_finished, folder);
+	g_signal_handlers_disconnect_by_func(folder->job, on_job_err, folder);
+	fm_job_cancel(FM_JOB(folder->job)); /* FIXME: is this ok? */
+	/* the job will be freed automatically in idle handler. */
+	folder->job = NULL;
+}
+
 static void fm_folder_dispose(GObject *object)
 {
     FmFolder *folder;
@@ -520,13 +529,7 @@ static void fm_folder_dispose(GObject *object)
 
     folder = FM_FOLDER(object);
     if(folder->job)
-    {
-        g_signal_handlers_disconnect_by_func(folder->job, on_job_finished, folder);
-        g_signal_handlers_disconnect_by_func(folder->job, on_job_err, folder);
-        fm_job_cancel(FM_JOB(folder->job)); /* FIXME: is this ok? */
-        /* the job will be freed automatically in idle handler. */
-        folder->job = NULL;
-    }
+		free_job(folder);
 
     if(folder->pending_jobs)
     {
@@ -534,7 +537,7 @@ static void fm_folder_dispose(GObject *object)
         for(l = folder->pending_jobs;l;l=l->next)
         {
             FmJob* job = FM_JOB(l->data);
-            g_signal_handlers_disconnect_by_func(job, on_job_finished, folder);
+            g_signal_handlers_disconnect_by_func(job, on_file_info_finished, folder);
             fm_job_cancel(job);
             /* the job will be freed automatically in idle handler. */
         }
@@ -548,7 +551,7 @@ static void fm_folder_dispose(GObject *object)
         g_object_unref(folder->mon);
         folder->mon = NULL;
     }
-    
+
     if(folder->idle_reload_handler)
 	{
 		g_source_remove(folder->idle_reload_handler);
@@ -587,6 +590,7 @@ static void fm_folder_dispose(GObject *object)
         folder->fs_size_cancellable = NULL;
     }
 
+	(* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
 }
 
 static void fm_folder_finalize(GObject *object)
@@ -596,7 +600,7 @@ static void fm_folder_finalize(GObject *object)
     g_return_if_fail(FM_IS_FOLDER(object));
 
     folder = FM_FOLDER(object);
-    g_debug("free folder: %s", folder->dir_path->name);
+    /* g_debug("free folder %p: %s", folder, folder->dir_path->name); */
 
     /* remove from hash table */
     g_hash_table_remove(hash, folder->dir_path);
@@ -665,11 +669,8 @@ void fm_folder_reload(FmFolder* folder)
     GList* l = fm_list_peek_head_link(folder->files);
 
     /* cancel running dir listing job if there is any. */
-    if(folder->job && fm_job_is_running(folder->job))
-    {
-        fm_job_cancel(folder->job);
-        folder->job = NULL;
-    }
+    if(folder->job)
+		free_job(folder);
 
     /* remove all existing files */
     if(l)
@@ -867,7 +868,7 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
      * So let's do it ourselves. */
 
     GFile* gfile = g_mount_get_root(mount);
-    g_debug("FmFolder::mount_added");
+    /* g_debug("FmFolder::mount_added"); */
     if(gfile)
     {
         GHashTableIter it;
@@ -897,7 +898,7 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
 
 static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
 {
-    g_debug("FmFolder::mount_removed");
+    /* g_debug("FmFolder::mount_removed"); */
 }
 
 void _fm_folder_init()

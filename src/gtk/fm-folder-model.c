@@ -64,6 +64,7 @@ static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface);
 static void fm_folder_model_drag_source_init(GtkTreeDragSourceIface *iface);
 static void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface);
 
+static void fm_folder_model_dispose(GObject *object);
 static void fm_folder_model_finalize(GObject *object);
 G_DEFINE_TYPE_WITH_CODE( FmFolderModel, fm_folder_model, G_TYPE_OBJECT,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_folder_model_tree_model_init)
@@ -155,9 +156,9 @@ void fm_folder_model_class_init(FmFolderModelClass *klass)
 {
     GObjectClass * object_class;
 
-    fm_folder_model_parent_class = ( GObjectClass* )g_type_class_peek_parent(klass);
-    object_class = ( GObjectClass* )klass;
-
+    fm_folder_model_parent_class = (GObjectClass*)g_type_class_peek_parent(klass);
+    object_class = (GObjectClass*)klass;
+	object_class->dispose = fm_folder_model_dispose;
     object_class->finalize = fm_folder_model_finalize;
 
     signals[LOADED]=
@@ -217,26 +218,36 @@ void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface)
     /* FIXME: Unused. Will this cause any problem? */
 }
 
-void fm_folder_model_finalize(GObject *object)
+void fm_folder_model_dispose(GObject *object)
 {
-    FmFolderModel* model = ( FmFolderModel* )object;
-    int i;
-    /*
-    char* str = fm_path_to_str(model->dir->dir_path);
-    g_debug("FINALIZE FOLDER MODEL(%p): %s", model, str);
-    g_free(str);
-    */
-    fm_folder_model_set_folder(model, NULL);
-    g_signal_handler_disconnect(gtk_icon_theme_get_default(),
-                                model->theme_change_handler);
+    FmFolderModel* model = FM_FOLDER_MODEL(object);
+	if(model->dir)
+		fm_folder_model_set_folder(model, NULL);
+
+    if(model->theme_change_handler)
+    {
+		g_signal_handler_disconnect(gtk_icon_theme_get_default(),
+									model->theme_change_handler);
+		model->theme_change_handler = 0;
+	}
 
     g_signal_handlers_disconnect_by_func(fm_config, on_show_thumbnail_changed, model);
     g_signal_handlers_disconnect_by_func(fm_config, on_thumbnail_local_changed, model);
     g_signal_handlers_disconnect_by_func(fm_config, on_thumbnail_max_changed, model);
 
-    g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
-    g_list_free(model->thumbnail_requests);
+	if(model->thumbnail_requests)
+	{
+		g_list_foreach(model->thumbnail_requests, (GFunc)fm_thumbnail_request_cancel, NULL);
+		g_list_free(model->thumbnail_requests);
+		model->thumbnail_requests = NULL;
+	}
+    (*G_OBJECT_CLASS(fm_folder_model_parent_class)->dispose)(object);
+}
 
+void fm_folder_model_finalize(GObject *object)
+{
+    FmFolderModel* model = FM_FOLDER_MODEL(object);
+    g_debug("free FmFolderModel: %p", object);
     /* must chain up - finalize parent */
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
 }
@@ -308,8 +319,11 @@ static void _fm_folder_model_files_removed(FmFolder* dir, GSList* files,
 void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 {
     GSequenceIter *it;
-    if( model->dir == dir )
+    if(model->dir == dir)
         return;
+	/* g_debug("fm_folder_model_set_folder(%p, %p)", model, dir); */
+
+	/* free the old folder */
     if(model->dir)
     {
 		guint row_deleted_signal = g_signal_lookup("row-deleted", GTK_TYPE_TREE_MODEL);
@@ -334,14 +348,13 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         g_sequence_free(model->items);
         g_sequence_free(model->hidden);
         g_object_unref(model->dir);
+        model->dir = NULL;
     }
-    model->dir = dir;
     model->items = g_sequence_new((GDestroyNotify)fm_folder_item_free);
     model->hidden = g_sequence_new((GDestroyNotify)fm_folder_item_free);
     if( !dir )
         return;
-
-    model->dir = (FmFolder*)g_object_ref(model->dir);
+    model->dir = FM_FOLDER(g_object_ref(dir));
 
     g_signal_connect(model->dir, "files-added",
                      G_CALLBACK(_fm_folder_model_files_added),

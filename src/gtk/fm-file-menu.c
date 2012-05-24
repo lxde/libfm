@@ -140,8 +140,8 @@ static void on_custom_action(GtkAction* act, FmFileMenu* data)
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(data->menu));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
-	g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
-			fm_file_action_item_get_id(item));
+	/* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
+			fm_file_action_item_get_id(item)); */
 	ret = fm_file_action_item_launch(item, ctx, files, output);
 	if(output)
 	{
@@ -484,7 +484,7 @@ void on_open_with_app(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     GAppInfo* app = (GAppInfo*)g_object_get_qdata(G_OBJECT(action), fm_qdata_id);
-    g_debug("%s", gtk_action_get_name(action));
+    /* g_debug("%s", gtk_action_get_name(action)); */
     open_with_app(data, app);
 }
 

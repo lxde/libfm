@@ -199,7 +199,7 @@ static FmPlaceItem* find_vol(FmPlacesModel* model, GVolume* vol, GtkTreeIter* _i
 void on_vol_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi"));
+    /* g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi")); */
     add_vol(model, vol, NULL);
     update_sep_tp(model);
 }
@@ -224,7 +224,7 @@ void on_vol_changed(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     FmPlaceItem* item;
     GtkTreeIter it;
-    g_debug("vol-changed");
+    /* g_debug("vol-changed"); */
     item = find_vol(model, vol, &it);
     if(item)
         update_vol(model, item, &it, NULL);
@@ -244,7 +244,7 @@ void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
             GtkTreePath* tp;
             GFile* gf = g_mount_get_root(mount);
             FmPath* path = fm_path_new_for_gfile(gf);
-            g_debug("mount path: %s", path->name);
+            /* g_debug("mount path: %s", path->name); */
             g_object_unref(gf);
             fm_file_info_set_path(item->fi, path);
             if(path)

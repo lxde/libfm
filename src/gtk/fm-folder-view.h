@@ -102,7 +102,6 @@ FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
-void fm_folder_view_set_folder(FmFolderView* fv, FmFolder* folder);
 
 FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model);

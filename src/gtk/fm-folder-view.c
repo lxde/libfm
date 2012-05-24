@@ -117,6 +117,7 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
     GtkWidgetClass *widget_class;
     FmFolderViewClass *fv_class;
     g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_folder_view_dispose;
     g_object_class->finalize = fm_folder_view_finalize;
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->focus_in_event = on_folder_view_focus_in;
@@ -374,6 +375,7 @@ static void unset_model(FmFolderView* fv)
     {
         FmFolderModel* model = FM_FOLDER_MODEL(fv->model);
         g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
+        /* g_debug("unset_model: %p, n_ref = %d", model, G_OBJECT(model)->ref_count); */
         g_object_unref(model);
         fv->model = NULL;
     }
@@ -385,7 +387,7 @@ static void fm_folder_view_dispose(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
     self = FM_FOLDER_VIEW(object);
-
+    /* g_debug("fm_folder_view_dispose: %p", self); */
     unset_folder(self);
     unset_model(self);
 
@@ -408,6 +410,7 @@ static void fm_folder_view_dispose(GObject *object)
         g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
         self->icon_size_changed_handler = 0;
     }
+    (* G_OBJECT_CLASS(fm_folder_view_parent_class)->dispose)(object);
 }
 
 static void fm_folder_view_finalize(GObject *object)
@@ -416,7 +419,7 @@ static void fm_folder_view_finalize(GObject *object)
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
-    g_debug("free model: %p", object);
+    /* g_debug("free model: %p", object); */
 
     self = FM_FOLDER_VIEW(object);
     if(self->cwd)
@@ -1289,20 +1292,10 @@ FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
     return fv->folder;
 }
 
-void fm_folder_view_set_folder(FmFolderView* fv, FmFolder* folder)
-{
-    /* TODO: */
-}
-
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
 {
     int icon_size;
-    if(fv->model)
-    {
-        g_signal_handlers_disconnect_by_func(fv->model, on_sort_col_changed, fv);
-        g_object_unref(fv->model);
-    }
-
+    unset_model(fv);
     switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
@@ -1346,6 +1339,8 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
     }
     else
         fv->model = NULL;
+
+    /* FIXME: should we update fv->folder according to model, too? */
 
     /* FIXME: is this needed? */
     on_model_loaded(model, fv);
