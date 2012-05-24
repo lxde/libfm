@@ -647,6 +647,8 @@ static void update_ui(FmFilePropData* data)
         char buf[128];
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
         char* parent_str = parent ? fm_path_display_name(parent, TRUE) : NULL;
+        time_t atime;
+        struct tm tm;
         gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
         if(parent_str)
         {
@@ -658,9 +660,9 @@ static void update_ui(FmFilePropData* data)
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
 
         /* FIXME: need to encapsulate this in an libfm API. */
-        strftime( buf, sizeof( buf ),
-                  "%x %R",
-                  localtime( fm_file_info_get_atime(data->fi) ) );
+        atime = fm_file_info_get_atime(data->fi);
+        localtime_r(&atime, &tm);
+        strftime(buf, sizeof(buf), "%x %R", &tm);
         gtk_label_set_text(GTK_LABEL(data->atime), buf);
     }
     else
