@@ -310,8 +310,9 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
     GSequenceIter *it;
     if( model->dir == dir )
         return;
-    if( model->dir )
+    if(model->dir)
     {
+		guint row_deleted_signal = g_signal_lookup("row-deleted", GTK_TYPE_TREE_MODEL);
         g_signal_handlers_disconnect_by_func(model->dir,
                                              _fm_folder_model_files_added, model);
         g_signal_handlers_disconnect_by_func(model->dir,
@@ -321,7 +322,15 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         g_signal_handlers_disconnect_by_func(model->dir,
                                              on_folder_loaded, model);
 
-        /* FIXME: need to emit 'row-deleted' signals for all files */
+        /* Emit 'row-deleted' signals for all files */
+        if(g_signal_has_handler_pending(model, row_deleted_signal, 0, TRUE))
+        {
+			GtkTreePath* tp = gtk_tree_path_new_first();
+			int len = g_sequence_get_length(model->items);
+			for(; len > 0; --len)
+				gtk_tree_model_row_deleted(model, tp);
+			gtk_tree_path_free(tp);
+		}
         g_sequence_free(model->items);
         g_sequence_free(model->hidden);
         g_object_unref(model->dir);
@@ -346,20 +355,21 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
     g_signal_connect(model->dir, "loaded",
                      G_CALLBACK(on_folder_loaded), model);
 
-    if( !fm_list_is_empty(dir->files) )
+    if(!fm_folder_is_empty(dir))
     {
         GList *l;
-        for( l = fm_list_peek_head_link(dir->files); l; l = l->next )
+        FmFileInfoList* files = fm_folder_get_files(dir);
+        for( l = fm_list_peek_head_link(files); l; l = l->next )
             _fm_folder_model_add_file(model, (FmFileInfo*)l->data);
     }
 
-    if( fm_folder_get_is_loaded(model->dir) ) /* if it's already loaded */
+    if( fm_folder_is_loaded(model->dir) ) /* if it's already loaded */
         on_folder_loaded(model->dir, model);  /* emit 'loaded' signal */
 }
 
 gboolean fm_folder_model_get_is_loaded(FmFolderModel* model)
 {
-    return model->dir && fm_folder_get_is_loaded(model->dir);
+    return model->dir && fm_folder_is_loaded(model->dir);
 }
 
 GtkTreeModelFlags fm_folder_model_get_flags(GtkTreeModel *tree_model)

@@ -1,7 +1,7 @@
 /*
  *      folder-view.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -52,7 +52,8 @@ enum{
 
 static guint signals[N_SIGNALS];
 
-static void fm_folder_view_finalize              (GObject *object);
+static void fm_folder_view_dispose(GObject *object);
+static void fm_folder_view_finalize(GObject *object);
 G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
 static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
@@ -75,6 +76,11 @@ static void on_small_icon_size_changed(FmConfig* cfg, FmFolderView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmFolderView* fv);
 
 static void cancel_pending_row_activated(FmFolderView* fv);
+
+static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
+static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
+static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
+static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
 
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
@@ -171,20 +177,24 @@ void on_loaded(FmFolderView* fv, FmPath* dir_path)
 
 void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 {
-    FmFolder* folder = model->dir;
+    FmFolder* folder = fv->folder; /* model might be NULL */
     char* msg;
     /* FIXME: prevent direct access to data members */
-    g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
+    g_signal_emit(fv, signals[LOADED], 0, fm_folder_get_path(folder));
 }
 
 FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
 {
     GtkWindow* parent = (GtkWindow*)gtk_widget_get_toplevel((GtkWidget*)fv);
-    if( err->domain == G_IO_ERROR )
+    if(err->domain == G_IO_ERROR)
     {
         if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
-            if(fm_mount_path(parent, folder->dir_path, TRUE))
+        {
+            if(fm_mount_path(parent, fm_folder_get_path(folder), TRUE))
                 return FM_JOB_RETRY;
+        }
+        else if(err->code == G_IO_ERROR_NOT_DIRECTORY)
+            return FM_JOB_CONTINUE;
         else if(err->code == G_IO_ERROR_FAILED_HANDLED)
             return FM_JOB_CONTINUE;
     }
@@ -290,6 +300,61 @@ GtkWidget* fm_folder_view_new(FmFolderViewMode mode)
     return (GtkWidget*)fv;
 }
 
+static void unset_folder(FmFolderView* fv)
+{
+    if(fv->folder)
+    {
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_reload, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_removed, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_unmounted, fv);
+        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
+        g_object_unref(fv->folder);
+        fv->folder = NULL;
+    }
+}
+
+static void unset_model(FmFolderView* fv)
+{
+    if(fv->model)
+    {
+        FmFolderModel* model = FM_FOLDER_MODEL(fv->model);
+        g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
+        g_object_unref(model);
+        fv->model = NULL;
+    }
+}
+
+static void fm_folder_view_dispose(GObject *object)
+{
+    FmFolderView *self;
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_FOLDER_VIEW(object));
+    self = FM_FOLDER_VIEW(object);
+
+    unset_folder(self);
+    unset_model(self);
+
+    if(self->dnd_src)
+    {
+        g_object_unref(self->dnd_src);
+        self->dnd_src = NULL;
+    }
+    if(self->dnd_src)
+    {
+        g_object_unref(self->dnd_dest);
+        self->dnd_dest = NULL;
+    }
+
+    g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
+    cancel_pending_row_activated(self);
+
+    if(self->icon_size_changed_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
+        self->icon_size_changed_handler = 0;
+    }
+}
 
 static void fm_folder_view_finalize(GObject *object)
 {
@@ -297,26 +362,11 @@ static void fm_folder_view_finalize(GObject *object)
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
+    g_debug("free model: %p", object);
 
     self = FM_FOLDER_VIEW(object);
-    if(self->folder)
-    {
-        g_object_unref(self->folder);
-        if( self->model )
-            g_object_unref(self->model);
-    }
-    g_object_unref(self->dnd_src);
-    g_object_unref(self->dnd_dest);
-
     if(self->cwd)
         fm_path_unref(self->cwd);
-
-    g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
-
-    cancel_pending_row_activated(self);
-
-    if(self->icon_size_changed_handler)
-        g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
 
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
@@ -450,12 +500,11 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
         }
         else
         {
-            /* FIXME: prevent direct access to data members. */
             FmFolderModel* model = (FmFolderModel*)fv->model;
             if (model)
-                fm_dnd_dest_set_dest_file(fv->dnd_dest, model->dir->dir_fi);
+                fm_dnd_dest_set_dest_file(fv->dnd_dest, fm_folder_get_info(model->dir));
             else
-				fm_dnd_dest_set_dest_file(fv->dnd_dest, NULL);
+                fm_dnd_dest_set_dest_file(fv->dnd_dest, NULL);
         }
         action = fm_dnd_dest_get_default_action(fv->dnd_dest, drag_context, target);
         ret = action != 0;
@@ -811,24 +860,12 @@ gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 
 static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
 {
-    switch(fv->mode)
-    {
-    case FM_FV_LIST_VIEW:
-        cancel_pending_row_activated(fv);
-        gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), NULL);
-        break;
-    case FM_FV_ICON_VIEW:
-    case FM_FV_COMPACT_VIEW:
-    case FM_FV_THUMBNAIL_VIEW:
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
-        break;
-    }
-    if(fv->model)
-    {
-        g_signal_handlers_disconnect_by_func(fv->model, on_sort_col_changed, fv);
-        g_object_unref(fv->model);
-        fv->model = NULL;
-    }
+    fm_folder_view_set_model(fv, NULL);
+}
+
+static void on_folder_reload(FmFolder* folder, FmFolderView* fv)
+{
+    fm_folder_view_set_model(fv, NULL);
 }
 
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
@@ -836,36 +873,23 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
     FmFolderModel* model;
     guint icon_size = 0;
 
-    model = fm_folder_model_new(folder, fv->show_hidden);
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), fv->sort_by, fv->sort_type);
-    g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
+    /* NOTE: when fm_folder_reload() is called, "loaded" signal will
+     * be induced. In this case, we already have a model in use and
+     * there is no need to create a new one.
+     * FIXME: an alternative fix is to emit "reload" signal when a 
+     * folder is goind to reload. So we can remove the old model and
+     * create a new one later once the folder finishes loading.
+     * This can be more efficient sometimes but requires API changes. */
+    if(fv->model != NULL)
+		return;
 
-    switch(fv->mode)
-    {
-    case FM_FV_LIST_VIEW:
-        cancel_pending_row_activated(fv);
-        gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), model);
-        icon_size = fm_config->small_icon_size;
-        fm_folder_model_set_icon_size(model, icon_size);
-        break;
-    case FM_FV_ICON_VIEW:
-        icon_size = fm_config->big_icon_size;
-        fm_folder_model_set_icon_size(model, icon_size);
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
-        break;
-    case FM_FV_COMPACT_VIEW:
-        icon_size = fm_config->small_icon_size;
-        fm_folder_model_set_icon_size(model, icon_size);
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
-        break;
-    case FM_FV_THUMBNAIL_VIEW:
-        icon_size = fm_config->thumbnail_size;
-        fm_folder_model_set_icon_size(model, icon_size);
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
-        break;
-    }
-    fv->model = model;
-    on_model_loaded(model, fv);
+    model = fm_folder_model_new(folder, fv->show_hidden);
+    fm_folder_view_set_model(fv, model);
+    g_object_unref(model);
+}
+
+static void on_folder_removed(FmFolder* folder, FmFolderView* fv)
+{
 }
 
 gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
@@ -873,23 +897,9 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
     FmFolderModel* model;
     FmFolder* folder;
 
-    if(fv->folder)
-    {
-        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_loaded, fv);
-        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_unmounted, fv);
-        g_signal_handlers_disconnect_by_func(fv->folder, on_folder_err, fv);
-        g_object_unref(fv->folder);
-        fv->folder = NULL;
-        if(fv->model)
-        {
-            model = FM_FOLDER_MODEL(fv->model);
-            g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
-            if(model->dir)
-                g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
-            g_object_unref(model);
-            fv->model = NULL;
-        }
-    }
+    /* unset the old folder */
+    unset_folder(fv);
+    unset_model(fv);
 
     /* FIXME: the signal handler should be able to cancel the loading. */
     g_signal_emit(fv, signals[CHDIR], 0, path);
@@ -901,27 +911,16 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
     if(folder)
     {
         /* connect error handler */
+        g_signal_connect(folder, "reload", on_folder_reload, fv);
         g_signal_connect(folder, "loaded", on_folder_loaded, fv);
         g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
+        g_signal_connect(folder, "removed", on_folder_removed, fv);
         g_signal_connect(folder, "error", on_folder_err, fv);
-        if(fm_folder_get_is_loaded(folder))
+        /* FIXME: fm_folder_reload also triggers "loaded" signal. */
+        if(fm_folder_is_loaded(folder))
             on_folder_loaded(folder, fv);
         else
-        {
-            switch(fv->mode)
-            {
-            case FM_FV_LIST_VIEW:
-                cancel_pending_row_activated(fv);
-                gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), NULL);
-                break;
-            case FM_FV_ICON_VIEW:
-            case FM_FV_COMPACT_VIEW:
-            case FM_FV_THUMBNAIL_VIEW:
-                exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
-                break;
-            }
-            fv->model = NULL;
-        }
+            fm_folder_view_set_model(fv, NULL);
     }
     return TRUE;
 }
@@ -1213,12 +1212,12 @@ void fm_folder_view_custom_select(FmFolderView* fv, GFunc filter, gpointer user_
 
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
-    return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
+    return fv->folder ? fm_folder_get_info(fv->folder) : NULL;
 }
 
 gboolean fm_folder_view_get_is_loaded(FmFolderView* fv)
 {
-    return fv->folder && fm_folder_get_is_loaded(fv->folder);
+    return fv->folder && fm_folder_is_loaded(fv->folder);
 }
 
 static void cancel_pending_row_activated(FmFolderView* fv)
@@ -1240,4 +1239,62 @@ FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
 {
     return fv->folder;
+}
+
+
+void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
+{
+    int icon_size;
+    if(fv->model)
+    {
+        g_signal_handlers_disconnect_by_func(fv->model, on_sort_col_changed, fv);
+        g_object_unref(fv->model);
+    }
+
+    switch(fv->mode)
+    {
+    case FM_FV_LIST_VIEW:
+        cancel_pending_row_activated(fv);
+        if(model)
+        {
+            icon_size = fm_config->small_icon_size;
+            fm_folder_model_set_icon_size(model, icon_size);
+        }
+        gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), model);
+        break;
+    case FM_FV_ICON_VIEW:
+        icon_size = fm_config->big_icon_size;
+        if(model)
+            fm_folder_model_set_icon_size(model, icon_size);
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
+        break;
+    case FM_FV_COMPACT_VIEW:
+        if(model)
+        {
+            icon_size = fm_config->small_icon_size;
+            fm_folder_model_set_icon_size(model, icon_size);
+        }
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
+        break;
+    case FM_FV_THUMBNAIL_VIEW:
+        if(model)
+        {
+            icon_size = fm_config->thumbnail_size;
+            fm_folder_model_set_icon_size(model, icon_size);
+        }
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), model);
+        break;
+    }
+
+    if(model)
+    {
+        fv->model = FM_FOLDER_MODEL(g_object_ref(model));
+        gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), fv->sort_by, fv->sort_type);
+        g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
+    }
+    else
+        fv->model = NULL;
+
+    /* FIXME: is this needed? */
+    on_model_loaded(model, fv);
 }

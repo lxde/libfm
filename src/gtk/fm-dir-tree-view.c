@@ -316,7 +316,7 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
             g_object_unref(view->cur_expanded_folder);
         view->cur_expanded_folder = FM_FOLDER(g_object_ref(folder));
 
-        if(fm_folder_get_is_loaded(folder)) /* the folder is already loaded */
+        if(fm_folder_is_loaded(folder)) /* the folder is already loaded */
             on_folder_loaded(folder, view);
         else /* the folder is not yet loaded */
             g_signal_connect(folder, "loaded", G_CALLBACK(on_folder_loaded), view);

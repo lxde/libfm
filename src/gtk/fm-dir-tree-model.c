@@ -357,7 +357,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
         {
             /* parent is always non NULL. otherwise it's a bug. */
             FmDirTreeItem* parent = (FmDirTreeItem*)item->parent->data;
-            if(parent->folder && fm_folder_get_is_loaded(parent->folder))
+            if(parent->folder && fm_folder_is_loaded(parent->folder))
                 g_value_set_string( value, _("<No Sub Folder>"));
             else
                 g_value_set_string( value, _("Loading..."));
@@ -835,13 +835,14 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
         g_signal_connect(folder, "files-changed", G_CALLBACK(on_folder_files_changed), item_l);
 
         /* if the folder is already loaded, call "loaded" handler ourselves */
-        if(fm_folder_get_is_loaded(folder)) /* already loaded */
+        if(fm_folder_is_loaded(folder)) /* already loaded */
         {
             FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
             FmDirTreeModel* model = item->model;
             GtkTreePath* tp = item_to_tree_path(model, item_l);
             GList* file_l;
-            for(file_l = fm_list_peek_head_link(folder->files); file_l; file_l = file_l->next)
+            FmFileInfoList* files = fm_folder_get_files(folder);
+            for(file_l = fm_list_peek_head_link(files); file_l; file_l = file_l->next)
             {
                 FmFileInfo* fi = file_l->data;
                 if(fm_file_info_is_dir(fi))

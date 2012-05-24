@@ -1,7 +1,7 @@
 /*
  *      main-win.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -108,10 +108,10 @@ static void update_statusbar(FmMainWin* win)
     FmFolder* folder = fm_folder_view_get_folder(win->folder_view);
     if(model && folder)
     {
-        int total_files = fm_list_get_length(folder->files);
+        FmFileInfoList* files = fm_folder_get_files(folder);
+        int total_files = fm_list_get_length(files);
         int shown_files = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL);
 
-        /* FIXME: do not access data members. */
         msg = g_strdup_printf("%d files are listed (%d hidden).", shown_files, (total_files - shown_files) );
         gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
         gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
@@ -805,12 +805,15 @@ void on_location(GtkAction* act, FmMainWin* win)
 void on_prop(GtkAction* action, FmMainWin* win)
 {
     FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
-    /* FIXME: should prevent directly accessing data members */
-    FmFileInfo* fi = FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
-    FmFileInfoList* files = fm_file_info_list_new();
-    fm_list_push_tail(files, fi);
-    fm_show_file_properties(GTK_WINDOW(win), files);
-    fm_list_unref(files);
+    FmFolder* folder = fv->model ? FM_FOLDER_MODEL(fv->model)->dir : NULL;
+    if(folder)
+    {
+        FmFileInfo* fi = fm_folder_get_info(folder);
+        FmFileInfoList* files = fm_file_info_list_new();
+        fm_list_push_tail(files, fi);
+        fm_show_file_properties(GTK_WINDOW(win), files);
+        fm_list_unref(files);
+    }
 }
 
 void on_create_new(GtkAction* action, FmMainWin* win)
