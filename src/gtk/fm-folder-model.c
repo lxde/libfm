@@ -247,7 +247,7 @@ void fm_folder_model_dispose(GObject *object)
 void fm_folder_model_finalize(GObject *object)
 {
     FmFolderModel* model = FM_FOLDER_MODEL(object);
-    g_debug("free FmFolderModel: %p", object);
+    /* g_debug("free FmFolderModel: %p", object); */
     /* must chain up - finalize parent */
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
 }

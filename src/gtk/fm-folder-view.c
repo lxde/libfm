@@ -24,6 +24,7 @@
 #endif
 
 #include <glib/gi18n-lib.h>
+#include "gtk-compat.h"
 
 #include "fm-marshal.h"
 #include "fm-config.h"
@@ -211,17 +212,14 @@ void on_chdir(FmFolderView* fv, FmPath* dir_path)
 
 void on_loaded(FmFolderView* fv, FmPath* dir_path)
 {
-    GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
-    if(GTK_WIDGET_REALIZED(toplevel))
+    GtkWidget* toplevel = gtk_widget_get_toplevel(GTK_WIDGET(fv));
+    if(toplevel && GTK_WIDGET_REALIZED(toplevel))
         gdk_window_set_cursor(toplevel->window, NULL);
 }
 
 void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 {
-    FmFolder* folder = fv->folder; /* model might be NULL */
-    char* msg;
-    /* FIXME: prevent direct access to data members */
-    g_signal_emit(fv, signals[LOADED], 0, fm_folder_get_path(folder));
+    g_signal_emit(fv, signals[LOADED], 0, fv->cwd);
 }
 
 FmJobErrorAction on_error(FmFolderView* fv, GError* err, FmJobErrorSeverity severity)
@@ -1341,7 +1339,6 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
         fv->model = NULL;
 
     /* FIXME: should we update fv->folder according to model, too? */
-
-    /* FIXME: is this needed? */
-    on_model_loaded(model, fv);
+    if(model)
+        on_model_loaded(model, fv);
 }

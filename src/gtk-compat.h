@@ -1,7 +1,7 @@
 /*
  *      gtk-compat.h
  *
- *      Copyright 2011 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2011 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -34,6 +34,11 @@ G_BEGIN_DECLS
 #if !GTK_CHECK_VERSION(2, 21, 0)
     #define GDK_KEY_Left    GDK_Left
     #define GDK_KEY_Right   GDK_Right
+#endif
+
+#if !GTK_CHECK_VERSION(3, 0, 0)
+    #define gtk_widget_in_destruction(widget) \
+        (GTK_OBJECT_FLAGS(GTK_OBJECT(widget)) & GTK_IN_DESTRUCTION)
 #endif
 
 G_END_DECLS
