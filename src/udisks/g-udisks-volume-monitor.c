@@ -215,7 +215,7 @@ static void g_udisks_volume_monitor_init(GUDisksVolumeMonitor *self)
 
         if(org_freedesktop_UDisks_enumerate_devices(self->udisks_proxy, &ret, NULL))
         {
-            int i;
+            guint i;
             char** paths = (char**)ret->pdata;
             for(i=0; i<ret->len;++i)
                 add_device(self, self->udisks_proxy, paths[i], FALSE);

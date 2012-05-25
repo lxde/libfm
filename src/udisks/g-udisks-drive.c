@@ -140,7 +140,7 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     if(error)
     {
         error = g_udisks_error_to_gio_error(error);
-        res = g_simple_async_result_new_from_error(data->drv,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->drv),
                                                    data->callback,
                                                    data->user_data,
                                                    error);
@@ -148,7 +148,7 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     }
     else
     {
-        res = g_simple_async_result_new(data->drv,
+        res = g_simple_async_result_new(G_OBJECT(data->drv),
                                         data->callback,
                                         data->user_data,
                                         NULL);
@@ -169,12 +169,13 @@ static void do_eject(EjectData* data)
 
 static void unmount_before_eject(EjectData* data);
 
-static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
+static void on_unmounted(GObject* mnt, GAsyncResult* res, gpointer input_data)
 {
+#define data ((EjectData*)input_data)
     GError* err = NULL;
     /* FIXME: with this approach, we could have racing condition.
      * Someone may mount other volumes before we finishing unmounting them all. */
-    gboolean success = g_mount_unmount_finish(mnt, res, &err);
+    gboolean success = g_mount_unmount_finish(G_MOUNT(mnt), res, &err);
     if(success)
     {
         if(data->mounts) /* we still have some volumes on this drive mounted */
@@ -187,13 +188,14 @@ static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
         GSimpleAsyncResult* res;
         GError* error = g_udisks_error_to_gio_error(err);
         g_error_free(err);
-        res = g_simple_async_result_new_from_error(data->drv,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->drv),
                                                    data->callback,
                                                    data->user_data,
                                                    err);
         finish_eject(res, data);
         g_error_free(error);
     }
+#undef data
 }
 
 static void unmount_before_eject(EjectData* data)
@@ -452,12 +454,12 @@ static void g_udisks_drive_init(GUDisksDrive *self)
 
 }
 
-GDrive *g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+GUDisksDrive *g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 {
     GUDisksDrive* drv = (GUDisksDrive*)g_object_new(G_TYPE_UDISKS_DRIVE, NULL);
     drv->dev = g_object_ref(dev);
     drv->mon = mon;
-    return (GDrive*)drv;
+    return drv;
 }
 
 

@@ -22,7 +22,6 @@
 #define __G_UDISKS_MOUNT_H__
 
 #include <gio/gio.h>
-#include "g-udisks-volume.h"
 
 G_BEGIN_DECLS
 
@@ -46,7 +45,7 @@ typedef struct _GUDisksMountPrivate        GUDisksMountPrivate;
 struct _GUDisksMount
 {
     GObject parent;
-    GUDisksVolume* vol;
+    struct _GUDisksVolume* vol;
     GFile* root;
 };
 
@@ -57,7 +56,7 @@ struct _GUDisksMountClass
 
 
 GType        g_udisks_mount_get_type(void);
-GMount*    g_udisks_mount_new(GUDisksVolume* vol);
+GUDisksMount* g_udisks_mount_new(struct _GUDisksVolume* vol);
 
 
 G_END_DECLS

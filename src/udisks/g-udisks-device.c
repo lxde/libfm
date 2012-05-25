@@ -208,7 +208,7 @@ const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
                 icon_name = "media-optical-audio";
             else
             {
-                int i;
+                guint i;
                 icon_name = "media-optical";
                 for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
                 {
@@ -278,7 +278,7 @@ const char* g_udisks_device_get_disc_name(GUDisksDevice* dev)
             name = "Audio CD";
         else
         {
-            int i;
+            guint i;
             for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
             {
                 if(strcmp(dev->media, disc_data[i].disc_type) == 0)

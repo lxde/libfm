@@ -59,7 +59,7 @@ struct _GUDisksDriveClass
 
 
 GType        g_udisks_drive_get_type(void);
-GDrive*    g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
+GUDisksDrive* g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
 
 void g_udisks_drive_changed(GUDisksDrive* drv);
 void g_udisks_drive_disconnected(GUDisksDrive* drv);

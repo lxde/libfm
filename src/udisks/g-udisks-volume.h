@@ -23,6 +23,8 @@
 
 #include <gio/gio.h>
 #include "g-udisks-device.h"
+#include "g-udisks-drive.h"
+#include "g-udisks-mount.h"
 #include "g-udisks-volume-monitor.h"
 
 G_BEGIN_DECLS
@@ -49,8 +51,8 @@ struct _GUDisksVolume
     GUDisksDevice* dev;
     GIcon* icon;
     char* name;
-    GDrive* drive;
-    GMount* mount;
+    GUDisksDrive* drive;
+    GUDisksMount* mount;
     GUDisksVolumeMonitor* mon;
 };
 
@@ -61,7 +63,7 @@ struct _GUDisksVolumeClass
 
 
 GType        g_udisks_volume_get_type(void);
-GVolume*    g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
+GUDisksVolume* g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev);
 
 void g_udisks_volume_changed(GUDisksVolume* vol);
 void g_udisks_volume_removed(GUDisksVolume* vol);

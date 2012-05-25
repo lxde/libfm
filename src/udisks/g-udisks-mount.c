@@ -21,7 +21,7 @@
 #include <config.h>
 #endif
 
-#include "g-udisks-mount.h"
+#include "g-udisks-volume.h"
 #include "udisks-device.h"
 #include "dbus-utils.h"
 
@@ -72,7 +72,7 @@ static void g_udisks_mount_init(GUDisksMount *self)
 }
 
 
-GMount *g_udisks_mount_new(GUDisksVolume* vol)
+GUDisksMount *g_udisks_mount_new(GUDisksVolume* vol)
 {
     GUDisksMount* mnt = g_object_new(G_TYPE_UDISKS_MOUNT, NULL);
     /* we don't do g_object_ref here to prevent circular reference. */
@@ -103,7 +103,7 @@ static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_da
 {
     EjectData* data = (EjectData*)user_data;
     if(data->callback)
-        data->callback(data->mnt, res, data->user_data);
+        data->callback(G_OBJECT(data->mnt), res, data->user_data);
     g_object_unref(data->mnt);
     g_slice_free(EjectData, data);
 }
@@ -197,10 +197,11 @@ static char** g_udisks_mount_guess_content_type_finish (GMount* base, GAsyncResu
     return g_strdupv((char**)g_simple_async_result_get_op_res_gpointer(G_SIMPLE_ASYNC_RESULT(res)));
 }
 
-static void guess_content_data_free(GuessContentData* data)
+static void guess_content_data_free(gpointer user_data)
 {
+    GuessContentData* data = (GuessContentData*)user_data;
     g_object_unref(data->mnt);
-    if(data->root);
+    if(data->root)
         g_object_unref(data->root);
     g_slice_free(GuessContentData, data);
 }
@@ -211,11 +212,11 @@ static gboolean guess_content_job(GIOSchedulerJob *job, GCancellable* cancellabl
     char** content_types;
     GSimpleAsyncResult* res;
     content_types = g_content_type_guess_for_tree(data->root);
-    res = g_simple_async_result_new(data->mnt,
+    res = g_simple_async_result_new(G_OBJECT(data->mnt),
                                     data->callback,
                                     data->user_data,
                                     NULL);
-    g_simple_async_result_set_op_res_gpointer(res, content_types, g_strfreev);
+    g_simple_async_result_set_op_res_gpointer(res, content_types, (GDestroyNotify)g_strfreev);
     g_simple_async_result_complete_in_idle(res);
     g_object_unref(res);
     return FALSE;
@@ -243,7 +244,7 @@ static void g_udisks_mount_guess_content_type (GMount* base, gboolean force_resc
     }
 }
 
-static char** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean force_rescan, GCancellable* cancellable, int* result_length1, GError** error)
+static gchar** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean force_rescan, GCancellable* cancellable, GError** error)
 {
     GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     if(mnt->root)
@@ -270,7 +271,7 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
     if(error)
     {
         error = g_udisks_error_to_gio_error(error);
-        res = g_simple_async_result_new_from_error(data->mnt,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->mnt),
                                                    data->callback,
                                                    data->user_data,
                                                    error);
@@ -278,7 +279,7 @@ static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_dat
     }
     else
     {
-        res = g_simple_async_result_new(data->mnt,
+        res = g_simple_async_result_new(G_OBJECT(data->mnt),
                                         data->callback,
                                         data->user_data,
                                         NULL);
