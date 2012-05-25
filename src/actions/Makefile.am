@@ -48,3 +48,5 @@ libfmactions_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)
+
+fm-actions.h: libfmactions_la_vala.stamp

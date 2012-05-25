@@ -19,5 +19,7 @@ EXTRA_DIST = \
 
 # Purge GtkBuilder UI files
 %.ui: %.glade
+	test -f $(top_builddir)/src/xml-purge || \
+		(cd $(top_builddir)/src && $(MAKE) xml-purge)
 	cp $< $@
 	$(top_builddir)/src/xml-purge $@

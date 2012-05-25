@@ -17,7 +17,7 @@ if [ "x${ACLOCAL_DIR}" != "x" ]; then
     ACLOCAL_ARG=-I ${ACLOCAL_DIR}
 fi
 
-if gtkdocize; then
+if gtkdocize --copy; then
     echo "Files needed by gtk-doc are generated."
 else
     echo "You need gtk-doc to build this package."
