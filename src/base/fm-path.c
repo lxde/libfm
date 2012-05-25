@@ -31,12 +31,12 @@
 
 static FmPath* root_path = NULL;
 
-static char* home_dir = NULL;
+static const char* home_dir = NULL;
 static int home_len = 0;
 static FmPath* home_path = NULL;
 
 static FmPath* desktop_path = NULL;
-static char* desktop_dir = NULL;
+static const char* desktop_dir = NULL;
 static int desktop_len = 0;
 
 static FmPath* trash_root_path = NULL;
@@ -247,7 +247,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 
     /* skip empty basename */
     if(G_UNLIKELY(!basename || name_len == 0))
-        return parent ? fm_path_ref(path) : NULL;
+        return parent ? fm_path_ref(parent) : NULL;
 
     if(G_LIKELY(parent)) /* remove slashes if needed. */
     {
@@ -461,7 +461,7 @@ FmPath* fm_path_new_for_path(const char* path_name)
 static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unescape)
 {
     FmPath* path, *root;
-    char* rel_path;
+    const char* rel_path;
     if(!uri || !*uri)
         return fm_path_ref(root_path);
 
@@ -733,7 +733,7 @@ char* fm_path_display_basename(FmPath* path)
             {
                 /* FIXME: this should be more flexible */
                 const char* p = path->name + 5;
-                while(p == '/')
+                while(*p == '/')
                     ++p;
                 if(g_str_has_prefix(p, "applications.menu"))
                     return g_strdup(_("Applications"));
@@ -887,7 +887,7 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
         return TRUE;
 
     /* must also contain leading slash */
-    if (n < (strlen(path->name) + 1))
+    if ((size_t)n < (strlen(path->name) + 1))
         return FALSE;
 
     /* check for current part mismatch */
@@ -918,8 +918,8 @@ int fm_path_depth(FmPath* path)
 
 static FmListFuncs funcs =
 {
-    fm_path_ref,
-    fm_path_unref
+    (gpointer (*)(gpointer))&fm_path_ref,
+    (void (*)(gpointer))&fm_path_unref
 };
 
 FmPathList* fm_path_list_new()

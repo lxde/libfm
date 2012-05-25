@@ -48,9 +48,9 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
 
     /* Let GDesktopAppInfo try first. */
     if(is_absolute_path)
-        app = g_desktop_app_info_new_from_filename(file_or_id);
+        app = (GAppInfo*)g_desktop_app_info_new_from_filename(file_or_id);
     else
-        app = g_desktop_app_info_new(file_or_id);
+        app = (GAppInfo*)g_desktop_app_info_new(file_or_id);
 
     if(!app) /* gio failed loading it. Let's see what's going on */
     {
@@ -272,7 +272,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         const char* type;
         GList* fis;
         g_hash_table_iter_init(&it, hash);
-        while(g_hash_table_iter_next(&it, &type, &fis))
+        while(g_hash_table_iter_next(&it, (void**)&type, (void**)&fis))
         {
             GAppInfo* app = g_app_info_get_default_for_type(type, FALSE);
             if(!app)
@@ -293,7 +293,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);
-                fm_app_info_launch_uris(app, fis, ctx, err);
+                fm_app_info_launch_uris(app, fis, ctx, &err);
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);

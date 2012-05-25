@@ -125,7 +125,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 
 void fm_config_load_from_file(FmConfig* cfg, const char* name)
 {
-    char **dirs, **dir;
+    const gchar * const *dirs, * const *dir;
     char *path;
     GKeyFile* kf = g_key_file_new();
 
@@ -141,7 +141,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
         }
     }
 
-    dirs = g_get_system_config_dirs(), **dir;
+    dirs = g_get_system_config_dirs();
     for(dir=dirs;*dir;++dir)
     {
         path = g_build_filename(*dir, name, NULL);

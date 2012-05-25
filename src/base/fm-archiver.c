@@ -106,7 +106,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
 
     /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
     g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Exec", cmd);
-    app = g_desktop_app_info_new_from_keyfile(dummy);
+    app = (GAppInfo*)g_desktop_app_info_new_from_keyfile(dummy);
 
     g_key_file_free(dummy);
     g_debug("cmd = %s", cmd);
@@ -207,7 +207,7 @@ void _fm_archiver_init()
         gchar** programs = g_key_file_get_groups(kf, &n_archivers);
         if(programs)
         {
-            int i;
+            gsize i;
             for(i = 0; i < n_archivers; ++i)
             {
                 FmArchiver* archiver = g_slice_new0(FmArchiver);

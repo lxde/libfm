@@ -177,7 +177,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
     }
     else
     {
-        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
+        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), "%s", g_strerror(errno));
         return FALSE;
     }
     return TRUE;
@@ -686,8 +686,8 @@ dev_t fm_file_info_get_dev(FmFileInfo* fi)
 
 static FmListFuncs fm_list_funcs =
 {
-    fm_file_info_ref,
-    fm_file_info_unref
+    (gpointer (*)(gpointer))&fm_file_info_ref,
+    (void (*)(gpointer))&fm_file_info_unref
 };
 
 FmFileInfoList* fm_file_info_list_new()

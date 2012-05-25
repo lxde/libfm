@@ -30,7 +30,7 @@ void _fm_icon_init()
 {
     if(G_UNLIKELY(hash))
         return;
-    hash = g_hash_table_new(g_icon_hash, g_icon_equal);
+    hash = g_hash_table_new(g_icon_hash, (GEqualFunc)g_icon_equal);
 }
 
 void _fm_icon_finalize()

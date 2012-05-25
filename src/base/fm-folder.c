@@ -344,7 +344,7 @@ gboolean on_idle(FmFolder* folder)
 
     if(job)
     {
-        g_signal_connect(job, "finished", on_file_info_finished, folder);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_finished), folder);
         folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
         fm_job_run_async(FM_JOB(job));
     }
@@ -442,7 +442,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         return;
     }
     if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_idle, folder, NULL);
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
 }
 
 static void on_job_finished(FmDirListJob* job, FmFolder* folder)
@@ -836,7 +836,8 @@ void fm_folder_query_filesystem_info(FmFolder* folder)
                 G_FILE_ATTRIBUTE_FILESYSTEM_SIZE","
                 G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
                 G_PRIORITY_LOW, folder->fs_size_cancellable,
-                on_query_filesystem_info_finished, g_object_ref(folder));
+                (GAsyncReadyCallback)on_query_filesystem_info_finished,
+                g_object_ref(folder));
     }
 }
 

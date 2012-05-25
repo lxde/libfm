@@ -76,7 +76,7 @@ GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
                 }
                 else
                 {
-                    g_debug("error creating file monitor: %S", e->message);
+                    g_debug("error creating file monitor: %s", e->message);
                     G_UNLOCK(hash);
                     if(err)
                         *err = e;
@@ -93,8 +93,8 @@ GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
 
 void _fm_monitor_init()
 {
-    hash = g_hash_table_new_full(g_file_hash, g_file_equal, g_object_unref, NULL);
-    dummy_hash = g_hash_table_new_full(g_file_hash, g_file_equal, g_object_unref, NULL);
+    hash = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
+    dummy_hash = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
 }
 
 void _fm_monitor_finalize()
