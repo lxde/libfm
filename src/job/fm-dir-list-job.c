@@ -37,7 +37,7 @@ extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c *
 static void fm_dir_list_job_finalize  			(GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
-static gboolean fm_dir_list_job_run(FmDirListJob *job);
+static gboolean fm_dir_list_job_run(FmJob *job);
 
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
@@ -57,22 +57,22 @@ static void fm_dir_list_job_init(FmDirListJob *self)
 }
 
 
-FmJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
+FmDirListJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {
-	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
+	FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
 	job->dir_path = fm_path_ref(path);
     job->dir_only = dir_only;
 	job->files = fm_file_info_list_new();
-	return (FmJob*)job;
+	return job;
 }
 
-FmJob* fm_dir_list_job_new_for_gfile(GFile* gf)
+FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 {
 	/* FIXME: should we cache this with hash table? Or, the cache
 	 * should be done at the level of FmFolder instead? */
-	FmDirListJob* job = (FmJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
+	FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
 	job->dir_path = fm_path_new_for_gfile(gf);
-	return (FmJob*)job;
+	return job;
 }
 
 static void fm_dir_list_job_finalize(GObject *object)
@@ -107,7 +107,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     FmFileInfo* fi;
     MenuCache* mc;
     MenuCacheDir* dir;
-    GList* l;
+    GSList* l;
     char* path_str, *p, ch;
     char* menu_name;
     const char* dir_path;
@@ -179,7 +179,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 
     if(dir)
     {
-        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, dir);
+        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, (MenuCacheItem*)dir);
         for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
             MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
@@ -247,7 +247,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     dir = g_dir_open(dir_path, 0, &err);
     if( dir )
     {
-        char* name;
+        const char* name;
         GString* fpath = g_string_sized_new(4096);
         int dir_len = strlen(dir_path);
         g_string_append_len(fpath, dir_path, dir_len);
@@ -412,13 +412,13 @@ _retry:
     return TRUE;
 }
 
-gboolean fm_dir_list_job_run(FmDirListJob* job)
+gboolean fm_dir_list_job_run(FmJob* job)
 {
     gboolean ret;
-	if(fm_path_is_native(job->dir_path)) /* if this is a native file on real file system */
-        ret = fm_dir_list_job_run_posix(job);
+	if(fm_path_is_native(((FmDirListJob*)job)->dir_path)) /* if this is a native file on real file system */
+        ret = fm_dir_list_job_run_posix((FmDirListJob*)job);
 	else /* this is a virtual path or remote file system path */
-        ret = fm_dir_list_job_run_gio(job);
+        ret = fm_dir_list_job_run_gio((FmDirListJob*)job);
     return ret;
 }
 

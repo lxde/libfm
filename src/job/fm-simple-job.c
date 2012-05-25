@@ -65,7 +65,7 @@ FmJob*  fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNoti
     job->func = func;
     job->user_data = user_data;
     job->destroy_data = destroy_data;
-    return (FmSimpleJob*)job;
+    return (FmJob*)job;
 }
 
 static gboolean fm_simple_job_run(FmJob *job)

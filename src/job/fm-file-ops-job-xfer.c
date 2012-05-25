@@ -42,7 +42,7 @@ static const char query[]=
     G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
     G_FILE_ATTRIBUTE_ID_FILESYSTEM;
 
-static void progress_cb(goffset cur, goffset total, FmFileOpsJob* job);
+static void progress_cb(goffset cur, goffset total, gpointer job);
 
 gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest)
 {
@@ -620,11 +620,11 @@ _retry_query_src_info:
     return ret;
 }
 
-void progress_cb(goffset cur, goffset total, FmFileOpsJob* job)
+void progress_cb(goffset cur, goffset total, gpointer job)
 {
-    job->current_file_finished = cur;
+    ((FmFileOpsJob*)job)->current_file_finished = cur;
     /* update progress */
-    fm_file_ops_job_emit_percent(job);
+    fm_file_ops_job_emit_percent((FmFileOpsJob*)job);
 }
 
 gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)

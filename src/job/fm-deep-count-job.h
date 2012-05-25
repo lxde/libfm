@@ -73,7 +73,7 @@ struct _FmDeepCountJobClass
 };
 
 GType fm_deep_count_job_get_type(void);
-FmJob* fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags);
+FmDeepCountJob* fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags);
 
 /* dev is UNIX device ID.
  * fs_id is filesystem id in gio format (can be NULL).

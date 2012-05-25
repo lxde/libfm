@@ -324,15 +324,15 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
 
 gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
 {
-    FmJob* job = fm_file_info_job_new(NULL, 0);
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);
     GList* l;
     gboolean ret;
     for(l=paths;l;l=l->next)
-        fm_file_info_job_add(FM_FILE_INFO_JOB(job), (FmPath*)l->data);
-    ret = fm_job_run_sync_with_mainloop(job);
+        fm_file_info_job_add(job, (FmPath*)l->data);
+    ret = fm_job_run_sync_with_mainloop(FM_JOB(job));
     if(ret)
     {
-        GList* file_infos = fm_list_peek_head_link(FM_FILE_INFO_JOB(job)->file_infos);
+        GList* file_infos = fm_list_peek_head_link(job->file_infos);
         if(file_infos)
             ret = fm_launch_files(ctx, file_infos, launcher, user_data);
         else

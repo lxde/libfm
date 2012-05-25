@@ -322,13 +322,15 @@ void fm_job_emit_cancelled(FmJob* job)
 struct AskData
 {
 	const char* question;
-	const char** options;
+	gchar* const *options;
 };
 
-static gpointer ask_in_main_thread(FmJob* job, struct AskData* data)
+static gpointer ask_in_main_thread(FmJob* job, gpointer input_data)
 {
 	gint ret;
+#define data ((struct AskData*)input_data)
 	g_signal_emit(job, signals[ASK], 0, data->question, data->options, &ret);
+#undef data
 	return GINT_TO_POINTER(ret);
 }
 
@@ -342,7 +344,7 @@ gint fm_job_ask(FmJob* job, const char* question, ...)
     return ret;
 }
 
-gint fm_job_askv(FmJob* job, const char* question, const char** options)
+gint fm_job_askv(FmJob* job, const char* question, gchar* const *options)
 {
 	struct AskData data;
 	data.question = question;
@@ -360,7 +362,7 @@ gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
         g_array_append_val(opts, opt);
         opt = va_arg (options, const char *);
     }
-    ret = fm_job_askv(job, question, opts->data);
+    ret = fm_job_askv(job, question, &opts->data);
     g_array_free(opts, TRUE);
     return ret;
 }
@@ -438,11 +440,13 @@ struct ErrData
 	FmJobErrorSeverity severity;
 };
 
-gpointer error_in_main_thread(FmJob* job, struct ErrData* data)
+gpointer error_in_main_thread(FmJob* job, gpointer input_data)
 {
 	gboolean ret;
+#define data ((struct ErrData*)input_data)
     g_debug("FmJob error: %s", data->err->message);
 	g_signal_emit(job, signals[ERROR], 0, data->err, data->severity, &ret);
+#undef data
 	return GINT_TO_POINTER(ret);
 }
 

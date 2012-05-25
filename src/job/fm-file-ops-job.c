@@ -108,7 +108,7 @@ static void fm_file_ops_job_finalize(GObject *object)
 
 	self = FM_FILE_OPS_JOB(object);
 
-	if(self->srcs);
+	if(self->srcs)
 		fm_list_unref(self->srcs);
 	if(self->dest)
 		fm_path_unref(self->dest);
@@ -191,19 +191,21 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
     job->recursive = recursive;
 }
 
-static void emit_cur_file(FmFileOpsJob* job, const char* cur_file)
+static gpointer emit_cur_file(FmJob* job, gpointer cur_file)
 {
 	g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
+	return NULL;
 }
 
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
-	fm_job_call_main_thread(FM_JOB(job), emit_cur_file, cur_file);
+	fm_job_call_main_thread(FM_JOB(job), emit_cur_file, (gpointer)cur_file);
 }
 
-static void emit_percent(FmFileOpsJob* job, gpointer percent)
+static gpointer emit_percent(FmJob* job, gpointer percent)
 {
 	g_signal_emit(job, signals[PERCENT], 0, (guint)percent);
+	return NULL;
 }
 
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
@@ -226,9 +228,10 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
     }
 }
 
-static void emit_prepared(FmFileOpsJob* job, gpointer user_data)
+static gpointer emit_prepared(FmJob* job, gpointer user_data)
 {
 	g_signal_emit(job, signals[PREPARED], 0);
+	return NULL;
 }
 
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job)
@@ -244,9 +247,12 @@ struct AskRename
     FmFileOpOption ret;
 };
 
-static void emit_ask_rename(FmFileOpsJob* job, struct AskRename* data)
+static gpointer emit_ask_rename(FmJob* job, gpointer input_data)
 {
+#define data ((struct AskRename*)input_data)
     g_signal_emit(job, signals[ASK_RENAME], 0, data->src_fi, data->dest_fi, &data->new_name, &data->ret);
+#undef data
+    return NULL;
 }
 
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)

@@ -69,7 +69,7 @@ static void fm_file_info_job_init(FmFileInfoJob *self)
     fm_job_init_cancellable(FM_JOB(self));
 }
 
-FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags)
+FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags)
 {
     GList* l;
     FmFileInfoJob* job = (FmFileInfoJob*)g_object_new(FM_TYPE_FILE_INFO_JOB, NULL);
@@ -87,7 +87,7 @@ FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags
             fm_list_push_tail_noref(file_infos, fi);
         }
     }
-    return (FmJob*)job;
+    return job;
 }
 
 void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item);
@@ -155,7 +155,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     else
                         dir = menu_cache_get_root_dir(mc);
                     if(dir)
-                        _fm_file_info_set_from_menu_cache_item(fi, dir);
+                        _fm_file_info_set_from_menu_cache_item(fi, (MenuCacheItem*)dir);
                     else
                     {
                         next = l->next;

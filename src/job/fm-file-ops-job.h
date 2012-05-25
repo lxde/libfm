@@ -96,8 +96,8 @@ struct _FmFileOpsJob
     };
 
     /* for chmod and chown */
-    guint32 uid;
-    guint32 gid;
+    gint32 uid;
+    gint32 gid;
     mode_t new_mode;
     mode_t new_mode_mask;
 

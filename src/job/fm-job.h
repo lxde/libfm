@@ -178,7 +178,7 @@ void fm_job_emit_cancelled(FmJob* job);
 FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity severity);
 
 gint fm_job_ask(FmJob* job, const char* question, ...);
-gint fm_job_askv(FmJob* job, const char* question, const char** options);
+gint fm_job_askv(FmJob* job, const char* question, gchar* const *options);
 gint fm_job_ask_valist(FmJob* job, const char* question, va_list options);
 
 G_END_DECLS

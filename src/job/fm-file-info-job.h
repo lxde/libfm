@@ -63,7 +63,7 @@ struct _FmFileInfoJobClass
 };
 
 GType fm_file_info_job_get_type(void);
-FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags);
+FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags);
 
 /* this can only be called before running the job. */
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path);
