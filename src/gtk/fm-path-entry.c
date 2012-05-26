@@ -557,16 +557,23 @@ GtkWidget* fm_path_entry_new()
 void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    char* disp_path;
 
     if(priv->path)
         fm_path_unref(priv->path);
-    priv->path = fm_path_ref(path);
 
-    disp_path = fm_path_display_name(path, FALSE);
-    /* FIXME: blocks changed signal */
-    gtk_entry_set_text(entry, disp_path);
-    g_free(disp_path);
+    if(path)
+    {
+        char* disp_path = fm_path_display_name(path, FALSE);
+        priv->path = fm_path_ref(path);
+        /* FIXME: blocks changed signal */
+        gtk_entry_set_text(GTK_ENTRY(entry), disp_path);
+        g_free(disp_path);
+    }
+    else
+    {
+        priv->path = NULL;
+        gtk_entry_set_text(GTK_ENTRY(entry), "");
+    }
 }
 
 
