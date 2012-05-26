@@ -107,6 +107,9 @@ void fm_rename_file(GtkWindow* parent, FmPath* file);
 
 void fm_empty_trash(GtkWindow* parent);
 
+void fm_set_busy_cursor(GtkWidget* widget);
+void fm_unset_busy_cursor(GtkWidget* widget);
+
 G_END_DECLS
 
 #endif /* __FM_GTK_UTILS_H__ */

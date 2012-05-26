@@ -705,3 +705,25 @@ void fm_empty_trash(GtkWindow* parent)
         fm_list_unref(paths);
     }
 }
+
+void fm_set_busy_cursor(GtkWidget* widget)
+{
+	g_debug("fm_set_busy_cursor");
+    if(GTK_WIDGET_REALIZED(widget))
+    {
+		GdkWindow* window = gtk_widget_get_window(widget);
+        GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+        gdk_window_set_cursor(window, cursor);
+    }
+    else
+		g_debug("not realized");
+}
+
+void fm_unset_busy_cursor(GtkWidget* widget)
+{
+    if(GTK_WIDGET_REALIZED(widget))
+    {
+		GdkWindow* window = gtk_widget_get_window(widget);
+        gdk_window_set_cursor(window, NULL);
+    }
+}

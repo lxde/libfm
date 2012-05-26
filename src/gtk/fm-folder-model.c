@@ -38,8 +38,28 @@
 #endif
 
 enum {
-    LOADED,
     N_SIGNALS
+};
+
+struct _FmFolderModel
+{
+    GObject parent;
+    FmFolder* folder;
+    GSequence *items;
+    GSequence* hidden; /* items hidden by filter */
+
+    gboolean show_hidden : 1;
+
+    int sort_col;
+    GtkSortType sort_order;
+    /* Random integer to check whether an iter belongs to our model */
+    gint stamp;
+
+    guint theme_change_handler;
+    guint icon_size;
+
+    guint thumbnail_max;
+    GList* thumbnail_requests;
 };
 
 typedef struct _FmFolderItem FmFolderItem;
@@ -119,7 +139,6 @@ static void fm_folder_model_set_default_sort_func(GtkTreeSortable *sortable,
 static void fm_folder_model_sort(FmFolderModel* model);
 
 /* signal handlers */
-static void on_folder_loaded(FmFolder* folder, FmFolderModel* model);
 
 static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model);
 
@@ -160,15 +179,6 @@ void fm_folder_model_class_init(FmFolderModelClass *klass)
     object_class = (GObjectClass*)klass;
 	object_class->dispose = fm_folder_model_dispose;
     object_class->finalize = fm_folder_model_finalize;
-
-    signals[LOADED]=
-        g_signal_new("loaded",
-                     G_TYPE_FROM_CLASS(klass),
-                     G_SIGNAL_RUN_FIRST,
-                     G_STRUCT_OFFSET(FmFolderModelClass, loaded),
-                     NULL, NULL,
-                     g_cclosure_marshal_VOID__VOID,
-                     G_TYPE_NONE, 0);
 }
 
 void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
@@ -221,7 +231,7 @@ void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface)
 void fm_folder_model_dispose(GObject *object)
 {
     FmFolderModel* model = FM_FOLDER_MODEL(object);
-	if(model->dir)
+	if(model->folder)
 		fm_folder_model_set_folder(model, NULL);
 
     if(model->theme_change_handler)
@@ -304,7 +314,10 @@ static void _fm_folder_model_files_added(FmFolder* dir, GSList* files,
     GSList* l;
     FmFileInfo* file;
     for( l = files; l; l=l->next )
-        _fm_folder_model_add_file(model, (FmFileInfo*)l->data);
+    {
+		FmFileInfo* fi = FM_FILE_INFO(l->data);
+        _fm_folder_model_add_file(model, fi);
+	}
 }
 
 
@@ -316,25 +329,33 @@ static void _fm_folder_model_files_removed(FmFolder* dir, GSList* files,
         fm_folder_model_file_deleted(model, (FmFileInfo*)l->data);
 }
 
+FmFolder* fm_folder_model_get_folder(FmFolderModel* model)
+{
+	return model->folder;
+}
+
+FmPath* fm_folder_model_get_folder_path(FmFolderModel* model)
+{
+	return model->folder ? fm_folder_get_path(model->folder) : NULL;
+}
+
 void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 {
     GSequenceIter *it;
-    if(model->dir == dir)
+    if(model->folder == dir)
         return;
 	/* g_debug("fm_folder_model_set_folder(%p, %p)", model, dir); */
 
 	/* free the old folder */
-    if(model->dir)
+    if(model->folder)
     {
 		guint row_deleted_signal = g_signal_lookup("row-deleted", GTK_TYPE_TREE_MODEL);
-        g_signal_handlers_disconnect_by_func(model->dir,
+        g_signal_handlers_disconnect_by_func(model->folder,
                                              _fm_folder_model_files_added, model);
-        g_signal_handlers_disconnect_by_func(model->dir,
+        g_signal_handlers_disconnect_by_func(model->folder,
                                              _fm_folder_model_files_removed, model);
-        g_signal_handlers_disconnect_by_func(model->dir,
+        g_signal_handlers_disconnect_by_func(model->folder,
                                              _fm_folder_model_files_changed, model);
-        g_signal_handlers_disconnect_by_func(model->dir,
-                                             on_folder_loaded, model);
 
         /* Emit 'row-deleted' signals for all files */
         if(g_signal_has_handler_pending(model, row_deleted_signal, 0, TRUE))
@@ -347,42 +368,36 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 		}
         g_sequence_free(model->items);
         g_sequence_free(model->hidden);
-        g_object_unref(model->dir);
-        model->dir = NULL;
+        g_object_unref(model->folder);
+        model->folder = NULL;
     }
     model->items = g_sequence_new((GDestroyNotify)fm_folder_item_free);
     model->hidden = g_sequence_new((GDestroyNotify)fm_folder_item_free);
     if( !dir )
         return;
-    model->dir = FM_FOLDER(g_object_ref(dir));
+    model->folder = FM_FOLDER(g_object_ref(dir));
 
-    g_signal_connect(model->dir, "files-added",
+    g_signal_connect(model->folder, "files-added",
                      G_CALLBACK(_fm_folder_model_files_added),
                      model);
-    g_signal_connect(model->dir, "files-removed",
+    g_signal_connect(model->folder, "files-removed",
                      G_CALLBACK(_fm_folder_model_files_removed),
                      model);
-    g_signal_connect(model->dir, "files-changed",
+    g_signal_connect(model->folder, "files-changed",
                      G_CALLBACK(_fm_folder_model_files_changed),
                      model);
-    g_signal_connect(model->dir, "loaded",
-                     G_CALLBACK(on_folder_loaded), model);
 
-    if(!fm_folder_is_empty(dir))
+    if( fm_folder_is_loaded(model->folder) ) /* if it's already loaded */
     {
-        GList *l;
-        FmFileInfoList* files = fm_folder_get_files(dir);
-        for( l = fm_list_peek_head_link(files); l; l = l->next )
-            _fm_folder_model_add_file(model, (FmFileInfo*)l->data);
-    }
-
-    if( fm_folder_is_loaded(model->dir) ) /* if it's already loaded */
-        on_folder_loaded(model->dir, model);  /* emit 'loaded' signal */
-}
-
-gboolean fm_folder_model_get_is_loaded(FmFolderModel* model)
-{
-    return model->dir && fm_folder_is_loaded(model->dir);
+		/* add existing files to the model */
+		if(!fm_folder_is_empty(model->folder))
+		{
+			GList *l;
+			FmFileInfoList* files = fm_folder_get_files(model->folder);
+			for( l = fm_list_peek_head_link(files); l; l = l->next )
+				_fm_folder_model_add_file(model, (FmFileInfo*)l->data);
+		}
+	}
 }
 
 GtkTreeModelFlags fm_folder_model_get_flags(GtkTreeModel *tree_model)
@@ -586,7 +601,7 @@ gboolean fm_folder_model_iter_children(GtkTreeModel *tree_model,
     model = FM_FOLDER_MODEL(tree_model);
 
     /* No rows => no first row */
-//    if ( model->dir->n_items == 0 )
+//    if ( model->folder->n_items == 0 )
 //        return FALSE;
 
     /* Set iter to first item in list */
@@ -793,7 +808,7 @@ void fm_folder_model_sort(FmFolderModel* model)
 void fm_folder_model_file_created(FmFolderModel* model, FmFileInfo* file)
 {
     FmFolderItem* new_item = fm_folder_item_new(file);
-    _fm_folder_model_insert_item(model->dir, new_item, model);
+    _fm_folder_model_insert_item(model->folder, new_item, model);
 }
 
 void _fm_folder_model_insert_item(FmFolder* dir,
@@ -969,11 +984,6 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
             items_it = next_item_it;
         }
     }
-}
-
-void on_folder_loaded(FmFolder* folder, FmFolderModel* model)
-{
-    g_signal_emit(model, signals[LOADED], 0);
 }
 
 void reload_icons(FmFolderModel* model, enum ReloadFlags flags)

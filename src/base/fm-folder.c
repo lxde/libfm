@@ -28,8 +28,8 @@ enum {
     FILES_ADDED,
     FILES_REMOVED,
     FILES_CHANGED,
-    RELOAD,
-    LOADED,
+    START_LOADING,
+    FINISH_LOADING,
     UNMOUNT,
     CHANGED,
     REMOVED,
@@ -46,7 +46,7 @@ struct _FmFolder
     FmPath* dir_path;
     GFile* gf;
     GFileMonitor* mon;
-    FmDirListJob* job;
+    FmDirListJob* dirlist_job;
     FmFileInfo* dir_fi;
     FmFileInfoList* files;
 
@@ -72,7 +72,7 @@ static void fm_folder_dispose(GObject *object);
 static void fm_folder_finalize(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
-static void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder);
+static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder);
 static gboolean on_idle(FmFolder* folder);
 
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
@@ -136,11 +136,11 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        G_TYPE_NONE, 1, G_TYPE_POINTER );
 
     /* emitted when the folder is about to be reloaded */
-    signals[RELOAD] =
-        g_signal_new ( "reload",
+    signals[START_LOADING] =
+        g_signal_new ( "start-loading",
                        G_TYPE_FROM_CLASS (klass),
                        G_SIGNAL_RUN_FIRST,
-                       G_STRUCT_OFFSET( FmFolderClass, reload),
+                       G_STRUCT_OFFSET( FmFolderClass, start_loading),
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
@@ -148,11 +148,11 @@ static void fm_folder_class_init(FmFolderClass *klass)
     /* emitted when the content of the folder is loaded.
      * this signal can be emitted for more than once and can be induced
      * by calling fm_folder_reload(). */
-    signals[ LOADED ] =
-        g_signal_new ( "loaded",
+    signals[ FINISH_LOADING ] =
+        g_signal_new ( "finish-loading",
                        G_TYPE_FROM_CLASS ( klass ),
                        G_SIGNAL_RUN_FIRST,
-                       G_STRUCT_OFFSET ( FmFolderClass, loaded ),
+                       G_STRUCT_OFFSET ( FmFolderClass, finish_loading ),
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
@@ -226,19 +226,19 @@ static void fm_folder_init(FmFolder *folder)
 
 static gboolean on_idle_reload(FmFolder* folder)
 {
-	fm_folder_reload(folder);
-	folder->idle_reload_handler = 0;
-	return FALSE;
+    fm_folder_reload(folder);
+    folder->idle_reload_handler = 0;
+    return FALSE;
 }
 
 static void queue_reload(FmFolder* folder)
 {
-	if(folder->idle_reload_handler)
-		g_source_remove(folder->idle_reload_handler);
-	folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
+    if(folder->idle_reload_handler)
+        g_source_remove(folder->idle_reload_handler);
+    folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
 }
 
-void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
+void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
 {
     GList* l;
     GSList* files_to_add = NULL;
@@ -246,47 +246,47 @@ void on_file_info_finished(FmFileInfoJob* job, FmFolder* folder)
     gboolean content_changed = FALSE;
     if(!fm_job_is_cancelled(FM_JOB(job)))
     {
-		gboolean need_added = g_signal_has_handler_pending(folder, signals[FILES_ADDED], 0, TRUE);
-		gboolean need_changed = g_signal_has_handler_pending(folder, signals[FILES_CHANGED], 0, TRUE);
+        gboolean need_added = g_signal_has_handler_pending(folder, signals[FILES_ADDED], 0, TRUE);
+        gboolean need_changed = g_signal_has_handler_pending(folder, signals[FILES_CHANGED], 0, TRUE);
 
-		for(l=fm_list_peek_head_link(job->file_infos);l;l=l->next)
-		{
-			FmFileInfo* fi = (FmFileInfo*)l->data;
-			FmPath* path = fm_file_info_get_path(fi);
-			GList* l2 = _fm_folder_get_file_by_name(folder, path->name);
-			if(l2) /* the file is already in the folder, update */
-			{
-				FmFileInfo* fi2 = (FmFileInfo*)l2->data;
-				/* FIXME: will fm_file_info_copy here cause problems?
-				 *        the file info might be referenced by others, too.
-				 *        we're mofifying an object referenced by others.
-				 *        we should redesign the API, or document this clearly
-				 *        in future API doc.
-				 */
-				fm_file_info_copy(fi2, fi);
-				if(need_changed)
-					files_to_update = g_slist_prepend(files_to_update, fi2);
-			}
-			else
-			{
-				if(need_added)
-					files_to_add = g_slist_prepend(files_to_add, fi);
-				fm_file_info_ref(fi);
-				fm_list_push_tail(folder->files, fi);
-			}
-		}
-		if(files_to_add)
-		{
-			g_signal_emit(folder, signals[FILES_ADDED], 0, files_to_add);
-			g_slist_free(files_to_add);
-		}
-		if(files_to_update)
-		{
-			g_signal_emit(folder, signals[FILES_CHANGED], 0, files_to_update);
-			g_slist_free(files_to_update);
-		}
-		g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
-	}
+        for(l=fm_list_peek_head_link(job->file_infos);l;l=l->next)
+        {
+            FmFileInfo* fi = (FmFileInfo*)l->data;
+            FmPath* path = fm_file_info_get_path(fi);
+            GList* l2 = _fm_folder_get_file_by_name(folder, path->name);
+            if(l2) /* the file is already in the folder, update */
+            {
+                FmFileInfo* fi2 = (FmFileInfo*)l2->data;
+                /* FIXME: will fm_file_info_copy here cause problems?
+                 *        the file info might be referenced by others, too.
+                 *        we're mofifying an object referenced by others.
+                 *        we should redesign the API, or document this clearly
+                 *        in future API doc.
+                 */
+                fm_file_info_copy(fi2, fi);
+                if(need_changed)
+                    files_to_update = g_slist_prepend(files_to_update, fi2);
+            }
+            else
+            {
+                if(need_added)
+                    files_to_add = g_slist_prepend(files_to_add, fi);
+                fm_file_info_ref(fi);
+                fm_list_push_tail(folder->files, fi);
+            }
+        }
+        if(files_to_add)
+        {
+            g_signal_emit(folder, signals[FILES_ADDED], 0, files_to_add);
+            g_slist_free(files_to_add);
+        }
+        if(files_to_update)
+        {
+            g_signal_emit(folder, signals[FILES_CHANGED], 0, files_to_update);
+            g_slist_free(files_to_update);
+        }
+        g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
+    }
     folder->pending_jobs = g_slist_remove(folder->pending_jobs, job);
 }
 
@@ -301,29 +301,13 @@ gboolean on_idle(FmFolder* folder)
 
     if(folder->files_to_update)
     {
-        GSList* prev = NULL;
-        for(l=folder->files_to_update;l;)
+        for(l=folder->files_to_update; l; l = l->next)
         {
-            /* if a file is already in files_to_add, remove it. */
-            if(g_slist_find_custom(folder->files_to_add, l->data, (GCompareFunc)strcmp))
-            {
-                GSList* tmp = l;
-                l=l->next;
-                if(G_LIKELY(prev))
-                    prev->next = l;
-                g_free(tmp->data);
-                g_slist_free_1(tmp);
-                if(G_UNLIKELY(tmp == folder->files_to_update))
-                    folder->files_to_update = l;
-                continue;
-            }
-            path = fm_path_new_child(folder->dir_path, (char*)l->data);
+            char* name = (char*)l->data;
+            path = fm_path_new_child(folder->dir_path, name);
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
-            g_free(l->data);
-
-            prev = l;
-            l=l->next;
+            g_free(name);
         }
         g_slist_free(folder->files_to_update);
         folder->files_to_update = NULL;
@@ -333,10 +317,11 @@ gboolean on_idle(FmFolder* folder)
     {
         for(l=folder->files_to_add;l;l=l->next)
         {
-            path = fm_path_new_child(folder->dir_path, (char*)l->data);
+            char* name = (char*)l->data;
+            path = fm_path_new_child(folder->dir_path, name);
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
-            g_free(l->data);
+            g_free(name);
         }
         g_slist_free(folder->files_to_add);
         folder->files_to_add = NULL;
@@ -344,7 +329,7 @@ gboolean on_idle(FmFolder* folder)
 
     if(job)
     {
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_finished), folder);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), folder);
         folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
         fm_job_run_async(FM_JOB(job));
     }
@@ -391,7 +376,11 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     {
         GError* err = NULL;
         /* g_debug("event of the folder itself: %d", evt); */
-        /* FIXME: handle unmount events */
+
+        /* NOTE: g_object_ref() should be used here.
+         * Sometimes the folder will be freed by signal handlers 
+         * during emission of the change notifications. */
+        g_object_ref(folder);
         switch(evt)
         {
         case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
@@ -417,19 +406,48 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             /* g_debug("folder is changed"); */
             break;
         }
+        g_object_unref(folder);
         return;
     }
 
     name = g_file_get_basename(gf);
+
+    /* NOTE: sometimes, for unknown reasons, GFileMonitor gives us the
+     * same event of the same file for multiple times. So we need to 
+     * check for duplications ourselves here. */
     switch(evt)
     {
     case G_FILE_MONITOR_EVENT_CREATED:
-        folder->files_to_add = g_slist_append(folder->files_to_add, name);
+    {
+        /* make sure that the file is not already queued for addition. */
+        if(!g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
+        {
+            folder->files_to_add = g_slist_append(folder->files_to_add, name);
+            /* if we already have the file in FmFolder, update the existing one instead. */
+            if(_fm_folder_get_file_by_name(folder, name)) /* we already have it! */
+            {
+                /* update the existing item. */
+                folder->files_to_update = g_slist_append(folder->files_to_update, name);
+            }
+        }
+        else
+            g_free(name);
         break;
+    }
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
     case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-        folder->files_to_update = g_slist_append(folder->files_to_update, name);
+    {
+        /* make sure that the file is not already queued for changes or
+         * it's already queued for addition. */
+        if(!g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp) &&
+            !g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
+        {
+            folder->files_to_update = g_slist_append(folder->files_to_update, name);
+        }
+        else
+            g_free(name);
         break;
+    }
     case G_FILE_MONITOR_EVENT_DELETED:
         l = _fm_folder_get_file_by_name(folder, name);
         if(l && !g_slist_find(folder->files_to_del, l) )
@@ -445,37 +463,65 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
 }
 
-static void on_job_finished(FmDirListJob* job, FmFolder* folder)
+static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
 {
-    GList* l;
     GSList* files = NULL;
     /* actually manually disconnecting from 'finished' signal is not
      * needed since the signal is only emit once, and later the job
      * object will be distroyed very soon. */
-    /* g_signal_handlers_disconnect_by_func(job, on_job_finished, folder); */
+    /* g_signal_handlers_disconnect_by_func(job, on_dirlist_job_finished, folder); */
 
-	if(!fm_job_is_cancelled(FM_JOB(job)))
-	{
-		for(l = fm_list_peek_head_link(job->files); l; l=l->next)
-		{
-			FmFileInfo* inf = (FmFileInfo*)l->data;
-			files = g_slist_prepend(files, inf);
-			fm_list_push_tail(folder->files, inf);
-		}
-		if(G_LIKELY(files))
-			g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+    if(!fm_job_is_cancelled(FM_JOB(job)))
+    {
+        GList* l;
+        for(l = fm_list_peek_head_link(job->files); l; l=l->next)
+        {
+            FmFileInfo* inf = (FmFileInfo*)l->data;
+            files = g_slist_prepend(files, inf);
+            fm_list_push_tail(folder->files, inf);
+        }
+        if(G_LIKELY(files))
+            g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 
-		if(job->dir_fi)
-			folder->dir_fi = fm_file_info_ref(job->dir_fi);
-	}
-    folder->job = NULL; /* the job object will be freed in idle handler. */
-    g_signal_emit(folder, signals[LOADED], 0);
+        if(job->dir_fi)
+            folder->dir_fi = fm_file_info_ref(job->dir_fi);
+
+        /* Some new files are created while FmDirListJob is loading the folder. */
+        if(G_UNLIKELY(folder->files_to_add))
+        {
+			/* This should be a very rare case. Could this happen? */
+            GSList* l;
+            g_assert(folder->files_to_add == NULL);
+            for(l = folder->files_to_add; l;)
+            {
+                char* name = (char*)l->data;
+                GSList* next = l->next;
+                if(_fm_folder_get_file_by_name(folder, name))
+                {
+					/* we already have the file. remove it from files_to_add, 
+					 * and put it in files_to_update instead. .*/
+                    folder->files_to_update = g_slist_prepend(folder->files_to_update, name);
+                    folder->files_to_add = g_slist_delete_link(folder->files_to_add, l);
+                }
+                l = next;
+            }
+        }
+    }
+    folder->dirlist_job = NULL; /* the job object will be freed in idle handler. */
+
+    g_object_ref(folder);
+    g_signal_emit(folder, signals[FINISH_LOADING], 0);
+    g_object_unref(folder);
 }
 
-static FmJobErrorAction on_job_err(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
+static FmJobErrorAction on_dirlist_job_error(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
 {
     FmJobErrorAction ret;
+    /* it's possible that some signal handlers tries to free the folder
+     * when errors occurs, so let's g_object_ref here. */
+    g_object_ref(folder);
     g_signal_emit(folder, signals[ERROR], 0, err, severity, &ret);
+    g_object_unref(folder);
     return ret;
 }
 
@@ -512,13 +558,13 @@ FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
     return folder;
 }
 
-static void free_job(FmFolder* folder)
+static void free_dirlist_job(FmFolder* folder)
 {
-	g_signal_handlers_disconnect_by_func(folder->job, on_job_finished, folder);
-	g_signal_handlers_disconnect_by_func(folder->job, on_job_err, folder);
-	fm_job_cancel(FM_JOB(folder->job)); /* FIXME: is this ok? */
-	/* the job will be freed automatically in idle handler. */
-	folder->job = NULL;
+    g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_finished, folder);
+    g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_error, folder);
+    fm_job_cancel(FM_JOB(folder->dirlist_job)); /* FIXME: is this ok? */
+    /* the job will be freed automatically in idle handler. */
+    folder->dirlist_job = NULL;
 }
 
 static void fm_folder_dispose(GObject *object)
@@ -527,9 +573,12 @@ static void fm_folder_dispose(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FOLDER(object));
 
+    g_debug("fm_folder_dispose");
+    
     folder = FM_FOLDER(object);
-    if(folder->job)
-		free_job(folder);
+
+    if(folder->dirlist_job)
+        free_dirlist_job(folder);
 
     if(folder->pending_jobs)
     {
@@ -537,7 +586,7 @@ static void fm_folder_dispose(GObject *object)
         for(l = folder->pending_jobs;l;l=l->next)
         {
             FmJob* job = FM_JOB(l->data);
-            g_signal_handlers_disconnect_by_func(job, on_file_info_finished, folder);
+            g_signal_handlers_disconnect_by_func(job, on_file_info_job_finished, folder);
             fm_job_cancel(job);
             /* the job will be freed automatically in idle handler. */
         }
@@ -553,10 +602,10 @@ static void fm_folder_dispose(GObject *object)
     }
 
     if(folder->idle_reload_handler)
-	{
-		g_source_remove(folder->idle_reload_handler);
-		folder->idle_reload_handler = 0;
-	}
+    {
+        g_source_remove(folder->idle_reload_handler);
+        folder->idle_reload_handler = 0;
+    }
 
     if(folder->idle_handler)
     {
@@ -590,7 +639,33 @@ static void fm_folder_dispose(GObject *object)
         folder->fs_size_cancellable = NULL;
     }
 
-	(* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
+    /* remove from hash table */
+    if(folder->dir_path)
+    {
+        g_hash_table_remove(hash, folder->dir_path);
+        fm_path_unref(folder->dir_path);
+        folder->dir_path = NULL;
+    }
+
+    if(folder->dir_fi)
+    {
+        fm_file_info_unref(folder->dir_fi);
+        folder->dir_fi = NULL;
+    }
+
+    if(folder->gf)
+    {
+        g_object_unref(folder->gf);
+        folder->gf = NULL;
+    }
+
+    if(folder->files)
+    {
+        fm_list_unref(folder->files);
+        folder->files = NULL;
+    }
+
+    (* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
 }
 
 static void fm_folder_finalize(GObject *object)
@@ -600,28 +675,13 @@ static void fm_folder_finalize(GObject *object)
     g_return_if_fail(FM_IS_FOLDER(object));
 
     folder = FM_FOLDER(object);
-    /* g_debug("free folder %p: %s", folder, folder->dir_path->name); */
-
-    /* remove from hash table */
-    g_hash_table_remove(hash, folder->dir_path);
-
-    if(folder->dir_path)
-        fm_path_unref(folder->dir_path);
-
-    if(folder->dir_fi)
-        fm_file_info_unref(folder->dir_fi);
-
-    if(folder->gf)
-        g_object_unref(folder->gf);
-
-
-    fm_list_unref(folder->files);
+    g_debug("free folder %p", folder);
 
     if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
-FmFolder*    fm_folder_get_for_gfile    (GFile* gf)
+FmFolder* fm_folder_get_for_gfile(GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
     FmFolder* folder = fm_folder_new_internal(path, gf);
@@ -655,7 +715,7 @@ void fm_folder_reload(FmFolder* folder)
      * from the folder temporarily and reconnect to it again after
      * the folder complete the loading. This might reduce some
      * unnecessary signal handling and UI updates. */
-    g_signal_emit(folder, signals[RELOAD], 0);
+    g_signal_emit(folder, signals[START_LOADING], 0);
 
     if(folder->dir_fi)
     {
@@ -669,24 +729,24 @@ void fm_folder_reload(FmFolder* folder)
     GList* l = fm_list_peek_head_link(folder->files);
 
     /* cancel running dir listing job if there is any. */
-    if(folder->job)
-		free_job(folder);
+    if(folder->dirlist_job)
+        free_dirlist_job(folder);
 
     /* remove all existing files */
     if(l)
     {
-		gboolean need_removed = g_signal_has_handler_pending(folder, signals[FILES_REMOVED], 0, TRUE);
+        gboolean need_removed = g_signal_has_handler_pending(folder, signals[FILES_REMOVED], 0, TRUE);
         for(;l;l=l->next)
         {
             FmFileInfo* fi = (FmFileInfo*)l->data;
             if(need_removed)
-				files_to_del = g_slist_prepend(files_to_del, fi);
+                files_to_del = g_slist_prepend(files_to_del, fi);
         }
         if(need_removed)
         {
-			g_signal_emit(folder, signals[FILES_REMOVED], 0, files_to_del);
-			g_slist_free(files_to_del);
-		}
+            g_signal_emit(folder, signals[FILES_REMOVED], 0, files_to_del);
+            g_slist_free(files_to_del);
+        }
         fm_list_clear(folder->files); /* fm_file_info_unref will be invoked. */
     }
 
@@ -698,7 +758,9 @@ void fm_folder_reload(FmFolder* folder)
     }
     folder->mon = fm_monitor_directory(folder->gf, &err);
     if(folder->mon)
+    {
         g_signal_connect(folder->mon, "changed", G_CALLBACK(on_folder_changed), folder);
+    }
     else
     {
         g_debug("file monitor cannot be created: %s", err->message);
@@ -709,10 +771,10 @@ void fm_folder_reload(FmFolder* folder)
     g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
 
     /* run a new dir listing job */
-    folder->job = fm_dir_list_job_new(folder->dir_path, FALSE);
-    g_signal_connect(folder->job, "finished", G_CALLBACK(on_job_finished), folder);
-    g_signal_connect(folder->job, "error", G_CALLBACK(on_job_err), folder);
-    fm_job_run_async(FM_JOB(folder->job));
+    folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+    g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
+    g_signal_connect(folder->dirlist_job, "error", G_CALLBACK(on_dirlist_job_error), folder);
+    fm_job_run_async(FM_JOB(folder->dirlist_job));
 
     /* also reload filesystem info.
      * FIXME: is this needed? */
@@ -726,17 +788,17 @@ FmFileInfoList* fm_folder_get_files (FmFolder* folder)
 
 gboolean fm_folder_is_empty(FmFolder* folder)
 {
-	return fm_list_is_empty(folder->files);
+    return fm_list_is_empty(folder->files);
 }
 
 FmFileInfo* fm_folder_get_info(FmFolder* folder)
 {
-	return folder->dir_fi;
+    return folder->dir_fi;
 }
 
 FmPath* fm_folder_get_path(FmFolder* folder)
 {
-	return folder->dir_path;
+    return folder->dir_path;
 }
 
 GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
@@ -766,13 +828,13 @@ FmFolder* fm_folder_get(FmPath* path)
 /* is the folder content fully loaded */
 gboolean fm_folder_is_loaded(FmFolder* folder)
 {
-    return (folder->job == NULL);
+    return (folder->dirlist_job == NULL);
 }
 
 /* is this a valid folder */
 gboolean fm_folder_is_valid(FmFolder* folder)
 {
-	return (folder->dir_fi != NULL);
+    return (folder->dir_fi != NULL);
 }
 
 gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size)

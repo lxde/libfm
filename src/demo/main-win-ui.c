@@ -59,6 +59,7 @@ static const char main_menu_xml[] =
     "<menuitem action='AddBookmark'/>"
   "</menu>"
   "<menu action='ViewMenu'>"
+    "<menuitem action='Reload'/>"
     "<menuitem action='ShowHidden'/>"
     "<separator/>"
     "<menuitem action='IconView'/>"
@@ -124,6 +125,7 @@ static GtkActionEntry main_win_actions[]=
         {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, G_CALLBACK(on_invert_select)},
         {"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
     {"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
+        {"Reload", NULL, N_("Reload"), "F5", NULL, G_CALLBACK(on_reload)},
         {"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
     {"HelpMenu", NULL, N_("_Help"), NULL, NULL, NULL},
         {"About", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK(on_about)},

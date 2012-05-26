@@ -58,33 +58,9 @@ enum{
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
 
-struct _FmFolderModel
-{
-    GObject parent;
-    /* <private> */
-    FmFolder* dir;
-    GSequence *items;
-    GSequence* hidden; /* items hidden by filter */
-
-    gboolean show_hidden : 1;
-
-    int sort_col;
-    GtkSortType sort_order;
-    /* Random integer to check whether an iter belongs to our model */
-    gint stamp;
-
-    guint theme_change_handler;
-    guint icon_size;
-
-    guint thumbnail_max;
-    GList* thumbnail_requests;
-};
-
 struct _FmFolderModelClass
 {
     GObjectClass parent;
-    /* Default signal handlers */
-    void (*loaded)( FmFolderModel* model );
 };
 
 GType fm_folder_model_get_type (void);
@@ -92,8 +68,8 @@ GType fm_folder_model_get_type (void);
 FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
 
 void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
-
-gboolean fm_folder_model_get_is_loaded(FmFolderModel* model);
+FmFolder* fm_folder_model_get_folder(FmFolderModel* model);
+FmPath* fm_folder_model_get_folder_path(FmFolderModel* model);
 
 gboolean fm_folder_model_get_show_hidden( FmFolderModel* model );
 

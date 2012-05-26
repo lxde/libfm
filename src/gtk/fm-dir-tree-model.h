@@ -60,15 +60,6 @@ struct _FmDirTreeModel
     gint stamp;
     int icon_size;
     gboolean show_hidden;
-
-#if 0
-    /* check if a folder has subdir */
-    GQueue subdir_checks;
-    GMutex* subdir_checks_mutex;
-    GCancellable* subdir_cancellable;
-    gboolean job_running;
-    GList* current_subdir_check;
-#endif
 };
 
 struct _FmDirTreeModelClass
@@ -90,6 +81,8 @@ guint fm_dir_tree_get_icon_size(FmDirTreeModel* model);
 
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden);
 gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model);
+
+/* TODO: */ void fm_dir_tree_model_reload(FmDirTreeModel* model);
 
 G_END_DECLS
 

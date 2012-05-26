@@ -53,8 +53,8 @@ struct _FmFolderClass
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
-    void (*reload)(FmFolder* dir);
-    void (*loaded)(FmFolder* dir);
+    void (*start_loading)(FmFolder* dir);
+    void (*finish_loading)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
     void (*changed)(FmFolder* dir);
     void (*removed)(FmFolder* dir);

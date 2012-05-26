@@ -72,12 +72,9 @@ typedef struct _FmFolderViewClass       FmFolderViewClass;
 struct _FmFolderViewClass
 {
     GtkScrolledWindowClass parent_class;
-    void (*chdir)(FmFolderView* fv, FmPath* dir_path);
-    void (*loaded)(FmFolderView* fv, FmPath* dir_path);
     void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
     void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
     void (*sort_changed)(FmFolderView* fv);
-    FmJobErrorAction (*error)(FmFolderView* fv, GError* err, FmJobErrorSeverity severity);
 };
 
 GType       fm_folder_view_get_type(void);
@@ -96,17 +93,12 @@ int fm_folder_view_get_sort_by(FmFolderView* fv);
 void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show);
 gboolean fm_folder_view_get_show_hidden(FmFolderView* fv);
 
-gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
-gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str);
+FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv);
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 
-FmFolder* fm_folder_view_get_folder(FmFolderView* fv);
-
 FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model);
-
-gboolean fm_folder_view_is_loaded(FmFolderView* fv);
 
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
