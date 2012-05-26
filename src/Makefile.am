@@ -1,5 +1,5 @@
 # for use in libtool -version-info
-ABI_VERSION=2:0:0
+ABI_VERSION=3:0:0
 
 NULL=
 

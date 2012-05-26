@@ -573,7 +573,7 @@ static void fm_folder_dispose(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FOLDER(object));
 
-    g_debug("fm_folder_dispose");
+    /* g_debug("fm_folder_dispose"); */
     
     folder = FM_FOLDER(object);
 
@@ -675,7 +675,7 @@ static void fm_folder_finalize(GObject *object)
     g_return_if_fail(FM_IS_FOLDER(object));
 
     folder = FM_FOLDER(object);
-    g_debug("free folder %p", folder);
+    /* g_debug("free folder %p", folder); */
 
     if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);

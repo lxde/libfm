@@ -298,20 +298,20 @@ static void on_update_img_preview( GtkFileChooser *chooser, GtkImage* img )
 
 void fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser)
 {
-	GtkWidget* img_preview = gtk_image_new();
-	gtk_misc_set_alignment(GTK_MISC(img_preview), 0.5, 0.0);
-	gtk_widget_set_size_request(img_preview, 128, 128);
-	gtk_file_chooser_set_preview_widget(chooser, img_preview);
-	g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
+    GtkWidget* img_preview = gtk_image_new();
+    gtk_misc_set_alignment(GTK_MISC(img_preview), 0.5, 0.0);
+    gtk_widget_set_size_request(img_preview, 128, 128);
+    gtk_file_chooser_set_preview_widget(chooser, img_preview);
+    g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
 }
 
 /* TODO: support selecting multiple files */
 FmPath* fm_select_file(GtkWindow* parent, 
-						const char* title, 
-						const char* default_folder,
-						gboolean local_only,
-						gboolean show_preview,
-						/* filter1, filter2, ..., NULL */ ...)
+                        const char* title, 
+                        const char* default_folder,
+                        gboolean local_only,
+                        gboolean show_preview,
+                        /* filter1, filter2, ..., NULL */ ...)
 {
     FmPath* path;
     GtkFileChooser* chooser;
@@ -326,21 +326,21 @@ FmPath* fm_select_file(GtkWindow* parent,
     gtk_dialog_set_alternative_button_order((GtkDialog*)chooser,
                                         GTK_RESPONSE_CANCEL,
                                         GTK_RESPONSE_OK, NULL);
-	if(local_only)
-		gtk_file_chooser_set_local_only(chooser, TRUE);
+    if(local_only)
+        gtk_file_chooser_set_local_only(chooser, TRUE);
 
-	if(default_folder)
-		gtk_file_chooser_set_current_folder(chooser, default_folder);
+    if(default_folder)
+        gtk_file_chooser_set_current_folder(chooser, default_folder);
 
     va_start(args, show_preview);
     while(filter = va_arg(args, GtkFileFilter*))
     {
-		gtk_file_chooser_add_filter(chooser, filter);
+        gtk_file_chooser_add_filter(chooser, filter);
     }
     va_end (args);
 
-	if(show_preview)
-		fm_add_image_preview_to_file_chooser(chooser);
+    if(show_preview)
+        fm_add_image_preview_to_file_chooser(chooser);
 
     if(gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK)
     {
@@ -399,7 +399,7 @@ struct MountData
 static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer user_data)
 {
     struct MountData* data = user_data;
-g_debug("on_mount_action_finished");
+
     switch(data->action)
     {
     case MOUNT_VOLUME:
@@ -409,25 +409,13 @@ g_debug("on_mount_action_finished");
         data->ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &data->err);
         break;
     case UMOUNT_MOUNT:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_mount_unmount_with_operation_finish(G_MOUNT(src), res, &data->err);
-#else
-        data->ret = g_mount_unmount_finish(G_MOUNT(src), res, &data->err);
-#endif
         break;
     case EJECT_MOUNT:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_mount_eject_with_operation_finish(G_MOUNT(src), res, &data->err);
-#else
-        data->ret = g_mount_eject_finish(G_MOUNT(src), res, &data->err);
-#endif
         break;
     case EJECT_VOLUME:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_volume_eject_with_operation_finish(G_VOLUME(src), res, &data->err);
-#else
-        data->ret = g_volume_eject_finish(G_VOLUME(src), res, &data->err);
-#endif
         break;
     }
     g_main_loop_quit(data->loop);
@@ -708,22 +696,24 @@ void fm_empty_trash(GtkWindow* parent)
 
 void fm_set_busy_cursor(GtkWidget* widget)
 {
-	g_debug("fm_set_busy_cursor");
     if(GTK_WIDGET_REALIZED(widget))
     {
-		GdkWindow* window = gtk_widget_get_window(widget);
+        GdkWindow* window = gtk_widget_get_window(widget);
         GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
         gdk_window_set_cursor(window, cursor);
     }
     else
-		g_debug("not realized");
+    {
+        /* FIXME: how to handle this case? */
+        /* g_debug("not realized"); */
+    }
 }
 
 void fm_unset_busy_cursor(GtkWidget* widget)
 {
     if(GTK_WIDGET_REALIZED(widget))
     {
-		GdkWindow* window = gtk_widget_get_window(widget);
+        GdkWindow* window = gtk_widget_get_window(widget);
         gdk_window_set_cursor(window, NULL);
     }
 }
