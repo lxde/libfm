@@ -29,24 +29,6 @@
 G_BEGIN_DECLS
 
 typedef struct _FmFileMenu FmFileMenu;
-struct _FmFileMenu
-{
-    FmFileInfoList* file_infos;
-    gboolean same_type : 1;
-    gboolean same_fs : 1;
-    gboolean all_virtual : 1;
-    gboolean all_trash : 1;
-    gboolean auto_destroy : 1; // private
-    GtkUIManager* ui;
-    GtkActionGroup* act_grp;
-    GtkWidget* menu;
-    GtkWindow* parent;
-
-    FmLaunchFolderFunc folder_func;
-    gpointer folder_func_data;
-
-    FmPath* cwd;
-};
 
 FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy);
 FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy);
