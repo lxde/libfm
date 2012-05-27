@@ -363,7 +363,7 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 			GtkTreePath* tp = gtk_tree_path_new_first();
 			int len = g_sequence_get_length(model->items);
 			for(; len > 0; --len)
-				gtk_tree_model_row_deleted(model, tp);
+				gtk_tree_model_row_deleted((GtkTreeModel*)model, tp);
 			gtk_tree_path_free(tp);
 		}
         g_sequence_free(model->items);
@@ -605,9 +605,9 @@ gboolean fm_folder_model_iter_children(GtkTreeModel *tree_model,
 //        return FALSE;
 
     /* Set iter to first item in list */
-    g_sequence_get_begin_iter(model->items);
+    items_it = g_sequence_get_begin_iter(model->items);
     iter->stamp = model->stamp;
-    iter->user_data  = items_it;
+    iter->user_data = items_it;
     return TRUE;
 }
 
@@ -707,12 +707,12 @@ void fm_folder_model_set_default_sort_func(GtkTreeSortable *sortable,
     g_warning("fm_folder_model_set_default_sort_func: Not supported\n");
 }
 
-static gint fm_folder_model_compare(FmFolderItem* item1,
-                                    FmFolderItem* item2,
-                                    FmFolderModel* model)
+static gint fm_folder_model_compare(gconstpointer item1,
+                                    gconstpointer item2,
+                                    gpointer model)
 {
-    FmFileInfo* file1 = item1->inf;
-    FmFileInfo* file2 = item2->inf;
+    FmFileInfo* file1 = ((FmFolderItem*)item1)->inf;
+    FmFileInfo* file2 = ((FmFolderItem*)item2)->inf;
     const char* key1;
     const char* key2;
     int ret = 0;
@@ -722,7 +722,7 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
     if( ret )
         return ret;
 
-    switch( model->sort_col )
+    switch( ((FmFolderModel*)model)->sort_col )
     {
     case COL_FILE_NAME:
     {
@@ -761,7 +761,7 @@ _sort_by_name:
     default:
         return 0;
     }
-    return model->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
+    return ((FmFolderModel*)model)->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
 }
 
 void fm_folder_model_sort(FmFolderModel* model)

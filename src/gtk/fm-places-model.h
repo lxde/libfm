@@ -105,7 +105,7 @@ struct _FmPlacesModelClass
 GType fm_places_model_get_type        (void);
 GtkListStore* fm_places_model_new            (void);
 
-const GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
+GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
 
 gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it);
 

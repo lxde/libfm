@@ -172,7 +172,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
         }
         else /* the drop site is above the separator (in the places area containing volumes) */
         {
-            const GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+            GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
             /* set drop site at the first bookmark item */
             gtk_tree_path_get_indices(*tp)[0] = gtk_tree_path_get_indices(sep)[0] + 1;
             *pos = GTK_TREE_VIEW_DROP_BEFORE;
@@ -262,14 +262,13 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     return ret;
 }
 
-static gboolean on_drag_leave ( GtkWidget *dest_widget,
+static void on_drag_leave ( GtkWidget *dest_widget,
                     GdkDragContext *drag_context, guint time)
 {
     FmPlacesView* view = FM_PLACES_VIEW(dest_widget);
     gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(view), NULL, 0);
     /* g_debug("drag_leave"); */
     fm_dnd_dest_drag_leave(view->dnd_dest, drag_context, time);
-    return FALSE;
 }
 
 static gboolean on_drag_drop ( GtkWidget *dest_widget,
@@ -339,7 +338,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                         {
                             int new_pos, sep_pos;
                             /* get index of the separator */
-                            const GtkTreePath* sep_tp = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+                            GtkTreePath* sep_tp = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
                             sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
 
                             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
@@ -392,7 +391,7 @@ static void fm_places_view_init(FmPlacesView *self)
     col = gtk_tree_view_column_new();
     renderer = fm_cell_renderer_pixbuf_new();
     handler = g_signal_connect(fm_config, "changed::pane_icon_size", G_CALLBACK(on_renderer_icon_size_changed), renderer);
-    g_object_weak_ref(G_OBJECT(renderer), (GDestroyNotify)on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
+    g_object_weak_ref(G_OBJECT(renderer), on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
     fm_cell_renderer_pixbuf_set_fixed_size(FM_CELL_RENDERER_PIXBUF(renderer), fm_config->pane_icon_size, fm_config->pane_icon_size);
 
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
@@ -406,7 +405,7 @@ static void fm_places_view_init(FmPlacesView *self)
                                          "text", FM_PLACES_MODEL_COL_LABEL, NULL );
 
     renderer = gtk_cell_renderer_pixbuf_new();
-    self->mount_indicator_renderer = renderer;
+    self->mount_indicator_renderer = (GtkCellRendererPixbuf *)renderer;
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(col), renderer,
                                        fm_places_model_mount_indicator_cell_data_func,
@@ -417,7 +416,7 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,
                       dnd_src_targets, G_N_ELEMENTS(dnd_src_targets), GDK_ACTION_MOVE);
 
-    gtk_drag_dest_set(self, 0,
+    gtk_drag_dest_set((GtkWidget*)self, 0,
             fm_default_dnd_dest_targets, N_FM_DND_DEST_DEFAULT_TARGETS,
             GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
     targets = gtk_drag_dest_get_target_list((GtkWidget*)self);
@@ -523,7 +522,7 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                 {
                     /* check if we click on the "eject" icon. */
                     int start, cell_w;
-                    gtk_tree_view_column_cell_get_position(col, view->mount_indicator_renderer,
+                    gtk_tree_view_column_cell_get_position(col, (GtkCellRenderer*)view->mount_indicator_renderer,
                                                            &start, &cell_w);
                     if(cell_x > start && cell_x < (start + cell_w)) /* click on eject icon */
                     {
@@ -535,7 +534,7 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
                             if(item && item->vol_mounted)
                             {
-                                GtkWidget* toplevel = gtk_widget_get_toplevel(view);
+                                GtkWindow* toplevel = (GtkWindow*)gtk_widget_get_toplevel((GtkWidget*)view);
                                 /* eject the volume */
                                 if(g_volume_can_eject(item->vol))
                                     fm_eject_volume(toplevel, item->vol, TRUE);
@@ -567,6 +566,11 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         view->clicked_row = NULL;
     }
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
+}
+
+static void place_item_menu_unref(gpointer ui, GObject *menu)
+{
+    g_object_unref(ui);
 }
 
 GtkWidget* place_item_get_menu(FmPlaceItem* item)
@@ -625,7 +629,7 @@ GtkWidget* place_item_get_menu(FmPlaceItem* item)
     if(menu)
     {
         g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
-        g_object_weak_ref(G_OBJECT(menu), g_object_unref, g_object_ref(ui));
+        g_object_weak_ref(G_OBJECT(menu), place_item_menu_unref, g_object_ref(ui));
     }
 
 _out:
@@ -757,7 +761,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
 
         if(get_bookmark_drag_dest(view, &tp, &pos))
         {
-            const GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+            GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
             int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
                 --idx;

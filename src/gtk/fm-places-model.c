@@ -572,7 +572,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     fm_job_run_async(FM_JOB(job));
 }
 
-const GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model)
+GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model)
 {
     return model->sep_tp;
 }
