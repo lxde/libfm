@@ -58,7 +58,7 @@ struct _FmDirTreeModel
     GObject parent;
     GList* roots;
     gint stamp;
-    int icon_size;
+    guint icon_size;
     gboolean show_hidden;
 };
 

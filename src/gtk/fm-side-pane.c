@@ -103,7 +103,7 @@ static void fm_side_pane_finalize(GObject *object)
  * Copyright (C) 2003 Ricardo Fernandez Pascual
  * Copyright (C) 2004 Paolo Borelli
  */
-static void menu_position_func(GtkMenu *menu, int *x, int *y, gboolean *push_in, GtkButton *button)
+static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer button)
 {
     GtkWidget *widget = GTK_WIDGET(button);
     GtkRequisition req;
@@ -151,7 +151,7 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y, gboolean *push_in,
 
 static void on_menu_btn_clicked(GtkButton* btn, FmSidePane* sp)
 {
-    gtk_menu_popup(sp->menu, NULL, NULL,
+    gtk_menu_popup((GtkMenu *)sp->menu, NULL, NULL,
                    menu_position_func, btn,
                    1, gtk_get_current_event_time());
 }
@@ -201,7 +201,7 @@ static void fm_side_pane_init(FmSidePane *sp)
 }
 
 
-GtkWidget *fm_side_pane_new(void)
+FmSidePane *fm_side_pane_new(void)
 {
     return g_object_new(FM_TYPE_SIDE_PANE, NULL);
 }
@@ -276,9 +276,9 @@ void init_dir_tree(FmSidePane* sp)
         }
         g_object_unref(job);
 
-        g_object_add_weak_pointer(dir_tree_model, &dir_tree_model);
+        g_object_add_weak_pointer((GObject*)dir_tree_model, (gpointer*)&dir_tree_model);
     }
-    gtk_tree_view_set_model(FM_DIR_TREE_VIEW(sp->view), dir_tree_model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(sp->view), GTK_TREE_MODEL(dir_tree_model));
     g_object_unref(dir_tree_model);
 }
 
@@ -296,7 +296,7 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     case FM_SP_PLACES:
         gtk_label_set_text(GTK_LABEL(sp->menu_label), _("Places"));
         /* create places view */
-        sp->view = fm_places_view_new();
+        sp->view = (GtkWidget*)fm_places_view_new();
         fm_places_chdir(FM_PLACES_VIEW(sp->view), sp->cwd);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sp->scroll),
                 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -306,7 +306,7 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     case FM_SP_DIR_TREE:
         gtk_label_set_text(GTK_LABEL(sp->menu_label), _("Directory Tree"));
         /* create a dir tree */
-        sp->view = fm_dir_tree_view_new();
+        sp->view = (GtkWidget*)fm_dir_tree_view_new();
         init_dir_tree(sp);
         fm_dir_tree_view_chdir(FM_DIR_TREE_VIEW(sp->view), sp->cwd);
 
@@ -327,7 +327,7 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     g_signal_emit(sp, signals[MODE_CHANGED], 0);
 
     /* update the popup menu */
-    gtk_radio_action_set_current_value(gtk_ui_manager_get_action(sp->ui, "/popup/Places"),
+    gtk_radio_action_set_current_value((GtkRadioAction*)gtk_ui_manager_get_action(sp->ui, "/popup/Places"),
                                        sp->mode);
 }
 

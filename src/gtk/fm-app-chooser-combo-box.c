@@ -92,7 +92,7 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
             else /* if it's not found, add it to the list */
             {
                 gtk_list_store_insert_before(GTK_LIST_STORE(model), &it, &data->separator_iter);
-                gtk_list_store_set(model, &it,
+                gtk_list_store_set(GTK_LIST_STORE(model), &it,
                                    0, g_app_info_get_icon(app),
                                    1, g_app_info_get_name(app),
                                    2, app, -1);
@@ -185,7 +185,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
                        1, _("Customize"),
                        2, NULL, -1);
     data->other_apps_iter = it;
-    gtk_combo_box_set_model(combo, store);
+    gtk_combo_box_set_model(combo, GTK_TREE_MODEL(store));
 
     if(data->initial_sel_iter.user_data) /* intital selection is set */
     {

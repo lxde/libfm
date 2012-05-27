@@ -225,7 +225,7 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     GtkTreeSelection* tree_sel;
     GtkTreeViewColumn* col;
     GtkCellRenderer* render;
-    gtk_tree_view_set_headers_visible(view, FALSE);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(view), FALSE);
     /* gtk_tree_view_set_enable_tree_lines(view, TRUE); */
 
     col = gtk_tree_view_column_new();
@@ -237,9 +237,9 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", FM_DIR_TREE_MODEL_COL_DISP_NAME, NULL);
 
-    gtk_tree_view_append_column(view, col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
 
-    tree_sel = gtk_tree_view_get_selection(view);
+    tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
     gtk_tree_selection_set_mode(tree_sel, GTK_SELECTION_BROWSE);
     gtk_tree_selection_set_select_function(tree_sel,
                         _fm_dir_tree_view_select_function, view, NULL);
@@ -247,7 +247,7 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
 }
 
 
-GObject *fm_dir_tree_view_new(void)
+FmDirTreeView *fm_dir_tree_view_new(void)
 {
     return g_object_new(FM_TYPE_DIR_TREE_VIEW, NULL);
 }
@@ -277,7 +277,7 @@ static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view)
     if(view->paths_to_expand)
     {
         /* continue expanding next pending path */
-        expand_pending_path(view, gtk_tree_view_get_model(view), &view->cur_expanded_it);
+        expand_pending_path(view, gtk_tree_view_get_model(GTK_TREE_VIEW(view)), &view->cur_expanded_it);
     }
     else /* this is the last one and we're done, select the item */
     {
@@ -307,7 +307,7 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
         view->cur_expanded_it = it;
 
         tp = gtk_tree_model_get_path(model, &it); /* it now point to the root item */
-        gtk_tree_view_expand_row(view, tp, FALSE);
+        gtk_tree_view_expand_row(GTK_TREE_VIEW(view), tp, FALSE);
         gtk_tree_path_free(tp);
         /* after being expanded, the row now owns a FmFolder object. */
         gtk_tree_model_get(model, &it, FM_DIR_TREE_MODEL_COL_FOLDER, &folder, -1);

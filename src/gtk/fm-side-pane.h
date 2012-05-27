@@ -73,7 +73,7 @@ struct _FmSidePaneClass
 
 
 GType fm_side_pane_get_type        (void);
-GtkWidget* fm_side_pane_new            (void);
+FmSidePane* fm_side_pane_new       (void);
 
 FmPath* fm_side_pane_get_cwd(FmSidePane* sp);
 void fm_side_pane_chdir(FmSidePane* sp, FmPath* path);

@@ -75,7 +75,7 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
                 char* desktop_id = g_path_get_basename(filename);
-                app = g_desktop_app_info_new(desktop_id);
+                app = (GAppInfo*)g_desktop_app_info_new(desktop_id);
                 g_free(desktop_id);
             }
             close(fd);
@@ -96,7 +96,7 @@ static void on_switch_page(GtkNotebook* nb, GtkWidget* page, gint num, AppChoose
     if(num == 0) /* list of installed apps */
     {
         gtk_label_set_text(GTK_LABEL(data->status), _("Use selected application to open files"));
-        gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK,
+        gtk_dialog_set_response_sensitive(GTK_DIALOG(data->dlg), GTK_RESPONSE_OK,
                         fm_app_menu_view_is_app_selected(GTK_TREE_VIEW(data->apps_view)));
     }
     else /* custom app */
@@ -111,7 +111,7 @@ static void on_apps_view_sel_changed(GtkTreeSelection* tree_sel, AppChooserData*
 {
     if(gtk_notebook_get_current_page(GTK_NOTEBOOK(data->notebook)) == 0)
     {
-        gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK,
+        gtk_dialog_set_response_sensitive(GTK_DIALOG(data->dlg), GTK_RESPONSE_OK,
                         fm_app_menu_view_is_app_selected(GTK_TREE_VIEW(data->apps_view)));
     }
 }
@@ -288,7 +288,7 @@ GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_defa
                                 char* bin2 = get_binary(menu_cache_app_get_exec(ma), NULL);
                                 if(g_strcmp0(bin1, bin2) == 0)
                                 {
-                                    app = g_desktop_app_info_new(menu_cache_item_get_id(MENU_CACHE_ITEM(ma)));
+                                    app = (GAppInfo*)g_desktop_app_info_new(menu_cache_item_get_id(MENU_CACHE_ITEM(ma)));
                                     g_debug("found in menu cache");
                                     menu_cache_item_unref(MENU_CACHE_ITEM(ma));
                                     g_free(bin2);

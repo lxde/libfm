@@ -428,7 +428,7 @@ static void fm_places_view_init(FmPlacesView *self)
 }
 
 
-GtkWidget *fm_places_view_new(void)
+FmPlacesView *fm_places_view_new(void)
 {
     return g_object_new(FM_PLACES_VIEW_TYPE, NULL);
 }

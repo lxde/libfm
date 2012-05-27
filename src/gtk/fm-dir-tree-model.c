@@ -175,7 +175,7 @@ static inline GtkTreePath* item_to_tree_path(FmDirTreeModel* model, GList* item_
 {
     GtkTreeIter it;
     item_to_tree_iter(model, item_l, &it);
-    return fm_dir_tree_model_get_path(model, &it);
+    return fm_dir_tree_model_get_path((GtkTreeModel*)model, &it);
 }
 
 static void on_theme_changed(GtkIconTheme* theme, FmDirTreeModel* model)
@@ -589,7 +589,7 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
     /* emit row-inserted signal for the new item */
     item_to_tree_iter(model, new_item_l, &it);
     gtk_tree_path_append_index(tp, n);
-    gtk_tree_model_row_inserted(model, tp, &it);
+    gtk_tree_model_row_inserted((GtkTreeModel*)model, tp, &it);
 
     /* add a placeholder child item to make the node expandable */
     add_place_holder_child_item(model, new_item_l, tp, TRUE);
@@ -749,7 +749,7 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
         item_to_tree_iter(model, place_holder_l, &it);
         /* if the folder is empty, the place holder item
          * shows "<Empty>" instead of "Loading..." */
-        gtk_tree_model_row_changed(model, tp, &it);
+        gtk_tree_model_row_changed((GtkTreeModel*)model, tp, &it);
         gtk_tree_path_free(tp);
     }
 }

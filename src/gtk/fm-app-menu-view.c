@@ -105,7 +105,7 @@ static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
     }
 }
 
-static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
+static void on_menu_cache_reload(gpointer mc, gpointer user_data)
 {
     g_return_if_fail(store);
     gtk_tree_store_clear(store);
@@ -175,7 +175,7 @@ GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
     {
         GDesktopAppInfo* app = g_desktop_app_info_new(id);
         g_free(id);
-        return app;
+        return (GAppInfo*)app;
     }
     return NULL;
 }
