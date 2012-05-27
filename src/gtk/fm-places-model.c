@@ -677,7 +677,7 @@ static void fm_places_model_class_init(FmPlacesModelClass *klass)
 }
 
 
-GtkListStore *fm_places_model_new(void)
+FmPlacesModel *fm_places_model_new(void)
 {
     return g_object_new(FM_TYPE_PLACES_MODEL, NULL);
 }

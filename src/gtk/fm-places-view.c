@@ -63,7 +63,7 @@ static void on_pane_icon_size_changed(FmConfig* cfg, gpointer unused);
 
 G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
 
-static GtkListStore* model = NULL;
+static FmPlacesModel* model = NULL;
 
 static guint signals[N_SIGNALS];
 
@@ -78,9 +78,9 @@ static const char vol_menu_xml[]=
 
 static GtkActionEntry vol_menu_actions[]=
 {
-    {"Mount", NULL, N_("Mount Volume"), NULL, NULL, on_mount},
-    {"Unmount", NULL, N_("Unmount Volume"), NULL, NULL, on_umount},
-    {"Eject", NULL, N_("Eject Removable Media"), NULL, NULL, on_eject}
+    {"Mount", NULL, N_("Mount Volume"), NULL, NULL, G_CALLBACK(on_mount)},
+    {"Unmount", NULL, N_("Unmount Volume"), NULL, NULL, G_CALLBACK(on_umount)},
+    {"Eject", NULL, N_("Eject Removable Media"), NULL, NULL, G_CALLBACK(on_eject)}
 };
 
 static const char bookmark_menu_xml[]=
@@ -161,7 +161,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
     if(*tp)
     {
         /* if the drop site is below the separator (in the bookmark area) */
-        if(fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), *tp))
+        if(fm_places_model_path_is_bookmark(model, *tp))
         {
             /* we cannot drop into a item */
             if(*pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
@@ -172,7 +172,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
         }
         else /* the drop site is above the separator (in the places area containing volumes) */
         {
-            GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+            GtkTreePath* sep = fm_places_model_get_separator_path(model);
             /* set drop site at the first bookmark item */
             gtk_tree_path_get_indices(*tp)[0] = gtk_tree_path_get_indices(sep)[0] + 1;
             *pos = GTK_TREE_VIEW_DROP_BEFORE;
@@ -236,7 +236,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
         else /* drop between items, create bookmark items for dragged files */
         {
             fm_dnd_dest_set_dest_file(view->dnd_dest, NULL);
-            if( (!tp || fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), tp))
+            if( (!tp || fm_places_model_path_is_bookmark(model, tp))
                && get_bookmark_drag_dest(view, &tp, &pos)) /* tp is after separator */
             {
                 action = GDK_ACTION_LINK;
@@ -320,7 +320,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                 else
                 {
                     /* don't do anything if this is not a bookmark item */
-                    if(!fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), src_tp))
+                    if(!fm_places_model_path_is_bookmark(model, src_tp))
                         ret = FALSE;
                 }
                 if(ret)
@@ -338,16 +338,16 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                         {
                             int new_pos, sep_pos;
                             /* get index of the separator */
-                            GtkTreePath* sep_tp = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+                            GtkTreePath* sep_tp = fm_places_model_get_separator_path(model);
                             sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
 
                             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
-                                gtk_list_store_move_before(model, &src_it, &dest_it);
+                                gtk_list_store_move_before((GtkListStore*)model, &src_it, &dest_it);
                             else
-                                gtk_list_store_move_after(model, &src_it, &dest_it);
+                                gtk_list_store_move_after((GtkListStore*)model, &src_it, &dest_it);
                             new_pos = gtk_tree_path_get_indices(dest_tp)[0] - sep_pos - 1;
                             /* reorder the bookmark item */
-                            fm_bookmarks_reorder(FM_PLACES_MODEL(model)->bookmarks, item->bm_item, new_pos);
+                            fm_bookmarks_reorder(model->bookmarks, item->bm_item, new_pos);
                             ret = TRUE;
                         }
                     }
@@ -377,12 +377,12 @@ static void fm_places_view_init(FmPlacesView *self)
     if(G_UNLIKELY(!model))
     {
         model = fm_places_model_new();
-        g_object_add_weak_pointer(G_OBJECT(model), &model);
+        g_object_add_weak_pointer(G_OBJECT(model), (gpointer*)&model);
     }
     else
         g_object_ref(model);
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(self), model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(model));
     g_object_unref(model);
 
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
@@ -497,7 +497,7 @@ void fm_places_chdir(FmPlacesView* pv, FmPath* path)
     GtkTreeIter it;
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pv));
     GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(pv));
-    if(fm_places_model_find_path(model, &it, path))
+    if(fm_places_model_find_path(FM_PLACES_MODEL(model), &it, path))
     {
         gtk_tree_selection_select_iter(ts, &it);
     }
@@ -661,7 +661,7 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
             {
                 GtkTreeIter it;
                 if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
-                    && !fm_places_model_iter_is_separator(FM_PLACES_MODEL(model), &it) )
+                    && !fm_places_model_iter_is_separator(model, &it) )
                 {
                     FmPlaceItem* item;
                     GtkWidget* menu;
@@ -714,7 +714,7 @@ void on_eject(GtkAction* act, gpointer user_data)
 void on_remove_bm(GtkAction* act, gpointer user_data)
 {
     FmPlaceItem* item = (FmPlaceItem*)user_data;
-    fm_bookmarks_remove(FM_PLACES_MODEL(model)->bookmarks, item->bm_item);
+    fm_bookmarks_remove(model->bookmarks, item->bm_item);
 }
 
 void on_rename_bm(GtkAction* act, gpointer user_data)
@@ -727,7 +727,7 @@ void on_rename_bm(GtkAction* act, gpointer user_data)
     {
         if(strcmp(new_name, item->bm_item->name))
         {
-            fm_bookmarks_rename(FM_PLACES_MODEL(model)->bookmarks, item->bm_item, new_name);
+            fm_bookmarks_rename(model->bookmarks, item->bm_item, new_name);
         }
         g_free(new_name);
     }
@@ -761,7 +761,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
 
         if(get_bookmark_drag_dest(view, &tp, &pos))
         {
-            GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+            GtkTreePath* sep = fm_places_model_get_separator_path(model);
             int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
                 --idx;
@@ -770,7 +770,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
                 FmBookmarkItem* item;
                 FmFileInfo* fi = FM_FILE_INFO(l->data);
                 if(fm_file_info_is_dir(fi))
-                    item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
+                    item = fm_bookmarks_insert(model->bookmarks, fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(tp);

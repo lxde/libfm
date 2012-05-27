@@ -103,7 +103,7 @@ struct _FmPlacesModelClass
 
 
 GType fm_places_model_get_type        (void);
-GtkListStore* fm_places_model_new            (void);
+FmPlacesModel* fm_places_model_new            (void);
 
 GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
 
