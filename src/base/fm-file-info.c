@@ -600,6 +600,7 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 
 const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 {
+    /* create a collate key on demand, if we don't have one */
     if(G_UNLIKELY(!fi->collate_key))
     {
         const char* disp_name = fm_file_info_get_disp_name(fi);
@@ -617,11 +618,12 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
             g_free(collate);
         }
     }
-    else
-    {
-        if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
-            return fm_file_info_get_disp_name(fi);
-    }
+
+    /* if the collate key is the same as the display name, 
+     * just return the display name instead. */
+    if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
+        return fm_file_info_get_disp_name(fi);
+
     return fi->collate_key;
 }
 
