@@ -57,7 +57,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 								GdkRectangle *expose_area,
 								GtkCellRendererState flags)
 {
-	GtkCellRendererText* celltext = FM_CELL_RENDERER_TEXT(cell);
+	FmCellRendererText* celltext = FM_CELL_RENDERER_TEXT(cell);
 	GtkStateType state;
 	gint text_width;
 	gint text_height;
@@ -96,7 +96,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 		pango_layout_set_wrap(layout, wrap_mode);
 	}
 
-	pango_layout_set_text(layout, celltext->text, -1);
+	pango_layout_set_text(layout, celltext->parent.text, -1);
 
 	pango_layout_set_auto_dir(layout, TRUE);
 

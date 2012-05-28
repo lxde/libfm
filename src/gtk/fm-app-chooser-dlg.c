@@ -188,9 +188,9 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
 
     data->apps_view = fm_app_menu_view_new();
     gtk_tree_view_set_headers_visible(data->apps_view, FALSE);
-    gtk_widget_show(data->apps_view);
-    gtk_container_add(scroll, data->apps_view);
-    gtk_widget_grab_focus(data->apps_view);
+    gtk_widget_show(GTK_WIDGET(data->apps_view));
+    gtk_container_add(scroll, GTK_WIDGET(data->apps_view));
+    gtk_widget_grab_focus(GTK_WIDGET(data->apps_view));
 
     g_object_unref(builder);
 

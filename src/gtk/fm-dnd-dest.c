@@ -272,7 +272,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
         {
             gchar **uris;
             uris = gtk_selection_data_get_uris( sel_data );
-            files = fm_path_list_new_from_uris((const char **)uris);
+            files = fm_path_list_new_from_uris(uris);
             g_free(uris);
             if(files)
             {

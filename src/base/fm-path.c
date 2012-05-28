@@ -932,9 +932,9 @@ gboolean fm_list_is_path_list(FmList* list)
     return list->funcs == &funcs;
 }
 
-FmPathList* fm_path_list_new_from_uris(const char** uris)
+FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {
-    const char** uri;
+    char* const* uri;
     FmPathList* pl = fm_path_list_new();
     for(uri = uris; *uri; ++uri)
     {
@@ -957,7 +957,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
     char** uris = g_strsplit(uri_list, "\r\n", -1);
-    FmPathList* pl = fm_path_list_new_from_uris((const char **)uris);
+    FmPathList* pl = fm_path_list_new_from_uris(uris);
     g_strfreev(uris);
     return pl;
 }
