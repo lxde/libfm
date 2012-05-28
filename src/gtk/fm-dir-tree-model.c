@@ -197,7 +197,7 @@ static void fm_dir_tree_model_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_TREE_MODEL(object));
 
-    model = FM_DIR_TREE_MODEL(object);
+    model = (FmDirTreeModel*)object;
 
     g_signal_handlers_disconnect_by_func(gtk_icon_theme_get_default(),
                                          on_theme_changed, model);
@@ -235,7 +235,7 @@ static gint fm_dir_tree_model_get_n_columns(GtkTreeModel *tree_model)
 
 static GType fm_dir_tree_model_get_column_type(GtkTreeModel *tree_model, gint index)
 {
-    g_return_val_if_fail( index < G_N_ELEMENTS(column_types) && index >= 0, G_TYPE_INVALID );
+    g_return_val_if_fail( index >= 0 && (guint)index < G_N_ELEMENTS(column_types), G_TYPE_INVALID );
     return column_types[index];
 }
 
@@ -250,7 +250,7 @@ static gboolean fm_dir_tree_model_get_iter(GtkTreeModel *tree_model,
     g_assert(FM_IS_DIR_TREE_MODEL(tree_model));
     g_assert(path!=NULL);
 
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
     if( G_UNLIKELY(!model || !model->roots) )
         return FALSE;
 
@@ -403,7 +403,7 @@ static gboolean fm_dir_tree_model_iter_children(GtkTreeModel *tree_model,
 
     g_return_val_if_fail(parent == NULL || parent->user_data != NULL, FALSE);
     g_return_val_if_fail(FM_IS_DIR_TREE_MODEL(tree_model), FALSE);
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
 
     if(parent)
     {
@@ -445,7 +445,7 @@ static gint fm_dir_tree_model_iter_n_children(GtkTreeModel *tree_model,
     GList* children;
     g_return_val_if_fail(FM_IS_DIR_TREE_MODEL(tree_model), -1);
 
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
     /* special case: if iter == NULL, return number of top-level rows */
     if(!iter)
         children = model->roots;
@@ -468,7 +468,7 @@ static gboolean fm_dir_tree_model_iter_nth_child(GtkTreeModel *tree_model,
     GList *child_l;
 
     g_return_val_if_fail (FM_IS_DIR_TREE_MODEL (tree_model), FALSE);
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
 
     if(G_LIKELY(parent))
     {
@@ -589,7 +589,7 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
     /* emit row-inserted signal for the new item */
     item_to_tree_iter(model, new_item_l, &it);
     gtk_tree_path_append_index(tp, n);
-    gtk_tree_model_row_inserted((GtkTreeModel*)model, tp, &it);
+    gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), tp, &it);
 
     /* add a placeholder child item to make the node expandable */
     add_place_holder_child_item(model, new_item_l, tp, TRUE);
@@ -749,7 +749,7 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
         item_to_tree_iter(model, place_holder_l, &it);
         /* if the folder is empty, the place holder item
          * shows "<Empty>" instead of "Loading..." */
-        gtk_tree_model_row_changed((GtkTreeModel*)model, tp, &it);
+        gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
         gtk_tree_path_free(tp);
     }
 }
