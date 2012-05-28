@@ -65,7 +65,7 @@ static GdkAtom xds_target_atom = 0;
 
 
 static void fm_dnd_dest_finalize              (GObject *object);
-static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action, int info_type, FmList* files);
+static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
 
 static gboolean clear_src_cache(FmDndDest* dest);
 
@@ -107,7 +107,7 @@ static void fm_dnd_dest_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DND_DEST(object));
 
-    dd = FM_DND_DEST(object);
+    dd = (FmDndDest*)object;
 
     fm_dnd_dest_set_widget(dd, NULL);
 
@@ -143,11 +143,12 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
         return;
     dd->widget = w;
     if( w )
-        g_object_add_weak_pointer(G_OBJECT(w), &dd->widget);
+        g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
 }
 
-gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
-                                   int info_type, FmList* files)
+static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
+                                          guint action, guint info_type,
+                                          FmFileInfoList* files)
 {
     FmPath* dest, *src;
     GtkWidget* parent;
@@ -162,8 +163,7 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
         fm_list_ref(files);
 
     // Check if source and destination are the same
-    src = (FmPath*) fm_list_peek_head(files);
-    src = fm_path_get_parent (src);
+    src = fm_path_get_parent(FM_PATH(fm_list_peek_head(files)));
     if(fm_path_equal (src ,dest)) 
     {
         fm_list_unref(files);
@@ -171,7 +171,7 @@ gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
     }
 
     parent = gtk_widget_get_toplevel(dd->widget);
-    switch(action)
+    switch((GdkDragAction)action)
     {
     case GDK_ACTION_MOVE:
         if(fm_path_is_trash_root(fm_dnd_dest_get_dest_path(dd)))
@@ -249,10 +249,12 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
 
     if(info ==  FM_DND_DEST_TARGET_FM_LIST)
     {
-        if((sel_data->length >= 0) && (sel_data->format==8))
+        if((sel_data->length == sizeof(files)) && (sel_data->format==8))
         {
             /* get the pointer */
             memcpy(&files, sel_data->data, sel_data->length);
+            if(files && !fm_list_is_file_info_list(files))
+                files = NULL;
             if(files)
                 fm_list_ref(files);
             if(files)
@@ -324,7 +326,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
 
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 {
-    int i;
+    guint i;
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
     {
         GdkAtom target = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target);
@@ -338,7 +340,7 @@ gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 {
     gboolean ret = FALSE;
     GtkWidget *dest_widget = dd->widget;
-    int i;
+    guint i;
 
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
     {
@@ -356,7 +358,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
 {
     gboolean ret = FALSE;
     GtkWidget* dest_widget = dd->widget;
-    int i;
+    guint i;
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
     {
         if(gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target) == target)
@@ -392,7 +394,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             }
             else
             {
-                fm_show_error(gtk_widget_get_toplevel(dest_widget), NULL,
+                fm_show_error(GTK_WINDOW(gtk_widget_get_toplevel(dest_widget)), NULL,
                               _("XDirectSave failed."));
                 gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,
                                    text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
@@ -445,7 +447,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
         {
             /* retrieve the source files */
-            gtk_drag_get_data(dd->widget, drag_context, target, time);
+            gtk_drag_get_data(dd->widget, drag_context, target, time(NULL));
             dd->waiting_data = TRUE;
         }
     }

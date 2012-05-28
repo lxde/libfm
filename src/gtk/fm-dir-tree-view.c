@@ -202,7 +202,7 @@ static void fm_dir_tree_view_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_TREE_VIEW(object));
 
-    view = FM_DIR_TREE_VIEW(object);
+    view = (FmDirTreeView*)object;
     if(G_UNLIKELY(view->paths_to_expand))
         cancel_pending_chdir(view);
 

@@ -132,8 +132,9 @@ static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
     }
 }
 
-static void fm_dnd_auto_scroll_free(FmDndAutoScroll* as)
+static void fm_dnd_auto_scroll_free(gpointer user_data)
 {
+    FmDndAutoScroll* as = (FmDndAutoScroll*)user_data;
     if(as->timeout)
         g_source_remove(as->timeout);
     if(as->hadj)
@@ -178,8 +179,8 @@ void fm_dnd_set_dest_auto_scroll(GtkWidget* drag_dest_widget,
     as->hadj = hadj ? GTK_ADJUSTMENT(g_object_ref(hadj)) : NULL;
     as->vadj = vadj ? GTK_ADJUSTMENT(g_object_ref(vadj)) : NULL;
 
-    g_object_set_qdata_full(drag_dest_widget, data_id,
-            as, (GDestroyNotify)fm_dnd_auto_scroll_free);
+    g_object_set_qdata_full(G_OBJECT(drag_dest_widget), data_id,
+                            as, fm_dnd_auto_scroll_free);
 
     g_signal_connect(drag_dest_widget, "drag-motion",
                      G_CALLBACK(on_drag_motion), as);
