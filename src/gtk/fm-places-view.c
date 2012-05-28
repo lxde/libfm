@@ -389,10 +389,10 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_set_row_separator_func(GTK_TREE_VIEW(self), (GtkTreeViewRowSeparatorFunc)sep_func, NULL, NULL );
 
     col = gtk_tree_view_column_new();
-    renderer = fm_cell_renderer_pixbuf_new();
+    renderer = (GtkCellRenderer*)fm_cell_renderer_pixbuf_new();
     handler = g_signal_connect(fm_config, "changed::pane_icon_size", G_CALLBACK(on_renderer_icon_size_changed), renderer);
     g_object_weak_ref(G_OBJECT(renderer), on_cell_renderer_pixbuf_destroy, GUINT_TO_POINTER(handler));
-    fm_cell_renderer_pixbuf_set_fixed_size(FM_CELL_RENDERER_PIXBUF(renderer), fm_config->pane_icon_size, fm_config->pane_icon_size);
+    fm_cell_renderer_pixbuf_set_fixed_size((FmCellRendererPixbuf*)renderer, fm_config->pane_icon_size, fm_config->pane_icon_size);
 
     gtk_tree_view_column_pack_start( col, renderer, FALSE );
     gtk_tree_view_column_set_attributes( col, renderer,

@@ -156,7 +156,7 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
 }
 
 
-GtkCellRenderer *fm_cell_renderer_pixbuf_new(void)
+FmCellRendererPixbuf *fm_cell_renderer_pixbuf_new(void)
 {
 	return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
 }
@@ -166,7 +166,7 @@ static void fm_cell_renderer_pixbuf_get_property ( GObject *object,
                                       GValue *value,
                                       GParamSpec *psec )
 {
-    FmCellRendererPixbuf* renderer = (FmCellRendererPixbuf*)object;
+    FmCellRendererPixbuf* renderer = FM_CELL_RENDERER_PIXBUF(object);
     switch( param_id )
     {
     case PROP_INFO:
@@ -183,7 +183,7 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
                                       const GValue *value,
                                       GParamSpec *psec )
 {
-    FmCellRendererPixbuf* renderer = (FmCellRendererPixbuf*)object;
+    FmCellRendererPixbuf* renderer = FM_CELL_RENDERER_PIXBUF(object);
     switch ( param_id )
     {
     case PROP_INFO:
@@ -211,7 +211,7 @@ void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 gint                       *width,
 						 gint                       *height)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)cell;
+    FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     if(render->fixed_w > 0 && render->fixed_h > 0)
     {
         *width = render->fixed_w;
@@ -231,7 +231,7 @@ void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkRectangle               *expose_area,
 						 GtkCellRendererState        flags)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)cell;
+    FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     /* we don't need to follow state for prelit items */
     if(flags & GTK_CELL_RENDERER_PRELIT)
         flags &= ~GTK_CELL_RENDERER_PRELIT;

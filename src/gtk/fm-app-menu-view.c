@@ -115,9 +115,9 @@ static void on_menu_cache_reload(gpointer mc, gpointer user_data)
         add_menu_items(NULL, dir);
 }
 
-GtkWidget *fm_app_menu_view_new(void)
+GtkTreeView *fm_app_menu_view_new(void)
 {
-    GtkWidget* view;
+    GtkTreeView* view;
     GtkTreeViewColumn* col;
     GtkCellRenderer* render;
 
@@ -150,7 +150,7 @@ GtkWidget *fm_app_menu_view_new(void)
     else
         g_object_ref(store);
 
-    view = gtk_tree_view_new_with_model((GtkTreeModel*)store);
+    view = (GtkTreeView*)gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
 
     render = gtk_cell_renderer_pixbuf_new();
     col = gtk_tree_view_column_new();
@@ -162,7 +162,7 @@ GtkWidget *fm_app_menu_view_new(void)
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", COL_TITLE, NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
+    gtk_tree_view_append_column(view, col);
 
     g_object_unref(store);
     return view;

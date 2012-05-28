@@ -57,7 +57,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 								GdkRectangle *expose_area,
 								GtkCellRendererState flags)
 {
-	GtkCellRendererText* celltext = (GtkCellRendererText*)cell;
+	GtkCellRendererText* celltext = FM_CELL_RENDERER_TEXT(cell);
 	GtkStateType state;
 	gint text_width;
 	gint text_height;

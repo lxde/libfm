@@ -27,7 +27,7 @@
 
 G_BEGIN_DECLS
 
-GtkWidget*	fm_app_menu_view_new(void);
+GtkTreeView* fm_app_menu_view_new(void);
 GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view);
 char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view);
 char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view);

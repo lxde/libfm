@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-GtkWidget*	fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default);
+GtkDialog* fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default);
 GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_default);
 
 GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, gboolean can_set_default);
