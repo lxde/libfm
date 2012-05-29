@@ -76,7 +76,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 
 	PangoLayout* layout = pango_layout_new(context);
 
-	g_object_get((GObject*)cell,
+	g_object_get(G_OBJECT(cell),
 	             "wrap-mode" , &wrap_mode,
 	             "wrap-width", &wrap_width,
 	             "alignment" , &alignment,

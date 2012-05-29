@@ -126,7 +126,7 @@ void fm_file_menu_destroy(FmFileMenu* menu)
         g_object_unref(menu->parent);
 
     if(menu->menu)
-        gtk_widget_destroy((GtkWidget*)menu->menu);
+        gtk_widget_destroy(GTK_WIDGET(menu->menu));
 
     if(menu->file_infos)
         fm_list_unref(menu->file_infos);
@@ -151,17 +151,17 @@ FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath*
 
 static void on_custom_action(GtkAction* act, FmFileMenu* data)
 {
-    FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata((GObject*)act, fm_qdata_id));
+    FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
     GdkAppLaunchContext* ctx = gdk_app_launch_context_new();
     GList* files = fm_list_peek_head_link(data->file_infos);
     char* output = NULL;
     gboolean ret;
-    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen((GtkWidget*)data->menu));
+    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
 	/* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
 			fm_file_action_item_get_id(item)); */
-	ret = fm_file_action_item_launch(item, (GAppLaunchContext*)ctx, files, &output);
+	ret = fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
 	if(output)
 	{
 		fm_show_error(NULL, "output", output);
@@ -196,14 +196,14 @@ static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionI
 	gtk_action_group_add_action(data->act_grp, act);
 	/* associate the app info object with the action */
 	g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, 
-							fm_file_action_item_ref(item),
-							(GDestroyNotify)fm_file_action_item_unref);
+				fm_file_action_item_ref(item),
+				fm_file_action_item_unref);
 	if(fm_file_action_item_is_menu(item))
 	{
 		GList* subitems = fm_file_action_item_get_sub_items(item);
 		GList* l;
 		g_string_append_printf(xml, "<menu action='%s'>",
-							   fm_file_action_item_get_id(item));
+				       fm_file_action_item_get_id(item));
 		for(l=subitems; l; l=l->next)
 		{
 			FmFileActionItem* subitem = FM_FILE_ACTION_ITEM(l->data);
@@ -245,7 +245,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     GtkActionGroup* act_grp;
     GtkAccelGroup* accel_grp;
     GtkAction* act;
-    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(files);
+    FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
     FmMimeType* mime_type = fm_file_info_get_mime_type(fi);
@@ -312,7 +312,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
                 gtk_action_set_gicon(act, g_app_info_get_icon(app));
                 gtk_action_group_add_action(act_grp, act);
                 /* associate the app info object with the action */
-                g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, (GDestroyNotify)g_object_unref);
+                g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, g_object_unref);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
             }
 
@@ -344,7 +344,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             FmArchiver* archiver = fm_archiver_get_default();
             if(archiver)
             {
-                fi = (FmFileInfo*)fm_list_peek_head(files);
+                fi = FM_FILE_INFO(fm_list_peek_head(files));
                 if(fm_archiver_is_mime_type_supported(archiver, mime_type->type))
                 {
                     if(data->cwd && archiver->extract_to_cmd)
@@ -450,8 +450,8 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 {
     if( ! menu->menu )
     {
-        menu->menu = (GtkMenu*)gtk_ui_manager_get_widget(menu->ui, "/popup");
-        gtk_menu_attach_to_widget(GTK_MENU(menu->menu), GTK_WIDGET(menu->parent), NULL);
+        menu->menu = GTK_MENU(gtk_ui_manager_get_widget(menu->ui, "/popup"));
+        gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
 
         if(menu->auto_destroy)
         {
@@ -479,7 +479,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     int i;
     for(i=0; l; ++i, l=l->next)
     {
-        FmFileInfo* fi = (FmFileInfo*)l->data;
+        FmFileInfo* fi = FM_FILE_INFO(l->data);
         FmPath* path = fm_file_info_get_path(fi);
         char* uri = fm_path_to_uri(path);
         uris = g_list_prepend(uris, uri);
@@ -487,12 +487,12 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     uris = g_list_reverse(uris);
 
     ctx = gdk_app_launch_context_new();
-    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen((GtkWidget*)data->menu));
+    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
     gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
     /* FIXME: error handling. */
-    fm_app_info_launch_uris(app, uris, (GAppLaunchContext*)ctx, NULL);
+    fm_app_info_launch_uris(app, uris, G_APP_LAUNCH_CONTEXT(ctx), NULL);
     g_object_unref(ctx);
 
     g_list_foreach(uris, (GFunc)g_free, NULL);
@@ -502,7 +502,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
 void on_open_with_app(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    GAppInfo* app = (GAppInfo*)g_object_get_qdata(G_OBJECT(action), fm_qdata_id);
+    GAppInfo* app = G_APP_INFO(g_object_get_qdata(G_OBJECT(action), fm_qdata_id));
     /* g_debug("%s", gtk_action_get_name(action)); */
     open_with_app(data, app);
 }
@@ -511,7 +511,7 @@ void on_open_with(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfoList* files = data->file_infos;
-    FmFileInfo* fi = (FmFileInfo*)fm_list_peek_head(files);
+    FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
     FmMimeType* mime_type;
     GAppInfo* app;
 
@@ -538,7 +538,7 @@ void on_cut(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_cut_files((GtkWidget*)data->parent, files);
+    fm_clipboard_cut_files(GTK_WIDGET(data->parent), files);
     fm_list_unref(files);
 }
 
@@ -547,7 +547,7 @@ void on_copy(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_copy_files((GtkWidget*)data->parent, files);
+    fm_clipboard_copy_files(GTK_WIDGET(data->parent), files);
     fm_list_unref(files);
 }
 
@@ -557,7 +557,7 @@ void on_paste(GtkAction* action, gpointer user_data)
     FmFileInfo* fi = fm_list_peek_head(data->file_infos);
     if (fi)
     {
-        fm_clipboard_paste_files((GtkWidget*)data->parent, fm_file_info_get_path(fi));
+        fm_clipboard_paste_files(GTK_WIDGET(data->parent), fm_file_info_get_path(fi));
     }
 }
 

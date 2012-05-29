@@ -130,19 +130,18 @@ static void fm_file_ops_job_init(FmFileOpsJob *self)
 }
 
 
-FmJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
+FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)g_object_new(FM_FILE_OPS_JOB_TYPE, NULL);
 	job->srcs = fm_list_ref(files);
 	job->type = type;
-	return (FmJob*)job;
+	return job;
 }
 
 
 gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
 	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
-
 	switch(job->type)
 	{
 	case FM_FILE_OP_COPY:
@@ -180,7 +179,7 @@ void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mo
     job->new_mode_mask = new_mode_mask;
 }
 
-void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid)
+void fm_file_ops_job_set_chown(FmFileOpsJob* job, gint uid, gint gid)
 {
     job->uid = uid;
     job->gid = gid;

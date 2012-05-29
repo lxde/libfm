@@ -67,7 +67,7 @@ static GdkAtom xds_target_atom = 0;
 static void fm_dnd_dest_finalize              (GObject *object);
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
 
-static gboolean clear_src_cache(FmDndDest* dest);
+static gboolean clear_src_cache(gpointer user_data);
 
 static guint signals[N_SIGNALS];
 
@@ -193,8 +193,9 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     return TRUE;
 }
 
-gboolean clear_src_cache(FmDndDest* dd)
+static gboolean clear_src_cache(gpointer user_data)
 {
+    FmDndDest* dd = (FmDndDest*)user_data;
     /* free cached source files */
     if(dd->src_files)
     {
@@ -503,5 +504,5 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
 void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint time)
 {
-    dd->idle = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)clear_src_cache, dd, NULL);
+    dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache, dd, NULL);
 }

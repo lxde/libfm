@@ -75,7 +75,7 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
                 char* desktop_id = g_path_get_basename(filename);
-                app = (GAppInfo*)g_desktop_app_info_new(desktop_id);
+                app = G_APP_INFO(g_desktop_app_info_new(desktop_id));
                 g_free(desktop_id);
             }
             close(fd);
@@ -160,15 +160,15 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
 
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/app-chooser.ui", NULL);
-    data->dlg = (GtkDialog*)gtk_builder_get_object(builder, "dlg");
-    data->notebook = (GtkNotebook*)gtk_builder_get_object(builder, "notebook");
-    scroll = (GtkContainer*)gtk_builder_get_object(builder, "apps_scroll");
-    file_type = (GtkLabel*)gtk_builder_get_object(builder, "file_type");
-    data->cmdline = (GtkEntry*)gtk_builder_get_object(builder, "cmdline");
-    data->set_default = (GtkToggleButton*)gtk_builder_get_object(builder, "set_default");
-    data->use_terminal = (GtkToggleButton*)gtk_builder_get_object(builder, "use_terminal");
-    data->status = (GtkLabel*)gtk_builder_get_object(builder, "status");
-    data->browse_btn = (GtkWidget*)gtk_builder_get_object(builder, "browse_btn");
+    data->dlg = GTK_DIALOG(gtk_builder_get_object(builder, "dlg"));
+    data->notebook = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook"));
+    scroll = GTK_CONTAINER(gtk_builder_get_object(builder, "apps_scroll"));
+    file_type = GTK_LABEL(gtk_builder_get_object(builder, "file_type"));
+    data->cmdline = GTK_ENTRY(gtk_builder_get_object(builder, "cmdline"));
+    data->set_default = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "set_default"));
+    data->use_terminal = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "use_terminal"));
+    data->status = GTK_LABEL(gtk_builder_get_object(builder, "status"));
+    data->browse_btn = GTK_WIDGET(gtk_builder_get_object(builder, "browse_btn"));
     /* FIXME: shouldn't verify if app-chooser.ui was correct? */
     data->mime_type = mime_type;
 
@@ -181,7 +181,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
         gtk_label_set_text(file_type, mime_type->description);
     else
     {
-        GtkWidget* hbox = (GtkWidget*)gtk_builder_get_object(builder, "file_type_hbox");
+        GtkWidget* hbox = GTK_WIDGET(gtk_builder_get_object(builder, "file_type_hbox"));
         gtk_widget_destroy(hbox);
         gtk_widget_hide(GTK_WIDGET(data->set_default));
     }
@@ -257,12 +257,12 @@ GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_defa
                     GList* l;
                     for(l=apps;l;l=l->next)
                     {
-                        GAppInfo* app2 = (GAppInfo*)l->data;
+                        GAppInfo* app2 = G_APP_INFO(l->data);
                         const char* cmd = g_app_info_get_commandline(app2);
                         char* bin2 = get_binary(cmd, NULL);
                         if(g_strcmp0(bin1, bin2) == 0)
                         {
-                            app = (GAppInfo*)g_object_ref(app2);
+                            app = G_APP_INFO(g_object_ref(app2));
                             g_debug("found in app list");
                             g_free(bin2);
                             break;
@@ -289,7 +289,7 @@ GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_defa
                                 char* bin2 = get_binary(menu_cache_app_get_exec(ma), NULL);
                                 if(g_strcmp0(bin1, bin2) == 0)
                                 {
-                                    app = (GAppInfo*)g_desktop_app_info_new(menu_cache_item_get_id(MENU_CACHE_ITEM(ma)));
+                                    app = G_APP_INFO(g_desktop_app_info_new(menu_cache_item_get_id(MENU_CACHE_ITEM(ma))));
                                     g_debug("found in menu cache");
                                     menu_cache_item_unref(MENU_CACHE_ITEM(ma));
                                     g_free(bin2);

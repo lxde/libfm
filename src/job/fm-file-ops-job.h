@@ -115,7 +115,7 @@ struct _FmFileOpsJobClass
 };
 
 GType fm_file_ops_job_get_type        (void);
-FmJob* fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
+FmFileOpsJob* fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 
@@ -123,7 +123,7 @@ FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
 void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask);
-void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid);
+void fm_file_ops_job_set_chown(FmFileOpsJob* job, gint uid, gint gid);
 
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);

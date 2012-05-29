@@ -41,7 +41,7 @@ static GtkTreeStore* store = NULL;
 static MenuCache* menu_cache = NULL;
 static gpointer menu_cache_reload_notify = NULL;
 
-static void destroy_store(gpointer user_data)
+static void destroy_store(gpointer user_data, GObject *obj)
 {
     menu_cache_remove_reload_notify(menu_cache, menu_cache_reload_notify);
     menu_cache_reload_notify = NULL;
@@ -130,7 +130,7 @@ GtkTreeView *fm_app_menu_view_new(void)
                                             (GBoxedCopyFunc)menu_cache_item_ref,
                                             (GBoxedFreeFunc)menu_cache_item_unref);
         store = gtk_tree_store_new(N_COLS, G_TYPE_ICON, /*GDK_TYPE_PIXBUF, */G_TYPE_STRING, menu_cache_item_type);
-        g_object_weak_ref(G_OBJECT(store), (GWeakNotify)destroy_store, NULL);
+        g_object_weak_ref(G_OBJECT(store), destroy_store, NULL);
 
         /* ensure that we're using lxmenu-data */
         oldenv = g_strdup(g_getenv("XDG_MENU_PREFIX"));
@@ -175,7 +175,7 @@ GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
     {
         GDesktopAppInfo* app = g_desktop_app_info_new(id);
         g_free(id);
-        return (GAppInfo*)app;
+        return G_APP_INFO(app);
     }
     return NULL;
 }

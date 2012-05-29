@@ -34,8 +34,9 @@ struct _FmDndAutoScroll
 
 static GQuark data_id = 0;
 
-static gboolean on_auto_scroll(FmDndAutoScroll* as)
+static gboolean on_auto_scroll(gpointer user_data)
 {
+    FmDndAutoScroll* as = (FmDndAutoScroll*)user_data;
     int x, y;
     GtkAdjustment* va = as->vadj;
     GtkAdjustment* ha = as->hadj;
@@ -116,7 +117,7 @@ static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
         return FALSE;
     if(0 == as->timeout) /* install a scroll timeout if needed */
     {
-        as->timeout = gdk_threads_add_timeout(150, (GSourceFunc)on_auto_scroll, as);
+        as->timeout = gdk_threads_add_timeout(150, on_auto_scroll, as);
     }
     return FALSE;
 }

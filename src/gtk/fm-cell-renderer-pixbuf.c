@@ -149,7 +149,7 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
                             sizeof(link_icon_data),
                             link_icon_data,
                             FALSE, NULL );
-        g_object_add_weak_pointer((GObject*)link_icon, (gpointer)&link_icon);
+        g_object_add_weak_pointer(G_OBJECT(link_icon), (gpointer)&link_icon);
     }
     else
         g_object_ref(link_icon);
@@ -189,7 +189,7 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
     case PROP_INFO:
         if( renderer->fi )
             fm_file_info_unref(renderer->fi);
-        renderer->fi = fm_file_info_ref((FmFileInfo*)g_value_get_pointer(value));
+        renderer->fi = fm_file_info_ref(FM_FILE_INFO(g_value_get_pointer(value)));
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID ( object, param_id, psec );

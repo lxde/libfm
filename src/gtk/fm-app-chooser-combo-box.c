@@ -113,8 +113,9 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
         data->prev_sel_iter = it;
 }
 
-static void free_data(FmAppChooserComboBoxData* data)
+static void free_data(gpointer user_data)
 {
+    FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)user_data;
     if(data->initial_sel_app)
         g_object_unref(data->initial_sel_app);
 
@@ -196,7 +197,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     g_object_unref(store);
 
     g_signal_connect(combo, "changed", G_CALLBACK(on_app_selected), data);
-    g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, (GDestroyNotify)free_data);
+    g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, free_data);
 }
 
 /* returns the currently selected app. is_sel_changed (can be NULL) will retrive a
