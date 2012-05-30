@@ -1,7 +1,7 @@
 /*
  *      fm-folder.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -368,9 +368,12 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         "G_FILE_MONITOR_EVENT_PRE_UNMOUNT",
         "G_FILE_MONITOR_EVENT_UNMOUNTED"
     }; */
+    
+    /*
     name = g_file_get_basename(gf);
-    /* g_debug("folder: %p, file %s event: %s", folder, name, names[evt]); */
+    g_debug("folder: %p, file %s event: %s", folder, name, names[evt]);
     g_free(name);
+    */
 
     if(g_file_equal(gf, folder->gf))
     {
@@ -422,13 +425,17 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         /* make sure that the file is not already queued for addition. */
         if(!g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
         {
-            folder->files_to_add = g_slist_append(folder->files_to_add, name);
             /* if we already have the file in FmFolder, update the existing one instead. */
             if(_fm_folder_get_file_by_name(folder, name)) /* we already have it! */
             {
                 /* update the existing item. */
                 folder->files_to_update = g_slist_append(folder->files_to_update, name);
             }
+            else
+            {
+				/* add the file name to queue for addition. */
+                folder->files_to_add = g_slist_append(folder->files_to_add, name);
+			}
         }
         else
             g_free(name);
@@ -489,17 +496,18 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
         /* Some new files are created while FmDirListJob is loading the folder. */
         if(G_UNLIKELY(folder->files_to_add))
         {
-			/* This should be a very rare case. Could this happen? */
+            /* This should be a very rare case. Could this happen? */
             GSList* l;
-            g_assert(folder->files_to_add == NULL);
             for(l = folder->files_to_add; l;)
             {
                 char* name = (char*)l->data;
                 GSList* next = l->next;
                 if(_fm_folder_get_file_by_name(folder, name))
                 {
-					/* we already have the file. remove it from files_to_add, 
-					 * and put it in files_to_update instead. .*/
+                    /* we already have the file. remove it from files_to_add, 
+                     * and put it in files_to_update instead.
+                     * No strdup for name is needed here. We steal
+                     * the string from files_to_add.*/
                     folder->files_to_update = g_slist_prepend(folder->files_to_update, name);
                     folder->files_to_add = g_slist_delete_link(folder->files_to_add, l);
                 }
