@@ -98,22 +98,20 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmFolderView* fv);
 
 static void cancel_pending_row_activated(FmFolderView* fv);
 
-static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
-static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
-static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
-static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
+//static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
+//static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
+//static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
+//static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
 
 static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
     GObjectClass *g_object_class;
     GtkWidgetClass *widget_class;
-    FmFolderViewClass *fv_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_folder_view_dispose;
     g_object_class->finalize = fm_folder_view_finalize;
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->focus_in_event = on_folder_view_focus_in;
-    fv_class = FM_FOLDER_VIEW_CLASS(klass);
 
     fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
@@ -306,13 +304,9 @@ static void fm_folder_view_dispose(GObject *object)
 
 static void fm_folder_view_finalize(GObject *object)
 {
-    FmFolderView *self;
-
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
     /* g_debug("free model: %p", object); */
-
-    self = (FmFolderView*)object;
 
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
@@ -381,12 +375,10 @@ static gboolean on_drag_drop(GtkWidget *dest_widget,
 static GtkTreePath* get_drop_path(FmFolderView* fv, gint x, gint y)
 {
     GtkTreePath* tp = NULL;
-    gboolean droppable = TRUE;
     switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
         {
-            GtkTreeViewDropPosition pos;
             GtkTreeViewColumn* col;
             gtk_tree_view_convert_widget_to_bin_window_coords(GTK_TREE_VIEW(fv->view), x, y, &x, &y);
             /* if(gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)fv->view, x, y, &tp, NULL)) */
@@ -473,8 +465,6 @@ static void on_drag_leave(GtkWidget *dest_widget,
 
 static inline void create_icon_view(FmFolderView* fv, GList* sels)
 {
-    GtkTreeViewColumn* col;
-    GtkTreeSelection* ts;
     GList *l;
     GtkCellRenderer* render;
     FmFolderModel* model = fv->model;
@@ -644,9 +634,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 {
     if( mode != fv->mode )
     {
-        GtkTreeSelection* ts;
-        GList *sels, *cells;
-        FmFolderModel* model = fv->model;
+        GList *sels;
         gboolean has_focus;
 
         if( G_LIKELY(fv->view) )

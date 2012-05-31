@@ -608,7 +608,6 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
  * original value before returning from the function. */
 static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePath* tp, FmFileInfo* fi)
 {
-    GtkTreeIter it;
     GList* item_l;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     FmDirTreeItem* item = fm_dir_tree_item_new(model, parent_l);
@@ -767,15 +766,16 @@ static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l
          * its first-time loading? Isn't "loaded" signal enough? */
         if(fm_file_info_is_dir(fi)) /* TODO: maybe adding files can be allowed later */
         {
-            /* ensure that the file is not yet in our model */
-            FmPath* path = fm_file_info_get_path(fi);
+            /* ensure that the file is not yet in our model
+            FmPath* path = fm_file_info_get_path(fi); */
             /* 
             * Ideally FmFolder should not emit files-added signals for files that
             * already exists. So there is no need to check for duplication here.
             GList* new_item_l = children_by_name(model, item->children, path->name, NULL);
             if(!new_item_l)
-            */
-            GList* new_item_l = insert_file_info(model, item_l, tp, fi);
+
+            GList* new_item_l = */
+            insert_file_info(model, item_l, tp, fi);
         }
     }
     gtk_tree_path_free(tp);
@@ -946,6 +946,7 @@ gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
     return item->fi != NULL;
 }
 
+#if 0
 static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboolean show_hidden)
 {
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
@@ -966,6 +967,7 @@ static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboo
         }
     }
 }
+#endif
 
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden)
 {

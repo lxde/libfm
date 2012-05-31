@@ -48,7 +48,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     {
         /* set application/kde-cutselection data */
         if(is_cut)
-            gtk_selection_data_set(sel, sel->target, 8, "1", 2);
+            gtk_selection_data_set(sel, sel->target, 8, (guchar*)"1", 2);
         return;
     }
 
@@ -72,7 +72,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     {
         fm_path_list_write_uri_list(files, uri_list);
     }
-    gtk_selection_data_set(sel, sel->target, 8, uri_list->str, uri_list->len + 1);
+    gtk_selection_data_set(sel, sel->target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
 }
 
@@ -115,7 +115,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     GdkDisplay* dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     FmPathList* files;
-    char** uris, **uri;
+    char** uris;
     GdkAtom atom;
     int type = 0;
     GdkAtom *avail_targets;

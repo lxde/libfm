@@ -100,7 +100,6 @@ static gboolean file_is_executable_script(FmFileInfo* file)
 
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
-    LaunchData* data = (LaunchData*)user_data;
     GtkBuilder* b = gtk_builder_new();
     GtkDialog* dlg;
     GtkLabel *msg;

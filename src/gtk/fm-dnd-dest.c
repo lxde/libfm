@@ -188,6 +188,9 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     case GDK_ACTION_ASK:
         g_debug("TODO: GDK_ACTION_ASK");
         break;
+    case GDK_ACTION_PRIVATE:
+    case GDK_ACTION_DEFAULT:
+        ;
     }
     fm_list_unref(files);
     return TRUE;
@@ -246,7 +249,6 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
              gint x, gint y, GtkSelectionData *sel_data, guint info, guint time)
 {
     FmList* files = NULL;
-    GtkWidget *dest_widget = dd->widget;
 
     if(info ==  FM_DND_DEST_TARGET_FM_LIST)
     {
@@ -340,7 +342,6 @@ GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 {
     gboolean ret = FALSE;
-    GtkWidget *dest_widget = dd->widget;
     guint i;
 
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
@@ -383,7 +384,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                 FmFileInfo* dest = fm_dnd_dest_get_dest_file(dd);
                 if( dest && fm_file_info_is_dir(dest) )
                 {
-                    FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), data);
+                    FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), (gchar*)data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
                     gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,

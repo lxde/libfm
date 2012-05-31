@@ -62,12 +62,9 @@ G_DEFINE_TYPE(FmDndSrc, fm_dnd_src, G_TYPE_OBJECT);
 static void fm_dnd_src_class_init(FmDndSrcClass *klass)
 {
     GObjectClass *g_object_class;
-    FmDndSrcClass *dnd_src_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_dnd_src_finalize;
-
-    dnd_src_class = FM_DND_SRC_CLASS(klass);
 
     /* emitted when information of source files is needed.
      * call fm_dnd_source_set_files() in its callback to
@@ -175,7 +172,6 @@ on_drag_data_get ( GtkWidget *src_widget,
             GString* uri_list = g_string_sized_new( 8192 );
             GList* l;
             FmFileInfo* file;
-            char* full_path;
 
             for( l = fm_list_peek_head_link(ds->files); l; l=l->next )
             {

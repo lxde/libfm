@@ -239,7 +239,6 @@ void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 
     if(render->fi && G_UNLIKELY(fm_file_info_is_symlink(render->fi)))
     {
-        GdkRectangle pix_rect;
         GdkPixbuf* pix;
         g_object_get(render, "pixbuf", &pix, NULL);
         if(pix)

@@ -153,7 +153,7 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data);
 static void reload_icons(FmFolderModel* model, enum ReloadFlags flags);
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
-static guint signals[N_SIGNALS];
+//static guint signals[N_SIGNALS];
 
 void fm_folder_model_init(FmFolderModel* model)
 {
@@ -256,7 +256,6 @@ void fm_folder_model_dispose(GObject *object)
 
 void fm_folder_model_finalize(GObject *object)
 {
-    FmFolderModel* model = FM_FOLDER_MODEL(object);
     /* g_debug("free FmFolderModel: %p", object); */
     /* must chain up - finalize parent */
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
@@ -313,7 +312,6 @@ static void _fm_folder_model_files_added(FmFolder* dir, GSList* files,
                                          FmFolderModel* model)
 {
     GSList* l;
-    FmFileInfo* file;
     for( l = files; l; l=l->next )
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
@@ -342,7 +340,6 @@ FmPath* fm_folder_model_get_folder_path(FmFolderModel* model)
 
 void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 {
-    GSequenceIter *it;
     if(model->folder == dir)
         return;
     /* g_debug("fm_folder_model_set_folder(%p, %p)", model, dir); */
@@ -816,11 +813,8 @@ void _fm_folder_model_insert_item(FmFolder* dir,
                                   FmFolderItem* new_item,
                                   FmFolderModel* model)
 {
-    GList* l;
     GtkTreeIter it;
     GtkTreePath* path;
-    FmFolderItem* item;
-    FmFileInfo* file = new_item->inf;
 
     GSequenceIter *item_it = g_sequence_insert_sorted(model->items, new_item, fm_folder_model_compare, model);
 
@@ -938,8 +932,6 @@ gboolean fm_folder_model_get_show_hidden(FmFolderModel* model)
 void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
 {
     FmFolderItem* item;
-    GList *l, *next;
-    GSequenceIter *items_it;
     g_return_if_fail(model != NULL);
     if( model->show_hidden == show_hidden )
         return;
@@ -1108,7 +1100,6 @@ void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
     FmFileInfo* fi = fm_thumbnail_request_get_file_info(req);
     GdkPixbuf* pix = fm_thumbnail_request_get_pixbuf(req);
     GtkTreeIter it;
-    guint size = fm_thumbnail_request_get_size(req);
     GSequenceIter* seq_it;
     FmPath* path = fm_file_info_get_path(fi);
 

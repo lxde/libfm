@@ -134,7 +134,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
 {
     FmAppChooserComboBoxData* data = g_slice_new0(FmAppChooserComboBoxData);
     GtkListStore* store = gtk_list_store_new(3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_APP_INFO);
-    GtkTreeIter it ,def_it = {0};
+    GtkTreeIter it;
     GList* l;
     GtkCellRenderer* render;
 

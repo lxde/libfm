@@ -96,7 +96,6 @@ static void on_row_collapsed(GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreeP
 
 static void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *col)
 {
-    FmDirTreeModel* model = FM_DIR_TREE_MODEL(gtk_tree_view_get_model(tree_view));
     if(gtk_tree_view_row_expanded(tree_view, path))
         gtk_tree_view_collapse_row(tree_view, path);
     else

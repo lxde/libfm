@@ -155,18 +155,17 @@ static void on_custom_action(GtkAction* act, FmFileMenu* data)
     GdkAppLaunchContext* ctx = gdk_app_launch_context_new();
     GList* files = fm_list_peek_head_link(data->file_infos);
     char* output = NULL;
-    gboolean ret;
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
-	/* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
-			fm_file_action_item_get_id(item)); */
-	ret = fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
-	if(output)
-	{
-		fm_show_error(NULL, "output", output);
-		g_free(output);
-	}
+    /* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
+        fm_file_action_item_get_id(item)); */
+    fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
+    if(output)
+    {
+        fm_show_error(NULL, "output", output);
+        g_free(output);
+    }
 }
 
 static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionItem* item)
@@ -240,10 +239,8 @@ static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml, FmFi
 
 FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
 {
-    GtkWidget* menu;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
-    GtkAccelGroup* accel_grp;
     GtkAction* act;
     FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
     FmFileMenu* data = g_slice_new0(FmFileMenu);
@@ -466,7 +463,6 @@ void on_open(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_list_peek_head_link(data->file_infos);
-    GError* err = NULL;
     fm_launch_files_simple(data->parent, NULL, l, data->folder_func, data->folder_func_data);
 }
 

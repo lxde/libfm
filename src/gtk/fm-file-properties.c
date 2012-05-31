@@ -697,7 +697,6 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 {
     GtkBuilder* builder=gtk_builder_new();
     GtkDialog* dlg;
-    GtkLabel* total_size;
     FmFilePropData* data;
     FmPathList* paths;
 
