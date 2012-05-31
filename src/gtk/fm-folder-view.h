@@ -78,7 +78,7 @@ struct _FmFolderViewClass
 };
 
 GType       fm_folder_view_get_type(void);
-GtkWidget*  fm_folder_view_new(FmFolderViewMode mode);
+FmFolderView* fm_folder_view_new(FmFolderViewMode mode);
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode);
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv);

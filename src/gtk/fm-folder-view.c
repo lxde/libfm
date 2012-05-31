@@ -59,7 +59,7 @@ struct _FmFolderView
 
     gboolean show_hidden;
 
-    GtkContainer* view; /* either ExoIconView or ExoTreeView */
+    GtkWidget* view; /* either ExoIconView or ExoTreeView */
     FmFolderModel* model; /* FmFolderView don't use abstract GtkTreeModel! */
     FmCellRendererPixbuf* renderer_pixbuf;
     guint icon_size_changed_handler;
@@ -155,7 +155,7 @@ gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
     FmFolderView* fv = FM_FOLDER_VIEW(widget);
     if( fv->view )
     {
-        gtk_widget_grab_focus(GTK_WIDGET(fv->view));
+        gtk_widget_grab_focus(fv->view);
         return TRUE;
     }
     return FALSE;
@@ -181,10 +181,10 @@ static void item_clicked( FmFolderView* fv, GtkTreePath* path, FmFolderViewClick
     GtkTreeIter it;
     if(path)
     {
-        if(gtk_tree_model_get_iter((GtkTreeModel*)fv->model, &it, path))
+        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, path))
         {
             FmFileInfo* fi;
-            gtk_tree_model_get((GtkTreeModel*)fv->model, &it, COL_FILE_INFO, &fi, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
             g_signal_emit(fv, signals[CLICKED], 0, type, fi);
         }
     }
@@ -197,8 +197,9 @@ static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmFo
     item_clicked(fv, path, FM_FV_ACTIVATED);
 }
 
-static gboolean on_idle_tree_view_row_activated(FmFolderView* fv)
+static gboolean on_idle_tree_view_row_activated(gpointer user_data)
 {
+    FmFolderView* fv = (FmFolderView*)user_data;
     GtkTreePath* path;
     if(gtk_tree_row_reference_valid(fv->activated_row_ref))
     {
@@ -227,7 +228,7 @@ static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTr
     if(fv->model)
     {
         fv->activated_row_ref = gtk_tree_row_reference_new(GTK_TREE_MODEL(fv->model), path);
-        g_idle_add((GSourceFunc)on_idle_tree_view_row_activated, fv);
+        g_idle_add(on_idle_tree_view_row_activated, fv);
     }
 }
 
@@ -252,18 +253,18 @@ static void fm_folder_view_init(FmFolderView *self)
 }
 
 
-GtkWidget* fm_folder_view_new(FmFolderViewMode mode)
+FmFolderView* fm_folder_view_new(FmFolderViewMode mode)
 {
     FmFolderView* fv = (FmFolderView*)g_object_new(FM_FOLDER_VIEW_TYPE, NULL);
     fm_folder_view_set_mode(fv, mode);
-    return (GtkWidget*)fv;
+    return fv;
 }
 
 static void unset_model(FmFolderView* fv)
 {
     if(fv->model)
     {
-        FmFolderModel* model = FM_FOLDER_MODEL(fv->model);
+        FmFolderModel* model = fv->model;
         g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
         /* g_debug("unset_model: %p, n_ref = %d", model, G_OBJECT(model)->ref_count); */
         g_object_unref(model);
@@ -276,7 +277,7 @@ static void fm_folder_view_dispose(GObject *object)
     FmFolderView *self;
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
-    self = FM_FOLDER_VIEW(object);
+    self = (FmFolderView*)object;
     /* g_debug("fm_folder_view_dispose: %p", self); */
 
     unset_model(self);
@@ -311,7 +312,7 @@ static void fm_folder_view_finalize(GObject *object)
     g_return_if_fail(IS_FM_FOLDER_VIEW(object));
     /* g_debug("free model: %p", object); */
 
-    self = FM_FOLDER_VIEW(object);
+    self = (FmFolderView*)object;
 
     if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
@@ -326,7 +327,7 @@ static void set_icon_size(FmFolderView* fv, guint icon_size)
     if(!fv->model)
         return;
 
-    fm_folder_model_set_icon_size(FM_FOLDER_MODEL(fv->model), icon_size);
+    fm_folder_model_set_icon_size(fv->model, icon_size);
 
     if( fv->mode != FM_FV_LIST_VIEW ) /* this is an ExoIconView */
     {
@@ -435,17 +436,17 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
         if(tp)
         {
             GtkTreeIter it;
-            if(gtk_tree_model_get_iter((GtkTreeModel*)fv->model, &it, tp))
+            if(gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, tp))
             {
                 FmFileInfo* fi;
-                gtk_tree_model_get((GtkTreeModel*)fv->model, &it, COL_FILE_INFO, &fi, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
                 fm_dnd_dest_set_dest_file(fv->dnd_dest, fi);
             }
             gtk_tree_path_free(tp);
         }
         else
         {
-            FmFolderModel* model = (FmFolderModel*)fv->model;
+            FmFolderModel* model = fv->model;
             if (model)
             {
                 FmFolder* folder = fm_folder_model_get_folder(model);
@@ -476,10 +477,10 @@ static inline void create_icon_view(FmFolderView* fv, GList* sels)
     GtkTreeSelection* ts;
     GList *l;
     GtkCellRenderer* render;
-    FmFolderModel* model = (FmFolderModel*)fv->model;
+    FmFolderModel* model = fv->model;
     int icon_size = 0;
 
-    fv->view = (GtkContainer*)exo_icon_view_new();
+    fv->view = exo_icon_view_new();
 
     fv->renderer_pixbuf = fm_cell_renderer_pixbuf_new();
     render = (GtkCellRenderer*)fv->renderer_pixbuf;
@@ -563,7 +564,7 @@ static inline void create_icon_view(FmFolderView* fv, GList* sels)
     exo_icon_view_set_single_click_timeout((ExoIconView*)fv->view, SINGLE_CLICK_TIMEOUT);
 
     for(l = sels;l;l=l->next)
-        exo_icon_view_select_path((ExoIconView*)fv->view, (GtkTreePath*)l->data);
+        exo_icon_view_select_path((ExoIconView*)fv->view, l->data);
 }
 
 static inline void create_list_view(FmFolderView* fv, GList* sels)
@@ -572,9 +573,9 @@ static inline void create_list_view(FmFolderView* fv, GList* sels)
     GtkTreeSelection* ts;
     GList *l;
     GtkCellRenderer* render;
-    FmFolderModel* model = (FmFolderModel*)fv->model;
+    FmFolderModel* model = fv->model;
     int icon_size = 0;
-    fv->view = (GtkContainer*)exo_tree_view_new();
+    fv->view = exo_tree_view_new();
 
     fv->renderer_pixbuf = fm_cell_renderer_pixbuf_new();
     render = (GtkCellRenderer*)fv->renderer_pixbuf;
@@ -593,8 +594,8 @@ static inline void create_list_view(FmFolderView* fv, GList* sels)
                                         "info", COL_FILE_INFO, NULL);
     render = gtk_cell_renderer_text_new();
     g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_tree_view_column_pack_start(col, (GtkCellRenderer*)render, TRUE);
-    gtk_tree_view_column_set_attributes(col, (GtkCellRenderer*)render, "text", COL_FILE_NAME, NULL);
+    gtk_tree_view_column_pack_start(col, render, TRUE);
+    gtk_tree_view_column_set_attributes(col, render, "text", COL_FILE_NAME, NULL);
     gtk_tree_view_column_set_sort_column_id(col, COL_FILE_NAME);
     gtk_tree_view_column_set_expand(col, TRUE);
     gtk_tree_view_column_set_resizable(col, TRUE);
@@ -605,7 +606,7 @@ static inline void create_list_view(FmFolderView* fv, GList* sels)
     exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
     render = gtk_cell_renderer_text_new();
-    col = gtk_tree_view_column_new_with_attributes(_("Description"), (GtkCellRenderer*)render, "text", COL_FILE_DESC, NULL);
+    col = gtk_tree_view_column_new_with_attributes(_("Description"), render, "text", COL_FILE_DESC, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_sort_column_id(col, COL_FILE_DESC);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
@@ -633,7 +634,7 @@ static inline void create_list_view(FmFolderView* fv, GList* sels)
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
     g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
     /*cancel_pending_row_activated(fv);*/ /* FIXME: is this needed? */
-    gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), (GtkTreeModel*)fv->model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(fv->model));
     gtk_tree_selection_set_mode(ts, fv->sel_mode);
     for(l = sels;l;l=l->next)
         gtk_tree_selection_select_path(ts, (GtkTreePath*)l->data);
@@ -645,7 +646,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
     {
         GtkTreeSelection* ts;
         GList *sels, *cells;
-        FmFolderModel* model = (FmFolderModel*)fv->model;
+        FmFolderModel* model = fv->model;
         gboolean has_focus;
 
         if( G_LIKELY(fv->view) )
@@ -709,10 +710,10 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
         g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
-        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(fv)), gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(fv)));
+        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment((GtkScrolledWindow*)fv), gtk_scrolled_window_get_vadjustment((GtkScrolledWindow*)fv));
 
         gtk_widget_show(fv->view);
-        gtk_container_add((GtkContainer*)fv, fv->view);
+        gtk_container_add(GTK_CONTAINER(fv), fv->view);
 
         if(has_focus) /* restore the focus if needed. */
             gtk_widget_grab_focus(fv->view);
@@ -783,7 +784,7 @@ void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
     {
         fv->show_hidden = show;
         if(G_LIKELY(fv->model))
-            fm_folder_model_set_show_hidden(FM_FOLDER_MODEL(fv->model), show);
+            fm_folder_model_set_show_hidden(fv->model, show);
     }
 }
 
@@ -826,8 +827,8 @@ FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
         FmFileInfo* fi;
         GtkTreeIter it;
         GtkTreePath* tp = (GtkTreePath*)l->data;
-        gtk_tree_model_get_iter((GtkTreeModel*)fv->model, &it, l->data);
-        gtk_tree_model_get((GtkTreeModel*)fv->model, &it, COL_FILE_INFO, &fi, -1);
+        gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, l->data);
+        gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
         gtk_tree_path_free(tp);
         next = l->next;
         l->data = fm_file_info_ref( fi );
@@ -994,7 +995,7 @@ void fm_folder_view_select_invert(FmFolderView* fv)
         {
             GtkTreeSelection *tree_sel;
             GtkTreeIter it;
-            if(!gtk_tree_model_get_iter_first((GtkTreeModel*)fv->model, &it))
+            if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fv->model), &it))
                 return;
             tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
             do
@@ -1003,7 +1004,7 @@ void fm_folder_view_select_invert(FmFolderView* fv)
                     gtk_tree_selection_unselect_iter(tree_sel, &it);
                 else
                     gtk_tree_selection_select_iter(tree_sel, &it);
-            }while( gtk_tree_model_iter_next((GtkTreeModel*)fv->model, &it ));
+            }while( gtk_tree_model_iter_next(GTK_TREE_MODEL(fv->model), &it ));
             break;
         }
     case FM_FV_ICON_VIEW:
@@ -1012,7 +1013,7 @@ void fm_folder_view_select_invert(FmFolderView* fv)
         {
             GtkTreePath* path;
             int i, n;
-            n = gtk_tree_model_iter_n_children((GtkTreeModel*)fv->model, NULL);
+            n = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fv->model), NULL);
             if(n == 0)
                 return;
             path = gtk_tree_path_new_first();
@@ -1033,7 +1034,7 @@ void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
     FmPath* cwd = fm_folder_view_get_cwd(fv);
     if(cwd && fm_path_equal(fm_path_get_parent(path), cwd))
     {
-        FmFolderModel* model = (FmFolderModel*)fv->model;
+        FmFolderModel* model = fv->model;
         GtkTreeIter it;
         if(fm_folder_model_find_iter_by_filename(model, &it, path->name))
         {
@@ -1110,7 +1111,7 @@ static void cancel_pending_row_activated(FmFolderView* fv)
 
 FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
 {
-    return FM_FOLDER_MODEL(fv->model);
+    return fv->model;
 }
 
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
@@ -1131,13 +1132,13 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
             icon_size = fm_config->small_icon_size;
             fm_folder_model_set_icon_size(model, icon_size);
         }
-        gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), (GtkTreeModel*)model);
+        gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(model));
         break;
     case FM_FV_ICON_VIEW:
         icon_size = fm_config->big_icon_size;
         if(model)
             fm_folder_model_set_icon_size(model, icon_size);
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), (GtkTreeModel*)model);
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), GTK_TREE_MODEL(model));
         break;
     case FM_FV_COMPACT_VIEW:
         if(model)
@@ -1145,7 +1146,7 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
             icon_size = fm_config->small_icon_size;
             fm_folder_model_set_icon_size(model, icon_size);
         }
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), (GtkTreeModel*)model);
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), GTK_TREE_MODEL(model));
         break;
     case FM_FV_THUMBNAIL_VIEW:
         if(model)
@@ -1153,13 +1154,13 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
             icon_size = fm_config->thumbnail_size;
             fm_folder_model_set_icon_size(model, icon_size);
         }
-        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), (GtkTreeModel*)model);
+        exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), GTK_TREE_MODEL(model));
         break;
     }
 
     if(model)
     {
-        fv->model = FM_FOLDER_MODEL(g_object_ref(model));
+        fv->model = (FmFolderModel*)g_object_ref(model);
         gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), fv->sort_by, fv->sort_type);
         g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
     }
