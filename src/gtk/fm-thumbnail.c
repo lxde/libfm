@@ -857,7 +857,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
         gssize len;
 #ifdef USE_EXIF
 		/* use libexif to extract thumbnails embedded in jpeg files */
-        const FmMimeType* mime_type = task->fi->type;
+        const FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
         if(strcmp(mime_type->type, "image/jpeg") == 0) /* if this is a jpeg file */
         {
 			/* try to extract thumbnails embedded in jpeg files */
