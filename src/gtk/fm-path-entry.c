@@ -142,8 +142,6 @@ static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event,
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    char* text;
-    int pos;
     switch( event->keyval )
     {
     case GDK_Tab:
@@ -186,7 +184,6 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
 {
     GtkWidgetClass* widget_class = GTK_WIDGET_CLASS(klass);
     GObjectClass* object_class = G_OBJECT_CLASS(klass);
-    GtkEntryClass* entry_class = GTK_ENTRY_CLASS(klass);
 
     object_class->get_property = fm_path_entry_get_property;
     object_class->set_property = fm_path_entry_set_property;
@@ -267,25 +264,25 @@ static gboolean on_dir_list_finished(gpointer user_data)
     FmPathEntry* entry = data->entry;
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     GList* l;
-    GtkListStore* new_model;
+    FmPathEntryModel* new_model;
 
     /* final chance to check cancellable */
     if(g_cancellable_is_cancelled(data->cancellable))
         return TRUE;
 
-    new_model = (GtkListStore*)fm_path_entry_model_new(entry);
+    new_model = fm_path_entry_model_new(entry);
     /* g_debug("dir list is finished!"); */
 
     /* update the model */
     for(l = data->subdirs; l; l=l->next)
     {
         char* name = l->data;
-        gtk_list_store_insert_with_values(new_model, NULL, -1, COL_BASENAME, name, -1);
+        gtk_list_store_insert_with_values((GtkListStore*)new_model, NULL, -1, COL_BASENAME, name, -1);
     }
 
     if(priv->model)
         g_object_unref(priv->model);
-    priv->model = (FmPathEntryModel*)new_model;
+    priv->model = new_model;
     gtk_entry_completion_set_model(priv->completion, GTK_TREE_MODEL(new_model));
 
     /* NOTE: after the content of entry gets changed, by default gtk+ installs
@@ -349,8 +346,9 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
     return FALSE;
 }
 
-static void list_sub_dir_names_free(ListSubDirNames* data)
+static void list_sub_dir_names_free(gpointer user_data)
 {
+    ListSubDirNames* data = (ListSubDirNames*)user_data;
     g_object_unref(data->dir);
     g_object_unref(data->cancellable);
     g_list_foreach(data->subdirs, (GFunc)g_free, NULL);
@@ -362,7 +360,6 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
 {
     FmPathEntry *entry = FM_PATH_ENTRY(editable);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    GtkWidget* widget = GTK_WIDGET(entry);
     const gchar *path_str, *sep;
 
     /* find parent dir of current path */
@@ -407,7 +404,7 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             data->cancellable = g_cancellable_new();
             priv->cancellable = (GCancellable*)g_object_ref(data->cancellable);
             g_io_scheduler_push_job(list_sub_dirs,
-                                    data, (GDestroyNotify)list_sub_dir_names_free,
+                                    data, list_sub_dir_names_free,
                                     G_PRIORITY_LOW, data->cancellable);
         }
         /* calculate the length of remaining part after / */
@@ -472,7 +469,7 @@ fm_path_entry_init(FmPathEntry *entry)
     gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(priv->model));
 
     render = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start( (GtkCellLayout*)completion, render, TRUE );
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(completion), render, TRUE);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion), render, fm_path_entry_completion_render_func, entry, NULL);
 
     /* NOTE: this is to avoid a bug of gtk+.
@@ -505,8 +502,7 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
     gchar *model_file_name;
     int model_file_name_len;
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE( FM_PATH_ENTRY(data) );
-    gtk_tree_model_get(GTK_TREE_MODEL(model), iter,
-                       COL_BASENAME, &model_file_name, -1);
+    gtk_tree_model_get(model, iter, COL_BASENAME, &model_file_name, -1);
     model_file_name_len = strlen(model_file_name);
 
     if( priv->highlight_completion_match )
@@ -591,7 +587,7 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
     char *model_basename;
     const char* typed_basename;
     /* we don't use the case-insensitive key provided by entry completion here */
-    typed_basename = gtk_entry_get_text((GtkEntry*)entry) + priv->parent_len;
+    typed_basename = gtk_entry_get_text(GTK_ENTRY(entry)) + priv->parent_len;
     gtk_tree_model_get(model, iter, COL_BASENAME, &model_basename, -1);
 
     if(model_basename[0] == '.' && typed_basename[0] != '.')
@@ -626,7 +622,6 @@ static void fm_path_entry_model_get_value(GtkTreeModel *tree_model,
                                           GValue       *value)
 {
     FmPathEntryModel *model = (FmPathEntryModel*)tree_model;
-    GtkListStore* store = GTK_LIST_STORE(model);
     if(column == COL_FULL_PATH)
     {
         FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(model->entry);

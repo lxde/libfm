@@ -21,7 +21,7 @@
 
 #include "fm-icon-pixbuf.h"
 
-static gboolean init = FALSE;
+//static gboolean init = FALSE;
 static guint changed_handler = 0;
 
 typedef struct _PixEntry
@@ -30,8 +30,9 @@ typedef struct _PixEntry
     GdkPixbuf* pix;
 }PixEntry;
 
-static void destroy_pixbufs(GSList* pixs)
+static void destroy_pixbufs(gpointer data)
 {
+    GSList* pixs = (GSList*)data;
     GSList* l;
     gdk_threads_enter(); /* FIXME: is this needed? */
     for(l = pixs; l; l=l->next)
@@ -58,7 +59,7 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
         ent = (PixEntry*)l->data;
         if(ent->size == size) /* cached pixbuf is found! */
         {
-            return ent->pix ? (GdkPixbuf*)g_object_ref(ent->pix) : NULL;
+            return ent->pix ? GDK_PIXBUF(g_object_ref(ent->pix)) : NULL;
         }
     }
 
@@ -75,16 +76,16 @@ GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
             g_object_ref(pix);
     }
     else
-	{
-		char* str = g_icon_to_string(icon->gicon);
-		g_debug("unable to load icon %s", str);
-		g_free(str);
+    {
+        char* str = g_icon_to_string(icon->gicon);
+        g_debug("unable to load icon %s", str);
+        g_free(str);
         /* pix = NULL; */
-		pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown", 
-					size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown", 
+                    size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
         if(G_LIKELY(pix))
             g_object_ref(pix);
-	}
+    }
 
     /* cache this! */
     ent = g_slice_new(PixEntry);
@@ -112,7 +113,7 @@ void _fm_icon_pixbuf_init()
     GtkIconTheme* theme = gtk_icon_theme_get_default();
     changed_handler = g_signal_connect(theme, "changed", G_CALLBACK(on_icon_theme_changed), NULL);
 
-    fm_icon_set_user_data_destroy( (GDestroyNotify)destroy_pixbufs );
+    fm_icon_set_user_data_destroy(destroy_pixbufs);
 }
 
 void _fm_icon_pixbuf_finalize()

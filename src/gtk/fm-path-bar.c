@@ -88,7 +88,7 @@ static void fm_path_bar_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_PATH_BAR(object));
 
-    bar = FM_PATH_BAR(object);
+    bar = (FmPathBar*)object;
     if(bar->cur_path)
         fm_path_unref(bar->cur_path);
     if(bar->full_path)
@@ -104,9 +104,9 @@ static void emit_chdir(FmPathBar* bar, FmPath* path)
 
 static void on_scroll_btn_clicked(GtkButton* btn, FmPathBar* bar)
 {
-    GtkAdjustment* hadj = gtk_viewport_get_hadjustment(bar->viewport);
+    GtkAdjustment* hadj = gtk_viewport_get_hadjustment(GTK_VIEWPORT(bar->viewport));
     gdouble value;
-    if(btn == bar->left_scroll) /* scroll left */
+    if(btn == (GtkButton*)bar->left_scroll) /* scroll left */
         value = hadj->value - hadj->page_increment;
     else
         value = hadj->value + hadj->page_increment;
@@ -161,14 +161,14 @@ FmPath* fm_path_bar_get_path(FmPathBar* bar)
     return bar->cur_path;
 }
 
-static GtkWidget* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
+static GtkRadioButton* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
 {
-    GtkButton* btn;
+    GtkRadioButton* btn;
     char* label = fm_path_display_basename(path_element);
     if(!path_element->parent) /* this element is root */
     {
         GtkWidget* hbox = gtk_hbox_new(FALSE, 2);
-        btn = gtk_radio_button_new(grp);
+        btn = (GtkRadioButton*)gtk_radio_button_new(grp);
         gtk_container_add(GTK_CONTAINER(btn), hbox);
         gtk_box_pack_start(GTK_BOX(hbox),
                            gtk_image_new_from_icon_name("drive-harddisk", GTK_ICON_SIZE_BUTTON),
@@ -180,12 +180,12 @@ static GtkWidget* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
     }
     else
     {
-        btn = gtk_radio_button_new_with_label(grp, label);
+        btn = (GtkRadioButton*)gtk_radio_button_new_with_label(grp, label);
     }
     g_free(label);
 
-    gtk_toggle_button_set_mode(btn, FALSE);
-    gtk_widget_show(btn);
+    gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(btn), FALSE);
+    gtk_widget_show(GTK_WIDGET(btn));
 
     g_object_set_qdata(G_OBJECT(btn), btn_data_id, path_element);
     g_signal_connect(btn, "toggled", G_CALLBACK(on_path_btn_toggled), bar);
@@ -195,7 +195,7 @@ static GtkWidget* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
 void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
 {
     FmPath* path_element;
-    GtkWidget* btn;
+    GtkRadioButton* btn;
     GSList* grp;
     GList* btns, *l;
 
@@ -220,7 +220,7 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
                 /* toggle the button */
                 btns = gtk_container_get_children(GTK_CONTAINER(bar->btn_box));
                 l = g_list_nth_prev(g_list_last(btns), n);
-                btn = GTK_WIDGET(l->data);
+                btn = GTK_RADIO_BUTTON(l->data);
                 g_list_free(btns);
                 /* we don't need to emit chdir signal here since later
                  * toggled signal will be triggered on the button, which
@@ -241,7 +241,7 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
      *        all of the buttons. */
 
     /* destroy existing path element buttons */
-    gtk_container_foreach(bar->btn_box, (GtkCallback)gtk_widget_destroy, NULL);
+    gtk_container_foreach(GTK_CONTAINER(bar->btn_box), (GtkCallback)gtk_widget_destroy, NULL);
     grp = NULL;
     path_element = path;
     btns = NULL;
@@ -256,8 +256,8 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
 
     for(l = btns; l; l=l->next)
     {
-        btn = GTK_WIDGET(l->data);
-        gtk_box_pack_start(GTK_BOX(bar->btn_box), btn, FALSE, TRUE, 0);
+        btn = GTK_RADIO_BUTTON(l->data);
+        gtk_box_pack_start(GTK_BOX(bar->btn_box), GTK_WIDGET(btn), FALSE, TRUE, 0);
     }
     g_list_free(btns);
 
