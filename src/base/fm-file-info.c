@@ -110,10 +110,8 @@ FmFileInfo* fm_file_info_new ()
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
 {
     struct stat st;
-    gboolean is_link;
     if(lstat(path, &st) == 0)
     {
-        char* type;
         /* By default we use the real file base name for display.
          * FIXME: if the base name is not in UTF-8 encoding, we
          * need to convert it to UTF-8 for display and save its
@@ -227,11 +225,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             break;
         case G_FILE_TYPE_MOUNTABLE:
             break;
-        }
-
+        case G_FILE_TYPE_SPECIAL:
+            if(fi->mode)
+                break;
         /* if it's a special file but it doesn't have UNIX mode, compose a fake one. */
-        if(type == G_FILE_TYPE_SPECIAL && 0 == fi->mode)
-        {
             if(strcmp(tmp, "inode/chardevice")==0)
                 fi->mode |= S_IFCHR;
             else if(strcmp(tmp, "inode/blockdevice")==0)
@@ -242,6 +239,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             else if(strcmp(tmp, "inode/socket")==0)
                 fi->mode |= S_IFSOCK;
         #endif
+            break;
+        case G_FILE_TYPE_UNKNOWN:
+            ;
         }
     }
 

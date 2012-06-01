@@ -243,7 +243,6 @@ void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
     GList* l;
     GSList* files_to_add = NULL;
     GSList* files_to_update = NULL;
-    gboolean content_changed = FALSE;
     if(!fm_job_is_cancelled(FM_JOB(job)))
     {
         gboolean need_added = g_signal_has_handler_pending(folder, signals[FILES_ADDED], 0, TRUE);
@@ -377,7 +376,6 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 
     if(g_file_equal(gf, folder->gf))
     {
-        GError* err = NULL;
         /* g_debug("event of the folder itself: %d", evt); */
 
         /* NOTE: g_object_ref() should be used here.
@@ -408,6 +406,9 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             fm_folder_query_filesystem_info(folder);
             /* g_debug("folder is changed"); */
             break;
+        case G_FILE_MONITOR_EVENT_MOVED:
+        case G_FILE_MONITOR_EVENT_CHANGED:
+            ;
         }
         g_object_unref(folder);
         return;
@@ -678,12 +679,11 @@ static void fm_folder_dispose(GObject *object)
 
 static void fm_folder_finalize(GObject *object)
 {
-    FmFolder *folder;
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FOLDER(object));
 
-    folder = FM_FOLDER(object);
-    /* g_debug("free folder %p", folder); */
+    /* folder = FM_FOLDER(object);
+    g_debug("free folder %p", folder); */
 
     if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);

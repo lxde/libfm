@@ -137,13 +137,15 @@ GList* load_bookmarks(const char* fpath)
     GList* items = NULL;
 
     /* load the file */
-    if( f = fopen(fpath, "r") )
+    f = fopen(fpath, "r");
+    if(f)
     {
         while(fgets(buf, 1024, f))
         {
             item = new_item(buf);
             items = g_list_prepend(items, item);
         }
+        fclose(f);
     }
     items = g_list_reverse(items);
     return items;

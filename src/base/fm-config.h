@@ -61,14 +61,14 @@ struct _FmConfig
     gboolean use_trash; /* delete file to trash can */
     gboolean confirm_del; /* ask before deleting files */
 
-    guint big_icon_size;    /* size of big icons */
-    guint small_icon_size;  /* size of small icons */
-    guint pane_icon_size;   /* size of side pane icons */
-    guint thumbnail_size;   /* size of thumbnail icons */
+    gint big_icon_size;    /* size of big icons */
+    gint small_icon_size;  /* size of small icons */
+    gint pane_icon_size;   /* size of side pane icons */
+    gint thumbnail_size;   /* size of thumbnail icons */
 
     gboolean show_thumbnail; /* show thumbnails */
     gboolean thumbnail_local; /* show thumbnails for local files only */
-    guint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
+    gint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
 
     gboolean show_internal_volumes; /* show system internal volumes in side pane. (udisks-only)*/
 

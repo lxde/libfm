@@ -21,7 +21,7 @@
 
 #include "fm-dummy-monitor.h"
 
-static void fm_dummy_monitor_finalize           (GObject *object);
+//static void fm_dummy_monitor_finalize           (GObject *object);
 
 G_DEFINE_TYPE(FmDummyMonitor, fm_dummy_monitor, G_TYPE_FILE_MONITOR);
 

@@ -216,11 +216,10 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
 
 char* fm_str_replace(char* str, char* old, char* new)
 {
-    int i;
     int len = strlen(str);
     char* found;
     GString* buf = g_string_sized_new(len);
-    while(found = strstr(str, old))
+    while((found = strstr(str, old)))
     {
         g_string_append_len(buf, str, (found - str));
         g_string_append(buf, new);

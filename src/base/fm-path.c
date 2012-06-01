@@ -629,6 +629,7 @@ gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix)
     return FALSE;
 }
 
+#if 0
 static int fm_path_strlen(FmPath* path)
 {
     int len = 0;
@@ -643,6 +644,7 @@ static int fm_path_strlen(FmPath* path)
     }
     return len;
 }
+#endif
 
 /* recursive internal implem. of fm_path_to_str returns end of current
    build string */
@@ -798,7 +800,7 @@ void _fm_path_init()
     /* build path object for home dir */
     name = home_dir + 1; /* skip leading / */
     parent = root_path;
-    while( sep = strchr(name, '/') )
+    while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)
@@ -820,7 +822,7 @@ void _fm_path_init()
     /* build path object for desktop_path dir */
     name = desktop_dir + home_len + 1; /* skip home_path dir part / */
     parent = home_path;
-    while( sep = strchr(name, '/') )
+    while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)

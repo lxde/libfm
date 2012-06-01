@@ -33,11 +33,6 @@
 #include "fm-file-info-job.h"
 #include "fm-app-info.h"
 
-static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_infos)
-{
-
-}
-
 gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, FmFileLauncher* launcher, gpointer user_data)
 {
     gboolean ret = FALSE;
@@ -170,32 +165,32 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 }
                 else if(fm_file_info_is_executable_type(fi))
                 {
-					GFileInfo* fs_info;
-					GFile* gfile;
-					gboolean fs_supports_exec = TRUE;
+                    //GFileInfo* fs_info;
+                    //GFile* gfile;
+                    gboolean fs_supports_exec = TRUE;
                     /* if it's an executable file, directly execute it. */
                     filename = fm_path_to_str(path);
 
-					#if 0
-					/* NOTE: by default we don't execute files on NTFS & FAT.
-					 * This is a possible fix for bug #3435863 */
-					gfile = g_file_new_for_path(filename);
-					fs_info = g_file_query_filesystem_info(gfile, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE, NULL, NULL);
-					if(fs_info)
-					{
-						const char* fs_type = g_file_info_get_attribute_string(fs_info, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE);
-						/* FIXME: glib/gio fails to detect NTFS when NTFS-3g is used.
-						 * It returns NULL for NTFS-3G mounted filesystems.
-						 * So, unfortunately this approach cannot be used. :-( */
-						if(fs_type)
-						{
-							if(strcmp(fs_type, "msdos") == 0 || strcmp(fs_type, "ntfs") == 0)
-								fs_supports_exec = FALSE;
-						}
-						g_object_unref(fs_info);
-					}
-					g_object_unref(gfile);
-					#endif
+                    #if 0
+                    /* NOTE: by default we don't execute files on NTFS & FAT.
+                     * This is a possible fix for bug #3435863 */
+                    gfile = g_file_new_for_path(filename);
+                    fs_info = g_file_query_filesystem_info(gfile, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE, NULL, NULL);
+                    if(fs_info)
+                    {
+                        const char* fs_type = g_file_info_get_attribute_string(fs_info, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE);
+                        /* FIXME: glib/gio fails to detect NTFS when NTFS-3g is used.
+                         * It returns NULL for NTFS-3G mounted filesystems.
+                         * So, unfortunately this approach cannot be used. :-( */
+                        if(fs_type)
+                        {
+                            if(strcmp(fs_type, "msdos") == 0 || strcmp(fs_type, "ntfs") == 0)
+                                fs_supports_exec = FALSE;
+                        }
+                        g_object_unref(fs_info);
+                    }
+                    g_object_unref(gfile);
+                    #endif
 
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(fs_supports_exec && g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))

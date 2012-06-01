@@ -40,8 +40,8 @@
 static GHashTable *mime_hash = NULL;
 G_LOCK_DEFINE(mime_hash);
 
-static guint reload_callback_id = 0;
-static GList* reload_cb = NULL;
+//static guint reload_callback_id = 0;
+//static GList* reload_cb = NULL;
 
 //static VFSFileMonitor** mime_caches_monitor = NULL;
 
@@ -122,7 +122,7 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
                 char buf[4096];
                 len = read(fd, buf, 4096);
                 g_free(type);
-                type = g_content_type_guess( NULL, buf, len, &uncertain );
+                type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
             /* #endif */
                 close(fd);
             }

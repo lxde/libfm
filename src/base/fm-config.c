@@ -65,12 +65,8 @@ static void fm_config_class_init(FmConfigClass *klass)
 
 static void fm_config_finalize(GObject *object)
 {
-    FmConfig *self;
-
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_CONFIG(object));
-
-    self = FM_CONFIG(object);
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }

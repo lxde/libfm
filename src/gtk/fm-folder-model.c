@@ -889,7 +889,7 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
 
 void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
 {
-    FmFolderItem* item;
+    FmFolderItem* item = NULL;
     GSequenceIter* items_it;
     GtkTreeIter it;
     GtkTreePath* path;
@@ -907,7 +907,7 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
         items_it = g_sequence_iter_next(items_it);
     }
 
-    if( items_it == g_sequence_get_end_iter(model->items) )
+    if(!item || items_it == g_sequence_get_end_iter(model->items))
         return;
 
     /* update the icon */

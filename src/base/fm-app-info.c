@@ -44,12 +44,10 @@ static void append_uri_to_cmd(GFile* gf, GString* cmd)
 
 static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GKeyFile* kf, GList* gfiles)
 {
-    char* ret;
     GString* cmd;
     const char* exec = g_app_info_get_commandline(app);
     const char* p;
     gboolean files_added = FALSE;
-    gboolean terminal;
 
     cmd = g_string_sized_new(1024);
     for(p = exec; *p; ++p)

@@ -76,7 +76,7 @@ G_LOCK_DEFINE_STATIC(idle_handler);
 static GThreadPool* thread_pool = NULL;
 static guint n_jobs = 0;
 
-static signals[N_SIGNALS];
+static guint signals[N_SIGNALS];
 
 static void fm_job_class_init(FmJobClass *klass)
 {
