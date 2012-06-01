@@ -46,7 +46,7 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question
 /* Ask the user a question with a NULL-terminated array of
  * options provided. The return value was index of the selected option. */
 int fm_ask(GtkWindow* parent, const char* title, const char* question, ...);
-int fm_askv(GtkWindow* parent, const char* title, const char* question, const char** options);
+int fm_askv(GtkWindow* parent, const char* title, const char* question, char* const* options);
 int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va_list options);
 
 char* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text);

@@ -69,7 +69,7 @@ static gboolean on_open_folder(GAppLaunchContext* ctx, GList* folder_infos, gpoi
         return FALSE;
 }
 
-static int on_launch_ask(const char* msg, const char** btn_labels, int default_btn, gpointer user_data)
+static int on_launch_ask(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data)
 {
     LaunchData* data = (LaunchData*)user_data;
     /* FIXME: set default button properly */

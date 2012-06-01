@@ -160,7 +160,7 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
     return FM_JOB_CONTINUE;
 }
 
-static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressDisplay* data)
+static gint on_ask(FmFileOpsJob* job, const char* question, char* const* options, FmProgressDisplay* data)
 {
     ensure_dlg(data);
     return fm_askv(GTK_WINDOW(data->dlg), NULL, question, options);
