@@ -27,36 +27,10 @@
 
 G_BEGIN_DECLS
 
-#define FM_TYPE_SIMPLE_JOB              (fm_simple_job_get_type())
-#define FM_SIMPLE_JOB(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj),\
-            FM_TYPE_SIMPLE_JOB, FmSimpleJob))
-#define FM_SIMPLE_JOB_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
-            FM_TYPE_SIMPLE_JOB, FmSimpleJobClass))
-#define FM_IS_SIMPLE_JOB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-            FM_TYPE_SIMPLE_JOB))
-#define FM_IS_SIMPLE_JOB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
-            FM_TYPE_SIMPLE_JOB))
-
-typedef struct _FmSimpleJob         FmSimpleJob;
-typedef struct _FmSimpleJobClass        FmSimpleJobClass;
-
-typedef gboolean (*FmSimpleJobFunc)(FmSimpleJob*, gpointer);
-
-struct _FmSimpleJob
-{
-    FmJob parent;
-    FmSimpleJobFunc func;
-    gpointer user_data;
-    GDestroyNotify destroy_data;
-};
-
-struct _FmSimpleJobClass
-{
-    FmJobClass parent_class;
-};
+typedef gboolean (*FmSimpleJobFunc)(FmJob*, gpointer);
 
 GType fm_simple_job_get_type(void);
-FmJob*  fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNotify destroy_data);
+FmJob* fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNotify destroy_data);
 
 G_END_DECLS
 

@@ -21,10 +21,36 @@
 
 #include "fm-simple-job.h"
 
-static void fm_simple_job_finalize              (GObject *object);
-static gboolean fm_simple_job_run(FmJob *job);
+#define FM_TYPE_SIMPLE_JOB              (fm_simple_job_get_type())
+#define FM_SIMPLE_JOB(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_TYPE_SIMPLE_JOB, FmSimpleJob))
+#define FM_SIMPLE_JOB_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_TYPE_SIMPLE_JOB, FmSimpleJobClass))
+#define FM_IS_SIMPLE_JOB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_TYPE_SIMPLE_JOB))
+#define FM_IS_SIMPLE_JOB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_TYPE_SIMPLE_JOB))
+
+typedef struct _FmSimpleJob         FmSimpleJob;
+typedef struct _FmSimpleJobClass        FmSimpleJobClass;
+
+struct _FmSimpleJob
+{
+    FmJob parent;
+    FmSimpleJobFunc func;
+    gpointer user_data;
+    GDestroyNotify destroy_data;
+};
+
+struct _FmSimpleJobClass
+{
+    FmJobClass parent_class;
+};
 
 G_DEFINE_TYPE(FmSimpleJob, fm_simple_job, FM_TYPE_JOB);
+
+static void fm_simple_job_finalize              (GObject *object);
+static gboolean fm_simple_job_run(FmJob *job);
 
 
 static void fm_simple_job_class_init(FmSimpleJobClass *klass)
@@ -45,7 +71,7 @@ static void fm_simple_job_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_SIMPLE_JOB(object));
 
-    self = FM_SIMPLE_JOB(object);
+    self = (FmSimpleJob*)object;
     if(self->user_data && self->destroy_data)
         self->destroy_data(self->user_data);
 
@@ -70,6 +96,6 @@ FmJob*  fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNoti
 
 static gboolean fm_simple_job_run(FmJob *job)
 {
-    FmSimpleJob* sjob = (FmSimpleJob*)job;
-    return sjob->func ? sjob->func(sjob, sjob->user_data) : FALSE;
+    FmSimpleJob* sjob = FM_SIMPLE_JOB(job);
+    return sjob->func ? sjob->func(job, sjob->user_data) : FALSE;
 }
