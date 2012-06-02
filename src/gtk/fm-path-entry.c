@@ -547,7 +547,7 @@ fm_path_entry_finalize(GObject *object)
     (*G_OBJECT_CLASS(fm_path_entry_parent_class)->finalize)(object);
 }
 
-GtkWidget* fm_path_entry_new()
+FmPathEntry* fm_path_entry_new()
 {
     return g_object_new(FM_TYPE_PATH_ENTRY, NULL);
 }
