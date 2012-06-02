@@ -34,7 +34,7 @@
 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
-static void fm_dir_list_job_finalize  			(GObject *object);
+static void fm_dir_list_job_finalize              (GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
 static gboolean fm_dir_list_job_run(FmJob *job);
@@ -42,12 +42,12 @@ static gboolean fm_dir_list_job_run(FmJob *job);
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 {
-	GObjectClass *g_object_class;
-	FmJobClass* job_class = FM_JOB_CLASS(klass);
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_dir_list_job_finalize;
+    GObjectClass *g_object_class;
+    FmJobClass* job_class = FM_JOB_CLASS(klass);
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_dir_list_job_finalize;
 
-	job_class->run = fm_dir_list_job_run;
+    job_class->run = fm_dir_list_job_run;
 }
 
 
@@ -59,42 +59,42 @@ static void fm_dir_list_job_init(FmDirListJob *self)
 
 FmDirListJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {
-	FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
-	job->dir_path = fm_path_ref(path);
+    FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
+    job->dir_path = fm_path_ref(path);
     job->dir_only = dir_only;
-	job->files = fm_file_info_list_new();
-	return job;
+    job->files = fm_file_info_list_new();
+    return job;
 }
 
 FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 {
-	/* FIXME: should we cache this with hash table? Or, the cache
-	 * should be done at the level of FmFolder instead? */
-	FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
-	job->dir_path = fm_path_new_for_gfile(gf);
-	return job;
+    /* FIXME: should we cache this with hash table? Or, the cache
+     * should be done at the level of FmFolder instead? */
+    FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
+    job->dir_path = fm_path_new_for_gfile(gf);
+    return job;
 }
 
 static void fm_dir_list_job_finalize(GObject *object)
 {
-	FmDirListJob *self;
+    FmDirListJob *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_DIR_LIST_JOB(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_DIR_LIST_JOB(object));
 
-	self = FM_DIR_LIST_JOB(object);
+    self = (FmDirListJob*)object;
 
-	if(self->dir_path)
-		fm_path_unref(self->dir_path);
+    if(self->dir_path)
+        fm_path_unref(self->dir_path);
 
     if(self->dir_fi)
         fm_file_info_unref(self->dir_fi);
 
-	if(self->files)
-		fm_list_unref(self->files);
+    if(self->files)
+        fm_list_unref(self->files);
 
-	if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
-		(* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
+    if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
+        (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
 
@@ -179,12 +179,11 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 
     if(dir)
     {
-        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, (MenuCacheItem*)dir);
+        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, MENU_CACHE_ITEM(dir));
         for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
             MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
             FmPath* item_path;
-            GIcon* gicon;
             /* also hide menu items which should be hidden in current DE. */
             if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
                 continue;
@@ -214,8 +213,9 @@ gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
 
 static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 {
+    FmJob* fmjob = FM_JOB(job);
     FmFileInfo* fi;
-	GError *err = NULL;
+    GError *err = NULL;
     char* dir_path;
     GDir* dir;
 
@@ -223,13 +223,13 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
     fi = fm_file_info_new();
     fm_file_info_set_path(fi, job->dir_path);
-    if( _fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, dir_path, NULL) )
+    if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, dir_path, NULL) )
     {
         if(! fm_file_info_is_dir(fi))
         {
             err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
             fm_file_info_unref(fi);
-            fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+            fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
             g_error_free(err);
             return FALSE;
         }
@@ -239,7 +239,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     {
         err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
         fm_file_info_unref(fi);
-        fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
         return FALSE;
     }
@@ -256,7 +256,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             g_string_append_c(fpath, '/');
             ++dir_len;
         }
-        while( ! fm_job_is_cancelled(FM_JOB(job)) && (name = g_dir_read_name(dir)) )
+        while( ! fm_job_is_cancelled(fmjob) && (name = g_dir_read_name(dir)) )
         {
             FmPath* new_path;
             g_string_truncate(fpath, dir_len);
@@ -276,11 +276,11 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             fm_path_unref(new_path);
 
         _retry:
-            if( _fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, fpath->str, &err) )
+            if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, fpath->str, &err) )
                 fm_list_push_tail_noref(job->files, fi);
             else /* failed! */
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -294,7 +294,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     }
     else
     {
-        fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
     }
     g_free(dir_path);
@@ -303,10 +303,10 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
 static gboolean fm_dir_list_job_run_gio(FmDirListJob* job)
 {
-	GFileEnumerator *enu;
-	GFileInfo *inf;
+    GFileEnumerator *enu;
+    GFileInfo *inf;
     FmFileInfo* fi;
-	GError *err = NULL;
+    GError *err = NULL;
     FmJob* fmjob = FM_JOB(job);
     GFile* gf;
     const char* query;
@@ -365,7 +365,7 @@ _retry:
     g_object_unref(gf);
     if(enu)
     {
-        while( ! fm_job_is_cancelled(FM_JOB(job)) )
+        while( ! fm_job_is_cancelled(fmjob) )
         {
             inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
             if(inf)
@@ -394,7 +394,7 @@ _retry:
                     g_error_free(err);
                     /* FM_JOB_RETRY is not supported. */
                     if(act == FM_JOB_ABORT)
-                        fm_job_cancel(FM_JOB(job));
+                        fm_job_cancel(fmjob);
                 }
                 break; /* FIXME: error handling */
             }
@@ -412,17 +412,18 @@ _retry:
     return TRUE;
 }
 
-gboolean fm_dir_list_job_run(FmJob* job)
+gboolean fm_dir_list_job_run(FmJob* fmjob)
 {
     gboolean ret;
-	if(fm_path_is_native(((FmDirListJob*)job)->dir_path)) /* if this is a native file on real file system */
-        ret = fm_dir_list_job_run_posix((FmDirListJob*)job);
-	else /* this is a virtual path or remote file system path */
-        ret = fm_dir_list_job_run_gio((FmDirListJob*)job);
+    FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
+    if(fm_path_is_native(job->dir_path)) /* if this is a native file on real file system */
+        ret = fm_dir_list_job_run_posix(job);
+    else /* this is a virtual path or remote file system path */
+        ret = fm_dir_list_job_run_gio(job);
     return ret;
 }
 
 FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
 {
-	return job->files;
+    return job->files;
 }

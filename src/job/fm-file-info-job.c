@@ -56,7 +56,7 @@ static void fm_file_info_job_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_FILE_INFO_JOB(object));
 
-    self = FM_FILE_INFO_JOB(object);
+    self = (FmFileInfoJob*)object;
     fm_list_unref(self->file_infos);
 
     G_OBJECT_CLASS(fm_file_info_job_parent_class)->finalize(object);
@@ -81,7 +81,7 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
         file_infos = job->file_infos;
         for(l = fm_list_peek_head_link(files_to_query);l;l=l->next)
         {
-            FmPath* path = (FmPath*)l->data;
+            FmPath* path = FM_PATH(l->data);
             FmFileInfo* fi = fm_file_info_new();
             fm_file_info_set_path(fi, path);
             fm_list_push_tail_noref(file_infos, fi);
@@ -109,9 +109,9 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
         if(fm_path_is_native(path))
         {
             char* path_str = fm_path_to_str(path);
-            if(!_fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str, &err))
+            if(!_fm_file_info_job_get_info_for_native_file(fmjob, fi, path_str, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -145,8 +145,9 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     menu_name = g_strconcat(menu_name, ".menu", NULL);
                     mc = menu_cache_lookup_sync(menu_name);
                     g_free(menu_name);
+                    *dir_name = ch;
 
-                    if(*dir_name && !(*dir_name == '/' && dir_name[1]=='\0') )
+                    if(ch && !(ch == '/' && dir_name[1]=='\0') )
                     {
                         char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_name, NULL);
                         dir = menu_cache_get_dir_from_path(mc, tmp);
@@ -155,7 +156,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     else
                         dir = menu_cache_get_root_dir(mc);
                     if(dir)
-                        _fm_file_info_set_from_menu_cache_item(fi, (MenuCacheItem*)dir);
+                        _fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
                     else
                     {
                         next = l->next;
@@ -169,9 +170,9 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
             }
 
             gf = fm_path_to_gfile(fm_file_info_get_path(fi));
-            if(!_fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf, &err))
+            if(!_fm_file_info_job_get_info_for_gfile(fmjob, fi, gf, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -206,7 +207,7 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 
 gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
 {
-    if( ! fm_job_is_cancelled(FM_JOB(job)) )
+    if( ! fm_job_is_cancelled(job) )
         return fm_file_info_set_from_native_file(fi, path, err);
     return TRUE;
 }

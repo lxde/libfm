@@ -29,15 +29,15 @@
 enum
 {
     PREPARED,
-	CUR_FILE,
-	PERCENT,
+    CUR_FILE,
+    PERCENT,
     ASK_RENAME,
-	N_SIGNALS
+    N_SIGNALS
 };
 
 static guint signals[N_SIGNALS];
 
-static void fm_file_ops_job_finalize  			(GObject *object);
+static void fm_file_ops_job_finalize              (GObject *object);
 
 static gboolean fm_file_ops_job_run(FmJob* fm_job);
 /* static void fm_file_ops_job_cancel(FmJob* job); */
@@ -50,14 +50,14 @@ G_DEFINE_TYPE(FmFileOpsJob, fm_file_ops_job, FM_TYPE_JOB);
 
 static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 {
-	GObjectClass *g_object_class;
-	FmJobClass* job_class;
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_file_ops_job_finalize;
+    GObjectClass *g_object_class;
+    FmJobClass* job_class;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_file_ops_job_finalize;
 
-	job_class = FM_JOB_CLASS(klass);
-	job_class->run = fm_file_ops_job_run;
-	job_class->finished = NULL;
+    job_class = FM_JOB_CLASS(klass);
+    job_class->run = fm_file_ops_job_run;
+    job_class->finished = NULL;
 
     /* preperation of the file operation is done, ready to start copying/deleting... */
     signals[PREPARED] =
@@ -101,28 +101,28 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 
 static void fm_file_ops_job_finalize(GObject *object)
 {
-	FmFileOpsJob *self;
+    FmFileOpsJob *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
 
-	self = FM_FILE_OPS_JOB(object);
+    self = (FmFileOpsJob*)object;
 
-	if(self->srcs)
-		fm_list_unref(self->srcs);
-	if(self->dest)
-		fm_path_unref(self->dest);
+    if(self->srcs)
+        fm_list_unref(self->srcs);
+    if(self->dest)
+        fm_path_unref(self->dest);
 
     g_assert(self->src_folder_mon == NULL);
     g_assert(self->dest_folder_mon == NULL);
 
-	G_OBJECT_CLASS(fm_file_ops_job_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_file_ops_job_parent_class)->finalize(object);
 }
 
 
 static void fm_file_ops_job_init(FmFileOpsJob *self)
 {
-	fm_job_init_cancellable((FmJob*)self);
+    fm_job_init_cancellable(FM_JOB(self));
 
     /* for chown */
     self->uid = -1;
@@ -132,40 +132,41 @@ static void fm_file_ops_job_init(FmFileOpsJob *self)
 
 FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 {
-	FmFileOpsJob* job = (FmFileOpsJob*)g_object_new(FM_FILE_OPS_JOB_TYPE, NULL);
-	job->srcs = fm_list_ref(files);
-	job->type = type;
-	return job;
+    FmFileOpsJob* job = (FmFileOpsJob*)g_object_new(FM_FILE_OPS_JOB_TYPE, NULL);
+    job->srcs = fm_list_ref(files);
+    job->type = type;
+    return job;
 }
 
 
 gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
-	FmFileOpsJob* job = (FmFileOpsJob*)fm_job;
-	switch(job->type)
-	{
-	case FM_FILE_OP_COPY:
-		return _fm_file_ops_job_copy_run(job);
-	case FM_FILE_OP_MOVE:
-		return _fm_file_ops_job_move_run(job);
-	case FM_FILE_OP_TRASH:
-		return _fm_file_ops_job_trash_run(job);
-	case FM_FILE_OP_UNTRASH:
-		return _fm_file_ops_job_untrash_run(job);
-	case FM_FILE_OP_DELETE:
-		return _fm_file_ops_job_delete_run(job);
+    FmFileOpsJob* job = FM_FILE_OPS_JOB(fm_job);
+    switch(job->type)
+    {
+    case FM_FILE_OP_COPY:
+        return _fm_file_ops_job_copy_run(job);
+    case FM_FILE_OP_MOVE:
+        return _fm_file_ops_job_move_run(job);
+    case FM_FILE_OP_TRASH:
+        return _fm_file_ops_job_trash_run(job);
+    case FM_FILE_OP_UNTRASH:
+        return _fm_file_ops_job_untrash_run(job);
+    case FM_FILE_OP_DELETE:
+        return _fm_file_ops_job_delete_run(job);
     case FM_FILE_OP_LINK:
         return _fm_file_ops_job_link_run(job);
-	case FM_FILE_OP_CHANGE_ATTR:
-		return _fm_file_ops_job_change_attr_run(job);
-	}
-	return FALSE;
+    case FM_FILE_OP_CHANGE_ATTR:
+        return _fm_file_ops_job_change_attr_run(job);
+    case FM_FILE_OP_NONE: ;
+    }
+    return FALSE;
 }
 
 
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest)
 {
-	job->dest = fm_path_ref(dest);
+    job->dest = fm_path_ref(dest);
 }
 
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job)
@@ -192,19 +193,19 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
 
 static gpointer emit_cur_file(FmJob* job, gpointer cur_file)
 {
-	g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
-	return NULL;
+    g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
+    return NULL;
 }
 
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
-	fm_job_call_main_thread(FM_JOB(job), emit_cur_file, (gpointer)cur_file);
+    fm_job_call_main_thread(FM_JOB(job), emit_cur_file, (gpointer)cur_file);
 }
 
 static gpointer emit_percent(FmJob* job, gpointer percent)
 {
-	g_signal_emit(job, signals[PERCENT], 0, (guint)percent);
-	return NULL;
+    g_signal_emit(job, signals[PERCENT], 0, (guint)percent);
+    return NULL;
 }
 
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
@@ -222,15 +223,15 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 
     if( percent > job->percent )
     {
-    	fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
+        fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
         job->percent = percent;
     }
 }
 
 static gpointer emit_prepared(FmJob* job, gpointer user_data)
 {
-	g_signal_emit(job, signals[PREPARED], 0);
-	return NULL;
+    g_signal_emit(job, signals[PREPARED], 0);
+    return NULL;
 }
 
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job)
@@ -313,16 +314,16 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
 
 gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 {
-	GList* l;
+    GList* l;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
     job->total = fm_list_get_length(job->srcs);
-	l = fm_list_peek_head_link(job->srcs);
-	for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
-	{
-		GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+    l = fm_list_peek_head_link(job->srcs);
+    for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
+    {
+        GFile* gf = fm_path_to_gfile(FM_PATH(l->data));
         gboolean ret = g_file_make_symbolic_link(gf, "", fm_job_get_cancellable(fmjob), &err);
-		g_object_unref(gf);
+        g_object_unref(gf);
         if(!ret)
         {
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
@@ -334,6 +335,6 @@ gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         else
             ++job->finished;
         fm_file_ops_job_emit_percent(job);
-	}
+    }
     return TRUE;
 }

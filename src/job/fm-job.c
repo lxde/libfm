@@ -156,7 +156,7 @@ static void fm_job_finalize(GObject *object)
 	g_return_if_fail(object != NULL);
 	g_return_if_fail(FM_IS_JOB(object));
 
-	self = FM_JOB(object);
+	self = (FmJob*)object;
 
 	if(self->cancellable)
     {
@@ -272,13 +272,14 @@ void fm_job_cancel(FmJob* job)
 		klass->cancel(job);
 }
 
-static gboolean on_idle_call(FmIdleCall* data)
+static gboolean on_idle_call(gpointer input_data)
 {
-	data->ret = data->func(data->job, data->user_data);
-	g_mutex_lock(data->job->mutex);
-	g_cond_broadcast(data->job->cond);
-	g_mutex_unlock(data->job->mutex);
-	return FALSE;
+    FmIdleCall* data = (FmIdleCall*)input_data;
+    data->ret = data->func(data->job, data->user_data);
+    g_mutex_lock(data->job->mutex);
+    g_cond_broadcast(data->job->cond);
+    g_mutex_unlock(data->job->mutex);
+    return FALSE;
 }
 
 /* Following APIs are private to FmJob and should only be used in the
@@ -293,7 +294,7 @@ gpointer fm_job_call_main_thread(FmJob* job,
 	data.func = func;
 	data.user_data = user_data;
 	g_mutex_lock(job->mutex);
-	g_idle_add( (GSourceFunc)on_idle_call, &data );
+	g_idle_add(on_idle_call, &data);
 	g_cond_wait(job->cond, job->mutex);
 	g_mutex_unlock(job->mutex);
 	return data.ret;
@@ -382,7 +383,7 @@ gboolean on_idle_cleanup(gpointer unused)
 
 	for(l = jobs; l; l=l->next)
 	{
-		FmJob* job = (FmJob*)l->data;
+		FmJob* job = FM_JOB(l->data);
 		if(job->cancel)
 			fm_job_emit_cancelled(job);
         fm_job_emit_finished(job);

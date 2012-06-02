@@ -59,7 +59,7 @@ static void fm_deep_count_job_finalize(GObject *object)
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_DEEP_COUNT_JOB(object));
 
-    self = FM_DEEP_COUNT_JOB(object);
+    self = (FmDeepCountJob*)object;
 
     if(self->paths)
         fm_list_unref(self->paths);
@@ -104,7 +104,7 @@ gboolean fm_deep_count_job_run(FmJob* job)
 
 gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
 {
-    FmJob* fmjob = (FmJob*)job;
+    FmJob* fmjob = FM_JOB(job);
     char* path = fm_path_to_str(fm_path);
     struct stat st;
     int ret;
@@ -142,7 +142,7 @@ _retry_stat:
     else
     {
         GError* err = g_error_new(G_IO_ERROR, g_io_error_from_errno(errno), "%s", g_strerror(errno));
-        FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+        FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
         g_error_free(err);
         err = NULL;
         if(act == FM_JOB_RETRY)
@@ -190,7 +190,6 @@ gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
     FmJob* fmjob = FM_JOB(job);
     GError* err = NULL;
     GFileType type;
-    guint64 block_count;
     const char* fs_id;
     gboolean descend;
 
@@ -204,7 +203,7 @@ _retry_query_info:
                     fm_job_get_cancellable(fmjob), &err);
         if(!inf)
         {
-            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
             g_error_free(err);
             err = NULL;
             if(act == FM_JOB_RETRY)
@@ -285,7 +284,8 @@ _retry_query_info:
                         if(err) /* error! */
                         {
                             /* FM_JOB_RETRY is not supported */
-                            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                            /*FmJobErrorAction act = */
+                            fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                             g_error_free(err);
                             err = NULL;
                         }
@@ -301,7 +301,7 @@ _retry_query_info:
             }
             else
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
