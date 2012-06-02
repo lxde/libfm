@@ -55,7 +55,7 @@ public class FileActionCondition {
 			case '=':
 				selection_count_cmp = selection_count_str[0];
 				const string s = ">%d";
-				s.scanf(out selection_count);
+				selection_count_str.scanf(s, out selection_count);
 				break;
 			default:
 				selection_count_cmp = '>';
@@ -76,6 +76,7 @@ public class FileActionCondition {
 		}
 	}
 
+#if 0
 	private bool match_base_name_(List<FileInfo> files, string allowed_base_name) {
 		// all files should match the base_name pattern.
 		bool allowed = true;
@@ -121,6 +122,7 @@ public class FileActionCondition {
 		}
 		return allowed;
 	}
+#endif
 
 	private inline bool match_try_exec(List<FileInfo> files) {
 		if(try_exec != null) {

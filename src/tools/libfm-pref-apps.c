@@ -30,23 +30,23 @@
 #include <menu-cache.h>
 #include "fm-gtk.h"
 
-static GtkWidget* dlg;
-static GtkWidget* browser;
-static GtkWidget*mail_client;
+static GtkDialog* dlg;
+static GtkComboBox* browser;
+static GtkComboBox* mail_client;
 
 static GList* browsers = NULL;
 static GList* mail_clients = NULL;
 
 /* examine desktop files under Internet and Office submenus to find out browsers and mail clients */
-static init_apps()
+static void init_apps(void)
 {
     MenuCache* mc = menu_cache_lookup_sync("applications.menu");
     MenuCacheDir* dir;
     GKeyFile* kf;
     char* fpath;
     static const char* dir_paths[] = {"/Applications/Internet", "/Applications/Office"};
-    int i;
-    GAppInfo* app;
+    gsize i;
+    GDesktopAppInfo* app;
 
     kf = g_key_file_new();
     /* load additional custom apps from user config */
@@ -54,7 +54,7 @@ static init_apps()
     if(g_key_file_load_from_file(kf, fpath, 0, NULL))
     {
         char** desktop_ids;
-        int n;
+        gsize n;
         desktop_ids = g_key_file_get_string_list(kf, "Preferred Applications", "CustomWebBrowsers", &n, NULL);
         for(i=0; i<n; ++i)
         {
@@ -83,7 +83,7 @@ static init_apps()
         dir = menu_cache_get_dir_from_path(mc, dir_paths[i]);
         if(dir)
         {
-            GList* l;
+            GSList* l;
             for(l=menu_cache_dir_get_children(dir);l;l=l->next)
             {
                 MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
@@ -100,7 +100,7 @@ static init_apps()
                     fpath = menu_cache_item_get_file_path(item);
                     if(g_key_file_load_from_file(kf, fpath, 0, NULL))
                     {
-                        int n;
+                        gsize n;
                         char** cats = g_key_file_get_string_list(kf, "Desktop Entry", "Categories", &n, NULL);
                         if(cats)
                         {
@@ -137,7 +137,6 @@ int main(int argc, char** argv)
 {
     GtkBuilder* b;
     GAppInfo* app;
-    char* cmd;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -150,9 +149,9 @@ int main(int argc, char** argv)
 
     b = gtk_builder_new();
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/preferred-apps.ui", NULL);
-    dlg = GTK_WIDGET(gtk_builder_get_object(b, "dlg"));
-    browser = GTK_WIDGET(gtk_builder_get_object(b, "browser"));
-    mail_client = GTK_WIDGET(gtk_builder_get_object(b, "mail_client"));
+    dlg = GTK_DIALOG(gtk_builder_get_object(b, "dlg"));
+    browser = GTK_COMBO_BOX(gtk_builder_get_object(b, "browser"));
+    mail_client = GTK_COMBO_BOX(gtk_builder_get_object(b, "mail_client"));
     g_object_unref(b);
 
     /* make sure we're using menu from lxmenu-data */
@@ -173,7 +172,7 @@ int main(int argc, char** argv)
     if(app)
         g_object_unref(app);
 
-    if(gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_OK)
+    if(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
         GKeyFile* kf = g_key_file_new();
         char* buf;
@@ -190,7 +189,7 @@ int main(int argc, char** argv)
         g_key_file_load_from_file(kf, fname, G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
 
         /* get currently selected web browser */
-        app = fm_app_chooser_combo_box_get_selected(GTK_COMBO_BOX(browser), &is_changed);
+        app = fm_app_chooser_combo_box_get_selected(browser, &is_changed);
         if(app)
         {
             if(is_changed)
@@ -200,12 +199,12 @@ int main(int argc, char** argv)
             }
             g_object_unref(app);
         }
-        custom_apps = fm_app_chooser_combo_box_get_custom_apps(GTK_COMBO_BOX(browser));
+        custom_apps = fm_app_chooser_combo_box_get_custom_apps(browser);
         if(custom_apps)
         {
             const char** sl;
             len = g_list_length(custom_apps);
-            sl = g_new0(char*, len);
+            sl = (const char**)g_new0(char*, len);
             for(i = 0, l=custom_apps;l;l=l->next, ++i)
             {
                 app = G_APP_INFO(l->data);
@@ -217,7 +216,7 @@ int main(int argc, char** argv)
         }
 
         /* get selected mail client */
-        app = fm_app_chooser_combo_box_get_selected(GTK_COMBO_BOX(mail_client), &is_changed);
+        app = fm_app_chooser_combo_box_get_selected(mail_client, &is_changed);
         if(app)
         {
             if(is_changed)
@@ -227,12 +226,12 @@ int main(int argc, char** argv)
             }
             g_object_unref(app);
         }
-        custom_apps = fm_app_chooser_combo_box_get_custom_apps(GTK_COMBO_BOX(mail_client));
+        custom_apps = fm_app_chooser_combo_box_get_custom_apps(mail_client);
         if(custom_apps)
         {
             const char** sl;
             len = g_list_length(custom_apps);
-            sl = g_new0(char*, len);
+            sl = (const char**)g_new0(char*, len);
             for(i = 0, l=custom_apps;l;l=l->next, ++i)
             {
                 app = G_APP_INFO(l->data);
@@ -261,7 +260,7 @@ int main(int argc, char** argv)
         g_key_file_free(kf);
         g_free(fname);
     }
-    gtk_widget_destroy(dlg);
+    gtk_widget_destroy((GtkWidget*)dlg);
 
     fm_gtk_finalize();
 

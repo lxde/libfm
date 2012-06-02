@@ -65,6 +65,7 @@ private bool key_file_get_bool(KeyFile kf, string group, string key, bool def_va
 	return val;
 }
 
+#if 0
 private int key_file_get_int(KeyFile kf, string group, string key, int def_val=0) {
 	int val;
 	try {
@@ -75,5 +76,6 @@ private int key_file_get_int(KeyFile kf, string group, string key, int def_val=0
 	}
 	return val;
 }
+#endif
 
 }

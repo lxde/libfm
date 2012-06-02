@@ -28,7 +28,7 @@
 
 #define TEST_PARSING(func, str_to_parse, ...) \
     G_STMT_START { \
-        char* expected[] = {__VA_ARGS__}; \
+        const char* expected[] = {__VA_ARGS__}; \
         test_parsing(func, str_to_parse, expected, G_N_ELEMENTS(expected)); \
     } G_STMT_END
 
@@ -64,8 +64,6 @@ static void test_parsing(FmPathFunc func, const char* str, const char** expected
 
 static void test_uri_parsing()
 {
-    FmPath* path;
-
     // test URIs
     TEST_PARSING(fm_path_new_for_uri, "file:///test/path/",
         "/", "test", "path");
@@ -231,8 +229,6 @@ static void test_uri_parsing()
 
 static void test_path_parsing()
 {
-    FmPath* path;
-
     TEST_PARSING(fm_path_new_for_path, "/test/path",
         "/", "test", "path");
 
@@ -386,7 +382,6 @@ static void test_path_child()
 static void test_predefined_paths()
 {
     FmPath* path;
-    char* tmp;
 
     path = fm_path_new_for_uri("trash:///");
     g_assert(path == fm_path_get_trash());

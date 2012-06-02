@@ -35,8 +35,6 @@ GQuark fm_qdata_id = 0;
 
 gboolean fm_init(FmConfig* config)
 {
-    char* path;
-
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");

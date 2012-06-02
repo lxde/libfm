@@ -9,6 +9,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-Wno-unused-but-set-variable -Wno-unused-variable \
 	$(NULL)
 
 noinst_LTLIBRARIES = libfmactions.la
