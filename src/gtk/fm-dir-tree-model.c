@@ -245,7 +245,7 @@ static gboolean fm_dir_tree_model_get_iter(GtkTreeModel *tree_model,
 {
     FmDirTreeModel *model;
     gint *indices, i, depth;
-    GList *children, *child;
+    GList *children, *child = NULL;
 
     g_assert(FM_IS_DIR_TREE_MODEL(tree_model));
     g_assert(path!=NULL);
@@ -560,7 +560,7 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
     GList* new_item_l;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     const char* new_key = fm_file_info_get_collate_key(new_item->fi);
-    GList* item_l, *last_l;
+    GList* item_l, *last_l = NULL;
     GtkTreeIter it;
     int n = 0;
     for(item_l = parent_item->children; item_l; item_l=item_l->next, ++n)
