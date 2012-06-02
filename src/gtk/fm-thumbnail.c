@@ -164,7 +164,7 @@ static gboolean on_ready_idle(gpointer user_data)
 {
     FmThumbnailRequest* req;
     G_LOCK(queue);
-    while( req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue) )
+    while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)))
     {
         // GDK_THREADS_ENTER();
         req->callback(req, req->user_data);
@@ -176,14 +176,16 @@ static gboolean on_ready_idle(gpointer user_data)
     return FALSE;
 }
 
-static gint comp_request(FmThumbnailRequest* a, FmThumbnailRequest* b)
+static gint comp_request(gconstpointer a, gconstpointer b)
 {
-    return a->size - b->size;
+    return ((FmThumbnailRequest*)a)->size - ((FmThumbnailRequest*)b)->size;
 }
 
 /* called when cached pixbuf get destroyed */
-static void on_pixbuf_destroy(ThumbnailCache* cache, GdkPixbuf* pix)
+static void on_pixbuf_destroy(gpointer data, GObject* obj_ptr)
 {
+    ThumbnailCache* cache = (ThumbnailCache*)data;
+    GdkPixbuf* pix = (GdkPixbuf*)obj_ptr;
     GSList* l;
     /* remove it from cache */
     DEBUG("remove from cache!");
@@ -232,7 +234,7 @@ inline static void cache_thumbnail_in_hash(FmPath* path, GdkPixbuf* pix, guint s
         item->size = size;
         item->pix = pix;
         cache->items = g_slist_prepend(cache->items, item);
-        g_object_weak_ref(G_OBJECT(pix), (GWeakNotify)on_pixbuf_destroy, cache);
+        g_object_weak_ref(G_OBJECT(pix), on_pixbuf_destroy, cache);
     }
 }
 
@@ -244,7 +246,7 @@ void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, GdkPixbuf
     GList* l;
 
     /* sort the requests by requested size to utilize cached scaled pixbuf */
-    task->requests = g_list_sort(task->requests, (GCompareFunc)comp_request);
+    task->requests = g_list_sort(task->requests, comp_request);
     for(l=task->requests; l; l=l->next)
     {
         FmThumbnailRequest* req = (FmThumbnailRequest*)l->data;
@@ -311,7 +313,6 @@ inline static gboolean is_thumbnail_outdated(GdkPixbuf* thumb_pix, const char* p
 
 void load_thumbnails(ThumbnailTask* task)
 {
-    GList* l;
     GdkPixbuf* normal_pix = NULL;
     GdkPixbuf* large_pix = NULL;
     const char* normal_path = task->normal_path;
@@ -334,7 +335,9 @@ void load_thumbnails(ThumbnailTask* task)
             /* DEBUG("need to generate normal thumbnail"); */
         }
         else
+        {
             DEBUG("normal thumbnail loaded: %p", normal_pix);
+        }
     }
 
     if( IS_CANCELLED(task) )
@@ -453,16 +456,14 @@ gpointer load_thumbnail_thread(gpointer user_data)
         cur_loading = task;
         if(G_LIKELY(task))
         {
-            FmThumbnailRequest* req;
             char* uri;
-            char* thumb_path;
             const char* md5;
 
             G_UNLOCK(queue);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
             /* generate filename for the thumbnail */
-            g_checksum_update(sum, uri, -1);
+            g_checksum_update(sum, (guchar*)uri, -1);
             md5 = g_checksum_get_string(sum); /* md5 sum of the URI */
 
             task->uri = uri;
@@ -601,7 +602,8 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
     if(cur_generating && cur_generating->requests)
     {
         /* this is the currently processed item */
-        if( l2=g_list_find(cur_generating->requests, req) )
+        l2 = g_list_find(cur_generating->requests, req);
+        if(l2)
         {
             cur_generating->requests = g_list_delete_link(cur_generating->requests, l2);
             if(!cur_generating->requests)
@@ -617,7 +619,8 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
     for(l=generator_queue.head; l; l=l->next)
     {
         task = (ThumbnailTask*)l->data;
-        if(l2 = g_list_find(task->requests, req)) /* found the request */
+        l2 = g_list_find(task->requests, req);
+        if(l2) /* found the request */
         {
             task->requests = g_list_delete_link(task->requests, l2);
             if(!task->requests) /* no one is requesting this thumbnail */
@@ -645,7 +648,8 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
     if(cur_loading && cur_loading->requests)
     {
         /* this is the currently processed item */
-        if( l2=g_list_find(cur_loading->requests, req) )
+        l2=g_list_find(cur_loading->requests, req);
+        if(l2)
         {
             cur_loading->requests = g_list_delete_link(cur_loading->requests, l2);
             if(!cur_loading->requests)
@@ -658,7 +662,8 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
     for(l=loader_queue.head; l; l=l->next)
     {
         task = (ThumbnailTask*)l->data;
-        if(l2 = g_list_find(task->requests, req)) /* found the request */
+        l2 = g_list_find(task->requests, req);
+        if(l2) /* found the request */
         {
             task->requests = g_list_delete_link(task->requests, l2);
             if(!task->requests) /* no one is requesting this thumbnail */
@@ -706,7 +711,7 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 void _fm_thumbnail_init()
 {
     thumb_dir = g_build_filename(g_get_home_dir(), ".thumbnails", NULL);
-    hash = g_hash_table_new((GHashFunc)fm_path_hash, fm_path_equal);
+    hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
 }
 
 void _fm_thumbnail_finalize()
@@ -851,10 +856,10 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 
     DEBUG("generate thumbnail for %s", task->fi->path->name);
 
-    if( ins = g_file_read(gf, generator_cancellable, NULL) )
+    ins = g_file_read(gf, generator_cancellable, NULL);
+    if(ins)
     {
         GdkPixbuf* ori_pix = NULL;
-        gssize len;
 #ifdef USE_EXIF
 		/* use libexif to extract thumbnails embedded in jpeg files */
         const FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);

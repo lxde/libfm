@@ -89,7 +89,7 @@ static void fm_side_pane_finalize(GObject *object)
     FmSidePane *sp;
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_SIDE_PANE(object));
-    sp = FM_SIDE_PANE(object);
+    sp = (FmSidePane*)object;
 
     if(sp->cwd)
         fm_path_unref(sp->cwd);
@@ -106,15 +106,12 @@ static void fm_side_pane_finalize(GObject *object)
 static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer button)
 {
     GtkWidget *widget = GTK_WIDGET(button);
-    GtkRequisition req;
     GtkRequisition menu_req;
-    GtkTextDirection direction;
     GdkRectangle monitor;
     gint monitor_num;
     GdkScreen *screen;
 
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
-    direction = gtk_widget_get_direction (widget);
 
     /* make the menu as wide as the button when needed */
     if(menu_req.width < GTK_WIDGET(button)->allocation.width)

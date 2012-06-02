@@ -50,12 +50,8 @@ static void fm_tab_label_class_init(FmTabLabelClass *klass)
 
 static void fm_tab_label_finalize(GObject *object)
 {
-    FmTabLabel *self;
-
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_TAB_LABEL(object));
-
-    self = FM_TAB_LABEL(object);
 
     G_OBJECT_CLASS(fm_tab_label_parent_class)->finalize(object);
 }
@@ -84,29 +80,29 @@ static gboolean on_query_tooltip(GtkWidget *widget, gint x, gint y,
 
 static void fm_tab_label_init(FmTabLabel *self)
 {
-    GtkWidget* hbox;
+    GtkBox* hbox;
 
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(self), FALSE);
-    hbox = gtk_hbox_new( FALSE, 0 );
+    hbox = GTK_BOX(gtk_hbox_new(FALSE, 0));
 
-    self->label = gtk_label_new("");
-    gtk_widget_set_has_tooltip(self->label, TRUE);
-    gtk_box_pack_start(GTK_BOX(hbox), self->label, FALSE, FALSE, 4 );
+    self->label = (GtkLabel*)gtk_label_new("");
+    gtk_widget_set_has_tooltip((GtkWidget*)self->label, TRUE);
+    gtk_box_pack_start(hbox, (GtkWidget*)self->label, FALSE, FALSE, 4 );
     g_signal_connect(self->label, "query-tooltip", G_CALLBACK(on_query_tooltip), self);
 
-    self->close_btn = gtk_button_new();
-    gtk_button_set_focus_on_click ( GTK_BUTTON ( self->close_btn ), FALSE );
-    gtk_button_set_relief( GTK_BUTTON ( self->close_btn ), GTK_RELIEF_NONE );
+    self->close_btn = (GtkButton*)gtk_button_new();
+    gtk_button_set_focus_on_click(self->close_btn, FALSE);
+    gtk_button_set_relief(self->close_btn, GTK_RELIEF_NONE );
     gtk_container_add ( GTK_CONTAINER ( self->close_btn ),
                         gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
     gtk_container_set_border_width(GTK_CONTAINER(self->close_btn), 0);
-    gtk_widget_set_name(self->close_btn, "tab-close-btn");
+    gtk_widget_set_name((GtkWidget*)self->close_btn, "tab-close-btn");
     g_signal_connect(self->close_btn, "style-set", G_CALLBACK(on_close_btn_style_set), NULL);
 
-    gtk_box_pack_end( GTK_BOX( hbox ), self->close_btn, FALSE, FALSE, 0 );
+    gtk_box_pack_end( hbox, (GtkWidget*)self->close_btn, FALSE, FALSE, 0 );
 
-    gtk_container_add(GTK_CONTAINER(self), hbox);
-    gtk_widget_show_all(hbox);
+    gtk_container_add(GTK_CONTAINER(self), (GtkWidget*)hbox);
+    gtk_widget_show_all((GtkWidget*)hbox);
 
 /*
     gtk_drag_dest_set ( GTK_WIDGET( evt_box ), GTK_DEST_DEFAULT_ALL,
@@ -119,16 +115,16 @@ static void fm_tab_label_init(FmTabLabel *self)
 */
 }
 
-GtkWidget *fm_tab_label_new(const char* text)
+FmTabLabel *fm_tab_label_new(const char* text)
 {
     FmTabLabel* label = (FmTabLabel*)g_object_new(FM_TYPE_TAB_LABEL, NULL);
-    gtk_label_set_text(GTK_LABEL(label->label), text);
-    return (GtkWidget*)label;
+    gtk_label_set_text(label->label, text);
+    return label;
 }
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text)
 {
-    gtk_label_set_text(GTK_LABEL(label->label), text);
+    gtk_label_set_text(label->label, text);
 }
 
 void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text)

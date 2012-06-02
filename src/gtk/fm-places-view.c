@@ -656,13 +656,13 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
                     && !fm_places_model_iter_is_separator(model, &it) )
                 {
                     FmPlaceItem* item;
-                    GtkWidget* menu;
+                    GtkMenu* menu;
                     gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-                    menu = place_item_get_menu(item);
+                    menu = GTK_MENU(place_item_get_menu(item));
                     if(menu)
                     {
-                        gtk_menu_attach_to_widget(GTK_MENU(menu), widget, NULL);
-                        gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+                        gtk_menu_attach_to_widget(menu, widget, NULL);
+                        gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, evt->time);
                     }
                 }
             }

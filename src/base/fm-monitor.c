@@ -29,15 +29,17 @@ static GHashTable* hash = NULL;
 static GHashTable* dummy_hash = NULL;
 G_LOCK_DEFINE_STATIC(hash);
 
-static void on_monitor_destroy(GFile* gf, GFileMonitor* mon)
+static void on_monitor_destroy(gpointer data, GObject* mon)
 {
+    GFile* gf = (GFile*)data;
     G_LOCK(hash);
     g_hash_table_remove(hash, gf);
     G_UNLOCK(hash);
 }
 
-static void on_dummy_monitor_destroy(GFile* gf, GFileMonitor* mon)
+static void on_dummy_monitor_destroy(gpointer data, GObject* mon)
 {
+    GFile* gf = (GFile*)data;
     G_LOCK(hash);
     g_hash_table_remove(dummy_hash, gf);
     G_UNLOCK(hash);
@@ -58,7 +60,7 @@ GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
         ret = g_file_monitor_directory(gf, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &e);
         if(ret)
         {
-            g_object_weak_ref(G_OBJECT(ret), (GWeakNotify)on_monitor_destroy, gf);
+            g_object_weak_ref(G_OBJECT(ret), on_monitor_destroy, gf);
             g_file_monitor_set_rate_limit(ret, MONITOR_RATE_LIMIT);
             g_hash_table_insert(hash, g_object_ref(gf), ret);
         }
@@ -71,7 +73,7 @@ GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
                     /* create a fake file monitor */
                     ret = fm_dummy_monitor_new();
                     g_error_free(e);
-                    g_object_weak_ref(G_OBJECT(ret), (GWeakNotify)on_dummy_monitor_destroy, gf);
+                    g_object_weak_ref(G_OBJECT(ret), on_dummy_monitor_destroy, gf);
                     g_hash_table_insert(dummy_hash, g_object_ref(gf), ret);
                 }
                 else
@@ -148,7 +150,7 @@ GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf)
     {
         /* create a fake file monitor */
         mon = fm_dummy_monitor_new();
-        g_object_weak_ref(G_OBJECT(mon), (GWeakNotify)on_dummy_monitor_destroy, gf);
+        g_object_weak_ref(G_OBJECT(mon), on_dummy_monitor_destroy, gf);
         g_hash_table_insert(dummy_hash, g_object_ref(gf), mon);
     }
     G_UNLOCK(hash);
