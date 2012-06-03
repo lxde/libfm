@@ -74,7 +74,7 @@ static void g_udisks_device_class_init(GUDisksDeviceClass *klass)
     g_object_class->finalize = g_udisks_device_finalize;
 }
 
-static clear_props(GUDisksDevice* dev)
+static void clear_props(GUDisksDevice* dev)
 {
     g_free(dev->dev_file);
     g_free(dev->dev_file_presentation);
@@ -93,7 +93,7 @@ static clear_props(GUDisksDevice* dev)
     g_strfreev(dev->mount_paths);
 }
 
-static set_props(GUDisksDevice* dev, GHashTable* props)
+static void set_props(GUDisksDevice* dev, GHashTable* props)
 {
     dev->dev_file = dbus_prop_dup_str(props, "DeviceFile");
     dev->dev_file_presentation = dbus_prop_dup_str(props, "DeviceFilePresentation");

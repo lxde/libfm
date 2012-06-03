@@ -128,7 +128,7 @@ static gboolean g_udisks_volume_can_mount (GVolume* base)
 
 static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
@@ -163,7 +163,7 @@ static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFl
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     char** kinds = g_new0(char*, 4);
     kinds[0] = g_strdup(G_VOLUME_IDENTIFIER_KIND_LABEL);
     kinds[1] = g_strdup(G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
@@ -351,7 +351,7 @@ static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMou
 
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
@@ -370,7 +370,7 @@ static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsy
 
 static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return g_udisks_volume_eject_with_operation_finish(base, res, error);
 }
 

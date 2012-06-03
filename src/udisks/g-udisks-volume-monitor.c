@@ -183,7 +183,7 @@ static void g_udisks_volume_monitor_finalize(GObject *object)
     G_OBJECT_CLASS(g_udisks_volume_monitor_parent_class)->finalize(object);
 }
 
-static update_volume_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
+static void update_volume_drive(GUDisksVolume* vol, GUDisksVolumeMonitor* mon)
 {
     /* set association between drive and volumes here */
     GUDisksDevice* dev;
@@ -315,7 +315,7 @@ GMount *get_mount_for_uuid(GVolumeMonitor *mon, const char *uuid)
 void drive_eject_button(GVolumeMonitor *mon, GDrive *drive)
 {
     /* TODO */
-    GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
+    //GUDisksVolumeMonitor* umon = G_UDISKS_VOLUME_MONITOR(mon);
 
 }
 

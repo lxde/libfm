@@ -38,6 +38,7 @@ gboolean _fm_udisks_init()
         G_UDISKS_VOLUME_MONITOR_TYPE,
         "udisks-monitor", 2 /* the gdu monitor provided by gvfs uses priority 3 */
     );
+    return TRUE;
 }
 
 void _fm_udisks_finalize()

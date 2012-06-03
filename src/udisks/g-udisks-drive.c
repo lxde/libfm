@@ -77,21 +77,21 @@ static gboolean g_udisks_drive_can_poll_for_media (GDrive* base)
 
 static gboolean g_udisks_drive_can_start (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static gboolean g_udisks_drive_can_start_degraded (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static gboolean g_udisks_drive_can_stop (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
@@ -268,19 +268,19 @@ static void g_udisks_drive_eject_with_operation (GDrive* base, GMountUnmountFlag
 
 static gboolean g_udisks_drive_eject_with_operation_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static void g_udisks_drive_eject (GDrive* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     g_udisks_drive_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
 static gboolean g_udisks_drive_eject_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return g_udisks_drive_eject_with_operation_finish(base, res, error);
 }
 
@@ -322,14 +322,14 @@ static char* g_udisks_drive_get_identifier (GDrive* base, const char* kind)
 
 static char* g_udisks_drive_get_name (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return g_strdup("");
 }
 
 static GDriveStartStopType g_udisks_drive_get_start_stop_type (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return G_DRIVE_START_STOP_TYPE_UNKNOWN;
 }
@@ -342,7 +342,7 @@ static gboolean g_udisks_drive_has_media (GDrive* base)
 
 static gboolean g_udisks_drive_has_volumes (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return FALSE;
 }
 
@@ -361,38 +361,38 @@ static gboolean g_udisks_drive_is_media_removable (GDrive* base)
 
 static void g_udisks_drive_poll_for_media (GDrive* base, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_poll_for_media_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return FALSE;
 }
 
 static void g_udisks_drive_start (GDrive* base, GDriveStartFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_start_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static void g_udisks_drive_stop (GDrive* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_stop_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }

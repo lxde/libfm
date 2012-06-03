@@ -131,13 +131,13 @@ static gboolean g_udisks_mount_eject_with_operation_finish(GMount* base, GAsyncR
 
 static void g_udisks_mount_eject (GMount* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+    //GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     g_udisks_mount_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
 static gboolean g_udisks_mount_eject_finish(GMount* base, GAsyncResult* res, GError** error)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+    //GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     return g_udisks_mount_eject_with_operation_finish(base, res, error);
 }
 
@@ -258,11 +258,11 @@ static gchar** g_udisks_mount_guess_content_type_sync (GMount* base, gboolean fo
     return NULL;
 }
 
-static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
-{
-    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+//static void g_udisks_mount_remount (GMount* base, GMountMountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
+//{
+//    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     /* TODO */
-}
+//}
 
 static void unmount_callback(DBusGProxy *proxy, GError *error, gpointer user_data)
 {
@@ -325,7 +325,7 @@ static void g_udisks_mount_unmount_with_operation (GMount* base, GMountUnmountFl
 
 static gboolean g_udisks_mount_unmount_with_operation_finish(GMount* base, GAsyncResult* res, GError** error)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+    //GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
@@ -336,7 +336,7 @@ static void g_udisks_mount_unmount (GMount* base, GMountUnmountFlags flags, GCan
 
 static gboolean g_udisks_mount_unmount_finish(GMount* base, GAsyncResult* res, GError** error)
 {
-    GUDisksMount* mnt = G_UDISKS_MOUNT(base);
+    //GUDisksMount* mnt = G_UDISKS_MOUNT(base);
     return g_udisks_mount_unmount_with_operation_finish(base, res, error);
 }
 
