@@ -58,6 +58,8 @@ static void fm_file_info_job_finalize(GObject *object)
 
     self = (FmFileInfoJob*)object;
     fm_list_unref(self->file_infos);
+    if(self->current)
+        fm_path_unref(self->current);
 
     G_OBJECT_CLASS(fm_file_info_job_parent_class)->finalize(object);
 }
@@ -104,7 +106,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
         GList* next = l->next;
         FmPath* path = fm_file_info_get_path(fi);
 
-        job->current = path;
+        job->current = fm_path_ref(path);
 
         if(fm_path_is_native(path))
         {
@@ -169,7 +171,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                 }
             }
 
-            gf = fm_path_to_gfile(fm_file_info_get_path(fi));
+            gf = fm_path_to_gfile(path);
             if(!_fm_file_info_job_get_info_for_gfile(fmjob, fi, gf, &err))
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);

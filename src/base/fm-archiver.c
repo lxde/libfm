@@ -121,6 +121,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
         fm_app_info_launch_uris(app, uris, ctx, NULL);
         g_list_foreach(uris, (GFunc)g_free, NULL);
         g_list_free(uris);
+        g_object_unref(app);
     }
     g_free(_cmd);
     return TRUE;

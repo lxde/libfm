@@ -67,6 +67,7 @@ void fm_file_info_unref( FmFileInfo* fi );
 
 void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src);
 
+/** returned FmPath shouldn't be unref by caller */
 FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );

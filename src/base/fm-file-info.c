@@ -446,13 +446,11 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
         fi->collate_key = g_strdup(src->collate_key);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
-    fi->mime_type = fm_mime_type_ref(src->mime_type);
-    fi->icon = fm_icon_ref(src->icon);
 }
 
 FmIcon* fm_file_info_get_icon(FmFileInfo* fi)
 {
-    return fi->icon;
+    return fi->icon ? fm_icon_ref(fi->icon) : NULL;
 }
 
 FmPath* fm_file_info_get_path(FmFileInfo* fi)
@@ -515,7 +513,7 @@ goffset fm_file_info_get_blocks(FmFileInfo* fi)
 
 FmMimeType* fm_file_info_get_mime_type(FmFileInfo* fi)
 {
-    return fi->mime_type;
+    return fi->mime_type ? fm_mime_type_ref(fi->mime_type) : NULL;
 }
 
 mode_t fm_file_info_get_mode(FmFileInfo* fi)

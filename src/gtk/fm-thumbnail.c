@@ -862,7 +862,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
         GdkPixbuf* ori_pix = NULL;
 #ifdef USE_EXIF
 		/* use libexif to extract thumbnails embedded in jpeg files */
-        const FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
+        FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
         if(strcmp(mime_type->type, "image/jpeg") == 0) /* if this is a jpeg file */
         {
 			/* try to extract thumbnails embedded in jpeg files */
@@ -891,6 +891,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 				exif_data_unref(exif_data);
 			}
 		}
+	fm_mime_type_unref(mime_type);
 		if(!ori_pix)
 			ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
 #else

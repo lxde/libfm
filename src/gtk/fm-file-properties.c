@@ -149,6 +149,8 @@ static void fm_file_prop_data_free(FmFilePropData* data)
         g_source_remove(data->timeout);
     if(data->dc_job) /* FIXME: check if it's running */
         fm_job_cancel(FM_JOB(data->dc_job));
+    if(data->mime_type)
+        fm_mime_type_unref(data->mime_type);
     fm_list_unref(data->files);
     g_slice_free(FmFilePropData, data);
 }
@@ -444,7 +446,7 @@ static void update_permissions(FmFilePropData* data)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
 
-        if( !fm_path_is_native(fm_file_info_get_path(fi)) )
+        if(data->all_native && !fm_path_is_native(fm_file_info_get_path(fi)))
             data->all_native = FALSE;
 
         fi_mode = fm_file_info_get_mode(fi);
@@ -596,7 +598,10 @@ static void update_ui(FmFilePropData* data)
             FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(data->files));
             FmIcon* fi_icon = fm_file_info_get_icon(fi);
             if(fi_icon)
+            {
                 icon = fi_icon->gicon;
+                fm_icon_unref(fi_icon);
+            }
         }
 
         if(data->mime_type)

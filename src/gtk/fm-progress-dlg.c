@@ -190,11 +190,13 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     char* tmp;
     const char* disp_size;
     FmPath* path = fm_file_info_get_path(dest);
-    FmIcon* icon = fm_file_info_get_icon(src);
+    FmIcon* icon;
 
     /* return default operation if the user has set it */
     if(data->default_opt)
         return data->default_opt;
+
+    icon = fm_file_info_get_icon(src);
 
     if(data->timer)
         g_timer_stop(data->timer);
@@ -283,6 +285,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     }
 
     gtk_widget_destroy(GTK_WIDGET(dlg));
+    fm_icon_unref(icon);
 
     if(data->timer)
         g_timer_continue(data->timer);

@@ -174,16 +174,16 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     switch((GdkDragAction)action)
     {
     case GDK_ACTION_MOVE:
-        if(fm_path_is_trash_root(fm_dnd_dest_get_dest_path(dd)))
+        if(fm_path_is_trash_root(dest))
             fm_trash_files(GTK_WINDOW(parent), files);
         else
-            fm_move_files(GTK_WINDOW(parent), files, fm_dnd_dest_get_dest_path(dd));
+            fm_move_files(GTK_WINDOW(parent), files, dest);
         break;
     case GDK_ACTION_COPY:
-        fm_copy_files(GTK_WINDOW(parent), files, fm_dnd_dest_get_dest_path(dd));
+        fm_copy_files(GTK_WINDOW(parent), files, dest);
         break;
     case GDK_ACTION_LINK:
-        // fm_link_files(parent, files, fm_dnd_dest_get_dest_path(dd));
+        // fm_link_files(parent, files, dest);
         break;
     case GDK_ACTION_ASK:
         g_debug("TODO: GDK_ACTION_ASK");
@@ -442,6 +442,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 {
     GdkDragAction action;
     FmFileInfo* dest = dd->dest_file;
+    FmPath* dest_path;
 
     if(!dd->src_files)  /* we didn't have any data, cache it */
     {
@@ -454,7 +455,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         }
     }
 
-    if(!dest || !fm_file_info_get_path(dest))
+    if(!dest || !(dest_path = fm_file_info_get_path(dest)))
         return FALSE;
 
     /* this is XDirectSave */
@@ -463,7 +464,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
     if(dd->src_files) /* we have got drag source files */
     {
-        FmPath* dest_path = fm_file_info_get_path(dest);
         if(fm_path_is_trash(dest_path))
         {
             if(fm_path_is_trash_root(dest_path)) /* we can only move files to trash can */

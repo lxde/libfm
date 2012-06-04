@@ -134,6 +134,7 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     res = gtk_dialog_run(dlg);
     gtk_widget_destroy(GTK_WIDGET(dlg));
     g_object_unref(b);
+    fm_icon_unref(fi_icon);
 
     if(res <=0)
         res = FM_FILE_LAUNCHER_EXEC_CANCEL;

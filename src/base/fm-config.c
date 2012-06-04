@@ -65,8 +65,17 @@ static void fm_config_class_init(FmConfigClass *klass)
 
 static void fm_config_finalize(GObject *object)
 {
+    FmConfig* cfg;
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_CONFIG(object));
+
+    cfg = (FmConfig*)object;
+    if(cfg->terminal)
+        g_free(cfg->terminal);
+    if(cfg->archiver)
+        g_free(cfg->archiver);
+    cfg->terminal = NULL;
+    cfg->archiver = NULL;
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
@@ -103,7 +112,11 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
+    if(cfg->terminal)
+        g_free(cfg->terminal);
     cfg->terminal = g_key_file_get_string(kf, "config", "terminal", NULL);
+    if(cfg->archiver)
+        g_free(cfg->archiver);
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
