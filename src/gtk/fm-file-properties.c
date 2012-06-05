@@ -598,10 +598,7 @@ static void update_ui(FmFilePropData* data)
             FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(data->files));
             FmIcon* fi_icon = fm_file_info_get_icon(fi);
             if(fi_icon)
-            {
                 icon = fi_icon->gicon;
-                fm_icon_unref(fi_icon);
-            }
         }
 
         if(data->mime_type)
@@ -713,7 +710,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     data->single_file = (fm_list_get_length(files) == 1);
     data->fi = fm_list_peek_head(files);
     if(data->single_type)
-        data->mime_type = fm_file_info_get_mime_type(data->fi); /* FIXME: do we need ref counting here? */
+        data->mime_type = fm_mime_type_ref(fm_file_info_get_mime_type(data->fi));
     paths = fm_path_list_new_from_file_info_list(files);
     data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
     fm_list_unref(paths);

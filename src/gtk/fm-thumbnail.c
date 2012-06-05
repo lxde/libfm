@@ -891,7 +891,6 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 				exif_data_unref(exif_data);
 			}
 		}
-	fm_mime_type_unref(mime_type);
 		if(!ori_pix)
 			ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
 #else

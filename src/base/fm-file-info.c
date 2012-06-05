@@ -450,7 +450,7 @@ void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
 
 FmIcon* fm_file_info_get_icon(FmFileInfo* fi)
 {
-    return fi->icon ? fm_icon_ref(fi->icon) : NULL;
+    return fi->icon;
 }
 
 FmPath* fm_file_info_get_path(FmFileInfo* fi)
@@ -513,7 +513,7 @@ goffset fm_file_info_get_blocks(FmFileInfo* fi)
 
 FmMimeType* fm_file_info_get_mime_type(FmFileInfo* fi)
 {
-    return fi->mime_type ? fm_mime_type_ref(fi->mime_type) : NULL;
+    return fi->mime_type;
 }
 
 mode_t fm_file_info_get_mode(FmFileInfo* fi)

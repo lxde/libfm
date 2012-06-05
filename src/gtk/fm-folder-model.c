@@ -488,7 +488,7 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
 
     FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
     FmFileInfo* info = item->inf;
-    FmIcon* icon = NULL;
+    FmIcon* icon;
 
     switch( column )
     {
@@ -554,8 +554,6 @@ void fm_folder_model_get_value(GtkTreeModel *tree_model,
         g_value_set_pointer(value, info);
         break;
     }
-    if(icon)
-        fm_icon_unref(icon);
 }
 
 gboolean fm_folder_model_iter_next(GtkTreeModel *tree_model,

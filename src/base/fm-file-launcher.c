@@ -258,8 +258,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 fis = g_list_prepend(fis, fi);
                 g_hash_table_insert(hash, mime_type->type, fis);
             }
-            if(mime_type)
-                fm_mime_type_unref(mime_type);
         }
     }
 
@@ -278,7 +276,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     FmMimeType* mime_type = fm_file_info_get_mime_type((FmFileInfo*)fis->data);
                     app = launcher->get_app(fis, mime_type, user_data, NULL);
-                    fm_mime_type_unref(mime_type);
                 }
             }
             if(app)

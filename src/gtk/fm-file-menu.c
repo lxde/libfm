@@ -424,7 +424,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
 
     g_string_free(xml, TRUE);
-    fm_mime_type_unref(mime_type);
     return data;
 }
 
@@ -528,8 +527,6 @@ void on_open_with(GtkAction* action, gpointer user_data)
         /* FIXME: what to do if mime_type is NULL? */
         g_object_unref(app);
     }
-    if(mime_type)
-        fm_mime_type_unref(mime_type);
 }
 
 void on_cut(GtkAction* action, gpointer user_data)

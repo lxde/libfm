@@ -346,7 +346,6 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
             if(!item->icon)
                 item->icon = fm_icon_get_pixbuf(icon, model->icon_size);
             g_value_set_object(value, item->icon);
-            fm_icon_unref(icon);
         }
         else
             g_value_set_object(value, NULL);

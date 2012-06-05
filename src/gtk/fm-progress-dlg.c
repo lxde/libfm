@@ -181,7 +181,7 @@ static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
 static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name, FmProgressDisplay* data)
 {
     int res;
-    GtkBuilder* builder = gtk_builder_new();
+    GtkBuilder* builder;
     GtkDialog *dlg;
     GtkImage *src_icon, *dest_icon;
     GtkLabel *src_fi, *dest_fi;
@@ -189,13 +189,15 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     GtkToggleButton *apply_all;
     char* tmp;
     const char* disp_size;
-    FmPath* path = fm_file_info_get_path(dest);
+    FmPath* path;
     FmIcon* icon;
 
     /* return default operation if the user has set it */
     if(data->default_opt)
         return data->default_opt;
 
+    builder = gtk_builder_new();
+    path = fm_file_info_get_path(dest);
     icon = fm_file_info_get_icon(src);
 
     if(data->timer)
