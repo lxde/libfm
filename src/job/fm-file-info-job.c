@@ -28,6 +28,8 @@
 #include <menu-cache.h>
 #include <errno.h>
 
+#include "fm-file-info.h"
+
 static void fm_file_info_job_finalize              (GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
@@ -91,8 +93,6 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
     }
     return job;
 }
-
-void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item);
 
 gboolean fm_file_info_job_run(FmJob* fmjob)
 {
@@ -158,7 +158,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     else
                         dir = menu_cache_get_root_dir(mc);
                     if(dir)
-                        _fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
+                        fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
                     else
                     {
                         next = l->next;

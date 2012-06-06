@@ -80,7 +80,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
         }
 
         /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
-        tmp = fm_str_replace(dir_str, "%", "%%");
+        tmp = fm_strdup_replace(dir_str, "%", "%%");
         g_free(dir_str);
         dir_str = tmp;
 

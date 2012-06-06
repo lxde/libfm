@@ -34,6 +34,11 @@
 #include "fm-path.h"
 #include "fm-mime-type.h"
 
+/* if no <menu-cache.h> included */
+#ifndef MenuCacheItem
+typedef struct _MenuCacheItem MenuCacheItem;
+#endif
+
 G_BEGIN_DECLS
 
 /* Some flags are defined for future use and are not supported now */
@@ -59,6 +64,9 @@ void _fm_file_info_finalize();
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
+
+FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item);
+void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item);
 
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
 
@@ -122,7 +130,7 @@ dev_t fm_file_info_get_dev( FmFileInfo* fi );
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 
 FmFileInfoList* fm_file_info_list_new();
-FmFileInfoList* fm_file_info_list_new_from_glist();
+//FmFileInfoList* fm_file_info_list_new_from_glist();
 
 gboolean fm_list_is_file_info_list(FmList* list);
 

@@ -63,7 +63,7 @@ struct _FmBookmarksClass
 };
 
 GType fm_bookmarks_get_type(void);
-FmBookmarks* fm_bookmarks_get(void);
+FmBookmarks* fm_bookmarks_dup(void);
 
 #define fm_bookmarks_append(bookmarks, path, name)  fm_bookmarks_insert(bookmarks, path, name, -1)
 FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const char* name, int pos);

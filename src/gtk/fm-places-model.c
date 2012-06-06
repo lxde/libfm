@@ -680,7 +680,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     /* get the path of separator */
     self->separator_tree_path = gtk_tree_model_get_path(GTK_TREE_MODEL(self), &self->separator_iter);
 
-    self->bookmarks = fm_bookmarks_get(); /* bookmarks */
+    self->bookmarks = fm_bookmarks_dup(); /* bookmarks */
     g_signal_connect(self->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), self);
 
     /* add bookmarks to side pane */

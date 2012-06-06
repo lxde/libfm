@@ -32,6 +32,8 @@
 #include "fm-file-info-job.h"
 #include <menu-cache.h>
 
+#include "fm-file-info.h"
+
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
 static void fm_dir_list_job_finalize              (GObject *object);
@@ -97,9 +99,6 @@ static void fm_dir_list_job_finalize(GObject *object)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
 }
 
-
-/* defined in fm-file-info.c */
-FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item);
 
 static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 {
@@ -179,7 +178,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
 
     if(dir)
     {
-        job->dir_fi = _fm_file_info_new_from_menu_cache_item(job->dir_path, MENU_CACHE_ITEM(dir));
+        job->dir_fi = fm_file_info_new_from_menu_cache_item(job->dir_path, MENU_CACHE_ITEM(dir));
         for(l=menu_cache_dir_get_children(dir);l;l=l->next)
         {
             MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
@@ -193,7 +192,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
             if(G_UNLIKELY(job->dir_only) && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
                 continue;
             item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
-            fi = _fm_file_info_new_from_menu_cache_item(item_path, item);
+            fi = fm_file_info_new_from_menu_cache_item(item_path, item);
             fm_path_unref(item_path);
             fm_list_push_tail_noref(job->files, fi);
         }

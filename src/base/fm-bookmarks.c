@@ -82,12 +82,12 @@ static void fm_bookmarks_finalize(GObject *object)
     G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
 }
 
-char* get_bookmarks_file()
+static char* get_bookmarks_file()
 {
     return g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
 }
 
-void free_item(FmBookmarkItem* item)
+static void free_item(FmBookmarkItem* item)
 {
     if(item->name != item->path->name)
         g_free(item->name);
@@ -129,7 +129,7 @@ static FmBookmarkItem* new_item(char* line)
     return item;
 }
 
-GList* load_bookmarks(const char* fpath)
+static GList* load_bookmarks(const char* fpath)
 {
     FILE* f;
     char buf[1024];
@@ -163,12 +163,12 @@ static void fm_bookmarks_init(FmBookmarks *self)
     g_free(fpath);
 }
 
-FmBookmarks *fm_bookmarks_new(void)
+static FmBookmarks *fm_bookmarks_new(void)
 {
     return g_object_new(FM_BOOKMARKS_TYPE, NULL);
 }
 
-FmBookmarks* fm_bookmarks_get(void)
+FmBookmarks* fm_bookmarks_dup(void)
 {
     if( G_LIKELY(singleton) )
         g_object_ref(singleton);
@@ -185,7 +185,7 @@ GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
     return bookmarks->items;
 }
 
-gboolean save_bookmarks(FmBookmarks* bookmarks)
+static gboolean save_bookmarks(FmBookmarks* bookmarks)
 {
     FmBookmarkItem* item;
     GList* l;
@@ -212,7 +212,7 @@ gboolean save_bookmarks(FmBookmarks* bookmarks)
     return FALSE;
 }
 
-void queue_save_bookmarks(FmBookmarks* bookmarks)
+static void queue_save_bookmarks(FmBookmarks* bookmarks)
 {
     if(idle_handler)
         g_source_remove(idle_handler);

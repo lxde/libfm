@@ -214,7 +214,7 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     return ret;
 }
 
-char* fm_str_replace(char* str, char* old, char* new)
+char* fm_strdup_replace(char* str, char* old, char* new)
 {
     int len = strlen(str);
     char* found;
