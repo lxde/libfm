@@ -353,7 +353,7 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
 {
     GtkWidget* mi = gtk_ui_manager_get_widget(ui, "/menubar/BookmarksMenu");
     win->bookmarks_menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(mi));
-    win->bookmarks = fm_bookmarks_get();
+    win->bookmarks = fm_bookmarks_dup();
     g_signal_connect(win->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), win);
 
     create_bookmarks_menu(win);

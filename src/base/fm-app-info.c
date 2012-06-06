@@ -165,7 +165,7 @@ static char* expand_terminal(char* cmd)
     return ret;
 }
 
-gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
+static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
 {
     gboolean ret = FALSE;
     char* cmd, *path;

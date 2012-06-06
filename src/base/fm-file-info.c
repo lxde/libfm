@@ -23,6 +23,7 @@
 #include <config.h>
 #endif
 
+#include <menu-cache.h>
 #include "fm-file-info.h"
 #include <glib.h>
 #include <glib/gi18n-lib.h>
@@ -36,7 +37,6 @@
 #include <unistd.h>
 
 #include "fm-utils.h"
-#include <menu-cache.h>
 
 #define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
@@ -88,6 +88,7 @@ void _fm_file_info_init()
     desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop");
 
     /* fake mime-types for mountable and shortcuts */
+    /* FIXME: don't set description directly! */
     shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut");
     shortcut_type->description = g_strdup(_("Shortcuts"));
 
@@ -97,7 +98,9 @@ void _fm_file_info_init()
 
 void _fm_file_info_finalize()
 {
-
+    fm_mime_type_unref(desktop_entry_type);
+    fm_mime_type_unref(shortcut_type);
+    fm_mime_type_unref(mountable_type);
 }
 
 FmFileInfo* fm_file_info_new ()
@@ -169,6 +172,8 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                 fi->icon = icon;
             else
                 fi->icon = fm_icon_ref(fi->mime_type->icon);
+            g_key_file_free(kf);
+            g_free(fpath);
         }
         else
             fi->icon = fm_icon_ref(fi->mime_type->icon);
@@ -302,7 +307,7 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
     return fi;
 }
 
-void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
+void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
     const char* icon_name = menu_cache_item_get_icon(item);
     fi->disp_name = g_strdup(menu_cache_item_get_name(item));
@@ -341,11 +346,11 @@ void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     fi->mime_type = fm_mime_type_ref(shortcut_type);
 }
 
-FmFileInfo* _fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
+FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {
     FmFileInfo* fi = fm_file_info_new();
     fi->path = fm_path_ref(path);
-    _fm_file_info_set_from_menu_cache_item(fi, item);
+    fm_file_info_set_from_menu_cache_item(fi, item);
     return fi;
 }
 
@@ -581,6 +586,7 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
     const char* name = fi->path->name;
     /* files with . prefix or ~ suffix are regarded as hidden files.
      * dirs with . prefix are regarded as hidden dirs. */
+    /* FIXME: bug #3416724: backup and hidden files should be distinguishable */
     return (name[0] == '.' ||
        (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
 }

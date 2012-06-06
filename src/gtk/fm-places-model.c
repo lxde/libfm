@@ -557,7 +557,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     /* get the path of separator */
     self->sep_tp = gtk_tree_model_get_path(GTK_TREE_MODEL(self), &self->sep_it);
 
-    self->bookmarks = fm_bookmarks_get(); /* bookmarks */
+    self->bookmarks = fm_bookmarks_dup(); /* bookmarks */
     g_signal_connect(self->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), self);
 
     /* add bookmarks to side pane */
@@ -642,6 +642,8 @@ static void fm_places_model_finalize(GObject *object)
     }
 
     gtk_tree_path_free(self->sep_tp);
+
+    g_object_unref(self->bookmarks);
 
     g_signal_handler_disconnect(gtk_icon_theme_get_default(), self->theme_change_handler);
     g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
