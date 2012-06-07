@@ -653,6 +653,13 @@ static void fm_places_model_finalize(GObject *object)
     g_signal_handlers_disconnect_by_func(self->vol_mon, on_mount_added, self);
     g_object_unref(self->vol_mon);
 
+
+    if(self->bookmarks)
+    {
+        g_signal_handlers_disconnect_by_func(self->bookmarks, on_bookmarks_changed, self);
+        g_object_unref(self->bookmarks);
+    }
+
     if(self->trash_monitor)
     {
         g_signal_handlers_disconnect_by_func(self->trash_monitor, on_trash_changed, self);
