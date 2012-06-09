@@ -570,7 +570,7 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
 
                                 gtk_tree_path_free(view->clicked_row);
                                 view->clicked_row = NULL;
-                                return TRUE;
+                                goto _out;
                             }
                         }
                     }
@@ -584,6 +584,7 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         gtk_tree_path_free(view->clicked_row);
         view->clicked_row = NULL;
     }
+_out:
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
 }
 
