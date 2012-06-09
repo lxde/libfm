@@ -51,8 +51,7 @@ void fm_thumbnailer_free(FmThumbnailer* thumbnailer)
 	{
 		FmMimeType* mime_type = (FmMimeType*)l->data;
 		/* remove ourself from FmMimeType */
-		/* FIXME: this is not thread-safe. Will this cause problems? */
-		mime_type->thumbnailers = g_list_remove(mime_type->thumbnailers, mime_type);
+		fm_mime_type_remove_thumbnailer(mime_type, thumbnailer);
 		fm_mime_type_unref(mime_type);
 	}
 	g_list_free(thumbnailer->mime_types);
@@ -85,7 +84,8 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
 					 * freed. We need to do it this way. Otherwise, mutual reference
 					 * of FmMimeType and FmThumbnailer objects will cause cyclic
 					 * reference. */
-					mime_type->thumbnailers = g_list_append(mime_type->thumbnailers, thumbnailer);
+					/* FIXME: this seems as cyclic ref */
+					fm_mime_type_add_thumbnailer(mime_type, thumbnailer);
 
 					/* Do not call fm_mime_type_unref() here so we own a reference
 					 * to the FmMimeType object */
