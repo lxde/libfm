@@ -710,8 +710,8 @@ dev_t fm_file_info_get_dev(FmFileInfo* fi)
 
 static FmListFuncs fm_list_funcs =
 {
-    (gpointer (*)(gpointer))&fm_file_info_ref,
-    (void (*)(gpointer))&fm_file_info_unref
+    .item_ref = (gpointer (*)(gpointer))&fm_file_info_ref,
+    .item_unref = (void (*)(gpointer))&fm_file_info_unref
 };
 
 FmFileInfoList* fm_file_info_list_new()

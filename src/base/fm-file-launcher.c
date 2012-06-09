@@ -116,7 +116,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
 
     if(app) {
         ret = fm_app_info_launch_uris(app, uris, ctx, &err);
-        g_object_unref(app)
+        g_object_unref(app);
     }
 
     if(err)
