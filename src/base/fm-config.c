@@ -111,6 +111,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
+    fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -179,6 +180,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "single_click=%d\n", cfg->single_click);
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
+            fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

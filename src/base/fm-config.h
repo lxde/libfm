@@ -76,6 +76,7 @@ struct _FmConfig
     gboolean si_unit;   /* use SI prefix for file sizes */
 
     char* archiver; /* desktop_id of the archiver used */
+    gboolean advanced_mode; /* enable advanced features for experienced user */
 };
 
 struct _FmConfigClass

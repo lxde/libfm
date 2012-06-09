@@ -38,6 +38,7 @@
 #include "fm-file-ops-job.h"
 #include "fm-utils.h"
 #include "fm-path.h"
+#include "fm-config.h"
 
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
@@ -623,10 +624,16 @@ static void update_permissions(FmFilePropData* data)
         return;
     }
     if(data->has_dir)
+        gtk_label_set_label(data->exec_label, _("<b>Access content:</b>"));
+    if(!fm_config->advanced_mode)
     {
-        gtk_label_set_label(data->exec_label, _("<b>Enter:</b>"));
+        gtk_widget_hide(GTK_WIDGET(data->flags_label));
         gtk_widget_hide(GTK_WIDGET(data->flags_set_file));
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_dir));
+        data->flags_set_sel = NO_CHANGE;
     }
+    else if(data->has_dir)
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_file));
     else
         gtk_widget_hide(GTK_WIDGET(data->flags_set_dir));
 
