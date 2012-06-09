@@ -76,6 +76,13 @@ static const char vol_menu_xml[]=
   "</placeholder>"
 "</popup>";
 
+static const char mount_menu_xml[]=
+"<popup>"
+  "<placeholder name='ph3'>"
+  "<menuitem action='Unmount'/>"
+  "</placeholder>"
+"</popup>";
+
 static GtkActionEntry vol_menu_actions[]=
 {
     {"Mount", NULL, N_("Mount Volume"), NULL, NULL, G_CALLBACK(on_mount)},
@@ -220,13 +227,15 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
         /* the user is dragging files. get FmFileInfo of drop site. */
         if(pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE || pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) /* drag into items */
         {
-            FmPlaceItem* item = NULL;
+            FmPlacesItem* item = NULL;
             GtkTreeIter it;
+            FmFileInfo* fi;
             /* FIXME: handle adding bookmarks with Dnd */
             if(tp && gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
                 gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
 
-            fm_dnd_dest_set_dest_file(view->dnd_dest, item && item->fi ? item->fi : NULL);
+            fi = item ? fm_places_item_get_info(item) : NULL;
+            fm_dnd_dest_set_dest_file(view->dnd_dest, fi);
             ret = action != 0;
         }
         else /* drop between items, create bookmark items for dragged files */
@@ -321,7 +330,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                 if(ret)
                 {
                     GtkTreeIter src_it, dest_it;
-                    FmPlaceItem* item = NULL;
+                    FmPlacesItem* item = NULL;
                     ret = FALSE;
                     /* get the source bookmark item */
                     if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &src_it, src_tp))
@@ -337,12 +346,12 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                             sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
 
                             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
-                                gtk_list_store_move_before(&model->parent, &src_it, &dest_it);
+                                gtk_list_store_move_before(GTK_LIST_STORE(model), &src_it, &dest_it);
                             else
-                                gtk_list_store_move_after(&model->parent, &src_it, &dest_it);
+                                gtk_list_store_move_after(GTK_LIST_STORE(model), &src_it, &dest_it);
                             new_pos = gtk_tree_path_get_indices(dest_tp)[0] - sep_pos - 1;
                             /* reorder the bookmark item */
-                            fm_bookmarks_reorder(model->bookmarks, item->bm_item, new_pos);
+                            fm_bookmarks_reorder(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item), new_pos);
                             ret = TRUE;
                         }
                     }
@@ -432,26 +441,27 @@ void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
     GtkTreeIter it;
     if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tree_path))
     {
-        FmPlaceItem* item;
+        FmPlacesItem* item;
         FmPath* path;
         gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
         if(!item)
             return;
-        switch(item->type)
+        switch(fm_places_item_get_type(item))
         {
         case FM_PLACES_ITEM_PATH:
-            path = fm_path_ref(fm_file_info_get_path(item->fi));
+        case FM_PLACES_ITEM_MOUNT:
+            path = fm_path_ref(fm_places_item_get_path(item));
             break;
-        case FM_PLACES_ITEM_VOL:
+        case FM_PLACES_ITEM_VOLUME:
         {
             GFile* gf;
-            GMount* mnt = g_volume_get_mount(item->vol);
+            GMount* mnt = g_volume_get_mount(fm_places_item_get_volume(item));
             if(!mnt)
             {
                 GtkWindow* parent = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
-                if(!fm_mount_volume(parent, item->vol, TRUE))
+                if(!fm_mount_volume(parent, fm_places_item_get_volume(item), TRUE))
                     return;
-                mnt = g_volume_get_mount(item->vol);
+                mnt = g_volume_get_mount(fm_places_item_get_volume(item));
                 if(!mnt)
                 {
                     g_debug("GMount is invalid after successful g_volume_mount().\nThis is quite possibly a gvfs bug.\nSee https://bugzilla.gnome.org/show_bug.cgi?id=552168");
@@ -486,12 +496,12 @@ void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColu
     activate_row(FM_PLACES_VIEW(view), 1, tree_path);
 }
 
-void fm_places_chdir(FmPlacesView* pv, FmPath* path)
+void fm_places_view_chdir(FmPlacesView* pv, FmPath* path)
 {
     GtkTreeIter it;
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pv));
     GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(pv));
-    if(fm_places_model_find_path(FM_PLACES_MODEL(model), &it, path))
+    if(fm_places_model_get_iter_by_fm_path(FM_PLACES_MODEL(model), &it, path))
     {
         gtk_tree_selection_select_iter(ts, &it);
     }
@@ -524,28 +534,43 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                         /* do eject if needed */
                         if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
                         {
-                            FmPlaceItem* item;
+                            FmPlacesItem* item;
                             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-                            if(item && item->vol_mounted)
+                            if(item && fm_places_item_is_mounted(item))
                             {
                                 GtkWindow* toplevel = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
-                                /* eject the volume */
-                                if(g_volume_can_eject(item->vol))
-                                    fm_eject_volume(toplevel, item->vol, TRUE);
-                                else /* not ejectable, do unmount */
+                                GMount* mount;
+                                GVolume* volume;
+                                switch(fm_places_item_get_type(item))
                                 {
-                                    GMount* mnt = g_volume_get_mount(item->vol);
-                                    if(mnt)
+                                case FM_PLACES_ITEM_VOLUME:
+                                    volume = fm_places_item_get_volume(item);
+                                    /* eject the volume */
+                                    if(g_volume_can_eject(volume))
+                                        fm_eject_volume(toplevel, volume, TRUE);
+                                    else /* not ejectable, do unmount */
                                     {
-                                        fm_unmount_mount(toplevel, mnt, TRUE);
-                                        g_object_unref(mnt);
+                                        mount = g_volume_get_mount(volume);
+                                        if(mount)
+                                        {
+                                            fm_unmount_mount(toplevel, mount, TRUE);
+                                            g_object_unref(mount);
+                                        }
                                     }
+                                    break;
+                                case FM_PLACES_ITEM_MOUNT:
+                                    mount = fm_places_item_get_mount(item);
+                                    if(g_mount_can_unmount(mount))
+                                        fm_unmount_mount(toplevel, mount, TRUE);
+                                    break;
+                                default:
+                                    break;
                                 }
                                 gtk_tree_path_free(tp);
 
                                 gtk_tree_path_free(view->clicked_row);
                                 view->clicked_row = NULL;
-                                return TRUE;
+                                goto _out;
                             }
                         }
                     }
@@ -559,6 +584,7 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         gtk_tree_path_free(view->clicked_row);
         view->clicked_row = NULL;
     }
+_out:
     return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
 }
 
@@ -567,7 +593,7 @@ static void place_item_menu_unref(gpointer ui, GObject *menu)
     g_object_unref(ui);
 }
 
-GtkWidget* place_item_get_menu(FmPlaceItem* item)
+GtkWidget* place_item_get_menu(FmPlacesItem* item)
 {
     GtkWidget* menu = NULL;
     GtkUIManager* ui = gtk_ui_manager_new();
@@ -575,27 +601,27 @@ GtkWidget* place_item_get_menu(FmPlaceItem* item)
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     /* FIXME: merge with FmFileMenu when possible */
-    if(item->type == FM_PLACES_ITEM_PATH)
+    if(fm_places_item_get_type(item) == FM_PLACES_ITEM_PATH)
     {
-        if(item->bm_item)
+        if(fm_places_item_get_bookmark_item(item))
         {
             gtk_action_group_add_actions(act_grp, bm_menu_actions, G_N_ELEMENTS(bm_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, bookmark_menu_xml, -1, NULL);
         }
-        else if(fm_path_is_trash_root(fm_file_info_get_path(item->fi)))
+        else if(fm_path_is_trash_root(fm_places_item_get_path(item)))
         {
             gtk_action_group_add_actions(act_grp, trash_menu_actions, G_N_ELEMENTS(trash_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, trash_menu_xml, -1, NULL);
         }
     }
-    else if(item->type == FM_PLACES_ITEM_VOL)
+    else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
         GtkAction* act;
         GMount* mnt;
         gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
         gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
 
-        mnt = g_volume_get_mount(item->vol);
+        mnt = g_volume_get_mount(fm_places_item_get_volume(item));
         if(mnt) /* mounted */
         {
             g_object_unref(mnt);
@@ -608,11 +634,30 @@ GtkWidget* place_item_get_menu(FmPlaceItem* item)
             gtk_action_set_sensitive(act, FALSE);
         }
 
-        if(g_volume_can_eject(item->vol))
+        if(g_volume_can_eject(fm_places_item_get_volume(item)))
             act = gtk_action_group_get_action(act_grp, "Unmount");
         else
             act = gtk_action_group_get_action(act_grp, "Eject");
         gtk_action_set_visible(act, FALSE);
+    }
+    else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_MOUNT)
+    {
+        GtkAction* act;
+        GMount* mnt;
+        gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
+        gtk_ui_manager_add_ui_from_string(ui, mount_menu_xml, -1, NULL);
+
+        mnt = fm_places_item_get_mount(item);
+        if(mnt) /* mounted */
+        {
+            act = gtk_action_group_get_action(act_grp, "Mount");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        else /* not mounted */
+        {
+            act = gtk_action_group_get_action(act_grp, "Unmount");
+            gtk_action_set_sensitive(act, FALSE);
+        }
     }
     else
         goto _out;
@@ -655,7 +700,7 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
                 if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
                     && !fm_places_model_iter_is_separator(model, &it) )
                 {
-                    FmPlaceItem* item;
+                    FmPlacesItem* item;
                     GtkMenu* menu;
                     gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
                     menu = GTK_MENU(place_item_get_menu(item));
@@ -674,21 +719,37 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
 
 void on_mount(GtkAction* act, gpointer user_data)
 {
-    FmPlaceItem* item = (FmPlaceItem*)user_data;
-    GMount* mnt = g_volume_get_mount(item->vol);
-    if(!mnt)
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
-        if(!fm_mount_volume(NULL, item->vol, TRUE))
-            return;
+        GMount* mnt = g_volume_get_mount(fm_places_item_get_volume(item));
+        if(!mnt)
+        {
+            if(!fm_mount_volume(NULL, fm_places_item_get_volume(item), TRUE))
+                return;
+        }
+        else
+            g_object_unref(mnt);
     }
-    else
-        g_object_unref(mnt);
 }
 
 void on_umount(GtkAction* act, gpointer user_data)
 {
-    FmPlaceItem* item = (FmPlaceItem*)user_data;
-    GMount* mnt = g_volume_get_mount(item->vol);
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    GMount* mnt;
+    switch(fm_places_item_get_type(item))
+    {
+    case FM_PLACES_ITEM_VOLUME:
+        mnt = g_volume_get_mount(fm_places_item_get_volume(item));
+        break;
+    case FM_PLACES_ITEM_MOUNT:
+        /* FIXME: this seems to be broken. */
+        mnt = g_object_ref(fm_places_item_get_mount(item));
+        break;
+    default:
+        mnt = NULL;
+    }
+
     if(mnt)
     {
         fm_unmount_mount(NULL, mnt, TRUE);
@@ -698,28 +759,31 @@ void on_umount(GtkAction* act, gpointer user_data)
 
 void on_eject(GtkAction* act, gpointer user_data)
 {
-    FmPlaceItem* item = (FmPlaceItem*)user_data;
-    /* FIXME: get the toplevel window here */
-    fm_eject_volume(NULL, item->vol, TRUE);
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
+    {
+        /* FIXME: get the toplevel window here */
+        fm_eject_volume(NULL, fm_places_item_get_volume(item), TRUE);
+    }
 }
 
 void on_remove_bm(GtkAction* act, gpointer user_data)
 {
-    FmPlaceItem* item = (FmPlaceItem*)user_data;
-    fm_bookmarks_remove(model->bookmarks, item->bm_item);
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    fm_bookmarks_remove(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item));
 }
 
 void on_rename_bm(GtkAction* act, gpointer user_data)
 {
-    FmPlaceItem* item = (FmPlaceItem*)user_data;
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
     /* FIXME: we need to set a proper parent window for the dialog */
     char* new_name = fm_get_user_input(NULL, _("Rename Bookmark Item"),
-                                        _("Enter a new name:"), item->bm_item->name);
+                                        _("Enter a new name:"), fm_places_item_get_bookmark_item(item)->name);
     if(new_name)
     {
-        if(strcmp(new_name, item->bm_item->name))
+        if(strcmp(new_name, fm_places_item_get_bookmark_item(item)->name))
         {
-            fm_bookmarks_rename(model->bookmarks, item->bm_item, new_name);
+            fm_bookmarks_rename(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item), new_name);
         }
         g_free(new_name);
     }
@@ -761,7 +825,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
             {
                 FmFileInfo* fi = FM_FILE_INFO(l->data);
                 if(fm_file_info_is_dir(fi))
-                    fm_bookmarks_insert(model->bookmarks, fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
+                    fm_bookmarks_insert(fm_places_model_get_bookmarks(model), fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(tp);

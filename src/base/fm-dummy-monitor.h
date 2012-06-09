@@ -27,15 +27,15 @@
 
 G_BEGIN_DECLS
 
-#define FM_DUMMY_MONITOR_TYPE				(fm_dummy_monitor_get_type())
+#define FM_TYPE_DUMMY_MONITOR				(fm_dummy_monitor_get_type())
 #define FM_DUMMY_MONITOR(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_DUMMY_MONITOR_TYPE, FmDummyMonitor))
+			FM_TYPE_DUMMY_MONITOR, FmDummyMonitor))
 #define FM_DUMMY_MONITOR_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_DUMMY_MONITOR_TYPE, FmDummyMonitorClass))
-#define IS_FM_DUMMY_MONITOR(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_DUMMY_MONITOR_TYPE))
-#define IS_FM_DUMMY_MONITOR_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_DUMMY_MONITOR_TYPE))
+			FM_TYPE_DUMMY_MONITOR, FmDummyMonitorClass))
+#define FM_IS_DUMMY_MONITOR(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+			FM_TYPE_DUMMY_MONITOR))
+#define FM_IS_DUMMY_MONITOR_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
+			FM_TYPE_DUMMY_MONITOR))
 
 typedef struct _FmDummyMonitor			FmDummyMonitor;
 typedef struct _FmDummyMonitorClass		FmDummyMonitorClass;

@@ -23,6 +23,7 @@
 #include "fm-monitor.h"
 #include "fm-marshal.h"
 #include <string.h>
+#include "fm-dummy-monitor.h"
 
 enum {
     FILES_ADDED,
@@ -970,6 +971,47 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
 static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
 {
     /* g_debug("FmFolder::mount_removed"); */
+
+    /* NOTE: gvfs does not emit unmount signals for remote folders since
+     * GFileMonitor does not support remote filesystems at all. We do fake
+     * file monitoring with FmDummyMonitor dirty hack.
+     * So here is the side effect, no unmount notifications.
+     * We need to generate the signal ourselves. */
+
+    GFile* gfile = g_mount_get_root(mount);
+    if(gfile)
+    {
+        GSList* dummy_monitor_folders = NULL, *l;
+        GHashTableIter it;
+        FmPath* path;
+        FmFolder* folder;
+        FmPath* mounted_path = fm_path_new_for_gfile(gfile);
+        g_object_unref(gfile);
+
+        g_hash_table_iter_init(&it, hash);
+        while(g_hash_table_iter_next(&it, (gpointer*)&path, (gpointer*)&folder))
+        {
+            if(fm_path_has_prefix(path, mounted_path))
+            {
+                /* see if currently cached folders are below the mounted path.
+                 * Folders below the mounted folder are removed. */
+                if(FM_IS_DUMMY_MONITOR(folder->mon))
+                    dummy_monitor_folders = g_slist_prepend(dummy_monitor_folders, folder);
+            }
+        }
+        fm_path_unref(mounted_path);
+
+        for(l = dummy_monitor_folders; l; l = l->next)
+        {
+            folder = FM_FOLDER(l->data);
+            g_object_ref(folder);
+            g_signal_emit_by_name(folder->mon, "changed", folder->gf, NULL, G_FILE_MONITOR_EVENT_UNMOUNTED);
+            /* FIXME: should we emit a fake deleted event here? */
+            /* g_signal_emit_by_name(folder->mon, "changed", folder->gf, NULL, G_FILE_MONITOR_EVENT_DELETED); */
+            g_object_unref(folder);
+        }
+        g_slist_free(dummy_monitor_folders);
+    }
 }
 
 void _fm_folder_init()
