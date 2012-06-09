@@ -85,15 +85,12 @@ struct _FmFileInfo
 void _fm_file_info_init()
 {
     fm_mime_type_init();
-    desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop");
+    desktop_entry_type = fm_mime_type_get_for_type("application/x-desktop", NULL);
 
     /* fake mime-types for mountable and shortcuts */
-    /* FIXME: don't set description directly! */
-    shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut");
-    shortcut_type->description = g_strdup(_("Shortcuts"));
+    shortcut_type = fm_mime_type_get_for_type("inode/x-shortcut", _("Shortcuts"));
 
-    mountable_type = fm_mime_type_get_for_type("inode/x-mountable");
-    mountable_type->description = g_strdup(_("Mount Point"));
+    mountable_type = fm_mime_type_get_for_type("inode/x-mountable", _("Mount Point"));
 }
 
 void _fm_file_info_finalize()
@@ -205,7 +202,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     tmp = g_file_info_get_content_type(inf);
     if(tmp)
-        fi->mime_type = fm_mime_type_get_for_type(tmp);
+        fi->mime_type = fm_mime_type_get_for_type(tmp, NULL);
 
     fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
