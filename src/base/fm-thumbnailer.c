@@ -75,7 +75,7 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
 
 			for(mime_type_name = mime_types; *mime_type_name; ++mime_type_name)
 			{
-				FmMimeType* mime_type = fm_mime_type_get_for_type(*mime_type_name);
+				FmMimeType* mime_type = fm_mime_type_get_for_type(*mime_type_name, NULL);
 				if(mime_type)
 				{
 					/* here we only add items to mime_type->thumbnailers list and do not
