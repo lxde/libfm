@@ -1014,7 +1014,7 @@ void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 	{
 		GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
 		GList* l;
-		int generated = 0;
+		guint generated = 0;
 		for(l = thumbnailers; l; l = l->next)
 		{
 			FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
