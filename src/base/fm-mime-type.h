@@ -37,9 +37,9 @@ struct _FmMimeType
 {
     char* type; /* mime type name */
     char* description;  /* description of the mime type */
-	FmIcon* icon;
+    FmIcon* icon;
 
-	/* thumbnailers installed for the mime-type */
+    /* thumbnailers installed for the mime-type */
     GList* thumbnailers; /* FmMimeType does "not" own the FmThumbnailer objects */
 
     int n_ref;
@@ -71,9 +71,12 @@ const char* fm_mime_type_get_type( FmMimeType* mime_type );
 const char* fm_mime_type_get_desc( FmMimeType* mime_type );
 
 /* Get installed external thumbnailers for the mime-type.
- * Returns a list of FmThumbnailer.
- * The returned GList is owned by FmMimeType and should not be freed. */
+ * Returns a list of FmThumbnailer. */
 GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type);
+
+void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer);
+
+void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer);
 
 #if 0
 /*

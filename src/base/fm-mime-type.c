@@ -94,7 +94,10 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
         {
             int fd, len;
             if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
+            {
+                g_free(type);
                 return fm_mime_type_get_for_type( "text/plain" );
+            }
             fd = open(file_path, O_RDONLY);
             if( fd >= 0 )
             {
@@ -212,10 +215,12 @@ void fm_mime_type_unref( gpointer mime_type_ )
             fm_icon_unref( mime_type->icon );
         if(mime_type->thumbnailers)
         {
-			/* Note: we do not own references for FmThumbnailer here.
-			 * Just free the list */
-			g_list_free(mime_type->thumbnailers);
-		}
+            /* Note: we do not own references for FmThumbnailer here.
+             * Just free the list */
+            /* FIXME: this list should be free already or else it's failure
+               and fm-thumbnailer.c will try to unref this destroyed object */
+            g_list_free(mime_type->thumbnailers);
+        }
         g_slice_free( FmMimeType, mime_type );
     }
 }
@@ -232,7 +237,20 @@ const char* fm_mime_type_get_type( FmMimeType* mime_type )
 
 GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
 {
-	return mime_type->thumbnailers;
+    /* FIXME: need this be thread-safe? */
+    return g_list_copy(mime_type->thumbnailers);
+}
+
+void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
+{
+    /* FIXME: need this be thread-safe? */
+    mime_type->thumbnailers = g_list_append(mime_type->thumbnailers, thumbnailer);
+}
+
+void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
+{
+    /* FIXME: need this be thread-safe? */
+    mime_type->thumbnailers = g_list_remove(mime_type->thumbnailers, thumbnailer);
 }
 
 /* Get human-readable description of mime type */
