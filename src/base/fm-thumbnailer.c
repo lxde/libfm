@@ -172,21 +172,21 @@ static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir
 	GDir* dir = g_dir_open(dir_path, 0, NULL);
 	if(dir)
 	{
-		char* basename;
+		const char* basename;
 		while((basename = g_dir_read_name(dir)) != NULL)
 		{
 			/* we only want filenames with .thumbnailer extension */
 			if(G_LIKELY(g_str_has_suffix(basename, ".thumbnailer")))
-				g_hash_table_replace(hash, g_strdup(basename), data_dir);
+				g_hash_table_replace(hash, g_strdup(basename), dir_path);
 		}
 		g_dir_close(dir);
 	}
-	g_free(dir_path);
+	//g_free(dir_path);
 }
 
-static void load_thumbnailers_from_data_dir(const char* basename, const char* data_dir, GKeyFile* kf)
+static void load_thumbnailers_from_data_dir(const char* basename, const char* dir_path, GKeyFile* kf)
 {
-	char* file_path = g_build_filename(data_dir, "thumbnailers", basename, NULL);
+	char* file_path = g_build_filename(dir_path, basename, NULL);
 	if(g_key_file_load_from_file(kf, file_path, 0, NULL))
 	{
 		FmThumbnailer* thumbnailer = fm_thumbnailer_new_from_keyfile(basename, kf);
@@ -204,7 +204,7 @@ static void load_thumbnailers()
 	/* use a temporary hash table to collect thumbnailer basenames
 	 * key: basename of thumbnailer entry file
 	 * value: data dir the thumbnailer entry file is in */
-	GHashTable* tmp_hash = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	GHashTable* tmp_hash = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
 	GKeyFile* kf = g_key_file_new(); /* keyfile used to load thumbnailer entry files */
 
 	/* load system-wide thumbnailers */
