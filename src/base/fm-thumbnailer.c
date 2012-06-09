@@ -177,11 +177,11 @@ static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir
 		{
 			/* we only want filenames with .thumbnailer extension */
 			if(G_LIKELY(g_str_has_suffix(basename, ".thumbnailer")))
-				g_hash_table_replace(hash, g_strdup(basename), dir_path);
+				g_hash_table_replace(hash, g_strdup(basename), g_strdup(dir_path));
 		}
 		g_dir_close(dir);
 	}
-	//g_free(dir_path);
+	g_free(dir_path);
 }
 
 static void load_thumbnailers_from_data_dir(const char* basename, const char* dir_path, GKeyFile* kf)
