@@ -58,7 +58,7 @@ struct _FmPlacesViewClass
 
 GType       fm_places_view_get_type     (void);
 FmPlacesView* fm_places_view_new          (void);
-void fm_places_chdir(FmPlacesView* pv, FmPath* path);
+void fm_places_view_chdir(FmPlacesView* pv, FmPath* path);
 
 G_END_DECLS
 

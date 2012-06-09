@@ -61,40 +61,11 @@ typedef enum
 {
     FM_PLACES_ITEM_NONE,
     FM_PLACES_ITEM_PATH,
-    FM_PLACES_ITEM_VOL,
-}FmPlaceType;
+    FM_PLACES_ITEM_VOLUME,
+    FM_PLACES_ITEM_MOUNT
+}FmPlacesType;
 
-typedef struct _FmPlaceItem
-{
-    FmPlaceType type : 6;
-    gboolean vol_mounted : 1;
-    FmIcon* icon;
-    FmFileInfo* fi;
-    union
-    {
-        GVolume* vol;
-        FmBookmarkItem* bm_item;
-    };
-}FmPlaceItem;
-
-struct _FmPlacesModel
-{
-    GtkListStore parent;
-
-    GVolumeMonitor* vol_mon;
-    FmBookmarks* bookmarks;
-    GtkTreeIter sep_it;
-    GtkTreePath* sep_tp;
-    GtkTreeIter trash_it;
-    GFileMonitor* trash_monitor;
-    guint trash_idle;
-    guint theme_change_handler;
-    guint use_trash_change_handler;
-    guint pane_icon_size_change_handler;
-    GdkPixbuf* eject_icon;
-
-    GSList* jobs;
-};
+typedef struct _FmPlacesItem FmPlacesItem;
 
 struct _FmPlacesModelClass
 {
@@ -106,6 +77,8 @@ GType fm_places_model_get_type        (void);
 FmPlacesModel* fm_places_model_new            (void);
 
 GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
+
+FmBookmarks* fm_places_model_get_bookmarks(FmPlacesModel* model);
 
 gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it);
 
@@ -119,7 +92,24 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
                                            GtkTreeIter *it,
                                            gpointer user_data);
 
-gboolean fm_places_model_find_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path);
+gboolean fm_places_model_get_iter_by_fm_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path);
+
+
+FmPlacesType fm_places_item_get_type(FmPlacesItem* item);
+
+gboolean fm_places_item_is_mounted(FmPlacesItem* item);
+
+FmIcon* fm_places_item_get_icon(FmPlacesItem* item);
+
+FmFileInfo* fm_places_item_get_info(FmPlacesItem* item);
+
+GVolume* fm_places_item_get_volume(FmPlacesItem* item);
+
+GMount* fm_places_item_get_mount(FmPlacesItem* item);
+
+FmPath* fm_places_item_get_path(FmPlacesItem* item);
+
+FmBookmarkItem* fm_places_item_get_bookmark_item(FmPlacesItem* item);
 
 G_END_DECLS
 

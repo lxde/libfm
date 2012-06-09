@@ -217,7 +217,7 @@ void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
     switch(sp->mode)
     {
     case FM_SP_PLACES:
-        fm_places_chdir(FM_PLACES_VIEW(sp->view), path);
+        fm_places_view_chdir(FM_PLACES_VIEW(sp->view), path);
         break;
     case FM_SP_DIR_TREE:
         fm_dir_tree_view_chdir(FM_DIR_TREE_VIEW(sp->view), path);
@@ -294,7 +294,7 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
         gtk_label_set_text(GTK_LABEL(sp->menu_label), _("Places"));
         /* create places view */
         sp->view = (GtkWidget*)fm_places_view_new();
-        fm_places_chdir(FM_PLACES_VIEW(sp->view), sp->cwd);
+        fm_places_view_chdir(FM_PLACES_VIEW(sp->view), sp->cwd);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sp->scroll),
                 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 

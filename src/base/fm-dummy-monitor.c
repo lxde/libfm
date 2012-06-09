@@ -62,6 +62,6 @@ static void fm_dummy_monitor_init(FmDummyMonitor *self)
 
 GFileMonitor *fm_dummy_monitor_new(void)
 {
-    return (GFileMonitor*)g_object_new(FM_DUMMY_MONITOR_TYPE, NULL);
+    return (GFileMonitor*)g_object_new(FM_TYPE_DUMMY_MONITOR, NULL);
 }
 
