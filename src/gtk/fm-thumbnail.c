@@ -1040,6 +1040,7 @@ void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 			if(generated == task->flags)
 				break;
 		}
+		g_list_free(thumbnailers);
 	}
     G_LOCK(queue);
     thumbnail_task_finish(task, normal_pix, large_pix);
