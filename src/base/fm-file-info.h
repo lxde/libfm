@@ -73,7 +73,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );
 
-void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src);
+void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src);
 
 /** returned FmPath shouldn't be unref by caller */
 FmPath* fm_file_info_get_path( FmFileInfo* fi );

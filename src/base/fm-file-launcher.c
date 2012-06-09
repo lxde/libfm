@@ -114,8 +114,10 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
         g_key_file_free(kf);
     }
 
-    if(app)
+    if(app) {
         ret = fm_app_info_launch_uris(app, uris, ctx, &err);
+        g_object_unref(app)
+    }
 
     if(err)
     {
@@ -161,6 +163,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* if it's a desktop entry file, directly launch it. */
                     filename = fm_path_to_str(path);
                     fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
+                    g_free(filename);
                     continue;
                 }
                 else if(fm_file_info_is_executable_type(fi))

@@ -416,7 +416,7 @@ void fm_file_info_unref(FmFileInfo* fi)
     }
 }
 
-void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src)
+void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
 {
     FmPath* tmp_path = fm_path_ref(src->path);
     FmMimeType* tmp_type = fm_mime_type_ref(src->mime_type);
