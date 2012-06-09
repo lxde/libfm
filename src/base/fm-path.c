@@ -920,8 +920,8 @@ int fm_path_depth(FmPath* path)
 
 static FmListFuncs funcs =
 {
-    (gpointer (*)(gpointer))&fm_path_ref,
-    (void (*)(gpointer))&fm_path_unref
+    .item_ref = (gpointer (*)(gpointer))&fm_path_ref,
+    .item_unref = (void (*)(gpointer))&fm_path_unref
 };
 
 FmPathList* fm_path_list_new()
