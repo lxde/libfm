@@ -202,7 +202,13 @@ gboolean fm_job_run_async(FmJob* job)
 	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
 	gboolean ret;
     job->running = TRUE;
+    g_object_ref(job); /* acquire a ref, it will be unrefed by on_idle_cleanup() */
     ret = klass->run_async(job);
+    if(G_UNLIKELY(!ret)) /* failed? */
+    {
+        fm_job_emit_cancelled(job);
+        g_object_unref(job);
+    }
     return ret;
 }
 
@@ -235,16 +241,13 @@ gboolean fm_job_run_sync_with_mainloop(FmJob* job)
 {
     GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
     gboolean ret;
-    g_object_ref(job); /* acquire a ref because later it will be unrefed in idle handler. */
     g_signal_connect(job, "finished", G_CALLBACK(on_sync_job_finished), mainloop);
     ret = fm_job_run_async(job);
-    if(ret)
+    if(G_LIKELY(ret))
     {
         g_main_loop_run(mainloop);
         g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
     }
-    else
-        g_object_unref(job);
     g_main_loop_unref(mainloop);
     return ret;
 }

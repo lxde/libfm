@@ -137,6 +137,7 @@ static void on_finished(FmDeepCountJob* job, FmFilePropData* data)
         g_source_remove(data->timeout);
         data->timeout = 0;
     }
+    g_object_unref(data->dc_job);
     data->dc_job = NULL;
 }
 
@@ -148,7 +149,11 @@ static void fm_file_prop_data_free(FmFilePropData* data)
     if(data->timeout)
         g_source_remove(data->timeout);
     if(data->dc_job) /* FIXME: check if it's running */
+    {
         fm_job_cancel(FM_JOB(data->dc_job));
+        g_signal_handlers_disconnect_by_func(data->dc_job, on_finished, data);
+        g_object_unref(data->dc_job);
+    }
     if(data->mime_type)
         fm_mime_type_unref(data->mime_type);
     fm_list_unref(data->files);
