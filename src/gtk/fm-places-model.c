@@ -62,10 +62,10 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     model->jobs = g_slist_remove(model->jobs, job);
 
     if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
-        return;
+        goto finished;
 
     if(fm_list_is_empty(job->file_infos))
-        return;
+        goto finished;
 
     /* optimize for one file case */
     if(fm_list_get_length(job->file_infos) == 1)
@@ -105,6 +105,8 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
             }
         }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
     }
+finished:
+    g_object_unref(job);
 }
 
 static void update_vol(FmPlacesModel* model, FmPlaceItem* item, GtkTreeIter* it, FmFileInfoJob* job)

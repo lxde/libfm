@@ -287,6 +287,7 @@ void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
         g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
     }
     folder->pending_jobs = g_slist_remove(folder->pending_jobs, job);
+    g_object_unref(job);
 }
 
 gboolean on_idle(FmFolder* folder)
@@ -331,6 +332,8 @@ gboolean on_idle(FmFolder* folder)
         g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), folder);
         folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
         fm_job_run_async(FM_JOB(job));
+        /* FIXME: free job if error */
+        /* the job will be freed automatically in on_file_info_job_finished() */
     }
 
     if(folder->files_to_del)
@@ -597,7 +600,7 @@ static void fm_folder_dispose(GObject *object)
             FmJob* job = FM_JOB(l->data);
             g_signal_handlers_disconnect_by_func(job, on_file_info_job_finished, folder);
             fm_job_cancel(job);
-            /* the job will be freed automatically in idle handler. */
+            g_object_unref(job);
         }
         g_slist_free(folder->pending_jobs);
         folder->pending_jobs = NULL;
