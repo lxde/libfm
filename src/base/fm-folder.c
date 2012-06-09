@@ -256,13 +256,13 @@ void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
             if(l2) /* the file is already in the folder, update */
             {
                 FmFileInfo* fi2 = (FmFileInfo*)l2->data;
-                /* FIXME: will fm_file_info_copy here cause problems?
+                /* FIXME: will fm_file_info_update here cause problems?
                  *        the file info might be referenced by others, too.
                  *        we're mofifying an object referenced by others.
                  *        we should redesign the API, or document this clearly
                  *        in future API doc.
                  */
-                fm_file_info_copy(fi2, fi);
+                fm_file_info_update(fi2, fi);
                 if(need_changed)
                     files_to_update = g_slist_prepend(files_to_update, fi2);
             }
