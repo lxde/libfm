@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 
     if(argc > 1)
     {
-        FmPath* path = fm_path_new(argv[1]);
+        FmPath* path = fm_path_new_for_str(argv[1]);
         fm_main_win_chdir(FM_MAIN_WIN(w), path);
         fm_path_unref(path);
     }

@@ -52,7 +52,6 @@ static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
     path->n_ref = 1;
     path->flags = flags;
     path->parent = parent ? fm_path_ref(parent) : NULL;
-    path->flags = flags;
     return path;
 }
 
@@ -820,8 +819,20 @@ void _fm_path_init()
         --desktop_len;
 
     /* build path object for desktop_path dir */
+    /* FIXME: can it be that desktop_dir is outside of home_dir ?
+    if(G_UNLIKELY(strncmp(desktop_dir, home_dir, home_len)))
+    {
+        name = &desktop_dir[1];
+        parent = root_path;
+        while()
+        {
+        }
+    }
+    else
+    { */
     name = desktop_dir + home_len + 1; /* skip home_path dir part / */
     parent = home_path;
+    /* } */
     while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
@@ -863,10 +874,10 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
     if(p1 == p2)
         return TRUE;
-    if(!p1)
-        return !p2 ? TRUE:FALSE;
-    if(!p2)
-        return !p1 ? TRUE:FALSE;
+    if(!p1) /* if p2 is also NULL then p1==p2 and that is handled above */
+        return FALSE;
+    if(!p2) /* case of p1==NULL handled above */
+        return FALSE;
     if( strcmp(p1->name, p2->name) != 0 )
         return FALSE;
     return fm_path_equal( p1->parent, p2->parent);
