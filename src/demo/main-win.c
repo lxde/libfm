@@ -774,7 +774,7 @@ void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
     FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
 
     free_folder(win);
-    win->folder = fm_folder_get(path);
+    win->folder = fm_folder_from_fm_path(path);
     g_signal_connect(win->folder, "start-loading", G_CALLBACK(on_folder_start_loading), win);
     g_signal_connect(win->folder, "finish-loading", G_CALLBACK(on_folder_finish_loading), win);
     g_signal_connect(win->folder, "removed", G_CALLBACK(on_folder_removed), win);
