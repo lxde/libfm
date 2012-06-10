@@ -61,18 +61,18 @@ void fm_mime_type_finalize()
     g_hash_table_destroy( mime_hash );
 }
 
-FmMimeType* fm_mime_type_get_for_file_name( const char* ufile_name )
+FmMimeType* fm_mime_type_from_file_name( const char* ufile_name )
 {
     FmMimeType* mime_type;
     char * type;
     gboolean uncertain;
     type = g_content_type_guess( ufile_name, NULL, 0, &uncertain );
-    mime_type = fm_mime_type_get_for_type( type, NULL );
+    mime_type = fm_mime_type_from_type( type, NULL );
     g_free(type);
     return mime_type;
 }
 
-FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
+FmMimeType* fm_mime_type_from_native_file( const char* file_path,
                                         const char* base_name,
                                         struct stat* pstat )
 {
@@ -96,7 +96,7 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
             if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
             {
                 g_free(type);
-                return fm_mime_type_get_for_type( "text/plain", NULL );
+                return fm_mime_type_from_type( "text/plain", NULL );
             }
             fd = open(file_path, O_RDONLY);
             if( fd >= 0 )
@@ -130,33 +130,33 @@ FmMimeType* fm_mime_type_get_for_native_file( const char* file_path,
                 close(fd);
             }
         }
-        mime_type = fm_mime_type_get_for_type( type, NULL );
+        mime_type = fm_mime_type_from_type( type, NULL );
         g_free(type);
         return mime_type;
     }
 
     if( S_ISDIR(pstat->st_mode) )
-        return fm_mime_type_get_for_type( "inode/directory", NULL );
+        return fm_mime_type_from_type( "inode/directory", NULL );
     if (S_ISCHR(pstat->st_mode))
-        return fm_mime_type_get_for_type( "inode/chardevice", NULL );
+        return fm_mime_type_from_type( "inode/chardevice", NULL );
     if (S_ISBLK(pstat->st_mode))
-        return fm_mime_type_get_for_type( "inode/blockdevice", NULL );
+        return fm_mime_type_from_type( "inode/blockdevice", NULL );
     if (S_ISFIFO(pstat->st_mode))
-        return fm_mime_type_get_for_type( "inode/fifo", NULL );
+        return fm_mime_type_from_type( "inode/fifo", NULL );
     if (S_ISLNK(pstat->st_mode))
-        return fm_mime_type_get_for_type( "inode/symlink", NULL );
+        return fm_mime_type_from_type( "inode/symlink", NULL );
 #ifdef S_ISSOCK
     if (S_ISSOCK(pstat->st_mode))
-        return fm_mime_type_get_for_type( "inode/socket", NULL );
+        return fm_mime_type_from_type( "inode/socket", NULL );
 #endif
     /* impossible */
     g_debug( "Invalid stat mode: %d, %s", pstat->st_mode & S_IFMT, base_name );
     /* FIXME: some files under /proc/self has st_mode = 0, which causes problems.
      *        currently we treat them as files of unknown type. */
-    return fm_mime_type_get_for_type( "application/octet-stream", NULL );
+    return fm_mime_type_from_type( "application/octet-stream", NULL );
 }
 
-FmMimeType* fm_mime_type_get_for_type( const char* type, const char* desc )
+FmMimeType* fm_mime_type_from_type( const char* type, const char* desc )
 {
     FmMimeType * mime_type;
 

@@ -700,7 +700,7 @@ static void fm_folder_finalize(GObject *object)
         (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
-FmFolder* fm_folder_get_for_gfile(GFile* gf)
+FmFolder* fm_folder_from_gfile(GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
     FmFolder* folder = fm_folder_get_internal(path, gf);
@@ -708,7 +708,7 @@ FmFolder* fm_folder_get_for_gfile(GFile* gf)
     return folder;
 }
 
-FmFolder* fm_folder_get_for_path_name(const char* path)
+FmFolder* fm_folder_from_path_name(const char* path)
 {
     FmPath* fm_path = fm_path_new_for_str(path);
     FmFolder* folder = fm_folder_get_internal(fm_path, NULL);
@@ -717,10 +717,10 @@ FmFolder* fm_folder_get_for_path_name(const char* path)
 }
 
 /* FIXME: should we use GFile here? */
-FmFolder*    fm_folder_get_for_uri    (const char* uri)
+FmFolder*    fm_folder_from_uri    (const char* uri)
 {
     GFile* gf = g_file_new_for_uri(uri);
-    FmFolder* folder = fm_folder_get_for_gfile(gf);
+    FmFolder* folder = fm_folder_from_gfile(gf);
     g_object_unref(gf);
     return folder;
 }
@@ -836,7 +836,7 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     return l ? (FmFileInfo*)l->data : NULL;
 }
 
-FmFolder* fm_folder_get(FmPath* path)
+FmFolder* fm_folder_from_fm_path(FmPath* path)
 {
     return fm_folder_get_internal(path, NULL);
 }

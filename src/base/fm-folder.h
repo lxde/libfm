@@ -64,10 +64,10 @@ struct _FmFolderClass
 };
 
 GType       fm_folder_get_type      (void);
-FmFolder*   fm_folder_get(FmPath* path);
-FmFolder*   fm_folder_get_for_gfile(GFile* gf);
-FmFolder*   fm_folder_get_for_path_name(const char* path);
-FmFolder*   fm_folder_get_for_uri(const char* uri);
+FmFolder*   fm_folder_from_fm_path(FmPath* path);
+FmFolder*   fm_folder_from_gfile(GFile* gf);
+FmFolder*   fm_folder_from_path_name(const char* path);
+FmFolder*   fm_folder_from_uri(const char* uri);
 
 FmFileInfo* fm_folder_get_info(FmFolder* folder);
 FmPath* fm_folder_get_path(FmFolder* folder);

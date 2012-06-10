@@ -852,7 +852,7 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     if(item->n_expand == 0)
     {
         /* dynamically load content of the folder. */
-        FmFolder* folder = fm_folder_get(fm_file_info_get_path(item->fi));
+        FmFolder* folder = fm_folder_from_fm_path(fm_file_info_get_path(item->fi));
         item->folder = folder;
 
         /* associate the data with loaded handler */
