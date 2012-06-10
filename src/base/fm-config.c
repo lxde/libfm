@@ -88,6 +88,7 @@ static void fm_config_init(FmConfig *self)
     self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
     self->thumbnail_local = FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL;
     self->thumbnail_max = FM_CONFIG_DEFAULT_THUMBNAIL_MAX;
+    self->advanced_mode = FALSE;
 }
 
 
