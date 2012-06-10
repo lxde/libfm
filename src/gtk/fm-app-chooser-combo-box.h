@@ -51,7 +51,7 @@ GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is
 
 /* get a list of custom apps added with app-chooser.
  * the returned GList is owned by the combo box and shouldn't be freed. */
-GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo);
+const GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo);
 
 G_END_DECLS
 

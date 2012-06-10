@@ -72,7 +72,7 @@ const char* fm_mime_type_get_desc( FmMimeType* mime_type );
 
 /* Get installed external thumbnailers for the mime-type.
  * Returns a list of FmThumbnailer. */
-GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type);
+const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type);
 
 void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer);
 

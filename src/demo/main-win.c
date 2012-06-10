@@ -373,8 +373,8 @@ static void on_history_item(GtkMenuItem* mi, FmMainWin* win)
 static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
 {
     GtkMenuShell* menu = (GtkMenuShell*)gtk_menu_tool_button_get_menu(btn);
-    GList* l;
-    GList* cur = fm_nav_history_get_cur_link(win->nav_history);
+    const GList* l;
+    const GList* cur = fm_nav_history_get_cur_link(win->nav_history);
 
     /* delete old items */
     gtk_container_foreach(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy, NULL);

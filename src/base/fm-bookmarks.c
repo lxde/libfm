@@ -180,7 +180,7 @@ FmBookmarks* fm_bookmarks_dup(void)
     return singleton;
 }
 
-GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
+const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
 }

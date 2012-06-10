@@ -67,9 +67,9 @@ GType		fm_nav_history_get_type		(void);
 FmNavHistory*	fm_nav_history_new			(void);
 
 /* The returned GList belongs to FmNavHistory and shouldn't be freed. */
-GList* fm_nav_history_list(FmNavHistory* nh);
+const GList* fm_nav_history_list(FmNavHistory* nh);
 const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh);
-GList* fm_nav_history_get_cur_link(FmNavHistory* nh);
+const GList* fm_nav_history_get_cur_link(FmNavHistory* nh);
 gboolean fm_nav_history_can_back(FmNavHistory* nh);
 void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos);
 gboolean fm_nav_history_can_forward(FmNavHistory* nh);
