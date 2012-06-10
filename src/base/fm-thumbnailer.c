@@ -241,7 +241,7 @@ static gboolean check_data_dir(const char* data_dir)
 	if(stat(dir_path, &statbuf) == 0)
 	{
 		if(statbuf.st_mtime > last_loaded_time)
-			return TRUE;
+			ret = TRUE;
 	}
 	g_free(dir_path);
 	return ret;
