@@ -667,7 +667,7 @@ void on_go(GtkAction* act, FmMainWin* win)
 
 void on_go_back(GtkAction* act, FmMainWin* win)
 {
-    if(fm_nav_history_get_can_back(win->nav_history))
+    if(fm_nav_history_can_back(win->nav_history))
     {
         FmNavHistoryItem* item;
         int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
@@ -680,7 +680,7 @@ void on_go_back(GtkAction* act, FmMainWin* win)
 
 void on_go_forward(GtkAction* act, FmMainWin* win)
 {
-    if(fm_nav_history_get_can_forward(win->nav_history))
+    if(fm_nav_history_can_forward(win->nav_history))
     {
         FmNavHistoryItem* item;
         int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));

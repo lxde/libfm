@@ -81,7 +81,7 @@ GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
     return nh->cur;
 }
 
-gboolean fm_nav_history_get_can_forward(FmNavHistory* nh)
+gboolean fm_nav_history_can_forward(FmNavHistory* nh)
 {
     return nh->cur ? (nh->cur->prev != NULL) : FALSE;
 }
@@ -97,7 +97,7 @@ void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
 	}
 }
 
-gboolean fm_nav_history_get_can_back(FmNavHistory* nh)
+gboolean fm_nav_history_can_back(FmNavHistory* nh)
 {
     return nh->cur ? (nh->cur->next != NULL) : FALSE;
 }
