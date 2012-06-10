@@ -1,7 +1,7 @@
 /*
  *      fm-deep-count-job.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -223,7 +223,7 @@ _retry_query_info:
 
     ++job->count;
     job->total_size += g_file_info_get_size(inf);
-    job->total_ondisk_size += g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE);
+    job->total_ondisk_size += g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE);
 
     /* prepare for moving across different devices */
     if( job->flags & FM_DC_JOB_PREPARE_MOVE )
