@@ -238,10 +238,10 @@ const char* fm_mime_type_get_type( FmMimeType* mime_type )
     return mime_type->type;
 }
 
-GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
+const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
 {
     /* FIXME: need this be thread-safe? */
-    return g_list_copy(mime_type->thumbnailers);
+    return mime_type->thumbnailers;
 }
 
 void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)

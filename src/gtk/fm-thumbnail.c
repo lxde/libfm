@@ -1012,8 +1012,8 @@ void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 	 * the thumbnailer process should be killed once a timeout is reached. */
 	if(mime_type)
 	{
-		GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
-		GList* l;
+		const GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
+		const GList* l;
 		guint generated = 0;
 		for(l = thumbnailers; l; l = l->next)
 		{
@@ -1040,7 +1040,6 @@ void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 			if(generated == task->flags)
 				break;
 		}
-		g_list_free(thumbnailers);
 	}
     G_LOCK(queue);
     thumbnail_task_finish(task, normal_pix, large_pix);

@@ -264,7 +264,7 @@ void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
 static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
 {
     FmPlaceItem* item;
-    GList *bms, *l;
+    const GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
     FmIcon* remote_icon = NULL;
     GdkPixbuf* folder_pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);

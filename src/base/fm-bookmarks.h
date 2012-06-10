@@ -72,7 +72,7 @@ void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
 void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name);
 
 /* list all bookmark items in current bookmarks */
-GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
+const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
 
 G_END_DECLS
 

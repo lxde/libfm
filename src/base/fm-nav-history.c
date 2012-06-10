@@ -66,7 +66,7 @@ FmNavHistory *fm_nav_history_new(void)
 }
 
 /* The returned GList belongs to FmNavHistory and shouldn't be freed. */
-GList* fm_nav_history_list(FmNavHistory* nh)
+const GList* fm_nav_history_list(FmNavHistory* nh)
 {
     return nh->items.head;
 }
@@ -76,7 +76,7 @@ const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
     return nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
 }
 
-GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
+const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
 {
     return nh->cur;
 }

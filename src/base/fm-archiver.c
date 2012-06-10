@@ -194,7 +194,7 @@ void fm_archiver_set_default(FmArchiver* archiver)
 }
 
 /* get a list of FmArchiver* of all GUI archivers known to libfm */
-GList* fm_archiver_get_all()
+const GList* fm_archiver_get_all()
 {
     return archivers;
 }

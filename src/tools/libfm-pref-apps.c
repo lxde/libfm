@@ -179,7 +179,7 @@ int main(int argc, char** argv)
         gsize len, i;
         gboolean is_changed;
         GAppInfo* app;
-        GList* custom_apps, *l;
+        const GList* custom_apps, *l;
         char* dir = g_build_filename(g_get_user_config_dir(), "libfm", NULL);
         char* fname = g_build_filename(dir, "pref-apps.conf", NULL);
 
@@ -203,7 +203,7 @@ int main(int argc, char** argv)
         if(custom_apps)
         {
             const char** sl;
-            len = g_list_length(custom_apps);
+            len = g_list_length((GList*)custom_apps);
             sl = (const char**)g_new0(char*, len);
             for(i = 0, l=custom_apps;l;l=l->next, ++i)
             {
@@ -230,7 +230,7 @@ int main(int argc, char** argv)
         if(custom_apps)
         {
             const char** sl;
-            len = g_list_length(custom_apps);
+            len = g_list_length((GList*)custom_apps);
             sl = (const char**)g_new0(char*, len);
             for(i = 0, l=custom_apps;l;l=l->next, ++i)
             {
