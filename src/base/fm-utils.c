@@ -43,7 +43,7 @@
 #define SI_GB   ((gdouble)1000.0 * 1000.0 * 1000.0)
 #define SI_TB   ((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
 
-char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
+char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si_prefix )
 {
     const char * unit;
     gdouble val;
@@ -52,7 +52,7 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
     {
         if(size < (goffset)SI_KB)
         {
-            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf( buf, buf_size, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
             return buf;
         }
         val = (gdouble)size;
@@ -81,7 +81,7 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
     {
         if(size < (goffset)BI_KiB)
         {
-            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf( buf, buf_size, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
             return buf;
         }
         val = (gdouble)size;
@@ -106,7 +106,7 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
             unit = _("TiB");
         }
     }
-    sprintf( buf, "%.1f %s", val, unit );
+    snprintf( buf, buf_size, "%.1f %s", val, unit );
     return buf;
 }
 
@@ -150,15 +150,15 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 {
                     int cwd_len;
                     const char* sep;
-                    if(!cwd)
-                        cwd = _cwd = g_get_current_dir();
+                    /* if(!cwd)
+                        cwd = _cwd = g_get_current_dir(); */
 
                     sep = strrchr(cwd, '/');
                     if(sep && sep != cwd)
                         cwd_len = (sep - cwd);
                     else
                         cwd_len = strlen(cwd);
-                    ret = g_realloc(ret, len + cwd_len + 1 - 1);
+                    ret = g_realloc(ret, len - 2 + cwd_len + 1);
                     memcpy(ret, cwd, cwd_len);
                     p = ret + cwd_len;
                 }
@@ -181,13 +181,21 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 {
                     int cwd_len;
                     cwd_len = strlen(cwd);
-                    ret = g_realloc(ret, len + cwd_len + 1);
-                    memcpy(ret, cwd, cwd_len + 1);
+                    ret = g_realloc(ret, len - 1 + cwd_len + 1);
+                    memcpy(ret, cwd, cwd_len);
                     p = ret + cwd_len;
                 }
                 ++i;
                 continue;
             }
+        }
+        else if(i == 0 && filename[0] != '/') /* relative path without ./ */
+        {
+            int cwd_len = strlen(cwd);
+            ret = g_realloc(ret, len + 1 + cwd_len + 1);
+            memcpy(ret, cwd, cwd_len);
+            p = ret + cwd_len;
+            *p++ = '/';
         }
         for(; i < len; ++p)
         {
@@ -223,9 +231,10 @@ char* fm_strdup_replace(char* str, char* old, char* new)
     {
         g_string_append_len(buf, str, (found - str));
         g_string_append(buf, new);
-        str = found + 1;
+        str = found + strlen(old);
     }
-    for(; *str; ++str)
-        g_string_append_c(buf, *str);
+    /* for(; *str; ++str)
+        g_string_append_c(buf, *str); */
+    g_string_append(buf, str);
     return g_string_free(buf, FALSE);
 }

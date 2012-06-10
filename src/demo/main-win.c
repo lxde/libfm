@@ -756,8 +756,8 @@ static void on_folder_fs_info(FmFolder* folder, FmMainWin* win)
         char free_str[ 64 ];
         char buf[128];
 
-        fm_file_size_to_str(free_str, free, TRUE);
-        fm_file_size_to_str(total_str, total, TRUE);
+        fm_file_size_to_str(free_str, sizeof(free_str), free, TRUE);
+        fm_file_size_to_str(total_str, sizeof(total_str), total, TRUE);
         g_snprintf( buf, G_N_ELEMENTS(buf),
                     "Free space: %s (Total: %s)", free_str, total_str );
         gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(win->vol_status))), buf);
