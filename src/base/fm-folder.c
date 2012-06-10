@@ -693,7 +693,7 @@ static void fm_folder_finalize(GObject *object)
 FmFolder* fm_folder_get_for_gfile(GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
-    FmFolder* folder = fm_folder_new_internal(path, gf);
+    FmFolder* folder = fm_folder_get_internal(path, gf);
     fm_path_unref(path);
     return folder;
 }
