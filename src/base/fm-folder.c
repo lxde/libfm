@@ -835,7 +835,7 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     return l ? (FmFileInfo*)l->data : NULL;
 }
 
-FmFolder* fm_folder_from_fm_path(FmPath* path)
+FmFolder* fm_folder_from_path(FmPath* path)
 {
     return fm_folder_get_internal(path, NULL);
 }
