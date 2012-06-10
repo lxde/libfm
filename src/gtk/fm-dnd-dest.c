@@ -444,6 +444,13 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     FmFileInfo* dest = dd->dest_file;
     FmPath* dest_path;
 
+    if(!dest || !(dest_path = fm_file_info_get_path(dest)))
+        return 0;
+
+    /* this is XDirectSave */
+    if(target == xds_target_atom)
+        return GDK_ACTION_COPY;
+
     if(!dd->src_files)  /* we didn't have any data, cache it */
     {
         action = 0;
@@ -454,13 +461,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             dd->waiting_data = TRUE;
         }
     }
-
-    if(!dest || !(dest_path = fm_file_info_get_path(dest)))
-        return FALSE;
-
-    /* this is XDirectSave */
-    if(target == xds_target_atom)
-        return GDK_ACTION_COPY;
 
     if(dd->src_files) /* we have got drag source files */
     {
