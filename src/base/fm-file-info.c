@@ -34,6 +34,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "fm-utils.h"
 #include <menu-cache.h>
@@ -571,8 +572,24 @@ gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
-    // FIXME: didn't check access rights.
-//    return mime_type_is_executable_file(file_path, fi->mime_type->type);
+    if(strncmp(fm_mime_type_get_type(fi->mime_type), "text/", 5) == 0)
+    { /* g_content_type_can_be_executable reports text files as executables too */
+        if(fi->mode & (S_IXOTH|S_IXGRP|S_IXUSR))
+        { /* it has executable bits so lets check shell-bang */
+            char *path = fm_path_to_str(fi->path);
+            int fd = open(path, O_RDONLY);
+            g_free(path);
+            if(fd >= 0)
+            {
+                char buf[2];
+                ssize_t rdlen = read(fd, &buf, 2);
+                close(fd);
+                if(rdlen == 2 && buf[0] == '#' && buf[1] == '!')
+                    return TRUE;
+            }
+        }
+        return FALSE;
+    }
     return g_content_type_can_be_executable(fi->mime_type->type);
 }
 
