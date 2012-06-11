@@ -56,7 +56,7 @@ gboolean fm_init(FmConfig* config)
     _fm_icon_init();
     _fm_monitor_init();
     _fm_mime_type_init();
-    _fm_file_info_init();
+    _fm_file_info_init(); /* should be called only after _fm_mime_type_init() */
     _fm_folder_init();
     _fm_archiver_init();
     _fm_thumbnailer_init(); // must be called after mime-types are initialized
@@ -85,6 +85,7 @@ void fm_finalize()
     _fm_mime_type_finalize();
     _fm_monitor_finalize();
     _fm_icon_finalize();
+    _fm_path_finalize();
 
 #ifdef USE_UDISKS
     _fm_udisks_finalize();

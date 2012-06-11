@@ -853,6 +853,9 @@ void _fm_path_init()
     apps_root_path = _fm_path_new_internal(NULL, "menu://applications/", 20, FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 }
 
+void _fm_path_finalize(void)
+{
+}
 
 /* For used in hash tables */
 

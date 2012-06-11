@@ -83,7 +83,6 @@ struct _FmFileInfo
 /* intialize the file info system */
 void _fm_file_info_init()
 {
-    _fm_mime_type_init();
     desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 }
 

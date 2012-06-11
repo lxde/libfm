@@ -59,7 +59,8 @@ struct _FmPath
     char name[1];
 };
 
-void _fm_path_init();
+void _fm_path_init(void);
+void _fm_path_finalize(void);
 
 FmPath* fm_path_new_for_path(const char* path_name);
 FmPath* fm_path_new_for_uri(const char* uri);
@@ -73,11 +74,11 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path);
 FmPath* fm_path_new_for_gfile(GFile* gf);
 
 /* predefined paths */
-FmPath* fm_path_get_root(); /* / */
-FmPath* fm_path_get_home(); /* home directory */
-FmPath* fm_path_get_desktop(); /* $HOME/Desktop */
-FmPath* fm_path_get_trash(); /* trash:/// */
-FmPath* fm_path_get_apps_menu(); /* menu://applications.menu/ */
+FmPath* fm_path_get_root(void); /* / */
+FmPath* fm_path_get_home(void); /* home directory */
+FmPath* fm_path_get_desktop(void); /* $HOME/Desktop */
+FmPath* fm_path_get_trash(void); /* trash:/// */
+FmPath* fm_path_get_apps_menu(void); /* menu://applications.menu/ */
 
 FmPath* fm_path_ref(FmPath* path);
 void fm_path_unref(FmPath* path);
@@ -112,7 +113,7 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n);
 int fm_path_depth(FmPath* path);
 
 /* path list */
-FmPathList* fm_path_list_new();
+FmPathList* fm_path_list_new(void);
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
 FmPathList* fm_path_list_new_from_uris(char* const* uris);
 FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
