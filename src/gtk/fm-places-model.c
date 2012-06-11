@@ -766,21 +766,11 @@ static void fm_places_model_dispose(GObject *object)
         }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(self), &it));
     }
 
-<<<<<<< HEAD
     if(self->separator_tree_path)
     {
         gtk_tree_path_free(self->separator_tree_path);
         self->separator_tree_path = NULL;
     }
-=======
-    gtk_tree_path_free(self->sep_tp);
-
-    g_object_unref(self->bookmarks);
-
-    g_signal_handler_disconnect(gtk_icon_theme_get_default(), self->theme_change_handler);
-    g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
-    g_signal_handler_disconnect(fm_config, self->pane_icon_size_change_handler);
->>>>>>> ca46318fe08b4d7f69fe6ec12ba2fd3df3822e3c
 
     if(self->theme_change_handler)
     {
