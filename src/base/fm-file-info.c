@@ -43,8 +43,6 @@
 
 static gboolean use_si_prefix = TRUE;
 static FmMimeType* desktop_entry_type = NULL;
-static FmMimeType* shortcut_type = NULL;
-static FmMimeType* mountable_type = NULL;
 
 struct _FmFileInfo
 {
@@ -85,20 +83,13 @@ struct _FmFileInfo
 /* intialize the file info system */
 void _fm_file_info_init()
 {
-    fm_mime_type_init();
-    desktop_entry_type = fm_mime_type_from_type("application/x-desktop", NULL);
-
-    /* fake mime-types for mountable and shortcuts */
-    shortcut_type = fm_mime_type_from_type("inode/x-shortcut", _("Shortcuts"));
-
-    mountable_type = fm_mime_type_from_type("inode/x-mountable", _("Mount Point"));
+    _fm_mime_type_init();
+    desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 }
 
 void _fm_file_info_finalize()
 {
     fm_mime_type_unref(desktop_entry_type);
-    fm_mime_type_unref(shortcut_type);
-    fm_mime_type_unref(mountable_type);
 }
 
 FmFileInfo* fm_file_info_new ()
@@ -203,7 +194,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     tmp = g_file_info_get_content_type(inf);
     if(tmp)
-        fi->mime_type = fm_mime_type_from_type(tmp, NULL);
+        fi->mime_type = fm_mime_type_from_name(tmp);
 
     fi->mode = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_MODE);
 
@@ -276,9 +267,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         {
             /* FIXME: is this appropriate? */
             if(type == G_FILE_TYPE_SHORTCUT)
-                fi->mime_type = fm_mime_type_ref(shortcut_type);
+                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
             else
-                fi->mime_type = fm_mime_type_ref(mountable_type);
+                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_mountable());
         }
         /* FIXME: how about target of symlinks? */
     }
@@ -341,7 +332,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
         fi->mode |= S_IFREG;
         fi->target = menu_cache_item_get_file_path(item);
     }
-    fi->mime_type = fm_mime_type_ref(shortcut_type);
+    fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
 }
 
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
@@ -537,12 +528,12 @@ gboolean fm_file_info_is_symlink(FmFileInfo* fi)
 
 gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
 {
-    return fi->mime_type == shortcut_type;
+    return fi->mime_type == _fm_mime_type_get_inode_x_shortcut();
 }
 
 gboolean fm_file_info_is_mountable(FmFileInfo* fi)
 {
-    return fi->mime_type == mountable_type;
+    return fi->mime_type == _fm_mime_type_get_inode_x_mountable();
 }
 
 gboolean fm_file_info_is_image(FmFileInfo* fi)

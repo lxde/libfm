@@ -1,7 +1,7 @@
 /*
  *      fm-mime-type.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 
 #include "fm-mime-type.h"
 
+#include <glib/gi18n-lib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -40,66 +41,75 @@
 static GHashTable *mime_hash = NULL;
 G_LOCK_DEFINE(mime_hash);
 
-//static guint reload_callback_id = 0;
-//static GList* reload_cb = NULL;
+FmMimeType* directory_type = NULL;
+FmMimeType* mountable_type = NULL;
+FmMimeType* shortcut_type = NULL;
 
-//static VFSFileMonitor** mime_caches_monitor = NULL;
+static FmMimeType* fm_mime_type_new(const char* type_name);
 
-typedef struct {
-    GFreeFunc cb;
-    gpointer user_data;
-}FmMimeReloadCbEnt;
-
-void fm_mime_type_init()
+void _fm_mime_type_init()
 {
-    mime_hash = g_hash_table_new_full( g_str_hash, g_str_equal,
-                                       NULL, fm_mime_type_unref );
+    mime_hash = g_hash_table_new_full(g_str_hash, g_str_equal,
+                                       NULL, fm_mime_type_unref);
+
+    /* since this one is frequently used, we store it to save hash table lookup. */
+    directory_type = fm_mime_type_from_name("inode/directory");
+
+    /* fake mime-types for mountable and shortcuts */
+    shortcut_type = fm_mime_type_from_name("inode/x-shortcut");
+    shortcut_type->description = g_strdup(_("Shortcuts"));
+
+    mountable_type = fm_mime_type_from_name("inode/x-mountable");
+    mountable_type->description = g_strdup(_("Mount Point"));
 }
 
-void fm_mime_type_finalize()
+void _fm_mime_type_finalize()
 {
-    g_hash_table_destroy( mime_hash );
+    fm_mime_type_unref(directory_type);
+    fm_mime_type_unref(shortcut_type);
+    fm_mime_type_unref(mountable_type);
+    g_hash_table_destroy(mime_hash);
 }
 
-FmMimeType* fm_mime_type_from_file_name( const char* ufile_name )
+FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
 {
     FmMimeType* mime_type;
     char * type;
     gboolean uncertain;
-    type = g_content_type_guess( ufile_name, NULL, 0, &uncertain );
-    mime_type = fm_mime_type_from_type( type, NULL );
+    type = g_content_type_guess(ufile_name, NULL, 0, &uncertain);
+    mime_type = fm_mime_type_from_name(type);
     g_free(type);
     return mime_type;
 }
 
-FmMimeType* fm_mime_type_from_native_file( const char* file_path,
+FmMimeType* fm_mime_type_from_native_file(const char* file_path,
                                         const char* base_name,
-                                        struct stat* pstat )
+                                        struct stat* pstat)
 {
     FmMimeType* mime_type;
     struct stat st;
 
-    if( !pstat )
+    if(!pstat)
     {
         pstat = &st;
-        if( stat( file_path, &st ) == -1 )
+        if(stat(file_path, &st) == -1)
             return NULL;
     }
 
-    if( S_ISREG(pstat->st_mode) )
+    if(S_ISREG(pstat->st_mode))
     {
         gboolean uncertain;
-        char* type = g_content_type_guess( base_name, NULL, 0, &uncertain );
-        if( uncertain )
+        char* type = g_content_type_guess(base_name, NULL, 0, &uncertain);
+        if(uncertain)
         {
             int fd, len;
-            if( pstat->st_size == 0 ) /* empty file = text file with 0 characters in it. */
+            if(pstat->st_size == 0) /* empty file = text file with 0 characters in it. */
             {
                 g_free(type);
-                return fm_mime_type_from_type( "text/plain", NULL );
+                return fm_mime_type_from_name("text/plain");
             }
             fd = open(file_path, O_RDONLY);
-            if( fd >= 0 )
+            if(fd >= 0)
             {
                 /* #3086703 - PCManFM crashes on non existent directories.
                  * http://sourceforge.net/tracker/?func=detail&aid=3086703&group_id=156956&atid=801864
@@ -117,7 +127,7 @@ FmMimeType* fm_mime_type_from_native_file( const char* file_path,
                 if(G_LIKELY(buf != MAP_FAILED))
                 {
                     g_free(type);
-                    type = g_content_type_guess( NULL, buf, len, &uncertain );
+                    type = g_content_type_guess(NULL, buf, len, &uncertain);
                     munmap(buf, len);
                 }
             #else
@@ -130,61 +140,59 @@ FmMimeType* fm_mime_type_from_native_file( const char* file_path,
                 close(fd);
             }
         }
-        mime_type = fm_mime_type_from_type( type, NULL );
+        mime_type = fm_mime_type_from_name(type);
         g_free(type);
         return mime_type;
     }
 
-    if( S_ISDIR(pstat->st_mode) )
-        return fm_mime_type_from_type( "inode/directory", NULL );
+    if(S_ISDIR(pstat->st_mode))
+        return fm_mime_type_ref(directory_type);
     if (S_ISCHR(pstat->st_mode))
-        return fm_mime_type_from_type( "inode/chardevice", NULL );
+        return fm_mime_type_from_name("inode/chardevice");
     if (S_ISBLK(pstat->st_mode))
-        return fm_mime_type_from_type( "inode/blockdevice", NULL );
+        return fm_mime_type_from_name("inode/blockdevice");
     if (S_ISFIFO(pstat->st_mode))
-        return fm_mime_type_from_type( "inode/fifo", NULL );
+        return fm_mime_type_from_name("inode/fifo");
     if (S_ISLNK(pstat->st_mode))
-        return fm_mime_type_from_type( "inode/symlink", NULL );
+        return fm_mime_type_from_name("inode/symlink");
 #ifdef S_ISSOCK
     if (S_ISSOCK(pstat->st_mode))
-        return fm_mime_type_from_type( "inode/socket", NULL );
+        return fm_mime_type_from_name("inode/socket");
 #endif
     /* impossible */
-    g_debug( "Invalid stat mode: %d, %s", pstat->st_mode & S_IFMT, base_name );
+    g_debug("Invalid stat mode: %d, %s", pstat->st_mode & S_IFMT, base_name);
     /* FIXME: some files under /proc/self has st_mode = 0, which causes problems.
      *        currently we treat them as files of unknown type. */
-    return fm_mime_type_from_type( "application/octet-stream", NULL );
+    return fm_mime_type_from_name("application/octet-stream");
 }
 
-FmMimeType* fm_mime_type_from_type( const char* type, const char* desc )
+FmMimeType* fm_mime_type_from_name(const char* type)
 {
     FmMimeType * mime_type;
 
-    G_LOCK( mime_hash );
-    mime_type = g_hash_table_lookup( mime_hash, type );
-    if ( !mime_type )
+    G_LOCK(mime_hash);
+    mime_type = g_hash_table_lookup(mime_hash, type);
+    if (!mime_type)
     {
-        mime_type = fm_mime_type_new( type );
-        g_hash_table_insert( mime_hash, mime_type->type, mime_type );
+        mime_type = fm_mime_type_new(type);
+        g_hash_table_insert(mime_hash, mime_type->type, mime_type);
     }
-    if(!mime_type->description && desc)
-        mime_type->description = g_strdup(desc);
-    G_UNLOCK( mime_hash );
-    fm_mime_type_ref( mime_type );
+    G_UNLOCK(mime_hash);
+    fm_mime_type_ref(mime_type);
     return mime_type;
 }
 
-FmMimeType* fm_mime_type_new( const char* type_name )
+FmMimeType* fm_mime_type_new(const char* type_name)
 {
-    FmMimeType * mime_type = g_slice_new0( FmMimeType );
+    FmMimeType * mime_type = g_slice_new0(FmMimeType);
     GIcon* gicon;
-    mime_type->type = g_strdup( type_name );
+    mime_type->type = g_strdup(type_name);
     mime_type->n_ref = 1;
 
     gicon = g_content_type_get_icon(mime_type->type);
-    if( strcmp(mime_type->type, "inode/directory") == 0 )
+    if(strcmp(mime_type->type, "inode/directory") == 0)
         g_themed_icon_prepend_name(G_THEMED_ICON(gicon), "folder");
-    else if( g_content_type_can_be_executable(mime_type->type) )
+    else if(g_content_type_can_be_executable(mime_type->type))
         g_themed_icon_append_name(G_THEMED_ICON(gicon), "application-x-executable");
 
     mime_type->icon = fm_icon_from_gicon(gicon);
@@ -201,21 +209,36 @@ FmMimeType* fm_mime_type_new( const char* type_name )
     return mime_type;
 }
 
-FmMimeType* fm_mime_type_ref( FmMimeType* mime_type )
+FmMimeType* _fm_mime_type_get_inode_directory()
+{
+    return directory_type;
+}
+
+FmMimeType* _fm_mime_type_get_inode_x_shortcut()
+{
+    return shortcut_type;
+}
+
+FmMimeType* _fm_mime_type_get_inode_x_mountable()
+{
+    return mountable_type;
+}
+
+FmMimeType* fm_mime_type_ref(FmMimeType* mime_type)
 {
     g_atomic_int_inc(&mime_type->n_ref);
     return mime_type;
 }
 
-void fm_mime_type_unref( gpointer mime_type_ )
+void fm_mime_type_unref(gpointer mime_type_)
 {
     FmMimeType* mime_type = (FmMimeType*)mime_type_;
-    if ( g_atomic_int_dec_and_test(&mime_type->n_ref) )
+    if (g_atomic_int_dec_and_test(&mime_type->n_ref))
     {
-        g_free( mime_type->type );
+        g_free(mime_type->type);
         g_free(mime_type->description);
-        if ( mime_type->icon )
-            fm_icon_unref( mime_type->icon );
+        if (mime_type->icon)
+            fm_icon_unref(mime_type->icon);
         if(mime_type->thumbnailers)
         {
             /* Note: we do not own references for FmThumbnailer here.
@@ -224,16 +247,16 @@ void fm_mime_type_unref( gpointer mime_type_ )
                and fm-thumbnailer.c will try to unref this destroyed object */
             g_list_free(mime_type->thumbnailers);
         }
-        g_slice_free( FmMimeType, mime_type );
+        g_slice_free(FmMimeType, mime_type);
     }
 }
 
-FmIcon* fm_mime_type_get_icon( FmMimeType* mime_type )
+FmIcon* fm_mime_type_get_icon(FmMimeType* mime_type)
 {
     return mime_type->icon;
 }
 
-const char* fm_mime_type_get_type( FmMimeType* mime_type )
+const char* fm_mime_type_get_type(FmMimeType* mime_type)
 {
     return mime_type->type;
 }
@@ -257,15 +280,15 @@ void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer
 }
 
 /* Get human-readable description of mime type */
-const char* fm_mime_type_get_desc( FmMimeType* mime_type )
+const char* fm_mime_type_get_desc(FmMimeType* mime_type)
 {
     /* FIXME: is locking needed here or not? */
-    if ( G_UNLIKELY( ! mime_type->description ) )
+    if (G_UNLIKELY(! mime_type->description))
     {
-        mime_type->description = g_content_type_get_description( mime_type->type );
+        mime_type->description = g_content_type_get_description(mime_type->type);
         /* FIXME: should handle this better */
-        if ( G_UNLIKELY( ! mime_type->description || ! *mime_type->description ) )
-            mime_type->description = g_content_type_get_description( mime_type->type );
+        if (G_UNLIKELY(! mime_type->description || ! *mime_type->description))
+            mime_type->description = g_content_type_get_description(mime_type->type);
     }
     return mime_type->description;
 }
