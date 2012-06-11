@@ -370,7 +370,7 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
 
 static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
 {
-    FmPlaceItem* item;
+    FmPlacesItem* item;
     const GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
     FmIcon* remote_icon = NULL;
