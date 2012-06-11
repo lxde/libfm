@@ -151,21 +151,23 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
     GMount* mount;
     FmPath* path;
 
-    if(item->icon)
-        fm_icon_unref(item->icon);
-
     if(item->type == FM_PLACES_ITEM_VOLUME)
     {
         name = g_volume_get_name(item->volume);
         gicon = g_volume_get_icon(item->volume);
         mount = g_volume_get_mount(item->volume);
     }
-    else if(item->type == FM_PLACES_ITEM_MOUNT)
+    else if(G_LIKELY(item->type == FM_PLACES_ITEM_MOUNT))
     {
         name = g_mount_get_name(item->mount);
         gicon = g_mount_get_icon(item->mount);
         mount = g_object_ref(item->mount);
     }
+    else
+        return; /* FIXME: is it possible? */
+
+    if(item->icon)
+        fm_icon_unref(item->icon);
     item->icon = fm_icon_from_gicon(gicon);
     g_object_unref(gicon);
 
@@ -660,7 +662,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     for(l=vols;l;l=l->next)
     {
         GVolume* vol = G_VOLUME(l->data);
-        add_volume_or_mount(self, vol, job);
+        add_volume_or_mount(self, G_OBJECT(vol), job);
         g_object_unref(vol);
     }
     g_list_free(vols);
@@ -674,7 +676,7 @@ static void fm_places_model_init(FmPlacesModel *self)
         if(volume)
             g_object_unref(volume);
         else /* network mounts or others */
-            add_volume_or_mount(self, mount, job);
+            add_volume_or_mount(self, G_OBJECT(mount), job);
         g_object_unref(mount);
     }
     g_list_free(vols);
@@ -819,7 +821,6 @@ static void fm_places_model_dispose(GObject *object)
 
 static void fm_places_model_finalize(GObject *object)
 {
-    FmPlacesModel *self = FM_PLACES_MODEL(object);
     G_OBJECT_CLASS(fm_places_model_parent_class)->finalize(object);
 }
 
