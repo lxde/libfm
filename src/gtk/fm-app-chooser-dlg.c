@@ -72,13 +72,18 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             if(terminal)
                 g_string_append_printf(content,
                     "Terminal=%s\n", terminal ? "true" : "false");
+            close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                char* desktop_id = g_path_get_basename(filename);
+                /* char* desktop_id = g_path_get_basename(filename);
                 app = G_APP_INFO(g_desktop_app_info_new(desktop_id));
-                g_free(desktop_id);
+                g_free(desktop_id); */
+                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename);
+                /* FIXME: shouldn't this file be removed later? */
             }
-            close(fd);
+            else
+                g_unlink(filename);
+            g_string_free(content, TRUE);
         }
         g_free(filename);
     }
@@ -88,6 +93,8 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
 
 static void on_dlg_destroy(AppChooserData* data, GObject* dlg)
 {
+    if(data->mime_type)
+        fm_mime_type_unref(data->mime_type);
     g_slice_free(AppChooserData, data);
 }
 
@@ -140,6 +147,7 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 		GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
 	/* gtk_file_filter_set_name(filter, _("Executable files")); */
 	file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
+	g_object_unref(filter);
 
 	if(file)
 	{
@@ -170,7 +178,8 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->status = GTK_LABEL(gtk_builder_get_object(builder, "status"));
     data->browse_btn = GTK_WIDGET(gtk_builder_get_object(builder, "browse_btn"));
     /* FIXME: shouldn't verify if app-chooser.ui was correct? */
-    data->mime_type = mime_type;
+    if(mime_type)
+        data->mime_type = fm_mime_type_ref(mime_type);
 
     gtk_dialog_set_alternative_button_order(data->dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
 
@@ -191,6 +200,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     gtk_widget_show(GTK_WIDGET(data->apps_view));
     gtk_container_add(scroll, GTK_WIDGET(data->apps_view));
     gtk_widget_grab_focus(GTK_WIDGET(data->apps_view));
+    g_object_unref(data->apps_view);
 
     g_object_unref(builder);
 
