@@ -730,7 +730,7 @@
         <col id="0" translatable="yes">Set GID</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Sticky</col>
+        <col id="0" translatable="yes">Sticky &amp; set GID</col>
       </row>
     </data>
   </object>
@@ -753,7 +753,7 @@
         <col id="0" translatable="yes">Set GID</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Set GID</col>
+        <col id="0" translatable="yes">Set UID &amp; GID</col>
       </row>
     </data>
   </object>
