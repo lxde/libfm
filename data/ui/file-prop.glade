@@ -561,7 +561,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="tooltip_text" translatable="yes">Who can read content of the file/directory</property>
-                                    <property name="model">user_access_model</property>
+                                    <property name="model">read_access_model</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="cellrenderertext1"/>
                                       <attributes>
@@ -768,6 +768,26 @@
       </row>
       <row>
         <col id="0" translatable="yes">Nobody</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Only owner</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Only owner and group</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Anyone</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="read_access_model">
+    <columns>
+      <!-- column-name who -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">---</col>
       </row>
       <row>
         <col id="0" translatable="yes">Only owner</col>
