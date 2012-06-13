@@ -37,7 +37,6 @@ struct _FmAppChooserComboBoxData
     GAppInfo* initial_sel_app;
     GtkTreeIter separator_iter;
     GtkTreeIter other_apps_iter;
-    gpointer other_apps_iter_user_data;
     GList* custom_apps;
 };
 
@@ -86,7 +85,6 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
             /* if it's already in the list, select it */
             if(found)
             {
-                g_object_unref(app);
                 gtk_combo_box_set_active_iter(cb, &it);
             }
             else /* if it's not found, add it to the list */
@@ -101,6 +99,7 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
                 /* add to custom apps list */
                 data->custom_apps = g_list_prepend(data->custom_apps, g_object_ref(app));
             }
+            g_object_unref(app);
         }
         else
         {
@@ -173,8 +172,11 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
 
     if(mime_type) /* if this list is retrived with g_app_info_get_all_for_type() */
     {
-        g_list_foreach(apps, (GFunc)g_object_unref, NULL);
-        g_list_free(apps);
+        if(apps)
+        {
+            g_list_foreach(apps, (GFunc)g_object_unref, NULL);
+            g_list_free(apps);
+        }
     }
 
     gtk_list_store_append(store, &it); /* separator */
