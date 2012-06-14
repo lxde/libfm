@@ -46,7 +46,7 @@ static void destroy_pixbufs(gpointer data)
     g_slist_free(pixs);
 }
 
-GdkPixbuf* fm_icon_get_pixbuf(FmIcon* icon, int size)
+GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
 {
     GtkIconInfo* ii;
     GdkPixbuf* pix;

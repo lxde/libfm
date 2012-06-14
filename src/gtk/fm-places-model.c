@@ -203,7 +203,7 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
         }
     }
 
-    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(GTK_LIST_STORE(model), it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, name, -1);
     g_object_unref(pix);
     g_free(name);
@@ -376,7 +376,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
     const GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
     FmIcon* remote_icon = NULL;
-    GdkPixbuf* folder_pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    GdkPixbuf* folder_pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     GdkPixbuf* remote_pix = NULL;
     bms = fm_bookmarks_list_all(model->bookmarks);
     for(l=bms;l;l=l->next)
@@ -401,7 +401,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
             if(G_UNLIKELY(!remote_icon))
             {
                 remote_icon = fm_icon_from_name("folder-remote");
-                remote_pix = fm_icon_get_pixbuf(remote_icon, fm_config->pane_icon_size);
+                remote_pix = fm_pixbuf_from_icon(remote_icon, fm_config->pane_icon_size);
             }
             item->icon = fm_icon_ref(remote_icon);
             pix = remote_pix;
@@ -461,7 +461,7 @@ static gboolean update_trash_item(gpointer user_data)
                 fm_icon_unref(item->icon);
             item->icon = icon;
             /* update the icon */
-            pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+            pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
             gtk_list_store_set(GTK_LIST_STORE(model), &model->trash_iter, FM_PLACES_MODEL_COL_ICON, pix, -1);
             g_object_unref(pix);
         }
@@ -486,7 +486,7 @@ static void update_icons(FmPlacesModel* model)
 
     /* update the eject icon */
     icon = fm_icon_from_name("media-eject");
-    pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     fm_icon_unref(icon);
     if(model->eject_icon)
         g_object_unref(model->eject_icon);
@@ -501,7 +501,7 @@ static void update_icons(FmPlacesModel* model)
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
 			if(item)
 			{
-				pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+				pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
 				gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
 				g_object_unref(pix);
 			}
@@ -568,7 +568,7 @@ static void create_trash_item(FmPlacesModel* model)
     fm_file_info_set_path(item->fi, fm_path_get_trash());
     item->icon = fm_icon_from_name("user-trash");
     gtk_list_store_insert(GTK_LIST_STORE(model), &it, 2);
-    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Trash"), FM_PLACES_MODEL_COL_INFO, item, -1);
     g_object_unref(pix);
     model->trash_iter = it;
@@ -600,7 +600,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
     icon = fm_icon_from_name("media-eject");
-    pix = fm_icon_get_pixbuf(icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     fm_icon_unref(icon);
     self->eject_icon = pix;
 
@@ -611,7 +611,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     fm_file_info_set_path(item->fi, path);
     item->icon = fm_icon_from_name("user-home");
     gtk_list_store_append(model, &it);
-    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, path->name, FM_PLACES_MODEL_COL_INFO, item, -1);
     g_object_unref(pix);
     fm_file_info_job_add(job, path);
@@ -625,7 +625,7 @@ static void fm_places_model_init(FmPlacesModel *self)
         fm_file_info_set_path(item->fi, fm_path_get_desktop());
         item->icon = fm_icon_from_name("user-desktop");
         gtk_list_store_append(model, &it);
-        pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+        pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
         gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Desktop"), FM_PLACES_MODEL_COL_INFO, item, -1);
         g_object_unref(pix);
         fm_file_info_job_add(job, path);
@@ -640,7 +640,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     fm_file_info_set_path(item->fi, fm_path_get_apps_menu());
     item->icon = fm_icon_from_name("system-software-install");
     gtk_list_store_append(model, &it);
-    pix = fm_icon_get_pixbuf(item->icon, fm_config->pane_icon_size);
+    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Applications"), FM_PLACES_MODEL_COL_INFO, item, -1);
     g_object_unref(pix);
     /* fm_file_info_job_add(job, item->fi->path); */
