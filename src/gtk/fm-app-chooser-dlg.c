@@ -78,7 +78,7 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
                 /* char* desktop_id = g_path_get_basename(filename);
                 app = G_APP_INFO(g_desktop_app_info_new(desktop_id));
                 g_free(desktop_id); */
-                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename);
+                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename));
                 /* FIXME: shouldn't this file be removed later? */
             }
             else
@@ -147,7 +147,6 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 		GTK_FILE_FILTER_FILENAME|GTK_FILE_FILTER_MIME_TYPE, exec_filter_func, NULL, NULL);
 	/* gtk_file_filter_set_name(filter, _("Executable files")); */
 	file = fm_select_file(GTK_WINDOW(data->dlg), NULL, "/usr/bin", TRUE, FALSE, filter, NULL);
-	g_object_unref(filter);
 
 	if(file)
 	{
@@ -200,7 +199,6 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     gtk_widget_show(GTK_WIDGET(data->apps_view));
     gtk_container_add(scroll, GTK_WIDGET(data->apps_view));
     gtk_widget_grab_focus(GTK_WIDGET(data->apps_view));
-    g_object_unref(data->apps_view);
 
     g_object_unref(builder);
 
