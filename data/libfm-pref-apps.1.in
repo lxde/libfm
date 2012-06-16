@@ -10,7 +10,7 @@ web browser and mail client. Those setting are appliable for programs based
 on libfm but should work also for other XDG standard compliant programs.
 .SH FILES
 ~/.local/share/applications/mimeapps.list
-.P
+.br
 ~/.config/libfm/pref-apps.conf
 .SH SEE ALSO
 .BR pcmanfm (1)
