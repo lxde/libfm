@@ -33,7 +33,7 @@ G_BEGIN_DECLS
 #define FM_PATH(path)   ((FmPath*)path)
 
 typedef struct _FmPath FmPath;
-typedef FmList FmPathList;
+typedef struct _FmPathList FmPathList;
 
 enum _FmPathFlags
 {
@@ -50,6 +50,8 @@ enum _FmPathFlags
     FM_PATH_IS_RESERVED3 = 1<<7,
 };
 typedef enum _FmPathFlags FmPathFlags;
+
+typedef struct _FmFileInfoList FmFileInfoList; /* fm-file-info.h includes this too */
 
 struct _FmPath
 {
@@ -116,11 +118,24 @@ int fm_path_depth(FmPath* path);
 FmPathList* fm_path_list_new(void);
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
 FmPathList* fm_path_list_new_from_uris(char* const* uris);
-FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
+FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
+#define fm_path_list_ref(list) (FmPathList*)fm_list_ref((FmList*)list)
+#define fm_path_list_unref(list) fm_list_unref((FmList*)list)
+
+#define fm_path_list_get_length(list) fm_list_get_length((FmList*)list)
+#define fm_path_list_is_empty(list) fm_list_is_empty((FmList*)list)
+#define fm_path_list_peek_head(list) fm_list_peek_head((FmList*)list)
+#define fm_path_list_peek_head_link(list) fm_list_peek_head_link((FmList*)list)
+
+/* FIXME: shouldn't those be functions for more strict compilation check? */
+#define fm_path_list_push_tail(list,d) fm_list_push_tail((FmList*)list,d)
+
+#if 0
 gboolean fm_list_is_path_list(FmList* list);
+#endif
 
 char* fm_path_list_to_uri_list(FmPathList* pl);
 /* char** fm_path_list_to_uris(FmPathList* pl); */

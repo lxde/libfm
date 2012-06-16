@@ -29,6 +29,11 @@
 #include <limits.h>
 #include <glib/gi18n-lib.h>
 
+struct _FmPathList
+{
+    FmList list;
+};
+
 static FmPath* root_path = NULL;
 
 static const char* home_dir = NULL;
@@ -943,10 +948,12 @@ FmPathList* fm_path_list_new()
     return (FmPathList*)fm_list_new(&funcs);
 }
 
+#if 0
 gboolean fm_list_is_path_list(FmList* list)
 {
     return list->funcs == &funcs;
 }
+#endif
 
 FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {
@@ -964,7 +971,7 @@ FmPathList* fm_path_list_new_from_uris(char* const* uris)
                 path = fm_path_new_for_uri(puri);
             else /* it's not a valid path or URI */
                 continue;
-            fm_list_push_tail_noref(pl, path);
+            fm_list_push_tail_noref((FmList*)pl, path);
         }
     }
     return pl;
@@ -1008,10 +1015,10 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 {
     FmPathList* list = fm_path_list_new();
     GList* l;
-    for(l=fm_list_peek_head_link(fis);l;l=l->next)
+    for(l=fm_list_peek_head_link((FmList*)fis);l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fm_file_info_get_path(fi));
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1023,7 +1030,7 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fm_file_info_get_path(fi));
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1035,7 +1042,7 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fm_file_info_get_path(fi));
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1043,7 +1050,7 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
 {
     GList* l;
-    for(l = fm_list_peek_head_link(pl); l; l=l->next)
+    for(l = fm_path_list_peek_head_link(pl); l; l=l->next)
     {
         FmPath* path = (FmPath*)l->data;
         char* uri = fm_path_to_uri(path);

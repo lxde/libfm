@@ -809,7 +809,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
     dest = fm_dnd_dest_get_dest_path(dd);
     /* g_debug("action= %d, %d files-dropped!, info_type: %d", action, fm_list_get_length(files), info_type); */
 
-    if(!dest && action == GDK_ACTION_LINK && fm_list_is_file_info_list(files)) /* add bookmarks */
+    if(!dest && action == GDK_ACTION_LINK) /* add bookmarks */
     {
         GtkTreePath* tp;
         GtkTreeViewDropPosition pos;

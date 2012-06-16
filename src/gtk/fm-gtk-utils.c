@@ -695,9 +695,9 @@ void fm_empty_trash(GtkWindow* parent)
     if(fm_yes_no(parent, NULL, _("Are you sure you want to empty the trash can?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
-        fm_list_push_tail(paths, fm_path_get_trash());
+        fm_path_list_push_tail(paths, fm_path_get_trash());
         fm_delete_files_internal(parent, paths);
-        fm_list_unref(paths);
+        fm_path_list_unref(paths);
     }
 }
 

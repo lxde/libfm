@@ -63,9 +63,9 @@ void fm_list_clear(gpointer list);
 #define fm_list_find_custom(list,d,f)		g_queue_find_custom((GQueue*)list,d,f)
 #define fm_list_sort(list,f,d)			g_queue_sort((GQueue*)list,f,d)
 
-#define fm_list_push_head(list,d)		g_queue_push_head((GQueue*)list,list->funcs->item_ref(d))
-#define fm_list_push_tail(list,d)		g_queue_push_tail((GQueue*)list,list->funcs->item_ref(d))
-#define fm_list_push_nth(list,d,n)		g_queue_push_nth((GQueue*)list,list->funcs->item_ref(d),n)
+#define fm_list_push_head(list,d)		g_queue_push_head((GQueue*)list,(list)->funcs->item_ref(d))
+#define fm_list_push_tail(list,d)		g_queue_push_tail((GQueue*)list,(list)->funcs->item_ref(d))
+#define fm_list_push_nth(list,d,n)		g_queue_push_nth((GQueue*)list,(list)->funcs->item_ref(d),n)
 
 #define fm_list_push_head_noref(list,d)		g_queue_push_head((GQueue*)list,d)
 #define fm_list_push_tail_noref(list,d)		g_queue_push_tail((GQueue*)list,d)
@@ -83,9 +83,9 @@ void fm_list_clear(gpointer list);
 
 void fm_list_remove(gpointer list, gpointer data);
 void fm_list_remove_all(gpointer list, gpointer data);
-#define fm_list_insert_before(list,s,d)		g_queue_insert_before((GQueue*)list,s,list->funcs->item_ref(d))
-#define fm_list_insert_after(list,s,d)		g_queue_insert_after((GQueue*)list,s,list->funcs->item_ref(d))
-#define fm_list_insert_sorted(list,d,f,u)	g_queue_insert_sorted((GQueue*)list,list->funcs->item_ref(d),f,u)
+#define fm_list_insert_before(list,s,d)		g_queue_insert_before((GQueue*)list,s,(list)->funcs->item_ref(d))
+#define fm_list_insert_after(list,s,d)		g_queue_insert_after((GQueue*)list,s,(list)->funcs->item_ref(d))
+#define fm_list_insert_sorted(list,d,f,u)	g_queue_insert_sorted((GQueue*)list,(list)->funcs->item_ref(d),f,u)
 
 #define fm_list_insert_before_noref(list,s,d)	g_queue_insert_before((GQueue*)list,s,d)
 #define fm_list_insert_after_noref(list,s,d)	g_queue_insert_after((GQueue*)list,s,d)

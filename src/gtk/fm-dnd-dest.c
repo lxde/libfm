@@ -37,7 +37,7 @@ struct _FmDndDest
     GtkWidget* widget;
 
     int info_type; /* type of src_files */
-    FmList* src_files;
+    FmPathList* src_files;
     guint32 src_dev; /* UNIX dev of source fs */
     const char* src_fs_id; /* filesystem id of source fs */
     FmFileInfo* dest_file;
@@ -65,7 +65,7 @@ static GdkAtom xds_target_atom = 0;
 
 
 static void fm_dnd_dest_finalize              (GObject *object);
-static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
+static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
 
 static gboolean clear_src_cache(gpointer user_data);
 
@@ -118,7 +118,7 @@ static void fm_dnd_dest_finalize(GObject *object)
         fm_file_info_unref(dd->dest_file);
 
     if(dd->src_files)
-        fm_list_unref(dd->src_files);
+        fm_path_list_unref(dd->src_files);
 
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->finalize(object);
 }
@@ -148,25 +148,20 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
                                           guint action, guint info_type,
-                                          FmFileInfoList* files)
+                                          FmPathList* files)
 {
     FmPath* dest, *src;
     GtkWidget* parent;
     dest = fm_dnd_dest_get_dest_path(dd);
     if(!dest)
         return FALSE;
-    g_debug("%d files-dropped!, info_type: %d", fm_list_get_length(files), info_type);
-
-    if(fm_list_is_file_info_list(files))
-        files = fm_path_list_new_from_file_info_list(files);
-    else
-        fm_list_ref(files);
+    g_debug("%d files-dropped!, info_type: %d", fm_path_list_get_length(files), info_type);
 
     // Check if source and destination are the same
-    src = fm_path_get_parent(FM_PATH(fm_list_peek_head(files)));
+    src = fm_path_get_parent(FM_PATH(fm_path_list_peek_head(files)));
     if(fm_path_equal (src ,dest)) 
     {
-        fm_list_unref(files);
+        fm_path_list_unref(files);
         return FALSE;
     }
 
@@ -192,7 +187,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     case GDK_ACTION_DEFAULT:
         ;
     }
-    fm_list_unref(files);
+    fm_path_list_unref(files);
     return TRUE;
 }
 
@@ -202,7 +197,7 @@ static gboolean clear_src_cache(gpointer user_data)
     /* free cached source files */
     if(dd->src_files)
     {
-        fm_list_unref(dd->src_files);
+        fm_path_list_unref(dd->src_files);
         dd->src_files = NULL;
     }
     if(dd->dest_file)
@@ -219,12 +214,14 @@ static gboolean clear_src_cache(gpointer user_data)
     return FALSE;
 }
 
+#if 0
 /* the returned list can be either FmPathList or FmFileInfoList */
 /* check with fm_list_is_path_list() and fm_list_is_file_info_list(). */
-FmList* fm_dnd_dest_get_src_files(FmDndDest* dd)
+FmPathList* fm_dnd_dest_get_src_files(FmDndDest* dd)
 {
     return dd->src_files;
 }
+#endif
 
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd)
 {
@@ -248,26 +245,25 @@ void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
 gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
              gint x, gint y, GtkSelectionData *sel_data, guint info, guint time)
 {
-    FmList* files = NULL;
+    FmPathList* files = NULL;
 
     if(info ==  FM_DND_DEST_TARGET_FM_LIST)
     {
         if((sel_data->length == sizeof(files)) && (sel_data->format==8))
         {
             /* get the pointer */
-            memcpy(&files, sel_data->data, sel_data->length);
-            if(files && !fm_list_is_file_info_list(files))
-                files = NULL;
-            if(files)
-                fm_list_ref(files);
-            if(files)
+            //memcpy(&files, sel_data->data, sel_data->length);
+            FmFileInfoList* file_infos = *(FmFileInfoList**)sel_data->data;
+            if(file_infos)
             {
-                FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
+                FmFileInfo* fi = FM_FILE_INFO(fm_file_info_list_peek_head(fm_file_info_list_ref(file_infos)));
                 /* get the device of the first dragged source file */
                 if(fm_path_is_native(fm_file_info_get_path(fi)))
                     dd->src_dev = fm_file_info_get_dev(fi);
                 else
                     dd->src_fs_id = fm_file_info_get_fs_id(fi);
+                files = fm_path_list_new_from_file_info_list(file_infos);
+                fm_file_info_list_unref(file_infos);
             }
         }
     }
@@ -282,7 +278,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
             if(files)
             {
                 GFileInfo* inf;
-                FmPath* path = FM_PATH(fm_list_peek_head(files));
+                FmPath* path = FM_PATH(fm_path_list_peek_head(files));
                 GFile* gf = fm_path_to_gfile(path);
                 const char* attr = fm_path_is_native(path) ? G_FILE_ATTRIBUTE_UNIX_DEVICE : G_FILE_ATTRIBUTE_ID_FILESYSTEM;
                 inf = g_file_query_info(gf, attr, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
@@ -318,7 +314,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     /* remove previously cached source files. */
     if(G_UNLIKELY(dd->src_files))
     {
-        fm_list_unref(dd->src_files);
+        fm_path_list_unref(dd->src_files);
         dd->src_files = NULL;
     }
     dd->src_files = files;

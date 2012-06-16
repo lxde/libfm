@@ -129,7 +129,7 @@ void fm_file_menu_destroy(FmFileMenu* menu)
         gtk_widget_destroy(GTK_WIDGET(menu->menu));
 
     if(menu->file_infos)
-        fm_list_unref(menu->file_infos);
+        fm_file_info_list_unref(menu->file_infos);
 
     if(menu->cwd)
         fm_path_unref(menu->cwd);
@@ -143,9 +143,9 @@ FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath*
 {
     FmFileMenu* menu;
     FmFileInfoList* files = fm_file_info_list_new();
-    fm_list_push_tail(files, fi);
+    fm_file_info_list_push_tail(files, fi);
     menu = fm_file_menu_new_for_files(parent, files, cwd, auto_destroy);
-    fm_list_unref(files);
+    fm_file_info_list_unref(files);
     return menu;
 }
 
@@ -253,7 +253,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     data->parent = g_object_ref(parent); /* FIXME: is this really needed? */
     /* FIXME: should we connect to "destroy" signal of parent and set data->parent to NULL when
      * it's detroyed? */
-    data->file_infos = fm_list_ref(files);
+    data->file_infos = fm_file_info_list_ref(files);
 
     /* check if the files are of the same type */
     data->same_type = fm_file_info_list_is_same_type(files);
@@ -535,7 +535,7 @@ void on_cut(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_clipboard_cut_files(GTK_WIDGET(data->parent), files);
-    fm_list_unref(files);
+    fm_path_list_unref(files);
 }
 
 void on_copy(GtkAction* action, gpointer user_data)
@@ -544,7 +544,7 @@ void on_copy(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_clipboard_copy_files(GTK_WIDGET(data->parent), files);
-    fm_list_unref(files);
+    fm_path_list_unref(files);
 }
 
 void on_paste(GtkAction* action, gpointer user_data)
@@ -563,7 +563,7 @@ void on_delete(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_trash_or_delete_files(data->parent, files);
-    fm_list_unref(files);
+    fm_path_list_unref(files);
 }
 
 void on_untrash(GtkAction* action, gpointer user_data)
@@ -572,7 +572,7 @@ void on_untrash(GtkAction* action, gpointer user_data)
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_untrash_files(data->parent, files);
-    fm_list_unref(files);
+    fm_path_list_unref(files);
 }
 
 void on_rename(GtkAction* action, gpointer user_data)
@@ -594,7 +594,7 @@ void on_compress(GtkAction* action, gpointer user_data)
         GAppLaunchContext* ctx = (GAppLaunchContext*)gdk_display_get_app_launch_context(gdk_display_get_default());
         files = fm_path_list_new_from_file_info_list(data->file_infos);
         fm_archiver_create_archive(archiver, ctx, files);
-        fm_list_unref(files);
+        fm_path_list_unref(files);
         g_object_unref(ctx);
     }
 }
@@ -609,7 +609,7 @@ void on_extract_here(GtkAction* action, gpointer user_data)
         GAppLaunchContext* ctx = (GAppLaunchContext*)gdk_display_get_app_launch_context(gdk_display_get_default());
         files = fm_path_list_new_from_file_info_list(data->file_infos);
         fm_archiver_extract_archives_to(archiver, ctx, files, data->cwd);
-        fm_list_unref(files);
+        fm_path_list_unref(files);
         g_object_unref(ctx);
     }
 }
@@ -624,7 +624,7 @@ void on_extract_to(GtkAction* action, gpointer user_data)
         GAppLaunchContext* ctx = (GAppLaunchContext*)gdk_display_get_app_launch_context(gdk_display_get_default());
         files = fm_path_list_new_from_file_info_list(data->file_infos);
         fm_archiver_extract_archives(archiver, ctx, files);
-        fm_list_unref(files);
+        fm_path_list_unref(files);
         g_object_unref(ctx);
     }
 }

@@ -42,7 +42,7 @@ GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu);
 /* build the menu with GtkUIManager */
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 
-/* call fm_list_ref() if you need to own reference to the returned list. */
+/* call fm_file_info_list_ref() if you need to own reference to the returned list. */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);

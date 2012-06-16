@@ -80,8 +80,13 @@ struct _FmFileInfo
     int n_ref;
 };
 
+struct _FmFileInfoList
+{
+    FmList list;
+};
+
 /* intialize the file info system */
-void _fm_file_info_init()
+void _fm_file_info_init(void)
 {
     desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 }
@@ -703,21 +708,23 @@ static FmListFuncs fm_list_funcs =
 
 FmFileInfoList* fm_file_info_list_new()
 {
-    return fm_list_new(&fm_list_funcs);
+    return (FmFileInfoList*)fm_list_new(&fm_list_funcs);
 }
 
+#if 0
 gboolean fm_list_is_file_info_list(FmList* list)
 {
     return list->funcs == &fm_list_funcs;
 }
+#endif
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 {
     /* FIXME: handle virtual files without mime-types */
-    if(!fm_list_is_empty(list))
+    if(!fm_list_is_empty((FmList*)list))
     {
-        GList* l = fm_list_peek_head_link(list);
+        GList* l = fm_list_peek_head_link((FmList*)list);
         FmFileInfo* fi = (FmFileInfo*)l->data;
         l = l->next;
         for(;l;l=l->next)
@@ -733,9 +740,9 @@ gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 /* return TRUE if all files in the list are on the same fs */
 gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
 {
-    if(!fm_list_is_empty(list))
+    if(!fm_list_is_empty((FmList*)list))
     {
-        GList* l = fm_list_peek_head_link(list);
+        GList* l = fm_list_peek_head_link((FmList*)list);
         FmFileInfo* fi = (FmFileInfo*)l->data;
         l = l->next;
         for(;l;l=l->next)

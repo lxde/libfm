@@ -272,7 +272,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
                 if(need_added)
                     files_to_add = g_slist_prepend(files_to_add, fi);
                 fm_file_info_ref(fi);
-                fm_list_push_tail(folder->files, fi);
+                fm_file_info_list_push_tail(folder->files, fi);
             }
         }
         if(files_to_add)
@@ -495,7 +495,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
         {
             FmFileInfo* inf = (FmFileInfo*)l->data;
             files = g_slist_prepend(files, inf);
-            fm_list_push_tail(folder->files, inf);
+            fm_file_info_list_push_tail(folder->files, inf);
         }
         if(G_LIKELY(files))
             g_signal_emit(folder, signals[FILES_ADDED], 0, files);

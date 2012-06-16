@@ -55,7 +55,7 @@ typedef struct _FmDndDestClass      FmDndDestClass;
 struct _FmDndDestClass
 {
     GObjectClass parent_class;
-    gboolean (*files_dropped)(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
+    gboolean (*files_dropped)(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
 };
 
 GType       fm_dnd_dest_get_type        (void);
@@ -63,9 +63,11 @@ FmDndDest*  fm_dnd_dest_new         (GtkWidget* w);
 
 void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w);
 
+#if 0
 /* the returned list can be either FmPathList or FmFileInfoList */
 /* check with fm_list_is_path_list() and fm_list_is_file_info_list(). */
 FmList* fm_dnd_dest_get_src_files(FmDndDest* dd);
+#endif
 
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file);
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd);

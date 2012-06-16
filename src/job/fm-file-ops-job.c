@@ -109,7 +109,7 @@ static void fm_file_ops_job_finalize(GObject *object)
     self = (FmFileOpsJob*)object;
 
     if(self->srcs)
-        fm_list_unref(self->srcs);
+        fm_path_list_unref(self->srcs);
     if(self->dest)
         fm_path_unref(self->dest);
 
@@ -133,7 +133,7 @@ static void fm_file_ops_job_init(FmFileOpsJob *self)
 FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 {
     FmFileOpsJob* job = (FmFileOpsJob*)g_object_new(FM_FILE_OPS_JOB_TYPE, NULL);
-    job->srcs = fm_list_ref(files);
+    job->srcs = fm_path_list_ref(files);
     job->type = type;
     return job;
 }
@@ -317,8 +317,8 @@ gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     GList* l;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    job->total = fm_list_get_length(job->srcs);
-    l = fm_list_peek_head_link(job->srcs);
+    job->total = fm_path_list_get_length(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
         GFile* gf = fm_path_to_gfile(FM_PATH(l->data));

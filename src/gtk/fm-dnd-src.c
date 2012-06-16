@@ -90,7 +90,7 @@ static void fm_dnd_src_finalize(GObject *object)
     ds = (FmDndSrc*)object;
 
     if(ds->files)
-        fm_list_unref(ds->files);
+        fm_file_info_list_unref(ds->files);
 
     fm_dnd_src_set_widget(ds, NULL);
 
@@ -133,13 +133,13 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files)
 {
-    ds->files = fm_list_ref(files);
+    ds->files = fm_file_info_list_ref(files);
 }
 
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file)
 {
     FmFileInfoList* files = fm_file_info_list_new();
-    fm_list_push_tail(files, file);
+    fm_file_info_list_push_tail(files, file);
     ds->files = files;
 }
 

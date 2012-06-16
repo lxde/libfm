@@ -55,7 +55,7 @@ enum _FmFileInfoFlag
 typedef enum _FmFileInfoFlag FmFileInfoFlag;
 
 typedef struct _FmFileInfo FmFileInfo;
-typedef FmList FmFileInfoList;
+//typedef struct _FmFileInfoList FmFileInfoList; // defined in fm-path.h
 
 /* intialize the file info system */
 void _fm_file_info_init();
@@ -132,7 +132,19 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 FmFileInfoList* fm_file_info_list_new();
 //FmFileInfoList* fm_file_info_list_new_from_glist();
 
+#if 0
 gboolean fm_list_is_file_info_list(FmList* list);
+#endif
+
+#define fm_file_info_list_ref(list) (FmFileInfoList*)fm_list_ref((FmList*)list)
+#define fm_file_info_list_unref(list) fm_list_unref((FmList*)list)
+
+#define fm_file_info_list_peek_head(list) fm_list_peek_head((FmList*)list)
+
+/* FIXME: shouldn't those be functions for more strict compilation check? */
+#define fm_file_info_list_push_tail(list,d) fm_list_push_tail((FmList*)list,d)
+#define fm_file_info_list_push_tail_link(list,d) fm_list_push_tail_link((FmList*)list,d)
+#define fm_file_info_list_push_tail_noref(list,d) fm_list_push_tail_noref((FmList*)list,d)
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);

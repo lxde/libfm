@@ -62,7 +62,7 @@ static void fm_deep_count_job_finalize(GObject *object)
     self = (FmDeepCountJob*)object;
 
     if(self->paths)
-        fm_list_unref(self->paths);
+        fm_path_list_unref(self->paths);
     G_OBJECT_CLASS(fm_deep_count_job_parent_class)->finalize(object);
 }
 
@@ -76,7 +76,7 @@ static void fm_deep_count_job_init(FmDeepCountJob *self)
 FmDeepCountJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
 {
     FmDeepCountJob* job = (FmDeepCountJob*)g_object_new(FM_DEEP_COUNT_JOB_TYPE, NULL);
-    job->paths = fm_list_ref(paths);
+    job->paths = fm_path_list_ref(paths);
     job->flags = flags;
     return job;
 }

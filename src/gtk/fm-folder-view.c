@@ -821,7 +821,7 @@ FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
         next = l->next;
         l->data = fm_file_info_ref( fi );
         l->prev = l->next = NULL;
-        fm_list_push_tail_link(fis, l);
+        fm_file_info_list_push_tail_link(fis, l);
     }
     return fis;
 }
@@ -833,7 +833,7 @@ FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
     if(files)
     {
         list = fm_path_list_new_from_file_info_list(files);
-        fm_list_unref(files);
+        fm_file_info_list_unref(files);
     }
     else
         list = NULL;
@@ -846,7 +846,7 @@ void on_sel_changed(GObject* obj, FmFolderView* fv)
     FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
     g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
     if(files)
-        fm_list_unref(files);
+        fm_file_info_list_unref(files);
 }
 
 void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
@@ -970,7 +970,7 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
     if(files)
     {
         fm_dnd_src_set_files(ds, files);
-        fm_list_unref(files);
+        fm_file_info_list_unref(files);
     }
 }
 

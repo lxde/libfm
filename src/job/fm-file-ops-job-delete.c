@@ -264,14 +264,14 @@ gboolean _fm_file_ops_job_trash_run(FmFileOpsJob* job)
     FmPathList* unsupported = fm_path_list_new();
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    g_debug("total number of files to delete: %u", fm_list_get_length(job->srcs));
-    job->total = fm_list_get_length(job->srcs);
+    g_debug("total number of files to delete: %u", fm_path_list_get_length(job->srcs));
+    job->total = fm_path_list_get_length(job->srcs);
 
     fm_file_ops_job_emit_prepared(job);
 
     /* FIXME: we shouldn't trash a file already in trash:/// */
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
         GFile* gf = fm_path_to_gfile(FM_PATH(l->data));
@@ -301,7 +301,7 @@ _retry_trash:
         _on_error:
             /* if trashing is not supported by the file system */
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
-                fm_list_push_tail(unsupported, FM_PATH(l->data));
+                fm_path_list_push_tail(unsupported, FM_PATH(l->data));
             else
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
@@ -321,8 +321,8 @@ _retry_trash:
 
     /* these files cannot be trashed due to lack of support from
      * underlying file systems. */
-    if(fm_list_is_empty(unsupported))
-        fm_list_unref(unsupported);
+    if(fm_path_list_is_empty(unsupported))
+        fm_path_list_unref(unsupported);
     else
     {
         /* FIXME: this is a dirty hack to fallback to delete if trash is not available.

@@ -93,7 +93,7 @@ static void fm_dir_list_job_finalize(GObject *object)
         fm_file_info_unref(self->dir_fi);
 
     if(self->files)
-        fm_list_unref(self->files);
+        fm_file_info_list_unref(self->files);
 
     if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
@@ -194,7 +194,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
             item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
             fi = fm_file_info_new_from_menu_cache_item(item_path, item);
             fm_path_unref(item_path);
-            fm_list_push_tail_noref(job->files, fi);
+            fm_file_info_list_push_tail_noref(job->files, fi);
         }
     }
     menu_cache_unref(mc);
@@ -276,7 +276,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
         _retry:
             if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, fpath->str, &err) )
-                fm_list_push_tail_noref(job->files, fi);
+                fm_file_info_list_push_tail_noref(job->files, fi);
             else /* failed! */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
@@ -383,7 +383,7 @@ _retry:
                 sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
                 fi = fm_file_info_new_from_gfileinfo(sub, inf);
                 fm_path_unref(sub);
-                fm_list_push_tail_noref(job->files, fi);
+                fm_file_info_list_push_tail_noref(job->files, fi);
             }
             else
             {

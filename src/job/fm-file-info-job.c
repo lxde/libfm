@@ -59,7 +59,7 @@ static void fm_file_info_job_finalize(GObject *object)
     g_return_if_fail(IS_FM_FILE_INFO_JOB(object));
 
     self = (FmFileInfoJob*)object;
-    fm_list_unref(self->file_infos);
+    fm_file_info_list_unref(self->file_infos);
     if(self->current)
         fm_path_unref(self->current);
 
@@ -88,7 +88,7 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
             FmPath* path = FM_PATH(l->data);
             FmFileInfo* fi = fm_file_info_new();
             fm_file_info_set_path(fi, path);
-            fm_list_push_tail_noref(file_infos, fi);
+            fm_file_info_list_push_tail_noref(file_infos, fi);
         }
     }
     return job;
@@ -195,7 +195,7 @@ void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 {
     FmFileInfo* fi = fm_file_info_new();
     fm_file_info_set_path(fi, path);
-    fm_list_push_tail_noref(job->file_infos, fi);
+    fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
 void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
@@ -204,7 +204,7 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
     FmFileInfo* fi = fm_file_info_new();
     fm_file_info_set_path(fi, path);
     fm_path_unref(path);
-    fm_list_push_tail_noref(job->file_infos, fi);
+    fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
 gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)

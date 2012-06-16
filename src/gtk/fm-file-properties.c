@@ -156,7 +156,7 @@ static void fm_file_prop_data_free(FmFilePropData* data)
     }
     if(data->mime_type)
         fm_mime_type_unref(data->mime_type);
-    fm_list_unref(data->files);
+    fm_file_info_list_unref(data->files);
     g_slice_free(FmFilePropData, data);
 }
 
@@ -365,7 +365,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             /* show progress dialog */
             fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
-            fm_list_unref(paths);
+            fm_path_list_unref(paths);
         }
 
         /* change default application for the mime-type if needed */
@@ -710,7 +710,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     data = g_slice_new0(FmFilePropData);
 
-    data->files = fm_list_ref(files);
+    data->files = fm_file_info_list_ref(files);
     data->single_type = fm_file_info_list_is_same_type(files);
     data->single_file = (fm_list_get_length(files) == 1);
     data->fi = fm_list_peek_head(files);
@@ -718,7 +718,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
         data->mime_type = fm_mime_type_ref(fm_file_info_get_mime_type(data->fi));
     paths = fm_path_list_new_from_file_info_list(files);
     data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
-    fm_list_unref(paths);
+    fm_path_list_unref(paths);
 
     if(toplevel)
     {
