@@ -180,6 +180,7 @@ AC_CONFIG_FILES([
     src/actions/Makefile
     src/tests/Makefile
     data/Makefile
+    data/libfm-pref-apps.1
     data/ui/Makefile
     po/Makefile.in
     docs/Makefile
