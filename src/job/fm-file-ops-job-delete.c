@@ -327,7 +327,7 @@ _retry_trash:
     {
         /* FIXME: this is a dirty hack to fallback to delete if trash is not available.
          * The API must be re-designed later. */
-        g_object_set_data_full(G_OBJECT(job), "trash-unsupported", unsupported, fm_list_unref);
+        g_object_set_data_full(G_OBJECT(job), "trash-unsupported", unsupported, (GDestroyNotify)fm_path_list_unref);
     }
     return TRUE;
 }

@@ -136,22 +136,60 @@ FmFileInfoList* fm_file_info_list_new();
 gboolean fm_list_is_file_info_list(FmList* list);
 #endif
 
-#define fm_file_info_list_ref(list) (FmFileInfoList*)fm_list_ref((FmList*)list)
-#define fm_file_info_list_unref(list) fm_list_unref((FmList*)list)
+static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
+{
+    return (FmFileInfoList*)fm_list_ref((FmList*)list);
+}
+static inline void fm_file_info_list_unref(FmFileInfoList* list)
+{
+    fm_list_unref((FmList*)list);
+}
 
-#define fm_file_info_list_is_empty(list) fm_list_is_empty((FmList*)list)
-#define fm_file_info_list_get_length(list) fm_list_get_length((FmList*)list)
-#define fm_file_info_list_peek_head(list) (FmFileInfo*)fm_list_peek_head((FmList*)list)
-#define fm_file_info_list_peek_head_link(list) fm_list_peek_head_link((FmList*)list)
+static inline gboolean fm_file_info_list_is_empty(FmFileInfoList* list)
+{
+    return fm_list_is_empty((FmList*)list);
+}
+static inline guint fm_file_info_list_get_length(FmFileInfoList* list)
+{
+    return fm_list_get_length((FmList*)list);
+}
+static inline FmFileInfo* fm_file_info_list_peek_head(FmFileInfoList* list)
+{
+    return (FmFileInfo*)fm_list_peek_head((FmList*)list);
+}
+static inline GList* fm_file_info_list_peek_head_link(FmFileInfoList* list)
+{
+    return fm_list_peek_head_link((FmList*)list);
+}
 
-/* FIXME: shouldn't those be functions for more strict compilation check? */
-#define fm_file_info_list_push_tail(list,d) fm_list_push_tail((FmList*)list,d)
-#define fm_file_info_list_push_tail_link(list,d) fm_list_push_tail_link((FmList*)list,d)
-#define fm_file_info_list_push_tail_noref(list,d) fm_list_push_tail_noref((FmList*)list,d)
-#define fm_file_info_list_pop_head(list) (FmFileInfo*)fm_list_pop_head((FmList*)list)
-#define fm_file_info_list_delete_link(list,_l) fm_list_delete_link((FmList*)list,_l)
-#define fm_file_info_list_delete_link_nounref(list,_l) fm_list_delete_link_nounref((FmList*)list,_l)
-#define fm_file_info_list_clear(list) fm_list_clear((FmList*)list)
+static inline void fm_file_info_list_push_tail(FmFileInfoList* list, FmFileInfo* d)
+{
+    fm_list_push_tail((FmList*)list,d);
+}
+static inline void fm_file_info_list_push_tail_link(FmFileInfoList* list, GList* d)
+{
+    fm_list_push_tail_link((FmList*)list,d);
+}
+static inline void fm_file_info_list_push_tail_noref(FmFileInfoList* list, FmFileInfo* d)
+{
+    fm_list_push_tail_noref((FmList*)list,d);
+}
+static inline FmFileInfo* fm_file_info_list_pop_head(FmFileInfoList* list)
+{
+    return fm_list_pop_head((FmList*)list);
+}
+static inline void fm_file_info_list_delete_link(FmFileInfoList* list, GList* _l)
+{
+    fm_list_delete_link((FmList*)list,_l);
+}
+static inline void fm_file_info_list_delete_link_nounref(FmFileInfoList* list, GList* _l)
+{
+    fm_list_delete_link_nounref((FmList*)list,_l);
+}
+static inline void fm_file_info_list_clear(FmFileInfoList* list)
+{
+    fm_list_clear((FmList*)list);
+}
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);

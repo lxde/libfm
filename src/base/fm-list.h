@@ -45,68 +45,182 @@ struct _FmListFuncs
 
 FmList* fm_list_new(FmListFuncs* funcs);
 
-FmList* fm_list_ref(gpointer list);
-void fm_list_unref(gpointer list);
+FmList* fm_list_ref(FmList* list);
+void fm_list_unref(FmList* list);
 
 #define FM_LIST(list)	((FmList*)list)
 
 /* Since FmList is actually a GQueue with reference counting,
  * all APIs for GQueue should be usable */
 
-void fm_list_clear(gpointer list);
-#define fm_list_is_empty(list)			g_queue_is_empty((GQueue*)list)
-#define fm_list_get_length(list)		g_queue_get_length((GQueue*)list)
+void fm_list_clear(FmList* list);
+static inline gboolean fm_list_is_empty(FmList* list)
+{
+    return g_queue_is_empty((GQueue*)list);
+}
+static inline guint fm_list_get_length(FmList* list)
+{
+    return g_queue_get_length((GQueue*)list);
+}
 
-#define fm_list_reverse(list)			g_queue_reverse((GQueue*)list)
-#define fm_list_foreach(list,f,d)		g_queue_foreach((GQueue*)list,f,d)
-#define fm_list_find(list,d)			g_queue_find((GQueue*)list,d)
-#define fm_list_find_custom(list,d,f)		g_queue_find_custom((GQueue*)list,d,f)
-#define fm_list_sort(list,f,d)			g_queue_sort((GQueue*)list,f,d)
+static inline void fm_list_reverse(FmList* list)
+{
+    g_queue_reverse((GQueue*)list);
+}
+static inline void fm_list_foreach(FmList* list, GFunc f, gpointer d)
+{
+    g_queue_foreach((GQueue*)list,f,d);
+}
+static inline GList* fm_list_find(FmList* list, gpointer d)
+{
+    return g_queue_find((GQueue*)list,d);
+}
+static inline GList* fm_list_find_custom(FmList* list, gconstpointer d, GCompareFunc f)
+{
+    return g_queue_find_custom((GQueue*)list,d,f);
+}
+static inline void fm_list_sort(FmList* list, GCompareDataFunc f, gpointer d)
+{
+    g_queue_sort((GQueue*)list,f,d);
+}
 
-#define fm_list_push_head(list,d)		g_queue_push_head((GQueue*)list,(list)->funcs->item_ref(d))
-#define fm_list_push_tail(list,d)		g_queue_push_tail((GQueue*)list,(list)->funcs->item_ref(d))
-#define fm_list_push_nth(list,d,n)		g_queue_push_nth((GQueue*)list,(list)->funcs->item_ref(d),n)
+static inline void fm_list_push_head(FmList* list, gpointer d)
+{
+    g_queue_push_head((GQueue*)list,(list)->funcs->item_ref(d));
+}
+static inline void fm_list_push_tail(FmList* list, gpointer d)
+{
+    g_queue_push_tail((GQueue*)list,(list)->funcs->item_ref(d));
+}
+static inline void fm_list_push_nth(FmList* list, gpointer d, guint n)
+{
+    g_queue_push_nth((GQueue*)list,(list)->funcs->item_ref(d),n);
+}
 
-#define fm_list_push_head_noref(list,d)		g_queue_push_head((GQueue*)list,d)
-#define fm_list_push_tail_noref(list,d)		g_queue_push_tail((GQueue*)list,d)
-#define fm_list_push_nth_noref(list,d,n)	g_queue_push_nth((GQueue*)list,d,n)
+static inline void fm_list_push_head_noref(FmList* list, gpointer d)
+{
+    g_queue_push_head((GQueue*)list,d);
+}
+static inline void fm_list_push_tail_noref(FmList* list, gpointer d)
+{
+    g_queue_push_tail((GQueue*)list,d);
+}
+static inline void fm_list_push_nth_noref(FmList* list, gpointer d, guint n)
+{
+    g_queue_push_nth((GQueue*)list,d,n);
+}
 
-#define fm_list_pop_head(list)			g_queue_pop_head((GQueue*)list)
-#define fm_list_pop_tail(list)			g_queue_pop_tail((GQueue*)list)
-#define fm_list_pop_nth(list,n)			g_queue_pop_nth((GQueue*)list,n)
+static inline gpointer fm_list_pop_head(FmList* list)
+{
+    return g_queue_pop_head((GQueue*)list);
+}
+static inline gpointer fm_list_pop_tail(FmList* list)
+{
+    return g_queue_pop_tail((GQueue*)list);
+}
+static inline gpointer fm_list_pop_nth(FmList* list, guint n)
+{
+    return g_queue_pop_nth((GQueue*)list,n);
+}
 
-#define fm_list_peek_head(list)			g_queue_peek_head((GQueue*)list)
-#define fm_list_peek_tail(list)			g_queue_peek_tail((GQueue*)list)
-#define fm_list_peek_nth(list,n)		g_queue_peek_nth((GQueue*)list,n)
+static inline gpointer fm_list_peek_head(FmList* list)
+{
+    return g_queue_peek_head((GQueue*)list);
+}
+static inline gpointer fm_list_peek_tail(FmList* list)
+{
+    return g_queue_peek_tail((GQueue*)list);
+}
+static inline gpointer fm_list_peek_nth(FmList* list, guint n)
+{
+    return g_queue_peek_nth((GQueue*)list,n);
+}
 
-#define fm_list_index(list,d)			g_queue_index((GQueue*)list,d)
+static inline gint fm_list_index(FmList* list, gconstpointer d)
+{
+    return g_queue_index((GQueue*)list,d);
+}
 
-void fm_list_remove(gpointer list, gpointer data);
-void fm_list_remove_all(gpointer list, gpointer data);
-#define fm_list_insert_before(list,s,d)		g_queue_insert_before((GQueue*)list,s,(list)->funcs->item_ref(d))
-#define fm_list_insert_after(list,s,d)		g_queue_insert_after((GQueue*)list,s,(list)->funcs->item_ref(d))
-#define fm_list_insert_sorted(list,d,f,u)	g_queue_insert_sorted((GQueue*)list,(list)->funcs->item_ref(d),f,u)
+void fm_list_remove(FmList* list, gpointer data);
+void fm_list_remove_all(FmList* list, gpointer data);
+static inline void fm_list_insert_before(FmList* list, GList* s, gpointer d)
+{
+    g_queue_insert_before((GQueue*)list,s,(list)->funcs->item_ref(d));
+}
+static inline void fm_list_insert_after(FmList* list, GList* s, gpointer d)
+{
+    g_queue_insert_after((GQueue*)list,s,(list)->funcs->item_ref(d));
+}
+static inline void fm_list_insert_sorted(FmList* list, gpointer d, GCompareDataFunc f, gpointer u)
+{
+    g_queue_insert_sorted((GQueue*)list,(list)->funcs->item_ref(d),f,u);
+}
 
-#define fm_list_insert_before_noref(list,s,d)	g_queue_insert_before((GQueue*)list,s,d)
-#define fm_list_insert_after_noref(list,s,d)	g_queue_insert_after((GQueue*)list,s,d)
-#define fm_list_insert_sorted_noref(list,d,f,u)	g_queue_insert_sorted((GQueue*)list,d,f,u)
+static inline void fm_list_insert_before_noref(FmList* list, GList* s, gpointer d)
+{
+    g_queue_insert_before((GQueue*)list,s,d);
+}
+static inline void fm_list_insert_after_noref(FmList* list, GList* s, gpointer d)
+{
+    g_queue_insert_after((GQueue*)list,s,d);
+}
+static inline void fm_list_insert_sorted_noref(FmList* list, gpointer d, GCompareDataFunc f, gpointer u)
+{
+    g_queue_insert_sorted((GQueue*)list,d,f,u);
+}
 
-#define fm_list_push_head_link(list,l_)		g_queue_push_head_link((GQueue*)list,l_)
-#define fm_list_push_tail_link(list,l_)		g_queue_push_tail_link((GQueue*)list,l_)
-#define fm_list_push_nth_link(list,n,l_)	g_queue_push_nth_link((GQueue*)list,n,l_)
+static inline void fm_list_push_head_link(FmList* list, GList* l_)
+{
+    g_queue_push_head_link((GQueue*)list,l_);
+}
+static inline void fm_list_push_tail_link(FmList* list, GList* l_)
+{
+    g_queue_push_tail_link((GQueue*)list,l_);
+}
+static inline void fm_list_push_nth_link(FmList* list, guint n, GList* l_)
+{
+    g_queue_push_nth_link((GQueue*)list,n,l_);
+}
 
-#define fm_list_pop_head_link(list)		g_queue_pop((GQueue*)list)
-#define fm_list_pop_tail_link(list)		g_queue_pop_tail_link((GQueue*)list)
-#define fm_list_pop_nth_link(list,n)		g_queue_pop_nth_link((GQueue*)list,n)
+static inline GList* fm_list_pop_head_link(FmList* list)
+{
+    return g_queue_pop_head_link((GQueue*)list);
+}
+static inline GList* fm_list_pop_tail_link(FmList* list)
+{
+    return g_queue_pop_tail_link((GQueue*)list);
+}
+static inline GList* fm_list_pop_nth_link(FmList* list, guint n)
+{
+    return g_queue_pop_nth_link((GQueue*)list,n);
+}
 
-#define fm_list_peek_head_link(list)		g_queue_peek_head_link((GQueue*)list)
-#define fm_list_peek_tail_link(list)		g_queue_peek_tail_link((GQueue*)list)
-#define fm_list_peek_nth_link(list,n)		g_queue_peek_nth_link((GQueue*)list,n)
+static inline GList* fm_list_peek_head_link(FmList* list)
+{
+    return g_queue_peek_head_link((GQueue*)list);
+}
+static inline GList* fm_list_peek_tail_link(FmList* list)
+{
+    return g_queue_peek_tail_link((GQueue*)list);
+}
+static inline GList* fm_list_peek_nth_link(FmList* list, guint n)
+{
+    return g_queue_peek_nth_link((GQueue*)list,n);
+}
 
-#define fm_list_link_index(list,l_)		g_queue_index((GQueue*)list,l_)
-#define fm_list_unlink(list,l_)			g_queue_unlink((GQueue*)list,l_)
-#define fm_list_delete_link_nounref(list, l_)	g_queue_delete_link((GQueue*)list,l_)
-void fm_list_delete_link(gpointer list, gpointer l_);
+static inline gint fm_list_link_index(FmList* list, GList* l_)
+{
+    return g_queue_index((GQueue*)list,l_);
+}
+static inline void fm_list_unlink(FmList* list, GList* l_)
+{
+    g_queue_unlink((GQueue*)list,l_);
+}
+static inline void fm_list_delete_link_nounref(FmList* list, GList* l_)
+{
+    g_queue_delete_link((GQueue*)list,l_);
+}
+void fm_list_delete_link(FmList* list, GList* l_);
 
 G_END_DECLS
 

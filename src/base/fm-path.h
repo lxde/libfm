@@ -122,16 +122,36 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
-#define fm_path_list_ref(list) (FmPathList*)fm_list_ref((FmList*)list)
-#define fm_path_list_unref(list) fm_list_unref((FmList*)list)
+static inline FmPathList* fm_path_list_ref(FmPathList* list)
+{
+    return (FmPathList*)fm_list_ref((FmList*)list);
+}
+static inline void fm_path_list_unref(FmPathList* list)
+{
+    fm_list_unref((FmList*)list);
+}
 
-#define fm_path_list_get_length(list) fm_list_get_length((FmList*)list)
-#define fm_path_list_is_empty(list) fm_list_is_empty((FmList*)list)
-#define fm_path_list_peek_head(list) fm_list_peek_head((FmList*)list)
-#define fm_path_list_peek_head_link(list) fm_list_peek_head_link((FmList*)list)
+static inline guint fm_path_list_get_length(FmPathList* list)
+{
+    return fm_list_get_length((FmList*)list);
+}
+static inline gboolean fm_path_list_is_empty(FmPathList* list)
+{
+    return fm_list_is_empty((FmList*)list);
+}
+static inline FmPath* fm_path_list_peek_head(FmPathList* list)
+{
+    return fm_list_peek_head((FmList*)list);
+}
+static inline GList* fm_path_list_peek_head_link(FmPathList* list)
+{
+    return fm_list_peek_head_link((FmList*)list);
+}
 
-/* FIXME: shouldn't those be functions for more strict compilation check? */
-#define fm_path_list_push_tail(list,d) fm_list_push_tail((FmList*)list,d)
+static inline void fm_path_list_push_tail(FmPathList* list, FmPath* d)
+{
+    fm_list_push_tail((FmList*)list,d);
+}
 
 #if 0
 gboolean fm_list_is_path_list(FmList* list);
