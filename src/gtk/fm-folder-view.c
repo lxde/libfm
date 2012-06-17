@@ -70,6 +70,9 @@ struct _FmFolderView
     /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
     GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
     guint row_activated_idle;
+
+    FmFileInfoList* cached_selected_files;
+    FmPathList* cached_selected_file_paths;
 };
 
 #define SINGLE_CLICK_TIMEOUT    600
@@ -279,6 +282,18 @@ static void fm_folder_view_dispose(GObject *object)
     /* g_debug("fm_folder_view_dispose: %p", self); */
 
     unset_model(self);
+
+    if(self->cached_selected_files)
+    {
+        fm_list_unref(self->cached_selected_files);
+        self->cached_selected_files = NULL;
+    }
+
+    if(self->cached_selected_file_paths)
+    {
+        fm_list_unref(self->cached_selected_file_paths);
+        self->cached_selected_file_paths = NULL;
+    }
 
     if(self->dnd_src)
     {
@@ -802,51 +817,89 @@ GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
     return sels;
 }
 
+/**
+ * fm_folder_view_get_selected_files
+ * @fv: a FmFolderView object
+ * @returns: An unreferenced FmFileInfoList containing FmFileInfos of
+ * the currently selected files. The list is owned by FmFolderView and
+ * should not be freed with fm_list_unref(). If there are no files
+ * selected, the return value is %NULL.
+ **/
 FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
-    FmFileInfoList* fis;
-    GList *sels = fm_folder_view_get_selected_tree_paths(fv);
-    GList *l, *next;
-    if(!sels)
-        return NULL;
-    fis = fm_file_info_list_new();
-    for(l = sels;l;l=next)
+    /* don't generate the data again if we have it cached. */
+    if(!fv->cached_selected_files)
     {
-        FmFileInfo* fi;
-        GtkTreeIter it;
-        GtkTreePath* tp = (GtkTreePath*)l->data;
-        gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, l->data);
-        gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
-        gtk_tree_path_free(tp);
-        next = l->next;
-        l->data = fm_file_info_ref( fi );
-        l->prev = l->next = NULL;
-        fm_file_info_list_push_tail_link(fis, l);
+        GList* sels = fm_folder_view_get_selected_tree_paths(fv);
+        GList *l, *next;
+        if(sels)
+        {
+            fv->cached_selected_files = fm_file_info_list_new();
+            for(l = sels;l;l=next)
+            {
+                FmFileInfo* fi;
+                GtkTreeIter it;
+                GtkTreePath* tp = (GtkTreePath*)l->data;
+                gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, l->data);
+                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
+                gtk_tree_path_free(tp);
+                next = l->next;
+                l->data = fm_file_info_ref( fi );
+                l->prev = l->next = NULL;
+                fm_file_info_list_push_tail_link(fv->cached_selected_files, l);
+            }
+        }
     }
-    return fis;
+    return fv->cached_selected_files;
 }
 
+/**
+ * fm_folder_view_get_selected_file_paths
+ * @fv: a FmFolderView object
+ * @returns: An unreferenced FmPathList containing FmPaths of the
+ * currently selected files. The list is owned by FmFolderView and
+ * should not be freed with fm_list_unref().  If there are no files
+ * selected, the return value is %NULL.
+ **/
 FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
 {
-    FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-    FmPathList* list;
-    if(files)
+    if(!fv->cached_selected_file_paths)
     {
-        list = fm_path_list_new_from_file_info_list(files);
-        fm_file_info_list_unref(files);
+        FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
+        if(files)
+            fv->cached_selected_file_paths = fm_path_list_new_from_file_info_list(files);
+        else
+            fv->cached_selected_file_paths = NULL;
     }
-    else
-        list = NULL;
-    return list;
+    return fv->cached_selected_file_paths;
 }
 
 void on_sel_changed(GObject* obj, FmFolderView* fv)
 {
     /* FIXME: this is inefficient, but currently there is no better way */
-    FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-    g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
-    if(files)
-        fm_file_info_list_unref(files);
+    FmFileInfoList* files;
+
+    /* clear cached selected files */
+    if(fv->cached_selected_files)
+    {
+        fm_list_unref(fv->cached_selected_files);
+        fv->cached_selected_files = NULL;
+    }
+    if(fv->cached_selected_file_paths)
+    {
+        fm_list_unref(fv->cached_selected_file_paths);
+        fv->cached_selected_file_paths = NULL;
+    }
+
+    /* if someone is connected to our "sel-changed" signal. */
+    if(g_signal_has_handler_pending(fv, signals[SEL_CHANGED], 0, TRUE))
+    {
+        /* get currently selected files, and cached them inside fm_folder_view_get_selected_files(). */
+        files = fm_folder_view_get_selected_files(fv);
+
+        /* emit a selection changed notification to the world. */
+        g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
+    }
 }
 
 void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
@@ -968,10 +1021,7 @@ void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 {
     FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
     if(files)
-    {
         fm_dnd_src_set_files(ds, files);
-        fm_file_info_list_unref(files);
-    }
 }
 
 
