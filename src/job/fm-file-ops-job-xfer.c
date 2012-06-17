@@ -667,7 +667,7 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
 
     fm_file_ops_job_emit_prepared(job);
 
-    for(l = fm_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
+    for(l = fm_path_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);
         GFile* src = fm_path_to_gfile(path);
@@ -756,7 +756,7 @@ _retry_query_dest_info:
 
     fm_file_ops_job_emit_prepared(job);
 
-    for(l = fm_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
+    for(l = fm_path_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
     {
         GFileMonitor *src_mon;
         FmPath* path = FM_PATH(l->data);

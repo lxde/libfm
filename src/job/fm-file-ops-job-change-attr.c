@@ -217,13 +217,13 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
         g_object_unref(dc);
     }
     else
-        job->total = fm_list_get_length(job->srcs);
+        job->total = fm_path_list_get_length(job->srcs);
 
     g_debug("total number of files to change attribute: %llu", job->total);
 
     fm_file_ops_job_emit_prepared(job);
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; ! fm_job_is_cancelled(FM_JOB(job)) && l;l=l->next)
     {
         gboolean ret;

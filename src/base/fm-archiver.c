@@ -113,7 +113,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
     if(app)
     {
         GList* uris = NULL, *l;
-        for(l = fm_list_peek_head_link(files); l; l=l->next)
+        for(l = fm_path_list_peek_head_link(files); l; l=l->next)
         {
             FmPath* path = FM_PATH(l->data);
             uris = g_list_prepend(uris, fm_path_to_uri(path));

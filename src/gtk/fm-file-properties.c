@@ -428,7 +428,7 @@ static void on_exec_toggled(GtkToggleButton* btn, FmFilePropData* data)
 /* FIXME: this is too dirty. Need some refactor later. */
 static void update_permissions(FmFilePropData* data)
 {
-    FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(data->files));
+    FmFileInfo* fi = fm_file_info_list_peek_head(data->files);
     GList *l;
     int sel;
     char* tmp;
@@ -447,7 +447,7 @@ static void update_permissions(FmFilePropData* data)
     data->all_native = fm_path_is_native(fm_file_info_get_path(fi));
     data->has_dir = S_ISDIR(fi_mode) != FALSE;
 
-    for(l=fm_list_peek_head_link(data->files)->next; l; l=l->next)
+    for(l=fm_file_info_list_peek_head_link(data->files)->next; l; l=l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
 
@@ -600,7 +600,7 @@ static void update_ui(FmFilePropData* data)
          * some specified mime-types. */
         if( data->single_file ) /* only one file is selected. */
         {
-            FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(data->files));
+            FmFileInfo* fi = fm_file_info_list_peek_head(data->files);
             FmIcon* fi_icon = fm_file_info_get_icon(fi);
             if(fi_icon)
                 icon = fi_icon->gicon;
@@ -712,8 +712,8 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 
     data->files = fm_file_info_list_ref(files);
     data->single_type = fm_file_info_list_is_same_type(files);
-    data->single_file = (fm_list_get_length(files) == 1);
-    data->fi = fm_list_peek_head(files);
+    data->single_file = (fm_file_info_list_get_length(files) == 1);
+    data->fi = fm_file_info_list_peek_head(files);
     if(data->single_type)
         data->mime_type = fm_mime_type_ref(fm_file_info_get_mime_type(data->fi));
     paths = fm_path_list_new_from_file_info_list(files);

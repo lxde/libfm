@@ -869,7 +869,7 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
             GtkTreePath* tp = item_to_tree_path(model, item_l);
             GList* file_l;
             FmFileInfoList* files = fm_folder_get_files(folder);
-            for(file_l = fm_list_peek_head_link(files); file_l; file_l = file_l->next)
+            for(file_l = fm_file_info_list_peek_head_link(files); file_l; file_l = file_l->next)
             {
                 FmFileInfo* fi = file_l->data;
                 if(fm_file_info_is_dir(fi))

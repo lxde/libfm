@@ -1054,7 +1054,7 @@ void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
 void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
 {
     GList* l;
-    for(l = fm_list_peek_head_link(paths);l; l=l->next)
+    for(l = fm_path_list_peek_head_link(paths);l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);
         fm_folder_view_select_file_path(fv, path);

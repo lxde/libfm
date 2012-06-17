@@ -330,7 +330,7 @@ gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* l
     ret = fm_job_run_sync_with_mainloop(FM_JOB(job));
     if(ret)
     {
-        GList* file_infos = fm_list_peek_head_link(job->file_infos);
+        GList* file_infos = fm_file_info_list_peek_head_link(job->file_infos);
         if(file_infos)
             ret = fm_launch_files(ctx, file_infos, launcher, user_data);
         else

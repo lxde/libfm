@@ -266,7 +266,7 @@ void init_dir_tree(FmSidePane* sp)
         fm_job_run_sync_with_mainloop(FM_JOB(job));
 
         dir_tree_model = fm_dir_tree_model_new();
-        for(l = fm_list_peek_head_link(job->file_infos); l; l = l->next)
+        for(l = fm_file_info_list_peek_head_link(job->file_infos); l; l = l->next)
         {
             FmFileInfo* fi = FM_FILE_INFO(l->data);
             fm_dir_tree_model_add_root(dir_tree_model, fi, NULL);

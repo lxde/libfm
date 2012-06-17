@@ -630,12 +630,12 @@ void fm_delete_files(GtkWindow* parent, FmPathList* files)
 
 void fm_trash_or_delete_files(GtkWindow* parent, FmPathList* files)
 {
-    if( !fm_list_is_empty(files) )
+    if( !fm_path_list_is_empty(files) )
     {
         gboolean all_in_trash = TRUE;
         if(fm_config->use_trash)
         {
-            GList* l = fm_list_peek_head_link(files);
+            GList* l = fm_path_list_peek_head_link(files);
             for(;l;l=l->next)
             {
                 FmPath* path = FM_PATH(l->data);

@@ -139,12 +139,19 @@ gboolean fm_list_is_file_info_list(FmList* list);
 #define fm_file_info_list_ref(list) (FmFileInfoList*)fm_list_ref((FmList*)list)
 #define fm_file_info_list_unref(list) fm_list_unref((FmList*)list)
 
-#define fm_file_info_list_peek_head(list) fm_list_peek_head((FmList*)list)
+#define fm_file_info_list_is_empty(list) fm_list_is_empty((FmList*)list)
+#define fm_file_info_list_get_length(list) fm_list_get_length((FmList*)list)
+#define fm_file_info_list_peek_head(list) (FmFileInfo*)fm_list_peek_head((FmList*)list)
+#define fm_file_info_list_peek_head_link(list) fm_list_peek_head_link((FmList*)list)
 
 /* FIXME: shouldn't those be functions for more strict compilation check? */
 #define fm_file_info_list_push_tail(list,d) fm_list_push_tail((FmList*)list,d)
 #define fm_file_info_list_push_tail_link(list,d) fm_list_push_tail_link((FmList*)list,d)
 #define fm_file_info_list_push_tail_noref(list,d) fm_list_push_tail_noref((FmList*)list,d)
+#define fm_file_info_list_pop_head(list) (FmFileInfo*)fm_list_pop_head((FmList*)list)
+#define fm_file_info_list_delete_link(list,_l) fm_list_delete_link((FmList*)list,_l)
+#define fm_file_info_list_delete_link_nounref(list,_l) fm_list_delete_link_nounref((FmList*)list,_l)
+#define fm_file_info_list_clear(list) fm_list_clear((FmList*)list)
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);

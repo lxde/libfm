@@ -249,7 +249,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
         gboolean need_added = g_signal_has_handler_pending(folder, signals[FILES_ADDED], 0, TRUE);
         gboolean need_changed = g_signal_has_handler_pending(folder, signals[FILES_CHANGED], 0, TRUE);
 
-        for(l=fm_list_peek_head_link(job->file_infos);l;l=l->next)
+        for(l=fm_file_info_list_peek_head_link(job->file_infos);l;l=l->next)
         {
             FmFileInfo* fi = (FmFileInfo*)l->data;
             FmPath* path = fm_file_info_get_path(fi);
@@ -344,7 +344,7 @@ static gboolean on_idle(FmFolder* folder)
         {
             GList* l= (GList*)ll->data;
             ll->data = l->data;
-            fm_list_delete_link_nounref(folder->files , l);
+            fm_file_info_list_delete_link_nounref(folder->files , l);
         }
         g_signal_emit(folder, signals[FILES_REMOVED], 0, folder->files_to_del);
         g_slist_foreach(folder->files_to_del, (GFunc)fm_file_info_unref, NULL);
@@ -491,7 +491,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
     if(!fm_job_is_cancelled(FM_JOB(job)))
     {
         GList* l;
-        for(l = fm_list_peek_head_link(job->files); l; l=l->next)
+        for(l = fm_file_info_list_peek_head_link(job->files); l; l=l->next)
         {
             FmFileInfo* inf = (FmFileInfo*)l->data;
             files = g_slist_prepend(files, inf);
@@ -681,7 +681,7 @@ static void fm_folder_dispose(GObject *object)
 
     if(folder->files)
     {
-        fm_list_unref(folder->files);
+        fm_file_info_list_unref(folder->files);
         folder->files = NULL;
     }
 
@@ -744,7 +744,7 @@ void fm_folder_reload(FmFolder* folder)
     }
 
     /* remove all items and re-run a dir list job. */
-    GList* l = fm_list_peek_head_link(folder->files);
+    GList* l = fm_file_info_list_peek_head_link(folder->files);
 
     /* cancel running dir listing job if there is any. */
     if(folder->dirlist_job)
@@ -762,7 +762,7 @@ void fm_folder_reload(FmFolder* folder)
             g_signal_emit(folder, signals[FILES_REMOVED], 0, files_to_del);
             g_slist_free(files_to_del);
         }
-        fm_list_clear(folder->files); /* fm_file_info_unref will be invoked. */
+        fm_file_info_list_clear(folder->files); /* fm_file_info_unref will be invoked. */
     }
 
     /* also re-create a new file monitor */
@@ -804,7 +804,7 @@ FmFileInfoList* fm_folder_get_files (FmFolder* folder)
 
 gboolean fm_folder_is_empty(FmFolder* folder)
 {
-    return fm_list_is_empty(folder->files);
+    return fm_file_info_list_is_empty(folder->files);
 }
 
 FmFileInfo* fm_folder_get_info(FmFolder* folder)
@@ -819,7 +819,7 @@ FmPath* fm_folder_get_path(FmFolder* folder)
 
 static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
 {
-    GList* l = fm_list_peek_head_link(folder->files);
+    GList* l = fm_file_info_list_peek_head_link(folder->files);
     for(;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;

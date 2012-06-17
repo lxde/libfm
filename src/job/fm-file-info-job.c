@@ -83,7 +83,7 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
     if(files_to_query)
     {
         file_infos = job->file_infos;
-        for(l = fm_list_peek_head_link(files_to_query);l;l=l->next)
+        for(l = fm_path_list_peek_head_link(files_to_query);l;l=l->next)
         {
             FmPath* path = FM_PATH(l->data);
             FmFileInfo* fi = fm_file_info_new();
@@ -100,7 +100,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
     FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
     GError* err = NULL;
 
-    for(l = fm_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
+    for(l = fm_file_info_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
@@ -120,7 +120,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     continue; /* retry */
 
                 next = l->next;
-                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+                fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_free(path_str);
         }
@@ -162,7 +162,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     else
                     {
                         next = l->next;
-                        fm_list_delete_link(job->file_infos, l); /* also calls unref */
+                        fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
                     }
                     g_free(path_str);
                     menu_cache_unref(mc);
@@ -181,7 +181,7 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     continue; /* retry */
 
                 next = l->next;
-                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+                fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_object_unref(gf);
         }

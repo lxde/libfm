@@ -153,7 +153,7 @@ static void on_custom_action(GtkAction* act, FmFileMenu* data)
 {
     FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
     GdkAppLaunchContext* ctx = gdk_app_launch_context_new();
-    GList* files = fm_list_peek_head_link(data->file_infos);
+    GList* files = fm_file_info_list_peek_head_link(data->file_infos);
     char* output = NULL;
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
@@ -219,7 +219,7 @@ static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionI
 
 static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml, FmFileInfoList* files)
 {
-	GList* files_list = fm_list_peek_head_link(files);
+	GList* files_list = fm_file_info_list_peek_head_link(files);
 	GList* items = fm_get_actions_for_files(files_list);
 
     if(items)
@@ -242,13 +242,13 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkAction* act;
-    FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
+    FmFileInfo* fi = fm_file_info_list_peek_head(files);
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
     FmMimeType* mime_type = fm_file_info_get_mime_type(fi);
     FmPath* path = fm_file_info_get_path(fi);
 
-    unsigned items_num = fm_list_get_length(files);
+    unsigned items_num = fm_file_info_list_get_length(files);
 
     data->parent = g_object_ref(parent); /* FIXME: is this really needed? */
     /* FIXME: should we connect to "destroy" signal of parent and set data->parent to NULL when
@@ -341,7 +341,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             FmArchiver* archiver = fm_archiver_get_default();
             if(archiver)
             {
-                fi = FM_FILE_INFO(fm_list_peek_head(files));
+                fi = fm_file_info_list_peek_head(files);
                 if(fm_archiver_is_mime_type_supported(archiver, mime_type->type))
                 {
                     if(data->cwd && archiver->extract_to_cmd)
@@ -368,7 +368,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             gboolean can_restore = TRUE;
             GList* l;
             /* only immediate children of trash:/// can be restored. */
-            for(l = fm_list_peek_head_link(files);l;l=l->next)
+            for(l = fm_file_info_list_peek_head_link(files);l;l=l->next)
             {
                 FmPath* trash_path = fm_file_info_get_path(FM_FILE_INFO(l->data));
                 if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
@@ -409,7 +409,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     }
     g_string_append(xml, "</placeholder></popup>");
 
-    if (items_num != 1 || !fm_file_info_is_dir(fm_list_peek_head(files)))
+    if (items_num != 1 || !fm_file_info_is_dir(fm_file_info_list_peek_head(files)))
     {
         act = gtk_ui_manager_get_action(ui, "/popup/Paste");
         gtk_action_set_visible(act, FALSE);
@@ -462,7 +462,7 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 void on_open(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    GList* l = fm_list_peek_head_link(data->file_infos);
+    GList* l = fm_file_info_list_peek_head_link(data->file_infos);
     fm_launch_files_simple(data->parent, NULL, l, data->folder_func, data->folder_func_data);
 }
 
@@ -470,7 +470,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
 {
     GdkAppLaunchContext* ctx;
     FmFileInfoList* files = data->file_infos;
-    GList* l = fm_list_peek_head_link(files);
+    GList* l = fm_file_info_list_peek_head_link(files);
     GList* uris = NULL;
     int i;
     for(i=0; l; ++i, l=l->next)
@@ -507,7 +507,7 @@ void on_open_with(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfoList* files = data->file_infos;
-    FmFileInfo* fi = FM_FILE_INFO(fm_list_peek_head(files));
+    FmFileInfo* fi = fm_file_info_list_peek_head(files);
     FmMimeType* mime_type;
     GAppInfo* app;
 
@@ -550,7 +550,7 @@ void on_copy(GtkAction* action, gpointer user_data)
 void on_paste(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    FmFileInfo* fi = fm_list_peek_head(data->file_infos);
+    FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
     if (fi)
     {
         fm_clipboard_paste_files(GTK_WIDGET(data->parent), fm_file_info_get_path(fi));
@@ -578,7 +578,7 @@ void on_untrash(GtkAction* action, gpointer user_data)
 void on_rename(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    FmFileInfo* fi = fm_list_peek_head(data->file_infos);
+    FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
     if(fi)
         fm_rename_file(data->parent, fm_file_info_get_path(fi));
     /* FIXME: is it ok to only rename the first selected file here? */

@@ -57,7 +57,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
         g_string_append(uri_list, is_cut ? "cut\n" : "copy\n");
     if(info == UTF8_STRING)
     {
-        GList* l = fm_list_peek_head_link(files);
+        GList* l = fm_path_list_peek_head_link(files);
         while(l)
         {
             FmPath* path = (FmPath*)l->data;
@@ -209,7 +209,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
             files = fm_path_list_new_from_uris(uris);
             g_strfreev(uris);
 
-            if(!fm_list_is_empty(files))
+            if(!fm_path_list_is_empty(files))
             {
                 if( is_cut )
                     fm_move_files(GTK_WINDOW(parent), files, dest_dir);

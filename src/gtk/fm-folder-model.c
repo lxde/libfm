@@ -392,7 +392,7 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         {
             GList *l;
             FmFileInfoList* files = fm_folder_get_files(model->folder);
-            for( l = fm_list_peek_head_link(files); l; l = l->next )
+            for( l = fm_file_info_list_peek_head_link(files); l; l = l->next )
                 _fm_folder_model_add_file(model, FM_FILE_INFO(l->data));
         }
     }

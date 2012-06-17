@@ -285,8 +285,8 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     }
 
     if(!src_inf)
-        src_fi = fm_list_pop_head(fijob->file_infos);
-    dest_fi = fm_list_pop_head(fijob->file_infos);
+        src_fi = fm_file_info_list_pop_head(fijob->file_infos);
+    dest_fi = fm_file_info_list_pop_head(fijob->file_infos);
     g_object_unref(fijob);
 
     data.ret = 0;

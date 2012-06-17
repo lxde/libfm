@@ -173,7 +173,7 @@ on_drag_data_get ( GtkWidget *src_widget,
             GList* l;
             FmFileInfo* file;
 
-            for( l = fm_list_peek_head_link(ds->files); l; l=l->next )
+            for( l = fm_file_info_list_peek_head_link(ds->files); l; l=l->next )
             {
                 file = FM_FILE_INFO(l->data);
                 uri = fm_path_to_uri(fm_file_info_get_path(file));

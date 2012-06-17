@@ -432,7 +432,7 @@ static gboolean on_show_dlg(gpointer user_data)
     /* set the src label */
     if(data->job->srcs)
     {
-        GList* l = fm_list_peek_head_link(data->job->srcs);
+        GList* l = fm_path_list_peek_head_link(data->job->srcs);
         int i;
         char* disp;
         FmPath* path;

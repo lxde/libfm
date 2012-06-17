@@ -225,7 +225,7 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
 
     fm_file_ops_job_emit_prepared(job);
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; ! fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
         GFileMonitor* mon;
@@ -375,10 +375,10 @@ gboolean _fm_file_ops_job_untrash_run(FmFileOpsJob* job)
     GList* l;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    job->total = fm_list_get_length(job->srcs);
+    job->total = fm_path_list_get_length(job->srcs);
     fm_file_ops_job_emit_prepared(job);
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
         GFile* gf;

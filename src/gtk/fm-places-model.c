@@ -98,13 +98,13 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
         goto finished;
 
-    if(fm_list_is_empty(job->file_infos))
+    if(fm_file_info_list_is_empty(job->file_infos))
         goto finished;
 
     /* optimize for one file case */
-    if(fm_list_get_length(job->file_infos) == 1)
+    if(fm_file_info_list_get_length(job->file_infos) == 1)
     {
-        fi = FM_FILE_INFO(fm_list_peek_head(job->file_infos));
+        fi = FM_FILE_INFO(fm_file_info_list_peek_head(job->file_infos));
         do {
             item = NULL;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
@@ -123,7 +123,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
             if( item && item->fi && (path = fm_file_info_get_path(item->fi)) )
             {
-                for(l = fm_list_peek_head_link(job->file_infos); l; l = l->next )
+                for(l = fm_file_info_list_peek_head_link(job->file_infos); l; l = l->next )
                 {
                     fi = FM_FILE_INFO(l->data);
                     if(fm_path_equal(path, fm_file_info_get_path(fi)))
@@ -132,7 +132,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
                         item->fi = fm_file_info_ref(fi);
                         /* remove the file from list to speed up further loading.
                       * This won't cause problem since nobody else if using the list. */
-                        fm_list_delete_link(job->file_infos, l);
+                        fm_file_info_list_delete_link(job->file_infos, l);
                         break;
                     }
                 }

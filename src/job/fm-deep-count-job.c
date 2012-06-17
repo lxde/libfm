@@ -86,7 +86,7 @@ gboolean fm_deep_count_job_run(FmJob* job)
     FmDeepCountJob* dc = (FmDeepCountJob*)job;
     GList* l;
 
-    l = fm_list_peek_head_link(dc->paths);
+    l = fm_path_list_peek_head_link(dc->paths);
     for(; !fm_job_is_cancelled(job) && l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);

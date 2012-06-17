@@ -821,7 +821,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
             int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
                 --idx;
-            for( l=fm_list_peek_head_link(files); l; l=l->next, ++idx )
+            for( l=fm_file_info_list_peek_head_link(files); l; l=l->next, ++idx )
             {
                 FmFileInfo* fi = FM_FILE_INFO(l->data);
                 if(fm_file_info_is_dir(fi))
