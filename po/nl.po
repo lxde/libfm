@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-09-08 11:12+0200\n"
+"PO-Revision-Date: 2011-11-27 11:12+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
 "Language: nl (Dutch)\n"
@@ -227,7 +227,7 @@ msgstr "<b>Enkele fouten zijn opgetreden:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Tijd resterend:</b>"
+msgstr "<b>Resterende tijd:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -261,7 +261,7 @@ msgstr "Bestandassociaties"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr "Voorkeurtoepassingen"
+msgstr "Voorkeurstoepassingen"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
@@ -400,7 +400,7 @@ msgid ""
 msgstr ""
 "Sommige bestanden kunnen niet naar de prullenbak worden verplaatst, omdat de "
 "onderliggende bestandssystemen dit niet ondersteunen.\n"
-"Wilt u hen in plaats daarvan verwijderen?"
+"Wilt u hen in plaats daarvan onherroepelijk verwijderen?"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
@@ -438,11 +438,11 @@ msgstr[1] "%u bytes"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Gelieve een geldige gebruikernaam of numerieke ID in te voeren."
+msgstr "Gelieve een geldige gebruikersnaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Gelieve een geldige groepnaam of numerieke ID in te voeren."
+msgstr "Gelieve een geldige groepsnaam of numerieke ID in te voeren."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
@@ -473,7 +473,7 @@ msgstr "Verwijderbare media uitwerpen"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr "Hernoem bladwijzerelement"
+msgstr "Bladwijzerelement hernoemen"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
