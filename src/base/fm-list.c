@@ -33,21 +33,21 @@ FmList* fm_list_new(FmListFuncs* funcs)
 FmList* fm_list_ref(FmList* list)
 {
 	g_atomic_int_inc(&list->n_ref);
-	return FM_LIST(list);
+	return list;
 }
 
 void fm_list_unref(FmList* list)
 {
 	if(g_atomic_int_dec_and_test(&list->n_ref))
 	{
-		g_queue_foreach((GQueue*)list, (GFunc)FM_LIST(list)->funcs->item_unref, NULL);
+		g_queue_foreach((GQueue*)list, (GFunc)list->funcs->item_unref, NULL);
 		g_slice_free(FmList, list);
 	}
 }
 
 void fm_list_clear(FmList* list)
 {
-	g_queue_foreach((GQueue*)list, (GFunc)FM_LIST(list)->funcs->item_unref, NULL);
+	g_queue_foreach((GQueue*)list, (GFunc)list->funcs->item_unref, NULL);
 	g_queue_clear((GQueue*)list);
 }
 
@@ -58,7 +58,7 @@ void fm_list_remove(FmList* list, gpointer data)
 	{
 		if(l->data == data)
 		{
-			FM_LIST(list)->funcs->item_unref(data);
+			list->funcs->item_unref(data);
 			break;
 		}
 	}
@@ -73,7 +73,7 @@ void fm_list_remove_all(FmList* list, gpointer data)
 	for(;l; l=l->next)
 	{
 		if(l->data == data)
-			FM_LIST(list)->funcs->item_unref(data);
+			list->funcs->item_unref(data);
 	}
 	g_queue_remove_all((GQueue*)list, data);
 }
