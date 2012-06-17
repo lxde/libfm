@@ -374,7 +374,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
             GError* err = NULL;
-            app = fm_app_chooser_combo_box_get_selected(data->open_with, &default_app_changed);
+            app = fm_app_chooser_combo_box_dup_selected_app(data->open_with, &default_app_changed);
             if(app)
             {
                 if(default_app_changed)

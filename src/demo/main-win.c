@@ -922,7 +922,7 @@ void on_prop(GtkAction* action, FmMainWin* win)
     {
         FmFileInfo* fi = fm_folder_get_info(folder);
         FmFileInfoList* files = fm_file_info_list_new();
-        fm_list_push_tail(files, fi);
+        fm_file_info_list_push_tail(files, fi);
         fm_show_file_properties(GTK_WINDOW(win), files);
         fm_list_unref(files);
     }

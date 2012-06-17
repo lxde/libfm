@@ -1,7 +1,7 @@
 /*
  *      libfm-prefapps.c
  *
- *      Copyright 2010 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -189,7 +189,7 @@ int main(int argc, char** argv)
         g_key_file_load_from_file(kf, fname, G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
 
         /* get currently selected web browser */
-        app = fm_app_chooser_combo_box_get_selected(browser, &is_changed);
+        app = fm_app_chooser_combo_box_dup_selected_app(browser, &is_changed);
         if(app)
         {
             if(is_changed)
@@ -216,7 +216,7 @@ int main(int argc, char** argv)
         }
 
         /* get selected mail client */
-        app = fm_app_chooser_combo_box_get_selected(mail_client, &is_changed);
+        app = fm_app_chooser_combo_box_dup_selected_app(mail_client, &is_changed);
         if(app)
         {
             if(is_changed)

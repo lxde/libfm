@@ -232,14 +232,14 @@ inline static char* get_binary(const char* cmdline, gboolean* arg_found)
         return g_strdup(cmdline);
 }
 
-GAppInfo* fm_app_chooser_dlg_get_selected_app(GtkDialog* dlg, gboolean* set_default)
+GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_default)
 {
     GAppInfo* app = NULL;
     AppChooserData* data = (AppChooserData*)g_object_get_qdata(G_OBJECT(dlg), fm_qdata_id);
     switch( gtk_notebook_get_current_page(data->notebook) )
     {
     case 0: /* all applications */
-        app = fm_app_menu_view_get_selected_app(data->apps_view);
+        app = fm_app_menu_view_dup_selected_app(data->apps_view);
         break;
     case 1: /* custom cmd line */
         {
@@ -338,7 +338,7 @@ GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, 
     if(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
         gboolean set_default;
-        app = fm_app_chooser_dlg_get_selected_app(dlg, &set_default);
+        app = fm_app_chooser_dlg_dup_selected_app(dlg, &set_default);
 
         if(app && mime_type && mime_type->type)
         {
