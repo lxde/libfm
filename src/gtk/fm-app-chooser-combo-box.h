@@ -47,7 +47,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
  * boolean value which tells you if the currently selected app is different from the one
  * initially selected in the combobox.
  * the returned GAppInfo needs to be freed with g_object_unref() */
-GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is_sel_changed);
+GAppInfo* fm_app_chooser_combo_box_dup_selected_app(GtkComboBox* combo, gboolean* is_sel_changed);
 
 /* get a list of custom apps added with app-chooser.
  * the returned GList is owned by the combo box and shouldn't be freed. */

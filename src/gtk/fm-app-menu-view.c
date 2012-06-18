@@ -1,7 +1,7 @@
 /*
  *      fm-app-menu-view.c
  *
- *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -168,9 +168,9 @@ GtkTreeView *fm_app_menu_view_new(void)
     return view;
 }
 
-GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
+GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view)
 {
-    char* id = fm_app_menu_view_get_selected_app_desktop_id(view);
+    char* id = fm_app_menu_view_dup_selected_app_desktop_id(view);
     if(id)
     {
         GDesktopAppInfo* app = g_desktop_app_info_new(id);
@@ -180,7 +180,7 @@ GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
     return NULL;
 }
 
-char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
+char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
@@ -194,7 +194,7 @@ char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
     return NULL;
 }
 
-char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
+char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
