@@ -216,7 +216,11 @@ static void fm_folder_class_init(FmFolderClass *klass)
                       G_STRUCT_OFFSET ( FmFolderClass, error ),
                       NULL, NULL,
                       fm_marshal_INT__POINTER_INT,
+#if GLIB_CHECK_VERSION(2,26,0)
+                      G_TYPE_INT, 2, G_TYPE_ERROR, G_TYPE_INT );
+#else
                       G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+#endif
 }
 
 
