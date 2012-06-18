@@ -340,7 +340,7 @@ void load_thumbnails(ThumbnailTask* task)
     if( IS_CANCELLED(task) )
         goto _out;
 
-    DEBUG("loading: %s, %s", task->fi->path->name, normal_path);
+    DEBUG("loading: %s, %s", fm_file_info_get_name(task->fi), normal_path);
 
     if(task->flags & LOAD_NORMAL)
     {
@@ -429,7 +429,7 @@ void load_thumbnails(ThumbnailTask* task)
             generate_task->uri = g_strdup(task->uri);
             generate_task->normal_path = g_strdup(task->normal_path);
             generate_task->large_path = g_strdup(task->large_path);
-            DEBUG("queue regenerate for :%s", task->fi->path->name);
+            DEBUG("queue regenerate for :%s", fm_file_info_get_name(task->fi));
             /* queue the re-generation task */
             queue_generate(generate_task);
         }
@@ -883,7 +883,7 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
     GdkPixbuf* normal_pix = NULL;
     GdkPixbuf* large_pix = NULL;
 
-    DEBUG("generate thumbnail for %s", task->fi->path->name);
+    DEBUG("generate thumbnail for %s", fm_file_info_get_name(task->fi));
 
     ins = g_file_read(gf, generator_cancellable, NULL);
     if(ins)
@@ -920,8 +920,29 @@ void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 				exif_data_unref(exif_data);
 			}
 		}
+
 		if(!ori_pix)
+		{
+			/* FIXME: instead of reload the image file again, it's posisble to get the bytes
+			 * read already by libexif with exif_loader_get_buf() and feed the data to
+			 * GdkPixbufLoader ourselves. However the performance improvement by doing this
+			 * might be negliable, I think. */
+			GSeekable* seekable = G_SEEKABLE(ins);
+			if(g_seekable_can_seek(seekable))
+			{
+				/* an EXIF thumbnail is not found, lets rewind the file pointer to beginning of
+				 * the file and load the image with gdkpixbuf instead. */
+				g_seekable_seek(seekable, 0, G_SEEK_SET, generator_cancellable, NULL);
+			}
+			else
+			{
+				/* if the stream is not seekable, close it and open it again. */
+				g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
+				g_object_unref(ins);
+				ins = g_file_read(gf, generator_cancellable, NULL);
+			}
 			ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
+		}
 #else
         ori_pix = gdk_pixbuf_new_from_stream(G_INPUT_STREAM(ins), generator_cancellable, NULL);
 #endif
@@ -1018,7 +1039,7 @@ void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 		for(l = thumbnailers; l; l = l->next)
 		{
 			FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
-			g_debug("generate thumbnail with: %s", thumbnailer->id);
+			DEBUG("generate thumbnail with: %s", thumbnailer->id);
 			if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
 			{
 				if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->normal_path, 128))

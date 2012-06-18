@@ -174,12 +174,19 @@ done
 AM_GLIB_GNU_GETTEXT
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
+dnl Fix invalid sysconfdir when --prefix=/usr
+if test `eval "echo $sysconfdir"` = /usr/etc
+then
+    sysconfdir=/etc
+fi
+
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
     src/actions/Makefile
     src/tests/Makefile
     data/Makefile
+    data/libfm-pref-apps.1
     data/ui/Makefile
     po/Makefile.in
     docs/Makefile
@@ -214,7 +221,7 @@ echo
 if test x"$sysconfdir" != x'/etc'; then
     echo
     echo
-    echo 'Error: sysconfdir is not /etc.'
+    echo 'Warning: sysconfdir is not /etc.'
     echo 'Please consider passing --sysconfdir=/etc to configure.';
     echo 'Otherwise default config files will be installed to wrong place.'
     echo

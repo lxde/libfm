@@ -1,29 +1,29 @@
-# Dutch translation for the libfm package.
-# Copyright (C) the author of the libfm package.
-# This file is distributed under the same license as the libfm package.
-# Pjotr, 2011.
+# Uyghur translation for libfm.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gheyret Kenji<gheyret@gmail.com>,2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-11-27 11:12+0200\n"
-"Last-Translator: Pjotr\n"
-"Language-Team: Dutch\n"
-"Language: nl (Dutch)\n"
+"PO-Revision-Date: 2011-11-09 16:10+0900\n"
+"Last-Translator: Gheyret Kenji<gheyret@gmail.com>\n"
+"Language-Team:  Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>Opdrachtregel om uit te voeren:</b>"
+msgstr "<b>ئىجرا قىلىدىغان بۇيرۇق قۇرى:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Bestandtype dat moet worden geopend:</b>"
+msgstr "<b>ئاچىدىغان ھۆججەت تىپى:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -33,74 +33,73 @@ msgid ""
 "  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
-msgstr ""
-"<b>Deze speciale codes kunt u gebruiken in de opdrachtregel:</b>\n"
-"  <b>%f</b>: Representeert een enkele bestandnaam\n"
-"  <b>%F</b>: Representeert meerdere bestandnamen\n"
-"  <b>%u</b>: Representeert een enkele URI van het bestand\n"
-"  <b>%U</b>: Representeert meerdere URI's"
+msgstr "<b>بۇ ئالاھىدە كودلار بۇيرۇق قۇرىدا ئىشلىتىلىدۇ:</b>\n"
+"  <b>%f</b>: بىرلا ھۆججەتنى ئىپادىلەيدۇ\n"
+"  <b>%F</b>: بىر قانچە ھۆججەتنى ئىپادىلەيدۇ\n"
+"  <b>%u</b>: ھۆججەتنىڭ بىرلا URI سىنى ئىپادىلەيدۇ\n"
+"  <b>%U</b>: بىر قانچە URI لارنى ئىپادىلەيدۇ"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
-msgstr "Kies een toepassing"
+msgstr "پروگرامما تاللاش"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Aangepaste opdrachtregel"
+msgstr "ئىختىيارىي بۇيرۇق قۇرى"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
-msgstr "Uitvoeren in terminalvenster"
+msgstr "تېرمىنال تەقلىدلىگۈچتە ئىجرا قىلىش"
 
 #: ../data/ui/app-chooser.glade.h:12
 msgid "Installed Application"
-msgstr "Geïnstalleerde toepassing"
+msgstr "ئورنىتىلغان پروگرامما"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Stel gekozen toepassing in als standaardactie voor dit bestandtype"
+msgstr "بۇ تىپتىكى ھۆججەتنىڭ كۆڭۈلدىكى مەشغۇلاتىغا تاللانغان پروگراممىنى بەلگىلەش"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "_Bladeren"
+msgstr "كۆز يۈگۈرت(_B)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
 "Do you want to replace the existing file"
-msgstr ""
-"<b>Er is al een bestand met dezelfde naam op deze plek.</b>\n"
+msgstr "<b>بۇ يەردە ئوخشاش ئاتتىكى ھۆججەت بار.</b>\n"
 "\n"
-"Wilt u het bestaande bestand overschrijven"
+"قاپلامسىز؟"
+
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Pas deze optie toe op alle bestaande bestanden"
+msgstr "بۇ تاللانمىنى بارلىق ھۆججەتكە قوللىنىش"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
-msgstr "Bevestigen om bestanden te vervangen"
+msgstr "قاپلاشنى جەزملەش"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr "Bestandnaam:"
+msgstr "ھۆججەت ئاتى:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "_Overschrijven"
+msgstr "قاپلا(_O)"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Rename"
-msgstr "_Hernoemen"
+msgstr "ئات ئۆزگەرت(_R)"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "_Overslaan"
+msgstr "ئۆتكۈزۈۋەت(_S)"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "met het volgende bestand?"
+msgstr "تۆۋەندىكى ھۆججەت بىلەن؟"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -108,209 +107,202 @@ msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
-msgstr "<b>Toegangcontrole</b>"
+msgstr "<b>زىيارەت تىزگىنى</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>File Type:</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>ھۆججەت تىپى:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Group:</b>"
-msgstr "<b>Groep:</b>"
+msgstr "<b>گۇرۇپپا:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Laatste toegang:</b>"
+msgstr "<b>ئەڭ ئاخىرقى زىيارەت قىلىنغان ۋاقتى:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Laatste aanpassing:</b>"
+msgstr "<b>ئەڭ ئاخىرقى تۈزىتىلگەن ۋاقتى:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Location:</b>"
-msgstr "<b>Locatie:</b>"
+msgstr "<b>ئورنى:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Openen _met:</b>"
+msgstr "<b>ئاچىدىغان پروگرامما(_W)</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Other:</b>"
-msgstr "<b>Andere:</b>"
+msgstr "<b>باشقا:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Owner:</b>"
-msgstr "<b>Eigenaar:</b>"
+msgstr "<b>ئىگىسى:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
-msgstr "<b>Grootte op schijf:</b>"
+msgstr "<b>دىسكىدىكى چوڭلۇقى:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
-msgstr "<b>Doel:</b>"
+msgstr "<b>نىشان:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Totale omvang van bestanden:</b>"
+msgstr "<b>ھۆججەتلەرنىڭ جەمئىي چوڭلۇقى:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
-msgstr "<b>_Groep:</b>"
+msgstr "<b>گۇرۇپپا(_G):</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Owner:</b>"
-msgstr "<b>_Eigenaar:</b>"
+msgstr "<b>ئىگىسى(_O):</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "File Properties"
-msgstr "Bestandeigenschappen"
+msgstr "ھۆججەت خاسلىقى"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "Make the file executable"
-msgstr "Bestand uitvoerbaar maken"
+msgstr "ھۆججەتنى ئىجرا بولىدىغان قىلىش"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "None"
-msgstr "Geen"
+msgstr "يوق"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Bewerkingen die alle andere gebruikers kunnen doen"
+msgstr "باشقا ئىشلەتكۈچىلەر قىلالايدىغان مەشغۇلاتلار"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
-msgstr "Bewerkingen die de eigenaar van het bestand kan doen"
+msgstr "ھۆججەت ئىگىسى ئېلىپ بارالايدىغان مەشغۇلاتلار"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Bewerkingen die gebruikers van dezelfde groep als de bestandeigenaar kunnen "
-"doen"
+msgstr "ھۆججەت ئىگىسى بىلەن ئوخشاش گۇرۇپپىدىكىلەر ئېلىپ بارالايدىغان مەشغۇلاتلار"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Read and Write"
-msgstr "Lezen en schrijven"
+msgstr "ئوقۇش ۋە يېزىش"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Alleen-lezen"
+msgstr "ئوقۇشقىلا بولىدىغان"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Selecteer de toepassing om bestanden van dit type te openen "
+msgstr "بۇ تىپتىكى ھۆججەتنى ئاچىدىغان پروگراممىنى تاللاش "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Alleen-schrijven"
+msgstr "يېزىشلا"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
-msgstr "_Algemeen"
+msgstr "ئادەتتىكى(_G)"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "_Permissions"
-msgstr "_Rechten"
+msgstr "ئىمتىيازلار(_P)"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
 msgid "<b>Processing:</b>"
-msgstr "<b>Aan het verwerken:</b>"
+msgstr "<b>بىر تەرەپ قىلىنىۋاتقىنى:</b>"
 
 #: ../data/ui/progress.glade.h:3
 msgid "<b>Progress:</b>"
-msgstr "<b>Voortgang:</b>"
+msgstr "<b>ئىجرا:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Enkele fouten zijn opgetreden:</b>"
+msgstr "<b>ئازراق خاتالىق كۆرۈلدى:</b>"
 
 #: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Resterende tijd:</b>"
+msgstr "<b>قالغان ۋاقىت:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
 msgid "<b>To:</b>"
-msgstr "<b>Naar:</b>"
+msgstr "<b>نىشان:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:9
 msgid "Preparing..."
-msgstr "Aan het voorbereiden..."
+msgstr "تەييارلىنىۋاتىدۇ…"
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
-msgstr "<b>E-mailprogramma</b>"
+msgstr "<b>خەت خېرىدارى</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminalvenster</b>"
+msgstr "<b>تېرمىنال تەقلىدلىگۈچى</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
-msgstr "<b>Webbrowser</b>"
+msgstr "<b>توركۆرگۈ</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr "Opdrachtregel:"
+msgstr "بۇيرۇق قۇرى:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "Bestandassociaties"
+msgstr "ھۆججەت باغلىنىش"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr "Voorkeurstoepassingen"
+msgstr "ئامراق پروگراممىلار"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "System Applications"
-msgstr "Systeemtoepassingen"
+msgstr "سىستېما پروگراممىلىرى"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
-msgstr ""
-"Het e-mailprogramma van uw voorkeur zal gebruikt worden om e-mails te "
-"schrijven als u op een e-mailadres klikt."
+msgstr "ئېلخەت ئادرېسىنى چەككەندە ئېلخەت يېزىش ئۈچۈن ئىشلىتىلىدىغان ئامراق خەت خېرىدارى"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"De webbrowser van uw voorkeur zal gebruikt worden om webkoppelingen te "
-"openen."
+msgstr "ئۇلانمىلارنى ئېچىشتا ئىشلىتىدىغان ئامراق توركۆرگۈ."
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "Bestand uitvoeren"
+msgstr "ھۆججەت ئىجرا قىلىش"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Uitvoeren in _terminal"
+msgstr "تېرمىنالدا ئىجرا قىل(_T)"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "%u بايت"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
-msgstr "KB"
+msgstr "كىلوبايت"
 
 #: ../src/base/fm-utils.c:67
 msgid "MB"
-msgstr "MB"
+msgstr "مېگابايت"
 
 #: ../src/base/fm-utils.c:72
 msgid "GB"
-msgstr "GB"
+msgstr "گىگابايت"
 
 #: ../src/base/fm-utils.c:77
 msgid "TB"
-msgstr "TB"
+msgstr "ت​ب"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
@@ -330,27 +322,27 @@ msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
-msgstr "Sneltoetsen"
+msgstr "تېزلەتمىلەر"
 
 #: ../src/base/fm-file-info.c:56
 msgid "Mount Point"
-msgstr "Koppelpunt"
+msgstr "ئېگەرلەش نۇقتىسى"
 
 #: ../src/base/fm-path.c:729
 msgid "Trash Can"
-msgstr "Prullenbak"
+msgstr "ئەخلەتخانا"
 
 #: ../src/base/fm-path.c:731
 msgid "My Computer"
-msgstr "Mijn Computer"
+msgstr "كومپيۇتېرىم"
 
 #: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
-msgstr "Toepassingen"
+msgstr "پروگراممىلار"
 
 #: ../src/base/fm-path.c:742
 msgid "Network"
-msgstr "Netwerk"
+msgstr "تور"
 
 #: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
@@ -362,464 +354,458 @@ msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
-msgstr ""
-"Type: %s\n"
-"Grootte: %s\n"
-"Aangepast: %s"
+msgstr "تىپى: %s\n"
+"چوڭلۇقى: %s\n"
+"تۈزىتىلگەن ۋاقىت: %s"
+
 
 #: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
-msgstr ""
-"Type: %s\n"
-"Aangepast: %s"
+msgstr "تىپى: %s\n"
+"تۈزىتىلگەن ۋاقىت: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
-msgstr "De bestandoperatie is afgeblazen en er zijn enkele fouten."
+msgstr "ھۆججەت مەشغۇلاتى ئەمەلدىن قالدۇرۇلدى ۋە بىر قانچە خاتالىق كۆرۈلدى."
 
 #: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
-msgstr "Geannuleerd"
+msgstr "ئەمەلدىن قالدۇرۇلدى"
 
 #: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
-msgstr "De bestandoperatie is voltooid, maar er zijn enkele fouten."
+msgstr "ھۆججەت مەشغۇلاتى تاماملاندى، بىراق بىر قانچە خاتالىق كۆرۈلدى."
 
 #: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
-msgstr "Voltooid"
+msgstr "تاماملاندى"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
-msgstr ""
-"Sommige bestanden kunnen niet naar de prullenbak worden verplaatst, omdat de "
-"onderliggende bestandssystemen dit niet ondersteunen.\n"
-"Wilt u hen in plaats daarvan onherroepelijk verwijderen?"
+msgstr "ھۆججەت سىستېمىسى قوللىمىغانلىقى ئۈچۈن بىر قانچە ھۆججەتلەرنى ئەخلەتخانىغا يۆتكىگىلى بولمىدى.\n"
+"بۇلارنى ئۆچۈرۈۋېتەمسىز؟"
 
 #: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
-msgstr ", "
+msgstr "، "
 
 #: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
-msgstr "Bestanden verplaatsen"
+msgstr "ھۆججەت يۆتكەۋاتىدۇ"
 
 #: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
-msgstr "Bestanden kopiëren"
+msgstr "ھۆججەتلەرنى كۆچۈرۈۋاتىدۇ"
 
 #: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
-msgstr "Bestanden weggooien"
+msgstr "ھۆججەتلەرنى ئەخلەتخانىغا يۆتكەۋاتىدۇ"
 
 #: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
-msgstr "Bestanden verwijderen"
+msgstr "ھۆججەت ئۆچۈرۈۋاتىدۇ"
 
 #: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
-msgstr "Symbolische koppelingen aanmaken"
+msgstr "بەلگە ئۇلانما قۇرۇۋاتىدۇ"
 
 #: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
-msgstr "Bestandeigenschappen veranderen"
+msgstr "ھۆججەت خاسلىقىنى ئۆزگەرتىۋاتىدۇ"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u bytes"
+msgstr[0] "بايت"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
-msgstr "Gelieve een geldige gebruikersnaam of numerieke ID in te voeren."
+msgstr "ئىناۋەتلىك ئىشلەتكۈچى ئاتى ياكى رەقەملىك كىملىكىنى كىرگۈزۈڭ."
 
 #: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
-msgstr "Gelieve een geldige groepsnaam of numerieke ID in te voeren."
+msgstr "ئىناۋەتلىك گۇرۇپپا ئاتى ياكى رەقەملىك كىملىكىنى كىرگۈزۈڭ."
 
 #: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Wilt u deze veranderingen recursief toepassen op alle bestanden en submappen?"
+msgstr "بۇلارنى بارلىق ھۆججەت ۋە تارماق مۇندەرىجىگە چوڭقۇرلاپ قوللىنامسىز؟"
 
 #: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
-msgstr "Bestanden van verschillende types"
+msgstr "ئوخشىمىغان تىپتىكى ھۆججەتلەر"
 
 #: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
-msgstr "Meerdere bestanden"
+msgstr "بىر قانچە ھۆججەتلەر"
 
 #: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
-msgstr "Medium aankoppelen"
+msgstr "دىسكا ئېگەرلەش"
 
 #: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
-msgstr "Medium ontkoppelen"
+msgstr "دىسكا ئېگەرسىزلەش"
 
 #: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
-msgstr "Verwijderbare media uitwerpen"
+msgstr "يۆتكىلىشچان ۋاسىتىنى چىقىرىش"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
-msgstr "Bladwijzerelement hernoemen"
+msgstr "خەتكۈش تۈرىنىڭ ئاتىنى ئۆزگەرتىش"
 
 #: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
-msgstr "Verwijderen uit bladwijzer"
+msgstr "خەتكۈچتىن چىقىرىۋېتىش"
 
 #: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
-msgstr "Prullenbak legen"
+msgstr "ئەخلەتخانىنى قۇرۇقداش"
 
 #: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
-msgstr "Voer een nieuwe naam in:"
+msgstr "يېڭى ئاتىنى:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
 msgid "Places"
-msgstr "Locaties"
+msgstr "ئورۇنلار"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
 msgid "Directory Tree"
-msgstr "Boomstructuur van mappen"
+msgstr "مۇندەرىجە دەرىخى"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr "Op afstand"
+msgstr "يىراق"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
-msgstr "Openen met..."
+msgstr "ئاچقۇز…"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
-msgstr "Hernoemen"
+msgstr "ئات ئۆزگەرت"
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
-msgstr "Symbolische koppeling aanmaken"
+msgstr "بەلگە ئۇلانما قۇر"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
-msgstr "Sturen naar"
+msgstr "يوللاش"
 
 #: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
-msgstr "Comprimeren..."
+msgstr "پرېس…"
 
 #: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
-msgstr "Hier uitpakken"
+msgstr "بۇ جايغا يەش"
 
 #: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
-msgstr "Uitpakken naar..."
+msgstr "يېشىش ئورنى…"
 
 #: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
-msgstr "_Herstellen"
+msgstr "ئەسلىگە كەلتۈر(_R)"
 
 #: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
-msgstr "Zet bestanden vanuit de prullenbak terug op oorspronkelijke plekken"
+msgstr "ئەخلەتخانىدىكى ھۆججەتنى ئەسلىدىكى ئورنىغا ئەسلىگە كەلتۈرىدۇ"
 
 #: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
-msgstr "XDirectSave mislukt."
+msgstr "XDirectSave مەغلۇپ بولدى."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr "Gebruik gekozen toepassing om bestanden te openen"
+msgstr "ھۆججەتلەرنى تاللانغان پروگراممىدا ئېچىش"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr "Voer aangepaste opdrachtregel uit om bestanden te openen"
+msgstr "ھۆججەتلەرنى بۇيرۇق قۇرىدا ئىجرا قىلغان پروگراممىدا ئېچىش"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr "Aanpassen"
+msgstr "ئۆزلەشتۈرۈش"
 
 #: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
-msgstr "Naam"
+msgstr "ئاتى"
 
 #: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
-msgstr "Omschrijving"
+msgstr "چۈشەندۈرۈش"
 
 #: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
-msgstr "Grootte"
+msgstr "چوڭلۇقى"
 
 #: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
-msgstr "Aangepast"
+msgstr "ئۆزگەرتىلگەن"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr "Geïnstalleerde toepassingen"
+msgstr "ئورنىتىلغان پروگراممىلار"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr "Fout"
+msgstr "خاتالىق"
 
 #: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
 msgid "Confirm"
-msgstr "Bevestigen"
+msgstr "جەزملە"
 
 #: ../src/gtk/fm-gtk-utils.c:106
 msgid "Question"
-msgstr "Vraag"
+msgstr "سوئال"
 
 #: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
-msgstr "Gelieve een map te kiezen"
+msgstr "قىسقۇچتىن بىرنى تاللاڭ."
 
 #: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
-msgstr "Alleen systeembeheerders hebben het recht om dit te doen."
+msgstr "سىستېما باشقۇرغۇچىسىنىڭلا مۇشۇنداق ئىمتىيازى بار."
 
 #: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Wilt u de gekozen bestanden naar de prullenbak verplaatsen?"
+msgstr "تاللانغان ھۆججەتلەرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Wilt u de gekozen bestanden verwijderen?"
+msgstr "تاللانغان ھۆججەتلەرنى ئۆچۈرەمسىز؟"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
-msgstr "Bestand hernoemen"
+msgstr "ھۆججەت ئاتىنى ئۆزگەرت"
 
 #: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
-msgstr "Gelieve een nieuwe naam in te voeren:"
+msgstr "يېڭى ئاتى:"
 
 #: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Weet u zeker dat u de prullenbak wil legen?"
+msgstr "ئەخلەتخانىنى قۇرۇقدامسىز؟"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:115
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
-msgstr ""
-"Dit tekstbestand '%s' lijkt een uitvoerbaar script te zijn.\n"
-"Wat wilt u ermee doen?"
+msgstr "مەزكۇر تېكىست ھۆججىتى ‹%s› ئىجرا بولىدىغان قوليازما پروگراممىسىدەك قىلىدۇ.\n"
+"What do you want to do with it؟"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:122
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Dit bestand '%s' is uitvoerbaar. Wilt u het uitvoeren?"
+msgstr "بۇ ھۆججەت ‹%s› ئىجرا بولىدىكەن. ئۇنى ئىجرا قىلامسىز؟"
 
 #: ../src/gtk/fm-dir-tree-model.c:353
 msgid "<No Sub Folder>"
-msgstr "<Geen submap>"
+msgstr "<تارماق قىسقۇچ يوق>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
 msgid "Loading..."
-msgstr "Aan het laden..."
+msgstr "ئوقۇۋاتىدۇ…"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "De opgegeven map is niet geldig"
+msgstr "كۆرسىتىلگەن مۇندەرىجە ئىناۋەتسىز"
 
 #: ../src/job/fm-file-ops-job-xfer.c:53
 msgid "Source and destination are the same."
-msgstr "Bron en bestemming zijn dezelfde."
+msgstr "مەنبە ۋە نىشان ئوپئوخشاش."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Kan een map niet verplaatsen naar zijn eigen submap"
+msgstr "قىسقۇچنى ئۇنىڭ ئۇچىدىكى تارماق قىسقۇچقا يۆتكىگىلى بولمايدۇ"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Kan een map niet kopiëren naar zijn eigen submap"
+msgstr "قىسقۇچنى ئۇنىڭ ئۇچىدىكى تارماق قىسقۇچقا كۆچۈرگىلى بولمايدۇ"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
-msgstr "Bestemming is een submap van bron"
+msgstr "نىشان مەنبەنىڭ تارماق قىسقۇچى ئىكەن"
 
 #: ../src/gtk/fm-places-model.c:451
 msgid "Trash"
-msgstr "Prullenbak"
+msgstr "ئەخلەتخانا"
 
 #: ../src/gtk/fm-places-model.c:509
 msgid "Desktop"
-msgstr "Bureaublad"
+msgstr "ئۈستەلئۈستى"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "CD-ROM-schijf"
+msgstr "CD-ROM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "Lege CD-ROM-schijf"
+msgstr "بوش CD_ROM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr "CD-R-schijf"
+msgstr "CD-R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr "Lege CD-R-schijf"
+msgstr "قۇرۇق CD-R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr "CD-RW-schijf"
+msgstr "CD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr "Lege CD-RW-schijf"
+msgstr "قۇرۇق CD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr "DVD-ROM-schijf"
+msgstr "DVD-ROM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr "Lege DVD-ROM-schijf"
+msgstr "بوش DVD-ROM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr "DVD-RW-schijf"
+msgstr "DVD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr "Lege DVD-RW-schijf"
+msgstr "قۇرۇق DVD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr "DVD-RAM-schijf"
+msgstr "DVD-RAM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr "Lege DVD-RAM-schijf"
+msgstr "قۇرۇق DVD-RAM دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr "DVD+R-schijf"
+msgstr "DVD+R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr "Lege DVD+R-schijf"
+msgstr "قۇرۇق DVD+R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr "DVD+RW-schijf"
+msgstr "DVD+RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr "Lege DVD+RW-schijf"
+msgstr "قۇرۇق DVD+RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "DVD+R DL-schijf"
+msgstr "DVD+R DL دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr "Lege DVD+R DL-schijf"
+msgstr "بوش DVD+R DL دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr "DVD+RW DL-schijf"
+msgstr "DVD+RW DL دىسكىسى"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr "Lege DVD+RW DL-schijf"
+msgstr "قۇرۇق DVD+RW DL دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr "Blu-Ray-schijf"
+msgstr "كۆكنۇر دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr "Lege Blu-Ray-schijf"
+msgstr "بوش كۆكنۇر دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr "Blu-Ray R-schijf"
+msgstr "كۆكنۇر R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr "Lege Blu-Ray R-schijf"
+msgstr "بوش كۆكنۇر R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr "Blu-Ray RW-schijf"
+msgstr "كۆكنۇر RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr "Lege Blu-Ray RW-schijf"
+msgstr "بوش كۆكنۇر RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr "HD DVD-schijf"
+msgstr "HD DVD دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr "Lege HD DVD-schijf"
+msgstr "بوش HD DVD دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr "HD DVD-R-schijf"
+msgstr "HD DVD-R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr "Lege HD DVD-R-schijf"
+msgstr "بوش HD DVD-R دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr "HD DVD-RW-schijf"
+msgstr "HD DVD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr "Lege HD DVD-RW-schijf"
+msgstr "بوش HD DVD-RW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr "MO-schijf"
+msgstr "MO دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr "Lege MO-schijf"
+msgstr "بوش MO دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr "MRW-schijf"
+msgstr "MRW دىسكىسى"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr "Lege MRW-schijf"
+msgstr "قۇرۇق MRW دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr "MRW/W-schijf"
+msgstr "MRW/W دىسكىسى"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr "Lege MRW/W-schijf"
+msgstr "قۇرۇق MRW/W دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr "Lege optische schijf"
+msgstr "قۇرۇق نۇر دىسكا"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr "Optische schijf"
+msgstr "ئوپتىك دىسكا"

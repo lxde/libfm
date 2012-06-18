@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-09 21:06+0200\n"
-"PO-Revision-Date: 2011-10-10 11:34+0200\n"
+"PO-Revision-Date: 2012-04-17 22:09+0200\n"
 "Last-Translator: Christoph <christoph.wickert@googlemail.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -501,7 +501,7 @@ msgstr "Verzeichnisbaum"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Entfernt"
 
 #: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
@@ -635,9 +635,8 @@ msgid "<No Sub Folder>"
 msgstr "<Kein Unterordner>"
 
 #: ../src/gtk/fm-dir-tree-model.c:355
-#, fuzzy
 msgid "Loading..."
-msgstr "Vorbereiten..."
+msgstr "Laden…"
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -807,27 +806,22 @@ msgid "Blank MO Disc"
 msgstr "Leeres MO Medium"
 
 #: ../src/udisks/g-udisks-device.c:59
-#, fuzzy
 msgid "MRW Disc"
 msgstr "MRW Medium"
 
 #: ../src/udisks/g-udisks-device.c:59
-#, fuzzy
 msgid "Blank MRW Disc"
 msgstr "Leeres MRW Medium"
 
 #: ../src/udisks/g-udisks-device.c:60
-#, fuzzy
 msgid "MRW/W Disc"
 msgstr "MRW/W Medium"
 
 #: ../src/udisks/g-udisks-device.c:60
-#, fuzzy
 msgid "Blank MRW/W Disc"
 msgstr "Leeres MRW/W Medium"
 
 #: ../src/udisks/g-udisks-device.c:299
-#, fuzzy
 msgid "Blank Optical Disc"
 msgstr "Leeres optisches Medium"
 
