@@ -41,14 +41,14 @@ G_BEGIN_DECLS
             FM_TYPE_DIR_TREE_MODEL, FmDirTreeModelClass))
 
 /* Columns of dir tree view */
-enum{
+typedef enum {
     FM_DIR_TREE_MODEL_COL_ICON,
     FM_DIR_TREE_MODEL_COL_DISP_NAME,
     FM_DIR_TREE_MODEL_COL_INFO,
     FM_DIR_TREE_MODEL_COL_PATH,
     FM_DIR_TREE_MODEL_COL_FOLDER,
     N_FM_DIR_TREE_MODEL_COLS
-};
+} FmDirTreeModelCol;
 
 typedef struct _FmDirTreeModel            FmDirTreeModel;
 typedef struct _FmDirTreeModelClass        FmDirTreeModelClass;
@@ -79,10 +79,18 @@ void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkT
 void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size);
 guint fm_dir_tree_get_icon_size(FmDirTreeModel* model);
 
+/* TODO:
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden);
 gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model);
 
-/* TODO: */ void fm_dir_tree_model_reload(FmDirTreeModel* model);
+void fm_dir_tree_model_reload(FmDirTreeModel* model); */
+
+/* for FmDirTreeView, called in fm_dir_tree_view_init() */
+gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
+                                           GtkTreeModel *model,
+                                           GtkTreePath *path,
+                                           gboolean path_currently_selected,
+                                           gpointer data);
 
 G_END_DECLS
 

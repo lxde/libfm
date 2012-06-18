@@ -76,10 +76,11 @@ static void item_reload_icon(FmDirTreeModel* model, GList* item_l, GtkTreePath* 
 {
     GtkTreeIter it;
     GList* l;
-	FmDirTreeItem *item, *child;
-	g_return_if_fail(item_l && tp);
-	item = item_l->data;
-	g_return_if_fail(item);
+    FmDirTreeItem *item, *child;
+
+    g_return_if_fail(item_l && tp);
+    item = item_l->data;
+    g_return_if_fail(item);
 
     if(item->icon)
     {
@@ -128,20 +129,21 @@ static inline FmDirTreeItem* fm_dir_tree_item_new(FmDirTreeModel* model, GList* 
     return item;
 }
 
-static inline void item_free_folder(GList* item_l);
-static void fm_dir_tree_item_free_l(GList* item_l);
+static inline void item_free_folder(FmFolder* item, GList* item_l);
 
-/* Most of time fm_dir_tree_item_free_l() should be called instead. */
-static inline void fm_dir_tree_item_free(FmDirTreeItem* item)
+/* Free the GList* element along with its associated FmDirTreeItem */
+static void fm_dir_tree_item_free_l(GList* item_l)
 {
+    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
+
+    if(!item) /* is it possible? */
+        return;
+    if(item->folder)
+        item_free_folder(item->folder, item_l);
     if(item->fi)
         fm_file_info_unref(item->fi);
     if(item->icon)
         g_object_unref(item->icon);
-
-    if(item->folder) /* most of cases this should have been freed in item_free_folder() */
-        g_object_unref(item->folder);
-
     if(item->children)
     {
         _g_list_foreach_l(item->children, (GFunc)fm_dir_tree_item_free_l, NULL);
@@ -149,18 +151,10 @@ static inline void fm_dir_tree_item_free(FmDirTreeItem* item)
     }
     if(item->hidden_children)
     {
-        g_list_foreach(item->hidden_children, (GFunc)fm_dir_tree_item_free, NULL);
+        _g_list_foreach_l(item->hidden_children, (GFunc)fm_dir_tree_item_free_l, NULL);
         g_list_free(item->hidden_children);
     }
     g_slice_free(FmDirTreeItem, item);
-}
-
-/* Free the GList* element along with its associated FmDirTreeItem */
-static void fm_dir_tree_item_free_l(GList* item_l)
-{
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    item_free_folder(item_l);
-    fm_dir_tree_item_free(item);
 }
 
 static inline void item_to_tree_iter(FmDirTreeModel* model, GList* item_l, GtkTreeIter* it)
@@ -338,7 +332,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
     item_l = (GList*)iter->user_data;
     item = (FmDirTreeItem*)item_l->data;
 
-    switch(column)
+    switch((FmDirTreeModelCol)column)
     {
     case FM_DIR_TREE_MODEL_COL_ICON:
         if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
@@ -372,6 +366,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
     case FM_DIR_TREE_MODEL_COL_FOLDER:
         g_value_set_pointer( value, item->folder);
         break;
+    case N_FM_DIR_TREE_MODEL_COLS: ; /* not column */
     }
 }
 
@@ -389,7 +384,7 @@ static gboolean fm_dir_tree_model_iter_next(GtkTreeModel *tree_model,
     if(!item_l->next)
         return FALSE;
 
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
     item_to_tree_iter(model, item_l->next, iter);
     return TRUE;
 }
@@ -554,7 +549,8 @@ static void add_place_holder_child_item(FmDirTreeModel* model, GList* parent_l, 
  * GtkTreePath tp is the tree path of parent node.
  * Note that value of tp will be changed inside the function temporarily
  * to generate GtkTreePath for child nodes, and then restored to its
- * original value before returning from the function. */
+ * original value before returning from the function.
+ * Returns GList item where new_item is incapsulated */
 static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* tp, FmDirTreeItem* new_item)
 {
     GList* new_item_l;
@@ -630,9 +626,9 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
     GtkTreePath* tp = item_to_tree_path(model, item_l);
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)item->parent ? item->parent->data : NULL;
-    fm_dir_tree_item_free_l(item_l);
     if(item)
     {
+        fm_dir_tree_item_free_l(item_l);
         if(parent_item)
         {
             /* If the item being removed is the last child item of parent_item,
@@ -701,7 +697,7 @@ static void remove_all_children(FmDirTreeModel* model, GList* item_l, GtkTreePat
 
     if(item->hidden_children)
     {
-        g_list_foreach(item->hidden_children, (GFunc)fm_dir_tree_item_free, NULL);
+        _g_list_foreach_l(item->hidden_children, (GFunc)fm_dir_tree_item_free_l, NULL);
         g_list_free(item->hidden_children);
         item->hidden_children = NULL;
     }
@@ -829,19 +825,13 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     gtk_tree_path_free(tp);
 }
 
-static inline void item_free_folder(GList* item_l)
+static inline void item_free_folder(FmFolder* folder, GList* item_l)
 {
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    if(item->folder)
-    {
-        FmFolder* folder = item->folder;
-        g_signal_handlers_disconnect_by_func(folder, on_folder_finish_loading, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_added, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_removed, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_changed, item_l);
-        g_object_unref(folder);
-        item->folder = NULL;
-    }
+    g_signal_handlers_disconnect_by_func(folder, on_folder_finish_loading, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_added, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_removed, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_changed, item_l);
+    g_object_unref(folder);
 }
 
 void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
@@ -967,7 +957,6 @@ static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboo
         }
     }
 }
-#endif
 
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden)
 {
@@ -993,3 +982,4 @@ gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model)
 /* TODO: */ void fm_dir_tree_model_reload(FmDirTreeModel* model)
 {
 }
+#endif

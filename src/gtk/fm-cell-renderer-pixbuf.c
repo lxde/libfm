@@ -203,7 +203,7 @@ void fm_cell_renderer_pixbuf_set_fixed_size(FmCellRendererPixbuf* render, gint w
     render->fixed_h = h;
 }
 
-void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
+static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
 						 GdkRectangle               *rectangle,
 						 gint                       *x_offset,
@@ -223,7 +223,7 @@ void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
     }
 }
 
-void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
+static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkDrawable                *window,
 						 GtkWidget                  *widget,
 						 GdkRectangle               *background_area,

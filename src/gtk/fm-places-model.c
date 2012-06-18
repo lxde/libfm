@@ -104,7 +104,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     /* optimize for one file case */
     if(fm_file_info_list_get_length(job->file_infos) == 1)
     {
-        fi = FM_FILE_INFO(fm_file_info_list_peek_head(job->file_infos));
+        fi = fm_file_info_list_peek_head(job->file_infos);
         do {
             item = NULL;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);

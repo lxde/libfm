@@ -93,7 +93,7 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
     return ret;
 }
 
-gboolean check_kde_curselection(GtkClipboard* clip)
+static gboolean check_kde_curselection(GtkClipboard* clip)
 {
     /* Check application/x-kde-cutselection:
      * If the content of this format is string "1", that means the

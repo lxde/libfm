@@ -158,7 +158,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     g_debug("%d files-dropped!, info_type: %d", fm_path_list_get_length(files), info_type);
 
     // Check if source and destination are the same
-    src = fm_path_get_parent(FM_PATH(fm_path_list_peek_head(files)));
+    src = fm_path_get_parent(fm_path_list_peek_head(files));
     if(fm_path_equal (src ,dest)) 
     {
         fm_path_list_unref(files);
@@ -256,7 +256,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
             FmFileInfoList* file_infos = *(FmFileInfoList**)sel_data->data;
             if(file_infos)
             {
-                FmFileInfo* fi = FM_FILE_INFO(fm_file_info_list_peek_head(fm_file_info_list_ref(file_infos)));
+                FmFileInfo* fi = fm_file_info_list_peek_head(fm_file_info_list_ref(file_infos));
                 /* get the device of the first dragged source file */
                 if(fm_path_is_native(fm_file_info_get_path(fi)))
                     dd->src_dev = fm_file_info_get_dev(fi);
@@ -278,7 +278,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
             if(files)
             {
                 GFileInfo* inf;
-                FmPath* path = FM_PATH(fm_path_list_peek_head(files));
+                FmPath* path = fm_path_list_peek_head(files);
                 GFile* gf = fm_path_to_gfile(path);
                 const char* attr = fm_path_is_native(path) ? G_FILE_ATTRIBUTE_UNIX_DEVICE : G_FILE_ATTRIBUTE_ID_FILESYSTEM;
                 inf = g_file_query_info(gf, attr, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
