@@ -285,13 +285,13 @@ static void fm_folder_view_dispose(GObject *object)
 
     if(self->cached_selected_files)
     {
-        fm_list_unref(self->cached_selected_files);
+        fm_file_info_list_unref(self->cached_selected_files);
         self->cached_selected_files = NULL;
     }
 
     if(self->cached_selected_file_paths)
     {
-        fm_list_unref(self->cached_selected_file_paths);
+        fm_path_list_unref(self->cached_selected_file_paths);
         self->cached_selected_file_paths = NULL;
     }
 
@@ -882,12 +882,12 @@ void on_sel_changed(GObject* obj, FmFolderView* fv)
     /* clear cached selected files */
     if(fv->cached_selected_files)
     {
-        fm_list_unref(fv->cached_selected_files);
+        fm_file_info_list_unref(fv->cached_selected_files);
         fv->cached_selected_files = NULL;
     }
     if(fv->cached_selected_file_paths)
     {
-        fm_list_unref(fv->cached_selected_file_paths);
+        fm_path_list_unref(fv->cached_selected_file_paths);
         fv->cached_selected_file_paths = NULL;
     }
 
