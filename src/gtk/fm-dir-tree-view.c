@@ -168,7 +168,7 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 }
 
-static void emit_chdir_if_needed(FmDirTreeView* view, GtkTreeSelection* tree_sel, int button)
+static void emit_chdir_if_needed(FmDirTreeView* view, GtkTreeSelection* tree_sel, guint button)
 {
     GtkTreeIter it;
     GtkTreeModel* model;
@@ -204,6 +204,11 @@ static void fm_dir_tree_view_finalize(GObject *object)
     view = (FmDirTreeView*)object;
     if(G_UNLIKELY(view->paths_to_expand))
         cancel_pending_chdir(view);
+    if(G_UNLIKELY(view->cur_expanded_folder))
+    {
+        g_signal_handlers_disconnect_by_func(view->cur_expanded_folder, on_folder_loaded, view);
+        g_object_unref(view->cur_expanded_folder);
+    }
 
     if(view->cwd)
         fm_path_unref(view->cwd);
@@ -211,13 +216,20 @@ static void fm_dir_tree_view_finalize(GObject *object)
     G_OBJECT_CLASS(fm_dir_tree_view_parent_class)->finalize(object);
 }
 
-/* defined in fm-dir-tree-model.c */
-gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
-                                           GtkTreeModel *model,
-                                           GtkTreePath *path,
-                                           gboolean path_currently_selected,
-                                           gpointer data);
+static gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
+                                                  GtkTreeModel *model,
+                                                  GtkTreePath *path,
+                                                  gboolean path_currently_selected,
+                                                  gpointer data)
+{
+    GtkTreeIter it;
+    GValue val = G_VALUE_INIT;
 
+    if(!gtk_tree_model_get_iter(model, &it, path))
+        return FALSE;
+    gtk_tree_model_get_value(model, &it, FM_DIR_TREE_MODEL_COL_INFO, &val);
+    return (g_value_get_pointer(&val) != NULL);
+}
 
 static void fm_dir_tree_view_init(FmDirTreeView *view)
 {
@@ -261,9 +273,11 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
 static void on_folder_loaded(FmFolder* folder, FmDirTreeView* view)
 {
     FmPath* path;
+
+    g_return_if_fail(view->cur_expanded_folder == folder);
     /* disconnect the handler since we only need it once */
     g_signal_handlers_disconnect_by_func(folder, on_folder_loaded, view);
-    g_object_unref(view->cur_expanded_folder);
+    g_object_unref(folder);
     view->cur_expanded_folder = NULL;
 
     /* after the folder is loaded, the files should have been added to

@@ -85,13 +85,6 @@ gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model);
 
 void fm_dir_tree_model_reload(FmDirTreeModel* model); */
 
-/* for FmDirTreeView, called in fm_dir_tree_view_init() */
-gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
-                                           GtkTreeModel *model,
-                                           GtkTreePath *path,
-                                           gboolean path_currently_selected,
-                                           gpointer data);
-
 G_END_DECLS
 
 #endif /* __FM_DIR_TREE_MODEL_H__ */
