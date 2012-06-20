@@ -48,7 +48,7 @@ struct _FmDndDest
 
 enum
 {
-    QUERY_INFO,
+//    QUERY_INFO,
     FILES_DROPPED,
     N_SIGNALS
 };
@@ -159,11 +159,8 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 
     // Check if source and destination are the same
     src = fm_path_get_parent(fm_path_list_peek_head(files));
-    if(fm_path_equal (src ,dest)) 
-    {
-        fm_path_list_unref(files);
+    if(fm_path_equal(src, dest))
         return FALSE;
-    }
 
     parent = gtk_widget_get_toplevel(dd->widget);
     switch((GdkDragAction)action)
@@ -187,7 +184,6 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     case GDK_ACTION_DEFAULT:
         ;
     }
-    fm_path_list_unref(files);
     return TRUE;
 }
 
@@ -249,7 +245,8 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
 
     if(info ==  FM_DND_DEST_TARGET_FM_LIST)
     {
-        if((sel_data->length == sizeof(files)) && (sel_data->format==8))
+        if((sel_data->length == sizeof(gpointer)) && (sel_data->format==8))
+        /* FIXME: check if it's internal within application */
         {
             /* get the pointer */
             //memcpy(&files, sel_data->data, sel_data->length);
@@ -313,13 +310,11 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
 
     /* remove previously cached source files. */
     if(G_UNLIKELY(dd->src_files))
-    {
         fm_path_list_unref(dd->src_files);
-        dd->src_files = NULL;
-    }
     dd->src_files = files;
     dd->waiting_data = FALSE;
     dd->info_type = info;
+    /* FIXME: is it normal to return TRUE while dd->src_files is NULL? */
     return TRUE;
 }
 
@@ -426,9 +421,9 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
 
 /**
  * fm_dnd_dest_get_default_action
- * @dd FmDndDest object
+ * @dd FmDndDest object which will receive data
+ * @drag_context the drag context
  * @target GdkTarget of the target data type
- * @dest FmFileInfo of the destination file at drop site.
  *
  * Returns the default action to take for the dragged files.
  */
@@ -462,6 +457,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     {
         if(fm_path_is_trash(dest_path))
         {
+            /* FIXME: TODO: don't trash files on some file systems */
             if(fm_path_is_trash_root(dest_path)) /* we can only move files to trash can */
                 action = GDK_ACTION_MOVE;
             else /* files inside trash are read only */
@@ -475,6 +471,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         }
         else /* dest is a ordinary path */
         {
+            /* FIXME: TODO: use Ctrl for Move, Shift for Copy, Ctrl+Shift for Link */
             /* determine if the dragged files are on the same device as destination file */
             /* Here we only check the first dragged file since checking all of them can
              * make the operation very slow. */
