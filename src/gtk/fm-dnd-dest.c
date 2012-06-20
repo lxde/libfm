@@ -476,6 +476,21 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             /* Here we only check the first dragged file since checking all of them can
              * make the operation very slow. */
             gboolean same_fs;
+            /*
+            GdkModifierType mask = 0;
+            gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
+            if(mask & GDK_SHIFT_MASK)
+            {
+                if(mask & GDK_CONTROL_MASK)
+                    action = GDK_ACTION_LINK;
+                else
+                    action = GDK_ACTION_COPY;
+            }
+            else if(mask & GDK_CONTROL_MASK)
+                action = GDK_ACTION_MOVE;
+            else
+            */
+            /* FIXME: make decision based on config: Auto / Copy / Ask */
             if(dd->src_dev || dd->src_fs_id) /* we know the device of dragged source files */
             {
                 /* compare the device/filesystem id against that of destination file */
