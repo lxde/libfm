@@ -562,7 +562,16 @@ void on_delete(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
+    /* GdkModifierType mask = 0; */
     files = fm_path_list_new_from_file_info_list(data->file_infos);
+    /* FIXME: #3436283: accept Shift to delete instead of trash */
+    /* FIXME: change menu when Shift is pressed */
+    /*
+    gdk_window_get_pointer(gtk_widget_get_window(data->menu), NULL, NULL, &mask);
+    if(mask & GDK_SHIFT_MASK)
+        fm_delete_files(data->parent, files);
+    else
+    */
     fm_trash_or_delete_files(data->parent, files);
     fm_path_list_unref(files);
 }
