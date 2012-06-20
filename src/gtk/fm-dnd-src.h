@@ -61,7 +61,7 @@ struct _FmDndSrc
 struct _FmDndSrcClass
 {
 	GObjectClass parent_class;
-	void (*data_get)();
+	void (*data_get)(FmDndSrc*);
 };
 
 GType		fm_dnd_src_get_type		(void);

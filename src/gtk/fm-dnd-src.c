@@ -117,6 +117,7 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
         return;
     if(ds->widget) /* there is an old widget connected */
     {
+        g_object_remove_weak_pointer(G_OBJECT(ds->widget), (gpointer*)&ds->widget);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_data_get, ds);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_begin, ds);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_end, ds);
@@ -133,6 +134,8 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files)
 {
+    if(ds->files)
+        fm_file_info_list_unref(ds->files);
     ds->files = fm_file_info_list_ref(files);
 }
 
@@ -140,6 +143,8 @@ void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file)
 {
     FmFileInfoList* files = fm_file_info_list_new();
     fm_file_info_list_push_tail(files, file);
+    if(ds->files)
+        fm_file_info_list_unref(ds->files);
     ds->files = files;
 }
 
@@ -212,4 +217,3 @@ on_drag_end ( GtkWidget *src_widget,
 {
 
 }
-
