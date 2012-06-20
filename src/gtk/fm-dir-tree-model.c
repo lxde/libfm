@@ -35,7 +35,7 @@ struct _FmDirTreeItem
     FmFileInfo* fi;
     FmFolder* folder;
     GdkPixbuf* icon;
-    guint n_expand;
+    gboolean expanded;
     GList* parent; /* parent node */
     GList* children; /* child items */
     GList* hidden_children;
@@ -843,7 +843,7 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     g_return_if_fail(item != NULL);
-    if(item->n_expand == 0)
+    if(!item->expanded)
     {
         /* dynamically load content of the folder. */
         FmFolder* folder = fm_folder_from_path(fm_file_info_get_path(item->fi));
@@ -878,8 +878,8 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
             gtk_tree_path_free(tp);
             on_folder_finish_loading(folder, item_l);
         }
+        item->expanded = TRUE;
     }
-    ++item->n_expand;
 }
 
 void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
@@ -887,8 +887,7 @@ void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkT
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     g_return_if_fail(item != NULL);
-    --item->n_expand;
-    if(item->n_expand == 0) /* do some cleanup */
+    if(item->expanded) /* do some cleanup */
     {
         /* remove all children, and replace them with a dummy child
          * item to keep expander in the tree view around. */
@@ -901,6 +900,7 @@ void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkT
         /* deactivate folder since it will be reactivated on expand */
         item_free_folder(item->folder, item_l);
         item->folder = NULL;
+        item->expanded = FALSE;
     }
 }
 
