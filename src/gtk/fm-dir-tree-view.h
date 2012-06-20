@@ -52,8 +52,7 @@ struct _FmDirTreeView
 
     /* used for chdir */
     GSList* paths_to_expand;
-    GtkTreeIter cur_expanded_it;
-    FmFolder* cur_expanded_folder;
+    GtkTreeRowReference* current_row;
 };
 
 struct _FmDirTreeViewClass
