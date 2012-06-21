@@ -43,6 +43,14 @@ struct _FmDirTreeItem
 
 static GType column_types[N_FM_DIR_TREE_MODEL_COLS];
 
+enum
+{
+    ROW_LOADED,
+    N_SIGNALS
+};
+
+static guint signals[N_SIGNALS];
+
 static void fm_dir_tree_model_finalize            (GObject *object);
 static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface);
 static GtkTreePath *fm_dir_tree_model_get_path ( GtkTreeModel *tree_model, GtkTreeIter *iter );
@@ -118,6 +126,16 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
     GObjectClass *g_object_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_dir_tree_model_finalize;
+
+    signals[ROW_LOADED] =
+        g_signal_new("row-loaded",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmDirTreeModelClass, row_loaded),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     /* FIXME: isn't there GTK_TYPE_TREE_PATH ? */
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
 }
 
 
@@ -732,9 +750,10 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
     GList* place_holder_l;
+    GtkTreePath* tp = item_to_tree_path(model, item_l);
 
     place_holder_l = item->children;
-    if(item->children->next) /* if we have loaded sub dirs, remove the place holder */
+    if(place_holder_l->next) /* if we have loaded sub dirs, remove the place holder */
     {
         /* remove the fake placeholder item showing "Loading..." */
         remove_item(model, place_holder_l);
@@ -742,13 +761,15 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     else /* if we have no sub dirs, leave the place holder and let it show "Empty" */
     {
         GtkTreeIter it;
-        GtkTreePath* tp = item_to_tree_path(model, place_holder_l);
         item_to_tree_iter(model, place_holder_l, &it);
         /* if the folder is empty, the place holder item
          * shows "<Empty>" instead of "Loading..." */
+        gtk_tree_path_append_index(tp, 0);
         gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
-        gtk_tree_path_free(tp);
+        gtk_tree_path_up(tp);
     }
+    g_signal_emit(model, signals[ROW_LOADED], 0, tp);
+    gtk_tree_path_free(tp);
 }
 
 static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l)
@@ -838,7 +859,7 @@ static inline void item_free_folder(FmFolder* folder, GList* item_l)
     g_object_unref(folder);
 }
 
-void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
+void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
@@ -882,7 +903,7 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     }
 }
 
-void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
+void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
@@ -920,9 +941,73 @@ void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
     }
 }
 
-guint fm_dir_tree_get_icon_size(FmDirTreeModel* model)
+guint fm_dir_tree_model_get_icon_size(FmDirTreeModel* model)
 {
     return model->icon_size;
+}
+
+GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+    FmIcon* icon;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    if(item->icon)
+        return item->icon;
+    if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
+        item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
+    return item->icon;
+}
+
+FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return item->fi;
+}
+
+FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return item->fi ? fm_file_info_get_path(item->fi) : NULL;
+}
+
+const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item, *parent;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    if(item->fi)
+        return fm_file_info_get_disp_name(item->fi);
+    /* else this is a place holder item */
+    /* parent is always non NULL. otherwise it's a bug. */
+    parent = (FmDirTreeItem*)item->parent->data;
+    if(parent->folder && fm_folder_is_loaded(parent->folder))
+        return _("<No Sub Folder>");
+    return _("Loading...");
 }
 
 #if 0
