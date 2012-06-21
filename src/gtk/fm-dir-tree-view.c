@@ -290,9 +290,17 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
 static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeView* view)
 {
     GtkTreeModel* model = GTK_TREE_MODEL(fm_model);
+    GtkTreePath* ctp;
 
     g_return_if_fail(view->current_row);
-    /* FIXME: check if tp is the same as in view->current_row */
+    ctp = gtk_tree_row_reference_get_path(view->current_row);
+    if(gtk_tree_path_compare(tp, ctp) != 0)
+    {
+        /* is it delayed previous expand? */
+        gtk_tree_path_free(ctp);
+        return;
+    }
+    gtk_tree_path_free(ctp);
 
     /* disconnect the handler since we only need it once */
     g_signal_handlers_disconnect_by_func(model, on_row_loaded, view);
