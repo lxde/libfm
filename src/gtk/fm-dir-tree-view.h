@@ -23,7 +23,6 @@
 
 #include <gtk/gtk.h>
 #include "fm-path.h"
-#include "fm-folder.h"
 
 G_BEGIN_DECLS
 

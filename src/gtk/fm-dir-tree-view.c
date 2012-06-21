@@ -277,7 +277,11 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
 
         tp = gtk_tree_model_get_path(model, &it); /* it now points to the item */
         view->current_row = gtk_tree_row_reference_new(model, tp);
-        fm_dir_tree_model_load_row(FM_DIR_TREE_MODEL(model), &it, tp);
+        /* the path may be already expanded so "row-loaded" may never happen */
+        if(fm_dir_tree_row_is_unloaded(FM_DIR_TREE_MODEL(model), &it))
+            fm_dir_tree_model_load_row(FM_DIR_TREE_MODEL(model), &it, tp);
+        else
+            on_row_loaded(FM_DIR_TREE_MODEL(model), tp, view); /* recursion! */
         gtk_tree_path_free(tp);
     }
     /* FIXME: otherwise it's a bug */

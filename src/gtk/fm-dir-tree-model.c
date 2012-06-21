@@ -1010,6 +1010,19 @@ const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* it
     return _("Loading...");
 }
 
+gboolean fm_dir_tree_row_is_unloaded(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return !item->expanded;
+}
+
 #if 0
 static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboolean show_hidden)
 {
