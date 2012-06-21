@@ -81,9 +81,12 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file);
 
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file);
 
+#if 0
+/* disabled as it may corrupt stack/heap in common_suffix */
 void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const gchar* prefix,
                                gboolean (*file_info_predicate)(FmFileInfo*),
                                gchar* common_suffix);
+#endif
 
 gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIter* it, const char* name);
 
