@@ -284,7 +284,6 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
 
 static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeView* view)
 {
-    FmPath* path;
     GtkTreeModel* model = GTK_TREE_MODEL(fm_model);
 
     g_return_if_fail(view->current_row);
@@ -297,7 +296,7 @@ static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeVi
     gtk_tree_view_expand_row(GTK_TREE_VIEW(view), tp, FALSE);
 
     /* remove the expanded path from pending list */
-    path = FM_PATH(view->paths_to_expand->data);
+    fm_path_unref(FM_PATH(view->paths_to_expand->data));
     view->paths_to_expand = g_slist_delete_link(view->paths_to_expand, view->paths_to_expand);
 
     if(view->paths_to_expand)
@@ -312,7 +311,6 @@ static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeVi
         gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view), tp, NULL, TRUE, 0.5, 0.5);
         gtk_tree_view_set_cursor(GTK_TREE_VIEW(view), tp, NULL, FALSE);
     }
-    fm_path_unref(path);
 }
 
 void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
