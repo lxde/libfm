@@ -36,6 +36,7 @@ struct _FmDirTreeItem
     FmFolder* folder;
     GdkPixbuf* icon;
     gboolean expanded;
+    gboolean loaded;
     GList* parent; /* parent node */
     GList* children; /* child items */
     GList* hidden_children;
@@ -770,6 +771,7 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     }
     g_signal_emit(model, signals[ROW_LOADED], 0, tp);
     gtk_tree_path_free(tp);
+    item->loaded = TRUE;
 }
 
 static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l)
@@ -922,6 +924,7 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
         item_free_folder(item->folder, item_l);
         item->folder = NULL;
         item->expanded = FALSE;
+        item->loaded = FALSE;
     }
 }
 
@@ -1010,17 +1013,17 @@ const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* it
     return _("Loading...");
 }
 
-gboolean fm_dir_tree_row_is_unloaded(FmDirTreeModel* model, GtkTreeIter* iter)
+gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
     FmDirTreeItem *item;
 
-    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+    g_return_val_if_fail (iter->stamp == model->stamp, FALSE);
 
     item_l = (GList*)iter->user_data;
     item = (FmDirTreeItem*)item_l->data;
 
-    return !item->expanded;
+    return item->loaded;
 }
 
 #if 0
