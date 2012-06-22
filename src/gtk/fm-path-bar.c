@@ -151,9 +151,9 @@ static void fm_path_bar_init(FmPathBar *bar)
 }
 
 
-GtkWidget *fm_path_bar_new(void)
+FmPathBar* fm_path_bar_new(void)
 {
-    return g_object_new(FM_TYPE_PATH_BAR, NULL);
+    return (FmPathBar*)g_object_new(FM_TYPE_PATH_BAR, NULL);
 }
 
 FmPath* fm_path_bar_get_path(FmPathBar* bar)

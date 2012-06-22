@@ -302,12 +302,12 @@ static void fm_folder_view_dispose(GObject *object)
 
     if(self->dnd_src)
     {
+        g_signal_handlers_disconnect_by_func(self->dnd_src, on_dnd_src_data_get, self);
         g_object_unref(self->dnd_src);
         self->dnd_src = NULL;
     }
-    if(self->dnd_src)
+    if(self->dnd_dest)
     {
-        g_signal_handlers_disconnect_by_func(self->dnd_src, on_dnd_src_data_get, self);
         g_object_unref(self->dnd_dest);
         self->dnd_dest = NULL;
     }

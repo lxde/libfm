@@ -63,7 +63,7 @@ struct _FmPathBarClass
 
 
 GType        fm_path_bar_get_type        (void);
-GtkWidget*    fm_path_bar_new            (void);
+FmPathBar*    fm_path_bar_new            (void);
 
 FmPath* fm_path_bar_get_path(FmPathBar* bar);
 void fm_path_bar_set_path(FmPathBar* bar, FmPath* path);
