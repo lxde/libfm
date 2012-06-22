@@ -170,7 +170,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     //GFileInfo* fs_info;
                     //GFile* gfile;
-                    gboolean fs_supports_exec = TRUE;
+                    //gboolean fs_supports_exec = TRUE;
                     /* if it's an executable file, directly execute it. */
                     filename = fm_path_to_str(path);
 
@@ -196,7 +196,8 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     #endif
 
                     /* FIXME: we need to use eaccess/euidaccess here. */
-                    if(fs_supports_exec && g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
+                    //if(fs_supports_exec && g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
+                    if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
                         if(launcher->exec_file)
                         {

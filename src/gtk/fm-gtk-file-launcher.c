@@ -76,6 +76,8 @@ static int on_launch_ask(const char* msg, char* const* btn_labels, int default_b
     return fm_askv(data->parent, NULL, msg, btn_labels);
 }
 
+#if 0
+/* not required, launcher does this check already */
 static gboolean file_is_executable_script(FmFileInfo* file)
 {
     FmPath* path = fm_file_info_get_path(file);
@@ -97,6 +99,7 @@ static gboolean file_is_executable_script(FmFileInfo* file)
     }
     return FALSE;
 }
+#endif
 
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
@@ -115,8 +118,9 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     gtk_image_set_from_gicon(icon, fi_icon->gicon, GTK_ICON_SIZE_DIALOG);
     gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(dlg)), FALSE);
 
+    /* If we reached this point then file is executable: either script or binary */
     /* If it's a script, ask the user first. */
-    if(file_is_executable_script(file)) /* if this is an executable script file */
+    if(fm_file_info_is_text(file))
     {
         msg_str = g_strdup_printf(_("This text file '%s' seems to be an executable script.\nWhat do you want to do with it?"), fm_file_info_get_disp_name(file));
         gtk_dialog_set_default_response(dlg, FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
@@ -144,11 +148,11 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
 gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* file_infos, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
-        choose_app,
-        on_open_folder,
-        on_exec_file,
-        on_launch_error,
-        on_launch_ask
+        .get_app = choose_app,
+        .open_folder = on_open_folder,
+        .exec_file = on_exec_file,
+        .error = on_launch_error,
+        .ask = on_launch_ask
     };
     LaunchData data = {parent, func, user_data};
     GdkAppLaunchContext* _ctx = NULL;
@@ -174,11 +178,11 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
 gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* paths, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
-        choose_app,
-        on_open_folder,
-        on_exec_file,
-        on_launch_error,
-        on_launch_ask
+        .get_app = choose_app,
+        .open_folder = on_open_folder,
+        .exec_file = on_exec_file,
+        .error = on_launch_error,
+        .ask = on_launch_ask
     };
     LaunchData data = {parent, func, user_data};
     GdkAppLaunchContext* _ctx = NULL;
