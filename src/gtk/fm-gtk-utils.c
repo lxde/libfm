@@ -78,10 +78,13 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question
 /**
  * fm_ask
  * Ask the user a question with several options provided.
+ *
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
  * @...: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
 int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 {
@@ -96,10 +99,13 @@ int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 /**
  * fm_askv
  * Ask the user a question with several options provided.
+ *
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
  * @options: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
 int fm_askv(GtkWindow* parent, const char* title, const char* question, char* const* options)
 {
@@ -131,10 +137,13 @@ int fm_askv(GtkWindow* parent, const char* title, const char* question, char* co
 /**
  * fm_ask_valist
  * Ask the user a question with several options provided.
+ *
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
- * @options: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ * @options: va_arg list of button labels
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
 int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va_list options)
 {
@@ -303,13 +312,13 @@ static void on_update_img_preview( GtkFileChooser *chooser, GtkImage* img )
     }
 }
 
-void fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser)
+static gulong fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser)
 {
     GtkWidget* img_preview = gtk_image_new();
     gtk_misc_set_alignment(GTK_MISC(img_preview), 0.5, 0.0);
     gtk_widget_set_size_request(img_preview, 128, 128);
     gtk_file_chooser_set_preview_widget(chooser, img_preview);
-    g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
+    return g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
 }
 
 /* TODO: support selecting multiple files */
@@ -323,6 +332,7 @@ FmPath* fm_select_file(GtkWindow* parent,
     FmPath* path;
     GtkFileChooser* chooser;
     GtkFileFilter* filter;
+    gulong handler_id = 0;
     va_list args;
 
     chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
@@ -347,7 +357,7 @@ FmPath* fm_select_file(GtkWindow* parent,
     va_end (args);
 
     if(show_preview)
-        fm_add_image_preview_to_file_chooser(chooser);
+        handler_id = fm_add_image_preview_to_file_chooser(chooser);
 
     if(gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_OK)
     {
@@ -357,6 +367,8 @@ FmPath* fm_select_file(GtkWindow* parent,
     }
     else
         path = NULL;
+    if(handler_id > 0)
+        g_signal_handler_disconnect(chooser, handler_id);
     gtk_widget_destroy(GTK_WIDGET(chooser));
     return path;
 }
@@ -668,11 +680,15 @@ void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_
 
 void fm_rename_file(GtkWindow* parent, FmPath* file)
 {
-    GFile* gf = fm_path_to_gfile(file), *parent_gf, *dest;
+    GFile *gf, *parent_gf, *dest;
     GError* err = NULL;
-    gchar* new_name = fm_get_user_input_rename( parent, _("Rename File"), _("Please enter a new name:"), file->name);
+    gchar* new_name;
+    new_name = fm_get_user_input_rename(parent, _("Rename File"),
+                                        _("Please enter a new name:"),
+                                        fm_path_get_basename(file));
     if( !new_name )
         return;
+    gf = fm_path_to_gfile(file);
     parent_gf = g_file_get_parent(gf);
     dest = g_file_get_child(G_FILE(parent_gf), new_name);
     g_object_unref(parent_gf);
