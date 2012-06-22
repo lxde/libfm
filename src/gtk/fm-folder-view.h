@@ -52,7 +52,7 @@ enum _FmFolderViewMode
 };
 typedef enum _FmFolderViewMode FmFolderViewMode;
 
-#define FM_FOLDER_VIEW_MODE_IS_VALID(mode)  (mode >= FM_FV_ICON_VIEW && mode <= FM_FV_LIST_VIEW)
+#define FM_FOLDER_VIEW_MODE_IS_VALID(mode)  ((guint)mode <= FM_FV_LIST_VIEW)
 
 enum _FmFolderViewClickType
 {
@@ -86,7 +86,7 @@ FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv);
 void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode);
 GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv);
 
-void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by);
+void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by);
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv);
 int fm_folder_view_get_sort_by(FmFolderView* fv);
 

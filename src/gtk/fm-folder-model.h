@@ -39,8 +39,8 @@ G_BEGIN_DECLS
 #define FM_IS_FOLDER_MODEL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  FM_TYPE_FOLDER_MODEL))
 #define FM_FOLDER_MODEL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  FM_TYPE_FOLDER_MODEL, FmFolderModelClass))
 
-/* Columns of folder view */
-enum{
+/** Columns of folder view */
+typedef enum {
   COL_FILE_GICON = 0,
   COL_FILE_ICON,
   COL_FILE_NAME,
@@ -51,9 +51,12 @@ enum{
   COL_FILE_MTIME,
   COL_FILE_INFO,
   N_FOLDER_MODEL_COLS
-};
+} FmFolderModelViewCol;
 
-#define FM_FOLDER_MODEL_COL_IS_VALID(col)   (col >= COL_FILE_GICON && col < N_FOLDER_MODEL_COLS)
+#define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < N_FOLDER_MODEL_COLS)
+
+/** for 'Unsorted' folder view use 'FileInfo' column which is ambiguous for sorting */
+#define COL_FILE_UNSORTED COL_FILE_INFO
 
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;

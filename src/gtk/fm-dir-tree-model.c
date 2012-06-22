@@ -1,6 +1,7 @@
 //      fm-dir-tree-model.c
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -128,6 +129,18 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_dir_tree_model_finalize;
 
+    /**
+     * FmDirTreeModel::row-loaded:
+     * @model: dir tree model instance that received the signal
+     * @row:   path to folder row that is ready
+     *
+     * This signal is emitted after content of folder @row is completely
+     * retrieved. It may happen either after call to fm_dir_tree_model_load_row()
+     * or in time of that call (in case if the folder was already cached in
+     * memory).
+     *
+     * See also: fm_dir_tree_model_unload_row().
+     */
     signals[ROW_LOADED] =
         g_signal_new("row-loaded",
                      G_TYPE_FROM_CLASS(klass),
@@ -136,7 +149,7 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__POINTER,
                      /* FIXME: isn't there GTK_TYPE_TREE_PATH ? */
-                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+                     G_TYPE_NONE, 1, GTK_TYPE_TREE_PATH);
 }
 
 

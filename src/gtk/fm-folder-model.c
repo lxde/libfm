@@ -699,6 +699,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     FmFileInfo* file2 = ((FmFolderItem*)item2)->inf;
     const char* key1;
     const char* key2;
+    goffset diff;
     int ret = 0;
 
     /* put folders before files */
@@ -708,29 +709,13 @@ static gint fm_folder_model_compare(gconstpointer item1,
 
     switch( ((FmFolderModel*)model)->sort_col )
     {
-    case COL_FILE_NAME:
-    {
-_sort_by_name:
-        key1 = fm_file_info_get_collate_key(file1);
-        key2 = fm_file_info_get_collate_key(file2);
-        /*
-        collate keys are already passed to g_utf8_casefold, no need to
-        use strcasecmp here (and g_utf8_collate_key returns a string of
-        which case cannot be ignored)
-        */
-        ret = g_strcmp0(key1, key2);
-        break;
-    }
     case COL_FILE_SIZE:
-    {
         /* to support files more than 2Gb */
-        goffset diff = fm_file_info_get_size(file1) - fm_file_info_get_size(file2);
+        diff = fm_file_info_get_size(file1) - fm_file_info_get_size(file2);
         if(0 == diff)
             goto _sort_by_name;
-        else
-            ret = diff > 0 ? 1 : -1;
+        ret = diff > 0 ? 1 : -1;
         break;
-    }
     case COL_FILE_MTIME:
         ret = fm_file_info_get_mtime(file1) - fm_file_info_get_mtime(file2);
         if(0 == ret)
@@ -742,8 +727,20 @@ _sort_by_name:
         if(0 == ret)
             goto _sort_by_name;
         break;
-    default:
+    case COL_FILE_UNSORTED:
         return 0;
+    case COL_FILE_NAME:
+    default:
+_sort_by_name:
+        key1 = fm_file_info_get_collate_key(file1);
+        key2 = fm_file_info_get_collate_key(file2);
+        /*
+        collate keys are already passed to g_utf8_casefold, no need to
+        use strcasecmp here (and g_utf8_collate_key returns a string of
+        which case cannot be ignored)
+        */
+        ret = g_strcmp0(key1, key2);
+        break;
     }
     return ((FmFolderModel*)model)->sort_order == GTK_SORT_ASCENDING ? ret : -ret;
 }
