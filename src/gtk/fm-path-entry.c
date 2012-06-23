@@ -118,7 +118,7 @@ typedef struct _FmPathEntryModelClass FmPathEntryModelClass;
 struct _FmPathEntryModel
 {
     GtkListStore parent_instance;
-    FmPathEntry* entry;
+    char* parent_dir;
 };
 
 struct _FmPathEntryModelClass
@@ -128,14 +128,15 @@ struct _FmPathEntryModelClass
 
 static GType fm_path_entry_model_get_type(void);
 static void fm_path_entry_model_iface_init(GtkTreeModelIface *iface);
-static FmPathEntryModel* fm_path_entry_model_new(FmPathEntry* entry);
+static FmPathEntryModel* fm_path_entry_model_new(const char *dir);
+static void fm_path_entry_model_set_parent_dir(FmPathEntryModel *model, const char *dir);
 
 G_DEFINE_TYPE_EXTENDED( FmPathEntryModel, fm_path_entry_model, GTK_TYPE_LIST_STORE,
                        0, G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_path_entry_model_iface_init) );
 
 /* end declaration of the customized model. */
 
-static GtkEditableClass *parent_editable_interface = NULL;
+/* static GtkEditableClass *parent_editable_interface = NULL; */
 static GtkTreeModelIface *parent_tree_model_interface = NULL;
 
 static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data)
@@ -191,7 +192,7 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
                                     PROP_HIGHLIGHT_COMPLETION_MATCH,
                                     g_param_spec_boolean("highlight-completion-match",
                                                          "Highlight completion match",
-                                                         "Wheather to highlight the completion match",
+                                                         "Whether to highlight the completion match",
                                                          TRUE, G_PARAM_READWRITE) );
     object_class->finalize = fm_path_entry_finalize;
     /* entry_class->activate = fm_path_entry_activate; */
@@ -204,7 +205,7 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
 
 static void fm_path_entry_editable_init(GtkEditableClass *iface)
 {
-    parent_editable_interface = g_type_interface_peek_parent(iface);
+    /* parent_editable_interface = g_type_interface_peek_parent(iface); */
     /* iface->changed = fm_path_entry_changed; */
     /* iface->do_insert_text = fm_path_entry_do_insert_text; */
 }
@@ -216,6 +217,7 @@ static void clear_completion(FmPathEntryPrivate* priv)
         priv->parent_len = 0;
         g_free(priv->parent_dir);
         priv->parent_dir = NULL;
+        fm_path_entry_model_set_parent_dir(priv->model, NULL);
         /* cancel running dir-listing jobs */
         if(priv->cancellable)
         {
@@ -270,7 +272,7 @@ static gboolean on_dir_list_finished(gpointer user_data)
     if(g_cancellable_is_cancelled(data->cancellable))
         return TRUE;
 
-    new_model = fm_path_entry_model_new(entry);
+    new_model = fm_path_entry_model_new(priv->parent_dir);
     /* g_debug("dir list is finished!"); */
 
     /* update the model */
@@ -377,6 +379,7 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             g_free(priv->parent_dir);
             priv->parent_dir = g_strndup(path_str, parent_len);
             priv->parent_len = parent_len;
+            fm_path_entry_model_set_parent_dir(priv->model, priv->parent_dir);
             /* g_debug("parent dir is changed to %s", priv->parent_dir); */
 
             /* FIXME: convert utf-8 encoded path to on-disk encoding. */
@@ -458,7 +461,7 @@ fm_path_entry_init(FmPathEntry *entry)
     GtkEntryCompletion* completion = gtk_entry_completion_new();
     GtkCellRenderer* render;
 
-    priv->model = fm_path_entry_model_new(entry);
+    priv->model = fm_path_entry_model_new(NULL);
     priv->completion = completion;
     priv->cancellable = g_cancellable_new();
     priv->highlight_completion_match = TRUE;
@@ -510,7 +513,8 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
         int buf_len = model_file_name_len + 14 + 1;
         gchar* markup = g_malloc(buf_len);
         gchar *trail = g_stpcpy(markup, "<b><u>");
-        trail = strncpy(trail, model_file_name, priv->typed_basename_len) + priv->typed_basename_len;
+        strncpy(trail, model_file_name, priv->typed_basename_len);
+        trail += priv->typed_basename_len;
         trail = g_stpcpy(trail, "</u></b>");
         trail = g_stpcpy(trail, model_file_name + priv->typed_basename_len);
         g_object_set(cell, "markup", markup, NULL);
@@ -612,8 +616,18 @@ static void fm_path_entry_model_init(FmPathEntryModel *model)
     gtk_list_store_set_column_types(GTK_LIST_STORE(model), G_N_ELEMENTS(cols), cols);
 }
 
+static void fm_path_entry_model_finalize(GObject *object)
+{
+    g_free(((FmPathEntryModel*)object)->parent_dir);
+
+    (*G_OBJECT_CLASS(fm_path_entry_model_parent_class)->finalize)(object);
+}
+
 static void fm_path_entry_model_class_init(FmPathEntryModelClass *klass)
 {
+    GObjectClass* object_class = G_OBJECT_CLASS(klass);
+
+    object_class->finalize = fm_path_entry_model_finalize;
 }
 
 static void fm_path_entry_model_get_value(GtkTreeModel *tree_model,
@@ -624,10 +638,9 @@ static void fm_path_entry_model_get_value(GtkTreeModel *tree_model,
     FmPathEntryModel *model = (FmPathEntryModel*)tree_model;
     if(column == COL_FULL_PATH)
     {
-        FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(model->entry);
         char* full_path;
         parent_tree_model_interface->get_value(tree_model, iter, COL_BASENAME, value);
-        full_path = g_strconcat(priv->parent_dir, g_value_get_string(value), NULL);
+        full_path = g_strconcat(model->parent_dir, g_value_get_string(value), NULL);
         g_value_take_string(value, full_path);
     }
     else
@@ -640,9 +653,15 @@ static void fm_path_entry_model_iface_init(GtkTreeModelIface *iface)
     iface->get_value = fm_path_entry_model_get_value;
 }
 
-static FmPathEntryModel* fm_path_entry_model_new(FmPathEntry* entry)
+static void fm_path_entry_model_set_parent_dir(FmPathEntryModel* model, const char *dir)
+{
+    g_free(model->parent_dir);
+    model->parent_dir = dir ? g_strdup(dir) : NULL;
+}
+
+static FmPathEntryModel* fm_path_entry_model_new(const char *parent_dir)
 {
     FmPathEntryModel* model = g_object_new(FM_TYPE_PATH_ENTRY_MODEL, NULL);
-    model->entry = entry;
+    fm_path_entry_model_set_parent_dir(model, parent_dir);
     return model;
 }
