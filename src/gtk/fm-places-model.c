@@ -28,7 +28,7 @@
 
 struct _FmPlacesItem
 {
-    FmPlacesType type : 6;
+    FmPlacesType type;
     gboolean mounted : 1; /* used if type == FM_PLACES_ITEM_VOLUME */
     FmIcon* icon;
     FmFileInfo* fi;
@@ -46,9 +46,8 @@ struct _FmPlacesModel
 
     GVolumeMonitor* vol_mon;
     FmBookmarks* bookmarks;
-    GtkTreeIter separator_iter;
-    GtkTreePath* separator_tree_path;
-    GtkTreeIter trash_iter;
+    GtkTreeRowReference* separator;
+    GtkTreeRowReference* trash;
     GFileMonitor* trash_monitor;
     guint trash_idle_handler;
     guint theme_change_handler;
@@ -61,12 +60,6 @@ struct _FmPlacesModel
 
 static void create_trash_item(FmPlacesModel* model);
 
-static void update_separator_tree_path(FmPlacesModel* model)
-{
-    gtk_tree_path_free(model->separator_tree_path);
-    model->separator_tree_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &model->separator_iter);
-}
-
 static void place_item_free(FmPlacesItem* item)
 {
     switch(item->type)
@@ -74,7 +67,12 @@ static void place_item_free(FmPlacesItem* item)
     case FM_PLACES_ITEM_VOLUME:
         g_object_unref(item->volume);
         break;
+    case FM_PLACES_ITEM_MOUNT:
+        g_object_unref(item->mount);
         break;
+    case FM_PLACES_ITEM_PATH:
+    case FM_PLACES_ITEM_NONE:
+        ;
     }
     if(G_LIKELY(item->icon))
         fm_icon_unref(item->icon);
@@ -94,6 +92,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
 
     /* g_debug("file info job finished"); */
     model->jobs = g_slist_remove(model->jobs, job);
+    g_signal_handlers_disconnect_by_func(job, on_file_info_job_finished, model);
 
     if(!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
         goto finished;
@@ -209,28 +208,50 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
     g_free(name);
 }
 
+static inline FmPlacesItem* add_new_item(GtkListStore* model, FmPlacesType type,
+                                         GtkTreeIter *it, GtkTreePath* at)
+{
+    GtkTreeIter next_it;
+    FmPlacesItem* item = g_slice_new0(FmPlacesItem);
+
+    item->fi = fm_file_info_new();
+    item->type = type;
+    if(at)
+    {
+        gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &next_it, at);
+        gtk_list_store_insert_before(model, it, &next_it);
+    }
+    else
+        gtk_list_store_append(model, it);
+    gtk_list_store_set(model, it, FM_PLACES_MODEL_COL_INFO, item, -1);
+    return item;
+}
+
 static void add_volume_or_mount(FmPlacesModel* model, GObject* volume_or_mount, FmFileInfoJob* job)
 {
-    GtkTreeIter it;
     FmPlacesItem* item;
-    item = g_slice_new0(FmPlacesItem);
-    item->fi = fm_file_info_new();
+    GtkTreePath* tp;
+    GtkTreeIter it;
+
     if(G_IS_VOLUME(volume_or_mount))
     {
-        item->type = FM_PLACES_ITEM_VOLUME;
+        tp = gtk_tree_row_reference_get_path(model->separator);
+        item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_VOLUME, &it, tp);
+        gtk_tree_path_free(tp);
         item->volume = G_VOLUME(g_object_ref(volume_or_mount));
     }
     else if(G_IS_MOUNT(volume_or_mount))
     {
-        item->type = FM_PLACES_ITEM_MOUNT;
+        tp = gtk_tree_row_reference_get_path(model->separator);
+        item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_MOUNT, &it, tp);
+        gtk_tree_path_free(tp);
         item->mount = G_MOUNT(g_object_ref(volume_or_mount));
     }
     else
     {
         /* NOTE: this is impossible, unless a bug exists */
+        return;
     }
-    gtk_list_store_insert_before(GTK_LIST_STORE(model), &it, &model->separator_iter);
-    gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_INFO, item, -1);
     update_volume_or_mount(model, item, &it, job);
 }
 
@@ -244,12 +265,14 @@ static FmPlacesItem* find_volume(FmPlacesModel* model, GVolume* volume, GtkTreeI
         {
             FmPlacesItem* item;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-            if(item && item->type == FM_PLACES_ITEM_VOLUME && item->volume == volume)
+            if(item == NULL) /* separator item has all columns NULL */
+                return item;
+            if(item->type == FM_PLACES_ITEM_VOLUME && item->volume == volume)
             {
                 *_it = it;
                 return item;
             }
-        }while(it.user_data != model->separator_iter.user_data && gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
+        }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
     }
     return NULL;
 }
@@ -264,12 +287,14 @@ static FmPlacesItem* find_mount(FmPlacesModel* model, GMount* mount, GtkTreeIter
         {
             FmPlacesItem* item;
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-            if(item && item->type == FM_PLACES_ITEM_MOUNT && item->mount == mount)
+            if(item == NULL) /* separator item has all columns NULL */
+                return item;
+            if(item->type == FM_PLACES_ITEM_MOUNT && item->mount == mount)
             {
                 *_it = it;
                 return item;
             }
-        }while(it.user_data != model->separator_iter.user_data && gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
+        }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
     }
     return NULL;
 }
@@ -279,7 +304,6 @@ static void on_volume_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     /* g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi")); */
     add_volume_or_mount(model, G_OBJECT(vol), NULL);
-    update_separator_tree_path(model);
 }
 
 static void on_volume_removed(GVolumeMonitor* vm, GVolume* volume, gpointer user_data)
@@ -292,7 +316,6 @@ static void on_volume_removed(GVolumeMonitor* vm, GVolume* volume, gpointer user
     {
         gtk_list_store_remove(GTK_LIST_STORE(model), &it);
         place_item_free(item);
-        update_separator_tree_path(model);
     }
 }
 
@@ -359,13 +382,12 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
         g_object_unref(vol);
     else /* network mounts and others */
     {
-        GtkTreeIter it;        
+        GtkTreeIter it;
         FmPlacesItem* item = find_mount(model, mount, &it);
         if(item)
         {
             gtk_list_store_remove(GTK_LIST_STORE(model), &it);
             place_item_free(item);
-            update_separator_tree_path(model);
         }
     }
 }
@@ -385,9 +407,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
         GtkTreeIter it;
         GdkPixbuf* pix;
         FmPath* path = bm->path;
-        item = g_slice_new0(FmPlacesItem);
-        item->type = FM_PLACES_ITEM_PATH;
-        item->fi = fm_file_info_new();
+        item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_PATH, &it, NULL);
         fm_file_info_set_path(item->fi, path);
         fm_file_info_job_add(job, path);
 
@@ -407,8 +427,9 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
             pix = remote_pix;
         }
         item->bm_item = bm;
-        gtk_list_store_append(GTK_LIST_STORE(model), &it);
-        gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, bm->name, FM_PLACES_MODEL_COL_INFO, item, -1);
+        gtk_list_store_set(GTK_LIST_STORE(model), &it,
+                           FM_PLACES_MODEL_COL_ICON, pix,
+                           FM_PLACES_MODEL_COL_LABEL, bm->name, -1);
     }
     g_object_unref(folder_pix);
     fm_icon_unref(icon);
@@ -424,7 +445,11 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-    GtkTreeIter it = model->separator_iter;
+    GtkTreePath* tp = gtk_tree_row_reference_get_path(model->separator);
+    GtkTreeIter it;
+
+    gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
+    gtk_tree_path_free(tp);
     /* remove all old bookmarks */
     if(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it))
     {
@@ -441,7 +466,7 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 static gboolean update_trash_item(gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    if(fm_config->use_trash)
+    if(fm_config->use_trash && model->trash)
     {
         GFile* gf = g_file_new_for_uri("trash:///");
         GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
@@ -450,20 +475,27 @@ static gboolean update_trash_item(gpointer user_data)
         {
             FmIcon* icon;
             const char* icon_name;
-            FmPlacesItem* item;
+            FmPlacesItem* item = NULL;
             GdkPixbuf* pix;
+            GtkTreePath* tp = gtk_tree_row_reference_get_path(model->trash);
+            GtkTreeIter it;
             guint32 n = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT);
+
             g_object_unref(inf);
+            if(!tp) /* FIXME: how can tp be invalid here? */
+                return FALSE;
             icon_name = n > 0 ? "user-trash-full" : "user-trash";
             icon = fm_icon_from_name(icon_name);
-            gtk_tree_model_get(GTK_TREE_MODEL(model), &model->trash_iter, FM_PLACES_MODEL_COL_INFO, &item, -1);
+            gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
+            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
             if(item->icon)
                 fm_icon_unref(item->icon);
             item->icon = icon;
             /* update the icon */
             pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-            gtk_list_store_set(GTK_LIST_STORE(model), &model->trash_iter, FM_PLACES_MODEL_COL_ICON, pix, -1);
+            gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
             g_object_unref(pix);
+            gtk_tree_path_free(tp);
         }
     }
     return FALSE;
@@ -495,22 +527,13 @@ static void update_icons(FmPlacesModel* model)
     /* reload icon for every item */
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it);
     do{
-        if(it.user_data != model->separator_iter.user_data)
+        FmPlacesItem* item = NULL;
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+        if(item) /* separator item has all columns NULL */
         {
-            FmPlacesItem* item;
-            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-			if(item)
-			{
-				pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-				gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
-				g_object_unref(pix);
-			}
-			else
-			{
-				/* #3497049 - PCManFM crashed with SIGSEV in update_icons().
-				 * Item should not be null. Otherwise there must be a bug. */
-				g_debug("bug? FmPlacesItem* item should not be null.");
-			}
+            pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
+            gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, -1);
+            g_object_unref(pix);
         }
     }while( gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it) );
 }
@@ -518,14 +541,20 @@ static void update_icons(FmPlacesModel* model)
 static void on_use_trash_changed(FmConfig* cfg, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    if(cfg->use_trash && model->trash_iter.user_data == NULL)
+    if(cfg->use_trash && model->trash == NULL)
         create_trash_item(model);
-    else
+    else if(!cfg->use_trash && model->trash)
     {
-        FmPlacesItem *item;
-        gtk_tree_model_get(GTK_TREE_MODEL(model), &model->trash_iter, FM_PLACES_MODEL_COL_INFO, &item, -1);
-        gtk_list_store_remove(GTK_LIST_STORE(model), &model->trash_iter);
-        model->trash_iter.user_data = NULL;
+        FmPlacesItem *item = NULL;
+        GtkTreePath* tp = gtk_tree_row_reference_get_path(model->trash);
+        GtkTreeIter it;
+
+        gtk_tree_row_reference_free(model->trash);
+        model->trash = NULL;
+        gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
+        gtk_tree_path_free(tp);
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+        gtk_list_store_remove(GTK_LIST_STORE(model), &it);
         place_item_free(item);
 
         if(model->trash_monitor)
@@ -540,7 +569,6 @@ static void on_use_trash_changed(FmConfig* cfg, gpointer user_data)
             model->trash_idle_handler = 0;
         }
     }
-    update_separator_tree_path(model);
 }
 
 static void on_pane_icon_size_changed(FmConfig* cfg, gpointer user_data)
@@ -553,6 +581,7 @@ static void on_pane_icon_size_changed(FmConfig* cfg, gpointer user_data)
 static void create_trash_item(FmPlacesModel* model)
 {
     GtkTreeIter it;
+    GtkTreePath* trash_path;
     FmPlacesItem* item;
     GdkPixbuf* pix;
     GFile* gf;
@@ -562,16 +591,18 @@ static void create_trash_item(FmPlacesModel* model)
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
 
-    item = g_slice_new0(FmPlacesItem);
-    item->type = FM_PLACES_ITEM_PATH;
-    item->fi = fm_file_info_new();
+    trash_path = gtk_tree_path_new_from_indices(2);
+    item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_PATH, &it,
+                        trash_path);
     fm_file_info_set_path(item->fi, fm_path_get_trash());
     item->icon = fm_icon_from_name("user-trash");
-    gtk_list_store_insert(GTK_LIST_STORE(model), &it, 2);
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(GTK_LIST_STORE(model), &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Trash"), FM_PLACES_MODEL_COL_INFO, item, -1);
+    gtk_list_store_set(GTK_LIST_STORE(model), &it,
+                       FM_PLACES_MODEL_COL_ICON, pix,
+                       FM_PLACES_MODEL_COL_LABEL, _("Trash"), -1);
     g_object_unref(pix);
-    model->trash_iter = it;
+    model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
+    gtk_tree_path_free(trash_path);
 
     if(0 == model->trash_idle_handler)
         model->trash_idle_handler = g_idle_add(update_trash_item, model);
@@ -588,6 +619,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
     GtkListStore* model = &self->parent;
     FmPath *path;
+    GtkTreePath* tp;
 
     gtk_list_store_set_column_types(&self->parent, FM_PLACES_MODEL_N_COLS, types);
 
@@ -604,29 +636,25 @@ static void fm_places_model_init(FmPlacesModel *self)
     fm_icon_unref(icon);
     self->eject_icon = pix;
 
-    item = g_slice_new0(FmPlacesItem);
-    item->type = FM_PLACES_ITEM_PATH;
-    item->fi = fm_file_info_new();
+    item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
     path = fm_path_get_home();
     fm_file_info_set_path(item->fi, path);
     item->icon = fm_icon_from_name("user-home");
-    gtk_list_store_append(model, &it);
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, path->name, FM_PLACES_MODEL_COL_INFO, item, -1);
+    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
+                       FM_PLACES_MODEL_COL_LABEL, path->name, -1);
     g_object_unref(pix);
     fm_file_info_job_add(job, path);
 
     /* Only show desktop in side pane when the user has a desktop dir. */
     if(g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
     {
-        item = g_slice_new0(FmPlacesItem);
-        item->type = FM_PLACES_ITEM_PATH;
-        item->fi = fm_file_info_new();
+        item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
         fm_file_info_set_path(item->fi, fm_path_get_desktop());
         item->icon = fm_icon_from_name("user-desktop");
-        gtk_list_store_append(model, &it);
         pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-        gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Desktop"), FM_PLACES_MODEL_COL_INFO, item, -1);
+        gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
+                           FM_PLACES_MODEL_COL_LABEL, _("Desktop"), -1);
         g_object_unref(pix);
         fm_file_info_job_add(job, path);
     }
@@ -634,28 +662,33 @@ static void fm_places_model_init(FmPlacesModel *self)
     if(fm_config->use_trash)
         create_trash_item(self); /* FIXME: how to handle trash can? */
 
-    item = g_slice_new0(FmPlacesItem);
-    item->type = FM_PLACES_ITEM_PATH;
-    item->fi = fm_file_info_new();
+    item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
     fm_file_info_set_path(item->fi, fm_path_get_apps_menu());
     item->icon = fm_icon_from_name("system-software-install");
-    gtk_list_store_append(model, &it);
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix, FM_PLACES_MODEL_COL_LABEL, _("Applications"), FM_PLACES_MODEL_COL_INFO, item, -1);
+    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
+                       FM_PLACES_MODEL_COL_LABEL, _("Applications"), -1);
     g_object_unref(pix);
     /* fm_file_info_job_add(job, item->fi->path); */
 
     /* volumes */
     self->vol_mon = g_volume_monitor_get();
-    g_signal_connect(self->vol_mon, "volume-added", G_CALLBACK(on_volume_added), self);
-    g_signal_connect(self->vol_mon, "volume-removed", G_CALLBACK(on_volume_removed), self);
-    g_signal_connect(self->vol_mon, "volume-changed", G_CALLBACK(on_volume_changed), self);
-    g_signal_connect(self->vol_mon, "mount-added", G_CALLBACK(on_mount_added), self);
-    g_signal_connect(self->vol_mon, "mount-changed", G_CALLBACK(on_mount_changed), self);
-    g_signal_connect(self->vol_mon, "mount-removed", G_CALLBACK(on_mount_removed), self);
+    if(self->vol_mon)
+    {
+        g_signal_connect(self->vol_mon, "volume-added", G_CALLBACK(on_volume_added), self);
+        g_signal_connect(self->vol_mon, "volume-removed", G_CALLBACK(on_volume_removed), self);
+        g_signal_connect(self->vol_mon, "volume-changed", G_CALLBACK(on_volume_changed), self);
+        g_signal_connect(self->vol_mon, "mount-added", G_CALLBACK(on_mount_added), self);
+        g_signal_connect(self->vol_mon, "mount-changed", G_CALLBACK(on_mount_changed), self);
+        g_signal_connect(self->vol_mon, "mount-removed", G_CALLBACK(on_mount_removed), self);
+    }
 
     /* separator */
-    gtk_list_store_append(model, &self->separator_iter);
+    gtk_list_store_append(model, &it);
+    tp = gtk_tree_model_get_path(GTK_TREE_MODEL(self), &it);
+    self->separator = gtk_tree_row_reference_new(GTK_TREE_MODEL(self), tp);
+    gtk_tree_path_free(tp);
+    /* separator has all columns NULL */
 
     /* add volumes to side-pane */
     vols = g_volume_monitor_get_volumes(self->vol_mon);
@@ -681,11 +714,9 @@ static void fm_places_model_init(FmPlacesModel *self)
     }
     g_list_free(vols);
 
-    /* get the path of separator */
-    self->separator_tree_path = gtk_tree_model_get_path(GTK_TREE_MODEL(self), &self->separator_iter);
-
     self->bookmarks = fm_bookmarks_dup(); /* bookmarks */
-    g_signal_connect(self->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), self);
+    if(self->bookmarks)
+        g_signal_connect(self->bookmarks, "changed", G_CALLBACK(on_bookmarks_changed), self);
 
     /* add bookmarks to side pane */
     add_bookmarks(self, job);
@@ -697,7 +728,7 @@ static void fm_places_model_init(FmPlacesModel *self)
 
 GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model)
 {
-    return model->separator_tree_path;
+    return gtk_tree_row_reference_get_path(model->separator);
 }
 
 FmBookmarks* fm_places_model_get_bookmarks(FmPlacesModel* model)
@@ -707,22 +738,54 @@ FmBookmarks* fm_places_model_get_bookmarks(FmPlacesModel* model)
 
 gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it)
 {
-    return it && it->user_data == model->separator_iter.user_data;
+    gpointer item = NULL;
+
+    if(it == NULL)
+        return FALSE;
+    gtk_tree_model_get(GTK_TREE_MODEL(model), it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+    return (item == NULL);
 }
 
 gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp)
 {
-    return tp && gtk_tree_path_compare(model->separator_tree_path, tp) == 0;
+    GtkTreePath* sep_tp;
+    gboolean ret = FALSE;
+
+    if(tp)
+    {
+        sep_tp = gtk_tree_row_reference_get_path(model->separator);
+        ret = gtk_tree_path_compare(sep_tp, tp) == 0;
+        gtk_tree_path_free(sep_tp);
+    }
+    return ret;
 }
 
 gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp)
 {
-    return tp && gtk_tree_path_compare(model->separator_tree_path, tp) < 0;
+    GtkTreePath* sep_tp;
+    gboolean ret = FALSE;
+
+    if(tp)
+    {
+        sep_tp = gtk_tree_row_reference_get_path(model->separator);
+        ret = gtk_tree_path_compare(sep_tp, tp) < 0;
+        gtk_tree_path_free(sep_tp);
+    }
+    return ret;
 }
 
 gboolean fm_places_model_path_is_places(FmPlacesModel* model, GtkTreePath* tp)
 {
-    return tp && gtk_tree_path_compare(model->separator_tree_path, tp) > 0;
+    GtkTreePath* sep_tp;
+    gboolean ret = FALSE;
+
+    if(tp)
+    {
+        sep_tp = gtk_tree_row_reference_get_path(model->separator);
+        ret = gtk_tree_path_compare(sep_tp, tp) > 0;
+        gtk_tree_path_free(sep_tp);
+    }
+    return ret;
 }
 
 static gboolean row_draggable(GtkTreeDragSource* drag_source, GtkTreePath* tp)
@@ -750,6 +813,7 @@ static void fm_places_model_dispose(GObject *object)
         GSList* l;
         for(l = self->jobs; l; l=l->next)
         {
+            g_signal_handlers_disconnect_by_func(l->data, on_file_info_job_finished, self);
             fm_job_cancel(FM_JOB(l->data));
             g_object_unref(l->data);
         }
@@ -768,21 +832,21 @@ static void fm_places_model_dispose(GObject *object)
         }while(gtk_tree_model_iter_next(GTK_TREE_MODEL(self), &it));
     }
 
-    if(self->separator_tree_path)
-    {
-        gtk_tree_path_free(self->separator_tree_path);
-        self->separator_tree_path = NULL;
-    }
+    gtk_tree_row_reference_free(self->separator);
+    self->separator = NULL;
+
+    gtk_tree_row_reference_free(self->trash);
+    self->trash = NULL;
 
     if(self->theme_change_handler)
     {
         g_signal_handler_disconnect(gtk_icon_theme_get_default(), self->theme_change_handler);
         self->theme_change_handler = 0;
-        g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
-        self->use_trash_change_handler = 0;
-        g_signal_handler_disconnect(fm_config, self->pane_icon_size_change_handler);
-        self->pane_icon_size_change_handler = 0;
     }
+    g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
+    self->use_trash_change_handler = 0;
+    g_signal_handler_disconnect(fm_config, self->pane_icon_size_change_handler);
+    self->pane_icon_size_change_handler = 0;
 
     if(self->vol_mon)
     {
@@ -816,6 +880,10 @@ static void fm_places_model_dispose(GObject *object)
         self->trash_idle_handler = 0;
     }
 
+    if(self->eject_icon)
+        g_object_unref(self->eject_icon);
+    self->eject_icon = NULL;
+
     G_OBJECT_CLASS(fm_places_model_parent_class)->dispose(object);
 }
 
@@ -845,7 +913,7 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
                                            GtkTreeIter *it,
                                            gpointer user_data)
 {
-    FmPlacesItem* item;
+    FmPlacesItem* item = NULL;
     GdkPixbuf* pix = NULL;
     gtk_tree_model_get(tree_model, it, FM_PLACES_MODEL_COL_INFO, &item, -1);
     if(item && item->mounted)

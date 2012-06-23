@@ -178,6 +178,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
             GtkTreePath* sep = fm_places_model_get_separator_path(model);
             /* set drop site at the first bookmark item */
             gtk_tree_path_get_indices(*tp)[0] = gtk_tree_path_get_indices(sep)[0] + 1;
+            gtk_tree_path_free(sep);
             *pos = GTK_TREE_VIEW_DROP_BEFORE;
             ret = TRUE;
         }
@@ -352,6 +353,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                             new_pos = gtk_tree_path_get_indices(dest_tp)[0] - sep_pos - 1;
                             /* reorder the bookmark item */
                             fm_bookmarks_reorder(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item), new_pos);
+                            gtk_tree_path_free(sep_tp);
                             ret = TRUE;
                         }
                     }
@@ -829,6 +831,7 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(tp);
+            gtk_tree_path_free(sep);
         }
         ret = TRUE;
     }
