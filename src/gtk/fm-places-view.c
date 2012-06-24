@@ -63,6 +63,7 @@ static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAc
 
 G_DEFINE_TYPE(FmPlacesView, fm_places_view, GTK_TYPE_TREE_VIEW);
 
+/** One common FmPlacesModel for all FmPlacesView instances */
 static FmPlacesModel* model = NULL;
 
 static guint signals[N_SIGNALS];
@@ -129,6 +130,27 @@ static const GtkTargetEntry dnd_dest_targets[] =
 static const GtkTargetEntry dnd_src_targets[] = {
     { "GTK_TREE_MODEL_ROW", GTK_TARGET_SAME_WIDGET, FM_DND_DEST_TARGET_BOOOKMARK }
 };
+
+static void fm_places_view_dispose(GObject *object)
+{
+    FmPlacesView* self;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_PLACES_VIEW(object));
+    self = (FmPlacesView*)object;
+
+    g_signal_handlers_disconnect_by_func(self->dnd_dest, on_dnd_dest_files_dropped, self);
+    g_object_unref(self->dnd_dest);
+    self->dnd_dest = NULL;
+
+    if(self->clicked_row)
+    {
+        gtk_tree_path_free(self->clicked_row);
+        self->clicked_row = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_places_view_parent_class)->dispose(object);
+}
 
 static void fm_places_view_finalize(GObject *object)
 {
@@ -438,7 +460,7 @@ FmPlacesView *fm_places_view_new(void)
     return g_object_new(FM_PLACES_VIEW_TYPE, NULL);
 }
 
-void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
+static void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
 {
     GtkTreeIter it;
     if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tree_path))
@@ -493,7 +515,7 @@ void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
     }
 }
 
-void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
+static void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
 {
     activate_row(FM_PLACES_VIEW(view), 1, tree_path);
 }
@@ -511,7 +533,7 @@ void fm_places_view_chdir(FmPlacesView* pv, FmPath* path)
         gtk_tree_selection_unselect_all(ts);
 }
 
-gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
+static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
 {
     FmPlacesView* view = FM_PLACES_VIEW(widget);
     if(view->clicked_row)
@@ -595,11 +617,11 @@ static void place_item_menu_unref(gpointer ui, GObject *menu)
     g_object_unref(ui);
 }
 
-GtkWidget* place_item_get_menu(FmPlacesItem* item)
+static GtkWidget* place_item_get_menu(FmPlacesItem* item)
 {
     GtkWidget* menu = NULL;
     GtkUIManager* ui = gtk_ui_manager_new();
-    GtkActionGroup* act_grp = act_grp = gtk_action_group_new("Popup");
+    GtkActionGroup* act_grp = gtk_action_group_new("Popup");
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     /* FIXME: merge with FmFileMenu when possible */
@@ -678,7 +700,7 @@ _out:
     return menu;
 }
 
-gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
+static gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
 {
     FmPlacesView* view = FM_PLACES_VIEW(widget);
     GtkTreePath* tp;
@@ -686,6 +708,8 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
 
     gtk_tree_view_get_path_at_pos(&view->parent, evt->x, evt->y, &tp, &col, NULL, NULL);
+    if(view->clicked_row) /* what? more than one botton clicked? */
+        gtk_tree_path_free(view->clicked_row);
     view->clicked_row = tp;
     if(tp)
     {
@@ -719,7 +743,7 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
     return ret;
 }
 
-void on_mount(GtkAction* act, gpointer user_data)
+static void on_mount(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
@@ -735,7 +759,7 @@ void on_mount(GtkAction* act, gpointer user_data)
     }
 }
 
-void on_umount(GtkAction* act, gpointer user_data)
+static void on_umount(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     GMount* mnt;
@@ -759,7 +783,7 @@ void on_umount(GtkAction* act, gpointer user_data)
     }
 }
 
-void on_eject(GtkAction* act, gpointer user_data)
+static void on_eject(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
@@ -769,18 +793,19 @@ void on_eject(GtkAction* act, gpointer user_data)
     }
 }
 
-void on_remove_bm(GtkAction* act, gpointer user_data)
+static void on_remove_bm(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     fm_bookmarks_remove(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item));
 }
 
-void on_rename_bm(GtkAction* act, gpointer user_data)
+static void on_rename_bm(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     /* FIXME: we need to set a proper parent window for the dialog */
     char* new_name = fm_get_user_input(NULL, _("Rename Bookmark Item"),
-                                        _("Enter a new name:"), fm_places_item_get_bookmark_item(item)->name);
+                                       _("Enter a new name:"),
+                                       fm_places_item_get_bookmark_item(item)->name);
     if(new_name)
     {
         if(strcmp(new_name, fm_places_item_get_bookmark_item(item)->name))
@@ -791,7 +816,7 @@ void on_rename_bm(GtkAction* act, gpointer user_data)
     }
 }
 
-void on_empty_trash(GtkAction* act, gpointer user_data)
+static void on_empty_trash(GtkAction* act, gpointer user_data)
 {
     /* FIXME: This is very dirty, but it's inevitable. :-( */
     GSList* proxies = gtk_action_get_proxies(act);
@@ -801,7 +826,7 @@ void on_empty_trash(GtkAction* act, gpointer user_data)
     fm_empty_trash(view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL);
 }
 
-gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
+static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
                                int info_type, FmFileInfoList* files, FmPlacesView* view)
 {
     FmPath* dest;
@@ -830,9 +855,10 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction ac
                     fm_bookmarks_insert(fm_places_model_get_bookmarks(model), fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
-            gtk_tree_path_free(tp);
             gtk_tree_path_free(sep);
         }
+        if(tp)
+            gtk_tree_path_free(tp);
         ret = TRUE;
     }
 
@@ -852,6 +878,7 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
     GtkWidgetClass* widget_class;
     GtkTreeViewClass* tv_class;
     g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_places_view_dispose;
     g_object_class->finalize = fm_places_view_finalize;
 
     widget_class = GTK_WIDGET_CLASS(klass);

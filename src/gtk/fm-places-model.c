@@ -790,7 +790,9 @@ gboolean fm_places_model_path_is_places(FmPlacesModel* model, GtkTreePath* tp)
 
 static gboolean row_draggable(GtkTreeDragSource* drag_source, GtkTreePath* tp)
 {
-    FmPlacesModel* model = FM_PLACES_MODEL(drag_source);
+    FmPlacesModel* model;
+    g_return_val_if_fail(FM_IS_PLACES_MODEL(drag_source), FALSE);
+    model = (FmPlacesModel*)drag_source;
     return fm_places_model_path_is_bookmark(model, tp);
 }
 
@@ -805,8 +807,12 @@ G_DEFINE_TYPE_WITH_CODE (FmPlacesModel, fm_places_model, GTK_TYPE_LIST_STORE,
 
 static void fm_places_model_dispose(GObject *object)
 {
-    FmPlacesModel *self = FM_PLACES_MODEL(object);
+    FmPlacesModel *self;
     GtkTreeIter it;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_PLACES_MODEL(object));
+    self = (FmPlacesModel*)object;
 
     if(self->jobs)
     {
@@ -915,9 +921,10 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
 {
     FmPlacesItem* item = NULL;
     GdkPixbuf* pix = NULL;
+    g_return_if_fail(FM_IS_PLACES_MODEL(tree_model));
     gtk_tree_model_get(tree_model, it, FM_PLACES_MODEL_COL_INFO, &item, -1);
     if(item && item->mounted)
-        pix = FM_PLACES_MODEL(tree_model)->eject_icon;
+        pix = ((FmPlacesModel*)tree_model)->eject_icon;
     g_object_set(render, "pixbuf", pix, NULL);
 }
 
