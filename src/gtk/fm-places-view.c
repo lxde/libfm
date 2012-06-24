@@ -131,7 +131,7 @@ static const GtkTargetEntry dnd_src_targets[] = {
     { "GTK_TREE_MODEL_ROW", GTK_TARGET_SAME_WIDGET, FM_DND_DEST_TARGET_BOOOKMARK }
 };
 
-static void fm_places_view_dispose(GObject *object)
+static void fm_places_view_finalize(GObject *object)
 {
     FmPlacesView* self;
 
@@ -139,26 +139,12 @@ static void fm_places_view_dispose(GObject *object)
     g_return_if_fail(IS_FM_PLACES_VIEW(object));
     self = (FmPlacesView*)object;
 
-    if(self->dnd_dest)
-    {
-        g_signal_handlers_disconnect_by_func(self->dnd_dest, on_dnd_dest_files_dropped, self);
-        g_object_unref(self->dnd_dest);
-        self->dnd_dest = NULL;
-    }
+    g_signal_handlers_disconnect_by_func(self->dnd_dest, on_dnd_dest_files_dropped, self);
+    g_object_unref(self->dnd_dest);
+    self->dnd_dest = NULL;
 
     if(self->clicked_row)
-    {
         gtk_tree_path_free(self->clicked_row);
-        self->clicked_row = NULL;
-    }
-
-    G_OBJECT_CLASS(fm_places_view_parent_class)->dispose(object);
-}
-
-static void fm_places_view_finalize(GObject *object)
-{
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_PLACES_VIEW(object));
 
     G_OBJECT_CLASS(fm_places_view_parent_class)->finalize(object);
 }
@@ -881,7 +867,6 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
     GtkWidgetClass* widget_class;
     GtkTreeViewClass* tv_class;
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->dispose = fm_places_view_dispose;
     g_object_class->finalize = fm_places_view_finalize;
 
     widget_class = GTK_WIDGET_CLASS(klass);
