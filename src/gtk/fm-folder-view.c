@@ -45,6 +45,7 @@ enum{
     CLICKED,
     SEL_CHANGED,
     SORT_CHANGED,
+    //CHDIR,
     N_SIGNALS
 };
 
@@ -149,6 +150,7 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);
 
+    /* FIXME: add "chdir" so main-win can connect to it and sync side-pane */
 }
 
 static gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)

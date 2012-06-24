@@ -767,6 +767,8 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     GtkTreePath* tp = item_to_tree_path(model, item_l);
 
     place_holder_l = item->children;
+    /* TODO: 1.1: don't leave expanders if not stated in config */
+//    if(!fm_config->show_empty_dir_expanders || place_holder_l->next)
     if(place_holder_l->next) /* if we have loaded sub dirs, remove the place holder */
     {
         /* remove the fake placeholder item showing "Loading..." */
@@ -785,6 +787,14 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     g_signal_emit(model, signals[ROW_LOADED], 0, tp);
     gtk_tree_path_free(tp);
     item->loaded = TRUE;
+    /* FIXME: should we really cease monitoring non-expandable folder? */
+//    if(!item->children)
+//    {
+//        item_free_folder(item->folder, item_l);
+//        item->folder = NULL;
+//        item->expanded = FALSE;
+//        item->loaded = FALSE;
+//    }
 }
 
 static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l)
@@ -891,12 +901,13 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
         g_signal_connect(folder, "files-removed", G_CALLBACK(on_folder_files_removed), item_l);
         g_signal_connect(folder, "files-changed", G_CALLBACK(on_folder_files_changed), item_l);
 
+        if(!item->children)
+            add_place_holder_child_item(model, item_l, tp, TRUE);
         /* if the folder is already loaded, call "loaded" handler ourselves */
         if(fm_folder_is_loaded(folder)) /* already loaded */
         {
             FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
             FmDirTreeModel* model = item->model;
-            GtkTreePath* tp = item_to_tree_path(model, item_l);
             GList* file_l;
             FmFileInfoList* files = fm_folder_get_files(folder);
             for(file_l = fm_file_info_list_peek_head_link(files); file_l; file_l = file_l->next)
@@ -911,7 +922,6 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
                     /* g_debug("insert: %s", fi->path->name); */
                 }
             }
-            gtk_tree_path_free(tp);
             on_folder_finish_loading(folder, item_l);
         }
         item->expanded = TRUE;
@@ -925,6 +935,7 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     g_return_if_fail(item != NULL);
     if(item->expanded) /* do some cleanup */
     {
+//        GList* had_children = item->children;
         /* remove all children, and replace them with a dummy child
          * item to keep expander in the tree view around. */
         remove_all_children(model, item_l, tp);
@@ -932,6 +943,8 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
         /* now, GtkTreeView think that we have no child since all
          * child items are removed. So we add a place holder child
          * item to keep the expander around. */
+        /* TODO: 1.1: don't leave expanders if not stated in config */
+//        if(had_children)
         add_place_holder_child_item(model, item_l, tp, TRUE);
         /* deactivate folder since it will be reactivated on expand */
         item_free_folder(item->folder, item_l);
