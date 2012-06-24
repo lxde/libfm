@@ -139,9 +139,12 @@ static void fm_places_view_dispose(GObject *object)
     g_return_if_fail(IS_FM_PLACES_VIEW(object));
     self = (FmPlacesView*)object;
 
-    g_signal_handlers_disconnect_by_func(self->dnd_dest, on_dnd_dest_files_dropped, self);
-    g_object_unref(self->dnd_dest);
-    self->dnd_dest = NULL;
+    if(self->dnd_dest)
+    {
+        g_signal_handlers_disconnect_by_func(self->dnd_dest, on_dnd_dest_files_dropped, self);
+        g_object_unref(self->dnd_dest);
+        self->dnd_dest = NULL;
+    }
 
     if(self->clicked_row)
     {
