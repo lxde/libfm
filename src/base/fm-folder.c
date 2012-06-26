@@ -70,7 +70,6 @@ struct _FmFolder
 static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
 static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf);
 static void fm_folder_dispose(GObject *object);
-static void fm_folder_finalize(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
 static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder);
@@ -91,7 +90,6 @@ static void fm_folder_class_init(FmFolderClass *klass)
     FmFolderClass* folder_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_folder_dispose;
-    g_object_class->finalize = fm_folder_finalize;
     fm_folder_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
     folder_class = FM_FOLDER_CLASS(klass);
@@ -690,18 +688,6 @@ static void fm_folder_dispose(GObject *object)
     }
 
     (* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
-}
-
-static void fm_folder_finalize(GObject *object)
-{
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(FM_IS_FOLDER(object));
-
-    /* folder = FM_FOLDER(object);
-    g_debug("free folder %p", folder); */
-
-    if (G_OBJECT_CLASS(fm_folder_parent_class)->finalize)
-        (* G_OBJECT_CLASS(fm_folder_parent_class)->finalize)(object);
 }
 
 FmFolder* fm_folder_from_gfile(GFile* gf)

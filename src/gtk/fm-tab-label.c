@@ -26,16 +26,10 @@ typedef struct _FmTabLabelPrivate           FmTabLabelPrivate;
 #define FM_TAB_LABEL_GET_PRIVATE(obj)       (G_TYPE_INSTANCE_GET_PRIVATE((obj),\
             FM_TYPE_TAB_LABEL, FmTabLabelPrivate))
 
-static void fm_tab_label_finalize           (GObject *object);
-
 G_DEFINE_TYPE(FmTabLabel, fm_tab_label, GTK_TYPE_EVENT_BOX);
 
 static void fm_tab_label_class_init(FmTabLabelClass *klass)
 {
-    GObjectClass *g_object_class;
-    g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_tab_label_finalize;
-
     /* special style used by close button */
     gtk_rc_parse_string(
         "style \"close-btn-style\" {\n"
@@ -46,14 +40,6 @@ static void fm_tab_label_class_init(FmTabLabelClass *klass)
         "}\n"
         "widget \"*.tab-close-btn\" style \"close-btn-style\""
     );
-}
-
-static void fm_tab_label_finalize(GObject *object)
-{
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(FM_IS_TAB_LABEL(object));
-
-    G_OBJECT_CLASS(fm_tab_label_parent_class)->finalize(object);
 }
 
 static void on_close_btn_style_set(GtkWidget *btn, GtkRcStyle *prev, gpointer data)

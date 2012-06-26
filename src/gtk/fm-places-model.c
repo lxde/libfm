@@ -893,18 +893,12 @@ static void fm_places_model_dispose(GObject *object)
     G_OBJECT_CLASS(fm_places_model_parent_class)->dispose(object);
 }
 
-static void fm_places_model_finalize(GObject *object)
-{
-    G_OBJECT_CLASS(fm_places_model_parent_class)->finalize(object);
-}
-
 static void fm_places_model_class_init(FmPlacesModelClass *klass)
 {
     GObjectClass *g_object_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_places_model_dispose;
-    g_object_class->finalize = fm_places_model_finalize;
 }
 
 

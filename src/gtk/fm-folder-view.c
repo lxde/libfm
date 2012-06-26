@@ -81,7 +81,6 @@ struct _FmFolderView
 static guint signals[N_SIGNALS];
 
 static void fm_folder_view_dispose(GObject *object);
-static void fm_folder_view_finalize(GObject *object);
 G_DEFINE_TYPE(FmFolderView, fm_folder_view, GTK_TYPE_SCROLLED_WINDOW);
 
 static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
@@ -113,7 +112,6 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
     GtkWidgetClass *widget_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_folder_view_dispose;
-    g_object_class->finalize = fm_folder_view_finalize;
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->focus_in_event = on_folder_view_focus_in;
 
@@ -324,17 +322,6 @@ static void fm_folder_view_dispose(GObject *object)
     }
     (* G_OBJECT_CLASS(fm_folder_view_parent_class)->dispose)(object);
 }
-
-static void fm_folder_view_finalize(GObject *object)
-{
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_FOLDER_VIEW(object));
-    /* g_debug("free model: %p", object); */
-
-    if (G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)
-        (* G_OBJECT_CLASS(fm_folder_view_parent_class)->finalize)(object);
-}
-
 
 static void set_icon_size(FmFolderView* fv, guint icon_size)
 {

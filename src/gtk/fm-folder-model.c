@@ -81,7 +81,6 @@ static void fm_folder_model_drag_source_init(GtkTreeDragSourceIface *iface);
 static void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface);
 
 static void fm_folder_model_dispose(GObject *object);
-static void fm_folder_model_finalize(GObject *object);
 G_DEFINE_TYPE_WITH_CODE( FmFolderModel, fm_folder_model, G_TYPE_OBJECT,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_folder_model_tree_model_init)
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_SORTABLE, fm_folder_model_tree_sortable_init)
@@ -172,7 +171,6 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
     fm_folder_model_parent_class = (GObjectClass*)g_type_class_peek_parent(klass);
     object_class = (GObjectClass*)klass;
     object_class->dispose = fm_folder_model_dispose;
-    object_class->finalize = fm_folder_model_finalize;
 }
 
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
@@ -246,13 +244,6 @@ static void fm_folder_model_dispose(GObject *object)
         model->thumbnail_requests = NULL;
     }
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->dispose)(object);
-}
-
-static void fm_folder_model_finalize(GObject *object)
-{
-    /* g_debug("free FmFolderModel: %p", object); */
-    /* must chain up - finalize parent */
-    (*G_OBJECT_CLASS(fm_folder_model_parent_class)->finalize)(object);
 }
 
 FmFolderModel *fm_folder_model_new(FmFolder* dir, gboolean show_hidden)
