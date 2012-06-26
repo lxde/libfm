@@ -30,13 +30,12 @@
 
 #include "fm-file-info.h"
 
-static void fm_file_info_job_finalize              (GObject *object);
+static void fm_file_info_job_dispose              (GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
 const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*,id::filesystem";
 
 G_DEFINE_TYPE(FmFileInfoJob, fm_file_info_job, FM_TYPE_JOB);
-
 
 static void fm_file_info_job_class_init(FmFileInfoJobClass *klass)
 {
@@ -44,14 +43,15 @@ static void fm_file_info_job_class_init(FmFileInfoJobClass *klass)
     FmJobClass* job_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_file_info_job_finalize;
+    g_object_class->dispose = fm_file_info_job_dispose;
+    /* use finalize from parent class */
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_file_info_job_run;
 }
 
 
-static void fm_file_info_job_finalize(GObject *object)
+static void fm_file_info_job_dispose(GObject *object)
 {
     FmFileInfoJob *self;
 
@@ -59,11 +59,18 @@ static void fm_file_info_job_finalize(GObject *object)
     g_return_if_fail(IS_FM_FILE_INFO_JOB(object));
 
     self = (FmFileInfoJob*)object;
-    fm_file_info_list_unref(self->file_infos);
+    if(self->file_infos)
+    {
+        fm_file_info_list_unref(self->file_infos);
+        self->file_infos = NULL;
+    }
     if(self->current)
+    {
         fm_path_unref(self->current);
+        self->current = NULL;
+    }
 
-    G_OBJECT_CLASS(fm_file_info_job_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_file_info_job_parent_class)->dispose(object);
 }
 
 
@@ -100,12 +107,17 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
     FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
     GError* err = NULL;
 
+    if(job->file_infos == NULL)
+        return FALSE;
+
     for(l = fm_file_info_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
         FmPath* path = fm_file_info_get_path(fi);
 
+        if(job->current)
+            fm_path_unref(job->current);
         job->current = fm_path_ref(path);
 
         if(fm_path_is_native(path))

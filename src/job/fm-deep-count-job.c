@@ -23,7 +23,7 @@
 #include <glib/gstdio.h>
 #include <errno.h>
 
-static void fm_deep_count_job_finalize              (GObject *object);
+static void fm_deep_count_job_dispose              (GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run(FmJob* job);
@@ -44,7 +44,8 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
     GObjectClass *g_object_class;
     FmJobClass* job_class;
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_deep_count_job_finalize;
+    g_object_class->dispose = fm_deep_count_job_dispose;
+    /* use finalize from parent class */
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_deep_count_job_run;
@@ -52,7 +53,7 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 }
 
 
-static void fm_deep_count_job_finalize(GObject *object)
+static void fm_deep_count_job_dispose(GObject *object)
 {
     FmDeepCountJob *self;
 
@@ -62,8 +63,11 @@ static void fm_deep_count_job_finalize(GObject *object)
     self = (FmDeepCountJob*)object;
 
     if(self->paths)
+    {
         fm_path_list_unref(self->paths);
-    G_OBJECT_CLASS(fm_deep_count_job_parent_class)->finalize(object);
+        self->paths = NULL;
+    }
+    G_OBJECT_CLASS(fm_deep_count_job_parent_class)->dispose(object);
 }
 
 

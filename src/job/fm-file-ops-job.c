@@ -48,11 +48,35 @@ gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job);
 
 G_DEFINE_TYPE(FmFileOpsJob, fm_file_ops_job, FM_TYPE_JOB);
 
+static void fm_file_ops_job_dispose(GObject *object)
+{
+    FmFileOpsJob *self;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
+
+    self = (FmFileOpsJob*)object;
+
+    if(self->srcs)
+    {
+        fm_path_list_unref(self->srcs);
+        self->srcs = NULL;
+    }
+    if(self->dest)
+    {
+        fm_path_unref(self->dest);
+        self->dest = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_file_ops_job_parent_class)->dispose(object);
+}
+
 static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 {
     GObjectClass *g_object_class;
     FmJobClass* job_class;
     g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_file_ops_job_dispose;
     g_object_class->finalize = fm_file_ops_job_finalize;
 
     job_class = FM_JOB_CLASS(klass);
@@ -107,11 +131,6 @@ static void fm_file_ops_job_finalize(GObject *object)
     g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
 
     self = (FmFileOpsJob*)object;
-
-    if(self->srcs)
-        fm_path_list_unref(self->srcs);
-    if(self->dest)
-        fm_path_unref(self->dest);
 
     g_assert(self->src_folder_mon == NULL);
     g_assert(self->dest_folder_mon == NULL);

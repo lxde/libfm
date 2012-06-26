@@ -36,7 +36,7 @@
 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
-static void fm_dir_list_job_finalize              (GObject *object);
+static void fm_dir_list_job_dispose              (GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
 static gboolean fm_dir_list_job_run(FmJob *job);
@@ -47,7 +47,8 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
     GObjectClass *g_object_class;
     FmJobClass* job_class = FM_JOB_CLASS(klass);
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dir_list_job_finalize;
+    g_object_class->dispose = fm_dir_list_job_dispose;
+    /* use finalize from parent class */
 
     job_class->run = fm_dir_list_job_run;
 }
@@ -77,7 +78,7 @@ FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
     return job;
 }
 
-static void fm_dir_list_job_finalize(GObject *object)
+static void fm_dir_list_job_dispose(GObject *object)
 {
     FmDirListJob *self;
 
@@ -87,16 +88,25 @@ static void fm_dir_list_job_finalize(GObject *object)
     self = (FmDirListJob*)object;
 
     if(self->dir_path)
+    {
         fm_path_unref(self->dir_path);
+        self->dir_path = NULL;
+    }
 
     if(self->dir_fi)
+    {
         fm_file_info_unref(self->dir_fi);
+        self->dir_fi = NULL;
+    }
 
     if(self->files)
+    {
         fm_file_info_list_unref(self->files);
+        self->files = NULL;
+    }
 
-    if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)
-        (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->finalize)(object);
+    if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)
+        (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
 }
 
 
@@ -114,6 +124,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     const char* de_name;
     /* example: menu://applications.menu/DesktopSettings */
 
+    g_return_val_if_fail(job->dir_path != NULL, NULL);
     path_str = fm_path_to_str(job->dir_path);
     p = path_str + 5; /* skip menu: */
     while(*p == '/')
@@ -415,6 +426,7 @@ gboolean fm_dir_list_job_run(FmJob* fmjob)
 {
     gboolean ret;
     FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
+    g_return_val_if_fail(job->dir_path != NULL, FALSE);
     if(fm_path_is_native(job->dir_path)) /* if this is a native file on real file system */
         ret = fm_dir_list_job_run_posix(job);
     else /* this is a virtual path or remote file system path */

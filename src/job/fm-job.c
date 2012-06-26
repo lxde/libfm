@@ -78,16 +78,37 @@ static guint n_jobs = 0;
 
 static guint signals[N_SIGNALS];
 
+static void fm_job_dispose(GObject *object)
+{
+    FmJob *self;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_JOB(object));
+
+    self = (FmJob*)object;
+
+    if(self->cancellable)
+    {
+        /* FIXME: should we use new API provided in glib 2.22 for this? */
+        g_signal_handlers_disconnect_by_func(self->cancellable, on_cancellable_cancelled, self);
+        g_object_unref(self->cancellable);
+        self->cancellable = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_job_parent_class)->dispose(object);
+}
+
 static void fm_job_class_init(FmJobClass *klass)
 {
-	GObjectClass *g_object_class;
+    GObjectClass *g_object_class;
 
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_job_finalize;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_job_dispose;
+    g_object_class->finalize = fm_job_finalize;
 
-	klass->run_async = fm_job_real_run_async;
+    klass->run_async = fm_job_real_run_async;
 
-	fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
+    fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
     /* "finished" signsl is emitted when the job is finished. This signal
      * is not emitted on a cancelled job. */
@@ -157,13 +178,6 @@ static void fm_job_finalize(GObject *object)
 	g_return_if_fail(FM_IS_JOB(object));
 
 	self = (FmJob*)object;
-
-	if(self->cancellable)
-    {
-        /* FIXME: should we use new API provided in glib 2.22 for this? */
-        g_signal_handlers_disconnect_by_func(self->cancellable, on_cancellable_cancelled, self);
-		g_object_unref(self->cancellable);
-    }
 
 	if(self->mutex)
 		g_mutex_free(self->mutex);
