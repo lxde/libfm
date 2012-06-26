@@ -365,6 +365,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             /* show progress dialog */
             fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
+                                                        /* it eats reference! */
             fm_path_list_unref(paths);
         }
 

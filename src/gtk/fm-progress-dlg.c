@@ -287,7 +287,6 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     }
 
     gtk_widget_destroy(GTK_WIDGET(dlg));
-    fm_icon_unref(icon);
 
     if(data->timer)
         g_timer_continue(data->timer);
@@ -337,10 +336,11 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
     }
     else
         fm_progress_display_destroy(data);
+    /* if it's not destroyed yet then it will be destroyed with parent window */
 
     /* sepcial handling for trash
      * FIXME: need to refactor this to use a more elegant way later. */
-    if(job->type == FM_FILE_OP_TRASH)
+    if(job->type == FM_FILE_OP_TRASH) /* FIXME: direct access to job struct! */
     {
         FmPathList* unsupported = (FmPathList*)g_object_get_data(G_OBJECT(job), "trash-unsupported");
         /* some files cannot be trashed because underlying filesystems don't support it. */
@@ -353,6 +353,7 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
             {
                 job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
                 fm_file_ops_job_run_with_progress(GTK_WINDOW(data->parent), job);
+                                                        /* it eats reference! */
             }
         }
     }
@@ -390,6 +391,16 @@ static gboolean on_update_dlg(gpointer user_data)
     return TRUE;
 }
 
+static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
+{
+    FmProgressDisplay* data = (FmProgressDisplay*)user_data;
+
+    data->dlg = NULL; /* it's destroying right now, don't destroy it again */
+    g_object_unref(data->error_buf); /* these will be not unref if no dlg */
+    g_object_unref(data->bold_tag);
+    fm_progress_display_destroy(data);
+}
+
 static gboolean on_show_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
@@ -404,6 +415,7 @@ static gboolean on_show_dlg(gpointer user_data)
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
 
     data->dlg = GTK_DIALOG(gtk_builder_get_object(builder, "dlg"));
+    g_object_weak_ref(G_OBJECT(data->dlg), on_progress_dialog_destroy, data);
 
     g_signal_connect(data->dlg, "response", G_CALLBACK(on_response), data);
 
@@ -430,6 +442,7 @@ static gboolean on_show_dlg(gpointer user_data)
     g_object_unref(builder);
 
     /* set the src label */
+    /* FIXME: direct access to job struct! */
     if(data->job->srcs)
     {
         GList* l = fm_path_list_peek_head_link(data->job->srcs);
@@ -456,6 +469,7 @@ static gboolean on_show_dlg(gpointer user_data)
     }
 
     /* FIXME: use accessor functions instead */
+    /* FIXME: direct access to job struct! */
     switch(data->job->type)
     {
     case FM_FILE_OP_MOVE:
@@ -506,7 +520,7 @@ static gboolean on_show_dlg(gpointer user_data)
     return FALSE;
 }
 
-void ensure_dlg(FmProgressDisplay* data)
+static void ensure_dlg(FmProgressDisplay* data)
 {
     if(data->delay_timeout)
     {
@@ -532,16 +546,20 @@ static void on_parent_destroy(GtkWidget* parent, gpointer user_data)
     data->parent = NULL;
     g_signal_handlers_disconnect_by_func(parent, on_parent_destroy, data);
     g_object_unref(parent);
+    fm_progress_display_destroy(data);
 }
 
 /* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
+ * NOTE: INCONSISTENCY: it takes a reference from job
  */
 FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {
     FmProgressDisplay* data = g_slice_new0(FmProgressDisplay);
-    data->job = (FmFileOpsJob*)g_object_ref(job);
+
+    g_return_val_if_fail(job != NULL, NULL);
+    data->job = job;
     if(parent)
     {
         data->parent = g_object_ref(parent);
@@ -565,24 +583,24 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     return data;
 }
 
-void fm_progress_display_destroy(FmProgressDisplay* data)
+static void fm_progress_display_destroy(FmProgressDisplay* data)
 {
-    if(data->job)
-    {
-        fm_job_cancel(FM_JOB(data->job));
+    g_signal_handlers_disconnect_by_func(data->job, on_cancelled, data);
 
-        g_signal_handlers_disconnect_by_func(data->job, on_ask, data);
-        g_signal_handlers_disconnect_by_func(data->job, on_ask_rename, data);
-        g_signal_handlers_disconnect_by_func(data->job, on_error, data);
-        g_signal_handlers_disconnect_by_func(data->job, on_cur_file, data);
-        g_signal_handlers_disconnect_by_func(data->job, on_percent, data);
-        g_signal_handlers_disconnect_by_func(data->job, on_finished, data);
+    fm_job_cancel(FM_JOB(data->job));
 
-        g_object_unref(data->job);
+    g_signal_handlers_disconnect_by_func(data->job, on_ask, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_ask_rename, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_error, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_prepared, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_cur_file, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_percent, data);
+    g_signal_handlers_disconnect_by_func(data->job, on_finished, data);
 
-        if(data->timer)
-            g_timer_destroy(data->timer);
-    }
+    g_object_unref(data->job);
+
+    if(data->timer)
+        g_timer_destroy(data->timer);
 
     if(data->parent)
     {
@@ -600,6 +618,7 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
 
     if(data->dlg)
     {
+        g_object_weak_unref(G_OBJECT(data->dlg), on_progress_dialog_destroy, data);
         g_object_unref(data->error_buf);
         g_object_unref(data->bold_tag);
         gtk_widget_destroy(GTK_WIDGET(data->dlg));

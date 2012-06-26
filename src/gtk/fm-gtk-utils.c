@@ -603,14 +603,14 @@ void fm_copy_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
     FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
     fm_file_ops_job_set_dest(job, dest_dir);
-    fm_file_ops_job_run_with_progress(parent, job);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
     FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
     fm_file_ops_job_set_dest(job, dest_dir);
-    fm_file_ops_job_run_with_progress(parent, job);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
@@ -618,20 +618,20 @@ void fm_trash_files(GtkWindow* parent, FmPathList* files)
     if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
     {
         FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-        fm_file_ops_job_run_with_progress(parent, job);
+        fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
     }
 }
 
 void fm_untrash_files(GtkWindow* parent, FmPathList* files)
 {
     FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_UNTRASH, files);
-    fm_file_ops_job_run_with_progress(parent, job);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 static void fm_delete_files_internal(GtkWindow* parent, FmPathList* files)
 {
     FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-    fm_file_ops_job_run_with_progress(parent, job);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_delete_files(GtkWindow* parent, FmPathList* files)
