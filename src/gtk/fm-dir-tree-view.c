@@ -32,7 +32,7 @@ enum
 
 static guint signals[N_SIGNALS];
 
-static void fm_dir_tree_view_finalize            (GObject *object);
+static void fm_dir_tree_view_dispose            (GObject *object);
 static void on_row_loaded(FmDirTreeModel*, GtkTreePath*, FmDirTreeView*);
 
 G_DEFINE_TYPE(FmDirTreeView, fm_dir_tree_view, GTK_TYPE_TREE_VIEW)
@@ -146,7 +146,8 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
     GtkTreeViewClass* tree_view_class = GTK_TREE_VIEW_CLASS(klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    g_object_class->finalize = fm_dir_tree_view_finalize;
+    g_object_class->dispose = fm_dir_tree_view_dispose;
+    /* use finalize from parent class */
 
     widget_class->key_press_event = on_key_press_event;
     // widget_class->button_press_event = on_button_press_event;
@@ -192,7 +193,7 @@ static void on_sel_changed(GtkTreeSelection* tree_sel, FmDirTreeView* view)
     emit_chdir_if_needed(view, tree_sel, 1);
 }
 
-static void fm_dir_tree_view_finalize(GObject *object)
+static void fm_dir_tree_view_dispose(GObject *object)
 {
     FmDirTreeView *view;
 
@@ -200,16 +201,23 @@ static void fm_dir_tree_view_finalize(GObject *object)
     g_return_if_fail(FM_IS_DIR_TREE_VIEW(object));
 
     view = (FmDirTreeView*)object;
-    if(G_UNLIKELY(view->paths_to_expand)) {
+    if(G_UNLIKELY(view->paths_to_expand))
+    {
         GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
         cancel_pending_chdir(model, view);
     }
-    gtk_tree_row_reference_free(view->current_row);
-
+    if(view->current_row) /* this shouldn't be done if there are paths_to_expand */
+    {
+        gtk_tree_row_reference_free(view->current_row);
+        view->current_row = NULL;
+    }
     if(view->cwd)
+    {
         fm_path_unref(view->cwd);
+        view->cwd = NULL;
+    }
 
-    G_OBJECT_CLASS(fm_dir_tree_view_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dir_tree_view_parent_class)->dispose(object);
 }
 
 static gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,

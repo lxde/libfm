@@ -64,7 +64,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
 static GdkAtom xds_target_atom = 0;
 
 
-static void fm_dnd_dest_finalize              (GObject *object);
+static void fm_dnd_dest_dispose              (GObject *object);
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
 
 static gboolean clear_src_cache(gpointer user_data);
@@ -81,7 +81,7 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
     FmDndDestClass *dnd_dest_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dnd_dest_finalize;
+    g_object_class->dispose = fm_dnd_dest_dispose;
 
     dnd_dest_class = FM_DND_DEST_CLASS(klass);
     dnd_dest_class->files_dropped = fm_dnd_dest_files_dropped;
@@ -100,7 +100,7 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
 }
 
 
-static void fm_dnd_dest_finalize(GObject *object)
+static void fm_dnd_dest_dispose(GObject *object)
 {
     FmDndDest *dd;
 
@@ -111,16 +111,9 @@ static void fm_dnd_dest_finalize(GObject *object)
 
     fm_dnd_dest_set_widget(dd, NULL);
 
-    if(dd->idle)
-        g_source_remove(dd->idle);
+    clear_src_cache(dd);
 
-    if(dd->dest_file)
-        fm_file_info_unref(dd->dest_file);
-
-    if(dd->src_files)
-        fm_path_list_unref(dd->src_files);
-
-    G_OBJECT_CLASS(fm_dnd_dest_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dnd_dest_parent_class)->dispose(object);
 }
 
 
@@ -141,6 +134,8 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 {
     if(w == dd->widget)
         return;
+    if(dd->widget)
+        g_object_remove_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
     dd->widget = w;
     if( w )
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
@@ -205,7 +200,11 @@ static gboolean clear_src_cache(gpointer user_data)
     dd->src_fs_id = NULL;
 
     dd->info_type = 0;
-    dd->idle = 0;
+    if(dd->idle)
+    {
+        g_source_remove(dd->idle);
+        dd->idle = 0;
+    }
     dd->waiting_data = FALSE;
     return FALSE;
 }

@@ -21,7 +21,7 @@
 
 #include "fm-cell-renderer-pixbuf.h"
 
-static void fm_cell_renderer_pixbuf_finalize  			(GObject *object);
+static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
 
 static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
@@ -106,10 +106,10 @@ static const guint8 link_icon_data[] =
 
 static void fm_cell_renderer_pixbuf_class_init(FmCellRendererPixbufClass *klass)
 {
-	GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
+    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
     GtkCellRendererClass *cell_class = GTK_CELL_RENDERER_CLASS(klass);
 
-	g_object_class->finalize = fm_cell_renderer_pixbuf_finalize;
+    g_object_class->dispose = fm_cell_renderer_pixbuf_dispose;
     g_object_class->get_property = fm_cell_renderer_pixbuf_get_property;
     g_object_class->set_property = fm_cell_renderer_pixbuf_set_property;
 
@@ -126,18 +126,21 @@ static void fm_cell_renderer_pixbuf_class_init(FmCellRendererPixbufClass *klass)
 }
 
 
-static void fm_cell_renderer_pixbuf_finalize(GObject *object)
+static void fm_cell_renderer_pixbuf_dispose(GObject *object)
 {
-	FmCellRendererPixbuf *self;
+    FmCellRendererPixbuf *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_CELL_RENDERER_PIXBUF(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_CELL_RENDERER_PIXBUF(object));
 
-	self = FM_CELL_RENDERER_PIXBUF(object);
+    self = FM_CELL_RENDERER_PIXBUF(object);
     if( self->fi )
+    {
         fm_file_info_unref(self->fi);
+        self->fi = NULL;
+    }
 
-	G_OBJECT_CLASS(fm_cell_renderer_pixbuf_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_cell_renderer_pixbuf_parent_class)->dispose(object);
 }
 
 
@@ -158,7 +161,7 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
 
 FmCellRendererPixbuf *fm_cell_renderer_pixbuf_new(void)
 {
-	return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
+    return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
 }
 
 static void fm_cell_renderer_pixbuf_get_property ( GObject *object,

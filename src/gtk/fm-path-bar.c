@@ -31,7 +31,7 @@ enum{
 static GQuark btn_data_id = 0;
 static guint signals[N_SIGNALS];
 
-static void fm_path_bar_finalize            (GObject *object);
+static void fm_path_bar_dispose            (GObject *object);
 
 G_DEFINE_TYPE(FmPathBar, fm_path_bar, GTK_TYPE_HBOX)
 
@@ -61,7 +61,7 @@ static void fm_path_bar_class_init(FmPathBarClass *klass)
     GtkWidgetClass* widget_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_path_bar_finalize;
+    g_object_class->dispose = fm_path_bar_dispose;
 
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->size_allocate = on_size_allocate;
@@ -81,7 +81,7 @@ static void fm_path_bar_class_init(FmPathBarClass *klass)
 }
 
 
-static void fm_path_bar_finalize(GObject *object)
+static void fm_path_bar_dispose(GObject *object)
 {
     FmPathBar *bar;
 
@@ -90,11 +90,17 @@ static void fm_path_bar_finalize(GObject *object)
 
     bar = (FmPathBar*)object;
     if(bar->cur_path)
+    {
         fm_path_unref(bar->cur_path);
+        bar->cur_path = NULL;
+    }
     if(bar->full_path)
+    {
         fm_path_unref(bar->full_path);
+        bar->full_path = NULL;
+    }
 
-    G_OBJECT_CLASS(fm_path_bar_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_path_bar_parent_class)->dispose(object);
 }
 
 static void emit_chdir(FmPathBar* bar, FmPath* path)

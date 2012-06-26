@@ -53,7 +53,7 @@ enum
 
 static guint signals[N_SIGNALS];
 
-static void fm_dir_tree_model_finalize            (GObject *object);
+static void fm_dir_tree_model_dispose            (GObject *object);
 static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface);
 static GtkTreePath *fm_dir_tree_model_get_path ( GtkTreeModel *tree_model, GtkTreeIter *iter );
 
@@ -127,7 +127,8 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
 {
     GObjectClass *g_object_class;
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dir_tree_model_finalize;
+    g_object_class->dispose = fm_dir_tree_model_dispose;
+    /* use finalize from parent class */
 
     /**
      * FmDirTreeModel::row-loaded:
@@ -216,7 +217,7 @@ static void on_theme_changed(GtkIconTheme* theme, FmDirTreeModel* model)
     gtk_tree_path_free(tp);
 }
 
-static void fm_dir_tree_model_finalize(GObject *object)
+static void fm_dir_tree_model_dispose(GObject *object)
 {
     FmDirTreeModel *model;
 
@@ -228,12 +229,16 @@ static void fm_dir_tree_model_finalize(GObject *object)
     g_signal_handlers_disconnect_by_func(gtk_icon_theme_get_default(),
                                          on_theme_changed, model);
 
-    _g_list_foreach_l(model->roots, (GFunc)fm_dir_tree_item_free_l, NULL);
-    g_list_free(model->roots);
+    if(model->roots)
+    {
+        _g_list_foreach_l(model->roots, (GFunc)fm_dir_tree_item_free_l, NULL);
+        g_list_free(model->roots);
+        model->roots = NULL;
+    }
 
     /* TODO: g_object_unref(model->subdir_cancellable); */
 
-    G_OBJECT_CLASS(fm_dir_tree_model_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dir_tree_model_parent_class)->dispose(object);
 }
 
 static void fm_dir_tree_model_init(FmDirTreeModel *model)

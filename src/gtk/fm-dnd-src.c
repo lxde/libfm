@@ -33,7 +33,7 @@ enum
     N_SIGNALS
 };
 
-static void fm_dnd_src_finalize             (GObject *object);
+static void fm_dnd_src_dispose             (GObject *object);
 
 static void
 on_drag_data_get ( GtkWidget *src_widget,
@@ -64,7 +64,7 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
     GObjectClass *g_object_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dnd_src_finalize;
+    g_object_class->dispose = fm_dnd_src_dispose;
 
     /* emitted when information of source files is needed.
      * call fm_dnd_source_set_files() in its callback to
@@ -80,7 +80,7 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
 }
 
 
-static void fm_dnd_src_finalize(GObject *object)
+static void fm_dnd_src_dispose(GObject *object)
 {
     FmDndSrc *ds;
 
@@ -90,11 +90,14 @@ static void fm_dnd_src_finalize(GObject *object)
     ds = (FmDndSrc*)object;
 
     if(ds->files)
+    {
         fm_file_info_list_unref(ds->files);
+        ds->files = NULL;
+    }
 
     fm_dnd_src_set_widget(ds, NULL);
 
-    G_OBJECT_CLASS(fm_dnd_src_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dnd_src_parent_class)->dispose(object);
 }
 
 

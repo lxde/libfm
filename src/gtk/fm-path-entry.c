@@ -77,6 +77,7 @@ static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *
 static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event);
 static void      fm_path_entry_changed(GtkEditable *editable, gpointer user_data);
 static void      fm_path_entry_init(FmPathEntry *entry);
+static void      fm_path_entry_dispose(GObject *object);
 static void      fm_path_entry_finalize(GObject *object);
 static gboolean  fm_path_entry_match_func(GtkEntryCompletion   *completion,
                                           const gchar          *key,
@@ -194,6 +195,7 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
                                                          "Highlight completion match",
                                                          "Whether to highlight the completion match",
                                                          TRUE, G_PARAM_READWRITE) );
+    object_class->dispose = fm_path_entry_dispose;
     object_class->finalize = fm_path_entry_finalize;
     /* entry_class->activate = fm_path_entry_activate; */
 
@@ -212,7 +214,7 @@ static void fm_path_entry_editable_init(GtkEditableClass *iface)
 
 static void clear_completion(FmPathEntryPrivate* priv)
 {
-    if(priv->parent_dir)
+    if(priv->parent_dir && priv->model)
     {
         priv->parent_len = 0;
         g_free(priv->parent_dir);
@@ -364,6 +366,7 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     const gchar *path_str, *sep;
 
+    g_return_if_fail(priv->model != NULL);
     /* find parent dir of current path */
     path_str = gtk_entry_get_text( GTK_ENTRY(entry) );
     sep = g_utf8_strrchr(path_str, -1, G_DIR_SEPARATOR);
@@ -526,27 +529,47 @@ static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
     g_free(model_file_name);
 }
 
-static void
-fm_path_entry_finalize(GObject *object)
+static void fm_path_entry_dispose(GObject *object)
 {
     FmPathEntryPrivate* priv = FM_PATH_ENTRY_GET_PRIVATE(object);
 
+    g_signal_handlers_disconnect_by_func(object, fm_path_entry_key_press, NULL);
+    g_signal_handlers_disconnect_by_func(object, fm_path_entry_activate, NULL);
+
     if(priv->completion)
+    {
         g_object_unref(priv->completion);
+        priv->completion = NULL;
+    }
 
     if(priv->path)
+    {
         fm_path_unref(priv->path);
-
-    g_free(priv->parent_dir);
+        priv->path = NULL;
+    }
 
     if(priv->model)
+    {
         g_object_unref(priv->model);
+        priv->model = NULL;
+    }
 
     if(priv->cancellable)
     {
         g_cancellable_cancel(priv->cancellable);
         g_object_unref(priv->cancellable);
+        priv->cancellable = NULL;
     }
+
+    G_OBJECT_CLASS(fm_path_entry_parent_class)->dispose(object);
+}
+
+static void
+fm_path_entry_finalize(GObject *object)
+{
+    FmPathEntryPrivate* priv = FM_PATH_ENTRY_GET_PRIVATE(object);
+
+    g_free(priv->parent_dir);
 
     (*G_OBJECT_CLASS(fm_path_entry_parent_class)->finalize)(object);
 }

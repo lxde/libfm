@@ -52,7 +52,7 @@ static GtkRadioActionEntry menu_actions[]=
 };
 
 
-static void fm_side_pane_finalize            (GObject *object);
+static void fm_side_pane_dispose            (GObject *object);
 
 G_DEFINE_TYPE(FmSidePane, fm_side_pane, GTK_TYPE_VBOX)
 
@@ -62,7 +62,7 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
     GObjectClass *g_object_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_side_pane_finalize;
+    g_object_class->dispose = fm_side_pane_dispose;
 
     signals[CHDIR] =
         g_signal_new("chdir",
@@ -83,21 +83,6 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
                      G_TYPE_NONE, 0, G_TYPE_NONE);
 }
 
-
-static void fm_side_pane_finalize(GObject *object)
-{
-    FmSidePane *sp;
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(FM_IS_SIDE_PANE(object));
-    sp = (FmSidePane*)object;
-
-    if(sp->cwd)
-        fm_path_unref(sp->cwd);
-
-    g_object_unref(sp->ui);
-
-    G_OBJECT_CLASS(fm_side_pane_parent_class)->finalize(object);
-}
 
 /* Adopted from gtk/gtkmenutoolbutton.c
  * Copyright (C) 2003 Ricardo Fernandez Pascual
@@ -247,6 +232,42 @@ static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, Fm
         fm_path_unref(sp->cwd);
     sp->cwd = fm_path_ref(path);
     g_signal_emit(sp, signals[CHDIR], 0, button, path);
+}
+
+static void fm_side_pane_dispose(GObject *object)
+{
+    FmSidePane *sp;
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_SIDE_PANE(object));
+    sp = (FmSidePane*)object;
+
+    if(sp->menu_btn)
+        g_signal_handlers_disconnect_by_func(sp->menu_btn, on_menu_btn_clicked, sp);
+
+    if(sp->cwd)
+    {
+        fm_path_unref(sp->cwd);
+        sp->cwd = NULL;
+    }
+
+    if(sp->ui)
+    {
+        g_object_unref(sp->ui);
+        sp->ui = NULL;
+    }
+
+    if(sp->view) switch(sp->mode)
+    {
+    case FM_SP_PLACES:
+        g_signal_handlers_disconnect_by_func(sp->view, on_places_chdir, sp);
+        break;
+    case FM_SP_DIR_TREE:
+        g_signal_handlers_disconnect_by_func(sp->view, on_dirtree_chdir, sp);
+        break;
+    default: ; /* other values are impossible, otherwise it's a bug */
+    }
+
+    G_OBJECT_CLASS(fm_side_pane_parent_class)->dispose(object);
 }
 
 void init_dir_tree(FmSidePane* sp)

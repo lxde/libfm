@@ -418,6 +418,7 @@ static gboolean on_show_dlg(gpointer user_data)
     g_object_weak_ref(G_OBJECT(data->dlg), on_progress_dialog_destroy, data);
 
     g_signal_connect(data->dlg, "response", G_CALLBACK(on_response), data);
+    /* FIXME: connect to "close" signal */
 
     to_label = (GtkWidget*)gtk_builder_get_object(builder, "to_label");
     to = GTK_LABEL(gtk_builder_get_object(builder, "dest"));
