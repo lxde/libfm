@@ -21,11 +21,6 @@
 
 #include "fm-tab-label.h"
 
-typedef struct _FmTabLabelPrivate           FmTabLabelPrivate;
-
-#define FM_TAB_LABEL_GET_PRIVATE(obj)       (G_TYPE_INSTANCE_GET_PRIVATE((obj),\
-            FM_TYPE_TAB_LABEL, FmTabLabelPrivate))
-
 G_DEFINE_TYPE(FmTabLabel, fm_tab_label, GTK_TYPE_EVENT_BOX);
 
 static void fm_tab_label_class_init(FmTabLabelClass *klass)

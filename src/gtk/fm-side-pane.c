@@ -270,7 +270,7 @@ static void fm_side_pane_dispose(GObject *object)
     G_OBJECT_CLASS(fm_side_pane_parent_class)->dispose(object);
 }
 
-void init_dir_tree(FmSidePane* sp)
+static void init_dir_tree(FmSidePane* sp)
 {
     if(dir_tree_model)
         g_object_ref(dir_tree_model);
@@ -337,7 +337,6 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
         sp->view = NULL;
         /* not implemented */
         return;
-        break;
     }
     gtk_widget_show(sp->view);
     gtk_container_add(GTK_CONTAINER(sp->scroll), sp->view);
