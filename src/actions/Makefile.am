@@ -27,7 +27,7 @@ libfmactions_la_CFLAGS = \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
-VALAFLAGS = \
+AM_VALAFLAGS = \
 	--thread \
 	--vapidir=$(srcdir)/../vapi \
 	--pkg gio-2.0 \
