@@ -30,37 +30,37 @@
 
 G_BEGIN_DECLS
 
-#define FM_DEEP_COUNT_JOB_TYPE				(fm_deep_count_job_get_type())
-#define FM_DEEP_COUNT_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJob))
-#define FM_DEEP_COUNT_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJobClass))
-#define IS_FM_DEEP_COUNT_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_DEEP_COUNT_JOB_TYPE))
-#define IS_FM_DEEP_COUNT_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_DEEP_COUNT_JOB_TYPE))
+#define FM_DEEP_COUNT_JOB_TYPE              (fm_deep_count_job_get_type())
+#define FM_DEEP_COUNT_JOB(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJob))
+#define FM_DEEP_COUNT_JOB_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJobClass))
+#define IS_FM_DEEP_COUNT_JOB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_DEEP_COUNT_JOB_TYPE))
+#define IS_FM_DEEP_COUNT_JOB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_DEEP_COUNT_JOB_TYPE))
 
-typedef struct _FmDeepCountJob			FmDeepCountJob;
-typedef struct _FmDeepCountJobClass		FmDeepCountJobClass;
+typedef struct _FmDeepCountJob            FmDeepCountJob;
+typedef struct _FmDeepCountJobClass        FmDeepCountJobClass;
 
 enum _FmDeepCountJobFlags
 {
-	FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
-	FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
-	FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices. what's the use case of this? */
-	FM_DC_JOB_PREPARE_MOVE = 1<<2, /* special handling for moving files. only do deep count for files on different devices */
+    FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
+    FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
+    FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices. what's the use case of this? */
+    FM_DC_JOB_PREPARE_MOVE = 1<<2, /* special handling for moving files. only do deep count for files on different devices */
     FM_DC_JOB_PREPARE_DELETE = 1 <<3 /* special handling for deleting files */
 };
-typedef enum _FmDeepCountJobFlags	FmDeepCountJobFlags;
+typedef enum _FmDeepCountJobFlags    FmDeepCountJobFlags;
 
 struct _FmDeepCountJob
 {
-	FmJob parent;
-	FmPathList* paths;
-	FmDeepCountJobFlags flags;
-	goffset total_size;
-	goffset total_ondisk_size;
-	guint count;
+    FmJob parent;
+    FmPathList* paths;
+    FmDeepCountJobFlags flags;
+    goffset total_size;
+    goffset total_ondisk_size;
+    guint count;
 
     /* private: used to count total size used when moving files */
     dev_t dest_dev;
@@ -69,7 +69,7 @@ struct _FmDeepCountJob
 
 struct _FmDeepCountJobClass
 {
-	FmJobClass parent_class;
+    FmJobClass parent_class;
 };
 
 GType fm_deep_count_job_get_type(void);

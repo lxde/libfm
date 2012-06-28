@@ -213,11 +213,11 @@ static void fm_folder_class_init(FmFolderClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFolderClass, error ),
                       NULL, NULL,
-                      fm_marshal_INT__POINTER_INT,
+                      fm_marshal_ENUM__POINTER_ENUM,
 #if GLIB_CHECK_VERSION(2,26,0)
-                      G_TYPE_INT, 2, G_TYPE_ERROR, G_TYPE_INT );
+                      G_TYPE_ENUM, 2, G_TYPE_ERROR, G_TYPE_ENUM );
 #else
-                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+                      G_TYPE_ENUM, 2, G_TYPE_POINTER, G_TYPE_ENUM );
 #endif
 }
 

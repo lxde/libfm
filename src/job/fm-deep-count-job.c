@@ -49,7 +49,7 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_deep_count_job_run;
-    job_class->finished = NULL;
+    //job_class->finished = NULL;
 }
 
 
@@ -85,7 +85,7 @@ FmDeepCountJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags fla
     return job;
 }
 
-gboolean fm_deep_count_job_run(FmJob* job)
+static gboolean fm_deep_count_job_run(FmJob* job)
 {
     FmDeepCountJob* dc = (FmDeepCountJob*)job;
     GList* l;
@@ -106,7 +106,7 @@ gboolean fm_deep_count_job_run(FmJob* job)
     return TRUE;
 }
 
-gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
+static gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
 {
     FmJob* fmjob = FM_JOB(job);
     char* path = fm_path_to_str(fm_path);
@@ -189,7 +189,7 @@ _retry_stat:
     return TRUE;
 }
 
-gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
+static gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
 {
     FmJob* fmjob = FM_JOB(job);
     GError* err = NULL;
@@ -217,7 +217,6 @@ _retry_query_info:
     }
     if(fm_job_is_cancelled(fmjob))
     {
-        g_object_unref(gf);
         g_object_unref(inf);
         return FALSE;
     }
@@ -282,6 +281,7 @@ _retry_query_info:
                         deep_count_gio(job, inf, child);
                         g_object_unref(child);
                         g_object_unref(inf);
+                        inf = NULL;
                     }
                     else
                     {

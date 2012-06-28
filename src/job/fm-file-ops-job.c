@@ -43,7 +43,7 @@ static gboolean fm_file_ops_job_run(FmJob* fm_job);
 /* static void fm_file_ops_job_cancel(FmJob* job); */
 
 /* funcs for io jobs */
-gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job);
+static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job);
 
 
 G_DEFINE_TYPE(FmFileOpsJob, fm_file_ops_job, FM_TYPE_JOB);
@@ -88,7 +88,7 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
         g_signal_new( "prepared",
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_FIRST,
-                      G_STRUCT_OFFSET ( FmFileOpsJobClass, cur_file ),
+                      G_STRUCT_OFFSET ( FmFileOpsJobClass, prepared ),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
@@ -158,7 +158,7 @@ FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 }
 
 
-gboolean fm_file_ops_job_run(FmJob* fm_job)
+static gboolean fm_file_ops_job_run(FmJob* fm_job)
 {
     FmFileOpsJob* job = FM_FILE_OPS_JOB(fm_job);
     switch(job->type)
@@ -212,7 +212,7 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
 
 static gpointer emit_cur_file(FmJob* job, gpointer cur_file)
 {
-    g_signal_emit(job, signals[CUR_FILE], 0, cur_file);
+    g_signal_emit(job, signals[CUR_FILE], 0, (const char*)cur_file);
     return NULL;
 }
 
@@ -331,11 +331,15 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     return data.ret;
 }
 
-gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
+static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 {
+    return FALSE;
+    /* FIXME: it's broken for now but yet unused */
+#if 0
     GList* l;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
+
     job->total = fm_path_list_get_length(job->srcs);
     l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
@@ -356,4 +360,5 @@ gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         fm_file_ops_job_emit_percent(job);
     }
     return TRUE;
+#endif
 }

@@ -28,18 +28,18 @@
 
 G_BEGIN_DECLS
 
-#define FM_TYPE_FILE_INFO_JOB				(fm_file_info_job_get_type())
-#define FM_FILE_INFO_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
+#define FM_TYPE_FILE_INFO_JOB               (fm_file_info_job_get_type())
+#define FM_FILE_INFO_JOB(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj),\
 			FM_TYPE_FILE_INFO_JOB, FmFileInfoJob))
-#define FM_FILE_INFO_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
+#define FM_FILE_INFO_JOB_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass),\
 			FM_TYPE_FILE_INFO_JOB, FmFileInfoJobClass))
-#define IS_FM_FILE_INFO_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define IS_FM_FILE_INFO_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
 			FM_TYPE_FILE_INFO_JOB))
-#define IS_FM_FILE_INFO_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define IS_FM_FILE_INFO_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_TYPE_FILE_INFO_JOB))
 
-typedef struct _FmFileInfoJob			FmFileInfoJob;
-typedef struct _FmFileInfoJobClass		FmFileInfoJobClass;
+typedef struct _FmFileInfoJob           FmFileInfoJob;
+typedef struct _FmFileInfoJobClass      FmFileInfoJobClass;
 
 enum _FmFileInfoJobFlags
 {
@@ -51,15 +51,15 @@ typedef enum _FmFileInfoJobFlags        FmFileInfoJobFlags;
 
 struct _FmFileInfoJob
 {
-	FmJob parent;
+    FmJob parent;
     FmFileInfoJobFlags flags;
-	FmFileInfoList* file_infos;
+    FmFileInfoList* file_infos;
     FmPath* current;
 };
 
 struct _FmFileInfoJobClass
 {
-	FmJobClass parent_class;
+    FmJobClass parent_class;
 };
 
 GType fm_file_info_job_get_type(void);
@@ -69,11 +69,33 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path);
 void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf);
 
-gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err);
-gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err);
-
 /* This API should only be called in error handler */
 FmPath* fm_file_info_job_get_current(FmFileInfoJob* job);
+
+/* useful inline routines for FmJob classes */
+static inline gboolean
+_fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
+{
+    if( ! fm_job_is_cancelled(job) )
+        return fm_file_info_set_from_native_file(fi, path, err);
+    return TRUE;
+}
+
+extern const char gfile_info_query_attribs[];
+
+static inline gboolean
+_fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
+{
+    GFileInfo* inf;
+
+    inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(job), err);
+    if( !inf )
+        return FALSE;
+    fm_file_info_set_from_gfileinfo(fi, inf);
+    g_object_unref(inf);
+
+    return TRUE;
+}
 
 G_END_DECLS
 

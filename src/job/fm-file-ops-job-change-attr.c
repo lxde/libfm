@@ -29,7 +29,7 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_UNIX_MODE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
-gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf)
+static gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
@@ -72,7 +72,8 @@ _retry_change_owner:
             if(act == FM_JOB_RETRY)
                 goto _retry_change_owner;
         }
-        changed = TRUE;
+        else
+            changed = TRUE;
     }
 
     /* change group */
@@ -89,7 +90,8 @@ _retry_change_group:
             if(act == FM_JOB_RETRY)
                 goto _retry_change_group;
         }
-        changed = TRUE;
+        else
+            changed = TRUE;
     }
 
     /* change mode */
@@ -123,12 +125,17 @@ _retry_chmod:
             if(act == FM_JOB_RETRY)
                 goto _retry_chmod;
         }
-        changed = TRUE;
+        else
+            changed = TRUE;
     }
 
     /* currently processed file. */
     if(inf)
+    {
         fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
+        g_object_unref(inf);
+        inf = NULL;
+    }
     else
     {
         char* basename = g_file_get_basename(gf);
@@ -200,14 +207,14 @@ _retry_enum_children:
         }
         job->src_folder_mon = old_mon;
     }
-    if(inf)
-        g_object_unref(inf);
     return ret;
 }
 
 gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 {
     GList* l;
+    GFileMonitor* old_mon;
+
     /* prepare the job, count total work needed with FmDeepCountJob */
     if(job->recursive)
     {
@@ -223,35 +230,29 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 
     fm_file_ops_job_emit_prepared(job);
 
+    old_mon = job->src_folder_mon;
     l = fm_path_list_peek_head_link(job->srcs);
     for(; ! fm_job_is_cancelled(FM_JOB(job)) && l;l=l->next)
     {
         gboolean ret;
-        GFileMonitor* mon;
         GFile* src = fm_path_to_gfile(FM_PATH(l->data));
-        if(g_file_is_native(src))
-            mon = NULL;
-        else
+        job->src_folder_mon = NULL;
+        if(!g_file_is_native(src))
         {
             GFile* src_dir = g_file_get_parent(src);
             if(src_dir)
             {
-                mon = fm_monitor_lookup_dummy_monitor(src_dir);
-                job->src_folder_mon = mon;
+                job->src_folder_mon = fm_monitor_lookup_dummy_monitor(src_dir);
                 g_object_unref(src_dir);
             }
-            else
-                job->src_folder_mon = mon = NULL;
         }
 
         ret = _fm_file_ops_job_change_attr_file(job, src, NULL);
         g_object_unref(src);
 
-        if(mon)
-        {
-            g_object_unref(mon);
-            job->src_folder_mon = NULL;
-        }
+        if(job->src_folder_mon)
+            g_object_unref(job->src_folder_mon);
+        job->src_folder_mon = old_mon;
 
         if(!ret) /* error! */
             return FALSE;

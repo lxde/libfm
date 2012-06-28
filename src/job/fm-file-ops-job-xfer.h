@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest);
+/* gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest); */
 gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job);
 
 gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest);

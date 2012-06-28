@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf);
+/* gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf); */
 gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job);
 
 G_END_DECLS

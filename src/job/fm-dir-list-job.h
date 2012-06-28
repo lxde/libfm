@@ -39,26 +39,26 @@ G_BEGIN_DECLS
 #define FM_IS_DIR_LIST_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_TYPE_DIR_LIST_JOB))
 
-typedef struct _FmDirListJob			FmDirListJob;
-typedef struct _FmDirListJobClass		FmDirListJobClass;
+typedef struct _FmDirListJob            FmDirListJob;
+typedef struct _FmDirListJobClass       FmDirListJobClass;
 
 struct _FmDirListJob
 {
-	FmJob parent;
-	FmPath* dir_path;
+    FmJob parent;
+    FmPath* dir_path;
     gboolean dir_only;
     FmFileInfo* dir_fi;
-	FmFileInfoList* files;
+    FmFileInfoList* files;
 };
 
 struct _FmDirListJobClass
 {
-	FmJobClass parent_class;
+    FmJobClass parent_class;
 };
 
-GType		fm_dir_list_job_get_type		(void);
-FmDirListJob*	fm_dir_list_job_new(FmPath* path, gboolean dir_only);
-FmDirListJob*	fm_dir_list_job_new_for_gfile(GFile* gf);
+GType           fm_dir_list_job_get_type(void);
+FmDirListJob*   fm_dir_list_job_new(FmPath* path, gboolean dir_only);
+FmDirListJob*   fm_dir_list_job_new_for_gfile(GFile* gf);
 FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job);
 
 G_END_DECLS

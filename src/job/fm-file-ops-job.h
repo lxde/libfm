@@ -109,7 +109,8 @@ struct _FmFileOpsJob
 struct _FmFileOpsJobClass
 {
     FmJobClass parent_class;
-    void (*cur_file)(FmFileOpsJob* job, FmPath* file);
+    void (*prepared)(FmFileOpsJob* job);
+    void (*cur_file)(FmFileOpsJob* job, const char* file);
     void (*percent)(FmFileOpsJob* job, guint percent);
     FmFileOpOption (*ask_rename)(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name);
 };

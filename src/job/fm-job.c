@@ -40,23 +40,22 @@
  */
 
 enum {
-	FINISHED,
-	ERROR,
-	CANCELLED,
-	ASK,
-	PROGRESS,
-	N_SIGNALS
+    FINISHED,
+    ERROR,
+    CANCELLED,
+    ASK,
+    N_SIGNALS
 };
 
 typedef struct _FmIdleCall
 {
-	FmJob* job;
-	FmJobCallMainThreadFunc func;
-	gpointer user_data;
-	gpointer ret;
+    FmJob* job;
+    FmJobCallMainThreadFunc func;
+    gpointer user_data;
+    gpointer ret;
 }FmIdleCall;
 
-static void fm_job_finalize  			(GObject *object);
+static void fm_job_finalize              (GObject *object);
 /*
 static gboolean fm_job_error_accumulator(GSignalInvocationHint *ihint, GValue *return_accu,
                                            const GValue *handler_return, gpointer data);
@@ -77,6 +76,16 @@ static GThreadPool* thread_pool = NULL;
 static guint n_jobs = 0;
 
 static guint signals[N_SIGNALS];
+
+static void fm_job_emit_finished(FmJob* job)
+{
+    g_signal_emit(job, signals[FINISHED], 0);
+}
+
+static void fm_job_emit_cancelled(FmJob* job)
+{
+    g_signal_emit(job, signals[CANCELLED], 0);
+}
 
 static void fm_job_dispose(GObject *object)
 {
@@ -110,8 +119,10 @@ static void fm_job_class_init(FmJobClass *klass)
 
     fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
-    /* "finished" signsl is emitted when the job is finished. This signal
-     * is not emitted on a cancelled job. */
+    /* "finished" signal is emitted after the job is finished.
+     * The signal is never emitted if the fm_job_run_XXX() function
+     * returned FALSE, in that case the 'cancelled' signal will be
+     * emitted instead. */
     signals[FINISHED] =
         g_signal_new( "finished",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -121,19 +132,22 @@ static void fm_job_class_init(FmJobClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
 
-    /* "error" signsl is emitted when errors happen. */
+    /* "error" signal is emitted when errors happen. */
     signals[ERROR] =
         g_signal_new( "error",
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
-                      fm_marshal_INT__POINTER_INT,
-                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+                      fm_marshal_ENUM__POINTER_ENUM,
+#if GLIB_CHECK_VERSION(2,26,0)
+                      G_TYPE_ENUM, 2, G_TYPE_ERROR, G_TYPE_ENUM );
+#else
+                      G_TYPE_ENUM, 2, G_TYPE_POINTER, G_TYPE_ENUM );
+#endif
 
-    /* "cancelled" signsl is emitted when the job is cancelled or aborted
-     * due to critical errors. For a cancelled job, "finished" signal
-     * is not emitted. */
+    /* "cancelled" signal is emitted when the job is cancelled or aborted
+     * due to critical errors. */
     signals[CANCELLED] =
         g_signal_new( "cancelled",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -157,64 +171,63 @@ static void fm_job_class_init(FmJobClass *klass)
 
 static void fm_job_init(FmJob *self)
 {
-	/* create the thread pool if it doesn't exist. */
-	if( G_UNLIKELY(!thread_pool) )
-		thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
-	++n_jobs;
+    /* create the thread pool if it doesn't exist. */
+    if( G_UNLIKELY(!thread_pool) )
+        thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
+    ++n_jobs;
 }
-
 
 FmJob* fm_job_new(void)
 {
-	return (FmJob*)g_object_new(FM_TYPE_JOB, NULL);
+    return (FmJob*)g_object_new(FM_TYPE_JOB, NULL);
 }
 
 
 static void fm_job_finalize(GObject *object)
 {
-	FmJob *self;
+    FmJob *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_JOB(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_JOB(object));
 
-	self = (FmJob*)object;
+    self = (FmJob*)object;
 
-	if(self->mutex)
-		g_mutex_free(self->mutex);
+    if(self->mutex)
+        g_mutex_free(self->mutex);
 
-	if(self->cond)
-		g_cond_free(self->cond);
+    if(self->cond)
+        g_cond_free(self->cond);
 
-	if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
-		(* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
+    if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
+        (* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
 
-	--n_jobs;
-	if(0 == n_jobs)
-	{
-		g_thread_pool_free(thread_pool, TRUE, FALSE);
-		thread_pool = NULL;
-	}
+    --n_jobs;
+    if(0 == n_jobs)
+    {
+        g_thread_pool_free(thread_pool, TRUE, FALSE);
+        thread_pool = NULL;
+    }
 }
 
 static inline void init_mutex(FmJob* job)
 {
-	if(!job->mutex)
-	{
-		job->mutex = g_mutex_new();
-		job->cond = g_cond_new();
-	}
+    if(!job->mutex)
+    {
+        job->mutex = g_mutex_new();
+        job->cond = g_cond_new();
+    }
 }
 
-gboolean fm_job_real_run_async(FmJob* job)
+static gboolean fm_job_real_run_async(FmJob* job)
 {
-	g_thread_pool_push(thread_pool, job, NULL);
-	return TRUE;
+    g_thread_pool_push(thread_pool, job, NULL);
+    return TRUE;
 }
 
 gboolean fm_job_run_async(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	gboolean ret;
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    gboolean ret;
     job->running = TRUE;
     g_object_ref(job); /* acquire a ref, it will be unrefed by on_idle_cleanup() */
     ret = klass->run_async(job);
@@ -229,16 +242,16 @@ gboolean fm_job_run_async(FmJob* job)
 /* run a job in current thread in a blocking fashion.  */
 gboolean fm_job_run_sync(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	gboolean ret;
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    gboolean ret;
     job->running = TRUE;
     ret = klass->run(job);
     job->running = FALSE;
-	if(job->cancel)
-		fm_job_emit_cancelled(job);
-	else
-		fm_job_emit_finished(job);
-	return ret;
+    if(job->cancel)
+        fm_job_emit_cancelled(job);
+    else
+        fm_job_emit_finished(job);
+    return ret;
 }
 
 static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
@@ -267,26 +280,26 @@ gboolean fm_job_run_sync_with_mainloop(FmJob* job)
 }
 
 /* this is called from working thread */
-void job_thread(FmJob* job, gpointer unused)
+static void job_thread(FmJob* job, gpointer unused)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	klass->run(job);
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    klass->run(job);
 
-	/* let the main thread know that we're done, and free the job
-	 * in idle handler if neede. */
-	fm_job_finish(job);
+    /* let the main thread know that we're done, and free the job
+     * in idle handler if neede. */
+    fm_job_finish(job);
 }
 
 /* cancel the job */
 void fm_job_cancel(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	job->cancel = TRUE;
-	if(job->cancellable)
-		g_cancellable_cancel(job->cancellable);
-	/* FIXME: is this needed? */
-	if(klass->cancel)
-		klass->cancel(job);
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    job->cancel = TRUE;
+    if(job->cancellable)
+        g_cancellable_cancel(job->cancellable);
+    /* FIXME: is this needed? */
+    if(klass->cancel)
+        klass->cancel(job);
 }
 
 static gboolean on_idle_call(gpointer input_data)
@@ -303,53 +316,43 @@ static gboolean on_idle_call(gpointer input_data)
  * implementation of classes derived from FmJob.
  * Besides, they should be called from working thread only */
 gpointer fm_job_call_main_thread(FmJob* job,
-				FmJobCallMainThreadFunc func, gpointer user_data)
+                                 FmJobCallMainThreadFunc func, gpointer user_data)
 {
-	FmIdleCall data;
-	init_mutex(job);
-	data.job = job;
-	data.func = func;
-	data.user_data = user_data;
-	g_mutex_lock(job->mutex);
-	g_idle_add(on_idle_call, &data);
-	g_cond_wait(job->cond, job->mutex);
-	g_mutex_unlock(job->mutex);
-	return data.ret;
+    FmIdleCall data;
+    init_mutex(job);
+    data.job = job;
+    data.func = func;
+    data.user_data = user_data;
+    g_mutex_lock(job->mutex);
+    g_idle_add(on_idle_call, &data);
+    g_cond_wait(job->cond, job->mutex);
+    g_mutex_unlock(job->mutex);
+    return data.ret;
 }
 
 void fm_job_finish(FmJob* job)
 {
-	G_LOCK(idle_handler);
-	if(0 == idle_handler)
-		idle_handler = g_idle_add(on_idle_cleanup, NULL);
-	finished = g_slist_append(finished, job);
+    G_LOCK(idle_handler);
+    if(0 == idle_handler)
+        idle_handler = g_idle_add(on_idle_cleanup, NULL);
+    finished = g_slist_append(finished, job);
     job->running = FALSE;
-	G_UNLOCK(idle_handler);
-}
-
-void fm_job_emit_finished(FmJob* job)
-{
-	g_signal_emit(job, signals[FINISHED], 0);
-}
-
-void fm_job_emit_cancelled(FmJob* job)
-{
-	g_signal_emit(job, signals[CANCELLED], 0);
+    G_UNLOCK(idle_handler);
 }
 
 struct AskData
 {
-	const char* question;
-	gchar* const *options;
+    const char* question;
+    gchar* const *options;
 };
 
 static gpointer ask_in_main_thread(FmJob* job, gpointer input_data)
 {
-	gint ret;
+    gint ret;
 #define data ((struct AskData*)input_data)
-	g_signal_emit(job, signals[ASK], 0, data->question, data->options, &ret);
+    g_signal_emit(job, signals[ASK], 0, data->question, data->options, &ret);
 #undef data
-	return GINT_TO_POINTER(ret);
+    return GINT_TO_POINTER(ret);
 }
 
 gint fm_job_ask(FmJob* job, const char* question, ...)
@@ -364,10 +367,10 @@ gint fm_job_ask(FmJob* job, const char* question, ...)
 
 gint fm_job_askv(FmJob* job, const char* question, gchar* const *options)
 {
-	struct AskData data;
-	data.question = question;
-	data.options = options;
-	return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
+    struct AskData data;
+    data.question = question;
+    data.options = options;
+    return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
 }
 
 gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
@@ -387,27 +390,27 @@ gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
 
 
 /* unref finished job objects in main thread on idle */
-gboolean on_idle_cleanup(gpointer unused)
+static gboolean on_idle_cleanup(gpointer unused)
 {
-	GSList* jobs;
-	GSList* l;
+    GSList* jobs;
+    GSList* l;
 
-	G_LOCK(idle_handler);
-	jobs = finished;
-	finished = NULL;
-	idle_handler = 0;
-	G_UNLOCK(idle_handler);
+    G_LOCK(idle_handler);
+    jobs = finished;
+    finished = NULL;
+    idle_handler = 0;
+    G_UNLOCK(idle_handler);
 
-	for(l = jobs; l; l=l->next)
-	{
-		FmJob* job = FM_JOB(l->data);
-		if(job->cancel)
-			fm_job_emit_cancelled(job);
+    for(l = jobs; l; l=l->next)
+    {
+        FmJob* job = FM_JOB(l->data);
+        if(job->cancel)
+            fm_job_emit_cancelled(job);
         fm_job_emit_finished(job);
-		g_object_unref(job);
-	}
-	g_slist_free(jobs);
-	return FALSE;
+        g_object_unref(job);
+    }
+    g_slist_free(jobs);
+    return FALSE;
 }
 
 /* Used by derived classes to implement FmJob::run() using gio inside.
@@ -424,7 +427,7 @@ void fm_job_init_cancellable(FmJob* job)
  * This API tried to initialize a GCancellable object for use with gio. */
 GCancellable* fm_job_get_cancellable(FmJob* job)
 {
-	return job->cancellable;
+    return job->cancellable;
 }
 
 /* Let the job use an existing cancellable object.
@@ -447,25 +450,25 @@ void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable)
         job->cancellable = NULL;
 }
 
-void on_cancellable_cancelled(GCancellable* cancellable, FmJob* job)
+static void on_cancellable_cancelled(GCancellable* cancellable, FmJob* job)
 {
     job->cancel = TRUE;
 }
 
 struct ErrData
 {
-	GError* err;
-	FmJobErrorSeverity severity;
+    GError* err;
+    FmJobErrorSeverity severity;
 };
 
-gpointer error_in_main_thread(FmJob* job, gpointer input_data)
+static gpointer error_in_main_thread(FmJob* job, gpointer input_data)
 {
-	gboolean ret;
+    FmJobErrorAction ret;
 #define data ((struct ErrData*)input_data)
     g_debug("FmJob error: %s", data->err->message);
-	g_signal_emit(job, signals[ERROR], 0, data->err, data->severity, &ret);
+    g_signal_emit(job, signals[ERROR], 0, data->err, data->severity, &ret);
 #undef data
-	return GINT_TO_POINTER(ret);
+    return GINT_TO_POINTER(ret);
 }
 
 /* Emit an 'error' signal to notify the main thread when an error occurs.
@@ -481,11 +484,11 @@ gpointer error_in_main_thread(FmJob* job, gpointer input_data)
  */
 FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity severity)
 {
-	gboolean ret;
-	struct ErrData data;
-	data.err = err;
-	data.severity = severity;
-	ret = (gboolean)fm_job_call_main_thread(job, error_in_main_thread, &data);
+    FmJobErrorAction ret;
+    struct ErrData data;
+    data.err = err;
+    data.severity = severity;
+    ret = (guint)fm_job_call_main_thread(job, error_in_main_thread, &data);
     if(severity == FM_JOB_ERROR_CRITICAL || ret == FM_JOB_ABORT)
     {
         ret = FM_JOB_ABORT;
@@ -500,7 +503,7 @@ FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity s
             ret = FM_JOB_CONTINUE;
     }
 
-	return ret;
+    return ret;
 }
 
 /* FIXME: need to re-think how to do this in a correct way. */

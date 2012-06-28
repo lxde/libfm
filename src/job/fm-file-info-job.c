@@ -101,7 +101,7 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
     return job;
 }
 
-gboolean fm_file_info_job_run(FmJob* fmjob)
+static gboolean fm_file_info_job_run(FmJob* fmjob)
 {
     GList* l;
     FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
@@ -129,9 +129,11 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
+                {
+                    g_free(path_str);
                     continue; /* retry */
+                }
 
-                next = l->next;
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_free(path_str);
@@ -171,14 +173,11 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                         dir = menu_cache_get_root_dir(mc);
                     if(dir)
                         fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
-                    else
-                    {
-                        next = l->next;
+                    else /* no retry, just remove item */
                         fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
-                    }
                     g_free(path_str);
                     menu_cache_unref(mc);
-                    l=l->next;
+                    l = next;
                     continue;
                 }
             }
@@ -190,9 +189,11 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
+                {
+                    g_object_unref(gf);
                     continue; /* retry */
+                }
 
-                next = l->next;
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_object_unref(gf);
@@ -217,24 +218,6 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
     fm_file_info_set_path(fi, path);
     fm_path_unref(path);
     fm_file_info_list_push_tail_noref(job->file_infos, fi);
-}
-
-gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
-{
-    if( ! fm_job_is_cancelled(job) )
-        return fm_file_info_set_from_native_file(fi, path, err);
-    return TRUE;
-}
-
-gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
-{
-    GFileInfo* inf;
-    inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(job), err);
-    if( !inf )
-        return FALSE;
-    fm_file_info_set_from_gfileinfo(fi, inf);
-
-    return TRUE;
 }
 
 /* This API should only be called in error handler */

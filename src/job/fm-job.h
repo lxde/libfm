@@ -29,18 +29,18 @@
 
 G_BEGIN_DECLS
 
-#define FM_TYPE_JOB				(fm_job_get_type())
-#define FM_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_TYPE_JOB, FmJob))
-#define FM_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_TYPE_JOB, FmJobClass))
-#define FM_IS_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_TYPE_JOB))
-#define FM_IS_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_TYPE_JOB))
+#define FM_TYPE_JOB             (fm_job_get_type())
+#define FM_JOB(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+                                FM_TYPE_JOB, FmJob))
+#define FM_JOB_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass),\
+                                FM_TYPE_JOB, FmJobClass))
+#define FM_IS_JOB(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+                                FM_TYPE_JOB))
+#define FM_IS_JOB_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),\
+                                FM_TYPE_JOB))
 
-typedef struct _FmJob			FmJob;
-typedef struct _FmJobClass		FmJobClass;
+typedef struct _FmJob           FmJob;
+typedef struct _FmJobClass      FmJobClass;
 
 typedef gpointer (*FmJobCallMainThreadFunc)(FmJob* job, gpointer user_data);
 
@@ -64,39 +64,42 @@ typedef enum _FmJobErrorAction FmJobErrorAction;
 
 struct _FmJob
 {
-	GObject parent;
-	gboolean cancel : 1;
-	gboolean running : 1;
+    GObject parent;
+    /* booleans but need unlocked access */
+    sig_atomic_t cancel;
+    sig_atomic_t running;
 
-	/* optional, should be created if the job uses gio */
-	GCancellable* cancellable;
+    /* optional, should be created if the job uses gio */
+    GCancellable* cancellable;
 
-	/* optional, used when blocking the job to call a callback in 
-	 * main thread is needed. */
-	GMutex* mutex;
-	GCond* cond;
+    /* optional, used when blocking the job to call a callback in
+     * main thread is needed. */
+    GMutex* mutex;
+    GCond* cond;
 };
 
 struct _FmJobClass
 {
-	GObjectClass parent_class;
+    GObjectClass parent_class;
 
-	void (*finished)(FmJob* job);
-	FmJobErrorAction (*error)(FmJob* job, GError* err, FmJobErrorSeverity severity);
-	void (*cancelled)(FmJob* job);
-	gint (*ask)(FmJob* job, const char* question, gint options);
+    /* signals built-in handlers */
+    void (*finished)(FmJob* job);
+    FmJobErrorAction (*error)(FmJob* job, GError* err, FmJobErrorSeverity severity);
+    void (*cancelled)(FmJob* job);
+    gint (*ask)(FmJob* job, const gchar* question, gchar* const *options);
 
-	gboolean (*run_async)(FmJob* job);
-	gboolean (*run)(FmJob* job);
-	void (*cancel)(FmJob* job);
+    /* routines used by methods */
+    gboolean (*run_async)(FmJob* job); /* for fm_job_run_async() */
+    gboolean (*run)(FmJob* job); /* for any fm_job_run_*() */
+    void (*cancel)(FmJob* job); /* for fm_job_cancel() */
 };
 
 
 /* Base type of all file I/O jobs.
  * not directly called by applications. */
 
-/* FmJob*	fm_job_new			(void); */
-GType	fm_job_get_type		(void);
+/* FmJob*    fm_job_new            (void); */
+GType    fm_job_get_type        (void);
 
 /* return TRUE if the job is already cancelled */
 gboolean fm_job_is_cancelled(FmJob* job);
@@ -105,14 +108,8 @@ gboolean fm_job_is_cancelled(FmJob* job);
 gboolean fm_job_is_running(FmJob* job);
 
 
-/* FIXME: requiring g_object_unref() is actually a better idea
- * due to API consistency. Need to re-think this part. */
-
-/* Run a job asynchronously in another working thread, and 
+/* Run a job asynchronously in another working thread, and
  * emit 'finished' signal in the main thread after its termination.
- * There is no need to call g_object_unref on a job running in 
- * async fashion. The job object will be unrefed in idle handler
- * automatically shortly after its termination.
  * The default implementation of FmJob::run_async() create a working
  * thread in thread pool, and calls FmJob::run() in it.
  */
@@ -134,9 +131,10 @@ void fm_job_cancel(FmJob* job);
 
 /* Following APIs are private to FmJob and should only be used in the
  * implementation of classes derived from FmJob.
- * Besides, they should be called from working thread only */
-gpointer fm_job_call_main_thread(FmJob* job, 
-					FmJobCallMainThreadFunc func, gpointer user_data);
+ * Besides, they should be called from working thread only if another
+ * isn't stated. */
+gpointer fm_job_call_main_thread(FmJob* job, FmJobCallMainThreadFunc func,
+                                 gpointer user_data);
 
 /* Used by derived classes to implement FmJob::run() using gio inside.
  * This API tried to initialize a GCancellable object for use with gio and
@@ -156,13 +154,15 @@ GCancellable* fm_job_get_cancellable(FmJob* job);
  * This should only be called before the job is launched. */
 void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable);
 
-/* only call this at the end of working thread if you're going to 
- * override FmJob::run() and use your own multi-threading mechnism. */
+/* only call this at the end of working thread if you're going to
+ * override FmJob::run_async() and use your own multi-threading mechnism. */
 void fm_job_finish(FmJob* job);
 
-void fm_job_emit_finished(FmJob* job);
+/* fm_job_emit_finished() and fm_job_emit_cancelled() can be called only
+ * from main loop thread, You should never use it since FmJob API do it. */
+/* void fm_job_emit_finished(FmJob* job); */
 
-void fm_job_emit_cancelled(FmJob* job);
+/* void fm_job_emit_cancelled(FmJob* job); */
 
 /* Emit an 'error' signal to notify the main thread when an error occurs.
  * The return value of this function is the return value returned by

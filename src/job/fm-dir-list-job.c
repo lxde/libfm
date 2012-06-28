@@ -110,7 +110,7 @@ static void fm_dir_list_job_dispose(GObject *object)
 }
 
 
-static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
+static gpointer list_menu_items(FmJob* fmjob, gpointer unused)
 {
     FmDirListJob* job = (FmDirListJob*)fmjob;
     FmFileInfo* fi;
@@ -119,7 +119,7 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     GSList* l;
     char* path_str, *p, ch;
     char* menu_name;
-    const char* dir_path;
+    const char* dir_path_str;
     guint32 de_flag;
     const char* de_name;
     /* example: menu://applications.menu/DesktopSettings */
@@ -156,20 +156,13 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
                 g_unsetenv("XDG_MENU_PREFIX");
 
             if(!mc)
-            {
-                g_free(menu_name);
-                return NULL;
-            }
+                goto done;
         }
         else
-        {
-            g_free(menu_name);
-            return NULL;
-        }
+            goto done;
     }
-    g_free(menu_name);
     *p = ch;
-    dir_path = p; /* path of menu dir, such as: /Internet */
+    dir_path_str = p; /* path of menu dir, such as: /Internet */
 
     de_name = g_getenv("XDG_CURRENT_DESKTOP");
     if(de_name)
@@ -178,9 +171,9 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
         de_flag = (guint32)-1;
 
     /* the menu should be loaded now */
-    if(*dir_path && !(*dir_path == '/' && dir_path[1]=='\0') )
+    if(*dir_path_str && !(*dir_path_str == '/' && dir_path_str[1]=='\0') )
     {
-        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path, NULL);
+        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path_str, NULL);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }
@@ -197,10 +190,12 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
             /* also hide menu items which should be hidden in current DE. */
             if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
                 continue;
-            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), de_flag))
+            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP
+               && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), de_flag))
                 continue;
 
-            if(G_UNLIKELY(job->dir_only) && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
+            if(G_UNLIKELY(job->dir_only)
+               && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
                 continue;
             item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
             fi = fm_file_info_new_from_menu_cache_item(item_path, item);
@@ -210,11 +205,13 @@ static gpointer list_menu_items(FmJob* fmjob, gpointer user_data)
     }
     menu_cache_unref(mc);
 
+done:
+    g_free(menu_name);
     g_free(path_str);
     return NULL;
 }
 
-gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
+static gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
 {
     /* Calling libmenu-cache is only allowed in main thread. */
     fm_job_call_main_thread(FM_JOB(job), list_menu_items, NULL);
@@ -226,14 +223,14 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     FmJob* fmjob = FM_JOB(job);
     FmFileInfo* fi;
     GError *err = NULL;
-    char* dir_path;
+    char* path_str;
     GDir* dir;
 
-    dir_path = fm_path_to_str(job->dir_path);
+    path_str = fm_path_to_str(job->dir_path);
 
     fi = fm_file_info_new();
     fm_file_info_set_path(fi, job->dir_path);
-    if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, dir_path, NULL) )
+    if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, path_str, NULL) )
     {
         if(! fm_file_info_is_dir(fi))
         {
@@ -241,6 +238,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             fm_file_info_unref(fi);
             fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
             g_error_free(err);
+            g_free(path_str);
             return FALSE;
         }
         job->dir_fi = fi;
@@ -251,16 +249,17 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
         fm_file_info_unref(fi);
         fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
+        g_free(path_str);
         return FALSE;
     }
 
-    dir = g_dir_open(dir_path, 0, &err);
+    dir = g_dir_open(path_str, 0, &err);
     if( dir )
     {
         const char* name;
         GString* fpath = g_string_sized_new(4096);
-        int dir_len = strlen(dir_path);
-        g_string_append_len(fpath, dir_path, dir_len);
+        int dir_len = strlen(path_str);
+        g_string_append_len(fpath, path_str, dir_len);
         if(fpath->str[dir_len-1] != '/')
         {
             g_string_append_c(fpath, '/');
@@ -307,7 +306,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
         fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
     }
-    g_free(dir_path);
+    g_free(path_str);
     return TRUE;
 }
 
@@ -331,16 +330,15 @@ _retry:
     if(!inf )
     {
         FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+        g_error_free(err);
         if( act == FM_JOB_RETRY )
         {
-            g_error_free(err);
             err = NULL;
             goto _retry;
         }
         else
         {
             g_object_unref(gf);
-            g_error_free(err);
             return FALSE;
         }
     }
@@ -422,7 +420,7 @@ _retry:
     return TRUE;
 }
 
-gboolean fm_dir_list_job_run(FmJob* fmjob)
+static gboolean fm_dir_list_job_run(FmJob* fmjob)
 {
     gboolean ret;
     FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
