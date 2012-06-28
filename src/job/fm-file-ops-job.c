@@ -81,7 +81,7 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_file_ops_job_run;
-    job_class->finished = NULL;
+    //job_class->finished = NULL;
 
     /* preperation of the file operation is done, ready to start copying/deleting... */
     signals[PREPARED] =

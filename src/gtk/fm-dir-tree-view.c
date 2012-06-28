@@ -66,8 +66,10 @@ static gboolean find_iter_by_path(GtkTreeModel* model, GtkTreeIter* it, GtkTreeP
 {
     GtkTreeIter parent;
 
-    gtk_tree_model_get_iter(model, &parent, tp);
-    if(gtk_tree_model_iter_children(model, it, &parent))
+    /* tp NULL means we need to find some root path */
+    if(tp)
+        gtk_tree_model_get_iter(model, &parent, tp);
+    if(gtk_tree_model_iter_children(model, it, tp ? &parent : NULL))
     {
         do{
             FmPath* path2;

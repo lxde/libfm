@@ -771,6 +771,8 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     GList* place_holder_l;
     GtkTreePath* tp = item_to_tree_path(model, item_l);
 
+    /* set 'loaded' flag beforehand as callback may check it */
+    item->loaded = TRUE;
     place_holder_l = item->children;
     /* TODO: 1.1: don't leave expanders if not stated in config */
 //    if(!fm_config->show_empty_dir_expanders || place_holder_l->next)
@@ -791,7 +793,6 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     }
     g_signal_emit(model, signals[ROW_LOADED], 0, tp);
     gtk_tree_path_free(tp);
-    item->loaded = TRUE;
     /* FIXME: should we really cease monitoring non-expandable folder? */
 //    if(!item->children)
 //    {
@@ -908,6 +909,8 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
 
         if(!item->children)
             add_place_holder_child_item(model, item_l, tp, TRUE);
+        /* set 'expanded' flag beforehand as callback may check it */
+        item->expanded = TRUE;
         /* if the folder is already loaded, call "loaded" handler ourselves */
         if(fm_folder_is_loaded(folder)) /* already loaded */
         {
@@ -929,7 +932,6 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
             }
             on_folder_finish_loading(folder, item_l);
         }
-        item->expanded = TRUE;
     }
 }
 
