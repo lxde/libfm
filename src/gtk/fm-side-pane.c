@@ -242,7 +242,10 @@ static void fm_side_pane_dispose(GObject *object)
     sp = (FmSidePane*)object;
 
     if(sp->menu_btn)
+    {
         g_signal_handlers_disconnect_by_func(sp->menu_btn, on_menu_btn_clicked, sp);
+        sp->menu_btn = NULL;
+    }
 
     if(sp->cwd)
     {
