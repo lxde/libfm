@@ -500,7 +500,10 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
             fm_file_info_list_push_tail(folder->files, inf);
         }
         if(G_LIKELY(files))
+        {
             g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+            g_slist_free(files);
+        }
 
         if(job->dir_fi)
             folder->dir_fi = fm_file_info_ref(job->dir_fi);
