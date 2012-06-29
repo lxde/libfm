@@ -591,7 +591,7 @@ static void create_trash_item(FmPlacesModel* model)
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
 
-    trash_path = gtk_tree_path_new_from_indices(2);
+    trash_path = gtk_tree_path_new_from_indices(2, -1);
     item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_PATH, &it,
                         trash_path);
     fm_file_info_set_path(item->fi, fm_path_get_trash());
@@ -660,9 +660,6 @@ static void fm_places_model_init(FmPlacesModel *self)
         fm_file_info_job_add(job, path);
     }
 
-    if(fm_config->use_trash)
-        create_trash_item(self); /* FIXME: how to handle trash can? */
-
     item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
     fm_file_info_set_path(item->fi, fm_path_get_apps_menu());
     item->icon = fm_icon_from_name("system-software-install");
@@ -690,6 +687,9 @@ static void fm_places_model_init(FmPlacesModel *self)
     self->separator = gtk_tree_row_reference_new(GTK_TREE_MODEL(self), tp);
     gtk_tree_path_free(tp);
     /* separator has all columns NULL */
+
+    if(fm_config->use_trash)
+        create_trash_item(self); /* FIXME: how to handle trash can? */
 
     /* add volumes to side-pane */
     vols = g_volume_monitor_get_volumes(self->vol_mon);

@@ -140,11 +140,7 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
                       fm_marshal_UINT__POINTER_UINT,
-#if GLIB_CHECK_VERSION(2,26,0)
-                      G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
-#else
                       G_TYPE_UINT, 2, G_TYPE_POINTER, G_TYPE_UINT );
-#endif
 
     /* "cancelled" signal is emitted when the job is cancelled or aborted
      * due to critical errors. */
