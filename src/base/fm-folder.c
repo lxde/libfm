@@ -58,9 +58,10 @@ struct _FmFolder
     GSList* files_to_del;
     GSList* pending_jobs;
     gboolean pending_change_notify;
+    gboolean filesystem_info_pending;
     guint idle_reload_handler;
 
-    /* filesystem info */
+    /* filesystem info - set in query thread, read in main */
     guint64 fs_total_size;
     guint64 fs_free_size;
     GCancellable* fs_size_cancellable;
@@ -84,6 +85,9 @@ static guint signals[N_SIGNALS];
 static GHashTable* hash = NULL; /* FIXME: should this be guarded with a mutex? */
 
 static GVolumeMonitor* volume_monitor = NULL;
+
+/* used for on_query_filesystem_info_finished() to lock folder */
+G_LOCK_DEFINE_STATIC(query);
 
 static void fm_folder_class_init(FmFolderClass *klass)
 {
@@ -299,7 +303,6 @@ static gboolean on_idle(FmFolder* folder)
     GSList* l;
     FmFileInfoJob* job = NULL;
     FmPath* path;
-    folder->idle_handler = 0;
     if(folder->files_to_update || folder->files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
 
@@ -364,6 +367,15 @@ static gboolean on_idle(FmFolder* folder)
         fm_folder_query_filesystem_info(folder);
         folder->pending_change_notify = FALSE;
     }
+
+    G_LOCK(query);
+    folder->idle_handler = 0;
+    if(folder->filesystem_info_pending)
+    {
+        g_signal_emit(folder, signals[FS_INFO], 0);
+        folder->filesystem_info_pending = FALSE;
+    }
+    G_UNLOCK(query);
 
     return FALSE;
 }
@@ -485,8 +497,10 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         g_free(name);
         return;
     }
+    G_LOCK(query);
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    G_UNLOCK(query);
 }
 
 static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
@@ -639,6 +653,7 @@ static void fm_folder_dispose(GObject *object)
         folder->idle_reload_handler = 0;
     }
 
+    G_LOCK(query);
     if(folder->idle_handler)
     {
         g_source_remove(folder->idle_handler);
@@ -670,6 +685,7 @@ static void fm_folder_dispose(GObject *object)
         g_object_unref(folder->fs_size_cancellable);
         folder->fs_size_cancellable = NULL;
     }
+    G_UNLOCK(query);
 
     /* remove from hash table */
     if(folder->dir_path)
@@ -864,6 +880,7 @@ gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, gu
     return FALSE;
 }
 
+/* this function is run in GIO thread! */
 static void on_query_filesystem_info_finished(GObject *src, GAsyncResult *res, FmFolder* folder)
 {
     GFile* gf = G_FILE(src);
@@ -895,18 +912,23 @@ static void on_query_filesystem_info_finished(GObject *src, GAsyncResult *res, F
     g_object_unref(inf);
 
 _out:
+    G_LOCK(query);
     if(folder->fs_size_cancellable)
     {
         g_object_unref(folder->fs_size_cancellable);
         folder->fs_size_cancellable = NULL;
     }
 
-    g_signal_emit(folder, signals[FS_INFO], 0);
+    folder->filesystem_info_pending = TRUE;
+    if(!folder->idle_handler)
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    G_UNLOCK(query);
     g_object_unref(folder);
 }
 
 void fm_folder_query_filesystem_info(FmFolder* folder)
 {
+    G_LOCK(query);
     if(!folder->fs_size_cancellable && !folder->fs_info_not_avail)
     {
         folder->fs_size_cancellable = g_cancellable_new();
@@ -917,6 +939,7 @@ void fm_folder_query_filesystem_info(FmFolder* folder)
                 (GAsyncReadyCallback)on_query_filesystem_info_finished,
                 g_object_ref(folder));
     }
+    G_UNLOCK(query);
 }
 
 static void fm_folder_content_changed(FmFolder* folder)
