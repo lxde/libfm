@@ -139,6 +139,11 @@ static void fm_cell_renderer_pixbuf_dispose(GObject *object)
         fm_file_info_unref(self->fi);
         self->fi = NULL;
     }
+    if(self->icon)
+    {
+        g_object_unref(self->icon);
+        self->icon = NULL;
+    }
 
     G_OBJECT_CLASS(fm_cell_renderer_pixbuf_parent_class)->dispose(object);
 }
@@ -153,9 +158,10 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
                             link_icon_data,
                             FALSE, NULL );
         g_object_add_weak_pointer(G_OBJECT(link_icon), (gpointer)&link_icon);
+        self->icon = link_icon;
     }
     else
-        g_object_ref(link_icon);
+        self->icon = g_object_ref(link_icon);
 }
 
 

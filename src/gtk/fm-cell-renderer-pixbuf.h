@@ -45,6 +45,7 @@ struct _FmCellRendererPixbuf
 {
     GtkCellRendererPixbuf parent;
     FmFileInfo* fi;
+    GdkPixbuf* icon;
     gint fixed_w;
     gint fixed_h;
 };
