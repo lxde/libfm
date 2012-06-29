@@ -243,7 +243,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         {
             FmFileMenu* menu;
             GtkMenu* popup;
-            FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
+            FmFileInfoList* files = fm_folder_view_dup_selected_files(fv);
             menu = fm_file_menu_new_for_files(GTK_WINDOW(win), files, fm_folder_view_get_cwd(fv), TRUE);
             fm_file_menu_set_folder_func(menu, open_folder_func, win);
 
@@ -645,7 +645,7 @@ void on_close_win(GtkAction* act, FmMainWin* win)
 
 void on_open_in_new_win(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* sels = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+    FmPathList* sels = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     GList* l;
     for( l = fm_list_peek_head_link(sels); l; l=l->next )
     {
@@ -817,7 +817,7 @@ void on_cut(GtkAction* act, FmMainWin* win)
     }
     else
     {
-        FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+        FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
         if(files)
             fm_clipboard_cut_files(win, files);
     }
@@ -833,7 +833,7 @@ void on_copy(GtkAction* act, FmMainWin* win)
     }
     else
     {
-        FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+        FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
         if(files)
             fm_clipboard_copy_files(win, files);
     }
@@ -841,14 +841,14 @@ void on_copy(GtkAction* act, FmMainWin* win)
 
 void on_copy_to(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+    FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if(files)
         fm_copy_files_to(win, files);
 }
 
 void on_move_to(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+    FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if(files)
         fm_move_files_to(win, files);
 }
@@ -869,13 +869,13 @@ void on_paste(GtkAction* act, FmMainWin* win)
 
 void on_del(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+    FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     fm_trash_or_delete_files(GTK_WINDOW(win), files);
 }
 
 void on_rename(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
+    FmPathList* files = fm_folder_view_dup_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if(files)
         fm_rename_file(GTK_WINDOW(win), fm_list_peek_head(files));
         /* FIXME: is it ok to only rename the first selected file here. */

@@ -100,8 +100,8 @@ FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv);
 FmFolderModel* fm_folder_view_get_model(FmFolderView* fv);
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model);
 
-FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv);
-FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv);
+FmFileInfoList* fm_folder_view_dup_selected_files(FmFolderView* fv);
+FmPathList* fm_folder_view_dup_selected_file_paths(FmFolderView* fv);
 
 void fm_folder_view_select_all(FmFolderView* fv);
 void fm_folder_view_select_invert(FmFolderView* fv);

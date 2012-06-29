@@ -809,6 +809,7 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
     return fv->show_hidden;
 }
 
+/* returned list should be freed with g_list_free_full(list, gtk_tree_path_free) */
 static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 {
     GList *sels = NULL;
@@ -831,15 +832,15 @@ static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 }
 
 /**
- * fm_folder_view_get_selected_files
+ * fm_folder_view_dup_selected_files
  * @fv: a FmFolderView object
  *
- * Return value: An unreferenced FmFileInfoList containing FmFileInfos of
- * the currently selected files. The list is owned by FmFolderView and
- * should not be freed. If there are no files
- * selected, the return value is %NULL.
+ * Return value: An referenced FmFileInfoList containing FmFileInfos of
+ * the currently selected files. The list should be freed after usage with
+ * fm_file_info_list_unref(). If there are no files selected then return
+ * value is %NULL.
  **/
-FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
+static inline FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
     /* don't generate the data again if we have it cached. */
     if(!fv->cached_selected_files)
@@ -867,16 +868,21 @@ FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
     return fv->cached_selected_files;
 }
 
+FmFileInfoList* fm_folder_view_dup_selected_files(FmFolderView* fv)
+{
+    return fm_file_info_list_ref(fm_folder_view_get_selected_files(fv));
+}
+
 /**
- * fm_folder_view_get_selected_file_paths
+ * fm_folder_view_dup_selected_file_paths
  * @fv: a FmFolderView object
  *
- * Return value: An unreferenced FmPathList containing FmPaths of the
- * currently selected files. The list is owned by FmFolderView and
- * should not be freed.  If there are no files
- * selected, the return value is %NULL.
+ * Return value: An referenced FmPathList containing FmPaths of the
+ * the currently selected files. The list should be freed after usage with
+ * fm_path_list_unref(). If there are no files selected then return value
+ * is %NULL.
  **/
-FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
+FmPathList* fm_folder_view_dup_selected_file_paths(FmFolderView* fv)
 {
     if(!fv->cached_selected_file_paths)
     {
@@ -886,7 +892,7 @@ FmPathList* fm_folder_view_get_selected_file_paths(FmFolderView* fv)
         else
             fv->cached_selected_file_paths = NULL;
     }
-    return fv->cached_selected_file_paths;
+    return fm_path_list_ref(fv->cached_selected_file_paths);
 }
 
 static void on_sel_changed(GObject* obj, FmFolderView* fv)
@@ -909,11 +915,12 @@ static void on_sel_changed(GObject* obj, FmFolderView* fv)
     /* if someone is connected to our "sel-changed" signal. */
     if(g_signal_has_handler_pending(fv, signals[SEL_CHANGED], 0, TRUE))
     {
-        /* get currently selected files, and cached them inside fm_folder_view_get_selected_files(). */
-        files = fm_folder_view_get_selected_files(fv);
+        /* get currently selected files, and cached them inside fm_folder_view_dup_selected_files(). */
+        files = fm_folder_view_dup_selected_files(fv);
 
         /* emit a selection changed notification to the world. */
         g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
+        fm_file_info_list_unref(files);
     }
 }
 
@@ -1034,9 +1041,12 @@ void fm_folder_view_select_all(FmFolderView* fv)
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
 {
-    FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
+    FmFileInfoList* files = fm_folder_view_dup_selected_files(fv);
     if(files)
+    {
         fm_dnd_src_set_files(ds, files);
+        fm_file_info_list_unref(files);
+    }
 }
 
 
