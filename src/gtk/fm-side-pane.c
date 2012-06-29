@@ -195,6 +195,7 @@ FmPath* fm_side_pane_get_cwd(FmSidePane* sp)
 
 void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
 {
+    g_return_if_fail(sp->view != NULL);
     if(sp->cwd)
         fm_path_unref(sp->cwd);
     sp->cwd = fm_path_ref(path);
@@ -259,15 +260,20 @@ static void fm_side_pane_dispose(GObject *object)
         sp->ui = NULL;
     }
 
-    if(sp->view) switch(sp->mode)
+    if(sp->view)
     {
-    case FM_SP_PLACES:
-        g_signal_handlers_disconnect_by_func(sp->view, on_places_chdir, sp);
-        break;
-    case FM_SP_DIR_TREE:
-        g_signal_handlers_disconnect_by_func(sp->view, on_dirtree_chdir, sp);
-        break;
-    default: ; /* other values are impossible, otherwise it's a bug */
+        switch(sp->mode)
+        {
+        case FM_SP_PLACES:
+            g_signal_handlers_disconnect_by_func(sp->view, on_places_chdir, sp);
+            break;
+        case FM_SP_DIR_TREE:
+            g_signal_handlers_disconnect_by_func(sp->view, on_dirtree_chdir, sp);
+            break;
+        default: ; /* other values are impossible, otherwise it's a bug */
+        }
+        gtk_widget_destroy(sp->view);
+        sp->view = NULL;
     }
 
     G_OBJECT_CLASS(fm_side_pane_parent_class)->dispose(object);
