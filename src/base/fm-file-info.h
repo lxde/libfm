@@ -139,10 +139,11 @@ gboolean fm_list_is_file_info_list(FmList* list);
 
 static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
 {
-    return (FmFileInfoList*)fm_list_ref((FmList*)list);
+    return list ? (FmFileInfoList*)fm_list_ref((FmList*)list) : NULL;
 }
 static inline void fm_file_info_list_unref(FmFileInfoList* list)
 {
+    g_return_if_fail(list);
     fm_list_unref((FmList*)list);
 }
 

@@ -125,10 +125,11 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
 static inline FmPathList* fm_path_list_ref(FmPathList* list)
 {
-    return (FmPathList*)fm_list_ref((FmList*)list);
+    return list ? (FmPathList*)fm_list_ref((FmList*)list) : NULL;
 }
 static inline void fm_path_list_unref(FmPathList* list)
 {
+    g_return_if_fail(list);
     fm_list_unref((FmList*)list);
 }
 
