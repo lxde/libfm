@@ -661,6 +661,8 @@ static void unset_view(FmFolderView* fv)
     g_signal_handlers_disconnect_by_func(fv->view, on_btn_pressed, fv);
 
     fm_dnd_unset_dest_auto_scroll(fv->view);
+    gtk_widget_destroy(GTK_WIDGET(fv->view));
+    fv->view = NULL;
 }
 
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
@@ -676,9 +678,8 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             /* preserve old selections */
             sels = fm_folder_view_get_selected_tree_paths(fv);
 
-            unset_view(fv);
+            unset_view(fv); /* it will destroy the fv->view widget */
 
-            gtk_widget_destroy(fv->view );
             /* FIXME: compact view and icon view actually use the same
              * type of widget, ExoIconView. So it may be better to
              * reuse the widget when available. */
@@ -696,7 +697,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
         }
 
         fv->mode = mode;
-        switch(fv->mode)
+        switch(mode)
         {
         case FM_FV_COMPACT_VIEW:
         case FM_FV_ICON_VIEW:
