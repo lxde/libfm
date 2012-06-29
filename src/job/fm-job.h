@@ -84,7 +84,8 @@ struct _FmJobClass
 
     /* signals built-in handlers */
     void (*finished)(FmJob* job);
-    FmJobErrorAction (*error)(FmJob* job, GError* err, FmJobErrorSeverity severity);
+    guint (*error)(FmJob* job, GError* err, guint severity);
+                /* guint above are: FmJobErrorAction and FmJobErrorSeverity */
     void (*cancelled)(FmJob* job);
     gint (*ask)(FmJob* job, const gchar* question, gchar* const *options);
 

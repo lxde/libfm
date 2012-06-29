@@ -60,7 +60,7 @@ struct _FmFolderClass
     void (*removed)(FmFolder* dir);
     void (*content_changed)(FmFolder* dir);
     void (*fs_info)(FmFolder* dir);
-    FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
+    guint (*error)(FmFolder* dir, GError* err, guint severity);
 };
 
 GType       fm_folder_get_type      (void);

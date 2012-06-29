@@ -139,11 +139,11 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
-                      fm_marshal_ENUM__POINTER_ENUM,
+                      fm_marshal_UINT__POINTER_UINT,
 #if GLIB_CHECK_VERSION(2,26,0)
-                      G_TYPE_ENUM, 2, G_TYPE_ERROR, G_TYPE_ENUM );
+                      G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
 #else
-                      G_TYPE_ENUM, 2, G_TYPE_POINTER, G_TYPE_ENUM );
+                      G_TYPE_UINT, 2, G_TYPE_POINTER, G_TYPE_UINT );
 #endif
 
     /* "cancelled" signal is emitted when the job is cancelled or aborted
@@ -463,12 +463,12 @@ struct ErrData
 
 static gpointer error_in_main_thread(FmJob* job, gpointer input_data)
 {
-    FmJobErrorAction ret;
+    guint ret;
 #define data ((struct ErrData*)input_data)
     g_debug("FmJob error: %s", data->err->message);
-    g_signal_emit(job, signals[ERROR], 0, data->err, data->severity, &ret);
+    g_signal_emit(job, signals[ERROR], 0, data->err, (guint)data->severity, &ret);
 #undef data
-    return GINT_TO_POINTER(ret);
+    return GUINT_TO_POINTER(ret);
 }
 
 /* Emit an 'error' signal to notify the main thread when an error occurs.

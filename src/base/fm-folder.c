@@ -218,11 +218,11 @@ static void fm_folder_class_init(FmFolderClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFolderClass, error ),
                       NULL, NULL,
-                      fm_marshal_ENUM__POINTER_ENUM,
+                      fm_marshal_UINT__POINTER_UINT,
 #if GLIB_CHECK_VERSION(2,26,0)
-                      G_TYPE_ENUM, 2, G_TYPE_ERROR, G_TYPE_ENUM );
+                      G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
 #else
-                      G_TYPE_ENUM, 2, G_TYPE_POINTER, G_TYPE_ENUM );
+                      G_TYPE_UINT, 2, G_TYPE_POINTER, G_TYPE_UINT );
 #endif
 }
 
@@ -561,11 +561,11 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
 
 static FmJobErrorAction on_dirlist_job_error(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
 {
-    FmJobErrorAction ret;
+    guint ret;
     /* it's possible that some signal handlers tries to free the folder
      * when errors occurs, so let's g_object_ref here. */
     g_object_ref(folder);
-    g_signal_emit(folder, signals[ERROR], 0, err, severity, &ret);
+    g_signal_emit(folder, signals[ERROR], 0, err, (guint)severity, &ret);
     g_object_unref(folder);
     return ret;
 }
