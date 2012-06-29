@@ -650,7 +650,8 @@ static void fm_places_model_init(FmPlacesModel *self)
     if(g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
     {
         item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
-        fm_file_info_set_path(item->fi, fm_path_get_desktop());
+        path = fm_path_get_desktop();
+        fm_file_info_set_path(item->fi, path);
         item->icon = fm_icon_from_name("user-desktop");
         pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
         gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
