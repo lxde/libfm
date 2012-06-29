@@ -425,6 +425,10 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
         case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
             folder->pending_change_notify = TRUE;
+            G_LOCK(query);
+            if(!folder->idle_handler)
+                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+            G_UNLOCK(query);
             /* g_debug("folder is changed"); */
             break;
         case G_FILE_MONITOR_EVENT_MOVED:
