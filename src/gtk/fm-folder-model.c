@@ -63,6 +63,7 @@ struct _FmFolderItem
 {
     FmFileInfo* inf;
     GdkPixbuf* icon;
+    gpointer userdata;
     gboolean is_thumbnail : 1;
     gboolean thumbnail_loading : 1;
     gboolean thumbnail_failed : 1;
@@ -441,8 +442,8 @@ static GtkTreePath *fm_folder_model_get_path(GtkTreeModel *tree_model,
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
     g_return_val_if_fail(model, NULL);
-    g_return_val_if_fail(iter->stamp == model->stamp, NULL);
     g_return_val_if_fail(iter != NULL, NULL);
+    g_return_val_if_fail(iter->stamp == model->stamp, NULL);
     g_return_val_if_fail(iter->user_data != NULL, NULL);
 
     items_it = (GSequenceIter*)iter->user_data;
@@ -1292,4 +1293,33 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
     if(new_reqs)
         model->thumbnail_requests = g_list_concat(model->thumbnail_requests, new_reqs);
     model->thumbnail_max = thumbnail_max_bytes;
+}
+
+void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
+                                       gpointer user_data)
+{
+    GSequenceIter* item_it;
+    FmFolderItem* item;
+
+    g_return_if_fail(it != NULL);
+    g_return_if_fail(model != NULL);
+    g_return_if_fail(it->stamp == model->stamp);
+    item_it = (GSequenceIter*)it->user_data;
+    g_return_if_fail(item_it != NULL);
+    item = (FmFolderItem*)g_sequence_get(item_it);
+    item->userdata = user_data;
+}
+
+gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it)
+{
+    GSequenceIter* item_it;
+    FmFolderItem* item;
+
+    g_return_val_if_fail(it != NULL, NULL);
+    g_return_val_if_fail(model != NULL, NULL);
+    g_return_val_if_fail(it->stamp == model->stamp, NULL);
+    item_it = (GSequenceIter*)it->user_data;
+    g_return_val_if_fail(item_it != NULL, NULL);
+    item = (FmFolderItem*)g_sequence_get(item_it);
+    return item->userdata;
 }

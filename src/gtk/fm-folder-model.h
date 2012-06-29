@@ -74,6 +74,10 @@ void fm_folder_model_set_folder( FmFolderModel* model, FmFolder* dir );
 FmFolder* fm_folder_model_get_folder(FmFolderModel* model);
 FmPath* fm_folder_model_get_folder_path(FmFolderModel* model);
 
+void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
+                                       gpointer user_data);
+gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it);
+
 gboolean fm_folder_model_get_show_hidden( FmFolderModel* model );
 
 void fm_folder_model_set_show_hidden( FmFolderModel* model, gboolean show_hidden );
