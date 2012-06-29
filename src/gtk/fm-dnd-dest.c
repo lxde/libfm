@@ -135,7 +135,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     if(w == dd->widget)
         return;
     if(dd->widget)
-        g_object_remove_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
+        g_object_remove_weak_pointer(G_OBJECT(dd->widget), (gpointer*)&dd->widget);
     dd->widget = w;
     if( w )
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
