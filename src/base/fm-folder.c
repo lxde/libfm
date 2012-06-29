@@ -57,6 +57,7 @@ struct _FmFolder
     GSList* files_to_update;
     GSList* files_to_del;
     GSList* pending_jobs;
+    gboolean pending_change_notify;
     guint idle_reload_handler;
 
     /* filesystem info */
@@ -356,6 +357,14 @@ static gboolean on_idle(FmFolder* folder)
         g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
     }
 
+    if(folder->pending_change_notify)
+    {
+        g_signal_emit(folder, signals[CHANGED], 0);
+        /* update volume info */
+        fm_folder_query_filesystem_info(folder);
+        folder->pending_change_notify = FALSE;
+    }
+
     return FALSE;
 }
 
@@ -407,9 +416,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             break;
         case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
         case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-            g_signal_emit(folder, signals[CHANGED], 0);
-            /* update volume info */
-            fm_folder_query_filesystem_info(folder);
+            folder->pending_change_notify = TRUE;
             /* g_debug("folder is changed"); */
             break;
         case G_FILE_MONITOR_EVENT_MOVED:
