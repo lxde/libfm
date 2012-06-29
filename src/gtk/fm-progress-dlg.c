@@ -560,7 +560,11 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
 
     g_return_val_if_fail(job != NULL, NULL);
     /* we cannot free data if no parent window */
-    g_return_val_if_fail(parent != NULL, NULL);
+    if(parent == NULL)
+    {
+        g_object_unref(job);
+        return NULL;
+    }
 
     data = g_slice_new0(FmProgressDisplay);
     data->job = job;
