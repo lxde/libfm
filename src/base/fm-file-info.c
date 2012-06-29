@@ -375,6 +375,12 @@ static void fm_file_info_clear(FmFileInfo* fi)
         fi->disp_size = NULL;
     }
 
+    if(G_UNLIKELY(fi->disp_mtime))
+    {
+        g_free(fi->disp_size);
+        fi->disp_size = NULL;
+    }
+
     if(G_UNLIKELY(fi->target))
     {
         g_free(fi->target);

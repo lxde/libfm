@@ -444,6 +444,9 @@ static void update_permissions(FmFilePropData* data)
     gboolean mix_exec = FALSE;
     struct group* grp = NULL;
     struct passwd* pw = NULL;
+    char unamebuf[64];
+    struct group grpb;
+    struct passwd pwb;
 
     data->all_native = fm_path_is_native(fm_file_info_get_path(fi));
     data->has_dir = S_ISDIR(fi_mode) != FALSE;
@@ -479,13 +482,13 @@ static void update_permissions(FmFilePropData* data)
     {
         if(uid >= 0)
         {
-            pw = getpwuid(uid);
+            getpwuid_r(uid, &pwb, unamebuf, sizeof(unamebuf), &pw);
             if(pw)
                 gtk_entry_set_text(data->owner, pw->pw_name);
         }
         if(gid >= 0)
         {
-            grp = getgrgid(gid);
+            getgrgid_r(gid, &grpb, unamebuf, sizeof(unamebuf), &grp);
             if(grp)
                 gtk_entry_set_text(data->group, grp->gr_name);
         }
