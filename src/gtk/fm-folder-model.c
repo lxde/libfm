@@ -1342,6 +1342,14 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
     model->thumbnail_max = thumbnail_max_bytes;
 }
 
+/**
+ * fm_folder_model_set_item_userdata
+ * @model       the folder model instance
+ * @it          iterator of row to set data
+ * @user_data   user data that will be associated with the row
+ *
+ * Sets the data that can be retrieved by fm_folder_model_get_item_userdata().
+ */
 void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
                                        gpointer user_data)
 {
@@ -1357,6 +1365,15 @@ void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
     item->userdata = user_data;
 }
 
+/**
+ * fm_folder_model_get_item_userdata
+ * @model   the folder model instance
+ * @it      iterator of row to retrieve data
+ * Return value: user data that was set on that row
+ *
+ * Returns the data that was set by last call of
+ * fm_folder_model_set_item_userdata() on that row.
+ */
 gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it)
 {
     GSequenceIter* item_it;
