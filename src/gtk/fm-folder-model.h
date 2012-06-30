@@ -64,6 +64,8 @@ typedef struct _FmFolderModelClass FmFolderModelClass;
 struct _FmFolderModelClass
 {
     GObjectClass parent;
+    void (*row_deleting)(FmFolderModel* model, GtkTreePath* tp,
+                         GtkTreeIter* iter, gpointer data);
 };
 
 GType fm_folder_model_get_type (void);

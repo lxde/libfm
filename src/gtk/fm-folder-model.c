@@ -24,6 +24,7 @@
 #include "fm-file-info.h"
 #include "fm-icon-pixbuf.h"
 #include "fm-thumbnail.h"
+#include "fm-gtk-marshal.h"
 
 #include <gdk/gdk.h>
 
@@ -147,7 +148,13 @@ static void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data);
 static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data);
 
 static GType column_types[ N_FOLDER_MODEL_COLS ];
-//static guint signals[N_SIGNALS];
+
+enum {
+    ROW_DELETING,
+    N_SIGNALS
+};
+
+static guint signals[N_SIGNALS];
 
 static void fm_folder_model_init(FmFolderModel* model)
 {
@@ -172,6 +179,28 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
     fm_folder_model_parent_class = (GObjectClass*)g_type_class_peek_parent(klass);
     object_class = (GObjectClass*)klass;
     object_class->dispose = fm_folder_model_dispose;
+
+    /**
+     * FmFolderModel::row-deleting:
+     * @model: folder model instance that received the signal
+     * @row:   path to row that is about to be deleted
+     * @iter:  iterator of row that is about to be deleted
+     * @data:  user data associated with the row
+     *
+     * This signal is emitted before row is deleted.
+     *
+     * It can be used if view has some data associated with the row so
+     * those data can be freed safely.
+     */
+    signals[ROW_DELETING] =
+        g_signal_new("row-deleting",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderModelClass, row_deleting),
+                     NULL, NULL,
+                     fm_marshal_VOID__POINTER_POINTER_POINTER,
+                     G_TYPE_NONE, 3, GTK_TYPE_TREE_PATH, GTK_TYPE_TREE_ITER,
+                     G_TYPE_POINTER);
 }
 
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
@@ -341,9 +370,17 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         if(g_signal_has_handler_pending(model, row_deleted_signal, 0, TRUE))
         {
             GtkTreePath* tp = gtk_tree_path_new_first();
-            int len = g_sequence_get_length(model->items);
-            for(; len > 0; --len)
+            GSequenceIter* item_it = g_sequence_get_begin_iter(model->items);
+            GtkTreeIter it;
+            it.stamp = model->stamp;
+            while(!g_sequence_iter_is_end(item_it))
+            {
+                FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
+                it.user_data = item_it;
+                g_signal_emit(model, signals[ROW_DELETING], 0, tp, &it, item->userdata);
                 gtk_tree_model_row_deleted((GtkTreeModel*)model, tp);
+                item_it = g_sequence_iter_next(item_it);
+            }
             gtk_tree_path_free(tp);
         }
         g_sequence_free(model->items);
@@ -806,6 +843,7 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     GSequenceIter *seq_it;
     /* not required for hidden files */
     gboolean update_view;
+    FmFolderItem* item = NULL;
 #if 0
     /* If there is no file info, that means the dir itself was deleted. */
     if( G_UNLIKELY(!file) )
@@ -846,15 +884,20 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
 
     while( !g_sequence_iter_is_end(seq_it) )
     {
-        FmFolderItem* item = (FmFolderItem*)g_sequence_get(seq_it);
+        item = (FmFolderItem*)g_sequence_get(seq_it);
         if( item->inf == file )
             break;
+        item = NULL;
         seq_it = g_sequence_iter_next(seq_it);
     }
 
-    if( update_view )
+    if( update_view && item )
     {
         GtkTreePath* path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(seq_it), -1);
+        GtkTreeIter it;
+        it.stamp = model->stamp;
+        it.user_data = seq_it;
+        g_signal_emit(model, signals[ROW_DELETING], 0, path, &it, item->userdata);
         gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), path);
         gtk_tree_path_free(path);
     }
@@ -934,6 +977,8 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
     else /* move invisible items to hidden list */
     {
         GSequenceIter *items_it = g_sequence_get_begin_iter(model->items);
+        GtkTreeIter it;
+        it.stamp = model->stamp;
         while( !g_sequence_iter_is_end(items_it) )
         {
             GtkTreePath* tp;
@@ -942,9 +987,11 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
             if( fm_file_info_is_hidden(item->inf) )
             {
                 gint delete_pos = g_sequence_iter_get_position(items_it);
+                it.user_data = items_it;
                 g_sequence_move( items_it, g_sequence_get_begin_iter(model->hidden) );
                 tp = gtk_tree_path_new_from_indices(delete_pos, -1);
                 /* tell everybody that we removed an item */
+                g_signal_emit(model, signals[ROW_DELETING], 0, tp, &it, item->userdata);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
                 gtk_tree_path_free(tp);
             }
