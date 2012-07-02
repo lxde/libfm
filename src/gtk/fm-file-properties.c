@@ -476,29 +476,6 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
     gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
-static void on_exec_toggled(GtkToggleButton* btn, FmFilePropData* data)
-{
-    /* Bypass the default handler */
-    g_signal_stop_emission_by_name( btn, "toggled" );
-    /* Block this handler while we are changing the state of buttons,
-      or this handler will be called recursively. */
-    g_signal_handlers_block_matched( btn, G_SIGNAL_MATCH_FUNC, 0,
-                                     0, NULL, on_exec_toggled, NULL );
-
-    if( gtk_toggle_button_get_inconsistent( btn ) )
-    {
-        gtk_toggle_button_set_inconsistent( btn, FALSE );
-        gtk_toggle_button_set_active( btn, TRUE );
-    }
-    else if( gtk_toggle_button_get_active( btn ) )
-    {
-        gtk_toggle_button_set_inconsistent( btn, TRUE );
-    }
-
-    g_signal_handlers_unblock_matched( btn, G_SIGNAL_MATCH_FUNC, 0,
-                                       0, NULL, on_exec_toggled, NULL );
-}
-
 /* FIXME: this is too dirty. Need some refactor later. */
 static void update_permissions(FmFilePropData* data)
 {
