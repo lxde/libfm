@@ -232,6 +232,7 @@ static gboolean on_idle_reload(FmFolder* folder)
 {
     fm_folder_reload(folder);
     folder->idle_reload_handler = 0;
+    g_object_unref(folder);
     return FALSE;
 }
 
@@ -239,7 +240,7 @@ static void queue_reload(FmFolder* folder)
 {
     if(folder->idle_reload_handler)
         g_source_remove(folder->idle_reload_handler);
-    folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
+    folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, g_object_ref(folder), NULL);
 }
 
 static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
@@ -372,6 +373,7 @@ static gboolean on_idle(FmFolder* folder)
         folder->filesystem_info_pending = FALSE;
     }
     G_UNLOCK(query);
+    g_object_unref(folder); /* it was borrowed by query */
 
     return FALSE;
 }
@@ -427,7 +429,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             folder->pending_change_notify = TRUE;
             G_LOCK(query);
             if(!folder->idle_handler)
-                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, g_object_ref(folder), NULL);
             G_UNLOCK(query);
             /* g_debug("folder is changed"); */
             break;
@@ -499,7 +501,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     }
     G_LOCK(query);
     if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, g_object_ref(folder), NULL);
     G_UNLOCK(query);
 }
 
@@ -920,10 +922,12 @@ _out:
     }
 
     folder->filesystem_info_pending = TRUE;
+    /* we have a reference borrowed by async query still */
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    else
+        g_object_unref(folder);
     G_UNLOCK(query);
-    g_object_unref(folder);
 }
 
 void fm_folder_query_filesystem_info(FmFolder* folder)
