@@ -651,7 +651,7 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         return FALSE;
     }
     g_object_unref(dc);
-    g_debug("total size to copy: %llu", job->total);
+    g_debug("total size to copy: %llu", (long long unsigned int)job->total);
 
     dest_dir = fm_path_to_gfile(job->dest);
     /* get dummy file monitors for non-native filesystems */
@@ -744,7 +744,8 @@ _retry_query_dest_info:
         return FALSE;
     }
     g_object_unref(dc);
-    g_debug("total size to move: %llu, dest_fs: %s", job->total, job->dest_fs_id);
+    g_debug("total size to move: %llu, dest_fs: %s",
+            (long long unsigned int)job->total, job->dest_fs_id);
 
     /* get dummy file monitors for non-native filesystems */
     if( g_file_is_native(dest_dir) )

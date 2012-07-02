@@ -221,7 +221,7 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
         return FALSE;
     }
 
-    g_debug("total number of files to delete: %llu", job->total);
+    g_debug("total number of files to delete: %llu", (long long unsigned int)job->total);
 
     fm_file_ops_job_emit_prepared(job);
 

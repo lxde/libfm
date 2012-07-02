@@ -804,7 +804,7 @@ static void fm_folder_model_sort(FmFolderModel* model)
     while( !g_sequence_iter_is_end(items_it) )
     {
         int i = g_sequence_iter_get_position(items_it);
-        new_order[i] = (guint)g_hash_table_lookup(old_order, items_it);
+        new_order[i] = GPOINTER_TO_INT(g_hash_table_lookup(old_order, items_it));
         items_it = g_sequence_iter_next(items_it);
     }
     g_hash_table_destroy(old_order);

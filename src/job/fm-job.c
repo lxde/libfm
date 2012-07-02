@@ -366,7 +366,7 @@ gint fm_job_askv(FmJob* job, const char* question, gchar* const *options)
     struct AskData data;
     data.question = question;
     data.options = options;
-    return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
+    return GPOINTER_TO_INT(fm_job_call_main_thread(job, ask_in_main_thread, &data));
 }
 
 gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
@@ -484,7 +484,7 @@ FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity s
     struct ErrData data;
     data.err = err;
     data.severity = severity;
-    ret = (guint)fm_job_call_main_thread(job, error_in_main_thread, &data);
+    ret = GPOINTER_TO_UINT(fm_job_call_main_thread(job, error_in_main_thread, &data));
     if(severity == FM_JOB_ERROR_CRITICAL || ret == FM_JOB_ABORT)
     {
         ret = FM_JOB_ABORT;

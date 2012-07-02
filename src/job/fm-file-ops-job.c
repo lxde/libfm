@@ -223,7 +223,7 @@ void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 
 static gpointer emit_percent(FmJob* job, gpointer percent)
 {
-    g_signal_emit(job, signals[PERCENT], 0, (guint)percent);
+    g_signal_emit(job, signals[PERCENT], 0, GPOINTER_TO_UINT(percent));
     return NULL;
 }
 
@@ -242,7 +242,7 @@ void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 
     if( percent > job->percent )
     {
-        fm_job_call_main_thread(FM_JOB(job), emit_percent, (gpointer)percent);
+        fm_job_call_main_thread(FM_JOB(job), emit_percent, GUINT_TO_POINTER(percent));
         job->percent = percent;
     }
 }

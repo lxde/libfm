@@ -226,7 +226,7 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
     else
         job->total = fm_path_list_get_length(job->srcs);
 
-    g_debug("total number of files to change attribute: %llu", job->total);
+    g_debug("total number of files to change attribute: %llu", (long long unsigned int)job->total);
 
     fm_file_ops_job_emit_prepared(job);
 
