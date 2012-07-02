@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-09 21:06+0200\n"
+"POT-Creation-Date: 2012-05-31 18:23+0300\n"
 "PO-Revision-Date: 2011-06-15 00:17+0200\n"
 "Last-Translator: Y P <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -114,12 +114,12 @@ msgid "<b>Access Control</b>"
 msgstr "<b>Контроль доступу</b>"
 
 #: ../data/ui/file-prop.glade.h:3
-msgid "<b>File Type:</b>"
-msgstr "<b>Тип файлу:</b>"
+msgid "<b>Execute:</b>"
+msgstr "<b>Виконувати:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
-msgid "<b>Group:</b>"
-msgstr "<b>Група:</b>"
+msgid "<b>File Type:</b>"
+msgstr "<b>Тип файлу:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
@@ -138,16 +138,16 @@ msgid "<b>Open _with:</b>"
 msgstr "<b>Відкрити з:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
-msgid "<b>Other:</b>"
-msgstr "<b>Інше:</b>"
+msgid "<b>Read:</b>"
+msgstr "<b>Читати:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-msgid "<b>Owner:</b>"
-msgstr "<b>Власник:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Size on Disk:</b>"
 msgstr "<b>Розмір на диску:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Special bits:</b>"
+msgstr "<b>Особливі флаги:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>Target:</b>"
@@ -158,59 +158,90 @@ msgid "<b>Total Size of Files:</b>"
 msgstr "<b>Загальний розмір файлів:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
+msgid "<b>Write:</b>"
+msgstr "<b>Писати:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
 msgid "<b>_Group:</b>"
 msgstr "<b>_Група:</b>"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>_Owner:</b>"
 msgstr "<b>_Власник:</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
+msgid "Anyone"
+msgstr "Усі"
+
+#: ../data/ui/file-prop.glade.h:18
 msgid "File Properties"
 msgstr "Властивості файлу"
 
-#: ../data/ui/file-prop.glade.h:17
-msgid "Make the file executable"
-msgstr "Зробити файл виконувальним"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "None"
-msgstr "Нічого"
-
 #: ../data/ui/file-prop.glade.h:19
-msgid "Operations that all other users can do"
-msgstr "Операції, які можуть виконувати всі користувачі"
+msgid "Nobody"
+msgstr "Ніхто"
 
 #: ../data/ui/file-prop.glade.h:20
-msgid "Operations that the owner of the file can do"
-msgstr "Операції, які може виконувати тільки власник"
+msgid "None"
+msgstr "Немає"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Operations that users in the same group as the owner of the file can do"
-msgstr ""
-"Операції над файлом, які можуть виконувати користувачі з групи власника файлу"
+msgid "Only group"
+msgstr "Лише група"
 
 #: ../data/ui/file-prop.glade.h:22
-msgid "Read and Write"
-msgstr "Читати і записувати"
+msgid "Only owner"
+msgstr "Лише власник"
 
 #: ../data/ui/file-prop.glade.h:23
-msgid "Read only"
-msgstr "Тільки читати"
-
-#: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
 msgstr "Виберіть програму для відкриття файлів цього типу "
 
+#: ../data/ui/file-prop.glade.h:24
+msgid "Set GID"
+msgstr "Встановити GID"
+
 #: ../data/ui/file-prop.glade.h:25
-msgid "Write only"
-msgstr "Тільки записувати"
+msgid "Set UID"
+msgstr "Встановити UID"
 
 #: ../data/ui/file-prop.glade.h:26
+msgid "Set UID & GID"
+msgstr "Встановити UID та GID"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "Special flags for directory access"
+msgstr "Особливі флаги доступу до теки"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "Special flags for file execution"
+msgstr "Особливі флаги виконання файлу"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "\"Липкий\""
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Sticky & set GID"
+msgstr "\"Липкий\" та встановити GID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Who can change content of the file/directory"
+msgstr "Хто може змінювати вміст файла чи теки"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Who can execute the file or enter the directory"
+msgstr "Хто може виконувати файл чи заходити до теки"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Who can read content of the file/directory"
+msgstr "Хто може отримувати вміст файла чи теки"
+
+#: ../data/ui/file-prop.glade.h:34
 msgid "_General"
 msgstr "_Загальне"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:35
 msgid "_Permissions"
 msgstr "_Дозволи"
 
@@ -330,11 +361,11 @@ msgstr "ГіБ"
 msgid "TiB"
 msgstr "ТіБ"
 
-#: ../src/base/fm-file-info.c:53
+#: ../src/base/fm-file-info.c:92
 msgid "Shortcuts"
 msgstr "Ярлики"
 
-#: ../src/base/fm-file-info.c:56
+#: ../src/base/fm-file-info.c:95
 msgid "Mount Point"
 msgstr "Точка монтування"
 
@@ -346,7 +377,7 @@ msgstr "Смітник"
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:537
 msgid "Applications"
 msgstr "Програми"
 
@@ -358,7 +389,7 @@ msgstr "Мережа"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
+#: ../src/gtk/fm-progress-dlg.c:216 ../src/gtk/fm-progress-dlg.c:235
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -369,7 +400,7 @@ msgstr ""
 "Розмір: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
+#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -378,23 +409,23 @@ msgstr ""
 "Тип: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:316
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:322
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:339
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -404,60 +435,65 @@ msgstr ""
 "підтримує цю операцію.\n"
 "Ви бажаєте замість цього видалити їх?"
 
-#: ../src/gtk/fm-progress-dlg.c:433
+#: ../src/gtk/fm-progress-dlg.c:435
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:448
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:451
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:454
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:457
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:460
+#: ../src/gtk/fm-progress-dlg.c:462
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:463
+#: ../src/gtk/fm-progress-dlg.c:465
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
-#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+#: ../src/gtk/fm-file-properties.c:150 ../src/gtk/fm-file-properties.c:155
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 msgstr[1] "байти"
 msgstr[2] "байт"
 
-#: ../src/gtk/fm-file-properties.c:176
+#: ../src/gtk/fm-file-properties.c:211
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введіть властиву назву користувача або чисельне id."
 
-#: ../src/gtk/fm-file-properties.c:208
+#: ../src/gtk/fm-file-properties.c:241
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть властиву назву групи або чисельне id."
 
-#: ../src/gtk/fm-file-properties.c:356
+#. FIXME: may special bits and exec flags still be messed up?
+#: ../src/gtk/fm-file-properties.c:427
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Ви дійсно бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
 
-#: ../src/gtk/fm-file-properties.c:630
+#: ../src/gtk/fm-file-properties.c:627
+msgid "<b>Enter:</b>"
+msgstr "<b>Заходити:</b>"
+
+#: ../src/gtk/fm-file-properties.c:735
 msgid "Files of different types"
 msgstr "Файли різних типів"
 
-#: ../src/gtk/fm-file-properties.c:664
+#: ../src/gtk/fm-file-properties.c:772
 msgid "Multiple Files"
 msgstr "Кілька файлів"
 
@@ -474,7 +510,7 @@ msgid "Eject Removable Media"
 msgstr "Витягнути знімний пристрій"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:724
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -486,7 +522,7 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:721
+#: ../src/gtk/fm-places-view.c:725
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -502,71 +538,71 @@ msgstr "Дерево тек"
 msgid "Remote"
 msgstr "Віддалене"
 
-#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
+#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
 msgid "Open With..."
 msgstr "Відкрити з..."
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:114
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:115
 msgid "Create Symlink"
 msgstr "Створити символьне посилання"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:116
 msgid "Send To"
 msgstr "Вислати до"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Compress..."
 msgstr "Спакувати..."
 
-#: ../src/gtk/fm-file-menu.c:96
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Extract Here"
 msgstr "Розпакувати сюди"
 
-#: ../src/gtk/fm-file-menu.c:97
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Extract To..."
 msgstr "Розпакувати до..."
 
-#: ../src/gtk/fm-file-menu.c:258
+#: ../src/gtk/fm-file-menu.c:387
 msgid "_Restore"
 msgstr "_Відновити"
 
-#: ../src/gtk/fm-file-menu.c:259
+#: ../src/gtk/fm-file-menu.c:388
 msgid "Restore trashed files to original paths"
 msgstr "Відновити перенесені файли в смітнику до початкового стану"
 
-#: ../src/gtk/fm-dnd-dest.c:387
+#: ../src/gtk/fm-dnd-dest.c:399
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:96
+#: ../src/gtk/fm-app-chooser-dlg.c:98
 msgid "Use selected application to open files"
 msgstr "Використати вибрану програму для відкриття файлів цього типу"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:103
+#: ../src/gtk/fm-app-chooser-dlg.c:105
 msgid "Execute custom command line to open files"
 msgstr "Виконати власну команду для відкриття файлів"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:185
+#: ../src/gtk/fm-app-chooser-combo-box.c:186
 msgid "Customize"
 msgstr "Налаштувати"
 
-#: ../src/gtk/fm-folder-view.c:588
+#: ../src/gtk/fm-folder-view.c:589
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:607
+#: ../src/gtk/fm-folder-view.c:608
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:614
+#: ../src/gtk/fm-folder-view.c:615
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:620
+#: ../src/gtk/fm-folder-view.c:621
 msgid "Modified"
 msgstr "Змінено"
 
@@ -586,35 +622,35 @@ msgstr "Підтвердити"
 msgid "Question"
 msgstr "Питання"
 
-#: ../src/gtk/fm-gtk-utils.c:282
+#: ../src/gtk/fm-gtk-utils.c:362
 msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть теку"
 
-#: ../src/gtk/fm-gtk-utils.c:452
+#: ../src/gtk/fm-gtk-utils.c:520
 msgid "Only system administrators have the permission to do this."
 msgstr "Це може зробити тільки системний адміністратор."
 
-#: ../src/gtk/fm-gtk-utils.c:531
+#: ../src/gtk/fm-gtk-utils.c:599
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:552
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Do you want to delete the selected files?"
 msgstr "Ви бажаєте видалити вибрані файли?"
 
-#: ../src/gtk/fm-gtk-utils.c:598
+#: ../src/gtk/fm-gtk-utils.c:666
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:598
+#: ../src/gtk/fm-gtk-utils.c:666
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:620
+#: ../src/gtk/fm-gtk-utils.c:688
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:115
+#: ../src/gtk/fm-gtk-file-launcher.c:120
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -623,21 +659,21 @@ msgstr ""
 "Цей текстовий файл '%s' схоже є скриптом запуску.\n"
 "Що Ви бажаєте зробити з ним?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:122
+#: ../src/gtk/fm-gtk-file-launcher.c:127
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Цей файл '%s' можна запустити. Ви бажаєте запустити його?"
 
-#: ../src/gtk/fm-dir-tree-model.c:353
+#: ../src/gtk/fm-dir-tree-model.c:361
 msgid "<No Sub Folder>"
 msgstr "<Немає підтеки>"
 
-#: ../src/gtk/fm-dir-tree-model.c:355
+#: ../src/gtk/fm-dir-tree-model.c:363
 msgid "Loading..."
 msgstr "Завантажую..."
 
-#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
-#: ../src/job/fm-dir-list-job.c:337
+#: ../src/job/fm-dir-list-job.c:230 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:340
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Вказана тека неправильна"
@@ -658,11 +694,11 @@ msgstr "Не можу скопіювати теку в її підтеку"
 msgid "Destination is a sub folder of source"
 msgstr "Тека призначення є підтекою вихідної теки"
 
-#: ../src/gtk/fm-places-model.c:451
+#: ../src/gtk/fm-places-model.c:462
 msgid "Trash"
 msgstr "Смітник"
 
-#: ../src/gtk/fm-places-model.c:509
+#: ../src/gtk/fm-places-model.c:522
 msgid "Desktop"
 msgstr "Робочий стіл"
 
@@ -826,6 +862,36 @@ msgstr "Чистий оптичний диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Оптичний диск"
+
+#~ msgid "<b>Group:</b>"
+#~ msgstr "<b>Група:</b>"
+
+#~ msgid "<b>Owner:</b>"
+#~ msgstr "<b>Власник:</b>"
+
+#~ msgid "Make the file executable"
+#~ msgstr "Зробити файл виконувальним"
+
+#~ msgid "Operations that all other users can do"
+#~ msgstr "Операції, які можуть виконувати всі користувачі"
+
+#~ msgid "Operations that the owner of the file can do"
+#~ msgstr "Операції, які може виконувати тільки власник"
+
+#~ msgid ""
+#~ "Operations that users in the same group as the owner of the file can do"
+#~ msgstr ""
+#~ "Операції над файлом, які можуть виконувати користувачі з групи власника "
+#~ "файлу"
+
+#~ msgid "Read and Write"
+#~ msgstr "Читати і записувати"
+
+#~ msgid "Read only"
+#~ msgstr "Тільки читати"
+
+#~ msgid "Write only"
+#~ msgstr "Тільки записувати"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властива тека"

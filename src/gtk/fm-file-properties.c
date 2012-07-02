@@ -38,6 +38,7 @@
 #include "fm-file-ops-job.h"
 #include "fm-utils.h"
 #include "fm-path.h"
+#include "fm-config.h"
 
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
@@ -47,12 +48,39 @@
 #define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
 #define     GET_WIDGET(transform,name) data->name = transform(gtk_builder_get_object(builder, #name))
 
+/* for 'Read' combo box */
 enum {
-    READ_WRITE,
-    READ_ONLY,
-    WRITE_ONLY,
-    NONE,
-    NO_CHANGE
+    NO_CHANGE = 0,
+    READ_USER,
+    READ_GROUP,
+    READ_ALL
+};
+
+/* for 'Write' and 'Exec'/'Enter' combo box */
+enum {
+    /* NO_CHANGE, */
+    ACCESS_NOBODY = 1,
+    ACCESS_USER,
+    ACCESS_GROUP,
+    ACCESS_ALL
+};
+
+/* for files-only 'Special' combo box */
+enum {
+    /* NO_CHANGE, */
+    FILE_COMMON = 1,
+    FILE_SUID,
+    FILE_SGID,
+    FILE_SUID_SGID
+};
+
+/* for directories-only 'Special' combo box */
+enum {
+    /* NO_CHANGE, */
+    DIR_COMMON = 1,
+    DIR_STICKY,
+    DIR_SGID,
+    DIR_STICKY_SGID
 };
 
 typedef struct _FmFilePropData FmFilePropData;
@@ -79,14 +107,17 @@ struct _FmFilePropData
     char* orig_owner;
     GtkEntry* group;
     char* orig_group;
-    GtkComboBox* owner_perm;
-    int owner_perm_sel;
-    GtkComboBox* group_perm;
-    int group_perm_sel;
-    GtkComboBox* other_perm;
-    int other_perm_sel;
-    GtkToggleButton* exec;
-    int exec_state;
+    GtkComboBox* read_perm;
+    int read_perm_sel;
+    GtkComboBox* write_perm;
+    int write_perm_sel;
+    GtkLabel* exec_label;
+    GtkComboBox* exec_perm;
+    int exec_perm_sel;
+    GtkLabel* flags_label;
+    GtkComboBox* flags_set_file;
+    GtkComboBox* flags_set_dir;
+    int flags_set_sel;
 
     FmFileInfoList* files;
     FmFileInfo* fi;
@@ -94,6 +125,7 @@ struct _FmFilePropData
     gboolean single_file;
     gboolean all_native;
     gboolean has_dir;
+    gboolean all_dirs;
     FmMimeType* mime_type;
 
     gint32 uid;
@@ -257,92 +289,128 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->gid = -1;
 
         /* check if chmod is needed here. */
-        sel = gtk_combo_box_get_active(data->owner_perm);
-        if( sel != NO_CHANGE ) /* need to change owner permission */
+        sel = gtk_combo_box_get_active(data->read_perm);
+        if( sel != NO_CHANGE ) /* requested to change read permissions */
         {
-            if(data->owner_perm_sel != sel) /* new value is different from original */
+            g_debug("got selection for read: %d", sel);
+            if(data->read_perm_sel != sel) /* new value is different from original */
             {
-                new_mode_mask |= S_IRUSR|S_IWUSR;
-                data->owner_perm_sel = sel;
+                new_mode_mask = (S_IRUSR|S_IRGRP|S_IROTH);
+                data->read_perm_sel = sel;
                 switch(sel)
                 {
-                case READ_WRITE:
-                    new_mode |= S_IRUSR|S_IWUSR;
-                    break;
-                case READ_ONLY:
-                    new_mode |= S_IRUSR;
-                    break;
-                case WRITE_ONLY:
-                    new_mode |= S_IWUSR;
-                    break;
-                }
-            }
-            else /* otherwise, no change */
-                data->owner_perm_sel = NO_CHANGE;
-        }
-        else
-            data->owner_perm_sel = NO_CHANGE;
-
-        sel = gtk_combo_box_get_active(data->group_perm);
-        if( sel != NO_CHANGE ) /* need to change group permission */
-        {
-            if(data->group_perm_sel != sel) /* new value is different from original */
-            {
-                new_mode_mask |= S_IRGRP|S_IWGRP;
-                data->group_perm_sel = sel;
-                switch(sel)
-                {
-                case READ_WRITE:
-                    new_mode |= S_IRGRP|S_IWGRP;
-                    break;
-                case READ_ONLY:
+                case READ_ALL:
+                    new_mode = S_IROTH;
+                case READ_GROUP:
                     new_mode |= S_IRGRP;
-                    break;
-                case WRITE_ONLY:
-                    new_mode |= S_IWGRP;
-                    break;
+                case READ_USER:
+                default:
+                    new_mode |= S_IRUSR;
                 }
             }
             else /* otherwise, no change */
-                data->group_perm_sel = NO_CHANGE;
+                data->read_perm_sel = NO_CHANGE;
         }
         else
-            data->group_perm_sel = NO_CHANGE;
+            data->read_perm_sel = NO_CHANGE;
 
-        sel = gtk_combo_box_get_active(data->other_perm);
-        if( sel != NO_CHANGE ) /* need to change other permission */
+        sel = gtk_combo_box_get_active(data->write_perm);
+        if( sel != NO_CHANGE ) /* requested to change write permissions */
         {
-            if(data->other_perm_sel != sel) /* new value is different from original */
+            g_debug("got selection for write: %d", sel);
+            if(data->write_perm_sel != sel) /* new value is different from original */
             {
-                new_mode_mask |= S_IROTH|S_IWOTH;
+                new_mode_mask |= (S_IWUSR|S_IWGRP|S_IWOTH);
+                data->write_perm_sel = sel;
                 switch(sel)
                 {
-                case READ_WRITE:
-                    new_mode |= S_IROTH|S_IWOTH;
-                    break;
-                case READ_ONLY:
-                    new_mode |= S_IROTH;
-                    break;
-                case WRITE_ONLY:
+                case ACCESS_ALL:
                     new_mode |= S_IWOTH;
-                    break;
+                case ACCESS_GROUP:
+                    new_mode |= S_IWGRP;
+                case ACCESS_USER:
+                    new_mode |= S_IWUSR;
+                case ACCESS_NOBODY: default: ;
                 }
-                data->other_perm_sel = sel;
             }
             else /* otherwise, no change */
-                data->other_perm_sel = NO_CHANGE;
+                data->write_perm_sel = NO_CHANGE;
         }
         else
-            data->other_perm_sel = NO_CHANGE;
+            data->write_perm_sel = NO_CHANGE;
 
-        if(!data->has_dir
-           && !gtk_toggle_button_get_inconsistent(data->exec)
-           && gtk_toggle_button_get_active(data->exec) != data->exec_state)
+        sel = gtk_combo_box_get_active(data->exec_perm);
+        if( sel != NO_CHANGE ) /* requested to change exec permissions */
         {
-            new_mode_mask |= (S_IXUSR|S_IXGRP|S_IXOTH);
-            if(gtk_toggle_button_get_active(data->exec))
-                new_mode |= (S_IXUSR|S_IXGRP|S_IXOTH);
+            g_debug("got selection for exec: %d", sel);
+            if(data->exec_perm_sel != sel) /* new value is different from original */
+            {
+                new_mode_mask |= (S_IXUSR|S_IXGRP|S_IXOTH);
+                data->exec_perm_sel = sel;
+                switch(sel)
+                {
+                case ACCESS_ALL:
+                    new_mode |= S_IXOTH;
+                case ACCESS_GROUP:
+                    new_mode |= S_IXGRP;
+                case ACCESS_USER:
+                    new_mode |= S_IXUSR;
+                case ACCESS_NOBODY: default: ;
+                }
+            }
+            else /* otherwise, no change */
+                data->exec_perm_sel = NO_CHANGE;
         }
+        else
+            data->exec_perm_sel = NO_CHANGE;
+
+        if(data->all_dirs)
+            sel = gtk_combo_box_get_active(data->flags_set_dir);
+        else if(!data->has_dir)
+            sel = gtk_combo_box_get_active(data->flags_set_file);
+        else
+            sel = NO_CHANGE;
+        if( sel != NO_CHANGE ) /* requested to change special bits */
+        {
+            g_debug("got selection for flags: %d", sel);
+            if(data->flags_set_sel != sel) /* new value is different from original */
+            {
+                new_mode_mask |= (S_ISUID|S_ISGID|S_ISVTX);
+                data->flags_set_sel = sel;
+                if(data->all_dirs)
+                {
+                    switch(sel)
+                    {
+                    case DIR_STICKY:
+                        new_mode |= S_ISVTX;
+                        break;
+                    case DIR_STICKY_SGID:
+                        new_mode |= S_ISVTX;
+                    case DIR_SGID:
+                        new_mode |= S_ISGID;
+                    case DIR_COMMON: default: ;
+                    }
+                }
+                else
+                {
+                    switch(sel)
+                    {
+                    case FILE_SUID:
+                        new_mode |= S_ISUID;
+                        break;
+                    case FILE_SUID_SGID:
+                        new_mode |= S_ISUID;
+                    case FILE_SGID:
+                        new_mode |= S_ISGID;
+                    case FILE_COMMON: default: ;
+                    }
+                }
+            }
+            else /* otherwise, no change */
+                data->flags_set_sel = NO_CHANGE;
+        }
+        else
+            data->flags_set_sel = NO_CHANGE;
 
         if(new_mode_mask || data->uid != -1 || data->gid != -1)
         {
@@ -354,11 +422,16 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                 fm_file_ops_job_set_chown(job, data->uid, data->gid);
 
             /* need to do chmod */
-            if(new_mode_mask)
+            if(new_mode_mask) {
+                g_debug("going to set mode bits %04o by mask %04o", new_mode, new_mode_mask);
                 fm_file_ops_job_set_chmod(job, new_mode, new_mode_mask);
+            }
 
-            if(data->has_dir)
+            /* try recursion but don't recurse exec/sgid/sticky changes */
+            if(data->has_dir && data->exec_perm_sel == NO_CHANGE &&
+               data->flags_set_sel == NO_CHANGE)
             {
+                /* FIXME: may special bits and exec flags still be messed up? */
                 if(fm_yes_no(GTK_WINDOW(data->dlg), NULL, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
@@ -434,14 +507,14 @@ static void update_permissions(FmFilePropData* data)
     int sel;
     char* tmp;
     mode_t fi_mode = fm_file_info_get_mode(fi);
-    mode_t owner_perm = (fi_mode & S_IRWXU);
-    mode_t group_perm = (fi_mode & S_IRWXG);
-    mode_t other_perm = (fi_mode & S_IRWXO);
+    mode_t read_perm = (fi_mode & (S_IRUSR|S_IRGRP|S_IROTH));
+    mode_t write_perm = (fi_mode & (S_IWUSR|S_IWGRP|S_IWOTH));
     mode_t exec_perm = (fi_mode & (S_IXUSR|S_IXGRP|S_IXOTH));
+    mode_t flags_set = (fi_mode & (S_ISUID|S_ISGID|S_ISVTX));
     gint32 uid = fm_file_info_get_uid(fi);
     gint32 gid = fm_file_info_get_gid(fi);
-    gboolean mix_owner = FALSE, mix_group = FALSE, mix_other = FALSE;
-    gboolean mix_exec = FALSE;
+    gboolean mix_read = FALSE, mix_write = FALSE, mix_exec = FALSE;
+    gboolean mix_flags = FALSE;
     struct group* grp = NULL;
     struct passwd* pw = NULL;
     char unamebuf[64];
@@ -449,7 +522,8 @@ static void update_permissions(FmFilePropData* data)
     struct passwd pwb;
 
     data->all_native = fm_path_is_native(fm_file_info_get_path(fi));
-    data->has_dir = S_ISDIR(fi_mode) != FALSE;
+    data->has_dir = (S_ISDIR(fi_mode) != FALSE);
+    data->all_dirs = data->has_dir;
 
     for(l=fm_file_info_list_peek_head_link(data->files)->next; l; l=l->next)
     {
@@ -461,21 +535,22 @@ static void update_permissions(FmFilePropData* data)
         fi_mode = fm_file_info_get_mode(fi);
         if(S_ISDIR(fi_mode))
             data->has_dir = TRUE;
+        else
+            data->all_dirs = FALSE;
 
         if( uid >= 0 && uid != (gint32)fm_file_info_get_uid(fi) )
             uid = -1;
         if( gid >= 0 && gid != (gint32)fm_file_info_get_gid(fi) )
             gid = -1;
 
-        if( !mix_owner && owner_perm != (fi_mode & S_IRWXU) )
-            mix_owner = TRUE;
-        if( !mix_group && group_perm != (fi_mode & S_IRWXG) )
-            mix_group = TRUE;
-        if( !mix_other && other_perm != (fi_mode & S_IRWXO) )
-            mix_other = TRUE;
-
-        if( exec_perm != (fi_mode & (S_IXUSR|S_IXGRP|S_IXOTH)) )
+        if(!mix_read && read_perm != (fi_mode & (S_IRUSR|S_IRGRP|S_IROTH)))
+            mix_read = TRUE;
+        if(!mix_write && write_perm != (fi_mode & (S_IWUSR|S_IWGRP|S_IWOTH)))
+            mix_write = TRUE;
+        if(!mix_exec && exec_perm != (fi_mode & (S_IXUSR|S_IXGRP|S_IXOTH)))
             mix_exec = TRUE;
+        if(!mix_flags && flags_set != (fi_mode & (S_ISUID|S_ISGID|S_ISVTX)))
+            mix_flags = TRUE;
     }
 
     if( data->all_native )
@@ -518,77 +593,110 @@ static void update_permissions(FmFilePropData* data)
         gtk_editable_set_editable(GTK_EDITABLE(data->group), FALSE);
     }
 
+    /* read access chooser */
     sel = NO_CHANGE;
-    if(!mix_owner)
+    if(!mix_read)
     {
-        if( (owner_perm & (S_IRUSR|S_IWUSR)) == (S_IRUSR|S_IWUSR) )
-            sel = READ_WRITE;
-        else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IRUSR )
-            sel = READ_ONLY;
-        else if( (owner_perm & (S_IRUSR|S_IWUSR)) == S_IWUSR )
-            sel = WRITE_ONLY;
+        if(read_perm & S_IROTH)
+            sel = READ_ALL;
+        else if(read_perm & S_IRGRP)
+            sel = READ_GROUP;
         else
-            sel = NONE;
+            sel = READ_USER;
     }
-    gtk_combo_box_set_active(data->owner_perm, sel);
-    data->owner_perm_sel = sel;
+    gtk_combo_box_set_active(data->read_perm, sel);
+    data->read_perm_sel = sel;
 
+    /* write access chooser */
     sel = NO_CHANGE;
-    if(!mix_group)
+    if(!mix_write)
     {
-        if( (group_perm & (S_IRGRP|S_IWGRP)) == (S_IRGRP|S_IWGRP) )
-            sel = READ_WRITE;
-        else if( (group_perm & (S_IRGRP|S_IWGRP)) == S_IRGRP )
-            sel = READ_ONLY;
-        else if( (group_perm & (S_IRGRP|S_IWGRP)) == S_IWGRP )
-            sel = WRITE_ONLY;
+        if(write_perm & S_IWOTH)
+            sel = ACCESS_ALL;
+        else if(write_perm & S_IWGRP)
+            sel = ACCESS_GROUP;
+        else if(write_perm & S_IWUSR)
+            sel = ACCESS_USER;
         else
-            sel = NONE;
+            sel = ACCESS_NOBODY;
     }
-    gtk_combo_box_set_active(data->group_perm, sel);
-    data->group_perm_sel = sel;
+    gtk_combo_box_set_active(data->write_perm, sel);
+    data->write_perm_sel = sel;
 
-    sel = NO_CHANGE;
-    if(!mix_other)
-    {
-        if( (other_perm & (S_IROTH|S_IWOTH)) == (S_IROTH|S_IWOTH) )
-            sel = READ_WRITE;
-        else if( (other_perm & (S_IROTH|S_IWOTH)) == S_IROTH )
-            sel = READ_ONLY;
-        else if( (other_perm & (S_IROTH|S_IWOTH)) == S_IWOTH )
-            sel = WRITE_ONLY;
-        else
-            sel = NONE;
+    /* disable exec and special bits for mixed selection and return */
+    if(data->has_dir && !data->all_dirs) {
+        gtk_widget_hide(GTK_WIDGET(data->exec_label));
+        gtk_widget_hide(GTK_WIDGET(data->exec_perm));
+        data->exec_perm_sel = NO_CHANGE;
+        gtk_widget_hide(GTK_WIDGET(data->flags_label));
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_file));
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_dir));
+        data->flags_set_sel = NO_CHANGE;
+        return;
     }
-    gtk_combo_box_set_active(data->other_perm, sel);
-    data->other_perm_sel = sel;
-
     if(data->has_dir)
-        gtk_widget_hide(GTK_WIDGET(data->exec));
+        gtk_label_set_label(data->exec_label, _("<b>Access content:</b>"));
+    if(!fm_config->advanced_mode)
+    {
+        gtk_widget_hide(GTK_WIDGET(data->flags_label));
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_file));
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_dir));
+        data->flags_set_sel = NO_CHANGE;
+    }
+    else if(data->has_dir)
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_file));
+    else
+        gtk_widget_hide(GTK_WIDGET(data->flags_set_dir));
 
+    /* exec access chooser */
+    sel = NO_CHANGE;
     if(!mix_exec)
     {
-        gboolean xusr = (exec_perm & S_IXUSR) != 0;
-        gboolean xgrp = (exec_perm & S_IXGRP) != 0;
-        gboolean xoth = (exec_perm & S_IXOTH) != 0;
-        if( xusr == xgrp && xusr == xoth ) /* executable */
-        {
-            gtk_toggle_button_set_active(data->exec, xusr);
-            data->exec_state = xusr;
-        }
-        else /* inconsistent */
-        {
-            gtk_toggle_button_set_inconsistent(data->exec, TRUE);
-            g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
-            data->exec_state = -1;
-        }
+        if(exec_perm & S_IXOTH)
+            sel = ACCESS_ALL;
+        else if(exec_perm & S_IXGRP)
+            sel = ACCESS_GROUP;
+        else if(exec_perm & S_IXUSR)
+            sel = ACCESS_USER;
+        else
+            sel = ACCESS_NOBODY;
     }
-    else /* inconsistent */
+    gtk_combo_box_set_active(data->exec_perm, sel);
+    data->exec_perm_sel = sel;
+
+    /* special bits chooser */
+    sel = NO_CHANGE;
+    if(data->has_dir)
     {
-        gtk_toggle_button_set_inconsistent(data->exec, TRUE);
-        g_signal_connect(data->exec, "toggled", G_CALLBACK(on_exec_toggled), data);
-        data->exec_state = -1;
+        if(!mix_flags)
+        {
+            if((flags_set & (S_ISGID|S_ISVTX)) == (S_ISGID|S_ISVTX))
+                sel = DIR_STICKY_SGID;
+            else if(flags_set & S_ISGID)
+                sel = DIR_SGID;
+            else if(flags_set & S_ISVTX)
+                sel = DIR_STICKY;
+            else
+                sel = DIR_COMMON;
+        }
+        gtk_combo_box_set_active(data->flags_set_dir, sel);
     }
+    else
+    {
+        if(!mix_flags)
+        {
+            if((flags_set & (S_ISUID|S_ISGID)) == (S_ISUID|S_ISGID))
+                sel = FILE_SUID_SGID;
+            else if(flags_set & S_ISUID)
+                sel = FILE_SUID;
+            else if(flags_set & S_ISGID)
+                sel = FILE_SGID;
+            else
+                sel = FILE_COMMON;
+        }
+        gtk_combo_box_set_active(data->flags_set_file, sel);
+    }
+    data->flags_set_sel = sel;
 }
 
 static void update_ui(FmFilePropData* data)
@@ -756,10 +864,13 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_ENTRY,owner);
     GET_WIDGET(GTK_ENTRY,group);
 
-    GET_WIDGET(GTK_COMBO_BOX,owner_perm);
-    GET_WIDGET(GTK_COMBO_BOX,group_perm);
-    GET_WIDGET(GTK_COMBO_BOX,other_perm);
-    GET_WIDGET(GTK_TOGGLE_BUTTON,exec);
+    GET_WIDGET(GTK_COMBO_BOX,read_perm);
+    GET_WIDGET(GTK_COMBO_BOX,write_perm);
+    GET_WIDGET(GTK_LABEL,exec_label);
+    GET_WIDGET(GTK_COMBO_BOX,exec_perm);
+    GET_WIDGET(GTK_LABEL,flags_label);
+    GET_WIDGET(GTK_COMBO_BOX,flags_set_file);
+    GET_WIDGET(GTK_COMBO_BOX,flags_set_dir);
 
     g_object_unref(builder);
 
