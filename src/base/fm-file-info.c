@@ -97,6 +97,12 @@ void _fm_file_info_finalize()
     fm_mime_type_unref(desktop_entry_type);
 }
 
+/**
+ * fm_file_info_new:
+ *
+ * Returns: a new FmFileInfo struct which needs to be freed with
+ * fm_file_info_unref() when it's no more needed.
+ */
 FmFileInfo* fm_file_info_new ()
 {
     FmFileInfo * fi = g_slice_new0(FmFileInfo);
@@ -104,6 +110,17 @@ FmFileInfo* fm_file_info_new ()
     return fi;
 }
 
+/**
+ * fm_file_info_set_from_native_file:
+ * @fi:  A FmFileInfo struct
+ * @path:  full path of the file
+ * @err: a GError** to retrive errors
+ *
+ * Get file info of the specified native file and store it in
+ * the FmFileInfo struct.
+ *
+ * Returns: TRUE if no error happens.
+ */
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
 {
     struct stat st;
@@ -180,6 +197,14 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
     return TRUE;
 }
 
+/**
+ * fm_file_info_set_from_gfileinfo:
+ * @fi:  A FmFileInfo struct
+ * @inf: a GFileInfo object
+ *
+ * Get file info from the GFileInfo object and store it in
+ * the FmFileInfo struct.
+ */
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
     const char* tmp;
@@ -293,6 +318,18 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
 }
 
+
+/**
+ * fm_file_info_new_from_gfileinfo:
+ * @path:  FmPath of a file
+ * @inf: a GFileInfo object
+ *
+ * Create a new FmFileInfo for file pointed by @path based on
+ * information stored in the GFileInfo object.
+ *
+ * Returns: A new FmFileInfo struct which should be freed with
+ * fm_file_info_unref() when no longer needed.
+ */
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 {
     FmFileInfo* fi = fm_file_info_new();
@@ -399,6 +436,14 @@ static void fm_file_info_clear(FmFileInfo* fi)
     }
 }
 
+/**
+ * fm_file_info_ref:
+ * @fi:  A FmFileInfo struct
+ *
+ * Increase reference count of the FmFileInfo struct.
+ *
+ * Returns: the FmFileInfo struct itself
+ */
 FmFileInfo* fm_file_info_ref(FmFileInfo* fi)
 {
     g_return_val_if_fail(fi != NULL, NULL);
@@ -406,6 +451,14 @@ FmFileInfo* fm_file_info_ref(FmFileInfo* fi)
     return fi;
 }
 
+/**
+ * fm_file_info_unref:
+ * @fi:  A FmFileInfo struct
+ *
+ * Decrease reference count of the FmFileInfo struct.
+ * When the last reference to the struct is released,
+ * the FmFileInfo struct is freed.
+ */
 void fm_file_info_unref(FmFileInfo* fi)
 {
     g_return_if_fail(fi != NULL);
@@ -417,6 +470,14 @@ void fm_file_info_unref(FmFileInfo* fi)
     }
 }
 
+/**
+ * fm_file_info_update:
+ * @fi:  A FmFileInfo struct
+ * @src: another FmFileInfo struct
+ * 
+ * Update the content of @fi by copying file info
+ * stored in @src to @fi.
+ */
 void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
 {
     FmPath* tmp_path = fm_path_ref(src->path);
@@ -455,27 +516,77 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
     fi->disp_mtime = g_strdup(src->disp_mtime);
 }
 
+/**
+ * fm_file_info_get_icon:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the icon used to show the file in the file manager.
+ *
+ * Returns: a FmIcon struct. The returned FmIcon struct is
+ * owned by FmFileInfo and should not be freed.
+ * If you need to keep it, use fm_icon_ref() to obtain a 
+ * reference.
+ */
 FmIcon* fm_file_info_get_icon(FmFileInfo* fi)
 {
     return fi->icon;
 }
 
+/**
+ * fm_file_info_get_path:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the path of the file
+ * 
+ * Returns: a FmPath struct. The returned FmPath struct is
+ * owned by FmFileInfo and should not be freed.
+ * If you need to keep it, use fm_path_ref() to obtain a 
+ * reference.
+ */
 FmPath* fm_file_info_get_path(FmFileInfo* fi)
 {
     return fi->path;
 }
 
+/**
+ * fm_file_info_get_name:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the base name of the file in filesystem encoding.
+ *
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed.
+ */
 const char* fm_file_info_get_name(FmFileInfo* fi)
 {
     return fi->path->name;
 }
 
+/**
+ * fm_file_info_get_disp_name:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the display name used to show the file in the file 
+ * manager UI. The display name is guaranteed to be UTF-8
+ * and may be different from the real file name on the 
+ * filesystem.
+ *
+ * Returns: a const strin owned by FmFileInfo which should
+ * not be freed.
+ */
 /* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
     return G_LIKELY(!fi->disp_name) ? fi->path->name : fi->disp_name;
 }
 
+/**
+ * fm_file_info_set_path:
+ * @fi:  A FmFileInfo struct
+ * @path: a FmPath struct
+ *
+ * Change the path of the FmFileInfo.
+ */
 void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
 {
     if(fi->path)
@@ -487,6 +598,16 @@ void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
         fi->path = NULL;
 }
 
+/**
+ * fm_file_info_set_disp_name:
+ * @fi:  A FmFileInfo struct
+ * @name: A UTF-8 display name. (can be NULL).
+ *
+ * Set the display name used to show the file in the 
+ * file manager UI. If NULL is passed for @name,
+ * the original display will be freed and the real base name
+ * will be used for display.
+ */
 /* if disp name is set to NULL, we use the real filename for display. */
 void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
@@ -494,11 +615,27 @@ void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
     fi->disp_name = g_strdup(name);
 }
 
+/**
+ * fm_file_info_get_size:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: the size of the file in bytes.
+ */
 goffset fm_file_info_get_size(FmFileInfo* fi)
 {
     return fi->size;
 }
 
+/**
+ * fm_file_info_get_disp_size:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the size of the file as a human-readable string.
+ * It's convinient for show the file size to the user.
+ *
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed. (non-NULL)
+ */
 const char* fm_file_info_get_disp_size(FmFileInfo* fi)
 {
     if (G_UNLIKELY(!fi->disp_size))
@@ -513,32 +650,103 @@ const char* fm_file_info_get_disp_size(FmFileInfo* fi)
     return fi->disp_size;
 }
 
+/**
+ * fm_file_info_get_blocks
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: how many filesystem blocks used by the file.
+ */
 goffset fm_file_info_get_blocks(FmFileInfo* fi)
 {
     return fi->blocks;
 }
 
+/**
+ * fm_file_info_get_mime_type:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the mime-type of the file.
+ *
+ * Returns: a FmMimeType struct owned by FmFileInfo which
+ * should not be freed.
+ * If you need to keep it, use fm_mime_type_ref() to obtain a 
+ * reference.
+ */
 FmMimeType* fm_file_info_get_mime_type(FmFileInfo* fi)
 {
     return fi->mime_type;
 }
 
+/**
+ * fm_file_info_get_mode:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the mode of the file. For detail about the meaning of
+ * mode, see manpage of stat() and the st_mode struct field.
+ *
+ * Returns: mode_t value of the file as defined in POSIX struct stat.
+ */
 mode_t fm_file_info_get_mode(FmFileInfo* fi)
 {
     return fi->mode;
 }
 
+/**
+ * fm_file_info_get_is_native:
+ * @fi:  A FmFileInfo struct
+ *
+ * Check if the file is a native UNIX file.
+ * 
+ * Returns: TRUE for native UNIX files, FALSE for
+ * remote filesystems or other URIs, such as 
+ * trahs:///, computer:///, ...etc.
+ */
+gboolean fm_file_info_is_native(FmFileInfo* fi)
+{
+	return fm_path_is_native(fi->path);
+}
+
+/**
+ * fm_file_info_get_is_dir:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the file is a directory.
+ */
 gboolean fm_file_info_is_dir(FmFileInfo* fi)
 {
     return (S_ISDIR(fi->mode) ||
         (S_ISLNK(fi->mode) && (0 == strcmp(fi->mime_type->type, "inode/directory"))));
 }
 
+/**
+ * fm_file_info_get_is_symlink:
+ * @fi:  A FmFileInfo struct
+ *
+ * Check if the file is a symlink. Note that for symlinks,
+ * all infos stored in FmFileInfo are actually the info of
+ * their targets.
+ * The only two places you can tell that is a symlink are:
+ * 1. fm_file_info_get_is_symlink()
+ * 2. fm_file_info_get_target() which returns the target
+ * of the symlink.
+ * 
+ * Returns: TRUE if the file is a symlink
+ */
 gboolean fm_file_info_is_symlink(FmFileInfo* fi)
 {
     return S_ISLNK(fi->mode) ? TRUE : FALSE;
 }
 
+/**
+ * fm_file_info_get_is_shortcut:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the file is a shortcut.
+ * For a shortcut, read the value of fm_file_info_get_target()
+ * to get the destination the shortut points to.
+ * An example of shortcut type FmFileInfo is file info of
+ * files in menu://applications/
+ */
 gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
 {
     return fi->mime_type == _fm_mime_type_get_inode_x_shortcut();
@@ -549,6 +757,12 @@ gboolean fm_file_info_is_mountable(FmFileInfo* fi)
     return fi->mime_type == _fm_mime_type_get_inode_x_mountable();
 }
 
+/**
+ * fm_file_info_get_is_image:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the file is a image file (*.jpg, *.png, ...).
+ */
 gboolean fm_file_info_is_image(FmFileInfo* fi)
 {
     /* FIXME: We had better use functions of xdg_mime to check this */
@@ -557,6 +771,12 @@ gboolean fm_file_info_is_image(FmFileInfo* fi)
     return FALSE;
 }
 
+/**
+ * fm_file_info_get_is_text:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the file is a plain text file.
+ */
 gboolean fm_file_info_is_text(FmFileInfo* fi)
 {
     if(g_content_type_is_a(fi->mime_type->type, "text/plain"))
@@ -564,17 +784,45 @@ gboolean fm_file_info_is_text(FmFileInfo* fi)
     return FALSE;
 }
 
+/**
+ * fm_file_info_get_is_desktop_entry:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the file is a desktop entry file.
+ */
 gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
 {
     return fi->mime_type == desktop_entry_type;
     /* return g_strcmp0(fi->mime_type->type, "application/x-desktop") == 0; */
 }
 
+/**
+ * fm_file_info_get_is_unknown_type:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the mime type of the file cannot be
+ * recognized.
+ */
 gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 {
     return g_content_type_is_unknown(fi->mime_type->type);
 }
 
+/**
+ * fm_file_info_get_is_executable_type:
+ * @fi:  A FmFileInfo struct
+ *
+ * Note that the function only check if the file seems
+ * to be an executable file. It does not check if the
+ * user really has the permission to execute the file or
+ * if the executable bit of the file is set.
+ * To check if a file is really executable by the current
+ * user, you may need to call POSIX access() or euidaccess().
+ * 
+ * Returns: TRUE if the file is a kind of executable file,
+ * such as shell script, python script, perl script, or 
+ * binary executable file.
+ */
 /* full path of the file is required by this function */
 gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
@@ -600,6 +848,15 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
     return g_content_type_can_be_executable(fi->mime_type->type);
 }
 
+/**
+ * fm_file_info_get_is_hidden:
+ * @fi:  A FmFileInfo struct
+ *
+ * Files treated as hidden files are filenames with dot prefix
+ * or ~ suffix.
+ * 
+ * Returns: TRUE if the file is a hidden file.
+ */
 gboolean fm_file_info_is_hidden(FmFileInfo* fi)
 {
     const char* name = fi->path->name;
@@ -610,6 +867,13 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
        (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
 }
 
+/**
+ * fm_file_info_get_can_thumbnail:
+ * @fi:  A FmFileInfo struct
+ *
+ * Returns: TRUE if the the file manager can try to 
+ * generate a thumbnail for the file.
+ */
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 {
     /* We cannot use S_ISREG here as this exclude all symlinks */
@@ -622,6 +886,17 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
 }
 
 
+/**
+ * fm_file_info_get_collate_key:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the collate key used for locale-dependent
+ * filename sorting. The keys of different files 
+ * can be compared with strcmp() directly.
+ * 
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed.
+ */
 const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 {
     /* create a collate key on demand, if we don't have one */
@@ -651,17 +926,46 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
     return fi->collate_key;
 }
 
+/**
+ * fm_file_info_get_target:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the target of a symlink or a shortcut.
+ * 
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed. NULL if the file is not a symlink or
+ * shortcut.
+ */
 const char* fm_file_info_get_target(FmFileInfo* fi)
 {
     return fi->target;
 }
 
+/**
+ * fm_file_info_get_desc:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Get a human-readable description for the file.
+ * 
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed.
+ */
 const char* fm_file_info_get_desc(FmFileInfo* fi)
 {
     /* FIXME: how to handle descriptions for virtual files without mime-tyoes? */
     return fi->mime_type ? fm_mime_type_get_desc(fi->mime_type) : NULL;
 }
 
+/**
+ * fm_file_info_get_disp_mtime:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Get a human-readable string for showing file modification
+ * time in the UI.
+ * 
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed.
+ */
 const char* fm_file_info_get_disp_mtime(FmFileInfo* fi)
 {
     /* FIXME: This can cause problems if the file really has mtime=0. */
@@ -680,31 +984,78 @@ const char* fm_file_info_get_disp_mtime(FmFileInfo* fi)
     return fi->disp_mtime;
 }
 
+/**
+ * fm_file_info_get_mtime:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Returns: file modification time.
+ */
 time_t fm_file_info_get_mtime(FmFileInfo* fi)
 {
     return fi->mtime;
 }
 
+/**
+ * fm_file_info_get_mtime:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Returns: file access time.
+ */
 time_t fm_file_info_get_atime(FmFileInfo* fi)
 {
     return fi->atime;
 }
 
+/**
+ * fm_file_info_get_uid:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Returns: user id (uid) of the file owner.
+ */
 uid_t fm_file_info_get_uid(FmFileInfo* fi)
 {
     return fi->uid;
 }
 
+/**
+ * fm_file_info_get_gid:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Returns: group id (gid) of the file owner.
+ */
 gid_t fm_file_info_get_gid(FmFileInfo* fi)
 {
     return fi->gid;
 }
 
+
+/**
+ * fm_file_info_get_fs_id:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Get the filesystem id string
+ * This is only applicable when the file is on a remote
+ * filesystem. e.g. fm_file_info_is_native() returns FALSE.
+ * 
+ * Returns: a const string owned by FmFileInfo which should
+ * not be freed.
+ */
 const char* fm_file_info_get_fs_id(FmFileInfo* fi)
 {
     return fi->fs_id;
 }
 
+/**
+ * fm_file_info_get_dev:
+ * @fi:  A FmFileInfo struct
+ * 
+ * Get the filesystem device id (POSIX dev_t)
+ * This is only applicable when the file is native.
+ * e.g. fm_file_info_is_native() returns TRUE.
+ * 
+ * Returns: device id (POSIX dev_t, st_dev member of 
+ * struct stat).
+ */
 dev_t fm_file_info_get_dev(FmFileInfo* fi)
 {
     return fi->dev;
