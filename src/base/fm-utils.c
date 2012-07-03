@@ -238,3 +238,63 @@ char* fm_strdup_replace(char* str, char* old, char* new)
     g_string_append(buf, str);
     return g_string_free(buf, FALSE);
 }
+
+/**
+ * fm_app_command_parse
+ * @cmd:        line to parse
+ * @opts:       plain list of possible options
+ * @ret:        pointer for resulting string, string should be freed by caller
+ * @user_data:  caller data to pass to callback
+ * Return value: number of valid options found in @cmd
+ *
+ * This function parses line that contains some %%<char> commands and does
+ * substitutions on them using callbacks provided by caller.
+ */
+int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
+                         char** ret, gpointer user_data)
+{
+    const char* ptr = cmd, *c, *ins;
+    GString* buf = g_string_sized_new(256);
+    const FmAppCommandParseOption* opt;
+    int hits = 0;
+
+    for(c = ptr; *c; c++)
+    {
+        if(*c == '%')
+        {
+            if(c[1] == '\0')
+                break;
+            if(c != ptr)
+                g_string_append_len(buf, ptr, c - ptr);
+            ++c;
+            ptr = c + 1;
+            if(*c == '%') /* subst "%%" as "%" */
+            {
+                g_string_append_c(buf, '%');
+                continue;
+            }
+            if(!opts) /* no options available? */
+                continue;
+            for(opt = opts; opt->opt; opt++)
+            {
+                if(opt->opt == *c)
+                {
+                    hits++;
+                    if(opt->callback)
+                    {
+                        ins = opt->callback(*c, user_data);
+                        if(ins && *ins)
+                            g_string_append(buf, ins);
+                        /* FIXME: add support for uri and escaping */
+                    }
+                    break;
+                }
+            }
+            /* FIXME: should invalid options be passed 'as is' or ignored? */
+        }
+    }
+    if(c != ptr)
+        g_string_append_len(buf, ptr, c - ptr);
+    *ret = g_string_free(buf, FALSE);
+    return hits;
+}

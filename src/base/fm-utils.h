@@ -28,6 +28,17 @@
 
 G_BEGIN_DECLS
 
+typedef const char* (*FmAppCommandParseCallback)(char opt, gpointer user_data);
+
+typedef struct
+{
+    char opt;
+    FmAppCommandParseCallback callback;
+} FmAppCommandParseOption;
+
+int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
+                         char** ret, gpointer user_data);
+
 char* fm_file_size_to_str(char* buf, size_t buf_size, goffset size, gboolean si_prefix);
 
 gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int* val);
