@@ -218,8 +218,12 @@ static void fm_folder_class_init(FmFolderClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFolderClass, error ),
                       NULL, NULL,
-                      fm_marshal_UINT__POINTER_UINT,
-                      G_TYPE_UINT, 2, G_TYPE_POINTER, G_TYPE_UINT );
+                      fm_marshal_UINT__BOXED_UINT,
+#if GLIB_CHECK_VERSION(2,26,0)
+                      G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
+#else
+                      G_TYPE_UINT, 2, G_TYPE_BOXED, G_TYPE_UINT );
+#endif
 }
 
 

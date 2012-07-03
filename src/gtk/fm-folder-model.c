@@ -198,7 +198,7 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderModelClass, row_deleting),
                      NULL, NULL,
-                     fm_marshal_VOID__POINTER_POINTER_POINTER,
+                     fm_marshal_VOID__BOXED_BOXED_POINTER,
                      G_TYPE_NONE, 3, GTK_TYPE_TREE_PATH, GTK_TYPE_TREE_ITER,
                      G_TYPE_POINTER);
 }

@@ -148,8 +148,7 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmDirTreeModelClass, row_loaded),
                      NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
-                     /* FIXME: isn't there GTK_TYPE_TREE_PATH ? */
+                     g_cclosure_marshal_VOID__BOXED,
                      G_TYPE_NONE, 1, GTK_TYPE_TREE_PATH);
 }
 
