@@ -1,7 +1,7 @@
 /*
  *      fm-file-info.h
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 PCMan <pcman.tw@gmail.com>
  *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
@@ -35,11 +35,6 @@
 #include "fm-path.h"
 #include "fm-mime-type.h"
 
-/* if no <menu-cache.h> included */
-#ifndef MenuCacheItem
-typedef struct _MenuCacheItem MenuCacheItem;
-#endif
-
 G_BEGIN_DECLS
 
 /* Some flags are defined for future use and are not supported now */
@@ -58,6 +53,8 @@ typedef enum _FmFileInfoFlag FmFileInfoFlag;
 typedef struct _FmFileInfo FmFileInfo;
 //typedef struct _FmFileInfoList FmFileInfoList; // defined in fm-path.h
 
+struct _MenuCacheItem;/* forward declaration for MenuCacheItem */
+
 /* intialize the file info system */
 void _fm_file_info_init();
 void _fm_file_info_finalize();
@@ -66,8 +63,8 @@ FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
 
-FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item);
-void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item);
+FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
+void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem* item);
 
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
 
