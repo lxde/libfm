@@ -260,6 +260,8 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
+    FmFileOpsJob* job = NULL;
+
     if( response == GTK_RESPONSE_OK )
     {
         int sel;
@@ -419,7 +421,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if(new_mode_mask || data->uid != -1 || data->gid != -1)
         {
             FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
-            FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+
+            job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
 
             /* need to chown */
             if(data->uid != -1 || data->gid != -1)
@@ -440,6 +443,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
+            g_object_weak_ref(G_OBJECT(job), (GWeakNotify)gtk_widget_destroy, data->dlg);
             /* show progress dialog */
             fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
                                                         /* it eats reference! */
@@ -477,7 +481,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
         }
     }
-    gtk_widget_destroy(GTK_WIDGET(dlg));
+    if(job == NULL)
+        gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
 /* FIXME: this is too dirty. Need some refactor later. */
