@@ -97,7 +97,7 @@ struct _ThumbnailCache
 /* FIXME: use thread pool */
 
 /* Lock for loader, generator, and ready queues */
-G_LOCK_DEFINE_STATIC(queue);
+static GStaticRecMutex queue_lock = G_STATIC_REC_MUTEX_INIT;
 
 /* load generated thumbnails */
 static GQueue loader_queue = G_QUEUE_INIT; /* consists of ThumbnailTask */
@@ -161,18 +161,18 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
 static gboolean on_ready_idle(gpointer user_data)
 {
     FmThumbnailRequest* req;
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)))
     {
-        G_UNLOCK(queue);
+        g_static_rec_mutex_unlock(&queue_lock);
         // GDK_THREADS_ENTER();
         req->callback(req, req->user_data);
         // GDK_THREADS_LEAVE();
         fm_thumbnail_request_free(req);
-        G_LOCK(queue);
+        g_static_rec_mutex_lock(&queue_lock);
     }
     ready_idle_handler = 0;
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
     return FALSE;
 }
 
@@ -189,7 +189,7 @@ static void on_pixbuf_destroy(gpointer data, GObject* obj_ptr)
     GSList* l;
     /* remove it from cache */
     DEBUG("remove from cache!");
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     for(l=cache->items;l;l=l->next)
     {
         ThumbnailCacheItem* item = (ThumbnailCacheItem*)l->data;
@@ -207,7 +207,7 @@ static void on_pixbuf_destroy(gpointer data, GObject* obj_ptr)
             break;
         }
     }
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
 }
 
 /* called with queue lock held */
@@ -395,14 +395,14 @@ static void load_thumbnails(ThumbnailTask* task)
             task->normal_path = g_strdup(normal_path);
             task->large_path = g_strdup(large_path);
             /* push the whole task into generator queue */
-            G_LOCK(queue);
+            g_static_rec_mutex_lock(&queue_lock);
             queue_generate(task); /* consumes the task */
-            G_UNLOCK(queue);
+            g_static_rec_mutex_unlock(&queue_lock);
             return;
         }
 #endif
         /* remove all requests which requires re-generating thumbnails from task and gather them in a list */
-        G_LOCK(queue); /* no request should be changed or left out without lock */
+        g_static_rec_mutex_lock(&queue_lock); /* no request should be changed or left out without lock */
         for(l=task->requests; l; )
         {
             FmThumbnailRequest* req = (FmThumbnailRequest*)l->data;
@@ -440,17 +440,17 @@ static void load_thumbnails(ThumbnailTask* task)
             /* queue the re-generation task */
             queue_generate(generate_task); /* consumes the task */
         }
-        G_UNLOCK(queue);
+        g_static_rec_mutex_unlock(&queue_lock);
     }
 
 _out:
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     /* thumbnails which don't require re-generation should all be loaded at this point. */
     if(!task->cancelled && task->requests)
         thumbnail_task_finish(task, normal_pix, large_pix);
     cur_loading = NULL;
     /* task is freed in thumbnail_task_finish() */
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
 
     if(normal_pix)
         g_object_unref(normal_pix);
@@ -476,7 +476,7 @@ static gpointer load_thumbnail_thread(gpointer user_data)
 
     for(;;)
     {
-        G_LOCK(queue);
+        g_static_rec_mutex_lock(&queue_lock);
         task = g_queue_pop_head(&loader_queue);
         cur_loading = task;
         if(G_LIKELY(task))
@@ -484,7 +484,7 @@ static gpointer load_thumbnail_thread(gpointer user_data)
             char* uri;
             const char* md5;
 
-            G_UNLOCK(queue);
+            g_static_rec_mutex_unlock(&queue_lock);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
             /* generate filename for the thumbnail */
@@ -517,7 +517,7 @@ static gpointer load_thumbnail_thread(gpointer user_data)
         else /* no task is left in the loader_queue */
         {
             loader_thread_id = NULL;
-            G_UNLOCK(queue);
+            g_static_rec_mutex_unlock(&queue_lock);
             break;
         }
     }
@@ -570,6 +570,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     GdkPixbuf* pix;
     FmPath* src_path = fm_file_info_get_path(src_file);
 
+    g_return_val_if_fail(hash != NULL, NULL);
     req = g_slice_new(FmThumbnailRequest);
     req->fi = fm_file_info_ref(src_file);
     req->size = size;
@@ -579,8 +580,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
 
     DEBUG("request thumbnail: %s", fm_path_get_basename(src_path));
 
-    G_LOCK(queue);
-    g_return_val_if_fail(hash != NULL, NULL);
+    g_static_rec_mutex_lock(&queue_lock);
 
     /* FIXME: find in the cache first to see if thumbnail is already cached */
     pix = find_thumbnail_in_hash(src_path, size);
@@ -592,7 +592,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
             ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
-        G_UNLOCK(queue);
+        g_static_rec_mutex_unlock(&queue_lock);
         return req;
     }
 
@@ -622,7 +622,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     if(!loader_thread_id)
         loader_thread_id = g_thread_create( load_thumbnail_thread, NULL, FALSE, NULL);
 
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
     return req;
 }
 
@@ -633,7 +633,7 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
     GList* l, *l2;
 
     g_return_if_fail(req != NULL);
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     /* if it's in generator queue (most likely) */
 
     if(cur_generating && cur_generating->requests)
@@ -727,7 +727,7 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
         }
     }
 done:
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
 }
 
 /* in main loop */
@@ -761,7 +761,7 @@ void _fm_thumbnail_finalize()
     ThumbnailTask* task;
     FmThumbnailRequest* req;
 
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     /* cancel all pending requests before destroying hash */
     while((task = g_queue_pop_head(&loader_queue)))
         thumbnail_task_free(task);
@@ -772,7 +772,7 @@ void _fm_thumbnail_finalize()
         fm_thumbnail_request_free(req);
     g_hash_table_destroy(hash); /* caches will be destroyed by pixbufs */
     hash = NULL;
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
     g_free(thumb_dir);
 }
 
@@ -780,7 +780,7 @@ void _fm_thumbnail_finalize()
 static gpointer generate_thumbnail_thread(gpointer user_data)
 {
     ThumbnailTask* task;
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     generator_cancellable = g_cancellable_new();
     for(;;)
     {
@@ -790,7 +790,7 @@ static gpointer generate_thumbnail_thread(gpointer user_data)
         if( G_LIKELY(task) )
         {
             cur_generating = task;
-            G_UNLOCK(queue);
+            g_static_rec_mutex_unlock(&queue_lock);
 
             if(fm_file_info_is_image(task->fi))
             {
@@ -807,7 +807,7 @@ static gpointer generate_thumbnail_thread(gpointer user_data)
             else
                 generate_thumbnails_with_thumbnailers(task);
 
-            G_LOCK(queue);
+            g_static_rec_mutex_lock(&queue_lock);
             cur_generating = NULL;
             thumbnail_task_free(task);
             if(g_cancellable_is_cancelled(generator_cancellable))
@@ -826,7 +826,7 @@ static gpointer generate_thumbnail_thread(gpointer user_data)
     generator_thread_id = NULL;
     g_object_unref(generator_cancellable);
     generator_cancellable = NULL;
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
     return NULL;
 }
 
@@ -1049,9 +1049,9 @@ static void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
         }
     }
 
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     thumbnail_task_finish(task, normal_pix, large_pix);
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
 
     if(normal_pix)
         g_object_unref(normal_pix);
@@ -1102,9 +1102,9 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 break;
         }
     }
-    G_LOCK(queue);
+    g_static_rec_mutex_lock(&queue_lock);
     thumbnail_task_finish(task, normal_pix, large_pix);
-    G_UNLOCK(queue);
+    g_static_rec_mutex_unlock(&queue_lock);
 
     if(normal_pix)
         g_object_unref(normal_pix);
