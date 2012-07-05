@@ -635,23 +635,6 @@ gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix)
     return FALSE;
 }
 
-#if 0
-static int fm_path_strlen(FmPath* path)
-{
-    int len = 0;
-    for(;;)
-    {
-        len += strlen(path->name);
-        if(G_UNLIKELY(!path->parent ))
-            break;
-        if(path->parent->parent)
-            ++len; /* add a character for separator */
-        path = path->parent;
-    }
-    return len;
-}
-#endif
-
 /* recursive internal implem. of fm_path_to_str returns end of current
    build string */
 static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
@@ -949,13 +932,6 @@ FmPathList* fm_path_list_new()
 {
     return (FmPathList*)fm_list_new(&funcs);
 }
-
-#if 0
-gboolean fm_list_is_path_list(FmList* list)
-{
-    return list->funcs == &funcs;
-}
-#endif
 
 FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {

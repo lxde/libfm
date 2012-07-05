@@ -90,13 +90,6 @@ void fm_folder_model_file_deleted( FmFolderModel* model, FmFileInfo* file);
 
 void fm_folder_model_file_changed( FmFolderModel* model, FmFileInfo* file);
 
-#if 0
-/* disabled as it may corrupt stack/heap in common_suffix */
-void fm_folder_model_get_common_suffix_for_prefix( FmFolderModel* model, const gchar* prefix,
-                               gboolean (*file_info_predicate)(FmFileInfo*),
-                               gchar* common_suffix);
-#endif
-
 gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIter* it, const char* name);
 
 void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size);
@@ -104,10 +97,6 @@ guint fm_folder_model_get_icon_size(FmFolderModel* model);
 
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
-
-/*
-gboolean fm_folder_model_find_iter(  FmFolderModel* list, GtkTreeIter* it, VFSFileInfo* fi );
-*/
 
 G_END_DECLS
 

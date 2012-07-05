@@ -76,31 +76,6 @@ static int on_launch_ask(const char* msg, char* const* btn_labels, int default_b
     return fm_askv(data->parent, NULL, msg, btn_labels);
 }
 
-#if 0
-/* not required, launcher does this check already */
-static gboolean file_is_executable_script(FmFileInfo* file)
-{
-    FmPath* path = fm_file_info_get_path(file);
-    /* We don't execute remote files */
-    if(fm_path_is_local(path) && fm_file_info_is_text(file) && fm_file_info_get_size(file) > 2)
-    {
-        /* check if the first two bytes of the file is #! */
-        char* file_path = fm_path_to_str(path);
-        int fd = open(file_path, O_RDONLY);
-        g_free(file_path);
-        if(fd != -1)
-        {
-            char buf[4];
-            ssize_t r = read(fd, buf, 2);
-            close(fd);
-            if(r == 2 && buf[0] == '#' && buf[1] == '!')
-                return TRUE; /* the file contains #! in first two bytes */
-        }
-    }
-    return FALSE;
-}
-#endif
-
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
     GtkBuilder* b = gtk_builder_new();

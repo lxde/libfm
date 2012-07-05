@@ -75,9 +75,6 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                /* char* desktop_id = g_path_get_basename(filename);
-                app = G_APP_INFO(g_desktop_app_info_new(desktop_id));
-                g_free(desktop_id); */
                 app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename));
                 /* FIXME: shouldn't this file be removed later? */
             }

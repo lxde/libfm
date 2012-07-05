@@ -246,7 +246,6 @@ void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const cha
 
 void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
 {
-    // GList* l = g_list_find(biikmarks->items, item);
     bookmarks->items = g_list_remove(bookmarks->items, item);
     bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     queue_save_bookmarks(bookmarks);

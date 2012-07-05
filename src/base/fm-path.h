@@ -155,10 +155,6 @@ static inline void fm_path_list_push_tail(FmPathList* list, FmPath* d)
     fm_list_push_tail((FmList*)list,d);
 }
 
-#if 0
-gboolean fm_list_is_path_list(FmList* list);
-#endif
-
 char* fm_path_list_to_uri_list(FmPathList* pl);
 /* char** fm_path_list_to_uris(FmPathList* pl); */
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf);

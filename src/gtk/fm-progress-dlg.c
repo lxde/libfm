@@ -548,20 +548,6 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
     data->timer = g_timer_new();
 }
 
-#if 0
-/* This should be called from main thread. Since other parts accessing
- * data->parent are all run in main thread, this theoratically shouldn't
- * cause racing condition. */
-static void on_parent_destroy(GtkWidget* parent, gpointer user_data)
-{
-    /* parent window is destroyed */
-    FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    data->parent = NULL;
-    g_signal_handlers_disconnect_by_func(parent, on_parent_destroy, data);
-    fm_progress_display_destroy(data);
-}
-#endif
-
 /* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
@@ -577,7 +563,6 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     data->job = job;
     if(parent)
         data->parent = g_object_ref(parent);
-    //g_signal_connect(parent, "destroy", G_CALLBACK(on_parent_destroy), data);
     data->delay_timeout = g_timeout_add(SHOW_DLG_DELAY, on_show_dlg, data);
 
     g_signal_connect(job, "ask", G_CALLBACK(on_ask), data);
@@ -615,7 +600,6 @@ static void fm_progress_display_destroy(FmProgressDisplay* data)
 
     if(data->parent)
         g_object_unref(data->parent);
-    //    g_signal_handlers_disconnect_by_func(data->parent, on_parent_destroy, data);
 
     g_free(data->cur_file);
 

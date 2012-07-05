@@ -83,7 +83,6 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileI
     gboolean ret = FALSE;
     gboolean delete_src = FALSE;
     GError* err = NULL;
-    //gboolean is_virtual;
     GFileType type;
     guint64 size;
     GFile* new_dest = NULL;
@@ -121,7 +120,6 @@ _retry_query_src_info:
     /* showing currently processed file. */
     fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
 
-    //is_virtual = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
     type = g_file_info_get_file_type(inf);
 
     size = g_file_info_get_size(inf);

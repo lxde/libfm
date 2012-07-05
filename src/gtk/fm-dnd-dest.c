@@ -248,7 +248,6 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
         /* FIXME: check if it's internal within application */
         {
             /* get the pointer */
-            //memcpy(&files, sel_data->data, sel_data->length);
             FmFileInfoList* file_infos = *(FmFileInfoList**)sel_data->data;
             if(file_infos)
             {

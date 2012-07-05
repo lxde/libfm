@@ -391,7 +391,6 @@ static GtkTreePath* get_drop_path(FmFolderView* fv, gint x, gint y)
         {
             GtkTreeViewColumn* col;
             gtk_tree_view_convert_widget_to_bin_window_coords(GTK_TREE_VIEW(fv->view), x, y, &x, &y);
-            /* if(gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)fv->view, x, y, &tp, NULL)) */
             if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fv->view), x, y, &tp, &col, NULL, NULL))
             {
                 if(gtk_tree_view_column_get_sort_column_id(col)!=COL_FILE_NAME)
@@ -775,7 +774,6 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
 
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by)
 {
-    /* (int) is needed here since enum seems to be treated as unsigned int so -1 becomes > 0 */
     if(type == GTK_SORT_ASCENDING || type == GTK_SORT_DESCENDING)
         fv->sort_type = type;
     if(FM_FOLDER_MODEL_COL_IS_VALID(by))

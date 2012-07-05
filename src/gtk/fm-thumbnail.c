@@ -165,9 +165,7 @@ static gboolean on_ready_idle(gpointer user_data)
     while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)))
     {
         g_static_rec_mutex_unlock(&queue_lock);
-        // GDK_THREADS_ENTER();
         req->callback(req, req->user_data);
-        // GDK_THREADS_LEAVE();
         fm_thumbnail_request_free(req);
         g_static_rec_mutex_lock(&queue_lock);
     }
@@ -387,20 +385,6 @@ static void load_thumbnails(ThumbnailTask* task)
         GList* generate_reqs = NULL, *l;
         ThumbnailTask* generate_task;
 
-#if 0
-        /* all requested thumbnails need to be re-generated. */
-        if( ((task->flags & LOAD_NORMAL|LOAD_LARGE) << 2) == (task->flags & (GENERATE_NORMAL|GENERATE_LARGE)) )
-        {
-            task->uri = g_strdup(task->uri);
-            task->normal_path = g_strdup(normal_path);
-            task->large_path = g_strdup(large_path);
-            /* push the whole task into generator queue */
-            g_static_rec_mutex_lock(&queue_lock);
-            queue_generate(task); /* consumes the task */
-            g_static_rec_mutex_unlock(&queue_lock);
-            return;
-        }
-#endif
         /* remove all requests which requires re-generating thumbnails from task and gather them in a list */
         g_static_rec_mutex_lock(&queue_lock); /* no request should be changed or left out without lock */
         for(l=task->requests; l; )
@@ -662,16 +646,6 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
             task->requests = g_list_delete_link(task->requests, l2);
             if(!task->requests) /* no one is requesting this thumbnail */
             {
-#if 0
-                if(l == generator_queue.head) /* this is the currently processed item */
-                {
-                    task->cancelled = TRUE;
-                    if(generator_cancellable)
-                        g_cancellable_cancel(generator_cancellable);
-                    g_queue_delete_link(&generator_queue, l);
-                }
-                else
-#endif
                 {
                     g_queue_delete_link(&generator_queue, l);
                     thumbnail_task_free(task);

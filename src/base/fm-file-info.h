@@ -133,10 +133,6 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 FmFileInfoList* fm_file_info_list_new();
 //FmFileInfoList* fm_file_info_list_new_from_glist();
 
-#if 0
-gboolean fm_list_is_file_info_list(FmList* list);
-#endif
-
 static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
 {
     return list ? (FmFileInfoList*)fm_list_ref((FmList*)list) : NULL;

@@ -793,7 +793,6 @@ gboolean fm_file_info_is_text(FmFileInfo* fi)
 gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
 {
     return fi->mime_type == desktop_entry_type;
-    /* return g_strcmp0(fi->mime_type->type, "application/x-desktop") == 0; */
 }
 
 /**

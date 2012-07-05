@@ -49,7 +49,6 @@ static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_deep_count_job_run;
-    //job_class->finished = NULL;
 }
 
 

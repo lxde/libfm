@@ -142,7 +142,6 @@ static gboolean on_timeout(gpointer user_data)
     char size_str[128];
     FmDeepCountJob* dc = data->dc_job;
 
-    //gdk_threads_enter();
 
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
@@ -161,7 +160,6 @@ static gboolean on_timeout(gpointer user_data)
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
     }
-    //gdk_threads_leave();
     return TRUE;
 }
 

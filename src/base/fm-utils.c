@@ -150,8 +150,6 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 {
                     int cwd_len;
                     const char* sep;
-                    /* if(!cwd)
-                        cwd = _cwd = g_get_current_dir(); */
 
                     sep = strrchr(cwd, '/');
                     if(sep && sep != cwd)
@@ -233,8 +231,6 @@ char* fm_strdup_replace(char* str, char* old, char* new)
         g_string_append(buf, new);
         str = found + strlen(old);
     }
-    /* for(; *str; ++str)
-        g_string_append_c(buf, *str); */
     g_string_append(buf, str);
     return g_string_free(buf, FALSE);
 }

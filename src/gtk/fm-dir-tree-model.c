@@ -835,7 +835,7 @@ static void on_folder_files_removed(FmFolder* folder, GSList* files, GList* item
     GSList* l;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
-    /* GtkTreePath* tp = item_to_tree_path(model, item_l); */
+
     for(l = files; l; l = l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
@@ -845,7 +845,6 @@ static void on_folder_files_removed(FmFolder* folder, GSList* files, GList* item
         if(rm_item_l)
             remove_item(model, rm_item_l);
     }
-    /* gtk_tree_path_free(tp); */
 }
 
 static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item_l)

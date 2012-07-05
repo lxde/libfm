@@ -844,32 +844,6 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     /* not required for hidden files */
     gboolean update_view;
     FmFolderItem* item = NULL;
-#if 0
-    /* If there is no file info, that means the dir itself was deleted. */
-    if( G_UNLIKELY(!file) )
-    {
-        /* Clear the whole list */
-        GSequenceIter *items_it = g_sequence_get_begin_iter(model->items);
-        path = gtk_tree_path_new_from_indices(0, -1);
-        while( !g_sequence_iter_is_end(items_it) )
-        {
-            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), path);
-            file  = (VFSFileInfo*)g_sequence_get(items_it);
-            items_it = g_sequence_iter_next(it);
-            vfs_file_info_unref(file);
-        }
-        for( l = model->items; l; l = model->items )
-        {
-            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), path);
-            file = (VFSFileInfo*)l->data;
-            model->items = g_list_delete_link(model->items, l);
-            vfs_file_info_unref(file);
-        }
-        g_sequence_remove_range( g_sequence_get_begin_iter(model->items), g_sequence_get_end_iter(model->items) );
-        gtk_tree_path_free(path);
-        return;
-    }
-#endif
 
     if( !model->show_hidden && fm_file_info_is_hidden(file) ) /* if this is a hidden file */
     {
@@ -1053,53 +1027,6 @@ static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
 {
     reload_icons(model, RELOAD_ICONS);
 }
-
-#if 0
-/* disabled as it may corrupt stack/heap in common_suffix */
-void fm_folder_model_get_common_suffix_for_prefix(FmFolderModel* model,
-                                                  const gchar* prefix,
-                                                  gboolean (*file_info_predicate)(FmFileInfo*),
-                                                  gchar* common_suffix)
-{
-    GSequenceIter *item_it;
-    gint prefix_len;
-    gboolean common_suffix_initialized = FALSE;
-
-    g_return_if_fail(common_suffix != NULL);
-
-    if( !model )
-        return;
-
-    prefix_len = strlen(prefix);
-    common_suffix[0] = 0;
-
-    for( item_it = g_sequence_get_begin_iter(model->items);
-        !g_sequence_iter_is_end(item_it);
-        item_it = g_sequence_iter_next(item_it) )
-    {
-        FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
-        gboolean predicate_ok = (file_info_predicate == NULL) || file_info_predicate(item->inf);
-        gint i = 0;
-        if( predicate_ok && g_str_has_prefix(fm_file_info_get_disp_name(item->inf), prefix) )
-        {
-            const char* disp_name = fm_file_info_get_disp_name(item->inf);
-            /* first match -> init */
-            if( !common_suffix_initialized )
-            {
-                strcpy(common_suffix,  disp_name + prefix_len);
-                common_suffix_initialized = TRUE;
-            }
-            else
-            {
-                while( common_suffix[i] == disp_name[prefix_len + i] )
-                    i++;
-                common_suffix[i] = 0;
-            }
-
-        }
-    }
-}
-#endif
 
 gboolean fm_folder_model_find_iter_by_filename(FmFolderModel* model, GtkTreeIter* it, const char* name)
 {
