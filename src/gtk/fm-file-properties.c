@@ -443,9 +443,9 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
-            g_object_weak_ref(G_OBJECT(job), (GWeakNotify)gtk_widget_destroy, data->dlg);
+            g_object_weak_ref(G_OBJECT(job), (GWeakNotify)gtk_widget_destroy, dlg);
             /* show progress dialog */
-            fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
+            fm_file_ops_job_run_with_progress(GTK_WINDOW(dlg), job);
                                                         /* it eats reference! */
             fm_path_list_unref(paths);
         }
@@ -503,7 +503,7 @@ static void update_permissions(FmFilePropData* data)
     gboolean mix_flags = FALSE;
     struct group* grp = NULL;
     struct passwd* pw = NULL;
-    char unamebuf[64];
+    char unamebuf[1024];
     struct group grpb;
     struct passwd pwb;
 
