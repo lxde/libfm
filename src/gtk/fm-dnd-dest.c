@@ -477,13 +477,13 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             GdkModifierType mask = 0;
             gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
             mask &= (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
-            /* use Ctrl for Move, Shift for Copy, Ctrl+Shift for Link */
+            /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
             if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))
                 action = GDK_ACTION_LINK;
             else if(mask == GDK_SHIFT_MASK)
-                action = GDK_ACTION_COPY;
-            else if(mask == GDK_CONTROL_MASK)
                 action = GDK_ACTION_MOVE;
+            else if(mask == GDK_CONTROL_MASK)
+                action = GDK_ACTION_COPY;
             else
             /* FIXME: make decision based on config: Auto / Copy / Ask */
             if(dd->src_dev || dd->src_fs_id) /* we know the device of dragged source files */
