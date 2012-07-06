@@ -8,6 +8,7 @@ src/base/fm-utils.c
 src/base/fm-file-info.c
 src/base/fm-file-launcher.c
 src/base/fm-path.c
+src/base/fm-mime-type.c
 src/gtk/fm-progress-dlg.c
 src/gtk/fm-file-properties.c
 src/gtk/fm-places-view.c
