@@ -139,7 +139,7 @@ static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
 }
 static inline void fm_file_info_list_unref(FmFileInfoList* list)
 {
-    g_return_if_fail(list);
+    if(list == NULL) return;
     fm_list_unref((FmList*)list);
 }
 
