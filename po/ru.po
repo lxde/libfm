@@ -958,3 +958,19 @@ msgstr "оптический диск"
 
 #~ msgid "Opacity of the selection box"
 #~ msgstr "Прозрачность рамки выделения"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Only owner and group"
+msgstr "Только владелец и группа"
+
+#: ../src/gtk/fm-file-properties.c:619
+msgid "<b>Access content:</b>"
+msgstr "<b>Доступ к содержимому:</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>Change content:</b>"
+msgstr "<b>Менять содержимое:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>View content:</b>"
+msgstr "<b>Просматривать:</b>"
