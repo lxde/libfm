@@ -107,19 +107,23 @@ AC_ARG_ENABLE([exif],
     AS_HELP_STRING([--disable-exif],
         [disable libexif which is used for faster thumbnail loading.]),
     [enable_exif="${enableval}"],
-    [enable_exif=yes]
+    [enable_exif=auto]
 )
 AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" != x"no")
 AS_IF([test x"$enable_exif" != x"no"], [
-    # turn on libexif support
-    AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif])
-
     # test for availability of libexif
     exif_modules="libexif"
-    PKG_CHECK_MODULES(EXIF, [$exif_modules])
-    AC_SUBST(EXIF_CFLAGS)
-    AC_SUBST(EXIF_LIBS)
-])
+    PKG_CHECK_MODULES(EXIF, [$exif_modules],
+        [# turn on libexif support
+        enable_exif=yes
+        AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif]),
+        AC_SUBST(EXIF_CFLAGS)
+        AC_SUBST(EXIF_LIBS)],
+        [AS_IF([test x"$enable_exif" = x"auto"], [enable_exif=no], [
+            AC_ERROR([Package requirements (libexif) were not met:
+
+$EXIF_PKG_ERRORS
+])])])])
 
 #check for gtk-doc
 GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
