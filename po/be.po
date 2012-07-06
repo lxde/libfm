@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-04-04 23:30+0200\n"
+"PO-Revision-Date: 2012-07-07 01:39+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -78,7 +78,7 @@ msgid ""
 msgstr ""
 "<b>Файл з такой назвай ужо існуе ў выбраным месцы</b>\n"
 "\n"
-"Замяніць наяўны файл?"
+"Замяніць наяўны файл"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "with the following file?"
@@ -157,44 +157,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Група:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Паштовы кліент</b>"
+msgstr "<b>Глядзець змест:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Мэта:</b>"
+msgstr "<b>Змяняць змест:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Іншае:</b>"
+msgstr "<b>Выконваць:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Адкрываць:</b>"
+msgstr "<b>Адмысловыя біты:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Хто можа чытаць змест файла/каталога"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Хто можа змяняць змест файла/каталога"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Хто можа выконваць файл ці адкрываць каталог"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Адмысловыя сцягі для выканання файла"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Адмысловыя сцягі для доступу да каталога"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -214,39 +210,39 @@ msgstr "Нічога"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Ліпучы"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Устаноўлены GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Ліпучы & устаноўлены GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Устаноўлены UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Устаноўлены UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Ніхто"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Толькі ўладальнік"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Толькі ўладальнік і група"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Хто-хоця"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -321,7 +317,7 @@ msgstr "Выканаць файл"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Выканаць у эмулятары тэрмінала"
+msgstr "Выканаць у эмулятары _тэрмінала"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
@@ -487,9 +483,8 @@ msgid ""
 msgstr "Жадаеце прымяніць змены рэкурсіўна да ўсіх файлаў і падкаталогаў?"
 
 #: ../src/gtk/fm-file-properties.c:617
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Правы доступу</b>"
+msgstr "<b>Доступ да зместу:</b>"
 
 #: ../src/gtk/fm-file-properties.c:732
 msgid "Files of different types"
