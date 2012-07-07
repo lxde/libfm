@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2011-12-14 14:39+0200\n"
+"PO-Revision-Date: 2012-07-07 11:44+0200\n"
 "Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -159,44 +159,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Grupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Cliente de correo</b>"
+msgstr "<b>Ver o contido:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Destino:</b>"
+msgstr "<b>Cambiar o contido:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Outro:</b>"
+msgstr "<b>Executar:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Abrir _con:</b>"
+msgstr "<b>Bits especiais:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Quen pode ver o contido do ficheiro/directorio"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Quen pode cambiar o contido do ficheiro/directorio"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Quen pode executar o ficheiro ou entrar no directorio"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Marcas especiais para a execución de ficheiros"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Marcas especiais para o acceso aos directorios"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -216,39 +212,39 @@ msgstr "Ningunha"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Persistente"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Estabelecer o GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Persistente e Estabelecer o GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Estabelecer o UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Estabelecer o UID e o GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Ninguén"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Só o propietario"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Só o propietario e o grupo"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Ninguén"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -275,7 +271,7 @@ msgstr "<b>Tempo restante:</b>"
 
 #: ../data/ui/progress.glade.h:9
 msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Producironse algúns erros:</b>"
+msgstr "<b>Producíronse algúns erros:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
@@ -489,9 +485,8 @@ msgstr ""
 "subcartafoles?"
 
 #: ../src/gtk/fm-file-properties.c:617
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Control de acceso</b>"
+msgstr "<b>Acceso ao contido:</b>"
 
 #: ../src/gtk/fm-file-properties.c:732
 msgid "Files of different types"
