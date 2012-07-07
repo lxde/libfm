@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-01-22 18:40+0200\n"
+"PO-Revision-Date: 2012-07-07 13:34+0200\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -77,7 +77,7 @@ msgid ""
 msgstr ""
 "<b>Sellise nimega fail on juba olemas.</b>\n"
 "\n"
-"Kas soovid olemasoleva faili üle kirjutada?"
+"Kas soovid olemasoleva faili üle kirjutada"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "with the following file?"
@@ -89,7 +89,7 @@ msgstr "Faili nimi:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "Apply this option to all existing files"
-msgstr "Rakenda sama toiming kõigile failidele"
+msgstr "Teosta sama toiming kõigi failidega"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Skip"
@@ -156,44 +156,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Grupp:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Meili programm</b>"
+msgstr "<b>Sisu vaatamine:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Sihtkoht:</b>"
+msgstr "<b>Sisu muutmine:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Muu:</b>"
+msgstr "<b>Käivitamine:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Ava _teise rakendusega:</b>"
+msgstr "<b>Ekstra bitid:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Kes võivad lugeda faili/kataloogi sisu"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Kes võivad muuta faili/kataloogi sisu"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Kes võivad käivitada faili/kataloogi sisu"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Faili käivitamise ekstra lipud"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Kataloog juurdepääsu ekstra lipud"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -213,39 +209,39 @@ msgstr "Ei midagi"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Kleepuv"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "GID määramine"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Kleepuv ja määratud GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "UID määramine"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "UID ja GID määramine"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Mitte keegi"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Ainult omanik"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Ainult omanik ja grupp"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Igaüks"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -284,7 +280,7 @@ msgstr "<b>Veebilehitseja</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Eelistatud veebilehitsejat kasutatakse veebilinkide avamisel"
+msgstr "Eelistatud veebilehitsejat kasutatakse veebilinkide avamisel."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
@@ -419,7 +415,7 @@ msgstr "Tühistatud"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is finished, but there are some errors."
-msgstr "Failitoiming on lõpetatud, kuid tuli ette ka vigu"
+msgstr "Failitoiming on lõpetatud, kuid tuli ette ka vigu."
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid "Finished"
@@ -485,9 +481,8 @@ msgstr ""
 "Kas soovid rakendada need toimingud kõigile failidele ja alamkataloogidele?"
 
 #: ../src/gtk/fm-file-properties.c:617
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Juurdepääsu kontroll</b>"
+msgstr "<b>Sisule juurdepääs:</b>"
 
 #: ../src/gtk/fm-file-properties.c:732
 msgid "Files of different types"
@@ -632,7 +627,7 @@ msgstr "Vajab süsteemihaldaja kasutusõigusi."
 
 #: ../src/gtk/fm-gtk-utils.c:618
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Kas soovid tõsta valitud failid prügikasti?"
+msgstr "Kas soovid valitud failid prügikasti tõsta?"
 
 #: ../src/gtk/fm-gtk-utils.c:639
 msgid "Do you want to delete the selected files?"
@@ -705,11 +700,11 @@ msgstr "Töölaud"
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "CD ketas"
+msgstr "CD-ROM ketas"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr "Tühi CD ketas"
+msgstr "Tühi CD-ROM ketas"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
