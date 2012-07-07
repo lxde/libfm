@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-07-07 21:41+0200\n"
+"PO-Revision-Date: 2012-07-08 01:22+0200\n"
 "Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -51,6 +51,11 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
+"<b>Kode berezi hauek erabili daitezke komando lerroan:</b>\n"
+"  <b>%f</b>: Fitxategi-izen bakar bat adierazten du\n"
+"  <b>%F</b>: Hainbat fitxategi-izen adierazten ditu\n"
+"  <b>%u</b>: Fitxategiaren URI bakar bat adierazten du\n"
+"  <b>%U</b>: Hainbat URI adierazten ditu"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Custom Command Line"
@@ -135,6 +140,7 @@ msgstr "<b>Ireki _honekin:</b>"
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
 msgstr ""
+"Hautatu mota honetako fitxategiak irekitzeko erabili beharreko aplikazioa "
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -182,15 +188,15 @@ msgstr "Nork exekuta dezakeen fitxategia edo nor sar daitekeen direktoriora"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Fitxategien exekuziorako bandera bereziak"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Direktorioen atzipenerako bandera bereziak"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
-msgstr ""
+msgstr "<b>Atzipen-kontrola</b>"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "_Permissions"
@@ -404,7 +410,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:327
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Fitxategi-eragiketa ezeztatu da eta zenbait errore daude."
 
 #: ../src/gtk/fm-progress-dlg.c:329
 msgid "Cancelled"
@@ -412,7 +418,7 @@ msgstr "Ezeztatuta"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Fitxategi-eragiketa amaitu da, baina zenbait errore daude."
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid "Finished"
@@ -424,6 +430,9 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Zenbait fitxategi ezin dira zakarrontzira mugitu fitxategi-sistemak ez "
+"duelako eragiketa hau onartzen.\n"
+"Zuzenean ezabatu nahi dituzu?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
 msgid ", "
@@ -451,7 +460,7 @@ msgstr "Esteka sinbolikoak sortzen"
 
 #: ../src/gtk/fm-progress-dlg.c:503
 msgid "Changing file attributes"
-msgstr ""
+msgstr "Fitxategi-atributuak aldatzen"
 
 #: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
 msgid "byte"
@@ -461,29 +470,31 @@ msgstr[1] "byte"
 
 #: ../src/gtk/fm-file-properties.c:221
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
+msgstr "Mesedez sartu baliozko erabiltzaile-izen edo zenbakizko id bat."
 
 #: ../src/gtk/fm-file-properties.c:251
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
+msgstr "Mesedez sartu baliozko talde-izen edo zenbakizko id bat."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:437
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
+"Aldaketa hauek errekurtsiboki aplikatu nahi dizkiezu fitxategi eta azpi-"
+"karpeta guztiei?"
 
 #: ../src/gtk/fm-file-properties.c:617
 msgid "<b>Access content:</b>"
-msgstr ""
+msgstr "<b>Atzitu edukia:</b>"
 
 #: ../src/gtk/fm-file-properties.c:732
 msgid "Files of different types"
-msgstr ""
+msgstr "Mota desberdinetako fitxategiak"
 
 #: ../src/gtk/fm-file-properties.c:769
 msgid "Multiple Files"
-msgstr ""
+msgstr "Hainbat fitxategi"
 
 #: ../src/gtk/fm-places-view.c:87
 msgid "Mount Volume"
@@ -616,7 +627,7 @@ msgstr "Mesedez hautatu karpeta bat"
 
 #: ../src/gtk/fm-gtk-utils.c:539
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Sistemaren administratzaileek soilik dute honetarako baimena."
 
 #: ../src/gtk/fm-gtk-utils.c:618
 msgid "Do you want to move the selected files to trash can?"
@@ -644,6 +655,8 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
+"'%s' testu-fitxategia script exekutagarri bat dela dirudi.\n"
+"Zer egin nahi duzu berarekin?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:107
 #, c-format
@@ -652,7 +665,7 @@ msgstr "'%s' fitxategia exekutagarria da. Exekutatu nahi duzu?"
 
 #: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Azpikarpetarik ez>"
 
 #: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
 msgid "Loading..."
@@ -670,15 +683,15 @@ msgstr "Jatorria eta helburua berdinak dira."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
+msgstr "Ezin da karpeta bat bere azpikarpeta batetara mugitu"
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
+msgstr "Ezin da karpeta bat bere azpikarpetara kopiatu"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr ""
+msgstr "Helburua jatorriaren azpikarpeta bat da"
 
 #: ../src/gtk/fm-places-model.c:602
 msgid "Trash"
