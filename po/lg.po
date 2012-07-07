@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2011-06-14 14:12+0200\n"
+"PO-Revision-Date: 2012-07-07 20:08+0200\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -156,48 +156,44 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Guluupu:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Puloguramu eya email</b>"
+msgstr "<b>Laba ebirimu:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Kigenderwa:</b>"
+msgstr "<b>Kyusamu ebirimu:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Balala:</b>"
+msgstr "<b>Tandika mulimu:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>B_ikkuza:</b>"
+msgstr "<b>Ebigambo ebiw'endukusa ez'enjawulo:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Abakkirizibwa okulaba ebiri mu fayiro/tterekero"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Abakkirizibwa okukyusa ebiri mu fayiro/tterekero"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Abakkirizibwa okutandika omulimu guno oba okuyingira etterekero lino"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Ebigambo ebifuula enkola y'omulimu ogukolebwa fayiro eno"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Ebigambo ebifuga okuyingira mu tterekero lino"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
-msgstr "<b>Eby'endukusa</b>"
+msgstr "<b>Enteekateeka ya Ndukusa</b>"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "_Permissions"
@@ -213,15 +209,15 @@ msgstr "Bwereere"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Olukusa olw'obwanannyini"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Olukusa oluyingiza mu guluupu"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Olukusa olw'obwanannyini n'olokusa oluyingiza mu guluupu"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
