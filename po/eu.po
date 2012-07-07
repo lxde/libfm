@@ -3,44 +3,44 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-07-07 15:34+0200\n"
+"Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
-msgstr ""
+msgstr "Aukeratu aplikazio bat"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr ""
+msgstr "<b>Ireki beharreko fitxategi mota:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "Installed Application"
-msgstr ""
+msgstr "Instalatutako aplikazioa"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
-msgstr ""
+msgstr "<b>Exekutatu beharreko komando lerroa:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 msgid "_Browse"
-msgstr ""
+msgstr "_Arakatu"
 
 #: ../data/ui/app-chooser.glade.h:6
 msgid "Execute in terminal emulator"
-msgstr ""
+msgstr "Exekutatu terminal-emuladorean"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -54,15 +54,17 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Komando lerro pertsonalizatua"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "Set selected application as default action of this file type"
 msgstr ""
+"Ezarri hautatutako aplikazioa fitxategi mota honentzako ekintza lehenetsi "
+"bezala"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
-msgstr ""
+msgstr "Berretsi fitxategiak ordezkatzeko"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid ""
@@ -70,62 +72,65 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
+"<b>Kokapen honetan dagoeneko badago izen hori duen fitxategi bat.</b>\n"
+"\n"
+"Existitzen den fitxategi hori ordezkatu nahi duzu"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "with the following file?"
-msgstr ""
+msgstr "ondorengo fitxategiarekin?"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
-msgstr ""
+msgstr "Fitxategi-izena:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "Apply this option to all existing files"
-msgstr ""
+msgstr "Aplikatu aukera hau existitzen diren fitxategi guztiei"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Skip"
-msgstr ""
+msgstr "_Saltatu"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Rename"
-msgstr ""
+msgstr "_Berrizendatu"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Overwrite"
-msgstr ""
+msgstr "_Gainidatzi"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
-msgstr ""
+msgstr "Fitxategiaren propietateak"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>File Type:</b>"
-msgstr ""
+msgstr "<b>Fitxategi-mota:</b>"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>Total Size of Files:</b>"
-msgstr ""
+msgstr "<b>Fitxategien guztizko tamaina:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Last Modification:</b>"
-msgstr ""
+msgstr "<b>Azken aldaketa:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr ""
+msgstr "<b>Azken atzipena:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Location:</b>"
-msgstr ""
+msgstr "<b>Kokapena:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Size on Disk:</b>"
-msgstr ""
+msgstr "<b>Tamaina diskoan:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr ""
+msgstr "<b>Ireki _honekin:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
@@ -133,47 +138,47 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
-msgstr ""
+msgstr "<b>Helburua:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "_General"
-msgstr ""
+msgstr "_Orokorra"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>_Owner:</b>"
-msgstr ""
+msgstr "<b>_Jabea:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>_Group:</b>"
-msgstr ""
+msgstr "<b>_Taldea:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>View content:</b>"
-msgstr ""
+msgstr "<b>Ikusi edukia:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>Change content:</b>"
-msgstr ""
+msgstr "<b>Aldatu edukia:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>Execute:</b>"
-msgstr ""
+msgstr "<b>Exekutatu:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
-msgstr ""
+msgstr "<b>Bit bereziak:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Nork irakur dezakeen fitxategi/direktorioaren edukia"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Nork alda dezakeen fitxategi/direktorioaren edukia"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Nork exekuta dezakeen fitxategia edo nor sar daitekeen direktoriora"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
@@ -189,15 +194,15 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "_Permissions"
-msgstr ""
+msgstr "_Baimenak"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "None"
-msgstr ""
+msgstr "Bat ere ez"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
@@ -312,8 +317,8 @@ msgstr ""
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "byte %u"
+msgstr[1] "%u byte"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
@@ -373,7 +378,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ""
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
 #, c-format
@@ -444,8 +449,8 @@ msgstr ""
 #: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "byte"
+msgstr[1] "byte"
 
 #: ../src/gtk/fm-file-properties.c:221
 msgid "Please enter a valid user name or numeric id."
