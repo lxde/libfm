@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-07-07 11:05+0200\n"
+"PO-Revision-Date: 2012-07-07 12:50+0200\n"
 "Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -157,24 +157,20 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Skupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Poštni odjemalec</b>"
+msgstr "<b>Branje:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Cilj:</b>"
+msgstr "<b>Pisanje:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Drugi:</b>"
+msgstr "<b>Izvajanje:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Odpri _z:</b>"
+msgstr "<b>Posebni biti:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
@@ -214,7 +210,7 @@ msgstr "Brez"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Lepljivo"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
@@ -222,7 +218,7 @@ msgstr "Nastavi GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Nastavi GID in lepljivost"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
@@ -489,9 +485,8 @@ msgstr ""
 "Ali želite rekurzivno uveljaviti te spremembe na vseh datotekah in podmapah?"
 
 #: ../src/gtk/fm-file-properties.c:617
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Dostop</b>"
+msgstr "<b>Dostop:</b>"
 
 #: ../src/gtk/fm-file-properties.c:732
 msgid "Files of different types"
