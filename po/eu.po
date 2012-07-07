@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-07-07 15:34+0200\n"
+"PO-Revision-Date: 2012-07-07 21:41+0200\n"
 "Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -206,112 +206,114 @@ msgstr "Bat ere ez"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Itsaskorra"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Ezarri GIDa"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Itsaskorra eta ezarri GIDa"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Ezarri UIDa"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Ezarri UIDa eta GIDa"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Inor ez"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Soilik jabea"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Soilik jabea eta taldea"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Edonor"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
 msgid "Preparing..."
-msgstr ""
+msgstr "Prestatzen..."
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
-msgstr ""
+msgstr "<b>Prozesatzen:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
-msgstr ""
+msgstr "<b>Hona:</b>"
 
 #: ../data/ui/progress.glade.h:7
 msgid "<b>Progress:</b>"
-msgstr ""
+msgstr "<b>Aurrerapena:</b>"
 
 #: ../data/ui/progress.glade.h:8
 msgid "<b>Time remaining:</b>"
-msgstr ""
+msgstr "<b>Geratzen den denbora:</b>"
 
 #: ../data/ui/progress.glade.h:9
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Errore batzuk gertatu dira:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr ""
+msgstr "Hobetsitako aplikazioak"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
-msgstr ""
+msgstr "<b>Web-arakatzailea</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Hobetsitako web-arakatzailea erabiliko da hiperestekak irekitzeko."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Posta bezeroa</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Hobetsitako Posta bezeroa erabiliko da helbide elektroniko batean klik "
+"egitean e-postak idazteko."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Terminal-emuladorea</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
-msgstr ""
+msgstr "Komando lerroa:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
-msgstr ""
+msgstr "Sistemaren aplikazioak"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
-msgstr ""
+msgstr "Fitxategi elkarketak"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr ""
+msgstr "Exekutatu fitxategia"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr ""
+msgstr "Exekutatu _Terminalean"
 
 #: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
@@ -322,59 +324,59 @@ msgstr[1] "%u byte"
 
 #: ../src/base/fm-utils.c:62
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:67
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:72
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:77
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:91
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:96
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:101
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:106
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-path.c:720
 msgid "Trash Can"
-msgstr ""
+msgstr "Zakarrontzia"
 
 #: ../src/base/fm-path.c:722
 msgid "My Computer"
-msgstr ""
+msgstr "Nire ordenagailua"
 
 #: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
 msgid "Applications"
-msgstr ""
+msgstr "Aplikazioak"
 
 #: ../src/base/fm-path.c:733
 msgid "Network"
-msgstr ""
+msgstr "Sarea"
 
 #: ../src/base/fm-mime-type.c:60
 msgid "Shortcuts"
-msgstr ""
+msgstr "Lasterbideak"
 
 #: ../src/base/fm-mime-type.c:63
 msgid "Mount Point"
-msgstr ""
+msgstr "Muntatze-puntua"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
@@ -387,6 +389,9 @@ msgid ""
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Mota: %s\n"
+"Tamaina: %s\n"
+"Aldatuta: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
 #, c-format
@@ -394,6 +399,8 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Mota: %s\n"
+"Aldatuta: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:327
 msgid "The file operation is cancelled and there are some errors."
@@ -401,7 +408,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:329
 msgid "Cancelled"
-msgstr ""
+msgstr "Ezeztatuta"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is finished, but there are some errors."
@@ -409,7 +416,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid "Finished"
-msgstr ""
+msgstr "Amaituta"
 
 #: ../src/gtk/fm-progress-dlg.c:357
 msgid ""
@@ -420,27 +427,27 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:472
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:488
 msgid "Moving files"
-msgstr ""
+msgstr "Fitxategiak mugitzen"
 
 #: ../src/gtk/fm-progress-dlg.c:491
 msgid "Copying files"
-msgstr ""
+msgstr "Fitxategiak kopiatzen"
 
 #: ../src/gtk/fm-progress-dlg.c:494
 msgid "Trashing files"
-msgstr ""
+msgstr "Fitxategiak zakarrontzira botatzen"
 
 #: ../src/gtk/fm-progress-dlg.c:497
 msgid "Deleting files"
-msgstr ""
+msgstr "Fitxategiak ezabatzen"
 
 #: ../src/gtk/fm-progress-dlg.c:500
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Esteka sinbolikoak sortzen"
 
 #: ../src/gtk/fm-progress-dlg.c:503
 msgid "Changing file attributes"
@@ -480,132 +487,132 @@ msgstr ""
 
 #: ../src/gtk/fm-places-view.c:87
 msgid "Mount Volume"
-msgstr ""
+msgstr "Muntatu bolumena"
 
 #: ../src/gtk/fm-places-view.c:88
 msgid "Unmount Volume"
-msgstr ""
+msgstr "Desmuntatu bolumena"
 
 #: ../src/gtk/fm-places-view.c:89
 msgid "Eject Removable Media"
-msgstr ""
+msgstr "Egotzi gailu aldagarria"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
 msgid "Rename Bookmark Item"
-msgstr ""
+msgstr "Berrizendatu laster-marka elementua"
 
 #: ../src/gtk/fm-places-view.c:103
 msgid "Remove from Bookmark"
-msgstr ""
+msgstr "Kendu laster-markatik"
 
 #: ../src/gtk/fm-places-view.c:115
 msgid "Empty Trash"
-msgstr ""
+msgstr "Hustu zakarrontzia"
 
 #: ../src/gtk/fm-places-view.c:808
 msgid "Enter a new name:"
-msgstr ""
+msgstr "Sartu izen berri bat:"
 
 #: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
 msgid "Places"
-msgstr ""
+msgstr "Lekuak"
 
 #: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
 msgid "Directory Tree"
-msgstr ""
+msgstr "Direktorio-zuhaitza"
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Urrunekoa"
 
 #: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
 msgid "Open With..."
-msgstr ""
+msgstr "Ireki honekin..."
 
 #: ../src/gtk/fm-file-menu.c:114
 msgid "Rename"
-msgstr ""
+msgstr "Berrizendatu"
 
 #: ../src/gtk/fm-file-menu.c:115
 msgid "Create Symlink"
-msgstr ""
+msgstr "Sortu esteka sinbolikoa"
 
 #: ../src/gtk/fm-file-menu.c:116
 msgid "Send To"
-msgstr ""
+msgstr "Bidali hona"
 
 #: ../src/gtk/fm-file-menu.c:117
 msgid "Compress..."
-msgstr ""
+msgstr "Konprimatu..."
 
 #: ../src/gtk/fm-file-menu.c:118
 msgid "Extract Here"
-msgstr ""
+msgstr "Erauzi hemen"
 
 #: ../src/gtk/fm-file-menu.c:119
 msgid "Extract To..."
-msgstr ""
+msgstr "Erauzi hona..."
 
 #: ../src/gtk/fm-file-menu.c:385
 msgid "_Restore"
-msgstr ""
+msgstr "_Leheneratu"
 
 #: ../src/gtk/fm-file-menu.c:386
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Leheneratu fitxategiak jatorrizko lekuetara"
 
 #: ../src/gtk/fm-dnd-dest.c:389
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "XDirectSave-k huts egin du."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Erabili hautatutako aplikazioa fitxategiak irekitzeko"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:109
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Exekutatu komando lerro pertsonalizatua fitxategiak irekitzeko"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:188
 msgid "Customize"
-msgstr ""
+msgstr "Pertsonalizatu"
 
 #: ../src/gtk/fm-folder-view.c:591
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: ../src/gtk/fm-folder-view.c:610
 msgid "Description"
-msgstr ""
+msgstr "Deskribapena"
 
 #: ../src/gtk/fm-folder-view.c:617
 msgid "Size"
-msgstr ""
+msgstr "Tamaina"
 
 #: ../src/gtk/fm-folder-view.c:623
 msgid "Modified"
-msgstr ""
+msgstr "Aldatuta"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Instalatutako aplikazioak"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Errorea"
 
 #: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
 msgid "Confirm"
-msgstr ""
+msgstr "Berretsi"
 
 #: ../src/gtk/fm-gtk-utils.c:117
 msgid "Question"
-msgstr ""
+msgstr "Galdera"
 
 #: ../src/gtk/fm-gtk-utils.c:381
 msgid "Please select a folder"
-msgstr ""
+msgstr "Mesedez hautatu karpeta bat"
 
 #: ../src/gtk/fm-gtk-utils.c:539
 msgid "Only system administrators have the permission to do this."
@@ -613,23 +620,23 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:618
 msgid "Do you want to move the selected files to trash can?"
-msgstr ""
+msgstr "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:639
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Hautatutako fitxategiak ezabatu nahi dituzu?"
 
 #: ../src/gtk/fm-gtk-utils.c:686
 msgid "Rename File"
-msgstr ""
+msgstr "Berrizendatu fitxategia"
 
 #: ../src/gtk/fm-gtk-utils.c:687
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Mesedez sartu izen berri bat:"
 
 #: ../src/gtk/fm-gtk-utils.c:711
 msgid "Are you sure you want to empty the trash can?"
-msgstr ""
+msgstr "Ziur zaude zakarrontzia hustu nahi duzula?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:100
 #, c-format
@@ -641,7 +648,7 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:107
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr ""
+msgstr "'%s' fitxategia exekutagarria da. Exekutatu nahi duzu?"
 
 #: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
 msgid "<No Sub Folder>"
@@ -649,17 +656,17 @@ msgstr ""
 
 #: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
 #: ../src/job/fm-dir-list-job.c:348
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Zehazturiko direktorioa ez da baliozkoa"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr ""
+msgstr "Jatorria eta helburua berdinak dira."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
@@ -675,169 +682,169 @@ msgstr ""
 
 #: ../src/gtk/fm-places-model.c:602
 msgid "Trash"
-msgstr ""
+msgstr "Zakarrontzia"
 
 #: ../src/gtk/fm-places-model.c:658
 msgid "Desktop"
-msgstr ""
+msgstr "Mahaigaina"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM diskoa"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
-msgstr ""
+msgstr "CD-ROM disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "CD-R Disc"
-msgstr ""
+msgstr "CD-R diskoa"
 
 #: ../src/udisks/g-udisks-device.c:42
 msgid "Blank CD-R Disc"
-msgstr ""
+msgstr "CD-R disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "CD-RW Disc"
-msgstr ""
+msgstr "CD-RW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:43
 msgid "Blank CD-RW Disc"
-msgstr ""
+msgstr "CD-RW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM diskoa"
 
 #: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
-msgstr ""
+msgstr "DVD-ROM disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:46
 msgid "Blank DVD-RW Disc"
-msgstr ""
+msgstr "DVD-RW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM diskoa"
 
 #: ../src/udisks/g-udisks-device.c:47
 msgid "Blank DVD-RAM Disc"
-msgstr ""
+msgstr "DVD-RAM disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "DVD+R Disc"
-msgstr ""
+msgstr "DVD+R diskoa"
 
 #: ../src/udisks/g-udisks-device.c:48
 msgid "Blank DVD+R Disc"
-msgstr ""
+msgstr "DVD+R disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:49
 msgid "Blank DVD+RW Disc"
-msgstr ""
+msgstr "DVD+RW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL diskoa"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
-msgstr ""
+msgstr "DVD+R DL disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL diskoa"
 
 #: ../src/udisks/g-udisks-device.c:51
 msgid "Blank DVD+RW DL Disc"
-msgstr ""
+msgstr "DVD+RW DL disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray diskoa"
 
 #: ../src/udisks/g-udisks-device.c:52
 msgid "Blank Blu-Ray Disc"
-msgstr ""
+msgstr "Blu-Ray disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R diskoa"
 
 #: ../src/udisks/g-udisks-device.c:53
 msgid "Blank Blu-Ray R Disc"
-msgstr ""
+msgstr "Blu-Ray R disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:54
 msgid "Blank Blu-Ray RW Disc"
-msgstr ""
+msgstr "Blu-Ray RW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "HD DVD Disc"
-msgstr ""
+msgstr "HD DVD diskoa"
 
 #: ../src/udisks/g-udisks-device.c:55
 msgid "Blank HD DVD Disc"
-msgstr ""
+msgstr "HD DVD disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R diskoa"
 
 #: ../src/udisks/g-udisks-device.c:56
 msgid "Blank HD DVD-R Disc"
-msgstr ""
+msgstr "HD DVD-R disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:57
 msgid "Blank HD DVD-RW Disc"
-msgstr ""
+msgstr "HD DVD-RW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "MO Disc"
-msgstr ""
+msgstr "MO diskoa"
 
 #: ../src/udisks/g-udisks-device.c:58
 msgid "Blank MO Disc"
-msgstr ""
+msgstr "MO disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "MRW Disc"
-msgstr ""
+msgstr "MRW diskoa"
 
 #: ../src/udisks/g-udisks-device.c:59
 msgid "Blank MRW Disc"
-msgstr ""
+msgstr "MRW disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "MRW/W Disc"
-msgstr ""
+msgstr "MRW/W diskoa"
 
 #: ../src/udisks/g-udisks-device.c:60
 msgid "Blank MRW/W Disc"
-msgstr ""
+msgstr "MRW/W disko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:299
 msgid "Blank Optical Disc"
-msgstr ""
+msgstr "Disko optiko hutsa"
 
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
-msgstr ""
+msgstr "Disko optikoa"
