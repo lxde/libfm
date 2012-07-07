@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-07 00:51+0200\n"
-"PO-Revision-Date: 2012-07-07 09:23+0300\n"
+"PO-Revision-Date: 2012-07-07 12:50+0300\n"
 "Last-Translator: Julius <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
 "Language: lt\n"
@@ -62,7 +62,7 @@ msgstr "Pasirinktinė komandinė eilutė"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "Set selected application as default action of this file type"
-msgstr "Pasirinkite numatytąją programą šio failo tipo atvėrimui"
+msgstr "Pasirinkite programą su kuria bus atveriami šio tipo failai"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -164,7 +164,7 @@ msgstr "<b>Gali keisti turinį:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>Execute:</b>"
-msgstr "<b>Vykdyti:</b>"
+msgstr "<b>Gali vykdyti:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -579,7 +579,7 @@ msgstr "XDirectSave nepavyko."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Use selected application to open files"
-msgstr "Atverti failams naudoti pasirinktą programą"
+msgstr "Failus atverti naudojant pasirinktą programą"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:109
 msgid "Execute custom command line to open files"
