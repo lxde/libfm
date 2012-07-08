@@ -435,6 +435,10 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             if(data->has_dir && data->exec_perm_sel == NO_CHANGE &&
                data->flags_set_sel == NO_CHANGE)
             {
+                gtk_combo_box_set_active(data->read_perm, data->read_perm_sel);
+                gtk_combo_box_set_active(data->write_perm, data->write_perm_sel);
+                gtk_combo_box_set_active(data->exec_perm, NO_CHANGE);
+                gtk_combo_box_set_active(data->flags_set_dir, NO_CHANGE);
                 /* FIXME: may special bits and exec flags still be messed up? */
                 if(fm_yes_no(GTK_WINDOW(data->dlg), NULL, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
