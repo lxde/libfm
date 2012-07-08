@@ -332,32 +332,73 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
 
 static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 {
-    return FALSE;
-    /* FIXME: it's broken for now but yet unused */
-#if 0
+    gboolean ret = TRUE;
+    GFile *dest_dir;
     GList* l;
-    GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
 
-    job->total = fm_path_list_get_length(job->srcs);
-    l = fm_path_list_peek_head_link(job->srcs);
-    for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
+    dest_dir = fm_path_to_gfile(job->dest);
+
+    /* cannot create links on non-native filesystems */
+    if(!g_file_is_native(dest_dir))
     {
-        GFile* gf = fm_path_to_gfile(FM_PATH(l->data));
-        gboolean ret = g_file_make_symbolic_link(gf, "", fm_job_get_cancellable(fmjob), &err);
-        g_object_unref(gf);
-        if(!ret)
+        /* FIXME: generate error */
+        g_object_unref(dest_dir);
+        return FALSE;
+    }
+
+    job->total = fm_path_list_get_length(job->srcs);
+    g_debug("total files to link: %lu", (ulong)job->total);
+
+    fm_file_ops_job_emit_prepared(job);
+
+    for(l = fm_path_list_peek_head_link(job->srcs);
+        !fm_job_is_cancelled(fmjob) && l; l=l->next)
+    {
+        FmPath* path = FM_PATH(l->data);
+        char* src = fm_path_to_str(path);
+        GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
+        GError* err;
+        char* dname;
+
+        /* showing currently processed file. */
+        dname = fm_path_display_name(path, TRUE);
+        fm_file_ops_job_emit_cur_file(job, dname);
+        g_free(dname);
+
+        if(!g_file_make_symbolic_link(dest, src, fm_job_get_cancellable(fmjob), &err))
         {
-            if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
+            FmJobErrorAction act = FM_JOB_CONTINUE;
+            if(err)
             {
-//                fm_job_emit_error();
+                act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                g_error_free(err);
+                err = NULL;
+            }
+            if(act == FM_JOB_ABORT)
+            {
+                g_free(src);
+                g_object_unref(dest);
+                g_object_unref(dest_dir);
                 return FALSE;
             }
+            ret = FALSE;
         }
-        else
-            ++job->finished;
+        else if(job->dest_folder_mon)
+            g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+
+        job->finished++;
+
+        /* update progress */
         fm_file_ops_job_emit_percent(job);
+
+        g_free(src);
+        g_object_unref(dest);
     }
-    return TRUE;
-#endif
+
+    /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
+    fm_file_ops_job_emit_percent(job);
+
+    g_object_unref(dest_dir);
+    return ret;
 }

@@ -170,7 +170,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
         fm_copy_files(GTK_WINDOW(parent), files, dest);
         break;
     case GDK_ACTION_LINK:
-        // fm_link_files(parent, files, dest);
+        fm_link_files(GTK_WINDOW(parent), files, dest);
         break;
     case GDK_ACTION_ASK:
         g_debug("TODO: GDK_ACTION_ASK");

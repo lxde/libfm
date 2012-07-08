@@ -73,6 +73,7 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive);
 /* File operations */
 void fm_copy_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
 void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
+void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
 
 #define fm_copy_file(parent, file, dest_dir) \
     G_STMT_START {    \

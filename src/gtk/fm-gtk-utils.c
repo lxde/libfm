@@ -613,6 +613,22 @@ void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
     fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
+/**
+ * fm_link_files
+ * @parent:   window to base progress dialog over it
+ * @files:    list of files to make symbolic links to
+ * @dest_dir: directory where symbolic links should be created
+ *
+ * Create symbolic links for some files in the target directory with
+ * progress dialog.
+ */
+void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
+{
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_LINK, files);
+    fm_file_ops_job_set_dest(job, dest_dir);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
+}
+
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
     if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
