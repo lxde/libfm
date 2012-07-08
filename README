@@ -1,10 +1,3 @@
-Compile the program with configure option --sysconfdir=/etc
-
-Notes for compiling the program:
-1. Default configuration files are installed in /etc/xdg/libfm.
-   GNU Autotools by default set sysconfdir to /usr/etc, which is not
-   used by us. So, make sure that you pass --sysconfdir=/etc to configure.
-
 Notes for runtime environment:
 1. The file alteration monitor is done via GFileMonitor built into glib.
    It relies on inotify on Linux, kqueue on FreeBSD, and FAM or gamin
