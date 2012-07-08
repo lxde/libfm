@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-07 00:51+0200\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
 "PO-Revision-Date: 2011-06-14 06:48+0200\n"
 "Last-Translator: Alexander <kazancas@gmail.com>\n"
 "Language-Team: gnome-cyr\n"
@@ -321,7 +321,7 @@ msgstr "Запустить файл"
 msgid "Execute in _Terminal"
 msgstr "Запустить файл в _терминале"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -329,35 +329,35 @@ msgstr[0] "%u байт"
 msgstr[1] "%u байта"
 msgstr[2] "%u байтов"
 
-#: ../src/base/fm-utils.c:62
+#: ../src/base/fm-utils.c:65
 msgid "KB"
 msgstr "КБ"
 
-#: ../src/base/fm-utils.c:67
+#: ../src/base/fm-utils.c:70
 msgid "MB"
 msgstr "МБ"
 
-#: ../src/base/fm-utils.c:72
+#: ../src/base/fm-utils.c:75
 msgid "GB"
 msgstr "ГБ"
 
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:80
 msgid "TB"
 msgstr "ТБ"
 
-#: ../src/base/fm-utils.c:91
+#: ../src/base/fm-utils.c:96
 msgid "KiB"
 msgstr "КиБ"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:101
 msgid "MiB"
 msgstr "МиБ"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:106
 msgid "GiB"
 msgstr "ГиБ"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:111
 msgid "TiB"
 msgstr "ТиБ"
 
@@ -463,36 +463,36 @@ msgstr "Создание символьных ссылок"
 msgid "Changing file attributes"
 msgstr "Изменить атрибуты файла"
 
-#: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 msgstr[1] "байта"
 msgstr[2] "байтов"
 
-#: ../src/gtk/fm-file-properties.c:221
+#: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введите правильное имя пользователя или цифровой идентификатор."
 
-#: ../src/gtk/fm-file-properties.c:251
+#: ../src/gtk/fm-file-properties.c:254
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введите правильное имя группы или цифровой идентификатор."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:437
+#: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Применить ко всем вложенным файлам и каталогам?"
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:624
 msgid "<b>Access content:</b>"
 msgstr "<b>Доступ к содержимому:</b>"
 
-#: ../src/gtk/fm-file-properties.c:732
+#: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
 msgstr "Файлы разных типов"
 
-#: ../src/gtk/fm-file-properties.c:769
+#: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
 msgstr "Несколько файлов"
 
@@ -573,7 +573,7 @@ msgstr "_Восстановить"
 msgid "Restore trashed files to original paths"
 msgstr "Восстановление файлов из корзины"
 
-#: ../src/gtk/fm-dnd-dest.c:389
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "Ошибка XDirectSave."
 
@@ -609,43 +609,43 @@ msgstr "Изменён"
 msgid "Installed Applications"
 msgstr "Прочие приложения"
 
-#: ../src/gtk/fm-gtk-utils.c:45
+#: ../src/gtk/fm-gtk-utils.c:46
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: ../src/gtk/fm-gtk-utils.c:117
+#: ../src/gtk/fm-gtk-utils.c:118
 msgid "Question"
 msgstr "Вопрос"
 
-#: ../src/gtk/fm-gtk-utils.c:381
+#: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
 msgstr "Выберите каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:539
+#: ../src/gtk/fm-gtk-utils.c:540
 msgid "Only system administrators have the permission to do this."
 msgstr "Для выполнения этого действия требуются права администратора."
 
-#: ../src/gtk/fm-gtk-utils.c:618
+#: ../src/gtk/fm-gtk-utils.c:635
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Хотите переместить выбранные файлы?"
 
-#: ../src/gtk/fm-gtk-utils.c:639
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Do you want to delete the selected files?"
 msgstr "Хотите удалить выбранные файлы?"
 
-#: ../src/gtk/fm-gtk-utils.c:686
+#: ../src/gtk/fm-gtk-utils.c:703
 msgid "Rename File"
 msgstr "Переименовать файл"
 
-#: ../src/gtk/fm-gtk-utils.c:687
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Please enter a new name:"
 msgstr "Введите новое имя:"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:728
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Хотите очистить корзину?"
 

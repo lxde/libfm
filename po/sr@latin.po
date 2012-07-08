@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-07 00:51+0200\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
 "PO-Revision-Date: 2010-11-02 01:34+0100\n"
 "Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
@@ -326,7 +326,7 @@ msgstr "Pokreni datoteku"
 msgid "Execute in _Terminal"
 msgstr "Pokreni u emulatoru _terminala"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -334,35 +334,35 @@ msgstr[0] "%u bajt"
 msgstr[1] "%u bajta"
 msgstr[2] "%u bajta"
 
-#: ../src/base/fm-utils.c:62
+#: ../src/base/fm-utils.c:65
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:67
+#: ../src/base/fm-utils.c:70
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:72
+#: ../src/base/fm-utils.c:75
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:80
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:91
+#: ../src/base/fm-utils.c:96
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:101
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:106
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:111
 msgid "TiB"
 msgstr "TiB"
 
@@ -468,39 +468,39 @@ msgstr "Pravljenje mekih veza"
 msgid "Changing file attributes"
 msgstr "Izmena osobina datoteke"
 
-#: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bajt"
 msgstr[1] "%u bajta"
 msgstr[2] "%u bajta"
 
-#: ../src/gtk/fm-file-properties.c:221
+#: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
 msgstr "Unesite ispravno korisničko ime ili ID broj."
 
-#: ../src/gtk/fm-file-properties.c:251
+#: ../src/gtk/fm-file-properties.c:254
 msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite ispravno ime grupe ili ID broj."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:437
+#: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Želite li da rekurzivno primenim ovu radnju na sve datoteke i "
 "poddirektorijume?"
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:624
 #, fuzzy
 msgid "<b>Access content:</b>"
 msgstr "<b>Kontrola pristupa</b>"
 
-#: ../src/gtk/fm-file-properties.c:732
+#: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
 msgstr "Datoteke različitih vrsta"
 
-#: ../src/gtk/fm-file-properties.c:769
+#: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
 msgstr "Višestruke datoteke"
 
@@ -581,7 +581,7 @@ msgstr "Po_vrati"
 msgid "Restore trashed files to original paths"
 msgstr "Vrati datoteke iz Nepotrebno na originalne lokacije"
 
-#: ../src/gtk/fm-dnd-dest.c:389
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "XDirectSave nije uspelo."
 
@@ -617,44 +617,44 @@ msgstr "Izmenjeno"
 msgid "Installed Applications"
 msgstr "Dostupni programi"
 
-#: ../src/gtk/fm-gtk-utils.c:45
+#: ../src/gtk/fm-gtk-utils.c:46
 msgid "Error"
 msgstr "Greška"
 
-#: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:117
+#: ../src/gtk/fm-gtk-utils.c:118
 #, fuzzy
 msgid "Question"
 msgstr "Opis"
 
-#: ../src/gtk/fm-gtk-utils.c:381
+#: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
 msgstr "Izaberite direktorijum"
 
-#: ../src/gtk/fm-gtk-utils.c:539
+#: ../src/gtk/fm-gtk-utils.c:540
 msgid "Only system administrators have the permission to do this."
 msgstr "Ovu radnju može izvršiti samo administrator sistema."
 
-#: ../src/gtk/fm-gtk-utils.c:618
+#: ../src/gtk/fm-gtk-utils.c:635
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Želite li da premestite izabrane datoteke u Nepotrebno?"
 
-#: ../src/gtk/fm-gtk-utils.c:639
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Do you want to delete the selected files?"
 msgstr "Želite li da obrišete izabrane datoteke?"
 
-#: ../src/gtk/fm-gtk-utils.c:686
+#: ../src/gtk/fm-gtk-utils.c:703
 msgid "Rename File"
 msgstr "Preimenuj datoteku"
 
-#: ../src/gtk/fm-gtk-utils.c:687
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Please enter a new name:"
 msgstr "Unesite novo ime: "
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:728
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Jeste li sigurni da želite da obrišete datoteke iz Nepotrebno?"
 

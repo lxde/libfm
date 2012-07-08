@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-07 00:51+0200\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
 "PO-Revision-Date: 2012-07-07 12:50+0200\n"
 "Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);;\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);;\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -318,7 +318,7 @@ msgstr "Izvedi datoteko"
 msgid "Execute in _Terminal"
 msgstr "Izvedi v _terminalu"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -327,35 +327,35 @@ msgstr[1] "%u bajt"
 msgstr[2] "%u bajta"
 msgstr[3] "%u bajti"
 
-#: ../src/base/fm-utils.c:62
+#: ../src/base/fm-utils.c:65
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:67
+#: ../src/base/fm-utils.c:70
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:72
+#: ../src/base/fm-utils.c:75
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:80
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:91
+#: ../src/base/fm-utils.c:96
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:101
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:106
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:111
 msgid "TiB"
 msgstr "TiB"
 
@@ -461,7 +461,7 @@ msgstr "<b>Ustvarjanje simbolnih povezav</b>"
 msgid "Changing file attributes"
 msgstr "<b>Spreminjanje atributov datotek</b>"
 
-#: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bajtov"
@@ -469,30 +469,30 @@ msgstr[1] "bajt"
 msgstr[2] "bajta"
 msgstr[3] "bajti"
 
-#: ../src/gtk/fm-file-properties.c:221
+#: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
 msgstr "Vnesite veljavno uporabniško ime ali ID."
 
-#: ../src/gtk/fm-file-properties.c:251
+#: ../src/gtk/fm-file-properties.c:254
 msgid "Please enter a valid group name or numeric id."
 msgstr "Vnesite veljavno ime skupine ali ID."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:437
+#: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Ali želite rekurzivno uveljaviti te spremembe na vseh datotekah in podmapah?"
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:624
 msgid "<b>Access content:</b>"
 msgstr "<b>Dostop:</b>"
 
-#: ../src/gtk/fm-file-properties.c:732
+#: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
 msgstr "Različne vrste datotek"
 
-#: ../src/gtk/fm-file-properties.c:769
+#: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
 msgstr "Več datotek"
 
@@ -573,7 +573,7 @@ msgstr "_Obnovi"
 msgid "Restore trashed files to original paths"
 msgstr "Obnovi datoteke v smeteh na izvirno mesto"
 
-#: ../src/gtk/fm-dnd-dest.c:389
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "Opravilo XDirectSave ni uspelo."
 
@@ -609,43 +609,43 @@ msgstr "Datum spremembe"
 msgid "Installed Applications"
 msgstr "Nameščeni programi"
 
-#: ../src/gtk/fm-gtk-utils.c:45
+#: ../src/gtk/fm-gtk-utils.c:46
 msgid "Error"
 msgstr "Napaka"
 
-#: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr "Potrditev"
 
-#: ../src/gtk/fm-gtk-utils.c:117
+#: ../src/gtk/fm-gtk-utils.c:118
 msgid "Question"
 msgstr "Vprašanje"
 
-#: ../src/gtk/fm-gtk-utils.c:381
+#: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
 msgstr "Izberite mapo"
 
-#: ../src/gtk/fm-gtk-utils.c:539
+#: ../src/gtk/fm-gtk-utils.c:540
 msgid "Only system administrators have the permission to do this."
 msgstr "To dejanje lahko izvedejo le skrbniki sistema."
 
-#: ../src/gtk/fm-gtk-utils.c:618
+#: ../src/gtk/fm-gtk-utils.c:635
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ali želite premakniti izbrane datoteke v smeti?"
 
-#: ../src/gtk/fm-gtk-utils.c:639
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Do you want to delete the selected files?"
 msgstr "Ali želite izbrisati izbrane datoteke?"
 
-#: ../src/gtk/fm-gtk-utils.c:686
+#: ../src/gtk/fm-gtk-utils.c:703
 msgid "Rename File"
 msgstr "Preimenuj datoteko"
 
-#: ../src/gtk/fm-gtk-utils.c:687
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Please enter a new name:"
 msgstr "Vnesite novo ime:"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:728
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ali ste prepričani, da želite izprazniti smeti?"
 

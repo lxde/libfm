@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-07 00:51+0200\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
 "PO-Revision-Date: 2012-07-08 01:22+0200\n"
 "Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -321,42 +321,42 @@ msgstr "Exekutatu fitxategia"
 msgid "Execute in _Terminal"
 msgstr "Exekutatu _Terminalean"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "byte %u"
 msgstr[1] "%u byte"
 
-#: ../src/base/fm-utils.c:62
+#: ../src/base/fm-utils.c:65
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:67
+#: ../src/base/fm-utils.c:70
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:72
+#: ../src/base/fm-utils.c:75
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:80
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:91
+#: ../src/base/fm-utils.c:96
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:101
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:106
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:111
 msgid "TiB"
 msgstr "TiB"
 
@@ -462,37 +462,37 @@ msgstr "Esteka sinbolikoak sortzen"
 msgid "Changing file attributes"
 msgstr "Fitxategi-atributuak aldatzen"
 
-#: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "byte"
 
-#: ../src/gtk/fm-file-properties.c:221
+#: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
 msgstr "Mesedez sartu baliozko erabiltzaile-izen edo zenbakizko id bat."
 
-#: ../src/gtk/fm-file-properties.c:251
+#: ../src/gtk/fm-file-properties.c:254
 msgid "Please enter a valid group name or numeric id."
 msgstr "Mesedez sartu baliozko talde-izen edo zenbakizko id bat."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:437
+#: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Aldaketa hauek errekurtsiboki aplikatu nahi dizkiezu fitxategi eta azpi-"
 "karpeta guztiei?"
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:624
 msgid "<b>Access content:</b>"
 msgstr "<b>Atzitu edukia:</b>"
 
-#: ../src/gtk/fm-file-properties.c:732
+#: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
 msgstr "Mota desberdinetako fitxategiak"
 
-#: ../src/gtk/fm-file-properties.c:769
+#: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
 msgstr "Hainbat fitxategi"
 
@@ -573,7 +573,7 @@ msgstr "_Leheneratu"
 msgid "Restore trashed files to original paths"
 msgstr "Leheneratu fitxategiak jatorrizko lekuetara"
 
-#: ../src/gtk/fm-dnd-dest.c:389
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "XDirectSave-k huts egin du."
 
@@ -609,43 +609,43 @@ msgstr "Aldatuta"
 msgid "Installed Applications"
 msgstr "Instalatutako aplikazioak"
 
-#: ../src/gtk/fm-gtk-utils.c:45
+#: ../src/gtk/fm-gtk-utils.c:46
 msgid "Error"
 msgstr "Errorea"
 
-#: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr "Berretsi"
 
-#: ../src/gtk/fm-gtk-utils.c:117
+#: ../src/gtk/fm-gtk-utils.c:118
 msgid "Question"
 msgstr "Galdera"
 
-#: ../src/gtk/fm-gtk-utils.c:381
+#: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
 msgstr "Mesedez hautatu karpeta bat"
 
-#: ../src/gtk/fm-gtk-utils.c:539
+#: ../src/gtk/fm-gtk-utils.c:540
 msgid "Only system administrators have the permission to do this."
 msgstr "Sistemaren administratzaileek soilik dute honetarako baimena."
 
-#: ../src/gtk/fm-gtk-utils.c:618
+#: ../src/gtk/fm-gtk-utils.c:635
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Hautatutako fitxategiak zakarrontzira bota nahi dituzu?"
 
-#: ../src/gtk/fm-gtk-utils.c:639
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Do you want to delete the selected files?"
 msgstr "Hautatutako fitxategiak ezabatu nahi dituzu?"
 
-#: ../src/gtk/fm-gtk-utils.c:686
+#: ../src/gtk/fm-gtk-utils.c:703
 msgid "Rename File"
 msgstr "Berrizendatu fitxategia"
 
-#: ../src/gtk/fm-gtk-utils.c:687
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Please enter a new name:"
 msgstr "Mesedez sartu izen berri bat:"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:728
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ziur zaude zakarrontzia hustu nahi duzula?"
 

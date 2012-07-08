@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-07 00:51+0200\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,42 +324,42 @@ msgstr "অনেকগুলো ফাইল"
 msgid "Execute in _Terminal"
 msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
 
-#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u বাইট"
 msgstr[1] "%u বাইট"
 
-#: ../src/base/fm-utils.c:62
+#: ../src/base/fm-utils.c:65
 msgid "KB"
 msgstr "কিলোবাইট"
 
-#: ../src/base/fm-utils.c:67
+#: ../src/base/fm-utils.c:70
 msgid "MB"
 msgstr "মেগাবাইট"
 
-#: ../src/base/fm-utils.c:72
+#: ../src/base/fm-utils.c:75
 msgid "GB"
 msgstr "গিগাবাইট"
 
-#: ../src/base/fm-utils.c:77
+#: ../src/base/fm-utils.c:80
 msgid "TB"
 msgstr "টেরাবাইট"
 
-#: ../src/base/fm-utils.c:91
+#: ../src/base/fm-utils.c:96
 msgid "KiB"
 msgstr "কিবিবাইট"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:101
 msgid "MiB"
 msgstr "মিবিবাইট"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:106
 msgid "GiB"
 msgstr "গিবিবাইট"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:111
 msgid "TiB"
 msgstr "টিবিবাইট"
 
@@ -465,38 +465,38 @@ msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 msgid "Changing file attributes"
 msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
-#: ../src/gtk/fm-file-properties.c:152 ../src/gtk/fm-file-properties.c:159
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 #, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u বাইট"
 msgstr[1] "%u বাইট"
 
-#: ../src/gtk/fm-file-properties.c:221
+#: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
 msgstr "অনুগ্রহ করে একটি ব্যবহারকারীর কার্যকর নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
-#: ../src/gtk/fm-file-properties.c:251
+#: ../src/gtk/fm-file-properties.c:254
 msgid "Please enter a valid group name or numeric id."
 msgstr "অনুগ্রহ করে একটি কার্যকর গ্রুপের নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:437
+#: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "আপনি কি সব ফাইল ও সাবফোল্ডারে এই পরিবর্তনসমুহ পুনরাবৃত্তাকারে প্রয়োগ করতে চান‌?"
 
-#: ../src/gtk/fm-file-properties.c:617
+#: ../src/gtk/fm-file-properties.c:624
 #, fuzzy
 msgid "<b>Access content:</b>"
 msgstr "<b>কন্ট্রোলে প্রবেশাধিকার</b>"
 
-#: ../src/gtk/fm-file-properties.c:732
+#: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
 msgstr "বিভিন্ন ধরনের ফাইল"
 
-#: ../src/gtk/fm-file-properties.c:769
+#: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
 msgstr "অনেকগুলো ফাইল"
 
@@ -577,7 +577,7 @@ msgstr "পুনরায় জমা করুন (_R)"
 msgid "Restore trashed files to original paths"
 msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
-#: ../src/gtk/fm-dnd-dest.c:389
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
@@ -613,44 +613,44 @@ msgstr "পরিবর্তিত"
 msgid "Installed Applications"
 msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
-#: ../src/gtk/fm-gtk-utils.c:45
+#: ../src/gtk/fm-gtk-utils.c:46
 msgid "Error"
 msgstr "ত্রুটি "
 
-#: ../src/gtk/fm-gtk-utils.c:57 ../src/gtk/fm-gtk-utils.c:71
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:117
+#: ../src/gtk/fm-gtk-utils.c:118
 #, fuzzy
 msgid "Question"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-gtk-utils.c:381
+#: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
 msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:539
+#: ../src/gtk/fm-gtk-utils.c:540
 msgid "Only system administrators have the permission to do this."
 msgstr "কেবলমাত্র সিস্টেম প্রশাসকের এটি করার অনুমোদন আছে।"
 
-#: ../src/gtk/fm-gtk-utils.c:618
+#: ../src/gtk/fm-gtk-utils.c:635
 msgid "Do you want to move the selected files to trash can?"
 msgstr "আপনি কি নির্বাচিত ফাইল আবর্জনা বাক্সে ফেলতে চান‌?"
 
-#: ../src/gtk/fm-gtk-utils.c:639
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Do you want to delete the selected files?"
 msgstr "আপনি কি নির্বাচিত ফাইল অপসারণ করতে চান?"
 
-#: ../src/gtk/fm-gtk-utils.c:686
+#: ../src/gtk/fm-gtk-utils.c:703
 msgid "Rename File"
 msgstr "ফাইল পুনরায় নামকরণ করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:687
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Please enter a new name:"
 msgstr "অনুগ্রহ করে একটি নতুন নাম দিন:"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:728
 msgid "Are you sure you want to empty the trash can?"
 msgstr "আপনি কি নিশ্চিত যে আপনি আবর্জনা বাক্স খালি করে ফেলতে চান?"
 
