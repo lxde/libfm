@@ -149,14 +149,16 @@ static gboolean on_timeout(gpointer user_data)
         fm_file_size_to_str(size_str, sizeof(size_str), dc->total_size, TRUE);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_size,
-                              ngettext("byte", "bytes", dc->total_size));
+                              dngettext(GETTEXT_PACKAGE, "byte", "bytes",
+                                       (gulong)dc->total_size));
         gtk_label_set_text(data->total_size, str);
         g_free(str);
 
         fm_file_size_to_str(size_str, sizeof(size_str), dc->total_ondisk_size, TRUE);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_ondisk_size,
-                              ngettext("byte", "bytes", dc->total_ondisk_size));
+                              dngettext(GETTEXT_PACKAGE, "byte", "bytes",
+                                       (gulong)dc->total_ondisk_size));
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
     }

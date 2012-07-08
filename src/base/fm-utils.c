@@ -52,7 +52,9 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
     {
         if(size < (goffset)SI_KB)
         {
-            snprintf( buf, buf_size, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf(buf, buf_size,
+                     dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
+                     (guint)size);
             return buf;
         }
         val = (gdouble)size;
@@ -81,7 +83,9 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
     {
         if(size < (goffset)BI_KiB)
         {
-            snprintf( buf, buf_size, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf(buf, buf_size,
+                     dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
+                     (guint)size);
             return buf;
         }
         val = (gdouble)size;
