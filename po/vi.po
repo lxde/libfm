@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-07-09 17:14+0200\n"
-"Last-Translator: Duy Hung <nguyentieuhau@gmail.com>\n"
+"PO-Revision-Date: 2012-07-09 09:58+0700\n"
+"Last-Translator: Tran Duy Hung <nguyentieuhau@gmail.com>\n"
 "Language-Team: LXDE\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -157,44 +157,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Nhóm:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Ứng dụng thư</b>"
+msgstr "<b>Xem nội dung:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Đích:</b>"
+msgstr "<b>Thay đổi nội dung:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Khác:</b>"
+msgstr "<b>Thực thi:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Mở với:</b>"
+msgstr "<b>Những bit đặc biệt:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Người có thể đọc nội dụng của tập tin/thư mục"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Người có thể thay đổi nội dung của tập tin/thư mục"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Người có thể thực thi tập tin hay truy cập thư mục"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Những cờ đặc biệt cho việc thực thi tập tin"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Những cờ đặc biệt cho việc truy cập thư mục"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -214,39 +210,39 @@ msgstr "Không"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Ưu tiên"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Thiết lập GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Đặt ưu tiên & thiết lập GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Thiết lập UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Đặt ưu tiên & thiết lập UID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Không ai"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Chỉ chủ sở hữu"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Chỉ chủ sở hữu và nhóm"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Bất cứ ai"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -275,7 +271,8 @@ msgstr "<b>Thời gian còn lại:</b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>Một số lỗi xảy ra:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Ứng dụng ưa thích"
 
@@ -292,11 +289,8 @@ msgid "<b>Mail client</b>"
 msgstr "<b>Ứng dụng thư</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Ứng dụng thư ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Ứng dụng thư ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -322,7 +316,8 @@ msgstr "Thực thi tập tin"
 msgid "Execute in _Terminal"
 msgstr "Thực thi trong _Terminal"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:57
+#: ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -368,7 +363,8 @@ msgstr "Thùng rác"
 msgid "My Computer"
 msgstr "Máy tính của tôi"
 
-#: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
+#: ../src/base/fm-path.c:730
+#: ../src/gtk/fm-places-model.c:668
 msgid "Applications"
 msgstr "Các ứng dụng"
 
@@ -388,7 +384,8 @@ msgstr "Điểm gắn"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:223
+#: ../src/gtk/fm-progress-dlg.c:242
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -399,7 +396,8 @@ msgstr ""
 "Kích thước: %s\n"
 "Đã sửa đổi: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:230
+#: ../src/gtk/fm-progress-dlg.c:249
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -426,12 +424,10 @@ msgstr "Hoàn thành"
 
 #: ../src/gtk/fm-progress-dlg.c:357
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Một số tập tin không thể được chuyển đến thùng rác vì hệ thống tập tin cơ "
-"bản không hỗ trợ hoạt động này.\n"
+"Một số tập tin không thể được chuyển đến thùng rác vì hệ thống tập tin cơ bản không hỗ trợ hoạt động này.\n"
 "Bạn có muốn xóa chúng?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
@@ -462,7 +458,8 @@ msgstr "Đang tạo liên kết tượng trưng"
 msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:153
+#: ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -477,16 +474,12 @@ msgstr "Vui lòng điền tên nhóm hay số id hợp lệ"
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:444
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và những thư "
-"mục con không?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và những thư mục con không?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Kiểm soát truy cập</b>"
+msgstr "<b>Truy cập nội dung:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
@@ -509,7 +502,8 @@ msgid "Eject Removable Media"
 msgstr "Loại bỏ thiết bị truyền thông rời"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
+#: ../src/gtk/fm-places-view.c:102
+#: ../src/gtk/fm-places-view.c:807
 msgid "Rename Bookmark Item"
 msgstr "Đổi tên mục đánh dấu"
 
@@ -525,11 +519,13 @@ msgstr "Làm sạch thùng rác"
 msgid "Enter a new name:"
 msgstr "Nhập tên mới:"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
+#: ../src/gtk/fm-side-pane.c:49
+#: ../src/gtk/fm-side-pane.c:324
 msgid "Places"
 msgstr "Nơi"
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
+#: ../src/gtk/fm-side-pane.c:50
+#: ../src/gtk/fm-side-pane.c:334
 msgid "Directory Tree"
 msgstr "Cây Thư mục"
 
@@ -537,7 +533,8 @@ msgstr "Cây Thư mục"
 msgid "Remote"
 msgstr "Từ xa"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:108
+#: ../src/gtk/fm-file-menu.c:109
 msgid "Open With..."
 msgstr "Mở bởi..."
 
@@ -613,7 +610,8 @@ msgstr "Ứng dụng đã cài đặt"
 msgid "Error"
 msgstr "Lỗi"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:58
+#: ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
 msgstr "Xác nhận"
 
@@ -663,15 +661,18 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Tập tin '%s' này có thể thực thi. Bạn có muốn thực thi nó?"
 
-#: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
+#: ../src/gtk/fm-dir-tree-model.c:394
+#: ../src/gtk/fm-dir-tree-model.c:1043
 msgid "<No Sub Folder>"
 msgstr "<Không có Thư mục Con>"
 
-#: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
+#: ../src/gtk/fm-dir-tree-model.c:396
+#: ../src/gtk/fm-dir-tree-model.c:1044
 msgid "Loading..."
 msgstr "Đang nạp..."
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
+#: ../src/job/fm-dir-list-job.c:237
+#: ../src/job/fm-dir-list-job.c:248
 #: ../src/job/fm-dir-list-job.c:348
 #, c-format
 msgid "The specified directory is not valid"
@@ -726,11 +727,13 @@ msgstr "Đĩa CD-RW"
 msgid "Blank CD-RW Disc"
 msgstr "Đĩa CD-RW trắng"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "Đĩa DVD-ROM"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "Đĩa DVD-ROM trắng"
 
