@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2012-04-17 22:09+0200\n"
+"PO-Revision-Date: 2012-07-09 11:40+0200\n"
 "Last-Translator: Christoph <christoph.wickert@googlemail.com>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -156,44 +156,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Gruppe:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>E-Mail-Client</b>"
+msgstr "<b>Inhalt anzeigen:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Ziel:</b>"
+msgstr "<b>Inhalt ändern:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Andere:</b>"
+msgstr "<b>Ausführen:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Öffnen _mit:</b>"
+msgstr "<b>Spezielle Berechtigungen:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Wer kann den Inhalt einer Datei oder eines Ordners lesen?"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Wer kann den Inhalt einer Datei oder eines Ordners ändern?"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Wer kann eine Datei ausführen oder einen Ordners öffnen?"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Spezielle Berechtigungen zum Ausführen der Datei"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Spezielle Berechtigungen beim Zugriff auf den Ordner"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -212,50 +208,52 @@ msgid "None"
 msgstr "Keine"
 
 #: ../data/ui/file-prop.glade.h:27
+#, fuzzy
 msgid "Sticky"
-msgstr ""
+msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "GID setzen"
 
 #: ../data/ui/file-prop.glade.h:29
+#, fuzzy
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Sticky und GID setzen"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "UID setzen"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "UID und GID setzen"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Niemand"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Nur Besitzer"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Nur Besitzer oder Gruppe"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Jeder"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
 msgid "Preparing..."
-msgstr "Vorbereiten..."
+msgstr "Vorbereiten…"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
-msgstr "<b>Ausführen:</b>"
+msgstr "<b>Bearbeiten:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:6
@@ -296,7 +294,7 @@ msgid ""
 "mail addresses."
 msgstr ""
 "Der bevorzugte Email-Client wird zum Verfassen von Nachrichten benutzt, wenn "
-"Sie auf E-Mail Adressen klicken."
+"Sie auf E-Mail-Adressen klicken."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -490,7 +488,7 @@ msgstr ""
 #: ../src/gtk/fm-file-properties.c:624
 #, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Zugriffsrechte</b>"
+msgstr "<b>Zugriffsrechte:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
