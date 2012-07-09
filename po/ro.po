@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.17\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2012-04-19 14:32+0200\n"
+"PO-Revision-Date: 2012-07-09 17:10+0200\n"
 "Last-Translator: Mișu <dumol@l10n.ro>\n"
 "Language-Team: Romanian <diacritice@googlegroups.com>\n"
 "Language: ro\n"
@@ -158,44 +158,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>Gr_up:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Client de mail</b>"
+msgstr "<b>Vizualizare conținut:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Țintă:</b>"
+msgstr "<b>Editare conținut:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Altceva:</b>"
+msgstr "<b>Execută:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>D_eschide cu:</b>"
+msgstr "<b>Biți speciali:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Cine poate citi conținutul fișierului ori al directorului"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Cine poate schimba conținutul fișierului ori al directorului"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Cine poate executa fișierul ori intra în director"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Fanioane speciale pentru execuția fișierului"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Fanioane speciale pentru accesarea directorului"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -215,39 +211,39 @@ msgstr "Nimic"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Persistent"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Setare GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Setare GID și persistență"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Setare UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Setare UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Nimeni"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Doar deținătorul"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Doar deținătorul și grupul"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Oricine"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -490,9 +486,8 @@ msgstr ""
 "subdirectoarelor?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Drepturi de acces</b>"
+msgstr "<b>Accesare conținut</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
