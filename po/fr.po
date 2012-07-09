@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-06-22 07:06+0200\n"
+"PO-Revision-Date: 2012-07-09 18:45+0200\n"
 "Last-Translator: Mathieu <mathieu.millot@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -179,23 +179,25 @@ msgstr "<b>Ouvrir _avec:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Quelles personnes peuvent lire le contenu du fichier/dossier"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Quelles personnes peuvent modifier le contenu du fichier/dossier"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Quelles personnes peuvent exécuter le fichier ou parcourir le dossier"
 
 #: ../data/ui/file-prop.glade.h:21
+#, fuzzy
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Drapeaux spéciaux pour exécution de fichier"
 
 #: ../data/ui/file-prop.glade.h:22
+#, fuzzy
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Drapeaux spéciaux pour accéder au dossier"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -214,40 +216,45 @@ msgid "None"
 msgstr "Rien"
 
 #: ../data/ui/file-prop.glade.h:27
+#, fuzzy
 msgid "Sticky"
-msgstr ""
+msgstr "Permanent"
 
 #: ../data/ui/file-prop.glade.h:28
+#, fuzzy
 msgid "Set GID"
-msgstr ""
+msgstr "Modifier GID"
 
 #: ../data/ui/file-prop.glade.h:29
+#, fuzzy
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Permanent et modifier le GID"
 
 #: ../data/ui/file-prop.glade.h:30
+#, fuzzy
 msgid "Set UID"
-msgstr ""
+msgstr "Modifier UID"
 
 #: ../data/ui/file-prop.glade.h:31
+#, fuzzy
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Modifier UID et GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Personne"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Seulement le propriétaire"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Seulement le propriétaire et le groupe"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Tout le monde"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
