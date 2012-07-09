@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-07-21 06:39+0200\n"
+"PO-Revision-Date: 2012-07-09 07:54+0200\n"
 "Last-Translator: George <forfolias@gmail.com>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -156,44 +156,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Ομάδα:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Πρόγραμμα αλληλογραφίας</b>"
+msgstr "<b>Προβολή περιεχομένων:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Στόχος:</b>"
+msgstr "<b>Επεξεργασία περιεχομένων:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Άλλο:</b>"
+msgstr "<b>Εκτέλεση:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Άνοιγμα _με:</b>"
+msgstr "<b>Ειδικά bits:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Ποιος μπορεί να διαβάσει τα περιεχόμενα του αρχείου/καταλόγου"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Ποιος μπορεί να αλλάξει τα περιεχόμενα του αρχείου/καταλόγου"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Ποιος μπορεί να εκτελέσει το αρχείο ή να μπει στον κατάλογο"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Ειδικές σημαίες για την εκτέλεση του αρχείου"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Ειδικές σημαίες για την πρόσβαση στον κατάλογο"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -213,39 +209,39 @@ msgstr "Κανένα"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Κολλημένο"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Ορισμός GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Κολλημένο & ορισμός GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Ορισμός UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Ορισμός UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Κανένας"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Μόνο ο ιδιοκτήτης"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Μόνο ο ιδιοκτήτης και η ομάδα"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Οποιοσδήποτε"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -487,9 +483,8 @@ msgstr ""
 "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Έλεγχος πρόσβασης</b>"
+msgstr "<b>Πρόσβαση περιεχομένου</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
