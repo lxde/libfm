@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2012-03-23 15:17+0200\n"
-"Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
+"PO-Revision-Date: 2012-07-09 19:26+0200\n"
+"Last-Translator: Janne <devel@kateva.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -156,9 +156,8 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Ryhmä:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Sähköpostisovellus</b>"
+msgstr "<b>Näytä sisältö:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 #, fuzzy
@@ -177,15 +176,15 @@ msgstr "<b>Avaa _sovelluksella:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Kuka voi lukea tiedoston/kansion sisällön"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Kuka voi muokata tiedoston/kansion sisältöä"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Kuka voi suorittaa tiedoston tai katsoa kansion sisältöä"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
@@ -233,19 +232,19 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Ei kukaan"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Vain omistaja"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Vain omistaja ja ryhmä"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Kuka tahansa"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
