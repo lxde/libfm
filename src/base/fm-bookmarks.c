@@ -304,7 +304,7 @@ void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
  * fm_bookmarks_rename
  * @bookmarks: bookmarks list
  * @item: bookmark item which will be changed
- * @name: new name for bookmark item to be seen in list
+ * @new_name: new name for bookmark item to be seen in list
  *
  * Changes name of existing bookmark item.
  *

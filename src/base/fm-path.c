@@ -236,11 +236,14 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
 /**
  * fm_path_new_child_len
  * @parent: a parent path
- * @basename: basename of a direct child of @parent directory in glib
- * filename encoding. (can be non-UTF-8).
- * @len: length of basename
+ * @basename: basename of a direct child of @parent directory
+ * @name_len: length of @basename
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Creates new #FmPath for child of @parent directory which have name
+ * @basename. The string length of @basename is @name_len. @basename is
+ * in glib filename encoding (can be non-UTF-8).
+ *
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
@@ -319,10 +322,12 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 /**
  * fm_path_new_child
  * @parent: a parent path
- * @basename: basename of a direct child of @parent directory in glib
- * filename encoding. (can be non-UTF-8).
+ * @basename: basename of a direct child of @parent directory
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Creates new #FmPath for child of @parent directory which have name
+ * @basename. @basename is in glib filename encoding (can be non-UTF-8).
+ *
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_child(FmPath* parent, const char* basename)
@@ -365,7 +370,10 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
 /**
  * fm_path_new_relative
  * @parent: a parent path
- * @rel: a path relative to @parent in glib filename encoding. (can be
+ * @rel: a path relative to @parent
+ *
+ * Creates new #FmPath which is relative to @parent directory by the
+ * relative path string @rel. @rel is in glib filename encoding. (can be
  * non-UTF-8). However this should not be a escaped ASCII string used in
  * URI. If you're building a relative path for a URI, and the relative
  * path is escaped, you have to unescape it first.
@@ -376,7 +384,7 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
  *
  * If @parent is NULL, this works the same as fm_path_new_for_str(@rel)
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
@@ -486,14 +494,16 @@ static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unes
 
 /**
  * fm_path_new_for_uri
- * @path_name: a URI with special characters escaped.
+ * @uri: a URI with special characters escaped.
+ *
+ * Creates new #FmPath by given @uri.
  * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
  * will be unescaped.
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_for_uri(const char* uri)

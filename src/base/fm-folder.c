@@ -19,6 +19,14 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-folder
+ * @short_description: Folder loading and monitoring.
+ * @title: FmFolder
+ *
+ * @include: libfm/fm-folder.h
+ */
+
 #include "fm-folder.h"
 #include "fm-monitor.h"
 #include "fm-marshal.h"
@@ -44,6 +52,7 @@ struct _FmFolder
 {
     GObject parent;
 
+    /*<private>*/
     FmPath* dir_path;
     GFile* gf;
     GFileMonitor* mon;
