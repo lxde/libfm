@@ -15,7 +15,7 @@
     </releaseinfo>
   </bookinfo>
 
-  <chapter id="libfm">
+  <part id="libfm">
     <title>Libfm Overview</title>
     <para>
 Libfm is a library built on top of glib/gio for developing file managers.
@@ -24,54 +24,70 @@ missing in gtk+/glib. It's originally developed for use in PCManFM, but
 it's carefully designed to be desktop environment-independent and can be
 used to develop other file manager-related tools as well.
     </para>
-    <xi:include href="xml/fm-dir-list-job.xml"/>
-    <xi:include href="xml/fm-job.xml"/>
-    <xi:include href="xml/fm-simple-job.xml"/>
-    <xi:include href="xml/fm-folder-model.xml"/>
-    <xi:include href="xml/fm-cell-renderer-pixbuf.xml"/>
-    <xi:include href="xml/fm-dir-tree-model.xml"/>
-    <xi:include href="xml/fm-tab-label.xml"/>
-    <xi:include href="xml/fm-dnd-src.xml"/>
-    <xi:include href="xml/fm-dnd-dest.xml"/>
-    <xi:include href="xml/fm-folder.xml"/>
-    <xi:include href="xml/fm-gtk.xml"/>
-    <xi:include href="xml/fm.xml"/>
-    <xi:include href="xml/fm-file-info-job.xml"/>
-    <xi:include href="xml/fm-deep-count-job.xml"/>
-    <xi:include href="xml/fm-file-ops-job.xml"/>
-    <xi:include href="xml/fm-thumbnail.xml"/>
-    <xi:include href="xml/fm-path-entry.xml"/>
-    <xi:include href="xml/fm-file-properties.xml"/>
-    <xi:include href="xml/fm-folder-view.xml"/>
-    <xi:include href="xml/fm-file-menu.xml"/>
-    <xi:include href="xml/fm-gtk-utils.xml"/>
-    <xi:include href="xml/fm-places-view.xml"/>
-    <xi:include href="xml/fm-clipboard.xml"/>
-    <xi:include href="xml/fm-app-chooser-dlg.xml"/>
-    <xi:include href="xml/fm-app-menu-view.xml"/>
-    <xi:include href="xml/fm-cell-renderer-text.xml"/>
-    <xi:include href="xml/fm-icon-pixbuf.xml"/>
-    <xi:include href="xml/fm-progress-dlg.xml"/>
-    <xi:include href="xml/fm-app-chooser-combo-box.xml"/>
-    <xi:include href="xml/fm-config.xml"/>
-    <xi:include href="xml/fm-file-launcher.xml"/>
-    <xi:include href="xml/fm-bookmarks.xml"/>
-    <xi:include href="xml/fm-monitor.xml"/>
-    <xi:include href="xml/fm-list.xml"/>
-    <xi:include href="xml/fm-path.xml"/>
-    <xi:include href="xml/fm-icon.xml"/>
-    <xi:include href="xml/fm-nav-history.xml"/>
-    <xi:include href="xml/fm-dummy-monitor.xml"/>
-    <xi:include href="xml/fm-utils.xml"/>
-    <xi:include href="xml/fm-file-info.xml"/>
-    <xi:include href="xml/fm-archiver.xml"/>
-    <xi:include href="xml/fm-mime-type.xml"/>
-
-  </chapter>
-  <chapter id="object-tree">
+    <chapter id="libfm-core">
+      <title>Libfm Core Reference.</title>
+      <xi:include href="xml/fm.xml"/>
+      <xi:include href="xml/fm-app-info.xml"/>
+      <xi:include href="xml/fm-archiver.xml"/>
+      <xi:include href="xml/fm-bookmarks.xml"/>
+      <xi:include href="xml/fm-config.xml"/>
+      <xi:include href="xml/fm-dummy-monitor.xml"/>
+      <xi:include href="xml/fm-file-info.xml"/>
+      <xi:include href="xml/fm-file-launcher.xml"/>
+      <xi:include href="xml/fm-folder.xml"/>
+      <xi:include href="xml/fm-icon.xml"/>
+      <xi:include href="xml/fm-list.xml"/>
+      <xi:include href="xml/fm-mime-type.xml"/>
+      <xi:include href="xml/fm-monitor.xml"/>
+      <xi:include href="xml/fm-nav-history.xml"/>
+      <xi:include href="xml/fm-path.xml"/>
+      <xi:include href="xml/fm-thumbnailer.xml"/>
+      <xi:include href="xml/fm-utils.xml"/>
+    </chapter>
+    <chapter id="libfm-jobs">
+      <title>Libfm Jobs.</title>
+      <xi:include href="xml/fm-deep-count-job.xml"/>
+      <xi:include href="xml/fm-dir-list-job.xml"/>
+      <xi:include href="xml/fm-file-info-job.xml"/>
+      <xi:include href="xml/fm-file-ops-job.xml"/>
+      <xi:include href="xml/fm-job.xml"/>
+      <xi:include href="xml/fm-simple-job.xml"/>
+    </chapter>
+    <chapter id="libfm-gtk">
+      <title>Libfm Gtk+ Widgets and Objects.</title>
+      <xi:include href="xml/fm-gtk.xml"/>
+      <xi:include href="xml/fm-app-chooser-combo-box.xml"/>
+      <xi:include href="xml/fm-app-chooser-dlg.xml"/>
+      <xi:include href="xml/fm-app-menu-view.xml"/>
+      <xi:include href="xml/fm-cell-renderer-pixbuf.xml"/>
+      <xi:include href="xml/fm-cell-renderer-text.xml"/>
+      <xi:include href="xml/fm-clipboard.xml"/>
+      <xi:include href="xml/fm-dir-tree-model.xml"/>
+      <xi:include href="xml/fm-dir-tree-view.xml"/>
+      <xi:include href="xml/fm-dnd-auto-scroll.xml"/>
+      <xi:include href="xml/fm-dnd-dest.xml"/>
+      <xi:include href="xml/fm-dnd-src.xml"/>
+      <xi:include href="xml/fm-file-menu.xml"/>
+      <xi:include href="xml/fm-file-properties.xml"/>
+      <xi:include href="xml/fm-folder-model.xml"/>
+      <xi:include href="xml/fm-folder-view.xml"/>
+      <xi:include href="xml/fm-gtk-file-launcher.xml"/>
+      <xi:include href="xml/fm-gtk-utils.xml"/>
+      <xi:include href="xml/fm-icon-pixbuf.xml"/>
+      <xi:include href="xml/fm-path-bar.xml"/>
+      <xi:include href="xml/fm-path-entry.xml"/>
+      <xi:include href="xml/fm-places-model.xml"/>
+      <xi:include href="xml/fm-places-view.xml"/>
+      <xi:include href="xml/fm-progress-dlg.xml"/>
+      <xi:include href="xml/fm-side-pane.xml"/>
+      <xi:include href="xml/fm-tab-label.xml"/>
+      <xi:include href="xml/fm-thumbnail.xml"/>
+    </chapter>
+  </part>
+  <part id="object-tree">
     <title>Object Hierarchy</title>
-     <xi:include href="xml/tree_index.sgml"/>
-  </chapter>
+    <xi:include href="xml/tree_index.sgml"/>
+  </part>
   <index id="api-index-full">
     <title>API Index</title>
     <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>

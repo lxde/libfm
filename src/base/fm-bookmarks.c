@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-bookmarks
+ * @short_description: Bookmarks support for libfm.
+ * @title: FmBookmarks
+ *
+ * @include: libfm/fm-bookmarks.h
+ *
+ * The application that uses libfm can use user-wide bookmark list via
+ * class FmBookmarks.
+ */
+
 #include "fm-bookmarks.h"
 #include <stdio.h>
 #include <string.h>
@@ -49,6 +60,15 @@ static void fm_bookmarks_class_init(FmBookmarksClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_bookmarks_finalize;
 
+    /**
+     * FmBookmarks::changed:
+     * @bookmarks: pointer to bookmarks list singleton descriptor
+     *
+     * The "changed" signal is emitted when some bookmark item is
+     * changed, added, or removed.
+     *
+     * Since: 0.1.0
+     */
     signals[CHANGED] =
         g_signal_new("changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -168,6 +188,15 @@ static FmBookmarks *fm_bookmarks_new(void)
     return g_object_new(FM_BOOKMARKS_TYPE, NULL);
 }
 
+/**
+ * fm_bookmarks_dup
+ *
+ * Returns reference to bookmarks list singleton descriptor.
+ *
+ * Return value: (transfer full): a reference to bookmarks list
+ *
+ * Since: 0.1.99
+ */
 FmBookmarks* fm_bookmarks_dup(void)
 {
     if( G_LIKELY(singleton) )
@@ -180,6 +209,17 @@ FmBookmarks* fm_bookmarks_dup(void)
     return singleton;
 }
 
+/**
+ * fm_bookmarks_list_all
+ * @bookmarks: bookmarks list
+ *
+ * Returns list of FmBookmarkItem retrieved from bookmarks list. Returned
+ * list is owned by bookmarks list and should not be freed by caller.
+ *
+ * Return value: (transfer none): list of bookmark items
+ *
+ * Since: 0.1.0
+ */
 const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
@@ -219,6 +259,20 @@ static void queue_save_bookmarks(FmBookmarks* bookmarks)
     idle_handler = g_idle_add((GSourceFunc)save_bookmarks, bookmarks);
 }
 
+/**
+ * fm_bookmarks_insert
+ * @bookmarks: bookmarks list
+ * @path: path requested to add to bookmarks
+ * @name: name new bookmark will be seen in list with
+ * @pos: where to insert a bookmark into list
+ *
+ * Adds a bookmark into bookmark list. Returned structure is managed by
+ * bookmarks list and should not be freed by caller.
+ *
+ * Return value: (transfer none): new created bookmark item
+ *
+ * Since: 0.1.0
+ */
 FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const char* name, int pos)
 {
     FmBookmarkItem* item = g_slice_new0(FmBookmarkItem);
@@ -230,6 +284,15 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
     return item;
 }
 
+/**
+ * fm_bookmarks_remove
+ * @bookmarks: bookmarks list
+ * @item: bookmark item for deletion
+ *
+ * Removes a bookmark from bookmark list.
+ *
+ * Since: 0.1.0
+ */
 void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
 {
     bookmarks->items = g_list_remove(bookmarks->items, item);
@@ -237,6 +300,16 @@ void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
     queue_save_bookmarks(bookmarks);
 }
 
+/**
+ * fm_bookmarks_rename
+ * @bookmarks: bookmarks list
+ * @item: bookmark item which will be changed
+ * @name: new name for bookmark item to be seen in list
+ *
+ * Changes name of existing bookmark item.
+ *
+ * Since: 0.1.0
+ */
 void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name)
 {
     g_free(item->name);
@@ -244,6 +317,16 @@ void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const cha
     queue_save_bookmarks(bookmarks);
 }
 
+/**
+ * fm_bookmarks_reorder
+ * @bookmarks: bookmarks list
+ * @item: bookmark item which will be changed
+ * @pos: new position for bookmark item in list
+ *
+ * Changes position of existing bookmark item.
+ *
+ * Since: 0.1.0
+ */
 void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
 {
     bookmarks->items = g_list_remove(bookmarks->items, item);

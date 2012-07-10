@@ -52,6 +52,7 @@ struct _FmBookmarkItem
 struct _FmBookmarks
 {
     GObject parent;
+    /*< private >*/
     GFileMonitor* mon;
     GList* items;
 };

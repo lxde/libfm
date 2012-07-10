@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dummy-monitor
+ * @short_description: Replacement of #GFileMonitor for virtual filesystems.
+ * @title: FmDummyMonitor
+ *
+ * @include: libfm/fm-dummy-monitor.h
+ *
+ * The #FmDummyMonitor represents dummy #GFileMonitor variant which does
+ * not monitor any files but can be used as monitor object.
+ */
+
 #include "fm-dummy-monitor.h"
 
 //static void fm_dummy_monitor_finalize           (GObject *object);
@@ -59,7 +70,13 @@ static void fm_dummy_monitor_init(FmDummyMonitor *self)
 
 }
 
-
+/**
+ * fm_dummy_monitor_new
+ *
+ * Creates a new dummy #GFileMonitor.
+ *
+ * Returns: a new dummy #GFileMonitor object.
+ */
 GFileMonitor *fm_dummy_monitor_new(void)
 {
     return (GFileMonitor*)g_object_new(FM_TYPE_DUMMY_MONITOR, NULL);
