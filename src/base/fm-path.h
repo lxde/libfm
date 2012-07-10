@@ -123,6 +123,7 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
+#ifndef __GTK_DOC_IGNORE__
 static inline FmPathList* fm_path_list_ref(FmPathList* list)
 {
     return list ? (FmPathList*)fm_list_ref((FmList*)list) : NULL;
@@ -154,6 +155,7 @@ static inline void fm_path_list_push_tail(FmPathList* list, FmPath* d)
 {
     fm_list_push_tail((FmList*)list,d);
 }
+#endif /* __GTK_DOC_IGNORE__ */
 
 char* fm_path_list_to_uri_list(FmPathList* pl);
 /* char** fm_path_list_to_uris(FmPathList* pl); */

@@ -246,10 +246,11 @@ char* fm_strdup_replace(char* str, char* old, char* new)
  * @opts:       plain list of possible options
  * @ret:        pointer for resulting string, string should be freed by caller
  * @user_data:  caller data to pass to callback
- * Return value: number of valid options found in @cmd
  *
- * This function parses line that contains some %%<char> commands and does
+ * This function parses line that contains some %&lt;char&gt; commands and does
  * substitutions on them using callbacks provided by caller.
+ *
+ * Return value: number of valid options found in @cmd
  */
 int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                          char** ret, gpointer user_data)

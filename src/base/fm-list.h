@@ -55,6 +55,7 @@ void fm_list_unref(FmList* list);
  * all APIs for GQueue should be usable */
 
 void fm_list_clear(FmList* list);
+#ifndef __GTK_DOC_IGNORE__
 static inline gboolean fm_list_is_empty(FmList* list)
 {
     return g_queue_is_empty((GQueue*)list);
@@ -141,9 +142,11 @@ static inline gint fm_list_index(FmList* list, gconstpointer d)
 {
     return g_queue_index((GQueue*)list,d);
 }
+#endif /* __GTK_DOC_IGNORE__ */
 
 void fm_list_remove(FmList* list, gpointer data);
 void fm_list_remove_all(FmList* list, gpointer data);
+#ifndef __GTK_DOC_IGNORE__
 static inline void fm_list_insert_before(FmList* list, GList* s, gpointer d)
 {
     g_queue_insert_before((GQueue*)list,s,(list)->funcs->item_ref(d));
@@ -221,6 +224,7 @@ static inline void fm_list_delete_link_nounref(FmList* list, GList* l_)
 {
     g_queue_delete_link((GQueue*)list,l_);
 }
+#endif /* __GTK_DOC_IGNORE__ */
 void fm_list_delete_link(FmList* list, GList* l_);
 
 G_END_DECLS

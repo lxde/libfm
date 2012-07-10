@@ -133,6 +133,7 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 FmFileInfoList* fm_file_info_list_new();
 //FmFileInfoList* fm_file_info_list_new_from_glist();
 
+#ifndef __GTK_DOC_IGNORE__
 static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
 {
     return list ? (FmFileInfoList*)fm_list_ref((FmList*)list) : NULL;
@@ -188,6 +189,7 @@ static inline void fm_file_info_list_clear(FmFileInfoList* list)
 {
     fm_list_clear((FmList*)list);
 }
+#endif /* __GTK_DOC_IGNORE__ */
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);
