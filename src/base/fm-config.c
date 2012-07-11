@@ -183,7 +183,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 /**
  * fm_config_load_from_file
  * @cfg: pointer to configuration
- * @name: (allow none): file name to load configuration
+ * @name: (allow-none): file name to load configuration
  *
  * Fills configuration @cfg with data from configuration file. The file
  * @name may be %NULL to load default configuration file. If @name is
@@ -235,7 +235,7 @@ _out:
 /**
  * fm_config_save
  * @cfg: pointer to configuration
- * @name: (allow none): file name to save configuration
+ * @name: (allow-none): file name to save configuration
  *
  * Saves configuration into configuration file @name. If @name is %NULL
  * then configuration will be saved into default configuration file.

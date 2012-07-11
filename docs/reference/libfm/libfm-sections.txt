@@ -885,6 +885,7 @@ fm_path_entry_get_type
 <FILE>fm-places-model</FILE>
 <TITLE>FmPlacesModel</TITLE>
 FmPlacesItem
+FmPlacesModel
 FmPlacesModelClass
 FmPlacesType
 fm_places_item_get_bookmark_item

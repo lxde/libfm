@@ -25,6 +25,10 @@
  * @title: FmFolder
  *
  * @include: libfm/fm-folder.h
+ *
+ * The #FmFolder object allows to open and monitor items of some directory
+ * (either local or remote), i.e. files and directories, to have fast access
+ * to their info and to info of the directory itself as well.
  */
 
 #include "fm-folder.h"
