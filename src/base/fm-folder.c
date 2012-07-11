@@ -109,10 +109,16 @@ static void fm_folder_class_init(FmFolderClass *klass)
     folder_class = FM_FOLDER_CLASS(klass);
     folder_class->content_changed = fm_folder_content_changed;
 
-    /*
-    * files-added is emitted when there is a new file created in the dir.
-    * The param is GList* of the newly added file.
-    */
+    /**
+     * FmFolder::files-added:
+     * @folder: the monitored directory
+     * @list: #GList of newly added #FmFileInfo
+     *
+     * The #FmFolder::files-added signal is emitted when there is some
+     * new file created in the directory.
+     *
+     * Since: 0.1.0
+     */
     signals[ FILES_ADDED ] =
         g_signal_new ( "files-added",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -122,10 +128,16 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__POINTER,
                        G_TYPE_NONE, 1, G_TYPE_POINTER );
 
-    /*
-    * files-removed is emitted when there is a file deleted in the dir.
-    * The param is GList* of the removed files.
-    */
+    /**
+     * FmFolder::files-removed:
+     * @folder: the monitored directory
+     * @list: #GList of #FmFileInfo that were deleted
+     *
+     * The #FmFolder::files-removed signal is emitted when some file was
+     * deleted from the directory.
+     *
+     * Since: 0.1.0
+     */
     signals[ FILES_REMOVED ] =
         g_signal_new ( "files-removed",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -135,10 +147,16 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__POINTER,
                        G_TYPE_NONE, 1, G_TYPE_POINTER );
 
-    /*
-    * file-changed is emitted when there is a file changed in the dir.
-    * The param is VFSFileInfo of the newly created file.
-    */
+    /**
+     * FmFolder::files-changed:
+     * @folder: the monitored directory
+     * @list: #GList of #FmFileInfo that were changed
+     *
+     * The #FmFolder::files-changed signal is emitted when some file in
+     * the directory was changed.
+     *
+     * Since: 0.1.0
+     */
     signals[ FILES_CHANGED ] =
         g_signal_new ( "files-changed",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -148,7 +166,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__POINTER,
                        G_TYPE_NONE, 1, G_TYPE_POINTER );
 
-    /* emitted when the folder is about to be reloaded */
+    /**
+     * FmFolder::start-loading:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::start-loading signal is emitted when the folder is
+     * about to be reloaded.
+     *
+     * Since: 1.0.0
+     */
     signals[START_LOADING] =
         g_signal_new ( "start-loading",
                        G_TYPE_FROM_CLASS (klass),
@@ -158,9 +184,17 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when the content of the folder is loaded.
-     * this signal can be emitted for more than once and can be induced
-     * by calling fm_folder_reload(). */
+    /**
+     * FmFolder::finish-loading:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::finish-loading signal is emitted when the content
+     * of the folder is loaded.
+     * This signal may be emitted more than once and can be induced
+     * by calling fm_folder_reload().
+     *
+     * Since: 1.0.0
+     */
     signals[ FINISH_LOADING ] =
         g_signal_new ( "finish-loading",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -170,7 +204,14 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when the folder is unmounted */
+    /**
+     * FmFolder::unmount:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::unmount signal is emitted when the folder was unmounted.
+     *
+     * Since: 0.1.1
+     */
     signals[ UNMOUNT ] =
         g_signal_new ( "unmount",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -180,7 +221,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when the folder itself is changed */
+    /**
+     * FmFolder::changed:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::changed signal is emitted when the folder itself
+     * was changed.
+     *
+     * Since: 0.1.16
+     */
     signals[ CHANGED ] =
         g_signal_new ( "changed",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -190,7 +239,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when the folder itself is deleted */
+    /**
+     * FmFolder::removed:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::removed signal is emitted when the folder itself
+     * was deleted.
+     *
+     * Since: 0.1.16
+     */
     signals[ REMOVED ] =
         g_signal_new ( "removed",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -200,7 +257,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when content of the folder is changed (some files are added, removed, changed) */
+    /**
+     * FmFolder::content-changed:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::content-changed signal is emitted when content
+     * of the folder is changed (some files are added, removed, or changed).
+     *
+     * Since: 0.1.16
+     */
     signals[ CONTENT_CHANGED ] =
         g_signal_new ( "content-changed",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -210,7 +275,15 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when filesystem information is available. */
+    /**
+     * FmFolder::fs-info:
+     * @folder: the monitored directory
+     *
+     * The #FmFolder::fs-info signal is emitted when filesystem
+     * information is available.
+     *
+     * Since: 0.1.16
+     */
     signals[ FS_INFO ] =
         g_signal_new ( "fs-info",
                        G_TYPE_FROM_CLASS ( klass ),
@@ -220,7 +293,16 @@ static void fm_folder_class_init(FmFolderClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 
-    /* emitted when errors happen */
+    /**
+     * FmFolder::error:
+     * @folder: the monitored directory
+     * @error: error descriptor
+     * @severity: #FmJobErrorSeverity of the error
+     *
+     * The #FmFolder::error signal is emitted when some error happens.
+     *
+     * Since: 0.1.1
+     */
     signals[ERROR] =
         g_signal_new( "error",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -731,6 +813,20 @@ static void fm_folder_dispose(GObject *object)
     (* G_OBJECT_CLASS(fm_folder_parent_class)->dispose)(object);
 }
 
+/**
+ * fm_folder_from_gfile
+ * @gf: #GFile file descriptor
+ *
+ * Retrieves a folder corresponding to @gf. Returned data may be freshly
+ * created or already loaded. Caller should call g_object_unref() on the
+ * returned data after usage.
+ *
+ * Before 1.0.0 this call had name fm_folder_get_for_gfile().
+ *
+ * Returns: (transfer full): #FmFolder corresponding to @gf.
+ *
+ * Since: 0.1.1
+ */
 FmFolder* fm_folder_from_gfile(GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
@@ -739,6 +835,20 @@ FmFolder* fm_folder_from_gfile(GFile* gf)
     return folder;
 }
 
+/**
+ * fm_folder_from_path_name
+ * @path: POSIX path to the folder
+ *
+ * Retrieves a folder corresponding to @path. Returned data may be freshly
+ * created or already loaded. Caller should call g_object_unref() on the
+ * returned data after usage.
+ *
+ * Before 1.0.0 this call had name fm_folder_get_for_path_name().
+ *
+ * Returns: (transfer full): #FmFolder corresponding to @path.
+ *
+ * Since: 0.1.0
+ */
 FmFolder* fm_folder_from_path_name(const char* path)
 {
     FmPath* fm_path = fm_path_new_for_str(path);
@@ -747,6 +857,20 @@ FmFolder* fm_folder_from_path_name(const char* path)
     return folder;
 }
 
+/**
+ * fm_folder_from_uri
+ * @uri: URI for the folder
+ *
+ * Retrieves a folder corresponding to @uri. Returned data may be freshly
+ * created or already loaded. Caller should call g_object_unref() on the
+ * returned data after usage.
+ *
+ * Before 1.0.0 this call had name fm_folder_get_for_uri().
+ *
+ * Returns: (transfer full): #FmFolder corresponding to @uri.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: should we use GFile here? */
 FmFolder*    fm_folder_from_uri    (const char* uri)
 {
@@ -756,6 +880,15 @@ FmFolder*    fm_folder_from_uri    (const char* uri)
     return folder;
 }
 
+/**
+ * fm_folder_reload
+ * @folder: folder to be reloaded
+ *
+ * Causes to retrieve all data for the @folder as if folder was freshly
+ * opened.
+ *
+ * Since: 0.1.1
+ */
 void fm_folder_reload(FmFolder* folder)
 {
     GError* err = NULL;
@@ -828,21 +961,68 @@ void fm_folder_reload(FmFolder* folder)
     fm_folder_query_filesystem_info(folder);
 }
 
+/**
+ * fm_folder_get_files
+ * @folder: folder to retrieve file list
+ *
+ * Retrieves list of currently known files and subdirectories in the
+ * @folder. Returned list is owned by #FmFolder and should be not modified
+ * by caller. If caller wants to keep a reference to the returned list it
+ * should do fm_file_info_list_ref() on the returned data.
+ *
+ * Before 1.0.0 this call had name fm_folder_get().
+ *
+ * Returns: (transfer none): list of items that @folder currently contains.
+ *
+ * Since: 0.1.1
+ */
 FmFileInfoList* fm_folder_get_files (FmFolder* folder)
 {
     return folder->files;
 }
 
+/**
+ * fm_folder_is_empty
+ * @folder: folder to test
+ *
+ * Checks if folder has no files or subdirectories.
+ *
+ * Returns: %TRUE if folder is empty.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_folder_is_empty(FmFolder* folder)
 {
     return fm_file_info_list_is_empty(folder->files);
 }
 
+/**
+ * fm_folder_get_info
+ * @folder: folder to retrieve info
+ *
+ * Retrieves #FmFileInfo data about the folder itself. Returned data is
+ * owned by #FmFolder and should be not modified or freed by caller.
+ *
+ * Returns: (transfer none): info descriptor of the @folder.
+ *
+ * Since: 1.0.0
+ */
 FmFileInfo* fm_folder_get_info(FmFolder* folder)
 {
     return folder->dir_fi;
 }
 
+/**
+ * fm_folder_get_path
+ * @folder: folder to retrieve path
+ *
+ * Retrieves path of the folder. Returned data is owned by #FmFolder and
+ * should be not modified or freed by caller.
+ *
+ * Returns: (transfer none): path of the folder.
+ *
+ * Since: 1.0.0
+ */
 FmPath* fm_folder_get_path(FmFolder* folder)
 {
     return folder->dir_path;
@@ -861,29 +1041,88 @@ static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     return NULL;
 }
 
+/**
+ * fm_folder_get_file_by_name
+ * @folder: folder to search
+ * @name: basename of file in @folder
+ *
+ * Tries to find a file with basename @name in the @folder. Returned data
+ * is owned by #FmFolder and should be not freed by caller.
+ *
+ * Returns: (transfer none): info descriptor of file or %NULL if no file was found.
+ *
+ * Since: 0.1.16
+ */
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
 {
     GList* l = _fm_folder_get_file_by_name(folder, name);
     return l ? (FmFileInfo*)l->data : NULL;
 }
 
+/**
+ * fm_folder_from_path
+ * @path: path descriptor for the folder
+ *
+ * Retrieves a folder corresponding to @path. Returned data may be freshly
+ * created or already loaded. Caller should call g_object_unref() on the
+ * returned data after usage.
+ *
+ * Before 1.0.0 this call had name fm_folder_get().
+ *
+ * Returns: (transfer full): #FmFolder corresponding to @path.
+ *
+ * Since: 0.1.1
+ */
 FmFolder* fm_folder_from_path(FmPath* path)
 {
     return fm_folder_get_internal(path, NULL);
 }
 
-/* is the folder content fully loaded */
+/**
+ * fm_folder_is_loaded
+ * @folder: folder to test
+ *
+ * Checks if all data for @folder is completely loaded.
+ *
+ * Before 1.0.0 this call had name fm_folder_get_is_loaded().
+ *
+ * Returns: %TRUE is loading of folder is already completed.
+ *
+ * Since: 0.1.16
+ */
 gboolean fm_folder_is_loaded(FmFolder* folder)
 {
     return (folder->dirlist_job == NULL);
 }
 
-/* is this a valid folder */
+/**
+ * fm_folder_is_valid
+ * @folder: folder to test
+ *
+ * Checks if directory described by @folder exists.
+ *
+ * Returns: %TRUE if @folder describes a valid existing directory.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_folder_is_valid(FmFolder* folder)
 {
     return (folder->dir_fi != NULL);
 }
 
+/**
+ * fm_folder_get_filesystem_info
+ * @folder: folder to retrieve info
+ * @total_size: pointer to counter of total size of the filesystem
+ * @free_size: pointer to counter of free space on the filesystem
+ *
+ * Retrieves info about total and free space on the filesystem which
+ * contains the @folder.
+ *
+ * Returns: %TRUE if information can be retrieved.
+ *
+ * Since: 0.1.16
+ */
 gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size)
 {
     if(folder->has_fs_info)
@@ -943,6 +1182,15 @@ _out:
     G_UNLOCK(query);
 }
 
+/**
+ * fm_folder_query_filesystem_info
+ * @folder: folder to retrieve info
+ *
+ * Queries to retrieve info about filesystem which contains the @folder if
+ * the filesystem supports such query.
+ *
+ * Since: 0.1.16
+ */
 void fm_folder_query_filesystem_info(FmFolder* folder)
 {
     G_LOCK(query);
