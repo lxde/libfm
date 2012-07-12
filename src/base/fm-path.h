@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 typedef struct _FmPath FmPath;
 typedef struct _FmPathList FmPathList;
 
-enum _FmPathFlags
+typedef enum
 {
     FM_PATH_NONE = 0,
     FM_PATH_IS_NATIVE = 1<<0, /* This is a native path to UNIX, like /home */
@@ -49,8 +49,7 @@ enum _FmPathFlags
     FM_PATH_IS_RESERVED1 = 1<<5,
     FM_PATH_IS_RESERVED2 = 1<<6,
     FM_PATH_IS_RESERVED3 = 1<<7,
-};
-typedef enum _FmPathFlags FmPathFlags;
+} FmPathFlags;
 
 typedef struct _FmFileInfoList FmFileInfoList; /* fm-file-info.h includes this too */
 

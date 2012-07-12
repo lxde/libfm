@@ -41,13 +41,11 @@ G_BEGIN_DECLS
 typedef struct _FmFileInfoJob           FmFileInfoJob;
 typedef struct _FmFileInfoJobClass      FmFileInfoJobClass;
 
-enum _FmFileInfoJobFlags
-{
+typedef enum {
     FM_FILE_INFO_JOB_NONE = 0,
     FM_FILE_INFO_JOB_FOLLOW_SYMLINK = 1 << 0, /* FIXME: not yet implemented */
     FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 << 1 /* FIXME: not yet implemented */
-};
-typedef enum _FmFileInfoJobFlags        FmFileInfoJobFlags;
+} FmFileInfoJobFlags;
 
 struct _FmFileInfoJob
 {

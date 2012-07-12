@@ -305,6 +305,8 @@ static void fm_folder_class_init(FmFolderClass *klass)
      *
      * The #FmFolder::error signal is emitted when some error happens.
      *
+     * Return value: #FmJobErrorAction that should be performed on that error.
+     *
      * Since: 0.1.1
      */
     signals[ERROR] =

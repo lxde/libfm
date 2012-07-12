@@ -44,23 +44,36 @@ typedef struct _FmJobClass      FmJobClass;
 
 typedef gpointer (*FmJobCallMainThreadFunc)(FmJob* job, gpointer user_data);
 
-enum _FmJobErrorSeverity
-{
-    FM_JOB_ERROR_WARNING, /* not an error, just a warning */
-    FM_JOB_ERROR_MILD, /* no big deal, can be ignored most of the time */
-    FM_JOB_ERROR_MODERATE, /* moderate errors */
-    FM_JOB_ERROR_SEVERE, /* severe errors, whether to abort operation depends on error handlers */
-    FM_JOB_ERROR_CRITICAL /* critical errors, the operation is aborted */
-};
-typedef enum _FmJobErrorSeverity FmJobErrorSeverity;
+/**
+ * FmJobErrorSeverity
+ * @FM_JOB_ERROR_WARNING: not an error, just a warning
+ * @FM_JOB_ERROR_MILD: no big deal, can be ignored most of the time
+ * @FM_JOB_ERROR_MODERATE: moderate errors
+ * @FM_JOB_ERROR_SEVERE: severe errors, whether to abort operation depends on error handlers
+ * @FM_JOB_ERROR_CRITICAL: critical errors, the operation is aborted
+ */
+typedef enum {
+    FM_JOB_ERROR_WARNING,
+    FM_JOB_ERROR_MILD,
+    FM_JOB_ERROR_MODERATE,
+    FM_JOB_ERROR_SEVERE,
+    FM_JOB_ERROR_CRITICAL
+} FmJobErrorSeverity;
 
-enum _FmJobErrorAction
-{
-    FM_JOB_CONTINUE, /* ignore the error and continue remaining work */
-    FM_JOB_RETRY, /* retry the previously failed operation. (not every kind of job support this) */
-    FM_JOB_ABORT /* abort the whole job */
-};
-typedef enum _FmJobErrorAction FmJobErrorAction;
+/**
+ * FmJobErrorAction
+ * @FM_JOB_CONTINUE: ignore the error and continue remaining work
+ * @FM_JOB_RETRY: retry the previously failed operation. (not every kind of job support this)
+ * @FM_JOB_ABORT: abort the whole job
+ *
+ * The action that should be performed after error happened.
+ * Usually chosen by user.
+ */
+typedef enum {
+    FM_JOB_CONTINUE,
+    FM_JOB_RETRY,
+    FM_JOB_ABORT
+} FmJobErrorAction;
 
 struct _FmJob
 {
@@ -78,11 +91,27 @@ struct _FmJob
     GCond* cond;
 };
 
+/**
+ * FmJobClass:
+ * @parent_class: the parent class
+ * @finished: the class closure for the #FmJob::finished signal.
+ * @error: the class closure for the #FmJob::error signal.
+ * @cancelled: the class closure for the #FmJob::cancelled signal.
+ * @ask: the class closure for the #FmJob::ask signal.
+ * @run_async: the @run_async function called to create a thread for
+ *  job execution. The most probably should be not overridden by any
+ *  derived class.
+ * @run: the @run function is called to perform actual job actions.
+ *  Should be set by any class that derived from #FmJob.
+ * @cancel: the @cancel function is called when the job is cancelled.
+ *  It can perform some class-specific operations then.
+ */
 struct _FmJobClass
 {
     GObjectClass parent_class;
 
-    /* signals built-in handlers */
+    /*< public >*/
+    /* the class closures for signals */
     void (*finished)(FmJob* job);
     guint (*error)(FmJob* job, GError* err, guint severity);
                 /* guint above are: FmJobErrorAction and FmJobErrorSeverity */

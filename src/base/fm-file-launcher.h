@@ -30,14 +30,12 @@ G_BEGIN_DECLS
 
 typedef gboolean (*FmLaunchFolderFunc)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
 
-enum _FmFileLauncherExecAction
-{
+typedef enum {
     FM_FILE_LAUNCHER_EXEC = 1,
     FM_FILE_LAUNCHER_EXEC_IN_TERMINAL,
     FM_FILE_LAUNCHER_EXEC_OPEN,
     FM_FILE_LAUNCHER_EXEC_CANCEL
-};
-typedef enum _FmFileLauncherExecAction FmFileLauncherExecAction;
+} FmFileLauncherExecAction;
 
 typedef struct _FmFileLauncher FmFileLauncher;
 struct _FmFileLauncher

@@ -257,6 +257,7 @@ fm_config_get_type
 FM_DEEP_COUNT_JOB_TYPE
 FmDeepCountJob
 FmDeepCountJobClass
+FmDeepCountJobFlags
 fm_deep_count_job_new
 fm_deep_count_job_set_dest
 <SUBSECTION Standard>
@@ -452,6 +453,7 @@ fm_file_info_update
 <TITLE>FmFileInfoJob</TITLE>
 FmFileInfoJob
 FmFileInfoJobClass
+FmFileInfoJobFlags
 fm_file_info_job_add
 fm_file_info_job_add_gfile
 fm_file_info_job_get_current
@@ -468,6 +470,7 @@ fm_file_info_job_get_type
 <SECTION>
 <FILE>fm-file-launcher</FILE>
 FmFileLauncher
+FmFileLauncherExecAction
 FmLaunchFolderFunc
 fm_launch_desktop_entry
 fm_launch_files
@@ -492,6 +495,8 @@ fm_file_menu_set_folder_func
 <FILE>fm-file-ops-job</FILE>
 <TITLE>FmFileOpsJob</TITLE>
 FM_FILE_OPS_JOB_TYPE
+FmFileOpOption
+FmFileOpType
 FmFileOpsJob
 FmFileOpsJobClass
 fm_file_ops_job_ask_rename
@@ -706,6 +711,8 @@ fm_pixbuf_from_icon
 FmJob
 FmJobCallMainThreadFunc
 FmJobClass
+FmJobErrorAction
+FmJobErrorSeverity
 fm_job_ask
 fm_job_ask_valist
 fm_job_askv
@@ -800,6 +807,7 @@ fm_nav_history_get_type
 FM_PATH
 FmFileInfoList
 FmPath
+FmPathFlags
 FmPathList
 fm_path_depth
 fm_path_display_basename
