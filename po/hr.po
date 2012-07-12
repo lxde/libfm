@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2012-05-06 11:50+0200\n"
+"PO-Revision-Date: 2012-07-12 02:01+0200\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -156,36 +156,32 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Grupa:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Vlasnik:</b>"
+msgstr "<b>Pogledaj sadržaj:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Meta:</b>"
+msgstr "<b>Promjeni sadržaj:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Ostalo:</b>"
+msgstr "<b>Izvrši:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Otvori _pomoću:</b>"
+msgstr ""
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Tko može čitati sadržaj datoteke/direktorija"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Tko može promjeniti sadržaj datoteke/direktorija"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Tko može izvršiti datoteku ili ući u direktorij"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
@@ -233,19 +229,19 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Nitko"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Samo vlasnik"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Samo vlasnik i grupa"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Bilo tko"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -288,7 +284,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
-msgstr ""
+msgstr "<b>Klijent pošte</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid ""
@@ -448,7 +444,7 @@ msgstr "Kopiranje datoteka"
 
 #: ../src/gtk/fm-progress-dlg.c:494
 msgid "Trashing files"
-msgstr ""
+msgstr "Bacanje datoteka u smeće"
 
 #: ../src/gtk/fm-progress-dlg.c:497
 msgid "Deleting files"
@@ -456,7 +452,7 @@ msgstr "Brisanje datoteka"
 
 #: ../src/gtk/fm-progress-dlg.c:500
 msgid "Creating symlinks"
-msgstr ""
+msgstr "Stvaranje simboličkih poveznica"
 
 #: ../src/gtk/fm-progress-dlg.c:503
 msgid "Changing file attributes"
@@ -481,12 +477,11 @@ msgstr "Unesite valjano ime grupe ili brojčani id."
 #: ../src/gtk/fm-file-properties.c:444
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
+msgstr "Želite li rekurzivno primjeniti ova promjene na sve datoteke i podmape?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Kontrola pristupa</b>"
+msgstr "<b>Sadržaj pristupa:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
@@ -535,7 +530,7 @@ msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
-msgstr ""
+msgstr "Udaljeno"
 
 #: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
 msgid "Open With..."
