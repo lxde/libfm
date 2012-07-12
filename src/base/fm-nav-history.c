@@ -139,6 +139,8 @@ const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
  *
  * Checks if current selected item is the last item in the history.
  *
+ * Before 1.0.0 this call had name fm_nav_history_get_can_forward().
+ *
  * Returns: %TRUE if cursor can go forward in history.
  *
  * Since: 0.1.0
@@ -151,10 +153,10 @@ gboolean fm_nav_history_can_forward(FmNavHistory* nh)
 /**
  * fm_nav_history_forward
  * @nh: the history
- * @old_scroll_pos: the scroll position to associate with item
+ * @old_scroll_pos: the scroll position to associate with current item
  *
- * If there is a previous item in the history then marks it current and
- * sets @old_scroll_pos into it's data.
+ * If there is a previous item in the history then sets @old_scroll_pos
+ * into current item data and marks previous item current.
  *
  * Since: 0.1.0
  */
@@ -175,6 +177,8 @@ void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
  *
  * Checks if current selected item is the first item in the history.
  *
+ * Before 1.0.0 this call had name fm_nav_history_get_can_back().
+ *
  * Returns: %TRUE if cursor can go backward in history.
  *
  * Since: 0.1.0
@@ -187,10 +191,10 @@ gboolean fm_nav_history_can_back(FmNavHistory* nh)
 /**
  * fm_nav_history_back
  * @nh: the history
- * @old_scroll_pos: the scroll position to associate with item
+ * @old_scroll_pos: the scroll position to associate with current item
  *
- * If there is a next item in the history then marks it current and
- * sets @old_scroll_pos into it's data.
+ * If there is a next item in the history then sets @old_scroll_pos into
+ * current item data and marks next item current.
  *
  * Since: 0.1.0
  */
@@ -211,8 +215,8 @@ void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos)
  * @path: new path to add
  * @old_scroll_pos: the scroll position to associate with current item
  *
- * Adds new @path to the beginning of the @nh and sets @old_scroll_pos
- * into current item data.
+ * Sets @old_scroll_pos into current item data and then adds new @path
+ * to the beginning of the @nh.
  *
  * Since: 0.1.0
  */
@@ -260,6 +264,7 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
  *
  * Since: 0.1.0
  */
+/* FIXME: it's too dangerous, need to redesign it later */
 void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos)
 {
     FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
