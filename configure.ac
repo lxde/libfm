@@ -116,7 +116,7 @@ AS_IF([test x"$enable_exif" != x"no"], [
     PKG_CHECK_MODULES(EXIF, [$exif_modules],
         [# turn on libexif support
         enable_exif=yes
-        AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif]),
+        AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif])
         AC_SUBST(EXIF_CFLAGS)
         AC_SUBST(EXIF_LIBS)],
         [AS_IF([test x"$enable_exif" = x"auto"], [enable_exif=no], [
