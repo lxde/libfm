@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-11-27 11:12+0200\n"
-"Last-Translator: Pjotr\n"
+"PO-Revision-Date: 2012-07-09 11:26+0200\n"
+"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
-"Language: nl (Dutch)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -155,44 +156,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>E-mailprogramma</b>"
+msgstr "<b>Inhoud bekijken:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Doel:</b>"
+msgstr "<b>Inhoud veranderen:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Andere:</b>"
+msgstr "<b>Uitvoeren:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Openen _met:</b>"
+msgstr "<b>Speciale bits:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Wie de inhoud van het bestand of de map kan lezen"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Wie de inhoud van het bestand of de map kan veranderen"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Wie het bestand kan uitvoeren of de map kan binnengaan"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Speciale vlaggen voor het uitvoeren van bestanden"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Speciale vlaggen voor maptoegang"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -212,39 +209,39 @@ msgstr "Geen"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Klevend"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Stel GID in"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Klevend en stel GID in"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Stel UID in"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Stel UID en GID in"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Niemand"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Alleen de eigenaar"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Alleen de eigenaar en de groep"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Iedereen"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -486,9 +483,8 @@ msgstr ""
 "Wilt u deze veranderingen recursief toepassen op alle bestanden en submappen?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Toegangcontrole</b>"
+msgstr "<b>Inhoud benaderen:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
