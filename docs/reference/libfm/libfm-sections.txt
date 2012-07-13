@@ -339,6 +339,7 @@ fm_dnd_unset_dest_auto_scroll
 <SECTION>
 <FILE>fm-dnd-dest</FILE>
 <TITLE>FmDndDest</TITLE>
+FmDndDest
 FmDndDestClass
 fm_dnd_dest_drag_data_received
 fm_dnd_dest_drag_drop

@@ -36,7 +36,7 @@ G_BEGIN_DECLS
  *
  * Return value: value to return from fm_job_run_sync().
  */
-typedef gboolean (*FmSimpleJobFunc)(FmJob*, gpointer);
+typedef gboolean (*FmSimpleJobFunc)(FmJob* job, gpointer user_data);
 
 GType fm_simple_job_get_type(void);
 FmJob* fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNotify destroy_data);
