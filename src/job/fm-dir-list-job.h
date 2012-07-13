@@ -44,6 +44,7 @@ typedef struct _FmDirListJobClass       FmDirListJobClass;
 
 struct _FmDirListJob
 {
+    /*< public >*/
     FmJob parent;
     FmPath* dir_path;
     gboolean dir_only;

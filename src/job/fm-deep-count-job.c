@@ -96,7 +96,7 @@ static void fm_deep_count_job_init(FmDeepCountJob *self)
  *
  * Creates a new #FmDeepCountJob which can be ran via #FmJob API.
  *
- * Returns: a new #FmDeepCountJob object.
+ * Returns: (transfer full): a new #FmDeepCountJob object.
  *
  * Since: 0.1.0
  */

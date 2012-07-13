@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dir-list-job
+ * @short_description: Job to get listing of directory.
+ * @title: FmDirListJob
+ *
+ * @include: libfm/fm-dir-list-job.h
+ *
+ * The #FmDirListJob can be used to gather list of #FmFileInfo that some
+ * directory contains.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -56,19 +67,41 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 
 static void fm_dir_list_job_init(FmDirListJob *self)
 {
+    job->files = fm_file_info_list_new();
     fm_job_init_cancellable(FM_JOB(self));
 }
 
-
+/**
+ * fm_dir_list_job_new
+ * @path: path to directory to get listing
+ * @dir_only: %TRUE to include only directories in the list
+ *
+ * Creates a new #FmDirListJob for directory listing. If @dir_only is
+ * %TRUE then objects other than directories will be omitted from the
+ * listing.
+ *
+ * Returns: (transfer full): a new #FmDirListJob object.
+ *
+ * Since: 0.1.0
+ */
 FmDirListJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {
     FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
     job->dir_path = fm_path_ref(path);
     job->dir_only = dir_only;
-    job->files = fm_file_info_list_new();
     return job;
 }
 
+/**
+ * fm_dir_list_job_new_for_gfile
+ * @gf: descriptor of directory to get listing
+ *
+ * Creates a new #FmDirListJob for listing of directory @gf.
+ *
+ * Returns: (transfer full): a new #FmDirListJob object.
+ *
+ * Since: 0.1.0
+ */
 FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 {
     /* FIXME: should we cache this with hash table? Or, the cache
@@ -432,6 +465,18 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
     return ret;
 }
 
+/**
+ * fm_dir_dist_job_get_files
+ * @job: the job that collected listing
+ *
+ * Retrieves gathered listing from the @job. This function may be called
+ * only from #FmJob::finished signal handler. Returned data is owned by
+ * the @job and should be not freed by caller.
+ *
+ * Returns: (transfer none): list of gathered data.
+ *
+ * Since: 0.1.0
+ */
 FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
 {
     return job->files;

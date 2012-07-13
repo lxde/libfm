@@ -53,6 +53,7 @@ typedef enum {
 
 struct _FmDeepCountJob
 {
+    /*< public >*/
     FmJob parent;
     FmPathList* paths;
     FmDeepCountJobFlags flags;
