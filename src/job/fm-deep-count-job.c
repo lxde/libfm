@@ -19,6 +19,20 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-deep-count-job
+ * @short_description: Job to gather information about file sizes.
+ * @title: FmDeepCountJob
+ *
+ * @include: libfm/fm-deep-count-job.h
+ *
+ * The #FmDeepCountJob can be used to recursively gather information about
+ * some files and directories content before copy or move. It counts total
+ * size of all given files and directories, and size on disk for them.
+ * If flags for the job include FM_DC_JOB_PREPARE_MOVE then also count of
+ * files to move between volumes will be counted as well.
+ */
+
 #include "fm-deep-count-job.h"
 #include <glib/gstdio.h>
 #include <errno.h>
@@ -75,7 +89,17 @@ static void fm_deep_count_job_init(FmDeepCountJob *self)
     fm_job_init_cancellable(FM_JOB(self));
 }
 
-
+/**
+ * fm_deep_count_job_new
+ * @paths: list of files and directories to count sizes
+ * @flags: flags of the counting behavior
+ *
+ * Creates a new #FmDeepCountJob which can be ran via #FmJob API.
+ *
+ * Returns: a new #FmDeepCountJob object.
+ *
+ * Since: 0.1.0
+ */
 FmDeepCountJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
 {
     FmDeepCountJob* job = (FmDeepCountJob*)g_object_new(FM_DEEP_COUNT_JOB_TYPE, NULL);
@@ -318,7 +342,19 @@ _retry_query_info:
     return TRUE;
 }
 
-/* dev is UNIX device ID. fs_id is filesystem id in gio format (can be NULL). */
+/**
+ * fm_deep_count_job_set_dest
+ * @dc: a job to set the destination
+ * @dev: UNIX device ID
+ * @fs_id: (allow-none): filesystem id in gio format
+ *
+ * Sets destination for the job @dc that will be used when the job is
+ * ran with any of flags FM_DC_JOB_SAME_FS or FM_DC_JOB_PREPARE_MOVE.
+ * If @dev is 0 (and @fs_id is NULL) then destination device is non on
+ * native filesystem.
+ *
+ * Since: 0.1.0
+ */
 void fm_deep_count_job_set_dest(FmDeepCountJob* dc, dev_t dev, const char* fs_id)
 {
     dc->dest_dev = dev;

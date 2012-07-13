@@ -60,7 +60,8 @@ struct _FmDeepCountJob
     goffset total_ondisk_size;
     guint count;
 
-    /* private: used to count total size used when moving files */
+    /*< private >*/
+    /* used to count total size used when moving files */
     dev_t dest_dev;
     const char* dest_fs_id;
 };
