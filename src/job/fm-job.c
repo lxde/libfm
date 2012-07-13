@@ -278,7 +278,9 @@ static gboolean fm_job_real_run_async(FmJob* job)
  *
  * Starts the @job asyncronously creating new thread. If job starts
  * successfully then the #FmJob::finished signal will be emitted when
- * @job is either succeeded, failed, or was cancelled.
+ * @job is either succeeded or was cancelled. If @job could not be
+ * started then #FmJob::cancelled signal is emitted before return from
+ * this function.
  *
  * Returns: %TRUE if job started successfully.
  *
@@ -304,7 +306,7 @@ gboolean fm_job_run_async(FmJob* job)
  * @job: a job to run
  *
  * Runs the @job in current thread in a blocking fashion. The job will
- * emit either #FmJob::cancelled signal if job failed or was cancelled
+ * emit either #FmJob::cancelled signal if job was cancelled
  * or #FmJob::finished signal if it finished successfully.
  *
  * Returns: %TRUE if @job ran successfully.
@@ -339,7 +341,7 @@ static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
  * Runs the @job in current thread in a blocking fashion and an additional
  * mainloop being created to prevent blocking of user interface. If @job
  * started successfully then #FmJob::finished signal is emitted when @job
- * is either succeeded, failed, or was cancelled.
+ * is either succeeded or was cancelled.
  *
  * Returns: %TRUE if job started successfully.
  *
@@ -354,8 +356,8 @@ gboolean fm_job_run_sync_with_mainloop(FmJob* job)
     if(G_LIKELY(ret))
     {
         g_main_loop_run(mainloop);
-        g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
     }
+    g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
     g_main_loop_unref(mainloop);
     return ret;
 }

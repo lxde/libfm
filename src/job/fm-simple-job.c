@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-simple-job
+ * @short_description: Job to run a function asynchronously.
+ * @title: FmSimpleJob
+ *
+ * @include: libfm/fm-simple-job.h
+ *
+ * The #FmJob can be used to create asynchronous job which just run some
+ * simple function with provided data.
+ */
+
 #include "fm-simple-job.h"
 
 #define FM_TYPE_SIMPLE_JOB              (fm_simple_job_get_type())
@@ -84,7 +95,18 @@ static void fm_simple_job_init(FmSimpleJob *self)
 
 }
 
-
+/**
+ * fm_simple_job_new
+ * @func: user function to run asynchronously
+ * @user_data: user data provided for @func
+ * @destroy_data: user function to free data after job finished
+ *
+ * Creates a new simple #FmJob for user task.
+ *
+ * Returns: (transfer full): a new #FmJob object.
+ *
+ * Since: 0.1.0
+ */
 FmJob*  fm_simple_job_new(FmSimpleJobFunc func, gpointer user_data, GDestroyNotify destroy_data)
 {
     FmSimpleJob* job = (FmSimpleJob*)g_object_new(FM_TYPE_SIMPLE_JOB, NULL);

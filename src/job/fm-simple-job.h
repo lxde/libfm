@@ -27,6 +27,15 @@
 
 G_BEGIN_DECLS
 
+/**
+ * FmSimpleJobFunc
+ * @job: the job object
+ * @user_data: user data provided on fm_simple_job_new() call
+ *
+ * The user function which will be ran asynchronously by #FmJob API.
+ *
+ * Return value: value to return from fm_job_run_sync().
+ */
 typedef gboolean (*FmSimpleJobFunc)(FmJob*, gpointer);
 
 GType fm_simple_job_get_type(void);
