@@ -230,6 +230,7 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
  * @path: a path to add to query list
  *
  * Adds a @path to query list for the @job.
+ *
  * This API may only be called before starting the @job.
  *
  * Since: 0.1.0
@@ -247,6 +248,7 @@ void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
  * @path: a file descriptor to add to query list
  *
  * Adds a path @gf to query list for the @job.
+ *
  * This API may only be called before starting the @job.
  *
  * Since: 0.1.0
@@ -265,8 +267,9 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
  * @job: the job to inspect
  *
  * Retrieves current the #FmPath which caused the error.
- * This API may only be called in error handler.
  * Returned data are owned by @job and shouldn't be freed by caller.
+ *
+ * This API may only be called in error handler.
  *
  * Returns: (transfer none): the current processing file path.
  *

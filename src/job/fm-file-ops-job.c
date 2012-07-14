@@ -20,6 +20,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-ops-job
+ * @short_description: Job to do something with files.
+ * @title: FmFileOpsJob
+ *
+ * @include: libfm/fm-file-ops-job.h
+ *
+ * The #FmFileOpsJob can be used to do some file operation such as move,
+ * copy, delete, change file attributes, etc.
+ */
+
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
@@ -83,7 +94,16 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_file_ops_job_run;
 
-    /* preperation of the file operation is done, ready to start copying/deleting... */
+    /**
+     * FmFileOpsJob::prepared:
+     * @job: a job object which emitted the signal
+     *
+     * The #FmFileOpsJob::prepared signal is emitted when preparation
+     * of the file operation is done and @job is ready to start
+     * copying/deleting...
+     *
+     * Since: 0.1.10
+     */
     signals[PREPARED] =
         g_signal_new( "prepared",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -93,6 +113,16 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
 
+    /**
+     * FmFileOpsJob::cur-file:
+     * @job: a job object which emitted the signal
+     * @file: (const char *) file which is processing
+     *
+     * The #FmFileOpsJob::cur-file signal is emitted when @job is about
+     * to start operation on the @file.
+     *
+     * Since: 0.1.0
+     */
     signals[CUR_FILE] =
         g_signal_new( "cur-file",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -102,6 +132,16 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER );
 
+    /**
+     * FmFileOpsJob::percent:
+     * @job: a job object which emitted the signal
+     * @percent: current ratio of completed job size to full job size
+     *
+     * The #FmFileOpsJob::percent signal is emitted when one more file
+     * operation is completed.
+     *
+     * Since: 0.1.0
+     */
     signals[PERCENT] =
         g_signal_new( "percent",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -111,6 +151,22 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       g_cclosure_marshal_VOID__UINT,
                       G_TYPE_NONE, 1, G_TYPE_UINT );
 
+    /**
+     * FmFileOpsJob::ask-rename:
+     * @job: a job object which emitted the signal
+     * @src: (#FmFileInfo *) source file
+     * @dest: (#FmFileInfo *) destination directory
+     * @new_name: (char **) pointer to receive new name
+     *
+     * The #FmFileOpsJob::ask-rename signal is emitted when file operation
+     * raises a conflict because file with the same name already exists
+     * in the directory @dest. Signal handler should find a decision how
+     * to resolve the situation.
+     *
+     * Return value: a #FmFileOpOption decision.
+     *
+     * Since: 0.1.0
+     */
     signals[ASK_RENAME] =
         g_signal_new( "ask-rename",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -148,7 +204,17 @@ static void fm_file_ops_job_init(FmFileOpsJob *self)
     self->gid = -1;
 }
 
-
+/**
+ * fm_file_ops_job_new
+ * @type: type of file operation the new job will handle
+ * @files: list of source files to perform operation
+ *
+ * Creates new #FmFileOpsJob which can be used in #FmJob API.
+ *
+ * Returns: a new #FmFileOpsJob object.
+ *
+ * Since: 0.1.0
+ */
 FmFileOpsJob *fm_file_ops_job_new(FmFileOpType type, FmPathList* files)
 {
     FmFileOpsJob* job = (FmFileOpsJob*)g_object_new(FM_FILE_OPS_JOB_TYPE, NULL);
@@ -183,28 +249,97 @@ static gboolean fm_file_ops_job_run(FmJob* fm_job)
 }
 
 
+/**
+ * fm_file_ops_job_set_dest
+ * @job: a job to set
+ * @dest: destination path
+ *
+ * Sets destination path for operations FM_FILE_OP_MOVE, FM_FILE_OP_COPY,
+ * or FM_FILE_OP_LINK.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest)
 {
     job->dest = fm_path_ref(dest);
 }
 
+/**
+ * fm_file_ops_job_get_dest
+ * @job: a job to inspect
+ *
+ * Retrieves the destination path for operation. If type of operation
+ * in not FM_FILE_OP_MOVE, FM_FILE_OP_COPY, or FM_FILE_OP_LINK then
+ * result of this call is undefined. The returned value is owned by
+ * @job and should be not freed by caller.
+ *
+ * Returns: (transfer none): the #FmPath which was set by previous call
+ * to fm_file_ops_job_set_dest().
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job)
 {
     return job->dest;
 }
 
+/**
+ * fm_file_ops_job_set_chmod
+ * @job: a job to set
+ * @new_mode: which bits of file mode should be set
+ * @new_mode_mask: which bits of file mode should be reset
+ *
+ * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
+ * file mode changed according to @new_mode_mask and @new_mode: bits
+ * that are present only in @new_mode_mask will be set to 0, and bits
+ * that are present in both @new_mode_mask and @new_mode will be set to 1.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask)
 {
     job->new_mode = new_mode;
     job->new_mode_mask = new_mode_mask;
 }
 
+/**
+ * fm_file_ops_job_set_chown
+ * @job: a job to set
+ * @uid: user id to set as file owner
+ * @gid: group id to set as file group
+ *
+ * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
+ * owner or group changed. If @uid >= %0 then @job will try to change
+ * owner of files. If @gid >= %0 then @job will try to change group of
+ * files.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_set_chown(FmFileOpsJob* job, gint uid, gint gid)
 {
     job->uid = uid;
     job->gid = gid;
 }
 
+/**
+ * fm_file_ops_job_set_recursive
+ * @job: a job to set
+ * @recursive: recursion attribute to set
+ *
+ * Sets 'recursive' attribute for file operation according to @recursive.
+ * If @recursive is %TRUE then file operation @job will try to do all
+ * operations recursively.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive)
 {
     job->recursive = recursive;
@@ -216,6 +351,18 @@ static gpointer emit_cur_file(FmJob* job, gpointer cur_file)
     return NULL;
 }
 
+/**
+ * fm_file_ops_job_emit_cur_file
+ * @job: the job to emit signal
+ * @cur_file: the data to emit
+ *
+ * Emits the #FmFileOpsJob::cur-file signal in main thread.
+ *
+ * This API is private to #FmFileOpsJob and should not be used outside
+ * of libfm implementation.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file)
 {
     fm_job_call_main_thread(FM_JOB(job), emit_cur_file, (gpointer)cur_file);
@@ -227,6 +374,17 @@ static gpointer emit_percent(FmJob* job, gpointer percent)
     return NULL;
 }
 
+/**
+ * fm_file_ops_job_emit_percent
+ * @job: the job to emit signal
+ *
+ * Emits the #FmFileOpsJob::percent signal in main thread.
+ *
+ * This API is private to #FmFileOpsJob and should not be used outside
+ * of libfm implementation.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job)
 {
     guint percent;
@@ -253,6 +411,17 @@ static gpointer emit_prepared(FmJob* job, gpointer user_data)
     return NULL;
 }
 
+/**
+ * fm_file_ops_job_emit_prepared
+ * @job: the job to emit signal
+ *
+ * Emits the #FmFileOpsJob::prepared signal in main thread.
+ *
+ * This API is private to #FmFileOpsJob and should not be used outside
+ * of libfm implementation.
+ *
+ * Since: 0.1.10
+ */
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job)
 {
     fm_job_call_main_thread(FM_JOB(job), emit_prepared, NULL);
@@ -274,6 +443,25 @@ static gpointer emit_ask_rename(FmJob* job, gpointer input_data)
     return NULL;
 }
 
+/**
+ * fm_file_ops_job_ask_rename
+ * @job: a job which asked
+ * @src: source file descriptor
+ * @src_inf: source file information
+ * @dest: destination descriptor
+ * @new_dest: pointer to get new destination
+ *
+ * Asks the user in main thread how to resolve conflict if file being
+ * copied or moved already exists in destination directory. Ask is done
+ * by emitting the #FmFileOpsJob::ask signal.
+ *
+ * This API is private to #FmFileOpsJob and should not be used outside
+ * of libfm implementation.
+ *
+ * Returns: a decision how to resolve conflict.
+ *
+ * Since: 0.1.0
+ */
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)
 {
     struct AskRename data;
