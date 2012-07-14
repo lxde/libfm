@@ -632,6 +632,7 @@ GCancellable* fm_job_get_cancellable(FmJob* job)
 /**
  * fm_job_set_cancellable
  * @job: the job to set
+ * @cancellable: (allow-none): a shared cancellable object
  *
  * Lets the job to use an existing @cancellable object.
  * This can be used when you wish to share a cancellable object

@@ -245,7 +245,7 @@ void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 /**
  * fm_file_info_job_add_gfile
  * @job: a job to add file
- * @path: a file descriptor to add to query list
+ * @gf: a file descriptor to add to query list
  *
  * Adds a path @gf to query list for the @job.
  *
