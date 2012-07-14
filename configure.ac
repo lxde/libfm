@@ -10,8 +10,10 @@ AC_CONFIG_HEADERS([config.h])
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
-AM_PROG_AR
 AM_PROG_LIBTOOL
+
+# automake 1.12 requires AM_PROG_AR.
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
 # Vala
 AM_PROG_VALAC([0.13.0])
