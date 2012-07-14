@@ -67,7 +67,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 
 static void fm_dir_list_job_init(FmDirListJob *self)
 {
-    job->files = fm_file_info_list_new();
+    self->files = fm_file_info_list_new();
     fm_job_init_cancellable(FM_JOB(self));
 }
 
