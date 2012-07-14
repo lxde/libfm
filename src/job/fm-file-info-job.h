@@ -49,9 +49,11 @@ typedef enum {
 
 struct _FmFileInfoJob
 {
+    /*< public >*/
     FmJob parent;
     FmFileInfoJobFlags flags;
     FmFileInfoList* file_infos;
+    /*< private >*/
     FmPath* current;
 };
 

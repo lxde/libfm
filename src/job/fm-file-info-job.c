@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-info-job
+ * @short_description: Job to gather information about files.
+ * @title: FmFileInfoJob
+ *
+ * @include: libfm/fm-file-info-job.h
+ *
+ * The #FmFileInfoJob can be used to get filled #FmFileInfo for some files.
+ */
+
 #include "fm-file-info-job.h"
 
 #include <sys/types.h>
@@ -80,6 +90,17 @@ static void fm_file_info_job_init(FmFileInfoJob *self)
     fm_job_init_cancellable(FM_JOB(self));
 }
 
+/**
+ * fm_file_info_job_new
+ * @files_to_query: (allow-none): list of paths to query informatiom
+ * @flags: modificators of query mode
+ *
+ * Creates a new #FmFileInfoJob which can be used by #FmJob API.
+ *
+ * Returns: (transfer full): a new #FmFileInfoJob object.
+ *
+ * Since: 0.1.0
+ */
 FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags)
 {
     GList* l;
@@ -203,7 +224,16 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
     return TRUE;
 }
 
-/* this can only be called before running the job. */
+/**
+ * fm_file_info_job_add
+ * @job: a job to add file
+ * @path: a path to add to query list
+ *
+ * Adds a @path to query list for the @job.
+ * This API may only be called before starting the @job.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 {
     FmFileInfo* fi = fm_file_info_new();
@@ -211,6 +241,16 @@ void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
     fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
+/**
+ * fm_file_info_job_add_gfile
+ * @job: a job to add file
+ * @path: a file descriptor to add to query list
+ *
+ * Adds a path @gf to query list for the @job.
+ * This API may only be called before starting the @job.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
@@ -220,7 +260,18 @@ void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
     fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
-/* This API should only be called in error handler */
+/**
+ * fm_file_info_job_get_current
+ * @job: the job to inspect
+ *
+ * Retrieves current the #FmPath which caused the error.
+ * This API may only be called in error handler.
+ * Returned data are owned by @job and shouldn't be freed by caller.
+ *
+ * Returns: (transfer none): the current processing file path.
+ *
+ * Since: 0.1.10
+ */
 FmPath* fm_file_info_job_get_current(FmFileInfoJob* job)
 {
     return job->current;
