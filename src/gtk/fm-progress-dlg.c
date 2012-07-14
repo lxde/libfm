@@ -548,10 +548,18 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
     data->timer = g_timer_new();
 }
 
-/* Run the file operation job with a progress dialog.
+/**
+ * fm_file_ops_job_run_with_progress
+ * @parent: parent window to show dialog over it
+ * @job: job descriptor to run
+ *
+ * Runs the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
+ *
  * NOTE: INCONSISTENCY: it takes a reference from job
+ *
+ * Return value: (transfer none): progress data; not usable; caller should not free it either.
  */
 FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {

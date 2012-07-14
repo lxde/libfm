@@ -150,7 +150,7 @@ static void fm_dnd_auto_scroll_free(gpointer user_data)
 
 /**
  * fm_dnd_set_dest_auto_scroll
- * @drag_dest_widget a drag destination widget
+ * @drag_dest_widget: a drag destination widget
  * @hadj: horizontal GtkAdjustment
  * @vadj: vertical GtkAdjustment
  *
@@ -191,7 +191,7 @@ void fm_dnd_set_dest_auto_scroll(GtkWidget* drag_dest_widget,
 
 /**
  * fm_dnd_unset_dest_auto_scroll
- * @drag_dest_widget drag destination widget.
+ * @drag_dest_widget: drag destination widget.
  *
  * Unsets what has been done by fm_dnd_set_dest_auto_scroll()
  */

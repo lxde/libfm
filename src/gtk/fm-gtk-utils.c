@@ -78,12 +78,12 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question
 
 /**
  * fm_ask
- * Ask the user a question with several options provided.
- *
  * @parent: toplevel parent widget
  * @title: title for the window with question
  * @question: the question to show to the user
  * @...: a NULL terminated list of button labels
+ *
+ * Ask the user a question with several options provided.
  *
  * Return value: the index of selected button, or -1 if the dialog is closed.
  */
@@ -99,12 +99,12 @@ int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 
 /**
  * fm_askv
- * Ask the user a question with several options provided.
- *
  * @parent: toplevel parent widget
  * @title: title for the window with question
  * @question: the question to show to the user
  * @options: a NULL terminated list of button labels
+ *
+ * Ask the user a question with several options provided.
  *
  * Return value: the index of selected button, or -1 if the dialog is closed.
  */
@@ -137,12 +137,12 @@ int fm_askv(GtkWindow* parent, const char* title, const char* question, char* co
 
 /**
  * fm_ask_valist
- * Ask the user a question with several options provided.
- *
  * @parent: toplevel parent widget
  * @title: title for the window with question
  * @question: the question to show to the user
  * @options: va_arg list of button labels
+ *
+ * Ask the user a question with several options provided.
  *
  * Return value: the index of selected button, or -1 if the dialog is closed.
  */

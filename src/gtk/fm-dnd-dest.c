@@ -420,11 +420,11 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
 
 /**
  * fm_dnd_dest_get_default_action
- * @dd FmDndDest object which will receive data
- * @drag_context the drag context
- * @target GdkTarget of the target data type
+ * @dd: object which will receive data
+ * @drag_context: the drag context
+ * @target: #GdkTarget of the target data type
  *
- * Returns the default action to take for the dragged files.
+ * Returns: the default action to take for the dragged files.
  */
 GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                              GdkDragContext* drag_context,
