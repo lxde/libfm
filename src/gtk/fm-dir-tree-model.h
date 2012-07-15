@@ -73,7 +73,7 @@ struct _FmDirTreeModelClass
 GType fm_dir_tree_model_get_type(void);
 FmDirTreeModel* fm_dir_tree_model_new(void);
 
-void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* it);
+void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* iter);
 
 void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
 void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
@@ -81,11 +81,11 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
 void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size);
 guint fm_dir_tree_model_get_icon_size(FmDirTreeModel* model);
 
-gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* it);
-GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* it);
-FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* it);
-FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* it);
-const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* it);
+gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter);
+GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter);
+FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* iter);
+FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter);
+const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter);
 
 /* TODO:
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden);

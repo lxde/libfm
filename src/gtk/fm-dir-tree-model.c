@@ -18,6 +18,17 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-dir-tree-model
+ * @short_description: A model for directory tree view
+ * @title: FmDirTreeModel
+ *
+ * @include: libfm/fm-dir-tree-model.h
+ *
+ * The #FmDirTreeModel represents tree of folders which can be used by
+ * #FmDirTreeView to create tree-like expandable list of directories.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -135,12 +146,15 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
      * @model: dir tree model instance that received the signal
      * @row:   path to folder row that is ready
      *
-     * This signal is emitted after content of folder @row is completely
-     * retrieved. It may happen either after call to fm_dir_tree_model_load_row()
+     * The #FmDirTreeModel::row-loaded signal is emitted when content of
+     * folder @row is completely retrieved. It may happen either
+     * after call to fm_dir_tree_model_load_row()
      * or in time of that call (in case if the folder was already cached in
      * memory).
      *
      * See also: fm_dir_tree_model_unload_row().
+     *
+     * Since: 1.0.0
      */
     signals[ROW_LOADED] =
         g_signal_new("row-loaded",
@@ -564,6 +578,15 @@ static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface)
     column_types[FM_DIR_TREE_MODEL_COL_FOLDER] = G_TYPE_POINTER;
 }
 
+/**
+ * fm_dir_tree_model_new
+ *
+ * Creates new #FmDirTreeModel instance.
+ *
+ * Returns: a new #FmDirTreeModel object.
+ *
+ * Since: 0.1.16
+ */
 FmDirTreeModel *fm_dir_tree_model_new(void)
 {
     return (FmDirTreeModel*)g_object_new(FM_TYPE_DIR_TREE_MODEL, NULL);
@@ -742,6 +765,17 @@ static void remove_all_children(FmDirTreeModel* model, GList* item_l, GtkTreePat
     gtk_tree_path_up(tp);
 }
 
+/**
+ * fm_dir_tree_model_add_root
+ * @model: the model instance
+ * @root: a root path to add
+ * @iter: (allow-none): pointer to iterator to set
+ *
+ * Adds a root node for file @root into @model. If @iter is not %NULL
+ * then on return it will be set to new row data.
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* iter)
 {
     GtkTreeIter it;
@@ -888,6 +922,26 @@ static inline void item_free_folder(FmFolder* folder, GList* item_l)
     g_object_unref(folder);
 }
 
+/**
+ * fm_dir_tree_model_load_row
+ * @model: the model instance
+ * @it: iterator of row to load
+ * @tp: path of row to load
+ *
+ * If row with iterator @it has its children already retrieved then
+ * does nothing. Else starts retrieving of list of children for row
+ * with iterator @it and path @tp. When children are loaded then a
+ * #FmDirTreeModel::row-loaded signal will be emitted. The folder
+ * associated with the row will be monitored for changes in children
+ * after that.
+ * This API is used when the row is expanded in the view.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_model_expand_row().
+ *
+ * See also: fm_dir_tree_row_is_loaded(), fm_dir_tree_model_unload_row().
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
@@ -933,6 +987,20 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
     }
 }
 
+/**
+ * fm_dir_tree_model_unload_row
+ * @model: the model instance
+ * @it: iterator of row to unload
+ * @tp: path of row to unload
+ *
+ * If children of row with iterator @it are retrieved or monitored
+ * then stops monitoring the folder and forgets children of the row.
+ * This API is used when the row is collapsed in the view.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_model_collapse_row().
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
@@ -959,6 +1027,15 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     }
 }
 
+/**
+ * fm_dir_tree_model_set_icon_size
+ * @model: the model instance
+ * @icon_size: new preferrable icon size
+ *
+ * Sets size of icons which are associated with rows.
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
 {
     if(model->icon_size != icon_size)
@@ -975,11 +1052,35 @@ void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
     }
 }
 
+/**
+ * fm_dir_tree_model_get_icon_size
+ * @model: the model instance
+ *
+ * Retrieves size of icons which are associated with rows.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_get_icon_size().
+ *
+ * Returns: preferrable icom size for the @model.
+ *
+ * Since: 0.1.16
+ */
 guint fm_dir_tree_model_get_icon_size(FmDirTreeModel* model)
 {
     return model->icon_size;
 }
 
+/**
+ * fm_dir_tree_row_get_icon
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves an icon associated with row of @iter in @model. Returned
+ * data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the icon for the row.
+ *
+ * Since: 1.0.0
+ */
 GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
@@ -998,6 +1099,18 @@ GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter)
     return item->icon;
 }
 
+/**
+ * fm_dir_tree_row_get_file_info
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves info for file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file info for the row.
+ *
+ * Since: 1.0.0
+ */
 FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
@@ -1011,6 +1124,18 @@ FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* it
     return item->fi;
 }
 
+/**
+ * fm_dir_tree_row_get_file_path
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves #FmPath for file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file path for the row.
+ *
+ * Since: 1.0.0
+ */
 FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
@@ -1024,6 +1149,18 @@ FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter)
     return item->fi ? fm_file_info_get_path(item->fi) : NULL;
 }
 
+/**
+ * fm_dir_tree_row_get_disp_name
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves display name of file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file display name for the row.
+ *
+ * Since: 1.0.0
+ */
 const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
@@ -1044,6 +1181,19 @@ const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* it
     return _("Loading...");
 }
 
+/**
+ * fm_dir_tree_row_is_loaded
+ * @model: the model instance
+ * @iter: the iterator of row to inspect
+ *
+ * Checks if the row has its children already retrieved. This check may
+ * need be done since any duplicate calls to fm_dir_tree_model_load_row()
+ * will not emit any duplicate #FmDirTreeModel::row-loaded signal.
+ *
+ * Returns: %TRUE if the row has children already loaded.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter)
 {
     GList* item_l;
