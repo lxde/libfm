@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-cell-renderer-text
+ * @short_description: An implementation of cell text renderer.
+ * @title: FmCellRendererText
+ *
+ * @include: fm-cell-renderer-text.h
+ *
+ * The #FmCellRendererText can be used to render text in cell.
+ */
+
 #include "fm-cell-renderer-text.h"
 
 G_DEFINE_TYPE(FmCellRendererText, fm_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
@@ -43,13 +53,21 @@ static void fm_cell_renderer_text_init(FmCellRendererText *self)
 	
 }
 
-
+/**
+ * fm_cell_renderer_text_new
+ *
+ * Creates new #GtkCellRenderer object for #FmCellRendererText.
+ *
+ * Returns: a new #GtkCellRenderer object.
+ *
+ * Since: 0.1.0
+ */
 GtkCellRenderer *fm_cell_renderer_text_new(void)
 {
 	return (GtkCellRenderer*)g_object_new(FM_CELL_RENDERER_TEXT_TYPE, NULL);
 }
 
-void fm_cell_renderer_text_render(GtkCellRenderer *cell, 
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell, 
 								GdkDrawable *window,
 								GtkWidget *widget,
 								GdkRectangle *background_area,
