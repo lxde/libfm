@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-cell-renderer-pixbuf
+ * @short_description: Extended pixbuf cell renderer.
+ * @title: FmCellRendererPixbuf
+ *
+ * @include: libfm/fm-cell-renderer-pixbuf.h
+ *
+ * The #FmCellRendererPixbuf is extended version of #GtkCellRendererPixbuf
+ * which adds small link picture if corresponding file is symbolic link.
+ */
+
 #include "fm-cell-renderer-pixbuf.h"
 
 static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
@@ -116,7 +127,12 @@ static void fm_cell_renderer_pixbuf_class_init(FmCellRendererPixbufClass *klass)
     cell_class->get_size = fm_cell_renderer_pixbuf_get_size;
     cell_class->render = fm_cell_renderer_pixbuf_render;
 
-
+    /**
+     * FmCellRendererPixbuf:info:
+     *
+     * The #FmCellRendererPixbuf:info property is the #FmFileInfo
+     * of file that this object corresponds to.
+     */
     g_object_class_install_property ( g_object_class,
                                       PROP_INFO,
                                       g_param_spec_pointer ( "info",
@@ -164,7 +180,15 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
         self->icon = g_object_ref(link_icon);
 }
 
-
+/**
+ * fm_cell_renderer_pixbuf_new
+ *
+ * Creates new #FmCellRendererPixbuf object.
+ *
+ * Returns: (transfer full): a new #FmCellRendererPixbuf object.
+ *
+ * Since: 0.1.0
+ */
 FmCellRendererPixbuf *fm_cell_renderer_pixbuf_new(void)
 {
     return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
@@ -206,6 +230,16 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
     }
 }
 
+/**
+ * fm_cell_renderer_pixbuf_set_fixed_size
+ * @render: the renderer object
+ * @w: new fixed width
+ * @h: new fixed height
+ *
+ * Sets fixed width and height for rendered object.
+ *
+ * Since: 0.1.0
+ */
 void fm_cell_renderer_pixbuf_set_fixed_size(FmCellRendererPixbuf* render, gint w, gint h)
 {
     render->fixed_w = w;
