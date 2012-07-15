@@ -41,13 +41,23 @@ G_BEGIN_DECLS
 #define FM_DIR_TREE_MODEL_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),\
             FM_TYPE_DIR_TREE_MODEL, FmDirTreeModelClass))
 
-/* Columns of dir tree view */
+/**
+ * FmDirTreeModelCol:
+ * @FM_DIR_TREE_MODEL_COL_ICON: (#GdkPixbuf *) icon
+ * @FM_DIR_TREE_MODEL_COL_DISP_NAME: (#char *) displayed name
+ * @FM_DIR_TREE_MODEL_COL_INFO: (#FmFileInfo *) file info
+ * @FM_DIR_TREE_MODEL_COL_PATH: (#FmPath *) file path
+ * @FM_DIR_TREE_MODEL_COL_FOLDER: (#FmFolder *) folder object
+ *
+ * Columns of dir tree model
+ */
 typedef enum {
     FM_DIR_TREE_MODEL_COL_ICON,
     FM_DIR_TREE_MODEL_COL_DISP_NAME,
     FM_DIR_TREE_MODEL_COL_INFO,
     FM_DIR_TREE_MODEL_COL_PATH,
     FM_DIR_TREE_MODEL_COL_FOLDER,
+    /*<private>*/
     N_FM_DIR_TREE_MODEL_COLS
 } FmDirTreeModelCol;
 
@@ -57,12 +67,18 @@ typedef struct _FmDirTreeModelClass        FmDirTreeModelClass;
 struct _FmDirTreeModel
 {
     GObject parent;
+    /*<private>*/
     GList* roots;
     gint stamp;
     guint icon_size;
     gboolean show_hidden;
 };
 
+/**
+ * FmDirTreeModelClass:
+ * @parent_class: the parent class
+ * @row_loaded: the class closure for the #FmDirTreeModel::row-loaded signal.
+ */
 struct _FmDirTreeModelClass
 {
     GObjectClass parent_class;

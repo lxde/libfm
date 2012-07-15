@@ -59,6 +59,7 @@ struct _FmFileInfoJob
 
 struct _FmFileInfoJobClass
 {
+    /*< private >*/
     FmJobClass parent_class;
 };
 

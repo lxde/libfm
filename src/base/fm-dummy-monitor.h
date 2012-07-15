@@ -47,6 +47,7 @@ struct _FmDummyMonitor
 
 struct _FmDummyMonitorClass
 {
+    /*< private >*/
 	GFileMonitorClass parent_class;
 };
 

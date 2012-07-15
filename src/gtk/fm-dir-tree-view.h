@@ -54,6 +54,11 @@ struct _FmDirTreeView
     GtkTreeRowReference* current_row;
 };
 
+/**
+ * FmDirTreeViewClass:
+ * @parent_class: the parent class
+ * @chdir: the class closure for the #FmDirTreeView::chdir signal.
+ */
 struct _FmDirTreeViewClass
 {
     GtkTreeViewClass parent_class;

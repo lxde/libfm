@@ -60,6 +60,7 @@ struct _FmNavHistory
 
 struct _FmNavHistoryClass
 {
+    /*< private >*/
 	GObjectClass parent_class;
 };
 

@@ -52,6 +52,7 @@ struct _FmCellRendererPixbuf
 
 struct _FmCellRendererPixbufClass
 {
+    /*< private >*/
 	GtkCellRendererPixbufClass parent_class;
 };
 

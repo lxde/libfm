@@ -69,6 +69,7 @@ struct _FmDeepCountJob
 
 struct _FmDeepCountJobClass
 {
+    /*< private >*/
     FmJobClass parent_class;
 };
 

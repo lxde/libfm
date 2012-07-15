@@ -18,6 +18,17 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-dir-tree-view
+ * @short_description: A directory tree view widget.
+ * @title: FmDirTreeView
+ *
+ * @include: libfm/fm-dir-tree-view.h
+ *
+ * The #FmDirTreeView represents view of filesystem as ierarchical tree
+ * of folders where each node can be expanded or collapsed when required.
+ */
+
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
 #include "../gtk-compat.h"
@@ -159,6 +170,17 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
     /* tree_view_class->row_expanded = on_row_expanded; */
     tree_view_class->row_activated = on_row_activated;
 
+    /**
+     * FmDirTreeView::chdir:
+     * @view: a view instance that emitted the signal
+     * @button: always is 1
+     * @path: (#FmPath *) new directory path
+     *
+     * The #FmDirTreeView::chdir signal is emitted when current selected
+     * directory in view is changed.
+     *
+     * Since: 0.1.0
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),
@@ -261,12 +283,31 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     g_signal_connect(tree_sel, "changed", G_CALLBACK(on_sel_changed), view);
 }
 
-
+/**
+ * fm_dir_tree_view_new
+ *
+ * Creates new #FmDirTreeView widget.
+ *
+ * Returns: a new #FmDirTreeView object.
+ *
+ * Since: 0.1.0
+ */
 FmDirTreeView *fm_dir_tree_view_new(void)
 {
     return g_object_new(FM_TYPE_DIR_TREE_VIEW, NULL);
 }
 
+/**
+ * fm_dir_tree_view_get_cwd
+ * @view: the widget to retrieve info
+ *
+ * Retrieves current selected directory. Returned data are owned by @view
+ * and should not be freed by caller.
+ *
+ * Returns: (transfer none): current directory path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_dir_tree_view_get_cwd(FmDirTreeView* view)
 {
     return view->cwd;
@@ -338,6 +379,17 @@ static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeVi
     }
 }
 
+/**
+ * fm_dir_tree_view_chdir
+ * @view: the widget to change
+ * @path: new directory
+ *
+ * Queries change selected directory in the @view to new @path. The
+ * widget will expand nodes in the tree if that will be needed to
+ * reach requested path.
+ *
+ * Since: 0.1.0
+ */
 void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
 {
     GtkTreeIter it;

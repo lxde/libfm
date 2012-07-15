@@ -54,6 +54,7 @@ struct _FmDirListJob
 
 struct _FmDirListJobClass
 {
+    /*< private >*/
     FmJobClass parent_class;
 };
 

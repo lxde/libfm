@@ -48,6 +48,7 @@ struct _FmCellRendererText
 
 struct _FmCellRendererTextClass
 {
+    /*< private >*/
 	GtkCellRendererTextClass parent_class;
 };
 
