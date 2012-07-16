@@ -392,7 +392,8 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
       && event->button == 1 && event->type == GDK_BUTTON_PRESS)
     {
       /* check if clicked on empty area or on a not yet selected row */
-      if (G_LIKELY (path == NULL || !gtk_tree_selection_path_is_selected (selection, path)))
+      /* bugs #3008979 and #3526139 => rubber-banding on rows should be disabled */
+      if (G_UNLIKELY (path == NULL))
         {
           /* need to disable drag and drop because we're rubberbanding now */
           gpointer drag_data = g_object_get_data (G_OBJECT (tree_view), I_("gtk-site-data"));
