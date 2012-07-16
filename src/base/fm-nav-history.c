@@ -139,7 +139,7 @@ const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
  *
  * Checks if current selected item is the last item in the history.
  *
- * Before 1.0.0 this call had name fm_nav_history_get_can_forward().
+ * Before 1.0.0 this call had name fm_nav_history_get_can_forward.
  *
  * Returns: %TRUE if cursor can go forward in history.
  *
@@ -177,7 +177,7 @@ void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
  *
  * Checks if current selected item is the first item in the history.
  *
- * Before 1.0.0 this call had name fm_nav_history_get_can_back().
+ * Before 1.0.0 this call had name fm_nav_history_get_can_back.
  *
  * Returns: %TRUE if cursor can go backward in history.
  *

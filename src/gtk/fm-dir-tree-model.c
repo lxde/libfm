@@ -936,7 +936,7 @@ static inline void item_free_folder(FmFolder* folder, GList* item_l)
  * after that.
  * This API is used when the row is expanded in the view.
  *
- * Before 1.0.0 this API had name fm_dir_tree_model_expand_row().
+ * Before 1.0.0 this API had name fm_dir_tree_model_expand_row.
  *
  * See also: fm_dir_tree_row_is_loaded(), fm_dir_tree_model_unload_row().
  *
@@ -997,7 +997,7 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
  * then stops monitoring the folder and forgets children of the row.
  * This API is used when the row is collapsed in the view.
  *
- * Before 1.0.0 this API had name fm_dir_tree_model_collapse_row().
+ * Before 1.0.0 this API had name fm_dir_tree_model_collapse_row.
  *
  * Since: 0.1.16
  */
@@ -1058,7 +1058,7 @@ void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
  *
  * Retrieves size of icons which are associated with rows.
  *
- * Before 1.0.0 this API had name fm_dir_tree_get_icon_size().
+ * Before 1.0.0 this API had name fm_dir_tree_get_icon_size.
  *
  * Returns: preferrable icom size for the @model.
  *

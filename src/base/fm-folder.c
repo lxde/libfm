@@ -827,7 +827,7 @@ static void fm_folder_dispose(GObject *object)
  * created or already loaded. Caller should call g_object_unref() on the
  * returned data after usage.
  *
- * Before 1.0.0 this call had name fm_folder_get_for_gfile().
+ * Before 1.0.0 this call had name fm_folder_get_for_gfile.
  *
  * Returns: (transfer full): #FmFolder corresponding to @gf.
  *
@@ -849,7 +849,7 @@ FmFolder* fm_folder_from_gfile(GFile* gf)
  * created or already loaded. Caller should call g_object_unref() on the
  * returned data after usage.
  *
- * Before 1.0.0 this call had name fm_folder_get_for_path_name().
+ * Before 1.0.0 this call had name fm_folder_get_for_path_name.
  *
  * Returns: (transfer full): #FmFolder corresponding to @path.
  *
@@ -871,7 +871,7 @@ FmFolder* fm_folder_from_path_name(const char* path)
  * created or already loaded. Caller should call g_object_unref() on the
  * returned data after usage.
  *
- * Before 1.0.0 this call had name fm_folder_get_for_uri().
+ * Before 1.0.0 this call had name fm_folder_get_for_uri.
  *
  * Returns: (transfer full): #FmFolder corresponding to @uri.
  *
@@ -976,7 +976,7 @@ void fm_folder_reload(FmFolder* folder)
  * by caller. If caller wants to keep a reference to the returned list it
  * should do fm_file_info_list_ref() on the returned data.
  *
- * Before 1.0.0 this call had name fm_folder_get().
+ * Before 1.0.0 this call had name fm_folder_get.
  *
  * Returns: (transfer none): list of items that @folder currently contains.
  *
@@ -1073,7 +1073,7 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
  * created or already loaded. Caller should call g_object_unref() on the
  * returned data after usage.
  *
- * Before 1.0.0 this call had name fm_folder_get().
+ * Before 1.0.0 this call had name fm_folder_get.
  *
  * Returns: (transfer full): #FmFolder corresponding to @path.
  *
@@ -1090,7 +1090,7 @@ FmFolder* fm_folder_from_path(FmPath* path)
  *
  * Checks if all data for @folder is completely loaded.
  *
- * Before 1.0.0 this call had name fm_folder_get_is_loaded().
+ * Before 1.0.0 this call had name fm_folder_get_is_loaded.
  *
  * Returns: %TRUE is loading of folder is already completed.
  *

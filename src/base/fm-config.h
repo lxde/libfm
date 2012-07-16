@@ -55,6 +55,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 
 struct _FmConfig
 {
+    /*< public >*/
     GObject parent;
 
     gboolean single_click; /* single click to open file */
@@ -77,8 +78,19 @@ struct _FmConfig
 
     char* archiver; /* desktop_id of the archiver used */
     gboolean advanced_mode; /* enable advanced features for experienced user */
+
+    /*< private >*/
+    gpointer _reserved1; /* reserved space for updates until next ABI */
+    gpointer _reserved2;
+    gpointer _reserved3;
+    gpointer _reserved4;
 };
 
+/**
+ * FmConfigClass
+ * @parent_class: the parent class
+ * @changed: the class closure for the #FmConfigClass::changed signal
+ */
 struct _FmConfigClass
 {
     GObjectClass parent_class;
