@@ -341,6 +341,7 @@ fm_dnd_unset_dest_auto_scroll
 <TITLE>FmDndDest</TITLE>
 FmDndDest
 FmDndDestClass
+FmDndDestTargetType
 fm_dnd_dest_drag_data_received
 fm_dnd_dest_drag_drop
 fm_dnd_dest_drag_leave
@@ -348,7 +349,6 @@ fm_dnd_dest_find_target
 fm_dnd_dest_get_default_action
 fm_dnd_dest_get_dest_file
 fm_dnd_dest_get_dest_path
-fm_dnd_dest_get_src_files
 fm_dnd_dest_is_target_supported
 fm_dnd_dest_new
 fm_dnd_dest_set_dest_file

@@ -319,7 +319,7 @@ void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
  * @x: horisontal position of drop
  * @y: vertical position of drop
  * @sel_data: selection data that are dragged
- * @info_type: (#FmDndDestTargetType) type of data that are dragged
+ * @info: (#FmDndDestTargetType) type of data that are dragged
  * @time: timestamp of operation
  *
  * A common handler for signals that emitted when information about
