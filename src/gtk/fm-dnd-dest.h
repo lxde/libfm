@@ -39,13 +39,14 @@ G_BEGIN_DECLS
             FM_TYPE_DND_DEST))
 
 /* default droppable targets */
-enum
+typedef enum
 {
     FM_DND_DEST_TARGET_FM_LIST, /* direct pointer of FmList */
     FM_DND_DEST_TARGET_URI_LIST, /* text/uri-list */
     FM_DND_DEST_TARGET_XDS, /* X direct save */
+    /*< private >*/
     N_FM_DND_DEST_DEFAULT_TARGETS
-};
+} FmDndDestTargetType;
 
 extern GtkTargetEntry fm_default_dnd_dest_targets[];
 
@@ -62,12 +63,6 @@ GType       fm_dnd_dest_get_type        (void);
 FmDndDest*  fm_dnd_dest_new         (GtkWidget* w);
 
 void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w);
-
-#if 0
-/* the returned list can be either FmPathList or FmFileInfoList */
-/* check with fm_list_is_path_list() and fm_list_is_file_info_list(). */
-FmList* fm_dnd_dest_get_src_files(FmDndDest* dd);
-#endif
 
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file);
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd);

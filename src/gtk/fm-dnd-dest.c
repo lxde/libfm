@@ -20,6 +20,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dnd-dest
+ * @short_description: Libfm support for drag&drop target.
+ * @title: FmDndDest
+ *
+ * @include: libfm/fm-dnd-dest.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -87,7 +96,22 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
     dnd_dest_class = FM_DND_DEST_CLASS(klass);
     dnd_dest_class->files_dropped = fm_dnd_dest_files_dropped;
 
-    /* emitted when files are dropped on dest widget. */
+    /**
+     * FmDndDest::files-dropped:
+     * @dd: the object which emitted the signal
+     * @x: horisontal position of drop
+     * @y: vertical position of drop
+     * @action: (#GdkDragAction) action requested on drop
+     * @info_type: (#FmDndDestTargetType) type of data that are dropped
+     * @files: (#FmPathList *) list of files that are dropped
+     *
+     * The #FmDndDest::files-dropped signal is emitted when @files are
+     * dropped on the destination widget.
+     *
+     * Return value: %TRUE if action can be performed.
+     *
+     * Since: 0.1.0
+     */
     signals[ FILES_DROPPED ] =
         g_signal_new("files-dropped",
                      G_TYPE_FROM_CLASS( klass ),
@@ -123,7 +147,16 @@ static void fm_dnd_dest_init(FmDndDest *self)
 
 }
 
-
+/**
+ * fm_dnd_dest_new
+ * @w: a widget that probably is drop target
+ *
+ * Creates new drag target descriptor.
+ *
+ * Returns: (transfer full): a new #FmDndDest object.
+ *
+ * Since: 0.1.0
+ */
 FmDndDest *fm_dnd_dest_new(GtkWidget* w)
 {
     FmDndDest* dd = (FmDndDest*)g_object_new(FM_TYPE_DND_DEST, NULL);
@@ -131,6 +164,16 @@ FmDndDest *fm_dnd_dest_new(GtkWidget* w)
     return dd;
 }
 
+/**
+ * fm_dnd_dest_set_widget
+ * @dd: a drag target descriptor
+ * @w: a widget that probably is drop target
+ *
+ * Updates link to widget that probably is drop target.
+ *
+ * See also: fm_dnd_dest_new()
+ * Since: 0.1.0
+ */
 void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
 {
     if(w == dd->widget)
@@ -219,16 +262,47 @@ FmPathList* fm_dnd_dest_get_src_files(FmDndDest* dd)
 }
 #endif
 
+/**
+ * fm_dnd_dest_get_dest_file
+ * @dd: a drag target descriptor
+ *
+ * Retrieves file info of drag target. Returned data are owned by @dd and
+ * should not be freed by caller.
+ *
+ * Returns: (transfer none): file info of drag target.
+ *
+ * Since: 0.1.0
+ */
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd)
 {
     return dd->dest_file;
 }
 
+/**
+ * fm_dnd_dest_get_dest_path
+ * @dd: a drag target descriptor
+ *
+ * Retrieves file path of drag target. Returned data are owned by @dd and
+ * should not be freed by caller.
+ *
+ * Returns: (transfer none): file path of drag target.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd)
 {
     return dd->dest_file ? fm_file_info_get_path(dd->dest_file) : NULL;
 }
 
+/**
+ * fm_dnd_dest_set_dest_file
+ * @dd: a drag target descriptor
+ * @dest_file: file info of drag target
+ *
+ * Sets drag target for @dd.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
 {
     if(dd->dest_file == dest_file)
@@ -238,6 +312,23 @@ void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file)
     dd->dest_file = dest_file ? fm_file_info_ref(dest_file) : NULL;
 }
 
+/**
+ * fm_dnd_dest_drag_data_received
+ * @dd: a drag target descriptor
+ * @drag_context: the drag context
+ * @x: horisontal position of drop
+ * @y: vertical position of drop
+ * @sel_data: selection data that are dragged
+ * @info_type: (#FmDndDestTargetType) type of data that are dragged
+ * @time: timestamp of operation
+ *
+ * A common handler for signals that emitted when information about
+ * dragged data is received, such as "drag-data-received".
+ *
+ * Returns: %TRUE if dropping data is accepted for processing.
+ *
+ * Since: 0.1.17
+ */
 gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
              gint x, gint y, GtkSelectionData *sel_data, guint info, guint time)
 {
@@ -317,6 +408,17 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     return TRUE;
 }
 
+/**
+ * fm_dnd_dest_find_target
+ * @dd: a drag target descriptor
+ * @drag_context: the drag context
+ *
+ * Finds target type that is supported for @drag_context.
+ *
+ * Returns: supported target type or %GDK_NONE if none found.
+ *
+ * Since: 0.1.17
+ */
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 {
     guint i;
@@ -329,6 +431,17 @@ GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
     return GDK_NONE;
 }
 
+/**
+ * fm_dnd_dest_is_target_supported
+ * @dd: a drag target descriptor
+ * @target: target type
+ *
+ * Checks if @target is supported by libfm.
+ *
+ * Returns: %TRUE if drop to @target is supported by libfm.
+ *
+ * Since: 0.1.17
+ */
 gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 {
     gboolean ret = FALSE;
@@ -345,6 +458,23 @@ gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
     return ret;
 }
 
+/**
+ * fm_dnd_dest_drag_drop
+ * @dd: a drag target descriptor
+ * @drag_context: the drag context
+ * @target: target type
+ * @x: horisontal position of drop
+ * @y: vertical position of drop
+ * @time: timestamp of operation
+ *
+ * A common handler for signals that emitted when dragged data are
+ * dropped onto target, "drag-drop". Prepares data and emits the
+ * #FmDndDest::files-dropped signal if drop is supported.
+ *
+ * Returns: %TRUE if drop to @target is supported by libfm.
+ *
+ * Since: 0.1.17
+ */
 gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                                GdkAtom target, int x, int y, guint time)
 {
@@ -425,6 +555,8 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
  * @target: #GdkTarget of the target data type
  *
  * Returns: the default action to take for the dragged files.
+ *
+ * Since: 0.1.17
  */
 GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                              GdkDragContext* drag_context,
@@ -506,6 +638,17 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     return action;
 }
 
+/**
+ * fm_dnd_dest_drag_leave
+ * @dd: a drag target descriptor
+ * @drag_context: the drag context
+ * @time: timestamp of operation
+ *
+ * A common handler for signals that emitted when drag leaves the target
+ * widget, such as "drag-leave".
+ *
+ * Since: 0.1.17
+ */
 void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint time)
 {
     dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache, dd, NULL);
