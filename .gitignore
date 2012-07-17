@@ -23,7 +23,7 @@ gtk-doc.make
 
 *.mo
 *.gmo
-POTFILES*
+POTFILES
 LINGUAS
 fm*-marshal.[ch]
 *.ui
