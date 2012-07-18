@@ -57,7 +57,7 @@ static void fm_dummy_monitor_finalize(GObject *object)
     FmDummyMonitor *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_DUMMY_MONITOR(object));
+    g_return_if_fail(FM_IS_DUMMY_MONITOR(object));
 
     self = FM_DUMMY_MONITOR(object);
 

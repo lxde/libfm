@@ -35,9 +35,9 @@ G_BEGIN_DECLS
             FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJob))
 #define FM_DEEP_COUNT_JOB_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_DEEP_COUNT_JOB_TYPE, FmDeepCountJobClass))
-#define IS_FM_DEEP_COUNT_JOB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_DEEP_COUNT_JOB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_DEEP_COUNT_JOB_TYPE))
-#define IS_FM_DEEP_COUNT_JOB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_DEEP_COUNT_JOB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_DEEP_COUNT_JOB_TYPE))
 
 typedef struct _FmDeepCountJob            FmDeepCountJob;

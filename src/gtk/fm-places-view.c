@@ -134,7 +134,7 @@ static void fm_places_view_dispose(GObject *object)
     FmPlacesView* self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_PLACES_VIEW(object));
+    g_return_if_fail(FM_IS_PLACES_VIEW(object));
     self = (FmPlacesView*)object;
 
     if(self->dnd_dest)
@@ -152,7 +152,7 @@ static void fm_places_view_finalize(GObject *object)
     FmPlacesView* self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_PLACES_VIEW(object));
+    g_return_if_fail(FM_IS_PLACES_VIEW(object));
     self = (FmPlacesView*)object;
 
     if(self->clicked_row)

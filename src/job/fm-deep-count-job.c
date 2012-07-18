@@ -71,7 +71,7 @@ static void fm_deep_count_job_dispose(GObject *object)
     FmDeepCountJob *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_DEEP_COUNT_JOB(object));
+    g_return_if_fail(FM_IS_DEEP_COUNT_JOB(object));
 
     self = (FmDeepCountJob*)object;
 

@@ -84,7 +84,7 @@ static void fm_bookmarks_finalize(GObject *object)
     FmBookmarks *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_BOOKMARKS(object));
+    g_return_if_fail(FM_IS_BOOKMARKS(object));
 
     self = FM_BOOKMARKS(object);
 

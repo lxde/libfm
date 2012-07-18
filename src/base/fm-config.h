@@ -32,9 +32,9 @@ G_BEGIN_DECLS
             FM_CONFIG_TYPE, FmConfig))
 #define FM_CONFIG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_CONFIG_TYPE, FmConfigClass))
-#define IS_FM_CONFIG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_CONFIG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_CONFIG_TYPE))
-#define IS_FM_CONFIG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_CONFIG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_CONFIG_TYPE))
 
 typedef struct _FmConfig            FmConfig;

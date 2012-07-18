@@ -34,9 +34,9 @@ G_BEGIN_DECLS
             FM_BOOKMARKS_TYPE, FmBookmarks))
 #define FM_BOOKMARKS_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_BOOKMARKS_TYPE, FmBookmarksClass))
-#define IS_FM_BOOKMARKS(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_BOOKMARKS(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_BOOKMARKS_TYPE))
-#define IS_FM_BOOKMARKS_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_BOOKMARKS_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_BOOKMARKS_TYPE))
 
 typedef struct _FmBookmarks         FmBookmarks;

@@ -87,7 +87,7 @@ static void fm_config_finalize(GObject *object)
 {
     FmConfig* cfg;
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_CONFIG(object));
+    g_return_if_fail(FM_IS_CONFIG(object));
 
     cfg = (FmConfig*)object;
     if(cfg->terminal)

@@ -279,7 +279,7 @@ static void fm_folder_view_dispose(GObject *object)
 {
     FmFolderView *self;
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_FOLDER_VIEW(object));
+    g_return_if_fail(FM_IS_FOLDER_VIEW(object));
     self = (FmFolderView*)object;
     /* g_debug("fm_folder_view_dispose: %p", self); */
 

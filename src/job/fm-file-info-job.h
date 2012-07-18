@@ -33,9 +33,9 @@ G_BEGIN_DECLS
 			FM_TYPE_FILE_INFO_JOB, FmFileInfoJob))
 #define FM_FILE_INFO_JOB_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass),\
 			FM_TYPE_FILE_INFO_JOB, FmFileInfoJobClass))
-#define IS_FM_FILE_INFO_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_FILE_INFO_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
 			FM_TYPE_FILE_INFO_JOB))
-#define IS_FM_FILE_INFO_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_FILE_INFO_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_TYPE_FILE_INFO_JOB))
 
 typedef struct _FmFileInfoJob           FmFileInfoJob;

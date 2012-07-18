@@ -56,7 +56,7 @@ static void fm_nav_history_finalize(GObject *object)
 	FmNavHistory *self;
 
 	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_NAV_HISTORY(object));
+	g_return_if_fail(FM_IS_NAV_HISTORY(object));
 
 	self = FM_NAV_HISTORY(object);
     g_queue_foreach(&self->items, (GFunc)fm_nav_history_item_free, NULL);

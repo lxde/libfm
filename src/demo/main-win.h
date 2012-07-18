@@ -35,9 +35,9 @@ G_BEGIN_DECLS
             FM_MAIN_WIN_TYPE, FmMainWin))
 #define FM_MAIN_WIN_CLASS(klass)        (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_MAIN_WIN_TYPE, FmMainWinClass))
-#define IS_FM_MAIN_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_MAIN_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_MAIN_WIN_TYPE))
-#define IS_FM_MAIN_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_MAIN_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_MAIN_WIN_TYPE))
 
 typedef struct _FmMainWin           FmMainWin;

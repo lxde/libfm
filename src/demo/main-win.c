@@ -575,7 +575,7 @@ static void fm_main_win_finalize(GObject *object)
     FmFolder* folder;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_MAIN_WIN(object));
+    g_return_if_fail(FM_IS_MAIN_WIN(object));
 
     --n_wins;
 

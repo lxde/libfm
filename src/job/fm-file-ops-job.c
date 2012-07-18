@@ -65,7 +65,7 @@ static void fm_file_ops_job_dispose(GObject *object)
     FmFileOpsJob *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(object));
 
     self = (FmFileOpsJob*)object;
 
@@ -184,7 +184,7 @@ static void fm_file_ops_job_finalize(GObject *object)
     FmFileOpsJob *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_FILE_OPS_JOB(object));
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(object));
 
     self = (FmFileOpsJob*)object;
 

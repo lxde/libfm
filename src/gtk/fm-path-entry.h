@@ -35,8 +35,8 @@ G_BEGIN_DECLS
 #define FM_TYPE_PATH_ENTRY (fm_path_entry_get_type())
 #define FM_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), FM_TYPE_PATH_ENTRY, FmPathEntry))
 #define FM_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), FM_TYPE_PATH_ENTRY, FmPathEntryClass))
-#define IS_FM_TYPE_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FM_TYPE_PATH_ENTRY))
-#define IS_FM_TYPE_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FM_TYPE_PATH_ENTRY), FmPathEntry)
+#define FM_IS_TYPE_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FM_TYPE_PATH_ENTRY))
+#define FM_IS_TYPE_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FM_TYPE_PATH_ENTRY), FmPathEntry)
 
 typedef struct _FmPathEntry FmPathEntry;
 typedef struct _FmPathEntryClass FmPathEntryClass;

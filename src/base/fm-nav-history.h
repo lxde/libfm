@@ -35,9 +35,9 @@ G_BEGIN_DECLS
 			FM_NAV_HISTORY_TYPE, FmNavHistory))
 #define FM_NAV_HISTORY_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
 			FM_NAV_HISTORY_TYPE, FmNavHistoryClass))
-#define IS_FM_NAV_HISTORY(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_NAV_HISTORY(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
 			FM_NAV_HISTORY_TYPE))
-#define IS_FM_NAV_HISTORY_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_NAV_HISTORY_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_NAV_HISTORY_TYPE))
 
 typedef struct _FmNavHistory			FmNavHistory;
