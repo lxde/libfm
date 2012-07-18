@@ -162,12 +162,13 @@ static gboolean on_ready_idle(gpointer user_data)
 {
     FmThumbnailRequest* req;
     g_static_rec_mutex_lock(&queue_lock);
-    while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)))
+    req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue);
+    if(req)
     {
         g_static_rec_mutex_unlock(&queue_lock);
         req->callback(req, req->user_data);
         fm_thumbnail_request_free(req);
-        g_static_rec_mutex_lock(&queue_lock);
+        return TRUE;
     }
     ready_idle_handler = 0;
     g_static_rec_mutex_unlock(&queue_lock);
