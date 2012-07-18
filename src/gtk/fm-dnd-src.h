@@ -38,13 +38,20 @@ G_BEGIN_DECLS
 #define FM_IS_DND_SRC_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_TYPE_DND_SRC))
 
-/* default targets of drag source */
-enum
+/**
+ * FmDndSrcTarget
+ * @FM_DND_SRC_TARGET_FM_LIST: direct pointer of FmList
+ * @FM_DND_SRC_TARGET_URI_LIST: "text/uri-list"
+ *
+ * default targets of drag source
+ */
+typedef enum
 {
-	FM_DND_SRC_TARGET_FM_LIST, /* direct pointer of FmList */
-	FM_DND_SRC_TARGET_URI_LIST, /* text/uri-list */
-	N_FM_DND_SRC_DEFAULT_TARGETS
-};
+    FM_DND_SRC_TARGET_FM_LIST,
+    FM_DND_SRC_TARGET_URI_LIST,
+    /*< private >*/
+    N_FM_DND_SRC_DEFAULT_TARGETS
+} FmDndSrcTarget;
 
 extern GtkTargetEntry fm_default_dnd_src_targets[];
 
@@ -58,6 +65,11 @@ struct _FmDndSrc
 	FmFileInfoList* files;
 };
 
+/**
+ * FmDndSrcClass
+ * @parent_class: the parent class
+ * @data_get: the class closure for the #FmDndSrc::data-get signal
+ */
 struct _FmDndSrcClass
 {
 	GObjectClass parent_class;
@@ -69,7 +81,7 @@ FmDndSrc*	fm_dnd_src_new			(GtkWidget* w);
 
 void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w);
 
-FmFileInfoList* fm_dnd_src_get_files(FmDndSrc* ds);
+/* FmFileInfoList* fm_dnd_src_get_files(FmDndSrc* ds); */
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files);
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file);
 

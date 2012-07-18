@@ -43,6 +43,11 @@ typedef struct _FmBookmarks         FmBookmarks;
 typedef struct _FmBookmarksClass        FmBookmarksClass;
 typedef struct _FmBookmarkItem       FmBookmarkItem;
 
+/**
+ * FmBookmarkItem
+ * @name: display name of bookmark
+ * @path: path to bookmarked directory
+ */
 struct _FmBookmarkItem
 {
     char* name;
@@ -57,10 +62,15 @@ struct _FmBookmarks
     GList* items;
 };
 
+/**
+ * FmBookmarksClass
+ * @parent_class: the parent class
+ * @changed: the class closure for #FmBookmarks::changed signal
+ */
 struct _FmBookmarksClass
 {
     GObjectClass parent_class;
-    void (*changed)();
+    void (*changed)(FmBookmarks*);
 };
 
 GType fm_bookmarks_get_type(void);

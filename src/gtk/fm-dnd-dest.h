@@ -38,12 +38,19 @@ G_BEGIN_DECLS
 #define FM_IS_DND_DEST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_TYPE_DND_DEST))
 
-/* default droppable targets */
+/**
+ * FmDndDestTargetType
+ * @FM_DND_DEST_TARGET_FM_LIST: direct pointer of #FmList
+ * @FM_DND_DEST_TARGET_URI_LIST: "text/uri-list"
+ * @FM_DND_DEST_TARGET_XDS: X direct save
+ *
+ * default droppable targets supported by #FmDndDest
+ */
 typedef enum
 {
-    FM_DND_DEST_TARGET_FM_LIST, /* direct pointer of FmList */
-    FM_DND_DEST_TARGET_URI_LIST, /* text/uri-list */
-    FM_DND_DEST_TARGET_XDS, /* X direct save */
+    FM_DND_DEST_TARGET_FM_LIST,
+    FM_DND_DEST_TARGET_URI_LIST,
+    FM_DND_DEST_TARGET_XDS,
     /*< private >*/
     N_FM_DND_DEST_DEFAULT_TARGETS
 } FmDndDestTargetType;
@@ -53,6 +60,11 @@ extern GtkTargetEntry fm_default_dnd_dest_targets[];
 typedef struct _FmDndDest           FmDndDest;
 typedef struct _FmDndDestClass      FmDndDestClass;
 
+/**
+ * FmDndDestClass
+ * @parent_class: the parent class
+ * @files_dropped: the class closure for the #FmDndDest::files-dropped signal
+ */
 struct _FmDndDestClass
 {
     GObjectClass parent_class;

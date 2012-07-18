@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dnd-src
+ * @short_description: Libfm support for drag&drop source.
+ * @title: FmDndSrc
+ *
+ * @include: libfm/fm-dnd-src.h
+ *
+ * The #FmDndSrc is used to assign selection for Drag & Drop operations
+ * and deliver info about it to target widget when requested.
+ */
+
 #include "fm-dnd-src.h"
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
@@ -66,9 +77,16 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_dnd_src_dispose;
 
-    /* emitted when information of source files is needed.
-     * call fm_dnd_source_set_files() in its callback to
-     * provide info of dragged source files. */
+    /**
+     * FmDndSrc::data-get:
+     * @object: the object which emitted the signal
+     *
+     * The #FmDndSrc::data-get signal is emitted when information of
+     * source files is needed. Handler of the signal should then call
+     * fm_dnd_src_set_files() to provide info of dragged source files.
+     *
+     * Since: 0.1.0
+     */
     signals[ DATA_GET ] =
         g_signal_new ( "data-get",
                        G_TYPE_FROM_CLASS( klass ),
@@ -106,7 +124,16 @@ static void fm_dnd_src_init(FmDndSrc *self)
 
 }
 
-
+/**
+ * fm_dnd_src_new
+ * @w: (allow-none): the widget where source files are selected
+ *
+ * Creates new drag source descriptor.
+ *
+ * Returns: (transfer full): a new #FmDndSrc object.
+ *
+ * Since: 0.1.0
+ */
 FmDndSrc *fm_dnd_src_new(GtkWidget* w)
 {
     FmDndSrc* ds = (FmDndSrc*)g_object_new(FM_TYPE_DND_SRC, NULL);
@@ -114,6 +141,15 @@ FmDndSrc *fm_dnd_src_new(GtkWidget* w)
     return ds;
 }
 
+/**
+ * fm_dnd_src_set_widget
+ * @ds: the drag source descriptor
+ * @w: (allow-none): the widget where source files are selected
+ *
+ * Resets drag source widget in @ds.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 {
     if(w == ds->widget)
@@ -135,6 +171,15 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
     }
 }
 
+/**
+ * fm_dnd_src_set_files
+ * @ds: the drag source descriptor
+ * @files: list of files to set
+ *
+ * Sets @files as selection list in the source descriptor.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files)
 {
     if(ds->files)
@@ -142,6 +187,15 @@ void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files)
     ds->files = fm_file_info_list_ref(files);
 }
 
+/**
+ * fm_dnd_src_set_file
+ * @ds: the drag source descriptor
+ * @file: files to set
+ *
+ * Sets @file as selection in the source descriptor.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file)
 {
     FmFileInfoList* files = fm_file_info_list_new();

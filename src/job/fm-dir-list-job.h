@@ -42,6 +42,14 @@ G_BEGIN_DECLS
 typedef struct _FmDirListJob            FmDirListJob;
 typedef struct _FmDirListJobClass       FmDirListJobClass;
 
+/**
+ * FmDirListJob
+ * @parent: the parent object
+ * @dir_path: directory to get listing
+ * @dir_only: %TRUE if list only subdirectories
+ * @dir_fi: file info of the directory
+ * @files: the listing of the directory
+ */
 struct _FmDirListJob
 {
     /*< public >*/

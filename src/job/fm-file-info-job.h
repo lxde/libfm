@@ -47,6 +47,12 @@ typedef enum {
     FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 << 1 /* FIXME: not yet implemented */
 } FmFileInfoJobFlags;
 
+/**
+ * FmFileInfoJob
+ * @parent: the parent object
+ * @flags: flags for the job
+ * @file_infos: gathered data
+ */
 struct _FmFileInfoJob
 {
     /*< public >*/

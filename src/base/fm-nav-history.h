@@ -44,6 +44,11 @@ typedef struct _FmNavHistory			FmNavHistory;
 typedef struct _FmNavHistoryItem		FmNavHistoryItem;
 typedef struct _FmNavHistoryClass		FmNavHistoryClass;
 
+/**
+ * FmNavHistoryItem
+ * @path: active path to folder
+ * @scroll_pos: how much folder was scrolled in view
+ */
 struct _FmNavHistoryItem
 {
     FmPath* path;

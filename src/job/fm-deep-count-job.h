@@ -43,14 +43,31 @@ G_BEGIN_DECLS
 typedef struct _FmDeepCountJob            FmDeepCountJob;
 typedef struct _FmDeepCountJobClass        FmDeepCountJobClass;
 
+/**
+ * FmDeepCountJobFlags
+ * @FM_DC_JOB_DEFAULT: do deep count for all files/folders
+ * @FM_DC_JOB_FOLLOW_LINKS: don't follow symlinks
+ * @FM_DC_JOB_SAME_FS: only do deep count for files on the same devices. what's the use case of this?
+ * @FM_DC_JOB_PREPARE_MOVE: special handling for moving files. only do deep count for files on different devices
+ * @FM_DC_JOB_PREPARE_DELETE: special handling for deleting files
+ */
 typedef enum {
-    FM_DC_JOB_DEFAULT = 0, /* do deep count for all files/folders */
-    FM_DC_JOB_FOLLOW_LINKS = 1<<0, /* don't follow symlinks */
-    FM_DC_JOB_SAME_FS = 1<<1, /* only do deep count for files on the same devices. what's the use case of this? */
-    FM_DC_JOB_PREPARE_MOVE = 1<<2, /* special handling for moving files. only do deep count for files on different devices */
-    FM_DC_JOB_PREPARE_DELETE = 1 <<3 /* special handling for deleting files */
+    FM_DC_JOB_DEFAULT = 0,
+    FM_DC_JOB_FOLLOW_LINKS = 1<<0,
+    FM_DC_JOB_SAME_FS = 1<<1,
+    FM_DC_JOB_PREPARE_MOVE = 1<<2,
+    FM_DC_JOB_PREPARE_DELETE = 1 <<3
 } FmDeepCountJobFlags;
 
+/**
+ * FmDeepCountJob
+ * @parent: the parent object
+ * @paths: list of paths to count
+ * @flags: flags for counting
+ * @total_size: counted total file size
+ * @total_ondisk_size: counted total file size on disk
+ * @count: number of files to be moved between devices
+ */
 struct _FmDeepCountJob
 {
     /*< public >*/

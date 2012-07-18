@@ -102,6 +102,14 @@ struct _FmFileOpsJob
     GFileMonitor* dest_folder_mon;
 };
 
+/**
+ * FmFileOpsJobClass
+ * @parent_class: the parent class
+ * @prepared: the class closure for the #FmFileOpsJob::prepared signal
+ * @cur_file: the class closure for the #FmFileOpsJob::cur-file signal
+ * @percent: the class closure for the #FmFileOpsJob::percent signal
+ * @ask_rename: the class closure for the #FmFileOpsJob::ask-rename signal
+ */
 struct _FmFileOpsJobClass
 {
     FmJobClass parent_class;

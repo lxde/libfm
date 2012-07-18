@@ -77,7 +77,7 @@ struct _FmDirTreeModel
 /**
  * FmDirTreeModelClass:
  * @parent_class: the parent class
- * @row_loaded: the class closure for the #FmDirTreeModel::row-loaded signal.
+ * @row_loaded: the class closure for the #FmDirTreeModel::row-loaded signal
  */
 struct _FmDirTreeModelClass
 {
