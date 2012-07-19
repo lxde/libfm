@@ -552,7 +552,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
  * fm_dnd_dest_get_default_action
  * @dd: object which will receive data
  * @drag_context: the drag context
- * @target: #GdkTarget of the target data type
+ * @target: #GdkAtom of the target data type
  *
  * Returns: the default action to take for the dragged files.
  *
@@ -560,7 +560,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
  */
 GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                              GdkDragContext* drag_context,
-                                             GdkTarget target)
+                                             GdkAtom target)
 {
     GdkDragAction action;
     FmFileInfo* dest = dd->dest_file;
