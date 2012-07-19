@@ -83,6 +83,9 @@ struct _FmFolderView
     GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
     guint row_activated_idle;
 
+    /* for very large folder update */
+    guint sel_changed_idle;
+
     FmFileInfoList* cached_selected_files;
     FmPathList* cached_selected_file_paths;
 };
@@ -364,6 +367,11 @@ static void fm_folder_view_dispose(GObject *object)
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
     cancel_pending_row_activated(self); /* this frees activated_row_ref */
 
+    if(self->sel_changed_idle)
+    {
+        g_source_remove(self->sel_changed_idle);
+        self->sel_changed_idle = 0;
+    }
     if(self->icon_size_changed_handler)
     {
         g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
@@ -954,15 +962,13 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
 {
     GList *sels = NULL;
-    switch(fv->mode)
+    GtkTreeSelection* sel;
+    if(fv->view) switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
-    {
-        GtkTreeSelection* sel;
         sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
         sels = gtk_tree_selection_get_selected_rows(sel, NULL);
         break;
-    }
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
     case FM_FV_THUMBNAIL_VIEW:
@@ -1048,8 +1054,9 @@ FmPathList* fm_folder_view_dup_selected_file_paths(FmFolderView* fv)
     return fm_path_list_ref(fv->cached_selected_file_paths);
 }
 
-static void on_sel_changed(GObject* obj, FmFolderView* fv)
+static gboolean on_sel_changed_real(gpointer user_data)
 {
+    FmFolderView* fv = (FmFolderView*)user_data;
     /* FIXME: this is inefficient, but currently there is no better way */
 
     /* clear cached selected files */
@@ -1222,6 +1229,15 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
         fm_dnd_src_set_files(ds, files);
         fm_file_info_list_unref(files);
     }
+    fv->sel_changed_idle = 0;
+    return FALSE;
+}
+
+static void on_sel_changed(GObject* obj, FmFolderView* fv)
+{
+    if(!fv->sel_changed_idle)
+        fv->sel_changed_idle = g_timeout_add_full(G_PRIORITY_HIGH_IDLE, 200,
+                                                  on_sel_changed_real, fv, NULL);
 }
 
 /**
