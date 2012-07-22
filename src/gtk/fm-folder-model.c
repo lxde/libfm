@@ -20,6 +20,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-folder-model
+ * @short_description: A model for folder view window.
+ * @title: FmFolderModel
+ *
+ * @include: libfm/fm-folder-model.h
+ *
+ * The #FmFolderModel is used by widgets such as #FmFolderView to arrange
+ * items of folder.
+ */
+
 #include "fm-config.h"
 #include "fm-folder-model.h"
 #include "fm-file-info.h"
@@ -192,6 +203,8 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
      *
      * It can be used if view has some data associated with the row so
      * those data can be freed safely.
+     *
+     * Since: 1.0.0
      */
     signals[ROW_DELETING] =
         g_signal_new("row-deleting",
@@ -277,6 +290,17 @@ static void fm_folder_model_dispose(GObject *object)
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->dispose)(object);
 }
 
+/**
+ * fm_folder_model_new
+ * @dir: the folder to create model
+ * @show_hidden: whether show hidden files initially or not
+ *
+ * Creates new folder model for the @dir.
+ *
+ * Returns: (transfer full): a new #FmFolderModel object.
+ *
+ * Since: 0.1.0
+ */
 FmFolderModel *fm_folder_model_new(FmFolder* dir, gboolean show_hidden)
 {
     FmFolderModel* model;
@@ -340,16 +364,48 @@ static void _fm_folder_model_files_removed(FmFolder* dir, GSList* files,
         fm_folder_model_file_deleted(model, FM_FILE_INFO(l->data));
 }
 
+/**
+ * fm_folder_model_get_folder
+ * @model: the folder model instance
+ *
+ * Retrieves a folder that @model is created for. Returned data are owned
+ * by the @model and should not be freed by caller.
+ *
+ * Returns: (transfer none): the folder descriptor.
+ *
+ * Since: 1.0.0
+ */
 FmFolder* fm_folder_model_get_folder(FmFolderModel* model)
 {
     return model->folder;
 }
 
+/**
+ * fm_folder_model_get_folder_path
+ * @model: the folder model instance
+ *
+ * Retrieves path of folder that @model is created for. Returned data
+ * are owned by the @model and should not be freed by caller.
+ *
+ * Returns: (transfer none): the path of the folder of the model.
+ *
+ * Since: 1.0.0
+ */
 FmPath* fm_folder_model_get_folder_path(FmFolderModel* model)
 {
     return model->folder ? fm_folder_get_path(model->folder) : NULL;
 }
 
+/**
+ * fm_folder_model_set_folder
+ * @model: a folder model instance
+ * @dir: a new folder for the model
+ *
+ * Changes folder which model handles. This call allows reusing the model
+ * for different folder, in case, e.g. directory was changed.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 {
     if(model->folder == dir)
@@ -833,12 +889,30 @@ static void _fm_folder_model_insert_item(FmFolder* dir,
     gtk_tree_path_free(path);
 }
 
+/**
+ * fm_folder_model_file_created
+ * @model: the folder model instance
+ * @file: new file into
+ *
+ * Adds new created @file into @model.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_file_created(FmFolderModel* model, FmFileInfo* file)
 {
     FmFolderItem* new_item = fm_folder_item_new(file);
     _fm_folder_model_insert_item(model->folder, new_item, model);
 }
 
+/**
+ * fm_folder_model_file_deleted
+ * @model: the folder model instance
+ * @file: removed file into
+ *
+ * Removes a @file from @model.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
 {
     GSequenceIter *seq_it;
@@ -879,6 +953,15 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     g_sequence_remove(seq_it);
 }
 
+/**
+ * fm_folder_model_file_changed
+ * @model: a folder model instance
+ * @file: a file into
+ *
+ * Updates info for the @file in the @model.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
 {
     FmFolderItem* item = NULL;
@@ -916,11 +999,30 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     gtk_tree_path_free(path);
 }
 
+/**
+ * fm_folder_model_get_show_hidden
+ * @model: the folder model instance
+ *
+ * Retrieves info whether folder model includes hidden files.
+ *
+ * Returns: %TRUE if hidden files are visible within @model.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_folder_model_get_show_hidden(FmFolderModel* model)
 {
     return model->show_hidden;
 }
 
+/**
+ * fm_folder_model_set_show_hidden
+ * @model: the folder model instance
+ * @show_hidden: whether show hidden files or not
+ *
+ * Changes visibility of hodden files within @model.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
 {
     FmFolderItem* item;
@@ -1029,6 +1131,19 @@ static void on_icon_theme_changed(GtkIconTheme* theme, FmFolderModel* model)
     reload_icons(model, RELOAD_ICONS);
 }
 
+/**
+ * fm_folder_model_find_iter_by_filename
+ * @model: the folder model instance
+ * @it: pointer to iterator to fill
+ * @name: file name to search
+ *
+ * Searches @model for existance of some file in it. If file was found
+ * then sets @it to match found file.
+ *
+ * Returns: %TRUE if file was found.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_folder_model_find_iter_by_filename(FmFolderModel* model, GtkTreeIter* it, const char* name)
 {
     GSequenceIter *item_it = g_sequence_get_begin_iter(model->items);
@@ -1084,6 +1199,15 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
     }
 }
 
+/**
+ * fm_folder_model_set_icon_size
+ * @model: the folder model instance
+ * @icon_size: new size for icons in pixels
+ *
+ * Changes the size of icons in @model data.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size)
 {
     if(model->icon_size == icon_size)
@@ -1092,6 +1216,16 @@ void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size)
     reload_icons(model, RELOAD_BOTH);
 }
 
+/**
+ * fm_folder_model_get_icon_size
+ * @model: the folder model instance
+ *
+ * Retrieves the size of icons in @model data.
+ *
+ * Returns: size of icons in pixels.
+ *
+ * Since: 0.1.0
+ */
 guint fm_folder_model_get_icon_size(FmFolderModel* model)
 {
     return model->icon_size;
@@ -1277,6 +1411,8 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
  * @user_data : user data that will be associated with the row
  *
  * Sets the data that can be retrieved by fm_folder_model_get_item_userdata().
+ *
+ * Since: 1.0.0
  */
 void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
                                        gpointer user_data)
@@ -1302,6 +1438,8 @@ void fm_folder_model_set_item_userdata(FmFolderModel* model, GtkTreeIter* it,
  * fm_folder_model_set_item_userdata() on that row.
  *
  * Return value: user data that was set on that row
+ *
+ * Since: 1.0.0
  */
 gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it)
 {

@@ -39,7 +39,20 @@ G_BEGIN_DECLS
 #define FM_IS_FOLDER_MODEL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  FM_TYPE_FOLDER_MODEL))
 #define FM_FOLDER_MODEL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  FM_TYPE_FOLDER_MODEL, FmFolderModelClass))
 
-/** Columns of folder view */
+/**
+ * FmFolderModelViewCol:
+ * @COL_FILE_GICON: (#GIcon *) icon image
+ * @COL_FILE_ICON: (#FmIcon *) icon descriptor
+ * @COL_FILE_NAME: (#gchar *) file name
+ * @COL_FILE_SIZE: (#gchar *) file size text
+ * @COL_FILE_DESC: (#gchar *) file MIME description
+ * @COL_FILE_PERM: (#gchar *) reserved, not implemented
+ * @COL_FILE_OWNER: (#gchar *) reserved, not implemented
+ * @COL_FILE_MTIME: (#gchar *) modification time text
+ * @COL_FILE_INFO: (#FmFileInfo *) file info
+ *
+ * Columns of folder view
+ */
 typedef enum {
   COL_FILE_GICON = 0,
   COL_FILE_ICON,
@@ -50,6 +63,7 @@ typedef enum {
   COL_FILE_OWNER,
   COL_FILE_MTIME,
   COL_FILE_INFO,
+  /*< private >*/
   N_FOLDER_MODEL_COLS
 } FmFolderModelViewCol;
 
@@ -61,6 +75,11 @@ typedef enum {
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;
 
+/**
+ * FmFolderModelClass:
+ * @parent: the parent class
+ * @row_deleting: the class closure for the #FmFolderModel::row-deleting signal
+ */
 struct _FmFolderModelClass
 {
     GObjectClass parent;
