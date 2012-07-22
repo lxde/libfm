@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-folder-view
+ * @short_description: A folder view widget.
+ * @title: FmFolderView
+ *
+ * @include: libfm/fm-folder-view.h
+ *
+ * The #FmFolderView represents view of content of a folder with
+ * support of drag & drop and other file/directory operations.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -117,6 +128,18 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
 
     fm_folder_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 
+    /**
+     * FmFolderView::clicked:
+     * @view: the widget that emitted the signal
+     * @type: (#FmFolderViewClickType) type of click
+     * @file: (#FmFileInfo *) file on which cursor is
+     *
+     * The #FmFolderView::clicked signal is emitted when user clicked
+     * somewhere in the folder area. If click was on free folder area
+     * then @file is %NULL.
+     *
+     * Since: 0.1.0
+     */
     signals[CLICKED]=
         g_signal_new("clicked",
                      G_TYPE_FROM_CLASS(klass),
@@ -126,9 +149,18 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
-    /* Emitted when selection of the view got changed.
-     * Currently selected files are passed as the parameter.
-     * If there is no file selected, NULL is passed instead. */
+    /**
+     * FmFolderView::sel-changed:
+     * @view: the widget that emitted the signal
+     * @n_sel: number of files currently selected in the folder
+     *
+     * The #FmFolderView::sel-changed signal is emitted when
+     * selection of the view got changed.
+     *
+     * Before 1.0.0 parameter was list of currently selected files.
+     *
+     * Since: 0.1.0
+     */
     signals[SEL_CHANGED]=
         g_signal_new("sel-changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -138,7 +170,15 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      g_cclosure_marshal_VOID__INT,
                      G_TYPE_NONE, 1, G_TYPE_INT);
 
-    /* Emitted when sorting of the view got changed. */
+    /**
+     * FmFolderView::sort-changed:
+     * @view: the widget that emitted the signal
+     *
+     * The #FmFolderView::sort-changed signal is emitted when sorting
+     * of the view got changed.
+     *
+     * Since: 0.1.10
+     */
     signals[SORT_CHANGED]=
         g_signal_new("sort-changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -254,7 +294,16 @@ static void fm_folder_view_init(FmFolderView *self)
     self->sort_by = COL_FILE_NAME;
 }
 
-
+/**
+ * fm_folder_view_new
+ * @mode: initial mode of view
+ *
+ * Creates new folder view.
+ *
+ * Returns: a new #FmFolderView widget.
+ *
+ * Since: 0.1.0
+ */
 FmFolderView* fm_folder_view_new(FmFolderViewMode mode)
 {
     FmFolderView* fv = (FmFolderView*)g_object_new(FM_FOLDER_VIEW_TYPE, NULL);
@@ -664,6 +713,15 @@ static void unset_view(FmFolderView* fv)
     fv->view = NULL;
 }
 
+/**
+ * fm_folder_view_set_mode
+ * @fv: a widget to apply
+ * @mode: new mode of view
+ *
+ * Changes current view mode for folder in @fv.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 {
     if( mode != fv->mode )
@@ -740,11 +798,30 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
     }
 }
 
+/**
+ * fm_folder_view_get_mode
+ * @fv: a widget to inspect
+ *
+ * Retrieves current view mode for folder in @fv.
+ *
+ * Returns: current mode of view.
+ *
+ * Since: 0.1.0
+ */
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv)
 {
     return fv->mode;
 }
 
+/**
+ * fm_folder_view_set_selection_mode
+ * @fv: a widget to apply
+ * @mode: new mode of selection in @fv.
+ *
+ * Changes selection mode in @fv.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode)
 {
     if(fv->sel_mode != mode)
@@ -767,11 +844,31 @@ void fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode)
     }
 }
 
+/**
+ * fm_folder_view_get_selection_mode
+ * @fv: a widget to inspect
+ *
+ * Retrieves current selection mode in @fv.
+ *
+ * Returns: current selection mode.
+ *
+ * Since: 0.1.0
+ */
 GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
 {
     return fv->sel_mode;
 }
 
+/**
+ * fm_folder_view_sort
+ * @fv: a widget to apply
+ * @type: new mode of sorting (ascending or descending)
+ * @by: criteria of sorting
+ *
+ * Changes sorting in the view.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by)
 {
     if(type == GTK_SORT_ASCENDING || type == GTK_SORT_DESCENDING)
@@ -783,16 +880,48 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
                                              fv->sort_by, fv->sort_type);
 }
 
+/**
+ * fm_folder_view_get_sort_type
+ * @fv: a widget to inspect
+ *
+ * Retrieves current sorting type in @fv.
+ *
+ * Returns: mode of sorting (ascending or descending)
+ *
+ * Since: 0.1.0
+ */
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
 {
     return fv->sort_type;
 }
 
+/**
+ * fm_folder_view_get_sort_by
+ * @fv: a widget to inspect
+ *
+ * Retrieves current criteria of sorting in @fv (e.g. by name).
+ *
+ * Returns: criteria of sorting.
+ *
+ * Since: 0.1.0
+ */
 int fm_folder_view_get_sort_by(FmFolderView* fv)
 {
     return fv->sort_by;
 }
 
+/**
+ * fm_folder_view_set_show_hidden
+ * @fv: a widget to apply
+ * @show: new setting
+ *
+ * Changes whether hidden files in folder shown in @fv should be visible
+ * or not.
+ *
+ * See also: fm_folder_view_get_show_hidden().
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
 {
     if(show != fv->show_hidden )
@@ -803,6 +932,19 @@ void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
     }
 }
 
+/**
+ * fm_folder_view_get_show_hidden
+ * @fv: a widget to inspect
+ *
+ * Retrieves setting whether hidden files in folder shown in @fv should
+ * be visible or not.
+ *
+ * Returns: %TRUE if hidden files are visible.
+ *
+ * See also: fm_folder_view_set_show_hidden().
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 {
     return fv->show_hidden;
@@ -834,11 +976,17 @@ static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv)
  * fm_folder_view_dup_selected_files
  * @fv: a FmFolderView object
  *
- * Return value: An referenced FmFileInfoList containing FmFileInfos of
+ * Retrieves a list of
  * the currently selected files. The list should be freed after usage with
  * fm_file_info_list_unref(). If there are no files selected then return
  * value is %NULL.
- **/
+ *
+ * Before 1.0.0 this API had name fm_folder_view_get_selected_files.
+ *
+ * Return value: (transfer full): list of selected file infos.
+ *
+ * Since: 0.1.0
+ */
 static inline FmFileInfoList* fm_folder_view_get_selected_files(FmFolderView* fv)
 {
     /* don't generate the data again if we have it cached. */
@@ -876,11 +1024,17 @@ FmFileInfoList* fm_folder_view_dup_selected_files(FmFolderView* fv)
  * fm_folder_view_dup_selected_file_paths
  * @fv: a FmFolderView object
  *
- * Return value: An referenced FmPathList containing FmPaths of the
+ * Retrieves a list of
  * the currently selected files. The list should be freed after usage with
  * fm_path_list_unref(). If there are no files selected then return value
  * is %NULL.
- **/
+ *
+ * Before 1.0.0 this API had name fm_folder_view_get_selected_file_paths.
+ *
+ * Return value: (transfer full): list of selected file paths.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_folder_view_dup_selected_file_paths(FmFolderView* fv)
 {
     if(!fv->cached_selected_file_paths)
@@ -1035,6 +1189,14 @@ void fm_folder_view_select_custom(FmFolderView* fv, GFunc filter, gpointer user_
 {
 }
 
+/**
+ * fm_folder_view_select_all
+ * @fv: a widget to apply
+ *
+ * Selects all files in folder.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_select_all(FmFolderView* fv)
 {
     GtkTreeSelection * tree_sel;
@@ -1062,7 +1224,14 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv)
     }
 }
 
-
+/**
+ * fm_folder_view_select_invert
+ * @fv: a widget to apply
+ *
+ * Selects all unselected files in @fv but unselects all selected.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_select_invert(FmFolderView* fv)
 {
     switch(fv->mode)
@@ -1106,6 +1275,15 @@ void fm_folder_view_select_invert(FmFolderView* fv)
     }
 }
 
+/**
+ * fm_folder_view_select_file_path
+ * @fv: a widget to apply
+ * @path: a file path to select
+ *
+ * Selects a file in the folder.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
 {
     FmPath* cwd = fm_folder_view_get_cwd(fv);
@@ -1140,6 +1318,15 @@ void fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path)
     }
 }
 
+/**
+ * fm_folder_view_select_file_paths
+ * @fv: a widget to apply
+ * @paths: list of files to select
+ *
+ * Selects few files in the folder.
+ *
+ * Since: 0.1.0
+ */
 void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
 {
     GList* l;
@@ -1150,12 +1337,34 @@ void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
     }
 }
 
+/**
+ * fm_folder_view_get_cwd_info
+ * @fv: a widget to inspect
+ *
+ * Retrieves file info of the folder shown by @fv. Returned data are
+ * owned by @fv and should not be freed by caller.
+ *
+ * Returns: (transfer none): file info descriptor of the folder.
+ *
+ * Since: 0.1.0
+ */
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
     FmFolder* folder = fm_folder_view_get_folder(fv);
     return folder ? fm_folder_get_info(folder) : NULL;
 }
 
+/**
+ * fm_folder_view_get_cwd
+ * @fv: a widget to inspect
+ *
+ * Retrieves file path of the folder shown by @fv. Returned data are
+ * owned by @fv and should not be freed by caller.
+ *
+ * Returns: (transfer none): file path of the folder.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv)
 {
     FmFolder* folder = fm_folder_view_get_folder(fv);
@@ -1180,16 +1389,47 @@ static void cancel_pending_row_activated(FmFolderView* fv)
     }
 }
 
+/**
+ * fm_folder_view_get_model
+ * @fv: a widget to inspect
+ *
+ * Retrieves the model used by @fv. Returned data are owned by @fv and
+ * should not be freed by caller.
+ *
+ * Returns: (transfer none): the model of view.
+ *
+ * Since: 0.1.16
+ */
 FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
 {
     return fv->model;
 }
 
+/**
+ * fm_folder_view_get_folder
+ * @fv: a widget to inspect
+ *
+ * Retrieves the folder shown by @fv. Returned data are owned by @fv and
+ * should not be freed by caller.
+ *
+ * Returns: (transfer none): the folder of view.
+ *
+ * Since: 1.0.0
+ */
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
 {
     return fv->model ? fm_folder_model_get_folder(fv->model) : NULL;
 }
 
+/**
+ * fm_folder_view_set_model
+ * @fv: a widget to apply
+ * @model: (allow-none): new view model
+ *
+ * Changes model for the @fv.
+ *
+ * Since: 1.0.0
+ */
 void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
 {
     int icon_size;

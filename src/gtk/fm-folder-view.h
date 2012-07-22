@@ -43,37 +43,59 @@ G_BEGIN_DECLS
 #define FM_IS_FOLDER_VIEW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_FOLDER_VIEW_TYPE))
 
-enum _FmFolderViewMode
+/**
+ * FmFolderViewMode
+ * @FM_FV_ICON_VIEW: standard icon view
+ * @FM_FV_COMPACT_VIEW: view with small icons and text on right of them
+ * @FM_FV_THUMBNAIL_VIEW: view with big icons/thumbnails
+ * @FM_FV_LIST_VIEW: table-form view
+ */
+typedef enum
 {
     FM_FV_ICON_VIEW,
     FM_FV_COMPACT_VIEW,
     FM_FV_THUMBNAIL_VIEW,
     FM_FV_LIST_VIEW
-};
-typedef enum _FmFolderViewMode FmFolderViewMode;
+} FmFolderViewMode;
 
 #define FM_FOLDER_VIEW_MODE_IS_VALID(mode)  ((guint)mode <= FM_FV_LIST_VIEW)
 
-enum _FmFolderViewClickType
+/**
+ * FmFolderViewClickType
+ * @FM_FV_CLICK_NONE: no click
+ * @FM_FV_ACTIVATED: this can be triggered by both
+                        left single or double click depending on
+                        whether single-click activation is used or not.
+ * @FM_FV_MIDDLE_CLICK: middle mouse button pressed
+ * @FM_FV_CONTEXT_MENU: right mouse button pressed
+ *
+ * Click type for #FmFolderView::clicked signal handlers.
+ */
+typedef enum
 {
     FM_FV_CLICK_NONE,
-    FM_FV_ACTIVATED, /* this can be triggered by both
-                        left single or double click depending on
-                        whether single-click activation is used or not. */
+    FM_FV_ACTIVATED,
     FM_FV_MIDDLE_CLICK,
     FM_FV_CONTEXT_MENU
-};
-typedef enum _FmFolderViewClickType FmFolderViewClickType;
+} FmFolderViewClickType;
+
 #define FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID(type)    (type > FM_FV_CLICK_NONE && type <= FM_FV_CONTEXT_MENU)
 
 typedef struct _FmFolderView            FmFolderView;
 typedef struct _FmFolderViewClass       FmFolderViewClass;
 
+/**
+ * FmFolderViewClass:
+ * @parent_class: the parent class
+ * @clicked: the class closure for the #FmFolderView::clicked signal
+ * @sel_changed: the class closure for the #FmFolderView::sel-changed signal
+ * @sort_changed: the class closure for the #FmFolderView::sort-changed signal
+ */
 struct _FmFolderViewClass
 {
     GtkScrolledWindowClass parent_class;
     void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
-    void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
+    void (*sel_changed)(FmFolderView* fv, gint n_sel);
     void (*sort_changed)(FmFolderView* fv);
 };
 

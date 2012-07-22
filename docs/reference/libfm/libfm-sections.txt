@@ -606,6 +606,8 @@ fm_folder_model_get_type
 FM_FOLDER_VIEW_TYPE
 FmFolderView
 FmFolderViewClass
+FmFolderViewClickType
+FmFolderViewMode
 fm_folder_view_dup_selected_file_paths
 fm_folder_view_dup_selected_files
 fm_folder_view_get_cwd
