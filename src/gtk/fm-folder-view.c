@@ -135,8 +135,8 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewClass, sel_changed),
                      NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
-                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+                     g_cclosure_marshal_VOID__INT,
+                     G_TYPE_NONE, 1, G_TYPE_INT);
 
     /* Emitted when sorting of the view got changed. */
     signals[SORT_CHANGED]=
@@ -897,7 +897,6 @@ FmPathList* fm_folder_view_dup_selected_file_paths(FmFolderView* fv)
 static void on_sel_changed(GObject* obj, FmFolderView* fv)
 {
     /* FIXME: this is inefficient, but currently there is no better way */
-    FmFileInfoList* files;
 
     /* clear cached selected files */
     if(fv->cached_selected_files)
@@ -915,11 +914,26 @@ static void on_sel_changed(GObject* obj, FmFolderView* fv)
     if(g_signal_has_handler_pending(fv, signals[SEL_CHANGED], 0, TRUE))
     {
         /* get currently selected files, and cached them inside fm_folder_view_dup_selected_files(). */
-        files = fm_folder_view_dup_selected_files(fv);
+        gint files = 0;
+
+        switch(fv->mode)
+        {
+        case FM_FV_LIST_VIEW:
+        {
+            GtkTreeSelection* sel;
+            sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
+            files = gtk_tree_selection_count_selected_rows(sel);
+            break;
+        }
+        case FM_FV_ICON_VIEW:
+        case FM_FV_COMPACT_VIEW:
+        case FM_FV_THUMBNAIL_VIEW:
+            files = exo_icon_view_count_selected_items(EXO_ICON_VIEW(fv->view));
+            break;
+        }
 
         /* emit a selection changed notification to the world. */
         g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
-        fm_file_info_list_unref(files);
     }
 }
 

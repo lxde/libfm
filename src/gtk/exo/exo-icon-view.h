@@ -264,6 +264,7 @@ void                  exo_icon_view_unselect_path             (ExoIconView      
 gboolean              exo_icon_view_path_is_selected          (const ExoIconView        *icon_view,
                                                                GtkTreePath              *path);
 GList                *exo_icon_view_get_selected_items        (const ExoIconView        *icon_view);
+gint                  exo_icon_view_count_selected_items      (const ExoIconView        *icon_view);
 void                  exo_icon_view_select_all                (ExoIconView              *icon_view);
 void                  exo_icon_view_unselect_all              (ExoIconView              *icon_view);
 void                  exo_icon_view_item_activated            (ExoIconView              *icon_view,

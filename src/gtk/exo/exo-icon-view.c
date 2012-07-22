@@ -5588,6 +5588,24 @@ exo_icon_view_get_selected_items (const ExoIconView *icon_view)
 
 
 
+gint exo_icon_view_count_selected_items (const ExoIconView *icon_view)
+{
+  GList *lp;
+  gint   i = 0;
+
+  g_return_val_if_fail (EXO_IS_ICON_VIEW (icon_view), 0);
+
+  for (lp = icon_view->priv->items; lp != NULL; lp = lp->next)
+    {
+      if (EXO_ICON_VIEW_ITEM (lp->data)->selected)
+        i++;
+    }
+
+  return i;
+}
+
+
+
 /**
  * exo_icon_view_select_all:
  * @icon_view : A #ExoIconView.
