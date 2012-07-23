@@ -48,6 +48,7 @@ struct _FmPathEntry
 
 struct _FmPathEntryClass
 {
+  /*< private >*/
   GtkEntryClass parent_class;
 };
 

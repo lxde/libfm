@@ -20,6 +20,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-path-entry
+ * @short_description: An entry to enter path with completion.
+ * @title: FmPathEntry
+ *
+ * @include: libfm/fm-path-entry.h
+ *
+ * The #FmPathEntry represents a widget to enter folder path for changing
+ * current directory.
+ */
+
 #include "fm-path-entry.h"
 /* for completion */
 #include "fm-folder-model.h"
@@ -189,6 +200,14 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
 
     object_class->get_property = fm_path_entry_get_property;
     object_class->set_property = fm_path_entry_set_property;
+    /**
+     * FmPathEntry:highlight-completion-match:
+     *
+     * The #FmPathEntry:highlight-completion-match property is the flag
+     * whether the completion match should be highlighted or not.
+     *
+     * Since: 0.1.0
+     */
     g_object_class_install_property( object_class,
                                     PROP_HIGHLIGHT_COMPLETION_MATCH,
                                     g_param_spec_boolean("highlight-completion-match",
@@ -574,11 +593,29 @@ fm_path_entry_finalize(GObject *object)
     (*G_OBJECT_CLASS(fm_path_entry_parent_class)->finalize)(object);
 }
 
-FmPathEntry* fm_path_entry_new()
+/**
+ * fm_path_entry_new
+ *
+ * Creates new path entry widget.
+ *
+ * Returns: (transfer full): a new #FmPathEntry object.
+ *
+ * Since: 0.1.0
+ */
+FmPathEntry* fm_path_entry_new(void)
 {
     return g_object_new(FM_TYPE_PATH_ENTRY, NULL);
 }
 
+/**
+ * fm_path_entry_set_path
+ * @entry: a widget to apply
+ * @path: new path to set
+ *
+ * Sets new path into enter field.
+ *
+ * Since: 0.1.10
+ */
 void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
@@ -626,6 +663,17 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
 }
 
 
+/**
+ * fm_path_entry_get_path
+ * @entry: the widget to inspect
+ *
+ * Retrieves the current path in the @entry. Returned data are owned by
+ * @entry and should be not freed by caller.
+ *
+ * Returns: (transfer none): the current path.
+ *
+ * Since: 0.1.10
+ */
 FmPath* fm_path_entry_get_path(FmPathEntry *entry)
 {
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
