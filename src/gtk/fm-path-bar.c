@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-path-bar
+ * @short_description: A widget for representing current path.
+ * @title: FmPathBar
+ *
+ * @include: libfm/fm-path-bar.h
+ *
+ * The #FmPathBar represents current path as number of buttons so it is
+ * possible to click buttons to change directory to parent or child.
+ */
 
 #include "fm-path-bar.h"
 #include <string.h>
@@ -68,8 +78,16 @@ static void fm_path_bar_class_init(FmPathBarClass *klass)
 
     btn_data_id = g_quark_from_static_string("FmPathBtn");
 
-    /* chdir signal is emitted when the user toggles a path element
-     * in the bar and when a new path is set via fm_path_bar_set_path. */
+    /**
+     * FmPathBar::chdir:
+     * @bar: the object which emitted the signal
+     * @path: (#FmPath *) new path
+     *
+     * The FmPathBar::chdir signal is emitted when the user toggles a path
+     * element in the bar or when new path is set via fm_path_bar_set_path().
+     *
+     * Since: 0.1.16
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),
@@ -156,12 +174,31 @@ static void fm_path_bar_init(FmPathBar *bar)
     gtk_widget_show_all(GTK_WIDGET(bar));
 }
 
-
+/**
+ * fm_path_bar_new
+ *
+ * Creates new path bar.
+ *
+ * Returns: (transfer full): a new #FmPathBar object.
+ *
+ * Since: 0.1.16
+ */
 FmPathBar* fm_path_bar_new(void)
 {
     return (FmPathBar*)g_object_new(FM_TYPE_PATH_BAR, NULL);
 }
 
+/**
+ * fm_path_bar_get_path
+ * @bar: a path bar widget
+ *
+ * Retrieves current path from path bar. Returned data are owned by @bar
+ * and should be not freed by caller.
+ *
+ * Returns: (transfer none): current path.
+ *
+ * Since: 0.1.16
+ */
 FmPath* fm_path_bar_get_path(FmPathBar* bar)
 {
     return bar->cur_path;
@@ -198,6 +235,15 @@ static GtkRadioButton* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_elem
     return btn;
 }
 
+/**
+ * fm_path_bar_set_path
+ * @bar: a path bar widget
+ * @path: a new path to set
+ *
+ * Changes path for the @bar.
+ *
+ * Since: 0.1.16
+ */
 void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
 {
     FmPath* path_element;

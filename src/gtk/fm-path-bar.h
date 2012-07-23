@@ -55,6 +55,11 @@ struct _FmPathBar
     FmPath* full_path;  /* full path shown in the bar */
 };
 
+/**
+ * FmPathBarClass:
+ * @parent_class: the parent class
+ * @chdir: the class closure for the #FmPathBar::chdir signal
+ */
 struct _FmPathBarClass
 {
     GtkHBoxClass parent_class;
