@@ -216,7 +216,7 @@ FmBookmarks* fm_bookmarks_dup(void)
  * Returns list of FmBookmarkItem retrieved from bookmarks list. Returned
  * list is owned by bookmarks list and should not be freed by caller.
  *
- * Return value: (transfer none): list of bookmark items
+ * Return value: (transfer none): (element-type #FmBookmarkItem): list of bookmark items
  *
  * Since: 0.1.0
  */
