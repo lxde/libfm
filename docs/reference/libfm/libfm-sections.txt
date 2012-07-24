@@ -896,6 +896,7 @@ fm_path_entry_get_type
 <SECTION>
 <FILE>fm-places-model</FILE>
 <TITLE>FmPlacesModel</TITLE>
+FmPlacesCol
 FmPlacesItem
 FmPlacesModel
 FmPlacesModelClass

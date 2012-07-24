@@ -19,6 +19,19 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-places-model
+ * @short_description: A model for side panel with places list.
+ * @title: FmPlacesModel
+ *
+ * @include: libfm/fm-places-model.h
+ *
+ * The #FmPlacesModel represents list of pseudo-folders which contains
+ * such items as Home directory, Trash bin, mounted removable drives,
+ * bookmarks, etc. It is used by #FmPlacesView to display them in the
+ * side panel.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -727,16 +740,49 @@ static void fm_places_model_init(FmPlacesModel *self)
     fm_job_run_async(FM_JOB(job));
 }
 
+/**
+ * fm_places_model_get_separator_path
+ * @model: a places model instance
+ *
+ * Retrieves path to separator between places and bookmark items. Returned
+ * path should be freed with gtk_tree_path_free() after usage.
+ *
+ * Returns: (transfer full): the path to separator.
+ *
+ * Since: 0.1.14
+ */
 GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model)
 {
     return gtk_tree_row_reference_get_path(model->separator);
 }
 
+/**
+ * fm_places_model_get_bookmarks
+ * @model: a places model instance
+ *
+ * Retrieves list of bookmarks that is used by the @model. Returned data
+ * are owned by places model and should not be freed by caller.
+ *
+ * Returns: (transfer none): list of bookmarks.
+ *
+ * Since: 1.0.0
+ */
 FmBookmarks* fm_places_model_get_bookmarks(FmPlacesModel* model)
 {
     return model->bookmarks;
 }
 
+/**
+ * fm_places_model_iter_is_separator
+ * @model: a places model instance
+ * @it: model iterator to inspect
+ *
+ * Checks if the row described in @it is a separator.
+ *
+ * Returns: %TRUE if the row is a separator.
+ *
+ * Since: 0.1.14
+ */
 gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it)
 {
     gpointer item = NULL;
@@ -747,6 +793,17 @@ gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it
     return (item == NULL);
 }
 
+/**
+ * fm_places_model_path_is_separator
+ * @model: a places model instance
+ * @tp: the row path to inspect
+ *
+ * Checks if the row by @tp is a separator.
+ *
+ * Returns: %TRUE if the row is a separator.
+ *
+ * Since: 0.1.14
+ */
 gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp)
 {
     GtkTreePath* sep_tp;
@@ -761,6 +818,17 @@ gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp
     return ret;
 }
 
+/**
+ * fm_places_model_path_is_bookmark
+ * @model: a places model instance
+ * @tp: the row path to inspect
+ *
+ * Checks if the row by @tp is a bookmark item.
+ *
+ * Returns: %TRUE if the row is a bookmark item.
+ *
+ * Since: 0.1.14
+ */
 gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp)
 {
     GtkTreePath* sep_tp;
@@ -775,6 +843,17 @@ gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp)
     return ret;
 }
 
+/**
+ * fm_places_model_path_is_places
+ * @model: a places model instance
+ * @tp: the row path to inspect
+ *
+ * Checks if the row by @tp is not a bookmark.
+ *
+ * Returns: %TRUE if the row is a places item.
+ *
+ * Since: 0.1.14
+ */
 gboolean fm_places_model_path_is_places(FmPlacesModel* model, GtkTreePath* tp)
 {
     GtkTreePath* sep_tp;
@@ -903,11 +982,32 @@ static void fm_places_model_class_init(FmPlacesModelClass *klass)
 }
 
 
+/**
+ * fm_places_model_new
+ *
+ * Creates new places model.
+ *
+ * Returns: (transfer full): a new #FmPlacesModel object.
+ *
+ * Since: 0.1.14
+ */
 FmPlacesModel *fm_places_model_new(void)
 {
     return g_object_new(FM_TYPE_PLACES_MODEL, NULL);
 }
 
+/**
+ * fm_places_model_mount_indicator_cell_data_func
+ * @cell_layout: the cell layout
+ * @render: the cell renderer
+ * @tree_model: a places model instance
+ * @it: the row iterator
+ * @user_data: unused
+ *
+ * 
+ *
+ * Since: 0.1.15
+ */
 void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
                                            GtkCellRenderer *render,
                                            GtkTreeModel *tree_model,
@@ -923,6 +1023,19 @@ void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
     g_object_set(render, "pixbuf", pix, NULL);
 }
 
+/**
+ * fm_places_model_get_iter_by_fm_path
+ * @model: a places model instance
+ * @iter: the row iterator pointer
+ * @path: a file path to search
+ *
+ * Tries to find an item in the @model by the @path. If item was found
+ * within @model then sets @iter to match the found item.
+ *
+ * Returns: %TRUE if item was found.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_places_model_get_iter_by_fm_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path)
 {
     GtkTreeIter it;
@@ -944,41 +1057,130 @@ gboolean fm_places_model_get_iter_by_fm_path(FmPlacesModel* model, GtkTreeIter* 
 }
 
 
+/**
+ * fm_places_item_get_type
+ * @item: a places model item
+ *
+ * Retrieves type of @item.
+ *
+ * Returns: type of item.
+ *
+ * Since: 1.0.0
+ */
 FmPlacesType fm_places_item_get_type(FmPlacesItem* item)
 {
     return item->type;
 }
 
+/**
+ * fm_places_item_is_mounted
+ * @item: a places model item
+ *
+ * Checks if the row is a mounted volume.
+ *
+ * Returns: %TRUE if the row is a mounted volume.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_places_item_is_mounted(FmPlacesItem* item)
 {
     return item->mounted ? TRUE : FALSE;
 }
 
+/**
+ * fm_places_item_get_icon
+ * @item: a places model item
+ *
+ * Retrieves icom image for the row. Returned data are owned by places
+ * model and should not be freed by caller.
+ *
+ * Returns: (transfer none): icon descriptor.
+ *
+ * Since: 1.0.0
+ */
 FmIcon* fm_places_item_get_icon(FmPlacesItem* item)
 {
     return item->icon;
 }
 
+/**
+ * fm_places_item_get_info
+ * @item: a places model item
+ *
+ * Retrieves file info for the row. Returned data are owned by places
+ * model and should not be freed by caller.
+ *
+ * Returns: (transfer none): file info descriptor.
+ *
+ * Since: 1.0.0
+ */
 FmFileInfo* fm_places_item_get_info(FmPlacesItem* item)
 {
     return item->fi;
 }
 
+/**
+ * fm_places_item_get_volume
+ * @item: a places model item
+ *
+ * Retrieves volume descriptor for the row. Returned data are owned by
+ * places model and should not be freed by caller.
+ *
+ * Returns: (transfer none): volume descriptor or %NULL if @item isn't a
+ * mountable volume.
+ *
+ * Since: 1.0.0
+ */
 GVolume* fm_places_item_get_volume(FmPlacesItem* item)
 {
     return item->type == FM_PLACES_ITEM_VOLUME ? item->volume : NULL;
 }
 
+/**
+ * fm_places_item_get_mount
+ * @item: a places model item
+ *
+ * Rertieves mount descriptor for the row. Returned data are owned by
+ * places model and should not be freed by caller.
+ *
+ * Returns: (transfer none): mount descriptor or %NULL if @item isn't a
+ * mounted path.
+ *
+ * Since: 1.0.0
+ */
 GMount* fm_places_item_get_mount(FmPlacesItem* item)
 {
     return item->type == FM_PLACES_ITEM_MOUNT ? item->mount : NULL;
 }
 
+/**
+ * fm_places_item_get_path
+ * @item: a places model item
+ *
+ * Retrieves path for the row. Returned data are owned by places model
+ * and should not be freed by caller.
+ *
+ * Returns: (transfer none): item path.
+ *
+ * Since: 1.0.0
+ */
 FmPath* fm_places_item_get_path(FmPlacesItem* item)
 {
     return item->fi ? fm_file_info_get_path(item->fi) : NULL;
 }
 
+/**
+ * fm_places_item_get_bookmark_item
+ * @item: a places model item
+ *
+ * Retrieves bookmark descriptor for the row. Returned data are owned by
+ * places model and should not be freed by caller.
+ *
+ * Returns: (transfer none): bookmark descriptor or %NULL if @item isn't
+ * a bookmark.
+ *
+ * Since: 1.0.0
+ */
 FmBookmarkItem* fm_places_item_get_bookmark_item(FmPlacesItem* item)
 {
     return item->type == FM_PLACES_ITEM_PATH ? item->bm_item : NULL;

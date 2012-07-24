@@ -49,26 +49,43 @@ G_BEGIN_DECLS
 typedef struct _FmPlacesModel            FmPlacesModel;
 typedef struct _FmPlacesModelClass        FmPlacesModelClass;
 
-enum
+/**
+ * FmPlacesCol:
+ * @FM_PLACES_MODEL_COL_ICON: (#GdkPixbuf *) icon if the row
+ * @FM_PLACES_MODEL_COL_LABEL: (#char *) name of the row
+ * @FM_PLACES_MODEL_COL_INFO: (#FmPlacesItem *) internal representation
+ *
+ * Data of the row in the #FmPlacesModel.
+ */
+typedef enum
 {
     FM_PLACES_MODEL_COL_ICON,
     FM_PLACES_MODEL_COL_LABEL,
     FM_PLACES_MODEL_COL_INFO,
+    /*< private >*/
     FM_PLACES_MODEL_N_COLS
-};
+} FmPlacesCol;
 
+/**
+ * FmPlacesType:
+ * @FM_PLACES_ITEM_NONE: separator
+ * @FM_PLACES_ITEM_PATH: some path - standard one or bookmark
+ * @FM_PLACES_ITEM_VOLUME: a mountable device
+ * @FM_PLACES_ITEM_MOUNT: some mounted media or virtual drive
+ */
 typedef enum
 {
     FM_PLACES_ITEM_NONE,
     FM_PLACES_ITEM_PATH,
     FM_PLACES_ITEM_VOLUME,
     FM_PLACES_ITEM_MOUNT
-}FmPlacesType;
+} FmPlacesType;
 
 typedef struct _FmPlacesItem FmPlacesItem;
 
 struct _FmPlacesModelClass
 {
+    /*< private >*/
     GtkListStoreClass parent_class;
 };
 
