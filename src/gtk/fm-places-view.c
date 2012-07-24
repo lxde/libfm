@@ -926,6 +926,17 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
     tv_class->row_activated = on_row_activated;
     tv_class->set_scroll_adjustments = on_set_scroll_adjustments;
 
+    /**
+     * FmPlacesView::chdir:
+     * @view: a view instance that emitted the signal
+     * @button: the button row was activated with
+     * @path: (#FmPath *) new directory path
+     *
+     * The #FmPlacesView::chdir signal is emitted when current selected
+     * directory in view is changed.
+     *
+     * Since: 0.1.0
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),

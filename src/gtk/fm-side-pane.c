@@ -17,6 +17,17 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-side-pane
+ * @short_description: A widget for side pane displaying
+ * @title: FmSidePane
+ *
+ * @include: libfm/fm-side-pane.h
+ *
+ * The #FmSidePane widget displays side pane for fast navigation across
+ * places.
+ */
+
 #include <config.h>
 
 #include "fm-side-pane.h"
@@ -64,6 +75,17 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_side_pane_dispose;
 
+    /**
+     * FmSidePane::chdir:
+     * @pane: the widget which emitted the signal
+     * @button: the button path was activated with
+     * @path: (#FmPath *) new directory path
+     *
+     * The #FmSidePane::chdir signal is emitted when current selected
+     * directory in the @pane is changed.
+     *
+     * Since: 0.1.12
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),
@@ -73,6 +95,15 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
+    /**
+     * FmSidePane::mode-changed:
+     * @pane: the widget which emitted the signal
+     *
+     * The #FmSidePane::mode-changed signal is emitted when view mode
+     * in the pane is changed.
+     *
+     * Since: 0.1.12
+     */
     signals[MODE_CHANGED] =
         g_signal_new("mode-changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -182,17 +213,45 @@ static void fm_side_pane_init(FmSidePane *sp)
     gtk_widget_show_all(GTK_WIDGET(sp));
 }
 
-
+/**
+ * fm_side_pane_new
+ *
+ * Creates new side pane.
+ *
+ * Returns: (transfer full): a new #FmSidePane widget.
+ *
+ * Since: 0.1.12
+ */
 FmSidePane *fm_side_pane_new(void)
 {
     return g_object_new(FM_TYPE_SIDE_PANE, NULL);
 }
 
+/**
+ * fm_side_pane_get_cwd
+ * @sp: a widget to inspect
+ *
+ * Retrieves current active path in the side pane. Returned data are
+ * owned by side pane and should not be freed by caller.
+ *
+ * Returns: active file path.
+ *
+ * Since: 0.1.12
+ */
 FmPath* fm_side_pane_get_cwd(FmSidePane* sp)
 {
     return sp->cwd;
 }
 
+/**
+ * fm_side_pane_chdir
+ * @sp: a widget to apply
+ * @path: new path
+ *
+ * Changes active path in the side pane.
+ *
+ * Since: 0.1.12
+ */
 void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
 {
     g_return_if_fail(sp->view != NULL);
@@ -309,6 +368,15 @@ static void init_dir_tree(FmSidePane* sp)
     g_object_unref(dir_tree_model);
 }
 
+/**
+ * fm_side_pane_set_mode
+ * @sp: a widget to apply
+ * @mode: new mode for the side pane
+ *
+ * Changes side pane view mode.
+ *
+ * Since: 0.1.12
+ */
 void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
 {
     if(mode == sp->mode)
@@ -357,11 +425,31 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
                                        sp->mode);
 }
 
+/**
+ * fm_side_pane_get_mode
+ * @sp: a widget to inspect
+ *
+ * Retrieves side pane view mode.
+ *
+ * Returns: current view mode.
+ *
+ * Since: 0.1.12
+ */
 FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp)
 {
     return sp->mode;
 }
 
+/**
+ * fm_side_pane_get_title_bar
+ * @sp: a widget to inspect
+ *
+ * Retrieves side pane title bar widget.
+ *
+ * Returns: (transfer none): pointer to title bar of side pane.
+ *
+ * Since: 0.1.14
+ */
 GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp)
 {
     return sp->title_bar;
