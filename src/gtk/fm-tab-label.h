@@ -49,6 +49,7 @@ struct _FmTabLabel
 
 struct _FmTabLabelClass
 {
+    /*< private >*/
 	GtkEventBoxClass parent_class;
 };
 

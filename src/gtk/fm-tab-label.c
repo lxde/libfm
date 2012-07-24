@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-tab-label
+ * @short_description: A tab label widget.
+ * @title: FmTabLabel
+ *
+ * @include: libfm/fm-tab-label.h
+ *
+ * The #FmTabLabel is a widget that can be used as a label of tab in
+ * notebook-like folders view.
+ */
+
 #include "fm-tab-label.h"
 
 G_DEFINE_TYPE(FmTabLabel, fm_tab_label, GTK_TYPE_EVENT_BOX);
@@ -96,6 +107,16 @@ static void fm_tab_label_init(FmTabLabel *self)
 */
 }
 
+/**
+ * fm_tab_label_new
+ * @text: text to display as a tab label
+ *
+ * Creates new tab label widget.
+ *
+ * Returns: (transfer full): a new #FmTabLabel widget.
+ *
+ * Since: 0.1.10
+ */
 FmTabLabel *fm_tab_label_new(const char* text)
 {
     FmTabLabel* label = (FmTabLabel*)g_object_new(FM_TYPE_TAB_LABEL, NULL);
@@ -103,11 +124,29 @@ FmTabLabel *fm_tab_label_new(const char* text)
     return label;
 }
 
+/**
+ * fm_tab_label_set_text
+ * @label: a tab label widget
+ * @text: text to display as a tab label
+ *
+ * Changes text on the @label.
+ *
+ * Since: 0.1.10
+ */
 void fm_tab_label_set_text(FmTabLabel* label, const char* text)
 {
     gtk_label_set_text(label->label, text);
 }
 
+/**
+ * fm_tab_label_set_tooltip_text
+ * @label: a tab label widget
+ * @text: text to display in label tooltip
+ *
+ * Changes text of tooltip on the @label.
+ *
+ * Since: 1.0.0
+ */
 void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text)
 {
     gtk_widget_set_tooltip_text(GTK_WIDGET(label->label), text);
