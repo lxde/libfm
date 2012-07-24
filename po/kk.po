@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-07-24 17:18+0200\n"
+"Last-Translator: sotrud_nik2 <baurthefirst@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -156,44 +156,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Тобы:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Пошта қолданбасы:</b>"
+msgstr "<b>Құрамасын қарау:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Мақсаты:</b>"
+msgstr "<b>Құрамасын түзету:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Басқа:</b>"
+msgstr "<b>Орындау:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Кө_мегімен ашу:</b>"
+msgstr "<b>Арнайы биттер:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Файл/бума құрамасын кім оқи алады"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Файл/бума құрамасын кім өзгерте алады"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Файлды кім орындай алады не бумаға кім кіре алады"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Файл орындалуы үшін арнайы жалаушалар"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Бумаға қатынау үшін арнайы жалаушалар"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -213,39 +209,39 @@ msgstr "Ешнәрсе"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Set GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Sticky & set GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Set UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Set UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Ешкім"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Тек иесі"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Тек иесі мен тобы"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Әркім"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -484,9 +480,8 @@ msgstr ""
 "асыруды қалайсыз ба?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Рұқсаттарды басқару</b>"
+msgstr "<b>Құрамаға қатынау:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
