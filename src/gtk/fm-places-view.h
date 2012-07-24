@@ -50,6 +50,11 @@ struct _FmPlacesView
     GtkCellRendererPixbuf* mount_indicator_renderer;
 };
 
+/**
+ * FmPlacesViewClass:
+ * @parent_class: the parent class
+ * @chdir: the class closure for the #FmPlacesView::chdir signal
+ */
 struct _FmPlacesViewClass
 {
     GtkTreeViewClass parent_class;

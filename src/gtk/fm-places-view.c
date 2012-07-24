@@ -19,6 +19,18 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-places-view
+ * @short_description: A widget for side panel with places list.
+ * @title: FmPlacesView
+ *
+ * @include: libfm/fm-places-view.h
+ *
+ * The #FmPlacesView displays list of pseudo-folders which contains
+ * such items as Home directory, Trash bin, mounted removable drives,
+ * bookmarks, etc.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -455,7 +467,15 @@ static void fm_places_view_init(FmPlacesView *self)
     g_signal_connect(self->dnd_dest, "files_dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
 }
 
-
+/**
+ * fm_places_view_new
+ *
+ * Creates new #FmPlacesView widget.
+ *
+ * Returns: (transfer full): a new #FmPlacesView object.
+ *
+ * Since: 0.1.0
+ */
 FmPlacesView *fm_places_view_new(void)
 {
     return g_object_new(FM_PLACES_VIEW_TYPE, NULL);
@@ -521,6 +541,18 @@ static void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeV
     activate_row(FM_PLACES_VIEW(view), 1, tree_path);
 }
 
+/**
+ * fm_places_view_chdir
+ * @pv: a widget to apply
+ * @path: the new path
+ *
+ * Changes active path and eventually sends the #FmPlacesView::chdir signal.
+ *
+ * Before 1.0.0 this call had name fm_places_chdir.
+ * Before 0.1.12 this call had name fm_places_select.
+ *
+ * Since: 0.1.0
+ */
 void fm_places_view_chdir(FmPlacesView* pv, FmPath* path)
 {
     GtkTreeIter it;
