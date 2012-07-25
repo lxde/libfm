@@ -465,8 +465,8 @@ msgstr "Dateiattribute ändern"
 #: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u Byte"
-msgstr[1] "%u Bytes"
+msgstr[0] "Byte"
+msgstr[1] "Bytes"
 
 #: ../src/gtk/fm-file-properties.c:224
 msgid "Please enter a valid user name or numeric id."
