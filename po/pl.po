@@ -1,26 +1,27 @@
 # Polish translation of libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Piotr Sokół <psokol@jabster.pl>, 2010, 2011.
+# Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-09-04 22:20+0200\n"
+"PO-Revision-Date: 2012-07-31 17:43+0200\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Pootle 2.0.5\n"
+"Language-Team: polski <>\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
-msgstr "Wybór programu"
+msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -156,36 +157,32 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Grupa:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Program pocztowy</b>"
+msgstr "<b>Wyświetlanie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Położenie docelowe:</b>"
+msgstr "<b>Zmienianie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Inni:</b>"
+msgstr "<b>Uruchamianie:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Otwieranie za p_omocą:</b>"
+msgstr "<b>Specjalne:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Określa kto może odczytywać zawartość pliku lub katalogu"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Określa, kto może zmieniać zawartość pliku lub katalogu"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Określa, kto może uruchamiać pliki lub przechodzić do katalogu"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
@@ -233,19 +230,19 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Nikt"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Tylko właściciel"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Tylko właściciel i grupa"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Wszyscy"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -486,9 +483,8 @@ msgid ""
 msgstr "Zatwierdzić zmiany rekursywnie dla wszystkich plików i podkatalogów?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Prawa dostępu</b>"
+msgstr "<b>Dostęp do zawartości:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
@@ -577,7 +573,7 @@ msgstr "Przywróć pliki przeniesione do kosza do ich pierwotnego położenia"
 
 #: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
-msgstr "Nie udało się wykonać XDirectSave."
+msgstr "Nieudane XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:102
 msgid "Use selected application to open files"
