@@ -113,6 +113,7 @@ libfm_gtk_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
+	gtk/fm-folder-exo-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
 	gtk/fm-places-model.c \
@@ -176,6 +177,7 @@ libfmgtkincludedir = $(includedir)/libfm/libfm
 libfmgtkinclude_HEADERS = \
 	fm-gtk.h \
 	gtk/fm-folder-view.h \
+	gtk/fm-folder-exo-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
 	gtk/fm-places-model.h \

@@ -86,24 +86,6 @@ static const char main_menu_xml[] =
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
 "</toolbar>"
-"<popup>"
-  "<menu action='CreateNew'>"
-    "<menuitem action='NewFolder'/>"
-    "<menuitem action='NewBlank'/>"
-  "</menu>"
-  "<separator/>"
-  "<menuitem action='Paste'/>"
-  "<menu action='Sort'>"
-    "<menuitem action='Desc'/>"
-    "<menuitem action='Asc'/>"
-    "<separator/>"
-    "<menuitem action='ByName'/>"
-    "<menuitem action='ByMTime'/>"
-  "</menu>"
-  "<menuitem action='ShowHidden'/>"
-  "<separator/>"
-  "<menuitem action='Prop'/>"
-"</popup>"
 "<accelerator action='Location'/>"
 "<accelerator action='Location2'/>";
 
@@ -113,16 +95,16 @@ static GtkActionEntry main_win_actions[]=
         {"New", GTK_STOCK_NEW, N_("_New Window"), "<Ctrl>N", NULL, G_CALLBACK(on_new_win)},
         {"Close", GTK_STOCK_CLOSE, N_("_Close Window"), "<Ctrl>W", NULL, G_CALLBACK(on_close_win)},
     {"EditMenu", NULL, N_("_Edit"), NULL, NULL, NULL},
-        {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(on_cut)},
-        {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
-        {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
-        {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_del)},
+        {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
         {"Rename", NULL, N_("Rename"), "F2", NULL, G_CALLBACK(on_rename)},
         {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
         {"MoveTo", NULL, N_("Move To..."), NULL, NULL, G_CALLBACK(on_move_to)},
         {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, G_CALLBACK(on_copy_to)},
-        {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, G_CALLBACK(on_select_all)},
-        {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, G_CALLBACK(on_invert_select)},
+        {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, G_CALLBACK(bounce_action)},
         {"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
     {"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
         {"Reload", NULL, N_("Reload"), "F5", NULL, G_CALLBACK(on_reload)},
@@ -145,11 +127,6 @@ static GtkActionEntry main_win_actions[]=
     /* for accelerators */
     {"Location", NULL, NULL, "<Alt>d", NULL, G_CALLBACK(on_location)},
     {"Location2", NULL, NULL, "<Ctrl>L", NULL, G_CALLBACK(on_location)},
-    /* for popup menu */
-    {"CreateNew", GTK_STOCK_NEW, NULL, NULL, NULL, NULL},
-    {"NewFolder", "folder", N_("Folder"), NULL, NULL, G_CALLBACK(on_create_new)},
-    {"NewBlank", "text-x-generic", N_("Blank FIle"), NULL, NULL, G_CALLBACK(on_create_new)},
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK(on_prop)}
 };
 
 static GtkToggleActionEntry main_win_toggle_actions[]=

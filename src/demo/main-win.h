@@ -57,7 +57,6 @@ struct _FmMainWin
     GtkWidget* vol_status;
     GtkWidget* bookmarks_menu;
     GtkWidget* history_menu;
-    GtkWidget* popup;
     /* <private> */
     FmFolder* folder;
     FmNavHistory* nav_history;

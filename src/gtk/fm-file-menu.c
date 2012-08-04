@@ -107,11 +107,11 @@ GtkActionEntry base_menu_actions[]=
     {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, G_CALLBACK(on_open)},
     {"OpenWith", NULL, N_("Open With..."), NULL, NULL, G_CALLBACK(on_open_with)},
     {"OpenWithMenu", NULL, N_("Open With..."), NULL, NULL, NULL},
-    {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, G_CALLBACK(on_cut)},
-    {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, G_CALLBACK(on_copy)},
-    {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, G_CALLBACK(on_paste)},
+    {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(on_cut)},
+    {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
+    {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
-    {"Rename", NULL, N_("Rename"), "F2", NULL, G_CALLBACK(on_rename)},
+    {"Rename", NULL, N_("Rename"), NULL, NULL, G_CALLBACK(on_rename)},
     {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
     {"SendTo", NULL, N_("Send To"), NULL, NULL, NULL},
     {"Compress", NULL, N_("Compress..."), NULL, NULL, G_CALLBACK(on_compress)},
@@ -408,6 +408,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         act = gtk_ui_manager_get_action(ui, "/popup/Rename");
         gtk_action_set_visible(act, FALSE);
     }
+    /* FIXME: shadow 'Paste' if clipboard is empty */
     g_string_append(xml, "</placeholder></popup>");
 
     if (items_num != 1 || !fm_file_info_is_dir(fm_file_info_list_peek_head(files)))
