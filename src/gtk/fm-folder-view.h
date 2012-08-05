@@ -96,7 +96,6 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @get_folder: VTable func, see fm_folder_view_get_folder()
  * @set_model: VTable func, see fm_folder_view_set_model()
  * @get_model: VTable func, see fm_folder_view_get_model()
- * @reset_selected: function to free data of selected files from object
  * @count_selected_files: VTable func, see fm_folder_view_get_n_selected_files()
  * @dup_selected_files: VTable func, see fm_folder_view_dup_selected_files()
  * @dup_selected_file_paths: VTable func, see fm_folder_view_dup_selected_file_paths()
@@ -132,7 +131,6 @@ struct _FmFolderViewInterface
     void (*set_model)(FmFolderView* fv, FmFolderModel* model);
     FmFolderModel* (*get_model)(FmFolderView* fv);
 
-    void (*reset_selected)(FmFolderView* fv);
     gint (*count_selected_files)(FmFolderView* fv);
     FmFileInfoList* (*dup_selected_files)(FmFolderView* fv);
     FmPathList* (*dup_selected_file_paths)(FmFolderView* fv);

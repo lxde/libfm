@@ -988,22 +988,6 @@ static FmPathList* fm_folder_exo_view_dup_selected_file_paths(FmFolderView* ffv)
     return fm_path_list_ref(fv->cached_selected_file_paths);
 }
 
-static void fm_folder_exo_view_reset_selected(FmFolderView* ffv)
-{
-    FmFolderExoView* fv = FM_FOLDER_EXO_VIEW(ffv);
-    /* clear cached selected files */
-    if(fv->cached_selected_files)
-    {
-        fm_file_info_list_unref(fv->cached_selected_files);
-        fv->cached_selected_files = NULL;
-    }
-    if(fv->cached_selected_file_paths)
-    {
-        fm_path_list_unref(fv->cached_selected_file_paths);
-        fv->cached_selected_file_paths = NULL;
-    }
-}
-
 static gint fm_folder_exo_view_count_selected_files(FmFolderView* ffv)
 {
     FmFolderExoView* fv = FM_FOLDER_EXO_VIEW(ffv);
@@ -1132,6 +1116,18 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderExoView* fv)
 static gboolean on_sel_changed_real(gpointer user_data)
 {
     FmFolderExoView* fv = (FmFolderExoView*)user_data;
+
+    /* clear cached selected files */
+    if(fv->cached_selected_files)
+    {
+        fm_file_info_list_unref(fv->cached_selected_files);
+        fv->cached_selected_files = NULL;
+    }
+    if(fv->cached_selected_file_paths)
+    {
+        fm_path_list_unref(fv->cached_selected_file_paths);
+        fv->cached_selected_file_paths = NULL;
+    }
     fv->sel_changed_idle = 0;
     fm_folder_view_sel_changed(NULL, FM_FOLDER_VIEW(fv));
     return FALSE;
@@ -1261,7 +1257,6 @@ static void fm_folder_exo_view_view_init(FmFolderViewInterface* iface)
     iface->get_folder = fm_folder_exo_view_get_folder;
     iface->set_model = fm_folder_exo_view_set_model;
     iface->get_model = fm_folder_exo_view_get_model;
-    iface->reset_selected = fm_folder_exo_view_reset_selected;
     iface->count_selected_files = fm_folder_exo_view_count_selected_files;
     iface->dup_selected_files = fm_folder_exo_view_dup_selected_files;
     iface->dup_selected_file_paths = fm_folder_exo_view_dup_selected_file_paths;

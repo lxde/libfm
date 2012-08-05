@@ -1307,9 +1307,6 @@ void fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv)
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
 
-    /* clear cached selected files */
-    iface->reset_selected(fv);
-
     /* if someone is connected to our "sel-changed" signal. */
     if(g_signal_has_handler_pending(fv, signals[SEL_CHANGED], 0, TRUE))
     {
