@@ -1301,15 +1301,12 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
  */
 void fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv)
 {
-    FmFolderViewInterface* iface;
-
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
-
-    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
 
     /* if someone is connected to our "sel-changed" signal. */
     if(g_signal_has_handler_pending(fv, signals[SEL_CHANGED], 0, TRUE))
     {
+        FmFolderViewInterface* iface = FM_FOLDER_VIEW_GET_IFACE(fv);
         gint files = iface->count_selected_files(fv);
 
         /* emit a selection changed notification to the world. */

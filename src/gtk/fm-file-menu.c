@@ -149,6 +149,7 @@ FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath*
     return menu;
 }
 
+#ifdef HAVE_ACTIONS
 static void on_custom_action(GtkAction* act, FmFileMenu* data)
 {
     FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
@@ -237,6 +238,7 @@ static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml, FmFi
     g_list_foreach(items, (GFunc)fm_file_action_item_unref, NULL);
     g_list_free(items);
 }
+#endif /* HAVE_ACTIONS */
 
 FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
 {
@@ -330,8 +332,10 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         g_string_append(xml, "<menuitem action='OpenWith'/>");
     g_string_append(xml, "</placeholder></popup>");
 
+#ifdef HAVE_ACTIONS
     /* add custom file actions */
     fm_file_menu_add_custom_actions(data, xml, files);
+#endif
 
     /* archiver integration */
     if(!data->all_virtual)

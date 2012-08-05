@@ -16,7 +16,23 @@ AM_PROG_LIBTOOL
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
 # Vala
-AM_PROG_VALAC([0.13.0])
+AC_ARG_ENABLE(actions,
+    [AC_HELP_STRING([--disable-actions],
+        [disable custom actions in context menu if you have no decent Vala compiler])],
+    [enable_actions="${enableval}"],
+    [enable_actions=yes]
+)
+if test x"$enable_actions" = xyes; then
+    AM_PROG_VALAC([0.13.0])
+    LIBFMACTIONS='$(srcdir)/actions/libfmactions.la'
+    ACTIONS_SUBDIR='actions'
+    AC_DEFINE(HAVE_ACTIONS, 1, [Define to 1 to enable custom actions])
+else
+    LIBFMACTIONS=
+    ACTIONS_SUBDIR=
+fi
+AC_SUBST(LIBFMACTIONS)
+AC_SUBST(ACTIONS_SUBDIR)
 
 # Checks for libraries.
 

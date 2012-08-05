@@ -5,7 +5,7 @@ NULL=
 
 # current dir needs to be built before tests
 SUBDIRS= \
-	actions \
+	$(ACTIONS_SUBDIR) \
 	. \
 	tests \
 	$(NULL)
@@ -228,7 +228,7 @@ libfm_la_LIBADD = \
 	$(MENU_CACHE_LIBS) \
 	$(DBUS_LIBS) \
 	$(INTLLIBS) \
-	$(srcdir)/actions/libfmactions.la \
+	$(LIBFMACTIONS) \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
