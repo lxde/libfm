@@ -43,13 +43,6 @@
 #include <string.h>
 #include <gio/gio.h>
 
-/* #define ENABLE_DEBUG */
-#ifdef ENABLE_DEBUG
-#define DEBUG(...)  g_debug(__VA_ARGS__)
-#else
-#define DEBUG(...)
-#endif
-
 struct _FmFolderModel
 {
     GObject parent;
@@ -1176,9 +1169,9 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
     GdkPixbuf* pix = fm_thumbnail_request_get_pixbuf(req);
     GtkTreeIter it;
     GSequenceIter* seq_it;
-    FmPath* path = fm_file_info_get_path(fi);
+    /* FmPath* path = fm_file_info_get_path(fi);
 
-    DEBUG("thumbnail loaded for %s, %p, size = %d", path->name, pix, size);
+    g_debug("thumbnail loaded for %s, %p, size = %d", path->name, pix, size); */
 
     /* remove the request from list */
     model->thumbnail_requests = g_list_remove(model->thumbnail_requests, req);

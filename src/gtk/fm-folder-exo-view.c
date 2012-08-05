@@ -75,6 +75,9 @@ struct _FmFolderExoView
     GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
     guint row_activated_idle;
 
+    /* for very large folder update */
+    guint sel_changed_idle;
+
     FmFileInfoList* cached_selected_files;
     FmPathList* cached_selected_file_paths;
 
@@ -104,6 +107,7 @@ static GList* fm_folder_exo_view_get_selected_tree_paths(FmFolderExoView* fv);
 static gboolean on_folder_exo_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderExoView* fv);
+static void on_sel_changed(GObject* obj, FmFolderExoView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderExoView* fv);
 
@@ -533,7 +537,7 @@ static inline void create_icon_view(FmFolderExoView* fv, GList* sels)
     exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
     exo_icon_view_set_search_column((ExoIconView*)fv->view, COL_FILE_NAME);
     g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
-    g_signal_connect(fv->view, "selection-changed", G_CALLBACK(fm_folder_view_sel_changed), fv);
+    g_signal_connect(fv->view, "selection-changed", G_CALLBACK(on_sel_changed), fv);
     exo_icon_view_set_model((ExoIconView*)fv->view, (GtkTreeModel*)fv->model);
     exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
     exo_icon_view_set_single_click((ExoIconView*)fv->view, fm_config->single_click);
@@ -608,7 +612,7 @@ static inline void create_list_view(FmFolderExoView* fv, GList* sels)
 
     ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
-    g_signal_connect(ts, "changed", G_CALLBACK(fm_folder_view_sel_changed), fv);
+    g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
     /*cancel_pending_row_activated(fv);*/ /* FIXME: is this needed? */
     gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(fv->model));
     gtk_tree_selection_set_mode(ts, fv->sel_mode);
@@ -623,10 +627,10 @@ static void unset_view(FmFolderExoView* fv)
     if(fv->mode == FM_FV_LIST_VIEW)
     {
         GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
-        g_signal_handlers_disconnect_by_func(ts, fm_folder_view_sel_changed, fv);
+        g_signal_handlers_disconnect_by_func(ts, on_sel_changed, fv);
     }
     else
-        g_signal_handlers_disconnect_by_func(fv->view, fm_folder_view_sel_changed, fv);
+        g_signal_handlers_disconnect_by_func(fv->view, on_sel_changed, fv);
     /* these signals connected by fm_folder_exo_view_set_mode() */
     g_signal_handlers_disconnect_by_func(fv->view, on_drag_motion, fv);
     g_signal_handlers_disconnect_by_func(fv->view, on_drag_leave, fv);
@@ -1125,6 +1129,21 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderExoView* fv)
     }
 }
 
+static gboolean on_sel_changed_real(gpointer user_data)
+{
+    FmFolderExoView* fv = (FmFolderExoView*)user_data;
+    fv->sel_changed_idle = 0;
+    fm_folder_view_sel_changed(NULL, FM_FOLDER_VIEW(fv));
+    return FALSE;
+}
+
+static void on_sel_changed(GObject* obj, FmFolderExoView* fv)
+{
+    if(!fv->sel_changed_idle)
+        fv->sel_changed_idle = g_timeout_add_full(G_PRIORITY_HIGH_IDLE, 200,
+                                                  on_sel_changed_real, fv, NULL);
+}
+
 static void fm_folder_exo_view_select_invert(FmFolderView* ffv)
 {
     FmFolderExoView* fv = FM_FOLDER_EXO_VIEW(ffv);
@@ -1141,7 +1160,7 @@ static FmFolder* fm_folder_exo_view_get_folder(FmFolderView* ffv)
 static void fm_folder_exo_view_select_file_path(FmFolderView* ffv, FmPath* path)
 {
     FmFolderExoView* fv = FM_FOLDER_EXO_VIEW(ffv);
-    FmFolder* folder = fm_folder_exo_view_get_folder(fv);
+    FmFolder* folder = fm_folder_exo_view_get_folder(ffv);
     FmPath* cwd = folder ? fm_folder_get_path(folder) : NULL;
     if(cwd && fm_path_equal(fm_path_get_parent(path), cwd))
     {

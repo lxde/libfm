@@ -1,5 +1,5 @@
 /*
- *      folder-view.h
+ *      fm-folder-view.h
  *
  *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
@@ -70,6 +70,7 @@ typedef enum
 /**
  * FmFolderViewUpdatePopup
  * @fv: the folder view widget
+ * @window: the window where @fv is present
  * @ui: the object to add interface
  * @act_grp: group of actions to add action
  * @files: list of files for current popup menu

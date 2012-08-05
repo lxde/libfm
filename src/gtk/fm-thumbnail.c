@@ -913,8 +913,8 @@ static void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
             ExifLoader *exif_loader = exif_loader_new();
             ExifData *exif_data;
             while(!g_cancellable_is_cancelled(generator_cancellable)) {
-                char buf[4096];
-                gssize read_size = g_input_stream_read(ins, buf, 4096, generator_cancellable, NULL);
+                unsigned char buf[4096];
+                gssize read_size = g_input_stream_read((GInputStream*)ins, buf, 4096, generator_cancellable, NULL);
                 if(read_size == 0) /* EOF */
                     break;
                 if(exif_loader_write(exif_loader, buf, read_size) == 0)
