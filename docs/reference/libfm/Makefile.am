@@ -118,7 +118,7 @@ GTKDOC_CFLAGS= \
 GTKDOC_LIBS= \
 	$(top_builddir)/src/libfm.la \
 	$(top_builddir)/src/libfm-gtk.la \
-	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
 	$(NULL)
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
