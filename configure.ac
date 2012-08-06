@@ -77,10 +77,11 @@ PKG_CHECK_MODULES(PANGO, [$pango_modules])
 AC_SUBST(PANGO_CFLAGS)
 AC_SUBST(PANGO_LIBS)
 
-gmodule_modules="gmodule-2.0"
-PKG_CHECK_MODULES(GMODULE, [$gmodule_modules])
-AC_SUBST(GMODULE_CFLAGS)
-AC_SUBST(GMODULE_LIBS)
+dnl gmodule may be used for libfm-chooser-hack.la
+#gmodule_modules="gmodule-2.0"
+#PKG_CHECK_MODULES(GMODULE, [$gmodule_modules])
+#AC_SUBST(GMODULE_CFLAGS)
+#AC_SUBST(GMODULE_LIBS)
 
 menu_modules="libmenu-cache >= 0.3.2"
 PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
