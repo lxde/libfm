@@ -67,7 +67,11 @@ PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-gio_modules="gthread-2.0 gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0 gobject-2.0"
+if test x"$enable_actions" = xyes; then
+  gio_modules="gthread-2.0 gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0 gobject-2.0"
+else
+  gio_modules="glib-2.0 >= 2.24.0 gthread-2.0 gio-unix-2.0 gobject-2.0"
+fi
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
@@ -228,6 +232,7 @@ echo "Enable compiler flags and other support for debugging:  $enable_debug"
 echo "Build udisks support (Linux only, experimental):        $enable_udisks"
 echo "Build with libexif for faster thumbnail loading:        $enable_exif"
 echo "Build demo program src/demo/libfm-demo:                 $enable_demo"
+echo "Build with custom actions support (requires Vala):      $enable_actions"
 echo "Large file support:                                     $largefile"
 if test x"$have_scheme_handler" = x"no"; then
 echo "GIO module for preferred apps (for glib < 2.28 only):   $giomodulesdir";
