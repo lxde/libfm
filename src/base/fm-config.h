@@ -80,7 +80,10 @@ struct _FmConfig
     gboolean advanced_mode; /* enable advanced features for experienced user */
 
     /*< private >*/
+    union {
     gpointer _reserved1; /* reserved space for updates until next ABI */
+    gboolean force_startup_notify; /* use startup notify by default */
+    };
     gpointer _reserved2;
     gpointer _reserved3;
     gpointer _reserved4;

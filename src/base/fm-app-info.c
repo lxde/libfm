@@ -210,20 +210,19 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         if(ctx)
         {
             gboolean use_sn;
-            if(G_LIKELY(kf))
+            if(G_LIKELY(kf) && g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
                 use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
-            else
-                use_sn = TRUE;
-            data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
-
-            if(!use_sn)
+            else if(fm_config->force_startup_notify)
             {
                 /* if the app doesn't explicitly ask us not to use sn,
+                 * and fm_config->force_startup_notify is TRUE, then
                  * use it by default, unless it's a console app. */
-                if(!kf || !g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
-                    use_sn = !use_terminal; /* we only use sn for GUI apps by default */
+                use_sn = !use_terminal; /* we only use sn for GUI apps by default */
                 /* FIXME: console programs should use sn_id of terminal emulator instead. */
             }
+            else
+                use_sn = FALSE;
+            data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
 
             if(use_sn)
                 data.sn_id = g_app_launch_context_get_startup_notify_id(ctx, appinfo, gfiles);
