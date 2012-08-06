@@ -186,6 +186,7 @@ void            fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
 void            fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv);
 //void            fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
 
+#ifndef FM_DISABLE_DEPRECATED
 /* functions defined in fm-folder-exo-view.c
  * are obsoleted since 1.0.1 but left until soname 5 for compatibility */
 FmFolderView* fm_folder_view_new(guint mode);
@@ -194,6 +195,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, guint mode);
 guint fm_folder_view_get_mode(FmFolderView* fv);
 
 void fm_folder_view_select_custom(FmFolderView* fv, GFunc filter, gpointer user_data);
+#endif
 
 G_END_DECLS
 

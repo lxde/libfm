@@ -463,9 +463,9 @@ fm_file_info_job_new
 <SUBSECTION Standard>
 FM_FILE_INFO_JOB
 FM_FILE_INFO_JOB_CLASS
-FM_TYPE_FILE_INFO_JOB
 FM_IS_FILE_INFO_JOB
 FM_IS_FILE_INFO_JOB_CLASS
+FM_TYPE_FILE_INFO_JOB
 fm_file_info_job_get_type
 </SECTION>
 
@@ -569,12 +569,30 @@ fm_folder_get_type
 </SECTION>
 
 <SECTION>
+<FILE>fm-folder-exo-view</FILE>
+<TITLE>FmFolderExoView</TITLE>
+FM_FOLDER_EXO_VIEW_TYPE
+FmFolderExoViewClass
+FmFolderExoViewMode
+fm_folder_exo_view_get_mode
+fm_folder_exo_view_new
+fm_folder_exo_view_set_mode
+<SUBSECTION Standard>
+FM_FOLDER_EXO_VIEW
+FM_FOLDER_EXO_VIEW_CLASS
+FM_FOLDER_EXO_VIEW_MODE_IS_VALID
+FM_IS_FOLDER_EXO_VIEW
+FM_IS_FOLDER_EXO_VIEW_CLASS
+fm_folder_exo_view_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-folder-model</FILE>
 <TITLE>FmFolderModel</TITLE>
+COL_FILE_UNSORTED
 FmFolderModel
 FmFolderModelClass
 FmFolderModelViewCol
-COL_FILE_UNSORTED
 fm_folder_model_file_changed
 fm_folder_model_file_created
 fm_folder_model_file_deleted
@@ -603,11 +621,11 @@ fm_folder_model_get_type
 <SECTION>
 <FILE>fm-folder-view</FILE>
 <TITLE>FmFolderView</TITLE>
-FM_FOLDER_VIEW_TYPE
-FmFolderView
-FmFolderViewClass
 FmFolderViewClickType
-FmFolderViewMode
+FmFolderViewInterface
+FmFolderViewUpdatePopup
+fm_folder_view_add_popup
+fm_folder_view_bounce_action
 fm_folder_view_dup_selected_file_paths
 fm_folder_view_dup_selected_files
 fm_folder_view_get_cwd
@@ -615,11 +633,14 @@ fm_folder_view_get_cwd_info
 fm_folder_view_get_folder
 fm_folder_view_get_mode
 fm_folder_view_get_model
+fm_folder_view_get_n_selected_files
 fm_folder_view_get_selection_mode
 fm_folder_view_get_show_hidden
 fm_folder_view_get_sort_by
 fm_folder_view_get_sort_type
+fm_folder_view_item_clicked
 fm_folder_view_new
+fm_folder_view_sel_changed
 fm_folder_view_select_all
 fm_folder_view_select_custom
 fm_folder_view_select_file_path
@@ -632,11 +653,10 @@ fm_folder_view_set_show_hidden
 fm_folder_view_sort
 <SUBSECTION Standard>
 FM_FOLDER_VIEW
-FM_FOLDER_VIEW_CLASS
 FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID
-FM_FOLDER_VIEW_MODE_IS_VALID
+FM_FOLDER_VIEW_GET_IFACE
 FM_IS_FOLDER_VIEW
-FM_IS_FOLDER_VIEW_CLASS
+FM_TYPE_FOLDER_VIEW
 fm_folder_view_get_type
 </SECTION>
 
@@ -799,10 +819,10 @@ fm_nav_history_list
 fm_nav_history_new
 fm_nav_history_set_max
 <SUBSECTION Standard>
-FM_NAV_HISTORY
-FM_NAV_HISTORY_CLASS
 FM_IS_NAV_HISTORY
 FM_IS_NAV_HISTORY_CLASS
+FM_NAV_HISTORY
+FM_NAV_HISTORY_CLASS
 fm_nav_history_get_type
 </SECTION>
 
@@ -885,11 +905,11 @@ fm_path_entry_get_path
 fm_path_entry_new
 fm_path_entry_set_path
 <SUBSECTION Standard>
+FM_IS_TYPE_PATH_ENTRY
+FM_IS_TYPE_PATH_ENTRY_CLASS
 FM_PATH_ENTRY
 FM_PATH_ENTRY_CLASS
 FM_TYPE_PATH_ENTRY
-FM_IS_TYPE_PATH_ENTRY
-FM_IS_TYPE_PATH_ENTRY_CLASS
 fm_path_entry_get_type
 </SECTION>
 
@@ -937,10 +957,10 @@ FmPlacesViewClass
 fm_places_view_chdir
 fm_places_view_new
 <SUBSECTION Standard>
-FM_PLACES_VIEW
-FM_PLACES_VIEW_CLASS
 FM_IS_PLACES_VIEW
 FM_IS_PLACES_VIEW_CLASS
+FM_PLACES_VIEW
+FM_PLACES_VIEW_CLASS
 fm_places_view_get_type
 </SECTION>
 

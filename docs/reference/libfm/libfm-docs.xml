@@ -70,6 +70,7 @@ used to develop other file manager-related tools as well.
       <xi:include href="xml/fm-file-menu.xml"/>
       <xi:include href="xml/fm-file-properties.xml"/>
       <xi:include href="xml/fm-folder-model.xml"/>
+      <xi:include href="xml/fm-folder-exo-view.xml"/>
       <xi:include href="xml/fm-folder-view.xml"/>
       <xi:include href="xml/fm-gtk-file-launcher.xml"/>
       <xi:include href="xml/fm-gtk-utils.xml"/>

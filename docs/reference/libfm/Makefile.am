@@ -33,7 +33,7 @@ SCANGOBJ_OPTIONS=
 # e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED"
 # http://developer.gnome.org/gtk-doc-manual/unstable/metafiles_types.html.en
 # using --rebuild-types to re-generate type list automatically.
-SCAN_OPTIONS=--rebuild-types
+SCAN_OPTIONS=--rebuild-types --deprecated-guards=FM_DISABLE_DEPRECATED
 
 # Extra options to supply to gtkdoc-mkdb.
 # e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
