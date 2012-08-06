@@ -84,7 +84,10 @@ struct _FmConfig
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gboolean force_startup_notify; /* use startup notify by default */
     };
+    union {
     gpointer _reserved2;
+    gboolean backup_as_hidden; /* treat backup files as hidden */
+    };
     gpointer _reserved3;
     gpointer _reserved4;
 };

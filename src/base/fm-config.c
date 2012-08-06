@@ -170,6 +170,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
     fm_key_file_get_bool(kf, "config", "si_unit", &cfg->si_unit);
     fm_key_file_get_bool(kf, "config", "force_startup_notify", &cfg->force_startup_notify);
+    fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -268,6 +269,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
             fprintf(f, "si_unit=%d\n", cfg->si_unit);
             fprintf(f, "force_startup_notify=%d", cfg->force_startup_notify);
+            fprintf(f, "backup_as_hidden=%d", cfg->backup_as_hidden);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

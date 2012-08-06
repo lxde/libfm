@@ -861,9 +861,10 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
     const char* name = fi->path->name;
     /* files with . prefix or ~ suffix are regarded as hidden files.
      * dirs with . prefix are regarded as hidden dirs. */
-    /* FIXME: bug #3416724: backup and hidden files should be distinguishable */
     return (name[0] == '.' ||
-       (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
+            /* bug #3416724: backup and hidden files should be distinguishable */
+            (fm_config->backup_as_hidden &&
+             !fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
 }
 
 /**
