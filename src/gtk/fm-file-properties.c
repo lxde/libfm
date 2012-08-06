@@ -147,7 +147,8 @@ static gboolean on_timeout(gpointer user_data)
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
         char* str;
-        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_size, TRUE);
+        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_size,
+                            fm_config->si_unit);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_size,
                               dngettext(GETTEXT_PACKAGE, "byte", "bytes",
@@ -155,7 +156,8 @@ static gboolean on_timeout(gpointer user_data)
         gtk_label_set_text(data->total_size, str);
         g_free(str);
 
-        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_ondisk_size, TRUE);
+        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_ondisk_size,
+                            fm_config->si_unit);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_ondisk_size,
                               dngettext(GETTEXT_PACKAGE, "byte", "bytes",
