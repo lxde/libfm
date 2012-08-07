@@ -41,7 +41,9 @@
 #include "fm-app-info.h"
 #include "fm-gtk-file-launcher.h"
 
+#ifdef HAVE_ACTIONS
 #include "fm-actions.h"
+#endif
 
 struct _FmFileMenu
 {
