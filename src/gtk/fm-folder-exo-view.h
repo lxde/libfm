@@ -59,6 +59,9 @@ typedef enum
     FM_FV_LIST_VIEW
 } FmFolderExoViewMode;
 
+#ifndef FM_DISABLE_DEPRECATED
+#define FM_FOLDER_VIEW_MODE_IS_VALID(mode) FM_FOLDER_EXO_VIEW_MODE_IS_VALID(mode)
+#endif
 #define FM_FOLDER_EXO_VIEW_MODE_IS_VALID(mode)  ((guint)mode <= FM_FV_LIST_VIEW)
 
 typedef struct _FmFolderExoView            FmFolderExoView;
