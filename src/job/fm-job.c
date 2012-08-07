@@ -126,7 +126,7 @@ static void fm_job_class_init(FmJobClass *klass)
      * @job: a job that emitted the signal
      *
      * The #FmJob::finished signal is emitted after the job is finished.
-     * The signal is never emitted if the fm_job_run_XXX() function
+     * The signal is never emitted if the fm_job_run_XXX function
      * returned %FALSE, in that case the #FmJob::cancelled signal will be
      * emitted instead.
      *

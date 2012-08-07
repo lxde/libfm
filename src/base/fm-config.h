@@ -95,7 +95,7 @@ struct _FmConfig
 /**
  * FmConfigClass
  * @parent_class: the parent class
- * @changed: the class closure for the #FmConfigClass::changed signal
+ * @changed: the class closure for the #FmConfig::changed signal
  */
 struct _FmConfigClass
 {

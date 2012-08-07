@@ -1107,16 +1107,16 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
  *
  * Implemented actions are:
  * <itemizedlist>
- * <listitem><para>Cut       cut files into clipboard</para></listitem>
- * <listitem><para>Copy      copy files into clipboard</para></listitem>
- * <listitem><para>Paste     paste files from clipboard</para></listitem>
- * <listitem><para>Del       move files into trash bin</para></listitem>
- * <listitem><para>Remove    delete files from filesystem</para></listitem>
- * <listitem><para>SelAll    select all</para></listitem>
- * <listitem><para>InvSel    invert selection</para></listitem>
- * <listitem><para>Rename    rename the folder</para></listitem>
- * <listitem><para>Prop      folder properties dialog</para></listitem>
- * <listitem><para>FileProp  file properties dialog</para></listitem>
+ * <listitem><para>Cut      : cut files into clipboard</para></listitem>
+ * <listitem><para>Copy     : copy files into clipboard</para></listitem>
+ * <listitem><para>Paste    : paste files from clipboard</para></listitem>
+ * <listitem><para>Del      : move files into trash bin</para></listitem>
+ * <listitem><para>Remove   : delete files from filesystem</para></listitem>
+ * <listitem><para>SelAll   : select all</para></listitem>
+ * <listitem><para>InvSel   : invert selection</para></listitem>
+ * <listitem><para>Rename   : rename the folder</para></listitem>
+ * <listitem><para>Prop     : folder properties dialog</para></listitem>
+ * <listitem><para>FileProp : file properties dialog</para></listitem>
  * </itemizedlist>
  *
  * Since: 1.0.1

@@ -572,6 +572,7 @@ fm_folder_get_type
 <FILE>fm-folder-exo-view</FILE>
 <TITLE>FmFolderExoView</TITLE>
 FM_FOLDER_EXO_VIEW_TYPE
+FmFolderExoView
 FmFolderExoViewClass
 FmFolderExoViewMode
 fm_folder_exo_view_get_mode
@@ -621,6 +622,7 @@ fm_folder_model_get_type
 <SECTION>
 <FILE>fm-folder-view</FILE>
 <TITLE>FmFolderView</TITLE>
+FmFolderView
 FmFolderViewClickType
 FmFolderViewInterface
 FmFolderViewUpdatePopup
@@ -1041,6 +1043,7 @@ fm_thumbnailer_new_from_keyfile
 <SECTION>
 <FILE>fm-utils</FILE>
 FmAppCommandParseCallback
+FmAppCommandParseOption
 fm_app_command_parse
 fm_canonicalize_filename
 fm_file_size_to_str

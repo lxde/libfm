@@ -453,7 +453,7 @@ static gpointer emit_ask_rename(FmJob* job, gpointer input_data)
  *
  * Asks the user in main thread how to resolve conflict if file being
  * copied or moved already exists in destination directory. Ask is done
- * by emitting the #FmFileOpsJob::ask signal.
+ * by emitting the #FmFileOpsJob::ask-rename signal.
  *
  * This API is private to #FmFileOpsJob and should not be used outside
  * of libfm implementation.

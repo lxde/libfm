@@ -46,7 +46,7 @@ typedef struct _FmSidePaneClass        FmSidePaneClass;
  * FmSidePaneMode:
  * @FM_SP_NONE: invalid mode
  * @FM_SP_PLACES: #FmPlacesView mode
- * @FM_SP_DIR_TREE: #FnDirTreeView mode
+ * @FM_SP_DIR_TREE: #FmDirTreeView mode
  * @FM_SP_REMOTE: reserved mode
  *
  * Mode of side pane view.

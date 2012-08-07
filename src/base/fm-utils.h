@@ -30,11 +30,13 @@ G_BEGIN_DECLS
 
 typedef const char* (*FmAppCommandParseCallback)(char opt, gpointer user_data);
 
-typedef struct
+typedef struct _FmAppCommandParseOption FmAppCommandParseOption;
+
+struct _FmAppCommandParseOption
 {
     char opt;
     FmAppCommandParseCallback callback;
-} FmAppCommandParseOption;
+};
 
 int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                          char** ret, gpointer user_data);
