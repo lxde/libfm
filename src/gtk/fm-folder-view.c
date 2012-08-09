@@ -1217,8 +1217,6 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
-    popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
-    win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     if(path)
     {
@@ -1228,6 +1226,10 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     }
     else
         fi = NULL;
+    popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
+    if(popup == NULL) /* no fm_folder_view_add_popup() was called before */
+        goto send_signal;
+    win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     /* handle left and rigth clicks */
     iface->get_custom_menu_callbacks(fv, &update_popup, &open_folders);
     /* if open_folders is NULL then it's old API call so don't handle */
@@ -1284,6 +1286,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
         break;
     default: ;
     }
+send_signal:
     /* send signal */
     g_signal_emit(fv, signals[CLICKED], 0, type, fi);
 }
