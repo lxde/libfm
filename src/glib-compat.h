@@ -25,6 +25,31 @@
 
 G_BEGIN_DECLS
 
+/* GLib prior 2.24 have no such macro */
+#ifndef G_DEFINE_INTERFACE
+#   define G_DEFINE_INTERFACE(TN, t_n, T_P) \
+static void     t_n##_default_init        (TN##Interface *klass); \
+GType t_n##_get_type (void) \
+{ \
+  static volatile gsize g_define_type_id__volatile = 0; \
+  if (g_once_init_enter (&g_define_type_id__volatile))  \
+    { \
+      GType g_define_type_id = \
+        g_type_register_static_simple (G_TYPE_INTERFACE, \
+                                       g_intern_static_string (#TN), \
+                                       sizeof (TN##Interface), \
+                                       (GClassInitFunc)t_n##_default_init, \
+                                       0, \
+                                       (GInstanceInitFunc)NULL, \
+                                       (GTypeFlags) 0); \
+      if (T_P) \
+        g_type_interface_add_prerequisite (g_define_type_id, T_P); \
+      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id); \
+    } \
+  return g_define_type_id__volatile; \
+} /* closes t_n##_get_type() */
+#endif /* G_DEFINE_INTERFACE */
+
 G_END_DECLS
 
 #endif

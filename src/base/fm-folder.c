@@ -534,7 +534,9 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             G_UNLOCK(query);
             /* g_debug("folder is changed"); */
             break;
+#if GLIB_CHECK_VERSION(2,24,0)
         case G_FILE_MONITOR_EVENT_MOVED:
+#endif
         case G_FILE_MONITOR_EVENT_CHANGED:
             ;
         }

@@ -278,6 +278,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
+#if GLIB_CHECK_VERSION(2,24,0)
             const char* file = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
             if(file) /* this is a desktop entry file */
             {
@@ -289,6 +290,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                 g_key_file_free(kf);
             }
             else
+#endif
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))

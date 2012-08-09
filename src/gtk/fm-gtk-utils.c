@@ -23,6 +23,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#include "gtk-compat.h"
 
 #include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>

@@ -65,7 +65,7 @@ IT_PROG_INTLTOOL([0.40.0])
 if test x"$enable_actions" = xyes; then
   gio_modules="gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0"
 else
-  gio_modules="glib-2.0 >= 2.24.0 gio-unix-2.0"
+  gio_modules="glib-2.0 >= 2.22.0 gio-unix-2.0"
 fi
 gio_modules="$gio_modules gthread-2.0 gobject-2.0 pango >= 1.16.0"
 
