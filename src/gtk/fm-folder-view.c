@@ -1072,9 +1072,9 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
                                        G_N_ELEMENTS(folder_sort_by_actions),
                                        by, G_CALLBACK(on_change_by), fv);
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+    gtk_ui_manager_add_ui_from_string(ui, folder_popup_xml, -1, NULL);
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
     gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act), show_hidden);
-    gtk_ui_manager_add_ui_from_string(ui, folder_popup_xml, -1, NULL);
     act = gtk_ui_manager_get_action(ui, "/popup/Cut");
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/Copy");
