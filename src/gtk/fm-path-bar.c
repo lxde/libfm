@@ -49,7 +49,11 @@ static void on_size_allocate(GtkWidget* widget, GtkAllocation* alloc)
 {
     FmPathBar* bar = FM_PATH_BAR(widget);
     GtkRequisition req;
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_widget_get_preferred_size(bar->btn_box, &req, NULL);
+#else
     gtk_widget_size_request(bar->btn_box, &req);
+#endif
     if(req.width > alloc->width) /* required width > allocated */
     {
         /* show scroll buttons */

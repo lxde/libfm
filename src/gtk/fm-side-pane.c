@@ -129,7 +129,11 @@ static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_i
     GdkScreen *screen;
     GdkWindow *window;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_widget_get_preferred_size(GTK_WIDGET(menu), &menu_req, NULL);
+#else
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
+#endif
 
     /* make the menu as wide as the button when needed */
     gtk_widget_get_allocation(widget, &allocation);

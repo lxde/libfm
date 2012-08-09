@@ -33,6 +33,14 @@
 
 G_DEFINE_TYPE(FmCellRendererText, fm_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
+                                         cairo_t *cr,
+                                         GtkWidget *widget,
+                                         const GdkRectangle *background_area,
+                                         const GdkRectangle *cell_area,
+                                         GtkCellRendererState flags);
+#else
 static void fm_cell_renderer_text_render(GtkCellRenderer *cell, 
                                          GdkDrawable *window,
                                          GtkWidget *widget,
@@ -40,6 +48,7 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GdkRectangle *cell_area,
                                          GdkRectangle *expose_area,
                                          GtkCellRendererState  flags);
+#endif
 
 static void fm_cell_renderer_text_class_init(FmCellRendererTextClass *klass)
 {
@@ -67,6 +76,14 @@ GtkCellRenderer *fm_cell_renderer_text_new(void)
     return (GtkCellRenderer*)g_object_new(FM_CELL_RENDERER_TEXT_TYPE, NULL);
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
+                                         cairo_t *cr,
+                                         GtkWidget *widget,
+                                         const GdkRectangle *background_area,
+                                         const GdkRectangle *cell_area,
+                                         GtkCellRendererState flags);
+#else
 static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GdkDrawable *window,
                                          GtkWidget *widget,
@@ -74,8 +91,13 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GdkRectangle *cell_area,
                                          GdkRectangle *expose_area,
                                          GtkCellRendererState flags)
+#endif
 {
+#if GTK_CHECK_VERSION(3, 0, 0)
+    GtkStyleContext* style;
+#else
     GtkStyle* style;
+#endif
     gchar* text;
     GtkStateType state;
     gint text_width;
@@ -142,10 +164,16 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
         rect.height = text_height + (2 * ypad);
     }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    style = gtk_widget_get_style_context(widget);
+#else
     style = gtk_widget_get_style(widget);
+#endif
     if(flags & GTK_CELL_RENDERER_SELECTED) /* item is selected */
     {
+#if !GTK_CHECK_VERSION(3, 0, 0)
         cairo_t *cr = gdk_cairo_create (window);
+#endif
         GdkColor clr;
 
         if(flags & GTK_CELL_RENDERER_INSENSITIVE) /* insensitive */
@@ -156,34 +184,50 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
         clr = style->bg[state];
 
         /* paint the background */
+#if !GTK_CHECK_VERSION(3, 0, 0)
         if(expose_area)
         {
             gdk_cairo_rectangle(cr, expose_area);
             cairo_clip(cr);
         }
+#endif
         gdk_cairo_rectangle(cr, &rect);
 
         cairo_set_source_rgb(cr, clr.red / 65535., clr.green / 65535., clr.blue / 65535.);
         cairo_fill (cr);
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
         cairo_destroy (cr);
+#endif
     }
+#if !GTK_CHECK_VERSION(3, 0, 0)
     else
         state = GTK_STATE_NORMAL;
+#endif
 
     x_align_offset = (alignment == PANGO_ALIGN_CENTER) ? (wrap_width - text_width) / 2 : 0;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_render_layout(style, cr,
+                      cell_area->x + x_offset + xpad - x_align_offset,
+                      cell_area->y + y_offset + ypad, layout);
+#else
     gtk_paint_layout(style, window, state, TRUE,
                      expose_area, widget, "cellrenderertext",
                      cell_area->x + x_offset + xpad - x_align_offset,
                      cell_area->y + y_offset + ypad, layout);
+#endif
 
     g_object_unref(layout);
 
     if(G_UNLIKELY( flags & GTK_CELL_RENDERER_FOCUSED) ) /* focused */
     {
+#if GTK_CHECK_VERSION(3, 0, 0)
+        gtk_render_focus(style, cr, rect.x, rect.y, rect.width, rect.height);
+#else
         gtk_paint_focus(style, window, state, background_area,
                         widget, "cellrenderertext", rect.x, rect.y,
                         rect.width, rect.height);
+#endif
     }
 }

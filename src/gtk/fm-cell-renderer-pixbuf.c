@@ -41,6 +41,14 @@ static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell
 						 gint                       *y_offset,
 						 gint                       *width,
 						 gint                       *height);
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_pixbuf_render(GtkCellRenderer *cell,
+                                           cairo_t *cr,
+                                           GtkWidget *widget,
+                                           const GdkRectangle *background_area,
+                                           const GdkRectangle *cell_area,
+                                           GtkCellRendererState flags);
+#else
 static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkDrawable                *window,
 						 GtkWidget                  *widget,
@@ -48,6 +56,7 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 						 GdkRectangle               *cell_area,
 						 GdkRectangle               *expose_area,
 						 GtkCellRendererState        flags);
+#endif
 
 static void fm_cell_renderer_pixbuf_get_property ( GObject *object,
                                       guint param_id,
@@ -266,6 +275,14 @@ static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell
     }
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_pixbuf_render(GtkCellRenderer *cell,
+                                           cairo_t *cr,
+                                           GtkWidget *widget,
+                                           const GdkRectangle *background_area,
+                                           const GdkRectangle *cell_area,
+                                           GtkCellRendererState flags);
+#else
 static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkDrawable                *window,
 						 GtkWidget                  *widget,
@@ -273,12 +290,17 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 						 GdkRectangle               *cell_area,
 						 GdkRectangle               *expose_area,
 						 GtkCellRendererState        flags)
+#endif
 {
     FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     /* we don't need to follow state for prelit items */
     if(flags & GTK_CELL_RENDERER_PRELIT)
         flags &= ~GTK_CELL_RENDERER_PRELIT;
+#if GTK_CHECK_VERSION(3, 0, 0)
+    GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, cr, widget, background_area, cell_area, flags);
+#else
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, window, widget, background_area, cell_area, expose_area, flags);
+#endif
 
     if(render->fi && G_UNLIKELY(fm_file_info_is_symlink(render->fi)))
     {
@@ -286,13 +308,17 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
         g_object_get(render, "pixbuf", &pix, NULL);
         if(pix)
         {
+#if !GTK_CHECK_VERSION(3, 0, 0)
             cairo_t *cr = gdk_cairo_create(window);
+#endif
             int x = cell_area->x + (cell_area->width - gdk_pixbuf_get_width(pix))/2;
             int y = cell_area->y + (cell_area->height - gdk_pixbuf_get_height(pix))/2;
 
             gdk_cairo_set_source_pixbuf(cr, link_icon, x, y);
             cairo_paint(cr);
+#if !GTK_CHECK_VERSION(3, 0, 0)
             cairo_destroy(cr);
+#endif
             g_object_unref(pix);
         }
     }
