@@ -78,6 +78,10 @@ void fm_dnd_dest_set_dest_file(FmDndDest* dd, FmFileInfo* dest_file);
 FmFileInfo* fm_dnd_dest_get_dest_file(FmDndDest* dd);
 FmPath* fm_dnd_dest_get_dest_path(FmDndDest* dd);
 
+#if !GTK_CHECK_VERSION(2, 22, 0)
+#  define gdk_drag_context_list_targets(ctx) ctx->targets
+#endif
+
 #define fm_drag_context_has_target(ctx, target) \
     (g_list_find(gdk_drag_context_list_targets(ctx), target) != NULL)
 
