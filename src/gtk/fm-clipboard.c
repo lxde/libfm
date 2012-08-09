@@ -19,6 +19,11 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "gtk-compat.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-utils.h"
 
@@ -43,12 +48,13 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
 {
     FmPathList* files = (FmPathList*)user_data;
     GString* uri_list;
+    GdkAtom target = gtk_selection_data_get_target(sel);
 
     if(info == KDE_CUT_SEL)
     {
         /* set application/kde-cutselection data */
         if(is_cut)
-            gtk_selection_data_set(sel, sel->target, 8, (guchar*)"1", 2);
+            gtk_selection_data_set(sel, target, 8, (guchar*)"1", 2);
         return;
     }
 
@@ -72,7 +78,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     {
         fm_path_list_write_uri_list(files, uri_list);
     }
-    gtk_selection_data_set(sel, sel->target, 8, (guchar*)uri_list->str, uri_list->len + 1);
+    gtk_selection_data_set(sel, target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
 }
 
@@ -103,7 +109,12 @@ static gboolean check_kde_curselection(GtkClipboard* clip)
     GtkSelectionData* data = gtk_clipboard_wait_for_contents(clip, atom);
     if(data)
     {
-        if(data->length > 0 && data->format == 8 && data->data[0] == '1')
+        gint length, format;
+        const gchar* pdata;
+
+        pdata = (const gchar*)gtk_selection_data_get_data_with_length(data, &length);
+        format = gtk_selection_data_get_format(data);
+        if(length > 0 && format == 8 && pdata[0] == '1')
             ret = TRUE;
         gtk_selection_data_free(data);
     }
@@ -166,21 +177,23 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     if( type )
     {
         GtkSelectionData* data = gtk_clipboard_wait_for_contents(clip, atom);
-        char* pdata = (char*)data->data;
-        /* FIXME: is it safe to assume the clipboard data is null-terminalted?
-         * According to the source code in gtkselection.c, gtk+ seems to
-         * includes an extra byte at the end of GtkSelectionData::data, so
-         * this should be safe. */
-        pdata[data->length] = '\0'; /* make sure the data is null-terminated. */
+        const gchar* pdata;
+        gint length;
+
+        pdata = (const gchar*)gtk_selection_data_get_data_with_length(data, &length);
         is_cut = FALSE;
 
         switch(type)
         {
         case GNOME_COPIED_FILES:
             is_cut = g_str_has_prefix(pdata, "cut\n");
-            while(*pdata && *pdata != '\n')
-                ++pdata;
-            ++pdata;
+            while(length)
+            {
+                register gchar ch = *pdata++;
+                length--;
+                if(ch == '\n')
+                    break;
+            }
             /* the following parts is actually a uri-list, so don't break here. */
         case URI_LIST:
             uris = g_uri_list_extract_uris(pdata);

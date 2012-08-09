@@ -156,6 +156,7 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
         return;
     if(ds->widget) /* there is an old widget connected */
     {
+        gtk_drag_source_unset(ds->widget);
         g_object_remove_weak_pointer(G_OBJECT(ds->widget), (gpointer*)&ds->widget);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_data_get, ds);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_begin, ds);
@@ -164,6 +165,9 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
     ds->widget = w;
     if( w )
     {
+        gtk_drag_source_set(w, GDK_BUTTON1_MASK, fm_default_dnd_src_targets,
+                            G_N_ELEMENTS(fm_default_dnd_src_targets),
+                            GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK);
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&ds->widget);
         g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
         g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
@@ -217,7 +221,7 @@ on_drag_data_get ( GtkWidget *src_widget,
 
     /*  Don't call the default handler  */
     g_signal_stop_emission_by_name( src_widget, "drag-data-get" );
-    drag_context->actions = GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK;
+//    drag_context->actions = GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK;
 
     type = gdk_atom_intern_static_string(fm_default_dnd_src_targets[info].target);
     switch( info )

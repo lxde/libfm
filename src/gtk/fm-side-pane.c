@@ -124,39 +124,43 @@ static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_i
     GtkWidget *widget = GTK_WIDGET(button);
     GtkRequisition menu_req;
     GdkRectangle monitor;
+    GtkAllocation allocation;
     gint monitor_num;
     GdkScreen *screen;
+    GdkWindow *window;
 
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
 
     /* make the menu as wide as the button when needed */
-    if(menu_req.width < GTK_WIDGET(button)->allocation.width)
+    gtk_widget_get_allocation(widget, &allocation);
+    if(menu_req.width < allocation.width)
     {
-        menu_req.width = GTK_WIDGET(button)->allocation.width;
+        menu_req.width = allocation.width;
         gtk_widget_set_size_request(GTK_WIDGET(menu), menu_req.width, -1);
     }
 
     screen = gtk_widget_get_screen (GTK_WIDGET (menu));
-    monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
+    window = gtk_widget_get_window(widget);
+    monitor_num = gdk_screen_get_monitor_at_window (screen, window);
     if (monitor_num < 0)
         monitor_num = 0;
     gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
-    gdk_window_get_origin (widget->window, x, y);
-    *x += widget->allocation.x;
-    *y += widget->allocation.y;
+    gdk_window_get_origin (window, x, y);
+    *x += allocation.x;
+    *y += allocation.y;
 /*
     if (direction == GTK_TEXT_DIR_LTR)
         *x += MAX (widget->allocation.width - menu_req.width, 0);
     else if (menu_req.width > widget->allocation.width)
         *x -= menu_req.width - widget->allocation.width;
 */
-    if ((*y + widget->allocation.height + menu_req.height) <= monitor.y + monitor.height)
-        *y += widget->allocation.height;
+    if ((*y + allocation.height + menu_req.height) <= monitor.y + monitor.height)
+        *y += allocation.height;
     else if ((*y - menu_req.height) >= monitor.y)
         *y -= menu_req.height;
-    else if (monitor.y + monitor.height - (*y + widget->allocation.height) > *y)
-        *y += widget->allocation.height;
+    else if (monitor.y + monitor.height - (*y + allocation.height) > *y)
+        *y += allocation.height;
     else
         *y -= menu_req.height;
     *push_in = FALSE;

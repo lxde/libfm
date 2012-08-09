@@ -31,6 +31,8 @@
  * current directory.
  */
 
+#include "gtk-compat.h"
+
 #include "fm-path-entry.h"
 /* for completion */
 #include "fm-folder-model.h"
@@ -157,7 +159,7 @@ static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event,
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     switch( event->keyval )
     {
-    case GDK_Tab:
+    case GDK_KEY_Tab:
         {
             gtk_entry_completion_insert_prefix(priv->completion);
             gtk_editable_set_position(GTK_EDITABLE(entry), -1);

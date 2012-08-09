@@ -53,8 +53,6 @@ typedef enum
     N_FM_DND_SRC_DEFAULT_TARGETS
 } FmDndSrcTarget;
 
-extern GtkTargetEntry fm_default_dnd_src_targets[];
-
 typedef struct _FmDndSrc			FmDndSrc;
 typedef struct _FmDndSrcClass		FmDndSrcClass;
 

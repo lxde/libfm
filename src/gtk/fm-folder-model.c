@@ -134,11 +134,11 @@ static void fm_folder_model_set_sort_func(GtkTreeSortable *sortable,
                                           gint sort_column_id,
                                           GtkTreeIterCompareFunc sort_func,
                                           gpointer user_data,
-                                          GtkDestroyNotify destroy);
+                                          GDestroyNotify destroy);
 static void fm_folder_model_set_default_sort_func(GtkTreeSortable *sortable,
                                                   GtkTreeIterCompareFunc sort_func,
                                                   gpointer user_data,
-                                                  GtkDestroyNotify destroy);
+                                                  GDestroyNotify destroy);
 static void fm_folder_model_sort(FmFolderModel* model);
 
 /* signal handlers */
@@ -765,7 +765,7 @@ static void fm_folder_model_set_sort_func(GtkTreeSortable *sortable,
                                           gint sort_column_id,
                                           GtkTreeIterCompareFunc sort_func,
                                           gpointer user_data,
-                                          GtkDestroyNotify destroy)
+                                          GDestroyNotify destroy)
 {
     g_warning("fm_folder_model_set_sort_func: Not supported\n");
 }
@@ -773,7 +773,7 @@ static void fm_folder_model_set_sort_func(GtkTreeSortable *sortable,
 static void fm_folder_model_set_default_sort_func(GtkTreeSortable *sortable,
                                                   GtkTreeIterCompareFunc sort_func,
                                                   gpointer user_data,
-                                                  GtkDestroyNotify destroy)
+                                                  GDestroyNotify destroy)
 {
     g_warning("fm_folder_model_set_default_sort_func: Not supported\n");
 }

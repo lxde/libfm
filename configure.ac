@@ -62,24 +62,26 @@ fi
 IT_PROG_INTLTOOL([0.40.0])
 
 # modules required
-pkg_modules="gtk+-2.0 >= 2.16.0"
+if test x"$enable_actions" = xyes; then
+  gio_modules="gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0"
+else
+  gio_modules="glib-2.0 >= 2.24.0 gio-unix-2.0"
+fi
+gio_modules="$gio_modules gthread-2.0 gobject-2.0 pango >= 1.16.0"
+
+pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 cairo >= 1.8.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-if test x"$enable_actions" = xyes; then
-  gio_modules="gthread-2.0 gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0 gobject-2.0"
-else
-  gio_modules="glib-2.0 >= 2.24.0 gthread-2.0 gio-unix-2.0 gobject-2.0"
-fi
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
 
-pango_modules="pango >= 1.16.0"
-PKG_CHECK_MODULES(PANGO, [$pango_modules])
-AC_SUBST(PANGO_CFLAGS)
-AC_SUBST(PANGO_LIBS)
+dnl pango_modules="pango >= 1.16.0"
+dnl PKG_CHECK_MODULES(PANGO, [$pango_modules])
+dnl AC_SUBST(PANGO_CFLAGS)
+dnl AC_SUBST(PANGO_LIBS)
 
 dnl gmodule may be used for libfm-chooser-hack.la
 #gmodule_modules="gmodule-2.0"

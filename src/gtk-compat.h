@@ -32,13 +32,36 @@ G_BEGIN_DECLS
 #endif
 
 #if !GTK_CHECK_VERSION(2, 21, 0)
-    #define GDK_KEY_Left    GDK_Left
-    #define GDK_KEY_Right   GDK_Right
+#  define   GDK_KEY_Left    GDK_Left
+#  define   GDK_KEY_Right   GDK_Right
+#  define   GDK_KEY_Tab     GDK_Tab
 #endif
 
 #if !GTK_CHECK_VERSION(3, 0, 0)
     #define gtk_widget_in_destruction(widget) \
         (GTK_OBJECT_FLAGS(GTK_OBJECT(widget)) & GTK_IN_DESTRUCTION)
+#endif
+
+#if !GTK_CHECK_VERSION(3, 0, 0)
+#  define gtk_selection_data_get_data_with_length(sel_data,length) \
+        gtk_selection_data_get_data(sel_data); \
+        *(length) = gtk_selection_data_get_length(sel_data)
+#endif
+
+#if !GTK_CHECK_VERSION(2, 22, 0)
+#  define gdk_drag_context_get_source_window(drag_context) \
+        drag_context->source_window
+#  define gdk_drag_context_get_selected_action(drag_context) \
+        drag_context->action
+#  define gdk_drag_context_get_actions(drag_context) \
+        drag_context->actions
+#  define gdk_drag_context_get_suggested_action(drag_context) \
+        drag_context->suggested_action
+#  define gdk_drag_context_list_targets(drag_context) drag_context->targets
+#endif
+
+#if !GTK_CHECK_VERSION(2, 20, 0)
+#  define gtk_widget_get_realized(widget) GTK_WIDGET_REALIZED(widget)
 #endif
 
 G_END_DECLS

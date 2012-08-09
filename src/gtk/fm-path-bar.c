@@ -129,12 +129,15 @@ static void emit_chdir(FmPathBar* bar, FmPath* path)
 static void on_scroll_btn_clicked(GtkButton* btn, FmPathBar* bar)
 {
     GtkAdjustment* hadj = gtk_viewport_get_hadjustment(GTK_VIEWPORT(bar->viewport));
-    gdouble value;
+    gdouble value = gtk_adjustment_get_value(hadj);
+    gdouble page_increment = gtk_adjustment_get_page_increment(hadj);
+    gdouble lower = gtk_adjustment_get_lower(hadj);
+    gdouble upper = gtk_adjustment_get_upper(hadj) - gtk_adjustment_get_page_size(hadj);
     if(btn == (GtkButton*)bar->left_scroll) /* scroll left */
-        value = hadj->value - hadj->page_increment;
+        value = value - page_increment;
     else
-        value = hadj->value + hadj->page_increment;
-    value = CLAMP (value, hadj->lower, hadj->upper - hadj->page_size);
+        value = value + page_increment;
+    value = CLAMP (value, lower, upper);
     gtk_adjustment_set_value(hadj, value);
 }
 

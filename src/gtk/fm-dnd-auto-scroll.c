@@ -41,16 +41,18 @@ static gboolean on_auto_scroll(gpointer user_data)
     GtkAdjustment* va = as->vadj;
     GtkAdjustment* ha = as->hadj;
     GtkWidget* widget = as->widget;
+    GtkAllocation allocation;
 
-    gdk_window_get_pointer(widget->window, &x, &y, NULL);
+    gdk_window_get_pointer(gtk_widget_get_window(widget), &x, &y, NULL);
+    gtk_widget_get_allocation(widget, &allocation);
 
     /*
        HACK.
        Sometimes we do not get drag-leave signal. (Why?)
        This check prevents infinite scrolling.
     */
-    if (y < 0 || y > widget->allocation.height ||
-        x < 0 || x > widget->allocation.width)
+    if (y < 0 || y > allocation.height ||
+        x < 0 || x > allocation.width)
     {
         as->timeout = 0;
         return FALSE;
@@ -60,21 +62,27 @@ static gboolean on_auto_scroll(gpointer user_data)
     {
         if(y < SCROLL_EDGE_SIZE) /* scroll up */
         {
-            if(va->value > va->lower)
+            gdouble value = gtk_adjustment_get_value(va);
+            gdouble lower = gtk_adjustment_get_lower(va);
+            if(value > lower)
             {
-                va->value -= va->step_increment;
-                if(va->value < va->lower)
-                    va->value = va->lower;
+                value -= gtk_adjustment_get_step_increment(va);
+                if(value < lower)
+                    value = lower;
+                gtk_adjustment_set_value(va, value);
             }
         }
-        else if(y > (widget->allocation.height - SCROLL_EDGE_SIZE))
+        else if(y > (allocation.height - SCROLL_EDGE_SIZE))
         {
+            gdouble value = gtk_adjustment_get_value(va);
+            gdouble upper = gtk_adjustment_get_upper(va) - gtk_adjustment_get_page_size(va);
             /* scroll down */
-            if(va->value < va->upper - va->page_size)
+            if(value < upper)
             {
-                va->value += va->step_increment;
-                if(va->value > va->upper - va->page_size)
-                    va->value = va->upper - va->page_size;
+                value += gtk_adjustment_get_step_increment(va);
+                if(value > upper)
+                    value = upper;
+                gtk_adjustment_set_value(va, value);
             }
         }
         gtk_adjustment_value_changed(va);
@@ -84,21 +92,27 @@ static gboolean on_auto_scroll(gpointer user_data)
     {
         if(x < SCROLL_EDGE_SIZE) /* scroll to left */
         {
-            if(ha->value > ha->lower)
+            gdouble value = gtk_adjustment_get_value(ha);
+            gdouble lower = gtk_adjustment_get_lower(ha);
+            if(value > lower)
             {
-                ha->value -= ha->step_increment;
-                if(ha->value < ha->lower)
-                    ha->value = ha->lower;
+                value -= gtk_adjustment_get_step_increment(ha);
+                if(value < lower)
+                    value = lower;
+                gtk_adjustment_set_value(ha, value);
             }
         }
-        else if(x > (widget->allocation.width - SCROLL_EDGE_SIZE))
+        else if(x > (allocation.width - SCROLL_EDGE_SIZE))
         {
+            gdouble value = gtk_adjustment_get_value(ha);
+            gdouble upper = gtk_adjustment_get_upper(ha) - gtk_adjustment_get_page_size(ha);
             /* scroll to right */
-            if(ha->value < ha->upper - ha->page_size)
+            if(value < upper)
             {
-                ha->value += ha->step_increment;
-                if(ha->value > ha->upper - ha->page_size)
-                    ha->value = ha->upper - ha->page_size;
+                value += gtk_adjustment_get_step_increment(ha);
+                if(value > upper)
+                    value = upper;
+                gtk_adjustment_set_value(ha, value);
             }
         }
         gtk_adjustment_value_changed(ha);

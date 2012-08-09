@@ -32,6 +32,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#include "gtk-compat.h"
 
 #include "fm-dnd-dest.h"
 #include "fm-gtk-utils.h"
@@ -179,10 +180,19 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     if(w == dd->widget)
         return;
     if(dd->widget)
+    {
+        gtk_drag_dest_unset(dd->widget);
         g_object_remove_weak_pointer(G_OBJECT(dd->widget), (gpointer*)&dd->widget);
+    }
     dd->widget = w;
     if( w )
+    {
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&dd->widget);
+        gtk_drag_dest_set(w, 0, fm_default_dnd_dest_targets,
+                          G_N_ELEMENTS(fm_default_dnd_dest_targets),
+                          GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
+
+    }
 }
 
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
@@ -333,14 +343,19 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
              gint x, gint y, GtkSelectionData *sel_data, guint info, guint time)
 {
     FmPathList* files = NULL;
+    gint length, format;
+    const gchar* data;
+
+    data = (const gchar*)gtk_selection_data_get_data_with_length(sel_data, &length);
+    format = gtk_selection_data_get_format(sel_data);
 
     if(info ==  FM_DND_DEST_TARGET_FM_LIST)
     {
-        if((sel_data->length == sizeof(gpointer)) && (sel_data->format==8))
+        if((length == sizeof(gpointer)) && (format==8))
         /* FIXME: check if it's internal within application */
         {
             /* get the pointer */
-            FmFileInfoList* file_infos = *(FmFileInfoList**)sel_data->data;
+            FmFileInfoList* file_infos = *(FmFileInfoList**)data;
             if(file_infos)
             {
                 FmFileInfo* fi = fm_file_info_list_peek_head(fm_file_info_list_ref(file_infos));
@@ -356,7 +371,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     }
     else if(info == FM_DND_DEST_TARGET_URI_LIST)
     {
-        if((sel_data->length >= 0) && (sel_data->format==8))
+        if((length >= 0) && (format==8))
         {
             gchar **uris;
             uris = gtk_selection_data_get_uris( sel_data );
@@ -381,14 +396,16 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
     }
     else if(info == FM_DND_DEST_TARGET_XDS) /* X direct save */
     {
-        if( sel_data->format == 8 && sel_data->length == 1 && sel_data->data[0] == 'F')
+        if(format == 8 && length == 1 && data[0] == 'F')
         {
-            gdk_property_change(GDK_DRAWABLE(drag_context->source_window),
+            GdkWindow *source_window;
+            source_window = gdk_drag_context_get_source_window(drag_context);
+            gdk_property_change(GDK_DRAWABLE(source_window),
                                xds_target_atom,
                                gdk_atom_intern_static_string("text/plain"), 8,
                                GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
         }
-        else if(sel_data->format == 8 && sel_data->length == 1 && sel_data->data[0] == 'S')
+        else if(format == 8 && length == 1 && data[0] == 'S')
         {
             /* XDS succeeds */
         }
@@ -494,10 +511,12 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
         if(i == FM_DND_DEST_TARGET_XDS) /* if this is XDS */
         {
             guchar *data = NULL;
+            GdkWindow *source_window;
             gint len = 0;
             GdkAtom text_atom = gdk_atom_intern_static_string("text/plain");
             /* get filename from the source window */
-            if(gdk_property_get(drag_context->source_window, xds_target_atom, text_atom,
+            source_window = gdk_drag_context_get_source_window(drag_context);
+            if(gdk_property_get(source_window, xds_target_atom, text_atom,
                                 0, 1024, FALSE, NULL, NULL,
                                 &len, &data) && data)
             {
@@ -507,7 +526,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                     FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), (gchar*)data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
-                    gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,
+                    gdk_property_change(GDK_DRAWABLE(source_window), xds_target_atom,
                                        text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)uri,
                                        strlen(uri) + 1);
                     fm_path_unref(path);
@@ -518,7 +537,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             {
                 fm_show_error(GTK_WINDOW(gtk_widget_get_toplevel(dest_widget)), NULL,
                               _("XDirectSave failed."));
-                gdk_property_change(GDK_DRAWABLE(drag_context->source_window), xds_target_atom,
+                gdk_property_change(GDK_DRAWABLE(source_window), xds_target_atom,
                                    text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
             }
             g_free(data);
@@ -530,8 +549,9 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
         /* see if the drag files are cached */
         if(dd->src_files)
         {
+            GdkDragAction action = gdk_drag_context_get_selected_action(drag_context);
             /* emit files-dropped signal */
-            g_signal_emit(dd, signals[FILES_DROPPED], 0, x, y, drag_context->action, dd->info_type, dd->src_files, &ret);
+            g_signal_emit(dd, signals[FILES_DROPPED], 0, x, y, action, dd->info_type, dd->src_files, &ret);
         }
         else /* we don't have the data */
         {
@@ -632,8 +652,8 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         }
     }
 
-    if( action && 0 == (drag_context->actions & action) )
-        action = drag_context->suggested_action;
+    if( action && 0 == (gdk_drag_context_get_actions(drag_context) & action) )
+        action = gdk_drag_context_get_suggested_action(drag_context);
 
     return action;
 }

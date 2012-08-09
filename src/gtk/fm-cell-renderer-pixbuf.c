@@ -286,11 +286,13 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
         g_object_get(render, "pixbuf", &pix, NULL);
         if(pix)
         {
+            cairo_t *cr = gdk_cairo_create(window);
             int x = cell_area->x + (cell_area->width - gdk_pixbuf_get_width(pix))/2;
             int y = cell_area->y + (cell_area->height - gdk_pixbuf_get_height(pix))/2;
 
-            gdk_draw_pixbuf ( GDK_DRAWABLE ( window ), NULL, link_icon, 0, 0,
-                              x, y, -1, -1, GDK_RGB_DITHER_NORMAL, 0, 0 );
+            gdk_cairo_set_source_pixbuf(cr, link_icon, x, y);
+            cairo_paint(cr);
+            cairo_destroy(cr);
             g_object_unref(pix);
         }
     }

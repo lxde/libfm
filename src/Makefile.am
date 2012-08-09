@@ -244,8 +244,6 @@ libfm_gtk_la_SOURCES = \
 
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
-	$(GIO_CFLAGS) \
-	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	$(EXIF_CFLAGS) \
 	-I$(srcdir) \
@@ -255,8 +253,6 @@ libfm_gtk_la_CFLAGS = \
 
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(GIO_LIBS) \
-	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
@@ -278,7 +274,6 @@ libfm_pref_apps_SOURCES = \
 
 libfm_pref_apps_CFLAGS = \
 	$(GTK_CFLAGS) \
-	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)

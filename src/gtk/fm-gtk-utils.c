@@ -272,7 +272,8 @@ static gchar* _fm_user_input_dialog_run(GtkDialog* dlg, GtkEntry *entry)
     /* FIXME: this workaround is used to overcome bug of gtk+.
      * gtk+ seems to ignore select region and select all text for entry in dialog. */
     has_sel = gtk_editable_get_selection_bounds(GTK_EDITABLE(entry), &sel_start, &sel_end);
-    gtk_box_pack_start(GTK_BOX(dlg->vbox), GTK_WIDGET(entry), FALSE, TRUE, 6);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(dlg)),
+                       GTK_WIDGET(entry), FALSE, TRUE, 6);
     gtk_widget_show_all(GTK_WIDGET(dlg));
 
     if(has_sel)
@@ -736,7 +737,7 @@ void fm_empty_trash(GtkWindow* parent)
 
 void fm_set_busy_cursor(GtkWidget* widget)
 {
-    if(GTK_WIDGET_REALIZED(widget))
+    if(gtk_widget_get_realized(widget))
     {
         GdkWindow* window = gtk_widget_get_window(widget);
         GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
@@ -751,7 +752,7 @@ void fm_set_busy_cursor(GtkWidget* widget)
 
 void fm_unset_busy_cursor(GtkWidget* widget)
 {
-    if(GTK_WIDGET_REALIZED(widget))
+    if(gtk_widget_get_realized(widget))
     {
         GdkWindow* window = gtk_widget_get_window(widget);
         gdk_window_set_cursor(window, NULL);

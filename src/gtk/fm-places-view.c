@@ -456,14 +456,11 @@ static void fm_places_view_init(FmPlacesView *self)
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,
                       dnd_src_targets, G_N_ELEMENTS(dnd_src_targets), GDK_ACTION_MOVE);
 
-    gtk_drag_dest_set(GTK_WIDGET(self), 0,
-            fm_default_dnd_dest_targets, N_FM_DND_DEST_DEFAULT_TARGETS,
-            GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
+    self->dnd_dest = fm_dnd_dest_new(GTK_WIDGET(self));
     targets = gtk_drag_dest_get_target_list(GTK_WIDGET(self));
     /* add our own targets */
     gtk_target_list_add_table(targets, dnd_dest_targets, G_N_ELEMENTS(dnd_dest_targets));
 
-    self->dnd_dest = fm_dnd_dest_new(GTK_WIDGET(self));
     g_signal_connect(self->dnd_dest, "files_dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
 }
 

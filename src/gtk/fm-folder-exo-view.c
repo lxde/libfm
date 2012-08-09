@@ -735,7 +735,7 @@ void fm_folder_exo_view_set_mode(FmFolderExoView* fv, FmFolderExoViewMode mode)
 
         if( G_LIKELY(fv->view) )
         {
-            has_focus = GTK_WIDGET_HAS_FOCUS(fv->view);
+            has_focus = gtk_widget_has_focus(fv->view);
             /* preserve old selections */
             sels = fm_folder_exo_view_get_selected_tree_paths(fv);
 
@@ -783,14 +783,7 @@ void fm_folder_exo_view_set_mode(FmFolderExoView* fv, FmFolderExoViewMode mode)
 
         /* FIXME: maybe calling set_icon_size here is a good idea */
 
-        gtk_drag_source_set(fv->view, GDK_BUTTON1_MASK,
-            fm_default_dnd_src_targets, N_FM_DND_SRC_DEFAULT_TARGETS,
-            GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
         fm_dnd_src_set_widget(fv->dnd_src, fv->view);
-
-        gtk_drag_dest_set(fv->view, 0,
-            fm_default_dnd_dest_targets, N_FM_DND_DEST_DEFAULT_TARGETS,
-            GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
         fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);
         g_signal_connect_after(fv->view, "drag-motion", G_CALLBACK(on_drag_motion), fv);
         g_signal_connect(fv->view, "drag-leave", G_CALLBACK(on_drag_leave), fv);
