@@ -159,11 +159,12 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
-                      fm_marshal_UINT__BOXED_UINT,
 #if GLIB_CHECK_VERSION(2,26,0)
+                      fm_marshal_UINT__BOXED_UINT,
                       G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
 #else
-                      G_TYPE_UINT, 2, G_TYPE_BOXED, G_TYPE_UINT );
+                      fm_marshal_INT__POINTER_INT,
+                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
 #endif
 
     /**
