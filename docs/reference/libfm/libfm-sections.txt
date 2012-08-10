@@ -423,6 +423,7 @@ fm_file_info_get_path
 fm_file_info_get_size
 fm_file_info_get_target
 fm_file_info_get_uid
+fm_file_info_is_accessible
 fm_file_info_is_desktop_entry
 fm_file_info_is_dir
 fm_file_info_is_executable_type

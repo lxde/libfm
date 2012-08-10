@@ -45,6 +45,8 @@
 
 static FmMimeType* desktop_entry_type = NULL;
 
+static FmIcon* icon_locked_folder = NULL;
+
 struct _FmFileInfo
 {
     FmPath* path; /* path of the file */
@@ -77,6 +79,8 @@ struct _FmFileInfo
 
     char* target; /* target of shortcut or mountable. */
 
+    gboolean accessible; /* TRUE if can be read by user */
+
     /*<private>*/
     int n_ref;
 };
@@ -90,11 +94,13 @@ struct _FmFileInfoList
 void _fm_file_info_init(void)
 {
     desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
+    icon_locked_folder = fm_icon_from_name("folder-locked");
 }
 
 void _fm_file_info_finalize()
 {
     fm_mime_type_unref(desktop_entry_type);
+    fm_icon_unref(icon_locked_folder);
 }
 
 /**
@@ -148,6 +154,8 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
 
         fi->mime_type = fm_mime_type_from_native_file(path, fm_file_info_get_disp_name(fi), &st);
 
+        fi->accessible = (g_access(path, R_OK) == 0);
+
         /* special handling for desktop entry files */
         if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
         {
@@ -186,6 +194,9 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             g_key_file_free(kf);
             g_free(fpath);
         }
+        /* set "locked" icon on unaccesible folder */
+        else if(!fi->accessible)
+            fi->icon = fm_icon_ref(icon_locked_folder);
         else
             fi->icon = fm_icon_ref(fi->mime_type->icon);
     }
@@ -269,8 +280,13 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         }
     }
 
+    fi->accessible = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+
+    /* set "locked" icon on unaccesible folder */
+    if(!fi->accessible)
+        fi->icon = fm_icon_ref(icon_locked_folder);
     /* set file icon according to mime-type */
-    if(!fi->mime_type || !fi->mime_type->icon)
+    else if(!fi->mime_type || !fi->mime_type->icon)
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
@@ -845,6 +861,21 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
         return FALSE;
     }
     return g_content_type_can_be_executable(fi->mime_type->type);
+}
+
+/**
+ * fm_file_info_is_accessible
+ * @fi: a file info descriptor
+ *
+ * Checks if the user has read access to file or directory @fi.
+ *
+ * Returns: %TRUE if @fi is accessible for user.
+ *
+ * Since: 1.0.1
+ */
+gboolean fm_file_info_is_accessible(FmFileInfo* fi)
+{
+    return fi->accessible;
 }
 
 /**

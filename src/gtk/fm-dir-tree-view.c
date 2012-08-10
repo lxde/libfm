@@ -197,8 +197,15 @@ static void emit_chdir_if_needed(FmDirTreeView* view, GtkTreeSelection* tree_sel
     GtkTreeModel* model;
     if(gtk_tree_selection_get_selected(tree_sel, &model, &it))
     {
-        FmPath* path = fm_dir_tree_row_get_file_path(FM_DIR_TREE_MODEL(model), &it);
+        FmFileInfo *fi = fm_dir_tree_row_get_file_info(FM_DIR_TREE_MODEL(model), &it);
+        FmPath *path;
+
+        if(fi == NULL)
+            return;
+        path = fm_file_info_get_path(fi);
         if(path && view->cwd && fm_path_equal(path, view->cwd))
+            return;
+        if(!fm_file_info_is_accessible(fi))
             return;
         if(view->cwd)
             fm_path_unref(view->cwd);
