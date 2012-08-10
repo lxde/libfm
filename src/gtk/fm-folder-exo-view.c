@@ -270,7 +270,7 @@ static void fm_folder_exo_view_dispose(GObject *object)
     self = (FmFolderExoView*)object;
     /* g_debug("fm_folder_exo_view_dispose: %p", self); */
 
-    fm_folder_view_set_model(FM_FOLDER_VIEW(object), NULL);
+    unset_model(self);
 
     if(G_LIKELY(self->view))
         unset_view(self);
