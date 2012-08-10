@@ -48,6 +48,7 @@ struct _AppChooserData
 
 static GAppInfo* app_info_create_from_commandline(const char *commandline,
                                                const char *application_name,
+                                               const char *mime_type,
                                                gboolean terminal)
 {
     GAppInfo* app = NULL;
@@ -65,17 +66,20 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
                 "Type=Application\n"
                 "Name=%s\n"
                 "Exec=%s\n"
+                "Categories=Other;\n"
                 "NoDisplay=true\n",
                 application_name,
                 commandline
             );
+            if(mime_type)
+                g_string_append_printf(content, "MimeType=%s\n", mime_type);
             if(terminal)
                 g_string_append_printf(content,
                     "Terminal=%s\n", terminal ? "true" : "false");
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                app = G_APP_INFO(g_desktop_app_info_new_from_filename(filename));
+                app = G_APP_INFO(g_desktop_app_info_new(g_path_get_basename(filename)));
                 /* FIXME: shouldn't this file be removed later? */
             }
             else
@@ -312,7 +316,9 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                 }
 
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
-                app = app_info_create_from_commandline(cmdline, bin1, gtk_toggle_button_get_active(data->use_terminal));
+                app = app_info_create_from_commandline(cmdline, bin1,
+                                                       data->mime_type->type,
+                                                       gtk_toggle_button_get_active(data->use_terminal));
             _out:
                 g_free(bin1);
                 g_free(_cmdline);
