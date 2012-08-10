@@ -2,6 +2,7 @@
  *      fm-file-ops-job-delete.c
  *
  *      Copyright 2009 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -33,26 +34,24 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = FM_FILE_OPS_JOB(job);
-    gboolean is_dir, descend;
+    gboolean is_dir;
     GFileInfo* _inf = NULL;
-    gboolean ret = FALSE;
+    FmJobErrorAction act;
 
-    if( !inf)
+    while(!inf)
     {
-_retry_query_info:
         _inf = inf = g_file_query_info(gf, query,
                             G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                             fm_job_get_cancellable(job), &err);
-        if(!_inf)
-        {
-            FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
-            g_error_free(err);
-            err = NULL;
-            if(act == FM_JOB_RETRY)
-                goto _retry_query_info;
-            else if(act == FM_JOB_ABORT)
-                return FALSE;
-        }
+        if(_inf)
+            break;
+        act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+        g_error_free(err);
+        err = NULL;
+        if(act == FM_JOB_ABORT)
+            return FALSE;
+        if(act != FM_JOB_RETRY)
+            break;
     }
     if(!inf)
     {
@@ -83,7 +82,6 @@ _retry_query_info:
 
     if(is_dir)
     {
-        descend = TRUE;
         /* special handling for trash:/// */
         if(!g_file_is_native(gf))
         {
@@ -93,110 +91,108 @@ _retry_query_info:
                 /* little trick: basename of trash root is /. */
                 char* basename = g_file_get_basename(gf);
                 if(basename[0] != G_DIR_SEPARATOR)
-                    descend = FALSE;
+                    is_dir = FALSE;
                 g_free(basename);
             }
             g_free(scheme);
         }
     }
-    else
-        descend = FALSE;
 
-    if( descend )
+    while(!fm_job_is_cancelled(job))
     {
-        GFileMonitor* old_mon = fjob->src_folder_mon;
-        GFileEnumerator* enu = g_file_enumerate_children(gf, query,
-                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-                                    fm_job_get_cancellable(job), &err);
-        if(!enu)
-        {
-            fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
-            g_error_free(err);
-            return FALSE;
-        }
-
-        fjob->src_folder_mon = NULL;
-        if(! g_file_is_native(gf))
-            fjob->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
-
-        while( ! fm_job_is_cancelled(job) )
-        {
-            inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(job), &err);
-            if(inf)
-            {
-                GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-                _fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
-                g_object_unref(sub);
-                g_object_unref(inf);
-            }
-            else
-            {
-                if(err)
-                {
-                    fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
-                    /* FM_JOB_RETRY is not supported here */
-                    g_error_free(err);
-                    g_object_unref(enu);
-                    if(fjob->src_folder_mon)
-                        g_object_unref(fjob->src_folder_mon);
-                    fjob->src_folder_mon = old_mon;
-                    return FALSE;
-                }
-                else /* EOF */
-                    break;
-            }
-        }
-        g_object_unref(enu);
-
-        if(fjob->src_folder_mon)
-        {
-            /* FIXME: this is a little bit incorrect since we emit deleted signal before the
-             * dir is really deleted. */
-            g_file_monitor_emit_event(fjob->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
-            g_object_unref(fjob->src_folder_mon);
-        }
-        fjob->src_folder_mon = old_mon;
-    }
-    if(!fm_job_is_cancelled(job))
-    {
-_retry_delete:
-        ret = g_file_delete(gf, fm_job_get_cancellable(job), &err);
-        if(ret)
+        if(g_file_delete(gf, fm_job_get_cancellable(job), &err))
         {
             if(fjob->src_folder_mon)
                 g_file_monitor_emit_event(fjob->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
+            return TRUE;
         }
-        else
+        if(err)
         {
-            if(err)
+            /* if it's non-empty dir then descent into it then try again */
+            if(is_dir && err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_EMPTY)
             {
-                FmJobErrorAction act;
-                if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
-                {
-                    /* special case for trash:/// */
-                    /* FIXME: is there any better way to handle this? */
-                    char* scheme = g_file_get_uri_scheme(gf);
-                    if(g_strcmp0(scheme, "trash") == 0)
-                    {
-                        g_free(scheme);
-                        g_error_free(err);
-                        return TRUE;
-                    }
-                    g_free(scheme);
-                }
-                act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                GFileMonitor* old_mon = fjob->src_folder_mon;
+                GFileEnumerator* enu;
+
                 g_error_free(err);
                 err = NULL;
-                if(act == FM_JOB_RETRY)
-                    goto _retry_delete;
-                return FALSE;
-            }
-        }
-    }
-    else
-        ret = FALSE;
+                enu = g_file_enumerate_children(gf, query,
+                                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                            fm_job_get_cancellable(job), &err);
+                if(!enu)
+                {
+                    fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                    g_error_free(err);
+                    return FALSE;
+                }
 
-    return ret;
+                fjob->src_folder_mon = NULL;
+                if(! g_file_is_native(gf))
+                    fjob->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
+
+                while( ! fm_job_is_cancelled(job) )
+                {
+                    inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(job), &err);
+                    if(inf)
+                    {
+                        GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
+                        _fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
+                        g_object_unref(sub);
+                        g_object_unref(inf);
+                    }
+                    else
+                    {
+                        if(err)
+                        {
+                            fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                            /* FM_JOB_RETRY is not supported here */
+                            g_error_free(err);
+                            g_object_unref(enu);
+                            if(fjob->src_folder_mon)
+                                g_object_unref(fjob->src_folder_mon);
+                            fjob->src_folder_mon = old_mon;
+                            return FALSE;
+                        }
+                        else /* EOF */
+                            break;
+                    }
+                }
+                g_object_unref(enu);
+
+                if(fjob->src_folder_mon)
+                {
+                    /* FIXME: this is a little bit incorrect since we emit deleted signal before the
+                     * dir is really deleted. */
+                    g_file_monitor_emit_event(fjob->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
+                    g_object_unref(fjob->src_folder_mon);
+                }
+                fjob->src_folder_mon = old_mon;
+                continue;
+            }
+            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
+            {
+                /* special case for trash:/// */
+                /* FIXME: is there any better way to handle this? */
+                char* scheme = g_file_get_uri_scheme(gf);
+                if(g_strcmp0(scheme, "trash") == 0)
+                {
+                    g_free(scheme);
+                    g_error_free(err);
+                    return TRUE;
+                }
+                g_free(scheme);
+            }
+            act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+            g_error_free(err);
+            err = NULL;
+            if(act != FM_JOB_RETRY)
+                return FALSE;
+        }
+        else
+            return FALSE;
+    }
+
+    return FALSE;
 }
 
 
