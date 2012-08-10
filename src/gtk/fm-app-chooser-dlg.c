@@ -53,10 +53,15 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
 {
     GAppInfo* app = NULL;
     char* dirname = g_build_filename (g_get_user_data_dir (), "applications", NULL);
+    const char* app_basename = strrchr(application_name, '/');
 
+    if(app_basename)
+        app_basename++;
+    else
+        app_basename = application_name;
     if(g_mkdir_with_parents(dirname, 0700) == 0)
     {
-        char* filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, application_name);
+        char* filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, app_basename);
         int fd = g_mkstemp (filename);
         if(fd != -1)
         {
@@ -79,7 +84,9 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
-                app = G_APP_INFO(g_desktop_app_info_new(g_path_get_basename(filename)));
+                char *fbname = g_path_get_basename(filename);
+                app = G_APP_INFO(g_desktop_app_info_new(fbname));
+                g_free(fbname);
                 /* FIXME: shouldn't this file be removed later? */
             }
             else
