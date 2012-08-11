@@ -33,6 +33,17 @@
 
 G_DEFINE_TYPE(FmCellRendererText, fm_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
 
+static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
+                                           GtkWidget                  *widget,
+#if GTK_CHECK_VERSION(3, 0, 0)
+                                           const
+#endif
+                                           GdkRectangle               *rectangle,
+                                           gint                       *x_offset,
+                                           gint                       *y_offset,
+                                           gint                       *width,
+                                           gint                       *height);
+
 #if GTK_CHECK_VERSION(3, 0, 0)
 static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          cairo_t *cr,
@@ -54,6 +65,7 @@ static void fm_cell_renderer_text_class_init(FmCellRendererTextClass *klass)
 {
     GtkCellRendererClass* render_class = GTK_CELL_RENDERER_CLASS(klass);
     render_class->render = fm_cell_renderer_text_render;
+    render_class->get_size = fm_cell_renderer_text_get_size;
 }
 
 
@@ -109,6 +121,7 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
     GdkRectangle rect;
     PangoWrapMode wrap_mode;
     gint wrap_width;
+    gint wrap_height = -1;
     PangoAlignment alignment;
     gfloat xalign, yalign;
     gint xpad, ypad;
@@ -139,6 +152,12 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
     {
         pango_layout_set_width(layout, wrap_width * PANGO_SCALE);
         pango_layout_set_wrap(layout, wrap_mode);
+        /* FIXME: add custom ellipsize from object? */
+        pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END);
+        /* Setup max height to be not more than half of width */
+        wrap_height = wrap_width * PANGO_SCALE / 2;
+        /* FIXME: add custom height from object? */
+        pango_layout_set_height(layout, wrap_height);
     }
 
     pango_layout_set_text(layout, text, -1);
@@ -239,3 +258,33 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 #endif
     }
 }
+
+static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
+                                           GtkWidget                  *widget,
+#if GTK_CHECK_VERSION(3, 0, 0)
+                                           const
+#endif
+                                           GdkRectangle               *rectangle,
+                                           gint                       *x_offset,
+                                           gint                       *y_offset,
+                                           gint                       *width,
+                                           gint                       *height)
+{
+    gint wrap_width;
+
+    g_object_get(G_OBJECT(cell),
+                 "wrap-width", &wrap_width,
+                 NULL);
+
+    if (wrap_width <= 0)
+    {
+        GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
+    }
+    else
+    {
+        *width = wrap_width;
+        /* FIXME: add custom height from object? */
+        *height = wrap_width / 2;
+    }
+}
+
