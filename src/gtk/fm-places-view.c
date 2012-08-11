@@ -895,12 +895,14 @@ static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAc
     return ret;
 }
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
 static void on_set_scroll_adjustments(GtkTreeView* view, GtkAdjustment* hadj, GtkAdjustment* vadj)
 {
     /* we don't want scroll horizontally, so we pass NULL instead of hadj. */
     fm_dnd_set_dest_auto_scroll(GTK_WIDGET(view), NULL, vadj);
     GTK_TREE_VIEW_CLASS(fm_places_view_parent_class)->set_scroll_adjustments(view, hadj, vadj);
 }
+#endif
 
 static void fm_places_view_class_init(FmPlacesViewClass *klass)
 {
@@ -921,7 +923,9 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
 
     tv_class = GTK_TREE_VIEW_CLASS(klass);
     tv_class->row_activated = on_row_activated;
+#if !GTK_CHECK_VERSION(3, 0, 0)
     tv_class->set_scroll_adjustments = on_set_scroll_adjustments;
+#endif
 
     /**
      * FmPlacesView::chdir:

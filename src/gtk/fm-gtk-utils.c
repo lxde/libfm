@@ -246,7 +246,11 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
 static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title, const char* msg)
 {
     GtkDialog* dlg = GTK_DIALOG(gtk_dialog_new_with_buttons(title, parent,
+#if GTK_CHECK_VERSION(3, 0, 0)
+                                0,
+#else
                                 GTK_DIALOG_NO_SEPARATOR,
+#endif
                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                 GTK_STOCK_OK, GTK_RESPONSE_OK, NULL));
     GtkWidget* label = gtk_label_new(msg);

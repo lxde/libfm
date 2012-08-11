@@ -82,10 +82,14 @@ typedef struct
     GCancellable* cancellable;
 }ListSubDirNames;
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
+#  define GtkEditableInterface GtkEditableClass
+#endif
+
 static void      fm_path_entry_activate(GtkEntry *entry, gpointer user_data);
 static gboolean  fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data);
 static void      fm_path_entry_class_init(FmPathEntryClass *klass);
-static void  fm_path_entry_editable_init(GtkEditableClass *iface);
+static void      fm_path_entry_editable_init(GtkEditableInterface *iface);
 static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *event);
 static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event);
 static void      fm_path_entry_changed(GtkEditable *editable, gpointer user_data);
@@ -226,7 +230,7 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
     g_type_class_add_private( klass, sizeof (FmPathEntryPrivate) );
 }
 
-static void fm_path_entry_editable_init(GtkEditableClass *iface)
+static void fm_path_entry_editable_init(GtkEditableInterface *iface)
 {
     /* parent_editable_interface = g_type_interface_peek_parent(iface); */
     /* iface->changed = fm_path_entry_changed; */

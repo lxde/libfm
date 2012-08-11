@@ -36,6 +36,9 @@ static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
 
 static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
+#if GTK_CHECK_VERSION(3, 0, 0)
+                                                const
+#endif
 						 GdkRectangle               *rectangle,
 						 gint                       *x_offset,
 						 gint                       *y_offset,
@@ -257,6 +260,9 @@ void fm_cell_renderer_pixbuf_set_fixed_size(FmCellRendererPixbuf* render, gint w
 
 static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
+#if GTK_CHECK_VERSION(3, 0, 0)
+                                                const
+#endif
 						 GdkRectangle               *rectangle,
 						 gint                       *x_offset,
 						 gint                       *y_offset,
@@ -281,7 +287,7 @@ static void fm_cell_renderer_pixbuf_render(GtkCellRenderer *cell,
                                            GtkWidget *widget,
                                            const GdkRectangle *background_area,
                                            const GdkRectangle *cell_area,
-                                           GtkCellRendererState flags);
+                                           GtkCellRendererState flags)
 #else
 static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkDrawable                *window,

@@ -400,8 +400,7 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
         {
             GdkWindow *source_window;
             source_window = gdk_drag_context_get_source_window(drag_context);
-            gdk_property_change(GDK_DRAWABLE(source_window),
-                               xds_target_atom,
+            gdk_property_change(source_window, xds_target_atom,
                                gdk_atom_intern_static_string("text/plain"), 8,
                                GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
         }
@@ -526,7 +525,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                     FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), (gchar*)data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
-                    gdk_property_change(GDK_DRAWABLE(source_window), xds_target_atom,
+                    gdk_property_change(source_window, xds_target_atom,
                                        text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)uri,
                                        strlen(uri) + 1);
                     fm_path_unref(path);
@@ -537,7 +536,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             {
                 fm_show_error(GTK_WINDOW(gtk_widget_get_toplevel(dest_widget)), NULL,
                               _("XDirectSave failed."));
-                gdk_property_change(GDK_DRAWABLE(source_window), xds_target_atom,
+                gdk_property_change(source_window, xds_target_atom,
                                    text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
             }
             g_free(data);

@@ -82,7 +82,7 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GtkWidget *widget,
                                          const GdkRectangle *background_area,
                                          const GdkRectangle *cell_area,
-                                         GtkCellRendererState flags);
+                                         GtkCellRendererState flags)
 #else
 static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GdkDrawable *window,
@@ -95,11 +95,12 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 {
 #if GTK_CHECK_VERSION(3, 0, 0)
     GtkStyleContext* style;
+    GtkStateFlags state;
 #else
     GtkStyle* style;
+    GtkStateType state;
 #endif
     gchar* text;
-    GtkStateType state;
     gint text_width;
     gint text_height;
     gint x_offset;
@@ -171,9 +172,17 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 #endif
     if(flags & GTK_CELL_RENDERER_SELECTED) /* item is selected */
     {
-#if !GTK_CHECK_VERSION(3, 0, 0)
+#if GTK_CHECK_VERSION(3, 0, 0)
+        GdkRGBA clr;
+
+        if(flags & GTK_CELL_RENDERER_INSENSITIVE) /* insensitive */
+            state = GTK_STATE_FLAG_INSENSITIVE;
+        else
+            state = GTK_STATE_FLAG_SELECTED;
+
+        gtk_style_context_get_background_color(style, state, &clr);
+#else
         cairo_t *cr = gdk_cairo_create (window);
-#endif
         GdkColor clr;
 
         if(flags & GTK_CELL_RENDERER_INSENSITIVE) /* insensitive */
@@ -184,7 +193,6 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
         clr = style->bg[state];
 
         /* paint the background */
-#if !GTK_CHECK_VERSION(3, 0, 0)
         if(expose_area)
         {
             gdk_cairo_rectangle(cr, expose_area);
