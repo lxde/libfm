@@ -58,6 +58,8 @@ gboolean fm_yes_no(GtkWindow* parent, const char* title, const char* question, g
                                                         "%s", question));
     gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Confirm"));
     gtk_dialog_set_default_response(dlg, default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
+    /* #3300797: Delete prompt isn't on the first layer */
+    gtk_window_set_keep_above(GTK_WINDOW(dlg), TRUE);
     ret = gtk_dialog_run(dlg);
     gtk_widget_destroy((GtkWidget*)dlg);
     return ret == GTK_RESPONSE_YES;
