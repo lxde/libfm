@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-07-12 19:24+0200\n"
+"PO-Revision-Date: 2012-07-09 19:05+0200\n"
 "Last-Translator: PraveenIlla <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: te\n"
@@ -156,9 +156,8 @@ msgid "<b>_Group:</b>"
 msgstr "<b>సమూహం (_G):</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>మెయిల్ క్లైంటు</b>"
+msgstr "<b>సారాన్ని వీక్షించండి:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 #, fuzzy

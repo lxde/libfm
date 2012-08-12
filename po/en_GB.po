@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2012-07-14 10:53+0200\n"
+"PO-Revision-Date: 2012-07-14 10:55+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -214,13 +214,12 @@ msgid "Set GID"
 msgstr "Set GID"
 
 #: ../data/ui/file-prop.glade.h:29
-#, fuzzy
 msgid "Sticky & set GID"
 msgstr "Sticky & set GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Set UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"

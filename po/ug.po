@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-08 22:52+0200\n"
-"PO-Revision-Date: 2011-11-09 16:10+0900\n"
-"Last-Translator: Gheyret Kenji<gheyret@gmail.com>\n"
-"Language-Team:  Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-07-14 12:42+0200\n"
+"Last-Translator: Gheyret <gheyret@gmail.com>\n"
+"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -156,48 +157,44 @@ msgid "<b>_Group:</b>"
 msgstr "<b>گۇرۇپپا(_G):</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>خەت خېرىدارى</b>"
+msgstr "<b>مەزمۇننى كۆرۈش:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>نىشان:</b>"
+msgstr "<b>مەزمۇننى ئۆزگەرتىش:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>باشقا:</b>"
+msgstr "<b>ئىجرا قىلىش:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>ئاچىدىغان پروگرامما(_W)</b>"
+msgstr "<b>ئالاھىدە بىتلار:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "ھۆججەت/مۇندەرىجىنىڭ مەزمۇنىنى كىم ئوقۇيالايدۇ"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "ھۆججەت/مۇندەرىجىنىڭ مەزمۇنىنى كىم ئۆزگەرتەلەيدۇ"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "ھۆججەتنى كىم ئىجرا قىلالايدۇ ياكى مۇندەرىجىگە كىرەلەيدۇ"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "ھۆججەتنى ئىجرا قىلىدىغان ئالاھىدە بەلگىلەر"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "مۇندەرىجىنى زىيارەت قىلىدىغان ئالاھىدە بەلگىلەر"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
-msgstr "<b>زىيارەت تىزگىنى</b>"
+msgstr "<b>زىيارەتنى تىزگىنلەش</b>"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "_Permissions"
@@ -213,39 +210,39 @@ msgstr "يوق"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "چاپلىشاڭغۇ"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "بەلگىلەش(GID نى)"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "چاپلىشاڭغۇ ۋە GID نى بەلگىلەش"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "بەلگىلەش(UID نى)"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "بەلگىلەش(UID ۋە GID نى)"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "ھېچكىم"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "ئىگىسىلا"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "ئىگىسى ۋە گۇرۇپپىلا"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "ھەممەيلەن"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -482,9 +479,8 @@ msgid ""
 msgstr "بۇلارنى بارلىق ھۆججەت ۋە تارماق مۇندەرىجىگە چوڭقۇرلاپ قوللىنامسىز؟"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>زىيارەت تىزگىنى</b>"
+msgstr "<b>زىيارەت مەزمۇنى:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
