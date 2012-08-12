@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-08 22:52+0200\n"
+"POT-Creation-Date: 2012-08-12 18:15+0200\n"
 "PO-Revision-Date: 2012-07-07 15:48+0200\n"
 "Last-Translator: Andika <andika@gmail.com>\n"
 "Language-Team: Indonesian Translation Team <id@li.org>\n"
@@ -356,19 +356,19 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:720
+#: ../src/base/fm-path.c:730
 msgid "Trash Can"
 msgstr "Tong Sampah"
 
-#: ../src/base/fm-path.c:722
+#: ../src/base/fm-path.c:732
 msgid "My Computer"
 msgstr "Komputerku"
 
-#: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
+#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "Aplikasi"
 
-#: ../src/base/fm-path.c:733
+#: ../src/base/fm-path.c:743
 msgid "Network"
 msgstr "Jaringan"
 
@@ -491,44 +491,44 @@ msgstr "Berkas yang berbeda jenis"
 msgid "Multiple Files"
 msgstr "Berkas Berganda"
 
-#: ../src/gtk/fm-places-view.c:87
+#: ../src/gtk/fm-places-view.c:99
 msgid "Mount Volume"
 msgstr "Kaitkan Volume"
 
-#: ../src/gtk/fm-places-view.c:88
+#: ../src/gtk/fm-places-view.c:100
 msgid "Unmount Volume"
 msgstr "Melepas Kaitan Volume"
 
-#: ../src/gtk/fm-places-view.c:89
+#: ../src/gtk/fm-places-view.c:101
 msgid "Eject Removable Media"
 msgstr "Keluarkan Media Yang Dapat Dilepas"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
 msgid "Rename Bookmark Item"
 msgstr "Ubah Nama Butir Penanda Tautan"
 
-#: ../src/gtk/fm-places-view.c:103
+#: ../src/gtk/fm-places-view.c:115
 msgid "Remove from Bookmark"
 msgstr "Hapus dari Penanda Tautan"
 
-#: ../src/gtk/fm-places-view.c:115
+#: ../src/gtk/fm-places-view.c:127
 msgid "Empty Trash"
 msgstr "Kosongkan Tong Sampah"
 
-#: ../src/gtk/fm-places-view.c:808
+#: ../src/gtk/fm-places-view.c:840
 msgid "Enter a new name:"
 msgstr "Masukkan nama baru:"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
 msgid "Places"
 msgstr "Lokasi"
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
 msgid "Directory Tree"
 msgstr "Pohon Direktori"
 
-#: ../src/gtk/fm-side-pane.c:51
+#: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
 msgstr "Jauh"
 
@@ -568,7 +568,7 @@ msgstr "_Pulihkan"
 msgid "Restore trashed files to original paths"
 msgstr "Kembalikan berkas yang dibuang ke tong sampah ke path aslinya"
 
-#: ../src/gtk/fm-dnd-dest.c:390
+#: ../src/gtk/fm-dnd-dest.c:520
 msgid "XDirectSave failed."
 msgstr "XDirectSave gagal."
 
@@ -584,19 +584,19 @@ msgstr "Jalankan baris perintah ubahan untuk membuka berkas"
 msgid "Customize"
 msgstr "Sesuaikan"
 
-#: ../src/gtk/fm-folder-view.c:591
+#: ../src/gtk/fm-folder-view.c:640
 msgid "Name"
 msgstr "Nama"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:659
 msgid "Description"
 msgstr "Keterangan"
 
-#: ../src/gtk/fm-folder-view.c:617
+#: ../src/gtk/fm-folder-view.c:666
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../src/gtk/fm-folder-view.c:623
+#: ../src/gtk/fm-folder-view.c:672
 msgid "Modified"
 msgstr "Diubah"
 
@@ -658,16 +658,16 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Berkas '%s' ini dapat dijalankan. Anda ingin mengeksekusinya?"
 
-#: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
+#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
 msgstr "<Tak Ada Sub Folder>"
 
-#: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
+#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
 msgid "Loading..."
 msgstr "Memuat..."
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Direktori yang dinyatakan tak valid"
@@ -688,11 +688,11 @@ msgstr "Tak bisa menyalin folder ke dalam sub foldernya"
 msgid "Destination is a sub folder of source"
 msgstr "Tujuan adalah sub folder dari sumber"
 
-#: ../src/gtk/fm-places-model.c:602
+#: ../src/gtk/fm-places-model.c:615
 msgid "Trash"
 msgstr "Tong Sampah"
 
-#: ../src/gtk/fm-places-model.c:658
+#: ../src/gtk/fm-places-model.c:671
 msgid "Desktop"
 msgstr "Desktop"
 

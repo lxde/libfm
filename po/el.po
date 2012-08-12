@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-08 22:52+0200\n"
+"POT-Creation-Date: 2012-08-12 18:15+0200\n"
 "PO-Revision-Date: 2012-07-09 07:54+0200\n"
 "Last-Translator: George <forfolias@gmail.com>\n"
 "Language: el\n"
@@ -359,19 +359,19 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:720
+#: ../src/base/fm-path.c:730
 msgid "Trash Can"
 msgstr "Κάδος απορριμάτων"
 
-#: ../src/base/fm-path.c:722
+#: ../src/base/fm-path.c:732
 msgid "My Computer"
 msgstr "Ο υπολογιστής μου"
 
-#: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
+#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "Εφαρμογές"
 
-#: ../src/base/fm-path.c:733
+#: ../src/base/fm-path.c:743
 msgid "Network"
 msgstr "Δίκτυο"
 
@@ -494,44 +494,44 @@ msgstr "Αρχεία διαφορετικών τύπων"
 msgid "Multiple Files"
 msgstr "Πολλαπλά αρχείων"
 
-#: ../src/gtk/fm-places-view.c:87
+#: ../src/gtk/fm-places-view.c:99
 msgid "Mount Volume"
 msgstr "Προσάρτηση τόμου"
 
-#: ../src/gtk/fm-places-view.c:88
+#: ../src/gtk/fm-places-view.c:100
 msgid "Unmount Volume"
 msgstr "Αποπροσάρτηση τόμου"
 
-#: ../src/gtk/fm-places-view.c:89
+#: ../src/gtk/fm-places-view.c:101
 msgid "Eject Removable Media"
 msgstr "Εξαγωγή αφαιρούμενου μέσου"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
 msgid "Rename Bookmark Item"
 msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
 
-#: ../src/gtk/fm-places-view.c:103
+#: ../src/gtk/fm-places-view.c:115
 msgid "Remove from Bookmark"
 msgstr "Αφαίρεση από τους σελιδοδείκτες"
 
-#: ../src/gtk/fm-places-view.c:115
+#: ../src/gtk/fm-places-view.c:127
 msgid "Empty Trash"
 msgstr "Άδειασμα απορριμμάτων"
 
-#: ../src/gtk/fm-places-view.c:808
+#: ../src/gtk/fm-places-view.c:840
 msgid "Enter a new name:"
 msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
 msgid "Places"
 msgstr "Τοποθεσίες"
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
 msgid "Directory Tree"
 msgstr "Δέντρο καταλόγων"
 
-#: ../src/gtk/fm-side-pane.c:51
+#: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
 msgstr "Απομακρυσμένο"
 
@@ -571,7 +571,7 @@ msgstr "_Επαναφορά"
 msgid "Restore trashed files to original paths"
 msgstr "Επαναφορά των διαγραφέντων αρχείων στους αρχικούς τους καταλόγους"
 
-#: ../src/gtk/fm-dnd-dest.c:390
+#: ../src/gtk/fm-dnd-dest.c:520
 msgid "XDirectSave failed."
 msgstr "XDirectSave απέτυχε."
 
@@ -587,19 +587,19 @@ msgstr "Εκτέλεση προσαρμοσμένης εντολής για το
 msgid "Customize"
 msgstr "Προσαρμογή"
 
-#: ../src/gtk/fm-folder-view.c:591
+#: ../src/gtk/fm-folder-view.c:640
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:659
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/gtk/fm-folder-view.c:617
+#: ../src/gtk/fm-folder-view.c:666
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../src/gtk/fm-folder-view.c:623
+#: ../src/gtk/fm-folder-view.c:672
 msgid "Modified"
 msgstr "Τροποποιήθηκε"
 
@@ -661,16 +661,16 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Αυτό το αρχείο '%s' είναι εκτελέσιμο. Θέλετε να το εκτελέσετε;"
 
-#: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
+#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
 msgstr "<Χωρίς υποφάκελο>"
 
-#: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
+#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
 msgid "Loading..."
 msgstr "Φόρτωση..."
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Ο συγκεκριμένος κατάλογος δεν είναι έγκυρος"
@@ -691,11 +691,11 @@ msgstr "Δε γίνεται η αντιγραφή ενός φακέλου σε �
 msgid "Destination is a sub folder of source"
 msgstr "Ο προορισμός είναι υποφάκελος της πηγής"
 
-#: ../src/gtk/fm-places-model.c:602
+#: ../src/gtk/fm-places-model.c:615
 msgid "Trash"
 msgstr "Απορρίματα"
 
-#: ../src/gtk/fm-places-model.c:658
+#: ../src/gtk/fm-places-model.c:671
 msgid "Desktop"
 msgstr "Επιφάνεια εργασίας"
 
