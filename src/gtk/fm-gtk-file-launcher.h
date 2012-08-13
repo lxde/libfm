@@ -2,6 +2,7 @@
  *      fm-gtk-file-launcher.h
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -38,6 +39,8 @@ gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFile
 
 gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* paths, FmLaunchFolderFunc func, gpointer user_data);
 gboolean fm_launch_path_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmPath* path, FmLaunchFolderFunc func, gpointer user_data);
+
+gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* entry, FmPathList* files);
 
 G_END_DECLS
 

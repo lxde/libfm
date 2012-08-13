@@ -2,6 +2,7 @@
  *      fm-gtk-file-launcher.c
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -191,5 +192,58 @@ gboolean fm_launch_path_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmPath
     GList* files = g_list_prepend(NULL, path);
     ret = fm_launch_paths_simple(parent, ctx, files, func, user_data);
     g_list_free(files);
+    return ret;
+}
+
+/**
+ * fm_launch_desktop_entry_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @entry: desktop entry file to launch
+ * @files: (allow-none): files to supply launch
+ *
+ * Launches desktop entry. @files will be supplied to launch if @entry
+ * accepts arguments. If @ctx is %NULL then new context on the same
+ * screen as @parent will be created for launching the application.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 1.0.1
+ */
+gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ctx,
+                                        FmFileInfo* entry, FmPathList* files)
+{
+    FmFileLauncher launcher = {
+        .get_app = NULL,
+        .open_folder = NULL,
+        .exec_file = NULL,
+        .error = on_launch_error,
+        .ask = on_launch_ask
+    };
+    LaunchData data = {parent, NULL, NULL};
+    GdkAppLaunchContext *_ctx = NULL;
+    GList *l, *uris = NULL;
+    FmPath *path;
+    char *entry_path;
+    gboolean ret;
+
+    if(!entry || (path = fm_file_info_get_path(entry)) == NULL)
+        return FALSE;
+    if(ctx == NULL)
+    {
+        _ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(_ctx, parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(_ctx, gtk_get_current_event_time());
+        /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+        ctx = G_APP_LAUNCH_CONTEXT(_ctx);
+    }
+    for(l = fm_path_list_peek_head_link(files); l; l = l->next)
+        uris = g_list_append(uris, fm_path_to_uri(FM_PATH(l->data)));
+    entry_path = fm_path_to_str(path);
+    ret = fm_launch_desktop_entry(ctx, entry_path, uris, &launcher, &data);
+    g_list_free_full(uris, g_free);
+    g_free(entry_path);
+    if(_ctx)
+        g_object_unref(_ctx);
     return ret;
 }

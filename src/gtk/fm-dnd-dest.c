@@ -38,6 +38,7 @@
 #include "fm-gtk-utils.h"
 #include "fm-gtk-marshal.h"
 #include "fm-file-info-job.h"
+#include "fm-gtk-file-launcher.h"
 
 #include <glib/gi18n-lib.h>
 #include <string.h>
@@ -201,14 +202,27 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 {
     FmPath* dest, *src;
     GtkWidget* parent;
+
     dest = fm_dnd_dest_get_dest_path(dd);
     if(!dest)
         return FALSE;
     g_debug("%d files-dropped!, info_type: %d", fm_path_list_get_length(files), info_type);
 
+    if(fm_file_info_is_desktop_entry(dd->dest_file))
+    {
+        if(action != GDK_ACTION_COPY)
+            return FALSE;
+        parent = gtk_widget_get_toplevel(dd->widget);
+        return fm_launch_desktop_entry_simple(GTK_WINDOW(parent), NULL,
+                                              dd->dest_file, files);
+    }
+
     // Check if source and destination are the same
     src = fm_path_get_parent(fm_path_list_peek_head(files));
     if(fm_path_equal(src, dest))
+        return FALSE;
+
+    if(!fm_file_info_is_dir(dd->dest_file))
         return FALSE;
 
     parent = gtk_widget_get_toplevel(dd->widget);
@@ -586,7 +600,18 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     FmPath* dest_path;
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
-        return 0;
+        return GDK_ACTION_DEFAULT;
+
+    /* special support for dropping onto desktop entry */
+    if(fm_file_info_is_desktop_entry(dest))
+    {
+        GdkModifierType mask = 0;
+        gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
+        mask &= gtk_accelerator_get_default_mod_mask();
+        if(mask) /* some key is pressed! */
+            return GDK_ACTION_ASK;
+        return GDK_ACTION_COPY;
+    }
 
     /* this is XDirectSave */
     if(target == xds_target_atom)
