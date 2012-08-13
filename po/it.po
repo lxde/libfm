@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the libfm package.
 # Andrea Florio <andrea@opensuse.org>, 2010
-#
+# Daniele Forsi <dforsi@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
-"PO-Revision-Date: 2010-04-25 01:58+0100\n"
+"POT-Creation-Date: 2012-07-08 22:52+0200\n"
+"PO-Revision-Date: 2012-08-13 22:15+0200\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
-"Language: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -118,7 +119,7 @@ msgstr "<b>Dimensione totale dei file:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Ultima Modica:</b>"
+msgstr "<b>Ultima Modifica:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
@@ -138,7 +139,7 @@ msgstr "<b>Apri _con:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
-msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo"
+msgstr "Seleziona l'applicazione utilizzata per aprire i file di questo tipo "
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -265,7 +266,7 @@ msgstr "<b>A:</b>"
 
 #: ../data/ui/progress.glade.h:7
 msgid "<b>Progress:</b>"
-msgstr "<b>Avanzamento.</b>"
+msgstr "<b>Avanzamento:</b>"
 
 #: ../data/ui/progress.glade.h:8
 msgid "<b>Time remaining:</b>"
@@ -298,7 +299,7 @@ msgid ""
 "mail addresses."
 msgstr ""
 "Il client Mail preferito sarà usato per comporre email quando cliccherai un "
-"indirizzo E-mail"
+"indirizzo E-mail."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -363,25 +364,25 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:720
 msgid "Trash Can"
 msgstr "Cestino"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:722
 msgid "My Computer"
 msgstr "Il Mio Computer"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
+#: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
 msgid "Applications"
 msgstr "Applicazioni"
 
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:733
 msgid "Network"
 msgstr "Rete"
 
 #: ../src/base/fm-mime-type.c:60
 msgid "Shortcuts"
-msgstr "Scorciatoia"
+msgstr "Scorciatoie"
 
 #: ../src/base/fm-mime-type.c:63
 msgid "Mount Point"
@@ -389,7 +390,7 @@ msgstr "Punto di montaggio"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
 #, c-format
@@ -417,11 +418,11 @@ msgstr "L'operazione sul file è stata annullata e ci sono alcuni errori."
 
 #: ../src/gtk/fm-progress-dlg.c:329
 msgid "Cancelled"
-msgstr "Annulato"
+msgstr "Annullato"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is finished, but there are some errors."
-msgstr "L'operazione sul file  terminata, ma ci sono alcuni errori."
+msgstr "L'operazione sul file è terminata, ma ci sono alcuni errori."
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid "Finished"
@@ -433,13 +434,13 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alcuni file non possono essere spostati nel cestino perchè il file system in "
-"uso non supporta questa operazione. \n"
+"Alcuni file non possono essere spostati nel cestino perché il file system in "
+"uso non supporta questa operazione.\n"
 "Vuoi invece cancellarli?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:488
 msgid "Moving files"
@@ -498,44 +499,44 @@ msgstr "File di diverso tipo"
 msgid "Multiple Files"
 msgstr "File multipli"
 
-#: ../src/gtk/fm-places-view.c:99
+#: ../src/gtk/fm-places-view.c:87
 msgid "Mount Volume"
 msgstr "Monta Volume"
 
-#: ../src/gtk/fm-places-view.c:100
+#: ../src/gtk/fm-places-view.c:88
 msgid "Unmount Volume"
 msgstr "Smonta Volume"
 
-#: ../src/gtk/fm-places-view.c:101
+#: ../src/gtk/fm-places-view.c:89
 msgid "Eject Removable Media"
 msgstr "Espelli dispositivo removibile"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
 msgid "Rename Bookmark Item"
 msgstr "Rinomina il segnalibro"
 
-#: ../src/gtk/fm-places-view.c:115
+#: ../src/gtk/fm-places-view.c:103
 msgid "Remove from Bookmark"
 msgstr "Rimuovi dai segnalibri"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:115
 msgid "Empty Trash"
 msgstr "Svuota cestino"
 
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:808
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
 msgid "Directory Tree"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:62
+#: ../src/gtk/fm-side-pane.c:51
 msgid "Remote"
 msgstr ""
 
@@ -575,7 +576,7 @@ msgstr "_Ripristina"
 msgid "Restore trashed files to original paths"
 msgstr "Ripristina i file del cestino ai loro percorsi originali"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:390
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallito."
 
@@ -591,19 +592,19 @@ msgstr "Esegui comando personalizzato per aprire i file"
 msgid "Customize"
 msgstr "Personalizza"
 
-#: ../src/gtk/fm-folder-view.c:640
+#: ../src/gtk/fm-folder-view.c:591
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:659
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../src/gtk/fm-folder-view.c:666
+#: ../src/gtk/fm-folder-view.c:617
 msgid "Size"
 msgstr "Dimensione"
 
-#: ../src/gtk/fm-folder-view.c:672
+#: ../src/gtk/fm-folder-view.c:623
 msgid "Modified"
 msgstr "Modificato"
 
@@ -666,17 +667,17 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Il file '%s' è eseguibile. Vuoi eseguirlo?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
 #, fuzzy
 msgid "Loading..."
 msgstr "In preparazione..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
+#: ../src/job/fm-dir-list-job.c:348
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "La cartella specificata non è valida"
@@ -695,13 +696,13 @@ msgstr "Impossibile copiare una cartella in una sua sotto cartella"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr "La destinazione è una sotto cartella della sorgente "
+msgstr "La destinazione è una sotto cartella della sorgente"
 
-#: ../src/gtk/fm-places-model.c:615
+#: ../src/gtk/fm-places-model.c:602
 msgid "Trash"
 msgstr "Cestino"
 
-#: ../src/gtk/fm-places-model.c:671
+#: ../src/gtk/fm-places-model.c:658
 msgid "Desktop"
 msgstr "Scrivania"
 
