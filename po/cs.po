@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-12 18:15+0200\n"
-"PO-Revision-Date: 2010-04-02 00:38+0100\n"
-"Last-Translator: Radek Tříška <radek@fastlinux.eu>\n"
+"PO-Revision-Date: 2012-08-14 11:57+0200\n"
+"Last-Translator: ALIUM <info@aloisnespor.info>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -23,7 +24,7 @@ msgstr "Vyberte aplikaci"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr " <b>Typ souboru k otevření:</b>"
+msgstr "<b>Typ souboru k otevření:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "Installed Application"
@@ -35,7 +36,7 @@ msgstr "<b>Příkaz ke spuštění:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 msgid "_Browse"
-msgstr "Procházet"
+msgstr "_Procházet"
 
 #: ../data/ui/app-chooser.glade.h:6
 msgid "Execute in terminal emulator"
@@ -52,7 +53,7 @@ msgid ""
 msgstr ""
 "<b>V příkazové řádce mohou být použity tyto speciální kódy:</b>\n"
 "  <b>%f</b>: Představuje jeden soubor\n"
-"  <b>%F:</b> Představuje více souborů\n"
+"  <b>%F</b>: Představuje více souborů\n"
 "  <b>%u</b>: Představuje jednu URI adresu souboru\n"
 "  <b>%U</b>: Představuje více URI adres"
 
@@ -92,15 +93,15 @@ msgstr "Použít tuto možnost na všechny soubory"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "_Skip"
-msgstr "Pře_skočit"
+msgstr "_Přeskočit"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Rename"
-msgstr "Přejmenovat"
+msgstr "_Přejmenovat"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Overwrite"
-msgstr "Přepsat"
+msgstr "_Přepsat"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -132,11 +133,11 @@ msgstr "<b>Velikost na disku:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Otevřít pomocí:</b>"
+msgstr "<b>Otevřít _pomocí:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
-msgstr "Vyberte aplikaci pro otevírání souborů tohoto typu"
+msgstr "Vyberte aplikaci pro otevírání souborů tohoto typu "
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -144,55 +145,51 @@ msgstr "<b>Cíl:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
 msgid "_General"
-msgstr "Obecné"
+msgstr "_Obecné"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>_Owner:</b>"
-msgstr "<b>Vlastník:</b>"
+msgstr "<b>_Vlastník:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>_Group:</b>"
-msgstr "<b>Skupina:</b>"
+msgstr "<b>_Skupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Emailový klient</b>"
+msgstr "<b>Zobrazit obsah:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Cíl:</b>"
+msgstr "<b>Změnit obsah:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Ostatní:</b>"
+msgstr "<b>Spustit:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Otevřít pomocí:</b>"
+msgstr "<b>Speciální bity:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Kdo může číst obsah souboru/adresáře"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Kdo může měnit obsah souboru/adresáře"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Kdo může spouštět soubor nebo vstupovat do adresáře"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Speciální práva pro spuštění souboru"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Speciální práva pro přístup do adresáře"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -212,39 +209,39 @@ msgstr "Žádné"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Nastaviení GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Sticky & nastavení GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Nastavení UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Nastavení UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Nikdo"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Pouze vlastník"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Pouze vlastník a skupina"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Kdokoliv"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -285,7 +282,7 @@ msgstr "<b>WWW prohlížeč</b>"
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 "Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW "
-"prohlížeč. "
+"prohlížeč."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
@@ -327,7 +324,7 @@ msgstr "Spustit v _terminálu"
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u bajt "
+msgstr[0] "%u bajt"
 msgstr[1] "%u bajty"
 msgstr[2] "%u bajtů"
 
@@ -389,7 +386,7 @@ msgstr "Přípojný bod"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
 #, c-format
@@ -439,7 +436,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:472
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:488
 msgid "Moving files"
@@ -459,7 +456,7 @@ msgstr "Mazání souborů"
 
 #: ../src/gtk/fm-progress-dlg.c:500
 msgid "Creating symlinks"
-msgstr "Creating symlinks"
+msgstr "Vytvoření symbolických odkazů"
 
 #: ../src/gtk/fm-progress-dlg.c:503
 msgid "Changing file attributes"
@@ -487,13 +484,12 @@ msgid ""
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
 #: ../src/gtk/fm-file-properties.c:624
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Řízení přístupu</b>"
+msgstr "<b>Přístup k obsahu:</b>"
 
 #: ../src/gtk/fm-file-properties.c:739
 msgid "Files of different types"
-msgstr " Soubory různých typů"
+msgstr "Soubory různých typů"
 
 #: ../src/gtk/fm-file-properties.c:776
 msgid "Multiple Files"
@@ -530,15 +526,15 @@ msgstr "Vložte nový název:"
 
 #: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
 msgid "Places"
-msgstr ""
+msgstr "Místa"
 
 #: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
 msgid "Directory Tree"
-msgstr ""
+msgstr "Strom adresářů"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
-msgstr ""
+msgstr "Vzdálený"
 
 #: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
 msgid "Open With..."
@@ -570,7 +566,7 @@ msgstr "Rozbalit do..."
 
 #: ../src/gtk/fm-file-menu.c:385
 msgid "_Restore"
-msgstr "Obnovit"
+msgstr "_Obnovit"
 
 #: ../src/gtk/fm-file-menu.c:386
 msgid "Restore trashed files to original paths"
@@ -618,12 +614,11 @@ msgstr "Chyba"
 
 #: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
 msgid "Confirm"
-msgstr ""
+msgstr "Potvrdit"
 
 #: ../src/gtk/fm-gtk-utils.c:118
-#, fuzzy
 msgid "Question"
-msgstr "Popis"
+msgstr "Otázka"
 
 #: ../src/gtk/fm-gtk-utils.c:382
 msgid "Please select a folder"
@@ -665,16 +660,15 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:107
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Soubor '%s' je spustitelný.  Chcete jej spustit?"
+msgstr "Soubor '%s' je spustitelný. Chcete jej spustit?"
 
 #: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Žádný podadresář>"
 
 #: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
-#, fuzzy
 msgid "Loading..."
-msgstr "Připravuje se..."
+msgstr "Načítání..."
 
 #: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
 #: ../src/job/fm-dir-list-job.c:381
@@ -684,7 +678,7 @@ msgstr "Zadaná složka není platná"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr "Zdroj a cíl jsou shodné"
+msgstr "Zdroj a cíl jsou shodné."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
