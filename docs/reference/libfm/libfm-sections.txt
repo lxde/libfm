@@ -363,6 +363,7 @@ FM_IS_DND_DEST
 FM_IS_DND_DEST_CLASS
 FM_TYPE_DND_DEST
 fm_dnd_dest_get_type
+gdk_drag_context_list_targets
 </SECTION>
 
 <SECTION>
@@ -583,6 +584,7 @@ fm_folder_exo_view_set_mode
 FM_FOLDER_EXO_VIEW
 FM_FOLDER_EXO_VIEW_CLASS
 FM_FOLDER_EXO_VIEW_MODE_IS_VALID
+FM_FOLDER_VIEW_MODE_IS_VALID
 FM_IS_FOLDER_EXO_VIEW
 FM_IS_FOLDER_EXO_VIEW_CLASS
 fm_folder_exo_view_get_type
@@ -671,6 +673,7 @@ fm_gtk_init
 
 <SECTION>
 <FILE>fm-gtk-file-launcher</FILE>
+fm_launch_desktop_entry_simple
 fm_launch_file_simple
 fm_launch_files_simple
 fm_launch_path_simple
@@ -1055,14 +1058,21 @@ fm_strdup_replace
 
 <SECTION>
 <FILE>glib-compat</FILE>
-
+G_DEFINE_INTERFACE
 </SECTION>
 
 <SECTION>
 <FILE>gtk-compat</FILE>
 GDK_KEY_Left
 GDK_KEY_Right
+GDK_KEY_Tab
 gdk_display_get_app_launch_context
+gdk_drag_context_get_actions
+gdk_drag_context_get_selected_action
+gdk_drag_context_get_source_window
+gdk_drag_context_get_suggested_action
+gtk_selection_data_get_data_with_length
+gtk_widget_get_realized
 gtk_widget_in_destruction
 </SECTION>
 
