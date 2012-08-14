@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"POT-Creation-Date: 2012-08-14 23:43+0200\n"
 "PO-Revision-Date: 2012-07-09 09:58+0700\n"
 "Last-Translator: Tran Duy Hung <nguyentieuhau@gmail.com>\n"
 "Language-Team: LXDE\n"
@@ -458,36 +458,36 @@ msgstr "Đang tạo liên kết tượng trưng"
 msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
 msgstr "Vui lòng điền tên người dùng hay số id hợp lệ"
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:256
 msgid "Please enter a valid group name or numeric id."
 msgstr "Vui lòng điền tên nhóm hay số id hợp lệ"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và những thư "
 "mục con không?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:626
 msgid "<b>Access content:</b>"
 msgstr "<b>Truy cập nội dung:</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
 msgstr "Những tập tin khác loại"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:778
 msgid "Multiple Files"
 msgstr "Nhiều tập tin"
 
@@ -504,7 +504,7 @@ msgid "Eject Removable Media"
 msgstr "Loại bỏ thiết bị truyền thông rời"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Đổi tên mục đánh dấu"
 
@@ -516,15 +516,15 @@ msgstr "Loại bỏ khỏi đánh dấu"
 msgid "Empty Trash"
 msgstr "Làm sạch thùng rác"
 
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:837
 msgid "Enter a new name:"
 msgstr "Nhập tên mới:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr "Nơi"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr "Cây Thư mục"
 
@@ -532,51 +532,51 @@ msgstr "Cây Thư mục"
 msgid "Remote"
 msgstr "Từ xa"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Mở bởi..."
 
-#: ../src/gtk/fm-file-menu.c:114
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
 msgid "Rename"
 msgstr "Đổi tên"
 
-#: ../src/gtk/fm-file-menu.c:115
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Create Symlink"
 msgstr "Tạo liên kết "
 
-#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Send To"
 msgstr "Gửi tới"
 
-#: ../src/gtk/fm-file-menu.c:117
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Compress..."
 msgstr "Nén"
 
-#: ../src/gtk/fm-file-menu.c:118
+#: ../src/gtk/fm-file-menu.c:120
 msgid "Extract Here"
 msgstr "Giải nén ở đây"
 
-#: ../src/gtk/fm-file-menu.c:119
+#: ../src/gtk/fm-file-menu.c:121
 msgid "Extract To..."
 msgstr "Giải nén tại..."
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:391
 msgid "_Restore"
 msgstr "_Khôi phục"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:392
 msgid "Restore trashed files to original paths"
 msgstr "Khôi phục các tập tin đã xóa về lại đường dẫn gốc"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:556
 msgid "XDirectSave failed."
 msgstr "XDirectSave thất bại."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
 msgstr "Sử dụng ứng dụng đã chọn để mở các tập tin"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
 msgstr "Thực thi dòng lệnh tùy chọn để mở các tập tin"
 
@@ -584,67 +584,141 @@ msgstr "Thực thi dòng lệnh tùy chọn để mở các tập tin"
 msgid "Customize"
 msgstr "Tùy chỉnh"
 
-#: ../src/gtk/fm-folder-view.c:640
+#: ../src/gtk/fm-folder-exo-view.c:571
 msgid "Name"
 msgstr "Tên"
 
-#: ../src/gtk/fm-folder-view.c:659
+#: ../src/gtk/fm-folder-exo-view.c:590
 msgid "Description"
 msgstr "Mô tả"
 
-#: ../src/gtk/fm-folder-view.c:666
+#: ../src/gtk/fm-folder-exo-view.c:597
 msgid "Size"
 msgstr "Kích thước"
 
-#: ../src/gtk/fm-folder-view.c:672
+#: ../src/gtk/fm-folder-exo-view.c:603
 msgid "Modified"
 msgstr "Đã sửa đổi"
+
+#: ../src/gtk/fm-folder-view.c:114
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:115
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:118
+#, fuzzy
+msgid "Blank File"
+msgstr "Đĩa MO trắng"
+
+#: ../src/gtk/fm-folder-view.c:119
+#, fuzzy
+msgid "Shortcut"
+msgstr "Phím tắt"
+
+#: ../src/gtk/fm-folder-view.c:130
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:131
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:143
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:154
+#, fuzzy
+msgid "By _Name"
+msgstr "Tên"
+
+#: ../src/gtk/fm-folder-view.c:155
+msgid "By _Modification Time"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:156
+#, fuzzy
+msgid "By _Size"
+msgstr "Kích thước"
+
+#: ../src/gtk/fm-folder-view.c:157
+#, fuzzy
+msgid "By File _Type"
+msgstr "<b>Loại tập tin:</b>"
+
+#: ../src/gtk/fm-folder-view.c:673
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:675
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+#, fuzzy
+msgid "New"
+msgstr "Mạng"
+
+#: ../src/gtk/fm-folder-view.c:768
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:773
+msgid "Failed to start lxshortcut"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Ứng dụng đã cài đặt"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
 msgstr "Lỗi"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr "Xác nhận"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:121
 msgid "Question"
 msgstr "Câu hỏi"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
 msgstr "Vui lòng chọn thư mục"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."
 msgstr "Chỉ có quản trị hệ thống mới được phép làm điều này."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:643
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
 msgstr "Bạn có muốn xóa các tập tin đã chọn không?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
 msgstr "Đổi tên tập tin"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:712
 msgid "Please enter a new name:"
 msgstr "Vui lòng nhập tên mới:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -653,7 +727,7 @@ msgstr ""
 "Tập tin văn bản '%s' này có vẻ là một đoạn mã có thực thi.\n"
 "Bạn muốn làm gì với nó?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Tập tin '%s' này có thể thực thi. Bạn có muốn thực thi nó?"

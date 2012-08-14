@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"POT-Creation-Date: 2012-08-14 23:43+0200\n"
 "PO-Revision-Date: 2010-05-03 18:37+0100\n"
 "Last-Translator: el_libre -- www.catmidia.cat <el.libre@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -467,39 +467,39 @@ msgstr "Creant enllaços simbòlics"
 msgid "Changing file attributes"
 msgstr "Canvia atributs d'arxiu"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 #, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u byte"
 msgstr[1] "%u bytes"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
 msgstr "Si us plau, introdueix un nom d'usuari/a vàlid o id numèrica."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:256
 msgid "Please enter a valid group name or numeric id."
 msgstr "Si us plau, introdueix un nom de grup vàlid o id numèrica."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Vols aplicar aquests canvis de forma recursiva a tots els arxius i "
 "subcarpetes?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:626
 #, fuzzy
 msgid "<b>Access content:</b>"
 msgstr "<b>Control d'accés</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
 msgstr "Arxius de diferents tipus"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:778
 msgid "Multiple Files"
 msgstr "diversos fitxers"
 
@@ -516,7 +516,7 @@ msgid "Eject Removable Media"
 msgstr "Expulsa els suports extraïbles"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Canvia el nom del marcador"
 
@@ -528,15 +528,15 @@ msgstr "Suprimeix de les adreces d'interès"
 msgid "Empty Trash"
 msgstr "Buida la paperera"
 
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:837
 msgid "Enter a new name:"
 msgstr "Introdueix el nou nom: "
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr ""
 
@@ -544,51 +544,51 @@ msgstr ""
 msgid "Remote"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Obre amb..."
 
-#: ../src/gtk/fm-file-menu.c:114
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
 msgid "Rename"
 msgstr "Reanomena"
 
-#: ../src/gtk/fm-file-menu.c:115
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Create Symlink"
 msgstr "Crea enllaç simbòlic"
 
-#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Send To"
 msgstr "Envia a"
 
-#: ../src/gtk/fm-file-menu.c:117
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Compress..."
 msgstr "Comprimeix"
 
-#: ../src/gtk/fm-file-menu.c:118
+#: ../src/gtk/fm-file-menu.c:120
 msgid "Extract Here"
 msgstr "Extreu aquí"
 
-#: ../src/gtk/fm-file-menu.c:119
+#: ../src/gtk/fm-file-menu.c:121
 msgid "Extract To..."
 msgstr "Extreu a..."
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:391
 msgid "_Restore"
 msgstr "_Restaura"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:392
 msgid "Restore trashed files to original paths"
 msgstr "Restaura arxius de la paperera a les seves rutes originals"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:556
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallit."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
 msgstr "Utilitza l'aplicació seleccionada per obrir arxius"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
 msgstr "Executa la línia de comandes personalitzada per obrir arxius"
 
@@ -596,75 +596,148 @@ msgstr "Executa la línia de comandes personalitzada per obrir arxius"
 msgid "Customize"
 msgstr "Personalitza"
 
-#: ../src/gtk/fm-folder-view.c:640
+#: ../src/gtk/fm-folder-exo-view.c:571
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:659
+#: ../src/gtk/fm-folder-exo-view.c:590
 msgid "Description"
 msgstr "Descripció"
 
-#: ../src/gtk/fm-folder-view.c:666
+#: ../src/gtk/fm-folder-exo-view.c:597
 msgid "Size"
 msgstr "Mida"
 
-#: ../src/gtk/fm-folder-view.c:672
+#: ../src/gtk/fm-folder-exo-view.c:603
 msgid "Modified"
 msgstr "Modificat"
+
+#: ../src/gtk/fm-folder-view.c:114
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:115
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:118
+msgid "Blank File"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:119
+#, fuzzy
+msgid "Shortcut"
+msgstr "Dreceres"
+
+#: ../src/gtk/fm-folder-view.c:130
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:131
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:143
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:154
+#, fuzzy
+msgid "By _Name"
+msgstr "Nom"
+
+#: ../src/gtk/fm-folder-view.c:155
+msgid "By _Modification Time"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:156
+#, fuzzy
+msgid "By _Size"
+msgstr "Mida"
+
+#: ../src/gtk/fm-folder-view.c:157
+#, fuzzy
+msgid "By File _Type"
+msgstr "<b>Tipus de fitxer:</b>"
+
+#: ../src/gtk/fm-folder-view.c:673
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:675
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+#, fuzzy
+msgid "New"
+msgstr "Xarxa"
+
+#: ../src/gtk/fm-folder-view.c:768
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:773
+msgid "Failed to start lxshortcut"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Aplicacions instal·lades"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
 msgstr "Error"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:121
 #, fuzzy
 msgid "Question"
 msgstr "Descripció"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
 msgstr "Si us plau, Selecciona una carpeta."
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."
 msgstr "Només els administradors/es de sistema tenen permís per fer això."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:643
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Vols moure els fitxers seleccionats a la paperera?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
 msgstr "Vols suprimir els arxius seleccionats?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
 msgstr "Canvia el nom del fitxer"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:712
 msgid "Please enter a new name:"
 msgstr "Si us plau, escriu un nom nou:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Estàs segur/a que vols buidar la paperera?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""

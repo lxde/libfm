@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-08 22:52+0200\n"
+"POT-Creation-Date: 2012-08-14 23:43+0200\n"
 "PO-Revision-Date: 2012-08-13 22:15+0200\n"
 "Last-Translator: Andrea Florio <andrea@opensuse.org>\n"
 "Language-Team: it <it@li.org>\n"
@@ -364,19 +364,19 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:720
+#: ../src/base/fm-path.c:730
 msgid "Trash Can"
 msgstr "Cestino"
 
-#: ../src/base/fm-path.c:722
+#: ../src/base/fm-path.c:732
 msgid "My Computer"
 msgstr "Il Mio Computer"
 
-#: ../src/base/fm-path.c:730 ../src/gtk/fm-places-model.c:668
+#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "Applicazioni"
 
-#: ../src/base/fm-path.c:733
+#: ../src/base/fm-path.c:743
 msgid "Network"
 msgstr "Rete"
 
@@ -466,125 +466,125 @@ msgstr "Creo collegamenti simbolici"
 msgid "Changing file attributes"
 msgstr "Cambio gli attributi del file"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
 msgstr[1] "byte"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
 msgstr "Per favore digita un nome utente o un id numerico valido."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:256
 msgid "Please enter a valid group name or numeric id."
 msgstr "Per favore digita un nome gruppo o id numerico valido."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Vuoi applicare questi cambiamenti a tutti i file e le sotto-cartelle?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:626
 #, fuzzy
 msgid "<b>Access content:</b>"
 msgstr "<b>Controllo Accesso</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
 msgstr "File di diverso tipo"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:778
 msgid "Multiple Files"
 msgstr "File multipli"
 
-#: ../src/gtk/fm-places-view.c:87
+#: ../src/gtk/fm-places-view.c:99
 msgid "Mount Volume"
 msgstr "Monta Volume"
 
-#: ../src/gtk/fm-places-view.c:88
+#: ../src/gtk/fm-places-view.c:100
 msgid "Unmount Volume"
 msgstr "Smonta Volume"
 
-#: ../src/gtk/fm-places-view.c:89
+#: ../src/gtk/fm-places-view.c:101
 msgid "Eject Removable Media"
 msgstr "Espelli dispositivo removibile"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:102 ../src/gtk/fm-places-view.c:807
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Rinomina il segnalibro"
 
-#: ../src/gtk/fm-places-view.c:103
+#: ../src/gtk/fm-places-view.c:115
 msgid "Remove from Bookmark"
 msgstr "Rimuovi dai segnalibri"
 
-#: ../src/gtk/fm-places-view.c:115
+#: ../src/gtk/fm-places-view.c:127
 msgid "Empty Trash"
 msgstr "Svuota cestino"
 
-#: ../src/gtk/fm-places-view.c:808
+#: ../src/gtk/fm-places-view.c:837
 msgid "Enter a new name:"
 msgstr "Inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:324
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:334
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:51
+#: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Apri con..."
 
-#: ../src/gtk/fm-file-menu.c:114
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
 msgid "Rename"
 msgstr "Rinomina"
 
-#: ../src/gtk/fm-file-menu.c:115
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Create Symlink"
 msgstr "Crea collegamento simbolico"
 
-#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Send To"
 msgstr "Invia a"
 
-#: ../src/gtk/fm-file-menu.c:117
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Compress..."
 msgstr "Comprimi..."
 
-#: ../src/gtk/fm-file-menu.c:118
+#: ../src/gtk/fm-file-menu.c:120
 msgid "Extract Here"
 msgstr "Estrai qui"
 
-#: ../src/gtk/fm-file-menu.c:119
+#: ../src/gtk/fm-file-menu.c:121
 msgid "Extract To..."
 msgstr "Estrai in..."
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:391
 msgid "_Restore"
 msgstr "_Ripristina"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:392
 msgid "Restore trashed files to original paths"
 msgstr "Ripristina i file del cestino ai loro percorsi originali"
 
-#: ../src/gtk/fm-dnd-dest.c:390
+#: ../src/gtk/fm-dnd-dest.c:556
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallito."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
 msgstr "Utilizza l'applicazione selezionata per aprire i file"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
 msgstr "Esegui comando personalizzato per aprire i file"
 
@@ -592,68 +592,142 @@ msgstr "Esegui comando personalizzato per aprire i file"
 msgid "Customize"
 msgstr "Personalizza"
 
-#: ../src/gtk/fm-folder-view.c:591
+#: ../src/gtk/fm-folder-exo-view.c:571
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-exo-view.c:590
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../src/gtk/fm-folder-view.c:617
+#: ../src/gtk/fm-folder-exo-view.c:597
 msgid "Size"
 msgstr "Dimensione"
 
-#: ../src/gtk/fm-folder-view.c:623
+#: ../src/gtk/fm-folder-exo-view.c:603
 msgid "Modified"
 msgstr "Modificato"
+
+#: ../src/gtk/fm-folder-view.c:114
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:115
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:118
+#, fuzzy
+msgid "Blank File"
+msgstr "Disco MO vuoto"
+
+#: ../src/gtk/fm-folder-view.c:119
+#, fuzzy
+msgid "Shortcut"
+msgstr "Scorciatoie"
+
+#: ../src/gtk/fm-folder-view.c:130
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:131
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:143
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:154
+#, fuzzy
+msgid "By _Name"
+msgstr "Nome"
+
+#: ../src/gtk/fm-folder-view.c:155
+msgid "By _Modification Time"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:156
+#, fuzzy
+msgid "By _Size"
+msgstr "Dimensione"
+
+#: ../src/gtk/fm-folder-view.c:157
+#, fuzzy
+msgid "By File _Type"
+msgstr "<b>Tipo di file:</b>"
+
+#: ../src/gtk/fm-folder-view.c:673
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:675
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+#, fuzzy
+msgid "New"
+msgstr "Rete"
+
+#: ../src/gtk/fm-folder-view.c:768
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:773
+msgid "Failed to start lxshortcut"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Applicazioni installate"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
 msgstr "Errore"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:121
 #, fuzzy
 msgid "Question"
 msgstr "Descrizione"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
 msgstr "Per favore, seleziona una cartella"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."
 msgstr "Solo l'amministratore del sistema ha permesso di fare questo."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:643
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Vuoi muovere i file selezionati nel cestino?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
 msgstr "Vuoi cancellare i file selezionati?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
 msgstr "Rinomina File"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:712
 msgid "Please enter a new name:"
 msgstr "Per favore inserisci un nuovo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Sei sicuro di voler svuotare il cestino?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -662,22 +736,22 @@ msgstr ""
 "Il file di testo '%s' sembra uno script eseguibile.\n"
 "Cosa vuoi fare?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Il file '%s' è eseguibile. Vuoi eseguirlo?"
 
-#: ../src/gtk/fm-dir-tree-model.c:394 ../src/gtk/fm-dir-tree-model.c:1043
+#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:396 ../src/gtk/fm-dir-tree-model.c:1044
+#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
 #, fuzzy
 msgid "Loading..."
 msgstr "In preparazione..."
 
-#: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:248
-#: ../src/job/fm-dir-list-job.c:348
+#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "La cartella specificata non è valida"
@@ -698,11 +772,11 @@ msgstr "Impossibile copiare una cartella in una sua sotto cartella"
 msgid "Destination is a sub folder of source"
 msgstr "La destinazione è una sotto cartella della sorgente"
 
-#: ../src/gtk/fm-places-model.c:602
+#: ../src/gtk/fm-places-model.c:615
 msgid "Trash"
 msgstr "Cestino"
 
-#: ../src/gtk/fm-places-model.c:658
+#: ../src/gtk/fm-places-model.c:671
 msgid "Desktop"
 msgstr "Scrivania"
 

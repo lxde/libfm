@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"POT-Creation-Date: 2012-08-14 23:43+0200\n"
 "PO-Revision-Date: 2010-11-17 20:52+0900\n"
 "Last-Translator: Hironao Komatsu <hironao@users.sourceforge.net>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -459,34 +459,34 @@ msgstr "シンボリック・リンクを作成しています"
 msgid "Changing file attributes"
 msgstr "ファイルの属性を変更しています"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "バイト"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
 msgstr "正しいユーザ名、またはIDの数値を入力してください。"
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:256
 msgid "Please enter a valid group name or numeric id."
 msgstr "正しいグループ名、またはIDの数値を入力してください。"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "これらの変更をすべてのファイルと下位フォルダに適用しますか?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:626
 msgid "<b>Access content:</b>"
 msgstr "<b>内容へのアクセス:</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
 msgstr "異なるタイプのファイル"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:778
 msgid "Multiple Files"
 msgstr "複数のファイル"
 
@@ -503,7 +503,7 @@ msgid "Eject Removable Media"
 msgstr "リムーバブル・メディアを取り出す"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "ブックマークのアイテムの名前を変更する"
 
@@ -515,15 +515,15 @@ msgstr "ブックマークから削除する"
 msgid "Empty Trash"
 msgstr "空のゴミ箱"
 
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:837
 msgid "Enter a new name:"
 msgstr "新しい名前を入力してください:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr "場所"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr "ディレクトリツリー"
 
@@ -531,51 +531,51 @@ msgstr "ディレクトリツリー"
 msgid "Remote"
 msgstr "リモート"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "アプリケーションで開く"
 
-#: ../src/gtk/fm-file-menu.c:114
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
 msgid "Rename"
 msgstr "名前を変更する"
 
-#: ../src/gtk/fm-file-menu.c:115
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Create Symlink"
 msgstr "シンボリック・リンクを作成する"
 
-#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Send To"
 msgstr "送る"
 
-#: ../src/gtk/fm-file-menu.c:117
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Compress..."
 msgstr "ファイルを圧縮する"
 
-#: ../src/gtk/fm-file-menu.c:118
+#: ../src/gtk/fm-file-menu.c:120
 msgid "Extract Here"
 msgstr "ここでファイルを展開"
 
-#: ../src/gtk/fm-file-menu.c:119
+#: ../src/gtk/fm-file-menu.c:121
 msgid "Extract To..."
 msgstr "指定先にファイルを展開"
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:391
 msgid "_Restore"
 msgstr "元に戻す(_R)"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:392
 msgid "Restore trashed files to original paths"
 msgstr "ゴミ箱のファイルを元の場所に戻す"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:556
 msgid "XDirectSave failed."
 msgstr "XDirectSave に失敗。"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
 msgstr "選択したアプリケーションでファイルを開く"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
 msgstr "コマンドラインを実行してファイルを開く"
 
@@ -583,67 +583,141 @@ msgstr "コマンドラインを実行してファイルを開く"
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: ../src/gtk/fm-folder-view.c:640
+#: ../src/gtk/fm-folder-exo-view.c:571
 msgid "Name"
 msgstr "名前"
 
-#: ../src/gtk/fm-folder-view.c:659
+#: ../src/gtk/fm-folder-exo-view.c:590
 msgid "Description"
 msgstr "説明"
 
-#: ../src/gtk/fm-folder-view.c:666
+#: ../src/gtk/fm-folder-exo-view.c:597
 msgid "Size"
 msgstr "サイズ"
 
-#: ../src/gtk/fm-folder-view.c:672
+#: ../src/gtk/fm-folder-exo-view.c:603
 msgid "Modified"
 msgstr "更新時刻"
+
+#: ../src/gtk/fm-folder-view.c:114
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:115
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:118
+#, fuzzy
+msgid "Blank File"
+msgstr "空の MO ディスク"
+
+#: ../src/gtk/fm-folder-view.c:119
+#, fuzzy
+msgid "Shortcut"
+msgstr "ショートカット"
+
+#: ../src/gtk/fm-folder-view.c:130
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:131
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:143
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:154
+#, fuzzy
+msgid "By _Name"
+msgstr "名前"
+
+#: ../src/gtk/fm-folder-view.c:155
+msgid "By _Modification Time"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:156
+#, fuzzy
+msgid "By _Size"
+msgstr "サイズ"
+
+#: ../src/gtk/fm-folder-view.c:157
+#, fuzzy
+msgid "By File _Type"
+msgstr "ファイルタイプ:"
+
+#: ../src/gtk/fm-folder-view.c:673
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:675
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+#, fuzzy
+msgid "New"
+msgstr "ネットワーク"
+
+#: ../src/gtk/fm-folder-view.c:768
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:773
+msgid "Failed to start lxshortcut"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "インストールされているアプリケーション"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
 msgstr "エラー"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr "確認"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:121
 msgid "Question"
 msgstr "質問"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
 msgstr "フォルダの選択"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."
 msgstr "システム管理者だけがこれを行うことができます。"
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:643
 msgid "Do you want to move the selected files to trash can?"
 msgstr "選択したファイルをゴミ箱に移動しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
 msgstr "選択したファイルを削除しますか?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
 msgstr "ファイル名の変更"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:712
 msgid "Please enter a new name:"
 msgstr "新しい名前を入力してください:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
 msgstr "本当にゴミ箱を空にしますか?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -652,7 +726,7 @@ msgstr ""
 "このテキストファイル '%s' は実行可能スクリプトのようです。\n"
 "これをどうしますか？"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "このファイル '%s' は実行可能ファイルです。実行しますか？"

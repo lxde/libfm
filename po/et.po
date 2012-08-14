@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"POT-Creation-Date: 2012-08-14 23:43+0200\n"
 "PO-Revision-Date: 2012-07-07 13:34+0200\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -459,36 +459,36 @@ msgstr "Nimeviitade loomine"
 msgid "Changing file attributes"
 msgstr "Failiomaduste muutmine"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bait"
 msgstr[1] "baiti"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
 msgstr "Palun sisesta kehtiv kasutajanimi või id number."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:256
 msgid "Please enter a valid group name or numeric id."
 msgstr "Palun sisesta kehtiv grupi nimetus või id number."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Kas soovid rakendada need toimingud kõigile failidele ja alamkataloogidele?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:626
 msgid "<b>Access content:</b>"
 msgstr "<b>Sisule juurdepääs:</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
 msgstr "Erinevat tüüpi failid"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:778
 msgid "Multiple Files"
 msgstr "Mitmed failid"
 
@@ -505,7 +505,7 @@ msgid "Eject Removable Media"
 msgstr "Väljasta ird-andmekandja"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Muuda järjehoidja nime"
 
@@ -517,15 +517,15 @@ msgstr "Eemalda järjehoidja"
 msgid "Empty Trash"
 msgstr "Tühjenda prügikast"
 
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:837
 msgid "Enter a new name:"
 msgstr "Sisesta uus nimi:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr "Asukohad"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr "Kataloogipuu"
 
@@ -533,51 +533,51 @@ msgstr "Kataloogipuu"
 msgid "Remote"
 msgstr "Võrgus"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Ava rakendusega..."
 
-#: ../src/gtk/fm-file-menu.c:114
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
 msgid "Rename"
 msgstr "Nimeta ümber"
 
-#: ../src/gtk/fm-file-menu.c:115
+#: ../src/gtk/fm-file-menu.c:117
 msgid "Create Symlink"
 msgstr "Loo nimeviit"
 
-#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-file-menu.c:118
 msgid "Send To"
 msgstr "Saada"
 
-#: ../src/gtk/fm-file-menu.c:117
+#: ../src/gtk/fm-file-menu.c:119
 msgid "Compress..."
 msgstr "Paki kokku..."
 
-#: ../src/gtk/fm-file-menu.c:118
+#: ../src/gtk/fm-file-menu.c:120
 msgid "Extract Here"
 msgstr "Paki lahti siia"
 
-#: ../src/gtk/fm-file-menu.c:119
+#: ../src/gtk/fm-file-menu.c:121
 msgid "Extract To..."
 msgstr "Paki lahti asukohta..."
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:391
 msgid "_Restore"
 msgstr "_Taasta"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:392
 msgid "Restore trashed files to original paths"
 msgstr "Liiguta fail prügikastist selle algsesse asukohta"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:556
 msgid "XDirectSave failed."
 msgstr "XDirectSave ebaõnnestus."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
 msgstr "Kasuta valitud rakendust failide avamiseks"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
 msgstr "Kohandatud käskluse abil failide avamine"
 
@@ -585,67 +585,141 @@ msgstr "Kohandatud käskluse abil failide avamine"
 msgid "Customize"
 msgstr "Kohanda"
 
-#: ../src/gtk/fm-folder-view.c:640
+#: ../src/gtk/fm-folder-exo-view.c:571
 msgid "Name"
 msgstr "Nimi"
 
-#: ../src/gtk/fm-folder-view.c:659
+#: ../src/gtk/fm-folder-exo-view.c:590
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: ../src/gtk/fm-folder-view.c:666
+#: ../src/gtk/fm-folder-exo-view.c:597
 msgid "Size"
 msgstr "Suurus"
 
-#: ../src/gtk/fm-folder-view.c:672
+#: ../src/gtk/fm-folder-exo-view.c:603
 msgid "Modified"
 msgstr "Muudetud"
+
+#: ../src/gtk/fm-folder-view.c:114
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:115
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:118
+#, fuzzy
+msgid "Blank File"
+msgstr "Tühi MO ketas"
+
+#: ../src/gtk/fm-folder-view.c:119
+#, fuzzy
+msgid "Shortcut"
+msgstr "Otseteed"
+
+#: ../src/gtk/fm-folder-view.c:130
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:131
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:143
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:154
+#, fuzzy
+msgid "By _Name"
+msgstr "Nimi"
+
+#: ../src/gtk/fm-folder-view.c:155
+msgid "By _Modification Time"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:156
+#, fuzzy
+msgid "By _Size"
+msgstr "Suurus"
+
+#: ../src/gtk/fm-folder-view.c:157
+#, fuzzy
+msgid "By File _Type"
+msgstr "<b>Failitüüp:</b>"
+
+#: ../src/gtk/fm-folder-view.c:673
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:675
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:676
+#, fuzzy
+msgid "New"
+msgstr "Võrk"
+
+#: ../src/gtk/fm-folder-view.c:768
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:773
+msgid "Failed to start lxshortcut"
+msgstr ""
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
 msgstr "Paigaldatud rakendused"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
 msgstr "Viga"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr "Kinnita"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:121
 msgid "Question"
 msgstr "Küsimus"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
 msgstr "Palun vali kaust"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."
 msgstr "Vajab süsteemihaldaja kasutusõigusi."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:643
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Kas soovid valitud failid prügikasti tõsta?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
 msgstr "Kas soovid valitud failid lõplikult kustutada?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
 msgstr "Nimeta fail ümber"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:712
 msgid "Please enter a new name:"
 msgstr "Palun sisesta uus nimi:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Kas kindlasti soovid prügikasti tühjendada?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -654,7 +728,7 @@ msgstr ""
 "See tekstifail '%s' näib olevat käivitatav skript.\n"
 "Mida soovid sellega teha?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "See fail '%s' on käivitatav. Kas soovid selle käivitada?"
