@@ -217,8 +217,12 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
                                               dd->dest_file, files);
     }
 
-    // Check if source and destination are the same
-    src = fm_path_get_parent(fm_path_list_peek_head(files));
+    /* check if we drop directory onto itself */
+    src = fm_path_list_peek_head(files);
+    if(fm_path_equal(src, dest))
+        return FALSE;
+    /* Check if source and destination directories are the same */
+    src = fm_path_get_parent(src);
     if(fm_path_equal(src, dest))
         return FALSE;
 
