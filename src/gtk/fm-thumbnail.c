@@ -161,14 +161,16 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
 static gboolean on_ready_idle(gpointer user_data)
 {
     FmThumbnailRequest* req;
+    int n = 50; /* max 50 thumbnails in a row */
     g_static_rec_mutex_lock(&queue_lock);
-    req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue);
-    if(req)
+    while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)) != NULL)
     {
         g_static_rec_mutex_unlock(&queue_lock);
         req->callback(req, req->user_data);
         fm_thumbnail_request_free(req);
-        return TRUE;
+        if(--n == 0)
+            return TRUE; /* continue on next idle */
+        g_static_rec_mutex_lock(&queue_lock);
     }
     ready_idle_handler = 0;
     g_static_rec_mutex_unlock(&queue_lock);
