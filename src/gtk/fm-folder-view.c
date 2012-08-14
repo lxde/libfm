@@ -92,7 +92,8 @@ static const char folder_popup_xml[] =
 "<accelerator action='Remove2'/>"
 "<accelerator action='FileProp2'/>"
 "<accelerator action='FileProp3'/>"
-"<accelerator action='Menu'/>";
+"<accelerator action='Menu'/>"
+"<accelerator action='Menu2'/>";
 
 static void on_create_new(GtkAction* act, FmFolderView* fv);
 static void on_cut(GtkAction* act, FmFolderView* fv);
@@ -133,7 +134,8 @@ static const GtkActionEntry folder_popup_actions[]=
     {"FileProp", GTK_STOCK_PROPERTIES, NULL, "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},
-    {"Menu", NULL, NULL, "Menu", NULL, G_CALLBACK(on_menu)}
+    {"Menu", NULL, NULL, "Menu", NULL, G_CALLBACK(on_menu)},
+    {"Menu2", NULL, NULL, "<Shift>F10", NULL, G_CALLBACK(on_menu)}
 };
 
 static GtkToggleActionEntry folder_toggle_actions[]=
