@@ -268,8 +268,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
             fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
             fprintf(f, "si_unit=%d\n", cfg->si_unit);
-            fprintf(f, "force_startup_notify=%d", cfg->force_startup_notify);
-            fprintf(f, "backup_as_hidden=%d", cfg->backup_as_hidden);
+            fprintf(f, "force_startup_notify=%d\n", cfg->force_startup_notify);
+            fprintf(f, "backup_as_hidden=%d\n", cfg->backup_as_hidden);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif
