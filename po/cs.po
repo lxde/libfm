@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-08-14 11:57+0200\n"
+"PO-Revision-Date: 2012-08-15 08:03+0200\n"
 "Last-Translator: ALIUM <info@aloisnespor.info>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -606,77 +606,71 @@ msgstr "Změněno"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Vytvořit _nový"
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Složka"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "Prázdný disk MO"
+msgstr "Prázdný soubor"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Zkratky"
+msgstr "Zkratka"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Invertovat výběr"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Seřadit soubory"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Zobrazit _skryté soubory"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Název"
+msgstr "Podle _jména"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Podle data _úpravy"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Velikost"
+msgstr "Podle _velikosti"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Typ souboru:</b>"
+msgstr "Podle _typu souboru"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Zadejte jméno nově vytvořené složky:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Zadejte jméno nově vytvořeného souboru:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Vytvořit nový..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Síť"
+msgstr "Nový"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Chyba, lxshortcut není nainstalovaný"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Chyba při spuštění lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
