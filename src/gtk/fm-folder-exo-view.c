@@ -78,6 +78,7 @@ struct _FmFolderExoView
 
     /* for very large folder update */
     guint sel_changed_idle;
+    gboolean sel_changed_pending;
 
     FmFileInfoList* cached_selected_files;
     FmPathList* cached_selected_file_paths;
@@ -302,6 +303,12 @@ static void fm_folder_exo_view_dispose(GObject *object)
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
     cancel_pending_row_activated(self); /* this frees activated_row_ref */
+
+    if(self->sel_changed_idle)
+    {
+        g_source_remove(self->sel_changed_idle);
+        self->sel_changed_idle = 0;
+    }
 
     if(self->icon_size_changed_handler)
     {
@@ -790,7 +797,8 @@ void fm_folder_exo_view_set_mode(FmFolderExoView* fv, FmFolderExoViewMode mode)
         g_signal_connect(fv->view, "drag-leave", G_CALLBACK(on_drag_leave), fv);
         g_signal_connect(fv->view, "drag-drop", G_CALLBACK(on_drag_drop), fv);
         g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
-        g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
+        /* connect it after to let exo view change selection */
+        g_signal_connect_after(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
         fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment((GtkScrolledWindow*)fv), gtk_scrolled_window_get_vadjustment((GtkScrolledWindow*)fv));
 
@@ -1107,10 +1115,8 @@ static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderExoView* fv)
     }
 }
 
-static gboolean on_sel_changed_real(gpointer user_data)
+static gboolean on_sel_changed_real(FmFolderExoView* fv)
 {
-    FmFolderExoView* fv = (FmFolderExoView*)user_data;
-
     /* clear cached selected files */
     if(fv->cached_selected_files)
     {
@@ -1122,16 +1128,37 @@ static gboolean on_sel_changed_real(gpointer user_data)
         fm_path_list_unref(fv->cached_selected_file_paths);
         fv->cached_selected_file_paths = NULL;
     }
-    fv->sel_changed_idle = 0;
     fm_folder_view_sel_changed(NULL, FM_FOLDER_VIEW(fv));
+    fv->sel_changed_pending = FALSE;
+    return TRUE;
+}
+
+/*
+ * We limit "sel-changed" emitting here:
+ * - if no signal was in last 200ms then signal is emitted immidiately
+ * - if there was < 200ms since last signal then it's marked as pending
+ *   and signal will be emitted when that 200ms timeout ends
+ */
+static gboolean on_sel_changed_idle(gpointer user_data)
+{
+    FmFolderExoView* fv = (FmFolderExoView*)user_data;
+
+    if(fv->sel_changed_pending) /* fast changing detected! continue... */
+        return on_sel_changed_real(fv);
+    fv->sel_changed_idle = 0;
     return FALSE;
 }
 
 static void on_sel_changed(GObject* obj, FmFolderExoView* fv)
 {
     if(!fv->sel_changed_idle)
+    {
         fv->sel_changed_idle = g_timeout_add_full(G_PRIORITY_HIGH_IDLE, 200,
-                                                  on_sel_changed_real, fv, NULL);
+                                                  on_sel_changed_idle, fv, NULL);
+        on_sel_changed_real(fv);
+    }
+    else
+        fv->sel_changed_pending = TRUE;
 }
 
 static void fm_folder_exo_view_select_invert(FmFolderView* ffv)
