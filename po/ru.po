@@ -607,77 +607,71 @@ msgstr "Изменён"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Создать новый..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Папку"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "пустой МО диск"
+msgstr "Пустой файл"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Ярлыки"
+msgstr "Ярлык"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Инвертировать выделение"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Сортировать файлы"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "_Показать скрытые файлы"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Имя"
+msgstr "По _имени"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "По _времени изменения"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Размер"
+msgstr "По _размеру"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Тип файла:</b>"
+msgstr "По _типу файла"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Введите имя создаваемой папки:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Введите имя создаваемого файла:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Создать новый..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Сеть"
+msgstr "Новый"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Ошибка: программа lxshortcut не установлена"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Не удалось запустить lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
