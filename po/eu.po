@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-08 01:22+0200\n"
+"PO-Revision-Date: 2012-08-15 19:07+0200\n"
 "Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -607,77 +607,71 @@ msgstr "Aldatuta"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Sortu _berria..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Karpeta"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "MO disko hutsa"
+msgstr "Fitxategi hutsa"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Lasterbideak"
+msgstr "Lasterbidea"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Alderantzikatu hautapena"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Ordenatu fitxategiak"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Erakutsi _ezkutukoak"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Izena"
+msgstr "_Izenaren arabera"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "_Aldatze-dataren arabera"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Tamaina"
+msgstr "_Tamainaren arabera"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Fitxategi-mota:</b>"
+msgstr "_Fitxategi-motaren arabera"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Sartu izen bat karpeta sortu berriarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Sartu izen bat fitxategi sortu berriarentzat:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Sortu berria..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Sarea"
+msgstr "Berria"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Errorea, lxshortcut ez dago instalatuta"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Huts egin du lxshortcut hasieratzean"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
