@@ -1331,12 +1331,16 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
 {
     FmFolderModel* model = (FmFolderModel*)user_data;
     FmThumbnailRequest* req;
-    GList* new_reqs = NULL, *l;
+    GList* new_reqs = NULL;
     GSequenceIter* seq_it;
     FmFileInfo* fi;
     guint thumbnail_max_bytes = fm_config->thumbnail_max << 10;
     goffset size;
 
+#if 0
+    /* disabled due to bug #3557764: pcmanfm-1.0 segfault in fm_file_info_is_image
+       access to FmThumbnailRequest is dangerous in this implementation
+       and thumbnail generator anyway respects cfg->thumbnail_max */
     if(cfg->thumbnail_max)
     {
          /* remove files which are too big from thumbnail requests
@@ -1357,6 +1361,7 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
             l = next;
         }
     }
+#endif
     seq_it = g_sequence_get_begin_iter(model->items);
     while( !g_sequence_iter_is_end(seq_it) )
     {
