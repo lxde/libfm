@@ -241,7 +241,8 @@ gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ct
         uris = g_list_append(uris, fm_path_to_uri(FM_PATH(l->data)));
     entry_path = fm_path_to_str(path);
     ret = fm_launch_desktop_entry(ctx, entry_path, uris, &launcher, &data);
-    g_list_free_full(uris, g_free);
+    g_list_foreach(uris, (GFunc)g_free, NULL);
+    g_list_free(uris);
     g_free(entry_path);
     if(_ctx)
         g_object_unref(_ctx);
