@@ -355,7 +355,12 @@ GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, 
         {
             GError* err = NULL;
             /* add this app to the mime-type */
+
+#if GLIB_CHECK_VERSION(2, 27, 6)
             if(!g_app_info_set_as_last_used_for_type(app, mime_type->type, &err))
+#else
+            if(!g_app_info_add_supports_type(app, mime_type->type, &err))
+#endif
             {
                 g_debug("error: %s", err->message);
                 g_error_free(err);
