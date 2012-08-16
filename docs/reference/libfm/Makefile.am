@@ -91,6 +91,7 @@ IGNORE_HFILES= \
 	exo-private.h \
 	exo-string.h \
 	exo-tree-view.h \
+	fm-actions.h \
 	$(NULL)
 
 # Images to copy into HTML directory.
