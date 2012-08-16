@@ -31,12 +31,17 @@
  * copy, delete, change file attributes, etc.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
 #include "fm-file-ops-job-change-attr.h"
 #include "fm-marshal.h"
 #include "fm-file-info-job.h"
+#include "glib-compat.h"
 
 enum
 {
@@ -161,7 +166,8 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
      * The #FmFileOpsJob::ask-rename signal is emitted when file operation
      * raises a conflict because file with the same name already exists
      * in the directory @dest. Signal handler should find a decision how
-     * to resolve the situation.
+     * to resolve the situation. If there is more than one handler connected
+     * to the signal then only one of them will receive it.
      *
      * Return value: a #FmFileOpOption decision.
      *
@@ -172,7 +178,7 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFileOpsJobClass, ask_rename ),
-                      NULL, NULL,
+                      g_signal_accumulator_first_wins, NULL,
                       fm_marshal_INT__POINTER_POINTER_POINTER,
                       G_TYPE_INT, 3, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER );
 

@@ -19,8 +19,13 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-job.h"
 #include "fm-marshal.h"
+#include "glib-compat.h"
 
 /**
  * SECTION:fm-job
@@ -147,7 +152,8 @@ static void fm_job_class_init(FmJobClass *klass)
      * @error: an error descriptor
      * @severity: #FmJobErrorSeverity of the error
      *
-     * The #FmJob::error signal is emitted when errors happen.
+     * The #FmJob::error signal is emitted when errors happen. A case if
+     * more than one handler is connected to this signal is ambiguous.
      *
      * Return value: #FmJobErrorAction that should be performed on that error.
      *
@@ -193,7 +199,8 @@ static void fm_job_class_init(FmJobClass *klass)
      *
      * The #FmJob::ask signal is emitted when the job asks for some
      * user interactions. The user then will have a list of available
-     * @options.
+     * @options. If there is more than one handler connected to the
+     * signal then only one of them will receive it.
      *
      * Return value: user's choice.
      *
@@ -204,7 +211,7 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, ask ),
-                      NULL, NULL,
+                      g_signal_accumulator_first_wins, NULL,
                       fm_marshal_INT__POINTER_POINTER,
                       G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_POINTER );
 }

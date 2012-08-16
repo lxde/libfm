@@ -108,7 +108,9 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
      * @files: (#FmPathList *) list of files that are dropped
      *
      * The #FmDndDest::files-dropped signal is emitted when @files are
-     * dropped on the destination widget.
+     * dropped on the destination widget. If handler connected to this
+     * signal returns %TRUE then further emission of the signal will be
+     * stopped.
      *
      * Return value: %TRUE if action can be performed.
      *

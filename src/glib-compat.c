@@ -20,3 +20,15 @@
  */
 
 #include "glib-compat.h"
+
+#if !GLIB_CHECK_VERSION(2, 28, 0)
+gboolean
+g_signal_accumulator_first_wins (GSignalInvocationHint *ihint,
+                                 GValue                *return_accu,
+                                 const GValue          *handler_return,
+                                 gpointer               dummy)
+{
+  g_value_copy (handler_return, return_accu);
+  return FALSE;
+}
+#endif

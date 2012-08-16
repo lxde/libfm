@@ -50,6 +50,14 @@ GType t_n##_get_type (void) \
 } /* closes t_n##_get_type() */
 #endif /* G_DEFINE_INTERFACE */
 
+#if !GLIB_CHECK_VERSION(2, 28, 0)
+gboolean
+g_signal_accumulator_first_wins (GSignalInvocationHint *ihint,
+                                 GValue                *return_accu,
+                                 const GValue          *handler_return,
+                                 gpointer               dummy);
+#endif
+
 G_END_DECLS
 
 #endif

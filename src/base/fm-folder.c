@@ -303,7 +303,8 @@ static void fm_folder_class_init(FmFolderClass *klass)
      * @error: error descriptor
      * @severity: #FmJobErrorSeverity of the error
      *
-     * The #FmFolder::error signal is emitted when some error happens.
+     * The #FmFolder::error signal is emitted when some error happens. A case
+     * if more than one handler is connected to this signal is ambiguous.
      *
      * Return value: #FmJobErrorAction that should be performed on that error.
      *
