@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-07 13:46+0200\n"
+"PO-Revision-Date: 2012-08-17 13:24+0200\n"
 "Last-Translator: Hugo <sysadmin@cips.cu>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -607,77 +607,71 @@ msgstr "Modificado"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Crear _nuevo..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Carpeta"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "Disco MO en blanco"
+msgstr "Archivo en blanco"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Atajos"
+msgstr "Atajo"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Invertir selección"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Ordenar archivos"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Mostrar ocultos"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Nombre"
+msgstr "Por _nombre"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Por fecha de _modificación"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Tamaño"
+msgstr "Por t_amaño"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "Por _tipo de archivo"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Introduzca un nombre para la carpeta recién creada:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Introduzca un nombre para el archivo recién creado:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Crear nuevo..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Red"
+msgstr "Nuevo"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Error, lxshortcut no está instalado"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Fallo al iniciar lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
