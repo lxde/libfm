@@ -7,13 +7,13 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
+# automake 1.12 requires AM_PROG_AR.
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
+
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
 AM_PROG_LIBTOOL
-
-# automake 1.12 requires AM_PROG_AR.
-m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
 # Vala
 AC_ARG_ENABLE(actions,
