@@ -73,6 +73,9 @@ static const char folder_popup_xml[] =
     "<menuitem action='ByMTime'/>"
     "<menuitem action='BySize'/>"
     "<menuitem action='ByType'/>"
+    "<separator/>"
+    /* placeholder for custom sort options */
+    "<placeholder name='CustomSortOps'/>"
   "</menu>"
   "<menuitem action='ShowHidden'/>"
   "<menuitem action='Rename'/>"
@@ -1273,7 +1276,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
             fm_file_menu_set_folder_func(menu, open_folders, win);
 
-            /* TODO: add info message on selection */
+            /* TODO: add info message on selection if enabled in config */
             /* merge some specific menu items */
             if(update_popup)
                 update_popup(fv, win, fm_file_menu_get_ui(menu),
