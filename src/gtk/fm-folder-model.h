@@ -67,6 +67,12 @@ typedef enum {
   N_FOLDER_MODEL_COLS
 } FmFolderModelViewCol;
 
+/* TODO: unified FmFolderModelSortMode
+#define FM_FOLDER_MODEL_COL_MASK 0x0f
+#define FM_FOLDER_MODEL_COL_DESCENDING 0x10
+#define FM_FOLDER_MODEL_MINGLE_DIRS 0x20
+#define FM_FOLDER_MODEL_IGNORE_CASE 0x40 */
+
 #define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < N_FOLDER_MODEL_COLS)
 
 /** for 'Unsorted' folder view use 'FileInfo' column which is ambiguous for sorting */

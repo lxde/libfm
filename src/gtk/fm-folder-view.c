@@ -74,8 +74,12 @@ static const char folder_popup_xml[] =
     "<menuitem action='BySize'/>"
     "<menuitem action='ByType'/>"
     "<separator/>"
+    /* "<menuitem action='MingleDirs'/>"
+    "<menuitem action='SortIgnoreCase'/>" */
     /* placeholder for custom sort options */
     "<placeholder name='CustomSortOps'/>"
+    /* "<separator/>"
+    "<menuitem action='SortPerFolder'/>" */
   "</menu>"
   "<menuitem action='ShowHidden'/>"
   "<menuitem action='Rename'/>"
@@ -144,6 +148,10 @@ static const GtkActionEntry folder_popup_actions[]=
 static GtkToggleActionEntry folder_toggle_actions[]=
 {
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE},
+    {"SortPerFolder", NULL, N_("Only for this folder"), NULL,
+                N_("Check to remember sort as folder setting rather than global one"), NULL, FALSE},
+    {"MingleDirs", NULL, N_("Mingle files and folders"), NULL, NULL, NULL, FALSE},
+    {"SortIgnoreCase", NULL, N_("Ignore name case"), NULL, NULL, NULL, TRUE}
 };
 
 static const GtkRadioActionEntry folder_sort_type_actions[]=
