@@ -1056,23 +1056,3 @@ fm_key_file_get_int
 fm_strdup_replace
 </SECTION>
 
-<SECTION>
-<FILE>glib-compat</FILE>
-G_DEFINE_INTERFACE
-</SECTION>
-
-<SECTION>
-<FILE>gtk-compat</FILE>
-GDK_KEY_Left
-GDK_KEY_Right
-GDK_KEY_Tab
-gdk_display_get_app_launch_context
-gdk_drag_context_get_actions
-gdk_drag_context_get_selected_action
-gdk_drag_context_get_source_window
-gdk_drag_context_get_suggested_action
-gtk_selection_data_get_data_with_length
-gtk_widget_get_realized
-gtk_widget_in_destruction
-</SECTION>
-
