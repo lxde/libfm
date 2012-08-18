@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-31 17:43+0200\n"
+"PO-Revision-Date: 2012-08-18 16:36+0200\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -162,7 +162,7 @@ msgstr "<b>Wyświetlanie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>Change content:</b>"
-msgstr "<b>Zmienianie zawartości:</b>"
+msgstr "<b>Modyfikowanie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>Execute:</b>"
@@ -186,11 +186,11 @@ msgstr "Określa, kto może uruchamiać pliki lub przechodzić do katalogu"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Specjalne uprawnienia uruchamiania plików"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Specjalne uprawnienia dostępu do katalogów"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -605,52 +605,47 @@ msgstr "Czas modyfikacji"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Utwórz _nowy..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Katalog"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "Pusta płyta MO"
+msgstr "Pusty plik"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Skróty klawiszowe"
+msgstr "Aktywator programu"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Odwróć zaznaczenie"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Sortowanie"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Wyświetlanie _ukrytych plików"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Nazwa"
+msgstr "Według _nazwy"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Według _czasu modyfikacji"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Rozmiar"
+msgstr "Według _rozmiaru"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Typ:</b>"
+msgstr "Według _typu"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
@@ -662,20 +657,19 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Utwórz nowy..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Sieć"
+msgstr "Nowy"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Błąd, nie zainstalowano lxshortcut"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Nie udało się uruchomić programu lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
