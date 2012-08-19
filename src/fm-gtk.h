@@ -38,7 +38,7 @@
 #include "fm-file-properties.h"
 #include "fm-folder-model.h"
 #include "fm-folder-view.h"
-#include "fm-folder-exo-view.h"
+#include "fm-standard-view.h"
 #include "fm-gtk-file-launcher.h"
 #include "fm-gtk-marshal.h"
 #include "fm-gtk-utils.h"

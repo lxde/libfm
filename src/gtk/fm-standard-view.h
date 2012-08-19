@@ -20,8 +20,8 @@
  */
 
 
-#ifndef __FOLDER_EXO_VIEW_H__
-#define __FOLDER_EXO_VIEW_H__
+#ifndef __STANDARD_VIEW_H__
+#define __STANDARD_VIEW_H__
 
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
@@ -34,18 +34,18 @@
 
 G_BEGIN_DECLS
 
-#define FM_FOLDER_EXO_VIEW_TYPE             (fm_folder_exo_view_get_type())
-#define FM_FOLDER_EXO_VIEW(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),\
-            FM_FOLDER_EXO_VIEW_TYPE, FmFolderExoView))
-#define FM_FOLDER_EXO_VIEW_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass),\
-            FM_FOLDER_EXO_VIEW_TYPE, FmFolderExoViewClass))
-#define FM_IS_FOLDER_EXO_VIEW(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-            FM_FOLDER_EXO_VIEW_TYPE))
-#define FM_IS_FOLDER_EXO_VIEW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),\
-            FM_FOLDER_EXO_VIEW_TYPE))
+#define FM_STANDARD_VIEW_TYPE               (fm_standard_view_get_type())
+#define FM_STANDARD_VIEW(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj),\
+            FM_STANDARD_VIEW_TYPE, FmStandardView))
+#define FM_STANDARD_VIEW_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass),\
+            FM_STANDARD_VIEW_TYPE, FmStandardViewClass))
+#define FM_IS_STANDARD_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+            FM_STANDARD_VIEW_TYPE))
+#define FM_IS_STANDARD_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+            FM_STANDARD_VIEW_TYPE))
 
 /**
- * FmFolderExoViewMode
+ * FmStandardViewMode
  * @FM_FV_ICON_VIEW: standard icon view
  * @FM_FV_COMPACT_VIEW: view with small icons and text on right of them
  * @FM_FV_THUMBNAIL_VIEW: view with big icons/thumbnails
@@ -57,30 +57,30 @@ typedef enum
     FM_FV_COMPACT_VIEW,
     FM_FV_THUMBNAIL_VIEW,
     FM_FV_LIST_VIEW
-} FmFolderExoViewMode;
+} FmStandardViewMode;
 
 #ifndef FM_DISABLE_DEPRECATED
-#define FM_FOLDER_VIEW_MODE_IS_VALID(mode) FM_FOLDER_EXO_VIEW_MODE_IS_VALID(mode)
+#define FM_FOLDER_VIEW_MODE_IS_VALID(mode) FM_STANDARD_VIEW_MODE_IS_VALID(mode)
 #endif
-#define FM_FOLDER_EXO_VIEW_MODE_IS_VALID(mode)  ((guint)mode <= FM_FV_LIST_VIEW)
+#define FM_STANDARD_VIEW_MODE_IS_VALID(mode)  ((guint)mode <= FM_FV_LIST_VIEW)
 
-typedef struct _FmFolderExoView            FmFolderExoView;
-typedef struct _FmFolderExoViewClass       FmFolderExoViewClass;
+typedef struct _FmStandardView             FmStandardView;
+typedef struct _FmStandardViewClass        FmStandardViewClass;
 
-struct _FmFolderExoViewClass
+struct _FmStandardViewClass
 {
     /*< private >*/
     GtkScrolledWindowClass parent_class;
 };
 
-GType       fm_folder_exo_view_get_type(void);
-FmFolderExoView* fm_folder_exo_view_new(FmFolderExoViewMode mode,
-                                        FmFolderViewUpdatePopup update_popup,
-                                        FmLaunchFolderFunc open_folders);
+GType       fm_standard_view_get_type(void);
+FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
+                                     FmFolderViewUpdatePopup update_popup,
+                                     FmLaunchFolderFunc open_folders);
 
-void fm_folder_exo_view_set_mode(FmFolderExoView* fv, FmFolderExoViewMode mode);
-FmFolderExoViewMode fm_folder_exo_view_get_mode(FmFolderExoView* fv);
+void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode);
+FmStandardViewMode fm_standard_view_get_mode(FmStandardView* fv);
 
 G_END_DECLS
 
-#endif /* __FOLDER_EXO_VIEW_H__ */
+#endif /* __STANDARD_VIEW_H__ */

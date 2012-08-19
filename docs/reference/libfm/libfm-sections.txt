@@ -571,23 +571,23 @@ fm_folder_get_type
 </SECTION>
 
 <SECTION>
-<FILE>fm-folder-exo-view</FILE>
-<TITLE>FmFolderExoView</TITLE>
-FM_FOLDER_EXO_VIEW_TYPE
-FmFolderExoView
-FmFolderExoViewClass
-FmFolderExoViewMode
-fm_folder_exo_view_get_mode
-fm_folder_exo_view_new
-fm_folder_exo_view_set_mode
+<FILE>fm-standard-view</FILE>
+<TITLE>FmStandardView</TITLE>
+FM_STANDARD_VIEW_TYPE
+FmStandardView
+FmStandardViewClass
+FmStandardViewMode
+fm_standard_view_get_mode
+fm_standard_view_new
+fm_standard_view_set_mode
 <SUBSECTION Standard>
-FM_FOLDER_EXO_VIEW
-FM_FOLDER_EXO_VIEW_CLASS
-FM_FOLDER_EXO_VIEW_MODE_IS_VALID
 FM_FOLDER_VIEW_MODE_IS_VALID
-FM_IS_FOLDER_EXO_VIEW
-FM_IS_FOLDER_EXO_VIEW_CLASS
-fm_folder_exo_view_get_type
+FM_IS_STANDARD_VIEW
+FM_IS_STANDARD_VIEW_CLASS
+FM_STANDARD_VIEW
+FM_STANDARD_VIEW_CLASS
+FM_STANDARD_VIEW_MODE_IS_VALID
+fm_standard_view_get_type
 </SECTION>
 
 <SECTION>

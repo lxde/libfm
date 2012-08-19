@@ -187,7 +187,7 @@ void            fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv);
 //void            fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
 
 #ifndef FM_DISABLE_DEPRECATED
-/* functions defined in fm-folder-exo-view.c
+/* functions defined in fm-standard-view.c
  * are obsoleted since 1.0.1 but left until soname 5 for compatibility */
 FmFolderView* fm_folder_view_new(guint mode);
 

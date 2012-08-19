@@ -27,7 +27,7 @@
 
 #include "main-win.h"
 #include "fm-folder-view.h"
-#include "fm-folder-exo-view.h"
+#include "fm-standard-view.h"
 #include "fm-folder-model.h"
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
@@ -391,7 +391,7 @@ static void fm_main_win_init(FmMainWin *win)
     gtk_paned_add1(GTK_PANED(win->hpaned), win->left_pane);
 
     /* folder view */
-    win->folder_view = fm_folder_exo_view_new(FM_FV_ICON_VIEW, update_files_popup, open_folder_func);
+    win->folder_view = fm_standard_view_new(FM_FV_ICON_VIEW, update_files_popup, open_folder_func);
     fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(win->folder_view), FALSE);
     fm_folder_view_sort(FM_FOLDER_VIEW(win->folder_view), GTK_SORT_ASCENDING, COL_FILE_NAME);
     fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(win->folder_view), GTK_SELECTION_MULTIPLE);
@@ -565,7 +565,7 @@ void on_show_hidden(GtkToggleAction* act, FmMainWin* win)
 void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
     int mode = gtk_radio_action_get_current_value(cur);
-    fm_folder_exo_view_set_mode(FM_FOLDER_EXO_VIEW(win->folder_view), mode);
+    fm_standard_view_set_mode(FM_STANDARD_VIEW(win->folder_view), mode);
 }
 
 void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)

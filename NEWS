@@ -3,7 +3,7 @@ Changes on 1.0.1 since 1.0.0:
 * Fixed slowness on loading and changing of very large folders.
 
 * FmFolderView is converted into generic interface. Former FmFolderView
-    is renamed into FmFolderExoView so APIs specific to it have changed
+    is renamed into FmStandardView so APIs specific to it have changed
     their names and arguments. Old APIs left for compatibility reasons.
     New FmFolderView interface now contains methods to handle popups,
     keyboard and mouse gestures, including Cut/Copy/Paste operations.
