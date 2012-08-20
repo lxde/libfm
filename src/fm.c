@@ -42,7 +42,9 @@ gboolean fm_init(FmConfig* config)
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 #endif
 
+#if !GLIB_CHECK_VERSION(2, 32, 0)
     g_thread_init(NULL);
+#endif
     g_thread_pool_set_max_idle_time(10000); /* is 10 sec enough? */
 
     if(config)
