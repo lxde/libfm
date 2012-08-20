@@ -43,7 +43,7 @@ AC_HEADER_STDC
 
 # Checks for library functions.
 dnl AC_FUNC_MMAP
-AC_CHECK_LIB(m, pow)
+AC_SEARCH_LIBS([pow], [m])
 
 # Large file support
 AC_ARG_ENABLE([largefile],
