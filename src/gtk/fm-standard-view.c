@@ -780,7 +780,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             break;
         case FM_FV_LIST_VIEW: /* detailed list view */
             create_list_view(fv, sels);
-            fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_single_click;
+            fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_single_click;
             fv->get_drop_path = get_drop_path_list_view;
             fv->select_all = select_all_list_view;
             fv->select_invert = select_invert_list_view;
