@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-12 02:01+0200\n"
+"PO-Revision-Date: 2012-08-21 19:44+0200\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -291,6 +291,8 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Biti će korišten poželjni klijent pošte za pisanje elektroničke pošte kada "
+"kliknete na E-mail adrese."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -603,56 +605,51 @@ msgstr "Izmjenjeno"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Napravi _novi..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Mapa"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "Prazni MO disk"
+msgstr "Prazna datoteka"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "Prečaci"
+msgstr "Prečac"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Obrnuti odabir"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Posloži datoteke"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Pokaži _skrivene"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Ime"
+msgstr "Po _imenu"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Po _vremenu izmjene"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Veličina"
+msgstr "Po _veličini"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Tip datoteke:</b>"
+msgstr "Po tipu _datoteke"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Unesite ime za novostvorenu mapu:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
@@ -660,20 +657,19 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Naprvati novi..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Mreža"
+msgstr "Novi"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Greška, lxshortcut nije instaliran"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Neuspjehu pokretanju lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
