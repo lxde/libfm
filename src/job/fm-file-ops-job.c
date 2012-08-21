@@ -553,7 +553,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         FmPath* path = FM_PATH(l->data);
         char* src = fm_path_to_str(path);
         GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
-        GError* err;
+        GError* err = NULL;
         char* dname;
 
         /* showing currently processed file. */
@@ -566,6 +566,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
             FmJobErrorAction act = FM_JOB_CONTINUE;
             if(err)
             {
+                /* FIXME: ask user to choose another filename for creation */
                 act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
