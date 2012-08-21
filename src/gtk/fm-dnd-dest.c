@@ -678,7 +678,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                 action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
             }
             else /* we don't know on which device the dragged source files are. */
-                action = 0;
+                action = GDK_ACTION_COPY; /* fallback to copy then */
         }
     }
 
