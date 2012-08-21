@@ -350,16 +350,16 @@ endif
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
-	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --header --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 base/fm-marshal.c: base/fm-marshal.list
-	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --body --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 gtk/fm-gtk-marshal.h: gtk/fm-gtk-marshal.list
-	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --header --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 gtk/fm-gtk-marshal.c: gtk/fm-gtk-marshal.list
-	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --body --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 # Workarounds to force the build
 BUILT_SOURCES= \
