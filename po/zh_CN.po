@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-07 03:59+0200\n"
+"PO-Revision-Date: 2012-08-21 12:26+0200\n"
 "Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -597,77 +597,71 @@ msgstr "修改"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "新建(_N)..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "文件夹"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "空 MO 盘"
+msgstr "空文件"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
 msgstr "快捷方式"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "反选(_I)"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "排序文件(_S)"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "显示隐藏文件(_H)"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "名称"
+msgstr "按名称(_N)"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "按修改日期(_M)"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "大小"
+msgstr "按大小(_N)"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>文件类型：</b>"
+msgstr "按文件类型(_T)"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "输入新创建文件夹的名称："
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "输入新创建文件的名称："
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "新建..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "网络"
+msgstr "新建"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "错误，lxshortcut 未安装"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "无法启动 lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
