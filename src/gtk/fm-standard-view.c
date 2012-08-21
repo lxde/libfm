@@ -797,8 +797,10 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         g_signal_connect(fv->view, "drag-leave", G_CALLBACK(on_drag_leave), fv);
         g_signal_connect(fv->view, "drag-drop", G_CALLBACK(on_drag_drop), fv);
         g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
-        /* connect it after to let exo view change selection */
-        g_signal_connect_after(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
+        /* connecting it after sometimes conflicts with system configuration
+           (bug #3559831) so we just hope here it will be handled in order
+           of connecting, i.e. after ExoIconView or ExoTreeView handler */
+        g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
         fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment((GtkScrolledWindow*)fv), gtk_scrolled_window_get_vadjustment((GtkScrolledWindow*)fv));
 
