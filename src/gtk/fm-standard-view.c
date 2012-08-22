@@ -106,7 +106,7 @@ G_DEFINE_TYPE_WITH_CODE(FmStandardView, fm_standard_view, GTK_TYPE_SCROLLED_WIND
 
 static GList* fm_standard_view_get_selected_tree_paths(FmStandardView* fv);
 
-static gboolean on_folder_exo_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
+static gboolean on_standard_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmStandardView* fv);
 static void on_sel_changed(GObject* obj, FmStandardView* fv);
@@ -132,12 +132,12 @@ static void fm_standard_view_class_init(FmStandardViewClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_standard_view_dispose;
     widget_class = GTK_WIDGET_CLASS(klass);
-    widget_class->focus_in_event = on_folder_exo_view_focus_in;
+    widget_class->focus_in_event = on_standard_view_focus_in;
 
     fm_standard_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 }
 
-static gboolean on_folder_exo_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
+static gboolean on_standard_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(widget);
     if( fv->view )
