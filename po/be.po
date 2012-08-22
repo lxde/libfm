@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
+"POT-Creation-Date: 2012-08-22 22:34+0200\n"
 "PO-Revision-Date: 2012-08-15 17:01+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -539,7 +539,7 @@ msgstr "Аддалены"
 msgid "Open With..."
 msgstr "Адкрыць з дапамогай..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Перайменаваць"
 
@@ -571,7 +571,7 @@ msgstr "_Узнавіць"
 msgid "Restore trashed files to original paths"
 msgstr "Узнавіць файлы са сметніцы да пачатковага стану"
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr "Памылка XDirectSave."
 
@@ -587,91 +587,108 @@ msgstr "Выканаць уласны загад для адкрыцця фай�
 msgid "Customize"
 msgstr "Наставіць"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Апісанне"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Памер"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Зменена"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
 msgstr "С_тварыць..."
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Каталог"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 msgid "Blank File"
 msgstr "Пусты файл"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 msgid "Shortcut"
 msgstr "Цэтлік"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "_Інвертаваць вылучэнне"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
 msgstr "_Парадкаваць файлы"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
 msgstr "Паказваць _схаваныя"
 
+#: ../src/gtk/fm-folder-view.c:151
+msgid "Only for this folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:153
+#, fuzzy
+msgid "Mingle files and folders"
+msgstr "Калі ласка, выберыце каталог"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
 msgstr "Па _назве"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "Па _часу змянення"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 msgid "By _Size"
 msgstr "Па _памеру"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 msgid "By File _Type"
 msgstr "Па _тыпу файла"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
 msgstr "Увядзіце назву новага каталога:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
 msgstr "Увядзіце назву новага файла:"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
 msgstr "Стварыць..."
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "New"
 msgstr "Новы"
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr "Памылка, lxshortcut не ўстаноўлены"
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr "Не ўдалося запусціць lxshortcut"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Устаноўленыя праграмы"
 

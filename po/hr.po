@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
+"POT-Creation-Date: 2012-08-22 22:34+0200\n"
 "PO-Revision-Date: 2012-08-21 19:44+0200\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -539,7 +539,7 @@ msgstr "Udaljeno"
 msgid "Open With..."
 msgstr "Otvori pomoću..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Preimenuj"
 
@@ -571,7 +571,7 @@ msgstr "_Obnovi"
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr ""
 
@@ -587,91 +587,108 @@ msgstr "Izvrši prilagođeni naredbeni redak za otvaranje datoteka"
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Veličina"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Izmjenjeno"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
 msgstr "Napravi _novi..."
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Mapa"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 msgid "Blank File"
 msgstr "Prazna datoteka"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 msgid "Shortcut"
 msgstr "Prečac"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "_Obrnuti odabir"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
 msgstr "_Posloži datoteke"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
 msgstr "Pokaži _skrivene"
 
+#: ../src/gtk/fm-folder-view.c:151
+msgid "Only for this folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:153
+#, fuzzy
+msgid "Mingle files and folders"
+msgstr "Odaberite mapu"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
 msgstr "Po _imenu"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "Po _vremenu izmjene"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 msgid "By _Size"
 msgstr "Po _veličini"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 msgid "By File _Type"
 msgstr "Po tipu _datoteke"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
 msgstr "Unesite ime za novostvorenu mapu:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
 msgstr "Naprvati novi..."
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "New"
 msgstr "Novi"
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr "Greška, lxshortcut nije instaliran"
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr "Neuspjehu pokretanju lxshortcut"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Instalirani programi"
 

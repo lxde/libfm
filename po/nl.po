@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
+"POT-Creation-Date: 2012-08-22 22:34+0200\n"
 "PO-Revision-Date: 2012-08-15 10:41+0200\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
@@ -539,7 +539,7 @@ msgstr "Op afstand"
 msgid "Open With..."
 msgstr "Openen met..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Hernoemen"
 
@@ -571,7 +571,7 @@ msgstr "_Herstellen"
 msgid "Restore trashed files to original paths"
 msgstr "Zet bestanden vanuit de prullenbak terug op oorspronkelijke plekken"
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr "XDirectSave mislukt."
 
@@ -587,91 +587,108 @@ msgstr "Voer aangepaste opdrachtregel uit om bestanden te openen"
 msgid "Customize"
 msgstr "Aanpassen"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Naam"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Omschrijving"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Grootte"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Aangepast"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
 msgstr "Maak _nieuw(e)..."
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Map"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 msgid "Blank File"
 msgstr "Leeg bestand"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 msgid "Shortcut"
 msgstr "Snelkoppeling"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "Selectie _omdraaien"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
 msgstr "Bestanden _sorteren"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
 msgstr "Toon _verborgen"
 
+#: ../src/gtk/fm-folder-view.c:151
+msgid "Only for this folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:153
+#, fuzzy
+msgid "Mingle files and folders"
+msgstr "Gelieve een map te kiezen"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
 msgstr "Op _naam"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "Op _wijzigingstijdstip"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 msgid "By _Size"
 msgstr "Op _grootte"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 msgid "By File _Type"
 msgstr "Op _bestandtype"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
 msgstr "Voer een naam in voor de zojuist gemaakte map:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
 msgstr "Voer een naam in voor het zojuist gemaakte bestand:"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
 msgstr "Maak nieuw(e)..."
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "New"
 msgstr "Nieuw"
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr "Fout. lxshortcut is niet geïnstalleerd"
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr "Kon lxshortcut niet starten"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Geïnstalleerde toepassingen"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
+"POT-Creation-Date: 2012-08-22 22:34+0200\n"
 "PO-Revision-Date: 2012-08-16 00:13+0200\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
@@ -538,7 +538,7 @@ msgstr "Ku kompyuta endala"
 msgid "Open With..."
 msgstr "Bikkuza..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Kyusa erinnya"
 
@@ -570,7 +570,7 @@ msgstr "_Zawo"
 msgid "Restore trashed files to original paths"
 msgstr "Fayiro eziri mu bisuulidwa zizewo gyezagyibwa"
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr "Omulimu ogwa XDirectSave gugaanye."
 
@@ -586,91 +586,108 @@ msgstr "Fayiro zibukkuze ekiragiro ky'owandise"
 msgid "Customize"
 msgstr "Wekyusize"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Linnya"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Okunnyonyola"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Bunene"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Amakyusa"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
 msgstr "_Kolawo..."
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Tterekero"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 msgid "Blank File"
 msgstr "Fayiro enjereere"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 msgid "Shortcut"
 msgstr "Panya"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "_Vuunika okulondamu"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
 msgstr "_Sengeka fayiro"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
 msgstr "_Laga fayiro enkise"
 
+#: ../src/gtk/fm-folder-view.c:151
+msgid "Only for this folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:153
+#, fuzzy
+msgid "Mingle files and folders"
+msgstr "Londa tterekero"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
 msgstr "Sengekera ku _mannya"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "Sengekera ku ma_kyusa"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 msgid "By _Size"
 msgstr "Sengekera ku _bunene"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 msgid "By File _Type"
 msgstr "Sengekera ku _kika kya fayiro"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
 msgstr "Wandikawo erinnya ly'etterekero erikoledwawo:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
 msgstr "Wandikawo erinnya erya fayiro ekoledwawo:"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
 msgstr "Kolawo..."
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "New"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr "Kiremya, sisitemu terina puloguramu lxshortcut"
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr "Tekisobose kutandika lxshortcut"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Puloguramu eziri ku sisitemu"
 

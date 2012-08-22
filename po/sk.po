@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
+"POT-Creation-Date: 2012-08-22 22:34+0200\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -549,7 +549,7 @@ msgstr ""
 msgid "Open With..."
 msgstr "Otvoriť pomocou..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Premenovať"
 
@@ -581,7 +581,7 @@ msgstr "_Obnoviť"
 msgid "Restore trashed files to original paths"
 msgstr "Obnoviť súbory z Koša na pôvodné miesto"
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr "XDirectSave zlyhalo."
 
@@ -597,104 +597,122 @@ msgstr "Definovať vlastný príkazový riadok na otvorenie súborov"
 msgid "Customize"
 msgstr "Prispôsobiť"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Názov"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Zmenené"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 #, fuzzy
 msgid "Create _New..."
 msgstr "_Vytvoriť nové"
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Priečinok"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 #, fuzzy
 msgid "Blank File"
 msgstr "Textové súbory"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 #, fuzzy
 msgid "Shortcut"
 msgstr "Skratky"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "_Invertovať výber"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 #, fuzzy
 msgid "_Sort Files"
 msgstr "Rozbaliť súbory"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 #, fuzzy
 msgid "Show _Hidden"
 msgstr "Zobraziť _skryté súbory"
 
+#: ../src/gtk/fm-folder-view.c:151
+#, fuzzy
+msgid "Only for this folder"
+msgstr "Prejsť do priečinka"
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:153
+#, fuzzy
+msgid "Mingle files and folders"
+msgstr "Všetky súbory a adresáre"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:165
 #, fuzzy
 msgid "By _Name"
 msgstr "Zoradiť podľa _názvu"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 #, fuzzy
 msgid "By _Modification Time"
 msgstr "Zoradiť podľa času poslednej z_meny"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 #, fuzzy
 msgid "By _Size"
 msgstr "Zoradiť podľa veľko_sti"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 #, fuzzy
 msgid "By File _Type"
 msgstr "Známe typy súborov:"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 #, fuzzy
 msgid "Enter a name for the newly created folder:"
 msgstr "Zadajte názov pre nový priečinok:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 #, fuzzy
 msgid "Enter a name for the newly created file:"
 msgstr "Zadajte názov pre nový súbor:"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 #, fuzzy
 msgid "Create New..."
 msgstr "_Vytvoriť nové"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 #, fuzzy
 msgid "New"
 msgstr "Sieť"
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr ""
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Nainštalované aplikácie"
 
@@ -1094,9 +1112,6 @@ msgstr ""
 #~ msgid "<b>Places to Search</b>"
 #~ msgstr "<b>Kde hľadať</b>"
 
-#~ msgid "All Files and Folders"
-#~ msgstr "Všetky súbory a adresáre"
-
 #~ msgid ""
 #~ "Any\n"
 #~ "Within One Day\n"
@@ -1164,9 +1179,6 @@ msgstr ""
 
 #~ msgid "Video Files (avi, mpg,...)"
 #~ msgstr "Video súbory (avi, mpg,...)"
-
-#~ msgid "Go to folder"
-#~ msgstr "Prejsť do priečinka"
 
 #~ msgid "<b>Behavior</b>"
 #~ msgstr "<b>Správanie</b>"
