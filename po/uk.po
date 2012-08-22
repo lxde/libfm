@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lxfm\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-15 22:02+0200\n"
+"PO-Revision-Date: 2012-08-23 00:42+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -637,20 +637,19 @@ msgstr "Показати при_ховане"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Лише для цієї теки"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "Якщо відмічено - запам'ятати сортування лише для цієї теки"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Будь ласка, виберіть теку"
+msgstr "Не відображати теки перед файлами"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Ігнорувати регістр літер"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
