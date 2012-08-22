@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-09 03:19+0200\n"
+"PO-Revision-Date: 2012-08-15 07:43+0200\n"
 "Last-Translator: Adriano <adrianoh2@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
@@ -607,77 +607,71 @@ msgstr "Modificado"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "Criar _Novo..."
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "Pasta"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "Disco MO em branco"
+msgstr "Arquivo em Branco"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
 msgstr "Atalhos"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Inverter Seleção"
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Organizar Arquivos"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "_Exibir Ocultos"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "Nome"
+msgstr "Por _Nome"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Por Data de _Modificação"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "Tamanho"
+msgstr "Por _Tamanho"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Tipo de arquivo:</b>"
+msgstr "Por Tipo de _Arquivo"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Insira um nome para a pasta recém criada:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Insira um nome para o arquivo recém criado:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "Criar Novo..."
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "Rede"
+msgstr "Novo"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Erro, lxshortcut não isntalado"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Falha ao iniciar o lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
@@ -689,7 +683,7 @@ msgstr "Erro"
 
 #: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
-msgstr "Confirmação"
+msgstr "Confirma"
 
 #: ../src/gtk/fm-gtk-utils.c:121
 msgid "Question"
@@ -697,7 +691,7 @@ msgstr "Pergunta"
 
 #: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
-msgstr "Favor selecionar uma pasta"
+msgstr "Por favor selecione uma pasta"
 
 #: ../src/gtk/fm-gtk-utils.c:548
 msgid "Only system administrators have the permission to do this."

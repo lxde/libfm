@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-07-14 12:42+0200\n"
+"PO-Revision-Date: 2012-08-21 10:49+0200\n"
 "Last-Translator: Gheyret <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
@@ -601,21 +601,19 @@ msgstr "ئۆزگەرتىلگەن"
 
 #: ../src/gtk/fm-folder-view.c:114
 msgid "Create _New..."
-msgstr ""
+msgstr "يېڭىدىن قۇرۇش…"
 
 #: ../src/gtk/fm-folder-view.c:115
 msgid "Folder"
-msgstr ""
+msgstr "قىسقۇچ"
 
 #: ../src/gtk/fm-folder-view.c:118
-#, fuzzy
 msgid "Blank File"
-msgstr "بوش MO دىسكا"
+msgstr "قۇرۇق ھۆججەت"
 
 #: ../src/gtk/fm-folder-view.c:119
-#, fuzzy
 msgid "Shortcut"
-msgstr "تېزلەتمىلەر"
+msgstr "تېزلەتمە"
 
 #: ../src/gtk/fm-folder-view.c:130
 msgid "_Invert Selection"
@@ -623,55 +621,51 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:131
 msgid "_Sort Files"
-msgstr ""
+msgstr "ھۆججەتلەرنى تەرتىپلە(_S)"
 
 #: ../src/gtk/fm-folder-view.c:143
 msgid "Show _Hidden"
-msgstr ""
+msgstr "يوشۇرۇننى كۆرسەت(_H)"
 
 #: ../src/gtk/fm-folder-view.c:154
-#, fuzzy
 msgid "By _Name"
-msgstr "ئاتى"
+msgstr "ئاتى بويىچە(_N)"
 
 #: ../src/gtk/fm-folder-view.c:155
 msgid "By _Modification Time"
-msgstr ""
+msgstr "ئۆزگەرتىلگەن ۋاقتى بويىچە(_M)"
 
 #: ../src/gtk/fm-folder-view.c:156
-#, fuzzy
 msgid "By _Size"
-msgstr "چوڭلۇقى"
+msgstr "چوڭلۇقى بويىچە(_S)"
 
 #: ../src/gtk/fm-folder-view.c:157
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>ھۆججەت تىپى:</b>"
+msgstr "ھۆججەت تىپى بويىچە(_T)"
 
 #: ../src/gtk/fm-folder-view.c:673
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "يېڭى قۇرماقچى بولغان قىسقۇچنىڭ ئاتىنى كىرگۈزۈڭ:"
 
 #: ../src/gtk/fm-folder-view.c:675
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "يېڭى قۇرماقچى بولغان ھۆججەتنىڭ ئاتىنى كىرگۈزۈڭ:"
 
 #: ../src/gtk/fm-folder-view.c:676
 msgid "Create New..."
-msgstr ""
+msgstr "يېڭىدىن قۇرۇش…"
 
 #: ../src/gtk/fm-folder-view.c:676
-#, fuzzy
 msgid "New"
-msgstr "تور"
+msgstr "يېڭى"
 
 #: ../src/gtk/fm-folder-view.c:768
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "خاتا، lxshortcut ئورنىتىلماپتۇ"
 
 #: ../src/gtk/fm-folder-view.c:773
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "مەغلۇپ بولدى(lxshortcut نى قوزغىتىش)"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
