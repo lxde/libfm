@@ -225,16 +225,17 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     return ret;
 }
 
-char* fm_strdup_replace(char* str, char* old, char* new)
+char* fm_strdup_replace(char* str, char* old_str, char* new_str)
 {
     int len = strlen(str);
     char* found;
     GString* buf = g_string_sized_new(len);
-    while((found = strstr(str, old)))
+    int old_str_len = strlen(old_str);
+    while((found = strstr(str, old_str)))
     {
         g_string_append_len(buf, str, (found - str));
-        g_string_append(buf, new);
-        str = found + strlen(old);
+        g_string_append(buf, new_str);
+        str = found + old_str_len;
     }
     g_string_append(buf, str);
     return g_string_free(buf, FALSE);

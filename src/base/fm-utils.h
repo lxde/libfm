@@ -48,7 +48,7 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
 
 char* fm_canonicalize_filename(const char* filename, const char* cwd);
 
-char* fm_strdup_replace(char* str, char* old, char* new);
+char* fm_strdup_replace(char* str, char* old_str, char* new_str);
 
 G_END_DECLS
 
