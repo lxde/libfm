@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-14 23:43+0200\n"
-"PO-Revision-Date: 2012-08-15 07:58+0300\n"
+"POT-Creation-Date: 2012-08-22 09:41+0300\n"
+"PO-Revision-Date: 2012-08-22 09:59+0300\n"
 "Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
@@ -24,7 +24,7 @@ msgstr "Pasirinkite programą"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Atidaromo failo tipas:</b>"
+msgstr "<b>Atveriamo failo tipas:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "Installed Application"
@@ -117,11 +117,11 @@ msgstr "<b>Visų failų dydis:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Paskutinis pakeitimas:</b>"
+msgstr "<b>Paskutinį kartą pakeista:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>Paskutinis priėjimas:</b>"
+msgstr "<b>Paskutinį kartą naudota:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Location:</b>"
@@ -137,7 +137,7 @@ msgstr "<b>_Atverti su:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
-msgstr "Pasirinkite programą atverti tokių tipų failus"
+msgstr "Pasirinkite programą su kuria bus atveriami tokio tipo failai"
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -189,7 +189,7 @@ msgstr "Specialios žymės failo vykdymui"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr "Specialios žymės aplanko priėjimui"
+msgstr "Specialios žymės aplanko pasiekiamumui"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -447,7 +447,7 @@ msgstr "Kopijuojami failai"
 
 #: ../src/gtk/fm-progress-dlg.c:494
 msgid "Trashing files"
-msgstr "Failai siunčiami į šiukšlių dėžę"
+msgstr "Failai siunčiami į šiukšlinę"
 
 #: ../src/gtk/fm-progress-dlg.c:497
 msgid "Deleting files"
@@ -541,7 +541,7 @@ msgstr "Nutolęs"
 msgid "Open With..."
 msgstr "Atverti su..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:132
+#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Pervadinti"
 
@@ -574,7 +574,7 @@ msgstr "_Atstatyti"
 msgid "Restore trashed files to original paths"
 msgstr "Atstatyti išmestus failus į jų originalias vietas"
 
-#: ../src/gtk/fm-dnd-dest.c:556
+#: ../src/gtk/fm-dnd-dest.c:558
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
@@ -590,91 +590,108 @@ msgstr "Failų atvėrimui naudoti pasirinktinę komandą"
 msgid "Customize"
 msgstr "Derinti"
 
-#: ../src/gtk/fm-folder-exo-view.c:571
+#: ../src/gtk/fm-standard-view.c:578
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-exo-view.c:590
+#: ../src/gtk/fm-standard-view.c:597
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-exo-view.c:597
+#: ../src/gtk/fm-standard-view.c:604
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-exo-view.c:603
+#: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
 msgstr "Pakeista"
 
-#: ../src/gtk/fm-folder-view.c:114
+#: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
 msgstr "Kurti _naują..."
 
-#: ../src/gtk/fm-folder-view.c:115
+#: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "Aplanką"
 
-#: ../src/gtk/fm-folder-view.c:118
+#: ../src/gtk/fm-folder-view.c:125
 msgid "Blank File"
 msgstr "Tuščią failą"
 
-#: ../src/gtk/fm-folder-view.c:119
+#: ../src/gtk/fm-folder-view.c:126
 msgid "Shortcut"
 msgstr "Nuorodą"
 
-#: ../src/gtk/fm-folder-view.c:130
+#: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
 msgstr "_Invertuoti pasirinkimą"
 
-#: ../src/gtk/fm-folder-view.c:131
+#: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
 msgstr "_Rūšiuoti failus"
 
-#: ../src/gtk/fm-folder-view.c:143
+#: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
 msgstr "Rodyti _paslėptus"
 
+#: ../src/gtk/fm-folder-view.c:151
+msgid "Only for this folder"
+msgstr "Tik šiam aplankui"
+
+#: ../src/gtk/fm-folder-view.c:152
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+"Pažymėkite jei norite jog šis nustatymas būtų prisimintas tik šiam aplankui"
+
+#: ../src/gtk/fm-folder-view.c:153
+msgid "Mingle files and folders"
+msgstr "Sulieti failus ir aplankus"
+
 #: ../src/gtk/fm-folder-view.c:154
+msgid "Ignore name case"
+msgstr "Nepaisyti pavadinimo raidžių dydžio"
+
+#: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
 msgstr "Pagal pa_vadinimą"
 
-#: ../src/gtk/fm-folder-view.c:155
+#: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "Pagal _keitimo datą"
 
-#: ../src/gtk/fm-folder-view.c:156
+#: ../src/gtk/fm-folder-view.c:167
 msgid "By _Size"
 msgstr "Pagal _dydį"
 
-#: ../src/gtk/fm-folder-view.c:157
+#: ../src/gtk/fm-folder-view.c:168
 msgid "By File _Type"
 msgstr "Pagal failo _tipą"
 
-#: ../src/gtk/fm-folder-view.c:673
+#: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
 msgstr "Įveskite naujo aplanko vardą:"
 
-#: ../src/gtk/fm-folder-view.c:675
+#: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
 msgstr "Įveskite naujo failo vardą:"
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
 msgstr "Sukurti naują..."
 
-#: ../src/gtk/fm-folder-view.c:676
+#: ../src/gtk/fm-folder-view.c:687
 msgid "New"
 msgstr "Naujas"
 
-#: ../src/gtk/fm-folder-view.c:768
+#: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
 msgstr "Klaida, lxshortcut neįdiegtas"
 
-#: ../src/gtk/fm-folder-view.c:773
+#: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
 msgstr "Paleisti „lxshortcut“ nepavyko"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
 msgstr "Įdiegtos programos"
 
@@ -744,11 +761,11 @@ msgstr "Įkeliama..."
 #: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
-msgstr "Nurodytas aplankas yra neteisingas"
+msgstr "Nurodytas aplankas yra netinkamas"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
-msgstr "Šaltinis ir paskirtis yra tokie patys."
+msgstr "Šaltinis ir paskirtis yra tas pats."
 
 #: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
