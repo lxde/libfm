@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-17 13:24+0200\n"
+"PO-Revision-Date: 2012-08-23 12:39+0200\n"
 "Last-Translator: Hugo <sysadmin@cips.cu>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -635,20 +635,21 @@ msgstr "Mostrar ocultos"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Solo para esta carpeta"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Marcar para recordar el ordenado como una preferencia de carpeta en lugar de "
+"global"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Por favor, seleccione una carpeta"
+msgstr "Mezclar archivos y carpetas"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Ignorar may/min en los nombres"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
