@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-16 21:22+0200\n"
+"PO-Revision-Date: 2012-08-23 08:52+0200\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -631,20 +631,21 @@ msgstr "Näita _peidetud"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Ainult selle kausta jaoks"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Kui see on märgistatud kasutatakse kausta seadeid globaalsete seadete asemel"
 
 #: ../src/gtk/fm-folder-view.c:153
 #, fuzzy
 msgid "Mingle files and folders"
-msgstr "Palun vali kaust"
+msgstr "Segusta faile ja kaustu"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Suur ja väiketähtedega nimesid ei eristata"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
