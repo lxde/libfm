@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-15 08:03+0200\n"
-"Last-Translator: ALIUM <info@aloisnespor.info>\n"
+"PO-Revision-Date: 2012-08-23 14:00+0100\n"
+"Last-Translator: Alois Nešpor <info@aloisnespor.info>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "<b>Typ souboru k otevření:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "Installed Application"
-msgstr "Nainstalované aplikace"
+msgstr "Instalovaná aplikace"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "with the following file?"
-msgstr "s následujícím souborem?"
+msgstr "IDnásledujícím souborem?"
 
 #: ../data/ui/ask-rename.glade.h:6
 msgid "File Name:"
@@ -213,19 +213,19 @@ msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr "Nastaviení GID"
+msgstr "Nastavit GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr "Sticky & nastavení GID"
+msgstr "Sticky & nastavit GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr "Nastavení UID"
+msgstr "Nastavit UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr "Nastavení UID & GID"
+msgstr "Nastavit UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -251,7 +251,7 @@ msgstr "Připravuje se..."
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
-msgstr "<b>Probíhá zpracování:</b>"
+msgstr "<b>Zpracovávám:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:6
@@ -281,8 +281,7 @@ msgstr "<b>WWW prohlížeč</b>"
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
-"Při kliknutí na hyperlink odkazy bude pro otevření použit preferovaný WWW "
-"prohlížeč."
+"Při kliknutí na odkazy bude pro otevření použit preferovaný WWW prohlížeč."
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
@@ -324,13 +323,13 @@ msgstr "Spustit v _terminálu"
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u bajt"
-msgstr[1] "%u bajty"
-msgstr[2] "%u bajtů"
+msgstr[0] "%u byte"
+msgstr[1] "%u byty"
+msgstr[2] "%u bytů"
 
 #: ../src/base/fm-utils.c:65
 msgid "KB"
-msgstr "KB"
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:70
 msgid "MB"
@@ -430,8 +429,8 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Některé soubory nelze přesunout do koše, protože podkladový souborový systém "
-"tuto operaci nepodporuje.\n"
+"Některé soubory nelze přesunout do koše, protože souborový systém tuto "
+"operaci nepodporuje.\n"
 "Chcete je trvale odstranit?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
@@ -465,9 +464,9 @@ msgstr "Mění se atributy souborů"
 #: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "bajt"
-msgstr[1] "bajty"
-msgstr[2] "bajtů"
+msgstr[0] "byte"
+msgstr[1] "byty"
+msgstr[2] "bytů"
 
 #: ../src/gtk/fm-file-properties.c:226
 msgid "Please enter a valid user name or numeric id."
@@ -634,20 +633,21 @@ msgstr "Zobrazit _skryté soubory"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Pouze pro tuto složku"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Zaškrtněte pro uložení nastavení řazení pro danou složku namísto globálního "
+"nastavení"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Prosím vyberte složku"
+msgstr "Míchat soubory a složky"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Ignorovat velikost znaků v názvu souboru"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
