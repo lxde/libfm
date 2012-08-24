@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-15 10:41+0200\n"
+"PO-Revision-Date: 2012-08-24 12:25+0200\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -633,20 +633,22 @@ msgstr "Toon _verborgen"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Alleen voor deze map"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Vink aan om sorteren te onthouden als mapinstelling in plaats van algemene "
+"instelling"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Gelieve een map te kiezen"
+msgstr "Bestanden en mappen vermengen"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
 msgstr ""
+"Bij een naam niet letten op verschil tussen hoofdletters en kleine letters"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
