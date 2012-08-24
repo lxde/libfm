@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-23 01:18+0200\n"
-"Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
+"PO-Revision-Date: 2012-08-24 19:26+0200\n"
+"Last-Translator: Y P <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -135,7 +135,7 @@ msgstr "<b>Розмір на диску:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Open _with:</b>"
-msgstr "<b>Відкрити з:</b>"
+msgstr "<b>Відкрити _з:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
@@ -220,7 +220,7 @@ msgstr "Встановити GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr "\"Липкий\" та встановити GID"
+msgstr "Приліпити та встановити GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
@@ -508,7 +508,7 @@ msgstr "Відмонтувати диск"
 
 #: ../src/gtk/fm-places-view.c:101
 msgid "Eject Removable Media"
-msgstr "Витягнути змінний носій"
+msgstr "Витягнути знімний носій"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
