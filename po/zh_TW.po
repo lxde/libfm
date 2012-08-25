@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-07-09 14:17+0200\n"
+"PO-Revision-Date: 2012-08-25 13:45+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -393,7 +393,7 @@ msgid ""
 msgstr ""
 "類型：%s\n"
 "大小：%s\n"
-"修改：%s"
+"最後修改：%s"
 
 #: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
 #, c-format
@@ -402,7 +402,7 @@ msgid ""
 "Modified: %s"
 msgstr ""
 "類型：%s\n"
-"修改：%s"
+"最後修改：%s"
 
 #: ../src/gtk/fm-progress-dlg.c:327
 msgid "The file operation is cancelled and there are some errors."
@@ -595,29 +595,27 @@ msgstr "大小"
 
 #: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
-msgstr "修改"
+msgstr "最後修改"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "建立新的(_N)..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
 msgstr "資料夾"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
 msgstr "空白檔案"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
 msgstr "捷徑"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "反向選擇(_I)"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
@@ -629,67 +627,63 @@ msgstr "顯示隱藏檔案(_H)"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "只在此資料夾"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "勾選記住資料夾排序設定，而非全域設定"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "請選擇資料夾"
+msgstr "混合檔案與資料夾"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "不理會名稱大小寫"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
-msgstr "依名稱(&N)"
+msgstr "依名稱(_N)"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
 msgstr "依修改時間(_M)"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "大小"
+msgstr "依大小(_S)"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>檔案類型：</b>"
+msgstr "依檔案類型(_T)"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "為新建資料夾輸入名稱："
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "為新建檔案輸入名稱："
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "建立新的..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "網路"
+msgstr "新增"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "錯誤，未安裝 lxshortcut"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "未能啟動 lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
-msgstr "已安裝的應用程式"
+msgstr "已安裝應用程式"
 
 #: ../src/gtk/fm-gtk-utils.c:47
 msgid "Error"
