@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-28 20:02+0200\n"
+"PO-Revision-Date: 2012-08-28 21:00+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
@@ -53,10 +53,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Спецыяльныя коды загаднага радка:</b>\n"
-"  <b>%f</b>: Паказвае назву аднаго файла\n"
-"  <b>%F</b>: Паказвае назвы некалькіх файлаў\n"
-"  <b>%u</b>: Паказвае шлях аднаго файла\n"
-"  <b>%U</b>: Паказвае шляхі некалькіх файлаў"
+"  <b>%f</b>: назва аднаго файла\n"
+"  <b>%F</b>: назвы некалькіх файлаў\n"
+"  <b>%u</b>: шлях аднаго файла\n"
+"  <b>%U</b>: шляхі некалькіх файлаў"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Custom Command Line"
@@ -68,7 +68,7 @@ msgstr "Устанавіць вылучаную праграму як прадв
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
-msgstr "Пацверджанне перамяшчэння файлаў"
+msgstr "Пацверджанне перазапісу файлаў"
 
 #: ../data/ui/ask-rename.glade.h:2
 msgid ""
