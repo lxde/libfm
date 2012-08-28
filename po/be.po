@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-28 19:12+0200\n"
+"PO-Revision-Date: 2012-08-28 20:02+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
@@ -252,7 +252,7 @@ msgstr "Падрыхтоўка..."
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
-msgstr "<b>Выконваецца</b>"
+msgstr "<b>Выконваецца:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:6
@@ -381,7 +381,7 @@ msgstr "Цэтлікі"
 
 #: ../src/base/fm-mime-type.c:63
 msgid "Mount Point"
-msgstr "Пункт манціравання"
+msgstr "Пункт мацавання"
 
 #: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
@@ -431,7 +431,7 @@ msgid ""
 msgstr ""
 "Некаторыя файлы не могуць быць змешчаны ў сметніцу, таму што файлавая "
 "сістэма не падтрымлівае гэту аперацыю.\n"
-"Жадаеце сцерці іх назусім?"
+"Хочаце сцерці іх назусім?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
 msgid ", "
@@ -480,7 +480,7 @@ msgstr "Увядзіце дзейсную назву групы ці лічба�
 #: ../src/gtk/fm-file-properties.c:446
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "Жадаеце прымяніць змены рэкурсіўна да ўсіх файлаў і падкаталогаў?"
+msgstr "Прымяніць змены рэкурсіўна да ўсіх файлаў і падкаталогаў?"
 
 #: ../src/gtk/fm-file-properties.c:626
 msgid "<b>Access content:</b>"
@@ -496,11 +496,11 @@ msgstr "Некалькі файлаў"
 
 #: ../src/gtk/fm-places-view.c:99
 msgid "Mount Volume"
-msgstr "Манціраваць дыск"
+msgstr "Прымацаваць дыск"
 
 #: ../src/gtk/fm-places-view.c:100
 msgid "Unmount Volume"
-msgstr "Разманціраваць дыск"
+msgstr "Размацаваць дыск"
 
 #: ../src/gtk/fm-places-view.c:101
 msgid "Eject Removable Media"
@@ -577,7 +577,7 @@ msgstr "Памылка XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:114
 msgid "Use selected application to open files"
-msgstr "Ужываць абраную праграму для адкрыцця файлаў"
+msgstr "Ужываць выбраную праграму для адкрыцця файлаў"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:121
 msgid "Execute custom command line to open files"
@@ -601,7 +601,7 @@ msgstr "Памер"
 
 #: ../src/gtk/fm-standard-view.c:610
 msgid "Modified"
-msgstr "Зменена"
+msgstr "Зменены"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
@@ -718,7 +718,7 @@ msgstr "Перамясціць вылучаныя файлы ў сметніцу
 
 #: ../src/gtk/fm-gtk-utils.c:664
 msgid "Do you want to delete the selected files?"
-msgstr "Жадаеце сцерці вылучаныя файлы?"
+msgstr "Хочаце сцерці вылучаныя файлы?"
 
 #: ../src/gtk/fm-gtk-utils.c:711
 msgid "Rename File"
@@ -730,7 +730,7 @@ msgstr "Увядзіце новую назву:"
 
 #: ../src/gtk/fm-gtk-utils.c:736
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Жадаеце ачысціць сметніцу?"
+msgstr "Хочаце ачысціць сметніцу?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:101
 #, c-format
@@ -744,7 +744,7 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:108
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Гэты файл '%s' - выканальны. Жадаеце запусціць яго?"
+msgstr "Гэты файл '%s' - выканальны. Хочаце запусціць яго?"
 
 #: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
