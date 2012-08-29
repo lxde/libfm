@@ -379,8 +379,10 @@ gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_cont
             if(file_infos)
             {
                 FmFileInfo* fi = fm_file_info_list_peek_head(fm_file_info_list_ref(file_infos));
+                /* FIXME: how can it be? it should be checked beforehand */
+                if(fi == NULL) ;
                 /* get the device of the first dragged source file */
-                if(fm_path_is_native(fm_file_info_get_path(fi)))
+                else if(fm_path_is_native(fm_file_info_get_path(fi)))
                     dd->src_dev = fm_file_info_get_dev(fi);
                 else
                     dd->src_fs_id = fm_file_info_get_fs_id(fi);
