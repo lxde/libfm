@@ -142,6 +142,8 @@ static const GtkTargetEntry dnd_src_targets[] = {
     { "GTK_TREE_MODEL_ROW", GTK_TARGET_SAME_WIDGET, FM_DND_DEST_TARGET_BOOOKMARK }
 };
 
+static GdkAtom tree_model_row_atom;
+
 static void fm_places_view_dispose(GObject *object)
 {
     FmPlacesView* self;
@@ -248,7 +250,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     gtk_tree_view_get_dest_row_at_pos(&view->parent, x, y, &tp, &pos);
 
     /* handle reordering bookmark items first */
-    if(target == gdk_atom_intern("GTK_TREE_MODEL_ROW", TRUE))
+    if(target == tree_model_row_atom)
     {
         /* bookmark item is being dragged */
         ret = get_bookmark_drag_dest(view, &tp, &pos);
@@ -321,7 +323,7 @@ static gboolean on_drag_drop ( GtkWidget *dest_widget,
 
     GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     /* this is to reorder bookmark */
-    if(target == gdk_atom_intern("GTK_TREE_MODEL_ROW", TRUE))
+    if(target == tree_model_row_atom)
     {
         gtk_drag_get_data(dest_widget, drag_context, target, time);
         ret = TRUE;
@@ -462,7 +464,7 @@ static void fm_places_view_init(FmPlacesView *self)
     /* add our own targets */
     gtk_target_list_add_table(targets, dnd_dest_targets, G_N_ELEMENTS(dnd_dest_targets));
 
-    g_signal_connect(self->dnd_dest, "files_dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
+    g_signal_connect(self->dnd_dest, "files-dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
 }
 
 /**
@@ -956,4 +958,6 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
+
+    tree_model_row_atom = gdk_atom_intern_static_string("GTK_TREE_MODEL_ROW");
 }
