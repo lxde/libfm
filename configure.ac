@@ -24,6 +24,9 @@ AC_ARG_ENABLE(actions,
 )
 if test x"$enable_actions" = xyes; then
     AM_PROG_VALAC([0.13.0])
+    if test x"$VALAC" = x; then
+        AC_ERROR([No Vala compiler found but it is required.])
+    fi
     LIBFMACTIONS='$(srcdir)/actions/libfmactions.la'
     ACTIONS_SUBDIR='actions'
     AC_DEFINE(HAVE_ACTIONS, 1, [Define to 1 to enable custom actions])
