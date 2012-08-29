@@ -522,6 +522,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
         if(gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target) == target)
         {
             ret = TRUE;
+            i = fm_default_dnd_dest_targets[i].info;
             break;
         }
     }

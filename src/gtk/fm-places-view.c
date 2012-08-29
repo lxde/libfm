@@ -65,7 +65,8 @@ static void on_rename_bm(GtkAction* act, gpointer user_data);
 static void on_empty_trash(GtkAction* act, gpointer user_data);
 
 static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
-                                       int info_type, FmFileInfoList* files, FmPlacesView* view);
+                                          FmDndDestTargetType info_type,
+                                          FmPathList* files, FmPlacesView* view);
 
 //static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonitorEvent evt, gpointer user_data);
 //static void on_use_trash_changed(FmConfig* cfg, gpointer unused);
@@ -225,7 +226,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
         *pos = GTK_TREE_VIEW_DROP_AFTER;
         ret = TRUE;
     }
-    /* g_debug("path: %s", gtk_tree_path_to_string(*tp)); */
+    /* g_debug("path: %s, pos: %d, ret: %d", gtk_tree_path_to_string(*tp), *pos, ret); */
     return ret;
 }
 
@@ -247,7 +248,7 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     gtk_tree_view_get_dest_row_at_pos(&view->parent, x, y, &tp, &pos);
 
     /* handle reordering bookmark items first */
-    if(target == gdk_atom_intern_static_string("GTK_TREE_MODEL_ROW"))
+    if(target == gdk_atom_intern("GTK_TREE_MODEL_ROW", TRUE))
     {
         /* bookmark item is being dragged */
         ret = get_bookmark_drag_dest(view, &tp, &pos);
@@ -320,7 +321,7 @@ static gboolean on_drag_drop ( GtkWidget *dest_widget,
 
     GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     /* this is to reorder bookmark */
-    if(target == gdk_atom_intern_static_string("GTK_TREE_MODEL_ROW"))
+    if(target == gdk_atom_intern("GTK_TREE_MODEL_ROW", TRUE))
     {
         gtk_drag_get_data(dest_widget, drag_context, target, time);
         ret = TRUE;
@@ -856,15 +857,17 @@ static void on_empty_trash(GtkAction* act, gpointer user_data)
     fm_empty_trash(view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL);
 }
 
-static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
-                               int info_type, FmFileInfoList* files, FmPlacesView* view)
+static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
+                                          GdkDragAction action,
+                                          FmDndDestTargetType info_type,
+                                          FmPathList* files, FmPlacesView* view)
 {
     FmPath* dest;
     GList* l;
     gboolean ret = FALSE;
 
     dest = fm_dnd_dest_get_dest_path(dd);
-    /* g_debug("action= %d, %d files-dropped!, info_type: %d", action, fm_list_get_length(files), info_type); */
+    /* g_debug("action= %d, %d files-dropped!, dest=%p info_type: %d", action, fm_path_list_get_length(files), dest, info_type); */
 
     if(!dest && action == GDK_ACTION_LINK) /* add bookmarks */
     {
@@ -878,11 +881,18 @@ static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAc
             int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
                 --idx;
-            for( l=fm_file_info_list_peek_head_link(files); l; l=l->next, ++idx )
+            for( l=fm_path_list_peek_head_link(files); l; l=l->next, ++idx )
             {
-                FmFileInfo* fi = FM_FILE_INFO(l->data);
-                if(fm_file_info_is_dir(fi))
-                    fm_bookmarks_insert(fm_places_model_get_bookmarks(model), fm_file_info_get_path(fi), fm_file_info_get_disp_name(fi), idx);
+                FmPath* path = FM_PATH(l->data);
+                GFile* gf = fm_path_to_gfile(path);
+                if(g_file_query_file_type(gf, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                          NULL) == G_FILE_TYPE_DIRECTORY)
+                {
+                    char* disp_name = fm_path_display_basename(path);
+                    fm_bookmarks_insert(fm_places_model_get_bookmarks(model), path, disp_name, idx);
+                    g_free(disp_name);
+                }
+                g_object_unref(gf);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
             gtk_tree_path_free(sep);
