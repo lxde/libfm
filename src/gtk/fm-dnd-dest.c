@@ -218,7 +218,15 @@ static void fm_dnd_dest_init(FmDndDest *self)
  * fm_dnd_dest_new
  * @w: a widget that probably is drop destination
  *
- * Creates new drag destination descriptor.
+ * Creates new drag destination descriptor and sets a widget as a
+ * potential drop destination. Caller should connect handlers for the
+ * Gtk+ Drag and Drop signals to the widget: #GtkWidget::drag-leave,
+ * #GtkWidget::drag-motion, #GtkWidget::drag-drop, and
+ * #GtkWidget::drag-data-received.
+ *
+ * Before 1.0.1 this API didn't set drop destination on widget so caller
+ * should set it itself. Access to fm_default_dnd_dest_targets outside
+ * of this API considered unsecure so that behavior was changed.
  *
  * See also: fm_dnd_dest_new_with_handlers().
  *
@@ -238,9 +246,12 @@ FmDndDest *fm_dnd_dest_new(GtkWidget* w)
  * fm_dnd_dest_new_with_handlers
  * @w: a widget that probably is drop destination
  *
- * Creates new drag destination descriptor and setups handlers for the Gtk+
- * Drag and Drop signals: #GtkWidget::drag-leave, #GtkWidget::drag-drop,
- * and #GtkWidget::drag-data-received.
+ * Creates new drag destination descriptor, sets a widget as a potential
+ * drop destination, and connects handlers for the Gtk+ Drag and Drop
+ * signals: #GtkWidget::drag-leave, #GtkWidget::drag-drop, and
+ * #GtkWidget::drag-data-received. Caller should connect own handler for
+ * the #GtkWidget::drag-motion signal to the widget to complete the
+ * support.
  *
  * See also: fm_dnd_dest_new().
  *
@@ -262,6 +273,10 @@ FmDndDest *fm_dnd_dest_new_with_handlers(GtkWidget* w)
  * @w: a widget that probably is drop destination
  *
  * Updates link to widget that probably is drop destination.
+ *
+ * Before 1.0.1 this API didn't update drop destination on widget so caller
+ * should set and unset it itself. Access to fm_default_dnd_dest_targets
+ * outside of this API considered unsecure so that behavior was changed.
  *
  * See also: fm_dnd_dest_new()
  *
