@@ -71,6 +71,7 @@ struct _FmDndDestClass
 
 GType       fm_dnd_dest_get_type        (void);
 FmDndDest*  fm_dnd_dest_new         (GtkWidget* w);
+FmDndDest*  fm_dnd_dest_new_with_handlers (GtkWidget* w);
 
 void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w);
 
@@ -103,6 +104,20 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                                              GdkAtom target);
 
 void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint time);
+
+/**
+ * fm_dnd_dest_add_targets
+ * @widget: #GtkWidget to add targets
+ * @targets: pointer to array of #GtkTargetEntry to add
+ * @n: number of targets to add
+ *
+ * Adds drag&drop targets to existing list for @widget. Convenience API.
+ *
+ * Since: 1.0.1
+ */
+#define fm_dnd_dest_add_targets(widget,targets,n) \
+            gtk_target_list_add_table(gtk_drag_dest_get_target_list(widget), \
+                                      targets, n)
 
 G_END_DECLS
 
