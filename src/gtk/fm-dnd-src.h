@@ -83,6 +83,20 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w);
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files);
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file);
 
+/**
+ * fm_dnd_src_add_targets
+ * @widget: #GtkWidget to add targets
+ * @targets: pointer to array of #GtkTargetEntry to add
+ * @n: number of targets to add
+ *
+ * Adds drag source targets to existing list for @widget. Convenience API.
+ *
+ * Since: 1.0.1
+ */
+#define fm_dnd_src_add_targets(widget,targets,n) \
+            gtk_target_list_add_table(gtk_drag_source_get_target_list(widget), \
+                                      targets, n)
+
 G_END_DECLS
 
 #endif /* __FM_DND_SRC_H__ */

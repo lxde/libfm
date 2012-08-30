@@ -343,6 +343,7 @@ fm_dnd_unset_dest_auto_scroll
 FmDndDest
 FmDndDestClass
 FmDndDestTargetType
+fm_dnd_dest_add_targets
 fm_dnd_dest_drag_data_received
 fm_dnd_dest_drag_drop
 fm_dnd_dest_drag_leave
@@ -352,6 +353,7 @@ fm_dnd_dest_get_dest_file
 fm_dnd_dest_get_dest_path
 fm_dnd_dest_is_target_supported
 fm_dnd_dest_new
+fm_dnd_dest_new_with_handlers
 fm_dnd_dest_set_dest_file
 fm_dnd_dest_set_widget
 fm_drag_context_has_target
@@ -372,6 +374,7 @@ gdk_drag_context_list_targets
 FmDndSrc
 FmDndSrcClass
 FmDndSrcTarget
+fm_dnd_src_add_targets
 fm_dnd_src_new
 fm_dnd_src_set_file
 fm_dnd_src_set_files

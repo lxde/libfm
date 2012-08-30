@@ -111,7 +111,7 @@ void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint t
  * @targets: pointer to array of #GtkTargetEntry to add
  * @n: number of targets to add
  *
- * Adds drag&drop targets to existing list for @widget. Convenience API.
+ * Adds drop destination targets to existing list for @widget. Convenience API.
  *
  * Since: 1.0.1
  */

@@ -64,6 +64,13 @@
  * pressed for something else (rubberbanding for example) then it should
  * disable Gtk drag handlers when needs (by blocking handlers that match
  * object data "gtk-site-data" usually).
+ *
+ * If widget wants to handle some types of data other than #FmFileInfo
+ * objects it should do it the usual way by connecting handlers for the
+ * #GtkWidget::drag-data-get, #GtkWidget::drag-begin, and #GtkWidget::drag-end
+ * signals and adding own targets to widget's drag source target list. To
+ * exclude conflicts the widget's specific handlers should use info
+ * indices starting from N_FM_DND_SRC_DEFAULT_TARGETS.
  */
 
 #include "fm-dnd-src.h"
