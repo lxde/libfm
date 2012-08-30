@@ -26,8 +26,44 @@
  *
  * @include: libfm/fm-dnd-src.h
  *
- * The #FmDndSrc is used to assign selection for Drag & Drop operations
- * and deliver info about it to target widget when requested.
+ * The #FmDndSrc can be used by some widget to provide support for drag
+ * operations on #FmFileInfo objects that are represented in that widget.
+ *
+ * To use #FmDndSrc the widget should create it with fm_dnd_src_new() and
+ * connect to the #FmDndSrc::data-get signal of the created #FmDndSrc
+ * object.
+ * <example id="example-fmdndsrc-usage">
+ * <title>Sample Usage</title>
+ * <programlisting>
+ * {
+ *    widget->ds = fm_dnd_src_new(widget);
+ *    g_signal_connect(widget->ds, "data-get", G_CALLBACK(on_data_get), widget);
+ *
+ *    ...
+ * }
+ *
+ * static void on_object_finalize(GObject *widget, ...)
+ * {
+ *    ...
+ *
+ *    fm_dnd_src_set_widget(widget->ds, NULL);
+ *    g_signal_handlers_disconnect_by_data(widget->ds, widget);
+ *    g_object_unref(G_OBJECT(widget->ds));
+ * }
+ *
+ * static void on_data_get(FmDndSrc *ds, MyWidget *widget)
+ * {
+ *    FmFileInfo *file = widget->selected_file;
+ *
+ *    fm_dnd_src_set_file(ds, file);
+ * }
+ * </programlisting>
+ * </example>
+ * The #FmDndSrc will set drag activation for the widget by left mouse
+ * button so if widget wants to use mouse movement with left button
+ * pressed for something else (rubberbanding for example) then it should
+ * disable Gtk drag handlers when needs (by blocking handlers that match
+ * object data "gtk-site-data" usually).
  */
 
 #include "fm-dnd-src.h"
@@ -130,6 +166,10 @@ static void fm_dnd_src_init(FmDndSrc *self)
  *
  * Creates new drag source descriptor.
  *
+ * Before 1.0.1 this API didn't update drag source on widget so caller
+ * should set it itself. Since access to fm_default_dnd_src_targets
+ * outside of this API considered unsecure, that behavior was changed.
+ *
  * Returns: (transfer full): a new #FmDndSrc object.
  *
  * Since: 0.1.0
@@ -147,6 +187,10 @@ FmDndSrc *fm_dnd_src_new(GtkWidget* w)
  * @w: (allow-none): the widget where source files are selected
  *
  * Resets drag source widget in @ds.
+ *
+ * Before 1.0.1 this API didn't update drag source on widget so caller
+ * should set and unset it itself. Access to fm_default_dnd_src_targets
+ * outside of this API considered unsecure so that behavior was changed.
  *
  * Since: 0.1.0
  */
@@ -218,6 +262,9 @@ on_drag_data_get ( GtkWidget *src_widget,
                    FmDndSrc* ds )
 {
     GdkAtom type;
+
+    if(info != FM_DND_SRC_TARGET_FM_LIST && info != FM_DND_SRC_TARGET_URI_LIST)
+        return;
 
     /*  Don't call the default handler  */
     g_signal_stop_emission_by_name( src_widget, "drag-data-get" );
