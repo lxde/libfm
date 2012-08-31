@@ -64,7 +64,7 @@
  *                                gint x, gint y, guint time, FmDndDest *dd)
  * {
  *    GdkAtom target;
- *    GdkDragAction action = GDK_ACTION_DEFAULT;
+ *    GdkDragAction action = 0;
  *    FmFileInfo *file_info;
  *
  *    target = gtk_drag_dest_find_target(widget, drag_context, NULL);
@@ -77,7 +77,7 @@
  *      action = fm_dnd_dest_get_default_action(widget->dd, drag_context, target);
  *    }
  *    gdk_drag_status(drag_context, action, time);
- *    return (action != GDK_ACTION_DEFAULT);
+ *    return (action != 0);
  * }
  * </programlisting>
  * </example>
@@ -365,7 +365,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
         g_debug("TODO: GDK_ACTION_ASK");
         break;
     case GDK_ACTION_PRIVATE:
-    case GDK_ACTION_DEFAULT:
+    default: /* invalid combination */
         ;
     }
     return TRUE;
@@ -760,7 +760,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     FmPath* dest_path;
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
-        return GDK_ACTION_DEFAULT;
+        return 0;
 
     /* special support for dropping onto desktop entry */
     if(fm_file_info_is_desktop_entry(dest))
