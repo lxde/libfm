@@ -336,7 +336,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 
     /* check if we drop directory onto itself */
     src = fm_path_list_peek_head(files);
-    if(fm_path_equal(src, dest))
+    if(!src || fm_path_equal(src, dest))
         return FALSE;
     /* Check if source and destination directories are the same */
     src = fm_path_get_parent(src);
