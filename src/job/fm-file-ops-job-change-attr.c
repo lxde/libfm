@@ -169,6 +169,7 @@ _retry_enum_children:
             return FALSE;
         }
 
+        job->src_folder_mon = NULL;
         if(! g_file_is_native(gf))
             job->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
 

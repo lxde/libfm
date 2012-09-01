@@ -1176,6 +1176,7 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
 }
 #endif
 
+/* FIXME: move this near fm_launch_paths() */
 static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, GtkWindow* win)
 {
     if(err->domain == G_IO_ERROR)
@@ -1256,6 +1257,8 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             FmFileInfo* target_fi;
             FmPath* real_path = fm_path_new_for_str(target);
             /* query the info of target */
+            /* FIXME: all this should be done in fm_launch_paths() instead so
+               everything should be simplified to fm_launch_path_simple(...) */
             FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);
             fm_file_info_job_add(job, real_path);
             g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), win);
