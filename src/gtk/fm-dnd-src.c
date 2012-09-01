@@ -46,7 +46,6 @@
  * {
  *    ...
  *
- *    fm_dnd_src_set_widget(widget->ds, NULL);
  *    g_signal_handlers_disconnect_by_data(widget->ds, widget);
  *    g_object_unref(G_OBJECT(widget->ds));
  * }

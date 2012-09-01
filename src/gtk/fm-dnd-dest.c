@@ -56,7 +56,6 @@
  * {
  *    ...
  *
- *    fm_dnd_dest_set_widget(widget->dd, NULL);
  *    g_object_unref(G_OBJECT(widget->dd));
  * }
  *
