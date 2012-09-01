@@ -32,7 +32,7 @@
  *
  * To use #FmDndDest the widget should create it - the simplest API for
  * this is fm_dnd_dest_new_with_handlers(). When #FmDndDest is created
- * the API setups some drag destination types for the widget. The widget
+ * some drop data types ("targets") are set for the widget. The widget
  * can extend the list by adding own targets to the list and connecting
  * own handlers to the #GtkWidget::drag-leave, #GtkWidget::drag-drop,
  * and #GtkWidget::drag-data-received signals.
@@ -67,17 +67,17 @@
  *    GdkDragAction action = 0;
  *    FmFileInfo *file_info;
  *
+ *    file_info = my_widget_find_file_at_coords(widget, x, y);
+ *    fm_dnd_dest_set_dest_file(widget->dd, file_info);
+ *    if (file_info == NULL)
+ *       return FALSE; /&ast; not in drop zone &ast;/
  *    target = gtk_drag_dest_find_target(widget, drag_context, NULL);
- *    if (target == GDK_NONE)
- *      return FALSE;
- *    if (fm_dnd_dest_is_target_supported(widget->dd, target))
- *    {
- *      file_info = my_widget_find_file_at_coords(widget, x, y);
- *      fm_dnd_dest_set_dest_file(widget->dd, file_info);
- *      action = fm_dnd_dest_get_default_action(widget->dd, drag_context, target);
- *    }
+ *    if (target != GDK_NONE && fm_dnd_dest_is_target_supported(widget->dd, target))
+ *       action = fm_dnd_dest_get_default_action(widget->dd, drag_context, target);
+ *    if (action == 0)
+ *       return FALSE; /&ast; cannot drop on that destination &ast;/
  *    gdk_drag_status(drag_context, action, time);
- *    return (action != 0);
+ *    return TRUE;
  * }
  * </programlisting>
  * </example>
@@ -272,13 +272,14 @@ FmDndDest *fm_dnd_dest_new_with_handlers(GtkWidget* w)
  * @dd: a drag destination descriptor
  * @w: a widget that probably is drop destination
  *
- * Updates link to widget that probably is drop destination.
+ * Updates link to widget that probably is drop destination and setups
+ * widget with drop targets supported by FmDndDest.
  *
  * Before 1.0.1 this API didn't update drop destination on widget so caller
  * should set and unset it itself. Access to fm_default_dnd_dest_targets
  * outside of this API considered unsecure so that behavior was changed.
  *
- * See also: fm_dnd_dest_new()
+ * See also: fm_dnd_dest_new(), fm_dnd_dest_new_with_handlers().
  *
  * Since: 0.1.0
  */
