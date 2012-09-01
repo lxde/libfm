@@ -81,6 +81,10 @@ GtkTargetEntry fm_default_dnd_src_targets[] =
     {"text/uri-list", 0, FM_DND_SRC_TARGET_URI_LIST}
 };
 
+#if 0
+static GdkAtom src_target_atom[N_FM_DND_SRC_DEFAULT_TARGETS];
+#endif
+
 enum
 {
     DATA_GET,
@@ -138,6 +142,14 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0 );
+
+#if 0
+    for(i = 0; i < N_FM_DND_SRC_DEFAULT_TARGETS; i++)
+        src_target_atom[i] = GDK_NONE;
+    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_src_targets); i++)
+        src_target_atom[fm_default_dnd_src_targets[i].info] =
+            gdk_atom_intern_static_string(fm_default_dnd_src_targets[i].target);
+#endif
 }
 
 
@@ -278,6 +290,9 @@ on_drag_data_get ( GtkWidget *src_widget,
 //    drag_context->actions = GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK;
 
     type = gdk_atom_intern_static_string(fm_default_dnd_src_targets[info].target);
+#if 0
+    type = dest_target_atom[info];
+#endif
     switch( info )
     {
     case FM_DND_SRC_TARGET_FM_LIST:
