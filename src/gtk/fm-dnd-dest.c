@@ -124,6 +124,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
     {"application/x-fmlist-ptr", GTK_TARGET_SAME_APP, FM_DND_DEST_TARGET_FM_LIST},
     {"text/uri-list", 0, FM_DND_DEST_TARGET_URI_LIST}, /* text/uri-list */
     {"XdndDirectSave0", 0, FM_DND_DEST_TARGET_XDS} /* X direct save */
+    /* TODO: add more targets to support: text types, _NETSCAPE_URL, property/bgimage ... */
 };
 
 /* GdkAtom value for drag target: XdndDirectSave0 */
