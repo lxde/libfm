@@ -113,7 +113,14 @@ static void fm_config_init(FmConfig *self)
     self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
     self->thumbnail_local = FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL;
     self->thumbnail_max = FM_CONFIG_DEFAULT_THUMBNAIL_MAX;
+    /* show_internal_volumes defaulted to FALSE */
+    /* si_unit defaulted to FALSE */
+    /* terminal and archiver defaulted to NULL */
     self->advanced_mode = FALSE;
+    self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
+    self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
+    self->no_usb_trash = FM_CONFIG_DEFAULT_NO_USB_TRASH;
+    self->no_child_non_expandable = FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY;
 }
 
 /**

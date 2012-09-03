@@ -43,6 +43,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SINGLE_CLICK      FALSE
 #define     FM_CONFIG_DEFAULT_USE_TRASH         TRUE
 #define     FM_CONFIG_DEFAULT_CONFIRM_DEL       TRUE
+#define     FM_CONFIG_DEFAULT_NO_USB_TRASH      FALSE
 
 #define     FM_CONFIG_DEFAULT_BIG_ICON_SIZE     48
 #define     FM_CONFIG_DEFAULT_SMALL_ICON_SIZE   16
@@ -52,6 +53,10 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
 #define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
+
+#define     FM_CONFIG_DEFAULT_FORCE_S_NOTIFY    TRUE
+#define     FM_CONFIG_DEFAULT_BACKUP_HIDDEN     TRUE
+#define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 
 struct _FmConfig
 {
@@ -88,8 +93,14 @@ struct _FmConfig
     gpointer _reserved2;
     gboolean backup_as_hidden; /* treat backup files as hidden */
     };
+    union {
     gpointer _reserved3;
+    gboolean no_usb_trash; /* don't create trash folder on removable media */
+    };
+    union {
     gpointer _reserved4;
+    gboolean no_child_non_expandable; /* hide expanders on empty folder */
+    };
 };
 
 /**
