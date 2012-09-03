@@ -23,6 +23,7 @@
 #include "fm-file-ops-job-delete.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-monitor.h"
+#include "fm-config.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -288,7 +289,25 @@ _retry_trash:
             g_free(disp);
             goto _on_error;
         }
-        ret = g_file_trash(gf, fm_job_get_cancellable(fmjob), &err);
+        ret = FALSE;
+        if(fm_config->no_usb_trash)
+        {
+            GMount *mnt = g_file_find_enclosing_mount(gf, NULL, &err);
+
+            if(mnt)
+            {
+                ret = g_mount_can_unmount(mnt); /* TRUE if it's removable media */
+                g_object_unref(mnt);
+            }
+            else
+            {
+                g_error_free(err);
+                err = NULL;
+            }
+        }
+
+        if(!ret)
+            ret = g_file_trash(gf, fm_job_get_cancellable(fmjob), &err);
         if(!ret)
         {
 _on_error:
