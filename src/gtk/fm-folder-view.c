@@ -130,15 +130,15 @@ static const GtkActionEntry folder_popup_actions[]=
     {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, G_CALLBACK(on_paste)},
     {"Paste2", NULL, NULL, "<Ctrl>Insert", NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK(on_trash)},
-    {"Del2", GTK_STOCK_DELETE, NULL, "KP_Delete", NULL, G_CALLBACK(on_trash)},
+    {"Del2", NULL, NULL, "KP_Delete", NULL, G_CALLBACK(on_trash)},
     {"Remove", GTK_STOCK_REMOVE, NULL, "<Shift>Delete", NULL, G_CALLBACK(on_rm)},
-    {"Remove2", GTK_STOCK_REMOVE, NULL, "<Shift>KP_Delete", NULL, G_CALLBACK(on_rm)},
+    {"Remove2", NULL, NULL, "<Shift>KP_Delete", NULL, G_CALLBACK(on_rm)},
     {"SelAll", GTK_STOCK_SELECT_ALL, NULL, "<Ctrl>A", NULL, G_CALLBACK(on_select_all)},
     {"InvSel", NULL, N_("_Invert Selection"), "<Ctrl>I", NULL, G_CALLBACK(on_invert_select)},
     {"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
-    {"Rename", NULL, N_("Rename"), NULL, NULL, G_CALLBACK(on_rename)},
+    {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
     {"Prop", GTK_STOCK_PROPERTIES, NULL, "", NULL, G_CALLBACK(on_prop)},
-    {"FileProp", GTK_STOCK_PROPERTIES, NULL, "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
+    {"FileProp", GTK_STOCK_PROPERTIES, N_("Prop_erties"), "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"Menu", NULL, NULL, "Menu", NULL, G_CALLBACK(on_menu)},
@@ -148,10 +148,10 @@ static const GtkActionEntry folder_popup_actions[]=
 static GtkToggleActionEntry folder_toggle_actions[]=
 {
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE},
-    {"SortPerFolder", NULL, N_("Only for this folder"), NULL,
+    {"SortPerFolder", NULL, N_("_Only for this folder"), NULL,
                 N_("Check to remember sort as folder setting rather than global one"), NULL, FALSE},
-    {"MingleDirs", NULL, N_("Mingle files and folders"), NULL, NULL, NULL, FALSE},
-    {"SortIgnoreCase", NULL, N_("Ignore name case"), NULL, NULL, NULL, TRUE}
+    {"MingleDirs", NULL, N_("Mingle _files and folders"), NULL, NULL, NULL, FALSE},
+    {"SortIgnoreCase", NULL, N_("_Ignore name case"), NULL, NULL, NULL, TRUE}
 };
 
 static const GtkRadioActionEntry folder_sort_type_actions[]=

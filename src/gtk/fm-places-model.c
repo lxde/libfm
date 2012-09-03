@@ -612,7 +612,7 @@ static void create_trash_item(FmPlacesModel* model)
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(GTK_LIST_STORE(model), &it,
                        FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, _("Trash"), -1);
+                       FM_PLACES_MODEL_COL_LABEL, _("Trash Can"), -1);
     g_object_unref(pix);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);

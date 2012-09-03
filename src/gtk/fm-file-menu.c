@@ -106,20 +106,20 @@ const char base_menu_xml[]=
 /* FIXME: how to show accel keys in the popup menu? */
 GtkActionEntry base_menu_actions[]=
 {
-    {"Open", GTK_STOCK_OPEN, NULL, NULL, NULL, G_CALLBACK(on_open)},
-    {"OpenWith", NULL, N_("Open With..."), NULL, NULL, G_CALLBACK(on_open_with)},
-    {"OpenWithMenu", NULL, N_("Open With..."), NULL, NULL, NULL},
+    {"Open", GTK_STOCK_OPEN, N_("_Open"), NULL, NULL, G_CALLBACK(on_open)},
+    {"OpenWith", NULL, N_("Open _With..."), NULL, NULL, G_CALLBACK(on_open_with)},
+    {"OpenWithMenu", NULL, N_("Open _With..."), NULL, NULL, NULL},
     {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(on_cut)},
     {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
-    {"Rename", NULL, N_("Rename"), NULL, NULL, G_CALLBACK(on_rename)},
-    {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
-    {"SendTo", NULL, N_("Send To"), NULL, NULL, NULL},
-    {"Compress", NULL, N_("Compress..."), NULL, NULL, G_CALLBACK(on_compress)},
-    {"Extract", NULL, N_("Extract Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
-    {"Extract2", NULL, N_("Extract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK(on_prop)}
+    {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
+    {"Link", NULL, N_("Create _Symlink"), NULL, NULL, NULL},
+    {"SendTo", NULL, N_("Se_nd To"), NULL, NULL, NULL},
+    {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
+    {"Extract", NULL, N_("Extract _Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
+    {"Extract2", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
+    {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
 void fm_file_menu_destroy(FmFileMenu* menu)

@@ -50,6 +50,7 @@ static FmDirTreeModel* dir_tree_model = NULL;
 
 static char menu_xml[] =
 "<popup>"
+//  "<menuitem action='Off'/>"
   "<menuitem action='Places'/>"
   "<menuitem action='DirTree'/>"
 //  "<menuitem action='Remote'/>"
@@ -57,9 +58,10 @@ static char menu_xml[] =
 
 static GtkRadioActionEntry menu_actions[]=
 {
-    {"Places", NULL, N_("Places"), NULL, NULL, FM_SP_PLACES},
-    {"DirTree", NULL, N_("Directory Tree"), NULL, NULL, FM_SP_DIR_TREE},
-    {"Remote", NULL, N_("Remote"), NULL, NULL, FM_SP_REMOTE},
+    {"Off", NULL, N_("_Off"), NULL, NULL, FM_SP_NONE},
+    {"Places", NULL, N_("_Places"), NULL, NULL, FM_SP_PLACES},
+    {"DirTree", NULL, N_("_Directory Tree"), NULL, NULL, FM_SP_DIR_TREE},
+    {"Remote", NULL, N_("_Remote"), NULL, NULL, FM_SP_REMOTE},
 };
 
 

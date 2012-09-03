@@ -97,9 +97,9 @@ static const char mount_menu_xml[]=
 
 static GtkActionEntry vol_menu_actions[]=
 {
-    {"Mount", NULL, N_("Mount Volume"), NULL, NULL, G_CALLBACK(on_mount)},
-    {"Unmount", NULL, N_("Unmount Volume"), NULL, NULL, G_CALLBACK(on_umount)},
-    {"Eject", NULL, N_("Eject Removable Media"), NULL, NULL, G_CALLBACK(on_eject)}
+    {"Mount", NULL, N_("_Mount Volume"), NULL, NULL, G_CALLBACK(on_mount)},
+    {"Unmount", NULL, N_("_Unmount Volume"), NULL, NULL, G_CALLBACK(on_umount)},
+    {"Eject", NULL, N_("_Eject Removable Media"), NULL, NULL, G_CALLBACK(on_eject)}
 };
 
 static const char bookmark_menu_xml[]=
@@ -112,8 +112,8 @@ static const char bookmark_menu_xml[]=
 
 static GtkActionEntry bm_menu_actions[]=
 {
-    {"RenameBm", GTK_STOCK_EDIT, N_("Rename Bookmark Item"), NULL, NULL, G_CALLBACK(on_rename_bm)},
-    {"RemoveBm", GTK_STOCK_REMOVE, N_("Remove from Bookmark"), NULL, NULL, G_CALLBACK(on_remove_bm)}
+    {"RenameBm", GTK_STOCK_EDIT, N_("_Rename Bookmark Item"), NULL, NULL, G_CALLBACK(on_rename_bm)},
+    {"RemoveBm", GTK_STOCK_REMOVE, N_("Re_move from Bookmark"), NULL, NULL, G_CALLBACK(on_remove_bm)}
 };
 
 static const char trash_menu_xml[]=
@@ -125,7 +125,7 @@ static const char trash_menu_xml[]=
 
 static GtkActionEntry trash_menu_actions[]=
 {
-    {"EmptyTrash", NULL, N_("Empty Trash"), NULL, NULL, G_CALLBACK(on_empty_trash)}
+    {"EmptyTrash", NULL, N_("_Empty Trash"), NULL, NULL, G_CALLBACK(on_empty_trash)}
 };
 
 enum {
