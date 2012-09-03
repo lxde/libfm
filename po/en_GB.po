@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-07-14 10:55+0200\n"
+"PO-Revision-Date: 2012-09-03 13:06+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -601,94 +601,88 @@ msgstr "Modified"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "Create _New..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "Blank MO Disc"
+msgstr "Blank File"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "Shortcuts"
+msgstr "Short-cut "
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Invert Selection"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Sort Files"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Show _Hidden"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Only for this folder"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "Remember sort as per folder setting, rather than global setting"
 
 #: ../src/gtk/fm-folder-view.c:153
 #, fuzzy
 msgid "Mingle files and folders"
-msgstr "Please select a folder"
+msgstr "Mingle files and folders"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Ignore name case"
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "Name"
+msgstr "By _Name"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "By _Modification Time"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "Size"
+msgstr "By _Size"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>File Type:</b>"
+msgstr "By File _Type"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Enter a name for the newly created folder:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Enter a name for the newly created file:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "Create New..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "Network"
+msgstr "New"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Error, lxshortcut not installed"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Failed to start lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
