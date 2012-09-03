@@ -127,11 +127,7 @@ GtkTargetEntry fm_default_dnd_dest_targets[] =
     /* TODO: add more targets to support: text types, _NETSCAPE_URL, property/bgimage ... */
 };
 
-/* GdkAtom value for drag target: XdndDirectSave0 */
-static GdkAtom xds_target_atom = 0;
-#if 0
 static GdkAtom dest_target_atom[N_FM_DND_DEST_DEFAULT_TARGETS];
-#endif
 
 static void fm_dnd_dest_dispose              (GObject *object);
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
@@ -156,6 +152,7 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
 {
     GObjectClass *g_object_class;
     FmDndDestClass *dnd_dest_class;
+    guint i;
 
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->dispose = fm_dnd_dest_dispose;
@@ -190,14 +187,11 @@ static void fm_dnd_dest_class_init(FmDndDestClass *klass)
                      fm_marshal_BOOL__INT_INT_UINT_UINT_POINTER,
                      G_TYPE_BOOLEAN, 5, G_TYPE_INT, G_TYPE_INT, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER);
 
-    xds_target_atom = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[FM_DND_DEST_TARGET_XDS].target);
-#if 0
     for(i = 0; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
         dest_target_atom[i] = GDK_NONE;
     for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); i++)
         dest_target_atom[fm_default_dnd_dest_targets[i].info] =
             gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target);
-#endif
 }
 
 
@@ -498,7 +492,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
     data = (const gchar*)gtk_selection_data_get_data_with_length(sel_data, &length);
     format = gtk_selection_data_get_format(sel_data);
 
-    if(info ==  FM_DND_DEST_TARGET_FM_LIST)
+    if(info == FM_DND_DEST_TARGET_FM_LIST)
     {
         if((length == sizeof(gpointer)) && (format==8))
         /* FIXME: check if it's internal within application */
@@ -551,10 +545,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
         {
             GdkWindow *source_window;
             source_window = gdk_drag_context_get_source_window(drag_context);
-            gdk_property_change(source_window, xds_target_atom,
-#if 0
             gdk_property_change(source_window, dest_target_atom[FM_DND_DEST_TARGET_XDS],
-#endif
                                gdk_atom_intern_static_string("text/plain"), 8,
                                GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
         }
@@ -605,21 +596,13 @@ static void on_drag_data_received(GtkWidget *w, GdkDragContext *drag_context,
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 {
     guint i;
-    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
-    {
-        GdkAtom target = gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target);
-        if(fm_drag_context_has_target(drag_context, target))
-            return target;
-    }
-#if 0
-    for(i = 0; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
+    for(i = 1; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
     {
         GdkAtom target = dest_target_atom[i];
         if(G_LIKELY(target != GDK_NONE)
            && fm_drag_context_has_target(drag_context, target))
             return target;
     }
-#endif
     return GDK_NONE;
 }
 
@@ -636,25 +619,13 @@ GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
  */
 gboolean fm_dnd_dest_is_target_supported(FmDndDest* dd, GdkAtom target)
 {
-    gboolean ret = FALSE;
     guint i;
 
-    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
-    {
-        if(gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target) == target)
-        {
-            ret = TRUE;
-            break;
-        }
-    }
-    return ret;
-#if 0
     if(G_LIKELY(target != GDK_NONE))
-        for(i = 0; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
+        for(i = 1; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
             if(dest_target_atom[i] == target)
                 return TRUE;
     return FALSE;
-#endif
 }
 
 /**
@@ -684,24 +655,13 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
     gboolean ret = FALSE;
     GtkWidget* dest_widget = dd->widget;
     guint i;
-    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_dest_targets); ++i)
-    {
-        if(gdk_atom_intern_static_string(fm_default_dnd_dest_targets[i].target) == target)
-        {
-            ret = TRUE;
-            i = fm_default_dnd_dest_targets[i].info;
-            break;
-        }
-    }
-#if 0
     if(G_LIKELY(target != GDK_NONE))
-        for(i = 0; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
+        for(i = 1; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
             if(dest_target_atom[i] == target)
             {
                 ret = TRUE;
                 break;
             }
-#endif
     if(ret) /* we support this kind of target */
     {
         if(i == FM_DND_DEST_TARGET_XDS) /* if this is XDS */
@@ -712,7 +672,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             GdkAtom text_atom = gdk_atom_intern_static_string("text/plain");
             /* get filename from the source window */
             source_window = gdk_drag_context_get_source_window(drag_context);
-            if(gdk_property_get(source_window, xds_target_atom, text_atom,
+            if(gdk_property_get(source_window, target, text_atom,
                                 0, 1024, FALSE, NULL, NULL,
                                 &len, &data) && data)
             {
@@ -722,7 +682,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
                     FmPath* path = fm_path_new_child(fm_file_info_get_path(dest), (gchar*)data);
                     char* uri = fm_path_to_uri(path);
                     /* setup the property */
-                    gdk_property_change(source_window, xds_target_atom,
+                    gdk_property_change(source_window, target,
                                        text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)uri,
                                        strlen(uri) + 1);
                     fm_path_unref(path);
@@ -733,7 +693,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             {
                 fm_show_error(GTK_WINDOW(gtk_widget_get_toplevel(dest_widget)), NULL,
                               _("XDirectSave failed."));
-                gdk_property_change(source_window, xds_target_atom,
+                gdk_property_change(source_window, target,
                                    text_atom, 8, GDK_PROP_MODE_REPLACE, (const guchar *)"", 0);
             }
             g_free(data);
@@ -812,10 +772,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     }
 
     /* this is XDirectSave */
-    if(target == xds_target_atom)
-#if 0
     if(target == dest_target_atom[FM_DND_DEST_TARGET_XDS])
-#endif
         return GDK_ACTION_COPY;
 
     if(!dd->src_files)  /* we didn't have any data, cache it */

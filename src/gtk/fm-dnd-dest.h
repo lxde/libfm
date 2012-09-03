@@ -48,7 +48,7 @@ G_BEGIN_DECLS
  */
 typedef enum
 {
-    FM_DND_DEST_TARGET_FM_LIST,
+    FM_DND_DEST_TARGET_FM_LIST = 1,
     FM_DND_DEST_TARGET_URI_LIST,
     FM_DND_DEST_TARGET_XDS,
     /*< private >*/
