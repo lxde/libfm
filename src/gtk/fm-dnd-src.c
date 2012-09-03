@@ -282,8 +282,7 @@ on_drag_data_get ( GtkWidget *src_widget,
 {
     GdkAtom type;
 
-    /* FIXME: add support for FM_DND_SRC_TARGET_TEXT */
-    if(info != FM_DND_SRC_TARGET_FM_LIST && info != FM_DND_SRC_TARGET_URI_LIST)
+    if(info == 0 || info >= N_FM_DND_SRC_DEFAULT_TARGETS)
         return;
 
     /*  Don't call the default handler  */
@@ -291,10 +290,7 @@ on_drag_data_get ( GtkWidget *src_widget,
     g_signal_stop_emission_by_name( src_widget, "drag-data-get" );
 //    drag_context->actions = GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK;
 
-    type = gdk_atom_intern_static_string(fm_default_dnd_src_targets[info].target);
-#if 0
     type = gtk_selection_data_get_target(sel_data);
-#endif
     switch( info )
     {
     case FM_DND_SRC_TARGET_FM_LIST:
