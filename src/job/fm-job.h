@@ -85,10 +85,15 @@ struct _FmJob
     /* optional, should be created if the job uses gio */
     GCancellable* cancellable;
 
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    GMutex mutex;
+    GCond cond;
+#else
     /* optional, used when blocking the job to call a callback in
      * main thread is needed. */
     GMutex* mutex;
     GCond* cond;
+#endif
 };
 
 /**

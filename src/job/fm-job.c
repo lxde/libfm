@@ -222,6 +222,10 @@ static void fm_job_init(FmJob *self)
     if( G_UNLIKELY(!thread_pool) )
         thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
     ++n_jobs;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_init(&self->mutex);
+    g_cond_init(&self->cond);
+#endif
 }
 
 /**
@@ -248,11 +252,16 @@ static void fm_job_finalize(GObject *object)
 
     self = (FmJob*)object;
 
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_clear(&self->mutex);
+    g_cond_clear(&self->cond);
+#else
     if(self->mutex)
         g_mutex_free(self->mutex);
 
     if(self->cond)
         g_cond_free(self->cond);
+#endif
 
     if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
@@ -265,6 +274,7 @@ static void fm_job_finalize(GObject *object)
     }
 }
 
+#if !GLIB_CHECK_VERSION(2, 32, 0)
 static inline void init_mutex(FmJob* job)
 {
     if(!job->mutex)
@@ -273,6 +283,7 @@ static inline void init_mutex(FmJob* job)
         job->cond = g_cond_new();
     }
 }
+#endif
 
 static gboolean fm_job_real_run_async(FmJob* job)
 {
@@ -405,9 +416,15 @@ static gboolean on_idle_call(gpointer input_data)
 {
     FmIdleCall* data = (FmIdleCall*)input_data;
     data->ret = data->func(data->job, data->user_data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&data->job->mutex);
+    g_cond_broadcast(&data->job->cond);
+    g_mutex_unlock(&data->job->mutex);
+#else
     g_mutex_lock(data->job->mutex);
     g_cond_broadcast(data->job->cond);
     g_mutex_unlock(data->job->mutex);
+#endif
     return FALSE;
 }
 
@@ -434,14 +451,23 @@ gpointer fm_job_call_main_thread(FmJob* job,
                                  FmJobCallMainThreadFunc func, gpointer user_data)
 {
     FmIdleCall data;
-    init_mutex(job);
     data.job = job;
     data.func = func;
     data.user_data = user_data;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&job->mutex);
+#else
+    init_mutex(job);
     g_mutex_lock(job->mutex);
+#endif
     g_idle_add(on_idle_call, &data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_cond_wait(&job->cond, &job->mutex);
+    g_mutex_unlock(&job->mutex);
+#else
     g_cond_wait(job->cond, job->mutex);
     g_mutex_unlock(job->mutex);
+#endif
     return data.ret;
 }
 

@@ -137,7 +137,7 @@ static const GtkActionEntry folder_popup_actions[]=
     {"InvSel", NULL, N_("_Invert Selection"), "<Ctrl>I", NULL, G_CALLBACK(on_invert_select)},
     {"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
     {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, "", NULL, G_CALLBACK(on_prop)},
+    {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), "", NULL, G_CALLBACK(on_prop)},
     {"FileProp", GTK_STOCK_PROPERTIES, N_("Prop_erties"), "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},

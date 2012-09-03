@@ -623,7 +623,7 @@ static void update_permissions(FmFilePropData* data)
         return;
     }
     if(data->has_dir)
-        gtk_label_set_label(data->exec_label, _("<b>Access content:</b>"));
+        gtk_label_set_label(data->exec_label, _("<b>_Access content:</b>"));
     if(!fm_config->advanced_mode)
     {
         gtk_widget_hide(GTK_WIDGET(data->flags_label));
