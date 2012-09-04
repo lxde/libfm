@@ -125,7 +125,7 @@ static const char trash_menu_xml[]=
 
 static GtkActionEntry trash_menu_actions[]=
 {
-    {"EmptyTrash", NULL, N_("_Empty Trash"), NULL, NULL, G_CALLBACK(on_empty_trash)}
+    {"EmptyTrash", NULL, N_("_Empty Trash Can"), NULL, NULL, G_CALLBACK(on_empty_trash)}
 };
 
 enum {

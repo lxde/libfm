@@ -1,3 +1,19 @@
+Changes on 1.0.2 since 1.0.1:
+
+* Added 'no_usb_trash' option into config file, defaulted to 0, which
+    defines whether skip trashing files on removable media or not. If
+    defined to skip then files will go into "trash-unsupported" and user
+    will be asked by fm_file_ops_job_run_with_progress() to remove them
+    instead.
+
+* Added 'no_child_non_expandable' option into config file, defaulted to
+    0, which adds feature to hide expanders on non-expandable rows so no
+    extra 'No Sub Folder' rows are shown. No automation on that is done
+    still since it may be expensive sometimes.
+
+* Corrected underscores (mnemonics) on every menu and dialog.
+
+
 Changes on 1.0.1 since 1.0.0:
 
 * Fixed slowness on loading and changing of very large folders.

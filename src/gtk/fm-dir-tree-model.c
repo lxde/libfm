@@ -36,6 +36,7 @@
 #include "fm-dir-tree-model.h"
 #include "fm-folder.h"
 #include "fm-icon-pixbuf.h"
+#include "fm-config.h"
 
 #include <glib/gi18n-lib.h>
 #include <string.h>
@@ -90,6 +91,7 @@ static inline void _g_list_foreach_l(GList* list, GFunc func, gpointer user_data
 }
 
 /*
+FIXME: this is convenience to have expanders actualized but it may be expensive
 static void item_queue_subdir_check(FmDirTreeModel* model, GList* item_l);
 */
 
@@ -175,15 +177,13 @@ static inline FmDirTreeItem* fm_dir_tree_item_new(FmDirTreeModel* model, GList* 
     return item;
 }
 
-static inline void item_free_folder(FmFolder* item, GList* item_l);
+static inline void item_free_folder(FmFolder* item, gpointer item_l);
 
-/* Free the GList* element along with its associated FmDirTreeItem */
-static void fm_dir_tree_item_free_l(GList* item_l)
+static void fm_dir_tree_item_free_l(GList* item_l);
+
+/* Note: item_l below may be already freed so unusable as GList */
+static inline void fm_dir_tree_item_free(FmDirTreeItem* item, gpointer item_l)
 {
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-
-    if(!item) /* is it possible? */
-        return;
     if(item->folder)
         item_free_folder(item->folder, item_l);
     if(item->fi)
@@ -201,6 +201,16 @@ static void fm_dir_tree_item_free_l(GList* item_l)
         g_list_free(item->hidden_children);
     }
     g_slice_free(FmDirTreeItem, item);
+}
+
+/* Free the GList* element along with its associated FmDirTreeItem */
+static void fm_dir_tree_item_free_l(GList* item_l)
+{
+    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
+
+    if(!item) /* is it possible? */
+        return;
+    fm_dir_tree_item_free(item, item_l);
 }
 
 static inline void item_to_tree_iter(FmDirTreeModel* model, GList* item_l, GtkTreeIter* it)
@@ -652,7 +662,8 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
     gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), new_tp, &it);
 
     /* add a placeholder child item to make the node expandable */
-    add_place_holder_child_item(model, new_item_l, new_tp, TRUE);
+    if(!fm_config->no_child_non_expandable || fm_file_info_is_accessible(new_item->fi))
+        add_place_holder_child_item(model, new_item_l, new_tp, TRUE);
     gtk_tree_path_free(new_tp);
 
     /* TODO: check if the dir has subdirs and make it expandable if needed. */
@@ -687,34 +698,43 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
     GtkTreePath* tp = item_to_tree_path(model, item_l);
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)item->parent ? item->parent->data : NULL;
+    /* signal the view that we removed the item. */
+    gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
     if(item)
     {
-        fm_dir_tree_item_free_l(item_l);
         if(parent_item)
         {
+            parent_item->children = g_list_delete_link(parent_item->children, item_l);
             /* If the item being removed is the last child item of parent_item,
              * we need to insert a place holder item to keep it expandable. */
-            if(parent_item->children->next == NULL)
+            if(parent_item->children == NULL)
             {
                 GList* parent_l = item->parent;
-                int idx = gtk_tree_path_get_indices(tp)[gtk_tree_path_get_depth(tp) - 1];
+                //int idx = gtk_tree_path_get_indices(tp)[gtk_tree_path_get_depth(tp) - 1];
                 gtk_tree_path_up(tp);
-                add_place_holder_child_item(model, parent_l, tp, TRUE);
-                gtk_tree_path_append_index(tp, idx);
+                if(fm_config->no_child_non_expandable)
+                {
+                    GtkTreeIter it;
+                    item_to_tree_iter(model, parent_l, &it);
+                    /* signal the view to redraw row removing expander */
+                    gtk_tree_model_row_has_child_toggled(GTK_TREE_MODEL(model), tp, &it);
+                }
+                else
+                    add_place_holder_child_item(model, parent_l, tp, TRUE);
+                //gtk_tree_path_append_index(tp, 0);
             }
-            parent_item->children = g_list_delete_link(parent_item->children, item_l);
         }
         else /* root item */
         {
             /* FIXME: this needs more testing. */
             model->roots = g_list_delete_link(model->roots, item_l);
         }
+        fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
     }
-    else /* fake place holder item */
+    else /* error */
     {
+        g_critical("remove_item: FmDirTreeItem is NULL");
     }
-    /* signal the view that we removed the item. */
-    gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
     gtk_tree_path_free(tp);
 }
 
@@ -807,9 +827,9 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     /* set 'loaded' flag beforehand as callback may check it */
     item->loaded = TRUE;
     place_holder_l = item->children;
-    /* TODO: 1.1: don't leave expanders if not stated in config */
-//    if(!fm_config->show_empty_dir_expanders || place_holder_l->next)
-    if(place_holder_l->next) /* if we have loaded sub dirs, remove the place holder */
+    /* don't leave expanders if not stated in config */
+    /* if we have loaded sub dirs, remove the place holder */
+    if(fm_config->no_child_non_expandable || place_holder_l->next)
     {
         /* remove the fake placeholder item showing "Loading..." */
         remove_item(model, place_holder_l);
@@ -913,7 +933,7 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     /* gtk_tree_path_free(tp); */
 }
 
-static inline void item_free_folder(FmFolder* folder, GList* item_l)
+static inline void item_free_folder(FmFolder* folder, gpointer item_l)
 {
     g_signal_handlers_disconnect_by_func(folder, on_folder_finish_loading, item_l);
     g_signal_handlers_disconnect_by_func(folder, on_folder_files_added, item_l);
@@ -953,6 +973,7 @@ void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreeP
         FmFolder* folder = fm_folder_from_path(fm_file_info_get_path(item->fi));
         item->folder = folder;
 
+        /* g_debug("fm_dir_tree_model_load_row()"); */
         /* associate the data with loaded handler */
         g_signal_connect(folder, "finish-loading", G_CALLBACK(on_folder_finish_loading), item_l);
         g_signal_connect(folder, "files-added", G_CALLBACK(on_folder_files_added), item_l);
@@ -1008,7 +1029,7 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
     g_return_if_fail(item != NULL);
     if(item->expanded) /* do some cleanup */
     {
-//        GList* had_children = item->children;
+        GList* had_children = item->children;
         /* remove all children, and replace them with a dummy child
          * item to keep expander in the tree view around. */
         remove_all_children(model, item_l, tp);
@@ -1016,14 +1037,15 @@ void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
         /* now, GtkTreeView think that we have no child since all
          * child items are removed. So we add a place holder child
          * item to keep the expander around. */
-        /* TODO: 1.1: don't leave expanders if not stated in config */
-//        if(had_children)
-        add_place_holder_child_item(model, item_l, tp, TRUE);
+        /* don't leave expanders if not stated in config */
+        if(had_children)
+            add_place_holder_child_item(model, item_l, tp, TRUE);
         /* deactivate folder since it will be reactivated on expand */
         item_free_folder(item->folder, item_l);
         item->folder = NULL;
         item->expanded = FALSE;
         item->loaded = FALSE;
+        /* g_debug("fm_dir_tree_model_unload_row()"); */
     }
 }
 

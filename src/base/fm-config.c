@@ -179,6 +179,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "force_startup_notify", &cfg->force_startup_notify);
     fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
     fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
+    fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -279,6 +280,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "force_startup_notify=%d\n", cfg->force_startup_notify);
             fprintf(f, "backup_as_hidden=%d\n", cfg->backup_as_hidden);
             fprintf(f, "no_usb_trash=%d\n", cfg->no_usb_trash);
+            fprintf(f, "no_child_non_expandable=%d\n", cfg->no_child_non_expandable);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif
