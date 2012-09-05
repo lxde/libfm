@@ -44,6 +44,7 @@ struct _FmFileLauncher
     /* gboolean (*before_open)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data); */
     gboolean (*open_folder)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
     FmFileLauncherExecAction (*exec_file)(FmFileInfo* file, gpointer user_data);
+    /* returns TRUE to continue, FALSE to retry */
     gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);
     int (*ask)(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data);
 };

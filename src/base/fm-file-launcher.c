@@ -296,14 +296,48 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     return TRUE;
 }
 
+typedef struct
+{
+    GAppLaunchContext* ctx;
+    FmFileLauncher* launcher;
+    gpointer user_data;
+} QueryErrorData;
+
+static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, QueryErrorData* data)
+{
+#if 0
+    /* FIXME: ask for mount if trying to launch unmounted path? */
+    if(err->domain == G_IO_ERROR)
+    {
+        if(err->code == G_IO_ERROR_NOT_MOUNTED)
+        {
+            if(fm_mount_path(win, fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)), TRUE))
+                return FM_JOB_RETRY;
+        }
+        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
+            return FM_JOB_CONTINUE;
+    }
+#endif
+    if(data->launcher->error
+       && !data->launcher->error(data->ctx, err, data->user_data))
+        return FM_JOB_RETRY;
+    return FM_JOB_CONTINUE;
+}
+
 gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
 {
     FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);
     GList* l;
+    QueryErrorData data;
     gboolean ret;
     for(l=paths;l;l=l->next)
         fm_file_info_job_add(job, (FmPath*)l->data);
+    data.ctx = ctx;
+    data.launcher = launcher;
+    data.user_data = user_data;
+    g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
     ret = fm_job_run_sync_with_mainloop(FM_JOB(job));
+    g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
     if(ret)
     {
         GList* file_infos = fm_file_info_list_peek_head_link(job->file_infos);

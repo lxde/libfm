@@ -1224,23 +1224,6 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
     }
 }
 
-/* FIXME: move this near fm_launch_paths() */
-static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, GtkWindow* win)
-{
-    if(err->domain == G_IO_ERROR)
-    {
-        if(err->code == G_IO_ERROR_NOT_MOUNTED)
-        {
-            if(fm_mount_path(win, fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)), TRUE))
-                return FM_JOB_RETRY;
-        }
-        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
-            return FM_JOB_CONTINUE;
-    }
-    fm_show_error(win, NULL, err->message);
-    return FM_JOB_CONTINUE;
-}
-
 /**
  * fm_folder_view_item_clicked
  * @fv: the folder view widget
@@ -1302,25 +1285,8 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
         if(target && !fm_file_info_is_symlink(fi))
         {
             /* symlinks also has fi->target, but we only handle shortcuts here. */
-            FmFileInfo* target_fi;
             FmPath* real_path = fm_path_new_for_str(target);
-            /* query the info of target */
-            /* FIXME: all this should be done in fm_launch_paths() instead so
-               everything should be simplified to fm_launch_path_simple(...) */
-            FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);
-            fm_file_info_job_add(job, real_path);
-            g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), win);
-            fm_job_run_sync_with_mainloop(FM_JOB(job));
-            g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, win);
-            target_fi = fm_file_info_list_peek_head(job->file_infos);
-            if(target_fi)
-                fm_file_info_ref(target_fi);
-            g_object_unref(job);
-            if(target_fi)
-            {
-                fm_launch_path_simple(win, NULL, real_path, open_folders, win);
-                fm_file_info_unref(target_fi);
-            }
+            fm_launch_path_simple(win, NULL, real_path, open_folders, win);
             fm_path_unref(real_path);
         }
         else
