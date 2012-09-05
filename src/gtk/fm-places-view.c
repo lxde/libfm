@@ -229,10 +229,6 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     /* try FmDndDest */
     else if(fm_dnd_dest_is_target_supported(view->dnd_dest, target))
     {
-        /* query default action (this may trigger drag-data-received signal)
-         * FIXME: this is a dirty and bad API design definitely requires refactor. */
-        action = fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
-
         /* the user is dragging files. get FmFileInfo of drop site. */
         if(pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE || pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) /* drag into items */
         {
@@ -244,23 +240,22 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
 
             fi = item ? fm_places_item_get_info(item) : NULL;
             fm_dnd_dest_set_dest_file(view->dnd_dest, fi);
-            ret = action != 0;
+            /* query default action (this may trigger drag-data-received signal)
+             * FIXME: this is a dirty and bad API design definitely requires refactor. */
+            action = fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
         }
         else /* drop between items, create bookmark items for dragged files */
         {
             fm_dnd_dest_set_dest_file(view->dnd_dest, NULL);
+            /* FmDndDest requires this call */
+            fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
             if( (!tp || fm_places_model_path_is_bookmark(model, tp))
                && get_bookmark_drag_dest(view, &tp, &pos)) /* tp is after separator */
-            {
                 action = GDK_ACTION_LINK;
-                ret = TRUE;
-            }
             else
-            {
                 action = 0;
-                ret = FALSE;
-            }
         }
+        ret = (action != 0);
     }
     gdk_drag_status(drag_context, action, time);
 
