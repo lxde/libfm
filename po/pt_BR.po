@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-15 07:43+0200\n"
+"PO-Revision-Date: 2012-09-02 06:38+0200\n"
 "Last-Translator: Adriano <adrianoh2@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
@@ -635,20 +635,19 @@ msgstr "_Exibir Ocultos"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Somente para esta pasta"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "Selecione para lembrar as configurações feitas na pasta de forma global"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Por favor selecione uma pasta"
+msgstr "Minsturar arquivos e pastas"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Ignorar sensibilidade de maiúscula e minúscula"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"

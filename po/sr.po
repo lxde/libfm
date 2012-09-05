@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2010-11-02 01:34+0100\n"
-"Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
+"PO-Revision-Date: 2012-08-30 15:52+0100\n"
+"Last-Translator: Jay A.Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -159,44 +158,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Група:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Програм за пријем е-поште</b>"
+msgstr "<b>Преглед садржаја:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Одредиште:</b>"
+msgstr "<b>Мењање садржаја:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Остали:</b>"
+msgstr "<b>Изврши:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Отвори по_моћу:</b>"
+msgstr "<b>Посебне битности:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Ко може читати садржај датотеке/директоријума"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Ко може мењати садржај датотеке/директоријума"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Ко може покренути датотеку или приступити директоријуму"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Посебне дозволе при покретању датотеке"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Посебне дозволе код приступа директоријуму"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -236,19 +231,19 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Нико"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Само власник"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Само власник и чланови групе"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Сви"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -277,7 +272,8 @@ msgstr "<b>Преостало време: </b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>Догодиле су се неке грешке: </b>"
 
-#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Подразумевани програми"
 
@@ -294,12 +290,8 @@ msgid "<b>Mail client</b>"
 msgstr "<b>Програм за пријем е-поште</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се "
-"користити за писање е-писама."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Када кликнете на адресе е-поште подразумевани програм за е-пошту ће се користити за писање е-писама."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -325,7 +317,8 @@ msgstr "Покрени датотеку"
 msgid "Execute in _Terminal"
 msgstr "Покрени у емулатору _терминала"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:57
+#: ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -373,7 +366,8 @@ msgstr "Непотребно"
 msgid "My Computer"
 msgstr "Рачунар"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
+#: ../src/base/fm-path.c:740
+#: ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "Програми"
 
@@ -393,7 +387,8 @@ msgstr "Тачка монтирања"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:223
+#: ../src/gtk/fm-progress-dlg.c:242
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -404,7 +399,8 @@ msgstr ""
 "Величина: %s\n"
 "Измењено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:230
+#: ../src/gtk/fm-progress-dlg.c:249
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -431,12 +427,10 @@ msgstr "Завршено"
 
 #: ../src/gtk/fm-progress-dlg.c:357
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Неке датотеке се не могу преместити у Непотребно јер примарни систем "
-"датотека не подржава\n"
+"Неке датотеке се не могу преместити у Непотребно јер примарни систем датотека не подржава\n"
 " ову операцију. Желите ли да их трајно уклоните?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
@@ -467,7 +461,8 @@ msgstr "Прављење меких веза"
 msgid "Changing file attributes"
 msgstr "Измена особина датотеке"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:154
+#: ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u бајт"
@@ -484,16 +479,12 @@ msgstr "Унесите исправно име групе или ИД број."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:446
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Желите ли да рекурзивно применим ову радњу на све датотеке и "
-"поддиректоријуме?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Желите ли да рекурзивно применим ову радњу на све датотеке и поддиректоријуме?"
 
 #: ../src/gtk/fm-file-properties.c:626
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Контрола приступа</b>"
+msgstr "<b>Приступ садржају:</b>"
 
 #: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
@@ -516,7 +507,8 @@ msgid "Eject Removable Media"
 msgstr "Избаци преносиви медиј"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:114
+#: ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Преименуј обележивач"
 
@@ -532,23 +524,27 @@ msgstr "Обриши датотеке из Непотребно"
 msgid "Enter a new name:"
 msgstr "Унесите ново име:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:60
+#: ../src/gtk/fm-side-pane.c:400
 msgid "Places"
-msgstr ""
+msgstr "Места"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:61
+#: ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
-msgstr ""
+msgstr "Стабло директоријума"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
-msgstr ""
+msgstr "Удаљено"
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
+#: ../src/gtk/fm-file-menu.c:110
+#: ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Отвори помоћу..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
+#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Преименуј"
 
@@ -614,94 +610,87 @@ msgstr "Измењено"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "Створи _нов..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "Директоријум"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "Празан диск"
+msgstr "Празна датотека"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "Пречице"
+msgstr "Пречица"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Обрни _избор"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Сложи датотеке"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Прикажи с_кривене"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Само за овај директоријум"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Изаберите директоријум"
+msgstr "Помешај датотеке и директоријуме"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "Име"
+msgstr "По _имену"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "По времену _измене"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "Величина"
+msgstr "По _величини"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Врста датотеке:</b>"
+msgstr "По _врсти датотеке"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Унесите име за новостворени директоријум:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Унесите име за новостворени датотеку:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "Направи нов..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "Мрежа"
+msgstr "Нов"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Грешка! Програм „lxshortcut“ није инсталиран"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Нисам успео да покренем програм „lxshortcut“"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
@@ -711,14 +700,14 @@ msgstr "Доступни програми"
 msgid "Error"
 msgstr "Грешка"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:59
+#: ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
-msgstr ""
+msgstr "Потврди"
 
 #: ../src/gtk/fm-gtk-utils.c:121
-#, fuzzy
 msgid "Question"
-msgstr "Опис"
+msgstr "Питање"
 
 #: ../src/gtk/fm-gtk-utils.c:390
 msgid "Please select a folder"
@@ -764,16 +753,18 @@ msgstr ""
 "Датотека „%s“ је означена као програм.\n"
 "Желите ли да је покренете?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#: ../src/gtk/fm-dir-tree-model.c:408
+#: ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
-msgstr ""
+msgstr "<Без поддиректоријума>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
-#, fuzzy
+#: ../src/gtk/fm-dir-tree-model.c:410
+#: ../src/gtk/fm-dir-tree-model.c:1181
 msgid "Loading..."
-msgstr "Припрема..."
+msgstr "Учитавање..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:270
+#: ../src/job/fm-dir-list-job.c:281
 #: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
@@ -828,11 +819,13 @@ msgstr "Пиши-бриши диск"
 msgid "Blank CD-RW Disc"
 msgstr "Празан пиши-бриши диск"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "Једном уписиви ДВД диск"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "Празан једном-уписиви ДВД диск"
 

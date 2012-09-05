@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-15 07:18+0200\n"
+"PO-Revision-Date: 2012-08-23 07:01+0200\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -628,20 +628,19 @@ msgstr "הצגת מו_סתרים"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "רק עבור תיקייה זו"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "יש לסמן כדי לשמור את אופן סידור התיקייה בשונה מההגדרות הכלליות"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "נא לבחור בתיקייה"
+msgstr "ערבוב בין קבצים ותיקיות"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "התעלמות משינויי אותיות רישיות בשם"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"

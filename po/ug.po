@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-21 10:49+0200\n"
+"PO-Revision-Date: 2012-08-29 06:30+0200\n"
 "Last-Translator: Gheyret <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
@@ -617,7 +617,7 @@ msgstr "تېزلەتمە"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "تاللاشنى تەتۈر قىل(_I)"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
@@ -629,20 +629,19 @@ msgstr "يوشۇرۇننى كۆرسەت(_H)"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "مۇشۇ قىسقۇچقىلا"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "قىسقۇچنىڭلا تەرتىپلەش تەڭشىكىنى ساقلاش ئەستە تۇتۇش ئۈچۈن تاللاڭ"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "قىسقۇچتىن بىرنى تاللاڭ."
+msgstr "قىسقۇچ بىلەن ھۆججەت ئارىلاش"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "چوڭ-كىچىك يېزىلىشىغا قارىمىسۇن"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
