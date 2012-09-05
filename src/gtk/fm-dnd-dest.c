@@ -41,7 +41,12 @@
  * widget. The handler should check if drop can be performed. And if
  * #FmDndDest can accept the drop then widget should inform #FmDndDest
  * object about #FmFileInfo object the mouse pointer targets at that
- * moment by calling fm_dnd_dest_set_dest_file().
+ * moment by calling fm_dnd_dest_set_dest_file(). The #FmDndDest uses a
+ * little different sequence for collecting dragged data - it queries
+ * data in time of drag motion and uses when data are dropped therefore
+ * widget should always call API fm_dnd_dest_get_default_action() from
+ * handler of the #GtkWidget::drag-motion signal for any target which
+ * #FmDndDest supports.
  * <example id="example-fmdnddest-usage">
  * <title>Sample Usage</title>
  * <programlisting>
@@ -761,7 +766,8 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     FmPath* dest_path;
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
-        return 0;
+        /* query drag sources in any case */
+        goto query_sources;
 
     /* we may have another data already so clear the cache */
     if(dd->idle)
@@ -788,6 +794,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
     if(!dd->src_files)  /* we didn't have any data, cache it */
     {
+query_sources:
         action = 0;
         if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
         {
@@ -796,8 +803,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             dd->waiting_data = TRUE;
         }
     }
-
-    if(dd->src_files) /* we have got drag source files */
+    else /* we have got drag source files */
     {
         if(fm_path_is_trash(dest_path))
         {
