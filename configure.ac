@@ -7,6 +7,9 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
+dnl version of API generation
+FMLIBVER="1.0"
+
 # automake 1.12 requires AM_PROG_AR.
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
@@ -202,6 +205,15 @@ done
 
 AM_GLIB_GNU_GETTEXT
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
+
+AC_SUBST(FMLIBVER)
+if test `eval "echo $includedir"` = /usr/include
+then
+    FMINCLUDEADD=''
+else
+    FMINCLUDEADD='-I${includedir}'
+fi
+AC_SUBST(FMINCLUDEADD)
 
 dnl Fix invalid sysconfdir when --prefix=/usr
 if test `eval "echo $sysconfdir"` = /usr/etc

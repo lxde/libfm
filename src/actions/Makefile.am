@@ -37,7 +37,7 @@ AM_VALAFLAGS = \
     --header fm-actions.h \
 	$(NULL)
 
-libfmactionsincludedir = $(includedir)/libfm/libfm
+libfmactionsincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfmactionsinclude_HEADERS = \
 	fm-actions.h \
 	$(NULL)
