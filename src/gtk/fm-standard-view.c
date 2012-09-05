@@ -209,7 +209,7 @@ static void fm_standard_view_init(FmStandardView *self)
     self->dnd_src = fm_dnd_src_new(NULL);
     g_signal_connect(self->dnd_src, "data-get", G_CALLBACK(on_dnd_src_data_get), self);
 
-    self->dnd_dest = fm_dnd_dest_new(NULL);
+    self->dnd_dest = fm_dnd_dest_new_with_handlers(NULL);
 
     self->mode = -1;
     self->sort_type = GTK_SORT_ASCENDING;
@@ -352,32 +352,6 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv)
     set_icon_size(fv, cfg->thumbnail_size);
 }
 
-static void on_drag_data_received(GtkWidget *dest_widget,
-                                    GdkDragContext *drag_context,
-                                    gint x,
-                                    gint y,
-                                    GtkSelectionData *sel_data,
-                                    guint info,
-                                    guint time,
-                                    FmStandardView* fv )
-{
-    fm_dnd_dest_drag_data_received(fv->dnd_dest, drag_context, x, y, sel_data, info, time);
-}
-
-static gboolean on_drag_drop(GtkWidget *dest_widget,
-                               GdkDragContext *drag_context,
-                               gint x,
-                               gint y,
-                               guint time,
-                               FmStandardView* fv)
-{
-    gboolean ret = FALSE;
-    GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
-    if(target != GDK_NONE)
-        ret = fm_dnd_dest_drag_drop(fv->dnd_dest, drag_context, target, x, y, time);
-    return ret;
-}
-
 static GtkTreePath* get_drop_path_list_view(FmStandardView* fv, gint x, gint y)
 {
     GtkTreePath* tp = NULL;
@@ -454,14 +428,6 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
     gdk_drag_status(drag_context, action, time);
 
     return ret;
-}
-
-static void on_drag_leave(GtkWidget *dest_widget,
-                                GdkDragContext *drag_context,
-                                guint time,
-                                FmStandardView* fv)
-{
-    fm_dnd_dest_drag_leave(fv->dnd_dest, drag_context, time);
 }
 
 static inline void create_icon_view(FmStandardView* fv, GList* sels)
@@ -642,9 +608,6 @@ static void unset_view(FmStandardView* fv)
         g_signal_handlers_disconnect_by_func(fv->view, on_sel_changed, fv);
     /* these signals connected by fm_standard_view_set_mode() */
     g_signal_handlers_disconnect_by_func(fv->view, on_drag_motion, fv);
-    g_signal_handlers_disconnect_by_func(fv->view, on_drag_leave, fv);
-    g_signal_handlers_disconnect_by_func(fv->view, on_drag_drop, fv);
-    g_signal_handlers_disconnect_by_func(fv->view, on_drag_data_received, fv);
     g_signal_handlers_disconnect_by_func(fv->view, on_btn_pressed, fv);
 
     fm_dnd_unset_dest_auto_scroll(fv->view);
@@ -804,9 +767,6 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         fm_dnd_src_set_widget(fv->dnd_src, fv->view);
         fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);
         g_signal_connect_after(fv->view, "drag-motion", G_CALLBACK(on_drag_motion), fv);
-        g_signal_connect(fv->view, "drag-leave", G_CALLBACK(on_drag_leave), fv);
-        g_signal_connect(fv->view, "drag-drop", G_CALLBACK(on_drag_drop), fv);
-        g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
         /* connecting it after sometimes conflicts with system configuration
            (bug #3559831) so we just hope here it will be handled in order
            of connecting, i.e. after ExoIconView or ExoTreeView handler */
