@@ -1087,11 +1087,9 @@ static void fm_standard_view_unselect_all(FmFolderView* ffv)
 static void on_dnd_src_data_get(FmDndSrc* ds, FmStandardView* fv)
 {
     FmFileInfoList* files = fm_standard_view_dup_selected_files(FM_FOLDER_VIEW(fv));
+    fm_dnd_src_set_files(ds, files);
     if(files)
-    {
-        fm_dnd_src_set_files(ds, files);
         fm_file_info_list_unref(files);
-    }
 }
 
 static gboolean on_sel_changed_real(FmStandardView* fv)
