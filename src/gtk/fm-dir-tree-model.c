@@ -695,16 +695,19 @@ static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePa
 
 static void remove_item(FmDirTreeModel* model, GList* item_l)
 {
-    GtkTreePath* tp = item_to_tree_path(model, item_l);
+    GtkTreePath* tp;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    FmDirTreeItem* parent_item = (FmDirTreeItem*)item->parent ? item->parent->data : NULL;
-    /* signal the view that we removed the item. */
-    gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
-    if(item)
-    {
-        if(parent_item)
+
+    g_return_if_fail(item != NULL);
+    tp = item_to_tree_path(model, item_l);
+
+        if(item->parent)
         {
+            FmDirTreeItem* parent_item = item->parent->data;
+
             parent_item->children = g_list_delete_link(parent_item->children, item_l);
+            /* signal the view that we removed the item. */
+            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
             /* If the item being removed is the last child item of parent_item,
              * we need to insert a place holder item to keep it expandable. */
             if(parent_item->children == NULL)
@@ -728,13 +731,11 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
         {
             /* FIXME: this needs more testing. */
             model->roots = g_list_delete_link(model->roots, item_l);
+            /* signal the view that we removed the item. */
+            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
         }
-        fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
-    }
-    else /* error */
-    {
-        g_critical("remove_item: FmDirTreeItem is NULL");
-    }
+
+    fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
     gtk_tree_path_free(tp);
 }
 
