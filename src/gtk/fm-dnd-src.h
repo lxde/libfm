@@ -42,6 +42,7 @@ G_BEGIN_DECLS
  * FmDndSrcTarget
  * @FM_DND_SRC_TARGET_FM_LIST: direct pointer of FmList
  * @FM_DND_SRC_TARGET_URI_LIST: "text/uri-list"
+ * @N_FM_DND_SRC_DEFAULT_TARGETS: widget's target indices should start from this
  *
  * default targets of drag source
  */
@@ -51,6 +52,12 @@ typedef enum
     FM_DND_SRC_TARGET_URI_LIST,
     //FM_DND_SRC_TARGET_TEXT,
     /*< private >*/
+    FM_DND_SRC_RESERVED1,
+    FM_DND_SRC_RESERVED2,
+    FM_DND_SRC_RESERVED3,
+    FM_DND_SRC_RESERVED4,
+    FM_DND_SRC_RESERVED5,
+    /*< public >*/
     N_FM_DND_SRC_DEFAULT_TARGETS
 } FmDndSrcTarget;
 
