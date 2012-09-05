@@ -798,7 +798,7 @@ gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is a separator.
+ * Checks if the row by @tp is a separator between places and bookmarks.
  *
  * Returns: %TRUE if the row is a separator.
  *
@@ -823,7 +823,7 @@ gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is a bookmark item.
+ * Checks if the row by @tp lies within bookmark items.
  *
  * Returns: %TRUE if the row is a bookmark item.
  *
@@ -848,7 +848,7 @@ gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp)
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is not a bookmark.
+ * Checks if the row by @tp lies above separator, i.e. within "places".
  *
  * Returns: %TRUE if the row is a places item.
  *
