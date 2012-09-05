@@ -287,8 +287,7 @@ on_drag_data_get ( GtkWidget *src_widget,
 
     /*  Don't call the default handler  */
     /* FIXME: is this ever needed? */
-    g_signal_stop_emission_by_name( src_widget, "drag-data-get" );
-//    drag_context->actions = GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK;
+    /* g_signal_stop_emission_by_name( src_widget, "drag-data-get" ); */
 
     type = gtk_selection_data_get_target(sel_data);
     switch( info )
@@ -316,7 +315,7 @@ on_drag_data_get ( GtkWidget *src_widget,
                 g_string_append( uri_list, "\r\n" );
             }
             gtk_selection_data_set ( sel_data, type, 8,
-                                     ( guchar* ) uri_list->str, uri_list->len + 1 );
+                                     ( guchar* ) uri_list->str, uri_list->len );
             g_string_free( uri_list, TRUE );
         }
         break;
