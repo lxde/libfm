@@ -317,6 +317,7 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     }
 }
 
+/* own handler for "files-dropped" signal */
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
                                           guint action, guint info_type,
                                           FmPathList* files)
@@ -367,10 +368,9 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
         break;
     case GDK_ACTION_ASK:
         g_debug("TODO: GDK_ACTION_ASK");
-        break;
     case GDK_ACTION_PRIVATE:
     default: /* invalid combination */
-        ;
+        return FALSE;
     }
     return TRUE;
 }
@@ -495,7 +495,6 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
     if(info == FM_DND_DEST_TARGET_FM_LIST)
     {
         if((length == sizeof(gpointer)) && (format==8))
-        /* FIXME: check if it's internal within application */
         {
             /* get the pointer */
             FmFileInfoList* file_infos = *(FmFileInfoList**)data;
@@ -556,17 +555,20 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
         gtk_drag_finish(drag_context, TRUE, FALSE, time);
         return TRUE;
     }
-    else
-        return FALSE;
 
     /* remove previously cached source files. */
     if(G_UNLIKELY(dd->src_files))
         fm_path_list_unref(dd->src_files);
+    if(files && fm_path_list_is_empty(files))
+    {
+        g_warning("drag-data-received with empty list");
+        fm_path_list_unref(files);
+        files = NULL;
+    }
     dd->src_files = files;
     dd->waiting_data = FALSE;
     dd->info_type = info;
-    /* FIXME: is it normal to return TRUE while dd->src_files is NULL? */
-    return TRUE;
+    return (files != NULL);
 }
 
 gboolean fm_dnd_dest_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
@@ -702,7 +704,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             return TRUE;
         }
 
-        /* see if the drag files are cached */
+        /* see if the dragged files are cached by "drag-motion" handler */
         if(dd->src_files)
         {
             GdkDragAction action = gdk_drag_context_get_selected_action(drag_context);
@@ -719,7 +721,8 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
             else
                 ret = FALSE;
         }
-        gtk_drag_finish(drag_context, ret, FALSE, time);
+        if(ret)
+            gtk_drag_finish(drag_context, ret, FALSE, time);
     }
     return ret;
 }
@@ -759,6 +762,14 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
         return 0;
+
+    /* we may have another data already so clear the cache */
+    if(dd->idle)
+    {
+        g_source_remove(dd->idle);
+        dd->idle = 0;
+        clear_src_cache(dd);
+    }
 
     /* special support for dropping onto desktop entry */
     if(fm_file_info_is_desktop_entry(dest))
@@ -810,7 +821,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
             gboolean same_fs;
             GdkModifierType mask = 0;
             gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
-            mask &= (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+            mask &= gtk_accelerator_get_default_mod_mask();
             /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
             if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))
                 action = GDK_ACTION_LINK;
@@ -818,9 +829,10 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
                 action = GDK_ACTION_MOVE;
             else if(mask == GDK_CONTROL_MASK)
                 action = GDK_ACTION_COPY;
-            else
+            else if(mask != 0) /* another modifier key was pressed */
+                action = 0;
             /* FIXME: make decision based on config: Auto / Copy / Ask */
-            if(dd->src_dev || dd->src_fs_id) /* we know the device of dragged source files */
+            else if(dd->src_dev || dd->src_fs_id) /* we know the device of dragged source files */
             {
                 /* compare the device/filesystem id against that of destination file */
                 if(fm_path_is_native(dest_path))
