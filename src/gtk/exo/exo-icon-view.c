@@ -1751,8 +1751,10 @@ exo_icon_view_size_allocate (GtkWidget     *widget,
   /* we need to emit "changed" ourselves */
   gtk_adjustment_changed (hadjustment);
   gtk_adjustment_changed (vadjustment);
+#if GTK_CHECK_VERSION(3, 0, 0)
   g_object_notify (G_OBJECT (icon_view), "hadjustment");
   g_object_notify (G_OBJECT (icon_view), "vadjustment");
+#endif
 }
 
 
@@ -1802,8 +1804,6 @@ exo_icon_view_expose_event (GtkWidget      *widget,
   if (G_UNLIKELY (event->window != priv->bin_window))
     return FALSE;
 #else
-  GtkAllocation           allocation;
-
   if (!gtk_cairo_should_draw_window (cr, priv->bin_window))
     return FALSE;
 #endif
@@ -1847,8 +1847,6 @@ exo_icon_view_expose_event (GtkWidget      *widget,
 #if GTK_CHECK_VERSION(3, 0, 0)
   cairo_save (cr);
   gtk_cairo_transform_to_window (cr, widget, priv->bin_window);
-  gtk_widget_get_allocation (widget, &allocation);
-  g_debug("drawing %d x %d at %d x %d", allocation.width, allocation.height, allocation.x, allocation.y);
 #else
   event_area = event->area;
 
@@ -1886,7 +1884,6 @@ exo_icon_view_expose_event (GtkWidget      *widget,
     {
       /* check if this item is in the visible area */
       item = EXO_ICON_VIEW_ITEM (lp->data);
-      g_debug("test item: %d x %d at %d x %d", item->area.width, item->area.height, item->area.x, item->area.y);
 #if !GTK_CHECK_VERSION(3, 0, 0)
       if (G_LIKELY (priv->layout_mode == EXO_ICON_VIEW_LAYOUT_ROWS))
         {
