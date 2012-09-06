@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-16 00:13+0200\n"
+"PO-Revision-Date: 2012-09-06 23:02+0200\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -632,20 +632,19 @@ msgstr "_Laga fayiro enkise"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Tterekero lino lyokka"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "Enteekateeka ey'okusengeka ekome ku tterekero lino lyokka"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Londa tterekero"
+msgstr "Tabika fayiro ne tterekero"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Tofa ku mpandika y'ennukuta z'omu linnya"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
@@ -677,7 +676,7 @@ msgstr "Kolawo..."
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "New"
-msgstr ""
+msgstr "Ntuma"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
