@@ -347,6 +347,10 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
     if(sep) /* we found a parent dir */
     {
         int parent_len = (sep - path_str) + 1; /* includes the dir separator / */
+        if(sep[1] == '\0' /* "/xxx/" - no names here yet */
+           || (sep[1] == '.' && sep[2] == '\0')) /* "/xxx/." */
+            clear_completion(priv);
+        else
         if(!priv->parent_dir
            || priv->parent_len != parent_len
            || strncmp(priv->parent_dir, path_str, parent_len ))
