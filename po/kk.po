@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-07-24 17:18+0200\n"
-"Last-Translator: sotrud_nik2 <baurthefirst@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-09-06 20:47+0600\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Poedit-Language: Kazakh\n"
+"X-Poedit-Country: KAZAKHSTAN\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -270,7 +271,8 @@ msgstr "<b>Қалған уақыты:</b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>Бірнеше қате орын алды:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Таңдамалы қолданбалар"
 
@@ -287,12 +289,8 @@ msgid "<b>Mail client</b>"
 msgstr "<b>Пошта қолданбасы:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"Таңдамалы пошта қолданбасы сіз эл. пошта адресіне шерткен кезде эл. хатты "
-"жазу үшін қолданылады."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "Таңдамалы пошта қолданбасы сіз эл. пошта адресіне шерткен кезде эл. хатты жазу үшін қолданылады."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -318,7 +316,8 @@ msgstr "Файлды орындау"
 msgid "Execute in _Terminal"
 msgstr "Тер_миналды орындау"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:57
+#: ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -364,7 +363,8 @@ msgstr "Қоқыс шелегі"
 msgid "My Computer"
 msgstr "Менің компьютерім"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
+#: ../src/base/fm-path.c:740
+#: ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "Қолданбалар"
 
@@ -384,7 +384,8 @@ msgstr "Тіркелу нүктесі"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:223
+#: ../src/gtk/fm-progress-dlg.c:242
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -395,7 +396,8 @@ msgstr ""
 "Өлшемі: %s\n"
 "Өзгертілген: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:230
+#: ../src/gtk/fm-progress-dlg.c:249
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -422,12 +424,10 @@ msgstr "Аяқталған"
 
 #: ../src/gtk/fm-progress-dlg.c:357
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Бірнеше файлдарды қоқыс шелегіне тастау мүмкін емес, өйткені олар орналасқан "
-"файлдық жүйе бұл әрекетті қолдамайды.\n"
+"Бірнеше файлдарды қоқыс шелегіне тастау мүмкін емес, өйткені олар орналасқан файлдық жүйе бұл әрекетті қолдамайды.\n"
 "Оларды өшіруді қалайсыз ба?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
@@ -458,7 +458,8 @@ msgstr "Сілтемелерді жасау"
 msgid "Changing file attributes"
 msgstr "Файлдар атрибуттарын өзгерту"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:154
+#: ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
@@ -473,11 +474,8 @@ msgstr "Дұрыс топ атын не сандық id енгізіңіз."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:446
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Бұз өзгерістерді рекурсивті түрде барлық ішкі файлдар мен бумаларға іске "
-"асыруды қалайсыз ба?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Бұз өзгерістерді рекурсивті түрде барлық ішкі файлдар мен бумаларға іске асыруды қалайсыз ба?"
 
 #: ../src/gtk/fm-file-properties.c:626
 msgid "<b>Access content:</b>"
@@ -504,7 +502,8 @@ msgid "Eject Removable Media"
 msgstr "Ауыстырмалы тасушыны шығару"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:114
+#: ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "Бетбелгі атауын өзгерту"
 
@@ -520,11 +519,13 @@ msgstr "Қоқыс шелегін тазарту"
 msgid "Enter a new name:"
 msgstr "Жаңа атын енгізіңіз:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:60
+#: ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr "Орындар"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:61
+#: ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr "Бумалар ағашы"
 
@@ -532,11 +533,13 @@ msgstr "Бумалар ағашы"
 msgid "Remote"
 msgstr "Кашықтағы"
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
+#: ../src/gtk/fm-file-menu.c:110
+#: ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "Көмегімен ашу..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
+#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "Атын ауыстыру"
 
@@ -602,94 +605,87 @@ msgstr "Өзгертілген"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "_Жаңа жасау..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "Бума"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "Таза MO дискі"
+msgstr "Бос файл"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "Жарлықтар"
+msgstr "Жарлық"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Таңдауды тері_стеу"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "Фа_йлдарды сұрыптау"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Жа_сырынды көрсету"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Тек осы бума үшін"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "Глобалды баптауларды өзгертпей, бұл бума үшін баптауларды сақтау"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Буманы таңдаңыз"
+msgstr "Файл мен бумаларды араластыру"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Атаудың регистрін елемеу"
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "Аты"
+msgstr "А_ты бойынша"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Өз_гертілген уақыты бойынша"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "Өлшемі"
+msgstr "Өлше_мі бойынша"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Файл түрі:</b>"
+msgstr "Фай_л түрі бойынша"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Жаңадан жасалып жатқан бума атын енгізіңіз:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Жаңадан жасалып жатқан файл атын енгізіңіз:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "Жаңа жасау..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "Желі"
+msgstr "Жаңа"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Қате, lxshortcut орнатылмаған"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "lxshortcut жөнелту сәтсіз"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
@@ -699,7 +695,8 @@ msgstr "Орнатылған қолданбалар"
 msgid "Error"
 msgstr "Қате"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:59
+#: ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr "Растау"
 
@@ -749,15 +746,18 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' файлы - орындалатын файл. Оны жөнелтуді қалайсыз ба?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#: ../src/gtk/fm-dir-tree-model.c:408
+#: ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
 msgstr "<Ішкі бумасы жоқ>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:410
+#: ../src/gtk/fm-dir-tree-model.c:1181
 msgid "Loading..."
 msgstr "Жүктелуде..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:270
+#: ../src/job/fm-dir-list-job.c:281
 #: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
@@ -812,11 +812,13 @@ msgstr "CD-RW дискі"
 msgid "Blank CD-RW Disc"
 msgstr "Таза CD-RW дискі"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "DVD-ROM дискі"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "Таза DVD-ROM дискі"
 
