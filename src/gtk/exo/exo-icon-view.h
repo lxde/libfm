@@ -1,4 +1,3 @@
-/* $Id$ */
 /*-
  * Copyright (c) 2004-2006  os-cillation e.K.
  * Copyright (c) 2002,2004  Anders Carlsson <andersca@gnu.org>
@@ -143,11 +142,12 @@ struct _ExoIconViewClass
 {
   GtkContainerClass __parent__;
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
   /* virtual methods */
   void     (*set_scroll_adjustments)    (ExoIconView     *icon_view,
                                          GtkAdjustment   *hadjustment,
                                          GtkAdjustment   *vadjustment);
-
+#endif
   /* signals */
   void     (*item_activated)            (ExoIconView     *icon_view,
                                          GtkTreePath     *path);
@@ -313,7 +313,7 @@ gboolean              exo_icon_view_get_dest_item_at_pos      (ExoIconView      
                                                                gint                      drag_y,
                                                                GtkTreePath             **path,
                                                                ExoIconViewDropPosition  *pos);
-GdkPixmap            *exo_icon_view_create_drag_icon          (ExoIconView              *icon_view,
+GdkPixbuf            *exo_icon_view_create_drag_icon          (ExoIconView              *icon_view,
                                                                GtkTreePath              *path);
 
 
