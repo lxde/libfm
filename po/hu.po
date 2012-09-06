@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2011-09-03 15:05+0200\n"
-"Last-Translator: Laszlo Dvornik <rezuri@zoho.com>\n"
+"PO-Revision-Date: 2012-09-06 16:22+0200\n"
+"Last-Translator: Bendegúz <gyonkibendeguz@gmail.com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -157,44 +158,40 @@ msgid "<b>_Group:</b>"
 msgstr "<b>_Csoport:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>View content:</b>"
-msgstr "<b>Levelezőkliens</b>"
+msgstr "<b>Tartalom megnyitása:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>Change content:</b>"
-msgstr "<b>Cél:</b>"
+msgstr "<b>Tartalom módosítása:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>Execute:</b>"
-msgstr "<b>Egyéb:</b>"
+msgstr "<b>Futtatás:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
-msgstr "<b>Megnyitás e_zzel:</b>"
+msgstr "<b>Különleges részek:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "Who can read content of the file/directory"
-msgstr ""
+msgstr "Ki olvashatja a fájl/mappa tartalmát"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Who can change content of the file/directory"
-msgstr ""
+msgstr "Ki módosíthatja a fájl/mappa tartalmát"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr ""
+msgstr "Ki futtathatja a fájlt vagy nyithatja meg a mappát"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr ""
+msgstr "Külön parancsok a fájl futtatásához"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr ""
+msgstr "Külön parancsok a mappa eléréséhez"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -214,39 +211,39 @@ msgstr "Nincs"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Ragadós"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "GID beállítása"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Ragadós és GID beállítása"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "UID beállítása"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "UID és GID beállítása"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
-msgstr ""
+msgstr "Senki"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr ""
+msgstr "Csak a tulajdonos"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr ""
+msgstr "Csak a tulajdonos és a csoport"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
-msgstr ""
+msgstr "Bárki"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
@@ -487,9 +484,8 @@ msgid ""
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és almappára?"
 
 #: ../src/gtk/fm-file-properties.c:626
-#, fuzzy
 msgid "<b>Access content:</b>"
-msgstr "<b>Hozzáférés-kezelés</b>"
+msgstr "<b>Hozzáférés a tartalomhoz:</b>"
 
 #: ../src/gtk/fm-file-properties.c:741
 msgid "Files of different types"
@@ -610,37 +606,35 @@ msgstr "Módosítva"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "_Új létrehozása..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "Mappa"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "Üres MO lemez"
+msgstr "Üres fájl"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "Parancsikonok"
+msgstr "Parancsikon"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Kijelölés _megfordítása"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "Fájlok _rendezése"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "_Rejtett mutatása"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Csak ebben a könyvtárban"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
