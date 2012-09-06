@@ -1045,6 +1045,6 @@ void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
         g_string_append(buf, uri);
         g_free(uri);
         if(l->next)
-            g_string_append(buf, "\r\n");
+            g_string_append_c(buf, '\n');
     }
 }
