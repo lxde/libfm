@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-27 02:27+0200\n"
+"PO-Revision-Date: 2012-09-06 18:56+0200\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Postavi GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
@@ -221,11 +221,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Postavi UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Postavi UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -280,7 +280,7 @@ msgstr "<b>Web preglednik</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Biti će korišten željeni Web preglednik za otvaranje hiperpoveznica"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "<b>Mail client</b>"
@@ -308,7 +308,7 @@ msgstr "Programi sustava"
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "File Associations"
-msgstr ""
+msgstr "Pridruživanje datoteke"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -529,7 +529,7 @@ msgstr "Mjesta"
 
 #: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
-msgstr ""
+msgstr "Stablo direktorija"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "Remote"
@@ -633,7 +633,7 @@ msgstr "Pokaži _skrivene"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Samo za ovu mapu"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
@@ -673,7 +673,7 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr "Naprvati novi..."
+msgstr "Napravi novi..."
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "New"
