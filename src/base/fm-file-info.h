@@ -119,6 +119,7 @@ gboolean fm_file_info_is_accessible(FmFileInfo* fi);
 const char* fm_file_info_get_target( FmFileInfo* fi );
 
 const char* fm_file_info_get_collate_key( FmFileInfo* fi );
+const char* fm_file_info_collate_key_nocasefold(FmFileInfo* fi);
 const char* fm_file_info_get_desc( FmFileInfo* fi );
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t fm_file_info_get_mtime( FmFileInfo* fi );

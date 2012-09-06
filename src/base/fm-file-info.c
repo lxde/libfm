@@ -72,6 +72,7 @@ struct _FmFileInfo
      *        Is there a better alternative solution?
      */
     char* collate_key; /* used to sort files by name */
+    char* collate_key_case; /* the same but case-sensitive */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
     FmMimeType* mime_type;
@@ -414,6 +415,13 @@ static void fm_file_info_clear(FmFileInfo* fi)
         fi->collate_key = NULL;
     }
 
+    if(fi->collate_key_case)
+    {
+        if(fi->collate_key_case != COLLATE_USING_DISPLAY_NAME)
+            g_free(fi->collate_key_case);
+        fi->collate_key_case = NULL;
+    }
+
     if(G_LIKELY(fi->path))
     {
         fm_path_unref(fi->path);
@@ -532,6 +540,10 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
         fi->collate_key = COLLATE_USING_DISPLAY_NAME;
     else
         fi->collate_key = g_strdup(src->collate_key);
+    if(src->collate_key_case == COLLATE_USING_DISPLAY_NAME)
+        fi->collate_key_case = COLLATE_USING_DISPLAY_NAME;
+    else
+        fi->collate_key_case = g_strdup(src->collate_key_case);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
 }
@@ -942,6 +954,48 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
         char* casefold = g_utf8_casefold(disp_name, -1);
         char* collate = g_utf8_collate_key_for_filename(casefold, -1);
         g_free(casefold);
+        if(strcmp(collate, disp_name))
+            fi->collate_key = collate;
+        else
+        {
+            /* if the collate key is the same as the display name,
+             * then there is no need to save it.
+             * Just use the display name directly. */
+            fi->collate_key = COLLATE_USING_DISPLAY_NAME;
+            g_free(collate);
+        }
+    }
+
+    /* if the collate key is the same as the display name, 
+     * just return the display name instead. */
+    if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
+        return fm_file_info_get_disp_name(fi);
+
+    return fi->collate_key;
+}
+
+/**
+ * fm_file_info_collate_key_nocasefold:
+ * @fi:  A FmFileInfo struct
+ *
+ * Get the collate key used for locale-dependent filename sorting but
+ * in case-sensitive manner. The keys of different files can be compared
+ * with strcmp() directly. Returned data are owned by FmFileInfo and
+ * should be not freed by caller.
+ *
+ * Returns: collate string.
+ *
+ * See also: fm_file_info_get_collate_key().
+ *
+ * Since: 1.0.2
+ */
+const char* fm_file_info_collate_key_nocasefold(FmFileInfo* fi)
+{
+    /* create a collate key on demand, if we don't have one */
+    if(G_UNLIKELY(!fi->collate_key))
+    {
+        const char* disp_name = fm_file_info_get_disp_name(fi);
+        char* collate = g_utf8_collate_key_for_filename(disp_name, -1);
         if(strcmp(collate, disp_name))
             fi->collate_key = collate;
         else
