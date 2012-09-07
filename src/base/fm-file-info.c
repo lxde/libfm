@@ -975,7 +975,7 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 }
 
 /**
- * fm_file_info_collate_key_nocasefold:
+ * fm_file_info_get_collate_key_nocasefold:
  * @fi:  A FmFileInfo struct
  *
  * Get the collate key used for locale-dependent filename sorting but
@@ -989,7 +989,7 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
  *
  * Since: 1.0.2
  */
-const char* fm_file_info_collate_key_nocasefold(FmFileInfo* fi)
+const char* fm_file_info_get_collate_key_nocasefold(FmFileInfo* fi)
 {
     /* create a collate key on demand, if we don't have one */
     if(G_UNLIKELY(!fi->collate_key))
