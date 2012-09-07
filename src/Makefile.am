@@ -280,6 +280,11 @@ libfm_pref_apps_SOURCES = \
 	tools/libfm-pref-apps.c \
 	$(NULL)
 
+libfm_pref_apps_DEPENDENCIES = \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
 libfm_pref_apps_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
@@ -301,6 +306,11 @@ libfm_demo_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \
+	$(NULL)
+
+libfm_demo_DEPENDENCIES = \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
 	$(NULL)
 
 libfm_demo_CFLAGS = \
