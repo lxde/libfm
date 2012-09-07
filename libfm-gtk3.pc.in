@@ -3,7 +3,7 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: libfm-gtk
+Name: libfm-gtk3
 Description: A glib/gio-based lib used to develop file managers providing some file management utilities and related-widgets missing in gtk+/glib.
 Requires: gtk+-3.0 gthread-2.0 gio-unix-2.0 libfm >= @VERSION@
 Version: @VERSION@
