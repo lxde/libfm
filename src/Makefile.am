@@ -211,7 +211,9 @@ pkginclude_HEADERS = \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 
-lib_LTLIBRARIES = libfm.la libfm-gtk.la
+EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
+
+lib_LTLIBRARIES = libfm.la @LIBFM_GTK_LTLIBRARIES@
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
@@ -237,10 +239,10 @@ libfm_la_LDFLAGS = \
 	-version-info $(ABI_VERSION) \
 	$(NULL)
 
-
 libfm_gtk_la_SOURCES = \
 	$(libfm_gtk_SOURCES) \
 	$(NULL)
+libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
@@ -250,6 +252,7 @@ libfm_gtk_la_CFLAGS = \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
 	-Werror-implicit-function-declaration
+libfm_gtk3_la_CFLAGS = $(libfm_gtk_la_CFLAGS)
 
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
@@ -258,14 +261,19 @@ libfm_gtk_la_LIBADD = \
 	$(INTLLIBS) \
 	libfm.la \
 	$(NULL)
+libfm_gtk3_la_LIBADD = $(libfm_gtk_la_LIBADD)
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
 	-version-info $(ABI_VERSION) \
+	-rpath $(libdir) \
 	$(NULL)
+libfm_gtk3_la_LDFLAGS = $(libfm_gtk_la_LDFLAGS)
 
-bin_PROGRAMS = libfm-pref-apps
+EXTRA_PROGRAMS = libfm-pref-apps
+
+bin_PROGRAMS = @LIBFM_PREF_APPS@
 
 libfm_pref_apps_SOURCES = \
 	$(gtk_compat_SOURCES) \
@@ -282,8 +290,8 @@ libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
-	libfm-gtk.la \
 	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
 	$(NULL)
 
 
@@ -306,7 +314,7 @@ libfm_demo_LDADD = \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
-	libfm-gtk.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
 	$(NULL)
 endif
 

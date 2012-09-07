@@ -67,6 +67,16 @@ fi
 # intltool
 IT_PROG_INTLTOOL([0.40.0])
 
+dnl libgtk version
+AC_ARG_WITH(gtk,
+    [AC_HELP_STRING([--with-gtk=VER],
+        [choose Gtk+ version for libfm-gtk build (default=2)])
+AC_HELP_STRING([--without-gtk],
+        [disable libfm-gtk build])],
+    [ac_with_gtk="${withval}"],
+    [ac_with_gtk=2]
+)
+
 # modules required
 if test x"$enable_actions" = xyes; then
   gio_modules="gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0"
@@ -75,14 +85,36 @@ else
 fi
 gio_modules="$gio_modules gthread-2.0 gobject-2.0 pango >= 1.16.0"
 
-pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 cairo >= 1.8.0"
-PKG_CHECK_MODULES(GTK, [$pkg_modules])
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
-
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
+
+if test x"$ac_with_gtk" != xno; then
+  case "$ac_with_gtk" in
+    3|3.*)
+      pkg_modules="$gio_modules gtk+-3.0 cairo >= 1.8.0"
+      LIBFM_GTK_LTLIBRARIES=libfm-gtk3.la
+      ac_with_gtk="3.0"
+      ;;
+    *)
+      pkg_modules="$gio_modules gtk+-2.0 >= 2.18.0 cairo >= 1.8.0"
+      LIBFM_GTK_LTLIBRARIES=libfm-gtk.la
+      ac_with_gtk="2.0"
+      ;;
+  esac
+  PKG_CHECK_MODULES(GTK, [$pkg_modules])
+  LIBFM_PREF_APPS="libfm-pref-apps"
+else
+  GTK_CFLAGS=
+  GTK_LIBS=
+  LIBFM_GTK_LTLIBRARIES=
+  ac_with_gtk="none"
+  LIBFM_PREF_APPS=
+fi
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+AC_SUBST(LIBFM_GTK_LTLIBRARIES)
+AC_SUBST(LIBFM_PREF_APPS)
 
 dnl pango_modules="pango >= 1.16.0"
 dnl PKG_CHECK_MODULES(PANGO, [$pango_modules])
@@ -236,6 +268,7 @@ AC_CONFIG_FILES([
     docs/reference/libfm/version.xml
     libfm.pc
     libfm-gtk.pc
+    libfm-gtk3.pc
 ])
 
 AC_OUTPUT
@@ -252,10 +285,11 @@ echo "Build demo program src/demo/libfm-demo:                 $enable_demo"
 echo "Build with custom actions support (requires Vala):      $enable_actions"
 echo "Large file support:                                     $largefile"
 if test x"$have_scheme_handler" = x"no"; then
-echo "GIO module for preferred apps (for glib < 2.28 only):   $giomodulesdir";
+echo "GIO module for preferred apps (for glib < 2.28 only):   $giomodulesdir"
 else
-echo "GIO module for preferred apps (for glib < 2.28 only):   not required";
+echo "GIO module for preferred apps (for glib < 2.28 only):   not required"
 fi
+echo "Build libfm-gtk for Gtk+ version:                       $ac_with_gtk"
 echo "Build API doc with gtk-doc (required for make dist):    $enable_gtk_doc"
 echo
 echo
