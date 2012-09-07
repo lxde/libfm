@@ -8703,8 +8703,8 @@ exo_icon_view_search_position_func (ExoIconView *icon_view,
 
   gdk_window_get_origin (view_window, &view_x, &view_y);
 #if GTK_CHECK_VERSION(2, 24, 0)
-  view_width = gdk_window_get_width (icon_view->priv->bin_window);
-  view_height = gdk_window_get_height (icon_view->priv->bin_window);
+  view_width = gdk_window_get_width (view_window);
+  view_height = gdk_window_get_height (view_window);
 #else
   gdk_drawable_get_size (view_window, &view_width, &view_height);
 #endif
