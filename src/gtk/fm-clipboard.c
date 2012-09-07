@@ -2,6 +2,7 @@
  *      fm-clipboard.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -31,7 +32,8 @@ enum {
     URI_LIST = 1,
     GNOME_COPIED_FILES,
     KDE_CUT_SEL,
-    UTF8_STRING
+    UTF8_STRING,
+    N_CLIPBOARD_TARGETS
 };
 
 static GtkTargetEntry targets[]=
@@ -42,7 +44,25 @@ static GtkTargetEntry targets[]=
     { "UTF8_STRING", 0, UTF8_STRING }
 };
 
+static GdkAtom target_atom[N_CLIPBOARD_TARGETS];
+
+static gboolean got_atoms = FALSE;
+
 static gboolean is_cut = FALSE;
+
+static inline void check_atoms(void)
+{
+    if(!got_atoms)
+    {
+        guint i;
+
+        for(i = 0; i < N_CLIPBOARD_TARGETS; i++)
+            target_atom[i] = GDK_NONE;
+        for(i = 0; i < G_N_ELEMENTS(targets); i++)
+            target_atom[targets[i].info] = gdk_atom_intern_static_string(targets[i].target);
+        got_atoms = TRUE;
+    }
+}
 
 static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpointer user_data)
 {
@@ -233,5 +253,29 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
             return TRUE;
         }
     }
+    return FALSE;
+}
+
+/**
+ * fm_clipboard_have_files
+ * @dest_widget: (allow-none): widget to paste files
+ *
+ * Checks if clipboard have data available for paste.
+ *
+ * Returns: %TRUE if the clipboard have data that can be handled.
+ *
+ * Since: 1.0.1
+ */
+gboolean fm_clipboard_have_files(GtkWidget* dest_widget)
+{
+    GdkDisplay* dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();
+    GtkClipboard* clipboard = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
+    guint i;
+
+    check_atoms();
+    for(i = 1; i < N_CLIPBOARD_TARGETS; i++)
+        if(target_atom[i] != GDK_NONE
+           && gtk_clipboard_wait_is_target_available(clipboard, target_atom[i]))
+            return TRUE;
     return FALSE;
 }

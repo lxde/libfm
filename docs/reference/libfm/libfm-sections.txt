@@ -219,6 +219,7 @@ fm_cell_renderer_text_get_type
 fm_clipboard_copy_files
 fm_clipboard_cut_files
 fm_clipboard_cut_or_copy_files
+fm_clipboard_have_files
 fm_clipboard_paste_files
 </SECTION>
 

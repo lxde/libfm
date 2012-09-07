@@ -38,6 +38,8 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
 
 gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir);
 
+gboolean fm_clipboard_have_files(GtkWidget* dest_widget);
+
 G_END_DECLS
 
 #endif /* __FM_CLIPBOARD_H__ */
