@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 #  define   GDK_KEY_Left    GDK_Left
 #  define   GDK_KEY_Right   GDK_Right
 #  define   GDK_KEY_Tab     GDK_Tab
-#  define   GDK_KEY_Tab     GDK_Escape
+#  define   GDK_KEY_Escape  GDK_Escape
 #  define   GDK_KEY_a       GDK_a
 #  define   GDK_KEY_space   GDK_space
 #  define   GDK_KEY_Return  GDK_Return

@@ -31,6 +31,7 @@
 #include "fm-app-chooser-dlg.h"
 
 #include "fm-config.h"
+#include "gtk-compat.h"
 
 /* for open() */
 #include <sys/types.h>

@@ -658,7 +658,10 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     dest_dir = fm_path_to_gfile(job->dest);
     /* get dummy file monitors for non-native filesystems */
     if( g_file_is_native(dest_dir) )
+    {
+        old_mon = NULL; /* to satisfy compiler */
         dest_mon = NULL;
+    }
     else
     {
         old_mon = job->dest_folder_mon;
@@ -751,7 +754,10 @@ _retry_query_dest_info:
 
     /* get dummy file monitors for non-native filesystems */
     if( g_file_is_native(dest_dir) )
+    {
+        old_mon = NULL; /* to satisfy compiler */
         dest_mon = NULL;
+    }
     else
     {
         old_mon = job->dest_folder_mon;
