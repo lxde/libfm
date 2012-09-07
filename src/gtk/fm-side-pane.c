@@ -192,11 +192,21 @@ static void fm_side_pane_init(FmSidePane *sp)
     GtkWidget* hbox;
 
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
+#if GTK_CHECK_VERSION(3, 2, 0)
+    /* FIXME: migrate to GtkGrid */
+    sp->title_bar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     sp->title_bar = gtk_hbox_new(FALSE, 0);
+#endif
     sp->menu_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(sp->menu_label), 0.0, 0.5);
     sp->menu_btn = gtk_button_new();
+#if GTK_CHECK_VERSION(3, 2, 0)
+    /* FIXME: migrate to GtkGrid */
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     hbox = gtk_hbox_new(FALSE, 0);
+#endif
     gtk_box_pack_start(GTK_BOX(hbox), sp->menu_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(hbox), gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_NONE),
                        FALSE, TRUE, 0);

@@ -29,6 +29,10 @@ G_BEGIN_DECLS
 /* for gtk+ 3.0 migration */
 #if !GTK_CHECK_VERSION(3, 0, 0)
     #define gdk_display_get_app_launch_context(dpy) gdk_app_launch_context_new()
+#  define gdk_window_get_device_position(win,dev,xptr,yptr,mptr) \
+        gdk_window_get_pointer(win,xptr,yptr,mptr)
+#else
+#  define gdk_cursor_unref(obj) g_object_unref(obj)
 #endif
 
 #if !GTK_CHECK_VERSION(2, 21, 0)

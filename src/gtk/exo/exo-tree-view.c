@@ -1,4 +1,3 @@
-/* $Id: exo-tree-view.c 22991 2006-09-02 11:41:18Z benny $ */
 /*-
  * Copyright (c) 2004-2006 Benedikt Meurer <benny@xfce.org>
  *
@@ -30,6 +29,9 @@
 #include "exo-string.h"
 #include "exo-marshal.h"
 #include "exo-private.h"
+
+/* libfm specific */
+#include "gtk-compat.h"
 
 #define             I_(string)  g_intern_static_string(string)
 

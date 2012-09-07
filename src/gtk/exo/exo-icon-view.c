@@ -1546,7 +1546,11 @@ exo_icon_view_realize (GtkWidget *widget)
 {
   ExoIconViewPrivate *priv = EXO_ICON_VIEW (widget)->priv;
   GdkWindow          *window;
+#if GTK_CHECK_VERSION(3, 0, 0)
+  GtkStyleContext    *style;
+#else
   GtkStyle           *style;
+#endif
   GdkWindowAttr       attributes;
   GtkAllocation       allocation;
   gint                attributes_mask;
@@ -1594,10 +1598,16 @@ exo_icon_view_realize (GtkWidget *widget)
   gdk_window_set_user_data (priv->bin_window, widget);
 
   /* Attach style/background */
+#if GTK_CHECK_VERSION(3, 0, 0)
+  style = gtk_widget_get_style_context (widget);
+  gtk_style_context_set_background (style, priv->bin_window);
+  gtk_style_context_set_background (style, window);
+#else
   style = gtk_style_attach (gtk_widget_get_style (widget), window);
   gtk_widget_set_style (widget, style);
   gdk_window_set_background (priv->bin_window, &style->base[gtk_widget_get_state(widget)]);
   gdk_window_set_background (window, &style->base[gtk_widget_get_state(widget)]);
+#endif
 
   /* map the icons window */
   gdk_window_show (priv->bin_window);
@@ -1640,7 +1650,11 @@ exo_icon_view_size_request (GtkWidget      *widget,
     {
       child = lp->data;
       if (gtk_widget_get_visible (child->widget))
+#if GTK_CHECK_VERSION(3, 0, 0)
+        gtk_widget_get_preferred_size (child->widget, NULL, &child_requisition);
+#else
         gtk_widget_size_request (child->widget, &child_requisition);
+#endif
     }
 }
 
@@ -2747,7 +2761,8 @@ exo_icon_view_update_rubberband (gpointer data)
 
   icon_view = EXO_ICON_VIEW (data);
 
-  gdk_window_get_pointer (icon_view->priv->bin_window, &x, &y, NULL);
+  gdk_window_get_device_position (icon_view->priv->bin_window,
+                                  gtk_get_current_event_device(), &x, &y, NULL);
 
   x = MAX (x, 0);
   y = MAX (y, 0);
@@ -3718,6 +3733,9 @@ exo_icon_view_calculate_item_size (ExoIconView     *icon_view,
   ExoIconViewCellInfo *info;
   GList               *lp;
   gchar               *buffer;
+#if GTK_CHECK_VERSION(3, 0, 0)
+  GtkRequisition       requisition;
+#endif
 
   if (G_LIKELY (item->area.width != -1))
     return;
@@ -3749,10 +3767,17 @@ exo_icon_view_calculate_item_size (ExoIconView     *icon_view,
       if (G_UNLIKELY (!gtk_cell_renderer_get_visible(info->cell)))
         continue;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+      gtk_cell_renderer_get_preferred_size (info->cell, GTK_WIDGET (icon_view),
+                                            NULL, &requisition);
+      item->box[info->position].width = requisition.width;
+      item->box[info->position].height = requisition.height;
+#else
       gtk_cell_renderer_get_size (info->cell, GTK_WIDGET (icon_view),
                                   NULL, NULL, NULL,
                                   &item->box[info->position].width,
                                   &item->box[info->position].height);
+#endif
 
       if (icon_view->priv->orientation == GTK_ORIENTATION_HORIZONTAL)
         {
@@ -6779,7 +6804,8 @@ exo_icon_view_autoscroll (ExoIconView *icon_view)
   gfloat value;
   GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (icon_view));
 
-  gdk_window_get_pointer (window, &px, &py, NULL);
+  gdk_window_get_device_position (window, gtk_get_current_event_device(),
+                                  &px, &py, NULL);
 #if GTK_CHECK_VERSION(3, 0, 0)
   gdk_window_get_geometry (window, &x, &y, &width, &height);
 #else
@@ -8702,13 +8728,14 @@ exo_icon_view_search_position_func (ExoIconView *icon_view,
   gtk_widget_realize (search_dialog);
 
   gdk_window_get_origin (view_window, &view_x, &view_y);
-#if GTK_CHECK_VERSION(2, 24, 0)
+#if GTK_CHECK_VERSION(3, 0, 0)
   view_width = gdk_window_get_width (view_window);
   view_height = gdk_window_get_height (view_window);
+  gtk_widget_get_preferred_size (search_dialog, NULL, &requisition);
 #else
   gdk_drawable_get_size (view_window, &view_width, &view_height);
-#endif
   gtk_widget_size_request (search_dialog, &requisition);
+#endif
 
   if (view_x + view_width - requisition.width > gdk_screen_get_width (screen))
     x = gdk_screen_get_width (screen) - requisition.width;

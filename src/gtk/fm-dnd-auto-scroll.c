@@ -43,7 +43,9 @@ static gboolean on_auto_scroll(gpointer user_data)
     GtkWidget* widget = as->widget;
     GtkAllocation allocation;
 
-    gdk_window_get_pointer(gtk_widget_get_window(widget), &x, &y, NULL);
+    gdk_window_get_device_position (gtk_widget_get_window(widget),
+                                    gtk_get_current_event_device(),
+                                    &x, &y, NULL);
     gtk_widget_get_allocation(widget, &allocation);
 
     /*

@@ -781,7 +781,9 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     if(fm_file_info_is_desktop_entry(dest))
     {
         GdkModifierType mask = 0;
-        gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
+        gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
+                                        gtk_get_current_event_device(),
+                                        NULL, NULL, &mask);
         mask &= gtk_accelerator_get_default_mod_mask();
         if(mask) /* some key is pressed! */
             return GDK_ACTION_ASK;
@@ -826,7 +828,9 @@ query_sources:
              * make the operation very slow. */
             gboolean same_fs;
             GdkModifierType mask = 0;
-            gdk_window_get_pointer(gtk_widget_get_window(dd->widget), NULL, NULL, &mask);
+            gdk_window_get_device_position (gtk_widget_get_window(dd->widget),
+                                            gtk_get_current_event_device(),
+                                            NULL, NULL, &mask);
             mask &= gtk_accelerator_get_default_mod_mask();
             /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
             if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))

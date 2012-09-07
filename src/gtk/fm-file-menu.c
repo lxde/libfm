@@ -45,6 +45,8 @@
 #include "fm-actions.h"
 #endif
 
+#include "gtk-compat.h"
+
 struct _FmFileMenu
 {
     FmFileInfoList* file_infos;
@@ -155,7 +157,7 @@ FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath*
 static void on_custom_action(GtkAction* act, FmFileMenu* data)
 {
     FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
-    GdkAppLaunchContext* ctx = gdk_app_launch_context_new();
+    GdkAppLaunchContext* ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
     GList* files = fm_file_info_list_peek_head_link(data->file_infos);
     char* output = NULL;
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
@@ -490,7 +492,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     }
     uris = g_list_reverse(uris);
 
-    ctx = gdk_app_launch_context_new();
+    ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
     gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(data->menu)));
     gdk_app_launch_context_set_icon(ctx, g_app_info_get_icon(app));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
@@ -573,8 +575,9 @@ void on_delete(GtkAction* action, gpointer user_data)
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     /* Fix for #3436283: accept Shift to delete instead of trash */
     /* FIXME: change menu item text&icon when Shift is pressed */
-    gdk_window_get_pointer(gtk_widget_get_window(GTK_WIDGET(data->menu)),
-                           NULL, NULL, &mask);
+    gdk_window_get_device_position (gtk_widget_get_window(GTK_WIDGET(data->menu)),
+                                    gtk_get_current_event_device(),
+                                    NULL, NULL, &mask);
     if(mask & GDK_SHIFT_MASK)
         fm_delete_files(data->parent, files);
     else
