@@ -13,6 +13,10 @@ Changes on 1.0.2 since 1.0.1:
 
 * Corrected underscores (mnemonics) on every menu and dialog.
 
+* Fixed GTK+ 3.0 compatibility problems. Libfm can be compiled with Gtk
+    2.18 ... 3.x and Glib 2.22+ currently (if glib < 2.26 or vala < 0.13
+    still requires run configure --disable-actions).
+
 
 Changes on 1.0.1 since 1.0.0:
 

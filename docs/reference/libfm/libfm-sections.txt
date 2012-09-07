@@ -226,8 +226,12 @@ fm_clipboard_paste_files
 <SECTION>
 <FILE>fm-config</FILE>
 <TITLE>FmConfig</TITLE>
+FM_CONFIG_DEFAULT_BACKUP_HIDDEN
 FM_CONFIG_DEFAULT_BIG_ICON_SIZE
 FM_CONFIG_DEFAULT_CONFIRM_DEL
+FM_CONFIG_DEFAULT_FORCE_S_NOTIFY
+FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY
+FM_CONFIG_DEFAULT_NO_USB_TRASH
 FM_CONFIG_DEFAULT_PANE_ICON_SIZE
 FM_CONFIG_DEFAULT_SHOW_THUMBNAIL
 FM_CONFIG_DEFAULT_SINGLE_CLICK
@@ -656,6 +660,7 @@ fm_folder_view_select_custom
 fm_folder_view_select_file_path
 fm_folder_view_select_file_paths
 fm_folder_view_select_invert
+fm_folder_view_set_active
 fm_folder_view_set_mode
 fm_folder_view_set_model
 fm_folder_view_set_selection_mode
