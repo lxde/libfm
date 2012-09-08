@@ -1006,6 +1006,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     GtkSortType type;
     FmFolderModelViewCol by;
 
+    /* FIXME: realize popup window and put it in the fv (honoring monitor) */
     /* don't show context menu outside of the folder view */
     if(act != NULL && !pointer_is_over_widget(GTK_WIDGET(fv)))
         return;
@@ -1020,6 +1021,8 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
     gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act), show_hidden);
     /* FIXME: shadow 'Paste' if clipboard is empty and unshadow if not */
+    /* act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+    gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv))); */
     /* open popup */
     gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
 }

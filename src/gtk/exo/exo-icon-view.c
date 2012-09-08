@@ -2748,14 +2748,12 @@ exo_icon_view_update_rubberband (gpointer data)
 {
   ExoIconView *icon_view;
   gint x, y;
-#if GTK_CHECK_VERSION(3, 0, 0)
-  cairo_rectangle_int_t old_area;
-  cairo_rectangle_int_t new_area;
-  cairo_region_t *invalid_region;
-#else
   GdkRectangle old_area;
   GdkRectangle new_area;
   GdkRectangle common;
+#if GTK_CHECK_VERSION(3, 0, 0)
+  cairo_region_t *invalid_region;
+#else
   GdkRegion *invalid_region;
 #endif
 
@@ -2784,32 +2782,19 @@ exo_icon_view_update_rubberband (gpointer data)
 #if GTK_CHECK_VERSION(3, 0, 0)
   invalid_region = cairo_region_create_rectangle (&old_area);
   cairo_region_union_rectangle (invalid_region, &new_area);
-
-  cairo_region_intersect_rectangle (invalid_region, &new_area);
-  cairo_region_get_rectangle (invalid_region, 1, &new_area);
-  if (new_area.width > 2 && new_area.height > 2)
-    {
-      cairo_region_t *common_region;
-
-      /* make sure the border is invalidated */
-      new_area.x += 1;
-      new_area.y += 1;
-      new_area.width -= 2;
-      new_area.height -= 2;
-
-      common_region = cairo_region_create_rectangle (&new_area);
-
-      cairo_region_subtract (invalid_region, common_region);
-      cairo_region_destroy (common_region);
-    }
 #else
   invalid_region = gdk_region_rectangle (&old_area);
   gdk_region_union_with_rect (invalid_region, &new_area);
+#endif
 
   gdk_rectangle_intersect (&old_area, &new_area, &common);
   if (common.width > 2 && common.height > 2)
     {
+#if GTK_CHECK_VERSION(3, 0, 0)
+      cairo_region_t *common_region;
+#else
       GdkRegion *common_region;
+#endif
 
        /* make sure the border is invalidated */
       common.x += 1;
@@ -2817,12 +2802,18 @@ exo_icon_view_update_rubberband (gpointer data)
       common.width -= 2;
       common.height -= 2;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+      common_region = cairo_region_create_rectangle (&common);
+
+      cairo_region_subtract (invalid_region, common_region);
+      cairo_region_destroy (common_region);
+#else
       common_region = gdk_region_rectangle (&common);
 
       gdk_region_subtract (invalid_region, common_region);
       gdk_region_destroy (common_region);
-    }
 #endif
+    }
 
   gdk_window_invalidate_region (icon_view->priv->bin_window, invalid_region, TRUE);
 
