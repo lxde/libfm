@@ -1,3 +1,27 @@
+/*
+ * fm-file-search-job.h
+ * 
+ * Copyright (C) 2010 Shae Smittle <starfall87@gmail.com>
+ * Copyright (C) 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ * 
+ */
+
 #ifndef __FM_FILE_SEARCH_JOB_H__
 #define __FM_FILE_SEARCH_JOB_H__
 
@@ -50,10 +74,10 @@ struct _FmFileSearchSettings
 {
 	FmFileSearchMode target_mode;
 	FmFileSearchMode content_mode;
-	gboolean case_sensitive_target;
-	gboolean case_sensitive_content;
-	gboolean recursive;
-	gboolean show_hidden;
+	gboolean case_sensitive_target : 1;
+	gboolean case_sensitive_content : 1;
+	gboolean recursive : 1;
+	gboolean show_hidden : 1;
 };
 
 struct _FmFileSearchRule
@@ -72,18 +96,6 @@ struct _FmFileSearchFuncData
 
 /* end of shared data types */
 
-struct _FmFileSearchJob
-{
-	FmJob parent;
-	FmFileInfoList * files;
-	GSList * rules;
-	FmPathList * target_folders;
-	FmFileSearchSettings * settings;
-	GRegex * target_regex;
-	GRegex * target_contains_regex;
-
-	GSList * files_to_add;
-};
 
 struct _FmFileSearchJobClass
 {
@@ -93,17 +105,26 @@ struct _FmFileSearchJobClass
 };
 
 GType		fm_file_search_job_get_type		(void);
+
 FmJob * fm_file_search_job_new(GSList * rules, FmPathList * target_folders, FmFileSearchSettings * settings);
+
 FmFileInfoList * fm_file_search_job_get_files(FmFileSearchJob * job);
 
 /* rules */
 gboolean fm_file_search_target_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_target_contains_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_target_type_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_target_type_list_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_target_type_generic_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_minimum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_maximum_size_rule(FmFileSearchFuncData * data, gpointer user_data);
+
 gboolean fm_file_search_modified_time_rule(FmFileSearchFuncData * data, gpointer user_data);
 
 G_END_DECLS

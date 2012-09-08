@@ -1,3 +1,27 @@
+/*
+ * fm-file-search.c
+ * 
+ * Copyright 2010 Shae Smittle <starfall87@gmail.com>
+ * Copyright 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ * 
+ */
+
 #include "fm-file-search.h"
 
 #include <string.h>
@@ -8,7 +32,7 @@
 #include <fnmatch.h>
 
 static void fm_file_search_finalize(GObject * object);
-
+static void fm_file_search_dispose(GObject * object);
 
 G_DEFINE_TYPE(FmFileSearch, fm_file_search, FM_TYPE_FOLDER);
 
@@ -23,50 +47,67 @@ static void fm_file_search_class_init(FmFileSearchClass *klass)
 	fm_file_search_parent_class = g_type_class_peek(FM_TYPE_FOLDER);
 }
 
-static void fm_file_search_init(FmFileSearch *self)
+static void fm_file_search_init(FmFileSearch *search)
 {
-	FM_FOLDER(self)->files = fm_file_info_list_new();
+	FM_FOLDER(search)->files = fm_file_info_list_new();
 
-	FM_FOLDER(self)->dir_path = NULL;
+	FM_FOLDER(search)->dir_path = NULL;
 
-	self->rules = NULL;
-	self->target_folders = NULL;
-	self->settings = g_slice_new(FmFileSearchSettings);
+	search->rules = NULL;
+	search->target_folders = NULL;
+	search->settings = g_slice_new(FmFileSearchSettings);
 
 	/*set up settings */
-	self->settings->target_mode = FM_FILE_SEARCH_MODE_EXACT;
-	self->settings->content_mode = FM_FILE_SEARCH_MODE_EXACT;
-	self->settings->case_sensitive_target = FALSE;
-	self->settings->case_sensitive_content = FALSE;
-	self->settings->recursive = TRUE;
-	self->settings->show_hidden = FALSE;
+	search->settings->target_mode = FM_FILE_SEARCH_MODE_EXACT;
+	search->settings->content_mode = FM_FILE_SEARCH_MODE_EXACT;
+	search->settings->case_sensitive_target = FALSE;
+	search->settings->case_sensitive_content = FALSE;
+	search->settings->recursive = TRUE;
+	search->settings->show_hidden = FALSE;
 }
 
 static void fm_file_search_finalize(GObject * object)
 {
-	FmFileSearch * self;
+	FmFileSearch * search;
 	g_return_if_fail(object != NULL);
 	g_return_if_fail(FM_IS_FILE_SEARCH(object));
-
-	self = FM_FILE_SEARCH(object);
-
-	if(self->rules)
-		g_slist_free(self->rules);
-
-	if(self->target_folders)
-		fm_list_unref(self->target_folders);
-
-	if(FM_FOLDER(self)->job)
-	{
-		g_signal_handlers_disconnect_by_func(FM_FOLDER(self)->job, on_job_files_added, self);
-		g_signal_handlers_disconnect_by_func(FM_FOLDER(self)->job, on_file_search_job_finished, self);
-	}
-
-	if(self->settings)
-		g_slice_free(FmFileSearchSettings, self->settings);
+	search = FM_FILE_SEARCH(object);
 
 	if (G_OBJECT_CLASS(fm_file_search_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_file_search_parent_class)->finalize)(object);
+}
+
+static void fm_file_search_dispose(GObject * object)
+{
+	FmFileSearch * search;
+	g_return_if_fail(object != NULL);
+	g_return_if_fail(FM_IS_FILE_SEARCH(object));
+
+	search = FM_FILE_SEARCH(object);
+
+	if(search->rules)
+	{
+		g_slist_free(search->rules);
+		search->rules = NULL;
+	}
+
+	if(search->target_folders)
+	{
+		fm_list_unref(search->target_folders);
+		search->target_folders = NULL;
+	}
+
+	if(search->search_job)
+		fm_file_search_cancel(search);
+
+	if(search->settings)
+	{
+		g_slice_free(FmFileSearchSettings, search->settings);
+		search->settings = NULL;
+	}
+
+	if (G_OBJECT_CLASS(fm_file_search_parent_class)->dispose)
+        (* G_OBJECT_CLASS(fm_file_search_parent_class)->dispose)(object);
 }
 
 void fm_file_search_add_search_func(FmFileSearch * search, FmFileSearchFunc * func, gpointer user_data)
@@ -90,21 +131,23 @@ FmFileSearch * fm_file_search_new(FmPathList * target_folders)
 
 void fm_file_search_run(FmFileSearch * search)
 {
+	/* reload */
 	FmJob * file_search_job = fm_file_search_job_new(search->rules, search->target_folders, search->settings);
+	g_signal_emit_by_name(search, "start-loading");
 	g_signal_connect(file_search_job, "files-added", on_job_files_added, search);
 	g_signal_connect(file_search_job, "finished", on_file_search_job_finished, search);
-	fm_job_run_async(file_search_job);	
-	FM_FOLDER(search)->job = file_search_job;
+	fm_job_run_async(file_search_job);
+	search->search_job = file_search_job;
 }
 
 void fm_file_search_cancel(FmFileSearch * search)
 {
-	if(FM_IS_FILE_SEARCH(search) && FM_IS_FILE_SEARCH_JOB(FM_FOLDER(search)->job))
+	if(FM_IS_FILE_SEARCH(search) && FM_IS_FILE_SEARCH_JOB(search->search_job))
 	{
-		g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_job_files_added, search);
-		g_signal_handlers_disconnect_by_func(FM_FOLDER(search)->job, on_file_search_job_finished, search);
-		fm_job_cancel(FM_FOLDER(search)->job);
-		FM_FOLDER(search)->job = NULL;
+		g_signal_handlers_disconnect_by_func(search->search_job, on_job_files_added, search);
+		g_signal_handlers_disconnect_by_func(search->search_job, on_file_search_job_finished, search);
+		fm_job_cancel(search->search_job);
+		search->search_job = NULL;
 	}
 }
 
@@ -188,12 +231,10 @@ void fm_file_search_set_show_hidden(FmFileSearch * search, gboolean show_hidden)
 static void on_file_search_job_finished(FmFileSearchJob * job, FmFileSearch * search)
 {
 	FmFolder * folder = FM_FOLDER(search);
-
+	g_print("search-finished\n");
 	folder->files = fm_file_search_job_get_files(job);
-
-	g_signal_emit_by_name(folder, "loaded", folder, NULL);
-
-	folder->job = NULL;
+	g_signal_emit_by_name(folder, "finish-loading", folder, NULL);
+	search->search_job = NULL;
 }
 
 static void on_job_files_added(FmFileSearchJob * job, GSList * files_added, FmFileSearch * search)

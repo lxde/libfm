@@ -1,3 +1,27 @@
+/*
+ * libfm-file-search-cli-demo.c
+ * 
+ * Copyright 2010 Shae Smittle <starfall87@gmail.com>
+ * Copyright 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ * 
+ */
+
 #include <stdio.h>
 #include <gio/gio.h>
 #include <glib.h>
@@ -60,7 +84,7 @@ int main(int argc, char** argv)
 
 	while(path_list_token != NULL)
 	{
-		FmPath * path = fm_path_new(path_list_token);
+		FmPath * path = fm_path_new_for_str(path_list_token);
 		fm_list_push_tail(target_folders, path);
 		path_list_token = strtok(NULL, ":");
 	}
@@ -109,16 +133,17 @@ int main(int argc, char** argv)
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
 	model = fm_folder_model_new(FM_FOLDER(search), TRUE);
-
+	fm_folder_model_set_folder(model, FM_FOLDER(search));
 	GtkWidget * view = fm_folder_view_new(FM_FV_LIST_VIEW);
-	fm_folder_view_chdir_by_folder(FM_FOLDER_VIEW(view), FM_FOLDER(search));
+	fm_folder_view_set_model(FM_FOLDER_VIEW(view), model);
+	fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(view), GTK_SELECTION_MULTIPLE);
+	g_object_unref(model);
+	fm_file_search_run(search);
+	g_object_unref(search);
 
 	gtk_container_add(GTK_CONTAINER(window), view);
-
 	gtk_widget_show(view);
 	gtk_widget_show(window);
-
-	fm_file_search_run(search);
 
 	gtk_main();
 
