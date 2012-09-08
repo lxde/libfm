@@ -100,6 +100,9 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     }
     gtk_selection_data_set(sel, target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
+    if(is_cut)
+        gtk_clipboard_clear(clip);
+    is_cut = FALSE;
 }
 
 static void clear_data(GtkClipboard* clip, gpointer user_data)
@@ -113,8 +116,14 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
 {
     GdkDisplay* dpy = src_widget ? gtk_widget_get_display(src_widget) : gdk_display_get_default();
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
-    gboolean ret = gtk_clipboard_set_with_data(clip, targets, G_N_ELEMENTS(targets),
-                                               get_data, clear_data, fm_path_list_ref(files));
+    gboolean ret;
+    if(!files || fm_path_list_is_empty(files))
+    {
+        gtk_clipboard_clear(clip);
+        return TRUE;
+    }
+    ret = gtk_clipboard_set_with_data(clip, targets, G_N_ELEMENTS(targets),
+                                      get_data, clear_data, fm_path_list_ref(files));
     is_cut = _is_cut;
     return ret;
 }
