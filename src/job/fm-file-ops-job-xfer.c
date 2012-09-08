@@ -89,6 +89,7 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileI
     GFileCopyFlags flags;
     FmJob* fmjob = FM_JOB(job);
     guint32 mode;
+    gboolean skip_dir_content = FALSE;
 
     if( G_LIKELY(inf) )
         g_object_ref(inf);
@@ -135,7 +136,7 @@ _retry_query_src_info:
             GFileEnumerator* enu;
             gboolean dir_created = FALSE;
 _retry_mkdir:
-            if( !fm_job_is_cancelled(fmjob) &&
+            if( !fm_job_is_cancelled(fmjob) && !job->skip_dir_content &&
                 !g_file_make_directory(dest, fm_job_get_cancellable(fmjob), &err) )
             {
                 if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
@@ -161,17 +162,14 @@ _retry_mkdir:
                         /* when a dir is skipped, we need to know its total size to calculate correct progress */
                         job->finished += size;
                         fm_file_ops_job_emit_percent(job);
-                        job->skip_dir_content = TRUE;
-                        ret = FALSE;
+                        job->skip_dir_content = skip_dir_content = TRUE;
                         dir_created = TRUE; /* pretend that dir creation succeeded */
                         break;
                     case FM_FILE_OP_OVERWRITE:
-                        ret = TRUE;
                         dir_created = TRUE; /* pretend that dir creation succeeded */
                         break;
                     case FM_FILE_OP_CANCEL:
                         fm_job_cancel(fmjob);
-                        ret = FALSE;
                         break;
                     case FM_FILE_OP_SKIP_ERROR: ; /* FIXME */
                     }
@@ -183,7 +181,6 @@ _retry_mkdir:
                     err = NULL;
                     if(act == FM_JOB_RETRY)
                         goto _retry_mkdir;
-                    ret = FALSE;
                 }
                 job->finished += size;
                 fm_file_ops_job_emit_percent(job);
@@ -191,7 +188,7 @@ _retry_mkdir:
             else
             {
                 /* chmod the newly created dir properly */
-                if(!fm_job_is_cancelled(fmjob))
+                if(!fm_job_is_cancelled(fmjob) && !job->skip_dir_content)
                 {
                     if(mode)
                     {
@@ -210,7 +207,6 @@ _retry_chmod_for_dir:
                         }
                     }
                     dir_created = TRUE;
-                    ret = TRUE;
                 }
                 job->finished += size;
                 fm_file_ops_job_emit_percent(job);
@@ -220,11 +216,14 @@ _retry_chmod_for_dir:
             }
 
             if(!dir_created) /* if target dir is not created, don't copy dir content */
-                job->skip_dir_content = TRUE;
+            {
+                if(!job->skip_dir_content)
+                    job->skip_dir_content = skip_dir_content = TRUE;
+            }
 
             /* the dest dir is created. let's copy its content. */
             /* FIXME: handle the case when the dir cannot be created. */
-            if(!fm_job_is_cancelled(fmjob))
+            else if(!fm_job_is_cancelled(fmjob))
             {
 _retry_enum_children:
                 enu = g_file_enumerate_children(src, query,
@@ -233,6 +232,7 @@ _retry_enum_children:
                 {
                     int n_children = 0;
                     int n_copied = 0;
+                    ret = TRUE;
                     while( !fm_job_is_cancelled(fmjob) )
                     {
                         inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
@@ -268,6 +268,8 @@ _retry_enum_children:
 
                                 if(ret2)
                                     ++n_copied;
+                                else
+                                    ret = FALSE;
                             }
                             g_object_unref(inf);
                         }
@@ -295,12 +297,10 @@ _retry_enum_children:
                                         if(n_children != n_copied)
                                         {
                                             /* if the copy actions are skipped deliberately, it's ok */
-                                            if(job->skip_dir_content)
-                                                ret = TRUE;
+                                            if(!job->skip_dir_content)
+                                                ret = FALSE;
                                         }
                                     }
-                                    else
-                                        ret = FALSE;
                                 }
                                 break;
                             }
@@ -318,11 +318,10 @@ _retry_enum_children:
                         goto _retry_enum_children;
                 }
             }
-            else /* the operation is cancelled */
-            {
-                ret = FALSE;
-            }
-            job->skip_dir_content = FALSE;
+            if(job->skip_dir_content)
+                delete_src = FALSE;
+            if(skip_dir_content)
+                job->skip_dir_content = FALSE;
         }
         break;
 
@@ -397,7 +396,6 @@ _retry_copy:
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(fmjob);
-                    ret = FALSE;
                     break;
                 case FM_FILE_OP_SKIP:
                     ret = TRUE;
@@ -406,8 +404,10 @@ _retry_copy:
                 case FM_FILE_OP_SKIP_ERROR: ; /* FIXME */
                 }
             }
-            if(err)
+            else
             {
+                gboolean is_no_space = (err->domain == G_IO_ERROR &&
+                                        err->code == G_IO_ERROR_NO_SPACE);
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
@@ -416,6 +416,9 @@ _retry_copy:
                     job->current_file_finished = 0;
                     goto _retry_copy;
                 }
+                /* FIXME: ask to leave partial content? */
+                if(is_no_space)
+                    g_file_delete(dest, fm_job_get_cancellable(fmjob), NULL);
                 ret = FALSE;
                 delete_src = FALSE;
             }
