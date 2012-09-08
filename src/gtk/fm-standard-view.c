@@ -91,6 +91,7 @@ struct _FmStandardView
     void (*set_single_click)(GtkWidget* view, gboolean single_click);
     GtkTreePath* (*get_drop_path)(FmStandardView* fv, gint x, gint y);
     void (*select_all)(GtkWidget* view);
+    void (*unselect_all)(GtkWidget* view);
     void (*select_invert)(FmFolderModel* model, GtkWidget* view);
     void (*select_path)(FmFolderModel* model, GtkWidget* view, GtkTreeIter* it);
 };
@@ -658,6 +659,13 @@ static void select_all_list_view(GtkWidget* view)
     gtk_tree_selection_select_all(tree_sel);
 }
 
+static void unselect_all_list_view(GtkWidget* view)
+{
+    GtkTreeSelection * tree_sel;
+    tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+    gtk_tree_selection_unselect_all(tree_sel);
+}
+
 static void select_invert_list_view(FmFolderModel* model, GtkWidget* view)
 {
     GtkTreeSelection *tree_sel;
@@ -775,6 +783,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_single_click;
             fv->get_drop_path = get_drop_path_icon_view;
             fv->select_all = (void(*)(GtkWidget*))exo_icon_view_select_all;
+            fv->unselect_all = (void(*)(GtkWidget*))exo_icon_view_unselect_all;
             fv->select_invert = select_invert_icon_view;
             fv->select_path = select_path_icon_view;
             break;
@@ -783,6 +792,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_single_click;
             fv->get_drop_path = get_drop_path_list_view;
             fv->select_all = select_all_list_view;
+            fv->unselect_all = unselect_all_list_view;
             fv->select_invert = select_invert_list_view;
             fv->select_path = select_path_list_view;
         }
@@ -1107,6 +1117,13 @@ static void fm_standard_view_select_all(FmFolderView* ffv)
         fv->select_all(fv->view);
 }
 
+static void fm_standard_view_unselect_all(FmFolderView* ffv)
+{
+    FmStandardView* fv = FM_STANDARD_VIEW(ffv);
+    if(fv->unselect_all)
+        fv->unselect_all(fv->view);
+}
+
 static void on_dnd_src_data_get(FmDndSrc* ds, FmStandardView* fv)
 {
     FmFileInfoList* files = fm_standard_view_dup_selected_files(FM_FOLDER_VIEW(fv));
@@ -1284,6 +1301,7 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
     iface->dup_selected_files = fm_standard_view_dup_selected_files;
     iface->dup_selected_file_paths = fm_standard_view_dup_selected_file_paths;
     iface->select_all = fm_standard_view_select_all;
+    iface->unselect_all = fm_standard_view_unselect_all;
     iface->select_invert = fm_standard_view_select_invert;
     iface->select_file_path = fm_standard_view_select_file_path;
     iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;

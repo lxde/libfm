@@ -660,6 +660,7 @@ fm_folder_view_set_model
 fm_folder_view_set_selection_mode
 fm_folder_view_set_show_hidden
 fm_folder_view_sort
+fm_folder_view_unselect_all
 <SUBSECTION Standard>
 FM_FOLDER_VIEW
 FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID

@@ -613,6 +613,21 @@ void fm_folder_view_select_all(FmFolderView* fv)
 }
 
 /**
+ * fm_folder_view_unselect_all
+ * @fv: a widget to apply
+ *
+ * Unselects all files in folder.
+ *
+ * Since: 1.0.1
+ */
+void fm_folder_view_unselect_all(FmFolderView* fv)
+{
+    g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
+
+    FM_FOLDER_VIEW_GET_IFACE(fv)->unselect_all(fv);
+}
+
+/**
  * fm_folder_view_select_invert
  * @fv: a widget to apply
  *
