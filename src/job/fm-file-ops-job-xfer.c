@@ -301,8 +301,7 @@ _retry_enum_children:
                                                 ret = FALSE;
                                         }
                                     }
-                                    else
-                                        ret = FALSE;
+                                    /* else job->skip_dir_content is TRUE */
                                 }
                                 break;
                             }

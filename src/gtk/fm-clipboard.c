@@ -117,11 +117,7 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
     GdkDisplay* dpy = src_widget ? gtk_widget_get_display(src_widget) : gdk_display_get_default();
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     gboolean ret;
-    if(!files || fm_path_list_is_empty(files))
-    {
-        gtk_clipboard_clear(clip);
-        return TRUE;
-    }
+
     ret = gtk_clipboard_set_with_data(clip, targets, G_N_ELEMENTS(targets),
                                       get_data, clear_data, fm_path_list_ref(files));
     is_cut = _is_cut;
