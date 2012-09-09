@@ -179,6 +179,8 @@ void            fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* p
 GtkMenu*        fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
                                          FmFolderViewUpdatePopup update_popup);
 
+void            fm_folder_view_set_active(FmFolderView* fv, gboolean set);
+
 /* bounce action to FmFolderView stock */
 void            fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv);
 

@@ -1049,7 +1049,8 @@ static void on_ui_destroy(gpointer ui_ptr)
     GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
 
-    gtk_window_remove_accel_group(win, accel_grp);
+    if(!gtk_accel_group_get_is_locked(accel_grp))
+        gtk_window_remove_accel_group(win, accel_grp);
     gtk_widget_destroy(GTK_WIDGET(popup));
     g_object_unref(ui);
 }
@@ -1190,11 +1191,18 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
     GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
     GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
+    gboolean locked = gtk_accel_group_get_is_locked(accel_grp);
 
-    if(set)
+    if(set && locked)
+    {
         gtk_window_add_accel_group(win, accel_grp);
-    else
+        gtk_accel_group_unlock(accel_grp);
+    }
+    else if(!set && !locked)
+    {
         gtk_window_remove_accel_group(win, accel_grp);
+        gtk_accel_group_lock(accel_grp);
+    }
 }
 
 /* FIXME: move this near fm_launch_paths() */
