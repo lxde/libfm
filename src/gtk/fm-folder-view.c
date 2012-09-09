@@ -1172,7 +1172,6 @@ void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
         g_debug("requested action %s wasn't found in popup", name);
 }
 
-#if 0
 /**
  * fm_folder_view_set_active
  * @fv: the folder view widget to apply
@@ -1183,13 +1182,20 @@ void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
  * if application window contains more than one folder view so gestures
  * will be used only on active view.
  *
- * Since: 1.0.2
+ * Since: 1.0.1
  */
 void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
 {
-    /* TODO */
+    GtkUIManager *ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
+    GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
+    GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
+    GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
+
+    if(set)
+        gtk_window_add_accel_group(win, accel_grp);
+    else
+        gtk_window_remove_accel_group(win, accel_grp);
 }
-#endif
 
 /* FIXME: move this near fm_launch_paths() */
 static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, GtkWindow* win)
