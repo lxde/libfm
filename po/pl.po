@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-08-18 16:36+0200\n"
+"PO-Revision-Date: 2012-09-09 10:13+0200\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
-msgstr ""
+msgstr "Wybór programu"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -210,23 +210,23 @@ msgstr "Brak"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr ""
+msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "SUID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr ""
+msgstr "Sticky i SGID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "SUID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "SUID i SGID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -633,20 +633,20 @@ msgstr "Wyświetlanie _ukrytych plików"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Tylko dla tego katalogu"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Zapamiętuje ustawienia sortowania katalogu zamiast używać ustawień globalnych"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Proszę wybrać katalog"
+msgstr "Nie grupowanie katalogów i plików"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Nie uwzględnianie wielkości liter w nazwach"
 
 #: ../src/gtk/fm-folder-view.c:165
 msgid "By _Name"
@@ -666,11 +666,11 @@ msgstr "Według _typu"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Proszę wprowadzić nazwę katalogu:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Proszę wprowadzić nazwę pliku:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
