@@ -301,6 +301,8 @@ _retry_enum_children:
                                                 ret = FALSE;
                                         }
                                     }
+                                    else
+                                        ret = FALSE;
                                 }
                                 break;
                             }
