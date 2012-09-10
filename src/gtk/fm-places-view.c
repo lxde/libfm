@@ -712,19 +712,19 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
         {
             g_object_unref(mnt);
             act = gtk_action_group_get_action(act_grp, "Mount");
-            gtk_action_set_sensitive(act, FALSE);
+            gtk_action_set_visible(act, FALSE);
         }
         else /* not mounted */
         {
             act = gtk_action_group_get_action(act_grp, "Unmount");
-            gtk_action_set_sensitive(act, FALSE);
+            gtk_action_set_visible(act, FALSE);
         }
 
-        if(g_volume_can_eject(fm_places_item_get_volume(item)))
-            act = gtk_action_group_get_action(act_grp, "Unmount");
-        else
+        if(!g_volume_can_eject(fm_places_item_get_volume(item)))
+        {
             act = gtk_action_group_get_action(act_grp, "Eject");
-        gtk_action_set_visible(act, FALSE);
+            gtk_action_set_visible(act, FALSE);
+        }
     }
     else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_MOUNT)
     {

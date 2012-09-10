@@ -15,7 +15,11 @@ Changes on 1.0.2 since 1.0.1:
 
 * Fixed GTK+ 3.0 compatibility problems. Libfm can be compiled with Gtk
     2.18 ... 3.x and Glib 2.22+ currently (if glib < 2.26 or vala < 0.13
-    still requires run configure --disable-actions).
+    still requires run configure --disable-actions). Added new switch to
+    configure script --with-gtk=N where N is GTK+ generation to be used,
+    may be either 2 or 3. Default is 2.
+
+* Enabled option to Unmount removable media without ejecting it.
 
 
 Changes on 1.0.1 since 1.0.0:
