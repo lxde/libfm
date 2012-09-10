@@ -174,6 +174,7 @@ void            fm_folder_view_select_all(FmFolderView* fv);
 void            fm_folder_view_select_invert(FmFolderView* fv);
 void            fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path);
 void            fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
+void            fm_folder_view_unselect_all(FmFolderView* fv);
 
 /* generate a popup menu for the window */
 GtkMenu*        fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,

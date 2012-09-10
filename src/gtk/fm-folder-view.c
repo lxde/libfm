@@ -1156,19 +1156,20 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
 void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
 {
     const gchar *name;
-    gchar *ppath;
     GtkUIManager *ui;
+    GList *groups;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
     g_return_if_fail(act != NULL);
 
     ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
-    g_return_if_fail(ui != NULL);
+    g_return_if_fail(ui != NULL && GTK_IS_UI_MANAGER(ui));
+
+    groups = gtk_ui_manager_get_action_groups(ui);
+    g_return_if_fail(groups != NULL);
 
     name = gtk_action_get_name(act);
-    ppath = g_strdup_printf("/popup/%s", name);
-    act = gtk_ui_manager_get_action(ui, ppath);
-    g_free(ppath);
+    act = gtk_action_group_get_action((GtkActionGroup*)groups->data, name);
     if(act)
         gtk_action_activate(act);
     else
