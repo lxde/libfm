@@ -1149,6 +1149,8 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
  * <listitem><para>FileProp : file properties dialog</para></listitem>
  * </itemizedlist>
  *
+ * See also: fm_folder_view_add_popup().
+ *
  * Since: 1.0.1
  */
 void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
@@ -1178,20 +1180,36 @@ void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
  * @fv: the folder view widget to apply
  * @set: state of accelerators to be set
  *
- * If @set is %TRUE then activates accelerators on the @fv. If @set is
- * %FALSE then deactivates accelerators on the @fv. This API is useful
- * if application window contains more than one folder view so gestures
- * will be used only on active view.
+ * If @set is %TRUE then activates accelerators on the @fv that were
+ * created with fm_folder_view_add_popup() before. If @set is %FALSE
+ * then deactivates accelerators on the @fv. This API is useful if the
+ * application window contains more than one folder view so gestures
+ * will be used only on active view. This API has no effect in no popup
+ * menu was created with fm_folder_view_add_popup() before this call.
+ *
+ * See also: fm_folder_view_add_popup().
  *
  * Since: 1.0.1
  */
 void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
 {
-    GtkUIManager *ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
-    GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
-    GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
-    GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
-    gboolean locked = gtk_accel_group_get_is_locked(accel_grp);
+    GtkUIManager *ui;
+    GtkMenu *popup;
+    GtkWindow* win;
+    GtkAccelGroup* accel_grp;
+    gboolean locked;
+
+    g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
+
+    ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
+    popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
+
+    g_return_if_fail(ui != NULL && GTK_IS_UI_MANAGER(ui));
+    g_return_if_fail(popup != NULL && GTK_IS_MENU(popup));
+
+    win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
+    accel_grp = gtk_ui_manager_get_accel_group(ui);
+    locked = gtk_accel_group_get_is_locked(accel_grp);
 
     if(set && locked)
     {
