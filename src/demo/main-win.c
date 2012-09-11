@@ -154,6 +154,20 @@ static void on_folder_start_loading(FmFolder* folder, FmMainWin* win)
     fm_folder_view_set_model(fv, NULL);
 }
 
+static gboolean update_scroll(gpointer data)
+{
+    FmMainWin* win = data;
+    GtkScrolledWindow* scroll = GTK_SCROLLED_WINDOW(win->folder_view);
+    gint scroll_pos;
+
+    /* scroll to recorded position */
+    scroll_pos = fm_nav_history_get_scroll_pos(win->nav_history);
+    gtk_adjustment_set_value(gtk_scrolled_window_get_vadjustment(scroll),
+                             scroll_pos);
+    win->update_scroll_id = 0;
+    return FALSE;
+}
+
 static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 {
     FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
@@ -169,9 +183,9 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 
     fm_path_entry_set_path(entry, path);
 
-    /* scroll to recorded position */
-    item = fm_nav_history_get_cur(win->nav_history);
-    gtk_adjustment_set_value(gtk_scrolled_window_get_vadjustment(scroll), item->scroll_pos);
+    /* delaying scrolling since drawing folder view is delayed - don't know why */
+    if(!win->update_scroll_id)
+        win->update_scroll_id = g_timeout_add(20, update_scroll, win);
 
     /* update status bar */
     update_statusbar(win);
@@ -319,31 +333,29 @@ static void load_bookmarks(FmMainWin* win, GtkUIManager* ui)
 
 static void on_history_item(GtkMenuItem* mi, FmMainWin* win)
 {
-    GList* l = g_object_get_qdata(G_OBJECT(mi), fm_qdata_id);
-    const FmNavHistoryItem* item = (FmNavHistoryItem*)l->data;
+    gpointer i = g_object_get_qdata(G_OBJECT(mi), fm_qdata_id);
     int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
-    fm_nav_history_jump(win->nav_history, l, scroll_pos);
-    item = fm_nav_history_get_cur(win->nav_history);
+    FmPath* path = fm_nav_history_go_to(win->nav_history, GPOINTER_TO_UINT(i), scroll_pos);
     /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
-    fm_main_win_chdir_without_history(win, item->path);
+    fm_main_win_chdir_without_history(win, path);
 }
 
 static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
 {
     GtkMenuShell* menu = (GtkMenuShell*)gtk_menu_tool_button_get_menu(btn);
-    const GList* l;
-    const GList* cur = fm_nav_history_get_cur_link(win->nav_history);
+    FmPath* path;
+    guint n, cur = fm_nav_history_get_cur_index(win->nav_history);
 
     /* delete old items */
     gtk_container_foreach(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy, NULL);
 
-    for(l = fm_nav_history_list(win->nav_history); l; l=l->next)
+    for(n = 0; (path = fm_nav_history_get_nth_path(win->nav_history, n)); n++)
     {
-        const FmNavHistoryItem* item = (FmNavHistoryItem*)l->data;
-        FmPath* path = item->path;
-        char* str = fm_path_display_name(path, TRUE);
+        char* str;
         GtkMenuItem* mi;
-        if( l == cur )
+
+        str = fm_path_display_name(path, TRUE);
+        if(n == cur)
         {
             mi = gtk_check_menu_item_new_with_label(str);
             gtk_check_menu_item_set_draw_as_radio(GTK_CHECK_MENU_ITEM(mi), TRUE);
@@ -353,9 +365,10 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
             mi = gtk_menu_item_new_with_label(str);
         g_free(str);
 
-        g_object_set_qdata_full(G_OBJECT(mi), fm_qdata_id, l, NULL);
+        g_object_set_qdata_full(G_OBJECT(mi), fm_qdata_id, GUINT_TO_POINTER(n), NULL);
         g_signal_connect(mi, "activate", G_CALLBACK(on_history_item), win);
         gtk_menu_shell_append(menu, mi);
+        n++;
     }
     gtk_widget_show_all( GTK_WIDGET(menu) );
 }
@@ -526,6 +539,11 @@ static void fm_main_win_dispose(GObject *object)
         g_object_unref(win->bookmarks);
         win->bookmarks = NULL;
     }
+    if(win->update_scroll_id)
+    {
+        g_source_remove(win->update_scroll_id);
+        win->update_scroll_id = 0;
+    }
     (* G_OBJECT_CLASS(fm_main_win_parent_class)->dispose)(object);
 }
 
@@ -622,26 +640,24 @@ void on_go_back(GtkAction* act, FmMainWin* win)
 {
     if(fm_nav_history_can_back(win->nav_history))
     {
-        FmNavHistoryItem* item;
+        guint prev = fm_nav_history_get_cur_index(win->nav_history) + 1;
         int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
-        fm_nav_history_back(win->nav_history, scroll_pos);
-        item = fm_nav_history_get_cur(win->nav_history);
+        FmPath* path = fm_nav_history_go_to(win->nav_history, prev, scroll_pos);
         /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
-        fm_main_win_chdir_without_history(win, item->path);
+        fm_main_win_chdir_without_history(win, path);
     }
 }
 
 void on_go_forward(GtkAction* act, FmMainWin* win)
 {
-    if(fm_nav_history_can_forward(win->nav_history))
+    guint cur = fm_nav_history_get_cur_index(win->nav_history);
+
+    if(cur > 0)
     {
-        FmNavHistoryItem* item;
         int scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
-        fm_nav_history_forward(win->nav_history, scroll_pos);
+        FmPath* path = fm_nav_history_go_to(win->nav_history, cur - 1, scroll_pos);
         /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
-        item = fm_nav_history_get_cur(win->nav_history);
-        /* FIXME: should this be driven by a signal emitted on FmNavHistory? */
-        fm_main_win_chdir_without_history(win, item->path);
+        fm_main_win_chdir_without_history(win, path);
     }
 }
 

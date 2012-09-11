@@ -57,31 +57,41 @@ struct _FmNavHistoryItem
 
 struct _FmNavHistory
 {
-	GObject parent;
+    /*< private >*/
+    GObject parent;
     GQueue items;
     GList* cur;
-    guint n_max;
+    guint n_cur;
+    gint n_max;
 };
 
 struct _FmNavHistoryClass
 {
     /*< private >*/
-	GObjectClass parent_class;
+    GObjectClass parent_class;
 };
 
-GType		fm_nav_history_get_type		(void);
-FmNavHistory*	fm_nav_history_new			(void);
+GType           fm_nav_history_get_type     (void);
+FmNavHistory*   fm_nav_history_new          (void);
 
+#define FM_NAV_HISTORY_DEFAULT_SIZE     10
+
+#ifndef FM_DISABLE_DEPRECATED
 /* The returned GList belongs to FmNavHistory and shouldn't be freed. */
 const GList* fm_nav_history_list(FmNavHistory* nh);
 const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh);
 const GList* fm_nav_history_get_cur_link(FmNavHistory* nh);
-gboolean fm_nav_history_can_back(FmNavHistory* nh);
 void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos);
 gboolean fm_nav_history_can_forward(FmNavHistory* nh);
 void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos);
-void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos);
 void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos);
+#endif
+guint fm_nav_history_get_cur_index(FmNavHistory* nh);
+FmPath* fm_nav_history_get_nth_path(FmNavHistory* nh, guint n);
+FmPath* fm_nav_history_go_to(FmNavHistory* nh, guint index, gint old_scroll_pos);
+gint fm_nav_history_get_scroll_pos(FmNavHistory* nh);
+gboolean fm_nav_history_can_back(FmNavHistory* nh);
+void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, gint old_scroll_pos);
 void fm_nav_history_clear(FmNavHistory* nh);
 void fm_nav_history_set_max(FmNavHistory* nh, guint num);
 

@@ -32,17 +32,17 @@
 
 #include "fm-nav-history.h"
 
-static void fm_nav_history_finalize  			(GObject *object);
+static void fm_nav_history_finalize (GObject *object);
 
 G_DEFINE_TYPE(FmNavHistory, fm_nav_history, G_TYPE_OBJECT);
 
 
 static void fm_nav_history_class_init(FmNavHistoryClass *klass)
 {
-	GObjectClass *g_object_class;
+    GObjectClass *g_object_class;
 
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_nav_history_finalize;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->finalize = fm_nav_history_finalize;
 }
 
 static void fm_nav_history_item_free(FmNavHistoryItem* item)
@@ -53,21 +53,22 @@ static void fm_nav_history_item_free(FmNavHistoryItem* item)
 
 static void fm_nav_history_finalize(GObject *object)
 {
-	FmNavHistory *self;
+    FmNavHistory *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_NAV_HISTORY(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_NAV_HISTORY(object));
 
-	self = FM_NAV_HISTORY(object);
+    self = FM_NAV_HISTORY(object);
     g_queue_foreach(&self->items, (GFunc)fm_nav_history_item_free, NULL);
     g_queue_clear(&self->items);
 
-	G_OBJECT_CLASS(fm_nav_history_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_nav_history_parent_class)->finalize(object);
 }
 
 static void fm_nav_history_init(FmNavHistory *self)
 {
-	g_queue_init(&self->items);
+    g_queue_init(&self->items);
+    self->n_max = FM_NAV_HISTORY_DEFAULT_SIZE;
 }
 
 /**
@@ -81,7 +82,7 @@ static void fm_nav_history_init(FmNavHistory *self)
  */
 FmNavHistory *fm_nav_history_new(void)
 {
-	return g_object_new(FM_NAV_HISTORY_TYPE, NULL);
+    return g_object_new(FM_NAV_HISTORY_TYPE, NULL);
 }
 
 /**
@@ -94,6 +95,8 @@ FmNavHistory *fm_nav_history_new(void)
  * Returns: (transfer none): (element-type #FmNavHistoryItem): full history.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Don't use it in newer code.
  */
 const GList* fm_nav_history_list(FmNavHistory* nh)
 {
@@ -110,6 +113,8 @@ const GList* fm_nav_history_list(FmNavHistory* nh)
  * Returns: (transfer none): current item.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_nav_history_get_nth_path() instead.
  */
 const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
 {
@@ -127,6 +132,8 @@ const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
  * Returns: (transfer none): (element-type #FmNavHistoryItem): current item.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Don't use it in newer code.
  */
 const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
 {
@@ -144,10 +151,12 @@ const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
  * Returns: %TRUE if cursor can go forward in history.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_nav_history_get_cur_index() instead.
  */
 gboolean fm_nav_history_can_forward(FmNavHistory* nh)
 {
-    return nh->cur ? (nh->cur->prev != NULL) : FALSE;
+    return nh->n_cur > 0;
 }
 
 /**
@@ -159,16 +168,19 @@ gboolean fm_nav_history_can_forward(FmNavHistory* nh)
  * into current item data and marks previous item current.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_nav_history_go_to() instead.
  */
 void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
 {
     if(nh->cur && nh->cur->prev)
     {
-		FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
-		if(tmp) /* remember current scroll pos */
-			tmp->scroll_pos = old_scroll_pos;
+        FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
+        if(tmp) /* remember current scroll pos */
+            tmp->scroll_pos = old_scroll_pos;
         nh->cur = nh->cur->prev;
-	}
+        nh->n_cur--;
+    }
 }
 
 /**
@@ -185,6 +197,8 @@ void fm_nav_history_forward(FmNavHistory* nh, int old_scroll_pos)
  */
 gboolean fm_nav_history_can_back(FmNavHistory* nh)
 {
+    g_return_val_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh), FALSE);
+
     return nh->cur ? (nh->cur->next != NULL) : FALSE;
 }
 
@@ -197,16 +211,28 @@ gboolean fm_nav_history_can_back(FmNavHistory* nh)
  * current item data and marks next item current.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_nav_history_go_to() instead.
  */
 void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos)
 {
-	if(nh->cur && nh->cur->next)
-	{
-		FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
-		if(tmp) /* remember current scroll pos */
-			tmp->scroll_pos = old_scroll_pos;
+    if(nh->cur && nh->cur->next)
+    {
+        FmNavHistoryItem* tmp = (FmNavHistoryItem*)nh->cur->data;
+        if(tmp) /* remember current scroll pos */
+            tmp->scroll_pos = old_scroll_pos;
         nh->cur = nh->cur->next;
-	}
+        nh->n_cur++;
+    }
+}
+
+static inline void cut_history(FmNavHistory* nh, guint num)
+{
+    while(g_queue_get_length(&nh->items) > num)
+    {
+        FmNavHistoryItem* item = (FmNavHistoryItem*)g_queue_pop_tail(&nh->items);
+        fm_nav_history_item_free(item);
+    }
 }
 
 /**
@@ -220,21 +246,11 @@ void fm_nav_history_back(FmNavHistory* nh, int old_scroll_pos)
  *
  * Since: 0.1.0
  */
-/* FIXME: it's too dirty, need to redesign it later */
-void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
+void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, gint old_scroll_pos)
 {
     FmNavHistoryItem* tmp;
 
-    /* if we're not at the top of the queue, remove all items beyond us. */
-    while(nh->items.head != nh->cur && !g_queue_is_empty(&nh->items))
-    {
-		/* FIXME: #3411314: pcmanfm crash on unmount.
-		 * While tracing the bug, I noted that sometimes nh->items
-		 * becomes empty, but nh->cur still points to somewhere.
-		 * The cause is not yet known. */
-        tmp = g_queue_pop_head(&nh->items);
-        fm_nav_history_item_free(tmp);
-    }
+    g_return_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh));
 
     /* now we're at the top of the queue. */
     tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
@@ -243,13 +259,21 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
 
     if( !tmp || !fm_path_equal(tmp->path, path) ) /* we're not chdir to the same path */
     {
-        tmp = g_queue_peek_head(&nh->items);
+        /* if we're not at the top of the queue, remove all items beyond us. */
+        while(nh->n_cur > 0)
+        {
+            tmp = (FmNavHistoryItem*)g_queue_pop_head(&nh->items);
+            if(tmp)
+                fm_nav_history_item_free(tmp);
+            nh->n_cur--;
+        }
 
         /* add a new item */
         tmp = g_slice_new0(FmNavHistoryItem);
         tmp->path = fm_path_ref(path);
         g_queue_push_head(&nh->items, tmp);
         nh->cur = g_queue_peek_head_link(&nh->items);
+        cut_history(nh, nh->n_max);
     }
 }
 
@@ -263,15 +287,14 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, int old_scroll_pos)
  * sets current item of @nh to one from @l.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_nav_history_go_to() instead.
  */
-/* FIXME: it's too dangerous, need to redesign it later */
 void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos)
 {
-    FmNavHistoryItem* tmp = nh->cur ? (FmNavHistoryItem*)nh->cur->data : NULL;
-    if(tmp) /* remember current scroll pos */
-        tmp->scroll_pos = old_scroll_pos;
-
-    nh->cur = l;
+    gint n = g_queue_index(&nh->items, l->data);
+    if(n >= 0)
+        fm_nav_history_go_to(nh, n, old_scroll_pos);
 }
 
 /**
@@ -284,8 +307,11 @@ void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos)
  */
 void fm_nav_history_clear(FmNavHistory* nh)
 {
+    g_return_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh));
     g_queue_foreach(&nh->items, (GFunc)fm_nav_history_item_free, NULL);
     g_queue_clear(&nh->items);
+    nh->cur = NULL;
+    nh->n_cur = 0;
 }
 
 /**
@@ -299,14 +325,103 @@ void fm_nav_history_clear(FmNavHistory* nh)
  */
 void fm_nav_history_set_max(FmNavHistory* nh, guint num)
 {
+    g_return_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh));
+    if(num <= nh->n_cur)
+    {
+        nh->cur = NULL;
+        nh->n_cur = 0;
+    }
     nh->n_max = num;
     if(num < 1)
-		num = 1;
-	while(g_queue_get_length(&nh->items) > num)
-	{
-		FmNavHistoryItem* item = (FmNavHistoryItem*)g_queue_pop_tail(&nh->items);
-		fm_nav_history_item_free(item);
-		/* FIXME: nh->cur may become invalid!!! */
-	}
+        num = 1;
+    cut_history(nh, num);
 }
 
+/**
+ * fm_nav_history_get_cur_index
+ * @nh: the history
+ *
+ * Retrieves index of current item in the history @nh. 0 means current
+ * item is at top.
+ *
+ * Returns: index of current item.
+ *
+ * Since: 1.0.2
+ */
+guint fm_nav_history_get_cur_index(FmNavHistory* nh)
+{
+    g_return_val_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh), 0);
+    return nh->n_cur;
+}
+
+/**
+ * fm_nav_history_get_nth_path
+ * @nh: the history
+ * @n: index of item
+ *
+ * Retrieves path of the item @n in the history @nh.
+ *
+ * Returns: path of the item or %NULL if no such item was found.
+ *
+ * Since: 1.0.2
+ */
+FmPath* fm_nav_history_get_nth_path(FmNavHistory* nh, guint n)
+{
+    FmNavHistoryItem *item;
+
+    g_debug("fm_nav_history_get_nth_path %u", n);
+    g_return_val_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh), NULL);
+    if(n == nh->n_cur)
+        item = nh->cur->data;
+    else
+        item = g_queue_peek_nth(&nh->items, n);
+    if(item == NULL)
+        return NULL;
+    return item->path;
+}
+
+/**
+ * fm_nav_history_go_to
+ * @nh: the history
+ * @n: new index
+ * @old_scroll_pos: scroll position of current folder view
+ *
+ * Saves the current scroll position into the history. If item with index
+ * @n exists in the history then sets it as current item.
+ *
+ * Returns: path of selected item or %NULL if no such item was found.
+ *
+ * Since: 1.0.2
+ */
+FmPath* fm_nav_history_go_to(FmNavHistory* nh, guint n, gint old_scroll_pos)
+{
+    GList *link;
+
+    g_return_val_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh), NULL);
+    if(nh->cur)
+        ((FmNavHistoryItem*)nh->cur->data)->scroll_pos = old_scroll_pos;
+    if(n == nh->n_cur)
+        return ((FmNavHistoryItem*)nh->cur->data)->path;
+    link = g_queue_peek_nth_link(&nh->items, n);
+    if(link == NULL)
+        return NULL;
+    nh->n_cur = n;
+    nh->cur = link;
+    return ((FmNavHistoryItem*)link->data)->path;
+}
+
+/**
+ * fm_nav_history_get_scroll_pos
+ * @nh: the history
+ *
+ * Retrieves saved scroll position for current item.
+ *
+ * Returns: saved scroll position.
+ *
+ * Since: 1.0.2
+ */
+gint fm_nav_history_get_scroll_pos(FmNavHistory* nh)
+{
+    g_return_val_if_fail(nh != NULL && FM_IS_NAV_HISTORY(nh), -1);
+    return ((FmNavHistoryItem*)nh->cur->data)->scroll_pos;
+}

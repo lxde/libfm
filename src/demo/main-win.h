@@ -63,6 +63,7 @@ struct _FmMainWin
     guint statusbar_ctx;
     guint statusbar_ctx2;
     FmBookmarks* bookmarks;
+    guint update_scroll_id;
 };
 
 struct _FmMainWinClass
