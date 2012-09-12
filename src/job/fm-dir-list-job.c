@@ -466,6 +466,23 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
 }
 
 /**
+ * fm_dir_list_job_get_files
+ * @job: the job that collected listing
+ *
+ * Retrieves gathered listing from the @job. This function may be called
+ * only from #FmJob::finished signal handler. Returned data is owned by
+ * the @job and should be not freed by caller.
+ *
+ * Returns: (transfer none): list of gathered data.
+ *
+ * Since: 0.1.1
+ */
+FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job)
+{
+    return job->files;
+}
+
+/**
  * fm_dir_dist_job_get_files
  * @job: the job that collected listing
  *
@@ -475,9 +492,14 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
  *
  * Returns: (transfer none): list of gathered data.
  *
+ * There is a typo in the function name. It should have been 
+ * fm_dir_list_job_get_files(). The one with typo is kept here for backward
+ * compatibility and will be removed later.
+ *
  * Since: 0.1.0
  */
-FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
+G_DEPRECATED FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
 {
-    return job->files;
+	return fm_dir_list_job_get_files(job);
 }
+
