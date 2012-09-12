@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-07-07 15:48+0200\n"
+"PO-Revision-Date: 2012-09-06 04:29+0200\n"
 "Last-Translator: Andika <andika@gmail.com>\n"
 "Language-Team: Indonesian Translation Team <id@li.org>\n"
 "Language: id\n"
@@ -602,94 +602,89 @@ msgstr "Diubah"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "Buat _Baru..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "Cakram MO Kosong"
+msgstr "Berkas Kosong"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "Pintas"
+msgstr "Pintasan"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Bal_ik Pilihan"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "_Urutkan Berkas"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Tampilkan Yang _Tersembunyi"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "Hanya folder ini"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
+"Contreng untuk mengingat pengurutan sebagai pengaturan folder bukan untuk "
+"global"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "Silakan pilih sebuah folder"
+msgstr "Campurkan berkas dan folder"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "Abaikan huruf besar kecil dalam nama"
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "Nama"
+msgstr "Menurut _Nama"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Menurut Waktu _Modifikasi"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "Ukuran"
+msgstr "Menurut _Ukuran"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>Jenis Berkas:</b>"
+msgstr "Menurut _Tipe Berkas"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Masukkan nama untuk folder yang baru dibuat:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Masukkan nama untuk berkas yang baru dibuat:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "Buat Baru..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "Jaringan"
+msgstr "Baru"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Galat, lxshortcut tak dipasang"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Gagal memulai lxshortcut"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"

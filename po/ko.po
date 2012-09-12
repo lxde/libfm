@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 22:34+0200\n"
-"PO-Revision-Date: 2012-07-25 19:35+0900\n"
+"PO-Revision-Date: 2012-09-06 22:23+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -122,7 +122,7 @@ msgstr "<b>최종 수정:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 msgid "<b>Last Access:</b>"
-msgstr "<b>최종 접근</b>"
+msgstr "<b>최종 접근:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
 msgid "<b>Location:</b>"
@@ -271,7 +271,8 @@ msgstr "<b>남은 시간:</b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>오류 발생:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "기본 프로그램"
 
@@ -288,12 +289,8 @@ msgid "<b>Mail client</b>"
 msgstr "<b>메일 클라이언트</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"이메일 주소를 눌렀을 때 메일을 작성할 때 기본으로 사용할 기본 메일 클라이언"
-"트 입니다."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "이메일 주소를 눌렀을 때 메일을 작성할 때 기본으로 사용할 기본 메일 클라이언트 입니다."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -319,7 +316,8 @@ msgstr "파일 실행"
 msgid "Execute in _Terminal"
 msgstr "터미널에서 실행(_T)"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../src/base/fm-utils.c:57
+#: ../src/base/fm-utils.c:88
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -365,7 +363,8 @@ msgstr "휴지통"
 msgid "My Computer"
 msgstr "내 컴퓨터"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
+#: ../src/base/fm-path.c:740
+#: ../src/gtk/fm-places-model.c:681
 msgid "Applications"
 msgstr "프로그램"
 
@@ -385,7 +384,8 @@ msgstr "마운트 지점"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:223
+#: ../src/gtk/fm-progress-dlg.c:242
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -396,7 +396,8 @@ msgstr ""
 "크기: %s\n"
 "수정: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:230
+#: ../src/gtk/fm-progress-dlg.c:249
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -423,12 +424,10 @@ msgstr "완료함"
 
 #: ../src/gtk/fm-progress-dlg.c:357
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이"
-"동할 수 없습니다.\n"
+"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이동할 수 없습니다.\n"
 "대신 삭제하시겠습니까?"
 
 #: ../src/gtk/fm-progress-dlg.c:472
@@ -459,7 +458,8 @@ msgstr "심볼릭 링크 만드는 중"
 msgid "Changing file attributes"
 msgstr "파일 속성 변경 중"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:154
+#: ../src/gtk/fm-file-properties.c:163
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "바이트"
@@ -474,8 +474,7 @@ msgstr "유효한 그룹 이름이나 번호 ID를 입력하여 주십시오."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:446
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "모든 파일과 하위 폴더에 대해 바뀔 내용을 재귀적으로 적용하시겠습니까?"
 
 #: ../src/gtk/fm-file-properties.c:626
@@ -505,7 +504,8 @@ msgid "Eject Removable Media"
 msgstr "이동식 미디어 꺼내기"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:114
+#: ../src/gtk/fm-places-view.c:836
 msgid "Rename Bookmark Item"
 msgstr "북마크 항목 이름 바꾸기"
 
@@ -521,11 +521,13 @@ msgstr "휴지통 비우기"
 msgid "Enter a new name:"
 msgstr "새 이름을 입력하십시오:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:60
+#: ../src/gtk/fm-side-pane.c:400
 msgid "Places"
 msgstr "위치"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:61
+#: ../src/gtk/fm-side-pane.c:410
 msgid "Directory Tree"
 msgstr "디렉터리 트리"
 
@@ -533,11 +535,13 @@ msgstr "디렉터리 트리"
 msgid "Remote"
 msgstr "원격"
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
+#: ../src/gtk/fm-file-menu.c:110
+#: ../src/gtk/fm-file-menu.c:111
 msgid "Open With..."
 msgstr "열기..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
+#: ../src/gtk/fm-file-menu.c:116
+#: ../src/gtk/fm-folder-view.c:139
 msgid "Rename"
 msgstr "이름 비꾸기"
 
@@ -603,94 +607,87 @@ msgstr "수정"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "새로 만들기(_N)..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "폴더"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "빈 광자기 디스크"
+msgstr "빈 파일"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
-msgstr "단축 아이콘"
+msgstr "바로 가기"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "선택 반전(_I)"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "파일 정렬(_S)"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "숨겨진 요소 보이기(_H)"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "이 폴더에 대해서만"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "전역 설정보다 폴더 설정에 따라 정렬하려면 표시하십시오"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "폴더를 선택하여 주십시오"
+msgstr "파일 폴더 뒤섞기"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "이름 대소문자 무시"
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "이름"
+msgstr "이름순(_N)"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "수정일순(_M)"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "크기"
+msgstr "크기순(_S)"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "<b>파일 유형:</b>"
+msgstr "파일 유형순(_T)"
 
 #: ../src/gtk/fm-folder-view.c:684
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "새로 만들 폴더의 이름을 입력하십시오:"
 
 #: ../src/gtk/fm-folder-view.c:686
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "새로 만들 파일의 이름을 입력하십시오:"
 
 #: ../src/gtk/fm-folder-view.c:687
 msgid "Create New..."
-msgstr ""
+msgstr "새로 만들기..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
 msgid "New"
-msgstr "네트워크"
+msgstr "새로 만들기"
 
 #: ../src/gtk/fm-folder-view.c:779
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "오류. lxshortcut을 설치하지 않았습니다"
 
 #: ../src/gtk/fm-folder-view.c:784
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "lxshortcut을 시작하는데 실패했습니다"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
@@ -700,7 +697,8 @@ msgstr "설치한 프로그램"
 msgid "Error"
 msgstr "오류"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:59
+#: ../src/gtk/fm-gtk-utils.c:75
 msgid "Confirm"
 msgstr "확인"
 
@@ -750,15 +748,18 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s'은(는) 실행 가능한 파일입니다. 실행하시겠습니까?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#: ../src/gtk/fm-dir-tree-model.c:408
+#: ../src/gtk/fm-dir-tree-model.c:1180
 msgid "<No Sub Folder>"
 msgstr "<하위 폴더 없음>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:410
+#: ../src/gtk/fm-dir-tree-model.c:1181
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:270
+#: ../src/job/fm-dir-list-job.c:281
 #: ../src/job/fm-dir-list-job.c:381
 #, c-format
 msgid "The specified directory is not valid"
@@ -813,11 +814,13 @@ msgstr "CD-RW 디스크"
 msgid "Blank CD-RW Disc"
 msgstr "빈 CD-RW 디스크"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "DVD-ROM 디스크"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "빈 DVD-ROM 디스크"
 
