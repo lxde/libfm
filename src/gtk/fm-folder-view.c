@@ -409,9 +409,9 @@ void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
  * Retrieves setting whether hidden files in folder shown in @fv should
  * be visible or not.
  *
- * Returns: %TRUE if hidden files are visible.
- *
  * See also: fm_folder_view_set_show_hidden().
+ *
+ * Returns: %TRUE if hidden files are visible.
  *
  * Since: 0.1.0
  */

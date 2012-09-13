@@ -29,6 +29,12 @@ G_BEGIN_DECLS
 
 typedef struct _FmIcon			FmIcon;
 
+/**
+ * FmIcon
+ * @n_ref: reference counter
+ * @gicon: cached icon object
+ * @user_data: associated user data
+ */
 struct _FmIcon
 {
     guint n_ref;
@@ -51,6 +57,13 @@ void fm_icon_unref(FmIcon* icon);
  * or GdkPixbuf in the FmIcon objects. Fox example, libfm-gtk stores
  * a list of GdkPixbuf objects in FmIcon::user_data.
  * It shouldn't be used in other ways by application developers. */
+/* FIXME: it's not reenterable so needs a redesign:
+GIcon* fm_icon_cache_from_gicon(GIcon* icon);
+GIcon* fm_icon_cache_from_name(const char* name);
+void fm_icon_cache_set_user_data(GIcon* icon, GQuark quark, gpointer user_data, GDestroyNotify func);
+   and caller uses g_object_get_qdata instead of fm_icon_get_user_data,
+   g_object_[un]ref instead of fm_icon_[un]ref,
+   and never uses fm_icon_set_user_data_destroy */
 gpointer fm_icon_get_user_data(FmIcon* icon);
 void fm_icon_set_user_data(FmIcon* icon, gpointer user_data);
 void fm_icon_set_user_data_destroy(GDestroyNotify func);

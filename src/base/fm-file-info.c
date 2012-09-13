@@ -20,6 +20,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-info
+ * @short_description: File information cache for libfm.
+ * @title: FmFileInfo
+ *
+ * @include: libfm/fm-file-info.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -191,7 +200,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             if(icon)
                 fi->icon = icon;
             else
-                fi->icon = fm_icon_ref(fi->mime_type->icon);
+                fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
             g_key_file_free(kf);
             g_free(fpath);
         }
@@ -199,7 +208,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
         else
-            fi->icon = fm_icon_ref(fi->mime_type->icon);
+            fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
     }
     else
     {
@@ -291,7 +300,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
         fi->icon = fm_icon_ref(icon_locked_folder);
     /* set file icon according to mime-type */
-    else if(!fi->mime_type || !fi->mime_type->icon)
+    else if(!fi->mime_type || !fm_mime_type_get_icon(fi->mime_type))
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
@@ -301,7 +310,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
          * owned by GFileInfo. */
     }
     else
-        fi->icon = fm_icon_ref(fi->mime_type->icon);
+        fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
     if(type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT)
     {
@@ -799,7 +808,7 @@ gboolean fm_file_info_is_mountable(FmFileInfo* fi)
 gboolean fm_file_info_is_image(FmFileInfo* fi)
 {
     /* FIXME: We had better use functions of xdg_mime to check this */
-    if (!strncmp("image/", fi->mime_type->type, 6))
+    if (!strncmp("image/", fm_mime_type_get_type(fi->mime_type), 6))
         return TRUE;
     return FALSE;
 }
@@ -812,7 +821,7 @@ gboolean fm_file_info_is_image(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_text(FmFileInfo* fi)
 {
-    if(g_content_type_is_a(fi->mime_type->type, "text/plain"))
+    if(g_content_type_is_a(fm_mime_type_get_type(fi->mime_type), "text/plain"))
         return TRUE;
     return FALSE;
 }
@@ -837,7 +846,7 @@ gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
 {
-    return g_content_type_is_unknown(fi->mime_type->type);
+    return g_content_type_is_unknown(fm_mime_type_get_type(fi->mime_type));
 }
 
 /**
@@ -877,7 +886,7 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
         }
         return FALSE;
     }
-    return g_content_type_can_be_executable(fi->mime_type->type);
+    return g_content_type_can_be_executable(fm_mime_type_get_type(fi->mime_type));
 }
 
 /**
@@ -975,17 +984,17 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 }
 
 /**
- * fm_file_info_get_collate_key_nocasefold:
- * @fi:  A FmFileInfo struct
+ * fm_file_info_get_collate_key_nocasefold
+ * @fi: a #FmFileInfo struct
  *
  * Get the collate key used for locale-dependent filename sorting but
  * in case-sensitive manner. The keys of different files can be compared
  * with strcmp() directly. Returned data are owned by FmFileInfo and
  * should be not freed by caller.
  *
- * Returns: collate string.
- *
  * See also: fm_file_info_get_collate_key().
+ *
+ * Returns: collate string.
  *
  * Since: 1.0.2
  */
@@ -1157,7 +1166,14 @@ static FmListFuncs fm_list_funcs =
     .item_unref = (void (*)(gpointer))&fm_file_info_unref
 };
 
-FmFileInfoList* fm_file_info_list_new()
+/**
+ * fm_file_info_list_new
+ *
+ * Creates a new #FmFileInfoList.
+ *
+ * Returns: new #FmFileInfoList object.
+ */
+FmFileInfoList* fm_file_info_list_new(void)
 {
     return (FmFileInfoList*)fm_list_new(&fm_list_funcs);
 }
@@ -1169,7 +1185,14 @@ gboolean fm_list_is_file_info_list(FmList* list)
 }
 #endif
 
-/* return TRUE if all files in the list are of the same type */
+/**
+ * fm_file_info_list_is_same_type
+ * @list: a #FmFileInfoList
+ *
+ * Checks if all files in the list are of the same type.
+ *
+ * Returns: %TRUE if all files in the list are of the same type
+ */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
 {
     /* FIXME: handle virtual files without mime-types */
@@ -1188,7 +1211,14 @@ gboolean fm_file_info_list_is_same_type(FmFileInfoList* list)
     return TRUE;
 }
 
-/* return TRUE if all files in the list are on the same fs */
+/**
+ * fm_file_info_list_is_same_fs
+ * @list: a #FmFileInfoList
+ *
+ * Checks if all files in the list are on the same file system.
+ *
+ * Returns: %TRUE if all files in the list are on the same fs.
+ */
 gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
 {
     if(!fm_list_is_empty((FmList*)list))

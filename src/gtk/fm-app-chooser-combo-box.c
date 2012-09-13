@@ -150,7 +150,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     if(mime_type)
     {
         data->mime_type = fm_mime_type_ref(mime_type);
-        apps = g_app_info_get_all_for_type(data->mime_type->type);
+        apps = g_app_info_get_all_for_type(fm_mime_type_get_type(data->mime_type));
         if(apps)
             sel = G_APP_INFO(apps->data); /* default app is the first one in the list. */
     }

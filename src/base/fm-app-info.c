@@ -17,6 +17,15 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-app-info
+ * @short_description: FM application launch handlers
+ * @title: GAppInfo extensions
+ *
+ * @include: libfm/fm-app-info.h
+ *
+ */
+
 #include "fm-app-info.h"
 #include "fm-config.h"
 #include "fm-utils.h"
@@ -147,7 +156,7 @@ const char* expand_terminal_s(char opt, gpointer unused)
     return fm_config->terminal;
 }
 
-FmAppCommandParseOption expand_terminal_options[] =
+static FmAppCommandParseOption expand_terminal_options[] =
 {
     {'s', &expand_terminal_s },
     { 0, NULL }
@@ -254,6 +263,19 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
     return ret;
 }
 
+/**
+ * fm_app_info_launch
+ * @appinfo: application info to launch
+ * @files: (element-type #GFile): files to use in run substitutions
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Launches desktop application doing substitutions in application info.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                             GAppLaunchContext *launch_context, GError **error)
 {
@@ -309,6 +331,19 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
     return ret;
 }
 
+/**
+ * fm_app_info_launch_uris
+ * @appinfo: application info to launch
+ * @uris: (element-type #char *): URIs to use in run substitutions
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Launches desktop application doing substitutions in application info.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
                                  GAppLaunchContext *launch_context, GError **error)
 {
@@ -332,6 +367,21 @@ gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
     return ret;
 }
 
+/**
+ * fm_app_info_launch_default_for_uri
+ * @uri: the uri to show
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Utility function that launches the default application
+ * registered to handle the specified uri. Synchronous I/O
+ * is done on the uri to detect the type of the file if
+ * required.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch_default_for_uri(const char *uri,
                                             GAppLaunchContext *launch_context,
                                             GError **error)
@@ -340,6 +390,25 @@ gboolean fm_app_info_launch_default_for_uri(const char *uri,
     return g_app_info_launch_default_for_uri(uri, launch_context, error);
 }
 
+/**
+ * fm_app_info_create_from_commandline
+ * @commandline: the commandline to use
+ * @application_name: (allow-none): the application name, or %NULL to use @commandline
+ * @flags: flags that can specify details of the created #GAppInfo
+ * @error: (out) (allow-none): location to store error
+ *
+ * Creates a new #GAppInfo from the given information.
+ *
+ * Note that for @commandline, the quoting rules of the Exec key of the
+ * <ulink url="http://freedesktop.org/Standards/desktop-entry-spec">freedesktop.org Desktop
+ * Entry Specification</ulink> are applied. For example, if the @commandline contains
+ * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
+ * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
+ *
+ * Returns: (transfer full): new #GAppInfo for given command.
+ *
+ * Since: 0.1.15
+ */
 GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
                                               const char *application_name,
                                               GAppInfoCreateFlags flags,

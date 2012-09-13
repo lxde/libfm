@@ -88,7 +88,7 @@ void fm_nav_history_jump(FmNavHistory* nh, GList* l, int old_scroll_pos);
 #endif
 guint fm_nav_history_get_cur_index(FmNavHistory* nh);
 FmPath* fm_nav_history_get_nth_path(FmNavHistory* nh, guint n);
-FmPath* fm_nav_history_go_to(FmNavHistory* nh, guint index, gint old_scroll_pos);
+FmPath* fm_nav_history_go_to(FmNavHistory* nh, guint n, gint old_scroll_pos);
 gint fm_nav_history_get_scroll_pos(FmNavHistory* nh);
 gboolean fm_nav_history_can_back(FmNavHistory* nh);
 void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, gint old_scroll_pos);

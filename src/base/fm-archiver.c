@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-archiver
+ * @short_description: Support for packing and unpacking archiver utilities.
+ * @title: FmArchiver
+ *
+ * @include: libfm/fm-archiver.h
+ *
+ * The #FmArchiver represents support for utilities which can pack files
+ * into archive and/or extract them.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -127,6 +138,18 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
     return TRUE;
 }
 
+/**
+ * fm_archiver_create_archive
+ * @archiver: the archiver descriptor
+ * @ctx: (allow-none): a launch context
+ * @files: files to pack into archive
+ *
+ * Creates an archive for @files.
+ *
+ * Returns: %FALSE.
+ *
+ * Since: 0.1.9
+ */
 gboolean fm_archiver_create_archive(FmArchiver* archiver, GAppLaunchContext* ctx, FmPathList* files)
 {
     if(archiver->create_cmd && files)
@@ -134,6 +157,18 @@ gboolean fm_archiver_create_archive(FmArchiver* archiver, GAppLaunchContext* ctx
     return FALSE;
 }
 
+/**
+ * fm_archiver_extract_archives
+ * @archiver: the archiver descriptor
+ * @ctx: (allow-none): a launch context
+ * @files: archives to unpack
+ *
+ * Extracts files from archives.
+ *
+ * Returns: %FALSE.
+ *
+ * Since: 0.1.9
+ */
 gboolean fm_archiver_extract_archives(FmArchiver* archiver, GAppLaunchContext* ctx, FmPathList* files)
 {
     if(archiver->extract_cmd && files)
@@ -141,6 +176,19 @@ gboolean fm_archiver_extract_archives(FmArchiver* archiver, GAppLaunchContext* c
     return FALSE;
 }
 
+/**
+ * fm_archiver_extract_archives_to
+ * @archiver: archiver descriptor
+ * @ctx: (allow-none): a launch context
+ * @files: archives to unpack
+ * @dest_dir: directory where files should be extracted to
+ *
+ * Extracts files from archives into @dest_dir.
+ *
+ * Returns: %FALSE.
+ *
+ * Since: 0.1.9
+ */
 gboolean fm_archiver_extract_archives_to(FmArchiver* archiver, GAppLaunchContext* ctx, FmPathList* files, FmPath* dest_dir)
 {
     if(archiver->extract_to_cmd && files)
@@ -148,8 +196,16 @@ gboolean fm_archiver_extract_archives_to(FmArchiver* archiver, GAppLaunchContext
     return FALSE;
 }
 
-/* get default GUI archivers used by libfm */
-FmArchiver* fm_archiver_get_default()
+/**
+ * fm_archiver_get_default
+ *
+ * Retrieves default GUI archiver used by libfm.
+ *
+ * Returns: archiver descriptor.
+ *
+ * Since: 0.1.9
+ */
+FmArchiver* fm_archiver_get_default(void)
 {
     if(!default_archiver)
     {
@@ -186,15 +242,30 @@ FmArchiver* fm_archiver_get_default()
     return default_archiver;
 }
 
-/* set default GUI archivers used by libfm */
+/**
+ * fm_archiver_set_default
+ * @archiver: archiver descriptor
+ *
+ * Sets default GUI archiver used by libfm.
+ *
+ * Since: 0.1.9
+ */
 void fm_archiver_set_default(FmArchiver* archiver)
 {
     if(archiver)
         default_archiver = archiver;
 }
 
-/* get a list of FmArchiver* of all GUI archivers known to libfm */
-const GList* fm_archiver_get_all()
+/**
+ * fm_archiver_get_all
+ *
+ * Retrieves a list of #FmArchiver of all GUI archivers known to libfm.
+ *
+ * Returns: list of archivers.
+ *
+ * Since: 0.1.9
+ */
+const GList* fm_archiver_get_all(void)
 {
     return archivers;
 }

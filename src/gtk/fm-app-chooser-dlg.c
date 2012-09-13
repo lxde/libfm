@@ -194,8 +194,8 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     if(!can_set_default)
         gtk_widget_hide(GTK_WIDGET(data->set_default));
 
-    if(mime_type && mime_type->type && mime_type->description)
-        gtk_label_set_text(file_type, mime_type->description);
+    if(mime_type && fm_mime_type_get_desc(mime_type))
+        gtk_label_set_text(file_type, fm_mime_type_get_desc(mime_type));
     else
     {
         GtkWidget* hbox = GTK_WIDGET(gtk_builder_get_object(builder, "file_type_hbox"));
@@ -270,7 +270,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                     MenuCache* menu_cache;
                     #if GLIB_CHECK_VERSION(2, 10, 0)
                     /* see if the command is already in the list of known apps for this mime-type */
-                    GList* apps = g_app_info_get_all_for_type(data->mime_type->type);
+                    GList* apps = g_app_info_get_all_for_type(fm_mime_type_get_type(data->mime_type));
                     GList* l;
                     for(l=apps;l;l=l->next)
                     {
@@ -325,7 +325,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
 
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
                 app = app_info_create_from_commandline(cmdline, bin1,
-                                                       data->mime_type->type,
+                                                       fm_mime_type_get_type(data->mime_type),
                                                        gtk_toggle_button_get_active(data->use_terminal));
             _out:
                 g_free(bin1);
@@ -351,23 +351,25 @@ GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, 
         gboolean set_default;
         app = fm_app_chooser_dlg_dup_selected_app(dlg, &set_default);
 
-        if(app && mime_type && mime_type->type)
+        if(app && mime_type && fm_mime_type_get_type(mime_type))
         {
             GError* err = NULL;
             /* add this app to the mime-type */
 
 #if GLIB_CHECK_VERSION(2, 27, 6)
-            if(!g_app_info_set_as_last_used_for_type(app, mime_type->type, &err))
+            if(!g_app_info_set_as_last_used_for_type(app,
 #else
-            if(!g_app_info_add_supports_type(app, mime_type->type, &err))
+            if(!g_app_info_add_supports_type(app,
 #endif
+                                        fm_mime_type_get_type(mime_type), &err))
             {
                 g_debug("error: %s", err->message);
                 g_error_free(err);
             }
             /* if need to set default */
             if(set_default)
-                g_app_info_set_as_default_for_type(app, mime_type->type, NULL);
+                g_app_info_set_as_default_for_type(app,
+                                        fm_mime_type_get_type(mime_type), NULL);
         }
     }
     gtk_widget_destroy(GTK_WIDGET(dlg));

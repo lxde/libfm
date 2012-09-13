@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-launcher
+ * @short_description: File launching utilities with callbacks to GUI.
+ * @title: Libfm file launchers
+ *
+ * @include: libfm/fm-file-launcher.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -33,6 +42,20 @@
 #include "fm-file-info-job.h"
 #include "fm-app-info.h"
 
+/**
+ * fm_launch_desktop_entry
+ * @ctx: (allow-none): a launch context
+ * @file_or_id: a desktop entry to launch
+ * @uris: (element-type #char *): files to use in run substitutions
+ * @launcher: #FmFileLauncher with callbacks
+ * @user_data: data supplied for callbacks
+ *
+ * Launches a desktop entry with optional files.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, FmFileLauncher* launcher, gpointer user_data)
 {
     gboolean ret = FALSE;
@@ -135,6 +158,19 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
     return ret;
 }
 
+/**
+ * fm_launch_files
+ * @ctx: (allow-none): a launch context
+ * @file_infos: (element-type #FmFileInfo): files to launch
+ * @launcher: #FmFileLauncher with callbacks
+ * @user_data: data supplied for callbacks
+ *
+ * Launches files using callbacks in @launcher.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLauncher* launcher, gpointer user_data)
 {
     GList* l;
@@ -143,6 +179,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     FmFileInfo* fi;
     GError* err = NULL;
     GAppInfo* app;
+    const char* type;
 
     for(l = file_infos; l; l=l->next)
     {
@@ -231,11 +268,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             }
 
             mime_type = fm_file_info_get_mime_type(fi);
-            if(mime_type && mime_type->type)
+            if(mime_type && (type = fm_mime_type_get_type(mime_type)))
             {
-                fis = g_hash_table_lookup(hash, mime_type->type);
+                fis = g_hash_table_lookup(hash, type);
                 fis = g_list_prepend(fis, fi);
-                g_hash_table_insert(hash, mime_type->type, fis);
+                g_hash_table_insert(hash, (gpointer)type, fis);
             }
         }
     }
@@ -243,7 +280,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     if(g_hash_table_size(hash) > 0)
     {
         GHashTableIter it;
-        const char* type;
         GList* fis;
         g_hash_table_iter_init(&it, hash);
         while(g_hash_table_iter_next(&it, (void**)&type, (void**)&fis))
@@ -324,6 +360,19 @@ static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJo
     return FM_JOB_CONTINUE;
 }
 
+/**
+ * fm_launch_paths
+ * @ctx: (allow-none): a launch context
+ * @paths: (element-type #FmPath): files to launch
+ * @launcher: #FmFileLauncher with callbacks
+ * @user_data: data supplied for callbacks
+ *
+ * Launches files using callbacks in @launcher.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
 {
     FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);

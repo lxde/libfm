@@ -454,7 +454,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         }
 
         /* change default application for the mime-type if needed */
-        if(data->mime_type && data->mime_type->type && data->open_with)
+        if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
         {
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
@@ -464,7 +464,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             {
                 if(default_app_changed)
                 {
-                    g_app_info_set_as_default_for_type(app, data->mime_type->type, &err);
+                    g_app_info_set_as_default_for_type(app, fm_mime_type_get_type(data->mime_type), &err);
                     if(err)
                     {
                         fm_show_error(GTK_WINDOW(dlg), NULL, err->message);
@@ -788,7 +788,7 @@ static void init_application_list(FmFilePropData* data)
 {
     if(data->single_type && data->mime_type)
     {
-        if(g_strcmp0(data->mime_type->type, "inode/directory"))
+        if(g_strcmp0(fm_mime_type_get_type(data->mime_type), "inode/directory"))
             fm_app_chooser_combo_box_setup_for_mime_type(data->open_with, data->mime_type);
         else /* shouldn't allow set file association for folders. */
         {

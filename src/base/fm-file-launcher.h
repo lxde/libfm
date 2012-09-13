@@ -30,6 +30,13 @@ G_BEGIN_DECLS
 
 typedef gboolean (*FmLaunchFolderFunc)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
 
+/**
+ * FmFileLauncherExecAction:
+ * @FM_FILE_LAUNCHER_EXEC: execute the file
+ * @FM_FILE_LAUNCHER_EXEC_IN_TERMINAL: execute the file in terminal
+ * @FM_FILE_LAUNCHER_EXEC_OPEN: open file with some application
+ * @FM_FILE_LAUNCHER_EXEC_CANCEL: do nothing
+ */
 typedef enum {
     FM_FILE_LAUNCHER_EXEC = 1,
     FM_FILE_LAUNCHER_EXEC_IN_TERMINAL,
@@ -38,11 +45,20 @@ typedef enum {
 } FmFileLauncherExecAction;
 
 typedef struct _FmFileLauncher FmFileLauncher;
+
+/**
+ * FmFileLauncher:
+ * @get_app: callback to get new #GAppInfo
+ * @open_folder: callback to open folders
+ * @exec_file: callback to select file execution mode
+ * @error: callback to show error message; returns TRUE to continue, FALSE to retry
+ * @ask: callback to ask for user interaction; returns choise from btn_labels
+ */
 struct _FmFileLauncher
 {
     GAppInfo* (*get_app)(GList* file_infos, FmMimeType* mime_type, gpointer user_data, GError** err);
     /* gboolean (*before_open)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data); */
-    gboolean (*open_folder)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
+    FmLaunchFolderFunc open_folder;
     FmFileLauncherExecAction (*exec_file)(FmFileInfo* file, gpointer user_data);
     /* returns TRUE to continue, FALSE to retry */
     gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);

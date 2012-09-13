@@ -33,18 +33,6 @@ G_BEGIN_DECLS
 
 typedef struct _FmMimeType FmMimeType;
 
-struct _FmMimeType
-{
-    char* type; /* mime type name */
-    char* description;  /* description of the mime type */
-    FmIcon* icon;
-
-    /* thumbnailers installed for the mime-type */
-    GList* thumbnailers; /* FmMimeType does "not" own the FmThumbnailer objects */
-
-    int n_ref;
-};
-
 void _fm_mime_type_init();
 
 void _fm_mime_type_finalize();
@@ -77,9 +65,9 @@ const char* fm_mime_type_get_desc(FmMimeType* mime_type);
  * Returns a list of FmThumbnailer. */
 const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type);
 
-void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer);
+void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer);
 
-void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer);
+void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer);
 
 G_END_DECLS
 

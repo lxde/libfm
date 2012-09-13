@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-mime-type
+ * @short_description: Extended MIME types support.
+ * @title: FmMimeType
+ *
+ * @include: libfm/fm-mime-type.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -36,14 +45,26 @@
 #include <sys/mman.h>
 #endif
 
+struct _FmMimeType
+{
+    char* type; /* mime type name */
+    char* description;  /* description of the mime type */
+    FmIcon* icon;
+
+    /* thumbnailers installed for the mime-type */
+    GList* thumbnailers; /* FmMimeType does "not" own the FmThumbnailer objects */
+
+    int n_ref;
+};
+
 /* FIXME: how can we handle reload of xdg mime? */
 
 static GHashTable *mime_hash = NULL;
 G_LOCK_DEFINE(mime_hash);
 
-FmMimeType* directory_type = NULL;
-FmMimeType* mountable_type = NULL;
-FmMimeType* shortcut_type = NULL;
+static FmMimeType* directory_type = NULL;
+static FmMimeType* mountable_type = NULL;
+static FmMimeType* shortcut_type = NULL;
 
 static FmMimeType* fm_mime_type_new(const char* type_name);
 
@@ -71,6 +92,16 @@ void _fm_mime_type_finalize()
     g_hash_table_destroy(mime_hash);
 }
 
+/**
+ * fm_mime_type_from_file_name
+ * @ufile_name: file name to guess
+ *
+ * Finds #FmMimeType descriptor guessing type from @ufile_name.
+ *
+ * Returns: (transfer full): a #FmMimeType object.
+ *
+ * Since: 0.1.0
+ */
 FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
 {
     FmMimeType* mime_type;
@@ -82,6 +113,18 @@ FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
     return mime_type;
 }
 
+/**
+ * fm_mime_type_from_native_file
+ * @file_path: full path to file
+ * @base_name: file basename
+ * @pstat: (allow-none): file atrributes
+ *
+ * Finds #FmMimeType descriptor for provided data.
+ *
+ * Returns: (transfer full): a #FmMimeType object.
+ *
+ * Since: 0.1.0
+ */
 FmMimeType* fm_mime_type_from_native_file(const char* file_path,
                                         const char* base_name,
                                         struct stat* pstat)
@@ -166,6 +209,16 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
     return fm_mime_type_from_name("application/octet-stream");
 }
 
+/**
+ * fm_mime_type_from_name
+ * @type: MIME type name
+ *
+ * Finds #FmMimeType descriptor for @type.
+ *
+ * Returns: (transfer full): a #FmMimeType object.
+ *
+ * Since: 0.1.0
+ */
 FmMimeType* fm_mime_type_from_name(const char* type)
 {
     FmMimeType * mime_type;
@@ -182,6 +235,16 @@ FmMimeType* fm_mime_type_from_name(const char* type)
     return mime_type;
 }
 
+/**
+ * fm_mime_type_new
+ * @type_name: MIME type name
+ *
+ * Creates a new #FmMimeType descriptor for @type.
+ *
+ * Returns: (transfer full): new #FmMimeType object.
+ *
+ * Since: 0.1.0
+ */
 FmMimeType* fm_mime_type_new(const char* type_name)
 {
     FmMimeType * mime_type = g_slice_new0(FmMimeType);
@@ -224,12 +287,30 @@ FmMimeType* _fm_mime_type_get_inode_x_mountable()
     return mountable_type;
 }
 
+/**
+ * fm_mime_type_ref
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Increments reference count on @mime_type.
+ *
+ * Returns: @mime_type.
+ *
+ * Since: 0.1.0
+ */
 FmMimeType* fm_mime_type_ref(FmMimeType* mime_type)
 {
     g_atomic_int_inc(&mime_type->n_ref);
     return mime_type;
 }
 
+/**
+ * fm_mime_type_unref
+ * @mime_type_: a #FmMimeType descriptor
+ *
+ * Decrements reference count on @mime_type_.
+ *
+ * Since: 0.1.0
+ */
 void fm_mime_type_unref(gpointer mime_type_)
 {
     FmMimeType* mime_type = (FmMimeType*)mime_type_;
@@ -251,34 +332,97 @@ void fm_mime_type_unref(gpointer mime_type_)
     }
 }
 
+/**
+ * fm_mime_type_get_icon
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Retrieves icon associated with @mime_type. Returned data are owned by
+ * @mime_type and should be not freed by caller.
+ *
+ * Returns: icon.
+ *
+ * Since: 0.1.0
+ */
 FmIcon* fm_mime_type_get_icon(FmMimeType* mime_type)
 {
     return mime_type->icon;
 }
 
+/**
+ * fm_mime_type_get_type
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Retrieves MIME type name of @mime_type. Returned data are owned by
+ * @mime_type and should be not freed by caller.
+ *
+ * Returns: MIME type name.
+ *
+ * Since: 0.1.0
+ */
 const char* fm_mime_type_get_type(FmMimeType* mime_type)
 {
     return mime_type->type;
 }
 
+/**
+ * fm_mime_type_get_thumbnailers
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Retrieves list of thumbnailers associated with @mime_type. Returned
+ * data are owned by @mime_type and should be not altered by caller.
+ *
+ * Returns: (element-type #gpointer) (transfer none): the list.
+ *
+ * Since: 1.0.0
+ */
 const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
 {
     /* FIXME: need this be thread-safe? */
     return mime_type->thumbnailers;
 }
 
+/**
+ * fm_mime_type_add_thumbnailer
+ * @mime_type: a #FmMimeType descriptor
+ * @thumbnailer: anonymous thumbnailer pointer
+ *
+ * Adds @thumbnailer to list of thumbnailers associated with @mime_type.
+ *
+ * Since: 1.0.0
+ */
 void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
 {
     /* FIXME: need this be thread-safe? */
     mime_type->thumbnailers = g_list_append(mime_type->thumbnailers, thumbnailer);
 }
 
+/**
+ * fm_mime_type_remove_thumbnailer
+ * @mime_type: a #FmMimeType descriptor
+ * @thumbnailer: anonymous thumbnailer pointer
+ *
+ * Removes @thumbnailer from list of thumbnailers associated with
+ * @mime_type.
+ *
+ * Since: 1.0.0
+ */
 void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
 {
     /* FIXME: need this be thread-safe? */
     mime_type->thumbnailers = g_list_remove(mime_type->thumbnailers, thumbnailer);
 }
 
+/**
+ * fm_mime_type_get_desc
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Retrieves human-readable description of MIME type. Returned data are
+ * owned by @mime_type and should be not freed by caller.
+ *
+ * Returns: MIME type name.
+ *
+ * Since: 0.1.0
+ */
 /* Get human-readable description of mime type */
 const char* fm_mime_type_get_desc(FmMimeType* mime_type)
 {

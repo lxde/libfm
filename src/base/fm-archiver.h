@@ -32,6 +32,15 @@
 G_BEGIN_DECLS
 
 typedef struct _FmArchiver FmArchiver;
+
+/**
+ * FmArchiver:
+ * @program: archiver program
+ * @create_cmd: command to create archive
+ * @extract_cmd: command to extract files from archive
+ * @extract_to_cmd: command to extract files into destined directory
+ * @mime_types: list of archive types the archiver supports
+ */
 struct _FmArchiver
 {
     char* program;

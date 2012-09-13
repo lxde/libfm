@@ -798,7 +798,7 @@ static void generate_thumbnails_with_gdk_pixbuf(ThumbnailTask* task)
 #ifdef USE_EXIF
         /* use libexif to extract thumbnails embedded in jpeg files */
         FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
-        if(strcmp(mime_type->type, "image/jpeg") == 0) /* if this is a jpeg file */
+        if(strcmp(fm_mime_type_get_type(mime_type), "image/jpeg") == 0) /* if this is a jpeg file */
         {
             /* try to extract thumbnails embedded in jpeg files */
             ExifLoader *exif_loader = exif_loader_new();

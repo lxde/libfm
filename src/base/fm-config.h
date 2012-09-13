@@ -58,31 +58,50 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_BACKUP_HIDDEN     TRUE
 #define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 
+/**
+ * FmConfig:
+ * @single_click: single click to open file
+ * @use_trash: delete file to trash can
+ * @confirm_del: ask before deleting files
+ * @big_icon_size: size of big icons
+ * @small_icon_size: size of small icons
+ * @pane_icon_size: size of side pane icons
+ * @thumbnail_size: size of thumbnail icons
+ * @show_thumbnail: show thumbnails
+ * @thumbnail_local: show thumbnails for local files only
+ * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
+ * @show_internal_volumes: show system internal volumes in side pane. (udisks-only)
+ * @terminal: command line to launch terminal emulator
+ * @si_unit: use SI prefix for file sizes
+ * @archiver: desktop_id of the archiver used
+ * @advanced_mode: enable advanced features for experienced user
+ */
 struct _FmConfig
 {
-    /*< public >*/
+    /*< private >*/
     GObject parent;
 
-    gboolean single_click; /* single click to open file */
-    gboolean use_trash; /* delete file to trash can */
-    gboolean confirm_del; /* ask before deleting files */
+    /*< public >*/
+    gboolean single_click;
+    gboolean use_trash;
+    gboolean confirm_del;
 
-    gint big_icon_size;    /* size of big icons */
-    gint small_icon_size;  /* size of small icons */
-    gint pane_icon_size;   /* size of side pane icons */
-    gint thumbnail_size;   /* size of thumbnail icons */
+    gint big_icon_size;
+    gint small_icon_size;
+    gint pane_icon_size;
+    gint thumbnail_size;
 
-    gboolean show_thumbnail; /* show thumbnails */
-    gboolean thumbnail_local; /* show thumbnails for local files only */
-    gint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
+    gboolean show_thumbnail;
+    gboolean thumbnail_local;
+    gint thumbnail_max;
 
-    gboolean show_internal_volumes; /* show system internal volumes in side pane. (udisks-only)*/
+    gboolean show_internal_volumes;
 
-    char* terminal; /* command line to launch terminal emulator */
-    gboolean si_unit;   /* use SI prefix for file sizes */
+    char* terminal;
+    gboolean si_unit;
 
-    char* archiver; /* desktop_id of the archiver used */
-    gboolean advanced_mode; /* enable advanced features for experienced user */
+    char* archiver;
+    gboolean advanced_mode;
 
     /*< private >*/
     union {

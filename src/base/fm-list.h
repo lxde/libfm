@@ -33,15 +33,21 @@ typedef struct _FmListFuncs		FmListFuncs;
 
 struct _FmList
 {
-	GQueue list;
-	FmListFuncs* funcs;
-	gint n_ref;
+    /*< private >*/
+    GQueue list;
+    FmListFuncs* funcs;
+    gint n_ref;
 };
 
+/**
+ * FmListFuncs:
+ * @item_ref: function to increase reference counter on item
+ * @item_unref: function to decrease reference counter on item
+ */
 struct _FmListFuncs
 {
-	gpointer (*item_ref)(gpointer item);
-	void (*item_unref)(gpointer item);
+    gpointer (*item_ref)(gpointer item);
+    void (*item_unref)(gpointer item);
 };
 
 FmList* fm_list_new(FmListFuncs* funcs);

@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-icon
+ * @short_description: A simple icons cache.
+ * @title: FmIcon
+ *
+ * @include: libfm/fm-icon.h
+ *
+ */
+
 #include "fm-icon.h"
 
 static GHashTable* hash = NULL;
@@ -39,6 +48,17 @@ void _fm_icon_finalize()
     hash = NULL;
 }
 
+/**
+ * fm_icon_from_gicon
+ * @gicon: a #GIcon object
+ *
+ * Retrives a #FmIcon corresponding to @gicon from cache inserting new
+ * one if there was no such icon there yet.
+ *
+ * Returns: (transfer full): a #FmIcon object.
+ *
+ * Since: 0.1.0
+ */
 FmIcon* fm_icon_from_gicon(GIcon* gicon)
 {
     FmIcon* icon;
@@ -55,6 +75,17 @@ FmIcon* fm_icon_from_gicon(GIcon* gicon)
     return icon;
 }
 
+/**
+ * fm_icon_from_name
+ * @name: a name for icon
+ *
+ * Retrives a #FmIcon corresponding to @name from cache inserting new
+ * one if there was no such icon there yet.
+ *
+ * Returns: (transfer full): a #FmIcon object.
+ *
+ * Since: 0.1.0
+ */
 FmIcon* fm_icon_from_name(const char* name)
 {
     if(G_LIKELY(name))
@@ -80,6 +111,16 @@ FmIcon* fm_icon_from_name(const char* name)
     return NULL;
 }
 
+/**
+ * fm_icon_ref
+ * @icon: an existing #FmIcon object
+ *
+ * Increases reference count on @icon.
+ *
+ * Returns: @icon.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: using mutex is a little bit expansive, but since we need
  * to handle hash table too, it might be necessary. */
 FmIcon* fm_icon_ref(FmIcon* icon)
@@ -90,8 +131,18 @@ FmIcon* fm_icon_ref(FmIcon* icon)
     return icon;
 }
 
+/**
+ * fm_icon_unref
+ * @icon: a #FmIcon object
+ *
+ * Decreases reference count on @icon. If refernce count went to 0 then
+ * removes @icon from cache.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: what will happen if someone is ref this structure while we're
- * trying to free it? */
+ * trying to free it? Answer: if someone is trying to ref it, one already
+ * has a ref so we never can free it here */
 void fm_icon_unref(FmIcon* icon)
 {
     G_LOCK(hash);
@@ -122,14 +173,21 @@ static gboolean unload_cache(GIcon* key, FmIcon* icon, gpointer unused)
     return TRUE;
 }
 
-void fm_icon_unload_cache()
+/**
+ * fm_icon_unload_cache
+ *
+ * Flushes cache.
+ *
+ * Since: 0.1.0
+ */
+void fm_icon_unload_cache(void)
 {
     G_LOCK(hash);
     g_hash_table_foreach_remove(hash, (GHRFunc)unload_cache, NULL);
     G_UNLOCK(hash);
 }
 
-void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
+static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
 {
     if(destroy_func && icon->user_data)
     {
@@ -138,23 +196,62 @@ void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
     }
 }
 
-void fm_icon_unload_user_data_cache()
+/**
+ * fm_icon_unload_user_data_cache
+ *
+ * Flushes all user data in cache.
+ *
+ * See also: fm_icon_set_user_data().
+ *
+ * Since: 0.1.0
+ */
+void fm_icon_unload_user_data_cache(void)
 {
     G_LOCK(hash);
     g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, NULL);
     G_UNLOCK(hash);
 }
 
+/**
+ * fm_icon_get_user_data
+ * @icon: a #FmIcon object
+ *
+ * Retrieves user data that was set via fm_icon_set_user_data().
+ *
+ * Returns: user data.
+ *
+ * Since: 0.1.0
+ */
 gpointer fm_icon_get_user_data(FmIcon* icon)
 {
     return icon->user_data;
 }
 
+/**
+ * fm_icon_set_user_data
+ * @icon: a #FmIcon object
+ * @user_data: data pointer to set
+ *
+ * Sets @user_data to be associated with @icon.
+ *
+ * See also: fm_icon_get_user_data(), fm_icon_unload_user_data_cache().
+ *
+ * Since: 0.1.0
+ */
 void fm_icon_set_user_data(FmIcon* icon, gpointer user_data)
 {
     icon->user_data = user_data;
 }
 
+/**
+ * fm_icon_set_user_data_destroy
+ * @func: function for user data
+ *
+ * Sets @func to be used by fm_icon_unload_user_data_cache() to destroy
+ * user data that was set by fm_icon_set_user_data().
+ *
+ * Since: 0.1.0
+ */
 void fm_icon_set_user_data_destroy(GDestroyNotify func)
 {
     destroy_func = func;

@@ -288,7 +288,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     {
         if(mime_type && !data->all_virtual ) /* the file has a valid mime-type and its not virtual */
         {
-            GList* apps = g_app_info_get_all_for_type(mime_type->type);
+            GList* apps = g_app_info_get_all_for_type(fm_mime_type_get_type(mime_type));
             GList* l;
             gboolean use_sub = g_list_length(apps) > 5;
             if(use_sub)
@@ -351,7 +351,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             if(archiver)
             {
                 fi = fm_file_info_list_peek_head(files);
-                if(fm_archiver_is_mime_type_supported(archiver, mime_type->type))
+                if(fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(mime_type)))
                 {
                     if(data->cwd && archiver->extract_to_cmd)
                         g_string_append(xml, "<menuitem action='Extract'/>");
@@ -533,7 +533,7 @@ void on_open_with(GtkAction* action, gpointer user_data)
         open_with_app(data, app);
         /* add the app to apps that support this file type. */
         if(mime_type)
-            g_app_info_add_supports_type(app, mime_type->type, NULL);
+            g_app_info_add_supports_type(app, fm_mime_type_get_type(mime_type), NULL);
         /* FIXME: what to do if mime_type is NULL? */
         g_object_unref(app);
     }
