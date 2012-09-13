@@ -41,16 +41,26 @@
 #include <glib/gstdio.h>
 #include "fm-mime-type.h"
 #include "fm-file-info-job.h"
+#include "glib-compat.h"
 
 #include "fm-file-info.h"
 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
+enum {
+    FILES_FOUND,
+    N_SIGNALS
+};
+
 static void fm_dir_list_job_dispose              (GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
-static gboolean fm_dir_list_job_run(FmJob *job);
+static int signals[N_SIGNALS];
 
+static gboolean fm_dir_list_job_run(FmJob *job);
+static void fm_dir_list_job_finished(FmJob* job);
+
+static gboolean delay_add_files(gpointer user_data);
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 {
@@ -61,13 +71,38 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
     /* use finalize from parent class */
 
     job_class->run = fm_dir_list_job_run;
+    job_class->finished = fm_dir_list_job_finished;
+
+    /**
+     * FmDirListJob::files-found
+     * @job: a job that emitted the signal
+     * @file: a FmFileInfo for the newly found file
+     *
+     * The #FmDirListJob::file-found signal is emitted for every file
+     * found during directory listing. By default the signal is not
+     * emitted for performance reason. This can be turned on by calling
+     * fm_dir_list_job_set_emit_files_found().
+     *
+     * Return value: None
+     *
+     * Since: 0.1.2
+     */
+    signals[FILES_FOUND] =
+        g_signal_new("files-found",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmDirListJobClass, files_found),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+
 }
 
 
-static void fm_dir_list_job_init(FmDirListJob *self)
+static void fm_dir_list_job_init(FmDirListJob *job)
 {
-    self->files = fm_file_info_list_new();
-    fm_job_init_cancellable(FM_JOB(self));
+    job->files = fm_file_info_list_new();
+    fm_job_init_cancellable(FM_JOB(job));
 }
 
 /**
@@ -112,30 +147,38 @@ FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 
 static void fm_dir_list_job_dispose(GObject *object)
 {
-    FmDirListJob *self;
+    FmDirListJob *job;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_LIST_JOB(object));
 
-    self = (FmDirListJob*)object;
+    job = (FmDirListJob*)object;
 
-    if(self->dir_path)
+    if(job->dir_path)
     {
-        fm_path_unref(self->dir_path);
-        self->dir_path = NULL;
+        fm_path_unref(job->dir_path);
+        job->dir_path = NULL;
     }
 
-    if(self->dir_fi)
+    if(job->dir_fi)
     {
-        fm_file_info_unref(self->dir_fi);
-        self->dir_fi = NULL;
+        fm_file_info_unref(job->dir_fi);
+        job->dir_fi = NULL;
     }
 
-    if(self->files)
+    if(job->files)
     {
-        fm_file_info_list_unref(self->files);
-        self->files = NULL;
+        fm_file_info_list_unref(job->files);
+        job->files = NULL;
     }
+    
+    if(job->delay_add_files_handler)
+    {
+		g_source_remove(job->delay_add_files_handler);
+		job->delay_add_files_handler = 0;
+		g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+		job->files_to_add = NULL;
+	}
 
     if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
@@ -209,7 +252,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
         _retry:
             if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, fpath->str, &err) )
-                fm_file_info_list_push_tail_noref(job->files, fi);
+                fm_dir_list_job_add_found_file(job, fi);
             else /* failed! */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
@@ -217,9 +260,8 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
                 err = NULL;
                 if(act == FM_JOB_RETRY)
                     goto _retry;
-
-                fm_file_info_unref(fi);
             }
+            fm_file_info_unref(fi);
         }
         g_string_free(fpath, TRUE);
         g_dir_close(dir);
@@ -311,7 +353,8 @@ _retry:
                 sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
                 fi = fm_file_info_new_from_gfileinfo(sub, inf);
                 fm_path_unref(sub);
-                fm_file_info_list_push_tail_noref(job->files, fi);
+                fm_dir_list_job_add_found_file(job, fi);
+                fm_file_info_unref(fi);
             }
             else
             {
@@ -349,6 +392,54 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
     else /* this is a virtual path or remote file system path */
         ret = fm_dir_list_job_run_gio(job);
     return ret;
+}
+
+static void fm_dir_list_job_finished(FmJob* job)
+{
+	FmDirListJob* dirlist_job = FM_DIR_LIST_JOB(job);
+	FmJobClass* job_class = FM_JOB_CLASS(fm_dir_list_job_parent_class);
+
+	if(dirlist_job->emit_files_found)
+	{
+		if(dirlist_job->delay_add_files_handler)
+		{
+			g_source_remove(dirlist_job->delay_add_files_handler);
+			delay_add_files(dirlist_job);
+		}
+	}
+	if(job_class->finished)
+		job_class->finished(job);
+}
+
+
+/**
+ * fm_dir_list_job_get_dir_path
+ * @job: the job that collected listing
+ *
+ * Retrieves the path of the directory being listed.
+ *
+ * Returns: (transfer none): FmPath for the directory.
+ *
+ * Since: 0.1.2
+ */
+FmPath* fm_dir_list_job_get_dir_path(FmDirListJob* job)
+{
+    return job->dir_path;
+}
+
+/**
+ * fm_dir_list_job_get_dir_info
+ * @job: the job that collected listing
+ *
+ * Retrieves the information of the directory being listed.
+ *
+ * Returns: (transfer none): FmFileInfo for the directory.
+ *
+ * Since: 0.1.2
+ */
+FmFileInfo* fm_dir_list_job_get_dir_info(FmDirListJob* job)
+{
+    return job->dir_fi;
 }
 
 /**
@@ -392,3 +483,98 @@ FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
     return fm_dir_list_job_get_files(job);
 }
 #endif /* FM_DISABLE_DEPRECATED */
+
+void fm_dir_list_job_set_emit_files_found(FmDirListJob* job, gboolean emit_files_found)
+{
+    job->emit_files_found = emit_files_found;
+}
+
+gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job)
+{
+    return job->emit_files_found;
+}
+
+static gboolean delay_add_files(gpointer user_data)
+{
+	/* this callback is called from the main thread */
+	FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
+	g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add));
+
+	g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
+	g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+	job->files_to_add = NULL;
+	job->delay_add_files_handler = 0;
+	return FALSE;
+}
+
+static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
+{
+	FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
+	FmFileInfo* file = FM_FILE_INFO(user_data);
+	/* this callback is called from the main thread */
+	g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file));
+	job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
+	if(job->delay_add_files_handler == 0)
+		job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW, 1, delay_add_files, g_object_ref(job), g_object_unref);
+	return NULL;
+}
+
+/**
+ * fm_dir_dist_job_add_found_file
+ * @job: the job that collected listing
+ * @file: a FmFileInfo of the newly found file
+ *
+ * This API is called by the implementation of FmDirListJob only.
+ * Application developers should not use this API.
+ * When a new file is found in the dir being listed, implementations
+ * of FmDirListJob should call this API with the info of the newly found
+ * file. The FmFileInfo will be added to the found file list.
+ * 
+ * If emission of "files-found" signal is turned on by 
+ * fm_dir_list_job_set_emit_files_found(), a "files-found" signal is emitted
+ * for the newly found files after several new files are added.
+ * See the document for "files-found" signal for more detail.
+ *
+ * Since: 0.1.2
+ */
+void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file)
+{
+	g_print("add_found_file: %s\n", fm_file_info_get_disp_name(file));
+    fm_file_info_list_push_tail(job->files, file);
+    if(G_UNLIKELY(job->emit_files_found))
+		fm_job_call_main_thread(FM_JOB(job), queue_add_file, file);
+}
+
+/**
+ * fm_dir_list_job_set_dir_path
+ * @job: the job that collected listing
+ * @path: a FmPath of the directory being loaded.
+ *
+ * This API is called by the implementation of FmDirListJob only.
+ * Application developers should not use this API most of the time.
+ *
+ * Since: 0.1.2
+ */
+void fm_dir_list_job_set_dir_path(FmDirListJob* job, FmPath* path)
+{
+	if(job->dir_path)
+		fm_path_unref(job->dir_path);
+	job->dir_path = fm_path_ref(path);
+}
+
+/**
+ * fm_dir_list_job_set_dir_info
+ * @job: the job that collected listing
+ * @info: a FmFileInfo of the directory being loaded.
+ *
+ * This API is called by the implementation of FmDirListJob only.
+ * Application developers should not use this API most of the time.
+ *
+ * Since: 0.1.2
+ */
+void fm_dir_list_job_set_dir_info(FmDirListJob* job, FmFileInfo* info)
+{
+	if(job->dir_fi)
+		fm_file_info_unref(job->dir_fi);
+	job->dir_fi = fm_file_info_ref(info);
+}

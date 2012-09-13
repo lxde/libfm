@@ -43,8 +43,8 @@ static gboolean exact_target = FALSE;
 static gboolean exact_content = FALSE;
 static gboolean case_sensitive_target = FALSE;
 static gboolean case_sensitive_content = FALSE;
-static gint64 minimum_size = -1;
-static gint64 maximum_size = -1;
+static gint64 min_size = -1;
+static gint64 max_size = -1;
 
 static GOptionEntry entries[] =
 {
@@ -58,12 +58,37 @@ static GOptionEntry entries[] =
 	{"regexcontent", 'g', 0, G_OPTION_ARG_NONE, &regex_content, "enables regex target searching", NULL},
 	{"exacttarget", 'x', 0, G_OPTION_ARG_NONE, &exact_target, "enables regex target searching", NULL},
 	{"exactcontent", 'a', 0, G_OPTION_ARG_NONE, &exact_content, "enables regex target searching", NULL},
-	{"casesensitivetarget", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive_target, "enables case sensitive target searching", NULL},
-	{"casesensitivecontent", 'i', 0, G_OPTION_ARG_NONE, &case_sensitive_content, "enables case sensitive content searching", NULL},
-	{"minimumsize", 'u', 0,G_OPTION_ARG_INT64, &minimum_size, "minimum size of file that is a match", NULL},
-	{"maximumsize", 'w', 0, G_OPTION_ARG_INT64, &maximum_size, "maximum size of file taht is a match", NULL},
+	{"name-ci", 'n', 0, G_OPTION_ARG_NONE, &case_sensitive_target, "enables case sensitive target searching", NULL},
+	{"content-ci", 'i', 0, G_OPTION_ARG_NONE, &case_sensitive_content, "enables case sensitive content searching", NULL},
+	{"min-size", 'u', 0,G_OPTION_ARG_INT64, &min_size, "minimum size of file that is a match", NULL},
+	{"max-size", 'w', 0, G_OPTION_ARG_INT64, &max_size, "maximum size of file taht is a match", NULL},
 	{NULL}
 };
+
+static void on_files_added(FmFolder* folder, GSList* files, gpointer user_data)
+{
+	GSList* l;
+	for(l = files; l; l = l->next)
+	{
+		FmFileInfo* file = FM_FILE_INFO(l->data);
+		FmPath* path = fm_file_info_get_path(file);
+		char* path_str = fm_path_display_name(path, FALSE);
+		g_printf("file found: %s\n", path_str);
+	}
+}
+
+static gboolean on_timeout(gpointer user_data)
+{
+	g_printf("timeout!\n");
+	gtk_main_quit();
+	return FALSE;
+}
+
+static void on_finish_loading(FmFolder* folder)
+{
+	g_printf("finished\n");
+	gtk_main_quit();
+}
 
 int main(int argc, char** argv)
 {
@@ -77,75 +102,51 @@ int main(int argc, char** argv)
 	g_option_context_add_main_entries(context, entries, NULL);
 	g_option_context_parse(context, &argc, &argv, NULL);
 
-	FmFileSearch * search;
+	GString* search_uri = g_string_sized_new(1024);
+	g_string_append(search_uri, "search:/");
+	g_string_append(search_uri, path_list);
 
-	char * path_list_token = strtok(path_list, ":");
-	FmPathList * target_folders = fm_path_list_new();
+	g_string_append_c(search_uri, '?');
 
-	while(path_list_token != NULL)
+	g_string_append_printf(search_uri, "recursive=%d", not_recursive ? 0 : 1);
+	g_string_append_printf(search_uri, "&show_hidden=%d", show_hidden ? 1 : 0);
+
+	if(target)
 	{
-		FmPath * path = fm_path_new_for_str(path_list_token);
-		fm_list_push_tail(target_folders, path);
-		path_list_token = strtok(NULL, ":");
+		g_string_append_printf(search_uri, "&name=%s", target);
+		if(!case_sensitive_target)
+			g_string_append_printf(search_uri, "&name_ci=%d", case_sensitive_target ? 0 : 1);
 	}
-	search = fm_file_search_new(target_folders);
 
-	fm_file_search_set_show_hidden(search, show_hidden);
-	fm_file_search_set_recursive(search, !not_recursive);
+	if(target_contains)
+	{
+		g_string_append_printf(search_uri, "&content=%s", target_contains);
+		if(!case_sensitive_content)
+			g_string_append_printf(search_uri, "&content_ci=%d", case_sensitive_target ? 0 : 1);
+	}
 
-	if(regex_target)
-		fm_file_search_set_target_mode(search, FM_FILE_SEARCH_MODE_REGEX);
-	else if(exact_target)
-		fm_file_search_set_target_mode(search, FM_FILE_SEARCH_MODE_EXACT);
+	if(target_type)
+		g_string_append_printf(search_uri, "&types=%s", target_type);
 
-	if(regex_content)
-		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_REGEX);
-	else if(exact_content)
-		fm_file_search_set_content_mode(search, FM_FILE_SEARCH_MODE_EXACT);
+	if(min_size > 0)
+		g_string_append_printf(search_uri, "&min_size=%llu", min_size);
 
-	if(case_sensitive_target)
-		fm_file_search_set_case_sensitive_target(search, TRUE);
+	if(max_size > 0)
+		g_string_append_printf(search_uri, "&min_size=%llu", max_size);
 
-	if(case_sensitive_content)
-		fm_file_search_set_case_sensitive_content(search, TRUE);
+	// g_string_append(search_uri, "search://usr/share?recursive=1&name=*.mo&name_mode=widecard&show_hidden=0&name_case_sensitive=1");
 
-	if(minimum_size >= 0)
-		fm_file_search_add_search_func(search, fm_file_search_minimum_size_rule, &minimum_size);
+	g_print("URI: %s\n", search_uri->str);
 
-	if(maximum_size >= 0)
-		fm_file_search_add_search_func(search, fm_file_search_maximum_size_rule, &maximum_size);
+	FmFolder* folder = fm_folder_from_uri(search_uri->str);
+	g_string_free(search_uri, TRUE);
+	g_signal_connect(folder, "files-added", G_CALLBACK(on_files_added), NULL);
+	g_signal_connect(folder, "finish-loading", G_CALLBACK(on_finish_loading), NULL);
 
-	if(target != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_rule, target);
-
-	if(target_type != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_type_rule, target_type);
-
-	if(target_contains != NULL)
-		fm_file_search_add_search_func(search, fm_file_search_target_contains_rule, target_contains);
-
-	GtkWidget * window;
-	FmFolderModel * model;
-	GtkWidget * tree;
-
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size(window, 400, 300);
-	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
-	model = fm_folder_model_new(FM_FOLDER(search), TRUE);
-	fm_folder_model_set_folder(model, FM_FOLDER(search));
-	GtkWidget * view = fm_folder_view_new(FM_FV_LIST_VIEW);
-	fm_folder_view_set_model(FM_FOLDER_VIEW(view), model);
-	fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(view), GTK_SELECTION_MULTIPLE);
-	g_object_unref(model);
-	fm_file_search_run(search);
-	g_object_unref(search);
-
-	gtk_container_add(GTK_CONTAINER(window), view);
-	gtk_widget_show(view);
-	gtk_widget_show(window);
+	/* g_timeout_add_seconds(30, on_timeout, NULL); */
 
 	gtk_main();
+	g_object_unref(folder);
 
 	return 0;
 }

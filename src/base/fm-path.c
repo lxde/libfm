@@ -153,19 +153,24 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         flags |= FM_PATH_IS_VIRTUAL;
         host_end = host;
     }
-    else if(scheme_len == 6 && g_ascii_strncasecmp(uri, "mailto", 6) == 0)
+    else if(scheme_len == 6 && 
+		(g_ascii_strncasecmp(uri, "search", 6) == 0 ||
+		 g_ascii_strncasecmp(uri, "mailto", 6) == 0))
     {
-        /* is any special handling needed? */
+		if(uri[0] == 's') /* search:// */
+			flags |= (FM_PATH_IS_SEARCH|FM_PATH_IS_VIRTUAL);
+
         if(remaining)
             *remaining = uri_end;
         if(need_unescape)
         {
             unescaped_host = g_uri_unescape_string(uri, NULL);
-            path = _fm_path_new_internal(NULL, unescaped_host, strlen(unescaped_host), 0);
+            path = _fm_path_new_internal(NULL, unescaped_host, strlen(unescaped_host), flags);
             g_free(unescaped_host);
         }
         else
-            path = _fm_path_new_internal(NULL, uri, len, 0);
+            path = _fm_path_new_internal(NULL, uri, len, flags);
+
         return path;
     }
     else /* it's a normal remote URI */

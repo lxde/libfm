@@ -59,6 +59,18 @@ g_signal_accumulator_first_wins (GSignalInvocationHint *ihint,
                                  gpointer               dummy);
 #endif
 
+#if !GLIB_CHECK_VERSION(2, 28, 0)
+
+/* This API was added in glib 2.28 */
+
+#define g_slist_free_full(slist, free_func)	\
+{ \
+g_slist_foreach(slist, (GFunc)free_func, NULL); \
+g_slist_free(slist); \
+}
+
+#endif
+
 G_END_DECLS
 
 #endif

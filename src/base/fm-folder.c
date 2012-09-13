@@ -38,6 +38,7 @@
 #include "fm-file.h"
 
 #include <string.h>
+#include "fm-search-job.h"
 
 enum {
     FILES_ADDED,
@@ -624,20 +625,25 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
     if(!fm_job_is_cancelled(FM_JOB(job)))
     {
         GList* l;
-        for(l = fm_file_info_list_peek_head_link(job->files); l; l=l->next)
-        {
-            FmFileInfo* inf = (FmFileInfo*)l->data;
-            files = g_slist_prepend(files, inf);
-            fm_file_info_list_push_tail(folder->files, inf);
-        }
-        if(G_LIKELY(files))
-        {
-            g_signal_emit(folder, signals[FILES_ADDED], 0, files);
-            g_slist_free(files);
-        }
+		FmFileInfo* dir_fi = fm_dir_list_job_get_dir_info(job);
+        if(dir_fi)
+            folder->dir_fi = fm_file_info_ref(dir_fi);
 
-        if(job->dir_fi)
-            folder->dir_fi = fm_file_info_ref(job->dir_fi);
+        if(!fm_dir_list_job_get_emit_files_found(job))
+        {
+			FmFileInfoList* job_files = fm_dir_list_job_get_files(job);
+			for(l = fm_file_info_list_peek_head_link(job_files); l; l=l->next)
+			{
+				FmFileInfo* inf = (FmFileInfo*)l->data;
+				files = g_slist_prepend(files, inf);
+				fm_file_info_list_push_tail(folder->files, inf);
+			}
+			if(G_LIKELY(files))
+			{
+				g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+				g_slist_free(files);
+			}
+		}
 
         /* Some new files are created while FmDirListJob is loading the folder. */
         if(G_UNLIKELY(folder->files_to_add))
@@ -667,6 +673,18 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
     g_object_ref(folder);
     g_signal_emit(folder, signals[FINISH_LOADING], 0);
     g_object_unref(folder);
+}
+
+static void on_dirlist_job_files_found(FmDirListJob* job, GSList* files, gpointer user_data)
+{
+	FmFolder* folder = FM_FOLDER(user_data);
+	GSList* l;
+	for(l = files; l; l = l->next)
+	{
+		FmFileInfo* file = FM_FILE_INFO(l->data);
+		fm_file_info_list_push_tail(folder->files, file);
+	}
+	g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 }
 
 static FmJobErrorAction on_dirlist_job_error(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
@@ -716,6 +734,8 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 
 static void free_dirlist_job(FmFolder* folder)
 {
+	if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
+		g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_files_found, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_finished, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_error, folder);
     fm_job_cancel(FM_JOB(folder->dirlist_job)); /* FIXME: is this ok? */
@@ -963,8 +983,16 @@ void fm_folder_reload(FmFolder* folder)
     g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
 
     /* run a new dir listing job */
-    folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+    
+    /* FIXME: later there should be cleaner way for this */
+    if(G_UNLIKELY(fm_path_is_search(folder->dir_path)))
+		folder->dirlist_job = fm_search_job_new(folder->dir_path);
+	else
+		folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+
     g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
+    if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
+		g_signal_connect(folder->dirlist_job, "files-found", G_CALLBACK(on_dirlist_job_files_found), folder);
     g_signal_connect(folder->dirlist_job, "error", G_CALLBACK(on_dirlist_job_error), folder);
     fm_job_run_async(FM_JOB(folder->dirlist_job));
     /* FIXME: free job if error */

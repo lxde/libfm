@@ -88,7 +88,7 @@ job_SOURCES = \
 	job/fm-file-ops-job-xfer.c \
 	job/fm-file-ops-job-delete.c \
 	job/fm-file-ops-job-change-attr.c \
-	job/fm-file-search-job.c \
+	job/fm-search-job.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -167,7 +167,6 @@ libfminclude_HEADERS = \
 	base/fm-thumbnailer.h \
 	base/fm-file.h \
 	base/fm-marshal.h \
-	base/fm-file-search.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
 	job/fm-dir-list-job.h \
@@ -177,7 +176,7 @@ libfminclude_HEADERS = \
 	job/fm-file-ops-job-xfer.h \
 	job/fm-file-ops-job-delete.h \
 	job/fm-file-ops-job-change-attr.h \
-	job/fm-file-search-job.h \
+	job/fm-search-job.h \
 	$(NULL)
 
 libfmgtkincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
