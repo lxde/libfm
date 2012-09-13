@@ -360,7 +360,8 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
         {
             FmFileInfo* fi = (FmFileInfo*)l->data;
             FmPath* path = fm_file_info_get_path(fi);
-            GList* l2 = _fm_folder_get_file_by_name(folder, path->name);
+            GList* l2 = _fm_folder_get_file_by_name(folder,
+                                                    fm_path_get_basename(path));
             if(l2) /* the file is already in the folder, update */
             {
                 FmFileInfo* fi2 = (FmFileInfo*)l2->data;
@@ -1045,7 +1046,7 @@ static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         FmPath* path = fm_file_info_get_path(fi);
-        if(strcmp(path->name, name) == 0)
+        if(strcmp(fm_path_get_basename(path), name) == 0)
             return l;
     }
     return NULL;

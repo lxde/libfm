@@ -20,6 +20,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-utils
+ * @short_description: Common utility functions used by libfm and libfm-gtk.
+ * @title: Common Libfm utilities.
+ *
+ * @include: libfm/fm-utils.h
+ *
+ * This scope contains common data parsing utilities.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -44,6 +54,19 @@
 #define SI_GB   ((gdouble)1000.0 * 1000.0 * 1000.0)
 #define SI_TB   ((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
 
+/**
+ * fm_file_size_to_str
+ * @buf: pointer to array to make a string
+ * @buf_size: size of @buf
+ * @size: number to convert
+ * @si_prefix: %TRUE to convert in SI units, %FALSE to convert in IEC units
+ *
+ * Converts @size into text representation of form "21.4 kiB" for example.
+ *
+ * Returns: @buf.
+ *
+ * Since: 0.1.0
+ */
 char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si_prefix )
 {
     const char * unit;
@@ -115,6 +138,19 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
     return buf;
 }
 
+/**
+ * fm_key_file_get_int
+ * @kf: a key file
+ * @grp: group to lookup key
+ * @key: a key to lookup
+ * @val: location to store value
+ *
+ * Lookups @key in @kf and stores found value in @val if the @key was found.
+ *
+ * Returns: %TRUE if @key was found.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int* val)
 {
     char* str = g_key_file_get_value(kf, grp, key, NULL);
@@ -126,6 +162,19 @@ gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int
     return str != NULL;
 }
 
+/**
+ * fm_key_file_get_bool
+ * @kf: a key file
+ * @grp: group to lookup key
+ * @key: a key to lookup
+ * @val: location to store value
+ *
+ * Lookups @key in @kf and stores found value in @val if the @key was found.
+ *
+ * Returns: %TRUE if @key was found.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gboolean* val)
 {
     char* str = g_key_file_get_value(kf, grp, key, NULL);
@@ -137,6 +186,18 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
     return str != NULL;
 }
 
+/**
+ * fm_canonicalize_filename
+ * @filename: a filename
+ * @cwd: current work directory path
+ *
+ * Makes a canonical name with full path from @filename. Returned string
+ * should be freed by caller after usage.
+ *
+ * Returns: (transfer full): a canonical name.
+ *
+ * Since: 0.1.0
+ */
 char* fm_canonicalize_filename(const char* filename, const char* cwd)
 {
     char* _cwd = NULL;
@@ -225,6 +286,22 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     return ret;
 }
 
+/**
+ * fm_strdup_replace
+ * @str: a string
+ * @old_str: substring to replace
+ * @new_str: string to replace @old_str
+ *
+ * Replaces every occurence of @old_str in @str with @new_str and returns
+ * resulted string. Returned string should be freed with g_free() after
+ * usage.
+ *
+ * Before 1.0.0 this API had name fm_str_replace.
+ *
+ * Returns: (transfer full): resulted string.
+ *
+ * Since: 0.1.16
+ */
 char* fm_strdup_replace(char* str, char* old_str, char* new_str)
 {
     int len = strlen(str);
@@ -251,7 +328,9 @@ char* fm_strdup_replace(char* str, char* old_str, char* new_str)
  * This function parses line that contains some %&lt;char&gt; commands and does
  * substitutions on them using callbacks provided by caller.
  *
- * Return value: number of valid options found in @cmd
+ * Returns: number of valid options found in @cmd.
+ *
+ * Since: 1.0.0
  */
 int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                          char** ret, gpointer user_data)

@@ -683,7 +683,7 @@ static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePa
     FmPath* path = fm_file_info_get_path(fi);
 
     /* fm_file_info_is_hidden() is slower here*/
-    if(!model->show_hidden && path->name[0] == '.') /* hidden folder */
+    if(!model->show_hidden && fm_path_get_basename(path)[0] == '.') /* hidden folder */
     {
         parent_item->hidden_children = g_list_prepend(parent_item->hidden_children, item);
         item_l = parent_item->hidden_children;
@@ -749,7 +749,8 @@ static GList* children_by_name(FmDirTreeModel* model, GList* children, const cha
         FmDirTreeItem* item = (FmDirTreeItem*)l->data;
         FmPath* path;
         if(G_LIKELY(item->fi) &&
-           G_UNLIKELY(strcmp((path = fm_file_info_get_path(item->fi))->name, name) == 0))
+           G_LIKELY((path = fm_file_info_get_path(item->fi))) &&
+           G_UNLIKELY(strcmp(fm_path_get_basename(path), name) == 0))
         {
             if(idx)
                 *idx = i;

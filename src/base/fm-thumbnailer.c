@@ -19,6 +19,15 @@
 //      
 //      
 
+/**
+ * SECTION:fm-thumbnailer
+ * @short_description: External thumbnailers handling.
+ * @title: FmThumbnailer
+ *
+ * @include: libfm/fm-thumbnailer.h
+ *
+ */
+
 #include "fm-thumbnailer.h"
 #include "fm-mime-type.h"
 
@@ -26,6 +35,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <time.h>
+
+struct _FmThumbnailer
+{
+	char* id;
+	char* try_exec; /* FIXME: is this useful? */
+	char* exec;
+	GList* mime_types;
+};
 
 time_t last_loaded_time = 0;
 GList* all_thumbnailers = NULL;
@@ -40,6 +57,14 @@ FmThumbnailer* fm_thumbnailer_ref(FmThumbnailer* thumbnailer)
 
 */
 
+/**
+ * fm_thumbnailer_free
+ * @thumbnailer: thumbnailer descriptor
+ *
+ * Frees @thumbnailer object.
+ *
+ * Since: 1.0.0
+ */
 void fm_thumbnailer_free(FmThumbnailer* thumbnailer)
 {
 	g_return_if_fail(thumbnailer);
@@ -58,6 +83,17 @@ void fm_thumbnailer_free(FmThumbnailer* thumbnailer)
 	g_slice_free(FmThumbnailer, thumbnailer);
 }
 
+/**
+ * fm_thumbnailer_new_from_keyfile
+ * @id: desktop entry Id
+ * @kf: content of @id
+ *
+ * Creates new @thumbnailer object.
+ *
+ * Returns: a new #FmThumbnailer or %NULL in case of error.
+ *
+ * Since: 1.0.0
+ */
 FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
 {
 	FmThumbnailer* thumbnailer = NULL;
@@ -101,6 +137,19 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
 	return thumbnailer;
 }
 
+/**
+ * fm_thumbnailer_launch_for_uri
+ * @thumbnailer: thumbnailer descriptor
+ * @uri: a file to create thumbnail for
+ * @output_file: the target file name
+ * @size: size of thumbnail to generate
+ *
+ * Tries to generate new thumbnail for given @uri.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 1.0.0
+ */
 gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* uri,  const char* output_file, guint size)
 {
 	if(thumbnailer && thumbnailer->exec)
@@ -247,7 +296,13 @@ static gboolean check_data_dir(const char* data_dir)
 	return ret;
 }
 
-/* check new thumbnailers and reload if needed */
+/**
+ * fm_thumbnailer_check_update
+ *
+ * Checks new thumbnailers and reloads if needed.
+ *
+ * Since: 1.0.0
+ */
 void fm_thumbnailer_check_update()
 {
 	gboolean need_reload = FALSE;

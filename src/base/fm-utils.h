@@ -28,10 +28,30 @@
 
 G_BEGIN_DECLS
 
+/**
+ * FmAppCommandParseCallback:
+ * @opt: key character
+ * @user_data: data passed from caller of fm_app_command_parse()
+ *
+ * The handler which converts key char into string representation.
+ *
+ * See also: fm_app_command_parse().
+ *
+ * Returns: string representation.
+ *
+ * Since: 1.0.0
+ */
 typedef const char* (*FmAppCommandParseCallback)(char opt, gpointer user_data);
 
 typedef struct _FmAppCommandParseOption FmAppCommandParseOption;
 
+/**
+ * FmAppCommandParseOption:
+ * @opt: key character
+ * @callback: subroutine to get string for substitution
+ *
+ * Element of correspondence for substitutions by fm_app_command_parse().
+ */
 struct _FmAppCommandParseOption
 {
     char opt;

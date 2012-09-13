@@ -109,7 +109,7 @@ static char* get_bookmarks_file()
 
 static void free_item(FmBookmarkItem* item)
 {
-    if(item->name != item->path->name)
+    if(item->name != fm_path_get_basename(item->path))
         g_free(item->name);
     fm_path_unref(item->path);
     g_slice_free(FmBookmarkItem, item);
@@ -144,7 +144,7 @@ static FmBookmarkItem* new_item(char* line)
     if(sep)
         item->name = g_strdup(sep+1);
     else
-        item->name = g_filename_display_name(item->path->name);
+        item->name = g_filename_display_name(fm_path_get_basename(item->path));
 
     return item;
 }

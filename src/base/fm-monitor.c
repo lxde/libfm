@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-monitor
+ * @short_description: File monitor cache implementation.
+ * @title: GMonitor cache
+ *
+ * @include: libfm/fm-monitor.h
+ *
+ * This implementation can help to exclude creation of duplicate monitors
+ * for the same file and also do fast search for created file monitors.
+ */
+
 #include "fm-monitor.h"
 #include "fm-dummy-monitor.h"
 #include <string.h>
@@ -45,6 +56,18 @@ static void on_dummy_monitor_destroy(gpointer data, GObject* mon)
     G_UNLOCK(hash);
 }
 
+/**
+ * fm_monitor_directory
+ * @gf: file to monitor
+ * @err: (allow-none) (out): location to save error
+ *
+ * Finds a monitor for directory @gf in cache or creates new if there is
+ * no such monitor created yet.
+ *
+ * Returns: (transfer full): a monitor object.
+ *
+ * Since: 0.1.0
+ */
 GFileMonitor* fm_monitor_directory(GFile* gf, GError** err)
 {
     GFileMonitor* ret = NULL;
@@ -107,6 +130,16 @@ void _fm_monitor_finalize()
     dummy_hash = NULL;
 }
 
+/**
+ * fm_monitor_lookup_monitor
+ * @gf: file to monitor
+ *
+ * Finds a monitor for directory @gf in cache.
+ *
+ * Returns: (transfer full): a monitor object or %NULL.
+ *
+ * Since: 0.1.0
+ */
 GFileMonitor* fm_monitor_lookup_monitor(GFile* gf)
 {
     GFileMonitor* ret = NULL;
@@ -122,6 +155,16 @@ GFileMonitor* fm_monitor_lookup_monitor(GFile* gf)
     return ret;
 }
 
+/**
+ * fm_monitor_lookup_dummy_monitor
+ * @gf: file to monitor
+ *
+ * Finds a monitor for not-native file @gf in cache.
+ *
+ * Returns: (transfer full): a monitor object or %NULL.
+ *
+ * Since: 0.1.0
+ */
 GFileMonitor* fm_monitor_lookup_dummy_monitor(GFile* gf)
 {
     GFileMonitor* mon;

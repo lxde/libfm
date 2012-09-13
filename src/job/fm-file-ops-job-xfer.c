@@ -675,7 +675,7 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     {
         FmPath* path = FM_PATH(l->data);
         GFile* src = fm_path_to_gfile(path);
-        GFile* dest = g_file_get_child(dest_dir, path->name);
+        GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
 
         if(!_fm_file_ops_job_copy_file(job, src, NULL, dest))
             ret = FALSE;
@@ -772,7 +772,7 @@ _retry_query_dest_info:
     {
         FmPath* path = FM_PATH(l->data);
         GFile* src = fm_path_to_gfile(path);
-        GFile* dest = g_file_get_child(dest_dir, path->name);
+        GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
 
         /* get dummy file monitors for non-native filesystems */
         job->src_folder_mon = NULL;

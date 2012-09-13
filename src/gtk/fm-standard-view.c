@@ -1161,7 +1161,7 @@ static void fm_standard_view_select_file_path(FmFolderView* ffv, FmPath* path)
         FmFolderModel* model = fv->model;
         GtkTreeIter it;
         if(fv->select_path &&
-           fm_folder_model_find_iter_by_filename(model, &it, path->name))
+           fm_folder_model_find_iter_by_filename(model, &it, fm_path_get_basename(path)))
             fv->select_path(model, fv->view, &it);
     }
 }

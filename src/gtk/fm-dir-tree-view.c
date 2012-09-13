@@ -442,7 +442,7 @@ void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
         view->paths_to_expand = g_slist_prepend(view->paths_to_expand, fm_path_ref(path));
         if(fm_path_equal(path, root))
             break;
-        path = path->parent;
+        path = fm_path_get_parent(path);
     }while(path);
 
     expand_pending_path(view, model, NULL);

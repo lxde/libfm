@@ -655,7 +655,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     item->icon = fm_icon_from_name("user-home");
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, path->name, -1);
+                       FM_PLACES_MODEL_COL_LABEL, fm_path_get_basename(path), -1);
     g_object_unref(pix);
     fm_file_info_job_add(job, path);
 

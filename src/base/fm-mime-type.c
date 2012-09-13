@@ -98,6 +98,8 @@ void _fm_mime_type_finalize()
  *
  * Finds #FmMimeType descriptor guessing type from @ufile_name.
  *
+ * Before 1.0.0 this API had name fm_mime_type_get_for_file_name.
+ *
  * Returns: (transfer full): a #FmMimeType object.
  *
  * Since: 0.1.0
@@ -120,6 +122,8 @@ FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
  * @pstat: (allow-none): file atrributes
  *
  * Finds #FmMimeType descriptor for provided data.
+ *
+ * Before 1.0.0 this API had name fm_mime_type_get_for_native_file.
  *
  * Returns: (transfer full): a #FmMimeType object.
  *
@@ -214,6 +218,8 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
  * @type: MIME type name
  *
  * Finds #FmMimeType descriptor for @type.
+ *
+ * Before 1.0.0 this API had name fm_mime_type_get_for_type.
  *
  * Returns: (transfer full): a #FmMimeType object.
  *

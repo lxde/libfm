@@ -820,6 +820,7 @@ fm_monitor_lookup_monitor
 <FILE>fm-nav-history</FILE>
 <TITLE>FmNavHistory</TITLE>
 FM_NAV_HISTORY_TYPE
+FM_NAV_HISTORY_DEFAULT_SIZE
 FmNavHistory
 FmNavHistoryClass
 FmNavHistoryItem
@@ -830,7 +831,11 @@ fm_nav_history_chdir
 fm_nav_history_clear
 fm_nav_history_forward
 fm_nav_history_get_cur
+fm_nav_history_get_cur_index
 fm_nav_history_get_cur_link
+fm_nav_history_get_nth_path
+fm_nav_history_get_scroll_pos
+fm_nav_history_go_to
 fm_nav_history_jump
 fm_nav_history_list
 fm_nav_history_new

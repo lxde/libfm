@@ -46,6 +46,21 @@ G_BEGIN_DECLS
 typedef struct _FmFolder            FmFolder;
 typedef struct _FmFolderClass       FmFolderClass;
 
+/**
+ * FmFolderClass
+ * @parent_class: the parent class
+ * @files_added: the class closure for #FmFolder::files-added signal
+ * @files_removed: the class closure for #FmFolder::files-removed signal
+ * @files_changed: the class closure for #FmFolder::files-changed signal
+ * @start_loading: the class closure for #FmFolder::start-loading signal
+ * @finish_loading: the class closure for #FmFolder::finish-loading signal
+ * @unmount: the class closure for #FmFolder::unmount signal
+ * @changed: the class closure for #FmFolder::changed signal
+ * @removed: the class closure for #FmFolder::removed signal
+ * @content_changed: the class closure for #FmFolder::content-changed signal
+ * @fs_info: the class closure for #FmFolder::fs-info signal
+ * @error: the class closure for #FmFolder::error signal
+ */
 struct _FmFolderClass
 {
     GObjectClass parent_class;

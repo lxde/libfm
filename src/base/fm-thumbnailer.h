@@ -31,14 +31,6 @@ G_BEGIN_DECLS
 
 typedef struct _FmThumbnailer	FmThumbnailer;
 
-struct _FmThumbnailer
-{
-	char* id;
-	char* try_exec; /* FIXME: is this useful? */
-	char* exec;
-	GList* mime_types;
-};
-
 FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf);
 void fm_thumbnailer_free(FmThumbnailer* thumbnailer);
 

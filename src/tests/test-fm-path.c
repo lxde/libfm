@@ -42,17 +42,17 @@ static void test_parsing(FmPathFunc func, const char* str, const char** expected
     g_print("\ntry to parse \'%s\':\n[", str);
     path = func(str);
 
-    for(element = path; element; element = element->parent)
+    for(element = path; element; element = fm_path_get_parent(element))
         elements = g_slist_prepend(elements, element);
 
     for(i = 0, l = elements; l; l=l->next, ++i)
     {
         g_assert_cmpint(i, <, n_expected);
         element = (FmPath*)l->data;
-        g_print("\'%s\'", element->name);
+        g_print("\'%s\'", fm_path_get_basename(element));
         if(l->next)
             g_print(", ");
-        g_assert_cmpstr(element->name, ==, expected[i]);
+        g_assert_cmpstr(fm_path_get_basename(element), ==, expected[i]);
     }
     g_slist_free(elements);
     g_print("]\n");
@@ -285,28 +285,28 @@ static void test_path_child()
     FmPath* path;
     g_print("\n");
     path = fm_path_new_child(parent, "child");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "child");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "child");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "child/");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "child");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "child");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "child///");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "child");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "child");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "..");
-    g_printf("path->name = %s\n", path->name);
-    g_assert(path == parent->parent);
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert(path == fm_path_get_parent(parent));
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "../");
-    g_printf("path->name = %s\n", path->name);
-    g_assert(path == parent->parent);
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert(path == fm_path_get_parent(parent));
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "/");
@@ -325,18 +325,18 @@ static void test_path_child()
 
     parent = NULL;
     path = fm_path_new_child(parent, "/");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "/");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "/");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "//");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "/");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "/");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "///");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "/");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "/");
     fm_path_unref(path);
 
 /*  FIXME: how to handle this case?
@@ -347,27 +347,27 @@ static void test_path_child()
 */
 
     path = fm_path_new_child(parent, "trash:");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "trash:///");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "trash:///");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "trash:/");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "trash:///");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "trash:///");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "trash:////");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "trash:///");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "trash:///");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "..");
-    g_printf("path->name = %s\n", path->name);
-    g_assert_cmpstr(path->name, ==, "/");
+    g_printf("path->name = %s\n", fm_path_get_basename(path));
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "/");
     fm_path_unref(path);
 
     path = fm_path_new_child(parent, "../");
-    g_assert_cmpstr(path->name, ==, "/");
+    g_assert_cmpstr(fm_path_get_basename(path), ==, "/");
     fm_path_unref(path);
 
 /*
@@ -388,7 +388,7 @@ static void test_predefined_paths()
     fm_path_unref(path);
 
     path = fm_path_new_for_uri("trash:///xxx");
-    g_assert(path->parent == fm_path_get_trash());
+    g_assert(fm_path_get_parent(path) == fm_path_get_trash());
     fm_path_unref(path);
 
     path = fm_path_new_for_uri("menu://");
@@ -400,7 +400,7 @@ static void test_predefined_paths()
     fm_path_unref(path);
 
     path = fm_path_new_for_uri("menu://applications/test/");
-    g_assert(path->parent == fm_path_get_apps_menu());
+    g_assert(fm_path_get_parent(path) == fm_path_get_apps_menu());
     fm_path_unref(path);
 
 /*

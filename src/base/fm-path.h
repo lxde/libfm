@@ -36,15 +36,27 @@ G_BEGIN_DECLS
 typedef struct _FmPath FmPath;
 typedef struct _FmPathList FmPathList;
 
+/**
+ * FmPathFlags:
+ * @FM_PATH_NONE: -
+ * @FM_PATH_IS_NATIVE: This is a native path to UNIX, like /home
+ * @FM_PATH_IS_LOCAL: This path refers  to a file on local filesystem
+ * @FM_PATH_IS_VIRTUAL: This path is virtual and it doesn't exist on real filesystem
+ * @FM_PATH_IS_TRASH: This path is under trash:///
+ * @FM_PATH_IS_XDG_MENU: This path is under menu:///
+ *
+ * Flags of #FmPath object.
+ */
 typedef enum
 {
     FM_PATH_NONE = 0,
-    FM_PATH_IS_NATIVE = 1<<0, /* This is a native path to UNIX, like /home */
-    FM_PATH_IS_LOCAL = 1<<1, /* This path refers  to a file on local filesystem */
-    FM_PATH_IS_VIRTUAL = 1<<2, /* This path is virtual and it doesn't exist on real filesystem */
-    FM_PATH_IS_TRASH = 1<<3, /* This path is under trash:/// */
-    FM_PATH_IS_XDG_MENU = 1<<4, /* This path is under menu:/// */
+    FM_PATH_IS_NATIVE = 1<<0,
+    FM_PATH_IS_LOCAL = 1<<1,
+    FM_PATH_IS_VIRTUAL = 1<<2,
+    FM_PATH_IS_TRASH = 1<<3,
+    FM_PATH_IS_XDG_MENU = 1<<4,
 
+    /*< private >*/
     /* reserved for future use */
     FM_PATH_IS_RESERVED1 = 1<<5,
     FM_PATH_IS_RESERVED2 = 1<<6,
@@ -52,14 +64,6 @@ typedef enum
 } FmPathFlags;
 
 typedef struct _FmFileInfoList FmFileInfoList; /* fm-file-info.h includes this too */
-
-struct _FmPath
-{
-    gint n_ref;
-    FmPath* parent;
-    guchar flags; /* FmPathFlags flags : 8; */
-    char name[1];
-};
 
 void _fm_path_init(void);
 void _fm_path_finalize(void);

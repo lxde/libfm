@@ -224,7 +224,7 @@ static GtkRadioButton* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_elem
 {
     GtkRadioButton* btn;
     char* label = fm_path_display_basename(path_element);
-    if(!path_element->parent) /* this element is root */
+    if(!fm_path_get_parent(path_element)) /* this element is root */
     {
 #if GTK_CHECK_VERSION(3, 2, 0)
         /* FIXME: migrate to GtkGrid */

@@ -254,7 +254,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(dest_fi, tmp);
     g_free(tmp);
 
-    tmp = g_filename_display_name(path->name);
+    tmp = g_filename_display_name(fm_path_get_basename(path));
     gtk_entry_set_text(filename, tmp);
     g_free(tmp);
     tmp = (char*)fm_file_info_get_disp_name(dest); /* FIXME: cast const to char */

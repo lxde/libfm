@@ -380,7 +380,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             for(l = fm_file_info_list_peek_head_link(files);l;l=l->next)
             {
                 FmPath* trash_path = fm_file_info_get_path(FM_FILE_INFO(l->data));
-                if(!trash_path->parent || !fm_path_is_trash_root(trash_path->parent))
+                if(!fm_path_get_parent(trash_path) ||
+                   !fm_path_is_trash_root(fm_path_get_parent(trash_path)))
                 {
                     can_restore = FALSE;
                     break;

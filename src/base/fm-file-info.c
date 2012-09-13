@@ -236,7 +236,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     /* if display name is the same as its name, just use it. */
     tmp = g_file_info_get_display_name(inf);
-    if(strcmp(tmp, fi->path->name) == 0)
+    if(strcmp(tmp, fm_path_get_basename(fi->path)) == 0)
         fi->disp_name = NULL;
     else
         fi->disp_name = g_strdup(tmp);
@@ -600,7 +600,7 @@ FmPath* fm_file_info_get_path(FmFileInfo* fi)
  */
 const char* fm_file_info_get_name(FmFileInfo* fi)
 {
-    return fi->path->name;
+    return fm_path_get_basename(fi->path);
 }
 
 /**
@@ -618,7 +618,7 @@ const char* fm_file_info_get_name(FmFileInfo* fi)
 /* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
-    return G_LIKELY(!fi->disp_name) ? fi->path->name : fi->disp_name;
+    return G_LIKELY(!fi->disp_name) ? fm_path_get_basename(fi->path) : fi->disp_name;
 }
 
 /**
@@ -915,7 +915,7 @@ gboolean fm_file_info_is_accessible(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_hidden(FmFileInfo* fi)
 {
-    const char* name = fi->path->name;
+    const char* name = fm_path_get_basename(fi->path);
     /* files with . prefix or ~ suffix are regarded as hidden files.
      * dirs with . prefix are regarded as hidden dirs. */
     return (name[0] == '.' ||

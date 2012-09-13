@@ -1152,7 +1152,7 @@ gboolean fm_folder_model_find_iter_by_filename(FmFolderModel* model, GtkTreeIter
     {
         FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
         FmPath* path = fm_file_info_get_path(item->inf);
-        if( g_strcmp0(path->name, name) == 0 )
+        if( g_strcmp0(fm_path_get_basename(path), name) == 0 )
         {
             it->stamp = model->stamp;
             it->user_data  = item_it;

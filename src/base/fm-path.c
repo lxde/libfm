@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-path
+ * @short_description: Path representation for libfm.
+ * @title: FmPath
+ *
+ * @include: libfm/fm-path.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -28,6 +37,14 @@
 #include <string.h>
 #include <limits.h>
 #include <glib/gi18n-lib.h>
+
+struct _FmPath
+{
+    gint n_ref;
+    FmPath* parent;
+    guchar flags; /* FmPathFlags flags : 8; */
+    char name[1];
+};
 
 struct _FmPathList
 {
@@ -589,7 +606,14 @@ FmPath* fm_path_new_for_commandline_arg(const char* arg)
     return _fm_path_new_for_uri_internal(arg, TRUE);
 }
 
-
+/**
+ * fm_path_ref
+ * @path: an existing #FmPath
+ *
+ * Increases reference count on @path.
+ *
+ * Returns: @path.
+ */
 FmPath* fm_path_ref(FmPath* path)
 {
     g_return_val_if_fail(path != NULL, NULL);
@@ -597,6 +621,13 @@ FmPath* fm_path_ref(FmPath* path)
     return path;
 }
 
+/**
+ * fm_path_unref
+ * @path: an existing #FmPath
+ *
+ * Decreases reference count on @path. When reference count becomes 0
+ * the @path will be destroyed.
+ */
 void fm_path_unref(FmPath* path)
 {
     g_return_if_fail(path != NULL);
@@ -609,16 +640,48 @@ void fm_path_unref(FmPath* path)
     }
 }
 
+/**
+ * fm_path_get_parent
+ * @path: a path
+ *
+ * Retrieves path of directory containing @path.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: (transfer none): path of parent directory or %NULL if @path is root path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_parent(FmPath* path)
 {
     return path->parent;
 }
 
+/**
+ * fm_path_get_basename
+ * @path: a path
+ *
+ * Retrieves basename of @path.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: basename of path.
+ *
+ * Since: 0.1.0
+ */
 const char* fm_path_get_basename(FmPath* path)
 {
     return path->name;
 }
 
+/**
+ * fm_path_get_flags
+ * @path: a path
+ *
+ * Retrieves attributes of @path.
+ *
+ * Returns: attributes of path.
+ *
+ * Since: 0.1.0
+ */
 FmPathFlags fm_path_get_flags(FmPath* path)
 {
     return path->flags;
@@ -667,6 +730,16 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
     return pbuf + name_len;
 }
 
+/**
+ * fm_path_to_str
+ * @path: a path
+ *
+ * Creates string representation of @path.
+ *
+ * Returns: path string.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
@@ -675,6 +748,16 @@ char* fm_path_to_str(FmPath* path)
     return ret;
 }
 
+/**
+ * fm_path_to_uri
+ * @path: a path
+ *
+ * Creates URI representation of @path.
+ *
+ * Returns: path URI.
+ *
+ * Since: 0.1.0
+ */
 char* fm_path_to_uri(FmPath* path)
 {
     char* uri = NULL;
@@ -693,6 +776,17 @@ char* fm_path_to_uri(FmPath* path)
     return uri;
 }
 
+/**
+ * fm_path_display_name
+ * @path: a path
+ * @human_readable: %TRUE to generate simple text
+ *
+ * Creates string representation of @path as displayable name.
+ *
+ * Returns: path string.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: maybe we can support different encoding for different mount points? */
 char* fm_path_display_name(FmPath* path, gboolean human_readable)
 {
@@ -719,6 +813,16 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
     return disp;
 }
 
+/**
+ * fm_path_display_basename
+ * @path: a path
+ *
+ * Creates displayable basename of @path.
+ *
+ * Returns: displayable basename of path.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: maybe we can support different encoding for different mount points? */
 char* fm_path_display_basename(FmPath* path)
 {
@@ -746,6 +850,16 @@ char* fm_path_display_basename(FmPath* path)
     return g_filename_display_name(path->name);
 }
 
+/**
+ * fm_path_get_basename
+ * @path: a path
+ *
+ * Creates #GFile representation of @path.
+ *
+ * Returns: (transfer full): a #GFile object.
+ *
+ * Since: 0.1.0
+ */
 GFile* fm_path_to_gfile(FmPath* path)
 {
     GFile* gf;
@@ -759,26 +873,76 @@ GFile* fm_path_to_gfile(FmPath* path)
     return gf;
 }
 
+/**
+ * fm_path_get_root
+ *
+ * Retrieves #FmPath for root directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_root()
 {
     return root_path;
 }
 
+/**
+ * fm_path_get_home
+ *
+ * Retrieves #FmPath for home directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_home()
 {
     return home_path;
 }
 
+/**
+ * fm_path_get_desktop
+ *
+ * Retrieves #FmPath for desktop directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_desktop()
 {
     return desktop_path;
 }
 
+/**
+ * fm_path_get_trash
+ *
+ * Retrieves #FmPath for Trash can.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_trash()
 {
     return trash_root_path;
 }
 
+/**
+ * fm_path_get_apps_menu
+ *
+ * Retrieves #FmPath for menu:// virtual directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_apps_menu()
 {
     return apps_root_path;
@@ -859,6 +1023,16 @@ void _fm_path_finalize(void)
 
 /* For used in hash tables */
 
+/**
+ * fm_path_hash
+ * @path: a path key
+ *
+ * Converts a path to a hash value.
+ *
+ * Returns: a hash value corresponding to the key.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: is this good enough? */
 guint fm_path_hash(FmPath* path)
 {
@@ -873,6 +1047,20 @@ guint fm_path_hash(FmPath* path)
     return hash;
 }
 
+/**
+ * fm_path_equal
+ * @p1: first path
+ * @p2: second path
+ *
+ * Compares two paths and returns %TRUE if they are equal.
+ *
+ * Note that this function is primarily meant as a hash table comparison
+ * function.
+ *
+ * Returns: %TRUE if paths are equal.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
     if(p1 == p2)
@@ -886,6 +1074,18 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
     return fm_path_equal( p1->parent, p2->parent);
 }
 
+/**
+ * fm_path_equal_str
+ * @path: a path
+ * @str: a string
+ * @n: length of @string
+ *
+ * Compares path string representation with @string.
+ *
+ * Returns: %TRUE if path and string are equal.
+ *
+ * Since: 0.1.0
+ */
 /* Check if this path contains absolute pathname str*/
 gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
 {
@@ -917,7 +1117,16 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
     return fm_path_equal_str( path->parent, str, n - strlen(path->name) - 1 );
 }
 
-/* calculate how many elements are in this path. */
+/**
+ * fm_path_depth
+ * @path: a path
+ *
+ * Calculates how many elements are in this path.
+ *
+ * Returns: %TRUE if paths are equal.
+ *
+ * Since: 1.0.0
+ */
 int fm_path_depth(FmPath* path)
 {
     int depth = 1;
@@ -943,6 +1152,16 @@ FmPathList* fm_path_list_new()
     return (FmPathList*)fm_list_new(&funcs);
 }
 
+/**
+ * fm_path_list_new_from_uris
+ * @uris: NULL-terminated list of URIs
+ *
+ * Creates a #FmPathList from @uris.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {
     char* const* uri;
@@ -965,6 +1184,16 @@ FmPathList* fm_path_list_new_from_uris(char* const* uris)
     return pl;
 }
 
+/**
+ * fm_path_list_new_from_uri_list
+ * @uri_list: list of URIs separated by newline characters
+ *
+ * Creates a #FmPathList from @uri_list.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
     char** uris = g_strsplit(uri_list, "\r\n", -1);
@@ -973,6 +1202,17 @@ FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
     return pl;
 }
 
+/**
+ * fm_path_list_to_uri_list
+ * @pl: a path list
+ *
+ * Creates newline-separated list from @pl. Returned data should be freed
+ * with g_free() after usage.
+ *
+ * Returns: (transfer full): string representation of @pl.
+ *
+ * Since: 0.1.0
+ */
 char* fm_path_list_to_uri_list(FmPathList* pl)
 {
     GString* buf = g_string_sized_new(4096);
@@ -999,6 +1239,16 @@ char** fm_path_list_to_uris(FmPathList* pl)
 }
 */
 
+/**
+ * fm_path_list_new_from_file_info_list
+ * @fis: a file info list
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1011,6 +1261,16 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_new_from_file_info_glist
+ * @fis: (element-type #FmFileInfo): list of file infos
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1023,6 +1283,16 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_new_from_file_info_gslist
+ * @fis: (element-type #FmFileInfo): list of file infos
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1035,6 +1305,15 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_write_uri_list
+ * @pl: a path list
+ * @buf: (out): a storage for resulting list
+ *
+ * Creates newline-separated list of URIs from @pl.
+ *
+ * Since: 0.1.0
+ */
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
 {
     GList* l;
