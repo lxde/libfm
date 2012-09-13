@@ -24,6 +24,7 @@
 #include "fm-file-ops-job-xfer.h"
 #include "fm-monitor.h"
 #include "fm-config.h"
+#include "fm-file.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -417,7 +418,7 @@ _retry_get_orig_path:
             {
                 /* FIXME: what if orig_path_str is a relative path?
                  * This is actually allowed by the horrible trash spec. */
-                GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
+                GFile* orig_path = fm_file_new_for_commandline_arg(orig_path_str);
                 /* ensure the existence of parent folder. */
                 if(ensure_parent_dir(fmjob, orig_path))
                     ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);

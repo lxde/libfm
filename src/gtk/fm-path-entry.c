@@ -36,6 +36,7 @@
 #include "fm-path-entry.h"
 /* for completion */
 #include "fm-folder-model.h"
+#include "fm-file.h"
 
 #include <string.h>
 #include <gio/gio.h>
@@ -368,11 +369,11 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             if(priv->parent_dir[0] == '~') /* special case for home dir */
             {
                 char* expand = g_strconcat(g_get_home_dir(), priv->parent_dir + 1, NULL);
-                data->dir = g_file_new_for_commandline_arg(expand);
+                data->dir = fm_file_new_for_commandline_arg(expand);
                 g_free(expand);
             }
             else
-                data->dir = g_file_new_for_commandline_arg(priv->parent_dir);
+                data->dir = fm_file_new_for_commandline_arg(priv->parent_dir);
 
             /* clear current model */
             gtk_list_store_clear(GTK_LIST_STORE(priv->model));

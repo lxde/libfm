@@ -34,8 +34,10 @@
 #include "fm-folder.h"
 #include "fm-monitor.h"
 #include "fm-marshal.h"
-#include <string.h>
 #include "fm-dummy-monitor.h"
+#include "fm-file.h"
+
+#include <string.h>
 
 enum {
     FILES_ADDED,
@@ -885,7 +887,7 @@ FmFolder* fm_folder_from_path_name(const char* path)
 /* FIXME: should we use GFile here? */
 FmFolder*    fm_folder_from_uri    (const char* uri)
 {
-    GFile* gf = g_file_new_for_uri(uri);
+    GFile* gf = fm_file_new_for_uri(uri);
     FmFolder* folder = fm_folder_from_gfile(gf);
     g_object_unref(gf);
     return folder;

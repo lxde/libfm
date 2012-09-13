@@ -409,6 +409,22 @@ fm_dummy_monitor_get_type
 </SECTION>
 
 <SECTION>
+<FILE>fm-file</FILE>
+<TITLE>FmFile</TITLE>
+FmFile
+FmFileInterface
+fm_file_new_for_commandline_arg
+fm_file_new_for_uri
+fm_file_wants_incremental
+<SUBSECTION Standard>
+FM_FILE
+FM_FILE_GET_IFACE
+FM_IS_FILE
+FM_TYPE_FILE
+fm_file_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-file-info</FILE>
 FM_FILE_INFO
 FmFileInfo

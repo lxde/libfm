@@ -29,6 +29,8 @@
 #include "fm-app-info.h"
 #include "fm-config.h"
 #include "fm-utils.h"
+#include "fm-file.h"
+
 #include <string.h>
 #include <gio/gdesktopappinfo.h>
 
@@ -353,7 +355,7 @@ gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
     for(;uris; uris = uris->next)
     {
         gchar *unescaped = g_uri_unescape_string((char*)uris->data, "");
-        GFile* gf = g_file_new_for_uri(unescaped);
+        GFile* gf = fm_file_new_for_uri(unescaped);
         g_free(unescaped);
         if(gf)
             gfiles = g_list_prepend(gfiles, gf);

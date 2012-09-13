@@ -37,6 +37,8 @@
 #endif
 
 #include "fm-places-model.h"
+#include "fm-file.h"
+
 #include <glib/gi18n-lib.h>
 
 #include "fm-config.h"
@@ -485,7 +487,7 @@ static gboolean update_trash_item(gpointer user_data)
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     if(fm_config->use_trash && model->trash)
     {
-        GFile* gf = g_file_new_for_uri("trash:///");
+        GFile* gf = fm_file_new_for_uri("trash:///");
         GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
         g_object_unref(gf);
         if(inf)
@@ -603,7 +605,7 @@ static void create_trash_item(FmPlacesModel* model)
     GdkPixbuf* pix;
     GFile* gf;
 
-    gf = g_file_new_for_uri("trash:///");
+    gf = fm_file_new_for_uri("trash:///");
     model->trash_monitor = fm_monitor_directory(gf, NULL);
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);

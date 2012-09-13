@@ -34,6 +34,8 @@
 
 #include "fm-path.h"
 #include "fm-file-info.h"
+#include "fm-file.h"
+
 #include <string.h>
 #include <limits.h>
 #include <glib/gi18n-lib.h>
@@ -868,7 +870,7 @@ GFile* fm_path_to_gfile(FmPath* path)
     if(fm_path_is_native(path))
         gf = g_file_new_for_path(str);
     else
-        gf = g_file_new_for_uri(str);
+        gf = fm_file_new_for_uri(str);
     g_free(str);
     return gf;
 }
