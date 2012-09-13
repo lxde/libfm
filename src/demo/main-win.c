@@ -151,15 +151,15 @@ static void on_folder_start_loading(FmFolder* folder, FmMainWin* win)
     g_debug("start-loading");
     fm_set_busy_cursor(GTK_WIDGET(win));
 
-	if(fm_path_is_search(fm_folder_get_path(folder)))
-	{
-		/* create a model for the folder and set it to the view */
-		FmFolderModel* model = fm_folder_model_new(folder, FALSE);
-		fm_folder_view_set_model(fv, model);
-		g_object_unref(model);
-	}
-	else
-		fm_folder_view_set_model(fv, NULL);
+    if(fm_folder_is_incremental(folder))
+    {
+        /* create a model for the folder and set it to the view */
+        FmFolderModel* model = fm_folder_model_new(folder, FALSE);
+        fm_folder_view_set_model(fv, model);
+        g_object_unref(model);
+    }
+    else
+        fm_folder_view_set_model(fv, NULL);
 }
 
 static gboolean update_scroll(gpointer data)
@@ -182,13 +182,13 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
     FmPath* path = fm_folder_get_path(folder);
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
 
-	if(fm_folder_view_get_model(fv) == NULL)
-	{
-		/* create a model for the folder and set it to the view */
-		FmFolderModel* model = fm_folder_model_new(folder, FALSE);
-		fm_folder_view_set_model(fv, model);
-		g_object_unref(model);
-	}
+    if(fm_folder_view_get_model(fv) == NULL)
+    {
+        /* create a model for the folder and set it to the view */
+        FmFolderModel* model = fm_folder_model_new(folder, FALSE);
+        fm_folder_view_set_model(fv, model);
+        g_object_unref(model);
+    }
 
     fm_path_entry_set_path(entry, path);
 
@@ -759,6 +759,7 @@ void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
     g_signal_connect(win->folder, "error", G_CALLBACK(on_folder_error), win);
     g_signal_connect(win->folder, "fs-info", G_CALLBACK(on_folder_fs_info), win);
 
+    on_folder_start_loading(win->folder, win);
     if(fm_folder_is_loaded(win->folder))
     {
         on_folder_finish_loading(win->folder, win);

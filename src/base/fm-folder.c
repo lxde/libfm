@@ -625,25 +625,25 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
     if(!fm_job_is_cancelled(FM_JOB(job)))
     {
         GList* l;
-		FmFileInfo* dir_fi = fm_dir_list_job_get_dir_info(job);
+        FmFileInfo* dir_fi = fm_dir_list_job_get_dir_info(job);
         if(dir_fi)
             folder->dir_fi = fm_file_info_ref(dir_fi);
 
         if(!fm_dir_list_job_get_emit_files_found(job))
         {
-			FmFileInfoList* job_files = fm_dir_list_job_get_files(job);
-			for(l = fm_file_info_list_peek_head_link(job_files); l; l=l->next)
-			{
-				FmFileInfo* inf = (FmFileInfo*)l->data;
-				files = g_slist_prepend(files, inf);
-				fm_file_info_list_push_tail(folder->files, inf);
-			}
-			if(G_LIKELY(files))
-			{
-				g_signal_emit(folder, signals[FILES_ADDED], 0, files);
-				g_slist_free(files);
-			}
-		}
+            FmFileInfoList* job_files = fm_dir_list_job_get_files(job);
+            for(l = fm_file_info_list_peek_head_link(job_files); l; l=l->next)
+            {
+                FmFileInfo* inf = (FmFileInfo*)l->data;
+                files = g_slist_prepend(files, inf);
+                fm_file_info_list_push_tail(folder->files, inf);
+            }
+            if(G_LIKELY(files))
+            {
+                g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+                g_slist_free(files);
+            }
+        }
 
         /* Some new files are created while FmDirListJob is loading the folder. */
         if(G_UNLIKELY(folder->files_to_add))
@@ -677,14 +677,14 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
 
 static void on_dirlist_job_files_found(FmDirListJob* job, GSList* files, gpointer user_data)
 {
-	FmFolder* folder = FM_FOLDER(user_data);
-	GSList* l;
-	for(l = files; l; l = l->next)
-	{
-		FmFileInfo* file = FM_FILE_INFO(l->data);
-		fm_file_info_list_push_tail(folder->files, file);
-	}
-	g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+    FmFolder* folder = FM_FOLDER(user_data);
+    GSList* l;
+    for(l = files; l; l = l->next)
+    {
+        FmFileInfo* file = FM_FILE_INFO(l->data);
+        fm_file_info_list_push_tail(folder->files, file);
+    }
+    g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 }
 
 static FmJobErrorAction on_dirlist_job_error(FmDirListJob* job, GError* err, FmJobErrorSeverity severity, FmFolder* folder)
@@ -734,8 +734,8 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 
 static void free_dirlist_job(FmFolder* folder)
 {
-	if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
-		g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_files_found, folder);
+    if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
+        g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_files_found, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_finished, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_error, folder);
     fm_job_cancel(FM_JOB(folder->dirlist_job)); /* FIXME: is this ok? */
@@ -986,13 +986,13 @@ void fm_folder_reload(FmFolder* folder)
     
     /* FIXME: later there should be cleaner way for this */
     if(G_UNLIKELY(fm_path_is_search(folder->dir_path)))
-		folder->dirlist_job = fm_search_job_new(folder->dir_path);
-	else
-		folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+        folder->dirlist_job = fm_search_job_new(folder->dir_path);
+    else
+        folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
 
     g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
     if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
-		g_signal_connect(folder->dirlist_job, "files-found", G_CALLBACK(on_dirlist_job_files_found), folder);
+        g_signal_connect(folder->dirlist_job, "files-found", G_CALLBACK(on_dirlist_job_files_found), folder);
     g_signal_connect(folder->dirlist_job, "error", G_CALLBACK(on_dirlist_job_error), folder);
     fm_job_run_async(FM_JOB(folder->dirlist_job));
     /* FIXME: free job if error */
@@ -1150,6 +1150,39 @@ gboolean fm_folder_is_valid(FmFolder* folder)
 {
     return (folder->dir_fi != NULL);
 }
+
+/**
+ * fm_folder_is_incremental
+ * @folder: folder to test
+ *
+ * Checks if a folder is incrementally loaded.
+ * After an FmFolder object is obtained from calling fm_folder_from_path(),
+ * if it's not yet loaded, it begins loading the content of the folder
+ * and emits "start-loading" signal. Most of the time, the info of the 
+ * files in the folder becomes available only after the folder is fully 
+ * loaded. That means, after the "finish-loading" signal is emitted.
+ * Before the loading is finished, fm_folder_get_files() returns nothing.
+ * You can tell if a folder is still being loaded with fm_folder_is_loaded().
+ * 
+ * However, for some special FmFolder types, such as the ones handling
+ * search:// URIs, we want to access the file infos while the folder is
+ * still being loaded (the search is still ongoing).
+ * The content of the folder grows incrementally and fm_folder_get_files()
+ * returns files currently being loaded even when the folder is not
+ * fully loaded. This is what we called incremental.
+ * fm_folder_is_incremental() tells you if the FmFolder has this feature.
+ *
+ * Returns: %TRUE if @folder is incrementally loaded
+ *
+ * Since: 1.0.2
+ */
+gboolean fm_folder_is_incremental(FmFolder* folder)
+{
+    if(folder->dirlist_job)
+        return fm_dir_list_job_get_emit_files_found(folder->dirlist_job);
+    return FALSE;
+}
+
 
 /**
  * fm_folder_get_filesystem_info

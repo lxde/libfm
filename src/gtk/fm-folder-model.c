@@ -462,7 +462,7 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
                      G_CALLBACK(_fm_folder_model_files_changed),
                      model);
 
-    if( fm_folder_is_loaded(model->folder) ) /* if it's already loaded */
+    if(fm_folder_is_loaded(model->folder) || fm_folder_is_incremental(model->folder)) /* if it's already loaded */
     {
         /* add existing files to the model */
         if(!fm_folder_is_empty(model->folder))

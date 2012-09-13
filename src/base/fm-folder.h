@@ -93,6 +93,7 @@ FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
 gboolean fm_folder_is_loaded(FmFolder* folder);
 gboolean fm_folder_is_valid(FmFolder* folder);
+gboolean fm_folder_is_incremental(FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
 

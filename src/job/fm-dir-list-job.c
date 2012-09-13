@@ -174,11 +174,11 @@ static void fm_dir_list_job_dispose(GObject *object)
     
     if(job->delay_add_files_handler)
     {
-		g_source_remove(job->delay_add_files_handler);
-		job->delay_add_files_handler = 0;
-		g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
-		job->files_to_add = NULL;
-	}
+        g_source_remove(job->delay_add_files_handler);
+        job->delay_add_files_handler = 0;
+        g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+        job->files_to_add = NULL;
+    }
 
     if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
@@ -396,19 +396,19 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
 
 static void fm_dir_list_job_finished(FmJob* job)
 {
-	FmDirListJob* dirlist_job = FM_DIR_LIST_JOB(job);
-	FmJobClass* job_class = FM_JOB_CLASS(fm_dir_list_job_parent_class);
+    FmDirListJob* dirlist_job = FM_DIR_LIST_JOB(job);
+    FmJobClass* job_class = FM_JOB_CLASS(fm_dir_list_job_parent_class);
 
-	if(dirlist_job->emit_files_found)
-	{
-		if(dirlist_job->delay_add_files_handler)
-		{
-			g_source_remove(dirlist_job->delay_add_files_handler);
-			delay_add_files(dirlist_job);
-		}
-	}
-	if(job_class->finished)
-		job_class->finished(job);
+    if(dirlist_job->emit_files_found)
+    {
+        if(dirlist_job->delay_add_files_handler)
+        {
+            g_source_remove(dirlist_job->delay_add_files_handler);
+            delay_add_files(dirlist_job);
+        }
+    }
+    if(job_class->finished)
+        job_class->finished(job);
 }
 
 
@@ -496,27 +496,27 @@ gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job)
 
 static gboolean delay_add_files(gpointer user_data)
 {
-	/* this callback is called from the main thread */
-	FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
-	g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add));
+    /* this callback is called from the main thread */
+    FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
+    g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add));
 
-	g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
-	g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
-	job->files_to_add = NULL;
-	job->delay_add_files_handler = 0;
-	return FALSE;
+    g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
+    g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+    job->files_to_add = NULL;
+    job->delay_add_files_handler = 0;
+    return FALSE;
 }
 
 static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
 {
-	FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
-	FmFileInfo* file = FM_FILE_INFO(user_data);
-	/* this callback is called from the main thread */
-	g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file));
-	job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
-	if(job->delay_add_files_handler == 0)
-		job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW, 1, delay_add_files, g_object_ref(job), g_object_unref);
-	return NULL;
+    FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
+    FmFileInfo* file = FM_FILE_INFO(user_data);
+    /* this callback is called from the main thread */
+    g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file));
+    job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
+    if(job->delay_add_files_handler == 0)
+        job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW, 1, delay_add_files, g_object_ref(job), g_object_unref);
+    return NULL;
 }
 
 /**
@@ -539,10 +539,9 @@ static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
  */
 void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file)
 {
-	g_print("add_found_file: %s\n", fm_file_info_get_disp_name(file));
     fm_file_info_list_push_tail(job->files, file);
     if(G_UNLIKELY(job->emit_files_found))
-		fm_job_call_main_thread(FM_JOB(job), queue_add_file, file);
+        fm_job_call_main_thread(FM_JOB(job), queue_add_file, file);
 }
 
 /**
@@ -557,9 +556,9 @@ void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file)
  */
 void fm_dir_list_job_set_dir_path(FmDirListJob* job, FmPath* path)
 {
-	if(job->dir_path)
-		fm_path_unref(job->dir_path);
-	job->dir_path = fm_path_ref(path);
+    if(job->dir_path)
+        fm_path_unref(job->dir_path);
+    job->dir_path = fm_path_ref(path);
 }
 
 /**
@@ -574,7 +573,7 @@ void fm_dir_list_job_set_dir_path(FmDirListJob* job, FmPath* path)
  */
 void fm_dir_list_job_set_dir_info(FmDirListJob* job, FmFileInfo* info)
 {
-	if(job->dir_fi)
-		fm_file_info_unref(job->dir_fi);
-	job->dir_fi = fm_file_info_ref(info);
+    if(job->dir_fi)
+        fm_file_info_unref(job->dir_fi);
+    job->dir_fi = fm_file_info_ref(info);
 }
