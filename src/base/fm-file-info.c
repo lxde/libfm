@@ -278,9 +278,11 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         case G_FILE_TYPE_UNKNOWN:
             ;
         }
+        /* assume it's accessible */
+        fi->accessible = TRUE;
     }
-
-    fi->accessible = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+    else
+        fi->accessible = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
 
     /* set "locked" icon on unaccesible folder */
     if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
