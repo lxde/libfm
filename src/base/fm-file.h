@@ -40,7 +40,6 @@ typedef struct _FmFileInterface         FmFileInterface;
 
 /**
  * FmFileInterface:
- * @new_for_uri_name: function to create new #GFile object from URI
  * @wants_incremental: VTable func, see fm_file_wants_incremental()
  */
 struct _FmFileInterface
@@ -49,12 +48,24 @@ struct _FmFileInterface
     GTypeInterface g_iface;
 
     /*< public >*/
-    GFile * (*new_for_uri_name)(const char *uri);
-
     gboolean (*wants_incremental)(FmFile* file);
 };
 
+/**
+ * FmFileInitTable:
+ * @new_for_uri_name: function to create new #GFile object from URI
+ *
+ * Functions to initialize FmFile instance.
+ */
+typedef struct
+{
+    /*< public >*/
+    GFile * (*new_for_uri_name)(const char *uri);
+} FmFileInitTable;
+
 GType           fm_file_get_type(void);
+
+void            fm_file_add_vfs(const char *name, FmFileInitTable init);
 
 /* VTable calls */
 gboolean        fm_file_wants_incremental(FmFile* file);

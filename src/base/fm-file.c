@@ -30,8 +30,9 @@
  * will handle schemas that are absent in Glib/GVFS - such as "search:".
  *
  * To use it the GFile implementation should also implement FmFile vtable
- * calls. The initialization of such implementation should be done from
- * _fm_file_init().
+ * calls. The implementation should be added to list of known schemes via
+ * call to fm_file_add_vfs() then calls such as fm_file_new_for_uri() can
+ * use it.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -66,7 +67,18 @@ static inline FmFileInterface *fm_find_scheme(const char *name)
     return (FmFileInterface*)g_hash_table_lookup(schemes, name);
 }
 
-static inline void fm_add_scheme(const char *name, FmFileInterface *iface)
+/**
+ * fm_file_add_vfs
+ * @name: scheme to act upon
+ * @init: table of functions
+ *
+ * Adds VFS to list of extensions that will be applied on next call to
+ * fm_file_new_for_uri() or fm_file_new_for_commandline_arg(). The @name
+ * is a schema which will be handled by those calls.
+ *
+ * Since: 1.0.2
+ */
+void fm_file_add_vfs(const char *name, FmFileInitTable init)
 {
     if(fm_find_scheme(name) == NULL)
         g_hash_table_insert(schemes, g_strdup(name), iface);
@@ -161,8 +173,6 @@ GFile *fm_file_new_for_commandline_arg(const char *arg)
 void _fm_file_init(void)
 {
     schemes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-    //fm_add_scheme("menu", _fm_scheme_menu_interface);
-    //fm_add_scheme("search", _fm_scheme_search_interface);
     //fm_module_register_type("scheme", FM_FILE_MODULE_MIN_VERSION,
     //                        FM_FILE_MODULE_MAX_VERSION, fm_file_add_module);
 }

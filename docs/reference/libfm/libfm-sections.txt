@@ -412,7 +412,9 @@ fm_dummy_monitor_get_type
 <FILE>fm-file</FILE>
 <TITLE>FmFile</TITLE>
 FmFile
+FmFileInitTable
 FmFileInterface
+fm_file_add_vfs
 fm_file_new_for_commandline_arg
 fm_file_new_for_uri
 fm_file_wants_incremental
