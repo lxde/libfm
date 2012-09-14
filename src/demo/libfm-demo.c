@@ -28,7 +28,7 @@
 
 int main(int argc, char** argv)
 {
-	GtkWidget* w;
+	FmMainWin* w;
 	gtk_init(&argc, &argv);
 
 	fm_gtk_init(NULL);
@@ -38,12 +38,12 @@ int main(int argc, char** argv)
 
 	w = fm_main_win_new();
 	gtk_window_set_default_size(GTK_WINDOW(w), 640, 480);
-	gtk_widget_show(w);
+	gtk_widget_show(GTK_WIDGET(w));
 
     if(argc > 1)
     {
         FmPath* path = fm_path_new_for_str(argv[1]);
-        fm_main_win_chdir(FM_MAIN_WIN(w), path);
+        fm_main_win_chdir(w, path);
         fm_path_unref(path);
     }
 

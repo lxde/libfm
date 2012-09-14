@@ -24,9 +24,7 @@
 #define __MAIN_WIN_H__
 
 #include <gtk/gtk.h>
-#include "fm.h"
-#include "fm-bookmarks.h"
-#include "fm-nav-history.h"
+#include "fm-gtk.h"
 
 G_BEGIN_DECLS
 
@@ -51,8 +49,8 @@ struct _FmMainWin
     GtkWidget* toolbar;
     GtkWidget* location;
     GtkWidget* hpaned;
-    GtkWidget* left_pane;
-    GtkWidget* folder_view;
+    FmSidePane* left_pane;
+    FmFolderView* folder_view;
     GtkWidget* statusbar;
     GtkWidget* vol_status;
     GtkWidget* bookmarks_menu;
@@ -72,7 +70,7 @@ struct _FmMainWinClass
 };
 
 GType       fm_main_win_get_type        (void);
-GtkWidget*  fm_main_win_new         (void);
+FmMainWin*  fm_main_win_new         (void);
 void fm_main_win_chdir(FmMainWin* win, FmPath* path);
 void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str);
 void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path);
