@@ -195,7 +195,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             g_free(fpath);
         }
         /* set "locked" icon on unaccesible folder */
-        else if(!fi->accessible)
+        else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
         else
             fi->icon = fm_icon_ref(fi->mime_type->icon);
@@ -283,7 +283,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->accessible = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
 
     /* set "locked" icon on unaccesible folder */
-    if(!fi->accessible)
+    if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
         fi->icon = fm_icon_ref(icon_locked_folder);
     /* set file icon according to mime-type */
     else if(!fi->mime_type || !fi->mime_type->icon)
@@ -731,7 +731,8 @@ gboolean fm_file_info_is_native(FmFileInfo* fi)
 gboolean fm_file_info_is_dir(FmFileInfo* fi)
 {
     return (S_ISDIR(fi->mode) ||
-        (S_ISLNK(fi->mode) && (0 == strcmp(fi->mime_type->type, "inode/directory"))));
+        (S_ISLNK(fi->mode) && fi->mime_type &&
+         (0 == strcmp(fi->mime_type->type, "inode/directory"))));
 }
 
 /**
