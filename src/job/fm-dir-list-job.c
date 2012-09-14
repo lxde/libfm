@@ -475,13 +475,14 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
  *
  * Returns: (transfer none): list of gathered data.
  *
- * Since: 0.1.1
+ * Since: 1.0.1
  */
 FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job)
 {
     return job->files;
 }
 
+#ifndef FM_DISABLE_DEPRECATED
 /**
  * fm_dir_dist_job_get_files
  * @job: the job that collected listing
@@ -497,9 +498,11 @@ FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job)
  * compatibility and will be removed later.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.1: Use fm_dir_list_job_get_files() instead.
  */
-G_DEPRECATED FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
+FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
 {
-	return fm_dir_list_job_get_files(job);
+    return fm_dir_list_job_get_files(job);
 }
-
+#endif /* FM_DISABLE_DEPRECATED */
