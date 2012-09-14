@@ -266,7 +266,7 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
 /**
  * fm_app_info_launch
  * @appinfo: application info to launch
- * @files: (element-type #GFile): files to use in run substitutions
+ * @files: (element-type GFile): files to use in run substitutions
  * @launch_context: (allow-none): a launch context
  * @error: (out) (allow-none): location to store error
  *
@@ -334,7 +334,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
 /**
  * fm_app_info_launch_uris
  * @appinfo: application info to launch
- * @uris: (element-type #char *): URIs to use in run substitutions
+ * @uris: (element-type char *): URIs to use in run substitutions
  * @launch_context: (allow-none): a launch context
  * @error: (out) (allow-none): location to store error
  *

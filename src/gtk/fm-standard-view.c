@@ -896,15 +896,6 @@ static GList* fm_standard_view_get_selected_tree_paths(FmStandardView* fv)
     return sels;
 }
 
-/**
- * fm_folder_view_dup_selected_files
- * @fv: a FmFolderView object
- *
- * Return value: An referenced FmFileInfoList containing FmFileInfos of
- * the currently selected files. The list should be freed after usage with
- * fm_file_info_list_unref(). If there are no files selected then return
- * value is %NULL.
- **/
 static inline FmFileInfoList* fm_standard_view_get_selected_files(FmStandardView* fv)
 {
     /* don't generate the data again if we have it cached. */
@@ -939,15 +930,6 @@ static FmFileInfoList* fm_standard_view_dup_selected_files(FmFolderView* ffv)
     return fm_file_info_list_ref(fm_standard_view_get_selected_files(fv));
 }
 
-/**
- * fm_folder_view_dup_selected_file_paths
- * @fv: a FmFolderView object
- *
- * Return value: An referenced FmPathList containing FmPaths of the
- * the currently selected files. The list should be freed after usage with
- * fm_path_list_unref(). If there are no files selected then return value
- * is %NULL.
- **/
 static FmPathList* fm_standard_view_dup_selected_file_paths(FmFolderView* ffv)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);

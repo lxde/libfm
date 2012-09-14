@@ -396,7 +396,7 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
  * path is escaped, you have to unescape it first.
  *
  * For example, if @parent is "http://wiki.lxde.org/" and @rel is
- * "zh/%E9%A6%96%E9%A0%81", you have to unescape the relative path
+ * "zh/\%E9\%A6\%96\%E9\%A0\%81", you have to unescape the relative path
  * prior to passing it to fm_path_new_relative().
  *
  * If @parent is NULL, this works the same as fm_path_new_for_str(@rel)
@@ -478,7 +478,7 @@ FmPath* fm_path_new_for_path(const char* path_name)
 /**
  * fm_path_new_for_uri
  * @path_name: a URI with special characters escaped.
- * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
+ * Encoded URI such as http://wiki.lxde.org/zh/\%E9\%A6\%96\%E9\%A0\%81
  * will be unescaped.
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
@@ -514,7 +514,7 @@ static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unes
  * @uri: a URI with special characters escaped.
  *
  * Creates new #FmPath by given @uri.
- * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
+ * Encoded URI such as http://wiki.lxde.org/zh/\%E9\%A6\%96\%E9\%A0\%81
  * will be unescaped.
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
@@ -592,7 +592,7 @@ FmPath* fm_path_new_for_str(const char* path_str)
  * @arg: a file path passed in command line argv to the program. The @arg
  * can be a POSIX path in glib filename encoding (can be non-UTTF-8) and
  * can be a URI with non-ASCII characters escaped, like
- * http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81.
+ * http://wiki.lxde.org/zh/\%E9\%A6\%96\%E9\%A0\%81.
  *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -1263,7 +1263,7 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 
 /**
  * fm_path_list_new_from_file_info_glist
- * @fis: (element-type #FmFileInfo): list of file infos
+ * @fis: (element-type FmFileInfo): list of file infos
  *
  * Creates a #FmPathList from @fis.
  *
@@ -1285,7 +1285,7 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
 
 /**
  * fm_path_list_new_from_file_info_gslist
- * @fis: (element-type #FmFileInfo): list of file infos
+ * @fis: (element-type FmFileInfo): list of file infos
  *
  * Creates a #FmPathList from @fis.
  *

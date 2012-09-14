@@ -92,7 +92,7 @@ FmNavHistory *fm_nav_history_new(void)
  * Retrieves full list of the history as #GList of #FmNavHistoryItem.
  * The returned #GList belongs to #FmNavHistory and shouldn't be freed.
  *
- * Returns: (transfer none): (element-type #FmNavHistoryItem): full history.
+ * Returns: (transfer none) (element-type FmNavHistoryItem): full history.
  *
  * Since: 0.1.0
  *
@@ -129,7 +129,7 @@ const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
  * #FmNavHistoryItem. The returned item belongs to #FmNavHistory and
  * shouldn't be freed by caller.
  *
- * Returns: (transfer none): (element-type #FmNavHistoryItem): current item.
+ * Returns: (transfer none) (element-type FmNavHistoryItem): current item.
  *
  * Since: 0.1.0
  *
@@ -280,7 +280,7 @@ void fm_nav_history_chdir(FmNavHistory* nh, FmPath* path, gint old_scroll_pos)
 /**
  * fm_nav_history_jump
  * @nh: the history
- * @l: (element-type #FmNavHistoryItem): new current item
+ * @l: (element-type FmNavHistoryItem): new current item
  * @old_scroll_pos: the scroll position to associate with current item
  *
  * Sets @old_scroll_pos into current item data and then

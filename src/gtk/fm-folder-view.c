@@ -558,13 +558,13 @@ gint fm_folder_view_get_n_selected_files(FmFolderView* fv)
  * @fv: a FmFolderView object
  *
  * Retrieves a list of
- * the currently selected files. The list should be freed after usage with
- * fm_file_info_list_unref(). If there are no files selected then return
- * value is %NULL.
+ * the currently selected files. The list should be freed after usage
+ * with fm_file_info_list_unref&lpar;). If there are no files selected then
+ * returns %NULL.
  *
  * Before 1.0.0 this API had name fm_folder_view_get_selected_files.
  *
- * Return value: (transfer full): list of selected file infos.
+ * Returns: (transfer full) (element-type FmFileInfo): list of selected file infos.
  *
  * Since: 0.1.0
  */
@@ -580,13 +580,13 @@ FmFileInfoList* fm_folder_view_dup_selected_files(FmFolderView* fv)
  * @fv: a FmFolderView object
  *
  * Retrieves a list of
- * the currently selected files. The list should be freed after usage with
- * fm_path_list_unref(). If there are no files selected then return value
- * is %NULL.
+ * the currently selected files. The list should be freed after usage
+ * with fm_path_list_unref&lpar;). If there are no files selected then returns
+ * %NULL.
  *
  * Before 1.0.0 this API had name fm_folder_view_get_selected_file_paths.
  *
- * Return value: (transfer full): list of selected file paths.
+ * Returns: (transfer full) (element-type FmPath): list of selected file paths.
  *
  * Since: 0.1.0
  */

@@ -46,7 +46,7 @@
  * fm_launch_desktop_entry
  * @ctx: (allow-none): a launch context
  * @file_or_id: a desktop entry to launch
- * @uris: (element-type #char *): files to use in run substitutions
+ * @uris: (element-type char *): files to use in run substitutions
  * @launcher: #FmFileLauncher with callbacks
  * @user_data: data supplied for callbacks
  *
@@ -161,7 +161,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
 /**
  * fm_launch_files
  * @ctx: (allow-none): a launch context
- * @file_infos: (element-type #FmFileInfo): files to launch
+ * @file_infos: (element-type FmFileInfo): files to launch
  * @launcher: #FmFileLauncher with callbacks
  * @user_data: data supplied for callbacks
  *
@@ -363,7 +363,7 @@ static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJo
 /**
  * fm_launch_paths
  * @ctx: (allow-none): a launch context
- * @paths: (element-type #FmPath): files to launch
+ * @paths: (element-type FmPath): files to launch
  * @launcher: #FmFileLauncher with callbacks
  * @user_data: data supplied for callbacks
  *

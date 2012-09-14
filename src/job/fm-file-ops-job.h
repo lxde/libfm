@@ -42,6 +42,19 @@ G_BEGIN_DECLS
 typedef struct _FmFileOpsJob            FmFileOpsJob;
 typedef struct _FmFileOpsJobClass        FmFileOpsJobClass;
 
+/**
+ * FmFileOpType:
+ * @FM_FILE_OP_NONE: dummy
+ * @FM_FILE_OP_MOVE: move file
+ * @FM_FILE_OP_COPY: copy file
+ * @FM_FILE_OP_TRASH: move file to trash can
+ * @FM_FILE_OP_UNTRASH: restore file from trash can
+ * @FM_FILE_OP_DELETE: erase file
+ * @FM_FILE_OP_LINK: create symbolic link
+ * @FM_FILE_OP_CHANGE_ATTR: change file owner and attributes
+ *
+ * Operation for #FmFileOpsJob
+ */
 typedef enum {
     FM_FILE_OP_NONE,
     FM_FILE_OP_MOVE,
@@ -53,6 +66,16 @@ typedef enum {
     FM_FILE_OP_CHANGE_ATTR
 } FmFileOpType;
 
+/**
+ * FmFileOpOption:
+ * @FM_FILE_OP_CANCEL: cancel operation
+ * @FM_FILE_OP_OVERWRITE: overwrite existing file
+ * @FM_FILE_OP_RENAME: change name and continue
+ * @FM_FILE_OP_SKIP: skip this file
+ * @FM_FILE_OP_SKIP_ERROR: not supported
+ *
+ * Operation selection on error.
+ */
 typedef enum {
     FM_FILE_OP_CANCEL = 0,
     FM_FILE_OP_OVERWRITE = 1<<0,

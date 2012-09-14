@@ -41,6 +41,12 @@ G_BEGIN_DECLS
 typedef struct _FmFileInfoJob           FmFileInfoJob;
 typedef struct _FmFileInfoJobClass      FmFileInfoJobClass;
 
+/**
+ * FmFileInfoJobFlags:
+ * @FM_FILE_INFO_JOB_NONE: default
+ * @FM_FILE_INFO_JOB_FOLLOW_SYMLINK: not yet implemented
+ * @FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE: not yet implemented
+ */
 typedef enum {
     FM_FILE_INFO_JOB_NONE = 0,
     FM_FILE_INFO_JOB_FOLLOW_SYMLINK = 1 << 0, /* FIXME: not yet implemented */

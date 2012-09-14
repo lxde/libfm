@@ -319,8 +319,8 @@ void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mo
  * @gid: group id to set as file group
  *
  * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
- * owner or group changed. If @uid >= %0 then @job will try to change
- * owner of files. If @gid >= %0 then @job will try to change group of
+ * owner or group changed. If @uid >= 0 then @job will try to change
+ * owner of files. If @gid >= 0 then @job will try to change group of
  * files.
  *
  * This API may be used only before @job is started.

@@ -377,7 +377,7 @@ const char* fm_mime_type_get_type(FmMimeType* mime_type)
  * Retrieves list of thumbnailers associated with @mime_type. Returned
  * data are owned by @mime_type and should be not altered by caller.
  *
- * Returns: (element-type #gpointer) (transfer none): the list.
+ * Returns: (element-type gpointer) (transfer none): the list.
  *
  * Since: 1.0.0
  */

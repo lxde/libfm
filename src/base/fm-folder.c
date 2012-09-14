@@ -979,7 +979,7 @@ void fm_folder_reload(FmFolder* folder)
  * Retrieves list of currently known files and subdirectories in the
  * @folder. Returned list is owned by #FmFolder and should be not modified
  * by caller. If caller wants to keep a reference to the returned list it
- * should do fm_file_info_list_ref() on the returned data.
+ * should do fm_file_info_list_ref&lpar;) on the returned data.
  *
  * Before 1.0.0 this call had name fm_folder_get.
  *
