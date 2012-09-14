@@ -164,6 +164,7 @@ static gboolean on_idle_tree_view_row_activated(gpointer user_data)
 {
     FmStandardView* fv = (FmStandardView*)user_data;
     GtkTreePath* path;
+    gdk_threads_enter();
     if(gtk_tree_row_reference_valid(fv->activated_row_ref))
     {
         path = gtk_tree_row_reference_get_path(fv->activated_row_ref);
@@ -171,6 +172,7 @@ static gboolean on_idle_tree_view_row_activated(gpointer user_data)
         gtk_tree_path_free(path);
     }
     gtk_tree_row_reference_free(fv->activated_row_ref);
+    gdk_threads_leave();
     fv->activated_row_ref = NULL;
     fv->row_activated_idle = 0;
     return FALSE;
