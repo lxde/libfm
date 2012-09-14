@@ -301,6 +301,16 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                     flags |= G_REGEX_CASELESS;
                 priv->content_regex = g_regex_new(content_regex, flags, 0, NULL);
             }
+
+            if(priv->content_case_insensitive) /* case insensitive */
+            {
+                if(priv->content_pattern) /* make sure the pattern is lower case */
+                {
+                    char* down = g_utf8_strdown(priv->content_pattern, -1);
+                    g_free(priv->content_pattern);
+                    priv->content_pattern = down;
+                }
+            }
         }
         g_free(uri_str);
     }
@@ -328,6 +338,9 @@ static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path)
     GError * error = NULL;
     FmJobErrorAction action = FM_JOB_CONTINUE;
     GFileEnumerator * enumerator = g_file_enumerate_children(folder_path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), &error);
+
+    /* FIXME and TODO: handle mangled symlinks */
+
     if(enumerator == NULL)
         action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
     else /* enumerator opened correctly */
@@ -354,10 +367,13 @@ static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path)
                 /* recurse upon each directory */
                 if(priv->recursive && g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
                 {
-                    const char * name = g_file_info_get_name(file_info);
-                    GFile * file = g_file_get_child(folder_path, name);
-                    fm_search_job_match_folder(job, file);
-                    g_object_unref(file);
+                    if(priv->show_hidden || !g_file_info_get_is_hidden(file_info))
+                    {
+                        const char * name = g_file_info_get_name(file_info);
+                        GFile * file = g_file_get_child(folder_path, name);
+                        fm_search_job_match_folder(job, file);
+                        g_object_unref(file);
+                    }
                 }
                 g_object_unref(file_info);
             }
@@ -409,25 +425,6 @@ static gboolean fm_search_job_match_file(FmSearchJob * job, GFileInfo * info, GF
     return TRUE;
 }
 
-
-/* functions for content search rule */
-
-static gboolean strstr_nocase(char * haystack, char * needle)
-{
-    gboolean ret = FALSE;
-
-    char * haystack_nocase = g_utf8_strdown(haystack, -1);
-    char * needle_nocase = g_utf8_strdown(needle, -1);
-
-    if(strstr(haystack_nocase, needle_nocase) != NULL)
-        ret = TRUE;
-
-    g_free(haystack_nocase);
-    g_free(needle_nocase);
-
-    return ret;
-}
-
 gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info)
 {
     FmSearchJobPrivate* priv = job->priv;
@@ -459,28 +456,50 @@ gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info)
     return ret;
 }
 
-static gboolean fm_search_job_match_content_regex(FmSearchJob* job, GFileInfo* info, GInputStream* stream)
+static gboolean fm_search_job_match_content_line_based(FmSearchJob* job, GFileInfo* info, GInputStream* stream)
 {
     FmSearchJobPrivate* priv = job->priv;
     gboolean ret = FALSE;
-    GString* line = g_string_sized_new(4096);
-    char buf[4096];
     GCancellable* cancellable = fm_job_get_cancellable(FM_JOB(job));
-    /* TODO: finish the regexp based matching */
-    for(;;)
+    /* create a buffered data input stream for line-based I/O */
+    GDataInputStream *input_stream = g_data_input_stream_new(stream);
+    do
     {
-        /* regular expression search like grep is line-based */
-        char* eol;
-        gssize size = g_input_stream_read(stream, buf, sizeof(buf) - 1, cancellable, NULL);
-        if(size <=0) /* error or EOF */
+        gssize line_len;
+        GError* error = NULL;
+        char* line = g_data_input_stream_read_line(input_stream, &line_len, cancellable, &error);
+        if(line == NULL) /* error or EOF */
             break;
-        buf[size] = '\0';
-        eol = strchr(buf, '\n');
-        if(eol)
+        if(priv->content_regex)
         {
+            /* match using regexp */
+            ret = g_regex_match(priv->content_regex, line, 0, NULL);
         }
-    }
-    g_string_free(line, TRUE);
+        else if(priv->content_pattern && priv->content_case_insensitive)
+        {
+            /* case insensitive search is line-based because we need to
+             * do utf8 validation + case conversion and it's easier to
+             * do with lines than with raw streams. */
+            if(g_utf8_validate(line, -1, NULL))
+            {
+                /* this whole line contains valid UTF-8 */
+                char* down = g_utf8_strdown(line, -1);
+                g_free(line);
+                line = down;
+            }
+            else /* non-UTF8, treat as ASCII */
+            {
+                char* p;
+                for(p = line; *p; ++p)
+                    *p = g_ascii_tolower(*p);
+            }
+
+            if(strstr(line, priv->content_pattern))
+                ret = TRUE;
+        }
+        g_free(line);
+    }while(ret == FALSE);
+    g_object_unref(input_stream);
     return ret;
 }
 
@@ -488,28 +507,43 @@ static gboolean fm_search_job_match_content_exact(FmSearchJob* job, GFileInfo* i
 {
     FmSearchJobPrivate* priv = job->priv;
     gboolean ret = FALSE;
-    char* buf;
+    char *buf, *pbuf;
     gssize size;
+
+    /* Ensure that the allocated buffer is longer than the string being
+     * searched for. Otherwise it's not possible for the buffer to 
+     * contain a string fully matching the pattern. */
     int pattern_len = strlen(priv->content_pattern);
-    int buf_len = pattern_len > 4095 ? pattern_len : 4095;
-    buf = g_new(char*, buf_len + 1); /* +1 for terminating null char. */
+    int buf_size = pattern_len > 4095 ? pattern_len : 4095;
+    int bytes_to_read;
+
+    buf = g_new(char*, buf_size + 1); /* +1 for terminating null char. */
+    bytes_to_read = buf_size;
+    pbuf = buf;
     for(;;)
     {
         char* found;
-        size = g_input_stream_read(stream, buf, buf_len, fm_job_get_cancellable(FM_JOB(job)), NULL);
-        if(size <=0)
+        size = g_input_stream_read(stream, pbuf, bytes_to_read, fm_job_get_cancellable(FM_JOB(job)), NULL);
+        if(size <=0) /* EOF or error */
             break;
-        buf[size] = '\0';
-        /* TODO: only searching the buffer is not enough.
-         * it's possible that the content of buffer partially match
-         * the pattern and might fully match the pattern if more bytes
-         * are read later. */
+        pbuf[size] = '\0'; /* make the string null terminated */
 
         found = strstr(buf, priv->content_pattern);
-        if(found)
+        if(found) /* the string is found in the buffer */
         {
             ret = TRUE;
             break;
+        }
+        else if(size == bytes_to_read) /* if size < bytes_to_read, we're at EOF and there are no further data. */
+        {
+            /* Preserve the last <pattern_len-1> bytes and move them to 
+             * the beginning of the buffer.
+             * Append further data after this chunk of data at next read. */
+            int preserve_len = pattern_len - 1;
+            char* buf_end = buf + buf_size;
+            memmove(buf, buf_end - preserve_len, preserve_len);
+            pbuf = buf + preserve_len;
+            bytes_to_read = buf_size - preserve_len;
         }
     }
     g_free(buf);
@@ -535,10 +569,18 @@ gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* p
 
             if(stream)
             {
-                if(priv->content_regex)
-                    fm_search_job_match_content_regex(job, info, stream);
-                else if(priv->content_pattern)
-                    fm_search_job_match_content_exact(job, info, stream);
+                if(priv->content_pattern && !priv->content_case_insensitive)
+                {
+                    /* stream based search optimized for case sensitive
+                     * exact match. */
+                    ret = fm_search_job_match_content_exact(job, info, stream);
+                }
+                else
+                {
+                    /* grep-like regexp search and case insensitive search
+                     * are line-based. */
+                    ret = fm_search_job_match_content_line_based(job, info, stream);
+                }
 
                 g_input_stream_close(stream, NULL, NULL);
                 g_object_unref(stream);

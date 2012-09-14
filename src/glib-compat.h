@@ -69,6 +69,12 @@ g_slist_foreach(slist, (GFunc)free_func, NULL); \
 g_slist_free(slist); \
 }
 
+#define g_list_free_full(list, free_func)	\
+{ \
+g_slist_foreach(list, (GFunc)free_func, NULL); \
+g_slist_free(list); \
+}
+
 #endif
 
 G_END_DECLS
