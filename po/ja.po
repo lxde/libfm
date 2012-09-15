@@ -601,94 +601,93 @@ msgstr "更新時刻"
 
 #: ../src/gtk/fm-folder-view.c:121
 msgid "Create _New..."
-msgstr ""
+msgstr "新規作成(_N)..."
 
 #: ../src/gtk/fm-folder-view.c:122
 msgid "Folder"
-msgstr ""
+msgstr "フォルダ"
 
 #: ../src/gtk/fm-folder-view.c:125
-#, fuzzy
 msgid "Blank File"
-msgstr "空の MO ディスク"
+msgstr "空のファイル"
 
 #: ../src/gtk/fm-folder-view.c:126
-#, fuzzy
 msgid "Shortcut"
 msgstr "ショートカット"
 
 #: ../src/gtk/fm-folder-view.c:137
 msgid "_Invert Selection"
-msgstr ""
+msgstr "選択の反転(_I)"
 
 #: ../src/gtk/fm-folder-view.c:138
 msgid "_Sort Files"
-msgstr ""
+msgstr "ファイルのソート(_S)"
 
 #: ../src/gtk/fm-folder-view.c:150
 msgid "Show _Hidden"
-msgstr ""
+msgstr "隠しファイルの表示(_H)"
 
 #: ../src/gtk/fm-folder-view.c:151
 msgid "Only for this folder"
-msgstr ""
+msgstr "このフォルダにのみ適用"
 
 #: ../src/gtk/fm-folder-view.c:152
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
+msgstr "グローバルでなくこのフォルダへの設定とする時はここをチェック"
 
 #: ../src/gtk/fm-folder-view.c:153
-#, fuzzy
 msgid "Mingle files and folders"
-msgstr "フォルダの選択"
+msgstr "ファイルとフォルダを混ぜる"
 
 #: ../src/gtk/fm-folder-view.c:154
 msgid "Ignore name case"
-msgstr ""
+msgstr "大文字/小文字を区別しない"
 
 #: ../src/gtk/fm-folder-view.c:165
-#, fuzzy
 msgid "By _Name"
-msgstr "名前"
+msgstr "名前(_N)"
 
 #: ../src/gtk/fm-folder-view.c:166
 msgid "By _Modification Time"
-msgstr ""
+msgstr "変更時刻(_M)"
 
 #: ../src/gtk/fm-folder-view.c:167
-#, fuzzy
 msgid "By _Size"
-msgstr "サイズ"
+msgstr "サイズ(_S)"
 
 #: ../src/gtk/fm-folder-view.c:168
-#, fuzzy
 msgid "By File _Type"
-msgstr "ファイルタイプ:"
+msgstr "ファイルタイプ(_T)"
 
 #: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:699
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "新しいフォルダの名前を入力してください:"
 
 #: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:701
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "新しいファイルの名前を入力してください:"
 
 #: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:702
 msgid "Create New..."
-msgstr ""
+msgstr "新規作成..."
 
 #: ../src/gtk/fm-folder-view.c:687
-#, fuzzy
+#: ../src/gtk/fm-folder-view.c:702
 msgid "New"
-msgstr "ネットワーク"
+msgstr "新規"
 
 #: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:794
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "エラー、lxshortcur がインストールされていません"
 
 #: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:799
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "lxshortcut の始動に失敗しました"
 
 #: ../src/gtk/fm-app-menu-view.c:162
 msgid "Installed Applications"
