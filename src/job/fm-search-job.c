@@ -42,8 +42,8 @@ struct _FmSearchJobPrivate
     char* content_pattern;
     GRegex* content_regex;
     char** mime_types;
-    guint64 date1;
-    guint64 date2;
+    guint64 min_mtime;
+    guint64 max_mtime;
     guint64 min_size;
     guint64 max_size;
     gboolean name_case_insensitive : 1;
@@ -141,7 +141,7 @@ static gboolean fm_search_job_run(FmJob* job)
 
 /*
  * name: parse_date_str
- * @str: a string in YYYYMMDD format
+ * @str: a string in YYYY-MM-DD format
  * Return: a time_t value
  */
 static time_t parse_date_str(const char* str)
@@ -150,7 +150,7 @@ static time_t parse_date_str(const char* str)
     if(G_LIKELY(len >= 8))
     {
         struct tm timeinfo = {0};
-        if(sscanf(str, "%4d%2d%2d", &timeinfo.tm_year, &timeinfo.tm_mon, &timeinfo.tm_mday) == 3)
+        if(sscanf(str, "%04d-%02d-%02d", &timeinfo.tm_year, &timeinfo.tm_mon, &timeinfo.tm_mday) == 3)
             return mktime(&timeinfo);
     }
     return 0;
@@ -176,8 +176,8 @@ static time_t parse_date_str(const char* str)
  * mime_types=<mime-types>: mime-types to search for, can use /* (ex: image/*), separated by ';'
  * min_size=<bytes>
  * max_size=<bytes>
- * date1=YYYYMMDD
- * date2=YYMMDD
+ * min_mtime=YYYY-MM-DD
+ * max_mtime=YYYY-MM-DD
  * 
  * An example to search all *.desktop files in /usr/share and /usr/local/share
  * can be written like this:
@@ -297,10 +297,10 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                     priv->min_size = atoll(value);
                 else if(strcmp(name, "max_size") == 0)
                     priv->max_size = atoll(value);
-                else if(strcmp(name, "date1") == 0)
-                    priv->date1 = (guint64)parse_date_str(value);
-                else if(strcmp(name, "date2") == 0)
-                    priv->date2 = (guint64)parse_date_str(value);
+                else if(strcmp(name, "min_mtime") == 0)
+                    priv->min_mtime = (guint64)parse_date_str(value);
+                else if(strcmp(name, "max_mtime") == 0)
+                    priv->max_mtime = (guint64)parse_date_str(value);
 
                 /* continue with the next param=value pair */
                 if(sep)
@@ -676,13 +676,13 @@ gboolean fm_search_job_match_mtime(FmSearchJob* job, GFileInfo* info)
 {
     FmSearchJobPrivate* priv = job->priv;
     gboolean ret = TRUE;
-    if(priv->date1 || priv->date2)
+    if(priv->min_mtime || priv->max_mtime)
     {
         guint64 mtime = g_file_info_get_attribute_uint64(info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
-        if(priv->date1 > 0 && mtime < priv->date1)
-            ret = FALSE; /* earlier than date1 */
-        else if(priv->date2 > 0 && mtime > priv->date2)
-            ret = FALSE; /* later than date2 */
+        if(priv->min_mtime > 0 && mtime < priv->min_mtime)
+            ret = FALSE; /* earlier than min_mtime */
+        else if(priv->max_mtime > 0 && mtime > priv->max_mtime)
+            ret = FALSE; /* later than max_mtime */
     }
     return ret;
 }
