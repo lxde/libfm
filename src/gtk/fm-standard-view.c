@@ -41,8 +41,6 @@
 #include "fm-marshal.h"
 #include "fm-config.h"
 #include "fm-standard-view.h"
-#include "fm-folder.h"
-#include "fm-folder-model.h"
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
 #include "fm-cell-renderer-pixbuf.h"
@@ -51,6 +49,8 @@
 #include "exo/exo-icon-view.h"
 #include "exo/exo-tree-view.h"
 
+#include "fm-dnd-src.h"
+#include "fm-dnd-dest.h"
 #include "fm-dnd-auto-scroll.h"
 
 struct _FmStandardView

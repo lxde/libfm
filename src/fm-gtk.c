@@ -19,8 +19,27 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-gtk
+ * @short_description: Libfm-gtk initialization
+ * @title: Libfm-Gtk
+ *
+ * @include: libfm/fm-gtk.h
+ *
+ */
+
 #include "fm-gtk.h"
 
+/**
+ * fm_gtk_init
+ * @config: configuration file data
+ *
+ * Initializes libfm-gtk data.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_gtk_init(FmConfig* config)
 {
     if( G_UNLIKELY(!fm_init(config)) )
@@ -32,7 +51,14 @@ gboolean fm_gtk_init(FmConfig* config)
     return TRUE;
 }
 
-void fm_gtk_finalize()
+/**
+ * fm_gtk_finalize
+ *
+ * Frees libfm data.
+ *
+ * Since: 0.1.0
+ */
+void fm_gtk_finalize(void)
 {
     _fm_icon_pixbuf_finalize();
     _fm_thumbnail_finalize();

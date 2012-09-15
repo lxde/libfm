@@ -30,7 +30,19 @@ G_BEGIN_DECLS
 
 typedef struct _FmThumbnailRequest FmThumbnailRequest;
 
-typedef void (*FmThumbnailReadyCallback)(FmThumbnailRequest*, gpointer);
+/**
+ * FmThumbnailReadyCallback:
+ * @req: request descriptor
+ * @data: user data provided when request was made
+ *
+ * The callback to requestor when thumbnail is ready.
+ * Note that this call is done outside of GTK loop so if the callback
+ * wants to use any GTK API it should call gdk_threads_enter() and
+ * gdk_threads_leave() for safety.
+ *
+ * Since: 0.1.0
+ */
+typedef void (*FmThumbnailReadyCallback)(FmThumbnailRequest*req, gpointer data);
 
 void _fm_thumbnail_init();
 

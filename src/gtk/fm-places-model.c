@@ -39,6 +39,10 @@
 #include "fm-places-model.h"
 #include <glib/gi18n-lib.h>
 
+#include "fm-config.h"
+#include "fm-monitor.h"
+#include "fm-file-info-job.h"
+
 struct _FmPlacesItem
 {
     FmPlacesType type;

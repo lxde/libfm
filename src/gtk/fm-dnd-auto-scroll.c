@@ -19,6 +19,14 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dnd-auto-scroll
+ * @short_description: Autoscroll when dragged out of widget.
+ * @title: Drag and drop autoscrolling
+ *
+ * @include: libfm/fm-dnd-auto-scroll.h
+ *
+ */
 #include "fm-dnd-auto-scroll.h"
 #include "gtk-compat.h"
 

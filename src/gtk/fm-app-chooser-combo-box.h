@@ -31,15 +31,32 @@ G_BEGIN_DECLS
 
 void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, GList* apps, GAppInfo* sel);
 
-/* setup a combobox for selecting default application for specified mime-type.
+/**
+ * fm_app_chooser_combo_box_setup_for_mime_type
+ * @combo: a #GtkComboBox
+ * @mime_type: a #FmMimeType to select application
+ *
+ * Setups a combobox for selecting default application for specified mime-type.
  * after set up, the combobox will contain a list of available applications for
- * this mime-type, and the default application of the mime-type will get selected. */
+ * this mime-type, and the default application of the mime-type will get selected.
+ *
+ * Since: 0.1.5
+ */
 #define fm_app_chooser_combo_box_setup_for_mime_type(combo, mime_type)  \
     fm_app_chooser_combo_box_setup(combo, mime_type, NULL, NULL)
 
-/* setup a combobox for selecting from a list of pre-defined applications.
+/**
+ * fm_app_chooser_combo_box_setup_custom
+ * @combo: a #GtkComboBox
+ * @apps: (element-type GAppInfo): custom #GList of applications
+ * @sel: (allow-none): a selected application in @apps
+ *
+ * Setups a combobox for selecting from a list of pre-defined applications.
  * after set up, the combobox will contain a list of available applications the caller
- * provides, and if 'sel' if found in the list, it will be selected. */
+ * provides, and if @sel if found in the list, it will be selected.
+ *
+ * Since: 0.1.5
+ */
 #define fm_app_chooser_combo_box_setup_custom(combo, apps, sel) \
     fm_app_chooser_combo_box_setup(combo, NULL, apps, sel)
 

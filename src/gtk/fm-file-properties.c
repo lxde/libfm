@@ -20,6 +20,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-properties
+ * @short_description: Dialog window for changing properties of file.
+ * @title: File properties dialog
+ *
+ * @include: libfm/fm-file-properties.h
+ *
+ */
+
 #include <config.h>
 #include <glib/gi18n-lib.h>
 
@@ -36,9 +45,7 @@
 #include "fm-file-info.h"
 #include "fm-file-properties.h"
 #include "fm-deep-count-job.h"
-#include "fm-file-ops-job.h"
 #include "fm-utils.h"
-#include "fm-path.h"
 #include "fm-config.h"
 
 #include "fm-progress-dlg.h"
@@ -800,6 +807,17 @@ static void init_application_list(FmFilePropData* data)
     }
 }
 
+/**
+ * fm_file_properties_widget_new
+ * @files: list of files
+ * @toplevel: choose appearance of dialog
+ *
+ * Creates new dialog widget for change properties of @files.
+ *
+ * Returns: (transfer full): a new widget.
+ *
+ * Since: 0.1.0
+ */
 GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean toplevel)
 {
     GtkBuilder* builder=gtk_builder_new();
@@ -876,6 +894,17 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     return dlg;
 }
 
+/**
+ * fm_show_file_properties
+ * @parent: a window to put dialog over it
+ * @files:list of files
+ *
+ * Creates and shows file properties dialog for @files.
+ *
+ * Returns: %TRUE.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
 {
     GtkDialog* dlg = fm_file_properties_widget_new(files, TRUE);

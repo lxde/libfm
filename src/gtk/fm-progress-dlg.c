@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-progress-dlg
+ * @short_description: A dialog to show progress indicator for file operations.
+ * @title: File progress dialog
+ *
+ * @include: libfm/fm-progress-dlg.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -551,7 +560,7 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
 /**
  * fm_file_ops_job_run_with_progress
  * @parent: parent window to show dialog over it
- * @job: job descriptor to run
+ * @job: (transfer full): job descriptor to run
  *
  * Runs the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
@@ -559,7 +568,11 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
  *
  * NOTE: INCONSISTENCY: it takes a reference from job
  *
+ * Before 0.1.15 this call had different arguments.
+ *
  * Return value: (transfer none): progress data; not usable; caller should not free it either.
+ *
+ * Since: 0.1.0
  */
 FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {

@@ -19,6 +19,18 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-app-chooser-combo-box
+ * @short_description: Combo box for application selection dialogs.
+ * @title: Application chooser combobox
+ *
+ * @include: libfm/fm-app-chooser-combo-box.h
+ *
+ * The fm_app_chooser_combo_box_setup() allows to create a widget where
+ * applications are represented as a tree to choose from it. The dialog
+ * itself is represented by fm_app_chooser_dlg_new().
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -129,6 +141,22 @@ static void free_data(gpointer user_data)
     g_slice_free(FmAppChooserComboBoxData, data);
 }
 
+/**
+ * fm_app_chooser_combo_box_setup
+ * @combo: a #GtkComboBox
+ * @mime_type: (allow-none): a #FmMimeType to select application
+ * @apps: (allow-none) (element-type GAppInfo): custom list of applications
+ * @sel: (allow-none): a selected application in @apps
+ *
+ * Setups a combobox for selecting default application either for
+ * specified mime-type or from a list of pre-defined applications.
+ * If @mime_type is %NULL, and @sel is provided and found in the @apps,
+ * then it will be selected. If @mime_type is not %NULL then default
+ * application for the @mime_type will be selected.
+ * When set up, the combobox will contain a list of available applications.
+ *
+ * Since: 0.1.5
+ */
 void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, GList* apps, GAppInfo* sel)
 {
     FmAppChooserComboBoxData* data = g_slice_new0(FmAppChooserComboBoxData);
@@ -202,10 +230,22 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, free_data);
 }
 
-/* returns the currently selected app. is_sel_changed (can be NULL) will retrive a
+/**
+ * fm_app_chooser_combo_box_dup_selected_app
+ * @combo: a #GtkComboBox
+ * @is_sel_changed: (out) (allow-none): location to store %TRUE if selection was changed
+ *
+ * Retrieves the currently selected app. @is_sel_changed (can be %NULL) will get a
  * boolean value which tells you if the currently selected app is different from the one
  * initially selected in the combobox.
- * the returned GAppInfo needs to be freed with g_object_unref() */
+ * The returned #GAppInfo needs to be freed with g_object_unref()
+ *
+ * Before 1.0.0 this call had name fm_app_chooser_combo_box_get_selected.
+ *
+ * Returns: selected application.
+ *
+ * Since: 0.1.5
+ */
 GAppInfo* fm_app_chooser_combo_box_dup_selected_app(GtkComboBox* combo, gboolean* is_sel_changed)
 {
     GtkTreeIter it;
@@ -224,8 +264,17 @@ GAppInfo* fm_app_chooser_combo_box_dup_selected_app(GtkComboBox* combo, gboolean
     return NULL;
 }
 
-/* get a list of custom apps added with app-chooser.
- * the returned GList is owned by the combo box and shouldn't be freed. */
+/**
+ * fm_app_chooser_combo_box_get_custom_apps
+ * @combo: a #GtkComboBox
+ *
+ * Retrieves a list of custom apps added with app-chooser.
+ * The returned #GList is owned by the combo box and shouldn't be freed.
+ *
+ * Returns: (transfer none) (element-type GAppInfo): list of applications
+ *
+ * Since: 0.1.5
+ */
 const GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo)
 {
     FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(G_OBJECT(combo), fm_qdata_id);

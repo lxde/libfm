@@ -24,12 +24,10 @@
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
-#include "fm-config.h"
-#include "fm-gtk-utils.h"
+
+#include "fm-file-info.h"
 #include "fm-bookmarks.h"
-#include "fm-monitor.h"
 #include "fm-icon-pixbuf.h"
-#include "fm-file-info-job.h"
 
 G_BEGIN_DECLS
 

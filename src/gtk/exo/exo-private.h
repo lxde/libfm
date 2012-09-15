@@ -48,21 +48,12 @@ G_BEGIN_DECLS;
 #endif
 
 /* support macros for the slice allocator */
-#if GLIB_CHECK_VERSION(2,10,0)
 #define _exo_slice_alloc(block_size)             (g_slice_alloc ((block_size)))
 #define _exo_slice_alloc0(block_size)            (g_slice_alloc0 ((block_size)))
 #define _exo_slice_free1(block_size, mem_block)  G_STMT_START{ g_slice_free1 ((block_size), (mem_block)); }G_STMT_END
 #define _exo_slice_new(type)                     (g_slice_new (type))
 #define _exo_slice_new0(type)                    (g_slice_new0 (type))
 #define _exo_slice_free(type, ptr)               G_STMT_START{ g_slice_free (type, (ptr)); }G_STMT_END
-#else
-#define _exo_slice_alloc(block_size)             (g_malloc ((block_size)))
-#define _exo_slice_alloc0(block_size)            (g_malloc0 ((block_size)))
-#define _exo_slice_free1(block_size, mem_block)  G_STMT_START{ g_free ((mem_block)); }G_STMT_END
-#define _exo_slice_new(type)                     (g_new (type, 1))
-#define _exo_slice_new0(type)                    (g_new0 (type, 1))
-#define _exo_slice_free(type, ptr)               G_STMT_START{ g_free ((ptr)); }G_STMT_END
-#endif
 
 /* avoid trivial g_value_get_*() function calls */
 #ifdef NDEBUG

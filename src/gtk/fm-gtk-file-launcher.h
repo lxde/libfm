@@ -28,8 +28,7 @@
 #include <gio/gio.h>
 #include <stdarg.h>
 
-#include "fm-path.h"
-#include "fm-utils.h"
+#include "fm-file-info.h"
 #include "fm-file-launcher.h"
 
 G_BEGIN_DECLS

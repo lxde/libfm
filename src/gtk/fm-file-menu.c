@@ -19,6 +19,51 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-menu
+ * @short_description: Simple context menu for files.
+ * @title: FmFileMenu
+ *
+ * @include: libfm/fm-file-menu.h
+ *
+ * The #FmFileMenu can be used to create context menu on some file(s).
+ *
+ * The menu consists of items:
+ * |[
+ * Open
+ * ------------------------
+ * &lt;placeholder name='ph1'/&gt;
+ * ------------------------
+ * &lt;placeholder name='ph2'/&gt;
+ * ------------------------
+ * Cut
+ * Copy
+ * Paste
+ * Del
+ * ------------------------
+ * Rename
+ * ------------------------
+ * &lt;placeholder name='ph3'/&gt;
+ * ------------------------
+ * Prop
+ * ]|
+ * You can modity the menu replacing placeholders. Note that internally
+ * the menu constructor also puts some conditional elements into those
+ * placeholders:
+ * - ph1: 'UnTrash' item if files are in trash can
+ * - ph2: 'OpenWith' list and submenu;
+ *  
+ *        'Compress' if there is archiver defined;
+ *  
+ *        'Extract' if this is an archive
+ * - ph3: custom (user defined) menu elements
+ *
+ * Element 'Rename' is hidden if menu is created for more than one file.
+ *
+ * Elements 'Cut', 'Copy', 'Paste', and 'Del' are hidden for any virtual
+ * place but trash can.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -124,6 +169,14 @@ GtkActionEntry base_menu_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
+/**
+ * fm_file_menu_destroy
+ * @menu: a menu
+ *
+ * Destroys menu object.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_menu_destroy(FmFileMenu* menu)
 {
     if(menu->parent)
@@ -143,6 +196,19 @@ void fm_file_menu_destroy(FmFileMenu* menu)
     g_slice_free(FmFileMenu, menu);
 }
 
+/**
+ * fm_file_menu_new_for_file
+ * @parent: window to place menu over
+ * @fi: target file
+ * @cwd: working directory
+ * @auto_destroy: %TRUE if manu should be destroyed after some action was activated
+ *
+ * Creates new menu for the file.
+ *
+ * Returns: a new #FmFileMenu object.
+ *
+ * Since: 0.1.0
+ */
 FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath* cwd, gboolean auto_destroy)
 {
     FmFileMenu* menu;
@@ -244,6 +310,19 @@ static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml, FmFi
 }
 #endif /* HAVE_ACTIONS */
 
+/**
+ * fm_file_menu_new_for_files
+ * @parent: window to place menu over
+ * @files: target files
+ * @cwd: working directory
+ * @auto_destroy: %TRUE if manu should be destroyed after some action was activated
+ *
+ * Creates new menu for some files list.
+ *
+ * Returns: a new #FmFileMenu object.
+ *
+ * Since: 0.1.0
+ */
 FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files, FmPath* cwd, gboolean auto_destroy)
 {
     GtkUIManager* ui;
@@ -438,22 +517,65 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     return data;
 }
 
+/**
+ * fm_file_menu_get_ui
+ * @menu: a menu
+ *
+ * Retrieves UI manager object for @menu. Returned data are owned by
+ * @menu and should be not freed by caller.
+ *
+ * Returns: (transfer none): UI manager.
+ *
+ * Since: 0.1.0
+ */
 GtkUIManager* fm_file_menu_get_ui(FmFileMenu* menu)
 {
     return menu->ui;
 }
 
+/**
+ * fm_file_menu_get_action_group
+ * @menu: a menu
+ *
+ * Retrieves action group for @menu. Returned data are owned by
+ * @menu and should be not freed by caller.
+ *
+ * Returns: (transfer none): the action group.
+ *
+ * Since: 0.1.0
+ */
 GtkActionGroup* fm_file_menu_get_action_group(FmFileMenu* menu)
 {
     return menu->act_grp;
 }
 
+/**
+ * fm_file_menu_get_file_info_list
+ * @menu: a menu
+ *
+ * Retrieves list of files @menu was created for. Returned data are owned
+ * by @menu and should be not freed by caller.
+ *
+ * Returns: (transfer none): list of files.
+ *
+ * Since: 0.1.0
+ */
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu)
 {
     return menu->file_infos;
 }
 
-/* build the menu with GtkUIManager */
+/**
+ * fm_file_menu_get_ui
+ * @menu: a menu
+ *
+ * Builds the menu with GtkUIManager. Returned data are owned by @menu
+ * and should be not freed by caller.
+ *
+ * Returns: (transfer none): created #GtkMenu widget.
+ *
+ * Since: 0.1.0
+ */
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 {
     if( ! menu->menu )
@@ -470,7 +592,7 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
     return menu->menu;
 }
 
-void on_open(GtkAction* action, gpointer user_data)
+static void on_open(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_file_info_list_peek_head_link(data->file_infos);
@@ -506,7 +628,7 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     g_list_free(uris);
 }
 
-void on_open_with_app(GtkAction* action, gpointer user_data)
+static void on_open_with_app(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     GAppInfo* app = G_APP_INFO(g_object_get_qdata(G_OBJECT(action), fm_qdata_id));
@@ -514,7 +636,7 @@ void on_open_with_app(GtkAction* action, gpointer user_data)
     open_with_app(data, app);
 }
 
-void on_open_with(GtkAction* action, gpointer user_data)
+static void on_open_with(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfoList* files = data->file_infos;
@@ -540,7 +662,7 @@ void on_open_with(GtkAction* action, gpointer user_data)
     }
 }
 
-void on_cut(GtkAction* action, gpointer user_data)
+static void on_cut(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -549,7 +671,7 @@ void on_cut(GtkAction* action, gpointer user_data)
     fm_path_list_unref(files);
 }
 
-void on_copy(GtkAction* action, gpointer user_data)
+static void on_copy(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -558,7 +680,7 @@ void on_copy(GtkAction* action, gpointer user_data)
     fm_path_list_unref(files);
 }
 
-void on_paste(GtkAction* action, gpointer user_data)
+static void on_paste(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
@@ -568,7 +690,7 @@ void on_paste(GtkAction* action, gpointer user_data)
     }
 }
 
-void on_delete(GtkAction* action, gpointer user_data)
+static void on_delete(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -586,7 +708,7 @@ void on_delete(GtkAction* action, gpointer user_data)
     fm_path_list_unref(files);
 }
 
-void on_untrash(GtkAction* action, gpointer user_data)
+static void on_untrash(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -595,7 +717,7 @@ void on_untrash(GtkAction* action, gpointer user_data)
     fm_path_list_unref(files);
 }
 
-void on_rename(GtkAction* action, gpointer user_data)
+static void on_rename(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
@@ -604,7 +726,7 @@ void on_rename(GtkAction* action, gpointer user_data)
     /* FIXME: is it ok to only rename the first selected file here? */
 }
 
-void on_compress(GtkAction* action, gpointer user_data)
+static void on_compress(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -619,7 +741,7 @@ void on_compress(GtkAction* action, gpointer user_data)
     }
 }
 
-void on_extract_here(GtkAction* action, gpointer user_data)
+static void on_extract_here(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -634,7 +756,7 @@ void on_extract_here(GtkAction* action, gpointer user_data)
     }
 }
 
-void on_extract_to(GtkAction* action, gpointer user_data)
+static void on_extract_to(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
@@ -649,17 +771,38 @@ void on_extract_to(GtkAction* action, gpointer user_data)
     }
 }
 
-void on_prop(GtkAction* action, gpointer user_data)
+static void on_prop(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     fm_show_file_properties(data->parent, data->file_infos);
 }
 
+/**
+ * fm_file_menu_is_single_file_type
+ * @menu: a menu
+ *
+ * Checks if @menu was created for files of the same type.
+ *
+ * Returns: %TRUE if menu is single-type.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_file_menu_is_single_file_type(FmFileMenu* menu)
 {
     return menu->same_type;
 }
 
+/**
+ * fm_file_menu_set_folder_func
+ * @menu: a menu
+ * @func: function to open folder
+ * @user_data: data supplied for @func
+ *
+ * Sets up function to open folders for @menu. Function will be called
+ * if action 'Open' was activated for some folder.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data)
 {
     menu->folder_func = func;

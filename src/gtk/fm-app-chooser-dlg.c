@@ -19,6 +19,19 @@
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *      MA 02110-1301, USA.
  */
+
+/**
+ * SECTION:fm-app-chooser-dlg
+ * @short_description: Dialog for application selection.
+ * @title: Application chooser dialog
+ *
+ * @include: libfm/fm-app-chooser-dlg.h
+ *
+ * The dialog to choose application from tree of known applications.
+ * Also allows user to create custom one.
+ * The tree itself is represented by fm_app_menu_view_new().
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -166,6 +179,18 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 	}
 }
 
+/**
+ * fm_app_chooser_dlg_new
+ * @mime_type: MIME type for list creation
+ * @can_set_default: %TRUE if widget can set selected item as default for @mime_type
+ *
+ * Creates a widget for choosing an application either from tree of
+ * existing ones or also allows to set up own command for it.
+ *
+ * Returns: (transfer full): a widget.
+ *
+ * Since: 0.1.0
+ */
 GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default)
 {
     GtkContainer* scroll;
@@ -241,6 +266,19 @@ inline static char* get_binary(const char* cmdline, gboolean* arg_found)
         return g_strdup(cmdline);
 }
 
+/**
+ * fm_app_chooser_dlg_dup_selected_app
+ * @dlg: a widget
+ * @set_default: location to get value that was used for fm_app_chooser_dlg_new()
+ *
+ * Retrieves a currently selected application from @dlg.
+ *
+ * Before 1.0.0 this call had name fm_app_chooser_dlg_get_selected_app.
+ *
+ * Returns: (transfer full): selected application.
+ *
+ * Since: 0.1.0
+ */
 GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_default)
 {
     GAppInfo* app = NULL;
@@ -268,7 +306,6 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                 if(data->mime_type)
                 {
                     MenuCache* menu_cache;
-                    #if GLIB_CHECK_VERSION(2, 10, 0)
                     /* see if the command is already in the list of known apps for this mime-type */
                     GList* apps = g_app_info_get_all_for_type(fm_mime_type_get_type(data->mime_type));
                     GList* l;
@@ -290,7 +327,6 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                     g_list_free(apps);
                     if(app)
                         goto _out;
-                    #endif
 
                     /* see if this command can be found in menu cache */
                     menu_cache = menu_cache_lookup("applications.menu");
@@ -340,6 +376,19 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
     return app;
 }
 
+/**
+ * fm_choose_app_for_mime_type
+ * @parent: (allow-none): a parent window
+ * @mime_type: MIME type for list creation
+ * @can_set_default: %TRUE if widget can set selected item as default for @mime_type
+ *
+ * Creates a dialog to choose application for @mime_type, lets user to
+ * choose then returns the chosen application.
+ *
+ * Returns: user choise.
+ *
+ * Since: 0.1.0
+ */
 GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, gboolean can_set_default)
 {
     GAppInfo* app = NULL;

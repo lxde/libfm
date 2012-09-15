@@ -25,12 +25,8 @@
 
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
-#include "fm-path.h"
-#include "fm-dnd-src.h"
-#include "fm-dnd-dest.h"
-#include "fm-folder.h"
 #include "fm-folder-model.h"
-#include "fm-file-menu.h"
+#include "fm-file-launcher.h"
 
 G_BEGIN_DECLS
 

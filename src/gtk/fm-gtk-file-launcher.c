@@ -20,12 +20,24 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-gtk-file-launcher
+ * @short_description: Gtk file launcher utilities.
+ * @title: Gtk file launcher
+ *
+ * @include: libfm/fm-gtk-file-launcher.h
+ *
+ * Utilities to launch files using libfm file launchers.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
 #include <glib/gi18n-lib.h>
 #include <gio/gdesktopappinfo.h>
+
+#include "fm-gtk-file-launcher.h"
 
 #include "fm-gtk-utils.h"
 #include "fm-app-chooser-dlg.h"
@@ -122,6 +134,22 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     return res;
 }
 
+/**
+ * fm_launch_files_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @file_infos: (element-type FmFileInfo): files to launch
+ * @func: callback to launch folder
+ * @user_data: data supplied for @func
+ *
+ * Launches files using @func to launch folders. If @ctx is %NULL
+ * then new context on the same screen as @parent will be created for
+ * launching.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* file_infos, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
@@ -152,6 +180,22 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     return ret;
 }
 
+/**
+ * fm_launch_paths_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @paths: (element-type FmPath): files to launch
+ * @func: callback to launch folder
+ * @user_data: data supplied for @func
+ *
+ * Launches files using @func to launch folders. If @ctx is %NULL
+ * then new context on the same screen as @parent will be created for
+ * launching.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* paths, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
@@ -178,6 +222,22 @@ gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
     return ret;
 }
 
+/**
+ * fm_launch_file_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @file_info: file to launch
+ * @func: callback to launch folder
+ * @user_data: data supplied for @func
+ *
+ * Launches file. If @file_info is folder then uses @func to launch it.
+ * If @ctx is %NULL then new context on the same screen as @parent will
+ * be created for launching.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* file_info, FmLaunchFolderFunc func, gpointer user_data)
 {
     gboolean ret;
@@ -187,6 +247,22 @@ gboolean fm_launch_file_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFile
     return ret;
 }
 
+/**
+ * fm_launch_path_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @path: file to launch
+ * @func: callback to launch folder
+ * @user_data: data supplied for @func
+ *
+ * Launches file. If @path is folder then uses @func to launch it.
+ * If @ctx is %NULL then new context on the same screen as @parent will
+ * be created for launching.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_launch_path_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmPath* path, FmLaunchFolderFunc func, gpointer user_data)
 {
     gboolean ret;

@@ -29,8 +29,52 @@
  * The #FmFolderView generic interface is used to implement folder views
  * common code including handling sorting change, and keyboard and mouse
  * buttons events.
+ *
+ * The #FmFolderView interface methods can attach context menu to widget
+ * which does folder operations and consists of items:
+ * |[
+ * CreateNew -> NewFolder
+ *              NewBlank
+ *              NewShortcut
+ *              &lt;placeholder name='ph1'/&gt;
+ * ------------------------
+ * Paste
+ * Cut
+ * Copy
+ * Del
+ * Remove
+ * FileProp
+ * ------------------------
+ * SelAll
+ * InvSel
+ * ------------------------
+ * Sort -> Asc
+ *         Desc
+ *         ----------------
+ *         ByName
+ *         ByMTime
+ *         BySize
+ *         ByType
+ *         ----------------
+ *         &lt;placeholder name='CustomSortOps'/&gt;
+ * ShowHidden
+ * Rename
+ * &lt;placeholder name='CustomFolderOps'/&gt;
+ * ------------------------
+ * &lt;placeholder name='CustomCommonOps'/&gt;
+ * ------------------------
+ * Prop
+ * ]|
+ * In created menu items 'Cut', 'Copy', 'Del', 'Remove', and 'FileProp'
+ * are hidden.
+ *
+ * Widget can modity the menu replacing placeholders and hiding or
+ * enabling existing items in it. Widget can do that in callback which
+ * is supplied for call fm_folder_view_add_popup().
+ *
+ * If click was not on widget but on some item in it then not this
+ * context menu but one with #FmFileMenu object will be opened instead.
  */
-/* FIXME: add a description of popup menu */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -44,6 +88,8 @@
 #include "fm-file-properties.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-file-launcher.h"
+#include "fm-file-menu.h"
+#include "fm-gtk-utils.h"
 
 static const char folder_popup_xml[] =
 "<popup>"
@@ -1139,18 +1185,17 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
  * before this call.
  *
  * Implemented actions are:
- * <itemizedlist>
- * <listitem><para>Cut      : cut files into clipboard</para></listitem>
- * <listitem><para>Copy     : copy files into clipboard</para></listitem>
- * <listitem><para>Paste    : paste files from clipboard</para></listitem>
- * <listitem><para>Del      : move files into trash bin</para></listitem>
- * <listitem><para>Remove   : delete files from filesystem</para></listitem>
- * <listitem><para>SelAll   : select all</para></listitem>
- * <listitem><para>InvSel   : invert selection</para></listitem>
- * <listitem><para>Rename   : rename the folder</para></listitem>
- * <listitem><para>Prop     : folder properties dialog</para></listitem>
- * <listitem><para>FileProp : file properties dialog</para></listitem>
- * </itemizedlist>
+ * - Cut       : cut files into clipboard
+ * - Copy      : copy files into clipboard
+ * - Paste     : paste files from clipboard
+ * - Del       : move files into trash bin
+ * - Remove    : delete files from filesystem
+ * - SelAll    : select all
+ * - InvSel    : invert selection
+ * - Rename    : rename the folder
+ * - Prop      : folder properties dialog
+ * - FileProp  : file properties dialog
+ * - NewFolder : create new folder here
  *
  * See also: fm_folder_view_add_popup().
  *
@@ -1236,9 +1281,10 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
  * Handles left click and right click in folder area. If some item was
  * left-clicked then fm_folder_view_item_clicked() tries to launch it.
  * If some item was right-clicked then opens file menu (applying the
- * @update_popup before opening if it's not %NULL). If it was right-click
- * on empty space of folder view (so @path is NULL) then opens folder
- * popup that was created by fm_folder_view_add_popup(). After that
+ * update_popup returned by get_custom_menu_callbacks interface function
+ * before opening it if it's not %NULL). If it was right-click on empty
+ * space of folder view (so @path is %NULL) then opens folder popup
+ * menu that was created by fm_folder_view_add_popup(). After that
  * emits the #FmFolderView::clicked signal.
  *
  * If open_folders callback from interface function get_custom_menu_callbacks

@@ -20,6 +20,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-clipboard
+ * @short_description: Clipboard operations handler for files.
+ * @title: Clipboard operations
+ *
+ * @include: libfm/fm-clipboard.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -115,6 +124,18 @@ static void clear_data(GtkClipboard* clip, gpointer user_data)
     is_cut = FALSE;
 }
 
+/**
+ * fm_clipboard_cut_or_copy_files
+ * @src_widget: widget where files were taken
+ * @files: files to place on clipboard
+ * @_is_cut: %TRUE if operation is 'Cut', %FALSE if 'Copy'
+ *
+ * Places files onto system clipboard.
+ *
+ * Returns: %TRUE if operation was successful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files, gboolean _is_cut)
 {
     GdkDisplay* dpy = src_widget ? gtk_widget_get_display(src_widget) : gdk_display_get_default();
@@ -149,6 +170,17 @@ static gboolean check_kde_curselection(GtkClipboard* clip)
     return ret;
 }
 
+/**
+ * fm_clipboard_paste_files
+ * @dest_widget: widget where to paste files
+ * @dest_dir: directory to place files
+ *
+ * Copies or moves files from system clipboard into @dest_dir.
+ *
+ * Returns: %TRUE if operation was successful.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 {
     GdkDisplay* dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();

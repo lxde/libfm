@@ -2,6 +2,7 @@
  *      fm-thumbnail.c
  *
  *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -17,6 +18,17 @@
  *      along with this program; if not, write to the Free Software
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *      MA 02110-1301, USA.
+ */
+
+/**
+ * SECTION:fm-thumbnail
+ * @short_description: A thumbnails cache loader and generator.
+ * @title: FmThumbnailRequest
+ *
+ * @include: libfm/fm-thumbnail.h
+ *
+ * This API allows to generate thumbnails for files and save them on
+ * disk then use that cache next time to display them.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -153,8 +165,10 @@ static gboolean on_ready_idle(gpointer user_data)
     while((req = (FmThumbnailRequest*)g_queue_pop_head(&ready_queue)) != NULL)
     {
         g_rec_mutex_unlock(&queue_lock);
+        /* FIXME: do we need gdk_threads_enter(); ? */
         if(!req->cancelled)
             req->callback(req, req->user_data);
+        /* FIXME: do we need gdk_threads_leave(); ? */
         fm_thumbnail_request_free(req);
         if(--n == 0)
             return TRUE; /* continue on next idle */
@@ -531,6 +545,22 @@ static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
     return NULL;
 }
 
+/**
+ * fm_thumbnail_request
+ * @src_file: an image file
+ * @size: thumbnail size
+ * @callback: callback to requestor
+ * @user_data: data provided for @callback
+ *
+ * Schedules loading/generation of thumbnail for @src_file. If the
+ * request isn't cancelled then ready thumbnail will be given to the
+ * requestor in @callback. Returned descriptor can be used to cancel
+ * the job.
+ *
+ * Returns: (transfer none): request descriptor.
+ *
+ * Since: 0.1.0
+ */
 /* in main loop */
 FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
                                          guint size,
@@ -605,6 +635,16 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     return req;
 }
 
+/**
+ * fm_thumbnail_request_cancel
+ * @req: the request descriptor
+ *
+ * Cancels request. After return from this call the @req becomes invalid
+ * and cannot be used. Caller will never get callback for cancelled
+ * request either.
+ *
+ * Since: 0.1.0
+ */
 /* in main loop */
 void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
 {
@@ -635,18 +675,50 @@ done:
     g_rec_mutex_unlock(&queue_lock);
 }
 
+/**
+ * fm_thumbnail_request_get_pixbuf
+ * @req: request descriptor
+ *
+ * Retrieves loaded thumbnail. Returned data are owned by @req and should
+ * be not freed by caller.
+ *
+ * Returns: (transfer none): thumbnail.
+ *
+ * Since: 0.1.0
+ */
 /* in main loop */
 GdkPixbuf* fm_thumbnail_request_get_pixbuf(FmThumbnailRequest* req)
 {
     return req->pix;
 }
 
+/**
+ * fm_thumbnail_request_get_file_info
+ * @req: request descriptor
+ *
+ * Retrieves file descriptor that request is for. Returned data are
+ * owned by @req and should be not freed by caller.
+ *
+ * Returns: (transfer none): file descriptor.
+ *
+ * Since: 0.1.0
+ */
 /* in main loop */
 FmFileInfo* fm_thumbnail_request_get_file_info(FmThumbnailRequest* req)
 {
     return req->fi;
 }
 
+/**
+ * fm_thumbnail_request_get_size
+ * @req: request descriptor
+ *
+ * Retrieves thumbnail size that request is for.
+ *
+ * Returns: size in pixels.
+ *
+ * Since: 0.1.0
+ */
 /* in main loop */
 guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 {

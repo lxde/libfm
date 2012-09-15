@@ -24,12 +24,6 @@
 #define __STANDARD_VIEW_H__
 
 #include <gtk/gtk.h>
-#include "fm-file-info.h"
-#include "fm-path.h"
-#include "fm-dnd-src.h"
-#include "fm-dnd-dest.h"
-#include "fm-folder.h"
-#include "fm-folder-model.h"
 #include "fm-folder-view.h"
 
 G_BEGIN_DECLS

@@ -27,8 +27,7 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
-/* required for completion */
-#include "fm-folder-model.h"
+#include "fm-path.h"
 
 G_BEGIN_DECLS
 

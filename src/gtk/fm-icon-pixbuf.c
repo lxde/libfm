@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-icon-pixbuf
+ * @short_description: An icon image creator.
+ * @title: Icon image
+ *
+ * @include: libfm/fm-icon-pixbuf.h
+ *
+ */
+
 #include "fm-icon-pixbuf.h"
 
 //static gboolean init = FALSE;
@@ -46,6 +55,19 @@ static void destroy_pixbufs(gpointer data)
     g_slist_free(pixs);
 }
 
+/**
+ * fm_pixbuf_from_icon
+ * @icon: icon descriptor
+ * @size: size in pixels
+ *
+ * Creates a #GdkPixbuf and draws icon there.
+ *
+ * Before 1.0.0 this call had name fm_icon_get_pixbuf.
+ *
+ * Returns: (transfer full): an image.
+ *
+ * Since: 0.1.0
+ */
 GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
 {
     GtkIconInfo* ii;
