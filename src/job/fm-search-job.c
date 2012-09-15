@@ -648,7 +648,7 @@ gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info)
                     break;
                 }
             }
-            else if(g_content_type_is_a(file_type, *mime_type))
+            else if(g_content_type_is_a(file_type, mime_type))
             {
                 ret = TRUE;
                 break;
