@@ -173,7 +173,7 @@ static time_t parse_date_str(const char* str)
  * content=<content pattern>: search for files containing the pattern
  * content_regex=<regular expression>: regular expression
  * content_case_sensitive=<0 or 1>
- * types=<mime-types>: mime-types to search for, separated by ;
+ * mime_types=<mime-types>: mime-types to search for, can use /* (ex: image/*), separated by ';'
  * min_size=<bytes>
  * max_size=<bytes>
  * date1=YYYYMMDD
@@ -268,8 +268,31 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                     content_regex = value;
                 else if(strcmp(name, "content_ci") == 0)
                     priv->content_case_insensitive = (value[0] == '1') ? TRUE : FALSE;
-                else if(strcmp(name, "types") == 0)
+                else if(strcmp(name, "mime_types") == 0)
+                {
                     priv->mime_types = g_strsplit(value, ";", -1);
+
+                    /* For mime_type patterns such as image/* and audio/*,
+                     * we move the trailing '*' to begining of the string
+                     * as a measure of optimization. Later we can detect if it's a
+                     * pattern or a full type name by checking the first char. */
+                    if(priv->mime_types)
+                    {
+                        char** pmime_type;
+                        for(pmime_type = priv->mime_types; *pmime_type; ++pmime_type)
+                        {
+                            char* mime_type = *pmime_type;
+                            int len = strlen(mime_type);
+                            /* if the mime_type is end with "/*" */
+                            if(len > 2 && mime_type[len - 2] == '/' && mime_type[len - 1] == '*')
+                            {
+                                /* move the trailing * to first char */
+                                memmove(mime_type + 1, mime_type, len - 1);
+                                mime_type[0] = '*';
+                            }
+                        }
+                    }
+                }
                 else if(strcmp(name, "min_size") == 0)
                     priv->min_size = atoll(value);
                 else if(strcmp(name, "max_size") == 0)
@@ -608,11 +631,24 @@ gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info)
     if(priv->mime_types)
     {
         const file_type = g_file_info_get_content_type(info);
-        const char** mime_type;
+        const char** pmime_type;
         ret = FALSE;
-        for(mime_type = priv->mime_types; *mime_type; ++mime_type)
+        for(pmime_type = priv->mime_types; *pmime_type; ++pmime_type)
         {
-            if(g_content_type_is_a(file_type, *mime_type))
+            const char* mime_type = *pmime_type;
+            /* For mime_type patterns such as image/* and audio/*,
+             * we move the trailing '*' to begining of the string
+             * as a measure of optimization. We can know it's a
+             * pattern not a full type name by checking the first char. */
+            if(mime_type[0] == '*')
+            {
+                if(g_str_has_prefix(file_type, mime_type + 1))
+                {
+                    ret = TRUE;
+                    break;
+                }
+            }
+            else if(g_content_type_is_a(file_type, *mime_type))
             {
                 ret = TRUE;
                 break;
