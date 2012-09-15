@@ -34,7 +34,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = FM_FILE_OPS_JOB(job);
-    gboolean is_dir;
+    gboolean is_dir, is_trash_root = FALSE;
     GFileInfo* _inf = NULL;
     FmJobErrorAction act;
 
@@ -90,8 +90,8 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
             {
                 /* little trick: basename of trash root is /. */
                 char* basename = g_file_get_basename(gf);
-                if(basename[0] != G_DIR_SEPARATOR)
-                    is_dir = FALSE;
+                if(basename[0] == G_DIR_SEPARATOR)
+                    is_trash_root = TRUE;
                 g_free(basename);
             }
             g_free(scheme);
@@ -109,7 +109,9 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
         if(err)
         {
             /* if it's non-empty dir then descent into it then try again */
-            if(is_dir && err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_EMPTY)
+            /* trash root gives G_IO_ERROR_PERMISSION_DENIED */
+            if(is_trash_root || /* FIXME: need to refactor this! */
+               (is_dir && err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_EMPTY))
             {
                 GFileMonitor* old_mon = fjob->src_folder_mon;
                 GFileEnumerator* enu;
@@ -167,6 +169,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                     g_object_unref(fjob->src_folder_mon);
                 }
                 fjob->src_folder_mon = old_mon;
+                is_trash_root = FALSE; /* don't go here again! */
                 continue;
             }
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
