@@ -498,7 +498,7 @@ static gboolean delay_add_files(gpointer user_data)
 {
     /* this callback is called from the main thread */
     FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
-    g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add));
+    /* g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add)); */
 
     g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
     g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
@@ -512,7 +512,7 @@ static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
     FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
     FmFileInfo* file = FM_FILE_INFO(user_data);
     /* this callback is called from the main thread */
-    g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file));
+    /* g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file)); */
     job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
     if(job->delay_add_files_handler == 0)
         job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW, 1, delay_add_files, g_object_ref(job), g_object_unref);

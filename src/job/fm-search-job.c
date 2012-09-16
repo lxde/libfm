@@ -151,7 +151,11 @@ static time_t parse_date_str(const char* str)
     {
         struct tm timeinfo = {0};
         if(sscanf(str, "%04d-%02d-%02d", &timeinfo.tm_year, &timeinfo.tm_mon, &timeinfo.tm_mday) == 3)
+        {
+			timeinfo.tm_year -= 1900; /* should be years since 1900 */
+			--timeinfo.tm_mon; /* month should be 0-11 */
             return mktime(&timeinfo);
+		}
     }
     return 0;
 }
@@ -203,7 +207,7 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
         {
             *params = '\0';
             ++params;
-            g_printf("params: %s\n", params);
+            /* g_printf("params: %s\n", params); */
         }
 
         /* add folder paths */
@@ -214,7 +218,7 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
             if(sep)
                 *sep = '\0';
             path = fm_path_new_for_str(p);
-            g_print("target folder path: %s\n", p);
+            /* g_print("target folder path: %s\n", p); */
             /* add the path to target folders */
             priv->target_folders = g_slist_prepend(priv->target_folders, path);
 
@@ -250,7 +254,7 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                 if(sep)
                     *sep = '\0';
 
-                g_printf("parameter name/value: %s = %s\n", name, value);
+                /* g_printf("parameter name/value: %s = %s\n", name, value); */
 
                 if(strcmp(name, "show_hidden") == 0)
                     priv->show_hidden = (value[0] == '1') ? TRUE : FALSE;
@@ -679,6 +683,7 @@ gboolean fm_search_job_match_mtime(FmSearchJob* job, GFileInfo* info)
     if(priv->min_mtime || priv->max_mtime)
     {
         guint64 mtime = g_file_info_get_attribute_uint64(info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+        /* g_print("file mtime: %llu, min_mtime=%llu, max_mtime=%llu\n", mtime, priv->min_mtime, priv->max_mtime); */
         if(priv->min_mtime > 0 && mtime < priv->min_mtime)
             ret = FALSE; /* earlier than min_mtime */
         else if(priv->max_mtime > 0 && mtime > priv->max_mtime)
