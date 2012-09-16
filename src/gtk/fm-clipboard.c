@@ -100,9 +100,12 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     }
     gtk_selection_data_set(sel, target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
-    if(is_cut)
+    if(is_cut && info == GNOME_COPIED_FILES)
+    {
+        /* info about is_cut is already on clipboard so reset it */
         gtk_clipboard_clear(clip);
-    is_cut = FALSE;
+        is_cut = FALSE;
+    }
 }
 
 static void clear_data(GtkClipboard* clip, gpointer user_data)
@@ -156,6 +159,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     int type = 0;
     GdkAtom *avail_targets;
     int n, i;
+    gboolean _is_cut;
 
     /* get all available targets currently in the clipboard. */
     if( !gtk_clipboard_wait_for_targets(clip, &avail_targets, &n) )
@@ -206,12 +210,12 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
         gint length;
 
         pdata = (const gchar*)gtk_selection_data_get_data_with_length(data, &length);
-        is_cut = FALSE;
+        _is_cut = FALSE;
 
         switch(type)
         {
         case GNOME_COPIED_FILES:
-            is_cut = g_str_has_prefix(pdata, "cut\n");
+            _is_cut = g_str_has_prefix(pdata, "cut\n");
             while(length)
             {
                 register gchar ch = *pdata++;
@@ -219,17 +223,14 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
                 if(ch == '\n')
                     break;
             }
-            /* the following parts is actually a uri-list, so don't break here. */
+            uris = g_uri_list_extract_uris(pdata);
+            break;
         case URI_LIST:
             uris = g_uri_list_extract_uris(pdata);
-            if( type != GNOME_COPIED_FILES )
-            {
-                /* if we're not handling x-special/gnome-copied-files, check
-                 * if information from KDE is available. */
-                is_cut = check_kde_curselection(clip);
-            }
+            _is_cut = check_kde_curselection(clip);
             break;
         case UTF8_STRING:
+        default:
             /* FIXME: how should we treat UTF-8 strings? URIs or filenames? */
             uris = g_uri_list_extract_uris(pdata);
             break;
@@ -249,7 +250,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
             if(!fm_path_list_is_empty(files))
             {
-                if( is_cut )
+                if( _is_cut )
                     fm_move_files(GTK_WINDOW(parent), files, dest_dir);
                 else
                     fm_copy_files(GTK_WINDOW(parent), files, dest_dir);
