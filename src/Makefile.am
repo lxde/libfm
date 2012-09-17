@@ -432,8 +432,8 @@ xml_purge_LDADD=$(GIO_LIBS)
 
 install-data-local:
 	@if test -h $(DESTDIR)$(includedir)/@PACKAGE@; then \
-		echo rm -f $(DESTDIR)$(includedir)/@PACKAGE@; \
-		rm -f $(DESTDIR)$(includedir)/@PACKAGE@; \
+		echo rm -rf $(DESTDIR)$(includedir)/@PACKAGE@; \
+		rm -rf $(DESTDIR)$(includedir)/@PACKAGE@; \
 	fi
 	@LN_S@ @PACKAGE@-@FMLIBVER@ $(DESTDIR)$(includedir)/@PACKAGE@
 
