@@ -133,7 +133,7 @@ static gboolean fm_search_job_run(FmJob* job)
     {
         FmPath* folder_path = FM_PATH(l->data);
         GFile* gf = fm_path_to_gfile(folder_path);
-        fm_search_job_match_folder(job, gf);
+        fm_search_job_match_folder(FM_SEARCH_JOB(job), gf);
         g_object_unref(gf);
     }
     return TRUE;
@@ -364,7 +364,11 @@ static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path)
     FmSearchJobPrivate* priv = job->priv;
     GError * error = NULL;
     FmJobErrorAction action = FM_JOB_CONTINUE;
-    GFileEnumerator * enumerator = g_file_enumerate_children(folder_path, gfile_info_query_attribs, G_FILE_QUERY_INFO_NONE, fm_job_get_cancellable(job), &error);
+    GFileEnumerator * enumerator = g_file_enumerate_children(folder_path,
+                                            gfile_info_query_attribs,
+                                            G_FILE_QUERY_INFO_NONE,
+                                            fm_job_get_cancellable(FM_JOB(job)),
+                                            &error);
 
     /* FIXME and TODO: handle mangled symlinks */
 
@@ -374,7 +378,8 @@ static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path)
     {
         while(!fm_job_is_cancelled(FM_JOB(job)))
         {
-            GFileInfo * file_info = g_file_enumerator_next_file(enumerator, fm_job_get_cancellable(job), &error);
+            GFileInfo * file_info = g_file_enumerator_next_file(enumerator,
+                                fm_job_get_cancellable(FM_JOB(job)), &error);
             if(file_info)
             {
                 if(fm_search_job_match_file(job, file_info, folder_path))
@@ -466,7 +471,7 @@ gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info)
     {
         ret = FALSE;
         const char* name = g_file_info_get_name(info);
-        const char** ppattern;
+        char** ppattern;
         for(ppattern = priv->name_patterns; *ppattern; ++ppattern)
         {
             const char* pattern = *ppattern;
@@ -492,7 +497,7 @@ static gboolean fm_search_job_match_content_line_based(FmSearchJob* job, GFileIn
     GDataInputStream *input_stream = g_data_input_stream_new(stream);
     do
     {
-        gssize line_len;
+        gsize line_len;
         GError* error = NULL;
         char* line = g_data_input_stream_read_line(input_stream, &line_len, cancellable, &error);
         if(line == NULL) /* error or EOF */
@@ -544,7 +549,7 @@ static gboolean fm_search_job_match_content_exact(FmSearchJob* job, GFileInfo* i
     int buf_size = pattern_len > 4095 ? pattern_len : 4095;
     int bytes_to_read;
 
-    buf = g_new(char*, buf_size + 1); /* +1 for terminating null char. */
+    buf = g_new(char, buf_size + 1); /* +1 for terminating null char. */
     bytes_to_read = buf_size;
     pbuf = buf;
     for(;;)
@@ -600,16 +605,18 @@ gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* p
                 {
                     /* stream based search optimized for case sensitive
                      * exact match. */
-                    ret = fm_search_job_match_content_exact(job, info, stream);
+                    ret = fm_search_job_match_content_exact(job, info,
+                                                        G_INPUT_STREAM(stream));
                 }
                 else
                 {
                     /* grep-like regexp search and case insensitive search
                      * are line-based. */
-                    ret = fm_search_job_match_content_line_based(job, info, stream);
+                    ret = fm_search_job_match_content_line_based(job, info,
+                                                        G_INPUT_STREAM(stream));
                 }
 
-                g_input_stream_close(stream, NULL, NULL);
+                g_input_stream_close(G_INPUT_STREAM(stream), NULL, NULL);
                 g_object_unref(stream);
             }
             else
@@ -634,8 +641,8 @@ gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info)
     gboolean ret;
     if(priv->mime_types)
     {
-        const file_type = g_file_info_get_content_type(info);
-        const char** pmime_type;
+        const char* file_type = g_file_info_get_content_type(info);
+        char** pmime_type;
         ret = FALSE;
         for(pmime_type = priv->mime_types; *pmime_type; ++pmime_type)
         {
