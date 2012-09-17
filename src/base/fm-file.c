@@ -51,7 +51,7 @@ static GHashTable *schemes = NULL;
 
 G_DEFINE_INTERFACE(FmFile, fm_file, G_TYPE_FILE)
 
-gboolean fm_file_wants_incremental_false(FmFile *unused)
+gboolean fm_file_wants_incremental_false(GFile *unused)
 {
     return FALSE;
 }
@@ -95,7 +95,7 @@ void fm_file_add_vfs(const char *name, FmFileInitTable *init)
  *
  * Since: 1.0.2
  */
-gboolean fm_file_wants_incremental(FmFile* file)
+gboolean fm_file_wants_incremental(GFile* file)
 {
     FmFileInterface *iface;
 

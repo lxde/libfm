@@ -836,7 +836,7 @@ static void fm_menu_g_file_init(GFileIface *iface)
 
 
 /* ---- FmFile implementation ---- */
-static gboolean _fm_vfs_menu_wants_incremental(FmFile* file)
+static gboolean _fm_vfs_menu_wants_incremental(GFile* file)
 {
     return FALSE;
 }

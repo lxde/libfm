@@ -48,7 +48,7 @@ struct _FmFileInterface
     GTypeInterface g_iface;
 
     /*< public >*/
-    gboolean (*wants_incremental)(FmFile* file);
+    gboolean (*wants_incremental)(GFile* file);
 };
 
 typedef struct _FmFileInitTable         FmFileInitTable;
@@ -70,7 +70,7 @@ GType           fm_file_get_type(void);
 void            fm_file_add_vfs(const char *name, FmFileInitTable *init);
 
 /* VTable calls */
-gboolean        fm_file_wants_incremental(FmFile* file);
+gboolean        fm_file_wants_incremental(GFile* file);
 
 /* Gfile functions replacements */
 GFile          *fm_file_new_for_uri(const char *uri);
