@@ -35,7 +35,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <menu-cache.h>
 #include <errno.h>
 
 #include "fm-file-info.h"
