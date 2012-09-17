@@ -140,6 +140,8 @@ FmFileInfo* fm_file_info_new ()
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
 {
     struct stat st;
+    char* fpath;
+
     if(lstat(path, &st) == 0)
     {
         /* By default we use the real file base name for display.
@@ -166,10 +168,10 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
 
         fi->accessible = (g_access(path, R_OK) == 0);
 
+        fpath = fm_path_to_str(fi->path);
         /* special handling for desktop entry files */
         if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
         {
-            char* fpath = fm_path_to_str(fi->path);
             GKeyFile* kf = g_key_file_new();
             FmIcon* icon = NULL;
             if(g_key_file_load_from_file(kf, fpath, 0, NULL))
@@ -202,13 +204,31 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             else
                 fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
             g_key_file_free(kf);
-            g_free(fpath);
         }
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
-        else
+        else if(strcmp(fpath, g_get_home_dir()) == 0)
+            fi->icon = fm_icon_from_name("user-home");
+        else if(strcmp(fpath, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP)) == 0)
+            fi->icon = fm_icon_from_name("user-desktop");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS)) == 0)
+            fi->icon = fm_icon_from_name("folder-documents");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD)) == 0)
+            fi->icon = fm_icon_from_name("folder-download");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_MUSIC)) == 0)
+            fi->icon = fm_icon_from_name("folder-music");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_PICTURES)) == 0)
+            fi->icon = fm_icon_from_name("folder-pictures");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_PUBLIC_SHARE)) == 0)
+            fi->icon = fm_icon_from_name("folder-publicshare");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES)) == 0)
+            fi->icon = fm_icon_from_name("folder-templates");
+        else if(g_strcmp0(fpath, g_get_user_special_dir(G_USER_DIRECTORY_VIDEOS)) == 0)
+            fi->icon = fm_icon_from_name("folder-videos");
+        if(!fi->icon)
             fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
+        g_free(fpath);
     }
     else
     {
