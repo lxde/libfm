@@ -2986,6 +2986,10 @@ exo_icon_view_item_hit_test (ExoIconView      *icon_view,
       if (!gtk_cell_renderer_get_visible(info->cell))
         continue;
 
+      /* libfm: bug #3390778: item->box isn't allocated yet here! bad design! */
+      if (!item->box)
+        continue;
+
       box = item->box[info->position];
 
       if (MIN (x + width, box.x + box.width) - MAX (x, box.x) > 0 &&
