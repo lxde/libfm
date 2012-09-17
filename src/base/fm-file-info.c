@@ -52,6 +52,13 @@
 
 #define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
+/* Common lock for all menu-cache access */
+#if GLIB_CHECK_VERSION(2, 32, 0)
+GMutex fm_mutex_menucache;
+#else
+GStaticMutex fm_mutex_menucache = G_STATIC_MUTEX_INIT;
+#endif
+
 static FmMimeType* desktop_entry_type = NULL;
 
 static FmIcon* icon_locked_folder = NULL;
@@ -316,11 +323,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         /* assume it's accessible */
         fi->accessible = TRUE;
 
-    /* set "locked" icon on unaccesible folder */
-    if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
-        fi->icon = fm_icon_ref(icon_locked_folder);
     /* set file icon according to mime-type */
-    else if(!fi->mime_type || !fm_mime_type_get_icon(fi->mime_type))
+    if(!fi->mime_type || !fm_mime_type_get_icon(fi->mime_type))
     {
         gicon = g_file_info_get_icon(inf);
         fi->icon = fm_icon_from_gicon(gicon);
@@ -329,6 +333,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
          * the object returned by g_file_info_get_icon is
          * owned by GFileInfo. */
     }
+    /* set "locked" icon on unaccesible folder */
+    else if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
+        fi->icon = fm_icon_ref(icon_locked_folder);
     else
         fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
@@ -341,6 +348,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->target = g_filename_from_uri(uri, NULL, NULL);
             else
                 fi->target = g_strdup(uri);
+            if(!fi->mime_type)
+                fi->mime_type = fm_mime_type_from_file_name(fi->target);
         }
 
         if(!fi->mime_type)
@@ -352,6 +361,20 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_mountable());
         }
         /* FIXME: how about target of symlinks? */
+    }
+    else if(type == G_FILE_TYPE_SYMBOLIC_LINK)
+    {
+        const char* uri = g_file_info_get_symlink_target(inf);
+
+        if(uri)
+        {
+            if(g_str_has_prefix(uri, "file:/"))
+                fi->target = g_filename_from_uri(uri, NULL, NULL);
+            else
+                fi->target = g_strdup(uri);
+            if(!fi->mime_type)
+                fi->mime_type = fm_mime_type_from_file_name(fi->target);
+        }
     }
 
     if(fm_path_is_native(fi->path))
@@ -390,7 +413,9 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
-    const char* icon_name = menu_cache_item_get_icon(item);
+    const char* icon_name;
+    FM_MENU_CACHE_LOCK;
+    icon_name = menu_cache_item_get_icon(item);
     fi->disp_name = g_strdup(menu_cache_item_get_name(item));
     if(icon_name)
     {
@@ -425,6 +450,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
         fi->target = menu_cache_item_get_file_path(item);
     }
     fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
+    FM_MENU_CACHE_UNLOCK;
 }
 
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
@@ -1197,13 +1223,6 @@ FmFileInfoList* fm_file_info_list_new(void)
 {
     return (FmFileInfoList*)fm_list_new(&fm_list_funcs);
 }
-
-#if 0
-gboolean fm_list_is_file_info_list(FmList* list)
-{
-    return list->funcs == &fm_list_funcs;
-}
-#endif
 
 /**
  * fm_file_info_list_is_same_type

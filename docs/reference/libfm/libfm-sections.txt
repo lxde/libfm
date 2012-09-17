@@ -477,6 +477,10 @@ fm_file_info_set_from_native_file
 fm_file_info_set_path
 fm_file_info_unref
 fm_file_info_update
+<SUBSECTION Private>
+FM_MENU_CACHE_LOCK
+FM_MENU_CACHE_UNLOCK
+fm_mutex_menucache
 </SECTION>
 
 <SECTION>

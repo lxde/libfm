@@ -267,14 +267,6 @@ FmMimeType* fm_mime_type_new(const char* type_name)
     mime_type->icon = fm_icon_from_gicon(gicon);
     g_object_unref(gicon);
 
-#if 0
-  /* TODO: Special case desktop dir? That could be expensive with xdg dirs... */
-  if (strcmp (path, g_get_home_dir ()) == 0)
-    type_icon = "user-home";
-  else
-    type_icon = "text-x-generic";
-#endif
-
     return mime_type;
 }
 

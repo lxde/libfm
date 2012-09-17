@@ -142,115 +142,6 @@ static void fm_dir_list_job_dispose(GObject *object)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
 }
 
-
-static gpointer list_menu_items(FmJob* fmjob, gpointer unused)
-{
-    FmDirListJob* job = (FmDirListJob*)fmjob;
-    FmFileInfo* fi;
-    MenuCache* mc;
-    MenuCacheDir* dir;
-    GSList* l;
-    char* path_str, *p, ch;
-    char* menu_name;
-    const char* dir_path_str;
-    guint32 de_flag;
-    const char* de_name;
-    /* example: menu://applications.menu/DesktopSettings */
-
-    g_return_val_if_fail(job->dir_path != NULL, NULL);
-    path_str = fm_path_to_str(job->dir_path);
-    p = path_str + 5; /* skip menu: */
-    while(*p == '/')
-        ++p;
-    menu_name = p;
-    while(*p && *p != '/')
-        ++p;
-    ch = *p;
-    *p = '\0';
-    menu_name = g_strconcat(menu_name, ".menu", NULL);
-    mc = menu_cache_lookup_sync(menu_name);
-    /* ensure that the menu cache is loaded */
-    if(!mc) /* if it's not loaded */
-    {
-        /* try to set $XDG_MENU_PREFIX to "lxde-" for lxmenu-data */
-        const char* menu_prefix = g_getenv("XDG_MENU_PREFIX");
-        if(g_strcmp0(menu_prefix, "lxde-")) /* if current value is not lxde- */
-        {
-            char* old_prefix = g_strdup(menu_prefix);
-            g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
-            mc = menu_cache_lookup_sync(menu_name);
-            /* restore original environment variable */
-            if(old_prefix)
-            {
-                g_setenv("XDG_MENU_PREFIX", old_prefix, TRUE);
-                g_free(old_prefix);
-            }
-            else
-                g_unsetenv("XDG_MENU_PREFIX");
-
-            if(!mc)
-                goto done;
-        }
-        else
-            goto done;
-    }
-    *p = ch;
-    dir_path_str = p; /* path of menu dir, such as: /Internet */
-
-    de_name = g_getenv("XDG_CURRENT_DESKTOP");
-    if(de_name)
-        de_flag = menu_cache_get_desktop_env_flag(mc, de_name);
-    else
-        de_flag = (guint32)-1;
-
-    /* the menu should be loaded now */
-    if(*dir_path_str && !(*dir_path_str == '/' && dir_path_str[1]=='\0') )
-    {
-        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path_str, NULL);
-        dir = menu_cache_get_dir_from_path(mc, tmp);
-        g_free(tmp);
-    }
-    else
-        dir = menu_cache_get_root_dir(mc);
-
-    if(dir)
-    {
-        job->dir_fi = fm_file_info_new_from_menu_cache_item(job->dir_path, MENU_CACHE_ITEM(dir));
-        for(l=menu_cache_dir_get_children(dir);l;l=l->next)
-        {
-            MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
-            FmPath* item_path;
-            /* also hide menu items which should be hidden in current DE. */
-            if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
-                continue;
-            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP
-               && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), de_flag))
-                continue;
-
-            if(G_UNLIKELY(job->dir_only)
-               && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
-                continue;
-            item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
-            fi = fm_file_info_new_from_menu_cache_item(item_path, item);
-            fm_path_unref(item_path);
-            fm_file_info_list_push_tail_noref(job->files, fi);
-        }
-    }
-    menu_cache_unref(mc);
-
-done:
-    g_free(menu_name);
-    g_free(path_str);
-    return NULL;
-}
-
-static gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
-{
-    /* Calling libmenu-cache is only allowed in main thread. */
-    fm_job_call_main_thread(FM_JOB(job), list_menu_items, NULL);
-    return TRUE;
-}
-
 static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 {
     FmJob* fmjob = FM_JOB(job);
@@ -352,10 +243,6 @@ static gboolean fm_dir_list_job_run_gio(FmDirListJob* job)
     FmJob* fmjob = FM_JOB(job);
     GFile* gf;
     const char* query;
-
-    /* handle some built-in virtual dirs */
-    if( fm_path_is_xdg_menu(job->dir_path) ) /* xdg menu:// */
-        return fm_dir_list_job_list_xdg_menu(job);
 
     gf = fm_path_to_gfile(job->dir_path);
 _retry:

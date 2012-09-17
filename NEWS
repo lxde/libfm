@@ -21,6 +21,9 @@ Changes on 1.0.2 since 1.0.1:
 
 * Enabled option to Unmount removable media without ejecting it.
 
+* Migrated menu:// support into built-in VFS. There will be support for
+    menu editing functions later.
+
 
 Changes on 1.0.1 since 1.0.0:
 

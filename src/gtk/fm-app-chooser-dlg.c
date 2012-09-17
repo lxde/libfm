@@ -329,6 +329,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                         goto _out;
 
                     /* see if this command can be found in menu cache */
+                    FM_MENU_CACHE_LOCK;
                     menu_cache = menu_cache_lookup("applications.menu");
                     if(menu_cache)
                     {
@@ -354,9 +355,10 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                             g_slist_free(all_apps);
                         }
                         menu_cache_unref(menu_cache);
-                        if(app)
-                            goto _out;
                     }
+                    FM_MENU_CACHE_UNLOCK;
+                    if(app)
+                        goto _out;
                 }
 
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */

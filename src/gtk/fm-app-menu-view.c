@@ -39,6 +39,9 @@
 #include <gio/gdesktopappinfo.h>
 #include <string.h>
 
+/* for menucache lock */
+#include "fm-file-info.h"
+
 enum
 {
     COL_ICON,
@@ -53,13 +56,16 @@ static gpointer menu_cache_reload_notify = NULL;
 
 static void destroy_store(gpointer user_data, GObject *obj)
 {
+    FM_MENU_CACHE_LOCK;
     menu_cache_remove_reload_notify(menu_cache, menu_cache_reload_notify);
     menu_cache_reload_notify = NULL;
     menu_cache_unref(menu_cache);
+    FM_MENU_CACHE_UNLOCK;
     menu_cache = NULL;
     store = NULL;
 }
 
+/* called with lock held */
 static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
 {
     GtkTreeIter it;
@@ -119,10 +125,12 @@ static void on_menu_cache_reload(gpointer mc, gpointer user_data)
 {
     g_return_if_fail(store);
     gtk_tree_store_clear(store);
+    FM_MENU_CACHE_LOCK;
     MenuCacheDir* dir = menu_cache_get_root_dir(menu_cache);
     /* FIXME: preserve original selection */
     if(dir)
         add_menu_items(NULL, dir);
+    FM_MENU_CACHE_UNLOCK;
 }
 
 /**
@@ -154,6 +162,7 @@ GtkTreeView *fm_app_menu_view_new(void)
         /* ensure that we're using lxmenu-data */
         oldenv = g_strdup(g_getenv("XDG_MENU_PREFIX"));
         g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
+        FM_MENU_CACHE_LOCK;
         menu_cache = menu_cache_lookup("applications.menu");
         if(oldenv)
         {
@@ -170,6 +179,7 @@ GtkTreeView *fm_app_menu_view_new(void)
             if(dir) /* content of menu is already loaded */
                 add_menu_items(NULL, dir);
         }
+        FM_MENU_CACHE_UNLOCK;
     }
     else
         g_object_ref(store);
@@ -235,14 +245,17 @@ char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view)
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
     /* FIXME: this should be checked if it's exactly app menu tree! */
+    char* id = NULL;
     if(gtk_tree_selection_get_selected(sel, NULL, &it))
     {
         MenuCacheItem* item;
         gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
+        FM_MENU_CACHE_LOCK;
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-            return g_strdup(menu_cache_item_get_id(item));
+            id = g_strdup(menu_cache_item_get_id(item));
+        FM_MENU_CACHE_UNLOCK;
     }
-    return NULL;
+    return id;
 }
 
 /**
@@ -267,11 +280,14 @@ char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
     {
         MenuCacheItem* item;
         gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
+        FM_MENU_CACHE_LOCK;
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
         {
             char* path = menu_cache_item_get_file_path(item);
+            FM_MENU_CACHE_UNLOCK;
             return path;
         }
+        FM_MENU_CACHE_UNLOCK;
     }
     return NULL;
 }
@@ -291,10 +307,13 @@ gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it)
 {
     MenuCacheItem* item;
     /* FIXME: this should be checked if it's exactly app menu tree! */
+    gboolean ret = FALSE;
     gtk_tree_model_get(GTK_TREE_MODEL(store), it, COL_ITEM, &item, -1);
+    FM_MENU_CACHE_LOCK;
     if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-        return TRUE;
-    return FALSE;
+        ret = TRUE;
+    FM_MENU_CACHE_UNLOCK;
+    return ret;
 }
 
 /**

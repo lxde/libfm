@@ -162,46 +162,6 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
         else
         {
             GFile* gf;
-            if(fm_path_is_virtual(path))
-            {
-                /* this is a xdg menu */
-                if(fm_path_is_xdg_menu(path))
-                {
-                    MenuCache* mc;
-                    MenuCacheDir* dir;
-                    char* path_str = fm_path_to_str(path);
-                    char* menu_name = path_str + 5, ch;
-                    char* dir_name;
-                    while(*menu_name == '/')
-                        ++menu_name;
-                    dir_name = menu_name;
-                    while(*dir_name && *dir_name != '/')
-                        ++dir_name;
-                    ch = *dir_name;
-                    *dir_name = '\0';
-                    menu_name = g_strconcat(menu_name, ".menu", NULL);
-                    mc = menu_cache_lookup_sync(menu_name);
-                    g_free(menu_name);
-                    *dir_name = ch;
-
-                    if(ch && !(ch == '/' && dir_name[1]=='\0') )
-                    {
-                        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_name, NULL);
-                        dir = menu_cache_get_dir_from_path(mc, tmp);
-                        g_free(tmp);
-                    }
-                    else
-                        dir = menu_cache_get_root_dir(mc);
-                    if(dir)
-                        fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
-                    else /* no retry, just remove item */
-                        fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
-                    g_free(path_str);
-                    menu_cache_unref(mc);
-                    l = next;
-                    continue;
-                }
-            }
 
             gf = fm_path_to_gfile(path);
             if(!_fm_file_info_job_get_info_for_gfile(fmjob, fi, gf, &err))

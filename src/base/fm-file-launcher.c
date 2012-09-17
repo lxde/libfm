@@ -255,15 +255,15 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 if(fm_file_info_is_shortcut(fi) && !fm_file_info_is_dir(fi))
                 {
                     /* FIXME: special handling for shortcuts */
-                    if(fm_path_is_xdg_menu(path))
-                    {
+                    //if(fm_path_is_xdg_menu(path))
+                    //{
                         const char* target = fm_file_info_get_target(fi);
                         if(target)
                         {
                             fm_launch_desktop_entry(ctx, target, NULL, launcher, user_data);
                             continue;
                         }
-                    }
+                    //}
                 }
             }
 

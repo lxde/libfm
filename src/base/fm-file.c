@@ -62,9 +62,9 @@ static void fm_file_default_init(FmFileInterface *iface)
 }
 
 
-static inline FmFileInterface *fm_find_scheme(const char *name)
+static inline FmFileInitTable *fm_find_scheme(const char *name)
 {
-    return (FmFileInterface*)g_hash_table_lookup(schemes, name);
+    return (FmFileInitTable*)g_hash_table_lookup(schemes, name);
 }
 
 /**
@@ -78,10 +78,10 @@ static inline FmFileInterface *fm_find_scheme(const char *name)
  *
  * Since: 1.0.2
  */
-void fm_file_add_vfs(const char *name, FmFileInitTable init)
+void fm_file_add_vfs(const char *name, FmFileInitTable *init)
 {
     if(fm_find_scheme(name) == NULL)
-        g_hash_table_insert(schemes, g_strdup(name), iface);
+        g_hash_table_insert(schemes, g_strdup(name), init);
 }
 
 /**
@@ -121,7 +121,7 @@ gboolean fm_file_wants_incremental(FmFile* file)
 GFile *fm_file_new_for_uri(const char *uri)
 {
     char *scheme;
-    FmFileInterface *iface;
+    FmFileInitTable *iface;
     GFile *file = NULL;
 
     scheme = g_uri_parse_scheme(uri);
@@ -154,7 +154,7 @@ GFile *fm_file_new_for_uri(const char *uri)
 GFile *fm_file_new_for_commandline_arg(const char *arg)
 {
     char *scheme;
-    FmFileInterface *iface;
+    FmFileInitTable *iface;
     GFile *file = NULL;
 
     scheme = g_uri_parse_scheme(arg);

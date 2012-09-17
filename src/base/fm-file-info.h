@@ -37,6 +37,17 @@
 
 G_BEGIN_DECLS
 
+/* Common lock for all menu-cache access. This is used in few places yet */
+#if GLIB_CHECK_VERSION(2, 32, 0)
+extern GMutex fm_mutex_menucache;
+#define FM_MENU_CACHE_LOCK g_mutex_lock(&fm_mutex_menucache)
+#define FM_MENU_CACHE_UNLOCK g_mutex_unlock(&fm_mutex_menucache)
+#else
+extern GStaticMutex fm_mutex_menucache;
+#define FM_MENU_CACHE_LOCK g_static_mutex_lock(&fm_mutex_menucache)
+#define FM_MENU_CACHE_UNLOCK g_static_mutex_unlock(&fm_mutex_menucache)
+#endif
+
 /* Some flags are defined for future use and are not supported now */
 enum _FmFileInfoFlag
 {

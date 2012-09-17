@@ -51,21 +51,23 @@ struct _FmFileInterface
     gboolean (*wants_incremental)(FmFile* file);
 };
 
+typedef struct _FmFileInitTable         FmFileInitTable;
+
 /**
  * FmFileInitTable:
  * @new_for_uri_name: function to create new #GFile object from URI
  *
  * Functions to initialize FmFile instance.
  */
-typedef struct
+struct _FmFileInitTable
 {
     /*< public >*/
     GFile * (*new_for_uri_name)(const char *uri);
-} FmFileInitTable;
+};
 
 GType           fm_file_get_type(void);
 
-void            fm_file_add_vfs(const char *name, FmFileInitTable init);
+void            fm_file_add_vfs(const char *name, FmFileInitTable *init);
 
 /* VTable calls */
 gboolean        fm_file_wants_incremental(FmFile* file);

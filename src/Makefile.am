@@ -74,6 +74,7 @@ base_SOURCES = \
 	base/fm-thumbnailer.c \
 	base/fm-file.c \
 	base/fm-marshal.c \
+	vfs/fm-vfs-menu.c \
 	$(NULL)
 
 job_SOURCES = \
@@ -402,6 +403,7 @@ EXTRA_DIST = \
 	udisks/gen-binding \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
+	vfs/fm-vfs-menu.h \
 	$(VAPI_FILES) \
 	$(NULL)
 
