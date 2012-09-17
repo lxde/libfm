@@ -75,7 +75,7 @@ base_SOURCES = \
 	base/fm-file.c \
 	base/fm-marshal.c \
 	vfs/fm-vfs-menu.c \
-	base/fm-file-search.c \
+	vfs/fm-vfs-search.c \
 	$(NULL)
 
 job_SOURCES = \
@@ -88,7 +88,6 @@ job_SOURCES = \
 	job/fm-file-ops-job-xfer.c \
 	job/fm-file-ops-job-delete.c \
 	job/fm-file-ops-job-change-attr.c \
-	job/fm-search-job.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -176,7 +175,6 @@ libfminclude_HEADERS = \
 	job/fm-file-ops-job-xfer.h \
 	job/fm-file-ops-job-delete.h \
 	job/fm-file-ops-job-change-attr.h \
-	job/fm-search-job.h \
 	$(NULL)
 
 libfmgtkincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
@@ -421,6 +419,7 @@ EXTRA_DIST = \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
 	vfs/fm-vfs-menu.h \
+	vfs/fm-vfs-search.h \
 	$(VAPI_FILES) \
 	$(NULL)
 
