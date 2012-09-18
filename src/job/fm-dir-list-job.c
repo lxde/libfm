@@ -339,7 +339,7 @@ _retry:
             inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
             if(inf)
             {
-                FmPath* sub;
+                FmPath *dir, *sub;
                 if(G_UNLIKELY(job->dir_only))
                 {
                     /* FIXME: handle symlinks */
@@ -350,9 +350,12 @@ _retry:
                     }
                 }
 
-                sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+                /* virtual folders may return childs not within them */
+                dir = fm_path_new_for_gfile(g_file_enumerator_get_container(enu));
+                sub = fm_path_new_child(dir, g_file_info_get_name(inf));
                 fi = fm_file_info_new_from_gfileinfo(sub, inf);
                 fm_path_unref(sub);
+                fm_path_unref(dir);
                 fm_dir_list_job_add_found_file(job, fi);
                 fm_file_info_unref(fi);
             }
