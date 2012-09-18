@@ -329,7 +329,6 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                         goto _out;
 
                     /* see if this command can be found in menu cache */
-                    FM_MENU_CACHE_LOCK;
                     menu_cache = menu_cache_lookup("applications.menu");
                     if(menu_cache)
                     {
@@ -356,7 +355,6 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                         }
                         menu_cache_unref(menu_cache);
                     }
-                    FM_MENU_CACHE_UNLOCK;
                     if(app)
                         goto _out;
                 }

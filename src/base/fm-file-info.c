@@ -414,7 +414,6 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
     const char* icon_name;
-    FM_MENU_CACHE_LOCK;
     icon_name = menu_cache_item_get_icon(item);
     fi->disp_name = g_strdup(menu_cache_item_get_name(item));
     if(icon_name)
@@ -450,7 +449,6 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
         fi->target = menu_cache_item_get_file_path(item);
     }
     fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
-    FM_MENU_CACHE_UNLOCK;
 }
 
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)

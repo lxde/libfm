@@ -29,11 +29,86 @@
 #include <glib/gi18n-lib.h>
 #include <menu-cache/menu-cache.h>
 
-/* for menucache lock */
-#include "fm-file-info.h"
+/* Lock for main context run. */
+#if GLIB_CHECK_VERSION(2, 32, 0)
+static GMutex fm_vfs_menu_mutex;
+static GCond fm_vfs_menu_cond;
+#else
+static GMutex *fm_vfs_menu_mutex = NULL;
+static GCond *fm_vfs_menu_cond = NULL;
+#endif
 
 /* beforehand declarations */
 static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
+
+
+/* ---- run menu cache in main context ---- */
+typedef struct
+{
+    gboolean done;
+    GSourceFunc func;
+    gpointer data;
+} _main_context_data;
+
+static gboolean _run_in_main_loop_real(gpointer user_data)
+{
+    _main_context_data *data = user_data;
+    data->func(data->data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&fm_vfs_menu_mutex);
+    data->done = TRUE;
+    g_cond_broadcast(&fm_vfs_menu_cond);
+    g_mutex_unlock(&fm_vfs_menu_mutex);
+#else
+    g_mutex_lock(fm_vfs_menu_mutex);
+    data->done = TRUE;
+    g_cond_broadcast(fm_vfs_menu_cond);
+    g_mutex_unlock(fm_vfs_menu_mutex);
+#endif
+    return FALSE;
+}
+
+static void _run_in_main_loop(GSourceFunc func, gpointer data)
+{
+    _main_context_data md;
+
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    md.done = FALSE;
+    md.func = func;
+    md.data = data;
+    g_main_context_invoke(NULL, _run_in_main_loop_real, &md);
+    g_mutex_lock(&fm_vfs_menu_mutex);
+    while(!md.done)
+        g_cond_wait(&fm_vfs_menu_cond, &fm_vfs_menu_mutex);
+    g_mutex_unlock(&fm_vfs_menu_mutex);
+#else
+    /* if we already in main loop then just run it */
+    if(g_main_context_is_owner(g_main_context_default()))
+        func(data);
+    /* if we can acquire context then do it */
+    else if(g_main_context_acquire(g_main_context_default()))
+    {
+        func(data);
+        g_main_context_release(g_main_context_default());
+    }
+    /* else add idle source and wait for return */
+    else
+    {
+        if(!fm_vfs_menu_mutex)
+            fm_vfs_menu_mutex = g_mutex_new();
+        if(!fm_vfs_menu_cond)
+            fm_vfs_menu_cond = g_cond_new();
+        md.done = FALSE;
+        md.func = func;
+        md.data = data;
+        g_idle_add(_run_in_main_loop_real, &md);
+        g_mutex_lock(fm_vfs_menu_mutex);
+        while(!md.done)
+            g_cond_wait(fm_vfs_menu_cond, fm_vfs_menu_mutex);
+        g_mutex_unlock(fm_vfs_menu_mutex);
+    }
+#endif
+}
 
 
 /* ---- FmMenuVFile class ---- */
@@ -189,22 +264,35 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item)
     return fileinfo;
 }
 
-static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
-                                                    GCancellable *cancellable,
-                                                    GError **error)
+typedef struct
 {
-    FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(enumerator);
+    union
+    {
+        FmVfsMenuEnumerator *enumerator;
+        const char *path_str;
+    };
+//    const char *attributes;
+//    GFileQueryInfoFlags flags;
+    GCancellable *cancellable;
+    GError **error;
+    gpointer result;
+} FmVfsMenuMainThreadData;
+
+static gboolean _fm_vfs_menu_enumerator_next_file_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    FmVfsMenuEnumerator *enu = init->enumerator;
     GSList *child = enu->child;
     MenuCacheItem *item;
-    GFileInfo *fileinfo = NULL;
+
+    init->result = NULL;
 
     if(child == NULL)
         goto done;
 
-    FM_MENU_CACHE_LOCK;
     for(; child; child = child->next)
     {
-        if(g_cancellable_set_error_if_cancelled(cancellable, error))
+        if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
             break;
         item = MENU_CACHE_ITEM(enu->child->data);
         /* also hide menu items which should be hidden in current DE. */
@@ -215,15 +303,27 @@ static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
            && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), enu->de_flag))
             continue;
 
-        fileinfo = _g_file_info_from_menu_cache_item(item);
+        init->result = _g_file_info_from_menu_cache_item(item);
         child = child->next;
         break;
     }
-    FM_MENU_CACHE_UNLOCK;
     enu->child = child;
 
 done:
-    return fileinfo;
+    return FALSE;
+}
+
+static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
+                                                    GCancellable *cancellable,
+                                                    GError **error)
+{
+    FmVfsMenuMainThreadData init;
+
+    init.enumerator = FM_VFS_MENU_ENUMERATOR(enumerator);
+    init.cancellable = cancellable;
+    init.error = error;
+    _run_in_main_loop(_fm_vfs_menu_enumerator_next_file_real, &init);
+    return init.result;
 }
 
 static gboolean _fm_vfs_menu_enumerator_close(GFileEnumerator *enumerator,
@@ -257,17 +357,15 @@ static void fm_vfs_menu_enumerator_init(FmVfsMenuEnumerator *enumerator)
     /* nothing */
 }
 
-static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
-                                                    const char *attributes,
-                                                    GFileQueryInfoFlags flags,
-                                                    GError **error)
+static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
 {
+    FmVfsMenuMainThreadData *init = data;
     FmVfsMenuEnumerator *enumerator;
     MenuCache* mc;
     const char *de_name;
     MenuCacheDir *dir;
 
-    FM_MENU_CACHE_LOCK;
+    init->result = NULL;
     mc = menu_cache_lookup_sync("applications.menu");
     /* ensure that the menu cache is loaded */
     if(mc == NULL) /* if it's not loaded */
@@ -292,10 +390,9 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
 
     if(mc == NULL) /* initialization failed */
     {
-        FM_MENU_CACHE_UNLOCK;
-        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
                             _("Menu cache error"));
-        return NULL;
+        return FALSE;
     }
 
     enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, NULL);
@@ -308,11 +405,11 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
         enumerator->de_flag = (guint32)-1;
 
     /* the menu should be loaded now */
-    if(path_str)
+    if(init->path_str)
     {
         char* tmp;
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
-                          "/", path_str, NULL);
+                          "/", init->path_str, NULL);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }
@@ -321,9 +418,24 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
     if(dir)
         enumerator->child = menu_cache_dir_get_children(dir);
     /* FIXME: do something with attributes and flags */
-    FM_MENU_CACHE_UNLOCK;
 
-    return G_FILE_ENUMERATOR(enumerator);
+    init->result = enumerator;
+    return FALSE;
+}
+
+static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
+                                                    const char *attributes,
+                                                    GFileQueryInfoFlags flags,
+                                                    GError **error)
+{
+    FmVfsMenuMainThreadData enu;
+
+    enu.path_str = path_str;
+//    enu.attributes = attributes;
+//    enu.flags = flags;
+    enu.error = error;
+    _run_in_main_loop(_fm_vfs_menu_enumerator_new_real, &enu);
+    return enu.result;
 }
 
 
@@ -511,6 +623,44 @@ static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
     return _fm_vfs_menu_enumerator_new(path, attributes, flags, error);
 }
 
+static gboolean _fm_vfs_menu_query_info_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheDir *dir;
+
+    init->result = NULL;
+    mc = menu_cache_lookup_sync("applications.menu");
+    if(mc == NULL)
+    {
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+        goto _mc_failed;
+    }
+
+    if(init->path_str)
+    {
+        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
+                                "/", init->path_str, NULL);
+        dir = menu_cache_get_dir_from_path(mc, tmp);
+        g_free(tmp);
+    }
+    else
+        dir = menu_cache_get_root_dir(mc);
+    if(dir)
+        init->result = _g_file_info_from_menu_cache_item(MENU_CACHE_ITEM(dir));
+    else
+    {
+        /* FIXME: how to access not dir? */
+        ERROR_UNSUPPORTED(init->error);
+    }
+
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
 static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
                                           const char *attributes,
                                           GFileQueryInfoFlags flags,
@@ -518,11 +668,10 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
                                           GError **error)
 {
     FmMenuVFile *item = FM_MENU_VFILE(file);
-    GFileInfo *info = NULL;
+    GFileInfo *info;
     GFileAttributeMatcher *matcher;
     char *basename;
-    MenuCache *mc;
-    MenuCacheDir *dir;
+    FmVfsMenuMainThreadData enu;
 
     matcher = g_file_attribute_matcher_new(attributes);
 
@@ -533,35 +682,13 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
        g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
     {
         /* retrieve matching attributes from menu-cache */
-        FM_MENU_CACHE_LOCK;
-        mc = menu_cache_lookup_sync("applications.menu");
-        if(mc == NULL)
-        {
-            g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                _("Menu cache error"));
-            goto _mc_failed;
-        }
-
-        if(item->path)
-        {
-            char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
-                                    "/", item->path, NULL);
-            dir = menu_cache_get_dir_from_path(mc, tmp);
-            g_free(tmp);
-        }
-        else
-            dir = menu_cache_get_root_dir(mc);
-        if(dir)
-            info = _g_file_info_from_menu_cache_item(MENU_CACHE_ITEM(dir));
-        else
-        {
-            /* FIXME: how to access not dir? */
-            ERROR_UNSUPPORTED(error);
-        }
-
-        menu_cache_unref(mc);
-_mc_failed:
-        FM_MENU_CACHE_UNLOCK;
+        enu.path_str = item->path;
+//        enu.attributes = attributes;
+//        enu.flags = flags;
+        enu.cancellable = cancellable;
+        enu.error = error;
+        _run_in_main_loop(_fm_vfs_menu_query_info_real, &enu);
+        info = enu.result;
     }
     else
     {
