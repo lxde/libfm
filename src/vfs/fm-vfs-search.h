@@ -1,5 +1,6 @@
 /*
- * fm-search-job.h
+ * fm-vfs-search.h
+ * VFS for "search://" path.
  * 
  * Copyright 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  * 
@@ -21,47 +22,16 @@
  * 
  */
 
+#ifndef _FM_VFS_SEARCH_H_
+#define _FM_VFS_SEARCH_H_ 1
 
-#ifndef __FM_SEARCH_JOB_H__
-#define __FM_SEARCH_JOB_H__
-
-#include "fm-dir-list-job.h"
+#include "fm-file.h"
 
 G_BEGIN_DECLS
 
-
-#define FM_TYPE_SEARCH_JOB				(fm_search_job_get_type())
-#define FM_SEARCH_JOB(obj)				(G_TYPE_CHECK_INSTANCE_CAST((obj),\
-			FM_TYPE_SEARCH_JOB, FmSearchJob))
-#define FM_SEARCH_JOB_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),\
-			FM_TYPE_SEARCH_JOB, FmSearchJobClass))
-#define FM_IS_SEARCH_JOB(obj)			(G_TYPE_CHECK_INSTANCE_TYPE((obj),\
-			FM_TYPE_SEARCH_JOB))
-#define FM_IS_SEARCH_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
-			FM_TYPE_SEARCH_JOB))
-#define FM_SEARCH_JOB_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj),\
-			FM_TYPE_SEARCH_JOB, FmSearchJobClass))
-
-typedef struct _FmSearchJob			FmSearchJob;
-typedef struct _FmSearchJobClass		FmSearchJobClass;
-typedef struct _FmSearchJobPrivate		FmSearchJobPrivate;
-
-struct _FmSearchJob
-{
-	FmDirListJob parent;
-	FmSearchJobPrivate *priv;
-};
-
-struct _FmSearchJobClass
-{
-	FmDirListJobClass parent_class;
-};
-
-
-GType fm_search_job_get_type(void);
-
-FmSearchJob* fm_search_job_new(FmPath* search_uri);
+/* interface table */
+FmFileInitTable _fm_vfs_search_init_table;
 
 G_END_DECLS
 
-#endif /* __FM_SEARCH_JOB_H__ */
+#endif /* _FM_VFS_SEARCH_H_ */

@@ -1,5 +1,5 @@
 /*
- * fm-search-job.c
+ * fm-vfs-search.c
  * 
  * Copyright 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  * Copyright 2010 Shae Smittle <starfall87@gmail.com>
@@ -22,8 +22,14 @@
  * 
  */
 
-#include "fm-search-job.h"
-#include "fm-path.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "fm-vfs-search.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,11 +38,76 @@
 #define _GNU_SOURCE /* for FNM_CASEFOLD in fnmatch.h, a GNU extension */
 #include <fnmatch.h>
 
-extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
-struct _FmSearchJobPrivate
+/* beforehand declarations */
+static gboolean fm_search_job_match_file(FmVfsSearchEnumerator * priv,
+                                         GFileInfo * info, GFile * parent,
+                                         GCancellable *cancellable,
+                                         GError **error);
+
+static void fm_search_job_match_folder(FmVfsSearchEnumerator * priv,
+                                       GFile * folder_path,
+                                       GCancellable *cancellable,
+                                       GError **error);
+
+static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str);
+
+
+/* ---- Directory iterator ---- */
+typedef struct _FmSearchIntIter FmSearchIntIter;
+
+struct _FmSearchIntIter
 {
-    GSList* target_folders;
+    FmSearchIntIter *parent; /* recursion path */
+    GFile *folder_path; /* path to folder */
+    GFileEnumerator *enu; /* children enumerator */
+};
+
+/* caller should g_object_ref(folder_path) if success */
+static inline FmSearchIntIter *_search_iter_new(FmSearchIntIter *parent,
+                                                const char *attributes,
+                                                GFile *folder_path,
+                                                GCancellable *cancellable,
+                                                GError **error)
+{
+    GFileEnumerator *enu;
+    FmSearchIntIter *iter;
+
+    enu = g_file_enumerate_children(folder_path, attributes,
+                                    G_FILE_QUERY_INFO_NONE, cancellable, error);
+    if(enu == NULL)
+        return NULL;
+    iter = g_slice_new(FmSearchIntIter);
+    iter->parent = parent;
+    iter->folder_path = folder_path;
+    iter->enu = enu;
+    return iter;
+}
+
+static inline void _search_iter_free(FmSearchIntIter *iter, GCancellable *cancellable)
+{
+    g_file_enumerator_close(iter->enu, cancellable, NULL);
+    g_object_unref(iter->enu);
+    g_object_unref(iter->folder_path);
+    g_slice_free(FmSearchIntIter, iter);
+}
+
+
+/* ---- search enumerator class ---- */
+#define FM_TYPE_VFS_SEACRH_ENUMERATOR      (fm_vfs_search_enumerator_get_type())
+#define FM_VFS_SEACRH_ENUMERATOR(o)        (G_TYPE_CHECK_INSTANCE_CAST((o),\
+                            FM_TYPE_VFS_SEACRH_ENUMERATOR, FmVfsSearchEnumerator))
+
+typedef struct _FmVfsSearchEnumerator         FmVfsSearchEnumerator;
+typedef struct _FmVfsSearchEnumeratorClass    FmVfsSearchEnumeratorClass;
+
+struct _FmVfsSearchEnumerator
+{
+    GFileEnumerator parent;
+
+    FmSearchIntIter* iter;
+    char* attributes;
+    GSList* target_folders; /* GFile */
     char** name_patterns;
     GRegex* name_regex;
     char* content_pattern;
@@ -52,44 +123,35 @@ struct _FmSearchJobPrivate
     gboolean show_hidden : 1;
 };
 
-G_DEFINE_TYPE(FmSearchJob, fm_search_job, FM_TYPE_DIR_LIST_JOB)
-
-static gboolean fm_search_job_run(FmJob* job);
-static void fm_search_job_dispose(GObject* object);
-
-static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path);
-static gboolean fm_search_job_match_file(FmSearchJob * job, GFileInfo * info, GFile * parent);
-
-static gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info);
-static gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info);
-static gboolean fm_search_job_match_size(FmSearchJob* job, GFileInfo* info);
-static gboolean fm_search_job_match_mtime(FmSearchJob* job, GFileInfo* info);
-static gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* parent);
-
-static void fm_search_job_class_init(FmSearchJobClass *klass)
+struct _FmVfsSearchEnumeratorClass
 {
-    GObjectClass* object_class = G_OBJECT_CLASS(klass);
-    FmJobClass* job_class = FM_JOB_CLASS(klass);
-    g_type_class_add_private((gpointer)klass, sizeof(FmSearchJobPrivate));
+    GFileEnumeratorClass parent_class;
+};
 
-    object_class->dispose = fm_search_job_dispose;
-    job_class->run = fm_search_job_run;
-}
+//static GType fm_vfs_search_enumerator_get_type   (void);
 
+G_DEFINE_TYPE(FmVfsSearchEnumerator, fm_vfs_search_enumerator, G_TYPE_FILE_ENUMERATOR)
 
-static void fm_search_job_init(FmSearchJob *job)
+static void _fm_vfs_search_enumerator_dispose(GObject *object)
 {
-    job->priv = G_TYPE_INSTANCE_GET_PRIVATE(job, FM_TYPE_SEARCH_JOB, FmSearchJobPrivate);
-    
-    fm_job_init_cancellable(FM_JOB(job));
-}
+    FmVfsSearchEnumerator *priv = FM_VFS_SEACRH_ENUMERATOR(object);
+    FmSearchIntIter *iter;
 
-static void fm_search_job_dispose(GObject* object)
-{
-    FmSearchJobPrivate* priv = FM_SEARCH_JOB(object)->priv;
+    while((iter = priv->iter))
+    {
+        priv->iter = iter->parent;
+        _search_iter_free(iter, cancellable);
+    }
+
+    if(priv->attributes)
+    {
+        g_free(priv->attributes);
+        priv->attributes = NULL;
+    }
+
     if(priv->target_folders)
     {
-        g_slist_foreach(priv->target_folders, (GFunc)fm_path_unref, NULL);
+        g_slist_foreach(priv->target_folders, (GFunc)g_object_unref, NULL);
         g_slist_free(priv->target_folders);
         priv->target_folders = NULL;
     }
@@ -105,13 +167,13 @@ static void fm_search_job_dispose(GObject* object)
         g_regex_unref(priv->name_regex);
         priv->name_regex = NULL;
     }
-    
+
     if(priv->content_pattern)
     {
         g_free(priv->content_pattern);
         priv->content_pattern = NULL;
     }
-    
+
     if(priv->content_regex)
     {
         g_regex_unref(priv->content_regex);
@@ -123,21 +185,120 @@ static void fm_search_job_dispose(GObject* object)
         g_strfreev(priv->mime_types);
         priv->mime_types = NULL;
     }
+
+    G_OBJECT_CLASS(fm_vfs_search_enumerator_parent_class)->dispose(object);
 }
 
-static gboolean fm_search_job_run(FmJob* job)
+static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerator,
+                                                      GCancellable *cancellable,
+                                                      GError **error)
 {
-    FmSearchJobPrivate* priv = FM_SEARCH_JOB(job)->priv;
-    GSList* l;
-    for(l = priv->target_folders; l; l = l->next)
+    FmVfsSearchEnumerator *enu = FM_VFS_SEACRH_ENUMERATOR(enumerator);
+    FmSearchIntIter *iter;
+    GFileInfo * file_info;
+    GError *err = NULL;
+
+    while(!g_cancellable_set_error_if_cancelled(cancellable, error))
     {
-        FmPath* folder_path = FM_PATH(l->data);
-        GFile* gf = fm_path_to_gfile(folder_path);
-        fm_search_job_match_folder(FM_SEARCH_JOB(job), gf);
-        g_object_unref(gf);
+        iter = enu->iter;
+        if(iter == NULL) /* ended with folder */
+        {
+            if(enu->target_folders == NULL)
+                break;
+            iter = _search_iter_new(NULL, enu->attributes,
+                                    enu->target_folders->data,
+                                    cancellable, error);
+            if(iter == NULL)
+                break;
+            /* data is moved into iter now so free link itself */
+            enu->target_folders = g_slist_delete_link(enu->target_folders,
+                                                      enu->target_folders);
+            continue;
+        }
+        file_info = g_file_enumerator_next_file(iter->enu, cancellable, &err);
+        if(file_info)
+        {
+            if(fm_search_job_match_file(enu, file_info, iter->folder_path,
+                                        cancellable, &err))
+                return file_info;
+
+            /* recurse upon each directory */
+            if(err == NULL && enu->recursive &&
+               g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
+            {
+                if(enu->show_hidden || !g_file_info_get_is_hidden(file_info))
+                {
+                    const char * name = g_file_info_get_name(file_info);
+                    GFile * file = g_file_get_child(iter->folder_path, name);
+                    /* go into directory and iterate it now */
+                    fm_search_job_match_folder(enu, file, cancellable, &err);
+                    g_object_unref(file);
+                }
+            }
+            g_object_unref(file_info);
+            if(err == NULL)
+                continue;
+        }
+        if(err != NULL) /* file_info == NULL */
+        {
+            g_propagate_error(error, err);
+            break;
+        }
+        /* else end of file list - go up */
+        enu->iter = iter->parent;
+        _search_iter_free(iter, cancellable);
+    }
+    return NULL;
+}
+
+static gboolean _fm_vfs_search_enumerator_close(GFileEnumerator *enumerator,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    FmSearchIntIter *iter;
+
+    while((iter = enu->iter))
+    {
+        enu->iter = iter->parent;
+        _search_iter_free(iter, cancellable);
     }
     return TRUE;
 }
+
+static void fm_vfs_search_enumerator_class_init(FmVfsSearchEnumeratorClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+  GFileEnumeratorClass *enumerator_class = G_FILE_ENUMERATOR_CLASS(klass);
+
+  gobject_class->dispose = _fm_vfs_search_enumerator_dispose;
+
+  enumerator_class->next_file = _fm_vfs_search_enumerator_next_file;
+  enumerator_class->close_fn = _fm_vfs_search_enumerator_close;
+}
+
+static void fm_vfs_search_enumerator_init(FmVfsSearchEnumerator *enumerator)
+{
+    /* nothing */
+}
+
+static GFileEnumerator *_fm_vfs_search_enumerator_new(const char *path_str,
+                                                      const char *attributes,
+                                                      GFileQueryInfoFlags flags,
+                                                      GError **error)
+{
+    FmVfsSearchEnumerator *enumerator;
+
+    enumerator = g_object_new(FM_TYPE_VFS_SEACRH_ENUMERATOR, NULL);
+
+    enumerator->attributes = g_strdup(attributes);
+    parse_search_uri(enumerator, path_str);
+    /* FIXME: don't ignore flags */
+
+    return G_FILE_ENUMERATOR(enumerator);
+}
+
+
+/* ---- The search engine ---- */
 
 /*
  * name: parse_date_str
@@ -152,10 +313,10 @@ static time_t parse_date_str(const char* str)
         struct tm timeinfo = {0};
         if(sscanf(str, "%04d-%02d-%02d", &timeinfo.tm_year, &timeinfo.tm_mon, &timeinfo.tm_mday) == 3)
         {
-			timeinfo.tm_year -= 1900; /* should be years since 1900 */
-			--timeinfo.tm_mon; /* month should be 0-11 */
+            timeinfo.tm_year -= 1900; /* should be years since 1900 */
+            --timeinfo.tm_mon; /* month should be 0-11 */
             return mktime(&timeinfo);
-		}
+        }
     }
     return 0;
 }
@@ -192,13 +353,12 @@ static time_t parse_date_str(const char* str)
  * URI, they should be escaped.
  * 
  */
-static void parse_search_uri(FmSearchJob* job, FmPath* uri)
+static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
 {
-    FmSearchJobPrivate* priv = job->priv;
-    if(fm_path_is_search(uri))
+    const char *scheme = "search:/";
+    if(g_ascii_strncasecmp(uri_str, scheme, sizeof(scheme)) == 0)
     {
-        char* uri_str = fm_path_to_str(uri);
-        char* p = uri_str + strlen("search:/"); /* skip scheme part */
+        char* p = uri_str + sizeof(scheme); /* skip scheme part */
         char* params = strchr(p, '?');
         char* name_regex = NULL;
         char* content_regex = NULL;
@@ -213,14 +373,13 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
         /* add folder paths */
         for(; *p; ++p)
         {
-            FmPath* path;
             char* sep = strchr(p, ':'); /* use : to separate multiple paths */
             if(sep)
                 *sep = '\0';
-            path = fm_path_new_for_str(p);
             /* g_print("target folder path: %s\n", p); */
             /* add the path to target folders */
-            priv->target_folders = g_slist_prepend(priv->target_folders, path);
+            priv->target_folders = g_slist_prepend(priv->target_folders,
+                                                   g_file_new_for_path(p));
 
             if(sep)
             {
@@ -312,7 +471,7 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                 else
                     break;
             }
-            
+
             if(name_regex)
             {
                 GRegexCompileFlags flags = 0;
@@ -320,7 +479,7 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                     flags |= G_REGEX_CASELESS;
                 priv->name_regex = g_regex_new(name_regex, flags, 0, NULL);
             }
-            
+
             if(content_regex)
             {
                 GRegexCompileFlags flags = 0;
@@ -339,127 +498,27 @@ static void parse_search_uri(FmSearchJob* job, FmPath* uri)
                 }
             }
         }
-        g_free(uri_str);
     }
 }
 
-FmSearchJob* fm_search_job_new(FmPath* search_uri)
+static void fm_search_job_match_folder(FmVfsSearchEnumerator * priv,
+                                       GFile * folder_path,
+                                       GCancellable *cancellable,
+                                       GError **error)
 {
-    FmSearchJob* job = (FmSearchJob*)g_object_new(FM_TYPE_SEARCH_JOB, NULL);
-    FmFileInfo* info = fm_file_info_new();
-    fm_file_info_set_path(info, search_uri);
-    fm_dir_list_job_set_emit_files_found(FM_DIR_LIST_JOB(job), TRUE);
-    fm_dir_list_job_set_dir_path(FM_DIR_LIST_JOB(job), search_uri);
-    fm_dir_list_job_set_dir_info(FM_DIR_LIST_JOB(job), info);
-    fm_file_info_unref(info);
+    FmSearchIntIter *iter;
 
-    parse_search_uri(job, search_uri);
-
-    return job;
+    /* FIXME: make error if NULL */
+    iter = _search_iter_new(priv->iter, priv->attributes, folder_path,
+                            cancellable, error);
+    if(iter == NULL) /* error */
+        return;
+    g_object_ref(folder_path); /* it's copied into iter */
+    priv->iter = iter;
 }
 
-
-static void fm_search_job_match_folder(FmSearchJob * job, GFile * folder_path)
+gboolean fm_search_job_match_filename(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
-    FmSearchJobPrivate* priv = job->priv;
-    GError * error = NULL;
-    FmJobErrorAction action = FM_JOB_CONTINUE;
-    GFileEnumerator * enumerator = g_file_enumerate_children(folder_path,
-                                            gfile_info_query_attribs,
-                                            G_FILE_QUERY_INFO_NONE,
-                                            fm_job_get_cancellable(FM_JOB(job)),
-                                            &error);
-
-    /* FIXME and TODO: handle mangled symlinks */
-
-    if(enumerator == NULL)
-        action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
-    else /* enumerator opened correctly */
-    {
-        while(!fm_job_is_cancelled(FM_JOB(job)))
-        {
-            GFileInfo * file_info = g_file_enumerator_next_file(enumerator,
-                                fm_job_get_cancellable(FM_JOB(job)), &error);
-            if(file_info)
-            {
-                if(fm_search_job_match_file(job, file_info, folder_path))
-                {
-                    const char * name = g_file_info_get_name(file_info); /* does not need to be freed */
-                    GFile *file = g_file_get_child(folder_path, name);
-                    FmPath * path = fm_path_new_for_gfile(file);
-                    FmFileInfo * info = fm_file_info_new_from_gfileinfo(path, file_info);
-                    g_object_unref(file);
-
-                    fm_dir_list_job_add_found_file(FM_DIR_LIST_JOB(job), info);
-
-                    fm_file_info_unref(info);
-                    fm_path_unref(path);
-                }
-
-                /* recurse upon each directory */
-                if(priv->recursive && g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
-                {
-                    if(priv->show_hidden || !g_file_info_get_is_hidden(file_info))
-                    {
-                        const char * name = g_file_info_get_name(file_info);
-                        GFile * file = g_file_get_child(folder_path, name);
-                        fm_search_job_match_folder(job, file);
-                        g_object_unref(file);
-                    }
-                }
-                g_object_unref(file_info);
-            }
-            else /* file_info == NULL */
-            {
-                if(error != NULL) /* this should catch g_file_enumerator_next_file errors if they pop up */
-                {
-                    action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
-                    g_error_free(error);
-                    error = NULL;
-                    if(action == FM_JOB_ABORT)
-                        break;
-                }
-                else /* end of file list */
-                    break;
-            }
-        }
-        g_file_enumerator_close(enumerator, fm_job_get_cancellable(FM_JOB(job)), NULL);
-        g_object_unref(enumerator);
-    }
-
-    if(action == FM_JOB_ABORT )
-        fm_job_cancel(FM_JOB(job));
-}
-
-
-static gboolean fm_search_job_match_file(FmSearchJob * job, GFileInfo * info, GFile * parent)
-{
-    FmSearchJobPrivate* priv = job->priv;
-
-    if(!priv->show_hidden && g_file_info_get_is_hidden(info))
-        return FALSE;
-
-    if(!fm_search_job_match_filename(job, info))
-        return FALSE;
-
-    if(!fm_search_job_match_file_type(job, info))
-        return FALSE;
-
-    if(!fm_search_job_match_size(job, info))
-        return FALSE;
-
-    if(!fm_search_job_match_mtime(job, info))
-        return FALSE;
-
-    if(!fm_search_job_match_content(job, info, parent))
-        return FALSE;
-
-    return TRUE;
-}
-
-gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info)
-{
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret;
 
     if(priv->name_regex)
@@ -488,18 +547,19 @@ gboolean fm_search_job_match_filename(FmSearchJob* job, GFileInfo* info)
     return ret;
 }
 
-static gboolean fm_search_job_match_content_line_based(FmSearchJob* job, GFileInfo* info, GInputStream* stream)
+static gboolean fm_search_job_match_content_line_based(FmVfsSearchEnumerator* priv,
+                                                       GFileInfo* info,
+                                                       GInputStream* stream,
+                                                       GCancellable* cancellable,
+                                                       GError** error)
 {
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret = FALSE;
-    GCancellable* cancellable = fm_job_get_cancellable(FM_JOB(job));
     /* create a buffered data input stream for line-based I/O */
     GDataInputStream *input_stream = g_data_input_stream_new(stream);
     do
     {
         gsize line_len;
-        GError* error = NULL;
-        char* line = g_data_input_stream_read_line(input_stream, &line_len, cancellable, &error);
+        char* line = g_data_input_stream_read_line(input_stream, &line_len, cancellable, error);
         if(line == NULL) /* error or EOF */
             break;
         if(priv->content_regex)
@@ -535,9 +595,12 @@ static gboolean fm_search_job_match_content_line_based(FmSearchJob* job, GFileIn
     return ret;
 }
 
-static gboolean fm_search_job_match_content_exact(FmSearchJob* job, GFileInfo* info, GInputStream* stream)
+static gboolean fm_search_job_match_content_exact(FmVfsSearchEnumerator* priv,
+                                                  GFileInfo* info,
+                                                  GInputStream* stream,
+                                                  GCancellable* cancellable,
+                                                  GError** error)
 {
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret = FALSE;
     char *buf, *pbuf;
     gssize size;
@@ -555,7 +618,7 @@ static gboolean fm_search_job_match_content_exact(FmSearchJob* job, GFileInfo* i
     for(;;)
     {
         char* found;
-        size = g_input_stream_read(stream, pbuf, bytes_to_read, fm_job_get_cancellable(FM_JOB(job)), NULL);
+        size = g_input_stream_read(stream, pbuf, bytes_to_read, cancellable, error);
         if(size <=0) /* EOF or error */
             break;
         pbuf[size] = '\0'; /* make the string null terminated */
@@ -582,21 +645,21 @@ static gboolean fm_search_job_match_content_exact(FmSearchJob* job, GFileInfo* i
     return ret;
 }
 
-gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* parent)
+gboolean fm_search_job_match_content(FmVfsSearchEnumerator* priv,
+                                     GFileInfo* info, GFile* parent,
+                                     GCancellable* cancellable, GError** error)
 {
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret;
     if(priv->content_pattern || priv->content_regex)
     {
         ret = FALSE;
         if(g_file_info_get_file_type(info) == G_FILE_TYPE_REGULAR && g_file_info_get_size(info) > 0)
         {
-            GError * error = NULL;
             GFile* file = g_file_get_child(parent, g_file_info_get_name(info));
             /* NOTE: I disabled mmap-based search since this could cause
              * unexpected crashes sometimes if the mapped files are
              * removed or changed during the search. */
-            GFileInputStream * stream = g_file_read(file, fm_job_get_cancellable(FM_JOB(job)), &error);
+            GFileInputStream * stream = g_file_read(file, cancellable, error);
             g_object_unref(file);
 
             if(stream)
@@ -606,27 +669,20 @@ gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* p
                     /* stream based search optimized for case sensitive
                      * exact match. */
                     ret = fm_search_job_match_content_exact(job, info,
-                                                        G_INPUT_STREAM(stream));
+                                                        G_INPUT_STREAM(stream),
+                                                        cancellable, error);
                 }
                 else
                 {
                     /* grep-like regexp search and case insensitive search
                      * are line-based. */
                     ret = fm_search_job_match_content_line_based(job, info,
-                                                        G_INPUT_STREAM(stream));
+                                                        G_INPUT_STREAM(stream),
+                                                        cancellable, error);
                 }
 
-                g_input_stream_close(G_INPUT_STREAM(stream), NULL, NULL);
+                g_input_stream_close(G_INPUT_STREAM(stream), cancellable, NULL);
                 g_object_unref(stream);
-            }
-            else
-            {
-                FmJobErrorAction action = FM_JOB_CONTINUE;
-                action = fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_MILD);
-                g_error_free(error);
-
-                if(action == FM_JOB_ABORT)
-                    fm_job_cancel(FM_JOB(job));
             }
         }
     }
@@ -635,9 +691,8 @@ gboolean fm_search_job_match_content(FmSearchJob* job, GFileInfo* info, GFile* p
     return ret;
 }
 
-gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info)
+gboolean fm_search_job_match_file_type(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret;
     if(priv->mime_types)
     {
@@ -671,9 +726,8 @@ gboolean fm_search_job_match_file_type(FmSearchJob* job, GFileInfo* info)
     return ret;
 }
 
-gboolean fm_search_job_match_size(FmSearchJob* job, GFileInfo* info)
+gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
-    FmSearchJobPrivate* priv = job->priv;
     guint64 size = g_file_info_get_size(info);
     gboolean ret = TRUE;
     if(priv->min_size > 0 && size < priv->min_size)
@@ -683,9 +737,8 @@ gboolean fm_search_job_match_size(FmSearchJob* job, GFileInfo* info)
     return ret;
 }
 
-gboolean fm_search_job_match_mtime(FmSearchJob* job, GFileInfo* info)
+gboolean fm_search_job_match_mtime(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
-    FmSearchJobPrivate* priv = job->priv;
     gboolean ret = TRUE;
     if(priv->min_mtime || priv->max_mtime)
     {
@@ -699,4 +752,487 @@ gboolean fm_search_job_match_mtime(FmSearchJob* job, GFileInfo* info)
     return ret;
 }
 
+static gboolean fm_search_job_match_file(FmVfsSearchEnumerator * priv,
+                                         GFileInfo * info, GFile * parent,
+                                         GCancellable *cancellable,
+                                         GError **error)
+{
+    if(!priv->show_hidden && g_file_info_get_is_hidden(info))
+        return FALSE;
+
+    if(!fm_search_job_match_filename(priv, info))
+        return FALSE;
+
+    if(!fm_search_job_match_file_type(priv, info))
+        return FALSE;
+
+    if(!fm_search_job_match_size(priv, info))
+        return FALSE;
+
+    if(!fm_search_job_match_mtime(priv, info))
+        return FALSE;
+
+    if(!fm_search_job_match_content(priv, info, parent, cancellable, error))
+        return FALSE;
+
+    return TRUE;
+}
+
+
 /* end of rule functions */
+
+/* ---- FmSearchVFile class ---- */
+#define FM_TYPE_SEARCH_VFILE           (fm_vfs_search_file_get_type())
+#define FM_SEARCH_VFILE(o)             (G_TYPE_CHECK_INSTANCE_CAST((o), \
+                                        FM_TYPE_SEARCH_VFILE, FmSearchVFile))
+
+typedef struct _FmSearchVFile           FmSearchVFile;
+typedef struct _FmSearchVFileClass      FmSearchVFileClass;
+
+//GType fm_vfs_search_file_get_type        (void);
+
+struct _FmSearchVFile
+{
+    GObject parent_object;
+
+    char *path;
+};
+
+struct _FmSearchVFileClass
+{
+  GObjectClass parent_class;
+};
+
+static void fm_search_g_file_init(GFileIface *iface);
+static void fm_search_fm_file_init(FmFileInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE(FmSearchVFile, fm_vfs_search_file, G_TYPE_OBJECT,
+                        G_IMPLEMENT_INTERFACE(G_TYPE_FILE, fm_search_g_file_init)
+                        G_IMPLEMENT_INTERFACE(FM_TYPE_FILE, fm_search_fm_file_init))
+
+static void fm_vfs_search_file_finalize(GObject *object)
+{
+    FmSearchVFile *item = FM_SEARCH_VFILE(object);
+
+    g_free(item->path);
+
+    G_OBJECT_CLASS(fm_vfs_search_file_parent_class)->finalize(object);
+}
+
+static void fm_vfs_search_file_class_init(FmSearchVFileClass *klass)
+{
+    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+    gobject_class->finalize = fm_vfs_search_file_finalize;
+}
+
+static void fm_vfs_search_file_init(FmSearchVFile *item)
+{
+    /* nothing */
+}
+
+static FmSearchVFile *_fm_search_vfile_new(void)
+{
+    return (FmSearchVFile*)g_object_new(FM_TYPE_SEARCH_VFILE, NULL);
+}
+
+
+/* ---- GFile implementation ---- */
+#define ERROR_UNSUPPORTED(err) g_set_error_literal(err, G_IO_ERROR, \
+                        G_IO_ERROR_NOT_SUPPORTED, _("Operation not supported"))
+
+static GFile *_fm_vfs_search_dup(GFile *file)
+{
+    FmSearchVFile *item, *new_item;
+
+    item = FM_SEARCH_VFILE(file);
+    new_item = _fm_search_vfile_new();
+    if(item->path)
+        new_item->path = g_strdup(item->path);
+    return (GFile*)new_item;
+}
+
+static guint _fm_vfs_search_hash(GFile *file)
+{
+    return g_str_hash(FM_SEARCH_VFILE(file)->path);
+}
+
+static gboolean _fm_vfs_search_equal(GFile *file1, GFile *file2)
+{
+    char *path1 = FM_SEARCH_VFILE(file1)->path;
+    char *path2 = FM_SEARCH_VFILE(file2)->path;
+
+    return g_str_equal(path1, path2);
+}
+
+static gboolean _fm_vfs_search_is_native(GFile *file)
+{
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_has_uri_scheme(GFile *file, const char *uri_scheme)
+{
+    return g_ascii_strcasecmp(uri_scheme, "search") == 0;
+}
+
+static char *_fm_vfs_search_get_uri_scheme(GFile *file)
+{
+    return g_strdup("search");
+}
+
+static char *_fm_vfs_search_get_basename(GFile *file)
+{
+    return g_strdup("/");
+}
+
+static char *_fm_vfs_search_get_path(GFile *file)
+{
+    return NULL;
+}
+
+static char *_fm_vfs_search_get_uri(GFile *file)
+{
+    return g_strdup(FM_SEARCH_VFILE(file)->path);
+}
+
+static char *_fm_vfs_search_get_parse_name(GFile *file)
+{
+    /* FIXME: need name to be converted to UTF-8? */
+    return g_strdup(_("Search"));
+}
+
+static GFile *_fm_vfs_search_get_parent(GFile *file)
+{
+    return NULL;
+}
+
+static gboolean _fm_vfs_search_prefix_matches(GFile *prefix, GFile *file)
+{
+    return FALSE;
+}
+
+static char *_fm_vfs_search_get_relative_path(GFile *parent, GFile *descendant)
+{
+    return NULL;
+}
+
+static GFile *_fm_vfs_search_resolve_relative_path(GFile *file, const char *relative_path)
+{
+    FmSearchVFile *new_item;
+
+    g_return_val_if_fail(file != NULL && relative_path != NULL && *relative_path == '\0', NULL);
+
+    new_item = _fm_search_vfile_new();
+    new_item->path = g_strdup(FM_SEARCH_VFILE(file)->path);
+    return (GFile*)new_item;
+}
+
+static GFile *_fm_vfs_search_get_child_for_display_name(GFile *file,
+                                                        const char *display_name,
+                                                        GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileEnumerator *_fm_vfs_search_enumerate_children(GFile *file,
+                                                          const char *attributes,
+                                                          GFileQueryInfoFlags flags,
+                                                          GCancellable *cancellable,
+                                                          GError **error)
+{
+    const char *path = FM_SEARCH_VFILE(file)->path;
+
+    return _fm_vfs_search_enumerator_new(path, attributes, flags, error);
+}
+
+static GFileInfo *_fm_vfs_search_query_info(GFile *file,
+                                            const char *attributes,
+                                            GFileQueryInfoFlags flags,
+                                            GCancellable *cancellable,
+                                            GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileInfo *_fm_vfs_search_query_filesystem_info(GFile *file,
+                                                       const char *attributes,
+                                                       GCancellable *cancellable,
+                                                       GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GMount *_fm_vfs_search_find_enclosing_mount(GFile *file,
+                                                   GCancellable *cancellable,
+                                                   GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFile *_fm_vfs_search_set_display_name(GFile *file,
+                                              const char *display_name,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileAttributeInfoList *_fm_vfs_search_query_settable_attributes(GFile *file,
+                                                                        GCancellable *cancellable,
+                                                                        GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileAttributeInfoList *_fm_vfs_search_query_writable_namespaces(GFile *file,
+                                                                        GCancellable *cancellable,
+                                                                        GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static gboolean _fm_vfs_search_set_attribute(GFile *file,
+                                             const char *attribute,
+                                             GFileAttributeType type,
+                                             gpointer value_p,
+                                             GFileQueryInfoFlags flags,
+                                             GCancellable *cancellable,
+                                             GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_set_attributes_from_info(GFile *file,
+                                                        GFileInfo *info,
+                                                        GFileQueryInfoFlags flags,
+                                                        GCancellable *cancellable,
+                                                        GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static GFileInputStream *_fm_vfs_search_read_fn(GFile *file,
+                                                GCancellable *cancellable,
+                                                GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileOutputStream *_fm_vfs_search_append_to(GFile *file,
+                                                   GFileCreateFlags flags,
+                                                   GCancellable *cancellable,
+                                                   GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileOutputStream *_fm_vfs_search_create(GFile *file,
+                                                GFileCreateFlags flags,
+                                                GCancellable *cancellable,
+                                                GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileOutputStream *_fm_vfs_search_replace(GFile *file,
+                                                 const char *etag,
+                                                 gboolean make_backup,
+                                                 GFileCreateFlags flags,
+                                                 GCancellable *cancellable,
+                                                 GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static gboolean _fm_vfs_search_delete_file(GFile *file,
+                                           GCancellable *cancellable,
+                                           GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_trash(GFile *file,
+                                     GCancellable *cancellable,
+                                     GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_make_directory(GFile *file,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_make_symbolic_link(GFile *file,
+                                                  const char *symlink_value,
+                                                  GCancellable *cancellable,
+                                                  GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_copy(GFile *source,
+                                    GFile *destination,
+                                    GFileCopyFlags flags,
+                                    GCancellable *cancellable,
+                                    GFileProgressCallback progress_callback,
+                                    gpointer progress_callback_data,
+                                    GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_search_move(GFile *source,
+                                    GFile *destination,
+                                    GFileCopyFlags flags,
+                                    GCancellable *cancellable,
+                                    GFileProgressCallback progress_callback,
+                                    gpointer progress_callback_data,
+                                    GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static GFileMonitor *_fm_vfs_search_monitor_dir(GFile *file,
+                                                GFileMonitorFlags flags,
+                                                GCancellable *cancellable,
+                                                GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileMonitor *_fm_vfs_search_monitor_file(GFile *file,
+                                                 GFileMonitorFlags flags,
+                                                 GCancellable *cancellable,
+                                                 GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+#if GLIB_CHECK_VERSION(2, 22, 0)
+static GFileIOStream *_fm_vfs_search_open_readwrite(GFile *file,
+                                                    GCancellable *cancellable,
+                                                    GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileIOStream *_fm_vfs_search_create_readwrite(GFile *file,
+                                                      GFileCreateFlags flags,
+                                                      GCancellable *cancellable,
+                                                      GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileIOStream *_fm_vfs_search_replace_readwrite(GFile *file,
+                                                       const char *etag,
+                                                       gboolean make_backup,
+                                                       GFileCreateFlags flags,
+                                                       GCancellable *cancellable,
+                                                       GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+#endif /* Glib >= 2.22 */
+
+static void fm_search_g_file_init(GFileIface *iface)
+{
+    iface->dup = _fm_vfs_search_dup;
+    iface->hash = _fm_vfs_search_hash;
+    iface->equal = _fm_vfs_search_equal;
+    iface->is_native = _fm_vfs_search_is_native;
+    iface->has_uri_scheme = _fm_vfs_search_has_uri_scheme;
+    iface->get_uri_scheme = _fm_vfs_search_get_uri_scheme;
+    iface->get_basename = _fm_vfs_search_get_basename;
+    iface->get_path = _fm_vfs_search_get_path;
+    iface->get_uri = _fm_vfs_search_get_uri;
+    iface->get_parse_name = _fm_vfs_search_get_parse_name;
+    iface->get_parent = _fm_vfs_search_get_parent;
+    iface->prefix_matches = _fm_vfs_search_prefix_matches;
+    iface->get_relative_path = _fm_vfs_search_get_relative_path;
+    iface->resolve_relative_path = _fm_vfs_search_resolve_relative_path;
+    iface->get_child_for_display_name = _fm_vfs_search_get_child_for_display_name;
+    iface->enumerate_children = _fm_vfs_search_enumerate_children;
+    iface->query_info = _fm_vfs_search_query_info;
+    iface->query_filesystem_info = _fm_vfs_search_query_filesystem_info;
+    iface->find_enclosing_mount = _fm_vfs_search_find_enclosing_mount;
+    iface->set_display_name = _fm_vfs_search_set_display_name;
+    iface->query_settable_attributes = _fm_vfs_search_query_settable_attributes;
+    iface->query_writable_namespaces = _fm_vfs_search_query_writable_namespaces;
+    iface->set_attribute = _fm_vfs_search_set_attribute;
+    iface->set_attributes_from_info = _fm_vfs_search_set_attributes_from_info;
+    iface->read_fn = _fm_vfs_search_read_fn;
+    iface->append_to = _fm_vfs_search_append_to;
+    iface->create = _fm_vfs_search_create;
+    iface->replace = _fm_vfs_search_replace;
+    iface->delete_file = _fm_vfs_search_delete_file;
+    iface->trash = _fm_vfs_search_trash;
+    iface->make_directory = _fm_vfs_search_make_directory;
+    iface->make_symbolic_link = _fm_vfs_search_make_symbolic_link;
+    iface->copy = _fm_vfs_search_copy;
+    iface->move = _fm_vfs_search_move;
+    iface->monitor_dir = _fm_vfs_search_monitor_dir;
+    iface->monitor_file = _fm_vfs_search_monitor_file;
+#if GLIB_CHECK_VERSION(2, 22, 0)
+    iface->open_readwrite = _fm_vfs_search_open_readwrite;
+    iface->create_readwrite = _fm_vfs_search_create_readwrite;
+    iface->replace_readwrite = _fm_vfs_search_replace_readwrite;
+    iface->supports_thread_contexts = TRUE;
+#endif /* Glib >= 2.22 */
+}
+
+
+/* ---- FmFile implementation ---- */
+static gboolean _fm_vfs_search_wants_incremental(FmFile* file)
+{
+    return TRUE;
+}
+
+static void fm_search_fm_file_init(FmFileInterface *iface)
+{
+    iface->wants_incremental = _fm_vfs_search_wants_incremental;
+}
+
+
+/* ---- interface for loading ---- */
+static GFile *_fm_vfs_search_new_for_uri_name(const char *uri)
+{
+    FmSearchVFile *item;
+
+    g_return_val_if_fail(uri != NULL, NULL);
+    item = _fm_search_vfile_new();
+    item->path = g_strdup(uri);
+    return (GFile*)item;
+}
+
+FmFileInitTable _fm_vfs_search_init_table =
+{
+    .new_for_uri_name = &_fm_vfs_search_new_for_uri_name
+};
