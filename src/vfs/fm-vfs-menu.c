@@ -196,7 +196,11 @@ typedef struct
     };
 //    const char *attributes;
 //    GFileQueryInfoFlags flags;
-    GCancellable *cancellable;
+    union
+    {
+        GCancellable *cancellable;
+        GFile *file;
+    };
     GError **error;
     gpointer result;
 } FmVfsMenuMainThreadData;
@@ -318,7 +322,8 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
         return FALSE;
     }
 
-    enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, NULL);
+    enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, "container",
+                              init->file, NULL);
     enumerator->mc = mc;
     de_name = g_getenv("XDG_CURRENT_DESKTOP");
 
@@ -346,7 +351,8 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     return FALSE;
 }
 
-static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
+static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
+                                                    const char *path_str,
                                                     const char *attributes,
                                                     GFileQueryInfoFlags flags,
                                                     GError **error)
@@ -356,6 +362,7 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
     enu.path_str = path_str;
 //    enu.attributes = attributes;
 //    enu.flags = flags;
+    enu.file = file;
     enu.error = error;
     fm_run_in_default_main_context(_fm_vfs_menu_enumerator_new_real, &enu);
     return enu.result;
@@ -543,7 +550,7 @@ static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
 {
     const char *path = FM_MENU_VFILE(file)->path;
 
-    return _fm_vfs_menu_enumerator_new(path, attributes, flags, error);
+    return _fm_vfs_menu_enumerator_new(file, path, attributes, flags, error);
 }
 
 static gboolean _fm_vfs_menu_query_info_real(gpointer data)
