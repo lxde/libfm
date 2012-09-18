@@ -33,7 +33,7 @@
 #include "fm-file-info.h"
 
 /* beforehand declarations */
-static GFile *_fm_vfs_menu_new_for_uri_name(const char *uri);
+static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
 
 
 /* ---- FmMenuVFile class ---- */
@@ -409,7 +409,7 @@ static GFile *_fm_vfs_menu_get_parent(GFile *file)
         else
             path = dirname;
     }
-    parent = _fm_vfs_menu_new_for_uri_name(path);
+    parent = _fm_vfs_menu_new_for_uri(path);
     if(path)
         g_free(path);
     return parent;
@@ -848,7 +848,7 @@ static void fm_menu_fm_file_init(FmFileInterface *iface)
 
 
 /* ---- interface for loading ---- */
-static GFile *_fm_vfs_menu_new_for_uri_name(const char *uri)
+static GFile *_fm_vfs_menu_new_for_uri(const char *uri)
 {
     FmMenuVFile *item = _fm_menu_vfile_new();
 
@@ -876,5 +876,5 @@ static GFile *_fm_vfs_menu_new_for_uri_name(const char *uri)
 
 FmFileInitTable _fm_vfs_menu_init_table =
 {
-    .new_for_uri_name = &_fm_vfs_menu_new_for_uri_name
+    .new_for_uri = &_fm_vfs_menu_new_for_uri
 };

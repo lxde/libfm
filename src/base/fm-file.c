@@ -128,8 +128,8 @@ GFile *fm_file_new_for_uri(const char *uri)
     if(scheme)
     {
         iface = fm_find_scheme(scheme);
-        if(iface && iface->new_for_uri_name)
-            file = iface->new_for_uri_name(&uri[strlen(scheme)+1]);
+        if(iface && iface->new_for_uri)
+            file = iface->new_for_uri(uri);
         g_free(scheme);
         if(file)
             return file;
@@ -161,8 +161,8 @@ GFile *fm_file_new_for_commandline_arg(const char *arg)
     if(scheme)
     {
         iface = fm_find_scheme(scheme);
-        if(iface && iface->new_for_uri_name)
-            file = iface->new_for_uri_name(&arg[strlen(scheme)+1]);
+        if(iface && iface->new_for_uri)
+            file = iface->new_for_uri(arg);
         g_free(scheme);
         if(file)
             return file;

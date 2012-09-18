@@ -55,14 +55,14 @@ typedef struct _FmFileInitTable         FmFileInitTable;
 
 /**
  * FmFileInitTable:
- * @new_for_uri_name: function to create new #GFile object from URI
+ * @new_for_uri: function to create new #GFile object from URI
  *
  * Functions to initialize FmFile instance.
  */
 struct _FmFileInitTable
 {
     /*< public >*/
-    GFile * (*new_for_uri_name)(const char *uri);
+    GFile * (*new_for_uri)(const char *uri);
 };
 
 GType           fm_file_get_type(void);
