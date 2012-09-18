@@ -1091,6 +1091,7 @@ fm_canonicalize_filename
 fm_file_size_to_str
 fm_key_file_get_bool
 fm_key_file_get_int
+fm_run_in_default_main_context
 fm_strdup_replace
 </SECTION>
 

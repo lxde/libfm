@@ -70,6 +70,8 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd);
 
 char* fm_strdup_replace(char* str, char* old_str, char* new_str);
 
+gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data);
+
 G_END_DECLS
 
 #endif

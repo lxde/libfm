@@ -380,3 +380,94 @@ int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
     *ret = g_string_free(buf, FALSE);
     return hits;
 }
+
+
+/* ---- run menu cache in main context ---- */
+/* Lock for main context run. */
+#if GLIB_CHECK_VERSION(2, 32, 0)
+static GMutex main_loop_run_mutex;
+static GCond main_loop_run_cond;
+#else
+static GMutex *main_loop_run_mutex = NULL;
+static GCond *main_loop_run_cond = NULL;
+#endif
+
+typedef struct
+{
+    gboolean done;
+    GSourceFunc func;
+    gpointer data;
+    gboolean result;
+} _main_context_data;
+
+static gboolean _fm_run_in_default_main_context_real(gpointer user_data)
+{
+    _main_context_data *data = user_data;
+    data->result = data->func(data->data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&main_loop_run_mutex);
+    data->done = TRUE;
+    g_cond_broadcast(&main_loop_run_cond);
+    g_mutex_unlock(&main_loop_run_mutex);
+#else
+    g_mutex_lock(main_loop_run_mutex);
+    data->done = TRUE;
+    g_cond_broadcast(main_loop_run_cond);
+    g_mutex_unlock(main_loop_run_mutex);
+#endif
+    return FALSE;
+}
+
+/**
+ * fm_run_in_default_main_context
+ * @func: function to run
+ * @data: data supplied for @func
+ *
+ * Runs @func once in global main loop with supplied @data.
+ *
+ * Returns: output of @func.
+ *
+ * Since: 1.0.2
+ */
+gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data)
+{
+    _main_context_data md;
+
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    md.done = FALSE;
+    md.func = func;
+    md.data = data;
+    g_main_context_invoke(NULL, _fm_run_in_default_main_context_real, &md);
+    g_mutex_lock(&main_loop_run_mutex);
+    while(!md.done)
+        g_cond_wait(&main_loop_run_cond, &main_loop_run_mutex);
+    g_mutex_unlock(&main_loop_run_mutex);
+#else
+    /* if we already in main loop then just run it */
+    if(g_main_context_is_owner(g_main_context_default()))
+        md.result = func(data);
+    /* if we can acquire context then do it */
+    else if(g_main_context_acquire(g_main_context_default()))
+    {
+        md.result = func(data);
+        g_main_context_release(g_main_context_default());
+    }
+    /* else add idle source and wait for return */
+    else
+    {
+        if(!main_loop_run_mutex)
+            main_loop_run_mutex = g_mutex_new();
+        if(!main_loop_run_cond)
+            main_loop_run_cond = g_cond_new();
+        md.done = FALSE;
+        md.func = func;
+        md.data = data;
+        g_idle_add(_fm_run_in_default_main_context_real, &md);
+        g_mutex_lock(main_loop_run_mutex);
+        while(!md.done)
+            g_cond_wait(main_loop_run_cond, main_loop_run_mutex);
+        g_mutex_unlock(main_loop_run_mutex);
+    }
+#endif
+    return md.result;
+}

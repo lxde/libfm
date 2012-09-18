@@ -28,87 +28,10 @@
 
 #include <glib/gi18n-lib.h>
 #include <menu-cache/menu-cache.h>
-
-/* Lock for main context run. */
-#if GLIB_CHECK_VERSION(2, 32, 0)
-static GMutex fm_vfs_menu_mutex;
-static GCond fm_vfs_menu_cond;
-#else
-static GMutex *fm_vfs_menu_mutex = NULL;
-static GCond *fm_vfs_menu_cond = NULL;
-#endif
+#include "fm-utils.h"
 
 /* beforehand declarations */
 static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
-
-
-/* ---- run menu cache in main context ---- */
-typedef struct
-{
-    gboolean done;
-    GSourceFunc func;
-    gpointer data;
-} _main_context_data;
-
-static gboolean _run_in_main_loop_real(gpointer user_data)
-{
-    _main_context_data *data = user_data;
-    data->func(data->data);
-#if GLIB_CHECK_VERSION(2, 32, 0)
-    g_mutex_lock(&fm_vfs_menu_mutex);
-    data->done = TRUE;
-    g_cond_broadcast(&fm_vfs_menu_cond);
-    g_mutex_unlock(&fm_vfs_menu_mutex);
-#else
-    g_mutex_lock(fm_vfs_menu_mutex);
-    data->done = TRUE;
-    g_cond_broadcast(fm_vfs_menu_cond);
-    g_mutex_unlock(fm_vfs_menu_mutex);
-#endif
-    return FALSE;
-}
-
-static void _run_in_main_loop(GSourceFunc func, gpointer data)
-{
-    _main_context_data md;
-
-#if GLIB_CHECK_VERSION(2, 32, 0)
-    md.done = FALSE;
-    md.func = func;
-    md.data = data;
-    g_main_context_invoke(NULL, _run_in_main_loop_real, &md);
-    g_mutex_lock(&fm_vfs_menu_mutex);
-    while(!md.done)
-        g_cond_wait(&fm_vfs_menu_cond, &fm_vfs_menu_mutex);
-    g_mutex_unlock(&fm_vfs_menu_mutex);
-#else
-    /* if we already in main loop then just run it */
-    if(g_main_context_is_owner(g_main_context_default()))
-        func(data);
-    /* if we can acquire context then do it */
-    else if(g_main_context_acquire(g_main_context_default()))
-    {
-        func(data);
-        g_main_context_release(g_main_context_default());
-    }
-    /* else add idle source and wait for return */
-    else
-    {
-        if(!fm_vfs_menu_mutex)
-            fm_vfs_menu_mutex = g_mutex_new();
-        if(!fm_vfs_menu_cond)
-            fm_vfs_menu_cond = g_cond_new();
-        md.done = FALSE;
-        md.func = func;
-        md.data = data;
-        g_idle_add(_run_in_main_loop_real, &md);
-        g_mutex_lock(fm_vfs_menu_mutex);
-        while(!md.done)
-            g_cond_wait(fm_vfs_menu_cond, fm_vfs_menu_mutex);
-        g_mutex_unlock(fm_vfs_menu_mutex);
-    }
-#endif
-}
 
 
 /* ---- FmMenuVFile class ---- */
@@ -322,7 +245,7 @@ static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
     init.enumerator = FM_VFS_MENU_ENUMERATOR(enumerator);
     init.cancellable = cancellable;
     init.error = error;
-    _run_in_main_loop(_fm_vfs_menu_enumerator_next_file_real, &init);
+    fm_run_in_default_main_context(_fm_vfs_menu_enumerator_next_file_real, &init);
     return init.result;
 }
 
@@ -434,7 +357,7 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(const char *path_str,
 //    enu.attributes = attributes;
 //    enu.flags = flags;
     enu.error = error;
-    _run_in_main_loop(_fm_vfs_menu_enumerator_new_real, &enu);
+    fm_run_in_default_main_context(_fm_vfs_menu_enumerator_new_real, &enu);
     return enu.result;
 }
 
@@ -687,7 +610,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
 //        enu.flags = flags;
         enu.cancellable = cancellable;
         enu.error = error;
-        _run_in_main_loop(_fm_vfs_menu_query_info_real, &enu);
+        fm_run_in_default_main_context(_fm_vfs_menu_query_info_real, &enu);
         info = enu.result;
     }
     else
