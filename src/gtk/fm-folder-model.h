@@ -41,31 +41,55 @@ G_BEGIN_DECLS
 
 /**
  * FmFolderModelViewCol:
- * @COL_FILE_GICON: (#GIcon *) icon image
- * @COL_FILE_ICON: (#FmIcon *) icon descriptor
- * @COL_FILE_NAME: (#gchar *) file name
- * @COL_FILE_SIZE: (#gchar *) file size text
- * @COL_FILE_DESC: (#gchar *) file MIME description
- * @COL_FILE_PERM: (#gchar *) reserved, not implemented
- * @COL_FILE_OWNER: (#gchar *) reserved, not implemented
- * @COL_FILE_MTIME: (#gchar *) modification time text
- * @COL_FILE_INFO: (#FmFileInfo *) file info
+ * @FM_FOLDER_MODEL_COL_NAME: (#gchar *) file display name (in UTF-8)
+ * @FM_FOLDER_MODEL_COL_SIZE: (#gchar *) file size text
+ * @FM_FOLDER_MODEL_COL_DESC: (#gchar *) file MIME description
+ * @FM_FOLDER_MODEL_COL_PERM: (#gchar *) reserved, not implemented
+ * @FM_FOLDER_MODEL_COL_OWNER: (#gchar *) reserved, not implemented
+ * @FM_FOLDER_MODEL_COL_MTIME: (#gchar *) modification time text (in UTF-8)
+ * @FM_FOLDER_MODEL_COL_DIRNAME: (#gchar *) path of dir containing the file (in UTF-8)
+ * @FM_FOLDER_MODEL_COL_INFO: (#FmFileInfo *) file info
+ * @FM_FOLDER_MODEL_COL_ICON: (#FmIcon *) icon descriptor
+ * @FM_FOLDER_MODEL_COL_GICON: (#GIcon *) icon image
+ * @FM_FOLDER_MODEL_N_COLS: number of columns supported by FmFolderModel
+ * @FM_FOLDER_MODEL_N_VISIBLE_COLS: number of visible columns which can be shown in FmStandardView
  *
  * Columns of folder view
  */
 typedef enum {
-  COL_FILE_GICON = 0,
-  COL_FILE_ICON,
-  COL_FILE_NAME,
-  COL_FILE_SIZE,
-  COL_FILE_DESC,
-  COL_FILE_PERM,
-  COL_FILE_OWNER,
-  COL_FILE_MTIME,
-  COL_FILE_INFO,
-  /*< private >*/
-  N_FOLDER_MODEL_COLS
-} FmFolderModelViewCol;
+    /* visible columns in the view */
+    FM_FOLDER_MODEL_COL_NAME = 0,
+    FM_FOLDER_MODEL_COL_SIZE,
+    FM_FOLDER_MODEL_COL_DESC,
+    FM_FOLDER_MODEL_COL_PERM,
+    FM_FOLDER_MODEL_COL_OWNER,
+    FM_FOLDER_MODEL_COL_MTIME,
+    FM_FOLDER_MODEL_COL_DIRNAME,
+    /* columns used internally */
+    FM_FOLDER_MODEL_COL_INFO,
+    FM_FOLDER_MODEL_COL_ICON,
+    FM_FOLDER_MODEL_COL_GICON,
+    FM_FOLDER_MODEL_N_COLS,
+    FM_FOLDER_MODEL_N_VISIBLE_COLS = FM_FOLDER_MODEL_COL_INFO,
+
+    /* deprecated old names which should not be used */
+#ifndef FM_DISABLE_DEPRECATED
+    COL_FILE_GICON = FM_FOLDER_MODEL_COL_GICON,
+    COL_FILE_ICON = FM_FOLDER_MODEL_COL_ICON,
+    COL_FILE_NAME = FM_FOLDER_MODEL_COL_NAME,
+    COL_FILE_SIZE = FM_FOLDER_MODEL_COL_SIZE,
+    COL_FILE_DESC = FM_FOLDER_MODEL_COL_DESC,
+    COL_FILE_PERM = FM_FOLDER_MODEL_COL_PERM,
+    COL_FILE_OWNER = FM_FOLDER_MODEL_COL_OWNER,
+    COL_FILE_MTIME = FM_FOLDER_MODEL_COL_MTIME,
+    COL_FILE_INFO = FM_FOLDER_MODEL_COL_INFO,
+    N_FOLDER_MODEL_COLS = FM_FOLDER_MODEL_N_COLS
+#endif
+} FmFolderModelCol;
+
+#ifndef FM_DISABLE_DEPRECATED   /* keep backward compatiblity */
+typedef FmFolderModelCol    FmFolderModelViewCol;
+#endif
 
 /* TODO: unified FmFolderModelSortMode
 #define FM_FOLDER_MODEL_COL_MASK 0x0f
@@ -76,7 +100,11 @@ typedef enum {
 #define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < N_FOLDER_MODEL_COLS)
 
 /** for 'Unsorted' folder view use 'FileInfo' column which is ambiguous for sorting */
+#define FM_FOLDER_MODEL_COL_UNSORTED FM_FOLDER_MODEL_COL_INFO
+
+#ifndef FM_DISABLE_DEPRECATED   /* keep backward compatiblity */
 #define COL_FILE_UNSORTED COL_FILE_INFO
+#endif
 
 typedef struct _FmFolderModel FmFolderModel;
 typedef struct _FmFolderModelClass FmFolderModelClass;

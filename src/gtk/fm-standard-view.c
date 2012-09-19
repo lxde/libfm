@@ -60,7 +60,7 @@ struct _FmStandardView
     FmStandardViewMode mode;
     GtkSelectionMode sel_mode;
     GtkSortType sort_type;
-    FmFolderModelViewCol sort_by;
+    FmFolderModelCol sort_by;
 
     gboolean show_hidden;
 
@@ -218,7 +218,7 @@ static void fm_standard_view_init(FmStandardView *self)
 
     self->mode = -1;
     self->sort_type = GTK_SORT_ASCENDING;
-    self->sort_by = COL_FILE_NAME;
+    self->sort_by = FM_FOLDER_MODEL_COL_NAME;
 }
 
 /**
@@ -369,7 +369,7 @@ static GtkTreePath* get_drop_path_list_view(FmStandardView* fv, gint x, gint y)
     gtk_tree_view_convert_widget_to_bin_window_coords(GTK_TREE_VIEW(fv->view), x, y, &x, &y);
     if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fv->view), x, y, &tp, &col, NULL, NULL))
     {
-        if(gtk_tree_view_column_get_sort_column_id(col)!=COL_FILE_NAME)
+        if(gtk_tree_view_column_get_sort_column_id(col)!=FM_FOLDER_MODEL_COL_NAME)
         {
             gtk_tree_path_free(tp);
             tp = NULL;
@@ -415,7 +415,7 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
             if(gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, tp))
             {
                 FmFileInfo* fi;
-                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, FM_FOLDER_MODEL_COL_INFO, &fi, -1);
                 fm_dnd_dest_set_dest_file(fv->dnd_dest, fi);
             }
             gtk_tree_path_free(tp);
@@ -453,8 +453,8 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
 
     g_object_set((GObject*)render, "follow-state", TRUE, NULL );
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fv->view), render, TRUE);
-    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render, "pixbuf", COL_FILE_ICON );
-    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render, "info", COL_FILE_INFO );
+    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render, "pixbuf", FM_FOLDER_MODEL_COL_ICON );
+    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render, "info", FM_FOLDER_MODEL_COL_INFO );
 
     if(fv->mode == FM_FV_COMPACT_VIEW) /* compact view */
     {
@@ -519,9 +519,9 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     }
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fv->view), render, TRUE);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render,
-                                "text", COL_FILE_NAME );
+                                "text", FM_FOLDER_MODEL_COL_NAME );
     exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
-    exo_icon_view_set_search_column((ExoIconView*)fv->view, COL_FILE_NAME);
+    exo_icon_view_set_search_column((ExoIconView*)fv->view, FM_FOLDER_MODEL_COL_NAME);
     g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
     g_signal_connect(fv->view, "selection-changed", G_CALLBACK(on_sel_changed), fv);
     exo_icon_view_set_model((ExoIconView*)fv->view, (GtkTreeModel*)fv->model);
@@ -556,13 +556,13 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     gtk_tree_view_column_set_title(col, _("Name"));
     gtk_tree_view_column_pack_start(col, render, FALSE);
     gtk_tree_view_column_set_attributes(col, render,
-                                        "pixbuf", COL_FILE_ICON,
-                                        "info", COL_FILE_INFO, NULL);
+                                        "pixbuf", FM_FOLDER_MODEL_COL_ICON,
+                                        "info", FM_FOLDER_MODEL_COL_INFO, NULL);
     render = gtk_cell_renderer_text_new();
     g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_tree_view_column_pack_start(col, render, TRUE);
-    gtk_tree_view_column_set_attributes(col, render, "text", COL_FILE_NAME, NULL);
-    gtk_tree_view_column_set_sort_column_id(col, COL_FILE_NAME);
+    gtk_tree_view_column_set_attributes(col, render, "text", FM_FOLDER_MODEL_COL_NAME, NULL);
+    gtk_tree_view_column_set_sort_column_id(col, FM_FOLDER_MODEL_COL_NAME);
     gtk_tree_view_column_set_expand(col, TRUE);
     gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
@@ -572,25 +572,25 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
     render = gtk_cell_renderer_text_new();
-    col = gtk_tree_view_column_new_with_attributes(_("Description"), render, "text", COL_FILE_DESC, NULL);
+    col = gtk_tree_view_column_new_with_attributes(_("Description"), render, "text", FM_FOLDER_MODEL_COL_DESC, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
-    gtk_tree_view_column_set_sort_column_id(col, COL_FILE_DESC);
+    gtk_tree_view_column_set_sort_column_id(col, FM_FOLDER_MODEL_COL_DESC);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
 
     render = gtk_cell_renderer_text_new();
     g_object_set(render, "xalign", 1.0, NULL);
-    col = gtk_tree_view_column_new_with_attributes(_("Size"), render, "text", COL_FILE_SIZE, NULL);
-    gtk_tree_view_column_set_sort_column_id(col, COL_FILE_SIZE);
+    col = gtk_tree_view_column_new_with_attributes(_("Size"), render, "text", FM_FOLDER_MODEL_COL_SIZE, NULL);
+    gtk_tree_view_column_set_sort_column_id(col, FM_FOLDER_MODEL_COL_SIZE);
     gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
 
     render = gtk_cell_renderer_text_new();
-    col = gtk_tree_view_column_new_with_attributes(_("Modified"), render, "text", COL_FILE_MTIME, NULL);
+    col = gtk_tree_view_column_new_with_attributes(_("Modified"), render, "text", FM_FOLDER_MODEL_COL_MTIME, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
-    gtk_tree_view_column_set_sort_column_id(col, COL_FILE_MTIME);
+    gtk_tree_view_column_set_sort_column_id(col, FM_FOLDER_MODEL_COL_MTIME);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
 
-    gtk_tree_view_set_search_column(GTK_TREE_VIEW(fv->view), COL_FILE_NAME);
+    gtk_tree_view_set_search_column(GTK_TREE_VIEW(fv->view), FM_FOLDER_MODEL_COL_NAME);
 
     gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(fv->view), TRUE);
     exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
@@ -859,14 +859,14 @@ static GtkSelectionMode fm_standard_view_get_selection_mode(FmFolderView* ffv)
     return fv->sel_mode;
 }
 
-static void fm_standard_view_set_sort(FmFolderView* ffv, GtkSortType type, FmFolderModelViewCol by)
+static void fm_standard_view_set_sort(FmFolderView* ffv, GtkSortType type, FmFolderModelCol by)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);
     fv->sort_type = type;
     fv->sort_by = by;
 }
 
-static void fm_standard_view_get_sort(FmFolderView* ffv, GtkSortType* type, FmFolderModelViewCol* by)
+static void fm_standard_view_get_sort(FmFolderView* ffv, GtkSortType* type, FmFolderModelCol* by)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);
     *type = fv->sort_type;
@@ -923,7 +923,7 @@ static inline FmFileInfoList* fm_standard_view_get_selected_files(FmStandardView
                 GtkTreeIter it;
                 GtkTreePath* tp = (GtkTreePath*)l->data;
                 gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, l->data);
-                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, COL_FILE_INFO, &fi, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, FM_FOLDER_MODEL_COL_INFO, &fi, -1);
                 gtk_tree_path_free(tp);
                 next = l->next;
                 l->data = fm_file_info_ref( fi );

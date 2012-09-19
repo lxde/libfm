@@ -258,16 +258,16 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_nth_child = fm_folder_model_iter_nth_child;
     iface->iter_parent = fm_folder_model_iter_parent;
 
-    column_types[COL_FILE_ICON]= GDK_TYPE_PIXBUF;
-    column_types[COL_FILE_NAME]= G_TYPE_STRING;
-    column_types[COL_FILE_DESC]= G_TYPE_STRING;
-    column_types[COL_FILE_SIZE]= G_TYPE_STRING;
-    column_types[COL_FILE_DESC]= G_TYPE_STRING;
-    column_types[COL_FILE_PERM]= G_TYPE_STRING;
-    column_types[COL_FILE_OWNER]= G_TYPE_STRING;
-    column_types[COL_FILE_MTIME]= G_TYPE_STRING;
-    column_types[COL_FILE_INFO]= G_TYPE_POINTER;
-    column_types[COL_FILE_GICON]= G_TYPE_ICON;
+    column_types[FM_FOLDER_MODEL_COL_ICON]= GDK_TYPE_PIXBUF;
+    column_types[FM_FOLDER_MODEL_COL_NAME]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_DESC]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_SIZE]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_DESC]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_PERM]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_OWNER]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_MTIME]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_INFO]= G_TYPE_POINTER;
+    column_types[FM_FOLDER_MODEL_COL_GICON]= G_TYPE_ICON;
 }
 
 static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface)
@@ -612,12 +612,12 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
 
     switch( column )
     {
-    case COL_FILE_GICON:
+    case FM_FOLDER_MODEL_COL_GICON:
         icon = fm_file_info_get_icon(info);
         if(G_LIKELY(icon))
             g_value_set_object(value, icon->gicon);
         break;
-    case COL_FILE_ICON:
+    case FM_FOLDER_MODEL_COL_ICON:
     {
         if(G_UNLIKELY(!item->icon))
         {
@@ -648,27 +648,40 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
         }
         break;
     }
-    case COL_FILE_NAME:
+    case FM_FOLDER_MODEL_COL_NAME:
         g_value_set_string(value, fm_file_info_get_disp_name(info));
         break;
-    case COL_FILE_SIZE:
+    case FM_FOLDER_MODEL_COL_SIZE:
         g_value_set_string( value, fm_file_info_get_disp_size(info) );
         break;
-    case COL_FILE_DESC:
+    case FM_FOLDER_MODEL_COL_DESC:
         g_value_set_string( value, fm_file_info_get_desc(info) );
         break;
-    case COL_FILE_PERM:
+    case FM_FOLDER_MODEL_COL_PERM:
 //        g_value_set_string( value, fm_file_info_get_disp_perm(info) );
         break;
-    case COL_FILE_OWNER:
+    case FM_FOLDER_MODEL_COL_OWNER:
 //        g_value_set_string( value, fm_file_info_get_disp_owner(info) );
         break;
-    case COL_FILE_MTIME:
+    case FM_FOLDER_MODEL_COL_MTIME:
         g_value_set_string( value, fm_file_info_get_disp_mtime(info) );
         break;
-    case COL_FILE_INFO:
+    case FM_FOLDER_MODEL_COL_INFO:
         g_value_set_pointer(value, info);
         break;
+    case FM_FOLDER_MODEL_COL_DIRNAME:
+        {
+            FmPath* path = fm_file_info_get_path(info);
+            FmPath* dirpath = fm_path_get_parent(path);
+            if(dirpath)
+            {
+                char* dirname = fm_path_display_name(dirpath, TRUE);
+                /* get name of the folder containing the file. */
+                g_value_set_string(value, dirname);
+                g_free(dirname);
+            }
+            break;
+        }
     }
 }
 
@@ -839,27 +852,38 @@ static gint fm_folder_model_compare(gconstpointer item1,
 
     switch( ((FmFolderModel*)model)->sort_col )
     {
-    case COL_FILE_SIZE:
+    case FM_FOLDER_MODEL_COL_SIZE:
         /* to support files more than 2Gb */
         diff = fm_file_info_get_size(file1) - fm_file_info_get_size(file2);
         if(0 == diff)
             goto _sort_by_name;
         ret = diff > 0 ? 1 : -1;
         break;
-    case COL_FILE_MTIME:
+    case FM_FOLDER_MODEL_COL_MTIME:
         ret = fm_file_info_get_mtime(file1) - fm_file_info_get_mtime(file2);
         if(0 == ret)
             goto _sort_by_name;
         break;
-    case COL_FILE_DESC:
+    case FM_FOLDER_MODEL_COL_DESC:
         /* FIXME: this is very slow */
         ret = g_utf8_collate(fm_file_info_get_desc(file1), fm_file_info_get_desc(file2));
         if(0 == ret)
             goto _sort_by_name;
         break;
-    case COL_FILE_UNSORTED:
+    case FM_FOLDER_MODEL_COL_UNSORTED:
         return 0;
-    case COL_FILE_NAME:
+    case FM_FOLDER_MODEL_COL_DIRNAME:
+        {
+            /* get name of the folder containing the file. */
+            FmPath* dirpath1 = fm_file_info_get_path(file1);
+            FmPath* dirpath2 = fm_file_info_get_path(file2);
+            dirpath1 = fm_path_get_parent(dirpath1);
+            dirpath2 = fm_path_get_parent(dirpath2);
+
+            /* FIXME: should we compare display names instead? */
+            ret = fm_path_compare(dirpath1, dirpath2);
+        }
+        break;
     default:
 _sort_by_name:
         key1 = fm_file_info_get_collate_key(file1);

@@ -119,6 +119,9 @@ char* fm_path_display_basename(FmPath* path);
 guint fm_path_hash(FmPath* path);
 gboolean fm_path_equal(FmPath* p1, FmPath* p2);
 
+/* can be used for sorting */
+int fm_path_compare(FmPath* p1, FmPath* p2);
+
 /* used for completion in fm_path_entry */
 gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n);
 
