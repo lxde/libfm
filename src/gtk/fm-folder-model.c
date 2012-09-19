@@ -31,6 +31,10 @@
  * items of folder.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-config.h"
 #include "fm-folder-model.h"
 #include "fm-file-info.h"
@@ -41,6 +45,7 @@
 #include "glib-compat.h"
 
 #include <gdk/gdk.h>
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <gio/gio.h>
@@ -258,15 +263,18 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_nth_child = fm_folder_model_iter_nth_child;
     iface->iter_parent = fm_folder_model_iter_parent;
 
-    column_types[FM_FOLDER_MODEL_COL_ICON]= GDK_TYPE_PIXBUF;
+    /* visible columns in the view */
     column_types[FM_FOLDER_MODEL_COL_NAME]= G_TYPE_STRING;
     column_types[FM_FOLDER_MODEL_COL_DESC]= G_TYPE_STRING;
     column_types[FM_FOLDER_MODEL_COL_SIZE]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_DESC]= G_TYPE_STRING;
     column_types[FM_FOLDER_MODEL_COL_PERM]= G_TYPE_STRING;
     column_types[FM_FOLDER_MODEL_COL_OWNER]= G_TYPE_STRING;
     column_types[FM_FOLDER_MODEL_COL_MTIME]= G_TYPE_STRING;
+    column_types[FM_FOLDER_MODEL_COL_DIRNAME]= G_TYPE_STRING;
+
+    /* columns used internally */
     column_types[FM_FOLDER_MODEL_COL_INFO]= G_TYPE_POINTER;
+    column_types[FM_FOLDER_MODEL_COL_ICON]= GDK_TYPE_PIXBUF;
     column_types[FM_FOLDER_MODEL_COL_GICON]= G_TYPE_ICON;
 }
 
@@ -1640,4 +1648,29 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
         g_slist_free(items_to_show);
     }
     g_signal_emit(model, signals[FILTER_CHANGED], 0);
+
+/**
+ * fm_folder_model_get_column title
+ * @col_id: column id
+ *
+ * Returns the title of the column specified, can be NULL if the specified
+ * id is invalid.
+ *
+ * Since: 1.0.2
+ */
+const char* fm_folder_model_get_column_title(FmFolderModelCol col_id)
+{
+    static const char* titles[] = {
+        N_("Name"), /* FM_FOLDER_MODEL_COL_NAME */
+        N_("Size"), /* FM_FOLDER_MODEL_COL_SIZE */
+        N_("Description"), /* FM_FOLDER_MODEL_COL_DESC */
+        N_("Permission"), /* FM_FOLDER_MODEL_COL_PERM */
+        N_("Owner"), /* FM_FOLDER_MODEL_COL_OWNER */
+        N_("Modified"), /* FM_FOLDER_MODEL_COL_MTIME */
+        N_("Location"), /* FM_FOLDER_MODEL_COL_DIRNAME */
+        NULL
+    };
+    if(G_UNLIKELY(col_id < 0 || col_id >= G_N_ELEMENTS(titles))) /* invalid id */
+        return NULL;
+    return _(titles[col_id]);
 }
