@@ -229,7 +229,7 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewInterface, sel_changed),
                      NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
+                     g_cclosure_marshal_VOID__INT,
                      G_TYPE_NONE, 1, G_TYPE_INT);
 
     /**
