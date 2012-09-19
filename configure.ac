@@ -208,6 +208,8 @@ if test "$enable_debug" = "yes"; then
     case "$CC" in
     gcc*)
         CPPFLAGS="$CPPFLAGS -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers"
+        dnl Be more strict on portability
+        CPPFLAGS="$CPPFLAGS -D_POSIX_C_SOURCE=200112L -D_XOPEN_SOURCE=700"
         ;;
     *)
         ;;

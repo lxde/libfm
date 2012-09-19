@@ -543,7 +543,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     }
 
     job->total = fm_path_list_get_length(job->srcs);
-    g_debug("total files to link: %lu", (ulong)job->total);
+    g_debug("total files to link: %lu", (gulong)job->total);
 
     fm_file_ops_job_emit_prepared(job);
 
