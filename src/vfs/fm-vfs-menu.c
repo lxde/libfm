@@ -421,9 +421,7 @@ static char *_fm_vfs_menu_get_basename(GFile *file)
 
 static char *_fm_vfs_menu_get_path(GFile *file)
 {
-    if(FM_MENU_VFILE(file)->path == NULL)
-        return g_strdup("/");
-    return g_strdup(FM_MENU_VFILE(file)->path);
+    return NULL;
 }
 
 static char *_fm_vfs_menu_get_uri(GFile *file)

@@ -255,7 +255,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
  */
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
-    const char* tmp;
+    const char *tmp, *uri;
     GIcon* gicon;
     GFileType type;
 
@@ -323,25 +323,25 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         /* assume it's accessible */
         fi->accessible = TRUE;
 
-    /* set file icon according to mime-type */
-    if(!fi->mime_type || !fm_mime_type_get_icon(fi->mime_type))
-    {
-        gicon = g_file_info_get_icon(inf);
+    /* try file-specific icon first */
+    gicon = g_file_info_get_icon(inf);
+    if(gicon)
         fi->icon = fm_icon_from_gicon(gicon);
         /* g_object_unref(gicon); this is not needed since
          * g_file_info_get_icon didn't increase ref_count.
          * the object returned by g_file_info_get_icon is
          * owned by GFileInfo. */
-    }
     /* set "locked" icon on unaccesible folder */
     else if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
         fi->icon = fm_icon_ref(icon_locked_folder);
-    else
+    else if(fi->mime_type)
         fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
-    if(type == G_FILE_TYPE_MOUNTABLE || G_FILE_TYPE_SHORTCUT)
+    switch(type)
     {
-        const char* uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
+    case G_FILE_TYPE_MOUNTABLE:
+    case G_FILE_TYPE_SHORTCUT:
+        uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
         if(uri)
         {
             if(g_str_has_prefix(uri, "file:/"))
@@ -360,12 +360,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             else
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_mountable());
         }
-        /* FIXME: how about target of symlinks? */
-    }
-    else if(type == G_FILE_TYPE_SYMBOLIC_LINK)
-    {
-        const char* uri = g_file_info_get_symlink_target(inf);
-
+        break;
+    case G_FILE_TYPE_SYMBOLIC_LINK:
+        uri = g_file_info_get_symlink_target(inf);
         if(uri)
         {
             if(g_str_has_prefix(uri, "file:/"))
@@ -375,6 +372,14 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             if(!fi->mime_type)
                 fi->mime_type = fm_mime_type_from_file_name(fi->target);
         }
+        break;
+    case G_FILE_TYPE_DIRECTORY:
+        if(!fi->mime_type)
+            fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+        break;
+    default: /* G_FILE_TYPE_UNKNOWN G_FILE_TYPE_REGULAR G_FILE_TYPE_SPECIAL */
+        uri = g_file_info_get_name(inf);
+        fi->mime_type = fm_mime_type_from_file_name(uri);
     }
 
     if(fm_path_is_native(fi->path))
