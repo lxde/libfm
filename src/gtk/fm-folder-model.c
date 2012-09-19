@@ -1070,13 +1070,6 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
     if( model->show_hidden == show_hidden )
         return;
     model->show_hidden = show_hidden;
-
-    /* install or remove the filter for hidden files */
-    if(show_hidden)
-        fm_folder_model_add_filter(model, (FmFolderModelFilterFunc)fm_file_info_is_hidden, NULL);
-    else
-        fm_folder_model_remove_filter(model, (FmFolderModelFilterFunc)fm_file_info_is_hidden, NULL);
-
     fm_folder_model_refilter(model);
 }
 
