@@ -431,7 +431,7 @@ xml_purge_CFLAGS=$(GIO_CFLAGS)
 xml_purge_LDADD=$(GIO_LIBS)
 
 install-data-local:
-	@if test -h $(DESTDIR)$(includedir)/@PACKAGE@; then \
+	@if test -e $(DESTDIR)$(includedir)/@PACKAGE@; then \
 		echo rm -rf $(DESTDIR)$(includedir)/@PACKAGE@; \
 		rm -rf $(DESTDIR)$(includedir)/@PACKAGE@; \
 	fi
