@@ -38,6 +38,8 @@
 #include "fm-thumbnail.h"
 #include "fm-gtk-marshal.h"
 
+#include "glib-compat.h"
+
 #include <gdk/gdk.h>
 
 #include <string.h>
@@ -63,6 +65,8 @@ struct _FmFolderModel
     guint thumbnail_max;
     GList* thumbnail_requests;
     GHashTable* items_hash;
+
+    GSList* filters;
 };
 
 typedef struct _FmFolderItem FmFolderItem;
@@ -75,6 +79,12 @@ struct _FmFolderItem
     gboolean thumbnail_loading : 1;
     gboolean thumbnail_failed : 1;
 };
+
+typedef struct _FmFolderModelFilterItem
+{
+    FmFolderModelFilterFunc func;
+    gpointer user_data;
+}FmFolderModelFilterItem;
 
 enum ReloadFlags
 {
@@ -140,6 +150,8 @@ static void fm_folder_model_set_default_sort_func(GtkTreeSortable *sortable,
                                                   gpointer user_data,
                                                   GDestroyNotify destroy);
 static void fm_folder_model_sort(FmFolderModel* model);
+
+static inline gboolean file_can_show(FmFolderModel* model, FmFileInfo* file);
 
 /* signal handlers */
 
@@ -259,6 +271,11 @@ static void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface)
     /* FIXME: Unused. Will this cause any problem? */
 }
 
+static void fm_folder_model_filter_item_free(FmFolderModelFilterItem* item)
+{
+    g_slice_free(FmFolderModelFilterItem, item);
+}
+
 static void fm_folder_model_dispose(GObject *object)
 {
     FmFolderModel* model = FM_FOLDER_MODEL(object);
@@ -287,6 +304,13 @@ static void fm_folder_model_dispose(GObject *object)
         g_hash_table_destroy(model->items_hash);
         model->items_hash = NULL;
     }
+    
+    if(model->filters)
+    {
+        g_slist_free_full(model->filters, (GDestroyNotify)fm_folder_model_filter_item_free);
+        model->filters = NULL;
+    }
+    
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->dispose)(object);
 }
 
@@ -338,7 +362,7 @@ static void _fm_folder_model_files_changed(FmFolder* dir, GSList* files,
 
 static void _fm_folder_model_add_file(FmFolderModel* model, FmFileInfo* file)
 {
-    if( !model->show_hidden && fm_file_info_is_hidden(file) )
+    if(!file_can_show(model, file))
         g_sequence_append( model->hidden, fm_folder_item_new(file) );
     else
         fm_folder_model_file_created(model, file);
@@ -927,10 +951,9 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
     GtkTreePath* path;
     GtkTreeIter it;
 
-    if( !model->show_hidden && fm_file_info_is_hidden(file) ) /* if this is a hidden file */
+    if(!file_can_show(model, file)) /* if this is a hidden file */
     {
         seq_it = g_sequence_get_begin_iter(model->hidden);
-        /* FIXME: write a  GCompareDataFunc for this */
         while( !g_sequence_iter_is_end(seq_it) )
         {
             item = (FmFolderItem*)g_sequence_get(seq_it);
@@ -975,7 +998,7 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     GtkTreeIter it;
     GtkTreePath* path;
 
-    if( !model->show_hidden && fm_file_info_is_hidden(file) )
+    if(!file_can_show(model, file))
         return;
 
     items_it = info2iter(model, file);
@@ -996,6 +1019,24 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(items_it), -1);
     gtk_tree_model_row_changed(GTK_TREE_MODEL(model), path, &it);
     gtk_tree_path_free(path);
+}
+
+
+static inline gboolean file_can_show(FmFolderModel* model, FmFileInfo* file)
+{
+    if(!model->show_hidden && fm_file_info_is_hidden(file))
+        return FALSE;
+    if(model->filters)
+    {
+        GSList* l;
+        for(l = model->filters; l; l=l->next)
+        {
+            FmFolderModelFilterItem* item = (FmFolderModelFilterItem*)l->data;
+            if(!item->func(file, item->user_data))
+                return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 /**
@@ -1028,54 +1069,15 @@ void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
     g_return_if_fail(model != NULL);
     if( model->show_hidden == show_hidden )
         return;
-
     model->show_hidden = show_hidden;
-    if( show_hidden ) /* add previously hidden items back to the list */
-    {
-        GSequenceIter *hidden_it = g_sequence_get_begin_iter(model->hidden);
-        while( !g_sequence_iter_is_end(hidden_it) )
-        {
-            GtkTreeIter it;
-            GSequenceIter *next_hidden_it;
-            GSequenceIter *insert_item_it = g_sequence_search(model->items, g_sequence_get(hidden_it),
-                                                              fm_folder_model_compare, model);
-            next_hidden_it = g_sequence_iter_next(hidden_it);
-            item = (FmFolderItem*)g_sequence_get(hidden_it);
-            it.stamp = model->stamp;
-            it.user_data  = hidden_it;
-            g_sequence_move(hidden_it, insert_item_it);
-            g_hash_table_insert(model->items_hash, item->inf, hidden_it);
-            GtkTreePath *path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(hidden_it), -1);
-            gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), path, &it);
-            gtk_tree_path_free(path);
-            hidden_it = next_hidden_it;
-        }
-    }
-    else /* move invisible items to hidden list */
-    {
-        GSequenceIter *items_it = g_sequence_get_begin_iter(model->items);
-        GtkTreeIter it;
-        it.stamp = model->stamp;
-        while( !g_sequence_iter_is_end(items_it) )
-        {
-            GtkTreePath* tp;
-            GSequenceIter *next_item_it = g_sequence_iter_next(items_it);
-            item = (FmFolderItem*)g_sequence_get(items_it);
-            if( fm_file_info_is_hidden(item->inf) )
-            {
-                gint delete_pos = g_sequence_iter_get_position(items_it);
-                it.user_data = items_it;
-                g_hash_table_remove(model->items_hash, item->inf);
-                g_sequence_move( items_it, g_sequence_get_begin_iter(model->hidden) );
-                tp = gtk_tree_path_new_from_indices(delete_pos, -1);
-                /* tell everybody that we removed an item */
-                g_signal_emit(model, signals[ROW_DELETING], 0, tp, &it, item->userdata);
-                gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
-                gtk_tree_path_free(tp);
-            }
-            items_it = next_item_it;
-        }
-    }
+
+    /* install or remove the filter for hidden files */
+    if(show_hidden)
+        fm_folder_model_add_filter(model, (FmFolderModelFilterFunc)fm_file_info_is_hidden, NULL);
+    else
+        fm_folder_model_remove_filter(model, (FmFolderModelFilterFunc)fm_file_info_is_hidden, NULL);
+
+    fm_folder_model_refilter(model);
 }
 
 static void reload_icons(FmFolderModel* model, enum ReloadFlags flags)
@@ -1462,4 +1464,142 @@ gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it
     g_return_val_if_fail(item_it != NULL, NULL);
     item = (FmFolderItem*)g_sequence_get(item_it);
     return item->userdata;
+}
+
+/**
+ * fm_folder_model_add_filter
+ * @model:  the folder model instance
+ * @func:   a filter function
+ * @user_data: user data passed to the filter function
+ *
+ * Install a filter function to filter out and hide some items.
+ * This only install a filter function and does not update content of the model.
+ * You need to call fm_folder_model_refilter() to refilter the model.
+ *
+ * Since: 1.0.3
+ */
+void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data)
+{
+    FmFolderModelFilterItem* item = g_slice_new(FmFolderModelFilterItem);
+    item->func = func;
+    item->user_data = user_data;
+    model->filters = g_slist_prepend(model->filters, item);
+}
+
+/**
+ * fm_folder_model_remove_filter
+ * @model:  the folder model instance
+ * @func:   a filter function
+ * @user_data: user data passed to the filter function
+ *
+ * Remove a filter function previously installed by fm_folder_model_add_filter()
+ * This only remove the filter function and does not update content of the model.
+ * You need to call fm_folder_model_refilter() to refilter the model.
+ *
+ * Since: 1.0.3
+ */
+void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data)
+{
+    GSList* l;
+    for(l = model->filters; l; l=l->next)
+    {
+        FmFolderModelFilterItem* item = (FmFolderModelFilterItem*)l->data;
+        if(item->func == func && item->user_data == user_data)
+        {
+            model->filters = g_slist_delete_link(model->filters, l);
+            fm_folder_model_filter_item_free(item);
+            break;
+        }
+    }
+}
+
+/**
+ * fm_folder_model_refilter
+ * @model:  the folder model instance
+ *
+ * After changing the filters by fm_folder_model_add_filter() or
+ * fm_folder_model_remove_filter(), you have to call this function
+ * to really apply the filter to the model content.
+ * This is for performance reason.
+ * You can add many filter functions and also remove some, and then
+ * call fm_folder_model_refilter() to update the content of the model once.
+ * 
+ * If you forgot to call fm_folder_model_refilter(), the content of the
+ * model may be incorrect.
+ *
+ * Since: 1.0.3
+ */
+void fm_folder_model_refilter(FmFolderModel* model)
+{
+    FmFolderItem* item;
+    GSList* items_to_show = NULL;
+    GtkTreeIter tree_it;
+    GtkTreePath* tree_path;
+    GSequenceIter *item_it;
+
+    tree_it.stamp = model->stamp; /* set the stamp of GtkTreeIter */
+
+    /* make previously hidden items visible again if they can be shown */
+    item_it = g_sequence_get_begin_iter(model->hidden);
+    while(!g_sequence_iter_is_end(item_it)) /* iterate over the hidden list */
+    {
+        item = (FmFolderItem*)g_sequence_get(item_it);
+        if(file_can_show(model, item->inf)) /* if the file should be shown */
+        {
+            /* we delay the real insertion operation and do it
+             * after we finish hiding some currently visible items for
+             * apparent performance reasons. */
+            items_to_show = g_slist_prepend(items_to_show, item_it);
+        }
+        item_it = g_sequence_iter_next(item_it);
+    }
+
+    /* move currently visible items to hidden list if they should be hidden */
+    item_it = g_sequence_get_begin_iter(model->items);
+    while(!g_sequence_iter_is_end(item_it)) /* iterate over currently visible items */
+    {
+        GSequenceIter *next_item_it = g_sequence_iter_next(item_it); /* next item */
+        item = (FmFolderItem*)g_sequence_get(item_it);
+        if(!file_can_show(model, item->inf)) /* it should be hidden */
+        {
+            gint delete_pos = g_sequence_iter_get_position(item_it); /* get row index */
+            tree_it.user_data = item_it; /* setup the tree iterator */
+            g_hash_table_remove(model->items_hash, item->inf);
+            /* move the item from visible list to hidden list */
+            g_sequence_move(item_it, g_sequence_get_begin_iter(model->hidden));
+
+            /* tell everybody that we removed the item */
+            tree_path = gtk_tree_path_new_from_indices(delete_pos, -1);
+            g_signal_emit(model, signals[ROW_DELETING], 0, tree_path, &tree_it, item->userdata);
+            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tree_path);
+            gtk_tree_path_free(tree_path);
+        }
+        item_it = next_item_it;
+    }
+
+    /* show items scheduled for showing */
+    if(items_to_show)
+    {
+        GSList* l;
+        for(l = items_to_show; l; l = l->next)
+        {
+            GSequenceIter *insert_item_it;
+            item_it = (GSequenceIter*)l->data; /* this is a iterator from hidden list */
+            item = (FmFolderItem*)g_sequence_get(item_it);
+
+            /* find a nice position in visible item list to insert the item */
+            insert_item_it = g_sequence_search(model->items, item,
+                                                          fm_folder_model_compare, model);
+            tree_it.user_data  = item_it; /* setup the tree iterator */
+            /* move the item from hidden items to visible items list */
+            g_sequence_move(item_it, insert_item_it);
+            g_hash_table_insert(model->items_hash, item->inf, item_it); /* add it to has for quick lookup */
+
+            /* tell the world that we insert it */
+            tree_path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(item_it), -1);
+            gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), tree_path, &tree_it);
+            gtk_tree_path_free(tree_path);
+        }
+        g_slist_free(items_to_show);
+    }
 }

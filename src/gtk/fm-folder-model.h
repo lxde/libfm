@@ -93,6 +93,8 @@ struct _FmFolderModelClass
                          GtkTreeIter* iter, gpointer data);
 };
 
+typedef gboolean (*FmFolderModelFilterFunc)(FmFileInfo* file, gpointer user_data);
+
 GType fm_folder_model_get_type (void);
 
 FmFolderModel *fm_folder_model_new( FmFolder* dir, gboolean show_hidden );
@@ -120,6 +122,11 @@ gboolean fm_folder_model_find_iter_by_filename( FmFolderModel* model, GtkTreeIte
 void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size);
 guint fm_folder_model_get_icon_size(FmFolderModel* model);
 
+void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data);
+
+void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data);
+
+void fm_folder_model_refilter(FmFolderModel* model);
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
 
