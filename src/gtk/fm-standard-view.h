@@ -53,6 +53,9 @@ typedef enum
     FM_FV_LIST_VIEW
 } FmStandardViewMode;
 
+#define FM_TYPE_STANDARD_VIEW_MODE (fm_standard_view_mode_get_type())
+GType fm_standard_view_mode_get_type();
+
 #ifndef FM_DISABLE_DEPRECATED
 #define FM_FOLDER_VIEW_MODE_IS_VALID(mode) FM_STANDARD_VIEW_MODE_IS_VALID(mode)
 #endif

@@ -1271,3 +1271,22 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
     iface->select_file_path = fm_standard_view_select_file_path;
     iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
 }
+
+
+GType fm_standard_view_mode_get_type()
+{
+    static GType type = G_TYPE_INVALID;
+    if(G_UNLIKELY(type == G_TYPE_INVALID))
+    {
+        static const GEnumValue values[] =
+        {
+            {FM_FV_ICON_VIEW, "FM_FV_ICON_VIEW", "icon"},
+            {FM_FV_COMPACT_VIEW, "FM_FV_COMPACT_VIEW", "compact"},
+            {FM_FV_THUMBNAIL_VIEW, "FM_FV_THUMBNAIL_VIEW", "thumbnail"},
+            {FM_FV_LIST_VIEW, "FM_FV_LIST_VIEW", "list"},
+            {0}
+        };
+        type = g_enum_register_static("FmStandardViewMode", values);
+    }
+    return type;
+}

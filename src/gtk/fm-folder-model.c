@@ -1674,3 +1674,29 @@ const char* fm_folder_model_get_column_title(FmFolderModelCol col_id)
         return NULL;
     return _(titles[col_id]);
 }
+
+
+GType fm_folder_model_col_get_type()
+{
+    static GType type = G_TYPE_INVALID;
+    if(G_UNLIKELY(type == G_TYPE_INVALID))
+    {
+        static const GEnumValue values[] =
+        {
+            {FM_FOLDER_MODEL_COL_NAME, "FM_FOLDER_MODEL_COL_NAME", "name"},
+            {FM_FOLDER_MODEL_COL_DESC, "FM_FOLDER_MODEL_COL_DESC", "desc"},
+            {FM_FOLDER_MODEL_COL_SIZE, "FM_FOLDER_MODEL_COL_SIZE", "size"},
+            {FM_FOLDER_MODEL_COL_PERM, "FM_FOLDER_MODEL_COL_PERM", "perm"},
+            {FM_FOLDER_MODEL_COL_OWNER, "FM_FOLDER_MODEL_COL_OWNER", "owner"},
+            {FM_FOLDER_MODEL_COL_MTIME, "FM_FOLDER_MODEL_COL_MTIME", "mtime"},
+            {FM_FOLDER_MODEL_COL_DIRNAME, "FM_FOLDER_MODEL_COL_DIRNAME", "dirname"},
+            {FM_FOLDER_MODEL_COL_INFO, "FM_FOLDER_MODEL_COL_INFO", "info"},
+            {FM_FOLDER_MODEL_COL_ICON, "FM_FOLDER_MODEL_COL_ICON", "icon"},
+            {FM_FOLDER_MODEL_COL_GICON, "FM_FOLDER_MODEL_COL_GICON", "gicon"},
+            {0}
+        };
+        type = g_enum_register_static("FmFolderModelCol", values);
+    }
+    return type;
+}
+

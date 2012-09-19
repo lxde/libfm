@@ -91,6 +91,9 @@ typedef enum {
 typedef FmFolderModelCol    FmFolderModelViewCol;
 #endif
 
+#define FM_TYPE_FOLDER_MODEL_COL (fm_folder_model_col_get_type())
+GType fm_folder_model_col_get_type();
+
 /* TODO: unified FmFolderModelSortMode
 #define FM_FOLDER_MODEL_COL_MASK 0x0f
 #define FM_FOLDER_MODEL_COL_DESCENDING 0x10
