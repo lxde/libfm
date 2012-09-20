@@ -292,7 +292,7 @@ else
 echo "GIO module for preferred apps (for glib < 2.28 only):   not required"
 fi
 echo "Build libfm-gtk for Gtk+ version:                       $ac_with_gtk"
-echo "Build API doc with gtk-doc (required for make dist):    $enable_gtk_doc"
+echo "Build API doc with gtk-doc (recommended for make dist): $enable_gtk_doc"
 echo
 echo
 
