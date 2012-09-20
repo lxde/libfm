@@ -378,8 +378,11 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
         break;
     default: /* G_FILE_TYPE_UNKNOWN G_FILE_TYPE_REGULAR G_FILE_TYPE_SPECIAL */
-        uri = g_file_info_get_name(inf);
-        fi->mime_type = fm_mime_type_from_file_name(uri);
+        if(G_UNLIKELY(!fi->mime_type))
+        {
+            uri = g_file_info_get_name(inf);
+            fi->mime_type = fm_mime_type_from_file_name(uri);
+        }
     }
 
     if(fm_path_is_native(fi->path))
