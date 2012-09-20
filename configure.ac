@@ -255,11 +255,19 @@ then
     sysconfdir=/etc
 fi
 
+dnl Make version subfields for FM_CHECK_VERSION macro
+ac_version_subst_str=`echo $VERSION | awk -F '.' '/.*/ { printf "FM_VERSION_MAJOR=%d FM_VERSION_MINOR=%d FM_VERSION_MICRO=%d", $1, $2, $3 }'`
+eval ${ac_version_subst_str}
+AC_SUBST(FM_VERSION_MAJOR)
+AC_SUBST(FM_VERSION_MINOR)
+AC_SUBST(FM_VERSION_MICRO)
+
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
     src/actions/Makefile
     src/tests/Makefile
+    src/fm.h
     data/Makefile
     data/libfm-pref-apps.1
     data/ui/Makefile
