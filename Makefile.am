@@ -29,6 +29,7 @@ EXTRA_DIST += \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \
 	libfm.pc \
+	libfm-gtk.pc \
 	libfm-gtk3.pc \
 	$(NULL)
 
