@@ -221,7 +221,7 @@ static gboolean _fm_vfs_menu_enumerator_next_file_real(gpointer data)
     {
         if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
             break;
-        item = MENU_CACHE_ITEM(enu->child->data);
+        item = MENU_CACHE_ITEM(child->data);
         /* also hide menu items which should be hidden in current DE. */
         if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP ||
            menu_cache_item_get_type(item) == MENU_CACHE_TYPE_NONE)
