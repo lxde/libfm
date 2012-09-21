@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.18"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkAdjustment" id="bigger_adjustment">
     <property name="upper">2147483647</property>
@@ -193,8 +193,10 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">&lt;b&gt;File Name Patterns&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">&lt;b&gt;File _Name Patterns&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">name_entry</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -234,12 +236,13 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="name_case_insensitive_checkbutton">
-                            <property name="label" translatable="yes">Case insensitive</property>
+                            <property name="label" translatable="yes">Case insensiti_ve</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
                             <property name="relief">none</property>
+                            <property name="use_underline">True</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -251,11 +254,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="name_regex_checkbutton">
-                            <property name="label" translatable="yes">Use regular expression</property>
+                            <property name="label" translatable="yes">_Use regular expression</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -389,11 +393,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="search_recursive_checkbutton">
-                            <property name="label" translatable="yes">Search in sub directories</property>
+                            <property name="label" translatable="yes">_Search in sub directories</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -405,11 +410,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="search_hidden_files_checkbutton">
-                            <property name="label" translatable="yes">Search hidden files</property>
+                            <property name="label" translatable="yes">Search _hidden files</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -433,7 +439,8 @@
               <object class="GtkLabel" id="name_path_tab_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Name/Location</property>
+                <property name="label" translatable="yes">Name/_Location</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="tab_fill">False</property>
@@ -485,11 +492,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="text_file_checkbutton">
-                            <property name="label" translatable="yes">Text files</property>
+                            <property name="label" translatable="yes">Te_xt files</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -500,11 +508,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="image_file_checkbutton">
-                            <property name="label" translatable="yes">Image files</property>
+                            <property name="label" translatable="yes">_Image files</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -515,11 +524,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="audio_file_checkbutton">
-                            <property name="label" translatable="yes">Audio files</property>
+                            <property name="label" translatable="yes">_Audio files</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -530,11 +540,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="video_file_checkbutton">
-                            <property name="label" translatable="yes">Video files</property>
+                            <property name="label" translatable="yes">_Video files</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -545,11 +556,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="doc_file_checkbutton">
-                            <property name="label" translatable="yes">Documents</property>
+                            <property name="label" translatable="yes">_Documents</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -576,7 +588,8 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">File Type</property>
+                <property name="label" translatable="yes">File _Type</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -594,8 +607,10 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">&lt;b&gt;File Contains&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">&lt;b&gt;File Contain_s&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">content_entry</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -633,11 +648,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="content_case_insensitive_checkbutton">
-                            <property name="label" translatable="yes">Case insensitive</property>
+                            <property name="label" translatable="yes">Case insensiti_ve</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -648,11 +664,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="content_regex_checkbutton">
-                            <property name="label" translatable="yes">Use regular expression</property>
+                            <property name="label" translatable="yes">_Use regular expression</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -679,7 +696,8 @@
               <object class="GtkLabel" id="content_type_tab_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Content</property>
+                <property name="label" translatable="yes">Conten_t</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="position">2</property>
@@ -763,11 +781,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="smaller_than_checkbutton">
-                            <property name="label" translatable="yes">Smaller than:</property>
+                            <property name="label" translatable="yes">_Smaller than:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_smaller_than_checkbutton_toggled" swapped="no"/>
                           </object>
@@ -779,11 +798,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="bigger_than_checkbutton">
-                            <property name="label" translatable="yes">Bigger than:</property>
+                            <property name="label" translatable="yes">_Bigger than:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_bigger_than_checkbutton_toggled" swapped="no"/>
                           </object>
@@ -905,11 +925,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="max_mtime_checkbutton">
-                            <property name="label" translatable="yes">Earlier than:</property>
+                            <property name="label" translatable="yes">_Earlier than:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_max_mtime_checkbutton_toggled" swapped="no"/>
                           </object>
@@ -920,11 +941,12 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="min_mtime_checkbutton">
-                            <property name="label" translatable="yes">Later than:</property>
+                            <property name="label" translatable="yes">_Later than:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_min_mtime_checkbutton_toggled" swapped="no"/>
                           </object>
@@ -953,7 +975,8 @@
               <object class="GtkLabel" id="size_date_tab_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Properties</property>
+                <property name="label" translatable="yes">_Properties</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="position">3</property>

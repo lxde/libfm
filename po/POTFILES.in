@@ -4,6 +4,7 @@ data/ui/file-prop.glade
 data/ui/progress.glade
 data/ui/preferred-apps.glade
 data/ui/exec-file.glade
+data/ui/filesearch.glade
 src/base/fm-utils.c
 src/base/fm-file-info.c
 src/base/fm-file-launcher.c
