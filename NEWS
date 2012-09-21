@@ -24,6 +24,9 @@ Changes on 1.0.2 since 1.0.1:
 * Migrated menu:// support into built-in VFS. There will be support for
     menu editing functions later.
 
+* Added search engine. Supports search:// URIs and has the UI represented
+    by API fm_launch_search_simple().
+
 
 Changes on 1.0.1 since 1.0.0:
 

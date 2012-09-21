@@ -70,6 +70,7 @@ static void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* 
 static void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win);
 static void on_about(GtkAction* act, FmMainWin* win);
+static void on_search(GtkAction* act, FmMainWin* win);
 
 static void on_location(GtkAction* act, FmMainWin* win);
 
@@ -628,6 +629,13 @@ void on_open_in_new_win(GtkAction* act, FmMainWin* win)
     }
 }
 
+static void on_search(GtkAction* act, FmMainWin* win)
+{
+    FmPath* cwd = fm_folder_get_path(win->folder);
+    GList* l = g_list_append(NULL, cwd);
+    fm_launch_search_simple(GTK_WINDOW(win), NULL, l, open_folder_func, win);
+    g_list_free(l);
+}
 
 void on_go(GtkAction* act, FmMainWin* win)
 {

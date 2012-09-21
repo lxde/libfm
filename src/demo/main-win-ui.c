@@ -54,6 +54,8 @@ static const char main_menu_xml[] =
     "<menuitem action='Trash'/>"
     "<menuitem action='Network'/>"
     "<menuitem action='Apps'/>"
+    "<separator/>"
+    "<menuitem action='Search'/>"
   "</menu>"
   "<menu action='BookmarksMenu'>"
     "<menuitem action='AddBookmark'/>"
@@ -122,6 +124,7 @@ static GtkActionEntry main_win_actions[]=
         {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, G_CALLBACK(on_go_network)},
         {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), G_CALLBACK(on_go_apps)},
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, G_CALLBACK(on_go)},
+        {"Search", GTK_STOCK_FIND, N_("Find Files"), "", NULL, G_CALLBACK(on_search)},
     {"BookmarksMenu", NULL, N_("_Bookmarks"), NULL, NULL, NULL},
         {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
     /* for accelerators */
