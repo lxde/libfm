@@ -154,10 +154,17 @@ static void on_folder_start_loading(FmFolder* folder, FmMainWin* win)
     g_debug("start-loading");
     fm_set_busy_cursor(GTK_WIDGET(win));
 
-    /* create a model for the folder and set it to the view */
-    model = fm_folder_model_new(folder, FALSE);
-    fm_folder_view_set_model(win->folder_view, model);
-    g_object_unref(model);
+    if(fm_folder_is_incremental(folder))
+    {
+        /* create a model for the folder and set it to the view
+           it is delayed for non-incremental folders since adding rows into
+           model is much faster without handlers connected to its signals */
+        model = fm_folder_model_new(folder, FALSE);
+        fm_folder_view_set_model(win->folder_view, model);
+        g_object_unref(model);
+    }
+    else
+        fm_folder_view_set_model(fv, NULL);
 }
 
 static gboolean update_scroll(gpointer data)
@@ -176,10 +183,19 @@ static gboolean update_scroll(gpointer data)
 
 static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 {
+    FmFolderView* fv = win->folder_view;
     FmPath* path = fm_folder_get_path(folder);
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
 
     fm_path_entry_set_path(entry, path);
+
+    if(fm_folder_view_get_model(fv) == NULL)
+    {
+        /* create a model for the folder and set it to the view */
+        FmFolderModel* model = fm_folder_model_new(folder, FALSE);
+        fm_folder_view_set_model(fv, model);
+        g_object_unref(model);
+    }
 
     /* delaying scrolling since drawing folder view is delayed - don't know why */
     if(!win->update_scroll_id)
