@@ -9,6 +9,7 @@ ui_in_files= \
 	app-chooser.glade \
 	preferred-apps.glade \
 	exec-file.glade \
+	filesearch.glade \
 	$(NULL)
 ui_DATA = $(ui_in_files:.glade=.ui)
 

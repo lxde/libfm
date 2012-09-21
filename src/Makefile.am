@@ -142,6 +142,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
 	gtk/fm-path-bar.c \
+	gtk/fm-file-search.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -207,6 +208,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
 	gtk/fm-path-bar.h \
+	gtk/fm-file-search.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
@@ -413,6 +415,7 @@ VAPI_FILES = \
 EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
+	gtk/fm-file-search-ui.c \
 	gtk/exo/README \
 	demo/main-win-ui.c \
 	udisks/gen-binding \
