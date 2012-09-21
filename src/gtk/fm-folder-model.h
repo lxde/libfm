@@ -126,7 +126,7 @@ void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc fu
 
 void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data);
 
-void fm_folder_model_refilter(FmFolderModel* model);
+void fm_folder_model_apply_filters(FmFolderModel* model);
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
 

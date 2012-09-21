@@ -304,13 +304,13 @@ static void fm_folder_model_dispose(GObject *object)
         g_hash_table_destroy(model->items_hash);
         model->items_hash = NULL;
     }
-    
+
     if(model->filters)
     {
         g_slist_free_full(model->filters, (GDestroyNotify)fm_folder_model_filter_item_free);
         model->filters = NULL;
     }
-    
+
     (*G_OBJECT_CLASS(fm_folder_model_parent_class)->dispose)(object);
 }
 
@@ -1065,12 +1065,11 @@ gboolean fm_folder_model_get_show_hidden(FmFolderModel* model)
  */
 void fm_folder_model_set_show_hidden(FmFolderModel* model, gboolean show_hidden)
 {
-    FmFolderItem* item;
     g_return_if_fail(model != NULL);
     if( model->show_hidden == show_hidden )
         return;
     model->show_hidden = show_hidden;
-    fm_folder_model_refilter(model);
+    fm_folder_model_apply_filters(model);
 }
 
 static void reload_icons(FmFolderModel* model, enum ReloadFlags flags)
@@ -1467,9 +1466,9 @@ gpointer fm_folder_model_get_item_userdata(FmFolderModel* model, GtkTreeIter* it
  *
  * Install a filter function to filter out and hide some items.
  * This only install a filter function and does not update content of the model.
- * You need to call fm_folder_model_refilter() to refilter the model.
+ * You need to call fm_folder_model_apply_filters() to refilter the model.
  *
- * Since: 1.0.3
+ * Since: 1.0.2
  */
 void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data)
 {
@@ -1487,9 +1486,9 @@ void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc fu
  *
  * Remove a filter function previously installed by fm_folder_model_add_filter()
  * This only remove the filter function and does not update content of the model.
- * You need to call fm_folder_model_refilter() to refilter the model.
+ * You need to call fm_folder_model_apply_filters() to refilter the model.
  *
- * Since: 1.0.3
+ * Since: 1.0.2
  */
 void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data)
 {
@@ -1507,7 +1506,7 @@ void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc
 }
 
 /**
- * fm_folder_model_refilter
+ * fm_folder_model_apply_filters
  * @model:  the folder model instance
  *
  * After changing the filters by fm_folder_model_add_filter() or
@@ -1515,14 +1514,14 @@ void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc
  * to really apply the filter to the model content.
  * This is for performance reason.
  * You can add many filter functions and also remove some, and then
- * call fm_folder_model_refilter() to update the content of the model once.
- * 
- * If you forgot to call fm_folder_model_refilter(), the content of the
+ * call fm_folder_model_apply_filters() to update the content of the model once.
+ *
+ * If you forgot to call fm_folder_model_apply_filters(), the content of the
  * model may be incorrect.
  *
- * Since: 1.0.3
+ * Since: 1.0.2
  */
-void fm_folder_model_refilter(FmFolderModel* model)
+void fm_folder_model_apply_filters(FmFolderModel* model)
 {
     FmFolderItem* item;
     GSList* items_to_show = NULL;
