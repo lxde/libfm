@@ -175,6 +175,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         while(host_end < uri_end && *host_end != '/') /* find the end of host name */
             ++host_end;
         host_len = (host_end - host);
+        /* FIXME: is this ever needed? VFS should handle it */
         if(scheme_len == 4 && g_ascii_strncasecmp(uri, "menu", 4) == 0)
         {
             if(host_len == 0) /* fallback to applications */

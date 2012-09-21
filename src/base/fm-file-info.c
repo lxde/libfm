@@ -323,20 +323,6 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
         /* assume it's accessible */
         fi->accessible = TRUE;
 
-    /* try file-specific icon first */
-    gicon = g_file_info_get_icon(inf);
-    if(gicon)
-        fi->icon = fm_icon_from_gicon(gicon);
-        /* g_object_unref(gicon); this is not needed since
-         * g_file_info_get_icon didn't increase ref_count.
-         * the object returned by g_file_info_get_icon is
-         * owned by GFileInfo. */
-    /* set "locked" icon on unaccesible folder */
-    else if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
-        fi->icon = fm_icon_ref(icon_locked_folder);
-    else if(fi->mime_type)
-        fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
-
     switch(type)
     {
     case G_FILE_TYPE_MOUNTABLE:
@@ -352,7 +338,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->mime_type = fm_mime_type_from_file_name(fi->target);
         }
 
-        if(!fi->mime_type)
+        if(G_UNLIKELY(!fi->mime_type))
         {
             /* FIXME: is this appropriate? */
             if(type == G_FILE_TYPE_SHORTCUT)
@@ -360,6 +346,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             else
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_mountable());
         }
+        break;
+    case G_FILE_TYPE_DIRECTORY:
+        if(!fi->mime_type)
+            fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
         break;
     case G_FILE_TYPE_SYMBOLIC_LINK:
         uri = g_file_info_get_symlink_target(inf);
@@ -372,11 +362,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             if(!fi->mime_type)
                 fi->mime_type = fm_mime_type_from_file_name(fi->target);
         }
-        break;
-    case G_FILE_TYPE_DIRECTORY:
-        if(!fi->mime_type)
-            fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
-        break;
+        /* continue with absent mime type */
     default: /* G_FILE_TYPE_UNKNOWN G_FILE_TYPE_REGULAR G_FILE_TYPE_SPECIAL */
         if(G_UNLIKELY(!fi->mime_type))
         {
@@ -384,6 +370,20 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
             fi->mime_type = fm_mime_type_from_file_name(uri);
         }
     }
+
+    /* try file-specific icon first */
+    gicon = g_file_info_get_icon(inf);
+    if(gicon)
+        fi->icon = fm_icon_from_gicon(gicon);
+        /* g_object_unref(gicon); this is not needed since
+         * g_file_info_get_icon didn't increase ref_count.
+         * the object returned by g_file_info_get_icon is
+         * owned by GFileInfo. */
+    /* set "locked" icon on unaccesible folder */
+    else if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
+        fi->icon = fm_icon_ref(icon_locked_folder);
+    else
+        fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
     if(fm_path_is_native(fi->path))
     {

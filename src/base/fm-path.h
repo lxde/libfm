@@ -99,7 +99,9 @@ gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix);
 #define fm_path_is_trash_root(path) (path == fm_path_get_trash())
 #define fm_path_is_virtual(path) ((fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)!=0)
 #define fm_path_is_local(path) ((fm_path_get_flags(path)&FM_PATH_IS_LOCAL)!=0)
+#ifndef FM_DISABLE_DEPRECATED
 #define fm_path_is_xdg_menu(path) ((fm_path_get_flags(path)&FM_PATH_IS_XDG_MENU)!=0)
+#endif
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);

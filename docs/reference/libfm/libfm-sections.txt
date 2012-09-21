@@ -897,7 +897,6 @@ fm_path_is_native
 fm_path_is_trash
 fm_path_is_trash_root
 fm_path_is_virtual
-fm_path_is_xdg_menu
 fm_path_list_new
 fm_path_list_new_from_file_info_glist
 fm_path_list_new_from_file_info_gslist
