@@ -60,7 +60,7 @@ static int signals[N_SIGNALS];
 static gboolean fm_dir_list_job_run(FmJob *job);
 static void fm_dir_list_job_finished(FmJob* job);
 
-static gboolean delay_add_files(gpointer user_data);
+static gboolean emit_found_files(gpointer user_data);
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 {
@@ -83,9 +83,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
      * emitted for performance reason. This can be turned on by calling
      * fm_dir_list_job_set_emit_files_found().
      *
-     * Return value: None
-     *
-     * Since: 0.1.2
+     * Since: 1.0.2
      */
     signals[FILES_FOUND] =
         g_signal_new("files-found",
@@ -171,7 +169,7 @@ static void fm_dir_list_job_dispose(GObject *object)
         fm_file_info_list_unref(job->files);
         job->files = NULL;
     }
-    
+
     if(job->delay_add_files_handler)
     {
         g_source_remove(job->delay_add_files_handler);
@@ -407,14 +405,14 @@ static void fm_dir_list_job_finished(FmJob* job)
         if(dirlist_job->delay_add_files_handler)
         {
             g_source_remove(dirlist_job->delay_add_files_handler);
-            delay_add_files(dirlist_job);
+            emit_found_files(dirlist_job);
         }
     }
     if(job_class->finished)
         job_class->finished(job);
 }
 
-
+#if 0
 /**
  * fm_dir_list_job_get_dir_path
  * @job: the job that collected listing
@@ -444,6 +442,7 @@ FmFileInfo* fm_dir_list_job_get_dir_info(FmDirListJob* job)
 {
     return job->dir_fi;
 }
+#endif
 
 /**
  * fm_dir_list_job_get_files
@@ -483,6 +482,7 @@ FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
 }
 #endif /* FM_DISABLE_DEPRECATED */
 
+#if 0
 void fm_dir_list_job_set_emit_files_found(FmDirListJob* job, gboolean emit_files_found)
 {
     job->emit_files_found = emit_files_found;
@@ -492,12 +492,13 @@ gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job)
 {
     return job->emit_files_found;
 }
+#endif
 
-static gboolean delay_add_files(gpointer user_data)
+static gboolean emit_found_files(gpointer user_data)
 {
     /* this callback is called from the main thread */
     FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
-    /* g_print("delay_add_files: %d\n", g_slist_length(job->files_to_add)); */
+    /* g_print("emit_found_files: %d\n", g_slist_length(job->files_to_add)); */
 
     g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
     g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
@@ -514,25 +515,26 @@ static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
     /* g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file)); */
     job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
     if(job->delay_add_files_handler == 0)
-        job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW, 1, delay_add_files, g_object_ref(job), g_object_unref);
+        job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW,
+                        1, emit_found_files, g_object_ref(job), g_object_unref);
     return NULL;
 }
 
 /**
- * fm_dir_dist_job_add_found_file
+ * fm_dir_list_job_add_found_file
  * @job: the job that collected listing
  * @file: a FmFileInfo of the newly found file
  *
- * This API is called by the implementation of FmDirListJob only.
+ * This API may be called by the classes derived of FmDirListJob only.
  * Application developers should not use this API.
  * When a new file is found in the dir being listed, implementations
  * of FmDirListJob should call this API with the info of the newly found
  * file. The FmFileInfo will be added to the found file list.
  * 
- * If emission of "files-found" signal is turned on by 
- * fm_dir_list_job_set_emit_files_found(), a "files-found" signal is emitted
+ * If emission of the #FmDirListJob::files-found signal is turned on by
+ * fm_dir_list_job_set_incremental(), the signal will be emitted
  * for the newly found files after several new files are added.
- * See the document for "files-found" signal for more detail.
+ * See the document for the signal for more detail.
  *
  * Since: 1.0.2
  */
@@ -543,6 +545,7 @@ void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file)
         fm_job_call_main_thread(FM_JOB(job), queue_add_file, file);
 }
 
+#if 0
 /**
  * fm_dir_list_job_set_dir_path
  * @job: the job that collected listing
@@ -575,4 +578,21 @@ void fm_dir_list_job_set_dir_info(FmDirListJob* job, FmFileInfo* info)
     if(job->dir_fi)
         fm_file_info_unref(job->dir_fi);
     job->dir_fi = fm_file_info_ref(info);
+}
+#endif
+
+/**
+ * fm_dir_list_job_set_incremental
+ * @job: the job descriptor
+ * @set: %TRUE if job should send the #FmDirListJob::files-found signal
+ *
+ * Sets whether @job should send the #FmDirListJob::files-found signal
+ * on found files before the @job is finished or not.
+ * This should only be called before the @job is launched.
+ *
+ * Since: 1.0.2
+ */
+void fm_dir_list_job_set_incremental(FmDirListJob* job, gboolean set)
+{
+    job->emit_files_found = set;
 }

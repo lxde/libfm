@@ -52,12 +52,14 @@ typedef struct _FmDirListJobClass       FmDirListJobClass;
  */
 struct _FmDirListJob
 {
+    /* FIXME: should seal this all */
     /*< public >*/
     FmJob parent;
     FmPath* dir_path;
     gboolean dir_only;
     FmFileInfo* dir_fi;
     FmFileInfoList* files;
+    /*< private >*/
     gboolean emit_files_found;
     guint delay_add_files_handler;
     GSList* files_to_add;
@@ -75,16 +77,18 @@ struct _FmDirListJobClass
 GType           fm_dir_list_job_get_type(void);
 FmDirListJob*   fm_dir_list_job_new(FmPath* path, gboolean dir_only);
 FmDirListJob*   fm_dir_list_job_new_for_gfile(GFile* gf);
+FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job);
+void            fm_dir_list_job_set_incremental(FmDirListJob* job, gboolean set);
 
+#if 0
 FmPath* fm_dir_list_job_get_dir_path(FmDirListJob* job);
 FmFileInfo* fm_dir_list_job_get_dir_info(FmDirListJob* job);
-FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job);
-
 void fm_dir_list_job_set_dir_path(FmDirListJob* job, FmPath* path);
 void fm_dir_list_job_set_dir_info(FmDirListJob* job, FmFileInfo* info);
 
 void fm_dir_list_job_set_emit_files_found(FmDirListJob* job, gboolean emit_files_found);
 gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job);
+#endif
 void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file);
 
 G_END_DECLS

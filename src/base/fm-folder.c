@@ -38,7 +38,6 @@
 #include "fm-file.h"
 
 #include <string.h>
-#include "fm-search-job.h"
 
 enum {
     FILES_ADDED,
@@ -75,6 +74,7 @@ struct _FmFolder
     GSList* pending_jobs;
     gboolean pending_change_notify;
     gboolean filesystem_info_pending;
+    gboolean wants_incremental;
     guint idle_reload_handler;
 
     /* filesystem info - set in query thread, read in main */
@@ -622,28 +622,23 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
      * object will be distroyed very soon. */
     /* g_signal_handlers_disconnect_by_func(job, on_dirlist_job_finished, folder); */
 
-    if(!fm_job_is_cancelled(FM_JOB(job)))
+    if(!fm_job_is_cancelled(FM_JOB(job)) && !folder->wants_incremental)
     {
         GList* l;
-        FmFileInfo* dir_fi = fm_dir_list_job_get_dir_info(job);
-        if(dir_fi)
-            folder->dir_fi = fm_file_info_ref(dir_fi);
-
-        if(!fm_dir_list_job_get_emit_files_found(job))
+        for(l = fm_file_info_list_peek_head_link(job->files); l; l=l->next)
         {
-            FmFileInfoList* job_files = fm_dir_list_job_get_files(job);
-            for(l = fm_file_info_list_peek_head_link(job_files); l; l=l->next)
-            {
-                FmFileInfo* inf = (FmFileInfo*)l->data;
-                files = g_slist_prepend(files, inf);
-                fm_file_info_list_push_tail(folder->files, inf);
-            }
-            if(G_LIKELY(files))
-            {
-                g_signal_emit(folder, signals[FILES_ADDED], 0, files);
-                g_slist_free(files);
-            }
+            FmFileInfo* inf = (FmFileInfo*)l->data;
+            files = g_slist_prepend(files, inf);
+            fm_file_info_list_push_tail(folder->files, inf);
         }
+        if(G_LIKELY(files))
+        {
+            g_signal_emit(folder, signals[FILES_ADDED], 0, files);
+            g_slist_free(files);
+        }
+
+        if(job->dir_fi)
+            folder->dir_fi = fm_file_info_ref(job->dir_fi);
 
         /* Some new files are created while FmDirListJob is loading the folder. */
         if(G_UNLIKELY(folder->files_to_add))
@@ -703,6 +698,7 @@ static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf)
     FmFolder* folder = (FmFolder*)g_object_new(FM_TYPE_FOLDER, NULL);
     folder->dir_path = fm_path_ref(path);
     folder->gf = (GFile*)g_object_ref(gf);
+    folder->wants_incremental = fm_file_wants_incremental(gf);
     fm_folder_reload(folder);
     return folder;
 }
@@ -734,7 +730,7 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
 
 static void free_dirlist_job(FmFolder* folder)
 {
-    if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
+    if(folder->wants_incremental)
         g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_files_found, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_finished, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_error, folder);
@@ -983,16 +979,12 @@ void fm_folder_reload(FmFolder* folder)
     g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
 
     /* run a new dir listing job */
-    
-    /* FIXME: later there should be cleaner way for this */
-    if(G_UNLIKELY(fm_path_is_search(folder->dir_path)))
-        folder->dirlist_job = fm_search_job_new(folder->dir_path);
-    else
-        folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+    folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
 
     g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
-    if(fm_dir_list_job_get_emit_files_found(folder->dirlist_job))
+    if(folder->wants_incremental)
         g_signal_connect(folder->dirlist_job, "files-found", G_CALLBACK(on_dirlist_job_files_found), folder);
+    fm_dir_list_job_set_incremental(folder->dirlist_job, folder->wants_incremental);
     g_signal_connect(folder->dirlist_job, "error", G_CALLBACK(on_dirlist_job_error), folder);
     fm_job_run_async(FM_JOB(folder->dirlist_job));
     /* FIXME: free job if error */
@@ -1178,9 +1170,7 @@ gboolean fm_folder_is_valid(FmFolder* folder)
  */
 gboolean fm_folder_is_incremental(FmFolder* folder)
 {
-    if(folder->dirlist_job)
-        return fm_dir_list_job_get_emit_files_found(folder->dirlist_job);
-    return FALSE;
+    return folder->wants_incremental;
 }
 
 
