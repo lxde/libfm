@@ -668,6 +668,7 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
     ui->user_data = user_data;
 
     GtkBuilder* builder = gtk_builder_new();
+    gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/filesearch.ui", NULL);
 
     ui->dlg = GTK_DIALOG(gtk_builder_get_object(builder, "dlg"));

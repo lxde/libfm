@@ -696,7 +696,7 @@
               <object class="GtkLabel" id="content_type_tab_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Conten_t</property>
+                <property name="label" translatable="yes">C_ontent</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -941,7 +941,7 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="min_mtime_checkbutton">
-                            <property name="label" translatable="yes">_Later than:</property>
+                            <property name="label" translatable="yes">L_ater than:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
