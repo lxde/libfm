@@ -227,10 +227,12 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
     ds->widget = w;
     if( w )
     {
+        GtkTargetList *targets;
         gtk_drag_source_set(w, GDK_BUTTON1_MASK, fm_default_dnd_src_targets,
                             G_N_ELEMENTS(fm_default_dnd_src_targets),
                             GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK);
-        /* FIXME: gtk_target_list_add_text_targets() */
+        targets = gtk_drag_source_get_target_list(w);
+        gtk_target_list_add_text_targets(targets, FM_DND_SRC_TARGET_TEXT);
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&ds->widget);
         g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
         g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
@@ -299,7 +301,7 @@ on_drag_data_get ( GtkWidget *src_widget,
                                (guchar*)&ds->files, sizeof(gpointer));
         break;
     case FM_DND_SRC_TARGET_URI_LIST:
-    //case FM_DND_SRC_TARGET_TEXT:
+    case FM_DND_SRC_TARGET_TEXT:
         {
             gchar* uri;
             GString* uri_list = g_string_sized_new( 8192 );
@@ -312,10 +314,13 @@ on_drag_data_get ( GtkWidget *src_widget,
                 uri = fm_path_to_uri(fm_file_info_get_path(file));
                 g_string_append( uri_list, uri );
                 g_free( uri );
-                g_string_append( uri_list, "\r\n" );
+                g_string_append( uri_list, "\n" );
             }
-            gtk_selection_data_set ( sel_data, type, 8,
-                                     ( guchar* ) uri_list->str, uri_list->len );
+            if(info == FM_DND_SRC_TARGET_URI_LIST)
+                gtk_selection_data_set(sel_data, type, 8,
+                                       (guchar*)uri_list->str, uri_list->len);
+            else /* FM_DND_SRC_TARGET_TEXT */
+                gtk_selection_data_set_text(sel_data, uri_list->str, uri_list->len);
             g_string_free( uri_list, TRUE );
         }
         break;
