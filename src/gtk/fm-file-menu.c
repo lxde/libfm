@@ -347,7 +347,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* check if the files are on the same filesystem */
     data->same_fs = fm_file_info_list_is_same_fs(files);
 
-    data->all_virtual = data->same_fs && fm_path_is_virtual(path);
+    data->all_virtual = data->same_fs && !fm_path_is_native(path);
     data->all_trash = data->same_fs && fm_path_is_trash(path);
 
     data->auto_destroy = auto_destroy;

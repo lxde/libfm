@@ -831,21 +831,12 @@ char* fm_path_display_basename(FmPath* path)
 {
     if(G_UNLIKELY(!path->parent)) /* root_path element */
     {
-        if( !fm_path_is_native(path) && fm_path_is_virtual(path) )
+        if( !fm_path_is_native(path) )
         {
             if(fm_path_is_trash_root(path))
                 return g_strdup(_("Trash Can"));
             if(g_str_has_prefix(path->name, "computer:/"))
                 return g_strdup(_("My Computer"));
-            if(g_str_has_prefix(path->name, "menu:/"))
-            {
-                /* FIXME: this should be more flexible */
-                const char* p = path->name + 5;
-                while(*p == '/')
-                    ++p;
-                if(g_str_has_prefix(p, "applications.menu"))
-                    return g_strdup(_("Applications"));
-            }
             if(g_str_has_prefix(path->name, "network:/"))
                 return g_strdup(_("Network"));
         }

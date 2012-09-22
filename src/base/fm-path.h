@@ -40,12 +40,15 @@ typedef struct _FmPathList FmPathList;
  * FmPathFlags:
  * @FM_PATH_NONE: -
  * @FM_PATH_IS_NATIVE: This is a native path to UNIX, like /home
- * @FM_PATH_IS_LOCAL: This path refers  to a file on local filesystem
+ * @FM_PATH_IS_LOCAL: This path refers to a file on local filesystem
  * @FM_PATH_IS_VIRTUAL: This path is virtual and it doesn't exist on real filesystem
  * @FM_PATH_IS_TRASH: This path is under trash:///
  * @FM_PATH_IS_XDG_MENU: This path is under menu:///
  *
  * Flags of #FmPath object.
+ *
+ * FM_PATH_IS_VIRTUAL and FM_PATH_IS_XDG_MENU are deprecated since 1.0.2
+ * and should not be used in newly written code.
  */
 typedef enum
 {
@@ -97,9 +100,9 @@ gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix);
 #define fm_path_is_native(path) ((fm_path_get_flags(path)&FM_PATH_IS_NATIVE)!=0)
 #define fm_path_is_trash(path) ((fm_path_get_flags(path)&FM_PATH_IS_TRASH)!=0)
 #define fm_path_is_trash_root(path) (path == fm_path_get_trash())
-#define fm_path_is_virtual(path) ((fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)!=0)
 #define fm_path_is_local(path) ((fm_path_get_flags(path)&FM_PATH_IS_LOCAL)!=0)
 #ifndef FM_DISABLE_DEPRECATED
+#define fm_path_is_virtual(path) ((fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)!=0)
 #define fm_path_is_xdg_menu(path) ((fm_path_get_flags(path)&FM_PATH_IS_XDG_MENU)!=0)
 #endif
 

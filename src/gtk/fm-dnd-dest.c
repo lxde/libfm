@@ -815,7 +815,7 @@ query_sources:
             else /* files inside trash are read only */
                 action = 0;
         }
-        else if(fm_path_is_virtual(dest_path))
+        else if(!fm_path_is_native(dest_path))
         {
             /* computer:/// and network:/// shouldn't received dropped files. */
             /* FIXME: some special handling can be done with menu:// */
