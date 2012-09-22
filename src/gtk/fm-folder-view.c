@@ -1347,6 +1347,13 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             FmFileMenu* menu;
             FmFileInfoList* files = iface->dup_selected_files(fv);
 
+            /* workaround on ExoTreeView bug */
+            if(files == NULL)
+            {
+                files = fm_file_info_list_new();
+                fm_file_info_list_push_tail(files, fi);
+            }
+
             menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
             fm_file_menu_set_folder_func(menu, open_folders, win);
 
