@@ -38,6 +38,10 @@
 #define _GNU_SOURCE /* for FNM_CASEFOLD in fnmatch.h, a GNU extension */
 #include <fnmatch.h>
 
+#if __GNUC__ >= 4
+#pragma GCC diagnostic ignored "-Wcomment" /* for comments below */
+#endif
+
 /* ---- Classes structures ---- */
 typedef struct _FmSearchIntIter FmSearchIntIter;
 

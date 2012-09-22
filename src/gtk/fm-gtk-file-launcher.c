@@ -377,6 +377,7 @@ typedef struct
     gpointer user_data;
 } FileSearchUI;
 
+#if 0
 static gchar * document_mime_types[] = {
     "application/pdf",
     "application/msword",
@@ -401,6 +402,7 @@ static gchar * document_mime_types[] = {
     "application/x-dvi",
     NULL
 };
+#endif
 
 /* UI Signal Handlers */
 
@@ -422,7 +424,7 @@ static gboolean launch_search(FileSearchUI* ui)
         gboolean show_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->search_hidden_files_checkbutton));
         const char* name_patterns = gtk_entry_get_text(ui->name_entry);
         gboolean name_ci = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_case_insensitive_checkbutton));
-        gboolean name_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_regex_checkbutton));
+        //gboolean name_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->name_regex_checkbutton));
         const char* content_pattern = gtk_entry_get_text(ui->content_entry);
         gboolean content_ci = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->content_case_insensitive_checkbutton));
         gboolean content_regex = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->content_regex_checkbutton));

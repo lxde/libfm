@@ -164,7 +164,7 @@ static void on_folder_start_loading(FmFolder* folder, FmMainWin* win)
         g_object_unref(model);
     }
     else
-        fm_folder_view_set_model(fv, NULL);
+        fm_folder_view_set_model(win->folder_view, NULL);
 }
 
 static gboolean update_scroll(gpointer data)
