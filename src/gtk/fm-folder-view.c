@@ -1138,7 +1138,7 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     /* init popup from XML string */
     ui = gtk_ui_manager_new();
     act_grp = gtk_action_group_new("Desktop");
-    gtk_action_group_set_translation_domain(act_grp, NULL);
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
     gtk_action_group_add_actions(act_grp, folder_popup_actions,
                                  G_N_ELEMENTS(folder_popup_actions), fv);
     gtk_action_group_add_toggle_actions(act_grp, folder_toggle_actions,
