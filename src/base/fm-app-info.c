@@ -37,7 +37,28 @@
 static void append_file_to_cmd(GFile* gf, GString* cmd)
 {
     char* file = g_file_get_path(gf);
-    char* quote = g_shell_quote(file);
+    char* quote;
+    if(file == NULL) /* trash:// gvfs is incomplete in resolving it */
+    {
+        /* we can retrieve real path from GVFS >= 1.13.3 */
+        if(g_file_has_uri_scheme(gf, "trash"))
+        {
+            GFileInfo *inf;
+            const char *orig_path;
+
+            inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI,
+                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
+            if(inf == NULL) /* failed */
+                return;
+            orig_path = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
+            if(orig_path != NULL) /* success */
+                file = g_filename_from_uri(orig_path, NULL, NULL);
+            g_object_unref(inf);
+        }
+        if(file == NULL)
+            return;
+    }
+    quote = g_shell_quote(file);
     g_string_append(cmd, quote);
     g_string_append_c(cmd, ' ');
     g_free(quote);
@@ -354,9 +375,7 @@ gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
 
     for(;uris; uris = uris->next)
     {
-        gchar *unescaped = g_uri_unescape_string((char*)uris->data, "");
-        GFile* gf = fm_file_new_for_uri(unescaped);
-        g_free(unescaped);
+        GFile* gf = fm_file_new_for_uri((char*)uris->data);
         if(gf)
             gfiles = g_list_prepend(gfiles, gf);
     }
