@@ -86,6 +86,8 @@ typedef struct
 static void      fm_path_entry_activate(GtkEntry *entry, gpointer user_data);
 static gboolean  fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data);
 static void      fm_path_entry_class_init(FmPathEntryClass *klass);
+static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *event);
+static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event);
 static void      fm_path_entry_changed(GtkEditable *editable, gpointer user_data);
 static void      fm_path_entry_init(FmPathEntry *entry);
 static void      fm_path_entry_dispose(GObject *object);
@@ -192,6 +194,7 @@ static void  fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
 
 static void fm_path_entry_class_init(FmPathEntryClass *klass)
 {
+    GtkWidgetClass* widget_class = GTK_WIDGET_CLASS(klass);
     GObjectClass* object_class = G_OBJECT_CLASS(klass);
 
     object_class->get_property = fm_path_entry_get_property;
@@ -212,6 +215,10 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
                                                          TRUE, G_PARAM_READWRITE) );
     object_class->dispose = fm_path_entry_dispose;
     object_class->finalize = fm_path_entry_finalize;
+    /* entry_class->activate = fm_path_entry_activate; */
+
+    widget_class->focus_in_event = fm_path_entry_focus_in_event;
+    widget_class->focus_out_event = fm_path_entry_focus_out_event;
 
     g_type_class_add_private( klass, sizeof (FmPathEntryPrivate) );
 }
@@ -235,6 +242,35 @@ static void clear_completion(FmPathEntryPrivate* priv)
         gtk_list_store_clear(GTK_LIST_STORE(priv->model));
     }
     priv->typed_basename_len = 0;
+}
+
+static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *event)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY(widget);
+    FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    /* activate auto-completion */
+    gtk_entry_set_completion(GTK_ENTRY(entry), priv->completion);
+
+    /* listen to 'changed' signal for auto-completion */
+    g_signal_connect(entry, "changed", G_CALLBACK(fm_path_entry_changed), NULL);
+    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_in_event(widget, event);
+}
+
+static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY(widget);
+    FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    /* de-activate auto-completion */
+    gtk_entry_set_completion(GTK_ENTRY(entry), NULL);
+
+    /* release all resources allocated for completion. */
+    clear_completion(priv);
+
+    /* disconnect from 'changed' signal since we don't do auto-completion
+     * when we have no keyboard focus. */
+    g_signal_handlers_disconnect_by_func(entry, fm_path_entry_changed, NULL);
+
+    return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_out_event(widget, event);
 }
 
 static gboolean on_dir_list_finished(gpointer user_data)
@@ -472,12 +508,6 @@ fm_path_entry_init(FmPathEntry *entry)
     gtk_entry_completion_set_popup_set_width(completion, TRUE);
     /* gtk_entry_completion_set_popup_single_match(completion, FALSE); */
 
-    /* activate auto-completion */
-    gtk_entry_set_completion(GTK_ENTRY(entry), completion);
-
-    /* listen to 'changed' signal for auto-completion */
-    g_signal_connect(entry, "changed", G_CALLBACK(fm_path_entry_changed), NULL);
-
     /* connect to these signals rather than overriding default handlers since
      * we want to invoke our handlers before the default ones provided by Gtk. */
     g_signal_connect(entry, "key-press-event", G_CALLBACK(fm_path_entry_key_press), NULL);
@@ -523,16 +553,6 @@ static void fm_path_entry_dispose(GObject *object)
 
     if(priv->completion)
     {
-        /* de-activate auto-completion */
-        gtk_entry_set_completion(GTK_ENTRY(object), NULL);
-
-        /* release all resources allocated for completion. */
-        clear_completion(priv);
-
-        /* disconnect from 'changed' signal since we don't do auto-completion
-         * when we have no keyboard focus. */
-        g_signal_handlers_disconnect_by_func(object, fm_path_entry_changed, NULL);
-
         g_object_unref(priv->completion);
         priv->completion = NULL;
     }
