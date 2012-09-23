@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-22 07:52+0300\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: 2012-09-22 08:07+0300\n"
 "Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
 "Language-Team: Lietuvių <>\n"
@@ -417,7 +417,8 @@ msgid "<b>File Contain_s</b>"
 msgstr "<b>Faile _yra</b>"
 
 #: ../data/ui/filesearch.glade.h:25
-msgid "Conten_t"
+#, fuzzy
+msgid "C_ontent"
 msgstr "_Turinys"
 
 #: ../data/ui/filesearch.glade.h:26
@@ -436,8 +437,8 @@ msgstr "_Didesnis nei:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Paskutinį kartą pakeistas</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:527
-#: ../src/gtk/fm-gtk-file-launcher.c:534
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
 msgid "(None)"
 msgstr "(Joks)"
 
@@ -446,7 +447,8 @@ msgid "_Earlier than:"
 msgstr "_Seniau nei:"
 
 #: ../data/ui/filesearch.glade.h:32
-msgid "_Later than:"
+#, fuzzy
+msgid "L_ater than:"
 msgstr "_Vėliau nei:"
 
 #: ../data/ui/filesearch.glade.h:33
@@ -489,11 +491,7 @@ msgstr "Šiukšlinė"
 msgid "My Computer"
 msgstr "Mano kompiuteris"
 
-#: ../src/base/fm-path.c:847 ../src/gtk/fm-places-model.c:687
-msgid "Applications"
-msgstr "Programos"
-
-#: ../src/base/fm-path.c:850
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "Tinklas"
 
@@ -621,6 +619,10 @@ msgstr "Keli failai"
 #: ../src/gtk/fm-places-model.c:677
 msgid "Desktop"
 msgstr "Darbastalis"
+
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "Programos"
 
 #: ../src/gtk/fm-places-view.c:101
 msgid "_Mount Volume"
@@ -897,11 +899,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "„%s“ yra vykdomasis failas. Ar norite jį įvykdyti?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:562
+#: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
 msgstr "Nenurodyta aplankų."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:601
+#: ../src/gtk/fm-gtk-file-launcher.c:603
 msgid "Select a folder"
 msgstr "Pasirinkite aplanką"
 
@@ -1101,7 +1103,7 @@ msgid "Menu cache error"
 msgstr "Meniu podėlio klaida"
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:870
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
 msgstr "Operacija nepalaikoma"
 
@@ -1111,7 +1113,7 @@ msgid "Invalid filename %s"
 msgstr "Netinkamas failo vardas %s"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/vfs/fm-vfs-search.c:933
+#: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
 msgstr "Ieškoti"
 

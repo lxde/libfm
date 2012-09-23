@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 22:34+0200\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: 2012-09-06 16:22+0200\n"
 "Last-Translator: Bendegúz <gyonkibendeguz@gmail.com>\n"
 "Language: hu\n"
@@ -26,7 +26,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Megnyitandó fájltípus:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "Telepített alkalmazás"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -38,7 +39,8 @@ msgid "_Browse"
 msgstr "_Tallózás"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "Futtatás terminálban"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -57,11 +59,13 @@ msgstr ""
 "  <b>%U</b>: Több URI-t jelöl"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "Egyéni parancs"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr ""
 "A kijelölt alkalmazás beállítása alapértelmezett műveletnek ehhez a "
 "fájltípushoz"
@@ -71,6 +75,19 @@ msgid "Confirm to replace files"
 msgstr "Megerősítés a fájlok felülírásához"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Kihagyás"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "Át_nevezés"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Felülírás"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -80,29 +97,19 @@ msgstr ""
 "\n"
 "Felülírod a létező fájlt"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "a következő fájllal?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "Fájlnév:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "Beállítás alkalmazása minden létező fájlra"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "_Kihagyás"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "Át_nevezés"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "_Felülírás"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "Beállítás alkalmazása minden létező fájlra"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -150,23 +157,28 @@ msgid "_General"
 msgstr "Á_ltalános"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>_Tulajdonos:</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>Tulajdonos:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>_Csoport:</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>Csoport:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-msgid "<b>View content:</b>"
+#, fuzzy
+msgid "<b>_View content:</b>"
 msgstr "<b>Tartalom megnyitása:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Change content:</b>"
+#, fuzzy
+msgid "<b>C_hange content:</b>"
 msgstr "<b>Tartalom módosítása:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>Execute:</b>"
+#, fuzzy
+msgid "<b>_Execute:</b>"
 msgstr "<b>Futtatás:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -322,74 +334,204 @@ msgstr "Fájl futtatása"
 msgid "Execute in _Terminal"
 msgstr "Futtatás _terminálban"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "Fájlok _rendezése"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>Fájltípus:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>Fájltípus:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "Fájlok törlése"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "Fájlok áthelyezése a kukába"
+
+#: ../data/ui/filesearch.glade.h:20
+#, fuzzy
+msgid "_Audio files"
+msgstr "Fájlok _rendezése"
+
+#: ../data/ui/filesearch.glade.h:21
+#, fuzzy
+msgid "_Video files"
+msgstr "Fájlok _rendezése"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "<b>Fájltípus:</b>"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>Méret a lemezen:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>Fájltípus:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Utolsó módosítás</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+#, fuzzy
+msgid "(None)"
+msgstr "Nincs"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "Fájl tulajdonságai"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bájt"
 msgstr[1] "%u bájt"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
 msgid "Trash Can"
 msgstr "Kuka"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:839
 msgid "My Computer"
 msgstr "Számítógép"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "Alkalmazások"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "Hálózat"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "Parancsikonok"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "Csatolási pont"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:159
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -400,7 +542,7 @@ msgstr ""
 "Méret: %s\n"
 "Módosítva: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -409,23 +551,23 @@ msgstr ""
 "Típus: %s\n"
 "Módosítva: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid "The file operation is cancelled and there are some errors."
 msgstr "A fájlművelet megszakadt és hibák történtek."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:338
 msgid "Cancelled"
 msgstr "Megszakítva"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid "The file operation is finished, but there are some errors."
 msgstr "A fájlművelet befejeződött, de hibák történtek."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:344
 msgid "Finished"
 msgstr "Befejezve"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:366
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -435,309 +577,356 @@ msgstr ""
 "fájlrendszer nem támogatja ezt a műveletet.\n"
 "Törlöd őket inkább?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:497
 msgid "Moving files"
 msgstr "Fájlok áthelyezése"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:500
 msgid "Copying files"
 msgstr "Fájlok másolása"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:503
 msgid "Trashing files"
 msgstr "Fájlok áthelyezése a kukába"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:506
 msgid "Deleting files"
 msgstr "Fájlok törlése"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:509
 msgid "Creating symlinks"
 msgstr "Szimbolikus hivatkozások létrehozása"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:512
 msgid "Changing file attributes"
 msgstr "Fájljellemzők megváltoztatása"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bájt"
 msgstr[1] "%u bájt"
 
-#: ../src/gtk/fm-file-properties.c:226
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "Adj meg egy érvényed felhasználónevet vagy numerikus azonosítót."
 
-#: ../src/gtk/fm-file-properties.c:256
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "Adj meg egy érvényes csoportnevet vagy numerikus azonosítót."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:446
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Rekurzívan alkalmazod a módosításokat minden fájlra és almappára?"
 
-#: ../src/gtk/fm-file-properties.c:626
-msgid "<b>Access content:</b>"
+#: ../src/gtk/fm-file-properties.c:633
+#, fuzzy
+msgid "<b>_Access content:</b>"
 msgstr "<b>Hozzáférés a tartalomhoz:</b>"
 
-#: ../src/gtk/fm-file-properties.c:741
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "Különböző típusú fájlok"
 
-#: ../src/gtk/fm-file-properties.c:778
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "Több fájl"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "Kötet csatolása"
+#: ../src/gtk/fm-places-model.c:677
+msgid "Desktop"
+msgstr "Asztal"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "Kötet leválasztása"
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "Alkalmazások"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#, fuzzy
+msgid "_Mount Volume"
+msgstr "Kötet csatolása"
+
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
+msgstr "Kötet leválasztása"
+
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "Cserélhető adathordozó kiadása"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "Könyvjelző elem átnevezése"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "Eltávolítás a könyvjelzőből"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "Kuka ürítése"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "Könyvjelző elem átnevezése"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "Eltávolítás a könyvjelzőből"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "Kuka ürítése"
-
-#: ../src/gtk/fm-places-view.c:837
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "Írd be egy új nevet:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:62
+#, fuzzy
+msgid "_Places"
+msgstr "Helyek"
+
+#: ../src/gtk/fm-side-pane.c:63
+#, fuzzy
+msgid "_Directory Tree"
+msgstr "Könyvtárfa"
+
+#: ../src/gtk/fm-side-pane.c:64
+#, fuzzy
+msgid "_Remote"
+msgstr "Távoli"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "Helyek"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "Könyvtárfa"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "Távoli"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
-msgid "Open With..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "Megnyitás ezzel..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
-msgid "Rename"
-msgstr "Átnevezés"
-
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "Szimbolikus hivatkozás létrehozása"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "Küldés"
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "Tömörítés..."
 
-#: ../src/gtk/fm-file-menu.c:120
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "Kibontás ide"
 
-#: ../src/gtk/fm-file-menu.c:121
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "Kibontás..."
 
-#: ../src/gtk/fm-file-menu.c:391
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "Fájl tulajdonságai"
+
+#: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
 msgstr "_Visszaállítás"
 
-#: ../src/gtk/fm-file-menu.c:392
+#: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
 msgstr "Kukába áthelyezett fájlok visszaállítása az eredeti útvonalakba"
 
-#: ../src/gtk/fm-dnd-dest.c:558
+#: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
 msgstr "XDirectSave sikertelen."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:114
+#: ../src/gtk/fm-app-chooser-dlg.c:127
 msgid "Use selected application to open files"
 msgstr "Kiválasztott alkalmazás használata a fájlok megnyitásához"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:121
+#: ../src/gtk/fm-app-chooser-dlg.c:134
 msgid "Execute custom command line to open files"
 msgstr "Egyéni parancs végrehajtása a fájlok megnyitásához"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Testreszabás"
 
-#: ../src/gtk/fm-standard-view.c:578
+#: ../src/gtk/fm-standard-view.c:547
 msgid "Name"
 msgstr "Név"
 
-#: ../src/gtk/fm-standard-view.c:597
+#: ../src/gtk/fm-standard-view.c:566
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/gtk/fm-standard-view.c:604
+#: ../src/gtk/fm-standard-view.c:573
 msgid "Size"
 msgstr "Méret"
 
-#: ../src/gtk/fm-standard-view.c:610
+#: ../src/gtk/fm-standard-view.c:579
 msgid "Modified"
 msgstr "Módosítva"
 
-#: ../src/gtk/fm-folder-view.c:121
+#: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
 msgstr "_Új létrehozása..."
 
-#: ../src/gtk/fm-folder-view.c:122
+#: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
 msgstr "Mappa"
 
-#: ../src/gtk/fm-folder-view.c:125
+#: ../src/gtk/fm-folder-view.c:171
 msgid "Blank File"
 msgstr "Üres fájl"
 
-#: ../src/gtk/fm-folder-view.c:126
+#: ../src/gtk/fm-folder-view.c:172
 msgid "Shortcut"
 msgstr "Parancsikon"
 
-#: ../src/gtk/fm-folder-view.c:137
+#: ../src/gtk/fm-folder-view.c:183
 msgid "_Invert Selection"
 msgstr "Kijelölés _megfordítása"
 
-#: ../src/gtk/fm-folder-view.c:138
+#: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
 msgstr "Fájlok _rendezése"
 
-#: ../src/gtk/fm-folder-view.c:150
+#: ../src/gtk/fm-folder-view.c:196
 msgid "Show _Hidden"
 msgstr "_Rejtett mutatása"
 
-#: ../src/gtk/fm-folder-view.c:151
-msgid "Only for this folder"
+#: ../src/gtk/fm-folder-view.c:197
+#, fuzzy
+msgid "_Only for this folder"
 msgstr "Csak ebben a könyvtárban"
 
-#: ../src/gtk/fm-folder-view.c:152
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:153
+#: ../src/gtk/fm-folder-view.c:199
 #, fuzzy
-msgid "Mingle files and folders"
+msgid "Mingle _files and folders"
 msgstr "Válassz egy mappát"
 
-#: ../src/gtk/fm-folder-view.c:154
-msgid "Ignore name case"
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:165
+#: ../src/gtk/fm-folder-view.c:211
 #, fuzzy
 msgid "By _Name"
 msgstr "Név"
 
-#: ../src/gtk/fm-folder-view.c:166
+#: ../src/gtk/fm-folder-view.c:212
 msgid "By _Modification Time"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:167
+#: ../src/gtk/fm-folder-view.c:213
 #, fuzzy
 msgid "By _Size"
 msgstr "Méret"
 
-#: ../src/gtk/fm-folder-view.c:168
+#: ../src/gtk/fm-folder-view.c:214
 #, fuzzy
 msgid "By File _Type"
 msgstr "<b>Fájltípus:</b>"
 
-#: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:745
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:747
 msgid "Enter a name for the newly created file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "Create New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 #, fuzzy
 msgid "New"
 msgstr "Hálózat"
 
-#: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Failed to start lxshortcut"
 msgstr ""
 
-#: ../src/gtk/fm-app-menu-view.c:162
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "Telepített alkalmazások"
 
-#: ../src/gtk/fm-gtk-utils.c:47
+#: ../src/gtk/fm-gtk-utils.c:68
 msgid "Error"
 msgstr "Hiba"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
 msgid "Confirm"
 msgstr "Megerősítés"
 
-#: ../src/gtk/fm-gtk-utils.c:121
+#: ../src/gtk/fm-gtk-utils.c:180
 msgid "Question"
 msgstr "Kérdés"
 
-#: ../src/gtk/fm-gtk-utils.c:390
+#: ../src/gtk/fm-gtk-utils.c:510
 msgid "Please select a folder"
 msgstr "Válassz egy mappát"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Only system administrators have the permission to do this."
 msgstr "Csak a rendszergazdának van jogosultsága ezt tenni."
 
-#: ../src/gtk/fm-gtk-utils.c:643
+#: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Áthelyezed a kijelölt fájlokat a kukába?"
 
-#: ../src/gtk/fm-gtk-utils.c:664
+#: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
 msgstr "Törlöd a kijelölt fájlokat?"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:991
 msgid "Rename File"
 msgstr "Fájl átnevezése"
 
-#: ../src/gtk/fm-gtk-utils.c:712
+#: ../src/gtk/fm-gtk-utils.c:992
 msgid "Please enter a new name:"
 msgstr "Adj meg egy új nevet:"
 
-#: ../src/gtk/fm-gtk-utils.c:736
+#: ../src/gtk/fm-gtk-utils.c:1026
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Biztos kiüríted a kukát?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:101
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -746,21 +935,31 @@ msgstr ""
 "'%s' szöveges fájl futtatható parancsfájlnak tűnik.\n"
 "Mit szeretnél tenni vele?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:108
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' fájl futtatható. Futtatni szeretnéd?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:564
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:603
+#, fuzzy
+msgid "Select a folder"
+msgstr "Válassz egy mappát"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<Nincs alkönyvtár>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Betöltés..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "A megadott könyvtár érvénytelen"
@@ -780,14 +979,6 @@ msgstr "Mappa nem másolható almappájába"
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "A cél a forrás almappája"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "Kuka"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "Asztal"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -950,11 +1141,36 @@ msgstr "Üres optikai lemez"
 msgid "Optical Disc"
 msgstr "Optikai lemez"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>Csoport:</b>"
+#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>Tulajdonos:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:533
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:937
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_Tulajdonos:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_Csoport:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "Átnevezés"
+
+#~ msgid "Trash"
+#~ msgstr "Kuka"
 
 #~ msgid "Make the file executable"
 #~ msgstr "A fájl futtathatóvá tétele"

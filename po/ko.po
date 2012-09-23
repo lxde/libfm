@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 22:34+0200\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: 2012-09-06 22:23+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: \n"
@@ -28,7 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>열 파일의 유형:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "설치한 프로그램"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -40,7 +41,8 @@ msgid "_Browse"
 msgstr "찾아보기(_B)"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "터미널 에뮬레이터에서 실행"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -59,11 +61,13 @@ msgstr ""
 " <b>%U</b>: 여러 개의 URI를 나타냅니다"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "사용자 정의 명령 줄"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr "선택한 프로그램을 이 프로그램의 기본 동작으로 설정"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -71,6 +75,19 @@ msgid "Confirm to replace files"
 msgstr "파일을 바꾸기 위해 확인"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "건너뛰기(_S)"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "이름 바꾸기(_R)"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "덮어쓰기(_O):"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -80,29 +97,19 @@ msgstr ""
 "\n"
 "기존의 파일을 바꾸기 위해"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "다음 파일에 대해 적용하시겠습니까?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "파일 이름:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "모든 존재하는 파일에 이 옵션 적용"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "건너뛰기(_S)"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "이름 바꾸기(_R)"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "덮어쓰기(_O):"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "모든 존재하는 파일에 이 옵션 적용"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -149,23 +156,28 @@ msgid "_General"
 msgstr "일반(_G)"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>소유자(_O):</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>소유자:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>그룹(_G):</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>그룹:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-msgid "<b>View content:</b>"
+#, fuzzy
+msgid "<b>_View content:</b>"
 msgstr "<b>내용 보기:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Change content:</b>"
+#, fuzzy
+msgid "<b>C_hange content:</b>"
 msgstr "<b>내용 바꾸기:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>Execute:</b>"
+#, fuzzy
+msgid "<b>_Execute:</b>"
 msgstr "<b>실행:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -271,8 +283,7 @@ msgstr "<b>남은 시간:</b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>오류 발생:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1
-#: ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "기본 프로그램"
 
@@ -289,8 +300,12 @@ msgid "<b>Mail client</b>"
 msgstr "<b>메일 클라이언트</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
-msgstr "이메일 주소를 눌렀을 때 메일을 작성할 때 기본으로 사용할 기본 메일 클라이언트 입니다."
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"이메일 주소를 눌렀을 때 메일을 작성할 때 기본으로 사용할 기본 메일 클라이언"
+"트 입니다."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -316,76 +331,203 @@ msgstr "파일 실행"
 msgid "Execute in _Terminal"
 msgstr "터미널에서 실행(_T)"
 
-#: ../src/base/fm-utils.c:57
-#: ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "파일 정렬(_S)"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>파일 유형:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>파일 유형:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "파일 살제중"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "휴지통으로 파일 옮기는 중"
+
+#: ../data/ui/filesearch.glade.h:20
+#, fuzzy
+msgid "_Audio files"
+msgstr "파일 정렬(_S)"
+
+#: ../data/ui/filesearch.glade.h:21
+#, fuzzy
+msgid "_Video files"
+msgstr "파일 정렬(_S)"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "파일 유형순(_T)"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>디스크상 용량:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>파일 유형:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>최종 수정:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+#, fuzzy
+msgid "(None)"
+msgstr "없음"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "파일 속성"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u 바이트"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
 msgid "Trash Can"
 msgstr "휴지통"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:839
 msgid "My Computer"
 msgstr "내 컴퓨터"
 
-#: ../src/base/fm-path.c:740
-#: ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "프로그램"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "네트워크"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "단축 아이콘"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "마운트 지점"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:159
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223
-#: ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -396,8 +538,7 @@ msgstr ""
 "크기: %s\n"
 "수정: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230
-#: ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -406,335 +547,380 @@ msgstr ""
 "유형: %s\n"
 "수정: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid "The file operation is cancelled and there are some errors."
 msgstr "오류가 발생하여 파일 처리를 취소했습니다."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:338
 msgid "Cancelled"
 msgstr "취소함"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid "The file operation is finished, but there are some errors."
 msgstr "파일 처리를 완료했지만 오류가 있습니다."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:344
 msgid "Finished"
 msgstr "완료함"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:366
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이동할 수 없습니다.\n"
+"파일 시스템에서 근본적으로 이 동작을 지원하지 않아 휴키동으로 일부 파일을 이"
+"동할 수 없습니다.\n"
 "대신 삭제하시겠습니까?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
 msgstr "."
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:497
 msgid "Moving files"
 msgstr "파일 이동중"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:500
 msgid "Copying files"
 msgstr "파일 복사중"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:503
 msgid "Trashing files"
 msgstr "휴지통으로 파일 옮기는 중"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:506
 msgid "Deleting files"
 msgstr "파일 살제중"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:509
 msgid "Creating symlinks"
 msgstr "심볼릭 링크 만드는 중"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:512
 msgid "Changing file attributes"
 msgstr "파일 속성 변경 중"
 
-#: ../src/gtk/fm-file-properties.c:154
-#: ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "바이트"
 
-#: ../src/gtk/fm-file-properties.c:226
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "유효한 사용자 이름이나 번호 ID를 입력하여 주십시오."
 
-#: ../src/gtk/fm-file-properties.c:256
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "유효한 그룹 이름이나 번호 ID를 입력하여 주십시오."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:446
-msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+#: ../src/gtk/fm-file-properties.c:453
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "모든 파일과 하위 폴더에 대해 바뀔 내용을 재귀적으로 적용하시겠습니까?"
 
-#: ../src/gtk/fm-file-properties.c:626
-msgid "<b>Access content:</b>"
+#: ../src/gtk/fm-file-properties.c:633
+#, fuzzy
+msgid "<b>_Access content:</b>"
 msgstr "<b>내용 접근:</b>"
 
-#: ../src/gtk/fm-file-properties.c:741
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "다른 형식의 파일들"
 
-#: ../src/gtk/fm-file-properties.c:778
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "여러 파일"
 
+#: ../src/gtk/fm-places-model.c:677
+msgid "Desktop"
+msgstr "데스크톱"
+
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "프로그램"
+
 # 동직
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
+#: ../src/gtk/fm-places-view.c:101
+#, fuzzy
+msgid "_Mount Volume"
 msgstr "볼륨 마운트"
 
 # 동직
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
 msgstr "볼륨 마운트 해제"
 
-#: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "이동식 미디어 꺼내기"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "북마크 항목 이름 바꾸기"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "북마크에서 제거"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "휴지통 비우기"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114
-#: ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "북마크 항목 이름 바꾸기"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "북마크에서 제거"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "휴지통 비우기"
-
-#: ../src/gtk/fm-places-view.c:837
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "새 이름을 입력하십시오:"
 
-#: ../src/gtk/fm-side-pane.c:60
-#: ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:62
+#, fuzzy
+msgid "_Places"
+msgstr "위치"
+
+#: ../src/gtk/fm-side-pane.c:63
+#, fuzzy
+msgid "_Directory Tree"
+msgstr "디렉터리 트리"
+
+#: ../src/gtk/fm-side-pane.c:64
+#, fuzzy
+msgid "_Remote"
+msgstr "원격"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "위치"
 
-#: ../src/gtk/fm-side-pane.c:61
-#: ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "디렉터리 트리"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "원격"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:110
-#: ../src/gtk/fm-file-menu.c:111
-msgid "Open With..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "열기..."
 
-#: ../src/gtk/fm-file-menu.c:116
-#: ../src/gtk/fm-folder-view.c:139
-msgid "Rename"
-msgstr "이름 비꾸기"
-
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "심볼릭 링크 만들기"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "보내기"
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "압축..."
 
-#: ../src/gtk/fm-file-menu.c:120
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "여기에 풀기"
 
-#: ../src/gtk/fm-file-menu.c:121
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "풀기..."
 
-#: ../src/gtk/fm-file-menu.c:391
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "파일 속성"
+
+#: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
 msgstr "복원(_R)"
 
-#: ../src/gtk/fm-file-menu.c:392
+#: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
 msgstr "휴지통의 파일을 본래 경로로 복원합니다"
 
-#: ../src/gtk/fm-dnd-dest.c:558
+#: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
 msgstr "XDirectSave 실패."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:114
+#: ../src/gtk/fm-app-chooser-dlg.c:127
 msgid "Use selected application to open files"
 msgstr "파일을 열 때 선택한 프로그램 사용"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:121
+#: ../src/gtk/fm-app-chooser-dlg.c:134
 msgid "Execute custom command line to open files"
 msgstr "파일을 열 기 위해 사용자 정의 명령줄 실행"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "사용자 정의"
 
-#: ../src/gtk/fm-standard-view.c:578
+#: ../src/gtk/fm-standard-view.c:547
 msgid "Name"
 msgstr "이름"
 
-#: ../src/gtk/fm-standard-view.c:597
+#: ../src/gtk/fm-standard-view.c:566
 msgid "Description"
 msgstr "설명"
 
-#: ../src/gtk/fm-standard-view.c:604
+#: ../src/gtk/fm-standard-view.c:573
 msgid "Size"
 msgstr "크기"
 
-#: ../src/gtk/fm-standard-view.c:610
+#: ../src/gtk/fm-standard-view.c:579
 msgid "Modified"
 msgstr "수정"
 
-#: ../src/gtk/fm-folder-view.c:121
+#: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
 msgstr "새로 만들기(_N)..."
 
-#: ../src/gtk/fm-folder-view.c:122
+#: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
 msgstr "폴더"
 
-#: ../src/gtk/fm-folder-view.c:125
+#: ../src/gtk/fm-folder-view.c:171
 msgid "Blank File"
 msgstr "빈 파일"
 
-#: ../src/gtk/fm-folder-view.c:126
+#: ../src/gtk/fm-folder-view.c:172
 msgid "Shortcut"
 msgstr "바로 가기"
 
-#: ../src/gtk/fm-folder-view.c:137
+#: ../src/gtk/fm-folder-view.c:183
 msgid "_Invert Selection"
 msgstr "선택 반전(_I)"
 
-#: ../src/gtk/fm-folder-view.c:138
+#: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
 msgstr "파일 정렬(_S)"
 
-#: ../src/gtk/fm-folder-view.c:150
+#: ../src/gtk/fm-folder-view.c:196
 msgid "Show _Hidden"
 msgstr "숨겨진 요소 보이기(_H)"
 
-#: ../src/gtk/fm-folder-view.c:151
-msgid "Only for this folder"
+#: ../src/gtk/fm-folder-view.c:197
+#, fuzzy
+msgid "_Only for this folder"
 msgstr "이 폴더에 대해서만"
 
-#: ../src/gtk/fm-folder-view.c:152
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr "전역 설정보다 폴더 설정에 따라 정렬하려면 표시하십시오"
 
-#: ../src/gtk/fm-folder-view.c:153
-msgid "Mingle files and folders"
+#: ../src/gtk/fm-folder-view.c:199
+#, fuzzy
+msgid "Mingle _files and folders"
 msgstr "파일 폴더 뒤섞기"
 
-#: ../src/gtk/fm-folder-view.c:154
-msgid "Ignore name case"
+#: ../src/gtk/fm-folder-view.c:200
+#, fuzzy
+msgid "_Ignore name case"
 msgstr "이름 대소문자 무시"
 
-#: ../src/gtk/fm-folder-view.c:165
+#: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
 msgstr "이름순(_N)"
 
-#: ../src/gtk/fm-folder-view.c:166
+#: ../src/gtk/fm-folder-view.c:212
 msgid "By _Modification Time"
 msgstr "수정일순(_M)"
 
-#: ../src/gtk/fm-folder-view.c:167
+#: ../src/gtk/fm-folder-view.c:213
 msgid "By _Size"
 msgstr "크기순(_S)"
 
-#: ../src/gtk/fm-folder-view.c:168
+#: ../src/gtk/fm-folder-view.c:214
 msgid "By File _Type"
 msgstr "파일 유형순(_T)"
 
-#: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:745
 msgid "Enter a name for the newly created folder:"
 msgstr "새로 만들 폴더의 이름을 입력하십시오:"
 
-#: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:747
 msgid "Enter a name for the newly created file:"
 msgstr "새로 만들 파일의 이름을 입력하십시오:"
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "Create New..."
 msgstr "새로 만들기..."
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "New"
 msgstr "새로 만들기"
 
-#: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
 msgstr "오류. lxshortcut을 설치하지 않았습니다"
 
-#: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Failed to start lxshortcut"
 msgstr "lxshortcut을 시작하는데 실패했습니다"
 
-#: ../src/gtk/fm-app-menu-view.c:162
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "설치한 프로그램"
 
-#: ../src/gtk/fm-gtk-utils.c:47
+#: ../src/gtk/fm-gtk-utils.c:68
 msgid "Error"
 msgstr "오류"
 
-#: ../src/gtk/fm-gtk-utils.c:59
-#: ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
 msgid "Confirm"
 msgstr "확인"
 
-#: ../src/gtk/fm-gtk-utils.c:121
+#: ../src/gtk/fm-gtk-utils.c:180
 msgid "Question"
 msgstr "질문"
 
-#: ../src/gtk/fm-gtk-utils.c:390
+#: ../src/gtk/fm-gtk-utils.c:510
 msgid "Please select a folder"
 msgstr "폴더를 선택하여 주십시오"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Only system administrators have the permission to do this."
 msgstr "시스템 관리자만 이를 수행할 권한을 지니고 있습니다."
 
-#: ../src/gtk/fm-gtk-utils.c:643
+#: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
 msgstr "선택한 파일을 휴지통으로 옮기시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:664
+#: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
 msgstr "선택한 파일을 삭제하시겠습니까?"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:991
 msgid "Rename File"
 msgstr "파일 이름 바꾸기"
 
-#: ../src/gtk/fm-gtk-utils.c:712
+#: ../src/gtk/fm-gtk-utils.c:992
 msgid "Please enter a new name:"
 msgstr "새 이름을 입력하여 주십시오:"
 
-#: ../src/gtk/fm-gtk-utils.c:736
+#: ../src/gtk/fm-gtk-utils.c:1026
 msgid "Are you sure you want to empty the trash can?"
 msgstr "정말로 휴지통을 비우시겠습니까?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:101
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -743,24 +929,31 @@ msgstr ""
 "'%s' 텍스트 파일은 실행 가능한 스크립트 인 것 같습니다.\n"
 "무엇을 하시겠습니까?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:108
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s'은(는) 실행 가능한 파일입니다. 실행하시겠습니까?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408
-#: ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:564
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:603
+#, fuzzy
+msgid "Select a folder"
+msgstr "폴더를 선택하여 주십시오"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<하위 폴더 없음>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410
-#: ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: ../src/job/fm-dir-list-job.c:270
-#: ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "지정한 디렉터리는 유효하지 않습니다"
@@ -780,14 +973,6 @@ msgstr "하위 폴더에 폴더를 복사할 수 없습니다"
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "대상은 원본의 하위 폴더 입니다"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "휴지통"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "데스크톱"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -814,13 +999,11 @@ msgstr "CD-RW 디스크"
 msgid "Blank CD-RW Disc"
 msgstr "빈 CD-RW 디스크"
 
-#: ../src/udisks/g-udisks-device.c:44
-#: ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "DVD-ROM 디스크"
 
-#: ../src/udisks/g-udisks-device.c:44
-#: ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "빈 DVD-ROM 디스크"
 
@@ -952,11 +1135,36 @@ msgstr "빈 광 디스크"
 msgid "Optical Disc"
 msgstr "광 디스크"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>그룹:</b>"
+#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>소유자:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:533
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:937
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>소유자(_O):</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>그룹(_G):</b>"
+
+#~ msgid "Rename"
+#~ msgstr "이름 비꾸기"
+
+#~ msgid "Trash"
+#~ msgstr "휴지통"
 
 #~ msgid "Make the file executable"
 #~ msgstr "실행 가능한 파일로"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 22:34+0200\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: 2012-08-15 08:31+0200\n"
 "Last-Translator: Lutz <lthuns@opensuse.org>\n"
 "Language: de\n"
@@ -27,7 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Dateityp zum Öffnen:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "Installierte Anwendung"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -39,7 +40,8 @@ msgid "_Browse"
 msgstr "_Durchsuchen"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "Im Terminal-Emulator ausführen"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -58,11 +60,13 @@ msgstr ""
 "  <b>%U</b>: URIs mehrerer Dateien"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "Befehlszeile"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr "Gewählte Anwendung als Vorgabe für diesen Dateityp benutzen"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -70,6 +74,19 @@ msgid "Confirm to replace files"
 msgstr "Ersetzen von Dateien bestätigen"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "Über_springen"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "_Umbenennen"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "Ü_berschreiben"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -79,29 +96,19 @@ msgstr ""
 "\n"
 "Wollen sie die vorhandene Datei "
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "durch folgende Datei ersetzen?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "Dateiname:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "Auswahl auf alle Dateien anwenden"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "Über_springen"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "_Umbenennen"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "Ü_berschreiben"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "Auswahl auf alle Dateien anwenden"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -148,23 +155,28 @@ msgid "_General"
 msgstr "_Allgemein"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>_Besitzer:</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>Besitzer:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>_Gruppe:</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>Gruppe:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-msgid "<b>View content:</b>"
+#, fuzzy
+msgid "<b>_View content:</b>"
 msgstr "<b>Inhalt anzeigen:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Change content:</b>"
+#, fuzzy
+msgid "<b>C_hange content:</b>"
 msgstr "<b>Inhalt ändern:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>Execute:</b>"
+#, fuzzy
+msgid "<b>_Execute:</b>"
 msgstr "<b>Ausführen:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -320,74 +332,204 @@ msgstr "Datei ausführen"
 msgid "Execute in _Terminal"
 msgstr "Im Terminal ausführen"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "Dateien _sortieren"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>Dateityp:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>Dateityp:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "Dateien werden gelöscht"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "Dateien werden in den Papierkorb verschoben"
+
+#: ../data/ui/filesearch.glade.h:20
+#, fuzzy
+msgid "_Audio files"
+msgstr "Dateien _sortieren"
+
+#: ../data/ui/filesearch.glade.h:21
+#, fuzzy
+msgid "_Video files"
+msgstr "Dateien _sortieren"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "Dateityp"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>Benutzter Speicherplatz:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>Dateityp:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Geändert:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+#, fuzzy
+msgid "(None)"
+msgstr "Keine"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "Dateieigenschaften"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u Byte"
 msgstr[1] "%u Bytes"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
 msgid "Trash Can"
 msgstr "Papierkorb"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:839
 msgid "My Computer"
 msgstr "Mein Computer"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "Anwendungen"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "Verknüpfungen"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "Einhängepunkt"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:159
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -398,7 +540,7 @@ msgstr ""
 "Größe: %s\n"
 "Geändert: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -407,23 +549,23 @@ msgstr ""
 "Typ: %s\n"
 "geändert: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Die Dateioperation wurde abgebrochen und es gab einige Fehler."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:338
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid "The file operation is finished, but there are some errors."
 msgstr "Der Vorgang wurde abgeschlossen, aber es traten Fehler auf."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:344
 msgid "Finished"
 msgstr "Beendet"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:366
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -433,323 +575,368 @@ msgstr ""
 "zugrundeliegenden Dateisysteme den Vorgang nicht unterstützen.\n"
 "Sollen die Dateien stattdessen gelöscht werden?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:497
 msgid "Moving files"
 msgstr "Dateien werden verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:500
 msgid "Copying files"
 msgstr "Dateien werden kopiert"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:503
 msgid "Trashing files"
 msgstr "Dateien werden in den Papierkorb verschoben"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:506
 msgid "Deleting files"
 msgstr "Dateien werden gelöscht"
 
 # Verknüpfung oder Link?
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:509
 msgid "Creating symlinks"
 msgstr "Symbolische Verknüpfung werden erstellt"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:512
 msgid "Changing file attributes"
 msgstr "Dateiattribute ändern"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "Byte"
 msgstr[1] "Bytes"
 
-#: ../src/gtk/fm-file-properties.c:226
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "Bitte gültigen Benutzernamen oder numerische ID eingeben."
 
-#: ../src/gtk/fm-file-properties.c:256
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "Bitte gültigen Gruppennamen oder numerische ID eingeben."
 
 # Direkte Anrede: Wollen Sie... ????
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:446
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Sollen diese Änderungen rekursiv auf alle Dateien und Unterordner angewendet "
 "werden?"
 
-#: ../src/gtk/fm-file-properties.c:626
+#: ../src/gtk/fm-file-properties.c:633
 #, fuzzy
-msgid "<b>Access content:</b>"
+msgid "<b>_Access content:</b>"
 msgstr "<b>Zugriffsrechte:</b>"
 
-#: ../src/gtk/fm-file-properties.c:741
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "Dateien unterschiedlicher Typen"
 
-#: ../src/gtk/fm-file-properties.c:778
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "Mehrere Dateien"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
+#: ../src/gtk/fm-places-model.c:677
+msgid "Desktop"
+msgstr "Desktop"
+
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "Anwendungen"
+
+#: ../src/gtk/fm-places-view.c:101
+#, fuzzy
+msgid "_Mount Volume"
 msgstr "Dateisystem einhängen"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
 msgstr "Dateisystem aushängen"
 
 # besser: Wechseldatenträger?
-#: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "Wechselmedium auswerfen"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "Lesezeichen umbenennen"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "Lesezeichen entfernen"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "Papierkorb leeren"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "Lesezeichen umbenennen"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "Lesezeichen entfernen"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "Papierkorb leeren"
-
-#: ../src/gtk/fm-places-view.c:837
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:62
+#, fuzzy
+msgid "_Places"
+msgstr "Orte"
+
+#: ../src/gtk/fm-side-pane.c:63
+#, fuzzy
+msgid "_Directory Tree"
+msgstr "Verzeichnisbaum"
+
+#: ../src/gtk/fm-side-pane.c:64
+#, fuzzy
+msgid "_Remote"
+msgstr "Entfernt"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "Orte"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "Verzeichnisbaum"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "Entfernt"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
-msgid "Open With..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "Öffnen mit…"
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
-msgid "Rename"
-msgstr "Umbenennen"
-
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "Verknüpfung anlegen"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "Senden an"
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "Komprimieren…"
 
-#: ../src/gtk/fm-file-menu.c:120
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "Hier entpacken"
 
-#: ../src/gtk/fm-file-menu.c:121
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "Entpacken nach…"
 
-#: ../src/gtk/fm-file-menu.c:391
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "Dateieigenschaften"
+
+#: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
 msgstr "Wiede_rherstellen"
 
-#: ../src/gtk/fm-file-menu.c:392
+#: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
 msgstr "Dateien an ihrem ursprünglichen Ort wiederherstellen"
 
-#: ../src/gtk/fm-dnd-dest.c:558
+#: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
 msgstr "XDirectSave fehlgeschlagen."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:114
+#: ../src/gtk/fm-app-chooser-dlg.c:127
 msgid "Use selected application to open files"
 msgstr "Gewählte Anwendung zum Öffnen von Dateien nutzen"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:121
+#: ../src/gtk/fm-app-chooser-dlg.c:134
 msgid "Execute custom command line to open files"
 msgstr "Benutzerdefinierten Befehl zum Öffnen nutzen"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Anpassen"
 
-#: ../src/gtk/fm-standard-view.c:578
+#: ../src/gtk/fm-standard-view.c:547
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-standard-view.c:597
+#: ../src/gtk/fm-standard-view.c:566
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ../src/gtk/fm-standard-view.c:604
+#: ../src/gtk/fm-standard-view.c:573
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-standard-view.c:610
+#: ../src/gtk/fm-standard-view.c:579
 msgid "Modified"
 msgstr "Geändert"
 
-#: ../src/gtk/fm-folder-view.c:121
+#: ../src/gtk/fm-folder-view.c:167
 #, fuzzy
 msgid "Create _New..."
 msgstr "_Neu..."
 
-#: ../src/gtk/fm-folder-view.c:122
+#: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../src/gtk/fm-folder-view.c:125
+#: ../src/gtk/fm-folder-view.c:171
 #, fuzzy
 msgid "Blank File"
 msgstr "Leeres MO Medium"
 
-#: ../src/gtk/fm-folder-view.c:126
+#: ../src/gtk/fm-folder-view.c:172
 #, fuzzy
 msgid "Shortcut"
 msgstr "Verknüpfungen"
 
-#: ../src/gtk/fm-folder-view.c:137
+#: ../src/gtk/fm-folder-view.c:183
 #, fuzzy
 msgid "_Invert Selection"
 msgstr "Auswahl _umkehren"
 
-#: ../src/gtk/fm-folder-view.c:138
+#: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
 msgstr "Dateien _sortieren"
 
-#: ../src/gtk/fm-folder-view.c:150
+#: ../src/gtk/fm-folder-view.c:196
 #, fuzzy
 msgid "Show _Hidden"
 msgstr "_Versteckte Dateien anzeigen"
 
-#: ../src/gtk/fm-folder-view.c:151
-msgid "Only for this folder"
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:152
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:153
+#: ../src/gtk/fm-folder-view.c:199
 #, fuzzy
-msgid "Mingle files and folders"
+msgid "Mingle _files and folders"
 msgstr "Ordner wählen"
 
-#: ../src/gtk/fm-folder-view.c:154
-msgid "Ignore name case"
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:165
+#: ../src/gtk/fm-folder-view.c:211
 #, fuzzy
 msgid "By _Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:166
+#: ../src/gtk/fm-folder-view.c:212
 #, fuzzy
 msgid "By _Modification Time"
 msgstr "Letzte Än_derung"
 
-#: ../src/gtk/fm-folder-view.c:167
+#: ../src/gtk/fm-folder-view.c:213
 #, fuzzy
 msgid "By _Size"
 msgstr "Größe"
 
-#: ../src/gtk/fm-folder-view.c:168
+#: ../src/gtk/fm-folder-view.c:214
 #, fuzzy
 msgid "By File _Type"
 msgstr "Dateityp"
 
-#: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:745
 msgid "Enter a name for the newly created folder:"
 msgstr "Geben Sie einen Namen für den neu erstellten Ordner an:"
 
-#: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:747
 msgid "Enter a name for the newly created file:"
 msgstr "Geben Sie einen Namen für die neu erstellte Datei an:"
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "Create New..."
 msgstr "Neu..."
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 #, fuzzy
 msgid "New"
 msgstr "Netzwerk"
 
-#: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
 msgstr "Fehler, lxshortcut ist nicht installiert"
 
-#: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:845
 #, fuzzy
 msgid "Failed to start lxshortcut"
 msgstr "Konnte lxshortcut nicht starten"
 
-#: ../src/gtk/fm-app-menu-view.c:162
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "Installierte Anwendungen"
 
-#: ../src/gtk/fm-gtk-utils.c:47
+#: ../src/gtk/fm-gtk-utils.c:68
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: ../src/gtk/fm-gtk-utils.c:121
+#: ../src/gtk/fm-gtk-utils.c:180
 msgid "Question"
 msgstr "Frage"
 
-#: ../src/gtk/fm-gtk-utils.c:390
+#: ../src/gtk/fm-gtk-utils.c:510
 msgid "Please select a folder"
 msgstr "Ordner wählen"
 
 # oder doch Systemadministratoren?
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
-#: ../src/gtk/fm-gtk-utils.c:643
+#: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
 
-#: ../src/gtk/fm-gtk-utils.c:664
+#: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
 msgstr "Gewählte Dateien löschen?"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:991
 msgid "Rename File"
 msgstr "Datei umbenennen"
 
-#: ../src/gtk/fm-gtk-utils.c:712
+#: ../src/gtk/fm-gtk-utils.c:992
 msgid "Please enter a new name:"
 msgstr "Neuen Namen eingeben:"
 
-#: ../src/gtk/fm-gtk-utils.c:736
+#: ../src/gtk/fm-gtk-utils.c:1026
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Sind Sie sicher, dass Sie den Papierkorb leeren möchten?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:101
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -758,21 +945,31 @@ msgstr ""
 "Die Textdatei »%s« scheint ausführbar zu sein.\n"
 "Was möchten Sie damit tun?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:108
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Die Datei »%s« ist ausführbar. Soll sie ausgeführt werden?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:564
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:603
+#, fuzzy
+msgid "Select a folder"
+msgstr "Ordner wählen"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<Kein Unterordner>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Laden…"
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Das angegebene Verzeichnis ist ungültig"
@@ -792,14 +989,6 @@ msgstr "Ein Ordner kann nicht in seinen Unterordner kopiert werden"
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "Das Ziel ist ein Unterordner der Quelle"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "Papierkorb"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "Desktop"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -962,11 +1151,36 @@ msgstr "Leeres optisches Medium"
 msgid "Optical Disc"
 msgstr "Optisches Medium"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>Gruppe:</b>"
+#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>Besitzer:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:533
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:937
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_Besitzer:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_Gruppe:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "Umbenennen"
+
+#~ msgid "Trash"
+#~ msgstr "Papierkorb"
 
 #~ msgid "Make the file executable"
 #~ msgstr "Datei als Programm ausführen"

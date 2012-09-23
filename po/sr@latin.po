@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 22:34+0200\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: 2010-11-02 01:34+0100\n"
 "Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
@@ -30,7 +30,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Tip datoteke za otvaranje:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "Postojeći programi"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -42,7 +43,8 @@ msgid "_Browse"
 msgstr "_Razgledaj"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "Pokreni u emulatoru terminala"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -61,11 +63,13 @@ msgstr ""
 "  <b>%U</b>: Putanje do lokacija (URIs)"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "Koristi proizvoljnu naredbu"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr "Uvek otvori ovaj tip datoteka ovim programom"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -73,6 +77,19 @@ msgid "Confirm to replace files"
 msgstr "Potvrdite prepisivanje datoteka"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "Pre_skoči"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "P_reimenuj"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Prepiši"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -82,29 +99,19 @@ msgstr ""
 "\n"
 "Želite li da zamenite postojeću datoteku"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "sa sledećom datotekom?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "Ime datoteke:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "Primeni ovo podešavanje na sve postojeće datoteke"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "Pre_skoči"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "P_reimenuj"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "_Prepiši"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "Primeni ovo podešavanje na sve postojeće datoteke"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -151,26 +158,28 @@ msgid "_General"
 msgstr "Op_šte"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>_Vlasnik:</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>Vlasnik:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>_Grupa:</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>Grupa:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 #, fuzzy
-msgid "<b>View content:</b>"
+msgid "<b>_View content:</b>"
 msgstr "<b>Program za prijem e-pošte</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 #, fuzzy
-msgid "<b>Change content:</b>"
+msgid "<b>C_hange content:</b>"
 msgstr "<b>Odredište:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 #, fuzzy
-msgid "<b>Execute:</b>"
+msgid "<b>_Execute:</b>"
 msgstr "<b>Ostali:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -326,7 +335,151 @@ msgstr "Pokreni datoteku"
 msgid "Execute in _Terminal"
 msgstr "Pokreni u emulatoru _terminala"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "Preimenuj datoteku"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>Vrsta datoteke:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>Vrsta datoteke:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "Brisanje datoteka"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "Premeštanje u Nepotrebno"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "<b>Vrsta datoteke:</b>"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>Zauzet prostor:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>Vrsta datoteke:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Poslednji put izmenjeno:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+#, fuzzy
+msgid "(None)"
+msgstr "Nijedan"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "Osobine datoteke"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -334,67 +487,51 @@ msgstr[0] "%u bajt"
 msgstr[1] "%u bajta"
 msgstr[2] "%u bajta"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
 msgid "Trash Can"
 msgstr "Nepotrebno"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:839
 msgid "My Computer"
 msgstr "Računar"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "Programi"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "Mreža"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "Prečice"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "Tačka montiranja"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:159
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -405,7 +542,7 @@ msgstr ""
 "Veličina: %s\n"
 "Izmenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -414,23 +551,23 @@ msgstr ""
 "Vrsta: %s\n"
 "Izmenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Radnja nad datotekom je poništena. Dogodile su se neke greške."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:338
 msgid "Cancelled"
 msgstr "Poništeno"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid "The file operation is finished, but there are some errors."
 msgstr "Radnja nad datotekom je završena, ali su se dogodile i neke greške."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:344
 msgid "Finished"
 msgstr "Završeno"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:366
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -440,316 +577,358 @@ msgstr ""
 "datoteka ne podržava\n"
 " ovu operaciju. Želite li da ih trajno uklonite?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:497
 msgid "Moving files"
 msgstr "Premeštanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:500
 msgid "Copying files"
 msgstr "Umnožavanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:503
 msgid "Trashing files"
 msgstr "Premeštanje u Nepotrebno"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:506
 msgid "Deleting files"
 msgstr "Brisanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:509
 msgid "Creating symlinks"
 msgstr "Pravljenje mekih veza"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:512
 msgid "Changing file attributes"
 msgstr "Izmena osobina datoteke"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bajt"
 msgstr[1] "%u bajta"
 msgstr[2] "%u bajta"
 
-#: ../src/gtk/fm-file-properties.c:226
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "Unesite ispravno korisničko ime ili ID broj."
 
-#: ../src/gtk/fm-file-properties.c:256
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "Unesite ispravno ime grupe ili ID broj."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:446
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Želite li da rekurzivno primenim ovu radnju na sve datoteke i "
 "poddirektorijume?"
 
-#: ../src/gtk/fm-file-properties.c:626
+#: ../src/gtk/fm-file-properties.c:633
 #, fuzzy
-msgid "<b>Access content:</b>"
+msgid "<b>_Access content:</b>"
 msgstr "<b>Kontrola pristupa</b>"
 
-#: ../src/gtk/fm-file-properties.c:741
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "Datoteke različitih vrsta"
 
-#: ../src/gtk/fm-file-properties.c:778
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "Višestruke datoteke"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "Montiraj"
+#: ../src/gtk/fm-places-model.c:677
+msgid "Desktop"
+msgstr "Radna površ"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "Demontiraj"
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "Programi"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#, fuzzy
+msgid "_Mount Volume"
+msgstr "Montiraj"
+
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
+msgstr "Demontiraj"
+
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "Izbaci prenosivi medij"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "Preimenuj obeleživač"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "Ukloni obeleživač"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "Obriši datoteke iz Nepotrebno"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj obeleživač"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "Ukloni obeleživač"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "Obriši datoteke iz Nepotrebno"
-
-#: ../src/gtk/fm-places-view.c:837
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "Unesite novo ime:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
-msgid "Directory Tree"
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
+msgid "_Places"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
-msgid "Open With..."
+#: ../src/gtk/fm-side-pane.c:63
+msgid "_Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:64
+msgid "_Remote"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:412
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:422
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "Otvori pomoću..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
-msgid "Rename"
-msgstr "Preimenuj"
-
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "Napravi meku vezu"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "Pošalji..."
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "Napravi arhivu..."
 
-#: ../src/gtk/fm-file-menu.c:120
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "Raspakuj ovde"
 
-#: ../src/gtk/fm-file-menu.c:121
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "Raspakuj..."
 
-#: ../src/gtk/fm-file-menu.c:391
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "Osobine datoteke"
+
+#: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
 msgstr "Po_vrati"
 
-#: ../src/gtk/fm-file-menu.c:392
+#: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
 msgstr "Vrati datoteke iz Nepotrebno na originalne lokacije"
 
-#: ../src/gtk/fm-dnd-dest.c:558
+#: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
 msgstr "XDirectSave nije uspelo."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:114
+#: ../src/gtk/fm-app-chooser-dlg.c:127
 msgid "Use selected application to open files"
 msgstr "Koristi izabrani program za otvaranje datoteka"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:121
+#: ../src/gtk/fm-app-chooser-dlg.c:134
 msgid "Execute custom command line to open files"
 msgstr "Pokreni proizvoljnu naredbu za otvaranje datoteka"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-standard-view.c:578
+#: ../src/gtk/fm-standard-view.c:547
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-standard-view.c:597
+#: ../src/gtk/fm-standard-view.c:566
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-standard-view.c:604
+#: ../src/gtk/fm-standard-view.c:573
 msgid "Size"
 msgstr "Veličina"
 
-#: ../src/gtk/fm-standard-view.c:610
+#: ../src/gtk/fm-standard-view.c:579
 msgid "Modified"
 msgstr "Izmenjeno"
 
-#: ../src/gtk/fm-folder-view.c:121
+#: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:122
+#: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:125
+#: ../src/gtk/fm-folder-view.c:171
 #, fuzzy
 msgid "Blank File"
 msgstr "Prazan disk"
 
-#: ../src/gtk/fm-folder-view.c:126
+#: ../src/gtk/fm-folder-view.c:172
 #, fuzzy
 msgid "Shortcut"
 msgstr "Prečice"
 
-#: ../src/gtk/fm-folder-view.c:137
+#: ../src/gtk/fm-folder-view.c:183
 msgid "_Invert Selection"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:138
+#: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:150
+#: ../src/gtk/fm-folder-view.c:196
 msgid "Show _Hidden"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:151
-msgid "Only for this folder"
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:152
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:153
+#: ../src/gtk/fm-folder-view.c:199
 #, fuzzy
-msgid "Mingle files and folders"
+msgid "Mingle _files and folders"
 msgstr "Izaberite direktorijum"
 
-#: ../src/gtk/fm-folder-view.c:154
-msgid "Ignore name case"
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:165
+#: ../src/gtk/fm-folder-view.c:211
 #, fuzzy
 msgid "By _Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-view.c:166
+#: ../src/gtk/fm-folder-view.c:212
 msgid "By _Modification Time"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:167
+#: ../src/gtk/fm-folder-view.c:213
 #, fuzzy
 msgid "By _Size"
 msgstr "Veličina"
 
-#: ../src/gtk/fm-folder-view.c:168
+#: ../src/gtk/fm-folder-view.c:214
 #, fuzzy
 msgid "By File _Type"
 msgstr "<b>Vrsta datoteke:</b>"
 
-#: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:745
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:747
 msgid "Enter a name for the newly created file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "Create New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 #, fuzzy
 msgid "New"
 msgstr "Mreža"
 
-#: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Failed to start lxshortcut"
 msgstr ""
 
-#: ../src/gtk/fm-app-menu-view.c:162
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "Dostupni programi"
 
-#: ../src/gtk/fm-gtk-utils.c:47
+#: ../src/gtk/fm-gtk-utils.c:68
 msgid "Error"
 msgstr "Greška"
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:121
+#: ../src/gtk/fm-gtk-utils.c:180
 #, fuzzy
 msgid "Question"
 msgstr "Opis"
 
-#: ../src/gtk/fm-gtk-utils.c:390
+#: ../src/gtk/fm-gtk-utils.c:510
 msgid "Please select a folder"
 msgstr "Izaberite direktorijum"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Only system administrators have the permission to do this."
 msgstr "Ovu radnju može izvršiti samo administrator sistema."
 
-#: ../src/gtk/fm-gtk-utils.c:643
+#: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Želite li da premestite izabrane datoteke u Nepotrebno?"
 
-#: ../src/gtk/fm-gtk-utils.c:664
+#: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
 msgstr "Želite li da obrišete izabrane datoteke?"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:991
 msgid "Rename File"
 msgstr "Preimenuj datoteku"
 
-#: ../src/gtk/fm-gtk-utils.c:712
+#: ../src/gtk/fm-gtk-utils.c:992
 msgid "Please enter a new name:"
 msgstr "Unesite novo ime: "
 
-#: ../src/gtk/fm-gtk-utils.c:736
+#: ../src/gtk/fm-gtk-utils.c:1026
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Jeste li sigurni da želite da obrišete datoteke iz Nepotrebno?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:101
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -758,24 +937,34 @@ msgstr ""
 "Datoteka „%s“ je označena kao izvršna skripta.\n"
 "Šta želite da uradite sa njom?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:108
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
 "Datoteka „%s“ je označena kao program.\n"
 "Želite li da je pokrenete?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:564
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:603
+#, fuzzy
+msgid "Select a folder"
+msgstr "Izaberite direktorijum"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 #, fuzzy
 msgid "Loading..."
 msgstr "Priprema..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Zadati direktorijum nije ispravan"
@@ -795,14 +984,6 @@ msgstr "Ne može se umnožavati direktorijum u njegov poddirektorijum"
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "Odredište je poddirektorijum izvora"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "Nepotrebno"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "Radna površ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -989,11 +1170,36 @@ msgstr "Prazan optički disk"
 msgid "Optical Disc"
 msgstr "Optički disk"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>Grupa:</b>"
+#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>Vlasnik:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:533
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:937
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_Vlasnik:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_Grupa:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "Preimenuj"
+
+#~ msgid "Trash"
+#~ msgstr "Nepotrebno"
 
 #~ msgid "Make the file executable"
 #~ msgstr "Učini datoteku izvršnom"

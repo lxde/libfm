@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-22 00:06+0300\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,14 +19,30 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../data/ui/app-chooser.glade.h:1
-msgid "<b>Command line to execute:</b>"
+msgid "Choose An Application"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr ""
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr ""
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>Command line to execute:</b>"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -36,24 +52,8 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:9
-msgid "Choose An Application"
-msgstr ""
-
-#: ../data/ui/app-chooser.glade.h:10
-msgid "_Browse"
-msgstr ""
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "_Custom Command Line"
-msgstr ""
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Execute in terminal emulator"
-msgstr ""
-
 #: ../data/ui/app-chooser.glade.h:13
-msgid "_Installed Application"
+msgid "_Custom Command Line"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
@@ -61,244 +61,244 @@ msgid "_Set selected application as default action of this file type"
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:163
-#: ../src/gtk/fm-folder-view.c:185
-msgid "_Rename"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr ""
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr ""
 
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr ""
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr ""
+
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:13
-msgid "<b>Target:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:16
-msgid "<b>_View content:</b>"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "Anyone"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:18
 msgid "File Properties"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:19
-msgid "Nobody"
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>File Type:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:20
-msgid "None"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>Total Size of Files:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Only owner"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Last Modification:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "Only owner and group"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Location:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Size on Disk:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Set GID"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Target:</b>"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:25
-msgid "Set UID"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set UID & GID"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:27
-msgid "Special flags for directory access"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:28
-msgid "Special flags for file execution"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:29
-msgid "Sticky"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:30
-msgid "Sticky & set GID"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Who can change content of the file/directory"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Who can execute the file or enter the directory"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can read content of the file/directory"
-msgstr ""
-
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:11
 msgid "_General"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>O_wner:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>G_roup:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_View content:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>C_hange content:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_Execute:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>Special bits:</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "Who can read content of the file/directory"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Who can change content of the file/directory"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can execute the file or enter the directory"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Special flags for file execution"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Special flags for directory access"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "<b>Access Control</b>"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:24
 msgid "_Permissions"
 msgstr ""
 
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
-msgid "<b>Processing:</b>"
+#: ../data/ui/file-prop.glade.h:25
+msgid "---"
 msgstr ""
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
+#: ../data/ui/file-prop.glade.h:26
+msgid "None"
 msgstr ""
 
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
+#: ../data/ui/file-prop.glade.h:27
+msgid "Sticky"
 msgstr ""
 
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
+#: ../data/ui/file-prop.glade.h:28
+msgid "Set GID"
 msgstr ""
 
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
-msgid "<b>To:</b>"
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky & set GID"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set UID"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Set UID & GID"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Nobody"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Only owner"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner and group"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Anyone"
 msgstr ""
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:9
+#: ../data/ui/progress.glade.h:2
 msgid "Preparing..."
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Processing:</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:6
+msgid "<b>To:</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:3
-msgid "<b>Web Browser</b>"
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
+#: ../data/ui/progress.glade.h:9
+msgid "<b>Some errors occurred:</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Web Browser</b>"
 msgstr ""
 
-#: ../data/ui/preferred-apps.glade.h:8
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "<b>Mail client</b>"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:5
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr ""
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr ""
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
+msgid "File Associations"
 msgstr ""
 
 #: ../data/ui/exec-file.glade.h:1
@@ -309,41 +309,40 @@ msgstr ""
 msgid "Execute in _Terminal"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:527
-#: ../src/gtk/fm-gtk-file-launcher.c:534
-msgid "(None)"
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:3
-msgid "<b>File Contain_s</b>"
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
+msgid "Choose a date"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:6
-msgid "<b>File _Name Patterns</b>"
+msgid "Choose a date from the following calendar"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
+msgid "Search Files"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:8
-msgid "<b>Places to Search</b>"
+msgid "<b>File _Name Patterns</b>"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
+msgid "*"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
@@ -351,95 +350,96 @@ msgid "Case insensiti_ve"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:11
-msgid "Choose a date"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date from the following calendar"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Conten_t"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:16 ../src/base/fm-utils.c:88
-msgid "KB"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:17 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:18
-msgid "Name/_Location"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Only search for files of following types"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:20
-msgid "Search Files"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search _hidden files"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Te_xt files"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "_Audio files"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Bigger than:"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Documents"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Earlier than:"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:27
-msgid "_Image files"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Later than:"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:29
-msgid "_Properties"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr ""
-
-#: ../data/ui/filesearch.glade.h:32
 msgid "_Use regular expression"
 msgstr ""
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+msgid "(None)"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+msgid "_Properties"
 msgstr ""
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
@@ -477,11 +477,7 @@ msgstr ""
 msgid "My Computer"
 msgstr ""
 
-#: ../src/base/fm-path.c:847 ../src/gtk/fm-places-model.c:687
-msgid "Applications"
-msgstr ""
-
-#: ../src/base/fm-path.c:850
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr ""
 
@@ -597,6 +593,10 @@ msgstr ""
 
 #: ../src/gtk/fm-places-model.c:677
 msgid "Desktop"
+msgstr ""
+
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
 msgstr ""
 
 #: ../src/gtk/fm-places-view.c:101
@@ -870,11 +870,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:562
+#: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:601
+#: ../src/gtk/fm-gtk-file-launcher.c:603
 msgid "Select a folder"
 msgstr ""
 
@@ -1074,7 +1074,7 @@ msgid "Menu cache error"
 msgstr ""
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:870
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
 msgstr ""
 
@@ -1084,6 +1084,6 @@ msgid "Invalid filename %s"
 msgstr ""
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/vfs/fm-vfs-search.c:933
+#: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
 msgstr ""

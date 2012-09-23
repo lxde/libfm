@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 22:34+0200\n"
+"POT-Creation-Date: 2012-09-23 14:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>যে ধরনের ফাইল খুলতে হবে:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -39,7 +40,8 @@ msgid "_Browse"
 msgstr "ব্রাউজ (_B)"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -58,11 +60,13 @@ msgstr ""
 "  <b>%U</b>: একাধিক URI বোঝায়"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "স্বনির্ধারিত কমান্ড লাইন"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr "এই ফাইলের জন্য নির্বাচিত অ্যাপ্লিকেশনকে ডিফল্ট অ্যাকশন হিসাবে নির্ধারণ করুন"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -70,6 +74,19 @@ msgid "Confirm to replace files"
 msgstr "ফাইল প্রতিস্থাপন করা নিশ্চিত করুন"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "এড়িয়ে যান (_S)"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "পুনরায় নামকরণ করুন (_R)"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "প্রতিস্থাপন (_O)"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -79,29 +96,19 @@ msgstr ""
 "\n"
 " আপনি কি উপস্থিত ফাইলটি প্রতিস্থাপন করতে চান"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "নিম্নলিখিত ফাইলের সাথে?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "ফাইল নাম:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "উপস্থিত সকল ফাইলে এই অপশনটি প্রয়োগ করুন"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "এড়িয়ে যান (_S)"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "পুনরায় নামকরণ করুন (_R)"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "প্রতিস্থাপন (_O)"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "উপস্থিত সকল ফাইলে এই অপশনটি প্রয়োগ করুন"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -148,26 +155,28 @@ msgid "_General"
 msgstr "সাধারণ (_G)"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>মালিক (_O):</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>মালিক:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>গ্রুপ (_G):</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>গ্রুপ:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 #, fuzzy
-msgid "<b>View content:</b>"
+msgid "<b>_View content:</b>"
 msgstr "<b>মেইল ক্লায়েন্ট</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 #, fuzzy
-msgid "<b>Change content:</b>"
+msgid "<b>C_hange content:</b>"
 msgstr "<b>লক্ষ্য:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 #, fuzzy
-msgid "<b>Execute:</b>"
+msgid "<b>_Execute:</b>"
 msgstr "<b>অন্যান্য:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -324,74 +333,202 @@ msgstr "অনেকগুলো ফাইল"
 msgid "Execute in _Terminal"
 msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "কিলোবাইট"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "মেগাবাইট"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "গিগাবাইট"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "ফাইল পুনরায় নামকরণ করুন"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>ফাইল টাইপ:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>ফাইল টাইপ:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "ফাইল মুছে ফেলা হচ্ছে"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "ফাইল ফেলে দেয়া হচ্ছে"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "<b>ফাইল টাইপ:</b>"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>ডিস্কে আকার:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>ফাইল টাইপ:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>শেষ পরিবর্তন:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
+#: ../src/gtk/fm-gtk-file-launcher.c:536
+#, fuzzy
+msgid "(None)"
+msgstr "কোনটি না"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "ফাইলের বৈশিষ্ট্যাবলী"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u বাইট"
 msgstr[1] "%u বাইট"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "কিলোবাইট"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "মেগাবাইট"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "গিগাবাইট"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "টেরাবাইট"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "কিবিবাইট"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "মিবিবাইট"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "গিবিবাইট"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "টিবিবাইট"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
 msgid "Trash Can"
 msgstr "আবর্জনা বাক্স"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:839
 msgid "My Computer"
 msgstr "আমার কম্পিউটার"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "অ্যাপ্লিকেশন"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:841
 msgid "Network"
 msgstr "নেটওয়ার্ক"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "শর্টকাট"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "মাউন্ট পয়েন্ট"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:159
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -402,7 +539,7 @@ msgstr ""
 "আকার: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -411,23 +548,23 @@ msgstr ""
 "টাইপ: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:336
 msgid "The file operation is cancelled and there are some errors."
 msgstr "ফাইল অপারেশনটি বাতিল হয়েছে এবং কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:338
 msgid "Cancelled"
 msgstr "বাতিলকৃত"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid "The file operation is finished, but there are some errors."
 msgstr "ফাইল অপারেশন শেষ হয়েছে, কিন্তু কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:344
 msgid "Finished"
 msgstr "শেষ হয়েছে"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:366
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -437,336 +574,388 @@ msgstr ""
 "না।\n"
 "এর বদলে আপনি কি ফাইলগুলো মুছে ফেলতে চান?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:497
 msgid "Moving files"
 msgstr "ফাইল সরানো হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:500
 msgid "Copying files"
 msgstr "ফাইল অনুলেপন করা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:503
 msgid "Trashing files"
 msgstr "ফাইল ফেলে দেয়া হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:506
 msgid "Deleting files"
 msgstr "ফাইল মুছে ফেলা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:509
 msgid "Creating symlinks"
 msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:512
 msgid "Changing file attributes"
 msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
-#: ../src/gtk/fm-file-properties.c:154 ../src/gtk/fm-file-properties.c:163
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 #, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u বাইট"
 msgstr[1] "%u বাইট"
 
-#: ../src/gtk/fm-file-properties.c:226
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "অনুগ্রহ করে একটি ব্যবহারকারীর কার্যকর নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
-#: ../src/gtk/fm-file-properties.c:256
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "অনুগ্রহ করে একটি কার্যকর গ্রুপের নাম অথবা সংখ্যাসূচক আইডি দিন।"
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:446
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "আপনি কি সব ফাইল ও সাবফোল্ডারে এই পরিবর্তনসমুহ পুনরাবৃত্তাকারে প্রয়োগ করতে চান‌?"
 
-#: ../src/gtk/fm-file-properties.c:626
+#: ../src/gtk/fm-file-properties.c:633
 #, fuzzy
-msgid "<b>Access content:</b>"
+msgid "<b>_Access content:</b>"
 msgstr "<b>কন্ট্রোলে প্রবেশাধিকার</b>"
 
-#: ../src/gtk/fm-file-properties.c:741
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "বিভিন্ন ধরনের ফাইল"
 
-#: ../src/gtk/fm-file-properties.c:778
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "অনেকগুলো ফাইল"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "ভলিউম মাউন্ট করুন"
+#: ../src/gtk/fm-places-model.c:677
+msgid "Desktop"
+msgstr "ডেক্সটপ"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "ভলিউম আনমাউন্ট করুন"
+#: ../src/gtk/fm-places-model.c:687
+msgid "Applications"
+msgstr "অ্যাপ্লিকেশন"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#, fuzzy
+msgid "_Mount Volume"
+msgstr "ভলিউম মাউন্ট করুন"
+
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
+msgstr "ভলিউম আনমাউন্ট করুন"
+
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "স্থানান্তরযোগ্য মিডিয়া অপসারন করুন"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "বুকমার্ক আইটেম নামান্তর করুন"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "বুকমার্ক থেকে অপসারণ করুন"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "আবর্জনা বাক্স খালি করুন"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:836
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "বুকমার্ক আইটেম নামান্তর করুন"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "বুকমার্ক থেকে অপসারণ করুন"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "আবর্জনা বাক্স খালি করুন"
-
-#: ../src/gtk/fm-places-view.c:837
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "নতুন একটি নাম দিন:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:400
-msgid "Places"
-msgstr ""
-
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:410
-msgid "Directory Tree"
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
+msgid "_Places"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:110 ../src/gtk/fm-file-menu.c:111
-msgid "Open With..."
+#: ../src/gtk/fm-side-pane.c:63
+msgid "_Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:64
+msgid "_Remote"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:412
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:422
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "অন্য অ্যাপ্লিকেশনে খুলুন..."
 
-#: ../src/gtk/fm-file-menu.c:116 ../src/gtk/fm-folder-view.c:139
-msgid "Rename"
-msgstr "পুনরায় নামকরণ"
-
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "সিমলিঙ্ক তৈরি করুন"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "প্রেরণ করুন"
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "কমপ্রেস..."
 
-#: ../src/gtk/fm-file-menu.c:120
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "এখানে সম্প্রসারণ করুন"
 
-#: ../src/gtk/fm-file-menu.c:121
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "সম্প্রসারণ করুন..."
 
-#: ../src/gtk/fm-file-menu.c:391
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "ফাইলের বৈশিষ্ট্যাবলী"
+
+#: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
 msgstr "পুনরায় জমা করুন (_R)"
 
-#: ../src/gtk/fm-file-menu.c:392
+#: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
 msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
-#: ../src/gtk/fm-dnd-dest.c:558
+#: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
 msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:114
+#: ../src/gtk/fm-app-chooser-dlg.c:127
 msgid "Use selected application to open files"
 msgstr "ফাইল খোলার জন্য নির্বাচিত অ্যাপ্লিকেশন ব্যবহার করুন"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:121
+#: ../src/gtk/fm-app-chooser-dlg.c:134
 msgid "Execute custom command line to open files"
 msgstr "ফাইল খোলার জন্য পছন্দসই কমান্ড লাইন কার্যকর করুন"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "স্বনির্ধারণ করুন"
 
-#: ../src/gtk/fm-standard-view.c:578
+#: ../src/gtk/fm-standard-view.c:547
 msgid "Name"
 msgstr "নাম"
 
-#: ../src/gtk/fm-standard-view.c:597
+#: ../src/gtk/fm-standard-view.c:566
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-standard-view.c:604
+#: ../src/gtk/fm-standard-view.c:573
 msgid "Size"
 msgstr "আকার"
 
-#: ../src/gtk/fm-standard-view.c:610
+#: ../src/gtk/fm-standard-view.c:579
 msgid "Modified"
 msgstr "পরিবর্তিত"
 
-#: ../src/gtk/fm-folder-view.c:121
+#: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:122
+#: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:125
+#: ../src/gtk/fm-folder-view.c:171
 msgid "Blank File"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:126
+#: ../src/gtk/fm-folder-view.c:172
 #, fuzzy
 msgid "Shortcut"
 msgstr "শর্টকাট"
 
-#: ../src/gtk/fm-folder-view.c:137
+#: ../src/gtk/fm-folder-view.c:183
 msgid "_Invert Selection"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:138
+#: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:150
+#: ../src/gtk/fm-folder-view.c:196
 msgid "Show _Hidden"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:151
-msgid "Only for this folder"
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:152
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:153
+#: ../src/gtk/fm-folder-view.c:199
 #, fuzzy
-msgid "Mingle files and folders"
+msgid "Mingle _files and folders"
 msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
 
-#: ../src/gtk/fm-folder-view.c:154
-msgid "Ignore name case"
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:165
+#: ../src/gtk/fm-folder-view.c:211
 #, fuzzy
 msgid "By _Name"
 msgstr "নাম"
 
-#: ../src/gtk/fm-folder-view.c:166
+#: ../src/gtk/fm-folder-view.c:212
 msgid "By _Modification Time"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:167
+#: ../src/gtk/fm-folder-view.c:213
 #, fuzzy
 msgid "By _Size"
 msgstr "আকার"
 
-#: ../src/gtk/fm-folder-view.c:168
+#: ../src/gtk/fm-folder-view.c:214
 #, fuzzy
 msgid "By File _Type"
 msgstr "<b>ফাইল টাইপ:</b>"
 
-#: ../src/gtk/fm-folder-view.c:684
+#: ../src/gtk/fm-folder-view.c:745
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:686
+#: ../src/gtk/fm-folder-view.c:747
 msgid "Enter a name for the newly created file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 msgid "Create New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:687
+#: ../src/gtk/fm-folder-view.c:748
 #, fuzzy
 msgid "New"
 msgstr "নেটওয়ার্ক"
 
-#: ../src/gtk/fm-folder-view.c:779
+#: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:784
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Failed to start lxshortcut"
 msgstr ""
 
-#: ../src/gtk/fm-app-menu-view.c:162
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 
-#: ../src/gtk/fm-gtk-utils.c:47
+#: ../src/gtk/fm-gtk-utils.c:68
 msgid "Error"
 msgstr "ত্রুটি "
 
-#: ../src/gtk/fm-gtk-utils.c:59 ../src/gtk/fm-gtk-utils.c:75
+#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
 msgid "Confirm"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:121
+#: ../src/gtk/fm-gtk-utils.c:180
 #, fuzzy
 msgid "Question"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-gtk-utils.c:390
+#: ../src/gtk/fm-gtk-utils.c:510
 msgid "Please select a folder"
 msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:548
+#: ../src/gtk/fm-gtk-utils.c:656
 msgid "Only system administrators have the permission to do this."
 msgstr "কেবলমাত্র সিস্টেম প্রশাসকের এটি করার অনুমোদন আছে।"
 
-#: ../src/gtk/fm-gtk-utils.c:643
+#: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
 msgstr "আপনি কি নির্বাচিত ফাইল আবর্জনা বাক্সে ফেলতে চান‌?"
 
-#: ../src/gtk/fm-gtk-utils.c:664
+#: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
 msgstr "আপনি কি নির্বাচিত ফাইল অপসারণ করতে চান?"
 
-#: ../src/gtk/fm-gtk-utils.c:711
+#: ../src/gtk/fm-gtk-utils.c:991
 msgid "Rename File"
 msgstr "ফাইল পুনরায় নামকরণ করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:712
+#: ../src/gtk/fm-gtk-utils.c:992
 msgid "Please enter a new name:"
 msgstr "অনুগ্রহ করে একটি নতুন নাম দিন:"
 
-#: ../src/gtk/fm-gtk-utils.c:736
+#: ../src/gtk/fm-gtk-utils.c:1026
 msgid "Are you sure you want to empty the trash can?"
 msgstr "আপনি কি নিশ্চিত যে আপনি আবর্জনা বাক্স খালি করে ফেলতে চান?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:101
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:108
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:564
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:603
+#, fuzzy
+msgid "Select a folder"
+msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 #, fuzzy
 msgid "Loading..."
 msgstr "প্রস্তুত করা হচ্ছে..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "সুনির্দিষ্ট ডিরেক্টরিটি কার্যকর নেই"
@@ -786,14 +975,6 @@ msgstr ""
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr ""
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "আবর্জনা"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "ডেক্সটপ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -956,11 +1137,36 @@ msgstr ""
 msgid "Optical Disc"
 msgstr ""
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>গ্রুপ:</b>"
+#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>মালিক:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:533
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:937
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>মালিক (_O):</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>গ্রুপ (_G):</b>"
+
+#~ msgid "Rename"
+#~ msgstr "পুনরায় নামকরণ"
+
+#~ msgid "Trash"
+#~ msgstr "আবর্জনা"
 
 #~ msgid "Make the file executable"
 #~ msgstr "ফাইলটিকে কার্যকরী করুন"
