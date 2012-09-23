@@ -147,14 +147,10 @@ FmFileInfo* fm_file_info_new ()
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
 {
     struct stat st;
-    char* fpath;
+    char *fpath, *dname;
 
     if(lstat(path, &st) == 0)
     {
-        /* By default we use the real file base name for display.
-         * FIXME: if the base name is not in UTF-8 encoding, we
-         * need to convert it to UTF-8 for display and save its
-         * UTF-8 version in fi->display_name */
         fi->disp_name = NULL;
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
@@ -236,6 +232,19 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         if(!fi->icon)
             fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
         g_free(fpath);
+
+        /* By default we use the real file base name for display.
+         * if the base name is not in UTF-8 encoding, we
+         * need to convert it to UTF-8 for display and save its
+         * UTF-8 version in fi->disp_name */
+        if(!fi->disp_name)
+        {
+            char *dname = g_filename_display_basename(path);
+            if(g_strcmp0(dname, fm_path_get_basename(fi->path)) == 0)
+                g_free(dname);
+            else
+                fi->disp_name = dname;
+        }
     }
     else
     {
