@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-08-30 15:52+0100\n"
-"Last-Translator: Jay A.Fleming <tito.nehru.naser@gmail.com>\n"
+"PO-Revision-Date: 2012-09-23 23:51+0200\n"
+"Last-Translator: Jay A. <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -30,9 +31,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Тип датотеке за отварање:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Постојећи програми"
+msgstr "Постојећ_и програми"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -43,9 +43,8 @@ msgid "_Browse"
 msgstr "_Разгледај"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Покрени у емулатору терминала"
+msgstr "Покрени у _емулатору терминала"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -63,14 +62,12 @@ msgstr ""
 "  <b>%U</b>: Путање до локација (URIs)"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Користи прoизвољну наредбу"
+msgstr "Користи прoиз_вољну наредбу"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Увек отвори овај тип датотека овим програмом"
+msgstr "Увек отварај ову врсту датотека одабраним програмом"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -104,14 +101,12 @@ msgid "with the following file?"
 msgstr "са следећом датотеком?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Име датотеке:"
+msgstr "_Име датотеке:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Примени ово подешавање на све постојеће датотеке"
+msgstr "Примени ово подешавање на _све постојеће датотеке"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -158,29 +153,24 @@ msgid "_General"
 msgstr "Оп_ште"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Власник:</b>"
+msgstr "<b>_Власник:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Група:</b>"
+msgstr "<b>_Група:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Преглед садржаја:</b>"
+msgstr "<b>Преглед _садржаја:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Мењање садржаја:</b>"
+msgstr "<b>_Мењање садржаја:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Изврши:</b>"
+msgstr "<b>_Изврши:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -223,12 +213,13 @@ msgid "None"
 msgstr "Ниједан"
 
 #: ../data/ui/file-prop.glade.h:27
+#, fuzzy
 msgid "Sticky"
-msgstr ""
+msgstr "Прилепи"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr ""
+msgstr "Постави ИБ групе (GID)"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
@@ -236,11 +227,11 @@ msgstr ""
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr ""
+msgstr "Постави ИБ корисника (UID)"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Постави ИБ корисника и ИБ групе"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -334,8 +325,9 @@ msgid "Execute in _Terminal"
 msgstr "Покрени у емулатору _терминала"
 
 #: ../data/ui/filesearch.glade.h:1
+#, fuzzy
 msgid "Bytes"
-msgstr ""
+msgstr "Бајта"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -351,133 +343,121 @@ msgstr "ГБ"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Одаберите датум"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Одаберите датум из следећег календара"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Сложи датотеке"
+msgstr "Нађи датотеке"
 
 #: ../data/ui/filesearch.glade.h:8
 #, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Врста датотеке:</b>"
+msgstr "<b>Предлошци _имена датотеке</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Занемари _величину слова"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "Користи рег_уларан израз"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Претражи места</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Претражи у под_директоријумима"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Претражи _скривене датотеке"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Име/_Локација"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Врста датотеке:</b>"
+msgstr "<b>Врста датотеке</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Претражи само датотеке следеће врсте"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Брисање датотека"
+msgstr "Те_кстуалне датотеке"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Премештање у Непотребно"
+msgstr "Гра_фичке датотеке"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Сложи датотеке"
+msgstr "Звучне датотеке"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Сложи датотеке"
+msgstr "_Видео датотеке"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Документа"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "По _врсти датотеке"
+msgstr "_Врста датотеке"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Заузет простор:</b>"
+msgstr "<b>Датотека _садржи</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "_Садржај"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Врста датотеке:</b>"
+msgstr "<b>Величина датотеке</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Мање од:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Више од:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Последњи пут измењено:</b>"
+msgstr "<b>Последњи пут измењено</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "Ниједан"
+msgstr "(Ништа)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Раниј_е од:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Касније од:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Особине датотеке"
+msgstr "_Особине"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -629,9 +609,8 @@ msgstr ""
 "поддиректоријуме?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Приступ садржају:</b>"
+msgstr "<b>Приступ с_адржају:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -650,34 +629,28 @@ msgid "Applications"
 msgstr "Програми"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Монтирај"
+msgstr "Прикључи"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Демонтирај"
+msgstr "Искључи"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Избаци преносиви медиј"
+msgstr "_Избаци преносиви медиј"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Преименуј обележивач"
+msgstr "П_реименуј обележивач"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Уклони обележивач"
+msgstr "_Уклони обележивач"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Обриши датотеке из Непотребно"
+msgstr "_Обриши датотеке из Непотребно"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -689,23 +662,21 @@ msgid "Enter a new name:"
 msgstr "Унесите ново име:"
 
 #: ../src/gtk/fm-side-pane.c:61
+#, fuzzy
 msgid "_Off"
-msgstr ""
+msgstr "Изгашено"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Места"
+msgstr "_Места"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Стабло директоријума"
+msgstr "Стабло _директоријума"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Удаљено"
+msgstr "У_даљено"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -717,43 +688,36 @@ msgstr "Стабло директоријума"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Отвори"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Отвори помоћу..."
+msgstr "Отвори _помоћу..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Направи меку везу"
+msgstr "Направи меку _везу"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Пошаљи..."
+msgstr "По_шаљи..."
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Направи архиву..."
+msgstr "Направи _архиву..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Распакуј овде"
+msgstr "Распакуј _овде"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Распакуј..."
+msgstr "_Распакуј..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Особине датотеке"
+msgstr "_Особине"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
@@ -824,22 +788,20 @@ msgid "Show _Hidden"
 msgstr "Прикажи с_кривене"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Само за овај директоријум"
+msgstr "Само _за овај директоријум"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
 msgstr "Помешај датотеке и директоријуме"
 
 #: ../src/gtk/fm-folder-view.c:200
 msgid "_Ignore name case"
-msgstr ""
+msgstr "Занемари вел_ичину слова имена"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -944,10 +906,9 @@ msgstr ""
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "Нису одређени директоријуми."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
 msgstr "Изаберите директоријум"
 
@@ -1173,17 +1134,17 @@ msgstr ""
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "Ова радња није подржана"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Неисправно име датотеке %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "Тражи"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Власник:</b>"
