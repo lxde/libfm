@@ -908,7 +908,6 @@ fm_path_list_write_uri_list
 fm_path_new_child
 fm_path_new_child_len
 fm_path_new_for_commandline_arg
-fm_path_new_for_display_name
 fm_path_new_for_gfile
 fm_path_new_for_path
 fm_path_new_for_str

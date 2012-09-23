@@ -170,6 +170,8 @@ GFile *fm_file_new_for_commandline_arg(const char *arg)
     return g_file_new_for_commandline_arg(arg);
 }
 
+/* TODO: implement fm_file_parse_name() too */
+
 void _fm_file_init(void)
 {
     schemes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);

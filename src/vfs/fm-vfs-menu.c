@@ -132,6 +132,7 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item)
     const char *icon_name;
     GIcon* icon;
 
+    /* FIXME: use g_uri_escape_string() for item name */
     g_file_info_set_name(fileinfo, menu_cache_item_get_id(item));
     g_file_info_set_display_name(fileinfo, menu_cache_item_get_name(item));
 
@@ -335,9 +336,11 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     /* the menu should be loaded now */
     if(init->path_str)
     {
-        char* tmp;
+        char *unescaped, *tmp;
+        unescaped = g_uri_unescape_string(init->path_str, NULL);
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
-                          "/", init->path_str, NULL);
+                          "/", unescaped, NULL);
+        g_free(unescaped);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }
@@ -431,8 +434,12 @@ static char *_fm_vfs_menu_get_uri(GFile *file)
 
 static char *_fm_vfs_menu_get_parse_name(GFile *file)
 {
-    /* FIXME: need name to be converted to UTF-8? */
-    return _fm_vfs_menu_get_uri(file);
+    char *unescaped, *path;
+
+    unescaped = g_uri_unescape_string(FM_MENU_VFILE(file)->path, NULL);
+    path = g_strconcat("menu://applications/", unescaped, NULL);
+    g_free(unescaped);
+    return path;
 }
 
 static GFile *_fm_vfs_menu_get_parent(GFile *file)
@@ -522,6 +529,14 @@ static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
                                                       const char *display_name,
                                                       GError **error)
 {
+#if 1
+    /* FIXME: is it really need to be implemented? */
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+#else
+    /* Unfortunately this will never work since there is no correlation
+       between display name and item id.
+       The only way is to iterate all children and compare display names. */
   GFile *new_file;
   char *basename;
 
@@ -538,6 +553,7 @@ static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
   g_free (basename);
 
   return new_file;
+#endif
 }
 
 static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
@@ -568,8 +584,12 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
 
     if(init->path_str)
     {
-        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
-                                "/", init->path_str, NULL);
+        char *unescaped, *tmp;
+
+        unescaped = g_uri_unescape_string(init->path_str, NULL);
+        tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
+                          "/", unescaped, NULL);
+        g_free(unescaped);
         dir = menu_cache_get_dir_from_path(mc, tmp);
         g_free(tmp);
     }

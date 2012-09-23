@@ -777,8 +777,6 @@ void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
         on_folder_finish_loading(win->folder, win);
         on_folder_fs_info(win->folder, win);
     }
-    else
-        on_folder_start_loading(win->folder, win);
 
     g_signal_handlers_block_by_func(win->left_pane, on_side_pane_chdir, win);
     fm_side_pane_chdir(FM_SIDE_PANE(win->left_pane), path);

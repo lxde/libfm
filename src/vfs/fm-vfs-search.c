@@ -404,7 +404,8 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
     if(g_ascii_strncasecmp(uri_str, scheme, sizeof(scheme)-1) == 0)
     {
         const char* p = uri_str + sizeof(scheme)-1; /* skip scheme part */
-        char* params = strchr(p, '?');
+        char* unescaped = g_uri_unescape_string(p, NULL);
+        char* params = strchr((p = unescaped), '?');
         char* name_regex = NULL;
         char* content_regex = NULL;
 
@@ -416,7 +417,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
         }
 
         /* add folder paths */
-        for(; *p; ++p)
+        if(p) for(; *p; ++p)
         {
             char* sep = strchr(p, ':'); /* use : to separate multiple paths */
             if(sep)
@@ -543,6 +544,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 }
             }
         }
+        g_free(unescaped);
     }
 }
 
