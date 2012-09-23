@@ -324,6 +324,7 @@ static void fm_standard_view_dispose(GObject *object)
 static void set_icon_size(FmStandardView* fv, guint icon_size)
 {
     FmCellRendererPixbuf* render = fv->renderer_pixbuf;
+
     fm_cell_renderer_pixbuf_set_fixed_size(render, icon_size, icon_size);
 
     if(!fv->model)
@@ -334,6 +335,9 @@ static void set_icon_size(FmStandardView* fv, guint icon_size)
     if( fv->mode != FM_FV_LIST_VIEW ) /* this is an ExoIconView */
     {
         /* FIXME: reset ExoIconView item sizes */
+        /* set row spacing in range 2...12 pixels */
+        gint c_size = MIN(12, 2 + icon_size / 8);
+        exo_icon_view_set_row_spacing(EXO_ICON_VIEW(fv->view), c_size);
     }
 }
 
