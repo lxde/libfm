@@ -81,7 +81,7 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
      * The #FmDirListJob::file-found signal is emitted for every file
      * found during directory listing. By default the signal is not
      * emitted for performance reason. This can be turned on by calling
-     * fm_dir_list_job_set_emit_files_found().
+     * fm_dir_list_job_set_incremental().
      *
      * Since: 1.0.2
      */
