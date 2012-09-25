@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-08-28 21:00+0200\n"
+"PO-Revision-Date: 2012-09-26 01:00+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -28,9 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Тып файла для адкрыцця:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Устаноўленая праграма"
+msgstr "_Устаноўленая праграма"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -41,9 +40,8 @@ msgid "_Browse"
 msgstr "_Аглядаць"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Выканаць у эмулятары тэрмінала"
+msgstr "Выканаць _у эмулятары тэрмінала"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,14 +59,12 @@ msgstr ""
 "  <b>%U</b>: шляхі некалькіх файлаў"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Уласны загад"
+msgstr "Ула_сны загад"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Устанавіць вылучаную праграму як прадвызначаную для гэтага тыпу файлаў"
+msgstr "Устанавіць в_ылучаную праграму як прадвызначаную для гэтага тыпу файлаў"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -102,14 +98,12 @@ msgid "with the following file?"
 msgstr "наступным файлам?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Назва файла:"
+msgstr "Н_азва файла:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Ужыць да ўсіх файлаў"
+msgstr "Ужыць да ўсіх _файлаў"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -156,29 +150,24 @@ msgid "_General"
 msgstr "_Агульныя"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Уладальнік:</b>"
+msgstr "<b>_Уладальнік:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Група:</b>"
+msgstr "<b>Гру_па:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Глядзець змест:</b>"
+msgstr "<b>Глядзець з_мест:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Змяняць змест:</b>"
+msgstr "<b>_Змяняць змест:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Выконваць:</b>"
+msgstr "<b>_Выконваць:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -333,7 +322,7 @@ msgstr "Выканаць у эмулятары _тэрмінала"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Байтаў"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -349,133 +338,120 @@ msgstr "ГБ"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Выберыце дату"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Выберыце дату ў наступным календары"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Парадкаваць файлы"
+msgstr "Шукаць файлы"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Тып файла:</b>"
+msgstr "<b>Шаблон _назвы файла:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Ігнараваць _рэгістр"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "Ужыць рэ_гулярны выраз"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Месцы пошуку</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Шукаць у падкаталогах"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Шукаць сярод схаваных файлаў"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Назва/_Шлях"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Тып файла:</b>"
+msgstr "<b>Тып файла</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Шукаць толькі файлы наступных тыпаў"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Сціранне файлаў"
+msgstr "Т_экставыя файлы"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Перанос файлаў у сметніцу"
+msgstr "Файлы выя_ў"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Парадкаваць файлы"
+msgstr "Гукавыя _файлы"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Парадкаваць файлы"
+msgstr "_Відэа файлы"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Дакументы"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Па _тыпу файла"
+msgstr "_Тып файла"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Памер на дыску:</b>"
+msgstr "<b>Файл утрымлівае</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "_Змест"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Тып файла:</b>"
+msgstr "<b>Памер файла</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Меншы за:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Большы за:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Апошняе змяненне:</b>"
+msgstr "<b>Апошняе змяненне</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "Нічога"
+msgstr "(Няма)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Раней за:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Пазней за"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Уласцівасці файла"
+msgstr "_Уласцівасці"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -625,9 +601,8 @@ msgid ""
 msgstr "Прымяніць змены рэкурсіўна да ўсіх файлаў і падкаталогаў?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Доступ да зместу:</b>"
+msgstr "<b>_Доступ да зместу:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -646,34 +621,28 @@ msgid "Applications"
 msgstr "Праграмы"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Прымацаваць дыск"
+msgstr "Прымацавац_ь дыск"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Размацаваць дыск"
+msgstr "_Размацаваць дыск"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Вызваліць рухомы носнік"
+msgstr "Вызваліць р_ухомы носнік"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Перайменаваць закладку"
+msgstr "_Перайменаваць закладку"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Сцерці з закладак"
+msgstr "_Сцерці з закладак"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Ачысціць сметніцу"
+msgstr "Ачысціць сметніц_у"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -686,22 +655,19 @@ msgstr "Увядзіце новую назву:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Выкл"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Месцы"
+msgstr "_Месцы"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Дрэва каталогаў"
+msgstr "_Дрэва каталогаў"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Аддалены"
+msgstr "_Аддалены"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -713,43 +679,36 @@ msgstr "Дрэва каталогаў"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "А_дкрыць"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Адкрыць з дапамогай..."
+msgstr "Адкры_ць з дапамогай..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Стварыць сімвальную спасылку"
+msgstr "Ствар_ыць сімвальную спасылку"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Адправіць"
+msgstr "Адп_равіць"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Сціснуць..."
+msgstr "Сціснуц_ь..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Распакаваць сюды"
+msgstr "_Распакаваць сюды"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Распакаваць у..."
+msgstr "Распакаваць _у..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Уласцівасці файла"
+msgstr "_Уласцівасці файла"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
@@ -820,9 +779,8 @@ msgid "Show _Hidden"
 msgstr "Паказваць _схаваныя"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Толькі ў гэтым каталогу"
+msgstr "_Толькі ў гэтым каталогу"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -830,14 +788,12 @@ msgstr ""
 "Пазначце, каб запомніць парадкаванне як настаўленне каталога, а не агульнае"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Адзіны парадак для файлаў і каталогаў"
+msgstr "_Адзіны парадак для файлаў і каталогаў"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Не ўлічваць рэгістр"
+msgstr "_Не ўлічваць рэгістр"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -940,12 +896,11 @@ msgstr "Гэты файл '%s' - выканальны. Хочаце запусц
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "Не зададзены каталог."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
-msgstr "Калі ласка, выберыце каталог"
+msgstr "Выберыце каталог"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -1140,22 +1095,22 @@ msgstr "Аптычны дыск"
 
 #: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
 msgid "Menu cache error"
-msgstr ""
+msgstr "Памылка кэшу меню"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "Аперацыя не падтрымліваецца"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Недапушчальная назва файла %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Уладальнік:</b>"
