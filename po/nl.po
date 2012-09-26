@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-08-24 12:25+0200\n"
+"PO-Revision-Date: 2012-09-26 12:27+0200\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -27,7 +27,6 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Bestandtype dat moet worden geopend:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
 msgstr "Geïnstalleerde toepassing"
 
@@ -40,7 +39,6 @@ msgid "_Browse"
 msgstr "_Bladeren"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
 msgstr "Uitvoeren in terminalvenster"
 
@@ -60,12 +58,10 @@ msgstr ""
 "  <b>%U</b>: Representeert meerdere URI's"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
 msgstr "Aangepaste opdrachtregel"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
 msgstr "Stel gekozen toepassing in als standaardactie voor dit bestandtype"
 
@@ -101,12 +97,10 @@ msgid "with the following file?"
 msgstr "met het volgende bestand?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
 msgstr "Bestandnaam:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
 msgstr "Pas deze optie toe op alle bestaande bestanden"
 
@@ -155,27 +149,22 @@ msgid "_General"
 msgstr "_Algemeen"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
 msgstr "<b>Eigenaar:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
 msgstr "<b>Groep:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
 msgstr "<b>Inhoud bekijken:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
 msgstr "<b>Inhoud veranderen:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
 msgstr "<b>Uitvoeren:</b>"
 
@@ -334,7 +323,7 @@ msgstr "Uitvoeren in _terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -350,133 +339,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Kies een datum"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Kies een datum uit de volgende kalender"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "Bestanden _sorteren"
+msgstr "Bestanden zoeken"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>Patronen in bestandnamen</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Hoofdletterongevoelig"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "Gebruik reguliere uitdrukking"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Plaatsen om te doorzoeken</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Zoek in submappen"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Doorzoek verborgen bestanden"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Naam/Locatie"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>Bestandtype</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Zoek alleen naar de volgende bestandtypes:"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Bestanden verwijderen"
+msgstr "Tekstbestanden"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Bestanden weggooien"
+msgstr "Afbeeldingbestanden"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "Bestanden _sorteren"
+msgstr "Geluidbestanden"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "Bestanden _sorteren"
+msgstr "Videobestanden"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "Documenten"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Op _bestandtype"
+msgstr "Bestandtype"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Grootte op schijf:</b>"
+msgstr "<b>Bestand bevat</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "Inhoud"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Bestandtype:</b>"
+msgstr "<b>Bestandgrootte</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "Kleiner dan:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Groter dan:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Laatste aanpassing:</b>"
+msgstr "<b>Tijdstip van laatste wijziging</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "Geen"
+msgstr "(Geen)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Eerder dan:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "Later dan:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Bestandeigenschappen"
+msgstr "Eigenschappen"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -625,7 +601,6 @@ msgstr ""
 "Wilt u deze veranderingen recursief toepassen op alle bestanden en submappen?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
 msgstr "<b>Inhoud benaderen:</b>"
 
@@ -646,32 +621,26 @@ msgid "Applications"
 msgstr "Toepassingen"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
 msgstr "Medium aankoppelen"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
 msgstr "Medium ontkoppelen"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
 msgstr "Verwijderbare media uitwerpen"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
 msgstr "Bladwijzerelement hernoemen"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
 msgstr "Verwijderen uit bladwijzer"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
 msgstr "Prullenbak legen"
 
@@ -686,22 +655,19 @@ msgstr "Voer een nieuwe naam in:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Uit"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Locaties"
+msgstr "_Locaties"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Boomstructuur van mappen"
+msgstr "_Boomstructuur van mappen"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Op afstand"
+msgstr "Op _afstand"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -713,47 +679,40 @@ msgstr "Boomstructuur van mappen"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Openen"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Openen met..."
+msgstr "Openen _met..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
 msgstr "Symbolische koppeling aanmaken"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Sturen naar"
+msgstr "Stu_ren naar"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
 msgstr "Comprimeren..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Hier uitpakken"
+msgstr "_Hier uitpakken"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
 msgstr "Uitpakken naar..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Bestandeigenschappen"
+msgstr "Eigenschappen"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
-msgstr "_Herstellen"
+msgstr "Herstellen"
 
 #: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
@@ -820,7 +779,6 @@ msgid "Show _Hidden"
 msgstr "Toon _verborgen"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
 msgstr "Alleen voor deze map"
 
@@ -831,12 +789,10 @@ msgstr ""
 "instelling"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
 msgstr "Bestanden en mappen vermengen"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
 msgstr ""
 "Bij een naam niet letten op verschil tussen hoofdletters en kleine letters"
@@ -942,12 +898,11 @@ msgstr "Dit bestand '%s' is uitvoerbaar. Wilt u het uitvoeren?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "Er zijn geen mappen opgegeven."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
-msgstr "Gelieve een map te kiezen"
+msgstr "Kies een map"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -1142,22 +1097,22 @@ msgstr "Optische schijf"
 
 #: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
 msgid "Menu cache error"
-msgstr ""
+msgstr "Fout in menu-opslag"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "Bewerking wordt niet ondersteund"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Ongeldige bestandnaam %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Eigenaar:</b>"
