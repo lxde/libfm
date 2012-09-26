@@ -1185,8 +1185,10 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
                 g_object_unref(item->icon);
             item->icon = g_object_ref(pix);
             item->is_thumbnail = TRUE;
+            gdk_threads_enter();
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
             gtk_tree_path_free(tp);
+            gdk_threads_leave();
         }
         else
         {

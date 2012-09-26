@@ -483,7 +483,7 @@ gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data)
  */
 const char *fm_get_home_dir(void)
 {
-    /* From GLibc docs for g_get_home_dir */
+    /* From GLib docs for g_get_home_dir */
     const char *homedir = g_getenv("HOME");
     if(!homedir)
         homedir = g_get_home_dir();
