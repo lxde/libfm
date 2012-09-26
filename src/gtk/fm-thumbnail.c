@@ -575,6 +575,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
     FmPath* src_path = fm_file_info_get_path(src_file);
 
     g_return_val_if_fail(hash != NULL, NULL);
+    g_assert(callback != NULL);
     req = g_slice_new(FmThumbnailRequest);
     req->fi = fm_file_info_ref(src_file);
     req->size = size;
