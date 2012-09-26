@@ -692,7 +692,7 @@ void on_go_up(GtkAction* act, FmMainWin* win)
 
 void on_go_home(GtkAction* act, FmMainWin* win)
 {
-    fm_main_win_chdir_by_name( win, g_get_home_dir());
+    fm_main_win_chdir_by_name( win, fm_get_home_dir());
 }
 
 void on_go_desktop(GtkAction* act, FmMainWin* win)

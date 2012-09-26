@@ -72,6 +72,8 @@ char* fm_strdup_replace(char* str, char* old_str, char* new_str);
 
 gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data);
 
+const char *fm_get_home_dir(void);
+
 G_END_DECLS
 
 #endif

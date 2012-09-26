@@ -471,3 +471,21 @@ gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data)
 #endif
     return md.result;
 }
+
+/**
+ * fm_get_home_dir
+ *
+ * Retrieves valid path to home dir of user.
+ *
+ * Returns: path string.
+ *
+ * Since: 1.0.2
+ */
+const char *fm_get_home_dir(void)
+{
+    /* From GLibc docs for g_get_home_dir */
+    const char *homedir = g_getenv("HOME");
+    if(!homedir)
+        homedir = g_get_home_dir();
+    return homedir;
+}

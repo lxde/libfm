@@ -210,7 +210,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
-        else if(strcmp(path, g_get_home_dir()) == 0)
+        else if(strcmp(path, fm_get_home_dir()) == 0)
             fi->icon = fm_icon_from_name("user-home");
         else if(strcmp(path, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP)) == 0)
             fi->icon = fm_icon_from_name("user-desktop");

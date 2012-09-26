@@ -732,7 +732,7 @@ guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 /* in main loop */
 void _fm_thumbnail_init()
 {
-    thumb_dir = g_build_filename(g_get_home_dir(), ".thumbnails", NULL);
+    thumb_dir = g_build_filename(fm_get_home_dir(), ".thumbnails", NULL);
     hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
     generator_cancellable = g_cancellable_new();
 }

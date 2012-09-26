@@ -929,7 +929,7 @@ void _fm_path_init()
 
     /* path object of root_path dir */
     root_path = _fm_path_new_internal(NULL, "/", 1, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
-    home_dir = g_get_home_dir();
+    home_dir = fm_get_home_dir();
     home_len = strlen(home_dir);
     while(home_dir[home_len - 1] == '/')
         --home_len;

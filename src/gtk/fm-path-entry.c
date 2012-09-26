@@ -404,7 +404,7 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             data->entry = entry;
             if(priv->parent_dir[0] == '~') /* special case for home dir */
             {
-                char* expand = g_strconcat(g_get_home_dir(), priv->parent_dir + 1, NULL);
+                char* expand = g_strconcat(fm_get_home_dir(), priv->parent_dir + 1, NULL);
                 data->dir = fm_file_new_for_commandline_arg(expand);
                 g_free(expand);
             }

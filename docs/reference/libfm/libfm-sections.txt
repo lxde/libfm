@@ -1107,6 +1107,7 @@ FmAppCommandParseOption
 fm_app_command_parse
 fm_canonicalize_filename
 fm_file_size_to_str
+fm_get_home_dir
 fm_key_file_get_bool
 fm_key_file_get_int
 fm_run_in_default_main_context

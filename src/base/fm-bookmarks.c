@@ -104,7 +104,7 @@ static void fm_bookmarks_finalize(GObject *object)
 
 static char* get_bookmarks_file()
 {
-    return g_build_filename(g_get_home_dir(), ".gtk-bookmarks", NULL);
+    return g_build_filename(fm_get_home_dir(), ".gtk-bookmarks", NULL);
 }
 
 static void free_item(FmBookmarkItem* item)
