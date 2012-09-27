@@ -116,14 +116,17 @@ static GType fm_vfs_menu_enumerator_get_type   (void);
 
 G_DEFINE_TYPE(FmVfsMenuEnumerator, fm_vfs_menu_enumerator, G_TYPE_FILE_ENUMERATOR)
 
-static void _fm_vfs_menu_enumerator_finalize(GObject *object)
+static void _fm_vfs_menu_enumerator_dispose(GObject *object)
 {
     FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(object);
 
     if(enu->mc)
+    {
         menu_cache_unref(enu->mc);
+        enu->mc = NULL;
+    }
 
-    G_OBJECT_CLASS(fm_vfs_menu_enumerator_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_vfs_menu_enumerator_parent_class)->dispose(object);
 }
 
 static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item)
@@ -274,7 +277,7 @@ static void fm_vfs_menu_enumerator_class_init(FmVfsMenuEnumeratorClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
   GFileEnumeratorClass *enumerator_class = G_FILE_ENUMERATOR_CLASS(klass);
 
-  gobject_class->finalize = _fm_vfs_menu_enumerator_finalize;
+  gobject_class->dispose = _fm_vfs_menu_enumerator_dispose;
 
   enumerator_class->next_file = _fm_vfs_menu_enumerator_next_file;
   enumerator_class->close_fn = _fm_vfs_menu_enumerator_close;
@@ -293,7 +296,6 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     const char *de_name;
     MenuCacheDir *dir;
 
-    init->result = NULL;
     mc = menu_cache_lookup_sync("applications.menu");
     /* ensure that the menu cache is loaded */
     if(mc == NULL) /* if it's not loaded */
@@ -367,6 +369,7 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
 //    enu.flags = flags;
     enu.file = file;
     enu.error = error;
+    enu.result = NULL;
     fm_run_in_default_main_context(_fm_vfs_menu_enumerator_new_real, &enu);
     return enu.result;
 }
