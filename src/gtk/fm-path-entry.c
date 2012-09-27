@@ -37,6 +37,7 @@
 /* for completion */
 #include "fm-folder-model.h"
 #include "fm-file.h"
+#include "fm-utils.h"
 
 #include <string.h>
 #include <gio/gio.h>
