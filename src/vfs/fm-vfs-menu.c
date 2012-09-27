@@ -596,11 +596,10 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
                           "/", unescaped, NULL);
         /* FIXME: how to access not dir? */
         dir = menu_cache_get_dir_from_path(mc, tmp);
-        g_debug("opening menu cache for children of path %s: %p", tmp, dir);
         /* The menu-cache is buggy and returns parent for invalid path
            instead of failure so we check what we got here.
            Unfortunately we cannot detect if requested name is the same
-           as its parent. */
+           as its parent and menu-cache returned the parent. */
         if(dir == NULL ||
            strcmp(unescaped, menu_cache_item_get_id(MENU_CACHE_ITEM(dir))) != 0)
             is_invalid = TRUE;
