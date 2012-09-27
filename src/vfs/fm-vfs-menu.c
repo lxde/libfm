@@ -344,6 +344,7 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
                           "/", unescaped, NULL);
         g_free(unescaped);
         dir = menu_cache_get_dir_from_path(mc, tmp);
+        /* FIXME: test if path is valid since menu-cache is buggy */
         g_free(tmp);
     }
     else
@@ -575,6 +576,7 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
     MenuCacheDir *dir;
+    gboolean is_invalid = FALSE;
 
     init->result = NULL;
     mc = menu_cache_lookup_sync("applications.menu");
@@ -592,19 +594,29 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
         unescaped = g_uri_unescape_string(init->path_str, NULL);
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
                           "/", unescaped, NULL);
-        g_free(unescaped);
+        /* FIXME: how to access not dir? */
         dir = menu_cache_get_dir_from_path(mc, tmp);
+        g_debug("opening menu cache for children of path %s: %p", tmp, dir);
+        /* The menu-cache is buggy and returns parent for invalid path
+           instead of failure so we check what we got here.
+           Unfortunately we cannot detect if requested name is the same
+           as its parent. */
+        if(dir == NULL ||
+           strcmp(unescaped, menu_cache_item_get_id(MENU_CACHE_ITEM(dir))) != 0)
+            is_invalid = TRUE;
+        g_free(unescaped);
         g_free(tmp);
     }
     else
         dir = menu_cache_get_root_dir(mc);
-    if(dir)
+    if(is_invalid)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu directory"));
+    else if(dir)
         init->result = _g_file_info_from_menu_cache_item(MENU_CACHE_ITEM(dir));
-    else
-    {
-        /* FIXME: how to access not dir? */
-        ERROR_UNSUPPORTED(init->error);
-    }
+    else /* menu_cache_get_root_dir failed */
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
 
     menu_cache_unref(mc);
 
