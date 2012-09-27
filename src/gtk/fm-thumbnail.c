@@ -42,6 +42,7 @@
 
 #include "fm-thumbnail.h"
 #include "fm-config.h"
+#include "fm-utils.h"
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>

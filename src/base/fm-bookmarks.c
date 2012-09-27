@@ -33,6 +33,7 @@
 #include "fm-bookmarks.h"
 #include <stdio.h>
 #include <string.h>
+#include "fm-utils.h"
 
 enum
 {

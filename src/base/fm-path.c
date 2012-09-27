@@ -35,6 +35,7 @@
 #include "fm-path.h"
 #include "fm-file-info.h"
 #include "fm-file.h"
+#include "fm-utils.h"
 
 #include <string.h>
 #include <limits.h>
