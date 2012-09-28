@@ -1066,9 +1066,9 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     show_hidden = iface->get_show_hidden(fv);
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
     gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act), show_hidden);
-    /* FIXME: shadow 'Paste' if clipboard is empty and unshadow if not */
-    /* act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-    gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv))); */
+    /* shadow 'Paste' if clipboard is empty and unshadow if not */
+    act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+    gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
     /* open popup */
     gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
 }

@@ -169,6 +169,7 @@ static GType column_types[ N_FOLDER_MODEL_COLS ];
 
 enum {
     ROW_DELETING,
+    FILTER_CHANGED,
     N_SIGNALS
 };
 
@@ -222,6 +223,24 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
                      fm_marshal_VOID__BOXED_BOXED_POINTER,
                      G_TYPE_NONE, 3, GTK_TYPE_TREE_PATH, GTK_TYPE_TREE_ITER,
                      G_TYPE_POINTER);
+
+    /**
+     * FmFolderModel::filter-changed:
+     * @model: folder model instance that received the signal
+     *
+     * This signal is emitted when model data were changed due to filter
+     * changes.
+     *
+     * Since: 1.0.2
+     */
+    signals[FILTER_CHANGED] =
+        g_signal_new("filter-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderModelClass, filter_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
 }
 
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
@@ -1596,4 +1615,5 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
         }
         g_slist_free(items_to_show);
     }
+    g_signal_emit(model, signals[FILTER_CHANGED], 0);
 }

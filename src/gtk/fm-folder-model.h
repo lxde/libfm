@@ -85,12 +85,14 @@ typedef struct _FmFolderModelClass FmFolderModelClass;
  * FmFolderModelClass:
  * @parent: the parent class
  * @row_deleting: the class closure for the #FmFolderModel::row-deleting signal
+ * @filter_changed: the class closure for the #FmFolderModel::filter-changed signal
  */
 struct _FmFolderModelClass
 {
     GObjectClass parent;
     void (*row_deleting)(FmFolderModel* model, GtkTreePath* tp,
                          GtkTreeIter* iter, gpointer data);
+    void (*filter_changed)(FmFolderModel* model);
 };
 
 typedef gboolean (*FmFolderModelFilterFunc)(FmFileInfo* file, gpointer user_data);
