@@ -2,6 +2,7 @@
  *      fm-cell-renderer-text.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -154,8 +155,8 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
         pango_layout_set_wrap(layout, wrap_mode);
         /* FIXME: add custom ellipsize from object? */
         pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END);
-        /* Setup max height to be not more than half of width */
-        wrap_height = wrap_width * PANGO_SCALE / 2;
+        /* Setup max height to be not more than 3/4 of width */
+        wrap_height = (wrap_width * PANGO_SCALE + 2) * 3 / 4;
         /* FIXME: add custom height from object? */
         pango_layout_set_height(layout, wrap_height);
     }
@@ -257,6 +258,12 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                         rect.width, rect.height);
 #endif
     }
+
+    if(flags & GTK_CELL_RENDERER_PRELIT) /* hovered */
+        g_object_set(G_OBJECT(widget), "tooltip-text", text, NULL);
+    else
+        g_object_set(G_OBJECT(widget), "tooltip-text", NULL, NULL);
+    g_free(text);
 }
 
 static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
@@ -270,21 +277,19 @@ static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
                                            gint                       *width,
                                            gint                       *height)
 {
-    gint wrap_width;
+    gint wrap_width, wrap_height;
 
     g_object_get(G_OBJECT(cell),
                  "wrap-width", &wrap_width,
                  NULL);
 
-    if (wrap_width <= 0)
+    GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
+    if (wrap_width > 0)
     {
-        GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
-    }
-    else
-    {
-        *width = wrap_width;
         /* FIXME: add custom height from object? */
-        *height = wrap_width / 2;
+        wrap_height = (wrap_width+2) * 3 / 4;
+        if(*height > wrap_height)
+            *height = wrap_height;
     }
 }
 
