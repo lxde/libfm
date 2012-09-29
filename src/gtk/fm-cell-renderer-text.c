@@ -32,6 +32,17 @@
 
 #include "fm-cell-renderer-text.h"
 
+static void fm_cell_renderer_text_get_property(GObject *object, guint param_id,
+                                               GValue *value, GParamSpec *psec);
+static void fm_cell_renderer_text_set_property(GObject *object, guint param_id,
+                                               const GValue *value, GParamSpec *psec);
+
+enum
+{
+    PROP_HEIGHT = 1,
+    N_PROPS
+};
+
 G_DEFINE_TYPE(FmCellRendererText, fm_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
 
 static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
@@ -64,15 +75,38 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 
 static void fm_cell_renderer_text_class_init(FmCellRendererTextClass *klass)
 {
+    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
     GtkCellRendererClass* render_class = GTK_CELL_RENDERER_CLASS(klass);
+
+    g_object_class->get_property = fm_cell_renderer_text_get_property;
+    g_object_class->set_property = fm_cell_renderer_text_set_property;
+
     render_class->render = fm_cell_renderer_text_render;
     render_class->get_size = fm_cell_renderer_text_get_size;
+
+    /**
+     * FmCellRendererText:max-height:
+     *
+     * The #FmCellRendererText:max-height property is the maximum height
+     * of text that will be rendered. If text doesn't fit in that height
+     * then text will be ellipsized. The value of -1 means unlimited
+     * height.
+     *
+     * Since: 1.0.2
+     */
+    g_object_class_install_property(g_object_class,
+                                    PROP_HEIGHT,
+                                    g_param_spec_int("max-height",
+                                                     "Maximum_height",
+                                                     "Maximum height",
+                                                     -1, 2048, -1,
+                                                     G_PARAM_READWRITE));
 }
 
 
 static void fm_cell_renderer_text_init(FmCellRendererText *self)
 {
-    
+    self->height = -1;
 }
 
 /**
@@ -87,6 +121,36 @@ static void fm_cell_renderer_text_init(FmCellRendererText *self)
 GtkCellRenderer *fm_cell_renderer_text_new(void)
 {
     return (GtkCellRenderer*)g_object_new(FM_CELL_RENDERER_TEXT_TYPE, NULL);
+}
+
+static void fm_cell_renderer_text_get_property(GObject *object, guint param_id,
+                                               GValue *value, GParamSpec *psec)
+{
+    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(object);
+    switch(param_id)
+    {
+    case PROP_HEIGHT:
+        g_value_set_int(value, self->height);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, psec);
+        break;
+    }
+}
+
+static void fm_cell_renderer_text_set_property(GObject *object, guint param_id,
+                                               const GValue *value, GParamSpec *psec)
+{
+    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(object);
+    switch(param_id)
+    {
+    case PROP_HEIGHT:
+        self->height = g_value_get_int(value);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, psec);
+        break;
+    }
 }
 
 #if GTK_CHECK_VERSION(3, 0, 0)
@@ -106,6 +170,7 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GtkCellRendererState flags)
 #endif
 {
+    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
 #if GTK_CHECK_VERSION(3, 0, 0)
     GtkStyleContext* style;
     GtkStateFlags state;
@@ -122,7 +187,6 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
     GdkRectangle rect;
     PangoWrapMode wrap_mode;
     gint wrap_width;
-    gint wrap_height = -1;
     PangoAlignment alignment;
     gfloat xalign, yalign;
     gint xpad, ypad;
@@ -153,12 +217,14 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
     {
         pango_layout_set_width(layout, wrap_width * PANGO_SCALE);
         pango_layout_set_wrap(layout, wrap_mode);
-        /* FIXME: add custom ellipsize from object? */
-        pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END);
-        /* Setup max height to be not more than 3/4 of width */
-        wrap_height = (wrap_width * PANGO_SCALE + 2) * 3 / 4;
-        /* FIXME: add custom height from object? */
-        pango_layout_set_height(layout, wrap_height);
+        if(self->height > 0)
+        {
+            /* FIXME: add custom ellipsize from object? */
+            pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_END);
+            pango_layout_set_height(layout, self->height * PANGO_SCALE);
+        }
+        else
+            pango_layout_set_ellipsize(layout, PANGO_ELLIPSIZE_NONE);
     }
 
     pango_layout_set_text(layout, text, -1);
@@ -277,19 +343,13 @@ static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
                                            gint                       *width,
                                            gint                       *height)
 {
-    gint wrap_width, wrap_height;
-
-    g_object_get(G_OBJECT(cell),
-                 "wrap-width", &wrap_width,
-                 NULL);
+    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
 
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
-    if (wrap_width > 0)
+    if (self->height > 0)
     {
-        /* FIXME: add custom height from object? */
-        wrap_height = (wrap_width+2) * 3 / 4;
-        if(*height > wrap_height)
-            *height = wrap_height;
+        if(*height > self->height)
+            *height = self->height;
     }
 }
 
