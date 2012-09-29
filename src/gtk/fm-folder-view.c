@@ -221,6 +221,7 @@ enum
     CLICKED,
     SEL_CHANGED,
     SORT_CHANGED,
+    FILTER_CHANGED,
     //CHDIR,
     N_SIGNALS
 };
@@ -296,6 +297,25 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);
 
+    /**
+     * FmFolderView::filter-changed:
+     * @view: the widget that emitted the signal
+     *
+     * The #FmFolderView::filter-changed signal is emitted when filter
+     * of the view model got changed. It's just bouncer for the same
+     * signal of #FmFolderModel.
+     *
+     * Since: 1.0.2
+     */
+    signals[FILTER_CHANGED]=
+        g_signal_new("filter-changed",
+                     FM_TYPE_FOLDER_VIEW,
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewInterface, filter_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
+
     /* FIXME: add "chdir" so main-win can connect to it and sync side-pane */
 }
 
@@ -308,6 +328,11 @@ static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
         FM_FOLDER_VIEW_GET_IFACE(fv)->set_sort(fv, order, col);
         g_signal_emit(fv, signals[SORT_CHANGED], 0);
     }
+}
+
+static void on_filter_changed(FmFolderModel* model, FmFolderView* fv)
+{
+    g_signal_emit(fv, signals[FILTER_CHANGED], 0);
 }
 
 /**
@@ -549,6 +574,7 @@ FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
 static void unset_model(FmFolderView* fv, FmFolderModel* model)
 {
     g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
+    g_signal_handlers_disconnect_by_func(model, on_filter_changed, fv);
 }
 
 /**
@@ -579,6 +605,7 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
         iface->get_sort(fv, &type, &by);
         gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), by, type);
         g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
+        g_signal_connect(model, "filter-changed", G_CALLBACK(on_filter_changed), fv);
     }
 }
 

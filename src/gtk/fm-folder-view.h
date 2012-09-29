@@ -100,7 +100,9 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @select_invert: VTable func, see fm_folder_view_select_invert()
  * @select_file_path: VTable func, see fm_folder_view_select_file_path()
  * @get_custom_menu_callbacks: function to retrieve callbacks for popup menu setup
+ * @filter_changed: the class closure for #FmFolderView::filter-changed signal
  */
+/* FIXME: move filter_changed to appropriate place on ABI change */
 struct _FmFolderViewInterface
 {
     /*< private >*/
@@ -140,6 +142,8 @@ struct _FmFolderViewInterface
     /* for implementation internal usage */
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,
                                       FmLaunchFolderFunc*);
+
+    void (*filter_changed)(FmFolderView* fv);
 };
 
 GType           fm_folder_view_get_type(void);
