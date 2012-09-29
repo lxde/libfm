@@ -49,8 +49,8 @@ static GtkTargetEntry targets[]=
 {
     {"text/uri-list", 0, URI_LIST},
     {"x-special/gnome-copied-files", 0, GNOME_COPIED_FILES},
-    {"application/x-kde-cutselection", 0, KDE_CUT_SEL},
-    { "UTF8_STRING", 0, UTF8_STRING }
+    {"application/x-kde-cutselection", 0, KDE_CUT_SEL}/*,
+    { "UTF8_STRING", 0, UTF8_STRING }*/
 };
 
 static GdkAtom target_atom[N_CLIPBOARD_TARGETS];
@@ -90,6 +90,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     uri_list = g_string_sized_new(4096);
     if(info == GNOME_COPIED_FILES)
         g_string_append(uri_list, is_cut ? "cut\n" : "copy\n");
+    /* FIXME: this is invalid, UTF8_STRING means this is plain text not file list */
     if(info == UTF8_STRING)
     {
         GList* l = fm_path_list_peek_head_link(files);
@@ -154,8 +155,10 @@ static gboolean check_kde_curselection(GtkClipboard* clip)
      * If the content of this format is string "1", that means the
      * file is cut in KDE (Dolphin). */
     gboolean ret = FALSE;
-    GdkAtom atom = gdk_atom_intern_static_string(targets[KDE_CUT_SEL-1].target);
-    GtkSelectionData* data = gtk_clipboard_wait_for_contents(clip, atom);
+    GtkSelectionData* data;
+
+    check_atoms();
+    data = gtk_clipboard_wait_for_contents(clip, target_atom[KDE_CUT_SEL]);
     if(data)
     {
         gint length, format;
@@ -187,7 +190,6 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     FmPathList* files;
     char** uris;
-    GdkAtom atom;
     int type = 0;
     GdkAtom *avail_targets;
     int n, i;
@@ -198,10 +200,10 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
         return FALSE;
 
     /* check gnome and xfce compatible format first */
-    atom = gdk_atom_intern_static_string(targets[GNOME_COPIED_FILES-1].target);
+    check_atoms();
     for(i = 0; i < n; ++i)
     {
-        if(avail_targets[i] == atom)
+        if(avail_targets[i] == target_atom[GNOME_COPIED_FILES])
         {
             type = GNOME_COPIED_FILES;
             break;
@@ -210,10 +212,9 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     if( 0 == type ) /* x-special/gnome-copied-files is not found. */
     {
         /* check uri-list */
-        atom = gdk_atom_intern_static_string(targets[URI_LIST-1].target);
         for(i = 0; i < n; ++i)
         {
-            if(avail_targets[i] == atom)
+            if(avail_targets[i] == target_atom[URI_LIST])
             {
                 type = URI_LIST;
                 break;
@@ -222,10 +223,9 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
         if( 0 == type ) /* text/uri-list is not found. */
         {
             /* finally, fallback to UTF-8 string */
-            atom = gdk_atom_intern_static_string(targets[UTF8_STRING-1].target);
             for(i = 0; i < n; ++i)
             {
-                if(avail_targets[i] == atom)
+                if(avail_targets[i] == target_atom[UTF8_STRING])
                 {
                     type = UTF8_STRING;
                     break;
@@ -237,10 +237,11 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
     if( type )
     {
-        GtkSelectionData* data = gtk_clipboard_wait_for_contents(clip, atom);
+        GtkSelectionData* data;
         const gchar* pdata;
         gint length;
 
+        data = gtk_clipboard_wait_for_contents(clip, target_atom[type]);
         pdata = (const gchar*)gtk_selection_data_get_data_with_length(data, &length);
         _is_cut = FALSE;
 
@@ -264,6 +265,8 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
         case UTF8_STRING:
         default:
             /* FIXME: how should we treat UTF-8 strings? URIs or filenames? */
+            /* FIXME: this is invalid, UTF8_STRING means this is plain text
+               not file list. We should save text into file instead. */
             uris = g_uri_list_extract_uris(pdata);
             break;
         }
