@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-09-20 08:09+0200\n"
+"PO-Revision-Date: 2012-09-30 05:53+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -29,9 +29,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>要開啟的檔案類型：</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "已安裝的應用程式"
+msgstr "已安裝應用程式(_I)"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -42,9 +41,8 @@ msgid "_Browse"
 msgstr "瀏覽(_B)"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "在終端機模擬器執行"
+msgstr "在終端機模擬器執行(_E)"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -62,14 +60,12 @@ msgstr ""
 "  <b>%U</b>：代表多個 URI"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "自訂指令"
+msgstr "自訂指令列(_C)"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "將選取的應用程式設定為這類型檔案的預設程式"
+msgstr "將選取的應用程式設定為這類型檔案的預設處理程式(_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -103,18 +99,16 @@ msgid "with the following file?"
 msgstr "以下列檔案？"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "檔案名稱："
+msgstr "檔案名稱(_F)："
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "套用這個選項到所有檔案"
+msgstr "將此選項套用到所有檔案(_A)"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
-msgstr "檔案屬性"
+msgstr "檔案特性"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>File Type:</b>"
@@ -157,29 +151,24 @@ msgid "_General"
 msgstr "一般(_G)"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>擁有者：</b>"
+msgstr "<b>擁有者(_W)：</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>群組：</b>"
+msgstr "<b>群組(_R)：</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>檢視內容：</b>"
+msgstr "<b>檢視內容(_V)：</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>變更內容：</b>"
+msgstr "<b>變更內容(_H)：</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>執行：</b>"
+msgstr "<b>執行(_E)：</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -332,7 +321,7 @@ msgstr "在終端機執行(_T)"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "位元組"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -348,133 +337,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "選擇日期"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "在下面月曆選擇日期"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "排序檔案(_S)"
+msgstr "搜尋檔案"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>檔案類型：</b>"
+msgstr "<b>檔案名稱 Pattern(_N)</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "不區分大小寫(_V)"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "使用 regular expression(_U)"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>要搜尋地點</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "搜尋子目錄(_S)"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "搜尋隱藏檔(_H)"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "名稱/地點(_L)"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>檔案類型：</b>"
+msgstr "<b>檔案類型</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "只搜尋以下類型檔案"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "正在刪除檔案"
+msgstr "文字檔案(_X)"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "正將檔案移到垃圾桶"
+msgstr "圖片檔案(_I)"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "排序檔案(_S)"
+msgstr "聲音檔案(_A)"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "排序檔案(_S)"
+msgstr "視像檔案(_V)"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "文件(_D)"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "依檔案類型(_T)"
+msgstr "檔案類型(_T)"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>磁碟上的大小：</b>"
+msgstr "<b>檔案包含(_S)</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "內容(_O)"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>檔案類型：</b>"
+msgstr "<b>檔案大小</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "小於(_S)："
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "大於(_B)："
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>最後修改：</b>"
+msgstr "<b>最後修改時間</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "無"
+msgstr "(無)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "早於(_E)："
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "晚於(_A)："
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "檔案屬性"
+msgstr "特性(_P)"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -568,8 +544,8 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"因為檔案系統不支援，有些檔案無法被移到垃圾桶\n"
-"你是否要直接刪除這些檔案？"
+"因為檔案系統不支援，有些檔案無法移到垃圾桶\n"
+"是否直接刪除這些檔案？"
 
 #: ../src/gtk/fm-progress-dlg.c:481
 msgid ", "
@@ -616,12 +592,11 @@ msgstr "請輸入有效的群組名稱或數字ID"
 #: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr "是否要將變更套用到目錄下所有檔案和子目錄？"
+msgstr "是否將變更套用到目錄下所有檔案和子目錄？"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>存取內容：</b>"
+msgstr "<b>存取內容(_A)：</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -640,34 +615,28 @@ msgid "Applications"
 msgstr "應用程式"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "掛載裝置"
+msgstr "掛載磁碟(_M)"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "卸載裝置"
+msgstr "卸載磁碟(_U)"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "退出移除式媒體"
+msgstr "退出移除式媒體(_E)"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "重新命名書籤項目"
+msgstr "重新命名書籤項目(_R)"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "從書籤刪除"
+msgstr "從書籤刪除(_M)"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "清空垃圾桶"
+msgstr "清空垃圾桶(_E)"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -680,22 +649,19 @@ msgstr "輸入新名稱："
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "關(_O)"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "位置"
+msgstr "地點(_P)"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "目錄樹"
+msgstr "目錄樹(_D)"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "遠端"
+msgstr "遠端(_R)"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -707,43 +673,36 @@ msgstr "目錄樹"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "開啟(_O)"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "以其他程式開啟..."
+msgstr "以其他程式開啟(_W)..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "建立符號連結"
+msgstr "建立符號連結(_S)"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "傳送到"
+msgstr "傳送到(_N)"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "壓縮..."
+msgstr "壓縮(_M)..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "解壓縮到此處"
+msgstr "解壓縮到此處(_H)"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "解壓縮到..."
+msgstr "解壓縮到(_X)..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "檔案屬性"
+msgstr "特性(_E)"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
@@ -751,7 +710,7 @@ msgstr "復原(_R)"
 
 #: ../src/gtk/fm-file-menu.c:474
 msgid "Restore trashed files to original paths"
-msgstr "還原刪除的檔案到原本的位置"
+msgstr "將刪除的檔案還原到原來位置"
 
 #: ../src/gtk/fm-dnd-dest.c:702
 msgid "XDirectSave failed."
@@ -814,23 +773,20 @@ msgid "Show _Hidden"
 msgstr "顯示隱藏檔案(_H)"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "只在此資料夾"
+msgstr "只在此資料夾(_O)"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr "勾選記住資料夾排序設定，而非全域設定"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "混合檔案與資料夾"
+msgstr "混合檔案與資料夾(_F)"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "不理會名稱大小寫"
+msgstr "不理會名稱大小寫(_I)"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -898,7 +854,7 @@ msgstr "只有系統管理員有權限進行這項操作。"
 
 #: ../src/gtk/fm-gtk-utils.c:861
 msgid "Do you want to move the selected files to trash can?"
-msgstr "想要將選取的檔案移到垃圾桶嗎？"
+msgstr "要將選取的檔案移到垃圾桶嗎？"
 
 #: ../src/gtk/fm-gtk-utils.c:905
 msgid "Do you want to delete the selected files?"
@@ -923,22 +879,21 @@ msgid ""
 "What do you want to do with it?"
 msgstr ""
 "這個文字檔 '%s' 似乎是可執行的 script。\n"
-"你想要進行什麼操作？"
+"想要進行什麼操作？"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "這個檔案 '%s' 是可執行檔，你是否想要執行它？"
+msgstr "這個檔案 '%s' 是可執行檔，是否想要執行？"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "未指定資料夾。"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
-msgstr "請選擇資料夾"
+msgstr "選取資料夾"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -1133,22 +1088,22 @@ msgstr "光碟"
 
 #: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
 msgid "Menu cache error"
-msgstr ""
+msgstr "選單快取出錯"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "不支援此作業"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "檔案名稱 %s 無效"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>擁有者(_O)：</b>"
