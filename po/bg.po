@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-09-30 21:34+0200\n"
+"PO-Revision-Date: 2012-09-30 21:35+0200\n"
 "Last-Translator: Радослав <reckku@gmail.com>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -171,7 +171,6 @@ msgid "<b>_Execute:</b>"
 msgstr "<b>_Изпълни:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>Special bits:</b>"
 msgstr "<b>Специални условия:</b>"
 
