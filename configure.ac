@@ -26,9 +26,14 @@ AC_ARG_ENABLE(actions,
     [enable_actions=yes]
 )
 if test x"$enable_actions" = xyes; then
-    AM_PROG_VALAC([0.13.0])
-    if test x"$VALAC" = x; then
-        AC_ERROR([No Vala compiler found but it is required.])
+    dnl no vala compiler required when sources are from dist tarball
+    if test -f src/actions/libfmactions_la_vala.stamp; then
+        AM_PROG_VALAC
+    else
+        AM_PROG_VALAC([0.13.0])
+        if test x"$VALAC" = x; then
+            AC_ERROR([No Vala compiler found but it is required.])
+        fi
     fi
     LIBFMACTIONS='$(srcdir)/actions/libfmactions.la'
     ACTIONS_SUBDIR='actions'
