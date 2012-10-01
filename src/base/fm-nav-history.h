@@ -61,8 +61,8 @@ struct _FmNavHistory
     GObject parent;
     GQueue items;
     GList* cur;
-    guint n_cur;
     gint n_max;
+    guint n_cur;
 };
 
 struct _FmNavHistoryClass
