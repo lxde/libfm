@@ -500,7 +500,10 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-    gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(parent)));
+    if(items_num != 1 || !fm_file_info_is_dir(fm_file_info_list_peek_head(files)))
+        gtk_action_set_sensitive(act, FALSE);
+    else
+        gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(parent)));
 
     if (items_num != 1)
     {
