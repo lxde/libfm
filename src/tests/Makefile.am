@@ -20,4 +20,5 @@ TEST_PROGS += fm-path
 fm_path_SOURCES = test-fm-path.c
 fm_path_LDADD= \
 	../libfm.la \
+	$(GIO_LIBS) \
 	$(NULL)
