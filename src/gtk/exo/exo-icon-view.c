@@ -6149,6 +6149,7 @@ exo_icon_view_set_cursor (ExoIconView     *icon_view,
 
   /* place the cursor on the item */
   exo_icon_view_set_cursor_item (icon_view, item, cell_pos);
+  icon_view->priv->anchor_item = item;
 
   /* scroll to the item (maybe delayed) */
   exo_icon_view_scroll_to_path (icon_view, path, FALSE, 0.0f, 0.0f);
