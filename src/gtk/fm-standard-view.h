@@ -50,11 +50,9 @@ typedef enum
     FM_FV_ICON_VIEW,
     FM_FV_COMPACT_VIEW,
     FM_FV_THUMBNAIL_VIEW,
-    FM_FV_LIST_VIEW
+    FM_FV_LIST_VIEW,
+    FM_FV_N_VIEW_MODE
 } FmStandardViewMode;
-
-#define FM_TYPE_STANDARD_VIEW_MODE (fm_standard_view_mode_get_type())
-GType fm_standard_view_mode_get_type();
 
 #ifndef FM_DISABLE_DEPRECATED
 #define FM_FOLDER_VIEW_MODE_IS_VALID(mode) FM_STANDARD_VIEW_MODE_IS_VALID(mode)
@@ -77,6 +75,10 @@ FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
 
 void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode);
 FmStandardViewMode fm_standard_view_get_mode(FmStandardView* fv);
+
+const char* fm_standard_view_mode_to_str(FmStandardViewMode mode);
+FmStandardViewMode fm_standard_view_mode_from_str(const char* str);
+
 
 G_END_DECLS
 

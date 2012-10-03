@@ -170,7 +170,28 @@ static void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data);
 
 static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data);
 
-static GType column_types[ N_FOLDER_MODEL_COLS ];
+typedef struct
+{
+    GType type;
+    const char *name;
+    const char *title;
+    gboolean sortable;
+} FmFolderModelInfo;
+
+static FmFolderModelInfo column_infos[] = {
+	/* columns visible to the users */
+    {0, "name", N_("Name"), TRUE }, /* FM_FOLDER_MODEL_COL_NAME */
+    {0, "desc", N_("Description"), TRUE }, /* FM_FOLDER_MODEL_COL_DESC */
+    {0, "size", N_("Size"), TRUE }, /* FM_FOLDER_MODEL_COL_SIZE */
+    {0, "perm", N_("Permissions"), FALSE }, /* FM_FOLDER_MODEL_COL_PERM */
+    {0, "owner", N_("Owner"), FALSE }, /* FM_FOLDER_MODEL_COL_OWNER */
+    {0, "mtime", N_("Modified"), TRUE }, /* FM_FOLDER_MODEL_COL_MTIME */
+    {0, "dirname", N_("Location"), FALSE }, /* FM_FOLDER_MODEL_COL_DIRNAME */
+    /* columns used internally */
+    {0, "info", NULL, TRUE }, /* FM_FOLDER_MODEL_COL_INFO */
+    {0, "icon", NULL, FALSE }, /* FM_FOLDER_MODEL_COL_ICON */
+    {0, "gicon", NULL, FALSE } /* FM_FOLDER_MODEL_COL_GICON */
+};
 
 enum {
     ROW_DELETING,
@@ -263,19 +284,26 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_nth_child = fm_folder_model_iter_nth_child;
     iface->iter_parent = fm_folder_model_iter_parent;
 
+	/* GType value is actually generated at runtime by
+	 * calling _get_type() functions for every type.
+	 * So they should not be filled at compile-time.
+	 * Though G_TYPE_STRING and other fundimental type ids
+	 * are known at compile-time, this behavior is not 
+	 * guaranteed to be true in newer glib. */
+
     /* visible columns in the view */
-    column_types[FM_FOLDER_MODEL_COL_NAME]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_DESC]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_SIZE]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_PERM]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_OWNER]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_MTIME]= G_TYPE_STRING;
-    column_types[FM_FOLDER_MODEL_COL_DIRNAME]= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_NAME].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_DESC].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_SIZE].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_PERM].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_OWNER].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_MTIME].type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_DIRNAME].type= G_TYPE_STRING;
 
     /* columns used internally */
-    column_types[FM_FOLDER_MODEL_COL_INFO]= G_TYPE_POINTER;
-    column_types[FM_FOLDER_MODEL_COL_ICON]= GDK_TYPE_PIXBUF;
-    column_types[FM_FOLDER_MODEL_COL_GICON]= G_TYPE_ICON;
+    column_infos[FM_FOLDER_MODEL_COL_INFO].type= G_TYPE_POINTER;
+    column_infos[FM_FOLDER_MODEL_COL_ICON].type= GDK_TYPE_PIXBUF;
+    column_infos[FM_FOLDER_MODEL_COL_GICON].type= G_TYPE_ICON;
 }
 
 static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface)
@@ -541,8 +569,8 @@ static GType fm_folder_model_get_column_type(GtkTreeModel *tree_model,
                                              gint index)
 {
     g_return_val_if_fail(FM_IS_FOLDER_MODEL(tree_model), G_TYPE_INVALID);
-    g_return_val_if_fail(index < (gint)G_N_ELEMENTS(column_types) && index >= 0, G_TYPE_INVALID);
-    return column_types[ index ];
+    g_return_val_if_fail(index < (gint)G_N_ELEMENTS(column_infos) && index >= 0, G_TYPE_INVALID);
+    return column_infos[index].type;
 }
 
 static gboolean fm_folder_model_get_iter(GtkTreeModel *tree_model,
@@ -607,9 +635,9 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
     g_return_if_fail(iter != NULL);
-    g_return_if_fail( column < (gint)G_N_ELEMENTS(column_types) );
+    g_return_if_fail( column < (gint)G_N_ELEMENTS(column_infos) );
 
-    g_value_init(value, column_types[column]);
+    g_value_init(value, column_infos[column].type);
 
     item_it = (GSequenceIter*)iter->user_data;
     g_return_if_fail(item_it != NULL);
@@ -1650,53 +1678,77 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
     g_signal_emit(model, signals[FILTER_CHANGED], 0);
 
 /**
- * fm_folder_model_get_column title
+ * fm_folder_model_col_get_title
+ * @model: the folder model
  * @col_id: column id
  *
  * Returns the title of the column specified, can be NULL if the specified
  * id is invalid.
- *
+ * 
  * Since: 1.0.2
  */
-const char* fm_folder_model_get_column_title(FmFolderModelCol col_id)
+const char* fm_folder_model_col_get_title(FmFolderModelCol col_id)
 {
-    static const char* titles[] = {
-        N_("Name"), /* FM_FOLDER_MODEL_COL_NAME */
-        N_("Size"), /* FM_FOLDER_MODEL_COL_SIZE */
-        N_("Description"), /* FM_FOLDER_MODEL_COL_DESC */
-        N_("Permission"), /* FM_FOLDER_MODEL_COL_PERM */
-        N_("Owner"), /* FM_FOLDER_MODEL_COL_OWNER */
-        N_("Modified"), /* FM_FOLDER_MODEL_COL_MTIME */
-        N_("Location"), /* FM_FOLDER_MODEL_COL_DIRNAME */
-        NULL
-    };
-    if(G_UNLIKELY(col_id < 0 || col_id >= G_N_ELEMENTS(titles))) /* invalid id */
+    if(G_UNLIKELY(col_id < 0 || col_id >= FM_FOLDER_MODEL_N_VISIBLE_COLS)) /* invalid id */
         return NULL;
-    return _(titles[col_id]);
+    return _(column_infos[col_id].title);
+}
+
+/**
+* fm_folder_model_col_is_sortable
+* @model: model to check
+* @col: column id
+*
+* Checks if model can be sorted by @col.
+* 
+* Returns: %TRUE if model can be sorted by @col.
+*
+* Since: 1.0.2
+*/
+gboolean fm_folder_model_col_is_sortable(FmFolderModelViewCol col_id)
+{
+    if(G_UNLIKELY(col_id < 0 || col_id >= FM_FOLDER_MODEL_N_VISIBLE_COLS)) /* invalid id */
+        return FALSE;
+    return column_infos[col_id].sortable;
 }
 
 
-GType fm_folder_model_col_get_type()
+/**
+ * fm_folder_model_col_to_str
+ * @col_id: column id
+ *
+ * Convert an FmFolderModelCol id to a string
+ *
+ * Since: 1.0.2
+ */
+const char* fm_folder_model_col_to_str(FmFolderModelCol col_id)
 {
-    static GType type = G_TYPE_INVALID;
-    if(G_UNLIKELY(type == G_TYPE_INVALID))
-    {
-        static const GEnumValue values[] =
-        {
-            {FM_FOLDER_MODEL_COL_NAME, "FM_FOLDER_MODEL_COL_NAME", "name"},
-            {FM_FOLDER_MODEL_COL_DESC, "FM_FOLDER_MODEL_COL_DESC", "desc"},
-            {FM_FOLDER_MODEL_COL_SIZE, "FM_FOLDER_MODEL_COL_SIZE", "size"},
-            {FM_FOLDER_MODEL_COL_PERM, "FM_FOLDER_MODEL_COL_PERM", "perm"},
-            {FM_FOLDER_MODEL_COL_OWNER, "FM_FOLDER_MODEL_COL_OWNER", "owner"},
-            {FM_FOLDER_MODEL_COL_MTIME, "FM_FOLDER_MODEL_COL_MTIME", "mtime"},
-            {FM_FOLDER_MODEL_COL_DIRNAME, "FM_FOLDER_MODEL_COL_DIRNAME", "dirname"},
-            {FM_FOLDER_MODEL_COL_INFO, "FM_FOLDER_MODEL_COL_INFO", "info"},
-            {FM_FOLDER_MODEL_COL_ICON, "FM_FOLDER_MODEL_COL_ICON", "icon"},
-            {FM_FOLDER_MODEL_COL_GICON, "FM_FOLDER_MODEL_COL_GICON", "gicon"},
-            {0}
-        };
-        type = g_enum_register_static("FmFolderModelCol", values);
-    }
-    return type;
+    if(G_UNLIKELY(col_id < 0 || col_id >= FM_FOLDER_MODEL_N_COLS)) /* invalid id */
+        return NULL;	
+	return column_infos[col_id].name;
+}
+
+/**
+ * fm_folder_model_col_from_str
+ * @str: a string
+ *
+ * Convert a string to an FmFolderModelCol id
+ *
+ * Since: 1.0.2
+ */
+FmFolderModelCol fm_folder_model_col_from_str(const char* str)
+{
+	/* if further optimization is wanted, can use a sorted string array
+	 * and binary search here, but I think this micro-optimization is unnecessary. */
+	if(G_LIKELY(str != NULL))
+	{
+		FmFolderModelCol i = 0;
+		for(i = 0; i < FM_FOLDER_MODEL_N_COLS; ++i)
+		{
+			if(strcmp(str, column_infos[i].name) == 0)
+				return i;
+		}
+	}
+	return (FmFolderModelCol)-1;
 }
 
