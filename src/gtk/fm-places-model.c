@@ -485,7 +485,9 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 static gboolean update_trash_item(gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    if(fm_config->use_trash && model->trash)
+    GDK_THREADS_ENTER();
+    if(!g_source_is_destroyed(g_main_current_source()) &&
+       fm_config->use_trash && model->trash)
     {
         GFile* gf = fm_file_new_for_uri("trash:///");
         GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
@@ -517,6 +519,7 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_path_free(tp);
         }
     }
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 

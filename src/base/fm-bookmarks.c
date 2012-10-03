@@ -230,9 +230,13 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
 {
     FmBookmarkItem* item;
     GList* l;
-    GString* buf = g_string_sized_new(1024);
+    GString* buf;
     char* fpath;
 
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
+
+    buf = g_string_sized_new(1024);
     for( l=bookmarks->items; l; l=l->next )
     {
         char* uri;
@@ -255,9 +259,8 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
 
 static void queue_save_bookmarks(FmBookmarks* bookmarks)
 {
-    if(idle_handler)
-        g_source_remove(idle_handler);
-    idle_handler = g_idle_add((GSourceFunc)save_bookmarks, bookmarks);
+    if(!idle_handler)
+        idle_handler = g_idle_add((GSourceFunc)save_bookmarks, bookmarks);
 }
 
 /**

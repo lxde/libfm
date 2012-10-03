@@ -91,7 +91,6 @@ static void fm_folder_dispose(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
 static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder);
-static gboolean on_idle(FmFolder* folder);
 
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
@@ -336,17 +335,29 @@ static void fm_folder_init(FmFolder *folder)
 
 static gboolean on_idle_reload(FmFolder* folder)
 {
+    /* check if folder still exists */
+    G_LOCK(query);
+    if(g_source_is_destroyed(g_main_current_source()))
+    {
+        G_UNLOCK(query);
+        return FALSE;
+    }
+    g_object_ref(folder);
+    G_UNLOCK(query);
     fm_folder_reload(folder);
+    G_LOCK(query);
     folder->idle_reload_handler = 0;
+    G_UNLOCK(query);
     g_object_unref(folder);
     return FALSE;
 }
 
 static void queue_reload(FmFolder* folder)
 {
-    if(folder->idle_reload_handler)
-        g_source_remove(folder->idle_reload_handler);
-    folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, g_object_ref(folder), NULL);
+    G_LOCK(query);
+    if(!folder->idle_reload_handler)
+        folder->idle_reload_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle_reload, folder, NULL);
+    G_UNLOCK(query);
 }
 
 static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
@@ -407,6 +418,17 @@ static gboolean on_idle(FmFolder* folder)
     GSList* l;
     FmFileInfoJob* job = NULL;
     FmPath* path;
+
+    /* check if folder still exists */
+    G_LOCK(query);
+    if(g_source_is_destroyed(g_main_current_source()))
+    {
+        G_UNLOCK(query);
+        return FALSE;
+    }
+    g_object_ref(folder);
+    G_UNLOCK(query);
+
     if(folder->files_to_update || folder->files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
 
@@ -476,11 +498,13 @@ static gboolean on_idle(FmFolder* folder)
     folder->idle_handler = 0;
     if(folder->filesystem_info_pending)
     {
-        g_signal_emit(folder, signals[FS_INFO], 0);
         folder->filesystem_info_pending = FALSE;
+        G_UNLOCK(query);
+        g_signal_emit(folder, signals[FS_INFO], 0);
     }
-    G_UNLOCK(query);
-    g_object_unref(folder); /* it was borrowed by query */
+    else
+        G_UNLOCK(query);
+    g_object_unref(folder);
 
     return FALSE;
 }
@@ -536,7 +560,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             folder->pending_change_notify = TRUE;
             G_LOCK(query);
             if(!folder->idle_handler)
-                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, g_object_ref(folder), NULL);
+                folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
             G_UNLOCK(query);
             /* g_debug("folder is changed"); */
             break;
@@ -610,7 +634,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     }
     G_LOCK(query);
     if(!folder->idle_handler)
-        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, g_object_ref(folder), NULL);
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
     G_UNLOCK(query);
 }
 
@@ -773,13 +797,13 @@ static void fm_folder_dispose(GObject *object)
         folder->mon = NULL;
     }
 
+    G_LOCK(query);
     if(folder->idle_reload_handler)
     {
         g_source_remove(folder->idle_reload_handler);
         folder->idle_reload_handler = 0;
     }
 
-    G_LOCK(query);
     if(folder->idle_handler)
     {
         g_source_remove(folder->idle_handler);
@@ -1241,9 +1265,8 @@ _out:
     /* we have a reference borrowed by async query still */
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
-    else
-        g_object_unref(folder);
     G_UNLOCK(query);
+    g_object_unref(folder);
 }
 
 /**

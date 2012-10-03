@@ -211,6 +211,11 @@ static void fm_dnd_dest_dispose(GObject *object)
 
     fm_dnd_dest_set_widget(dd, NULL);
 
+    if(dd->idle)
+    {
+        g_source_remove(dd->idle);
+        dd->idle = 0;
+    }
     clear_src_cache(dd);
 
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->dispose(object);
@@ -383,6 +388,12 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 static gboolean clear_src_cache(gpointer user_data)
 {
     FmDndDest* dd = (FmDndDest*)user_data;
+
+    /* check if dd is still valid */
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+        goto _out;
+
     /* free cached source files */
     if(dd->src_files)
     {
@@ -398,12 +409,9 @@ static gboolean clear_src_cache(gpointer user_data)
     dd->src_fs_id = NULL;
 
     dd->info_type = 0;
-    if(dd->idle)
-    {
-        g_source_remove(dd->idle);
-        dd->idle = 0;
-    }
     dd->waiting_data = FALSE;
+_out:
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 

@@ -164,7 +164,9 @@ static gboolean on_idle_tree_view_row_activated(gpointer user_data)
 {
     FmStandardView* fv = (FmStandardView*)user_data;
     GtkTreePath* path;
-    gdk_threads_enter();
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+        goto _end;
     if(gtk_tree_row_reference_valid(fv->activated_row_ref))
     {
         path = gtk_tree_row_reference_get_path(fv->activated_row_ref);
@@ -172,9 +174,10 @@ static gboolean on_idle_tree_view_row_activated(gpointer user_data)
         gtk_tree_path_free(path);
     }
     gtk_tree_row_reference_free(fv->activated_row_ref);
-    gdk_threads_leave();
     fv->activated_row_ref = NULL;
     fv->row_activated_idle = 0;
+_end:
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 
@@ -194,7 +197,7 @@ static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTr
     if(fv->model)
     {
         fv->activated_row_ref = gtk_tree_row_reference_new(GTK_TREE_MODEL(fv->model), path);
-        g_idle_add(on_idle_tree_view_row_activated, fv);
+        fv->row_activated_idle = g_idle_add(on_idle_tree_view_row_activated, fv);
     }
 }
 
@@ -1109,11 +1112,18 @@ static gboolean on_sel_changed_real(FmStandardView* fv)
 static gboolean on_sel_changed_idle(gpointer user_data)
 {
     FmStandardView* fv = (FmStandardView*)user_data;
+    gboolean ret = FALSE;
 
+    GDK_THREADS_ENTER();
+    /* check if fv is destroyed already */
+    if(g_source_is_destroyed(g_main_current_source()))
+        goto _end;
     if(fv->sel_changed_pending) /* fast changing detected! continue... */
-        return on_sel_changed_real(fv);
+        ret = on_sel_changed_real(fv);
     fv->sel_changed_idle = 0;
-    return FALSE;
+_end:
+    GDK_THREADS_LEAVE();
+    return ret;
 }
 
 static void on_sel_changed(GObject* obj, FmStandardView* fv)
