@@ -76,6 +76,7 @@ struct _ThumbnailTask
     FmFileInfo* fi;         /* never changed between creation and destroying */
     ThumbnailTaskFlags flags; /* used internally */
     sig_atomic_t cancelled; /* no lock required for this type */
+    sig_atomic_t locked;    /* no lock required for this type */
     char* uri;              /* used internally */
     char* normal_path;      /* used internally */
     char* large_path;       /* used internally */
@@ -191,6 +192,7 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
         FmThumbnailRequest* req = (FmThumbnailRequest*)l->data;
         if(req->done)
             continue;
+        req->done = TRUE;
         req->task = NULL;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
@@ -325,11 +327,11 @@ static void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, Gd
             continue;
 
 push_it:
+        req->done = TRUE;
+        req->task = NULL;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
             ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
-        req->done = TRUE;
-        req->task = NULL;
     }
     g_rec_mutex_unlock(&queue_lock);
     if(cached_pix)
@@ -450,6 +452,7 @@ static gpointer load_thumbnail_thread(gpointer user_data)
             const char* md5;
 
             g_rec_mutex_unlock(&queue_lock);
+            task->locked = FALSE;
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
             /* generate filename for the thumbnail */
@@ -539,8 +542,7 @@ static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
     {
         ThumbnailTask* task = (ThumbnailTask*)l->data;
         /* if it's cancelled or processing then it's too late to add */
-        if(task->cancelled || task == cur_loading ||
-           (task->flags & (GENERATE_NORMAL|GENERATE_LARGE)))
+        if(task->cancelled || task->locked)
             continue;
         if(G_UNLIKELY(task->fi == fi || fm_path_equal(fm_file_info_get_path(task->fi), fm_file_info_get_path(fi))))
             return task;
@@ -598,6 +600,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
         DEBUG("cache found!");
         req->pix = (GdkPixbuf*)g_object_ref(pix);
         /* call the ready callback in main loader_thread_id from idle handler. */
+        req->done = TRUE;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
             ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
