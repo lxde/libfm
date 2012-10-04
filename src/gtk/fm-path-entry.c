@@ -207,11 +207,27 @@ static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event,
     return FALSE;
 }
 
+static void _set_entry_text_from_path(GtkEntry *entry, FmPath *path)
+{
+    char *disp_name, *escaped;
+
+    if(fm_path_is_native(path))
+        disp_name = fm_path_display_name(path, FALSE);
+    else
+    {
+        /* URIs are escaped there */
+        escaped = fm_path_to_str(path);
+        disp_name = g_uri_unescape_string(escaped, NULL);
+        g_free(escaped);
+    }
+    gtk_entry_set_text(entry, disp_name);
+    g_free(disp_name);
+}
+
 static void fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
 {
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     const char* full_path;
-    char* disp_name;
     /* convert current path string to FmPath here */
 
     full_path = gtk_entry_get_text(entry);
@@ -226,9 +242,7 @@ static void fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
     else
         priv->path = fm_path_new_for_str(full_path);
 
-    disp_name = fm_path_display_name(priv->path, FALSE);
-    gtk_entry_set_text(entry, disp_name);
-    g_free(disp_name);
+    _set_entry_text_from_path(entry, priv->path);
 
     gtk_editable_set_position(GTK_EDITABLE(entry), -1);
 }
@@ -673,15 +687,13 @@ void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
 
     if(path)
     {
-        char* disp_path = fm_path_display_name(path, FALSE);
         priv->path = fm_path_ref(path);
         /* block our handler for "changed" signal, we'll update it below */
         if(priv->id_changed > 0)
             g_signal_handler_block(entry, priv->id_changed);
-        gtk_entry_set_text(GTK_ENTRY(entry), disp_path);
+        _set_entry_text_from_path(GTK_ENTRY(entry), path);
         if(priv->id_changed > 0)
             g_signal_handler_unblock(entry, priv->id_changed);
-        g_free(disp_path);
         /* update list of items now */
         fm_path_entry_changed(GTK_EDITABLE(entry), NULL);
     }
