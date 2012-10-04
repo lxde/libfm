@@ -244,8 +244,7 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
  *
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. The string length of @basename is @name_len. @basename is
- * in glib filename encoding (can be non-UTF-8) if @parent is native
- * and should be escaped URI subpath otherwise.
+ * in glib filename encoding (can be non-UTF-8) of target filesystem.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -311,8 +310,23 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     if(name_len == 0)
         return parent ? fm_path_ref(parent) : NULL;
 
-    path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
-    memcpy(path->name, basename, name_len);
+    if(fm_path_is_native(parent))
+    {
+        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        memcpy(path->name, basename, name_len);
+    }
+    else
+    {
+        GString *str = g_string_new_len(basename, name_len);
+        /* remote file names don't come escaped from gvfs; isn't that a bug of gvfs? */
+        char *escaped = g_uri_escape_string(str->str, "/", TRUE);
+        g_debug("got child %s", escaped);
+        name_len = strlen(escaped);
+        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        memcpy(path->name, escaped, name_len);
+        g_free(escaped);
+        g_string_free(str, TRUE);
+    }
     if(G_UNLIKELY(append_slash))
     {
         path->name[name_len] = '/';
@@ -330,7 +344,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
  *
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. @basename is in glib filename encoding (can be non-UTF-8)
- * if @parent is native and should be escaped URI subpath otherwise.
+ * of target filesystem.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
