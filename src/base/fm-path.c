@@ -249,7 +249,8 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
-FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
+FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_len,
+                               gboolean dont_escape)
 {
     FmPath* path;
     gboolean append_slash = FALSE;
@@ -310,7 +311,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     if(name_len == 0)
         return parent ? fm_path_ref(parent) : NULL;
 
-    if(fm_path_is_native(parent))
+    if(dont_escape)
     {
         path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
         memcpy(path->name, basename, name_len);
@@ -337,6 +338,12 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     return path;
 }
 
+FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
+{
+    return _fm_path_new_child_len(parent, basename, name_len,
+                                  fm_path_is_native(parent));
+}
+
 /**
  * fm_path_new_child
  * @parent: a parent path
@@ -354,7 +361,8 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     if(G_LIKELY(basename && *basename))
     {
         int baselen = strlen(basename);
-        return fm_path_new_child_len(parent, basename, baselen);
+        return _fm_path_new_child_len(parent, basename, baselen,
+                                      fm_path_is_native(parent));
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -433,13 +441,13 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             sep = strchr(rel, '/');
             if(sep)
             {
-                FmPath* new_parent = fm_path_new_child_len(parent, rel, sep - rel);
+                FmPath* new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE);
                 path = fm_path_new_relative(new_parent, sep + 1);
                 fm_path_unref(new_parent);
             }
             else
             {
-                path = fm_path_new_child(parent, rel);
+                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE);
             }
         }
     }
@@ -576,11 +584,10 @@ FmPath* fm_path_new_for_str(const char* path_str)
         return fm_path_ref(root_path);
     if(path_str[0] == '/')
         return fm_path_new_for_path(path_str);
-    /* UTF-8 should be allowed, I think. */
     /* FIXME: add a support for relative path from FmPathEntry */
+    /* UTF-8 should be allowed, I think. */
     escaped = g_uri_escape_string(path_str,
-                                  G_URI_RESERVED_CHARS_GENERIC_DELIMITERS
-                                  G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS,
+                                  G_URI_RESERVED_CHARS_ALLOWED_IN_PATH,
                                   TRUE);
     path = fm_path_new_for_uri(escaped);
     g_free(escaped);
