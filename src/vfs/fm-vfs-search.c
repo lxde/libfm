@@ -134,7 +134,8 @@ static inline FmSearchIntIter *_search_iter_new(FmSearchIntIter *parent,
     FmSearchIntIter *iter;
 
     enu = g_file_enumerate_children(folder_path, attributes,
-                                    G_FILE_QUERY_INFO_NONE, cancellable, error);
+                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                    cancellable, error);
     if(enu == NULL)
         return NULL;
     iter = g_slice_new(FmSearchIntIter);
