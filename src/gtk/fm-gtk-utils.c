@@ -42,6 +42,7 @@
 #include "fm-progress-dlg.h"
 #include "fm-path-entry.h"
 #include "fm-app-chooser-dlg.h"
+#include "fm-monitor.h"
 
 #include "fm-config.h"
 
@@ -988,6 +989,8 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     GFile *gf, *parent_gf, *dest;
     GError* err = NULL;
     gchar* new_name;
+    GFileMonitor* mon;
+
     new_name = fm_get_user_input_rename(parent, _("Rename File"),
                                         _("Please enter a new name:"),
                                         fm_path_get_basename(file));
@@ -996,7 +999,6 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     gf = fm_path_to_gfile(file);
     parent_gf = g_file_get_parent(gf);
     dest = g_file_get_child(G_FILE(parent_gf), new_name);
-    g_object_unref(parent_gf);
     if(!g_file_move(gf, dest,
                 G_FILE_COPY_ALL_METADATA|
                 G_FILE_COPY_NO_FALLBACK_FOR_MOVE|
@@ -1007,6 +1009,13 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
         fm_show_error(parent, NULL, err->message);
         g_error_free(err);
     }
+    else if((mon = fm_monitor_lookup_dummy_monitor(parent_gf)) != NULL)
+    {
+        g_file_monitor_emit_event(mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
+        g_file_monitor_emit_event(mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+        g_object_unref(mon);
+    }
+    g_object_unref(parent_gf);
     g_object_unref(dest);
     g_object_unref(gf);
 }
