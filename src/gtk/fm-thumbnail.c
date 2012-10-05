@@ -445,13 +445,13 @@ static gpointer load_thumbnail_thread(gpointer user_data)
     {
         g_rec_mutex_lock(&queue_lock);
         task = g_queue_pop_head(&loader_queue);
-        task->locked = TRUE;
         cur_loading = task;
         if(G_LIKELY(task))
         {
             char* uri;
             const char* md5;
 
+            task->locked = TRUE;
             g_rec_mutex_unlock(&queue_lock);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
