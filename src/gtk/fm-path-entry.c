@@ -28,7 +28,10 @@
  * @include: libfm/fm-path-entry.h
  *
  * The #FmPathEntry represents a widget to enter folder path for changing
- * current directory.
+ * current directory. The path entry supports completion and can be used
+ * for both UNIX path or file URI entering. The path is represented in
+ * the entry unescaped therefore there is no way to enter escape sequence
+ * (such as \%23) into entry.
  */
 
 #include "gtk-compat.h"

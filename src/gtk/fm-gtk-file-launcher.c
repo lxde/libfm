@@ -447,7 +447,7 @@ static gboolean launch_search(FileSearchUI* ui)
             char* path_str;
             gtk_tree_model_get(model, &it, 0, &path_str, -1);
 
-            /* FIXME: ths paths should be escaped */
+            /* FIXME: ':' in the paths should be escaped with backslash? */
             g_string_append(search_uri, path_str);
 
             g_free(path_str);
@@ -462,6 +462,7 @@ static gboolean launch_search(FileSearchUI* ui)
         g_string_append_printf(search_uri, "&show_hidden=%c", show_hidden ? '1' : '0');
         if(name_patterns && *name_patterns)
         {
+            /* FIXME: escape ampersands in pattern with backslash */
             g_string_append_printf(search_uri, "&name=%s", name_patterns);
             if(name_ci)
                 g_string_append_printf(search_uri, "&name_ci=%c", name_ci ? '1' : '0');
@@ -469,6 +470,7 @@ static gboolean launch_search(FileSearchUI* ui)
 
         if(content_pattern && *content_pattern)
         {
+            /* FIXME: escape ampersands in pattern with backslash */
             if(content_regex)
                 g_string_append_printf(search_uri, "&content_regex=%s", content_pattern);
             else

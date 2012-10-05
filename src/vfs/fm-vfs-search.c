@@ -420,6 +420,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
         /* add folder paths */
         if(p) for(; *p; ++p)
         {
+            /* FIXME: can be ':' in the path escaped with backslash? */
             char* sep = strchr(p, ':'); /* use : to separate multiple paths */
             if(sep)
                 *sep = '\0';
@@ -449,6 +450,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 char* name = params;
                 char* value = strchr(name, '=');
                 char* sep;
+                char *ptr1, *ptr2;
 
                 if(value)
                 {
@@ -456,9 +458,25 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                     ++value;
                     params = value;
                 }
-                sep = strchr(params, '&'); /* delimeter of parameters is & */
-                if(sep)
-                    *sep = '\0';
+                ptr1 = ptr2 = params;
+                while((sep = strchr(params, '&')) != NULL)
+                /* delimeter of parameters is & */
+                {
+                    if(sep == params || sep[-1] != '\\')
+                    {
+                        *sep = '\0';
+                        break;
+                    }
+                    /* else it's escape sequence "\&" */
+                    else if(ptr1 != ptr2)
+                        memmove(ptr1, ptr2, (sep - 1 - ptr2));
+                    ptr1 += (sep - 1 - ptr2);
+                    *ptr1++ = '&';
+                    sep++;
+                    ptr2 = sep;
+                }
+                if(ptr1 != ptr2)
+                    memmove(ptr1, ptr2, strlen(ptr2)+1); /* including '\0' */
 
                 /* g_printf("parameter name/value: %s = %s\n", name, value); */
 
@@ -473,7 +491,8 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 else if(strcmp(name, "name_ci") == 0)
                     priv->name_case_insensitive = (value[0] == '1') ? TRUE : FALSE;
                 else if(strcmp(name, "content") == 0)
-                    priv->content_pattern = g_uri_unescape_string(value, NULL);
+                    //priv->content_pattern = g_uri_unescape_string(value, NULL);
+                    priv->content_pattern = g_strdup(value);
                 else if(strcmp(name, "content_regex") == 0)
                     content_regex = value;
                 else if(strcmp(name, "content_ci") == 0)
