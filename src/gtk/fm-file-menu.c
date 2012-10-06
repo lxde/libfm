@@ -331,7 +331,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     FmFileInfo* fi = fm_file_info_list_peek_head(files);
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
-    FmMimeType* mime_type = fm_file_info_get_mime_type(fi);
+    GList* mime_types = NULL;
+    GList* l;
+    GList* apps = NULL;
     FmPath* path = fm_file_info_get_path(fi);
 
     unsigned items_num = fm_file_info_list_get_length(files);
@@ -341,14 +343,58 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
      * it's detroyed? */
     data->file_infos = fm_file_info_list_ref(files);
 
-    /* check if the files are of the same type */
-    data->same_type = fm_file_info_list_is_same_type(files);
-
     /* check if the files are on the same filesystem */
     data->same_fs = fm_file_info_list_is_same_fs(files);
 
     data->all_virtual = data->same_fs && !fm_path_is_native(path);
     data->all_trash = data->same_fs && fm_path_is_trash(path);
+
+    /* create list of mime types */
+    for(l = fm_file_info_list_peek_head_link(files); l; l = l->next)
+    {
+        FmMimeType* mime_type;
+        GList* l2;
+
+        fi = l->data;
+        mime_type = fm_file_info_get_mime_type(fi);
+        if(mime_type == NULL || !fm_file_info_is_native(fi))
+            continue;
+        for(l2 = mime_types; l2; l2 = l2->next)
+            if(l2->data == mime_type)
+                break;
+        if(l2) /* already added */
+            continue;
+        mime_types = g_list_prepend(mime_types, fm_mime_type_ref(mime_type));
+    }
+    /* create apps list */
+    if(mime_types)
+    {
+        apps = g_app_info_get_all_for_type(fm_mime_type_get_type(mime_types->data));
+        for(l = mime_types->next; l; l = l->next)
+        {
+            GList *apps2, *l2, *l3;
+            apps2 = g_app_info_get_all_for_type(fm_mime_type_get_type(l->data));
+            for(l2 = apps; l2; )
+            {
+                for(l3 = apps2; l3; l3 = l3->next)
+                    if(g_app_info_equal(l2->data, l3->data))
+                        break;
+                if(l3) /* this app supports all files */
+                {
+                    /* g_debug("%s supports %s", g_app_info_get_id(l2->data), fm_mime_type_get_type(l->data)); */
+                    l2 = l2->next;
+                    continue;
+                }
+                /* g_debug("%s invalid for %s", g_app_info_get_id(l2->data), fm_mime_type_get_type(l->data)); */
+                g_object_unref(l2->data);
+                l3 = l2->next; /* save for next iter */
+                apps = g_list_delete_link(apps, l2);
+                l2 = l3; /* continue with next item */
+            }
+            g_list_foreach(apps2, (GFunc)g_object_unref, NULL);
+            g_list_free(apps2);
+        }
+    }
 
     data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
@@ -363,12 +409,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
     xml = g_string_new("<popup><placeholder name='ph2'>");
-    if(data->same_type) /* add specific menu items for this mime type */
+    if(apps) /* add specific menu items for those files */
     {
-        if(mime_type && !data->all_virtual ) /* the file has a valid mime-type and its not virtual */
-        {
-            GList* apps = g_app_info_get_all_for_type(fm_mime_type_get_type(mime_type));
-            GList* l;
             gboolean use_sub = g_list_length(apps) > 5;
             if(use_sub)
                 g_string_append(xml, "<menu action='OpenWithMenu'>");
@@ -409,10 +451,13 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             }
             else
                 g_string_append(xml, "<menuitem action='OpenWith'/>");
-        }
     }
     else
+    {
+        act = gtk_ui_manager_get_action(ui, "/popup/Open");
+        gtk_action_set_visible(act, FALSE);
         g_string_append(xml, "<menuitem action='OpenWith'/>");
+    }
     g_string_append(xml, "</placeholder></popup>");
 
 #ifdef HAVE_ACTIONS
@@ -429,7 +474,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             FmArchiver* archiver = fm_archiver_get_default();
             if(archiver)
             {
+                FmMimeType* mime_type;
                 fi = fm_file_info_list_peek_head(files);
+                mime_type = fm_file_info_get_mime_type(fi);
                 if(fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(mime_type)))
                 {
                     if(data->cwd && archiver->extract_to_cmd)
