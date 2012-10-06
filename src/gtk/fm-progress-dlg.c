@@ -68,7 +68,7 @@ struct _FmProgressDisplay
     FmFileOpOption default_opt;
 
     char* cur_file;
-    const char* old_cur_file;
+    char* old_cur_file;
 
     guint delay_timeout;
     guint update_timeout;
@@ -155,7 +155,9 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
 */
 
     gtk_text_buffer_get_end_iter(data->error_buf, &it);
-    gtk_text_buffer_insert_with_tags(data->error_buf, &it, data->cur_file, -1, data->bold_tag, NULL);
+    gtk_text_buffer_insert_with_tags(data->error_buf, &it,
+                                     data->cur_file ? data->cur_file : data->old_cur_file,
+                                     -1, data->bold_tag, NULL);
     gtk_text_buffer_insert(data->error_buf, &it, _(": "), -1);
     gtk_text_buffer_insert(data->error_buf, &it, err->message, -1);
     gtk_text_buffer_insert(data->error_buf, &it, "\n", 1);
@@ -306,11 +308,6 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
     GtkWindow* parent = NULL;
-    if(data->update_timeout)
-    {
-        g_source_remove(data->update_timeout);
-        data->update_timeout = 0;
-    }
 
     /* preserve pointers that fm_progress_display_destroy() will unreference
        as they may be requested by trash support below */
@@ -403,10 +400,14 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 static gboolean on_update_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    if(data->old_cur_file != data->cur_file)
+    /* the g_strdup very probably returns the same pointer that was g_free'd
+       so we cannot just compare data->old_cur_file with data->cur_file */
+    if(data->cur_file)
     {
         gtk_label_set_text(data->current, data->cur_file);
+        g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
+        data->cur_file = NULL;
     }
     return TRUE;
 }
@@ -624,6 +625,7 @@ static void fm_progress_display_destroy(FmProgressDisplay* data)
         g_object_unref(data->parent);
 
     g_free(data->cur_file);
+    g_free(data->old_cur_file);
 
     if(data->delay_timeout)
         g_source_remove(data->delay_timeout);
