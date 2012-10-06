@@ -112,9 +112,13 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
                 char *fbname = g_path_get_basename(filename);
                 app = G_APP_INFO(g_desktop_app_info_new(fbname));
                 g_free(fbname);
-                /* save the name so this file will be removed later */
-                g_object_weak_ref(G_OBJECT(app), on_temp_appinfo_destroy,
-                                  g_strdup(filename));
+                /* if there is mime_type set then created application will be
+                   saved for the mime type (see fm_choose_app_for_mime_type()
+                   below) but if not then we should remove this temp. file */
+                if(!mime_type)
+                    /* save the name so this file will be removed later */
+                    g_object_weak_ref(G_OBJECT(app), on_temp_appinfo_destroy,
+                                      g_strdup(filename));
             }
             else
                 g_unlink(filename);
@@ -397,6 +401,10 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
  *
  * Creates a dialog to choose application for @mime_type, lets user to
  * choose then returns the chosen application.
+ *
+ * If user creates custom application and @mime_type isn't %NULL then this
+ * custom application will be added to list of supporting the @mime_type.
+ * Otherwise that custom application file will be deleted after usage.
  *
  * Returns: user choise.
  *
