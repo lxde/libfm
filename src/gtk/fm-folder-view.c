@@ -382,6 +382,8 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
  */
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by)
 {
+    /* FIXME: I think this API should be deprecated later.
+     * Sorting should always be done on the model directly. - by PCMan */
     FmFolderViewInterface* iface;
     FmFolderModel* model;
     GtkSortType sort_type;
@@ -398,8 +400,12 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
     iface->set_sort(fv, sort_type, sort_by);
     model = iface->get_model(fv);
     if(model)
-        gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model),
-                                             sort_by, sort_type);
+    {
+        FmFolderModelSortMode mode = fm_folder_model_get_sort_mode(model);
+        mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
+        mode |= (type == GTK_SORT_ASCENDING ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING);
+        fm_folder_model_sort(model, by, mode);
+    }
     /* model will generate signal to update config if changed */
 }
 
@@ -436,6 +442,8 @@ GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
  */
 FmFolderModelViewCol fm_folder_view_get_sort_by(FmFolderView* fv)
 {
+    /* FIXME: I think this API should be deprecated later.
+     * Sorting should always be done on the model directly. - by PCMan */
     GtkSortType type;
     FmFolderModelViewCol by;
 
@@ -604,8 +612,12 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
     iface->set_model(fv, model);
     if(model)
     {
+        FmFolderModelSortMode mode = fm_folder_model_get_sort_mode(model);
         iface->get_sort(fv, &type, &by);
-        gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), by, type);
+        mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
+        mode |= type == GTK_SORT_ASCENDING ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING;
+        fm_folder_model_sort(model, by, mode);
+        /* FIXME: need a sort-mode-changed signal */
         g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
         g_signal_connect(model, "filter-changed", G_CALLBACK(on_filter_changed), fv);
     }

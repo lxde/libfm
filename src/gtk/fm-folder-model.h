@@ -91,11 +91,23 @@ typedef enum {
 typedef FmFolderModelCol    FmFolderModelViewCol;
 #endif
 
-/* TODO: unified FmFolderModelSortMode
-#define FM_FOLDER_MODEL_COL_MASK 0x0f
-#define FM_FOLDER_MODEL_COL_DESCENDING 0x10
-#define FM_FOLDER_MODEL_MINGLE_DIRS 0x20
-#define FM_FOLDER_MODEL_IGNORE_CASE 0x40 */
+/**
+ * FmFolderModelViewCol:
+ * @FM_FOLDER_MODEL_SORT_ASCENDING: sort ascending
+ * @FM_FOLDER_MODEL_SORT_DESCENDING: sort descending
+ * @FM_FOLDER_MODEL_SORT_FOLDER_FIRST: sort folder before files
+ * @FM_FOLDER_MODEL_SORT_CASE_SENSITIVE: case sensitive sort
+ * @FM_FOLDER_MODEL_SORT_ORDER_MASK: (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING)
+ *
+ * Sort mode flags supported by FmFolderModel
+ */
+typedef enum{
+    FM_FOLDER_MODEL_SORT_ASCENDING = 1 << 0,
+    FM_FOLDER_MODEL_SORT_DESCENDING = 1 << 1,
+    FM_FOLDER_MODEL_SORT_FOLDER_FIRST = 1 << 2,
+    FM_FOLDER_MODEL_SORT_CASE_SENSITIVE = 1 << 3,
+    FM_FOLDER_MODEL_SORT_ORDER_MASK = (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING)
+} FmFolderModelSortMode;
 
 #define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < N_FOLDER_MODEL_COLS)
 
@@ -158,7 +170,13 @@ void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc
 
 void fm_folder_model_apply_filters(FmFolderModel* model);
 
+void fm_folder_model_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode);
+
+FmFolderModelSortMode fm_folder_model_get_sort_mode(FmFolderModel* model);
+
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
+
+/* APIs for FmFolderModelCol */
 
 const char* fm_folder_model_col_get_title(FmFolderModelCol col_id);
 
