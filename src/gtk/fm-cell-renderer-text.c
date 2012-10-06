@@ -73,6 +73,24 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
                                          GtkCellRendererState  flags);
 #endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_text_get_preferred_width(GtkCellRenderer *cell,
+                                                      GtkWidget *widget,
+                                                      gint *minimum_size,
+                                                      gint *natural_size);
+
+static void fm_cell_renderer_text_get_preferred_height(GtkCellRenderer *cell,
+                                                       GtkWidget *widget,
+                                                       gint *minimum_size,
+                                                       gint *natural_size);
+
+static void fm_cell_renderer_text_get_preferred_height_for_width(GtkCellRenderer *cell,
+                                                                 GtkWidget *widget,
+                                                                 gint width,
+                                                                 gint *minimum_height,
+                                                                 gint *natural_height);
+#endif
+
 static void fm_cell_renderer_text_class_init(FmCellRendererTextClass *klass)
 {
     GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
@@ -83,6 +101,11 @@ static void fm_cell_renderer_text_class_init(FmCellRendererTextClass *klass)
 
     render_class->render = fm_cell_renderer_text_render;
     render_class->get_size = fm_cell_renderer_text_get_size;
+#if GTK_CHECK_VERSION(3, 0, 0)
+    render_class->get_preferred_width = fm_cell_renderer_text_get_preferred_width;
+    render_class->get_preferred_height = fm_cell_renderer_text_get_preferred_height;
+    render_class->get_preferred_height_for_width = fm_cell_renderer_text_get_preferred_height_for_width;
+#endif
 
     /**
      * FmCellRendererText:max-height:
@@ -353,3 +376,49 @@ static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
     }
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_cell_renderer_text_get_preferred_width(GtkCellRenderer *cell,
+                                                      GtkWidget *widget,
+                                                      gint *minimum_size,
+                                                      gint *natural_size)
+{
+    gint wrap_width;
+
+    g_object_get(G_OBJECT(cell), "wrap-width", &wrap_width, NULL);
+    if(wrap_width > 0)
+    {
+        if(minimum_size)
+            *minimum_size = wrap_width;
+        if(natural_size)
+            *natural_size = wrap_width;
+    }
+    else
+        GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_preferred_width(cell, widget, minimum_size, natural_size);
+}
+
+static void fm_cell_renderer_text_get_preferred_height(GtkCellRenderer *cell,
+                                                       GtkWidget *widget,
+                                                       gint *minimum_size,
+                                                       gint *natural_size)
+{
+    FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
+
+    GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_preferred_height(cell, widget, minimum_size, natural_size);
+    if (self->height > 0)
+    {
+        if(natural_size && *natural_size > self->height)
+            *natural_size = self->height;
+        if(minimum_size && *minimum_size > self->height)
+            *minimum_size = self->height;
+    }
+}
+
+static void fm_cell_renderer_text_get_preferred_height_for_width(GtkCellRenderer *cell,
+                                                                 GtkWidget *widget,
+                                                                 gint width,
+                                                                 gint *minimum_height,
+                                                                 gint *natural_height)
+{
+    fm_cell_renderer_text_get_preferred_height(cell, widget, minimum_height, natural_height);
+}
+#endif
