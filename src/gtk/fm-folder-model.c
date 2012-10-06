@@ -876,7 +876,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
                                     gconstpointer item2,
                                     gpointer user_data)
 {
-     FmFolderModel* model = FM_FOLDER_MODEL(user_data);
+    FmFolderModel* model = FM_FOLDER_MODEL(user_data);
     FmFileInfo* file1 = ((FmFolderItem*)item1)->inf;
     FmFileInfo* file2 = ((FmFolderItem*)item2)->inf;
     const char* key1;
@@ -885,9 +885,12 @@ static gint fm_folder_model_compare(gconstpointer item1,
     int ret = 0;
 
     /* put folders before files */
-    ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
-    if( ret )
-        return ret;
+    if(model->sort_mode & FM_FOLDER_MODEL_SORT_FOLDER_FIRST)
+    {
+        ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
+        if( ret )
+            return ret;
+    }
 
     switch( ((FmFolderModel*)model)->sort_col )
     {
@@ -925,14 +928,24 @@ static gint fm_folder_model_compare(gconstpointer item1,
         break;
     default:
 _sort_by_name:
-        key1 = fm_file_info_get_collate_key(file1);
-        key2 = fm_file_info_get_collate_key(file2);
-        /*
-        collate keys are already passed to g_utf8_casefold, no need to
-        use strcasecmp here (and g_utf8_collate_key returns a string of
-        which case cannot be ignored)
-        */
-        ret = g_strcmp0(key1, key2);
+		if(model->sort_mode & FM_FOLDER_MODEL_SORT_CASE_SENSITIVE)
+		{
+			/* FIXME: do we need fm_file_info_get_case_sensitive_collate_key()
+			 * to cache a collate key optimized for this comparison?
+			 * If we do this, it requires an additional string allocated. */
+			ret = g_utf8_collate(fm_file_info_get_disp_name(file1), fm_file_info_get_disp_name(file2));
+		}
+		else
+		{
+			key1 = fm_file_info_get_collate_key(file1);
+			key2 = fm_file_info_get_collate_key(file2);
+			/*
+			collate keys are already passed to g_utf8_casefold, no need to
+			use strcasecmp here (and g_utf8_collate_key returns a string of
+			which case cannot be ignored)
+			*/
+			ret = g_strcmp0(key1, key2);
+		}
         break;
     }
     return (model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? ret : -ret;
@@ -1683,17 +1696,17 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
 
 void fm_folder_model_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode)
 {
-	if(model->sort_mode != mode || model->sort_col != col)
-	{
-		GtkSortType old_order = (model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
-		GtkSortType order = (mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
-		FmFolderModelCol old_col = model->sort_col;
-		model->sort_mode = mode;
-		model->sort_col = col;
-		if(old_order != order || old_col != col) /* sort order or column is changed */
-			gtk_tree_sortable_sort_column_changed(GTK_TREE_SORTABLE(model));
-		fm_folder_model_do_sort(model);
-	}
+    if(model->sort_mode != mode || model->sort_col != col)
+    {
+        GtkSortType old_order = (model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
+        GtkSortType order = (mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
+        FmFolderModelCol old_col = model->sort_col;
+        model->sort_mode = mode;
+        model->sort_col = col;
+        if(old_order != order || old_col != col) /* sort order or column is changed */
+            gtk_tree_sortable_sort_column_changed(GTK_TREE_SORTABLE(model));
+        fm_folder_model_do_sort(model);
+    }
 }
 
 FmFolderModelSortMode fm_folder_model_get_sort_mode(FmFolderModel* model)
