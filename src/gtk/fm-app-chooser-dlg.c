@@ -60,6 +60,17 @@ struct _AppChooserData
     FmMimeType* mime_type;
 };
 
+static void on_temp_appinfo_destroy(gpointer data, GObject *objptr)
+{
+    char *filename = data;
+
+    if(g_unlink(filename) < 0)
+        g_critical("failed to remove %s", filename);
+    /* else
+        g_debug("temp file %s removed", filename); */
+    g_free(filename);
+}
+
 static GAppInfo* app_info_create_from_commandline(const char *commandline,
                                                const char *application_name,
                                                const char *mime_type,
@@ -101,7 +112,9 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
                 char *fbname = g_path_get_basename(filename);
                 app = G_APP_INFO(g_desktop_app_info_new(fbname));
                 g_free(fbname);
-                /* FIXME: shouldn't this file be removed later? */
+                /* save the name so this file will be removed later */
+                g_object_weak_ref(G_OBJECT(app), on_temp_appinfo_destroy,
+                                  g_strdup(filename));
             }
             else
                 g_unlink(filename);
@@ -181,7 +194,7 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 
 /**
  * fm_app_chooser_dlg_new
- * @mime_type: MIME type for list creation
+ * @mime_type: (allow-none): MIME type for list creation
  * @can_set_default: %TRUE if widget can set selected item as default for @mime_type
  *
  * Creates a widget for choosing an application either from tree of
@@ -361,8 +374,8 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
 
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
                 app = app_info_create_from_commandline(cmdline, bin1,
-                                                       fm_mime_type_get_type(data->mime_type),
-                                                       gtk_toggle_button_get_active(data->use_terminal));
+                            data->mime_type ? fm_mime_type_get_type(data->mime_type) : NULL,
+                            gtk_toggle_button_get_active(data->use_terminal));
             _out:
                 g_free(bin1);
                 g_free(_cmdline);
@@ -379,7 +392,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
 /**
  * fm_choose_app_for_mime_type
  * @parent: (allow-none): a parent window
- * @mime_type: MIME type for list creation
+ * @mime_type: (allow-none): MIME type for list creation
  * @can_set_default: %TRUE if widget can set selected item as default for @mime_type
  *
  * Creates a dialog to choose application for @mime_type, lets user to
