@@ -369,6 +369,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* create apps list */
     if(mime_types)
     {
+        data->same_type = (mime_types->next == NULL);
         apps = g_app_info_get_all_for_type(fm_mime_type_get_type(mime_types->data));
         for(l = mime_types->next; l; l = l->next)
         {
