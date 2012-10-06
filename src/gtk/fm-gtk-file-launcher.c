@@ -729,7 +729,8 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
         }
     }
 
-    /* FIXME: set parent transient */
+    if(parent)
+        gtk_window_set_transient_for(GTK_WINDOW(ui->dlg), parent);
     gtk_widget_show(GTK_WIDGET(ui->dlg));
 
     return TRUE;

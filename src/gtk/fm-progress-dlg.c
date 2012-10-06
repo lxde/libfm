@@ -534,6 +534,7 @@ static gboolean on_show_dlg(gpointer user_data)
         gtk_widget_destroy(to_label);
     }
 
+    gtk_window_set_transient_for(GTK_WINDOW(data->dlg), data->parent);
     gtk_window_present(GTK_WINDOW(data->dlg));
     data->update_timeout = g_timeout_add(500, on_update_dlg, data);
 
