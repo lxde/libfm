@@ -137,7 +137,7 @@ static GdkAtom dest_target_atom[N_FM_DND_DEST_DEFAULT_TARGETS];
 static void fm_dnd_dest_dispose              (GObject *object);
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
 
-static gboolean clear_src_cache(gpointer user_data);
+static void clear_src_cache(FmDndDest* dd);
 
 static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
                           guint time, FmDndDest* dd);
@@ -385,15 +385,8 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     return TRUE;
 }
 
-static gboolean clear_src_cache(gpointer user_data)
+static void clear_src_cache(FmDndDest* dd)
 {
-    FmDndDest* dd = (FmDndDest*)user_data;
-
-    /* check if dd is still valid */
-    GDK_THREADS_ENTER();
-    if(g_source_is_destroyed(g_main_current_source()))
-        goto _out;
-
     /* free cached source files */
     if(dd->src_files)
     {
@@ -410,7 +403,14 @@ static gboolean clear_src_cache(gpointer user_data)
 
     dd->info_type = 0;
     dd->waiting_data = FALSE;
-_out:
+}
+
+static gboolean clear_src_cache_on_idle(gpointer user_data)
+{
+    GDK_THREADS_ENTER();
+    /* check if dd is still valid */
+    if(!g_source_is_destroyed(g_main_current_source()))
+        clear_src_cache((FmDndDest*)user_data);
     GDK_THREADS_LEAVE();
     return FALSE;
 }
@@ -887,12 +887,12 @@ query_sources:
 void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint time)
 {
     if(dd->idle == 0)
-        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache, dd, NULL);
+        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache_on_idle, dd, NULL);
 }
 
 static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
                           guint time, FmDndDest* dd)
 {
     if(dd->idle == 0)
-        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache, dd, NULL);
+        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache_on_idle, dd, NULL);
 }

@@ -27,6 +27,9 @@ Changes on 1.0.2 since 1.0.1:
 * Added search engine. Supports search:// URIs and has the UI represented
     by API fm_launch_search_simple().
 
+* Full name in Icon View mode now shown in tooltip while long names are
+    placed under icons in truncated form.
+
 
 Changes on 1.0.1 since 1.0.0:
 
