@@ -29,6 +29,7 @@
 #include <sys/types.h>
 
 #include "fm-folder.h"
+#include "fm-sortable.h"
 
 G_BEGIN_DECLS
 
@@ -69,26 +70,6 @@ typedef enum {
     FM_FOLDER_MODEL_N_COLS
 } FmFolderModelCol;
 
-/**
- * FmFolderModelViewCol:
- * @FM_FOLDER_MODEL_SORT_ASCENDING: sort ascending, mutually exclusive with FM_FOLDER_MODEL_SORT_DESCENDING
- * @FM_FOLDER_MODEL_SORT_DESCENDING: sort descending, mutually exclusive with OLDER_MODEL_SORT_ASCENDING
- * @FM_FOLDER_MODEL_SORT_CASE_SENSITIVE: case sensitive file names sort
- * @FM_FOLDER_MODEL_SORT_ORDER_MASK: (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING)
- *
- * Sort mode flags supported by FmFolderModel
- */
-/* FIXME:
- * @FM_FOLDER_MODEL_SORT_FOLDER_FIRST: sort folder before files
-*/
-typedef enum{
-    FM_FOLDER_MODEL_SORT_ASCENDING = 0,
-    FM_FOLDER_MODEL_SORT_DESCENDING = 1 << 0,
-    FM_FOLDER_MODEL_SORT_CASE_SENSITIVE = 1 << 1,
-//    FM_FOLDER_MODEL_SORT_FOLDER_FIRST = 1 << 2,
-    FM_FOLDER_MODEL_SORT_ORDER_MASK = (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING),
-} FmFolderModelSortMode;
-
 #define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < FM_FOLDER_MODEL_N_COLS)
 
 /**
@@ -104,13 +85,6 @@ typedef enum{
  * value which means do not change sorting column.
  */
 #define FM_FOLDER_MODEL_COL_DEFAULT ((FmFolderModelCol)-1)
-
-/**
- * FM_FOLDER_MODEL_SORT_DEFAULT:
- *
- * value which means do not change sorting mode flags.
- */
-#define FM_FOLDER_MODEL_SORT_DEFAULT ((FmFolderModelSortMode)-1)
 
 #ifndef FM_DISABLE_DEPRECATED   /* keep backward compatiblity */
 #define FmFolderModelViewCol    FmFolderModelCol
