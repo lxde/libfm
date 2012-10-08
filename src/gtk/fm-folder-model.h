@@ -52,7 +52,6 @@ G_BEGIN_DECLS
  * @FM_FOLDER_MODEL_COL_ICON: (#FmIcon *) icon descriptor
  * @FM_FOLDER_MODEL_COL_GICON: (#GIcon *) icon image
  * @FM_FOLDER_MODEL_N_COLS: number of columns supported by FmFolderModel
- * @FM_FOLDER_MODEL_N_VISIBLE_COLS: number of visible columns which can be shown in FmStandardView
  *
  * Columns of folder view
  */
@@ -69,26 +68,21 @@ typedef enum {
     FM_FOLDER_MODEL_COL_INFO,
     FM_FOLDER_MODEL_COL_ICON,
     FM_FOLDER_MODEL_COL_GICON,
-    FM_FOLDER_MODEL_N_COLS,
-    FM_FOLDER_MODEL_N_VISIBLE_COLS = FM_FOLDER_MODEL_COL_INFO,
-
-    /* deprecated old names which should not be used */
-#ifndef FM_DISABLE_DEPRECATED
-    COL_FILE_GICON = FM_FOLDER_MODEL_COL_GICON,
-    COL_FILE_ICON = FM_FOLDER_MODEL_COL_ICON,
-    COL_FILE_NAME = FM_FOLDER_MODEL_COL_NAME,
-    COL_FILE_SIZE = FM_FOLDER_MODEL_COL_SIZE,
-    COL_FILE_DESC = FM_FOLDER_MODEL_COL_DESC,
-    COL_FILE_PERM = FM_FOLDER_MODEL_COL_PERM,
-    COL_FILE_OWNER = FM_FOLDER_MODEL_COL_OWNER,
-    COL_FILE_MTIME = FM_FOLDER_MODEL_COL_MTIME,
-    COL_FILE_INFO = FM_FOLDER_MODEL_COL_INFO,
-    N_FOLDER_MODEL_COLS = FM_FOLDER_MODEL_N_COLS
-#endif
+    FM_FOLDER_MODEL_N_COLS
 } FmFolderModelCol;
 
 #ifndef FM_DISABLE_DEPRECATED   /* keep backward compatiblity */
-typedef FmFolderModelCol    FmFolderModelViewCol;
+#define FmFolderModelViewCol FmFolderModelCol
+#define COL_FILE_GICON       FM_FOLDER_MODEL_COL_GICON
+#define COL_FILE_ICON        FM_FOLDER_MODEL_COL_ICON
+#define COL_FILE_NAME        FM_FOLDER_MODEL_COL_NAME
+#define COL_FILE_SIZE        FM_FOLDER_MODEL_COL_SIZE
+#define COL_FILE_DESC        FM_FOLDER_MODEL_COL_DESC
+#define COL_FILE_PERM        FM_FOLDER_MODEL_COL_PERM
+#define COL_FILE_OWNER       FM_FOLDER_MODEL_COL_OWNER
+#define COL_FILE_MTIME       FM_FOLDER_MODEL_COL_MTIME
+#define COL_FILE_INFO        FM_FOLDER_MODEL_COL_INFO
+#define N_FOLDER_MODEL_COLS  FM_FOLDER_MODEL_N_COLS
 #endif
 
 /**
@@ -109,7 +103,7 @@ typedef enum{
     FM_FOLDER_MODEL_SORT_ORDER_MASK = (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING)
 } FmFolderModelSortMode;
 
-#define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < N_FOLDER_MODEL_COLS)
+#define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < FM_FOLDER_MODEL_N_COLS)
 
 /** for 'Unsorted' folder view use 'FileInfo' column which is ambiguous for sorting */
 #define FM_FOLDER_MODEL_COL_UNSORTED FM_FOLDER_MODEL_COL_INFO

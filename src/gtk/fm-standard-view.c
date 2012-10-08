@@ -1354,7 +1354,7 @@ FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
 void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_ids, int n)
 {
     GtkTreeViewColumn* col;
-    GtkTreeViewColumn* old_cols[FM_FOLDER_MODEL_N_VISIBLE_COLS];
+    GtkTreeViewColumn* old_cols[FM_FOLDER_MODEL_N_COLS];
     memset(old_cols, 0, sizeof(old_cols));
     int i;
 
@@ -1409,7 +1409,7 @@ void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_id
     }
 
     /* destroy cached column objects */
-    for(i = 0; i < FM_FOLDER_MODEL_N_VISIBLE_COLS; ++i)
+    for(i = 0; i < FM_FOLDER_MODEL_N_COLS; ++i)
     {
         if((col = old_cols[i]))
             g_object_unref(col);
