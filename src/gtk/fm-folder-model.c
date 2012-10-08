@@ -208,7 +208,7 @@ static guint signals[N_SIGNALS];
 static void fm_folder_model_init(FmFolderModel* model)
 {
     model->sort_mode = FM_FOLDER_MODEL_SORT_ASCENDING;
-    model->sort_col = GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID;
+    model->sort_col = FM_FOLDER_MODEL_COL_DEFAULT;
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
 
@@ -322,7 +322,7 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
 
 static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface)
 {
-    /* iface->sort_column_changed = fm_folder_model_do_sort_column_changed; */
+    /* iface->sort_column_changed = fm_folder_model_sort_column_changed; */
     iface->get_sort_column_id = fm_folder_model_get_sort_column_id;
     iface->set_sort_column_id = fm_folder_model_set_sort_column_id;
     iface->set_sort_func = fm_folder_model_set_sort_func;
@@ -851,7 +851,8 @@ static gboolean fm_folder_model_get_sort_column_id(GtkTreeSortable* sortable,
     if( sort_column_id )
         *sort_column_id = model->sort_col;
     if( order )
-        *order = model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
+        *order = ((model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
+                   == FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
     return TRUE;
 }
 
@@ -942,27 +943,26 @@ static gint fm_folder_model_compare(gconstpointer item1,
         break;
     default:
 _sort_by_name:
-		if(model->sort_mode & FM_FOLDER_MODEL_SORT_CASE_SENSITIVE)
-		{
-			/* FIXME: do we need fm_file_info_get_case_sensitive_collate_key()
-			 * to cache a collate key optimized for this comparison?
-			 * If we do this, it requires an additional string allocated. */
-			ret = g_utf8_collate(fm_file_info_get_disp_name(file1), fm_file_info_get_disp_name(file2));
-		}
-		else
-		{
-			key1 = fm_file_info_get_collate_key(file1);
-			key2 = fm_file_info_get_collate_key(file2);
-			/*
-			collate keys are already passed to g_utf8_casefold, no need to
-			use strcasecmp here (and g_utf8_collate_key returns a string of
-			which case cannot be ignored)
-			*/
-			ret = g_strcmp0(key1, key2);
-		}
+        if(model->sort_mode & FM_FOLDER_MODEL_SORT_CASE_SENSITIVE)
+        {
+            key1 = fm_file_info_get_collate_key_nocasefold(file1);
+            key2 = fm_file_info_get_collate_key_nocasefold(file2);
+        }
+        else
+        {
+            key1 = fm_file_info_get_collate_key(file1);
+            key2 = fm_file_info_get_collate_key(file2);
+            /*
+            collate keys are already passed to g_utf8_casefold, no need to
+            use strcasecmp here (and g_utf8_collate_key returns a string of
+            which case cannot be ignored)
+            */
+        }
+        ret = g_strcmp0(key1, key2);
         break;
     }
-    return (model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? ret : -ret;
+    return ((model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
+             == FM_FOLDER_MODEL_SORT_ASCENDING) ? ret : -ret;
 }
 
 static void fm_folder_model_do_sort(FmFolderModel* model)
@@ -1710,11 +1710,16 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
 
 void fm_folder_model_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode)
 {
-    if(model->sort_mode != mode || model->sort_col != col)
+    FmFolderModelCol old_col = model->sort_col;
+
+    if(!FM_FOLDER_MODEL_COL_IS_VALID(col))
+        col = old_col;
+    if(mode == FM_FOLDER_MODEL_SORT_DEFAULT)
+        mode = model->sort_mode;
+    if(model->sort_mode != mode || old_col != col)
     {
-        GtkSortType old_order = (model->sort_mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
-        GtkSortType order = (mode & FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
-        FmFolderModelCol old_col = model->sort_col;
+        FmFolderModelSortMode old_order = model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK;
+        FmFolderModelSortMode order = mode & FM_FOLDER_MODEL_SORT_ORDER_MASK;
         model->sort_mode = mode;
         model->sort_col = col;
         if(old_order != order || old_col != col) /* sort order or column is changed */
