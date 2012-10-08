@@ -899,7 +899,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     int ret = 0;
 
     /* put folders before files */
-    if(model->sort_mode & FM_FOLDER_MODEL_SORT_FOLDER_FIRST)
+//    if(model->sort_mode & FM_FOLDER_MODEL_SORT_FOLDER_FIRST)
     {
         ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
         if( ret )
