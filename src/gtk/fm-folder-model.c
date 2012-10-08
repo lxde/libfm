@@ -576,7 +576,7 @@ static GtkTreeModelFlags fm_folder_model_get_flags(GtkTreeModel *tree_model)
 
 static gint fm_folder_model_get_n_columns(GtkTreeModel *tree_model)
 {
-    return N_FOLDER_MODEL_COLS;
+    return FM_FOLDER_MODEL_N_COLS;
 }
 
 static GType fm_folder_model_get_column_type(GtkTreeModel *tree_model,
