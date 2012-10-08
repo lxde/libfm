@@ -60,7 +60,7 @@ struct _FmFolderModel
     gboolean show_hidden : 1;
 
     FmFolderModelCol sort_col;
-    FmFolderModelSortMode sort_mode;
+    FmSortMode sort_mode;
 
     /* Random integer to check whether an iter belongs to our model */
     gint stamp;
@@ -207,7 +207,7 @@ static guint signals[N_SIGNALS];
 
 static void fm_folder_model_init(FmFolderModel* model)
 {
-    model->sort_mode = FM_FOLDER_MODEL_SORT_ASCENDING;
+    model->sort_mode = FM_SORT_ASCENDING;
     model->sort_col = FM_FOLDER_MODEL_COL_DEFAULT;
     /* Random int to check whether an iter belongs to our model */
     model->stamp = g_random_int();
@@ -851,8 +851,7 @@ static gboolean fm_folder_model_get_sort_column_id(GtkTreeSortable* sortable,
     if( sort_column_id )
         *sort_column_id = model->sort_col;
     if( order )
-        *order = ((model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
-                   == FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
+        *order = FM_SORT_IS_ASCENDING(model->sort_mode) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
     return TRUE;
 }
 
@@ -861,12 +860,12 @@ static void fm_folder_model_set_sort_column_id(GtkTreeSortable* sortable,
                                                GtkSortType order)
 {
     FmFolderModel* model = FM_FOLDER_MODEL(sortable);
-    FmFolderModelSortMode mode = model->sort_mode;
-    mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
+    FmSortMode mode = model->sort_mode;
+    mode &= ~FM_SORT_ORDER_MASK;
     if(order == GTK_SORT_ASCENDING)
-        mode |= FM_FOLDER_MODEL_SORT_ASCENDING;
+        mode |= FM_SORT_ASCENDING;
     else
-        mode |= FM_FOLDER_MODEL_SORT_DESCENDING;
+        mode |= FM_SORT_DESCENDING;
     model->sort_col = sort_column_id;
     model->sort_mode = mode;
     gtk_tree_sortable_sort_column_changed(sortable);
@@ -903,7 +902,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     int ret = 0;
 
     /* put folders before files */
-//    if(model->sort_mode & FM_FOLDER_MODEL_SORT_FOLDER_FIRST)
+//    if(model->sort_mode & FM_SORT_FOLDER_FIRST)
     {
         ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
         if( ret )
@@ -946,7 +945,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
         break;
     default:
 _sort_by_name:
-        if(model->sort_mode & FM_FOLDER_MODEL_SORT_CASE_SENSITIVE)
+        if(model->sort_mode & FM_SORT_CASE_SENSITIVE)
         {
             key1 = fm_file_info_get_collate_key_nocasefold(file1);
             key2 = fm_file_info_get_collate_key_nocasefold(file2);
@@ -964,8 +963,7 @@ _sort_by_name:
         ret = g_strcmp0(key1, key2);
         break;
     }
-    return ((model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
-             == FM_FOLDER_MODEL_SORT_ASCENDING) ? ret : -ret;
+    return FM_SORT_IS_ASCENDING(model->sort_mode) ? ret : -ret;
 }
 
 static void fm_folder_model_do_sort(FmFolderModel* model)
@@ -1711,25 +1709,24 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
     g_signal_emit(model, signals[FILTER_CHANGED], 0);
 }
 
-void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode)
+void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSortMode mode)
 {
     FmFolderModelCol old_col = model->sort_col;
 
     if(!FM_FOLDER_MODEL_COL_IS_VALID(col))
         col = old_col;
-    if(mode == FM_FOLDER_MODEL_SORT_DEFAULT)
+    if(mode == FM_SORT_DEFAULT)
         mode = model->sort_mode;
     if(model->sort_mode != mode || old_col != col)
     {
         model->sort_mode = mode;
         gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), col,
-                ((mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
-                  == FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING);
+                FM_SORT_IS_ASCENDING(mode) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING);
     }
 }
 
 gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
-                                  FmFolderModelSortMode *mode)
+                                  FmSortMode *mode)
 {
     if(!FM_IS_FOLDER_MODEL(model))
         return FALSE;
@@ -1771,7 +1768,7 @@ const char* fm_folder_model_col_get_title(FmFolderModelCol col_id)
 *
 * Since: 1.0.2
 */
-gboolean fm_folder_model_col_is_sortable(FmFolderModelViewCol col_id)
+gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id)
 {
     if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
        || column_infos[col_id] == NULL)) /* invalid id */

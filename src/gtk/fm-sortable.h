@@ -24,31 +24,33 @@
 G_BEGIN_DECLS
 
 /**
- * FmFolderModelSortMode:
- * @FM_FOLDER_MODEL_SORT_ASCENDING: sort ascending, mutually exclusive with FM_FOLDER_MODEL_SORT_DESCENDING
- * @FM_FOLDER_MODEL_SORT_DESCENDING: sort descending, mutually exclusive with OLDER_MODEL_SORT_ASCENDING
- * @FM_FOLDER_MODEL_SORT_CASE_SENSITIVE: case sensitive file names sort
- * @FM_FOLDER_MODEL_SORT_ORDER_MASK: (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING)
+ * FmSortMode:
+ * @FM_SORT_ASCENDING: sort ascending, mutually exclusive with FM_SORT_DESCENDING
+ * @FM_SORT_DESCENDING: sort descending, mutually exclusive with OLDER_MODEL_SORT_ASCENDING
+ * @FM_SORT_CASE_SENSITIVE: case sensitive file names sort
+ * @FM_SORT_ORDER_MASK: (FM_SORT_ASCENDING|FM_SORT_DESCENDING)
  *
  * Sort mode flags supported by FmFolderModel
  */
 /* FIXME:
- * @FM_FOLDER_MODEL_SORT_FOLDER_FIRST: sort folder before files
+ * @FM_SORT_FOLDER_FIRST: sort folder before files
 */
 typedef enum{
-    FM_FOLDER_MODEL_SORT_ASCENDING = 0,
-    FM_FOLDER_MODEL_SORT_DESCENDING = 1 << 0,
-    FM_FOLDER_MODEL_SORT_CASE_SENSITIVE = 1 << 1,
-//    FM_FOLDER_MODEL_SORT_FOLDER_FIRST = 1 << 2,
-    FM_FOLDER_MODEL_SORT_ORDER_MASK = (FM_FOLDER_MODEL_SORT_ASCENDING|FM_FOLDER_MODEL_SORT_DESCENDING),
-} FmFolderModelSortMode;
+    FM_SORT_ASCENDING = 0,
+    FM_SORT_DESCENDING = 1 << 0,
+    FM_SORT_CASE_SENSITIVE = 1 << 1,
+//    FM_SORT_FOLDER_FIRST = 1 << 2,
+    FM_SORT_ORDER_MASK = (FM_SORT_ASCENDING|FM_SORT_DESCENDING),
+} FmSortMode;
 
 /**
- * FM_FOLDER_MODEL_SORT_DEFAULT:
+ * FM_SORT_DEFAULT:
  *
  * value which means do not change sorting mode flags.
  */
-#define FM_FOLDER_MODEL_SORT_DEFAULT ((FmFolderModelSortMode)-1)
+#define FM_SORT_DEFAULT ((FmSortMode)-1)
+
+#define FM_SORT_IS_ASCENDING(mode) ((mode & FM_SORT_ORDER_MASK) == FM_SORT_ASCENDING)
 
 G_END_DECLS
 #endif /* _FM_SORTABLE_H_ */

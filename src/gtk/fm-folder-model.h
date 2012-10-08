@@ -41,7 +41,7 @@ G_BEGIN_DECLS
 #define FM_FOLDER_MODEL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  FM_TYPE_FOLDER_MODEL, FmFolderModelClass))
 
 /**
- * FmFolderModelViewCol:
+ * FmFolderModelCol:
  * @FM_FOLDER_MODEL_COL_GICON: (#GIcon *) icon image
  * @FM_FOLDER_MODEL_COL_ICON: (#FmIcon *) icon descriptor
  * @FM_FOLDER_MODEL_COL_NAME: (#gchar *) file display name
@@ -152,9 +152,9 @@ void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc
 
 void fm_folder_model_apply_filters(FmFolderModel* model);
 
-void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode);
+void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSortMode mode);
 
-gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, FmFolderModelSortMode *mode);
+gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, FmSortMode *mode);
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
 
@@ -162,7 +162,7 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, F
 
 const char* fm_folder_model_col_get_title(FmFolderModelCol col_id);
 
-gboolean fm_folder_model_col_is_sortable(FmFolderModelViewCol col_id);
+gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id);
 
 const char* fm_folder_model_col_to_str(FmFolderModelCol col_id);
 

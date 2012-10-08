@@ -121,8 +121,8 @@ struct _FmFolderViewInterface
     void (*set_sel_mode)(FmFolderView* fv, GtkSelectionMode mode);
     GtkSelectionMode (*get_sel_mode)(FmFolderView* fv);
 
-    void (*set_sort)(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by);
-    void (*get_sort)(FmFolderView* fv, GtkSortType* type, FmFolderModelViewCol* by);
+    void (*set_sort)(FmFolderView* fv, GtkSortType type, FmFolderModelCol by);
+    void (*get_sort)(FmFolderView* fv, GtkSortType* type, FmFolderModelCol* by);
 
     void (*set_show_hidden)(FmFolderView* fv, gboolean show);
     gboolean (*get_show_hidden)(FmFolderView* fv);
@@ -153,9 +153,9 @@ GType           fm_folder_view_get_type(void);
 void            fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode);
 GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv);
 
-void            fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by);
+void            fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelCol by);
 GtkSortType     fm_folder_view_get_sort_type(FmFolderView* fv);
-FmFolderModelViewCol fm_folder_view_get_sort_by(FmFolderView* fv);
+FmFolderModelCol fm_folder_view_get_sort_by(FmFolderView* fv);
 
 void            fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show);
 gboolean        fm_folder_view_get_show_hidden(FmFolderView* fv);
