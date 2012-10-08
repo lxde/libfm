@@ -1778,14 +1778,14 @@ gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id)
 
 
 /**
- * fm_folder_model_col_to_str
+ * fm_folder_model_col_get_name
  * @col_id: column id
  *
  * Convert an FmFolderModelCol id to a string
  *
  * Since: 1.0.2
  */
-const char* fm_folder_model_col_to_str(FmFolderModelCol col_id)
+const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
 {
     if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
        || column_infos[col_id] == NULL)) /* invalid id */

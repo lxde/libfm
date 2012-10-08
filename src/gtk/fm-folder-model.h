@@ -164,7 +164,7 @@ const char* fm_folder_model_col_get_title(FmFolderModelCol col_id);
 
 gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id);
 
-const char* fm_folder_model_col_to_str(FmFolderModelCol col_id);
+const char* fm_folder_model_col_get_name(FmFolderModelCol col_id);
 
 FmFolderModelCol fm_folder_model_col_from_str(const char* str);
 
