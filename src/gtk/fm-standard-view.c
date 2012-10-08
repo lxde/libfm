@@ -586,7 +586,7 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderMo
 {
     GtkTreeViewColumn* col = gtk_tree_view_column_new();
     GtkCellRenderer* render = gtk_cell_renderer_text_new();
-    const char* title = fm_folder_model_col_get_title(col_id);
+    const char* title = fm_folder_model_col_get_title(fv->model, col_id);
 
     gtk_tree_view_column_set_title(col, title);
 
@@ -610,7 +610,7 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderMo
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", col_id, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
-    if(fm_folder_model_col_is_sortable(col_id))
+    if(fm_folder_model_col_is_sortable(fv->model, col_id))
         gtk_tree_view_column_set_sort_column_id(col, col_id);
 
     g_signal_connect(col, "notify::width", G_CALLBACK(on_column_width_changed), fv);

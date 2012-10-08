@@ -1749,7 +1749,7 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
  * 
  * Since: 1.0.2
  */
-const char* fm_folder_model_col_get_title(FmFolderModelCol col_id)
+const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id)
 {
     if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
        || column_infos[col_id] == NULL)) /* invalid id */
@@ -1768,7 +1768,7 @@ const char* fm_folder_model_col_get_title(FmFolderModelCol col_id)
 *
 * Since: 1.0.2
 */
-gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id)
+gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol col_id)
 {
     if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
        || column_infos[col_id] == NULL)) /* invalid id */

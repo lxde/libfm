@@ -160,9 +160,9 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, F
 
 /* APIs for FmFolderModelCol */
 
-const char* fm_folder_model_col_get_title(FmFolderModelCol col_id);
+const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id);
 
-gboolean fm_folder_model_col_is_sortable(FmFolderModelCol col_id);
+gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol col_id);
 
 const char* fm_folder_model_col_get_name(FmFolderModelCol col_id);
 
