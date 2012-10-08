@@ -76,9 +76,9 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
     /**
      * FmDirListJob::files-found
      * @job: a job that emitted the signal
-     * @file: a FmFileInfo for the newly found file
+     * @files: (element-type FmFileInfo): #GSList of found files
      *
-     * The #FmDirListJob::file-found signal is emitted for every file
+     * The #FmDirListJob::files-found signal is emitted for every file
      * found during directory listing. By default the signal is not
      * emitted for performance reason. This can be turned on by calling
      * fm_dir_list_job_set_incremental().
