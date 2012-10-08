@@ -1794,14 +1794,14 @@ const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
 }
 
 /**
- * fm_folder_model_col_from_str
+ * fm_folder_model_col_by_name
  * @str: a string
  *
  * Convert a string to an FmFolderModelCol id
  *
  * Since: 1.0.2
  */
-FmFolderModelCol fm_folder_model_col_from_str(const char* str)
+FmFolderModelCol fm_folder_model_col_by_name(const char* str)
 {
     /* if further optimization is wanted, can use a sorted string array
      * and binary search here, but I think this micro-optimization is unnecessary. */
