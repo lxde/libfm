@@ -1728,9 +1728,16 @@ void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmFold
     }
 }
 
-FmFolderModelSortMode fm_folder_model_get_sort_mode(FmFolderModel* model)
+gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
+                                  FmFolderModelSortMode *mode)
 {
-    return model->sort_mode;
+    if(!FM_IS_FOLDER_MODEL(model))
+        return FALSE;
+    if(col)
+        *col = model->sort_col;
+    if(mode)
+        *mode = model->sort_mode;
+    return TRUE;
 }
 
 /* FmFolderModelCol APIs */

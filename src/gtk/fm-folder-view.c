@@ -323,11 +323,8 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
 
 static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
 {
-    int col;
-    GtkSortType order;
-    if(gtk_tree_sortable_get_sort_column_id(sortable, &col, &order))
+    if(fm_folder_model_get_sort(FM_FOLDER_MODEL(sortable), NULL, NULL))
     {
-        FM_FOLDER_VIEW_GET_IFACE(fv)->set_sort(fv, order, col);
         g_signal_emit(fv, signals[SORT_CHANGED], 0);
     }
 }
@@ -386,6 +383,7 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
 {
     FmFolderViewInterface* iface;
     FmFolderModel* model;
+    FmFolderModelSortMode mode;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
@@ -393,7 +391,7 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
     model = iface->get_model(fv);
     if(model)
     {
-        FmFolderModelSortMode mode = fm_folder_model_get_sort_mode(model);
+        fm_folder_model_get_sort(model, NULL, &mode);
         mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
         mode |= (type == GTK_SORT_ASCENDING) ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING;
         fm_folder_model_set_sort(model, by, mode);
@@ -410,23 +408,23 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
  * Returns: mode of sorting (ascending or descending)
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: use fm_folder_model_get_sort() instead.
  */
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
 {
     FmFolderViewInterface* iface;
     FmFolderModel* model;
-    GtkSortType type;
-    gint by;
+    FmFolderModelSortMode mode;
 
     g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), GTK_SORT_ASCENDING);
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     model = iface->get_model(fv);
-    if(model == NULL ||
-       !gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(model), &by, &type))
-        type = GTK_SORT_ASCENDING;
-
-    return type;
+    if(model == NULL || !fm_folder_model_get_sort(model, NULL, &mode))
+        return GTK_SORT_ASCENDING;
+    return ((mode & FM_FOLDER_MODEL_SORT_ORDER_MASK) == FM_FOLDER_MODEL_SORT_ASCENDING)
+            ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
 }
 
 /**
@@ -438,25 +436,22 @@ GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
  * Returns: criteria of sorting.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: use fm_folder_model_get_sort() instead.
  */
 FmFolderModelViewCol fm_folder_view_get_sort_by(FmFolderView* fv)
 {
-    /* FIXME: I think this API should be deprecated later.
-     * Sorting should always be done on the model directly. - by PCMan */
     FmFolderViewInterface* iface;
     FmFolderModel* model;
-    GtkSortType type;
-    gint by;
+    FmFolderModelCol by;
 
     g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), FM_FOLDER_MODEL_COL_DEFAULT);
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     model = iface->get_model(fv);
-    if(model == NULL ||
-       !gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(model), &by, &type))
-        by = FM_FOLDER_MODEL_COL_DEFAULT;
-
-    return (FmFolderModelViewCol)by;
+    if(model == NULL || !fm_folder_model_get_sort(model, &by, NULL))
+        return FM_FOLDER_MODEL_COL_DEFAULT;
+    return by;
 }
 
 /**
@@ -606,8 +601,7 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
 {
     FmFolderViewInterface* iface;
     FmFolderModel* old_model;
-    GtkSortType type;
-    gint by = FM_FOLDER_MODEL_COL_DEFAULT;
+    FmFolderModelViewCol by = FM_FOLDER_MODEL_COL_DEFAULT;
     FmFolderModelSortMode mode = FM_FOLDER_MODEL_SORT_ASCENDING;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
@@ -616,8 +610,7 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
     old_model = iface->get_model(fv);
     if(old_model)
     {
-        gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(old_model), &by, &type);
-        mode = fm_folder_model_get_sort_mode(old_model);
+        fm_folder_model_get_sort(old_model, &by, &mode);
         unset_model(fv, old_model);
     }
     /* FIXME: which setting to apply if this is first model? */
@@ -1096,9 +1089,11 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     GtkUIManager *ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
     GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
     FmFolderViewInterface *iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+    FmFolderModel *model;
     gboolean show_hidden;
-    GtkSortType type;
-    FmFolderModelViewCol by;
+    FmFolderModelSortMode mode;
+    GtkSortType type = GTK_SORT_ASCENDING;
+    FmFolderModelViewCol by = COL_FILE_NAME;
 
     /* FIXME: realize popup window and put it in the fv (honoring monitor) */
     /* don't show context menu outside of the folder view */
@@ -1106,7 +1101,10 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
         return;
     /* FIXME: if act != NULL and there is selection in fv then open file menu instead */
     /* update actions */
-    iface->get_sort(fv, &type, &by);
+    model = iface->get_model(fv);
+    if(fm_folder_model_get_sort(model, &by, &mode))
+        type = ((mode & FM_FOLDER_MODEL_SORT_ORDER_MASK) == FM_FOLDER_MODEL_SORT_ASCENDING)
+                ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/Asc");
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), type);
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/ByName");
@@ -1170,18 +1168,23 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
                                   FmFolderViewUpdatePopup update_popup)
 {
     FmFolderViewInterface* iface;
+    FmFolderModel* model;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkMenu* popup;
     GtkAction* act;
     GtkAccelGroup* accel_grp;
     gboolean show_hidden;
-    GtkSortType type;
-    FmFolderModelViewCol by;
+    FmFolderModelSortMode mode;
+    GtkSortType type = GTK_SORT_ASCENDING;
+    FmFolderModelViewCol by = COL_FILE_NAME;
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     show_hidden = iface->get_show_hidden(fv);
-    iface->get_sort(fv, &type, &by);
+    model = iface->get_model(fv);
+    if(fm_folder_model_get_sort(model, &by, &mode))
+        type = ((mode & FM_FOLDER_MODEL_SORT_ORDER_MASK) == FM_FOLDER_MODEL_SORT_ASCENDING)
+                ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
 
     /* init popup from XML string */
     ui = gtk_ui_manager_new();

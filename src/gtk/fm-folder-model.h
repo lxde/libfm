@@ -180,7 +180,7 @@ void fm_folder_model_apply_filters(FmFolderModel* model);
 
 void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode);
 
-FmFolderModelSortMode fm_folder_model_get_sort_mode(FmFolderModel* model);
+gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, FmFolderModelSortMode *mode);
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
 
