@@ -867,7 +867,10 @@ static void fm_folder_model_set_sort_column_id(GtkTreeSortable* sortable,
         mode |= FM_FOLDER_MODEL_SORT_ASCENDING;
     else
         mode |= FM_FOLDER_MODEL_SORT_DESCENDING;
-    fm_folder_model_sort(model, sort_column_id, mode);
+    model->sort_col = sort_column_id;
+    model->sort_mode = mode;
+    gtk_tree_sortable_sort_column_changed(sortable);
+    fm_folder_model_do_sort(model);
 }
 
 static void fm_folder_model_set_sort_func(GtkTreeSortable *sortable,
@@ -1708,7 +1711,7 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
     g_signal_emit(model, signals[FILTER_CHANGED], 0);
 }
 
-void fm_folder_model_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode)
+void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderModelSortMode mode)
 {
     FmFolderModelCol old_col = model->sort_col;
 
@@ -1718,13 +1721,10 @@ void fm_folder_model_sort(FmFolderModel* model, FmFolderModelCol col, FmFolderMo
         mode = model->sort_mode;
     if(model->sort_mode != mode || old_col != col)
     {
-        FmFolderModelSortMode old_order = model->sort_mode & FM_FOLDER_MODEL_SORT_ORDER_MASK;
-        FmFolderModelSortMode order = mode & FM_FOLDER_MODEL_SORT_ORDER_MASK;
         model->sort_mode = mode;
-        model->sort_col = col;
-        if(old_order != order || old_col != col) /* sort order or column is changed */
-            gtk_tree_sortable_sort_column_changed(GTK_TREE_SORTABLE(model));
-        fm_folder_model_do_sort(model);
+        gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), col,
+                ((mode & FM_FOLDER_MODEL_SORT_ORDER_MASK)
+                  == FM_FOLDER_MODEL_SORT_ASCENDING) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING);
     }
 }
 

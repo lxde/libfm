@@ -379,32 +379,24 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
  * Changes sorting in the view.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_folder_model_set_sort() instead.
  */
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCol by)
 {
-    /* FIXME: I think this API should be deprecated later.
-     * Sorting should always be done on the model directly. - by PCMan */
     FmFolderViewInterface* iface;
     FmFolderModel* model;
-    GtkSortType sort_type;
-    FmFolderModelViewCol sort_by;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
-    iface->get_sort(fv, &sort_type, &sort_by);
-    if(type == GTK_SORT_ASCENDING || type == GTK_SORT_DESCENDING)
-        sort_type = type;
-    if(FM_FOLDER_MODEL_COL_IS_VALID(by))
-        sort_by = by;
-    iface->set_sort(fv, sort_type, sort_by);
     model = iface->get_model(fv);
     if(model)
     {
         FmFolderModelSortMode mode = fm_folder_model_get_sort_mode(model);
         mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
-        mode |= (type == GTK_SORT_ASCENDING ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING);
-        fm_folder_model_sort(model, by, mode);
+        mode |= (type == GTK_SORT_ASCENDING) ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING;
+        fm_folder_model_set_sort(model, by, mode);
     }
     /* model will generate signal to update config if changed */
 }
@@ -421,12 +413,19 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelViewCo
  */
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
 {
+    FmFolderViewInterface* iface;
+    FmFolderModel* model;
     GtkSortType type;
-    FmFolderModelViewCol by;
+    gint by;
 
     g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), GTK_SORT_ASCENDING);
 
-    FM_FOLDER_VIEW_GET_IFACE(fv)->get_sort(fv, &type, &by);
+    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+    model = iface->get_model(fv);
+    if(model == NULL ||
+       !gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(model), &by, &type))
+        type = GTK_SORT_ASCENDING;
+
     return type;
 }
 
@@ -444,13 +443,20 @@ FmFolderModelViewCol fm_folder_view_get_sort_by(FmFolderView* fv)
 {
     /* FIXME: I think this API should be deprecated later.
      * Sorting should always be done on the model directly. - by PCMan */
+    FmFolderViewInterface* iface;
+    FmFolderModel* model;
     GtkSortType type;
-    FmFolderModelViewCol by;
+    gint by;
 
-    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), COL_FILE_NAME);
+    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), FM_FOLDER_MODEL_COL_DEFAULT);
 
-    FM_FOLDER_VIEW_GET_IFACE(fv)->get_sort(fv, &type, &by);
-    return by;
+    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+    model = iface->get_model(fv);
+    if(model == NULL ||
+       !gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(model), &by, &type))
+        by = FM_FOLDER_MODEL_COL_DEFAULT;
+
+    return (FmFolderModelViewCol)by;
 }
 
 /**
@@ -601,23 +607,24 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
     FmFolderViewInterface* iface;
     FmFolderModel* old_model;
     GtkSortType type;
-    FmFolderModelViewCol by;
+    gint by = FM_FOLDER_MODEL_COL_DEFAULT;
+    FmFolderModelSortMode mode = FM_FOLDER_MODEL_SORT_ASCENDING;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     old_model = iface->get_model(fv);
     if(old_model)
+    {
+        gtk_tree_sortable_get_sort_column_id(GTK_TREE_SORTABLE(old_model), &by, &type);
+        mode = fm_folder_model_get_sort_mode(old_model);
         unset_model(fv, old_model);
+    }
+    /* FIXME: which setting to apply if this is first model? */
     iface->set_model(fv, model);
     if(model)
     {
-        FmFolderModelSortMode mode = fm_folder_model_get_sort_mode(model);
-        iface->get_sort(fv, &type, &by);
-        mode &= ~FM_FOLDER_MODEL_SORT_ORDER_MASK;
-        mode |= type == GTK_SORT_ASCENDING ? FM_FOLDER_MODEL_SORT_ASCENDING : FM_FOLDER_MODEL_SORT_DESCENDING;
-        fm_folder_model_sort(model, by, mode);
-        /* FIXME: need a sort-mode-changed signal */
+        fm_folder_model_set_sort(model, by, mode);
         g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
         g_signal_connect(model, "filter-changed", G_CALLBACK(on_filter_changed), fv);
     }
