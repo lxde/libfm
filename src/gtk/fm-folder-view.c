@@ -208,10 +208,10 @@ static const GtkRadioActionEntry folder_sort_type_actions[]=
 
 static const GtkRadioActionEntry folder_sort_by_actions[]=
 {
-    {"ByName", NULL, N_("By _Name"), NULL, NULL, COL_FILE_NAME},
-    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, COL_FILE_MTIME},
-    {"BySize", NULL, N_("By _Size"), NULL, NULL, COL_FILE_SIZE},
-    {"ByType", NULL, N_("By File _Type"), NULL, NULL, COL_FILE_DESC}
+    {"ByName", NULL, N_("By _Name"), NULL, NULL, FM_FOLDER_MODEL_COL_NAME},
+    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, FM_FOLDER_MODEL_COL_MTIME},
+    {"BySize", NULL, N_("By _Size"), NULL, NULL, FM_FOLDER_MODEL_COL_SIZE},
+    {"ByType", NULL, N_("By File _Type"), NULL, NULL, FM_FOLDER_MODEL_COL_DESC}
 };
 
 G_DEFINE_INTERFACE(FmFolderView, fm_folder_view, GTK_TYPE_WIDGET);
@@ -1092,7 +1092,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = GTK_SORT_ASCENDING;
-    FmFolderModelCol by = COL_FILE_NAME;
+    FmFolderModelCol by = FM_FOLDER_MODEL_COL_NAME;
 
     /* FIXME: realize popup window and put it in the fv (honoring monitor) */
     /* don't show context menu outside of the folder view */
@@ -1187,7 +1187,7 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = GTK_SORT_ASCENDING;
-    FmFolderModelCol by = COL_FILE_NAME;
+    FmFolderModelCol by = FM_FOLDER_MODEL_COL_NAME;
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     show_hidden = iface->get_show_hidden(fv);
@@ -1376,7 +1376,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     {
         model = GTK_TREE_MODEL(iface->get_model(fv));
         if(gtk_tree_model_get_iter(model, &it, path))
-            gtk_tree_model_get(model, &it, COL_FILE_INFO, &fi, -1);
+            gtk_tree_model_get(model, &it, FM_FOLDER_MODEL_COL_INFO, &fi, -1);
     }
     else
         fi = NULL;

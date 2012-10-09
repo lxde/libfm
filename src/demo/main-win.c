@@ -421,7 +421,7 @@ static void fm_main_win_init(FmMainWin *win)
     /* folder view */
     win->folder_view = (FmFolderView*)fm_standard_view_new(FM_FV_ICON_VIEW, update_files_popup, open_folder_func);
     fm_folder_view_set_show_hidden(win->folder_view, FALSE);
-    fm_folder_view_sort(win->folder_view, GTK_SORT_ASCENDING, COL_FILE_NAME);
+    fm_folder_view_sort(win->folder_view, GTK_SORT_ASCENDING, FM_FOLDER_MODEL_COL_NAME);
     fm_folder_view_set_selection_mode(win->folder_view, GTK_SELECTION_MULTIPLE);
     g_signal_connect(win->folder_view, "clicked", G_CALLBACK(on_file_clicked), win);
     g_signal_connect(win->folder_view, "sel-changed", G_CALLBACK(on_sel_changed), win);

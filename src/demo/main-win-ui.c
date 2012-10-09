@@ -153,8 +153,8 @@ static GtkRadioActionEntry main_win_sort_type_actions[]=
 
 static GtkRadioActionEntry main_win_sort_by_actions[]=
 {
-    {"ByName", NULL, N_("By _Name"), NULL, NULL, COL_FILE_NAME},
-    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, COL_FILE_MTIME}
+    {"ByName", NULL, N_("By _Name"), NULL, NULL, FM_FOLDER_MODEL_COL_NAME},
+    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, FM_FOLDER_MODEL_COL_MTIME}
 };
 
 
