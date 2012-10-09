@@ -38,8 +38,7 @@
 #include <glib/gi18n-lib.h>
 #include "gtk-compat.h"
 
-#include "fm-marshal.h"
-#include "fm-config.h"
+#include "fm.h"
 #include "fm-standard-view.h"
 #include "fm-gtk-marshal.h"
 #include "fm-cell-renderer-text.h"
@@ -92,20 +91,18 @@ struct _FmStandardView
     void (*unselect_all)(GtkWidget* view);
     void (*select_invert)(FmFolderModel* model, GtkWidget* view);
     void (*select_path)(FmFolderModel* model, GtkWidget* view, GtkTreeIter* it);
-
-    /* for columns */
-    FmFolderViewColumnInfo* columns;
-    guint n_columns;
 };
 
 #define SINGLE_CLICK_TIMEOUT    600
 
+#if 0
 static const char* view_mode_names[FM_FV_N_VIEW_MODE] = {
     "icon", /* FM_FV_ICON_VIEW */
     "compact", /* FM_FV_COMPACT_VIEW */
     "thumbnail", /* FM_FV_THUMBNAIL_VIEW */
     "list" /* FM_FV_LIST_VIEW */
 };
+#endif
 
 static void fm_standard_view_dispose(GObject *object);
 
@@ -134,6 +131,18 @@ static void cancel_pending_row_activated(FmStandardView* fv);
 //static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
+
+static FmFolderViewColumnInfo* _sv_column_info_new(FmFolderModelCol col_id)
+{
+    FmFolderViewColumnInfo* info = g_slice_new0(FmFolderViewColumnInfo);
+    info->col_id = col_id;
+    return info;
+}
+
+static void _sv_column_info_free(gpointer info)
+{
+    g_slice_free(FmFolderViewColumnInfo, info);
+}
 
 static void fm_standard_view_class_init(FmStandardViewClass *klass)
 {
@@ -543,7 +552,9 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
 
 static void on_column_width_changed(GtkTreeViewColumn* col, FmStandardView* view)
 {
-    g_print("column width changed: %p, %d\n", col, gtk_tree_view_column_get_width(col));
+    /* FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+    g_debug("column width changed: id %u mode %u: %d", info->col_id,
+            gtk_tree_view_column_get_sizing(col), gtk_tree_view_column_get_width(col)); */
     return;
 #if 0
     int width;
@@ -562,13 +573,27 @@ static void on_column_width_changed(GtkTreeViewColumn* col, FmStandardView* view
 #endif
 }
 
-static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderModelCol col_id)
+static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
+                                                  FmFolderViewColumnInfo *set)
 {
-    GtkTreeViewColumn* col = gtk_tree_view_column_new();
-    GtkCellRenderer* render = gtk_cell_renderer_text_new();
-    const char* title = fm_folder_model_col_get_title(fv->model, col_id);
+    GtkTreeViewColumn* col;
+    GtkCellRenderer* render;
+    const char* title;
+    FmFolderViewColumnInfo* info;
+    FmFolderModelCol col_id;
 
+    g_return_val_if_fail(set != NULL, NULL); /* invalid arg */
+    col_id = set->col_id;
+    title = fm_folder_model_col_get_title(fv->model, col_id);
+    g_return_val_if_fail(title != NULL, NULL); /* invalid column */
+
+    /* g_debug("adding column id=%u", col_id); */
+    col = gtk_tree_view_column_new();
+    render = gtk_cell_renderer_text_new();
     gtk_tree_view_column_set_title(col, title);
+    info = _sv_column_info_new(col_id);
+    /* TODO: update other data from set - width for example */
+    g_object_set_qdata_full(G_OBJECT(col), fm_qdata_id, info, _sv_column_info_free);
 
     if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_NAME)) /* special handling for Name column */
     {
@@ -592,21 +617,48 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderMo
     gtk_tree_view_column_set_resizable(col, TRUE);
     if(fm_folder_model_col_is_sortable(fv->model, col_id))
         gtk_tree_view_column_set_sort_column_id(col, col_id);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
+    if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_NAME))
+        /* only this column is activable */
+        exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
     g_signal_connect(col, "notify::width", G_CALLBACK(on_column_width_changed), fv);
 
     return col;
 }
 
+static void _check_tree_columns_defaults(FmStandardView* fv)
+{
+    const FmFolderViewColumnInfo cols[] = {
+        {FM_FOLDER_MODEL_COL_NAME},
+        {FM_FOLDER_MODEL_COL_DESC},
+        {FM_FOLDER_MODEL_COL_SIZE},
+        {FM_FOLDER_MODEL_COL_MTIME} };
+    GSList* cols_list = NULL;
+    GList* tree_columns;
+    guint i;
+
+    tree_columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(fv->view));
+    if(tree_columns != NULL) /* already set */
+    {
+        g_list_free(tree_columns);
+        return;
+    }
+    /* Set default columns to show in detailed list mode.
+     * FIXME: cols should be passed to fm_standard_view_new() as a parameter instead.
+     * This breaks API/ABI though. Let's do it later. */
+    for(i = 0; i < G_N_ELEMENTS(cols); i++)
+        cols_list = g_slist_append(cols_list, (gpointer)&cols[i]);
+    fm_folder_view_set_columns(FM_FOLDER_VIEW(fv), cols_list);
+    g_slist_free(cols_list);
+}
+
 static inline void create_list_view(FmStandardView* fv, GList* sels)
 {
-    GtkTreeViewColumn* col;
     GtkTreeSelection* ts;
     GList *l;
-    GtkCellRenderer* render;
     FmFolderModel* model = fv->model;
     int icon_size = 0;
-    int i;
 
     fv->view = exo_tree_view_new();
 
@@ -615,27 +667,12 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     icon_size = fm_config->small_icon_size;
     fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
     if(model)
-        fm_folder_model_set_icon_size(model, icon_size);
-
-    /* create columns */
-    if(fv->columns)
     {
-        for(i = 0; i < fv->n_columns; ++i)
-        {
-            FmFolderViewColumnInfo* info = &fv->columns[i];
-            /* if one is cached already, use it. otherwise, create a new one */
-            col = create_list_view_column(fv, info->col_id);
-            gtk_tree_view_append_column(fv->view, col);
-            if(i == 0)
-            {
-                /* only this column is activable */
-                exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
-                /* FIXME: should we use columns[0] here or FM_FOLDER_MODEL_COL_NAME? */
-            }
-        }
+        fm_folder_model_set_icon_size(model, icon_size);
+        _check_tree_columns_defaults(fv);
+        gtk_tree_view_set_search_column(GTK_TREE_VIEW(fv->view),
+                                        FM_FOLDER_MODEL_COL_NAME);
     }
-
-    gtk_tree_view_set_search_column(GTK_TREE_VIEW(fv->view), FM_FOLDER_MODEL_COL_NAME);
 
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(fv->view), TRUE);
@@ -646,7 +683,7 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
     g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
     /*cancel_pending_row_activated(fv);*/ /* FIXME: is this needed? */
-    gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(fv->model));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(model));
     gtk_tree_selection_set_mode(ts, fv->sel_mode);
     for(l = sels;l;l=l->next)
         gtk_tree_selection_select_path(ts, (GtkTreePath*)l->data);
@@ -1232,32 +1269,6 @@ static FmFolderModel* fm_standard_view_get_model(FmFolderView* ffv)
     return fv->model;
 }
 
-static void _check_tree_columns_defaults(FmStandardView* fv)
-{
-    const FmFolderViewColumnInfo cols[] = {
-        {FM_FOLDER_MODEL_COL_NAME},
-        {FM_FOLDER_MODEL_COL_DESC},
-        {FM_FOLDER_MODEL_COL_SIZE},
-        {FM_FOLDER_MODEL_COL_MTIME} };
-    GSList* cols_list = NULL;
-    GList* tree_columns;
-    guint i;
-
-    tree_columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(fv->view));
-    if(tree_columns != NULL) /* already set */
-    {
-        g_list_free(tree_columns);
-        return;
-    }
-    /* Set default columns to show in detailed list mode.
-     * FIXME: cols should be passed to fm_standard_view_new() as a parameter instead.
-     * This breaks API/ABI though. Let's do it later. */
-    for(i = 0; i < G_N_ELEMENTS(cols); i++)
-        cols_list = g_slist_append(cols_list, &cols[i]);
-    fm_folder_view_set_columns(FM_FOLDER_VIEW(fv), cols_list);
-    g_slist_free(cols_list);
-}
-
 static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);
@@ -1324,6 +1335,7 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
     iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
 }
 
+/*
 const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
 {
     if(G_UNLIKELY(mode < 0 || mode >= FM_FV_N_VIEW_MODE))
@@ -1341,14 +1353,23 @@ FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
     }
     return (FmStandardViewMode)-1;
 }
+*/
 
-gboolean _fm_standard_view_set_columns(FmFolderView* fv, GSList* cols)
+typedef struct
+{
+    GtkTreeViewColumn* col;
+    FmFolderViewColumnInfo* info;
+} _ColumnsCache;
+
+gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
 {
     FmStandardView* view;
-    GtkTreeViewColumn* col;
-    GtkTreeViewColumn* old_cols[FM_FOLDER_MODEL_N_COLS];
-    GSList* l;
-    int i;
+    GtkTreeViewColumn *col, *last;
+    FmFolderViewColumnInfo* info;
+    _ColumnsCache* old_cols;
+    const GSList* l;
+    GList *cols_list, *ld;
+    guint i, n_cols;
 
     if(!FM_IS_STANDARD_VIEW(fv))
         return FALSE;
@@ -1357,65 +1378,55 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, GSList* cols)
     if(view->mode != FM_FV_LIST_VIEW) /* other modes aren't supported now */
         return FALSE;
 
-    memset(old_cols, 0, sizeof(old_cols));
-
-    if(view->columns)
+    cols_list = gtk_tree_view_get_columns(GTK_TREE_VIEW(view->view));
+    n_cols = g_list_length(cols_list);
+    if(n_cols > 0)
     {
-        /* remove all existing columns in GtkTreeView, and cache them.
-         * we cache existing GtkTreeViewColumn objects for later use
-         * so if new column_ids are the same as the old ones, just the
-         * order changes, we don't need to recreate any object. */
-        FmFolderViewColumnInfo* info = view->columns;
-        if(view->mode == FM_FV_LIST_VIEW && view->view)
+        /* create more convenient for us list of columns */
+        old_cols = g_new(_ColumnsCache, n_cols);
+        for(ld = cols_list, i = 0; ld; ld = ld->next, i++)
         {
-            /* after we removed the first column, the next one becomes 
-             * the first and always has index 0. */
-            while(col = gtk_tree_view_get_column(view->view, 0))
-            {
-                /* add a ref to the column object so we can keep it. */
-                old_cols[info->col_id] = GTK_TREE_VIEW_COLUMN(g_object_ref(col));
-                gtk_tree_view_remove_column(view->view, col);
-                ++info;
-            }
+            col = ld->data; /* column */
+            info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id); /* info */
+            old_cols[i].col = col;
+            old_cols[i].info = info;
         }
-        /* free old column infos */
-        g_free(view->columns);
+        g_list_free(cols_list);
     }
-    view->n_columns = g_slist_length(cols);
-    view->columns = g_new0(FmFolderViewColumnInfo, view->n_columns);
-    for(i = 0, l = cols; l; i++, l = l->next)
+    last = NULL;
+    for(l = cols; l; l = l->next)
     {
-        FmFolderViewColumnInfo* info = &view->columns[i];
-        FmFolderViewColumnInfo* info_in = l->data;
-        info->col_id = info_in->col_id;
-    }
-
-    /* add real columns to GtkTreeView if needed */
-    if(view->mode == FM_FV_LIST_VIEW && view->view)
-    {
-        /* the tree view is already created so we need to add the columns to it. */
-        for(i = 0; i < view->n_columns; ++i)
+        info = l->data;
+        /* find old one and move here */
+        for(i = 0; i < n_cols; i++)
+            if(old_cols[i].info && old_cols[i].info->col_id == info->col_id)
+                break;
+        if(i < n_cols)
         {
-            FmFolderViewColumnInfo* info = &view->columns[i];
-            FmFolderModelCol col_id = info->col_id;
-            /* if one is cached already, use it. otherwise, create a new one */
-            if(old_cols[col_id])
-                col = old_cols[col_id];
-            else
-                col = create_list_view_column(view, col_id);
-            gtk_tree_view_append_column(view->view, col);
-            /* only one column is activable */
-            if(i == 0)
-                exo_tree_view_set_activable_column((ExoTreeView*)view->view, col);
+            /* we found it so just move it here */
+            col = old_cols[i].col;
+            old_cols[i].col = NULL; /* we removed it from its place */
+            old_cols[i].info = NULL; /* don't try to use it again */
+            /* TODO: update all other data - width for example */
         }
+        else
+        {
+            /* if not found then append new one */
+            col = create_list_view_column(view, info);
+            if(col == NULL) /* failed! skipping it */
+                continue;
+        }
+        gtk_tree_view_move_column_after(GTK_TREE_VIEW(view->view), col, last);
+        last = col;
     }
 
-    /* destroy cached column objects */
-    for(i = 0; i < FM_FOLDER_MODEL_N_COLS; ++i)
-    {
-        if((col = old_cols[i]))
-            g_object_unref(col);
-    }
+    /* remove abandoned columns from view */
+    for(i = 0; i < n_cols; i++)
+        if(old_cols[i].col != NULL)
+            gtk_tree_view_remove_column(GTK_TREE_VIEW(view->view),
+                                        old_cols[i].col);
+    if(n_cols > 0)
+        g_free(old_cols);
     return TRUE;
 }
 
