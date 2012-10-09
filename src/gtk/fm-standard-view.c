@@ -291,6 +291,12 @@ static void fm_standard_view_dispose(GObject *object)
     if(G_LIKELY(self->view))
         unset_view(self);
 
+    if(self->renderer_pixbuf)
+    {
+        g_object_unref(self->renderer_pixbuf);
+        self->renderer_pixbuf = NULL;
+    }
+
     if(self->cached_selected_files)
     {
         fm_file_info_list_unref(self->cached_selected_files);
@@ -456,7 +462,9 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
 
     fv->view = exo_icon_view_new();
 
-    fv->renderer_pixbuf = fm_cell_renderer_pixbuf_new();
+    if(fv->renderer_pixbuf)
+        g_object_unref(fv->renderer_pixbuf);
+    fv->renderer_pixbuf = g_object_ref_sink(fm_cell_renderer_pixbuf_new());
     render = (GtkCellRenderer*)fv->renderer_pixbuf;
 
     g_object_set((GObject*)render, "follow-state", TRUE, NULL );
@@ -653,7 +661,9 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
 
     fv->view = exo_tree_view_new();
 
-    fv->renderer_pixbuf = fm_cell_renderer_pixbuf_new();
+    if(fv->renderer_pixbuf)
+        g_object_unref(fv->renderer_pixbuf);
+    fv->renderer_pixbuf = g_object_ref_sink(fm_cell_renderer_pixbuf_new());
     fv->icon_size_changed_handler = g_signal_connect(fm_config, "changed::small_icon_size", G_CALLBACK(on_small_icon_size_changed), fv);
     icon_size = fm_config->small_icon_size;
     fm_cell_renderer_pixbuf_set_fixed_size(fv->renderer_pixbuf, icon_size, icon_size);
