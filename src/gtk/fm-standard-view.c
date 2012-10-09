@@ -59,8 +59,6 @@ struct _FmStandardView
 
     FmStandardViewMode mode;
     GtkSelectionMode sel_mode;
-    GtkSortType sort_type;
-    FmFolderModelCol sort_by;
 
     gboolean show_hidden;
 
@@ -230,8 +228,6 @@ static void fm_standard_view_init(FmStandardView *self)
     self->dnd_dest = fm_dnd_dest_new_with_handlers(NULL);
 
     self->mode = -1;
-    self->sort_type = GTK_SORT_ASCENDING;
-    self->sort_by = FM_FOLDER_MODEL_COL_NAME;
 }
 
 /**
@@ -926,20 +922,6 @@ static GtkSelectionMode fm_standard_view_get_selection_mode(FmFolderView* ffv)
     return fv->sel_mode;
 }
 
-static void fm_standard_view_set_sort(FmFolderView* ffv, GtkSortType type, FmFolderModelCol by)
-{
-    FmStandardView* fv = FM_STANDARD_VIEW(ffv);
-    fv->sort_type = type;
-    fv->sort_by = by;
-}
-
-static void fm_standard_view_get_sort(FmFolderView* ffv, GtkSortType* type, FmFolderModelCol* by)
-{
-    FmStandardView* fv = FM_STANDARD_VIEW(ffv);
-    *type = fv->sort_type;
-    *by = fv->sort_by;
-}
-
 static void fm_standard_view_set_show_hidden(FmFolderView* ffv, gboolean show)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);
@@ -1315,8 +1297,6 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
 {
     iface->set_sel_mode = fm_standard_view_set_selection_mode;
     iface->get_sel_mode = fm_standard_view_get_selection_mode;
-    iface->set_sort = fm_standard_view_set_sort;
-    iface->get_sort = fm_standard_view_get_sort;
     iface->set_show_hidden = fm_standard_view_set_show_hidden;
     iface->get_show_hidden = fm_standard_view_get_show_hidden;
     iface->get_folder = fm_standard_view_get_folder;
