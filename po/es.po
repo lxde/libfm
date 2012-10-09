@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 0.1.15\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-08-23 12:39+0200\n"
+"PO-Revision-Date: 2012-10-09 01:28+0200\n"
 "Last-Translator: Hugo <sysadmin@cips.cu>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -27,9 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Tipo de archivo a abrir:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Aplicación instalada"
+msgstr "Aplicación _instalada"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,9 +39,8 @@ msgid "_Browse"
 msgstr "_Explorar"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Ejecutar en el emulador de terminal"
+msgstr "Ejecutar en el emulador de _terminal"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -60,15 +58,13 @@ msgstr ""
 "  <b>%U</b>: Representa múltiples URIs"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Línea de comandos personalizada"
+msgstr "Línea de _comandos personalizada"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
 msgstr ""
-"Establecer la aplicación seleccionada como predeterminada para abrir los "
+"Establecer _la aplicación seleccionada como predeterminada para abrir los "
 "archivos de este tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -103,14 +99,12 @@ msgid "with the following file?"
 msgstr "con el siguiente archivo?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Nombre del archivo:"
+msgstr "_Nombre del archivo:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Aplicar esta opción a todos los archivos existentes"
+msgstr "_Aplicar esta opción a todos los archivos existentes"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -158,29 +152,24 @@ msgid "_General"
 msgstr "_General"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Propietario:</b>"
+msgstr "<b>Pr_opietario:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grupo:</b>"
+msgstr "<b>G_rupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Ver contenido:</b>"
+msgstr "<b>_Ver contenido:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Cambiar contenido:</b>"
+msgstr "<b>Ca_mbiar contenido:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Ejecutar:</b>"
+msgstr "<b>E_jecutar:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -335,7 +324,7 @@ msgstr "Ejecutar en la _terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -351,58 +340,55 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Escoger una fecha"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Escoger una fecha del siguiente calendario"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Ordenar archivos"
+msgstr "Buscar archivos"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "<b>Patrones de _nombres de archivo:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Ignorar mayúsculas/minúsculas"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Utilizar expresiones regulares"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Lugares donde buscar</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Buscar en subdirectorios"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Buscar en archivos _ocultos"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nombre/_Ubicación"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Tipo de archivo:</b>"
+msgstr "<b>Tipo de archivo</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Solo buscar archivos de los siguientes tipos"
 
 #: ../data/ui/filesearch.glade.h:18
 #, fuzzy

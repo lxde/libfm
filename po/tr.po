@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-09-06 00:37+0200\n"
+"PO-Revision-Date: 2012-10-09 16:06+0200\n"
 "Last-Translator: Necdet <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -28,9 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Açılacak Dosya Türü:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Kurulu Uygulama"
+msgstr "_Kurulu Uygulama"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -41,9 +40,8 @@ msgid "_Browse"
 msgstr "_Tara"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Uçbirimde çalıştır"
+msgstr "_Uçbirimde çalıştır"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,14 +59,12 @@ msgstr ""
 "  <b>%U</b>: Birden fazla dosya URI'sini temsil eder"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Özel Komut Satırı"
+msgstr "_Özel Komut Satırı"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Seçili uygulamayı bu dosya türü için varsayılan olarak ayarla"
+msgstr "_Seçili uygulamayı bu dosya türü için varsayılan olarak ayarla"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -102,14 +98,12 @@ msgid "with the following file?"
 msgstr "şu dosyayla?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Dosya Adı:"
+msgstr "Dosya _Adı:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Bu seçeneği bütün dosyalar için uygula"
+msgstr "Bu seçeneği bütün dosyalar için _uygula"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -156,29 +150,24 @@ msgid "_General"
 msgstr "_Genel"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Sahibi:</b>"
+msgstr "<b>_Sahibi:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grubu:</b>"
+msgstr "<b>Gr_ubu:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>İçeriği göster:</b>"
+msgstr "<b>İçe_riği göster:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>İçeriği değiştir:</b>"
+msgstr "<b>İçeriği _değiştir:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Çalıştır:</b>"
+msgstr "<b>_Çalıştır:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -334,7 +323,7 @@ msgstr "Uçbirimde Çalıştır"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -350,82 +339,75 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Bir tarih seçin"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Aşağıdaki takvimden bir tarih seçin"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Dosyaları Sırala"
+msgstr "_Dosyaları Ara"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Dosya Türü:</b>"
+msgstr "<b>Dosya Adı _Kalıpları:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Büyük _küçük harfe duyarlı"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "Düzenli _ifade kullan"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Arama Alanları</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Alt dizinlerde ara"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "_Gizli dosyaları ara"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "İsim/_Konum"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
 msgstr "<b>Dosya Türü:</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Sadece aşağıdaki dosya türleri için ara"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Dosyalar siliniyor"
+msgstr "_Metin dosyaları"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Dosyalar çöpe taşınıyor"
+msgstr "_Resim dosyaları"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Dosyaları Sırala"
+msgstr "_Ses dosyaları"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Dosyaları Sırala"
+msgstr "_Video dosyaları"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Belgeler"
 
 #: ../data/ui/filesearch.glade.h:23
 #, fuzzy

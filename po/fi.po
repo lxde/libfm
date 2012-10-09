@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-07-09 19:26+0200\n"
-"Last-Translator: Janne <devel@kateva.fi>\n"
+"PO-Revision-Date: 2012-09-24 23:04+0200\n"
+"Last-Translator: Elias <wompatti@fffin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -221,24 +221,28 @@ msgid "None"
 msgstr "Ei mitään"
 
 #: ../data/ui/file-prop.glade.h:27
+#, fuzzy
 msgid "Sticky"
-msgstr ""
+msgstr "Tahmea"
 
 #: ../data/ui/file-prop.glade.h:28
+#, fuzzy
 msgid "Set GID"
-msgstr ""
+msgstr "Aseta GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:30
+#, fuzzy
 msgid "Set UID"
-msgstr ""
+msgstr "Aseta UID"
 
 #: ../data/ui/file-prop.glade.h:31
+#, fuzzy
 msgid "Set UID & GID"
-msgstr ""
+msgstr "Aseta UID & GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -332,8 +336,9 @@ msgid "Execute in _Terminal"
 msgstr "Suorita _päätteessä"
 
 #: ../data/ui/filesearch.glade.h:1
+#, fuzzy
 msgid "Bytes"
-msgstr ""
+msgstr "Bittiä"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -348,17 +353,19 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
+#, fuzzy
 msgid "Choose a date"
-msgstr ""
+msgstr "Valitse päiväys"
 
 #: ../data/ui/filesearch.glade.h:6
+#, fuzzy
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Valitse päiväys kalenterista"
 
 #: ../data/ui/filesearch.glade.h:7
 #, fuzzy
 msgid "Search Files"
-msgstr "Nimeä tiedosto uudelleen"
+msgstr "Etsi tiedostoja"
 
 #: ../data/ui/filesearch.glade.h:8
 #, fuzzy
@@ -370,28 +377,31 @@ msgid "*"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:10
+#, fuzzy
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Merkkikoolla ei väliä"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:12
+#, fuzzy
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Haettavat sijainnit</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Hae alihakemistoista"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Hae piilotettuja tiedostoja"
 
 #: ../data/ui/filesearch.glade.h:15
+#, fuzzy
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nimi/Sijainti"
 
 #: ../data/ui/filesearch.glade.h:16
 #, fuzzy
@@ -400,29 +410,32 @@ msgstr "<b>Tiedostotyyppi:</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Hae vain seuraavan tyyppisiä tiedostoja"
 
 #: ../data/ui/filesearch.glade.h:18
 #, fuzzy
 msgid "Te_xt files"
-msgstr "Poistetaan tiedostoja"
+msgstr "Teksti"
 
 #: ../data/ui/filesearch.glade.h:19
 #, fuzzy
 msgid "_Image files"
-msgstr "Siirretään tiedostoja roskakoriin"
+msgstr "Kuva"
 
 #: ../data/ui/filesearch.glade.h:20
+#, fuzzy
 msgid "_Audio files"
-msgstr ""
+msgstr "Ääni"
 
 #: ../data/ui/filesearch.glade.h:21
+#, fuzzy
 msgid "_Video files"
-msgstr ""
+msgstr "Video"
 
 #: ../data/ui/filesearch.glade.h:22
+#, fuzzy
 msgid "_Documents"
-msgstr ""
+msgstr "Asiakirja"
 
 #: ../data/ui/filesearch.glade.h:23
 #, fuzzy
@@ -432,24 +445,24 @@ msgstr "<b>Tiedostotyyppi:</b>"
 #: ../data/ui/filesearch.glade.h:24
 #, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Koko levyllä:</b>"
+msgstr "<b>Tiedosto sisältää:</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "Sisältö"
 
 #: ../data/ui/filesearch.glade.h:26
 #, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Tiedostotyyppi:</b>"
+msgstr "<b>Tiedoston koko:</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "Pienempi kuin:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Suurempi kuin:"
 
 #: ../data/ui/filesearch.glade.h:29
 #, fuzzy
@@ -464,11 +477,11 @@ msgstr "Ei mitään"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Aiemmin kuin:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "Myöhemmin kuin:"
 
 #: ../data/ui/filesearch.glade.h:33
 #, fuzzy
@@ -710,8 +723,9 @@ msgid "Directory Tree"
 msgstr "Hakemistopuu"
 
 #: ../src/gtk/fm-file-menu.c:156
+#, fuzzy
 msgid "_Open"
-msgstr ""
+msgstr "_Avaa"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
 #, fuzzy
@@ -790,12 +804,13 @@ msgid "Modified"
 msgstr "Muokattu"
 
 #: ../src/gtk/fm-folder-view.c:167
+#, fuzzy
 msgid "Create _New..."
-msgstr ""
+msgstr "Luo uusi..."
 
 #: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
-msgstr ""
+msgstr "Hakemisto"
 
 #: ../src/gtk/fm-folder-view.c:171
 #, fuzzy
@@ -808,20 +823,24 @@ msgid "Shortcut"
 msgstr "Pikanäppäimet"
 
 #: ../src/gtk/fm-folder-view.c:183
+#, fuzzy
 msgid "_Invert Selection"
-msgstr ""
+msgstr "Käännä valinta"
 
 #: ../src/gtk/fm-folder-view.c:184
+#, fuzzy
 msgid "_Sort Files"
-msgstr ""
+msgstr "Järjestä tiedostot"
 
 #: ../src/gtk/fm-folder-view.c:196
+#, fuzzy
 msgid "Show _Hidden"
-msgstr ""
+msgstr "Näytä piilotetut"
 
 #: ../src/gtk/fm-folder-view.c:197
+#, fuzzy
 msgid "_Only for this folder"
-msgstr ""
+msgstr "Vain tälle hakemistolle"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -833,8 +852,9 @@ msgid "Mingle _files and folders"
 msgstr "Valitse kansio"
 
 #: ../src/gtk/fm-folder-view.c:200
+#, fuzzy
 msgid "_Ignore name case"
-msgstr ""
+msgstr "Älä huomioi kirjainkokoa"
 
 #: ../src/gtk/fm-folder-view.c:211
 #, fuzzy
@@ -842,8 +862,9 @@ msgid "By _Name"
 msgstr "Nimi"
 
 #: ../src/gtk/fm-folder-view.c:212
+#, fuzzy
 msgid "By _Modification Time"
-msgstr ""
+msgstr "Muokkausajankohta"
 
 #: ../src/gtk/fm-folder-view.c:213
 #, fuzzy
@@ -856,29 +877,33 @@ msgid "By File _Type"
 msgstr "<b>Tiedostotyyppi:</b>"
 
 #: ../src/gtk/fm-folder-view.c:745
+#, fuzzy
 msgid "Enter a name for the newly created folder:"
-msgstr ""
+msgstr "Anna nimi luodulle hakemistolle:"
 
 #: ../src/gtk/fm-folder-view.c:747
+#, fuzzy
 msgid "Enter a name for the newly created file:"
-msgstr ""
+msgstr "Anna nimi luodulle tiedostolle:"
 
 #: ../src/gtk/fm-folder-view.c:748
+#, fuzzy
 msgid "Create New..."
-msgstr ""
+msgstr "Luo uusi..."
 
 #: ../src/gtk/fm-folder-view.c:748
 #, fuzzy
 msgid "New"
-msgstr "Verkko"
+msgstr "Uusi"
 
 #: ../src/gtk/fm-folder-view.c:840
 msgid "Error, lxshortcut not installed"
-msgstr ""
+msgstr "Virhe, lxshortcut ei ole asennettu"
 
 #: ../src/gtk/fm-folder-view.c:845
+#, fuzzy
 msgid "Failed to start lxshortcut"
-msgstr ""
+msgstr "Lxshortcutin käynnistys epäonnistui"
 
 #: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
