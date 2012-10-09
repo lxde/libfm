@@ -235,6 +235,38 @@ static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gp
     return TRUE;
 }
 
+static gboolean open_search_func(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
+{
+    FmMainWin* win;
+    GList* l = folder_infos;
+    FmFileInfo* fi = (FmFileInfo*)l->data;
+    GSList* cols = NULL;
+    const FmFolderViewColumnInfo col_infos[] = {
+        {FM_FOLDER_MODEL_COL_NAME},
+        {FM_FOLDER_MODEL_COL_DESC},
+        {FM_FOLDER_MODEL_COL_DIRNAME},
+        {FM_FOLDER_MODEL_COL_SIZE},
+        {FM_FOLDER_MODEL_COL_MTIME} };
+    guint i;
+
+    win = fm_main_win_new();
+    gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
+    fm_main_win_chdir(win, fm_file_info_get_path(fi));
+    fm_standard_view_set_mode(FM_STANDARD_VIEW(win->folder_view), FM_FV_LIST_VIEW);
+    for(i = 0; i < G_N_ELEMENTS(col_infos); i++)
+        cols = g_slist_append(cols, (gpointer)&col_infos[i]);
+    fm_folder_view_set_columns(win->folder_view, cols);
+    g_slist_free(cols);
+    gtk_window_present(GTK_WINDOW(win));
+    l=l->next;
+    for(; l; l=l->next)
+    {
+        /*FmFileInfo* fi = (FmFileInfo*)l->data;
+        FIXME: open in new window */
+    }
+    return TRUE;
+}
+
 static void update_files_popup(FmFolderView* fv, GtkWindow* win,
                                GtkUIManager* ui, GtkActionGroup* act_grp,
                                FmFileInfoList* files)
@@ -649,7 +681,7 @@ static void on_search(GtkAction* act, FmMainWin* win)
 {
     FmPath* cwd = fm_folder_get_path(win->folder);
     GList* l = g_list_append(NULL, cwd);
-    fm_launch_search_simple(GTK_WINDOW(win), NULL, l, open_folder_func, win);
+    fm_launch_search_simple(GTK_WINDOW(win), NULL, l, open_search_func, win);
     g_list_free(l);
 }
 

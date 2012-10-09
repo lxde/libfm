@@ -188,7 +188,7 @@ static FmFolderModelInfo column_infos_raw[] = {
     { FM_FOLDER_MODEL_COL_PERM, 0, "perm", N_("Permissions"), FALSE },
     { FM_FOLDER_MODEL_COL_OWNER, 0, "owner", N_("Owner"), FALSE },
     { FM_FOLDER_MODEL_COL_MTIME, 0, "mtime", N_("Modified"), TRUE },
-    { FM_FOLDER_MODEL_COL_DIRNAME, 0, "dirname", N_("Location"), FALSE },
+    { FM_FOLDER_MODEL_COL_DIRNAME, 0, "dirname", N_("Location"), TRUE },
     /* columns used internally */
     { FM_FOLDER_MODEL_COL_INFO, 0, "info", NULL, TRUE },
     { FM_FOLDER_MODEL_COL_ICON, 0, "icon", NULL, FALSE },
