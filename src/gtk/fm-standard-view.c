@@ -130,8 +130,6 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
 
 static void cancel_pending_row_activated(FmStandardView* fv);
 
-gboolean _fm_standard_view_set_columns(FmFolderView* view, GSList* cols);
-
 //static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
@@ -1256,7 +1254,7 @@ static void _check_tree_columns_defaults(FmStandardView* fv)
      * This breaks API/ABI though. Let's do it later. */
     for(i = 0; i < G_N_ELEMENTS(cols); i++)
         cols_list = g_slist_append(cols_list, &cols[i]);
-    _fm_standard_view_set_columns(FM_FOLDER_VIEW(fv), cols_list);
+    fm_folder_view_set_columns(FM_FOLDER_VIEW(fv), cols_list);
     g_slist_free(cols_list);
 }
 
@@ -1346,13 +1344,20 @@ FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
 
 gboolean _fm_standard_view_set_columns(FmFolderView* fv, GSList* cols)
 {
-    FmStandardView* view = FM_STANDARD_VIEW(fv);
+    FmStandardView* view;
     GtkTreeViewColumn* col;
     GtkTreeViewColumn* old_cols[FM_FOLDER_MODEL_N_COLS];
     GSList* l;
+    int i;
+
+    if(!FM_IS_STANDARD_VIEW(fv))
+        return FALSE;
+    view = (FmStandardView*)fv;
+
+    if(view->mode != FM_FV_LIST_VIEW) /* other modes aren't supported now */
+        return FALSE;
 
     memset(old_cols, 0, sizeof(old_cols));
-    int i;
 
     if(view->columns)
     {
@@ -1411,21 +1416,10 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, GSList* cols)
         if((col = old_cols[i]))
             g_object_unref(col);
     }
+    return TRUE;
 }
 
 GSList* _fm_standard_view_get_columns(FmFolderView* view)
 {
     return NULL; /* FIXME */
 }
-/*
-int fm_standard_view_get_n_columns(FmStandardView* view)
-{
-    return view->n_columns;
-}
-
-guint* fm_standard_view_get_column_widths(FmStandardView* view)
-{
-    return view->column_widths;
-}
-
-*/

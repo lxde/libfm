@@ -153,10 +153,6 @@ GType           fm_folder_view_get_type(void);
 void            fm_folder_view_set_selection_mode(FmFolderView* fv, GtkSelectionMode mode);
 GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv);
 
-void            fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelCol by);
-GtkSortType     fm_folder_view_get_sort_type(FmFolderView* fv);
-FmFolderModelCol fm_folder_view_get_sort_by(FmFolderView* fv);
-
 void            fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show);
 gboolean        fm_folder_view_get_show_hidden(FmFolderView* fv);
 
@@ -193,6 +189,11 @@ void            fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv);
 //void            fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
 
 #ifndef FM_DISABLE_DEPRECATED
+/* deprecated since 1.0.2; left until soname 5 for compatibility */
+void            fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelCol by);
+GtkSortType     fm_folder_view_get_sort_type(FmFolderView* fv);
+FmFolderModelCol fm_folder_view_get_sort_by(FmFolderView* fv);
+
 /* functions defined in fm-standard-view.c
  * are obsoleted since 1.0.1 but left until soname 5 for compatibility */
 FmFolderView* fm_folder_view_new(guint mode);
@@ -222,10 +223,10 @@ struct _FmFolderViewColumnInfo
     gint reserved3;
     gint reserved4;
 };
-/*
+
 gboolean        fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols);
 GSList*         fm_folder_view_get_columns(FmFolderView* fv);
-*/
+
 G_END_DECLS
 
 #endif /* __FOLDER_VIEW_H__ */

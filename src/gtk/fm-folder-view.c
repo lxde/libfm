@@ -1126,13 +1126,25 @@ static void on_show_hidden(GtkToggleAction* act, FmFolderView* fv)
 static void on_change_type(GtkRadioAction* act, GtkRadioAction* cur, FmFolderView* fv)
 {
     guint val = gtk_radio_action_get_current_value(cur);
-    fm_folder_view_sort(fv, val, -1);
+    FmFolderModel *model = fm_folder_view_get_model(fv);
+
+    if(model)
+        fm_folder_model_set_sort(model, val, FM_SORT_DEFAULT);
 }
 
 static void on_change_by(GtkRadioAction* act, GtkRadioAction* cur, FmFolderView* fv)
 {
     guint val = gtk_radio_action_get_current_value(cur);
-    fm_folder_view_sort(fv, -1, val);
+    FmFolderModel *model = fm_folder_view_get_model(fv);
+    FmSortMode mode;
+
+    if(model)
+    {
+        fm_folder_model_get_sort(model, NULL, &mode);
+        mode &= ~FM_SORT_ORDER_MASK;
+        mode |= (val == GTK_SORT_ASCENDING) ? FM_SORT_ASCENDING : FM_SORT_DESCENDING;
+        fm_folder_model_set_sort(model, FM_FOLDER_MODEL_COL_DEFAULT, mode);
+    }
 }
 
 static void on_ui_destroy(gpointer ui_ptr)
@@ -1473,7 +1485,6 @@ void fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
 #endif
 
 /* FIXME: make VTable entries after ABI change! */
-/*
 gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols);
 GSList* _fm_standard_view_get_columns(FmFolderView* fv);
 
@@ -1488,4 +1499,3 @@ GSList* fm_folder_view_get_columns(FmFolderView* fv)
     // FIXME: call via VTable!
     return _fm_standard_view_get_columns(fv);
 }
-*/
