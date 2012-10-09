@@ -843,8 +843,6 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             fv->unselect_all = unselect_all_list_view;
             fv->select_invert = select_invert_list_view;
             fv->select_path = select_path_list_view;
-        default:
-            break;
         }
         g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(sels);
@@ -1054,8 +1052,11 @@ static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmStandardV
         /* special handling for ExoIconView */
         if(evt->button != 1)
         {
-            if(fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW || fv->mode==FM_FV_THUMBNAIL_VIEW)
+            switch(fv->mode)
             {
+            case FM_FV_ICON_VIEW:
+            case FM_FV_COMPACT_VIEW:
+            case FM_FV_THUMBNAIL_VIEW:
                 /* select the item on right click for ExoIconView */
                 if(exo_icon_view_get_item_at_pos(EXO_ICON_VIEW(view), evt->x, evt->y, &tp, NULL))
                 {
@@ -1073,10 +1074,10 @@ static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmStandardV
                         exo_icon_view_set_cursor(EXO_ICON_VIEW(view), tp, NULL, FALSE);
                     }
                 }
-            }
-            else if( fv->mode == FM_FV_LIST_VIEW
-                     && evt->window == gtk_tree_view_get_bin_window(GTK_TREE_VIEW(view)))
-            {
+                break;
+            case FM_FV_LIST_VIEW:
+              if(evt->window == gtk_tree_view_get_bin_window(GTK_TREE_VIEW(view)))
+              {
                 /* special handling for ExoTreeView */
                 /* Fix #2986834: MAJOR PROBLEM: Deletes Wrong File Frequently. */
                 GtkTreeViewColumn* col;
@@ -1093,6 +1094,7 @@ static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmStandardV
                         }
                     }
                 }
+              }
             }
         }
 
