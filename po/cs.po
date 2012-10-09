@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-08-23 14:06+0200\n"
+"PO-Revision-Date: 2012-10-09 17:46+0200\n"
 "Last-Translator: ALIUM <info@aloisnespor.info>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -27,9 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Typ souboru k otevření:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Instalovaná aplikace"
+msgstr "_Nainstalovaná aplikace"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,9 +39,8 @@ msgid "_Browse"
 msgstr "_Procházet"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Spustit v emulátoru terminálu"
+msgstr "_Spustit v emulátoru terminálu"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -60,14 +58,12 @@ msgstr ""
 "  <b>%U</b>: Představuje více URI adres"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Vlastní příkaz"
+msgstr "_Vlastní příkaz"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Nastavit vybranou aplikaci jako výchozí pro tento typ souboru"
+msgstr "_Nastavit vybranou aplikaci jako výchozí pro tento typ souboru"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -101,14 +97,12 @@ msgid "with the following file?"
 msgstr "IDnásledujícím souborem?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Název souboru:"
+msgstr "_Název souboru:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Použít tuto možnost na všechny soubory"
+msgstr "_Použít tuto možnost na všechny soubory"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -155,29 +149,24 @@ msgid "_General"
 msgstr "_Obecné"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Vlastník:</b>"
+msgstr "<b>V_lastník:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Skupina:</b>"
+msgstr "<b>S_kupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Zobrazit obsah:</b>"
+msgstr "<b>_Zobrazit obsah:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Změnit obsah:</b>"
+msgstr "<b>Z_měnit obsah:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Spustit:</b>"
+msgstr "<b>_Spustit:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -333,11 +322,11 @@ msgstr "Spustit v _terminálu"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytů"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
-msgstr "kB"
+msgstr "KB"
 
 #: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
 msgid "MB"
@@ -349,133 +338,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Vybrat datum"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Vybrat datum z kalendáře"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Seřadit soubory"
+msgstr "Hledat soubory"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Typ souboru:</b>"
+msgstr "<b>Typ _souboru:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Nezáleží na velikosti písmen"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Použít regulární výrazy"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Místa k hledání</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Hledat v podadresářích"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Hledat _skryté soubory"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Jméno/_Lokace"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Typ souboru:</b>"
+msgstr "<b>Typ souboru</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Hledat pouze tyto typy souborů"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Mazání souborů"
+msgstr "Te_xt souborů"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Přesouvám soubory do koše"
+msgstr "_Obrázky"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Seřadit soubory"
+msgstr "_Zvukové soubory"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Seřadit soubory"
+msgstr "_Video"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Dokumenty"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Podle _typu souboru"
+msgstr "_Typ souboru"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Velikost na disku:</b>"
+msgstr "<b>Soubor obsahu_je</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "O_bsah"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Typ souboru:</b>"
+msgstr "<b>Velikost souboru</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Menší než"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Větší než"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Poslední změna:</b>"
+msgstr "<b>Čas poslední zmeny</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "Žádné"
+msgstr "(Nic)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Dříve než:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "P_ozději než:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Vlastnosti souboru"
+msgstr "_Vlastnosti"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -625,9 +601,8 @@ msgid ""
 msgstr "Chcete rekurzivně použít tyto změny pro všechny soubory a pod-složky?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Přístup k obsahu:</b>"
+msgstr "<b>_Přístup k obsahu:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -646,34 +621,28 @@ msgid "Applications"
 msgstr "Aplikace"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Připojit svazek"
+msgstr "_Připojit svazek"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Odpojit svazek"
+msgstr "_Odpojit svazek"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Vysunout vyměnitelné medium"
+msgstr "_Vysunout vyměnitelné medium"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Přejmenovat záložku"
+msgstr "_Přejmenovat záložku"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Odebrat ze záložek"
+msgstr "O_debrat ze záložek"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Vyprázdnit koš"
+msgstr "_Vyprázdnit koš"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -686,22 +655,19 @@ msgstr "Vložte nový název:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Vypnuto"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Místa"
+msgstr "_Místa"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Strom adresářů"
+msgstr "_Strom adresářů"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Vzdálený"
+msgstr "_Vzdálený"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -713,43 +679,36 @@ msgstr "Strom adresářů"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Otevřít"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Otevřít pomocí..."
+msgstr "Otevřít _s..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Vytvořit odkaz"
+msgstr "Vytvořit _odkaz"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Poslat do"
+msgstr "Po_slat do"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Komprimovat..."
+msgstr "Ko_mprimovat..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Rozbalit zde"
+msgstr "Rozbalit _zde"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Rozbalit do..."
+msgstr "Roz_balit do..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Vlastnosti souboru"
+msgstr "Vlast_nosti"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
@@ -820,9 +779,8 @@ msgid "Show _Hidden"
 msgstr "Zobrazit _skryté soubory"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Pouze pro tuto složku"
+msgstr "_Pouze pro tuto složku"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -831,14 +789,12 @@ msgstr ""
 "nastavení"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Míchat soubory a složky"
+msgstr "Míchat _soubory a složky"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Ignorovat velikost znaků v názvu souboru"
+msgstr "_Ignorovat velikost znaků"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -941,12 +897,11 @@ msgstr "Soubor '%s' je spustitelný. Chcete jej spustit?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "Nejsou specifikovány žádné adresáře."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
-msgstr "Prosím vyberte složku"
+msgstr "Vyberte složku"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -1141,22 +1096,22 @@ msgstr "Optický disk"
 
 #: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
 msgid "Menu cache error"
-msgstr ""
+msgstr "Chyba cache menu"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "Operace není podporována"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Chybné jméno %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "Hledat"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Vlastník:</b>"
