@@ -95,15 +95,6 @@ struct _FmStandardView
 
 #define SINGLE_CLICK_TIMEOUT    600
 
-#if 0
-static const char* view_mode_names[FM_FV_N_VIEW_MODE] = {
-    "icon", /* FM_FV_ICON_VIEW */
-    "compact", /* FM_FV_COMPACT_VIEW */
-    "thumbnail", /* FM_FV_THUMBNAIL_VIEW */
-    "list" /* FM_FV_LIST_VIEW */
-};
-#endif
-
 static void fm_standard_view_dispose(GObject *object);
 
 static void fm_standard_view_view_init(FmFolderViewInterface* iface);
@@ -1335,25 +1326,40 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
     iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
 }
 
-/*
+typedef struct
+{
+    const char* name;
+    FmStandardViewMode mode;
+} _ModeNames;
+
+static const _ModeNames view_mode_names[] =
+{
+    { "icon", FM_FV_ICON_VIEW },
+    { "compact", FM_FV_COMPACT_VIEW },
+    { "thumbnail", FM_FV_THUMBNAIL_VIEW },
+    { "list", FM_FV_LIST_VIEW }
+};
+
 const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
 {
-    if(G_UNLIKELY(mode < 0 || mode >= FM_FV_N_VIEW_MODE))
-        return NULL;
-    return view_mode_names[mode];
+    guint i;
+
+    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
+        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+            if(view_mode_names[i].mode == mode)
+                return view_mode_names[i].name;
+    return NULL;
 }
 
 FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
 {
-    FmStandardViewMode mode;
-    for(mode = 0; mode < FM_FV_N_VIEW_MODE; ++mode)
-    {
-        if(strcmp(str, view_mode_names[mode]) == 0)
-            return mode;
-    }
+    guint i;
+
+    for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+        if(strcmp(str, view_mode_names[i].name) == 0)
+            return view_mode_names[i].mode;
     return (FmStandardViewMode)-1;
 }
-*/
 
 typedef struct
 {
