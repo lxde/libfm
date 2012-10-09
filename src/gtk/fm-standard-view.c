@@ -665,6 +665,7 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
                                         FM_FOLDER_MODEL_COL_NAME);
     }
 
+    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(fv->view), TRUE);
     exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
@@ -1438,7 +1439,29 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
     return TRUE;
 }
 
-GSList* _fm_standard_view_get_columns(FmFolderView* view)
+GSList* _fm_standard_view_get_columns(FmFolderView* fv)
 {
-    return NULL; /* FIXME */
+    FmStandardView* view;
+    GSList* list;
+    GList *cols_list, *ld;
+
+    if(!FM_IS_STANDARD_VIEW(fv))
+        return NULL;
+    view = (FmStandardView*)fv;
+
+    if(view->mode != FM_FV_LIST_VIEW) /* other modes aren't supported now */
+        return NULL;
+
+    cols_list = gtk_tree_view_get_columns(GTK_TREE_VIEW(view->view));
+    if(cols_list == NULL)
+        return NULL;
+    list = NULL;
+    for(ld = cols_list; ld; ld = ld->next)
+    {
+        GtkTreeViewColumn *col = ld->data;
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        list = g_slist_append(list, info); /* info */
+    }
+    g_list_free(cols_list);
+    return list;
 }
