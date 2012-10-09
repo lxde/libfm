@@ -132,6 +132,8 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
 
 static void cancel_pending_row_activated(FmStandardView* fv);
 
+static void fm_standard_view_set_columns(FmStandardView* view, GSList* cols);
+
 //static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
@@ -263,15 +265,20 @@ FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
                                         FmLaunchFolderFunc open_folders)
 {
     FmStandardView* fv = (FmStandardView*)g_object_new(FM_STANDARD_VIEW_TYPE, NULL);
-    FmFolderModelCol cols[] = {
-        FM_FOLDER_MODEL_COL_NAME,
-        FM_FOLDER_MODEL_COL_DESC,
-        FM_FOLDER_MODEL_COL_SIZE,
-        FM_FOLDER_MODEL_COL_MTIME};
+    FmFolderViewColumnInfo cols[] = {
+        {FM_FOLDER_MODEL_COL_NAME},
+        {FM_FOLDER_MODEL_COL_DESC},
+        {FM_FOLDER_MODEL_COL_SIZE},
+        {FM_FOLDER_MODEL_COL_MTIME} };
+    GSList* cols_list = NULL;
+    guint i;
     /* Set default columns to show in detailed list mode.
      * FIXME: cols should be passed to fm_standard_view_new() as a parameter instead.
      * This breaks API/ABI though. Let's do it later. */
-    fm_standard_view_set_columns(fv, cols, G_N_ELEMENTS(cols));
+    for(i = 0; i < G_N_ELEMENTS(cols); i++)
+        cols_list = g_slist_append(cols_list, &cols[i]);
+    fm_standard_view_set_columns(fv, cols_list);
+    g_slist_free(cols_list);
     fm_standard_view_set_mode(fv, mode);
     fv->update_popup = update_popup;
     fv->open_folders = open_folders;
@@ -1343,10 +1350,12 @@ FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
     return (FmStandardViewMode)-1;
 }
 
-void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_ids, int n)
+static void fm_standard_view_set_columns(FmStandardView* view, GSList* cols)
 {
     GtkTreeViewColumn* col;
     GtkTreeViewColumn* old_cols[FM_FOLDER_MODEL_N_COLS];
+    GSList* l;
+
     memset(old_cols, 0, sizeof(old_cols));
     int i;
 
@@ -1372,19 +1381,20 @@ void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_id
         /* free old column infos */
         g_free(view->columns);
     }
-    view->n_columns = n;
-    view->columns = g_new0(FmFolderViewColumnInfo, n);
-    for(i = 0; i < n; ++i)
+    view->n_columns = g_slist_length(cols);
+    view->columns = g_new0(FmFolderViewColumnInfo, view->n_columns);
+    for(i = 0, l = cols; l; i++, l = l->next)
     {
         FmFolderViewColumnInfo* info = &view->columns[i];
-        info->col_id = col_ids[i];
+        FmFolderViewColumnInfo* info_in = l->data;
+        info->col_id = info_in->col_id;
     }
 
     /* add real columns to GtkTreeView if needed */
     if(view->mode == FM_FV_LIST_VIEW && view->view)
     {
         /* the tree view is already created so we need to add the columns to it. */
-        for(i = 0; i < n; ++i)
+        for(i = 0; i < view->n_columns; ++i)
         {
             FmFolderViewColumnInfo* info = &view->columns[i];
             FmFolderModelCol col_id = info->col_id;

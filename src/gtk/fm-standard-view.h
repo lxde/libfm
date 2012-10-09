@@ -82,8 +82,8 @@ FmStandardViewMode fm_standard_view_get_mode(FmStandardView* fv);
 const char* fm_standard_view_mode_to_str(FmStandardViewMode mode);
 FmStandardViewMode fm_standard_view_mode_from_str(const char* str);
 
-void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_ids, int n);
 /*
+void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_ids, int n);
 int fm_standard_view_get_n_columns(FmStandardView* view);
 FmFolderModelCol* fm_standard_view_get_columns(FmStandardView* view);
 guint* fm_standard_view_get_column_widths(FmStandardView* view);
