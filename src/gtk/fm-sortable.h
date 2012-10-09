@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 /**
  * FmSortMode:
  * @FM_SORT_ASCENDING: sort ascending, mutually exclusive with FM_SORT_DESCENDING
- * @FM_SORT_DESCENDING: sort descending, mutually exclusive with OLDER_MODEL_SORT_ASCENDING
+ * @FM_SORT_DESCENDING: sort descending, mutually exclusive with FM_SORT_ASCENDING
  * @FM_SORT_CASE_SENSITIVE: case sensitive file names sort
  * @FM_SORT_ORDER_MASK: (FM_SORT_ASCENDING|FM_SORT_DESCENDING)
  *
@@ -41,7 +41,7 @@ typedef enum{
     FM_SORT_DESCENDING = 1 << 0,
     FM_SORT_CASE_SENSITIVE = 1 << 1,
 //    FM_SORT_FOLDER_FIRST = 1 << 2,
-    FM_SORT_ORDER_MASK = (FM_SORT_ASCENDING|FM_SORT_DESCENDING),
+    FM_SORT_ORDER_MASK = (FM_SORT_ASCENDING|FM_SORT_DESCENDING)
 } FmSortMode;
 
 /**

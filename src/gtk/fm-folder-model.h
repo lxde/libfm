@@ -147,13 +147,10 @@ void fm_folder_model_set_icon_size(FmFolderModel* model, guint icon_size);
 guint fm_folder_model_get_icon_size(FmFolderModel* model);
 
 void fm_folder_model_add_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data);
-
 void fm_folder_model_remove_filter(FmFolderModel* model, FmFolderModelFilterFunc func, gpointer user_data);
-
 void fm_folder_model_apply_filters(FmFolderModel* model);
 
 void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSortMode mode);
-
 gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, FmSortMode *mode);
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
@@ -161,11 +158,8 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, F
 /* APIs for FmFolderModelCol */
 
 const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id);
-
 gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol col_id);
-
 const char* fm_folder_model_col_get_name(FmFolderModelCol col_id);
-
 FmFolderModelCol fm_folder_model_col_by_name(const char* str);
 
 G_END_DECLS

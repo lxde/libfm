@@ -1320,60 +1320,6 @@ static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
         fv->model = NULL;
 }
 
-static void fm_standard_view_view_init(FmFolderViewInterface* iface)
-{
-    iface->set_sel_mode = fm_standard_view_set_selection_mode;
-    iface->get_sel_mode = fm_standard_view_get_selection_mode;
-    iface->set_show_hidden = fm_standard_view_set_show_hidden;
-    iface->get_show_hidden = fm_standard_view_get_show_hidden;
-    iface->get_folder = fm_standard_view_get_folder;
-    iface->set_model = fm_standard_view_set_model;
-    iface->get_model = fm_standard_view_get_model;
-    iface->count_selected_files = fm_standard_view_count_selected_files;
-    iface->dup_selected_files = fm_standard_view_dup_selected_files;
-    iface->dup_selected_file_paths = fm_standard_view_dup_selected_file_paths;
-    iface->select_all = fm_standard_view_select_all;
-    iface->unselect_all = fm_standard_view_unselect_all;
-    iface->select_invert = fm_standard_view_select_invert;
-    iface->select_file_path = fm_standard_view_select_file_path;
-    iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
-}
-
-typedef struct
-{
-    const char* name;
-    FmStandardViewMode mode;
-} _ModeNames;
-
-static const _ModeNames view_mode_names[] =
-{
-    { "icon", FM_FV_ICON_VIEW },
-    { "compact", FM_FV_COMPACT_VIEW },
-    { "thumbnail", FM_FV_THUMBNAIL_VIEW },
-    { "list", FM_FV_LIST_VIEW }
-};
-
-const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
-{
-    guint i;
-
-    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
-        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
-            if(view_mode_names[i].mode == mode)
-                return view_mode_names[i].name;
-    return NULL;
-}
-
-FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
-{
-    guint i;
-
-    for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
-        if(strcmp(str, view_mode_names[i].name) == 0)
-            return view_mode_names[i].mode;
-    return (FmStandardViewMode)-1;
-}
-
 typedef struct
 {
     GtkTreeViewColumn* col;
@@ -1474,4 +1420,58 @@ GSList* _fm_standard_view_get_columns(FmFolderView* fv)
     }
     g_list_free(cols_list);
     return list;
+}
+
+static void fm_standard_view_view_init(FmFolderViewInterface* iface)
+{
+    iface->set_sel_mode = fm_standard_view_set_selection_mode;
+    iface->get_sel_mode = fm_standard_view_get_selection_mode;
+    iface->set_show_hidden = fm_standard_view_set_show_hidden;
+    iface->get_show_hidden = fm_standard_view_get_show_hidden;
+    iface->get_folder = fm_standard_view_get_folder;
+    iface->set_model = fm_standard_view_set_model;
+    iface->get_model = fm_standard_view_get_model;
+    iface->count_selected_files = fm_standard_view_count_selected_files;
+    iface->dup_selected_files = fm_standard_view_dup_selected_files;
+    iface->dup_selected_file_paths = fm_standard_view_dup_selected_file_paths;
+    iface->select_all = fm_standard_view_select_all;
+    iface->unselect_all = fm_standard_view_unselect_all;
+    iface->select_invert = fm_standard_view_select_invert;
+    iface->select_file_path = fm_standard_view_select_file_path;
+    iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
+}
+
+typedef struct
+{
+    const char* name;
+    FmStandardViewMode mode;
+} _ModeNames;
+
+static const _ModeNames view_mode_names[] =
+{
+    { "icon", FM_FV_ICON_VIEW },
+    { "compact", FM_FV_COMPACT_VIEW },
+    { "thumbnail", FM_FV_THUMBNAIL_VIEW },
+    { "list", FM_FV_LIST_VIEW }
+};
+
+const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
+{
+    guint i;
+
+    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
+        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+            if(view_mode_names[i].mode == mode)
+                return view_mode_names[i].name;
+    return NULL;
+}
+
+FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
+{
+    guint i;
+
+    for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+        if(strcmp(str, view_mode_names[i].name) == 0)
+            return view_mode_names[i].mode;
+    return (FmStandardViewMode)-1;
 }
