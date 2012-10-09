@@ -53,14 +53,6 @@
 #include "fm-dnd-dest.h"
 #include "fm-dnd-auto-scroll.h"
 
-typedef struct _FmStandardViewColumnInfo
-{
-    FmFolderModelCol col_id;
-    int width;
-    int max_width;
-    int min_width;
-}FmStandardViewColumnInfo;
-
 struct _FmStandardView
 {
     GtkScrolledWindow parent;
@@ -104,7 +96,7 @@ struct _FmStandardView
     void (*select_path)(FmFolderModel* model, GtkWidget* view, GtkTreeIter* it);
 
     /* for columns */
-    FmStandardViewColumnInfo* columns;
+    FmFolderViewColumnInfo* columns;
     guint n_columns;
 };
 
@@ -642,7 +634,7 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     {
         for(i = 0; i < fv->n_columns; ++i)
         {
-            FmStandardViewColumnInfo* info = &fv->columns[i];
+            FmFolderViewColumnInfo* info = &fv->columns[i];
             /* if one is cached already, use it. otherwise, create a new one */
             col = create_list_view_column(fv, info->col_id);
             gtk_tree_view_append_column(fv->view, col);
@@ -1364,7 +1356,7 @@ void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_id
          * we cache existing GtkTreeViewColumn objects for later use
          * so if new column_ids are the same as the old ones, just the
          * order changes, we don't need to recreate any object. */
-        FmStandardViewColumnInfo* info = view->columns;
+        FmFolderViewColumnInfo* info = view->columns;
         if(view->mode == FM_FV_LIST_VIEW && view->view)
         {
             /* after we removed the first column, the next one becomes 
@@ -1381,10 +1373,10 @@ void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_id
         g_free(view->columns);
     }
     view->n_columns = n;
-    view->columns = g_new0(FmStandardViewColumnInfo, n);
+    view->columns = g_new0(FmFolderViewColumnInfo, n);
     for(i = 0; i < n; ++i)
     {
-        FmStandardViewColumnInfo* info = &view->columns[i];
+        FmFolderViewColumnInfo* info = &view->columns[i];
         info->col_id = col_ids[i];
     }
 
@@ -1394,7 +1386,7 @@ void fm_standard_view_set_columns(FmStandardView* view, FmFolderModelCol* col_id
         /* the tree view is already created so we need to add the columns to it. */
         for(i = 0; i < n; ++i)
         {
-            FmStandardViewColumnInfo* info = &view->columns[i];
+            FmFolderViewColumnInfo* info = &view->columns[i];
             FmFolderModelCol col_id = info->col_id;
             /* if one is cached already, use it. otherwise, create a new one */
             if(old_cols[col_id])

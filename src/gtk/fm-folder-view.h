@@ -203,6 +203,29 @@ guint fm_folder_view_get_mode(FmFolderView* fv);
 void fm_folder_view_select_custom(FmFolderView* fv, GFunc filter, gpointer user_data);
 #endif
 
+typedef struct _FmFolderViewColumnInfo FmFolderViewColumnInfo;
+
+/**
+ * FmFolderViewColumnInfo:
+ * @col_id: column type
+ *
+ * FmFolderView column setup data.
+ */
+struct _FmFolderViewColumnInfo
+{
+    /*< public >*/
+    FmFolderModelCol col_id;
+
+    /*< private >*/
+    gint reserved1; /* reserved members for usage by interface implementations */
+    gint reserved2;
+    gint reserved3;
+    gint reserved4;
+};
+/*
+gboolean        fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols);
+GSList*         fm_folder_view_get_columns(FmFolderView* fv);
+*/
 G_END_DECLS
 
 #endif /* __FOLDER_VIEW_H__ */

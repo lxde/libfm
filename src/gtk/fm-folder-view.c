@@ -1471,3 +1471,21 @@ void fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
     g_signal_emit(fv, signals[CHDIR], 0, path);
 }
 #endif
+
+/* FIXME: make VTable entries after ABI change! */
+/*
+gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols);
+GSList* _fm_standard_view_get_columns(FmFolderView* fv);
+
+gboolean fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols)
+{
+    // FIXME: call via VTable!
+    return _fm_standard_view_set_columns(fv, cols);
+}
+
+GSList* fm_folder_view_get_columns(FmFolderView* fv)
+{
+    // FIXME: call via VTable!
+    return _fm_standard_view_get_columns(fv);
+}
+*/
