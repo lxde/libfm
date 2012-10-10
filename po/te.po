@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 14:40+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
 "PO-Revision-Date: 2012-07-09 19:05+0200\n"
 "Last-Translator: PraveenIlla <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -454,8 +454,8 @@ msgstr ""
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>ఆఖరి సవరణలు:</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
-#: ../src/gtk/fm-gtk-file-launcher.c:536
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
 #, fuzzy
 msgid "(None)"
 msgstr "ఏదీకాదు"
@@ -500,15 +500,15 @@ msgstr "గిబై"
 msgid "TiB"
 msgstr "టెబై"
 
-#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "చెత్తబుట్ట"
 
-#: ../src/base/fm-path.c:839
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "నా కంప్యూటర్"
 
-#: ../src/base/fm-path.c:841
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "నెట్‌వర్క్"
 
@@ -520,11 +520,11 @@ msgstr "లఘువులు"
 msgid "Mount Point"
 msgstr "మౌంట్ పాయింట్"
 
-#: ../src/gtk/fm-progress-dlg.c:159
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -535,7 +535,7 @@ msgstr ""
 "పరిమాణం: %s\n"
 "సవరించబడినది: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -544,23 +544,23 @@ msgstr ""
 "రకం: %s\n"
 "సవరించబడినది: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "ఫైల్ ఆపరేషన్ రద్దుచేయబడింది మరియు అక్కడ కొన్ని దోషాలు ఉన్నాయి."
 
-#: ../src/gtk/fm-progress-dlg.c:338
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "రద్దుచేయబడింది"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "ఫైల్ ఆపరేషన్ పూర్తయింది, కాని అక్కడ కొన్ని దోషాలు ఉన్నాయి."
 
-#: ../src/gtk/fm-progress-dlg.c:344
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "పూర్తయింది"
 
-#: ../src/gtk/fm-progress-dlg.c:366
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -570,31 +570,31 @@ msgstr ""
 "సహకరించుటలేదు.\n"
 "దీనికి బదులుగా వాటిని తొలగించాలనుకుంటున్నారా?"
 
-#: ../src/gtk/fm-progress-dlg.c:481
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "ఫైళ్ళను తరలిస్తోంది"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "ఫైళ్ళను నకలుచేస్తోంది"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "ఫైళ్ళను చెత్తబుట్టకు తరలిస్తోంది"
 
-#: ../src/gtk/fm-progress-dlg.c:506
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "ఫైళ్ళను తీసివేస్తోంది"
 
-#: ../src/gtk/fm-progress-dlg.c:509
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "symlinksను సృష్టిస్తున్నది"
 
-#: ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "ఫైల్ గుణములను మారుస్తోంది"
 
@@ -631,11 +631,11 @@ msgstr "వివిధ రకములైన ఫైళ్ళు"
 msgid "Multiple Files"
 msgstr "బహుళ ఫైళ్ళు"
 
-#: ../src/gtk/fm-places-model.c:677
+#: ../src/gtk/fm-places-model.c:680
 msgid "Desktop"
 msgstr "డెస్క్‍టాప్"
 
-#: ../src/gtk/fm-places-model.c:687
+#: ../src/gtk/fm-places-model.c:690
 msgid "Applications"
 msgstr "అనువర్తనాలు"
 
@@ -745,45 +745,29 @@ msgstr "ఇచటకి సంగ్రహించు..."
 msgid "Prop_erties"
 msgstr "ఫైల్ లక్షణాలు"
 
-#: ../src/gtk/fm-file-menu.c:473
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "తిరిగివుంచు (_R)"
 
-#: ../src/gtk/fm-file-menu.c:474
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr "చెత్తబుట్టకు తరలించిన ఫైళ్ళను వాటి పూర్వ స్థానములలో తిరిగివుంచు"
 
-#: ../src/gtk/fm-dnd-dest.c:702
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "XDirectSave విఫలమైంది."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:127
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "ఫైళ్ళను తెరుచుటకు ఎంచుకున్న అనువర్తనమును వాడు"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:134
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "ఫైళ్ళను తెరుచుటకు అనురూపిత కమాండు లైనును అమలుపరుచు"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "అనురూపించు"
-
-#: ../src/gtk/fm-standard-view.c:547
-msgid "Name"
-msgstr "పేరు"
-
-#: ../src/gtk/fm-standard-view.c:566
-msgid "Description"
-msgstr "వివరణ"
-
-#: ../src/gtk/fm-standard-view.c:573
-msgid "Size"
-msgstr "పరిమాణం"
-
-#: ../src/gtk/fm-standard-view.c:579
-msgid "Modified"
-msgstr "సవరించబడినది"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
@@ -851,28 +835,28 @@ msgstr "పరిమాణం"
 msgid "By File _Type"
 msgstr "<b>ఫైల్ రకం:</b>"
 
-#: ../src/gtk/fm-folder-view.c:745
+#: ../src/gtk/fm-folder-view.c:785
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:747
+#: ../src/gtk/fm-folder-view.c:787
 msgid "Enter a name for the newly created file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 #, fuzzy
 msgid "New"
 msgstr "నెట్‌వర్క్"
 
-#: ../src/gtk/fm-folder-view.c:840
+#: ../src/gtk/fm-folder-view.c:880
 msgid "Error, lxshortcut not installed"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:845
+#: ../src/gtk/fm-folder-view.c:885
 msgid "Failed to start lxshortcut"
 msgstr ""
 
@@ -880,43 +864,43 @@ msgstr ""
 msgid "Installed Applications"
 msgstr "స్థాపించబడిన అనువర్తనాలు"
 
-#: ../src/gtk/fm-gtk-utils.c:68
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "దోషం"
 
-#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "నిర్ధారించు"
 
-#: ../src/gtk/fm-gtk-utils.c:180
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "ప్రశ్న"
 
-#: ../src/gtk/fm-gtk-utils.c:510
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "దయచేసి ఒక సంచయమును ఎంచుకోండి"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "దీనిని చేయుటకు వ్యవస్థ నిర్వాహకులు మాత్రమే అనుమతికలిగివున్నారు."
 
-#: ../src/gtk/fm-gtk-utils.c:861
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "ఎంచుకున్న ఫైళ్ళను చెత్తబుట్టకు తరలించాలనుకుంటున్నారా?"
 
-#: ../src/gtk/fm-gtk-utils.c:905
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "ఎంచుకున్న ఫైళ్ళను తీసివేయాలనుకుంటున్నారా?"
 
-#: ../src/gtk/fm-gtk-utils.c:991
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "ఫైలు పేరుమార్చు"
 
-#: ../src/gtk/fm-gtk-utils.c:992
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "దయచేసి ఒక కొత్త పేరును ప్రవేశపెట్టండి:"
 
-#: ../src/gtk/fm-gtk-utils.c:1026
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "మీరు ఖచ్చితంగా చెత్తబుట్టను ఖాళీ చేయాలనుకుంటున్నారా?"
 
@@ -935,11 +919,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "ఈ '%s' ఫైల్ ఒక ఎక్జిక్యూటబుల్ ఫైలు. మీరు దీనిని ఎక్జిక్యూట్ చేయాలనుకుంటున్నారా?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:564
+#: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:603
+#: ../src/gtk/fm-gtk-file-launcher.c:605
 #, fuzzy
 msgid "Select a folder"
 msgstr "దయచేసి ఒక సంచయమును ఎంచుకోండి"
@@ -951,6 +935,37 @@ msgstr "<ఏ ఉప సంచయం లేదు>"
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "నింపుతున్నది..."
+
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "పేరు"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "వివరణ"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "పరిమాణం"
+
+#: ../src/gtk/fm-folder-model.c:188
+#, fuzzy
+msgid "Permissions"
+msgstr "అనుమతులు (_P)"
+
+#: ../src/gtk/fm-folder-model.c:189
+msgid "Owner"
+msgstr ""
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "సవరించబడినది"
+
+#: ../src/gtk/fm-folder-model.c:191
+#, fuzzy
+msgid "Location"
+msgstr "<b>స్థలము:</b>"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1135,22 +1150,27 @@ msgstr "శూన్య ఆప్టికల్ డిస్కు"
 msgid "Optical Disc"
 msgstr "ఆప్టికల్ డిస్కు"
 
-#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
 msgstr ""
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
 msgstr ""
 
-#: ../src/vfs/fm-vfs-menu.c:533
+#: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
 msgstr ""
 
+#: ../src/vfs/fm-vfs-menu.c:613
+msgid "Invalid menu directory"
+msgstr ""
+
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/vfs/fm-vfs-search.c:937
+#: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
 msgstr ""
 

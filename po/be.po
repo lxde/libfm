@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 14:40+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
 "PO-Revision-Date: 2012-09-26 01:00+0200\n"
 "Last-Translator: Мікалай <crom-a@tut.by>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -64,7 +64,8 @@ msgstr "Ула_сны загад"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Set selected application as default action of this file type"
-msgstr "Устанавіць в_ылучаную праграму як прадвызначаную для гэтага тыпу файлаў"
+msgstr ""
+"Устанавіць в_ылучаную праграму як прадвызначаную для гэтага тыпу файлаў"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -436,8 +437,8 @@ msgstr "_Большы за:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Апошняе змяненне</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
-#: ../src/gtk/fm-gtk-file-launcher.c:536
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
 msgid "(None)"
 msgstr "(Няма)"
 
@@ -481,15 +482,15 @@ msgstr "ГіБ"
 msgid "TiB"
 msgstr "ТіБ"
 
-#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "Сметніца"
 
-#: ../src/base/fm-path.c:839
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "Камп'ютар"
 
-#: ../src/base/fm-path.c:841
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "Сетка"
 
@@ -501,11 +502,11 @@ msgstr "Цэтлікі"
 msgid "Mount Point"
 msgstr "Пункт мацавання"
 
-#: ../src/gtk/fm-progress-dlg.c:159
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -516,7 +517,7 @@ msgstr ""
 "Памер: %s\n"
 "Зменены: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -525,23 +526,23 @@ msgstr ""
 "Тып: %s\n"
 "Зменены: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Файлавая аперацыя скасавана, ёсць некаторыя памылкі."
 
-#: ../src/gtk/fm-progress-dlg.c:338
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "Скасавана"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "Файлавая аперацыя скончана, але ёсць некаторыя памылкі."
 
-#: ../src/gtk/fm-progress-dlg.c:344
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "Закончана"
 
-#: ../src/gtk/fm-progress-dlg.c:366
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -551,31 +552,31 @@ msgstr ""
 "сістэма не падтрымлівае гэту аперацыю.\n"
 "Хочаце сцерці іх назусім?"
 
-#: ../src/gtk/fm-progress-dlg.c:481
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "Перамяшчэнне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "Капіраванне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "Перанос файлаў у сметніцу"
 
-#: ../src/gtk/fm-progress-dlg.c:506
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "Сціранне файлаў"
 
-#: ../src/gtk/fm-progress-dlg.c:509
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "Стварэнне сімвальных спасылак"
 
-#: ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "Змяненне атрыбутаў файла"
 
@@ -612,11 +613,11 @@ msgstr "Файлы розных тыпаў"
 msgid "Multiple Files"
 msgstr "Некалькі файлаў"
 
-#: ../src/gtk/fm-places-model.c:677
+#: ../src/gtk/fm-places-model.c:680
 msgid "Desktop"
 msgstr "Працоўная прастора"
 
-#: ../src/gtk/fm-places-model.c:687
+#: ../src/gtk/fm-places-model.c:690
 msgid "Applications"
 msgstr "Праграмы"
 
@@ -710,45 +711,29 @@ msgstr "Распакаваць _у..."
 msgid "Prop_erties"
 msgstr "_Уласцівасці файла"
 
-#: ../src/gtk/fm-file-menu.c:473
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "_Узнавіць"
 
-#: ../src/gtk/fm-file-menu.c:474
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr "Узнавіць файлы са сметніцы да пачатковага стану"
 
-#: ../src/gtk/fm-dnd-dest.c:702
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "Памылка XDirectSave."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:127
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "Ужываць выбраную праграму для адкрыцця файлаў"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:134
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "Выканаць уласны загад для адкрыцця файлаў"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Наставіць"
-
-#: ../src/gtk/fm-standard-view.c:547
-msgid "Name"
-msgstr "Назва"
-
-#: ../src/gtk/fm-standard-view.c:566
-msgid "Description"
-msgstr "Апісанне"
-
-#: ../src/gtk/fm-standard-view.c:573
-msgid "Size"
-msgstr "Памер"
-
-#: ../src/gtk/fm-standard-view.c:579
-msgid "Modified"
-msgstr "Зменены"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
@@ -811,27 +796,27 @@ msgstr "Па _памеру"
 msgid "By File _Type"
 msgstr "Па _тыпу файла"
 
-#: ../src/gtk/fm-folder-view.c:745
+#: ../src/gtk/fm-folder-view.c:785
 msgid "Enter a name for the newly created folder:"
 msgstr "Увядзіце назву новага каталога:"
 
-#: ../src/gtk/fm-folder-view.c:747
+#: ../src/gtk/fm-folder-view.c:787
 msgid "Enter a name for the newly created file:"
 msgstr "Увядзіце назву новага файла:"
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
 msgstr "Стварыць..."
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 msgid "New"
 msgstr "Новы"
 
-#: ../src/gtk/fm-folder-view.c:840
+#: ../src/gtk/fm-folder-view.c:880
 msgid "Error, lxshortcut not installed"
 msgstr "Памылка, lxshortcut не ўстаноўлены"
 
-#: ../src/gtk/fm-folder-view.c:845
+#: ../src/gtk/fm-folder-view.c:885
 msgid "Failed to start lxshortcut"
 msgstr "Не ўдалося запусціць lxshortcut"
 
@@ -839,43 +824,43 @@ msgstr "Не ўдалося запусціць lxshortcut"
 msgid "Installed Applications"
 msgstr "Устаноўленыя праграмы"
 
-#: ../src/gtk/fm-gtk-utils.c:68
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "Памылка"
 
-#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "Пацверджанне"
 
-#: ../src/gtk/fm-gtk-utils.c:180
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "Пытанне"
 
-#: ../src/gtk/fm-gtk-utils.c:510
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "Калі ласка, выберыце каталог"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "Толькі сістэмны адміністратар мае дазвол на гэта."
 
-#: ../src/gtk/fm-gtk-utils.c:861
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Перамясціць вылучаныя файлы ў сметніцу?"
 
-#: ../src/gtk/fm-gtk-utils.c:905
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "Хочаце сцерці вылучаныя файлы?"
 
-#: ../src/gtk/fm-gtk-utils.c:991
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "Перайменаванне файла"
 
-#: ../src/gtk/fm-gtk-utils.c:992
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "Увядзіце новую назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:1026
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Хочаце ачысціць сметніцу?"
 
@@ -894,11 +879,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Гэты файл '%s' - выканальны. Хочаце запусціць яго?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:564
+#: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
 msgstr "Не зададзены каталог."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:603
+#: ../src/gtk/fm-gtk-file-launcher.c:605
 msgid "Select a folder"
 msgstr "Выберыце каталог"
 
@@ -909,6 +894,38 @@ msgstr "<Няма падкаталогаў>"
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Чытанне..."
+
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "Назва"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "Апісанне"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "Памер"
+
+#: ../src/gtk/fm-folder-model.c:188
+#, fuzzy
+msgid "Permissions"
+msgstr "Правы _доступу"
+
+#: ../src/gtk/fm-folder-model.c:189
+#, fuzzy
+msgid "Owner"
+msgstr "Толькі ўладальнік"
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "Зменены"
+
+#: ../src/gtk/fm-folder-model.c:191
+#, fuzzy
+msgid "Location"
+msgstr "Назва/_Шлях"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1093,22 +1110,27 @@ msgstr "Пусты аптычны дыск"
 msgid "Optical Disc"
 msgstr "Аптычны дыск"
 
-#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
 msgstr "Памылка кэшу меню"
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
 msgstr "Аперацыя не падтрымліваецца"
 
-#: ../src/vfs/fm-vfs-menu.c:533
+#: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
 msgstr "Недапушчальная назва файла %s"
 
+#: ../src/vfs/fm-vfs-menu.c:613
+msgid "Invalid menu directory"
+msgstr ""
+
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/vfs/fm-vfs-search.c:937
+#: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
 msgstr "Пошук"
 

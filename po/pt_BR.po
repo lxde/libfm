@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 14:40+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
 "PO-Revision-Date: 2012-09-24 03:25+0200\n"
 "Last-Translator: Adriano <cobbra@ibest.com.br>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
@@ -65,8 +65,7 @@ msgstr "Linha de _Comando Personalizada"
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Set selected application as default action of this file type"
 msgstr ""
-"Define o aplicativo _selecionado como a ação padrão para este tipo de "
-"arquivo"
+"Define o aplicativo _selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -438,8 +437,8 @@ msgstr "Maior que:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Última modificação</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
-#: ../src/gtk/fm-gtk-file-launcher.c:536
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
 msgid "(None)"
 msgstr "(Nenhum)"
 
@@ -482,15 +481,15 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:837 ../src/gtk/fm-places-model.c:621
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "Lixeira"
 
-#: ../src/base/fm-path.c:839
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "Meu computador"
 
-#: ../src/base/fm-path.c:841
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "Rede"
 
@@ -502,11 +501,11 @@ msgstr "Atalhos"
 msgid "Mount Point"
 msgstr "Ponto de montagem"
 
-#: ../src/gtk/fm-progress-dlg.c:159
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:232 ../src/gtk/fm-progress-dlg.c:251
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -517,7 +516,7 @@ msgstr ""
 "Tamanho: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -526,23 +525,23 @@ msgstr ""
 "Tipo: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:336
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "A operação do arquivo foi cancelada e aconteceram alguns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:338
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "A operação do arquivo terminou, mas aconteceram alguns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:344
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "Terminou"
 
-#: ../src/gtk/fm-progress-dlg.c:366
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -552,31 +551,31 @@ msgstr ""
 "suporte pelo sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
-#: ../src/gtk/fm-progress-dlg.c:481
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "Movendo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "Copiando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "Esvaziando arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:506
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "Excluindo arquivos"
 
-#: ../src/gtk/fm-progress-dlg.c:509
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "Criando links simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
@@ -614,11 +613,11 @@ msgstr "Arquivos de tipos diferentes"
 msgid "Multiple Files"
 msgstr "Múltiplos arquivos"
 
-#: ../src/gtk/fm-places-model.c:677
+#: ../src/gtk/fm-places-model.c:680
 msgid "Desktop"
 msgstr "Área de trabalho"
 
-#: ../src/gtk/fm-places-model.c:687
+#: ../src/gtk/fm-places-model.c:690
 msgid "Applications"
 msgstr "Aplicativos"
 
@@ -712,46 +711,30 @@ msgstr "Extrair Para..."
 msgid "Prop_erties"
 msgstr "Propriedades"
 
-#: ../src/gtk/fm-file-menu.c:473
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "_Restaurar"
 
-#: ../src/gtk/fm-file-menu.c:474
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr ""
 "Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
 
-#: ../src/gtk/fm-dnd-dest.c:702
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "XDirectSave falhou."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:127
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "Usar o aplicativo selecionado para abrir arquivos"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:134
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "Executar linha de comando personalizada para abrir arquivos"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Personalizar"
-
-#: ../src/gtk/fm-standard-view.c:547
-msgid "Name"
-msgstr "Nome"
-
-#: ../src/gtk/fm-standard-view.c:566
-msgid "Description"
-msgstr "Descrição"
-
-#: ../src/gtk/fm-standard-view.c:573
-msgid "Size"
-msgstr "Tamanho"
-
-#: ../src/gtk/fm-standard-view.c:579
-msgid "Modified"
-msgstr "Modificado"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
@@ -814,27 +797,27 @@ msgstr "Por _Tamanho"
 msgid "By File _Type"
 msgstr "Por Tipo de _Arquivo"
 
-#: ../src/gtk/fm-folder-view.c:745
+#: ../src/gtk/fm-folder-view.c:785
 msgid "Enter a name for the newly created folder:"
 msgstr "Insira um nome para a pasta recém criada:"
 
-#: ../src/gtk/fm-folder-view.c:747
+#: ../src/gtk/fm-folder-view.c:787
 msgid "Enter a name for the newly created file:"
 msgstr "Insira um nome para o arquivo recém criado:"
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
 msgstr "Criar Novo..."
 
-#: ../src/gtk/fm-folder-view.c:748
+#: ../src/gtk/fm-folder-view.c:788
 msgid "New"
 msgstr "Novo"
 
-#: ../src/gtk/fm-folder-view.c:840
+#: ../src/gtk/fm-folder-view.c:880
 msgid "Error, lxshortcut not installed"
 msgstr "Erro, lxshortcut não isntalado"
 
-#: ../src/gtk/fm-folder-view.c:845
+#: ../src/gtk/fm-folder-view.c:885
 msgid "Failed to start lxshortcut"
 msgstr "Falha ao iniciar o lxshortcut"
 
@@ -842,43 +825,43 @@ msgstr "Falha ao iniciar o lxshortcut"
 msgid "Installed Applications"
 msgstr "Aplicativos instalados"
 
-#: ../src/gtk/fm-gtk-utils.c:68
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:95 ../src/gtk/fm-gtk-utils.c:126
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "Confirma"
 
-#: ../src/gtk/fm-gtk-utils.c:180
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "Pergunta"
 
-#: ../src/gtk/fm-gtk-utils.c:510
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "Por favor selecione uma pasta"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "Somente administradores do sistema tem permissão para fazer isto."
 
-#: ../src/gtk/fm-gtk-utils.c:861
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Você deseja mover os arquivos selecionados para a lixeira?"
 
-#: ../src/gtk/fm-gtk-utils.c:905
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "Você deseja excluir os arquivos selecionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:991
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "Renomear arquivo"
 
-#: ../src/gtk/fm-gtk-utils.c:992
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "Favor digitar um novo nome:"
 
-#: ../src/gtk/fm-gtk-utils.c:1026
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Você tem certeza que deseja esvaziar a lixeira?"
 
@@ -898,11 +881,11 @@ msgstr "Esse arquivo '%s' é executável. Você deseja executá-lo?"
 
 # No folder was specified. -< WAS no ARE
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:564
+#: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
 msgstr "Nenhuma pasta foi especificada."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:603
+#: ../src/gtk/fm-gtk-file-launcher.c:605
 msgid "Select a folder"
 msgstr "Selecione uma pasta"
 
@@ -913,6 +896,38 @@ msgstr "<Sem subpastas>"
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Carregando..."
+
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "Nome"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "Descrição"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "Tamanho"
+
+#: ../src/gtk/fm-folder-model.c:188
+#, fuzzy
+msgid "Permissions"
+msgstr "_Permissões"
+
+#: ../src/gtk/fm-folder-model.c:189
+#, fuzzy
+msgid "Owner"
+msgstr "Somente o proprietário"
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "Modificado"
+
+#: ../src/gtk/fm-folder-model.c:191
+#, fuzzy
+msgid "Location"
+msgstr "Nome/Localização"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1097,22 +1112,28 @@ msgstr "Disco óptico em branco"
 msgid "Optical Disc"
 msgstr "Disco óptico"
 
-#: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
 msgstr "Erro de cache de menu"
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
 msgstr "Operação não suportada"
 
-#: ../src/vfs/fm-vfs-menu.c:533
+#: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
 msgstr "Nome de arquivo inválido %s"
 
+#: ../src/vfs/fm-vfs-menu.c:613
+#, fuzzy
+msgid "Invalid menu directory"
+msgstr "Não é um diretório válido"
+
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/vfs/fm-vfs-search.c:937
+#: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -1150,9 +1171,6 @@ msgstr "Pesquisar"
 
 #~ msgid "Write only"
 #~ msgstr "Somente escrita"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "Não é um diretório válido"
 
 #~ msgid "The selection mode"
 #~ msgstr "Favor selecionar uma pasta"
