@@ -1455,6 +1455,18 @@ static const _ModeNames view_mode_names[] =
     { "list", FM_FV_LIST_VIEW }
 };
 
+/**
+ * fm_standard_view_mode_to_str
+ * @mode: mode id
+ *
+ * Retrieves string name of rendering @mode. That name may be used for
+ * config save or similar purposes. Returned data are owned by the
+ * implementation and should be not freed by caller.
+ *
+ * Returns: name associated with @mode.
+ *
+ * Since: 1.0.2
+ */
 const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
 {
     guint i;
@@ -1466,6 +1478,16 @@ const char* fm_standard_view_mode_to_str(FmStandardViewMode mode)
     return NULL;
 }
 
+/**
+ * fm_standard_view_mode_from_str
+ * @str: the name of mode
+ *
+ * Finds mode which have an associated name equal to @str.
+ *
+ * Returns: mode id or (FmStandardViewMode)-1 if no such mode exists.
+ *
+ * Since: 1.0.2
+ */
 FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
 {
     guint i;
