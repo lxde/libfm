@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-23 17:07+0200\n"
+"PO-Revision-Date: 2012-10-11 01:47+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -633,7 +633,7 @@ msgstr "_Відмонтувати диск"
 
 #: ../src/gtk/fm-places-view.c:103
 msgid "_Eject Removable Media"
-msgstr "В_итягнути знімний носій"
+msgstr "В_итягнути зовнішній носій"
 
 #: ../src/gtk/fm-places-view.c:116
 msgid "_Rename Bookmark Item"
@@ -911,23 +911,20 @@ msgid "Size"
 msgstr "Розмір"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Дозволи"
+msgstr "Дозволи"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Лише власник"
+msgstr "Власник"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Змінено"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "_Шлях пошуку"
+msgstr "Місцезнаходження"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1128,9 +1125,8 @@ msgid "Invalid filename %s"
 msgstr "Погана назва файлу %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
-#, fuzzy
 msgid "Invalid menu directory"
-msgstr "Це не є властива тека"
+msgstr "Невідома тека меню"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
