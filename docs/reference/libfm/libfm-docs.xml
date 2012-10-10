@@ -82,6 +82,7 @@ used to develop other file manager-related tools as well.
       <xi:include href="xml/fm-places-view.xml"/>
       <xi:include href="xml/fm-progress-dlg.xml"/>
       <xi:include href="xml/fm-side-pane.xml"/>
+      <xi:include href="xml/fm-sortable.xml"/>
       <xi:include href="xml/fm-tab-label.xml"/>
       <xi:include href="xml/fm-thumbnail.xml"/>
     </chapter>

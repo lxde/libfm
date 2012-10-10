@@ -1488,12 +1488,35 @@ void fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
 gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols);
 GSList* _fm_standard_view_get_columns(FmFolderView* fv);
 
+/**
+ * fm_folder_view_set_columns
+ * @fv: the folder view widget to apply
+ * @cols: (element-type FmFolderViewColumnInfo): new list of column infos
+ *
+ * Changes composition (rendering) of folder view @fv in accordance to
+ * new list of column infos.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 1.0.2
+ */
 gboolean fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols)
 {
     // FIXME: call via VTable!
     return _fm_standard_view_set_columns(fv, cols);
 }
 
+/**
+ * fm_folder_view_get_columns
+ * @fv: the folder view widget to query
+ *
+ * Retrieves current composition of @fv as list of column infos. Returned
+ * list should be freed with g_slist_free() after usage.
+ *
+ * Returns: (transfer container) (element-type FmFolderViewColumnInfo): list of column infos.
+ *
+ * Since: 1.0.2
+ */
 GSList* fm_folder_view_get_columns(FmFolderView* fv)
 {
     // FIXME: call via VTable!

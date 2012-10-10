@@ -1709,6 +1709,18 @@ void fm_folder_model_apply_filters(FmFolderModel* model)
     g_signal_emit(model, signals[FILTER_CHANGED], 0);
 }
 
+/**
+ * fm_folder_model_set_sort
+ * @model: model to apply
+ * @col: new sorting column
+ * @mode: new sorting mode
+ *
+ * Changes sorting of @model items in accordance to new @col and @mode.
+ * If new parameters are not different from previous then nothing will
+ * be changed (nor any signal emitted).
+ *
+ * Since: 1.0.2
+ */
 void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSortMode mode)
 {
     FmFolderModelCol old_col = model->sort_col;
@@ -1725,6 +1737,18 @@ void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSort
     }
 }
 
+/**
+ * fm_folder_model_get_sort
+ * @model: model to query
+ * @col: (out) (allow-none): location to store sorting column
+ * @mode: (out) (allow-none): location to store sorting mode
+ *
+ * Retrieves current sorting criteria for @model.
+ *
+ * Returns: %TRUE if @model is valid.
+ *
+ * Since: 1.0.2
+ */
 gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
                                   FmSortMode *mode)
 {
@@ -1744,9 +1768,12 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
  * @model: the folder model
  * @col_id: column id
  *
- * Returns the title of the column specified, can be NULL if the specified
- * id is invalid.
- * 
+ * Retrieves the title of the column specified, or %NULL if the specified
+ * @col_id is invalid. Returned data are owned by implementation and
+ * should be not freed by caller.
+ *
+ * Returns: title of column in current locale.
+ *
  * Since: 1.0.2
  */
 const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id)
@@ -1760,10 +1787,10 @@ const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol
 /**
 * fm_folder_model_col_is_sortable
 * @model: model to check
-* @col: column id
+* @col_id: column id
 *
 * Checks if model can be sorted by @col.
-* 
+*
 * Returns: %TRUE if model can be sorted by @col.
 *
 * Since: 1.0.2
@@ -1781,7 +1808,12 @@ gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol 
  * fm_folder_model_col_get_name
  * @col_id: column id
  *
- * Convert an FmFolderModelCol id to a string
+ * Retrieves the name of the column specified, or %NULL if the specified
+ * @col_id is invalid. The name of column may be used for config save or
+ * another similar purpose. Returned data are owned by implementation and
+ * should be not freed by caller.
+ *
+ * Returns: the name associated with column.
  *
  * Since: 1.0.2
  */
@@ -1795,9 +1827,11 @@ const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
 
 /**
  * fm_folder_model_col_by_name
- * @str: a string
+ * @str: a column name
  *
- * Convert a string to an FmFolderModelCol id
+ * Finds a column which has associated name equal to @str.
+ *
+ * Returns: column id or (FmFolderModelCol)-1 if no such column exists.
  *
  * Since: 1.0.2
  */
@@ -1816,4 +1850,3 @@ FmFolderModelCol fm_folder_model_col_by_name(const char* str)
     }
     return (FmFolderModelCol)-1;
 }
-

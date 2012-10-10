@@ -86,7 +86,8 @@ typedef enum {
  */
 #define FM_FOLDER_MODEL_COL_DEFAULT ((FmFolderModelCol)-1)
 
-#ifndef FM_DISABLE_DEPRECATED   /* keep backward compatiblity */
+#ifndef FM_DISABLE_DEPRECATED
+/* for backward compatiblity, kept until soname 5 */
 #define FmFolderModelViewCol    FmFolderModelCol
 #define COL_FILE_GICON          FM_FOLDER_MODEL_COL_GICON
 #define COL_FILE_ICON           FM_FOLDER_MODEL_COL_ICON
