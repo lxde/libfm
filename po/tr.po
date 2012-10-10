@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-23 14:40+0200\n"
-"PO-Revision-Date: 2012-10-09 16:06+0200\n"
+"PO-Revision-Date: 2012-10-10 00:57+0200\n"
 "Last-Translator: Necdet <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -410,55 +410,49 @@ msgid "_Documents"
 msgstr "_Belgeler"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Dosya _Türüne göre"
+msgstr "Dosya _Türü"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Diskteki Boyutu:</b>"
+msgstr "<b>Do_sya İçeriği</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "İç_erik"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Dosya Türü:</b>"
+msgstr "<b>Dosya Boyutu</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "En _fazla:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "En _az:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Son Değişiklik:</b>"
+msgstr "<b>Son Düzenlenme Zamanı:</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:529
 #: ../src/gtk/fm-gtk-file-launcher.c:536
-#, fuzzy
 msgid "(None)"
-msgstr "Hiçbiri"
+msgstr "(Hiç)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_En geç:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "E_n erken:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Dosya Özellikleri"
+msgstr "_Özellikler"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -605,9 +599,8 @@ msgstr ""
 "Bu değişiklikleri bütüm dosyalara ve alt dizinlere uygulamak istiyor musunuz?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Erişim içeriği:</b>"
+msgstr "<b>_Erişim içeriği:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -626,34 +619,28 @@ msgid "Applications"
 msgstr "Uygulamalar"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Bölümü Bağla"
+msgstr "Hac_mi Bağla"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Bölümü Ayır"
+msgstr "Hacmi _Ayır"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Kaldırılabilir Aygıtı Çıkar"
+msgstr "_Çıkarılabilir Aygıtı Çıkar"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Yer İmini Yeniden Adlandır"
+msgstr "Yer İmini Yeniden Adlandı_r"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Yer İmlerinden Kaldır"
+msgstr "Yer İ_mlerinden Çıkar"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Çöp Kutusunu Boşalt"
+msgstr "Çöp Kutusunu _Boşalt"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -666,22 +653,19 @@ msgstr "Yeni bir isim girin:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Kapalı"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Yerler"
+msgstr "_Yerler"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Dizin Ağacı"
+msgstr "_Dizin Ağacı"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Uzak"
+msgstr "_Uzak"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -693,43 +677,36 @@ msgstr "Dizin Ağacı"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Aç"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Birlikte Aç..."
+msgstr "_Birlikte Aç..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Bağlantı Oluştur"
+msgstr "Bağlantı _Oluştur"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Gönder"
+msgstr "_Gönder"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Sıkıştır..."
+msgstr "_Sıkıştır..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Buraya çıkar"
+msgstr "Buraya _Çıkar"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Çıkarılacak konum..."
+msgstr "Çıkarılacak _Konum..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Dosya Özellikleri"
+msgstr "_Özellikler"
 
 #: ../src/gtk/fm-file-menu.c:473
 msgid "_Restore"
@@ -800,23 +777,20 @@ msgid "Show _Hidden"
 msgstr "Gizlileri _Göster"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Sadece bu dizin için"
+msgstr "_Sadece bu dizin için"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr "Ayarın genel değil sadece dizin için olmasını istiyorsanız işaretleyin"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Dosya ve dizinleri karıştır"
+msgstr "Dos_ya ve dizinleri karıştır"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Büyük küçük harfi önemseme"
+msgstr "_Büyük küçük harfi önemseme"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -919,12 +893,11 @@ msgstr "'%s' çalıştırılabilir bir dosya. Çalıştırmak istiyor musunuz?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:564
 msgid "No folders are specified."
-msgstr ""
+msgstr "Dizin belirtilmedi."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:603
-#, fuzzy
 msgid "Select a folder"
-msgstr "Lütfen bir dizin seçin"
+msgstr "Bir dizin seçin"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -1119,22 +1092,22 @@ msgstr "Optik Disk"
 
 #: ../src/vfs/fm-vfs-menu.c:321 ../src/vfs/fm-vfs-menu.c:565
 msgid "Menu cache error"
-msgstr ""
+msgstr "Menü önbellek hatası"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:374 ../src/vfs/fm-vfs-search.c:874
 msgid "Operation not supported"
-msgstr ""
+msgstr "İşlem desteklenmiyor"
 
 #: ../src/vfs/fm-vfs-menu.c:533
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Geçersiz dosya adı %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:937
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Sahibi:</b>"
