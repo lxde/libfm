@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-24 03:25+0200\n"
-"Last-Translator: Adriano <cobbra@ibest.com.br>\n"
+"PO-Revision-Date: 2012-10-12 00:27+0200\n"
+"Last-Translator: Sérgio <ikisham@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -911,23 +911,20 @@ msgid "Size"
 msgstr "Tamanho"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Permissões"
+msgstr "Permissões"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Somente o proprietário"
+msgstr "Proprietário"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Modificado"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "Nome/Localização"
+msgstr "Localização"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1128,9 +1125,8 @@ msgid "Invalid filename %s"
 msgstr "Nome de arquivo inválido %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
-#, fuzzy
 msgid "Invalid menu directory"
-msgstr "Não é um diretório válido"
+msgstr "Diretório de menu inválido"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
