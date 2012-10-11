@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-26 12:27+0200\n"
+"PO-Revision-Date: 2012-10-11 12:32+0200\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -910,23 +910,20 @@ msgid "Size"
 msgstr "Grootte"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Rechten"
+msgstr "Rechten"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Alleen de eigenaar"
+msgstr "Eigenaar"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Aangepast"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "Naam/Locatie"
+msgstr "Locatie"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1128,7 +1125,7 @@ msgstr "Ongeldige bestandnaam %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Ongeldige menumap"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
