@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-30 05:53+0200\n"
+"PO-Revision-Date: 2012-10-11 15:24+0200\n"
 "Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -901,23 +901,20 @@ msgid "Size"
 msgstr "大小"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "權限(_P)"
+msgstr "權限"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "只有擁有者"
+msgstr "擁有者"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "最後修改"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "名稱/地點(_L)"
+msgstr "位置"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1118,9 +1115,8 @@ msgid "Invalid filename %s"
 msgstr "檔案名稱 %s 無效"
 
 #: ../src/vfs/fm-vfs-menu.c:613
-#, fuzzy
 msgid "Invalid menu directory"
-msgstr "這不是一個有效的目錄。"
+msgstr "選單目錄無效"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
