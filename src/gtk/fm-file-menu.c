@@ -52,11 +52,11 @@
  * placeholders:
  * - ph1: 'UnTrash' item if files are in trash can
  * - ph2: 'OpenWith' list and submenu;
+ * - ph3: custom (user defined) menu elements
  *  
  *        'Compress' if there is archiver defined;
  *  
  *        'Extract' if this is an archive
- * - ph3: custom (user defined) menu elements
  *
  * Element 'Rename' is hidden if menu is created for more than one file.
  *
@@ -495,6 +495,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     }
 
     /* Special handling for some virtual filesystems */
+    /* FIXME: it should be done on per-scheme basis */
     g_string_append(xml, "<popup><placeholder name='ph1'>");
     if(data->all_virtual)
     {
@@ -532,6 +533,12 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         else
         {
             /* do not provide these items for other virtual files */
+            /* FIXME: this is invalid way to do it, many virtual paths still
+               support getting files content and some can deletion as well.
+               Cut/Paste/Rename/Del should be disabled only if FS is R/O and
+               Copy only for very few FS such as trash:// or menu://
+               Since query if FS is R/O is async operation we have to get
+               such info from FmFolder therefore do this in fm-folder-view.c */
             act = gtk_ui_manager_get_action(ui, "/popup/Cut");
             gtk_action_set_visible(act, FALSE);
             act = gtk_ui_manager_get_action(ui, "/popup/Copy");

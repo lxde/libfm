@@ -30,6 +30,12 @@ Changes on 1.0.2 since 1.0.1:
 * Full name in Icon View mode now shown in tooltip while long names are
     placed under icons in truncated form.
 
+* Added ability to change columns of view. Works only for Detailed List
+    View in FmStandardView widget for now. Implementation for other modes
+    and widgets will come later on demand.
+
+* A lot of lesser bugfixes.
+
 
 Changes on 1.0.1 since 1.0.0:
 
