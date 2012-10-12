@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-12 00:27+0200\n"
-"Last-Translator: Sérgio <ikisham@gmail.com>\n"
+"PO-Revision-Date: 2012-10-12 11:48-0300\n"
+"Last-Translator: Sergio Cipolla <ikisham@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -64,8 +64,7 @@ msgstr "Linha de _Comando Personalizada"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Set selected application as default action of this file type"
-msgstr ""
-"Define o aplicativo _selecionado como a ação padrão para este tipo de arquivo"
+msgstr "Define o aplicativo _selecionado como a ação padrão para este tipo de arquivo"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -75,7 +74,8 @@ msgstr "Confirmar substituição de arquivos"
 msgid "_Skip"
 msgstr "_Pular"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../data/ui/ask-rename.glade.h:3
+#: ../src/gtk/fm-file-menu.c:163
 #: ../src/gtk/fm-folder-view.c:185
 msgid "_Rename"
 msgstr "_Renomear"
@@ -152,11 +152,11 @@ msgstr "_Geral"
 
 #: ../data/ui/file-prop.glade.h:12
 msgid "<b>O_wner:</b>"
-msgstr "<b>Dono:</b>"
+msgstr "<b>_Proprietário:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grupo:</b>"
+msgstr "<b>_Grupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_View content:</b>"
@@ -273,7 +273,8 @@ msgstr "<b>Tempo restante:</b>"
 msgid "<b>Some errors occurred:</b>"
 msgstr "<b>Aconteceram alguns erros:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+#: ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Aplicativos preferidos"
 
@@ -290,12 +291,8 @@ msgid "<b>Mail client</b>"
 msgstr "<b>Cliente de e-mail</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
-"mail addresses."
-msgstr ""
-"O cliente de e-mail preferido será usado para compor e-mails quando você "
-"clicar nos endereços de e-mail."
+msgid "The preferred Mail Client will be used to compose emails when you click on E-mail addresses."
+msgstr "O cliente de e-mail preferido será usado para compor e-mails quando você clicar nos endereços de e-mail."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -325,15 +322,18 @@ msgstr "Executar no _terminal"
 msgid "Bytes"
 msgstr "Bytes"
 
-#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:2
+#: ../src/base/fm-utils.c:88
 msgid "KB"
 msgstr "KB"
 
-#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+#: ../data/ui/filesearch.glade.h:3
+#: ../src/base/fm-utils.c:93
 msgid "MB"
 msgstr "MB"
 
-#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+#: ../data/ui/filesearch.glade.h:4
+#: ../src/base/fm-utils.c:98
 msgid "GB"
 msgstr "GB"
 
@@ -359,7 +359,7 @@ msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "Maiúsculas e minúsculas"
+msgstr "Maiúsculas e _minúsculas"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
@@ -371,15 +371,15 @@ msgstr "<b>Locais para procurar</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "Pesquisar em subdiretórios"
+msgstr "Pesquisar em _subdiretórios"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "Pesquisar arquivos ocultos"
+msgstr "Pesquisar arquivos _ocultos"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "Nome/Localização"
+msgstr "Nome/_Localização"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -391,7 +391,7 @@ msgstr "Apenas pesquisar os seguintes tipos de arquivos"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
-msgstr "Arquivos de Texto"
+msgstr "Arquivos de Te_xto"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
@@ -427,34 +427,36 @@ msgstr "<b>Tamanho do Arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr "Menor que:"
+msgstr "M_enor que:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr "Maior que:"
+msgstr "M_aior que:"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Última modificação</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../data/ui/filesearch.glade.h:30
+#: ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
 msgid "(None)"
 msgstr "(Nenhum)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr "Mais novo que:"
+msgstr "Mais _novo que:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr "Mais velho que:"
+msgstr "Mais _velho que:"
 
 #: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "_Propriedades"
 
-#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -481,7 +483,8 @@ msgstr "GiB"
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
+#: ../src/base/fm-path.c:841
+#: ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "Lixeira"
 
@@ -505,7 +508,8 @@ msgstr "Ponto de montagem"
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
+#: ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -516,7 +520,8 @@ msgstr ""
 "Tamanho: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
+#: ../src/gtk/fm-progress-dlg.c:241
+#: ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -543,12 +548,10 @@ msgstr "Terminou"
 
 #: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
-"Some files cannot be moved to trash can because the underlying file systems "
-"don't support this operation.\n"
+"Some files cannot be moved to trash can because the underlying file systems don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Alguns arquivos não podem ser movidos para a lixeira devido à falta de "
-"suporte pelo sistema de arquivos.\n"
+"Alguns arquivos não podem ser movidos para a lixeira devido à falta de suporte pelo sistema de arquivos.\n"
 "Você gostaria de excluí-los permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:482
@@ -579,7 +582,8 @@ msgstr "Criando links simbólicos"
 msgid "Changing file attributes"
 msgstr "Modificando atributos do arquivo"
 
-#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
+#: ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "byte"
@@ -595,11 +599,8 @@ msgstr "Favor digitar um nome de grupo ou identificador numérico válido."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:453
-msgid ""
-"Do you want to recursively apply these changes to all files and sub-folders?"
-msgstr ""
-"Você deseja aplicar essas modificações de forma recursiva a todos os "
-"arquivos e subpastas?"
+msgid "Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr "Você deseja aplicar essas modificações de forma recursiva a todos os arquivos e subpastas?"
 
 #: ../src/gtk/fm-file-properties.c:633
 msgid "<b>_Access content:</b>"
@@ -627,15 +628,15 @@ msgstr "_Montar volume"
 
 #: ../src/gtk/fm-places-view.c:102
 msgid "_Unmount Volume"
-msgstr "Desmontar volume"
+msgstr "_Desmontar volume"
 
 #: ../src/gtk/fm-places-view.c:103
 msgid "_Eject Removable Media"
-msgstr "Ejetar mídia removível"
+msgstr "_Ejetar mídia removível"
 
 #: ../src/gtk/fm-places-view.c:116
 msgid "_Rename Bookmark Item"
-msgstr "Renomear item dos marcadores"
+msgstr "_Renomear item dos marcadores"
 
 #: ../src/gtk/fm-places-view.c:117
 msgid "Re_move from Bookmark"
@@ -643,7 +644,7 @@ msgstr "Re_mover dos marcadores"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "_Empty Trash Can"
-msgstr "_Esvaziar a Lixeira Pode"
+msgstr "_Esvaziar a lixeira"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -656,11 +657,11 @@ msgstr "Digitar um novo nome:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr "Desligar"
+msgstr "_Desativar"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
-msgstr "Locais"
+msgstr "_Locais"
 
 #: ../src/gtk/fm-side-pane.c:63
 msgid "_Directory Tree"
@@ -680,19 +681,20 @@ msgstr "Árvore de diretórios"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr "Abrir"
+msgstr "_Abrir"
 
-#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:158
 msgid "Open _With..."
-msgstr "Abrir com..."
+msgstr "Abrir _com..."
 
 #: ../src/gtk/fm-file-menu.c:164
 msgid "Create _Symlink"
-msgstr "Criar Links Simbólicos"
+msgstr "Criar links _simbólicos"
 
 #: ../src/gtk/fm-file-menu.c:165
 msgid "Se_nd To"
-msgstr "Enviar para"
+msgstr "_Enviar para"
 
 #: ../src/gtk/fm-file-menu.c:166
 msgid "Co_mpress..."
@@ -700,16 +702,17 @@ msgstr "Co_mprimir..."
 
 #: ../src/gtk/fm-file-menu.c:167
 msgid "Extract _Here"
-msgstr "Extrair Aqui"
+msgstr "Extrair a_qui"
 
 #: ../src/gtk/fm-file-menu.c:168
 msgid "E_xtract To..."
-msgstr "Extrair Para..."
+msgstr "Extrair _para..."
 
-#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-file-menu.c:169
+#: ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
 msgid "Prop_erties"
-msgstr "Propriedades"
+msgstr "Propri_edades"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -717,8 +720,7 @@ msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
-msgstr ""
-"Restaurar arquivos que estavam na lixeira de volta ao seu destino original"
+msgstr "Restaurar arquivos da lixeira de volta ao seu local original"
 
 #: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
@@ -738,7 +740,7 @@ msgstr "Personalizar"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
-msgstr "Criar _Novo..."
+msgstr "Criar _nova(o)..."
 
 #: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
@@ -746,36 +748,35 @@ msgstr "Pasta"
 
 #: ../src/gtk/fm-folder-view.c:171
 msgid "Blank File"
-msgstr "Arquivo em Branco"
+msgstr "Arquivo em branco"
 
 #: ../src/gtk/fm-folder-view.c:172
 msgid "Shortcut"
-msgstr "Atalhos"
+msgstr "Atalho"
 
 #: ../src/gtk/fm-folder-view.c:183
 msgid "_Invert Selection"
-msgstr "_Inverter Seleção"
+msgstr "_Inverter seleção"
 
 #: ../src/gtk/fm-folder-view.c:184
 msgid "_Sort Files"
-msgstr "_Organizar Arquivos"
+msgstr "_Organizar arquivos"
 
 #: ../src/gtk/fm-folder-view.c:196
 msgid "Show _Hidden"
-msgstr "_Exibir Ocultos"
+msgstr "Exibir _ocultos"
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "_Only for this folder"
-msgstr "Somente para esta pasta"
+msgstr "_Somente para esta pasta"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
-"Selecione para lembrar as configurações feitas na pasta de forma global"
+msgstr "Selecione para lembrar a ordenação apenas para pasta e não de forma global"
 
 #: ../src/gtk/fm-folder-view.c:199
 msgid "Mingle _files and folders"
-msgstr "Misturar arquivos e pastas"
+msgstr "Mi_sturar arquivos e pastas"
 
 #: ../src/gtk/fm-folder-view.c:200
 msgid "_Ignore name case"
@@ -783,19 +784,19 @@ msgstr "_Ignorar sensibilidade de maiúscula e minúscula"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
-msgstr "Por _Nome"
+msgstr "Por _nome"
 
 #: ../src/gtk/fm-folder-view.c:212
 msgid "By _Modification Time"
-msgstr "Por Data de _Modificação"
+msgstr "Por data de _modificação"
 
 #: ../src/gtk/fm-folder-view.c:213
 msgid "By _Size"
-msgstr "Por _Tamanho"
+msgstr "Por _tamanho"
 
 #: ../src/gtk/fm-folder-view.c:214
 msgid "By File _Type"
-msgstr "Por Tipo de _Arquivo"
+msgstr "Por tipo de _arquivo"
 
 #: ../src/gtk/fm-folder-view.c:785
 msgid "Enter a name for the newly created folder:"
@@ -807,7 +808,7 @@ msgstr "Insira um nome para o arquivo recém criado:"
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
-msgstr "Criar Novo..."
+msgstr "Criar novo..."
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "New"
@@ -815,7 +816,7 @@ msgstr "Novo"
 
 #: ../src/gtk/fm-folder-view.c:880
 msgid "Error, lxshortcut not installed"
-msgstr "Erro, lxshortcut não isntalado"
+msgstr "Erro, lxshortcut não instalado"
 
 #: ../src/gtk/fm-folder-view.c:885
 msgid "Failed to start lxshortcut"
@@ -829,9 +830,10 @@ msgstr "Aplicativos instalados"
 msgid "Error"
 msgstr "Erro"
 
-#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
+#: ../src/gtk/fm-gtk-utils.c:96
+#: ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
-msgstr "Confirma"
+msgstr "Confirmação"
 
 #: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
@@ -889,11 +891,13 @@ msgstr "Nenhuma pasta foi especificada."
 msgid "Select a folder"
 msgstr "Selecione uma pasta"
 
-#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
+#: ../src/gtk/fm-dir-tree-model.c:418
+#: ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<Sem subpastas>"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420
+#: ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Carregando..."
 
@@ -926,7 +930,8 @@ msgstr "Modificado"
 msgid "Location"
 msgstr "Localização"
 
-#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:201
+#: ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
@@ -973,11 +978,13 @@ msgstr "Disco CD-RW"
 msgid "Blank CD-RW Disc"
 msgstr "Disco CD-RW em branco"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "DVD-ROM Disc"
 msgstr "Disco DVD-ROM"
 
-#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#: ../src/udisks/g-udisks-device.c:44
+#: ../src/udisks/g-udisks-device.c:45
 msgid "Blank DVD-ROM Disc"
 msgstr "Disco DVD-ROM em branco"
 
@@ -1109,13 +1116,15 @@ msgstr "Disco óptico em branco"
 msgid "Optical Disc"
 msgstr "Disco óptico"
 
-#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:324
+#: ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
 msgstr "Erro de cache de menu"
 
 #. ---- GFile implementation ----
-#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
+#: ../src/vfs/fm-vfs-menu.c:381
+#: ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
 msgstr "Operação não suportada"
 
