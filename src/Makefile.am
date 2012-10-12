@@ -207,6 +207,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
 	gtk/fm-path-bar.h \
+	gtk/fm-sortable.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
