@@ -63,7 +63,8 @@ struct _FmStandardView
 
     GtkWidget* view; /* either ExoIconView or ExoTreeView */
     FmFolderModel* model; /* FmStandardView doesn't use abstract GtkTreeModel! */
-    FmCellRendererPixbuf* renderer_pixbuf; /* reference is bound to GtkWidget */
+    FmCellRendererPixbuf* renderer_pixbuf;
+    FmCellRendererText* renderer_text;
     guint icon_size_changed_handler;
 
     FmDndSrc* dnd_src; /* dnd source manager */
@@ -297,6 +298,12 @@ static void fm_standard_view_dispose(GObject *object)
         self->renderer_pixbuf = NULL;
     }
 
+    if(self->renderer_text)
+    {
+        g_object_unref(self->renderer_text);
+        self->renderer_text = NULL;
+    }
+
     if(self->cached_selected_files)
     {
         fm_file_info_list_unref(self->cached_selected_files);
@@ -351,7 +358,6 @@ static void set_icon_size(FmStandardView* fv, guint icon_size)
 
     if( fv->mode != FM_FV_LIST_VIEW ) /* this is an ExoIconView */
     {
-        /* FIXME: reset ExoIconView item sizes */
         /* set row spacing in range 2...12 pixels */
         gint c_size = MIN(12, 2 + icon_size / 8);
         exo_icon_view_set_row_spacing(EXO_ICON_VIEW(fv->view), c_size);
@@ -360,6 +366,9 @@ static void set_icon_size(FmStandardView* fv, guint icon_size)
 
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv)
 {
+    guint item_width = MAX(24, cfg->big_icon_size) + 48;
+    /* reset ExoIconView item text sizes */
+    g_object_set((GObject*)fv->renderer_text, "wrap-width", item_width, NULL);
     set_icon_size(fv, cfg->big_icon_size);
 }
 
@@ -370,6 +379,9 @@ static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv)
 
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv)
 {
+    guint item_width = MAX(40, cfg->thumbnail_size) + 80;
+    /* reset ExoIconView item text sizes */
+    g_object_set((GObject*)fv->renderer_text, "wrap-width", item_width, NULL);
     /* FIXME: thumbnail and icons should have different sizes */
     /* maybe a separate API: fm_folder_model_set_thumbnail_size() */
     set_icon_size(fv, cfg->thumbnail_size);
@@ -458,7 +470,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     GList *l;
     GtkCellRenderer* render;
     FmFolderModel* model = fv->model;
-    int icon_size = 0;
+    int icon_size = 0, item_width;
 
     fv->view = exo_icon_view_new();
 
@@ -499,17 +511,16 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
                 fm_folder_model_set_icon_size(model, icon_size);
 
             render = fm_cell_renderer_text_new();
-            /* FIXME: set the sizes of cells according to iconsize */
+            item_width = MAX(24, icon_size) + 48;
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
-                         "wrap-width", 90,
+                         "wrap-width", item_width,
                          "max-height", 70,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
                          NULL );
             exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
-            exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 110 );
         }
         else
         {
@@ -520,23 +531,24 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
                 fm_folder_model_set_icon_size(model, icon_size);
 
             render = fm_cell_renderer_text_new();
-            /* FIXME: set the sizes of cells according to iconsize */
+            item_width = MAX(40, icon_size) + 80;
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
-                         "wrap-width", 180,
+                         "wrap-width", item_width,
                          "max-height", 90,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
                          NULL );
             exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 8 );
-            exo_icon_view_set_item_width ( (ExoIconView*)fv->view, 200 );
         }
     }
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fv->view), render, TRUE);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(fv->view), render,
                                 "text", FM_FOLDER_MODEL_COL_NAME );
-    exo_icon_view_set_item_width((ExoIconView*)fv->view, 96);
+    if(fv->renderer_text)
+        g_object_unref(fv->renderer_text);
+    fv->renderer_text = g_object_ref_sink(render);
     exo_icon_view_set_search_column((ExoIconView*)fv->view, FM_FOLDER_MODEL_COL_NAME);
     g_signal_connect(fv->view, "item-activated", G_CALLBACK(on_icon_view_item_activated), fv);
     g_signal_connect(fv->view, "selection-changed", G_CALLBACK(on_sel_changed), fv);
