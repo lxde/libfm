@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-12 11:48-0300\n"
+"POT-Creation-Date: 2012-10-12 12:58-0300\n"
+"PO-Revision-Date: 2012-10-12 14:56-0300\n"
 "Last-Translator: Sergio Cipolla <ikisham@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <<none>>\n"
 "Language: pt_BR\n"
@@ -29,7 +29,7 @@ msgstr "<b>Tipo de arquivo para ser aberto:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Application"
-msgstr "Aplicativo _Instalado"
+msgstr "Aplicativo _instalado"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -54,13 +54,13 @@ msgid ""
 msgstr ""
 "<b>Estes códigos especiais podem ser usados na linha de comando:</b>\n"
 "  <b>%f</b>: representa um único nome de arquivo\n"
-"  <b>%F</b>: representa vários nomes de arquivos\n"
+"  <b>%F</b>: representa múltiplos nomes de arquivo\n"
 "  <b>%u</b>: representa um único URI do arquivo\n"
-"  <b>%U</b>: representa vários URIs"
+"  <b>%U</b>: representa múltiplos URIs"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "_Custom Command Line"
-msgstr "Linha de _Comando Personalizada"
+msgstr "Linha de _comando personalizada"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Set selected application as default action of this file type"
@@ -100,7 +100,7 @@ msgstr "com o seguinte arquivo?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File Name:"
-msgstr "Nome do Arquivo:"
+msgstr "Nome do _arquivo:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
@@ -140,7 +140,7 @@ msgstr "<b>Abrir _com:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
-msgstr "Selecione o aplicativo usado para abrir arquivos deste tipo "
+msgstr "Selecione o aplicativo a ser usado para abrir arquivos deste tipo "
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -164,7 +164,7 @@ msgstr "<b>_Ver conteúdo:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Alterar conteúdo:</b>"
+msgstr "<b>_Alterar conteúdo:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>_Execute:</b>"
@@ -184,7 +184,7 @@ msgstr "Quem pode alterar o conteúdo do arquivo/diretório"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Who can execute the file or enter the directory"
-msgstr "Quem pode executar o arquivo ou inserir o diretório"
+msgstr "Quem pode executar o arquivo ou entrar no diretório"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
@@ -212,7 +212,7 @@ msgstr "Nenhum"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr "Fixar"
+msgstr "Sticky bit"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
@@ -220,7 +220,7 @@ msgstr "Configurar GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr "Fixar & configurar GID"
+msgstr "Sticky bit & configurar GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
@@ -276,7 +276,7 @@ msgstr "<b>Aconteceram alguns erros:</b>"
 #: ../data/ui/preferred-apps.glade.h:1
 #: ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
-msgstr "Aplicativos preferidos"
+msgstr "Aplicativos Preferidos"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Web Browser</b>"
@@ -339,19 +339,19 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr "Escolha uma data"
+msgstr "Escolha uma Data"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Escolha uma data do calendário seguinte"
+msgstr "Escolha uma data no calendário"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr "Arquivos da Pesquisa"
+msgstr "Pesquisar Arquivos"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Padrões de _Nome de Arquivos</b>"
+msgstr "<b>Padrões de _nome de arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
@@ -367,7 +367,7 @@ msgstr "_Usar expressões regulares"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr "<b>Locais para procurar</b>"
+msgstr "<b>Locais para pesquisar</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -387,19 +387,19 @@ msgstr "<b>Tipo de arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr "Apenas pesquisar os seguintes tipos de arquivos"
+msgstr "Apenas pesquisar os seguintes tipos de arquivo"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
-msgstr "Arquivos de Te_xto"
+msgstr "Arquivos de te_xto"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr "Arquivos de _imagens"
+msgstr "Arquivos de _imagem"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "Arquivos de _audio"
+msgstr "Arquivos de _áudio"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
@@ -407,23 +407,23 @@ msgstr "Arquivos de _vídeo"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr "_Documentos"
+msgstr "Docu_mentos"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "File _Type"
-msgstr "_Tipo de Arquivo"
+msgstr "_Tipo de arquivo"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Conteúdo do Arquivo</b>"
+msgstr "<b>Conteúdo do arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr "C_onteúdo"
+msgstr "Conteú_do"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "<b>File Size</b>"
-msgstr "<b>Tamanho do Arquivo</b>"
+msgstr "<b>Tamanho do arquivo</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
@@ -518,7 +518,7 @@ msgid ""
 msgstr ""
 "Tipo: %s\n"
 "Tamanho: %s\n"
-"Modificado: %s"
+"Modificação: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:241
 #: ../src/gtk/fm-progress-dlg.c:260
@@ -528,7 +528,7 @@ msgid ""
 "Modified: %s"
 msgstr ""
 "Tipo: %s\n"
-"Modificado: %s"
+"Modificação: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
@@ -653,11 +653,11 @@ msgstr "Renomear item dos marcadores"
 
 #: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
-msgstr "Digitar um novo nome:"
+msgstr "Insira um novo nome:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr "_Desativar"
+msgstr "De_sativar"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
@@ -665,7 +665,7 @@ msgstr "_Locais"
 
 #: ../src/gtk/fm-side-pane.c:63
 msgid "_Directory Tree"
-msgstr "Árvore de _Diretórios"
+msgstr "Árvore de _diretórios"
 
 #: ../src/gtk/fm-side-pane.c:64
 msgid "_Remote"
@@ -690,7 +690,7 @@ msgstr "Abrir _com..."
 
 #: ../src/gtk/fm-file-menu.c:164
 msgid "Create _Symlink"
-msgstr "Criar links _simbólicos"
+msgstr "Criar link _simbólico"
 
 #: ../src/gtk/fm-file-menu.c:165
 msgid "Se_nd To"
@@ -714,11 +714,11 @@ msgstr "Extrair _para..."
 msgid "Prop_erties"
 msgstr "Propri_edades"
 
-#: ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:522
 msgid "_Restore"
 msgstr "_Restaurar"
 
-#: ../src/gtk/fm-file-menu.c:522
+#: ../src/gtk/fm-file-menu.c:523
 msgid "Restore trashed files to original paths"
 msgstr "Restaurar arquivos da lixeira de volta ao seu local original"
 
@@ -740,7 +740,7 @@ msgstr "Personalizar"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
-msgstr "Criar _nova(o)..."
+msgstr "Criar _novo(a)..."
 
 #: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
@@ -772,7 +772,7 @@ msgstr "_Somente para esta pasta"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr "Selecione para lembrar a ordenação apenas para pasta e não de forma global"
+msgstr "Selecione para lembrar a ordenação apenas para a pasta e não de forma global"
 
 #: ../src/gtk/fm-folder-view.c:199
 msgid "Mingle _files and folders"
@@ -808,11 +808,11 @@ msgstr "Insira um nome para o arquivo recém criado:"
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
-msgstr "Criar novo..."
+msgstr "Criar novo(a)..."
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "New"
-msgstr "Novo"
+msgstr "Novo(a)"
 
 #: ../src/gtk/fm-folder-view.c:880
 msgid "Error, lxshortcut not installed"
@@ -881,7 +881,6 @@ msgstr ""
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Esse arquivo '%s' é executável. Você deseja executá-lo?"
 
-# No folder was specified. -< WAS no ARE
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
@@ -924,7 +923,7 @@ msgstr "Proprietário"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
-msgstr "Modificado"
+msgstr "Modificação"
 
 #: ../src/gtk/fm-folder-model.c:191
 msgid "Location"
