@@ -366,7 +366,7 @@ static void set_icon_size(FmStandardView* fv, guint icon_size)
 
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv)
 {
-    guint item_width = MAX(24, cfg->big_icon_size) + 48;
+    guint item_width = MAX(24, cfg->big_icon_size) + 54;
     /* reset ExoIconView item text sizes */
     g_object_set((GObject*)fv->renderer_text, "wrap-width", item_width, NULL);
     set_icon_size(fv, cfg->big_icon_size);
@@ -511,7 +511,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
                 fm_folder_model_set_icon_size(model, icon_size);
 
             render = fm_cell_renderer_text_new();
-            item_width = MAX(24, icon_size) + 48;
+            item_width = MAX(24, icon_size) + 54;
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
                          "wrap-width", item_width,
