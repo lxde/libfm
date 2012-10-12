@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-08-23 04:15+0200\n"
+"PO-Revision-Date: 2012-10-12 05:59+0200\n"
 "Last-Translator: Duy Hung <nguyentieuhau@gmail.com>\n"
 "Language-Team: LXDE\n"
 "Language: vi\n"
@@ -28,9 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Loại tập tin để được mở:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Ứng dụng đã cài đặt"
+msgstr "Ứng _dụng đã cài đặt"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,10 +39,10 @@ msgstr "<b>Dòng lệnh để thực thi:</b>"
 msgid "_Browse"
 msgstr "_Xem"
 
+# "Thực thi trong bộ giả lập thiết bị đầu cuối" is so long.
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Thực thi trong thiết bị đầu cuối emulator"
+msgstr "_Thực thi trong terminal"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,14 +60,13 @@ msgstr ""
 "  <b>%U</b>: Đại diện cho nhiều URI"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Dòng lệnh tùy biến"
+msgstr "_Dòng lệnh tùy biến"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Thiết lập ứng dụng đã chọn như tác dụng mặc định của loại tập tin này"
+msgstr ""
+"Thiết _lập ứng dụng đã chọn như ứng dụng mặc định để mở loại tập tin này"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -102,14 +100,12 @@ msgid "with the following file?"
 msgstr "với các tập tin sau đây?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Tên tập tin:"
+msgstr "_Tên tập tin:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Áp dụng tùy chọn này cho tất cả tập tin đã có"
+msgstr "_Áp dụng tùy chọn này cho tất cả tập tin đã có"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -156,29 +152,24 @@ msgid "_General"
 msgstr "_Tổng hợp"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Sở hữu:</b>"
+msgstr "<b>_Sở hữu:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Nhóm:</b>"
+msgstr "<b>_Nhóm:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Xem nội dung:</b>"
+msgstr "<b>_Xem nội dung:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Thay đổi nội dung:</b>"
+msgstr "<b>_Thay đổi nội dung:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Thực thi:</b>"
+msgstr "<b>_Thực thi:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -332,7 +323,7 @@ msgstr "Thực thi trong _Terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -348,133 +339,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Chọn ngày"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Chọn ngày từ bộ lịch sau"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Sắp xếp tập tin"
+msgstr "Tìm _kiếm tập tin"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Loại tập tin:</b>"
+msgstr "<b>_Mẫu tên tập tin</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "_Không phân biệt chữ hoa/thường"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Sử dụng biểu thức chính quy"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Nơi tìm kiếm</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Tìm trong thự _mục con"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "_Tìm tập tin ẩn"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "_Tên/Địa điểm"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Loại tập tin:</b>"
+msgstr "<b>Kiểu tập tin</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Chỉ tìm những tập tin thuộc kiểu sau"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Đang xóa các tập tin"
+msgstr "Tập tin _văn bản"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Đang chuyển các tập tin vào thùng rác"
+msgstr "_Tập tin ảnh"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Sắp xếp tập tin"
+msgstr "Tập tin _audio"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Sắp xếp tập tin"
+msgstr "Tập tin _video"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "Tài _liệu"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Theo _loại tập tin"
+msgstr "_Kiểu tập tin"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Kích thước trên đĩa:</b>"
+msgstr "<b>Tập tin chứa</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "Nội dung"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Loại tập tin:</b>"
+msgstr "<b>Kích thước tập tin</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Nhỏ hơn:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Lớn hơn:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Lần sửa đổi gần nhất:</b>"
+msgstr "<b>Lần sửa đổi gần nhất</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "Không"
+msgstr "(Không)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Trước:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Sau:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Chi tiết tập tin"
+msgstr "_Thuộc tính"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -622,9 +600,8 @@ msgstr ""
 "mục con không?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Truy cập nội dung:</b>"
+msgstr "<b>Truy _cập nội dung:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -643,34 +620,28 @@ msgid "Applications"
 msgstr "Các ứng dụng"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Kết nối thiết bị"
+msgstr "_Kết nối bộ đĩa"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Ngắt kết nối thiết bị"
+msgstr "_Ngắt kết nối bộ đĩa"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Loại bỏ thiết bị truyền thông rời"
+msgstr "_Loại bỏ thiết bị truyền thông rời"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Đổi tên mục đánh dấu"
+msgstr "Đổi tên _mục đánh dấu"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Loại bỏ khỏi đánh dấu"
+msgstr "Loại _bỏ khỏi đánh dấu"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Làm sạch thùng rác"
+msgstr "Làm _sạch thùng rác"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -683,22 +654,19 @@ msgstr "Nhập tên mới:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Tắt"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Nơi"
+msgstr "_Nơi"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Cây Thư mục"
+msgstr "_Cây thư mục"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Từ xa"
+msgstr "Từ _xa"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -706,47 +674,40 @@ msgstr "Nơi"
 
 #: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
-msgstr "Cây Thư mục"
+msgstr "Cây thư mục"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Mở"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Mở bởi..."
+msgstr "Mở _bởi..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Tạo liên kết "
+msgstr "Tạo liên _kết "
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Gửi tới"
+msgstr "_Gửi tới"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Nén"
+msgstr "_Nén"
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Giải nén ở đây"
+msgstr "_Giải nén ở đây"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Giải nén tại..."
+msgstr "Giải _nén tại..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Chi tiết tập tin"
+msgstr "_Thuộc tính"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -801,9 +762,8 @@ msgid "Show _Hidden"
 msgstr "_Hiển thị dữ liệu ẩn"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Chỉ cho thư mục này"
+msgstr "_Chỉ cho thư mục này"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -811,14 +771,12 @@ msgstr ""
 "Đánh dấu để ghi nhớ sắp xếp theo thiết lập thư mục thay vì thiết lập hệ thống"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Trộn lẫn tập tin và thư mục"
+msgstr "Trộn lẫn tập tin _và thư mục"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Phớt lờ tên chữ thường hay hoa"
+msgstr "_Phớt lờ tên chữ hoa/thường"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -921,12 +879,11 @@ msgstr "Tập tin '%s' này có thể thực thi. Bạn có muốn thực thi n�
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Không có thư mục chỉ định."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
-msgstr "Vui lòng chọn thư mục"
+msgstr "Chọn thư mục"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -950,23 +907,20 @@ msgid "Size"
 msgstr "Kích thước"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Quyền"
+msgstr "Quyền"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Chỉ chủ sở hữu"
+msgstr "Sở hữu"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Đã sửa đổi"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Vị trí:</b>"
+msgstr "Vị trí"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1154,26 +1108,26 @@ msgstr "Đĩa quang"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Lỗi cache trình đơn"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Hoạt động không được hỗ trợ"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Tên tập tin %s không hợp lệ"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Thư mục trình đơn không hợp lệ"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Tìm kiếm"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Sở hữu:</b>"
