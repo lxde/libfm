@@ -180,7 +180,7 @@ FmMimeType* fm_mime_type_from_native_file(const char* file_path,
             #else
             */
                 char buf[4096];
-                len = read(fd, buf, 4096);
+                len = read(fd, buf, MIN(pstat->st_size, 4096));
                 g_free(type);
                 type = g_content_type_guess(NULL, (guchar*)buf, len, &uncertain);
             /* #endif */

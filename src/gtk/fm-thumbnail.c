@@ -94,7 +94,7 @@ struct _FmThumbnailRequest
     GdkPixbuf* pix;
     sig_atomic_t cancelled;
     gshort size;
-    gboolean done : 1;
+    gboolean done : 1; /* it has pix set so will be pushed into ready queue */
 };
 
 typedef struct _ThumbnailCacheItem ThumbnailCacheItem;
@@ -183,6 +183,7 @@ static gboolean on_ready_idle(gpointer user_data)
 
 /* should be called with queue lock held */
 /* may be called in thread */
+/* moves all requests into ready_queue */
 inline static void thumbnail_task_free(ThumbnailTask* task)
 {
     GList *l;
@@ -190,9 +191,6 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
     for(l = task->requests; l; l = l->next)
     {
         FmThumbnailRequest* req = (FmThumbnailRequest*)l->data;
-        if(req->done)
-            continue;
-        req->done = TRUE;
         req->task = NULL;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
@@ -290,7 +288,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, Gd
         if(req->done)
             continue;
         if(req->cancelled)
-            goto push_it;
+            continue;
         if(req->size == cached_size)
         {
             req->pix = cached_pix ? (GdkPixbuf*)g_object_ref(cached_pix) : NULL;
@@ -328,10 +326,6 @@ static void thumbnail_task_finish(ThumbnailTask* task, GdkPixbuf* normal_pix, Gd
 
 push_it:
         req->done = TRUE;
-        req->task = NULL;
-        g_queue_push_tail(&ready_queue, req);
-        if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
-            ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
     }
     g_rec_mutex_unlock(&queue_lock);
     if(cached_pix)
@@ -600,7 +594,6 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
         DEBUG("cache found!");
         req->pix = (GdkPixbuf*)g_object_ref(pix);
         /* call the ready callback in main loader_thread_id from idle handler. */
-        req->done = TRUE;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
             ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
