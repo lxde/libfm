@@ -4790,6 +4790,9 @@ exo_icon_view_move_cursor_left_right (ExoIconView *icon_view,
   if (!gtk_widget_has_focus (GTK_WIDGET (icon_view)))
     return;
 
+  if (gtk_widget_get_direction (GTK_WIDGET (icon_view)) == GTK_TEXT_DIR_RTL)
+    count *= -1;
+
   if (!icon_view->priv->cursor_item)
     {
       if (count > 0)
