@@ -1092,7 +1092,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = GTK_SORT_ASCENDING;
-    FmFolderModelCol by = FM_FOLDER_MODEL_COL_NAME;
+    FmFolderModelCol by;
 
     /* FIXME: realize popup window and put it in the fv (honoring monitor) */
     /* don't show context menu outside of the folder view */
@@ -1106,6 +1106,8 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/Asc");
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), type);
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/ByName");
+    if(by == FM_FOLDER_MODEL_COL_DEFAULT)
+        by = FM_FOLDER_MODEL_COL_NAME;
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), by);
     show_hidden = iface->get_show_hidden(fv);
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
@@ -1410,8 +1412,8 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             /* workaround on ExoTreeView bug */
             if(files == NULL)
             {
-                files = fm_file_info_list_new();
-                fm_file_info_list_push_tail(files, fi);
+                on_menu(NULL, fv);
+                goto send_signal;
             }
 
             menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
