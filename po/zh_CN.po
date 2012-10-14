@@ -27,9 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>要打开的文件类型：</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "已安装的应用程序"
+msgstr "已安装的应用程序(_I)"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,9 +39,8 @@ msgid "_Browse"
 msgstr "浏览(_B)"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "在终端模拟器中执行"
+msgstr "在终端模拟器中执行(_E)"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -60,14 +58,12 @@ msgstr ""
 "  <b>%U</b>：代表多个 URI"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "自定义命令行"
+msgstr "自定义命令行(_C)"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "将选择的应用程序作为对这种文件类型的默认操作"
+msgstr "将选择的应用程序作为对这种文件类型的默认操作(_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -101,14 +97,12 @@ msgid "with the following file?"
 msgstr "针对以下文件？"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "文件名："
+msgstr "文件名(_F)："
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "将该操作应用于所有存在的文件"
+msgstr "将该操作应用于所有存在的文件(_A)"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -155,29 +149,24 @@ msgid "_General"
 msgstr "常规(_G)"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>属于：</b>"
+msgstr "<b>所有者(_W)：</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>组：</b>"
+msgstr "<b>组(_R)：</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>查看内容：</b>"
+msgstr "<b>查看内容(_V)：</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>更改内容：</b>"
+msgstr "<b>更改内容(_H)：</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>执行：</b>"
+msgstr "<b>执行(_E)：</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -330,7 +319,7 @@ msgstr "在终端模拟器中执行(_T)"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "字节"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -346,133 +335,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "选择一个日期"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "从以下日历中选择一个日期"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "排序文件(_S)"
+msgstr "搜索文件"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>文件类型：</b>"
+msgstr "<b>文件名模式(_N)：</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "区分大小写(_V)"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "使用正则表达式(_U)"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>搜索位置</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "在子目录中搜索(_S)"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "搜索隐藏文件(_H)"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "名称/位置(_L)"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>文件类型：</b>"
+msgstr "<b>文件类型</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "只搜索以下类型的文件"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "正在删除文件"
+msgstr "文本文件(_X)"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "将文件移到回收站"
+msgstr "图像文件(_I)"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "排序文件(_S)"
+msgstr "音频文件(_A)"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "排序文件(_S)"
+msgstr "视频文件(_V)"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "文档(_D)"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "按文件类型(_T)"
+msgstr "文件类型(_T)"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>磁盘上的大小：</b>"
+msgstr "<b>文件中包含(_S)</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "内容(_O)"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>文件类型：</b>"
+msgstr "<b>文件大小</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "小于(_S)："
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "大于(_B)："
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>上次修改：</b>"
+msgstr "<b>上次修改时间</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "无"
+msgstr "(无)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "早于(_E)："
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "晚于(_A)："
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "文件属性"
+msgstr "属性(_P)"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -617,9 +593,8 @@ msgid ""
 msgstr "您想递归地将这些操作应用于所有的文件及子文件夹吗？"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>访问内容：</b>"
+msgstr "<b>访问内容(_A)：</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -638,34 +613,28 @@ msgid "Applications"
 msgstr "应用程序"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "挂载卷"
+msgstr "挂载卷(_M)"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "卸载卷"
+msgstr "卸载卷(_U)"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "弹出可移动媒质"
+msgstr "弹出可移动媒质(_E)"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "重命名书签项"
+msgstr "重命名书签项(_R)"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "从书签中移除"
+msgstr "从书签中移除(_M)"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "清空回收站"
+msgstr "清空回收站(_E)"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -678,22 +647,19 @@ msgstr "输入新名称："
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "关(_O)"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "位置"
+msgstr "位置(_P)"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "目录树"
+msgstr "目录树(_D)"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "远程"
+msgstr "远程(_R)"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -705,43 +671,36 @@ msgstr "目录树"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "打开(_O)"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "打开方式..."
+msgstr "打开方式(_W)..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "创建符号链接"
+msgstr "创建符号链接(_S)"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "发送到"
+msgstr "发送到(_N)"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "压缩..."
+msgstr "压缩(_M)..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "提取到此处"
+msgstr "提取到此处(_H)"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "提取到..."
+msgstr "提取到(_X)..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "文件属性"
+msgstr "文件属性(_E)"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -796,23 +755,20 @@ msgid "Show _Hidden"
 msgstr "显示隐藏文件(_H)"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "只对此文件夹"
+msgstr "只对此文件夹(_O)"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr "选中以记住针对文件夹的排序设置，而非全局设置"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "同等对待文件和文件夹"
+msgstr "同等对待文件和文件夹(_F)"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "忽略名称大小写"
+msgstr "忽略名称大小写(_I)"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -915,10 +871,9 @@ msgstr "“%s”这个文件是可执行文件。您想执行它吗？"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "未指定文件夹。"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
 msgstr "请选择一个文件夹"
 
@@ -944,23 +899,20 @@ msgid "Size"
 msgstr "大小"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "权限(_P)"
+msgstr "权限"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "仅所有者"
+msgstr "所有者"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "修改"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>位置：</b>"
+msgstr "位置"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1148,26 +1100,26 @@ msgstr "光盘"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "菜单缓存错误"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "不支持该操作"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "无效的文件名 %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "无效的菜单目录"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>属于(_O)：</b>"
