@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-08-24 09:25+0200\n"
+"PO-Revision-Date: 2012-10-16 08:04+0200\n"
 "Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -28,9 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Tipo de ficheiro que se abrirá:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Aplicativo instalado"
+msgstr "Aplicativo _instalado"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -38,12 +37,11 @@ msgstr "<b>Liña de ordes a executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 msgid "_Browse"
-msgstr "_Explorar"
+msgstr "_Examinar"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Executar no emulador de terminal"
+msgstr "E_xecutar no emulador de terminal"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,15 +59,13 @@ msgstr ""
 "  <b>%U</b>: Representa múltiples URI"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Liña de ordes personalizada"
+msgstr "_Liña de ordes personalizada"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
 msgstr ""
-"Estabelecer como predeterminado o aplicativo seleccionado para abrir os "
+"E_stabelecer como predeterminado o aplicativo seleccionado para abrir os "
 "ficheiros deste tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -104,14 +100,12 @@ msgid "with the following file?"
 msgstr "co seguinte ficheiro?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Nome do ficheiro:"
+msgstr "_Nome do ficheiro:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Aplicar esta opción a todos os ficheiros existentes"
+msgstr "_Aplicar esta opción a todos os ficheiros existentes"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -158,29 +152,24 @@ msgid "_General"
 msgstr "_Xeral"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Propietario:</b>"
+msgstr "<b>_Propietario:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grupo:</b>"
+msgstr "<b>G_rupo:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Ver o contido:</b>"
+msgstr "<b>_Ver o contido:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Cambiar o contido:</b>"
+msgstr "<b>Ca_mbiar o contido:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Executar:</b>"
+msgstr "<b>_Executar:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -335,7 +324,7 @@ msgstr "Executar no _terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -351,133 +340,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Escolla a data"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Escolla unha data deste calendario"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Ordenar ficheiros"
+msgstr "Buscar ficheiros"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Tipo de ficheiro:</b>"
+msgstr "<b>Patróns de _nome de ficheiro</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "_Non diferenciar maiúsculas de minúsculas"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Utilizar expresións regulares"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Lugares de busca</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Buscar nos _subdirectorios"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Buscar nos _ficheiros agochados"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nome/_Localización"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
 msgstr "<b>Tipo de ficheiro:</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Buscar só os ficheiros destes tipos"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Eliminando ficheiros"
+msgstr "Ficheiros de te_xto"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Enviando ficheiros ao cesto do lixo"
+msgstr "Ficheiros de _imaxe"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Ordenar ficheiros"
+msgstr "Ficheiros de _son"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Ordenar ficheiros"
+msgstr "Ficheiros de _vídeo"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Documentos"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Polo _tipo"
+msgstr "_Tipo de ficheiro"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Tamaño en disco:</b>"
+msgstr "<b>O ficheiro co_ntén</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "C_ontido"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Tipo de ficheiro:</b>"
+msgstr "<b>Tamaño do ficheiro:</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Menor que:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "M_aior que:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Última modificación:</b>"
+msgstr "<b>Data da última modificación</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "Ningunha"
+msgstr "(Ningún)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Ant_erior a:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "Posterior _a:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Propiedades do ficheiro"
+msgstr "_Propiedades"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -627,9 +603,8 @@ msgstr ""
 "subcartafoles?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Acceso ao contido:</b>"
+msgstr "<b>_Acceso ao contido:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -648,34 +623,28 @@ msgid "Applications"
 msgstr "Aplicativos"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Montar volume"
+msgstr "_Montar volume"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Desmontar volume"
+msgstr "_Desmontar volume"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Expulsar medio extraíbel"
+msgstr "_Expulsar medio extraíbel"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Renomear elemento marcador"
+msgstr "_Renomear elemento marcador"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Quitar dos marcadores"
+msgstr "_Re_irar dos marcadores"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Baleirar o cesto do lixo"
+msgstr "_Baleirar o cesto do lixo"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -688,22 +657,19 @@ msgstr "Escriba un nome novo:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "A_pagar"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Lugares"
+msgstr "_Lugares"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Árbore de cartafoles"
+msgstr "_Árbore de cartafoles"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Remoto"
+msgstr "_Remoto"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -711,47 +677,40 @@ msgstr "Lugares"
 
 #: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
-msgstr "Árbore de cartafoles"
+msgstr "Árbore de _directorios"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Abrir"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Abrir con..."
+msgstr "Abrir _con..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Crear ligazón simbólica"
+msgstr "Crear ligazón _simbólica"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Enviar a"
+msgstr "E_nviar a"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Comprimir..."
+msgstr "Co_mprimir..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Extraer aquí"
+msgstr "Extraer a_quí"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Extraer a..."
+msgstr "E_xtraer a..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Propiedades do ficheiro"
+msgstr "Propi_edades"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -806,9 +765,8 @@ msgid "Show _Hidden"
 msgstr "A_mosar agochados"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Só para este cartafol"
+msgstr "_Só para este cartafol"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -816,14 +774,12 @@ msgstr ""
 "Marcar para lembrar o axuste de ordenación do cartafol no canto do global"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Os ficheiros e cartafoles mesturanse"
+msgstr "Mesturar ficheiros e cartafoles"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Ignorar as maiúsculas no nome"
+msgstr "_Ignorar as maiúsculas no nome"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -926,10 +882,9 @@ msgstr "Este ficheiro «%s» é executábel. Desexa executalo?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Non especificou ningún cartafol"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
 msgstr "Seleccione un cartafol"
 
@@ -955,23 +910,20 @@ msgid "Size"
 msgstr "Tamaño"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Permisos"
+msgstr "Permisos"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Só o propietario"
+msgstr "Propietario"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Modificado"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Localización:</b>"
+msgstr "Localización"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1159,26 +1111,26 @@ msgstr "Disco óptico"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Produciuse un erro na caché do menú"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Operación non admitida"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Nome de ficheiro incorrecto %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Directorio de menú incorrecto"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Propietario:</b>"
