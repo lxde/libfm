@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-01 01:23+0200\n"
+"PO-Revision-Date: 2012-10-19 18:50+0200\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -337,11 +337,11 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Odaberite datum"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Odaberite datum iz slijedećeg kalendara"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
@@ -369,15 +369,15 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Traži u poddirektorijima"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Traži _skrivene datoteke"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Ime/_Lokacija"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -385,7 +385,7 @@ msgstr "<b>Tip datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Traži samo datoteke slijedećih vrsta"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "S_adržaj"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "<b>File Size</b>"
@@ -425,11 +425,11 @@ msgstr "<b>Veličina datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Manje nego:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Veće nego:"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>Last Modified Time</b>"
@@ -442,11 +442,11 @@ msgstr "(Nijedan)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Ranije nego:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "K_asnije nego:"
 
 #: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
@@ -655,7 +655,7 @@ msgstr "Unesi novo ime:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Isključeno"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
@@ -907,23 +907,20 @@ msgid "Size"
 msgstr "Veličina"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Dozvole"
+msgstr "Dozvole"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Samo vlasnik"
+msgstr "Vlasnik"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Izmjenjeno"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Lokacija:</b>"
+msgstr "Lokacija"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
