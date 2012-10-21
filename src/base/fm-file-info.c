@@ -52,13 +52,6 @@
 
 #define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
-/* Common lock for all menu-cache access */
-#if GLIB_CHECK_VERSION(2, 32, 0)
-GMutex fm_mutex_menucache;
-#else
-GStaticMutex fm_mutex_menucache = G_STATIC_MUTEX_INIT;
-#endif
-
 static FmMimeType* desktop_entry_type = NULL;
 
 static FmIcon* icon_locked_folder = NULL;

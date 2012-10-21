@@ -373,7 +373,15 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
  * @type: new mode of sorting (ascending or descending)
  * @by: criteria of sorting
  *
- * Changes sorting in the view.
+ * Changes sorting in the view. Invalid values for @type or @by are
+ * ignored (will not change sorting).
+ *
+ * Since 1.0.2 values passed to this API aren't remembered in the @fv
+ * object. If @fv has no model then this API has no effect.
+ * After the model is removed from @fv (calling fm_folder_view_set_model()
+ * with NULL) there is no possibility to recover last settings and any
+ * model added to @fv later will get defaults: FM_FOLDER_MODEL_COL_DEFAULT
+ * and FM_SORT_DEFAULT.
  *
  * Since: 0.1.0
  *
