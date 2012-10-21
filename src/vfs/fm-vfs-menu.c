@@ -42,7 +42,7 @@ static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
 typedef struct _FmMenuVFile             FmMenuVFile;
 typedef struct _FmMenuVFileClass        FmMenuVFileClass;
 
-GType fm_vfs_menu_file_get_type        (void);
+static GType fm_vfs_menu_file_get_type  (void);
 
 struct _FmMenuVFile
 {

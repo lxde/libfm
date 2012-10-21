@@ -51,7 +51,7 @@ static GHashTable *schemes = NULL;
 
 G_DEFINE_INTERFACE(FmFile, fm_file, G_TYPE_FILE)
 
-gboolean fm_file_wants_incremental_false(GFile *unused)
+static gboolean fm_file_wants_incremental_false(GFile *unused)
 {
     return FALSE;
 }

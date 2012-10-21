@@ -94,7 +94,7 @@ struct _FmVfsSearchEnumeratorClass
 typedef struct _FmSearchVFile           FmSearchVFile;
 typedef struct _FmSearchVFileClass      FmSearchVFileClass;
 
-GType fm_vfs_search_file_get_type        (void);
+static GType fm_vfs_search_file_get_type (void);
 
 struct _FmSearchVFile
 {
@@ -155,7 +155,7 @@ static inline void _search_iter_free(FmSearchIntIter *iter, GCancellable *cancel
 
 
 /* ---- search enumerator class ---- */
-//static GType fm_vfs_search_enumerator_get_type   (void);
+static GType fm_vfs_search_enumerator_get_type   (void);
 
 G_DEFINE_TYPE(FmVfsSearchEnumerator, fm_vfs_search_enumerator, G_TYPE_FILE_ENUMERATOR)
 
@@ -589,7 +589,7 @@ static void fm_search_job_match_folder(FmVfsSearchEnumerator * priv,
     container->current = g_object_ref(folder_path);
 }
 
-gboolean fm_search_job_match_filename(FmVfsSearchEnumerator* priv, GFileInfo* info)
+static gboolean fm_search_job_match_filename(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
     gboolean ret;
 
@@ -718,9 +718,10 @@ static gboolean fm_search_job_match_content_exact(FmVfsSearchEnumerator* priv,
     return ret;
 }
 
-gboolean fm_search_job_match_content(FmVfsSearchEnumerator* priv,
-                                     GFileInfo* info, GFile* parent,
-                                     GCancellable* cancellable, GError** error)
+static gboolean fm_search_job_match_content(FmVfsSearchEnumerator* priv,
+                                            GFileInfo* info, GFile* parent,
+                                            GCancellable* cancellable,
+                                            GError** error)
 {
     gboolean ret;
     if(priv->content_pattern || priv->content_regex)
@@ -764,7 +765,7 @@ gboolean fm_search_job_match_content(FmVfsSearchEnumerator* priv,
     return ret;
 }
 
-gboolean fm_search_job_match_file_type(FmVfsSearchEnumerator* priv, GFileInfo* info)
+static gboolean fm_search_job_match_file_type(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
     gboolean ret;
     if(priv->mime_types)
@@ -799,7 +800,7 @@ gboolean fm_search_job_match_file_type(FmVfsSearchEnumerator* priv, GFileInfo* i
     return ret;
 }
 
-gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo* info)
+static gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
     guint64 size = g_file_info_get_size(info);
     gboolean ret = TRUE;
@@ -810,7 +811,7 @@ gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo* info)
     return ret;
 }
 
-gboolean fm_search_job_match_mtime(FmVfsSearchEnumerator* priv, GFileInfo* info)
+static gboolean fm_search_job_match_mtime(FmVfsSearchEnumerator* priv, GFileInfo* info)
 {
     gboolean ret = TRUE;
     if(priv->min_mtime || priv->max_mtime)
