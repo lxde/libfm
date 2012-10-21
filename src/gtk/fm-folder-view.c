@@ -1192,8 +1192,8 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     GtkAccelGroup* accel_grp;
     gboolean show_hidden;
     FmSortMode mode;
-    GtkSortType type = GTK_SORT_ASCENDING;
-    FmFolderModelCol by = FM_FOLDER_MODEL_COL_NAME;
+    GtkSortType type = (GtkSortType)-1;
+    FmFolderModelCol by = (FmFolderModelCol)-1;
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     show_hidden = iface->get_show_hidden(fv);
