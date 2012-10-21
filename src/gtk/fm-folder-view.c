@@ -391,9 +391,14 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelCol by
     model = iface->get_model(fv);
     if(model)
     {
-        fm_folder_model_get_sort(model, NULL, &mode);
-        mode &= ~FM_SORT_ORDER_MASK;
-        mode |= (type == GTK_SORT_ASCENDING) ? FM_SORT_ASCENDING : FM_SORT_DESCENDING;
+        if(type == GTK_SORT_ASCENDING || type == GTK_SORT_DESCENDING)
+        {
+            fm_folder_model_get_sort(model, NULL, &mode);
+            mode &= ~FM_SORT_ORDER_MASK;
+            mode |= (type == GTK_SORT_ASCENDING) ? FM_SORT_ASCENDING : FM_SORT_DESCENDING;
+        }
+        else
+            mode = FM_SORT_DEFAULT;
         fm_folder_model_set_sort(model, by, mode);
     }
     /* model will generate signal to update config if changed */
@@ -1104,12 +1109,12 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     if(fm_folder_model_get_sort(model, &by, &mode))
         type = FM_SORT_IS_ASCENDING(mode) ? GTK_SORT_ASCENDING : GTK_SORT_DESCENDING;
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/Asc");
-    g_debug("set /popup/Sort/Asc: %u", type);
+    /* g_debug("set /popup/Sort/Asc: %u", type); */
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), type);
     act = gtk_ui_manager_get_action(ui, "/popup/Sort/ByName");
     if(by == FM_FOLDER_MODEL_COL_DEFAULT)
         by = FM_FOLDER_MODEL_COL_NAME;
-    g_debug("set /popup/Sort/ByName: %u", by);
+    /* g_debug("set /popup/Sort/ByName: %u", by); */
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), by);
     show_hidden = iface->get_show_hidden(fv);
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
@@ -1132,7 +1137,7 @@ static void on_change_by(GtkRadioAction* act, GtkRadioAction* cur, FmFolderView*
     guint val = gtk_radio_action_get_current_value(cur);
     FmFolderModel *model = fm_folder_view_get_model(fv);
 
-    g_debug("on_change_by");
+    /* g_debug("on_change_by"); */
     if(model)
         fm_folder_model_set_sort(model, val, FM_SORT_DEFAULT);
 }
@@ -1143,7 +1148,7 @@ static void on_change_type(GtkRadioAction* act, GtkRadioAction* cur, FmFolderVie
     FmFolderModel *model = fm_folder_view_get_model(fv);
     FmSortMode mode;
 
-    g_debug("on_change_type");
+    /* g_debug("on_change_type"); */
     if(model)
     {
         fm_folder_model_get_sort(model, NULL, &mode);

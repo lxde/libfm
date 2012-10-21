@@ -1725,7 +1725,7 @@ void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSort
 {
     FmFolderModelCol old_col = model->sort_col;
 
-    g_debug("fm_folder_model_set_sort: col %x mode %x", col, mode);
+    /* g_debug("fm_folder_model_set_sort: col %x mode %x", col, mode); */
     if(!FM_FOLDER_MODEL_COL_IS_VALID(col))
         col = old_col;
     if(mode == FM_SORT_DEFAULT)
@@ -1755,7 +1755,7 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
 {
     if(!FM_IS_FOLDER_MODEL(model))
         return FALSE;
-    g_debug("fm_folder_model_get_sort: col %x mode %x", model->sort_col, model->sort_mode);
+    /* g_debug("fm_folder_model_get_sort: col %x mode %x", model->sort_col, model->sort_mode); */
     if(col)
         *col = model->sort_col;
     if(mode)
