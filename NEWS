@@ -34,6 +34,15 @@ Changes on 1.0.2 since 1.0.1:
     View in FmStandardView widget for now. Implementation for other modes
     and widgets will come later on demand.
 
+* Added a FmSortMode enumerator (similar to GtkSortType) with few modes
+    specific fo file manager (ascending/descending is one of new modes).
+
+* Sorting set/get functions moved from FmFolderView into FmFolderModel.
+    Sorting isn't remembered by implementations of FmFolderView anymore
+    so application should set sorting explicitly after creation of new
+    FmFolderModel instance. Previously FmFolderView remembered it and no
+    explicit setting was required.
+
 * A lot of lesser bugfixes.
 
 
