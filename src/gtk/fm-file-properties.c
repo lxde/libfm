@@ -148,9 +148,15 @@ static gboolean on_timeout(gpointer user_data)
 {
     FmFilePropData* data = (FmFilePropData*)user_data;
     char size_str[128];
-    FmDeepCountJob* dc = data->dc_job;
+    FmDeepCountJob* dc;
 
-
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+    {
+        GDK_THREADS_LEAVE();
+        return FALSE;
+    }
+    dc = data->dc_job;
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
         char* str;
@@ -172,6 +178,7 @@ static gboolean on_timeout(gpointer user_data)
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
     }
+    GDK_THREADS_LEAVE();
     return TRUE;
 }
 

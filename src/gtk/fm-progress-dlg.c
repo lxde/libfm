@@ -402,13 +402,15 @@ static gboolean on_update_dlg(gpointer user_data)
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
     /* the g_strdup very probably returns the same pointer that was g_free'd
        so we cannot just compare data->old_cur_file with data->cur_file */
-    if(data->cur_file)
+    GDK_THREADS_ENTER();
+    if(!g_source_is_destroyed(g_main_current_source()) && data->cur_file)
     {
         gtk_label_set_text(data->current, data->cur_file);
         g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
         data->cur_file = NULL;
     }
+    GDK_THREADS_LEAVE();
     return TRUE;
 }
 
@@ -425,13 +427,19 @@ static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
 static gboolean on_show_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    GtkBuilder* builder = gtk_builder_new();
+    GtkBuilder* builder;
     GtkLabel* to;
     GtkWidget *to_label;
     FmPath* dest;
     const char* title = NULL;
-    GtkTextTagTable* tag_table = gtk_text_tag_table_new();
+    GtkTextTagTable* tag_table;
 
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+        goto _end;
+
+    builder = gtk_builder_new();
+    tag_table = gtk_text_tag_table_new();
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
 
@@ -540,6 +548,8 @@ static gboolean on_show_dlg(gpointer user_data)
     data->update_timeout = g_timeout_add(500, on_update_dlg, data);
 
     data->delay_timeout = 0;
+_end:
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 

@@ -726,6 +726,8 @@ exo_tree_view_single_click_timeout (gpointer user_data)
 
   GDK_THREADS_ENTER ();
 
+  /* ensure that source isn't removed yet */
+  if(!g_source_is_destroyed(g_main_current_source()))
   /* verify that we are in single-click mode, have focus and a hover path */
   if (gtk_widget_has_focus (GTK_WIDGET (tree_view)) && tree_view->priv->single_click && tree_view->priv->hover_path != NULL)
     {

@@ -500,6 +500,8 @@ static gboolean emit_found_files(gpointer user_data)
     FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
     /* g_print("emit_found_files: %d\n", g_slist_length(job->files_to_add)); */
 
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
     g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
     g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
     job->files_to_add = NULL;

@@ -2027,6 +2027,13 @@ rubberband_scroll_timeout (gpointer user_data)
 
   GDK_THREADS_ENTER ();
 
+  /* ensure that source isn't removed yet */
+  if(g_source_is_destroyed(g_main_current_source()))
+    {
+      GDK_THREADS_LEAVE ();
+      return FALSE;
+    }
+
   /* determine the adjustment for the scroll direction */
   adjustment = (icon_view->priv->layout_mode == EXO_ICON_VIEW_LAYOUT_ROWS)
              ? icon_view->priv->vadjustment
@@ -6845,7 +6852,8 @@ drag_scroll_timeout (gpointer data)
 
   GDK_THREADS_ENTER ();
 
-  exo_icon_view_autoscroll (icon_view);
+  if(!g_source_is_destroyed(g_main_current_source()))
+    exo_icon_view_autoscroll (icon_view);
 
   GDK_THREADS_LEAVE ();
 
@@ -7992,6 +8000,10 @@ exo_icon_view_single_click_timeout (gpointer user_data)
 
   GDK_THREADS_ENTER ();
 
+  /* ensure that source isn't removed yet */
+  if(g_source_is_destroyed(g_main_current_source()))
+      goto _end;
+
   /* verify that we are in single-click mode, have focus and a prelit item */
   if (gtk_widget_has_focus (GTK_WIDGET (icon_view)) && icon_view->priv->single_click && icon_view->priv->prelit_item != NULL)
     {
@@ -8057,6 +8069,7 @@ exo_icon_view_single_click_timeout (gpointer user_data)
       g_signal_emit (G_OBJECT (icon_view), icon_view_signals[SELECTION_CHANGED], 0);
     }
 
+_end:
   GDK_THREADS_LEAVE ();
 
   return FALSE;
@@ -8882,7 +8895,8 @@ exo_icon_view_search_timeout (gpointer user_data)
   ExoIconView *icon_view = EXO_ICON_VIEW (user_data);
 
   GDK_THREADS_ENTER ();
-  exo_icon_view_search_dialog_hide (icon_view->priv->search_window, icon_view);
+  if(!g_source_is_destroyed(g_main_current_source()))
+    exo_icon_view_search_dialog_hide (icon_view->priv->search_window, icon_view);
   GDK_THREADS_LEAVE ();
 
   return FALSE;
