@@ -6,11 +6,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 1.0\n"
+"Project-Id-Version: libfm 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-09 12:53+0200\n"
-"Last-Translator: Mișu <dumol@l10n.ro>\n"
+"PO-Revision-Date: 2012-10-23 22:13+0300\n"
+"Last-Translator: Mișu Moldovan <dumol@l10n.ro>\n"
 "Language-Team: Romanian <diacritice@googlegroups.com>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Virtaal 0.7.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -29,9 +29,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Tip de fișier de deschis:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Programe instalate"
+msgstr "Program _instalate"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -42,9 +41,8 @@ msgid "_Browse"
 msgstr "_Navigare"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Execută în emulatorul de terminal"
+msgstr "_Execută în emulatorul de terminal"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -62,14 +60,12 @@ msgstr ""
 "  <b>%U</b>: Reprezintă mai multe URI-uri de fișiere"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Comandă personalizată"
+msgstr "_Comandă personalizată"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Reține acțiunea ca fiind implicit asociată acestui tip de fișier"
+msgstr "R_eține acțiunea ca fiind implicit asociată acestui tip de fișier"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -103,14 +99,12 @@ msgid "with the following file?"
 msgstr "cu următorul fișier?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Nume fișier:"
+msgstr "Nume _fișier:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Fă la fel pentru toate fișierele existente"
+msgstr "_Fă la fel pentru toate fișierele existente"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -157,29 +151,25 @@ msgid "_General"
 msgstr "_Generale"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Deținător:</b>"
+msgstr "<b>Deți_nător:</b>"
 
+# R is already used by "Renunță"
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grup:</b>"
+msgstr "<b>Gr_up:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Vizualizare conținut:</b>"
+msgstr "<b>_Vizualizare conținut:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Editare conținut:</b>"
+msgstr "<b>_Editare conținut:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Executare:</b>"
+msgstr "<b>E_xecutare:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -334,7 +324,7 @@ msgstr "Execută în _terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -350,49 +340,47 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Alegeți o dată"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Alegeți o dată din calendarul prezentat"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Sortează fișierele"
+msgstr "Căutare de fișiere"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Tip de fișier:</b>"
+msgstr "<b>Model de _nume de fișier:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "_Majuscule semnificative"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Utilizează regexp"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Locuri de căutat</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "Caută în _subdirectoare"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Caută și între _fișierele ascunse"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nume/_Locație"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -400,82 +388,72 @@ msgstr "<b>Tip de fișier</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Caută doar fișiere de tipul următor"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Se șterg fișierele"
+msgstr "Fișiere te_xt"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Se mută la coș fișierele"
+msgstr "Fișiere _imagine"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Sortează fișierele"
+msgstr "Fișiere _audio"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Sortează fișierele"
+msgstr "Fișiere _video"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "Docu_mente"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "După _tipul de fișier"
+msgstr "_Tipul de fișier"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Mărime pe disc:</b>"
+msgstr "<b>Fișierul _conține:</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "C_onținut"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Tip de fișier:</b>"
+msgstr "<b>Mărime fișiere</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "Mai mic _decât:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Mai _mare decât:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Ultima modificare:</b>"
+msgstr "<b>Ultima modificare</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "Nimic"
+msgstr "(Nimic)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Î_nainte de:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "D_upă:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Proprietățile fișierului"
+msgstr "_Proprietăți"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -627,9 +605,8 @@ msgstr ""
 "subdirectoarelor?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Accesare conținut</b>"
+msgstr "<b>_Accesare conținut:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -648,34 +625,28 @@ msgid "Applications"
 msgstr "Programe"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Montează volumul"
+msgstr "_Montează volumul"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Demontează volumul"
+msgstr "_Demontează volumul"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Ejectează mediul detașabil"
+msgstr "_Ejectează mediul detașabil"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Redenumire a favoritului"
+msgstr "_Redenumire a favoritului"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Eliminare dintre favorite"
+msgstr "_Eliminare dintre favorite"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Golește coșul"
+msgstr "_Golește coșul"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -688,22 +659,19 @@ msgstr "Introduceți un nou nume:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Fără"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Locuri"
+msgstr "_Locuri"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Arbore de directoare"
+msgstr "_Arbore de directoare"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "La distanță"
+msgstr "La _distanță"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -715,43 +683,36 @@ msgstr "Arbore de directoare"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Deschide"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Deschide cu..."
+msgstr "Deschide c_u..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Creează o legătură"
+msgstr "Creea_ză o legătură"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Trimite către"
+msgstr "Tri_mite către"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Arhivare..."
+msgstr "Arhi_vare..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Dezarhivare aici"
+msgstr "Dezarhivare _aici"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Dezarhivare în..."
+msgstr "Dezarhivare î_n..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Proprietățile fișierului"
+msgstr "_Proprietăți"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -806,9 +767,8 @@ msgid "Show _Hidden"
 msgstr "Arată fișierele _ascunse"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Doar pentru acest dosar"
+msgstr "_Doar pentru acest dosar"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -816,14 +776,12 @@ msgstr ""
 "Bifați pentru a reține sortarea curentă ca fiind specifică acestui dosar"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Amestecă fișierele și dosarele"
+msgstr "Amestecă _fișierele și dosarele"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Ignoră majusculele"
+msgstr "_Ignoră majusculele"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -926,12 +884,11 @@ msgstr "Fișierul „%s” este executabil. Doriți să-l executați?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Nu s-a specificat niciun dosar."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
-msgstr "Selectați un director"
+msgstr "Selectați un dosar"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -955,23 +912,20 @@ msgid "Size"
 msgstr "Mărime"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Drepturi"
+msgstr "Drepturi"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Doar deținătorul"
+msgstr "Deținător"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Modificat"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Locație:</b>"
+msgstr "Locație"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1159,58 +1113,24 @@ msgstr "Disc optic"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Eroare în cache-ul de meniu"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Nu există suport pentru această operațiune"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Nume incorect de fișier %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Nume incorect de director"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Căutare"
 
-#~ msgid "<b>_Owner:</b>"
-#~ msgstr "<b>D_eținător:</b>"
-
-#~ msgid "<b>_Group:</b>"
-#~ msgstr "<b>Gr_up:</b>"
-
-#~ msgid "Rename"
-#~ msgstr "Redenumire"
-
-#~ msgid "Trash"
-#~ msgstr "Coș"
-
-#~ msgid "Operations that the owner of the file can do"
-#~ msgstr "Acțiuni pe care le poate face deținătorul fișierului"
-
-#~ msgid ""
-#~ "Operations that users in the same group as the owner of the file can do"
-#~ msgstr ""
-#~ "Acțiuni pe care le pot face utilizatorii din același grup cu deținătorul"
-
-#~ msgid "Operations that all other users can do"
-#~ msgstr "Acțiuni pe care le pot face ceilalți utilizatori"
-
-#~ msgid "Make the file executable"
-#~ msgstr "Fă fișierul executabil"
-
-#~ msgid "Read and Write"
-#~ msgstr "Citire și scriere"
-
-#~ msgid "Read only"
-#~ msgstr "Doar citire"
-
-#~ msgid "Write only"
-#~ msgstr "Doar scriere"
