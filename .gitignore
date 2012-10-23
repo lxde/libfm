@@ -1,6 +1,6 @@
 Makefile.in*
 Makefile
-.[a-z]*
+.[A-Za-z]*
 *~
 *.o
 *.lo
@@ -30,8 +30,10 @@ fm*-marshal.[ch]
 src/actions/*.[ch]
 *.1
 *.desktop
+src/fm.h
 src/libfm-demo
 src/libfm-pref-apps
+src/libfm-file-search-cli-demo
 src/tests/fm-path
 src/vapi/fm-actions.vapi
 src/xml-purge
