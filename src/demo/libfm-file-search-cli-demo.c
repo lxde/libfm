@@ -77,12 +77,14 @@ static void on_files_added(FmFolder* folder, GSList* files, gpointer user_data)
     }
 }
 
+#if 0
 static gboolean on_timeout(gpointer user_data)
 {
     g_printf("timeout!\n");
     gtk_main_quit();
     return FALSE;
 }
+#endif
 
 static void on_finish_loading(FmFolder* folder)
 {

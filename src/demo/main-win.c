@@ -453,7 +453,6 @@ static void fm_main_win_init(FmMainWin *win)
     /* folder view */
     win->folder_view = (FmFolderView*)fm_standard_view_new(FM_FV_ICON_VIEW, update_files_popup, open_folder_func);
     fm_folder_view_set_show_hidden(win->folder_view, FALSE);
-    fm_folder_view_sort(win->folder_view, GTK_SORT_ASCENDING, FM_FOLDER_MODEL_COL_NAME);
     fm_folder_view_set_selection_mode(win->folder_view, GTK_SELECTION_MULTIPLE);
     g_signal_connect(win->folder_view, "clicked", G_CALLBACK(on_file_clicked), win);
     g_signal_connect(win->folder_view, "sel-changed", G_CALLBACK(on_sel_changed), win);
@@ -635,14 +634,26 @@ void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 
 void on_sort_by(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
-    int val = gtk_radio_action_get_current_value(cur);
-    fm_folder_view_sort(win->folder_view, -1, val);
+    guint val = gtk_radio_action_get_current_value(cur);
+    FmFolderModel *model = fm_folder_view_get_model(win->folder_view);
+
+    if(model)
+        fm_folder_model_set_sort(model, val, FM_SORT_DEFAULT);
 }
 
 void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 {
-    int val = gtk_radio_action_get_current_value(cur);
-    fm_folder_view_sort(win->folder_view, val, -1);
+    guint val = gtk_radio_action_get_current_value(cur);
+    FmFolderModel *model = fm_folder_view_get_model(win->folder_view);
+    FmSortMode mode;
+
+    if(model)
+    {
+        fm_folder_model_get_sort(model, NULL, &mode);
+        mode &= ~FM_SORT_ORDER_MASK;
+        mode |= (val == GTK_SORT_ASCENDING) ? FM_SORT_ASCENDING : FM_SORT_DESCENDING;
+        fm_folder_model_set_sort(model, FM_FOLDER_MODEL_COL_DEFAULT, mode);
+    }
 }
 
 void on_new_win(GtkAction* act, FmMainWin* win)
