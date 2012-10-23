@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-12 10:41+0200\n"
+"PO-Revision-Date: 2012-10-23 19:59+0200\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -772,7 +772,7 @@ msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:199
 msgid "Mingle _files and folders"
-msgstr "Juntar _ficheiros e pastas"
+msgstr "Pastas pre_cedem ficheiros"
 
 #: ../src/gtk/fm-folder-view.c:200
 msgid "_Ignore name case"
