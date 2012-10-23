@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-23 20:18+0200\n"
+"PO-Revision-Date: 2012-10-23 22:53+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -876,7 +876,7 @@ msgstr "This file '%s' is executable. Do you want to execute it?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "No folders are specified."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
 #, fuzzy
