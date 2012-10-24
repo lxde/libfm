@@ -527,7 +527,6 @@ FmFolderModelCol
 FmFolderModelFilterFunc
 fm_folder_model_add_filter
 fm_folder_model_apply_filters
-fm_folder_model_col_by_name
 fm_folder_model_col_get_name
 fm_folder_model_col_get_title
 fm_folder_model_col_is_sortable
@@ -535,6 +534,7 @@ fm_folder_model_file_changed
 fm_folder_model_file_created
 fm_folder_model_file_deleted
 fm_folder_model_find_iter_by_filename
+fm_folder_model_get_col_by_name
 fm_folder_model_get_folder
 fm_folder_model_get_folder_path
 fm_folder_model_get_icon_size

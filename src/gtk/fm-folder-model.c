@@ -1828,7 +1828,7 @@ const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
 }
 
 /**
- * fm_folder_model_col_by_name
+ * fm_folder_model_get_col_by_name
  * @str: a column name
  *
  * Finds a column which has associated name equal to @str.
@@ -1837,7 +1837,7 @@ const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
  *
  * Since: 1.0.2
  */
-FmFolderModelCol fm_folder_model_col_by_name(const char* str)
+FmFolderModelCol fm_folder_model_get_col_by_name(const char* str)
 {
     /* if further optimization is wanted, can use a sorted string array
      * and binary search here, but I think this micro-optimization is unnecessary. */
