@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-23 22:53+0200\n"
+"PO-Revision-Date: 2012-10-24 14:36+0200\n"
 "Last-Translator: Steve <yorvik.ubunto@gmail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
 "Language: en_GB\n"
@@ -879,9 +879,8 @@ msgid "No folders are specified."
 msgstr "No folders are specified."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
-msgstr "Please select a folder"
+msgstr "Select a folder"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -905,23 +904,20 @@ msgid "Size"
 msgstr "Size"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Permissions"
+msgstr "Permissions"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Only owner"
+msgstr "Owner"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Modified"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Location:</b>"
+msgstr "Location"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1109,26 +1105,26 @@ msgstr "Optical Disc"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Menu cache error"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Operation not supported"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Invalid file-name %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Invalid menu directory"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Owner:</b>"
