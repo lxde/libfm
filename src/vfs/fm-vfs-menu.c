@@ -590,6 +590,7 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
     if(init->path_str)
     {
         char *unescaped, *tmp;
+        const char *id;
 
         unescaped = g_uri_unescape_string(init->path_str, NULL);
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
@@ -600,8 +601,13 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
            instead of failure so we check what we got here.
            Unfortunately we cannot detect if requested name is the same
            as its parent and menu-cache returned the parent. */
+        id = strrchr(unescaped, '/');
+        if(id)
+            id++;
+        else
+            id = unescaped;
         if(dir == NULL ||
-           strcmp(unescaped, menu_cache_item_get_id(MENU_CACHE_ITEM(dir))) != 0)
+           strcmp(id, menu_cache_item_get_id(MENU_CACHE_ITEM(dir))) != 0)
             is_invalid = TRUE;
         g_free(unescaped);
         g_free(tmp);
