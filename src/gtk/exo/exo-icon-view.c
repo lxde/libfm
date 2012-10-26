@@ -1727,6 +1727,14 @@ exo_icon_view_size_allocate (GtkWidget     *widget,
   GtkAdjustment *vadjustment;
   ExoIconView   *icon_view = EXO_ICON_VIEW (widget);
 
+  /* FIXME: gtk 3.4.2 calls this with weird values sometimes.
+     Don't know if that is a bug of gtk or something else.
+     Since that will break the view a workaround is required. */
+  if (allocation->x < 0)
+    allocation->x = 0;
+  if (allocation->y < 0)
+    allocation->y = 0;
+
   /* apply the new size allocation */
   gtk_widget_set_allocation (widget, allocation);
 
