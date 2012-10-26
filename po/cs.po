@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-09 17:46+0200\n"
+"PO-Revision-Date: 2012-10-26 10:38+0200\n"
 "Last-Translator: ALIUM <info@aloisnespor.info>\n"
 "Language-Team: Czech <radek@fastlinux.eu>\n"
 "Language: cs\n"
@@ -94,7 +94,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
-msgstr "IDnásledujícím souborem?"
+msgstr "následujícím souborem?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File Name:"
@@ -426,11 +426,11 @@ msgstr "<b>Velikost souboru</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr "_Menší než"
+msgstr "_Menší než:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr "_Větší než"
+msgstr "_Větší než:"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>Last Modified Time</b>"
@@ -909,23 +909,20 @@ msgid "Size"
 msgstr "Velikost"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Práva"
+msgstr "Práva"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Pouze vlastník"
+msgstr "Vlastník"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Změněno"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "Jméno/_Lokace"
+msgstr "Lokace"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1127,7 +1124,7 @@ msgstr "Chybné jméno %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Neplatné menu adresáře"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
