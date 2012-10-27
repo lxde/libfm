@@ -248,12 +248,15 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
         g_string_append(buf, item->name);
         g_string_append_c(buf, '\n');
     }
+    idle_handler = 0;
 
     fpath = get_bookmarks_file();
     g_file_set_contents(fpath, buf->str, buf->len, NULL);
     g_free(fpath);
 
     g_string_free(buf, TRUE);
+    /* we changed bookmarks list, let inform who interested in that */
+    g_signal_emit(bookmarks, signals[CHANGED], 0);
     return FALSE;
 }
 
