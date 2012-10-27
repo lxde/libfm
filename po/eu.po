@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-27 22:07+0200\n"
+"PO-Revision-Date: 2012-10-27 22:30+0200\n"
 "Last-Translator: Asier <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -366,7 +366,7 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Erabili adierazpen erregularra"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
@@ -627,34 +627,28 @@ msgid "Applications"
 msgstr "Aplikazioak"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Muntatu bolumena"
+msgstr "_Muntatu bolumena"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Desmuntatu bolumena"
+msgstr "_Desmuntatu bolumena"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Egotzi gailu aldagarria"
+msgstr "_Egotzi gailu aldagarria"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Berrizendatu laster-marka elementua"
+msgstr "_Berrizendatu laster-marka elementua"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Kendu laster-markatik"
+msgstr "_Kendu laster-markatik"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Hustu zakarrontzia"
+msgstr "_Hustu zakarrontzia"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -670,19 +664,16 @@ msgid "_Off"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Lekuak"
+msgstr "_Lekuak"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Direktorio-zuhaitza"
+msgstr "_Direktorio-zuhaitza"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Urrunekoa"
+msgstr "_Urrunekoa"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -694,43 +685,36 @@ msgstr "Direktorio-zuhaitza"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Ireki"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Ireki honekin..."
+msgstr "Ireki _honekin..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Sortu esteka sinbolikoa"
+msgstr "_Sortu esteka sinbolikoa"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Bidali hona"
+msgstr "_Bidali hona"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Konprimatu..."
+msgstr "_Konprimatu..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Erauzi hemen"
+msgstr "Erauzi _hemen"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Erauzi hona..."
+msgstr "Erauzi h_ona..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Fitxategiaren propietateak"
+msgstr "_Propietateak"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -785,9 +769,8 @@ msgid "Show _Hidden"
 msgstr "Erakutsi _ezkutukoak"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Soilik karpeta honentzat"
+msgstr "_Soilik karpeta honentzat"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -800,9 +783,8 @@ msgid "Mingle _files and folders"
 msgstr "Nahastu fitxategiak eta karpetak"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Ez bereizi maiuskulak eta minuskulak"
+msgstr "Ez bereizi _maiuskulak eta minuskulak"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -905,12 +887,11 @@ msgstr "'%s' fitxategia exekutagarria da. Exekutatu nahi duzu?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Ez da karpetarik zehaztu."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
-msgstr "Mesedez hautatu karpeta bat"
+msgstr "Hautatu karpeta bat"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -934,23 +915,20 @@ msgid "Size"
 msgstr "Tamaina"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Baimenak"
+msgstr "Baimenak"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Soilik jabea"
+msgstr "Jabea"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Aldatuta"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Kokapena:</b>"
+msgstr "Kokapena"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1143,21 +1121,21 @@ msgstr ""
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Onartu gabeko eragiketa"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Fitxategi-izen baliogabea: %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Menu-direktorio baliogabea"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Bilatu"
 
 #~ msgid "Rename"
 #~ msgstr "Berrizendatu"
