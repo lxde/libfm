@@ -859,6 +859,8 @@ static void on_remove_bm(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     fm_bookmarks_remove(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item));
+    /* FIXME: remove item from FmPlacesModel or invalidate it right now so
+       make duplicate deletions impossible */
 }
 
 static void on_rename_bm(GtkAction* act, gpointer user_data)

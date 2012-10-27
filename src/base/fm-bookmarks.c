@@ -46,10 +46,11 @@ static FmBookmarks* fm_bookmarks_new (void);
 
 static void fm_bookmarks_finalize           (GObject *object);
 static GList* load_bookmarks(const char* fpath);
-static void free_item(FmBookmarkItem* item);
 static char* get_bookmarks_file();
 
 G_DEFINE_TYPE(FmBookmarks, fm_bookmarks, G_TYPE_OBJECT);
+
+G_LOCK_DEFINE_STATIC(bookmarks);
 
 static FmBookmarks* singleton = NULL;
 static guint signals[N_SIGNALS];
@@ -114,12 +115,14 @@ static void on_changed( GFileMonitor* mon, GFile* gf, GFile* other,
 {
     char* fpath;
 
+    G_LOCK(bookmarks);
     /* reload bookmarks */
     g_list_foreach(bookmarks->items, (GFunc)fm_bookmark_item_unref, NULL);
     g_list_free(bookmarks->items);
 
     fpath = get_bookmarks_file();
     bookmarks->items = load_bookmarks(fpath);
+    G_UNLOCK(bookmarks);
     g_free(fpath);
     g_signal_emit(bookmarks, signals[CHANGED], 0);
 }
@@ -195,6 +198,7 @@ static FmBookmarks *fm_bookmarks_new(void)
  */
 FmBookmarks* fm_bookmarks_dup(void)
 {
+    G_LOCK(bookmarks);
     if( G_LIKELY(singleton) )
         g_object_ref(singleton);
     else
@@ -202,6 +206,7 @@ FmBookmarks* fm_bookmarks_dup(void)
         singleton = fm_bookmarks_new();
         g_object_add_weak_pointer(G_OBJECT(singleton), (gpointer*)&singleton);
     }
+    G_UNLOCK(bookmarks);
     return singleton;
 }
 
@@ -274,12 +279,14 @@ GList* fm_bookmarks_get_all(FmBookmarks* bookmarks)
 {
     GList *copy = NULL, *l;
 
+    G_LOCK(bookmarks);
     for(l = bookmarks->items; l; l = l->next)
     {
         fm_bookmark_item_ref(l->data);
         copy = g_list_prepend(copy, l->data);
     }
     copy = g_list_reverse(copy);
+    G_UNLOCK(bookmarks);
     return copy;
 }
 
@@ -294,6 +301,7 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
         return FALSE;
 
     buf = g_string_sized_new(1024);
+    G_LOCK(bookmarks);
     for( l=bookmarks->items; l; l=l->next )
     {
         char* uri;
@@ -306,6 +314,7 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
         g_string_append_c(buf, '\n');
     }
     idle_handler = 0;
+    G_UNLOCK(bookmarks);
 
     fpath = get_bookmarks_file();
     g_file_set_contents(fpath, buf->str, buf->len, NULL);
@@ -344,9 +353,11 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
     item->path = fm_path_ref(path);
     item->name = g_strdup(name);
     item->n_ref = 1;
+    G_LOCK(bookmarks);
     bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     /* g_debug("insert %s at %d", name, pos); */
     queue_save_bookmarks(bookmarks);
+    G_UNLOCK(bookmarks);
     return item;
 }
 
@@ -361,9 +372,11 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
  */
 void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
 {
+    G_LOCK(bookmarks);
     bookmarks->items = g_list_remove(bookmarks->items, item);
     fm_bookmark_item_unref(item);
     queue_save_bookmarks(bookmarks);
+    G_UNLOCK(bookmarks);
 }
 
 /**
@@ -378,9 +391,11 @@ void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
  */
 void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name)
 {
+    G_LOCK(bookmarks);
     g_free(item->name);
     item->name = g_strdup(new_name);
     queue_save_bookmarks(bookmarks);
+    G_UNLOCK(bookmarks);
 }
 
 /**
@@ -395,7 +410,9 @@ void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const cha
  */
 void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
 {
+    G_LOCK(bookmarks);
     bookmarks->items = g_list_remove(bookmarks->items, item);
     bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     queue_save_bookmarks(bookmarks);
+    G_UNLOCK(bookmarks);
 }
