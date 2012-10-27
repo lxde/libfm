@@ -172,6 +172,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                 }
                 fjob->src_folder_mon = old_mon;
                 is_trash_root = FALSE; /* don't go here again! */
+                is_dir = FALSE;
                 continue;
             }
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
