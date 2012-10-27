@@ -2,6 +2,7 @@
  *      fm-gtk-bookmarks.c
  *
  *      Copyright 2009 PCMan <pcman@debian>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -95,7 +96,7 @@ static void fm_bookmarks_finalize(GObject *object)
         idle_handler = 0;
     }
 
-    g_list_foreach(self->items, (GFunc)free_item, NULL);
+    g_list_foreach(self->items, (GFunc)fm_bookmark_item_unref, NULL);
     g_list_free(self->items);
 
     g_object_unref(self->mon);
@@ -108,20 +109,13 @@ static char* get_bookmarks_file()
     return g_build_filename(fm_get_home_dir(), ".gtk-bookmarks", NULL);
 }
 
-static void free_item(FmBookmarkItem* item)
-{
-    if(item->name != fm_path_get_basename(item->path))
-        g_free(item->name);
-    fm_path_unref(item->path);
-    g_slice_free(FmBookmarkItem, item);
-}
-
 static void on_changed( GFileMonitor* mon, GFile* gf, GFile* other,
                     GFileMonitorEvent evt, FmBookmarks* bookmarks )
 {
     char* fpath;
+
     /* reload bookmarks */
-    g_list_foreach(bookmarks->items, (GFunc)free_item, NULL);
+    g_list_foreach(bookmarks->items, (GFunc)fm_bookmark_item_unref, NULL);
     g_list_free(bookmarks->items);
 
     fpath = get_bookmarks_file();
@@ -147,6 +141,7 @@ static FmBookmarkItem* new_item(char* line)
     else
         item->name = g_filename_display_name(fm_path_get_basename(item->path));
 
+    item->n_ref = 1;
     return item;
 }
 
@@ -220,10 +215,72 @@ FmBookmarks* fm_bookmarks_dup(void)
  * Return value: (transfer none) (element-type FmBookmarkItem): list of bookmark items
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.0.2: Use fm_bookmarks_get_all() instead.
  */
 const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks)
 {
     return bookmarks->items;
+}
+
+/**
+ * fm_bookmark_item_ref
+ * @item: an item
+ *
+ * Increases reference counter on @item.
+ *
+ * Returns: @item.
+ *
+ * Since: 1.0.2
+ */
+FmBookmarkItem* fm_bookmark_item_ref(FmBookmarkItem* item)
+{
+    g_return_val_if_fail(item != NULL, NULL);
+    g_atomic_int_inc(&item->n_ref);
+    return item;
+}
+
+/**
+ * fm_bookmark_item_unref
+ * @item: item to be freed
+ *
+ * Decreases reference counter on @item and frees data when it reaches 0.
+ *
+ * Since: 1.0.2
+ */
+void fm_bookmark_item_unref(FmBookmarkItem *item)
+{
+    g_return_if_fail(item != NULL);
+    if(g_atomic_int_dec_and_test(&item->n_ref))
+    {
+        g_free(item->name);
+        fm_path_unref(item->path);
+        g_slice_free(FmBookmarkItem, item);
+    }
+}
+
+/**
+ * fm_bookmarks_get_all
+ * @bookmarks: bookmarks list
+ *
+ * Returns list of FmBookmarkItem retrieved from bookmarks list. Returned
+ * list should be freed with g_list_free_full(list, fm_bookmark_item_unref).
+ *
+ * Return value: (transfer full) (element-type FmBookmarkItem): list of bookmark items
+ *
+ * Since: 1.0.2
+ */
+GList* fm_bookmarks_get_all(FmBookmarks* bookmarks)
+{
+    GList *copy = NULL, *l;
+
+    for(l = bookmarks->items; l; l = l->next)
+    {
+        fm_bookmark_item_ref(l->data);
+        copy = g_list_prepend(copy, l->data);
+    }
+    copy = g_list_reverse(copy);
+    return copy;
 }
 
 static gboolean save_bookmarks(FmBookmarks* bookmarks)
@@ -274,7 +331,8 @@ static void queue_save_bookmarks(FmBookmarks* bookmarks)
  * @pos: where to insert a bookmark into list
  *
  * Adds a bookmark into bookmark list. Returned structure is managed by
- * bookmarks list and should not be freed by caller.
+ * bookmarks list and should not be freed by caller. If you want to save
+ * returned data then call fm_bookmark_item_ref() on it.
  *
  * Return value: (transfer none): new created bookmark item
  *
@@ -285,6 +343,7 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
     FmBookmarkItem* item = g_slice_new0(FmBookmarkItem);
     item->path = fm_path_ref(path);
     item->name = g_strdup(name);
+    item->n_ref = 1;
     bookmarks->items = g_list_insert(bookmarks->items, item, pos);
     /* g_debug("insert %s at %d", name, pos); */
     queue_save_bookmarks(bookmarks);
@@ -303,7 +362,7 @@ FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const 
 void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item)
 {
     bookmarks->items = g_list_remove(bookmarks->items, item);
-    free_item(item);
+    fm_bookmark_item_unref(item);
     queue_save_bookmarks(bookmarks);
 }
 

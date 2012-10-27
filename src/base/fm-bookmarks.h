@@ -52,6 +52,8 @@ struct _FmBookmarkItem
 {
     char* name;
     FmPath* path;
+    /*<private>*/
+    int n_ref;
 };
 
 struct _FmBookmarks
@@ -82,8 +84,14 @@ void fm_bookmarks_remove(FmBookmarks* bookmarks, FmBookmarkItem* item);
 void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos);
 void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name);
 
+#ifndef FM_DISABLE_DEPRECATED
 /* list all bookmark items in current bookmarks */
 const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
+#endif
+
+FmBookmarkItem* fm_bookmark_item_ref(FmBookmarkItem* item);
+void fm_bookmark_item_unref(FmBookmarkItem *item);
+GList* fm_bookmarks_get_all(FmBookmarks* bookmarks);
 
 G_END_DECLS
 

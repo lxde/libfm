@@ -90,6 +90,9 @@ static void place_item_free(FmPlacesItem* item)
         g_object_unref(item->mount);
         break;
     case FM_PLACES_ITEM_PATH:
+        if(item->bm_item)
+            fm_bookmark_item_unref(item->bm_item);
+        break;
     case FM_PLACES_ITEM_NONE:
         ;
     }
@@ -414,12 +417,12 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
 static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
 {
     FmPlacesItem* item;
-    const GList *bms, *l;
+    GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
     FmIcon* remote_icon = NULL;
     GdkPixbuf* folder_pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     GdkPixbuf* remote_pix = NULL;
-    bms = fm_bookmarks_list_all(model->bookmarks);
+    bms = fm_bookmarks_get_all(model->bookmarks);
     for(l=bms;l;l=l->next)
     {
         FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
@@ -450,6 +453,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
                            FM_PLACES_MODEL_COL_ICON, pix,
                            FM_PLACES_MODEL_COL_LABEL, bm->name, -1);
     }
+    g_list_free(bms);
     g_object_unref(folder_pix);
     fm_icon_unref(icon);
     if(remote_icon)

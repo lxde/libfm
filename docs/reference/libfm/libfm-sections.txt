@@ -62,8 +62,11 @@ FM_BOOKMARKS_TYPE
 FmBookmarkItem
 FmBookmarks
 FmBookmarksClass
+fm_bookmark_item_ref
+fm_bookmark_item_unref
 fm_bookmarks_append
 fm_bookmarks_dup
+fm_bookmarks_get_all
 fm_bookmarks_insert
 fm_bookmarks_list_all
 fm_bookmarks_remove
