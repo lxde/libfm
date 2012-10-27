@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-08-22 23:30+0200\n"
+"PO-Revision-Date: 2012-10-27 22:07+0200\n"
 "Last-Translator: Asier <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -27,9 +27,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Ireki beharreko fitxategi mota:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Instalatutako aplikazioa"
+msgstr "_Instalatutako aplikazioa"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,9 +39,8 @@ msgid "_Browse"
 msgstr "_Arakatu"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Exekutatu terminal-emuladorean"
+msgstr "_Exekutatu terminal-emuladorean"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -60,15 +58,13 @@ msgstr ""
 "  <b>%U</b>: Hainbat URI adierazten ditu"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Komando lerro pertsonalizatua"
+msgstr "Komando lerro _pertsonalizatua"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
 msgstr ""
-"Ezarri hautatutako aplikazioa fitxategi mota honentzako ekintza lehenetsi "
+"_Ezarri hautatutako aplikazioa fitxategi-mota honentzako ekintza lehenetsi "
 "bezala"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -103,14 +99,12 @@ msgid "with the following file?"
 msgstr "ondorengo fitxategiarekin?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Fitxategi-izena:"
+msgstr "_Fitxategi-izena:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Aplikatu aukera hau existitzen diren fitxategi guztiei"
+msgstr "_Aplikatu aukera hau existitzen diren fitxategi guztiei"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -158,29 +152,24 @@ msgid "_General"
 msgstr "_Orokorra"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
 msgstr "<b>_Jabea:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
 msgstr "<b>_Taldea:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Ikusi edukia:</b>"
+msgstr "<b>_Ikusi edukia:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Aldatu edukia:</b>"
+msgstr "<b>_Aldatu edukia:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Exekutatu:</b>"
+msgstr "<b>_Exekutatu:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -334,8 +323,9 @@ msgid "Execute in _Terminal"
 msgstr "Exekutatu _Terminalean"
 
 #: ../data/ui/filesearch.glade.h:1
+#, fuzzy
 msgid "Bytes"
-msgstr ""
+msgstr "Byteak"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -351,16 +341,15 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Aukeratu data bat"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Aukeratu data bat ondorengo egutegitik"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Ordenatu fitxategiak"
+msgstr "Bilatu fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:8
 #, fuzzy
@@ -369,7 +358,7 @@ msgstr "<b>Fitxategi-mota:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
@@ -385,53 +374,47 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Bilatu azpi-direktorioetan"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Bilatu _ezkutuko fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Izena/_Kokalekua"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Fitxategi-mota:</b>"
+msgstr "<b>Fitxategi-mota</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Bilatu ondorengo fitxategi-motetako fitxategiak soilik"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Fitxategiak ezabatzen"
+msgstr "_Testu-fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Fitxategiak zakarrontzira botatzen"
+msgstr "_Irudi-fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Ordenatu fitxategiak"
+msgstr "_Audio-fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Ordenatu fitxategiak"
+msgstr "_Bideo-fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Dokumentuak"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "_Fitxategi-motaren arabera"
+msgstr "Fitxategi-_mota"
 
 #: ../data/ui/filesearch.glade.h:24
 #, fuzzy
@@ -440,44 +423,40 @@ msgstr "<b>Tamaina diskoan:</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "E_dukia"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Fitxategi-mota:</b>"
+msgstr "<b>Fitxategi-tamaina</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "Hau baino _txikiagoa:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Hau baino _handiagoa:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Azken aldaketa:</b>"
+msgstr "<b>Azken aldaketa</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "Bat ere ez"
+msgstr "(Bat ere ez)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Hau baino _lehenago:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "Hau baino _beranduago:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Fitxategiaren propietateak"
+msgstr "_Propietateak"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
