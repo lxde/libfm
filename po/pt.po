@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-23 19:59+0200\n"
+"PO-Revision-Date: 2012-10-29 12:14+0200\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -828,7 +828,7 @@ msgstr "Erro"
 
 #: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
-msgstr "Confirmar"
+msgstr "Confirmação"
 
 #: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
