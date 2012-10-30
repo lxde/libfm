@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-23 14:55+0200\n"
-"Last-Translator: Martin <brother@bsnet.se>\n"
+"PO-Revision-Date: 2012-10-30 19:28+0100\n"
+"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: Sweden\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -906,23 +908,20 @@ msgid "Size"
 msgstr "Storlek"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Rättigheter"
+msgstr "Rättigheter"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Endast ägare"
+msgstr "Ägare"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Modifierad"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "Namn/P_lats"
+msgstr "Plats"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1124,7 +1123,7 @@ msgstr "Felaktigt filnamn %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Ogiltig menykatalog"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
