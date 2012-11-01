@@ -146,7 +146,8 @@ static const char folder_popup_xml[] =
 "<accelerator action='FileProp2'/>"
 "<accelerator action='FileProp3'/>"
 "<accelerator action='Menu'/>"
-"<accelerator action='Menu2'/>";
+"<accelerator action='Menu2'/>"
+"<accelerator action='FileMenu'/>";
 
 static void on_create_new(GtkAction* act, FmFolderView* fv);
 static void on_cut(GtkAction* act, FmFolderView* fv);
@@ -160,6 +161,7 @@ static void on_rename(GtkAction* act, FmFolderView* fv);
 static void on_prop(GtkAction* act, FmFolderView* fv);
 static void on_file_prop(GtkAction* act, FmFolderView* fv);
 static void on_menu(GtkAction* act, FmFolderView* fv);
+static void on_file_menu(GtkAction* act, FmFolderView* fv);
 static void on_show_hidden(GtkToggleAction* act, FmFolderView* fv);
 
 static const GtkActionEntry folder_popup_actions[]=
@@ -188,7 +190,8 @@ static const GtkActionEntry folder_popup_actions[]=
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"Menu", NULL, NULL, "Menu", NULL, G_CALLBACK(on_menu)},
-    {"Menu2", NULL, NULL, "<Shift>F10", NULL, G_CALLBACK(on_menu)}
+    {"Menu2", NULL, NULL, "<Shift>F10", NULL, G_CALLBACK(on_menu)},
+    {"FileMenu", NULL, NULL, "<Shift>Menu", NULL, G_CALLBACK(on_file_menu)}
 };
 
 static GtkToggleActionEntry folder_toggle_actions[]=
@@ -1130,6 +1133,39 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
     /* open popup */
     gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+}
+
+static void on_file_menu(GtkAction* act, FmFolderView* fv)
+{
+    FmFolderViewInterface *iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+    GtkMenu *popup;
+    FmFileInfoList* files;
+    GtkWindow *win;
+    FmFileMenu* menu;
+    FmFolderViewUpdatePopup update_popup;
+    FmLaunchFolderFunc open_folders;
+
+    if(iface->count_selected_files(fv) > 0)
+    {
+        popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
+        if(popup == NULL) /* no fm_folder_view_add_popup() was called before */
+            return;
+        files = iface->dup_selected_files(fv);
+        win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
+        menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
+        iface->get_custom_menu_callbacks(fv, &update_popup, &open_folders);
+        fm_file_menu_set_folder_func(menu, open_folders, win);
+
+        /* TODO: add info message on selection if enabled in config */
+        /* merge some specific menu items */
+        if(update_popup)
+            update_popup(fv, win, fm_file_menu_get_ui(menu),
+                         fm_file_menu_get_action_group(menu), files);
+        fm_file_info_list_unref(files);
+
+        popup = fm_file_menu_get_menu(menu);
+        gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+    }
 }
 
 static void on_show_hidden(GtkToggleAction* act, FmFolderView* fv)
