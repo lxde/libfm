@@ -77,6 +77,12 @@ struct _FmPlacesModel
     GSList* jobs;
 };
 
+struct _FmPlacesModelClass
+{
+    GtkListStoreClass parent_class;
+};
+
+
 static void create_trash_item(FmPlacesModel* model);
 
 static void place_item_free(FmPlacesItem* item)

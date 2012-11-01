@@ -45,6 +45,17 @@
 #include <string.h>
 #include <gio/gio.h>
 #include <gdk/gdkkeysyms.h>
+
+struct _FmPathEntry
+{
+  GtkEntry parent_instance;
+};
+
+struct _FmPathEntryClass
+{
+  GtkEntryClass parent_class;
+};
+
 /* properties */
 enum
 {

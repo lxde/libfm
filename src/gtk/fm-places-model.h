@@ -81,13 +81,6 @@ typedef enum
 
 typedef struct _FmPlacesItem FmPlacesItem;
 
-struct _FmPlacesModelClass
-{
-    /*< private >*/
-    GtkListStoreClass parent_class;
-};
-
-
 GType fm_places_model_get_type        (void);
 FmPlacesModel* fm_places_model_new            (void);
 

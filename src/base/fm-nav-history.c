@@ -32,6 +32,20 @@
 
 #include "fm-nav-history.h"
 
+struct _FmNavHistory
+{
+    GObject parent;
+    GQueue items;
+    GList* cur;
+    gint n_max;
+    guint n_cur;
+};
+
+struct _FmNavHistoryClass
+{
+    GObjectClass parent_class;
+};
+
 static void fm_nav_history_finalize (GObject *object);
 
 G_DEFINE_TYPE(FmNavHistory, fm_nav_history, G_TYPE_OBJECT);

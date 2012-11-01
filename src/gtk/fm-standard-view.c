@@ -94,6 +94,14 @@ struct _FmStandardView
     void (*select_path)(FmFolderModel* model, GtkWidget* view, GtkTreeIter* it);
 };
 
+struct _FmStandardViewClass
+{
+    GtkScrolledWindowClass parent_class;
+
+    /* signal handlers */
+    /* void (*column_widths_changed)(); */
+};
+
 #define SINGLE_CLICK_TIMEOUT    600
 
 static void fm_standard_view_dispose(GObject *object);

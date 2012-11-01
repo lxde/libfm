@@ -40,17 +40,6 @@ G_BEGIN_DECLS
 typedef struct _FmPathEntry FmPathEntry;
 typedef struct _FmPathEntryClass FmPathEntryClass;
 
-struct _FmPathEntry
-{
-  GtkEntry parent_instance;
-};
-
-struct _FmPathEntryClass
-{
-  /*< private >*/
-  GtkEntryClass parent_class;
-};
-
 GType fm_path_entry_get_type(void);
 FmPathEntry* fm_path_entry_new();
 void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path);

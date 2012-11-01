@@ -45,8 +45,6 @@
 
 #include "fm-file-info.h"
 
-extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
-
 enum {
     FILES_FOUND,
     N_SIGNALS

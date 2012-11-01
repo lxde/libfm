@@ -61,15 +61,6 @@ typedef enum
 typedef struct _FmStandardView             FmStandardView;
 typedef struct _FmStandardViewClass        FmStandardViewClass;
 
-struct _FmStandardViewClass
-{
-    /*< private >*/
-    GtkScrolledWindowClass parent_class;
-
-    /* signal handlers */
-    /* void (*column_widths_changed)(); */
-};
-
 GType       fm_standard_view_get_type(void);
 FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
                                      FmFolderViewUpdatePopup update_popup,

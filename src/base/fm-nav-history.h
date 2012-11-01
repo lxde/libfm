@@ -55,22 +55,6 @@ struct _FmNavHistoryItem
     int scroll_pos;
 };
 
-struct _FmNavHistory
-{
-    /*< private >*/
-    GObject parent;
-    GQueue items;
-    GList* cur;
-    gint n_max;
-    guint n_cur;
-};
-
-struct _FmNavHistoryClass
-{
-    /*< private >*/
-    GObjectClass parent_class;
-};
-
 GType           fm_nav_history_get_type     (void);
 FmNavHistory*   fm_nav_history_new          (void);
 
