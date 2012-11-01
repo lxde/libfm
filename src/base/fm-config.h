@@ -60,6 +60,15 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 #define     FM_CONFIG_DEFAULT_SHOW_FULL_NAMES   FALSE
 
+#define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
+#define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
+#define     FM_CONFIG_DEFAULT_PLACES_ROOT       FALSE
+#define     FM_CONFIG_DEFAULT_PLACES_COMPUTER   FALSE
+#define     FM_CONFIG_DEFAULT_PLACES_TRASH      TRUE
+#define     FM_CONFIG_DEFAULT_PLACES_APPLICATIONS TRUE
+#define     FM_CONFIG_DEFAULT_PLACES_NETWORK    FALSE
+#define     FM_CONFIG_DEFAULT_PLACES_UNMOUNTED  TRUE
+
 #define     FM_CONFIG_DEFAULT_AUTO_SELECTION_DELAY 600
 
 /**
@@ -95,7 +104,6 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @places_computer: chow 'My computer' item in Places
  * @places_network: show 'Network' item in Places
  * @places_unmounted: show unmounted internal volumes in Places
- * @select_child_on_up: select child where we were when go up to parent dir
  */
 struct _FmConfig
 {
@@ -128,7 +136,6 @@ struct _FmConfig
     gboolean no_usb_trash;
     gboolean no_child_non_expandable;
     gboolean show_full_names;
-    gboolean select_child_on_up;
 
     gboolean places_home;
     gboolean places_desktop;

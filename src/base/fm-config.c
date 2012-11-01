@@ -125,6 +125,14 @@ static void fm_config_init(FmConfig *self)
     self->no_usb_trash = FM_CONFIG_DEFAULT_NO_USB_TRASH;
     self->no_child_non_expandable = FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY;
     self->show_full_names = FM_CONFIG_DEFAULT_SHOW_FULL_NAMES;
+    self->places_home = FM_CONFIG_DEFAULT_PLACES_HOME;
+    self->places_desktop = FM_CONFIG_DEFAULT_PLACES_DESKTOP;
+    self->places_root = FM_CONFIG_DEFAULT_PLACES_ROOT;
+    self->places_computer = FM_CONFIG_DEFAULT_PLACES_COMPUTER;
+    self->places_trash = FM_CONFIG_DEFAULT_PLACES_TRASH;
+    self->places_applications = FM_CONFIG_DEFAULT_PLACES_APPLICATIONS;
+    self->places_network = FM_CONFIG_DEFAULT_PLACES_NETWORK;
+    self->places_unmounted = FM_CONFIG_DEFAULT_PLACES_UNMOUNTED;
 }
 
 /**
@@ -198,6 +206,15 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "pane_icon_size", &cfg->pane_icon_size);
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
     fm_key_file_get_bool(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
+
+    fm_key_file_get_bool(kf, "places", "places_home", &cfg->places_home);
+    fm_key_file_get_bool(kf, "places", "places_desktop", &cfg->places_desktop);
+    fm_key_file_get_bool(kf, "places", "places_root", &cfg->places_root);
+    fm_key_file_get_bool(kf, "places", "places_computer", &cfg->places_computer);
+    fm_key_file_get_bool(kf, "places", "places_trash", &cfg->places_trash);
+    fm_key_file_get_bool(kf, "places", "places_applications", &cfg->places_applications);
+    fm_key_file_get_bool(kf, "places", "places_network", &cfg->places_network);
+    fm_key_file_get_bool(kf, "places", "places_unmounted", &cfg->places_unmounted);
 }
 
 /**
@@ -308,6 +325,15 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "pane_icon_size=%d\n", cfg->pane_icon_size);
             fprintf(f, "thumbnail_size=%d\n", cfg->thumbnail_size);
             fprintf(f, "show_thumbnail=%d\n", cfg->show_thumbnail);
+            fputs("\n[places]\n", f);
+            fprintf(f, "places_home=%d\n", cfg->places_home);
+            fprintf(f, "places_desktop=%d\n", cfg->places_desktop);
+            //fprintf(f, "places_root=%d\n", cfg->places_root);
+            //fprintf(f, "places_computer=%d\n", cfg->places_computer);
+            fprintf(f, "places_trash=%d\n", cfg->places_trash);
+            fprintf(f, "places_applications=%d\n", cfg->places_applications);
+            //fprintf(f, "places_network=%d\n", cfg->places_network);
+            //fprintf(f, "places_unmounted=%d\n", cfg->places_unmounted);
             fclose(f);
         }
     }
