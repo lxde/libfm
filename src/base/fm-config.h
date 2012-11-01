@@ -58,6 +58,8 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_BACKUP_HIDDEN     TRUE
 #define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 
+#define     FM_CONFIG_DEFAULT_AUTO_SELECTION_DELAY 600
+
 /**
  * FmConfig:
  * @terminal: command line to launch terminal emulator
@@ -67,7 +69,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @pane_icon_size: size of side pane icons
  * @thumbnail_size: size of thumbnail icons
  * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
- * @auto_selection_delay: delay for autoselection in single-click mode, in 0.1s
+ * @auto_selection_delay: delay for autoselection in single-click mode, in ms
  * @drop_default_action: default action on drop (see FmDndDest)
  * @single_click: single click to open file
  * @use_trash: delete file to trash can

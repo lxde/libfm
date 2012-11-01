@@ -104,6 +104,7 @@ static void fm_config_finalize(GObject *object)
 static void fm_config_init(FmConfig *self)
 {
     self->single_click = FM_CONFIG_DEFAULT_SINGLE_CLICK;
+    self->auto_selection_delay = FM_CONFIG_DEFAULT_AUTO_SELECTION_DELAY;
     self->use_trash = FM_CONFIG_DEFAULT_USE_TRASH;
     self->confirm_del = FM_CONFIG_DEFAULT_CONFIRM_DEL;
     self->big_icon_size = FM_CONFIG_DEFAULT_BIG_ICON_SIZE;
@@ -165,6 +166,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 {
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
+    fm_key_file_get_int(kf, "config", "auto_selection_delay", &cfg->auto_selection_delay);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
     if(cfg->terminal)
         g_free(cfg->terminal);
@@ -172,7 +174,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     if(cfg->archiver)
         g_free(cfg->archiver);
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
-    fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
+    fm_key_file_get_bool(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
     fm_key_file_get_bool(kf, "config", "si_unit", &cfg->si_unit);
@@ -189,7 +191,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "small_icon_size", &cfg->small_icon_size);
     fm_key_file_get_int(kf, "ui", "pane_icon_size", &cfg->pane_icon_size);
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
-    fm_key_file_get_int(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
+    fm_key_file_get_bool(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
 }
 
 /**
@@ -281,6 +283,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "backup_as_hidden=%d\n", cfg->backup_as_hidden);
             fprintf(f, "no_usb_trash=%d\n", cfg->no_usb_trash);
             fprintf(f, "no_child_non_expandable=%d\n", cfg->no_child_non_expandable);
+            fprintf(f, "auto_selection_delay=%d\n", cfg->auto_selection_delay);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

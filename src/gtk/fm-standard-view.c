@@ -102,8 +102,6 @@ struct _FmStandardViewClass
     /* void (*column_widths_changed)(); */
 };
 
-#define SINGLE_CLICK_TIMEOUT    600
-
 static void fm_standard_view_dispose(GObject *object);
 
 static void fm_standard_view_view_init(FmFolderViewInterface* iface);
@@ -563,7 +561,8 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     exo_icon_view_set_model((ExoIconView*)fv->view, (GtkTreeModel*)fv->model);
     exo_icon_view_set_selection_mode((ExoIconView*)fv->view, fv->sel_mode);
     exo_icon_view_set_single_click((ExoIconView*)fv->view, fm_config->single_click);
-    exo_icon_view_set_single_click_timeout((ExoIconView*)fv->view, SINGLE_CLICK_TIMEOUT);
+    exo_icon_view_set_single_click_timeout((ExoIconView*)fv->view,
+                                           fm_config->auto_selection_delay);
 
     for(l = sels;l;l=l->next)
         exo_icon_view_select_path((ExoIconView*)fv->view, l->data);
@@ -699,7 +698,8 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(fv->view), TRUE);
     exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
-    exo_tree_view_set_single_click_timeout((ExoTreeView*)fv->view, SINGLE_CLICK_TIMEOUT);
+    exo_tree_view_set_single_click_timeout((ExoTreeView*)fv->view,
+                                           fm_config->auto_selection_delay);
 
     ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);

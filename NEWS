@@ -1,4 +1,13 @@
-Changes on 1.0.2 since 1.0.1:
+Changes on 1.2.0 since 1.1.0:
+
+* ABI bumped to 4.
+
+* Added 'auto_selection_delay' option into config file, defaulted to 600,
+    which defines interval in milliseconds before folder item is selected
+    in single-click mode. Setting to 0 disables autoselection.
+
+
+Changes on 1.1.0 since 1.0.1:
 
 * Added 'no_usb_trash' option into config file, defaulted to 0, which
     defines whether skip trashing files on removable media or not. If
