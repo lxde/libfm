@@ -246,6 +246,7 @@ fm_dnd_unset_dest_auto_scroll
 <TITLE>FmDndDest</TITLE>
 FmDndDest
 FmDndDestClass
+FmDndDestDropAction
 FmDndDestTargetType
 fm_dnd_dest_add_targets
 fm_dnd_dest_drag_data_received

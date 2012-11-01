@@ -98,6 +98,8 @@
 #include "fm-file-info-job.h"
 #include "fm-gtk-file-launcher.h"
 
+#include "fm-config.h"
+
 #include <glib/gi18n-lib.h>
 #include <string.h>
 
@@ -829,6 +831,7 @@ query_sources:
             /* FIXME: some special handling can be done with menu:// */
             action = 0;
         }
+        /* FIXME: check if destination is supported, see fm_dnd_dest_files_dropped() */
         else /* dest is a ordinary path */
         {
             /* determine if the dragged files are on the same device as destination file */
@@ -849,18 +852,29 @@ query_sources:
                 action = GDK_ACTION_COPY;
             else if(mask != 0) /* another modifier key was pressed */
                 action = 0;
-            /* FIXME: make decision based on config: Auto / Copy / Ask */
-            else if(dd->src_dev || dd->src_fs_id) /* we know the device of dragged source files */
+            /* make decision based on config: Auto / Copy / Move / Ask */
+            else switch((FmDndDestDropAction)fm_config->drop_default_action)
             {
+            case FM_DND_DEST_DROP_MOVE:
+                action = GDK_ACTION_MOVE;
+                break;
+            case FM_DND_DEST_DROP_COPY:
+                action = GDK_ACTION_COPY;
+                break;
+            case FM_DND_DEST_DROP_ASK:
+                action = GDK_ACTION_ASK;
+                break;
+            default: /* FM_DND_DEST_DROP_AUTO or invalid values */
+                if(!dd->src_dev && !dd->src_fs_id)
+                    /* we don't know on which device the dragged source files are. */
+                    same_fs = FALSE; /* fallback to copy then */
                 /* compare the device/filesystem id against that of destination file */
-                if(fm_path_is_native(dest_path))
+                else if(fm_path_is_native(dest_path))
                     same_fs = dd->src_dev && (dd->src_dev == fm_file_info_get_dev(dest));
                 else /* FIXME: can we use direct comparison here? */
                     same_fs = dd->src_fs_id && (0 == g_strcmp0(dd->src_fs_id, fm_file_info_get_fs_id(dest)));
                 action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
             }
-            else /* we don't know on which device the dragged source files are. */
-                action = GDK_ACTION_COPY; /* fallback to copy then */
         }
     }
 

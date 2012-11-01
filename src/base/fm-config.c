@@ -117,6 +117,7 @@ static void fm_config_init(FmConfig *self)
     /* show_internal_volumes defaulted to FALSE */
     /* si_unit defaulted to FALSE */
     /* terminal and archiver defaulted to NULL */
+    /* drop_default_action defaulted to 0 */
     self->advanced_mode = FALSE;
     self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
     self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
@@ -182,6 +183,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
     fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
     fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
+    fm_key_file_get_int(kf, "config", "drop_default_action", &cfg->drop_default_action);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -284,6 +286,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "no_usb_trash=%d\n", cfg->no_usb_trash);
             fprintf(f, "no_child_non_expandable=%d\n", cfg->no_child_non_expandable);
             fprintf(f, "auto_selection_delay=%d\n", cfg->auto_selection_delay);
+            fprintf(f, "drop_default_action=%d\n", cfg->drop_default_action);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

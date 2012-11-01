@@ -70,7 +70,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @thumbnail_size: size of thumbnail icons
  * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
  * @auto_selection_delay: delay for autoselection in single-click mode, in ms
- * @drop_default_action: default action on drop (see FmDndDest)
+ * @drop_default_action: default action on drop (see #FmDndDestDropAction)
  * @single_click: single click to open file
  * @use_trash: delete file to trash can
  * @confirm_del: ask before deleting files

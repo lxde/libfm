@@ -6,6 +6,10 @@ Changes on 1.2.0 since 1.1.0:
     which defines interval in milliseconds before folder item is selected
     in single-click mode. Setting to 0 disables autoselection.
 
+* Added 'drop_default_action' option into config file, which defines how
+    to act when some file(s) were dropped onto destination widget and no
+    modificator key was pressed. Default is 0 (Auto).
+
 
 Changes on 1.1.0 since 1.0.1:
 
