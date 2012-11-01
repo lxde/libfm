@@ -53,6 +53,7 @@ struct _FmBookmarkItem
     char* name;
     FmPath* path;
     /*<private>*/
+    gpointer _reserved1;
     int n_ref;
 };
 
@@ -62,6 +63,7 @@ struct _FmBookmarks
     /*< private >*/
     GFileMonitor* mon;
     GList* items;
+    gpointer _reserved1;
 };
 
 /**

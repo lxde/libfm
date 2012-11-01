@@ -48,6 +48,7 @@ struct _FmDirTreeView
     FmPath* cwd;
 
     /* <private> */
+    gpointer _reserved1;
 
     /* used for chdir */
     GSList* paths_to_expand;
@@ -63,6 +64,8 @@ struct _FmDirTreeViewClass
 {
     GtkTreeViewClass parent_class;
     void (*chdir)(FmDirTreeView* view, guint button, FmPath* path);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 

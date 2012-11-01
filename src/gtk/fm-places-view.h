@@ -44,10 +44,13 @@ typedef struct _FmPlacesViewClass       FmPlacesViewClass;
 
 struct _FmPlacesView
 {
+    /*< private >*/
     GtkTreeView parent;
     FmDndDest* dnd_dest;
     GtkTreePath* clicked_row;
     GtkCellRendererPixbuf* mount_indicator_renderer;
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**
@@ -59,6 +62,8 @@ struct _FmPlacesViewClass
 {
     GtkTreeViewClass parent_class;
     void (*chdir)(FmPlacesView* view, guint button, FmPath* path);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 GType       fm_places_view_get_type     (void);

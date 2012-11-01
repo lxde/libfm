@@ -69,6 +69,8 @@ struct _FmDndSrc
 	GObject parent;
 	GtkWidget* widget;
 	FmFileInfoList* files;
+	/*< private >*/
+	gpointer _reserved1;
 };
 
 /**
@@ -80,6 +82,8 @@ struct _FmDndSrcClass
 {
 	GObjectClass parent_class;
 	void (*data_get)(FmDndSrc*);
+	/*< private >*/
+	gpointer _reserved1;
 };
 
 GType		fm_dnd_src_get_type		(void);

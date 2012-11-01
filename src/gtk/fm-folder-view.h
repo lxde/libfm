@@ -83,6 +83,7 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @clicked: the class closure for #FmFolderView::clicked signal
  * @sel_changed: the class closure for #FmFolderView::sel-changed signal
  * @sort_changed: the class closure for #FmFolderView::sort-changed signal
+ * @filter_changed: (since 1.2.0) the class closure for #FmFolderView::filter-changed signal
  * @set_sel_mode: VTable func, see fm_folder_view_set_selection_mode()
  * @get_sel_mode: VTable func, see fm_folder_view_get_selection_mode()
  * @set_sort: unused since 1.0.2, will be removed from ABI 5
@@ -101,9 +102,6 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @select_file_path: VTable func, see fm_folder_view_select_file_path()
  * @get_custom_menu_callbacks: function to retrieve callbacks for popup menu setup
  */
-/* FIXME: after ABI change:
- * @filter_changed: (since 1.0.2) the class closure for #FmFolderView::filter-changed signal
- */
 struct _FmFolderViewInterface
 {
     /*< private >*/
@@ -114,8 +112,12 @@ struct _FmFolderViewInterface
     void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
     void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
     void (*sort_changed)(FmFolderView* fv);
-    /* void (*filter_changed)(FmFolderView* fv); */
+    void (*filter_changed)(FmFolderView* fv);
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
     //void (*chdir)(FmFolderView* fv, FmPath* path);
+    /*< public >*/
 
     /* VTable */
     void (*set_sel_mode)(FmFolderView* fv, GtkSelectionMode mode);
@@ -144,7 +146,11 @@ struct _FmFolderViewInterface
     /* for implementation internal usage */
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,
                                       FmLaunchFolderFunc*);
-    /* FIXME: add few reserved after ABI change */
+    /*< private >*/
+    gpointer _reserved3;
+    gpointer _reserved4;
+    gpointer _reserved5;
+    gpointer _reserved6;
 };
 
 GType           fm_folder_view_get_type(void);

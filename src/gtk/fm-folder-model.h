@@ -116,6 +116,9 @@ struct _FmFolderModelClass
     void (*row_deleting)(FmFolderModel* model, GtkTreePath* tp,
                          GtkTreeIter* iter, gpointer data);
     void (*filter_changed)(FmFolderModel* model);
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 typedef gboolean (*FmFolderModelFilterFunc)(FmFileInfo* file, gpointer user_data);

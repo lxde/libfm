@@ -53,6 +53,9 @@ struct _FmNavHistoryItem
 {
     FmPath* path;
     int scroll_pos;
+    /*< private >*/
+    int _reserved1;
+    gpointer _reserved2;
 };
 
 GType           fm_nav_history_get_type     (void);

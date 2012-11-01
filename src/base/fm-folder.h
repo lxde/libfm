@@ -76,6 +76,11 @@ struct _FmFolderClass
     void (*content_changed)(FmFolder* dir);
     void (*fs_info)(FmFolder* dir);
     guint (*error)(FmFolder* dir, GError* err, guint severity);
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
+    gpointer _reserved3;
+    gpointer _reserved4;
 };
 
 GType       fm_folder_get_type      (void);

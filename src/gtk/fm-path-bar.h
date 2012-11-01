@@ -45,6 +45,7 @@ typedef struct _FmPathBarClass        FmPathBarClass;
 
 struct _FmPathBar
 {
+    /*< private >*/
     GtkHBox parent;
     GtkWidget* viewport; /* viewport to make hbox scrollable */
     GtkWidget* btn_box; /* hbox containing path element buttons */
@@ -53,6 +54,8 @@ struct _FmPathBar
     GtkWidget* right_scroll;   /* right scroll button */
     FmPath* cur_path;   /* currently active path */
     FmPath* full_path;  /* full path shown in the bar */
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**
@@ -64,6 +67,8 @@ struct _FmPathBarClass
 {
     GtkHBoxClass parent_class;
     void (*chdir)(FmPathBar* bar, FmPath* path);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 

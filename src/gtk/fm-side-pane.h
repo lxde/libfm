@@ -61,6 +61,7 @@ typedef enum
 
 struct _FmSidePane
 {
+    /*< private >*/
     GtkVBox parent;
     FmPath* cwd;
     GtkWidget* title_bar;
@@ -71,6 +72,8 @@ struct _FmSidePane
     GtkWidget* view;
     FmSidePaneMode mode;
     GtkUIManager* ui;
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**
@@ -84,6 +87,9 @@ struct _FmSidePaneClass
     GtkVBoxClass parent_class;
     void (*chdir)(FmSidePane* sp, guint button, FmPath* path);
     void (*mode_changed)(FmSidePane* sp);
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 

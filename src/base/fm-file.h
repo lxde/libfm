@@ -49,6 +49,10 @@ struct _FmFileInterface
 
     /*< public >*/
     gboolean (*wants_incremental)(GFile* file);
+
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 typedef struct _FmFileInitTable         FmFileInitTable;
@@ -63,6 +67,9 @@ struct _FmFileInitTable
 {
     /*< public >*/
     GFile * (*new_for_uri)(const char *uri);
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 GType           fm_file_get_type(void);

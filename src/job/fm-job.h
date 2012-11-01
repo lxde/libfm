@@ -94,6 +94,10 @@ struct _FmJob
     GMutex* mutex;
     GCond* cond;
 #endif
+
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**
@@ -128,6 +132,9 @@ struct _FmJobClass
     gboolean (*run_async)(FmJob* job); /* for fm_job_run_async() */
     gboolean (*run)(FmJob* job); /* for any fm_job_run_*() */
     void (*cancel)(FmJob* job); /* for fm_job_cancel() */
+
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 

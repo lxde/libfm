@@ -74,6 +74,8 @@ struct _FmDndDestClass
 {
     GObjectClass parent_class;
     gboolean (*files_dropped)(FmDndDest* dd, int x, int y, guint action, guint info_type, FmPathList* files);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 GType       fm_dnd_dest_get_type        (void);

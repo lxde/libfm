@@ -45,13 +45,15 @@ struct _FmCellRendererText
 	GtkCellRendererText parent;
 	/* add your public declarations here */
 	/*< private >*/
+	gpointer _reserved1;
 	gint height; /* "max-height" - height in pixels */
 };
 
 struct _FmCellRendererTextClass
 {
     /*< private >*/
-	GtkCellRendererTextClass parent_class;
+    GtkCellRendererTextClass parent_class;
+    gpointer _reserved1;
 };
 
 GType		fm_cell_renderer_text_get_type		(void);

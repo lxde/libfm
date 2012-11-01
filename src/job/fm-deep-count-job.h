@@ -79,6 +79,8 @@ struct _FmDeepCountJob
     guint count;
 
     /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
     /* used to count total size used when moving files */
     dev_t dest_dev;
     const char* dest_fs_id;

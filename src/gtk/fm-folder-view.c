@@ -311,9 +311,7 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
         g_signal_new("filter-changed",
                      FM_TYPE_FOLDER_VIEW,
                      G_SIGNAL_RUN_FIRST,
-                     0,
-                     /* FIXME: replace 0 after ABI change
-                     G_STRUCT_OFFSET(FmFolderViewInterface, filter_changed), */
+                     G_STRUCT_OFFSET(FmFolderViewInterface, filter_changed),
                      NULL, NULL,
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);

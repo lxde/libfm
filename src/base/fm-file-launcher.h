@@ -63,6 +63,8 @@ struct _FmFileLauncher
     /* returns TRUE to continue, FALSE to retry */
     gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);
     int (*ask)(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLauncher* launcher, gpointer user_data);

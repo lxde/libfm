@@ -72,6 +72,8 @@ struct _FmDirTreeModel
     gint stamp;
     guint icon_size;
     gboolean show_hidden;
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**
@@ -83,6 +85,8 @@ struct _FmDirTreeModelClass
 {
     GObjectClass parent_class;
     void (*row_loaded)(FmDirTreeModel* model, GtkTreePath* row);
+    /*<private>*/
+    gpointer _reserved1;
 };
 
 
