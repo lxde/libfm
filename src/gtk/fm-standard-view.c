@@ -66,6 +66,7 @@ struct _FmStandardView
     FmCellRendererPixbuf* renderer_pixbuf;
     FmCellRendererText* renderer_text;
     guint icon_size_changed_handler;
+    guint show_full_names_handler;
 
     FmDndSrc* dnd_src; /* dnd source manager */
     FmDndDest* dnd_dest; /* dnd dest manager */
@@ -348,6 +349,11 @@ static void fm_standard_view_dispose(GObject *object)
         g_signal_handler_disconnect(fm_config, self->icon_size_changed_handler);
         self->icon_size_changed_handler = 0;
     }
+    if(self->show_full_names_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->show_full_names_handler);
+        self->show_full_names_handler = 0;
+    }
     (* G_OBJECT_CLASS(fm_standard_view_parent_class)->dispose)(object);
 }
 
@@ -391,6 +397,18 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv)
     /* FIXME: thumbnail and icons should have different sizes */
     /* maybe a separate API: fm_folder_model_set_thumbnail_size() */
     set_icon_size(fv, cfg->thumbnail_size);
+}
+
+static void on_show_full_names_changed(FmConfig* cfg, FmStandardView* fv)
+{
+    g_return_if_fail(fv->renderer_text);
+    if(fv->mode == FM_FV_ICON_VIEW)
+        g_object_set((GObject*)fv->renderer_text,
+                     "max-height", cfg->show_full_names ? 0 : 70, NULL);
+    else /* thumbnail view */
+        g_object_set((GObject*)fv->renderer_text,
+                     "max-height", cfg->show_full_names ? 0 : 90, NULL);
+    /* FIXME: does it require redraw request? */
 }
 
 static GtkTreePath* get_drop_path_list_view(FmStandardView* fv, gint x, gint y)
@@ -508,6 +526,8 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     }
     else /* big icon view or thumbnail view */
     {
+        if(fv->show_full_names_handler == 0)
+            fv->show_full_names_handler = g_signal_connect(fm_config, "changed::show_full_names", G_CALLBACK(on_show_full_names_changed), fv);
         if(fv->mode == FM_FV_ICON_VIEW)
         {
             fv->icon_size_changed_handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), fv);
@@ -521,7 +541,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
                          "wrap-width", item_width,
-                         "max-height", 70,
+                         "max-height", fm_config->show_full_names ? 0 : 70,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
@@ -541,7 +561,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
                          "wrap-width", item_width,
-                         "max-height", 90,
+                         "max-height", fm_config->show_full_names ? 0 : 90,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
@@ -850,6 +870,11 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         {
             g_signal_handler_disconnect(fm_config, fv->icon_size_changed_handler);
             fv->icon_size_changed_handler = 0;
+        }
+        if(fv->show_full_names_handler)
+        {
+            g_signal_handler_disconnect(fm_config, fv->show_full_names_handler);
+            fv->show_full_names_handler = 0;
         }
 
         fv->mode = mode;

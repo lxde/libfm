@@ -15,6 +15,10 @@ Changes on 1.2.0 since 1.1.0:
     user. Previously this confirmation was defined by the 'confirm_del'
     option but now those two are separated.
 
+* Added 'show_full_names' option into config file, defaulted to false,
+    which defines whether long names in icon view should be shown as it
+    is or truncated to reasonable height.
+
 
 Changes on 1.1.0 since 1.0.1:
 
