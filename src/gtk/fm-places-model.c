@@ -86,6 +86,10 @@ struct _FmPlacesModel
     guint theme_change_handler;
     guint use_trash_change_handler;
     guint pane_icon_size_change_handler;
+    guint places_home_change_handler;
+    guint places_desktop_change_handler;
+    guint places_trash_change_handler;
+    guint places_applications_change_handler;
     GdkPixbuf* eject_icon;
 
     GSList* jobs;
@@ -312,6 +316,26 @@ _added:
     if(job)
         fm_file_info_job_add(job, path);
     return item;
+}
+
+static void remove_path_item(GtkListStore* model, FmPlacesOrder id)
+{
+    FmPlacesItem* item;
+    GtkTreeIter it;
+
+    if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it)) do
+    {
+        item = NULL;
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+        if(!item || item->type != FM_PLACES_ITEM_PATH || item->id > id)
+            return; /* not found! */
+        if(item->id == id)
+        {
+            gtk_list_store_remove(model, &it);
+            place_item_free(item);
+            return;
+        }
+    } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &it));
 }
 
 static void add_volume_or_mount(FmPlacesModel* model, GObject* volume_or_mount, FmFileInfoJob* job)
@@ -663,12 +687,61 @@ static void on_use_trash_changed(FmConfig* cfg, gpointer user_data)
     }
 }
 
+static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_home)
+    {
+        FmPath* path = fm_path_get_home();
+        /* FIXME: need we start file info job? */
+        new_path_item(model, &it, path, FM_PLACES_ID_HOME,
+                      fm_path_get_basename(path), "user-home", NULL);
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_HOME);
+    }
+}
+
+static void on_places_desktop_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_desktop &&
+       g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
+    {
+        /* FIXME: need we start file info job? */
+        new_path_item(model, &it, fm_path_get_desktop(), FM_PLACES_ID_DESKTOP,
+                      _("Desktop"), "user-desktop", NULL);
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_DESKTOP);
+    }
+}
+
+static void on_places_applications_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_applications)
+    {
+        new_path_item(model, &it, fm_path_get_apps_menu(),
+                      FM_PLACES_ID_APPLICATIONS, _("Applications"),
+                      "system-software-install", NULL);
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_APPLICATIONS);
+    }
+}
+
 static void on_pane_icon_size_changed(FmConfig* cfg, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     update_icons(model);
 }
-
 
 static void create_trash_item(FmPlacesModel* model)
 {
@@ -709,6 +782,15 @@ static void fm_places_model_init(FmPlacesModel *self)
 
     self->use_trash_change_handler = g_signal_connect(fm_config, "changed::use_trash",
                                              G_CALLBACK(on_use_trash_changed), self);
+
+    self->places_home_change_handler = g_signal_connect(fm_config, "changed::places_home",
+                                             G_CALLBACK(on_places_home_changed), self);
+    self->places_desktop_change_handler = g_signal_connect(fm_config, "changed::places_desktop",
+                                             G_CALLBACK(on_places_desktop_changed), self);
+    self->places_trash_change_handler = g_signal_connect(fm_config, "changed::places_trash",
+                                             G_CALLBACK(on_use_trash_changed), self);
+    self->places_applications_change_handler = g_signal_connect(fm_config, "changed::places_applications",
+                                             G_CALLBACK(on_places_applications_changed), self);
 
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
@@ -990,10 +1072,36 @@ static void fm_places_model_dispose(GObject *object)
         g_signal_handler_disconnect(gtk_icon_theme_get_default(), self->theme_change_handler);
         self->theme_change_handler = 0;
     }
-    g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
-    self->use_trash_change_handler = 0;
-    g_signal_handler_disconnect(fm_config, self->pane_icon_size_change_handler);
-    self->pane_icon_size_change_handler = 0;
+    if(self->use_trash_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->use_trash_change_handler);
+        self->use_trash_change_handler = 0;
+    }
+    if(self->places_home_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_home_change_handler);
+        self->places_home_change_handler = 0;
+    }
+    if(self->places_desktop_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_desktop_change_handler);
+        self->places_desktop_change_handler = 0;
+    }
+    if(self->places_trash_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_trash_change_handler);
+        self->places_trash_change_handler = 0;
+    }
+    if(self->places_applications_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_applications_change_handler);
+        self->places_applications_change_handler = 0;
+    }
+    if(self->pane_icon_size_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->pane_icon_size_change_handler);
+        self->pane_icon_size_change_handler = 0;
+    }
 
     if(self->vol_mon)
     {
