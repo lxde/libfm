@@ -60,21 +60,38 @@ typedef struct _FmConfigClass       FmConfigClass;
 
 /**
  * FmConfig:
- * @single_click: single click to open file
- * @use_trash: delete file to trash can
- * @confirm_del: ask before deleting files
+ * @terminal: command line to launch terminal emulator
+ * @archiver: desktop_id of the archiver used
  * @big_icon_size: size of big icons
  * @small_icon_size: size of small icons
  * @pane_icon_size: size of side pane icons
  * @thumbnail_size: size of thumbnail icons
+ * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
+ * @auto_selection_delay: delay for autoselection in single-click mode, in 0.1s
+ * @drop_default_action: default action on drop (see FmDndDest)
+ * @single_click: single click to open file
+ * @use_trash: delete file to trash can
+ * @confirm_del: ask before deleting files
+ * @confirm_trash: ask before moving files to trash can
  * @show_thumbnail: show thumbnails
  * @thumbnail_local: show thumbnails for local files only
- * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
  * @show_internal_volumes: show system internal volumes in side pane. (udisks-only)
- * @terminal: command line to launch terminal emulator
  * @si_unit: use SI prefix for file sizes
- * @archiver: desktop_id of the archiver used
  * @advanced_mode: enable advanced features for experienced user
+ * @force_startup_notify: use startup notify by default
+ * @backup_as_hidden: treat backup files as hidden
+ * @no_usb_trash: don't create trash folder on removable media
+ * @no_child_non_expandable: hide expanders on empty folder
+ * @show_full_names: always show full names in Icon View mode
+ * @places_home: show 'Home' item in Places
+ * @places_desktop: show 'Desktop' item in Places
+ * @places_applications: show 'Applications' item in Places
+ * @places_trash: show 'Trash' item in Places
+ * @places_root: show '/' item in Places
+ * @places_computer: chow 'My computer' item in Places
+ * @places_network: show 'Network' item in Places
+ * @places_unmounted: show unmounted internal volumes in Places
+ * @select_child_on_up: select child where we were when go up to parent dir
  */
 struct _FmConfig
 {
@@ -82,44 +99,51 @@ struct _FmConfig
     GObject parent;
 
     /*< public >*/
-    gboolean single_click;
-    gboolean use_trash;
-    gboolean confirm_del;
+    char* terminal;
+    char* archiver;
 
     gint big_icon_size;
     gint small_icon_size;
     gint pane_icon_size;
     gint thumbnail_size;
+    gint thumbnail_max;
+    gint auto_selection_delay;
+    gint drop_default_action;
 
+    gboolean single_click;
+    gboolean use_trash;
+    gboolean confirm_del;
+    gboolean confirm_trash;
     gboolean show_thumbnail;
     gboolean thumbnail_local;
-    gint thumbnail_max;
-
     gboolean show_internal_volumes;
-
-    char* terminal;
     gboolean si_unit;
-
-    char* archiver;
     gboolean advanced_mode;
+    gboolean force_startup_notify;
+    gboolean backup_as_hidden;
+    gboolean no_usb_trash;
+    gboolean no_child_non_expandable;
+    gboolean show_full_names;
+    gboolean select_child_on_up;
+
+    gboolean places_home;
+    gboolean places_desktop;
+    gboolean places_applications;
+    gboolean places_trash;
+    gboolean places_root;
+    gboolean places_computer;
+    gboolean places_network;
+    gboolean places_unmounted;
 
     /*< private >*/
-    union {
     gpointer _reserved1; /* reserved space for updates until next ABI */
-    gboolean force_startup_notify; /* use startup notify by default */
-    };
-    union {
     gpointer _reserved2;
-    gboolean backup_as_hidden; /* treat backup files as hidden */
-    };
-    union {
     gpointer _reserved3;
-    gboolean no_usb_trash; /* don't create trash folder on removable media */
-    };
-    union {
     gpointer _reserved4;
-    gboolean no_child_non_expandable; /* hide expanders on empty folder */
-    };
+    gpointer _reserved5;
+    gpointer _reserved6;
+    gpointer _reserved7;
+    gpointer _reserved8;
 };
 
 /**
