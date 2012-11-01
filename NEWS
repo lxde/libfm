@@ -19,6 +19,10 @@ Changes on 1.2.0 since 1.1.0:
     which defines whether long names in icon view should be shown as it
     is or truncated to reasonable height.
 
+* The Places View made customizable. New section '[places]' added into
+    config file with an option for each standard item (Home, Desktop,
+    Trash, and Applications).
+
 
 Changes on 1.1.0 since 1.0.1:
 

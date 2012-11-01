@@ -45,10 +45,24 @@
 #include "fm-monitor.h"
 #include "fm-file-info-job.h"
 
+/* standard items order */
+typedef enum
+{
+    FM_PLACES_ID_HOME,
+    FM_PLACES_ID_DESKTOP,
+    FM_PLACES_ID_ROOT,
+    FM_PLACES_ID_COMPUTER,
+    FM_PLACES_ID_TRASH,
+    FM_PLACES_ID_APPLICATIONS,
+    FM_PLACES_ID_NETWORK,
+    FM_PLACES_ID_OTHER
+} FmPlacesOrder;
+
 struct _FmPlacesItem
 {
     FmPlacesType type;
     gboolean mounted : 1; /* used if type == FM_PLACES_ITEM_VOLUME */
+    FmPlacesOrder id : 4; /* used if type == FM_PLACES_ITEM_PATH */
     FmIcon* icon;
     FmFileInfo* fi;
     union
@@ -255,6 +269,51 @@ static inline FmPlacesItem* add_new_item(GtkListStore* model, FmPlacesType type,
     return item;
 }
 
+static FmPlacesItem* new_path_item(GtkListStore* model, GtkTreeIter* it,
+                                   FmPath* path, FmPlacesOrder id,
+                                   const char* label, const char* icon_name,
+                                   FmFileInfoJob* job)
+{
+    FmPlacesItem* item = g_slice_new0(FmPlacesItem);
+    FmPlacesItem* tst;
+    GdkPixbuf* pix;
+    GtkTreeIter next_it;
+
+    item->fi = fm_file_info_new();
+    item->type = FM_PLACES_ITEM_PATH;
+    item->id = id;
+    item->icon = fm_icon_from_name(icon_name);
+    if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &next_it)) do
+    {
+        tst = NULL;
+        gtk_tree_model_get(GTK_TREE_MODEL(model), &next_it, FM_PLACES_MODEL_COL_INFO, &tst, -1);
+        if(!tst || tst->type != FM_PLACES_ITEM_PATH || tst->id > id)
+        {
+            gtk_list_store_insert_before(model, it, &next_it);
+            goto _added;
+        }
+        else if(tst->id == id)
+        {
+            *it = next_it;
+            place_item_free(tst);
+            /* FIXME: print error? */
+            goto _added;
+        }
+    } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &next_it));
+    gtk_list_store_append(model, it);
+_added:
+    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
+    gtk_list_store_set(model, it,
+                       FM_PLACES_MODEL_COL_INFO, item,
+                       FM_PLACES_MODEL_COL_LABEL, label,
+                       FM_PLACES_MODEL_COL_ICON, pix, -1);
+    g_object_unref(pix);
+    fm_file_info_set_path(item->fi, path);
+    if(job)
+        fm_file_info_job_add(job, path);
+    return item;
+}
+
 static void add_volume_or_mount(FmPlacesModel* model, GObject* volume_or_mount, FmFileInfoJob* job)
 {
     FmPlacesItem* item;
@@ -435,10 +494,10 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
         GtkTreeIter it;
         GdkPixbuf* pix;
         FmPath* path = bm->path;
+
         item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_PATH, &it, NULL);
         fm_file_info_set_path(item->fi, path);
         fm_file_info_job_add(job, path);
-
         if(fm_path_is_native(path))
         {
             item->icon = fm_icon_ref(icon);
@@ -455,6 +514,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
             pix = remote_pix;
         }
         item->bm_item = bm;
+        item->id = FM_PLACES_ID_OTHER;
         gtk_list_store_set(GTK_LIST_STORE(model), &it,
                            FM_PLACES_MODEL_COL_ICON, pix,
                            FM_PLACES_MODEL_COL_LABEL, bm->name, -1);
@@ -573,9 +633,9 @@ static void update_icons(FmPlacesModel* model)
 static void on_use_trash_changed(FmConfig* cfg, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    if(cfg->use_trash && model->trash == NULL)
+    if(cfg->use_trash && cfg->places_trash && model->trash == NULL)
         create_trash_item(model);
-    else if(!cfg->use_trash && model->trash)
+    else if((!cfg->use_trash || !cfg->places_trash) && model->trash)
     {
         FmPlacesItem *item = NULL;
         GtkTreePath* tp = gtk_tree_row_reference_get_path(model->trash);
@@ -614,8 +674,6 @@ static void create_trash_item(FmPlacesModel* model)
 {
     GtkTreeIter it;
     GtkTreePath* trash_path;
-    FmPlacesItem* item;
-    GdkPixbuf* pix;
     GFile* gf;
 
     gf = fm_file_new_for_uri("trash:///");
@@ -623,16 +681,9 @@ static void create_trash_item(FmPlacesModel* model)
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
 
-    trash_path = gtk_tree_path_new_from_indices(2, -1);
-    item = add_new_item(GTK_LIST_STORE(model), FM_PLACES_ITEM_PATH, &it,
-                        trash_path);
-    fm_file_info_set_path(item->fi, fm_path_get_trash());
-    item->icon = fm_icon_from_name("user-trash");
-    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(GTK_LIST_STORE(model), &it,
-                       FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, _("Trash Can"), -1);
-    g_object_unref(pix);
+    new_path_item(GTK_LIST_STORE(model), &it, fm_path_get_trash(),
+                  FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", NULL);
+    trash_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);
 
@@ -644,10 +695,8 @@ static void fm_places_model_init(FmPlacesModel *self)
 {
     GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER};
     GtkTreeIter it;
-    FmPlacesItem* item;
     GList *vols, *l;
-    FmIcon* icon;
-    GdkPixbuf* pix;
+    FmIcon *icon;
     FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
     GtkListStore* model = &self->parent;
     FmPath *path;
@@ -664,42 +713,34 @@ static void fm_places_model_init(FmPlacesModel *self)
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
     icon = fm_icon_from_name("media-eject");
-    pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
+    self->eject_icon = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     fm_icon_unref(icon);
-    self->eject_icon = pix;
 
-    item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
-    path = fm_path_get_home();
-    fm_file_info_set_path(item->fi, path);
-    item->icon = fm_icon_from_name("user-home");
-    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, fm_path_get_basename(path), -1);
-    g_object_unref(pix);
-    fm_file_info_job_add(job, path);
-
-    /* Only show desktop in side pane when the user has a desktop dir. */
-    if(g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
+    if(fm_config->places_home)
     {
-        item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
-        path = fm_path_get_desktop();
-        fm_file_info_set_path(item->fi, path);
-        item->icon = fm_icon_from_name("user-desktop");
-        pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-        gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
-                           FM_PLACES_MODEL_COL_LABEL, _("Desktop"), -1);
-        g_object_unref(pix);
-        fm_file_info_job_add(job, path);
+        path = fm_path_get_home();
+        new_path_item(model, &it, path, FM_PLACES_ID_HOME,
+                      fm_path_get_basename(path), "user-home", job);
     }
 
-    item = add_new_item(model, FM_PLACES_ITEM_PATH, &it, NULL);
-    fm_file_info_set_path(item->fi, fm_path_get_apps_menu());
-    item->icon = fm_icon_from_name("system-software-install");
-    pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
-    gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, _("Applications"), -1);
-    g_object_unref(pix);
-    /* fm_file_info_job_add(job, item->fi->path); */
+    /* Only show desktop in side pane when the user has a desktop dir. */
+    if(fm_config->places_desktop &&
+       g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
+    {
+        new_path_item(model, &it, fm_path_get_desktop(), FM_PLACES_ID_DESKTOP,
+                      _("Desktop"), "user-desktop", job);
+    }
+    /* FIXME: use fm_config->places_root */
+    /* FIXME: use fm_config->places_computer */
+
+    if(fm_config->places_applications)
+    {
+        new_path_item(model, &it, fm_path_get_apps_menu(),
+                      FM_PLACES_ID_APPLICATIONS, _("Applications"),
+                      "system-software-install", NULL);
+        /* fm_file_info_job_add(job, item->fi->path); */
+    }
+    /* FIXME: use fm_config->places_network */
 
     /* volumes */
     self->vol_mon = g_volume_monitor_get();
@@ -720,10 +761,11 @@ static void fm_places_model_init(FmPlacesModel *self)
     gtk_tree_path_free(tp);
     /* separator has all columns NULL */
 
-    if(fm_config->use_trash)
+    if(fm_config->use_trash && fm_config->places_trash)
         create_trash_item(self); /* FIXME: how to handle trash can? */
 
     /* add volumes to side-pane */
+    /* FIXME: respect fm_config->places_unmounted */
     vols = g_volume_monitor_get_volumes(self->vol_mon);
     for(l=vols;l;l=l->next)
     {
