@@ -43,6 +43,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SINGLE_CLICK      FALSE
 #define     FM_CONFIG_DEFAULT_USE_TRASH         TRUE
 #define     FM_CONFIG_DEFAULT_CONFIRM_DEL       TRUE
+#define     FM_CONFIG_DEFAULT_CONFIRM_TRASH     TRUE
 #define     FM_CONFIG_DEFAULT_NO_USB_TRASH      FALSE
 
 #define     FM_CONFIG_DEFAULT_BIG_ICON_SIZE     48

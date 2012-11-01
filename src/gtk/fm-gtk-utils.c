@@ -859,7 +859,7 @@ void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
  */
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
+    if(!fm_config->confirm_trash || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
     {
         FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
         fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */

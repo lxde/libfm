@@ -107,6 +107,7 @@ static void fm_config_init(FmConfig *self)
     self->auto_selection_delay = FM_CONFIG_DEFAULT_AUTO_SELECTION_DELAY;
     self->use_trash = FM_CONFIG_DEFAULT_USE_TRASH;
     self->confirm_del = FM_CONFIG_DEFAULT_CONFIRM_DEL;
+    self->confirm_trash = FM_CONFIG_DEFAULT_CONFIRM_TRASH;
     self->big_icon_size = FM_CONFIG_DEFAULT_BIG_ICON_SIZE;
     self->small_icon_size = FM_CONFIG_DEFAULT_SMALL_ICON_SIZE;
     self->pane_icon_size = FM_CONFIG_DEFAULT_PANE_ICON_SIZE;
@@ -169,6 +170,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_int(kf, "config", "auto_selection_delay", &cfg->auto_selection_delay);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
+    fm_key_file_get_bool(kf, "config", "confirm_trash", &cfg->confirm_trash);
     if(cfg->terminal)
         g_free(cfg->terminal);
     cfg->terminal = g_key_file_get_string(kf, "config", "terminal", NULL);
@@ -279,6 +281,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "single_click=%d\n", cfg->single_click);
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
+            fprintf(f, "confirm_trash=%d\n", cfg->confirm_trash);
             fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
             fprintf(f, "si_unit=%d\n", cfg->si_unit);
             fprintf(f, "force_startup_notify=%d\n", cfg->force_startup_notify);

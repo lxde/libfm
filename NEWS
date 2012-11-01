@@ -10,6 +10,11 @@ Changes on 1.2.0 since 1.1.0:
     to act when some file(s) were dropped onto destination widget and no
     modificator key was pressed. Default is 0 (Auto).
 
+* Added 'confirm_trash' option into config file, defaulted to true, which
+    defines whether moving files to trash can should be confirmed by the
+    user. Previously this confirmation was defined by the 'confirm_del'
+    option but now those two are separated.
+
 
 Changes on 1.1.0 since 1.0.1:
 
