@@ -1079,21 +1079,43 @@ static void on_file_prop(GtkAction* act, FmFolderView* fv)
     }
 }
 
-static inline gboolean pointer_is_over_widget(GtkWidget* fv)
+static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
+                                gboolean *push_in, gpointer user_data)
 {
-#if GTK_CHECK_VERSION(3, 0, 0)
-    GtkStateFlags fl = gtk_widget_get_state_flags(fv);
-    return (fl & GTK_STATE_FLAG_PRELIGHT) != 0;
-#else
-    GtkAllocation a;
-    gint x, y;
-    gtk_widget_get_allocation(fv, &a);
-    gtk_widget_get_pointer(fv, &x, &y);
-    /* g_debug("pointer is %d,%d out of %d,%d", x, y, a.width, a.height); */
-    if(x < 0 || y < 0 || x > a.width || y > a.height)
-        return FALSE;
-    return TRUE;
-#endif
+    GtkWidget *widget = GTK_WIDGET(user_data);
+    GtkAllocation a, ma;
+    gint x2, y2;
+    gboolean rtl = (gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL);
+
+    /* realize menu so we get actual size of it */
+    gtk_widget_realize(GTK_WIDGET(menu));
+    /* get all the relative coordinates */
+    gtk_widget_get_allocation(widget, &a);
+    gtk_widget_get_pointer(widget, &x2, &y2);
+    gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
+    /* position menu inside widget */
+    if(rtl) /* RTL */
+        x2 = CLAMP(x2, 0, ma.width + a.width);
+    else /* LTR */
+        x2 = CLAMP(x2, -ma.width, a.width);
+    y2 = CLAMP(y2, -ma.height, a.height);
+    /* get absolute coordinate of parent window - we got coords relative to it */
+    gdk_window_get_position(gtk_widget_get_window(widget), x, y);
+    /* calculate desired position for menu */
+    *x += a.x + x2;
+    *y += a.y + y2;
+    /* limit coordinates so menu will be not positioned outside of screen */
+    /* FIXME: honor monitor */
+    if(rtl) /* RTL */
+    {
+        x2 = gdk_screen_width();
+        *x = CLAMP(*x, MIN(ma.width, x2), x2);
+    }
+    else /* LTR */
+    {
+        *x = CLAMP(*x, 0, MAX(0, gdk_screen_width() - ma.width));
+    }
+    *y = CLAMP(*y, 0, MAX(0, gdk_screen_height() - ma.height));
 }
 
 /* if it's mouse event then act is NULL, see fm_folder_view_item_clicked() */
@@ -1108,11 +1130,6 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     GtkSortType type = GTK_SORT_ASCENDING;
     FmFolderModelCol by;
 
-    /* FIXME: realize popup window and put it in the fv (honoring monitor) */
-    /* don't show context menu outside of the folder view */
-    if(act != NULL && !pointer_is_over_widget(GTK_WIDGET(fv)))
-        return;
-    /* FIXME: if act != NULL and there is selection in fv then open file menu instead */
     /* update actions */
     model = iface->get_model(fv);
     if(fm_folder_model_get_sort(model, &by, &mode))
@@ -1132,7 +1149,8 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
     gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
     /* open popup */
-    gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+    gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
+                   gtk_get_current_event_time());
 }
 
 static void on_file_menu(GtkAction* act, FmFolderView* fv)
@@ -1164,7 +1182,8 @@ static void on_file_menu(GtkAction* act, FmFolderView* fv)
         fm_file_info_list_unref(files);
 
         popup = fm_file_menu_get_menu(menu);
-        gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
+        gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
+                       gtk_get_current_event_time());
     }
 }
 
@@ -1478,7 +1497,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
             fm_file_info_list_unref(files);
 
             popup = fm_file_menu_get_menu(menu);
-            gtk_menu_popup(popup, NULL, NULL, NULL, fi, 3, gtk_get_current_event_time());
+            gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
         }
         else /* no files are selected. Show context menu of current folder. */
             on_menu(NULL, fv);
