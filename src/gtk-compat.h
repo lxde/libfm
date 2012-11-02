@@ -65,6 +65,8 @@ G_BEGIN_DECLS
 #  define   GDK_KEY_KP_Page_Down GDK_KP_Page_Down
 #  define   GDK_KEY_KP_Right GDK_KP_Right
 #  define   GDK_KEY_KP_Left GDK_KP_Left
+#  define   GDK_KEY_F10     GDK_F10
+#  define   GDK_KEY_Menu    GDK_Menu
 #endif
 
 #if !GTK_CHECK_VERSION(3, 0, 0)

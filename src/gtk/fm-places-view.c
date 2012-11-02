@@ -46,6 +46,9 @@
 #include "fm-dnd-auto-scroll.h"
 #include "fm-places-model.h"
 
+#include <gdk/gdkkeysyms.h>
+#include "gtk-compat.h"
+
 enum
 {
     CHDIR,
@@ -769,11 +772,29 @@ _out:
     return menu;
 }
 
+static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 time)
+{
+    if(!fm_places_model_iter_is_separator(model, it))
+    {
+        FmPlacesItem* item;
+        GtkMenu* menu;
+        gtk_tree_model_get(GTK_TREE_MODEL(model), it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+        menu = GTK_MENU(place_item_get_menu(item));
+        if(menu)
+        {
+            gtk_menu_attach_to_widget(menu, widget, NULL);
+            /* FIXME: implement popup_position_func() */
+            gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, time);
+        }
+    }
+}
+
 static gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
 {
     FmPlacesView* view = FM_PLACES_VIEW(widget);
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
+    GtkTreeIter it;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
 
     gtk_tree_view_get_path_at_pos(&view->parent, evt->x, evt->y, &tp, &col, NULL, NULL);
@@ -790,26 +811,34 @@ static gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
             activate_row(view, 2, tp);
             break;
         case 3: /* right click */
-            {
-                GtkTreeIter it;
-                if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
-                    && !fm_places_model_iter_is_separator(model, &it) )
-                {
-                    FmPlacesItem* item;
-                    GtkMenu* menu;
-                    gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-                    menu = GTK_MENU(place_item_get_menu(item));
-                    if(menu)
-                    {
-                        gtk_menu_attach_to_widget(menu, widget, NULL);
-                        gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, evt->time);
-                    }
-                }
-            }
+            if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
+                fm_places_item_popup(widget, &it, evt->time);
             break;
         }
     }
     return ret;
+}
+
+/* handle 'Menu' and 'Shift+F10' here */
+static gboolean on_key_press(GtkWidget *widget, GdkEventKey *evt)
+{
+    GtkTreeModel *model;
+    GtkTreeSelection *sel;
+    GtkTreeIter it;
+    int modifier = (evt->state & gtk_accelerator_get_default_mod_mask());
+
+    if((evt->keyval == GDK_KEY_Menu && !modifier) ||
+       (evt->keyval == GDK_KEY_F10 && modifier == GDK_SHIFT_MASK))
+    {
+        sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+        if(gtk_tree_selection_get_selected(sel, &model, &it))
+        {
+            fm_places_item_popup(widget, &it, evt->time);
+            return TRUE;
+        }
+    }
+    /* let others do the job */
+    return GTK_WIDGET_CLASS(fm_places_view_parent_class)->key_press_event(widget, evt);
 }
 
 static void on_mount(GtkAction* act, gpointer user_data)
@@ -968,6 +997,7 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
     g_object_class->finalize = fm_places_view_finalize;
 
     widget_class = GTK_WIDGET_CLASS(klass);
+    widget_class->key_press_event = on_key_press;
     widget_class->button_press_event = on_button_press;
     widget_class->button_release_event = on_button_release;
     widget_class->drag_motion = on_drag_motion;
