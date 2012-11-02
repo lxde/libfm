@@ -63,6 +63,8 @@ static void on_eject(GtkAction* act, gpointer user_data);
 
 static void on_remove_bm(GtkAction* act, gpointer user_data);
 static void on_rename_bm(GtkAction* act, gpointer user_data);
+static void on_move_bm_up(GtkAction* act, gpointer user_data);
+static void on_move_bm_down(GtkAction* act, gpointer user_data);
 static void on_empty_trash(GtkAction* act, gpointer user_data);
 
 static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
@@ -108,13 +110,17 @@ static const char bookmark_menu_xml[]=
   "<placeholder name='ph3'>"
   "<menuitem action='RenameBm'/>"
   "<menuitem action='RemoveBm'/>"
+  "<menuitem action='MoveBmUp'/>"
+  "<menuitem action='MoveBmDown'/>"
   "</placeholder>"
 "</popup>";
 
 static GtkActionEntry bm_menu_actions[]=
 {
     {"RenameBm", GTK_STOCK_EDIT, N_("_Rename Bookmark Item"), NULL, NULL, G_CALLBACK(on_rename_bm)},
-    {"RemoveBm", GTK_STOCK_REMOVE, N_("Re_move from Bookmark"), NULL, NULL, G_CALLBACK(on_remove_bm)}
+    {"RemoveBm", GTK_STOCK_REMOVE, N_("Re_move from Bookmark"), NULL, NULL, G_CALLBACK(on_remove_bm)},
+    {"MoveBmUp", GTK_STOCK_GO_UP, N_("Move Bookmark _Up"), NULL, NULL, G_CALLBACK(on_move_bm_up)},
+    {"MoveBmDown", GTK_STOCK_GO_DOWN, N_("Move Bookmark _Down"), NULL, NULL, G_CALLBACK(on_move_bm_down)}
 };
 
 static const char trash_menu_xml[]=
@@ -693,6 +699,7 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
         {
             gtk_action_group_add_actions(act_grp, bm_menu_actions, G_N_ELEMENTS(bm_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, bookmark_menu_xml, -1, NULL);
+            /* FIXME: disable MoveBmUp and MoveBmDown which impossible to do */
         }
         else if(fm_path_is_trash_root(fm_places_item_get_path(item)))
         {
@@ -878,6 +885,58 @@ static void on_rename_bm(GtkAction* act, gpointer user_data)
         }
         g_free(new_name);
     }
+}
+
+static void on_move_bm_up(GtkAction* act, gpointer user_data)
+{
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    int new_pos, sep_pos;
+    GtkTreeIter src_it, dest_it;
+    GtkTreePath *tp, *sep_tp;
+
+    if(!fm_places_model_get_iter_by_fm_path(model, &src_it,
+                                            fm_places_item_get_path(item)))
+        return; /* FIXME: print error message */
+    /* get index of the separator */
+    sep_tp = fm_places_model_get_separator_path(model);
+    sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
+    tp = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &src_it);
+    if(!gtk_tree_path_prev(tp) ||
+       (new_pos = gtk_tree_path_get_indices(tp)[0] - sep_pos - 1) < 0 ||
+       !gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &dest_it, tp))
+        goto _end; /* cannot move it up */
+    gtk_list_store_move_before(GTK_LIST_STORE(model), &src_it, &dest_it);
+    /* reorder the bookmark item */
+    fm_bookmarks_reorder(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item), new_pos);
+_end:
+    gtk_tree_path_free(sep_tp);
+    gtk_tree_path_free(tp);
+}
+
+static void on_move_bm_down(GtkAction* act, gpointer user_data)
+{
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    int new_pos, sep_pos;
+    GtkTreeIter src_it, dest_it;
+    GtkTreePath *tp, *sep_tp;
+
+    if(!fm_places_model_get_iter_by_fm_path(model, &src_it,
+                                            fm_places_item_get_path(item)))
+        return; /* FIXME: print error message */
+    /* get index of the separator */
+    sep_tp = fm_places_model_get_separator_path(model);
+    sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
+    dest_it = src_it;
+    if(!gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &dest_it))
+        goto _end; /* cannot move it down */
+    gtk_list_store_move_after(GTK_LIST_STORE(model), &src_it, &dest_it);
+    /* reorder the bookmark item */
+    tp = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &src_it);
+    new_pos = gtk_tree_path_get_indices(tp)[0] - sep_pos - 1;
+    fm_bookmarks_reorder(fm_places_model_get_bookmarks(model), fm_places_item_get_bookmark_item(item), new_pos);
+    gtk_tree_path_free(tp);
+_end:
+    gtk_tree_path_free(sep_tp);
 }
 
 static void on_empty_trash(GtkAction* act, gpointer user_data)
