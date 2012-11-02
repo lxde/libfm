@@ -83,6 +83,7 @@
 
 #include <glib/gi18n-lib.h>
 #include <stdlib.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "fm-folder-view.h"
 #include "fm-file-properties.h"
@@ -145,8 +146,6 @@ static const char folder_popup_xml[] =
 "<accelerator action='Remove2'/>"
 "<accelerator action='FileProp2'/>"
 "<accelerator action='FileProp3'/>"
-"<accelerator action='Menu'/>"
-"<accelerator action='Menu2'/>"
 "<accelerator action='FileMenu'/>";
 
 static void on_create_new(GtkAction* act, FmFolderView* fv);
@@ -189,8 +188,6 @@ static const GtkActionEntry folder_popup_actions[]=
     {"FileProp", GTK_STOCK_PROPERTIES, N_("Prop_erties"), "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},
-    {"Menu", NULL, NULL, "Menu", NULL, G_CALLBACK(on_menu)},
-    {"Menu2", NULL, NULL, "<Shift>F10", NULL, G_CALLBACK(on_menu)},
     {"FileMenu", NULL, NULL, "<Shift>Menu", NULL, G_CALLBACK(on_file_menu)}
 };
 
@@ -1118,7 +1115,6 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     *y = CLAMP(*y, 0, MAX(0, gdk_screen_height() - ma.height));
 }
 
-/* if it's mouse event then act is NULL, see fm_folder_view_item_clicked() */
 static void on_menu(GtkAction* act, FmFolderView* fv)
 {
     GtkUIManager *ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
@@ -1151,6 +1147,19 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     /* open popup */
     gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                    gtk_get_current_event_time());
+}
+
+/* handle 'Menu' and 'Shift+F10' here */
+static gboolean on_key_press(GtkWidget *widget, GdkEventKey *evt, FmFolderView* fv)
+{
+    int modifier = (evt->state & gtk_accelerator_get_default_mod_mask());
+    if((evt->keyval == GDK_KEY_Menu && !modifier) ||
+       (evt->keyval == GDK_KEY_F10 && modifier == GDK_SHIFT_MASK))
+    {
+        on_menu(NULL, fv);
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static void on_file_menu(GtkAction* act, FmFolderView* fv)
@@ -1304,6 +1313,8 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     g_object_unref(act_grp);
     g_object_set_qdata_full(G_OBJECT(fv), ui_quark, ui, on_ui_destroy);
     g_object_set_qdata(G_OBJECT(fv), popup_quark, popup);
+    /* special handling for 'Menu' key */
+    g_signal_connect(G_OBJECT(fv), "key-press-event", G_CALLBACK(on_key_press), fv);
     return popup;
 }
 
