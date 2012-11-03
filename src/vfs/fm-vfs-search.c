@@ -1018,7 +1018,7 @@ static GFileInfo *_fm_vfs_search_query_info(GFile *file,
     /* g_debug("_fm_vfs_search_query_info on %s", FM_SEARCH_VFILE(file)->path); */
     /* FIXME: use matcher to set only requested data */
     g_file_info_set_name(fileinfo, FM_SEARCH_VFILE(file)->path);
-    g_file_info_set_display_name(fileinfo, "Search results");
+    g_file_info_set_display_name(fileinfo, _("Search results"));
     icon = g_themed_icon_new("search");
     g_file_info_set_icon(fileinfo, icon);
     g_object_unref(icon);
