@@ -89,7 +89,9 @@ struct _FmFileInfo
 
     char* target; /* target of shortcut or mountable. */
 
-    gboolean accessible; /* TRUE if can be read by user */
+    gboolean accessible : 1; /* TRUE if can be read by user */
+    gboolean hidden : 1; /* TRUE if file is hidden */
+    gboolean backup : 1; /* TRUE if file is backup */
 
     /*<private>*/
     int n_ref;
@@ -236,6 +238,11 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             else
                 fi->disp_name = dname;
         }
+        /* files with . prefix or ~ suffix are regarded as hidden files.
+         * dirs with . prefix are regarded as hidden dirs. */
+        dname = (char*)fm_path_get_basename(fi->path);
+        fi->hidden = (dname[0] == '.');
+        fi->backup = (!S_ISDIR(st.st_mode) && g_str_has_suffix(dname, "~"));
     }
     else
     {
@@ -397,6 +404,8 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     fi->mtime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_MODIFIED);
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
+    fi->hidden = g_file_info_get_is_hidden(inf);
+    fi->backup = g_file_info_get_is_backup(inf);
 }
 
 
@@ -968,13 +977,9 @@ gboolean fm_file_info_is_accessible(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_hidden(FmFileInfo* fi)
 {
-    const char* name = fm_path_get_basename(fi->path);
-    /* files with . prefix or ~ suffix are regarded as hidden files.
-     * dirs with . prefix are regarded as hidden dirs. */
-    return (name[0] == '.' ||
+    return (fi->hidden ||
             /* bug #3416724: backup and hidden files should be distinguishable */
-            (fm_config->backup_as_hidden &&
-             !fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")));
+            (fm_config->backup_as_hidden && fi->backup));
 }
 
 /**
