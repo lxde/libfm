@@ -999,7 +999,15 @@ static void on_trash(GtkAction* act, FmFolderView* fv)
         }
     }
     else if(GTK_IS_EDITABLE(focus)) /* fallback for editables */
+    {
+        if(!gtk_editable_get_selection_bounds((GtkEditable*)focus, NULL, NULL))
+        {
+            gint pos = gtk_editable_get_position((GtkEditable*)focus);
+            /* if no text selected then delete character next to cursor */
+            gtk_editable_select_region((GtkEditable*)focus, pos, pos + 1);
+        }
         gtk_editable_delete_selection((GtkEditable*)focus);
+    }
 }
 
 static void on_rm(GtkAction* act, FmFolderView* fv)
