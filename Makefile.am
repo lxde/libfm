@@ -3,8 +3,9 @@ include $(top_srcdir)/Makefile.decl
 NULL=
 
 # a little trick against gtk-doc is here
-@ENABLE_GTK_DOC_TRUE@SUBDIRS_DOCS = docs
-@ENABLE_GTK_DOC_FALSE@EXTRA_DIST_DOCS = \
+SUBDIRS_DOCS = docs
+
+EXTRA_DIST_DOCS = \
 	gtk-doc.make \
 	docs/Makefile.am \
 	docs/Makefile.in \
@@ -16,15 +17,21 @@ NULL=
 	docs/reference/libfm/libfm-sections.txt \
 	docs/reference/libfm/version.xml.in
 
-SUBDIRS = src po data $(SUBDIRS_DOCS)
+DIST_SUBDIRS = src po data
+SUBDIRS = $(DIST_SUBDIRS) $(SUBDIRS_DOCS)
 
 EXTRA_DIST += \
 	libfm.pc.in \
 	libfm-gtk.pc.in \
 	libfm-gtk3.pc.in \
 	po/libfm.pot \
-	$(EXTRA_DIST_DOCS) \
 	$(NULL)
+
+if ENABLE_GTK_DOC
+DIST_SUBDIRS += $(SUBDIRS_DOCS)
+else
+EXTRA_DIST += $(EXTRA_DIST_DOCS)
+endif
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \
