@@ -714,7 +714,6 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
                                         FM_FOLDER_MODEL_COL_NAME);
     }
 
-    gtk_tree_view_set_reorderable(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(fv->view), TRUE);
     gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(fv->view), TRUE);
     exo_tree_view_set_single_click((ExoTreeView*)fv->view, fm_config->single_click);
