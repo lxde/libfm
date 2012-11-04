@@ -93,6 +93,7 @@ G_BEGIN_DECLS
         drag_context->actions
 #  define gdk_drag_context_get_suggested_action(drag_context) \
         drag_context->suggested_action
+#  define gtk_accessible_get_widget(accessible) accessible->widget
 #endif
 
 #if !GTK_CHECK_VERSION(2, 20, 0)
