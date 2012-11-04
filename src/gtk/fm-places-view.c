@@ -772,19 +772,69 @@ _out:
     return menu;
 }
 
+static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
+                                gboolean *push_in, gpointer user_data)
+{
+    GtkWidget *widget = gtk_menu_get_attach_widget(menu);
+    GtkTreeView *view = GTK_TREE_VIEW(widget);
+    GtkTreePath *path;
+    gint index = GPOINTER_TO_INT(user_data);
+    GdkRectangle cell;
+    GtkAllocation a, ma;
+    gint x2, y2;
+    gboolean rtl = (gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL);
+
+    /* realize menu so we get actual size of it */
+    gtk_widget_realize(GTK_WIDGET(menu));
+    /* get all the relative coordinates */
+    gtk_widget_get_allocation(widget, &a);
+    gtk_widget_get_pointer(widget, &x2, &y2);
+    gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
+    path = gtk_tree_path_new_from_indices(index, -1);
+    gtk_tree_view_get_cell_area(view, path, gtk_tree_view_get_column(view, 0), &cell);
+    gtk_tree_path_free(path);
+    /* position menu inside the cell if pointer isn't already in it */
+    if(x2 < cell.x || x2 > cell.x + cell.width)
+        x2 = cell.x + cell.width/2;
+    if(y2 < cell.y || y2 > cell.y + cell.height)
+        y2 = cell.y + cell.height - cell.height/8;
+    /* get absolute coordinate of parent window - we got coords relative to it */
+    gdk_window_get_origin(gtk_widget_get_parent_window(widget), x, y);
+    /* calculate desired position for menu */
+    *x += a.x + x2;
+    *y += a.y + y2;
+    /* limit coordinates so menu will be not positioned outside of screen */
+    /* FIXME: honor monitor */
+    if(rtl) /* RTL */
+    {
+        x2 = gdk_screen_width();
+        *x = CLAMP(*x, MIN(ma.width, x2), x2);
+    }
+    else /* LTR */
+    {
+        *x = CLAMP(*x, 0, MAX(0, gdk_screen_width() - ma.width));
+    }
+    *y = CLAMP(*y, 0, MAX(0, gdk_screen_height() - ma.height));
+}
+
 static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 time)
 {
     if(!fm_places_model_iter_is_separator(model, it))
     {
         FmPlacesItem* item;
         GtkMenu* menu;
+        GtkTreePath* path;
+        gint* indices;
         gtk_tree_model_get(GTK_TREE_MODEL(model), it, FM_PLACES_MODEL_COL_INFO, &item, -1);
         menu = GTK_MENU(place_item_get_menu(item));
         if(menu)
         {
             gtk_menu_attach_to_widget(menu, widget, NULL);
-            /* FIXME: implement popup_position_func() */
-            gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, time);
+            path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), it);
+            indices = gtk_tree_path_get_indices(path);
+            gtk_menu_popup(menu, NULL, NULL, popup_position_func,
+                           GINT_TO_POINTER(indices[0]), 3, time);
+            gtk_tree_path_free(path);
         }
     }
 }
