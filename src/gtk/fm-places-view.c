@@ -451,6 +451,7 @@ static void fm_places_view_init(FmPlacesView *self)
 {
     GtkTreeViewColumn* col;
     GtkCellRenderer* renderer;
+    AtkObject *obj;
     guint handler;
 
     if(G_UNLIKELY(!model))
@@ -500,6 +501,8 @@ static void fm_places_view_init(FmPlacesView *self)
     fm_dnd_dest_add_targets(GTK_WIDGET(self), dnd_targets, G_N_ELEMENTS(dnd_targets));
 
     g_signal_connect(self->dnd_dest, "files-dropped", G_CALLBACK(on_dnd_dest_files_dropped), self);
+    obj = gtk_widget_get_accessible(GTK_WIDGET(self));
+    atk_object_set_description(obj, _("Shows list of common places, devices, and bookmarks in sidebar"));
 }
 
 /*----------------------------------------------------------------------
