@@ -110,10 +110,10 @@ struct _FmDndDest
 
     int info_type; /* type of src_files */
     FmPathList* src_files;
+    GdkDragContext* context;
     guint32 src_dev; /* UNIX dev of source fs */
     const char* src_fs_id; /* filesystem id of source fs */
     FmFileInfo* dest_file;
-    guint idle; /* idle handler */
 
     gboolean waiting_data;
     gboolean has_handlers;
@@ -213,11 +213,6 @@ static void fm_dnd_dest_dispose(GObject *object)
 
     fm_dnd_dest_set_widget(dd, NULL);
 
-    if(dd->idle)
-    {
-        g_source_remove(dd->idle);
-        dd->idle = 0;
-    }
     clear_src_cache(dd);
 
     G_OBJECT_CLASS(fm_dnd_dest_parent_class)->dispose(object);
@@ -401,6 +396,11 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 static void clear_src_cache(FmDndDest* dd)
 {
     /* free cached source files */
+    if(dd->context)
+    {
+        g_object_unref(dd->context);
+        dd->context = NULL;
+    }
     if(dd->src_files)
     {
         fm_path_list_unref(dd->src_files);
@@ -416,16 +416,6 @@ static void clear_src_cache(FmDndDest* dd)
 
     dd->info_type = 0;
     dd->waiting_data = FALSE;
-}
-
-static gboolean clear_src_cache_on_idle(gpointer user_data)
-{
-    GDK_THREADS_ENTER();
-    /* check if dd is still valid */
-    if(!g_source_is_destroyed(g_main_current_source()))
-        clear_src_cache((FmDndDest*)user_data);
-    GDK_THREADS_LEAVE();
-    return FALSE;
 }
 
 #if 0
@@ -594,6 +584,10 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
     dd->src_files = files;
     dd->waiting_data = FALSE;
     dd->info_type = info;
+    /* keep context to verify if it's changed */
+    if(G_UNLIKELY(dd->context))
+        g_object_unref(dd->context);
+    dd->context = g_object_ref(drag_context);
     return (files != NULL);
 }
 
@@ -731,7 +725,7 @@ gboolean _on_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
         }
 
         /* see if the dragged files are cached by "drag-motion" handler */
-        if(dd->src_files)
+        if(dd->src_files && drag_context == dd->context)
         {
             GdkDragAction action = gdk_drag_context_get_selected_action(drag_context);
             /* emit files-dropped signal */
@@ -790,14 +784,6 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
         /* query drag sources in any case */
         goto query_sources;
 
-    /* we may have another data already so clear the cache */
-    if(dd->idle)
-    {
-        g_source_remove(dd->idle);
-        dd->idle = 0;
-        clear_src_cache(dd);
-    }
-
     /* special support for dropping onto desktop entry */
     if(fm_file_info_is_desktop_entry(dest))
     {
@@ -815,8 +801,10 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     if(target == dest_target_atom[FM_DND_DEST_TARGET_XDS])
         return GDK_ACTION_COPY;
 
-    if(!dd->src_files)  /* we didn't have any data, cache it */
+    /* we have no valid data, query it now */
+    if(!dd->src_files || dd->context != drag_context)
     {
+        clear_src_cache(dd);
 query_sources:
         action = 0;
         if(!dd->waiting_data) /* we're still waiting for "drag-data-received" signal */
@@ -914,13 +902,9 @@ query_sources:
  */
 void fm_dnd_dest_drag_leave(FmDndDest* dd, GdkDragContext* drag_context, guint time)
 {
-    if(dd->idle == 0)
-        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache_on_idle, dd, NULL);
 }
 
 static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
                           guint time, FmDndDest* dd)
 {
-    if(dd->idle == 0)
-        dd->idle = g_idle_add_full(G_PRIORITY_LOW, clear_src_cache_on_idle, dd, NULL);
 }
