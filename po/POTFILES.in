@@ -15,6 +15,7 @@ src/gtk/fm-app-chooser-combo-box.c
 src/gtk/fm-app-chooser-dlg.c
 src/gtk/fm-app-menu-view.c
 src/gtk/fm-dir-tree-model.c
+src/gtk/fm-dir-tree-view.c
 src/gtk/fm-dnd-dest.c
 src/gtk/fm-file-menu.c
 src/gtk/fm-file-properties.c

@@ -29,6 +29,12 @@
  * of folders where each node can be expanded or collapsed when required.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
+
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
 #include "../gtk-compat.h"
@@ -288,6 +294,8 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     GtkTreeSelection* tree_sel;
     GtkTreeViewColumn* col;
     GtkCellRenderer* render;
+    AtkObject *obj;
+
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(view), FALSE);
     /* gtk_tree_view_set_enable_tree_lines(view, TRUE); */
 
@@ -307,6 +315,8 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     gtk_tree_selection_set_select_function(tree_sel,
                         _fm_dir_tree_view_select_function, view, NULL);
     g_signal_connect(tree_sel, "changed", G_CALLBACK(on_sel_changed), view);
+    obj = gtk_widget_get_accessible(GTK_WIDGET(view));
+    atk_object_set_description(obj, _("Shows tree of directories in sidebar"));
 }
 
 /**
