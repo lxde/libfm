@@ -267,10 +267,12 @@ FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
                                      FmLaunchFolderFunc open_folders)
 {
     FmStandardView* fv = (FmStandardView*)g_object_new(FM_STANDARD_VIEW_TYPE, NULL);
+    AtkObject *obj = gtk_widget_get_accessible(GTK_WIDGET(fv));
 
     fm_standard_view_set_mode(fv, mode);
     fv->update_popup = update_popup;
     fv->open_folders = open_folders;
+    atk_object_set_description(obj, _("View of folder contents"));
     return fv;
 }
 
