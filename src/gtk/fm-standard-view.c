@@ -71,10 +71,6 @@ struct _FmStandardView
     FmDndSrc* dnd_src; /* dnd source manager */
     FmDndDest* dnd_dest; /* dnd dest manager */
 
-    /* wordarounds to fix new gtk+ bug introduced in gtk+ 2.20: #612802 */
-    GtkTreeRowReference* activated_row_ref; /* for row-activated handler */
-    guint row_activated_idle;
-
     /* for very large folder update */
     guint sel_changed_idle;
     gboolean sel_changed_pending;
@@ -123,8 +119,6 @@ static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
-
-static void cancel_pending_row_activated(FmStandardView* fv);
 
 //static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
 //static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
@@ -177,45 +171,9 @@ static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmSt
     fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
 }
 
-static gboolean on_idle_tree_view_row_activated(gpointer user_data)
-{
-    FmStandardView* fv = (FmStandardView*)user_data;
-    GtkTreePath* path;
-    GDK_THREADS_ENTER();
-    if(g_source_is_destroyed(g_main_current_source()))
-        goto _end;
-    if(gtk_tree_row_reference_valid(fv->activated_row_ref))
-    {
-        path = gtk_tree_row_reference_get_path(fv->activated_row_ref);
-        fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
-        gtk_tree_path_free(path);
-    }
-    gtk_tree_row_reference_free(fv->activated_row_ref);
-    fv->activated_row_ref = NULL;
-    fv->row_activated_idle = 0;
-_end:
-    GDK_THREADS_LEAVE();
-    return FALSE;
-}
-
 static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTreeViewColumn* col, FmStandardView* fv)
 {
-    /* Due to GTK+ and libexo bugs, here a workaround is needed.
-     * https://bugzilla.gnome.org/show_bug.cgi?id=612802
-     * http://bugzilla.xfce.org/show_bug.cgi?id=6230
-     * Gtk+ 2.20+ changed its behavior, which is really bad.
-     * row-activated signal is now issued in the second button-press events
-     * rather than double click events. The content of the view and model
-     * gets changed in row-activated signal handler before button-press-event
-     * handling is finished, and this breaks button-press handler of ExoTreeView
-     * and causing some selection-related bugs since select function cannot be reset.*/
-
-    cancel_pending_row_activated(fv);
-    if(fv->model)
-    {
-        fv->activated_row_ref = gtk_tree_row_reference_new(GTK_TREE_MODEL(fv->model), path);
-        fv->row_activated_idle = g_idle_add(on_idle_tree_view_row_activated, fv);
-    }
+    fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
 }
 
 static void fm_standard_view_init(FmStandardView *self)
@@ -338,7 +296,6 @@ static void fm_standard_view_dispose(GObject *object)
     }
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
-    cancel_pending_row_activated(self); /* this frees activated_row_ref */
 
     if(self->sel_changed_idle)
     {
@@ -725,7 +682,6 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
     ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
     g_signal_connect(fv->view, "row-activated", G_CALLBACK(on_tree_view_row_activated), fv);
     g_signal_connect(ts, "changed", G_CALLBACK(on_sel_changed), fv);
-    /*cancel_pending_row_activated(fv);*/ /* FIXME: is this needed? */
     gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(model));
     gtk_tree_selection_set_mode(ts, fv->sel_mode);
     for(l = sels;l;l=l->next)
@@ -735,14 +691,17 @@ static inline void create_list_view(FmStandardView* fv, GList* sels)
 static void unset_view(FmStandardView* fv)
 {
     /* these signals connected by view creators */
-    g_signal_handlers_disconnect_by_func(fv->view, on_tree_view_row_activated, fv);
     if(fv->mode == FM_FV_LIST_VIEW)
     {
         GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(fv->view));
         g_signal_handlers_disconnect_by_func(ts, on_sel_changed, fv);
+        g_signal_handlers_disconnect_by_func(fv->view, on_tree_view_row_activated, fv);
     }
     else
+    {
         g_signal_handlers_disconnect_by_func(fv->view, on_sel_changed, fv);
+        g_signal_handlers_disconnect_by_func(fv->view, on_icon_view_item_activated, fv);
+    }
     /* these signals connected by fm_standard_view_set_mode() */
     g_signal_handlers_disconnect_by_func(fv->view, on_drag_motion, fv);
     g_signal_handlers_disconnect_by_func(fv->view, on_btn_pressed, fv);
@@ -1302,17 +1261,6 @@ static gboolean fm_standard_view_is_loaded(FmStandardView* fv)
 }
 #endif
 
-static void cancel_pending_row_activated(FmStandardView* fv)
-{
-    if(fv->row_activated_idle)
-    {
-        g_source_remove(fv->row_activated_idle);
-        fv->row_activated_idle = 0;
-        gtk_tree_row_reference_free(fv->activated_row_ref);
-        fv->activated_row_ref = NULL;
-    }
-}
-
 static FmFolderModel* fm_standard_view_get_model(FmFolderView* ffv)
 {
     FmStandardView* fv = FM_STANDARD_VIEW(ffv);
@@ -1327,7 +1275,6 @@ static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
     switch(fv->mode)
     {
     case FM_FV_LIST_VIEW:
-        cancel_pending_row_activated(fv);
         _check_tree_columns_defaults(fv);
         if(model)
         {
