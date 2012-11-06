@@ -30,6 +30,12 @@
  * notebook-like folders view.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
+
 #include "fm-tab-label.h"
 
 G_DEFINE_TYPE(FmTabLabel, fm_tab_label, GTK_TYPE_EVENT_BOX);
@@ -147,6 +153,9 @@ static void fm_tab_label_init(FmTabLabel *self)
 FmTabLabel *fm_tab_label_new(const char* text)
 {
     FmTabLabel* label = (FmTabLabel*)g_object_new(FM_TYPE_TAB_LABEL, NULL);
+    AtkObject *obj;
+    obj = gtk_widget_get_accessible(GTK_WIDGET(label));
+    atk_object_set_description(obj, _("Changes active tab"));
     gtk_label_set_text(label->label, text);
     return label;
 }
