@@ -23,6 +23,7 @@ src/gtk/fm-folder-model.c
 src/gtk/fm-folder-view.c
 src/gtk/fm-gtk-file-launcher.c
 src/gtk/fm-gtk-utils.c
+src/gtk/fm-path-entry.c
 src/gtk/fm-places-model.c
 src/gtk/fm-places-view.c
 src/gtk/fm-progress-dlg.c

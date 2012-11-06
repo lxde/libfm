@@ -34,7 +34,13 @@
  * (such as \%23) into entry.
  */
 
-#include "gtk-compat.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
+
+#include "../gtk-compat.h"
 
 #include "fm-path-entry.h"
 /* for completion */
@@ -560,6 +566,7 @@ fm_path_entry_init(FmPathEntry *entry)
     FmPathEntryPrivate *priv = FM_PATH_ENTRY_GET_PRIVATE(entry);
     GtkEntryCompletion* completion = gtk_entry_completion_new();
     GtkCellRenderer* render;
+    AtkObject *obj;
 
     priv->model = fm_path_entry_model_new(NULL);
     priv->completion = completion;
@@ -596,6 +603,9 @@ fm_path_entry_init(FmPathEntry *entry)
      * we want to invoke our handlers before the default ones provided by Gtk. */
     g_signal_connect(entry, "key-press-event", G_CALLBACK(fm_path_entry_key_press), NULL);
     g_signal_connect(entry, "activate", G_CALLBACK(fm_path_entry_activate), NULL);
+
+    obj = gtk_widget_get_accessible(GTK_WIDGET(entry));
+    atk_object_set_description(obj, _("Entry for folder path"));
 }
 
 static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
