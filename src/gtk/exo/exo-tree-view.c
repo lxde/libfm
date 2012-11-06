@@ -377,8 +377,7 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
       /* if no custom select function is set, we simply use exo_noop_false here,
        * to tell the tree view that it may not alter the selection.
        */
-      if (G_LIKELY (gtk_tree_selection_get_select_function (selection) == (GtkTreeSelectionFunc) gtk_true ||
-                    gtk_tree_selection_get_select_function (selection) == NULL))
+      if (G_LIKELY (gtk_tree_selection_get_select_function (selection) != (GtkTreeSelectionFunc) exo_noop_false))
         gtk_tree_selection_set_select_function (selection, (GtkTreeSelectionFunc) exo_noop_false, NULL, NULL);
       else
         selected_paths = gtk_tree_selection_get_selected_rows (selection, NULL);
@@ -433,19 +432,21 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
       && path != NULL && gtk_tree_selection_path_is_selected (selection, path))
     {
       /* check if we have to restore paths */
-      if (G_LIKELY (gtk_tree_selection_get_select_function (selection) == (GtkTreeSelectionFunc) exo_noop_false))
-        {
-          /* just reset the select function (previously set to exo_noop_false),
-           * there's no clean way to do this, so what the heck.
-           */
-          gtk_tree_selection_set_select_function (selection, (GtkTreeSelectionFunc) gtk_true, NULL, NULL);
-        }
-      else
+      if (G_LIKELY (gtk_tree_selection_get_select_function (selection) != (GtkTreeSelectionFunc) exo_noop_false))
         {
           /* select all previously selected paths */
           for (lp = selected_paths; lp != NULL; lp = lp->next)
             gtk_tree_selection_select_path (selection, lp->data);
         }
+    }
+
+  /* see bug http://bugzilla.xfce.org/show_bug.cgi?id=6230 for more information */
+  if (G_LIKELY (gtk_tree_selection_get_select_function (selection) == (GtkTreeSelectionFunc) exo_noop_false))
+    {
+      /* just reset the select function (previously set to exo_noop_false),
+       * there's no clean way to do this, so what the heck.
+       */
+      gtk_tree_selection_set_select_function (selection, (GtkTreeSelectionFunc) gtk_true, NULL, NULL);
     }
 
   /* release the path (if any) */
