@@ -329,18 +329,41 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     }
 }
 
+static gboolean fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
+                                             FmPath* src)
+{
+    /* g_debug("fm_dnd_dest_can_receive_drop: src %p(%s) dest %p(%s)", src,
+            fm_path_get_basename(src), dest, fm_path_get_basename(dest)); */
+    if(!dest)
+        return FALSE;
+
+    /* we can drop only onto directory or desktop entry */
+    if(fm_file_info_is_desktop_entry(dest_fi))
+        return TRUE;
+    if(!fm_file_info_is_dir(dest_fi))
+        return FALSE;
+
+    /* check if we drop directory onto itself */
+    if(!src || fm_path_equal(src, dest))
+        return FALSE;
+    /* check if source and destination directories are the same */
+    return !fm_path_equal(fm_path_get_parent(src), dest);
+}
+
 /* own handler for "files-dropped" signal */
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
                                           guint action, guint info_type,
                                           FmPathList* files)
 {
-    FmPath* dest, *src;
+    FmPath* dest;
     GtkWidget* parent;
 
     dest = fm_dnd_dest_get_dest_path(dd);
-    if(!dest)
-        return FALSE;
     g_debug("%d files-dropped!, info_type: %d", fm_path_list_get_length(files), info_type);
+
+    if(!fm_dnd_dest_can_receive_drop(dd->dest_file, dest,
+                                     fm_path_list_peek_head(files)))
+        return FALSE;
 
     if(fm_file_info_is_desktop_entry(dd->dest_file))
     {
@@ -350,18 +373,6 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
         return fm_launch_desktop_entry_simple(GTK_WINDOW(parent), NULL,
                                               dd->dest_file, files);
     }
-
-    /* check if we drop directory onto itself */
-    src = fm_path_list_peek_head(files);
-    if(!src || fm_path_equal(src, dest))
-        return FALSE;
-    /* Check if source and destination directories are the same */
-    src = fm_path_get_parent(src);
-    if(fm_path_equal(src, dest))
-        return FALSE;
-
-    if(!fm_file_info_is_dir(dd->dest_file))
-        return FALSE;
 
     parent = gtk_widget_get_toplevel(dd->widget);
     switch((GdkDragAction)action)
@@ -831,8 +842,11 @@ query_sources:
             /* FIXME: some special handling can be done with menu:// */
             action = 0;
         }
-        /* FIXME: check if destination is supported, see fm_dnd_dest_files_dropped() */
-        else /* dest is a ordinary path */
+        /* dest is an ordinary path, check if drop on it is supported */
+        else if(!fm_dnd_dest_can_receive_drop(dest, dest_path,
+                                              fm_path_list_peek_head(dd->src_files)))
+            action = 0;
+        else
         {
             /* determine if the dragged files are on the same device as destination file */
             /* Here we only check the first dragged file since checking all of them can
