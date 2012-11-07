@@ -547,11 +547,19 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
         exo_icon_view_select_path((ExoIconView*)fv->view, l->data);
 }
 
-static void on_column_width_changed(GtkTreeViewColumn* col, FmStandardView* view)
+/* Each change will generate notify for all columns from first to last.
+ * 1) on window resizing only column Name may change - the size may grow to
+ *    fill any additional space
+ * 2) on manual column resize the resized column will change; last column
+ *    will change size too if horizontal scroll bar isn't visible */
+static void on_column_width_changed(GtkTreeViewColumn* col, GParamSpec *pspec,
+                                    FmStandardView* view)
 {
     /* FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
-    g_debug("column width changed: id %u mode %u: %d", info->col_id,
-            gtk_tree_view_column_get_sizing(col), gtk_tree_view_column_get_width(col)); */
+    GtkWidget* sb = gtk_scrolled_window_get_hscrollbar(GTK_SCROLLED_WINDOW(view));
+    g_debug("column width changed: id %u mode %u: %d (%d)", info->col_id,
+            gtk_tree_view_column_get_sizing(col), gtk_tree_view_column_get_width(col),
+            sb ? gtk_widget_get_visible(sb) : FALSE); */
     return;
 #if 0
     int width;
