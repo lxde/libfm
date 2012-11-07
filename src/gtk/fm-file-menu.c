@@ -41,6 +41,7 @@
  * Paste
  * Del
  * ------------------------
+ * AddBookmark
  * Rename
  * ------------------------
  * &lt;placeholder name='ph3'/&gt;
@@ -58,6 +59,7 @@
  *  
  *        'Extract' if this is an archive
  *
+ * Element 'AddBookmark' is visible only if menu is created for one directory.
  * Element 'Rename' is hidden if menu is created for more than one file.
  *
  * Elements 'Cut', 'Copy', 'Paste', and 'Del' are hidden for any virtual
@@ -72,25 +74,18 @@
 #include "../gtk-compat.h"
 
 #include "fm.h"
-#include "fm-config.h"
 
 #include "fm-file-menu.h"
-#include "fm-path.h"
 
 #include "fm-clipboard.h"
 #include "fm-file-properties.h"
-#include "fm-utils.h"
 #include "fm-gtk-utils.h"
 #include "fm-app-chooser-dlg.h"
-#include "fm-archiver.h"
-#include "fm-app-info.h"
 #include "fm-gtk-file-launcher.h"
 
 #ifdef HAVE_ACTIONS
 #include "fm-actions.h"
 #endif
-
-#include "gtk-compat.h"
 
 struct _FmFileMenu
 {
@@ -119,6 +114,7 @@ static void on_copy(GtkAction* action, gpointer user_data);
 static void on_paste(GtkAction* action, gpointer user_data);
 static void on_delete(GtkAction* action, gpointer user_data);
 static void on_untrash(GtkAction* action, gpointer user_data);
+static void on_add_bookmark(GtkAction* action, FmFileMenu* menu);
 static void on_rename(GtkAction* action, gpointer user_data);
 static void on_compress(GtkAction* action, gpointer user_data);
 static void on_extract_here(GtkAction* action, gpointer user_data);
@@ -138,6 +134,7 @@ const char base_menu_xml[]=
   "<menuitem action='Paste'/>"
   "<menuitem action='Del'/>"
   "<separator/>"
+  "<menuitem action='AddBookmark'/>"
   "<menuitem action='Rename'/>"
 /* TODO: implement symlink creation and "send to".
   "<menuitem action='Link'/>"
@@ -160,6 +157,7 @@ GtkActionEntry base_menu_actions[]=
     {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
+    {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
     {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
     {"Link", NULL, N_("Create _Symlink"), NULL, NULL, NULL},
     {"SendTo", NULL, N_("Se_nd To"), NULL, NULL, NULL},
@@ -556,7 +554,11 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
     if(items_num != 1 || !fm_file_info_is_dir(fm_file_info_list_peek_head(files)))
+    {
         gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/AddBookmark");
+        gtk_action_set_visible(act, FALSE);
+    }
     else
         gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(parent)));
 
@@ -769,6 +771,19 @@ static void on_untrash(GtkAction* action, gpointer user_data)
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     fm_untrash_files(data->parent, files);
     fm_path_list_unref(files);
+}
+
+static void on_add_bookmark(GtkAction* action, FmFileMenu* menu)
+{
+    FmFileInfo* fi = fm_file_info_list_peek_head(menu->file_infos);
+    FmBookmarks* bookmarks;
+    if(fi)
+    {
+        bookmarks = fm_bookmarks_dup();
+        fm_bookmarks_append(bookmarks, fm_file_info_get_path(fi),
+                            fm_file_info_get_disp_name(fi));
+        g_object_unref(bookmarks);
+    }
 }
 
 static void on_rename(GtkAction* action, gpointer user_data)
