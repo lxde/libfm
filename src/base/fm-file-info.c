@@ -246,7 +246,8 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
     }
     else
     {
-        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), "%s", g_strerror(errno));
+        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno),
+                    "%s: %s", path, g_strerror(errno));
         return FALSE;
     }
     return TRUE;
