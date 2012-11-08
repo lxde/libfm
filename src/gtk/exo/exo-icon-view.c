@@ -4807,6 +4807,9 @@ exo_icon_view_move_cursor_up_down (ExoIconView *icon_view,
         }
     }
 
+  if (item == icon_view->priv->cursor_item)
+    gtk_widget_error_bell (GTK_WIDGET (icon_view));
+
   if (!item)
     return;
 
@@ -4860,6 +4863,9 @@ exo_icon_view_move_cursor_page_up_down (ExoIconView *icon_view,
     item = find_item_page_up_down (icon_view,
                                    icon_view->priv->cursor_item,
                                    count);
+
+  if (item == icon_view->priv->cursor_item)
+    gtk_widget_error_bell (GTK_WIDGET (icon_view));
 
   if (!item)
     return;
@@ -4964,6 +4970,9 @@ exo_icon_view_move_cursor_left_right (ExoIconView *icon_view,
         }
     }
 
+  if (item == icon_view->priv->cursor_item)
+    gtk_widget_error_bell (GTK_WIDGET (icon_view));
+
   if (!item)
     return;
 
@@ -5004,10 +5013,14 @@ exo_icon_view_move_cursor_start_end (ExoIconView *icon_view,
     return;
 
   lp = (count < 0) ? icon_view->priv->items : g_list_last (icon_view->priv->items);
-  if (G_UNLIKELY (lp == NULL))
+  item = lp ? EXO_ICON_VIEW_ITEM (lp->data) : NULL;
+
+  if (item == icon_view->priv->cursor_item)
+    gtk_widget_error_bell (GTK_WIDGET (icon_view));
+
+  if (G_UNLIKELY (item == NULL))
     return;
 
-  item = EXO_ICON_VIEW_ITEM (lp->data);
   if (icon_view->priv->ctrl_pressed ||
       !icon_view->priv->shift_pressed ||
       !icon_view->priv->anchor_item ||
