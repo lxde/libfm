@@ -415,7 +415,6 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
         g_object_set_qdata_full(G_OBJECT(mi), fm_qdata_id, GUINT_TO_POINTER(n), NULL);
         g_signal_connect(mi, "activate", G_CALLBACK(on_history_item), win);
         gtk_menu_shell_append(menu, mi);
-        n++;
     }
     gtk_widget_show_all( GTK_WIDGET(menu) );
 }
