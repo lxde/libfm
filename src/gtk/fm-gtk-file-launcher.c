@@ -69,7 +69,8 @@ static GAppInfo* choose_app(GList* file_infos, FmMimeType* mime_type, gpointer u
     return fm_choose_app_for_mime_type(data->parent, mime_type, mime_type != NULL);
 }
 
-static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err, gpointer user_data)
+static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err,
+                                FmPath* path, gpointer user_data)
 {
     LaunchData* data = (LaunchData*)user_data;
     fm_show_error(data->parent, NULL, err->message);

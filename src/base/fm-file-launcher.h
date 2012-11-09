@@ -61,7 +61,7 @@ struct _FmFileLauncher
     FmLaunchFolderFunc open_folder;
     FmFileLauncherExecAction (*exec_file)(FmFileInfo* file, gpointer user_data);
     /* returns TRUE to continue, FALSE to retry */
-    gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);
+    gboolean (*error)(GAppLaunchContext* ctx, GError* err, FmPath* file, gpointer user_data);
     int (*ask)(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data);
     /*< private >*/
     gpointer _reserved1;

@@ -145,7 +145,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
     if(err)
     {
         if(launcher->error)
-            launcher->error(ctx, err, user_data);
+            launcher->error(ctx, err, NULL, user_data);
         g_error_free(err);
     }
 
@@ -231,7 +231,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                     if(!fm_app_info_launch(app, NULL, ctx, &err))
                                     {
                                         if(launcher->error)
-                                            launcher->error(ctx, err, user_data);
+                                            launcher->error(ctx, err, NULL, user_data);
                                         g_error_free(err);
                                         err = NULL;
                                     }
@@ -322,7 +322,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             if(err)
             {
                 if(launcher->error)
-                    launcher->error(ctx, err, user_data);
+                    launcher->error(ctx, err, NULL, user_data);
                 g_error_free(err);
                 err = NULL;
             }
@@ -355,7 +355,9 @@ static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJo
     }
 #endif
     if(data->launcher->error
-       && !data->launcher->error(data->ctx, err, data->user_data))
+       && !data->launcher->error(data->ctx, err,
+                                 fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)),
+                                 data->user_data))
         return FM_JOB_RETRY;
     return FM_JOB_CONTINUE;
 }
