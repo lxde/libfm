@@ -341,19 +341,6 @@ typedef struct
 
 static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, QueryErrorData* data)
 {
-#if 0
-    /* FIXME: ask for mount if trying to launch unmounted path? */
-    if(err->domain == G_IO_ERROR)
-    {
-        if(err->code == G_IO_ERROR_NOT_MOUNTED)
-        {
-            if(fm_mount_path(win, fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)), TRUE))
-                return FM_JOB_RETRY;
-        }
-        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
-            return FM_JOB_CONTINUE;
-    }
-#endif
     if(data->launcher->error
        && !data->launcher->error(data->ctx, err,
                                  fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)),
