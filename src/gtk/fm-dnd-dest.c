@@ -335,7 +335,7 @@ static gboolean fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
     /* we can drop only onto directory or desktop entry */
     if(fm_file_info_is_desktop_entry(dest_fi))
         return TRUE;
-    if(!fm_file_info_is_dir(dest_fi))
+    if(!fm_file_info_is_dir(dest_fi) || !fm_file_info_is_accessible(dest_fi))
         return FALSE;
 
     /* check if we drop directory onto itself */
