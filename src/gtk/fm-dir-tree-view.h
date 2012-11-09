@@ -23,6 +23,7 @@
 
 #include <gtk/gtk.h>
 #include "fm-path.h"
+#include "fm-dnd-dest.h"
 
 G_BEGIN_DECLS
 
@@ -48,6 +49,7 @@ struct _FmDirTreeView
     FmPath* cwd;
 
     /* <private> */
+    FmDndDest* dd;
     gpointer _reserved1;
 
     /* used for chdir */

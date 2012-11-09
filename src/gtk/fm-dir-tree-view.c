@@ -159,6 +159,55 @@ static gboolean on_key_press_event(GtkWidget* widget, GdkEventKey* evt)
     return GTK_WIDGET_CLASS(fm_dir_tree_view_parent_class)->key_press_event(widget, evt);
 }
 
+static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
+                               gint x, gint y, guint time)
+{
+    GtkTreeView *view = GTK_TREE_VIEW(widget);
+    GtkTreeModel *model = gtk_tree_view_get_model(view);
+    FmDndDest *dd;
+    FmFileInfo *file_info = NULL;
+    GtkTreePath *tp;
+    GtkTreeViewDropPosition pos;
+    GtkTreeIter it;
+    GdkAtom target;
+    GdkDragAction action = 0;
+
+    g_return_val_if_fail(FM_IS_DIR_TREE_VIEW(view), FALSE);
+    g_return_val_if_fail(FM_IS_DIR_TREE_MODEL(model), FALSE);
+
+    gtk_tree_view_get_dest_row_at_pos(view, x, y, &tp, &pos);
+    if(tp && (pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
+              pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) &&
+       gtk_tree_model_get_iter(model, &it, tp)) /* dragged into item */
+        gtk_tree_model_get(model, &it,
+                           FM_DIR_TREE_MODEL_COL_INFO, &file_info, -1);
+
+    dd = ((FmDirTreeView*)widget)->dd;
+    fm_dnd_dest_set_dest_file(dd, file_info);
+    if(file_info != NULL) /* in drop zone */
+    {
+        target = gtk_drag_dest_find_target(widget, drag_context, NULL);
+        if(target != GDK_NONE && fm_dnd_dest_is_target_supported(dd, target))
+            action = fm_dnd_dest_get_default_action(dd, drag_context, target);
+    }
+    gdk_drag_status(drag_context, action, time);
+    if(action != 0)
+        gtk_tree_view_set_drag_dest_row(view, tp, pos);
+    else
+        gtk_tree_view_set_drag_dest_row(view, NULL, 0);
+    if(tp)
+        gtk_tree_path_free(tp);
+    return (action != 0);
+}
+
+static void on_drag_data_received(GtkWidget *dest_widget,
+                                  GdkDragContext *drag_context, gint x, gint y,
+                                  GtkSelectionData *sel_data, guint info,
+                                  guint time)
+{
+    /* nothing to do but we have to override GtkTreeView default handler */
+}
+
 static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
 {
     GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
@@ -170,6 +219,8 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
 
     widget_class->key_press_event = on_key_press_event;
     // widget_class->button_press_event = on_button_press_event;
+    widget_class->drag_motion = on_drag_motion;
+    widget_class->drag_data_received = on_drag_data_received;
 
     tree_view_class->test_expand_row = on_test_expand_row;
     tree_view_class->row_collapsed = on_row_collapsed;
@@ -272,6 +323,11 @@ static void fm_dir_tree_view_dispose(GObject *object)
         fm_path_unref(view->cwd);
         view->cwd = NULL;
     }
+    if(view->dd)
+    {
+        g_object_unref(view->dd);
+        view->dd = NULL;
+    }
 
     G_OBJECT_CLASS(fm_dir_tree_view_parent_class)->dispose(object);
 }
@@ -315,6 +371,7 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     gtk_tree_selection_set_select_function(tree_sel,
                         _fm_dir_tree_view_select_function, view, NULL);
     g_signal_connect(tree_sel, "changed", G_CALLBACK(on_sel_changed), view);
+    view->dd = fm_dnd_dest_new_with_handlers(GTK_WIDGET(view));
     obj = gtk_widget_get_accessible(GTK_WIDGET(view));
     atk_object_set_description(obj, _("Shows tree of directories in sidebar"));
 }
