@@ -85,7 +85,7 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
         if(val < SI_MB)
         {
             val /= SI_KB;
-            unit = _("KB");
+            unit = _("kB");
         }
         else if(val < SI_GB)
         {
