@@ -183,7 +183,7 @@ static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
     /* if %s is not found, fallback to -e */
     static FmTerminal xterm_def = { .program = "xterm", .open_arg = "-e" };
 
-    term = fm_terminal_get_default(NULL);
+    term = fm_terminal_dup_default(NULL);
     /* bug #3457335: Crash on application start with Terminal=true. */
     if(!term) /* fallback to xterm if a terminal emulator is not found. */
     {

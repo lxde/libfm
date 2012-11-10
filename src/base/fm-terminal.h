@@ -72,7 +72,7 @@ GType fm_terminal_get_type(void);
 void _fm_terminal_init(void);
 void _fm_terminal_finalize(void);
 
-FmTerminal* fm_terminal_get_default(GError **error);
+FmTerminal* fm_terminal_dup_default(GError **error);
 gboolean fm_terminal_launch(const gchar *dir, GError **error);
 
 G_END_DECLS

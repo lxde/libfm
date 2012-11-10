@@ -225,7 +225,7 @@ void _fm_terminal_finalize(void)
 }
 
 /**
- * fm_terminal_get_default
+ * fm_terminal_dup_default
  * @error: (allow-none): location of error to set
  *
  * Retrieves description of terminal which is defined in libfm config.
@@ -237,7 +237,7 @@ void _fm_terminal_finalize(void)
  *
  * Since: 1.2.0
  */
-FmTerminal* fm_terminal_get_default(GError **error)
+FmTerminal* fm_terminal_dup_default(GError **error)
 {
     if(default_terminal)
         return g_object_ref(default_terminal);
