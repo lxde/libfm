@@ -23,6 +23,7 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 libfmdatafilesdir = $(datadir)/libfm
 libfmdatafiles_DATA = \
 	archivers.list \
+	terminals.list \
 	$(NULL)
 
 EXTRA_DIST= \

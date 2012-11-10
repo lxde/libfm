@@ -1,0 +1,38 @@
+[xterm]
+open_arg=-e
+noclose_arg=-hold -e
+
+[uxterm]
+open_arg=-e
+noclose_arg=-hold -e
+
+[lxterminal]
+open_arg=-e
+
+[konsole]
+open_arg=-e
+noclose_arg=--noclose -e
+
+[xfce4-terminal]
+open_arg=-x
+noclose_arg=--hold -x
+
+[terminator]
+open_arg=-x
+
+[rxvt]
+open_arg=-e
+
+[urxvt]
+open_arg=-e
+noclose_arg=-hold -e
+
+[eterm]
+open_arg=-e
+noclose_arg=--pause -e
+
+[gnome-terminal]
+open_arg=-x
+
+[wterm]
+open_arg=-e

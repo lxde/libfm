@@ -1008,6 +1008,12 @@ fm_tab_label_get_type
 </SECTION>
 
 <SECTION>
+<FILE>fm-terminal</FILE>
+FmTerminal
+fm_terminal_get_default
+</SECTION>
+
+<SECTION>
 <FILE>fm-thumbnail</FILE>
 FmThumbnailReadyCallback
 FmThumbnailRequest
