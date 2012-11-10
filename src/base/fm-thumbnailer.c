@@ -24,7 +24,7 @@
  * @short_description: External thumbnailers handling.
  * @title: FmThumbnailer
  *
- * @include: libfm/fm-thumbnailer.h
+ * @include: libfm/fm.h
  *
  */
 

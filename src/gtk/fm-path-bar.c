@@ -24,7 +24,7 @@
  * @short_description: A widget for representing current path.
  * @title: FmPathBar
  *
- * @include: libfm/fm-path-bar.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmPathBar represents current path as number of buttons so it is
  * possible to click buttons to change directory to parent or child.

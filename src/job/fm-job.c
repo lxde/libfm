@@ -32,7 +32,7 @@
  * @short_description: Base class of all kinds of asynchronous jobs.
  * @title: FmJob
  *
- * @include: libfm/fm-job.h
+ * @include: libfm/fm.h
  *
  * The #FmJob can be used to create asynchronous jobs performing some
  * time-consuming tasks in another worker thread.

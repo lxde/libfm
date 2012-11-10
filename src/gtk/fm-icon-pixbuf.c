@@ -24,7 +24,7 @@
  * @short_description: An icon image creator.
  * @title: Icon image
  *
- * @include: libfm/fm-icon-pixbuf.h
+ * @include: libfm/fm-gtk.h
  *
  */
 

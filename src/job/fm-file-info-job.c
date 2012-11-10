@@ -24,7 +24,7 @@
  * @short_description: Job to gather information about files.
  * @title: FmFileInfoJob
  *
- * @include: libfm/fm-file-info-job.h
+ * @include: libfm/fm.h
  *
  * The #FmFileInfoJob can be used to get filled #FmFileInfo for some files.
  */

@@ -24,7 +24,7 @@
  * @short_description: Path representation for libfm.
  * @title: FmPath
  *
- * @include: libfm/fm-path.h
+ * @include: libfm/fm.h
  *
  */
 

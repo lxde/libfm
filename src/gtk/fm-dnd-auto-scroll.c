@@ -24,7 +24,7 @@
  * @short_description: Autoscroll when dragged out of widget.
  * @title: Drag and drop autoscrolling
  *
- * @include: libfm/fm-dnd-auto-scroll.h
+ * @include: libfm/fm-gtk.h
  *
  */
 #include "fm-dnd-auto-scroll.h"

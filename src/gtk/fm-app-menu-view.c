@@ -24,7 +24,7 @@
  * @short_description: Applications tree for application selection dialogs.
  * @title: Application chooser tree
  *
- * @include: libfm/fm-app-menu-view.h
+ * @include: libfm/fm-gtk.h
  *
  * The widget to represent known applications as a tree.
  */

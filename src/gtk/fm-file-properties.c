@@ -25,7 +25,7 @@
  * @short_description: Dialog window for changing properties of file.
  * @title: File properties dialog
  *
- * @include: libfm/fm-file-properties.h
+ * @include: libfm/fm-gtk.h
  *
  */
 

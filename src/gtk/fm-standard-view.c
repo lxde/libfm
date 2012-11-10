@@ -25,7 +25,7 @@
  * @short_description: A folder view widget based on libexo.
  * @title: FmStandardView
  *
- * @include: libfm/fm-standard-view.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmStandardView represents view of content of a folder with
  * support of drag & drop and other file/directory operations.

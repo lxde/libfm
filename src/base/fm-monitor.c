@@ -24,7 +24,7 @@
  * @short_description: File monitor cache implementation.
  * @title: GMonitor cache
  *
- * @include: libfm/fm-monitor.h
+ * @include: libfm/fm.h
  *
  * This implementation can help to exclude creation of duplicate monitors
  * for the same file and also do fast search for created file monitors.

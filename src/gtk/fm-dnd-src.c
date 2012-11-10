@@ -24,7 +24,7 @@
  * @short_description: Libfm support for drag&drop source.
  * @title: FmDndSrc
  *
- * @include: libfm/fm-dnd-src.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmDndSrc can be used by some widget to provide support for drag
  * operations on #FmFileInfo objects that are represented in that widget.

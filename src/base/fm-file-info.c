@@ -25,7 +25,7 @@
  * @short_description: File information cache for libfm.
  * @title: FmFileInfo
  *
- * @include: libfm/fm-file-info.h
+ * @include: libfm/fm.h
  *
  */
 

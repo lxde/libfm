@@ -24,7 +24,7 @@
  * @short_description: Folder loading and monitoring.
  * @title: FmFolder
  *
- * @include: libfm/fm-folder.h
+ * @include: libfm/fm.h
  *
  * The #FmFolder object allows to open and monitor items of some directory
  * (either local or remote), i.e. files and directories, to have fast access

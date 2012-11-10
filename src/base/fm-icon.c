@@ -24,7 +24,7 @@
  * @short_description: A simple icons cache.
  * @title: FmIcon
  *
- * @include: libfm/fm-icon.h
+ * @include: libfm/fm.h
  *
  */
 

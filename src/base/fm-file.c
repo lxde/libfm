@@ -24,7 +24,7 @@
  * @short_description: Extensions for GFile interface.
  * @title: FmFile
  *
- * @include: libfm/fm-file.h
+ * @include: libfm/fm.h
  *
  * The #FmFile represents interface to build extensions to GFile which
  * will handle schemas that are absent in Glib/GVFS - such as "search:".

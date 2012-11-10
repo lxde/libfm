@@ -24,7 +24,7 @@
  * @short_description: Configuration file support for applications that use libfm.
  * @title: FmConfig
  *
- * @include: libfm/fm-config.h
+ * @include: libfm/fm.h
  *
  * The #FmConfig represents basic configuration options that are used by
  * libfm classes and methods. Methods of class #FmConfig allow use either

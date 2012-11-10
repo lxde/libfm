@@ -25,7 +25,7 @@
  * @short_description: Clipboard operations handler for files.
  * @title: Clipboard operations
  *
- * @include: libfm/fm-clipboard.h
+ * @include: libfm/fm-gtk.h
  *
  */
 

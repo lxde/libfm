@@ -24,7 +24,7 @@
  * @short_description: Job to gather information about file sizes.
  * @title: FmDeepCountJob
  *
- * @include: libfm/fm-deep-count-job.h
+ * @include: libfm/fm.h
  *
  * The #FmDeepCountJob can be used to recursively gather information about
  * some files and directories content before copy or move. It counts total

@@ -24,7 +24,7 @@
  * @short_description: Job to run a function asynchronously.
  * @title: FmSimpleJob
  *
- * @include: libfm/fm-simple-job.h
+ * @include: libfm/fm.h
  *
  * The #FmJob can be used to create asynchronous job which just run some
  * simple function with provided data.

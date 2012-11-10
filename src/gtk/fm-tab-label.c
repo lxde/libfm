@@ -24,7 +24,7 @@
  * @short_description: A tab label widget.
  * @title: FmTabLabel
  *
- * @include: libfm/fm-tab-label.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmTabLabel is a widget that can be used as a label of tab in
  * notebook-like folders view.

@@ -24,7 +24,7 @@
  * @short_description: A model for side panel with places list.
  * @title: FmPlacesModel
  *
- * @include: libfm/fm-places-model.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmPlacesModel represents list of pseudo-folders which contains
  * such items as Home directory, Trash bin, mounted removable drives,

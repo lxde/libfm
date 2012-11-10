@@ -24,7 +24,7 @@
  * @short_description: File launching utilities with callbacks to GUI.
  * @title: Libfm file launchers
  *
- * @include: libfm/fm-file-launcher.h
+ * @include: libfm/fm.h
  *
  */
 

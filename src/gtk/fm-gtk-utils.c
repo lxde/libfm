@@ -25,7 +25,7 @@
  * @short_description: Different widgets and utilities that use GTK+
  * @title: Libfm-gtk utils
  *
- * @include: libfm/fm-gtk-utils.h
+ * @include: libfm/fm-gtk.h
  *
  */
 

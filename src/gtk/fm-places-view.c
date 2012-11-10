@@ -25,7 +25,7 @@
  * @short_description: A widget for side panel with places list.
  * @title: FmPlacesView
  *
- * @include: libfm/fm-places-view.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmPlacesView displays list of pseudo-folders which contains
  * such items as Home directory, Trash bin, mounted removable drives,

@@ -22,7 +22,7 @@
  * @short_description: FM application launch handlers
  * @title: GAppInfo extensions
  *
- * @include: libfm/fm-app-info.h
+ * @include: libfm/fm.h
  *
  */
 

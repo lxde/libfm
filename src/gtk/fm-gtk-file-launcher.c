@@ -26,7 +26,7 @@
  * @short_description: Gtk file launcher utilities.
  * @title: Gtk file launcher
  *
- * @include: libfm/fm-gtk-file-launcher.h
+ * @include: libfm/fm-gtk.h
  *
  * Utilities to launch files using libfm file launchers.
  */

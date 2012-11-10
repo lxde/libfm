@@ -25,7 +25,7 @@
  * @short_description: An entry to enter path with completion.
  * @title: FmPathEntry
  *
- * @include: libfm/fm-path-entry.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmPathEntry represents a widget to enter folder path for changing
  * current directory. The path entry supports completion and can be used

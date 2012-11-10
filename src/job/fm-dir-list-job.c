@@ -24,7 +24,7 @@
  * @short_description: Job to get listing of directory.
  * @title: FmDirListJob
  *
- * @include: libfm/fm-dir-list-job.h
+ * @include: libfm/fm.h
  *
  * The #FmDirListJob can be used to gather list of #FmFileInfo that some
  * directory contains.

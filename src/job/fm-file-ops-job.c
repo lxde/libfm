@@ -25,7 +25,7 @@
  * @short_description: Job to do something with files.
  * @title: FmFileOpsJob
  *
- * @include: libfm/fm-file-ops-job.h
+ * @include: libfm/fm.h
  *
  * The #FmFileOpsJob can be used to do some file operation such as move,
  * copy, delete, change file attributes, etc.

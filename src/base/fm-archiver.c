@@ -24,7 +24,7 @@
  * @short_description: Support for packing and unpacking archiver utilities.
  * @title: FmArchiver
  *
- * @include: libfm/fm-archiver.h
+ * @include: libfm/fm.h
  *
  * The #FmArchiver represents support for utilities which can pack files
  * into archive and/or extract them.

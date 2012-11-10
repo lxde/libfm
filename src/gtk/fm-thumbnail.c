@@ -25,7 +25,7 @@
  * @short_description: A thumbnails cache loader and generator.
  * @title: FmThumbnailRequest
  *
- * @include: libfm/fm-thumbnail.h
+ * @include: libfm/fm-gtk.h
  *
  * This API allows to generate thumbnails for files and save them on
  * disk then use that cache next time to display them.

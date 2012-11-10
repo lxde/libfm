@@ -24,7 +24,7 @@
  * @short_description: Simple navigation history management.
  * @title: FmNavHistory
  *
- * @include: libfm/fm-nav-history.h
+ * @include: libfm/fm.h
  *
  * The #FmNavHistory object implements history for paths that were
  * entered in some input bar and allows to add, remove or move items in it.

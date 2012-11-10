@@ -24,7 +24,7 @@
  * @short_description: Combo box for application selection dialogs.
  * @title: Application chooser combobox
  *
- * @include: libfm/fm-app-chooser-combo-box.h
+ * @include: libfm/fm-gtk.h
  *
  * The fm_app_chooser_combo_box_setup() allows to create a widget where
  * applications are represented as a tree to choose from it. The dialog

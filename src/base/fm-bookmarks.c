@@ -25,7 +25,7 @@
  * @short_description: Bookmarks support for libfm.
  * @title: FmBookmarks
  *
- * @include: libfm/fm-bookmarks.h
+ * @include: libfm/fm.h
  *
  * The application that uses libfm can use user-wide bookmark list via
  * class FmBookmarks.

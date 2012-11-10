@@ -23,7 +23,7 @@
  * @short_description: A model for directory tree view
  * @title: FmDirTreeModel
  *
- * @include: libfm/fm-dir-tree-model.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmDirTreeModel represents tree of folders which can be used by
  * #FmDirTreeView to create tree-like expandable list of directories.

@@ -24,7 +24,7 @@
  * @short_description: A folder view generic interface.
  * @title: FmFolderView
  *
- * @include: libfm/fm-folder-view.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmFolderView generic interface is used to implement folder views
  * common code including handling sorting change, and keyboard and mouse

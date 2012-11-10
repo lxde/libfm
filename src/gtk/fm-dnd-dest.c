@@ -25,7 +25,7 @@
  * @short_description: Libfm support for drag&drop destination.
  * @title: FmDndDest
  *
- * @include: libfm/fm-dnd-dest.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmDndDest can be used by some widget to provide support for Drop
  * operations onto that widget.

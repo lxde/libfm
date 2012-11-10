@@ -25,7 +25,7 @@
  * @short_description: A model for folder view window.
  * @title: FmFolderModel
  *
- * @include: libfm/fm-folder-model.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmFolderModel is used by widgets such as #FmFolderView to arrange
  * items of folder.

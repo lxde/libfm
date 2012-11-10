@@ -24,7 +24,7 @@
  * @short_description: Terminals representation for libfm.
  * @title: FmTerminal
  *
- * @include: libfm/fm-terminal.h
+ * @include: libfm/fm.h
  *
  * The FmTerminal object represents description how applications which
  * require start in terminal should be started.

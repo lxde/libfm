@@ -22,7 +22,7 @@
  * @short_description: A widget for side pane displaying
  * @title: FmSidePane
  *
- * @include: libfm/fm-side-pane.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmSidePane widget displays side pane for fast navigation across
  * places.

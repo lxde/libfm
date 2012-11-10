@@ -24,7 +24,7 @@
  * @short_description: Extended pixbuf cell renderer.
  * @title: FmCellRendererPixbuf
  *
- * @include: libfm/fm-cell-renderer-pixbuf.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmCellRendererPixbuf is extended version of #GtkCellRendererPixbuf
  * which adds small link picture if corresponding file is symbolic link.

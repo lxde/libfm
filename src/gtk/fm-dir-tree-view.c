@@ -23,7 +23,7 @@
  * @short_description: A directory tree view widget.
  * @title: FmDirTreeView
  *
- * @include: libfm/fm-dir-tree-view.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmDirTreeView represents view of filesystem as ierarchical tree
  * of folders where each node can be expanded or collapsed when required.

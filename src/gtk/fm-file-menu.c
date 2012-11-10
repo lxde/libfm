@@ -24,7 +24,7 @@
  * @short_description: Simple context menu for files.
  * @title: FmFileMenu
  *
- * @include: libfm/fm-file-menu.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmFileMenu can be used to create context menu on some file(s).
  *

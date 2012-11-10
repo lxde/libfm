@@ -25,7 +25,7 @@
  * @short_description: Dialog for application selection.
  * @title: Application chooser dialog
  *
- * @include: libfm/fm-app-chooser-dlg.h
+ * @include: libfm/fm-gtk.h
  *
  * The dialog to choose application from tree of known applications.
  * Also allows user to create custom one.

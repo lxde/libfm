@@ -24,7 +24,7 @@
  * @short_description: A dialog to show progress indicator for file operations.
  * @title: File progress dialog
  *
- * @include: libfm/fm-progress-dlg.h
+ * @include: libfm/fm-gtk.h
  *
  */
 

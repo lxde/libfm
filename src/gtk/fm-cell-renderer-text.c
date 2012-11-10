@@ -25,7 +25,7 @@
  * @short_description: An implementation of cell text renderer.
  * @title: FmCellRendererText
  *
- * @include: libfm/fm-cell-renderer-text.h
+ * @include: libfm/fm-gtk.h
  *
  * The #FmCellRendererText can be used to render text in cell.
  */

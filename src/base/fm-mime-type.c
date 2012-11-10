@@ -24,7 +24,7 @@
  * @short_description: Extended MIME types support.
  * @title: FmMimeType
  *
- * @include: libfm/fm-mime-type.h
+ * @include: libfm/fm.h
  *
  */
 

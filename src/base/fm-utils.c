@@ -25,7 +25,7 @@
  * @short_description: Common utility functions used by libfm and libfm-gtk.
  * @title: Common Libfm utilities.
  *
- * @include: libfm/fm-utils.h
+ * @include: libfm/fm.h
  *
  * This scope contains common data parsing utilities.
  */
