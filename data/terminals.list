@@ -1,6 +1,7 @@
 [xterm]
 open_arg=-e
 noclose_arg=-hold -e
+desktop_id=xterm.desktop
 
 [uxterm]
 open_arg=-e
@@ -8,17 +9,21 @@ noclose_arg=-hold -e
 
 [lxterminal]
 open_arg=-e
+desktop_id=lxterminal.desktop
 
 [konsole]
 open_arg=-e
 noclose_arg=--noclose -e
+desktop_id=konsole.desktop
 
 [xfce4-terminal]
 open_arg=-x
 noclose_arg=--hold -x
+desktop_id=xfce4-terminal.desktop
 
 [terminator]
 open_arg=-x
+desktop_id=terminator.desktop
 
 [rxvt]
 open_arg=-e
@@ -26,13 +31,20 @@ open_arg=-e
 [urxvt]
 open_arg=-e
 noclose_arg=-hold -e
+desktop_id=urxvt.desktop
 
 [eterm]
 open_arg=-e
 noclose_arg=--pause -e
+desktop_id=eterm.desktop
 
 [gnome-terminal]
 open_arg=-x
+desktop_id=gnome-terminal.desktop
 
 [wterm]
 open_arg=-e
+
+[roxterm]
+open_arg=-e
+desktop_id=roxterm.desktop

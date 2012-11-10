@@ -33,6 +33,7 @@ typedef struct _FmTerminal FmTerminal;
  * @program: archiver program
  * @open_arg: options to insert before &lt;cmd&gt; [&lt;args&gt;] to run command in terminal
  * @noclose_arg: options to insert to run command without closing terminal or %NULL
+ * @desktop_id: desktop ID to search for icon and descriptions
  * @custom_args: custom arguments (only from libfm.conf)
  *
  * A terminal description. If application should be ran in terminal libfm
@@ -53,6 +54,7 @@ struct _FmTerminal
     char* program;
     char* open_arg;
     char* noclose_arg;
+    char* desktop_id;
     char* custom_args;
     /*< private >*/
     gpointer _reserved1;
