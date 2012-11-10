@@ -96,7 +96,7 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
     FmTerminal *term;
     gsize n;
     GSList *l;
-    gchar *name;
+    gchar *name, *basename;
 
     if(default_terminal)
         g_object_unref(default_terminal);
@@ -106,14 +106,29 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
 
     for(n = 0; cfg->terminal[n] && cfg->terminal[n] != ' '; n++);
     name = g_strndup(cfg->terminal, n);
+    basename = strrchr(name, '/');
+    if(basename)
+        basename++;
+    else
+        basename = name;
     /* g_debug("terminal in FmConfig: %s, args=%s", name, &cfg->terminal[n]); */
     for(l = terminals; l; l = l->next)
-        if(strcmp(name, ((FmTerminal*)l->data)->program) == 0)
+        if(strcmp(basename, ((FmTerminal*)l->data)->program) == 0)
             break;
     if(l)
     {
-        g_free(name);
-        term = g_object_ref(l->data);
+        if(name[0] != '/') /* not full path; call by basename */
+        {
+            g_free(name);
+            term = g_object_ref(l->data);
+        }
+        else /* call by full path: add new description and fill from database */
+        {
+            term = fm_terminal_new();
+            term->program = name;
+            term->open_arg = g_strdup(((FmTerminal*)l->data)->open_arg);
+            term->noclose_arg = g_strdup(((FmTerminal*)l->data)->noclose_arg);
+        }
     }
     else /* unknown terminal */
     {
