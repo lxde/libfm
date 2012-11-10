@@ -56,6 +56,7 @@ struct _AppChooserData
     GtkToggleButton* set_default;
     GtkLabel* status;
     GtkToggleButton* use_terminal;
+    GtkToggleButton* keep_open;
     GtkWidget* browse_btn;
     FmMimeType* mime_type;
 };
@@ -74,7 +75,7 @@ static void on_temp_appinfo_destroy(gpointer data, GObject *objptr)
 static GAppInfo* app_info_create_from_commandline(const char *commandline,
                                                const char *application_name,
                                                const char *mime_type,
-                                               gboolean terminal)
+                                               gboolean terminal, gboolean keep)
 {
     GAppInfo* app = NULL;
     char* dirname = g_build_filename (g_get_user_data_dir (), "applications", NULL);
@@ -103,9 +104,11 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
             );
             if(mime_type)
                 g_string_append_printf(content, "MimeType=%s\n", mime_type);
+            g_string_append_printf(content,
+                                   "Terminal=%s\n", terminal ? "true" : "false");
             if(terminal)
-                g_string_append_printf(content,
-                    "Terminal=%s\n", terminal ? "true" : "false");
+                g_string_append_printf(content, "X-KeepTerminal=%s",
+                                       keep ? "true" : "false");
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
             {
@@ -196,6 +199,13 @@ static void on_browse_btn_clicked(GtkButton* btn, AppChooserData* data)
 	}
 }
 
+static void on_use_terminal_changed(GtkToggleButton* btn, AppChooserData* data)
+{
+    if(data->keep_open)
+        gtk_widget_set_sensitive(GTK_WIDGET(data->keep_open),
+                                 gtk_toggle_button_get_active(btn));
+}
+
 /**
  * fm_app_chooser_dlg_new
  * @mime_type: (allow-none): MIME type for list creation
@@ -225,6 +235,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->cmdline = GTK_ENTRY(gtk_builder_get_object(builder, "cmdline"));
     data->set_default = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "set_default"));
     data->use_terminal = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "use_terminal"));
+    data->keep_open = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "keep_open"));
     data->status = GTK_LABEL(gtk_builder_get_object(builder, "status"));
     data->browse_btn = GTK_WIDGET(gtk_builder_get_object(builder, "browse_btn"));
     /* FIXME: shouldn't verify if app-chooser.ui was correct? */
@@ -261,6 +272,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     tree_sel = gtk_tree_view_get_selection(data->apps_view);
     g_signal_connect(tree_sel, "changed", G_CALLBACK(on_apps_view_sel_changed), data);
     g_signal_connect(data->cmdline, "changed", G_CALLBACK(on_cmdline_changed), data);
+    g_signal_connect(data->use_terminal, "toggled", G_CALLBACK(on_use_terminal_changed), data);
     gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK, FALSE);
 
     return data->dlg;
@@ -379,7 +391,8 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
                 app = app_info_create_from_commandline(cmdline, bin1,
                             data->mime_type ? fm_mime_type_get_type(data->mime_type) : NULL,
-                            gtk_toggle_button_get_active(data->use_terminal));
+                            gtk_toggle_button_get_active(data->use_terminal),
+                            data->keep_open && gtk_toggle_button_get_active(data->keep_open));
             _out:
                 g_free(bin1);
                 g_free(_cmdline);
