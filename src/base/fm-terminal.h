@@ -66,7 +66,7 @@ struct _FmTerminal
 void _fm_terminal_init(void);
 void _fm_terminal_finalize(void);
 
-FmTerminal* fm_terminal_get_default(void);
+FmTerminal* fm_terminal_get_default(GError **error);
 
 G_END_DECLS
 

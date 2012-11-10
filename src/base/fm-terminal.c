@@ -35,6 +35,7 @@
 #endif
 
 #include <glib.h>
+#include <glib/gi18n-lib.h>
 #include <string.h>
 
 #include "fm-terminal.h"
@@ -230,6 +231,7 @@ void _fm_terminal_finalize(void)
 
 /**
  * fm_terminal_get_default
+ * @error: (allow-none): location of error to set
  *
  * Retrieves description of terminal which is defined in libfm config.
  * Returned data should be freed with g_object_unref() after usage.
@@ -240,7 +242,11 @@ void _fm_terminal_finalize(void)
  *
  * Since: 1.2.0
  */
-FmTerminal* fm_terminal_get_default(void)
+FmTerminal* fm_terminal_get_default(GError **error)
 {
-    return default_terminal ? g_object_ref(default_terminal) : NULL;
+    if(default_terminal)
+        return g_object_ref(default_terminal);
+    g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
+                        _("No terminal emulator is set in libfm config"));
+    return NULL;
 }

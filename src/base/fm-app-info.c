@@ -175,7 +175,7 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
-static char* expand_terminal(char* cmd, gboolean keep_open)
+static char* expand_terminal(char* cmd, gboolean keep_open, GError** error)
 {
     FmTerminal* term;
     const char* opts;
@@ -183,7 +183,7 @@ static char* expand_terminal(char* cmd, gboolean keep_open)
     /* if %s is not found, fallback to -e */
     static FmTerminal xterm_def = { .program = "xterm", .open_arg = "-e" };
 
-    term = fm_terminal_get_default();
+    term = fm_terminal_get_default(NULL);
     /* bug #3457335: Crash on application start with Terminal=true. */
     if(!term) /* fallback to xterm if a terminal emulator is not found. */
     {
@@ -229,8 +229,10 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         /* FIXME: is it right key to mark this option? */
         gboolean keep_open = g_key_file_get_boolean(kf, "Desktop Entry",
                                                     "X-KeepTerminal", NULL);
-        char* term_cmd = expand_terminal(cmd, keep_open);
+        char* term_cmd = expand_terminal(cmd, keep_open, err);
         g_free(cmd);
+        if(!term_cmd)
+            return FALSE;
         cmd = term_cmd;
     }
 
