@@ -93,21 +93,24 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
         {
             GString* content = g_string_sized_new(256);
             g_string_printf(content,
-                "[Desktop Entry]\n"
-                "Type=Application\n"
-                "Name=%s\n"
-                "Exec=%s\n"
-                "Categories=Other;\n"
-                "NoDisplay=true\n",
+                "[" G_KEY_FILE_DESKTOP_GROUP "]\n"
+                G_KEY_FILE_DESKTOP_KEY_TYPE "=" G_KEY_FILE_DESKTOP_TYPE_APPLICATION "\n"
+                G_KEY_FILE_DESKTOP_KEY_NAME "=%s\n"
+                G_KEY_FILE_DESKTOP_KEY_EXEC "=%s\n"
+                G_KEY_FILE_DESKTOP_KEY_CATEGORIES "=Other;\n"
+                G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY "=true\n",
                 application_name,
                 commandline
             );
             if(mime_type)
-                g_string_append_printf(content, "MimeType=%s\n", mime_type);
+                g_string_append_printf(content,
+                                       G_KEY_FILE_DESKTOP_KEY_MIME_TYPE "=%s\n",
+                                       mime_type);
             g_string_append_printf(content,
-                                   "Terminal=%s\n", terminal ? "true" : "false");
+                                   G_KEY_FILE_DESKTOP_KEY_TERMINAL "=%s\n",
+                                   terminal ? "true" : "false");
             if(terminal)
-                g_string_append_printf(content, "X-KeepTerminal=%s",
+                g_string_append_printf(content, "X-KeepTerminal=%s\n",
                                        keep ? "true" : "false");
             close(fd); /* g_file_set_contents() may fail creating duplicate */
             if(g_file_set_contents(filename, content->str, content->len, NULL))
