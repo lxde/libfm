@@ -36,6 +36,7 @@
 
 #include <glib.h>
 #include <glib/gi18n-lib.h>
+#include <gio/gdesktopappinfo.h>
 #include <string.h>
 
 #include "fm-terminal.h"
@@ -249,4 +250,53 @@ FmTerminal* fm_terminal_get_default(GError **error)
     g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
                         _("No terminal emulator is set in libfm config"));
     return NULL;
+}
+
+/**
+ * fm_terminal_launch
+ * @dir: (allow-none) a directory to launch
+ * @error: (allow-none): location of error to set
+ *
+ * Spawns a terminal window in requested @dir. If @dir is %NULL then it
+ * will be spawned in current working directory.
+ *
+ * Returns: %TRUE if spawn was succesful.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_terminal_launch(const gchar *dir, GError **error)
+{
+    GDesktopAppInfo *appinfo = NULL;
+    const gchar *cmd;
+    gchar *_cmd = NULL;
+    gchar **argv;
+    gint argc;
+    gboolean ret;
+
+    if(!default_terminal)
+    {
+        g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
+                            _("No terminal emulator is set in libfm config"));
+        return FALSE;
+    }
+    if(default_terminal->desktop_id)
+        appinfo = g_desktop_app_info_new(default_terminal->desktop_id);
+    if(appinfo)
+        /* FIXME: is it possible to have some %U there? */
+        cmd = g_app_info_get_commandline(G_APP_INFO(appinfo));
+    else if(default_terminal->launch)
+        cmd = _cmd = g_strdup_printf("%s %s", default_terminal->program,
+                                     default_terminal->launch);
+    else
+        cmd = default_terminal->program;
+    if(!g_shell_parse_argv(cmd, &argc, &argv, error))
+        argv = NULL;
+    g_free(_cmd);
+    if(appinfo)
+        g_object_unref(appinfo);
+    if(!argv) /* parsing failed */
+        return FALSE;
+    ret = g_spawn_async(dir, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, error);
+    g_strfreev(argv);
+    return ret;
 }

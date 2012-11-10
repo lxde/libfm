@@ -1011,6 +1011,7 @@ fm_tab_label_get_type
 <FILE>fm-terminal</FILE>
 FmTerminal
 fm_terminal_get_default
+fm_terminal_launch
 </SECTION>
 
 <SECTION>
