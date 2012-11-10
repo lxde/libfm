@@ -30,6 +30,7 @@
 #include "fm-config.h"
 #include "fm-utils.h"
 #include "fm-file.h"
+#include "fm-terminal.h"
 
 #include <string.h>
 #include <gio/gdesktopappinfo.h>
@@ -174,39 +175,29 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
-const char* expand_terminal_s(char opt, gpointer unused)
-{
-    return fm_config->terminal;
-}
-
-static FmAppCommandParseOption expand_terminal_options[] =
-{
-    {'s', &expand_terminal_s },
-    { 0, NULL }
-};
-
 static char* expand_terminal(char* cmd)
 {
+    FmTerminal* term;
     char* ret;
-    /* add terminal emulator command */
+    /* if %s is not found, fallback to -e */
+    static FmTerminal xterm_def = { .program = "xterm", .open_arg = "-e" };
 
-    if(fm_app_command_parse(cmd, expand_terminal_options, &ret, NULL) > 0)
-        return ret;
-    else /* if %s is not found, fallback to -e */
+    term = fm_terminal_get_default();
+    /* bug #3457335: Crash on application start with Terminal=true. */
+    if(!term) /* fallback to xterm if a terminal emulator is not found. */
     {
-        const char* term = fm_config->terminal;
-        char* ret2 = ret;
-        /* bug #3457335: Crash on application start with Terminal=true. */
-        if(!term) /* fallback to xterm if a terminal emulator is not found. */
-        {
-            /* FIXME: we should not hard code xterm here. :-(
-             * It's better to prompt the user and let he or she set
-             * his preferred terminal emulator. */
-            term = "xterm";
-        }
-        ret = g_strdup_printf("%s -e %s", term, ret2);
-        g_free(ret2);
+        /* FIXME: we should not hard code xterm here. :-(
+         * It's better to prompt the user and let he or she set
+         * his preferred terminal emulator. */
+        term = &xterm_def;
     }
+    if(term->custom_args)
+        ret = g_strdup_printf("%s %s %s %s", term->program, term->custom_args,
+                              term->open_arg, cmd);
+    else
+        ret = g_strdup_printf("%s %s %s", term->program, term->open_arg, cmd);
+    if(term != &xterm_def)
+        g_object_unref(term);
     return ret;
 }
 
