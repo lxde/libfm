@@ -73,6 +73,7 @@ static void fm_terminal_finalize(GObject *object)
     g_free(self->program);
     g_free(self->open_arg);
     g_free(self->noclose_arg);
+    g_free(self->launch);
     g_free(self->desktop_id);
     g_free(self->custom_args);
 
@@ -129,6 +130,7 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
             term->program = name;
             term->open_arg = g_strdup(((FmTerminal*)l->data)->open_arg);
             term->noclose_arg = g_strdup(((FmTerminal*)l->data)->noclose_arg);
+            term->launch = g_strdup(((FmTerminal*)l->data)->launch);
             term->desktop_id = g_strdup(((FmTerminal*)l->data)->desktop_id);
         }
     }
@@ -194,6 +196,8 @@ void _fm_terminal_init(void)
                                                        "open_arg", NULL);
                 term->noclose_arg = g_key_file_get_string(kf, programs[i],
                                                           "noclose_arg", NULL);
+                term->launch = g_key_file_get_string(kf, programs[i],
+                                                     "launch", NULL);
                 term->desktop_id = g_key_file_get_string(kf, programs[i],
                                                          "desktop_id", NULL);
                 terminals = g_slist_append(terminals, term);
