@@ -793,10 +793,10 @@ static void create_new(GtkWindow* parent, FmPath* cwd, const char* templ)
     //FmMainWin* win = FM_MAIN_WIN(parent);
 _retry:
     if(templ == TEMPL_NAME_FOLDER)
-        msg = N_("Enter a name for the newly created folder:");
+        msg = _("Enter a name for the newly created folder:");
     else
-        msg = N_("Enter a name for the newly created file:");
-    basename = fm_get_user_input(parent, _("Create New..."), _(msg), _("New"));
+        msg = _("Enter a name for the newly created file:");
+    basename = fm_get_user_input(parent, _("Create New..."), msg, _("New"));
     if(!basename)
         return;
 
