@@ -34,6 +34,22 @@ Changes on 1.2.0 since 1.1.0:
 
 * Implemented dropping files onto Directory Tree View (sidebar) items.
 
+* Added terminal list file. There is no need to add '-e %s' or similar
+    to 'terminal' config file statement, it will be ignored from now on
+    but predefined command line options from terminal list file will be
+    used instead.
+
+* Added possibility to keep terminal window open after command execution.
+    It depends on chosen terminal though: some terminals allow this (such
+    as xterm, konsole, urxvt) but some doesn't (lxterminal).
+
+* Added optional program name for custom application. If no program name
+    is entered then application's association with mime type will be not
+    remembered and created application desktop entry file will be removed
+    from user's applications directory. Otherwise entered name will be
+    shown in list of applications for that mime type instead of file name
+    (that was old behavior).
+
 
 Changes on 1.1.0 since 1.0.1:
 

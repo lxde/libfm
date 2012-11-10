@@ -123,7 +123,7 @@ static GAppInfo* app_info_create_from_commandline(const char *commandline,
                 /* if there is mime_type set then created application will be
                    saved for the mime type (see fm_choose_app_for_mime_type()
                    below) but if not then we should remove this temp. file */
-                if(!mime_type)
+                if(!mime_type || !application_name[0])
                     /* save the name so this file will be removed later */
                     g_object_weak_ref(G_OBJECT(app), on_temp_appinfo_destroy,
                                       g_strdup(filename));
@@ -442,7 +442,8 @@ GAppInfo* fm_choose_app_for_mime_type(GtkWindow* parent, FmMimeType* mime_type, 
         gboolean set_default;
         app = fm_app_chooser_dlg_dup_selected_app(dlg, &set_default);
 
-        if(app && mime_type && fm_mime_type_get_type(mime_type))
+        if(app && mime_type && fm_mime_type_get_type(mime_type) &&
+           g_app_info_get_name(app)[0]) /* don't add empty name */
         {
             GError* err = NULL;
             /* add this app to the mime-type */
