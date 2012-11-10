@@ -75,17 +75,18 @@ static void on_temp_appinfo_destroy(gpointer data, GObject *objptr)
 
 static GAppInfo* app_info_create_from_commandline(const char *commandline,
                                                const char *application_name,
+                                               const char *bin_name,
                                                const char *mime_type,
                                                gboolean terminal, gboolean keep)
 {
     GAppInfo* app = NULL;
     char* dirname = g_build_filename (g_get_user_data_dir (), "applications", NULL);
-    const char* app_basename = strrchr(application_name, '/');
+    const char* app_basename = strrchr(bin_name, '/');
 
     if(app_basename)
         app_basename++;
     else
-        app_basename = application_name;
+        app_basename = bin_name;
     if(g_mkdir_with_parents(dirname, 0700) == 0)
     {
         char* filename = g_strdup_printf ("%s/userapp-%s-XXXXXX.desktop", dirname, app_basename);
@@ -325,6 +326,7 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
     case 1: /* custom cmd line */
         {
             const char* cmdline = gtk_entry_get_text(data->cmdline);
+            const char* app_name = gtk_entry_get_text(data->app_name);
             if(cmdline && cmdline[0])
             {
                 char* _cmdline = NULL;
@@ -394,7 +396,8 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                 }
 
                 /* FIXME: g_app_info_create_from_commandline force the use of %f or %u, so this is not we need */
-                app = app_info_create_from_commandline(cmdline, bin1,
+                app = app_info_create_from_commandline(cmdline,
+                            app_name ? app_name : "", bin1,
                             data->mime_type ? fm_mime_type_get_type(data->mime_type) : NULL,
                             gtk_toggle_button_get_active(data->use_terminal),
                             data->keep_open && gtk_toggle_button_get_active(data->keep_open));
