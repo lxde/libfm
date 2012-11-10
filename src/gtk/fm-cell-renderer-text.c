@@ -367,8 +367,12 @@ static void fm_cell_renderer_text_get_size(GtkCellRenderer            *cell,
                                            gint                       *height)
 {
     FmCellRendererText *self = FM_CELL_RENDERER_TEXT(cell);
+    gint wrap_width;
 
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_text_parent_class)->get_size(cell, widget, rectangle, x_offset, y_offset, width, height);
+    g_object_get(G_OBJECT(cell), "wrap-width", &wrap_width, NULL);
+    if (wrap_width > 0)
+        *width = wrap_width;
     if (self->height > 0)
     {
         if(*height > self->height)
