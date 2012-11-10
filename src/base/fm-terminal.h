@@ -26,14 +26,18 @@
 
 G_BEGIN_DECLS
 
-typedef struct _FmTerminal FmTerminal;
+#define FM_TERMINAL_TYPE               (fm_terminal_get_type())
+#define FM_IS_TERMINAL(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), FM_TERMINAL_TYPE))
+
+typedef struct _FmTerminal              FmTerminal;
+typedef struct _FmTerminalClass         FmTerminalClass;
 
 /**
  * FmTerminal:
  * @program: archiver program
  * @open_arg: options to insert before &lt;cmd&gt; [&lt;args&gt;] to run command in terminal
  * @noclose_arg: options to insert to run command without closing terminal or %NULL
- * @launch: options to insert before &lt;cmd&gt; [&lt;args&gt;] to launch in current directory
+ * @launch: options if required to launch in current directory
  * @desktop_id: desktop ID to search for icon and descriptions
  * @custom_args: custom arguments (only from libfm.conf)
  *
@@ -62,6 +66,8 @@ struct _FmTerminal
     gpointer _reserved1;
     gpointer _reserved2;
 };
+
+GType fm_terminal_get_type(void);
 
 void _fm_terminal_init(void);
 void _fm_terminal_finalize(void);

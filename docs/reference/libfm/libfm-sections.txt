@@ -1009,9 +1009,14 @@ fm_tab_label_get_type
 
 <SECTION>
 <FILE>fm-terminal</FILE>
+FM_TERMINAL_TYPE
 FmTerminal
+FmTerminalClass
 fm_terminal_get_default
 fm_terminal_launch
+<SUBSECTION Standard>
+FM_IS_TERMINAL
+fm_terminal_get_type
 </SECTION>
 
 <SECTION>

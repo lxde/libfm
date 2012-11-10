@@ -42,17 +42,11 @@
 #include "fm-terminal.h"
 #include "fm-config.h"
 
-#define FM_TERMINAL_TYPE               (fm_terminal_get_type())
-#define FM_IS_TERMINAL(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), FM_TERMINAL_TYPE))
-
-typedef struct _FmTerminalClass         FmTerminalClass;
-
 struct _FmTerminalClass
 {
     GObjectClass parent;
 };
 
-static GType fm_terminal_get_type(void);
 static void fm_terminal_finalize(GObject *object);
 
 G_DEFINE_TYPE(FmTerminal, fm_terminal, G_TYPE_OBJECT);
@@ -254,7 +248,7 @@ FmTerminal* fm_terminal_get_default(GError **error)
 
 /**
  * fm_terminal_launch
- * @dir: (allow-none) a directory to launch
+ * @dir: (allow-none): a directory to launch
  * @error: (allow-none): location of error to set
  *
  * Spawns a terminal window in requested @dir. If @dir is %NULL then it
