@@ -57,6 +57,7 @@ struct _AppChooserData
     GtkLabel* status;
     GtkToggleButton* use_terminal;
     GtkToggleButton* keep_open;
+    GtkEntry* app_name;
     GtkWidget* browse_btn;
     FmMimeType* mime_type;
 };
@@ -241,6 +242,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->keep_open = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "keep_open"));
     data->status = GTK_LABEL(gtk_builder_get_object(builder, "status"));
     data->browse_btn = GTK_WIDGET(gtk_builder_get_object(builder, "browse_btn"));
+    data->app_name = GTK_ENTRY(gtk_builder_get_object(builder, "app_name"));
     /* FIXME: shouldn't verify if app-chooser.ui was correct? */
     if(mime_type)
         data->mime_type = fm_mime_type_ref(mime_type);
