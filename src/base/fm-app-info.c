@@ -175,9 +175,10 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
-static char* expand_terminal(char* cmd)
+static char* expand_terminal(char* cmd, gboolean keep_open)
 {
     FmTerminal* term;
+    const char* opts;
     char* ret;
     /* if %s is not found, fallback to -e */
     static FmTerminal xterm_def = { .program = "xterm", .open_arg = "-e" };
@@ -191,11 +192,15 @@ static char* expand_terminal(char* cmd)
          * his preferred terminal emulator. */
         term = &xterm_def;
     }
+    if(keep_open && term->noclose_arg)
+        opts = term->noclose_arg;
+    else
+        opts = term->open_arg;
     if(term->custom_args)
         ret = g_strdup_printf("%s %s %s %s", term->program, term->custom_args,
-                              term->open_arg, cmd);
+                              opts, cmd);
     else
-        ret = g_strdup_printf("%s %s %s", term->program, term->open_arg, cmd);
+        ret = g_strdup_printf("%s %s %s", term->program, opts, cmd);
     if(term != &xterm_def)
         g_object_unref(term);
     return ret;
@@ -221,7 +226,10 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
 
     if(use_terminal)
     {
-        char* term_cmd = expand_terminal(cmd);
+        /* FIXME: is it right key to mark this option? */
+        gboolean keep_open = g_key_file_get_boolean(kf, "Desktop Entry",
+                                                    "X-KeepTerminal", NULL);
+        char* term_cmd = expand_terminal(cmd, keep_open);
         g_free(cmd);
         cmd = term_cmd;
     }
