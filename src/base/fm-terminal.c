@@ -88,19 +88,17 @@ static FmTerminal* fm_terminal_new(void)
 
 static GSList *terminals = NULL;
 static FmTerminal *default_terminal = NULL;
+G_LOCK_DEFINE(terminal);
 
 static void on_terminal_changed(FmConfig *cfg, gpointer unused)
 {
-    FmTerminal *term;
+    FmTerminal *term = NULL;
     gsize n;
     GSList *l;
     gchar *name, *basename;
 
-    if(default_terminal)
-        g_object_unref(default_terminal);
-    default_terminal = NULL;
     if(cfg->terminal == NULL)
-        return;
+        goto _end;
 
     for(n = 0; cfg->terminal[n] && cfg->terminal[n] != ' '; n++);
     name = g_strndup(cfg->terminal, n);
@@ -113,32 +111,27 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
     for(l = terminals; l; l = l->next)
         if(strcmp(basename, ((FmTerminal*)l->data)->program) == 0)
             break;
+    /* don't change existing object to be thread-safe */
+    term = fm_terminal_new();
     if(l)
     {
         if(name[0] != '/') /* not full path; call by basename */
         {
+            term->program = g_strdup(basename);
             g_free(name);
-            term = g_object_ref(l->data);
         }
-        else /* call by full path: add new description and fill from database */
-        {
-            term = fm_terminal_new();
+        else /* call by full path */
             term->program = name;
-            term->open_arg = g_strdup(((FmTerminal*)l->data)->open_arg);
-            term->noclose_arg = g_strdup(((FmTerminal*)l->data)->noclose_arg);
-            term->launch = g_strdup(((FmTerminal*)l->data)->launch);
-            term->desktop_id = g_strdup(((FmTerminal*)l->data)->desktop_id);
-        }
+        term->open_arg = g_strdup(((FmTerminal*)l->data)->open_arg);
+        term->noclose_arg = g_strdup(((FmTerminal*)l->data)->noclose_arg);
+        term->launch = g_strdup(((FmTerminal*)l->data)->launch);
+        term->desktop_id = g_strdup(((FmTerminal*)l->data)->desktop_id);
     }
     else /* unknown terminal */
     {
-        term = fm_terminal_new();
         term->program = name;
         term->open_arg = g_strdup("-e"); /* assume it is default */
     }
-    default_terminal = term;
-    g_free(term->custom_args);
-    term->custom_args = NULL;
     if(cfg->terminal[n] == ' ' && cfg->terminal[n+1])
     {
         term->custom_args = g_strdup(&cfg->terminal[n+1]);
@@ -166,6 +159,12 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
             }
         }
     }
+_end:
+    G_LOCK(terminal);
+    if(default_terminal)
+        g_object_unref(default_terminal);
+    default_terminal = term;
+    G_UNLOCK(terminal);
 }
 
 /* init terminal list from config */
@@ -231,19 +230,21 @@ void _fm_terminal_finalize(void)
  * Retrieves description of terminal which is defined in libfm config.
  * Returned data should be freed with g_object_unref() after usage.
  *
- * This API is not thread-safe.
- *
  * Returns: (transfer full): terminal descriptor or %NULL if no terminal is set.
  *
  * Since: 1.2.0
  */
 FmTerminal* fm_terminal_dup_default(GError **error)
 {
+    FmTerminal *term = NULL;
+    G_LOCK(terminal);
     if(default_terminal)
-        return g_object_ref(default_terminal);
-    g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
-                        _("No terminal emulator is set in libfm config"));
-    return NULL;
+        term = g_object_ref(default_terminal);
+    G_UNLOCK(terminal);
+    if(!term)
+        g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
+                            _("No terminal emulator is set in libfm config"));
+    return term;
 }
 
 /**
@@ -260,6 +261,7 @@ FmTerminal* fm_terminal_dup_default(GError **error)
  */
 gboolean fm_terminal_launch(const gchar *dir, GError **error)
 {
+    FmTerminal *term;
     GDesktopAppInfo *appinfo = NULL;
     const gchar *cmd;
     gchar *_cmd = NULL;
@@ -267,27 +269,24 @@ gboolean fm_terminal_launch(const gchar *dir, GError **error)
     gint argc;
     gboolean ret;
 
-    if(!default_terminal)
-    {
-        g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_EMPTY_STRING,
-                            _("No terminal emulator is set in libfm config"));
+    term = fm_terminal_dup_default(error);
+    if(!term)
         return FALSE;
-    }
-    if(default_terminal->desktop_id)
-        appinfo = g_desktop_app_info_new(default_terminal->desktop_id);
+    if(term->desktop_id)
+        appinfo = g_desktop_app_info_new(term->desktop_id);
     if(appinfo)
         /* FIXME: is it possible to have some %U there? */
         cmd = g_app_info_get_commandline(G_APP_INFO(appinfo));
-    else if(default_terminal->launch)
-        cmd = _cmd = g_strdup_printf("%s %s", default_terminal->program,
-                                     default_terminal->launch);
+    else if(term->launch)
+        cmd = _cmd = g_strdup_printf("%s %s", term->program, term->launch);
     else
-        cmd = default_terminal->program;
+        cmd = term->program;
     if(!g_shell_parse_argv(cmd, &argc, &argv, error))
         argv = NULL;
     g_free(_cmd);
     if(appinfo)
         g_object_unref(appinfo);
+    g_object_unref(term);
     if(!argv) /* parsing failed */
         return FALSE;
     ret = g_spawn_async(dir, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, error);
