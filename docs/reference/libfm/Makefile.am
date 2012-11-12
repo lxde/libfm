@@ -120,7 +120,7 @@ GTKDOC_CFLAGS= \
 	$(GTK_CFLAGS)
 GTKDOC_LIBS= \
 	$(top_builddir)/src/libfm.la \
-	$(top_builddir)/src/libfm-gtk.la \
+	$(top_builddir)/src/$(LIBFM_GTK_LTLIBRARIES) \
 	$(GTK_LIBS) \
 	$(NULL)
 
