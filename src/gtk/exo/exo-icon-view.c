@@ -7581,7 +7581,7 @@ exo_icon_view_set_drag_dest_item (ExoIconView            *icon_view,
 
   /* special case a drop on an empty model */
   icon_view->priv->empty_view_drop = FALSE;
-  if (pos == EXO_ICON_VIEW_DROP_LEFT && path
+  if (pos == EXO_ICON_VIEW_NO_DROP && path
       && gtk_tree_path_get_depth (path) == 1
       && gtk_tree_path_get_indices (path)[0] == 0)
     {
