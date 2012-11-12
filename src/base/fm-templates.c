@@ -207,7 +207,7 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
 
 static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *file)
 {
-    if(file == NULL || file->inactive)
+    if(file == NULL)
         return;
     /* update from less relevant file first */
     _fm_template_update_from_file(templ, file->next_in_templ);
@@ -475,9 +475,11 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 _fm_template_insert_sorted(templ, file);
             }
             else
+            {
                 fm_path_unref(path);
                 g_warning("could not guess type of template %s, ignoring it",
                           basename);
+            }
             if(mime_type)
                 fm_mime_type_unref(mime_type);
         }
