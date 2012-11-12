@@ -602,7 +602,10 @@ void _fm_templates_finalize(void)
         templates_dirs = dir->next;
         fm_path_unref(dir->path);
         if(dir->monitor)
+        {
+            g_signal_handlers_disconnect_by_func(dir->monitor, on_dir_changed, dir);
             g_object_unref(dir->monitor);
+        }
         while(dir->files)
         {
             file = dir->files;
