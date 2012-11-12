@@ -50,6 +50,8 @@ Changes on 1.2.0 since 1.1.0:
     shown in list of applications for that mime type instead of file name
     (that was old behavior).
 
+* New class FmTemplate for full templates support.
+
 
 Changes on 1.1.0 since 1.0.1:
 

@@ -116,7 +116,7 @@ struct _FmTemplateFile
     FmTemplateFile *next_in_dir;
     FmTemplateFile *prev_in_dir;
     FmTemplateDir *dir;
-    FmTemplateFile *next_in_templ;
+    FmTemplateFile *next_in_templ; /* in priority-less order */
     /* referenced */
     FmTemplate *templ;
     FmPath *path;
@@ -296,32 +296,25 @@ static void _fm_template_update(FmTemplate *templ)
 /* add file into FmTemplate and update */
 static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
 {
-    FmTemplateDir *last_dir = NULL, *dir;
+    FmTemplateDir *last_dir = templates_dirs;
     FmTemplateFile *last = NULL, *next;
 
     for(next = templ->files; next; next = next->next_in_templ)
     {
-        if(next->dir == file->dir)
+        while(last_dir && last_dir != file->dir && last_dir != next->dir)
+            last_dir = last_dir->next;
+        if(!last_dir) /* FIXME: it must be corruption, g_error() it */
+            break;
+        if(last_dir == file->dir)
         {
-            if(!file->is_desktop_entry)
+            if(next->dir == last_dir && !file->is_desktop_entry)
             {
                 if(!next->is_desktop_entry)
                     break;
                 /* sort files after desktop items */
-                last_dir = file->dir;
             }
             else
                 break;
-        }
-        else
-        {
-            /* if dir of next has less priority then insert here */
-            for(dir = next->dir; dir != last_dir; dir = dir->next)
-                if(dir == file->dir)
-                    break;
-            if(dir == file->dir) /* it has less priority */
-                break;
-            last_dir = next->dir;
         }
         last = next;
     }
@@ -523,18 +516,16 @@ void _fm_templates_init(void)
     const gchar * const *data_dirs = g_get_system_data_dirs();
     const gchar * const *data_dir;
     const gchar *dir_name;
-    GList *list = NULL, *l;
     FmPath *parent_path, *path;
     FmTemplateDir *dir = NULL;
     GFile *gfile;
 
+    if(templates_dirs)
+        return; /* someone called us again? */
     /* prepare list of system template directories */
     for(data_dir = data_dirs; *data_dir; ++data_dir)
-        list = g_list_prepend(list, (gpointer)*data_dir);
-    list = g_list_reverse(list);
-    for(l = list; l; l = l->next)
     {
-        parent_path = fm_path_new_for_str(l->data);
+        parent_path = fm_path_new_for_str(*data_dir);
         path = fm_path_new_child(parent_path, "templates");
         fm_path_unref(parent_path);
         gfile = fm_path_to_gfile(path);
@@ -548,21 +539,17 @@ void _fm_templates_init(void)
             else
                 templates_dirs = dir = g_slice_new(FmTemplateDir);
             dir->path = path;
+            _template_dir_init(dir, gfile);
         }
         else
             fm_path_unref(path);
-        _template_dir_init(dir, gfile);
         g_object_unref(gfile);
     }
-    g_list_free(list);
-    /* add templates dir in user data */
     if(G_LIKELY(dir))
-    {
-        dir->next = g_slice_new(FmTemplateDir);
-        dir = dir->next;
-    }
-    else
-        templates_dirs = dir = g_slice_new(FmTemplateDir);
+        dir->next = NULL;
+    /* add templates dir in user data */
+    dir = g_slice_new(FmTemplateDir);
+    dir->next = templates_dirs;
     parent_path = fm_path_new_for_str(g_get_user_data_dir());
     dir->path = fm_path_new_child(parent_path, "templates");
     fm_path_unref(parent_path);
@@ -572,14 +559,13 @@ void _fm_templates_init(void)
     _template_dir_init(dir, gfile);
     g_object_unref(gfile);
     /* add XDG_TEMPLATES_DIR at last */
-    dir->next = g_slice_new(FmTemplateDir);
-    dir = dir->next;
+    dir = g_slice_new(FmTemplateDir);
+    dir->next = templates_dirs;
     dir_name = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
     if(dir_name)
         dir->path = fm_path_new_for_str(dir_name);
     else
         dir->path = fm_path_new_child(fm_path_get_home(), "Templates");
-    dir->next = NULL;
     dir->user_dir = TRUE;
     gfile = fm_path_to_gfile(dir->path);
     if(!g_file_query_exists(gfile, NULL))
