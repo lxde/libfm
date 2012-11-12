@@ -44,20 +44,21 @@ static void fm_tab_label_class_init(FmTabLabelClass *klass)
 #if GTK_CHECK_VERSION(3, 0, 0)
     provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(provider,
+        "#tab-close-btn {\n"
+            "-GtkWidget-focus-padding : 0;\n"
+            "-GtkWidget-focus-line-width : 0;\n"
+            "padding : 0;\n"
+        "}\n", -1, NULL);
 #else
     gtk_rc_parse_string(
-#endif
         "style \"close-btn-style\" {\n"
             "GtkWidget::focus-padding = 0\n"
             "GtkWidget::focus-line-width = 0\n"
             "xthickness = 0\n"
             "ythickness = 0\n"
         "}\n"
-        "widget \"*.tab-close-btn\" style \"close-btn-style\""
-#if GTK_CHECK_VERSION(3, 0, 0)
-        , -1, NULL
+        "widget \"*.tab-close-btn\" style \"close-btn-style\"");
 #endif
-    );
 }
 
 /* FIXME: add g_object_unref (provider); on class destroy? */
