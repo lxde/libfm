@@ -1008,6 +1008,22 @@ fm_tab_label_get_type
 </SECTION>
 
 <SECTION>
+<FILE>fm-templates</FILE>
+FM_TEMPLATE_TYPE
+FmTemplate
+FmTemplateClass
+fm_template_create_file
+fm_template_get_icon
+fm_template_get_mime_type
+fm_template_get_name
+fm_template_get_prompt
+fm_template_list_all
+<SUBSECTION Standard>
+FM_IS_TEMPLATE
+fm_template_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-terminal</FILE>
 FM_TERMINAL_TYPE
 FmTerminal
