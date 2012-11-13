@@ -245,6 +245,8 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. The string length of @basename is @name_len. @basename is
  * in glib filename encoding (can be non-UTF-8) of target filesystem.
+ * If @parent is %NULL then @basename assumed to be root of some file
+ * system.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -341,7 +343,7 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     return _fm_path_new_child_len(parent, basename, name_len,
-                                  fm_path_is_native(parent));
+                                  parent && fm_path_is_native(parent));
 }
 
 /**
