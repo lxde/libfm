@@ -233,7 +233,10 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                 {
                     if(templ->template_file)
                         fm_path_unref(templ->template_file);
-                    templ->template_file = fm_path_new_for_str(tmp);
+                    if(G_UNLIKELY(tmp[0] == '/')) /* absolute path */
+                        templ->template_file = fm_path_new_for_str(tmp);
+                    else /* path relative to directory containing file */
+                        templ->template_file = fm_path_new_relative(file->dir->path, tmp);
                     g_free(tmp);
                 }
                 tmp = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
