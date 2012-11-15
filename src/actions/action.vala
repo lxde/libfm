@@ -102,7 +102,7 @@ public class FileAction : FileActionObject {
 		if(profile_names != null) {
 			foreach(string profile_name in profile_names) {
 				// stdout.printf("%s", profile);
-				profiles.prepend(new FileActionProfile(kf, profile_name));
+				profiles.prepend(new FileActionProfile(kf, profile_name.strip()));
 			}
 			profiles.reverse();
 		}
