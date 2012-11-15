@@ -240,6 +240,10 @@ libfm_la_LIBADD = \
 	$(LIBFMACTIONS) \
 	$(NULL)
 
+EXTRA_libfm_la_DEPENDENCIES = \
+	$(LIBFMACTIONS) \
+	$(NULL)
+
 libfm_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
