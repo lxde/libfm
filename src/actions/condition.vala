@@ -54,8 +54,9 @@ public class FileActionCondition {
 			case '>':
 			case '=':
 				selection_count_cmp = selection_count_str[0];
-				const string s = ">%d";
-				selection_count_str.scanf(s, out selection_count);
+				char tmp = 0;
+				const string s = "%c%d";
+				selection_count_str.scanf(s, out tmp, out selection_count);
 				break;
 			default:
 				selection_count_cmp = '>';
