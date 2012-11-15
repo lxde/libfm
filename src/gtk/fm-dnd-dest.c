@@ -811,12 +811,16 @@ query_sources:
             else /* files inside trash are read only */
                 action = 0;
         }
+#if 0
+        /* bug #3584798: DnD(copy/move) to remote host(SFTP://) does not work.
+           we should do some check if target FS is R/O instead of this */
         else if(!fm_path_is_native(dest_path))
         {
             /* computer:/// and network:/// shouldn't received dropped files. */
             /* FIXME: some special handling can be done with menu:// */
             action = 0;
         }
+#endif
         else /* dest is a ordinary path */
         {
             /* determine if the dragged files are on the same device as destination file */
