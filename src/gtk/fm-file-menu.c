@@ -690,9 +690,16 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 {
     if( ! menu->menu )
     {
+        GtkSettings *settings = menu->parent ?
+                    gtk_settings_get_for_screen(gtk_widget_get_screen(GTK_WIDGET(menu->parent)))
+                    : gtk_settings_get_default();
+        gboolean tooltips_enabled;
         menu->menu = GTK_MENU(gtk_ui_manager_get_widget(menu->ui, "/popup"));
         gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
-        assign_tooltips_from_actions(GTK_WIDGET(menu->menu), NULL);
+        g_object_get(G_OBJECT(settings),
+                     "gtk-enable-tooltips", &tooltips_enabled, NULL);
+        if(tooltips_enabled)
+            assign_tooltips_from_actions(GTK_WIDGET(menu->menu), NULL);
 
         if(menu->auto_destroy)
         {
