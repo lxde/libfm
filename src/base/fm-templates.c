@@ -179,7 +179,7 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path,
                     if(G_UNLIKELY(url[0] == '/')) /* absolute path */
                         subpath = fm_path_new_for_str(url);
                     else /* path relative to directory containing file */
-                        subpath = fm_path_new_relative(path, url);
+                        subpath = fm_path_new_relative(fm_path_get_parent(path), url);
                     path = subpath; /* shift to new path */
                     basename = fm_path_get_basename(path);
                     g_free(url);
@@ -257,8 +257,8 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path,
 
     if(!mime_type)
     {
-        g_debug("could not guess MIME type for template %s, ignoring it",
-                fm_path_get_basename(path));
+        /* g_debug("could not guess MIME type for template %s, ignoring it",
+                fm_path_get_basename(path)); */
         return NULL;
     }
     for(l = templates; l; l = l->next)
@@ -330,8 +330,8 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                     g_free(templ->label);
                     templ->label = tmp;
                 }
-                tmp = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                            G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL);
+                tmp = g_key_file_get_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                            G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL, NULL);
                 if(tmp)
                 {
                     g_free(templ->prompt);
@@ -464,7 +464,8 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
         file->dir = dir;
         file->next_in_dir = dir->files;
         file->prev_in_dir = NULL;
-        dir->files->prev_in_dir = file;
+        if(dir->files)
+            dir->files->prev_in_dir = file;
         dir->files = file;
         _fm_template_insert_sorted(templ, file);
     }
@@ -626,6 +627,7 @@ void _fm_templates_init(void)
     /* add templates dir in user data */
     dir = g_slice_new(FmTemplateDir);
     dir->next = templates_dirs;
+    templates_dirs = dir;
     parent_path = fm_path_new_for_str(g_get_user_data_dir());
     dir->path = fm_path_new_child(parent_path, "templates");
     fm_path_unref(parent_path);
@@ -637,6 +639,7 @@ void _fm_templates_init(void)
     /* add XDG_TEMPLATES_DIR at last */
     dir = g_slice_new(FmTemplateDir);
     dir->next = templates_dirs;
+    templates_dirs = dir;
     dir_name = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
     if(dir_name)
         dir->path = fm_path_new_for_str(dir_name);
@@ -657,7 +660,6 @@ void _fm_templates_finalize(void)
     FmTemplateDir *dir;
     FmTemplateFile *file;
 
-    G_LOCK(templates);
     while(templates_dirs)
     {
         dir = templates_dirs;
@@ -672,12 +674,12 @@ void _fm_templates_finalize(void)
         {
             file = dir->files;
             dir->files = file->next_in_dir;
-            dir->files->prev_in_dir = NULL;
+            if(dir->files)
+                dir->files->prev_in_dir = NULL;
             _fm_template_file_free(file->templ, file, FALSE);
         }
         g_slice_free(FmTemplateDir, dir);
     }
-    G_UNLOCK(templates);
 }
 
 /**
