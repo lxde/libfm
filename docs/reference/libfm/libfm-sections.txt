@@ -1013,10 +1013,10 @@ FM_TEMPLATE_TYPE
 FmTemplate
 FmTemplateClass
 fm_template_create_file
-fm_template_get_icon
+fm_template_dup_name
+fm_template_dup_prompt
 fm_template_get_mime_type
-fm_template_get_name
-fm_template_get_prompt
+fm_template_icon
 fm_template_list_all
 <SUBSECTION Standard>
 FM_IS_TEMPLATE

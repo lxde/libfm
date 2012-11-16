@@ -697,7 +697,7 @@ GList *fm_template_list_all(gboolean user_only)
 }
 
 /**
- * fm_template_get_name
+ * fm_template_dup_name
  * @templ: a template descriptor
  * @nlen: (allow-none): location to get template name length
  *
@@ -709,7 +709,7 @@ GList *fm_template_list_all(gboolean user_only)
  *
  * Since: 1.2.0
  */
-char *fm_template_get_name(FmTemplate *templ, gint *nlen)
+char *fm_template_dup_name(FmTemplate *templ, gint *nlen)
 {
     char *name;
 
@@ -746,7 +746,7 @@ FmMimeType *fm_template_get_mime_type(FmTemplate *templ)
 }
 
 /**
- * fm_template_get_icon
+ * fm_template_icon
  * @templ: a template descriptor
  *
  * Retrieves icon defined for @templ. Returned data should be freed with
@@ -756,7 +756,7 @@ FmMimeType *fm_template_get_mime_type(FmTemplate *templ)
  *
  * Since: 1.2.0
  */
-FmIcon *fm_template_get_icon(FmTemplate *templ)
+FmIcon *fm_template_icon(FmTemplate *templ)
 {
     FmIcon *icon = NULL;
 
@@ -770,7 +770,7 @@ FmIcon *fm_template_get_icon(FmTemplate *templ)
 }
 
 /**
- * fm_template_get_prompt
+ * fm_template_dup_prompt
  * @templ: a template descriptor
  *
  * Retrieves prompt for @templ. It can be used as label in entry for the
@@ -781,7 +781,7 @@ FmIcon *fm_template_get_icon(FmTemplate *templ)
  *
  * Since: 1.2.0
  */
-char *fm_template_get_prompt(FmTemplate *templ)
+char *fm_template_dup_prompt(FmTemplate *templ)
 {
     char *name;
 
