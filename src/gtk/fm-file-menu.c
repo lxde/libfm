@@ -199,7 +199,7 @@ static void assign_tooltip_from_action(GtkWidget* widget)
     }
 }
 
-static void assign_tooltips_from_actions(GtkWidget* widget, void * __unused)
+static void assign_tooltips_from_actions(GtkWidget* widget, gpointer __unused)
 {
     if (!widget)
         return;
@@ -216,7 +216,7 @@ static void assign_tooltips_from_actions(GtkWidget* widget, void * __unused)
     {
         GtkContainer* container = GTK_CONTAINER(widget);
         if (container)
-            gtk_container_forall(container, (GtkCallback) assign_tooltips_from_actions, NULL);
+            gtk_container_forall(container, assign_tooltips_from_actions, NULL);
     }
 }
 
