@@ -50,7 +50,13 @@ Changes on 1.2.0 since 1.1.0:
     shown in list of applications for that mime type instead of file name
     (that was old behavior).
 
-* New class FmTemplate for full templates support.
+* New class FmTemplate for full templates support. Templates support also
+    added into folder context menu replacing old hardcoded menu for the
+    Empty Text File and Shortcut. To be more lightweight it is created
+    once per folder view and isn't updated if user added or removed some
+    template while the view window is still opened. If this will cause
+    any inconveniences this behavior may be changed but that will make
+    the folder context menu less lightweight to appear.
 
 
 Changes on 1.1.0 since 1.0.1:

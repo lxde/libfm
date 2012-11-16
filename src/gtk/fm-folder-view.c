@@ -91,13 +91,12 @@
 #include "fm-gtk-file-launcher.h"
 #include "fm-file-menu.h"
 #include "fm-gtk-utils.h"
+#include "fm-templates.h"
 
 static const char folder_popup_xml[] =
 "<popup>"
   "<menu action='CreateNew'>"
     "<menuitem action='NewFolder'/>"
-    "<menuitem action='NewBlank'/>"
-    "<menuitem action='NewShortcut'/>"
     /* placeholder for ~/Templates support */
     "<placeholder name='ph1'/>"
   "</menu>"
@@ -230,11 +229,13 @@ static guint signals[N_SIGNALS];
 
 static GQuark ui_quark;
 static GQuark popup_quark;
+static GQuark templates_quark;
 
 static void fm_folder_view_default_init(FmFolderViewInterface *iface)
 {
     ui_quark = g_quark_from_static_string("popup-ui");
     popup_quark = g_quark_from_static_string("popup-menu");
+    templates_quark = g_quark_from_static_string("templates-list");
 
     /* properties and signals */
     /**
@@ -779,149 +780,78 @@ void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
     }
 }
 
-#define TEMPL_NAME_FOLDER    NULL
-#define TEMPL_NAME_BLANK     (const char*)-1
-#define TEMPL_NAME_SHORTCUT  (const char*)-2
-
-/* FIXME: Need to load content of ~/Templates and list available templates in popup menus. */
-static void create_new(GtkWindow* parent, FmPath* cwd, const char* templ)
-{
-    GError* err = NULL;
-    FmPath* dest;
-    char* basename;
-    const char* msg;
-    //FmMainWin* win = FM_MAIN_WIN(parent);
-_retry:
-    if(templ == TEMPL_NAME_FOLDER)
-        msg = _("Enter a name for the newly created folder:");
-    else
-        msg = _("Enter a name for the newly created file:");
-    basename = fm_get_user_input(parent, _("Create New..."), msg, _("New"));
-    if(!basename)
-        return;
-
-    dest = fm_path_new_child(cwd, basename);
-    g_free(basename);
-
-    if( templ == TEMPL_NAME_FOLDER )
-    {
-        GFile* gf = fm_path_to_gfile(dest);
-        if(!g_file_make_directory(gf, NULL, &err))
-        {
-            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
-            {
-                fm_path_unref(dest);
-                g_error_free(err);
-                g_object_unref(gf);
-                err = NULL;
-                goto _retry;
-            }
-            fm_show_error(parent, NULL, err->message);
-            g_error_free(err);
-        }
-
-        if(!err) /* select the newly created file */
-        {
-            /*FIXME: this doesn't work since the newly created file will
-             * only be shown after file-created event was fired on its
-             * folder's monitor and after FmFolder handles it in idle
-             * handler. So, we cannot select it since it's not yet in
-             * the folder model now. */
-            /* fm_folder_view_select_file_path(fv, dest); */
-        }
-        g_object_unref(gf);
-    }
-    else if( templ == TEMPL_NAME_BLANK )
-    {
-        /* FIXME: should be implemented by templates support */
-        GFile* gf = fm_path_to_gfile(dest);
-        GFileOutputStream* f = g_file_create(gf, G_FILE_CREATE_NONE, NULL, &err);
-        if(f)
-        {
-            g_output_stream_close(G_OUTPUT_STREAM(f), NULL, NULL);
-            g_object_unref(f);
-        }
-        else
-        {
-            if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
-            {
-                fm_path_unref(dest);
-                g_error_free(err);
-                g_object_unref(gf);
-                err = NULL;
-                goto _retry;
-            }
-            fm_show_error(parent, NULL, err->message);
-            g_error_free(err);
-        }
-
-        if(!err) /* select the newly created file */
-        {
-            /*FIXME: this doesn't work since the newly created file will
-             * only be shown after file-created event was fired on its
-             * folder's monitor and after FmFolder handles it in idle
-             * handler. So, we cannot select it since it's not yet in
-             * the folder model now. */
-            /* fm_folder_view_select_file_path(fv, dest); */
-        }
-        g_object_unref(gf);
-    }
-    else if ( templ == TEMPL_NAME_SHORTCUT )
-    {
-        /* FIXME: a temp. workaround until ~/Templates support is implemented */
-         char buf[256];
-         GFile* gf = fm_path_to_gfile(dest);
-
-         if (g_find_program_in_path("lxshortcut"))
-         {
-            char* path = g_file_get_path(gf);
-            int s = snprintf(buf, sizeof(buf), "lxshortcut -i %s", path);
-            g_free(path);
-            if(s >= (int)sizeof(buf))
-                buf[0] = '\0';
-         }
-         else
-         {
-             GtkWidget* msg;
-
-             msg = gtk_message_dialog_new( NULL,
-                                           0,
-                                           GTK_MESSAGE_ERROR,
-                                           GTK_BUTTONS_OK,
-                                           _("Error, lxshortcut not installed") );
-             gtk_dialog_run( GTK_DIALOG(msg) );
-             gtk_widget_destroy( msg );
-         }
-         if(buf[0] && !g_spawn_command_line_async(buf, NULL))
-            fm_show_error(parent, NULL, _("Failed to start lxshortcut"));
-         g_object_unref(gf);
-    }
-    else /* templates in ~/Templates */
-    {
-        /* FIXME: need an extended processing with desktop entries support */
-        FmPath* dir = fm_path_new_for_str(g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES));
-        FmPath* template = fm_path_new_child(dir, templ);
-        fm_copy_file(parent, template, cwd);
-        fm_path_unref(template);
-        fm_path_unref(dir);
-    }
-    fm_path_unref(dest);
-}
-
 static void on_create_new(GtkAction* act, FmFolderView* fv)
 {
     const char* name = gtk_action_get_name(act);
     GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
     GtkWidget *win = gtk_menu_get_attach_widget(popup);
+    GtkUIManager *ui = g_object_get_qdata(G_OBJECT(fv), ui_quark);
+    GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
+    FmTemplate *templ;
+    FmMimeType *mime_type;
+    char *prompt, *header, *name_template, *label, *basename;
+    FmPath *dest;
+    GFile *gf;
+    GError *error = NULL;
+    gint n;
 
     if(strncmp(name, "NewFolder", 9) == 0)
-        name = TEMPL_NAME_FOLDER;
-    /* FIXME: add XDG_TEMPLATE support for anything but folder */
-    else if(strcmp(name, "NewBlank") == 0)
-        name = TEMPL_NAME_BLANK;
-    else if(strcmp(name, "NewShortcut") == 0)
-        name = TEMPL_NAME_SHORTCUT;
-    create_new(GTK_WINDOW(win), fm_folder_view_get_cwd(fv), name);
+        templ = NULL;
+    else if(G_LIKELY(strncmp(name, "NewFile", 7) == 0))
+    {
+        n = atoi(&name[7]);
+        if(n < 0 || (templ = g_list_nth_data(templates, n)) == NULL)
+            return; /* invalid action name, is it possible? */
+    }
+    else /* invalid action name, is it possible? */
+        return;
+    if(templ == NULL) /* new folder */
+    {
+        prompt = _("Enter a name for the newly created folder:");
+        header = _("Creating new folder");
+        name_template = _("New");
+        label = _("Folder");
+        n = strlen(name_template);
+    }
+    else
+    {
+        mime_type = fm_template_get_mime_type(templ);
+        prompt = fm_template_dup_prompt(templ);
+        if(!prompt)
+            prompt = g_strdup_printf(_("Enter a name for the new %s:"),
+                                     fm_mime_type_get_desc(mime_type));
+        label = fm_template_dup_label(templ);
+        header = g_strdup_printf(_("Creating %s"), label ? label :
+                                             fm_mime_type_get_desc(mime_type));
+        name_template = fm_template_dup_name(templ, &n);
+    }
+    basename = fm_get_user_input(GTK_WINDOW(win), header, prompt, name_template);
+    if(templ)
+    {
+        g_free(prompt);
+        g_free(header);
+        g_free(name_template);
+        g_free(label);
+    }
+    if(!basename)
+        return;
+    dest = fm_path_new_child(fm_folder_view_get_cwd(fv), basename);
+    gf = fm_path_to_gfile(dest);
+    fm_path_unref(dest);
+    if(templ == NULL)
+    {
+        if(!g_file_make_directory(gf, NULL, &error))
+        {
+            fm_show_error(GTK_WINDOW(win), NULL, error->message);
+            g_error_free(error);
+        }
+    }
+    else if(!fm_template_create_file(templ, gf, &error, FALSE))
+    {
+        fm_show_error(GTK_WINDOW(win), NULL, error->message);
+        g_error_free(error);
+    }
+    g_object_unref(gf);
 }
 
 static void on_cut(GtkAction* act, FmFolderView* fv)
@@ -1129,6 +1059,8 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
     FmFolderViewInterface *iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     FmFolderModel *model;
+    GtkActionGroup *act_grp;
+    GList *templates;
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = GTK_SORT_ASCENDING;
@@ -1152,6 +1084,78 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
     gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
+    /* prepare templates list */
+    templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
+    /* FIXME: updating context menu is not lightweight here - we should
+       remember all actions and ui we added, remove them, and add again.
+       That will take some time, memory and may be error-prone as well.
+       For simplicity we create it once here but if users will find
+       any inconveniences this behavior should be changed later. */
+    if(!templates)
+    {
+        templates = fm_template_list_all(FALSE);
+        if(templates)
+        {
+            FmTemplate *templ;
+            FmMimeType *mime_type;
+            FmIcon *icon;
+            GIcon *gicon;
+            gchar *label;
+            GList *l;
+            GString *xml;
+            GtkActionEntry actent;
+            guint i;
+            char act_name[16];
+
+            l = gtk_ui_manager_get_action_groups(ui);
+            act_grp = l->data; /* our action group if first one */
+            actent.callback = G_CALLBACK(on_create_new);
+            actent.accelerator = NULL;
+            actent.tooltip = NULL;
+            actent.name = act_name;
+            actent.stock_id = NULL;
+            xml = g_string_new("<popup><menu action='CreateNew'><placeholder name='ph1'>");
+            for(l = templates, i = 0; l; l = l->next, i++)
+            {
+                templ = l->data;
+                /* we support directories differently */
+                if(fm_template_is_directory(templ))
+                    continue;
+                mime_type = fm_template_get_mime_type(templ);
+                gicon = NULL;
+                label = fm_template_dup_label(templ);
+                snprintf(act_name, sizeof(act_name), "NewFile%u", i);
+                g_string_append_printf(xml, "<menuitem action='%s'/>", act_name);
+                icon = fm_template_icon(templ);
+                if(icon)
+                {
+                    gicon = g_object_ref(icon->gicon);
+                    fm_icon_unref(icon);
+                }
+                else
+                {
+                    icon = fm_mime_type_get_icon(mime_type);
+                    if(icon)
+                        gicon = g_object_ref(icon->gicon);
+                }
+                /* create and insert new action */
+                actent.label = label ? label : fm_mime_type_get_desc(mime_type);
+                gtk_action_group_add_actions(act_grp, &actent, 1, fv);
+                if(gicon)
+                {
+                    act = gtk_action_group_get_action(act_grp, act_name);
+                    gtk_action_set_gicon(act, gicon);
+                    g_object_unref(gicon);
+                }
+                g_free(label);
+            }
+            g_string_append(xml, "</placeholder></menu></popup>");
+            gtk_ui_manager_add_ui_from_string(ui, xml->str, -1, NULL);
+            g_string_free(xml, TRUE);
+        }
+        g_object_set_qdata(G_OBJECT(ui), templates_quark, templates);
+    }
+
     /* open popup */
     gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                    gtk_get_current_event_time());
@@ -1242,9 +1246,13 @@ static void on_ui_destroy(gpointer ui_ptr)
     GtkMenu* popup = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
     GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
+    GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
 
     if(!gtk_accel_group_get_is_locked(accel_grp))
         gtk_window_remove_accel_group(win, accel_grp);
+    g_list_foreach(templates, (GFunc)g_object_unref, NULL);
+    g_list_free(templates);
+    g_object_set_qdata(G_OBJECT(ui), templates_quark, NULL);
     gtk_widget_destroy(GTK_WIDGET(popup));
     g_object_unref(ui);
 }
