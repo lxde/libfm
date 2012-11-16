@@ -62,6 +62,10 @@ Changes on 1.2.0 since 1.1.0:
     which defines whether only user defined templates should be shown in
     the folder context menu or system defined should be shown too.
 
+* Added 'template_run_app' option into config file, defaulted to false,
+    which defines whether default application for appropriate MIME type
+    should be ran after successful creation of file from template.
+
 
 Changes on 1.1.0 since 1.0.1:
 

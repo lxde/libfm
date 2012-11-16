@@ -847,7 +847,8 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
             g_error_free(error);
         }
     }
-    else if(!fm_template_create_file(templ, gf, &error, FALSE))
+    else if(!fm_template_create_file(templ, gf, &error,
+                                     fm_config->template_run_app))
     {
         fm_show_error(GTK_WINDOW(win), NULL, error->message);
         g_error_free(error);
