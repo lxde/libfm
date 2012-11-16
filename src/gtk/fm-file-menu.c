@@ -169,21 +169,25 @@ GtkActionEntry base_menu_actions[]=
 
 static void assign_tooltip_from_action(GtkWidget* widget)
 {
+    GtkActivatable* activatable;
+    GtkAction* action;
+    const gchar * tooltip;
+
     if (!GTK_IS_ACTIVATABLE(widget))
         return;
 
-    GtkActivatable* activatable = GTK_ACTIVATABLE(widget);
+    activatable = GTK_ACTIVATABLE(widget);
     if (!activatable)
         return;
 
-    GtkAction* action = gtk_activatable_get_related_action(activatable);
+    action = gtk_activatable_get_related_action(activatable);
     if (!action)
         return;
 
     if (!gtk_activatable_get_use_action_appearance(activatable))
         return;
 
-    const gchar * tooltip = gtk_action_get_tooltip(action);
+    tooltip = gtk_action_get_tooltip(action);
     if (tooltip)
     {
         gtk_widget_set_tooltip_text(widget, gtk_action_get_tooltip(action));
