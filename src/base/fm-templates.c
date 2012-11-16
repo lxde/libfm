@@ -58,6 +58,7 @@ struct _FmTemplate
     FmIcon *icon;
     gchar *command;
     gchar *prompt;
+    gchar *label;
 };
 
 struct _FmTemplateClass
@@ -321,6 +322,13 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                 {
                     g_free(templ->command);
                     templ->command = tmp;
+                }
+                tmp = g_key_file_get_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                            G_KEY_FILE_DESKTOP_KEY_NAME, NULL, NULL);
+                if(tmp)
+                {
+                    g_free(templ->label);
+                    templ->label = tmp;
                 }
                 tmp = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                             G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL);
@@ -787,6 +795,27 @@ char *fm_template_dup_prompt(FmTemplate *templ)
 
     G_LOCK(templates);
     name = templ->prompt ? g_strdup(templ->prompt) : NULL;
+    G_UNLOCK(templates);
+    return name;
+}
+
+/**
+ * fm_template_dup_label
+ * @templ: a template descriptor
+ *
+ * Retrieves label for @templ. It can be used as label in menu. Returned
+ * data should be freed with g_free() after usage.
+ *
+ * Returns: (transfer full): template label.
+ *
+ * Since: 1.2.0
+ */
+char *fm_template_dup_label(FmTemplate *templ)
+{
+    char *name;
+
+    G_LOCK(templates);
+    name = templ->label ? g_strdup(templ->label) : NULL;
     G_UNLOCK(templates);
     return name;
 }

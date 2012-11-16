@@ -1013,6 +1013,7 @@ FM_TEMPLATE_TYPE
 FmTemplate
 FmTemplateClass
 fm_template_create_file
+fm_template_dup_label
 fm_template_dup_name
 fm_template_dup_prompt
 fm_template_get_mime_type
