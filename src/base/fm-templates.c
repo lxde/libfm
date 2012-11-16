@@ -842,19 +842,22 @@ gboolean fm_template_is_directory(FmTemplate *templ)
  * @templ: a template descriptor
  * @path: path to file to create
  * @error: (allow-none): location to retrieve error
+ * @run_default: %TRUE to run default application on new file
  *
  * Tries to create file at @path using rules of creating from @templ.
  *
- * Returns: %TRUE if file creation started successfully.
+ * Returns: %TRUE if file created successfully.
  *
  * Since: 1.2.0
  */
-gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error)
+gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
+                                 gboolean run_default)
 {
     char *command;
     GAppInfo *app;
     GFile *tfile;
     GList *list;
+    GFileOutputStream *f;
     gboolean ret;
 
     if(!FM_IS_TEMPLATE(templ) || !G_IS_FILE(path))
@@ -863,6 +866,45 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error)
                             "fm_template_create_file: invalid argument");
         return FALSE;
     }
+    G_LOCK(templates);
+    tfile = NULL;
+    if(templ->template_file)
+    {
+        command = fm_path_to_str(templ->template_file);
+        tfile = g_file_new_for_path(command);
+        g_free(command);
+    }
+    G_UNLOCK(templates);
+    /* FIXME: it may block */
+    if(templ->mime_type == _fm_mime_type_get_inode_directory())
+    {
+        if(!g_file_make_directory(path, NULL, error))
+            return FALSE;
+    }
+    else if(!g_file_copy(tfile, path, G_FILE_COPY_TARGET_DEFAULT_PERMS, NULL,
+                         NULL, NULL, error))
+    {
+        if((*error)->domain != G_IO_ERROR || (*error)->code != G_IO_ERROR_NOT_FOUND)
+        {
+            /* we ran into problems, application will run into them too
+               the most probably, so don't try to launch it then */
+            g_object_unref(tfile);
+            return FALSE;
+        }
+        /* template file not found, it's normal */
+        g_clear_error(error);
+        /* create empty file instead */
+        f = g_file_create(path, G_FILE_CREATE_NONE, NULL, error);
+        if(!f)
+        {
+            g_object_unref(tfile);
+            return FALSE;
+        }
+        g_object_unref(f);
+    }
+    g_object_unref(tfile);
+    if(!run_default)
+        return TRUE;
     G_LOCK(templates);
     command = templ->command ? g_strdup(templ->command) : NULL;
     G_UNLOCK(templates);
@@ -881,31 +923,6 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error)
     }
     if(!app)
         return FALSE;
-    G_LOCK(templates);
-    tfile = NULL;
-    if(templ->template_file)
-    {
-        command = fm_path_to_str(templ->template_file);
-        tfile = g_file_new_for_path(command);
-        g_free(command);
-    }
-    G_UNLOCK(templates);
-    /* FIXME: it may block */
-    if(!g_file_copy(tfile, path, G_FILE_COPY_TARGET_DEFAULT_PERMS, NULL, NULL,
-                    NULL, error))
-    {
-        if((*error)->domain != G_IO_ERROR || (*error)->code != G_IO_ERROR_NOT_FOUND)
-        {
-            /* we ran into problems, application will run into them too
-               the most probably, so don't try to launch it then */
-            g_object_unref(app);
-            g_object_unref(tfile);
-            return FALSE;
-        }
-        /* template file not found, it's normal */
-        g_clear_error(error);
-    }
-    g_object_unref(tfile);
     list = g_list_prepend(NULL, path);
     ret = g_app_info_launch(app, list, NULL, error);
     g_list_free(list);
