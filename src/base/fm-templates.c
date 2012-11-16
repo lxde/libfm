@@ -443,6 +443,8 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
     for(l = file_infos; l; l = l->next)
     {
         fi = l->data;
+        if(fm_file_info_is_hidden(fi)) /* FIXME: fm_file_info_is_backup() */
+            continue;
         path = fm_file_info_get_path(fi);
         for(file = dir->files; file; file = file->next_in_dir)
             if(fm_path_equal(path, file->path))
@@ -528,7 +530,8 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
                 break;
-        if(!file)
+        /* NOTE: to query file info is too heavy so do own assumptions */
+        if(!file && basename[0] != '.' && g_str_has_suffix(basename, "~"))
         {
             path = fm_path_new_child(dir->path, basename);
             is_desktop_entry = g_str_has_suffix(basename, ".desktop");
