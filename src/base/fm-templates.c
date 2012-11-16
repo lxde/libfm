@@ -344,13 +344,17 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
         {
             g_warning("problem loading template %s: %s", filename, error->message);
             g_error_free(error);
+            file->inactive = TRUE;
         }
         g_key_file_free(kf);
         g_free(filename);
     }
     else /* plain file */
+    {
         if(!templ->template_file)
             templ->template_file = fm_path_ref(file->path);
+        file->inactive = FALSE;
+    }
 }
 
 /* recreate data in FmTemplate from entries */
@@ -619,6 +623,7 @@ void _fm_templates_init(void)
             else
                 templates_dirs = dir = g_slice_new(FmTemplateDir);
             dir->path = path;
+            dir->user_dir = FALSE;
             _template_dir_init(dir, gfile);
         }
         else
