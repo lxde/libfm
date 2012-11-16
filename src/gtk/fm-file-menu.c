@@ -167,6 +167,55 @@ GtkActionEntry base_menu_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
+static void assign_tooltip_from_action(GtkWidget* widget)
+{
+    if (!GTK_IS_ACTIVATABLE(widget))
+        return;
+
+    GtkActivatable* activatable = GTK_ACTIVATABLE(widget);
+    if (!activatable)
+        return;
+
+    GtkAction* action = gtk_activatable_get_related_action(activatable);
+    if (!action)
+        return;
+
+    if (!gtk_activatable_get_use_action_appearance(activatable))
+        return;
+
+    const gchar * tooltip = gtk_action_get_tooltip(action);
+    if (tooltip)
+    {
+        gtk_widget_set_tooltip_text(widget, gtk_action_get_tooltip(action));
+        gtk_widget_set_has_tooltip(widget, TRUE);
+    }
+    else
+    {
+        gtk_widget_set_has_tooltip(widget, FALSE);
+    }
+}
+
+static void assign_tooltips_from_actions(GtkWidget* widget, void * __unused)
+{
+    if (!widget)
+        return;
+
+    assign_tooltip_from_action(widget);
+
+    if (GTK_IS_MENU_ITEM(widget))
+    {
+        GtkMenuItem* mi = GTK_MENU_ITEM(widget);
+        if (mi)
+            assign_tooltips_from_actions(gtk_menu_item_get_submenu(mi), NULL);
+    }
+    else if (GTK_IS_CONTAINER(widget))
+    {
+        GtkContainer* container = GTK_CONTAINER(widget);
+        if (container)
+            gtk_container_forall(container, (GtkCallback) assign_tooltips_from_actions, NULL);
+    }
+}
+
 /**
  * fm_file_menu_destroy
  * @menu: a menu
@@ -639,6 +688,7 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
     {
         menu->menu = GTK_MENU(gtk_ui_manager_get_widget(menu->ui, "/popup"));
         gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
+        assign_tooltips_from_actions(GTK_WIDGET(menu->menu), NULL);
 
         if(menu->auto_destroy)
         {
