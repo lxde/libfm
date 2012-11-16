@@ -50,6 +50,22 @@ Changes on 1.2.0 since 1.1.0:
     shown in list of applications for that mime type instead of file name
     (that was old behavior).
 
+* New class FmTemplate for full templates support. Templates support also
+    added into folder context menu replacing old hardcoded menu for the
+    Empty Text File and Shortcut. To be more lightweight it is created
+    once per folder view and isn't updated if user added or removed some
+    template while the view window is still opened. If this will cause
+    any inconveniences this behavior may be changed but that will make
+    the folder context menu less lightweight to appear.
+
+* Added 'only_user_templates' option into config file, defaulted to false,
+    which defines whether only user defined templates should be shown in
+    the folder context menu or system defined should be shown too.
+
+* Added 'template_run_app' option into config file, defaulted to false,
+    which defines whether default application for appropriate MIME type
+    should be ran after successful creation of file from template.
+
 
 Changes on 1.1.0 since 1.0.1:
 
