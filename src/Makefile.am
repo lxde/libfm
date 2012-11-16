@@ -242,7 +242,7 @@ libfm_la_LIBADD = \
 	$(LIBFMACTIONS) \
 	$(NULL)
 
-EXTRA_libfm_la_DEPENDENCIES = \
+libfm_la_DEPENDENCIES_EXTRA = \
 	$(LIBFMACTIONS) \
 	$(NULL)
 
