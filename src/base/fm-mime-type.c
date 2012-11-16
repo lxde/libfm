@@ -65,6 +65,7 @@ G_LOCK_DEFINE(mime_hash);
 static FmMimeType* directory_type = NULL;
 static FmMimeType* mountable_type = NULL;
 static FmMimeType* shortcut_type = NULL;
+static FmMimeType* desktop_entry_type = NULL;
 
 static FmMimeType* fm_mime_type_new(const char* type_name);
 
@@ -82,6 +83,8 @@ void _fm_mime_type_init()
 
     mountable_type = fm_mime_type_from_name("inode/x-mountable");
     mountable_type->description = g_strdup(_("Mount Point"));
+
+    desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 }
 
 void _fm_mime_type_finalize()
@@ -89,6 +92,7 @@ void _fm_mime_type_finalize()
     fm_mime_type_unref(directory_type);
     fm_mime_type_unref(shortcut_type);
     fm_mime_type_unref(mountable_type);
+    fm_mime_type_unref(desktop_entry_type);
     g_hash_table_destroy(mime_hash);
 }
 
@@ -283,6 +287,11 @@ FmMimeType* _fm_mime_type_get_inode_x_shortcut()
 FmMimeType* _fm_mime_type_get_inode_x_mountable()
 {
     return mountable_type;
+}
+
+FmMimeType* _fm_mime_type_get_application_x_desktop()
+{
+    return desktop_entry_type;
 }
 
 /**

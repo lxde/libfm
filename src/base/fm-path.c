@@ -238,13 +238,15 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
 
 /**
  * fm_path_new_child_len
- * @parent: a parent path
- * @basename: basename of a direct child of @parent directory
+ * @parent: (allow-none): a parent path
+ * @basename: (allow-none): basename of a direct child of @parent directory
  * @name_len: length of @basename
  *
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. The string length of @basename is @name_len. @basename is
  * in glib filename encoding (can be non-UTF-8) of target filesystem.
+ * If @parent is %NULL then @basename assumed to be root of some file
+ * system.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -341,13 +343,13 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     return _fm_path_new_child_len(parent, basename, name_len,
-                                  fm_path_is_native(parent));
+                                  parent && fm_path_is_native(parent));
 }
 
 /**
  * fm_path_new_child
- * @parent: a parent path
- * @basename: basename of a direct child of @parent directory
+ * @parent: (allow-none): a parent path
+ * @basename: (allow-none): basename of a direct child of @parent directory
  *
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. @basename is in glib filename encoding (can be non-UTF-8)
@@ -362,7 +364,7 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     {
         int baselen = strlen(basename);
         return _fm_path_new_child_len(parent, basename, baselen,
-                                      fm_path_is_native(parent));
+                                      parent && fm_path_is_native(parent));
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -396,8 +398,8 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
 
 /**
  * fm_path_new_relative
- * @parent: a parent path
- * @rel: a path relative to @parent
+ * @parent: (allow-none): a parent path
+ * @rel: (allow-none): a path relative to @parent
  *
  * Creates new #FmPath which is relative to @parent directory by the
  * relative path string @rel. @rel is in glib filename encoding (can be
@@ -458,7 +460,7 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
 
 /**
  * fm_path_new_for_path
- * @path_name: a POSIX path.
+ * @path_name: (allow-none): a POSIX path.
  *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -484,7 +486,7 @@ FmPath* fm_path_new_for_path(const char* path_name)
 
 /**
  * fm_path_new_for_uri
- * @uri: a URI with special characters escaped.
+ * @uri: (allow-none): a URI with special characters escaped.
  *
  * Creates new #FmPath by given @uri. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -564,7 +566,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
 
 /**
  * fm_path_new_for_str
- * @path_str: a string representing the file path in its native
+ * @path_str: (allow-none): a string representing the file path in its native
  * encoding (can be non-UTF-8). It can either be a native path or an
  * unescaped URI (can contain non-ASCII characters and spaces).
  * The function will try to figure out what to do.

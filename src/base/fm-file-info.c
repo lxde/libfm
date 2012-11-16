@@ -52,8 +52,6 @@
 
 #define COLLATE_USING_DISPLAY_NAME    ((char*)-1)
 
-static FmMimeType* desktop_entry_type = NULL;
-
 static FmIcon* icon_locked_folder = NULL;
 
 struct _FmFileInfo
@@ -105,13 +103,11 @@ struct _FmFileInfoList
 /* intialize the file info system */
 void _fm_file_info_init(void)
 {
-    desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
     icon_locked_folder = fm_icon_from_name("folder-locked");
 }
 
 void _fm_file_info_finalize()
 {
-    fm_mime_type_unref(desktop_entry_type);
     fm_icon_unref(icon_locked_folder);
 }
 
@@ -897,7 +893,7 @@ gboolean fm_file_info_is_text(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
 {
-    return fi->mime_type == desktop_entry_type;
+    return fi->mime_type == _fm_mime_type_get_application_x_desktop();
 }
 
 /**

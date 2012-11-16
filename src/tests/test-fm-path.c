@@ -71,8 +71,9 @@ static void test_uri_parsing()
     TEST_PARSING(fm_path_new_for_uri, "file:/test/path",
         "/", "test", "path");
 
+    /* The 'test' in this format is a host part of URI */
     TEST_PARSING(fm_path_new_for_uri, "file://test/path",
-        "/", "test", "path");
+        "/", "path");
 
     TEST_PARSING(fm_path_new_for_uri, "http://test/path/",
         "http://test/", "path");
@@ -87,7 +88,11 @@ static void test_uri_parsing()
         "http://test/");
 
     TEST_PARSING(fm_path_new_for_uri, "http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81",
+#if 0
+        /* It should not do any break in URI since 1.0.1 */
         "http://wiki.lxde.org/", "zh", "首頁");
+#endif
+        "http://wiki.lxde.org/", "zh", "%E9%A6%96%E9%A0%81");
 
     TEST_PARSING(fm_path_new_for_uri, "mailto:test",
         "mailto:test");

@@ -563,13 +563,12 @@ static void fm_path_entry_get_property(GObject *object,
 static void fm_path_entry_paste_and_go(GtkMenuItem *menuitem, GtkEntry *entry)
 {
     GtkClipboard* clipboard = gtk_clipboard_get_for_display(
-        gtk_widget_get_display (GTK_WIDGET (menuitem)),GDK_SELECTION_CLIPBOARD);
+        gtk_widget_get_display(GTK_WIDGET(menuitem)), GDK_SELECTION_CLIPBOARD);
 
     gchar* full_path = gtk_clipboard_wait_for_text(clipboard);
 
     if (full_path)
     {
-
         FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
 
         if(priv->path)
@@ -600,16 +599,16 @@ static void fm_path_entry_populate_popup(GtkEntry *entry, GtkMenu *menu, gpointe
     GtkWidget* menuitem;
 
     GtkClipboard* clipboard = gtk_clipboard_get_for_display(
-        gtk_widget_get_display (entry), GDK_SELECTION_CLIPBOARD);
+        gtk_widget_get_display(GTK_WIDGET(entry)), GDK_SELECTION_CLIPBOARD);
 
-    menuitem = gtk_menu_item_new_with_mnemonic(_("Paste and go"));
+    menuitem = gtk_menu_item_new_with_mnemonic(_("Pa_ste and go"));
     gtk_widget_show(menuitem);
 
     /* Insert menu item after default Paste menu item */
-    gtk_menu_shell_insert (menu, menuitem, 3);
+    gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 3);
 
     g_signal_connect(menuitem, "activate",
-        G_CALLBACK(fm_path_entry_paste_and_go), entry);
+                     G_CALLBACK(fm_path_entry_paste_and_go), entry);
 
     if (!gtk_clipboard_wait_is_text_available(clipboard))
         gtk_widget_set_sensitive(menuitem, FALSE);
@@ -658,7 +657,7 @@ fm_path_entry_init(FmPathEntry *entry)
      * we want to invoke our handlers before the default ones provided by Gtk. */
     g_signal_connect(entry, "key-press-event", G_CALLBACK(fm_path_entry_key_press), NULL);
     g_signal_connect(entry, "activate", G_CALLBACK(fm_path_entry_activate), NULL);
-	g_signal_connect(entry, "populate-popup", G_CALLBACK(fm_path_entry_populate_popup), NULL);
+    g_signal_connect(entry, "populate-popup", G_CALLBACK(fm_path_entry_populate_popup), NULL);
 
     obj = gtk_widget_get_accessible(GTK_WIDGET(entry));
     atk_object_set_description(obj, _("Entry for folder path"));

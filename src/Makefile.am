@@ -74,6 +74,7 @@ base_SOURCES = \
 	base/fm-thumbnailer.c \
 	base/fm-file.c \
 	base/fm-terminal.c \
+	base/fm-templates.c \
 	base/fm-marshal.c \
 	vfs/fm-vfs-menu.c \
 	vfs/fm-vfs-search.c \
@@ -167,6 +168,7 @@ libfminclude_HEADERS = \
 	base/fm-thumbnailer.h \
 	base/fm-file.h \
 	base/fm-terminal.h \
+	base/fm-templates.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -240,7 +242,7 @@ libfm_la_LIBADD = \
 	$(LIBFMACTIONS) \
 	$(NULL)
 
-EXTRA_libfm_la_DEPENDENCIES = \
+libfm_la_DEPENDENCIES_EXTRA = \
 	$(LIBFMACTIONS) \
 	$(NULL)
 

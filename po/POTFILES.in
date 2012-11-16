@@ -10,6 +10,7 @@ src/base/fm-file-info.c
 src/base/fm-file-launcher.c
 src/base/fm-path.c
 src/base/fm-mime-type.c
+src/base/fm-templates.c
 src/base/fm-terminal.c
 src/base/fm-utils.c
 src/gtk/fm-app-chooser-combo-box.c
