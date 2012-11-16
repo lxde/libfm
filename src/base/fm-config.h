@@ -59,6 +59,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_BACKUP_HIDDEN     TRUE
 #define     FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY   FALSE
 #define     FM_CONFIG_DEFAULT_SHOW_FULL_NAMES   FALSE
+#define     FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES FALSE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -104,6 +105,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @places_computer: chow 'My computer' item in Places
  * @places_network: show 'Network' item in Places
  * @places_unmounted: show unmounted internal volumes in Places
+ * @only_user_templates: show only user defined templates in 'Create...' menu
  */
 struct _FmConfig
 {
@@ -146,6 +148,7 @@ struct _FmConfig
     gboolean places_network;
     gboolean places_unmounted;
 
+    gboolean only_user_templates;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;

@@ -58,6 +58,10 @@ Changes on 1.2.0 since 1.1.0:
     any inconveniences this behavior may be changed but that will make
     the folder context menu less lightweight to appear.
 
+* Added 'only_user_templates' option into config file, defaulted to false,
+    which defines whether only user defined templates should be shown in
+    the folder context menu or system defined should be shown too.
+
 
 Changes on 1.1.0 since 1.0.1:
 

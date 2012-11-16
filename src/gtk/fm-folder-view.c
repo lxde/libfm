@@ -92,6 +92,7 @@
 #include "fm-file-menu.h"
 #include "fm-gtk-utils.h"
 #include "fm-templates.h"
+#include "fm-config.h"
 
 static const char folder_popup_xml[] =
 "<popup>"
@@ -1093,7 +1094,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
        any inconveniences this behavior should be changed later. */
     if(!templates)
     {
-        templates = fm_template_list_all(FALSE);
+        templates = fm_template_list_all(fm_config->only_user_templates);
         if(templates)
         {
             FmTemplate *templ;
