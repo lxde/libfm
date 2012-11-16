@@ -1018,6 +1018,7 @@ fm_template_dup_name
 fm_template_dup_prompt
 fm_template_get_mime_type
 fm_template_icon
+fm_template_is_directory
 fm_template_list_all
 <SUBSECTION Standard>
 FM_IS_TEMPLATE

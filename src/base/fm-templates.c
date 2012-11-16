@@ -821,6 +821,21 @@ char *fm_template_dup_label(FmTemplate *templ)
 }
 
 /**
+ * fm_template_is_directory
+ * @templ: a template descriptor
+ *
+ * Checks if @templ is directory template.
+ *
+ * Returns: %TRUE if @templ is directory template.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_template_is_directory(FmTemplate *templ)
+{
+    return (templ->mime_type == _fm_mime_type_get_inode_directory());
+}
+
+/**
  * fm_template_create_file
  * @templ: a template descriptor
  * @path: path to file to create

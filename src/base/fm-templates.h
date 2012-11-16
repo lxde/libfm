@@ -45,6 +45,7 @@ FmMimeType *fm_template_get_mime_type(FmTemplate *templ);
 FmIcon *fm_template_icon(FmTemplate *templ);
 char *fm_template_dup_prompt(FmTemplate *templ);
 char *fm_template_dup_label(FmTemplate *templ);
+gboolean fm_template_is_directory(FmTemplate *templ);
 gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error);
 
 G_END_DECLS
