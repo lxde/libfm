@@ -578,6 +578,108 @@ static void on_column_width_changed(GtkTreeViewColumn* col, GParamSpec *pspec,
 #endif
 }
 
+static void on_column_hide(GtkAction* act, GtkTreeViewColumn* col)
+{
+    GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+    gtk_tree_view_remove_column(GTK_TREE_VIEW(view), col);
+}
+
+static void on_column_left(GtkAction* act, GtkTreeViewColumn* col)
+{
+    GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
+    GList* list, *l;
+
+    list = gtk_tree_view_get_columns(view);
+    l = g_list_find(list, col);
+    if(l && l->prev)
+        gtk_tree_view_move_column_after(view, col,
+                                        l->prev->prev ? l->prev->prev->data : NULL);
+    g_list_free(list);
+}
+
+static void on_column_right(GtkAction* act, GtkTreeViewColumn* col)
+{
+    GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
+    GList* list, *l;
+
+    list = gtk_tree_view_get_columns(view);
+    l = g_list_find(list, col);
+    if(l && l->next)
+        gtk_tree_view_move_column_after(view, col, l->next->data);
+    g_list_free(list);
+}
+
+static char column_actions_xml[] =
+"<popup>"
+  "<menuitem action='Hide'/>"
+  "<menuitem action='MvLeft'/>"
+  "<menuitem action='MvRight'/>"
+  /* "<menu action='Add'>";
+
+static char column_actions_xml_end[] =
+  "</menu>" */
+"</popup>";
+
+static GtkActionEntry column_actions[]=
+{
+    {"Hide", NULL, N_("_Hide Column"), NULL, NULL, G_CALLBACK(on_column_hide)},
+    {"MvLeft", NULL, N_("Move _Left"), NULL, NULL, G_CALLBACK(on_column_left)},
+    {"MvRight", NULL, N_("Move _Right"), NULL, NULL, G_CALLBACK(on_column_right)},
+    {"Add", NULL, N_("_Add Column..."), NULL, NULL, NULL}
+};
+
+static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event,
+                                        GtkTreeViewColumn* col)
+{
+    if(event->button == 3)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GList* list, *l;
+        GtkUIManager* ui;
+        GtkActionGroup* act_grp;
+        GtkAction* act;
+        GtkMenu* menu;
+
+        list = gtk_tree_view_get_columns(GTK_TREE_VIEW(view));
+        l = g_list_find(list, col);
+        if(l == NULL)
+        {
+            g_warning("column not found in GtkTreeView");
+            g_list_free(list);
+            return FALSE;
+        }
+        ui = gtk_ui_manager_new();
+        act_grp = gtk_action_group_new("Popup");
+        gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
+        gtk_action_group_add_actions(act_grp, column_actions,
+                                     G_N_ELEMENTS(column_actions), col);
+        /* TODO: create list of missing columns for 'Add' submenu */
+        gtk_ui_manager_add_ui_from_string(ui, column_actions_xml, -1, NULL);
+        gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+        if(l->prev == NULL)
+        {
+            act = gtk_action_group_get_action(act_grp, "MvLeft");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        if(l->next == NULL)
+        {
+            act = gtk_action_group_get_action(act_grp, "MvRight");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        g_list_free(list);
+        menu = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
+        if(menu)
+        {
+            g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+            gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, event->time);
+        }
+        g_object_unref(act_grp);
+        g_object_unref(ui);
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
                                                   FmFolderViewColumnInfo *set)
 {
@@ -585,6 +687,7 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     GtkCellRenderer* render;
     const char* title;
     FmFolderViewColumnInfo* info;
+    GtkWidget *label;
     FmFolderModelCol col_id;
 
     g_return_val_if_fail(set != NULL, NULL); /* invalid arg */
@@ -628,6 +731,24 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
         exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
     g_signal_connect(col, "notify::width", G_CALLBACK(on_column_width_changed), fv);
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+    label = gtk_tree_view_column_get_button(col);
+#else
+    /* a little trick to fetch header button, taken from KIWI python library */
+    label = gtk_label_new(title);
+    gtk_widget_show(label);
+    gtk_tree_view_column_set_widget(col, label);
+    label = gtk_tree_view_column_get_widget(col);
+    while(label && !GTK_IS_BUTTON(label))
+        label = gtk_widget_get_parent(label);
+#endif
+    if(label)
+    {
+        g_signal_connect(label, "button-release-event",
+                         G_CALLBACK(on_button_release_event), col);
+        /* FIXME: how to disconnect it later? */
+    }
 
     return col;
 }
