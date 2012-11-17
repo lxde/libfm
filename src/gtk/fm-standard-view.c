@@ -35,6 +35,7 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
 #include <glib/gi18n-lib.h>
 #include "gtk-compat.h"
 
@@ -609,23 +610,42 @@ static void on_column_right(GtkAction* act, GtkTreeViewColumn* col)
     g_list_free(list);
 }
 
+static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderViewColumnInfo *set);
+
+static void on_column_add(GtkToggleAction* act, GtkTreeViewColumn* col)
+{
+    GtkWidget *view = gtk_tree_view_column_get_tree_view(col);
+    GtkWidget *fv = gtk_widget_get_parent(view);
+    GtkTreeViewColumn *new_col;
+    const char *name = gtk_action_get_name(GTK_ACTION(act));
+    FmFolderViewColumnInfo info;
+
+    g_return_if_fail(FM_IS_STANDARD_VIEW(fv));
+    g_return_if_fail(strncmp(name, "Add", 3) == 0);
+    memset(&info, 0, sizeof(info));
+    info.col_id = strtol(&name[3], NULL, 10);
+    new_col = create_list_view_column((FmStandardView*)fv, &info);
+    if(new_col) /* skip it if failed */
+    {
+        gtk_tree_view_move_column_after(GTK_TREE_VIEW(view), new_col, col);
+    }
+}
+
 static char column_actions_xml[] =
 "<popup>"
   "<menuitem action='Hide'/>"
   "<menuitem action='MvLeft'/>"
   "<menuitem action='MvRight'/>"
-  /* "<menu action='Add'>";
+  "<separator/>";
 
 static char column_actions_xml_end[] =
-  "</menu>" */
 "</popup>";
 
-static GtkActionEntry column_actions[]=
+static const GtkActionEntry column_actions[] =
 {
     {"Hide", NULL, N_("_Hide Column"), NULL, NULL, G_CALLBACK(on_column_hide)},
     {"MvLeft", NULL, N_("Move _Left"), NULL, NULL, G_CALLBACK(on_column_left)},
-    {"MvRight", NULL, N_("Move _Right"), NULL, NULL, G_CALLBACK(on_column_right)},
-    {"Add", NULL, N_("_Add Column..."), NULL, NULL, NULL}
+    {"MvRight", NULL, N_("Move _Right"), NULL, NULL, G_CALLBACK(on_column_right)}
 };
 
 static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event,
@@ -634,12 +654,21 @@ static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event
     if(event->button == 3)
     {
         GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
-        GList* list, *l;
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        GList *list, *l;
+        GSList *cols_list, *ld;
         GtkUIManager* ui;
         GtkActionGroup* act_grp;
         GtkAction* act;
         GtkMenu* menu;
+        GString* str;
+        const char* label;
+        GtkToggleActionEntry entry;
+        guint i;
+        char a[8];
+        char b[64];
 
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
         list = gtk_tree_view_get_columns(GTK_TREE_VIEW(view));
         l = g_list_find(list, col);
         if(l == NULL)
@@ -653,9 +682,36 @@ static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event
         gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
         gtk_action_group_add_actions(act_grp, column_actions,
                                      G_N_ELEMENTS(column_actions), col);
+        str = g_string_new(column_actions_xml);
         /* TODO: create list of missing columns for 'Add' submenu */
-        gtk_ui_manager_add_ui_from_string(ui, column_actions_xml, -1, NULL);
+        cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
+        entry.stock_id = NULL;
+        entry.accelerator = NULL;
+        entry.tooltip = NULL;
+        entry.name = a;
+        entry.is_active = FALSE;
+        entry.callback = G_CALLBACK(on_column_add);
+        entry.label = b;
+        for(i = 0; i < FM_FOLDER_MODEL_N_COLS; i++)
+        {
+            label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
+            if(!label)
+                continue;
+            for(ld = cols_list; ld; ld = ld->next)
+                if(((FmFolderViewColumnInfo*)ld->data)->col_id == i)
+                    break;
+            if(ld) /* already exists in view, ignore it */
+                continue;
+            snprintf(a, sizeof(a), "Add%u", i);
+            snprintf(b, sizeof(b), _("Add %s"), label);
+            g_string_append_printf(str, "<menuitem action='%s'/>", a);
+            gtk_action_group_add_toggle_actions(act_grp, &entry, 1, col);
+        }
+        g_slist_free(cols_list);
+        g_string_append(str, column_actions_xml_end);
         gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+        gtk_ui_manager_add_ui_from_string(ui, str->str, str->len, NULL);
+        g_string_free(str, TRUE);
         if(l->prev == NULL)
         {
             act = gtk_action_group_get_action(act_grp, "MvLeft");
@@ -723,7 +779,8 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", col_id, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
-    if(fm_folder_model_col_is_sortable(fv->model, col_id))
+    /* Unfortunately if we don't set it sortable we cannot right-click it too
+    if(fm_folder_model_col_is_sortable(fv->model, col_id)) */
         gtk_tree_view_column_set_sort_column_id(col, col_id);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
     if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_NAME))
