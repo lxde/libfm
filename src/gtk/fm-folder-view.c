@@ -822,7 +822,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     if(templ == NULL) /* new folder */
     {
         name_template = _("New");
-        n = strlen(name_template);
+        n = -1;
     }
     else
     {
@@ -837,7 +837,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
         g_free(label);
         name_template = fm_template_dup_name(templ, &n);
     }
-    basename = fm_get_user_input(GTK_WINDOW(win), header, prompt, name_template);
+    basename = fm_get_user_input_n(GTK_WINDOW(win), header, prompt, name_template, n);
     if(templ)
     {
         g_free(prompt);
