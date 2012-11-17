@@ -170,7 +170,7 @@ static const GtkActionEntry folder_popup_actions[]=
     {"NewFolder2", NULL, NULL, "Insert", NULL, G_CALLBACK(on_create_new)},
     {"NewFolder3", NULL, NULL, "KP_Insert", NULL, G_CALLBACK(on_create_new)},
     {"NewBlank", "text-x-generic", N_("Blank File"), NULL, NULL, G_CALLBACK(on_create_new)},
-    {"NewShortcut", "system-run", N_("Shortcut"), NULL, NULL, G_CALLBACK(on_create_new)},
+    /* {"NewShortcut", "system-run", N_("Shortcut"), NULL, NULL, G_CALLBACK(on_create_new)}, */
     {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, G_CALLBACK(on_cut)},
     {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, G_CALLBACK(on_copy)},
     {"Copy2", NULL, NULL, "<Shift>Insert", NULL, G_CALLBACK(on_copy)},
@@ -794,24 +794,34 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     FmPath *dest;
     GFile *gf;
     GError *error = NULL;
+    gboolean new_folder = FALSE;
     gint n;
 
     if(strncmp(name, "NewFolder", 9) == 0)
+    {
         templ = NULL;
+        prompt = _("Enter a name for the newly created folder:");
+        header = _("Creating new folder");
+        new_folder = TRUE;
+    }
     else if(G_LIKELY(strncmp(name, "NewFile", 7) == 0))
     {
         n = atoi(&name[7]);
         if(n < 0 || (templ = g_list_nth_data(templates, n)) == NULL)
             return; /* invalid action name, is it possible? */
     }
+    /* special option 'NewBlank' */
+    else if(G_LIKELY(strcmp(name, "NewBlank") == 0))
+    {
+        templ = NULL;
+        prompt = _("Enter a name for empty file:");
+        header = _("Creating ...");
+    }
     else /* invalid action name, is it possible? */
         return;
     if(templ == NULL) /* new folder */
     {
-        prompt = _("Enter a name for the newly created folder:");
-        header = _("Creating new folder");
         name_template = _("New");
-        label = _("Folder");
         n = strlen(name_template);
     }
     else
@@ -824,6 +834,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
         label = fm_template_dup_label(templ);
         header = g_strdup_printf(_("Creating %s"), label ? label :
                                              fm_mime_type_get_desc(mime_type));
+        g_free(label);
         name_template = fm_template_dup_name(templ, &n);
     }
     basename = fm_get_user_input(GTK_WINDOW(win), header, prompt, name_template);
@@ -832,23 +843,24 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
         g_free(prompt);
         g_free(header);
         g_free(name_template);
-        g_free(label);
     }
     if(!basename)
         return;
     dest = fm_path_new_child(fm_folder_view_get_cwd(fv), basename);
     gf = fm_path_to_gfile(dest);
     fm_path_unref(dest);
-    if(templ == NULL)
+    if(templ)
+        fm_template_create_file(templ, gf, &error, fm_config->template_run_app);
+    else if(new_folder)
+        g_file_make_directory(gf, NULL, &error);
+    /* specail option 'NewBlank' */
+    else
     {
-        if(!g_file_make_directory(gf, NULL, &error))
-        {
-            fm_show_error(GTK_WINDOW(win), NULL, error->message);
-            g_error_free(error);
-        }
+        GFileOutputStream *f = g_file_create(gf, G_FILE_CREATE_NONE, NULL, &error);
+        if(f)
+            g_object_unref(f);
     }
-    else if(!fm_template_create_file(templ, gf, &error,
-                                     fm_config->template_run_app))
+    if(error)
     {
         fm_show_error(GTK_WINDOW(win), NULL, error->message);
         g_error_free(error);
@@ -1360,17 +1372,21 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
  * before this call.
  *
  * Implemented actions are:
- * - Cut       : cut files into clipboard
- * - Copy      : copy files into clipboard
- * - Paste     : paste files from clipboard
- * - Del       : move files into trash bin
- * - Remove    : delete files from filesystem
+ * - Cut       : cut files (or text from editable) into clipboard
+ * - Copy      : copy files (or text from editable) into clipboard
+ * - Paste     : paste files (or text from editable) from clipboard
+ * - Del       : move files into trash bin (or delete text from editable)
+ * - Remove    : delete files from filesystem (for editable does Cut)
  * - SelAll    : select all
  * - InvSel    : invert selection
  * - Rename    : rename the folder
  * - Prop      : folder properties dialog
  * - FileProp  : file properties dialog
  * - NewFolder : create new folder here
+ * - NewBlank  : create an empty file here
+ *
+ * Actions 'Cut', 'Copy', 'Paste', 'Del', 'Remove', 'SelAll' do nothing
+ * if current keyboard focus is neither on @fv nor on some #GtkEditable.
  *
  * See also: fm_folder_view_add_popup().
  *
