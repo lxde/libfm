@@ -716,6 +716,12 @@ static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event
         {
             act = gtk_action_group_get_action(act_grp, "MvLeft");
             gtk_action_set_sensitive(act, FALSE);
+            if(l->next == NULL)
+            {
+                /* don't remove it if it is only column in view */
+                act = gtk_action_group_get_action(act_grp, "Hide");
+                gtk_action_set_sensitive(act, FALSE);
+            }
         }
         if(l->next == NULL)
         {
