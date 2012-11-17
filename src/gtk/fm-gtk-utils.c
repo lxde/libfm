@@ -256,6 +256,39 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
 }
 
 /**
+ * fm_get_user_input_n
+ * @parent: a window to place dialog over it
+ * @title: title for dialog window
+ * @msg: the message to present to the user
+ * @default_text: the default answer
+ * @n: which part of default answer should be selected
+ *
+ * Presents the message to user and retrieves entered text.
+ * In presented dialog the part of @default_text with length @n will be
+ * preselected for edition (n < 0 means select all).
+ * Returned data should be freed with g_free() after usage.
+ *
+ * Returns: (transfer full): entered text.
+ *
+ * Since: 1.2.0
+ */
+gchar* fm_get_user_input_n(GtkWindow* parent, const char* title, const char* msg,
+                           const char* default_text, gint n)
+{
+    GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
+    GtkEntry* entry = GTK_ENTRY(gtk_entry_new());
+    gtk_entry_set_activates_default(entry, TRUE);
+
+    if(default_text && default_text[0])
+    {
+        gtk_entry_set_text(entry, default_text);
+        gtk_editable_select_region(GTK_EDITABLE(entry), 0, n);
+    }
+
+    return _fm_user_input_dialog_run(dlg, entry);
+}
+
+/**
  * fm_get_user_input_path
  * @parent: a window to place dialog over it
  * @title: title for dialog window

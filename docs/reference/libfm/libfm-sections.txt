@@ -665,6 +665,7 @@ fm_eject_mount
 fm_eject_volume
 fm_empty_trash
 fm_get_user_input
+fm_get_user_input_n
 fm_get_user_input_path
 fm_link_files
 fm_mount_path
