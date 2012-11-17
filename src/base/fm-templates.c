@@ -719,9 +719,9 @@ GList *fm_template_list_all(gboolean user_only)
  * @templ: a template descriptor
  * @nlen: (allow-none): location to get template name length
  *
- * Retrieves file name template for @templ. If @nlen isn't %NULL the it
- * will receive length of file name template without suffix. Returned
- * data should be freed with g_free() after usage.
+ * Retrieves file name template for @templ. If @nlen isn't %NULL then it
+ * will receive length of file name template without suffix (in characters).
+ * Returned data should be freed with g_free() after usage.
  *
  * Returns: (transfer full): file name template.
  *
@@ -734,15 +734,15 @@ char *fm_template_dup_name(FmTemplate *templ, gint *nlen)
     G_LOCK(templates);
     name = templ->template_file ? g_strdup(fm_path_get_basename(templ->template_file)) : NULL;
     G_UNLOCK(templates);
-    if(nlen && name)
+    if(nlen)
     {
         char *point;
         if(!name)
             *nlen = 0;
         else if((point = strrchr(name, '.')))
-            *nlen = (point - name);
+            *nlen = g_utf8_strlen(name, point - name);
         else
-            *nlen = strlen(name);
+            *nlen = g_utf8_strlen(name, -1);
     }
     return name;
 }
