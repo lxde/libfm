@@ -965,7 +965,15 @@ static void on_rm(GtkAction* act, FmFolderView* fv)
 
 static void on_select_all(GtkAction* act, FmFolderView* fv)
 {
-    fm_folder_view_select_all(fv);
+    GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
+    GtkWidget *win = gtk_menu_get_attach_widget(popup);
+    GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
+
+    /* check if we are inside the view; for desktop focus will be NULL */
+    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+        fm_folder_view_select_all(fv);
+    else if(GTK_IS_EDITABLE(focus)) /* fallback for editables */
+        gtk_editable_select_region((GtkEditable*)focus, 0, -1);
 }
 
 static void on_invert_select(GtkAction* act, FmFolderView* fv)
