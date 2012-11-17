@@ -1783,7 +1783,7 @@ const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol
     if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
        || column_infos[col_id] == NULL)) /* invalid id */
         return NULL;
-    return column_infos[col_id]->title;
+    return _(column_infos[col_id]->title);
 }
 
 /**
