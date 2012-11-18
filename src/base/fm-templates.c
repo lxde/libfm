@@ -156,6 +156,17 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
     type = NULL;
     if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, NULL))
     {
+        type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                     G_KEY_FILE_DESKTOP_KEY_TYPE, NULL);
+        if(!type || strcmp(type, G_KEY_FILE_DESKTOP_TYPE_LINK) != 0)
+        {
+            /* desktop entry file invalid as template */
+            g_key_file_free(kf);
+            g_free(filename);
+            g_free(type);
+            return NULL;
+        }
+        g_free(type);
         /* some templates may have 'MimeType' key */
         type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                      G_KEY_FILE_DESKTOP_KEY_MIME_TYPE, NULL);
