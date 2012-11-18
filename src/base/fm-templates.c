@@ -193,6 +193,8 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
         {
             if(G_UNLIKELY(url[0] == '/')) /* absolute path */
                 subpath = fm_path_new_for_str(url);
+            else if(G_UNLIKELY(strchr(url, ':'))) /* URI (huh?) */
+                subpath = fm_path_new_for_uri(url);
             else /* path relative to directory containing file */
                 subpath = fm_path_new_relative(fm_path_get_parent(path), url);
             path = subpath; /* shift to new path */
@@ -306,6 +308,8 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                         fm_path_unref(templ->template_file);
                     if(G_UNLIKELY(tmp[0] == '/')) /* absolute path */
                         templ->template_file = fm_path_new_for_str(tmp);
+                    else if(G_UNLIKELY(strchr(tmp, ':'))) /* URI (huh?) */
+                        templ->template_file = fm_path_new_for_uri(tmp);
                     else /* path relative to directory containing file */
                         templ->template_file = fm_path_new_relative(file->dir->path, tmp);
                     g_free(tmp);
