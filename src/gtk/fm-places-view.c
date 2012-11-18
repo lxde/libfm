@@ -607,31 +607,28 @@ void fm_places_view_chdir(FmPlacesView* pv, FmPath* path)
         gtk_tree_selection_unselect_all(ts);
 }
 
-static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 time);
-
 static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
 {
     FmPlacesView* view = FM_PLACES_VIEW(widget);
     if(view->clicked_row)
     {
-        GtkTreePath* tp;
-        GtkTreeViewColumn* col;
-        GtkTreeIter it;
-        int cell_x;
-        int start, cell_w;
-        if(gtk_tree_view_get_path_at_pos(&view->parent, evt->x, evt->y, &tp, &col, &cell_x, NULL))
+        if(evt->button == 1)
         {
-            /* check if we release the button on the row we previously clicked. */
-            if(gtk_tree_path_compare(tp, view->clicked_row) == 0)
+            GtkTreePath* tp;
+            GtkTreeViewColumn* col;
+            int cell_x;
+            if(gtk_tree_view_get_path_at_pos(&view->parent, evt->x, evt->y, &tp, &col, &cell_x, NULL))
             {
-                switch(evt->button)
+                /* check if we release the button on the row we previously clicked. */
+                if(gtk_tree_path_compare(tp, view->clicked_row) == 0)
                 {
-                case 1: /* left click */
                     /* check if we click on the "eject" icon. */
+                    int start, cell_w;
                     gtk_tree_view_column_cell_get_position(col, GTK_CELL_RENDERER(view->mount_indicator_renderer),
                                                            &start, &cell_w);
                     if(cell_x > start && cell_x < (start + cell_w)) /* click on eject icon */
                     {
+                        GtkTreeIter it;
                         /* do eject if needed */
                         if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
                         {
@@ -677,18 +674,11 @@ static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                     }
                     /* activate the clicked row. */
                     gtk_tree_view_row_activated(&view->parent, view->clicked_row, col);
-                    break;
-                case 2: /* middle click */
-                    activate_row(view, 2, tp);
-                    break;
-                case 3: /* right click */
-                    if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
-                        fm_places_item_popup(widget, &it, evt->time);
-                    break;
                 }
+                gtk_tree_path_free(tp);
             }
-            gtk_tree_path_free(tp);
         }
+
         gtk_tree_path_free(view->clicked_row);
         view->clicked_row = NULL;
     }
@@ -857,12 +847,28 @@ static gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
     FmPlacesView* view = FM_PLACES_VIEW(widget);
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
+    GtkTreeIter it;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
 
     gtk_tree_view_get_path_at_pos(&view->parent, evt->x, evt->y, &tp, &col, NULL, NULL);
     if(view->clicked_row) /* what? more than one botton clicked? */
         gtk_tree_path_free(view->clicked_row);
     view->clicked_row = tp;
+    if(tp)
+    {
+        switch(evt->button) /* middle click */
+        {
+        case 1: /* left click */
+            break;
+        case 2: /* middle click */
+            activate_row(view, 2, tp);
+            break;
+        case 3: /* right click */
+            if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
+                fm_places_item_popup(widget, &it, evt->time);
+            break;
+        }
+    }
     return ret;
 }
 
