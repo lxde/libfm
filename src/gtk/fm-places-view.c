@@ -696,6 +696,11 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
     GtkWidget* menu = NULL;
     GtkUIManager* ui = gtk_ui_manager_new();
     GtkActionGroup* act_grp = gtk_action_group_new("Popup");
+    int sep_pos;
+    GtkTreeIter src_it;
+    GtkTreePath *tp, *sep_tp;
+    GtkAction* act;
+
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     /* FIXME: merge with FmFileMenu when possible */
@@ -705,7 +710,28 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
         {
             gtk_action_group_add_actions(act_grp, bm_menu_actions, G_N_ELEMENTS(bm_menu_actions), item);
             gtk_ui_manager_add_ui_from_string(ui, bookmark_menu_xml, -1, NULL);
-            /* FIXME: disable MoveBmUp and MoveBmDown which impossible to do */
+            /* check and disable MoveBmUp and MoveBmDown */
+            if(fm_places_model_get_iter_by_fm_path(model, &src_it,
+                                                   fm_places_item_get_path(item)))
+            {
+                /* get index of the separator */
+                sep_tp = fm_places_model_get_separator_path(model);
+                sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
+                tp = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &src_it);
+                if(!gtk_tree_path_prev(tp) ||
+                   gtk_tree_path_get_indices(tp)[0] - sep_pos - 1 < 0)
+                {
+                    act = gtk_action_group_get_action(act_grp, "MoveBmUp");
+                    gtk_action_set_sensitive(act, FALSE);
+                }
+                if(!gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &src_it))
+                {
+                    act = gtk_action_group_get_action(act_grp, "MoveBmDown");
+                    gtk_action_set_sensitive(act, FALSE);
+                }
+                gtk_tree_path_free(sep_tp);
+                gtk_tree_path_free(tp);
+            }
         }
         else if(fm_path_is_trash_root(fm_places_item_get_path(item)))
         {
@@ -715,7 +741,6 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
     }
     else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
-        GtkAction* act;
         GMount* mnt;
         gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
         gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
