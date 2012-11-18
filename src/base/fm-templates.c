@@ -385,6 +385,7 @@ static void _fm_template_update(FmTemplate *templ)
 }
 
 /* add file into FmTemplate and update */
+/* requires lock held */
 static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
 {
     FmTemplateDir *last_dir = templates_dirs;
@@ -418,6 +419,7 @@ static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
 }
 
 /* delete file from FmTemplate and free it */
+/* requires lock held */
 static void _fm_template_file_free(FmTemplate *templ, FmTemplateFile *file,
                                    gboolean do_update)
 {
@@ -459,9 +461,11 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
         if(fm_file_info_is_hidden(fi)) /* FIXME: fm_file_info_is_backup() */
             continue;
         path = fm_file_info_get_path(fi);
+        G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(fm_path_equal(path, file->path))
                 break;
+        G_UNLOCK(templates);
         if(file) /* it's duplicate */
             continue;
         /* ensure the path is based on dir->path */
@@ -477,12 +481,14 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
         file->path = path;
         file->is_desktop_entry = fm_file_info_is_desktop_entry(fi);
         file->dir = dir;
+        G_LOCK(templates);
         file->next_in_dir = dir->files;
         file->prev_in_dir = NULL;
         if(dir->files)
             dir->files->prev_in_dir = file;
         dir->files = file;
         _fm_template_insert_sorted(templ, file);
+        G_UNLOCK(templates);
     }
 }
 
@@ -503,11 +509,11 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         return;
     }
     g_object_unref(gfile);
-    G_LOCK(templates);
     switch(evt)
     {
     case G_FILE_MONITOR_EVENT_CHANGED:
         basename = g_file_get_basename(gf);
+        G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
                 break;
@@ -519,9 +525,11 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         }
         else
             g_warning("templates monitor: change for unknown file");
+        G_UNLOCK(templates);
         break;
     case G_FILE_MONITOR_EVENT_DELETED:
         basename = g_file_get_basename(gf);
+        G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
                 break;
@@ -535,14 +543,19 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
             if(file->next_in_dir)
                 file->next_in_dir->prev_in_dir = file->prev_in_dir;
             _fm_template_file_free(file->templ, file, TRUE);
+            G_UNLOCK(templates);
         }
-        /* else it is already deleted */
+        else
+            G_UNLOCK(templates);
+            /* else it is already deleted */
         break;
     case G_FILE_MONITOR_EVENT_CREATED:
         basename = g_file_get_basename(gf);
+        G_LOCK(templates);
         for(file = dir->files; file; file = file->next_in_dir)
             if(strcmp(fm_path_get_basename(file->path), basename) == 0)
                 break;
+        G_UNLOCK(templates);
         /* NOTE: to query file info is too heavy so do own assumptions */
         if(!file && basename[0] != '.' && g_str_has_suffix(basename, "~"))
         {
@@ -556,11 +569,13 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 file->path = path;
                 file->is_desktop_entry = is_desktop_entry;
                 file->dir = dir;
+                G_LOCK(templates);
                 file->next_in_dir = dir->files;
                 file->prev_in_dir = NULL;
                 dir->files->prev_in_dir = file;
                 dir->files = file;
                 _fm_template_insert_sorted(templ, file);
+                G_UNLOCK(templates);
             }
             else
             {
@@ -581,7 +596,6 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         /* ignore those */
         break;
     }
-    G_UNLOCK(templates);
 }
 
 static void _template_dir_init(FmTemplateDir *dir, GFile *gf)
