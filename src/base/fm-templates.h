@@ -40,11 +40,11 @@ void _fm_templates_init(void);
 void _fm_templates_finalize(void);
 
 GList *fm_template_list_all(gboolean user_only);
-char *fm_template_dup_name(FmTemplate *templ, gint *nlen);
+const gchar *fm_template_get_name(FmTemplate *templ, gint *nlen);
 FmMimeType *fm_template_get_mime_type(FmTemplate *templ);
-FmIcon *fm_template_icon(FmTemplate *templ);
-char *fm_template_dup_prompt(FmTemplate *templ);
-char *fm_template_dup_label(FmTemplate *templ);
+FmIcon *fm_template_get_icon(FmTemplate *templ);
+const gchar *fm_template_get_prompt(FmTemplate *templ);
+const gchar *fm_template_get_label(FmTemplate *templ);
 gboolean fm_template_is_directory(FmTemplate *templ);
 gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
                                  gboolean run_default);

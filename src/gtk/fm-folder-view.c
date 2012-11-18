@@ -790,7 +790,8 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
     FmTemplate *templ;
     FmMimeType *mime_type;
-    char *prompt, *header, *name_template, *label, *basename;
+    const char *prompt, *name_template, *label;
+    char *_prompt = NULL, *header, *basename;
     FmPath *dest;
     GFile *gf;
     GError *error = NULL;
@@ -827,26 +828,25 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     else
     {
         mime_type = fm_template_get_mime_type(templ);
-        prompt = fm_template_dup_prompt(templ);
+        prompt = fm_template_get_prompt(templ);
         if(!prompt)
-            prompt = g_strdup_printf(_("Enter a name for the new %s:"),
-                                     fm_mime_type_get_desc(mime_type));
-        label = fm_template_dup_label(templ);
+            prompt = _prompt = g_strdup_printf(_("Enter a name for the new %s:"),
+                                               fm_mime_type_get_desc(mime_type));
+        label = fm_template_get_label(templ);
         header = g_strdup_printf(_("Creating %s"), label ? label :
                                              fm_mime_type_get_desc(mime_type));
-        g_free(label);
-        name_template = fm_template_dup_name(templ, &n);
+        name_template = fm_template_get_name(templ, &n);
     }
     basename = fm_get_user_input_n(GTK_WINDOW(win), header, prompt, name_template, n);
     if(templ)
     {
-        g_free(prompt);
+        g_free(_prompt);
         g_free(header);
-        g_free(name_template);
     }
     if(!basename)
         return;
     dest = fm_path_new_child(fm_folder_view_get_cwd(fv), basename);
+    g_free(basename);
     gf = fm_path_to_gfile(dest);
     fm_path_unref(dest);
     if(templ)
@@ -1127,8 +1127,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
             FmTemplate *templ;
             FmMimeType *mime_type;
             FmIcon *icon;
-            GIcon *gicon;
-            gchar *label;
+            const gchar *label;
             GList *l;
             GString *xml;
             GtkActionEntry actent;
@@ -1150,32 +1149,20 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
                 if(fm_template_is_directory(templ))
                     continue;
                 mime_type = fm_template_get_mime_type(templ);
-                gicon = NULL;
-                label = fm_template_dup_label(templ);
+                label = fm_template_get_label(templ);
                 snprintf(act_name, sizeof(act_name), "NewFile%u", i);
                 g_string_append_printf(xml, "<menuitem action='%s'/>", act_name);
-                icon = fm_template_icon(templ);
-                if(icon)
-                {
-                    gicon = g_object_ref(icon->gicon);
-                    fm_icon_unref(icon);
-                }
-                else
-                {
+                icon = fm_template_get_icon(templ);
+                if(!icon)
                     icon = fm_mime_type_get_icon(mime_type);
-                    if(icon)
-                        gicon = g_object_ref(icon->gicon);
-                }
                 /* create and insert new action */
                 actent.label = label ? label : fm_mime_type_get_desc(mime_type);
                 gtk_action_group_add_actions(act_grp, &actent, 1, fv);
-                if(gicon)
+                if(icon)
                 {
                     act = gtk_action_group_get_action(act_grp, act_name);
-                    gtk_action_set_gicon(act, gicon);
-                    g_object_unref(gicon);
+                    gtk_action_set_gicon(act, icon->gicon);
                 }
-                g_free(label);
             }
             g_string_append(xml, "</placeholder></menu></popup>");
             gtk_ui_manager_add_ui_from_string(ui, xml->str, -1, NULL);

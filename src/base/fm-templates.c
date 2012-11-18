@@ -361,32 +361,40 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
 
 /* recreate data in FmTemplate from entries */
 /* requires lock held */
-static void _fm_template_update(FmTemplate *templ)
+static FmTemplate *_fm_template_update(FmTemplate *templ)
 {
+    GList *l;
+    FmTemplate *new_templ;
+    FmTemplateFile *file;
+
     if(templ->files == NULL) /* template is empty now */
     {
         templates = g_list_remove(templates, templ);
         g_object_unref(templ); /* we removed it from list so drop reference */
-        return;
+        return NULL;
     }
-    /* free all data */
-    if(templ->template_file)
-        fm_path_unref(templ->template_file);
-    templ->template_file = NULL;
-    if(templ->icon)
-        fm_icon_unref(templ->icon);
-    templ->icon = NULL;
-    g_free(templ->command);
-    templ->command = NULL;
-    g_free(templ->prompt);
-    templ->prompt = NULL;
+    l = g_list_find(templates, templ);
+    if(l == NULL)
+        g_error("FmTemplate not found in list");
+    /* isolate and unref old template */
+    l->data = new_templ = fm_template_new(); /* reference is bound to list */
+    new_templ->mime_type = fm_mime_type_ref(templ->mime_type);
+    new_templ->files = templ->files;
+    templ->files = NULL;
+    for(file = new_templ->files; file; file = file->next_in_templ)
+    {
+        file->templ = g_object_ref(new_templ);
+        g_object_unref(templ);
+    }
+    g_object_unref(templ); /* we removed it from list so drop reference */
     /* update from file list */
-    _fm_template_update_from_file(templ, templ->files);
+    _fm_template_update_from_file(new_templ, new_templ->files);
+    return new_templ;
 }
 
 /* add file into FmTemplate and update */
 /* requires lock held */
-static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
+static FmTemplate *_fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
 {
     FmTemplateDir *last_dir = templates_dirs;
     FmTemplateFile *last = NULL, *next;
@@ -415,7 +423,7 @@ static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
         last->next_in_templ = file;
     else
         templ->files = file;
-    _fm_template_update(templ);
+    return _fm_template_update(templ);
 }
 
 /* delete file from FmTemplate and free it */
@@ -741,25 +749,23 @@ GList *fm_template_list_all(gboolean user_only)
 }
 
 /**
- * fm_template_dup_name
+ * fm_template_get_name
  * @templ: a template descriptor
  * @nlen: (allow-none): location to get template name length
  *
  * Retrieves file name template for @templ. If @nlen isn't %NULL then it
  * will receive length of file name template without suffix (in characters).
- * Returned data should be freed with g_free() after usage.
+ * Returned data are owned by @templ and should be not freed by caller.
  *
- * Returns: (transfer full): file name template.
+ * Returns: (transfer none): file name template.
  *
  * Since: 1.2.0
  */
-char *fm_template_dup_name(FmTemplate *templ, gint *nlen)
+const gchar *fm_template_get_name(FmTemplate *templ, gint *nlen)
 {
-    char *name;
+    const gchar *name;
 
-    G_LOCK(templates);
-    name = templ->template_file ? g_strdup(fm_path_get_basename(templ->template_file)) : NULL;
-    G_UNLOCK(templates);
+    name = templ->template_file ? fm_path_get_basename(templ->template_file) : NULL;
     if(nlen)
     {
         char *point;
@@ -790,70 +796,54 @@ FmMimeType *fm_template_get_mime_type(FmTemplate *templ)
 }
 
 /**
- * fm_template_icon
+ * fm_template_get_icon
  * @templ: a template descriptor
  *
- * Retrieves icon defined for @templ. Returned data should be freed with
- * fm_icon_unref() after usage.
+ * Retrieves icon defined for @templ. Returned data are owned by @templ
+ * and should be not freed by caller.
  *
- * Returns: (transfer full): icon for template.
+ * Returns: (transfer none): icon for template.
  *
  * Since: 1.2.0
  */
-FmIcon *fm_template_icon(FmTemplate *templ)
+FmIcon *fm_template_get_icon(FmTemplate *templ)
 {
-    FmIcon *icon = NULL;
-
-    G_LOCK(templates);
     if(templ->icon)
-        icon = fm_icon_ref(templ->icon);
-    G_UNLOCK(templates);
-    if(!icon && (icon = fm_mime_type_get_icon(templ->mime_type)))
-        fm_icon_ref(icon);
-    return icon;
+        return templ->icon;
+    return fm_mime_type_get_icon(templ->mime_type);
 }
 
 /**
- * fm_template_dup_prompt
+ * fm_template_get_prompt
  * @templ: a template descriptor
  *
  * Retrieves prompt for @templ. It can be used as label in entry for the
  * desired name. If no prompt is defined then returns %NULL. Returned
- * data should be freed with g_free() after usage.
+ * data are owned by @templ and should be not freed by caller.
  *
- * Returns: (transfer full): file prompt.
+ * Returns: (transfer none): file prompt.
  *
  * Since: 1.2.0
  */
-char *fm_template_dup_prompt(FmTemplate *templ)
+const gchar *fm_template_get_prompt(FmTemplate *templ)
 {
-    char *name;
-
-    G_LOCK(templates);
-    name = templ->prompt ? g_strdup(templ->prompt) : NULL;
-    G_UNLOCK(templates);
-    return name;
+    return templ->prompt;
 }
 
 /**
- * fm_template_dup_label
+ * fm_template_get_label
  * @templ: a template descriptor
  *
  * Retrieves label for @templ. It can be used as label in menu. Returned
- * data should be freed with g_free() after usage.
+ * data are owned by @templ and should be not freed by caller.
  *
- * Returns: (transfer full): template label.
+ * Returns: (transfer none): template label.
  *
  * Since: 1.2.0
  */
-char *fm_template_dup_label(FmTemplate *templ)
+const gchar *fm_template_get_label(FmTemplate *templ)
 {
-    char *name;
-
-    G_LOCK(templates);
-    name = templ->label ? g_strdup(templ->label) : NULL;
-    G_UNLOCK(templates);
-    return name;
+    return templ->label;
 }
 
 /**
@@ -900,7 +890,6 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
                             "fm_template_create_file: invalid argument");
         return FALSE;
     }
-    G_LOCK(templates);
     tfile = NULL;
     if(templ->template_file)
     {
@@ -908,7 +897,6 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
         tfile = g_file_new_for_path(command);
         g_free(command);
     }
-    G_UNLOCK(templates);
     /* FIXME: it may block */
     if(templ->mime_type == _fm_mime_type_get_inode_directory())
     {
@@ -939,13 +927,10 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
     g_object_unref(tfile);
     if(!run_default)
         return TRUE;
-    G_LOCK(templates);
-    command = templ->command ? g_strdup(templ->command) : NULL;
-    G_UNLOCK(templates);
-    if(command)
+    if(templ->command)
     {
-        app = g_app_info_create_from_commandline(command, NULL, G_APP_INFO_CREATE_NONE, error);
-        g_free(command);
+        app = g_app_info_create_from_commandline(templ->command, NULL,
+                                                 G_APP_INFO_CREATE_NONE, error);
     }
     else
     {
