@@ -204,31 +204,50 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
         else
             return NULL; /* invalid template file */
     }
-    /* so we have real template file now, guess from file name first */
+    /* so we have real template file now, guess from file content first */
     mime_type = NULL;
     filename = fm_path_to_str(path);
     /* type is NULL still */
-    if(g_str_has_suffix(basename, ".desktop")) /* template file is an entry */
+    mime_type = fm_mime_type_from_native_file(filename, basename, NULL);
+    if(mime_type == _fm_mime_type_get_application_x_desktop())
     {
+        /* template file is an entry */
         kf = g_key_file_new();
         if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, NULL))
         {
-            url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                        G_KEY_FILE_DESKTOP_KEY_TYPE, NULL);
-            if(url)
+            type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                         G_KEY_FILE_DESKTOP_KEY_TYPE, NULL);
+            if(type)
             {
                 /* TODO: we support only 'Application' type for now */
-                if(strcmp(url, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) == 0)
-                    type = "application/x-desktop";
-                g_free(url);
+                if(strcmp(type, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) == 0)
+                    ;
+                else
+                {
+                    /* desktop entry file invalid as template */
+                    g_key_file_free(kf);
+                    g_free(filename);
+                    if(subpath)
+                        fm_path_unref(subpath);
+                    g_free(type);
+                    fm_mime_type_unref(mime_type);
+                    return NULL;
+                }
+                g_free(type);
             }
         }
-        if(type) /* type is const string, see above */
-            mime_type = fm_mime_type_from_name(type);
         g_key_file_free(kf);
     }
+    /* we got a desktop entry link to not existing file, guess from file name */
     if(!mime_type)
-        mime_type = fm_mime_type_from_native_file(filename, basename, NULL);
+    {
+        gboolean uncertain;
+        type = g_content_type_guess(basename, NULL, 0, &uncertain);
+        if(type && !uncertain)
+            mime_type = fm_mime_type_from_name(type);
+        g_free(type);
+        /* ignore unrecognizable files instead of using application/octet-stream */
+    }
     g_free(filename);
     if(subpath)
         fm_path_unref(subpath);
