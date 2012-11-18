@@ -135,6 +135,8 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
     FmPlacesItem* item;
     FmFileInfo* fi;
     FmPath* path;
+    FmIcon* icon;
+    GdkPixbuf* pix;
 
     /* g_debug("file info job finished"); */
     model->jobs = g_slist_remove(model->jobs, job);
@@ -175,6 +177,16 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
                     {
                         fm_file_info_unref(item->fi);
                         item->fi = fm_file_info_ref(fi);
+                        icon = fm_file_info_get_icon(fi);
+                        /* replace the icon with updated data */
+                        if(icon && icon != item->icon)
+                        {
+                            fm_icon_unref(item->icon);
+                            item->icon = fm_icon_ref(icon);
+                            pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
+                            gtk_list_store_set(GTK_LIST_STORE(model), &it,
+                                               FM_PLACES_MODEL_COL_ICON, pix, -1);
+                        }
                         /* remove the file from list to speed up further loading.
                       * This won't cause problem since nobody else if using the list. */
                         fm_file_info_list_delete_link(job->file_infos, l);
