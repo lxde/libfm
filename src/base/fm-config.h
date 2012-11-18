@@ -61,6 +61,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SHOW_FULL_NAMES   FALSE
 #define     FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES FALSE
 #define     FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP  FALSE
+#define     FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE   FALSE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -108,6 +109,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @places_unmounted: show unmounted internal volumes in Places
  * @only_user_templates: show only user defined templates in 'Create...' menu
  * @template_run_app: run default application after creation from template
+ * @template_type_once: use only one template of each MIME type
  */
 struct _FmConfig
 {
@@ -152,6 +154,7 @@ struct _FmConfig
 
     gboolean only_user_templates;
     gboolean template_run_app;
+    gboolean template_type_once;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;

@@ -42,6 +42,7 @@
 #include "fm-templates.h"
 #include "fm-monitor.h"
 #include "fm-dir-list-job.h"
+#include "fm-config.h"
 
 typedef struct _FmTemplateFile  FmTemplateFile;
 typedef struct _FmTemplateDir   FmTemplateDir;
@@ -416,9 +417,9 @@ static FmTemplate *_fm_template_update(FmTemplate *templ)
     return new_templ;
 }
 
-/* add file into FmTemplate and update */
+/* add file into FmTemplate */
 /* requires lock held */
-static FmTemplate *_fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
+static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
 {
     FmTemplateDir *last_dir = templates_dirs;
     FmTemplateFile *last = NULL, *next;
@@ -447,7 +448,6 @@ static FmTemplate *_fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile 
         last->next_in_templ = file;
     else
         templ->files = file;
-    return _fm_template_update(templ);
 }
 
 /* delete file from FmTemplate and free it */
@@ -520,6 +520,7 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
             dir->files->prev_in_dir = file;
         dir->files = file;
         _fm_template_insert_sorted(templ, file);
+        _fm_template_update(templ);
         G_UNLOCK(templates);
     }
 }
@@ -609,6 +610,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 dir->files->prev_in_dir = file;
                 dir->files = file;
                 _fm_template_insert_sorted(templ, file);
+                _fm_template_update(templ);
                 G_UNLOCK(templates);
             }
             else
@@ -651,6 +653,15 @@ static void _template_dir_init(FmTemplateDir *dir, GFile *gf)
         g_error_free(error);
     }
     g_object_unref(job);
+}
+
+static void on_once_type_changed(FmConfig *cfg, gpointer unused)
+{
+    G_LOCK(templates);
+    /* ... rebuild templates list from known files ... */
+    /* update all templates now */
+    /* g_list_foreach(templates, (GFunc)_fm_template_update, NULL); */
+    G_UNLOCK(templates);
 }
 
 void _fm_templates_init(void)
@@ -719,6 +730,8 @@ void _fm_templates_init(void)
     _template_dir_init(dir, gfile);
     g_object_unref(gfile);
     /* jobs will fill list of files async */
+    g_signal_connect(fm_config, "changed::template_type_once",
+                     G_CALLBACK(on_once_type_changed), NULL);
 }
 
 void _fm_templates_finalize(void)
@@ -726,6 +739,7 @@ void _fm_templates_finalize(void)
     FmTemplateDir *dir;
     FmTemplateFile *file;
 
+    g_signal_handlers_disconnect_by_func(fm_config, on_once_type_changed, NULL);
     while(templates_dirs)
     {
         dir = templates_dirs;

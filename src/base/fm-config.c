@@ -127,6 +127,7 @@ static void fm_config_init(FmConfig *self)
     self->show_full_names = FM_CONFIG_DEFAULT_SHOW_FULL_NAMES;
     self->only_user_templates = FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES;
     self->template_run_app = FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP;
+    self->template_type_once = FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE;
     self->places_home = FM_CONFIG_DEFAULT_PLACES_HOME;
     self->places_desktop = FM_CONFIG_DEFAULT_PLACES_DESKTOP;
     self->places_root = FM_CONFIG_DEFAULT_PLACES_ROOT;
@@ -200,6 +201,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "show_full_names", &cfg->show_full_names);
     fm_key_file_get_bool(kf, "config", "only_user_templates", &cfg->only_user_templates);
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
+    fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -314,6 +316,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "show_full_names=%d\n", cfg->show_full_names);
             fprintf(f, "only_user_templates=%d\n", cfg->only_user_templates);
             fprintf(f, "template_run_app=%d\n", cfg->template_run_app);
+            fprintf(f, "template_type_once=%d\n", cfg->template_type_once);
             fprintf(f, "auto_selection_delay=%d\n", cfg->auto_selection_delay);
             fprintf(f, "drop_default_action=%d\n", cfg->drop_default_action);
 #ifdef USE_UDISKS
