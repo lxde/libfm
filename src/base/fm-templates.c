@@ -158,6 +158,14 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
     {
         type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                      G_KEY_FILE_DESKTOP_KEY_TYPE, NULL);
+        if(type && strcmp(type, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) == 0)
+        {
+            /* Type=Application, assume it's just file */
+            g_key_file_free(kf);
+            g_free(filename);
+            g_free(type);
+            return fm_mime_type_ref(_fm_mime_type_get_application_x_desktop());
+        }
         if(!type || strcmp(type, G_KEY_FILE_DESKTOP_TYPE_LINK) != 0)
         {
             /* desktop entry file invalid as template */
@@ -277,6 +285,19 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
             /* FIXME: test for G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN ? */
             if(!hidden)
             {
+                tmp = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                            G_KEY_FILE_DESKTOP_KEY_TYPE, NULL);
+                if(!tmp || strcmp(tmp, G_KEY_FILE_DESKTOP_TYPE_LINK) != 0)
+                {
+                    /* it seems it's just Application template */
+                    g_key_file_free(kf);
+                    g_free(filename);
+                    g_free(tmp);
+                    if(!templ->template_file)
+                        templ->template_file = fm_path_ref(file->path);
+                    return;
+                }
+                g_free(tmp);
                 tmp = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                             G_KEY_FILE_DESKTOP_KEY_URL, NULL);
                 if(tmp)
