@@ -87,9 +87,6 @@ static void fm_template_finalize(GObject *object)
     FmTemplate *self;
 
     g_return_if_fail(FM_IS_TEMPLATE(object));
-    G_LOCK(templates);
-    templates = g_list_remove(templates, object);
-    G_UNLOCK(templates);
     self = (FmTemplate*)object;
     if(self->files)
         g_error("template reference failure");
@@ -261,18 +258,23 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path,
                 fm_path_get_basename(path)); */
         return NULL;
     }
+    G_LOCK(templates);
     for(l = templates; l; l = l->next)
         if(((FmTemplate*)l->data)->mime_type == mime_type)
         {
+            templ = g_object_ref(l->data);
+            G_UNLOCK(templates);
             fm_mime_type_unref(mime_type);
-            return g_object_ref(l->data);
+            return templ;
         }
     templ = fm_template_new();
     templ->mime_type = mime_type;
-    templates = g_list_prepend(templates, templ);
+    templates = g_list_prepend(templates, g_object_ref(templ));
+    G_UNLOCK(templates);
     return templ;
 }
 
+/* requires lock held */
 static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *file)
 {
     if(file == NULL)
@@ -358,8 +360,15 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
 }
 
 /* recreate data in FmTemplate from entries */
+/* requires lock held */
 static void _fm_template_update(FmTemplate *templ)
 {
+    if(templ->files == NULL) /* template is empty now */
+    {
+        templates = g_list_remove(templates, templ);
+        g_object_unref(templ); /* we removed it from list so drop reference */
+        return;
+    }
     /* free all data */
     if(templ->template_file)
         fm_path_unref(templ->template_file);
@@ -688,6 +697,9 @@ void _fm_templates_finalize(void)
         }
         g_slice_free(FmTemplateDir, dir);
     }
+    g_list_foreach(templates, (GFunc)g_object_unref, NULL);
+    g_list_free(templates);
+    templates = NULL;
 }
 
 /**
