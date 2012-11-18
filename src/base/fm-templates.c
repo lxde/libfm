@@ -141,7 +141,8 @@ static FmTemplateDir *templates_dirs = NULL;
 /* determine mime type for the template
    using just fm_mime_type_* for this isn't appropriate because
    we need completely another guessing for templates content */
-static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_type)
+static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_type,
+                                                FmPath **tpath)
 {
     const gchar *basename = fm_path_get_basename(path);
     FmPath *subpath = NULL;
@@ -150,7 +151,11 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
 
     /* if file is desktop entry then find the real template file path */
     if(mime_type != _fm_mime_type_get_application_x_desktop())
+    {
+        if(tpath)
+            *tpath = fm_path_ref(path);
         return fm_mime_type_ref(mime_type);
+    }
     /* parse file to find mime type */
     kf = g_key_file_new();
     filename = fm_path_to_str(path);
@@ -165,6 +170,8 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
             g_key_file_free(kf);
             g_free(filename);
             g_free(type);
+            if(tpath)
+                *tpath = fm_path_ref(path);
             return fm_mime_type_ref(_fm_mime_type_get_application_x_desktop());
         }
         if(!type || strcmp(type, G_KEY_FILE_DESKTOP_TYPE_LINK) != 0)
@@ -176,17 +183,6 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
             return NULL;
         }
         g_free(type);
-        /* some templates may have 'MimeType' key */
-        type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                     G_KEY_FILE_DESKTOP_KEY_MIME_TYPE, NULL);
-        if(type)
-        {
-            g_key_file_free(kf);
-            g_free(filename);
-            mime_type = fm_mime_type_from_name(type);
-            g_free(type);
-            return mime_type;
-        }
         /* valid template should have 'URL' key */
         url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                     G_KEY_FILE_DESKTOP_KEY_URL, NULL);
@@ -203,7 +199,26 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
             g_free(url);
         }
         else
+        {
+            g_key_file_free(kf);
+            g_free(filename);
             return NULL; /* invalid template file */
+        }
+        /* some templates may have 'MimeType' key */
+        type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                     G_KEY_FILE_DESKTOP_KEY_MIME_TYPE, NULL);
+        if(type)
+        {
+            if(tpath)
+                *tpath = subpath;
+            else
+                fm_path_unref(subpath);
+            g_key_file_free(kf);
+            g_free(filename);
+            mime_type = fm_mime_type_from_name(type);
+            g_free(type);
+            return mime_type;
+        }
     }
     /* so we have real template file now, guess from file content first */
     mime_type = NULL;
@@ -250,7 +265,9 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
         /* ignore unrecognizable files instead of using application/octet-stream */
     }
     g_free(filename);
-    if(subpath)
+    if(tpath)
+        *tpath = subpath;
+    else if(subpath)
         fm_path_unref(subpath);
     return mime_type;
 }
@@ -260,25 +277,53 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
 {
     GList *l;
     FmTemplate *templ;
+    FmPath *tpath = NULL;
+    gboolean template_type_once = fm_config->template_type_once;
 
-    mime_type = _fm_template_guess_mime_type(path, mime_type);
+    if(template_type_once)
+        mime_type = _fm_template_guess_mime_type(path, mime_type, NULL);
+    else
+        mime_type = _fm_template_guess_mime_type(path, mime_type, &tpath);
     if(!mime_type)
     {
         /* g_debug("could not guess MIME type for template %s, ignoring it",
                 fm_path_get_basename(path)); */
         return NULL;
     }
+    if(!template_type_once && !tpath)
+    {
+        /* g_debug("no basename defined in template %s, ignoring it",
+                fm_path_get_basename(path)); */
+        fm_mime_type_unref(mime_type);
+        return NULL;
+    }
     G_LOCK(templates);
     for(l = templates; l; l = l->next)
-        if(((FmTemplate*)l->data)->mime_type == mime_type)
+    {
+        templ = l->data;
+        if(!template_type_once)
         {
-            templ = g_object_ref(l->data);
+            if(strcmp(fm_path_get_basename(templ->template_file),
+                      fm_path_get_basename(tpath)) == 0)
+            {
+                g_object_ref(templ);
+                G_UNLOCK(templates);
+                fm_mime_type_unref(mime_type);
+                fm_path_unref(tpath);
+                return templ;
+            }
+        }
+        else if(templ->mime_type == mime_type)
+        {
+            g_object_ref(templ);
             G_UNLOCK(templates);
             fm_mime_type_unref(mime_type);
             return templ;
         }
+    }
     templ = fm_template_new();
     templ->mime_type = mime_type;
+    templ->template_file = tpath;
     templates = g_list_prepend(templates, g_object_ref(templ));
     G_UNLOCK(templates);
     return templ;
@@ -884,6 +929,16 @@ const gchar *fm_template_get_prompt(FmTemplate *templ)
  */
 const gchar *fm_template_get_label(FmTemplate *templ)
 {
+    if(!templ->label && !fm_config->template_type_once && templ->template_file)
+    {
+        /* set label to filename if no MIME types are used */
+        const char *basename = fm_path_get_basename(templ->template_file);
+        const char *tmp = strrchr(basename, '.'); /* strip last suffix */
+        if(tmp)
+            templ->label = g_strndup(basename, tmp - basename);
+        else
+            templ->label = g_strdup(basename);
+    }
     return templ->label;
 }
 
