@@ -38,9 +38,6 @@
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 #include "fm-templates.h"
 #include "fm-monitor.h"
@@ -141,60 +138,58 @@ static FmTemplateDir *templates_dirs = NULL;
 
 
 /* determine mime type for the template
-   using fm_mime_type_* for this isn't appropriate because
+   using just fm_mime_type_* for this isn't appropriate because
    we need completely another guessing for templates content */
-static FmMimeType *_fm_template_guess_mime_type(FmPath *path,
-                                                gboolean is_desktop_entry)
+static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_type)
 {
     const gchar *basename = fm_path_get_basename(path);
     FmPath *subpath = NULL;
     gchar *filename, *type, *url;
-    FmMimeType *mime_type;
     GKeyFile *kf;
-    gboolean uncertain;
-    struct stat st;
 
     /* if file is desktop entry then find the real template file path */
-    if(is_desktop_entry)
+    if(mime_type != _fm_mime_type_get_application_x_desktop())
+        return fm_mime_type_ref(mime_type);
+    /* parse file to find mime type */
+    kf = g_key_file_new();
+    filename = fm_path_to_str(path);
+    type = NULL;
+    if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, NULL))
     {
-        /* parse file to find mime type */
-        kf = g_key_file_new();
-        filename = fm_path_to_str(path);
-        type = NULL;
-        if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, NULL))
-        {
-            /* some templates may have 'MimeType' key */
-            type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                         G_KEY_FILE_DESKTOP_KEY_MIME_TYPE, NULL);
-            if(!type)
-            {
-                /* valid template should have 'URL' key */
-                url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                            G_KEY_FILE_DESKTOP_KEY_URL, NULL);
-                if(url)
-                {
-                    if(G_UNLIKELY(url[0] == '/')) /* absolute path */
-                        subpath = fm_path_new_for_str(url);
-                    else /* path relative to directory containing file */
-                        subpath = fm_path_new_relative(fm_path_get_parent(path), url);
-                    path = subpath; /* shift to new path */
-                    basename = fm_path_get_basename(path);
-                    g_free(url);
-                }
-            }
-        }
-        g_key_file_free(kf);
-        g_free(filename);
+        /* some templates may have 'MimeType' key */
+        type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                     G_KEY_FILE_DESKTOP_KEY_MIME_TYPE, NULL);
         if(type)
-            goto _found;
+        {
+            g_key_file_free(kf);
+            g_free(filename);
+            mime_type = fm_mime_type_from_name(type);
+            g_free(type);
+            return mime_type;
+        }
+        /* valid template should have 'URL' key */
+        url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                    G_KEY_FILE_DESKTOP_KEY_URL, NULL);
+        if(url)
+        {
+            if(G_UNLIKELY(url[0] == '/')) /* absolute path */
+                subpath = fm_path_new_for_str(url);
+            else /* path relative to directory containing file */
+                subpath = fm_path_new_relative(fm_path_get_parent(path), url);
+            path = subpath; /* shift to new path */
+            basename = fm_path_get_basename(path);
+            g_free(url);
+        }
+        else
+            return NULL; /* invalid template file */
     }
     /* so we have real template file now, guess from file name first */
+    mime_type = NULL;
+    filename = fm_path_to_str(path);
+    /* type is NULL still */
     if(g_str_has_suffix(basename, ".desktop")) /* template file is an entry */
     {
         kf = g_key_file_new();
-        g_free(type);
-        type = NULL;
-        filename = fm_path_to_str(path);
         if(g_key_file_load_from_file(kf, filename, G_KEY_FILE_NONE, NULL))
         {
             url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
@@ -207,51 +202,25 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path,
                 g_free(url);
             }
         }
-        g_key_file_free(kf);
         if(type) /* type is const string, see above */
-        {
-            g_free(filename);
-            if(subpath)
-                fm_path_unref(subpath);
-            return fm_mime_type_from_name(type);
-        }
+            mime_type = fm_mime_type_from_name(type);
+        g_key_file_free(kf);
     }
-    else
-    {
-        type = g_content_type_guess(basename, NULL, 0, &uncertain);
-        if(type && !uncertain)
-            goto _found;
-        g_free(type);
-        filename = fm_path_to_str(path);
-    }
-    /* no result from name - try file attributes */
-    uncertain = (stat(filename, &st) < 0);
+    if(!mime_type)
+        mime_type = fm_mime_type_from_native_file(filename, basename, NULL);
     g_free(filename);
-    if(subpath) /* we don't need it anymore so free now */
-        fm_path_unref(subpath);
-    if(uncertain) /* no such file or directory */
-        return NULL;
-    if(S_ISDIR(st.st_mode))
-        return fm_mime_type_from_name("inode/directory");
-    /* FIXME: should we support templates for devices too? */
-    return NULL;
-
-_found:
     if(subpath)
         fm_path_unref(subpath);
-    mime_type = fm_mime_type_from_name(type);
-    g_free(type);
     return mime_type;
 }
 
 /* find or create new FmTemplate */
-static FmTemplate *_fm_template_find_for_file(FmPath *path,
-                                              gboolean is_desktop_entry)
+static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_type)
 {
     GList *l;
     FmTemplate *templ;
-    FmMimeType *mime_type = _fm_template_guess_mime_type(path, is_desktop_entry);
 
+    mime_type = _fm_template_guess_mime_type(path, mime_type);
     if(!mime_type)
     {
         /* g_debug("could not guess MIME type for template %s, ignoring it",
@@ -478,7 +447,7 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
             continue;
         /* ensure the path is based on dir->path */
         path = fm_path_new_child(dir->path, fm_path_get_basename(path));
-        templ = _fm_template_find_for_file(path, fm_file_info_is_desktop_entry(fi));
+        templ = _fm_template_find_for_file(path, fm_file_info_get_mime_type(fi));
         if(!templ) /* mime type guessing error */
         {
             fm_path_unref(path);
@@ -504,11 +473,11 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                            GFileMonitorEvent evt, FmTemplateDir *dir)
 {
     GFile *gfile = fm_path_to_gfile(dir->path);
-    char *basename;
+    char *basename, *pathname;
     FmTemplateFile *file;
     FmPath *path;
     FmTemplate *templ;
-    gboolean is_desktop_entry;
+    FmMimeType *mime_type;
 
     if(g_file_equal(gf, gfile))
     {
@@ -568,14 +537,16 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         if(!file && basename[0] != '.' && g_str_has_suffix(basename, "~"))
         {
             path = fm_path_new_child(dir->path, basename);
-            is_desktop_entry = g_str_has_suffix(basename, ".desktop");
-            templ = _fm_template_find_for_file(path, is_desktop_entry);
+            pathname = fm_path_to_str(path);
+            mime_type = fm_mime_type_from_native_file(pathname, basename, NULL);
+            g_free(pathname);
+            templ = _fm_template_find_for_file(path, mime_type);
             if(templ)
             {
                 file = g_slice_new(FmTemplateFile);
                 file->templ = templ;
                 file->path = path;
-                file->is_desktop_entry = is_desktop_entry;
+                file->is_desktop_entry = (mime_type == _fm_mime_type_get_application_x_desktop());
                 file->dir = dir;
                 G_LOCK(templates);
                 file->next_in_dir = dir->files;
@@ -591,6 +562,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 g_warning("could not guess type of template %s, ignoring it",
                           basename);
             }
+            fm_mime_type_unref(mime_type);
         }
         else
             g_debug("templates monitor: duplicate file %s", basename);
