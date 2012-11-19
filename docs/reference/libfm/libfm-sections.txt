@@ -687,6 +687,7 @@ fm_unmount_mount
 fm_unmount_volume
 fm_unset_busy_cursor
 fm_untrash_files
+fm_widget_menu_fix_tooltips
 fm_yes_no
 </SECTION>
 

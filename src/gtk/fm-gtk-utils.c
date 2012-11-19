@@ -3,6 +3,7 @@
  *
  *      Copyright 2009 PCMan <pcman@debian>
  *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012 Vadim Ushakov <igeekless@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1116,4 +1117,69 @@ void fm_unset_busy_cursor(GtkWidget* widget)
         GdkWindow* window = gtk_widget_get_window(widget);
         gdk_window_set_cursor(window, NULL);
     }
+}
+
+static void assign_tooltip_from_action(GtkWidget* widget)
+{
+    GtkAction* action;
+    const gchar * tooltip;
+
+    action = gtk_activatable_get_related_action(GTK_ACTIVATABLE(widget));
+    if (!action)
+        return;
+
+    if (!gtk_activatable_get_use_action_appearance(GTK_ACTIVATABLE(widget)))
+        return;
+
+    tooltip = gtk_action_get_tooltip(action);
+    if (tooltip)
+    {
+        gtk_widget_set_tooltip_text(widget, tooltip);
+        gtk_widget_set_has_tooltip(widget, TRUE);
+    }
+    else
+    {
+        gtk_widget_set_has_tooltip(widget, FALSE);
+    }
+}
+
+static void assign_tooltips_from_actions(GtkWidget* widget)
+{
+    if(G_LIKELY(GTK_IS_MENU_ITEM(widget)))
+    {
+        if(GTK_IS_ACTIVATABLE(widget))
+            assign_tooltip_from_action(widget);
+        widget = gtk_menu_item_get_submenu((GtkMenuItem*)widget);
+        if(widget)
+            assign_tooltips_from_actions(widget);
+    }
+    else if (GTK_IS_CONTAINER(widget))
+    {
+        gtk_container_forall((GtkContainer*)widget,
+                             (GtkCallback)assign_tooltips_from_actions, NULL);
+    }
+}
+
+/**
+ * fm_widget_menu_fix_tooltips
+ * @menu: a #GtkMenu instance
+ *
+ * Fix on GTK bug: it does not assign tooltips of menu items from
+ * appropriate #GtkAction objects. This API assigns them instead.
+ *
+ * Since: 1.2.0
+ */
+void fm_widget_menu_fix_tooltips(GtkMenu *menu)
+{
+    GtkWidget *parent;
+    GtkSettings *settings;
+    gboolean tooltips_enabled;
+
+    g_return_if_fail(GTK_IS_MENU(menu));
+    parent = gtk_menu_get_attach_widget(menu);
+    settings = parent ? gtk_settings_get_for_screen(gtk_widget_get_screen(parent))
+                      : gtk_settings_get_default();
+    g_object_get(G_OBJECT(settings), "gtk-enable-tooltips", &tooltips_enabled, NULL);
+    if(tooltips_enabled)
+        assign_tooltips_from_actions(GTK_WIDGET(menu));
 }

@@ -109,6 +109,8 @@ void fm_empty_trash(GtkWindow* parent);
 void fm_set_busy_cursor(GtkWidget* widget);
 void fm_unset_busy_cursor(GtkWidget* widget);
 
+void fm_widget_menu_fix_tooltips(GtkMenu *menu);
+
 G_END_DECLS
 
 #endif /* __FM_GTK_UTILS_H__ */
