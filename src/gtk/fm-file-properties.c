@@ -591,8 +591,8 @@ static void update_permissions(FmFilePropData* data)
     /* on local filesystems, only root can do chown. */
     if( data->all_native && geteuid() != 0 )
     {
-        gtk_editable_set_editable(GTK_EDITABLE(data->owner), FALSE);
-        gtk_editable_set_editable(GTK_EDITABLE(data->group), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(data->owner), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(data->group), FALSE);
     }
 
     /* read access chooser */
