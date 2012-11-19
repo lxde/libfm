@@ -273,6 +273,7 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
 }
 
 /* find or create new FmTemplate */
+/* requires lock held */
 static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_type)
 {
     GList *l;
@@ -297,7 +298,6 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
         fm_mime_type_unref(mime_type);
         return NULL;
     }
-    G_LOCK(templates);
     for(l = templates; l; l = l->next)
     {
         templ = l->data;
@@ -307,7 +307,6 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
                       fm_path_get_basename(tpath)) == 0)
             {
                 g_object_ref(templ);
-                G_UNLOCK(templates);
                 fm_mime_type_unref(mime_type);
                 fm_path_unref(tpath);
                 return templ;
@@ -316,7 +315,6 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
         else if(templ->mime_type == mime_type)
         {
             g_object_ref(templ);
-            G_UNLOCK(templates);
             fm_mime_type_unref(mime_type);
             return templ;
         }
@@ -325,7 +323,6 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
     templ->mime_type = mime_type;
     templ->template_file = tpath;
     templates = g_list_prepend(templates, g_object_ref(templ));
-    G_UNLOCK(templates);
     return templ;
 }
 
@@ -547,7 +544,9 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
             continue;
         /* ensure the path is based on dir->path */
         path = fm_path_new_child(dir->path, fm_path_get_basename(path));
+        G_LOCK(templates);
         templ = _fm_template_find_for_file(path, fm_file_info_get_mime_type(fi));
+        G_UNLOCK(templates);
         if(!templ) /* mime type guessing error */
         {
             fm_path_unref(path);
@@ -641,6 +640,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
             pathname = fm_path_to_str(path);
             mime_type = fm_mime_type_from_native_file(pathname, basename, NULL);
             g_free(pathname);
+            G_LOCK(templates);
             templ = _fm_template_find_for_file(path, mime_type);
             if(templ)
             {
@@ -649,7 +649,6 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 file->path = path;
                 file->is_desktop_entry = (mime_type == _fm_mime_type_get_application_x_desktop());
                 file->dir = dir;
-                G_LOCK(templates);
                 file->next_in_dir = dir->files;
                 file->prev_in_dir = NULL;
                 dir->files->prev_in_dir = file;
@@ -660,6 +659,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
             }
             else
             {
+                G_UNLOCK(templates);
                 fm_path_unref(path);
                 g_warning("could not guess type of template %s, ignoring it",
                           basename);
@@ -702,10 +702,29 @@ static void _template_dir_init(FmTemplateDir *dir, GFile *gf)
 
 static void on_once_type_changed(FmConfig *cfg, gpointer unused)
 {
+    GList *l, *old_list;
+    FmTemplateFile *file;
+    FmTemplate *templ;
+
     G_LOCK(templates);
-    /* ... rebuild templates list from known files ... */
+    /* rebuild templates list from known files */
+    old_list = templates;
+    templates = NULL;
+    for(l = old_list; l; l = l->next)
+    {
+        templ = l->data;
+        while((file = templ->files))
+        {
+            templ->files = file->next_in_templ;
+            file->templ = _fm_template_find_for_file(file->path, templ->mime_type);
+            _fm_template_insert_sorted(file->templ, file);
+            g_object_unref(templ); /* for a removed file */
+        }
+        g_object_unref(templ); /* for removing from list */
+    }
+    g_list_free(old_list);
     /* update all templates now */
-    /* g_list_foreach(templates, (GFunc)_fm_template_update, NULL); */
+    g_list_foreach(templates, (GFunc)_fm_template_update, NULL);
     G_UNLOCK(templates);
 }
 
