@@ -772,9 +772,16 @@ static void update_ui(FmFilePropData* data)
         time_t atime;
         struct tm tm;
         gtk_entry_set_text(data->name, fm_file_info_get_disp_name(data->fi));
+        /* FIXME: check if text fits in line */
+        if(strlen(fm_file_info_get_disp_name(data->fi)) > 16)
+            gtk_widget_set_tooltip_text(GTK_WIDGET(data->name),
+                                        fm_file_info_get_disp_name(data->fi));
         if(parent_str)
         {
             gtk_label_set_text(data->dir, parent_str);
+            /* FIXME: check if text fits in line */
+            if(strlen(parent_str) > 16)
+                gtk_widget_set_tooltip_text(GTK_WIDGET(data->dir), parent_str);
             g_free(parent_str);
         }
         else
