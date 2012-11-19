@@ -346,6 +346,7 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
             hidden = g_key_file_get_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
                                             G_KEY_FILE_DESKTOP_KEY_HIDDEN, NULL);
             file->inactive = hidden;
+            /* g_debug("%s hidden: %d", filename, hidden); */
             /* FIXME: test for G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN ? */
             if(!hidden)
             {
@@ -453,9 +454,12 @@ static FmTemplate *_fm_template_update(FmTemplate *templ)
         file->templ = g_object_ref(new_templ);
         g_object_unref(templ);
     }
-    g_object_unref(templ); /* we removed it from list so drop reference */
     /* update from file list */
     _fm_template_update_from_file(new_templ, new_templ->files);
+    /* set template if it's not set, sorting by name requires it */
+    if(!new_templ->template_file && templ->template_file && !fm_config->template_type_once)
+        new_templ->template_file = fm_path_ref(templ->template_file);
+    g_object_unref(templ); /* we removed it from list so drop reference */
     return new_templ;
 }
 
