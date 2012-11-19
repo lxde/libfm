@@ -121,7 +121,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label5">
+                      <object class="GtkLabel" id="total_size_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
@@ -137,7 +137,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label7">
+                      <object class="GtkLabel" id="mtime_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
@@ -185,7 +185,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label13">
+                      <object class="GtkLabel" id="atime_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
@@ -263,7 +263,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label21">
+                      <object class="GtkLabel" id="size_on_disk_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
