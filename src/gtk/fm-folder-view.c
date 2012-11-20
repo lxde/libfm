@@ -34,9 +34,9 @@
  * which does folder operations and consists of items:
  * |[
  * CreateNew -> NewFolder
- *              NewBlank
- *              NewShortcut
  *              &lt;placeholder name='ph1'/&gt;
+ *              ----------------
+ *              NewBlank
  * ------------------------
  * Paste
  * Cut
@@ -100,6 +100,8 @@ static const char folder_popup_xml[] =
     "<menuitem action='NewFolder'/>"
     /* placeholder for ~/Templates support */
     "<placeholder name='ph1'/>"
+    "<separator/>"
+    "<menuitem action='NewBlank'/>"
   "</menu>"
   "<separator/>"
   "<menuitem action='Paste'/>"
@@ -169,7 +171,7 @@ static const GtkActionEntry folder_popup_actions[]=
     {"NewFolder", "folder", N_("Folder"), "<Ctrl><Shift>N", NULL, G_CALLBACK(on_create_new)},
     {"NewFolder2", NULL, NULL, "Insert", NULL, G_CALLBACK(on_create_new)},
     {"NewFolder3", NULL, NULL, "KP_Insert", NULL, G_CALLBACK(on_create_new)},
-    {"NewBlank", "text-x-generic", N_("Blank File"), NULL, NULL, G_CALLBACK(on_create_new)},
+    {"NewBlank", NULL, N_("Empty File"), NULL, NULL, G_CALLBACK(on_create_new)},
     /* {"NewShortcut", "system-run", N_("Shortcut"), NULL, NULL, G_CALLBACK(on_create_new)}, */
     {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, G_CALLBACK(on_cut)},
     {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, G_CALLBACK(on_copy)},
