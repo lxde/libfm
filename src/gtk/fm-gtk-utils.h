@@ -48,7 +48,7 @@ int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va
 
 char* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text);
 gchar* fm_get_user_input_n(GtkWindow* parent, const char* title, const char* msg,
-                           const char* default_text, gint n);
+                           const char* default_text, gint n, GtkWidget* extra);
 FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path);
 
 /* Ask the user to select a folder. */

@@ -48,7 +48,7 @@
 #include "fm-config.h"
 
 static GtkDialog*   _fm_get_user_input_dialog   (GtkWindow* parent, const char* title, const char* msg);
-static gchar*       _fm_user_input_dialog_run   (GtkDialog* dlg, GtkEntry *entry);
+static gchar*       _fm_user_input_dialog_run   (GtkDialog* dlg, GtkEntry *entry, GtkWidget *extra);
 
 /**
  * fm_show_error
@@ -253,7 +253,7 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
     if(default_text && default_text[0])
         gtk_entry_set_text(entry, default_text);
 
-    return _fm_user_input_dialog_run(dlg, entry);
+    return _fm_user_input_dialog_run(dlg, entry, NULL);
 }
 
 /**
@@ -263,6 +263,7 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
  * @msg: the message to present to the user
  * @default_text: the default answer
  * @n: which part of default answer should be selected
+ * @extra: additional widgets to display (can be focusable)
  *
  * Presents the message to user and retrieves entered text.
  * In presented dialog the part of @default_text with length @n will be
@@ -274,7 +275,7 @@ gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, 
  * Since: 1.2.0
  */
 gchar* fm_get_user_input_n(GtkWindow* parent, const char* title, const char* msg,
-                           const char* default_text, gint n)
+                           const char* default_text, gint n, GtkWidget* extra)
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
     GtkEntry* entry = GTK_ENTRY(gtk_entry_new());
@@ -286,7 +287,7 @@ gchar* fm_get_user_input_n(GtkWindow* parent, const char* title, const char* msg
         gtk_editable_select_region(GTK_EDITABLE(entry), 0, n);
     }
 
-    return _fm_user_input_dialog_run(dlg, entry);
+    return _fm_user_input_dialog_run(dlg, entry, extra);
 }
 
 /**
@@ -319,7 +320,7 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
         gtk_entry_set_text(entry, path_str);
     }
 
-    str = _fm_user_input_dialog_run(dlg, entry);
+    str = _fm_user_input_dialog_run(dlg, entry, NULL);
     path = fm_path_new_for_str(str);
 
     g_free(path_str);
@@ -367,7 +368,7 @@ static gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, con
         }
     }
 
-    return _fm_user_input_dialog_run(dlg, entry);
+    return _fm_user_input_dialog_run(dlg, entry, NULL);
 }
 
 static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title, const char* msg)
@@ -381,13 +382,14 @@ static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title
                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                 GTK_STOCK_OK, GTK_RESPONSE_OK, NULL));
     GtkWidget* label = gtk_label_new(msg);
+    GtkBox* box = (GtkBox*)gtk_dialog_get_content_area(dlg);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
     gtk_dialog_set_alternative_button_order(dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
-    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(dlg), 6);
-    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(dlg), label, FALSE, TRUE, 6);
+    gtk_box_set_spacing(box, 6);
+    gtk_box_pack_start(box, label, FALSE, TRUE, 6);
 
-    gtk_container_set_border_width(GTK_CONTAINER((GtkBox*)gtk_dialog_get_content_area(dlg)), 12);
+    gtk_container_set_border_width(GTK_CONTAINER(box), 12);
     gtk_container_set_border_width(GTK_CONTAINER(dlg), 5);
     gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
     gtk_window_set_default_size(GTK_WINDOW(dlg), 480, -1);
@@ -395,17 +397,20 @@ static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title
     return dlg;
 }
 
-static gchar* _fm_user_input_dialog_run(GtkDialog* dlg, GtkEntry *entry)
+static gchar* _fm_user_input_dialog_run(GtkDialog* dlg, GtkEntry *entry,
+                                        GtkWidget *extra)
 {
     char* str = NULL;
+    GtkBox *box = GTK_BOX(gtk_dialog_get_content_area(dlg));
     int sel_start, sel_end;
     gboolean has_sel;
 
     /* FIXME: this workaround is used to overcome bug of gtk+.
      * gtk+ seems to ignore select region and select all text for entry in dialog. */
     has_sel = gtk_editable_get_selection_bounds(GTK_EDITABLE(entry), &sel_start, &sel_end);
-    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(dlg)),
-                       GTK_WIDGET(entry), FALSE, TRUE, 6);
+    gtk_box_pack_start(box, GTK_WIDGET(entry), FALSE, TRUE, extra ? 0 : 6);
+    if(extra)
+        gtk_box_pack_start(box, extra, FALSE, TRUE, 0);
     gtk_widget_show_all(GTK_WIDGET(dlg));
 
     if(has_sel)

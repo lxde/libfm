@@ -839,7 +839,8 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
                                              fm_mime_type_get_desc(mime_type));
         name_template = fm_template_get_name(templ, &n);
     }
-    basename = fm_get_user_input_n(GTK_WINDOW(win), header, prompt, name_template, n);
+    basename = fm_get_user_input_n(GTK_WINDOW(win), header, prompt,
+                                   name_template, n, NULL);
     if(templ)
     {
         g_free(_prompt);
