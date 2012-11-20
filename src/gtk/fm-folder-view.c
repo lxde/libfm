@@ -783,6 +783,11 @@ void fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths)
     }
 }
 
+static void on_run_app_toggled(GtkToggleButton *button, gboolean *run)
+{
+    *run = gtk_toggle_button_get_active(button);
+}
+
 static void on_create_new(GtkAction* act, FmFolderView* fv)
 {
     const char* name = gtk_action_get_name(act);
@@ -797,7 +802,8 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     FmPath *dest;
     GFile *gf;
     GError *error = NULL;
-    gboolean new_folder = FALSE;
+    GtkWidget *run_button, *sub_button;
+    gboolean new_folder = FALSE, run_app;
     gint n;
 
     if(strncmp(name, "NewFolder", 9) == 0)
@@ -826,6 +832,8 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     {
         name_template = _("New");
         n = -1;
+        run_app = FALSE;
+        run_button = NULL;
     }
     else
     {
@@ -838,9 +846,16 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
         header = g_strdup_printf(_("Creating %s"), label ? label :
                                              fm_mime_type_get_desc(mime_type));
         name_template = fm_template_get_name(templ, &n);
+        run_app = fm_config->template_run_app;
+        sub_button = gtk_check_button_new_with_mnemonic(_("_Run default application on file after creation"));
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sub_button), run_app);
+        g_signal_connect(sub_button, "toggled", G_CALLBACK(on_run_app_toggled), &run_app);
+        run_button = gtk_alignment_new(0, 0, 1, 1);
+        gtk_alignment_set_padding(GTK_ALIGNMENT(run_button), 0, 0, 16, 0);
+        gtk_container_add(GTK_CONTAINER(run_button), sub_button);
     }
     basename = fm_get_user_input_n(GTK_WINDOW(win), header, prompt,
-                                   name_template, n, NULL);
+                                   name_template, n, run_button);
     if(templ)
     {
         g_free(_prompt);
@@ -853,7 +868,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     gf = fm_path_to_gfile(dest);
     fm_path_unref(dest);
     if(templ)
-        fm_template_create_file(templ, gf, &error, fm_config->template_run_app);
+        fm_template_create_file(templ, gf, &error, run_app);
     else if(new_folder)
         g_file_make_directory(gf, NULL, &error);
     /* specail option 'NewBlank' */
