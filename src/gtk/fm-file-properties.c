@@ -794,7 +794,8 @@ static void update_ui(FmFilePropData* data)
         strftime(buf, sizeof(buf), "%x %R", &tm);
         gtk_label_set_text(data->atime, buf);
         /* FIXME: changing file name isn't implemented yet, disable entry */
-        gtk_widget_set_sensitive(GTK_WIDGET(data->name), FALSE);
+        gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
+        gtk_editable_set_editable(GTK_EDITABLE(data->name), FALSE);
     }
     else
     {
