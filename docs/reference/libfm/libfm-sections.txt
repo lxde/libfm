@@ -832,6 +832,7 @@ fm_path_get_flags
 fm_path_get_home
 fm_path_get_parent
 fm_path_get_root
+fm_path_get_scheme_path
 fm_path_get_trash
 fm_path_has_prefix
 fm_path_hash

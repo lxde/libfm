@@ -687,6 +687,26 @@ FmPath* fm_path_get_parent(FmPath* path)
 }
 
 /**
+ * fm_path_get_scheme_path
+ * @path: a path
+ *
+ * Retrieves a root path for scheme used by @path. If @path is a local
+ * path then returned data are the same as returned with fm_path_get_root().
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: (transfer none): path of root of @path scheme.
+ *
+ * Since: 1.2.0
+ */
+FmPath* fm_path_get_scheme_path(FmPath* path)
+{
+    g_return_val_if_fail(path != NULL, NULL);
+    while(path->parent != NULL)
+        path = path->parent;
+    return path;
+}
+
+/**
  * fm_path_get_basename
  * @path: a path
  *
