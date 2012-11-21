@@ -70,6 +70,9 @@ static FmPath* network_root = NULL;*/
 
 static FmPath* apps_root_path = NULL;
 
+static GHashTable* roots = NULL;
+G_LOCK_DEFINE(roots);
+
 static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
 {
     FmPath* path;
@@ -99,7 +102,7 @@ static inline FmPath* _fm_path_new_internal(FmPath* parent, const char* name, in
  */
 static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** remaining)
 {
-    FmPath* path;
+    FmPath *path, *path2;
     char* buf;
     const char* uri_end = uri + len;
     const char* host;
@@ -193,8 +196,8 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
 
     /* it's reasonable to have double slashes :// for URIs other than mailto: */
     len = scheme_len + 3 + host_len + 1;
-    path = _fm_path_alloc(NULL, len, flags);
-    buf = path->name;
+    path2 = _fm_path_alloc(NULL, len, flags);
+    buf = path2->name;
     memcpy(buf, uri, scheme_len); /* the scheme */
     buf += scheme_len;
     memcpy(buf, "://", 3); /* :// */
@@ -206,6 +209,20 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     }
     buf[0] = '/'; /* the trailing / */
     buf[1] = '\0';
+    G_LOCK(roots);
+    path = g_hash_table_lookup(roots, path2->name);
+    if(path)
+    {
+        fm_path_ref(path);
+        G_UNLOCK(roots);
+        fm_path_unref(path2);
+    }
+    else
+    {
+        path = path2;
+        g_hash_table_insert(roots, path->name, path);
+        G_UNLOCK(roots);
+    }
 
     return path;
 
@@ -645,6 +662,10 @@ void fm_path_unref(FmPath* path)
     {
         if(G_LIKELY(path->parent))
             fm_path_unref(path->parent);
+        G_LOCK(roots);
+        if(roots)
+            g_hash_table_remove(roots, path->name);
+        G_UNLOCK(roots);
         g_free(path);
     }
 }
@@ -1017,10 +1038,22 @@ void _fm_path_init()
     /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
     trash_root_path = _fm_path_new_internal(NULL, "trash:///", 9, FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
     apps_root_path = _fm_path_new_internal(NULL, "menu://applications/", 20, FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
+    roots = g_hash_table_new(g_str_hash, g_str_equal);
+    g_hash_table_insert(roots, apps_root_path->name, apps_root_path);
 }
 
 void _fm_path_finalize(void)
 {
+    fm_path_unref(root_path);
+    fm_path_unref(home_path);
+    fm_path_unref(desktop_path);
+    fm_path_unref(trash_root_path);
+    fm_path_unref(apps_root_path);
+    root_path = home_path = desktop_path = trash_root_path = apps_root_path = NULL;
+    G_LOCK(roots);
+    g_hash_table_destroy(roots);
+    roots = NULL;
+    G_UNLOCK(roots);
 }
 
 /* For used in hash tables */
