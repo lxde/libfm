@@ -687,7 +687,7 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
             /* if the column is already in the folder view, don't add it to the menu */
             if(ld) /* already exists in view, ignore it */
                 continue;
-            menu_item_label = g_strdup_printf(_("Add %s"), label);
+            menu_item_label = g_strdup_printf(_("Show %s"), label);
             menu_item = (GtkMenuItem*)gtk_menu_item_new_with_label(menu_item_label);
             g_object_set_data(G_OBJECT(menu_item), "col_id", GINT_TO_POINTER(i));
             g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_add), col);
