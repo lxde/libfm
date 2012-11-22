@@ -121,11 +121,6 @@ static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
 
-//static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
-
 static FmFolderViewColumnInfo* _sv_column_info_new(FmFolderModelCol col_id)
 {
     FmFolderViewColumnInfo* info = g_slice_new0(FmFolderViewColumnInfo);
@@ -579,13 +574,13 @@ static void on_column_width_changed(GtkTreeViewColumn* col, GParamSpec *pspec,
 #endif
 }
 
-static void on_column_hide(GtkAction* act, GtkTreeViewColumn* col)
+static void on_column_hide(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
 {
     GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
     gtk_tree_view_remove_column(GTK_TREE_VIEW(view), col);
 }
 
-static void on_column_left(GtkAction* act, GtkTreeViewColumn* col)
+static void on_column_move_left(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
 {
     GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
     GList* list, *l;
@@ -598,7 +593,7 @@ static void on_column_left(GtkAction* act, GtkTreeViewColumn* col)
     g_list_free(list);
 }
 
-static void on_column_right(GtkAction* act, GtkTreeViewColumn* col)
+static void on_column_move_right(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
 {
     GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
     GList* list, *l;
@@ -612,18 +607,15 @@ static void on_column_right(GtkAction* act, GtkTreeViewColumn* col)
 
 static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderViewColumnInfo *set);
 
-static void on_column_add(GtkToggleAction* act, GtkTreeViewColumn* col)
+static void on_column_add(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
 {
     GtkWidget *view = gtk_tree_view_column_get_tree_view(col);
     GtkWidget *fv = gtk_widget_get_parent(view);
     GtkTreeViewColumn *new_col;
-    const char *name = gtk_action_get_name(GTK_ACTION(act));
     FmFolderViewColumnInfo info;
-
     g_return_if_fail(FM_IS_STANDARD_VIEW(fv));
-    g_return_if_fail(strncmp(name, "Add", 3) == 0);
     memset(&info, 0, sizeof(info));
-    info.col_id = strtol(&name[3], NULL, 10);
+    info.col_id = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menu_item), "col_id"));
     new_col = create_list_view_column((FmStandardView*)fv, &info);
     if(new_col) /* skip it if failed */
     {
@@ -631,112 +623,81 @@ static void on_column_add(GtkToggleAction* act, GtkTreeViewColumn* col)
     }
 }
 
-static char column_actions_xml[] =
-"<popup>"
-  "<menuitem action='Hide'/>"
-  "<menuitem action='MvLeft'/>"
-  "<menuitem action='MvRight'/>"
-  "<separator/>";
-
-static char column_actions_xml_end[] =
-"</popup>";
-
-static const GtkActionEntry column_actions[] =
-{
-    {"Hide", NULL, N_("_Hide Column"), NULL, NULL, G_CALLBACK(on_column_hide)},
-    {"MvLeft", NULL, N_("Move _Left"), NULL, NULL, G_CALLBACK(on_column_left)},
-    {"MvRight", NULL, N_("Move _Right"), NULL, NULL, G_CALLBACK(on_column_right)}
-};
-
-static gboolean on_button_release_event(GtkWidget *button, GdkEventButton *event,
+static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
                                         GtkTreeViewColumn* col)
 {
     if(event->button == 3)
     {
         GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
         GtkWidget* fv = gtk_widget_get_parent(view);
-        GList *list, *l;
+        GList *columns, *l;
         GSList *cols_list, *ld;
-        GtkUIManager* ui;
-        GtkActionGroup* act_grp;
-        GtkAction* act;
         GtkMenu* menu;
-        GString* str;
+        GtkMenuItem* menu_item;
         const char* label;
-        GtkToggleActionEntry entry;
         guint i;
-        char a[8];
-        char b[64];
 
         g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
-        list = gtk_tree_view_get_columns(GTK_TREE_VIEW(view));
-        l = g_list_find(list, col);
+
+        columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(view));
+        l = g_list_find(columns, col);
         if(l == NULL)
         {
             g_warning("column not found in GtkTreeView");
-            g_list_free(list);
+            g_list_free(columns);
             return FALSE;
         }
-        ui = gtk_ui_manager_new();
-        act_grp = gtk_action_group_new("Popup");
-        gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
-        gtk_action_group_add_actions(act_grp, column_actions,
-                                     G_N_ELEMENTS(column_actions), col);
-        str = g_string_new(column_actions_xml);
+
+        menu = (GtkMenu*)gtk_menu_new();
+        /* destroy the menu when selection is done. */
+        g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+
+        menu_item = (GtkMenuItem*)gtk_menu_item_new_with_mnemonic(_("_Hide Column"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menu_item));
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_hide), col);
+        if(NULL == columns->next) /* the only column, disable Hide */
+            gtk_widget_set_sensitive(GTK_WIDGET(menu_item), FALSE);
+
+        menu_item = (GtkMenuItem*)gtk_menu_item_new_with_mnemonic(_("Move _Left"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menu_item));
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_left), col);
+        if(NULL == l->prev) /* the left most column */
+            gtk_widget_set_sensitive(GTK_WIDGET(menu_item), FALSE);
+
+        menu_item = (GtkMenuItem*)gtk_menu_item_new_with_mnemonic(_("Move _Right"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menu_item));
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_right), col);
+        if(NULL == l->next) /* the right most column */
+            gtk_widget_set_sensitive(GTK_WIDGET(menu_item), FALSE);
+        g_list_free(columns);
+
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
         /* TODO: create list of missing columns for 'Add' submenu */
         cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
-        entry.stock_id = NULL;
-        entry.accelerator = NULL;
-        entry.tooltip = NULL;
-        entry.name = a;
-        entry.is_active = FALSE;
-        entry.callback = G_CALLBACK(on_column_add);
-        entry.label = b;
         for(i = 0; i < FM_FOLDER_MODEL_N_COLS; i++)
         {
+            char* menu_item_label;
             label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
             if(!label)
                 continue;
             for(ld = cols_list; ld; ld = ld->next)
                 if(((FmFolderViewColumnInfo*)ld->data)->col_id == i)
                     break;
+            /* if the column is already in the folder view, don't add it to the menu */
             if(ld) /* already exists in view, ignore it */
                 continue;
-            snprintf(a, sizeof(a), "Add%u", i);
-            snprintf(b, sizeof(b), _("Add %s"), label);
-            g_string_append_printf(str, "<menuitem action='%s'/>", a);
-            gtk_action_group_add_toggle_actions(act_grp, &entry, 1, col);
+            menu_item_label = g_strdup_printf(_("Add %s"), label);
+            menu_item = (GtkMenuItem*)gtk_menu_item_new_with_label(menu_item_label);
+            g_object_set_data(G_OBJECT(menu_item), "col_id", GINT_TO_POINTER(i));
+            g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_add), col);
+            g_free(menu_item_label);
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menu_item));
         }
         g_slist_free(cols_list);
-        g_string_append(str, column_actions_xml_end);
-        gtk_ui_manager_insert_action_group(ui, act_grp, 0);
-        gtk_ui_manager_add_ui_from_string(ui, str->str, str->len, NULL);
-        g_string_free(str, TRUE);
-        if(l->prev == NULL)
-        {
-            act = gtk_action_group_get_action(act_grp, "MvLeft");
-            gtk_action_set_sensitive(act, FALSE);
-            if(l->next == NULL)
-            {
-                /* don't remove it if it is only column in view */
-                act = gtk_action_group_get_action(act_grp, "Hide");
-                gtk_action_set_sensitive(act, FALSE);
-            }
-        }
-        if(l->next == NULL)
-        {
-            act = gtk_action_group_get_action(act_grp, "MvRight");
-            gtk_action_set_sensitive(act, FALSE);
-        }
-        g_list_free(list);
-        menu = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
-        if(menu)
-        {
-            g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
-            gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, event->time);
-        }
-        g_object_unref(act_grp);
-        g_object_unref(ui);
+
+        gtk_widget_show_all(GTK_WIDGET(menu));
+        gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, event->time);
         return TRUE;
     }
     return FALSE;
@@ -809,7 +770,7 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     if(label)
     {
         g_signal_connect(label, "button-release-event",
-                         G_CALLBACK(on_button_release_event), col);
+                         G_CALLBACK(on_column_button_released_event), col);
         /* FIXME: how to disconnect it later? */
     }
 
