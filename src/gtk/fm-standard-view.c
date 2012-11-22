@@ -635,6 +635,8 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         GtkMenu* menu;
         GtkMenuItem* menu_item;
         const char* label;
+        char* menu_item_label;
+        FmFolderViewColumnInfo* info;
         guint i;
 
         g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
@@ -652,7 +654,11 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         /* destroy the menu when selection is done. */
         g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
 
-        menu_item = (GtkMenuItem*)gtk_menu_item_new_with_mnemonic(_("_Hide Column"));
+        info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, info->col_id);
+        menu_item_label = g_strdup_printf(_("_Hide %s"), label);
+        menu_item = (GtkMenuItem*)gtk_menu_item_new_with_mnemonic(menu_item_label);
+        g_free(menu_item_label);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menu_item));
         g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_hide), col);
         if(NULL == columns->next) /* the only column, disable Hide */
@@ -677,7 +683,6 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
         for(i = 0; i < FM_FOLDER_MODEL_N_COLS; i++)
         {
-            char* menu_item_label;
             label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
             if(!label)
                 continue;
