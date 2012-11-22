@@ -177,18 +177,22 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
                     {
                         fm_file_info_unref(item->fi);
                         item->fi = fm_file_info_ref(fi);
-                        icon = fm_file_info_get_icon(fi);
-                        /* replace the icon with updated data */
-                        if(icon && icon != item->icon)
+                        /* only update the icon if the item is not a volume or mount. */
+                        if(item->type == FM_PLACES_ITEM_PATH)
                         {
-                            fm_icon_unref(item->icon);
-                            item->icon = fm_icon_ref(icon);
-                            pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
-                            gtk_list_store_set(GTK_LIST_STORE(model), &it,
-                                               FM_PLACES_MODEL_COL_ICON, pix, -1);
+                            icon = fm_file_info_get_icon(fi);
+                            /* replace the icon with updated data */
+                            if(icon && icon != item->icon)
+                            {
+                                fm_icon_unref(item->icon);
+                                item->icon = fm_icon_ref(icon);
+                                pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
+                                gtk_list_store_set(GTK_LIST_STORE(model), &it,
+                                                   FM_PLACES_MODEL_COL_ICON, pix, -1);
+                            }
                         }
                         /* remove the file from list to speed up further loading.
-                      * This won't cause problem since nobody else if using the list. */
+                         * This won't cause problem since nobody else if using the list. */
                         fm_file_info_list_delete_link(job->file_infos, l);
                         break;
                     }
@@ -355,7 +359,6 @@ static void add_volume_or_mount(FmPlacesModel* model, GObject* volume_or_mount, 
     FmPlacesItem* item;
     GtkTreePath* tp;
     GtkTreeIter it;
-
     if(G_IS_VOLUME(volume_or_mount))
     {
         tp = gtk_tree_row_reference_get_path(model->separator);
@@ -422,11 +425,16 @@ static FmPlacesItem* find_mount(FmPlacesModel* model, GMount* mount, GtkTreeIter
     return NULL;
 }
 
-static void on_volume_added(GVolumeMonitor* vm, GVolume* vol, gpointer user_data)
+static void on_volume_added(GVolumeMonitor* vm, GVolume* volume, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    /* g_debug("add vol: %p, uuid: %s, udi: %s", vol, g_volume_get_identifier(vol, "uuid"), g_volume_get_identifier(vol, "hal-udi")); */
-    add_volume_or_mount(model, G_OBJECT(vol), NULL);
+    FmPlacesItem* item;
+    GtkTreeIter it;
+    /* for some unknown reasons, sometimes we get repeated volume-added 
+     * signals and added a device more than one. So, make a sanity check here. */
+    item = find_volume(model, volume, &it);
+    if(!item)
+        add_volume_or_mount(model, G_OBJECT(volume), NULL);
 }
 
 static void on_volume_removed(GVolumeMonitor* vm, GVolume* volume, gpointer user_data)
@@ -459,9 +467,11 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
     GVolume* vol = g_mount_get_volume(mount);
     if(vol)
     {
+        /* mount-added is also emitted when a volume is newly mounted. */
         FmPlacesItem *item;
         GtkTreeIter it;
         item = find_volume(model, vol, &it);
+        /* update the mounted volume and show a button for eject. */
         if(item && item->type == FM_PLACES_ITEM_VOLUME && !fm_file_info_get_path(item->fi))
         {
             GtkTreePath* tp;
@@ -483,7 +493,13 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
     }
     else /* network mounts and others */
     {
-        add_volume_or_mount(model, G_OBJECT(mount), NULL);
+        FmPlacesItem* item;
+        GtkTreeIter it;
+        /* for some unknown reasons, sometimes we get repeated mount-added 
+         * signals and added a device more than one. So, make a sanity check here. */
+        item = find_mount(model,  mount, &it);
+        if(!item)
+            add_volume_or_mount(model, G_OBJECT(mount), NULL);
     }
 }
 
