@@ -611,8 +611,13 @@ static void create_trash_item(FmPlacesModel* model)
     FmPlacesItem* item;
     GdkPixbuf* pix;
     GFile* gf;
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
 
     gf = fm_file_new_for_uri("trash:///");
+    fm_file_info_job_add(job, fm_path_get_trash());
+    g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
+    model->jobs = g_slist_prepend(model->jobs, job);
+    fm_job_run_async(FM_JOB(job));
     model->trash_monitor = fm_monitor_directory(gf, NULL);
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
