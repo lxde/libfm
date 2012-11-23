@@ -626,7 +626,7 @@ static gboolean update_trash_item(gpointer user_data)
 
             g_object_unref(inf);
             if(!tp) /* FIXME: how can tp be invalid here? */
-                return FALSE;
+                goto _end;
             icon_name = n > 0 ? "user-trash-full" : "user-trash";
             icon = fm_icon_from_name(icon_name);
             gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
@@ -641,6 +641,7 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_path_free(tp);
         }
     }
+_end:
     GDK_THREADS_LEAVE();
     return FALSE;
 }
