@@ -723,9 +723,14 @@ static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_home)
     {
         FmPath* path = fm_path_get_home();
-        /* FIXME: need we start file info job? */
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+
         new_path_item(model, &it, path, FM_PLACES_ID_HOME,
-                      fm_path_get_basename(path), "user-home", NULL);
+                      fm_path_get_basename(path), "user-home", job);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        fm_job_run_async(FM_JOB(job));
     }
     else
     {
@@ -740,9 +745,14 @@ static void on_places_desktop_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_desktop &&
        g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
     {
-        /* FIXME: need we start file info job? */
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+
         new_path_item(model, &it, fm_path_get_desktop(), FM_PLACES_ID_DESKTOP,
-                      _("Desktop"), "user-desktop", NULL);
+                      _("Desktop"), "user-desktop", job);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        fm_job_run_async(FM_JOB(job));
     }
     else
     {
