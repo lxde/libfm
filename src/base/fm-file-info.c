@@ -931,8 +931,8 @@ gboolean fm_file_info_is_executable_type(FmFileInfo* fi)
 {
     if(strncmp(fm_mime_type_get_type(fi->mime_type), "text/", 5) == 0)
     { /* g_content_type_can_be_executable reports text files as executables too */
-        /* We don't execute remote files */
-        if(fm_path_is_local(fi->path) && (fi->mode & (S_IXOTH|S_IXGRP|S_IXUSR)))
+        /* We don't execute remote files nor files in trash */
+        if(fm_path_is_native(fi->path) && (fi->mode & (S_IXOTH|S_IXGRP|S_IXUSR)))
         { /* it has executable bits so lets check shell-bang */
             char *path = fm_path_to_str(fi->path);
             int fd = open(path, O_RDONLY);

@@ -838,6 +838,7 @@ fm_path_has_prefix
 fm_path_hash
 fm_path_is_local
 fm_path_is_native
+fm_path_is_native_or_trash
 fm_path_is_trash
 fm_path_is_trash_root
 fm_path_is_virtual

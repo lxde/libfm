@@ -681,7 +681,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
 
         /* if we want to show a thumbnail */
         /* if we're on local filesystem or thumbnailing for remote files is allowed */
-        if(fm_config->show_thumbnail && (fm_path_is_local(fm_file_info_get_path(info)) || !fm_config->thumbnail_local))
+        if(fm_config->show_thumbnail && (fm_path_is_native_or_trash(fm_file_info_get_path(info)) || !fm_config->thumbnail_local))
         {
             if(!item->is_thumbnail && !item->thumbnail_failed && !item->thumbnail_loading)
             {
@@ -1396,7 +1396,7 @@ static void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data)
             GList* next = l->next;
             req = (FmThumbnailRequest*)l->data;
             fi = fm_thumbnail_request_get_file_info(req);
-            if(!fm_path_is_local(fm_file_info_get_path(fi)))
+            if(!fm_path_is_native_or_trash(fm_file_info_get_path(fi)))
             {
                 fm_thumbnail_request_cancel(req);
                 model->thumbnail_requests = g_list_delete_link(model->thumbnail_requests, l);
@@ -1414,13 +1414,13 @@ static void on_thumbnail_local_changed(FmConfig* cfg, gpointer user_data)
         if(cfg->thumbnail_local)
         {
             /* add all non-local files to thumbnail requests */
-            if(!fm_path_is_local(path))
+            if(!fm_path_is_native_or_trash(path))
                 reload_thumbnail(model, seq_it, item);
         }
         else
         {
             /* add all non-local files to thumbnail requests */
-            if(!fm_path_is_local(path))
+            if(!fm_path_is_native_or_trash(path))
             {
                 req = fm_thumbnail_request(fi, model->icon_size, on_thumbnail_loaded, model);
                 new_reqs = g_list_append(new_reqs, req);
