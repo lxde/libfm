@@ -776,6 +776,7 @@ static void create_trash_item(FmPlacesModel* model)
     GtkTreeIter it;
     GtkTreePath* trash_path;
     GFile* gf;
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
 
     gf = fm_file_new_for_uri("trash:///");
     model->trash_monitor = fm_monitor_directory(gf, NULL);
@@ -783,7 +784,10 @@ static void create_trash_item(FmPlacesModel* model)
     g_object_unref(gf);
 
     new_path_item(GTK_LIST_STORE(model), &it, fm_path_get_trash(),
-                  FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", NULL);
+                  FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", job);
+    g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
+    model->jobs = g_slist_prepend(model->jobs, job);
+    fm_job_run_async(FM_JOB(job));
     trash_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);
