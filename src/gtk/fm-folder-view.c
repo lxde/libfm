@@ -624,6 +624,9 @@ void fm_folder_view_set_model(FmFolderView* fv, FmFolderModel* model)
     {
         fm_folder_model_get_sort(old_model, &by, &mode);
         unset_model(fv, old_model);
+        /* https://bugs.launchpad.net/ubuntu/+source/pcmanfm/+bug/1071231:
+           after changing the folder selection isn't reset */
+        iface->unselect_all(fv);
     }
     /* FIXME: which setting to apply if this is first model? */
     iface->set_model(fv, model);

@@ -275,9 +275,6 @@ static void unset_model(FmStandardView* fv)
         /* g_debug("unset_model: %p, n_ref = %d", model, G_OBJECT(model)->ref_count); */
         g_object_unref(model);
         fv->model = NULL;
-        /* https://bugs.launchpad.net/ubuntu/+source/pcmanfm/+bug/1071231:
-           after changing the folder selection isn't reset */
-        on_sel_changed(NULL, fv);
     }
 }
 
