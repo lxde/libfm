@@ -832,6 +832,8 @@ void fm_main_win_chdir(FmMainWin* win, FmPath* path)
 {
     FmPath* cwd = win->folder ? fm_folder_get_path(win->folder) : NULL;
     int scroll_pos;
+    /* it should grab focus in any case, see bug #3589448 */
+    gtk_widget_grab_focus(GTK_WIDGET(win->folder_view));
     if(cwd && path && fm_path_equal(cwd, path))
         return;
     scroll_pos = gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(win->folder_view)));
