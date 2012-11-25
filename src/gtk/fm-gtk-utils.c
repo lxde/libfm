@@ -622,6 +622,7 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
         break;
     }
 
+    /* FIXME: create progress window with busy cursor */
     if (g_main_loop_is_running(data->loop))
     {
         GDK_THREADS_LEAVE();
