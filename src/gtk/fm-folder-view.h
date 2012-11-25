@@ -222,12 +222,12 @@ struct _FmFolderViewColumnInfo
 {
     /*< public >*/
     FmFolderModelCol col_id;
+    gint width;
 
     /*< private >*/
     gint reserved1; /* reserved members for usage by interface implementations */
     gint reserved2;
     gint reserved3;
-    gint reserved4;
 };
 
 gboolean        fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols);
