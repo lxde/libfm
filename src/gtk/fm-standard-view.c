@@ -677,10 +677,9 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
             gtk_widget_set_sensitive(menu_item, FALSE);
         g_list_free(columns);
 
-        gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
         /* create list of missing columns for 'Add' submenu */
         cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
+        menu_item_label = NULL; /* mark for below */
         for(i = 0; i < FM_FOLDER_MODEL_N_COLS; i++)
         {
             label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
@@ -692,6 +691,8 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
             /* if the column is already in the folder view, don't add it to the menu */
             if(ld)
                 continue;
+            if(menu_item_label == NULL)
+                gtk_menu_shell_append(menu, gtk_separator_menu_item_new());
             menu_item_label = g_strdup_printf(_("Show %s"), label);
             menu_item = gtk_menu_item_new_with_label(menu_item_label);
             g_object_set_data(G_OBJECT(menu_item), "col_id", GINT_TO_POINTER(i));
