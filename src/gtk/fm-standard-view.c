@@ -695,6 +695,15 @@ static void on_column_add(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
     }
 }
 
+static void on_column_auto_adjust(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+    info->width = 0;
+    info->reserved1 = 0;
+    _update_width_sizing(col, 0);
+    /* g_debug("auto sizing column %u", info->col_id); */
+}
+
 static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
                                         GtkTreeViewColumn* col)
 {
@@ -773,6 +782,14 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
             gtk_menu_shell_append(menu, menu_item);
         }
         g_slist_free(cols_list);
+
+        if(info->width > 0 && info->col_id != FM_FOLDER_MODEL_COL_NAME)
+        {
+            gtk_menu_shell_append(menu, gtk_separator_menu_item_new());
+            menu_item = gtk_menu_item_new_with_mnemonic(_("_Forget width"));
+            gtk_menu_shell_append(menu, menu_item);
+            g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_auto_adjust), col);
+        }
 
         gtk_widget_show_all(GTK_WIDGET(menu));
         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, event->time);
