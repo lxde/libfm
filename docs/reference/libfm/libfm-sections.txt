@@ -598,6 +598,7 @@ FmFolderViewInterface
 FmFolderViewUpdatePopup
 fm_folder_view_add_popup
 fm_folder_view_bounce_action
+fm_folder_view_columns_changed
 fm_folder_view_dup_selected_file_paths
 fm_folder_view_dup_selected_files
 fm_folder_view_get_columns

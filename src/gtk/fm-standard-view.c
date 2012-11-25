@@ -636,7 +636,7 @@ static void on_column_width_changed(GtkTreeViewColumn* col, GParamSpec *pspec,
             {
                 info->width = info->reserved1;
                 /* g_debug("column %u changed width to %d", info->col_id, info->width); */
-                // g_signal_emit(view, signals[COLUMN_WIDTH_CHANGED], 0);
+                fm_folder_view_columns_changed(FM_FOLDER_VIEW(view));
             }
         }
         /* FIXME: how to detect manual change of Name mix width reliably? */
@@ -650,6 +650,7 @@ static void on_column_hide(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
 {
     GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
     gtk_tree_view_remove_column(GTK_TREE_VIEW(view), col);
+    fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(view)));
 }
 
 static void on_column_move_left(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
@@ -660,8 +661,11 @@ static void on_column_move_left(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
     list = gtk_tree_view_get_columns(view);
     l = g_list_find(list, col);
     if(l && l->prev)
+    {
         gtk_tree_view_move_column_after(view, col,
                                         l->prev->prev ? l->prev->prev->data : NULL);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(GTK_WIDGET(view))));
+    }
     g_list_free(list);
 }
 
@@ -673,7 +677,10 @@ static void on_column_move_right(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
     list = gtk_tree_view_get_columns(view);
     l = g_list_find(list, col);
     if(l && l->next)
+    {
         gtk_tree_view_move_column_after(view, col, l->next->data);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(GTK_WIDGET(view))));
+    }
     g_list_free(list);
 }
 
@@ -692,6 +699,7 @@ static void on_column_add(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
     if(new_col) /* skip it if failed */
     {
         gtk_tree_view_move_column_after(GTK_TREE_VIEW(view), new_col, col);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(fv));
     }
 }
 
@@ -702,6 +710,7 @@ static void on_column_auto_adjust(GtkMenuItem* menu_item, GtkTreeViewColumn* col
     info->reserved1 = 0;
     _update_width_sizing(col, 0);
     /* g_debug("auto sizing column %u", info->col_id); */
+    fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(gtk_tree_view_column_get_tree_view(col))));
 }
 
 static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,

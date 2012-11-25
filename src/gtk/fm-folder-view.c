@@ -222,6 +222,7 @@ enum
     SEL_CHANGED,
     SORT_CHANGED,
     FILTER_CHANGED,
+    COLUMNS_CHANGED,
     //CHDIR,
     N_SIGNALS
 };
@@ -314,6 +315,25 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
                      FM_TYPE_FOLDER_VIEW,
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewInterface, filter_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
+
+    /**
+     * FmFolderView::columns-changed:
+     * @view: the widget that emitted the signal
+     *
+     * The #FmFolderView::columns-changed signal is emitted when layout
+     * of #FmFolderView instance is changed, i.e. some column is added,
+     * deleted, or changed its size.
+     *
+     * Since: 1.2.0
+     */
+    signals[COLUMNS_CHANGED]=
+        g_signal_new("columns-changed",
+                     FM_TYPE_FOLDER_VIEW,
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewInterface, columns_changed),
                      NULL, NULL,
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);
@@ -1628,4 +1648,22 @@ GSList* fm_folder_view_get_columns(FmFolderView* fv)
 {
     // FIXME: call via VTable!
     return _fm_standard_view_get_columns(fv);
+}
+
+/**
+ * fm_folder_view_columns_changed
+ * @fv: the folder view widget to apply
+ *
+ * Emits the #FmFolderView::columns-changed signal.
+ *
+ * This API is internal for #FmFolderView and should be used only in
+ * class implementations.
+ *
+ * Since: 1.2.0
+ */
+void fm_folder_view_columns_changed(FmFolderView* fv)
+{
+    g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
+
+    g_signal_emit(fv, signals[COLUMNS_CHANGED], 0);
 }

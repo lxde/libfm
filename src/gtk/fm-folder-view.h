@@ -84,6 +84,7 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @sel_changed: the class closure for #FmFolderView::sel-changed signal
  * @sort_changed: the class closure for #FmFolderView::sort-changed signal
  * @filter_changed: (since 1.2.0) the class closure for #FmFolderView::filter-changed signal
+ * @columns_changed: (since 1.2.0) the class closure for #FmFolderView::columns-changed signal
  * @set_sel_mode: VTable func, see fm_folder_view_set_selection_mode()
  * @get_sel_mode: VTable func, see fm_folder_view_get_selection_mode()
  * @set_sort: unused since 1.0.2, will be removed from ABI 5
@@ -113,6 +114,7 @@ struct _FmFolderViewInterface
     void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
     void (*sort_changed)(FmFolderView* fv);
     void (*filter_changed)(FmFolderView* fv);
+    void (*columns_changed)(FmFolderView* fv);
     /*< private >*/
     gpointer _reserved1;
     gpointer _reserved2;
@@ -192,6 +194,7 @@ void            fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv);
 void            fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
                                             FmFolderViewClickType type);
 void            fm_folder_view_sel_changed(GObject* obj, FmFolderView* fv);
+void            fm_folder_view_columns_changed(FmFolderView* fv);
 //void            fm_folder_view_chdir(FmFolderView* fv, FmPath* path);
 
 #ifndef FM_DISABLE_DEPRECATED
@@ -215,6 +218,7 @@ typedef struct _FmFolderViewColumnInfo FmFolderViewColumnInfo;
 /**
  * FmFolderViewColumnInfo:
  * @col_id: column type
+ * @width: width of column; 0 for auto, >0 for fixed width
  *
  * FmFolderView column setup data.
  */
