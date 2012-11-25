@@ -661,7 +661,7 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         g_free(menu_item_label);
         gtk_menu_shell_append(menu, menu_item);
         g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_hide), col);
-        if(NULL == columns->next) /* the only column, disable Hide */
+        if(info->col_id == FM_FOLDER_MODEL_COL_NAME) /* Name is immutable */
             gtk_widget_set_sensitive(menu_item, FALSE);
 
         menu_item = gtk_menu_item_new_with_mnemonic(_("_Move left"));
