@@ -713,6 +713,21 @@ static void on_column_auto_adjust(GtkMenuItem* menu_item, GtkTreeViewColumn* col
     fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(gtk_tree_view_column_get_tree_view(col))));
 }
 
+static gboolean on_column_button_press_event(GtkWidget *button,
+                                             GdkEventButton *event,
+                                             GtkTreeViewColumn* col)
+{
+    if(event->button == 1)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
+    }
+    return FALSE;
+}
+
 static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
                                         GtkTreeViewColumn* col)
 {
@@ -804,6 +819,14 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, event->time);
         return TRUE;
     }
+    else if(event->button == 1)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
+    }
     return FALSE;
 }
 
@@ -876,6 +899,10 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
 #endif
     if(label)
     {
+        /* disable left-click handling for non-sortable columns */
+        g_signal_connect(label, "button-press-event",
+                         G_CALLBACK(on_column_button_press_event), col);
+        /* handle right-click on column header */
         g_signal_connect(label, "button-release-event",
                          G_CALLBACK(on_column_button_released_event), col);
         /* FIXME: how to disconnect it later? */
