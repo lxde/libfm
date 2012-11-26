@@ -70,8 +70,6 @@ typedef enum {
     FM_FOLDER_MODEL_N_COLS
 } FmFolderModelCol;
 
-#define FM_FOLDER_MODEL_COL_IS_VALID(col)   ((guint)col < FM_FOLDER_MODEL_N_COLS)
-
 /**
  * FM_FOLDER_MODEL_COL_UNSORTED:
  *
@@ -87,7 +85,7 @@ typedef enum {
 #define FM_FOLDER_MODEL_COL_DEFAULT ((FmFolderModelCol)-1)
 
 #ifndef FM_DISABLE_DEPRECATED
-/* for backward compatiblity, kept until soname 5 */
+/* for backward compatiblity, kept until soname 6 */
 #define FmFolderModelViewCol    FmFolderModelCol
 #define COL_FILE_GICON          FM_FOLDER_MODEL_COL_GICON
 #define COL_FILE_ICON           FM_FOLDER_MODEL_COL_ICON
@@ -99,6 +97,7 @@ typedef enum {
 #define COL_FILE_MTIME          FM_FOLDER_MODEL_COL_MTIME
 #define COL_FILE_INFO           FM_FOLDER_MODEL_COL_INFO
 #define COL_FILE_UNSORTED       FM_FOLDER_MODEL_COL_UNSORTED
+#define FM_FOLDER_MODEL_COL_IS_VALID(col) fm_folder_model_col_is_valid((guint)col)
 #endif
 
 typedef struct _FmFolderModel FmFolderModel;
@@ -165,6 +164,30 @@ const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol
 gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol col_id);
 const char* fm_folder_model_col_get_name(FmFolderModelCol col_id);
 FmFolderModelCol fm_folder_model_get_col_by_name(const char* str);
+gint fm_folder_model_col_get_default_width(FmFolderModel* model, FmFolderModelCol col_id);
+gboolean fm_folder_model_col_is_valid(FmFolderModelCol col_id);
+
+/* --- columns extensions --- */
+typedef struct _FmFolderModelColumnInit FmFolderModelColumnInit;
+
+/**
+ * FmFolderModelColumnInit:
+ * @title: column title
+ * @default_width: default width for column (0 means auto)
+ * @get_type: function to get #GType of column data
+ * @get_value: function to retrieve column data
+ * @compare: sorting routine (%NULL if column isn't sortable)
+ */
+struct _FmFolderModelColumnInit
+{
+    const char *title;
+    gint default_width;
+    GType (*get_type)(void);
+    void (*get_value)(FmFileInfo *fi, GValue *value);
+    gint (*compare)(FmFileInfo *fi1, FmFileInfo *fi2);
+};
+
+FmFolderModelCol fm_folder_model_add_custom_column(const char* name, FmFolderModelColumnInit* init);
 
 G_END_DECLS
 

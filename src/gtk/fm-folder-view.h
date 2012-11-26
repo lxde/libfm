@@ -218,7 +218,7 @@ typedef struct _FmFolderViewColumnInfo FmFolderViewColumnInfo;
 /**
  * FmFolderViewColumnInfo:
  * @col_id: column type
- * @width: width of column; 0 for auto, >0 for fixed width
+ * @width: width of column; 0 for auto, >0 for fixed width, <0 to use default
  *
  * FmFolderView column setup data.
  */

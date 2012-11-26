@@ -785,7 +785,7 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         /* create list of missing columns for 'Add' submenu */
         cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
         menu_item_label = NULL; /* mark for below */
-        for(i = 0; i < FM_FOLDER_MODEL_N_COLS; i++)
+        for(i = 0; fm_folder_model_col_is_valid(i); i++)
         {
             label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
             if(!label)
@@ -869,7 +869,9 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
         break;
     case FM_FOLDER_MODEL_COL_SIZE:
         g_object_set(render, "xalign", 1.0, NULL);
-    default: ;
+    default:
+        if(set->width < 0)
+            info->width = fm_folder_model_col_get_default_width(fv->model, col_id);
     }
     _update_width_sizing(col, info->width);
 
@@ -1657,9 +1659,14 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
             /* we found it so just move it here */
             col = old_cols[i].col;
             /* update all other data - width for example */
-            old_cols[i].info->width = info->width;
-            old_cols[i].info->reserved1 = 0;
-            _update_width_sizing(col, info->width);
+            if(info->col_id != FM_FOLDER_MODEL_COL_NAME)
+            {
+                old_cols[i].info->width = info->width;
+                if(info->width < 0)
+                    old_cols[i].info->width = fm_folder_model_col_get_default_width(view->model, info->col_id);
+                old_cols[i].info->reserved1 = 0;
+                _update_width_sizing(col, info->width);
+            }
             old_cols[i].col = NULL; /* we removed it from its place */
             old_cols[i].info = NULL; /* don't try to use it again */
         }

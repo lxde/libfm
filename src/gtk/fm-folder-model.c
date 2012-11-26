@@ -178,6 +178,9 @@ typedef struct
     const char *name;
     const char *title;
     gboolean sortable;
+    gint default_width;
+    void (*get_value)(FmFileInfo *fi, GValue *value);
+    gint (*compare)(FmFileInfo *fi1, FmFileInfo *fi2);
 } FmFolderModelInfo;
 
 static FmFolderModelInfo column_infos_raw[] = {
@@ -195,7 +198,8 @@ static FmFolderModelInfo column_infos_raw[] = {
     { FM_FOLDER_MODEL_COL_GICON, 0, "gicon", NULL, FALSE }
 };
 
-static FmFolderModelInfo* column_infos[FM_FOLDER_MODEL_N_COLS];
+static guint column_infos_n = 0;
+static FmFolderModelInfo** column_infos = NULL;
 
 enum {
     ROW_DELETING,
@@ -291,12 +295,14 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_parent = fm_folder_model_iter_parent;
 
     /* prepare column_infos table */
-    memset(column_infos, 0, sizeof(column_infos));
+    column_infos_n = FM_FOLDER_MODEL_N_COLS;
+    column_infos = g_new0(FmFolderModelInfo*, FM_FOLDER_MODEL_N_COLS);
     for(i = 0; i < G_N_ELEMENTS(column_infos_raw); i++)
     {
         FmFolderModelCol id = column_infos_raw[i].id;
         column_infos[id] = &column_infos_raw[i];
     }
+    //fm_module_register_type("column", .......);
 
      /* GType value is actually generated at runtime by
       * calling _get_type() functions for every type.
@@ -576,14 +582,14 @@ static GtkTreeModelFlags fm_folder_model_get_flags(GtkTreeModel *tree_model)
 
 static gint fm_folder_model_get_n_columns(GtkTreeModel *tree_model)
 {
-    return FM_FOLDER_MODEL_N_COLS;
+    return (gint)column_infos_n;
 }
 
 static GType fm_folder_model_get_column_type(GtkTreeModel *tree_model,
                                              gint index)
 {
     g_return_val_if_fail(FM_IS_FOLDER_MODEL(tree_model), G_TYPE_INVALID);
-    g_return_val_if_fail(FM_FOLDER_MODEL_COL_IS_VALID(index), G_TYPE_INVALID);
+    g_return_val_if_fail((guint)index < column_infos_n, G_TYPE_INVALID);
     g_return_val_if_fail(column_infos[index] != NULL, G_TYPE_INVALID);
     return column_infos[index]->type;
 }
@@ -650,7 +656,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     FmFolderModel* model = FM_FOLDER_MODEL(tree_model);
 
     g_return_if_fail(iter != NULL);
-    g_return_if_fail(FM_FOLDER_MODEL_COL_IS_VALID(column) && column_infos[column] != NULL);
+    g_return_if_fail((guint)column < column_infos_n && column_infos[column] != NULL);
 
     g_value_init(value, column_infos[column]->type);
 
@@ -661,7 +667,11 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     FmFileInfo* info = item->inf;
     FmIcon* icon;
 
-    switch( column )
+    if(column >= FM_FOLDER_MODEL_N_COLS) /* extension */
+    {
+        column_infos[column]->get_value(info, value);
+    }
+    else switch( (FmFolderModelCol)column )
     {
     case FM_FOLDER_MODEL_COL_GICON:
         icon = fm_file_info_get_icon(info);
@@ -733,6 +743,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
             }
             break;
         }
+    case FM_FOLDER_MODEL_N_COLS: ; /* unused here */
     }
 }
 
@@ -909,7 +920,14 @@ static gint fm_folder_model_compare(gconstpointer item1,
             return ret;
     }
 
-    switch( ((FmFolderModel*)model)->sort_col )
+    if(model->sort_col >= FM_FOLDER_MODEL_N_COLS &&
+       column_infos[model->sort_col]->compare)
+    {
+        ret = column_infos[model->sort_col]->compare(file1, file2);
+        if(ret == 0)
+            goto _sort_by_name;
+    }
+    else switch( model->sort_col )
     {
     case FM_FOLDER_MODEL_COL_SIZE:
         /* to support files more than 2Gb */
@@ -1726,7 +1744,7 @@ void fm_folder_model_set_sort(FmFolderModel* model, FmFolderModelCol col, FmSort
     FmFolderModelCol old_col = model->sort_col;
 
     /* g_debug("fm_folder_model_set_sort: col %x mode %x", col, mode); */
-    if(!FM_FOLDER_MODEL_COL_IS_VALID(col))
+    if((guint)col >= column_infos_n)
         col = old_col;
     if(mode == FM_SORT_DEFAULT)
         mode = model->sort_mode;
@@ -1767,7 +1785,7 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
 
 /**
  * fm_folder_model_col_get_title
- * @model: the folder model
+ * @model: (allow-none): the folder model
  * @col_id: column id
  *
  * Retrieves the title of the column specified, or %NULL if the specified
@@ -1780,26 +1798,26 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col,
  */
 const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id)
 {
-    if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
+    if(G_UNLIKELY((guint)col_id >= column_infos_n
        || column_infos[col_id] == NULL)) /* invalid id */
         return NULL;
     return column_infos[col_id]->title;
 }
 
 /**
-* fm_folder_model_col_is_sortable
-* @model: model to check
-* @col_id: column id
-*
-* Checks if model can be sorted by @col.
-*
-* Returns: %TRUE if model can be sorted by @col.
-*
-* Since: 1.0.2
-*/
+ * fm_folder_model_col_is_sortable
+ * @model: (allow-none): model to check
+ * @col_id: column id
+ *
+ * Checks if model can be sorted by @col_id.
+ *
+ * Returns: %TRUE if model can be sorted by @col_id.
+ *
+ * Since: 1.0.2
+ */
 gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol col_id)
 {
-    if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
+    if(G_UNLIKELY((guint)col_id >= column_infos_n
        || column_infos[col_id] == NULL)) /* invalid id */
         return FALSE;
     return column_infos[col_id]->sortable;
@@ -1821,7 +1839,7 @@ gboolean fm_folder_model_col_is_sortable(FmFolderModel* model, FmFolderModelCol 
  */
 const char* fm_folder_model_col_get_name(FmFolderModelCol col_id)
 {
-    if(G_UNLIKELY(!FM_FOLDER_MODEL_COL_IS_VALID(col_id)
+    if(G_UNLIKELY((guint)col_id >= column_infos_n
        || column_infos[col_id] == NULL)) /* invalid id */
         return NULL;
     return column_infos[col_id]->name;
@@ -1844,11 +1862,84 @@ FmFolderModelCol fm_folder_model_get_col_by_name(const char* str)
     if(G_LIKELY(str != NULL))
     {
         FmFolderModelCol i = 0;
-        for(i = 0; i < G_N_ELEMENTS(column_infos); ++i)
+        for(i = 0; i < column_infos_n; ++i)
         {
             if(column_infos[i] && strcmp(str, column_infos[i]->name) == 0)
                 return i;
         }
     }
     return (FmFolderModelCol)-1;
+}
+
+/**
+ * fm_folder_model_col_get_default_width
+ * @model: (allow-none): model to check
+ * @col_id: column id
+ *
+ * Retrieves preferred width for @col_id.
+ *
+ * Returns: default width.
+ *
+ * Since: 1.2.0
+ */
+gint fm_folder_model_col_get_default_width(FmFolderModel* model,
+                                           FmFolderModelCol col_id)
+{
+    if(G_UNLIKELY((guint)col_id >= column_infos_n
+       || column_infos[col_id] == NULL)) /* invalid id */
+        return 0;
+    return column_infos[col_id]->default_width;
+}
+
+/**
+ * fm_folder_model_add_custom_column
+ * @name: unique name of column
+ * @init: setup data for column
+ *
+ * Registers custom columns in #FmFolderModel handlers.
+ *
+ * Returns: new column ID or FM_FOLDER_MODEL_COL_DEFAULT in case of failure.
+ *
+ * Since: 1.2.0
+ */
+FmFolderModelCol fm_folder_model_add_custom_column(const char* name,
+                                                   FmFolderModelColumnInit* init)
+{
+    FmFolderModelInfo* info;
+    guint i;
+
+    g_return_val_if_fail(name && init && init->title && init->get_type &&
+                         init->get_value, FM_FOLDER_MODEL_COL_DEFAULT);
+    for(i = 0; i < column_infos_n; i++)
+        if(strcmp(name, column_infos[i]->name) == 0) /* already exists */
+            return FM_FOLDER_MODEL_COL_DEFAULT;
+    column_infos = g_realloc(column_infos, sizeof(FmFolderModelInfo*) * (i+1));
+    info = g_new0(FmFolderModelInfo, 1);
+    column_infos[i] = info;
+    column_infos_n = i+1;
+    info->type = init->get_type();
+    info->name = g_strdup(name);
+    info->title = g_strdup(init->title);
+    info->sortable = (init->compare != NULL);
+    info->default_width = init->default_width;
+    info->get_value = init->get_value;
+    info->compare = init->compare;
+    return i;
+}
+
+/**
+ * fm_folder_model_col_is_valid
+ * @col_id: column id
+ *
+ * Checks if @col_id can be handled by #FmFolderModel.
+ * This API makes things similar to gtk_tree_model_get_n_columns() but it
+ * doesn't operate the model instance.
+ *
+ * Returns: %TRUE if @col_id is valid.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_folder_model_col_is_valid(FmFolderModelCol col_id)
+{
+    return col_id < column_infos_n;
 }
