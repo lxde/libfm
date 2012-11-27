@@ -99,7 +99,7 @@ FmIcon* fm_icon_from_name(const char* name)
             g_object_unref(gicon_file);
         }
         else
-            gicon = g_themed_icon_new(name);
+            gicon = g_themed_icon_new_with_default_fallbacks(name);
 
         if(G_LIKELY(gicon))
         {
