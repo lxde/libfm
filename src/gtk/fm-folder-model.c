@@ -921,6 +921,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     }
 
     if(model->sort_col >= FM_FOLDER_MODEL_N_COLS &&
+       model->sort_col < column_infos_n &&
        column_infos[model->sort_col]->compare)
     {
         ret = column_infos[model->sort_col]->compare(file1, file2);
