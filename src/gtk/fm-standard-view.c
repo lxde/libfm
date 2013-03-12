@@ -35,6 +35,7 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
 #include <glib/gi18n-lib.h>
 #include "gtk-compat.h"
 
@@ -89,6 +90,10 @@ struct _FmStandardView
     void (*unselect_all)(GtkWidget* view);
     void (*select_invert)(FmFolderModel* model, GtkWidget* view);
     void (*select_path)(FmFolderModel* model, GtkWidget* view, GtkTreeIter* it);
+
+    /* for columns width handling */
+    gint updated_col;
+    gboolean name_updated;
 };
 
 struct _FmStandardViewClass
@@ -119,11 +124,6 @@ static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
-
-//static void on_folder_reload(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_loaded(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv);
-//static void on_folder_removed(FmFolder* folder, FmFolderView* fv);
 
 static FmFolderViewColumnInfo* _sv_column_info_new(FmFolderModelCol col_id)
 {
@@ -192,6 +192,7 @@ static void fm_standard_view_init(FmStandardView *self)
     self->dnd_dest = fm_dnd_dest_new_with_handlers(NULL);
 
     self->mode = -1;
+    self->updated_col = -1;
 }
 
 /**
@@ -234,6 +235,41 @@ FmStandardView* fm_standard_view_new(FmStandardViewMode mode,
     return fv;
 }
 
+static void _reset_columns_widths(GtkTreeView* view)
+{
+    GList* cols = gtk_tree_view_get_columns(view);
+    GList* l;
+
+    for(l = cols; l; l = l->next)
+    {
+        FmFolderViewColumnInfo* info = g_object_get_qdata(l->data, fm_qdata_id);
+        if(info)
+            info->reserved1 = 0;
+    }
+    g_list_free(cols);
+}
+
+static void on_row_changed(GtkTreeModel *tree_model, GtkTreePath *path,
+                           GtkTreeIter *iter, FmStandardView* fv)
+{
+    if(fv->mode == FM_FV_LIST_VIEW)
+        _reset_columns_widths(GTK_TREE_VIEW(fv->view));
+}
+
+static void on_row_deleted(GtkTreeModel *tree_model, GtkTreePath  *path,
+                           FmStandardView* fv)
+{
+    if(fv->mode == FM_FV_LIST_VIEW)
+        _reset_columns_widths(GTK_TREE_VIEW(fv->view));
+}
+
+static void on_row_inserted(GtkTreeModel *tree_model, GtkTreePath *path,
+                            GtkTreeIter *iter, FmStandardView* fv)
+{
+    if(fv->mode == FM_FV_LIST_VIEW)
+        _reset_columns_widths(GTK_TREE_VIEW(fv->view));
+}
+
 static void unset_model(FmStandardView* fv)
 {
     if(fv->model)
@@ -241,6 +277,9 @@ static void unset_model(FmStandardView* fv)
         FmFolderModel* model = fv->model;
         /* g_debug("unset_model: %p, n_ref = %d", model, G_OBJECT(model)->ref_count); */
         g_object_unref(model);
+        g_signal_handlers_disconnect_by_func(model, on_row_inserted, fv);
+        g_signal_handlers_disconnect_by_func(model, on_row_deleted, fv);
+        g_signal_handlers_disconnect_by_func(model, on_row_changed, fv);
         fv->model = NULL;
     }
 }
@@ -547,6 +586,21 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
         exo_icon_view_select_path((ExoIconView*)fv->view, l->data);
 }
 
+static void _update_width_sizing(GtkTreeViewColumn* col, gint width)
+{
+    if(width > 0)
+    {
+        gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
+        gtk_tree_view_column_set_fixed_width(col, width);
+    }
+    else
+    {
+        gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+        gtk_tree_view_column_set_resizable(col, TRUE);
+    }
+    gtk_tree_view_column_queue_resize(col);
+}
+
 /* Each change will generate notify for all columns from first to last.
  * 1) on window resizing only column Name may change - the size may grow to
  *    fill any additional space
@@ -555,27 +609,225 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
 static void on_column_width_changed(GtkTreeViewColumn* col, GParamSpec *pspec,
                                     FmStandardView* view)
 {
-    /* FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
-    GtkWidget* sb = gtk_scrolled_window_get_hscrollbar(GTK_SCROLLED_WINDOW(view));
-    g_debug("column width changed: id %u mode %u: %d (%d)", info->col_id,
-            gtk_tree_view_column_get_sizing(col), gtk_tree_view_column_get_width(col),
-            sb ? gtk_widget_get_visible(sb) : FALSE); */
-    return;
-#if 0
+    FmFolderViewColumnInfo *info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+    GList *cols = gtk_tree_view_get_columns(GTK_TREE_VIEW(view->view));
     int width;
-    GList* cols = gtk_tree_view_get_columns(GTK_TREE_VIEW(view->view));
-    int pos = g_list_index(cols, col);
-    g_list_free(cols);
-    width = gtk_tree_view_column_get_width(col);
+    guint pos;
 
-    /* only handle it if the width really changed */
-    if(width != view->column_widths[pos])
+    pos = g_list_index(cols, col);
+    width = gtk_tree_view_column_get_width(col);
+    /* g_debug("column width changed: [%u] id %u: %d", pos, info->col_id, width); */
+    /* use info->reserved1 as 'last width' */
+    if(width != info->reserved1)
     {
-        // FIXME: what if column_widths = NULL?
-        view->column_widths[pos] = width;
-        // g_signal_emit(view, signals[COLUMN_WIDTH_CHANGED], 0);
+        if(info->col_id == FM_FOLDER_MODEL_COL_NAME)
+            view->name_updated = TRUE;
+        else if(info->reserved1 && view->updated_col < 0)
+            view->updated_col = pos;
+        info->reserved1 = width;
     }
-#endif
+    if(pos == g_list_length(cols) - 1) /* got all columns, decide what we got */
+    {
+        if(!view->name_updated && view->updated_col >= 0)
+        {
+            col = g_list_nth_data(cols, view->updated_col);
+            info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+            if(info)
+            {
+                info->width = info->reserved1;
+                /* g_debug("column %u changed width to %d", info->col_id, info->width); */
+                fm_folder_view_columns_changed(FM_FOLDER_VIEW(view));
+            }
+        }
+        /* FIXME: how to detect manual change of Name mix width reliably? */
+        view->updated_col = -1;
+        view->name_updated = FALSE;
+    }
+    g_list_free(cols);
+}
+
+static void on_column_hide(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+    gtk_tree_view_remove_column(GTK_TREE_VIEW(view), col);
+    fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(view)));
+}
+
+static void on_column_move_left(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
+    GList* list, *l;
+
+    list = gtk_tree_view_get_columns(view);
+    l = g_list_find(list, col);
+    if(l && l->prev)
+    {
+        gtk_tree_view_move_column_after(view, col,
+                                        l->prev->prev ? l->prev->prev->data : NULL);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(GTK_WIDGET(view))));
+    }
+    g_list_free(list);
+}
+
+static void on_column_move_right(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    GtkTreeView* view = GTK_TREE_VIEW(gtk_tree_view_column_get_tree_view(col));
+    GList* list, *l;
+
+    list = gtk_tree_view_get_columns(view);
+    l = g_list_find(list, col);
+    if(l && l->next)
+    {
+        gtk_tree_view_move_column_after(view, col, l->next->data);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(GTK_WIDGET(view))));
+    }
+    g_list_free(list);
+}
+
+static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv, FmFolderViewColumnInfo *set);
+
+static void on_column_add(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    GtkWidget *view = gtk_tree_view_column_get_tree_view(col);
+    GtkWidget *fv = gtk_widget_get_parent(view);
+    GtkTreeViewColumn *new_col;
+    FmFolderViewColumnInfo info;
+    g_return_if_fail(FM_IS_STANDARD_VIEW(fv));
+    memset(&info, 0, sizeof(info));
+    info.col_id = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menu_item), "col_id"));
+    new_col = create_list_view_column((FmStandardView*)fv, &info);
+    if(new_col) /* skip it if failed */
+    {
+        gtk_tree_view_move_column_after(GTK_TREE_VIEW(view), new_col, col);
+        fm_folder_view_columns_changed(FM_FOLDER_VIEW(fv));
+    }
+}
+
+static void on_column_auto_adjust(GtkMenuItem* menu_item, GtkTreeViewColumn* col)
+{
+    FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+    info->width = 0;
+    info->reserved1 = 0;
+    _update_width_sizing(col, 0);
+    /* g_debug("auto sizing column %u", info->col_id); */
+    fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(gtk_tree_view_column_get_tree_view(col))));
+}
+
+static gboolean on_column_button_press_event(GtkWidget *button,
+                                             GdkEventButton *event,
+                                             GtkTreeViewColumn* col)
+{
+    if(event->button == 1)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
+    }
+    return FALSE;
+}
+
+static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButton *event,
+                                        GtkTreeViewColumn* col)
+{
+    if(event->button == 3)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        GList *columns, *l;
+        GSList *cols_list, *ld;
+        GtkMenuShell* menu;
+        GtkWidget* menu_item;
+        const char* label;
+        char* menu_item_label;
+        FmFolderViewColumnInfo* info;
+        guint i;
+
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+
+        columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(view));
+        l = g_list_find(columns, col);
+        if(l == NULL)
+        {
+            g_warning("column not found in GtkTreeView");
+            g_list_free(columns);
+            return FALSE;
+        }
+
+        menu = GTK_MENU_SHELL(gtk_menu_new());
+        /* destroy the menu when selection is done. */
+        g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+
+        info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, info->col_id);
+        menu_item_label = g_strdup_printf(_("_Hide %s"), label);
+        menu_item = gtk_menu_item_new_with_mnemonic(menu_item_label);
+        g_free(menu_item_label);
+        gtk_menu_shell_append(menu, menu_item);
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_hide), col);
+        if(info->col_id == FM_FOLDER_MODEL_COL_NAME) /* Name is immutable */
+            gtk_widget_set_sensitive(menu_item, FALSE);
+
+        menu_item = gtk_menu_item_new_with_mnemonic(_("_Move left"));
+        gtk_menu_shell_append(menu, menu_item);
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_left), col);
+        if(NULL == l->prev) /* the left most column */
+            gtk_widget_set_sensitive(menu_item, FALSE);
+
+        menu_item = gtk_menu_item_new_with_mnemonic(_("Move _right"));
+        gtk_menu_shell_append(menu, menu_item);
+        g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_right), col);
+        if(NULL == l->next) /* the right most column */
+            gtk_widget_set_sensitive(menu_item, FALSE);
+        g_list_free(columns);
+
+        /* create list of missing columns for 'Add' submenu */
+        cols_list = fm_folder_view_get_columns(FM_FOLDER_VIEW(fv));
+        menu_item_label = NULL; /* mark for below */
+        for(i = 0; fm_folder_model_col_is_valid(i); i++)
+        {
+            label = fm_folder_model_col_get_title(FM_STANDARD_VIEW(fv)->model, i);
+            if(!label)
+                continue;
+            for(ld = cols_list; ld; ld = ld->next)
+                if(((FmFolderViewColumnInfo*)ld->data)->col_id == i)
+                    break;
+            /* if the column is already in the folder view, don't add it to the menu */
+            if(ld)
+                continue;
+            if(menu_item_label == NULL)
+                gtk_menu_shell_append(menu, gtk_separator_menu_item_new());
+            menu_item_label = g_strdup_printf(_("Show %s"), label);
+            menu_item = gtk_menu_item_new_with_label(menu_item_label);
+            g_object_set_data(G_OBJECT(menu_item), "col_id", GINT_TO_POINTER(i));
+            g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_add), col);
+            g_free(menu_item_label);
+            gtk_menu_shell_append(menu, menu_item);
+        }
+        g_slist_free(cols_list);
+
+        if(info->width > 0 && info->col_id != FM_FOLDER_MODEL_COL_NAME)
+        {
+            gtk_menu_shell_append(menu, gtk_separator_menu_item_new());
+            menu_item = gtk_menu_item_new_with_mnemonic(_("_Forget width"));
+            gtk_menu_shell_append(menu, menu_item);
+            g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_auto_adjust), col);
+        }
+
+        gtk_widget_show_all(GTK_WIDGET(menu));
+        gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, event->time);
+        return TRUE;
+    }
+    else if(event->button == 1)
+    {
+        GtkWidget* view = gtk_tree_view_column_get_tree_view(col);
+        GtkWidget* fv = gtk_widget_get_parent(view);
+        FmFolderViewColumnInfo* info = g_object_get_qdata(G_OBJECT(col), fm_qdata_id);
+        g_return_val_if_fail(FM_IS_STANDARD_VIEW(fv), FALSE);
+        return !fm_folder_model_col_is_sortable(FM_STANDARD_VIEW(fv)->model, info->col_id);
+    }
+    return FALSE;
 }
 
 static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
@@ -585,6 +837,7 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     GtkCellRenderer* render;
     const char* title;
     FmFolderViewColumnInfo* info;
+    GtkWidget *label;
     FmFolderModelCol col_id;
 
     g_return_val_if_fail(set != NULL, NULL); /* invalid arg */
@@ -598,29 +851,35 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     gtk_tree_view_column_set_title(col, title);
     info = _sv_column_info_new(col_id);
     /* TODO: update other data from set - width for example */
+    info->width = set->width;
     g_object_set_qdata_full(G_OBJECT(col), fm_qdata_id, info, _sv_column_info_free);
 
-    if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_NAME)) /* special handling for Name column */
+    switch(col_id)
     {
+    case FM_FOLDER_MODEL_COL_NAME:
+        /* special handling for Name column */
         gtk_tree_view_column_pack_start(col, GTK_CELL_RENDERER(fv->renderer_pixbuf), FALSE);
         gtk_tree_view_column_set_attributes(col, GTK_CELL_RENDERER(fv->renderer_pixbuf),
                                             "pixbuf", FM_FOLDER_MODEL_COL_ICON,
                                             "info", FM_FOLDER_MODEL_COL_INFO, NULL);
         g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
         gtk_tree_view_column_set_expand(col, TRUE);
-        gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
-        gtk_tree_view_column_set_fixed_width(col, 200);
+        if(set->width <= 0)
+            info->width = 200;
+        break;
+    case FM_FOLDER_MODEL_COL_SIZE:
+        g_object_set(render, "xalign", 1.0, NULL);
+    default:
+        if(set->width < 0)
+            info->width = fm_folder_model_col_get_default_width(fv->model, col_id);
     }
-    else
-    {
-        if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_SIZE))
-            g_object_set(render, "xalign", 1.0, NULL);
-    }
+    _update_width_sizing(col, info->width);
 
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", col_id, NULL);
     gtk_tree_view_column_set_resizable(col, TRUE);
-    if(fm_folder_model_col_is_sortable(fv->model, col_id))
+    /* Unfortunately if we don't set it sortable we cannot right-click it too
+    if(fm_folder_model_col_is_sortable(fv->model, col_id)) */
         gtk_tree_view_column_set_sort_column_id(col, col_id);
     gtk_tree_view_append_column(GTK_TREE_VIEW(fv->view), col);
     if(G_UNLIKELY(col_id == FM_FOLDER_MODEL_COL_NAME))
@@ -628,6 +887,28 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
         exo_tree_view_set_activable_column((ExoTreeView*)fv->view, col);
 
     g_signal_connect(col, "notify::width", G_CALLBACK(on_column_width_changed), fv);
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+    label = gtk_tree_view_column_get_button(col);
+#else
+    /* a little trick to fetch header button, taken from KIWI python library */
+    label = gtk_label_new(title);
+    gtk_widget_show(label);
+    gtk_tree_view_column_set_widget(col, label);
+    label = gtk_tree_view_column_get_widget(col);
+    while(label && !GTK_IS_BUTTON(label))
+        label = gtk_widget_get_parent(label);
+#endif
+    if(label)
+    {
+        /* disable left-click handling for non-sortable columns */
+        g_signal_connect(label, "button-press-event",
+                         G_CALLBACK(on_column_button_press_event), col);
+        /* handle right-click on column header */
+        g_signal_connect(label, "button-release-event",
+                         G_CALLBACK(on_column_button_released_event), col);
+        /* FIXME: how to disconnect it later? */
+    }
 
     return col;
 }
@@ -1290,6 +1571,7 @@ static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
             fm_folder_model_set_icon_size(model, icon_size);
         }
         gtk_tree_view_set_model(GTK_TREE_VIEW(fv->view), GTK_TREE_MODEL(model));
+        _reset_columns_widths(GTK_TREE_VIEW(fv->view));
         break;
     case FM_FV_ICON_VIEW:
         icon_size = fm_config->big_icon_size;
@@ -1316,7 +1598,12 @@ static void fm_standard_view_set_model(FmFolderView* ffv, FmFolderModel* model)
     }
 
     if(model)
+    {
         fv->model = (FmFolderModel*)g_object_ref(model);
+        g_signal_connect(model, "row-inserted", G_CALLBACK(on_row_inserted), fv);
+        g_signal_connect(model, "row-deleted", G_CALLBACK(on_row_deleted), fv);
+        g_signal_connect(model, "row-changed", G_CALLBACK(on_row_changed), fv);
+    }
     else
         fv->model = NULL;
 }
@@ -1371,9 +1658,17 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
         {
             /* we found it so just move it here */
             col = old_cols[i].col;
+            /* update all other data - width for example */
+            if(info->col_id != FM_FOLDER_MODEL_COL_NAME)
+            {
+                old_cols[i].info->width = info->width;
+                if(info->width < 0)
+                    old_cols[i].info->width = fm_folder_model_col_get_default_width(view->model, info->col_id);
+                old_cols[i].info->reserved1 = 0;
+                _update_width_sizing(col, info->width);
+            }
             old_cols[i].col = NULL; /* we removed it from its place */
             old_cols[i].info = NULL; /* don't try to use it again */
-            /* TODO: update all other data - width for example */
         }
         else
         {
