@@ -89,6 +89,7 @@ gboolean fm_init(FmConfig* config)
     _fm_folder_init();
     _fm_archiver_init();
     _fm_thumbnailer_init(); // must be called after mime-types are initialized
+    _fm_thumbnail_loader_init();
     _fm_terminal_init(); /* should be called after config initialization */
     _fm_templates_init();
 
@@ -122,6 +123,7 @@ void fm_finalize(void)
 
     _fm_templates_finalize();
     _fm_terminal_finalize();
+    _fm_thumbnail_loader_finalize();
     _fm_thumbnailer_finalize(); /* need to be before fm_mime_type_finalize() */
     _fm_archiver_finalize();
     _fm_folder_finalize();

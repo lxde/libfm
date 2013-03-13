@@ -48,6 +48,7 @@
 #include "fm-utils.h"
 #include "fm-file-launcher.h"
 #include "fm-thumbnailer.h"
+#include "fm-thumbnail-loader.h"
 #include "fm-file.h"
 #include "fm-terminal.h"
 #include "fm-templates.h"

@@ -25,10 +25,11 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "fm-file-info.h"
+#include "fm-thumbnail-loader.h"
 
 G_BEGIN_DECLS
 
-typedef struct _FmThumbnailRequest FmThumbnailRequest;
+typedef FmThumbnailResult FmThumbnailRequest;
 
 /**
  * FmThumbnailReadyCallback:

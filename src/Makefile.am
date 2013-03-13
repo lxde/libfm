@@ -72,6 +72,7 @@ base_SOURCES = \
 	base/fm-archiver.c \
 	base/fm-app-info.c \
 	base/fm-thumbnailer.c \
+	base/fm-thumbnail-loader.c \
 	base/fm-file.c \
 	base/fm-terminal.c \
 	base/fm-templates.c \
@@ -169,6 +170,7 @@ libfminclude_HEADERS = \
 	base/fm-file.h \
 	base/fm-terminal.h \
 	base/fm-templates.h \
+	base/fm-thumbnail-loader.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -231,6 +233,7 @@ libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	$(DBUS_CFLAGS) \
+	$(EXIF_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
@@ -238,6 +241,7 @@ libfm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(DBUS_LIBS) \
+	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	$(LIBFMACTIONS) \
 	$(NULL)
@@ -260,7 +264,6 @@ libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	$(EXIF_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
@@ -270,7 +273,6 @@ libfm_gtk3_la_CFLAGS = $(libfm_gtk_la_CFLAGS)
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
-	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	$(NULL)
