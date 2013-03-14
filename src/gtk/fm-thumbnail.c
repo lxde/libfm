@@ -34,18 +34,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
-/* TODO:
- * Thunar can directly load embedded thumbnail in jpeg files, we need that, too.
- * Need to support external thumbnailers.
- * */
-
 #include "fm-thumbnail.h"
-#include "fm-config.h"
-#include "fm-utils.h"
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 /* FIXME: this function prototype seems to be missing in header files of GdkPixbuf. Bug report to them. */
 gboolean gdk_pixbuf_set_option(GdkPixbuf *pixbuf, const gchar *key, const gchar *value);
@@ -177,11 +166,17 @@ static char* get_image_text(GObject* image, const char* key)
     return g_strdup(gdk_pixbuf_get_option(GDK_PIXBUF(image), key));
 }
 
+static GObject* rotate_image(GObject* image, int degree)
+{
+	return (GObject*)gdk_pixbuf_rotate_simple(GDK_PIXBUF(image), (GdkPixbufRotation)degree);
+}
+
 ThumbnailLoaderBackend gtk_backend = {
     read_image_from_file,
     read_image_from_stream,
     write_image,
     scale_image,
+    rotate_image,
     get_image_width,
     get_image_height,
     get_image_text

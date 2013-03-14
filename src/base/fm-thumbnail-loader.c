@@ -862,6 +862,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
     if(ins)
     {
         GObject* ori_pix = NULL;
+        int rotate_degrees = 0;
 #ifdef USE_EXIF
         /* use libexif to extract thumbnails embedded in jpeg files */
         FmMimeType* mime_type = fm_file_info_get_mime_type(task->fi);
@@ -882,12 +883,36 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
             exif_loader_unref(exif_loader);
             if(exif_data)
             {
+				/* reference for EXIF orientation tag:
+				 * http://www.impulseadventure.com/photo/exif-orientation.html */
+				ExifEntry* orient_ent = exif_data_get_entry(exif_data, EXIF_TAG_ORIENTATION);
+				if(orient_ent) /* orientation flag found in EXIF */
+				{
+					gushort orient;
+					ExifByteOrder bo = exif_data_get_byte_order(exif_data);
+					bo == EXIF_BYTE_ORDER_INTEL ;
+					orient = exif_get_short (orient_ent->data, bo);
+					switch(orient) {
+					case 1: /* no rotation */
+						rotate_degrees = 0;
+						break;
+					case 8:
+						rotate_degrees = 270;
+						break;
+					case 3:
+						rotate_degrees = 180;
+						break;
+					case 6:
+						rotate_degrees = 90;
+						break;
+					}
+				}
+				g_print("orientation flag found, rotate: %d\n", rotate_degrees);
                 if(exif_data->data) /* if an embedded thumbnail is available */
                 {
                     /* load the embedded jpeg thumbnail */
                     GInputStream* mem_stream = g_memory_input_stream_new_from_data(exif_data->data, exif_data->size, NULL);
                     ori_pix = backend.read_image_from_stream(mem_stream, generator_cancellable);
-                    /* FIXME: how to apply orientation tag for this? maybe use libexif? */
                     g_object_unref(mem_stream);
                 }
                 exif_data_unref(exif_data);
@@ -924,7 +949,6 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
 
         if(ori_pix) /* if the original image is successfully loaded */
         {
-            const char* orientation_str = NULL; // backend.get_image_orientation(ori_pix);
             int width = backend.get_image_width(ori_pix);
             int height = backend.get_image_height(ori_pix);
             gboolean need_save;
@@ -942,13 +966,12 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                     normal_pix = scale_pix(ori_pix, 128);
                     need_save = TRUE;
                 }
-                if(orientation_str)
+                if(rotate_degrees != 0) // rotate the image by EXIF oritation
                 {
-                    // GObject* rotated;
-                    // gdk_pixbuf_set_option(normal_pix, "orientation", orientation_str);
-                    // rotated = gdk_pixbuf_apply_embedded_orientation(normal_pix);
-                    // g_object_unref(normal_pix);
-                    // normal_pix = rotated;
+                    GObject* rotated;
+                    rotated = backend.rotate_image(normal_pix, rotate_degrees);
+                    g_object_unref(normal_pix);
+                    normal_pix = rotated;
                 }
                 if(need_save)
                     save_thumbnail_to_disk(task, normal_pix, task->normal_path);
@@ -967,13 +990,12 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                     large_pix = scale_pix(ori_pix, 256);
                     need_save = TRUE;
                 }
-                if(orientation_str)
+                if(rotate_degrees != 0)
                 {
-                    // GObject* rotated;
-                    // gdk_pixbuf_set_option(large_pix, "orientation", orientation_str);
-                    // rotated = gdk_pixbuf_apply_embedded_orientation(large_pix);
-                    // g_object_unref(large_pix);
-                    // large_pix = rotated;
+                    GObject* rotated;
+                    rotated = backend.rotate_image(normal_pix, rotate_degrees);
+                    g_object_unref(large_pix);
+                    large_pix = rotated;
                 }
                 if(need_save)
                     save_thumbnail_to_disk(task, large_pix, task->large_path);
