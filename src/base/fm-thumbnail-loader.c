@@ -912,7 +912,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                 {
                     /* load the embedded jpeg thumbnail */
                     GInputStream* mem_stream = g_memory_input_stream_new_from_data(exif_data->data, exif_data->size, NULL);
-                    ori_pix = backend.read_image_from_stream(mem_stream, generator_cancellable);
+                    ori_pix = backend.read_image_from_stream(mem_stream, exif_data->size, generator_cancellable);
                     g_object_unref(mem_stream);
                 }
                 exif_data_unref(exif_data);
@@ -939,10 +939,10 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                 g_object_unref(ins);
                 ins = g_file_read(gf, generator_cancellable, NULL);
             }
-            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), generator_cancellable);
+            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), generator_cancellable);
         }
 #else
-        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), generator_cancellable);
+        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), generator_cancellable);
 #endif
         g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
         g_object_unref(ins);

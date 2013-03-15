@@ -134,7 +134,7 @@ static GObject* read_image_from_file(const char* filename) {
     return (GObject*)gdk_pixbuf_new_from_file(filename, NULL);
 }
 
-static GObject* read_image_from_stream(GInputStream* stream, GCancellable* cancellable)
+static GObject* read_image_from_stream(GInputStream* stream, guint64 len, GCancellable* cancellable)
 {
     return (GObject*)gdk_pixbuf_new_from_stream(stream, cancellable, NULL);
 }

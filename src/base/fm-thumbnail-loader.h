@@ -68,7 +68,7 @@ guint fm_thumbnail_result_get_size(FmThumbnailResult* req);
 typedef struct _ThumbnailLoaderBackend ThumbnailLoaderBackend;
 struct _ThumbnailLoaderBackend {
     GObject* (*read_image_from_file)(const char* filename);
-    GObject* (*read_image_from_stream)(GInputStream* stream, GCancellable* cancellable);
+    GObject* (*read_image_from_stream)(GInputStream* stream, guint64 len, GCancellable* cancellable);
     gboolean (*write_image)(GObject* image, const char* filename, const char* uri, const char* mtime);
     GObject* (*scale_image)(GObject* ori_pix, int new_width, int new_height);
     GObject* (*rotate_image)(GObject* image, int degree);
