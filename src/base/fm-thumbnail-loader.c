@@ -44,6 +44,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <signal.h>
 
 #ifdef USE_EXIF
 #include <libexif/exif-loader.h>
@@ -55,6 +58,8 @@
 #else
 #define DEBUG(...)
 #endif
+
+#define THUMBNAILER_TIMEOUT_SEC     30
 
 static ThumbnailLoaderBackend backend = {0};
 
@@ -136,6 +141,8 @@ static GHashTable* hash = NULL;
 
 static char* thumb_dir = NULL;
 
+static GPid thumbnailer_pid = -1;
+static guint thumbnailer_timeout_id = 0;
 
 static gpointer load_thumbnail_thread(gpointer user_data);
 static void load_thumbnails(ThumbnailTask* task);
@@ -665,7 +672,11 @@ void fm_thumbnail_result_cancel(FmThumbnailResult* req)
     {
         req->task->cancelled = TRUE;
         if(req->task == cur_loading && generator_cancellable)
+        {
             g_cancellable_cancel(generator_cancellable);
+            if(thumbnailer_pid)
+                kill(thumbnailer_pid, SIGTERM);
+        }
     }
 
 done:
@@ -906,7 +917,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
 						rotate_degrees = 90;
 						break;
 					}
-				g_print("orientation flag found, rotate: %d\n", rotate_degrees);
+                    /* g_print("orientation flag found, rotate: %d\n", rotate_degrees); */
 				}
                 if(exif_data->data) /* if an embedded thumbnail is available */
                 {
@@ -1014,6 +1025,46 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
     g_object_unref(gf);
 }
 
+/* call from main thread */
+static gboolean on_thumbnailer_timeout(gpointer user_data)
+{
+    /* g_print("thumbnail timeout!\n"); */
+    g_rec_mutex_lock(&queue_lock);
+    if(thumbnailer_pid)
+    {
+        kill(thumbnailer_pid, SIGTERM);
+        thumbnailer_pid = -1;
+    }
+    thumbnailer_timeout_id = 0;
+    g_rec_mutex_unlock(&queue_lock);
+    return FALSE;
+}
+
+/* call from the thumbnail thread */
+static gboolean run_thumbnailer(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size)
+{
+    /* g_print("run_thumbnailer: uri: %s\n", uri); */
+    int status;
+    g_rec_mutex_lock(&queue_lock);
+    thumbnailer_pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, uri, output_file, size);
+    thumbnailer_timeout_id = g_timeout_add_seconds(THUMBNAILER_TIMEOUT_SEC, on_thumbnailer_timeout, NULL);
+    /* g_print("pid: %d\n", thumbnailer_pid); */
+    g_rec_mutex_unlock(&queue_lock);
+
+    /* wait for the thumbnailer process to terminate */
+    waitpid(thumbnailer_pid, &status, 0);
+    /* the process is terminated */
+    g_rec_mutex_lock(&queue_lock);
+    thumbnailer_pid = -1;
+    if(thumbnailer_timeout_id)
+    {
+        g_source_remove(thumbnailer_timeout_id);
+        thumbnailer_timeout_id = 0;
+    }
+    g_rec_mutex_unlock(&queue_lock);
+    return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+}
+
 /* in thread */
 static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
 {
@@ -1032,9 +1083,10 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         for(l = thumbnailers; l; l = l->next)
         {
             FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
+            char* command_line;
             if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
             {
-                if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->normal_path, 128))
+                if(run_thumbnailer(thumbnailer, task->uri, task->normal_path, 128))
                 {
                     generated |= GENERATE_NORMAL;
                     normal_pix = backend.read_image_from_file(task->normal_path);
@@ -1042,7 +1094,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
             {
-                if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->large_path, 256))
+                if(run_thumbnailer(thumbnailer, task->uri, task->large_path, 256))
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->normal_path);

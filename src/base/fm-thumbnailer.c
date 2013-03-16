@@ -138,6 +138,112 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
 }
 
 /**
+ * fm_thumbnailer_command_for_uri
+ * @thumbnailer: thumbnailer descriptor
+ * @uri: a file to create thumbnail for
+ * @output_file: the target file name
+ * @size: size of thumbnail to generate
+ *
+ * Tries to generate new thumbnail for given @uri.
+ *
+ * Returns: a newly allocated string containing the command line used to
+ * generate a thumbnail for the specified uri.
+ *
+ * Since: 1.2.0
+ */
+char* fm_thumbnailer_command_for_uri(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size)
+{
+    if(thumbnailer && thumbnailer->exec)
+    {
+        /* FIXME: how to handle TryExec? */
+        
+        /* parse the command line and do required substitutions according to:
+         * http://developer.gnome.org/integration-guide/stable/thumbnailer.html.en
+         */
+        GString* cmd_line = g_string_sized_new(1024);
+        const char* p;
+        for(p = thumbnailer->exec; *p; ++p)
+        {
+            if(G_LIKELY(*p != '%'))
+                g_string_append_c(cmd_line, *p);
+            else
+            {
+                char* quoted;
+                ++p;
+                switch(*p)
+                {
+                case '\0':
+                    break;
+                case 's':
+                    g_string_append_printf(cmd_line, "%d", size);
+                    break;
+                case 'i':
+                {
+                    char* src_path = g_filename_from_uri(uri, NULL, NULL);
+                    if(src_path)
+                    {
+                        quoted = g_shell_quote(src_path);
+                        g_string_append(cmd_line, quoted);
+                        g_free(quoted);
+                        g_free(src_path);
+                    }
+                    break;
+                }
+                case 'u':
+                    quoted = g_shell_quote(uri);
+                    g_string_append(cmd_line, quoted);
+                    g_free(quoted);
+                    break;
+                case 'o':
+                    g_string_append(cmd_line, output_file);
+                    break;
+                default:
+                    g_string_append_c(cmd_line, '%');
+                    if(*p != '%')
+                        g_string_append_c(cmd_line, *p);
+                }
+            }
+        }
+        return g_string_free(cmd_line, FALSE);
+    }
+    return NULL;
+}
+
+/**
+ * fm_thumbnailer_launch_for_uri_async
+ * @thumbnailer: thumbnailer descriptor
+ * @uri: a file to create thumbnail for
+ * @output_file: the target file name
+ * @size: size of thumbnail to generate
+ *
+ * Tries to generate new thumbnail for given @uri.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 1.2.0
+ */
+GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size)
+{
+    GPid pid = -1;
+    char* cmd_line = fm_thumbnailer_command_for_uri(thumbnailer, uri, output_file, size);
+    if(cmd_line)
+    {
+        int argc;
+        char** argv;
+        if(g_shell_parse_argv(cmd_line, &argc, &argv, NULL))
+        {
+            g_spawn_async("/", argv, NULL,
+                G_SPAWN_SEARCH_PATH|G_SPAWN_STDOUT_TO_DEV_NULL|G_SPAWN_DO_NOT_REAP_CHILD,
+                NULL, NULL, &pid, NULL);
+            g_strfreev(argv);
+        }
+        /* g_print("pid = %d, %s", pid, cmd_line); */
+	}
+    return pid;
+}
+
+#ifndef FM_DISABLE_DEPRECATED
+/**
  * fm_thumbnailer_launch_for_uri
  * @thumbnailer: thumbnailer descriptor
  * @uri: a file to create thumbnail for
@@ -152,68 +258,19 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
  */
 gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* uri,  const char* output_file, guint size)
 {
-	if(thumbnailer && thumbnailer->exec)
-	{
-		/* FIXME: how to handle TryExec? */
-		
-		/* parse the command line and do required substitutions according to:
-		 * http://developer.gnome.org/integration-guide/stable/thumbnailer.html.en
-		 */
-		GString* cmd_line = g_string_sized_new(1024);
-		int status;
-		const char* p;
-		for(p = thumbnailer->exec; *p; ++p)
-		{
-			if(G_LIKELY(*p != '%'))
-				g_string_append_c(cmd_line, *p);
-			else
-			{
-				char* quoted;
-				++p;
-				switch(*p)
-				{
-				case '\0':
-					break;
-				case 's':
-					g_string_append_printf(cmd_line, "%d", size);
-					break;
-				case 'i':
-				{
-					char* src_path = g_filename_from_uri(uri, NULL, NULL);
-					if(src_path)
-					{
-						quoted = g_shell_quote(src_path);
-						g_string_append(cmd_line, quoted);
-						g_free(quoted);
-						g_free(src_path);
-					}
-					break;
-				}
-				case 'u':
-					quoted = g_shell_quote(uri);
-					g_string_append(cmd_line, quoted);
-					g_free(quoted);
-					break;
-				case 'o':
-					g_string_append(cmd_line, output_file);
-					break;
-				default:
-					g_string_append_c(cmd_line, '%');
-					if(*p != '%')
-						g_string_append_c(cmd_line, *p);
-				}
-			}
-		}
-
+    char* cmd_line = fm_thumbnailer_command_for_uri(thumbnailer, uri, output_file, size);
+    if(cmd_line)
+    {
+        int status;
 		/* TODO: this call is blocking. Do we have a better way to make it async? */
-		g_spawn_command_line_sync(cmd_line->str, NULL, NULL, &status, NULL);
+		g_spawn_command_line_sync(cmd_line, NULL, NULL, &status, NULL);
 		/* g_debug("launch thumbnailer: %s", cmd_line->str); */
-		g_string_free(cmd_line, TRUE);
+		g_free(cmd_line);
 		return (status == 0);
-	}	
+	}
 	return FALSE;
 }
-
+#endif
 
 static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir)
 {
