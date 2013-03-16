@@ -777,7 +777,7 @@ static void generate_thumbnails(ThumbnailTask* task)
          * We should only handle those mime-types supported
          * by GObject listed by gdk_pixbuf_get_formats(). */
         /* if the image file is too large, don't generate thumbnail for it. */
-        if(fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10))
+        if(fm_config->thumbnail_max == 0 || (fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10)))
             generate_thumbnails_with_builtin(task);
         /* FIXME: should requestor be informed we not loaded thumbnail? */
     }
@@ -906,8 +906,8 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
 						rotate_degrees = 90;
 						break;
 					}
-				}
 				g_print("orientation flag found, rotate: %d\n", rotate_degrees);
+				}
                 if(exif_data->data) /* if an embedded thumbnail is available */
                 {
                     /* load the embedded jpeg thumbnail */
@@ -1032,7 +1032,6 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         for(l = thumbnailers; l; l = l->next)
         {
             FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
-            DEBUG("generate thumbnail with: %s", thumbnailer->id);
             if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
             {
                 if(fm_thumbnailer_launch_for_uri(thumbnailer, task->uri, task->normal_path, 128))
