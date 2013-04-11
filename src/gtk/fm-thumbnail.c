@@ -77,7 +77,7 @@ FmThumbnailRequest* fm_thumbnail_request(FmFileInfo* src_file,
 /* in main loop */
 void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
 {
-    fm_thumbnail_result_cancel(req);
+    fm_thumbnail_loader_cancel(req);
 }
 
 /**
@@ -94,7 +94,7 @@ void fm_thumbnail_request_cancel(FmThumbnailRequest* req)
 /* in main loop */
 GdkPixbuf* fm_thumbnail_request_get_pixbuf(FmThumbnailRequest* req)
 {
-    return GDK_PIXBUF(fm_thumbnail_result_get_data(req));
+    return GDK_PIXBUF(fm_thumbnail_loader_get_data(req));
 }
 
 /**
@@ -111,7 +111,7 @@ GdkPixbuf* fm_thumbnail_request_get_pixbuf(FmThumbnailRequest* req)
 /* in main loop */
 FmFileInfo* fm_thumbnail_request_get_file_info(FmThumbnailRequest* req)
 {
-    return fm_thumbnail_result_get_file_info(req);
+    return fm_thumbnail_loader_get_file_info(req);
 }
 
 /**
@@ -127,7 +127,7 @@ FmFileInfo* fm_thumbnail_request_get_file_info(FmThumbnailRequest* req)
 /* in main loop */
 guint fm_thumbnail_request_get_size(FmThumbnailRequest* req)
 {
-    return fm_thumbnail_result_get_size(req);
+    return fm_thumbnail_loader_get_size(req);
 }
 
 static GObject* read_image_from_file(const char* filename) {
@@ -171,7 +171,7 @@ static GObject* rotate_image(GObject* image, int degree)
 	return (GObject*)gdk_pixbuf_rotate_simple(GDK_PIXBUF(image), (GdkPixbufRotation)degree);
 }
 
-ThumbnailLoaderBackend gtk_backend = {
+FmThumbnailLoaderBackend gtk_backend = {
     read_image_from_file,
     read_image_from_stream,
     write_image,

@@ -25,9 +25,9 @@
 /**
  * SECTION:fm-thumbnail-loader
  * @short_description: A thumbnails cache loader and generator.
- * @title: FmThumbnailResult
+ * @title: FmThumbnailLoader
  *
- * @include: libfm/fm-gtk.h
+ * @include: libfm/fm.h
  *
  * This API allows to generate thumbnails for files and save them on
  * disk then use that cache next time to display them.
@@ -61,7 +61,7 @@
 
 #define THUMBNAILER_TIMEOUT_SEC     30
 
-static ThumbnailLoaderBackend backend = {0};
+static FmThumbnailLoaderBackend backend = {NULL};
 
 typedef enum
 {
@@ -86,11 +86,11 @@ struct _ThumbnailTask
 /* cancelled above raised when all requests are cancelled and never dropped again */
 
 /* members of this structure cannot have concurrent access */
-struct _FmThumbnailResult
+struct _FmThumbnailLoader
 {
     FmFileInfo* fi;
     ThumbnailTask* task;
-    FmThumbnailResultCallback callback;
+    FmThumbnailLoaderCallback callback;
     gpointer user_data;
     GObject* pix;
     sig_atomic_t cancelled;
@@ -132,7 +132,7 @@ static ThumbnailTask* cur_loading = NULL;
 static GCancellable* generator_cancellable = NULL;
 
 /* already loaded thumbnails */
-static GQueue ready_queue = G_QUEUE_INIT; /* consists of FmThumbnailResult */
+static GQueue ready_queue = G_QUEUE_INIT; /* consists of FmThumbnailLoader */
 /* idle handler to call ready callback */
 static guint ready_idle_handler = 0;
 
@@ -153,26 +153,26 @@ static GObject* scale_pix(GObject* ori_pix, int size);
 static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char* path);
 
 /* may be called in thread */
-static void fm_thumbnail_result_free(FmThumbnailResult* req)
+static void fm_thumbnail_loader_free(FmThumbnailLoader* req)
 {
     fm_file_info_unref(req->fi);
     if(req->pix)
         g_object_unref(req->pix);
-    g_slice_free(FmThumbnailResult, req);
+    g_slice_free(FmThumbnailLoader, req);
 }
 
 /* in main loop */
 static gboolean on_ready_idle(gpointer user_data)
 {
-    FmThumbnailResult* req;
+    FmThumbnailLoader* req;
     int n = 200; /* max 200 thumbnails in a row */
     g_rec_mutex_lock(&queue_lock);
-    while((req = (FmThumbnailResult*)g_queue_pop_head(&ready_queue)) != NULL)
+    while((req = (FmThumbnailLoader*)g_queue_pop_head(&ready_queue)) != NULL)
     {
         g_rec_mutex_unlock(&queue_lock);
         if(!req->cancelled)
             req->callback(req, req->user_data);
-        fm_thumbnail_result_free(req);
+        fm_thumbnail_loader_free(req);
         if(--n == 0)
             return TRUE; /* continue on next idle */
         g_rec_mutex_lock(&queue_lock);
@@ -191,7 +191,7 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
 
     for(l = task->requests; l; l = l->next)
     {
-        FmThumbnailResult* req = (FmThumbnailResult*)l->data;
+        FmThumbnailLoader* req = (FmThumbnailLoader*)l->data;
         req->task = NULL;
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
@@ -206,7 +206,7 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
 
 static gint comp_request(gconstpointer a, gconstpointer b)
 {
-    return ((FmThumbnailResult*)a)->size - ((FmThumbnailResult*)b)->size;
+    return ((FmThumbnailLoader*)a)->size - ((FmThumbnailLoader*)b)->size;
 }
 
 /* called when cached pixbuf get destroyed */
@@ -283,7 +283,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GObject* normal_pix, GObj
     task->requests = g_list_sort(task->requests, comp_request);
     for(l=task->requests; l; l=l->next)
     {
-        FmThumbnailResult* req = (FmThumbnailResult*)l->data;
+        FmThumbnailLoader* req = (FmThumbnailLoader*)l->data;
         /* the thumbnail is ready, queue the request in ready queue. */
         /* later, the ready callbacks will be called in idle handler of main thread. */
         if(req->done)
@@ -563,19 +563,19 @@ static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
  * Since: 0.1.0
  */
 /* in main loop */
-FmThumbnailResult* fm_thumbnail_loader_load(FmFileInfo* src_file,
-                                         guint size,
-                                         FmThumbnailResultCallback callback,
-                                         gpointer user_data)
+FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
+                                            guint size,
+                                            FmThumbnailLoaderCallback callback,
+                                            gpointer user_data)
 {
-    FmThumbnailResult* req;
+    FmThumbnailLoader* req;
     ThumbnailTask* task;
     GObject* pix;
     FmPath* src_path = fm_file_info_get_path(src_file);
 
     g_return_val_if_fail(hash != NULL, NULL);
     g_assert(callback != NULL);
-    req = g_slice_new(FmThumbnailResult);
+    req = g_slice_new(FmThumbnailLoader);
     req->fi = fm_file_info_ref(src_file);
     req->size = size;
     req->callback = callback;
@@ -640,7 +640,7 @@ FmThumbnailResult* fm_thumbnail_loader_load(FmFileInfo* src_file,
 }
 
 /**
- * fm_thumbnail_result_cancel
+ * fm_thumbnail_loader_cancel
  * @req: the request descriptor
  *
  * Cancels request. After return from this call the @req becomes invalid
@@ -650,7 +650,7 @@ FmThumbnailResult* fm_thumbnail_loader_load(FmFileInfo* src_file,
  * Since: 0.1.0
  */
 /* in main loop */
-void fm_thumbnail_result_cancel(FmThumbnailResult* req)
+void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
 {
     GList* l;
 
@@ -664,7 +664,7 @@ void fm_thumbnail_result_cancel(FmThumbnailResult* req)
 
     for(l = req->task->requests; l; l = l->next)
     {
-        req = (FmThumbnailResult*)l->data;
+        req = (FmThumbnailLoader*)l->data;
         if(!req->cancelled)
             break;
     }
@@ -684,7 +684,7 @@ done:
 }
 
 /**
- * fm_thumbnail_result_get_data
+ * fm_thumbnail_loader_get_data
  * @req: request descriptor
  *
  * Retrieves loaded thumbnail. Returned data are owned by @req and should
@@ -695,13 +695,13 @@ done:
  * Since: 0.1.0
  */
 /* in main loop */
-GObject* fm_thumbnail_result_get_data(FmThumbnailResult* req)
+GObject* fm_thumbnail_loader_get_data(FmThumbnailLoader* req)
 {
     return req->pix;
 }
 
 /**
- * fm_thumbnail_result_get_file_info
+ * fm_thumbnail_loader_get_file_info
  * @req: request descriptor
  *
  * Retrieves file descriptor that request is for. Returned data are
@@ -712,13 +712,13 @@ GObject* fm_thumbnail_result_get_data(FmThumbnailResult* req)
  * Since: 0.1.0
  */
 /* in main loop */
-FmFileInfo* fm_thumbnail_result_get_file_info(FmThumbnailResult* req)
+FmFileInfo* fm_thumbnail_loader_get_file_info(FmThumbnailLoader* req)
 {
     return req->fi;
 }
 
 /**
- * fm_thumbnail_result_get_size
+ * fm_thumbnail_loader_get_size
  * @req: request descriptor
  *
  * Retrieves thumbnail size that request is for.
@@ -728,7 +728,7 @@ FmFileInfo* fm_thumbnail_result_get_file_info(FmThumbnailResult* req)
  * Since: 0.1.0
  */
 /* in main loop */
-guint fm_thumbnail_result_get_size(FmThumbnailResult* req)
+guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req)
 {
     return req->size;
 }
@@ -743,13 +743,13 @@ void _fm_thumbnail_loader_init()
 
 static gboolean fm_thumbnail_loader_cleanup(gpointer unused)
 {
-    FmThumbnailResult* req;
+    FmThumbnailLoader* req;
 
     if(loader_thread_id)
         return TRUE;
     /* loader_queue is empty and cur_loading is finished */
     while((req = g_queue_pop_head(&ready_queue)))
-        fm_thumbnail_result_free(req);
+        fm_thumbnail_loader_free(req);
     g_hash_table_destroy(hash); /* caches will be destroyed by pixbufs */
     hash = NULL;
     g_free(thumb_dir);
@@ -1114,7 +1114,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         g_object_unref(large_pix);
 }
 
-void fm_thumbnail_loader_set_backend(ThumbnailLoaderBackend* _backend)
+void fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
 {
     backend = *_backend;
 }

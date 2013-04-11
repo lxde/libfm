@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-typedef FmThumbnailResult FmThumbnailRequest;
+#define FmThumbnailRequest FmThumbnailLoader
 
 /**
  * FmThumbnailReadyCallback:

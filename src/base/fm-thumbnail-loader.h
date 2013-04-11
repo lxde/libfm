@@ -30,10 +30,10 @@
 
 G_BEGIN_DECLS
 
-typedef struct _FmThumbnailResult FmThumbnailResult;
+typedef struct _FmThumbnailLoader FmThumbnailLoader;
 
 /**
- * FmThumbnailResultCallback:
+ * FmThumbnailLoaderCallback:
  * @req: request descriptor
  * @data: user data provided when request was made
  *
@@ -44,28 +44,28 @@ typedef struct _FmThumbnailResult FmThumbnailResult;
  *
  * Since: 0.1.0
  */
-typedef void (*FmThumbnailResultCallback)(FmThumbnailResult *req, gpointer data);
+typedef void (*FmThumbnailLoaderCallback)(FmThumbnailLoader *req, gpointer data);
 
 void _fm_thumbnail_loader_init();
 
 void _fm_thumbnail_loader_finalize();
 
-FmThumbnailResult* fm_thumbnail_loader_load(FmFileInfo* src_file,
-                                    guint size,
-                                    FmThumbnailResultCallback callback,
-                                    gpointer user_data);
+FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
+                                            guint size,
+                                            FmThumbnailLoaderCallback callback,
+                                            gpointer user_data);
 
-void fm_thumbnail_result_cancel(FmThumbnailResult* req);
+void fm_thumbnail_loader_cancel(FmThumbnailLoader* req);
 
-GObject* fm_thumbnail_result_get_data(FmThumbnailResult* req);
+GObject* fm_thumbnail_loader_get_data(FmThumbnailLoader* req);
 
-FmFileInfo* fm_thumbnail_result_get_file_info(FmThumbnailResult* req);
+FmFileInfo* fm_thumbnail_loader_get_file_info(FmThumbnailLoader* req);
 
-guint fm_thumbnail_result_get_size(FmThumbnailResult* req);
+guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req);
 
 /* for toolkit-specific image loading code */
 
-typedef struct _ThumbnailLoaderBackend ThumbnailLoaderBackend;
+typedef struct _ThumbnailLoaderBackend FmThumbnailLoaderBackend;
 struct _ThumbnailLoaderBackend {
     GObject* (*read_image_from_file)(const char* filename);
     GObject* (*read_image_from_stream)(GInputStream* stream, guint64 len, GCancellable* cancellable);
@@ -79,7 +79,7 @@ struct _ThumbnailLoaderBackend {
     // GObject* (*apply_orientation)(GObject* image);
 };
 
-void fm_thumbnail_loader_set_backend(ThumbnailLoaderBackend* _backend);
+void fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend);
 
 G_END_DECLS
 
