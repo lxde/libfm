@@ -185,7 +185,8 @@ FmThumbnailLoaderBackend gtk_backend = {
 /* in main loop */
 void _fm_thumbnail_init()
 {
-    fm_thumbnail_loader_set_backend(&gtk_backend);
+    if(!fm_thumbnail_loader_set_backend(&gtk_backend))
+        g_error("failed to set backend for thumbnail loader");
 }
 
 void _fm_thumbnail_finalize(void)

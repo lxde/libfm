@@ -61,6 +61,7 @@
 
 #define THUMBNAILER_TIMEOUT_SEC     30
 
+static gboolean backend_loaded = FALSE;
 static FmThumbnailLoaderBackend backend = {NULL};
 
 typedef enum
@@ -1114,7 +1115,11 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         g_object_unref(large_pix);
 }
 
-void fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
+gboolean fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
 {
+    if(backend_loaded)
+        return FALSE;
     backend = *_backend;
+    backend_loaded = TRUE;
+    return TRUE;
 }

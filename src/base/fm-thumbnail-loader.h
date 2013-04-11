@@ -25,7 +25,7 @@
 #ifndef __FM_THUMBNAIL_LOADER_H__
 #define __FM_THUMBNAIL_LOADER_H__
 
-#include <glib-object.h>
+#include <glib-compat.h>
 #include "fm-file-info.h"
 
 G_BEGIN_DECLS
@@ -79,7 +79,8 @@ struct _ThumbnailLoaderBackend {
     // GObject* (*apply_orientation)(GObject* image);
 };
 
-void fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend);
+gboolean fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
+                                __attribute__((warn_unused_result,nonnull(1)));
 
 G_END_DECLS
 

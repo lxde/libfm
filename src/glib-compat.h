@@ -26,6 +26,11 @@
 
 G_BEGIN_DECLS
 
+/* If we're not using GNU C, elide __attribute__ */
+#ifndef __GNUC__
+# define __attribute__(x)
+#endif
+
 /* GLib prior 2.24 have no such macro */
 #ifndef G_DEFINE_INTERFACE
 #   define G_DEFINE_INTERFACE(TN, t_n, T_P) \
