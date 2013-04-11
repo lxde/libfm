@@ -142,7 +142,7 @@ static GHashTable* hash = NULL;
 
 static char* thumb_dir = NULL;
 
-static GPid thumbnailer_pid = -1;
+static GPid thumbnailer_pid = -1; /* for cur_loading task */
 static guint thumbnailer_timeout_id = 0;
 
 static gpointer load_thumbnail_thread(gpointer user_data);
@@ -675,8 +675,9 @@ void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
         if(req->task == cur_loading && generator_cancellable)
         {
             g_cancellable_cancel(generator_cancellable);
-            if(thumbnailer_pid)
+            if(thumbnailer_pid > 0)
                 kill(thumbnailer_pid, SIGTERM);
+            thumbnailer_pid = -1;
         }
     }
 
@@ -902,7 +903,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
 				{
 					gushort orient;
 					ExifByteOrder bo = exif_data_get_byte_order(exif_data);
-					bo == EXIF_BYTE_ORDER_INTEL ;
+					/* bo == EXIF_BYTE_ORDER_INTEL ; */
 					orient = exif_get_short (orient_ent->data, bo);
 					switch(orient) {
 					case 1: /* no rotation */
@@ -1031,7 +1032,7 @@ static gboolean on_thumbnailer_timeout(gpointer user_data)
 {
     /* g_print("thumbnail timeout!\n"); */
     g_rec_mutex_lock(&queue_lock);
-    if(thumbnailer_pid)
+    if(thumbnailer_pid > 0)
     {
         kill(thumbnailer_pid, SIGTERM);
         thumbnailer_pid = -1;
@@ -1046,22 +1047,40 @@ static gboolean run_thumbnailer(FmThumbnailer* thumbnailer, const char* uri, con
 {
     /* g_print("run_thumbnailer: uri: %s\n", uri); */
     int status;
+    GPid _pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, uri,
+                                                    output_file, size);
+    if(_pid <= 0) /* failed to launch */
+        return FALSE;
     g_rec_mutex_lock(&queue_lock);
-    thumbnailer_pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, uri, output_file, size);
-    thumbnailer_timeout_id = g_timeout_add_seconds(THUMBNAILER_TIMEOUT_SEC, on_thumbnailer_timeout, NULL);
+    if(thumbnailer_pid != -1)
+    {
+        g_rec_mutex_unlock(&queue_lock);
+        g_critical("libfm: run_thumbnailer() concurrent process attempt");
+        kill(_pid, SIGTERM);
+        return FALSE;
+    }
+    thumbnailer_pid = _pid;
+    thumbnailer_timeout_id = g_timeout_add_seconds(THUMBNAILER_TIMEOUT_SEC,
+                                                   on_thumbnailer_timeout, NULL);
     /* g_print("pid: %d\n", thumbnailer_pid); */
     g_rec_mutex_unlock(&queue_lock);
 
     /* wait for the thumbnailer process to terminate */
-    waitpid(thumbnailer_pid, &status, 0);
+    waitpid(_pid, &status, 0);
     /* the process is terminated */
     g_rec_mutex_lock(&queue_lock);
-    thumbnailer_pid = -1;
-    if(thumbnailer_timeout_id)
+    /* thumbnailer_pid can be only this one or -1 if terminated */
+    if(thumbnailer_pid == _pid)
     {
-        g_source_remove(thumbnailer_timeout_id);
-        thumbnailer_timeout_id = 0;
+        thumbnailer_pid = -1;
+        if(thumbnailer_timeout_id)
+        {
+            g_source_remove(thumbnailer_timeout_id);
+            thumbnailer_timeout_id = 0;
+        }
     }
+    else if(thumbnailer_pid != -1) /* it's error otherwise */
+        g_critical("libfm: run_thumbnailer() concurrent process");
     g_rec_mutex_unlock(&queue_lock);
     return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
@@ -1084,7 +1103,6 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         for(l = thumbnailers; l; l = l->next)
         {
             FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
-            char* command_line;
             if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
             {
                 if(run_thumbnailer(thumbnailer, task->uri, task->normal_path, 128))
