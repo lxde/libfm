@@ -215,14 +215,18 @@ char* fm_thumbnailer_command_for_uri(FmThumbnailer* thumbnailer, const char* uri
  * @uri: a file to create thumbnail for
  * @output_file: the target file name
  * @size: size of thumbnail to generate
+ * @error: (allow-none) (out): location to save error
  *
  * Tries to generate new thumbnail for given @uri.
  *
- * Returns: %TRUE in case of success.
+ * Returns: thumbnailer process ID or -1 in case of failure.
  *
  * Since: 1.2.0
  */
-GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size)
+GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
+                                         const char* uri,
+                                         const char* output_file, guint size,
+                                         GError** error)
 {
     GPid pid = -1;
     char* cmd_line = fm_thumbnailer_command_for_uri(thumbnailer, uri, output_file, size);
@@ -234,15 +238,17 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer, const char*
         {
             g_spawn_async("/", argv, NULL,
                 G_SPAWN_SEARCH_PATH|G_SPAWN_STDOUT_TO_DEV_NULL|G_SPAWN_DO_NOT_REAP_CHILD,
-                NULL, NULL, &pid, NULL);
+                NULL, NULL, &pid, error);
             g_strfreev(argv);
         }
         /* g_print("pid = %d, %s", pid, cmd_line); */
 	}
+    else
+        g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_FAILED,
+                            "Invalid thumbnailer description");
     return pid;
 }
 
-#ifndef FM_DISABLE_DEPRECATED
 /**
  * fm_thumbnailer_launch_for_uri
  * @thumbnailer: thumbnailer descriptor
@@ -255,6 +261,8 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer, const char*
  * Returns: %TRUE in case of success.
  *
  * Since: 1.0.0
+ *
+ * Deprecated: 1.2.0: use fm_thumbnailer_launch_for_uri_async() instead.
  */
 gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* uri,  const char* output_file, guint size)
 {
@@ -270,7 +278,6 @@ gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* u
 	}
 	return FALSE;
 }
-#endif
 
 static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir)
 {

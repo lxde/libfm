@@ -1056,8 +1056,9 @@ static gboolean run_thumbnailer(FmThumbnailer* thumbnailer, const char* uri, con
     /* g_print("run_thumbnailer: uri: %s\n", uri); */
     int status;
     GPid _pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, uri,
-                                                    output_file, size);
+                                                    output_file, size, NULL);
     if(_pid <= 0) /* failed to launch */
+        /* FIXME: print error message from failed thumbnailer */
         return FALSE;
     g_rec_mutex_lock(&queue_lock);
     if(thumbnailer_pid != -1)
