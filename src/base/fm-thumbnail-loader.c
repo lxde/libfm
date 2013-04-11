@@ -678,6 +678,11 @@ void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
             if(thumbnailer_pid > 0)
                 kill(thumbnailer_pid, SIGTERM);
             thumbnailer_pid = -1;
+            if(thumbnailer_timeout_id)
+            {
+                g_source_remove(thumbnailer_timeout_id);
+                thumbnailer_timeout_id = 0;
+            }
         }
     }
 
@@ -1030,6 +1035,9 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
 /* call from main thread */
 static gboolean on_thumbnailer_timeout(gpointer user_data)
 {
+    /* check if it is destroyed already */
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
     /* g_print("thumbnail timeout!\n"); */
     g_rec_mutex_lock(&queue_lock);
     if(thumbnailer_pid > 0)
