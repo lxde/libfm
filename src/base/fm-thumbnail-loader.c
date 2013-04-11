@@ -901,31 +901,31 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
             exif_loader_unref(exif_loader);
             if(exif_data)
             {
-				/* reference for EXIF orientation tag:
-				 * http://www.impulseadventure.com/photo/exif-orientation.html */
-				ExifEntry* orient_ent = exif_data_get_entry(exif_data, EXIF_TAG_ORIENTATION);
-				if(orient_ent) /* orientation flag found in EXIF */
-				{
-					gushort orient;
-					ExifByteOrder bo = exif_data_get_byte_order(exif_data);
-					/* bo == EXIF_BYTE_ORDER_INTEL ; */
-					orient = exif_get_short (orient_ent->data, bo);
-					switch(orient) {
-					case 1: /* no rotation */
-						rotate_degrees = 0;
-						break;
-					case 8:
-						rotate_degrees = 270;
-						break;
-					case 3:
-						rotate_degrees = 180;
-						break;
-					case 6:
-						rotate_degrees = 90;
-						break;
-					}
+                /* reference for EXIF orientation tag:
+                 * http://www.impulseadventure.com/photo/exif-orientation.html */
+                ExifEntry* orient_ent = exif_data_get_entry(exif_data, EXIF_TAG_ORIENTATION);
+                if(orient_ent) /* orientation flag found in EXIF */
+                {
+                    gushort orient;
+                    ExifByteOrder bo = exif_data_get_byte_order(exif_data);
+                    /* bo == EXIF_BYTE_ORDER_INTEL ; */
+                    orient = exif_get_short (orient_ent->data, bo);
+                    switch(orient) {
+                    case 1: /* no rotation */
+                        rotate_degrees = 0;
+                        break;
+                    case 8:
+                        rotate_degrees = 270;
+                        break;
+                    case 3:
+                        rotate_degrees = 180;
+                        break;
+                    case 6:
+                        rotate_degrees = 90;
+                        break;
+                    }
                     /* g_print("orientation flag found, rotate: %d\n", rotate_degrees); */
-				}
+                }
                 if(exif_data->data) /* if an embedded thumbnail is available */
                 {
                     /* load the embedded jpeg thumbnail */

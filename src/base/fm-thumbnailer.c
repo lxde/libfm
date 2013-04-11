@@ -156,7 +156,7 @@ char* fm_thumbnailer_command_for_uri(FmThumbnailer* thumbnailer, const char* uri
     if(thumbnailer && thumbnailer->exec)
     {
         /* FIXME: how to handle TryExec? */
-        
+
         /* parse the command line and do required substitutions according to:
          * http://developer.gnome.org/integration-guide/stable/thumbnailer.html.en
          */
@@ -242,7 +242,7 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
             g_strfreev(argv);
         }
         /* g_print("pid = %d, %s", pid, cmd_line); */
-	}
+    }
     else
         g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_FAILED,
                             "Invalid thumbnailer description");
@@ -270,13 +270,13 @@ gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* u
     if(cmd_line)
     {
         int status;
-		/* TODO: this call is blocking. Do we have a better way to make it async? */
-		g_spawn_command_line_sync(cmd_line, NULL, NULL, &status, NULL);
-		/* g_debug("launch thumbnailer: %s", cmd_line->str); */
-		g_free(cmd_line);
-		return (status == 0);
-	}
-	return FALSE;
+        /* TODO: this call is blocking. Do we have a better way to make it async? */
+        g_spawn_command_line_sync(cmd_line, NULL, NULL, &status, NULL);
+        /* g_debug("launch thumbnailer: %s", cmd_line->str); */
+        g_free(cmd_line);
+        return (status == 0);
+    }
+    return FALSE;
 }
 
 static void find_thumbnailers_in_data_dir(GHashTable* hash, const char* data_dir)
