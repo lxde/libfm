@@ -25,8 +25,13 @@
 #ifndef __FM_THUMBNAIL_LOADER_H__
 #define __FM_THUMBNAIL_LOADER_H__
 
-#include <glib-compat.h>
+#include <glib.h>
 #include "fm-file-info.h"
+
+/* If we're not using GNU C, elide __attribute__ */
+#ifndef __GNUC__
+# define __attribute__(x)
+#endif
 
 G_BEGIN_DECLS
 
