@@ -1061,12 +1061,27 @@ fm_thumbnail_request_get_size
 </SECTION>
 
 <SECTION>
+<FILE>fm-thumbnail-loader</FILE>
+FmThumbnailLoader
+FmThumbnailLoaderBackend
+FmThumbnailLoaderCallback
+fm_thumbnail_loader_cancel
+fm_thumbnail_loader_get_data
+fm_thumbnail_loader_get_file_info
+fm_thumbnail_loader_get_size
+fm_thumbnail_loader_load
+fm_thumbnail_loader_set_backend
+</SECTION>
+
+<SECTION>
 <FILE>fm-thumbnailer</FILE>
 FM_THUMBNAILER
 FmThumbnailer
 fm_thumbnailer_check_update
+fm_thumbnailer_command_for_uri
 fm_thumbnailer_free
 fm_thumbnailer_launch_for_uri
+fm_thumbnailer_launch_for_uri_async
 fm_thumbnailer_new_from_keyfile
 </SECTION>
 

@@ -99,6 +99,7 @@ FmPath* fm_path_get_parent(FmPath* path);
 const char* fm_path_get_basename(FmPath* path);
 FmPathFlags fm_path_get_flags(FmPath* path);
 gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix);
+FmPath* fm_path_get_scheme_path(FmPath* path);
 
 #define fm_path_is_native(path) ((fm_path_get_flags(path)&FM_PATH_IS_NATIVE)!=0)
 #define fm_path_is_trash(path) ((fm_path_get_flags(path)&FM_PATH_IS_TRASH)!=0)

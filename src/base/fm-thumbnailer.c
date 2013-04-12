@@ -144,10 +144,11 @@ FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf)
  * @output_file: the target file name
  * @size: size of thumbnail to generate
  *
- * Tries to generate new thumbnail for given @uri.
+ * Tries to generate command line that can be used to generate a thumbnail
+ * for given @uri. Returned string is allocated and should be freed with
+ * g_free() after usage.
  *
- * Returns: a newly allocated string containing the command line used to
- * generate a thumbnail for the specified uri.
+ * Returns: (transfer full): a newly allocated string or %NULL.
  *
  * Since: 1.2.0
  */
@@ -217,7 +218,7 @@ char* fm_thumbnailer_command_for_uri(FmThumbnailer* thumbnailer, const char* uri
  * @size: size of thumbnail to generate
  * @error: (allow-none) (out): location to save error
  *
- * Tries to generate new thumbnail for given @uri.
+ * Tries to spawn thumbnailer to generate new thumbnail for given @uri.
  *
  * Returns: thumbnailer process ID or -1 in case of failure.
  *
@@ -230,6 +231,7 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
 {
     GPid pid = -1;
     char* cmd_line = fm_thumbnailer_command_for_uri(thumbnailer, uri, output_file, size);
+    /* FIXME: check for mandatory arguments */
     if(cmd_line)
     {
         int argc;
@@ -242,6 +244,7 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
             g_strfreev(argv);
         }
         /* g_print("pid = %d, %s", pid, cmd_line); */
+        g_free(cmd_line);
     }
     else
         g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_FAILED,

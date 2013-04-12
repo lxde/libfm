@@ -561,7 +561,7 @@ static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
  *
  * Returns: (transfer none): request descriptor.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 /* in main loop */
 FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
@@ -648,7 +648,7 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
  * and cannot be used. Caller will never get callback for cancelled
  * request either.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 /* in main loop */
 void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
@@ -699,7 +699,7 @@ done:
  *
  * Returns: (transfer none): thumbnail.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 /* in main loop */
 GObject* fm_thumbnail_loader_get_data(FmThumbnailLoader* req)
@@ -716,7 +716,7 @@ GObject* fm_thumbnail_loader_get_data(FmThumbnailLoader* req)
  *
  * Returns: (transfer none): file descriptor.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 /* in main loop */
 FmFileInfo* fm_thumbnail_loader_get_file_info(FmThumbnailLoader* req)
@@ -732,7 +732,7 @@ FmFileInfo* fm_thumbnail_loader_get_file_info(FmThumbnailLoader* req)
  *
  * Returns: size in pixels.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 /* in main loop */
 guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req)
@@ -1142,6 +1142,19 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         g_object_unref(large_pix);
 }
 
+/**
+ * fm_thumbnail_loader_set_backend
+ * @_backend: callbacks list to set
+ *
+ * Sets callbacks list for further usage by thumbnail loader. Callbacks
+ * should implement operations with image representation for application
+ * specific model. This function can be called only once per application
+ * and every subsequent call will return %FALSE and change nothing.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 1.2.0
+ */
 gboolean fm_thumbnail_loader_set_backend(FmThumbnailLoaderBackend* _backend)
 {
     if(backend_loaded)

@@ -44,6 +44,7 @@ used to develop other file manager-related tools as well.
       <xi:include href="xml/fm-path.xml"/>
       <xi:include href="xml/fm-templates.xml"/>
       <xi:include href="xml/fm-terminal.xml"/>
+      <xi:include href="xml/fm-thumbnail-loader.xml"/>
       <xi:include href="xml/fm-thumbnailer.xml"/>
       <xi:include href="xml/fm-utils.xml"/>
     </chapter>

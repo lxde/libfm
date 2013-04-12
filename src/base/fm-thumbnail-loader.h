@@ -42,7 +42,7 @@ typedef struct _FmThumbnailLoader FmThumbnailLoader;
  * wants to use any GTK API it should call gdk_threads_enter() and
  * gdk_threads_leave() for safety.
  *
- * Since: 0.1.0
+ * Since: 1.2.0
  */
 typedef void (*FmThumbnailLoaderCallback)(FmThumbnailLoader *req, gpointer data);
 
@@ -65,8 +65,22 @@ guint fm_thumbnail_loader_get_size(FmThumbnailLoader* req);
 
 /* for toolkit-specific image loading code */
 
-typedef struct _ThumbnailLoaderBackend FmThumbnailLoaderBackend;
-struct _ThumbnailLoaderBackend {
+typedef struct _FmThumbnailLoaderBackend FmThumbnailLoaderBackend;
+
+/**
+ * FmThumbnailLoaderBackend:
+ * @read_image_from_file: callback to read image by file path
+ * @read_image_from_stream: callback to read image by opened #GInputStream
+ * @write_image: callback to write thumbnail file from image
+ * @scale_image: callback to change image sizes
+ * @rotate_image: callback to change image orientation
+ * @get_image_width: callback to retrieve width from image
+ * @get_image_height: callback to retrieve height from image
+ * @get_image_text: callback to retrieve custom attributes text from image
+ *
+ * Abstract backend callbacks list.
+ */
+struct _FmThumbnailLoaderBackend {
     GObject* (*read_image_from_file)(const char* filename);
     GObject* (*read_image_from_stream)(GInputStream* stream, guint64 len, GCancellable* cancellable);
     gboolean (*write_image)(GObject* image, const char* filename, const char* uri, const char* mtime);
