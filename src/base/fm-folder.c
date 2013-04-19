@@ -586,12 +586,13 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         /* make sure that the file is not already queued for addition. */
         if(!g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
         {
-            if(!_fm_folder_get_file_by_name(folder, name)) /* it's new file */
+            l = _fm_folder_get_file_by_name(folder, name);
+            if(!l) /* it's new file */
             {
                 /* add the file name to queue for addition. */
                 folder->files_to_add = g_slist_append(folder->files_to_add, name);
             }
-            else if(!g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp))
+            else if(g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp))
             {
                 /* file already queued for update, don't duplicate */
                 g_free(name);
@@ -599,6 +600,9 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             /* if we already have the file in FmFolder, update the existing one instead. */
             else
             {
+                /* bug #3591771: 'ln -fns . test' leave no file visible in folder.
+                   If it is queued for deletion then cancel that operation */
+                folder->files_to_del = g_slist_remove(folder->files_to_del, l);
                 /* update the existing item. */
                 folder->files_to_update = g_slist_append(folder->files_to_update, name);
             }
