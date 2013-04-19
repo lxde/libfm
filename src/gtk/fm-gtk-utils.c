@@ -68,6 +68,8 @@ void fm_show_error(GtkWindow* parent, const char* title, const char* msg)
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_OK, "%s", msg);
     gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Error"));
+    /* #3606577: error window if parent is desktop is below other windows */
+    gtk_window_set_keep_above(GTK_WINDOW(dlg), TRUE);
     gtk_dialog_run(GTK_DIALOG(dlg));
     gtk_widget_destroy(dlg);
 }
