@@ -512,6 +512,7 @@ static gboolean on_idle(FmFolder* folder)
 static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileMonitorEvent evt, FmFolder* folder)
 {
     GList* l;
+    GSList* sl;
     char* name;
 
     /* const char* names[]={
@@ -629,6 +630,20 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         l = _fm_folder_get_file_by_name(folder, name);
         if(l && !g_slist_find(folder->files_to_del, l) )
             folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
+        /* if the file is already queued for addition or update, that operation
+           will be just a waste, therefore cancel it right now */
+        sl = g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp);
+        if(sl)
+        {
+            g_free(sl->data); /* free name */
+            folder->files_to_update = g_slist_delete_link(folder->files_to_update, sl);
+        }
+        else if((sl = g_slist_find_custom(folder->files_to_add, name,
+                                          (GCompareFunc)strcmp)))
+        {
+            g_free(sl->data); /* free name */
+            folder->files_to_add = g_slist_delete_link(folder->files_to_add, sl);
+        }
         g_free(name);
         break;
     default:
