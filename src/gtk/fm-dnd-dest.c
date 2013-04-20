@@ -816,14 +816,6 @@ query_sources:
     }
     else /* we have got drag source files */
     {
-        if(fm_path_is_trash(dest_path))
-        {
-            /* FIXME: TODO: don't trash files on some file systems */
-            if(fm_path_is_trash_root(dest_path)) /* we can only move files to trash can */
-                action = GDK_ACTION_MOVE;
-            else /* files inside trash are read only */
-                action = 0;
-        }
 #if 0
         /* bug #3584798: DnD(copy/move) to remote host(SFTP://) does not work.
            we should do some check if target FS is R/O instead of this */
@@ -835,8 +827,8 @@ query_sources:
         }
 #endif
         /* dest is an ordinary path, check if drop on it is supported */
-        else if(!fm_dnd_dest_can_receive_drop(dest, dest_path,
-                                              fm_path_list_peek_head(dd->src_files)))
+        if(!fm_dnd_dest_can_receive_drop(dest, dest_path,
+                                         fm_path_list_peek_head(dd->src_files)))
             action = 0;
         else
         {
@@ -849,8 +841,17 @@ query_sources:
                                             gtk_get_current_event_device(),
                                             NULL, NULL, &mask);
             mask &= gtk_accelerator_get_default_mod_mask();
+            if(fm_path_is_trash(dest_path))
+            {
+                if((mask & ~GDK_CONTROL_MASK) == 0 &&
+                   fm_path_is_trash_root(dest_path))
+                    /* we can only move files to trash can */
+                    action = GDK_ACTION_MOVE;
+                else /* files inside trash are read only */
+                    action = 0;
+            }
             /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
-            if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))
+            else if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))
                 action = GDK_ACTION_LINK;
             else if(mask == GDK_SHIFT_MASK)
                 action = GDK_ACTION_MOVE;
