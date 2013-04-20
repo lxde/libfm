@@ -1614,7 +1614,7 @@ typedef struct
     FmFolderViewColumnInfo* info;
 } _ColumnsCache;
 
-gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
+static gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
 {
     FmStandardView* view;
     GtkTreeViewColumn *col, *last;
@@ -1696,7 +1696,7 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
     return TRUE;
 }
 
-GSList* _fm_standard_view_get_columns(FmFolderView* fv)
+static GSList* _fm_standard_view_get_columns(FmFolderView* fv)
 {
     FmStandardView* view;
     GSList* list;
@@ -1740,6 +1740,8 @@ static void fm_standard_view_view_init(FmFolderViewInterface* iface)
     iface->select_invert = fm_standard_view_select_invert;
     iface->select_file_path = fm_standard_view_select_file_path;
     iface->get_custom_menu_callbacks = fm_standard_view_get_custom_menu_callbacks;
+    iface->set_columns = _fm_standard_view_set_columns;
+    iface->get_columns = _fm_standard_view_get_columns;
 }
 
 typedef struct

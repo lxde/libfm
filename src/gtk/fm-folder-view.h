@@ -101,6 +101,8 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @unselect_all: VTable func, see fm_folder_view_unselect_all()
  * @select_invert: VTable func, see fm_folder_view_select_invert()
  * @select_file_path: VTable func, see fm_folder_view_select_file_path()
+ * @set_columns: (since 1.2.0) VTable func, see fm_folder_view_set_columns()
+ * @get_columns: (since 1.2.0) VTable func, see fm_folder_view_get_columns()
  * @get_custom_menu_callbacks: function to retrieve callbacks for popup menu setup
  */
 struct _FmFolderViewInterface
@@ -144,6 +146,9 @@ struct _FmFolderViewInterface
     void (*unselect_all)(FmFolderView* fv);
     void (*select_invert)(FmFolderView* fv);
     void (*select_file_path)(FmFolderView* fv, FmPath* path);
+
+    gboolean (*set_columns)(FmFolderView* fv, const GSList* cols);
+    GSList* (*get_columns)(FmFolderView* fv);
 
     /* for implementation internal usage */
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,

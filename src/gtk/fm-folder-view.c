@@ -1643,10 +1643,6 @@ void fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
 }
 #endif
 
-/* FIXME: make VTable entries after ABI change! */
-gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols);
-GSList* _fm_standard_view_get_columns(FmFolderView* fv);
-
 /**
  * fm_folder_view_set_columns
  * @fv: the folder view widget to apply
@@ -1661,8 +1657,15 @@ GSList* _fm_standard_view_get_columns(FmFolderView* fv);
  */
 gboolean fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols)
 {
-    // FIXME: call via VTable!
-    return _fm_standard_view_set_columns(fv, cols);
+    FmFolderViewInterface* iface;
+
+    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), FALSE);
+
+    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+
+    if(iface->set_columns)
+        return iface->set_columns(fv, cols);
+    return FALSE;
 }
 
 /**
@@ -1678,8 +1681,15 @@ gboolean fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols)
  */
 GSList* fm_folder_view_get_columns(FmFolderView* fv)
 {
-    // FIXME: call via VTable!
-    return _fm_standard_view_get_columns(fv);
+    FmFolderViewInterface* iface;
+
+    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), NULL);
+
+    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+
+    if(iface->get_columns)
+        return iface->get_columns(fv);
+    return NULL;
 }
 
 /**
