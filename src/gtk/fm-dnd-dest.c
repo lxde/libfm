@@ -843,7 +843,7 @@ query_sources:
             mask &= gtk_accelerator_get_default_mod_mask();
             if(fm_path_is_trash(dest_path))
             {
-                if((mask & ~GDK_CONTROL_MASK) == 0 &&
+                if((mask & ~GDK_SHIFT_MASK) == 0 && /* no modifiers or shift */
                    fm_path_is_trash_root(dest_path))
                     /* we can only move files to trash can */
                     action = GDK_ACTION_MOVE;
