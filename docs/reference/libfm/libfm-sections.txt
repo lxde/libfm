@@ -479,6 +479,7 @@ fm_file_ops_job_get_type
 
 <SECTION>
 <FILE>fm-file-properties</FILE>
+fm_file_properties_add_for_mime_type
 fm_file_properties_widget_new
 fm_show_file_properties
 </SECTION>

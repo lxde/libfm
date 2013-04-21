@@ -27,6 +27,37 @@
  *
  * @include: libfm/fm-gtk.h
  *
+ * The file properties dialog is a window with few tabs and buttons "OK"
+ * and "Cancel". Most of content of those tabs is handled by the widget
+ * itself but there is a possibility to change its content for some file
+ * type. See fm_file_properties_add_for_mime_type() for details.
+ *
+ * Default content of tabs of file properties dialog follows (each tab has
+ * a GtkAlignment element, tab ids below meant of those):
+ *
+ * Tab 1: contains GtkTable (id general_table) with items:
+ * - GtkImage (id icon)         : file icon
+ * - GtkLabel (id file)         : reserved (hidden), hidden label: id file_label
+ * - GtkEntry (id name)         : label: "Name"
+ * - GtkLabel (id dir)          : label: "Location"
+ * - GtkLabel (id target)       : label: "Target", id target_label
+ * - GtkLabel (id type)         : label: "File type"
+ * - GtkComboBox (id open_with) : label: "Open with", id open_with_label
+ * - GtkLabel (id total_size)   : label: "Total Size of Files", id total_size_label
+ * - GtkLabel (id size_on_disk) : label: "Size on Disk", id size_on_disk_label
+ * - GtkLabel (id mtime)        : label: "Last Modification", id mtime_label
+ * - GtkLabel (id atime)        : label: "Last Access", id atime_label
+ *
+ * Tab 2: id permissions_tab, contains items inside:
+ * - GtkEntry (id owner)        : label: "Owner", id owner_label
+ * - GtkEntry (id group)        : label: "Group", id group_label
+ * - GtkComboBox (id read_perm) : label: "View content"
+ * - GtkComboBox (id write_perm) : label: "Change content"
+ * - GtkComboBox (id exec_perm) : label: "Execute", id exec_label
+ * - GtkComboBox (id flags_set_file) : label: "Special bits", id flags_label
+ * - GtkComboBox (id flags_set_dir) : share the place with flags_set_file
+ *
+ * Tab 3: id extra_tab (hidden), empty, label: id extra_tab_label
  */
 
 #include <config.h>
@@ -91,6 +122,16 @@ enum {
     DIR_STICKY_SGID
 };
 
+typedef struct _FmFilePropExt FmFilePropExt;
+struct _FmFilePropExt
+{
+    FmFilePropExt *next; /* built-in GSList */
+    FmMimeType *type;
+    FmFilePropertiesExtensionInit cb; /* callbacks */
+};
+
+static FmFilePropExt *extensions = NULL;
+
 typedef struct _FmFilePropData FmFilePropData;
 struct _FmFilePropData
 {
@@ -141,6 +182,9 @@ struct _FmFilePropData
 
     guint timeout;
     FmDeepCountJob* dc_job;
+
+    FmFilePropExt* ext;
+    gpointer extdata;
 };
 
 
@@ -277,6 +321,10 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
+    /* call the extension if it was set */
+    if(data->ext != NULL)
+        data->ext->cb.finish(data->extdata, response != GTK_RESPONSE_OK);
+
     if( response == GTK_RESPONSE_OK )
     {
         int sel;
@@ -709,6 +757,7 @@ static void update_ui(FmFilePropData* data)
     {
         GIcon* icon = NULL;
         /* FIXME: handle custom icons for some files */
+        FmFilePropExt* ext;
 
         /* FIXME: display special property pages for special files or
          * some specified mime-types. */
@@ -746,6 +795,19 @@ static void update_ui(FmFilePropData* data)
             gtk_widget_destroy(data->target_label);
             gtk_widget_destroy(GTK_WIDGET(data->target));
         }
+        for(ext = extensions; ext; ext = ext->next)
+            if(ext->type == data->mime_type)
+            {
+                data->ext = ext;
+                break;
+            }
+        if(!data->ext)
+            for(ext = extensions; ext; ext = ext->next)
+                if(ext->type == NULL) /* fallback handler */
+                {
+                    data->ext = ext;
+                    break;
+                }
     }
     else
     {
@@ -854,6 +916,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     paths = fm_path_list_new_from_file_info_list(files);
     data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
     fm_path_list_unref(paths);
+    data->ext = NULL; /* no extension by default */
 
     if(toplevel)
     {
@@ -895,8 +958,6 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_COMBO_BOX,flags_set_file);
     GET_WIDGET(GTK_COMBO_BOX,flags_set_dir);
 
-    g_object_unref(builder);
-
     init_application_list(data);
 
     data->timeout = g_timeout_add(600, on_timeout, data);
@@ -907,6 +968,12 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     fm_job_run_async(FM_JOB(data->dc_job));
 
     update_ui(data);
+
+    /* if we got some extension then activate it updating dialog window */
+    if(data->ext)
+        data->extdata = data->ext->cb.init(builder, data, data->files);
+
+    g_object_unref(builder);
 
     return dlg;
 }
@@ -931,3 +998,48 @@ gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
     return TRUE;
 }
 
+/**
+ * fm_file_properties_add_for_mime_type
+ * @mime_type: mime type to add handler for
+ * @callbacks: table of handler callbacks
+ *
+ * Adds a handler for some mime type into file properties dialog. The
+ * handler will be used if file properties dialog is opened for single
+ * file or for few files of the same type to extend its functionality.
+ * The value "*" of @mime_type has special meaning - the handler will
+ * be used for file types where no other extension is applied. No
+ * wildcards are allowed otherwise.
+ *
+ * Returns: %TRUE if handler was added successfully.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
+                                              FmFilePropertiesExtensionInit *callbacks)
+{
+    FmMimeType *type;
+    FmFilePropExt *ext;
+
+    /* validate input */
+    if(!mime_type || !callbacks || !callbacks->init || !callbacks->finish)
+        return FALSE;
+    if(strcmp(mime_type, "*") == 0)
+        type = NULL;
+    else
+        type = fm_mime_type_from_name(mime_type);
+    for(ext = extensions; ext; ext = ext->next)
+        if(ext->type == type)
+        {
+            g_warning("duplicate file properties handler for \"%s\" ignored",
+                      mime_type);
+            if(type)
+                fm_mime_type_unref(type);
+            return FALSE;
+        }
+    ext = g_slice_new(FmFilePropExt);
+    ext->type = type;
+    ext->next = extensions;
+    ext->cb = *callbacks;
+    extensions = ext;
+    return TRUE;
+}
