@@ -101,8 +101,7 @@ static inline gboolean
 _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
 {
     GFileInfo* inf;
-
-    inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(job), err);
+    inf = g_file_query_info(gf, gfile_info_query_attribs, (GFileQueryInfoFlags)0, fm_job_get_cancellable(job), err);
     if( !inf )
         return FALSE;
     fm_file_info_set_from_gfileinfo(fi, inf);

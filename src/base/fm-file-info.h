@@ -177,7 +177,7 @@ static inline void fm_file_info_list_push_tail_noref(FmFileInfoList* list, FmFil
 }
 static inline FmFileInfo* fm_file_info_list_pop_head(FmFileInfoList* list)
 {
-    return fm_list_pop_head((FmList*)list);
+    return (FmFileInfo*)fm_list_pop_head((FmList*)list);
 }
 static inline void fm_file_info_list_delete_link(FmFileInfoList* list, GList* _l)
 {

@@ -160,7 +160,7 @@ static inline gboolean fm_path_list_is_empty(FmPathList* list)
 }
 static inline FmPath* fm_path_list_peek_head(FmPathList* list)
 {
-    return fm_list_peek_head((FmList*)list);
+    return (FmPath*)fm_list_peek_head((FmList*)list);
 }
 static inline GList* fm_path_list_peek_head_link(FmPathList* list)
 {
