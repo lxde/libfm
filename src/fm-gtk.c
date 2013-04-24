@@ -30,6 +30,9 @@
 
 #include "fm-gtk.h"
 
+// temporary definition, until FmModule is implemented
+void _fm_dentry_properties_init(void);
+
 /**
  * fm_gtk_init
  * @config: configuration file data
@@ -47,6 +50,7 @@ gboolean fm_gtk_init(FmConfig* config)
 
     _fm_icon_pixbuf_init();
     _fm_thumbnail_init();
+    _fm_dentry_properties_init(); // temporary
 
     return TRUE;
 }

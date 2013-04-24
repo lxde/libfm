@@ -2,7 +2,7 @@
  *      fm-file-properties.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
  * a GtkAlignment element, tab ids below meant of those):
  *
  * Tab 1: contains GtkTable (id general_table) with items:
- * - GtkImage (id icon)         : file icon
+ * - GtkImage (id icon)         : file icon, eventbox: id icon_eventbox
  * - GtkLabel (id file)         : reserved (hidden), hidden label: id file_label
  * - GtkEntry (id name)         : label: "Name"
  * - GtkLabel (id dir)          : label: "Location"
@@ -58,6 +58,10 @@
  * - GtkComboBox (id flags_set_dir) : share the place with flags_set_file
  *
  * Tab 3: id extra_tab (hidden), empty, label: id extra_tab_label
+ *
+ * Since gtk_table_get_size() is available only for GTK 2.22 ... GTK 3.4
+ * it is not generally recommended to change size of GtkTable but be also
+ * aware that gtk_table_attach() is marked deprecated in GTK 3.4 though.
  */
 
 #include <config.h>

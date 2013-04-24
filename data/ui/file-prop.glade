@@ -87,13 +87,20 @@
                     <property name="column_spacing">12</property>
                     <property name="row_spacing">6</property>
                     <child>
-                      <object class="GtkImage" id="icon">
+                      <object class="GtkEventBox" id="icon_eventbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_text" translatable="yes">Icon of the file in folder view</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <property name="icon-size">6</property>
+                        <child>
+                          <object class="GtkImage" id="icon">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="tooltip_text" translatable="yes">Icon of the file in folder view</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <property name="icon-size">6</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="bottom_attach">2</property>
@@ -843,7 +850,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="user_access_model">
+  <object class="GtkListStore" id="read_access_model">
     <columns>
       <!-- column-name who -->
       <column type="gchararray"/>
@@ -851,9 +858,6 @@
     <data>
       <row>
         <col id="0" translatable="yes">---</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Nobody</col>
       </row>
       <row>
         <col id="0" translatable="yes">Only owner</col>
@@ -866,7 +870,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="read_access_model">
+  <object class="GtkListStore" id="user_access_model">
     <columns>
       <!-- column-name who -->
       <column type="gchararray"/>
@@ -874,6 +878,9 @@
     <data>
       <row>
         <col id="0" translatable="yes">---</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Nobody</col>
       </row>
       <row>
         <col id="0" translatable="yes">Only owner</col>
