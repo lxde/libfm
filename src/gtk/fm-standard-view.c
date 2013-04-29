@@ -1385,7 +1385,7 @@ gboolean _fm_standard_view_set_columns(FmFolderView* fv, const GSList* cols)
             old_cols[i].info = NULL; /* don't try to use it again */
             /* TODO: update all other data - width for example */
         }
-        else if(!fm_folder_model_col_is_valid(0))
+        else if(!fm_folder_model_col_get_name(FM_FOLDER_MODEL_COL_NAME))
             /* workaround for case when there is no model init yet, the most
                probably bug #3596550 is about this (it creates column with
                empty title), can g_return_val_if_fail() not fail somehow? */
