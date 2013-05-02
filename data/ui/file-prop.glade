@@ -127,7 +127,7 @@
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
-                        <property name="x_options"></property>
+                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
@@ -204,7 +204,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Target:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Target file:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
