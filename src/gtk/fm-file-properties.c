@@ -142,6 +142,7 @@ struct _FmFilePropData
     GtkDialog* dlg;
 
     /* General page */
+    GtkTable* general_table;
     GtkImage* icon;
     GtkEntry* name;
     GtkLabel* dir;
@@ -798,6 +799,7 @@ static void update_ui(FmFilePropData* data)
         {
             gtk_widget_destroy(data->target_label);
             gtk_widget_destroy(GTK_WIDGET(data->target));
+            gtk_table_set_row_spacing(data->general_table, 3, 0);
         }
         for(ext = extensions; ext; ext = ext->next)
             if(ext->type == data->mime_type)
@@ -938,6 +940,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 
     dlg = data->dlg;
 
+    GET_WIDGET(GTK_TABLE,general_table);
     GET_WIDGET(GTK_IMAGE,icon);
     GET_WIDGET(GTK_ENTRY,name);
     GET_WIDGET(GTK_LABEL,dir);
