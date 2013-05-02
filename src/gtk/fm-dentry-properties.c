@@ -188,17 +188,23 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "Comment", NULL, NULL);
     if (txt)
         gtk_entry_set_text(data->comment, txt);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(new_widget),
-                                _("Tooltip to show on application"));
+    gtk_widget_set_tooltip_text(new_widget, _("Tooltip to show on application"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_tooltip_changed), data);
     gtk_table_attach_defaults(table, new_widget, 2, 3, 5, 6);
     gtk_label_set_mnemonic_widget(label, new_widget);
     gtk_widget_show(new_widget);
-    /* replace row 6 with "Exec" GtkHBox: GtkEntry+GtkButton */
-    HIDE_WIDGET("total_size");
-    widget = gtk_builder_get_object(ui, "total_size_label");
-    label = GTK_LABEL(widget);
+#undef HIDE_WIDGET
+    /* FIXME: migrate to GtkGrid */
+    table = GTK_TABLE(gtk_table_new(7, 2, FALSE));
+    gtk_table_set_row_spacings(table, 4);
+    gtk_table_set_col_spacings(table, 12);
+    gtk_container_set_border_width(GTK_CONTAINER(table), 4);
+    /* row 0: "Exec" GtkHBox: GtkEntry+GtkButton */
+    new_widget = gtk_label_new(NULL);
+    label = GTK_LABEL(new_widget);
+    gtk_misc_set_alignment(GTK_MISC(new_widget), 0.0, 0.0);
     gtk_label_set_markup_with_mnemonic(label, _("<b>Co_mmand:</b>"));
+    gtk_table_attach(table, new_widget, 0, 1, 0, 1, GTK_FILL, 0, 0, 0);
 #if GTK_CHECK_VERSION(3, 2, 0)
     /* FIXME: migrate to GtkGrid */
     widget = G_OBJECT(gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6));
@@ -214,16 +220,13 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "Exec", NULL, NULL);
     if (txt)
         gtk_entry_set_text(data->exec, txt);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(new_widget),
+    gtk_widget_set_tooltip_text(new_widget,
                                 _("Command to execute when the application icon is activated"));
     gtk_box_pack_start(GTK_BOX(widget), new_widget, TRUE, TRUE, 0);
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_exec_changed), data);
-    gtk_table_attach_defaults(table, GTK_WIDGET(widget), 2, 3, 6, 7);
+    gtk_table_attach(table, GTK_WIDGET(widget), 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
-    gtk_widget_show_all(GTK_WIDGET(widget));
-    /* replace row 7 with "Terminal" GtkCheckButton */
-    HIDE_WIDGET("size_on_disk_label");
-    HIDE_WIDGET("size_on_disk");
+    /* row 1: "Terminal" GtkCheckButton */
     new_widget = gtk_check_button_new_with_mnemonic(_("_Run in terminal emulator"));
     data->terminal = GTK_TOGGLE_BUTTON(new_widget);
     tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "Terminal", &err);
@@ -234,16 +237,14 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     }
     gtk_toggle_button_set_active(data->terminal, tmp_bool);
     g_signal_connect(new_widget, "toggled", G_CALLBACK(_dentry_terminal_toggled), data);
-    gtk_table_attach_defaults(table, new_widget, 2, 3, 7, 8);
-    gtk_widget_show(new_widget);
-    /* Remove mtime and atime lines */
-    /* TODO: add checkbox for 'Leave terminal after exit' */
-    HIDE_WIDGET("mtime_label");
-    HIDE_WIDGET("mtime");
-    HIDE_WIDGET("atime_label");
-    HIDE_WIDGET("atime");
-#undef HIDE_WIDGET
-    //.......
+    gtk_table_attach(table, new_widget, 0, 2, 1, 2, GTK_FILL, 0, 18, 0);
+    /* FIXME: add checkbox for 'Leave terminal after exit' */
+    /* put the table into third tab and enable it */
+    widget = gtk_builder_get_object(ui, "extra_tab_label");
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget), "_Desktop entry");
+    widget = gtk_builder_get_object(ui, "extra_tab");
+    gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(table));
+    gtk_widget_show_all(GTK_WIDGET(widget));
     return data;
 }
 
