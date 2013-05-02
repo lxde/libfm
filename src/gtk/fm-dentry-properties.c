@@ -256,7 +256,7 @@ static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
 
     if (data == NULL)
         return;
-    if (data->changed)
+    if (!cancelled && data->changed)
     {
         text = g_key_file_to_data(data->kf, &len, NULL);
         out = G_OUTPUT_STREAM(g_file_replace(data->file, NULL, FALSE, 0, NULL, NULL));
