@@ -119,7 +119,8 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     /* disable permissions tab in any case */
 #define HIDE_WIDGET(x) widget = gtk_builder_get_object(ui, x); \
         gtk_widget_hide(GTK_WIDGET(widget))
-    HIDE_WIDGET("permissions_tab");
+    /* HIDE_WIDGET("permissions_tab");
+       TODO: made visibility of permissions_tab configurable */
     /* we will do the thing only for single file! */
     if (fm_file_info_list_get_length(files) != 1)
         return NULL;
