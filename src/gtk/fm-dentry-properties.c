@@ -308,9 +308,36 @@ static gboolean _dentry_icon_press_event(GtkWidget *widget, GdkEventKey *event,
     return FALSE;
 }
 
+static gboolean exe_filter(const GtkFileFilterInfo *inf, gpointer user_data)
+{
+    return g_file_test(inf->filename, G_FILE_TEST_IS_EXECUTABLE);
+}
+
 static void _dentry_browse_exec_event(GtkButton *button, FmFilePropertiesDEntryData *data)
 {
     /* g_debug("browse button pressed"); */
+    /* this handler is also taken from lxshortcut */
+    GtkWidget *chooser;
+    GtkFileFilter *filter;
+
+    chooser = gtk_file_chooser_dialog_new(_("Choose an executable file"),
+                                          NULL, GTK_FILE_CHOOSER_ACTION_OPEN,
+                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                          GTK_STOCK_OPEN, GTK_RESPONSE_OK, NULL);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(chooser), "/usr/bin");
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("Executable files") );
+    gtk_file_filter_add_custom(GTK_FILE_FILTER(filter), GTK_FILE_FILTER_FILENAME,
+                               exe_filter, NULL, NULL);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(chooser), filter);
+
+    if (gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_OK)
+    {
+        char *file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+        gtk_entry_set_text(data->exec, file);
+        g_free(file);
+    }
+    gtk_widget_destroy(chooser);
 }
 
 static void _dentry_name_changed(GtkEditable *editable, FmFilePropertiesDEntryData *data)
