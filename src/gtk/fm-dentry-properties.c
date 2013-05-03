@@ -45,6 +45,7 @@ struct _FmFilePropertiesDEntryData
     GtkEntry *exec;
     GtkEntry *generic_name;
     GtkEntry *path;
+    GtkToggleButton *hidden;
     GtkToggleButton *terminal;
     GtkToggleButton *keep_open;
     GtkToggleButton *notification;
@@ -421,6 +422,15 @@ static void _dentry_notification_toggled(GtkToggleButton *togglebutton,
     data->changed = TRUE;
 }
 
+static void _dentry_hidden_toggled(GtkToggleButton *togglebutton,
+                                   FmFilePropertiesDEntryData *data)
+{
+    /* g_debug("no display toggled"); */
+    g_key_file_set_boolean(data->kf, GRP_NAME, "NoDisplay",
+                           gtk_toggle_button_get_active(togglebutton));
+    data->changed = TRUE;
+}
+
 static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList *files)
 {
     GObject *widget;
@@ -497,6 +507,23 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_label_set(GTK_LABEL(widget),
                   fm_file_info_get_name(fm_file_info_list_peek_head(files)));
     gtk_widget_show(GTK_WIDGET(widget));
+    /* support 'hidden' option */
+    data->hidden = NULL;
+    widget = gtk_builder_get_object(ui, "hidden");
+    if (widget && GTK_IS_TOGGLE_BUTTON(widget))
+    {
+        data->hidden = (GtkToggleButton*)widget;
+        tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "NoDisplay", &err);
+        if (err) /* no such key present */
+        {
+            tmp_bool = FALSE;
+            g_clear_error(&err);
+        }
+        gtk_toggle_button_set_active(data->hidden, tmp_bool);
+        g_signal_connect(widget, "toggled", G_CALLBACK(_dentry_hidden_toggled), data);
+        /* set sensitive since it can be toggled for desktop entry */
+        gtk_widget_set_sensitive(GTK_WIDGET(widget), TRUE);
+    }
     /* hide 'Open with' choose box */
     HIDE_WIDGET("open_with");
     HIDE_WIDGET("open_with_label");
