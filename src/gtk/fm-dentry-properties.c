@@ -1,6 +1,7 @@
 /*
  *      fm-dentry-properties.c
  *
+ *      Copyright 2008  <pcman.tw@gmail.com>
  *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify

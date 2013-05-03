@@ -102,6 +102,17 @@ Changes on 1.2.0 since 1.1.0:
 
 * Setting 'thumbnail_max' to 0 will mean unlimited size from now on.
 
+* Added file properties dialog extension API. Application can add own
+    handler to modify file properties dialog for certain MIME type files.
+
+* Implemented file properties dialog extension for desktop entry file
+    type - opening file properties dialog for single desktop entry will
+    be extended by third tab ('Desktop Entry') with few desktop entry
+    properties such as command to execute. Icon also becomes clickable
+    (and focusable as well, can be activated by Space key when focused),
+    activation will present icon choose dialog. The implementation was
+    partially taken from LXShortcut utility.
+
 
 Changes on 1.1.0 since 1.0.1:
 
