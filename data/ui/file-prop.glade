@@ -104,6 +104,7 @@
                       </object>
                       <packing>
                         <property name="bottom_attach">2</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -147,6 +148,7 @@
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
                         <property name="x_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -163,6 +165,8 @@
                         <property name="right_attach">3</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -298,7 +302,7 @@
                         <property name="top_attach">5</property>
                         <property name="bottom_attach">6</property>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -466,7 +470,7 @@
                         <property name="n_rows">2</property>
                         <property name="n_columns">2</property>
                         <property name="column_spacing">12</property>
-                        <property name="row_spacing">6</property>
+                        <property name="row_spacing">4</property>
                         <child>
                           <object class="GtkLabel" id="owner_label">
                             <property name="visible">True</property>
@@ -559,7 +563,7 @@
                                 <property name="n_rows">4</property>
                                 <property name="n_columns">2</property>
                                 <property name="column_spacing">12</property>
-                                <property name="row_spacing">6</property>
+                                <property name="row_spacing">4</property>
                                 <child>
                                   <object class="GtkLabel" id="label6">
                                     <property name="visible">True</property>
