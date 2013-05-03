@@ -507,8 +507,8 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_label_set_markup(GTK_LABEL(widget), _("<b>File:</b>"));
     gtk_widget_show(GTK_WIDGET(widget));
     widget = gtk_builder_get_object(ui, "file");
-    gtk_label_set(GTK_LABEL(widget),
-                  fm_file_info_get_name(fm_file_info_list_peek_head(files)));
+    gtk_label_set_text(GTK_LABEL(widget),
+                       fm_file_info_get_name(fm_file_info_list_peek_head(files)));
     gtk_widget_show(GTK_WIDGET(widget));
     /* support 'hidden' option */
     data->hidden = NULL;
