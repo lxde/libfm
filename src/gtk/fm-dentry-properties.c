@@ -46,6 +46,7 @@ struct _FmFilePropertiesDEntryData
     GtkEntry *generic_name;
     GtkEntry *path;
     GtkToggleButton *terminal;
+    GtkToggleButton *keep_open;
     GtkToggleButton *notification;
     gchar *lang;
     gboolean changed;
@@ -392,8 +393,21 @@ static void _dentry_path_changed(GtkEditable *editable, FmFilePropertiesDEntryDa
 static void _dentry_terminal_toggled(GtkToggleButton *togglebutton,
                                      FmFilePropertiesDEntryData *data)
 {
+    gboolean active = gtk_toggle_button_get_active(togglebutton);
+
     /* g_debug("run in terminal toggled"); */
-    g_key_file_set_boolean(data->kf, GRP_NAME, "Terminal",
+    g_key_file_set_boolean(data->kf, GRP_NAME, "Terminal", active);
+    gtk_widget_set_sensitive(GTK_WIDGET(data->keep_open), active);
+    if (!active) /* it is not reasonable to keep the key if no Terminal is set */
+        g_key_file_remove_key(data->kf, GRP_NAME, "X-KeepTerminal", NULL);
+    data->changed = TRUE;
+}
+
+static void _dentry_keepterm_toggled(GtkToggleButton *togglebutton,
+                                     FmFilePropertiesDEntryData *data)
+{
+    /* g_debug("keep terminal open toggled"); */
+    g_key_file_set_boolean(data->kf, GRP_NAME, "X-KeepTerminal",
                            gtk_toggle_button_get_active(togglebutton));
     data->changed = TRUE;
 }
@@ -532,7 +546,19 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_toggle_button_set_active(data->terminal, tmp_bool);
     g_signal_connect(new_widget, "toggled", G_CALLBACK(_dentry_terminal_toggled), data);
     gtk_table_attach(table, new_widget, 0, 2, 1, 2, GTK_FILL, 0, 18, 0);
-    /* FIXME: add checkbox for 'Leave terminal after exit' */
+    /* row 2: "X-KeepTerminal" GtkCheckButton */
+    new_widget = gtk_check_button_new_with_mnemonic(_("_Keep terminal window open after run"));
+    data->keep_open = GTK_TOGGLE_BUTTON(new_widget);
+    gtk_widget_set_sensitive(new_widget, tmp_bool); /* disable if not in terminal */
+    tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "X-KeepTerminal", &err);
+    if (err) /* no such key present */
+    {
+        tmp_bool = FALSE;
+        g_clear_error(&err);
+    }
+    gtk_toggle_button_set_active(data->keep_open, tmp_bool);
+    g_signal_connect(new_widget, "toggled", G_CALLBACK(_dentry_keepterm_toggled), data);
+    gtk_table_attach(table, new_widget, 0, 2, 2, 3, GTK_FILL, 0, 27, 0);
     /* row 4: "GenericName" GtkEntry */
     new_widget = gtk_label_new(NULL);
     label = GTK_LABEL(new_widget);
