@@ -298,7 +298,10 @@ static gboolean _dentry_icon_click_event(GtkWidget *widget, GdkEventButton *even
 {
     /* g_debug("icon click received (button=%d)", event->button); */
     if (event->button == 1) /* accept only left click */
+    {
         _change_icon(gtk_widget_get_toplevel(widget), data);
+        return TRUE;
+    }
     return FALSE;
 }
 
