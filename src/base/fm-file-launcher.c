@@ -110,6 +110,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
                                  * points to yet another desktop entry file, this can create a
                                  * infinite loop. This is a extremely rare case. */
                                 FmPath* path = fm_path_new_for_uri(url);
+                                g_free(url);
                                 _uris = g_list_prepend(_uris, path);
                                 ret = fm_launch_paths(ctx, _uris, launcher, user_data);
                                 g_list_free(_uris);
@@ -125,6 +126,8 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
                             }
                             g_free(scheme);
                         }
+                        else
+                            g_free(url);
                     }
                 }
                 else if(strcmp(type, "Directory") == 0)

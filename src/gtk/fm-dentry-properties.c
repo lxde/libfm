@@ -557,7 +557,10 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     data->exec = GTK_ENTRY(new_widget);
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "Exec", NULL, NULL);
     if (txt)
+    {
         gtk_entry_set_text(data->exec, txt);
+        g_free(txt);
+    }
     gtk_widget_set_tooltip_text(new_widget,
                                 _("Command to execute when the application icon is activated"));
     gtk_box_pack_start(GTK_BOX(widget), new_widget, TRUE, TRUE, 0);
@@ -599,7 +602,10 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     data->generic_name = GTK_ENTRY(new_widget);
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "GenericName", NULL, NULL);
     if (txt)
+    {
         gtk_entry_set_text(data->generic_name, txt);
+        g_free(txt);
+    }
     gtk_widget_set_tooltip_text(new_widget, _("Generic name of the application"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_genname_changed), data);
     gtk_table_attach(table, new_widget, 1, 2, 4, 5, GTK_FILL, 0, 0, 0);
@@ -614,7 +620,10 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     data->path = GTK_ENTRY(new_widget);
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "Path", NULL, NULL);
     if (txt)
+    {
         gtk_entry_set_text(data->path, txt);
+        g_free(txt);
+    }
     gtk_widget_set_tooltip_text(new_widget,
                                 _("The working directory to run the program in"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_path_changed), data);
@@ -630,7 +639,10 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     data->comment = GTK_ENTRY(new_widget);
     txt = g_key_file_get_locale_string(data->kf, GRP_NAME, "Comment", NULL, NULL);
     if (txt)
+    {
         gtk_entry_set_text(data->comment, txt);
+        g_free(txt);
+    }
     gtk_widget_set_tooltip_text(new_widget, _("Tooltip to show on application"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_tooltip_changed), data);
     gtk_table_attach(table, new_widget, 1, 2, 5, 6, GTK_FILL, 0, 0, 0);
