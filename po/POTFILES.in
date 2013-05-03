@@ -1,11 +1,12 @@
 data/libfm-pref-apps.desktop.in
 data/ui/app-chooser.glade
 data/ui/ask-rename.glade
-data/ui/file-prop.glade
-data/ui/progress.glade
-data/ui/preferred-apps.glade
+[type: gettext/glade]data/ui/choose-icon.ui
 data/ui/exec-file.glade
+data/ui/file-prop.glade
 data/ui/filesearch.glade
+data/ui/preferred-apps.glade
+data/ui/progress.glade
 src/base/fm-file-info.c
 src/base/fm-file-launcher.c
 src/base/fm-path.c
@@ -16,6 +17,7 @@ src/base/fm-utils.c
 src/gtk/fm-app-chooser-combo-box.c
 src/gtk/fm-app-chooser-dlg.c
 src/gtk/fm-app-menu-view.c
+src/gtk/fm-dentry-properties.c
 src/gtk/fm-dir-tree-model.c
 src/gtk/fm-dir-tree-view.c
 src/gtk/fm-dnd-dest.c
