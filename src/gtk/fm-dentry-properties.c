@@ -25,8 +25,11 @@
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "fm-file-properties.h"
+
+#include "gtk-compat.h"
 
 #define GRP_NAME "Desktop Entry"
 
@@ -35,6 +38,7 @@ struct _FmFilePropertiesDEntryData
 {
     GFile *file;
     GKeyFile *kf;
+    GtkImage *icon;
     GtkEntry *name;
     GtkEntry *comment;
     GtkEntry *exec;
@@ -46,10 +50,252 @@ struct _FmFilePropertiesDEntryData
     gboolean changed;
 };
 
+/* this handler is taken from lxshortcut and modified a bit */
+static void on_update_preview(GtkFileChooser* chooser, GtkImage* img)
+{
+    char *file = gtk_file_chooser_get_preview_filename(chooser);
+    if (file)
+    {
+        GdkPixbuf *pix = gdk_pixbuf_new_from_file_at_scale(file, 48, 48, TRUE, NULL);
+        if (pix)
+        {
+            gtk_image_set_from_pixbuf(img, pix);
+            g_object_unref(pix);
+            return;
+        }
+    }
+    gtk_image_clear(img);
+}
+
+static void on_toggle_theme(GtkToggleButton *btn, GtkNotebook *notebook)
+{
+    gtk_notebook_set_current_page(notebook, 0);
+}
+
+static void on_toggle_files(GtkToggleButton *btn, GtkNotebook *notebook)
+{
+    gtk_notebook_set_current_page(notebook, 1);
+}
+
+static GdkPixbuf *vfs_load_icon(GtkIconTheme *theme, const char *icon_name, int size)
+{
+    GdkPixbuf *icon = NULL;
+    const char *file;
+    GtkIconInfo *inf = gtk_icon_theme_lookup_icon(theme, icon_name, size,
+                                                  GTK_ICON_LOOKUP_USE_BUILTIN);
+    if (G_UNLIKELY(!inf))
+        return NULL;
+
+    file = gtk_icon_info_get_filename(inf);
+    if (G_LIKELY(file))
+        icon = gdk_pixbuf_new_from_file_at_scale(file, size, size, TRUE, NULL);
+    else
+    {
+        icon = gtk_icon_info_get_builtin_pixbuf(inf);
+        g_object_ref(icon);
+    }
+    gtk_icon_info_free(inf);
+
+    if (G_LIKELY(icon))  /* scale down the icon if it's too big */
+    {
+        int width, height;
+        height = gdk_pixbuf_get_height(icon);
+        width = gdk_pixbuf_get_width(icon);
+
+        if (G_UNLIKELY(height > size || width > size))
+        {
+            GdkPixbuf *scaled;
+            if (height > width)
+            {
+                width = size * height / width;
+                height = size;
+            }
+            else if (height < width)
+            {
+                height = size * width / height;
+                width = size;
+            }
+            else
+                height = width = size;
+            scaled = gdk_pixbuf_scale_simple(icon, width, height, GDK_INTERP_BILINEAR);
+            g_object_unref(icon);
+            icon = scaled;
+        }
+    }
+    return icon;
+}
+
+typedef struct {
+    GtkIconView *view;
+    GtkListStore *model;
+    GAsyncQueue *queue;
+} IconThreadData;
+
+static gpointer load_themed_icon(GtkIconTheme *theme, IconThreadData *data)
+{
+    GdkPixbuf *pix;
+    char *icon_name = g_async_queue_pop(data->queue);
+
+    gdk_threads_enter();
+    pix = vfs_load_icon(theme, icon_name, 48);
+    gdk_threads_leave();
+    g_thread_yield();
+    if (pix)
+    {
+        GtkTreeIter it;
+        gdk_threads_enter();
+        gtk_list_store_append(data->model, &it);
+        gtk_list_store_set(data->model, &it, 0, pix, 1, icon_name, -1);
+        g_object_unref(pix);
+        gdk_threads_leave();
+    }
+    g_thread_yield();
+    if (g_async_queue_length(data->queue) == 0)
+    {
+        gdk_threads_enter();
+        if (gtk_icon_view_get_model(data->view) == NULL)
+        {
+            gtk_icon_view_set_model(data->view, GTK_TREE_MODEL(data->model));
+#if GTK_CHECK_VERSION(2, 20, 0)
+            if (gtk_widget_get_realized(GTK_WIDGET(data->view)))
+                gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(data->view)), NULL);
+#else
+            if (GTK_WIDGET_REALIZED(GTK_WIDGET(data->view)))
+                gdk_window_set_cursor(GTK_WIDGET(data->view)->window, NULL);
+#endif
+        }
+        gdk_threads_leave();
+    }
+    /* g_debug("load: %s", icon_name); */
+    g_free(icon_name);
+    return NULL;
+}
+
+static void _change_icon(GtkWidget *dlg, FmFilePropertiesDEntryData *data)
+{
+    GtkBuilder *builder;
+    GtkFileChooser *chooser;
+    GtkWidget *chooser_dlg, *preview, *notebook;
+    GtkFileFilter *filter;
+    GtkIconTheme *theme;
+    GList *contexts, *l;
+    GThreadPool *thread_pool;
+    IconThreadData thread_data;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/choose-icon.ui", NULL);
+    chooser_dlg = GTK_WIDGET(gtk_builder_get_object(builder, "dlg"));
+    chooser = GTK_FILE_CHOOSER(gtk_builder_get_object(builder, "chooser"));
+    thread_data.view = GTK_ICON_VIEW(gtk_builder_get_object(builder, "icons"));
+    notebook = GTK_WIDGET(gtk_builder_get_object(builder, "notebook"));
+    g_signal_connect(gtk_builder_get_object(builder,"theme"), "toggled", G_CALLBACK(on_toggle_theme), notebook);
+    g_signal_connect(gtk_builder_get_object(builder,"files"), "toggled", G_CALLBACK(on_toggle_files), notebook);
+
+    gtk_window_set_default_size(GTK_WINDOW(chooser_dlg), 600, 440);
+    gtk_window_set_transient_for(GTK_WINDOW(chooser_dlg), GTK_WINDOW(dlg));
+
+    preview = gtk_image_new();
+    gtk_widget_show(preview);
+    gtk_file_chooser_set_preview_widget(chooser, preview);
+    g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_preview),
+                     GTK_IMAGE(preview));
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("Image files"));
+    gtk_file_filter_add_pixbuf_formats(GTK_FILE_FILTER(filter));
+    gtk_file_chooser_add_filter(chooser, filter);
+    gtk_file_chooser_set_local_only(chooser, TRUE);
+    gtk_file_chooser_set_select_multiple(chooser, FALSE);
+    gtk_file_chooser_set_use_preview_label(chooser, FALSE);
+
+    gtk_widget_show(chooser_dlg);
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
+    gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(thread_data.view)),
+                          gdk_cursor_new(GDK_WATCH));
+
+    /* load themed icons */
+    thread_pool = g_thread_pool_new((GFunc)load_themed_icon, &thread_data, 1, TRUE, NULL);
+    g_thread_pool_set_max_threads(thread_pool, 1, NULL);
+    thread_data.queue = g_async_queue_new();
+
+    thread_data.model = gtk_list_store_new(2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+    theme = gtk_icon_theme_get_default();
+
+    gtk_icon_view_set_pixbuf_column(thread_data.view, 0);
+    gtk_icon_view_set_item_width(thread_data.view, 80);
+    gtk_icon_view_set_text_column(thread_data.view, 1);
+
+    /* GList* contexts = gtk_icon_theme_list_contexts(theme); */
+    contexts = g_list_alloc();
+    /* FIXME: we should enable more contexts */
+    /* http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html#context */
+    contexts->data = g_strdup("Applications");
+    for (l = contexts; l; l = l->next)
+    {
+        /* g_debug(l->data); */
+        GList *icon_names = gtk_icon_theme_list_icons(theme, (char*)l->data);
+        GList *icon_name;
+        for (icon_name = icon_names; icon_name; icon_name = icon_name->next)
+        {
+            g_async_queue_push(thread_data.queue, icon_name->data);
+            g_thread_pool_push(thread_pool, theme, NULL);
+        }
+        g_list_free(icon_names);
+        g_free(l->data);
+    }
+    g_list_free(contexts);
+
+    if (gtk_dialog_run(GTK_DIALOG(chooser_dlg)) == GTK_RESPONSE_OK)
+    {
+        char* icon_name = NULL;
+        if (gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)) == 0)
+        {
+            GList *sels = gtk_icon_view_get_selected_items(thread_data.view);
+            GtkTreePath *tp = (GtkTreePath*)sels->data;
+            GtkTreeIter it;
+            if (gtk_tree_model_get_iter(GTK_TREE_MODEL(thread_data.model), &it, tp))
+            {
+                gtk_tree_model_get(GTK_TREE_MODEL(thread_data.model), &it, 1, &icon_name, -1);
+            }
+            g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+            g_list_free(sels);
+            if (icon_name)
+                gtk_image_set_from_icon_name(data->icon, icon_name, GTK_ICON_SIZE_DIALOG);
+        }
+        else
+        {
+            icon_name = gtk_file_chooser_get_filename(chooser);
+            if (icon_name)
+            {
+                GdkPixbuf *pix = gdk_pixbuf_new_from_file_at_scale(icon_name,
+                                                            48, 48, TRUE, NULL);
+                if (pix)
+                {
+                    gtk_image_set_from_pixbuf(data->icon, pix);
+                    g_object_unref(pix);
+                }
+            }
+        }
+        if (icon_name)
+        {
+            g_key_file_set_string(data->kf, GRP_NAME, "Icon", icon_name);
+            data->changed = TRUE;
+            g_free(icon_name);
+        }
+    }
+    g_thread_pool_free(thread_pool, TRUE, FALSE);
+    gtk_widget_destroy(chooser_dlg);
+}
+
+
 static gboolean _dentry_icon_click_event(GtkWidget *widget, GdkEventButton *event,
                                          FmFilePropertiesDEntryData *data)
 {
     /* g_debug("icon click received (button=%d)", event->button); */
+    if (event->button == 1) /* accept only left click */
+        _change_icon(gtk_widget_get_toplevel(widget), data);
     return FALSE;
 }
 
@@ -57,6 +303,8 @@ static gboolean _dentry_icon_press_event(GtkWidget *widget, GdkEventKey *event,
                                          FmFilePropertiesDEntryData *data)
 {
     /* g_debug("icon key received (key=%u)", event->keyval); */
+    if (event->keyval == GDK_KEY_space)
+        _change_icon(gtk_widget_get_toplevel(widget), data);
     return FALSE;
 }
 
@@ -185,6 +433,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     /* set events handlers for icon */
     table = GTK_TABLE(gtk_builder_get_object(ui, "general_table"));
     widget = gtk_builder_get_object(ui, "icon_eventbox");
+    data->icon = GTK_IMAGE(gtk_builder_get_object(ui, "icon"));
     gtk_widget_set_can_focus(GTK_WIDGET(widget), TRUE);
     g_signal_connect(widget, "button-press-event",
                      G_CALLBACK(_dentry_icon_click_event), data);
