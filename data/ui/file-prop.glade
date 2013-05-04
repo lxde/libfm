@@ -87,16 +87,24 @@
                     <property name="column_spacing">12</property>
                     <property name="row_spacing">6</property>
                     <child>
-                      <object class="GtkImage" id="icon">
+                      <object class="GtkEventBox" id="icon_eventbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip_text" translatable="yes">Icon of the file in folder view</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <property name="icon-size">6</property>
+                        <child>
+                          <object class="GtkImage" id="icon">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="tooltip_text" translatable="yes">Icon of the file in folder view</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <property name="icon-size">6</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="bottom_attach">2</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -120,7 +128,7 @@
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
-                        <property name="x_options"></property>
+                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
@@ -140,6 +148,7 @@
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
                         <property name="x_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -156,6 +165,8 @@
                         <property name="right_attach">3</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -197,7 +208,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Target:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Target file:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -291,7 +302,7 @@
                         <property name="top_attach">5</property>
                         <property name="bottom_attach">6</property>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options">GTK_FILL</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
@@ -459,7 +470,7 @@
                         <property name="n_rows">2</property>
                         <property name="n_columns">2</property>
                         <property name="column_spacing">12</property>
-                        <property name="row_spacing">6</property>
+                        <property name="row_spacing">4</property>
                         <child>
                           <object class="GtkLabel" id="owner_label">
                             <property name="visible">True</property>
@@ -552,7 +563,7 @@
                                 <property name="n_rows">4</property>
                                 <property name="n_columns">2</property>
                                 <property name="column_spacing">12</property>
-                                <property name="row_spacing">6</property>
+                                <property name="row_spacing">4</property>
                                 <child>
                                   <object class="GtkLabel" id="label6">
                                     <property name="visible">True</property>
@@ -776,7 +787,6 @@
               <object class="GtkLabel" id="extra_tab_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">tab3</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -844,7 +854,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="user_access_model">
+  <object class="GtkListStore" id="read_access_model">
     <columns>
       <!-- column-name who -->
       <column type="gchararray"/>
@@ -852,9 +862,6 @@
     <data>
       <row>
         <col id="0" translatable="yes">---</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Nobody</col>
       </row>
       <row>
         <col id="0" translatable="yes">Only owner</col>
@@ -867,7 +874,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="read_access_model">
+  <object class="GtkListStore" id="user_access_model">
     <columns>
       <!-- column-name who -->
       <column type="gchararray"/>
@@ -875,6 +882,9 @@
     <data>
       <row>
         <col id="0" translatable="yes">---</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Nobody</col>
       </row>
       <row>
         <col id="0" translatable="yes">Only owner</col>

@@ -11,11 +11,12 @@ ui_in_files= \
 	exec-file.glade \
 	filesearch.glade \
 	$(NULL)
-ui_DATA = $(ui_in_files:.glade=.ui)
+ui_DATA = $(ui_in_files:.glade=.ui) choose-icon.ui
 
 EXTRA_DIST = \
 	$(ui_in_files) \
 	$(ui_DATA) \
+	choose-icon.ui \
 	$(NULL)
 
 # Purge GtkBuilder UI files
