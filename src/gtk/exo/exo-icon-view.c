@@ -8861,12 +8861,15 @@ exo_icon_view_search_position_func (ExoIconView *icon_view,
   gtk_widget_realize (search_dialog);
 
   gdk_window_get_origin (view_window, &view_x, &view_y);
-#if GTK_CHECK_VERSION(3, 0, 0)
+#if GTK_CHECK_VERSION(2, 24, 0)
   view_width = gdk_window_get_width (view_window);
   view_height = gdk_window_get_height (view_window);
-  gtk_widget_get_preferred_size (search_dialog, NULL, &requisition);
 #else
   gdk_drawable_get_size (view_window, &view_width, &view_height);
+#endif
+#if GTK_CHECK_VERSION(3, 0, 0)
+  gtk_widget_get_preferred_size (search_dialog, NULL, &requisition);
+#else
   gtk_widget_size_request (search_dialog, &requisition);
 #endif
 
