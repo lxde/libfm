@@ -157,6 +157,7 @@ struct _FmFilePropData
     GtkLabel* atime;
 
     /* Permissions page */
+    GtkWidget* permissions_tab;
     GtkEntry* owner;
     char* orig_owner;
     GtkEntry* group;
@@ -580,6 +581,11 @@ static void update_permissions(FmFilePropData* data)
     data->has_dir = (S_ISDIR(fi_mode) != FALSE);
     data->all_dirs = data->has_dir;
 
+    if((fi_mode & ~S_IFDIR) == 0) /* no permissions accessible */
+    {
+        gtk_widget_hide(data->permissions_tab);
+        return;
+    }
     for(l=fm_file_info_list_peek_head_link(data->files)->next; l; l=l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
@@ -588,6 +594,11 @@ static void update_permissions(FmFilePropData* data)
             data->all_native = FALSE;
 
         fi_mode = fm_file_info_get_mode(fi);
+        if((fi_mode & ~S_IFDIR) == 0) /* no permissions accessible */
+        {
+            gtk_widget_hide(data->permissions_tab);
+            return;
+        }
         if(S_ISDIR(fi_mode))
             data->has_dir = TRUE;
         else
@@ -954,6 +965,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_LABEL,mtime);
     GET_WIDGET(GTK_LABEL,atime);
 
+    GET_WIDGET(GTK_WIDGET,permissions_tab);
     GET_WIDGET(GTK_ENTRY,owner);
     GET_WIDGET(GTK_ENTRY,group);
 
