@@ -443,7 +443,8 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     GtkLabel *label;
     GError *err = NULL;
     GFile *gf;
-    gchar *file_path, *txt;
+    gchar *txt;
+    gsize length;
     const gchar * const *langs;
     gboolean tmp_bool;
 
@@ -460,9 +461,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     if (fm_file_info_list_get_length(files) != 1)
         return NULL;
     gf = fm_path_to_gfile(fm_file_info_get_path(fm_file_info_list_peek_head(files)));
-    file_path = g_file_get_path(gf);
-    /* FIXME: load not file but stream */
-    if (file_path == NULL)
+    if (!g_file_load_contents(gf, NULL, &txt, &length, NULL, NULL))
     {
         g_warning("file properties dialog: cannot access desktop entry file");
         g_object_unref(gf);
@@ -472,10 +471,10 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     data->changed = FALSE;
     data->file = gf;
     data->kf = g_key_file_new();
-    g_key_file_load_from_file(data->kf, file_path,
+    g_key_file_load_from_data(data->kf, txt, length,
                               G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
                               NULL);
-    g_free(file_path);
+    g_free(txt);
     /* FIXME: handle errors, also do g_key_file_has_group() */
     /* get locale name */
     data->lang = NULL;
