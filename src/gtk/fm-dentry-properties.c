@@ -447,11 +447,15 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     const gchar * const *langs;
     gboolean tmp_bool;
 
-    /* disable permissions tab in any case */
+    /* disable permissions tab and open_with in any case */
 #define HIDE_WIDGET(x) widget = gtk_builder_get_object(ui, x); \
         gtk_widget_hide(GTK_WIDGET(widget))
     /* HIDE_WIDGET("permissions_tab");
        TODO: made visibility of permissions_tab configurable */
+    table = GTK_TABLE(gtk_builder_get_object(ui, "general_table"));
+    HIDE_WIDGET("open_with");
+    HIDE_WIDGET("open_with_label");
+    gtk_table_set_row_spacing(table, 5, 0);
     /* we will do the thing only for single file! */
     if (fm_file_info_list_get_length(files) != 1)
         return NULL;
@@ -486,7 +490,6 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
             data->lang = g_strdup(langs[0]);
     }
     /* set events handlers for icon */
-    table = GTK_TABLE(gtk_builder_get_object(ui, "general_table"));
     widget = gtk_builder_get_object(ui, "icon_eventbox");
     data->icon = GTK_IMAGE(gtk_builder_get_object(ui, "icon"));
     gtk_widget_set_can_focus(GTK_WIDGET(widget), TRUE);
@@ -527,10 +530,6 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
         /* set sensitive since it can be toggled for desktop entry */
         gtk_widget_set_sensitive(GTK_WIDGET(widget), TRUE);
     }
-    /* hide 'Open with' choose box */
-    HIDE_WIDGET("open_with");
-    HIDE_WIDGET("open_with_label");
-    gtk_table_set_row_spacing(table, 5, 0);
 #undef HIDE_WIDGET
     /* FIXME: migrate to GtkGrid */
     table = GTK_TABLE(gtk_table_new(8, 2, FALSE));
