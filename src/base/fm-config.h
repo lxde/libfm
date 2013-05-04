@@ -62,6 +62,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES FALSE
 #define     FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP  FALSE
 #define     FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE   FALSE
+#define     FM_CONFIG_DEFAULT_SHADOW_HIDDEN     FALSE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -99,6 +100,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @no_usb_trash: don't create trash folder on removable media
  * @no_child_non_expandable: hide expanders on empty folder
  * @show_full_names: always show full names in Icon View mode
+ * @shadow_hidden: show icons of hidden files shadowed in the view
  * @places_home: show 'Home' item in Places
  * @places_desktop: show 'Desktop' item in Places
  * @places_applications: show 'Applications' item in Places
@@ -142,6 +144,7 @@ struct _FmConfig
     gboolean no_usb_trash;
     gboolean no_child_non_expandable;
     gboolean show_full_names;
+    gboolean shadow_hidden;
 
     gboolean places_home;
     gboolean places_desktop;

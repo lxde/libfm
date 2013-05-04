@@ -30,6 +30,8 @@
  * which adds small link picture if corresponding file is symbolic link.
  */
 
+#include "fm-config.h"
+
 #include "fm-cell-renderer-pixbuf.h"
 
 static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
@@ -299,9 +301,15 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 #endif
 {
     FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
+    FmFileInfo *info = NULL;
     /* we don't need to follow state for prelit items */
     if(flags & GTK_CELL_RENDERER_PRELIT)
         flags &= ~GTK_CELL_RENDERER_PRELIT;
+    if(fm_config->shadow_hidden)
+    {
+        g_object_get(render, "info", &info, NULL); // FIXME: is info certainly FmFileInfo?
+        gtk_cell_renderer_set_sensitive(cell, !(info && fm_file_info_is_hidden(info)));
+    }
 #if GTK_CHECK_VERSION(3, 0, 0)
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, cr, widget, background_area, cell_area, flags);
 #else

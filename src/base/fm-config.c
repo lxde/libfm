@@ -125,6 +125,7 @@ static void fm_config_init(FmConfig *self)
     self->no_usb_trash = FM_CONFIG_DEFAULT_NO_USB_TRASH;
     self->no_child_non_expandable = FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY;
     self->show_full_names = FM_CONFIG_DEFAULT_SHOW_FULL_NAMES;
+    self->shadow_hidden = FM_CONFIG_DEFAULT_SHADOW_HIDDEN;
     self->only_user_templates = FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES;
     self->template_run_app = FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP;
     self->template_type_once = FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE;
@@ -212,6 +213,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "pane_icon_size", &cfg->pane_icon_size);
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
     fm_key_file_get_bool(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
+    fm_key_file_get_bool(kf, "ui", "shadow_hidden", &cfg->shadow_hidden);
 
     fm_key_file_get_bool(kf, "places", "places_home", &cfg->places_home);
     fm_key_file_get_bool(kf, "places", "places_desktop", &cfg->places_desktop);
@@ -334,6 +336,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "pane_icon_size=%d\n", cfg->pane_icon_size);
             fprintf(f, "thumbnail_size=%d\n", cfg->thumbnail_size);
             fprintf(f, "show_thumbnail=%d\n", cfg->show_thumbnail);
+            fprintf(f, "shadow_hidden=%d\n", cfg->shadow_hidden);
             fputs("\n[places]\n", f);
             fprintf(f, "places_home=%d\n", cfg->places_home);
             fprintf(f, "places_desktop=%d\n", cfg->places_desktop);
