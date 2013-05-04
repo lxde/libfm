@@ -2,7 +2,7 @@
  *      fm-vfs-menu.c
  *      VFS for "menu://applications/" path using menu-cache library.
  *
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -29,6 +29,15 @@
 #include <glib/gi18n-lib.h>
 #include <menu-cache/menu-cache.h>
 #include "fm-utils.h"
+
+/* support for libmenu-cache 0.4.x */
+#ifndef MENU_CACHE_CHECK_VERSION
+# ifdef HAVE_MENU_CACHE_DIR_LIST_CHILDREN
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) (_a == 0 && _b < 5) /* < 0.5.0 */
+# else
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) 0 /* not even 0.4.0 */
+# endif
+#endif
 
 /* beforehand declarations */
 static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
@@ -238,7 +247,17 @@ static gboolean _fm_vfs_menu_enumerator_next_file_real(gpointer data)
         child = child->next;
         break;
     }
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    while(enu->child != child) /* free skipped/used elements */
+    {
+        GSList *ch = enu->child;
+        enu->child = ch->next;
+        menu_cache_item_unref(ch->data);
+        g_slist_free_1(ch);
+    }
+#else
     enu->child = child;
+#endif
 
 done:
     return FALSE;
@@ -267,6 +286,9 @@ static gboolean _fm_vfs_menu_enumerator_close(GFileEnumerator *enumerator,
     {
         menu_cache_unref(enu->mc);
         enu->mc = NULL;
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        g_slist_free_full(enu->child, (GDestroyNotify)menu_cache_item_unref);
+#endif
         enu->child = NULL;
     }
     return TRUE;
@@ -294,7 +316,7 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     FmVfsMenuEnumerator *enumerator;
     MenuCache* mc;
     const char *de_name;
-    MenuCacheDir *dir;
+    MenuCacheItem *dir;
 
     mc = menu_cache_lookup_sync("applications.menu");
     /* ensure that the menu cache is loaded */
@@ -340,17 +362,39 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     {
         char *unescaped, *tmp;
         unescaped = g_uri_unescape_string(init->path_str, NULL);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+        tmp = NULL;
+        if(dir)
+        {
+            tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
+            menu_cache_item_unref(dir);
+            dir = menu_cache_item_from_path(mc, tmp);
+        }
+#else
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
                           "/", unescaped, NULL);
+        dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+#endif
         g_free(unescaped);
-        dir = menu_cache_get_dir_from_path(mc, tmp);
         /* FIXME: test if path is valid since menu-cache is buggy */
         g_free(tmp);
     }
     else
-        dir = menu_cache_get_root_dir(mc);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
     if(dir)
-        enumerator->child = menu_cache_dir_get_children(dir);
+    {
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        enumerator->child = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
+        menu_cache_item_unref(dir);
+#else
+        enumerator->child = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
+#endif
+    }
     /* FIXME: do something with attributes and flags */
 
     init->result = enumerator;
@@ -575,7 +619,7 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    MenuCacheDir *dir;
+    MenuCacheItem *dir;
     gboolean is_invalid = FALSE;
 
     init->result = NULL;
@@ -593,10 +637,21 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
         const char *id;
 
         unescaped = g_uri_unescape_string(init->path_str, NULL);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+        tmp = NULL;
+        if(dir)
+        {
+            tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
+            menu_cache_item_unref(dir);
+            dir = menu_cache_item_from_path(mc, tmp);
+        }
+#else
         tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))),
                           "/", unescaped, NULL);
         /* FIXME: how to access not dir? */
-        dir = menu_cache_get_dir_from_path(mc, tmp);
+        dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+#endif
         /* The menu-cache is buggy and returns parent for invalid path
            instead of failure so we check what we got here.
            Unfortunately we cannot detect if requested name is the same
@@ -607,22 +662,30 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
         else
             id = unescaped;
         if(dir == NULL ||
-           strcmp(id, menu_cache_item_get_id(MENU_CACHE_ITEM(dir))) != 0)
+           strcmp(id, menu_cache_item_get_id(dir)) != 0)
             is_invalid = TRUE;
         g_free(unescaped);
         g_free(tmp);
     }
     else
-        dir = menu_cache_get_root_dir(mc);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
     if(is_invalid)
         g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                             _("Invalid menu directory"));
     else if(dir)
-        init->result = _g_file_info_from_menu_cache_item(MENU_CACHE_ITEM(dir));
+        init->result = _g_file_info_from_menu_cache_item(dir);
     else /* menu_cache_get_root_dir failed */
         g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
                             _("Menu cache error"));
 
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
     menu_cache_unref(mc);
 
 _mc_failed:

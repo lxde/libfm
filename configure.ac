@@ -137,6 +137,13 @@ PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
 
+dnl check for menu-cache versions 0.4.x since no macro MENU_CACHE_CHECK_VERSION
+dnl is available in those versions
+LIBS_save="${LIBS}"
+LIBS="${LIBS} ${MENU_CACHE_LIBS}"
+AC_CHECK_FUNCS(menu_cache_dir_list_children)
+LIBS="${LIBS_save}"
+
 # special checks for glib/gio 2.27 since it contains backward imcompatible changes.
 # glib 2.26 uses G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME extension point while
 # glib 2.27 uses x-scheme-handler/* mime-type to register handlers.

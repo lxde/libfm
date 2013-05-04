@@ -30,6 +30,15 @@
 #include <menu-cache.h>
 #include "fm-gtk.h"
 
+/* support for libmenu-cache 0.4.x */
+#ifndef MENU_CACHE_CHECK_VERSION
+# ifdef HAVE_MENU_CACHE_DIR_LIST_CHILDREN
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) (_a == 0 && _b < 5) /* < 0.5.0 */
+# else
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) 0 /* not even 0.4.0 */
+# endif
+#endif
+
 static GtkDialog* dlg;
 static GtkComboBox* browser;
 static GtkComboBox* mail_client;
@@ -80,11 +89,20 @@ static void init_apps(void)
 
     for(i = 0; i < G_N_ELEMENTS(dir_paths); ++i)
     {
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = (MenuCacheDir*)menu_cache_item_from_path(mc, dir_paths[i]);
+#else
         dir = menu_cache_get_dir_from_path(mc, dir_paths[i]);
+#endif
         if(dir)
         {
             GSList* l;
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+            GSList *list;
+            for(l = list = menu_cache_dir_list_children(dir);l;l=l->next)
+#else
             for(l=menu_cache_dir_get_children(dir);l;l=l->next)
+#endif
             {
                 MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
                 if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
@@ -126,6 +144,10 @@ static void init_apps(void)
                     g_free(fpath);
                 }
             }
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+            g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
+            menu_cache_item_unref(MENU_CACHE_ITEM(dir));
+#endif
         }
     }
     g_key_file_free(kf);

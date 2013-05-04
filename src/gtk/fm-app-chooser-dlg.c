@@ -2,7 +2,7 @@
  *      fm-app-chooser-dlg.c
  *
  *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -45,6 +45,15 @@
 #include "fm-gtk-utils.h"
 #include <menu-cache.h>
 #include <gio/gdesktopappinfo.h>
+
+/* support for libmenu-cache 0.4.x */
+#ifndef MENU_CACHE_CHECK_VERSION
+# ifdef HAVE_MENU_CACHE_DIR_LIST_CHILDREN
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) (_a == 0 && _b < 5) /* < 0.5.0 */
+# else
+#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) 0 /* not even 0.4.0 */
+# endif
+#endif
 
 typedef struct _AppChooserData AppChooserData;
 struct _AppChooserData
@@ -368,7 +377,12 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                     menu_cache = menu_cache_lookup("applications.menu");
                     if(menu_cache)
                     {
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+                        MenuCacheDir *root_dir = menu_cache_dup_root_dir(menu_cache);
+                        if(root_dir)
+#else
                         if(menu_cache_get_root_dir(menu_cache))
+#endif
                         {
                             GSList* all_apps = menu_cache_list_all_apps(menu_cache);
                             GSList* l;
@@ -388,6 +402,9 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                                 g_free(bin2);
                             }
                             g_slist_free(all_apps);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+                            menu_cache_item_unref(MENU_CACHE_ITEM(root_dir));
+#endif
                         }
                         menu_cache_unref(menu_cache);
                     }
