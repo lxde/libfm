@@ -77,6 +77,17 @@ g_slist_free(list); \
 
 #endif
 
+#if !GLIB_CHECK_VERSION(2, 34, 0)
+/* This useful API was added in glib 2.34 */
+static inline GSList *g_slist_copy_deep(GSList *list, GCopyFunc func, gpointer user_data)
+{
+    GSList *new_list = g_slist_copy(list), *l;
+    for(l = new_list; l; l = l->next)
+        l->data = func(l->data, user_data);
+    return new_list;
+}
+#endif
+
 G_END_DECLS
 
 #endif
