@@ -803,12 +803,81 @@ static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
     return FALSE;
 }
 
+static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *item = NULL;
+    gboolean is_invalid = FALSE;
+
+    init->result = NULL;
+    mc = menu_cache_lookup_sync("applications.menu");
+    if(mc == NULL)
+    {
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+        goto _mc_failed;
+    }
+
+    if(init->path_str)
+    {
+        char *unescaped;
+
+        unescaped = g_uri_unescape_string(init->path_str, NULL);
+        item = _item_path_to_menu_cache_item(mc, unescaped);
+        /* If item wasn't found or isn't a file then we cannot read it.
+           This will also work in case buggy menu-cache returns parent. */
+        if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
+            is_invalid = TRUE;
+        g_free(unescaped);
+    }
+    else
+        is_invalid = TRUE;
+
+    if(is_invalid)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("The \"%s\" isn't a menu item"),
+                    init->path_str ? init->path_str : "/");
+    else
+    {
+        char *file_path;
+        GFile *gf;
+
+        file_path = menu_cache_item_get_file_path(item);
+        if (file_path)
+        {
+            gf = g_file_new_for_path(file_path);
+            g_free(file_path);
+            if (gf)
+            {
+                init->result = g_file_read(gf, init->cancellable, init->error);
+                g_object_unref(gf);
+            }
+        }
+    }
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(item)
+        menu_cache_item_unref(item);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
 static GFileInputStream *_fm_vfs_menu_read_fn(GFile *file,
                                               GCancellable *cancellable,
                                               GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return NULL;
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    enu.path_str = item->path;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    fm_run_in_default_main_context(_fm_vfs_menu_read_fn_real, &enu);
+    return enu.result;
 }
 
 static GFileOutputStream *_fm_vfs_menu_append_to(GFile *file,
