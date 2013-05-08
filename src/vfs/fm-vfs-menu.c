@@ -991,6 +991,91 @@ static GFileOutputStream *_fm_vfs_menu_create(GFile *file,
     return enu.result;
 }
 
+static gboolean _fm_vfs_menu_replace_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    char *unescaped = NULL, *basename;
+    gboolean is_invalid = TRUE;
+
+    init->result = NULL;
+    if(init->path_str)
+    {
+        MenuCacheItem *item, *item2;
+
+        mc = menu_cache_lookup_sync("applications.menu");
+        if(mc == NULL)
+        {
+            g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                                _("Menu cache error"));
+            goto _mc_failed;
+        }
+        /* prepare basename first */
+        unescaped = g_uri_unescape_string(init->path_str, NULL);
+        basename = strrchr(unescaped, '/');
+        if (basename != NULL)
+            *basename++ = '\0';
+        /* get existing item */
+        item = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        /* if not found then check item by id to exclude conflicts */
+        if (item != NULL) /* item is there, OK, we'll replace it then */
+            is_invalid = FALSE;
+        else if (basename != NULL)
+        {
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+            item2 = menu_cache_find_item_by_id(mc, basename);
+#else
+            GSList *list = menu_cache_list_all_apps(mc), *l;
+            for (l = list; l; l = l->next)
+                if (strcmp(menu_cache_item_get_id(l->data), basename) == 0)
+                    break;
+            if (l)
+                item2 = menu_cache_item_ref(l->data);
+            else
+                item2 = NULL;
+            g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
+#endif
+            if(item2 == NULL)
+                is_invalid = FALSE;
+            else /* item was found in another category */
+                menu_cache_item_unref(item2);
+        }
+        /* if basename is NULL then we trying to create item in root, i.e.
+           outside of categories and that should be prohibited */
+        menu_cache_unref(mc);
+    }
+
+    if(is_invalid)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                    _("Cannot create menu item \"%s\""),
+                    init->path_str ? init->path_str : "/");
+    else
+    {
+        char *file_path;
+        GFile *gf;
+
+        file_path = g_build_filename(g_get_user_data_dir(), "applications",
+                                     basename, NULL);
+        if (file_path)
+        {
+            gf = g_file_new_for_path(file_path);
+            g_free(file_path);
+            if (gf)
+            {
+                /* FIXME: use flags and make_backup */
+                init->result = g_file_replace(gf, NULL, FALSE,
+                                              G_FILE_CREATE_REPLACE_DESTINATION,
+                                              init->cancellable, init->error);
+                g_object_unref(gf);
+            }
+        }
+    }
+    g_free(unescaped);
+
+_mc_failed:
+    return FALSE;
+}
+
 static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
                                                const char *etag,
                                                gboolean make_backup,
@@ -998,8 +1083,16 @@ static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
                                                GCancellable *cancellable,
                                                GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return NULL;
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    enu.path_str = item->path;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    // enu.flags = flags;
+    // enu.make_backup = make_backup;
+    fm_run_in_default_main_context(_fm_vfs_menu_replace_real, &enu);
+    return enu.result;
 }
 
 static gboolean _fm_vfs_menu_delete_file(GFile *file,
