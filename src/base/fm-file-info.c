@@ -2,7 +2,7 @@
  *      fm-file-info.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -263,7 +263,7 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     /* if display name is the same as its name, just use it. */
     tmp = g_file_info_get_display_name(inf);
-    if(strcmp(tmp, fm_path_get_basename(fi->path)) == 0)
+    if(g_strcmp0(tmp, fm_path_get_basename(fi->path)) == 0)
         fi->disp_name = NULL;
     else
         fi->disp_name = g_strdup(tmp);
