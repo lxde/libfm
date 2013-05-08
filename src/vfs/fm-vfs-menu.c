@@ -311,16 +311,17 @@ static void fm_vfs_menu_enumerator_init(FmVfsMenuEnumerator *enumerator)
     /* nothing */
 }
 
-static MenuCacheItem *_item_path_to_menu_cache_item(MenuCache* mc, const char *path)
+static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *path)
 {
     MenuCacheItem *dir;
-    char *tmp = NULL;
+    char *unescaped, *tmp = NULL;
 
+    unescaped = g_uri_unescape_string(path, NULL);
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
     dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
     if(dir)
     {
-        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", path, NULL);
+        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
         menu_cache_item_unref(dir);
         dir = menu_cache_item_from_path(mc, tmp);
     }
@@ -328,11 +329,24 @@ static MenuCacheItem *_item_path_to_menu_cache_item(MenuCache* mc, const char *p
     dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
     if(dir)
     {
-        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", path, NULL);
+        const char *id;
+        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
         /* FIXME: how to access not dir? */
         dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+        /* The menu-cache is buggy and returns parent for invalid path
+           instead of failure so we check what we got here.
+           Unfortunately we cannot detect if requested name is the same
+           as its parent and menu-cache returned the parent. */
+        id = strrchr(unescaped, '/');
+        if(id)
+            id++;
+        else
+            id = unescaped;
+        if(dir != NULL && strcmp(id, menu_cache_item_get_id(dir)) != 0)
+            dir = NULL;
     }
 #endif
+    g_free(unescaped);
     g_free(tmp);
     /* NOTE: returned value is referenced for >= 0.4.0 only */
     return dir;
@@ -387,13 +401,7 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
 
     /* the menu should be loaded now */
     if(init->path_str)
-    {
-        char *unescaped;
-        unescaped = g_uri_unescape_string(init->path_str, NULL);
-        dir = _item_path_to_menu_cache_item(mc, unescaped);
-        g_free(unescaped);
-        /* FIXME: test if path is valid since menu-cache is buggy */
-    }
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
     else
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
         dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
@@ -647,24 +655,9 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
 
     if(init->path_str)
     {
-        char *unescaped;
-        const char *id;
-
-        unescaped = g_uri_unescape_string(init->path_str, NULL);
-        dir = _item_path_to_menu_cache_item(mc, unescaped);
-        /* The menu-cache is buggy and returns parent for invalid path
-           instead of failure so we check what we got here.
-           Unfortunately we cannot detect if requested name is the same
-           as its parent and menu-cache returned the parent. */
-        id = strrchr(unescaped, '/');
-        if(id)
-            id++;
-        else
-            id = unescaped;
-        if(dir == NULL ||
-           strcmp(id, menu_cache_item_get_id(dir)) != 0)
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        if(dir == NULL)
             is_invalid = TRUE;
-        g_free(unescaped);
     }
     else
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
@@ -700,7 +693,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     GFileInfo *info;
     GFileAttributeMatcher *matcher;
-    char *basename;
+    char *basename, *unescaped;
     FmVfsMenuMainThreadData enu;
 
     matcher = g_file_attribute_matcher_new(attributes);
@@ -729,8 +722,10 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
                 basename = g_strdup("/");
             else
                 basename = g_path_get_basename(item->path);
-            g_file_info_set_name(info, basename);
+            unescaped = g_uri_unescape_string(basename, NULL);
             g_free(basename);
+            g_file_info_set_name(info, unescaped);
+            g_free(unescaped);
         }
     }
 
@@ -808,7 +803,7 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
     MenuCacheItem *item = NULL;
-    gboolean is_invalid = FALSE;
+    gboolean is_invalid = TRUE;
 
     init->result = NULL;
     mc = menu_cache_lookup_sync("applications.menu");
@@ -821,18 +816,11 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
 
     if(init->path_str)
     {
-        char *unescaped;
-
-        unescaped = g_uri_unescape_string(init->path_str, NULL);
-        item = _item_path_to_menu_cache_item(mc, unescaped);
-        /* If item wasn't found or isn't a file then we cannot read it.
-           This will also work in case buggy menu-cache returns parent. */
-        if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
-            is_invalid = TRUE;
-        g_free(unescaped);
+        item = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        /* If item wasn't found or isn't a file then we cannot read it. */
+        if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
+            is_invalid = FALSE;
     }
-    else
-        is_invalid = TRUE;
 
     if(is_invalid)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
@@ -1065,7 +1053,7 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
         return;
     dir = mon->item;
     if(mon->file->path)
-        mon->item = _item_path_to_menu_cache_item(cache, mon->file->path);
+        mon->item = _vfile_path_to_menu_cache_item(cache, mon->file->path);
     else
         mon->item = MENU_CACHE_ITEM(menu_cache_dup_root_dir(cache));
     if(mon->item && menu_cache_item_get_type(mon->item) != MENU_CACHE_TYPE_DIR)
@@ -1087,7 +1075,7 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
     if(mon->stopped) /* menu folder was destroyed or monitor cancelled */
         return;
     if(mon->file->path)
-        dir = _item_path_to_menu_cache_item(cache, mon->file->path);
+        dir = _vfile_path_to_menu_cache_item(cache, mon->file->path);
     else
         dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(cache));
     if(dir == NULL) /* folder was destroyed - emit event and exit */
@@ -1183,13 +1171,13 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
     /* check if requested path exists within cache */
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
     if(mon->file->path)
-        mon->item = _item_path_to_menu_cache_item(mon->cache, mon->file->path);
+        mon->item = _vfile_path_to_menu_cache_item(mon->cache, mon->file->path);
     else
         mon->item = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mon->cache));
     if(mon->item == NULL || menu_cache_item_get_type(mon->item) != MENU_CACHE_TYPE_DIR)
 #else
     if(mon->file->path)
-        dir = _item_path_to_menu_cache_item(mon->cache, mon->file->path);
+        dir = _vfile_path_to_menu_cache_item(mon->cache, mon->file->path);
     else
         dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mon->cache));
     if(dir == NULL)
