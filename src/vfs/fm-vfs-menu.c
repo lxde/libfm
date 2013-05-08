@@ -878,13 +878,117 @@ static GFileOutputStream *_fm_vfs_menu_append_to(GFile *file,
     return NULL;
 }
 
+static gboolean _fm_vfs_menu_create_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    char *unescaped = NULL, *basename, *category;
+    gsize tmp_len;
+    gboolean is_invalid = TRUE;
+
+    init->result = NULL;
+    if(init->path_str)
+    {
+        MenuCacheItem *item;
+
+        mc = menu_cache_lookup_sync("applications.menu");
+        if(mc == NULL)
+        {
+            g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                                _("Menu cache error"));
+            goto _mc_failed;
+        }
+        unescaped = g_uri_unescape_string(init->path_str, NULL);
+        basename = strrchr(unescaped, '/');
+        if (basename)
+        {
+            *basename++ = '\0';
+            category = strrchr(unescaped, '/');
+            if(category == NULL) /* path is "Category/File.desktop" */
+                category = unescaped;
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+            item = menu_cache_find_item_by_id(mc, basename);
+            menu_cache_item_unref(item); /* use item simply as marker */
+#else
+            GSList *list = menu_cache_list_all_apps(mc), *l;
+            for (l = list; l; l = l->next)
+                if (strcmp(menu_cache_item_get_id(l->data), basename) == 0)
+                    break;
+            if (l)
+                item = l->data;
+            else
+                item = NULL;
+            g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
+#endif
+            if(item == NULL)
+                is_invalid = FALSE;
+        }
+        g_debug("basename %s, category %s, item %p", basename, category, item);
+        menu_cache_unref(mc);
+    }
+
+    if(is_invalid)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                    _("Cannot create menu item \"%s\""),
+                    init->path_str ? init->path_str : "/");
+    else
+    {
+        char *file_path;
+        GFile *gf;
+        GOutputStream *fstream;
+
+        file_path = g_build_filename(g_get_user_data_dir(), "applications",
+                                     basename, NULL);
+        if (file_path)
+        {
+            gf = g_file_new_for_path(file_path);
+            g_free(file_path);
+            if (gf)
+            {
+                g_file_delete(gf, NULL, NULL); /* remove old if there is any */
+                fstream = G_OUTPUT_STREAM(g_file_create(gf,
+                                                G_FILE_CREATE_REPLACE_DESTINATION,
+                                                init->cancellable, init->error));
+                if (fstream)
+                {
+                    /* write simple stub before returning the handle */
+                    file_path = g_strdup_printf("[Desktop Entry]\n"
+                                                "Type=Application\n"
+                                                "Name=\n"
+                                                "Exec=\n"
+                                                "Categories=%s;\n", category);
+                    g_output_stream_write_all(fstream, file_path, strlen(file_path),
+                                              &tmp_len, init->cancellable, NULL);
+                    g_free(file_path);
+                    g_seekable_seek(G_SEEKABLE(fstream), (goffset)0, G_SEEK_SET,
+                                    init->cancellable, NULL);
+                    /* FIXME: handle cancellation and errors */
+                    init->result = fstream;
+                }
+                g_object_unref(gf);
+            }
+        }
+    }
+    g_free(unescaped);
+
+_mc_failed:
+    return FALSE;
+}
+
 static GFileOutputStream *_fm_vfs_menu_create(GFile *file,
                                               GFileCreateFlags flags,
                                               GCancellable *cancellable,
                                               GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return NULL;
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    enu.path_str = item->path;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    // enu.flags = flags;
+    fm_run_in_default_main_context(_fm_vfs_menu_create_real, &enu);
+    return enu.result;
 }
 
 static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
