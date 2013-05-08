@@ -899,6 +899,13 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             goto _mc_failed;
         }
         unescaped = g_uri_unescape_string(init->path_str, NULL);
+        /* ensure new menu item has suffix .desktop */
+        if (!g_str_has_suffix(unescaped, ".desktop"))
+        {
+            basename = unescaped;
+            unescaped = g_strconcat(unescaped, ".desktop", NULL);
+            g_free(basename);
+        }
         basename = strrchr(unescaped, '/');
         if (basename)
         {
