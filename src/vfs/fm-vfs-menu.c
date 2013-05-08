@@ -882,7 +882,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *basename, *category;
+    char *unescaped = NULL, *basename, *subdir;
     gsize tmp_len;
     gboolean is_invalid = TRUE;
 
@@ -903,9 +903,9 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         if (basename)
         {
             *basename++ = '\0';
-            category = strrchr(unescaped, '/');
-            if(category == NULL) /* path is "Category/File.desktop" */
-                category = unescaped;
+            subdir = strchr(unescaped, '/');
+            if(subdir) /* path is "Category/.../File.desktop" */
+                *subdir++ = '\0';
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
             item = menu_cache_find_item_by_id(mc, basename);
             menu_cache_item_unref(item); /* use item simply as marker */
@@ -923,7 +923,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             if(item == NULL)
                 is_invalid = FALSE;
         }
-        g_debug("basename %s, category %s, item %p", basename, category, item);
+        g_debug("basename %s, category %s, subdir %s", basename, unescaped, subdir);
         menu_cache_unref(mc);
     }
 
@@ -939,6 +939,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
 
         file_path = g_build_filename(g_get_user_data_dir(), "applications",
                                      basename, NULL);
+        /* FIXME: make subdirectories if it's not directly in category */
         if (file_path)
         {
             gf = g_file_new_for_path(file_path);
@@ -956,7 +957,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
                                                 "Type=Application\n"
                                                 "Name=\n"
                                                 "Exec=\n"
-                                                "Categories=%s;\n", category);
+                                                "Categories=%s;\n", unescaped);
                     g_output_stream_write_all(fstream, file_path, strlen(file_path),
                                               &tmp_len, init->cancellable, NULL);
                     g_free(file_path);
@@ -1056,6 +1057,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
 
         file_path = g_build_filename(g_get_user_data_dir(), "applications",
                                      basename, NULL);
+        /* FIXME: make subdirectories if it's not directly in category */
         if (file_path)
         {
             gf = g_file_new_for_path(file_path);
@@ -1066,6 +1068,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
                 init->result = g_file_replace(gf, NULL, FALSE,
                                               G_FILE_CREATE_REPLACE_DESTINATION,
                                               init->cancellable, init->error);
+                /* FIXME: create own handler instead of using g_file_replace() */
                 g_object_unref(gf);
             }
         }
