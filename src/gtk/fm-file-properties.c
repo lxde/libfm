@@ -327,12 +327,10 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
-    /* call the extension if it was set */
-    if(data->ext != NULL)
-        data->ext->cb.finish(data->extdata, response != GTK_RESPONSE_OK);
-
     if( response == GTK_RESPONSE_OK )
     {
+      if(gtk_widget_get_visible(data->permissions_tab))
+      {
         int sel;
         const char* new_owner = gtk_entry_get_text(data->owner);
         const char* new_group = gtk_entry_get_text(data->group);
@@ -520,6 +518,11 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                                                         /* it eats reference! */
             fm_path_list_unref(paths);
         }
+      } /* end of permissions update */
+
+        /* call the extension if it was set */
+        if(data->ext != NULL)
+            data->ext->cb.finish(data->extdata, FALSE);
 
         /* change default application for the mime-type if needed */
         if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
@@ -552,6 +555,9 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
         }
     }
+    /* call the extension if it was set */
+    else if(data->ext != NULL)
+        data->ext->cb.finish(data->extdata, TRUE);
     gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
