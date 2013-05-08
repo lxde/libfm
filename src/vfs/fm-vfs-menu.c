@@ -147,7 +147,8 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item)
 
     /* FIXME: use g_uri_escape_string() for item name */
     g_file_info_set_name(fileinfo, menu_cache_item_get_id(item));
-    g_file_info_set_display_name(fileinfo, menu_cache_item_get_name(item));
+    if(menu_cache_item_get_name(item) != NULL)
+        g_file_info_set_display_name(fileinfo, menu_cache_item_get_name(item));
 
     /* the setup below was in fm_file_info_set_from_menu_cache_item()
        so this setup makes latter API deprecated */
