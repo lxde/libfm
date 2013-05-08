@@ -1342,6 +1342,8 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
     GSList *items, *new_items, *ol, *nl;
     MenuCacheItem *dir;
     GFile *file;
+    const char *de_name;
+    guint32 de_flag;
 
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
     if(mon->item == NULL) /* menu folder was destroyed or monitor cancelled */
@@ -1387,6 +1389,11 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
 #endif
     /* we have two copies of lists now, compare them and emit events */
     ol = items;
+    de_name = g_getenv("XDG_CURRENT_DESKTOP");
+    if(de_name)
+        de_flag = menu_cache_get_desktop_env_flag(cache, de_name);
+    else
+        de_flag = (guint32)-1;
     while (ol)
     {
         for (nl = new_items; nl; nl = nl->next)
@@ -1399,7 +1406,10 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
             if (g_strcmp0(menu_cache_item_get_name(ol->data),
                           menu_cache_item_get_name(nl->data)) == 0 ||
                 g_strcmp0(menu_cache_item_get_icon(ol->data),
-                          menu_cache_item_get_icon(nl->data)) == 0)
+                          menu_cache_item_get_icon(nl->data)) == 0 ||
+                menu_cache_app_get_is_visible(ol->data, de_flag) !=
+                                menu_cache_app_get_is_visible(nl->data, de_flag))
+                /* FIXME: test if it is hidden */
             {
                 file = _fm_vfs_menu_resolve_relative_path(G_FILE(mon->file),
                                              menu_cache_item_get_id(nl->data));
