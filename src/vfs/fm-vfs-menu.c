@@ -862,6 +862,7 @@ static GFileInputStream *_fm_vfs_menu_read_fn(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     FmVfsMenuMainThreadData enu;
 
+    /* g_debug("_fm_vfs_menu_read_fn %s", item->path); */
     enu.path_str = item->path;
     enu.cancellable = cancellable;
     enu.error = error;
@@ -878,12 +879,199 @@ static GFileOutputStream *_fm_vfs_menu_append_to(GFile *file,
     return NULL;
 }
 
+
+/* ---- FmMenuVFileOutputStream class ---- */
+#define FM_TYPE_MENU_VFILE_OUTPUT_STREAM  (fm_vfs_menu_file_output_stream_get_type())
+#define FM_MENU_VFILE_OUTPUT_STREAM(o)    (G_TYPE_CHECK_INSTANCE_CAST((o), \
+                                           FM_TYPE_MENU_VFILE_OUTPUT_STREAM, \
+                                           FmMenuVFileOutputStream))
+
+typedef struct _FmMenuVFileOutputStream      FmMenuVFileOutputStream;
+typedef struct _FmMenuVFileOutputStreamClass FmMenuVFileOutputStreamClass;
+
+struct _FmMenuVFileOutputStream
+{
+    GFileOutputStream parent;
+    GOutputStream *real_stream;
+    gchar *category;
+    GString *content;
+    gboolean do_close;
+};
+
+struct _FmMenuVFileOutputStreamClass
+{
+    GFileOutputStreamClass parent_class;
+};
+
+static GType fm_vfs_menu_file_output_stream_get_type  (void);
+
+G_DEFINE_TYPE(FmMenuVFileOutputStream, fm_vfs_menu_file_output_stream, G_TYPE_FILE_OUTPUT_STREAM);
+
+static void fm_vfs_menu_file_output_stream_finalize(GObject *object)
+{
+    FmMenuVFileOutputStream *stream = FM_MENU_VFILE_OUTPUT_STREAM(object);
+    if(stream->real_stream)
+        g_object_unref(stream->real_stream);
+    g_free(stream->category);
+    g_string_free(stream->content, TRUE);
+    G_OBJECT_CLASS(fm_vfs_menu_file_output_stream_parent_class)->finalize(object);
+}
+
+static gssize fm_vfs_menu_file_output_stream_write(GOutputStream *stream,
+                                                   const void *buffer, gsize count,
+                                                   GCancellable *cancellable,
+                                                   GError **error)
+{
+    if (g_cancellable_set_error_if_cancelled(cancellable, error))
+        return -1;
+    g_string_append_len(FM_MENU_VFILE_OUTPUT_STREAM(stream)->content, buffer, count);
+    return (gssize)count;
+}
+
+static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
+                                                     GCancellable *cancellable,
+                                                     GError **error)
+{
+    FmMenuVFileOutputStream *stream = FM_MENU_VFILE_OUTPUT_STREAM(gos);
+    GKeyFile *kf;
+    gchar **categories, **new_categories;
+    gsize len = 0, i;
+    gchar *content;
+    gboolean ok;
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, error))
+        return FALSE;
+    if (!stream->do_close)
+        return TRUE;
+    kf = g_key_file_new();
+    /* parse entered file content first */
+    if (stream->content->len > 0)
+        g_key_file_load_from_data(kf, stream->content->str, stream->content->len,
+                                  G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                  NULL); /* FIXME: don't ignore some errors? */
+    /* correct invalid data in desktop entry file: Name and Exec are mandatory,
+       Type must be Application, and Category should include requested one */
+    if(!g_key_file_has_key(kf, G_KEY_FILE_DESKTOP_GROUP,
+                           G_KEY_FILE_DESKTOP_KEY_NAME, NULL))
+        g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                              G_KEY_FILE_DESKTOP_KEY_NAME, "");
+    if(!g_key_file_has_key(kf, G_KEY_FILE_DESKTOP_GROUP,
+                           G_KEY_FILE_DESKTOP_KEY_EXEC, NULL))
+        g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                              G_KEY_FILE_DESKTOP_KEY_EXEC, "");
+    g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_TYPE,
+                          G_KEY_FILE_DESKTOP_TYPE_APPLICATION);
+    categories = g_key_file_get_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                            G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
+                                            &len, NULL);
+    for (i = 0; i < len; i++)
+        if (strcmp(categories[i], stream->category) == 0)
+            break;
+    if (i == len) /* category is missed */
+    {
+        /* g_debug("adding category %s to list", stream->category); */
+        new_categories = g_new(gchar *, len + 2);
+        new_categories[0] = stream->category;
+        for (i = 0; i < len; i++)
+            new_categories[i+1] = categories[i];
+        new_categories[i+1] = NULL;
+        g_key_file_set_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                   G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
+                                   (const gchar* const*)new_categories, i + 1);
+        g_free(new_categories);
+    }
+    g_strfreev(categories);
+    content = g_key_file_to_data(kf, &len, error);
+    g_key_file_free(kf);
+    if (!content)
+        return FALSE;
+    ok = g_output_stream_write_all(stream->real_stream, content, len, &len,
+                                   cancellable, error);
+    g_free(content);
+    if (!ok || !g_output_stream_close(stream->real_stream, cancellable, error))
+        return FALSE;
+    stream->do_close = FALSE;
+    return TRUE;
+}
+
+static void fm_vfs_menu_file_output_stream_class_init(FmMenuVFileOutputStreamClass *klass)
+{
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+    GOutputStreamClass *stream_class = G_OUTPUT_STREAM_CLASS(klass);
+
+    gobject_class->finalize = fm_vfs_menu_file_output_stream_finalize;
+    stream_class->write_fn = fm_vfs_menu_file_output_stream_write;
+    stream_class->close_fn = fm_vfs_menu_file_output_stream_close;
+    /* we don't implement seek/truncate/etag/query so no GFileOutputStream funcs */
+}
+
+static void fm_vfs_menu_file_output_stream_init(FmMenuVFileOutputStream *stream)
+{
+    stream->content = g_string_sized_new(1024);
+    stream->do_close = TRUE;
+}
+
+static FmMenuVFileOutputStream *_fm_vfs_menu_file_output_stream_new(const gchar *category)
+{
+    FmMenuVFileOutputStream *stream;
+
+    stream = g_object_new(FM_TYPE_MENU_VFILE_OUTPUT_STREAM, NULL);
+    stream->category = g_strdup(category);
+    return stream;
+}
+
+static GFileOutputStream *_vfile_menu_create(GFile *file,
+                                             GFileCreateFlags flags,
+                                             GCancellable *cancellable,
+                                             GError **error,
+                                             const gchar *category)
+{
+    FmMenuVFileOutputStream *stream;
+    GFileOutputStream *ostream;
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, error))
+        return NULL;
+//    g_file_delete(file, cancellable, NULL); /* remove old if there is any */
+    stream = _fm_vfs_menu_file_output_stream_new(category);
+    ostream = g_file_create(file, flags, cancellable, error);
+    if (ostream == NULL)
+    {
+        g_object_unref(stream);
+        return NULL;
+    }
+    stream->real_stream = G_OUTPUT_STREAM(ostream);
+    return (GFileOutputStream*)stream;
+}
+
+static GFileOutputStream *_vfile_menu_replace(GFile *file,
+                                              const char *etag,
+                                              gboolean make_backup,
+                                              GFileCreateFlags flags,
+                                              GCancellable *cancellable,
+                                              GError **error,
+                                              const gchar *category)
+{
+    FmMenuVFileOutputStream *stream;
+    GFileOutputStream *ostream;
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, error))
+        return NULL;
+    stream = _fm_vfs_menu_file_output_stream_new(category);
+    ostream = g_file_replace(file, etag, make_backup, flags, cancellable, error);
+    if (ostream == NULL)
+    {
+        g_object_unref(stream);
+        return NULL;
+    }
+    stream->real_stream = G_OUTPUT_STREAM(ostream);
+    return (GFileOutputStream*)stream;
+}
+
 static gboolean _fm_vfs_menu_create_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
     char *unescaped = NULL, *basename, *subdir;
-    gsize tmp_len;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
@@ -930,7 +1118,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             if(item == NULL)
                 is_invalid = FALSE;
         }
-        g_debug("basename %s, category %s, subdir %s", basename, unescaped, subdir);
+        /* g_debug("basename %s, category %s, subdir %s", basename, unescaped, subdir); */
         menu_cache_unref(mc);
     }
 
@@ -942,7 +1130,6 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
     {
         char *file_path;
         GFile *gf;
-        GOutputStream *fstream;
 
         file_path = g_build_filename(g_get_user_data_dir(), "applications",
                                      basename, NULL);
@@ -953,26 +1140,9 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             g_free(file_path);
             if (gf)
             {
-                g_file_delete(gf, NULL, NULL); /* remove old if there is any */
-                fstream = G_OUTPUT_STREAM(g_file_create(gf,
-                                                G_FILE_CREATE_REPLACE_DESTINATION,
-                                                init->cancellable, init->error));
-                if (fstream)
-                {
-                    /* write simple stub before returning the handle */
-                    file_path = g_strdup_printf("[Desktop Entry]\n"
-                                                "Type=Application\n"
-                                                "Name=\n"
-                                                "Exec=\n"
-                                                "Categories=%s;\n", unescaped);
-                    g_output_stream_write_all(fstream, file_path, strlen(file_path),
-                                              &tmp_len, init->cancellable, NULL);
-                    g_free(file_path);
-                    g_seekable_seek(G_SEEKABLE(fstream), (goffset)0, G_SEEK_SET,
-                                    init->cancellable, NULL);
-                    /* FIXME: handle cancellation and errors */
-                    init->result = fstream;
-                }
+                init->result = _vfile_menu_create(gf, G_FILE_CREATE_NONE,
+                                                  init->cancellable, init->error,
+                                                  unescaped);
                 g_object_unref(gf);
             }
         }
@@ -991,6 +1161,7 @@ static GFileOutputStream *_fm_vfs_menu_create(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     FmVfsMenuMainThreadData enu;
 
+    /* g_debug("_fm_vfs_menu_create %s", item->path); */
     enu.path_str = item->path;
     enu.cancellable = cancellable;
     enu.error = error;
@@ -1072,10 +1243,10 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             if (gf)
             {
                 /* FIXME: use flags and make_backup */
-                init->result = g_file_replace(gf, NULL, FALSE,
-                                              G_FILE_CREATE_REPLACE_DESTINATION,
-                                              init->cancellable, init->error);
-                /* FIXME: create own handler instead of using g_file_replace() */
+                init->result = _vfile_menu_replace(gf, NULL, FALSE,
+                                                   G_FILE_CREATE_REPLACE_DESTINATION,
+                                                   init->cancellable, init->error,
+                                                   unescaped);
                 g_object_unref(gf);
             }
         }
@@ -1096,6 +1267,7 @@ static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     FmVfsMenuMainThreadData enu;
 
+    /* g_debug("_fm_vfs_menu_replace %s", item->path); */
     enu.path_str = item->path;
     enu.cancellable = cancellable;
     enu.error = error;
@@ -1200,6 +1372,7 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     FmVfsMenuMainThreadData enu;
 
+    /* g_debug("_fm_vfs_menu_delete_file %s", item->path); */
     enu.path_str = item->path;
     enu.cancellable = cancellable;
     enu.error = error;
@@ -1252,6 +1425,7 @@ static gboolean _fm_vfs_menu_move(GFile *source,
                                   gpointer progress_callback_data,
                                   GError **error)
 {
+    g_debug("_fm_vfs_menu_move");
     ERROR_UNSUPPORTED(error);
     return FALSE;
 }
