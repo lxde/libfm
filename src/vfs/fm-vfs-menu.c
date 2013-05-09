@@ -694,7 +694,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     GFileInfo *info;
     GFileAttributeMatcher *matcher;
-    char *basename, *unescaped;
+    char *basename, *id;
     FmVfsMenuMainThreadData enu;
 
     matcher = g_file_attribute_matcher_new(attributes);
@@ -723,10 +723,10 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
                 basename = g_strdup("/");
             else
                 basename = g_path_get_basename(item->path);
-            unescaped = g_uri_unescape_string(basename, NULL);
+            id = g_uri_unescape_string(basename, NULL);
             g_free(basename);
-            g_file_info_set_name(info, unescaped);
-            g_free(unescaped);
+            g_file_info_set_name(info, id);
+            g_free(id);
         }
     }
 
@@ -1071,13 +1071,16 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *basename, *subdir;
+    char *unescaped = NULL, *id, *category;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
     if(init->path_str)
     {
         MenuCacheItem *item;
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        GSList *list, *l;
+#endif
 
         mc = menu_cache_lookup_sync("applications.menu");
         if(mc == NULL)
@@ -1090,24 +1093,26 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         /* ensure new menu item has suffix .desktop */
         if (!g_str_has_suffix(unescaped, ".desktop"))
         {
-            basename = unescaped;
+            id = unescaped;
             unescaped = g_strconcat(unescaped, ".desktop", NULL);
-            g_free(basename);
+            g_free(id);
         }
-        basename = strrchr(unescaped, '/');
-        if (basename)
+        id = strrchr(unescaped, '/');
+        if (id)
         {
-            *basename++ = '\0';
-            subdir = strchr(unescaped, '/');
-            if(subdir) /* path is "Category/.../File.desktop" */
-                *subdir++ = '\0';
+            *id++ = '\0';
+            category = strrchr(unescaped, '/');
+            if (category != NULL) /* path is "Category/.../File.desktop" */
+                *category++ = '\0';
+            else
+                category = unescaped;
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-            item = menu_cache_find_item_by_id(mc, basename);
+            item = menu_cache_find_item_by_id(mc, id);
             menu_cache_item_unref(item); /* use item simply as marker */
 #else
-            GSList *list = menu_cache_list_all_apps(mc), *l;
+            list = menu_cache_list_all_apps(mc);
             for (l = list; l; l = l->next)
-                if (strcmp(menu_cache_item_get_id(l->data), basename) == 0)
+                if (strcmp(menu_cache_item_get_id(l->data), id) == 0)
                     break;
             if (l)
                 item = l->data;
@@ -1118,7 +1123,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             if(item == NULL)
                 is_invalid = FALSE;
         }
-        /* g_debug("basename %s, category %s, subdir %s", basename, unescaped, subdir); */
+        /* g_debug("create id %s, category %s", id, category); */
         menu_cache_unref(mc);
     }
 
@@ -1132,8 +1137,10 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         GFile *gf;
 
         file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                     basename, NULL);
-        /* FIXME: make subdirectories if it's not directly in category */
+                                     id, NULL);
+        /* we can try to guess file path and make directories but it
+           hardly worth the efforts so it's easier to just make new file
+           by its ID since ID is unique thru all the menu */
         if (file_path)
         {
             gf = g_file_new_for_path(file_path);
@@ -1142,7 +1149,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             {
                 init->result = _vfile_menu_create(gf, G_FILE_CREATE_NONE,
                                                   init->cancellable, init->error,
-                                                  unescaped);
+                                                  category);
                 g_object_unref(gf);
             }
         }
@@ -1174,7 +1181,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *basename;
+    char *unescaped = NULL, *id, *category;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
@@ -1189,24 +1196,29 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
                                 _("Menu cache error"));
             goto _mc_failed;
         }
-        /* prepare basename first */
+        /* prepare id first */
         unescaped = g_uri_unescape_string(init->path_str, NULL);
-        basename = strrchr(unescaped, '/');
-        if (basename != NULL)
-            *basename++ = '\0';
+        id = strrchr(unescaped, '/');
+        if (id != NULL)
+            *id++ = '\0';
+        category = strrchr(unescaped, '/');
+        if (category != NULL) /* find actual category */
+            *category++ = '\0';
+        else
+            category = unescaped;
         /* get existing item */
         item = _vfile_path_to_menu_cache_item(mc, init->path_str);
         /* if not found then check item by id to exclude conflicts */
         if (item != NULL) /* item is there, OK, we'll replace it then */
             is_invalid = FALSE;
-        else if (basename != NULL)
+        else if (id != NULL)
         {
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-            item2 = menu_cache_find_item_by_id(mc, basename);
+            item2 = menu_cache_find_item_by_id(mc, id);
 #else
             GSList *list = menu_cache_list_all_apps(mc), *l;
             for (l = list; l; l = l->next)
-                if (strcmp(menu_cache_item_get_id(l->data), basename) == 0)
+                if (strcmp(menu_cache_item_get_id(l->data), id) == 0)
                     break;
             if (l)
                 item2 = menu_cache_item_ref(l->data);
@@ -1219,7 +1231,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             else /* item was found in another category */
                 menu_cache_item_unref(item2);
         }
-        /* if basename is NULL then we trying to create item in root, i.e.
+        /* if id is NULL then we trying to create item in root, i.e.
            outside of categories and that should be prohibited */
         menu_cache_unref(mc);
     }
@@ -1234,8 +1246,10 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
         GFile *gf;
 
         file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                     basename, NULL);
-        /* FIXME: make subdirectories if it's not directly in category */
+                                     id, NULL);
+        /* we can try to guess file path and make directories but it
+           hardly worth the efforts so it's easier to just make new file
+           by its ID since ID is unique thru all the menu */
         if (file_path)
         {
             gf = g_file_new_for_path(file_path);
@@ -1246,7 +1260,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
                 init->result = _vfile_menu_replace(gf, NULL, FALSE,
                                                    G_FILE_CREATE_REPLACE_DESTINATION,
                                                    init->cancellable, init->error,
-                                                   unescaped);
+                                                   category);
                 g_object_unref(gf);
             }
         }
@@ -1333,8 +1347,10 @@ static gboolean _fm_vfs_menu_delete_real(gpointer data)
     if (contents == NULL)
         goto _failed;
     file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                 menu_cache_item_get_file_basename(item), NULL);
-    /* FIXME: make subdirectories if it's not directly in category */
+                                 menu_cache_item_get_id(item), NULL);
+    /* we can try to guess file path and make directories but it
+       hardly worth the efforts so it's easier to just make new file
+       by its ID since ID is unique thru all the menu */
     gf = g_file_new_for_path(file_path);
     g_free(file_path);
     out = G_OUTPUT_STREAM(g_file_replace(gf, NULL, FALSE,
