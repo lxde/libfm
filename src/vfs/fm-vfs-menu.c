@@ -1823,11 +1823,20 @@ static GFile *_fm_vfs_menu_new_for_uri(const char *uri)
         if(g_ascii_strncasecmp(uri, ".menu", 5) == 0)
             uri += 5;
     }
-    while(*uri == '/')
+    while(*uri == '/') /* skip starting slashes */
         uri++;
     /* save the rest of path, NULL means the root path */
     if(*uri)
+    {
+        char *end;
+
         item->path = g_strdup(uri);
+        for(end = item->path + strlen(item->path); end > item->path; end--)
+            if(end[-1] == '/') /* skip trailing slashes */
+                end[-1] = '\0';
+            else
+                break;
+    }
     return (GFile*)item;
 }
 
