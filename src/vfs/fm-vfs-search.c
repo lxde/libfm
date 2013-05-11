@@ -809,6 +809,8 @@ static gboolean fm_search_job_match_size(FmVfsSearchEnumerator* priv, GFileInfo*
         ret = FALSE;
     else if(priv->max_size > 0 && size > priv->max_size)
         ret = FALSE;
+    else if ((priv->min_size > 0 || priv->max_size > 0) && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY)
+        ret = FALSE;
     return ret;
 }
 
