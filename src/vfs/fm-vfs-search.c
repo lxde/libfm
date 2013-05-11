@@ -521,6 +521,14 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                                 mime_type[0] = '*';
                             }
                         }
+
+                        if (!g_strstr_len(priv->attributes, -1, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE))
+                        {
+                            gchar * attributes = g_strconcat(priv->attributes, ",", G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, NULL);
+                            g_free(priv->attributes);
+                            priv->attributes = attributes;
+                        }
+
                     }
                 }
                 else if(strcmp(name, "min_size") == 0)
