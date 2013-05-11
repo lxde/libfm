@@ -122,6 +122,14 @@ static void fm_search_job_match_folder(FmVfsSearchEnumerator * priv,
 static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str);
 
 
+static gboolean is_access_error(GError * err)
+{
+    if (err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
+        return TRUE;
+    return FALSE;
+}
+
+
 /* ---- Directory iterator ---- */
 /* caller should g_object_ref(folder_path) if success */
 static inline FmSearchIntIter *_search_iter_new(FmSearchIntIter *parent,
@@ -248,7 +256,9 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
             container->current = g_object_ref(iter->folder_path);
             enu->iter = iter;
         }
+
         file_info = g_file_enumerator_next_file(iter->enu, cancellable, &err);
+
         if(file_info)
         {
             /* recurse upon each directory */
@@ -276,11 +286,21 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
             if(err == NULL)
                 continue;
         }
+
         if(err != NULL) /* file_info == NULL */
         {
-            g_propagate_error(error, err);
-            break;
+            if (is_access_error(err))
+            {
+                g_error_free(err);
+                err = NULL;
+            }
+            else
+            {
+                g_propagate_error(error, err);
+                break;
+            }
         }
+
         /* else end of file list - go up */
         enu->iter = iter->parent;
         container = FM_SEARCH_VFILE(g_file_enumerator_get_container(enumerator));
