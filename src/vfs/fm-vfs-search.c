@@ -251,13 +251,6 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
         file_info = g_file_enumerator_next_file(iter->enu, cancellable, &err);
         if(file_info)
         {
-            if(fm_search_job_match_file(enu, file_info, iter->folder_path,
-                                        cancellable, &err))
-            {
-                /* g_debug("found matched: %s", g_file_info_get_name(file_info)); */
-                return file_info;
-            }
-
             /* recurse upon each directory */
             if(err == NULL && enu->recursive &&
                g_file_info_get_file_type(file_info) == G_FILE_TYPE_DIRECTORY)
@@ -271,6 +264,14 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
                     g_object_unref(file);
                 }
             }
+
+            if(fm_search_job_match_file(enu, file_info, iter->folder_path,
+                                        cancellable, &err))
+            {
+                /* g_debug("found matched: %s", g_file_info_get_name(file_info)); */
+                return file_info;
+            }
+
             g_object_unref(file_info);
             if(err == NULL)
                 continue;
@@ -831,6 +832,8 @@ static gboolean fm_search_job_match_file(FmVfsSearchEnumerator * priv,
                                          GCancellable *cancellable,
                                          GError **error)
 {
+    //g_print("matching file %s\n", g_file_info_get_name(info));
+
     if(!priv->show_hidden && g_file_info_get_is_hidden(info))
         return FALSE;
 
