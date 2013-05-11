@@ -514,7 +514,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                             char* mime_type = *pmime_type;
                             int len = strlen(mime_type);
                             /* if the mime_type is end with "/*" */
-                            if(len > 2 && mime_type[len - 2] == '/' && mime_type[len - 1] == '*')
+                            if(len > 2 && /*mime_type[len - 2] == '/' &&*/ mime_type[len - 1] == '*')
                             {
                                 /* move the trailing * to first char */
                                 memmove(mime_type + 1, mime_type, len - 1);

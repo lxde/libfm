@@ -503,7 +503,14 @@ static gboolean launch_search(FileSearchUI* ui)
             mime_types = g_slist_prepend(mime_types, (gpointer)"video/*");
         if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->doc_file_checkbutton)))
         {
-            // mime_types = g_slist_prepend(mime_types, (gpointer)"text/plain");
+            mime_types = g_slist_prepend(mime_types, (gpointer)
+                "application/pdf;"
+                /* "text/html;" */
+                "application/vnd.oasis.opendocument.*;"
+                "application/vnd.openxmlformats-officedocument.*;"
+                "application/msword;application/vnd.ms-word;"
+                "application/msexcel;application/vnd.ms-excel"
+            );
         }
 
         if(mime_types)
