@@ -353,6 +353,27 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
     return dir;
 }
 
+static MenuCache *_get_menu_cache(GError **error)
+{
+    MenuCache *mc;
+    static gboolean environment_tested = FALSE;
+    static gboolean requires_prefix = FALSE;
+
+    /* do it in compatibility with lxpanel */
+    if(!environment_tested)
+    {
+        requires_prefix = (g_getenv("XDG_MENU_PREFIX") == NULL);
+        environment_tested = TRUE;
+    }
+    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu" : "applications.menu");
+    /* FIXME: may be it is reasonable to set XDG_MENU_PREFIX ? */
+
+    if(mc == NULL) /* initialization failed */
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+    return mc;
+}
+
 static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
@@ -361,34 +382,10 @@ static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
     const char *de_name;
     MenuCacheItem *dir;
 
-    mc = menu_cache_lookup_sync("applications.menu");
-    /* ensure that the menu cache is loaded */
-    if(mc == NULL) /* if it's not loaded */
-    {
-        /* try to set $XDG_MENU_PREFIX to "lxde-" for lxmenu-data */
-        const char* menu_prefix = g_getenv("XDG_MENU_PREFIX");
-        if(g_strcmp0(menu_prefix, "lxde-")) /* if current value is not lxde- */
-        {
-            char* old_prefix = g_strdup(menu_prefix);
-            g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
-            mc = menu_cache_lookup_sync("applications.menu");
-            /* restore original environment variable */
-            if(old_prefix)
-            {
-                g_setenv("XDG_MENU_PREFIX", old_prefix, TRUE);
-                g_free(old_prefix);
-            }
-            else
-                g_unsetenv("XDG_MENU_PREFIX");
-        }
-    }
+    mc = _get_menu_cache(init->error);
 
     if(mc == NULL) /* initialization failed */
-    {
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
         return FALSE;
-    }
 
     enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, "container",
                               init->file, NULL);
@@ -646,13 +643,9 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
     gboolean is_invalid = FALSE;
 
     init->result = NULL;
-    mc = menu_cache_lookup_sync("applications.menu");
+    mc = _get_menu_cache(init->error);
     if(mc == NULL)
-    {
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
         goto _mc_failed;
-    }
 
     if(init->path_str)
     {
@@ -807,13 +800,9 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
-    mc = menu_cache_lookup_sync("applications.menu");
+    mc = _get_menu_cache(init->error);
     if(mc == NULL)
-    {
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
         goto _mc_failed;
-    }
 
     if(init->path_str)
     {
@@ -1082,13 +1071,9 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         GSList *list, *l;
 #endif
 
-        mc = menu_cache_lookup_sync("applications.menu");
+        mc = _get_menu_cache(init->error);
         if(mc == NULL)
-        {
-            g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                _("Menu cache error"));
             goto _mc_failed;
-        }
         unescaped = g_uri_unescape_string(init->path_str, NULL);
         /* ensure new menu item has suffix .desktop */
         if (!g_str_has_suffix(unescaped, ".desktop"))
@@ -1189,13 +1174,9 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
     {
         MenuCacheItem *item, *item2;
 
-        mc = menu_cache_lookup_sync("applications.menu");
+        mc = _get_menu_cache(init->error);
         if(mc == NULL)
-        {
-            g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                _("Menu cache error"));
             goto _mc_failed;
-        }
         /* prepare id first */
         unescaped = g_uri_unescape_string(init->path_str, NULL);
         id = strrchr(unescaped, '/');
@@ -1309,13 +1290,9 @@ static gboolean _fm_vfs_menu_delete_real(gpointer data)
                             _("Cannot delete root directory"));
         goto _failed;
     }
-    mc = menu_cache_lookup_sync("applications.menu");
+    mc = _get_menu_cache(init->error);
     if(mc == NULL)
-    {
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
         goto _failed;
-    }
     item = _vfile_path_to_menu_cache_item(mc, init->path_str);
     if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
     {
@@ -1664,12 +1641,9 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
     if(mon == NULL) /* out of memory! */
         return NULL;
     mon->file = FM_MENU_VFILE(g_object_ref(file));
-    mon->cache = menu_cache_lookup_sync("applications.menu");
+    mon->cache = _get_menu_cache(error);
     if(mon->cache == NULL)
-    {
-        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED, _("Menu cache error"));
         goto _fail;
-    }
     /* check if requested path exists within cache */
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
     if(mon->file->path)
