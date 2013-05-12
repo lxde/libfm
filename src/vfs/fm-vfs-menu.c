@@ -1549,6 +1549,26 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
                                    (GCopyFunc)menu_cache_item_ref, NULL);
     new_items = g_slist_copy_deep(mon->items, (GCopyFunc)menu_cache_item_ref, NULL);
 #endif
+    for (ol = items; ol; ) /* remove all separatorts first */
+    {
+        nl = ol->next;
+        if (menu_cache_item_get_id(ol->data) == NULL)
+        {
+            menu_cache_item_unref(ol->data);
+            items = g_slist_delete_link(items, ol);
+        }
+        ol = nl;
+    }
+    for (ol = new_items; ol; )
+    {
+        nl = ol->next;
+        if (menu_cache_item_get_id(ol->data) == NULL)
+        {
+            menu_cache_item_unref(ol->data);
+            new_items = g_slist_delete_link(new_items, ol);
+        }
+        ol = nl;
+    }
     /* we have two copies of lists now, compare them and emit events */
     ol = items;
     de_name = g_getenv("XDG_CURRENT_DESKTOP");
