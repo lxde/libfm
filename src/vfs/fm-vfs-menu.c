@@ -792,6 +792,22 @@ static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
     return FALSE;
 }
 
+static inline GFile *_g_file_new_for_id(const char *id)
+{
+    char *file_path;
+    GFile *file;
+
+    file_path = g_build_filename(g_get_user_data_dir(), "applications", id, NULL);
+    /* we can try to guess file path and make directories but it
+       hardly worth the efforts so it's easier to just make new file
+       by its ID since ID is unique thru all the menu */
+    if (file_path == NULL)
+        return NULL;
+    file = g_file_new_for_path(file_path);
+    g_free(file_path);
+    return file;
+}
+
 static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
@@ -1118,25 +1134,14 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
                     init->path_str ? init->path_str : "/");
     else
     {
-        char *file_path;
-        GFile *gf;
+        GFile *gf = _g_file_new_for_id(id);
 
-        file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                     id, NULL);
-        /* we can try to guess file path and make directories but it
-           hardly worth the efforts so it's easier to just make new file
-           by its ID since ID is unique thru all the menu */
-        if (file_path)
+        if (gf)
         {
-            gf = g_file_new_for_path(file_path);
-            g_free(file_path);
-            if (gf)
-            {
-                init->result = _vfile_menu_create(gf, G_FILE_CREATE_NONE,
-                                                  init->cancellable, init->error,
-                                                  category);
-                g_object_unref(gf);
-            }
+            init->result = _vfile_menu_create(gf, G_FILE_CREATE_NONE,
+                                              init->cancellable, init->error,
+                                              category);
+            g_object_unref(gf);
         }
     }
     g_free(unescaped);
@@ -1223,27 +1228,16 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
                     init->path_str ? init->path_str : "/");
     else
     {
-        char *file_path;
-        GFile *gf;
+        GFile *gf = _g_file_new_for_id(id);
 
-        file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                     id, NULL);
-        /* we can try to guess file path and make directories but it
-           hardly worth the efforts so it's easier to just make new file
-           by its ID since ID is unique thru all the menu */
-        if (file_path)
+        if (gf)
         {
-            gf = g_file_new_for_path(file_path);
-            g_free(file_path);
-            if (gf)
-            {
-                /* FIXME: use flags and make_backup */
-                init->result = _vfile_menu_replace(gf, NULL, FALSE,
-                                                   G_FILE_CREATE_REPLACE_DESTINATION,
-                                                   init->cancellable, init->error,
-                                                   category);
-                g_object_unref(gf);
-            }
+            /* FIXME: use flags and make_backup */
+            init->result = _vfile_menu_replace(gf, NULL, FALSE,
+                                               G_FILE_CREATE_REPLACE_DESTINATION,
+                                               init->cancellable, init->error,
+                                               category);
+            g_object_unref(gf);
         }
     }
     g_free(unescaped);
@@ -1323,13 +1317,7 @@ static gboolean _fm_vfs_menu_delete_real(gpointer data)
     g_key_file_free(kf);
     if (contents == NULL)
         goto _failed;
-    file_path = g_build_filename(g_get_user_data_dir(), "applications",
-                                 menu_cache_item_get_id(item), NULL);
-    /* we can try to guess file path and make directories but it
-       hardly worth the efforts so it's easier to just make new file
-       by its ID since ID is unique thru all the menu */
-    gf = g_file_new_for_path(file_path);
-    g_free(file_path);
+    gf = _g_file_new_for_id(menu_cache_item_get_id(item));
     out = G_OUTPUT_STREAM(g_file_replace(gf, NULL, FALSE,
                                          G_FILE_CREATE_REPLACE_DESTINATION,
                                          init->cancellable, init->error));
