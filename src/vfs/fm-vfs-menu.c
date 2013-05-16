@@ -209,7 +209,11 @@ typedef struct
         FmVfsMenuEnumerator *enumerator;
         const char *path_str;
     };
-//    const char *attributes;
+    union
+    {
+        FmMenuVFile *destination;
+//        const char *attributes;
+    };
 //    GFileQueryInfoFlags flags;
     union
     {
@@ -573,7 +577,7 @@ static char *_fm_vfs_menu_get_relative_path(GFile *parent, GFile *descendant)
         return NULL;
     remainder = match_prefix(path, pp);
     if(remainder != NULL && *remainder == '/')
-        return g_strdup(&remainder[1]);
+        return g_uri_unescape_string(&remainder[1], NULL);
     return NULL;
 }
 
@@ -588,7 +592,15 @@ static GFile *_fm_vfs_menu_resolve_relative_path(GFile *file, const char *relati
     else if(path == NULL)
         new_item->path = g_strdup(relative_path);
     else
+    {
+        /* relative_path is the most probably unescaped string (at least GFVS
+           works such way) so we have to escape invalid chars here. */
+        char *escaped = g_uri_escape_string(relative_path,
+                                            G_URI_RESERVED_CHARS_ALLOWED_IN_PATH,
+                                            TRUE);
         new_item->path = g_strconcat(path, "/", relative_path, NULL);
+        g_free(escaped);
+    }
     return (GFile*)new_item;
 }
 
@@ -1016,12 +1028,41 @@ static void fm_vfs_menu_file_output_stream_init(FmMenuVFileOutputStream *stream)
     stream->do_close = TRUE;
 }
 
+static gchar *_normalize_category(const gchar *category)
+{
+    //if (category == NULL)
+    //    return NULL;
+    //if (!strcmp(category, "AudioVideo"))
+    //    goto _standard;
+    //if (!strcmp(category, "Development"))
+    //    goto _standard;
+    //if (!strcmp(category, "Education"))
+    //    goto _standard;
+    //if (!strcmp(category, "Game"))
+    //    goto _standard;
+    //if (!strcmp(category, "Graphics"))
+    //    goto _standard;
+    //if (!strcmp(category, "Network"))
+    //    goto _standard;
+    //if (!strcmp(category, "Office"))
+    //    goto _standard;
+    //if (!strcmp(category, "Settings"))
+    //    goto _standard;
+    //if (!strcmp(category, "System"))
+    //    goto _standard;
+    //if (!strcmp(category, "Utility"))
+    //    goto _standard;
+    //return g_strdup_printf("X-%s", category);
+//_standard:
+    return g_strdup(category);
+}
+
 static FmMenuVFileOutputStream *_fm_vfs_menu_file_output_stream_new(const gchar *category)
 {
     FmMenuVFileOutputStream *stream;
 
     stream = g_object_new(FM_TYPE_MENU_VFILE_OUTPUT_STREAM, NULL);
-    stream->category = g_strdup(category);
+    stream->category = _normalize_category(category);
     return stream;
 }
 
@@ -1072,11 +1113,27 @@ static GFileOutputStream *_vfile_menu_replace(GFile *file,
     return (GFileOutputStream*)stream;
 }
 
+/* FIXME: this is very dirty estimation and it will not work at all,
+   it is here just for testing yet.
+   We should parse .menu files instead and get <Name> to <Category>
+   relations, along with <Category> exclusions for menu path.
+   static char *_category_from_menu_path(FmVfsMenuTree*,const char*);
+   static char **_category_excl_from_menu_name(FmVfsMenuTree*,const char*); */
+static char *_category_from_menu_path(const char *path)
+{
+    const char *ptr;
+
+    ptr = strrchr(path, '/');
+    if (ptr)
+        return g_strdup(ptr+1);
+    return g_strdup(path);
+}
+
 static gboolean _fm_vfs_menu_create_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *id, *category;
+    char *unescaped = NULL, *id, *category = NULL;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
@@ -1102,11 +1159,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         if (id)
         {
             *id++ = '\0';
-            category = strrchr(unescaped, '/');
-            if (category != NULL) /* path is "Category/.../File.desktop" */
-                *category++ = '\0';
-            else
-                category = unescaped;
+            category = _category_from_menu_path(unescaped);
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
             item = menu_cache_find_item_by_id(mc, id);
             menu_cache_item_unref(item); /* use item simply as marker */
@@ -1144,6 +1197,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             g_object_unref(gf);
         }
     }
+    g_free(category);
     g_free(unescaped);
 
 _mc_failed:
@@ -1171,7 +1225,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *id, *category;
+    char *unescaped = NULL, *id, *category = NULL;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
@@ -1187,11 +1241,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
         id = strrchr(unescaped, '/');
         if (id != NULL)
             *id++ = '\0';
-        category = strrchr(unescaped, '/');
-        if (category != NULL) /* find actual category */
-            *category++ = '\0';
-        else
-            category = unescaped;
+        category = _category_from_menu_path(unescaped);
         /* get existing item */
         item = _vfile_path_to_menu_cache_item(mc, init->path_str);
         /* if not found then check item by id to exclude conflicts */
@@ -1240,6 +1290,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             g_object_unref(gf);
         }
     }
+    g_free(category);
     g_free(unescaped);
 
 _mc_failed:
@@ -1282,11 +1333,11 @@ static gboolean _fm_vfs_menu_delete_real(gpointer data)
     {
         g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
                             _("Cannot delete root directory"));
-        goto _failed;
+        return FALSE;
     }
     mc = _get_menu_cache(init->error);
     if(mc == NULL)
-        goto _failed;
+        return FALSE;
     item = _vfile_path_to_menu_cache_item(mc, init->path_str);
     if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
     {
@@ -1343,6 +1394,7 @@ _failed:
     if(item)
         menu_cache_item_unref(item);
 #endif
+    menu_cache_unref(mc);
     return FALSE;
 }
 
@@ -1398,6 +1450,162 @@ static gboolean _fm_vfs_menu_copy(GFile *source,
     return FALSE;
 }
 
+static gboolean _fm_vfs_menu_move_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc = NULL;
+    MenuCacheItem *item = NULL;
+    char *src_path, *dst_path;
+    char *src_id, *dst_id, *src_category, *dst_category;
+    char *file_path, *contents;
+    gchar **categories;
+    gsize len = 0, i;
+    GKeyFile *kf;
+    GFile *gf;
+    GOutputStream *out;
+    gsize length, tmp_len;
+
+    init->result = (gpointer)FALSE;
+    dst_path = init->destination->path;
+    if (init->path_str == NULL || dst_path == NULL)
+    {
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Invalid operation with menu root"));
+        return FALSE;
+    }
+    /* make path strings */
+    src_path = g_uri_unescape_string(init->path_str, NULL);
+    dst_path = g_uri_unescape_string(dst_path, NULL);
+    src_id = strrchr(src_path, '/');
+    if (src_id)
+    {
+        *src_id++ = '\0';
+        src_category = _category_from_menu_path(src_path);
+    }
+    else
+    {
+        src_id = src_path;
+        src_category = NULL;
+    }
+    dst_id = strrchr(dst_path, '/');
+    if (dst_id)
+    {
+        *dst_id++ = '\0';
+        dst_category = _category_from_menu_path(dst_path);
+    }
+    else
+    {
+        dst_id = dst_path;
+        dst_category = NULL;
+    }
+    if (strcmp(src_id, dst_id))
+    {
+        /* ID change isn't supported now */
+        ERROR_UNSUPPORTED(init->error);
+        goto _failed;
+    }
+    if (src_category == NULL || dst_category == NULL)
+    {
+        /* we cannot move base categories now */
+        ERROR_UNSUPPORTED(init->error);
+        goto _failed;
+    }
+    if (strcmp(src_path, dst_path) == 0)
+    {
+        g_free(src_path);
+        g_free(dst_path);
+        return TRUE; /* nothing was changed */
+    }
+    /* do actual move */
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _failed;
+    item = _vfile_path_to_menu_cache_item(mc, init->path_str);
+    /* TODO: if id changed then check for ID conflicts */
+    /* TODO: save updated desktop entry for old ID (if different) */
+    if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
+    {
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("The \"%s\" isn't a menu item"), init->path_str);
+        goto _failed;
+    }
+    file_path = menu_cache_item_get_file_path(item);
+    if (file_path == NULL)
+    {
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                    _("Invalid menu item %s"), init->path_str);
+        goto _failed;
+    }
+    kf = g_key_file_new();
+    if (!g_key_file_load_from_file(kf, file_path,
+                                   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                   init->error))
+    {
+        g_free(file_path);
+        g_key_file_free(kf);
+        goto _failed;
+    }
+    g_free(file_path);
+    categories = g_key_file_get_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                            G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
+                                            &len, NULL);
+    /* remove old category from list */
+    /* FIXME: tree path may contain few categories! */
+    for (i = 0; i < len; i++)
+        if (strcmp(categories[i], src_category) == 0)
+            break;
+    if (i < len) /* old category was found */
+    {
+        g_free(categories[i]);
+        /* g_debug("removing category %s from list", src_category); */
+        for ( ; i < len; i++)
+                categories[i] = categories[i+1];
+        g_key_file_set_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                   G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
+                                   (const gchar* const*)categories, len - 1);
+    } /* FIXME: else error! */
+    g_strfreev(categories);
+    contents = g_key_file_to_data(kf, &length, init->error);
+    g_key_file_free(kf);
+    if (contents == NULL)
+        goto _failed;
+    /* save updated desktop entry for the new ID */
+    gf = _g_file_new_for_id(menu_cache_item_get_id(item));
+    out = G_OUTPUT_STREAM(_vfile_menu_replace(gf, NULL, FALSE,
+                                              G_FILE_CREATE_REPLACE_DESTINATION,
+                                              init->cancellable, init->error,
+                                              dst_category));
+    g_object_unref(gf);
+    if (out == NULL)
+    {
+        g_free(contents);
+        goto _failed;
+    }
+    if(!g_output_stream_write_all(out, contents, length, &tmp_len,
+                                  init->cancellable, init->error))
+    {
+        g_free(contents);
+        goto _failed;
+    }
+    g_free(contents);
+    g_output_stream_close(out, init->cancellable, init->error);
+    g_object_unref(out);
+    init->result = (gpointer)TRUE;
+
+_failed:
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(item)
+        menu_cache_item_unref(item);
+#endif
+    if(mc)
+        menu_cache_unref(mc);
+    g_free(src_path);
+    g_free(dst_path);
+    g_free(src_category);
+    g_free(dst_category);
+    return FALSE;
+}
+
 static gboolean _fm_vfs_menu_move(GFile *source,
                                   GFile *destination,
                                   GFileCopyFlags flags,
@@ -1406,9 +1614,24 @@ static gboolean _fm_vfs_menu_move(GFile *source,
                                   gpointer progress_callback_data,
                                   GError **error)
 {
-    g_debug("_fm_vfs_menu_move");
-    ERROR_UNSUPPORTED(error);
-    return FALSE;
+    FmMenuVFile *item = FM_MENU_VFILE(source);
+    FmVfsMenuMainThreadData enu;
+
+    /* g_debug("_fm_vfs_menu_move"); */
+    if(!FM_IS_FILE(destination))
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                            _("Invalid destination"));
+        return FALSE;
+    }
+    enu.path_str = item->path;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    // enu.flags = flags;
+    enu.destination = FM_MENU_VFILE(destination);
+    /* FIXME: use progress_callback */
+    fm_run_in_default_main_context(_fm_vfs_menu_move_real, &enu);
+    return (gboolean)enu.result;
 }
 
 /* ---- FmMenuVFileMonitor class ---- */
