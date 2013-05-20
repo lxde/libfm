@@ -1011,7 +1011,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                 if(rotate_degrees != 0)
                 {
                     GObject* rotated;
-                    rotated = backend.rotate_image(normal_pix, rotate_degrees);
+                    rotated = backend.rotate_image(large_pix, rotate_degrees);
                     g_object_unref(large_pix);
                     large_pix = rotated;
                 }
