@@ -756,7 +756,7 @@ gboolean fm_dnd_dest_drag_drop(FmDndDest* dd, GdkDragContext *drag_context,
 static gboolean on_drag_drop(GtkWidget *widget, GdkDragContext *drag_context,
                              gint x, gint y, guint time, FmDndDest* dd)
 {
-    GdkAtom target = gtk_drag_dest_find_target(widget, drag_context, NULL);
+    GdkAtom target = fm_dnd_dest_find_target(dd, drag_context);
     if(G_UNLIKELY(target == GDK_NONE))
         return FALSE;
     return _on_drag_drop(dd, drag_context, target, x, y, time);
