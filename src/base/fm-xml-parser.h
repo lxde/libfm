@@ -75,7 +75,7 @@ typedef gboolean (*FmXmlParserHandler)(FmXmlParserItem *item, GList *clildren,
                                        GError **error, gpointer user_data);
 
 /* setup */
-FmXmlParser *fm_xml_parser_new(void);
+FmXmlParser *fm_xml_parser_new(FmXmlParser *sibling);
 FmXmlParserTag fm_xml_parser_set_handler(FmXmlParser *parser, const char *tag,
                                          FmXmlParserHandler handler,
                                          GError **error);

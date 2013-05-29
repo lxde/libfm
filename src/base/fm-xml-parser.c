@@ -132,16 +132,35 @@ static void _fm_xml_parser_init(FmXmlParser *self)
 
 /**
  * fm_xml_parser_new
+ * @sibling: (allow-none): container to copy handlers data
  *
- * Creates new empty #FmXmlParser container.
+ * Creates new empty #FmXmlParser container. If @sibling is not %NULL
+ * then new container will have callbacks identical to set in @sibling.
+ * Use @sibling parameter if you need to work with few XML files that
+ * share the same schema or if you need to use the same tag ids for more
+ * than one parser.
  *
  * Returns: (transfer full): newly created object.
  *
  * Since: 1.2.0
  */
-FmXmlParser *fm_xml_parser_new(void)
+FmXmlParser *fm_xml_parser_new(FmXmlParser *sibling)
 {
-    return (FmXmlParser*)g_object_new(FM_XML_PARSER_TYPE, NULL);
+    FmXmlParser *self;
+    FmXmlParserTag i;
+
+    self = (FmXmlParser*)g_object_new(FM_XML_PARSER_TYPE, NULL);
+    if (sibling && sibling->n_tags > 1)
+    {
+        self->n_tags = sibling->n_tags;
+        self->tags = g_renew(FmXmlParserTagDesc, self->tags, self->n_tags);
+        for (i = 1; i < self->n_tags; i++)
+        {
+            self->tags[i].name = g_strdup(sibling->tags[i].name);
+            self->tags[i].handler = sibling->tags[i].handler;
+        }
+    }
+    return self;
 }
 
 /**
