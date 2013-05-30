@@ -175,9 +175,9 @@ static const GtkActionEntry folder_popup_actions[]=
     /* {"NewShortcut", "system-run", N_("Shortcut"), NULL, NULL, G_CALLBACK(on_create_new)}, */
     {"Cut", GTK_STOCK_CUT, NULL, "<Ctrl>X", NULL, G_CALLBACK(on_cut)},
     {"Copy", GTK_STOCK_COPY, NULL, "<Ctrl>C", NULL, G_CALLBACK(on_copy)},
-    {"Copy2", NULL, NULL, "<Shift>Insert", NULL, G_CALLBACK(on_copy)},
+    {"Copy2", NULL, NULL, "<Ctrl>Insert", NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, "<Ctrl>V", NULL, G_CALLBACK(on_paste)},
-    {"Paste2", NULL, NULL, "<Ctrl>Insert", NULL, G_CALLBACK(on_paste)},
+    {"Paste2", NULL, NULL, "<Shift>Insert", NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK(on_trash)},
     {"Del2", NULL, NULL, "KP_Delete", NULL, G_CALLBACK(on_trash)},
     {"Remove", GTK_STOCK_REMOVE, NULL, "<Shift>Delete", NULL, G_CALLBACK(on_rm)},
