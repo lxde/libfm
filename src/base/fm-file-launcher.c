@@ -231,12 +231,29 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                 g_free(quoted);
                                 if(app)
                                 {
+                                    char* run_path = g_path_get_dirname(filename);
+                                    char* cwd = NULL;
+                                    /* bug #3589641: scripts are ran from $HOME.
+                                       since GIO launcher is kinda ugly - it has
+                                       no means to set running directory so we
+                                       do workaround - change directory to it */
+                                    if(run_path && strcmp(run_path, "."))
+                                    {
+                                        cwd = g_get_current_dir();
+                                        chdir(run_path);
+                                    }
+                                    g_free(run_path);
                                     if(!fm_app_info_launch(app, NULL, ctx, &err))
                                     {
                                         if(launcher->error)
                                             launcher->error(ctx, err, NULL, user_data);
                                         g_error_free(err);
                                         err = NULL;
+                                    }
+                                    if(cwd) /* return back */
+                                    {
+                                        chdir(cwd);
+                                        g_free(cwd);
                                     }
                                     g_object_unref(app);
                                     continue;
