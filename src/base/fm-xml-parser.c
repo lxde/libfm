@@ -603,6 +603,7 @@ _restart:
                     return FALSE;
                 }
                 parser->current_item = item->parent;
+_close_the_tag:
                 g_string_truncate(parser->data, 0);
                 if (item->tag != FM_XML_PARSER_TAG_NOT_HANDLED)
                 {
@@ -615,6 +616,7 @@ _restart:
                                                          error, user_data))
                         return FALSE;
                 }
+                parser->pos++; /* '>' */
                 goto _restart;
             }
         }
@@ -714,6 +716,9 @@ _attr_error:
                 item->parent_list = &parser->items;
                 parser->items = g_list_append(parser->items, item);
             }
+            parser->pos++; /* '>' or '/' */
+            if (selfdo) /* simple self-closing tag */
+                goto _close_the_tag;
             parser->current_item = item;
             g_string_truncate(parser->data, 0);
             goto _restart;
@@ -1073,6 +1078,12 @@ _do_tag:
         if (item->comment != NULL)
             g_string_append_printf(string, "%s<!-- %s -->", prefix->str,
                                    item->comment);
+        else if (item->attribute_names == NULL && item->children == NULL)
+        {
+            /* don't add prefix if it is simple tag such as <br/> */
+            g_string_append_printf(string, "<%s/>", tag_name);
+            return TRUE;
+        }
         /* start the tag */
         g_string_append_printf(string, "%s<%s", prefix->str, tag_name);
         /* do attributes */
@@ -1094,7 +1105,7 @@ _do_tag:
         }
         if (item->children == NULL)
         {
-            /* handle empty tags! <tag/> */
+            /* handle empty tags such as <tag attr='value'/> */
             g_string_append(string, "/>");
             *has_nl = TRUE;
             return TRUE;
