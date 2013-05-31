@@ -85,6 +85,7 @@ struct _FmXmlParserItem
     };
     char **attribute_names;
     char **attribute_values;
+    FmXmlParser *parser;
     FmXmlParserItem *parent;
     GList **parent_list; /* points to parser->items or to parent->children */
     GList *children;
@@ -552,6 +553,7 @@ _restart:
                 fm_xml_parser_item_append_child(parser->current_item, item);
             else
             {
+                item->parser = parser;
                 item->parent_list = &parser->items;
                 parser->items = g_list_append(parser->items, item);
             }
@@ -713,6 +715,7 @@ _attr_error:
                 fm_xml_parser_item_append_child(parser->current_item, item);
             else
             {
+                item->parser = parser;
                 item->parent_list = &parser->items;
                 parser->items = g_list_append(parser->items, item);
             }
@@ -891,16 +894,26 @@ void fm_xml_parser_item_append_text(FmXmlParserItem *item, const char *text,
  * @item: item to append child
  * @child: the child item to append
  *
- * Appends @child after last element contained in @item.
+ * Appends @child after last element contained in @item. If the @child
+ * already was in the XML structure then it will be moved to the new
+ * place instead.
+ *
+ * Returns: %FALSE if @child cannot be appended.
  *
  * Since: 1.2.0
  */
-void fm_xml_parser_item_append_child(FmXmlParserItem *item, FmXmlParserItem *child)
+gboolean fm_xml_parser_item_append_child(FmXmlParserItem *item, FmXmlParserItem *child)
 {
-    g_return_if_fail(item != NULL && child != NULL);
+    g_return_val_if_fail(item != NULL && child != NULL, FALSE);
+    if (child->parser && item->parser != child->parser)
+        return FALSE; /* cannot move from one parser to another */
+    if (child->parent_list) /* remove from old list */
+        *child->parent_list = g_list_remove(*child->parent_list, child);
     item->children = g_list_append(item->children, child);
     child->parent_list = &item->children;
     child->parent = item;
+    child->parser = item->parser;
+    return TRUE;
 }
 
 /**
@@ -949,13 +962,22 @@ gboolean fm_xml_parser_item_set_attribute(FmXmlParserItem *item,
  * Removes element and its children from its parent, and frees all
  * data.
  *
+ * Returns: %FALSE if @item is busy thus cannot be destroyed.
+ *
  * Since: 1.2.0
  */
-void fm_xml_parser_item_destroy(FmXmlParserItem *item)
+gboolean fm_xml_parser_item_destroy(FmXmlParserItem *item)
 {
-    g_return_if_fail(item != NULL);
+    register FmXmlParserItem *x;
+
+    g_return_val_if_fail(item != NULL, FALSE);
+    if (item->parser && item->parser->current_item)
+        for (x = item; x; x = x->parent)
+            if (x == item->parser->current_item)
+                return FALSE;
     while (item->children)
-        fm_xml_parser_item_destroy(item->children->data);
+        if (!fm_xml_parser_item_destroy(item->children->data))
+            return FALSE; /* FIXME: how to diagnose this early? */
     if (item->parent_list)
         *item->parent_list = g_list_remove(*item->parent_list, item);
     g_free(item->text);
@@ -964,6 +986,7 @@ void fm_xml_parser_item_destroy(FmXmlParserItem *item)
     g_strfreev(item->attribute_names);
     g_strfreev(item->attribute_values);
     g_slice_free(FmXmlParserItem, item);
+    return TRUE;
 }
 
 /**
@@ -971,9 +994,11 @@ void fm_xml_parser_item_destroy(FmXmlParserItem *item)
  * @item: item to insert before it
  * @new_item: new item to insert
  *
- * Inserts @new_item before @item that is already in XML structure.
+ * Inserts @new_item before @item that is already in XML structure. If
+ * @new_item is already in the XML structure then it will be moved to
+ * the new place instead.
  *
- * Returns: %FALSE if @item is corrupted.
+ * Returns: %TRUE in case of success.
  *
  * Since: 1.2.0
  */
@@ -985,7 +1010,14 @@ gboolean fm_xml_parser_insert_before(FmXmlParserItem *item, FmXmlParserItem *new
     sibling = g_list_find(*item->parent_list, item);
     if (sibling == NULL) /* no such item found */
         return FALSE;
+    if (new_item->parser && item->parser != new_item->parser)
+        return FALSE; /* cannot move from one parser to another */
+    if (new_item->parent_list) /* remove from old list */
+        *new_item->parent_list = g_list_remove(*new_item->parent_list, new_item);
     *item->parent_list = g_list_insert_before(*item->parent_list, sibling, new_item);
+    new_item->parent_list = item->parent_list;
+    new_item->parent = item->parent;
+    new_item->parser = item->parser;
     return TRUE;
 }
 
@@ -996,7 +1028,7 @@ gboolean fm_xml_parser_insert_before(FmXmlParserItem *item, FmXmlParserItem *new
  *
  * Inserts @new_item as very first element of XML data in container.
  *
- * Returns: %FALSE in case of corruption.
+ * Returns: %TRUE in case of success.
  *
  * Since: 1.2.0
  */
@@ -1004,7 +1036,14 @@ gboolean fm_xml_parser_insert_first(FmXmlParser *parser, FmXmlParserItem *new_it
 {
     g_return_val_if_fail(parser != NULL && FM_IS_XML_PARSER(parser), FALSE);
     g_return_val_if_fail(new_item != NULL, FALSE);
+    if (new_item->parser && parser != new_item->parser)
+        return FALSE; /* cannot move from one parser to another */
+    if (new_item->parent_list)
+        *new_item->parent_list = g_list_remove(*new_item->parent_list, new_item);
     parser->items = g_list_prepend(parser->items, new_item);
+    new_item->parent_list = &parser->items;
+    new_item->parent = NULL;
+    new_item->parser = parser;
     return TRUE;
 }
 

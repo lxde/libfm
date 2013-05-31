@@ -90,11 +90,11 @@ const char *fm_xml_parser_get_dtd(FmXmlParser *parser);
 FmXmlParserItem *fm_xml_parser_item_new(FmXmlParserTag tag);
 void fm_xml_parser_item_append_text(FmXmlParserItem *item, const char *text,
                                     gssize text_size, gboolean cdata);
-void fm_xml_parser_item_append_child(FmXmlParserItem *item, FmXmlParserItem *child);
+gboolean fm_xml_parser_item_append_child(FmXmlParserItem *item, FmXmlParserItem *child);
 void fm_xml_parser_item_set_comment(FmXmlParserItem *item, const char *comment);
 gboolean fm_xml_parser_item_set_attribute(FmXmlParserItem *item,
                                           const char *name, const char *value);
-void fm_xml_parser_item_destroy(FmXmlParserItem *item);
+gboolean fm_xml_parser_item_destroy(FmXmlParserItem *item);
 
 gboolean fm_xml_parser_insert_before(FmXmlParserItem *item, FmXmlParserItem *new_item);
 gboolean fm_xml_parser_insert_first(FmXmlParser *parser, FmXmlParserItem *new_item);
