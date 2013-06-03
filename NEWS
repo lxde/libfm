@@ -124,6 +124,14 @@ Changes on 1.2.0 since 1.1.0:
     - change some application properties (contents of desktop entry);
     - delete some application from menu.
 
+* New class FmXmlFile which is simple object which allows to load and
+    parse XML, do desired changes, and finally compose changed data into
+    XML back. It has very few simplifications:
+    - only UTF-8 encoding is supported;
+    - no user-defined entities (those should be converted externally);
+    - processing instructions, comments and the doctype declaration are
+      parsed but are not interpreted in any way.
+
 
 Changes on 1.1.0 since 1.0.1:
 
