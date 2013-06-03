@@ -106,6 +106,7 @@ char *fm_xml_file_to_data(FmXmlFile *file, gsize *text_size, GError **error);
 /* item data accessor functions */
 const char *fm_xml_file_item_get_comment(FmXmlFileItem *item);
 GList *fm_xml_file_item_get_children(FmXmlFileItem *item);
+FmXmlFileItem *fm_xml_file_item_find_child(FmXmlFileItem *item, FmXmlFileTag tag);
 FmXmlFileTag fm_xml_file_item_get_tag(FmXmlFileItem *item);
 const char *fm_xml_file_item_get_data(FmXmlFileItem *item, gsize *text_size);
 FmXmlFileItem *fm_xml_file_item_get_parent(FmXmlFileItem *item);

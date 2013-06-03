@@ -788,6 +788,7 @@ _attr_error:
  *
  * Ends parsing of data and retrieves final status. If XML was invalid
  * then returns %NULL and sets @error appropriately.
+ * This function can be called more than once.
  *
  * See also: fm_xml_file_parse_data().
  * See also: fm_xml_file_item_get_children().
@@ -1304,6 +1305,28 @@ GList *fm_xml_file_item_get_children(FmXmlFileItem *item)
 {
     g_return_val_if_fail(item != NULL, NULL);
     return g_list_copy(item->children);
+}
+
+/**
+ * fm_xml_file_item_find_child
+ * @item: the file element to inspect
+ * @tag: tag id to search among children
+ *
+ * Searches for first child of @item which have child with tag id @tag.
+ * Returned data are owned by file and should not be freed by caller.
+ *
+ * Returns: (transfer none): found child or %NULL if no such child was found.
+ *
+ * Since: 1.2.0
+ */
+FmXmlFileItem *fm_xml_file_item_find_child(FmXmlFileItem *item, FmXmlFileTag tag)
+{
+    GList *l;
+
+    for (l = item->children; l; l = l->next)
+        if (((FmXmlFileItem*)l->data)->tag == tag)
+            return (FmXmlFileItem*)l->data;
+    return NULL;
 }
 
 /**
