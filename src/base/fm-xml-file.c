@@ -945,7 +945,6 @@ void fm_xml_file_item_set_comment(FmXmlFileItem *item, const char *comment)
     item->comment = g_strdup(comment);
 }
 
-#if 0
 /**
  * fm_xml_file_item_set_attribute
  * @item: element to update
@@ -963,10 +962,62 @@ void fm_xml_file_item_set_comment(FmXmlFileItem *item, const char *comment)
 gboolean fm_xml_file_item_set_attribute(FmXmlFileItem *item,
                                         const char *name, const char *value)
 {
-    g_return_if_fail(item != NULL);
-    
+    int i, n_attr;
+
+    g_return_val_if_fail(item != NULL, FALSE);
+    g_return_val_if_fail(name != NULL, FALSE);
+    if (item->attribute_names == NULL && value == NULL)
+        return TRUE;
+    if (item->attribute_names == NULL)
+    {
+        item->attribute_names = g_new(char *, 2);
+        item->attribute_values = g_new(char *, 2);
+        item->attribute_names[0] = g_strdup(name);
+        item->attribute_values[0] = g_strdup(value);
+        item->attribute_names[1] = NULL;
+        item->attribute_values[1] = NULL;
+        return TRUE;
+    }
+    for (i = -1, n_attr = 0; item->attribute_names[n_attr] != NULL; n_attr++)
+        if (strcmp(item->attribute_names[n_attr], name) == 0)
+            i = n_attr;
+    if (i < 0)
+    {
+        if (value == NULL) /* already unset */
+            return TRUE;
+        item->attribute_names = g_renew(char *, item->attribute_names, n_attr + 2);
+        item->attribute_values = g_renew(char *, item->attribute_values, n_attr + 2);
+        item->attribute_names[n_attr] = g_strdup(name);
+        item->attribute_values[n_attr] = g_strdup(value);
+        item->attribute_names[n_attr+1] = NULL;
+        item->attribute_values[n_attr+1] = NULL;
+    }
+    else if (value != NULL) /* value changed */
+    {
+        g_free(item->attribute_values[i]);
+        item->attribute_values[i] = g_strdup(value);
+    }
+    else if (n_attr == 1) /* no more attributes left */
+    {
+        g_strfreev(item->attribute_names);
+        g_strfreev(item->attribute_values);
+        item->attribute_names = NULL;
+        item->attribute_values = NULL;
+    }
+    else /* replace removed attribute with last one if it wasn't last */
+    {
+        g_free(item->attribute_names[i]);
+        g_free(item->attribute_values[i]);
+        if (i < n_attr - 1)
+        {
+            item->attribute_names[i] = item->attribute_names[n_attr-1];
+            item->attribute_values[i] = item->attribute_values[n_attr-1];
+        }
+        item->attribute_names[n_attr-1] = NULL;
+        item->attribute_values[n_attr-1] = NULL;
+    }
+    return TRUE;
 }
-#endif
 
 /**
  * fm_xml_file_item_destroy
