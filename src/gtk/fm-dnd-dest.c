@@ -75,7 +75,7 @@
  *    fm_dnd_dest_set_dest_file(widget->dd, file_info);
  *    if (file_info == NULL)
  *       return FALSE; /&ast; not in drop zone &ast;/
- *    target = gtk_drag_dest_find_target(widget, drag_context, NULL);
+ *    target = fm_dnd_dest_find_target(widget->dd, drag_context);
  *    if (target != GDK_NONE && fm_dnd_dest_is_target_supported(widget->dd, target))
  *       action = fm_dnd_dest_get_default_action(widget->dd, drag_context, target);
  *    if (action == 0)

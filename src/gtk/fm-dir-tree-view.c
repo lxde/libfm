@@ -186,7 +186,7 @@ static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
     fm_dnd_dest_set_dest_file(dd, file_info);
     if(file_info != NULL) /* in drop zone */
     {
-        target = gtk_drag_dest_find_target(widget, drag_context, NULL);
+        target = fm_dnd_dest_find_target(dd, drag_context);
         if(target != GDK_NONE && fm_dnd_dest_is_target_supported(dd, target))
             action = fm_dnd_dest_get_default_action(dd, drag_context, target);
     }

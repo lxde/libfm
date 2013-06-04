@@ -447,7 +447,7 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
 {
     gboolean ret;
     GdkDragAction action = 0;
-    GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
+    GdkAtom target = fm_dnd_dest_find_target(fv->dnd_dest, drag_context);
 
     if(target == GDK_NONE)
         return FALSE;
