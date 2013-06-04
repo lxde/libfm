@@ -113,6 +113,10 @@ Changes on 1.2.0 since 1.1.0:
     activation will present icon choose dialog. The implementation was
     partially taken from LXShortcut utility.
 
+* Disallowed default desktop path (by fm_path_get_desktop()) to be equal
+    to home directory since it may be too dangerous. If it is set to home
+    directory then it will be shifted to ~/Desktop.
+
 * Added 'shadow_hidden' option into config file, defaulted to false,
     which allows icons of hidden files to be shadowed in view.
 
