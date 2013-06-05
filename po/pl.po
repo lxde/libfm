@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm\n"
+"Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-09 10:13+0200\n"
-"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
+"PO-Revision-Date: 2013-06-05 19:24+0100\n"
+"Last-Translator: Franciszek Janowski <nobange@poczta.onet.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Gtranslator 2.91.5\n"
@@ -28,9 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Typ pliku:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Zainstalowany program"
+msgstr "Za_instalowany program"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -41,9 +40,8 @@ msgid "_Browse"
 msgstr "_Przeglądaj..."
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Uruchomienie w emulatorze terminala"
+msgstr "Uruchomi_enie w emulatorze terminala"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,14 +59,12 @@ msgstr ""
 "  <b>%U</b>: adresy URI wielu plików."
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Własne polecenie"
+msgstr "Własne pole_cenie"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Domyślnie dla tego typu plików"
+msgstr "_Domyślnie dla tego typu plików"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -102,14 +98,12 @@ msgid "with the following file?"
 msgstr "następującym plikiem?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Nazwa pliku:"
+msgstr "_Nazwa pliku:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Wykonanie czynności dla wszystkich plików"
+msgstr "Wykon_anie czynności dla wszystkich plików"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -156,29 +150,24 @@ msgid "_General"
 msgstr "_Ogólne"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Właściciel:</b>"
+msgstr "<b>_Właściciel:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Grupa:</b>"
+msgstr "<b>G_rupa:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Wyświetlanie zawartości:</b>"
+msgstr "<b>W_yświetlanie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Modyfikowanie zawartości:</b>"
+msgstr "<b>_Modyfikowanie zawartości:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Uruchamianie:</b>"
+msgstr "<b>Uruchamiani_e:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -226,7 +215,7 @@ msgstr "Sticky"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr "SUID"
+msgstr "SGID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
@@ -333,7 +322,7 @@ msgstr "Uruchom w emulatorze _terminala"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bajty"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -349,133 +338,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Wybierz datę"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "Wybierz datę z kalendarza"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Sortowanie"
+msgstr "Szukaj plików"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Typ:</b>"
+msgstr "<b>Wzorce _nazw plików</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Uwzględniaj wielkość liter"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Użyj wyrażeń regularnych"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Miejsca do przeszukania</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Szukaj w podkatalogach"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Szukaj plików _ukrytych"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Nazwa/_lokalizacja"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Typ:</b>"
+msgstr "<b>Typ pliku</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Szukaj tylko plików następujących typów"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "Usuwanie plików"
+msgstr "Pliki te_kstowe"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "Przenoszenie plików do kosza"
+msgstr "_Obrazy"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Sortowanie"
+msgstr "Pliki _audio"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Sortowanie"
+msgstr "Pliki _wideo"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Dokumenty"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Według _typu"
+msgstr "_Typ pliku"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Rozmiar:</b>"
+msgstr "<b>Plik _zawiera</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "Zawart_ość"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Typ:</b>"
+msgstr "<b>Rozmiar pliku</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Mniejsze niż:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Większe niż:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
-msgstr "<b>Czas modyfikacji:</b>"
+msgstr "<b>Czas ostatniej modyfikacji</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
 msgstr "Brak"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "Wcz_eśniejszy niż:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "Póź_niejszy niż:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Właściwości"
+msgstr "_Właściwości"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -625,7 +601,6 @@ msgid ""
 msgstr "Zatwierdzić zmiany rekursywnie dla wszystkich plików i podkatalogów?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
 msgstr "<b>Dostęp do zawartości:</b>"
 
@@ -646,34 +621,28 @@ msgid "Applications"
 msgstr "Programy"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Zamontuj wolumen"
+msgstr "Za_montuj wolumen"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Odmontuj wolumen"
+msgstr "Odmont_uj wolumen"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Wysuń nośnik wymienny"
+msgstr "Wysuń nośnik wymi_enny"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Zmień nazwę zakładki"
+msgstr "_Zmień nazwę zakładki"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Usuń zakładkę"
+msgstr "_Usuń zakładkę"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Opróżnij kosz"
+msgstr "Opróżnij _kosz"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -686,22 +655,19 @@ msgstr "Proszę wprowadzić nową nazwę:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "W_yłączone"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Położenia"
+msgstr "_Położenia"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Drzewo katalogów"
+msgstr "_Drzewo katalogów"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Zdalne"
+msgstr "_Zdalne"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -713,43 +679,36 @@ msgstr "Drzewo katalogów"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Otwórz"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Otwórz za pomocą..."
+msgstr "Otwórz za _pomocą..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Utwórz dowiązanie"
+msgstr "Utwórz _dowiązanie"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Wyślij do"
+msgstr "_Wyślij do"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Skompresuj..."
+msgstr "_Skompresuj..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Rozpakuj tutaj"
+msgstr "_Rozpakuj tutaj"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Rozpakuj do..."
+msgstr "Ro_zpakuj do..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Właściwości"
+msgstr "Właś_ciwości"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -804,9 +763,8 @@ msgid "Show _Hidden"
 msgstr "Wyświetlanie _ukrytych plików"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Tylko dla tego katalogu"
+msgstr "_Tylko dla tego katalogu"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
@@ -814,14 +772,12 @@ msgstr ""
 "Zapamiętuje ustawienia sortowania katalogu zamiast używać ustawień globalnych"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Nie grupowanie katalogów i plików"
+msgstr "_Nie grupowanie katalogów i plików"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Nie uwzględnianie wielkości liter w nazwach"
+msgstr "Nie uwzględnianie wielkości _liter w nazwach"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -926,12 +882,11 @@ msgstr "Plik „%s” jest plikiem wykonywalnym. Uruchomić go?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Nie określono katalogów."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
-msgstr "Proszę wybrać katalog"
+msgstr "Wybierz katalog"
 
 #: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
@@ -955,23 +910,20 @@ msgid "Size"
 msgstr "Rozmiar"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Uprawnienia"
+msgstr "Uprawnienia"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Tylko właściciel"
+msgstr "Właściciel"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Czas modyfikacji"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Położenie:</b>"
+msgstr "Położenie"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1159,26 +1111,26 @@ msgstr "Płyta optyczna"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Błąd pamięci podręcznej menu"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Opracja nie obsługiwana"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Nieprawidłowa nazwa pliku %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Nieprawidłowy katalog menu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Szukaj"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Właściciel:</b>"
