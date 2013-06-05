@@ -196,7 +196,9 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     {
         if(! fm_file_info_is_dir(fi))
         {
-            err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
+            err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY,
+                              _("The specified directory '%s' is not valid"),
+                              path_str);
             fm_file_info_unref(fi);
             fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
             g_error_free(err);
@@ -207,7 +209,9 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
     }
     else
     {
-        err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
+        err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY,
+                          _("The specified directory '%s' is not valid"),
+                          path_str);
         fm_file_info_unref(fi);
         fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
@@ -302,8 +306,12 @@ _retry:
 
     if( g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
     {
-        err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY, _("The specified directory is not valid"));
+        char *path_str = fm_path_to_str(job->dir_path);
+        err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY,
+                          _("The specified directory '%s' is not valid"),
+                          path_str);
         fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
+        g_free(path_str);
         g_error_free(err);
         g_object_unref(gf);
         g_object_unref(inf);

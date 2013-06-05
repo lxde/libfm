@@ -1,7 +1,7 @@
 /*
  *      fm-templates.c
  *
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -779,7 +779,13 @@ void _fm_templates_init(void)
     dir->user_dir = TRUE;
     gfile = fm_path_to_gfile(dir->path);
     /* FIXME: create it if it doesn't exist? */
-    _template_dir_init(dir, gfile);
+    if(g_file_query_exists(gfile, NULL))
+        _template_dir_init(dir, gfile);
+    else
+    {
+        dir->files = NULL;
+        dir->monitor = NULL;
+    }
     g_object_unref(gfile);
     /* add XDG_TEMPLATES_DIR at last */
     dir = g_slice_new(FmTemplateDir);
