@@ -607,7 +607,8 @@ FmPath* fm_path_new_for_str(const char* path_str)
     /* FIXME: add a support for relative path from FmPathEntry */
     /* UTF-8 should be allowed, I think. */
     escaped = g_uri_escape_string(path_str,
-                                  G_URI_RESERVED_CHARS_ALLOWED_IN_PATH,
+                                  G_URI_RESERVED_CHARS_GENERIC_DELIMITERS
+                                  G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS,
                                   TRUE);
     path = fm_path_new_for_uri(escaped);
     g_free(escaped);
