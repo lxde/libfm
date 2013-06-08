@@ -1483,3 +1483,28 @@ const char *fm_xml_file_get_tag_name(FmXmlFile *file, FmXmlFileTag tag)
     g_return_val_if_fail(tag > 0 && tag < file->n_tags, NULL);
     return file->tags[tag].name;
 }
+
+/**
+ * fm_xml_file_item_get_tag_name
+ * @item: the file element to inspect
+ *
+ * Retrieves tag for its id. Returned data are owned by @item and should
+ * not be modified by caller.
+ *
+ * Returns: (transfer none): tag string representation or %NULL if @item is text.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_xml_file_item_get_tag_name(FmXmlFileItem *item)
+{
+    g_return_val_if_fail(item != NULL, NULL);
+    switch (item->tag)
+    {
+    case FM_XML_FILE_TEXT:
+        return NULL;
+    case FM_XML_FILE_TAG_NOT_HANDLED:
+        return item->tag_name;
+    default:
+        return item->file->tags[item->tag].name;
+    }
+}

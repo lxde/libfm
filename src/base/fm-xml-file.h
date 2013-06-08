@@ -111,6 +111,7 @@ FmXmlFileItem *fm_xml_file_item_find_child(FmXmlFileItem *item, FmXmlFileTag tag
 FmXmlFileTag fm_xml_file_item_get_tag(FmXmlFileItem *item);
 const char *fm_xml_file_item_get_data(FmXmlFileItem *item, gsize *text_size);
 FmXmlFileItem *fm_xml_file_item_get_parent(FmXmlFileItem *item);
+const char *fm_xml_file_item_get_tag_name(FmXmlFileItem *item);
 const char *fm_xml_file_get_tag_name(FmXmlFile *file, FmXmlFileTag tag);
 
 G_END_DECLS

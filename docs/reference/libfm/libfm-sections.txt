@@ -1127,6 +1127,7 @@ fm_xml_file_item_get_comment
 fm_xml_file_item_get_data
 fm_xml_file_item_get_parent
 fm_xml_file_item_get_tag
+fm_xml_file_item_get_tag_name
 fm_xml_file_item_new
 fm_xml_file_item_set_attribute
 fm_xml_file_item_set_comment
