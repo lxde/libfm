@@ -192,7 +192,15 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
         }
     }
     if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+    {
         g_file_info_set_file_type(fileinfo, G_FILE_TYPE_DIRECTORY);
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        g_file_info_set_is_hidden(fileinfo,
+                                  !menu_cache_dir_is_visible(MENU_CACHE_DIR(item)));
+#else
+        g_file_info_set_is_hidden(fileinfo, FALSE);
+#endif
+    }
     else /* MENU_CACHE_TYPE_APP */
     {
         char *path = menu_cache_item_get_file_path(item);
