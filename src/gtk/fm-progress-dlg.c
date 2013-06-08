@@ -155,10 +155,15 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
 */
 
     gtk_text_buffer_get_end_iter(data->error_buf, &it);
-    gtk_text_buffer_insert_with_tags(data->error_buf, &it,
+    if(data->cur_file == NULL)
+        g_warning("FmProgressDialog on_error: assertion `cur_file != NULL' failed");
+    if(data->cur_file || data->old_cur_file)
+    {
+        gtk_text_buffer_insert_with_tags(data->error_buf, &it,
                                      data->cur_file ? data->cur_file : data->old_cur_file,
                                      -1, data->bold_tag, NULL);
-    gtk_text_buffer_insert(data->error_buf, &it, _(": "), -1);
+        gtk_text_buffer_insert(data->error_buf, &it, _(": "), -1);
+    }
     gtk_text_buffer_insert(data->error_buf, &it, err->message, -1);
     gtk_text_buffer_insert(data->error_buf, &it, "\n", 1);
 

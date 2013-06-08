@@ -701,4 +701,5 @@ static FmFilePropertiesExtensionInit _callbacks = {
 void _fm_dentry_properties_init(void)
 {
     fm_file_properties_add_for_mime_type("application/x-desktop", &_callbacks);
+    // FIXME: add support for changing menu directory icon
 }

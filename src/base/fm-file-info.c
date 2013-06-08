@@ -715,6 +715,7 @@ void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
     g_free(fi->disp_name);
     fi->disp_name = g_strdup(name);
+    /* FIXME: reset collate key */
 }
 
 /**
