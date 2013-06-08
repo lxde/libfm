@@ -1113,6 +1113,7 @@ FmXmlFileHandler
 FmXmlFileItem
 FmXmlFileTag
 fm_xml_file_finish_parse
+fm_xml_file_get_current_line
 fm_xml_file_get_dtd
 fm_xml_file_get_tag_name
 fm_xml_file_insert_before

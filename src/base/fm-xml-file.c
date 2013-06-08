@@ -104,8 +104,13 @@ static void _fm_xml_file_finalize(GObject *object)
     g_return_if_fail(FM_IS_XML_FILE(object));
 
     self = (FmXmlFile*)object;
+    self->current_item = NULL; /* we destroying it */
     while (self->items)
+    {
+        g_assert(((FmXmlFileItem*)self->items->data)->file == self);
+        g_assert(((FmXmlFileItem*)self->items->data)->parent == NULL);
         fm_xml_file_item_destroy(self->items->data);
+    }
     for (i = 0; i < self->n_tags; i++)
         g_free(self->tags[i].name);
     g_free(self->tags);
@@ -197,6 +202,8 @@ FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
     file->tags = g_renew(FmXmlFileTagDesc, file->tags, i + 1);
     file->tags[i].name = g_strdup(tag);
     file->tags[i].handler = handler;
+    file->n_tags = i + 1;
+    g_debug("XML parser: added handler '%s' id %u", tag, (guint)i);
     return i;
 }
 
@@ -378,6 +385,7 @@ unescape_gstring_inplace (//GMarkupParseContext  *context,
       *pos += (from - sol) + 1;
     }
 
+  /* g_debug("unescape_gstring_inplace completed"); */
   g_assert (to - string->str <= (gint)string->len);
   if (to - string->str != (gint)string->len)
     g_string_truncate (string, to - string->str);
@@ -505,8 +513,7 @@ _restart:
         }
         /* check for comment */
         if (file->data->len >= 7 /* <!-- -- */ &&
-            strncmp(file->data->str, "<!--", 4) == 0 &&
-            _is_space(file->data->str[4]))
+            strncmp(file->data->str, "<!--", 4) == 0)
         {
             end = file->data->str + file->data->len;
             if (end[-2] != '-' || end[-1] != '-') /* find end of comment */
@@ -580,6 +587,8 @@ _restart:
                                     _("Space isn't allowed in the close tag"));
                 return FALSE;
             }
+            g_debug("XML parser: found closing tag '%s' for %p at %d:%d", tag,
+                    file->current_item, file->line, file->pos);
             item = file->current_item;
             if (item == NULL) /* no tag to close */
             {
@@ -606,6 +615,7 @@ _restart:
                 }
                 file->current_item = item->parent;
 _close_the_tag:
+                /* g_debug("XML parser: close the tag '%s'", tag); */
                 g_string_truncate(file->data, 0);
                 if (item->tag != FM_XML_FILE_TAG_NOT_HANDLED)
                 {
@@ -624,6 +634,7 @@ _close_the_tag:
         }
         else /* opening tag */
         {
+            /* g_debug("XML parser: found opening tag '%s'", tag); */
             /* parse and check tag name */
             for (i = 1; i < file->n_tags; i++)
                 if (strcmp(file->tags[i].name, tag) == 0)
@@ -670,8 +681,8 @@ _close_the_tag:
                         goto _attr_error;
                     }
                     buff = g_string_new_len(value, ptr);
-                    if (unescape_gstring_inplace(buff, &file->line,
-                                                 &file->pos, TRUE, error))
+                    if (!unescape_gstring_inplace(buff, &file->line,
+                                                  &file->pos, TRUE, error))
                     {
                         g_string_free(buff, TRUE);
 _attr_error:
@@ -700,8 +711,11 @@ _attr_error:
                 attrib_values[attribs] = value;
                 attribs++;
             }
-            attrib_names[attribs] = NULL;
-            attrib_values[attribs] = NULL;
+            if (attribs > 0)
+            {
+                attrib_names[attribs] = NULL;
+                attrib_values[attribs] = NULL;
+            }
             /* create new item */
             item = fm_xml_file_item_new(i);
             item->attribute_names = attrib_names;
@@ -754,7 +768,9 @@ _attr_error:
             g_string_append_len(file->data, text, ptr);
         if (ptr == size) /* still no end of text */
             return TRUE;
-        if (file->current_item == NULL) /* text at top level! */
+        if(ptr>0) g_debug("XML parser: got text '%s'", file->data->str);
+        if (ptr == 0) ; /* no text */
+        else if (file->current_item == NULL) /* text at top level! */
         {
             g_warning("FmXmlFile: line %u: junk data in XML file ignored",
                       file->line);
@@ -803,7 +819,7 @@ GList *fm_xml_file_finish_parse(FmXmlFile *file, GError **error)
     if (file->current_item)
     {
         if (file->current_item->tag == FM_XML_FILE_TEXT &&
-            file->current_item->parent_list == &file->items)
+            file->current_item->parent == NULL)
             g_warning("FmXmlFile: junk at end of XML");
         else
         {
@@ -821,6 +837,26 @@ GList *fm_xml_file_finish_parse(FmXmlFile *file, GError **error)
     }
     /* FIXME: check if file->comment_pre is NULL */
     return g_list_copy(file->items);
+}
+
+/**
+ * fm_xml_file_get_current_line
+ * @file: the parser container
+ * @pos: (allow-none) (out): location to save line position
+ *
+ * Retrieves the line where parser has stopped.
+ *
+ * Returns: line num (starting from 1).
+ *
+ * Since: 1.2.0
+ */
+gint fm_xml_file_get_current_line(FmXmlFile *file, gint *pos)
+{
+    if (file == NULL || !FM_IS_XML_FILE(file))
+        return 0;
+    if (pos)
+        *pos = file->pos;
+    return file->line;
 }
 
 /**
@@ -898,8 +934,21 @@ static inline gboolean _xml_item_is_busy(FmXmlFileItem *item)
     if (item->file)
         for (test = item->file->current_item; test; test = test->parent)
             if (test == item)
+            {
+                /* g_debug("*** item %p is busy", item); */
                 return TRUE;
+            }
     return FALSE;
+}
+
+static void _reassign_xml_file(FmXmlFileItem *item, FmXmlFile *file)
+{
+    GList *chl;
+
+    /* do it recursively */
+    for (chl = item->children; chl; chl = chl->next)
+        _reassign_xml_file(chl->data, file);
+    item->file = file;
 }
 
 /**
@@ -922,11 +971,18 @@ gboolean fm_xml_file_item_append_child(FmXmlFileItem *item, FmXmlFileItem *child
     if (_xml_item_is_busy(child))
         return FALSE; /* cannot move item right now */
     if (child->parent_list) /* remove from old list */
+    {
+        /* g_debug("moving item %p(%d) from parser %p into %p as child of %p", child, (int)child->tag, child->file, item->file, item); */
+        g_assert(child->file != NULL && g_list_find(*child->parent_list, child) != NULL);
         *child->parent_list = g_list_remove(*child->parent_list, child);
+    }
+    /* else
+        g_debug("adding item %p(%d) into parser %p as child of %p", child, (int)child->tag, item->file, item); */
     item->children = g_list_append(item->children, child);
     child->parent_list = &item->children;
     child->parent = item;
-    child->file = item->file;
+    if (child->file != item->file)
+        _reassign_xml_file(child, item->file);
     return TRUE;
 }
 
@@ -1037,9 +1093,17 @@ gboolean fm_xml_file_item_destroy(FmXmlFileItem *item)
     if (_xml_item_is_busy(item))
         return FALSE;
     while (item->children)
+    {
+        g_assert(((FmXmlFileItem*)item->children->data)->file == item->file);
+        g_assert(((FmXmlFileItem*)item->children->data)->parent == item);
         fm_xml_file_item_destroy(item->children->data);
+    }
     if (item->parent_list)
+    {
+        /* g_debug("removing item %p from parser %p", item, item->file); */
+        g_assert(item->file != NULL && g_list_find(*item->parent_list, item) != NULL);
         *item->parent_list = g_list_remove(*item->parent_list, item);
+    }
     if (item->text != item->comment)
         g_free(item->comment);
     g_free(item->text);
@@ -1070,15 +1134,25 @@ gboolean fm_xml_file_insert_before(FmXmlFileItem *item, FmXmlFileItem *new_item)
     g_return_val_if_fail(item != NULL && new_item != NULL, FALSE);
     sibling = g_list_find(*item->parent_list, item);
     if (sibling == NULL) /* no such item found */
+    {
+        /* g_critical("item %p not found in %p", item, item->parent); */
         return FALSE;
+    }
     if (_xml_item_is_busy(new_item))
         return FALSE; /* cannot move item right now */
     if (new_item->parent_list) /* remove from old list */
+    {
+        /* g_debug("moving item %p (parent=%p) from parser %p into %p", new_item, item, new_item->file, item->file); */
+        g_assert(new_item->file != NULL && g_list_find(*new_item->parent_list, new_item) != NULL);
         *new_item->parent_list = g_list_remove(*new_item->parent_list, new_item);
+    }
+    /* else
+        g_debug("inserting item %p (parent=%p) into parser %p", item, new_item, item->file); */
     *item->parent_list = g_list_insert_before(*item->parent_list, sibling, new_item);
     new_item->parent_list = item->parent_list;
     new_item->parent = item->parent;
-    new_item->file = item->file;
+    if (new_item->file != item->file)
+        _reassign_xml_file(new_item, item->file);
     return TRUE;
 }
 
@@ -1100,11 +1174,16 @@ gboolean fm_xml_file_insert_first(FmXmlFile *file, FmXmlFileItem *new_item)
     if (_xml_item_is_busy(new_item))
         return FALSE; /* cannot move item right now */
     if (new_item->parent_list)
+    {
+        /* g_debug("moving item %p from parser %p into %p", new_item, new_item->file, file); */
+        g_assert(new_item->file != NULL && g_list_find(*new_item->parent_list, new_item) != NULL);
         *new_item->parent_list = g_list_remove(*new_item->parent_list, new_item);
+    }
     file->items = g_list_prepend(file->items, new_item);
     new_item->parent_list = &file->items;
     new_item->parent = NULL;
-    new_item->file = file;
+    if (new_item->file != file)
+        _reassign_xml_file(new_item, file);
     return TRUE;
 }
 

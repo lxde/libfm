@@ -84,6 +84,7 @@ FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
 gboolean fm_xml_file_parse_data(FmXmlFile *file, const char *text,
                                 gsize size, GError **error, gpointer user_data);
 GList *fm_xml_file_finish_parse(FmXmlFile *file, GError **error);
+gint fm_xml_file_get_current_line(FmXmlFile *file, gint *pos);
 const char *fm_xml_file_get_dtd(FmXmlFile *file);
 
 /* item manipulations */

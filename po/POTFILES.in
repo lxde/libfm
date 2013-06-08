@@ -14,7 +14,7 @@ src/base/fm-mime-type.c
 src/base/fm-templates.c
 src/base/fm-terminal.c
 src/base/fm-utils.c
-src/base/fm-xml-parser.c
+src/base/fm-xml-file.c
 src/gtk/fm-app-chooser-combo-box.c
 src/gtk/fm-app-chooser-dlg.c
 src/gtk/fm-app-menu-view.c
