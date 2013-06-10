@@ -341,20 +341,23 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
     unescaped = g_uri_unescape_string(path, NULL);
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
     dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
-    if(dir)
-    {
-        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
-        menu_cache_item_unref(dir);
-        dir = menu_cache_item_from_path(mc, tmp);
-    }
 #else
     dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
     if(dir)
     {
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
         const char *id;
+#endif
         tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        menu_cache_item_unref(dir);
+        dir = menu_cache_item_from_path(mc, tmp);
+#else
         /* FIXME: how to access not dir? */
         dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+#endif
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
         /* The menu-cache is buggy and returns parent for invalid path
            instead of failure so we check what we got here.
            Unfortunately we cannot detect if requested name is the same
@@ -366,8 +369,8 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
             id = unescaped;
         if(dir != NULL && strcmp(id, menu_cache_item_get_id(dir)) != 0)
             dir = NULL;
-    }
 #endif
+    }
     g_free(unescaped);
     g_free(tmp);
     /* NOTE: returned value is referenced for >= 0.4.0 only */
