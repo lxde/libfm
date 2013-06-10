@@ -954,10 +954,10 @@ static FmXmlFileTag menuTag_Category = 0;
 static FmXmlFileTag menuTag_MergeFile = 0;
 static FmXmlFileTag menuTag_MergeDir = 0;
 static FmXmlFileTag menuTag_DefaultMergeDirs = 0;
-//static FmXmlFileTag menuTag_Directory = 0;
+static FmXmlFileTag menuTag_Directory = 0;
 static FmXmlFileTag menuTag_Name = 0;
-//static FmXmlFileTag menuTag_Deleted = 0;
-//static FmXmlFileTag menuTag_NotDeleted = 0;
+static FmXmlFileTag menuTag_Deleted = 0;
+static FmXmlFileTag menuTag_NotDeleted = 0;
 
 /* this handler does nothing, used just to remember its id */
 static gboolean _menu_xml_handler_pass(FmXmlFileItem *item, GList *children,
@@ -1846,43 +1846,384 @@ _return_cancelled:
     return n_cats;
 }
 
-#if 0
-static void _set_default_contents(FmXmlFile *file, const char *basename)
+/* returns only <Menu> child */
+static FmXmlFileItem *_set_default_contents(FmXmlFile *file, const char *basename)
 {
-    /* set DTD:
-        "Menu PUBLIC '-//freedesktop//DTD Menu 1.0//EN'\n"
-        " 'http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd'"
-    */
+    FmXmlFileItem *item, *child;
+    char *path;
+
+    /* set DTD */
+    fm_xml_file_set_dtd(file,
+                        "Menu PUBLIC '-//freedesktop//DTD Menu 1.0//EN'\n"
+                        " 'http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd'",
+                        NULL);
     /* set content:
         <Menu>
             <Name>Applications</Name>
-            <MergeFile type='parent'>%s</MergeFile>
-        </Menu>
-    */
+            <MergeFile type='parent'>/etc/xgd/menus/%s</MergeFile>
+        </Menu> */
+    item = fm_xml_file_item_new(menuTag_Menu);
+    fm_xml_file_insert_first(file, item);
+    child = fm_xml_file_item_new(menuTag_Name);
+    fm_xml_file_item_append_text(child, "Applications", -1, FALSE);
+    fm_xml_file_item_append_child(item, child);
+    child = fm_xml_file_item_new(menuTag_MergeFile);
+    fm_xml_file_item_set_attribute(child, "type", "parent");
+    /* FIXME: what is correct way to handle this? is it required at all? */
+    path = g_strdup_printf("/etc/xgd/menus/%s", basename);
+    fm_xml_file_item_append_text(child, path, -1, FALSE);
+    g_free(path);
+    fm_xml_file_item_append_child(item, child);
+    return item;
+    /* FIXME: can errors happen above? */
 }
 
-/* changes .menu XML file */
-static gboolean _remove_directory(const char *path)
+/* tries to create <Menu>... path in children list and returns <Menu> for it */
+static FmXmlFileItem *_create_path_in_tree(FmXmlFileItem *parent, const char *path)
 {
-    //if file doesn't exist then it should be created with default contents
-    //if path is found and has <NotDeleted/> then replace it with <Deleted/>
-    //else create path and add <Deleted/> to it
+    const char *ptr;
+    char *_ptr;
+    GList *list, *l;
+    FmXmlFileItem *item, *name;
+
+    if (path == NULL)
+        return NULL;
+    list = fm_xml_file_item_get_children(parent);
+    /* g_debug("menu tree: creating '%s'", path); */
+    ptr = strchr(path, '/');
+    if (ptr == NULL)
+    {
+        ptr = path;
+        path = _ptr = NULL;
+    }
+    else
+    {
+        _ptr = g_strndup(path, ptr - path);
+        path = ptr + 1;
+        ptr = _ptr;
+    }
+    for (l = list; l; l = l->next)
+    {
+        const char *elem_name = _get_menu_name(l->data);
+        /* g_debug("got child %d: %s", fm_xml_file_item_get_tag(list->data), elem_name); */
+        if (g_strcmp0(elem_name, ptr) == 0)
+            break;
+    }
+    if (l) /* subpath already exists */
+    {
+        item = l->data;
+        g_list_free(list);
+        g_free(_ptr);
+        return _create_path_in_tree(item, path);
+    }
+    g_list_free(list);
+    /* create subtag <Name> */
+    name = fm_xml_file_item_new(menuTag_Name);
+    fm_xml_file_item_append_text(name, ptr, -1, FALSE);
+    g_free(_ptr);
+    /* create <Menu> and insert it */
+    item = fm_xml_file_item_new(menuTag_Menu);
+    if (!fm_xml_file_item_append_child(parent, item) ||
+        !fm_xml_file_item_append_child(item, name))
+    {
+        /* FIXME: it cannot fail on newly created items! */
+        fm_xml_file_item_destroy(name);
+        fm_xml_file_item_destroy(item);
+        return NULL;
+    }
+    /* path is NULL if it is a final subpath */
+    return path ? _create_path_in_tree(item, path) : item;
 }
 
-/* changes .menu XML file */
-static gboolean _add_directory(const char *path, const char *name)
+/* locks menuTree, sets fields in data, sets gf
+   returns "Applications" menu on success and NULL on failure */
+static FmXmlFileItem *_prepare_contents(FmMenuMenuTree *data, GCancellable *cancellable,
+                                        GError **error, GFile **gf)
 {
-    //if file doesn't exist then it should be created with default contents
-    //if path is found and has <Deleted/> then just remove that tag
-    //else create path and add <Name>... and <Directory>... and <Include><Category>X-...
+    const char *xdg_menu_prefix;
+    char *contents;
+    gsize len;
+    GList *xml = NULL;
+    FmXmlFileItem *apps;
+    gboolean ok;
+
+    /* do it in compatibility with lxpanel */
+    xdg_menu_prefix = g_getenv("XDG_MENU_PREFIX");
+    contents = g_strdup_printf("%sapplications.menu",
+                               xdg_menu_prefix ? xdg_menu_prefix : "lxde-");
+    data->file_path = g_build_filename(g_get_user_config_dir(), "menus",
+                                       contents, NULL);
+    *gf = g_file_new_for_path(data->file_path);
+    data->menu = fm_xml_file_new(NULL);
+    data->line = data->pos = -1;
+    data->cancellable = cancellable;
+    G_LOCK(menuTree);
+    /* set tags, ignore errors */
+    menuTag_Menu = fm_xml_file_set_handler(data->menu, "Menu",
+                                           &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Name = fm_xml_file_set_handler(data->menu, "Name",
+                                           &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Deleted = fm_xml_file_set_handler(data->menu, "Deleted",
+                                              &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_NotDeleted = fm_xml_file_set_handler(data->menu, "NotDeleted",
+                                                 &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Directory = fm_xml_file_set_handler(data->menu, "Directory",
+                                                &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Include = fm_xml_file_set_handler(data->menu, "Include",
+                                              &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_MergeFile = fm_xml_file_set_handler(data->menu, "MergeFile",
+                                                &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Category = fm_xml_file_set_handler(data->menu, "Category",
+                                               &_menu_xml_handler_pass, FALSE, NULL);
+    if (!g_file_query_exists(*gf, cancellable))
+    {
+        /* if file doesn't exist then it should be created with default contents */
+        apps = _set_default_contents(data->menu, contents);
+        g_free(contents);
+        return apps;
+    }
+    g_free(contents); /* we used it temporarily */
+    contents = NULL;
+    ok = g_file_load_contents(*gf, cancellable, &contents, &len, NULL, error);
+    if (!ok)
+        return NULL;
+    ok = fm_xml_file_parse_data(data->menu, contents, len, error, data);
+    g_free(contents);
+    if (ok)
+        xml = fm_xml_file_finish_parse(data->menu, error);
+    if (xml == NULL) /* error is set by failed function */
+    {
+        if (data->line == -1)
+            data->line = fm_xml_file_get_current_line(data->menu, &data->pos);
+        g_prefix_error(error, _("XML file %s error (%d:%d): "), data->file_path,
+                       data->line, data->pos);
+    }
+    else
+    {
+        apps = _find_in_children(xml, "Applications");
+        g_list_free(xml);
+        if (apps)
+            return apps;
+        g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_NOENT,
+                            _("XML file doesn't contain Applications root"));
+    }
+    return NULL;
+}
+
+/* replaces invalid chars in path with minus sign */
+static inline char *_get_pathtag_for_path(const char *path)
+{
+    char *pathtag, *c;
+
+    pathtag = g_strdup(path);
+    for (c = pathtag; *c; c++)
+        if (*c == '/' || *c == '\t' || *c == '\n' || *c == '\r' || *c == ' ')
+            *c = '-';
+    return pathtag;
+}
+
+static gboolean _save_new_menu_file(GFile *gf, FmXmlFile *file,
+                                    GCancellable *cancellable,
+                                    GError **error)
+{
+    gsize len, tlen;
+    char *contents = fm_xml_file_to_data(file, &len, error);
+    GOutputStream *out;
+    gboolean result = FALSE;
+
+    if (contents == NULL)
+        return FALSE;
+    /* g_debug("new menu file: %s", contents); */
+    out = G_OUTPUT_STREAM(g_file_replace(gf, NULL, FALSE,
+                                         G_FILE_CREATE_REPLACE_DESTINATION,
+                                         cancellable, error));
+    if (out == NULL)
+        goto _out;
+    result = g_output_stream_write_all(out, contents, len, &tlen, cancellable,
+                                       error);
+    if (result) /* else nothing to close */
+        result = g_output_stream_close(out, cancellable, error);
+    g_object_unref(out);
+_out:
+    g_free(contents);
+    return result;
 }
 
 /* changes .menu XML file */
+static gboolean _remove_directory(const char *path, GCancellable *cancellable,
+                                  GError **error)
+{
+    GList *xml = NULL, *it;
+    GFile *gf;
+    FmXmlFileItem *apps, *item;
+    FmMenuMenuTree data;
+    gboolean ok = TRUE;
+
+    /* g_debug("deleting menu folder '%s'", path); */
+    /* FIXME: check if there is that path in the XML tree before doing anything */
+    apps = _prepare_contents(&data, cancellable, error, &gf);
+    if (apps == NULL || (xml = fm_xml_file_item_get_children(apps)) == NULL)
+    {
+        /* either failed to load contents or cancelled */
+        ok = FALSE;
+    }
+    else if ((item = _find_in_children(xml, path)) != NULL)
+    {
+        /* if path is found and has <NotDeleted/> then replace it with <Deleted/> */
+        g_list_free(xml);
+        xml = fm_xml_file_item_get_children(item);
+        for (it = xml; it; it = it->next)
+        {
+            FmXmlFileTag tag = fm_xml_file_item_get_tag(it->data);
+            if (tag == menuTag_Deleted || tag == menuTag_NotDeleted)
+                fm_xml_file_item_destroy(it->data);
+        }
+        goto _add_deleted_tag;
+    }
+    else
+    {
+        /* else create path and add <Deleted/> to it */
+        item = _create_path_in_tree(apps, path);
+        if (item == NULL)
+        {
+            g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
+                        _("cannot create XML definition for '%s'"), path);
+            ok = FALSE;
+        }
+        else
+        {
+            FmXmlFileItem *item2;
+
+_add_deleted_tag:
+            item2 = fm_xml_file_item_new(menuTag_Deleted);
+            fm_xml_file_item_set_comment(item2, "deleted by LibFM");
+            fm_xml_file_item_append_child(item, item2); /* NOTE: it cannot fail */
+        }
+    }
+    if (ok)
+        ok = _save_new_menu_file(gf, data.menu, cancellable, error);
+    G_UNLOCK(menuTree);
+    g_object_unref(gf);
+    g_object_unref(data.menu);
+    g_free(data.file_path);
+    g_list_free(xml);
+    return ok;
+}
+
+/* changes .menu XML file */
+static gboolean _add_directory(const char *path, GCancellable *cancellable,
+                               GError **error)
+{
+    GList *xml = NULL, *it;
+    GFile *gf;
+    FmXmlFileItem *apps, *item, *child;
+    FmMenuMenuTree data;
+    gboolean ok = TRUE;
+
+    /* g_debug("adding menu folder '%s'", path); */
+    /* FIXME: fail if such Menu Name already not deleted in XML tree */
+    apps = _prepare_contents(&data, cancellable, error, &gf);
+    if (apps == NULL || (xml = fm_xml_file_item_get_children(apps)) == NULL)
+    {
+        /* either failed to load contents or cancelled */
+        ok = FALSE;
+    }
+    else if ((item = _find_in_children(xml, path)) != NULL)
+    {
+        /* "undelete" the directory: */
+        /* if path is found and has <Deleted/> then replace it with <NotDeleted/> */
+        g_list_free(xml);
+        xml = fm_xml_file_item_get_children(item);
+        ok = FALSE; /* it should be Deleted, otherwise error, see FIXME above */
+        for (it = xml; it; it = it->next)
+        {
+            FmXmlFileTag tag = fm_xml_file_item_get_tag(it->data);
+            if (tag == menuTag_Deleted)
+            {
+                fm_xml_file_item_destroy(it->data);
+                ok = TRUE; /* see FIXME above */
+            }
+            else if (tag == menuTag_NotDeleted)
+            {
+                fm_xml_file_item_destroy(it->data);
+                ok = FALSE; /* see FIXME above */
+            }
+        }
+        if (!ok) /* see FIXME above */
+            g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                        _("menu path '%s' already exists"), path);
+        else
+        {
+            child = fm_xml_file_item_new(menuTag_NotDeleted);
+            fm_xml_file_item_set_comment(child, "undeleted by LibFM");
+            fm_xml_file_item_append_child(item, child); /* NOTE: it cannot fail */
+        }
+    }
+    else
+    {
+        /* else create path and add content to it */
+        item = _create_path_in_tree(apps, path);
+        if (item == NULL)
+        {
+            g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                        _("cannot create XML definition for '%s'"), path);
+            ok = FALSE;
+        }
+        else
+        {
+            char *pathtag, *dir;
+            GString *str;
+
+            /* add <NotDeleted/> */
+            child = fm_xml_file_item_new(menuTag_NotDeleted);
+            fm_xml_file_item_append_child(item, child);
+            /* add <Directory>.....</Directory> */
+            pathtag = _get_pathtag_for_path(path);
+            dir = g_build_filename(g_get_user_data_dir(), "desktop-directories",
+                                   pathtag, NULL);
+            str = g_string_new(dir);
+            g_free(dir);
+            g_string_append(str, ".directory");
+            child = fm_xml_file_item_new(menuTag_Directory);
+            fm_xml_file_item_append_text(child, str->str, str->len, FALSE);
+            fm_xml_file_item_append_child(item, child);
+            /* add <Include><Category>......</Category></Include> */
+            child = fm_xml_file_item_new(menuTag_Include);
+            fm_xml_file_item_append_child(item, child);
+            g_string_printf(str, "X-%s", pathtag);
+            g_free(pathtag);
+            item = fm_xml_file_item_new(menuTag_Category); /* reuse item var. */
+            fm_xml_file_item_append_text(item, str->str, str->len, FALSE);
+            fm_xml_file_item_append_child(child, item);
+            g_string_free(str, TRUE);
+            /* ignoring errors since new created items cannot fail on append */
+        }
+    }
+    if (ok)
+        ok = _save_new_menu_file(gf, data.menu, cancellable, error);
+    G_UNLOCK(menuTree);
+    g_object_unref(gf);
+    g_object_unref(data.menu);
+    g_free(data.file_path);
+    g_list_free(xml);
+    return ok;
+}
+
+#if 0
+/* changes .menu XML file - should be called only if category missed for path */
 static gboolean _set_directory_category(const char *path)
 {
     //if file doesn't exist then it should be created with default contents
     //if path is not found then create it
     //add <Include><Category>X-...
+}
+
+/* changes .menu XML file - should be called only if directory file is not set */
+static gboolean _set_directory_file(const char *path)
+{
+    //if file doesn't exist then it should be created with default contents
+    //if path is not found then create it
+    //add <Directory>/home/..../.local/share/desktop-directories/....directory</Directory>
 }
 #endif
 
@@ -2332,9 +2673,20 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
                                          GCancellable *cancellable,
                                          GError **error)
 {
+    FmMenuVFile *item = FM_MENU_VFILE(file);
     GKeyFile *kf;
     char *val;
 
+    /* g_debug("_fm_vfs_menu_delete_file %s", item->path); */
+    /* XDG desktop menu specification: desktop-entry-id should be *.desktop */
+    if (!g_str_has_suffix(item->path, ".desktop"))
+    {
+        /* if it isn't suffixed then it should be a directory */
+        char *unescaped = g_uri_unescape_string(item->path, NULL);
+        gboolean ok = _remove_directory(unescaped, cancellable, error);
+        g_free(unescaped);
+        return ok;
+    }
     /* load contents */
     kf = _g_key_file_from_item(file, cancellable, error);
     if (kf == NULL) /* failed */
@@ -2350,7 +2702,7 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
     if (strcmp(val, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) != 0)
     {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"), FM_MENU_VFILE(file)->path);
+                    _("The \"%s\" isn't a menu item"), item->path);
         g_free(val);
         g_key_file_free(kf);
         return FALSE;
@@ -2374,8 +2726,22 @@ static gboolean _fm_vfs_menu_make_directory(GFile *file,
                                             GCancellable *cancellable,
                                             GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return FALSE;
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    char *unescaped;
+    gboolean ok;
+
+    /* XDG desktop menu specification: desktop-entry-id should be *.desktop */
+    if (g_str_has_suffix(item->path, ".desktop"))
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_INVALID_FILENAME,
+                            _("name of menu directory should not end with"
+                              " \".desktop\""));
+        return FALSE;
+    }
+    unescaped = g_uri_unescape_string(item->path, NULL);
+    ok = _add_directory(unescaped, cancellable, error);
+    g_free(unescaped);
+    return ok;
 }
 
 static gboolean _fm_vfs_menu_make_symbolic_link(GFile *file,
