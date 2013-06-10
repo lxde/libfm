@@ -57,6 +57,7 @@ typedef struct
 {
     gchar *name;
     FmXmlFileHandler handler;
+    gboolean in_line : 1;
 } FmXmlFileTagDesc;
 
 struct _FmXmlFile
@@ -174,17 +175,19 @@ FmXmlFile *fm_xml_file_new(FmXmlFile *sibling)
  * @file: the parser container
  * @tag: tag to use @handler for
  * @handler: callback for @tag
+ * @in_line: %TRUE if tag should not receive new line by fm_xml_file_to_data()
  * @error: (allow-none) (out): location to save error
  *
  * Sets @handler for @file to be called on parse when @tag is found
- * in XML data.
+ * in XML data. This function will fail if some handler for @tag was
+ * aready set, in this case @error will be set appropriately.
  *
  * Returns: id for the @tag.
  *
  * Since: 1.2.0
  */
 FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
-                                     FmXmlFileHandler handler,
+                                     FmXmlFileHandler handler, gboolean in_line,
                                      GError **error)
 {
     FmXmlFileTag i;
@@ -202,6 +205,7 @@ FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
     file->tags = g_renew(FmXmlFileTagDesc, file->tags, i + 1);
     file->tags[i].name = g_strdup(tag);
     file->tags[i].handler = handler;
+    file->tags[i].in_line = in_line;
     file->n_tags = i + 1;
     g_debug("XML parser: added handler '%s' id %u", tag, (guint)i);
     return i;
@@ -959,9 +963,9 @@ static void _reassign_xml_file(FmXmlFileItem *item, FmXmlFile *file)
  * Appends @child after last element contained in @item. If the @child
  * already was in the XML structure then it will be moved to the new
  * place instead.
- * Behavior after moving between defferent containers is undefined.
+ * Behavior after moving between different containers is undefined.
  *
- * Returns: %FALSE if @child cannot be appended.
+ * Returns: %FALSE if @child is busy thus cannot be moved.
  *
  * Since: 1.2.0
  */
@@ -1257,7 +1261,8 @@ _do_tag:
         if (item->comment != NULL)
             g_string_append_printf(string, "%s<!-- %s -->", prefix->str,
                                    item->comment);
-        else if (item->attribute_names == NULL && item->children == NULL)
+        else if (item->attribute_names == NULL && item->children == NULL &&
+                 file->tags[item->tag].in_line)
         {
             /* don't add prefix if it is simple tag such as <br/> */
             g_string_append_printf(string, "<%s/>", tag_name);

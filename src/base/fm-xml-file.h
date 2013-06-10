@@ -77,7 +77,7 @@ typedef gboolean (*FmXmlFileHandler)(FmXmlFileItem *item, GList *children,
 /* setup */
 FmXmlFile *fm_xml_file_new(FmXmlFile *sibling);
 FmXmlFileTag fm_xml_file_set_handler(FmXmlFile *file, const char *tag,
-                                     FmXmlFileHandler handler,
+                                     FmXmlFileHandler handler, gboolean in_line,
                                      GError **error);
 
 /* parse */

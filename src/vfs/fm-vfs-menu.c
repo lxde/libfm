@@ -1621,30 +1621,30 @@ static int _update_categories(gchar ***categories, const char *src_directory,
     data.line = data.pos = -1;
     /* g_debug("new FmXmlFile %p", data.menu); */
     menuTag_Menu = fm_xml_file_set_handler(data.menu, "Menu",
-                                           &_menu_xml_handler_pass, error);
+                                           &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Include = fm_xml_file_set_handler(data.menu, "Include",
-                                              &_menu_xml_handler_pass, error);
+                                              &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Exclude = fm_xml_file_set_handler(data.menu, "Exclude",
-                                              &_menu_xml_handler_pass, error);
+                                              &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Filename = fm_xml_file_set_handler(data.menu, "Filename",
-                                               &_menu_xml_handler_pass, error);
+                                               &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Or = fm_xml_file_set_handler(data.menu, "Or",
-                                         &_menu_xml_handler_pass, error);
+                                         &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_And = fm_xml_file_set_handler(data.menu, "And",
-                                          &_menu_xml_handler_pass, error);
+                                          &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Not = fm_xml_file_set_handler(data.menu, "Not",
-                                          &_menu_xml_handler_Not, error);
+                                          &_menu_xml_handler_Not, FALSE, NULL);
     menuTag_Category = fm_xml_file_set_handler(data.menu, "Category",
-                                               &_menu_xml_handler_pass, error);
+                                               &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_MergeFile = fm_xml_file_set_handler(data.menu, "MergeFile",
-                                                &_menu_xml_handler_MergeFile, error);
+                                                &_menu_xml_handler_MergeFile, FALSE, NULL);
     menuTag_MergeDir = fm_xml_file_set_handler(data.menu, "MergeDir",
-                                               &_menu_xml_handler_MergeDir, error);
+                                               &_menu_xml_handler_MergeDir, FALSE, NULL);
     menuTag_DefaultMergeDirs = fm_xml_file_set_handler(data.menu, "DefaultMergeDirs",
                                                        &_menu_xml_handler_DefaultMergeDirs,
-                                                       error);
+                                                       FALSE, NULL);
     menuTag_Name = fm_xml_file_set_handler(data.menu, "Name",
-                                           &_menu_xml_handler_Name, error);
+                                           &_menu_xml_handler_Name, FALSE, NULL);
     data.cancellable = cancellable;
     /* do parsing */
     ok = fm_xml_file_parse_data(data.menu, contents, len, error, &data);
