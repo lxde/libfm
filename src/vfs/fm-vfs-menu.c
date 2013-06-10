@@ -506,6 +506,7 @@ static char *_fm_vfs_menu_get_uri_scheme(GFile *file)
 
 static char *_fm_vfs_menu_get_basename(GFile *file)
 {
+    /* g_debug("_fm_vfs_menu_get_basename %s", FM_MENU_VFILE(file)->path); */
     if(FM_MENU_VFILE(file)->path == NULL)
         return g_strdup("/");
     return g_path_get_basename(FM_MENU_VFILE(file)->path);
@@ -525,6 +526,7 @@ static char *_fm_vfs_menu_get_parse_name(GFile *file)
 {
     char *unescaped, *path;
 
+    /* g_debug("_fm_vfs_menu_get_parse_name %s", FM_MENU_VFILE(file)->path); */
     unescaped = g_uri_unescape_string(FM_MENU_VFILE(file)->path, NULL);
     path = g_strconcat("menu://applications/", unescaped, NULL);
     g_free(unescaped);
@@ -537,11 +539,15 @@ static GFile *_fm_vfs_menu_get_parent(GFile *file)
     char *dirname;
     GFile *parent;
 
+    /* g_debug("_fm_vfs_menu_get_parent %s", path); */
     if(path)
     {
         dirname = g_path_get_dirname(path);
         if(strcmp(dirname, ".") == 0)
+        {
             g_free(dirname);
+            path = NULL;
+        }
         else
             path = dirname;
     }
@@ -603,6 +609,7 @@ static GFile *_fm_vfs_menu_resolve_relative_path(GFile *file, const char *relati
     const char *path = FM_MENU_VFILE(file)->path;
     FmMenuVFile *new_item = _fm_menu_vfile_new();
 
+    /* g_debug("_fm_vfs_menu_resolve_relative_path %s %s", path, relative_path); */
     /* FIXME: handle if relative_path is invalid */
     if(relative_path == NULL || *relative_path == '\0')
         new_item->path = g_strdup(path);
@@ -2857,7 +2864,7 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
 {
     FmVfsMenuMainThreadData enu;
 
-    /* g_debug("_fm_vfs_menu_monitor_dir"); */
+    /* g_debug("_fm_vfs_menu_monitor_dir %s", FM_MENU_VFILE(file)->path); */
     enu.cancellable = cancellable;
     enu.error = error;
     // enu.flags = flags;
@@ -2997,6 +3004,7 @@ static GFile *_fm_vfs_menu_new_for_uri(const char *uri)
             else
                 break;
     }
+    /* g_debug("_fm_vfs_menu_new_for_uri %s -> %s", uri, item->path); */
     return (GFile*)item;
 }
 
