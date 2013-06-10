@@ -2252,80 +2252,53 @@ static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
     return enu.result;
 }
 
-static gboolean _fm_vfs_menu_delete_real(gpointer data)
+/* not in main thread; returns NULL on failure */
+static GKeyFile *_g_key_file_from_item(GFile *file, GCancellable *cancellable,
+                                       GError **error)
 {
-    FmVfsMenuMainThreadData *init = data;
-    MenuCache *mc;
-    MenuCacheItem *item = NULL;
-    char *file_path, *contents;
+    char *contents;
+    gsize length;
     GKeyFile *kf;
-    GFile *gf;
+
+    if (!g_file_load_contents(file, cancellable, &contents, &length, NULL, error))
+        return NULL;
+    kf = g_key_file_new();
+    if (!g_key_file_load_from_data(kf, contents, length,
+                                   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                   error))
+    {
+        g_key_file_free(kf);
+        kf = NULL;
+    }
+    g_free(contents);
+    return kf;
+}
+
+/* not in main thread; returns FALSE on failure, consumes key file */
+static gboolean _g_key_file_into_item(GFile *file, GKeyFile *kf,
+                                      GCancellable *cancellable, GError **error)
+{
+    char *contents;
     GOutputStream *out;
     gsize length, tmp_len;
     gboolean result = FALSE;
 
-    if(init->path_str == NULL)
-    {
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Cannot delete root directory"));
-        return FALSE;
-    }
-    mc = _get_menu_cache(init->error);
-    if(mc == NULL)
-        return FALSE;
-    item = _vfile_path_to_menu_cache_item(mc, init->path_str);
-    if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
-    {
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"), init->path_str);
-        goto _failed;
-    }
-    file_path = menu_cache_item_get_file_path(item);
-    if (file_path == NULL)
-    {
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                    _("Invalid menu item %s"), init->path_str);
-        goto _failed;
-    }
-    kf = g_key_file_new();
-    if (!g_key_file_load_from_file(kf, file_path,
-                                   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
-                                   init->error))
-    {
-        g_free(file_path);
-        g_key_file_free(kf);
-        goto _failed;
-    }
-    g_free(file_path);
-    g_key_file_set_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
-                           G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY, TRUE);
-    contents = g_key_file_to_data(kf, &length, init->error);
+    contents = g_key_file_to_data(kf, &length, error);
     g_key_file_free(kf);
     if (contents == NULL)
-        goto _failed;
-    gf = _g_file_new_for_id(menu_cache_item_get_id(item));
-    out = G_OUTPUT_STREAM(g_file_replace(gf, NULL, FALSE,
+        return FALSE;
+    out = G_OUTPUT_STREAM(g_file_replace(file, NULL, FALSE,
                                          G_FILE_CREATE_REPLACE_DESTINATION,
-                                         init->cancellable, init->error));
-    g_object_unref(gf);
+                                         cancellable, error));
     if (out == NULL)
-    {
-        g_free(contents);
-        goto _failed;
-    }
+        goto _out;
     result = g_output_stream_write_all(out, contents, length, &tmp_len,
-                                       init->cancellable, init->error);
-    g_free(contents);
+                                       cancellable, error);
     if (result) /* else nothing to close */
-        g_output_stream_close(out, init->cancellable, init->error);
+        result = g_output_stream_close(out, cancellable, error);
     g_object_unref(out);
-
-_failed:
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    if(item)
-        menu_cache_item_unref(item);
-#endif
-    menu_cache_unref(mc);
+_out:
+    g_free(contents);
     return result;
 }
 
@@ -2333,14 +2306,34 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
                                          GCancellable *cancellable,
                                          GError **error)
 {
-    FmMenuVFile *item = FM_MENU_VFILE(file);
-    FmVfsMenuMainThreadData enu;
+    GKeyFile *kf;
+    char *val;
 
-    /* g_debug("_fm_vfs_menu_delete_file %s", item->path); */
-    enu.path_str = item->path;
-    enu.cancellable = cancellable;
-    enu.error = error;
-    return fm_run_in_default_main_context(_fm_vfs_menu_delete_real, &enu);
+    /* load contents */
+    kf = _g_key_file_from_item(file, cancellable, error);
+    if (kf == NULL) /* failed */
+        return FALSE;
+    /* ensure if it's an application */
+    val = g_key_file_get_value(kf, G_KEY_FILE_DESKTOP_GROUP,
+                               G_KEY_FILE_DESKTOP_KEY_TYPE, error);
+    if (val == NULL)
+    {
+        g_key_file_free(kf);
+        return FALSE;
+    }
+    if (strcmp(val, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) != 0)
+    {
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("The \"%s\" isn't a menu item"), FM_MENU_VFILE(file)->path);
+        g_free(val);
+        g_key_file_free(kf);
+        return FALSE;
+    }
+    g_free(val);
+    /* set NoDisplay=true and save */
+    g_key_file_set_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
+                           G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY, TRUE);
+    return _g_key_file_into_item(file, kf, cancellable, error);
 }
 
 static gboolean _fm_vfs_menu_trash(GFile *file,
