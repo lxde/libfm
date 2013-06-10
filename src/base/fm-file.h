@@ -49,7 +49,6 @@ struct _FmFileInterface
 
     /*< public >*/
     gboolean (*wants_incremental)(GFile* file);
-    //gboolean (*set_icon)(GFile* file, GIcon *icon);
 
     /*< private >*/
     gpointer _reserved1;
@@ -79,7 +78,6 @@ void            fm_file_add_vfs(const char *name, FmFileInitTable *init);
 
 /* VTable calls */
 gboolean        fm_file_wants_incremental(GFile* file);
-//gboolean        fm_file_set_icon(GFile* file, GIcon *icon);
 
 /* Gfile functions replacements */
 GFile          *fm_file_new_for_uri(const char *uri);

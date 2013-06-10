@@ -62,6 +62,7 @@ void _fm_file_info_finalize();
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
+//void fm_file_info_set_settable_attributes(FmFileInfo* fi, GFile* gf);
 
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem* item);
@@ -133,7 +134,10 @@ dev_t fm_file_info_get_dev( FmFileInfo* fi );
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 
 //gboolean fm_file_info_can_set_icon(FmFileInfo *fi);
-//void fm_file_info_set_icon(FmFileInfo *fi, const gchar *name);
+//gboolean fm_file_info_set_icon(FmFileInfo *fi, const gchar *name);
+
+//gboolean fm_file_info_can_set_hidden(FmFileInfo *fi);
+//gboolean fm_file_info_set_hidden(FmFileInfo *fi, gboolean is_hidden);
 
 FmFileInfoList* fm_file_info_list_new();
 //FmFileInfoList* fm_file_info_list_new_from_glist();

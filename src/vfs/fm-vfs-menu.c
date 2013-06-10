@@ -1280,6 +1280,7 @@ static inline const char *_get_menu_name(FmXmlFileItem *item)
 }
 
 /* merges subitems - consumes list */
+/* NOTE: it will not delete duplicate elements other than Menu or Name */
 static void _merge_tree(GList *first)
 {
     while (first)
@@ -2791,22 +2792,23 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
     }
 }
 
-static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
-                                              GFileMonitorFlags flags,
-                                              GCancellable *cancellable,
-                                              GError **error)
+static gboolean _fm_vfs_menu_monitor_dir_real(gpointer data)
 {
+    FmVfsMenuMainThreadData *init = data;
     FmMenuVFileMonitor *mon;
 #if !MENU_CACHE_CHECK_VERSION(0, 4, 0)
     MenuCacheItem *dir;
 #endif
 
+    init->result = NULL;
+    if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+        return FALSE;
     /* open menu cache instance */
     mon = _fm_menu_vfile_monitor_new();
     if(mon == NULL) /* out of memory! */
-        return NULL;
-    mon->file = FM_MENU_VFILE(g_object_ref(file));
-    mon->cache = _get_menu_cache(error);
+        return FALSE;
+    mon->file = FM_MENU_VFILE(g_object_ref(init->destination));
+    mon->cache = _get_menu_cache(init->error);
     if(mon->cache == NULL)
         goto _fail;
     /* check if requested path exists within cache */
@@ -2824,7 +2826,7 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
     if(dir == NULL)
 #endif
     {
-        g_set_error(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
                     _("FmMenuVFileMonitor: folder %s not found in menu cache"),
                     mon->file->path);
         goto _fail;
@@ -2834,15 +2836,34 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
     mon->items = g_slist_copy_deep(menu_cache_dir_get_children(MENU_CACHE_DIR(dir)),
                                    (GCopyFunc)menu_cache_item_ref, NULL);
 #endif
+    if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+        goto _fail;
     /* current directory contents belong to mon->item now */
     /* attach reload notify handler */
     mon->notifier = menu_cache_add_reload_notify(mon->cache,
                                                  &_reload_notify_handler, mon);
-    return (GFileMonitor*)mon;
+    init->result = mon;
+    return TRUE;
 
 _fail:
     g_object_unref(mon);
-    return NULL;
+    return FALSE;
+}
+
+static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
+                                              GFileMonitorFlags flags,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    FmVfsMenuMainThreadData enu;
+
+    /* g_debug("_fm_vfs_menu_monitor_dir"); */
+    enu.cancellable = cancellable;
+    enu.error = error;
+    // enu.flags = flags;
+    enu.destination = FM_MENU_VFILE(file);
+    fm_run_in_default_main_context(_fm_vfs_menu_monitor_dir_real, &enu);
+    return (GFileMonitor*)enu.result;
 }
 
 static GFileMonitor *_fm_vfs_menu_monitor_file(GFile *file,
@@ -2937,17 +2958,9 @@ static gboolean _fm_vfs_menu_wants_incremental(GFile* file)
     return FALSE;
 }
 
-#if 0
-static gboolean _fm_vfs_menu_set_icon(GFile* file, GIcon *icon)
-{
-    //change icon should be supported at least for directory
-}
-#endif
-
 static void fm_menu_fm_file_init(FmFileInterface *iface)
 {
     iface->wants_incremental = _fm_vfs_menu_wants_incremental;
-    //iface->set_icon = _fm_vfs_menu_set_icon;
 }
 
 
