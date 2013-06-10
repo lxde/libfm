@@ -2026,17 +2026,35 @@ static GFileOutputStream *_vfile_menu_create(GFile *file,
 {
     FmMenuVFileOutputStream *stream;
     GFileOutputStream *ostream;
+    GError *err = NULL;
+    GFile *parent;
 
     if (g_cancellable_set_error_if_cancelled(cancellable, error))
         return NULL;
 //    g_file_delete(file, cancellable, NULL); /* remove old if there is any */
-    stream = _fm_vfs_menu_file_output_stream_new(directory);
-    ostream = g_file_create(file, flags, cancellable, error);
+    ostream = g_file_create(file, flags, cancellable, &err);
     if (ostream == NULL)
     {
-        g_object_unref(stream);
-        return NULL;
+        if (g_cancellable_is_cancelled(cancellable) ||
+            err->domain != G_IO_ERROR || err->code != G_IO_ERROR_NOT_FOUND)
+        {
+            g_propagate_error(error, err);
+            return NULL;
+        }
+        /* .local/share/applications/ isn't found? make it! */
+        g_clear_error(&err);
+        parent = g_file_get_parent(file);
+        if (!g_file_make_directory_with_parents(parent, cancellable, error))
+        {
+            g_object_unref(parent);
+            return NULL;
+        }
+        g_object_unref(parent);
+        ostream = g_file_create(file, flags, cancellable, error);
+        if (ostream == NULL)
+            return ostream;
     }
+    stream = _fm_vfs_menu_file_output_stream_new(directory);
     stream->real_stream = G_OUTPUT_STREAM(ostream);
     return (GFileOutputStream*)stream;
 }
