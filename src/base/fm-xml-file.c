@@ -923,11 +923,11 @@ void fm_xml_file_item_append_text(FmXmlFileItem *item, const char *text,
         return;
     text_item = fm_xml_file_item_new(FM_XML_FILE_TEXT);
     if (text_size > 0)
-        item->text = g_strndup(text, text_size);
+        text_item->text = g_strndup(text, text_size);
     else
-        item->text = g_strdup(text);
+        text_item->text = g_strdup(text);
     if (cdata)
-        item->comment = item->text;
+        text_item->comment = text_item->text;
     fm_xml_file_item_append_child(item, text_item);
 }
 
