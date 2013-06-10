@@ -1696,7 +1696,7 @@ _return_error:
     g_debug("menu test: destination path '%s' is valid", dst_directory);
     /* convert strv into list for convenience */
     lcats = cats_to_del = cats_to_add = NULL;
-    for (cats = *categories; *cats; cats++)
+    if (*categories) for (cats = *categories; *cats; cats++)
         lcats = g_list_prepend(lcats, *cats);
     lcats = g_list_reverse(lcats);
     /* prepare draft 'definitely add' list to work on it:
