@@ -881,8 +881,7 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
         /* If item wasn't found or isn't a file then we cannot read it. */
     if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_IS_DIRECTORY,
-                    _("The \"%s\" is a menu directory"),
-                    init->path_str ? init->path_str : "/");
+                    _("The \"%s\" is a menu directory"), init->path_str);
     else if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                     _("The \"%s\" isn't a menu item"),
@@ -891,6 +890,7 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
     {
         char *file_path;
         GFile *gf;
+        GError *err = NULL;
 
         file_path = menu_cache_item_get_file_path(item);
         if (file_path)
@@ -899,7 +899,20 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
             g_free(file_path);
             if (gf)
             {
-                init->result = g_file_read(gf, init->cancellable, init->error);
+                init->result = g_file_read(gf, init->cancellable, &err);
+                if (init->result == NULL)
+                {
+                    /* never return G_IO_ERROR_IS_DIRECTORY */
+                    if (err->domain == G_IO_ERROR &&
+                        err->code == G_IO_ERROR_IS_DIRECTORY)
+                    {
+                        g_error_free(err);
+                        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_REGULAR_FILE,
+                                    _("The \"%s\" is broken"), init->path_str);
+                    }
+                    else
+                        g_propagate_error(init->error, err);
+                }
                 g_object_unref(gf);
             }
         }
