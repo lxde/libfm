@@ -869,7 +869,6 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
     MenuCacheItem *item = NULL;
-    gboolean is_invalid = TRUE;
 
     init->result = NULL;
     mc = _get_menu_cache(init->error);
@@ -877,14 +876,14 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
         goto _mc_failed;
 
     if(init->path_str)
-    {
         item = _vfile_path_to_menu_cache_item(mc, init->path_str);
-        /* If item wasn't found or isn't a file then we cannot read it. */
-        if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-            is_invalid = FALSE;
-    }
 
-    if(is_invalid)
+        /* If item wasn't found or isn't a file then we cannot read it. */
+    if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_IS_DIRECTORY,
+                    _("The \"%s\" is a menu directory"),
+                    init->path_str ? init->path_str : "/");
+    else if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                     _("The \"%s\" isn't a menu item"),
                     init->path_str ? init->path_str : "/");
@@ -2685,39 +2684,26 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
 {
     FmMenuVFile *item = FM_MENU_VFILE(file);
     GKeyFile *kf;
-    char *val;
+    GError *err = NULL;
 
-    /* g_debug("_fm_vfs_menu_delete_file %s", item->path); */
-    /* XDG desktop menu specification: desktop-entry-id should be *.desktop */
-    if (!g_str_has_suffix(item->path, ".desktop"))
-    {
-        /* if it isn't suffixed then it should be a directory */
-        char *unescaped = g_uri_unescape_string(item->path, NULL);
-        gboolean ok = _remove_directory(unescaped, cancellable, error);
-        g_free(unescaped);
-        return ok;
-    }
+    g_debug("_fm_vfs_menu_delete_file %s", item->path);
     /* load contents */
-    kf = _g_key_file_from_item(file, cancellable, error);
-    if (kf == NULL) /* failed */
-        return FALSE;
-    /* ensure if it's an application */
-    val = g_key_file_get_value(kf, G_KEY_FILE_DESKTOP_GROUP,
-                               G_KEY_FILE_DESKTOP_KEY_TYPE, error);
-    if (val == NULL)
+    kf = _g_key_file_from_item(file, cancellable, &err);
+    if (kf == NULL)
     {
-        g_key_file_free(kf);
+        /* it might be just a directory */
+        if (err->domain == G_IO_ERROR && err->code == G_IO_ERROR_IS_DIRECTORY)
+        {
+            char *unescaped = g_uri_unescape_string(item->path, NULL);
+            gboolean ok = _remove_directory(unescaped, cancellable, error);
+            g_error_free(err);
+            g_free(unescaped);
+            return ok;
+        }
+        /* else it just failed */
+        g_propagate_error(error, err);
         return FALSE;
     }
-    if (strcmp(val, G_KEY_FILE_DESKTOP_TYPE_APPLICATION) != 0)
-    {
-        g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"), item->path);
-        g_free(val);
-        g_key_file_free(kf);
-        return FALSE;
-    }
-    g_free(val);
     /* set NoDisplay=true and save */
     g_key_file_set_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
                            G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY, TRUE);
