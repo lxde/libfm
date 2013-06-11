@@ -2195,6 +2195,7 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
         {
             char *pathtag, *dir;
             GString *str;
+            GFile *dir_file;
 
             /* add <NotDeleted/> */
             child = fm_xml_file_item_new(menuTag_NotDeleted);
@@ -2206,6 +2207,11 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
             str = g_string_new(dir);
             g_free(dir);
             g_string_append(str, ".directory");
+            /* touch .directory file, ignore errors */
+            dir_file = g_file_new_for_path(str->str);
+            g_file_create(dir_file, G_FILE_CREATE_NONE, cancellable, NULL);
+            /* FIXME: write default contents if created? */
+            g_object_unref(dir_file);
             child = fm_xml_file_item_new(menuTag_Directory);
             fm_xml_file_item_append_text(child, str->str, str->len, FALSE);
             fm_xml_file_item_append_child(item, child);
