@@ -41,6 +41,13 @@
 # endif
 #endif
 
+/* libmenu-cache is multithreaded since 0.4.x */
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+# define RUN_WITH_MENU_CACHE(__func,__data) __func(__data)
+#else
+# define RUN_WITH_MENU_CACHE(__func,__data) fm_run_in_default_main_context(__func,__data)
+#endif
+
 /* beforehand declarations */
 static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
 
@@ -295,7 +302,7 @@ static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
     init.enumerator = FM_VFS_MENU_ENUMERATOR(enumerator);
     init.cancellable = cancellable;
     init.error = error;
-    fm_run_in_default_main_context(_fm_vfs_menu_enumerator_next_file_real, &init);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_next_file_real, &init);
     return init.result;
 }
 
@@ -459,7 +466,7 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
     enu.file = file;
     enu.error = error;
     enu.result = NULL;
-    fm_run_in_default_main_context(_fm_vfs_menu_enumerator_new_real, &enu);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_new_real, &enu);
     return enu.result;
 }
 
@@ -752,7 +759,7 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
 //        enu.flags = flags;
         enu.cancellable = cancellable;
         enu.error = error;
-        fm_run_in_default_main_context(_fm_vfs_menu_query_info_real, &enu);
+        RUN_WITH_MENU_CACHE(_fm_vfs_menu_query_info_real, &enu);
         info = enu.result;
     }
     else
@@ -920,7 +927,7 @@ static GFileInputStream *_fm_vfs_menu_read_fn(GFile *file,
     enu.path_str = item->path;
     enu.cancellable = cancellable;
     enu.error = error;
-    fm_run_in_default_main_context(_fm_vfs_menu_read_fn_real, &enu);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_read_fn_real, &enu);
     return enu.result;
 }
 
@@ -2521,7 +2528,7 @@ static GFileOutputStream *_fm_vfs_menu_create(GFile *file,
     enu.cancellable = cancellable;
     enu.error = error;
     // enu.flags = flags;
-    fm_run_in_default_main_context(_fm_vfs_menu_create_real, &enu);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_create_real, &enu);
     return enu.result;
 }
 
@@ -2618,7 +2625,7 @@ static GFileOutputStream *_fm_vfs_menu_replace(GFile *file,
     enu.error = error;
     // enu.flags = flags;
     // enu.make_backup = make_backup;
-    fm_run_in_default_main_context(_fm_vfs_menu_replace_real, &enu);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_replace_real, &enu);
     return enu.result;
 }
 
@@ -2943,7 +2950,7 @@ static gboolean _fm_vfs_menu_move(GFile *source,
     // enu.flags = flags;
     enu.destination = FM_MENU_VFILE(destination);
     /* FIXME: use progress_callback */
-    return fm_run_in_default_main_context(_fm_vfs_menu_move_real, &enu);
+    return RUN_WITH_MENU_CACHE(_fm_vfs_menu_move_real, &enu);
 }
 
 /* ---- FmMenuVFileMonitor class ---- */
@@ -3238,7 +3245,7 @@ static GFileMonitor *_fm_vfs_menu_monitor_dir(GFile *file,
     enu.error = error;
     // enu.flags = flags;
     enu.destination = FM_MENU_VFILE(file);
-    fm_run_in_default_main_context(_fm_vfs_menu_monitor_dir_real, &enu);
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_monitor_dir_real, &enu);
     return (GFileMonitor*)enu.result;
 }
 
