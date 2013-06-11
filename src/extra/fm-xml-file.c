@@ -24,7 +24,7 @@
  * @short_description: Simple XML parser.
  * @title: FmXmlFile
  *
- * @include: libfm/fm.h
+ * @include: libfm/fm-extra.h
  *
  * The FmXmlFile represents content of some XML file in form that can
  * be altered and saved later.
@@ -45,10 +45,10 @@
 #include <config.h>
 #endif
 
+#include "fm-xml-file.h"
+
 #include <glib/gi18n-lib.h>
 #include "glib-compat.h"
-
-#include "fm-xml-file.h"
 
 #include <stdlib.h>
 #include <errno.h>

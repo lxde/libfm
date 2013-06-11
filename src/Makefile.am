@@ -17,6 +17,7 @@ AM_CPPFLAGS = \
 	-I$(srcdir)/job \
 	-I$(srcdir)/gtk \
 	-I$(srcdir)/demo \
+	-I$(srcdir)/extra \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
@@ -76,7 +77,6 @@ base_SOURCES = \
 	base/fm-file.c \
 	base/fm-terminal.c \
 	base/fm-templates.c \
-	base/fm-xml-file.c \
 	base/fm-marshal.c \
 	vfs/fm-vfs-menu.c \
 	vfs/fm-vfs-search.c \
@@ -100,6 +100,10 @@ libfm_SOURCES = \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
 	$(udisks_SOURCES) \
+	$(NULL)
+
+libfm_extra_SOURCES = \
+	extra/fm-xml-file.c \
 	$(NULL)
 
 exo_SOURCES = \
@@ -173,7 +177,6 @@ libfminclude_HEADERS = \
 	base/fm-terminal.h \
 	base/fm-templates.h \
 	base/fm-thumbnail-loader.h \
-	base/fm-xml-file.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -220,14 +223,21 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
+libfmextraincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
+libfmextrainclude_HEADERS = \
+	fm-extra.h \
+	extra/fm-xml-file.h \
+	$(NULL)
+
 pkginclude_HEADERS = \
 	$(LIBFM_INCLUDES) \
+	$(LIBFM_EXTRA_INCLUDES) \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 
 EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
 
-lib_LTLIBRARIES = libfm.la @LIBFM_GTK_LTLIBRARIES@
+lib_LTLIBRARIES = libfm.la libfm-extra.la @LIBFM_GTK_LTLIBRARIES@
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
@@ -247,6 +257,7 @@ libfm_la_LIBADD = \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	$(LIBFMACTIONS) \
+	libfm-extra.la \
 	$(NULL)
 
 libfm_la_DEPENDENCIES_EXTRA = \
@@ -254,6 +265,26 @@ libfm_la_DEPENDENCIES_EXTRA = \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
+	-no-undefined \
+	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
+	$(NULL)
+
+libfm_extra_la_SOURCES = \
+	$(libfm_extra_SOURCES) \
+	$(NULL)
+
+libfm_extra_la_CFLAGS = \
+	$(GIO_CFLAGS) \
+	-Werror-implicit-function-declaration \
+	$(NULL)
+
+libfm_extra_la_LIBADD = \
+	$(GIO_LIBS) \
+	$(INTLLIBS) \
+	$(NULL)
+
+libfm_extra_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
 	-version-info $(ABI_VERSION) \

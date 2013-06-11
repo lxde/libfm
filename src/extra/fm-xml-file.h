@@ -25,6 +25,8 @@
 #define FM_XML_FILE_TYPE           (_fm_xml_file_get_type())
 #define FM_IS_XML_FILE(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), FM_XML_FILE_TYPE))
 
+#include <glib-object.h>
+
 G_BEGIN_DECLS
 
 typedef struct _FmXmlFile           FmXmlFile;

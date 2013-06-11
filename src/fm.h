@@ -22,14 +22,7 @@
 #ifndef __LIBFM_FM_H__
 #define __LIBFM_FM_H__
 
-#define FM_VERSION_MAJOR @FM_VERSION_MAJOR@
-#define FM_VERSION_MINOR @FM_VERSION_MINOR@
-#define FM_VERSION_MICRO @FM_VERSION_MICRO@
-
-#define FM_CHECK_VERSION(_a,_b,_c) \
-    (FM_VERSION_MAJOR > _a || \
-    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR > _b) || \
-    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR == _b && FM_VERSION_MICRO >= _c))
+#include "fm-extra.h"
 
 #include "fm-app-info.h"
 #include "fm-archiver.h"
@@ -62,8 +55,6 @@
 #include "fm-job.h"
 
 G_BEGIN_DECLS
-
-extern GQuark fm_qdata_id; /* a quark value used to associate data with objects */
 
 gboolean fm_init(FmConfig* config);
 void fm_finalize();
