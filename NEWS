@@ -119,14 +119,17 @@ Changes on 1.2.0 since 1.1.0:
 * Added GFileMonitor implementation for menu:// VFS.
 
 * Added file operations for menu:// VFS, therefore any application which
-    uses libfm can do main menu editing. Supported operations are now:
+    uses libfm can do desktop menu editing. Supported operations are now:
     - create new application in any menu folder;
     - change some application properties (contents of desktop entry);
-    - delete some application from menu.
+    - delete some application from menu;
+    - move the application from some menu folder to another one;
+    - create new folder in the menu (invisible though);
+    - delete some folder from the menu.
 
-* New class FmXmlFile which is simple object which allows to load and
-    parse XML, do desired changes, and finally compose changed data into
-    XML back. It has very few simplifications:
+* New class FmXmlFile which is simple container which allows to load and
+    parse XML text, do desired changes, and finally compose changed data
+    into XML text back. It has very few simplifications:
     - only UTF-8 encoding is supported;
     - no user-defined entities (those should be converted externally);
     - processing instructions, comments and the doctype declaration are
