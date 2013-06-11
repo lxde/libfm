@@ -11,17 +11,12 @@ SUBDIRS= \
 	$(NULL)
 
 AM_CPPFLAGS = \
-	-I$(srcdir) \
 	-I$(srcdir)/base \
-	-I$(srcdir)/actions \
 	-I$(srcdir)/job \
-	-I$(srcdir)/gtk \
-	-I$(srcdir)/demo \
 	-I$(srcdir)/extra \
-	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
-	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
-	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
+	-I$(srcdir)/actions \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-Werror-implicit-function-declaration \
 	$(NULL)
 
 glib_compat_SOURCES= \
@@ -247,7 +242,7 @@ libfm_la_CFLAGS = \
 	$(MENU_CACHE_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(EXIF_CFLAGS) \
-	-Werror-implicit-function-declaration \
+	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	$(NULL)
 
 libfm_la_LIBADD = \
@@ -276,7 +271,6 @@ libfm_extra_la_SOURCES = \
 
 libfm_extra_la_CFLAGS = \
 	$(GIO_CFLAGS) \
-	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_extra_la_LIBADD = \
@@ -296,12 +290,11 @@ libfm_gtk_la_SOURCES = \
 libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 
 libfm_gtk_la_CFLAGS = \
+	-I$(srcdir)/gtk \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-I$(srcdir) \
-	-I$(srcdir)/base \
-	-I$(srcdir)/job \
-	-Werror-implicit-function-declaration
+	$(NULL)
 libfm_gtk3_la_CFLAGS = $(libfm_gtk_la_CFLAGS)
 
 libfm_gtk_la_LIBADD = \
@@ -335,9 +328,11 @@ libfm_pref_apps_DEPENDENCIES = \
 	$(NULL)
 
 libfm_pref_apps_CFLAGS = \
+	-I$(srcdir)/gtk \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-Werror-implicit-function-declaration \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
 
 libfm_pref_apps_LDADD = \
@@ -363,8 +358,8 @@ libfm_demo_DEPENDENCIES = \
 	$(NULL)
 
 libfm_demo_CFLAGS = \
+	-I$(srcdir)/gtk \
 	$(GTK_CFLAGS) \
-	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_demo_LDADD = \
@@ -379,8 +374,8 @@ libfm_file_search_cli_demo_SOURCES = \
 	$(NULL)
 
 libfm_file_search_cli_demo_CFLAGS = \
+	-I$(srcdir)/gtk \
 	$(GTK_CFLAGS) \
-	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_file_search_cli_demo_LDADD = \
@@ -410,6 +405,7 @@ libgiofm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DG_DISABLE_DEPRECATED \
 	$(NULL)
 
