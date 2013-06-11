@@ -311,7 +311,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
         /* check if chmod is needed here. */
         sel = gtk_combo_box_get_active(data->read_perm);
-        if( sel != NO_CHANGE ) /* requested to change read permissions */
+        if( sel > NO_CHANGE ) /* requested to change read permissions */
         {
             g_debug("got selection for read: %d", sel);
             if(data->read_perm_sel != sel) /* new value is different from original */
@@ -336,7 +336,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->read_perm_sel = NO_CHANGE;
 
         sel = gtk_combo_box_get_active(data->write_perm);
-        if( sel != NO_CHANGE ) /* requested to change write permissions */
+        if( sel > NO_CHANGE ) /* requested to change write permissions */
         {
             g_debug("got selection for write: %d", sel);
             if(data->write_perm_sel != sel) /* new value is different from original */
@@ -361,7 +361,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->write_perm_sel = NO_CHANGE;
 
         sel = gtk_combo_box_get_active(data->exec_perm);
-        if( sel != NO_CHANGE ) /* requested to change exec permissions */
+        if( sel > NO_CHANGE ) /* requested to change exec permissions */
         {
             g_debug("got selection for exec: %d", sel);
             if(data->exec_perm_sel != sel) /* new value is different from original */
@@ -391,7 +391,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             sel = gtk_combo_box_get_active(data->flags_set_file);
         else
             sel = NO_CHANGE;
-        if( sel != NO_CHANGE ) /* requested to change special bits */
+        if( sel > NO_CHANGE ) /* requested to change special bits */
         {
             g_debug("got selection for flags: %d", sel);
             if(data->flags_set_sel != sel) /* new value is different from original */
