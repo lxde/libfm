@@ -2,7 +2,7 @@
  *      fm-utils.c
  *
  *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -388,6 +388,7 @@ int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
 static GMutex main_loop_run_mutex;
 static GCond main_loop_run_cond;
 #else
+G_LOCK_DEFINE(main_loop_run_mutex);
 static GMutex *main_loop_run_mutex = NULL;
 static GCond *main_loop_run_cond = NULL;
 #endif
@@ -455,10 +456,12 @@ gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data)
     /* else add idle source and wait for return */
     else
     {
+        G_LOCK(main_loop_run_mutex);
         if(!main_loop_run_mutex)
             main_loop_run_mutex = g_mutex_new();
         if(!main_loop_run_cond)
             main_loop_run_cond = g_cond_new();
+        G_UNLOCK(main_loop_run_mutex);
         md.done = FALSE;
         md.func = func;
         md.data = data;
