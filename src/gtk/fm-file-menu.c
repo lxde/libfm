@@ -393,6 +393,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             g_list_foreach(apps2, (GFunc)g_object_unref, NULL);
             g_list_free(apps2);
         }
+        g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
+        g_list_free(mime_types);
+        mime_types = NULL;
     }
 
     data->auto_destroy = auto_destroy;
