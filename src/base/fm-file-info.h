@@ -61,8 +61,9 @@ void _fm_file_info_finalize();
 
 FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
+//void fm_file_info_new_from_g_file_data(FmPath* path, GFile* gf, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
-//void fm_file_info_set_settable_attributes(FmFileInfo* fi, GFile* gf);
+//void fm_file_info_set_from_g_file_data(FmFileInfo* fi, GFile* gf, GFileInfo* inf);
 
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem* item);
