@@ -232,7 +232,7 @@ pkginclude_HEADERS = \
 
 EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
 
-lib_LTLIBRARIES = libfm.la libfm-extra.la @LIBFM_GTK_LTLIBRARIES@
+lib_LTLIBRARIES = libfm-extra.la libfm.la @LIBFM_GTK_LTLIBRARIES@
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
