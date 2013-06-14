@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-04 17:23+0300\n"
-"PO-Revision-Date: 2013-06-09 20:24+0330\n"
+"PO-Revision-Date: 2013-06-14 11:50+0330\n"
 "Last-Translator: Ali Yousefi Sabzevar <aysabzevar@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -24,7 +24,7 @@ msgstr "<b>خط فرمان برای اجرا</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>نوع فایل برای باز شدن:</b>"
+msgstr "<b>نوع پرونده برای باز شدن:</b>"
 
 #: ../data/ui/app-chooser.glade.h:4
 #, no-c-format
@@ -36,8 +36,8 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>این کدهای ویژه می توانند در خط فرمان استفاده شوند: </b>\n"
-"<b>%f</b>: نشان دهنده ی یک نام فایل است.\n"
-"<b>%F</b>:نشان دهنده‌ی چندین نام فایل است.\n"
+"<b>%f</b>: نشان دهنده ی یک نام پرونده است.\n"
+"<b>%F</b>:نشان دهنده‌ی چندین نام پرونده است.\n"
 "<b>%u</b>: نشان دهنده ی یک URI به تنهایی است.\n"
 "<b>%U</b>: نشان دهنده ی چندین URI است."
 
@@ -47,28 +47,23 @@ msgstr "یک برنامه ی انتخاب کنید"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "_Browse"
-msgstr "_مرور‌کن"
+msgstr "مرور"
 
 #: ../data/ui/app-chooser.glade.h:11
-#, fuzzy
 msgid "_Custom Command Line"
 msgstr "خط فرمان سفارشی"
 
 #: ../data/ui/app-chooser.glade.h:12
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "اجرا در پایانه ی شبیه ساز"
+msgstr "اجرا در پایانه شبیه ساز"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Installed Application"
-msgstr "نرم‌افزارهای نصب شده"
+msgstr "برنامه‌های نصب شده"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr ""
-"نرم‌افزارهای انتخابی را به عنوان حالت اجرایی پیشفرض این نوع فایل تنظیم کن"
+msgstr "برنامه‌های انتخابی را به عنوان حالت اجرایی پیشفرض این نوع پرونده تنظیم کن"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -76,40 +71,38 @@ msgid ""
 "\n"
 "Do you want to replace the existing file"
 msgstr ""
-"<b> از قبل فایلی با همین نام در این آدرس وجود داشته.</b>\n"
+"<b> از قبل پروندهی با همین نام در این آدرس وجود داشته.</b>\n"
 "\n"
-"ایا می خواهید با فایل موجود جایگزین کنید ؟"
+"ایا می خواهید با پرونده موجود جایگزین کنید ؟"
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Confirm to replace files"
-msgstr "تایید جایگزین کردن فایل ها"
+msgstr "تایید جایگزین کردن پرونده ها"
 
 #: ../data/ui/ask-rename.glade.h:5
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "این گزینه‌ را بر روی فایل ها موجود بکار ببر"
+msgstr "به‌کار بردن این گزینه‌ را بر روی تمام پرونده‌های موجود"
 
 #: ../data/ui/ask-rename.glade.h:6
-#, fuzzy
 msgid "_File Name:"
-msgstr "نام فایل:"
+msgstr "نام پرونده:"
 
 #: ../data/ui/ask-rename.glade.h:7
 msgid "_Overwrite"
-msgstr "ـرونوشت"
+msgstr "رونوشت"
 
 #: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:163
 #: ../src/gtk/fm-folder-view.c:185
 msgid "_Rename"
-msgstr "ـتغییر نام"
+msgstr "تغییر نام"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_Skip"
-msgstr "ـگذشتن"
+msgstr "گذشتن"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
-msgstr "همراه با فایل پیش رو؟"
+msgstr "همراه با پرونده پیش رو؟"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
@@ -126,7 +119,7 @@ msgstr "<b>تغییر محتویات:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
 msgid "<b>File Type:</b>"
-msgstr "<b>نوع فایل:</b>"
+msgstr "<b>نوع پرونده:</b>"
 
 #: ../data/ui/file-prop.glade.h:5
 
@@ -169,7 +162,7 @@ msgstr "<b>هدف:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>مجموع اندازه ی فایلها:</b>"
+msgstr "<b>مجموع اندازه ی پروندهها:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 
@@ -187,7 +180,7 @@ msgstr "هر کسی"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "File Properties"
-msgstr "مشخصات فایل"
+msgstr "مشخصات پرونده"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Nobody"
@@ -207,7 +200,7 @@ msgstr "فقط مالک و گروه کاربری"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Select the application used to open files of this type "
-msgstr "برنامه مورد استفاده برای باز کردن فایل‌های از این دست را انتخاب کنید"
+msgstr "برنامه مورد استفاده برای باز کردن پرونده‌های از این دست را انتخاب کنید"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Set GID"
@@ -227,7 +220,7 @@ msgstr "پرچم‌های مخصوص برای دسترسی به پوشه"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Special flags for file execution"
-msgstr "پرچم‌های مخصوص برای اجرای فایل"
+msgstr "پرچم‌های مخصوص برای اجرای پرونده"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky"
@@ -302,7 +295,7 @@ msgstr "خط فرمان:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr "روابط بین فایلی"
+msgstr "روابط بین پروندهی"
 
 #: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
@@ -326,7 +319,7 @@ msgstr "مرورگر برگزیده برای باز گردن فرا لینک ه�
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
-msgstr "اجرای فایل"
+msgstr "اجرای پرونده"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
@@ -555,7 +548,7 @@ msgstr "لغو شده"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
-msgstr "عملیات فایل به پایان رسید ولی تعدادی خطا وجود داشته."
+msgstr "عملیات پرونده به پایان رسید ولی تعدادی خطا وجود داشته."
 
 #: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
@@ -567,7 +560,7 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"بعضی از فایل ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس فایل "
+"بعضی از پرونده ها نمی توانند به سطل زباله منتقل شوند بخاطر اینکه اساس پرونده "
 "سیستم این عمل را پشتیبانی نمی کند.\n"
 "بجای اینکار آیا می خواهید آنها را پاک کنید؟"
 
@@ -577,11 +570,11 @@ msgstr "،"
 
 #: ../src/gtk/fm-progress-dlg.c:506
 msgid "Moving files"
-msgstr "جا‌به‌جایی فایلها"
+msgstr "جا‌به‌جایی پروندهها"
 
 #: ../src/gtk/fm-progress-dlg.c:509
 msgid "Copying files"
-msgstr "روبرداری از فایلها"
+msgstr "روبرداری از پروندهها"
 
 #: ../src/gtk/fm-progress-dlg.c:512
 msgid "Trashing files"
@@ -589,7 +582,7 @@ msgstr "انتقال به زباله دان"
 
 #: ../src/gtk/fm-progress-dlg.c:515
 msgid "Deleting files"
-msgstr "پاک کردن فایل"
+msgstr "پاک کردن پرونده"
 
 #: ../src/gtk/fm-progress-dlg.c:518
 msgid "Creating symlinks"
@@ -627,11 +620,11 @@ msgstr "<b> دسترسی محتویات:</b>"
 
 #: ../src/gtk/fm-file-properties.c:755
 msgid "Files of different types"
-msgstr "فایل‌هایی از نوع متفاوت"
+msgstr "پرونده‌هایی از نوع متفاوت"
 
 #: ../src/gtk/fm-file-properties.c:802
 msgid "Multiple Files"
-msgstr "چندین فایل"
+msgstr "چندین پرونده"
 
 #: ../src/gtk/fm-places-model.c:689
 msgid "Desktop"
@@ -674,7 +667,7 @@ msgstr "خالی کردن زباله دان"
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:870
 msgid "Rename Bookmark Item"
-msgstr "تغییر نام آیتم نشانک"
+msgstr "تغییر نام مورد نشانک"
 
 #: ../src/gtk/fm-places-view.c:871
 msgid "Enter a new name:"
@@ -682,7 +675,7 @@ msgstr "یک نام جدید وارد کنید:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "خاموش"
 
 #: ../src/gtk/fm-side-pane.c:62
 
@@ -752,7 +745,7 @@ msgstr "_بازیابی"
 
 #: ../src/gtk/fm-file-menu.c:523
 msgid "Restore trashed files to original paths"
-msgstr "بازیابی فایلهای زباله‌دان در مسیر اصلی"
+msgstr "بازیابی پرونده‌های زباله‌دان در مسیر اصلی"
 
 #: ../src/gtk/fm-dnd-dest.c:704
 msgid "XDirectSave failed."
@@ -760,11 +753,11 @@ msgstr "XDirectSave ناموفق بود."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
-msgstr "از نرم‌افزارهای انتخابی برای باز کردن فایل ها استفاده کن"
+msgstr "از نرم‌افزارهای انتخابی برای باز کردن پرونده ها استفاده کن"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
-msgstr "اجرای سفارشی خط فرمان برای باز کردن فایل ها"
+msgstr "اجرای سفارشی خط فرمان برای باز کردن پرونده ها"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -834,7 +827,7 @@ msgstr "با اندازه"
 #: ../src/gtk/fm-folder-view.c:214
 
 msgid "By File _Type"
-msgstr "با نوع فایل"
+msgstr "با نوع پرونده"
 
 #: ../src/gtk/fm-folder-view.c:801
 msgid "Enter a name for the newly created folder:"
@@ -887,15 +880,15 @@ msgstr "فقط مدیران سیستم اجازه ی اینکار را دارن�
 
 #: ../src/gtk/fm-gtk-utils.c:864
 msgid "Do you want to move the selected files to trash can?"
-msgstr "آیا می خواهید فایلهای انتخابی را به زباله‌دان منتقل کنید؟"
+msgstr "آیا می خواهید پرونده‌های انتخابی را به زباله‌دان منتقل کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:908
 msgid "Do you want to delete the selected files?"
-msgstr "آیا می خواهید فایل های انتخاب شده را حذف کنید؟"
+msgstr "آیا می خواهید پرونده‌های انتخاب شده را حذف کنید؟"
 
 #: ../src/gtk/fm-gtk-utils.c:996
 msgid "Rename File"
-msgstr "تغییر نام فایل"
+msgstr "تغییر نام پرونده"
 
 #: ../src/gtk/fm-gtk-utils.c:997
 msgid "Please enter a new name:"
@@ -911,13 +904,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"این فایل متنی '%s' به نظر یک اسکریپت اجرایی است.\n"
+"این پرونده متنی '%s' به نظر یک اسکریپت اجرایی است.\n"
 "می خواهید با او چکار کنید؟"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "این فایل '%s' اجرایی است. آیا می خواهید اجرایش کنید؟"
+msgstr "این پرونده '%s' اجرایی است. آیا می خواهید اجرایش کنید؟"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
@@ -1163,7 +1156,7 @@ msgstr "عملیات پشتبانی نمی‌شود"
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr "نام فایل نامعتبر %s"
+msgstr "نام پرونده نامعتبر %s"
 
 #: ../src/vfs/fm-vfs-menu.c:619
 msgid "Invalid menu directory"
@@ -1187,18 +1180,18 @@ msgstr "جستجو"
 #~ msgstr "زباله"
 
 #~ msgid "Make the file executable"
-#~ msgstr "فایل را اجرایی کن"
+#~ msgstr "پرونده را اجرایی کن"
 
 #~ msgid "Operations that all other users can do"
 #~ msgstr "عملیاتی که دیگر کاربران هم می توانند انجام دهند"
 
 #~ msgid "Operations that the owner of the file can do"
-#~ msgstr "عملیاتی که دارنده فایل می تواند انجام دهد"
+#~ msgstr "عملیاتی که دارنده پرونده می تواند انجام دهد"
 
 #~ msgid ""
 #~ "Operations that users in the same group as the owner of the file can do"
 #~ msgstr ""
-#~ "عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی فایل می توانند انجام "
+#~ "عملیاتی که کاربران یک گروه یکسان به عنوان دارنده‌ی پرونده می توانند انجام "
 #~ "دهند"
 
 #~ msgid "Read and Write"
