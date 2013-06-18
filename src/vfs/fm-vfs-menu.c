@@ -1037,10 +1037,22 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
     ol = items;
     while (ol)
     {
+		/* for a vfs folder, we don't need to handle separators */
+		if(menu_cache_item_get_type(ol->data) == MENU_CACHE_TYPE_SEP)
+		{
+			ol = ol->next;
+			continue;
+		}
+
         for (nl = new_items; nl; nl = nl->next)
+        {
+			/* for a vfs folder, we don't need to handle separators */
+			if(menu_cache_item_get_type(nl->data) == MENU_CACHE_TYPE_SEP)
+				continue;
             if (strcmp(menu_cache_item_get_id(ol->data),
                        menu_cache_item_get_id(nl->data)) == 0)
                 break; /* the same id found */
+		}
         if (nl)
         {
             /* check if any visible attribute of it was changed */
