@@ -2193,10 +2193,8 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
         }
         else
         {
-            char *pathtag, *dir;
+            char *pathtag, *dir, *contents;
             GString *str;
-            GFile *dir_file;
-            GFileOutputStream *dir_fs;
 
             /* add <NotDeleted/> */
             child = fm_xml_file_item_new(menuTag_NotDeleted);
@@ -2209,12 +2207,12 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
             g_free(dir);
             g_string_append(str, ".directory");
             /* touch .directory file, ignore errors */
-            dir_file = g_file_new_for_path(str->str);
-            dir_fs = g_file_create(dir_file, G_FILE_CREATE_NONE, cancellable, NULL);
-            g_object_unref(dir_file);
-            if (dir_fs)
-                /* FIXME: write default contents if created? */
-                g_object_unref(dir_fs);
+            contents = g_strdup_printf("[" G_KEY_FILE_DESKTOP_GROUP "]\n"
+                                       G_KEY_FILE_DESKTOP_KEY_TYPE "=" G_KEY_FILE_DESKTOP_TYPE_DIRECTORY "\n"
+                                       G_KEY_FILE_DESKTOP_KEY_NAME "=%s", pathtag);
+            g_file_set_contents(str->str, contents, -1, NULL);
+            /* FIXME: report errors */
+            g_free(contents);
             child = fm_xml_file_item_new(menuTag_Directory);
             fm_xml_file_item_append_text(child, str->str, str->len, FALSE);
             fm_xml_file_item_append_child(item, child);
