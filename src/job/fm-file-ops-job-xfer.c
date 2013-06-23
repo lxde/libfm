@@ -229,8 +229,8 @@ _retry_chmod_for_dir:
             else if(!fm_job_is_cancelled(fmjob))
             {
 _retry_enum_children:
-                enu = g_file_enumerate_children(src, query,
-                                    0, fm_job_get_cancellable(fmjob), &err);
+                enu = g_file_enumerate_children(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                            fm_job_get_cancellable(fmjob), &err);
                 if(enu)
                 {
                     int n_children = 0;
