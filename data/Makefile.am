@@ -34,3 +34,4 @@ EXTRA_DIST= \
 	$(desktop_DATA) \
 	$(NULL)
 
+test:

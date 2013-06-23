@@ -142,4 +142,7 @@ if ENABLE_GTK_DOC
 #TESTS = $(GTKDOC_CHECK)
 endif
 
+# we don't have tests here
+test:
+
 -include $(top_srcdir)/git.mk

@@ -443,6 +443,10 @@ xml_purge_SOURCES=xml-purge.c
 xml_purge_CFLAGS=$(GIO_CFLAGS)
 xml_purge_LDADD=$(GIO_LIBS)
 
+# do make test only against single directory
+test:
+	cd tests && $(MAKE) $(AM_MAKEFLAGS) $@
+
 install-data-local:
 	@if test -e "$(DESTDIR)$(includedir)/@PACKAGE@"; then \
 		echo rm -rf "$(DESTDIR)$(includedir)/@PACKAGE@"; \
