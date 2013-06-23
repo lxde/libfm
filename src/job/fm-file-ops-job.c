@@ -501,6 +501,12 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
         src_fi = fm_file_info_list_pop_head(fijob->file_infos);
     dest_fi = fm_file_info_list_pop_head(fijob->file_infos);
     g_object_unref(fijob);
+    if(!dest_fi) /* invalid destination directory! */
+    {
+        /* FIXME: some warning? */
+        fm_file_info_unref(src_fi);
+        return FM_FILE_OP_CANCEL;
+    }
 
     data.ret = 0;
     data.src_fi = src_fi;
