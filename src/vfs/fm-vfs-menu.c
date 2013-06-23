@@ -221,6 +221,8 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
                                   !menu_cache_app_get_is_visible(MENU_CACHE_APP(item),
                                                                  de_flag));
     }
+    g_file_info_set_attribute_string(fileinfo, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                     "menu-Applications");
     return fileinfo;
 }
 
@@ -776,9 +778,12 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
             g_file_info_set_name(info, id);
             g_free(id);
         }
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ID_FILESYSTEM))
+            g_file_info_set_attribute_string(info, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                             "menu-Applications");
     }
 
-    g_file_attribute_matcher_unref (matcher);
+    g_file_attribute_matcher_unref(matcher);
 
     return info;
 }
