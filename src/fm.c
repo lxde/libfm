@@ -49,16 +49,28 @@ GQuark fm_qdata_id = 0;
 
 /**
  * fm_init
- * @config: configuration file data
+ * @config: (allow-none): configuration file data
  *
- * Initializes libfm data.
+ * Initializes libfm data. This API should be always called before any
+ * other Libfm function is called. It is idempotent.
  *
- * Returns: %TRUE.
+ * Returns: %FALSE in case of duplicate call.
  *
  * Since: 0.1.0
  */
 gboolean fm_init(FmConfig* config)
 {
+    G_LOCK_DEFINE_STATIC(fm_init_lock);
+    static gboolean init_done = FALSE;
+
+    G_LOCK(fm_init_lock);
+    if(init_done)
+    {
+        G_UNLOCK(fm_init_lock);
+        return FALSE;
+    }
+    init_done = TRUE;
+    G_UNLOCK(fm_init_lock);
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");

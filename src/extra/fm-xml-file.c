@@ -39,6 +39,9 @@
  * * 5 standard entities: &amp;amp; &amp;lt; &amp;gt; &amp;quot; &amp;apos;
  * * Character references
  * * Sections marked as CDATA
+ *
+ * The application should respect g_type_init() if this parser is used
+ * without usage of libfm.
  */
 
 #ifdef HAVE_CONFIG_H
