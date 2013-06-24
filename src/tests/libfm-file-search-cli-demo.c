@@ -25,9 +25,8 @@
 #include <stdio.h>
 #include <gio/gio.h>
 #include <glib.h>
-#include <gtk/gtk.h>
 
-#include "fm-gtk.h"
+#include "fm.h"
 
 #include <string.h>
 
@@ -86,19 +85,20 @@ static gboolean on_timeout(gpointer user_data)
 }
 #endif
 
+static GMainLoop *loop;
+
 static void on_finish_loading(FmFolder* folder)
 {
     g_printf("finished\n");
-    gtk_main_quit();
+    g_main_loop_quit(loop);
 }
 
 int main(int argc, char** argv)
 {
-    gtk_init(&argc, &argv);
-
-    fm_init(NULL);
-
     GOptionContext * context;
+
+    g_type_init();
+    fm_init(NULL);
 
     context = g_option_context_new(" - test for libfm file search");
     g_option_context_add_main_entries(context, entries, NULL);
@@ -152,7 +152,9 @@ int main(int argc, char** argv)
 
     /* g_timeout_add_seconds(30, on_timeout, NULL); */
 
-    gtk_main();
+    loop = g_main_loop_new(NULL, TRUE);
+    g_main_loop_run(loop);
+    g_main_loop_unref(loop);
     g_object_unref(folder);
 
     fm_finalize();

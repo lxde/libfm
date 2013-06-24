@@ -20,16 +20,7 @@ fm_path_LDADD= \
 	$(GIO_LIBS) \
 	$(NULL)
 
-file_search_cli_demo_SOURCES = \
-	libfm-file-search-cli-demo.c \
-	$(NULL)
-
-file_search_cli_demo_CFLAGS = \
-	-I../gtk \
-	$(GTK_CFLAGS) \
-	$(NULL)
-
+file_search_cli_demo_SOURCES = libfm-file-search-cli-demo.c
 file_search_cli_demo_LDADD = \
-	$(GTK_LIBS) \
 	../libfm.la \
 	$(NULL)
