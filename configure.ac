@@ -7,6 +7,10 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
+dnl Support silent build rules. Disable by either passing --disable-silent-rules
+dnl to configure or passing V=1 to make
+AM_SILENT_RULES([yes])
+
 dnl version of API generation
 FMLIBVER="1.0"
 
