@@ -31,7 +31,5 @@ file_search_cli_demo_CFLAGS = \
 
 file_search_cli_demo_LDADD = \
 	$(GTK_LIBS) \
-	$(INTLLIBS) \
 	../libfm.la \
-	../libfm-gtk.la \
 	$(NULL)

@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 {
     gtk_init(&argc, &argv);
 
-    fm_gtk_init(NULL);
+    fm_init(NULL);
 
     GOptionContext * context;
 
@@ -155,5 +155,6 @@ int main(int argc, char** argv)
     gtk_main();
     g_object_unref(folder);
 
+    fm_finalize();
     return 0;
 }
