@@ -1303,8 +1303,10 @@ static void on_ui_destroy(gpointer ui_ptr)
     GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
     GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
+    GSList *groups;
 
-    if(!gtk_accel_group_get_is_locked(accel_grp))
+    groups = gtk_accel_groups_from_object(G_OBJECT(win));
+    if(g_slist_find(groups, accel_grp) != NULL)
         gtk_window_remove_accel_group(win, accel_grp);
     g_list_foreach(templates, (GFunc)g_object_unref, NULL);
     g_list_free(templates);
@@ -1465,7 +1467,8 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
     GtkMenu *popup;
     GtkWindow* win;
     GtkAccelGroup* accel_grp;
-    gboolean locked;
+    GSList *groups;
+    gboolean active;
 
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
@@ -1477,18 +1480,13 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
 
     win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
     accel_grp = gtk_ui_manager_get_accel_group(ui);
-    locked = gtk_accel_group_get_is_locked(accel_grp);
+    groups = gtk_accel_groups_from_object(G_OBJECT(win));
+    active = (g_slist_find(groups, accel_grp) != NULL);
 
-    if(set && locked)
-    {
+    if(set && !active)
         gtk_window_add_accel_group(win, accel_grp);
-        gtk_accel_group_unlock(accel_grp);
-    }
-    else if(!set && !locked)
-    {
+    else if(!set && active)
         gtk_window_remove_accel_group(win, accel_grp);
-        gtk_accel_group_lock(accel_grp);
-    }
 }
 
 /**
