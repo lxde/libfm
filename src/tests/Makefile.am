@@ -23,4 +23,5 @@ fm_path_LDADD= \
 file_search_cli_demo_SOURCES = libfm-file-search-cli-demo.c
 file_search_cli_demo_LDADD = \
 	../libfm.la \
+	$(GIO_LIBS) \
 	$(NULL)

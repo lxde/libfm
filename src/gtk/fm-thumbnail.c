@@ -171,7 +171,7 @@ static GObject* rotate_image(GObject* image, int degree)
 	return (GObject*)gdk_pixbuf_rotate_simple(GDK_PIXBUF(image), (GdkPixbufRotation)degree);
 }
 
-FmThumbnailLoaderBackend gtk_backend = {
+static FmThumbnailLoaderBackend gtk_backend = {
     read_image_from_file,
     read_image_from_stream,
     write_image,
