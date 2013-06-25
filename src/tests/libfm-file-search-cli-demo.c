@@ -97,7 +97,9 @@ int main(int argc, char** argv)
 {
     GOptionContext * context;
 
+#if !GLIB_CHECK_VERSION(2, 36, 0)
     g_type_init();
+#endif
     fm_init(NULL);
 
     context = g_option_context_new(" - test for libfm file search");

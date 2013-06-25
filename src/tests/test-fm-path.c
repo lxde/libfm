@@ -434,7 +434,9 @@ static void test_predefined_paths()
 
 int main (int   argc, char *argv[])
 {
+#if !GLIB_CHECK_VERSION(2, 36, 0)
     g_type_init();
+#endif
     fm_init(NULL);
 
     g_test_init (&argc, &argv, NULL); // initialize test program
