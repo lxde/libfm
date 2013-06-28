@@ -2721,6 +2721,7 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
     kf = _g_key_file_from_item(file, cancellable, &err);
     if (kf == NULL)
     {
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
         /* it might be just a directory */
         if (err->domain == G_IO_ERROR && err->code == G_IO_ERROR_IS_DIRECTORY)
         {
@@ -2731,6 +2732,7 @@ static gboolean _fm_vfs_menu_delete_file(GFile *file,
             return ok;
         }
         /* else it just failed */
+#endif
         g_propagate_error(error, err);
         return FALSE;
     }
@@ -2752,6 +2754,13 @@ static gboolean _fm_vfs_menu_make_directory(GFile *file,
                                             GCancellable *cancellable,
                                             GError **error)
 {
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
+    /* creating a directory with libmenu-cache < 0.5.0 will lead to invisible
+       directory; inexperienced user will be confused; therefore we disable
+       such operation in such conditions */
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+#else
     FmMenuVFile *item = FM_MENU_VFILE(file);
     char *unescaped;
     gboolean ok;
@@ -2768,6 +2777,7 @@ static gboolean _fm_vfs_menu_make_directory(GFile *file,
     ok = _add_directory(unescaped, cancellable, error);
     g_free(unescaped);
     return ok;
+#endif
 }
 
 static gboolean _fm_vfs_menu_make_symbolic_link(GFile *file,
