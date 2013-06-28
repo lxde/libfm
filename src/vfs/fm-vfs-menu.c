@@ -398,7 +398,11 @@ static MenuCache *_get_menu_cache(GError **error)
         requires_prefix = (g_getenv("XDG_MENU_PREFIX") == NULL);
         environment_tested = TRUE;
     }
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu+hidden" : "applications.menu+hidden");
+#else
     mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu" : "applications.menu");
+#endif
     /* FIXME: may be it is reasonable to set XDG_MENU_PREFIX ? */
 
     if(mc == NULL) /* initialization failed */
