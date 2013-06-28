@@ -2498,7 +2498,8 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
             *id++ = '\0';
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
             item = menu_cache_find_item_by_id(mc, id);
-            menu_cache_item_unref(item); /* use item simply as marker */
+            if (item)
+                menu_cache_item_unref(item); /* use item simply as marker */
 #else
             list = menu_cache_list_all_apps(mc);
             for (l = list; l; l = l->next)
