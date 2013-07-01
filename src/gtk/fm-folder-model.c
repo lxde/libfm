@@ -2,7 +2,7 @@
  *      fm-folder-model.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1127,12 +1127,31 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     GtkTreeIter it;
     GtkTreePath* path;
 
+    it.stamp = model->stamp;
     if(!file_can_show(model, file))
+    {
+        items_it = info2iter(model, file);
+        if (items_it) /* file was visible and now is hidden */
+        {
+            gint delete_pos = g_sequence_iter_get_position(items_it); /* get row index */
+            it.user_data = items_it; /* setup the tree iterator */
+            g_hash_table_remove(model->items_hash, file);
+            /* move the item from visible list to hidden list */
+            g_sequence_move(items_it, g_sequence_get_begin_iter(model->hidden));
+            /* tell everybody that we removed the item */
+            path = gtk_tree_path_new_from_indices(delete_pos, -1);
+            item = (FmFolderItem*)g_sequence_get(items_it);
+            g_signal_emit(model, signals[ROW_DELETING], 0, path, &it, item->userdata);
+            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), path);
+            gtk_tree_path_free(path);
+        }
         return;
+    }
 
     items_it = info2iter(model, file);
 
     if(!items_it)
+        /* FIXME: handle this: file was hidden and now is visible */
         return;
     item = (FmFolderItem*)g_sequence_get(items_it);
 
@@ -1142,7 +1161,6 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
         g_object_unref(item->icon);
         item->icon = NULL;
     }
-    it.stamp = model->stamp;
     it.user_data  = items_it;
 
     path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(items_it), -1);
