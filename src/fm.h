@@ -22,7 +22,7 @@
 #ifndef __LIBFM_FM_H__
 #define __LIBFM_FM_H__
 
-#include "fm-extra.h"
+#include "fm-version.h"
 
 #include "fm-app-info.h"
 #include "fm-archiver.h"

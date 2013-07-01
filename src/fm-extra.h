@@ -1,7 +1,7 @@
 /*
  *      fm-extra.h
  *
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -22,15 +22,7 @@
 #ifndef __LIBFM_FM_EXTRA_H__
 #define __LIBFM_FM_EXTRA_H__
 
-#define FM_VERSION_MAJOR @FM_VERSION_MAJOR@
-#define FM_VERSION_MINOR @FM_VERSION_MINOR@
-#define FM_VERSION_MICRO @FM_VERSION_MICRO@
-
-#define FM_CHECK_VERSION(_a,_b,_c) \
-    (FM_VERSION_MAJOR > _a || \
-    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR > _b) || \
-    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR == _b && FM_VERSION_MICRO >= _c))
-
+#include "fm-version.h"
 #include "fm-xml-file.h"
 
 #endif

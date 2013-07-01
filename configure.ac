@@ -279,7 +279,7 @@ AC_CONFIG_FILES([
     src/Makefile
     src/actions/Makefile
     src/tests/Makefile
-    src/fm-extra.h
+    src/fm-version.h
     data/Makefile
     data/libfm-pref-apps.1
     data/ui/Makefile

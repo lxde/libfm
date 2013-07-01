@@ -152,6 +152,7 @@ libfm_gtk_SOURCES = \
 libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
+	fm-version.h \
 	base/fm-config.h \
 	base/fm-list.h \
 	base/fm-path.h \
