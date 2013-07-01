@@ -616,6 +616,10 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
         fi->collate_key_case = g_strdup(src->collate_key_case);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
+    fi->target = g_strdup(src->target);
+    fi->accessible = src->accessible;
+    fi->hidden = src->hidden;
+    fi->backup = src->backup;
 }
 
 /**

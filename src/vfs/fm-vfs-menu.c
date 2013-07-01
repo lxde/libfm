@@ -3162,8 +3162,9 @@ static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
             {
                 file = _fm_vfs_menu_resolve_relative_path(G_FILE(mon->file),
                                              menu_cache_item_get_id(nl->data));
+                g_debug("monitor: item %s changed", menu_cache_item_get_id(nl->data));
                 g_file_monitor_emit_event(G_FILE_MONITOR(mon), file, NULL,
-                                          G_FILE_MONITOR_EVENT_CHANGED);
+                                          G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED);
                 g_object_unref(file);
             }
             /* free both new and old from the list */
