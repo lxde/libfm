@@ -548,7 +548,10 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     /* cannot create links on non-native filesystems */
     if(!g_file_is_native(dest_dir))
     {
-        /* FIXME: generate error */
+        GError *err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+                                          _("cannot create a link on non-native filesystem"));
+        fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        g_error_free(err);
         g_object_unref(dest_dir);
         return FALSE;
     }
@@ -562,7 +565,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         !fm_job_is_cancelled(fmjob) && l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);
-        char* src = fm_path_to_str(path);
+        char* src = NULL;
         GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
         GError* err = NULL;
         char* dname;
@@ -572,9 +575,14 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         fm_file_ops_job_emit_cur_file(job, dname);
         g_free(dname);
 
-        if(!g_file_make_symbolic_link(dest, src, fm_job_get_cancellable(fmjob), &err))
+        if (fm_path_is_native(path))
         {
-            FmJobErrorAction act = FM_JOB_CONTINUE;
+          src = fm_path_to_str(path);
+          if(!g_file_make_symbolic_link(dest, src, fm_job_get_cancellable(fmjob), &err))
+          {
+            FmJobErrorAction act;
+_link_error:
+            act = FM_JOB_CONTINUE;
             if(err)
             {
                 /* FIXME: ask user to choose another filename for creation */
@@ -590,9 +598,42 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
                 return FALSE;
             }
             ret = FALSE;
+          }
+//        else if(job->dest_folder_mon)
+//            g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
         }
-        else if(job->dest_folder_mon)
-            g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+        else /* create shortcut instead */
+        {
+            gsize out_len;
+            /* unfortunately we cannot use g_file_replace_contents() here
+               because we should handle the case if file already exists */
+            GFileOutputStream *out = g_file_create(dest, G_FILE_CREATE_NONE,
+                                                   fm_job_get_cancellable(fmjob),
+                                                   &err);
+            char *name;
+            if (out == NULL)
+                goto _link_error;
+            src = fm_path_to_uri(path);
+            name = fm_path_display_basename(path);
+            dname = g_strdup_printf("[Desktop Entry]\n"
+                                    "Type=Link\n"
+                                    "Name=%s\n"
+                                    "URL=%s", name, src);
+            g_free(name);
+            /* NOTE: it would be good to set icon too but FmPath has no icons */
+            if (!g_output_stream_write_all(G_OUTPUT_STREAM(out), dname,
+                                           strlen(dname), &out_len,
+                                           fm_job_get_cancellable(fmjob), &err))
+            {
+                g_object_unref(out);
+                g_free(dname);
+                goto _link_error;
+            }
+            g_output_stream_close(G_OUTPUT_STREAM(out), /* FIXME: handle errors */
+                                  fm_job_get_cancellable(fmjob), NULL);
+            g_object_unref(out);
+            g_free(dname);
+        }
 
         job->finished++;
 
