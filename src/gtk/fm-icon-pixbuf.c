@@ -43,7 +43,7 @@ static void destroy_pixbufs(gpointer data)
 {
     GSList* pixs = (GSList*)data;
     GSList* l;
-    gdk_threads_enter(); /* FIXME: is this needed? */
+    GDK_THREADS_ENTER(); /* FIXME: is this needed? */
     for(l = pixs; l; l=l->next)
     {
         PixEntry* ent = (PixEntry*)l->data;
@@ -51,7 +51,7 @@ static void destroy_pixbufs(gpointer data)
             g_object_unref(ent->pix);
         g_slice_free(PixEntry, ent);
     }
-    gdk_threads_leave();
+    GDK_THREADS_LEAVE();
     g_slist_free(pixs);
 }
 
