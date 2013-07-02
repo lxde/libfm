@@ -33,7 +33,7 @@ src/actions/*.[ch]
 src/fm-version.h
 src/libfm-demo
 src/libfm-pref-apps
-src/libfm-file-search-cli-demo
+src/tests/file-search-cli-demo
 src/tests/fm-path
 src/vapi/fm-actions.vapi
 src/xml-purge

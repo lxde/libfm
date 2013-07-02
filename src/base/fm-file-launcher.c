@@ -240,7 +240,12 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                     if(run_path && strcmp(run_path, "."))
                                     {
                                         cwd = g_get_current_dir();
-                                        chdir(run_path);
+                                        if(chdir(run_path) != 0)
+                                        {
+                                            /* FIXME: report an error */
+                                            g_free(cwd);
+                                            cwd = NULL;
+                                        }
                                     }
                                     g_free(run_path);
                                     if(!fm_app_info_launch(app, NULL, ctx, &err))
@@ -252,7 +257,8 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                     }
                                     if(cwd) /* return back */
                                     {
-                                        chdir(cwd);
+                                        if(chdir(cwd) != 0)
+                                            g_warning("fm_launch_files(): chdir() failed");
                                         g_free(cwd);
                                     }
                                     g_object_unref(app);
