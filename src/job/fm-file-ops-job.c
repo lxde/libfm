@@ -2,7 +2,7 @@
  *      fm-file-ops-job.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -34,6 +34,8 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+
+#include <glib/gi18n-lib.h>
 
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
@@ -503,7 +505,10 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     g_object_unref(fijob);
     if(!dest_fi) /* invalid destination directory! */
     {
-        /* FIXME: some warning? */
+        GError *err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
+                                          _("Cannot access destination file"));
+        fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
+        g_error_free(err);
         fm_file_info_unref(src_fi);
         return FM_FILE_OP_CANCEL;
     }

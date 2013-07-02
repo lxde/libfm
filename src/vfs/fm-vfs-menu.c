@@ -712,8 +712,8 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
         dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
 #endif
     if(is_invalid)
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                            _("Invalid menu directory"));
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("Invalid menu directory %s"), init->path_str);
     else if(dir)
     {
         const char *de_name = g_getenv("XDG_CURRENT_DESKTOP");
