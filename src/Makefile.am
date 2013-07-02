@@ -11,16 +11,12 @@ SUBDIRS= \
 	$(NULL)
 
 AM_CPPFLAGS = \
-	-I$(srcdir) \
 	-I$(srcdir)/base \
-	-I$(srcdir)/actions \
 	-I$(srcdir)/job \
-	-I$(srcdir)/gtk \
-	-I$(srcdir)/demo \
-	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
-	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
-	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
+	-I$(srcdir)/extra \
+	-I$(srcdir)/actions \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-Werror-implicit-function-declaration \
 	$(NULL)
 
 glib_compat_SOURCES= \
@@ -101,6 +97,10 @@ libfm_SOURCES = \
 	$(udisks_SOURCES) \
 	$(NULL)
 
+libfm_extra_SOURCES = \
+	extra/fm-xml-file.c \
+	$(NULL)
+
 exo_SOURCES = \
 	gtk/exo/exo-icon-view.c \
 	gtk/exo/exo-private.c \
@@ -152,6 +152,7 @@ libfm_gtk_SOURCES = \
 libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
+	fm-version.h \
 	base/fm-config.h \
 	base/fm-list.h \
 	base/fm-path.h \
@@ -218,14 +219,21 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
+libfmextraincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
+libfmextrainclude_HEADERS = \
+	fm-extra.h \
+	extra/fm-xml-file.h \
+	$(NULL)
+
 pkginclude_HEADERS = \
 	$(LIBFM_INCLUDES) \
+	$(LIBFM_EXTRA_INCLUDES) \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 
 EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
 
-lib_LTLIBRARIES = libfm.la @LIBFM_GTK_LTLIBRARIES@
+lib_LTLIBRARIES = libfm-extra.la libfm.la @LIBFM_GTK_LTLIBRARIES@
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
@@ -235,7 +243,7 @@ libfm_la_CFLAGS = \
 	$(MENU_CACHE_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(EXIF_CFLAGS) \
-	-Werror-implicit-function-declaration \
+	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
 	$(NULL)
 
 libfm_la_LIBADD = \
@@ -245,6 +253,7 @@ libfm_la_LIBADD = \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	$(LIBFMACTIONS) \
+	libfm-extra.la \
 	$(NULL)
 
 libfm_la_DEPENDENCIES_EXTRA = \
@@ -257,18 +266,36 @@ libfm_la_LDFLAGS = \
 	-version-info $(ABI_VERSION) \
 	$(NULL)
 
+libfm_extra_la_SOURCES = \
+	$(libfm_extra_SOURCES) \
+	$(NULL)
+
+libfm_extra_la_CFLAGS = \
+	$(GIO_CFLAGS) \
+	$(NULL)
+
+libfm_extra_la_LIBADD = \
+	$(GIO_LIBS) \
+	$(INTLLIBS) \
+	$(NULL)
+
+libfm_extra_la_LDFLAGS = \
+	-no-undefined \
+	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
+	$(NULL)
+
 libfm_gtk_la_SOURCES = \
 	$(libfm_gtk_SOURCES) \
 	$(NULL)
 libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 
 libfm_gtk_la_CFLAGS = \
+	-I$(srcdir)/gtk \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-I$(srcdir) \
-	-I$(srcdir)/base \
-	-I$(srcdir)/job \
-	-Werror-implicit-function-declaration
+	$(NULL)
 libfm_gtk3_la_CFLAGS = $(libfm_gtk_la_CFLAGS)
 
 libfm_gtk_la_LIBADD = \
@@ -302,9 +329,11 @@ libfm_pref_apps_DEPENDENCIES = \
 	$(NULL)
 
 libfm_pref_apps_CFLAGS = \
+	-I$(srcdir)/gtk \
 	$(GTK_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
-	-Werror-implicit-function-declaration \
+	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
 
 libfm_pref_apps_LDADD = \
@@ -330,8 +359,8 @@ libfm_demo_DEPENDENCIES = \
 	$(NULL)
 
 libfm_demo_CFLAGS = \
+	-I$(srcdir)/gtk \
 	$(GTK_CFLAGS) \
-	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_demo_LDADD = \
@@ -361,6 +390,7 @@ libgiofm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DG_DISABLE_DEPRECATED \
 	$(NULL)
 

@@ -37,7 +37,8 @@ void _fm_dentry_properties_init(void);
  * fm_gtk_init
  * @config: configuration file data
  *
- * Initializes libfm-gtk data.
+ * Initializes libfm-gtk data. This API should be always called before any
+ * other libfm-gtk function is called.
  *
  * Returns: %TRUE in case of success.
  *

@@ -1,5 +1,5 @@
 /*
- *      fm-file-properties.c
+ *      fm-file-properties.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
  *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>

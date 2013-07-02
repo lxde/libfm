@@ -189,7 +189,7 @@ struct _FmFilePropData
     guint timeout;
     FmDeepCountJob* dc_job;
 
-    FmFilePropExt* ext;
+    FmFilePropExt* ext; // FIXME: make this stackable
     gpointer extdata;
 };
 
@@ -327,12 +327,10 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
-    /* call the extension if it was set */
-    if(data->ext != NULL)
-        data->ext->cb.finish(data->extdata, response != GTK_RESPONSE_OK);
-
     if( response == GTK_RESPONSE_OK )
     {
+      if(gtk_widget_get_visible(data->permissions_tab))
+      {
         int sel;
         const char* new_owner = gtk_entry_get_text(data->owner);
         const char* new_group = gtk_entry_get_text(data->group);
@@ -520,6 +518,11 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                                                         /* it eats reference! */
             fm_path_list_unref(paths);
         }
+      } /* end of permissions update */
+
+        /* call the extension if it was set */
+        if(data->ext != NULL) // FIXME: make this stackable!
+            data->ext->cb.finish(data->extdata, FALSE);
 
         /* change default application for the mime-type if needed */
         if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
@@ -552,6 +555,9 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
         }
     }
+    /* call the extension if it was set */
+    else if(data->ext != NULL) // FIXME: make this stackable!
+        data->ext->cb.finish(data->extdata, TRUE);
     gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
@@ -850,6 +856,7 @@ static void update_ui(FmFilePropData* data)
         char* parent_str = parent ? fm_path_display_name(parent, TRUE) : NULL;
         time_t atime;
         struct tm tm;
+        /* FIXME: use fm_file_info_get_edit_name */
         gtk_entry_set_text(data->name, fm_file_info_get_disp_name(data->fi));
         /* FIXME: check if text fits in line */
         if(strlen(fm_file_info_get_disp_name(data->fi)) > 16)
@@ -989,7 +996,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     update_ui(data);
 
     /* if we got some extension then activate it updating dialog window */
-    if(data->ext)
+    if(data->ext) // FIXME: make this stackable!
         data->extdata = data->ext->cb.init(builder, data, data->files);
 
     g_object_unref(builder);

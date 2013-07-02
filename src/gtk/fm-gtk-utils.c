@@ -1033,6 +1033,8 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     gchar* new_name;
     GFileMonitor* mon;
 
+    /* FIXME: use fm_file_info_get_edit_name() to get a name and then
+       use g_file_set_display_name() to change it */
     new_name = fm_get_user_input_rename(parent, _("Rename File"),
                                         _("Please enter a new name:"),
                                         fm_path_get_basename(file));

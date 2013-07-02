@@ -120,6 +120,42 @@ Changes on 1.2.0 since 1.1.0:
 * Added 'shadow_hidden' option into config file, defaulted to false,
     which allows icons of hidden files to be shadowed in view.
 
+* Added GFileMonitor implementation for menu:// VFS.
+
+* The 'Permissions' tab in the file properties dialog will be hidden if
+    permissions (owner/group and access flags) aren't available to get
+    for the selected file(s).
+
+* Added file operations for menu:// VFS, therefore any application which
+    uses libfm can do desktop menu editing. Supported operations are now:
+    - create new application in any menu folder;
+    - change some application properties (contents of desktop entry);
+    - delete some application from menu;
+    - move the application from some menu folder to another one;
+    - create new folder in the menu (invisible though);
+    - delete some folder from the menu.
+    Folder creation and deletion operations are disabled if used with
+    libmenu-cache older than 0.5.0 because you cannot see hidden folders
+    with older libmenu-cache and therefore you cannot see newly created
+    folder too (empty folders are hidden from menu in accordance with XDG
+    menu specification).
+
+* New class FmXmlFile which is simple container which allows to load and
+    parse XML text, do desired changes, and finally compose changed data
+    into XML text back. It has very few simplifications:
+    - only UTF-8 encoding is supported;
+    - no user-defined entities (those should be converted externally);
+    - processing instructions, comments and the doctype declaration are
+      parsed but are not interpreted in any way.
+
+* Added one more library: libfm-extra. It contains only FmXmlFile for
+    now. The purpose for separated library is that it can be used where
+    libfm cannot be - for example in menu-cache utilities.
+
+* Implemented support for hidden menu applications and folders. Those are
+    visible in folder view only when 'Show hidden' is on. This will work
+    only with libmenu-cache 0.5.0 or newer.
+
 
 Changes on 1.1.0 since 1.0.1:
 

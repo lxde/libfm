@@ -284,7 +284,7 @@ AC_CONFIG_FILES([
     src/Makefile
     src/actions/Makefile
     src/tests/Makefile
-    src/fm.h
+    src/fm-version.h
     data/Makefile
     data/libfm-pref-apps.1
     data/ui/Makefile
@@ -296,6 +296,7 @@ AC_CONFIG_FILES([
     libfm.pc
     libfm-gtk.pc
     libfm-gtk3.pc
+    libfm-extra.pc
 ])
 
 AC_OUTPUT
