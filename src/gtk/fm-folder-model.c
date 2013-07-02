@@ -685,7 +685,15 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
             icon = fm_file_info_get_icon(info);
             if(!icon)
                 return;
-            item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
+            /* special handle for desktop entries that have invalid icon */
+            if(fm_file_info_is_dir(info))
+                item->icon = fm_pixbuf_from_icon_with_fallback(icon,
+                                                model->icon_size, "folder");
+            else if(fm_file_info_is_desktop_entry(info))
+                item->icon = fm_pixbuf_from_icon_with_fallback(icon,
+                                                model->icon_size, "application-x-executable");
+            else
+                item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
         }
         g_value_set_object(value, item->icon);
 
