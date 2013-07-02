@@ -87,6 +87,7 @@ struct _FmFileInfo
 
     char* target; /* target of shortcut or mountable. */
 
+    gboolean shortcut : 1; /* TRUE if file is shortcut type */
     gboolean accessible : 1; /* TRUE if can be read by user */
     gboolean hidden : 1; /* TRUE if file is hidden */
     gboolean backup : 1; /* TRUE if file is backup */
@@ -332,8 +333,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 
     switch(type)
     {
-    case G_FILE_TYPE_MOUNTABLE:
     case G_FILE_TYPE_SHORTCUT:
+        fi->shortcut = TRUE;
+    case G_FILE_TYPE_MOUNTABLE:
         uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
         if(uri)
         {
@@ -470,6 +472,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
         fi->mode |= S_IFREG;
         fi->target = menu_cache_item_get_file_path(item);
     }
+    fi->shortcut = TRUE;
     fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
 }
 
@@ -868,7 +871,7 @@ gboolean fm_file_info_is_symlink(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
 {
-    return fi->mime_type == _fm_mime_type_get_inode_x_shortcut();
+    return fi->shortcut;
 }
 
 gboolean fm_file_info_is_mountable(FmFileInfo* fi)

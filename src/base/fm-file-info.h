@@ -37,19 +37,6 @@
 
 G_BEGIN_DECLS
 
-/* Some flags are defined for future use and are not supported now */
-enum _FmFileInfoFlag
-{
-    FM_FILE_INFO_NONE = 0,
-    FM_FILE_INFO_HOME_DIR = (1 << 0),
-    FM_FILE_INFO_DESKTOP_DIR = (1 << 1),
-    FM_FILE_INFO_DESKTOP_ENTRY = (1 << 2),
-    FM_FILE_INFO_MOUNT_POINT = (1 << 3),
-    FM_FILE_INFO_REMOTE = (1 << 4),
-    FM_FILE_INFO_VIRTUAL = (1 << 5)
-};
-typedef enum _FmFileInfoFlag FmFileInfoFlag;
-
 typedef struct _FmFileInfo FmFileInfo;
 //typedef struct _FmFileInfoList FmFileInfoList; // defined in fm-path.h
 
