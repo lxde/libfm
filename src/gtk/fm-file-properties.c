@@ -329,6 +329,8 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
     if( response == GTK_RESPONSE_OK )
     {
+      /* if permissions_tab is hidden then it has undefined data
+         so don't ever try to check those data */
       if(gtk_widget_get_visible(data->permissions_tab))
       {
         int sel;
@@ -548,7 +550,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
         if(data->single_file) /* when only one file is shown */
         {
-            /* if the user has changed its name */
+            /* if the user has changed the name of the file */
             if(g_strcmp0(fm_file_info_get_disp_name(data->fi), gtk_entry_get_text(data->name)))
             {
                 /* FIXME: rename the file or set display name for it. */

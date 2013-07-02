@@ -50,6 +50,7 @@ struct _FmFilePropertiesDEntryData
     GtkToggleButton *keep_open;
     GtkToggleButton *notification;
     gchar *lang;
+    gchar *saved_name;
     gboolean changed;
 };
 
@@ -500,6 +501,8 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     widget = gtk_builder_get_object(ui, "name");
     g_signal_handlers_block_matched(widget, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, uidata);
     g_signal_connect(widget, "changed", G_CALLBACK(_dentry_name_changed), data);
+    data->name = GTK_ENTRY(widget);
+    data->saved_name = g_strdup(gtk_entry_get_text(data->name));
     /* FIXME: two lines below is temporary workaround on FIXME in widget */
     gtk_widget_set_can_focus(GTK_WIDGET(widget), TRUE);
     gtk_editable_set_editable(GTK_EDITABLE(widget), TRUE);
@@ -689,6 +692,9 @@ static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
     }
     g_object_unref(data->file);
     g_key_file_free(data->kf);
+    /* restore the field so properties dialog will not do own processing */
+    gtk_entry_set_text(data->name, data->saved_name);
+    g_free(data->saved_name);
     g_free(data->lang);
     g_slice_free(FmFilePropertiesDEntryData, data);
 }
