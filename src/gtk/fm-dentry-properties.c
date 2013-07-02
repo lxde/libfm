@@ -566,7 +566,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
                                 _("Command to execute when the application icon is activated"));
     gtk_box_pack_start(GTK_BOX(widget), new_widget, TRUE, TRUE, 0);
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_exec_changed), data);
-    gtk_table_attach(table, GTK_WIDGET(widget), 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
+    gtk_table_attach(table, GTK_WIDGET(widget), 1, 2, 0, 1, GTK_FILL|GTK_EXPAND, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
     /* row 1: "Terminal" GtkCheckButton */
     new_widget = gtk_check_button_new_with_mnemonic(_("_Run in terminal emulator"));
@@ -609,7 +609,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     }
     gtk_widget_set_tooltip_text(new_widget, _("Generic name of the application"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_genname_changed), data);
-    gtk_table_attach(table, new_widget, 1, 2, 4, 5, GTK_FILL, 0, 0, 0);
+    gtk_table_attach(table, new_widget, 1, 2, 4, 5, GTK_FILL|GTK_EXPAND, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
     /* row 3: "Path" GtkEntry */
     new_widget = gtk_label_new(NULL);
@@ -628,7 +628,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_widget_set_tooltip_text(new_widget,
                                 _("The working directory to run the program in"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_path_changed), data);
-    gtk_table_attach(table, new_widget, 1, 2, 3, 4, GTK_FILL, 0, 0, 0);
+    gtk_table_attach(table, new_widget, 1, 2, 3, 4, GTK_FILL|GTK_EXPAND, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
     /* row 5: "Comment" GtkEntry */
     new_widget = gtk_label_new(NULL);
@@ -646,7 +646,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     }
     gtk_widget_set_tooltip_text(new_widget, _("Tooltip to show on application"));
     g_signal_connect(new_widget, "changed", G_CALLBACK(_dentry_tooltip_changed), data);
-    gtk_table_attach(table, new_widget, 1, 2, 5, 6, GTK_FILL, 0, 0, 0);
+    gtk_table_attach(table, new_widget, 1, 2, 5, 6, GTK_FILL|GTK_EXPAND, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
     /* TODO: handle "TryExec" field ? */
     /* row 7: "StartupNotify" GtkCheckButton */
