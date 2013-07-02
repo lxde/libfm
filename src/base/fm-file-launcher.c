@@ -190,6 +190,19 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         fi = (FmFileInfo*)l->data;
         if (launcher->open_folder && fm_file_info_is_dir(fi))
             folders = g_list_prepend(folders, fi);
+        else if (fm_file_info_is_desktop_entry(fi))
+        {
+            char *filename;
+
+            /* special handling for shortcuts */
+            if (fm_file_info_is_shortcut(fi))
+                filename = g_strdup(fm_file_info_get_target(fi));
+            else
+                filename = fm_path_to_str(fm_file_info_get_path(fi));
+            fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
+            g_free(filename);
+            continue;
+        }
         else
         {
             FmPath* path = fm_file_info_get_path(fi);
@@ -197,19 +210,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             /* FIXME: handle shortcuts, such as the items in menu:// */
             if(fm_path_is_native(path))
             {
-                char* filename;
-                if(fm_file_info_is_desktop_entry(fi))
-                {
-                    /* if it's a desktop entry file, directly launch it. */
-                    filename = fm_path_to_str(path);
-                    fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
-                    g_free(filename);
-                    continue;
-                }
-                else if(fm_file_info_is_executable_type(fi))
+                if(fm_file_info_is_executable_type(fi))
                 {
                     /* if it's an executable file, directly execute it. */
-                    filename = fm_path_to_str(path);
+                    char *filename = fm_path_to_str(path);
+                    /* FIXME: need a support for shortcuts? */
 
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
@@ -276,23 +281,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     g_free(filename);
                 }
             }
-            else /* not a native path */
-            {
-                if(fm_file_info_is_shortcut(fi) && !fm_file_info_is_dir(fi))
-                {
-                    /* FIXME: special handling for shortcuts */
-                    //if(fm_path_is_xdg_menu(path))
-                    //{
-                        const char* target = fm_file_info_get_target(fi);
-                        if(target)
-                        {
-                            fm_launch_desktop_entry(ctx, target, NULL, launcher, user_data);
-                            continue;
-                        }
-                    //}
-                }
-            }
-
             mime_type = fm_file_info_get_mime_type(fi);
             if(mime_type && (type = fm_mime_type_get_type(mime_type)))
             {
@@ -325,7 +313,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     char* uri;
                     fi = (FmFileInfo*)l->data;
-                    uri = fm_path_to_uri(fm_file_info_get_path(fi));
+                    /* special handling for shortcuts */
+                    if (fm_file_info_is_shortcut(fi))
+                        uri = g_strdup(fm_file_info_get_target(fi));
+                    else
+                        uri = fm_path_to_uri(fm_file_info_get_path(fi));
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);
