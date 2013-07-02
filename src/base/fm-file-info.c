@@ -172,6 +172,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             {
                 char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
                 char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
+                char* type = g_key_file_get_string(kf, "Desktop Entry", "Type", NULL);
                 if(icon_name)
                 {
                     if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
@@ -192,6 +193,39 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                 }
                 if(title) /* Use title of the desktop entry for display */
                     fi->disp_name = title;
+                if(type)
+                {
+                    /* g_debug("got desktop entry with type %s", type); */
+                    if(strcmp(type, G_KEY_FILE_DESKTOP_TYPE_LINK) == 0)
+                    {
+                        char *uri = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                                          G_KEY_FILE_DESKTOP_KEY_URL, NULL);
+                        /* handle Type=Link, those are shortcuts
+                           therefore set ->shortcut, ->target, ->mime_type */
+                        if (uri)
+                        {
+                            FmMimeType *new_mime_type = fm_mime_type_from_file_name(uri);
+
+                            /* g_debug("got type %s for URL %s", fm_mime_type_get_type(new_mime_type), uri); */
+                            if (strcmp(fm_mime_type_get_type(new_mime_type),
+                                       "application/octet-stream") == 0)
+                            {
+                                /* failed to determine, leave as is */
+                                fm_mime_type_unref(new_mime_type);
+                            }
+                            else
+                            {
+                                fm_mime_type_unref(fi->mime_type);
+                                fi->mime_type = new_mime_type;
+                            }
+                            fi->shortcut = TRUE;
+                            fi->target = uri;
+                        }
+                        /* FIXME: otherwise it's error so reset mime type to unknown */
+                    }
+                    g_free(type);
+                }
+                /* FIXME: otherwise it's error so reset mime type to unknown */
             }
             if(icon)
                 fi->icon = icon;
