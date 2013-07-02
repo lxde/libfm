@@ -859,6 +859,11 @@ query_sources:
                 action = GDK_ACTION_COPY;
             else if(mask != 0) /* another modifier key was pressed */
                 action = 0;
+            /* prefer to make shortcuts on Desktop instead of copy/move files */
+            else if(fm_path_equal(dest_path, fm_path_get_desktop()))
+                /* FIXME: if sources are shortcuts then it's better to
+                   copy them instead but how to detect the fact though? */
+                action = GDK_ACTION_LINK;
             /* make decision based on config: Auto / Copy / Move / Ask */
             else switch((FmDndDestDropAction)fm_config->drop_default_action)
             {
