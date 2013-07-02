@@ -1106,7 +1106,7 @@ void fm_set_busy_cursor(GtkWidget* widget)
     else
     {
         /* FIXME: how to handle this case? */
-        /* g_debug("not realized"); */
+        g_warning("fm_set_busy_cursor: widget is not realized");
     }
 }
 

@@ -250,7 +250,6 @@ static gboolean open_search_func(GAppLaunchContext* ctx, GList* folder_infos, gp
     guint i;
 
     win = fm_main_win_new();
-    gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
     fm_main_win_chdir(win, fm_file_info_get_path(fi));
     fm_standard_view_set_mode(FM_STANDARD_VIEW(win->folder_view), FM_FV_LIST_VIEW);
     for(i = 0; i < G_N_ELEMENTS(col_infos); i++)
@@ -536,6 +535,9 @@ static void fm_main_win_init(FmMainWin *win)
     gtk_container_add( (GtkContainer*)win, vbox );
     gtk_widget_show_all(vbox);
 
+    gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
+    gtk_widget_realize(GTK_WIDGET(win));
+
     fm_folder_view_set_show_hidden(win->folder_view, FALSE);
     fm_main_win_chdir(win, fm_path_get_home());
 
@@ -658,7 +660,6 @@ void on_sort_type(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
 void on_new_win(GtkAction* act, FmMainWin* win)
 {
     win = fm_main_win_new();
-    gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
     fm_main_win_chdir(win, fm_path_get_home());
     gtk_window_present(GTK_WINDOW(win));
 }
@@ -681,7 +682,6 @@ void on_open_in_new_win(GtkAction* act, FmMainWin* win)
     {
         FmPath* path = (FmPath*)l->data;
         win = fm_main_win_new();
-        gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
         fm_main_win_chdir(win, path);
         gtk_window_present(GTK_WINDOW(win));
     }
