@@ -2324,6 +2324,7 @@ static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
     gsize len = 0;
     int i;
     gchar *content;
+    GError *err = NULL;
     gboolean ok;
 
     if (g_cancellable_set_error_if_cancelled(cancellable, error))
@@ -2356,21 +2357,31 @@ static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
     else
         i = 0;
     if (i < 0) /* .menu file error */
-    {
-        g_key_file_free(kf);
-        return FALSE;
-    }
+        ok = FALSE;
     if (i > 0)
         g_key_file_set_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
                                    G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
                                    (const gchar* const*)categories, i);
     g_strfreev(categories);
-    content = g_key_file_to_data(kf, &len, error);
+    content = g_key_file_to_data(kf, &len, &err);
     g_key_file_free(kf);
     if (!content)
+    {
+        if (!ok) /* _update_categories() failed, don't replace error message */
+            g_error_free(err);
+        else
+            g_propagate_error(error, err);
         return FALSE;
-    ok = g_output_stream_write_all(stream->real_stream, content, len, &len,
-                                   cancellable, error);
+    }
+    if (!g_output_stream_write_all(stream->real_stream, content, len, &len,
+                                   cancellable, &err))
+    {
+        if (!ok) /* _update_categories() failed, don't replace error message */
+            g_error_free(err);
+        else
+            g_propagate_error(error, err);
+        ok = FALSE;
+    }
     g_free(content);
     if (!ok || !g_output_stream_close(stream->real_stream, cancellable, error))
         return FALSE;
