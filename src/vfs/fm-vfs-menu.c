@@ -1056,6 +1056,7 @@ static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
     FmXmlFile *menu = NULL;
     GList *xml = NULL, *it; /* loaded list */
     GFile *gf;
+    GError *err = NULL;
     char *save_path, *contents;
     gsize len;
     gboolean ok;
@@ -1083,7 +1084,21 @@ static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
     ok = fm_xml_file_parse_data(menu, contents, len, error, data);
     g_free(contents);
     if (ok)
-        xml = fm_xml_file_finish_parse(menu, error);
+    {
+        xml = fm_xml_file_finish_parse(menu, &err);
+        if (err && err->domain == G_MARKUP_ERROR &&
+            err->code == G_MARKUP_ERROR_EMPTY)
+        {
+            /* NOTE: it should be legal case to have empty menu file.
+               it may be not generally this but let it be */
+            g_error_free(err);
+            g_free(data->file_path);
+            data->file_path = save_path;
+            g_object_unref(menu);
+            return TRUE;
+        }
+        g_propagate_error(error, err);
+    }
     if (xml == NULL) /* error is set by failed function */
     {
         /* g_debug("freeing FmXmlFile %p (failed)", menu); */
