@@ -478,7 +478,8 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     const gchar *path_str, *sep;
 
-    g_return_if_fail(priv->model != NULL);
+    if(priv->model == NULL)
+        return;
     /* find parent dir of current path */
     path_str = gtk_entry_get_text( GTK_ENTRY(entry) );
     sep = g_utf8_strrchr(path_str, -1, G_DIR_SEPARATOR);

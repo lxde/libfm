@@ -589,8 +589,10 @@ static GType fm_folder_model_get_column_type(GtkTreeModel *tree_model,
                                              gint index)
 {
     g_return_val_if_fail(FM_IS_FOLDER_MODEL(tree_model), G_TYPE_INVALID);
-    g_return_val_if_fail((guint)index < column_infos_n, G_TYPE_INVALID);
-    g_return_val_if_fail(column_infos[index] != NULL, G_TYPE_INVALID);
+    if((guint)index >= column_infos_n)
+        return G_TYPE_INVALID;
+    if(column_infos[index] == NULL)
+        return G_TYPE_INVALID;
     return column_infos[index]->type;
 }
 
@@ -819,7 +821,7 @@ static gint fm_folder_model_iter_n_children(GtkTreeModel *tree_model,
 {
     FmFolderModel* model;
     g_return_val_if_fail(FM_IS_FOLDER_MODEL(tree_model), -1);
-    g_return_val_if_fail(iter == NULL || iter->user_data != NULL, FALSE);
+    g_return_val_if_fail(iter == NULL || iter->user_data != NULL, -1);
     model = (FmFolderModel*)tree_model;
     /* special case: if iter == NULL, return number of top-level rows */
     if( !iter )
