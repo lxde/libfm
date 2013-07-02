@@ -716,6 +716,7 @@ fm_icon_unref
 <SECTION>
 <FILE>fm-icon-pixbuf</FILE>
 fm_pixbuf_from_icon
+fm_pixbuf_from_icon_with_fallback
 </SECTION>
 
 <SECTION>

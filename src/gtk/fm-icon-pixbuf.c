@@ -70,6 +70,24 @@ static void destroy_pixbufs(gpointer data)
  */
 GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
 {
+    return fm_pixbuf_from_icon_with_fallback(icon, size, NULL);
+}
+
+/**
+ * fm_pixbuf_from_icon_with_fallback
+ * @icon: icon descriptor
+ * @size: size in pixels
+ * @fallback: (allow-none): name of fallback icon
+ *
+ * Creates a #GdkPixbuf and draws icon there. If icon cannot be found then
+ * icon with name @fallback will be loaded instead.
+ *
+ * Returns: (transfer full): an image.
+ *
+ * Since: 1.2.0
+ */
+GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char *fallback)
+{
     GtkIconInfo* ii;
     GdkPixbuf* pix;
     GSList *pixs, *l;
@@ -101,7 +119,7 @@ GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
     {
         char* str = g_icon_to_string(icon->gicon);
         g_debug("unable to load icon %s", str);
-        /* pix = NULL; */
+        pix = NULL;
 #if 0
         if(g_strcmp0(str, "folder-locked") == 0)
             pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "folder",
@@ -109,6 +127,10 @@ GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
             /* FIXME: create locked icon from "folder" one */
         else
 #endif
+        if(fallback)
+            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), fallback,
+                    size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+        if(pix == NULL) /* still unloadable */
             pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown",
                     size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
         if(G_LIKELY(pix))

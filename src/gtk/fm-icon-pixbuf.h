@@ -32,6 +32,7 @@ void _fm_icon_pixbuf_init();
 void _fm_icon_pixbuf_finalize();
 
 GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size);
+GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char *fallback);
 
 G_END_DECLS
 
