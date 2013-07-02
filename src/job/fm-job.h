@@ -2,6 +2,7 @@
  *      fm-job.h
  *      
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -84,16 +85,6 @@ struct _FmJob
 
     /* optional, should be created if the job uses gio */
     GCancellable* cancellable;
-
-#if GLIB_CHECK_VERSION(2, 32, 0)
-    GMutex mutex;
-    GCond cond;
-#else
-    /* optional, used when blocking the job to call a callback in
-     * main thread is needed. */
-    GMutex* mutex;
-    GCond* cond;
-#endif
 
     /*< private >*/
     gpointer _reserved1;
