@@ -95,6 +95,7 @@ static void fm_template_finalize(GObject *object)
         fm_icon_unref(self->icon);
     g_free(self->command);
     g_free(self->prompt);
+    g_free(self->label);
 
     G_OBJECT_CLASS(fm_template_parent_class)->finalize(object);
 }
@@ -222,6 +223,7 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
     }
     /* so we have real template file now, guess from file content first */
     mime_type = NULL;
+    g_free(filename);
     filename = fm_path_to_str(path);
     /* type is NULL still */
     mime_type = fm_mime_type_from_native_file(filename, basename, NULL);
@@ -289,6 +291,8 @@ static FmTemplate *_fm_template_find_for_file(FmPath *path, FmMimeType *mime_typ
     {
         /* g_debug("could not guess MIME type for template %s, ignoring it",
                 fm_path_get_basename(path)); */
+        if(tpath)
+            fm_path_unref(tpath);
         return NULL;
     }
     if(!template_type_once && !tpath)
