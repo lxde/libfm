@@ -428,6 +428,11 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
     return fi;
 }
 
+/**
+ * fm_file_info_set_from_menu_cache_item
+ *
+ * Deprecated: 1.2.0: Don't use it in newer code.
+ */
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
     const char* icon_name;
@@ -468,6 +473,11 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
     fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
 }
 
+/**
+ * fm_file_info_new_from_menu_cache_item
+ *
+ * Deprecated: 1.2.0: Don't use it in newer code.
+ */
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {
     FmFileInfo* fi = fm_file_info_new();

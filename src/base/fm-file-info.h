@@ -2,7 +2,7 @@
  *      fm-file-info.h
  *
  *      Copyright 2009 - 2012 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -65,8 +65,10 @@ FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
 //void fm_file_info_set_from_g_file_data(FmFileInfo* fi, GFile* gf, GFileInfo* inf);
 
+#ifndef FM_DISABLE_DEPRECATED
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem* item);
+#endif
 
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
 
