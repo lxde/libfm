@@ -1458,6 +1458,7 @@ static void _fm_vfs_menu_enumerator_dispose(GObject *object)
 }
 
 static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
+//                                                    GFileAttributeMatcher *attribute_matcher,
                                                     guint32 de_flag)
 {
     GFileInfo *fileinfo = g_file_info_new();
@@ -1531,8 +1532,13 @@ static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
                                   !menu_cache_app_get_is_visible(MENU_CACHE_APP(item),
                                                                  de_flag));
     }
+// FIXME: use attribute_matcher and set G_FILE_ATTRIBUTE_ACCESS_CAN_{WRITE,READ,EXECUTE,DELETE}
     g_file_info_set_attribute_string(fileinfo, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
                                      "menu-Applications");
+    g_file_info_set_attribute_boolean(fileinfo,
+                                      G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME, TRUE);
+    g_file_info_set_attribute_boolean(fileinfo,
+                                      G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH, FALSE);
     return fileinfo;
 }
 
@@ -1548,6 +1554,7 @@ typedef struct
         FmMenuVFile *destination;
 //        const char *attributes;
         const char *display_name;
+        GFileInfo *info;
     };
 //    GFileQueryInfoFlags flags;
     union
@@ -1789,6 +1796,8 @@ static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
 
 
 /* ---- GFile implementation ---- */
+static GFileAttributeInfoList *_fm_vfs_menu_settable_attributes = NULL;
+
 #define ERROR_UNSUPPORTED(err) g_set_error_literal(err, G_IO_ERROR, \
                         G_IO_ERROR_NOT_SUPPORTED, _("Operation not supported"))
 
@@ -2208,7 +2217,9 @@ static gboolean _fm_vfs_menu_set_display_name_real(gpointer data)
                             _("Invalid menu item"));
     else if (menu_cache_item_get_file_basename(dir) == NULL ||
              menu_cache_item_get_file_dirname(dir) == NULL)
-        ERROR_UNSUPPORTED(init->error);
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                    _("The menu item '%s' doesn't have appropriate entry file"),
+                    menu_cache_item_get_id(dir));
     else if (!g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
     {
         char *path = menu_cache_item_get_file_path(dir);
@@ -2277,6 +2288,7 @@ static GFile *_fm_vfs_menu_set_display_name(GFile *file,
     FmMenuVFile *item = FM_MENU_VFILE(file);
     FmVfsMenuMainThreadData enu;
 
+    /* g_debug("_fm_vfs_menu_set_display_name: %s -> %s", item->path, display_name); */
     if (item->path == NULL)
     {
         ERROR_UNSUPPORTED(error);
@@ -2301,8 +2313,7 @@ static GFileAttributeInfoList *_fm_vfs_menu_query_settable_attributes(GFile *fil
                                                                       GCancellable *cancellable,
                                                                       GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return NULL;
+    return g_file_attribute_info_list_ref(_fm_vfs_menu_settable_attributes);
 }
 
 static GFileAttributeInfoList *_fm_vfs_menu_query_writable_namespaces(GFile *file,
@@ -2313,16 +2324,150 @@ static GFileAttributeInfoList *_fm_vfs_menu_query_writable_namespaces(GFile *fil
     return NULL;
 }
 
-static gboolean _fm_vfs_menu_set_attribute(GFile *file,
-                                           const char *attribute,
-                                           GFileAttributeType type,
-                                           gpointer value_p,
-                                           GFileQueryInfoFlags flags,
-                                           GCancellable *cancellable,
-                                           GError **error)
+static gboolean _fm_vfs_menu_set_attributes_from_info_real(gpointer data)
 {
-    ERROR_UNSUPPORTED(error);
-    return FALSE;
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *item;
+    gpointer value;
+    const char *display_name = NULL;
+    GIcon *icon = NULL;
+    gint set_hidden = -1;
+    gboolean ok = FALSE;
+
+    /* check attributes first */
+    if (g_file_info_get_attribute_data(init->info, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+                                       NULL, &value, NULL))
+        display_name = value;
+    if (g_file_info_get_attribute_data(init->info, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                                       NULL, &value, NULL))
+        icon = value;
+    if (g_file_info_get_attribute_data(init->info, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                       NULL, &value, NULL))
+        set_hidden = (*(gboolean *)value) ? 1 : 0;
+    if (display_name == NULL && icon == NULL && set_hidden < 0)
+        return TRUE; /* nothing to do */
+    /* now try access item */
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    item = _vfile_path_to_menu_cache_item(mc, init->path_str);
+    if(item == NULL)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu item"));
+    else if (menu_cache_item_get_file_basename(item) == NULL ||
+             menu_cache_item_get_file_dirname(item) == NULL)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                    _("The menu item '%s' doesn't have appropriate entry file"),
+                    menu_cache_item_get_id(item));
+    else if (!g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+    {
+        char *path;
+        GKeyFile *kf;
+        GError *err = NULL;
+        gboolean no_error = TRUE;
+
+        /* for hidden on directory: use _add_directory() or _remove_directory() */
+        if (set_hidden >= 0 && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+        {
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+            char *unescaped = g_uri_unescape_string(init->path_str, NULL);
+            if (set_hidden > 0)
+                no_error = _remove_directory(unescaped, init->cancellable, init->error);
+            else
+                no_error = _add_directory(unescaped, init->cancellable, init->error);
+            g_free(unescaped);
+#else
+            g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                                _("Change hidden status isn't supported for menu directory"));
+            no_error = FALSE;
+#endif
+            if (display_name == NULL && icon == NULL) /* nothing else to update */
+                goto _done;
+            set_hidden = -1; /* don't set NoDisplay for a directory */
+        }
+        /* in all other cases - update Name, Icon or NoDisplay and save keyfile */
+        path = menu_cache_item_get_file_path(item);
+        kf = g_key_file_new();
+        ok = g_key_file_load_from_file(kf, path, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                       &err);
+        g_free(path);
+        if (ok) /* otherwise there is no reason to continue */
+        {
+            char *contents;
+            gsize length;
+
+            if (display_name)
+            {
+                /* get locale name */
+                const gchar * const *langs = g_get_language_names();
+
+                if (strcmp(langs[0], "C") != 0)
+                {
+                    char *lang;
+                    /* remove encoding from locale name */
+                    char *sep = strchr(langs[0], '.');
+
+                    if (sep)
+                        lang = g_strndup(langs[0], sep - langs[0]);
+                    else
+                        lang = g_strdup(langs[0]);
+                    g_key_file_set_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                                 G_KEY_FILE_DESKTOP_KEY_NAME, lang,
+                                                 display_name);
+                    g_free(lang);
+                }
+                else
+                    g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                          G_KEY_FILE_DESKTOP_KEY_NAME, display_name);
+            }
+            if (icon)
+            {
+                char *icon_str = g_icon_to_string(icon);
+                /* FIXME: need to change encoding in some cases? */
+                g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                      G_KEY_FILE_DESKTOP_KEY_ICON, icon_str);
+                g_free(icon);
+            }
+            if (set_hidden >= 0)
+            {
+                g_key_file_set_boolean(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                       G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY,
+                                       (set_hidden > 0));
+            }
+            contents = g_key_file_to_data(kf, &length, &err);
+            if (contents == NULL)
+                ok = FALSE;
+            else
+            {
+                path = g_build_filename(g_get_user_data_dir(),
+                                        (menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR) ? "desktop-directories" : "applications",
+                                        menu_cache_item_get_file_basename(item), NULL);
+                ok = g_file_set_contents(path, contents, length, &err);
+                /* FIXME: handle case if directory doesn't exist */
+                g_free(contents);
+                g_free(path);
+            }
+        }
+        g_key_file_free(kf);
+        if (no_error && !ok) /* we got error in err */
+            g_propagate_error(init->error, err);
+        else if (!ok) /* both init->error and err contain error */
+            g_error_free(err);
+        else if (!no_error) /* we got error in init->error */
+            ok = FALSE;
+    }
+
+_done:
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(item)
+        menu_cache_item_unref(item);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return ok;
 }
 
 static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
@@ -2331,7 +2476,79 @@ static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
                                                       GCancellable *cancellable,
                                                       GError **error)
 {
-    ERROR_UNSUPPORTED(error);
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    if (item->path == NULL)
+    {
+        ERROR_UNSUPPORTED(error);
+        return FALSE;
+    }
+    enu.path_str = item->path;
+    enu.info = info;
+//    enu.flags = flags;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    return (RUN_WITH_MENU_CACHE(_fm_vfs_menu_set_attributes_from_info_real, &enu));
+}
+
+static gboolean _fm_vfs_menu_set_attribute(GFile *file,
+                                           const char *attribute,
+                                           GFileAttributeType type,
+                                           gpointer value_p,
+                                           GFileQueryInfoFlags flags,
+                                           GCancellable *cancellable,
+                                           GError **error)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    GFileInfo *info;
+    gboolean result;
+
+    g_debug("_fm_vfs_menu_set_attribute: %s on %s", attribute, item->path);
+    if (item->path == NULL)
+    {
+        ERROR_UNSUPPORTED(error);
+        return FALSE;
+    }
+    if (value_p == NULL)
+        goto _invalid_arg;
+    if (strcmp(attribute, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME) == 0)
+    {
+        if (type != G_FILE_ATTRIBUTE_TYPE_STRING)
+            goto _invalid_arg;
+        info = g_file_info_new();
+        g_file_info_set_display_name(info, value_p);
+    }
+    else if (strcmp(attribute, G_FILE_ATTRIBUTE_STANDARD_ICON) == 0)
+    {
+        if (type != G_FILE_ATTRIBUTE_TYPE_OBJECT)
+            goto _invalid_arg;
+        if (!G_IS_ICON(value_p))
+            goto _invalid_arg;
+        info = g_file_info_new();
+        g_file_info_set_icon(info, value_p);
+    }
+    else if (strcmp(attribute, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) == 0)
+    {
+        if (type != G_FILE_ATTRIBUTE_TYPE_BOOLEAN)
+            goto _invalid_arg;
+        info = g_file_info_new();
+        g_file_info_set_is_hidden(info, *(gboolean *)value_p);
+    }
+    else
+    {
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                    _("Setting attribute %s not supported"), attribute);
+        return FALSE;
+    }
+    result = _fm_vfs_menu_set_attributes_from_info(file, info, flags,
+                                                   cancellable, error);
+    g_object_unref(info);
+    return result;
+
+_invalid_arg:
+    g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                _("Invalid value for attribute %s"), attribute);
     return FALSE;
 }
 
@@ -3492,6 +3709,8 @@ static GFileIOStream *_fm_vfs_menu_replace_readwrite(GFile *file,
 
 static void fm_menu_g_file_init(GFileIface *iface)
 {
+    GFileAttributeInfoList *list;
+
     iface->dup = _fm_vfs_menu_dup;
     iface->hash = _fm_vfs_menu_hash;
     iface->equal = _fm_vfs_menu_equal;
@@ -3534,6 +3753,15 @@ static void fm_menu_g_file_init(GFileIface *iface)
     iface->replace_readwrite = _fm_vfs_menu_replace_readwrite;
     iface->supports_thread_contexts = TRUE;
 #endif /* Glib >= 2.22 */
+
+    list = g_file_attribute_info_list_new();
+    g_file_attribute_info_list_add(list, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                   G_FILE_ATTRIBUTE_TYPE_BOOLEAN,
+                                   G_FILE_ATTRIBUTE_INFO_COPY_WHEN_MOVED);
+    g_file_attribute_info_list_add(list, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                                   G_FILE_ATTRIBUTE_TYPE_OBJECT,
+                                   G_FILE_ATTRIBUTE_INFO_COPY_WHEN_MOVED);
+    _fm_vfs_menu_settable_attributes = list;
 }
 
 

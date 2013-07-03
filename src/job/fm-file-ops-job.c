@@ -722,7 +722,7 @@ void fm_file_ops_job_set_icon(FmFileOpsJob *job, GIcon *icon)
 void fm_file_ops_job_set_hidden(FmFileOpsJob *job, gboolean hidden)
 {
     g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
-    job->set_hidden = hidden ? 0 : 1;
+    job->set_hidden = hidden ? 1 : 0;
 }
 
 /**
