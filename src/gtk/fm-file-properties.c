@@ -156,7 +156,9 @@ struct _FmFilePropData
     GtkLabel* total_size;
     GtkLabel* size_on_disk;
     GtkLabel* mtime;
+    GtkWidget* mtime_label;
     GtkLabel* atime;
+    GtkWidget* atime_label;
 
     /* Permissions page */
     GtkWidget* permissions_tab;
@@ -913,13 +915,27 @@ static void update_ui(FmFilePropData* data)
         }
         else
             gtk_label_set_text(data->dir, "");
-        gtk_label_set_text(data->mtime, fm_file_info_get_disp_mtime(data->fi));
+        if(fm_file_info_get_mtime(data->fi) > 0)
+            gtk_label_set_text(data->mtime, fm_file_info_get_disp_mtime(data->fi));
+        else
+        {
+            gtk_widget_destroy(data->mtime_label);
+            gtk_widget_destroy(GTK_WIDGET(data->mtime));
+        }
 
         /* FIXME: need to encapsulate this in an libfm API. */
         atime = fm_file_info_get_atime(data->fi);
-        localtime_r(&atime, &tm);
-        strftime(buf, sizeof(buf), "%x %R", &tm);
-        gtk_label_set_text(data->atime, buf);
+        if(atime > 0)
+        {
+            localtime_r(&atime, &tm);
+            strftime(buf, sizeof(buf), "%x %R", &tm);
+            gtk_label_set_text(data->atime, buf);
+        }
+        else
+        {
+            gtk_widget_destroy(data->atime_label);
+            gtk_widget_destroy(GTK_WIDGET(data->atime));
+        }
         /* FIXME: changing file name isn't implemented yet, disable entry */
         gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
         gtk_editable_set_editable(GTK_EDITABLE(data->name), FALSE);
@@ -1013,7 +1029,9 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_LABEL,total_size);
     GET_WIDGET(GTK_LABEL,size_on_disk);
     GET_WIDGET(GTK_LABEL,mtime);
+    GET_WIDGET(GTK_WIDGET,mtime_label);
     GET_WIDGET(GTK_LABEL,atime);
+    GET_WIDGET(GTK_WIDGET,atime_label);
 
     GET_WIDGET(GTK_WIDGET,permissions_tab);
     GET_WIDGET(GTK_ENTRY,owner);
