@@ -48,6 +48,20 @@
 GQuark fm_qdata_id = 0;
 
 /**
+ * fm_version
+ *
+ * Returns text representation of Libfm version.
+ *
+ * Returns: (transfer none): text string.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_version(void)
+{
+    return PACKAGE_VERSION;
+}
+
+/**
  * fm_init
  * @config: (allow-none): configuration file data
  *
