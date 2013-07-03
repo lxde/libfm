@@ -1012,8 +1012,16 @@ static GFile *_fm_vfs_search_get_child_for_display_name(GFile *file,
                                                         const char *display_name,
                                                         GError **error)
 {
-    ERROR_UNSUPPORTED(error);
-    return NULL;
+    FmSearchVFile *new_item;
+
+    g_return_val_if_fail(file != NULL, NULL);
+
+    if (display_name == NULL || *display_name == '\0')
+        return g_object_ref(file);
+    /* just append "/"display_name to file->path */
+    new_item = _fm_search_vfile_new();
+    new_item->path = g_strdup_printf("%s/%s", FM_SEARCH_VFILE(file)->path, display_name);
+    return (GFile*)new_item;
 }
 
 static GFileEnumerator *_fm_vfs_search_enumerate_children(GFile *file,
