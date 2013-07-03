@@ -45,6 +45,7 @@ struct _FmPath
 {
     gint n_ref;
     FmPath* parent;
+    GSList *children; /* children to reuse paths */
     guchar flags; /* FmPathFlags flags : 8; */
     char name[1]; /* basename: in local encoding if native, uri-escaped otherwise */
 };
@@ -80,6 +81,7 @@ static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
     path->n_ref = 1;
     path->flags = flags;
     path->parent = parent ? fm_path_ref(parent) : NULL;
+    path->children = NULL;
     return path;
 }
 
@@ -269,8 +271,9 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
+static
 FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_len,
-                               gboolean dont_escape)
+                               gboolean dont_escape, gboolean make_child)
 {
     FmPath* path;
     gboolean append_slash = FALSE;
@@ -282,16 +285,6 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
 
     if(G_LIKELY(parent)) /* remove slashes if needed. */
     {
-        #if 0 /* This saves some memory, but it's too inefficient. */
-        /* Optimization: reuse existing FmPaths */
-        if(fm_path_is_native(parent))
-        {
-            path = _fm_path_reuse_existing_paths(parent, basename, name_len);
-            if(G_UNLIKELY(path))
-                return path;
-        }
-        #endif
-
         flags = parent->flags; /* inherit flags of parent */
         while(basename[0] == '/')
         {
@@ -331,6 +324,25 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     if(name_len == 0)
         return parent ? fm_path_ref(parent) : NULL;
 
+    /* try to reuse existing path */
+    if (make_child)
+    {
+        GSList *l;
+
+        G_LOCK(roots);
+        for (l = parent->children; l; l = l->next)
+        {
+            path = l->data;
+            if (strncmp(path->name, basename, (size_t)name_len) == 0 &&
+                path->name[name_len] == '\0')
+            {
+                /* g_debug("found reusable path '%.*s'", name_len, basename); */
+                fm_path_ref(path);
+                G_UNLOCK(roots);
+                return path;
+            }
+        }
+    }
     if(dont_escape)
     {
         path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
@@ -355,13 +367,19 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     }
     else
         path->name[name_len] = '\0';
+    if (make_child)
+    {
+        parent->children = g_slist_prepend(parent->children, path);
+        G_UNLOCK(roots);
+        /* g_debug("new reusable fm_path: %s", path->name); */
+    }
     return path;
 }
 
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     return _fm_path_new_child_len(parent, basename, name_len,
-                                  parent && fm_path_is_native(parent));
+                                  parent && fm_path_is_native(parent), FALSE);
 }
 
 /**
@@ -382,7 +400,7 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     {
         int baselen = strlen(basename);
         return _fm_path_new_child_len(parent, basename, baselen,
-                                      parent && fm_path_is_native(parent));
+                                      parent && fm_path_is_native(parent), FALSE);
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -437,6 +455,7 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
     if(G_UNLIKELY(!rel || !*rel)) /* relative path is empty */
         return parent ? fm_path_ref(parent) : fm_path_ref(root_path); /* return parent */
 
+    /* g_debug("fm_path_new_relative: %s", rel); */
     if(G_LIKELY(parent))
     {
         char* sep;
@@ -461,13 +480,13 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             sep = strchr(rel, '/');
             if(sep)
             {
-                FmPath* new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE);
+                FmPath *new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE, TRUE);
                 path = fm_path_new_relative(new_parent, sep + 1);
                 fm_path_unref(new_parent);
             }
             else
             {
-                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE);
+                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE, FALSE);
             }
         }
     }
@@ -662,11 +681,19 @@ void fm_path_unref(FmPath* path)
     /* g_debug("fm_path_unref: %s, n_ref = %d", fm_path_to_str(path), path->n_ref); */
     if(g_atomic_int_dec_and_test(&path->n_ref))
     {
-        if(G_LIKELY(path->parent))
-            fm_path_unref(path->parent);
         G_LOCK(roots);
-        roots = g_slist_remove(roots, path);
-        G_UNLOCK(roots);
+        if(G_LIKELY(path->parent))
+        {
+            path->parent->children = g_slist_remove(path->parent->children, path);
+            G_UNLOCK(roots);
+            fm_path_unref(path->parent);
+        }
+        else
+        {
+            roots = g_slist_remove(roots, path);
+            G_UNLOCK(roots);
+        }
+        g_assert(path->children == NULL);
         g_free(path);
     }
 }
