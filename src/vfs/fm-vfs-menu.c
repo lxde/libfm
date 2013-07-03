@@ -645,36 +645,107 @@ static GFile *_fm_vfs_menu_resolve_relative_path(GFile *file, const char *relati
     return (GFile*)new_item;
 }
 
+static gboolean _fm_vfs_menu_get_child_for_display_name_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *dir;
+    gboolean is_invalid = FALSE;
+
+    init->result = NULL;
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    if(init->path_str)
+    {
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        if(dir == NULL || menu_cache_item_get_type(dir) != MENU_CACHE_TYPE_DIR)
+            is_invalid = TRUE;
+    }
+    else
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
+    if(is_invalid)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu directory"));
+    else if(dir)
+    {
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        MenuCacheItem *item = menu_cache_find_child_by_name(MENU_CACHE_DIR(dir),
+                                                            init->display_name);
+        g_debug("searched for child '%s' found '%s'", init->display_name,
+                item ? menu_cache_item_get_id(item) : "(nil)");
+        if (item == NULL)
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                              init->display_name);
+        else
+        {
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                menu_cache_item_get_id(item));
+            menu_cache_item_unref(item);
+        }
+#else /* < 0.5.0 */
+        GSList *l;
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        GSList *children = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
+#else
+        GSList *children = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
+#endif
+        for (l = children; l; l = l->next)
+            if (g_strcmp0(init->display_name, menu_cache_item_get_name(l->data)) == 0)
+                break;
+        if (l == NULL) /* not found */
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                              init->display_name);
+        else
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                menu_cache_item_get_id(l->data));
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        g_slist_free_full(children, menu_cache_item_unref);
+#endif
+#endif /* < 0.5.0 */
+    }
+    else /* menu_cache_get_root_dir failed */
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
 /* this is taken from GLocalFile implementation */
 static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
                                                       const char *display_name,
                                                       GError **error)
 {
-#if 1
-    /* FIXME: is it really need to be implemented? */
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-#else
-    /* Unfortunately this will never work since there is no correlation
-       between display name and item id.
-       The only way is to iterate all children and compare display names. */
-  GFile *new_file;
-  char *basename;
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
 
-  basename = g_filename_from_utf8 (display_name, -1, NULL, NULL, NULL);
-  if (basename == NULL)
+    /* g_debug("_fm_vfs_menu_get_child_for_display_name: '%s' '%s'", item->path, display_name); */
+    if (display_name == NULL || *display_name == '\0')
     {
-      g_set_error (error, G_IO_ERROR,
-                   G_IO_ERROR_INVALID_FILENAME,
-                   _("Invalid filename %s"), display_name);
-      return NULL;
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu item name cannot be empty"));
+        return NULL;
     }
-
-  new_file = g_file_get_child (file, basename);
-  g_free (basename);
-
-  return new_file;
-#endif
+    /* NOTE: this violates GFile requirement that this API should not do I/O but
+       there is no way to do this without dirty tricks which may lead to failure */
+    enu.path_str = item->path;
+    enu.error = error;
+    enu.display_name = display_name;
+    enu.file = file;
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_get_child_for_display_name_real, &enu);
+    return enu.result;
 }
 
 static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
