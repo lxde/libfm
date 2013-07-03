@@ -475,16 +475,11 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     struct AskRename data;
     FmFileInfoJob* fijob = fm_file_info_job_new(NULL, 0);
     FmFileInfo *src_fi = NULL, *dest_fi = NULL;
-    FmPath *tmp;
 
     if( !src_inf )
         fm_file_info_job_add_gfile(fijob, src);
     else
-    {
-        tmp = fm_path_new_for_gfile(src);
-        src_fi = fm_file_info_new_from_gfileinfo(tmp, src_inf);
-        fm_path_unref(tmp);
-    }
+        src_fi = fm_file_info_new_from_g_file_data(src, src_inf, NULL);
     fm_file_info_job_add_gfile(fijob, dest);
 
     fm_job_set_cancellable(FM_JOB(fijob), fm_job_get_cancellable(FM_JOB(job)));

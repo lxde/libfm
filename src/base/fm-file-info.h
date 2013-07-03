@@ -47,10 +47,12 @@ void _fm_file_info_init();
 void _fm_file_info_finalize();
 
 FmFileInfo* fm_file_info_new();
+#ifndef FM_DISABLE_DEPRECATED
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
-//void fm_file_info_new_from_g_file_data(FmPath* path, GFile* gf, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
-//void fm_file_info_set_from_g_file_data(FmFileInfo* fi, GFile* gf, GFileInfo* inf);
+#endif
+FmFileInfo *fm_file_info_new_from_g_file_data(GFile *gf, GFileInfo *inf, FmPath *path);
+void fm_file_info_set_from_g_file_data(FmFileInfo* fi, GFile* gf, GFileInfo* inf);
 
 #ifndef FM_DISABLE_DEPRECATED
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
@@ -68,6 +70,7 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src);
 FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );
+//const char* fm_file_info_get_edit_name(FmFileInfo *fi);
 
 void fm_file_info_set_path(FmFileInfo* fi, FmPath* path);
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name );

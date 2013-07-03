@@ -301,11 +301,31 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
  *
  * Get file info from the GFileInfo object and store it in
  * the FmFileInfo struct.
+ *
+ * Deprecated: 1.2.0: use fm_file_info_set_from_g_file_data() instead.
  */
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
+    fm_file_info_set_from_g_file_data(fi, NULL, inf);
+}
+
+/**
+ * fm_file_info_set_from_g_file_data
+ * @fi: a #FmFileInfo struct to update
+ * @gf: (allow-none): a #GFile object to inspect
+ * @inf: a #GFileInfo object to inspect
+ *
+ * Get file info from the #GFile and #GFileInfo objects and sets data in
+ * the #FmFileInfo struct appropriately.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf)
+{
     const char *tmp, *uri;
     GIcon* gicon;
+    GFile *_gf = NULL;
+    GFileAttributeInfoList *list;
     GFileType type;
 
     g_return_if_fail(fi->path);
@@ -359,10 +379,10 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
                 fi->mode |= S_IFBLK;
             else if(strcmp(tmp, "inode/fifo")==0)
                 fi->mode |= S_IFIFO;
-        #ifdef S_IFSOCK
+#ifdef S_IFSOCK
             else if(strcmp(tmp, "inode/socket")==0)
                 fi->mode |= S_IFSOCK;
-        #endif
+#endif
             break;
         case G_FILE_TYPE_UNKNOWN:
             ;
@@ -455,6 +475,19 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->name_is_changeable = fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
     if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME))
         fi->name_is_changeable = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME);
+    if (G_UNLIKELY(gf == NULL))
+        gf = _gf = fm_path_to_gfile(fi->path);
+    list = g_file_query_settable_attributes(gf, NULL, NULL);
+    if (G_LIKELY(list))
+    {
+        if (g_file_attribute_info_list_lookup(list, G_FILE_ATTRIBUTE_STANDARD_ICON))
+            fi->icon_is_changeable = TRUE;
+        if (g_file_attribute_info_list_lookup(list, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN))
+            fi->hidden_is_changeable = TRUE;
+        g_file_attribute_info_list_unref(list);
+    }
+    if (G_UNLIKELY(_gf))
+        g_object_unref(_gf);
 }
 
 
@@ -468,12 +501,40 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
  *
  * Returns: A new FmFileInfo struct which should be freed with
  * fm_file_info_unref() when no longer needed.
+ *
+ * Deprecated: 1.2.0: use fm_file_info_new_from_g_file_data() instead.
  */
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 {
+    GFile *gf = fm_path_to_gfile(path);
+    FmFileInfo *fi;
+    fi = fm_file_info_new_from_g_file_data(gf, inf, path);
+    g_object_unref(gf);
+    return fi;
+}
+
+/**
+ * fm_file_info_new_from_g_file_data
+ * @gf: a #GFile of a file
+ * @inf: a #GFileInfo object
+ * @path: (allow-none): a #FmPath of a file
+ *
+ * Creates a new #FmFileInfo for file pointed by @path and @gf based on
+ * information stored in the @inf. Returned data should be freed with
+ * fm_file_info_unref() when no longer needed.
+ *
+ * Returns: (transfer full): a new #FmFileInfo struct.
+ *
+ * Since: 1.2.0
+ */
+FmFileInfo* fm_file_info_new_from_g_file_data(GFile *gf, GFileInfo *inf, FmPath *path)
+{
     FmFileInfo* fi = fm_file_info_new();
-    fi->path = fm_path_ref(path);
-    fm_file_info_set_from_gfileinfo(fi, inf);
+    if (path)
+        fi->path = fm_path_ref(path);
+    else
+        fi->path = fm_path_new_for_gfile(gf);
+    fm_file_info_set_from_g_file_data(fi, gf, inf);
     return fi;
 }
 

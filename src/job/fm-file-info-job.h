@@ -104,7 +104,7 @@ _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GErr
     inf = g_file_query_info(gf, gfile_info_query_attribs, (GFileQueryInfoFlags)0, fm_job_get_cancellable(job), err);
     if( !inf )
         return FALSE;
-    fm_file_info_set_from_gfileinfo(fi, inf);
+    fm_file_info_set_from_g_file_data(fi, gf, inf);
     g_object_unref(inf);
 
     return TRUE;

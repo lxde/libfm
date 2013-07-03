@@ -319,7 +319,7 @@ _retry:
     }
 
     /* FIXME: should we use fm_file_info_new + fm_file_info_set_from_gfileinfo? */
-    job->dir_fi = fm_file_info_new_from_gfileinfo(job->dir_path, inf);
+    job->dir_fi = fm_file_info_new_from_g_file_data(gf, inf, job->dir_path);
     g_object_unref(inf);
 
     if(G_UNLIKELY(job->dir_only))
@@ -344,6 +344,7 @@ _retry:
             if(inf)
             {
                 FmPath *dir, *sub;
+                GFile *child;
                 if(G_UNLIKELY(job->dir_only))
                 {
                     /* FIXME: handle symlinks */
@@ -356,10 +357,16 @@ _retry:
 
                 /* virtual folders may return childs not within them */
                 dir = fm_path_new_for_gfile(g_file_enumerator_get_container(enu));
-                sub = fm_path_new_child(dir, g_file_info_get_name(inf));
-                fi = fm_file_info_new_from_gfileinfo(sub, inf);
+                if (fm_path_equal(job->dir_path, dir))
+                    sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+                else
+                    sub = fm_path_new_child(dir, g_file_info_get_name(inf));
+                child = g_file_get_child(g_file_enumerator_get_container(enu),
+                                         g_file_info_get_name(inf));
+                fi = fm_file_info_new_from_g_file_data(child, inf, sub);
                 fm_path_unref(sub);
                 fm_path_unref(dir);
+                g_object_unref(child);
                 fm_dir_list_job_add_found_file(job, fi);
                 fm_file_info_unref(fi);
             }
