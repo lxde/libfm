@@ -2072,25 +2072,16 @@ static gboolean _save_new_menu_file(GFile *gf, FmXmlFile *file,
                                     GCancellable *cancellable,
                                     GError **error)
 {
-    gsize len, tlen;
+    gsize len;
     char *contents = fm_xml_file_to_data(file, &len, error);
-    GOutputStream *out;
     gboolean result = FALSE;
 
     if (contents == NULL)
         return FALSE;
     /* g_debug("new menu file: %s", contents); */
-    out = G_OUTPUT_STREAM(g_file_replace(gf, NULL, FALSE,
-                                         G_FILE_CREATE_REPLACE_DESTINATION,
-                                         cancellable, error));
-    if (out == NULL)
-        goto _out;
-    result = g_output_stream_write_all(out, contents, len, &tlen, cancellable,
-                                       error);
-    if (result) /* else nothing to close */
-        result = g_output_stream_close(out, cancellable, error);
-    g_object_unref(out);
-_out:
+    result = g_file_replace_contents(gf, contents, len, NULL, FALSE,
+                                     G_FILE_CREATE_REPLACE_DESTINATION, NULL,
+                                     cancellable, error);
     g_free(contents);
     return result;
 }
@@ -2711,25 +2702,16 @@ static gboolean _g_key_file_into_item(GFile *file, GKeyFile *kf,
                                       GCancellable *cancellable, GError **error)
 {
     char *contents;
-    GOutputStream *out;
-    gsize length, tmp_len;
+    gsize length;
     gboolean result = FALSE;
 
     contents = g_key_file_to_data(kf, &length, error);
     g_key_file_free(kf);
     if (contents == NULL)
         return FALSE;
-    out = G_OUTPUT_STREAM(g_file_replace(file, NULL, FALSE,
-                                         G_FILE_CREATE_REPLACE_DESTINATION,
-                                         cancellable, error));
-    if (out == NULL)
-        goto _out;
-    result = g_output_stream_write_all(out, contents, length, &tmp_len,
-                                       cancellable, error);
-    if (result) /* else nothing to close */
-        result = g_output_stream_close(out, cancellable, error);
-    g_object_unref(out);
-_out:
+    result = g_file_replace_contents(file, contents, length, NULL, FALSE,
+                                     G_FILE_CREATE_REPLACE_DESTINATION, NULL,
+                                     cancellable, error);
     g_free(contents);
     return result;
 }

@@ -665,21 +665,17 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
 static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
 {
     FmFilePropertiesDEntryData *data = pdata;
-    gsize len, olen;
+    gsize len;
     char *text;
-    GOutputStream *out;
 
     if (data == NULL)
         return;
     if (!cancelled && data->changed)
     {
         text = g_key_file_to_data(data->kf, &len, NULL);
-        out = G_OUTPUT_STREAM(g_file_replace(data->file, NULL, FALSE, 0, NULL, NULL));
+        g_file_replace_contents(data->file, text, len, NULL, FALSE, 0, NULL,
+                                NULL, NULL);
         /* FIXME: handle errors */
-        g_output_stream_write_all(out, text, len, &olen, NULL, NULL);
-        /* FIXME: handle errors */
-        g_output_stream_close(out, NULL, NULL);
-        g_object_unref(out);
         g_free(text);
     }
     g_object_unref(data->file);
