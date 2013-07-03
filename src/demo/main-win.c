@@ -185,6 +185,7 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 {
     FmFolderView* fv = win->folder_view;
     FmPath* path = fm_folder_get_path(folder);
+    FmFileInfo* info = fm_folder_get_info(folder);
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
 
     fm_path_entry_set_path(entry, path);
@@ -203,6 +204,11 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
 
     /* update status bar */
     update_statusbar(win);
+
+    if(info) /* not failed */
+        gtk_window_set_title(GTK_WINDOW(win), fm_file_info_get_disp_name(info));
+    else
+        gtk_window_set_title(GTK_WINDOW(win), "(no folder)");
 
     fm_unset_busy_cursor(GTK_WIDGET(win));
     g_debug("finish-loading");
