@@ -74,9 +74,7 @@ void _fm_path_finalize(void);
 
 FmPath* fm_path_new_for_path(const char* path_name);
 FmPath* fm_path_new_for_uri(const char* uri);
-#ifndef FM_DISABLE_DEPRECATED
 FmPath* fm_path_new_for_display_name(const char* path_name);
-#endif
 FmPath* fm_path_new_for_str(const char* path_str);
 FmPath* fm_path_new_for_commandline_arg(const char* arg);
 

@@ -569,46 +569,88 @@ FmPath* fm_path_new_for_uri(const char* uri)
     return path;
 }
 
-#ifndef FM_DISABLE_DEPRECATED
 /**
  * fm_path_new_for_display_name
- * @path_name: a UTF-8 encoded display name for the path
- * It can either be a POSIX path in UTF-8 encoding, or an unescaped URI
- * (can contain non-ASCII characters and spaces)
+ * @path_name: an UTF-8 encoded display path name
  *
- * You can call fm_path_display_name() to convert a FmPath to a
- * UTF-8 encoded name ready for being displayed in the GUI.
+ * The @path_name can either be a POSIX path in UTF-8 encoding, or an
+ * unescaped URI (can contain non-ASCII characters and spaces). Returned
+ * data should be freed with fm_path_unref() when it's no longer needed.
+ * Display name may be fully unrelated to it's path name and built path
+ * may be inexistant. Use FmJob to check and validate its existance.
  *
- * Returns: a newly created FmPath for the path. You have to call
- * fm_path_unref() when it's no longer needed.
+ * Returns: a newly created #FmPath.
+ *
+ * Since: 0.1.14
  */
-/* FIXME: this is completely invalid way to do this. Display name may be
-   fully unrelated to it's path name.
-   The only correct way is to use g_file_get_child_for_display_name() */
 FmPath* fm_path_new_for_display_name(const char* path_name)
 {
-    FmPath* path;
+    FmPath *path;
+    GFile *file = NULL, *child;
+    char *path_copy, *c, *sep;
+    char sep_char;
+
     if(!path_name || !*path_name || (path_name[0]=='/' && path_name[1] == '\0') )
         return fm_path_ref(root_path);
-    if(path_name[0] == '/') /* native path */
+
+    if (path_name[0] != '/') /* it's an URI */
     {
-        char* filename = g_filename_from_utf8(path_name, -1, NULL, NULL, NULL);
-        if(filename) /* convert from utf-8 to local encoding */
+        sep = strchr(path_name, ':');
+        if (!sep) /* invalid path */
+            /* FIXME: fail on this */
+            return fm_path_ref(root_path);
+        /* FIXME: should we test for "C:\path..." too? */
+        if (sep[1] != '/') /* something like mailto:xx@yy */
+            return fm_path_new_for_uri(path_name);
+        if (sep[2] != '/') /* malformed URI */
+            return fm_path_new_for_uri(path_name); /* FIXME: handle this? */
+        path_copy = g_strdup(path_name);
+        c = path_copy + (sep + 3 - path_name); /* set after xx:// */
+        sep = strchr(c, '/');
+        if (sep)
+            *sep++ = '\0';
+        file = fm_file_new_for_uri(path_copy);
+        c = sep;
+        sep_char = '/'; /* separator for URI is always slash */
+    }
+    else
+    {
+        path_copy = g_strdup(path_name);
+        file = g_file_new_for_path("/");
+        c = path_copy + 1;
+        sep_char = G_DIR_SEPARATOR;
+    }
+    for ( ; c; c = sep)
+    {
+        sep = strchr(c, sep_char);
+        if (sep)
+            *sep++ = '\0'; /* separate one part of path */
+        if (*c == '\0') /* duplicate '/' */
+            continue;
+        if (strcmp(c, ".") == 0) /* skip "." */
+            continue;
+        if (strcmp(c, "..") == 0) /* go back one dir */
         {
-            path = fm_path_new_for_path(filename);
-            g_free(filename);
+            if (file == NULL) /* invalid path */
+            {
+                /* FIXME: fail on this */
+                g_free(path_copy);
+                return fm_path_ref(root_path);
+            }
+            child = g_file_get_parent(file);
         }
         else
-            path = fm_path_ref(root_path);
+            child = g_file_get_child_for_display_name(file, c, NULL);
+            /* FIXME: handle errors */
+        if (file)
+            g_object_unref(file);
+        file = child;
     }
-    else /* this is an URI */
-    {
-        /* UTF-8 should be allowed, I think. */
-        path = fm_path_new_for_uri(path_name);
-    }
+    g_free(path_copy);
+    path = fm_path_new_for_gfile(file);
+    g_object_unref(file);
     return path;
 }
-#endif /* FM_DISABLE_DEPRECATED */
 
 /**
  * fm_path_new_for_str
