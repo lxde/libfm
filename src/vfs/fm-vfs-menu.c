@@ -237,6 +237,7 @@ typedef struct
     {
         FmMenuVFile *destination;
 //        const char *attributes;
+        const char *display_name;
     };
 //    GFileQueryInfoFlags flags;
     union
@@ -809,13 +810,109 @@ static GMount *_fm_vfs_menu_find_enclosing_mount(GFile *file,
     return NULL;
 }
 
+static gboolean _fm_vfs_menu_set_display_name_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *dir;
+    gboolean ok = FALSE;
+
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+    if(dir == NULL)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu item"));
+    else if (menu_cache_item_get_file_basename(dir) == NULL ||
+             menu_cache_item_get_file_dirname(dir) == NULL)
+        ERROR_UNSUPPORTED(init->error);
+    else if (!g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+    {
+        char *path = menu_cache_item_get_file_path(dir);
+        GKeyFile *kf = g_key_file_new();
+
+        ok = g_key_file_load_from_file(kf, path, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                       init->error);
+        g_free(path);
+        if (ok)
+        {
+            /* get locale name */
+            const gchar * const *langs = g_get_language_names();
+            char *contents;
+            gsize length;
+
+            if (strcmp(langs[0], "C") != 0)
+            {
+                char *lang;
+                /* remove encoding from locale name */
+                char *sep = strchr(langs[0], '.');
+
+                if (sep)
+                    lang = g_strndup(langs[0], sep - langs[0]);
+                else
+                    lang = g_strdup(langs[0]);
+                g_key_file_set_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                             G_KEY_FILE_DESKTOP_KEY_NAME, lang,
+                                             init->display_name);
+                g_free(lang);
+            }
+            else
+                g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                      G_KEY_FILE_DESKTOP_KEY_NAME, init->display_name);
+            contents = g_key_file_to_data(kf, &length, init->error);
+            if (contents == NULL)
+                ok = FALSE;
+            else
+            {
+                path = g_build_filename(g_get_user_data_dir(),
+                                        (menu_cache_item_get_type(dir) == MENU_CACHE_TYPE_DIR) ? "desktop-directories" : "applications",
+                                        menu_cache_item_get_file_basename(dir), NULL);
+                ok = g_file_set_contents(path, contents, length, init->error);
+                /* FIXME: handle case if directory doesn't exist */
+                g_free(contents);
+                g_free(path);
+            }
+        }
+        g_key_file_free(kf);
+    }
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return ok;
+}
+
 static GFile *_fm_vfs_menu_set_display_name(GFile *file,
                                             const char *display_name,
                                             GCancellable *cancellable,
                                             GError **error)
 {
-    /* FIXME: renaming should be supported for both directory and application */
-    ERROR_UNSUPPORTED(error);
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    if (item->path == NULL)
+    {
+        ERROR_UNSUPPORTED(error);
+        return NULL;
+    }
+    if (display_name == NULL || *display_name == '\0')
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu item name cannot be empty"));
+        return NULL;
+    }
+    enu.path_str = item->path;
+    enu.display_name = display_name;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    if (RUN_WITH_MENU_CACHE(_fm_vfs_menu_set_display_name_real, &enu))
+        return g_object_ref(file);
     return NULL;
 }
 
