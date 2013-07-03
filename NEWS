@@ -164,6 +164,9 @@ Changes on 1.2.0 since 1.1.0:
     be opened with default browser when you click on it. And you can edit
     display name and icon of created shortcut to your preference.
 
+* Added APIs to test possibility and change display name, icon, "hidden"
+    attribute of file, and target of shortcut.
+
 
 Changes on 1.1.0 since 1.0.1:
 

@@ -507,14 +507,6 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_widget_set_can_focus(GTK_WIDGET(widget), TRUE);
     gtk_editable_set_editable(GTK_EDITABLE(widget), TRUE);
     /* Name is set from "Name" by libfm already so don't touch it */
-    /* show desktop entry file name */
-    widget = gtk_builder_get_object(ui, "file_label");
-    gtk_label_set_markup(GTK_LABEL(widget), _("<b>File:</b>"));
-    gtk_widget_show(GTK_WIDGET(widget));
-    widget = gtk_builder_get_object(ui, "file");
-    gtk_label_set_text(GTK_LABEL(widget),
-                       fm_file_info_get_name(fm_file_info_list_peek_head(files)));
-    gtk_widget_show(GTK_WIDGET(widget));
     /* support 'hidden' option */
     data->hidden = NULL;
     widget = gtk_builder_get_object(ui, "hidden");

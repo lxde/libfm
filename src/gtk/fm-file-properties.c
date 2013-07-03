@@ -145,6 +145,8 @@ struct _FmFilePropData
     GtkTable* general_table;
     GtkImage* icon;
     GtkEntry* name;
+    GtkLabel* file;
+    GtkLabel* file_label;
     GtkLabel* dir;
     GtkLabel* target;
     GtkWidget* target_label;
@@ -776,6 +778,7 @@ static void update_permissions(FmFilePropData* data)
 static void update_ui(FmFilePropData* data)
 {
     GtkImage* img = data->icon;
+    const char *text;
 
     if( data->single_type ) /* all files are of the same mime-type */
     {
@@ -801,7 +804,10 @@ static void update_ui(FmFilePropData* data)
                 if(ficon)
                     icon = ficon->gicon;
             }
-            gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
+            text = fm_mime_type_get_desc(data->mime_type);
+            gtk_label_set_text(data->type, text);
+            if(strlen(text) > 16)
+                gtk_widget_set_tooltip_text(GTK_WIDGET(data->type), text);
         }
 
         if(icon)
@@ -854,16 +860,49 @@ static void update_ui(FmFilePropData* data)
     if( data->single_file )
     {
         char buf[128];
-        FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
-        char* parent_str = parent ? fm_path_display_name(parent, TRUE) : NULL;
+        FmPath* path = fm_file_info_get_path(data->fi);
+        GFile* gfile = fm_path_to_gfile(path);
+        char* parent_str;
         time_t atime;
         struct tm tm;
+
         /* FIXME: use fm_file_info_get_edit_name */
-        gtk_entry_set_text(data->name, fm_file_info_get_disp_name(data->fi));
+        text = fm_file_info_get_disp_name(data->fi);
+        gtk_entry_set_text(data->name, text);
         /* FIXME: check if text fits in line */
-        if(strlen(fm_file_info_get_disp_name(data->fi)) > 16)
-            gtk_widget_set_tooltip_text(GTK_WIDGET(data->name),
-                                        fm_file_info_get_disp_name(data->fi));
+        if(strlen(text) > 16)
+            gtk_widget_set_tooltip_text(GTK_WIDGET(data->name), text);
+        if (g_strcmp0(text, fm_path_get_basename(path)) != 0)
+        {
+            char *basename = NULL;
+            if (fm_path_is_native(path))
+            {
+                parent_str = g_file_get_path(gfile);
+                if (parent_str)
+                {
+                    basename = g_filename_display_basename(parent_str);
+                    g_free(parent_str);
+                }
+            }
+            else
+                basename = g_uri_unescape_string(fm_path_get_basename(path), NULL);
+            if (basename && strcmp(text, basename) != 0)
+            {
+                gtk_label_set_text(data->file, basename);
+                gtk_label_set_markup(data->file_label, _("<b>File:</b>"));
+                gtk_widget_show(GTK_WIDGET(data->file));
+                gtk_widget_show(GTK_WIDGET(data->file_label));
+            }
+            g_free(basename);
+        }
+        parent_str = NULL;
+        if (fm_path_get_parent(path))
+        {
+            GFile *parent_gf = g_file_get_parent(gfile);
+            parent_str = g_file_get_parse_name(parent_gf);
+            g_object_unref(parent_gf);
+        }
+        g_object_unref(gfile);
         if(parent_str)
         {
             gtk_label_set_text(data->dir, parent_str);
@@ -963,6 +1002,8 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_TABLE,general_table);
     GET_WIDGET(GTK_IMAGE,icon);
     GET_WIDGET(GTK_ENTRY,name);
+    GET_WIDGET(GTK_LABEL,file);
+    GET_WIDGET(GTK_LABEL,file_label);
     GET_WIDGET(GTK_LABEL,dir);
     GET_WIDGET(GTK_LABEL,target);
     GET_WIDGET(GTK_WIDGET,target_label);
