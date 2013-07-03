@@ -260,7 +260,7 @@ static void fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
     else if(full_path[0] == '~' && full_path[1] == 0)
         priv->path = fm_path_ref(fm_path_get_home());
     else
-        priv->path = fm_path_new_for_str(full_path);
+        priv->path = fm_path_new_for_display_name(full_path);
 
     _set_entry_text_from_path(entry, priv);
 
@@ -413,10 +413,10 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
     GError *err = NULL;
     /* g_debug("new dir listing job!"); */
     GFileEnumerator* enu = g_file_enumerate_children(data->dir,
-                                    G_FILE_ATTRIBUTE_STANDARD_NAME","
+                                    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                     G_FILE_ATTRIBUTE_STANDARD_TYPE,
                                     G_FILE_QUERY_INFO_NONE, cancellable,
-                                    &err);
+                                    NULL);
     if(enu)
     {
         while(!g_cancellable_is_cancelled(cancellable))
@@ -427,7 +427,7 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
                 GFileType type = g_file_info_get_file_type(inf);
                 if(type == G_FILE_TYPE_DIRECTORY)
                 {
-                    const char* name = g_file_info_get_name(inf);
+                    const char* name = g_file_info_get_display_name(inf);
                     data->subdirs = g_list_prepend(data->subdirs, g_strdup(name));
                 }
                 g_object_unref(inf);
@@ -435,10 +435,7 @@ static gboolean list_sub_dirs(GIOSchedulerJob *job, GCancellable *cancellable, g
             else
             {
                 if(err) /* error happens */
-                {
-                    g_error_free(err);
-                    err = NULL;
-                }
+                    g_clear_error(&err);
                 else /* EOF */
                     break;
             }
@@ -573,6 +570,7 @@ static void fm_path_entry_paste_and_go(GtkMenuItem *menuitem, GtkEntry *entry)
         else if(full_path[0] == '~' && full_path[1] == 0)
             priv->path = fm_path_ref(fm_path_get_home());
         else
+            /* FIXME: use fm_path_new_for_display_name ? */
             priv->path = fm_path_new_for_str(full_path);
 
         gchar * disp_name = fm_path_display_name(priv->path, FALSE);
