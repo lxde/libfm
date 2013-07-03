@@ -1304,21 +1304,27 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
             /* add <NotDeleted/> */
             child = fm_xml_file_item_new(menuTag_NotDeleted);
             fm_xml_file_item_append_child(item, child);
-            /* add <Directory>.....</Directory> */
+            /* touch .directory file, ignore errors */
+            dir = strrchr(path, '/'); /* use it as a storage for basename */
+            if (dir)
+                dir++;
+            else
+                dir = (char *)path;
+            contents = g_strdup_printf("[" G_KEY_FILE_DESKTOP_GROUP "]\n"
+                                       G_KEY_FILE_DESKTOP_KEY_TYPE "=" G_KEY_FILE_DESKTOP_TYPE_DIRECTORY "\n"
+                                       G_KEY_FILE_DESKTOP_KEY_NAME "=%s", dir);
             pathtag = _get_pathtag_for_path(path);
             dir = g_build_filename(g_get_user_data_dir(), "desktop-directories",
                                    pathtag, NULL);
             str = g_string_new(dir);
             g_free(dir);
             g_string_append(str, ".directory");
-            /* touch .directory file, ignore errors */
-            contents = g_strdup_printf("[" G_KEY_FILE_DESKTOP_GROUP "]\n"
-                                       G_KEY_FILE_DESKTOP_KEY_TYPE "=" G_KEY_FILE_DESKTOP_TYPE_DIRECTORY "\n"
-                                       G_KEY_FILE_DESKTOP_KEY_NAME "=%s", pathtag);
             g_file_set_contents(str->str, contents, -1, NULL);
             /* FIXME: report errors */
             g_free(contents);
+            /* add <Directory>.....</Directory> */
             child = fm_xml_file_item_new(menuTag_Directory);
+            g_string_printf(str, "%s.directory", pathtag);
             fm_xml_file_item_append_text(child, str->str, str->len, FALSE);
             fm_xml_file_item_append_child(item, child);
             /* add <Include><Category>......</Category></Include> */
