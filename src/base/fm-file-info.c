@@ -213,14 +213,12 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                             if (strcmp(fm_mime_type_get_type(new_mime_type),
                                        "application/octet-stream") == 0)
                             {
-                                /* failed to determine, leave as is */
+                                /* failed to determine, set to inode/x-shortcut */
                                 fm_mime_type_unref(new_mime_type);
+                                new_mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
                             }
-                            else
-                            {
-                                fm_mime_type_unref(fi->mime_type);
-                                fi->mime_type = new_mime_type;
-                            }
+                            fm_mime_type_unref(fi->mime_type);
+                            fi->mime_type = new_mime_type;
                             fi->shortcut = TRUE;
                             fi->target = uri;
                         }
