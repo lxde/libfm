@@ -866,11 +866,19 @@ char* fm_path_to_uri(FmPath* path)
 /**
  * fm_path_display_name
  * @path: a path
- * @human_readable: %TRUE to generate simple text
+ * @human_readable: ignored
  *
- * Creates string representation of @path as displayable name.
+ * Creates string representation of @path as displayable UTF-8 string.
  * The conversion is the most probably unreversible so returned value
- * should be used only for displaying purposes.
+ * should be used only for displaying purposes. The displayable path
+ * may be reliable only if there was already #FmFileInfo retrieved for
+ * the @path, otherwise some estimation will be returned instead, be
+ * careful with this API.
+ * The main purpose for this API is to create displayable path for the
+ * path entry. Applications are encouraged to use g_file_get_parse_name()
+ * instead for any other purposes.
+ *
+ * See also: fm_path_display_basename().
  *
  * Returns: (transfer full): path string.
  *
@@ -880,25 +888,20 @@ char* fm_path_to_uri(FmPath* path)
 char* fm_path_display_name(FmPath* path, gboolean human_readable)
 {
     char* disp;
-    if(human_readable)
+
+    if(G_LIKELY(path->parent))
     {
-        if(G_LIKELY(path->parent))
-        {
             char* disp_parent = fm_path_display_name(path->parent, TRUE);
             char* disp_base = fm_path_display_basename(path);
-            disp = g_build_filename( disp_parent, disp_base, NULL);
+            if (fm_path_is_native(path))
+                disp = g_build_filename( disp_parent, disp_base, NULL);
+            else
+                disp = g_build_path("/", disp_parent, disp_base, NULL);
             g_free(disp_parent);
             g_free(disp_base);
-        }
-        else
-            disp = fm_path_display_basename(path);
     }
     else
-    {
-        char* str = fm_path_to_str(path);
-        disp = g_filename_display_name(str);
-        g_free(str);
-    }
+            disp = fm_path_display_basename(path);
     return disp;
 }
 

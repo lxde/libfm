@@ -157,6 +157,7 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_free(path_str);
+            /* FIXME: recursively set display names for path parents */
         }
         else
         {
@@ -195,6 +196,7 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
               }
             }
+            /* FIXME: recursively set display names for path parents */
             g_object_unref(gf);
         }
         l = next;

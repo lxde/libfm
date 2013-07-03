@@ -229,18 +229,10 @@ static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event,
 
 static void _set_entry_text_from_path(GtkEntry *entry, FmPathEntryPrivate *priv)
 {
-    char *disp_name, *escaped;
+    char *disp_name;
     FmPath *path = priv->path;
 
-    if(fm_path_is_native(path))
-        disp_name = fm_path_display_name(path, FALSE);
-    else
-    {
-        /* URIs are escaped there */
-        escaped = fm_path_to_str(path);
-        disp_name = g_uri_unescape_string(escaped, NULL);
-        g_free(escaped);
-    }
+    disp_name = fm_path_display_name(path, FALSE);
     /* block our handler for "changed" signal, we'll update it below */
     if(priv->id_changed > 0)
         g_signal_handler_block(entry, priv->id_changed);
