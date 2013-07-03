@@ -582,7 +582,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         char* dname;
 
         /* showing currently processed file. */
-        dname = fm_path_display_name(path, TRUE);
+        dname = g_file_get_parse_name(dest);
         fm_file_ops_job_emit_cur_file(job, dname);
         g_free(dname);
 

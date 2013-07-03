@@ -42,7 +42,7 @@ G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run(FmJob* job);
 
-static gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path);
+static gboolean deep_count_posix(FmDeepCountJob* job, const char* path);
 static gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf);
 
 static const char query_str[] =
@@ -118,7 +118,11 @@ static gboolean fm_deep_count_job_run(FmJob* job)
     {
         FmPath* path = FM_PATH(l->data);
         if(fm_path_is_native(path)) /* if it's a native file, use posix APIs */
-            deep_count_posix( dc, path );
+        {
+            char *path_str = fm_path_to_str(path);
+            deep_count_posix( dc, path_str );
+            g_free(path_str);
+        }
         else
         {
             GFile* gf = fm_path_to_gfile(path);
@@ -129,10 +133,9 @@ static gboolean fm_deep_count_job_run(FmJob* job)
     return TRUE;
 }
 
-static gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
+static gboolean deep_count_posix(FmDeepCountJob* job, const char *path)
 {
     FmJob* fmjob = FM_JOB(job);
-    char* path = fm_path_to_str(fm_path);
     struct stat st;
     int ret;
 
@@ -188,7 +191,7 @@ _retry_stat:
             while( !fm_job_is_cancelled(fmjob)
                 && (basename = g_dir_read_name(dir_ent)) )
             {
-                FmPath* sub = fm_path_new_child(fm_path, basename);
+                char *sub = g_build_filename(path, basename, NULL);
                 if(!fm_job_is_cancelled(fmjob))
                 {
                     if(deep_count_posix(job, sub))
@@ -203,12 +206,11 @@ _retry_stat:
                         }
                     }
                 }
-                fm_path_unref(sub);
+                g_free(sub);
             }
             g_dir_close(dir_ent);
         }
     }
-    g_free(path);
     return TRUE;
 }
 
