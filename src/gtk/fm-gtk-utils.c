@@ -305,6 +305,8 @@ gchar* fm_get_user_input_n(GtkWindow* parent, const char* title, const char* msg
  * Returns: (transfer full): entered text.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: don't use this API in new code.
  */
 FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path)
 {
