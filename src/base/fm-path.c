@@ -41,10 +41,13 @@
 #include <limits.h>
 #include <glib/gi18n-lib.h>
 
+#define BASENAME_AS_DISP_NAME ((char *)-1)
+
 struct _FmPath
 {
     gint n_ref;
     FmPath* parent;
+    char *disp_name;
     GSList *children; /* children to reuse paths */
     guchar flags; /* FmPathFlags flags : 8; */
     char name[1]; /* basename: in local encoding if native, uri-escaped otherwise */
@@ -81,6 +84,7 @@ static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
     path->n_ref = 1;
     path->flags = flags;
     path->parent = parent ? fm_path_ref(parent) : NULL;
+    path->disp_name = NULL;
     path->children = NULL;
     return path;
 }
@@ -110,6 +114,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     const char* uri_end = uri + len;
     const char* host;
     const char* host_end;
+    const char *disp_name = NULL;
     int scheme_len, host_len;
     int flags;
 
@@ -153,11 +158,13 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     {
         flags |= FM_PATH_IS_VIRTUAL; /* FIXME: deprecated */
         host_end = host;
+        disp_name = _("My Computer");
     }
     else if(scheme_len == 7 && g_ascii_strncasecmp(uri, "network", 7) == 0)
     {
         flags |= FM_PATH_IS_VIRTUAL; /* FIXME: deprecated */
         host_end = host;
+        disp_name = _("Network");
     }
     else if(scheme_len == 6 && g_ascii_strncasecmp(uri, "mailto", 6) == 0)
     {
@@ -227,6 +234,8 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     }
     buf[0] = '/'; /* the trailing / */
     buf[1] = '\0';
+    if (disp_name)
+        path->disp_name = g_strdup(disp_name);
     return path;
 
 on_error: /* this is not a valid URI */
@@ -693,6 +702,8 @@ void fm_path_unref(FmPath* path)
             roots = g_slist_remove(roots, path);
             G_UNLOCK(roots);
         }
+        if (path->disp_name != BASENAME_AS_DISP_NAME)
+            g_free(path->disp_name);
         g_assert(path->children == NULL);
         g_free(path);
     }
@@ -905,20 +916,52 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
 char* fm_path_display_basename(FmPath* path)
 {
     if(G_UNLIKELY(!path->parent)) /* root_path element */
-    {
-        if( !fm_path_is_native(path) )
-        {
-            if(fm_path_is_trash_root(path))
-                return g_strdup(_("Trash Can"));
-            if(g_str_has_prefix(path->name, "computer:/"))
-                return g_strdup(_("My Computer"));
-            if(g_str_has_prefix(path->name, "network:/"))
-                return g_strdup(_("Network"));
-        }
-    }
+        return g_strdup(path->name);
+    if (path->disp_name == BASENAME_AS_DISP_NAME)
+        return g_strdup(path->name);
+    if (path->disp_name)
+        return g_strdup(path->disp_name);
     if(!fm_path_is_native(path))
         return g_uri_unescape_string(path->name, NULL);
     return g_filename_display_name(path->name);
+}
+
+void _fm_path_set_display_name(FmPath *path, const char *disp_name)
+{
+    if (!disp_name || !*disp_name)
+    {
+        char *_name = NULL;
+        if(!fm_path_is_native(path))
+            _name = g_uri_unescape_string(path->name, NULL);
+        else
+            _name = g_filename_display_name(path->name);
+        _fm_path_set_display_name(path, _name);
+        g_free(_name);
+        return;
+    }
+    if (path->disp_name != BASENAME_AS_DISP_NAME)
+    {
+        /* check if it is set already */
+        if (g_strcmp0(disp_name, path->disp_name) == 0)
+            return;
+        g_free(path->disp_name);
+    }
+    g_debug("set display name of %s to %s", path->name, disp_name);
+    /* By default we use the real file base name for display.
+     * if the base name is not in UTF-8 encoding, we
+     * need to convert it to UTF-8 for display and save its
+     * UTF-8 version in fi->disp_name */
+    if (g_strcmp0(disp_name, path->name) == 0)
+        path->disp_name = BASENAME_AS_DISP_NAME;
+    else
+        path->disp_name = g_strdup(disp_name);
+}
+
+const char *_fm_path_get_display_name(FmPath *path)
+{
+    if (path->disp_name == BASENAME_AS_DISP_NAME)
+        return path->name;
+    return path->disp_name;
 }
 
 /**
@@ -1088,6 +1131,7 @@ void _fm_path_init()
     /* build path object for trash can */
     /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
     trash_root_path = _fm_path_new_internal(NULL, "trash:///", 9, FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
+    _fm_path_set_display_name(trash_root_path, _("Trash Can"));
     apps_root_path = _fm_path_new_internal(NULL, "menu://applications/", 20, FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 }
 

@@ -118,6 +118,10 @@ GFile* fm_path_to_gfile(FmPath* path);
 char* fm_path_display_name(FmPath* path, gboolean human_readable);
 char* fm_path_display_basename(FmPath* path);
 
+/* for usage by FmFileInfo handlers - never use in applications */
+void _fm_path_set_display_name(FmPath *path, const char *disp_name);
+const char *_fm_path_get_display_name(FmPath *path);
+
 /* For used in hash tables */
 guint fm_path_hash(FmPath* path);
 gboolean fm_path_equal(FmPath* p1, FmPath* p2);
