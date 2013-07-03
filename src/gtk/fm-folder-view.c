@@ -822,8 +822,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     FmMimeType *mime_type;
     const char *prompt, *name_template, *label;
     char *_prompt = NULL, *header, *basename;
-    FmPath *dest;
-    GFile *gf;
+    GFile *dir, *gf;
     GError *error = NULL;
     GtkWidget *run_button, *sub_button;
     gboolean new_folder = FALSE, run_app;
@@ -886,10 +885,16 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     }
     if(!basename)
         return;
-    dest = fm_path_new_child(fm_folder_view_get_cwd(fv), basename);
+    dir = fm_path_to_gfile(fm_folder_view_get_cwd(fv));
+    gf = g_file_get_child_for_display_name(dir, basename, &error);
+    g_object_unref(dir);
     g_free(basename);
-    gf = fm_path_to_gfile(dest);
-    fm_path_unref(dest);
+    if(gf == NULL)
+    {
+        fm_show_error(GTK_WINDOW(win), NULL, error->message);
+        g_error_free(error);
+        return;
+    }
     if(templ)
         fm_template_create_file(templ, gf, &error, run_app);
     else if(new_folder)
