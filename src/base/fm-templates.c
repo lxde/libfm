@@ -642,7 +642,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 break;
         G_UNLOCK(templates);
         /* NOTE: to query file info is too heavy so do own assumptions */
-        if(!file && basename[0] != '.' && g_str_has_suffix(basename, "~"))
+        if(!file && basename[0] != '.' && !g_str_has_suffix(basename, "~"))
         {
             path = fm_path_new_child(dir->path, basename);
             pathname = fm_path_to_str(path);
