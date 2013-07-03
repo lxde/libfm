@@ -121,6 +121,39 @@ FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFla
     return job;
 }
 
+static void _check_native_display_names(FmPath *path)
+{
+    char *path_str, *disp_name;
+
+    if (path == NULL || _fm_path_get_display_name(path) != NULL)
+        return; /* all done */
+    path_str = fm_path_to_str(path);
+    disp_name = g_filename_display_basename(path_str);
+    g_free(path_str);
+    _fm_path_set_display_name(path, disp_name);
+    g_free(disp_name);
+    _check_native_display_names(fm_path_get_parent(path)); /* recursion */
+}
+
+static void _check_gfile_display_names(FmPath *path, GFile *child)
+{
+    GFile *gf;
+    GFileInfo *inf;
+
+    if (path == NULL || _fm_path_get_display_name(path) != NULL)
+        return; /* all done */
+    gf = g_file_get_parent(child);
+    inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
+    if (inf != NULL)
+    {
+        _fm_path_set_display_name(path, g_file_info_get_display_name(inf));
+        g_object_unref(inf);
+    }
+    _check_gfile_display_names(fm_path_get_parent(path), gf); /* recursion */
+    g_object_unref(gf);
+}
+
 static gboolean fm_file_info_job_run(FmJob* fmjob)
 {
     GList* l;
@@ -157,7 +190,8 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
             g_free(path_str);
-            /* FIXME: recursively set display names for path parents */
+            /* recursively set display names for path parents */
+            _check_native_display_names(fm_path_get_parent(path));
         }
         else
         {
@@ -196,7 +230,8 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
               }
             }
-            /* FIXME: recursively set display names for path parents */
+            /* recursively set display names for path parents */
+            _check_gfile_display_names(fm_path_get_parent(path), gf);
             g_object_unref(gf);
         }
         l = next;
