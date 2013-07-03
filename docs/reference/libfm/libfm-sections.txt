@@ -459,7 +459,11 @@ fm_file_ops_job_new
 fm_file_ops_job_set_chmod
 fm_file_ops_job_set_chown
 fm_file_ops_job_set_dest
+fm_file_ops_job_set_display_name
+fm_file_ops_job_set_hidden
+fm_file_ops_job_set_icon
 fm_file_ops_job_set_recursive
+fm_file_ops_job_set_target
 <SUBSECTION Standard>
 FM_FILE_OPS_JOB
 FM_FILE_OPS_JOB_CLASS

@@ -2,6 +2,7 @@
  *      fm-file-ops-job.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -120,6 +121,12 @@ struct _FmFileOpsJob
     mode_t new_mode;
     mode_t new_mode_mask;
 
+    /* for change attributes */
+    char *display_name;
+    GIcon *icon;
+    char *target;
+    gint8 set_hidden;
+
     /* dummy file monitors, used to simulate file event for remote file systems */
     GFileMonitor* src_folder_mon;
     GFileMonitor* dest_folder_mon;
@@ -152,6 +159,12 @@ void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
 void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask);
 void fm_file_ops_job_set_chown(FmFileOpsJob* job, gint uid, gint gid);
+
+/* supported attributes are: display name, icon, hidden, target */
+void fm_file_ops_job_set_display_name(FmFileOpsJob *job, const char *name);
+void fm_file_ops_job_set_icon(FmFileOpsJob *job, GIcon *icon);
+void fm_file_ops_job_set_hidden(FmFileOpsJob *job, gboolean hidden);
+void fm_file_ops_job_set_target(FmFileOpsJob *job, const char *url);
 
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);

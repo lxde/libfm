@@ -2,6 +2,7 @@
  *      fm-file-ops-job-change-attr.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -18,6 +19,12 @@
  *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *      MA 02110-1301, USA.
  */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
 
 #include "fm-file-ops-job-change-attr.h"
 #include "fm-monitor.h"
@@ -128,6 +135,73 @@ _retry_chmod:
         else
             changed = TRUE;
     }
+    /* change display name, icon, hidden, target */
+    if (!fm_job_is_cancelled(fmjob) && job->display_name)
+    {
+        GFile *renamed;
+_retry_disp_name:
+        renamed = g_file_set_display_name(gf, job->display_name, cancellable, &err);
+        if (renamed == NULL)
+        {
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
+            g_clear_error(&err);
+            if(act == FM_JOB_RETRY)
+                goto _retry_disp_name;
+        }
+        else
+        {
+            g_object_unref(renamed);
+            changed = TRUE;
+        }
+    }
+    if (!fm_job_is_cancelled(fmjob) && job->icon)
+    {
+_retry_change_icon:
+        if (!g_file_set_attribute(gf, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                                  G_FILE_ATTRIBUTE_TYPE_OBJECT, job->icon,
+                                  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                  cancellable, &err))
+        {
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
+            g_clear_error(&err);
+            if(act == FM_JOB_RETRY)
+                goto _retry_change_icon;
+        }
+        else
+            changed = TRUE;
+    }
+    if (!fm_job_is_cancelled(fmjob) && job->set_hidden >= 0)
+    {
+        gboolean hidden = job->set_hidden > 0;
+_retry_change_hidden:
+        if (!g_file_set_attribute(gf, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                  G_FILE_ATTRIBUTE_TYPE_BOOLEAN, &hidden,
+                                  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                  cancellable, &err))
+        {
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
+            g_clear_error(&err);
+            if(act == FM_JOB_RETRY)
+                goto _retry_change_hidden;
+        }
+        else
+            changed = TRUE;
+    }
+    if (!fm_job_is_cancelled(fmjob) && job->target)
+    {
+_retry_change_target:
+        if (!g_file_set_attribute_string(gf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI,
+                                         job->target, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                         cancellable, &err))
+        {
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
+            g_clear_error(&err);
+            if(act == FM_JOB_RETRY)
+                goto _retry_change_target;
+        }
+        else
+            changed = TRUE;
+    }
 
     /* currently processed file. */
     if(inf)
@@ -233,6 +307,22 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 
     old_mon = job->src_folder_mon;
     l = fm_path_list_peek_head_link(job->srcs);
+    /* check if we trying to set display name for more than one file and fail */
+    if (!fm_job_is_cancelled(FM_JOB(job)) && l->next &&
+        (job->display_name || job->target))
+    {
+        GError *error;
+
+        if (job->display_name)
+            error =  g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                                 _("Setting display name can be done only for single file"));
+        else
+            error =  g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                                 _("Setting target can be done only for single file"));
+        fm_job_emit_error(FM_JOB(job), error, FM_JOB_ERROR_CRITICAL);
+        g_error_free(error);
+        return FALSE;
+    }
     for(; ! fm_job_is_cancelled(FM_JOB(job)) && l;l=l->next)
     {
         gboolean ret;

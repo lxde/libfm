@@ -86,6 +86,21 @@ static void fm_file_ops_job_dispose(GObject *object)
         fm_path_unref(self->dest);
         self->dest = NULL;
     }
+    if(self->display_name)
+    {
+        g_free(self->display_name);
+        self->display_name = NULL;
+    }
+    if(self->icon)
+    {
+        g_object_unref(self->icon);
+        self->icon = NULL;
+    }
+    if(self->target)
+    {
+        g_free(self->target);
+        self->target = NULL;
+    }
 
     G_OBJECT_CLASS(fm_file_ops_job_parent_class)->dispose(object);
 }
@@ -210,6 +225,7 @@ static void fm_file_ops_job_init(FmFileOpsJob *self)
     /* for chown */
     self->uid = -1;
     self->gid = -1;
+    self->set_hidden = -1;
 }
 
 /**
@@ -644,4 +660,88 @@ _link_error:
 
     g_object_unref(dest_dir);
     return ret;
+}
+
+/**
+ * fm_file_ops_job_set_display_name
+ * @job: a job to set
+ * @name: new display name
+ *
+ * Sets that file for file operation FM_FILE_OP_CHANGE_ATTR should have
+ * display name changed according to @name. The job will fail if it will
+ * be started for more than one file or if file doesn't support display
+ * name change.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_ops_job_set_display_name(FmFileOpsJob *job, const char *name)
+{
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
+    g_free(job->display_name);
+    job->display_name = g_strdup(name);
+}
+
+/**
+ * fm_file_ops_job_set_icon
+ * @job: a job to set
+ * @icon: new icon
+ *
+ * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
+ * associated icon changed according to @icon. Error will be generated
+ * if some of the files doesn't support icon change.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_ops_job_set_icon(FmFileOpsJob *job, GIcon *icon)
+{
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
+    if (G_UNLIKELY(job->icon))
+        g_free(job->icon);
+    job->icon = NULL;
+    if (G_LIKELY(icon))
+        job->icon = g_object_ref(icon);
+}
+
+/**
+ * fm_file_ops_job_set_hidden
+ * @job: a job to set
+ * @hidden: new hidden attribute
+ *
+ * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
+ * 'hidden' attribute changed according to value @hidden. Error will be
+ * generated if some of the files doesn't support such change.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_ops_job_set_hidden(FmFileOpsJob *job, gboolean hidden)
+{
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
+    job->set_hidden = hidden ? 0 : 1;
+}
+
+/**
+ * fm_file_ops_job_set_target
+ * @job: a job to set
+ * @url: new URL for shortcut
+ *
+ * Sets that shortcut file for file operation FM_FILE_OP_CHANGE_ATTR
+ * should have its target URL changed according to @url. The job will
+ * fail if it will be started for more than one file or if file doesn't
+ * support target change.
+ *
+ * This API may be used only before @job is started.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_ops_job_set_target(FmFileOpsJob *job, const char *url)
+{
+    g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
+    g_free(job->target);
+    job->target = g_strdup(url);
 }
