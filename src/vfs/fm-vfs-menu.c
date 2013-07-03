@@ -52,1084 +52,6 @@
 static GFile *_fm_vfs_menu_new_for_uri(const char *uri);
 
 
-/* ---- FmMenuVFile class ---- */
-#define FM_TYPE_MENU_VFILE             (fm_vfs_menu_file_get_type())
-#define FM_MENU_VFILE(o)               (G_TYPE_CHECK_INSTANCE_CAST((o), \
-                                        FM_TYPE_MENU_VFILE, FmMenuVFile))
-
-typedef struct _FmMenuVFile             FmMenuVFile;
-typedef struct _FmMenuVFileClass        FmMenuVFileClass;
-
-static GType fm_vfs_menu_file_get_type  (void);
-
-struct _FmMenuVFile
-{
-    GObject parent_object;
-
-    char *path;
-};
-
-struct _FmMenuVFileClass
-{
-  GObjectClass parent_class;
-};
-
-static void fm_menu_g_file_init(GFileIface *iface);
-static void fm_menu_fm_file_init(FmFileInterface *iface);
-
-G_DEFINE_TYPE_WITH_CODE(FmMenuVFile, fm_vfs_menu_file, G_TYPE_OBJECT,
-                        G_IMPLEMENT_INTERFACE(G_TYPE_FILE, fm_menu_g_file_init)
-                        G_IMPLEMENT_INTERFACE(FM_TYPE_FILE, fm_menu_fm_file_init))
-
-static void fm_vfs_menu_file_finalize(GObject *object)
-{
-    FmMenuVFile *item = FM_MENU_VFILE(object);
-
-    g_free(item->path);
-
-    G_OBJECT_CLASS(fm_vfs_menu_file_parent_class)->finalize(object);
-}
-
-static void fm_vfs_menu_file_class_init(FmMenuVFileClass *klass)
-{
-    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-    gobject_class->finalize = fm_vfs_menu_file_finalize;
-}
-
-static void fm_vfs_menu_file_init(FmMenuVFile *item)
-{
-    /* nothing */
-}
-
-static FmMenuVFile *_fm_menu_vfile_new(void)
-{
-    return (FmMenuVFile*)g_object_new(FM_TYPE_MENU_VFILE, NULL);
-}
-
-
-/* ---- menu enumerator class ---- */
-#define FM_TYPE_VFS_MENU_ENUMERATOR        (fm_vfs_menu_enumerator_get_type())
-#define FM_VFS_MENU_ENUMERATOR(o)          (G_TYPE_CHECK_INSTANCE_CAST((o), \
-                            FM_TYPE_VFS_MENU_ENUMERATOR, FmVfsMenuEnumerator))
-
-typedef struct _FmVfsMenuEnumerator         FmVfsMenuEnumerator;
-typedef struct _FmVfsMenuEnumeratorClass    FmVfsMenuEnumeratorClass;
-
-struct _FmVfsMenuEnumerator
-{
-    GFileEnumerator parent;
-
-    MenuCache *mc;
-    GSList *child;
-    guint32 de_flag;
-};
-
-struct _FmVfsMenuEnumeratorClass
-{
-    GFileEnumeratorClass parent_class;
-};
-
-static GType fm_vfs_menu_enumerator_get_type   (void);
-
-G_DEFINE_TYPE(FmVfsMenuEnumerator, fm_vfs_menu_enumerator, G_TYPE_FILE_ENUMERATOR)
-
-static void _fm_vfs_menu_enumerator_dispose(GObject *object)
-{
-    FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(object);
-
-    if(enu->mc)
-    {
-        menu_cache_unref(enu->mc);
-        enu->mc = NULL;
-    }
-
-    G_OBJECT_CLASS(fm_vfs_menu_enumerator_parent_class)->dispose(object);
-}
-
-static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
-                                                    guint32 de_flag)
-{
-    GFileInfo *fileinfo = g_file_info_new();
-    const char *icon_name;
-    GIcon* icon;
-
-    /* FIXME: use g_uri_escape_string() for item name */
-    g_file_info_set_name(fileinfo, menu_cache_item_get_id(item));
-    if(menu_cache_item_get_name(item) != NULL)
-        g_file_info_set_display_name(fileinfo, menu_cache_item_get_name(item));
-
-    /* the setup below was in fm_file_info_set_from_menu_cache_item()
-       so this setup makes latter API deprecated */
-    icon_name = menu_cache_item_get_icon(item);
-    if(icon_name)
-    {
-        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-        {
-            char *dot = strrchr(icon_name, '.'), *tmp = NULL;
-
-            /* remove file extension, this is a hack to fix non-standard desktop entry files */
-            if(G_UNLIKELY(dot))
-            {
-                ++dot;
-                if(strcmp(dot, "png") == 0 ||
-                   strcmp(dot, "svg") == 0 ||
-                   strcmp(dot, "xpm") == 0)
-                {
-                    tmp = g_strndup(icon_name, dot - icon_name - 1);
-                    icon_name = tmp;
-                }
-            }
-            icon = g_themed_icon_new(icon_name);
-
-            if(G_UNLIKELY(tmp))
-                g_free(tmp);
-        }
-        /* this part is from fm_icon_from_name */
-        else /* absolute path */
-        {
-            GFile* gicon_file = g_file_new_for_path(icon_name);
-            icon = g_file_icon_new(gicon_file);
-            g_object_unref(gicon_file);
-        }
-        if(G_LIKELY(icon))
-        {
-            g_file_info_set_icon(fileinfo, icon);
-            g_object_unref(icon);
-        }
-    }
-    if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
-    {
-        g_file_info_set_file_type(fileinfo, G_FILE_TYPE_DIRECTORY);
-#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-        g_file_info_set_is_hidden(fileinfo,
-                                  !menu_cache_dir_is_visible(MENU_CACHE_DIR(item)));
-#else
-        g_file_info_set_is_hidden(fileinfo, FALSE);
-#endif
-    }
-    else /* MENU_CACHE_TYPE_APP */
-    {
-        char *path = menu_cache_item_get_file_path(item);
-        g_file_info_set_file_type(fileinfo, G_FILE_TYPE_SHORTCUT);
-        g_file_info_set_attribute_string(fileinfo,
-                                         G_FILE_ATTRIBUTE_STANDARD_TARGET_URI,
-                                         path);
-        g_free(path);
-        g_file_info_set_content_type(fileinfo, "application/x-desktop");
-        g_file_info_set_is_hidden(fileinfo,
-                                  !menu_cache_app_get_is_visible(MENU_CACHE_APP(item),
-                                                                 de_flag));
-    }
-    g_file_info_set_attribute_string(fileinfo, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
-                                     "menu-Applications");
-    return fileinfo;
-}
-
-typedef struct
-{
-    union
-    {
-        FmVfsMenuEnumerator *enumerator;
-        const char *path_str;
-    };
-    union
-    {
-        FmMenuVFile *destination;
-//        const char *attributes;
-        const char *display_name;
-    };
-//    GFileQueryInfoFlags flags;
-    union
-    {
-        GCancellable *cancellable;
-        GFile *file;
-    };
-    GError **error;
-    gpointer result;
-} FmVfsMenuMainThreadData;
-
-static gboolean _fm_vfs_menu_enumerator_next_file_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    FmVfsMenuEnumerator *enu = init->enumerator;
-    GSList *child = enu->child;
-    MenuCacheItem *item;
-
-    init->result = NULL;
-
-    if(child == NULL)
-        goto done;
-
-    for(; child; child = child->next)
-    {
-        if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
-            break;
-        item = MENU_CACHE_ITEM(child->data);
-        if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP ||
-           menu_cache_item_get_type(item) == MENU_CACHE_TYPE_NONE)
-            continue;
-#if 0
-        /* also hide menu items which should be hidden in current DE. */
-        if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP
-           && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), enu->de_flag))
-            continue;
-#endif
-
-        init->result = _g_file_info_from_menu_cache_item(item, enu->de_flag);
-        child = child->next;
-        break;
-    }
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    while(enu->child != child) /* free skipped/used elements */
-    {
-        GSList *ch = enu->child;
-        enu->child = ch->next;
-        menu_cache_item_unref(ch->data);
-        g_slist_free_1(ch);
-    }
-#else
-    enu->child = child;
-#endif
-
-done:
-    return FALSE;
-}
-
-static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
-                                                    GCancellable *cancellable,
-                                                    GError **error)
-{
-    FmVfsMenuMainThreadData init;
-
-    init.enumerator = FM_VFS_MENU_ENUMERATOR(enumerator);
-    init.cancellable = cancellable;
-    init.error = error;
-    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_next_file_real, &init);
-    return init.result;
-}
-
-static gboolean _fm_vfs_menu_enumerator_close(GFileEnumerator *enumerator,
-                                              GCancellable *cancellable,
-                                              GError **error)
-{
-    FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(enumerator);
-
-    if(enu->mc)
-    {
-        menu_cache_unref(enu->mc);
-        enu->mc = NULL;
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        g_slist_free_full(enu->child, (GDestroyNotify)menu_cache_item_unref);
-#endif
-        enu->child = NULL;
-    }
-    return TRUE;
-}
-
-static void fm_vfs_menu_enumerator_class_init(FmVfsMenuEnumeratorClass *klass)
-{
-  GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-  GFileEnumeratorClass *enumerator_class = G_FILE_ENUMERATOR_CLASS(klass);
-
-  gobject_class->dispose = _fm_vfs_menu_enumerator_dispose;
-
-  enumerator_class->next_file = _fm_vfs_menu_enumerator_next_file;
-  enumerator_class->close_fn = _fm_vfs_menu_enumerator_close;
-}
-
-static void fm_vfs_menu_enumerator_init(FmVfsMenuEnumerator *enumerator)
-{
-    /* nothing */
-}
-
-static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *path)
-{
-    MenuCacheItem *dir;
-    char *unescaped, *tmp = NULL;
-
-    unescaped = g_uri_unescape_string(path, NULL);
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
-#else
-    dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
-#endif
-    if(dir)
-    {
-#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
-        const char *id;
-#endif
-        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        menu_cache_item_unref(dir);
-        dir = menu_cache_item_from_path(mc, tmp);
-#else
-        /* FIXME: how to access not dir? */
-        dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
-#endif
-#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
-        /* The menu-cache is buggy and returns parent for invalid path
-           instead of failure so we check what we got here.
-           Unfortunately we cannot detect if requested name is the same
-           as its parent and menu-cache returned the parent. */
-        id = strrchr(unescaped, '/');
-        if(id)
-            id++;
-        else
-            id = unescaped;
-        if(dir != NULL && strcmp(id, menu_cache_item_get_id(dir)) != 0)
-            dir = NULL;
-#endif
-    }
-    g_free(unescaped);
-    g_free(tmp);
-    /* NOTE: returned value is referenced for >= 0.4.0 only */
-    return dir;
-}
-
-static MenuCache *_get_menu_cache(GError **error)
-{
-    MenuCache *mc;
-    static gboolean environment_tested = FALSE;
-    static gboolean requires_prefix = FALSE;
-
-    /* do it in compatibility with lxpanel */
-    if(!environment_tested)
-    {
-        requires_prefix = (g_getenv("XDG_MENU_PREFIX") == NULL);
-        environment_tested = TRUE;
-    }
-#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu+hidden" : "applications.menu+hidden");
-#else
-    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu" : "applications.menu");
-#endif
-    /* FIXME: may be it is reasonable to set XDG_MENU_PREFIX ? */
-
-    if(mc == NULL) /* initialization failed */
-        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
-    return mc;
-}
-
-static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    FmVfsMenuEnumerator *enumerator;
-    MenuCache* mc;
-    const char *de_name;
-    MenuCacheItem *dir;
-
-    mc = _get_menu_cache(init->error);
-
-    if(mc == NULL) /* initialization failed */
-        return FALSE;
-
-    enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, "container",
-                              init->file, NULL);
-    enumerator->mc = mc;
-    de_name = g_getenv("XDG_CURRENT_DESKTOP");
-
-    if(de_name)
-        enumerator->de_flag = menu_cache_get_desktop_env_flag(mc, de_name);
-    else
-        enumerator->de_flag = (guint32)-1;
-
-    /* the menu should be loaded now */
-    if(init->path_str)
-        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
-    else
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
-#else
-        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
-#endif
-    if(dir)
-    {
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        enumerator->child = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
-        menu_cache_item_unref(dir);
-#else
-        enumerator->child = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
-#endif
-    }
-    /* FIXME: do something with attributes and flags */
-
-    init->result = enumerator;
-    return FALSE;
-}
-
-static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
-                                                    const char *path_str,
-                                                    const char *attributes,
-                                                    GFileQueryInfoFlags flags,
-                                                    GError **error)
-{
-    FmVfsMenuMainThreadData enu;
-
-    enu.path_str = path_str;
-//    enu.attributes = attributes;
-//    enu.flags = flags;
-    enu.file = file;
-    enu.error = error;
-    enu.result = NULL;
-    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_new_real, &enu);
-    return enu.result;
-}
-
-
-/* ---- GFile implementation ---- */
-#define ERROR_UNSUPPORTED(err) g_set_error_literal(err, G_IO_ERROR, \
-                        G_IO_ERROR_NOT_SUPPORTED, _("Operation not supported"))
-
-static GFile *_fm_vfs_menu_dup(GFile *file)
-{
-    FmMenuVFile *item, *new_item;
-
-    item = FM_MENU_VFILE(file);
-    new_item = _fm_menu_vfile_new();
-    if(item->path)
-        new_item->path = g_strdup(item->path);
-    return (GFile*)new_item;
-}
-
-static guint _fm_vfs_menu_hash(GFile *file)
-{
-    return g_str_hash(FM_MENU_VFILE(file)->path ? FM_MENU_VFILE(file)->path : "/");
-}
-
-static gboolean _fm_vfs_menu_equal(GFile *file1, GFile *file2)
-{
-    char *path1 = FM_MENU_VFILE(file1)->path;
-    char *path2 = FM_MENU_VFILE(file2)->path;
-
-    return g_strcmp0(path1, path2) == 0;
-}
-
-static gboolean _fm_vfs_menu_is_native(GFile *file)
-{
-    return FALSE;
-}
-
-static gboolean _fm_vfs_menu_has_uri_scheme(GFile *file, const char *uri_scheme)
-{
-    return g_ascii_strcasecmp(uri_scheme, "menu") == 0;
-}
-
-static char *_fm_vfs_menu_get_uri_scheme(GFile *file)
-{
-    return g_strdup("menu");
-}
-
-static char *_fm_vfs_menu_get_basename(GFile *file)
-{
-    /* g_debug("_fm_vfs_menu_get_basename %s", FM_MENU_VFILE(file)->path); */
-    if(FM_MENU_VFILE(file)->path == NULL)
-        return g_strdup("/");
-    return g_path_get_basename(FM_MENU_VFILE(file)->path);
-}
-
-static char *_fm_vfs_menu_get_path(GFile *file)
-{
-    return NULL;
-}
-
-static char *_fm_vfs_menu_get_uri(GFile *file)
-{
-    return g_strconcat("menu://applications/", FM_MENU_VFILE(file)->path, NULL);
-}
-
-static char *_fm_vfs_menu_get_parse_name(GFile *file)
-{
-    char *unescaped, *path;
-
-    /* g_debug("_fm_vfs_menu_get_parse_name %s", FM_MENU_VFILE(file)->path); */
-    unescaped = g_uri_unescape_string(FM_MENU_VFILE(file)->path, NULL);
-    path = g_strconcat("menu://applications/", unescaped, NULL);
-    g_free(unescaped);
-    return path;
-}
-
-static GFile *_fm_vfs_menu_get_parent(GFile *file)
-{
-    char *path = FM_MENU_VFILE(file)->path;
-    char *dirname;
-    GFile *parent;
-
-    /* g_debug("_fm_vfs_menu_get_parent %s", path); */
-    if(path)
-    {
-        dirname = g_path_get_dirname(path);
-        if(strcmp(dirname, ".") == 0)
-        {
-            g_free(dirname);
-            path = NULL;
-        }
-        else
-            path = dirname;
-    }
-    parent = _fm_vfs_menu_new_for_uri(path);
-    if(path)
-        g_free(path);
-    return parent;
-}
-
-/* this function is taken from GLocalFile implementation */
-static const char *match_prefix (const char *path, const char *prefix)
-{
-  int prefix_len;
-
-  prefix_len = strlen (prefix);
-  if (strncmp (path, prefix, prefix_len) != 0)
-    return NULL;
-
-  if (prefix_len > 0 && (prefix[prefix_len-1]) == '/')
-    prefix_len--;
-
-  return path + prefix_len;
-}
-
-static gboolean _fm_vfs_menu_prefix_matches(GFile *prefix, GFile *file)
-{
-    const char *path = FM_MENU_VFILE(file)->path;
-    const char *pp = FM_MENU_VFILE(prefix)->path;
-    const char *remainder;
-
-    if(pp == NULL)
-        return TRUE;
-    if(path == NULL)
-        return FALSE;
-    remainder = match_prefix(path, pp);
-    if(remainder != NULL && *remainder == '/')
-        return TRUE;
-    return FALSE;
-}
-
-static char *_fm_vfs_menu_get_relative_path(GFile *parent, GFile *descendant)
-{
-    const char *path = FM_MENU_VFILE(descendant)->path;
-    const char *pp = FM_MENU_VFILE(parent)->path;
-    const char *remainder;
-
-    if(pp == NULL)
-        return g_strdup(path);
-    if(path == NULL)
-        return NULL;
-    remainder = match_prefix(path, pp);
-    if(remainder != NULL && *remainder == '/')
-        return g_uri_unescape_string(&remainder[1], NULL);
-    return NULL;
-}
-
-static GFile *_fm_vfs_menu_resolve_relative_path(GFile *file, const char *relative_path)
-{
-    const char *path = FM_MENU_VFILE(file)->path;
-    FmMenuVFile *new_item = _fm_menu_vfile_new();
-
-    /* g_debug("_fm_vfs_menu_resolve_relative_path %s %s", path, relative_path); */
-    /* FIXME: handle if relative_path is invalid */
-    if(relative_path == NULL || *relative_path == '\0')
-        new_item->path = g_strdup(path);
-    else if(path == NULL)
-        new_item->path = g_strdup(relative_path);
-    else
-    {
-        /* relative_path is the most probably unescaped string (at least GFVS
-           works such way) so we have to escape invalid chars here. */
-        char *escaped = g_uri_escape_string(relative_path,
-                                            G_URI_RESERVED_CHARS_ALLOWED_IN_PATH,
-                                            TRUE);
-        new_item->path = g_strconcat(path, "/", relative_path, NULL);
-        g_free(escaped);
-    }
-    return (GFile*)new_item;
-}
-
-static gboolean _fm_vfs_menu_get_child_for_display_name_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    MenuCache *mc;
-    MenuCacheItem *dir;
-    gboolean is_invalid = FALSE;
-
-    init->result = NULL;
-    mc = _get_menu_cache(init->error);
-    if(mc == NULL)
-        goto _mc_failed;
-
-    if(init->path_str)
-    {
-        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
-        if(dir == NULL || menu_cache_item_get_type(dir) != MENU_CACHE_TYPE_DIR)
-            is_invalid = TRUE;
-    }
-    else
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
-#else
-        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
-#endif
-    if(is_invalid)
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                            _("Invalid menu directory"));
-    else if(dir)
-    {
-#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-        MenuCacheItem *item = menu_cache_find_child_by_name(MENU_CACHE_DIR(dir),
-                                                            init->display_name);
-        g_debug("searched for child '%s' found '%s'", init->display_name,
-                item ? menu_cache_item_get_id(item) : "(nil)");
-        if (item == NULL)
-            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
-                                                              init->display_name);
-        else
-        {
-            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
-                                                menu_cache_item_get_id(item));
-            menu_cache_item_unref(item);
-        }
-#else /* < 0.5.0 */
-        GSList *l;
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        GSList *children = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
-#else
-        GSList *children = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
-#endif
-        for (l = children; l; l = l->next)
-            if (g_strcmp0(init->display_name, menu_cache_item_get_name(l->data)) == 0)
-                break;
-        if (l == NULL) /* not found */
-            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
-                                                              init->display_name);
-        else
-            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
-                                                menu_cache_item_get_id(l->data));
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        g_slist_free_full(children, menu_cache_item_unref);
-#endif
-#endif /* < 0.5.0 */
-    }
-    else /* menu_cache_get_root_dir failed */
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
-
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    if(dir)
-        menu_cache_item_unref(dir);
-#endif
-    menu_cache_unref(mc);
-
-_mc_failed:
-    return FALSE;
-}
-
-/* this is taken from GLocalFile implementation */
-static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
-                                                      const char *display_name,
-                                                      GError **error)
-{
-    FmMenuVFile *item = FM_MENU_VFILE(file);
-    FmVfsMenuMainThreadData enu;
-
-    /* g_debug("_fm_vfs_menu_get_child_for_display_name: '%s' '%s'", item->path, display_name); */
-    if (display_name == NULL || *display_name == '\0')
-    {
-        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu item name cannot be empty"));
-        return NULL;
-    }
-    /* NOTE: this violates GFile requirement that this API should not do I/O but
-       there is no way to do this without dirty tricks which may lead to failure */
-    enu.path_str = item->path;
-    enu.error = error;
-    enu.display_name = display_name;
-    enu.file = file;
-    RUN_WITH_MENU_CACHE(_fm_vfs_menu_get_child_for_display_name_real, &enu);
-    return enu.result;
-}
-
-static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
-                                                        const char *attributes,
-                                                        GFileQueryInfoFlags flags,
-                                                        GCancellable *cancellable,
-                                                        GError **error)
-{
-    const char *path = FM_MENU_VFILE(file)->path;
-
-    return _fm_vfs_menu_enumerator_new(file, path, attributes, flags, error);
-}
-
-static gboolean _fm_vfs_menu_query_info_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    MenuCache *mc;
-    MenuCacheItem *dir;
-    gboolean is_invalid = FALSE;
-
-    init->result = NULL;
-    mc = _get_menu_cache(init->error);
-    if(mc == NULL)
-        goto _mc_failed;
-
-    if(init->path_str)
-    {
-        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
-        if(dir == NULL)
-            is_invalid = TRUE;
-    }
-    else
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
-#else
-        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
-#endif
-    if(is_invalid)
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("Invalid menu directory %s"), init->path_str);
-    else if(dir)
-    {
-        const char *de_name = g_getenv("XDG_CURRENT_DESKTOP");
-
-        if(de_name)
-            init->result = _g_file_info_from_menu_cache_item(dir,
-                                menu_cache_get_desktop_env_flag(mc, de_name));
-        else
-            init->result = _g_file_info_from_menu_cache_item(dir, (guint32)-1);
-    }
-    else /* menu_cache_get_root_dir failed */
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu cache error"));
-
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    if(dir)
-        menu_cache_item_unref(dir);
-#endif
-    menu_cache_unref(mc);
-
-_mc_failed:
-    return FALSE;
-}
-
-static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
-                                          const char *attributes,
-                                          GFileQueryInfoFlags flags,
-                                          GCancellable *cancellable,
-                                          GError **error)
-{
-    FmMenuVFile *item = FM_MENU_VFILE(file);
-    GFileInfo *info;
-    GFileAttributeMatcher *matcher;
-    char *basename, *id;
-    FmVfsMenuMainThreadData enu;
-
-    matcher = g_file_attribute_matcher_new(attributes);
-
-    if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TYPE) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_ICON) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
-    {
-        /* retrieve matching attributes from menu-cache */
-        enu.path_str = item->path;
-//        enu.attributes = attributes;
-//        enu.flags = flags;
-        enu.cancellable = cancellable;
-        enu.error = error;
-        RUN_WITH_MENU_CACHE(_fm_vfs_menu_query_info_real, &enu);
-        info = enu.result;
-    }
-    else
-    {
-        info = g_file_info_new();
-        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_NAME))
-        {
-            if(item->path == NULL)
-                basename = g_strdup("/");
-            else
-                basename = g_path_get_basename(item->path);
-            id = g_uri_unescape_string(basename, NULL);
-            g_free(basename);
-            g_file_info_set_name(info, id);
-            g_free(id);
-        }
-        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ID_FILESYSTEM))
-            g_file_info_set_attribute_string(info, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
-                                             "menu-Applications");
-    }
-
-    g_file_attribute_matcher_unref(matcher);
-
-    return info;
-}
-
-static GFileInfo *_fm_vfs_menu_query_filesystem_info(GFile *file,
-                                                     const char *attributes,
-                                                     GCancellable *cancellable,
-                                                     GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-}
-
-static GMount *_fm_vfs_menu_find_enclosing_mount(GFile *file,
-                                                 GCancellable *cancellable,
-                                                 GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-}
-
-static gboolean _fm_vfs_menu_set_display_name_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    MenuCache *mc;
-    MenuCacheItem *dir;
-    gboolean ok = FALSE;
-
-    mc = _get_menu_cache(init->error);
-    if(mc == NULL)
-        goto _mc_failed;
-
-    dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
-    if(dir == NULL)
-        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                            _("Invalid menu item"));
-    else if (menu_cache_item_get_file_basename(dir) == NULL ||
-             menu_cache_item_get_file_dirname(dir) == NULL)
-        ERROR_UNSUPPORTED(init->error);
-    else if (!g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
-    {
-        char *path = menu_cache_item_get_file_path(dir);
-        GKeyFile *kf = g_key_file_new();
-
-        ok = g_key_file_load_from_file(kf, path, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
-                                       init->error);
-        g_free(path);
-        if (ok)
-        {
-            /* get locale name */
-            const gchar * const *langs = g_get_language_names();
-            char *contents;
-            gsize length;
-
-            if (strcmp(langs[0], "C") != 0)
-            {
-                char *lang;
-                /* remove encoding from locale name */
-                char *sep = strchr(langs[0], '.');
-
-                if (sep)
-                    lang = g_strndup(langs[0], sep - langs[0]);
-                else
-                    lang = g_strdup(langs[0]);
-                g_key_file_set_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                             G_KEY_FILE_DESKTOP_KEY_NAME, lang,
-                                             init->display_name);
-                g_free(lang);
-            }
-            else
-                g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                      G_KEY_FILE_DESKTOP_KEY_NAME, init->display_name);
-            contents = g_key_file_to_data(kf, &length, init->error);
-            if (contents == NULL)
-                ok = FALSE;
-            else
-            {
-                path = g_build_filename(g_get_user_data_dir(),
-                                        (menu_cache_item_get_type(dir) == MENU_CACHE_TYPE_DIR) ? "desktop-directories" : "applications",
-                                        menu_cache_item_get_file_basename(dir), NULL);
-                ok = g_file_set_contents(path, contents, length, init->error);
-                /* FIXME: handle case if directory doesn't exist */
-                g_free(contents);
-                g_free(path);
-            }
-        }
-        g_key_file_free(kf);
-    }
-
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    if(dir)
-        menu_cache_item_unref(dir);
-#endif
-    menu_cache_unref(mc);
-
-_mc_failed:
-    return ok;
-}
-
-static GFile *_fm_vfs_menu_set_display_name(GFile *file,
-                                            const char *display_name,
-                                            GCancellable *cancellable,
-                                            GError **error)
-{
-    FmMenuVFile *item = FM_MENU_VFILE(file);
-    FmVfsMenuMainThreadData enu;
-
-    if (item->path == NULL)
-    {
-        ERROR_UNSUPPORTED(error);
-        return NULL;
-    }
-    if (display_name == NULL || *display_name == '\0')
-    {
-        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Menu item name cannot be empty"));
-        return NULL;
-    }
-    enu.path_str = item->path;
-    enu.display_name = display_name;
-    enu.cancellable = cancellable;
-    enu.error = error;
-    if (RUN_WITH_MENU_CACHE(_fm_vfs_menu_set_display_name_real, &enu))
-        return g_object_ref(file);
-    return NULL;
-}
-
-static GFileAttributeInfoList *_fm_vfs_menu_query_settable_attributes(GFile *file,
-                                                                      GCancellable *cancellable,
-                                                                      GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-}
-
-static GFileAttributeInfoList *_fm_vfs_menu_query_writable_namespaces(GFile *file,
-                                                                      GCancellable *cancellable,
-                                                                      GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-}
-
-static gboolean _fm_vfs_menu_set_attribute(GFile *file,
-                                           const char *attribute,
-                                           GFileAttributeType type,
-                                           gpointer value_p,
-                                           GFileQueryInfoFlags flags,
-                                           GCancellable *cancellable,
-                                           GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return FALSE;
-}
-
-static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
-                                                      GFileInfo *info,
-                                                      GFileQueryInfoFlags flags,
-                                                      GCancellable *cancellable,
-                                                      GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return FALSE;
-}
-
-static inline GFile *_g_file_new_for_id(const char *id)
-{
-    char *file_path;
-    GFile *file;
-
-    file_path = g_build_filename(g_get_user_data_dir(), "applications", id, NULL);
-    /* we can try to guess file path and make directories but it
-       hardly worth the efforts so it's easier to just make new file
-       by its ID since ID is unique thru all the menu */
-    if (file_path == NULL)
-        return NULL;
-    file = g_file_new_for_path(file_path);
-    g_free(file_path);
-    return file;
-}
-
-static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
-{
-    FmVfsMenuMainThreadData *init = data;
-    MenuCache *mc;
-    MenuCacheItem *item = NULL;
-
-    init->result = NULL;
-    mc = _get_menu_cache(init->error);
-    if(mc == NULL)
-        goto _mc_failed;
-
-    if(init->path_str)
-        item = _vfile_path_to_menu_cache_item(mc, init->path_str);
-
-        /* If item wasn't found or isn't a file then we cannot read it. */
-    if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_IS_DIRECTORY,
-                    _("The \"%s\" is a menu directory"), init->path_str);
-    else if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"),
-                    init->path_str ? init->path_str : "/");
-    else
-    {
-        char *file_path;
-        GFile *gf;
-        GError *err = NULL;
-
-        file_path = menu_cache_item_get_file_path(item);
-        if (file_path)
-        {
-            gf = g_file_new_for_path(file_path);
-            g_free(file_path);
-            if (gf)
-            {
-                init->result = g_file_read(gf, init->cancellable, &err);
-                if (init->result == NULL)
-                {
-                    /* never return G_IO_ERROR_IS_DIRECTORY */
-                    if (err->domain == G_IO_ERROR &&
-                        err->code == G_IO_ERROR_IS_DIRECTORY)
-                    {
-                        g_error_free(err);
-                        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_REGULAR_FILE,
-                                    _("The \"%s\" is broken"), init->path_str);
-                    }
-                    else
-                        g_propagate_error(init->error, err);
-                }
-                g_object_unref(gf);
-            }
-        }
-    }
-
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-    if(item)
-        menu_cache_item_unref(item);
-#endif
-    menu_cache_unref(mc);
-
-_mc_failed:
-    return FALSE;
-}
-
-static GFileInputStream *_fm_vfs_menu_read_fn(GFile *file,
-                                              GCancellable *cancellable,
-                                              GError **error)
-{
-    FmMenuVFile *item = FM_MENU_VFILE(file);
-    FmVfsMenuMainThreadData enu;
-
-    /* g_debug("_fm_vfs_menu_read_fn %s", item->path); */
-    enu.path_str = item->path;
-    enu.cancellable = cancellable;
-    enu.error = error;
-    RUN_WITH_MENU_CACHE(_fm_vfs_menu_read_fn_real, &enu);
-    return enu.result;
-}
-
-static GFileOutputStream *_fm_vfs_menu_append_to(GFile *file,
-                                                 GFileCreateFlags flags,
-                                                 GCancellable *cancellable,
-                                                 GError **error)
-{
-    ERROR_UNSUPPORTED(error);
-    return NULL;
-}
-
-
 /* ---- applications.menu manipulations ---- */
 typedef struct _FmMenuMenuTree          FmMenuMenuTree;
 
@@ -2438,6 +1360,1084 @@ static gboolean _set_directory_file(const char *path)
     //add <Directory>/home/..../.local/share/desktop-directories/....directory</Directory>
 }
 #endif
+
+
+/* ---- FmMenuVFile class ---- */
+#define FM_TYPE_MENU_VFILE             (fm_vfs_menu_file_get_type())
+#define FM_MENU_VFILE(o)               (G_TYPE_CHECK_INSTANCE_CAST((o), \
+                                        FM_TYPE_MENU_VFILE, FmMenuVFile))
+
+typedef struct _FmMenuVFile             FmMenuVFile;
+typedef struct _FmMenuVFileClass        FmMenuVFileClass;
+
+static GType fm_vfs_menu_file_get_type  (void);
+
+struct _FmMenuVFile
+{
+    GObject parent_object;
+
+    char *path;
+};
+
+struct _FmMenuVFileClass
+{
+  GObjectClass parent_class;
+};
+
+static void fm_menu_g_file_init(GFileIface *iface);
+static void fm_menu_fm_file_init(FmFileInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE(FmMenuVFile, fm_vfs_menu_file, G_TYPE_OBJECT,
+                        G_IMPLEMENT_INTERFACE(G_TYPE_FILE, fm_menu_g_file_init)
+                        G_IMPLEMENT_INTERFACE(FM_TYPE_FILE, fm_menu_fm_file_init))
+
+static void fm_vfs_menu_file_finalize(GObject *object)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(object);
+
+    g_free(item->path);
+
+    G_OBJECT_CLASS(fm_vfs_menu_file_parent_class)->finalize(object);
+}
+
+static void fm_vfs_menu_file_class_init(FmMenuVFileClass *klass)
+{
+    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+    gobject_class->finalize = fm_vfs_menu_file_finalize;
+}
+
+static void fm_vfs_menu_file_init(FmMenuVFile *item)
+{
+    /* nothing */
+}
+
+static FmMenuVFile *_fm_menu_vfile_new(void)
+{
+    return (FmMenuVFile*)g_object_new(FM_TYPE_MENU_VFILE, NULL);
+}
+
+
+/* ---- menu enumerator class ---- */
+#define FM_TYPE_VFS_MENU_ENUMERATOR        (fm_vfs_menu_enumerator_get_type())
+#define FM_VFS_MENU_ENUMERATOR(o)          (G_TYPE_CHECK_INSTANCE_CAST((o), \
+                            FM_TYPE_VFS_MENU_ENUMERATOR, FmVfsMenuEnumerator))
+
+typedef struct _FmVfsMenuEnumerator         FmVfsMenuEnumerator;
+typedef struct _FmVfsMenuEnumeratorClass    FmVfsMenuEnumeratorClass;
+
+struct _FmVfsMenuEnumerator
+{
+    GFileEnumerator parent;
+
+    MenuCache *mc;
+    GSList *child;
+    guint32 de_flag;
+};
+
+struct _FmVfsMenuEnumeratorClass
+{
+    GFileEnumeratorClass parent_class;
+};
+
+static GType fm_vfs_menu_enumerator_get_type   (void);
+
+G_DEFINE_TYPE(FmVfsMenuEnumerator, fm_vfs_menu_enumerator, G_TYPE_FILE_ENUMERATOR)
+
+static void _fm_vfs_menu_enumerator_dispose(GObject *object)
+{
+    FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(object);
+
+    if(enu->mc)
+    {
+        menu_cache_unref(enu->mc);
+        enu->mc = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_vfs_menu_enumerator_parent_class)->dispose(object);
+}
+
+static GFileInfo *_g_file_info_from_menu_cache_item(MenuCacheItem *item,
+                                                    guint32 de_flag)
+{
+    GFileInfo *fileinfo = g_file_info_new();
+    const char *icon_name;
+    GIcon* icon;
+
+    /* FIXME: use g_uri_escape_string() for item name */
+    g_file_info_set_name(fileinfo, menu_cache_item_get_id(item));
+    if(menu_cache_item_get_name(item) != NULL)
+        g_file_info_set_display_name(fileinfo, menu_cache_item_get_name(item));
+
+    /* the setup below was in fm_file_info_set_from_menu_cache_item()
+       so this setup makes latter API deprecated */
+    icon_name = menu_cache_item_get_icon(item);
+    if(icon_name)
+    {
+        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
+        {
+            char *dot = strrchr(icon_name, '.'), *tmp = NULL;
+
+            /* remove file extension, this is a hack to fix non-standard desktop entry files */
+            if(G_UNLIKELY(dot))
+            {
+                ++dot;
+                if(strcmp(dot, "png") == 0 ||
+                   strcmp(dot, "svg") == 0 ||
+                   strcmp(dot, "xpm") == 0)
+                {
+                    tmp = g_strndup(icon_name, dot - icon_name - 1);
+                    icon_name = tmp;
+                }
+            }
+            icon = g_themed_icon_new(icon_name);
+
+            if(G_UNLIKELY(tmp))
+                g_free(tmp);
+        }
+        /* this part is from fm_icon_from_name */
+        else /* absolute path */
+        {
+            GFile* gicon_file = g_file_new_for_path(icon_name);
+            icon = g_file_icon_new(gicon_file);
+            g_object_unref(gicon_file);
+        }
+        if(G_LIKELY(icon))
+        {
+            g_file_info_set_icon(fileinfo, icon);
+            g_object_unref(icon);
+        }
+    }
+    if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+    {
+        g_file_info_set_file_type(fileinfo, G_FILE_TYPE_DIRECTORY);
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        g_file_info_set_is_hidden(fileinfo,
+                                  !menu_cache_dir_is_visible(MENU_CACHE_DIR(item)));
+#else
+        g_file_info_set_is_hidden(fileinfo, FALSE);
+#endif
+    }
+    else /* MENU_CACHE_TYPE_APP */
+    {
+        char *path = menu_cache_item_get_file_path(item);
+        g_file_info_set_file_type(fileinfo, G_FILE_TYPE_SHORTCUT);
+        g_file_info_set_attribute_string(fileinfo,
+                                         G_FILE_ATTRIBUTE_STANDARD_TARGET_URI,
+                                         path);
+        g_free(path);
+        g_file_info_set_content_type(fileinfo, "application/x-desktop");
+        g_file_info_set_is_hidden(fileinfo,
+                                  !menu_cache_app_get_is_visible(MENU_CACHE_APP(item),
+                                                                 de_flag));
+    }
+    g_file_info_set_attribute_string(fileinfo, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                     "menu-Applications");
+    return fileinfo;
+}
+
+typedef struct
+{
+    union
+    {
+        FmVfsMenuEnumerator *enumerator;
+        const char *path_str;
+    };
+    union
+    {
+        FmMenuVFile *destination;
+//        const char *attributes;
+        const char *display_name;
+    };
+//    GFileQueryInfoFlags flags;
+    union
+    {
+        GCancellable *cancellable;
+        GFile *file;
+    };
+    GError **error;
+    gpointer result;
+} FmVfsMenuMainThreadData;
+
+static gboolean _fm_vfs_menu_enumerator_next_file_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    FmVfsMenuEnumerator *enu = init->enumerator;
+    GSList *child = enu->child;
+    MenuCacheItem *item;
+
+    init->result = NULL;
+
+    if(child == NULL)
+        goto done;
+
+    for(; child; child = child->next)
+    {
+        if(g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+            break;
+        item = MENU_CACHE_ITEM(child->data);
+        if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP ||
+           menu_cache_item_get_type(item) == MENU_CACHE_TYPE_NONE)
+            continue;
+#if 0
+        /* also hide menu items which should be hidden in current DE. */
+        if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP
+           && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), enu->de_flag))
+            continue;
+#endif
+
+        init->result = _g_file_info_from_menu_cache_item(item, enu->de_flag);
+        child = child->next;
+        break;
+    }
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    while(enu->child != child) /* free skipped/used elements */
+    {
+        GSList *ch = enu->child;
+        enu->child = ch->next;
+        menu_cache_item_unref(ch->data);
+        g_slist_free_1(ch);
+    }
+#else
+    enu->child = child;
+#endif
+
+done:
+    return FALSE;
+}
+
+static GFileInfo *_fm_vfs_menu_enumerator_next_file(GFileEnumerator *enumerator,
+                                                    GCancellable *cancellable,
+                                                    GError **error)
+{
+    FmVfsMenuMainThreadData init;
+
+    init.enumerator = FM_VFS_MENU_ENUMERATOR(enumerator);
+    init.cancellable = cancellable;
+    init.error = error;
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_next_file_real, &init);
+    return init.result;
+}
+
+static gboolean _fm_vfs_menu_enumerator_close(GFileEnumerator *enumerator,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    FmVfsMenuEnumerator *enu = FM_VFS_MENU_ENUMERATOR(enumerator);
+
+    if(enu->mc)
+    {
+        menu_cache_unref(enu->mc);
+        enu->mc = NULL;
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        g_slist_free_full(enu->child, (GDestroyNotify)menu_cache_item_unref);
+#endif
+        enu->child = NULL;
+    }
+    return TRUE;
+}
+
+static void fm_vfs_menu_enumerator_class_init(FmVfsMenuEnumeratorClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+  GFileEnumeratorClass *enumerator_class = G_FILE_ENUMERATOR_CLASS(klass);
+
+  gobject_class->dispose = _fm_vfs_menu_enumerator_dispose;
+
+  enumerator_class->next_file = _fm_vfs_menu_enumerator_next_file;
+  enumerator_class->close_fn = _fm_vfs_menu_enumerator_close;
+}
+
+static void fm_vfs_menu_enumerator_init(FmVfsMenuEnumerator *enumerator)
+{
+    /* nothing */
+}
+
+static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *path)
+{
+    MenuCacheItem *dir;
+    char *unescaped, *tmp = NULL;
+
+    unescaped = g_uri_unescape_string(path, NULL);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+    dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
+    if(dir)
+    {
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        const char *id;
+#endif
+        tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        menu_cache_item_unref(dir);
+        dir = menu_cache_item_from_path(mc, tmp);
+#else
+        /* FIXME: how to access not dir? */
+        dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+#endif
+#if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        /* The menu-cache is buggy and returns parent for invalid path
+           instead of failure so we check what we got here.
+           Unfortunately we cannot detect if requested name is the same
+           as its parent and menu-cache returned the parent. */
+        id = strrchr(unescaped, '/');
+        if(id)
+            id++;
+        else
+            id = unescaped;
+        if(dir != NULL && strcmp(id, menu_cache_item_get_id(dir)) != 0)
+            dir = NULL;
+#endif
+    }
+    g_free(unescaped);
+    g_free(tmp);
+    /* NOTE: returned value is referenced for >= 0.4.0 only */
+    return dir;
+}
+
+static MenuCache *_get_menu_cache(GError **error)
+{
+    MenuCache *mc;
+    static gboolean environment_tested = FALSE;
+    static gboolean requires_prefix = FALSE;
+
+    /* do it in compatibility with lxpanel */
+    if(!environment_tested)
+    {
+        requires_prefix = (g_getenv("XDG_MENU_PREFIX") == NULL);
+        environment_tested = TRUE;
+    }
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu+hidden" : "applications.menu+hidden");
+#else
+    mc = menu_cache_lookup_sync(requires_prefix ? "lxde-applications.menu" : "applications.menu");
+#endif
+    /* FIXME: may be it is reasonable to set XDG_MENU_PREFIX ? */
+
+    if(mc == NULL) /* initialization failed */
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+    return mc;
+}
+
+static gboolean _fm_vfs_menu_enumerator_new_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    FmVfsMenuEnumerator *enumerator;
+    MenuCache* mc;
+    const char *de_name;
+    MenuCacheItem *dir;
+
+    mc = _get_menu_cache(init->error);
+
+    if(mc == NULL) /* initialization failed */
+        return FALSE;
+
+    enumerator = g_object_new(FM_TYPE_VFS_MENU_ENUMERATOR, "container",
+                              init->file, NULL);
+    enumerator->mc = mc;
+    de_name = g_getenv("XDG_CURRENT_DESKTOP");
+
+    if(de_name)
+        enumerator->de_flag = menu_cache_get_desktop_env_flag(mc, de_name);
+    else
+        enumerator->de_flag = (guint32)-1;
+
+    /* the menu should be loaded now */
+    if(init->path_str)
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+    else
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
+    if(dir)
+    {
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        enumerator->child = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
+        menu_cache_item_unref(dir);
+#else
+        enumerator->child = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
+#endif
+    }
+    /* FIXME: do something with attributes and flags */
+
+    init->result = enumerator;
+    return FALSE;
+}
+
+static GFileEnumerator *_fm_vfs_menu_enumerator_new(GFile *file,
+                                                    const char *path_str,
+                                                    const char *attributes,
+                                                    GFileQueryInfoFlags flags,
+                                                    GError **error)
+{
+    FmVfsMenuMainThreadData enu;
+
+    enu.path_str = path_str;
+//    enu.attributes = attributes;
+//    enu.flags = flags;
+    enu.file = file;
+    enu.error = error;
+    enu.result = NULL;
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_enumerator_new_real, &enu);
+    return enu.result;
+}
+
+
+/* ---- GFile implementation ---- */
+#define ERROR_UNSUPPORTED(err) g_set_error_literal(err, G_IO_ERROR, \
+                        G_IO_ERROR_NOT_SUPPORTED, _("Operation not supported"))
+
+static GFile *_fm_vfs_menu_dup(GFile *file)
+{
+    FmMenuVFile *item, *new_item;
+
+    item = FM_MENU_VFILE(file);
+    new_item = _fm_menu_vfile_new();
+    if(item->path)
+        new_item->path = g_strdup(item->path);
+    return (GFile*)new_item;
+}
+
+static guint _fm_vfs_menu_hash(GFile *file)
+{
+    return g_str_hash(FM_MENU_VFILE(file)->path ? FM_MENU_VFILE(file)->path : "/");
+}
+
+static gboolean _fm_vfs_menu_equal(GFile *file1, GFile *file2)
+{
+    char *path1 = FM_MENU_VFILE(file1)->path;
+    char *path2 = FM_MENU_VFILE(file2)->path;
+
+    return g_strcmp0(path1, path2) == 0;
+}
+
+static gboolean _fm_vfs_menu_is_native(GFile *file)
+{
+    return FALSE;
+}
+
+static gboolean _fm_vfs_menu_has_uri_scheme(GFile *file, const char *uri_scheme)
+{
+    return g_ascii_strcasecmp(uri_scheme, "menu") == 0;
+}
+
+static char *_fm_vfs_menu_get_uri_scheme(GFile *file)
+{
+    return g_strdup("menu");
+}
+
+static char *_fm_vfs_menu_get_basename(GFile *file)
+{
+    /* g_debug("_fm_vfs_menu_get_basename %s", FM_MENU_VFILE(file)->path); */
+    if(FM_MENU_VFILE(file)->path == NULL)
+        return g_strdup("/");
+    return g_path_get_basename(FM_MENU_VFILE(file)->path);
+}
+
+static char *_fm_vfs_menu_get_path(GFile *file)
+{
+    return NULL;
+}
+
+static char *_fm_vfs_menu_get_uri(GFile *file)
+{
+    return g_strconcat("menu://applications/", FM_MENU_VFILE(file)->path, NULL);
+}
+
+static char *_fm_vfs_menu_get_parse_name(GFile *file)
+{
+    char *unescaped, *path;
+
+    /* g_debug("_fm_vfs_menu_get_parse_name %s", FM_MENU_VFILE(file)->path); */
+    unescaped = g_uri_unescape_string(FM_MENU_VFILE(file)->path, NULL);
+    path = g_strconcat("menu://applications/", unescaped, NULL);
+    g_free(unescaped);
+    return path;
+}
+
+static GFile *_fm_vfs_menu_get_parent(GFile *file)
+{
+    char *path = FM_MENU_VFILE(file)->path;
+    char *dirname;
+    GFile *parent;
+
+    /* g_debug("_fm_vfs_menu_get_parent %s", path); */
+    if(path)
+    {
+        dirname = g_path_get_dirname(path);
+        if(strcmp(dirname, ".") == 0)
+        {
+            g_free(dirname);
+            path = NULL;
+        }
+        else
+            path = dirname;
+    }
+    parent = _fm_vfs_menu_new_for_uri(path);
+    if(path)
+        g_free(path);
+    return parent;
+}
+
+/* this function is taken from GLocalFile implementation */
+static const char *match_prefix (const char *path, const char *prefix)
+{
+  int prefix_len;
+
+  prefix_len = strlen (prefix);
+  if (strncmp (path, prefix, prefix_len) != 0)
+    return NULL;
+
+  if (prefix_len > 0 && (prefix[prefix_len-1]) == '/')
+    prefix_len--;
+
+  return path + prefix_len;
+}
+
+static gboolean _fm_vfs_menu_prefix_matches(GFile *prefix, GFile *file)
+{
+    const char *path = FM_MENU_VFILE(file)->path;
+    const char *pp = FM_MENU_VFILE(prefix)->path;
+    const char *remainder;
+
+    if(pp == NULL)
+        return TRUE;
+    if(path == NULL)
+        return FALSE;
+    remainder = match_prefix(path, pp);
+    if(remainder != NULL && *remainder == '/')
+        return TRUE;
+    return FALSE;
+}
+
+static char *_fm_vfs_menu_get_relative_path(GFile *parent, GFile *descendant)
+{
+    const char *path = FM_MENU_VFILE(descendant)->path;
+    const char *pp = FM_MENU_VFILE(parent)->path;
+    const char *remainder;
+
+    if(pp == NULL)
+        return g_strdup(path);
+    if(path == NULL)
+        return NULL;
+    remainder = match_prefix(path, pp);
+    if(remainder != NULL && *remainder == '/')
+        return g_uri_unescape_string(&remainder[1], NULL);
+    return NULL;
+}
+
+static GFile *_fm_vfs_menu_resolve_relative_path(GFile *file, const char *relative_path)
+{
+    const char *path = FM_MENU_VFILE(file)->path;
+    FmMenuVFile *new_item = _fm_menu_vfile_new();
+
+    /* g_debug("_fm_vfs_menu_resolve_relative_path %s %s", path, relative_path); */
+    /* FIXME: handle if relative_path is invalid */
+    if(relative_path == NULL || *relative_path == '\0')
+        new_item->path = g_strdup(path);
+    else if(path == NULL)
+        new_item->path = g_strdup(relative_path);
+    else
+    {
+        /* relative_path is the most probably unescaped string (at least GFVS
+           works such way) so we have to escape invalid chars here. */
+        char *escaped = g_uri_escape_string(relative_path,
+                                            G_URI_RESERVED_CHARS_ALLOWED_IN_PATH,
+                                            TRUE);
+        new_item->path = g_strconcat(path, "/", relative_path, NULL);
+        g_free(escaped);
+    }
+    return (GFile*)new_item;
+}
+
+static gboolean _fm_vfs_menu_get_child_for_display_name_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *dir;
+    gboolean is_invalid = FALSE;
+
+    init->result = NULL;
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    if(init->path_str)
+    {
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        if(dir == NULL || menu_cache_item_get_type(dir) != MENU_CACHE_TYPE_DIR)
+            is_invalid = TRUE;
+    }
+    else
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
+    if(is_invalid)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu directory"));
+    else if(dir)
+    {
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
+        MenuCacheItem *item = menu_cache_find_child_by_name(MENU_CACHE_DIR(dir),
+                                                            init->display_name);
+        g_debug("searched for child '%s' found '%s'", init->display_name,
+                item ? menu_cache_item_get_id(item) : "(nil)");
+        if (item == NULL)
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                              init->display_name);
+        else
+        {
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                menu_cache_item_get_id(item));
+            menu_cache_item_unref(item);
+        }
+#else /* < 0.5.0 */
+        GSList *l;
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        GSList *children = menu_cache_dir_list_children(MENU_CACHE_DIR(dir));
+#else
+        GSList *children = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
+#endif
+        for (l = children; l; l = l->next)
+            if (g_strcmp0(init->display_name, menu_cache_item_get_name(l->data)) == 0)
+                break;
+        if (l == NULL) /* not found */
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                              init->display_name);
+        else
+            init->result = _fm_vfs_menu_resolve_relative_path(init->file,
+                                                menu_cache_item_get_id(l->data));
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        g_slist_free_full(children, menu_cache_item_unref);
+#endif
+#endif /* < 0.5.0 */
+    }
+    else /* menu_cache_get_root_dir failed */
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
+/* this is taken from GLocalFile implementation */
+static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
+                                                      const char *display_name,
+                                                      GError **error)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    /* g_debug("_fm_vfs_menu_get_child_for_display_name: '%s' '%s'", item->path, display_name); */
+    if (display_name == NULL || *display_name == '\0')
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu item name cannot be empty"));
+        return NULL;
+    }
+    /* NOTE: this violates GFile requirement that this API should not do I/O but
+       there is no way to do this without dirty tricks which may lead to failure */
+    enu.path_str = item->path;
+    enu.error = error;
+    enu.display_name = display_name;
+    enu.file = file;
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_get_child_for_display_name_real, &enu);
+    return enu.result;
+}
+
+static GFileEnumerator *_fm_vfs_menu_enumerate_children(GFile *file,
+                                                        const char *attributes,
+                                                        GFileQueryInfoFlags flags,
+                                                        GCancellable *cancellable,
+                                                        GError **error)
+{
+    const char *path = FM_MENU_VFILE(file)->path;
+
+    return _fm_vfs_menu_enumerator_new(file, path, attributes, flags, error);
+}
+
+static gboolean _fm_vfs_menu_query_info_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *dir;
+    gboolean is_invalid = FALSE;
+
+    init->result = NULL;
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    if(init->path_str)
+    {
+        dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+        if(dir == NULL)
+            is_invalid = TRUE;
+    }
+    else
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        dir = MENU_CACHE_ITEM(menu_cache_dup_root_dir(mc));
+#else
+        dir = MENU_CACHE_ITEM(menu_cache_get_root_dir(mc));
+#endif
+    if(is_invalid)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("Invalid menu directory %s"), init->path_str);
+    else if(dir)
+    {
+        const char *de_name = g_getenv("XDG_CURRENT_DESKTOP");
+
+        if(de_name)
+            init->result = _g_file_info_from_menu_cache_item(dir,
+                                menu_cache_get_desktop_env_flag(mc, de_name));
+        else
+            init->result = _g_file_info_from_menu_cache_item(dir, (guint32)-1);
+    }
+    else /* menu_cache_get_root_dir failed */
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu cache error"));
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
+static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
+                                          const char *attributes,
+                                          GFileQueryInfoFlags flags,
+                                          GCancellable *cancellable,
+                                          GError **error)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    GFileInfo *info;
+    GFileAttributeMatcher *matcher;
+    char *basename, *id;
+    FmVfsMenuMainThreadData enu;
+
+    matcher = g_file_attribute_matcher_new(attributes);
+
+    if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TYPE) ||
+       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_ICON) ||
+       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI) ||
+       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE) ||
+       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) ||
+       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
+    {
+        /* retrieve matching attributes from menu-cache */
+        enu.path_str = item->path;
+//        enu.attributes = attributes;
+//        enu.flags = flags;
+        enu.cancellable = cancellable;
+        enu.error = error;
+        RUN_WITH_MENU_CACHE(_fm_vfs_menu_query_info_real, &enu);
+        info = enu.result;
+    }
+    else
+    {
+        info = g_file_info_new();
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_NAME))
+        {
+            if(item->path == NULL)
+                basename = g_strdup("/");
+            else
+                basename = g_path_get_basename(item->path);
+            id = g_uri_unescape_string(basename, NULL);
+            g_free(basename);
+            g_file_info_set_name(info, id);
+            g_free(id);
+        }
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ID_FILESYSTEM))
+            g_file_info_set_attribute_string(info, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                             "menu-Applications");
+    }
+
+    g_file_attribute_matcher_unref(matcher);
+
+    return info;
+}
+
+static GFileInfo *_fm_vfs_menu_query_filesystem_info(GFile *file,
+                                                     const char *attributes,
+                                                     GCancellable *cancellable,
+                                                     GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GMount *_fm_vfs_menu_find_enclosing_mount(GFile *file,
+                                                 GCancellable *cancellable,
+                                                 GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static gboolean _fm_vfs_menu_set_display_name_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *dir;
+    gboolean ok = FALSE;
+
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    dir = _vfile_path_to_menu_cache_item(mc, init->path_str);
+    if(dir == NULL)
+        g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                            _("Invalid menu item"));
+    else if (menu_cache_item_get_file_basename(dir) == NULL ||
+             menu_cache_item_get_file_dirname(dir) == NULL)
+        ERROR_UNSUPPORTED(init->error);
+    else if (!g_cancellable_set_error_if_cancelled(init->cancellable, init->error))
+    {
+        char *path = menu_cache_item_get_file_path(dir);
+        GKeyFile *kf = g_key_file_new();
+
+        ok = g_key_file_load_from_file(kf, path, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                       init->error);
+        g_free(path);
+        if (ok)
+        {
+            /* get locale name */
+            const gchar * const *langs = g_get_language_names();
+            char *contents;
+            gsize length;
+
+            if (strcmp(langs[0], "C") != 0)
+            {
+                char *lang;
+                /* remove encoding from locale name */
+                char *sep = strchr(langs[0], '.');
+
+                if (sep)
+                    lang = g_strndup(langs[0], sep - langs[0]);
+                else
+                    lang = g_strdup(langs[0]);
+                g_key_file_set_locale_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                             G_KEY_FILE_DESKTOP_KEY_NAME, lang,
+                                             init->display_name);
+                g_free(lang);
+            }
+            else
+                g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
+                                      G_KEY_FILE_DESKTOP_KEY_NAME, init->display_name);
+            contents = g_key_file_to_data(kf, &length, init->error);
+            if (contents == NULL)
+                ok = FALSE;
+            else
+            {
+                path = g_build_filename(g_get_user_data_dir(),
+                                        (menu_cache_item_get_type(dir) == MENU_CACHE_TYPE_DIR) ? "desktop-directories" : "applications",
+                                        menu_cache_item_get_file_basename(dir), NULL);
+                ok = g_file_set_contents(path, contents, length, init->error);
+                /* FIXME: handle case if directory doesn't exist */
+                g_free(contents);
+                g_free(path);
+            }
+        }
+        g_key_file_free(kf);
+    }
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(dir)
+        menu_cache_item_unref(dir);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return ok;
+}
+
+static GFile *_fm_vfs_menu_set_display_name(GFile *file,
+                                            const char *display_name,
+                                            GCancellable *cancellable,
+                                            GError **error)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    if (item->path == NULL)
+    {
+        ERROR_UNSUPPORTED(error);
+        return NULL;
+    }
+    if (display_name == NULL || *display_name == '\0')
+    {
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Menu item name cannot be empty"));
+        return NULL;
+    }
+    enu.path_str = item->path;
+    enu.display_name = display_name;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    if (RUN_WITH_MENU_CACHE(_fm_vfs_menu_set_display_name_real, &enu))
+        return g_object_ref(file);
+    return NULL;
+}
+
+static GFileAttributeInfoList *_fm_vfs_menu_query_settable_attributes(GFile *file,
+                                                                      GCancellable *cancellable,
+                                                                      GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static GFileAttributeInfoList *_fm_vfs_menu_query_writable_namespaces(GFile *file,
+                                                                      GCancellable *cancellable,
+                                                                      GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
+
+static gboolean _fm_vfs_menu_set_attribute(GFile *file,
+                                           const char *attribute,
+                                           GFileAttributeType type,
+                                           gpointer value_p,
+                                           GFileQueryInfoFlags flags,
+                                           GCancellable *cancellable,
+                                           GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static gboolean _fm_vfs_menu_set_attributes_from_info(GFile *file,
+                                                      GFileInfo *info,
+                                                      GFileQueryInfoFlags flags,
+                                                      GCancellable *cancellable,
+                                                      GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return FALSE;
+}
+
+static inline GFile *_g_file_new_for_id(const char *id)
+{
+    char *file_path;
+    GFile *file;
+
+    file_path = g_build_filename(g_get_user_data_dir(), "applications", id, NULL);
+    /* we can try to guess file path and make directories but it
+       hardly worth the efforts so it's easier to just make new file
+       by its ID since ID is unique thru all the menu */
+    if (file_path == NULL)
+        return NULL;
+    file = g_file_new_for_path(file_path);
+    g_free(file_path);
+    return file;
+}
+
+static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
+{
+    FmVfsMenuMainThreadData *init = data;
+    MenuCache *mc;
+    MenuCacheItem *item = NULL;
+
+    init->result = NULL;
+    mc = _get_menu_cache(init->error);
+    if(mc == NULL)
+        goto _mc_failed;
+
+    if(init->path_str)
+        item = _vfile_path_to_menu_cache_item(mc, init->path_str);
+
+        /* If item wasn't found or isn't a file then we cannot read it. */
+    if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_IS_DIRECTORY,
+                    _("The \"%s\" is a menu directory"), init->path_str);
+    else if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                    _("The \"%s\" isn't a menu item"),
+                    init->path_str ? init->path_str : "/");
+    else
+    {
+        char *file_path;
+        GFile *gf;
+        GError *err = NULL;
+
+        file_path = menu_cache_item_get_file_path(item);
+        if (file_path)
+        {
+            gf = g_file_new_for_path(file_path);
+            g_free(file_path);
+            if (gf)
+            {
+                init->result = g_file_read(gf, init->cancellable, &err);
+                if (init->result == NULL)
+                {
+                    /* never return G_IO_ERROR_IS_DIRECTORY */
+                    if (err->domain == G_IO_ERROR &&
+                        err->code == G_IO_ERROR_IS_DIRECTORY)
+                    {
+                        g_error_free(err);
+                        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_REGULAR_FILE,
+                                    _("The \"%s\" is broken"), init->path_str);
+                    }
+                    else
+                        g_propagate_error(init->error, err);
+                }
+                g_object_unref(gf);
+            }
+        }
+    }
+
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+    if(item)
+        menu_cache_item_unref(item);
+#endif
+    menu_cache_unref(mc);
+
+_mc_failed:
+    return FALSE;
+}
+
+static GFileInputStream *_fm_vfs_menu_read_fn(GFile *file,
+                                              GCancellable *cancellable,
+                                              GError **error)
+{
+    FmMenuVFile *item = FM_MENU_VFILE(file);
+    FmVfsMenuMainThreadData enu;
+
+    /* g_debug("_fm_vfs_menu_read_fn %s", item->path); */
+    enu.path_str = item->path;
+    enu.cancellable = cancellable;
+    enu.error = error;
+    RUN_WITH_MENU_CACHE(_fm_vfs_menu_read_fn_real, &enu);
+    return enu.result;
+}
+
+static GFileOutputStream *_fm_vfs_menu_append_to(GFile *file,
+                                                 GFileCreateFlags flags,
+                                                 GCancellable *cancellable,
+                                                 GError **error)
+{
+    ERROR_UNSUPPORTED(error);
+    return NULL;
+}
 
 
 /* ---- FmMenuVFileOutputStream class ---- */
