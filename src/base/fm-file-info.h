@@ -123,11 +123,9 @@ dev_t fm_file_info_get_dev( FmFileInfo* fi );
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 
-//gboolean fm_file_info_can_set_icon(FmFileInfo *fi);
-//gboolean fm_file_info_set_icon(FmFileInfo *fi, const gchar *name);
-
-//gboolean fm_file_info_can_set_hidden(FmFileInfo *fi);
-//gboolean fm_file_info_set_hidden(FmFileInfo *fi, gboolean is_hidden);
+gboolean fm_file_info_can_set_name(FmFileInfo *fi);
+gboolean fm_file_info_can_set_icon(FmFileInfo *fi);
+gboolean fm_file_info_can_set_hidden(FmFileInfo *fi);
 
 FmFileInfoList* fm_file_info_list_new();
 //FmFileInfoList* fm_file_info_list_new_from_glist();

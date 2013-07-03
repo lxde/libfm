@@ -345,6 +345,9 @@ fm_file_get_type
 <FILE>fm-file-info</FILE>
 FM_FILE_INFO
 FmFileInfo
+fm_file_info_can_set_hidden
+fm_file_info_can_set_icon
+fm_file_info_can_set_name
 fm_file_info_can_thumbnail
 fm_file_info_get_atime
 fm_file_info_get_blocks

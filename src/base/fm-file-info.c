@@ -91,6 +91,9 @@ struct _FmFileInfo
     gboolean accessible : 1; /* TRUE if can be read by user */
     gboolean hidden : 1; /* TRUE if file is hidden */
     gboolean backup : 1; /* TRUE if file is backup */
+    gboolean name_is_changeable : 1; /* TRUE if name can be changed */
+    gboolean icon_is_changeable : 1; /* TRUE if icon can be changed */
+    gboolean hidden_is_changeable : 1; /* TRUE if hidden can be changed */
 
     /*<private>*/
     int n_ref;
@@ -281,6 +284,13 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                     "%s: %s", path, g_strerror(errno));
         return FALSE;
     }
+    /* name is changeable for native files */
+    fi->name_is_changeable = TRUE;
+    /* hidden attribute is immutable for native files */
+    fi->hidden_is_changeable = FALSE;
+    /* we can change icon only for accessible desktop entry */
+    fi->icon_is_changeable = fm_file_info_is_desktop_entry(fi);
+        /* FIXME: add support for icon change on directories too */
     return TRUE;
 }
 
@@ -442,6 +452,9 @@ void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
     fi->hidden = g_file_info_get_is_hidden(inf);
     fi->backup = g_file_info_get_is_backup(inf);
+    fi->name_is_changeable = fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
+    if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME))
+        fi->name_is_changeable = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME);
 }
 
 
@@ -667,6 +680,9 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
     fi->accessible = src->accessible;
     fi->hidden = src->hidden;
     fi->backup = src->backup;
+    fi->name_is_changeable = src->name_is_changeable;
+    fi->icon_is_changeable = src->icon_is_changeable;
+    fi->hidden_is_changeable = src->hidden_is_changeable;
 }
 
 /**
@@ -1348,4 +1364,55 @@ gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
         }
     }
     return TRUE;
+}
+
+/**
+ * fm_file_info_can_set_name
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports name change for @fi. Returned value
+ * %TRUE is just a potential possibility, name still may be unable to
+ * change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_name(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->name_is_changeable);
+}
+
+/**
+ * fm_file_info_can_set_icon
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports icon change for @fi. Returned value
+ * %TRUE is just a potential possibility, icon still may be unable to
+ * change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_icon(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->icon_is_changeable);
+}
+
+/**
+ * fm_file_info_can_set_hidden
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports "hidden" attribute change for @fi.
+ * Returned value %TRUE is just a potential possibility, the attribute
+ * still may be unable to change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_hidden(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->hidden_is_changeable);
 }
