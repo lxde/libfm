@@ -906,9 +906,15 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
  * fm_path_display_basename
  * @path: a path
  *
- * Creates displayable basename of @path.
+ * Creates displayable basename of @path. If @path is a scheme root path
+ * (i.e. "/", "sftp://", etc.) then returns basename of @path. For other
+ * paths displayable basename may be reliable only if there was already
+ * #FmFileInfo retrieved for the @path, otherwise some estimation will be
+ * done instead, be careful with this API.
  *
- * Returns: displayable basename of path.
+ * See also: fm_file_info_get_disp_name().
+ *
+ * Returns: (transfer full): displayable basename of path.
  *
  * Since: 0.1.0
  */

@@ -94,8 +94,6 @@ struct _FmFileInfo
     gulong blksize;
     goffset blocks;
 
-    char* disp_name;  /* displayed name (in UTF-8) */
-
     /* FIXME: caching the collate key can greatly speed up sorting.
      *        However, memory usage is greatly increased!.
      *        Is there a better alternative solution?
@@ -195,9 +193,10 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
     char *dname;
     FmPath* fmpath = fm_file_info_get_path(fi);
 
+    g_return_val_if_fail(fi && fi->path, FALSE);
     if(lstat(path, &st) == 0)
     {
-        fi->disp_name = NULL;
+        dname = NULL;
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
         fi->atime = st.st_atime;
@@ -213,7 +212,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             fi->target = g_file_read_link(path, NULL);
         }
 
-        fi->mime_type = fm_mime_type_from_native_file(path, fm_file_info_get_disp_name(fi), &st);
+        fi->mime_type = fm_mime_type_from_native_file(path, fm_path_get_basename(fi->path), &st);
 
         fi->accessible = (g_access(path, R_OK) == 0);
 
@@ -225,7 +224,6 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             if(g_key_file_load_from_file(kf, path, 0, NULL))
             {
                 char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
-                char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
                 char* type = g_key_file_get_string(kf, "Desktop Entry", "Type", NULL);
                 if(icon_name)
                 {
@@ -245,8 +243,6 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                     icon = fm_icon_from_name(icon_name);
                     g_free(icon_name);
                 }
-                if(title) /* Use title of the desktop entry for display */
-                    fi->disp_name = title;
                 if(type)
                 {
                     /* g_debug("got desktop entry with type %s", type); */
@@ -278,6 +274,8 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                     g_free(type);
                 }
                 /* FIXME: otherwise it's error so reset mime type to unknown */
+                /* Use title of the desktop entry for display */
+                dname = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
             }
             if(icon)
                 fi->icon = icon;
@@ -345,18 +343,11 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         if(!fi->icon)
             fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
-        /* By default we use the real file base name for display.
-         * if the base name is not in UTF-8 encoding, we
-         * need to convert it to UTF-8 for display and save its
-         * UTF-8 version in fi->disp_name */
-        if(!fi->disp_name)
-        {
+        if (!dname)
             dname = g_filename_display_basename(path);
-            if(g_strcmp0(dname, fm_path_get_basename(fi->path)) == 0)
-                g_free(dname);
-            else
-                fi->disp_name = dname;
-        }
+        _fm_path_set_display_name(fi->path, dname);
+        g_free(dname);
+
         /* files with . prefix or ~ suffix are regarded as hidden files.
          * dirs with . prefix are regarded as hidden dirs. */
         dname = (char*)fm_path_get_basename(fi->path);
@@ -415,12 +406,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
 
     g_return_if_fail(fi->path);
 
-    /* if display name is the same as its name, just use it. */
-    tmp = g_file_info_get_display_name(inf);
-    if(g_strcmp0(tmp, fm_path_get_basename(fi->path)) == 0)
-        fi->disp_name = NULL;
-    else
-        fi->disp_name = g_strdup(tmp);
+    _fm_path_set_display_name(fi->path, g_file_info_get_display_name(inf));
 
     fi->size = g_file_info_get_size(inf);
 
@@ -632,7 +618,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
     const char* icon_name;
     icon_name = menu_cache_item_get_icon(item);
-    fi->disp_name = g_strdup(menu_cache_item_get_name(item));
+    _fm_path_set_display_name(fi->path, menu_cache_item_get_name(item));
     if(icon_name)
     {
         char* tmp_name = NULL;
@@ -702,12 +688,6 @@ static void fm_file_info_clear(FmFileInfo* fi)
     {
         fm_path_unref(fi->path);
         fi->path = NULL;
-    }
-
-    if(G_UNLIKELY(fi->disp_name))
-    {
-        g_free(fi->disp_name);
-        fi->disp_name = NULL;
     }
 
     if(G_LIKELY(fi->disp_size))
@@ -810,8 +790,6 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
     fi->blksize = src->blksize;
     fi->blocks = src->blocks;
 
-    fi->disp_name = g_strdup(src->disp_name); /* disp_name might be NULL */
-
     if(src->collate_key == COLLATE_USING_DISPLAY_NAME)
         fi->collate_key = COLLATE_USING_DISPLAY_NAME;
     else
@@ -892,7 +870,10 @@ const char* fm_file_info_get_name(FmFileInfo* fi)
 /* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
-    return G_LIKELY(!fi->disp_name) ? fm_path_get_basename(fi->path) : fi->disp_name;
+    const char *disp_name = _fm_path_get_display_name(fi->path);
+    /* return basename if FmFileInfo is incomplete yet. it is a failure. */
+    g_return_val_if_fail(disp_name != NULL, fm_path_get_basename(fi->path));
+    return disp_name;
 }
 
 /**
@@ -926,8 +907,7 @@ void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
 /* if disp name is set to NULL, we use the real filename for display. */
 void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
-    g_free(fi->disp_name);
-    fi->disp_name = g_strdup(name);
+    _fm_path_set_display_name(fi->path, name);
     /* FIXME: reset collate key */
 }
 
