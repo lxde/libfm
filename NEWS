@@ -167,6 +167,15 @@ Changes on 1.2.0 since 1.1.0:
 * Added APIs to test possibility and change display name, icon, "hidden"
     attribute of file, and target of shortcut.
 
+* File name is shown if file properties dialog window along with display
+    name if it is different from displayable one.
+
+* If access or modification time aren't available for the file then they
+    will be not shown instead of stupid "01 Jan 1970" date.
+
+* File can be renamed in the file properties dialog now. The entry will
+    be disabled if target file system doesn't support file renaming.
+
 
 Changes on 1.1.0 since 1.0.1:
 

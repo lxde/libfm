@@ -331,6 +331,8 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
 static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 {
+    FmFileOpsJob* job = NULL;
+
     if( response == GTK_RESPONSE_OK )
     {
       /* if permissions_tab is hidden then it has undefined data
@@ -494,7 +496,9 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         if(new_mode_mask || data->uid != -1 || data->gid != -1)
         {
             FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
-            FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+
+            job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+            fm_path_list_unref(paths);
 
             /* need to chown */
             if(data->uid != -1 || data->gid != -1)
@@ -518,11 +522,6 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                 if(fm_yes_no(GTK_WINDOW(data->dlg), NULL, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
-
-            /* show progress dialog */
-            fm_file_ops_job_run_with_progress(GTK_WINDOW(dlg), job);
-                                                        /* it eats reference! */
-            fm_path_list_unref(paths);
         }
       } /* end of permissions update */
 
@@ -557,9 +556,22 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             /* if the user has changed the name of the file */
             if(g_strcmp0(fm_file_info_get_disp_name(data->fi), gtk_entry_get_text(data->name)))
             {
-                /* FIXME: rename the file or set display name for it. */
+                /* rename the file or set display name for it. */
+                if (job == NULL)
+                {
+                    FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
+
+                    job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+                    fm_path_list_unref(paths);
+                }
+                fm_file_ops_job_set_display_name(job, gtk_entry_get_text(data->name));
             }
         }
+
+        if (job)
+            /* show progress dialog */
+            fm_file_ops_job_run_with_progress(GTK_WINDOW(dlg), job);
+                                                        /* it eats reference! */
     }
     /* call the extension if it was set */
     else if(data->ext != NULL) // FIXME: make this stackable!
@@ -936,9 +948,12 @@ static void update_ui(FmFilePropData* data)
             gtk_widget_destroy(data->atime_label);
             gtk_widget_destroy(GTK_WIDGET(data->atime));
         }
-        /* FIXME: changing file name isn't implemented yet, disable entry */
-        gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
-        gtk_editable_set_editable(GTK_EDITABLE(data->name), FALSE);
+        if (!fm_file_info_can_set_name(data->fi))
+        {
+            /* changing file name isn't available, disable entry */
+            gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
+            gtk_editable_set_editable(GTK_EDITABLE(data->name), FALSE);
+        }
     }
     else
     {
