@@ -741,19 +741,17 @@ void _fm_templates_init(void)
     const gchar * const *data_dirs = g_get_system_data_dirs();
     const gchar * const *data_dir;
     const gchar *dir_name;
-    FmPath *parent_path, *path;
     FmTemplateDir *dir = NULL;
-    GFile *gfile;
+    GFile *parent, *gfile;
 
     if(templates_dirs)
         return; /* someone called us again? */
     /* prepare list of system template directories */
     for(data_dir = data_dirs; *data_dir; ++data_dir)
     {
-        parent_path = fm_path_new_for_str(*data_dir);
-        path = fm_path_new_child(parent_path, "templates");
-        fm_path_unref(parent_path);
-        gfile = fm_path_to_gfile(path);
+        parent = g_file_new_for_path(*data_dir);
+        gfile = g_file_get_child(parent, "templates");
+        g_object_unref(parent);
         if(g_file_query_exists(gfile, NULL))
         {
             if(G_LIKELY(dir))
@@ -763,12 +761,10 @@ void _fm_templates_init(void)
             }
             else
                 templates_dirs = dir = g_slice_new(FmTemplateDir);
-            dir->path = path;
+            dir->path = fm_path_new_for_gfile(gfile);
             dir->user_dir = FALSE;
             _template_dir_init(dir, gfile);
         }
-        else
-            fm_path_unref(path);
         g_object_unref(gfile);
     }
     if(G_LIKELY(dir))
@@ -777,11 +773,11 @@ void _fm_templates_init(void)
     dir = g_slice_new(FmTemplateDir);
     dir->next = templates_dirs;
     templates_dirs = dir;
-    parent_path = fm_path_new_for_str(g_get_user_data_dir());
-    dir->path = fm_path_new_child(parent_path, "templates");
-    fm_path_unref(parent_path);
+    parent = g_file_new_for_path(g_get_user_data_dir());
+    gfile = g_file_get_child(parent, "templates");
+    g_object_unref(parent);
+    dir->path = fm_path_new_for_gfile(gfile);
     dir->user_dir = TRUE;
-    gfile = fm_path_to_gfile(dir->path);
     /* FIXME: create it if it doesn't exist? */
     if(g_file_query_exists(gfile, NULL))
         _template_dir_init(dir, gfile);
