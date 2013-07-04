@@ -3,7 +3,7 @@
 NULL =
 # we use glib/gio/libfm only by default
 AM_CPPFLAGS = \
-	-I.. -I../base -I../extra \
+	-I.. -I../base -I../job \
 	-Werror-implicit-function-declaration \
 	$(GIO_CFLAGS)
 
@@ -20,15 +20,16 @@ pkglibdir = $(libdir)/@PACKAGE@/modules
 pkglib_LTLIBRARIES = \
 	vfs-menu.la \
 	vfs-search.la \
+	gtk-fileprop-x-desktop.la \
 	$(NULL)
 
 # module-specific parameters
-vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS)
+vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS) -I../extra
 vfs_menu_la_LIBADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la
 
 #gtk_filemenu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS)
 #gtk_filemenu_actions_la_LIBADD = $(LIBFMACTIONS) $(GTK_LIBS)
 #gtk_filemenu_actions_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
 
-#gtk_fileprop_desktop_entry_la_CFLAGS = $(GTK_CFLAGS)
-#gtk_fileprop_desktop_entry_la_LIBADD = $(GTK_LIBS)
+gtk_fileprop_x_desktop_la_CFLAGS = $(GTK_CFLAGS) -I../gtk
+gtk_fileprop_x_desktop_la_LIBADD = $(GTK_LIBS)

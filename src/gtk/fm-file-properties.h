@@ -23,8 +23,10 @@
 #ifndef __FM_FILE_PROPERTIES_H__
 #define __FM_FILE_PROPERTIES_H__
 
-#include <gtk/gtk.h>
+#include "fm-module.h"
 #include "fm-file-info.h"
+
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
@@ -65,6 +67,13 @@ struct _FmFilePropertiesExtensionInit
 
 gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
                                               FmFilePropertiesExtensionInit *callbacks);
+
+/* modules support */
+#define FM_MODULE_gtkFileProp_VERSION 1
+extern FmFilePropertiesExtensionInit fm_module_init_gtkFileProp;
+
+void _fm_file_properties_init(void);
+void _fm_file_properties_finalize(void);
 
 G_END_DECLS
 

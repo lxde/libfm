@@ -145,7 +145,6 @@ libfm_gtk_SOURCES = \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
 	gtk/fm-path-bar.c \
-	gtk/fm-dentry-properties.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 

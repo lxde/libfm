@@ -71,7 +71,7 @@
  *
  * FM_MODULE_DEFINE_TYPE(dummy, FmDummyInit, 1)
  *
- * static void fm_module_callback_dummy(const char *name, FmDummyInit *init, int ver)
+ * static gboolean fm_module_callback_dummy(const char *name, gpointer init, int ver)
  * {
  *     /&ast; add module callbacks into own data list &ast;/
  *     .......
@@ -348,7 +348,7 @@ void fm_modules_load(void)
             ptr = dlsym(handle, str->str);
             if (ptr == NULL) /* no interface found */
                 continue;
-            g_debug("found handler %s/%s", mtype->type, name);
+            g_debug("found handler %s:%s", mtype->type, name);
             /* if everything is ok then add to list */
             if (mtype->cb(name, ptr, version))
                 mtype->modules = g_slist_prepend(mtype->modules, g_object_ref(module));

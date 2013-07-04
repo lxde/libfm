@@ -18,7 +18,6 @@ src/extra/fm-xml-file.c
 src/gtk/fm-app-chooser-combo-box.c
 src/gtk/fm-app-chooser-dlg.c
 src/gtk/fm-app-menu-view.c
-src/gtk/fm-dentry-properties.c
 src/gtk/fm-dir-tree-model.c
 src/gtk/fm-dir-tree-view.c
 src/gtk/fm-dnd-dest.c
@@ -42,5 +41,6 @@ src/job/fm-file-ops-job-xfer.c
 src/job/fm-file-ops-job-change-attr.c
 src/modules/vfs-menu.c
 src/modules/vfs-search.c
+src/modules/gtk-fileprop-x-desktop.c
 src/tools/libfm-pref-apps.c
 src/udisks/g-udisks-device.c

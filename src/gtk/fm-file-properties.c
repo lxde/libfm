@@ -1456,3 +1456,22 @@ gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
     extensions = ext;
     return TRUE;
 }
+
+/* modules support here */
+FM_MODULE_DEFINE_TYPE(gtkFileProp, FmFilePropertiesExtensionInit, 1)
+
+static gboolean fm_module_callback_gtkFileProp(const char *name, gpointer init, int ver)
+{
+    /* we don't test version yet since there is only version 1 */
+    return fm_file_properties_add_for_mime_type(name, init);
+}
+
+void _fm_file_properties_init(void)
+{
+    FM_MODULE_REGISTER_gtkFileProp();
+}
+
+void _fm_file_properties_finalize(void)
+{
+    fm_module_unregister_type("gtkFileProp");
+}

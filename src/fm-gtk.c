@@ -51,7 +51,7 @@ gboolean fm_gtk_init(FmConfig* config)
 
     _fm_icon_pixbuf_init();
     _fm_thumbnail_init();
-    _fm_dentry_properties_init(); // temporary
+    _fm_file_properties_init();
 
     return TRUE;
 }
@@ -67,6 +67,7 @@ void fm_gtk_finalize(void)
 {
     _fm_icon_pixbuf_finalize();
     _fm_thumbnail_finalize();
+    _fm_file_properties_finalize();
 
     fm_finalize();
 }

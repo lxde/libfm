@@ -22,8 +22,6 @@
 
 /* File properties dialog extension for desktop entry type */
 
-/* FIXME: this should be module, not part of libfm-gtk */
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
 
@@ -433,13 +431,9 @@ static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
     g_slice_free(FmFilePropertiesDEntryData, data);
 }
 
-static FmFilePropertiesExtensionInit _callbacks = {
+FM_DEFINE_MODULE(gtkFileProp, application/x-desktop)
+
+FmFilePropertiesExtensionInit fm_module_init_gtkFileProp = {
     &_dentry_ui_init,
     &_dentry_ui_finish
 };
-
-void _fm_dentry_properties_init(void)
-{
-    fm_file_properties_add_for_mime_type("application/x-desktop", &_callbacks);
-    // FIXME: add support for changing menu directory icon
-}
