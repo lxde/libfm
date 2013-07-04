@@ -1128,11 +1128,15 @@ static void update_ui(FmFilePropData* data)
         if(icon)
             gtk_image_set_from_gicon(img, icon, GTK_ICON_SIZE_DIALOG);
 
-        if( data->single_file && fm_file_info_is_symlink(data->fi) )
+        if(data->single_file &&
+           (fm_file_info_is_symlink(data->fi) || fm_file_info_is_shortcut(data->fi)))
         {
+            text = fm_file_info_get_target(data->fi);
             gtk_widget_show(data->target_label);
             gtk_widget_show(GTK_WIDGET(data->target));
-            gtk_label_set_text(data->target, fm_file_info_get_target(data->fi));
+            gtk_label_set_text(data->target, text);
+            if(strlen(text) > 16)
+                gtk_widget_set_tooltip_text(GTK_WIDGET(data->target), text);
             // gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
         }
         else
