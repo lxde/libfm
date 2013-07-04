@@ -330,6 +330,8 @@ fm_dummy_monitor_get_type
 FmFile
 FmFileInitTable
 FmFileInterface
+FM_MODULE_vfs_VERSION
+fm_module_init_vfs
 fm_file_add_vfs
 fm_file_new_for_commandline_arg
 fm_file_new_for_uri
@@ -490,6 +492,8 @@ fm_file_ops_job_get_type
 
 <SECTION>
 <FILE>fm-file-properties</FILE>
+FM_MODULE_gtkFileProp_VERSION
+fm_module_init_gtkFileProp
 FmFilePropertiesExtensionInit
 fm_file_properties_add_for_mime_type
 fm_file_properties_widget_new
@@ -557,6 +561,8 @@ FmFolderModelClass
 FmFolderModelCol
 FmFolderModelColumnInit
 FmFolderModelFilterFunc
+FM_MODULE_gtkFolderCol_VERSION
+fm_module_init_gtkFolderCol
 fm_folder_model_add_custom_column
 fm_folder_model_add_filter
 fm_folder_model_apply_filters
@@ -790,6 +796,17 @@ fm_mime_type_remove_thumbnailer
 fm_mime_type_unref
 <SUBSECTION Standard>
 fm_mime_type_get_type
+</SECTION>
+
+<SECTION>
+<FILE>fm-module</FILE>
+CHECK_MODULES
+FM_DEFINE_MODULE
+FM_MODULE_DEFINE_TYPE
+FmModuleInitCallback
+fm_module_register_type
+fm_module_unregister_type
+fm_modules_load
 </SECTION>
 
 <SECTION>
