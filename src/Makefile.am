@@ -7,6 +7,7 @@ NULL=
 SUBDIRS= \
 	$(ACTIONS_SUBDIR) \
 	. \
+	modules \
 	tests \
 	$(NULL)
 
@@ -73,6 +74,7 @@ base_SOURCES = \
 	base/fm-terminal.c \
 	base/fm-templates.c \
 	base/fm-marshal.c \
+	base/fm-module.c \
 	vfs/fm-vfs-menu.c \
 	vfs/fm-vfs-search.c \
 	$(NULL)
@@ -173,6 +175,7 @@ libfminclude_HEADERS = \
 	base/fm-terminal.h \
 	base/fm-templates.h \
 	base/fm-thumbnail-loader.h \
+	base/fm-module.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -244,6 +247,7 @@ libfm_la_CFLAGS = \
 	$(DBUS_CFLAGS) \
 	$(EXIF_CFLAGS) \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/libfm"\" \
+	-DPACKAGE_MODULES_DIR=\""$(libdir)/@PACKAGE@/modules"\" \
 	$(NULL)
 
 libfm_la_LIBADD = \

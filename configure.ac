@@ -39,7 +39,7 @@ if test x"$enable_actions" = xyes; then
             AC_ERROR([No Vala compiler found but it is required.])
         fi
     fi
-    LIBFMACTIONS='$(srcdir)/actions/libfmactions.la'
+    LIBFMACTIONS='$(top_builddir)/src/actions/libfmactions.la'
     ACTIONS_SUBDIR='actions'
     AC_DEFINE(HAVE_ACTIONS, 1, [Define to 1 to enable custom actions])
 else
@@ -284,6 +284,7 @@ AC_CONFIG_FILES([
     src/Makefile
     src/actions/Makefile
     src/tests/Makefile
+    src/modules/Makefile
     src/fm-version.h
     data/Makefile
     data/libfm-pref-apps.1

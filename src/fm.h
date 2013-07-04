@@ -45,6 +45,7 @@
 #include "fm-file.h"
 #include "fm-terminal.h"
 #include "fm-templates.h"
+#include "fm-module.h"
 #include "fm-deep-count-job.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info-job.h"

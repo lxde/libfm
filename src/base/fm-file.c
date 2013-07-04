@@ -1,7 +1,7 @@
 /*
  *      fm-file.c
  *
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -65,6 +65,7 @@ static void fm_file_default_init(FmFileInterface *iface)
 
 static inline FmFileInitTable *fm_find_scheme(const char *name)
 {
+    CHECK_MODULES();
     return (FmFileInitTable*)g_hash_table_lookup(schemes, name);
 }
 
@@ -173,15 +174,26 @@ GFile *fm_file_new_for_commandline_arg(const char *arg)
 
 /* TODO: implement fm_file_parse_name() too */
 
+/* modules stuff */
+FM_MODULE_DEFINE_TYPE(vfs, FmFileInitTable, 1)
+static gboolean fm_module_callback_vfs(const char *name, FmFileInitTable *init,
+                                       int ver)
+{
+    /* we don't check version and don't support any other than 1
+       otherwise we should allocate own copy of FmFileInitTable */
+    fm_file_add_vfs(name, init);
+    return TRUE;
+}
+
 void _fm_file_init(void)
 {
     schemes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-    //fm_module_register_type("scheme", FM_FILE_MODULE_MIN_VERSION,
-    //                        FM_FILE_MODULE_MAX_VERSION, fm_file_add_module);
+    FM_MODULE_REGISTER_vfs();
 }
 
 void _fm_file_finalize(void)
 {
+    fm_module_unregister_type("vfs");
     g_hash_table_destroy(schemes);
     schemes = NULL;
 }

@@ -22,6 +22,8 @@
 #ifndef _FM_FILE_H_
 #define _FM_FILE_H_ 1
 
+#include "fm-module.h"
+
 #include <glib.h>
 #include <gio/gio.h>
 
@@ -85,6 +87,10 @@ GFile          *fm_file_new_for_commandline_arg(const char *arg);
 
 void _fm_file_init(void);
 void _fm_file_finalize(void);
+
+/* for modules */
+#define FM_MODULE_vfs_VERSION 1
+extern FmFileInitTable fm_module_init_vfs;
 
 G_END_DECLS
 #endif /* _FM_FILE_H_ */

@@ -1,0 +1,32 @@
+## Makefile.am -- Process this file with automake to produce Makefile.in
+
+NULL =
+# we use glib/gio/libfm only by default
+AM_CPPFLAGS = \
+	-I.. -I../base -I../extra \
+	-Werror-implicit-function-declaration \
+	$(GIO_CFLAGS)
+
+# tell libtool we compile module not library
+AM_LDFLAGS = -no-undefined -module -avoid-version $(GIO_LIBS)
+
+# the module should be linked only with libfm, not libfm-gtk or whatever
+LIBS += $(top_builddir)/src/libfm.la
+
+# change default and put modules below usual place
+pkglibdir = $(libdir)/@PACKAGE@/modules
+
+# modules to compile
+pkglib_LTLIBRARIES = \
+	$(NULL)
+
+# module-specific parameters
+#vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS)
+#vfs_menu_la_LDADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la
+
+#gtk_filemenu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS)
+#gtk_filemenu_actions_la_LDADD = $(LIBFMACTIONS) $(GTK_LIBS)
+#gtk_filemenu_actions_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
+
+#gtk_fileprop_desktop_entry_la_CFLAGS = $(GTK_CFLAGS)
+#gtk_fileprop_desktop_entry_la_LDADD = $(GTK_LIBS)
