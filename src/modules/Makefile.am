@@ -25,6 +25,7 @@ pkglib_LTLIBRARIES = \
 if ENABLE_GTK
 pkglib_LTLIBRARIES += \
 	gtk-fileprop-x-desktop.la \
+	gtk-menu-actions.la \
 	$(NULL)
 endif
 
@@ -32,9 +33,9 @@ endif
 vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS) -I../extra
 vfs_menu_la_LIBADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la
 
-#gtk_filemenu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS)
-#gtk_filemenu_actions_la_LIBADD = $(LIBFMACTIONS) $(GTK_LIBS)
-#gtk_filemenu_actions_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
+gtk_menu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS) -I../gtk
+gtk_menu_actions_la_LIBADD = $(LIBFMACTIONS) $(GTK_LIBS)
+gtk_menu_actions_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
 
 gtk_fileprop_x_desktop_la_CFLAGS = $(GTK_CFLAGS) -I../gtk
 gtk_fileprop_x_desktop_la_LIBADD = $(GTK_LIBS)

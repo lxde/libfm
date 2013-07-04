@@ -2,6 +2,7 @@
  *      fm-file-menu.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -46,6 +47,25 @@ GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu);
 FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
+
+/* modules "gtkMenuMime" stuff */
+typedef void (*FmFileMenuUpdatePopup)(GtkWindow* window, GtkUIManager* ui,
+                                      GString* xml, GtkActionGroup* act_grp,
+                                      FmFileMenu* menu, FmFileInfoList* files,
+                                      gboolean single_file);
+
+typedef struct _FmFileMenuMimeAddonInit FmFileMenuMimeAddonInit;
+struct _FmFileMenuMimeAddonInit
+{
+    void (*init)(void);
+    void (*finalize)(void);
+    /* mask: mime type */
+    FmFileMenuUpdatePopup update_file_menu_for_mime_type;
+};
+
+#define FM_MODULE_gtkMenuMime_VERSION 1
+
+extern FmFileMenuMimeAddonInit fm_module_init_gtkMenuMime;
 
 G_END_DECLS
 

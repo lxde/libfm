@@ -23,10 +23,13 @@
 #ifndef __FOLDER_VIEW_H__
 #define __FOLDER_VIEW_H__
 
-#include <gtk/gtk.h>
 #include "fm-file-info.h"
+#include "fm-module.h"
 #include "fm-folder-model.h"
 #include "fm-file-launcher.h"
+#include "fm-file-menu.h"
+
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
@@ -241,6 +244,22 @@ struct _FmFolderViewColumnInfo
 
 gboolean        fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols);
 GSList*         fm_folder_view_get_columns(FmFolderView* fv);
+
+/* plugins "gtkMenuScheme" stuff */
+typedef struct _FmContextMenuSchemeAddonInit FmContextMenuSchemeAddonInit;
+struct _FmContextMenuSchemeAddonInit
+{
+    void (*init)(void);
+    void (*finalize)(void);
+    /* mask: scheme for all files ("*" allowed) */
+    FmFileMenuUpdatePopup update_file_menu_for_scheme;
+    /* mask: scheme for folder ("*" allowed) */
+    FmFolderViewUpdatePopup update_folder_menu;
+};
+
+#define FM_MODULE_gtkMenuScheme_VERSION 1
+
+extern FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme;
 
 G_END_DECLS
 

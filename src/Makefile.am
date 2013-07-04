@@ -19,8 +19,6 @@ endif
 AM_CPPFLAGS = \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
-	-I$(srcdir)/extra \
-	-I$(srcdir)/actions \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DSYSCONF_DIR=\"@sysconfdir@\" \
 	-Werror-implicit-function-declaration \
@@ -268,12 +266,6 @@ libfm_la_LIBADD = \
 	$(DBUS_LIBS) \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
-	$(LIBFMACTIONS) \
-	libfm-extra.la \
-	$(NULL)
-
-libfm_la_DEPENDENCIES_EXTRA = \
-	$(LIBFMACTIONS) \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
@@ -287,6 +279,7 @@ libfm_extra_la_SOURCES = \
 	$(NULL)
 
 libfm_extra_la_CFLAGS = \
+	-I$(srcdir)/extra \
 	$(GIO_CFLAGS) \
 	$(NULL)
 
@@ -387,6 +380,7 @@ libfm_demo_LDADD = \
 	$(GTK_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
+	libfm-extra.la \
 	@LIBFM_GTK_LTLIBRARIES@ \
 	$(NULL)
 endif
