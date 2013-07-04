@@ -26,7 +26,7 @@
 #include <config.h>
 #endif
 
-#include "fm-vfs-search.h"
+#include "fm-file.h"
 
 #include <glib/gi18n-lib.h>
 
@@ -1332,7 +1332,9 @@ static GFile *_fm_vfs_search_new_for_uri(const char *uri)
     return (GFile*)item;
 }
 
-FmFileInitTable _fm_vfs_search_init_table =
+FM_DEFINE_MODULE(vfs, menu)
+
+FmFileInitTable fm_module_init_vfs =
 {
     .new_for_uri = &_fm_vfs_search_new_for_uri
 };

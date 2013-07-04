@@ -40,7 +40,7 @@ src/job/fm-file-ops-job.c
 src/job/fm-file-ops-job-delete.c
 src/job/fm-file-ops-job-xfer.c
 src/job/fm-file-ops-job-change-attr.c
+src/modules/vfs-menu.c
+src/modules/vfs-search.c
 src/tools/libfm-pref-apps.c
 src/udisks/g-udisks-device.c
-src/modules/vfs-menu.c
-src/vfs/fm-vfs-search.c

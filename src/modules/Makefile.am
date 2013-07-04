@@ -19,6 +19,7 @@ pkglibdir = $(libdir)/@PACKAGE@/modules
 # modules to compile
 pkglib_LTLIBRARIES = \
 	vfs-menu.la \
+	vfs-search.la \
 	$(NULL)
 
 # module-specific parameters
