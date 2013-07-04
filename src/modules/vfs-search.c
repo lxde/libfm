@@ -1332,7 +1332,7 @@ static GFile *_fm_vfs_search_new_for_uri(const char *uri)
     return (GFile*)item;
 }
 
-FM_DEFINE_MODULE(vfs, menu)
+FM_DEFINE_MODULE(vfs, search)
 
 FmFileInitTable fm_module_init_vfs =
 {
