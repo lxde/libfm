@@ -1253,7 +1253,8 @@ static void update_ui(FmFilePropData* data)
             gtk_widget_destroy(data->atime_label);
             gtk_widget_destroy(GTK_WIDGET(data->atime));
         }
-        if (!fm_file_info_can_set_name(data->fi))
+        if (!fm_file_info_can_set_name(data->fi) ||
+            fm_file_info_is_shortcut(data->fi))
         {
             /* changing file name isn't available, disable entry */
             gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
