@@ -1972,3 +1972,22 @@ gboolean fm_folder_model_col_is_valid(FmFolderModelCol col_id)
 {
     return col_id < column_infos_n;
 }
+
+FM_MODULE_DEFINE_TYPE(gtkFolderCol, FmFolderModelColumnInit, 1)
+
+static gboolean fm_module_callback_gtkFolderCol(const char *name, gpointer init, int ver)
+{
+    if (fm_folder_model_add_custom_column(name, init) == FM_FOLDER_MODEL_COL_DEFAULT)
+        return FALSE;
+    return TRUE;
+}
+
+void _fm_folder_model_init(void)
+{
+    FM_MODULE_REGISTER_gtkFolderCol();
+}
+
+void _fm_folder_model_finalize(void)
+{
+    fm_module_unregister_type("gtkFolderCol");
+}

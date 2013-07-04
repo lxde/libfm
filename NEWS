@@ -190,6 +190,11 @@ Changes on 1.2.0 since 1.1.0:
     reloaded so if you add or remove some module then you have to restart
     your application.
 
+* Created interfaces for loadable modules:
+    - vfs
+    - gtkFileProp
+    - gtkFolderCol
+
 
 Changes on 1.1.0 since 1.0.1:
 

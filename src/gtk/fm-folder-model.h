@@ -22,14 +22,15 @@
 #ifndef _FM_FOLDER_MODEL_H_
 #define _FM_FOLDER_MODEL_H_
 
+#include "fm-module.h"
+#include "fm-folder.h"
+#include "fm-sortable.h"
+
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <glib-object.h>
 
 #include <sys/types.h>
-
-#include "fm-folder.h"
-#include "fm-sortable.h"
 
 G_BEGIN_DECLS
 
@@ -188,6 +189,13 @@ struct _FmFolderModelColumnInit
 };
 
 FmFolderModelCol fm_folder_model_add_custom_column(const char* name, FmFolderModelColumnInit* init);
+
+/* modules */
+#define FM_MODULE_gtkFolderCol_VERSION 1
+extern FmFolderModelColumnInit fm_module_init_gtkFolderCol;
+
+void _fm_folder_model_init(void);
+void _fm_folder_model_finalize(void);
 
 G_END_DECLS
 
