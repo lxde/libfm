@@ -111,7 +111,8 @@ Changes on 1.2.0 since 1.1.0:
     properties such as command to execute. Icon also becomes clickable
     (and focusable as well, can be activated by Space key when focused),
     activation will present icon choose dialog. The implementation was
-    partially taken from LXShortcut utility.
+    partially taken from LXShortcut utility. Icon change dialog is also
+    available for any single file which allows icon change.
 
 * Disallowed default desktop path (by fm_path_get_desktop()) to be equal
     to home directory since it may be too dangerous. If it is set to home
@@ -164,6 +165,10 @@ Changes on 1.2.0 since 1.1.0:
     be opened with default browser when you click on it. And you can edit
     display name and icon of created shortcut to your preference.
 
+* Added basic support for detecting target type of shortcuts. If type of
+    target content cannot be determined then content type of shortcut
+    will be set to "inode/x-shortcut".
+
 * Added APIs to test possibility and change display name, icon, "hidden"
     attribute of file, and target of shortcut.
 
@@ -175,6 +180,10 @@ Changes on 1.2.0 since 1.1.0:
 
 * File can be renamed in the file properties dialog now. The entry will
     be disabled if target file system doesn't support file renaming.
+
+* The "link" icon mark in left upper corner of icon is shown on shortcuts
+    the same way as it is shown for symlinks. It is reasonable since any
+    shortcut is the same thing - link to another resource.
 
 
 Changes on 1.1.0 since 1.0.1:

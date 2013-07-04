@@ -187,7 +187,8 @@ static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
             g_object_unref(menu);
             return TRUE;
         }
-        g_propagate_error(error, err);
+        if (err)
+            g_propagate_error(error, err);
     }
     if (xml == NULL) /* error is set by failed function */
     {
@@ -2434,7 +2435,7 @@ static gboolean _fm_vfs_menu_set_attributes_from_info_real(gpointer data)
                 /* FIXME: need to change encoding in some cases? */
                 g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP,
                                       G_KEY_FILE_DESKTOP_KEY_ICON, icon_str);
-                g_free(icon);
+                g_free(icon_str);
             }
             if (set_hidden >= 0)
             {

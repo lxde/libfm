@@ -62,10 +62,20 @@
  * Since gtk_table_get_size() is available only for GTK 2.22 ... GTK 3.4
  * it is not generally recommended to change size of GtkTable but be also
  * aware that gtk_table_attach() is marked deprecated in GTK 3.4 though.
+ *
+ * Widget sets icon activatable if target file supports icon change. If
+ * user changes icon then its name (either themed name or file path) will
+ * be stored as GQuark fm_qdata_id in GtkImage "icon" (see above).
+ *
+ * Widget sets name entry editable if target file supports renaming. Both
+ * icon name and file name will be checked after extensions are finished
+ * therefore extensions have a chance to reset the data and widget will
+ * not do own processing.
  */
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
+#include <gdk/gdkkeysyms.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -77,16 +87,16 @@
 #include <pwd.h>
 #include <grp.h>
 
-#include "fm-file-info.h"
+#include "fm.h"
+
 #include "fm-file-properties.h"
-#include "fm-deep-count-job.h"
-#include "fm-utils.h"
-#include "fm-config.h"
 
 #include "fm-progress-dlg.h"
 #include "fm-gtk-utils.h"
 
 #include "fm-app-chooser-combo-box.h"
+
+#include "gtk-compat.h"
 
 #define     UI_FILE             PACKAGE_UI_DIR"/file-prop.ui"
 #define     GET_WIDGET(transform,name) data->name = transform(gtk_builder_get_object(builder, #name))
@@ -144,6 +154,7 @@ struct _FmFilePropData
     /* General page */
     GtkTable* general_table;
     GtkImage* icon;
+    GtkWidget* icon_eventbox;
     GtkEntry* name;
     GtkLabel* file;
     GtkLabel* file_label;
@@ -198,6 +209,270 @@ struct _FmFilePropData
 };
 
 
+/* ---- icon change handling ---- */
+/* this handler is taken from lxshortcut and modified a bit */
+static void on_update_preview(GtkFileChooser* chooser, GtkImage* img)
+{
+    char *file = gtk_file_chooser_get_preview_filename(chooser);
+    if (file)
+    {
+        GdkPixbuf *pix = gdk_pixbuf_new_from_file_at_scale(file, 48, 48, TRUE, NULL);
+        if (pix)
+        {
+            gtk_image_set_from_pixbuf(img, pix);
+            g_object_unref(pix);
+            return;
+        }
+    }
+    gtk_image_clear(img);
+}
+
+static void on_toggle_theme(GtkToggleButton *btn, GtkNotebook *notebook)
+{
+    gtk_notebook_set_current_page(notebook, 0);
+}
+
+static void on_toggle_files(GtkToggleButton *btn, GtkNotebook *notebook)
+{
+    gtk_notebook_set_current_page(notebook, 1);
+}
+
+static GdkPixbuf *vfs_load_icon(GtkIconTheme *theme, const char *icon_name, int size)
+{
+    GdkPixbuf *icon = NULL;
+    const char *file;
+    GtkIconInfo *inf = gtk_icon_theme_lookup_icon(theme, icon_name, size,
+                                                  GTK_ICON_LOOKUP_USE_BUILTIN);
+    if (G_UNLIKELY(!inf))
+        return NULL;
+
+    file = gtk_icon_info_get_filename(inf);
+    if (G_LIKELY(file))
+        icon = gdk_pixbuf_new_from_file_at_scale(file, size, size, TRUE, NULL);
+    else
+    {
+        icon = gtk_icon_info_get_builtin_pixbuf(inf);
+        g_object_ref(icon);
+    }
+    gtk_icon_info_free(inf);
+
+    if (G_LIKELY(icon))  /* scale down the icon if it's too big */
+    {
+        int width, height;
+        height = gdk_pixbuf_get_height(icon);
+        width = gdk_pixbuf_get_width(icon);
+
+        if (G_UNLIKELY(height > size || width > size))
+        {
+            GdkPixbuf *scaled;
+            if (height > width)
+            {
+                width = size * height / width;
+                height = size;
+            }
+            else if (height < width)
+            {
+                height = size * width / height;
+                width = size;
+            }
+            else
+                height = width = size;
+            scaled = gdk_pixbuf_scale_simple(icon, width, height, GDK_INTERP_BILINEAR);
+            g_object_unref(icon);
+            icon = scaled;
+        }
+    }
+    return icon;
+}
+
+typedef struct {
+    GtkIconView *view;
+    GtkListStore *model;
+    GAsyncQueue *queue;
+} IconThreadData;
+
+static gpointer load_themed_icon(GtkIconTheme *theme, IconThreadData *data)
+{
+    GdkPixbuf *pix;
+    char *icon_name = g_async_queue_pop(data->queue);
+
+    GDK_THREADS_ENTER();
+    pix = vfs_load_icon(theme, icon_name, 48);
+    GDK_THREADS_LEAVE();
+    g_thread_yield();
+    if (pix)
+    {
+        GtkTreeIter it;
+        GDK_THREADS_ENTER();
+        gtk_list_store_append(data->model, &it);
+        gtk_list_store_set(data->model, &it, 0, pix, 1, icon_name, -1);
+        g_object_unref(pix);
+        GDK_THREADS_LEAVE();
+    }
+    g_thread_yield();
+    if (g_async_queue_length(data->queue) == 0)
+    {
+        GDK_THREADS_ENTER();
+        if (gtk_icon_view_get_model(data->view) == NULL)
+        {
+            gtk_icon_view_set_model(data->view, GTK_TREE_MODEL(data->model));
+#if GTK_CHECK_VERSION(2, 20, 0)
+            if (gtk_widget_get_realized(GTK_WIDGET(data->view)))
+                gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(data->view)), NULL);
+#else
+            if (GTK_WIDGET_REALIZED(GTK_WIDGET(data->view)))
+                gdk_window_set_cursor(GTK_WIDGET(data->view)->window, NULL);
+#endif
+        }
+        GDK_THREADS_LEAVE();
+    }
+    /* g_debug("load: %s", icon_name); */
+    g_free(icon_name);
+    return NULL;
+}
+
+static void _change_icon(GtkWidget *dlg, FmFilePropData *data)
+{
+    GtkBuilder *builder;
+    GtkFileChooser *chooser;
+    GtkWidget *chooser_dlg, *preview, *notebook;
+    GtkFileFilter *filter;
+    GtkIconTheme *theme;
+    GList *contexts, *l;
+    GThreadPool *thread_pool;
+    IconThreadData thread_data;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/choose-icon.ui", NULL);
+    chooser_dlg = GTK_WIDGET(gtk_builder_get_object(builder, "dlg"));
+    chooser = GTK_FILE_CHOOSER(gtk_builder_get_object(builder, "chooser"));
+    thread_data.view = GTK_ICON_VIEW(gtk_builder_get_object(builder, "icons"));
+    notebook = GTK_WIDGET(gtk_builder_get_object(builder, "notebook"));
+    g_signal_connect(gtk_builder_get_object(builder,"theme"), "toggled", G_CALLBACK(on_toggle_theme), notebook);
+    g_signal_connect(gtk_builder_get_object(builder,"files"), "toggled", G_CALLBACK(on_toggle_files), notebook);
+
+    gtk_window_set_default_size(GTK_WINDOW(chooser_dlg), 600, 440);
+    gtk_window_set_transient_for(GTK_WINDOW(chooser_dlg), GTK_WINDOW(dlg));
+
+    preview = gtk_image_new();
+    gtk_widget_show(preview);
+    gtk_file_chooser_set_preview_widget(chooser, preview);
+    g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_preview),
+                     GTK_IMAGE(preview));
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("Image files"));
+    gtk_file_filter_add_pixbuf_formats(GTK_FILE_FILTER(filter));
+    gtk_file_chooser_add_filter(chooser, filter);
+    gtk_file_chooser_set_local_only(chooser, TRUE);
+    gtk_file_chooser_set_select_multiple(chooser, FALSE);
+    gtk_file_chooser_set_use_preview_label(chooser, FALSE);
+
+    gtk_widget_show(chooser_dlg);
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
+    gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(thread_data.view)),
+                          gdk_cursor_new(GDK_WATCH));
+
+    /* load themed icons */
+    thread_pool = g_thread_pool_new((GFunc)load_themed_icon, &thread_data, 1, TRUE, NULL);
+    g_thread_pool_set_max_threads(thread_pool, 1, NULL);
+    thread_data.queue = g_async_queue_new();
+
+    thread_data.model = gtk_list_store_new(2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+    theme = gtk_icon_theme_get_default();
+
+    gtk_icon_view_set_pixbuf_column(thread_data.view, 0);
+    gtk_icon_view_set_item_width(thread_data.view, 80);
+    gtk_icon_view_set_text_column(thread_data.view, 1);
+
+    /* GList* contexts = gtk_icon_theme_list_contexts(theme); */
+    contexts = g_list_alloc();
+    /* FIXME: we should enable more contexts */
+    /* http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html#context */
+    contexts->data = g_strdup("Applications");
+    for (l = contexts; l; l = l->next)
+    {
+        /* g_debug(l->data); */
+        GList *icon_names = gtk_icon_theme_list_icons(theme, (char*)l->data);
+        GList *icon_name;
+        for (icon_name = icon_names; icon_name; icon_name = icon_name->next)
+        {
+            g_async_queue_push(thread_data.queue, icon_name->data);
+            g_thread_pool_push(thread_pool, theme, NULL);
+        }
+        g_list_free(icon_names);
+        g_free(l->data);
+    }
+    g_list_free(contexts);
+
+    if (gtk_dialog_run(GTK_DIALOG(chooser_dlg)) == GTK_RESPONSE_OK)
+    {
+        char* icon_name = NULL;
+        if (gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)) == 0)
+        {
+            GList *sels = gtk_icon_view_get_selected_items(thread_data.view);
+            GtkTreePath *tp = (GtkTreePath*)sels->data;
+            GtkTreeIter it;
+            if (gtk_tree_model_get_iter(GTK_TREE_MODEL(thread_data.model), &it, tp))
+            {
+                gtk_tree_model_get(GTK_TREE_MODEL(thread_data.model), &it, 1, &icon_name, -1);
+            }
+            g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+            g_list_free(sels);
+            if (icon_name)
+                gtk_image_set_from_icon_name(data->icon, icon_name, GTK_ICON_SIZE_DIALOG);
+        }
+        else
+        {
+            icon_name = gtk_file_chooser_get_filename(chooser);
+            if (icon_name)
+            {
+                GdkPixbuf *pix = gdk_pixbuf_new_from_file_at_scale(icon_name,
+                                                            48, 48, TRUE, NULL);
+                if (pix)
+                {
+                    gtk_image_set_from_pixbuf(data->icon, pix);
+                    g_object_unref(pix);
+                }
+            }
+        }
+        if (icon_name)
+        {
+            g_object_set_qdata_full(G_OBJECT(data->icon), fm_qdata_id, icon_name,
+                                    g_free);
+        }
+    }
+    g_thread_pool_free(thread_pool, TRUE, FALSE);
+    gtk_widget_destroy(chooser_dlg);
+}
+
+
+static gboolean _icon_click_event(GtkWidget *widget, GdkEventButton *event,
+                                  FmFilePropData *data)
+{
+    /* g_debug("icon click received (button=%d)", event->button); */
+    if (event->button == 1 && gtk_widget_get_can_focus(data->icon_eventbox))
+    {
+         /* accept only left click */
+        _change_icon(gtk_widget_get_toplevel(widget), data);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static gboolean _icon_press_event(GtkWidget *widget, GdkEventKey *event,
+                                  FmFilePropData *data)
+{
+    /* g_debug("icon key received (key=%u)", event->keyval); */
+    if (event->keyval == GDK_KEY_space)
+        _change_icon(gtk_widget_get_toplevel(widget), data);
+    return FALSE;
+}
+
+
+/* ---- all other handlers ---- */
 static gboolean on_timeout(gpointer user_data)
 {
     FmFilePropData* data = (FmFilePropData*)user_data;
@@ -553,8 +828,9 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
         if(data->single_file) /* when only one file is shown */
         {
+            const char *text = gtk_entry_get_text(data->name);
             /* if the user has changed the name of the file */
-            if(g_strcmp0(fm_file_info_get_disp_name(data->fi), gtk_entry_get_text(data->name)))
+            if(g_strcmp0(fm_file_info_get_disp_name(data->fi), text))
             {
                 /* rename the file or set display name for it. */
                 if (job == NULL)
@@ -564,7 +840,27 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
                     fm_path_list_unref(paths);
                 }
-                fm_file_ops_job_set_display_name(job, gtk_entry_get_text(data->name));
+                fm_file_ops_job_set_display_name(job, text);
+            }
+            text = g_object_get_qdata(G_OBJECT(data->icon), fm_qdata_id);
+            /* if the user has changed icon */
+            if(text)
+            {
+                GIcon *icon = g_icon_new_for_string(text, NULL);
+                if (icon)
+                {
+                    /* rename the file or set display name for it. */
+                    if (job == NULL)
+                    {
+                        FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
+
+                        job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+                        fm_path_list_unref(paths);
+                    }
+                    fm_file_ops_job_set_icon(job, icon);
+                    g_object_unref(icon);
+                }
+                /* FIXME: handle errors */
             }
         }
 
@@ -808,6 +1104,11 @@ static void update_ui(FmFilePropData* data)
             FmIcon* fi_icon = fm_file_info_get_icon(fi);
             if(fi_icon)
                 icon = fi_icon->gicon;
+            if(fm_file_info_can_set_icon(fi))
+            {
+                /* enable icon change if file allows that */
+                gtk_widget_set_can_focus(data->icon_eventbox, TRUE);
+            }
         }
 
         if(data->mime_type)
@@ -1032,6 +1333,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 
     GET_WIDGET(GTK_TABLE,general_table);
     GET_WIDGET(GTK_IMAGE,icon);
+    GET_WIDGET(GTK_WIDGET,icon_eventbox);
     GET_WIDGET(GTK_ENTRY,name);
     GET_WIDGET(GTK_LABEL,file);
     GET_WIDGET(GTK_LABEL,file_label);
@@ -1066,6 +1368,11 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     g_signal_connect(dlg, "response", G_CALLBACK(on_response), data);
     g_signal_connect_swapped(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
     g_signal_connect(data->dc_job, "finished", G_CALLBACK(on_finished), data);
+
+    g_signal_connect(data->icon_eventbox, "button-press-event",
+                     G_CALLBACK(_icon_click_event), data);
+    g_signal_connect(data->icon_eventbox, "key-press-event",
+                     G_CALLBACK(_icon_press_event), data);
 
     fm_job_run_async(FM_JOB(data->dc_job));
 
