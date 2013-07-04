@@ -39,8 +39,10 @@
  * specific header file for some `extern' definition.
  */
 #define FM_DEFINE_MODULE(_type_, _name_) \
-extern int module_##_type_##_version __FM_DEFINE_VERSION__(_type_); \
-extern char *module_name #_name_;
+int module_##_type_##_version = __FM_DEFINE_VERSION__(_type_); \
+char *module_name = #_name_;
+
+typedef gboolean (*FmModuleInitCallback)(const char *, gpointer, int);
 
 /**
  * FM_MODULE_DEFINE_TYPE
@@ -52,12 +54,12 @@ extern char *module_name #_name_;
  * found, it should return %TRUE on success.
  */
 #define FM_MODULE_DEFINE_TYPE(_type_, _struct_, _minver_) \
-static gboolean fm_module_callback_##_type_(const char *, _struct_ *, int ver); \
+static gboolean fm_module_callback_##_type_(const char *, gpointer, int ver); \
 \
 static inline void FM_MODULE_REGISTER_##_type_ (void) { \
     fm_module_register_type(#_type_, \
                             _minver_, __FM_DEFINE_VERSION__(_type_), \
-                            G_CALLBACK(fm_module_callback_##_type_)); \
+                            fm_module_callback_##_type_); \
 }
 
 /* use this whenever extension is about to be used */
@@ -66,7 +68,7 @@ static inline void FM_MODULE_REGISTER_##_type_ (void) { \
 G_BEGIN_DECLS
 
 /* adds schedule */
-void fm_module_register_type(const char *type, int minver, int maxver, GCallback);
+void fm_module_register_type(const char *type, int minver, int maxver, FmModuleInitCallback);
 /* removes schedule */
 void fm_module_unregister_type(const char *type);
 /* forces schedules */

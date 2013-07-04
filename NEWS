@@ -185,6 +185,11 @@ Changes on 1.2.0 since 1.1.0:
     the same way as it is shown for symlinks. It is reasonable since any
     shortcut is the same thing - link to another resource.
 
+* New interface for loadable modules (plugins). Modules can be made by
+    third party as well. Modules will be loaded on first demand and never
+    reloaded so if you add or remove some module then you have to restart
+    your application.
+
 
 Changes on 1.1.0 since 1.0.1:
 

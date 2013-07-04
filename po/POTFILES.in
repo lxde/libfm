@@ -42,5 +42,5 @@ src/job/fm-file-ops-job-xfer.c
 src/job/fm-file-ops-job-change-attr.c
 src/tools/libfm-pref-apps.c
 src/udisks/g-udisks-device.c
-src/vfs/fm-vfs-menu.c
+src/modules/vfs-menu.c
 src/vfs/fm-vfs-search.c

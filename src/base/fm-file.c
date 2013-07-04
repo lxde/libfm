@@ -176,8 +176,7 @@ GFile *fm_file_new_for_commandline_arg(const char *arg)
 
 /* modules stuff */
 FM_MODULE_DEFINE_TYPE(vfs, FmFileInitTable, 1)
-static gboolean fm_module_callback_vfs(const char *name, FmFileInitTable *init,
-                                       int ver)
+static gboolean fm_module_callback_vfs(const char *name, gpointer init, int ver)
 {
     /* we don't check version and don't support any other than 1
        otherwise we should allocate own copy of FmFileInitTable */

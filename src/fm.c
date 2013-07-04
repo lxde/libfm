@@ -42,7 +42,6 @@
 #include "udisks/fm-udisks.h"
 #endif
 
-#include "vfs/fm-vfs-menu.h"
 #include "vfs/fm-vfs-search.h"
 
 GQuark fm_qdata_id = 0;
@@ -108,7 +107,6 @@ gboolean fm_init(FmConfig* config)
     }
 
     _fm_file_init();
-    fm_file_add_vfs("menu", &_fm_vfs_menu_init_table);
     fm_file_add_vfs("search", &_fm_vfs_search_init_table);
     _fm_path_init();
     _fm_icon_init();

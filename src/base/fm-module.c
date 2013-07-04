@@ -218,7 +218,7 @@ struct _FmModuleType
     char *type;
     int minver;
     int maxver;
-    gboolean (*cb)(const char *, gpointer, int);
+    FmModuleInitCallback cb;
     GSList *modules; /* members are FmModule */
 };
 
@@ -226,7 +226,7 @@ static FmModuleType *modules_types = NULL;
 
 
 void fm_module_register_type(const char *type, int minver, int maxver,
-                             GCallback cb)
+                             FmModuleInitCallback cb)
 {
     FmModuleType *mtype;
 
@@ -242,7 +242,7 @@ void fm_module_register_type(const char *type, int minver, int maxver,
     mtype->type = g_strdup(type);
     mtype->minver = minver;
     mtype->maxver = maxver;
-    mtype->cb = (gboolean (*)(const char *, gpointer, int))cb;
+    mtype->cb = cb;
     mtype->modules = NULL;
     modules_types = mtype;
     if (idle_handler > 0)
@@ -325,9 +325,10 @@ void fm_modules_load(void)
         handle = dlopen(str->str, RTLD_NOW);
         if (handle == NULL) /* broken file */
             continue;
-        name = dlsym(handle, "module_name");
-        if (name == NULL) /* no name found */
+        ptr = dlsym(handle, "module_name");
+        if (ptr == NULL) /* no name found */
             continue;
+        name = *(char **)ptr;
         module = fm_module_new();
         module->handle = handle;
         G_LOCK(idle_handler);
@@ -347,6 +348,7 @@ void fm_modules_load(void)
             ptr = dlsym(handle, str->str);
             if (ptr == NULL) /* no interface found */
                 continue;
+            g_debug("found handler %s/%s", mtype->type, name);
             /* if everything is ok then add to list */
             if (mtype->cb(name, ptr, version))
                 mtype->modules = g_slist_prepend(mtype->modules, g_object_ref(module));

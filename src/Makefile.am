@@ -75,7 +75,6 @@ base_SOURCES = \
 	base/fm-templates.c \
 	base/fm-marshal.c \
 	base/fm-module.c \
-	vfs/fm-vfs-menu.c \
 	vfs/fm-vfs-search.c \
 	$(NULL)
 
@@ -449,7 +448,6 @@ EXTRA_DIST = \
 	udisks/gen-binding \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
-	vfs/fm-vfs-menu.h \
 	vfs/fm-vfs-search.h \
 	$(VAPI_FILES) \
 	$(NULL)

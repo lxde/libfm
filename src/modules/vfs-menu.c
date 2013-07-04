@@ -24,13 +24,13 @@
 #include <config.h>
 #endif
 
-#include "fm-vfs-menu.h"
+#include "fm-file.h"
 #include "glib-compat.h"
+#include "fm-utils.h"
+#include "fm-xml-file.h"
 
 #include <glib/gi18n-lib.h>
 #include <menu-cache/menu-cache.h>
-#include "fm-utils.h"
-#include "fm-xml-file.h"
 
 /* support for libmenu-cache 0.4.x */
 #ifndef MENU_CACHE_CHECK_VERSION
@@ -3821,7 +3821,9 @@ static GFile *_fm_vfs_menu_new_for_uri(const char *uri)
     return (GFile*)item;
 }
 
-FmFileInitTable _fm_vfs_menu_init_table =
+FM_DEFINE_MODULE(vfs, menu)
+
+FmFileInitTable fm_module_init_vfs =
 {
     .new_for_uri = &_fm_vfs_menu_new_for_uri
 };

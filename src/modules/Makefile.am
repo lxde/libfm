@@ -18,15 +18,16 @@ pkglibdir = $(libdir)/@PACKAGE@/modules
 
 # modules to compile
 pkglib_LTLIBRARIES = \
+	vfs-menu.la \
 	$(NULL)
 
 # module-specific parameters
-#vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS)
-#vfs_menu_la_LDADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la
+vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS)
+vfs_menu_la_LIBADD = $(MENU_CACHE_LIBS) $(top_builddir)/src/libfm-extra.la
 
 #gtk_filemenu_actions_la_CFLAGS = -I../actions $(GTK_CFLAGS)
-#gtk_filemenu_actions_la_LDADD = $(LIBFMACTIONS) $(GTK_LIBS)
+#gtk_filemenu_actions_la_LIBADD = $(LIBFMACTIONS) $(GTK_LIBS)
 #gtk_filemenu_actions_la_DEPENDENCIES_EXTRA = $(LIBFMACTIONS)
 
 #gtk_fileprop_desktop_entry_la_CFLAGS = $(GTK_CFLAGS)
-#gtk_fileprop_desktop_entry_la_LDADD = $(GTK_LIBS)
+#gtk_fileprop_desktop_entry_la_LIBADD = $(GTK_LIBS)
