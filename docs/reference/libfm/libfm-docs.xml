@@ -48,10 +48,10 @@ used to develop other file manager-related tools as well.
       <xi:include href="xml/fm-thumbnailer.xml"/>
       <xi:include href="xml/fm-module.xml"/>
       <xi:include href="xml/fm-utils.xml"/>
+    </chapter>
     <chapter id="libfm-core">
       <title>Libfm Extra.</title>
       <xi:include href="xml/fm-xml-file.xml"/>
-    </chapter>
     </chapter>
     <chapter id="libfm-jobs">
       <title>Libfm Jobs.</title>

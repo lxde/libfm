@@ -301,7 +301,7 @@ unescape_gstring_inplace (//GMarkupParseContext  *context,
                                 "inside a character reference "
                                 "(&#234; for example) - perhaps "
                                 "the digit is too large"),
-                              end - from, from);
+                              (int)(end - from), from);
                   return FALSE;
                 }
               else if (*end != ';')
@@ -335,7 +335,7 @@ unescape_gstring_inplace (//GMarkupParseContext  *context,
                       g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_PARSE,
                                   _("Character reference '%-.*s' does not "
                                     "encode a permitted character"),
-                                  end - from, from);
+                                  (int)(end - from), from);
                       return FALSE;
                     }
                 }
@@ -378,7 +378,7 @@ unescape_gstring_inplace (//GMarkupParseContext  *context,
                   if (end)
                     g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_PARSE,
                                 _("Entity name '%-.*s' is not known"),
-                                end-from, from);
+                                (int)(end-from), from);
                   else
                     g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_PARSE,
                                 _("Entity did not end with a semicolon; "
