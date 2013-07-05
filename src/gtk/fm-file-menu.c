@@ -153,7 +153,7 @@ GtkActionEntry base_menu_actions[]=
     {"SendTo", NULL, N_("Se_nd To"), NULL, NULL, NULL},
     {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
     {"Extract", NULL, N_("Extract _Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
-    {"Extract2", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
+    {"ExtractTo", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
     {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
@@ -260,6 +260,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             continue;
         mime_types = g_list_prepend(mime_types, fm_mime_type_ref(mime_type));
     }
+    fi = fm_file_info_list_peek_head(files); /* we'll test it below */
     /* create apps list */
     if(mime_types)
     {
@@ -368,9 +369,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
                 if (mime_types && l == NULL) /* all are archives */
                 {
                     if(data->cwd && archiver->extract_to_cmd)
-                        g_string_append(xml, "<menuitem action='Extract'/>");
+                        g_string_append(xml, "<menuitem action='ExtractTo'/>");
                     if(archiver->extract_cmd)
-                        g_string_append(xml, "<menuitem action='Extract2'/>");
+                        g_string_append(xml, "<menuitem action='Extract'/>");
                 }
                 else
                     g_string_append(xml, "<menuitem action='Compress'/>");
@@ -379,7 +380,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     }
     g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
     g_list_free(mime_types);
-    mime_types = NULL;
 
     /* Special handling for some virtual filesystems */
     /* FIXME: it should be done on per-scheme basis */
@@ -394,31 +394,26 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
                Copy only for very few FS such as trash:// or menu://
                Since query if FS is R/O is async operation we have to get
                such info from FmFolder therefore do this in fm-folder-view.c */
-            act = gtk_ui_manager_get_action(ui, "/popup/Cut");
-            gtk_action_set_visible(act, FALSE);
             act = gtk_ui_manager_get_action(ui, "/popup/Copy");
             gtk_action_set_visible(act, FALSE);
-            act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-            gtk_action_set_visible(act, FALSE);
-            act = gtk_ui_manager_get_action(ui, "/popup/Del");
-            gtk_action_set_visible(act, FALSE);
         }
-        act = gtk_ui_manager_get_action(ui, "/popup/Rename");
-        gtk_action_set_visible(act, FALSE);
     }
 
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-    if(items_num != 1 || !fm_file_info_is_dir(fm_file_info_list_peek_head(files)))
+    if(items_num != 1 || !fm_file_info_is_dir(fi))
     {
         gtk_action_set_visible(act, FALSE);
         act = gtk_ui_manager_get_action(ui, "/popup/AddBookmark");
         gtk_action_set_visible(act, FALSE);
     }
+    else if (!fm_file_info_is_writable_directory(fi))
+        /* it is still directory but file system is R/O */
+        gtk_action_set_visible(act, FALSE);
     else
         gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(parent)));
 
-    if (items_num != 1)
+    if (items_num != 1 || !fm_file_info_can_set_name(fi))
     {
         act = gtk_ui_manager_get_action(ui, "/popup/Rename");
         gtk_action_set_visible(act, FALSE);

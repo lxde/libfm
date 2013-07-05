@@ -1476,4 +1476,5 @@ void _fm_file_properties_init(void)
 void _fm_file_properties_finalize(void)
 {
     fm_module_unregister_type("gtkFileProp");
+    /* FIXME: free all extensions! */
 }

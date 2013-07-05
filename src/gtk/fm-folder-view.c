@@ -1144,6 +1144,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     FmFolderModel *model;
     GtkActionGroup *act_grp;
     GList *templates;
+    FmFileInfo *fi;
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = GTK_SORT_ASCENDING;
@@ -1166,7 +1167,11 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act), show_hidden);
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-    gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
+    fi = fm_folder_view_get_cwd_info(fv);
+    if(fi && fm_file_info_is_writable_directory(fi))
+        gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
+    else
+        gtk_action_set_visible(act, FALSE);
     /* prepare templates list */
     templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
     /* FIXME: updating context menu is not lightweight here - we should
@@ -1174,7 +1179,12 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
        That will take some time, memory and may be error-prone as well.
        For simplicity we create it once here but if users will find
        any inconveniences this behavior should be changed later. */
-    if(!templates)
+    if(fi == NULL || !fm_file_info_is_writable_directory(fi))
+    {
+        act = gtk_ui_manager_get_action(ui, "/popup/CreateNew");
+        gtk_action_set_visible(act, FALSE);
+    }
+    else if(!templates)
     {
         templates = fm_template_list_all(fm_config->only_user_templates);
         if(templates)
@@ -1250,6 +1260,9 @@ static inline GtkMenu *_make_file_menu(FmFolderView* fv, GtkWindow *win,
                                        FmFileInfoList* files)
 {
     FmFileMenu* menu;
+    FmFileInfo *fi;
+    GtkUIManager *ui;
+    GtkAction *act;
     FmPath *scheme; /* not-NULL if on the same scheme */
     GList *l;
     GString *str;
@@ -1260,6 +1273,21 @@ static inline GtkMenu *_make_file_menu(FmFolderView* fv, GtkWindow *win,
     fm_file_menu_set_folder_func(menu, open_folders, win);
 
     /* TODO: add info message on selection if enabled in config */
+    /* disable some items on R/O file system */
+    fi = fm_folder_view_get_cwd_info(fv);
+    if (fi == NULL || !fm_file_info_is_writable_directory(fi))
+    {
+        ui = fm_file_menu_get_ui(menu);
+        act = gtk_ui_manager_get_action(ui, "/popup/Cut");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/Del");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/Rename");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/ph3/Extract");
+        if (act)
+            gtk_action_set_visible(act, FALSE);
+    }
     /* merge some specific menu items */
     if(update_popup)
         update_popup(fv, win, fm_file_menu_get_ui(menu),
