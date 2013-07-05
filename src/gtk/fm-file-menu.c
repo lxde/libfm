@@ -227,19 +227,10 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     GList* mime_types = NULL;
     GList* l;
     GList* apps = NULL;
-    FmPath* path = fm_file_info_get_path(fi);
-    /* FIXME: three unused bits with extensions implemented */
-    gboolean same_fs, all_virtual, all_trash;
     gboolean all_native = TRUE;
     unsigned items_num = fm_file_info_list_get_length(files);
 
     data->file_infos = fm_file_info_list_ref(files);
-
-    /* check if the files are on the same filesystem */
-    same_fs = fm_file_info_list_is_same_fs(files);
-
-    all_virtual = same_fs && !fm_path_is_native(path);
-    all_trash = same_fs && fm_path_is_trash(path);
 
     /* create list of mime types */
     for(l = fm_file_info_list_peek_head_link(files); l; l = l->next)
@@ -380,24 +371,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     }
     g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
     g_list_free(mime_types);
-
-    /* Special handling for some virtual filesystems */
-    /* FIXME: it should be done on per-scheme basis */
-    if(all_virtual)
-    {
-        if (!all_trash)
-        {
-            /* do not provide these items for other virtual files */
-            /* FIXME: this is invalid way to do it, many virtual paths still
-               support getting files content and some can deletion as well.
-               Cut/Paste/Rename/Del should be disabled only if FS is R/O and
-               Copy only for very few FS such as trash:// or menu://
-               Since query if FS is R/O is async operation we have to get
-               such info from FmFolder therefore do this in fm-folder-view.c */
-            act = gtk_ui_manager_get_action(ui, "/popup/Copy");
-            gtk_action_set_visible(act, FALSE);
-        }
-    }
 
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");

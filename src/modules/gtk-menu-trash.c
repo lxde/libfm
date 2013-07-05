@@ -76,6 +76,9 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/Rename");
     gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Copy");
+    gtk_action_set_visible(act, FALSE);
+    /* FIXME: can we cut files here? */
 }
 
 static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
