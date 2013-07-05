@@ -40,6 +40,12 @@ static void on_untrash(GtkAction* action, gpointer user_data)
     fm_path_list_unref(files);
 }
 
+static void on_empty_trash(GtkAction* act, gpointer user_data)
+{
+    GtkWindow *window = GTK_WINDOW(user_data);
+    fm_empty_trash(window);
+}
+
 static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
                                         GString* xml, GtkActionGroup* act_grp,
                                         FmFileMenu* menu, FmFileInfoList* files,
@@ -87,6 +93,16 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
 {
     GtkAction *act;
 
+    act = gtk_action_new("EmptyTrash",
+                         _("_Empty Trash Can"),
+                         NULL, NULL);
+    g_signal_connect(act, "activate", G_CALLBACK(on_empty_trash), window);
+    gtk_action_group_add_action(act_grp, act);
+    gtk_ui_manager_add_ui_from_string(ui, "<popup>"
+                                          "<placeholder name='CustomFileOps'>"
+                                          "<menuitem action='EmptyTrash'/>"
+                                          "</placeholder>"
+                                          "</popup>", -1, NULL);
     act = gtk_ui_manager_get_action(ui, "/popup/Rename");
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");

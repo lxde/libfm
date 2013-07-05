@@ -191,9 +191,22 @@ Changes on 1.2.0 since 1.1.0:
     your application.
 
 * Created interfaces for loadable modules:
-    - vfs
-    - gtkFileProp
-    - gtkFolderCol
+    - vfs (virtual file system)
+    - gtkFileProp (GTK file properties dialog extension)
+    - gtkFolderCol (FmFolderModel custom column)
+    - gtkMenuScheme (GTK context menu extension for URI scheme)
+
+* Moved all VFS into loadable modules.
+
+* Moved desktop entry file properties extension into loadable module.
+
+* Rewritten context menu creation with loadable modules. Moved "actions"
+    into separate module.
+
+* Customized Trash Can context menus with separate module.
+
+* Added test if the directory is read-only and update context menus
+    appropriately.
 
 * FmPathEntry shows real display name now instead of forged UTF-8 one. It
     is more logical if we enter directory "Multimedia" and end up in the

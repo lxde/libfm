@@ -44,6 +44,7 @@
  * Del
  * Remove
  * FileProp
+ * &lt;placeholder name='CustomFileOps'/&gt;
  * ------------------------
  * SelAll
  * InvSel
@@ -110,6 +111,8 @@ static const char folder_popup_xml[] =
   "<menuitem action='Del'/>"
   "<menuitem action='Remove'/>"
   "<menuitem action='FileProp'/>"
+  /* placeholder for custom file operations such as empty trash can */
+  "<placeholder name='CustomFileOps'/>"
   "<separator/>"
   "<menuitem action='SelAll'/>"
   "<menuitem action='InvSel'/>"
