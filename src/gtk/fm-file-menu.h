@@ -48,9 +48,6 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
 
-/* callback from extensions */
-//void fm_file_menu_disable_archiving(FmFileMenu* menu);
-
 /* modules "gtkMenuMime" stuff */
 typedef void (*FmFileMenuUpdatePopup)(GtkWindow* window, GtkUIManager* ui,
                                       GString* xml, GtkActionGroup* act_grp,

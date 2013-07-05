@@ -230,7 +230,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     FmPath* path = fm_file_info_get_path(fi);
     /* FIXME: three unused bits with extensions implemented */
     gboolean same_fs, all_virtual, all_trash;
-
+    gboolean all_native = TRUE;
     unsigned items_num = fm_file_info_list_get_length(files);
 
     data->file_infos = fm_file_info_list_ref(files);
@@ -248,6 +248,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         GList* l2;
 
         fi = l->data;
+        if (!fm_file_info_is_native(fi))
+            all_native = FALSE;
         mime_type = fm_file_info_get_mime_type(fi);
         if(mime_type == NULL || !fm_file_info_is_native(fi))
             continue;
@@ -287,9 +289,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
             g_list_foreach(apps2, (GFunc)g_object_unref, NULL);
             g_list_free(apps2);
         }
-        g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
-        g_list_free(mime_types);
-        mime_types = NULL;
     }
 
     data->ui = ui = gtk_ui_manager_new();
@@ -357,20 +356,16 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     //if (data->same_type) ...run mime-specific extensions...
 
     /* archiver integration */
-    /* FIXME: this should check data->disable_archiving instead */
-    if(!all_virtual)
+    if (all_native)
     {
-        g_string_append(xml, "<popup><placeholder name='ph3'>");
-        /* FIXME: this should be rewritten to check mime_types list instead */
-        if(data->same_type)
-        {
             FmArchiver* archiver = fm_archiver_get_default();
             if(archiver)
             {
-                FmMimeType* mime_type;
-                fi = fm_file_info_list_peek_head(files);
-                mime_type = fm_file_info_get_mime_type(fi);
-                if(fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(mime_type)))
+                g_string_append(xml, "<popup><placeholder name='ph3'>");
+                for (l = mime_types; l; l = l->next)
+                    if (!fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(l->data)))
+                        break;
+                if (mime_types && l == NULL) /* all are archives */
                 {
                     if(data->cwd && archiver->extract_to_cmd)
                         g_string_append(xml, "<menuitem action='Extract'/>");
@@ -379,12 +374,12 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
                 }
                 else
                     g_string_append(xml, "<menuitem action='Compress'/>");
-            }
-        }
-        else
-            g_string_append(xml, "<menuitem action='Compress'/>");
         g_string_append(xml, "</placeholder></popup>");
+            }
     }
+    g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
+    g_list_free(mime_types);
+    mime_types = NULL;
 
     /* Special handling for some virtual filesystems */
     /* FIXME: it should be done on per-scheme basis */
