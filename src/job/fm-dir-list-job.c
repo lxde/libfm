@@ -355,6 +355,9 @@ _retry:
         return FALSE;
     }
 
+    /* check if FS is R/O and set attr. into inf */
+    _fm_file_info_job_update_fs_readonly(gf, inf, NULL, NULL);
+
     /* FIXME: should we use fm_file_info_new + fm_file_info_set_from_gfileinfo? */
     job->dir_fi = fm_file_info_new_from_g_file_data(gf, inf, job->dir_path);
     g_object_unref(inf);
@@ -392,7 +395,7 @@ _retry:
                     }
                 }
 
-                /* virtual folders may return childs not within them */
+                /* virtual folders may return children not within them */
                 dir = fm_path_new_for_gfile(g_file_enumerator_get_container(enu));
                 if (fm_path_equal(job->dir_path, dir))
                     sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
@@ -400,6 +403,9 @@ _retry:
                     sub = fm_path_new_child(dir, g_file_info_get_name(inf));
                 child = g_file_get_child(g_file_enumerator_get_container(enu),
                                          g_file_info_get_name(inf));
+                if (g_file_info_get_file_type(inf) == G_FILE_TYPE_DIRECTORY)
+                    /* for dir: check if its FS is R/O and set attr. into inf */
+                    _fm_file_info_job_update_fs_readonly(child, inf, NULL, NULL);
                 fi = fm_file_info_new_from_g_file_data(child, inf, sub);
                 fm_path_unref(sub);
                 fm_path_unref(dir);

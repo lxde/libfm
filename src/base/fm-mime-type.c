@@ -129,6 +129,8 @@ FmMimeType* fm_mime_type_from_file_name(const char* ufile_name)
  *
  * Before 1.0.0 this API had name fm_mime_type_get_for_native_file.
  *
+ * Note that this call does I/O and therefore can block.
+ *
  * Returns: (transfer full): a #FmMimeType object.
  *
  * Since: 0.1.0

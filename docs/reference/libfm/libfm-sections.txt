@@ -387,6 +387,7 @@ fm_file_info_is_shortcut
 fm_file_info_is_symlink
 fm_file_info_is_text
 fm_file_info_is_unknown_type
+fm_file_info_is_writable_directory
 fm_file_info_list_is_same_fs
 fm_file_info_list_is_same_type
 fm_file_info_list_new

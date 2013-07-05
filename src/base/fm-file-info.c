@@ -114,6 +114,7 @@ struct _FmFileInfo
     gboolean name_is_changeable : 1; /* TRUE if name can be changed */
     gboolean icon_is_changeable : 1; /* TRUE if icon can be changed */
     gboolean hidden_is_changeable : 1; /* TRUE if hidden can be changed */
+    gboolean fs_is_ro : 1; /* TRUE if host FS is R/O */
 
     /*<private>*/
     int n_ref;
@@ -184,6 +185,8 @@ FmFileInfo* fm_file_info_new ()
  * 
  * Prior to calling this function, the FmPath of FmFileInfo should
  * have been set with fm_file_info_set_path().
+ *
+ * Note that this call does I/O and therefore can block.
  *
  * Returns: TRUE if no error happens.
  */
@@ -296,8 +299,10 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                 fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
             g_key_file_free(kf);
         }
+        else if(!S_ISDIR(st.st_mode))
+            ;
         /* set "locked" icon on unaccesible folder */
-        else if(!fi->accessible && S_ISDIR(st.st_mode))
+        else if(!fi->accessible)
             fi->icon = fm_icon_ref(icon_locked_folder);
         else if(!get_fast && S_ISDIR(st.st_mode)) /* special handling for folder icons */
         {
@@ -368,6 +373,21 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         dname = (char*)fm_path_get_basename(fi->path);
         fi->hidden = (dname[0] == '.');
         fi->backup = (!S_ISDIR(st.st_mode) && g_str_has_suffix(dname, "~"));
+        /* check if directory's file system is read-only, default is FALSE */
+        fi->fs_is_ro = FALSE;
+        if (S_ISDIR(st.st_mode))
+        {
+            GFile *gf = g_file_new_for_path(path);
+            GFileInfo *inf;
+            inf = g_file_query_filesystem_info(gf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
+                                               NULL, NULL);
+            if (inf)
+            {
+                fi->fs_is_ro = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY);
+                g_object_unref(inf);
+            }
+            g_object_unref(gf);
+        }
     }
     else
     {
@@ -540,6 +560,9 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
     case G_FILE_TYPE_DIRECTORY:
         if(!fi->mime_type)
             fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+        fi->fs_is_ro = FALSE; /* default is R/W */
+        if (g_file_info_has_attribute(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY))
+            fi->fs_is_ro = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY);
         break;
     case G_FILE_TYPE_SYMBOLIC_LINK:
         uri = g_file_info_get_symlink_target(inf);
@@ -853,6 +876,8 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
     fi->name_is_changeable = src->name_is_changeable;
     fi->icon_is_changeable = src->icon_is_changeable;
     fi->hidden_is_changeable = src->hidden_is_changeable;
+    fi->shortcut = src->shortcut;
+    fi->fs_is_ro = src->fs_is_ro;
 }
 
 /**
@@ -1585,4 +1610,21 @@ gboolean fm_file_info_can_set_icon(FmFileInfo *fi)
 gboolean fm_file_info_can_set_hidden(FmFileInfo *fi)
 {
     return (fi != NULL && fi->hidden_is_changeable);
+}
+
+/**
+ * fm_file_info_is_writable_directory
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if directory @fi lies on writable file system. Returned value
+ * %TRUE is just a potential possibility, it may still not allow write
+ * due to access reasons for example.
+ *
+ * Returns: %TRUE if @fi may be writable.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_is_writable_directory(FmFileInfo* fi)
+{
+    return (!fi->fs_is_ro && fm_file_info_is_dir(fi));
 }

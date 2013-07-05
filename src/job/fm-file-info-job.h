@@ -107,12 +107,30 @@ _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const cha
 extern const char gfile_info_query_attribs[];
 
 static inline gboolean
+_fm_file_info_job_update_fs_readonly(GFile *gf, GFileInfo *inf, GCancellable *cancellable, GError **error)
+{
+    /* check if FS is R/O and set attr. into inf */
+    GFileInfo *fs_inf = g_file_query_filesystem_info(gf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
+                                                     cancellable, error);
+    if (fs_inf)
+    {
+        if (g_file_info_has_attribute(fs_inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY))
+            g_file_info_set_attribute_boolean(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY,
+                    g_file_info_get_attribute_boolean(fs_inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY));
+        g_object_unref(fs_inf);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static inline gboolean
 _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
 {
-    GFileInfo* inf;
+    GFileInfo *inf;
     inf = g_file_query_info(gf, gfile_info_query_attribs, (GFileQueryInfoFlags)0, fm_job_get_cancellable(job), err);
     if( !inf )
         return FALSE;
+    _fm_file_info_job_update_fs_readonly(gf, inf, NULL, NULL);
     fm_file_info_set_from_g_file_data(fi, gf, inf);
     g_object_unref(inf);
 
