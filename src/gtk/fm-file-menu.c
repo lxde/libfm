@@ -297,46 +297,45 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     xml = g_string_new("<popup><placeholder name='ph2'>");
     if(apps) /* add specific menu items for those files */
     {
-            gboolean use_sub = g_list_length(apps) > 5;
-            if(use_sub)
-                g_string_append(xml, "<menu action='OpenWithMenu'>");
+        gboolean use_sub = g_list_length(apps) > 5;
+        if(use_sub)
+            g_string_append(xml, "<menu action='OpenWithMenu'>");
 
-            for(l=apps;l;l=l->next)
-            {
-                GAppInfo* app = l->data;
+        for(l=apps;l;l=l->next)
+        {
+            GAppInfo* app = l->data;
 
-                /*g_debug("app %s, executable %s, command %s\n",
-                    g_app_info_get_name(app),
-                    g_app_info_get_executable(app),
-                    g_app_info_get_commandline(app));*/
+            /*g_debug("app %s, executable %s, command %s\n",
+                g_app_info_get_name(app),
+                g_app_info_get_executable(app),
+                g_app_info_get_commandline(app));*/
 
-                gchar * program_path = g_find_program_in_path(g_app_info_get_executable(app));
-                if (!program_path)
-                    continue;
-                g_free(program_path);
+            gchar * program_path = g_find_program_in_path(g_app_info_get_executable(app));
+            if (!program_path)
+                continue;
+            g_free(program_path);
 
-                act = gtk_action_new(g_app_info_get_id(app),
-                                     g_app_info_get_name(app),
-                                     g_app_info_get_description(app),
-                                     NULL);
-                g_signal_connect(act, "activate", G_CALLBACK(on_open_with_app), data);
-                gtk_action_set_gicon(act, g_app_info_get_icon(app));
-                gtk_action_group_add_action(act_grp, act);
-                /* associate the app info object with the action */
-                g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, g_object_unref);
-                g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
-            }
+            act = gtk_action_new(g_app_info_get_id(app),
+                                 g_app_info_get_name(app),
+                                 g_app_info_get_description(app),
+                                 NULL);
+            g_signal_connect(act, "activate", G_CALLBACK(on_open_with_app), data);
+            gtk_action_set_gicon(act, g_app_info_get_icon(app));
+            gtk_action_group_add_action(act_grp, act);
+            /* associate the app info object with the action */
+            g_object_set_qdata_full(G_OBJECT(act), fm_qdata_id, app, g_object_unref);
+            g_string_append_printf(xml, "<menuitem action='%s'/>", g_app_info_get_id(app));
+        }
 
-            g_list_free(apps); /* don't unref GAppInfos now */
-            if(use_sub)
-            {
-                g_string_append(xml,
-                                "<separator/>"
-                                "<menuitem action='OpenWith'/>"
-                                "</menu>");
-            }
-            else
-                g_string_append(xml, "<menuitem action='OpenWith'/>");
+        g_list_free(apps); /* don't unref GAppInfos now */
+        if(use_sub)
+        {
+            g_string_append(xml, "<separator/>"
+                                 "<menuitem action='OpenWith'/>"
+                                 "</menu>");
+        }
+        else
+            g_string_append(xml, "<menuitem action='OpenWith'/>");
     }
     else
     {
@@ -350,24 +349,24 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* archiver integration */
     if (all_native)
     {
-            FmArchiver* archiver = fm_archiver_get_default();
-            if(archiver)
+        FmArchiver* archiver = fm_archiver_get_default();
+        if(archiver)
+        {
+            g_string_append(xml, "<popup><placeholder name='ph3'>");
+            for (l = mime_types; l; l = l->next)
+                if (!fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(l->data)))
+                    break;
+            if (mime_types && l == NULL) /* all are archives */
             {
-                g_string_append(xml, "<popup><placeholder name='ph3'>");
-                for (l = mime_types; l; l = l->next)
-                    if (!fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(l->data)))
-                        break;
-                if (mime_types && l == NULL) /* all are archives */
-                {
-                    if(data->cwd && archiver->extract_to_cmd)
-                        g_string_append(xml, "<menuitem action='ExtractTo'/>");
-                    if(archiver->extract_cmd)
-                        g_string_append(xml, "<menuitem action='Extract'/>");
-                }
-                else
-                    g_string_append(xml, "<menuitem action='Compress'/>");
-        g_string_append(xml, "</placeholder></popup>");
+                if(data->cwd && archiver->extract_to_cmd)
+                    g_string_append(xml, "<menuitem action='ExtractTo'/>");
+                if(archiver->extract_cmd)
+                    g_string_append(xml, "<menuitem action='Extract'/>");
             }
+            else
+                g_string_append(xml, "<menuitem action='Compress'/>");
+            g_string_append(xml, "</placeholder></popup>");
+        }
     }
     g_list_foreach(mime_types, (GFunc)fm_mime_type_unref, NULL);
     g_list_free(mime_types);
