@@ -157,6 +157,15 @@ GtkActionEntry base_menu_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, N_("Prop_erties"), NULL, NULL, G_CALLBACK(on_prop)}
 };
 
+/* plugins for MIME type */
+typedef struct {
+    FmMimeType *mime_type;
+    FmFileMenuMimeAddonInit cb; /* callbacks */
+} FmFileMenuMimeExt;
+
+static GList *extensions = NULL; /* elements are FmFileMenuMimeExt */
+
+
 /**
  * fm_file_menu_destroy
  * @menu: a menu
@@ -344,7 +353,20 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         g_string_append(xml, "<menuitem action='OpenWith'/>");
     }
     g_string_append(xml, "</placeholder></popup>");
-    //if (data->same_type) ...run mime-specific extensions...
+    if (data->same_type)
+    {
+        CHECK_MODULES();
+        /* run mime-specific extensions */
+        for (l = extensions; l; l = l->next)
+        {
+            register FmFileMenuMimeExt *ext = l->data;
+            if (ext->mime_type == mime_types->data) /* the same mime type */
+                if (ext->cb.update_file_menu_for_mime_type != NULL)
+                    ext->cb.update_file_menu_for_mime_type(parent, ui, xml,
+                                                           act_grp, data, files,
+                                                           (items_num == 1));
+        }
+    }
 
     /* archiver integration */
     if (all_native)
@@ -695,4 +717,46 @@ void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpo
 {
     menu->folder_func = func;
     menu->folder_func_data = user_data;
+}
+
+/* modules support */
+FM_MODULE_DEFINE_TYPE(gtkMenuMime, FmFileMenuMimeAddonInit, 1)
+
+static gboolean fm_module_callback_gtkMenuMime(const char *name, gpointer init, int ver)
+{
+    FmFileMenuMimeExt *ext = g_slice_new(FmFileMenuMimeExt);
+    FmFileMenuMimeAddonInit *cb = init;
+
+    /* not checking version, it's only 1 for now */
+    ext->mime_type = fm_mime_type_from_name(name);
+    ext->cb = *cb;
+    if (cb->init != NULL)
+        cb->init();
+    extensions = g_list_append(extensions, ext);
+    return TRUE;
+}
+
+void _fm_file_menu_init(void)
+{
+    FM_MODULE_REGISTER_gtkMenuMime();
+}
+
+void _fm_file_menu_finalize(void)
+{
+    GList *list, *l;
+    FmFileMenuMimeExt *ext;
+
+    fm_module_unregister_type("gtkMenuMime");
+    list = extensions;
+    extensions = NULL;
+    for (l = list; l; l = l->next)
+    {
+        ext = l->data;
+        if (ext->cb.finalize != NULL)
+            ext->cb.finalize();
+        if (ext->mime_type != NULL)
+            fm_mime_type_unref(ext->mime_type);
+        g_slice_free(FmFileMenuMimeExt, ext);
+    }
+    g_list_free(list);
 }

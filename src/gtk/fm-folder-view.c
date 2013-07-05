@@ -1861,7 +1861,7 @@ void _fm_folder_view_finalize(void)
     fm_module_unregister_type("gtkMenuScheme");
     list = extensions;
     extensions = NULL;
-    for (l = extensions; l; l = l->next)
+    for (l = list; l; l = l->next)
     {
         ext = l->data;
         if (ext->cb.finalize != NULL)

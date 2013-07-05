@@ -195,13 +195,17 @@ Changes on 1.2.0 since 1.1.0:
     - gtkFileProp (GTK file properties dialog extension)
     - gtkFolderCol (FmFolderModel custom column)
     - gtkMenuScheme (GTK context menu extension for URI scheme)
+    - gtkMenuMime (GTK context menu extension for file MIME type)
 
 * Moved all VFS into loadable modules.
 
 * Moved desktop entry file properties extension into loadable module.
 
-* Rewritten context menu creation with loadable modules. Moved "actions"
-    into separate module.
+* Rewritten context menu creation with loadable modules. Loadable modules
+    have key either URI scheme, or MIME type.
+
+* Moved "actions" into own separate module, no VALA dependencies on libfm
+    itself anymore.
 
 * Customized Trash Can context menus with separate module.
 

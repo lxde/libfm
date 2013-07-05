@@ -66,8 +66,8 @@ struct _FmFileMenuMimeAddonInit
 
 extern FmFileMenuMimeAddonInit fm_module_init_gtkMenuMime;
 
-//void _fm_file_menu_init(void);
-//void _fm_file_menu_finalize(void);
+void _fm_file_menu_init(void);
+void _fm_file_menu_finalize(void);
 
 G_END_DECLS
 
