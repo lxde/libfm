@@ -85,6 +85,14 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
                                           GtkUIManager* ui, GtkActionGroup* act_grp,
                                           FmFileInfoList* files)
 {
+    GtkAction *act;
+
+    act = gtk_ui_manager_get_action(ui, "/popup/Rename");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/CreateNew");
+    gtk_action_set_visible(act, FALSE);
 }
 
 FM_DEFINE_MODULE(gtkMenuScheme, trash)
