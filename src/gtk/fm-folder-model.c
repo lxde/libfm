@@ -408,6 +408,7 @@ FmFolderModel *fm_folder_model_new(FmFolder* dir, gboolean show_hidden)
     model->hidden = NULL;
     model->show_hidden = show_hidden;
     fm_folder_model_set_folder(model, dir);
+    CHECK_MODULES(); /* prepare columns for application */
     return model;
 }
 
@@ -1990,4 +1991,5 @@ void _fm_folder_model_init(void)
 void _fm_folder_model_finalize(void)
 {
     fm_module_unregister_type("gtkFolderCol");
+    /* FIXME: free all custom columns! */
 }

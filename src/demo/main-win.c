@@ -161,6 +161,8 @@ static void on_folder_start_loading(FmFolder* folder, FmMainWin* win)
            model is much faster without handlers connected to its signals */
         model = fm_folder_model_new(folder, FALSE);
         fm_folder_view_set_model(win->folder_view, model);
+        /* create folder popup and apply shortcuts from it */
+        fm_folder_view_add_popup(win->folder_view, GTK_WINDOW(win), NULL);
         g_object_unref(model);
     }
     else
@@ -195,6 +197,8 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
         /* create a model for the folder and set it to the view */
         FmFolderModel* model = fm_folder_model_new(folder, FALSE);
         fm_folder_view_set_model(fv, model);
+        /* create folder popup and apply shortcuts from it */
+        fm_folder_view_add_popup(win->folder_view, GTK_WINDOW(win), NULL);
         g_object_unref(model);
     }
 
@@ -460,9 +464,6 @@ static void fm_main_win_init(FmMainWin *win)
     fm_folder_view_set_selection_mode(win->folder_view, GTK_SELECTION_MULTIPLE);
     g_signal_connect(win->folder_view, "clicked", G_CALLBACK(on_file_clicked), win);
     g_signal_connect(win->folder_view, "sel-changed", G_CALLBACK(on_sel_changed), win);
-
-    /* create folder popup and apply shortcuts from it */
-    fm_folder_view_add_popup(win->folder_view, GTK_WINDOW(win), NULL);
 
     gtk_paned_add2(GTK_PANED(win->hpaned), GTK_WIDGET(win->folder_view));
 

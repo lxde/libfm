@@ -216,6 +216,15 @@ static const GtkRadioActionEntry folder_sort_by_actions[]=
     {"ByType", NULL, N_("By File _Type"), NULL, NULL, FM_FOLDER_MODEL_COL_DESC}
 };
 
+/* plugins for scheme */
+typedef struct {
+    FmPath *scheme; /* scheme path, NULL for scheme mask "*" */
+    FmContextMenuSchemeAddonInit cb; /* callbacks */
+} FmContextMenuSchemeExt;
+
+static GList *extensions = NULL; /* elements are FmContextMenuSchemeExt */
+
+
 G_DEFINE_INTERFACE(FmFolderView, fm_folder_view, GTK_TYPE_WIDGET);
 
 enum
@@ -1235,13 +1244,63 @@ static gboolean on_key_press(GtkWidget *widget, GdkEventKey *evt, FmFolderView* 
     return FALSE;
 }
 
+static inline GtkMenu *_make_file_menu(FmFolderView* fv, GtkWindow *win,
+                                       FmFolderViewUpdatePopup update_popup,
+                                       FmLaunchFolderFunc open_folders,
+                                       FmFileInfoList* files)
+{
+    FmFileMenu* menu;
+    FmPath *scheme; /* not-NULL if on the same scheme */
+    GList *l;
+    GString *str;
+    FmContextMenuSchemeExt *ext;
+    gboolean single_file;
+
+    menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
+    fm_file_menu_set_folder_func(menu, open_folders, win);
+
+    /* TODO: add info message on selection if enabled in config */
+    /* merge some specific menu items */
+    if(update_popup)
+        update_popup(fv, win, fm_file_menu_get_ui(menu),
+                     fm_file_menu_get_action_group(menu), files);
+    /* check the scheme, reset to NULL if files are on different FS (mixed folder) */
+    l = fm_file_info_list_peek_head_link(files);
+    scheme = fm_path_get_scheme_path(fm_file_info_get_path(l->data));
+    single_file = (l->next == NULL);
+    while ((l = l->next))
+        if (fm_path_get_scheme_path(fm_file_info_get_path(l->data)) != scheme)
+        {
+            scheme = NULL;
+            break;
+        }
+    /* we are on single scheme, good, go for it */
+    if (G_LIKELY(scheme))
+    {
+        /* run scheme-specific extensions ("*" runs on any) */
+        str = g_string_sized_new(128);
+        CHECK_MODULES();
+        for (l = extensions; l; l = l->next)
+        {
+            ext = l->data;
+            if (ext->scheme && ext->scheme != scheme)
+                continue; /* not NULL nor matches */
+            if (ext->cb.update_file_menu_for_scheme != NULL)
+                ext->cb.update_file_menu_for_scheme(win, fm_file_menu_get_ui(menu),
+                                                    str, fm_file_menu_get_action_group(menu),
+                                                    menu, files, single_file);
+        }
+        g_string_free(str, TRUE);
+    }
+    return fm_file_menu_get_menu(menu);
+}
+
 static void on_file_menu(GtkAction* act, FmFolderView* fv)
 {
     FmFolderViewInterface *iface = FM_FOLDER_VIEW_GET_IFACE(fv);
     GtkMenu *popup;
     FmFileInfoList* files;
     GtkWindow *win;
-    FmFileMenu* menu;
     FmFolderViewUpdatePopup update_popup;
     FmLaunchFolderFunc open_folders;
 
@@ -1252,18 +1311,9 @@ static void on_file_menu(GtkAction* act, FmFolderView* fv)
             return;
         files = iface->dup_selected_files(fv);
         win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
-        menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
         iface->get_custom_menu_callbacks(fv, &update_popup, &open_folders);
-        fm_file_menu_set_folder_func(menu, open_folders, win);
-
-        /* TODO: add info message on selection if enabled in config */
-        /* merge some specific menu items */
-        if(update_popup)
-            update_popup(fv, win, fm_file_menu_get_ui(menu),
-                         fm_file_menu_get_action_group(menu), files);
+        popup = _make_file_menu(fv, win, update_popup, open_folders, files);
         fm_file_info_list_unref(files);
-
-        popup = fm_file_menu_get_menu(menu);
         gtk_menu_popup(popup, NULL, NULL, popup_position_func, fv, 3,
                        gtk_get_current_event_time());
     }
@@ -1328,7 +1378,12 @@ static void on_ui_destroy(gpointer ui_ptr)
  *
  * Adds popup menu to window @parent associated with widget @fv. This
  * includes hotkeys for popup menu items. Popup will be destroyed and
- * hotkeys will be removed from @parent when @fv is finalized.
+ * hotkeys will be removed from @parent when @fv is finalized or after
+ * next call to fm_folder_view_add_popup() on the same @fv.
+ *
+ * Since plugins may change popup menu appearance in accordance with
+ * the folder, implementaions are encouraged to use this API each time
+ * the model is changed on the @fv.
  *
  * Returns: (transfer none): a new created widget.
  *
@@ -1344,6 +1399,9 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     GtkMenu* popup;
     GtkAction* act;
     GtkAccelGroup* accel_grp;
+    FmPath *scheme;
+    GList *l;
+    FmContextMenuSchemeExt *ext;
     gboolean show_hidden;
     FmSortMode mode;
     GtkSortType type = (GtkSortType)-1;
@@ -1385,6 +1443,23 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     gtk_action_set_visible(act, FALSE);
     if(update_popup)
         update_popup(fv, parent, ui, act_grp, NULL);
+    scheme = fm_folder_view_get_cwd(fv);
+    if (scheme)
+    {
+        scheme = fm_path_get_scheme_path(scheme);
+        CHECK_MODULES();
+        for (l = extensions; l; l = l->next)
+        {
+            ext = l->data;
+            if (ext->scheme && ext->scheme != scheme)
+                continue; /* not NULL nor matches */
+            /* FIXME: can we update menu each time it's called so take in account
+               the selection? May be it's possible but it will require full menu
+               rebuild with all updates and accelerators so it will be slow */
+            if (ext->cb.update_folder_menu != NULL)
+                ext->cb.update_folder_menu(fv, parent, ui, act_grp, NULL);
+        }
+    }
     popup = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(parent, accel_grp);
@@ -1566,7 +1641,6 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     case FM_FV_CONTEXT_MENU:
         if(fi)
         {
-            FmFileMenu* menu;
             FmFileInfoList* files = iface->dup_selected_files(fv);
 
             /* workaround on ExoTreeView bug */
@@ -1576,17 +1650,8 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
                 goto send_signal;
             }
 
-            menu = fm_file_menu_new_for_files(win, files, fm_folder_view_get_cwd(fv), TRUE);
-            fm_file_menu_set_folder_func(menu, open_folders, win);
-
-            /* TODO: add info message on selection if enabled in config */
-            /* merge some specific menu items */
-            if(update_popup)
-                update_popup(fv, win, fm_file_menu_get_ui(menu),
-                             fm_file_menu_get_action_group(menu), files);
+            popup = _make_file_menu(fv, win, update_popup, open_folders, files);
             fm_file_info_list_unref(files);
-
-            popup = fm_file_menu_get_menu(menu);
             gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());
         }
         else /* no files are selected. Show context menu of current folder. */
@@ -1711,4 +1776,65 @@ void fm_folder_view_columns_changed(FmFolderView* fv)
     g_return_if_fail(FM_IS_FOLDER_VIEW(fv));
 
     g_signal_emit(fv, signals[COLUMNS_CHANGED], 0);
+}
+
+/* modules support */
+FM_MODULE_DEFINE_TYPE(gtkMenuScheme, FmContextMenuSchemeAddonInit, 1)
+
+static gboolean fm_module_callback_gtkMenuScheme(const char *name, gpointer init, int ver)
+{
+    FmContextMenuSchemeExt *ext = g_slice_new(FmContextMenuSchemeExt);
+    FmContextMenuSchemeAddonInit *cb = init;
+    char *scheme_str;
+    FmPath *path;
+
+    /* not checking version, it's only 1 for now */
+    if (strcmp(name, "*") == 0)
+        ext->scheme = NULL;
+    else if (strcmp(name, "menu") == 0) /* special support */
+        ext->scheme = fm_path_new_for_str("menu://applications/");
+    else if (strchr(name, '/') != NULL)
+    {
+        path = fm_path_new_for_str(name);
+        ext->scheme = fm_path_ref(fm_path_get_scheme_path(path));
+        fm_path_unref(path);
+    }
+    else
+    {
+        scheme_str = g_strdup_printf("%s://", name);
+        path = fm_path_new_for_uri(scheme_str);
+        ext->scheme = fm_path_ref(fm_path_get_scheme_path(path));
+        g_free(scheme_str);
+        fm_path_unref(path);
+    }
+    ext->cb = *cb;
+    if (cb->init != NULL)
+        cb->init();
+    extensions = g_list_append(extensions, ext);
+    return TRUE;
+}
+
+void _fm_folder_view_init(void)
+{
+    FM_MODULE_REGISTER_gtkMenuScheme();
+}
+
+void _fm_folder_view_finalize(void)
+{
+    GList *list, *l;
+    FmContextMenuSchemeExt *ext;
+
+    fm_module_unregister_type("gtkMenuScheme");
+    list = extensions;
+    extensions = NULL;
+    for (l = extensions; l; l = l->next)
+    {
+        ext = l->data;
+        if (ext->cb.finalize != NULL)
+            ext->cb.finalize();
+        if (ext->scheme != NULL)
+            fm_path_unref(ext->scheme);
+        g_slice_free(FmContextMenuSchemeExt, ext);
+    }
+    g_list_free(list);
 }

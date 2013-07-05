@@ -261,6 +261,9 @@ struct _FmContextMenuSchemeAddonInit
 
 extern FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme;
 
+void _fm_folder_view_init(void);
+void _fm_folder_view_finalize(void);
+
 G_END_DECLS
 
 #endif /* __FOLDER_VIEW_H__ */

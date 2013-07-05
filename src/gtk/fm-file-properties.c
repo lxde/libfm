@@ -1277,7 +1277,7 @@ static void init_application_list(FmFilePropData* data)
 {
     if(data->single_type && data->mime_type)
     {
-        if(data->mime_type != _fm_mime_type_get_inode_directory())
+        if(!fm_file_info_is_dir(data->fi))
             fm_app_chooser_combo_box_setup_for_mime_type(data->open_with, data->mime_type);
         else /* shouldn't allow set file association for folders. */
         {
