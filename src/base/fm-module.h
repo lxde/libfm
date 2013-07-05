@@ -74,7 +74,7 @@ void fm_module_unregister_type(const char *type);
 /* forces schedules */
 void fm_modules_load(void);
 /* the flag */
-volatile gint fm_modules_loaded;
+extern volatile gint fm_modules_loaded;
 
 G_END_DECLS
 
