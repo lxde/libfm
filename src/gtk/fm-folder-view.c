@@ -1290,6 +1290,9 @@ static inline GtkMenu *_make_file_menu(FmFolderView* fv, GtkWindow *win,
                                                     str, fm_file_menu_get_action_group(menu),
                                                     menu, files, single_file);
         }
+        if (str->len > 0)
+            gtk_ui_manager_add_ui_from_string(fm_file_menu_get_ui(menu),
+                                              str->str, str->len, NULL);
         g_string_free(str, TRUE);
     }
     return fm_file_menu_get_menu(menu);

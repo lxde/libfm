@@ -42,5 +42,6 @@ src/job/fm-file-ops-job-change-attr.c
 src/modules/vfs-menu.c
 src/modules/vfs-search.c
 src/modules/gtk-fileprop-x-desktop.c
+src/modules/gtk-menu-trash.c
 src/tools/libfm-pref-apps.c
 src/udisks/g-udisks-device.c

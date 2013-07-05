@@ -51,7 +51,6 @@
  * You can modity the menu replacing placeholders. Note that internally
  * the menu constructor also puts some conditional elements into those
  * placeholders:
- * - ph1: 'UnTrash' item if files are in trash can
  * - ph2: 'OpenWith' list+selector (optionally in submenu 'OpenWithMenu');
  * - ph3: custom (user defined) menu elements
  *  
@@ -105,7 +104,6 @@ static void on_cut(GtkAction* action, gpointer user_data);
 static void on_copy(GtkAction* action, gpointer user_data);
 static void on_paste(GtkAction* action, gpointer user_data);
 static void on_delete(GtkAction* action, gpointer user_data);
-static void on_untrash(GtkAction* action, gpointer user_data);
 static void on_add_bookmark(GtkAction* action, FmFileMenu* menu);
 static void on_rename(GtkAction* action, gpointer user_data);
 static void on_compress(GtkAction* action, gpointer user_data);
@@ -390,41 +388,9 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
     /* Special handling for some virtual filesystems */
     /* FIXME: it should be done on per-scheme basis */
-    g_string_append(xml, "<popup><placeholder name='ph1'>");
     if(all_virtual)
     {
-        /* if all of the files are in trash */
-        if(all_trash)
-        {
-            gboolean can_restore = TRUE;
-            GList* l;
-            /* only immediate children of trash:/// can be restored. */
-            for(l = fm_file_info_list_peek_head_link(files);l;l=l->next)
-            {
-                FmPath* trash_path = fm_file_info_get_path(FM_FILE_INFO(l->data));
-                if(!fm_path_get_parent(trash_path) ||
-                   !fm_path_is_trash_root(fm_path_get_parent(trash_path)))
-                {
-                    can_restore = FALSE;
-                    break;
-                }
-            }
-
-            if(can_restore)
-            {
-                act = gtk_action_new("UnTrash",
-                                    _("_Restore"),
-                                    _("Restore trashed files to original paths"),
-                            NULL);
-                g_signal_connect(act, "activate", G_CALLBACK(on_untrash), data);
-                gtk_action_group_add_action(act_grp, act);
-                g_string_append(xml, "<menuitem action='UnTrash'/>");
-            }
-
-            act = gtk_ui_manager_get_action(ui, "/popup/Open");
-            gtk_action_set_visible(act, FALSE);
-        }
-        else
+        if (!all_trash)
         {
             /* do not provide these items for other virtual files */
             /* FIXME: this is invalid way to do it, many virtual paths still
@@ -445,7 +411,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         act = gtk_ui_manager_get_action(ui, "/popup/Rename");
         gtk_action_set_visible(act, FALSE);
     }
-    g_string_append(xml, "</placeholder></popup>");
 
     /* shadow 'Paste' if clipboard is empty and unshadow if not */
     act = gtk_ui_manager_get_action(ui, "/popup/Paste");
@@ -660,16 +625,6 @@ static void on_delete(GtkAction* action, gpointer user_data)
         fm_delete_files(window, files);
     else
         fm_trash_or_delete_files(window, files);
-    fm_path_list_unref(files);
-}
-
-static void on_untrash(GtkAction* action, gpointer user_data)
-{
-    FmFileMenu* data = (FmFileMenu*)user_data;
-    FmPathList* files;
-    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
-    files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_untrash_files(window, files);
     fm_path_list_unref(files);
 }
 
