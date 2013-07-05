@@ -1145,6 +1145,7 @@ static void update_ui(FmFilePropData* data)
             gtk_widget_destroy(GTK_WIDGET(data->target));
             gtk_table_set_row_spacing(data->general_table, 3, 0);
         }
+        CHECK_MODULES();
         for(ext = extensions; ext; ext = ext->next)
             if(ext->type == data->mime_type)
             {
@@ -1276,7 +1277,7 @@ static void init_application_list(FmFilePropData* data)
 {
     if(data->single_type && data->mime_type)
     {
-        if(g_strcmp0(fm_mime_type_get_type(data->mime_type), "inode/directory"))
+        if(data->mime_type != _fm_mime_type_get_inode_directory())
             fm_app_chooser_combo_box_setup_for_mime_type(data->open_with, data->mime_type);
         else /* shouldn't allow set file association for folders. */
         {
