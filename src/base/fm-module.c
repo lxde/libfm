@@ -327,10 +327,9 @@ void fm_modules_load(void)
         handle = dlopen(str->str, RTLD_NOW);
         if (handle == NULL) /* broken file */
             continue;
-        ptr = dlsym(handle, "module_name");
-        if (ptr == NULL) /* no name found */
+        name = dlsym(handle, "module_name");
+        if (name == NULL) /* no name found */
             continue;
-        name = *(char **)ptr;
         module = fm_module_new();
         module->handle = handle;
         G_LOCK(idle_handler);

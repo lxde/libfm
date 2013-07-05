@@ -40,7 +40,7 @@
  */
 #define FM_DEFINE_MODULE(_type_, _name_) \
 int module_##_type_##_version = __FM_DEFINE_VERSION__(_type_); \
-char *module_name = #_name_;
+char module_name[] = #_name_;
 
 typedef gboolean (*FmModuleInitCallback)(const char *, gpointer, int);
 
