@@ -52,7 +52,7 @@
  * the menu constructor also puts some conditional elements into those
  * placeholders:
  * - ph1: 'UnTrash' item if files are in trash can
- * - ph2: 'OpenWith' list and submenu;
+ * - ph2: 'OpenWith' list+selector (optionally in submenu 'OpenWithMenu');
  * - ph3: custom (user defined) menu elements
  *  
  *        'Compress' if there is archiver defined;
@@ -87,14 +87,10 @@ struct _FmFileMenu
 {
     FmFileInfoList* file_infos;
     gboolean same_type : 1;
-    gboolean same_fs : 1;
-    gboolean all_virtual : 1;
-    gboolean all_trash : 1;
-    gboolean auto_destroy : 1; // private
+    //gboolean disable_archiving : 1;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkMenu* menu;
-    GtkWindow* parent;
 
     FmLaunchFolderFunc folder_func;
     gpointer folder_func_data;
@@ -173,11 +169,7 @@ GtkActionEntry base_menu_actions[]=
  */
 void fm_file_menu_destroy(FmFileMenu* menu)
 {
-    if(menu->parent)
-        g_object_unref(menu->parent);
-
-    if(menu->menu)
-        gtk_widget_destroy(GTK_WIDGET(menu->menu));
+    gtk_widget_destroy(GTK_WIDGET(menu->menu));
 
     if(menu->file_infos)
         fm_file_info_list_unref(menu->file_infos);
@@ -238,19 +230,18 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     GList* l;
     GList* apps = NULL;
     FmPath* path = fm_file_info_get_path(fi);
+    /* FIXME: three unused bits with extensions implemented */
+    gboolean same_fs, all_virtual, all_trash;
 
     unsigned items_num = fm_file_info_list_get_length(files);
 
-    data->parent = g_object_ref(parent); /* FIXME: is this really needed? */
-    /* FIXME: should we connect to "destroy" signal of parent and set data->parent to NULL when
-     * it's detroyed? */
     data->file_infos = fm_file_info_list_ref(files);
 
     /* check if the files are on the same filesystem */
-    data->same_fs = fm_file_info_list_is_same_fs(files);
+    same_fs = fm_file_info_list_is_same_fs(files);
 
-    data->all_virtual = data->same_fs && !fm_path_is_native(path);
-    data->all_trash = data->same_fs && fm_path_is_trash(path);
+    all_virtual = same_fs && !fm_path_is_native(path);
+    all_trash = same_fs && fm_path_is_trash(path);
 
     /* create list of mime types */
     for(l = fm_file_info_list_peek_head_link(files); l; l = l->next)
@@ -303,7 +294,6 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         mime_types = NULL;
     }
 
-    data->auto_destroy = auto_destroy;
     data->ui = ui = gtk_ui_manager_new();
     data->act_grp = act_grp = gtk_action_group_new("Popup");
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
@@ -366,11 +356,14 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         g_string_append(xml, "<menuitem action='OpenWith'/>");
     }
     g_string_append(xml, "</placeholder></popup>");
+    //if (data->same_type) ...run mime-specific extensions...
 
     /* archiver integration */
-    if(!data->all_virtual)
+    /* FIXME: this should check data->disable_archiving instead */
+    if(!all_virtual)
     {
         g_string_append(xml, "<popup><placeholder name='ph3'>");
+        /* FIXME: this should be rewritten to check mime_types list instead */
         if(data->same_type)
         {
             FmArchiver* archiver = fm_archiver_get_default();
@@ -398,10 +391,10 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     /* Special handling for some virtual filesystems */
     /* FIXME: it should be done on per-scheme basis */
     g_string_append(xml, "<popup><placeholder name='ph1'>");
-    if(data->all_virtual)
+    if(all_virtual)
     {
         /* if all of the files are in trash */
-        if(data->all_trash)
+        if(all_trash)
         {
             gboolean can_restore = TRUE;
             GList* l;
@@ -473,6 +466,16 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
     gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
 
+    data->menu = GTK_MENU(gtk_ui_manager_get_widget(data->ui, "/popup"));
+    gtk_menu_attach_to_widget(data->menu, GTK_WIDGET(parent), NULL);
+    fm_widget_menu_fix_tooltips(data->menu);
+
+    if(auto_destroy)
+    {
+        g_signal_connect_swapped(data->menu, "selection-done",
+                                 G_CALLBACK(fm_file_menu_destroy), data);
+    }
+
     g_string_free(xml, TRUE);
     return data;
 }
@@ -526,11 +529,11 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu)
 }
 
 /**
- * fm_file_menu_get_ui
+ * fm_file_menu_get_menu
  * @menu: a menu
  *
- * Builds the menu with GtkUIManager. Returned data are owned by @menu
- * and should be not freed by caller.
+ * Retrieves #GtkMenu widget built with GtkUIManager. Returned data are
+ * owned by @menu and should be not freed by caller.
  *
  * Returns: (transfer none): created #GtkMenu widget.
  *
@@ -538,18 +541,6 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu)
  */
 GtkMenu* fm_file_menu_get_menu(FmFileMenu* menu)
 {
-    if( ! menu->menu )
-    {
-        menu->menu = GTK_MENU(gtk_ui_manager_get_widget(menu->ui, "/popup"));
-        gtk_menu_attach_to_widget(menu->menu, GTK_WIDGET(menu->parent), NULL);
-        fm_widget_menu_fix_tooltips(menu->menu);
-
-        if(menu->auto_destroy)
-        {
-            g_signal_connect_swapped(menu->menu, "selection-done",
-                                     G_CALLBACK(fm_file_menu_destroy), menu);
-        }
-    }
     return menu->menu;
 }
 
@@ -557,7 +548,8 @@ static void on_open(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     GList* l = fm_file_info_list_peek_head_link(data->file_infos);
-    fm_launch_files_simple(data->parent, NULL, l, data->folder_func, data->folder_func_data);
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
+    fm_launch_files_simple(window, NULL, l, data->folder_func, data->folder_func_data);
 }
 
 static void open_with_app(FmFileMenu* data, GAppInfo* app)
@@ -604,13 +596,14 @@ static void on_open_with(GtkAction* action, gpointer user_data)
     FmFileInfo* fi = fm_file_info_list_peek_head(files);
     FmMimeType* mime_type;
     GAppInfo* app;
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
 
     if(data->same_type)
         mime_type = fm_file_info_get_mime_type(fi);
     else
         mime_type = NULL;
 
-    app = fm_choose_app_for_mime_type(data->parent, mime_type, TRUE);
+    app = fm_choose_app_for_mime_type(window, mime_type, TRUE);
 
     if(app)
     {
@@ -627,7 +620,7 @@ static void on_cut(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_cut_files(GTK_WIDGET(data->parent), files);
+    fm_clipboard_cut_files(gtk_menu_get_attach_widget(data->menu), files);
     fm_path_list_unref(files);
 }
 
@@ -636,7 +629,7 @@ static void on_copy(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_clipboard_copy_files(GTK_WIDGET(data->parent), files);
+    fm_clipboard_copy_files(gtk_menu_get_attach_widget(data->menu), files);
     fm_path_list_unref(files);
 }
 
@@ -646,7 +639,8 @@ static void on_paste(GtkAction* action, gpointer user_data)
     FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
     if (fi)
     {
-        fm_clipboard_paste_files(GTK_WIDGET(data->parent), fm_file_info_get_path(fi));
+        fm_clipboard_paste_files(gtk_menu_get_attach_widget(data->menu),
+                                 fm_file_info_get_path(fi));
     }
 }
 
@@ -654,6 +648,7 @@ static void on_delete(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
     GdkModifierType mask = 0;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     /* Fix for #3436283: accept Shift to delete instead of trash */
@@ -662,9 +657,9 @@ static void on_delete(GtkAction* action, gpointer user_data)
                                     gtk_get_current_event_device(),
                                     NULL, NULL, &mask);
     if(mask & GDK_SHIFT_MASK)
-        fm_delete_files(data->parent, files);
+        fm_delete_files(window, files);
     else
-        fm_trash_or_delete_files(data->parent, files);
+        fm_trash_or_delete_files(window, files);
     fm_path_list_unref(files);
 }
 
@@ -672,8 +667,9 @@ static void on_untrash(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
     files = fm_path_list_new_from_file_info_list(data->file_infos);
-    fm_untrash_files(data->parent, files);
+    fm_untrash_files(window, files);
     fm_path_list_unref(files);
 }
 
@@ -694,8 +690,9 @@ static void on_rename(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmFileInfo* fi = fm_file_info_list_peek_head(data->file_infos);
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
     if(fi)
-        fm_rename_file(data->parent, fm_file_info_get_path(fi));
+        fm_rename_file(window, fm_file_info_get_path(fi));
     /* FIXME: is it ok to only rename the first selected file here? */
 }
 
@@ -747,7 +744,8 @@ static void on_extract_to(GtkAction* action, gpointer user_data)
 static void on_prop(GtkAction* action, gpointer user_data)
 {
     FmFileMenu* data = (FmFileMenu*)user_data;
-    fm_show_file_properties(data->parent, data->file_infos);
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
+    fm_show_file_properties(window, data->file_infos);
 }
 
 /**

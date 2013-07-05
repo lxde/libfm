@@ -20,8 +20,8 @@
  *      MA 02110-1301, USA.
  */
 
-#ifndef __FM_FILE_MENU__
-#define __FM_FILE_MENU__
+#ifndef __FM_FILE_MENU_H__
+#define __FM_FILE_MENU_H__
 
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
@@ -48,6 +48,9 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
 
+/* callback from extensions */
+//void fm_file_menu_disable_archiving(FmFileMenu* menu);
+
 /* modules "gtkMenuMime" stuff */
 typedef void (*FmFileMenuUpdatePopup)(GtkWindow* window, GtkUIManager* ui,
                                       GString* xml, GtkActionGroup* act_grp,
@@ -59,7 +62,6 @@ struct _FmFileMenuMimeAddonInit
 {
     void (*init)(void);
     void (*finalize)(void);
-    /* mask: mime type */
     FmFileMenuUpdatePopup update_file_menu_for_mime_type;
 };
 
@@ -67,6 +69,9 @@ struct _FmFileMenuMimeAddonInit
 
 extern FmFileMenuMimeAddonInit fm_module_init_gtkMenuMime;
 
+//void _fm_file_menu_init(void);
+//void _fm_file_menu_finalize(void);
+
 G_END_DECLS
 
-#endif
+#endif /* __FM_FILE_MENU_H__ */
