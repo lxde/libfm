@@ -76,6 +76,8 @@ typedef enum
  *
  * The callback to update popup menu. It can disable items of menu, add
  * some new, replace actions, etc. depending of the window and files.
+ *
+ * If callback is called on folder context menu then @files is NULL.
  */
 typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
                                         GtkUIManager* ui, GtkActionGroup* act_grp,
@@ -247,6 +249,23 @@ GSList*         fm_folder_view_get_columns(FmFolderView* fv);
 
 /* plugins "gtkMenuScheme" stuff */
 typedef struct _FmContextMenuSchemeAddonInit FmContextMenuSchemeAddonInit;
+
+/**
+ * FmContextMenuSchemeAddonInit:
+ * @init: (allow-none): callback for plugin initialization
+ * @finalize: (allow-none): callback to free resources allocated by @init
+ * @update_file_menu_for_scheme: (allow-none): callback to update selection context menu
+ * @update_folder_menu: (allow-none): callback to update folder context menu
+ *
+ * The @init and @finalize callbacks are called on application start and exit.
+ *
+ * The @update_file_menu_for_scheme callback will be called each time
+ * context menu is created for files that are on the same file system
+ * equal to the scheme defined as plugin name is created.
+ *
+ * The @update_folder_menu callback will be called each time application
+ * runs fm_folder_view_add_popup() on folder of the same scheme.
+ */
 struct _FmContextMenuSchemeAddonInit
 {
     void (*init)(void);

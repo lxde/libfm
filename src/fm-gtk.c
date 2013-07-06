@@ -54,6 +54,7 @@ gboolean fm_gtk_init(FmConfig* config)
     _fm_file_properties_init();
     _fm_folder_model_init();
     _fm_folder_view_init();
+    _fm_file_menu_init();
 
     return TRUE;
 }
@@ -72,6 +73,7 @@ void fm_gtk_finalize(void)
     _fm_file_properties_finalize();
     _fm_folder_model_finalize();
     _fm_folder_view_finalize();
+    _fm_file_menu_finalize();
 
     fm_finalize();
 }

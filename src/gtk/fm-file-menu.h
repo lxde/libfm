@@ -48,13 +48,38 @@ FmFileInfoList* fm_file_menu_get_file_info_list(FmFileMenu* menu);
 
 void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpointer user_data);
 
-/* modules "gtkMenuMime" stuff */
+/**
+ * FmFileMenuUpdatePopup
+ * @window: the parent window for popup
+ * @ui: the object to add interface
+ * @xml: container where callback should append XML definition
+ * @act_grp: group of actions to add action
+ * @menu: the menu descriptor
+ * @files: list of files for current popup menu
+ * @single_file: %TRUE is @menu was created for single file
+ *
+ * The callback to update popup menu. It can disable items of menu, add
+ * some new, replace actions, etc. depending of the window and files.
+ */
 typedef void (*FmFileMenuUpdatePopup)(GtkWindow* window, GtkUIManager* ui,
                                       GString* xml, GtkActionGroup* act_grp,
                                       FmFileMenu* menu, FmFileInfoList* files,
                                       gboolean single_file);
 
+/* modules "gtkMenuMime" stuff */
 typedef struct _FmFileMenuMimeAddonInit FmFileMenuMimeAddonInit;
+
+/**
+ * FmFileMenuMimeAddonInit:
+ * @init: (allow-none): callback for plugin initialization
+ * @finalize: (allow-none): callback to free resources allocated by @init
+ * @update_file_menu_for_mime_type: (allow-none): callback to update selection context menu
+ *
+ * The @init and @finalize callbacks are called on application start and exit.
+ *
+ * The @update_file_menu_for_mime_type callback will be called each time
+ * context menu is created for files that have the same context type.
+ */
 struct _FmFileMenuMimeAddonInit
 {
     void (*init)(void);
