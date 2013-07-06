@@ -58,12 +58,14 @@ HFILE_GLOB= \
 	$(top_srcdir)/src/base/*.h \
 	$(top_srcdir)/src/job/*.h \
 	$(top_srcdir)/src/gtk/*.h \
+	$(top_srcdir)/src/extra/*.h \
 	$(NULL)
 
 CFILE_GLOB=$(top_srcdir)/src/*.c \
 	$(top_srcdir)/src/base/*.c \
 	$(top_srcdir)/src/job/*.c \
 	$(top_srcdir)/src/gtk/*.c \
+	$(top_srcdir)/src/extra/*.c \
 	$(NULL)
 
 # Extra header to include when scanning, which are not under DOC_SOURCE_DIR
@@ -120,6 +122,7 @@ GTKDOC_CFLAGS= \
 	$(GTK_CFLAGS)
 GTKDOC_LIBS= \
 	$(top_builddir)/src/libfm.la \
+	$(top_builddir)/src/libfm-extra.la \
 	$(top_builddir)/src/$(LIBFM_GTK_LTLIBRARIES) \
 	$(GTK_LIBS) \
 	$(NULL)

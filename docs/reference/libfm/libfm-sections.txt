@@ -1178,5 +1178,6 @@ fm_xml_file_set_handler
 fm_xml_file_to_data
 <SUBSECTION Standard>
 FM_IS_XML_FILE
+fm_xml_file_get_type
 </SECTION>
 

@@ -97,9 +97,9 @@ struct _FmXmlFileItem
 };
 
 
-G_DEFINE_TYPE(FmXmlFile, _fm_xml_file, G_TYPE_OBJECT);
+G_DEFINE_TYPE(FmXmlFile, fm_xml_file, G_TYPE_OBJECT);
 
-static void _fm_xml_file_finalize(GObject *object)
+static void fm_xml_file_finalize(GObject *object)
 {
     FmXmlFile *self;
     guint i;
@@ -122,18 +122,18 @@ static void _fm_xml_file_finalize(GObject *object)
         g_string_free(self->data, TRUE);
     g_free(self->comment_pre);
 
-    G_OBJECT_CLASS(_fm_xml_file_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_xml_file_parent_class)->finalize(object);
 }
 
-static void _fm_xml_file_class_init(FmXmlFileClass *klass)
+static void fm_xml_file_class_init(FmXmlFileClass *klass)
 {
     GObjectClass *g_object_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = _fm_xml_file_finalize;
+    g_object_class->finalize = fm_xml_file_finalize;
 }
 
-static void _fm_xml_file_init(FmXmlFile *self)
+static void fm_xml_file_init(FmXmlFile *self)
 {
     self->tags = g_new0(FmXmlFileTagDesc, 1);
     self->n_tags = 1;

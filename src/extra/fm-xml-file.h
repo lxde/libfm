@@ -22,17 +22,17 @@
 #ifndef __FM_XML_FILE_H__
 #define __FM_XML_FILE_H__ 1
 
-#define FM_XML_FILE_TYPE           (_fm_xml_file_get_type())
-#define FM_IS_XML_FILE(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), FM_XML_FILE_TYPE))
-
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
+#define FM_XML_FILE_TYPE           (fm_xml_file_get_type())
+#define FM_IS_XML_FILE(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), FM_XML_FILE_TYPE))
+
 typedef struct _FmXmlFile           FmXmlFile;
 typedef struct _FmXmlFileClass      FmXmlFileClass;
 
-GType _fm_xml_file_get_type(void);
+GType fm_xml_file_get_type(void);
 
 typedef struct _FmXmlFileItem       FmXmlFileItem;
 typedef guint                       FmXmlFileTag;
