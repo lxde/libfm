@@ -84,6 +84,8 @@ static void _update_file_menu_for_trash(GtkWindow* window, GtkUIManager* ui,
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/Copy");
     gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+    gtk_action_set_visible(act, FALSE);
     /* FIXME: can we cut files here? */
 }
 
@@ -93,6 +95,7 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
 {
     GtkAction *act;
 
+    /* FIXME: should we show this item for trash root only? */
     act = gtk_action_new("EmptyTrash",
                          _("_Empty Trash Can"),
                          NULL, NULL);
@@ -105,10 +108,14 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
                                           "</popup>", -1, NULL);
     act = gtk_ui_manager_get_action(ui, "/popup/Rename");
     gtk_action_set_visible(act, FALSE);
-    act = gtk_ui_manager_get_action(ui, "/popup/Paste");
-    gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/CreateNew");
     gtk_action_set_visible(act, FALSE);
+    if (!fm_path_is_trash_root(fm_folder_view_get_cwd(fv)))
+    {
+        /* we can paste (i.e. trash) files only into trash root */
+        act = gtk_ui_manager_get_action(ui, "/popup/Paste");
+        gtk_action_set_visible(act, FALSE);
+    }
 }
 
 FM_DEFINE_MODULE(gtkMenuScheme, trash)
