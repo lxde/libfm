@@ -115,6 +115,8 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @template_run_app: run default application after creation from template
  * @template_type_once: use only one template of each MIME type
  * @defer_content_test: defer test for content type on folder loading
+ * @modules_blacklist: list of modules (mask in form "type:name") to never load
+ * @modules_whitelist: list of excemptions from @modules_blacklist
  */
 struct _FmConfig
 {
@@ -162,6 +164,9 @@ struct _FmConfig
     gboolean template_run_app;
     gboolean template_type_once;
     gboolean defer_content_test;
+
+    gchar **modules_blacklist;
+    gchar **modules_whitelist;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;

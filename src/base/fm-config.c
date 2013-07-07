@@ -120,6 +120,7 @@ static void fm_config_init(FmConfig *self)
     /* si_unit defaulted to FALSE */
     /* terminal and archiver defaulted to NULL */
     /* drop_default_action defaulted to 0 */
+    /* modules_blacklist and modules_whitelist defaulted to NULL */
     self->advanced_mode = FALSE;
     self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
     self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
@@ -205,6 +206,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
+    cfg->modules_blacklist = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
+    cfg->modules_whitelist = g_key_file_get_string_list(kf, "config", "modules_whitelist", NULL, NULL);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -299,6 +302,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
     char* path = NULL;;
     char* dir_path;
     FILE* f;
+    GString *str = g_string_sized_new(64);
     if(!name)
         name = path = g_build_filename(g_get_user_config_dir(), "libfm/libfm.conf", NULL);
     else if(!g_path_is_absolute(name))
@@ -337,6 +341,41 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 fprintf(f, "archiver=%s\n", cfg->archiver);
             fprintf(f, "thumbnail_local=%d\n", cfg->thumbnail_local);
             fprintf(f, "thumbnail_max=%d\n", cfg->thumbnail_max);
+            if(cfg->modules_blacklist && *cfg->modules_blacklist)
+            {
+                /* FIXME: isn't better to use whole GKeyFile for this? */
+                char **list, *c;
+                g_string_assign(str, "modules_blacklist=");
+                for (list = cfg->modules_blacklist; (c = *list); list++)
+                {
+                    while (*c)
+                    {
+                        if (*c == '\\')
+                            g_string_append_c(str, '\\');
+                        g_string_append_c(str, *c++);
+                    }
+                    g_string_append_c(str, ';');
+                }
+                g_string_append_c(str, '\n');
+                fprintf(f, "%s", str->str);
+            }
+            if(cfg->modules_whitelist && *cfg->modules_whitelist)
+            {
+                char **list, *c;
+                g_string_assign(str, "modules_whitelist=");
+                for (list = cfg->modules_whitelist; (c = *list); list++)
+                {
+                    while (*c)
+                    {
+                        if (*c == '\\')
+                            g_string_append_c(str, '\\');
+                        g_string_append_c(str, *c++);
+                    }
+                    g_string_append_c(str, ';');
+                }
+                g_string_append_c(str, '\n');
+                fprintf(f, "%s", str->str);
+            }
             fputs("\n[ui]\n", f);
             fprintf(f, "big_icon_size=%d\n", cfg->big_icon_size);
             fprintf(f, "small_icon_size=%d\n", cfg->small_icon_size);
@@ -358,5 +397,6 @@ void fm_config_save(FmConfig* cfg, const char* name)
     }
     g_free(dir_path);
     g_free(path);
+    g_string_free(str, TRUE);
 }
 

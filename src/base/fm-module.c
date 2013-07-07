@@ -139,6 +139,7 @@
 #endif
 
 #include "fm-module.h"
+#include "fm-config.h"
 
 #include <string.h>
 #include <dlfcn.h>
@@ -278,11 +279,54 @@ void fm_module_unregister_type(const char *type)
     g_slice_free(FmModuleType, mtype);
 }
 
+static gboolean _name_matches(const char *name, const char *mask, const char *end)
+{
+    if (mask == end) /* end of pattern should match only to empty string */
+        return (*name == '\0');
+    if (*mask == '*') /* try to match any - zero to all */
+    {
+        mask++;
+        while (1)
+        {
+            /* try to match first, rest of pattern still may match empty string */
+            /* g_debug("matching %s to %.*s", name, (int)(end-mask), mask); */
+            if (_name_matches(name, mask, end))
+                return TRUE;
+            if (*name == '\0') /* no matches so far */
+                return FALSE;
+            name++;
+        }
+        /* never reached */
+    }
+    if (*mask == '\\' && mask + 1 < end) /* next char is escaped */
+        mask++;
+    if (*name != *mask)
+        return FALSE;
+    return _name_matches(name + 1, mask + 1, end);
+}
+
+static gboolean _module_matches(const char *type, const char *name, const char *mask)
+{
+    const char *delimiter = strchr(mask, ':');
+    if (delimiter)
+    {
+        /* g_debug("matching type %s to %.*s", type, (int)(delimiter-mask), mask); */
+        if (!_name_matches(type, mask, delimiter))
+            return FALSE;
+        mask = delimiter + 1;
+        delimiter = mask + strlen(mask);
+        /* g_debug("matching name %s to %s", name, mask); */
+        return _name_matches(name, mask, delimiter);
+    }
+    delimiter = mask + strlen(mask);
+    return _name_matches(type, mask, delimiter);
+}
+
 void fm_modules_load(void)
 {
     GDir *dir;
     const char *file;
-//    char **exp_list;
+    char **exp_list;
     const char *name;
     GString *str;
     void *handle;
@@ -304,25 +348,6 @@ void fm_modules_load(void)
         if (!g_str_has_suffix(file, ".so")) /* ignore other files */
             continue;
         g_debug("found module file: %s", file);
-#if 0
-        /* test each file name - whitelist and blacklist */
-        if (fm_config->modules_blacklist)
-        {
-            for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
-                if (_module_mathces(file, *exp_list))
-                    break;
-            if (*exp_list) /* found in blacklist */
-            {
-                if (!fm_config->modules_whitelist) /* no whitelist */
-                    continue;
-                for (exp_list = fm_config->modules_whitelist; *exp_list; exp_list++)
-                    if (_module_mathces(file, *exp_list))
-                        break;
-                if (*exp_list == NULL) /* not matches whitelist */
-                    continue;
-            }
-        }
-#endif
         g_string_printf(str, PACKAGE_MODULES_DIR"/%s", file);
         handle = dlopen(str->str, RTLD_NOW);
         if (handle == NULL) /* broken file */
@@ -335,6 +360,23 @@ void fm_modules_load(void)
         G_LOCK(idle_handler);
         for (mtype = modules_types; mtype; mtype = mtype->next)
         {
+            /* test each file name - whitelist and blacklist */
+            if (fm_config->modules_blacklist)
+            {
+                for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
+                    if (_module_matches(mtype->type, name, *exp_list))
+                        break;
+                if (*exp_list) /* found in blacklist */
+                {
+                    if (!fm_config->modules_whitelist) /* no whitelist */
+                        continue;
+                    for (exp_list = fm_config->modules_whitelist; *exp_list; exp_list++)
+                        if (_module_matches(mtype->type, name, *exp_list))
+                            break;
+                    if (*exp_list == NULL) /* not matches whitelist */
+                        continue;
+                }
+            }
             /* test version */
             g_string_printf(str, "module_%s_version", mtype->type);
             ptr = dlsym(handle, str->str);

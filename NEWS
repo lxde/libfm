@@ -190,6 +190,16 @@ Changes on 1.2.0 since 1.1.0:
     reloaded so if you add or remove some module then you have to restart
     your application.
 
+* Added 'modules_blacklist' option into config file to disallow certain
+    modules to load. The wildcard char '*' is allowed and matches any
+    number of characters. To match '*' itself it should be escaped with
+    two backslashes (\\), due to key file format. The option is a string
+    list, each string may be just a type to blacklist, or type mask and
+    name mask, divided by a colon (:).
+
+* Added 'modules_whitelist' option into config file as a exceptions list
+    from the 'modules_blacklist' option. Format is the same.
+
 * Created interfaces for loadable modules:
     - vfs (virtual file system)
     - gtkFileProp (GTK file properties dialog extension)
