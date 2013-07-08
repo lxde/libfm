@@ -2031,7 +2031,7 @@ static gboolean _fm_vfs_menu_get_child_for_display_name_real(gpointer data)
             init->result = _fm_vfs_menu_resolve_relative_path(init->file,
                                                 menu_cache_item_get_id(l->data));
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        g_slist_free_full(children, menu_cache_item_unref);
+        g_slist_free_full(children, (GDestroyNotify)menu_cache_item_unref);
 #endif
 #endif /* < 0.5.0 */
     }
