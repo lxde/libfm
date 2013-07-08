@@ -8,17 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-30 19:28+0100\n"
-"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
+"PO-Revision-Date: 2013-07-08 11:11+0000\n"
+"Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: Sweden\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1373281914.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -631,7 +630,7 @@ msgstr "_Avmontera volym"
 
 #: ../src/gtk/fm-places-view.c:103
 msgid "_Eject Removable Media"
-msgstr "Mata _ut flyttbart media"
+msgstr "Mata _ut flyttbart medium"
 
 #: ../src/gtk/fm-places-view.c:116
 msgid "_Rename Bookmark Item"
@@ -875,7 +874,7 @@ msgstr ""
 #: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Textfilen \"%s\" är körbar. Vill du köra den nu?"
+msgstr "Filen \"%s\" är körbar. Vill du köra den nu?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
