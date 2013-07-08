@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-10-27 22:30+0200\n"
-"Last-Translator: Asier <asier.iturralde@gmail.com>\n"
+"PO-Revision-Date: 2013-07-08 21:16+0000\n"
+"Last-Translator: Asier_Iturralde_Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1373318201.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -323,7 +324,6 @@ msgid "Execute in _Terminal"
 msgstr "Exekutatu _Terminalean"
 
 #: ../data/ui/filesearch.glade.h:1
-#, fuzzy
 msgid "Bytes"
 msgstr "Byteak"
 
@@ -352,9 +352,8 @@ msgid "Search Files"
 msgstr "Bilatu fitxategiak"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Fitxategi-mota:</b>"
+msgstr "<b>Fitxategi-_izen ereduak</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
@@ -362,7 +361,7 @@ msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "_Maiuskula/minuskula"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
@@ -370,7 +369,7 @@ msgstr "_Erabili adierazpen erregularra"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Bilatzeko lekuak</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -417,9 +416,8 @@ msgid "File _Type"
 msgstr "Fitxategi-_mota"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Tamaina diskoan:</b>"
+msgstr "<b>Fitxategiak _hau duelarik</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
@@ -606,9 +604,8 @@ msgstr ""
 "karpeta guztiei?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
-msgstr "<b>Atzitu edukia:</b>"
+msgstr "<b>_Atzitu edukia:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -661,7 +658,7 @@ msgstr "Sartu izen berri bat:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Itzalita"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
@@ -778,9 +775,8 @@ msgstr ""
 "Hautatu karpetarentzako ordenatzeko ezarpena gogoratzeko orokorraren ordez"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Nahastu fitxategiak eta karpetak"
+msgstr "Elkartu _fitxategiak eta karpetak"
 
 #: ../src/gtk/fm-folder-view.c:200
 msgid "_Ignore name case"
@@ -1116,7 +1112,7 @@ msgstr "Disko optikoa"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Menuaren cachearen errorea"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
