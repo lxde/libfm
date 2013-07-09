@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2013-06-28 01:36-0400\n"
-"Last-Translator: Hugo Florentino <hugo@acdam.cu>\n"
+"PO-Revision-Date: 2013-07-09 11:31+0000\n"
+"Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1373369485.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -213,23 +214,23 @@ msgstr "Ninguna"
 
 #: ../data/ui/file-prop.glade.h:27
 msgid "Sticky"
-msgstr "Sticky"
+msgstr "Persistente"
 
 #: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
-msgstr "Set GID"
+msgstr "Establecer el GID"
 
 #: ../data/ui/file-prop.glade.h:29
 msgid "Sticky & set GID"
-msgstr "Sticky & set GID"
+msgstr "Persistente y establecer GID"
 
 #: ../data/ui/file-prop.glade.h:30
 msgid "Set UID"
-msgstr "Set UID"
+msgstr "Establecer el UID"
 
 #: ../data/ui/file-prop.glade.h:31
 msgid "Set UID & GID"
-msgstr "Set UID & GID"
+msgstr "Establecer UID y GID"
 
 #: ../data/ui/file-prop.glade.h:32
 msgid "Nobody"
@@ -237,11 +238,11 @@ msgstr "Nadie"
 
 #: ../data/ui/file-prop.glade.h:33
 msgid "Only owner"
-msgstr "Sólo el propietario"
+msgstr "Solo el propietario"
 
 #: ../data/ui/file-prop.glade.h:34
 msgid "Only owner and group"
-msgstr "Sólo el propietario y el grupo"
+msgstr "Solo el propietario y el grupo"
 
 #: ../data/ui/file-prop.glade.h:35
 msgid "Anyone"
@@ -250,7 +251,7 @@ msgstr "Cualquiera"
 #. Preparing to do some file operation (Copy, Move, Delete...)
 #: ../data/ui/progress.glade.h:2
 msgid "Preparing..."
-msgstr "Preparando..."
+msgstr "Preparando…"
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:4
@@ -304,7 +305,7 @@ msgstr "<b>Emulador de terminal</b>"
 
 #: ../data/ui/preferred-apps.glade.h:7
 msgid "Command line:"
-msgstr "Línea de comandos:"
+msgstr "Línea de órdenes:"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid "System Applications"
@@ -320,7 +321,7 @@ msgstr "Ejecutar archivo"
 
 #: ../data/ui/exec-file.glade.h:2
 msgid "Execute in _Terminal"
-msgstr "Ejecutar en la _terminal"
+msgstr "Ejecutar en el _terminal"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
@@ -340,11 +341,11 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr "Escoger una fecha"
+msgstr "Elija una fecha"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Escoger una fecha del siguiente calendario"
+msgstr "Elija una fecha del calendario siguiente"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
@@ -380,7 +381,7 @@ msgstr "Buscar en archivos _ocultos"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "Nombre/_Ubicación"
+msgstr "Nombre/_ubicación"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -404,11 +405,11 @@ msgstr "Archivos de _audio"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr "Archivos de _video"
+msgstr "Archivos de _vídeo"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Documentos"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "File _Type"
@@ -420,7 +421,7 @@ msgstr "<b>El archivo contiene:</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "C_ontenido"
 
 #: ../data/ui/filesearch.glade.h:26
 msgid "<b>File Size</b>"
@@ -428,11 +429,11 @@ msgstr "<b>Tamaño de archivo:</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Menor que:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "Ma_yor que:"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>Last Modified Time</b>"
@@ -445,11 +446,11 @@ msgstr "(Ninguna)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "An_terior que:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Posterior que:"
 
 #: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
@@ -515,7 +516,7 @@ msgid ""
 msgstr ""
 "Tipo: %s\n"
 "Tamaño: %s\n"
-"Modificado: %s"
+"Modificado el: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
@@ -524,7 +525,7 @@ msgid ""
 "Modified: %s"
 msgstr ""
 "Tipo: %s\n"
-"Modificado: %s"
+"Modificado el: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
@@ -558,19 +559,19 @@ msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
-msgstr "Moviendo archivos"
+msgstr "Moviendo los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
-msgstr "Copiando archivos"
+msgstr "Copiando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
-msgstr "Enviando archivos a la papelera"
+msgstr "Enviando los archivos a la papelera"
 
 #: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
-msgstr "Eliminando archivos"
+msgstr "Eliminando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
@@ -588,18 +589,18 @@ msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
-msgstr "Por favor, introduzca un nombre de usuario o id. numérica válida."
+msgstr "Escriba un nombre de usuario o un id. numérico válido."
 
 #: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
-msgstr "Por favor, introduzca un nombre de grupo o id. numérica válida."
+msgstr "Escriba un nombre de grupo o un id. numérico válido."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
-"¿Desea aplicar recursivamente estos cambios a todos los archivos y "
+"¿Quiere aplicar estos cambios recurrentemente a todos los archivos y "
 "subcarpetas?"
 
 #: ../src/gtk/fm-file-properties.c:633
@@ -644,7 +645,7 @@ msgstr "Quitar de los _marcadores"
 
 #: ../src/gtk/fm-places-view.c:129
 msgid "_Empty Trash Can"
-msgstr "Vaciar pap_elera"
+msgstr "_Vaciar la papelera"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -653,11 +654,12 @@ msgstr "Renombrar marcador"
 
 #: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
-msgstr "Introduzca un nuevo nombre:"
+msgstr "Escriba un nombre nuevo:"
 
+# Necesito más contexto con esta cadena
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Desactivar"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
@@ -665,7 +667,7 @@ msgstr "_Lugares"
 
 #: ../src/gtk/fm-side-pane.c:63
 msgid "_Directory Tree"
-msgstr "Árbol de _directorio"
+msgstr "Árbol de _directorios"
 
 #: ../src/gtk/fm-side-pane.c:64
 msgid "_Remote"
@@ -677,11 +679,11 @@ msgstr "Lugares"
 
 #: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
-msgstr "Árbol de directorio"
+msgstr "Árbol de directorios"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Abrir"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
 msgid "Open _With..."
@@ -840,19 +842,19 @@ msgstr "Pregunta"
 
 #: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
-msgstr "Por favor, seleccione una carpeta"
+msgstr "Seleccione una carpeta"
 
 #: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
-msgstr "Sólo el administrador del sistema tiene el permiso para hacer esto."
+msgstr "Solo el administrador del sistema tiene permisos para hacer esto."
 
 #: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
-msgstr "¿Desea mover los archivos seleccionados a la papelera?"
+msgstr "¿Quiere mover los archivos seleccionados a la papelera?"
 
 #: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
-msgstr "¿Desea eliminar los archivos seleccionados?"
+msgstr "¿Quiere eliminar los archivos seleccionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
@@ -860,11 +862,11 @@ msgstr "Renombrar archivo"
 
 #: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
-msgstr "Por favor, introduzca un nuevo nombre:"
+msgstr "Escriba un nombre nuevo:"
 
 #: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
-msgstr "¿Está seguro que desea vaciar la papelera?"
+msgstr "¿Está seguro de que quiere vaciar la papelera?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
@@ -872,18 +874,18 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Este archivo de texto '%s' parece ser un script ejecutable.\n"
-"¿Qué desea hacer con él?"
+"El archivo de texto «%s» parece ser un script ejecutable.\n"
+"¿Qué quiere hacer con él?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Este archivo '%s' es ejecutable. ¿Desea ejecutarlo?"
+msgstr "El archivo «%s» es ejecutable. ¿Quiere ejecutarlo?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "No se especificó ninguna carpeta."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
 msgid "Select a folder"
@@ -895,7 +897,7 @@ msgstr "<Sin subcarpetas>"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
-msgstr "Cargando..."
+msgstr "Cargando…"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:185
@@ -1122,11 +1124,11 @@ msgstr "Operación no admitida"
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr "Nombre de archivo %s inválido"
+msgstr "El nombre de archivo %s no es válido"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr "Directorio de menú inválido"
+msgstr "El directorio de menús no es válido"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
