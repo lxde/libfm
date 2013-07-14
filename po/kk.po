@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-04 17:23+0300\n"
-"PO-Revision-Date: 2013-06-05 08:34+0600\n"
-"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"PO-Revision-Date: 2013-07-12 15:43+0000\n"
+"Last-Translator: sotrud_nik <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1373643782.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -651,9 +652,8 @@ msgid "Enter a new name:"
 msgstr "Жаңа атын енгізіңіз:"
 
 #: ../src/gtk/fm-side-pane.c:61
-#, fuzzy
 msgid "_Off"
-msgstr "OFF"
+msgstr "_Сөнд"
 
 #: ../src/gtk/fm-side-pane.c:62
 msgid "_Places"
