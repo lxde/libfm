@@ -1,20 +1,20 @@
 # Polish translation of libfm package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012.
+# This file is distributed under the same license as the libfm package.
+# Piotr Sokół <psokol@jabster.pl>, 2010, 2011, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2013-06-05 19:24+0100\n"
-"Last-Translator: Franciszek Janowski <nobange@poczta.onet.pl>\n"
+"PO-Revision-Date: 2013-07-16 22:11+0200\n"
+"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Gtranslator 2.91.5\n"
@@ -338,19 +338,19 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr "Wybierz datę"
+msgstr "Wybór daty"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Wybierz datę z kalendarza"
+msgstr "Proszę wybrać datę z poniższego kalendarza"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
-msgstr "Szukaj plików"
+msgstr "Wyszukiwanie plików"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Wzorce _nazw plików</b>"
+msgstr "<b>Wzory _nazw plików</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
@@ -358,27 +358,27 @@ msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "Uwzględniaj wielkość liter"
+msgstr "Uwzględnianie _wielkości liter"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr "_Użyj wyrażeń regularnych"
+msgstr "_Użycie wyrażeń regularnych"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr "<b>Miejsca do przeszukania</b>"
+msgstr "<b>Położenia do przeszukania</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr "_Szukaj w podkatalogach"
+msgstr "Wyszukiwanie w p_odkatalogach"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr "Szukaj plików _ukrytych"
+msgstr "Uwzględnianie _ukrytych plików"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr "Nazwa/_lokalizacja"
+msgstr "_Nazwa i położenie"
 
 #: ../data/ui/filesearch.glade.h:16
 msgid "<b>File Type</b>"
@@ -386,7 +386,7 @@ msgstr "<b>Typ pliku</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr "Szukaj tylko plików następujących typów"
+msgstr "Wyszukiwanie tylko plików następujących typów"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -398,11 +398,11 @@ msgstr "_Obrazy"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "Pliki _audio"
+msgstr "Nagrania _dźwiękowe"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
-msgstr "Pliki _wideo"
+msgstr "Nagrania _wideo"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
@@ -414,7 +414,7 @@ msgstr "_Typ pliku"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Plik _zawiera</b>"
+msgstr "<b>_Zawartość pliku</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
@@ -426,11 +426,11 @@ msgstr "<b>Rozmiar pliku</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr "_Mniejsze niż:"
+msgstr "_Mniejszy niż:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr "_Większe niż:"
+msgstr "_Większy niż:"
 
 #: ../data/ui/filesearch.glade.h:29
 msgid "<b>Last Modified Time</b>"
@@ -527,7 +527,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
-msgstr "Operacja została przerwana i wystąpiły błędy."
+msgstr "Przerwano operację i wystąpiły błędy."
 
 #: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
@@ -535,11 +535,11 @@ msgstr "Anulowano"
 
 #: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
-msgstr "Operacja została ukończona, ale wystąpiły błędy."
+msgstr "Ukończono operację ale wystąpiły błędy."
 
 #: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
-msgstr "Zakończone"
+msgstr "Zakończono"
 
 #: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
@@ -547,8 +547,8 @@ msgid ""
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
-"Pewne pliki nie mogą zostać przeniesione do kosza, ponieważ system plików, "
-"na którym się znajdują, nie obsługuje tej operacji.\n"
+"Pewne pliki nie mogą zostać przeniesione do kosza. System plików, na którym "
+"się znajdują, nie obsługuje tej operacji.\n"
 "Zamiast tego usunąć je trwale?"
 
 #: ../src/gtk/fm-progress-dlg.c:482
@@ -602,7 +602,7 @@ msgstr "Zatwierdzić zmiany rekursywnie dla wszystkich plików i podkatalogów?"
 
 #: ../src/gtk/fm-file-properties.c:633
 msgid "<b>_Access content:</b>"
-msgstr "<b>Dostęp do zawartości:</b>"
+msgstr "<b>_Dostęp do zawartości:</b>"
 
 #: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
@@ -716,11 +716,11 @@ msgstr "_Przywróć"
 
 #: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
-msgstr "Przywróć pliki przeniesione do kosza do ich pierwotnego położenia"
+msgstr "Przywraca pliki z kosza do ich pierwotnego położenia"
 
 #: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
-msgstr "Nieudane XDirectSave."
+msgstr "Nieudane działanie XDirectSave."
 
 #: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
@@ -1130,7 +1130,7 @@ msgstr "Nieprawidłowy katalog menu"
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr "Szukaj"
+msgstr "Wyszukaj"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Właściciel:</b>"
