@@ -55,17 +55,26 @@
 static FmIcon* icon_locked_folder = NULL;
 
 /* all of the user special dirs are direct child of home directory */
-static gboolean special_dirs_all_in_home = FALSE;
+static gboolean special_dirs_all_in_home = TRUE;
 
-/* path strings of all user special dirs defined by xdg */
-static const char* desktop_path_str = NULL;
-static const char* documents_path_str = NULL;
-static const char* download_path_str = NULL;
-static const char* music_path_str = NULL;
-static const char* pictures_path_str = NULL;
-static const char* public_share_path_str = NULL;
-static const char* templates_path_str = NULL;
-static const char* videos_path_str = NULL;
+typedef struct _SpecialDirInfo
+{
+    const char* path_str;
+    const char* base_name;
+    const char* icon_name;
+}SpecialDirInfo;
+
+/* information of the user special dirs defined by xdg */
+static SpecialDirInfo special_dir_info[G_USER_N_DIRECTORIES] = {
+	{NULL, NULL, "user-desktop"},
+	{NULL, NULL, "folder-documents"},
+	{NULL, NULL, "folder-download"},
+	{NULL, NULL, "folder-music"},
+	{NULL, NULL, "folder-pictures"},
+	{NULL, NULL, "folder-publicshare"},
+	{NULL, NULL, "folder-templates"},
+	{NULL, NULL, "folder-videos"}
+};
 
 struct _FmFileInfo
 {
@@ -117,53 +126,34 @@ struct _FmFileInfoList
     FmList list;
 };
 
-/* check if dir is a direct child path of parent_dir */
-static gboolean _is_direct_child_of(const char* dir, const char* parent_dir, int parent_len)
-{
-    if(!dir) /* omit NULL dir */
-        return TRUE;
-    /* dir has prefix parent_dir */
-    if(strncmp(dir, parent_dir, parent_len) == 0)
-    {
-        const char* basename = dir + parent_len;
-        if(basename[0] == '/') /* skip the dir separator */
-        {
-            ++basename;
-            /* basename should not contains other separator */
-            if(strchr(basename, '/') == NULL)
-                return TRUE;
-        }
-    }
-    return FALSE;
-}
-
 /* intialize the file info system */
 void _fm_file_info_init(void)
 {
     const char* user_home = fm_get_home_dir();
     int home_dir_len = strlen(user_home);
+    int i;
     icon_locked_folder = fm_icon_from_name("folder-locked");
 
-    desktop_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
-    documents_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS);
-    download_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD);
-    music_path_str = g_get_user_special_dir(G_USER_DIRECTORY_MUSIC);
-    pictures_path_str = g_get_user_special_dir(G_USER_DIRECTORY_PICTURES);
-    public_share_path_str = g_get_user_special_dir(G_USER_DIRECTORY_PUBLIC_SHARE);
-    templates_path_str = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
-    videos_path_str = g_get_user_special_dir(G_USER_DIRECTORY_VIDEOS);
-
-    /* check if all of the spcial dirs are direct child of home dir */
-    if(_is_direct_child_of(desktop_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(documents_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(download_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(music_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(pictures_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(public_share_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(templates_path_str, user_home, home_dir_len)
-        && _is_direct_child_of(videos_path_str, user_home, home_dir_len))
+    for(i = 0; i < G_USER_N_DIRECTORIES; ++i)
     {
-        special_dirs_all_in_home = TRUE;
+		/* get information of every special dir */
+        const char* path_str = g_get_user_special_dir(i);
+        const char* base_name = NULL;
+        if(path_str)
+        {
+			/* FIXME: will someone put / at the end of the path? */
+            base_name = strrchr(path_str, '/'); /* find the last '/' in dir path */
+            if(base_name)
+            {
+                int prefix_len = (base_name - path_str);
+                /* check if the special dir has home dir prefix */
+                if(prefix_len != home_dir_len || strncmp(path_str, user_home, home_dir_len))
+                    special_dirs_all_in_home = FALSE; /* not all of the special dirs are in home dir */
+                ++base_name; /* skip separator */
+				special_dir_info[i].base_name = base_name;
+            }
+			special_dir_info[i].path_str = path_str;
+        }
     }
 }
 
@@ -304,48 +294,51 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                 fi->icon = fm_icon_from_name("user-home");
             else
             {
-                /* pcman: This is a little trick for optimization.
-                 * In most normal cases, all of the special folders are
-                 * by default the direct child of user home dir,
-                 * If this is the case, we can skip the check if our file
-                 * is not in home dir since it's impossible for it to be
-                 * a special dir.
-                 * Without this trick, we do all the strcmp() calls
-                 * for every single file found in the dir, which is expansive.
-                 * With this trck, we only do this if we're in the home dir.
-                 */
                 FmPath* parent_path = fm_path_get_parent(fmpath);
-                gboolean need_check_special_dirs = FALSE;
-
-                /* if all special dirs are in home, and this file is also in home dir. */
-                if(!special_dirs_all_in_home || (parent_path == fm_path_get_home()))
-                    need_check_special_dirs = TRUE; /* need to check if the file is a special dir */
-
-                /* check if this file is any one of the special dirs */
-                if(need_check_special_dirs)
+                SpecialDirInfo* si;
+                int i;
+                if(special_dirs_all_in_home)
                 {
-                    /* FIXME; there're still room for optimization.
-                     * If all special folders are all in the home dir,
-                     * and we're in the home dir, too, we only need to
-                     * compare base names rather than full paths. */
-
-                    /* set icons for special dirs */
-                    if(strcmp(path, desktop_path_str) == 0)
-                        fi->icon = fm_icon_from_name("user-desktop");
-                    else if(g_strcmp0(path, documents_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-documents");
-                    else if(g_strcmp0(path, download_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-download");
-                    else if(g_strcmp0(path, music_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-music");
-                    else if(g_strcmp0(path, pictures_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-pictures");
-                    else if(g_strcmp0(path, public_share_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-publicshare");
-                    else if(g_strcmp0(path, templates_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-templates");
-                    else if(g_strcmp0(path, videos_path_str) == 0)
-                        fi->icon = fm_icon_from_name("folder-videos");
+					/* pcman: This is a little trick for optimization.
+					 * In most normal cases, all of the special folders are
+					 * by default the direct child of user home dir,
+					 * If this is the case, we can skip the check if our file
+					 * is not in home dir since it's impossible for it to be
+					 * a special dir.
+					 * Without this trick, we do all the strcmp() calls
+					 * for every single file found in the dir, which is expansive.
+					 * With this trck, we only do this if we're in the home dir.
+					 */
+                    if(fm_path_equal(parent_path, fm_path_get_home()))
+                    {
+						/* special dirs are all in home dir and we're in home dir, too */
+                        const char* base_name = fm_path_get_basename(fmpath);
+                        for(i = 0; i < G_USER_N_DIRECTORIES; ++i)
+                        {
+                            si = &special_dir_info[i];
+                            if(si->base_name && strcmp(si->base_name, base_name) == 0)
+                            {
+                                fi->icon = fm_icon_from_name(si->icon_name);
+                                break;
+                            }
+                        }
+                    }
+                    /* if all special dirs are in home dir and this file is not, it can't be a special folder */
+                }
+                else
+                {
+                    const char* base_name = fm_path_get_basename(fmpath);
+                    for(i = 0; i < G_USER_N_DIRECTORIES; ++i)
+                    {
+                        si = &special_dir_info[i];
+                        /* compare base name first, and then prefix if needed. */
+                        if(si->base_name && strcmp(si->base_name, base_name) == 0
+                            && strncmp(si->path_str, path, (si->base_name - si->path_str)) == 0)
+                        {
+                            fi->icon = fm_icon_from_name(si->icon_name);
+                            break;
+                        }
+                    }
                 }
             }
         }
