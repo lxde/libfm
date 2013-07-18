@@ -29,6 +29,7 @@
 
 #include <menu-cache.h>
 #include "fm-gtk.h"
+#include "../glib-compat.h"
 
 /* support for libmenu-cache 0.4.x */
 #ifndef MENU_CACHE_CHECK_VERSION
