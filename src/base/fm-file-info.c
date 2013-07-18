@@ -54,6 +54,19 @@
 
 static FmIcon* icon_locked_folder = NULL;
 
+/* all of the user special dirs are direct child of home directory */
+static gboolean special_dirs_all_in_home = FALSE;
+
+/* path strings of all user special dirs defined by xdg */
+static const char* desktop_path_str = NULL;
+static const char* documents_path_str = NULL;
+static const char* download_path_str = NULL;
+static const char* music_path_str = NULL;
+static const char* pictures_path_str = NULL;
+static const char* public_share_path_str = NULL;
+static const char* templates_path_str = NULL;
+static const char* videos_path_str = NULL;
+
 struct _FmFileInfo
 {
     FmPath* path; /* path of the file */
@@ -104,10 +117,54 @@ struct _FmFileInfoList
     FmList list;
 };
 
+/* check if dir is a direct child path of parent_dir */
+static gboolean _is_direct_child_of(const char* dir, const char* parent_dir, int parent_len)
+{
+    if(!dir) /* omit NULL dir */
+        return TRUE;
+    /* dir has prefix parent_dir */
+    if(strncmp(dir, parent_dir, parent_len) == 0)
+    {
+        const char* basename = dir + parent_len;
+        if(basename[0] == '/') /* skip the dir separator */
+        {
+            ++basename;
+            /* basename should not contains other separator */
+            if(strchr(basename, '/') == NULL)
+                return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 /* intialize the file info system */
 void _fm_file_info_init(void)
 {
+    const char* user_home = fm_get_home_dir();
+    int home_dir_len = strlen(user_home);
     icon_locked_folder = fm_icon_from_name("folder-locked");
+
+    desktop_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
+    documents_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS);
+    download_path_str = g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD);
+    music_path_str = g_get_user_special_dir(G_USER_DIRECTORY_MUSIC);
+    pictures_path_str = g_get_user_special_dir(G_USER_DIRECTORY_PICTURES);
+    public_share_path_str = g_get_user_special_dir(G_USER_DIRECTORY_PUBLIC_SHARE);
+    templates_path_str = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
+    videos_path_str = g_get_user_special_dir(G_USER_DIRECTORY_VIDEOS);
+
+    /* check if all of the spcial dirs are direct child of home dir */
+    if(_is_direct_child_of(desktop_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(documents_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(download_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(music_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(pictures_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(public_share_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(templates_path_str, user_home, home_dir_len)
+        && _is_direct_child_of(videos_path_str, user_home, home_dir_len))
+    {
+        special_dirs_all_in_home = TRUE;
+    }
 }
 
 void _fm_file_info_finalize()
@@ -136,6 +193,9 @@ FmFileInfo* fm_file_info_new ()
  *
  * Get file info of the specified native file and store it in
  * the FmFileInfo struct.
+ * 
+ * Prior to calling this function, the FmPath of FmFileInfo should
+ * have been set with fm_file_info_set_path().
  *
  * Returns: TRUE if no error happens.
  */
@@ -143,6 +203,7 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
 {
     struct stat st;
     char *dname;
+    FmPath* fmpath = fm_file_info_get_path(fi);
 
     if(lstat(path, &st) == 0)
     {
@@ -237,24 +298,57 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
-        else if(strcmp(path, fm_get_home_dir()) == 0)
-            fi->icon = fm_icon_from_name("user-home");
-        else if(strcmp(path, g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP)) == 0)
-            fi->icon = fm_icon_from_name("user-desktop");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS)) == 0)
-            fi->icon = fm_icon_from_name("folder-documents");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD)) == 0)
-            fi->icon = fm_icon_from_name("folder-download");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_MUSIC)) == 0)
-            fi->icon = fm_icon_from_name("folder-music");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_PICTURES)) == 0)
-            fi->icon = fm_icon_from_name("folder-pictures");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_PUBLIC_SHARE)) == 0)
-            fi->icon = fm_icon_from_name("folder-publicshare");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES)) == 0)
-            fi->icon = fm_icon_from_name("folder-templates");
-        else if(g_strcmp0(path, g_get_user_special_dir(G_USER_DIRECTORY_VIDEOS)) == 0)
-            fi->icon = fm_icon_from_name("folder-videos");
+        else if(S_ISDIR(fi->mode)) /* special handling for folder icons */
+        {
+            if(fm_path_equal(fmpath, fm_path_get_home())) /* this file is the home dir */
+                fi->icon = fm_icon_from_name("user-home");
+            else
+            {
+                /* pcman: This is a little trick for optimization.
+                 * In most normal cases, all of the special folders are
+                 * by default the direct child of user home dir,
+                 * If this is the case, we can skip the check if our file
+                 * is not in home dir since it's impossible for it to be
+                 * a special dir.
+                 * Without this trick, we do all the strcmp() calls
+                 * for every single file found in the dir, which is expansive.
+                 * With this trck, we only do this if we're in the home dir.
+                 */
+                FmPath* parent_path = fm_path_get_parent(fmpath);
+                gboolean need_check_special_dirs = FALSE;
+
+                /* if all special dirs are in home, and this file is also in home dir. */
+                if(!special_dirs_all_in_home || (parent_path == fm_path_get_home()))
+                    need_check_special_dirs = TRUE; /* need to check if the file is a special dir */
+
+                /* check if this file is any one of the special dirs */
+                if(need_check_special_dirs)
+                {
+                    /* FIXME; there're still room for optimization.
+                     * If all special folders are all in the home dir,
+                     * and we're in the home dir, too, we only need to
+                     * compare base names rather than full paths. */
+
+                    /* set icons for special dirs */
+                    if(strcmp(path, desktop_path_str) == 0)
+                        fi->icon = fm_icon_from_name("user-desktop");
+                    else if(g_strcmp0(path, documents_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-documents");
+                    else if(g_strcmp0(path, download_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-download");
+                    else if(g_strcmp0(path, music_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-music");
+                    else if(g_strcmp0(path, pictures_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-pictures");
+                    else if(g_strcmp0(path, public_share_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-publicshare");
+                    else if(g_strcmp0(path, templates_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-templates");
+                    else if(g_strcmp0(path, videos_path_str) == 0)
+                        fi->icon = fm_icon_from_name("folder-videos");
+                }
+            }
+        }
         if(!fi->icon)
             fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
 
@@ -932,7 +1026,7 @@ mode_t fm_file_info_get_mode(FmFileInfo* fi)
  */
 gboolean fm_file_info_is_native(FmFileInfo* fi)
 {
-	return fm_path_is_native(fi->path);
+    return fm_path_is_native(fi->path);
 }
 
 /**
