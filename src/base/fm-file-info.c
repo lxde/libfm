@@ -66,14 +66,14 @@ typedef struct _SpecialDirInfo
 
 /* information of the user special dirs defined by xdg */
 static SpecialDirInfo special_dir_info[G_USER_N_DIRECTORIES] = {
-	{NULL, NULL, "user-desktop"},
-	{NULL, NULL, "folder-documents"},
-	{NULL, NULL, "folder-download"},
-	{NULL, NULL, "folder-music"},
-	{NULL, NULL, "folder-pictures"},
-	{NULL, NULL, "folder-publicshare"},
-	{NULL, NULL, "folder-templates"},
-	{NULL, NULL, "folder-videos"}
+    {NULL, NULL, "user-desktop"},
+    {NULL, NULL, "folder-documents"},
+    {NULL, NULL, "folder-download"},
+    {NULL, NULL, "folder-music"},
+    {NULL, NULL, "folder-pictures"},
+    {NULL, NULL, "folder-publicshare"},
+    {NULL, NULL, "folder-templates"},
+    {NULL, NULL, "folder-videos"}
 };
 
 struct _FmFileInfo
@@ -136,12 +136,12 @@ void _fm_file_info_init(void)
 
     for(i = 0; i < G_USER_N_DIRECTORIES; ++i)
     {
-		/* get information of every special dir */
+        /* get information of every special dir */
         const char* path_str = g_get_user_special_dir(i);
         const char* base_name = NULL;
         if(path_str)
         {
-			/* FIXME: will someone put / at the end of the path? */
+            /* FIXME: will someone put / at the end of the path? */
             base_name = strrchr(path_str, '/'); /* find the last '/' in dir path */
             if(base_name)
             {
@@ -150,9 +150,9 @@ void _fm_file_info_init(void)
                 if(prefix_len != home_dir_len || strncmp(path_str, user_home, home_dir_len))
                     special_dirs_all_in_home = FALSE; /* not all of the special dirs are in home dir */
                 ++base_name; /* skip separator */
-				special_dir_info[i].base_name = base_name;
+                special_dir_info[i].base_name = base_name;
             }
-			special_dir_info[i].path_str = path_str;
+            special_dir_info[i].path_str = path_str;
         }
     }
 }
@@ -299,19 +299,19 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
                 int i;
                 if(special_dirs_all_in_home)
                 {
-					/* pcman: This is a little trick for optimization.
-					 * In most normal cases, all of the special folders are
-					 * by default the direct child of user home dir,
-					 * If this is the case, we can skip the check if our file
-					 * is not in home dir since it's impossible for it to be
-					 * a special dir.
-					 * Without this trick, we do all the strcmp() calls
-					 * for every single file found in the dir, which is expansive.
-					 * With this trck, we only do this if we're in the home dir.
-					 */
+                    /* pcman: This is a little trick for optimization.
+                     * In most normal cases, all of the special folders are
+                     * by default the direct child of user home dir,
+                     * If this is the case, we can skip the check if our file
+                     * is not in home dir since it's impossible for it to be
+                     * a special dir.
+                     * Without this trick, we do all the strcmp() calls
+                     * for every single file found in the dir, which is expansive.
+                     * With this trck, we only do this if we're in the home dir.
+                     */
                     if(fm_path_equal(parent_path, fm_path_get_home()))
                     {
-						/* special dirs are all in home dir and we're in home dir, too */
+                        /* special dirs are all in home dir and we're in home dir, too */
                         const char* base_name = fm_path_get_basename(fmpath);
                         for(i = 0; i < G_USER_N_DIRECTORIES; ++i)
                         {
