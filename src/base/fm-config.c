@@ -97,6 +97,10 @@ static void fm_config_finalize(GObject *object)
         g_free(cfg->archiver);
     cfg->terminal = NULL;
     cfg->archiver = NULL;
+    g_strfreev(cfg->modules_blacklist);
+    g_strfreev(cfg->modules_whitelist);
+    cfg->modules_blacklist = NULL;
+    cfg->modules_whitelist = NULL;
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
@@ -206,6 +210,9 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
+    g_strfreev(cfg->modules_blacklist);
+    g_strfreev(cfg->modules_whitelist);
+    /* FIXME: append lists instead */
     cfg->modules_blacklist = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
     cfg->modules_whitelist = g_key_file_get_string_list(kf, "config", "modules_whitelist", NULL, NULL);
 
