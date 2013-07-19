@@ -20,8 +20,13 @@ pkglibdir = $(libdir)/@PACKAGE@/modules
 pkglib_LTLIBRARIES = \
 	vfs-menu.la \
 	vfs-search.la \
+	$(NULL)
+
+if ENABLE_GTK
+pkglib_LTLIBRARIES += \
 	gtk-fileprop-x-desktop.la \
 	$(NULL)
+endif
 
 # module-specific parameters
 vfs_menu_la_CFLAGS = $(MENU_CACHE_CFLAGS) -I../extra

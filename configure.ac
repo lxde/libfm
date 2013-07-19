@@ -125,6 +125,7 @@ AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 AC_SUBST(LIBFM_GTK_LTLIBRARIES)
 AC_SUBST(LIBFM_PREF_APPS)
+AM_CONDITIONAL([ENABLE_GTK], [test x$ac_with_gtk != xnone])
 
 dnl pango_modules="pango >= 1.16.0"
 dnl PKG_CHECK_MODULES(PANGO, [$pango_modules])
