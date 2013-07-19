@@ -8,17 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-09-30 21:35+0200\n"
-"Last-Translator: Радослав <reckku@gmail.com>\n"
+"PO-Revision-Date: 2013-07-19 20:43+0000\n"
+"Last-Translator: Recku <reckku@gmail.com>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.0\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-Poedit-Language: Bulgarian\n"
-"X-Poedit-Country: BULGARIA\n"
+"X-POOTLE-MTIME: 1374266603.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -916,23 +915,20 @@ msgid "Size"
 msgstr "Размер"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Достъпност"
+msgstr "Права"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Само собственика"
+msgstr "Собственик"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Променен"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "Име/_Място"
+msgstr "Място"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1138,7 +1134,7 @@ msgstr "Невалидно име на файла %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Неправилна директория в менюто"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
