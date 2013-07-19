@@ -187,11 +187,11 @@ FmFileInfo* fm_file_info_new ()
  *
  * Returns: TRUE if no error happens.
  */
-gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
+gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
+                                            GError** err, gboolean get_fast)
 {
     struct stat st;
     char *dname;
-    FmPath* fmpath = fm_file_info_get_path(fi);
 
     g_return_val_if_fail(fi && fi->path, FALSE);
     if(lstat(path, &st) == 0)
@@ -212,12 +212,23 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
             fi->target = g_file_read_link(path, NULL);
         }
 
-        fi->mime_type = fm_mime_type_from_native_file(path, fm_path_get_basename(fi->path), &st);
+        if (get_fast) /* do rough estimation */
+        {
+            if (S_ISDIR(fi->mode))
+                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+            else
+                fi->mime_type = fm_mime_type_from_file_name(fm_path_get_basename(fi->path));
+        }
+        else
+            fi->mime_type = fm_mime_type_from_native_file(path, fm_path_get_basename(fi->path), &st);
 
-        fi->accessible = (g_access(path, R_OK) == 0);
+        if (get_fast) /* do rough estimation */
+            fi->accessible = ((st.st_mode & S_IRUSR) == S_IRUSR);
+        else
+            fi->accessible = (g_access(path, R_OK) == 0);
 
         /* special handling for desktop entry files */
-        if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
+        if(G_UNLIKELY(!get_fast && fm_file_info_is_desktop_entry(fi)))
         {
             GKeyFile* kf = g_key_file_new();
             FmIcon* icon = NULL;
@@ -286,8 +297,10 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
-        else if(S_ISDIR(fi->mode)) /* special handling for folder icons */
+        else if(!get_fast && S_ISDIR(fi->mode)) /* special handling for folder icons */
         {
+            FmPath* fmpath = fi->path;
+
             if(fm_path_equal(fmpath, fm_path_get_home())) /* this file is the home dir */
                 fi->icon = fm_icon_from_name("user-home");
             else
@@ -368,6 +381,37 @@ gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GEr
     fi->icon_is_changeable = fm_file_info_is_desktop_entry(fi);
         /* FIXME: add support for icon change on directories too */
     return TRUE;
+}
+
+gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err)
+{
+    return _fm_file_info_set_from_native_file(fi, path, err, FALSE);
+}
+
+/**
+ * fm_file_info_new_from_native_file
+ * @path: (allow-none): path descriptor
+ * @path_str: full path to the file
+ * @err: (allow-none) (out): pointer to receive error
+ *
+ * Create a new #FmFileInfo for file pointed by @path. Returned data
+ * should be freed with fm_file_info_unref() after usage.
+ *
+ * Returns: (transfer full): new file info or %NULL in case of error.
+ *
+ * Since: 1.2.0
+ */
+FmFileInfo *fm_file_info_new_from_native_file(FmPath *path, const char *path_str, GError **err)
+{
+    FmFileInfo* fi = fm_file_info_new();
+    if (path)
+        fi->path = fm_path_ref(path);
+    else
+        fi->path = fm_path_new_for_path(path_str);
+    if (_fm_file_info_set_from_native_file(fi, path_str, err, TRUE))
+        return fi;
+    fm_file_info_unref(fi);
+    return NULL;
 }
 
 /**

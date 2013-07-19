@@ -60,6 +60,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem
 #endif
 
 gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
+FmFileInfo *fm_file_info_new_from_native_file(FmPath *path, const char *path_str, GError **err);
 
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );

@@ -391,6 +391,7 @@ fm_file_info_new
 fm_file_info_new_from_g_file_data
 fm_file_info_new_from_gfileinfo
 fm_file_info_new_from_menu_cache_item
+fm_file_info_new_from_native_file
 fm_file_info_ref
 fm_file_info_set_disp_name
 fm_file_info_set_from_g_file_data
