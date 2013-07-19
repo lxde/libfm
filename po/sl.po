@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2012-08-23 08:54+0200\n"
-"Last-Translator: Klemen <klemen.kosir@gmx.com>\n"
+"PO-Revision-Date: 2013-07-19 16:07+0000\n"
+"Last-Translator: Klemen <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);;\n"
-"X-Generator: Pootle 2.0.5\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1374250058.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -28,9 +29,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Vrsta datoteke:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-#, fuzzy
 msgid "_Installed Application"
-msgstr "Nameščeni programi"
+msgstr "_Nameščeni programi"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -41,9 +41,8 @@ msgid "_Browse"
 msgstr "_Brskaj"
 
 #: ../data/ui/app-chooser.glade.h:6
-#, fuzzy
 msgid "_Execute in terminal emulator"
-msgstr "Izvedi v terminalu"
+msgstr "_Izvedi v terminalu"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -61,14 +60,12 @@ msgstr ""
 "  <b>%U</b>: predstavlja več URI-jev"
 
 #: ../data/ui/app-chooser.glade.h:13
-#, fuzzy
 msgid "_Custom Command Line"
-msgstr "Ukaz po meri"
+msgstr "Ukaz po _meri"
 
 #: ../data/ui/app-chooser.glade.h:14
-#, fuzzy
 msgid "_Set selected application as default action of this file type"
-msgstr "Nastavi izbrani program kot privzeto dejanje za datoteke te vrste"
+msgstr "Nastavi izbrani program kot _privzeto dejanje za datoteke te vrste"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
@@ -102,14 +99,12 @@ msgid "with the following file?"
 msgstr "z naslednjo datoteko?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File Name:"
-msgstr "Ime datoteke:"
+msgstr "Ime _datoteke:"
 
 #: ../data/ui/ask-rename.glade.h:10
-#, fuzzy
 msgid "_Apply this option to all existing files"
-msgstr "Uporabi to izbiro za vse obstoječe datoteke"
+msgstr "Uporabi to možnost za _vse obstoječe datoteke"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -156,29 +151,24 @@ msgid "_General"
 msgstr "_Splošno"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>O_wner:</b>"
-msgstr "<b>Lastnik:</b>"
+msgstr "<b>_Lastnik:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>G_roup:</b>"
-msgstr "<b>Skupina:</b>"
+msgstr "<b>_Skupina:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>_View content:</b>"
-msgstr "<b>Branje:</b>"
+msgstr "<b>_Branje:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-#, fuzzy
 msgid "<b>C_hange content:</b>"
-msgstr "<b>Pisanje:</b>"
+msgstr "<b>_Pisanje:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Execute:</b>"
-msgstr "<b>Izvajanje:</b>"
+msgstr "<b>_Izvajanje:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -332,7 +322,7 @@ msgstr "Izvedi v _terminalu"
 
 #: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
-msgstr ""
+msgstr "Bajtov"
 
 #: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
@@ -348,133 +338,120 @@ msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
 msgid "Choose a date"
-msgstr ""
+msgstr "Izberite datum"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr ""
+msgstr "S koledarja izberite datum"
 
 #: ../data/ui/filesearch.glade.h:7
-#, fuzzy
 msgid "Search Files"
-msgstr "_Razvrsti datoteke"
+msgstr "Iskanje datotek"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>File _Name Patterns</b>"
-msgstr "<b>Vrsta datoteke:</b>"
+msgstr "<b>Vzorci _imen datotek</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr ""
+msgstr "Ne razlikuj _velikosti črk"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
-msgstr ""
+msgstr "_Uporabi logični izraz"
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Places to Search</b>"
-msgstr ""
+msgstr "<b>Iskalna mesta</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
-msgstr ""
+msgstr "_Išči po podmapah"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "Search _hidden files"
-msgstr ""
+msgstr "Najdi _skrite datoteke"
 
 #: ../data/ui/filesearch.glade.h:15
 msgid "Name/_Location"
-msgstr ""
+msgstr "Ime/_mesto"
 
 #: ../data/ui/filesearch.glade.h:16
-#, fuzzy
 msgid "<b>File Type</b>"
-msgstr "<b>Vrsta datoteke:</b>"
+msgstr "<b>Vrsta datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:17
 msgid "Only search for files of following types"
-msgstr ""
+msgstr "Najdi le naslednje vrste datotek"
 
 #: ../data/ui/filesearch.glade.h:18
-#, fuzzy
 msgid "Te_xt files"
-msgstr "<b>Brisanje datotek</b>"
+msgstr "_Besedilne datoteke"
 
 #: ../data/ui/filesearch.glade.h:19
-#, fuzzy
 msgid "_Image files"
-msgstr "<b>Premikanje datotek v smeti</b>"
+msgstr "_Slike"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "_Audio files"
-msgstr "_Razvrsti datoteke"
+msgstr "_Zvočne datoteke"
 
 #: ../data/ui/filesearch.glade.h:21
-#, fuzzy
 msgid "_Video files"
-msgstr "_Razvrsti datoteke"
+msgstr "_Video datoteke"
 
 #: ../data/ui/filesearch.glade.h:22
 msgid "_Documents"
-msgstr ""
+msgstr "_Dokumenti"
 
 #: ../data/ui/filesearch.glade.h:23
-#, fuzzy
 msgid "File _Type"
-msgstr "Po vrsti _datoteke"
+msgstr "_Vrsta datoteke"
 
 #: ../data/ui/filesearch.glade.h:24
-#, fuzzy
 msgid "<b>File Contain_s</b>"
-msgstr "<b>Velikost na disku:</b>"
+msgstr "<b>_Vsebina datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
-msgstr ""
+msgstr "Vse_bina"
 
 #: ../data/ui/filesearch.glade.h:26
-#, fuzzy
 msgid "<b>File Size</b>"
-msgstr "<b>Vrsta datoteke:</b>"
+msgstr "<b>Velikost datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:27
 msgid "_Smaller than:"
-msgstr ""
+msgstr "_Manjše kot:"
 
 #: ../data/ui/filesearch.glade.h:28
 msgid "_Bigger than:"
-msgstr ""
+msgstr "_Večje kot:"
 
 #: ../data/ui/filesearch.glade.h:29
-#, fuzzy
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Zadnja sprememba:</b>"
 
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
 #: ../src/gtk/fm-gtk-file-launcher.c:538
-#, fuzzy
 msgid "(None)"
-msgstr "Brez"
+msgstr "(Brez)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
-msgstr ""
+msgstr "_Starejše kot:"
 
 #: ../data/ui/filesearch.glade.h:32
 msgid "L_ater than:"
-msgstr ""
+msgstr "_Novejše kot:"
 
 #: ../data/ui/filesearch.glade.h:33
-#, fuzzy
 msgid "_Properties"
-msgstr "Lastnosti datoteke"
+msgstr "_Lastnosti"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -627,7 +604,6 @@ msgstr ""
 "Ali želite rekurzivno uveljaviti te spremembe na vseh datotekah in podmapah?"
 
 #: ../src/gtk/fm-file-properties.c:633
-#, fuzzy
 msgid "<b>_Access content:</b>"
 msgstr "<b>Dostop:</b>"
 
@@ -648,34 +624,28 @@ msgid "Applications"
 msgstr "Programi"
 
 #: ../src/gtk/fm-places-view.c:101
-#, fuzzy
 msgid "_Mount Volume"
-msgstr "Priklopi nosilec"
+msgstr "_Priklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:102
-#, fuzzy
 msgid "_Unmount Volume"
-msgstr "Odklopi nosilec"
+msgstr "_Odklopi nosilec"
 
 #: ../src/gtk/fm-places-view.c:103
-#, fuzzy
 msgid "_Eject Removable Media"
-msgstr "Izvrzi odstranljivi nosilec"
+msgstr "_Izvrzi odstranljiv nosilec"
 
 #: ../src/gtk/fm-places-view.c:116
-#, fuzzy
 msgid "_Rename Bookmark Item"
-msgstr "Preimenuj zaznamek"
+msgstr "_Preimenuj zaznamek"
 
 #: ../src/gtk/fm-places-view.c:117
-#, fuzzy
 msgid "Re_move from Bookmark"
-msgstr "Odstrani zaznamek"
+msgstr "_Odstrani zaznamek"
 
 #: ../src/gtk/fm-places-view.c:129
-#, fuzzy
 msgid "_Empty Trash Can"
-msgstr "Izprazni smeti"
+msgstr "Izprazni _smeti"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:868
@@ -688,22 +658,19 @@ msgstr "Vnesite novo ime:"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
-msgstr ""
+msgstr "_Izključi"
 
 #: ../src/gtk/fm-side-pane.c:62
-#, fuzzy
 msgid "_Places"
-msgstr "Mesta"
+msgstr "_Mesta"
 
 #: ../src/gtk/fm-side-pane.c:63
-#, fuzzy
 msgid "_Directory Tree"
-msgstr "Drevo map"
+msgstr "Drevo _map"
 
 #: ../src/gtk/fm-side-pane.c:64
-#, fuzzy
 msgid "_Remote"
-msgstr "Oddaljeno"
+msgstr "_Oddaljeno"
 
 #: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
@@ -715,43 +682,36 @@ msgstr "Drevo map"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "_Open"
-msgstr ""
+msgstr "_Odpri"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
-#, fuzzy
 msgid "Open _With..."
-msgstr "Odpri z ..."
+msgstr "Odpri _z ..."
 
 #: ../src/gtk/fm-file-menu.c:164
-#, fuzzy
 msgid "Create _Symlink"
-msgstr "Ustvari simbolno povezavo"
+msgstr "Ustvari sim_bolno povezavo"
 
 #: ../src/gtk/fm-file-menu.c:165
-#, fuzzy
 msgid "Se_nd To"
-msgstr "Pošlji"
+msgstr "_Pošlji"
 
 #: ../src/gtk/fm-file-menu.c:166
-#, fuzzy
 msgid "Co_mpress..."
-msgstr "Stisni ..."
+msgstr "_Stisni ..."
 
 #: ../src/gtk/fm-file-menu.c:167
-#, fuzzy
 msgid "Extract _Here"
-msgstr "Razširi sem"
+msgstr "Razširi s_em"
 
 #: ../src/gtk/fm-file-menu.c:168
-#, fuzzy
 msgid "E_xtract To..."
-msgstr "Razširi v ..."
+msgstr "_Razširi v ..."
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
-#, fuzzy
 msgid "Prop_erties"
-msgstr "Lastnosti datoteke"
+msgstr "_Lastnosti"
 
 #: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
@@ -806,23 +766,20 @@ msgid "Show _Hidden"
 msgstr "Pokaži _skrite"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Only for this folder"
-msgstr "Samo za to mapo"
+msgstr "Samo za _to mapo"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr "Zapomni si način razvrstitve datotek le za to mapo"
 
 #: ../src/gtk/fm-folder-view.c:199
-#, fuzzy
 msgid "Mingle _files and folders"
-msgstr "Pomešaj datoteke in mape"
+msgstr "Pome_šaj datoteke in mape"
 
 #: ../src/gtk/fm-folder-view.c:200
-#, fuzzy
 msgid "_Ignore name case"
-msgstr "Prezri velikosti črk v imenu"
+msgstr "Pre_zri velikost črk v imenu"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "By _Name"
@@ -925,10 +882,9 @@ msgstr "Datoteka »%s« je izvedljiva. Ali jo želite izvesti?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:566
 msgid "No folders are specified."
-msgstr ""
+msgstr "Prosimo, določite mape."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:605
-#, fuzzy
 msgid "Select a folder"
 msgstr "Izberite mapo"
 
@@ -954,23 +910,20 @@ msgid "Size"
 msgstr "Velikost"
 
 #: ../src/gtk/fm-folder-model.c:188
-#, fuzzy
 msgid "Permissions"
-msgstr "_Dovoljenja"
+msgstr "Dovoljenja"
 
 #: ../src/gtk/fm-folder-model.c:189
-#, fuzzy
 msgid "Owner"
-msgstr "Samo lastnik"
+msgstr "Lastnik"
 
 #: ../src/gtk/fm-folder-model.c:190
 msgid "Modified"
 msgstr "Datum spremembe"
 
 #: ../src/gtk/fm-folder-model.c:191
-#, fuzzy
 msgid "Location"
-msgstr "<b>Mesto:</b>"
+msgstr "Mesto"
 
 #: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
 #: ../src/job/fm-dir-list-job.c:307
@@ -1158,26 +1111,26 @@ msgstr "Optični disk"
 #: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
 #: ../src/vfs/fm-vfs-menu.c:618
 msgid "Menu cache error"
-msgstr ""
+msgstr "Napaka predpomnilnika menija"
 
 #. ---- GFile implementation ----
 #: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
 msgid "Operation not supported"
-msgstr ""
+msgstr "Dejanje ni podprto"
 
 #: ../src/vfs/fm-vfs-menu.c:552
 #, c-format
 msgid "Invalid filename %s"
-msgstr ""
+msgstr "Neveljavno ime datoteke: %s"
 
 #: ../src/vfs/fm-vfs-menu.c:613
 msgid "Invalid menu directory"
-msgstr ""
+msgstr "Neveljavna mapa menija"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/vfs/fm-vfs-search.c:959
 msgid "Search"
-msgstr ""
+msgstr "Iskanje"
 
 #~ msgid "<b>_Owner:</b>"
 #~ msgstr "<b>_Lastnik</b>"
