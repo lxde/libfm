@@ -676,6 +676,13 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
         }
         if(G_LIKELY(files))
         {
+            GSList *l;
+
+            if (fm_path_is_native(folder->dir_path))
+                /* we got only basic info on content, schedule update it now */
+                for (l = files; l; l = l->next)
+                    folder->files_to_update = g_slist_prepend(folder->files_to_update,
+                                                g_strdup(fm_file_info_get_name(l->data)));
             g_signal_emit(folder, signals[FILES_ADDED], 0, files);
             g_slist_free(files);
         }

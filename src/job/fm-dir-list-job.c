@@ -180,6 +180,13 @@ static void fm_dir_list_job_dispose(GObject *object)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
 }
 
+static inline FmFileInfo *_new_info_for_native_file(FmJob* job, FmPath* path, const char* path_str, GError** err)
+{
+    if (!fm_job_is_cancelled(job))
+        return fm_file_info_new_from_native_file(path, path_str, err);
+    return NULL;
+}
+
 static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 {
     FmJob* fmjob = FM_JOB(job);
@@ -190,9 +197,8 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
     path_str = fm_path_to_str(job->dir_path);
 
-    fi = fm_file_info_new();
-    fm_file_info_set_path(fi, job->dir_path);
-    if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, path_str, NULL) )
+    fi = _new_info_for_native_file(fmjob, job->dir_path, path_str, NULL);
+    if(fi)
     {
         if(! fm_file_info_is_dir(fi))
         {
@@ -212,7 +218,6 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
         err = g_error_new(G_IO_ERROR, G_IO_ERROR_NOT_DIRECTORY,
                           _("The specified directory '%s' is not valid"),
                           path_str);
-        fm_file_info_unref(fi);
         fm_job_emit_error(fmjob, err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
         g_free(path_str);
@@ -245,14 +250,15 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
                     continue;
             }
 
-            fi = fm_file_info_new();
             new_path = fm_path_new_child(job->dir_path, name);
-            fm_file_info_set_path(fi, new_path);
-            fm_path_unref(new_path);
 
         _retry:
-            if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, fpath->str, &err) )
+            fi = _new_info_for_native_file(fmjob, new_path, fpath->str, &err);
+            if(fi)
+            {
                 fm_dir_list_job_add_found_file(job, fi);
+                fm_file_info_unref(fi);
+            }
             else /* failed! */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
@@ -261,7 +267,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
                 if(act == FM_JOB_RETRY)
                     goto _retry;
             }
-            fm_file_info_unref(fi);
+            fm_path_unref(new_path);
         }
         g_string_free(fpath, TRUE);
         g_dir_close(dir);
