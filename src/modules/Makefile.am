@@ -25,9 +25,12 @@ pkglib_LTLIBRARIES = \
 if ENABLE_GTK
 pkglib_LTLIBRARIES += \
 	gtk-fileprop-x-desktop.la \
-	gtk-menu-actions.la \
 	gtk-menu-trash.la \
 	$(NULL)
+endif
+
+if HAVE_ACTIONS
+pkglib_LTLIBRARIES += gtk-menu-actions.la
 endif
 
 # module-specific parameters

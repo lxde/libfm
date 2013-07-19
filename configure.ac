@@ -52,13 +52,13 @@ if test x"$enable_actions" = xyes; then
     fi
     LIBFMACTIONS='$(top_builddir)/src/actions/libfmactions.la'
     ACTIONS_SUBDIR='actions'
-    AC_DEFINE(HAVE_ACTIONS, 1, [Define to 1 to enable custom actions])
 else
     LIBFMACTIONS=
     ACTIONS_SUBDIR=
 fi
 AC_SUBST(LIBFMACTIONS)
 AC_SUBST(ACTIONS_SUBDIR)
+AM_CONDITIONAL(HAVE_ACTIONS, [test x$ACTIONS_SUBDIR = xactions])
 
 # Checks for libraries.
 

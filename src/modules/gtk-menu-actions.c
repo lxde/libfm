@@ -23,9 +23,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_ACTIONS
-/* disable all and module will never be loaded */
-
 #include "fm.h"
 #include "fm-folder-view.h"
 #include "fm-gtk-utils.h"
@@ -150,4 +147,3 @@ FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme = {
     _fm_actions_update_file_menu_for_scheme,
     _fm_actions_update_folder_menu_for_scheme
 };
-#endif /* HAVE_ACTIONS */
