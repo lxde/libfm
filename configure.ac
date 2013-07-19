@@ -50,13 +50,10 @@ if test x"$enable_actions" = xyes; then
             AC_ERROR([No Vala compiler found but it is required.])
         fi
     fi
-    LIBFMACTIONS='$(top_builddir)/src/actions/libfmactions.la'
     ACTIONS_SUBDIR='actions'
 else
-    LIBFMACTIONS=
     ACTIONS_SUBDIR=
 fi
-AC_SUBST(LIBFMACTIONS)
 AC_SUBST(ACTIONS_SUBDIR)
 AM_CONDITIONAL(HAVE_ACTIONS, [test x$ACTIONS_SUBDIR = xactions])
 
