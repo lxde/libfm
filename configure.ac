@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.63])
 AC_INIT([libfm], [1.2.0-alpha3], [http://pcmanfm.sourceforge.net/])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
