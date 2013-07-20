@@ -51,6 +51,7 @@ if test x"$enable_actions" = xyes; then
         fi
     fi
     ACTIONS_SUBDIR='actions'
+    AC_DEFINE(HAVE_ACTIONS, 1, [Define to 1 to enable custom actions])
 else
     ACTIONS_SUBDIR=
 fi

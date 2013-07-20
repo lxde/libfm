@@ -142,8 +142,8 @@ _fm_actions_update_folder_menu_for_scheme(FmFolderView* fv, GtkWindow* window,
 FM_DEFINE_MODULE(gtkMenuScheme, *)
 
 FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme = {
-    _fm_file_actions_init,
-    _fm_file_actions_finalize,
+    .init = NULL,
+    .finalize = NULL,
     _fm_actions_update_file_menu_for_scheme,
     _fm_actions_update_folder_menu_for_scheme
 };
