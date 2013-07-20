@@ -2,6 +2,7 @@
  *      fm-file-info-job.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -45,12 +46,12 @@ typedef struct _FmFileInfoJobClass      FmFileInfoJobClass;
  * FmFileInfoJobFlags:
  * @FM_FILE_INFO_JOB_NONE: default
  * @FM_FILE_INFO_JOB_FOLLOW_SYMLINK: not yet implemented
- * @FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE: not yet implemented
+ * @FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE: emit #FmFileInfoJob::got-info for each file
  */
 typedef enum {
     FM_FILE_INFO_JOB_NONE = 0,
     FM_FILE_INFO_JOB_FOLLOW_SYMLINK = 1 << 0, /* FIXME: not yet implemented */
-    FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 << 1 /* FIXME: not yet implemented */
+    FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 << 1
 } FmFileInfoJobFlags;
 
 /**
@@ -69,10 +70,18 @@ struct _FmFileInfoJob
     FmPath* current;
 };
 
+/**
+ * FmFileInfoJobClass:
+ * @got_info: the class closure for the #FmFileInfoJob::got-info signal.
+ */
 struct _FmFileInfoJobClass
 {
     /*< private >*/
     FmJobClass parent_class;
+    /*< public >*/
+    void (*got_info)(FmFileInfoJob *job, FmFileInfo *info);
+    /*< private >*/
+    gpointer _reserved1;
 };
 
 GType fm_file_info_job_get_type(void);
