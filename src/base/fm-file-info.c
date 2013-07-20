@@ -214,7 +214,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
 
         if (get_fast) /* do rough estimation */
         {
-            if (S_ISDIR(fi->mode))
+            if (S_ISDIR(st.st_mode))
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
             else
                 fi->mime_type = fm_mime_type_from_file_name(fm_path_get_basename(fi->path));
@@ -297,7 +297,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible && S_ISDIR(st.st_mode))
             fi->icon = fm_icon_ref(icon_locked_folder);
-        else if(!get_fast && S_ISDIR(fi->mode)) /* special handling for folder icons */
+        else if(!get_fast && S_ISDIR(st.st_mode)) /* special handling for folder icons */
         {
             FmPath* fmpath = fi->path;
 
