@@ -214,8 +214,10 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
 
         if (get_fast) /* do rough estimation */
         {
-            if (S_ISDIR(st.st_mode))
+            if (S_ISDIR(st.st_mode)) /* directory */
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
+            else if ((st.st_mode & S_IXUSR) == S_IXUSR) /* executable */
+                fi->mime_type = fm_mime_type_from_name("application-x-executable");
             else
                 fi->mime_type = fm_mime_type_from_file_name(fm_path_get_basename(fi->path));
         }
