@@ -268,6 +268,10 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
             fm_config_load_from_key_file(cfg, kf);
         g_free(path);
     }
+    path = g_build_filename(SYSCONF_DIR, name, NULL);
+    if(g_key_file_load_from_file(kf, path, 0, NULL))
+        fm_config_load_from_key_file(cfg, kf);
+    g_free(path);
     path = g_build_filename(g_get_user_config_dir(), name, NULL);
     if(g_key_file_load_from_file(kf, path, 0, NULL))
         fm_config_load_from_key_file(cfg, kf);
