@@ -88,6 +88,7 @@ struct _FmPathEntryPrivate
 
     gboolean folder_loaded : 1;
     gboolean highlight_completion_match : 1;
+    gboolean long_list : 1;
     //gboolean complete_on_load :1;
     GtkEntryCompletion* completion;
     guint id_changed;
@@ -383,6 +384,7 @@ static gboolean on_dir_list_finished(gpointer user_data)
         gtk_list_store_insert_with_values((GtkListStore*)new_model, NULL, -1, COL_BASENAME, name, -1);
     }
     priv->folder_loaded = TRUE;
+    priv->long_list = (g_list_length(data->subdirs) > 40);
 
     gtk_entry_completion_set_model(priv->completion, GTK_TREE_MODEL(new_model));
     if(priv->model)
@@ -792,8 +794,9 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
 
     if(model_basename[0] == '.' && typed_basename[0] != '.')
         ret = FALSE; /* ignore hidden files when not requested. */
-    else if(typed_basename[0] == '\0' /* "/xxx/" - no names here yet */
-           || (typed_basename[0] == '.' && typed_basename[1] == '\0')) /* "/xxx/." */
+    else if(priv->long_list && /* don't create too long lists */
+            (typed_basename[0] == '\0' /* "/xxx/" - no names here yet */
+             || (typed_basename[0] == '.' && typed_basename[1] == '\0'))) /* "/xxx/." */
         ret = FALSE;
     else
         ret = g_str_has_prefix(model_basename, typed_basename); /* FIXME: should we be case insensitive here? */
