@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-11 00:21+0200\n"
-"PO-Revision-Date: 2013-07-09 11:31+0000\n"
+"PO-Revision-Date: 2013-07-21 00:43+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1373369485.0\n"
+"X-POOTLE-MTIME: 1374367430.0\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "Choose An Application"
@@ -33,11 +33,11 @@ msgstr "Aplicación _instalada"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
-msgstr "<b>Línea de comandos a ejecutar:</b>"
+msgstr "<b>Orden a ejecutar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 msgid "_Browse"
-msgstr "_Explorar"
+msgstr "_Examinar"
 
 #: ../data/ui/app-chooser.glade.h:6
 msgid "_Execute in terminal emulator"
@@ -52,15 +52,15 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>En la línea de comandos pueden utilizarse estos códigos especiales:</b>\n"
+"<b>Puede usar estos códigos especiales en el intérprete de órdenes:</b>\n"
 "  <b>%f</b>: Representa el nombre de un solo archivo\n"
-"  <b>%F</b>: Representa múltiples nombres de archivos\n"
-"  <b>%u</b>: Representa un solo URI del archivo\n"
-"  <b>%U</b>: Representa múltiples URIs"
+"  <b>%F</b>: Representa los nombres de varios archivos\n"
+"  <b>%u</b>: Representa un solo URI de archivo\n"
+"  <b>%U</b>: Representa varios URI"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "_Custom Command Line"
-msgstr "Línea de _comandos personalizada"
+msgstr "Línea de órdenes personali_zada"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Set selected application as default action of this file type"
@@ -93,7 +93,7 @@ msgid ""
 msgstr ""
 "<b>En esta ubicación ya existe un archivo con el mismo nombre.</b>\n"
 "\n"
-"¿Desea reemplazar el archivo existente"
+"¿Quiere reemplazar el archivo existente"
 
 #: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
@@ -190,11 +190,11 @@ msgstr "Quién puede ejecutar el archivo o entrar al directorio"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Special flags for file execution"
-msgstr "Banderas especiales para la ejecución de archivos"
+msgstr "Atributos especiales para la ejecución de archivos"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Special flags for directory access"
-msgstr "Banderas especiales para el acceso a directorios"
+msgstr "Atributos especiales para el acceso a carpetas"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "<b>Access Control</b>"
@@ -361,7 +361,7 @@ msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "Ignorar mayúsculas/minúsculas"
+msgstr "No distinguir mayúsculas _y minúsculas"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
@@ -551,7 +551,7 @@ msgid ""
 msgstr ""
 "Algunos archivos no pueden moverse a la papelera porque el subsistema de "
 "archivos no permite esta operación.\n"
-"¿Desea eliminarlos en su lugar?"
+"¿Quiere eliminarlos en su lugar?"
 
 #: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
@@ -687,7 +687,7 @@ msgstr "_Abrir"
 
 #: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
 msgid "Open _With..."
-msgstr "Abrir c_on..."
+msgstr "Abrir c_on…"
 
 #: ../src/gtk/fm-file-menu.c:164
 msgid "Create _Symlink"
@@ -699,7 +699,7 @@ msgstr "E_nviar a"
 
 #: ../src/gtk/fm-file-menu.c:166
 msgid "Co_mpress..."
-msgstr "Co_mprimir..."
+msgstr "Co_mprimir…"
 
 #: ../src/gtk/fm-file-menu.c:167
 msgid "Extract _Here"
@@ -707,7 +707,7 @@ msgstr "E_xtraer aquí"
 
 #: ../src/gtk/fm-file-menu.c:168
 msgid "E_xtract To..."
-msgstr "E_xtraer a..."
+msgstr "E_xtraer en…"
 
 #: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
 #: ../src/gtk/fm-folder-view.c:187
@@ -732,7 +732,7 @@ msgstr "Utilizar la aplicación seleccionada para abrir los archivos"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
-msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
+msgstr "Ejecutar una línea de órdenes personalizada para abrir los archivos"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -740,7 +740,7 @@ msgstr "Personalizar"
 
 #: ../src/gtk/fm-folder-view.c:167
 msgid "Create _New..."
-msgstr "Crear _nuevo..."
+msgstr "Crear _nuevo…"
 
 #: ../src/gtk/fm-folder-view.c:168
 msgid "Folder"
@@ -810,7 +810,7 @@ msgstr "Introduzca un nombre para el archivo recién creado:"
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "Create New..."
-msgstr "Crear nuevo..."
+msgstr "Crear nuevo…"
 
 #: ../src/gtk/fm-folder-view.c:788
 msgid "New"
