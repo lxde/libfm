@@ -195,6 +195,24 @@ Changes on 1.2.0 since 1.1.0:
     - gtkFileProp
     - gtkFolderCol
 
+* FmPathEntry shows real display name now instead of forged UTF-8 one. It
+    is more logical if we enter directory "Multimedia" and end up in the
+    "Multimedia" rather then in "AudioVideo". It works for entry path and
+    for path completion as well (naturally, it was impossible before).
+
+* The fm_path_display_name() API now returns real display name in most of
+    cases instead of forged UTF-8 one.
+
+* Added 'defer_content_test' options into config file which defined if
+    deferred content type test should be applied. Deferred content type
+    test means the MIME type and icons of FmFolder items will be based
+    only on file name for native files but their actual content will be
+    tested later, after signal "finish-loading" was already emitted. If
+    verified content type differs from early estimation then the signal
+    "files-changed" will be emitted later. If option 'defer_content_test'
+    is unset then old behavior (emit "finish-loading" only after all the
+    info is retrieved) will happen.
+
 
 Changes on 1.1.0 since 1.0.1:
 

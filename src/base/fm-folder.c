@@ -36,6 +36,7 @@
 #include "fm-marshal.h"
 #include "fm-dummy-monitor.h"
 #include "fm-file.h"
+#include "fm-config.h"
 
 #include <string.h>
 
@@ -83,6 +84,7 @@ struct _FmFolder
     GCancellable* fs_size_cancellable;
     gboolean has_fs_info : 1;
     gboolean fs_info_not_avail : 1;
+    gboolean defer_content_test : 1;
 };
 
 static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
@@ -678,7 +680,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
         {
             GSList *l;
 
-            if (fm_path_is_native(folder->dir_path))
+            if (folder->defer_content_test && fm_path_is_native(folder->dir_path))
                 /* we got only basic info on content, schedule update it now */
                 for (l = files; l; l = l->next)
                     folder->files_to_update = g_slist_prepend(folder->files_to_update,
@@ -1029,7 +1031,9 @@ void fm_folder_reload(FmFolder* folder)
     g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
 
     /* run a new dir listing job */
-    folder->dirlist_job = fm_dir_list_job_new2(folder->dir_path, FM_DIR_LIST_JOB_FAST);
+    folder->defer_content_test = fm_config->defer_content_test;
+    folder->dirlist_job = fm_dir_list_job_new2(folder->dir_path,
+            folder->defer_content_test ? FM_DIR_LIST_JOB_FAST : FM_DIR_LIST_JOB_DETAILED);
 
     g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
     if(folder->wants_incremental)

@@ -204,6 +204,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "only_user_templates", &cfg->only_user_templates);
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
+    fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -326,6 +327,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "template_type_once=%d\n", cfg->template_type_once);
             fprintf(f, "auto_selection_delay=%d\n", cfg->auto_selection_delay);
             fprintf(f, "drop_default_action=%d\n", cfg->drop_default_action);
+            fprintf(f, "defer_content_test=%d\n", cfg->defer_content_test);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

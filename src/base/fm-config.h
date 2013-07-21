@@ -64,6 +64,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP  FALSE
 #define     FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE   FALSE
 #define     FM_CONFIG_DEFAULT_SHADOW_HIDDEN     FALSE
+#define     FM_CONFIG_DEFAULT_DEFER_CONTENT_TEST FALSE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -113,6 +114,7 @@ typedef struct _FmConfigClass       FmConfigClass;
  * @only_user_templates: show only user defined templates in 'Create...' menu
  * @template_run_app: run default application after creation from template
  * @template_type_once: use only one template of each MIME type
+ * @defer_content_test: defer test for content type on folder loading
  */
 struct _FmConfig
 {
@@ -159,6 +161,7 @@ struct _FmConfig
     gboolean only_user_templates;
     gboolean template_run_app;
     gboolean template_type_once;
+    gboolean defer_content_test;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;
