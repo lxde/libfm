@@ -406,6 +406,7 @@ static gboolean on_dir_list_finished(gpointer user_data)
     /* trigger completion popup. FIXME: this is a little bit dirty.
      * A even more dirty thing to do is to check if we finished after
      * 300 ms timeout happens. */
+    g_signal_emit_by_name(entry, "changed", 0);
     return TRUE;
 }
 
