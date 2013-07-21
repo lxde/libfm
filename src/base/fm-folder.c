@@ -1029,7 +1029,7 @@ void fm_folder_reload(FmFolder* folder)
     g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
 
     /* run a new dir listing job */
-    folder->dirlist_job = fm_dir_list_job_new(folder->dir_path, FALSE);
+    folder->dirlist_job = fm_dir_list_job_new2(folder->dir_path, FM_DIR_LIST_JOB_FAST);
 
     g_signal_connect(folder->dirlist_job, "finished", G_CALLBACK(on_dirlist_job_finished), folder);
     if(folder->wants_incremental)

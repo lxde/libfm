@@ -690,7 +690,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
 
 static void _template_dir_init(FmTemplateDir *dir, GFile *gf)
 {
-    FmDirListJob *job = fm_dir_list_job_new_for_gfile(gf);
+    FmDirListJob *job = fm_dir_list_job_new2(dir->path, FM_DIR_LIST_JOB_FAST);
     GError *error = NULL;
 
     dir->files = NULL;

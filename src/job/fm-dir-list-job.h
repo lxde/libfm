@@ -39,6 +39,18 @@ G_BEGIN_DECLS
 #define FM_IS_DIR_LIST_JOB_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),\
 			FM_TYPE_DIR_LIST_JOB))
 
+/**
+ * FmDirListJobFlags:
+ * @FM_DIR_LIST_JOB_FAST: default listing mode with minimized I/O
+ * @FM_DIR_LIST_JOB_DIR_ONLY: skip non-directories in output
+ * @FM_DIR_LIST_JOB_DETAILED: listing with test files content types
+ */
+typedef enum {
+    FM_DIR_LIST_JOB_FAST = 0,
+    FM_DIR_LIST_JOB_DIR_ONLY = 1 << 0,
+    FM_DIR_LIST_JOB_DETAILED = 1 << 1
+} FmDirListJobFlags;
+
 typedef struct _FmDirListJob            FmDirListJob;
 typedef struct _FmDirListJobClass       FmDirListJobClass;
 
@@ -56,7 +68,7 @@ struct _FmDirListJob
     /*< public >*/
     FmJob parent;
     FmPath* dir_path;
-    gboolean dir_only;
+    FmDirListJobFlags flags;
     FmFileInfo* dir_fi;
     FmFileInfoList* files;
     /*< private >*/
@@ -76,6 +88,7 @@ struct _FmDirListJobClass
 
 GType           fm_dir_list_job_get_type(void);
 FmDirListJob*   fm_dir_list_job_new(FmPath* path, gboolean dir_only);
+FmDirListJob   *fm_dir_list_job_new2(FmPath *path, FmDirListJobFlags flags);
 FmDirListJob*   fm_dir_list_job_new_for_gfile(GFile* gf);
 FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job);
 void            fm_dir_list_job_set_incremental(FmDirListJob* job, gboolean set);

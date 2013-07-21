@@ -113,12 +113,33 @@ static void fm_dir_list_job_init(FmDirListJob *job)
  * Returns: (transfer full): a new #FmDirListJob object.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: use fm_dir_list_job_new2() instead.
  */
 FmDirListJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {
     FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
     job->dir_path = fm_path_ref(path);
-    job->dir_only = dir_only;
+    job->flags = dir_only ? FM_DIR_LIST_JOB_DIR_ONLY : FM_DIR_LIST_JOB_FAST;
+    return job;
+}
+
+/**
+ * fm_dir_list_job_new2
+ * @path: path to directory to get listing
+ * @flags: listing output mode for new job
+ *
+ * Creates a new #FmDirListJob for directory listing.
+ *
+ * Returns: (transfer full): a new #FmDirListJob object.
+ *
+ * Since: 1.2.0
+ */
+FmDirListJob *fm_dir_list_job_new2(FmPath *path, FmDirListJobFlags flags)
+{
+    FmDirListJob* job = (FmDirListJob*)g_object_new(FM_TYPE_DIR_LIST_JOB, NULL);
+    job->dir_path = fm_path_ref(path);
+    job->flags = flags;
     return job;
 }
 
@@ -180,10 +201,19 @@ static void fm_dir_list_job_dispose(GObject *object)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
 }
 
-static inline FmFileInfo *_new_info_for_native_file(FmJob* job, FmPath* path, const char* path_str, GError** err)
+static inline FmFileInfo *_new_info_for_native_file(FmDirListJob* job, FmPath* path, const char* path_str, GError** err)
 {
-    if (!fm_job_is_cancelled(job))
+    FmFileInfo *fi;
+
+    if (fm_job_is_cancelled(FM_JOB(job)))
+        return NULL;
+    if (!(job->flags & FM_DIR_LIST_JOB_DETAILED))
         return fm_file_info_new_from_native_file(path, path_str, err);
+    fi = fm_file_info_new();
+    fm_file_info_set_path(fi, path);
+    if (fm_file_info_set_from_native_file(fi, path_str, err))
+        return fi;
+    fm_file_info_unref(fi);
     return NULL;
 }
 
@@ -197,7 +227,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
     path_str = fm_path_to_str(job->dir_path);
 
-    fi = _new_info_for_native_file(fmjob, job->dir_path, path_str, NULL);
+    fi = _new_info_for_native_file(job, job->dir_path, path_str, NULL);
     if(fi)
     {
         if(! fm_file_info_is_dir(fi))
@@ -242,7 +272,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             g_string_truncate(fpath, dir_len);
             g_string_append(fpath, name);
 
-            if(job->dir_only) /* if we only want directories */
+            if(job->flags & FM_DIR_LIST_JOB_DIR_ONLY) /* if we only want directories */
             {
                 struct stat st;
                 /* FIXME: this results in an additional stat() call, which is inefficient */
@@ -253,7 +283,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
             new_path = fm_path_new_child(job->dir_path, name);
 
         _retry:
-            fi = _new_info_for_native_file(fmjob, new_path, fpath->str, &err);
+            fi = _new_info_for_native_file(job, new_path, fpath->str, &err);
             if(fi)
             {
                 fm_dir_list_job_add_found_file(job, fi);
@@ -328,7 +358,7 @@ _retry:
     job->dir_fi = fm_file_info_new_from_g_file_data(gf, inf, job->dir_path);
     g_object_unref(inf);
 
-    if(G_UNLIKELY(job->dir_only))
+    if(G_UNLIKELY(job->flags & FM_DIR_LIST_JOB_DIR_ONLY))
     {
         query = G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_NAME","
                 G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP","
@@ -351,7 +381,7 @@ _retry:
             {
                 FmPath *dir, *sub;
                 GFile *child;
-                if(G_UNLIKELY(job->dir_only))
+                if(G_UNLIKELY(job->flags & FM_DIR_LIST_JOB_DIR_ONLY))
                 {
                     /* FIXME: handle symlinks */
                     if(g_file_info_get_file_type(inf) != G_FILE_TYPE_DIRECTORY)
