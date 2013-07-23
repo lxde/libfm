@@ -36,7 +36,6 @@ src/libfm-pref-apps
 src/tests/file-search-cli-demo
 src/tests/fm-path
 src/vapi/fm-actions.vapi
-src/xml-purge
 docs/reference/libfm/*/*
 docs/reference/libfm/libfm-decl*
 docs/reference/libfm/libfm-overrides.txt

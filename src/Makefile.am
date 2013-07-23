@@ -467,12 +467,6 @@ CLEANFILES = \
 #        -no-undefined \
 #        -export-symbols-regex gtk
 
-# Little program to optimize size of xml files
-noinst_PROGRAMS=xml-purge
-xml_purge_SOURCES=xml-purge.c
-xml_purge_CFLAGS=$(GIO_CFLAGS)
-xml_purge_LDADD=$(GIO_LIBS)
-
 # do make test only against single directory
 test:
 	cd tests && $(MAKE) $(AM_MAKEFLAGS) $@
