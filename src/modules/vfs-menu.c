@@ -106,7 +106,7 @@ static gboolean _menu_xml_handler_Name(FmXmlFileItem *item, GList *children,
     if (item == NULL || fm_xml_file_item_get_data(item, NULL) == NULL) /* empty tag */
     {
         g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("empty <Name> tag"));
+                            _("Empty <Name> tag"));
         return FALSE;
     }
     return TRUE;
@@ -126,7 +126,7 @@ static gboolean _menu_xml_handler_Not(FmXmlFileItem *item, GList *children,
     if (children == NULL || children->next != NULL)
     {
         g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("tag <Not> should have exactly one children"));
+                            _("Tag <Not> should have exactly one child"));
         g_list_free(children);
         return FALSE;
     }
@@ -135,8 +135,8 @@ static gboolean _menu_xml_handler_Not(FmXmlFileItem *item, GList *children,
         tag == menuTag_Category)
         return TRUE;
     g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                        _("tag <Not> may contain only <And>, <Or>, <Filename>"
-                          " or <Category> tag"));
+                        _("Tag <Not> may contain only <And>, <Or>, <Filename>"
+                          " or <Category> child"));
     return FALSE;
 }
 
@@ -213,7 +213,7 @@ static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
         if (fm_xml_file_item_get_tag(it->data) != menuTag_Menu)
         {
             g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                        _("merging file may contain only <Menu> top level tag,"
+                        _("Merging file may contain only <Menu> top level tag,"
                           " got <%s>"), fm_xml_file_item_get_tag_name(it->data));
             /* FIXME: it will show error not for merged file but current */
             break;
@@ -227,7 +227,7 @@ static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
                 !fm_xml_file_insert_before(item, it_sub->data))
             {
                 g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_UNKNOWN_ELEMENT,
-                            _("failed to insert tag <%s> from merging file"),
+                            _("Failed to insert tag <%s> from merging file"),
                             fm_xml_file_item_get_tag_name(it_sub->data));
                 /* FIXME: it will show error not for merged file but current */
                 break;
@@ -336,7 +336,7 @@ static gboolean _menu_xml_handler_MergeFile(FmXmlFileItem *item, GList *children
         fm_xml_file_item_get_data(children->data, NULL) == NULL)
     {
         g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("invalid <MergeFile> tag"));
+                            _("Invalid <MergeFile> tag"));
         return FALSE;
     }
     /* NOTE: this implementation ignores optional 'type' attribute */
@@ -367,7 +367,7 @@ static gboolean _menu_xml_handler_MergeDir(FmXmlFileItem *item, GList *children,
         fm_xml_file_item_get_data(children->data, NULL) == NULL)
     {
         g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("invalid <MergeDir> tag"));
+                            _("Invalid <MergeDir> tag"));
         return FALSE;
     }
     path = fm_xml_file_item_get_data(children->data, NULL);
@@ -828,7 +828,7 @@ static int _update_categories(gchar ***categories, const char *src_directory,
     if (item == NULL) /* no such menu path in XML! */
     {
         g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_NOENT,
-                    _("cannot find path %s in XML definitions"), dst_directory);
+                    _("Cannot find path %s in XML definitions"), dst_directory);
         g_list_free(xml);
 _return_error:
         /* g_debug("destroying FmXmlFile %p", data.menu); */
@@ -920,7 +920,7 @@ _return_error:
     {
 _satisfy_failed:
         g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                            _("category manipulation internal error"));
+                            _("Category manipulation internal error"));
         g_list_free(xml);
         g_object_unref(data.menu);
         g_free(data.file_path);
@@ -1215,7 +1215,7 @@ static gboolean _remove_directory(const char *path, GCancellable *cancellable,
         if (item == NULL)
         {
             g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                        _("cannot create XML definition for '%s'"), path);
+                        _("Cannot create XML definition for '%s'"), path);
             ok = FALSE;
         }
         else
@@ -1279,7 +1279,7 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
         }
         if (!ok) /* see FIXME above */
             g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
-                        _("menu path '%s' already exists"), path);
+                        _("Menu path '%s' already exists"), path);
         else
         {
             child = fm_xml_file_item_new(menuTag_NotDeleted);
@@ -1294,7 +1294,7 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
         if (item == NULL)
         {
             g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
-                        _("cannot create XML definition for '%s'"), path);
+                        _("Cannot create XML definition for '%s'"), path);
             ok = FALSE;
         }
         else
@@ -3169,7 +3169,7 @@ static gboolean _fm_vfs_menu_make_directory(GFile *file,
     if (g_str_has_suffix(item->path, ".desktop"))
     {
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_INVALID_FILENAME,
-                            _("name of menu directory should not end with"
+                            _("Name of menu directory should not end with"
                               " \".desktop\""));
         return FALSE;
     }
