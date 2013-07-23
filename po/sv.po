@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-23 19:30+0000\n"
+"POT-Creation-Date: 2013-07-24 00:25+0200\n"
+"PO-Revision-Date: 2013-07-23 22:39+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,21 +17,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374607835.0\n"
+"X-POOTLE-MTIME: 1374619171.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Program"
 
 #: ../data/ui/app-chooser.glade.h:1
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>K_ommandorad som ska exekveras:</b>"
+msgid "Choose An Application"
+msgstr "Välj ett program"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Filtyp att öppna:</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "_Installerade program"
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>K_ommandorad som ska exekveras:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "_Utforska"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "_Exekvera i terminalemulator"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr "Behåll terminalfönster öppet efter exekvering av _kommando"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -46,39 +66,35 @@ msgstr ""
 "  <b>%u</b>: För en URI till en fil\n"
 "  <b>%U</b>: För URI till flera filer"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>_Applikationsnamn (valfritt, ange för att behålla koppling)</b>"
 
-#: ../data/ui/app-chooser.glade.h:10
+#: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
 msgstr "_Anpassad kommandorad"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Välj ett program"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "_Utforska"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "_Exekvera i terminalemulator"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "_Installerade program"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr "Behåll terminalfönster öppet efter exekvering av _kommando"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "Ange valt program som _standardåtgärd för denna filtyp"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Bekräfta ersättning av filer"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Hoppa över"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "_Byt namn"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Skriv över"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -88,49 +104,33 @@ msgstr ""
 "\n"
 "Vill du ersätta den fil som redan existerar"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Bekräfta ersättning av filer"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "Utför detta på _alla existerande filer"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "_Filnamn:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Skriv över"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "_Byt namn"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Hoppa över"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "med följande fil?"
 
-#: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>Välj ikon från:</b>"
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "_Filnamn:"
 
-#: ../data/ui/choose-icon.ui.h:2
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "Utför detta på _alla existerande filer"
+
+#: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
 msgstr "Välj en ikon..."
+
+#: ../data/ui/choose-icon.ui.h:2
+msgid "System icon theme"
+msgstr "Ikontema för systemet"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
 msgstr "Bildfiler"
 
 #: ../data/ui/choose-icon.ui.h:4
-msgid "System icon theme"
-msgstr "Ikontema för systemet"
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>Välj ikon från:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -141,311 +141,300 @@ msgid "Execute in _Terminal"
 msgstr "Exekvera i _Terminalemulator"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Åtkomstkontroll</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>R_edigera innehåll:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Filtyp:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>G_rupp:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Senast använd:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Senast ändrad:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>Plats:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Ägare:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>_Öppna med:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Storlek på disk:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>Specialbitar:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-msgid "<b>Target file:</b>"
-msgstr "<b>Måfill:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Total storlek på filer:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>_Exekvera:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-msgid "<b>_Name:</b>"
-msgstr "<b>_Namn:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>_Visa innehåll:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "Vem som helst"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "Filegenskaper"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr "Ikon för fil i katalogvy"
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "Ingen"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>_Namn:</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "Ingen"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Plats:</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "Endast ägare"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>Måfill:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "Endast ägare och grupp"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>Filtyp:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>_Öppna med:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Ange program för att öppna filer av denna typ "
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
-msgstr "Ange GID"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Total storlek på filer:</b>"
 
-#: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
-msgstr "Ange UID"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Storlek på disk:</b>"
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
-msgstr "Ange UID och GID"
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Senast ändrad:</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "Specialflaggor för katalogåtkomst"
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>Senast använd:</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "Specialflaggor för exkvering"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "Sticky"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Sticky och ange GID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Vem kan redigera innehållet i filen/katalogen"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Vem kan exekvera filen eller ange katalogen som arbetskatalog"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "Vem kan läsa innehållet i filen/katalogen"
-
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:13
 msgid "_General"
 msgstr "_Allmänt"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Ägare:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>G_rupp:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>_Visa innehåll:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>R_edigera innehåll:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>_Exekvera:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>Specialbitar:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "Vem kan läsa innehållet i filen/katalogen"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "Vem kan redigera innehållet i filen/katalogen"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "Vem kan exekvera filen eller ange katalogen som arbetskatalog"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "Specialflaggor för exkvering"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "Specialflaggor för katalogåtkomst"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>Åtkomstkontroll</b>"
+
+#: ../data/ui/file-prop.glade.h:26
 msgid "_Permissions"
 msgstr "_Rättigheter"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "Ingen"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set GID"
+msgstr "Ange GID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "Sticky och ange GID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set UID"
+msgstr "Ange UID"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set UID & GID"
+msgstr "Ange UID och GID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner"
+msgstr "Endast ägare"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Only owner and group"
+msgstr "Endast ägare och grupp"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Anyone"
+msgstr "Vem som helst"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Nobody"
+msgstr "Ingen"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Byte"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Välj datum"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Välj datum från kalendern"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Sök filer"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Mönster för fil_namn:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "_Ignorera skiftläge"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "Använd reguljära _uttryck"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>Platser att söka i:</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "_Sök i underkataloger"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Sök i _dolda filer"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Namn/P_lats"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Filtyp</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Sök endast efter filer av följande typ:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Te_xtfiler"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "B_ildfiler"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Ljudfiler"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Videofiler"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Dokument"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "Fil_typ"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>Fil _innehåller:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "I_nnehåll"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Filstorlek</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "_Mindre än:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "_Större än:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Senast ändrad</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "(Ingen)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>Fil _innehåller:</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Filstorlek</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Filtyp</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Mönster för fil_namn:</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Senast ändrad</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Platser att söka i:</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Byte"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "I_nnehåll"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "_Ignorera skiftläge"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Välj datum"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Välj datum från kalendern"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "Fil_typ"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "_Nyare än:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Namn/P_lats"
-
-#: ../data/ui/filesearch.glade.h:20
-msgid "Only search for files of following types:"
-msgstr "Sök endast efter filer av följande typ:"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Sök filer"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Sök i _dolda filer"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Te_xtfiler"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "_Ljudfiler"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "_Större än:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "_Dokument"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "_Äldre än:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "B_ildfiler"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "_Nyare än:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "Egenska_per"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "_Sök i underkataloger"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "_Mindre än:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "Använd reguljära _uttryck"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "_Videofiler"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>E-post-klient</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminalemulator</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Webbläsare</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+"Den föreslagna webbläsaren kommer att användas för att öppna hyperlänkar."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Kommandorad:"
+msgid "<b>Mail client</b>"
+msgstr "<b>E-post-klient</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Filassociation"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Systemprogram"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
@@ -453,37 +442,48 @@ msgstr ""
 "Den föreslagna e-post-klienten kommer att användas när du klickar på en e-"
 "post-adress."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Terminalemulator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Kommandorad:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Systemprogram"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Den föreslagna webbläsaren kommer att användas för att öppna hyperlänkar."
+msgid "File Associations"
+msgstr "Filassociation"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Förbereder..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Bearbetning:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>Förlopp:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Fel uppstod:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Tid kvar:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Till:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Förlopp:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Tid kvar:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Förbereder..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Fel uppstod:</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -566,8 +566,8 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett "
-"&-tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
+"Teckenreferensen slutade inte med ett semikolon. Troligtvis använde du ett &-"
+"tecken utan att avse att starta en entitet. Skriv om &-tecknet som &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -609,7 +609,8 @@ msgstr "Elementet \"%s\" avslutades men hade aldrig öppnats"
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
-"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är \"%s\""
+"Elementet \"%s\" stängdes, men det element som är öppet för tillfället är "
+"\"%s\""
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -619,7 +620,8 @@ msgstr "Otillåtet tecken \"%c\" i början på attributvärde"
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
+msgstr ""
+"Otillåtet tecken \"%c\" i slutet av attributvärde, \"%c\" var förväntat"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -1101,29 +1103,29 @@ msgstr "Platser"
 msgid "Directory Tree"
 msgstr "Katalogträd"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
 msgstr "Visar kataloginnehållet"
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
 msgstr "_Göm %s"
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
 msgstr "Flytta åt _vänster"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
 msgstr "Flytta åt _höger"
 
-#: ../src/gtk/fm-standard-view.c:801
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "Show %s"
 msgstr "Visa %s"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr "_Glöm bredd"
 
@@ -1172,36 +1174,36 @@ msgid "Setting target can be done only for single file"
 msgstr "Mål kan endast anges för en fil"
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
-msgstr "tom tagg <Name>"
+msgid "Empty <Name> tag"
+msgstr "Tom tagg <Name>"
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
-msgstr "taggen <Not> ska ha exakt ett barn"
+msgid "Tag <Not> should have exactly one child"
+msgstr "Taggen <Not> ska ha exakt ett barn"
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
-"taggen <Not> kan innehålla en av taggarna <And>, <Or>, <Filename> eller "
+"Taggen <Not> kan innehålla en av taggarna <And>, <Or>, <Filename> eller "
 "<Category>"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
-msgstr "sammanfogad fil kan bara innehålla huvudtaggen <Menu>, hittade <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
+msgstr "Sammanfogad fil kan bara innehålla huvudtaggen <Menu>, hittade <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
-msgstr "misslyckades med att läsa in taggen <%s> från sammanfogad fil"
+msgid "Failed to insert tag <%s> from merging file"
+msgstr "Misslyckades med att läsa in taggen <%s> från sammanfogad fil"
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
-msgstr "felaktig tagg <MergeFile>"
+msgid "Invalid <MergeFile> tag"
+msgstr "Felaktig tagg <MergeFile>"
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
-msgstr "felaktig tagg <MergeDir>"
+msgid "Invalid <MergeDir> tag"
+msgstr "Felaktig tagg <MergeDir>"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
@@ -1214,22 +1216,22 @@ msgstr "XML-filen innehåller inte applikationernas rot"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
-msgstr "kan inte hitta sökvägen %s i XML-definitionerna"
+msgid "Cannot find path %s in XML definitions"
+msgstr "Kan inte hitta sökvägen %s i XML-definitionerna"
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
-msgstr "internt fel vid manipulation av kategorier"
+msgid "Category manipulation internal error"
+msgstr "Internt fel vid manipulation av kategorier"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
-msgstr "kan inte skapa XML-definitionen för \"%s\""
+msgid "Cannot create XML definition for '%s'"
+msgstr "Kan inte skapa XML-definitionen för \"%s\""
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
-msgstr "menysökvägen \"%s\" existerar redan"
+msgid "Menu path '%s' already exists"
+msgstr "Menysökvägen \"%s\" existerar redan"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1298,8 +1300,8 @@ msgid "Cannot create menu item \"%s\""
 msgstr "Kan inte skapa meny-elementet \"%s\""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
-msgstr "namnet på meny-katalog ska inte sluta med \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
+msgstr "Namnet på menykatalogen ska inte sluta med \".desktop\""
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
@@ -1387,6 +1389,10 @@ msgstr "Verktygstips att visa på applikationen"
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
 msgstr "_Använd uppstartsnotifiering"
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+msgid "_Desktop entry"
+msgstr "_Skrivbordselement"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
