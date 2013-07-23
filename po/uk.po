@@ -1,22 +1,23 @@
 # Ukrainian translations for libfm package.
 # Copyright (C) 2010
 # This file is distributed under the same license as the libfm package.
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2010.
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2010-2013.
+# Andriy aka LStranger <andrej@rep.kiev.ua>, 2012-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-23 20:38+0000\n"
-"Last-Translator: Andriy <andrej@rep.kiev.ua>\n"
+"POT-Creation-Date: 2013-07-24 01:02+0300\n"
+"PO-Revision-Date: 2013-07-24 01:07+0300\n"
+"Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1374611931.0\n"
 
@@ -25,9 +26,8 @@ msgid "Preferred Applications"
 msgstr "Улюблені програми"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Командна стрічка для виконання:</b>"
+msgstr "<b>_Командна стрічка для виконання:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Назва програми (для збереження асоціації з файлами цього типу)</b>"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "C_ustom Command Line"
@@ -74,7 +74,7 @@ msgstr "_Встановлені програми"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Залишити вікно терміналу після завершення виконання"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
@@ -119,9 +119,8 @@ msgid "with the following file?"
 msgstr "наступним файлом?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose Icon From:</b>"
-msgstr "<b>З_мінювати вміст:</b>"
+msgstr "<b>Вибрати значок з:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
@@ -129,11 +128,11 @@ msgstr "Виберіть піктограму..."
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
-msgstr "Файли зображень"
+msgstr "Файлів зображень"
 
 #: ../data/ui/choose-icon.ui.h:4
 msgid "System icon theme"
-msgstr "Системна тема значків"
+msgstr "Системної теми значків"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -800,14 +799,12 @@ msgid "_Sort Files"
 msgstr "_Сортувати файли"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "Перейменувати файл"
+msgstr "_Перейменувати теку"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Властивості файлу"
+msgstr "_Властивості теки"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -878,7 +875,7 @@ msgstr "Створення %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Запустити типову програму для новоствореного файлу"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -947,7 +944,7 @@ msgstr "Ви дійсно бажаєте очистити смітник?"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "В_ставити та активувати"
 
 #: ../src/gtk/fm-path-entry.c:657
 msgid "Entry for folder path"
@@ -982,14 +979,12 @@ msgid "Re_move from Bookmark"
 msgstr "_Видалити з закладки"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "_Видалити з закладки"
+msgstr "Підняти _закладку вище"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "_Видалити з закладки"
+msgstr "_Опустити закладку нижче"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -997,14 +992,15 @@ msgstr "_Очистити смітник"
 
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
+msgstr ""
+"Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:984
+#: ../src/gtk/fm-places-view.c:988
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
-#: ../src/gtk/fm-places-view.c:985
+#: ../src/gtk/fm-places-view.c:989
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
@@ -1110,29 +1106,29 @@ msgstr "Місця"
 msgid "Directory Tree"
 msgstr "Дерево тек"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
 msgstr "Показує вміст теки"
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
 msgstr "_Сховати %s"
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
 msgstr "Пересунути _ліворуч"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
 msgstr "_Пересунути праворуч"
 
-#: ../src/gtk/fm-standard-view.c:801
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "Show %s"
 msgstr "Показати %s"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr "_Не пам'ятати ширину"
 
@@ -1181,34 +1177,34 @@ msgid "Setting target can be done only for single file"
 msgstr "Можна встановлювати посилання лише для єдиного файлу"
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
-msgstr "порожній теґ <Name>"
+msgid "Empty <Name> tag"
+msgstr "Порожній теґ <Name>"
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
-msgstr "теґ <Not> має мати один вкладений теґ"
+msgid "Tag <Not> should have exactly one child"
+msgstr "Теґ <Not> має мати один вкладений теґ"
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
-msgstr "теґ <Not> може містити лише теґи <And>, <Or>, <Filename> або <Category>"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
+msgstr "Теґ <Not> може містити лише теґ <And>, <Or>, <Filename> або <Category>"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
-msgstr "файл, що додається, може мати лише теґ <Menu> верхнім, отримано <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
+msgstr "Файл, що додається, може мати лише теґ <Menu> верхнім, отримано <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
-msgstr "не вдалося вставити теґ <%s> з файлу, що додається"
+msgid "Failed to insert tag <%s> from merging file"
+msgstr "Не вдалося вставити теґ <%s> з файлу, що додається"
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
-msgstr "теґ <MergeFile> зіпсовано"
+msgid "Invalid <MergeFile> tag"
+msgstr "Теґ <MergeFile> зіпсовано"
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
-msgstr "теґ <MergeDir> зіпсовано"
+msgid "Invalid <MergeDir> tag"
+msgstr "Теґ <MergeDir> зіпсовано"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
@@ -1221,22 +1217,22 @@ msgstr "XML файл не містить кореню програм"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
-msgstr "шлях %s не знайдено у XML визначеннях"
+msgid "Cannot find path %s in XML definitions"
+msgstr "Шлях %s не знайдено у XML визначеннях"
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
-msgstr "внутрішня помилка зміни категорій"
+msgid "Category manipulation internal error"
+msgstr "Внутрішня помилка зміни категорій"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
-msgstr "не вдалося створити XML визначення для '%s'"
+msgid "Cannot create XML definition for '%s'"
+msgstr "Не вдалося створити XML визначення для '%s'"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
-msgstr "шлях меню '%s' вже існує"
+msgid "Menu path '%s' already exists"
+msgstr "Шлях меню '%s' вже існує"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1305,8 +1301,8 @@ msgid "Cannot create menu item \"%s\""
 msgstr "Не вдається створити пункт меню \"%s\""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
-msgstr "ім'я теки меню не може закінчуватися на \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
+msgstr "Назва теки меню не може закінчуватися на \".desktop\""
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
@@ -1344,9 +1340,8 @@ msgid "Executable files"
 msgstr "Виконувані файли"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Читати:</b>"
+msgstr "<b>_Команда:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
 msgid "_Browse..."
@@ -1364,30 +1359,27 @@ msgstr "Виконати в _емуляторі терміналу"
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "З_алишити вікно терміналу після завершення"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Місцезнаходження:</b>"
+msgstr "<b>_Опис:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
 msgstr "Загальне ім'я для програми"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Писати:</b>"
+msgstr "<b>_Робоча тека:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
 msgstr "Робоча тека для запуску програми"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>До:</b>"
+msgstr "<b>_Підказка:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
 msgid "Tooltip to show on application"
@@ -1396,9 +1388,12 @@ msgstr "Підказка, що її показувати на програмі"
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
-#, fuzzy
 msgid "_Use startup notification"
 msgstr "Використовувати пов_ідомлення про запуск"
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+msgid "_Desktop entry"
+msgstr "_Ярлик програми"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
