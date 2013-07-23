@@ -386,7 +386,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_table_attach(table, new_widget, 0, 2, 7, 8, GTK_FILL, 0, 0, 0);
     /* put the table into third tab and enable it */
     widget = gtk_builder_get_object(ui, "extra_tab_label");
-    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget), "_Desktop entry");
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget), _("_Desktop entry"));
     widget = gtk_builder_get_object(ui, "extra_tab");
     gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(table));
     gtk_widget_show_all(GTK_WIDGET(widget));
