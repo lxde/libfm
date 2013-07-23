@@ -98,14 +98,14 @@ struct _FmJob
  * @error: the class closure for the #FmJob::error signal.
  * @cancelled: the class closure for the #FmJob::cancelled signal.
  * @ask: the class closure for the #FmJob::ask signal.
- * @run_async: the @run_async function called to create a thread for
- *  job execution. Returns %TRUE if thread was created successfully.
- *  The most probably should be not overridden by any derived class.
- * @run: the @run function is called to perform actual job actions.
- *  Returns value that will be returned from call fm_job_run_sync().
- *  Should be set by any class derived from #FmJob.
+ * @run_async: the @run_async function called to create a thread for the
+ *      job execution. Returns %TRUE if thread was created successfully.
+ *      The most probably should be not overridden by any derived class.
+ * @run: the @run function is called to perform actual job actions. Returns
+ *      value that will be returned from call fm_job_run_sync(). Should be
+ *      set by any class derived from #FmJob.
  * @cancel: the @cancel function is called when the job is cancelled.
- *  It can perform some class-specific operations then.
+ *      It can perform some class-specific operations then.
  */
 struct _FmJobClass
 {

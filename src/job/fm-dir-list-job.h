@@ -59,7 +59,7 @@ typedef struct _FmDirListJobClass       FmDirListJobClass;
  * FmDirListJob
  * @parent: the parent object
  * @dir_path: directory to get listing
- * @dir_only: %TRUE if list only subdirectories
+ * @flags: flags for the job
  * @dir_fi: file info of the directory
  * @files: the listing of the directory
  */
@@ -88,7 +88,9 @@ struct _FmDirListJobClass
 };
 
 GType           fm_dir_list_job_get_type(void);
+#ifndef FM_DISABLE_DEPRECATED
 FmDirListJob*   fm_dir_list_job_new(FmPath* path, gboolean dir_only);
+#endif
 FmDirListJob   *fm_dir_list_job_new2(FmPath *path, FmDirListJobFlags flags);
 FmDirListJob*   fm_dir_list_job_new_for_gfile(GFile* gf);
 FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job);
