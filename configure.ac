@@ -22,6 +22,15 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AM_PROG_LIBTOOL
 
+# Test if we address libfm-extra compilation only
+AC_ARG_WITH(extra-only,
+    [AC_HELP_STRING([--with-extra-only],
+        [disable all components but libfm-extra library])],
+    [extra_only="${withval}"],
+    [extra_only=no]
+)
+AM_CONDITIONAL(EXTRALIB_ONLY, [test x$extra_only = xyes])
+
 # Vala
 AC_ARG_ENABLE(actions,
     [AC_HELP_STRING([--disable-actions],
@@ -29,6 +38,8 @@ AC_ARG_ENABLE(actions,
     [enable_actions="${enableval}"],
     [enable_actions=yes]
 )
+AM_COND_IF(EXTRALIB_ONLY,
+    [enable_actions=no])
 if test x"$enable_actions" = xyes; then
     dnl no vala compiler required when sources are from dist tarball
     if test -f src/actions/libfmactions_la_vala.stamp; then
@@ -85,6 +96,8 @@ AC_HELP_STRING([--without-gtk],
     [ac_with_gtk="${withval}"],
     [ac_with_gtk=2]
 )
+AM_COND_IF(EXTRALIB_ONLY,
+    [ac_with_gtk=no])
 
 # modules required
 if test x"$enable_actions" = xyes; then
@@ -138,8 +151,11 @@ dnl gmodule may be used for libfm-chooser-hack.la
 #AC_SUBST(GMODULE_CFLAGS)
 #AC_SUBST(GMODULE_LIBS)
 
-menu_modules="libmenu-cache >= 0.3.2"
-PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])
+AM_COND_IF(EXTRALIB_ONLY,
+    [MENU_CACHE_CFLAGS=
+    MENU_CACHE_LIBS=],
+    [menu_modules="libmenu-cache >= 0.3.2"
+    PKG_CHECK_MODULES(MENU_CACHE, [$menu_modules])])
 AC_SUBST(MENU_CACHE_CFLAGS)
 AC_SUBST(MENU_CACHE_LIBS)
 
@@ -169,6 +185,8 @@ AC_ARG_ENABLE(udisks,
     [enable_udisks="${enableval}"],
     [enable_udisks=no]
 )
+AM_COND_IF(EXTRALIB_ONLY,
+    [enable_udisks=no])
 AM_CONDITIONAL(ENABLE_UDISKS, test x"$enable_udisks" = x"yes")
 if test x"$enable_udisks" = x"yes"; then
     # turn on udisks support
@@ -187,6 +205,8 @@ AC_ARG_ENABLE([exif],
     [enable_exif="${enableval}"],
     [enable_exif=auto]
 )
+AM_COND_IF(EXTRALIB_ONLY,
+    [enable_exif=no])
 AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" != x"no")
 AS_IF([test x"$enable_exif" != x"no"], [
     # test for availability of libexif
@@ -212,6 +232,8 @@ AC_ARG_ENABLE(demo,
     [enable_demo="${enableval}"],
     [enable_demo=no]
 )
+AM_COND_IF(EXTRALIB_ONLY,
+    [enable_demo=no])
 AM_CONDITIONAL(ENABLE_DEMO, test x"$enable_demo" = x"yes")
 
 # GIO extension module

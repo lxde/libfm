@@ -7,9 +7,14 @@ NULL=
 SUBDIRS= \
 	$(ACTIONS_SUBDIR) \
 	. \
+	$(NULL)
+
+if !EXTRALIB_ONLY
+SUBDIRS += \
 	modules \
 	tests \
 	$(NULL)
+endif
 
 AM_CPPFLAGS = \
 	-I$(srcdir)/base \
@@ -149,6 +154,9 @@ libfm_gtk_SOURCES = \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
+if EXTRALIB_ONLY
+pkginclude_HEADERS =
+else
 libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
@@ -231,10 +239,16 @@ pkginclude_HEADERS = \
 	$(LIBFM_EXTRA_INCLUDES) \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
+endif
 
 EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
 
+if EXTRALIB_ONLY
+lib_LTLIBRARIES = libfm-extra.la
+else
 lib_LTLIBRARIES = libfm-extra.la libfm.la @LIBFM_GTK_LTLIBRARIES@
+endif
+
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
@@ -318,7 +332,11 @@ libfm_gtk3_la_LDFLAGS = $(libfm_gtk_la_LDFLAGS)
 
 EXTRA_PROGRAMS = libfm-pref-apps
 
+if EXTRALIB_ONLY
+bin_PROGRAMS =
+else
 bin_PROGRAMS = @LIBFM_PREF_APPS@
+endif
 
 libfm_pref_apps_SOURCES = \
 	$(gtk_compat_SOURCES) \
@@ -373,7 +391,7 @@ libfm_demo_LDADD = \
 	$(NULL)
 endif
 
-
+if !EXTRALIB_ONLY
 # GIO module implementing some extension points
 # This only works for glib < 2.27
 # Glib >= 2.27 uses x-scheme-handler.
@@ -411,7 +429,6 @@ libgiofm_la_LIBADD = \
 
 endif
 
-
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
 	glib-genmarshal --header --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
@@ -437,6 +454,7 @@ BUILT_SOURCES= \
 VAPI_FILES = \
 	vapi/libfm.vapi \
 	$(NULL)
+endif
 
 EXTRA_DIST = \
 	base/fm-marshal.list \
@@ -471,6 +489,7 @@ CLEANFILES = \
 test:
 	cd tests && $(MAKE) $(AM_MAKEFLAGS) $@
 
+if !EXTRALIB_ONLY
 install-data-local:
 	@if test -e "$(DESTDIR)$(includedir)/@PACKAGE@"; then \
 		echo rm -rf "$(DESTDIR)$(includedir)/@PACKAGE@"; \
@@ -485,3 +504,4 @@ uninstall-local:
 		rm -f "$(DESTDIR)$(includedir)/@PACKAGE@"; \
 	fi
 	-rmdir "$(DESTDIR)$(libfmincludedir)"
+endif

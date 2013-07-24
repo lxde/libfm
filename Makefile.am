@@ -17,6 +17,9 @@ EXTRA_DIST_DOCS = \
 	docs/reference/libfm/libfm-sections.txt \
 	docs/reference/libfm/version.xml.in
 
+if EXTRALIB_ONLY
+SUBDIRS = src
+else
 DIST_SUBDIRS = src po data
 SUBDIRS = $(DIST_SUBDIRS) $(SUBDIRS_DOCS)
 
@@ -39,5 +42,6 @@ pkgconfig_DATA = \
 	libfm-gtk.pc \
 	libfm-gtk3.pc \
 	$(NULL)
+endif
 
 DISTCHECK_CONFIGURE_FLAGS=--enable-gtk-doc
