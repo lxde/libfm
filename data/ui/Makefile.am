@@ -21,4 +21,4 @@ EXTRA_DIST = \
 
 # Purge GtkBuilder UI files
 .glade.ui:
-	sed 's/^ *</</' < $< > $@
+	sed 's/<!--.*-->//' < $< | sed ':a;N;$$!ba;s/ *\n *</</g' > $@
