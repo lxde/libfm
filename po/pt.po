@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-07-25 12:08+0000\n"
+"PO-Revision-Date: 2013-07-25 23:41+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374754124.0\n"
+"X-POOTLE-MTIME: 1374795685.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -41,7 +41,7 @@ msgstr "<b>Linha de c_omandos a executar:</b>"
 
 #: ../data/ui/app-chooser.glade.h:5
 msgid "_Browse"
-msgstr "_Explorar"
+msgstr "E_xplorar"
 
 #: ../data/ui/app-chooser.glade.h:6
 msgid "_Execute in terminal emulator"
@@ -60,7 +60,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Estes códigos especiais podem ser usados na linha de comandos:</b>\n"
+"<b>Estes códigos podem ser usados na linha de comandos:</b>\n"
 "<b>%f</b>: representa o nome do ficheiro\n"
 "<b>%F</b>: representa o nome de vários ficheiros\n"
 "<b>%u</b>: representa o URI do ficheiro\n"
@@ -231,7 +231,7 @@ msgstr "Pode executar ou ficheiro ou aceder ao diretório"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Special flags for file execution"
-msgstr "Marcas para a execução de ficheiros"
+msgstr "Marcas para execução de ficheiros"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Special flags for directory access"
@@ -311,7 +311,7 @@ msgstr "Escolha uma data"
 
 #: ../data/ui/filesearch.glade.h:6
 msgid "Choose a date from the following calendar"
-msgstr "Escolha uma data deste calendário"
+msgstr "Escolha uma data do calendário"
 
 #: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
@@ -383,7 +383,7 @@ msgstr "_Tipo de ficheiro"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Contém:</b>"
+msgstr "<b>Conté_m:</b>"
 
 #: ../data/ui/filesearch.glade.h:25
 msgid "C_ontent"
@@ -531,19 +531,19 @@ msgstr "TB"
 
 #: ../src/base/fm-utils.c:119
 msgid "KiB"
-msgstr "KB"
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:124
 msgid "MiB"
-msgstr "MB"
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:129
 msgid "GiB"
-msgstr "GB"
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:134
 msgid "TiB"
-msgstr "TB"
+msgstr "TiB"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -630,7 +630,7 @@ msgstr "Personalizar"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:161
 msgid "Use selected application to open files"
-msgstr "Utilizar a aplicação selecionada para abrir os ficheiros"
+msgstr "Utilizar aplicação selecionada para abrir os ficheiros"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:168
 msgid "Execute custom command line to open files"
@@ -654,7 +654,7 @@ msgstr "Mostrar árvore de diretórios na barra lateral"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
-msgstr "Falha no XDirectSave."
+msgstr "Falha XDirectSave."
 
 #: ../src/gtk/fm-file-menu.c:153
 msgid "_Open"
@@ -698,7 +698,7 @@ msgstr "_Restaurar"
 
 #: ../src/gtk/fm-file-menu.c:524
 msgid "Restore trashed files to original paths"
-msgstr "Restaurar os ficheiros para os locais de origem"
+msgstr "Restaurar ficheiros para os locais de origem"
 
 #: ../src/gtk/fm-file-properties.c:496 ../src/gtk/fm-file-properties.c:505
 msgid "byte"
@@ -734,7 +734,7 @@ msgstr "<b>Ficheiro:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
-msgstr "Ficheiros múltiplos"
+msgstr "Múltiplos ficheiros"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:188
@@ -786,14 +786,12 @@ msgid "_Sort Files"
 msgstr "Ordenar ficheiro_s"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "Mudar nome do ficheiro"
+msgstr "Muda_r nome da pasta"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Propriedades"
+msgstr "Propri_edades da pasta"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -838,35 +836,33 @@ msgstr "Insira o nome para a nova pasta:"
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Criar nova pasta"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Insira o nome para o novo ficheiro:"
+msgstr "Introduza o nome para o ficheiro vazio:"
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "Criar novo..."
+msgstr "Criação..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
 msgstr "Novo"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Insira o nome para o novo ficheiro:"
+msgstr "Introduza o nome para o novo %s:"
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "A criar ligações simbólicas"
+msgstr "A criar %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "Executa_r aplicação pré-definida depois de criar"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -885,7 +881,7 @@ msgstr "O ficheiro \"%s\" é um executável. Executar?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:588
 msgid "No folders are specified."
-msgstr "Não especificou qualquer pasta"
+msgstr "Não especificou qualquer pasta."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:627
 msgid "Select a folder"
@@ -909,15 +905,15 @@ msgstr "Selecione uma pasta"
 
 #: ../src/gtk/fm-gtk-utils.c:701
 msgid "Only system administrators have the permission to do this."
-msgstr "Só o administrador do sistema tem permissões para o fazer."
+msgstr "Só o administrador do sistema tem permissões para esta ação."
 
 #: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Mover os ficheiros selecionados para o lixo?"
+msgstr "Mover todos os ficheiros selecionados para o lixo?"
 
 #: ../src/gtk/fm-gtk-utils.c:950
 msgid "Do you want to delete the selected files?"
-msgstr "Eliminar os ficheiros selecionados?"
+msgstr "Eliminar todos os ficheiros selecionados?"
 
 #. FIXME: use fm_file_info_get_edit_name() to get a name and then
 #. use g_file_set_display_name() to change it
@@ -927,19 +923,19 @@ msgstr "Mudar nome do ficheiro"
 
 #: ../src/gtk/fm-gtk-utils.c:1041
 msgid "Please enter a new name:"
-msgstr "Indique o novo nome:"
+msgstr "Introduza o novo nome:"
 
 #: ../src/gtk/fm-gtk-utils.c:1081
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Tem a certeza de que pretende esvaziar o lixo?"
+msgstr "Tem a certeza que pretende esvaziar o lixo?"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "Co_lar e ir"
 
 #: ../src/gtk/fm-path-entry.c:657
 msgid "Entry for folder path"
-msgstr "Só para esta pasta"
+msgstr "Entrada do caminho da pasta"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -992,7 +988,7 @@ msgstr "Mudar nome do marcador"
 
 #: ../src/gtk/fm-places-view.c:985
 msgid "Enter a new name:"
-msgstr "Indique o novo nome:"
+msgstr "Introduza o novo nome:"
 
 #: ../src/gtk/fm-progress-dlg.c:165
 msgid ": "
@@ -1041,7 +1037,7 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Alguns ficheiros não podem ser movidos para o lixo, porque o sistema de "
-"ficheiros subjacente não suporta esta operação.\n"
+"ficheiros não suporta esta ação.\n"
 "Eliminar permanentemente?"
 
 #: ../src/gtk/fm-progress-dlg.c:495
@@ -1070,7 +1066,7 @@ msgstr "A criar ligações simbólicas"
 
 #: ../src/gtk/fm-progress-dlg.c:526
 msgid "Changing file attributes"
-msgstr "A modificar os atributos do ficheiro"
+msgstr "A modificar atributos do ficheiro"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
@@ -1128,9 +1124,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "O diretório especificado é inválido"
+msgstr "O diretório especificado \"%s\" não é válido"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
@@ -1222,12 +1218,12 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "O caminho de menu \"%s\" já existe"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
 msgid "Menu cache error"
-msgstr "Erro de cache"
+msgstr "Erro de cache de menu"
 
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1809 ../src/modules/vfs-search.c:918
@@ -1240,22 +1236,21 @@ msgstr "Diretório de menu inválido"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "O nome do item de menu não pode estar vazio"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Diretório de menu inválido"
+msgstr "Diretório de menu %s inválido"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Diretório de menu inválido"
+msgstr "Item de menu inválido"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "O item de menu \"%s\" não tem uma entrada de ficheiro válida"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
@@ -1311,7 +1306,7 @@ msgstr "Destino inválido"
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: a pasta %s não foi encontrada na cache de menu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1319,13 +1314,12 @@ msgid "Search"
 msgstr "Procurar"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "Procurar ficheiros"
+msgstr "Resultados da procura"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "Escolha o ficheiro executável"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
 msgid "Executable files"
