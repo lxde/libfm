@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-16 22:11+0200\n"
+"POT-Creation-Date: 2013-07-24 00:29+0200\n"
+"PO-Revision-Date: 2013-07-26 09:22+0200\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -19,20 +19,40 @@ msgstr ""
 "%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Preferowane programy"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Wiersz poleceń:</b>"
+msgid "Choose An Application"
+msgstr "Wybór programu"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Typ pliku:</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "Za_instalowany program"
+
 #: ../data/ui/app-chooser.glade.h:4
+#, fuzzy
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>Wiersz poleceń:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "_Przeglądaj..."
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "Uruchomi_enie w emulatorze terminala"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -47,40 +67,35 @@ msgstr ""
 "  <b>%u</b>: adres URI pojedynczego pliku,\n"
 "  <b>%U</b>: adresy URI wielu plików."
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
+#: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
 msgstr "Własne pole_cenie"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Wybór programu"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "_Przeglądaj..."
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "Uruchomi_enie w emulatorze terminala"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "Za_instalowany program"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "_Domyślnie dla tego typu plików"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Zastępowanie plików"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Pomiń"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "Z_mień nazwę"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Zastąp"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -90,53 +105,36 @@ msgstr ""
 "\n"
 "Zastąpić plik"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Zastępowanie plików"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "Wykon_anie czynności dla wszystkich plików"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "_Nazwa pliku:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Zastąp"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "Z_mień nazwę"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Pomiń"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "następującym plikiem?"
 
-#: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>_Modyfikowanie zawartości:</b>"
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "_Nazwa pliku:"
 
-#: ../data/ui/choose-icon.ui.h:2
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "Wykon_anie czynności dla wszystkich plików"
+
+#: ../data/ui/choose-icon.ui.h:1
 #, fuzzy
 msgid "Choose An Icon..."
 msgstr "Wybór programu"
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
-msgid "Image files"
-msgstr "_Obrazy"
-
-#: ../data/ui/choose-icon.ui.h:4
+#: ../data/ui/choose-icon.ui.h:2
 #, fuzzy
 msgid "System icon theme"
 msgstr "Programy systemowe"
+
+#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
+msgid "Image files"
+msgstr "Pliki obrazów"
+
+#: ../data/ui/choose-icon.ui.h:4
+#, fuzzy
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>_Modyfikowanie zawartości:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -147,317 +145,299 @@ msgid "Execute in _Terminal"
 msgstr "Uruchom w emulatorze _terminala"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Prawa dostępu</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>_Modyfikowanie zawartości:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Typ:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>G_rupa:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Czas ostatniego dostępu:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Czas modyfikacji:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>Położenie:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Właściciel:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>Otwieranie za p_omocą:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Rozmiar:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>Specjalne:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-#, fuzzy
-msgid "<b>Target file:</b>"
-msgstr "<b>Położenie docelowe:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Całkowity rozmiar:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>Uruchamiani_e:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-#, fuzzy
-msgid "<b>_Name:</b>"
-msgstr "<b>_Właściciel:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>W_yświetlanie zawartości:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "Wszyscy"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "Właściwości"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "Nikt"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>_Nazwa:</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "Brak"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Położenie:</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "Tylko właściciel"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>Plik docelowy:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "Tylko właściciel i grupa"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>Typ:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>Otwieranie za p_omocą:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Wybiera program używany do otwierania plików tego typu"
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
-msgstr "SGID"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Całkowity rozmiar:</b>"
 
-#: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
-msgstr "SUID"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Rozmiar:</b>"
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
-msgstr "SUID i SGID"
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Czas modyfikacji:</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "Specjalne uprawnienia dostępu do katalogów"
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>Czas ostatniego dostępu:</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "Specjalne uprawnienia uruchamiania plików"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "Sticky"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Sticky i SGID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Określa, kto może zmieniać zawartość pliku lub katalogu"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Określa, kto może uruchamiać pliki lub przechodzić do katalogu"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "Określa kto może odczytywać zawartość pliku lub katalogu"
-
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:13
 msgid "_General"
 msgstr "_Ogólne"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Właściciel:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>G_rupa:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>W_yświetlanie zawartości:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>_Modyfikowanie zawartości:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>Uruchamiani_e:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>Specjalne:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "Określa kto może odczytywać zawartość pliku lub katalogu"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "Określa, kto może zmieniać zawartość pliku lub katalogu"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "Określa, kto może uruchamiać pliki lub przechodzić do katalogu"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "Specjalne uprawnienia uruchamiania plików"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "Specjalne uprawnienia dostępu do katalogów"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>Prawa dostępu</b>"
+
+#: ../data/ui/file-prop.glade.h:26
 msgid "_Permissions"
 msgstr "_Uprawnienia"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "Brak"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set GID"
+msgstr "SGID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "Sticky i SGID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set UID"
+msgstr "SUID"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set UID & GID"
+msgstr "SUID i SGID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner"
+msgstr "Tylko właściciel"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Only owner and group"
+msgstr "Tylko właściciel i grupa"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Anyone"
+msgstr "Wszyscy"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Nobody"
+msgstr "Nikt"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Bajty"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Wybór daty"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Proszę wybrać datę z poniższego kalendarza"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Wyszukiwanie plików"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Wzory _nazw plików:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "Uwzględnianie _wielkości liter"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "_Użycie wyrażeń regularnych"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>_Położenia do przeszukania:</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "Wyszukiwanie w p_odkatalogach"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Uwzględnianie _ukrytych plików"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "_Nazwa i położenie"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Typ pliku</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Wyszukiwanie tylko plików następujących typów:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Pliki te_kstowe"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "_Obrazy"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "Nagrania _dźwiękowe"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "Nagrania _wideo"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Dokumenty"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "_Typ pliku"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>_Zawartość pliku:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "Zawart_ość"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Rozmiar pliku</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "_Mniejszy niż:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "_Większy niż:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Czas ostatniej modyfikacji</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "Brak"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-#, fuzzy
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>_Zawartość pliku</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Rozmiar pliku</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Typ pliku</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-#, fuzzy
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Wzory _nazw plików</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Czas ostatniej modyfikacji</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-#, fuzzy
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Położenia do przeszukania</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Bajty"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "Zawart_ość"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "Uwzględnianie _wielkości liter"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Wybór daty"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Proszę wybrać datę z poniższego kalendarza"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "_Typ pliku"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "Póź_niejszy niż:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "_Nazwa i położenie"
-
-#: ../data/ui/filesearch.glade.h:20
-#, fuzzy
-msgid "Only search for files of following types:"
-msgstr "Wyszukiwanie tylko plików następujących typów"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Wyszukiwanie plików"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Uwzględnianie _ukrytych plików"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Pliki te_kstowe"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "Nagrania _dźwiękowe"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "_Większy niż:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "_Dokumenty"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "Wcz_eśniejszy niż:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "_Obrazy"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "Póź_niejszy niż:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "_Właściwości"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "Wyszukiwanie w p_odkatalogach"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "_Mniejszy niż:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "_Użycie wyrażeń regularnych"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "Nagrania _wideo"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>Program pocztowy</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Emulator terminala</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Przeglądarka internetowa</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Otwiera odnośniki za pomocą preferowanej przeglądarki internetowej."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Wiersz poleceń:"
+msgid "<b>Mail client</b>"
+msgstr "<b>Program pocztowy</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Skojarzenia plików"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Programy systemowe"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
@@ -465,36 +445,48 @@ msgstr ""
 "Używa preferowanego programu pocztowego do utworzenia wiadomości, po "
 "kliknięciu w odnośnik adresu e-mail."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Emulator terminala</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Wiersz poleceń:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Programy systemowe"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Otwiera odnośniki za pomocą preferowanej przeglądarki internetowej."
+msgid "File Associations"
+msgstr "Skojarzenia plików"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Przygotowywanie..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Bieżący plik:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>Postęp:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Wystąpiły błędy:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Pozostały czas:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Położenie docelowe:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Postęp:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Pozostały czas:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Przygotowywanie..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Wystąpiły błędy:</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -522,8 +514,9 @@ msgid "No default application is set for MIME type %s"
 msgstr ""
 
 #: ../src/base/fm-terminal.c:246
+#, fuzzy
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Nie ustalono emulatora terminala w "
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -535,7 +528,7 @@ msgstr[2] "%u bajtów"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -743,9 +736,8 @@ msgid "Files of different types"
 msgstr "Pliki różnych typów"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Typ:</b>"
+msgstr "<b>Plik:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -789,9 +781,8 @@ msgid "Folder"
 msgstr "Katalog"
 
 #: ../src/gtk/fm-folder-view.c:174
-#, fuzzy
 msgid "Empty File"
-msgstr "Uruchom plik"
+msgstr "Pusty plik"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -830,7 +821,7 @@ msgstr "_Nie grupowanie katalogów i plików"
 
 #: ../src/gtk/fm-folder-view.c:202
 msgid "_Ignore name case"
-msgstr "Nie uwzględnianie wielkości _liter w nazwach"
+msgstr "_Ignorowanie wielkości liter w nazwach"
 
 #: ../src/gtk/fm-folder-view.c:213
 msgid "By _Name"
@@ -854,17 +845,15 @@ msgstr "Proszę wprowadzić nazwę katalogu:"
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Tworzenie nowego katalogu"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Proszę wprowadzić nazwę pliku:"
+msgstr "Proszę wprowadzić nazwę pustego pliku:"
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "Utwórz nowy..."
+msgstr "Tworzenie..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
@@ -876,9 +865,9 @@ msgid "Enter a name for the new %s:"
 msgstr "Proszę wprowadzić nazwę pliku:"
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Tworzenie dowiązań"
+msgstr "Tworzenie %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
@@ -1117,29 +1106,29 @@ msgstr "Położenia"
 msgid "Directory Tree"
 msgstr "Drzewo katalogów"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:801
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr ""
 
@@ -1155,7 +1144,7 @@ msgstr "Określony katalog jest nieprawidłowy"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Nie można uzyskać dostępu do pliku docelowego"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
@@ -1188,33 +1177,33 @@ msgid "Setting target can be done only for single file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
+msgid "Empty <Name> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
+msgid "Tag <Not> should have exactly one child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
+msgid "Failed to insert tag <%s> from merging file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
+msgid "Invalid <MergeFile> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
+msgid "Invalid <MergeDir> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
@@ -1228,21 +1217,21 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
+msgid "Cannot find path %s in XML definitions"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
+msgid "Category manipulation internal error"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
+msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
+msgid "Menu path '%s' already exists"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
@@ -1253,25 +1242,25 @@ msgstr "Błąd pamięci podręcznej menu"
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1809 ../src/modules/vfs-search.c:918
 msgid "Operation not supported"
-msgstr "Opracja nie obsługiwana"
+msgstr "Nieobsługiwana operacja"
 
 #: ../src/modules/vfs-menu.c:2000
 msgid "Invalid menu directory"
 msgstr "Nieprawidłowy katalog menu"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
+#, fuzzy
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Nazwa elementu menu nie może być pusta"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Nieprawidłowy katalog menu"
+msgstr "Nieprawidłowy katalog menu %s"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Nieprawidłowy katalog menu"
+msgstr "Nieprawidłowy element menu"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
@@ -1313,7 +1302,7 @@ msgid "Cannot create menu item \"%s\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3226
@@ -1340,28 +1329,24 @@ msgid "Search"
 msgstr "Wyszukaj"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "Wyszukiwanie plików"
+msgstr "Wyniki wyszukiwania"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "Uruchom plik"
+msgstr "Pliki wykonywalne"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Położenie docelowe:</b>"
+msgstr "<b>_Polecenie:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Przeglądaj..."
+msgstr "P_rzeglądaj..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
@@ -1379,18 +1364,16 @@ msgid "_Keep terminal window open after run"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Położenie:</b>"
+msgstr "<b>_Opis:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Właściciel:</b>"
+msgstr "<b>Katalog _roboczy:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
@@ -1411,6 +1394,11 @@ msgstr "Wybór programu"
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
 msgstr ""
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+#, fuzzy
+msgid "_Desktop entry"
+msgstr "Pulpit"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
