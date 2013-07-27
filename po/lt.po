@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-27 14:28+0000\n"
+"PO-Revision-Date: 2013-07-27 16:46+0000\n"
 "Last-Translator: Algimantas <gymka@archlinux.lt>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374935323.0\n"
+"X-POOTLE-MTIME: 1374943603.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1201,7 +1201,7 @@ msgstr "iš sujungiamo failo nepavyko įterpti žymės <%s>"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "invalid <MergeFile> tag"
-msgstr "netinkama <MergeDir> žymė"
+msgstr "netinkama <MergeFile> žymė"
 
 #: ../src/modules/vfs-menu.c:370
 msgid "invalid <MergeDir> tag"
