@@ -155,12 +155,11 @@ libfm_gtk_SOURCES = \
 	$(NULL)
 
 if EXTRALIB_ONLY
-pkginclude_HEADERS =
+pkginclude_HEADERS = $(LIBFM_EXTRA_INCLUDES)
 else
 libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
-	fm-version.h \
 	base/fm-config.h \
 	base/fm-list.h \
 	base/fm-path.h \
@@ -228,18 +227,19 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
-libfmextraincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
-libfmextrainclude_HEADERS = \
-	fm-extra.h \
-	extra/fm-xml-file.h \
-	$(NULL)
-
 pkginclude_HEADERS = \
 	$(LIBFM_INCLUDES) \
 	$(LIBFM_EXTRA_INCLUDES) \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 endif
+
+libfmextraincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
+libfmextrainclude_HEADERS = \
+	fm-extra.h \
+	fm-version.h \
+	extra/fm-xml-file.h \
+	$(NULL)
 
 EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
 
@@ -489,7 +489,6 @@ CLEANFILES = \
 test:
 	cd tests && $(MAKE) $(AM_MAKEFLAGS) $@
 
-if !EXTRALIB_ONLY
 install-data-local:
 	@if test -e "$(DESTDIR)$(includedir)/@PACKAGE@"; then \
 		echo rm -rf "$(DESTDIR)$(includedir)/@PACKAGE@"; \
@@ -504,4 +503,3 @@ uninstall-local:
 		rm -f "$(DESTDIR)$(includedir)/@PACKAGE@"; \
 	fi
 	-rmdir "$(DESTDIR)$(libfmincludedir)"
-endif
