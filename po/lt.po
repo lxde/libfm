@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-04-02 08:17+0300\n"
-"Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
+"PO-Revision-Date: 2013-07-27 14:28+0000\n"
+"Last-Translator: Algimantas <gymka@archlinux.lt>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1374935323.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -116,24 +117,20 @@ msgid "with the following file?"
 msgstr "šiuo failu?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose Icon From:</b>"
-msgstr "<b>_Gali keisti turinį:</b>"
+msgstr "<b>Pasirinkti piktogramą iš:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Pasirinkite programą"
+msgstr "Pasirinkite piktogramą..."
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "_Paveikslėlių failai"
+msgstr "Paveikslėlių failai"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "System icon theme"
-msgstr "Sistemos programos"
+msgstr "Sistemos piktogramų tema"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -192,9 +189,8 @@ msgid "<b>Special bits:</b>"
 msgstr "<b>Specialūs bitai:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Paskirtis:</b>"
+msgstr "<b>Paskirties failas:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Total Size of Files:</b>"
@@ -553,7 +549,7 @@ msgstr "TiB"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Padaryti žymės <%s> valdiklio duplikatą"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -561,6 +557,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Nepavyko apdoroti „%-.*s“, kuris galėjo turėti skaičius simbolio aprašyme "
+"(pvz., &#234;) - gal skaičius per didelis"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -569,22 +567,27 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Simbolio aprašymas nepasibaigė kabliataškiu; greičiausiai Jūs panaudojote "
+"ampersendo simbolį nepradėdami elemento įvedimo - apeikite ampersendą "
+"įvesdami &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Simbolio aprašymas „%-.*s“ neatitinka leistinų simbolių"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Aptiktas tuščias elementas '&;'; galimi elementai yra: &amp; &quot; &lt; "
+"&gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Elemento vardas „%-.*s“ nežinomas"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -592,42 +595,44 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Elementas nepasibaigė kabliataškiu; greičiausiai Jūs panaudojote ampersendo "
+"simbolį nepradėdami elemento įvedimo - apeikite ampersendą įvesdami &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Uždarymo žymėje negali būti tarpo"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "Elementas „%s“ užvertas, bet joks elementas nebuvo atvertas"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "Elementas „%s“ buvo užvertas, bet šiuo metu yra atvertas „%s“"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Atributo reikšmės pradžioje aptiktas netinkamas simbolis „%c“"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Netinkamas simbolis atributo reikšmės pabaigoje „%c“, tikėtasi „%c“"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Dokumentas baigėsi netikėtai"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Dokumentas tuščias arba jame tik tarpai"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML duomenų klaida"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -738,9 +743,8 @@ msgid "Files of different types"
 msgstr "Skirtingų tipų failai"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Failo tipas:</b>"
+msgstr "<b>Failas:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -1109,24 +1113,24 @@ msgstr "Peržiūrėti aplanko turinį"
 #: ../src/gtk/fm-standard-view.c:764
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Slėpti %s"
 
 #: ../src/gtk/fm-standard-view.c:772
 msgid "_Move left"
-msgstr ""
+msgstr "Perkelti _kairėn"
 
 #: ../src/gtk/fm-standard-view.c:778
 msgid "Move _right"
-msgstr ""
+msgstr "Perkelti _dešinėn"
 
 #: ../src/gtk/fm-standard-view.c:801
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "Rodyti %s"
 
 #: ../src/gtk/fm-standard-view.c:813
 msgid "_Forget width"
-msgstr ""
+msgstr "_Pamiršti plotį"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1134,17 +1138,17 @@ msgstr "Pakeičia aktyvią kortelę"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Nurodytas aplankas yra netinkamas"
+msgstr "Nurodytas aplankas „%s“ yra netinkamas"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Neįmanoma pasiekti paskirties failo"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "neįmanoma sukurti nuorodos ne savoje failų sistemoje"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1165,70 +1169,71 @@ msgstr "Paskirtis yra šaltinio poaplankis"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Rodomą vardą galima nustatyti tik vienam failui"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Nustatyti paskirty galima tik vienam failui"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "empty <Name> tag"
-msgstr ""
+msgstr "tuščia <Name> žymė"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "tag <Not> should have exactly one children"
-msgstr ""
+msgstr "Žymė <Not> turėtų turėti tik vieną elementą"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
-msgstr ""
+msgstr "Žymė <Not> gali turėti tik <And>, <Or>, <Filename> ar <Category> žymę"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"sujungiant failą gali būti tik aukščiausio lygio <Menu> žymė, gauta <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "iš sujungiamo failo nepavyko įterpti žymės <%s>"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "invalid <MergeFile> tag"
-msgstr ""
+msgstr "netinkama <MergeDir> žymė"
 
 #: ../src/modules/vfs-menu.c:370
 msgid "invalid <MergeDir> tag"
-msgstr ""
+msgstr "netinkama <MergeDir> žymė"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "XML failo %s klaida (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML faile nėra „Applications root“"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
 msgid "cannot find path %s in XML definitions"
-msgstr ""
+msgstr "XML aprašymuose nepavyksta rasti kelio %s"
 
 #: ../src/modules/vfs-menu.c:923
 msgid "category manipulation internal error"
-msgstr ""
+msgstr "Vidinė kategorijų manipuliavimo klaida"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
 msgid "cannot create XML definition for '%s'"
-msgstr ""
+msgstr "nepavyko sukurti „%s“ XML aprašymo"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
 msgid "menu path '%s' already exists"
-msgstr ""
+msgstr "meniu kelias „%s“ jau yra"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1246,78 +1251,77 @@ msgstr "Netinkamas meniu aplankas"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Meniu elemento vardas negali būti tuščias"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Netinkamas meniu aplankas"
+msgstr "Netinkamas meniu aplankas %s"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Netinkamas meniu aplankas"
+msgstr "Netinkamas meniu elementas"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Meniu įrašas „%s“ neturi atitinkamo įrašo failo"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Meniu aplankui pakeisti slėpimo būseną negalima"
 
 #: ../src/modules/vfs-menu.c:2548
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute %s not supported"
-msgstr "Operacija nepalaikoma"
+msgstr "Atributo %s nustatymas nepalaikomas"
 
 #: ../src/modules/vfs-menu.c:2558
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute %s"
-msgstr "Netinkamas failo vardas %s"
+msgstr "Netinkama reikšmė atributui %s"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "Netinkamas meniu aplankas"
+msgstr "„%s“ yra meniu aplankas"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "„%s“ nėra meniu elementas"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "„%s“ neveikianti nuoroda"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "Nepavyko sukurti meniu įrašo „%s“"
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "meniu aplanko pavadinimas neturėtų baigtis „.desktop“"
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Netinkama operacija su meniu šakniniu aplanku"
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "Netinkamas failo vardas %s"
+msgstr "Netinkamas meniu elementas %s"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
-msgstr ""
+msgstr "Netinkama paskirtis"
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: aplankas %s nerastas meniu podėlyje"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1330,72 +1334,63 @@ msgstr "Paieškos rezultatai"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "Pasirinkite vykdomąjį failą"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "Vykdyti failą"
+msgstr "Vykdomieji failai"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Į:</b>"
+msgstr "<b>Ko_manda:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Naršyti"
+msgstr "_Naršyti..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Komanda kuri bus vykdoma aktyvavus programos piktogramą"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
 msgstr "_Vykdyti terminale"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
-#, fuzzy
 msgid "_Keep terminal window open after run"
 msgstr "_Įvykdžius komandą, palikti terminalo langą atvertą"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Vieta:</b>"
+msgstr "<b>_Aprašymas:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Pagrindinis programos pavadinimas"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>Paskirtis:</b>"
+msgstr "<b>Darbinis a_plankas:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Aplankas kuriame bus vykdoma programa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Į:</b>"
+msgstr "<b>_Patarimas:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Pasirinkite programą"
+msgstr "Patarimas rodomos programoje"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "_Naudoti pranešimą apie paleidimą"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
