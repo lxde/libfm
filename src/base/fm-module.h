@@ -42,7 +42,21 @@
 int module_##_type_##_version = __FM_DEFINE_VERSION__(_type_); \
 char module_name[] = #_name_;
 
-typedef gboolean (*FmModuleInitCallback)(const char *, gpointer, int);
+/**
+ * FmModuleInitCallback
+ * @key: the module name as key value for the type
+ * @init_data: module type specific initialization data
+ * @version: version of loaded module
+ *
+ * This API is used to make callback from the modules loader to the
+ * implementation which uses module so the implementation may do required
+ * checks and add module to own list of supported data.
+ *
+ * Returns: %TRUE if module was accepted by implementation.
+ *
+ * Since: 1.2.0
+ */
+typedef gboolean (*FmModuleInitCallback)(const char *key, gpointer init_data, int version);
 
 /**
  * FM_MODULE_DEFINE_TYPE

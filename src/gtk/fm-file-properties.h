@@ -58,6 +58,14 @@ typedef struct _FmFilePropertiesExtensionInit   FmFilePropertiesExtensionInit;
  * before and boolean value indicating if dialog was closed not by "OK"
  * button. Callback should free any resources allocated by @init callback
  * before.
+ *
+ * This structure is used for "gtk_file_prop" module initialization. The
+ * key for module of this type is content type (MIME name) to support.
+ * The value "*" has special meaning - the module will be used for file
+ * types where no other extension is applied. No wildcards are allowed
+ * otherwise.
+ *
+ * Since: 1.2.0
  */
 struct _FmFilePropertiesExtensionInit
 {

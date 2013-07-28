@@ -79,6 +79,12 @@ typedef struct _FmFileMenuMimeAddonInit FmFileMenuMimeAddonInit;
  *
  * The @update_file_menu_for_mime_type callback will be called each time
  * context menu is created for files that have the same context type.
+ *
+ * This structure is used for "gtk_menu_mime" module initialization. The
+ * key for module of this type is content type (MIME name) to support. No
+ * wildcards are supported.
+ *
+ * Since: 1.2.0
  */
 struct _FmFileMenuMimeAddonInit
 {

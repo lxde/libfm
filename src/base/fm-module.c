@@ -228,6 +228,22 @@ struct _FmModuleType
 static FmModuleType *modules_types = NULL;
 
 
+/**
+ * fm_module_register_type
+ * @type: module type, unique for the application
+ * @minver: minimum supported module version
+ * @maxver: maximum supported module version
+ * @cb: the callback used to inform about found module
+ *
+ * Registers @type into the modules loader. The modules loader will call
+ * @cb routine when module that supports the @type was found within the
+ * libfm modules directory. The scanning for modules will be done after
+ * some timeout after last call to fm_module_register_type() so this API
+ * should be used at application start before any possible modules usage
+ * may appear.
+ *
+ * Since: 1.2.0
+ */
 void fm_module_register_type(const char *type, int minver, int maxver,
                              FmModuleInitCallback cb)
 {
@@ -257,6 +273,18 @@ _finish:
     G_UNLOCK(idle_handler);
 }
 
+/**
+ * fm_module_unregister_type
+ * @type: module type, unique for the application
+ *
+ * Frees any resources that were allocated previously on the call to
+ * fm_module_register_type() API, including code of the modules. After
+ * this call any usage of data from callbacks will be invalid and the
+ * most possibly lead to crash so it might be called only on finalizing
+ * the application data.
+ *
+ * Since: 1.2.0
+ */
 void fm_module_unregister_type(const char *type)
 {
     FmModuleType *mtype, *last;
@@ -322,6 +350,14 @@ static gboolean _module_matches(const char *type, const char *name, const char *
     return _name_matches(type, mask, delimiter);
 }
 
+/**
+ * fm_modules_load
+ *
+ * Forces scanning the libfm modules for existing modules. Any calls to
+ * fm_module_register_type() after this will have no effect.
+ *
+ * Since: 1.2.0
+ */
 void fm_modules_load(void)
 {
     GDir *dir;

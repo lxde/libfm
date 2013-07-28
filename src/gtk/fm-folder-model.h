@@ -178,6 +178,11 @@ typedef struct _FmFolderModelColumnInit FmFolderModelColumnInit;
  * @get_type: function to get #GType of column data
  * @get_value: function to retrieve column data
  * @compare: sorting routine (%NULL if column isn't sortable)
+ *
+ * This structure is used for "gtk_folder_col" module initialization. The
+ * key for module of this type is new unique column name.
+ *
+ * Since: 1.2.0
  */
 struct _FmFolderModelColumnInit
 {

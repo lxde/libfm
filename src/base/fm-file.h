@@ -64,6 +64,9 @@ typedef struct _FmFileInitTable         FmFileInitTable;
  * @new_for_uri: function to create new #GFile object from URI
  *
  * Functions to initialize FmFile instance.
+ *
+ * This structure is used for "vfs" module initialization. The key for
+ * module of this type is scheme name to support.
  */
 struct _FmFileInitTable
 {

@@ -302,7 +302,6 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
         FmFolderModelCol id = column_infos_raw[i].id;
         column_infos[id] = &column_infos_raw[i];
     }
-    //fm_module_register_type("column", .......);
 
      /* GType value is actually generated at runtime by
       * calling _get_type() functions for every type.

@@ -265,6 +265,13 @@ typedef struct _FmContextMenuSchemeAddonInit FmContextMenuSchemeAddonInit;
  *
  * The @update_folder_menu callback will be called each time application
  * runs fm_folder_view_add_popup() on folder of the same scheme.
+ *
+ * This structure is used for "gtk_menu_scheme" module initialization.
+ * The key for module of this type is scheme name to support. It may be
+ * "*" if module should be called on any file. No wildcards is allowed
+ * otherwise.
+ *
+ * Since: 1.2.0
  */
 struct _FmContextMenuSchemeAddonInit
 {
