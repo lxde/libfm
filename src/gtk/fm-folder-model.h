@@ -159,6 +159,25 @@ gboolean fm_folder_model_get_sort(FmFolderModel* model, FmFolderModelCol *col, F
 
 /* void fm_folder_model_set_thumbnail_size(FmFolderModel* model, guint size); */
 
+/**
+ * FmFolderModelExtraFilePos:
+ * @FM_FOLDER_MODEL_ITEMPOS_SORTED: insert extra item into main sorted list
+ * @FM_FOLDER_MODEL_ITEMPOS_PRE: insert extra item before main list
+ * @FM_FOLDER_MODEL_ITEMPOS_POST: insert extra item after main list
+ *
+ * Where the fm_folder_model_extra_file_add() should insert extra file item.
+ */
+typedef enum
+{
+    FM_FOLDER_MODEL_ITEMPOS_SORTED = 0,
+    FM_FOLDER_MODEL_ITEMPOS_PRE,
+    FM_FOLDER_MODEL_ITEMPOS_POST
+} FmFolderModelExtraFilePos;
+
+gboolean fm_folder_model_extra_file_add(FmFolderModel* model, FmFileInfo* file,
+                                        FmFolderModelExtraFilePos where);
+gboolean fm_folder_model_extra_file_remove(FmFolderModel* model, FmFileInfo* file);
+
 /* APIs for FmFolderModelCol */
 
 const char* fm_folder_model_col_get_title(FmFolderModel* model, FmFolderModelCol col_id);

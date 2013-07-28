@@ -84,6 +84,8 @@ struct _FmFolderItem
     gboolean is_thumbnail : 1;
     gboolean thumbnail_loading : 1;
     gboolean thumbnail_failed : 1;
+    gboolean is_extra : 1;
+    FmFolderModelExtraFilePos pos : 3;
 };
 
 typedef struct _FmFolderModelFilterItem
@@ -355,6 +357,16 @@ static void fm_folder_model_dispose(GObject *object)
     FmFolderModel* model = FM_FOLDER_MODEL(object);
     if(model->folder)
         fm_folder_model_set_folder(model, NULL);
+    if(model->items)
+    {
+        g_sequence_free(model->items);
+        model->items = NULL;
+    }
+    if(model->hidden)
+    {
+        g_sequence_free(model->hidden);
+        model->hidden = NULL;
+    }
 
     if(model->theme_change_handler)
     {
@@ -503,13 +515,48 @@ FmPath* fm_folder_model_get_folder_path(FmFolderModel* model)
  * Changes folder which model handles. This call allows reusing the model
  * for different folder, in case, e.g. directory was changed.
  *
+ * Items added to @model with fm_folder_model_extra_file_add() are not
+ * affected by this API.
+ *
  * Since: 0.1.0
  */
 void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
 {
+    GSequence *new_items, *new_hidden;
+    GSequenceIter *item_it, *next_item_it;
+    FmFolderItem *item;
+
     if(model->folder == dir)
         return;
     /* g_debug("fm_folder_model_set_folder(%p, %p)", model, dir); */
+
+    new_items = g_sequence_new(fm_folder_item_free);
+    new_hidden = g_sequence_new(fm_folder_item_free);
+    /* keep extra items from removing */
+    if (model->items)
+    {
+        item_it = g_sequence_get_begin_iter(model->items);
+        while(!g_sequence_iter_is_end(item_it))
+        {
+            next_item_it = g_sequence_iter_next(item_it); /* next item */
+            item = (FmFolderItem*)g_sequence_get(item_it);
+            if(item->is_extra)
+                g_sequence_move(item_it, g_sequence_get_end_iter(new_items));
+            item_it = next_item_it;
+        }
+    }
+    if (model->hidden)
+    {
+        item_it = g_sequence_get_begin_iter(model->hidden);
+        while(!g_sequence_iter_is_end(item_it))
+        {
+            next_item_it = g_sequence_iter_next(item_it); /* next item */
+            item = (FmFolderItem*)g_sequence_get(item_it);
+            if(item->is_extra)
+                g_sequence_move(item_it, g_sequence_get_begin_iter(new_hidden));
+            item_it = next_item_it;
+        }
+    }
 
     /* free the old folder */
     if(model->folder)
@@ -545,10 +592,18 @@ void fm_folder_model_set_folder(FmFolderModel* model, FmFolder* dir)
         g_object_unref(model->folder);
         model->folder = NULL;
     }
+    model->items = new_items;
+    model->hidden = new_hidden;
+    /* recreate the hash for items that are in sequence still */
+    item_it = g_sequence_get_begin_iter(model->items);
+    while(!g_sequence_iter_is_end(item_it))
+    {
+        item = (FmFolderItem*)g_sequence_get(item_it);
+        g_hash_table_insert(model->items_hash, item->inf, item_it);
+        item_it = g_sequence_iter_next(item_it);
+    }
     if( !dir )
         return;
-    model->items = g_sequence_new(fm_folder_item_free);
-    model->hidden = g_sequence_new(fm_folder_item_free);
     model->folder = FM_FOLDER(g_object_ref(dir));
 
     g_signal_connect(model->folder, "files-added",
@@ -930,6 +985,35 @@ static gint fm_folder_model_compare(gconstpointer item1,
             return ret;
     }
 
+    /* do with extra items */
+    if (G_UNLIKELY(((FmFolderItem*)item1)->is_extra))
+        switch (((FmFolderItem*)item1)->pos)
+        {
+        case FM_FOLDER_MODEL_ITEMPOS_SORTED:
+            break; /* file1 is in sort sequence */
+        case FM_FOLDER_MODEL_ITEMPOS_PRE:
+            if (((FmFolderItem*)item2)->is_extra &&
+                ((FmFolderItem*)item2)->pos == FM_FOLDER_MODEL_ITEMPOS_PRE)
+                goto _main_sort; /* both are PRE */
+            return -1; /* file1 should be before file2 */
+        case FM_FOLDER_MODEL_ITEMPOS_POST:
+            if (((FmFolderItem*)item2)->is_extra &&
+                ((FmFolderItem*)item2)->pos == FM_FOLDER_MODEL_ITEMPOS_POST)
+                goto _main_sort; /* both are POST */
+            return 1; /* file1 should be after file2 */
+        }
+    if (G_UNLIKELY(((FmFolderItem*)item2)->is_extra))
+        switch (((FmFolderItem*)item2)->pos)
+        {
+        case FM_FOLDER_MODEL_ITEMPOS_SORTED:
+            break; /* file2 is in sort sequence */
+        case FM_FOLDER_MODEL_ITEMPOS_PRE:
+            return 1; /* case if both are PRE was handled above */
+        case FM_FOLDER_MODEL_ITEMPOS_POST:
+            return -1; /* case if both are POST was handled above */
+        }
+
+_main_sort:
     if(model->sort_col >= FM_FOLDER_MODEL_N_COLS &&
        model->sort_col < column_infos_n &&
        column_infos[model->sort_col]->compare)
@@ -1069,6 +1153,48 @@ void fm_folder_model_file_created(FmFolderModel* model, FmFileInfo* file)
     _fm_folder_model_insert_item(model->folder, new_item, model);
 }
 
+/**
+ * fm_folder_model_extra_file_add
+ * @model: the folder model instance
+ * @file: the file into
+ * @where: position where to put @file in folder model
+ *
+ * Adds @file into @model. Added file will stay at defined position after
+ * any folder change.
+ *
+ * See also: fm_folder_model_set_folder(), fm_folder_model_extra_file_remove().
+ *
+ * Returns: %FALSE if adding was failed.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_folder_model_extra_file_add(FmFolderModel* model, FmFileInfo* file,
+                                        FmFolderModelExtraFilePos where)
+{
+    FmFolderItem *item;
+
+    /* check visible items first */
+    if (g_hash_table_lookup(model->items_hash, file) != NULL)
+        return FALSE; /* it is already there! */
+    /* check hidden items as well */
+    if (!file_can_show(model, file)) /* if this is a hidden file */
+    {
+        GSequenceIter *seq_it = g_sequence_get_begin_iter(model->hidden);
+        while (!g_sequence_iter_is_end(seq_it))
+        {
+            item = (FmFolderItem*)g_sequence_get(seq_it);
+            if (item->inf == file) /* found! */
+                return FALSE;
+            seq_it = g_sequence_iter_next(seq_it);
+        }
+    }
+    item = fm_folder_item_new(file);
+    item->is_extra = TRUE;
+    item->pos = where;
+    _fm_folder_model_insert_item(model->folder, item, model);
+    return TRUE;
+}
+
 static inline GSequenceIter* info2iter(FmFolderModel* model, FmFileInfo* file)
 {
     return (GSequenceIter*)g_hash_table_lookup(model->items_hash, file);
@@ -1122,6 +1248,62 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
 }
 
 /**
+ * fm_folder_model_extra_file_remove
+ * @model: the folder model instance
+ * @file: the file into
+ *
+ * Removes @file from @model if @file was added to the model using
+ * fm_folder_model_extra_file_add().
+ *
+ * Returns: %FALSE if @file cannot be removed.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_folder_model_extra_file_remove(FmFolderModel* model, FmFileInfo* file)
+{
+    GSequenceIter *seq_it;
+    FmFolderItem *item = NULL;
+    GtkTreePath *path;
+    GtkTreeIter it;
+    gboolean is_hidden = FALSE;
+
+    /* check visible items */
+    seq_it = info2iter(model, file);
+    if (seq_it)
+        item = (FmFolderItem*)g_sequence_get(seq_it);
+    /* check hidden items */
+    else if (!file_can_show(model, file)) /* if this is a hidden file */
+    {
+        seq_it = g_sequence_get_begin_iter(model->hidden);
+        while (!g_sequence_iter_is_end(seq_it))
+        {
+            item = (FmFolderItem*)g_sequence_get(seq_it);
+            if (item->inf == file) /* found! */
+                break;
+            item = NULL; /* reset it again */
+            seq_it = g_sequence_iter_next(seq_it);
+        }
+        is_hidden = TRUE;
+    }
+    if (item == NULL) /* item not found */
+        return FALSE;
+    if (!item->is_extra) /* it wasn't added with fm_folder_model_extra_file_add */
+        return FALSE;
+    if (!is_hidden) /* it is visible, notify everyone we remove it */
+    {
+        path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(seq_it), -1);
+        it.stamp = model->stamp;
+        it.user_data = seq_it;
+        g_signal_emit(model, signals[ROW_DELETING], 0, path, &it, item->userdata);
+        gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), path);
+        gtk_tree_path_free(path);
+        g_hash_table_remove(model->items_hash, file);
+    }
+    g_sequence_remove(seq_it);
+    return TRUE;
+}
+
+/**
  * fm_folder_model_file_changed
  * @model: a folder model instance
  * @file: a file into
@@ -1161,8 +1343,34 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
     items_it = info2iter(model, file);
 
     if(!items_it)
-        /* FIXME: handle this: file was hidden and now is visible */
+    {
+        /* handle this: file was hidden and now is visible */
+        items_it = g_sequence_get_begin_iter(model->hidden);
+        while(!g_sequence_iter_is_end(items_it)) /* iterate over the hidden list */
+        {
+            item = (FmFolderItem*)g_sequence_get(items_it);
+            if (item->inf == file)
+            {
+                /* find a nice position in visible item list to insert the item */
+                GSequenceIter* insert_item_it = g_sequence_search(model->items, item,
+                                                        fm_folder_model_compare, model);
+                it.user_data  = items_it; /* setup the tree iterator */
+                /* move the item from hidden items to visible items list */
+                g_sequence_move(items_it, insert_item_it);
+                g_hash_table_insert(model->items_hash, file, items_it);
+
+                /* tell the world that we inserted it */
+                path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(items_it), -1);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), path, &it);
+                gtk_tree_path_free(path);
+                return;
+            }
+            items_it = g_sequence_iter_next(items_it);
+        }
+        /* FIXME: item found nowhere, show error or crash? */
         return;
+    }
+
     item = (FmFolderItem*)g_sequence_get(items_it);
 
     /* update the icon */

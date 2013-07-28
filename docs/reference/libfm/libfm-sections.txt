@@ -569,6 +569,7 @@ FmFolderModel
 FmFolderModelClass
 FmFolderModelCol
 FmFolderModelColumnInit
+FmFolderModelExtraFilePos
 FmFolderModelFilterFunc
 FM_MODULE_gtk_folder_col_VERSION
 fm_module_init_gtk_folder_col
@@ -580,6 +581,8 @@ fm_folder_model_col_get_name
 fm_folder_model_col_get_title
 fm_folder_model_col_is_sortable
 fm_folder_model_col_is_valid
+fm_folder_model_extra_file_add
+fm_folder_model_extra_file_remove
 fm_folder_model_file_changed
 fm_folder_model_file_created
 fm_folder_model_file_deleted
