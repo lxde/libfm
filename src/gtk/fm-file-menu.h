@@ -66,7 +66,7 @@ typedef void (*FmFileMenuUpdatePopup)(GtkWindow* window, GtkUIManager* ui,
                                       FmFileMenu* menu, FmFileInfoList* files,
                                       gboolean single_file);
 
-/* modules "gtkMenuMime" stuff */
+/* modules "gtk_menu_mime" stuff */
 typedef struct _FmFileMenuMimeAddonInit FmFileMenuMimeAddonInit;
 
 /**
@@ -87,9 +87,9 @@ struct _FmFileMenuMimeAddonInit
     FmFileMenuUpdatePopup update_file_menu_for_mime_type;
 };
 
-#define FM_MODULE_gtkMenuMime_VERSION 1
+#define FM_MODULE_gtk_menu_mime_VERSION 1
 
-extern FmFileMenuMimeAddonInit fm_module_init_gtkMenuMime;
+extern FmFileMenuMimeAddonInit fm_module_init_gtk_menu_mime;
 
 void _fm_file_menu_init(void);
 void _fm_file_menu_finalize(void);

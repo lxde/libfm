@@ -720,9 +720,9 @@ void fm_file_menu_set_folder_func(FmFileMenu* menu, FmLaunchFolderFunc func, gpo
 }
 
 /* modules support */
-FM_MODULE_DEFINE_TYPE(gtkMenuMime, FmFileMenuMimeAddonInit, 1)
+FM_MODULE_DEFINE_TYPE(gtk_menu_mime, FmFileMenuMimeAddonInit, 1)
 
-static gboolean fm_module_callback_gtkMenuMime(const char *name, gpointer init, int ver)
+static gboolean fm_module_callback_gtk_menu_mime(const char *name, gpointer init, int ver)
 {
     FmFileMenuMimeExt *ext = g_slice_new(FmFileMenuMimeExt);
     FmFileMenuMimeAddonInit *cb = init;
@@ -738,7 +738,7 @@ static gboolean fm_module_callback_gtkMenuMime(const char *name, gpointer init, 
 
 void _fm_file_menu_init(void)
 {
-    FM_MODULE_REGISTER_gtkMenuMime();
+    FM_MODULE_REGISTER_gtk_menu_mime();
 }
 
 void _fm_file_menu_finalize(void)
@@ -746,7 +746,7 @@ void _fm_file_menu_finalize(void)
     GList *list, *l;
     FmFileMenuMimeExt *ext;
 
-    fm_module_unregister_type("gtkMenuMime");
+    fm_module_unregister_type("gtk_menu_mime");
     list = extensions;
     extensions = NULL;
     for (l = list; l; l = l->next)

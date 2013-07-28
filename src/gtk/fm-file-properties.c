@@ -1460,9 +1460,9 @@ gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
 }
 
 /* modules support here */
-FM_MODULE_DEFINE_TYPE(gtkFileProp, FmFilePropertiesExtensionInit, 1)
+FM_MODULE_DEFINE_TYPE(gtk_file_prop, FmFilePropertiesExtensionInit, 1)
 
-static gboolean fm_module_callback_gtkFileProp(const char *name, gpointer init, int ver)
+static gboolean fm_module_callback_gtk_file_prop(const char *name, gpointer init, int ver)
 {
     /* we don't test version yet since there is only version 1 */
     return fm_file_properties_add_for_mime_type(name, init);
@@ -1470,11 +1470,11 @@ static gboolean fm_module_callback_gtkFileProp(const char *name, gpointer init, 
 
 void _fm_file_properties_init(void)
 {
-    FM_MODULE_REGISTER_gtkFileProp();
+    FM_MODULE_REGISTER_gtk_file_prop();
 }
 
 void _fm_file_properties_finalize(void)
 {
-    fm_module_unregister_type("gtkFileProp");
+    fm_module_unregister_type("gtk_file_prop");
     /* FIXME: free all extensions! */
 }

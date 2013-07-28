@@ -118,9 +118,9 @@ static void _update_folder_menu_for_trash(FmFolderView* fv, GtkWindow* window,
     }
 }
 
-FM_DEFINE_MODULE(gtkMenuScheme, trash)
+FM_DEFINE_MODULE(gtk_menu_scheme, trash)
 
-FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme = {
+FmContextMenuSchemeAddonInit fm_module_init_gtk_menu_scheme = {
     NULL,
     NULL,
     _update_file_menu_for_trash,

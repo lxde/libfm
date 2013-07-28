@@ -247,7 +247,7 @@ struct _FmFolderViewColumnInfo
 gboolean        fm_folder_view_set_columns(FmFolderView* fv, const GSList* cols);
 GSList*         fm_folder_view_get_columns(FmFolderView* fv);
 
-/* plugins "gtkMenuScheme" stuff */
+/* plugins "gtk_menu_scheme" stuff */
 typedef struct _FmContextMenuSchemeAddonInit FmContextMenuSchemeAddonInit;
 
 /**
@@ -276,9 +276,9 @@ struct _FmContextMenuSchemeAddonInit
     FmFolderViewUpdatePopup update_folder_menu;
 };
 
-#define FM_MODULE_gtkMenuScheme_VERSION 1
+#define FM_MODULE_gtk_menu_scheme_VERSION 1
 
-extern FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme;
+extern FmContextMenuSchemeAddonInit fm_module_init_gtk_menu_scheme;
 
 void _fm_folder_view_init(void);
 void _fm_folder_view_finalize(void);

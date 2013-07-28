@@ -1815,9 +1815,9 @@ void fm_folder_view_columns_changed(FmFolderView* fv)
 }
 
 /* modules support */
-FM_MODULE_DEFINE_TYPE(gtkMenuScheme, FmContextMenuSchemeAddonInit, 1)
+FM_MODULE_DEFINE_TYPE(gtk_menu_scheme, FmContextMenuSchemeAddonInit, 1)
 
-static gboolean fm_module_callback_gtkMenuScheme(const char *name, gpointer init, int ver)
+static gboolean fm_module_callback_gtk_menu_scheme(const char *name, gpointer init, int ver)
 {
     FmContextMenuSchemeExt *ext = g_slice_new(FmContextMenuSchemeExt);
     FmContextMenuSchemeAddonInit *cb = init;
@@ -1852,7 +1852,7 @@ static gboolean fm_module_callback_gtkMenuScheme(const char *name, gpointer init
 
 void _fm_folder_view_init(void)
 {
-    FM_MODULE_REGISTER_gtkMenuScheme();
+    FM_MODULE_REGISTER_gtk_menu_scheme();
 }
 
 void _fm_folder_view_finalize(void)
@@ -1860,7 +1860,7 @@ void _fm_folder_view_finalize(void)
     GList *list, *l;
     FmContextMenuSchemeExt *ext;
 
-    fm_module_unregister_type("gtkMenuScheme");
+    fm_module_unregister_type("gtk_menu_scheme");
     list = extensions;
     extensions = NULL;
     for (l = list; l; l = l->next)

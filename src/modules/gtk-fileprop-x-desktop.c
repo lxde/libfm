@@ -431,9 +431,9 @@ static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
     g_slice_free(FmFilePropertiesDEntryData, data);
 }
 
-FM_DEFINE_MODULE(gtkFileProp, application/x-desktop)
+FM_DEFINE_MODULE(gtk_file_prop, application/x-desktop)
 
-FmFilePropertiesExtensionInit fm_module_init_gtkFileProp = {
+FmFilePropertiesExtensionInit fm_module_init_gtk_file_prop = {
     &_dentry_ui_init,
     &_dentry_ui_finish
 };

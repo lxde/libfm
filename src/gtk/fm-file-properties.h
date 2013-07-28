@@ -69,8 +69,8 @@ gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
                                               FmFilePropertiesExtensionInit *callbacks);
 
 /* modules support */
-#define FM_MODULE_gtkFileProp_VERSION 1
-extern FmFilePropertiesExtensionInit fm_module_init_gtkFileProp;
+#define FM_MODULE_gtk_file_prop_VERSION 1
+extern FmFilePropertiesExtensionInit fm_module_init_gtk_file_prop;
 
 void _fm_file_properties_init(void);
 void _fm_file_properties_finalize(void);

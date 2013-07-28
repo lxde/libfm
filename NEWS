@@ -202,10 +202,10 @@ Changes on 1.2.0 since 1.1.0:
 
 * Created interfaces for loadable modules:
     - vfs (virtual file system)
-    - gtkFileProp (GTK file properties dialog extension)
-    - gtkFolderCol (FmFolderModel custom column)
-    - gtkMenuScheme (GTK context menu extension for URI scheme)
-    - gtkMenuMime (GTK context menu extension for file MIME type)
+    - gtk_file_prop (GTK file properties dialog extension)
+    - gtk_folder_col (FmFolderModel custom column)
+    - gtk_menu_scheme (GTK context menu extension for URI scheme)
+    - gtk_menu_mime (GTK context menu extension for file MIME type)
 
 * Moved all VFS into loadable modules.
 

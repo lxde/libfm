@@ -139,9 +139,9 @@ _fm_actions_update_folder_menu_for_scheme(FmFolderView* fv, GtkWindow* window,
 }
 
 /* we catch all schemes to be available on every one */
-FM_DEFINE_MODULE(gtkMenuScheme, *)
+FM_DEFINE_MODULE(gtk_menu_scheme, *)
 
-FmContextMenuSchemeAddonInit fm_module_init_gtkMenuScheme = {
+FmContextMenuSchemeAddonInit fm_module_init_gtk_menu_scheme = {
     .init = NULL,
     .finalize = NULL,
     _fm_actions_update_file_menu_for_scheme,

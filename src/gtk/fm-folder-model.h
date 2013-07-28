@@ -191,8 +191,8 @@ struct _FmFolderModelColumnInit
 FmFolderModelCol fm_folder_model_add_custom_column(const char* name, FmFolderModelColumnInit* init);
 
 /* modules */
-#define FM_MODULE_gtkFolderCol_VERSION 1
-extern FmFolderModelColumnInit fm_module_init_gtkFolderCol;
+#define FM_MODULE_gtk_folder_col_VERSION 1
+extern FmFolderModelColumnInit fm_module_init_gtk_folder_col;
 
 void _fm_folder_model_init(void);
 void _fm_folder_model_finalize(void);

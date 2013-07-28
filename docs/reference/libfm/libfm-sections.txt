@@ -438,7 +438,7 @@ fm_launch_paths
 
 <SECTION>
 <FILE>fm-file-menu</FILE>
-FM_MODULE_gtkMenuMime_VERSION
+FM_MODULE_gtk_menu_mime_VERSION
 FmFileMenu
 FmFileMenuMimeAddonInit
 FmFileMenuUpdatePopup
@@ -451,7 +451,7 @@ fm_file_menu_is_single_file_type
 fm_file_menu_new_for_file
 fm_file_menu_new_for_files
 fm_file_menu_set_folder_func
-fm_module_init_gtkMenuMime
+fm_module_init_gtk_menu_mime
 </SECTION>
 
 <SECTION>
@@ -501,8 +501,8 @@ fm_file_ops_job_get_type
 
 <SECTION>
 <FILE>fm-file-properties</FILE>
-FM_MODULE_gtkFileProp_VERSION
-fm_module_init_gtkFileProp
+FM_MODULE_gtk_file_prop_VERSION
+fm_module_init_gtk_file_prop
 FmFilePropertiesExtensionInit
 fm_file_properties_add_for_mime_type
 fm_file_properties_widget_new
@@ -570,8 +570,8 @@ FmFolderModelClass
 FmFolderModelCol
 FmFolderModelColumnInit
 FmFolderModelFilterFunc
-FM_MODULE_gtkFolderCol_VERSION
-fm_module_init_gtkFolderCol
+FM_MODULE_gtk_folder_col_VERSION
+fm_module_init_gtk_folder_col
 fm_folder_model_add_custom_column
 fm_folder_model_add_filter
 fm_folder_model_apply_filters
@@ -624,7 +624,7 @@ FmFolderModelViewCol
 <SECTION>
 <FILE>fm-folder-view</FILE>
 <TITLE>FmFolderView</TITLE>
-FM_MODULE_gtkMenuScheme_VERSION
+FM_MODULE_gtk_menu_scheme_VERSION
 FmContextMenuSchemeAddonInit
 FmFolderView
 FmFolderViewClickType
@@ -663,7 +663,7 @@ fm_folder_view_set_selection_mode
 fm_folder_view_set_show_hidden
 fm_folder_view_sort
 fm_folder_view_unselect_all
-fm_module_init_gtkMenuScheme
+fm_module_init_gtk_menu_scheme
 <SUBSECTION Standard>
 FM_FOLDER_VIEW
 FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID
