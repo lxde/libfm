@@ -37,7 +37,7 @@
  * - FM_MODULE_dummy_VERSION
  * - fm_module_init_dummy
  * - fm_module_callback_dummy
- * - FM_MODULE_REGISTER_dummy
+ * - fm_module_register_dummy
  *
  * To use modules application should make few things. Let say, there is
  * some FmDummyWidget which wants to use "dummy" type of modules. First
@@ -95,7 +95,7 @@
  * application start, the same way as application calls fm_init() on the
  * start:
  * |[
- *     FM_MODULE_REGISTER_dummy();
+ *     fm_module_register_dummy();
  * ]|
  * On application terminate it is adviced to unregister module type by
  * calling API fm_module_unregister_type() the same way as application

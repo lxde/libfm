@@ -56,7 +56,7 @@ typedef gboolean (*FmModuleInitCallback)(const char *, gpointer, int);
 #define FM_MODULE_DEFINE_TYPE(_type_, _struct_, _minver_) \
 static gboolean fm_module_callback_##_type_(const char *, gpointer, int ver); \
 \
-static inline void FM_MODULE_REGISTER_##_type_ (void) { \
+static inline void fm_module_register_##_type_ (void) { \
     fm_module_register_type(#_type_, \
                             _minver_, __FM_DEFINE_VERSION__(_type_), \
                             fm_module_callback_##_type_); \

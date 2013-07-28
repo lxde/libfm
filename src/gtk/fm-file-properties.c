@@ -1470,7 +1470,7 @@ static gboolean fm_module_callback_gtk_file_prop(const char *name, gpointer init
 
 void _fm_file_properties_init(void)
 {
-    FM_MODULE_REGISTER_gtk_file_prop();
+    fm_module_register_gtk_file_prop();
 }
 
 void _fm_file_properties_finalize(void)

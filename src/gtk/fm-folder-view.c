@@ -1852,7 +1852,7 @@ static gboolean fm_module_callback_gtk_menu_scheme(const char *name, gpointer in
 
 void _fm_folder_view_init(void)
 {
-    FM_MODULE_REGISTER_gtk_menu_scheme();
+    fm_module_register_gtk_menu_scheme();
 }
 
 void _fm_folder_view_finalize(void)

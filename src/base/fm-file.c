@@ -187,7 +187,7 @@ static gboolean fm_module_callback_vfs(const char *name, gpointer init, int ver)
 void _fm_file_init(void)
 {
     schemes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-    FM_MODULE_REGISTER_vfs();
+    fm_module_register_vfs();
 }
 
 void _fm_file_finalize(void)

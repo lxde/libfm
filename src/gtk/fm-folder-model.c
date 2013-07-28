@@ -1985,7 +1985,7 @@ static gboolean fm_module_callback_gtk_folder_col(const char *name, gpointer ini
 
 void _fm_folder_model_init(void)
 {
-    FM_MODULE_REGISTER_gtk_folder_col();
+    fm_module_register_gtk_folder_col();
 }
 
 void _fm_folder_model_finalize(void)

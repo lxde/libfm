@@ -738,7 +738,7 @@ static gboolean fm_module_callback_gtk_menu_mime(const char *name, gpointer init
 
 void _fm_file_menu_init(void)
 {
-    FM_MODULE_REGISTER_gtk_menu_mime();
+    fm_module_register_gtk_menu_mime();
 }
 
 void _fm_file_menu_finalize(void)
