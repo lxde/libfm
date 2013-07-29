@@ -60,6 +60,7 @@
  *        'Compress' if there is archiver defined;
  *  
  *        'Extract' if this is an archive
+ * - MoveCategory: 'Hide' or 'Unhide' if the attribute is changeable.
  *
  * Element 'AddBookmark' is visible only if menu is created for one directory.
  * Element 'Rename' is hidden if menu is created for more than one file or
@@ -107,6 +108,8 @@ static void on_cut(GtkAction* action, gpointer user_data);
 static void on_copy(GtkAction* action, gpointer user_data);
 static void on_paste(GtkAction* action, gpointer user_data);
 static void on_delete(GtkAction* action, gpointer user_data);
+static void on_hide(GtkAction* action, FmFileMenu* menu);
+static void on_unhide(GtkAction* action, FmFileMenu* menu);
 static void on_add_bookmark(GtkAction* action, FmFileMenu* menu);
 static void on_rename(GtkAction* action, gpointer user_data);
 static void on_compress(GtkAction* action, gpointer user_data);
@@ -147,6 +150,8 @@ GtkActionEntry base_menu_actions[]=
     {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
+    {"Hide", NULL, N_("H_ide"), NULL, NULL, G_CALLBACK(on_hide)},
+    {"Unhide", NULL, N_("Unh_ide"), NULL, NULL, G_CALLBACK(on_unhide)},
     {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
     {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
     {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
@@ -351,6 +356,15 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         g_string_append(xml, "<menuitem action='OpenWith'/>");
     }
     g_string_append(xml, "</placeholder></popup>");
+    if (items_num == 1 && fm_file_info_can_set_hidden(fi))
+    {
+        g_string_append(xml, "<popup><placeholder name='MoveCategory'>");
+        if (fm_file_info_is_hidden(fi))
+            g_string_append(xml, "<menuitem action='Unhide'/>");
+        else
+            g_string_append(xml, "<menuitem action='Hide'/>");
+        g_string_append(xml, "</placeholder></popup>");
+    }
     if (data->same_type)
     {
         CHECK_MODULES();
@@ -608,6 +622,20 @@ static void on_delete(GtkAction* action, gpointer user_data)
     else
         fm_trash_or_delete_files(window, files);
     fm_path_list_unref(files);
+}
+
+static void on_hide(GtkAction* action, FmFileMenu* menu)
+{
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(menu->menu));
+    FmFileInfo *fi = fm_file_info_list_peek_head(menu->file_infos);
+    fm_hide_file(window, fm_file_info_get_path(fi));
+}
+
+static void on_unhide(GtkAction* action, FmFileMenu* menu)
+{
+    GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(menu->menu));
+    FmFileInfo *fi = fm_file_info_list_peek_head(menu->file_infos);
+    fm_unhide_file(window, fm_file_info_get_path(fi));
 }
 
 static void on_add_bookmark(GtkAction* action, FmFileMenu* menu)
