@@ -47,6 +47,7 @@ struct _FmFilePropertiesDEntryData
     GtkToggleButton *notification;
     gchar *lang;
     gchar *saved_name;
+    gboolean was_hidden;
     gboolean changed;
 };
 
@@ -165,7 +166,7 @@ static void _dentry_hidden_toggled(GtkToggleButton *togglebutton,
                                    FmFilePropertiesDEntryData *data)
 {
     /* g_debug("no display toggled"); */
-    g_key_file_set_boolean(data->kf, GRP_NAME, "NoDisplay",
+    g_key_file_set_boolean(data->kf, GRP_NAME, "Hidden",
                            gtk_toggle_button_get_active(togglebutton));
     data->changed = TRUE;
 }
@@ -178,6 +179,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     GtkTable *table;
     GtkLabel *label;
     GError *err = NULL;
+    FmFileInfo *fi;
     GFile *gf;
     gchar *txt;
     gsize length;
@@ -196,7 +198,8 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     /* we will do the thing only for single file! */
     if (fm_file_info_list_get_length(files) != 1)
         return NULL;
-    gf = fm_path_to_gfile(fm_file_info_get_path(fm_file_info_list_peek_head(files)));
+    fi = fm_file_info_list_peek_head(files);
+    gf = fm_path_to_gfile(fm_file_info_get_path(fi));
     if (!g_file_load_contents(gf, NULL, &txt, &length, NULL, NULL))
     {
         g_warning("file properties dialog: cannot access desktop entry file");
@@ -241,19 +244,15 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     /* support 'hidden' option */
     data->hidden = NULL;
     widget = gtk_builder_get_object(ui, "hidden");
-    if (widget && GTK_IS_TOGGLE_BUTTON(widget))
+    if (widget && GTK_IS_TOGGLE_BUTTON(widget) && fm_file_info_is_native(fi))
     {
         data->hidden = (GtkToggleButton*)widget;
-        tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "NoDisplay", &err);
-        if (err) /* no such key present */
-        {
-            tmp_bool = FALSE;
-            g_clear_error(&err);
-        }
-        gtk_toggle_button_set_active(data->hidden, tmp_bool);
+        data->was_hidden = fm_file_info_is_hidden(fi);
         g_signal_connect(widget, "toggled", G_CALLBACK(_dentry_hidden_toggled), data);
+        gtk_widget_set_can_focus(GTK_WIDGET(data->hidden), TRUE);
         /* set sensitive since it can be toggled for desktop entry */
         gtk_widget_set_sensitive(GTK_WIDGET(widget), TRUE);
+        gtk_widget_show(GTK_WIDGET(data->hidden));
     }
 #undef HIDE_WIDGET
     /* FIXME: migrate to GtkGrid */
@@ -426,6 +425,14 @@ static void _dentry_ui_finish(gpointer pdata, gboolean cancelled)
     g_signal_handlers_disconnect_by_func(data->name, _dentry_name_changed, data);
     /* restore the field so properties dialog will not do own processing */
     gtk_entry_set_text(data->name, data->saved_name);
+    if (data->hidden)
+    {
+        /* disable own handler on data->hidden */
+        g_signal_handlers_disconnect_by_func(data->hidden,
+                                             _dentry_hidden_toggled, data);
+        /* disable default handler returning previous value */
+        gtk_toggle_button_set_active(data->hidden, data->was_hidden);
+    }
     g_free(data->saved_name);
     g_free(data->lang);
     g_slice_free(FmFilePropertiesDEntryData, data);

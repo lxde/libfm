@@ -56,6 +56,7 @@
  * - GtkComboBox (id exec_perm) : label: "Execute", id exec_label
  * - GtkComboBox (id flags_set_file) : label: "Special bits", id flags_label
  * - GtkComboBox (id flags_set_dir) : share the place with flags_set_file
+ * - GtkCheckButton (id hidden) "Hidden file"
  *
  * Tab 3: id extra_tab (hidden), empty, label: id extra_tab_label
  *
@@ -188,6 +189,7 @@ struct _FmFilePropData
     GtkComboBox* flags_set_file;
     GtkComboBox* flags_set_dir;
     int flags_set_sel;
+    GtkWidget *hidden;
 
     FmFileInfoList* files;
     FmFileInfo* fi;
@@ -798,6 +800,14 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
         }
+        if(data->hidden != NULL && gtk_widget_get_visible(data->hidden))
+        {
+            gboolean new_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->hidden));
+            if(new_hidden != fm_file_info_is_hidden(fm_file_info_list_peek_head(data->files)))
+            {
+                ; /* FIXME: change hidden attribute of file */
+            }
+        }
       } /* end of permissions update */
 
         /* call the extension if it was set */
@@ -905,6 +915,35 @@ static void update_permissions(FmFilePropData* data)
     {
         gtk_widget_hide(data->permissions_tab);
         return;
+    }
+    if(data->hidden == NULL)
+        ;
+    else if(data->single_file)
+    {
+        if(fm_file_info_can_set_hidden(fi))
+        {
+            gtk_widget_set_can_focus(data->hidden, TRUE);
+            gtk_widget_set_sensitive(data->hidden, TRUE);
+            gtk_widget_set_tooltip_text(data->hidden, _("Hide or unhide the file"));
+        }
+        /* FIXME: use markup for bold text? */
+        else if(fm_file_info_is_hidden(fi))
+            gtk_widget_set_tooltip_text(data->hidden,
+                                        _("This file is hidden because its "
+                                          "name starts with a dot ('.')."));
+        else
+            gtk_widget_set_tooltip_text(data->hidden,
+                                        _("Files on this system are hidden "
+                                          "if their name starts with a dot "
+                                          "('.'). Hit <Ctrl+H> to toggle "
+                                          "displaying hidden files."));
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->hidden),
+                                     fm_file_info_is_hidden(fi));
+        gtk_widget_show(data->hidden);
+        /* NOTE: for files in menu:// we have it not available still just
+           because permissions tab is hidden for those files. That should
+           stay this way because for all other .desktop files it should be
+           'Hidden' key changed but for menu:// 'NoDisplay' is the key */
     }
     for(l=fm_file_info_list_peek_head_link(data->files)->next; l; l=l->next)
     {
@@ -1367,6 +1406,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_LABEL,flags_label);
     GET_WIDGET(GTK_COMBO_BOX,flags_set_file);
     GET_WIDGET(GTK_COMBO_BOX,flags_set_dir);
+    GET_WIDGET(GTK_WIDGET,hidden);
 
     init_application_list(data);
 
