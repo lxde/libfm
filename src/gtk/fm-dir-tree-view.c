@@ -1,7 +1,7 @@
 //      fm-dir-tree-view.c
 //
 //      Copyright 2011 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+//      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
+#include "fm-file-menu.h"
 #include "../gtk-compat.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -119,6 +120,37 @@ static void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeV
         gtk_tree_view_expand_row(tree_view, path, FALSE);
 }
 
+static void fm_dir_tree_view_item_popup(GtkWidget *widget, GtkTreeModel *model,
+                                        GtkTreeIter *it, guint32 time)
+{
+    FmFileInfo *file = fm_dir_tree_row_get_file_info(FM_DIR_TREE_MODEL(model), it);
+    FmFileInfoList *file_list = fm_file_info_list_new();
+    FmFileMenu *menu;
+    GtkUIManager *ui;
+    GtkAction *act;
+    GtkWidget *win = gtk_widget_get_toplevel(widget);
+
+    if (!gtk_widget_is_toplevel(win)) /* no parent window! is it possible? */
+        return;
+    file = fm_dir_tree_row_get_file_info(FM_DIR_TREE_MODEL(model), it);
+    file_list = fm_file_info_list_new();
+    fm_file_info_list_push_tail(file_list, file);
+    /* use FmFileMenu here, just without extensions and disable all
+       Open/Cut/Copy/Del stuff */
+    menu = fm_file_menu_new_for_files(GTK_WINDOW(win), file_list, NULL, TRUE);
+    fm_file_info_list_unref(file_list);
+    ui = fm_file_menu_get_ui(menu);
+    act = gtk_ui_manager_get_action(ui, "/popup/Open");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Cut");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Copy");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Del");
+    gtk_action_set_visible(act, FALSE);
+    gtk_menu_popup(fm_file_menu_get_menu(menu), NULL, NULL, NULL, NULL, 3, time);
+}
+
 static gboolean on_key_press_event(GtkWidget* widget, GdkEventKey* evt)
 {
     GtkTreeView* tree_view = GTK_TREE_VIEW(widget);
@@ -126,6 +158,7 @@ static gboolean on_key_press_event(GtkWidget* widget, GdkEventKey* evt)
     GtkTreeModel* model;
     GtkTreeIter it;
     GtkTreePath* tp;
+//    int modifier = (evt->state & gtk_accelerator_get_default_mod_mask());
 
     switch(evt->keyval)
     {
@@ -155,8 +188,51 @@ static gboolean on_key_press_event(GtkWidget* widget, GdkEventKey* evt)
             gtk_tree_path_free(tp);
         }
         break;
+#if 0
+    /* if we support Menu key then we should also position the menu right at item */
+    case GDK_KEY_Menu:
+        if (modifier)
+            break;
+        tree_sel = gtk_tree_view_get_selection(tree_view);
+        if(gtk_tree_selection_get_selected(tree_sel, &model, &it))
+            fm_dir_tree_view_item_popup(widget, model, &it, evt->time);
+        break;
+    case GDK_KEY_F10:
+        if (modifier != GDK_SHIFT_MASK)
+            break;
+        tree_sel = gtk_tree_view_get_selection(tree_view);
+        if(gtk_tree_selection_get_selected(tree_sel, &model, &it))
+            fm_dir_tree_view_item_popup(widget, model, &it, evt->time);
+        break;
+#endif
     }
     return GTK_WIDGET_CLASS(fm_dir_tree_view_parent_class)->key_press_event(widget, evt);
+}
+
+static gboolean on_button_press_event(GtkWidget* widget, GdkEventButton* evt)
+{
+    GtkTreeView *tree_view = GTK_TREE_VIEW(widget);
+    GtkTreeModel *model;
+    GtkTreePath *path;
+    GtkTreeIter it;
+
+    if (evt->button == 3) /* we handle only right-click here */
+    {
+        /* Get tree path for row that was clicked */
+        if (gtk_tree_view_get_path_at_pos(tree_view, (gint)evt->x, (gint)evt->y,
+                                          &path, NULL, NULL, NULL))
+        {
+            model = gtk_tree_view_get_model(tree_view);
+            if (model && gtk_tree_model_get_iter(model, &it, path))
+            {
+                /* FIXME: may it be not a directory item? */
+                fm_dir_tree_view_item_popup(widget, model, &it, evt->time);
+            }
+            gtk_tree_path_free(path);
+            return TRUE;
+        }
+    }
+    return GTK_WIDGET_CLASS(fm_dir_tree_view_parent_class)->button_press_event(widget, evt);
 }
 
 static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
@@ -218,7 +294,7 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
     /* use finalize from parent class */
 
     widget_class->key_press_event = on_key_press_event;
-    // widget_class->button_press_event = on_button_press_event;
+    widget_class->button_press_event = on_button_press_event;
     widget_class->drag_motion = on_drag_motion;
     widget_class->drag_data_received = on_drag_data_received;
 
