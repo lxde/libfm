@@ -126,11 +126,6 @@ const char base_menu_xml[]=
   "<separator/>"
   "<menuitem action='AddBookmark'/>"
   "<menuitem action='Rename'/>"
-/* TODO: implement symlink creation and "send to".
-  "<menuitem action='Link'/>"
-  "<menu action='SendTo'>"
-  "</menu>"
-*/
   "<separator/>"
   "<placeholder name='ph3'/>"
   "<separator/>"
@@ -149,8 +144,6 @@ GtkActionEntry base_menu_actions[]=
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
     {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
     {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
-    {"Link", NULL, N_("Create _Symlink"), NULL, NULL, NULL},
-    {"SendTo", NULL, N_("Se_nd To"), NULL, NULL, NULL},
     {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
     {"Extract", NULL, N_("Extract _Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
     {"ExtractTo", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
