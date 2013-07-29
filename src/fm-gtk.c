@@ -30,6 +30,8 @@
 
 #include "fm-gtk.h"
 
+static volatile gint gtk_initialized = 0;
+
 // temporary definition, until FmModule is implemented
 void _fm_dentry_properties_init(void);
 
@@ -38,7 +40,7 @@ void _fm_dentry_properties_init(void);
  * @config: configuration file data
  *
  * Initializes libfm-gtk data. This API should be always called before any
- * other libfm-gtk function is called.
+ * other libfm-gtk function is called. It is idempotent.
  *
  * Returns: %TRUE in case of success.
  *
@@ -46,7 +48,8 @@ void _fm_dentry_properties_init(void);
  */
 gboolean fm_gtk_init(FmConfig* config)
 {
-    if( G_UNLIKELY(!fm_init(config)) )
+    if (g_atomic_int_exchange_and_add(&gtk_initialized, 1) != 0 ||
+        G_UNLIKELY(!fm_init(config)))
         return FALSE;
 
     _fm_icon_pixbuf_init();
@@ -64,10 +67,16 @@ gboolean fm_gtk_init(FmConfig* config)
  *
  * Frees libfm data.
  *
+ * This API should be called exactly that many times the fm_gtk_init()
+ * was called before.
+ *
  * Since: 0.1.0
  */
 void fm_gtk_finalize(void)
 {
+    if (!g_atomic_int_dec_and_test(&gtk_initialized))
+        return;
+
     _fm_icon_pixbuf_finalize();
     _fm_thumbnail_finalize();
     _fm_file_properties_finalize();

@@ -241,6 +241,12 @@ Changes on 1.2.0 since 1.1.0:
     the number but text. Therefore if that list will be ever changed then
     it will be still accepted by libfm right way.
 
+* Added support for 'hidden' file attribute into file context menu and
+    file properties dialog.
+
+* Added options 'SortIgnoreCase' and 'MingleDirs' into folder context
+    menu.
+
 
 Changes on 1.1.0 since 1.0.1:
 
