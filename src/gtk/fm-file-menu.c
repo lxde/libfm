@@ -2,6 +2,7 @@
  *      fm-file-menu.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -31,17 +32,19 @@
  * The menu consists of items:
  * |[
  * Open
- * ------------------------
  * &lt;placeholder name='ph1'/&gt;
  * ------------------------
  * &lt;placeholder name='ph2'/&gt;
+ * ------------------------
+ * AddBookmark
+ * &lt;placeholder name='SendToCategory'/&gt;
  * ------------------------
  * Cut
  * Copy
  * Paste
  * Del
+ * &lt;placeholder name='MoveCategory'/&gt;
  * ------------------------
- * AddBookmark
  * Rename
  * ------------------------
  * &lt;placeholder name='ph3'/&gt;
@@ -52,17 +55,17 @@
  * the menu constructor also puts some conditional elements into those
  * placeholders:
  * - ph2: 'OpenWith' list+selector (optionally in submenu 'OpenWithMenu');
- * - ph3: custom (user defined) menu elements
+ * - SendToCategory: elements of category 'Send To':
  *  
  *        'Compress' if there is archiver defined;
  *  
  *        'Extract' if this is an archive
  *
  * Element 'AddBookmark' is visible only if menu is created for one directory.
- * Element 'Rename' is hidden if menu is created for more than one file.
- *
- * Elements 'Cut', 'Copy', 'Paste', and 'Del' are hidden for any virtual
- * place but trash can.
+ * Element 'Rename' is hidden if menu is created for more than one file or
+ * if that file cannot be renamed.
+ * Element 'Paste' is visible only if menu is created for one directory
+ * and that directory is writable.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -114,17 +117,19 @@ static void on_prop(GtkAction* action, gpointer user_data);
 const char base_menu_xml[]=
 "<popup>"
   "<menuitem action='Open'/>"
-  "<separator/>"
   "<placeholder name='ph1'/>"
   "<separator/>"
   "<placeholder name='ph2'/>"
+  "<separator/>"
+  "<menuitem action='AddBookmark'/>"
+  "<placeholder name='SendToCategory'/>"
   "<separator/>"
   "<menuitem action='Cut'/>"
   "<menuitem action='Copy'/>"
   "<menuitem action='Paste'/>"
   "<menuitem action='Del'/>"
+  "<placeholder name='MoveCategory'/>"
   "<separator/>"
-  "<menuitem action='AddBookmark'/>"
   "<menuitem action='Rename'/>"
   "<separator/>"
   "<placeholder name='ph3'/>"
@@ -367,7 +372,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         FmArchiver* archiver = fm_archiver_get_default();
         if(archiver)
         {
-            g_string_append(xml, "<popup><placeholder name='ph3'>");
+            g_string_append(xml, "<popup><placeholder name='SendToCategory'>");
             for (l = mime_types; l; l = l->next)
                 if (!fm_archiver_is_mime_type_supported(archiver, fm_mime_type_get_type(l->data)))
                     break;
