@@ -199,7 +199,6 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
     g_return_val_if_fail(fi && fi->path, FALSE);
     if(lstat(path, &st) == 0)
     {
-        dname = NULL;
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
         fi->atime = st.st_atime;
@@ -214,6 +213,13 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
             stat(path, &st);
             fi->target = g_file_read_link(path, NULL);
         }
+
+        /* files with . prefix or ~ suffix are regarded as hidden files.
+         * dirs with . prefix are regarded as hidden dirs. */
+        dname = (char*)fm_path_get_basename(fi->path);
+        fi->hidden = (dname[0] == '.');
+        fi->backup = (!S_ISDIR(st.st_mode) && g_str_has_suffix(dname, "~"));
+        dname = NULL;
 
         if (get_fast) /* do rough estimation */
         {
@@ -292,6 +298,9 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                 /* FIXME: otherwise it's error so reset mime type to unknown */
                 /* Use title of the desktop entry for display */
                 dname = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
+                /* handle 'Hidden' key to set hidden attribute */
+                if (!fi->hidden)
+                    fi->hidden = g_key_file_get_boolean(kf, "Desktop Entry", "Hidden", NULL);
             }
             if(icon)
                 fi->icon = icon;
@@ -368,11 +377,6 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         _fm_path_set_display_name(fi->path, dname);
         g_free(dname);
 
-        /* files with . prefix or ~ suffix are regarded as hidden files.
-         * dirs with . prefix are regarded as hidden dirs. */
-        dname = (char*)fm_path_get_basename(fi->path);
-        fi->hidden = (dname[0] == '.');
-        fi->backup = (!S_ISDIR(st.st_mode) && g_str_has_suffix(dname, "~"));
         /* check if directory's file system is read-only, default is FALSE */
         fi->fs_is_ro = FALSE;
         if (S_ISDIR(st.st_mode))
