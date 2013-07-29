@@ -560,7 +560,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     if(!g_file_is_native(dest_dir))
     {
         GError *err = g_error_new_literal(G_IO_ERROR, G_IO_ERROR_FAILED,
-                                          _("cannot create a link on non-native filesystem"));
+                                          _("Cannot create a link on non-native filesystem"));
         fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_CRITICAL);
         g_error_free(err);
         g_object_unref(dest_dir);

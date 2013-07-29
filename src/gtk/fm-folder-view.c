@@ -58,6 +58,8 @@
  *         BySize
  *         ByType
  *         ----------------
+ *         MingleDirs
+ *         SortIgnoreCase
  *         &lt;placeholder name='CustomSortOps'/&gt;
  * ShowHidden
  * Rename
@@ -128,8 +130,8 @@ static const char folder_popup_xml[] =
     "<menuitem action='BySize'/>"
     "<menuitem action='ByType'/>"
     "<separator/>"
-    /* "<menuitem action='MingleDirs'/>"
-    "<menuitem action='SortIgnoreCase'/>" */
+    "<menuitem action='MingleDirs'/>"
+    "<menuitem action='SortIgnoreCase'/>"
     /* placeholder for custom sort options */
     "<placeholder name='CustomSortOps'/>"
     /* "<separator/>"
@@ -169,6 +171,8 @@ static void on_file_prop(GtkAction* act, FmFolderView* fv);
 static void on_menu(GtkAction* act, FmFolderView* fv);
 static void on_file_menu(GtkAction* act, FmFolderView* fv);
 static void on_show_hidden(GtkToggleAction* act, FmFolderView* fv);
+static void on_mingle_dirs(GtkToggleAction* act, FmFolderView* fv);
+static void on_ignore_case(GtkToggleAction* act, FmFolderView* fv);
 
 static const GtkActionEntry folder_popup_actions[]=
 {
@@ -203,8 +207,8 @@ static GtkToggleActionEntry folder_toggle_actions[]=
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE},
     {"SortPerFolder", NULL, N_("_Only for this folder"), NULL,
                 N_("Check to remember sort as folder setting rather than global one"), NULL, FALSE},
-    {"MingleDirs", NULL, N_("Mingle _files and folders"), NULL, NULL, NULL, FALSE},
-    {"SortIgnoreCase", NULL, N_("_Ignore name case"), NULL, NULL, NULL, TRUE}
+    {"MingleDirs", NULL, N_("Mingle _files and folders"), NULL, NULL, G_CALLBACK(on_mingle_dirs), FALSE},
+    {"SortIgnoreCase", NULL, N_("_Ignore name case"), NULL, NULL, G_CALLBACK(on_ignore_case), TRUE}
 };
 
 static const GtkRadioActionEntry folder_sort_type_actions[]=
@@ -1167,6 +1171,12 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
         by = FM_FOLDER_MODEL_COL_NAME;
     /* g_debug("set /popup/Sort/ByName: %u", by); */
     gtk_radio_action_set_current_value(GTK_RADIO_ACTION(act), by);
+    act = gtk_ui_manager_get_action(ui, "/popup/Sort/SortIgnoreCase");
+    gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act),
+                                 (mode & FM_SORT_CASE_SENSITIVE) == 0);
+    act = gtk_ui_manager_get_action(ui, "/popup/Sort/MingleDirs");
+    gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act),
+                                 (mode & FM_SORT_NO_FOLDER_FIRST) != 0);
     show_hidden = iface->get_show_hidden(fv);
     act = gtk_ui_manager_get_action(ui, "/popup/ShowHidden");
     gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(act), show_hidden);
@@ -1359,6 +1369,38 @@ static void on_show_hidden(GtkToggleAction* act, FmFolderView* fv)
 {
     gboolean active = gtk_toggle_action_get_active(act);
     fm_folder_view_set_show_hidden(fv, active);
+}
+
+static void on_mingle_dirs(GtkToggleAction* act, FmFolderView* fv)
+{
+    gboolean active = gtk_toggle_action_get_active(act);
+    FmFolderModel *model = fm_folder_view_get_model(fv);
+    FmSortMode mode;
+
+    if(model)
+    {
+        fm_folder_model_get_sort(model, NULL, &mode);
+        mode &= ~FM_SORT_NO_FOLDER_FIRST;
+        if (active)
+            mode |= FM_SORT_NO_FOLDER_FIRST;
+        fm_folder_model_set_sort(model, FM_FOLDER_MODEL_COL_DEFAULT, mode);
+    }
+}
+
+static void on_ignore_case(GtkToggleAction* act, FmFolderView* fv)
+{
+    gboolean active = gtk_toggle_action_get_active(act);
+    FmFolderModel *model = fm_folder_view_get_model(fv);
+    FmSortMode mode;
+
+    if(model)
+    {
+        fm_folder_model_get_sort(model, NULL, &mode);
+        mode &= ~FM_SORT_CASE_SENSITIVE;
+        if (!active)
+            mode |= FM_SORT_CASE_SENSITIVE;
+        fm_folder_model_set_sort(model, FM_FOLDER_MODEL_COL_DEFAULT, mode);
+    }
 }
 
 static void on_change_by(GtkRadioAction* act, GtkRadioAction* cur, FmFolderView* fv)

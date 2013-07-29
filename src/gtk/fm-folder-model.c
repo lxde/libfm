@@ -978,7 +978,7 @@ static gint fm_folder_model_compare(gconstpointer item1,
     int ret = 0;
 
     /* put folders before files */
-//    if(model->sort_mode & FM_SORT_FOLDER_FIRST)
+    if(!(model->sort_mode & FM_SORT_NO_FOLDER_FIRST))
     {
         ret = fm_file_info_is_dir(file2) - fm_file_info_is_dir(file1);
         if( ret )
@@ -1060,8 +1060,11 @@ _main_sort:
 _sort_by_name:
         if(model->sort_mode & FM_SORT_CASE_SENSITIVE)
         {
-            key1 = fm_file_info_get_collate_key_nocasefold(file1);
-            key2 = fm_file_info_get_collate_key_nocasefold(file2);
+//            key1 = fm_file_info_get_collate_key_nocasefold(file1);
+//            key2 = fm_file_info_get_collate_key_nocasefold(file2);
+            /* unfortunately g_uft8_collate_key() ignores case in some locales */
+            key1 = fm_file_info_get_disp_name(file1);
+            key2 = fm_file_info_get_disp_name(file2);
         }
         else
         {

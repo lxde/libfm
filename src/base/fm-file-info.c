@@ -983,7 +983,19 @@ void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
 void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 {
     _fm_path_set_display_name(fi->path, name);
-    /* FIXME: reset collate key */
+    /* reset collate keys */
+    if(fi->collate_key)
+    {
+        if(fi->collate_key != COLLATE_USING_DISPLAY_NAME)
+            g_free(fi->collate_key);
+        fi->collate_key = NULL;
+    }
+    if(fi->collate_key_case)
+    {
+        if(fi->collate_key_case != COLLATE_USING_DISPLAY_NAME)
+            g_free(fi->collate_key_case);
+        fi->collate_key_case = NULL;
+    }
 }
 
 /**
@@ -1326,28 +1338,28 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
 const char* fm_file_info_get_collate_key_nocasefold(FmFileInfo* fi)
 {
     /* create a collate key on demand, if we don't have one */
-    if(G_UNLIKELY(!fi->collate_key))
+    if(G_UNLIKELY(!fi->collate_key_case))
     {
         const char* disp_name = fm_file_info_get_disp_name(fi);
         char* collate = g_utf8_collate_key_for_filename(disp_name, -1);
         if(strcmp(collate, disp_name))
-            fi->collate_key = collate;
+            fi->collate_key_case = collate;
         else
         {
             /* if the collate key is the same as the display name,
              * then there is no need to save it.
              * Just use the display name directly. */
-            fi->collate_key = COLLATE_USING_DISPLAY_NAME;
+            fi->collate_key_case = COLLATE_USING_DISPLAY_NAME;
             g_free(collate);
         }
     }
 
     /* if the collate key is the same as the display name, 
      * just return the display name instead. */
-    if(fi->collate_key == COLLATE_USING_DISPLAY_NAME)
+    if(fi->collate_key_case == COLLATE_USING_DISPLAY_NAME)
         return fm_file_info_get_disp_name(fi);
 
-    return fi->collate_key;
+    return fi->collate_key_case;
 }
 
 /**
