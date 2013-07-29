@@ -105,37 +105,37 @@ typedef enum
  * @pane_icon_size: size of side pane icons
  * @thumbnail_size: size of thumbnail icons
  * @thumbnail_max: show thumbnails for files smaller than 'thumb_max' KB
- * @auto_selection_delay: delay for autoselection in single-click mode, in ms
- * @drop_default_action: default action on drop (see #FmDndDestDropAction)
+ * @auto_selection_delay: (since 1.2.0) delay for autoselection in single-click mode, in ms
+ * @drop_default_action: (since 1.2.0) default action on drop (see #FmDndDestDropAction)
  * @single_click: single click to open file
  * @use_trash: delete file to trash can
  * @confirm_del: ask before deleting files
- * @confirm_trash: ask before moving files to trash can
+ * @confirm_trash: (since 1.2.0) ask before moving files to trash can
  * @show_thumbnail: show thumbnails
  * @thumbnail_local: show thumbnails for local files only
  * @show_internal_volumes: show system internal volumes in side pane. (udisks-only)
  * @si_unit: use SI prefix for file sizes
  * @advanced_mode: enable advanced features for experienced user
- * @force_startup_notify: use startup notify by default
- * @backup_as_hidden: treat backup files as hidden
- * @no_usb_trash: don't create trash folder on removable media
- * @no_child_non_expandable: hide expanders on empty folder
- * @show_full_names: always show full names in Icon View mode
- * @shadow_hidden: show icons of hidden files shadowed in the view
- * @places_home: show 'Home' item in Places
- * @places_desktop: show 'Desktop' item in Places
- * @places_applications: show 'Applications' item in Places
- * @places_trash: show 'Trash' item in Places
- * @places_root: show '/' item in Places
- * @places_computer: chow 'My computer' item in Places
- * @places_network: show 'Network' item in Places
- * @places_unmounted: show unmounted internal volumes in Places
- * @only_user_templates: show only user defined templates in 'Create...' menu
- * @template_run_app: run default application after creation from template
- * @template_type_once: use only one template of each MIME type
- * @defer_content_test: defer test for content type on folder loading
- * @modules_blacklist: list of modules (mask in form "type:name") to never load
- * @modules_whitelist: list of excemptions from @modules_blacklist
+ * @force_startup_notify: (since 1.0.1) use startup notify by default
+ * @backup_as_hidden: (since 1.0.1) treat backup files as hidden
+ * @no_usb_trash: (since 1.0.1) don't create trash folder on removable media
+ * @no_child_non_expandable: (since 1.0.1) hide expanders on empty folder
+ * @show_full_names: (since 1.2.0) always show full names in Icon View mode
+ * @shadow_hidden: (since 1.2.0) show icons of hidden files shadowed in the view
+ * @places_home: (since 1.2.0) show 'Home' item in Places
+ * @places_desktop: (since 1.2.0) show 'Desktop' item in Places
+ * @places_applications: (since 1.2.0) show 'Applications' item in Places
+ * @places_trash: (since 1.2.0) show 'Trash' item in Places
+ * @places_root: (since 1.2.0) show '/' item in Places
+ * @places_computer: (since 1.2.0) show 'My computer' item in Places
+ * @places_network: (since 1.2.0) show 'Network' item in Places
+ * @places_unmounted: (since 1.2.0) show unmounted internal volumes in Places
+ * @only_user_templates: (since 1.2.0) show only user defined templates in 'Create...' menu
+ * @template_run_app: (since 1.2.0) run default application after creation from template
+ * @template_type_once: (since 1.2.0) use only one template of each MIME type
+ * @defer_content_test: (since 1.2.0) defer test for content type on folder loading
+ * @modules_blacklist: (since 1.2.0) list of modules (mask in form "type:name") to never load
+ * @modules_whitelist: (since 1.2.0) list of excemptions from @modules_blacklist
  */
 struct _FmConfig
 {
