@@ -62,23 +62,6 @@ typedef enum
     N_FM_DND_DEST_DEFAULT_TARGETS
 } FmDndDestTargetType;
 
-/**
- * FmDndDestDropAction:
- * @FM_DND_DEST_DROP_AUTO: move if source and destination are on the same file system, copy otherwise
- * @FM_DND_DEST_DROP_COPY: copy
- * @FM_DND_DEST_DROP_MOVE: move
- * @FM_DND_DEST_DROP_ASK: open popup to let user select desired action
- *
- * selected behavior when files are dropped on destination widget.
- */
-typedef enum
-{
-    FM_DND_DEST_DROP_AUTO,
-    FM_DND_DEST_DROP_COPY,
-    FM_DND_DEST_DROP_MOVE,
-    FM_DND_DEST_DROP_ASK
-} FmDndDestDropAction;
-
 typedef struct _FmDndDest           FmDndDest;
 typedef struct _FmDndDestClass      FmDndDestClass;
 

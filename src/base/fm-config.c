@@ -174,6 +174,34 @@ void fm_config_emit_changed(FmConfig* cfg, const char* changed_key)
     g_signal_emit(cfg, signals[CHANGED], detail);
 }
 
+static void _parse_drop_default_action(GKeyFile *kf, gint *action)
+{
+    char *str = g_key_file_get_string(kf, "config", "drop_default_action", NULL);
+    if (str)
+    {
+        switch (str[0])
+        {
+        case '0': case '1': case '2': case '3':
+            /* backward compatibility */
+            *action = (str[0] - '0');
+            break;
+        case 'a':
+            if (str[1] == 'u') /* 'auto' */
+                *action = FM_DND_DEST_DROP_AUTO;
+            else if (str[1] == 's') /* 'ask' */
+                *action = FM_DND_DEST_DROP_ASK;
+            break;
+        case 'c': /* 'copy' */
+            *action = FM_DND_DEST_DROP_COPY;
+            break;
+        case 'm': /* 'move' */
+            *action = FM_DND_DEST_DROP_MOVE;
+        default: ; /* ignore invalid values */
+        }
+        g_free(str);
+    }
+}
+
 /**
  * fm_config_load_from_key_file
  * @cfg: pointer to configuration
@@ -204,7 +232,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
     fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
     fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
-    fm_key_file_get_int(kf, "config", "drop_default_action", &cfg->drop_default_action);
+    _parse_drop_default_action(kf, &cfg->drop_default_action);
     fm_key_file_get_bool(kf, "config", "show_full_names", &cfg->show_full_names);
     fm_key_file_get_bool(kf, "config", "only_user_templates", &cfg->only_user_templates);
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
@@ -323,6 +351,24 @@ _out:
     } \
 } while(0)
 
+#define _save_drop_action(_str_,_cfg_,_name_) do { \
+    switch (_cfg_->_name_) \
+    { \
+    case FM_DND_DEST_DROP_AUTO: \
+        g_string_append(_str_, #_name_ "=auto\n"); \
+        break; \
+    case FM_DND_DEST_DROP_COPY: \
+        g_string_append(_str_, #_name_ "=copy\n"); \
+        break; \
+    case FM_DND_DEST_DROP_MOVE: \
+        g_string_append(_str_, #_name_ "=move\n"); \
+        break; \
+    case FM_DND_DEST_DROP_ASK: \
+        g_string_append(_str_, #_name_ "=ask\n"); \
+        break; \
+    } \
+} while(0)
+
 /**
  * fm_config_save
  * @cfg: pointer to configuration
@@ -369,7 +415,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_bool(str, cfg, template_run_app);
                 _save_config_bool(str, cfg, template_type_once);
                 _save_config_int(str, cfg, auto_selection_delay);
-                _save_config_int(str, cfg, drop_default_action);
+                _save_drop_action(str, cfg, drop_default_action);
                 _save_config_bool(str, cfg, defer_content_test);
 #ifdef USE_UDISKS
                 _save_config_bool(str, cfg, show_internal_volumes);

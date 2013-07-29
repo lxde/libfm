@@ -877,7 +877,6 @@ query_sources:
                 action = GDK_ACTION_ASK;
                 break;
             default: /* FM_DND_DEST_DROP_AUTO or invalid values */
-                /* FIXME: if dest_path is desktop, create symlink by default */
                 if(!dd->src_dev && !dd->src_fs_id)
                     /* we don't know on which device the dragged source files are. */
                     same_fs = FALSE; /* fallback to copy then */

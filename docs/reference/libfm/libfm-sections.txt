@@ -157,6 +157,7 @@ FM_CONFIG_DEFAULT_USE_TRASH
 FM_CONFIG_TYPE
 FmConfig
 FmConfigClass
+FmDndDestDropAction
 fm_config
 fm_config_emit_changed
 fm_config_load_from_file
@@ -265,7 +266,6 @@ fm_dnd_unset_dest_auto_scroll
 <TITLE>FmDndDest</TITLE>
 FmDndDest
 FmDndDestClass
-FmDndDestDropAction
 FmDndDestTargetType
 fm_dnd_dest_add_targets
 fm_dnd_dest_drag_data_received

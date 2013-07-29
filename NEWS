@@ -237,6 +237,10 @@ Changes on 1.2.0 since 1.1.0:
     is unset then old behavior (emit "finish-loading" only after all the
     info is retrieved) will happen.
 
+* The option 'drop_default_action' is saved in more portable way - not
+    the number but text. Therefore if that list will be ever changed then
+    it will be still accepted by libfm right way.
+
 
 Changes on 1.1.0 since 1.0.1:
 
