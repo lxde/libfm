@@ -1821,6 +1821,7 @@ exo_icon_view_expose_event (GtkWidget      *widget,
   const GList            *lp;
   gint                    dest_index = -1;
 #if !GTK_CHECK_VERSION(3, 0, 0)
+  gboolean                rtl;
   gint                    event_area_last;
   GdkRectangle            event_area;
   cairo_t                *cr;
@@ -1873,6 +1874,7 @@ exo_icon_view_expose_event (GtkWidget      *widget,
   cairo_save (cr);
   gtk_cairo_transform_to_window (cr, widget, priv->bin_window);
 #else
+  rtl = (gtk_widget_get_direction (GTK_WIDGET (icon_view)) == GTK_TEXT_DIR_RTL);
   event_area = event->area;
 
   /* determine the last interesting coordinate (depending on the layout mode) */
@@ -1916,6 +1918,13 @@ exo_icon_view_expose_event (GtkWidget      *widget,
             break;
           else if (item->area.y + item->area.height < event_area.y)
             continue;
+        }
+      else if (rtl)
+        {
+          if (item->area.x > event_area_last)
+            continue;
+          else if (item->area.x + item->area.width < event_area.x)
+            break;
         }
       else
         {
@@ -3556,17 +3565,46 @@ exo_icon_view_layout_cols (ExoIconView *icon_view,
 {
   GList *icons = icon_view->priv->items;
   GList *items;
+  gboolean rtl;
   gint   col = 0;
   gint   rows = 0;
+  gint   shift;
 
-  *x = icon_view->priv->margin;
+  rtl = (gtk_widget_get_direction (GTK_WIDGET (icon_view)) == GTK_TEXT_DIR_RTL);
+
+  shift = icon_view->priv->margin;
+  *x = shift;
 
   do
     {
+      items = icons; /* it will be used below */
       icons = exo_icon_view_layout_single_col (icon_view, icons,
                                                item_height, col,
-                                               x, maximum_height, max_rows);
+                                               &shift, maximum_height, max_rows);
 
+      if (rtl)
+      {
+          GList *items2;
+          ExoIconViewItem *item;
+          gint i;
+
+          /* update width */
+          shift -= icon_view->priv->margin; /* width of the new column */
+          *x += shift;
+          /* shift all previous items to right so new column will be left one */
+          if (items) for (items2 = icon_view->priv->items; items2 != items; items2 = items2->next)
+          {
+              item = EXO_ICON_VIEW_ITEM (items2->data);
+
+              item->area.x += shift;
+              for (i = 0; i < icon_view->priv->n_cells; i++)
+                  item->box[i].x += shift;
+          }
+          /* prepare for the next col */
+          shift = icon_view->priv->margin;
+      }
+      else
+          *x = shift;
       /* count the number of rows in the first column */
       if (G_UNLIKELY (col == 0))
         {
