@@ -106,6 +106,9 @@ void fm_untrash_files(GtkWindow* parent, FmPathList* files);
 /* void fm_rename_files(FmPathList* files); */
 void fm_rename_file(GtkWindow* parent, FmPath* file);
 
+void fm_hide_file(GtkWindow* parent, FmPath* file);
+void fm_unhide_file(GtkWindow* parent, FmPath* file);
+
 void fm_empty_trash(GtkWindow* parent);
 
 void fm_set_busy_cursor(GtkWidget* widget);

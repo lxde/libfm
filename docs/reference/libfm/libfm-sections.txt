@@ -707,6 +707,7 @@ fm_empty_trash
 fm_get_user_input
 fm_get_user_input_n
 fm_get_user_input_path
+fm_hide_file
 fm_link_files
 fm_mount_path
 fm_mount_volume
@@ -722,6 +723,7 @@ fm_set_busy_cursor
 fm_show_error
 fm_trash_files
 fm_trash_or_delete_files
+fm_unhide_file
 fm_unmount_mount
 fm_unmount_volume
 fm_unset_busy_cursor

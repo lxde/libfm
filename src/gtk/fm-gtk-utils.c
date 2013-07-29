@@ -1066,6 +1066,47 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
     g_object_unref(gf);
 }
 
+static void _fm_set_file_hidden(GtkWindow *parent, FmPath *file, gboolean hidden)
+{
+    FmPathList *files;
+    FmFileOpsJob *job;
+
+    files = fm_path_list_new();
+    fm_path_list_push_tail(files, file);
+    job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, files);
+    fm_file_ops_job_set_hidden(job, hidden);
+    fm_path_list_unref(files);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
+}
+
+/**
+ * fm_hide_file
+ * @parent: a window to place progress dialog over it
+ * @file: the file
+ *
+ * Sets file attribute "hidden" for @file.
+ *
+ * Since: 1.2.0
+ */
+void fm_hide_file(GtkWindow* parent, FmPath* file)
+{
+    _fm_set_file_hidden(parent, file, TRUE);
+}
+
+/**
+ * fm_unhide_file
+ * @parent: a window to place progress dialog over it
+ * @file: the file
+ *
+ * Unsets file attribute "hidden" for @file.
+ *
+ * Since: 1.2.0
+ */
+void fm_unhide_file(GtkWindow* parent, FmPath* file)
+{
+    _fm_set_file_hidden(parent, file, FALSE);
+}
+
 /**
  * fm_empty_trash
  * @parent: a window to place dialog over it
