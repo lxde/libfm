@@ -1771,7 +1771,7 @@ static const FmStandardViewModeinfo view_mode_names[] =
     { "icon", FM_FV_ICON_VIEW, NULL, N_("_Icon View"), NULL },
     { "compact", FM_FV_COMPACT_VIEW, NULL, N_("_Compact View"), NULL },
     { "thumbnail", FM_FV_THUMBNAIL_VIEW, NULL, N_("_Thumbnail View"), NULL },
-    { "list", FM_FV_LIST_VIEW, N_("Detailed _List View"), NULL }
+    { "list", FM_FV_LIST_VIEW, NULL, N_("Detailed _List View"), NULL }
 };
 
 /**

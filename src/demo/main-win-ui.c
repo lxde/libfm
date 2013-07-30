@@ -64,10 +64,7 @@ static const char main_menu_xml[] =
     "<menuitem action='Reload'/>"
     "<menuitem action='ShowHidden'/>"
     "<separator/>"
-    "<menuitem action='IconView'/>"
-    "<menuitem action='CompactView'/>"
-    "<menuitem action='ThumbnailView'/>"
-    "<menuitem action='ListView'/>"
+    "<placeholder name='ph1'/>"
     "<separator/>"
     "<menu action='Sort'>"
       "<menuitem action='Desc'/>"
@@ -135,14 +132,6 @@ static GtkActionEntry main_win_actions[]=
 static GtkToggleActionEntry main_win_toggle_actions[]=
 {
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE}
-};
-
-static GtkRadioActionEntry main_win_mode_actions[]=
-{
-    {"IconView", NULL, N_("_Icon View"), NULL, NULL, FM_FV_ICON_VIEW},
-    {"CompactView", NULL, N_("_Compact View"), NULL, NULL, FM_FV_COMPACT_VIEW},
-    {"ThumbnailView", NULL, N_("Thumbnail View"), NULL, NULL, FM_FV_THUMBNAIL_VIEW},
-    {"ListView", NULL, N_("Detailed _List View"), NULL, NULL, FM_FV_LIST_VIEW},
 };
 
 static GtkRadioActionEntry main_win_sort_type_actions[]=

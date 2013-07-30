@@ -444,7 +444,13 @@ static void fm_main_win_init(FmMainWin *win)
     GtkActionGroup* act_grp;
     GtkAction* act;
     GtkAccelGroup* accel_grp;
+    GtkRadioAction *mode_action;
+    GSList *radio_group;
+    GString *str, *xml;
+    static char accel_str[] = "<Ctrl>1";
     GtkShadowType shadow_type;
+    int i;
+    gboolean is_first;
 
     ++n_wins;
 
@@ -475,15 +481,50 @@ static void fm_main_win_init(FmMainWin *win)
     act_grp = gtk_action_group_new("Main");
     gtk_action_group_add_actions(act_grp, main_win_actions, G_N_ELEMENTS(main_win_actions), win);
     gtk_action_group_add_toggle_actions(act_grp, main_win_toggle_actions, G_N_ELEMENTS(main_win_toggle_actions), win);
-    gtk_action_group_add_radio_actions(act_grp, main_win_mode_actions, G_N_ELEMENTS(main_win_mode_actions), FM_FV_ICON_VIEW, G_CALLBACK(on_change_mode), win);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, G_CALLBACK(on_sort_type), win);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, G_CALLBACK(on_sort_by), win);
+
+    /* implement gtk_action_group_add_radio_actions() for dynamic list */
+    radio_group = NULL;
+    is_first = TRUE;
+    str = g_string_new("Mode:");
+    xml = g_string_new("<menubar><menu action='ViewMenu'><placeholder name='ph1'>");
+    accel_str[6] = '1';
+    for(i = 0; i < fm_standard_view_get_n_modes(); i++)
+    {
+        if(fm_standard_view_get_mode_label(i))
+        {
+            g_string_append(str, fm_standard_view_mode_to_str(i));
+            mode_action = gtk_radio_action_new(str->str,
+                                               fm_standard_view_get_mode_label(i),
+                                               fm_standard_view_get_mode_tooltip(i),
+                                               fm_standard_view_get_mode_icon(i),
+                                               i);
+            gtk_radio_action_set_group(mode_action, radio_group);
+            radio_group = gtk_radio_action_get_group(mode_action);
+            gtk_action_group_add_action_with_accel(act_grp,
+                                                   GTK_ACTION(mode_action),
+                                                   accel_str);
+            if (is_first) /* work on first one only */
+                g_signal_connect(mode_action, "changed", G_CALLBACK(on_change_mode), win);
+            is_first = FALSE;
+            g_object_unref(mode_action);
+            g_string_append_printf(xml, "<menuitem action='%s'/>", str->str);
+            accel_str[6]++; /* <Ctrl>2 and so on */
+            g_string_truncate(str, 5);
+        }
+    }
+    g_string_append(xml, "</placeholder></menu></menubar>");
+    g_string_free(str, TRUE);
 
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(GTK_WINDOW(win), accel_grp);
 
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
     gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
+    /* add ui generated above */
+    gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
+    g_string_free(xml, TRUE);
 
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
 
