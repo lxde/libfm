@@ -800,7 +800,7 @@ static int _update_categories(gchar ***categories, const char *src_directory,
     {
         if (data.line == -1)
             data.line = fm_xml_file_get_current_line(data.menu, &data.pos);
-        g_prefix_error(error, _("XML file %s error (%d:%d): "), data.file_path,
+        g_prefix_error(error, _("XML file '%s' error (%d:%d): "), data.file_path,
                        data.line, data.pos);
         goto _return_error;
     }
@@ -828,7 +828,7 @@ static int _update_categories(gchar ***categories, const char *src_directory,
     if (item == NULL) /* no such menu path in XML! */
     {
         g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_NOENT,
-                    _("Cannot find path %s in XML definitions"), dst_directory);
+                    _("Cannot find path '%s' in XML definitions"), dst_directory);
         g_list_free(xml);
 _return_error:
         /* g_debug("destroying FmXmlFile %p", data.menu); */
@@ -1132,7 +1132,7 @@ static FmXmlFileItem *_prepare_contents(FmMenuMenuTree *data, GCancellable *canc
     {
         if (data->line == -1)
             data->line = fm_xml_file_get_current_line(data->menu, &data->pos);
-        g_prefix_error(error, _("XML file %s error (%d:%d): "), data->file_path,
+        g_prefix_error(error, _("XML file '%s' error (%d:%d): "), data->file_path,
                        data->line, data->pos);
     }
     else
@@ -2111,7 +2111,7 @@ static gboolean _fm_vfs_menu_query_info_real(gpointer data)
 #endif
     if(is_invalid)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("Invalid menu directory %s"), init->path_str);
+                    _("Invalid menu directory '%s'"), init->path_str);
     else if(dir)
     {
         const char *de_name = g_getenv("XDG_CURRENT_DESKTOP");
@@ -2545,7 +2545,7 @@ static gboolean _fm_vfs_menu_set_attribute(GFile *file,
     else
     {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
-                    _("Setting attribute %s not supported"), attribute);
+                    _("Setting attribute '%s' not supported"), attribute);
         return FALSE;
     }
     result = _fm_vfs_menu_set_attributes_from_info(file, info, flags,
@@ -2555,7 +2555,7 @@ static gboolean _fm_vfs_menu_set_attribute(GFile *file,
 
 _invalid_arg:
     g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
-                _("Invalid value for attribute %s"), attribute);
+                _("Invalid value for attribute '%s'"), attribute);
     return FALSE;
 }
 
@@ -2592,10 +2592,10 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
         /* If item wasn't found or isn't a file then we cannot read it. */
     if(item != NULL && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_DIR)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_IS_DIRECTORY,
-                    _("The \"%s\" is a menu directory"), init->path_str);
+                    _("The '%s' is a menu directory"), init->path_str);
     else if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"),
+                    _("The '%s' isn't a menu item"),
                     init->path_str ? init->path_str : "/");
     else
     {
@@ -2619,7 +2619,7 @@ static gboolean _fm_vfs_menu_read_fn_real(gpointer data)
                     {
                         g_error_free(err);
                         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_REGULAR_FILE,
-                                    _("The \"%s\" is broken"), init->path_str);
+                                    _("The '%s' entry file is broken"), init->path_str);
                     }
                     else
                         g_propagate_error(init->error, err);
@@ -2933,7 +2933,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
 
     if(is_invalid)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_EXISTS,
-                    _("Cannot create menu item \"%s\""),
+                    _("Cannot create menu item '%s'"),
                     init->path_str ? init->path_str : "/");
     else
     {
@@ -3025,7 +3025,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
 
     if(is_invalid)
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_EXISTS,
-                    _("Cannot create menu item \"%s\""),
+                    _("Cannot create menu item '%s'"),
                     init->path_str ? init->path_str : "/");
     else
     {
@@ -3280,14 +3280,14 @@ static gboolean _fm_vfs_menu_move_real(gpointer data)
     if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
     {
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
-                    _("The \"%s\" isn't a menu item"), init->path_str);
+                    _("The '%s' isn't a menu item"), init->path_str);
         goto _failed;
     }
     file_path = menu_cache_item_get_file_path(item);
     if (file_path == NULL)
     {
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                    _("Invalid menu item %s"), init->path_str);
+                    _("Invalid menu item '%s'"), init->path_str);
         goto _failed;
     }
     kf = g_key_file_new();
@@ -3636,7 +3636,7 @@ static gboolean _fm_vfs_menu_monitor_dir_real(gpointer data)
 #endif
     {
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                    _("FmMenuVFileMonitor: folder %s not found in menu cache"),
+                    _("FmMenuVFileMonitor: folder '%s' not found in menu cache"),
                     mon->file->path);
         goto _fail;
     }
