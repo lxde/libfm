@@ -38,6 +38,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "fm-file-launcher.h"
 #include "fm-file-info-job.h"
 #include "fm-app-info.h"
@@ -69,81 +70,16 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
         app = (GAppInfo*)g_desktop_app_info_new_from_filename(file_or_id);
     else
         app = (GAppInfo*)g_desktop_app_info_new(file_or_id);
-
-    if(!app) /* gio failed loading it. Let's see what's going on */
-    {
-        gboolean loaded;
-        GKeyFile* kf = g_key_file_new();
-
-        /* load the desktop entry file ourselves */
-        if(is_absolute_path)
-            loaded = g_key_file_load_from_file(kf, file_or_id, 0, &err);
-        else
-        {
-            char* tmp = g_strconcat("applications/", file_or_id, NULL);
-            loaded = g_key_file_load_from_data_dirs(kf, tmp, NULL, 0, &err);
-            g_free(tmp);
-        }
-        if(loaded)
-        {
-            char* type = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "Type", NULL);
-            /* gio only supports "Application" type. Let's handle other types ourselves. */
-            if(type)
-            {
-                if(strcmp(type, "Link") == 0)
-                {
-                    char* url = g_key_file_get_string(kf, G_KEY_FILE_DESKTOP_GROUP, "URL", &err);
-                    if(url)
-                    {
-                        char* scheme = g_uri_parse_scheme(url);
-                        if(scheme)
-                        {
-                            if(strcmp(scheme, "file") == 0 ||
-                               strcmp(scheme, "trash") == 0 ||
-                               strcmp(scheme, "network") == 0 ||
-                               strcmp(scheme, "computer") == 0 ||
-                               strcmp(scheme, "menu") == 0)
-                            {
-                                /* OK, it's a file. We can handle it! */
-                                /* FIXME: prevent recursive invocation of desktop entry file.
-                                 * e.g: If this URL points to the another desktop entry file, and it
-                                 * points to yet another desktop entry file, this can create a
-                                 * infinite loop. This is a extremely rare case. */
-                                FmPath* path = fm_path_new_for_uri(url);
-                                g_free(url);
-                                _uris = g_list_prepend(_uris, path);
-                                ret = fm_launch_paths(ctx, _uris, launcher, user_data);
-                                g_list_free(_uris);
-                                fm_path_unref(path);
-                                _uris = NULL;
-                            }
-                            else
-                            {
-                                /* Damn! this actually relies on gconf to work. */
-                                /* FIXME: use our own way to get a usable browser later. */
-                                app = g_app_info_get_default_for_uri_scheme(scheme);
-                                uris = _uris = g_list_prepend(NULL, url);
-                            }
-                            g_free(scheme);
-                        }
-                        else
-                            g_free(url);
-                    }
-                }
-                else if(strcmp(type, "Directory") == 0)
-                {
-                    /* FIXME: how should this work? It's not defined in the spec. :-( */
-                }
-                g_free(type);
-            }
-        }
-        g_key_file_free(kf);
-    }
+    /* we handle Type=Link in FmFileInfo so if GIO failed then
+       it cannot be launched in fact */
 
     if(app) {
         ret = fm_app_info_launch_uris(app, uris, ctx, &err);
         g_object_unref(app);
     }
+    else if (launcher->error)
+        g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                    _("Invalid desktop entry file: '%s'"), file_or_id);
 
     if(err)
     {
@@ -178,7 +114,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
 {
     GList* l;
     GHashTable* hash = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, NULL);
-    GList* folders = NULL;
+    GList *folders = NULL;
     FmFileInfo* fi;
     GError* err = NULL;
     GAppInfo* app;
@@ -187,13 +123,13 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     for(l = file_infos; l; l=l->next)
     {
         GList* fis;
+        char *filename, *scheme;
+
         fi = (FmFileInfo*)l->data;
         if (launcher->open_folder && fm_file_info_is_dir(fi))
             folders = g_list_prepend(folders, fi);
         else if (fm_file_info_is_desktop_entry(fi))
         {
-            char *filename;
-
             /* special handling for shortcuts */
             if (fm_file_info_is_shortcut(fi))
                 filename = g_strdup(fm_file_info_get_target(fi));
@@ -207,18 +143,79 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         {
             FmPath* path = fm_file_info_get_path(fi);
             FmMimeType* mime_type;
-            /* FIXME: handle shortcuts, such as the items in menu:// */
             if(fm_path_is_native(path))
             {
+                /* special handling for shortcuts */
+                if (fm_file_info_is_shortcut(fi))
+                {
+                    if (g_file_test(fm_file_info_get_target(fi), G_FILE_TEST_IS_EXECUTABLE))
+                    {
+                        filename = g_strdup(fm_file_info_get_target(fi));
+                        goto _try_execute;
+                    }
+                    scheme = g_uri_parse_scheme(fm_file_info_get_target(fi));
+                    if (scheme)
+                    {
+                        /* FIXME: this is rough! */
+                        if (strcmp(scheme, "file") != 0 &&
+                            strcmp(scheme, "trash") != 0 &&
+                            strcmp(scheme, "network") != 0 &&
+                            strcmp(scheme, "computer") != 0 &&
+                            strcmp(scheme, "menu") != 0)
+                        {
+                            /* we don't support this URI internally, try GIO */
+                            app = g_app_info_get_default_for_uri_scheme(scheme);
+                            if (app)
+                            {
+                                fis = g_list_prepend(NULL, fi);
+                                fm_app_info_launch_uris(app, fis, ctx, &err);
+                                g_list_free(fis);
+                                g_object_unref(app);
+                            }
+                            else if (launcher->error)
+                                g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                                            _("No default application is set to launch URIs %s://"),
+                                            scheme);
+                            if (err)
+                            {
+                                launcher->error(ctx, err, NULL, user_data);
+                                g_clear_error(&err);
+                            }
+                            g_free(scheme);
+                            continue;
+                        }
+                        g_free(scheme);
+                    }
+                    /* guess mime type of target */
+                    mime_type = fm_mime_type_from_file_name(fm_file_info_get_target(fi));
+                    if (mime_type == _fm_mime_type_get_inode_directory())
+                        folders = g_list_prepend(folders, fi);
+                    else if ((type = fm_mime_type_get_type(mime_type)))
+                    {
+                        fis = g_hash_table_lookup(hash, type);
+                        fis = g_list_prepend(fis, fi);
+                        g_hash_table_insert(hash, (gpointer)type, fis);
+                    }
+                    else if (launcher->error)
+                    {
+                        g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                                    _("Could not determine content type of '%s' to launch"),
+                                    fm_file_info_get_target(fi));
+                        launcher->error(ctx, err, NULL, user_data);
+                        g_clear_error(&err);
+                    }
+                    fm_mime_type_unref(mime_type);
+                    continue;
+                }
                 if(fm_file_info_is_executable_type(fi))
                 {
                     /* if it's an executable file, directly execute it. */
-                    char *filename = fm_path_to_str(path);
-                    /* FIXME: need a support for shortcuts? */
+                    filename = fm_path_to_str(path);
 
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
+_try_execute:
                         if(launcher->exec_file)
                         {
                             FmFileLauncherExecAction act = launcher->exec_file(fi, user_data);
@@ -247,9 +244,17 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                                         cwd = g_get_current_dir();
                                         if(chdir(run_path) != 0)
                                         {
-                                            /* FIXME: report an error */
                                             g_free(cwd);
                                             cwd = NULL;
+                                            if (launcher->error)
+                                            {
+                                                g_set_error(&err, G_IO_ERROR,
+                                                            g_io_error_from_errno(errno),
+                                                            _("Cannot set working directory to '%s': %s"),
+                                                            run_path, g_strerror(errno));
+                                                launcher->error(ctx, err, NULL, user_data);
+                                                g_clear_error(&err);
+                                            }
                                         }
                                     }
                                     g_free(run_path);
@@ -288,6 +293,14 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 fis = g_list_prepend(fis, fi);
                 g_hash_table_insert(hash, (gpointer)type, fis);
             }
+            else if (launcher->error)
+            {
+                g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Could not determine content type of '%s' to launch"),
+                            fm_file_info_get_disp_name(fi));
+                launcher->error(ctx, err, NULL, user_data);
+                g_clear_error(&err);
+            }
         }
     }
 
@@ -325,6 +338,15 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);
+            }
+            else if (launcher->error)
+                g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("No default application is set for MIME type %s"),
+                            type);
+            if (err)
+            {
+                launcher->error(ctx, err, NULL, user_data);
+                g_clear_error(&err);
             }
             g_list_free(fis);
         }

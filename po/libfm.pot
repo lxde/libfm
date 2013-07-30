@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-30 18:25+0300\n"
+"POT-Creation-Date: 2013-07-31 00:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -477,6 +477,31 @@ msgstr ""
 msgid "Preparing..."
 msgstr ""
 
+#: ../src/base/fm-file-launcher.c:82
+#, c-format
+msgid "Invalid desktop entry file: '%s'"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:177
+#, c-format
+msgid "No default application is set to launch URIs %s://"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:202 ../src/base/fm-file-launcher.c:299
+#, c-format
+msgid "Could not determine content type of '%s' to launch"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:253
+#, c-format
+msgid "Cannot set working directory to '%s': %s"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:344 ../src/base/fm-templates.c:1065
+#, c-format
+msgid "No default application is set for MIME type %s"
+msgstr ""
+
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
 msgstr ""
@@ -495,11 +520,6 @@ msgstr ""
 
 #: ../src/base/fm-mime-type.c:85
 msgid "Mount Point"
-msgstr ""
-
-#: ../src/base/fm-templates.c:1065
-#, c-format
-msgid "No default application is set for MIME type %s"
 msgstr ""
 
 #: ../src/base/fm-terminal.c:246
