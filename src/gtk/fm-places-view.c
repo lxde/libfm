@@ -63,6 +63,7 @@ static gboolean on_button_release(GtkWidget* view, GdkEventButton* evt);
 static void on_mount(GtkAction* act, gpointer user_data);
 static void on_umount(GtkAction* act, gpointer user_data);
 static void on_eject(GtkAction* act, gpointer user_data);
+static void on_format(GtkAction* act, gpointer user_data);
 
 static void on_remove_bm(GtkAction* act, gpointer user_data);
 static void on_rename_bm(GtkAction* act, gpointer user_data);
@@ -91,6 +92,7 @@ static const char vol_menu_xml[]=
   "<menuitem action='Mount'/>"
   "<menuitem action='Unmount'/>"
   "<menuitem action='Eject'/>"
+  "<menuitem action='Format'/>"
   "</placeholder>"
 "</popup>";
 
@@ -105,7 +107,8 @@ static GtkActionEntry vol_menu_actions[]=
 {
     {"Mount", NULL, N_("_Mount Volume"), NULL, NULL, G_CALLBACK(on_mount)},
     {"Unmount", NULL, N_("_Unmount Volume"), NULL, NULL, G_CALLBACK(on_umount)},
-    {"Eject", NULL, N_("_Eject Removable Media"), NULL, NULL, G_CALLBACK(on_eject)}
+    {"Eject", NULL, N_("_Eject Removable Media"), NULL, NULL, G_CALLBACK(on_eject)},
+    {"Format", NULL, N_("_Format Volume"), NULL, NULL, G_CALLBACK(on_format)}
 };
 
 static const char bookmark_menu_xml[]=
@@ -742,6 +745,7 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
     else if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
         GMount* mnt;
+        char *unix_path = NULL;
         gtk_action_group_add_actions(act_grp, vol_menu_actions, G_N_ELEMENTS(vol_menu_actions), item);
         gtk_ui_manager_add_ui_from_string(ui, vol_menu_xml, -1, NULL);
 
@@ -754,8 +758,18 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
         }
         else /* not mounted */
         {
+            /* if (fm_config->format_cmd)
+                unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
+                                                    G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+            g_free(unix_path); // use it to mark only */
             act = gtk_action_group_get_action(act_grp, "Unmount");
             gtk_action_set_visible(act, FALSE);
+        }
+        if (unix_path == NULL)
+        {
+            act = gtk_action_group_get_action(act_grp, "Format");
+            if (act)
+                 gtk_action_set_visible(act, FALSE);
         }
 
         if(!g_volume_can_eject(fm_places_item_get_volume(item)))
@@ -782,6 +796,9 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
             act = gtk_action_group_get_action(act_grp, "Unmount");
             gtk_action_set_sensitive(act, FALSE);
         }
+        act = gtk_action_group_get_action(act_grp, "Format");
+        if (act)
+             gtk_action_set_visible(act, FALSE);
     }
     else
         goto _out;
@@ -966,6 +983,18 @@ static void on_eject(GtkAction* act, gpointer user_data)
     {
         /* FIXME: get the toplevel window here */
         fm_eject_volume(NULL, fm_places_item_get_volume(item), TRUE);
+    }
+}
+
+static void on_format(GtkAction* act, gpointer user_data)
+{
+    FmPlacesItem* item = (FmPlacesItem*)user_data;
+    char *unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
+                                              G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    if (unix_path)
+    {
+        // FIXME: call fm_config->format_cmd for device
+        g_free(unix_path);
     }
 }
 
