@@ -72,6 +72,11 @@ FmStandardViewMode fm_standard_view_get_mode(FmStandardView* fv);
 const char* fm_standard_view_mode_to_str(FmStandardViewMode mode);
 FmStandardViewMode fm_standard_view_mode_from_str(const char* str);
 
+gint fm_standard_view_get_n_modes(void);
+const char *fm_standard_view_get_mode_description(FmStandardViewMode mode);
+const char *fm_standard_view_get_mode_tooltip(FmStandardViewMode mode);
+const char *fm_standard_view_get_mode_icon(FmStandardViewMode mode);
+
 G_END_DECLS
 
 #endif /* __STANDARD_VIEW_H__ */

@@ -1760,14 +1760,18 @@ typedef struct
 {
     const char* name;
     FmStandardViewMode mode;
-} _ModeNames;
+    char *icon;
+    char *description;
+    char *tooltip;
+    //char *shortkey;
+} FmStandardViewModeinfo;
 
-static const _ModeNames view_mode_names[] =
+static const FmStandardViewModeinfo view_mode_names[] =
 {
-    { "icon", FM_FV_ICON_VIEW },
-    { "compact", FM_FV_COMPACT_VIEW },
-    { "thumbnail", FM_FV_THUMBNAIL_VIEW },
-    { "list", FM_FV_LIST_VIEW }
+    { "icon", FM_FV_ICON_VIEW, NULL, N_("_Icon View"), NULL },
+    { "compact", FM_FV_COMPACT_VIEW, NULL, N_("_Compact View"), NULL },
+    { "thumbnail", FM_FV_THUMBNAIL_VIEW, NULL, N_("_Thumbnail View"), NULL },
+    { "list", FM_FV_LIST_VIEW, N_("Detailed _List View"), NULL }
 };
 
 /**
@@ -1811,4 +1815,85 @@ FmStandardViewMode fm_standard_view_mode_from_str(const char* str)
         if(strcmp(str, view_mode_names[i].name) == 0)
             return view_mode_names[i].mode;
     return (FmStandardViewMode)-1;
+}
+
+/**
+* fm_standard_view_get_n_modes
+*
+* Tests how many view modes are known to create #FmStandardView widget.
+*
+* Returns: number of known modes for standard folder view.
+*
+* Since: 1.2.0
+*/
+gint fm_standard_view_get_n_modes(void)
+{
+    /* FIXME: this is rough */
+    return (gint)FM_FV_LIST_VIEW + 1;
+}
+
+/**
+* fm_standard_view_get_mode_description
+* @mode: the view mode
+*
+* Retrieves description for @mode which can be used in menus. Returned
+* data should not be freed by caller.
+*
+* Returns: desription or %NULL if @mode is invalid.
+*
+* Since: 1.2.0
+*/
+const char *fm_standard_view_get_mode_description(FmStandardViewMode mode)
+{
+    guint i;
+
+    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
+        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+            if(view_mode_names[i].mode == mode && view_mode_names[i].description)
+                return _(view_mode_names[i].description);
+    return NULL;
+}
+
+/**
+* fm_standard_view_get_mode_tooltip
+* @mode: the view mode
+*
+* Retrieves detailed description for @mode which can be used in tooltip.
+* Returned data should not be freed by caller.
+*
+* Returns: detailed description or %NULL if it is not available.
+*
+* Since: 1.2.0
+*/
+const char *fm_standard_view_get_mode_tooltip(FmStandardViewMode mode)
+{
+    guint i;
+
+    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
+        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+            if(view_mode_names[i].mode == mode && view_mode_names[i].tooltip)
+                return _(view_mode_names[i].tooltip);
+    return NULL;
+}
+
+/**
+* fm_standard_view_get_mode_icon
+* @mode: the view mode
+*
+* Retrieves icon name for @mode which can be used in menus. Returned
+* data should not be freed by caller.
+*
+* Returns: icon name or %NULL if it is not available.
+*
+* Since: 1.2.0
+*/
+const char *fm_standard_view_get_mode_icon(FmStandardViewMode mode)
+{
+    guint i;
+
+    if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
+        for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
+            if(view_mode_names[i].mode == mode)
+                return view_mode_names[i].icon;
+    return NULL;
 }
