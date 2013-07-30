@@ -1241,7 +1241,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
                 if(icon)
                 {
                     act = gtk_action_group_get_action(act_grp, act_name);
-                    gtk_action_set_gicon(act, icon->gicon);
+                    gtk_action_set_gicon(act, G_ICON(icon));
                 }
             }
             g_string_append(xml, "</placeholder></menu></popup>");

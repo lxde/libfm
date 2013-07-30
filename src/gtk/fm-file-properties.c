@@ -1142,7 +1142,7 @@ static void update_ui(FmFilePropData* data)
             FmFileInfo* fi = fm_file_info_list_peek_head(data->files);
             FmIcon* fi_icon = fm_file_info_get_icon(fi);
             if(fi_icon)
-                icon = fi_icon->gicon;
+                icon = G_ICON(fi_icon);
             if(fm_file_info_can_set_icon(fi))
             {
                 /* enable icon change if file allows that */
@@ -1156,7 +1156,7 @@ static void update_ui(FmFilePropData* data)
             {
                 FmIcon* ficon = fm_mime_type_get_icon(data->mime_type);
                 if(ficon)
-                    icon = ficon->gicon;
+                    icon = G_ICON(ficon);
             }
             text = fm_mime_type_get_desc(data->mime_type);
             gtk_label_set_text(data->type, text);

@@ -104,7 +104,7 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
     }
 
     /* not found! load the icon from disk */
-    ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), icon->gicon, size, GTK_ICON_LOOKUP_FORCE_SIZE);
+    ii = gtk_icon_theme_lookup_by_gicon(gtk_icon_theme_get_default(), G_ICON(icon), size, GTK_ICON_LOOKUP_FORCE_SIZE);
     if(ii)
     {
         pix = gtk_icon_info_load_icon(ii, NULL);
@@ -117,7 +117,7 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
     }
     else
     {
-        char* str = g_icon_to_string(icon->gicon);
+        char* str = g_icon_to_string(G_ICON(icon));
         g_debug("unable to load icon %s", str);
         pix = NULL;
 #if 0

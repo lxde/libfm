@@ -232,7 +232,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     apply_all = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "apply_all"));
     gtk_window_set_transient_for(GTK_WINDOW(dlg), GTK_WINDOW(data->dlg));
 
-    gtk_image_set_from_gicon(src_icon, icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(src_icon, G_ICON(icon), GTK_ICON_SIZE_DIALOG);
     disp_size = fm_file_info_get_disp_size(src);
     if(disp_size)
     {
@@ -251,7 +251,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(src_fi, tmp);
     g_free(tmp);
 
-    gtk_image_set_from_gicon(dest_icon, icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(dest_icon, G_ICON(icon), GTK_ICON_SIZE_DIALOG);
     disp_size = fm_file_info_get_disp_size(dest);
     if(disp_size)
     {

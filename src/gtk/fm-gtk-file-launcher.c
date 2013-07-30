@@ -119,7 +119,7 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
     dlg = GTK_DIALOG(gtk_builder_get_object(b, "dlg"));
     msg = GTK_LABEL(gtk_builder_get_object(b, "msg"));
     icon = GTK_IMAGE(gtk_builder_get_object(b, "icon"));
-    gtk_image_set_from_gicon(icon, fi_icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_from_gicon(icon, G_ICON(fi_icon), GTK_ICON_SIZE_DIALOG);
     gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(dlg)), FALSE);
 
     /* If we reached this point then file is executable: either script or binary */

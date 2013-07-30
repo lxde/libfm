@@ -28,7 +28,7 @@
  *
  */
 
-#include "fm-icon.h"
+#include "fm.h"
 
 static GHashTable* hash = NULL;
 G_LOCK_DEFINE_STATIC(hash);
@@ -39,7 +39,8 @@ void _fm_icon_init()
 {
     if(G_UNLIKELY(hash))
         return;
-    hash = g_hash_table_new(g_icon_hash, (GEqualFunc)g_icon_equal);
+    hash = g_hash_table_new_full(g_icon_hash, (GEqualFunc)g_icon_equal,
+                                 g_object_unref, NULL);
 }
 
 void _fm_icon_finalize()
@@ -66,13 +67,11 @@ FmIcon* fm_icon_from_gicon(GIcon* gicon)
     icon = (FmIcon*)g_hash_table_lookup(hash, gicon);
     if(G_UNLIKELY(!icon))
     {
-        icon = g_slice_new0(FmIcon);
-        icon->gicon = (GIcon*)g_object_ref(gicon);
-        g_hash_table_insert(hash, icon->gicon, icon);
+        icon = (FmIcon*)g_object_ref(gicon);
+        g_hash_table_insert(hash, gicon, icon);
     }
-    ++icon->n_ref;
     G_UNLOCK(hash);
-    return icon;
+    return g_object_ref(icon);
 }
 
 /**
@@ -120,15 +119,12 @@ FmIcon* fm_icon_from_name(const char* name)
  * Returns: @icon.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: Use g_object_ref() instead.
  */
-/* FIXME: using mutex is a little bit expansive, but since we need
- * to handle hash table too, it might be necessary. */
 FmIcon* fm_icon_ref(FmIcon* icon)
 {
-    G_LOCK(hash);
-    ++icon->n_ref;
-    G_UNLOCK(hash);
-    return icon;
+    return g_object_ref(icon);
 }
 
 /**
@@ -139,38 +135,12 @@ FmIcon* fm_icon_ref(FmIcon* icon)
  * removes @icon from cache.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: Use g_object_unref() instead.
  */
-/* FIXME: what will happen if someone is ref this structure while we're
- * trying to free it? Answer: if someone is trying to ref it, one already
- * has a ref so we never can free it here */
 void fm_icon_unref(FmIcon* icon)
 {
-    G_LOCK(hash);
-    --icon->n_ref;
-    if(G_UNLIKELY(0 == icon->n_ref))
-    {
-        g_hash_table_remove(hash, icon->gicon);
-        G_UNLOCK(hash);
-        g_object_unref(icon->gicon);
-        if(destroy_func && icon->user_data)
-            destroy_func(icon->user_data);
-        g_slice_free(FmIcon, icon);
-    }
-    else
-        G_UNLOCK(hash);
-}
-
-static gboolean unload_cache(GIcon* key, FmIcon* icon, gpointer unused)
-{
-    --icon->n_ref;
-    if(G_UNLIKELY(0 == icon->n_ref))
-    {
-        g_object_unref(icon->gicon);
-        if(destroy_func && icon->user_data)
-            destroy_func(icon->user_data);
-        g_slice_free(FmIcon, icon);
-    }
-    return TRUE;
+    g_object_unref(icon);
 }
 
 /**
@@ -183,17 +153,13 @@ static gboolean unload_cache(GIcon* key, FmIcon* icon, gpointer unused)
 void fm_icon_unload_cache(void)
 {
     G_LOCK(hash);
-    g_hash_table_foreach_remove(hash, (GHRFunc)unload_cache, NULL);
+    g_hash_table_remove_all(hash);
     G_UNLOCK(hash);
 }
 
-static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
+static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer quark)
 {
-    if(destroy_func && icon->user_data)
-    {
-        destroy_func(icon->user_data);
-        icon->user_data = NULL;
-    }
+    g_object_set_qdata(G_OBJECT(icon), (guint32)quark, NULL);
 }
 
 /**
@@ -204,11 +170,28 @@ static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
  * See also: fm_icon_set_user_data().
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: Use fm_icon_reset_user_data_cache() instead.
  */
 void fm_icon_unload_user_data_cache(void)
 {
     G_LOCK(hash);
-    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, NULL);
+    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)fm_qdata_id);
+    G_UNLOCK(hash);
+}
+
+/**
+ * fm_icon_reset_user_data_cache
+ * @quark: the associated key for user data
+ *
+ * Flushes all user data by @quark in cache.
+ *
+ * Since: 1.2.0
+ */
+void fm_icon_reset_user_data_cache(GQuark quark)
+{
+    G_LOCK(hash);
+    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)quark);
     G_UNLOCK(hash);
 }
 
@@ -221,10 +204,12 @@ void fm_icon_unload_user_data_cache(void)
  * Returns: user data.
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: Use g_object_get_qdata() instead.
  */
 gpointer fm_icon_get_user_data(FmIcon* icon)
 {
-    return icon->user_data;
+    return g_object_get_qdata(G_OBJECT(icon), fm_qdata_id);
 }
 
 /**
@@ -237,10 +222,12 @@ gpointer fm_icon_get_user_data(FmIcon* icon)
  * See also: fm_icon_get_user_data(), fm_icon_unload_user_data_cache().
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0: Use g_object_set_qdata_full() instead.
  */
 void fm_icon_set_user_data(FmIcon* icon, gpointer user_data)
 {
-    icon->user_data = user_data;
+    g_object_set_qdata_full(G_OBJECT(icon), fm_qdata_id, user_data, destroy_func);
 }
 
 /**
@@ -251,8 +238,22 @@ void fm_icon_set_user_data(FmIcon* icon, gpointer user_data)
  * user data that was set by fm_icon_set_user_data().
  *
  * Since: 0.1.0
+ *
+ * Deprecated: 1.2.0
  */
+static gboolean reload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
+{
+    /* reset destroy_func for data -- compatibility */
+    gpointer user_data = g_object_steal_qdata(G_OBJECT(icon), fm_qdata_id);
+    if (user_data)
+        g_object_set_qdata_full(G_OBJECT(icon), fm_qdata_id, user_data, destroy_func);
+    return TRUE;
+}
+
 void fm_icon_set_user_data_destroy(GDestroyNotify func)
 {
+    G_LOCK(hash);
     destroy_func = func;
+    g_hash_table_foreach(hash, (GHFunc)reload_user_data_cache, NULL);
+    G_UNLOCK(hash);
 }

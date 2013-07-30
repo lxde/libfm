@@ -733,7 +733,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     case FM_FOLDER_MODEL_COL_GICON:
         icon = fm_file_info_get_icon(info);
         if(G_LIKELY(icon))
-            g_value_set_object(value, icon->gicon);
+            g_value_set_object(value, icon);
         break;
     case FM_FOLDER_MODEL_COL_ICON:
     {
