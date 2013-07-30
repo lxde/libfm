@@ -174,9 +174,9 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
-const char* expand_terminal_s(char opt, gpointer unused)
+const char* expand_terminal_s(char opt, gpointer command)
 {
-    return fm_config->terminal;
+    return command;
 }
 
 static FmAppCommandParseOption expand_terminal_options[] =
@@ -190,7 +190,8 @@ static char* expand_terminal(char* cmd)
     char* ret;
     /* add terminal emulator command */
 
-    if(fm_app_command_parse(cmd, expand_terminal_options, &ret, NULL) > 0)
+    if(fm_config->terminal &&
+       fm_app_command_parse(fm_config->terminal, expand_terminal_options, &ret, cmd) > 0)
         return ret;
     else /* if %s is not found, fallback to -e */
     {
