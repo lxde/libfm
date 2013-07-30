@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-24 01:02+0300\n"
+"POT-Creation-Date: 2013-07-30 18:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "_Overwrite"
 msgstr ""
 
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
+#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:156
 msgid "_Rename"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Choose An Icon..."
 msgstr ""
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
+#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:366
 msgid "Image files"
 msgstr ""
 
@@ -208,74 +208,78 @@ msgid "File Properties"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:20
-msgid "Icon of the file in folder view"
+msgid "Hidden file"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
+msgid "Icon of the file in folder view"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:22
-msgid "None"
+msgid "Nobody"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
+msgid "None"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
+msgid "Only owner"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:25
-msgid "Select the application used to open files of this type "
+msgid "Only owner and group"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
+msgid "Select the application used to open files of this type "
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
+msgid "Set GID"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
+msgid "Set UID"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
+msgid "Set UID & GID"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
+msgid "Special flags for directory access"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
+msgid "Special flags for file execution"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
+msgid "Sticky"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
+msgid "Sticky & set GID"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
+msgid "Who can change content of the file/directory"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
+msgid "Who can execute the file or enter the directory"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:36
-msgid "_General"
+msgid "Who can read content of the file/directory"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:37
+msgid "_General"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:38
 msgid "_Permissions"
 msgstr ""
 
@@ -636,7 +640,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-view.c:376
+#: ../src/gtk/fm-dir-tree-view.c:452
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
@@ -644,210 +648,216 @@ msgstr ""
 msgid "XDirectSave failed."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:153
+#: ../src/gtk/fm-file-menu.c:146
 msgid "_Open"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:154 ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:147 ../src/gtk/fm-file-menu.c:148
 msgid "Open _With..."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:153
+msgid "H_ide"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:154
+msgid "Unh_ide"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:155
 msgid "_Add to Bookmarks"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:162
-msgid "Create _Symlink"
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:163
-msgid "Se_nd To"
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:164
+#: ../src/gtk/fm-file-menu.c:157
 msgid "Co_mpress..."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:165
+#: ../src/gtk/fm-file-menu.c:158
 msgid "Extract _Here"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:166
+#: ../src/gtk/fm-file-menu.c:159
 msgid "E_xtract To..."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:167 ../src/gtk/fm-folder-view.c:190
+#: ../src/gtk/fm-file-menu.c:160 ../src/gtk/fm-folder-view.c:199
 msgid "Prop_erties"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:523
-msgid "_Restore"
-msgstr ""
-
-#: ../src/gtk/fm-file-menu.c:524
-msgid "Restore trashed files to original paths"
-msgstr ""
-
-#: ../src/gtk/fm-file-properties.c:496 ../src/gtk/fm-file-properties.c:505
+#: ../src/gtk/fm-file-properties.c:498 ../src/gtk/fm-file-properties.c:507
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gtk/fm-file-properties.c:569
+#: ../src/gtk/fm-file-properties.c:571
 msgid "Please enter a valid user name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:599
+#: ../src/gtk/fm-file-properties.c:601
 msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:797
+#: ../src/gtk/fm-file-properties.c:799
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1024
+#: ../src/gtk/fm-file-properties.c:927
+msgid "Hide or unhide the file"
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:932
+msgid "This file is hidden because its name starts with a dot ('.')."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:936
+msgid ""
+"Files on this system are hidden if their name starts with a dot ('.'). Hit "
+"<Ctrl+H> to toggle displaying hidden files."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:1063
 msgid "<b>_Access content:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1167
+#: ../src/gtk/fm-file-properties.c:1207
 msgid "Files of different types"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1211
+#: ../src/gtk/fm-file-properties.c:1251
 msgid "<b>File:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1266
+#: ../src/gtk/fm-file-properties.c:1306
 msgid "Multiple Files"
 msgstr ""
 
 #. columns visible to the users
-#: ../src/gtk/fm-folder-model.c:188
+#: ../src/gtk/fm-folder-model.c:190
 msgid "Name"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:189
+#: ../src/gtk/fm-folder-model.c:191
 msgid "Description"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:190
+#: ../src/gtk/fm-folder-model.c:192
 msgid "Size"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:191
+#: ../src/gtk/fm-folder-model.c:193
 msgid "Permissions"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:192
+#: ../src/gtk/fm-folder-model.c:194
 msgid "Owner"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:193
+#: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
 msgstr ""
 
-#: ../src/gtk/fm-folder-model.c:194
+#: ../src/gtk/fm-folder-model.c:196
 msgid "Location"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:170
+#: ../src/gtk/fm-folder-view.c:179
 msgid "Create _New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:171
+#: ../src/gtk/fm-folder-view.c:180
 msgid "Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:174
+#: ../src/gtk/fm-folder-view.c:183
 msgid "Empty File"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:195
 msgid "_Invert Selection"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:187
+#: ../src/gtk/fm-folder-view.c:196
 msgid "_Sort Files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:188
+#: ../src/gtk/fm-folder-view.c:197
 msgid "_Rename Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:189
+#: ../src/gtk/fm-folder-view.c:198
 msgid "Folder Prop_erties"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-folder-view.c:207
 msgid "Show _Hidden"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:199
+#: ../src/gtk/fm-folder-view.c:208
 msgid "_Only for this folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:200
+#: ../src/gtk/fm-folder-view.c:209
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:201
+#: ../src/gtk/fm-folder-view.c:210
 msgid "Mingle _files and folders"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:202
+#: ../src/gtk/fm-folder-view.c:211
 msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:213
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By _Name"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:214
+#: ../src/gtk/fm-folder-view.c:223
 msgid "By _Modification Time"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:215
+#: ../src/gtk/fm-folder-view.c:224
 msgid "By _Size"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:216
+#: ../src/gtk/fm-folder-view.c:225
 msgid "By File _Type"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:834
+#: ../src/gtk/fm-folder-view.c:852
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:835
+#: ../src/gtk/fm-folder-view.c:853
 msgid "Creating new folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:866
 msgid "Enter a name for empty file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:849
+#: ../src/gtk/fm-folder-view.c:867
 msgid "Creating ..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:855
+#: ../src/gtk/fm-folder-view.c:873
 msgid "New"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:865
+#: ../src/gtk/fm-folder-view.c:883
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:886
 #, c-format
 msgid "Creating %s"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:872
+#: ../src/gtk/fm-folder-view.c:890
 msgid "_Run default application on file after creation"
 msgstr ""
 
@@ -910,7 +920,7 @@ msgstr ""
 msgid "Please enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-utils.c:1081
+#: ../src/gtk/fm-gtk-utils.c:1122
 msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
@@ -930,48 +940,52 @@ msgstr ""
 msgid "Applications"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:106
+#: ../src/gtk/fm-places-view.c:108
 msgid "_Mount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:107
+#: ../src/gtk/fm-places-view.c:109
 msgid "_Unmount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:108
+#: ../src/gtk/fm-places-view.c:110
 msgid "_Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:123
-msgid "_Rename Bookmark Item"
-msgstr ""
-
-#: ../src/gtk/fm-places-view.c:124
-msgid "Re_move from Bookmark"
-msgstr ""
-
-#: ../src/gtk/fm-places-view.c:125
-msgid "Move Bookmark _Up"
+#: ../src/gtk/fm-places-view.c:111
+msgid "_Format Volume"
 msgstr ""
 
 #: ../src/gtk/fm-places-view.c:126
+msgid "_Rename Bookmark Item"
+msgstr ""
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Re_move from Bookmark"
+msgstr ""
+
+#: ../src/gtk/fm-places-view.c:128
+msgid "Move Bookmark _Up"
+msgstr ""
+
+#: ../src/gtk/fm-places-view.c:129
 msgid "Move Bookmark _Down"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:138
+#: ../src/gtk/fm-places-view.c:141 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:505
+#: ../src/gtk/fm-places-view.c:508
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:988
+#: ../src/gtk/fm-places-view.c:1013
 msgid "Rename Bookmark Item"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:989
+#: ../src/gtk/fm-places-view.c:1014
 msgid "Enter a new name:"
 msgstr ""
 
@@ -1095,6 +1109,22 @@ msgstr ""
 msgid "_Forget width"
 msgstr ""
 
+#: ../src/gtk/fm-standard-view.c:1771
+msgid "_Icon View"
+msgstr ""
+
+#: ../src/gtk/fm-standard-view.c:1772
+msgid "_Compact View"
+msgstr ""
+
+#: ../src/gtk/fm-standard-view.c:1773
+msgid "_Thumbnail View"
+msgstr ""
+
+#: ../src/gtk/fm-standard-view.c:1774
+msgid "Detailed _List View"
+msgstr ""
+
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
 msgstr ""
@@ -1110,7 +1140,7 @@ msgid "Cannot access destination file"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job.c:563
-msgid "cannot create a link on non-native filesystem"
+msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
@@ -1171,7 +1201,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
-msgid "XML file %s error (%d:%d): "
+msgid "XML file '%s' error (%d:%d): "
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
@@ -1180,7 +1210,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "Cannot find path %s in XML definitions"
+msgid "Cannot find path '%s' in XML definitions"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:923
@@ -1217,7 +1247,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2114
 #, c-format
-msgid "Invalid menu directory %s"
+msgid "Invalid menu directory '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
@@ -1235,32 +1265,32 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2548
 #, c-format
-msgid "Setting attribute %s not supported"
+msgid "Setting attribute '%s' not supported"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2558
 #, c-format
-msgid "Invalid value for attribute %s"
+msgid "Invalid value for attribute '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2595
 #, c-format
-msgid "The \"%s\" is a menu directory"
+msgid "The '%s' is a menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
-msgid "The \"%s\" isn't a menu item"
+msgid "The '%s' isn't a menu item"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
-msgid "The \"%s\" is broken"
+msgid "The '%s' entry file is broken"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
-msgid "Cannot create menu item \"%s\""
+msgid "Cannot create menu item '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3172
@@ -1273,7 +1303,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:3290
 #, c-format
-msgid "Invalid menu item %s"
+msgid "Invalid menu item '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3370
@@ -1282,7 +1312,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
-msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
+msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
 
 #. FIXME: need name to be converted to UTF-8?
@@ -1294,68 +1324,76 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:65
+#: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose an executable file"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:71
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
 msgid "Executable files"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:268
+#: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:276
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:289
+#: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr ""
 
 #. row 1: "Terminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:295
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Run in terminal emulator"
 msgstr ""
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:307
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after run"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:323
+#: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:333
+#: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:341
+#: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:352
+#: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:360
+#: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:370
+#: ../src/modules/gtk-fileprop-x-desktop.c:369
 msgid "Tooltip to show on application"
 msgstr ""
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:376
+#: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:389
+#: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop entry"
+msgstr ""
+
+#: ../src/modules/gtk-menu-trash.c:72
+msgid "_Restore"
+msgstr ""
+
+#: ../src/modules/gtk-menu-trash.c:73
+msgid "Restore trashed files to original paths"
 msgstr ""
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
