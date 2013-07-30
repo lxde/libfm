@@ -545,8 +545,8 @@ FmStandardView
 FmStandardViewClass
 FmStandardViewMode
 fm_standard_view_get_mode
-fm_standard_view_get_mode_description
 fm_standard_view_get_mode_icon
+fm_standard_view_get_mode_label
 fm_standard_view_get_mode_tooltip
 fm_standard_view_get_n_modes
 fm_standard_view_mode_from_str

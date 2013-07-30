@@ -1761,7 +1761,7 @@ typedef struct
     const char* name;
     FmStandardViewMode mode;
     char *icon;
-    char *description;
+    char *label;
     char *tooltip;
     //char *shortkey;
 } FmStandardViewModeinfo;
@@ -1833,24 +1833,24 @@ gint fm_standard_view_get_n_modes(void)
 }
 
 /**
-* fm_standard_view_get_mode_description
+* fm_standard_view_get_mode_label
 * @mode: the view mode
 *
-* Retrieves description for @mode which can be used in menus. Returned
+* Retrieves label for @mode which can be used in menus. Returned
 * data should not be freed by caller.
 *
 * Returns: desription or %NULL if @mode is invalid.
 *
 * Since: 1.2.0
 */
-const char *fm_standard_view_get_mode_description(FmStandardViewMode mode)
+const char *fm_standard_view_get_mode_label(FmStandardViewMode mode)
 {
     guint i;
 
     if(G_LIKELY(FM_STANDARD_VIEW_MODE_IS_VALID(mode)))
         for(i = 0; i < G_N_ELEMENTS(view_mode_names); i++)
-            if(view_mode_names[i].mode == mode && view_mode_names[i].description)
-                return _(view_mode_names[i].description);
+            if(view_mode_names[i].mode == mode && view_mode_names[i].label)
+                return _(view_mode_names[i].label);
     return NULL;
 }
 
