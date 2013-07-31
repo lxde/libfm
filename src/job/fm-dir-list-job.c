@@ -115,7 +115,7 @@ static void fm_dir_list_job_init(FmDirListJob *job)
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.2.0: use fm_dir_list_job_new2() instead.
+ * Deprecated: 1.2.0: Use fm_dir_list_job_new2() instead.
  */
 FmDirListJob* fm_dir_list_job_new(FmPath* path, gboolean dir_only)
 {

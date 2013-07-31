@@ -997,7 +997,7 @@ void _fm_path_set_display_name(FmPath *path, const char *disp_name)
             return;
         g_free(path->disp_name);
     }
-    g_debug("set display name of %s to %s", path->name, disp_name);
+    /* g_debug("set display name of %s to %s", path->name, disp_name); */
     /* By default we use the real file base name for display.
      * if the base name is not in UTF-8 encoding, we
      * need to convert it to UTF-8 for display and save its

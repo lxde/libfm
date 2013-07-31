@@ -448,7 +448,7 @@ FmFileInfo *fm_file_info_new_from_native_file(FmPath *path, const char *path_str
  * Get file info from the GFileInfo object and store it in
  * the FmFileInfo struct.
  *
- * Deprecated: 1.2.0: use fm_file_info_set_from_g_file_data() instead.
+ * Deprecated: 1.2.0: Use fm_file_info_set_from_g_file_data() instead.
  */
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf)
 {
@@ -646,7 +646,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
  * Returns: A new FmFileInfo struct which should be freed with
  * fm_file_info_unref() when no longer needed.
  *
- * Deprecated: 1.2.0: use fm_file_info_new_from_g_file_data() instead.
+ * Deprecated: 1.2.0: Use fm_file_info_new_from_g_file_data() instead.
  */
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf)
 {
@@ -685,7 +685,7 @@ FmFileInfo* fm_file_info_new_from_g_file_data(GFile *gf, GFileInfo *inf, FmPath 
 /**
  * fm_file_info_set_from_menu_cache_item
  *
- * Deprecated: 1.2.0: Don't use it in newer code.
+ * Deprecated: 1.2.0
  */
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
@@ -731,7 +731,7 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 /**
  * fm_file_info_new_from_menu_cache_item
  *
- * Deprecated: 1.2.0: Don't use it in newer code.
+ * Deprecated: 1.2.0
  */
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {

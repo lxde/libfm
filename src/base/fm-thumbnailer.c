@@ -265,7 +265,7 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
  *
  * Since: 1.0.0
  *
- * Deprecated: 1.2.0: use fm_thumbnailer_launch_for_uri_async() instead.
+ * Deprecated: 1.2.0: Use fm_thumbnailer_launch_for_uri_async() instead.
  */
 gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* uri,  const char* output_file, guint size)
 {

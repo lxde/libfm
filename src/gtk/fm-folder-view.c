@@ -462,7 +462,7 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, FmFolderModelCol by
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.0.2: use fm_folder_model_get_sort() instead.
+ * Deprecated: 1.0.2: Use fm_folder_model_get_sort() instead.
  */
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
 {
@@ -489,7 +489,7 @@ GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.0.2: use fm_folder_model_get_sort() instead.
+ * Deprecated: 1.0.2: Use fm_folder_model_get_sort() instead.
  */
 FmFolderModelCol fm_folder_view_get_sort_by(FmFolderView* fv)
 {

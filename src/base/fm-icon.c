@@ -227,6 +227,8 @@ gpointer fm_icon_get_user_data(FmIcon* icon)
  */
 void fm_icon_set_user_data(FmIcon* icon, gpointer user_data)
 {
+    /* this old API meant to replace data not freeing it */
+    g_object_steal_qdata(G_OBJECT(icon), fm_qdata_id);
     g_object_set_qdata_full(G_OBJECT(icon), fm_qdata_id, user_data, destroy_func);
 }
 
