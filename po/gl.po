@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-07-28 11:43+0200\n"
+"PO-Revision-Date: 2013-07-31 08:57+0200\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -615,12 +615,12 @@ msgstr "Pechouse o elemento «%s», mais o elemento aberto actualmente é «%s»
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Carácter incorrecto «%c» no comezo do valor do atributo "
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Carácter incorrecto «%c» na fin do valor do atributo, agardábase «%c»  "
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -947,9 +947,8 @@ msgid "Pa_ste and go"
 msgstr "Pe_gar e ir"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "Entrar pola ruta do cartafol"
+msgstr "Entrada pola ruta do cartafol"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -1149,7 +1148,7 @@ msgstr "Non é posíbel acceder ao ficheiro de destino"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "non é posíbel crear unha ligazón nun sistema de ficheiros non nativo"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1170,65 +1169,69 @@ msgstr "O destino é un subcartafol da orixe"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "A asignación do nome a amosar pódese facer para só un único ficheiro"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "A asignación do destino pódese facer para só un único ficheiro"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "Empty <Name> tag"
-msgstr "A eiqueta <Name> está baleira"
+msgstr "A etiqueta <Name> está baleira"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "Tag <Not> should have exactly one child"
-msgstr ""
+msgstr "A etiquera <Not> debe ter exactamente un fillo"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
+"A etiqueta <Not> só pode conter o fillo <And>, <Or>, <Filename> ou "
+"<Category>"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"A mistura de  ficheiros só pode conter a etiqueta de nivel superior <Menú>, "
+"ten <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "Failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "Non foi posíbel inserir a etiqueta <%s> desde a mistura de ficheiros"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "Invalid <MergeFile> tag"
-msgstr ""
+msgstr "Etiqueta <MergeFile> incorrecta"
 
 #: ../src/modules/vfs-menu.c:370
 msgid "Invalid <MergeDir> tag"
-msgstr ""
+msgstr "Etiqueta <MergeDir> incorrecta"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "Produciuse un erro no ficheiro XML %s (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "O ficheiro XML non conten a raíz dos aplicativos"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
 msgid "Cannot find path %s in XML definitions"
-msgstr ""
+msgstr "Non é posíbel atopar a ruta %s nas definicións XML"
 
 #: ../src/modules/vfs-menu.c:923
 msgid "Category manipulation internal error"
-msgstr ""
+msgstr "Produciuse un erro interno de manipulación de categoría"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "Non é posíbel crear a definición XML para «%s»"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
@@ -1265,11 +1268,11 @@ msgstr "Elemento de menú incorrecto"
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "O elemento de menú «%s» non ten un fecheiro de entrada axeitado"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Cambiar o estado agochado non é compatíbel co directorio do menú"
 
 #: ../src/modules/vfs-menu.c:2548
 #, c-format
@@ -1294,7 +1297,7 @@ msgstr "O «%s» é un elemento de menú"
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "O «%s» está quebrado."
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
@@ -1303,11 +1306,11 @@ msgstr "Non é posíbel crear o elemento de menú: %s"
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "O nome do directorio do menú non pode rematar con «.desktop»"
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Operación incorrecta coa raíz do menú"
 
 #: ../src/modules/vfs-menu.c:3290
 #, c-format
@@ -1321,7 +1324,7 @@ msgstr "Destino incorrecto"
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: non se atopa o cartafol %s na caché do menú"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
