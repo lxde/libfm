@@ -48,7 +48,11 @@ void _fm_dentry_properties_init(void);
  */
 gboolean fm_gtk_init(FmConfig* config)
 {
+#if GLIB_CHECK_VERSION(2, 30, 0)
+    if (g_atomic_int_add(&gtk_initialized, 1) != 0 ||
+#else
     if (g_atomic_int_exchange_and_add(&gtk_initialized, 1) != 0 ||
+#endif
         G_UNLIKELY(!fm_init(config)))
         return FALSE;
 

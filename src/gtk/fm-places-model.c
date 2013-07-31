@@ -121,7 +121,7 @@ static void place_item_free(FmPlacesItem* item)
         ;
     }
     if(G_LIKELY(item->icon))
-        fm_icon_unref(item->icon);
+        g_object_unref(item->icon);
     if(G_LIKELY(item->fi))
         fm_file_info_unref(item->fi);
     g_slice_free(FmPlacesItem, item);
@@ -184,8 +184,8 @@ static void on_file_info_job_finished(FmFileInfoJob* job, gpointer user_data)
                             /* replace the icon with updated data */
                             if(icon && icon != item->icon)
                             {
-                                fm_icon_unref(item->icon);
-                                item->icon = fm_icon_ref(icon);
+                                g_object_unref(item->icon);
+                                item->icon = g_object_ref(icon);
                                 pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
                                 gtk_list_store_set(GTK_LIST_STORE(model), &it,
                                                    FM_PLACES_MODEL_COL_ICON, pix, -1);
@@ -228,7 +228,7 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
         return; /* FIXME: is it possible? */
 
     if(item->icon)
-        fm_icon_unref(item->icon);
+        g_object_unref(item->icon);
     item->icon = fm_icon_from_gicon(gicon);
     g_object_unref(gicon);
 
@@ -552,7 +552,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
         fm_file_info_job_add(job, path);
         if(fm_path_is_native(path))
         {
-            item->icon = fm_icon_ref(icon);
+            item->icon = g_object_ref(icon);
             pix = folder_pix;
         }
         else
@@ -562,7 +562,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
                 remote_icon = fm_icon_from_name("folder-remote");
                 remote_pix = fm_pixbuf_from_icon(remote_icon, fm_config->pane_icon_size);
             }
-            item->icon = fm_icon_ref(remote_icon);
+            item->icon = g_object_ref(remote_icon);
             pix = remote_pix;
         }
         item->bm_item = bm;
@@ -573,10 +573,10 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
     }
     g_list_free(bms);
     g_object_unref(folder_pix);
-    fm_icon_unref(icon);
+    g_object_unref(icon);
     if(remote_icon)
     {
-        fm_icon_unref(remote_icon);
+        g_object_unref(remote_icon);
         if(remote_pix)
             g_object_unref(remote_pix);
     }
@@ -632,7 +632,7 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
             gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
             if(item->icon)
-                fm_icon_unref(item->icon);
+                g_object_unref(item->icon);
             item->icon = icon;
             /* update the icon */
             pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
@@ -664,7 +664,7 @@ static void update_icons(FmPlacesModel* model)
     /* update the eject icon */
     icon = fm_icon_from_name("media-eject");
     pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
-    fm_icon_unref(icon);
+    g_object_unref(icon);
     if(model->eject_icon)
         g_object_unref(model->eject_icon);
     model->eject_icon = pix;
@@ -839,7 +839,7 @@ static void fm_places_model_init(FmPlacesModel *self)
                                              G_CALLBACK(on_pane_icon_size_changed), self);
     icon = fm_icon_from_name("media-eject");
     self->eject_icon = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
-    fm_icon_unref(icon);
+    g_object_unref(icon);
 
     if(fm_config->places_home)
     {

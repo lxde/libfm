@@ -73,7 +73,11 @@ static volatile gint init_done = 0;
  */
 gboolean fm_init(FmConfig* config)
 {
+#if GLIB_CHECK_VERSION(2, 30, 0)
+    if (g_atomic_int_add(&init_done, 1) != 0)
+#else
     if (g_atomic_int_exchange_and_add(&init_done, 1) != 0)
+#endif
         return FALSE; /* duplicate call */
 
 #ifdef ENABLE_NLS

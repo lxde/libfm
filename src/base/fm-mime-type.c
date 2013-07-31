@@ -328,7 +328,7 @@ void fm_mime_type_unref(gpointer mime_type_)
         g_free(mime_type->type);
         g_free(mime_type->description);
         if (mime_type->icon)
-            fm_icon_unref(mime_type->icon);
+            g_object_unref(mime_type->icon);
         if(mime_type->thumbnailers)
         {
             /* Note: we do not own references for FmThumbnailer here.

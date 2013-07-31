@@ -29,6 +29,7 @@
  */
 
 #include "fm-icon-pixbuf.h"
+#include "fm.h"
 
 //static gboolean init = FALSE;
 static guint changed_handler = 0;
@@ -93,7 +94,7 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
     GSList *pixs, *l;
     PixEntry* ent;
 
-    pixs = (GSList*)fm_icon_get_user_data(icon);
+    pixs = (GSList*)g_object_steal_qdata(G_OBJECT(icon), fm_qdata_id);
     for( l = pixs; l; l=l->next )
     {
         ent = (PixEntry*)l->data;
@@ -146,7 +147,7 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
     /* FIXME: maybe we should unload icons that nobody is using to reduce memory usage. */
     /* g_object_weak_ref(); */
     pixs = g_slist_prepend(pixs, ent);
-    fm_icon_set_user_data(icon, pixs);
+    g_object_set_qdata_full(G_OBJECT(icon), fm_qdata_id, pixs, destroy_pixbufs);
 
     return pix;
 }
@@ -155,7 +156,7 @@ static void on_icon_theme_changed(GtkIconTheme* theme, gpointer user_data)
 {
     g_debug("icon theme changed!");
     /* unload pixbufs cached in FmIcon's hash table. */
-    fm_icon_unload_user_data_cache();
+    fm_icon_reset_user_data_cache(fm_qdata_id);
 }
 
 void _fm_icon_pixbuf_init()
@@ -163,8 +164,6 @@ void _fm_icon_pixbuf_init()
     /* FIXME: GtkIconTheme object is different on different GdkScreen */
     GtkIconTheme* theme = gtk_icon_theme_get_default();
     changed_handler = g_signal_connect(theme, "changed", G_CALLBACK(on_icon_theme_changed), NULL);
-
-    fm_icon_set_user_data_destroy(destroy_pixbufs);
 }
 
 void _fm_icon_pixbuf_finalize()

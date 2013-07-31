@@ -158,7 +158,7 @@ void _fm_file_info_init(void)
 
 void _fm_file_info_finalize()
 {
-    fm_icon_unref(icon_locked_folder);
+    g_object_unref(icon_locked_folder);
 }
 
 /**
@@ -305,14 +305,14 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
             if(icon)
                 fi->icon = icon;
             else
-                fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
+                fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
             g_key_file_free(kf);
         }
         else if(!S_ISDIR(st.st_mode))
             ;
         /* set "locked" icon on unaccesible folder */
         else if(!fi->accessible)
-            fi->icon = fm_icon_ref(icon_locked_folder);
+            fi->icon = g_object_ref(icon_locked_folder);
         else if(!get_fast && S_ISDIR(st.st_mode)) /* special handling for folder icons */
         {
             FmPath* fmpath = fi->path;
@@ -370,7 +370,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
             }
         }
         if(!fi->icon)
-            fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
+            fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
 
         if (!dname)
             dname = g_filename_display_basename(path);
@@ -598,9 +598,9 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
          * owned by GFileInfo. */
     /* set "locked" icon on unaccesible folder */
     else if(!fi->accessible && type == G_FILE_TYPE_DIRECTORY)
-        fi->icon = fm_icon_ref(icon_locked_folder);
+        fi->icon = g_object_ref(icon_locked_folder);
     else
-        fi->icon = fm_icon_ref(fm_mime_type_get_icon(fi->mime_type));
+        fi->icon = g_object_ref(fm_mime_type_get_icon(fi->mime_type));
 
     if(fm_path_is_native(fi->path))
     {
@@ -788,7 +788,7 @@ static void fm_file_info_clear(FmFileInfo* fi)
     }
     if(G_LIKELY(fi->icon))
     {
-        fm_icon_unref(fi->icon);
+        g_object_unref(fi->icon);
         fi->icon = NULL;
     }
 }
@@ -839,7 +839,7 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
 {
     FmPath* tmp_path = fm_path_ref(src->path);
     FmMimeType* tmp_type = fm_mime_type_ref(src->mime_type);
-    FmIcon* tmp_icon = fm_icon_ref(src->icon);
+    FmIcon* tmp_icon = g_object_ref(src->icon);
     /* NOTE: we need to ref source first. Otherwise,
      * if path, mime_type, and icon are identical in src
      * and fi, calling fm_file_info_clear() first on fi
@@ -892,7 +892,7 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
  *
  * Returns: a FmIcon struct. The returned FmIcon struct is
  * owned by FmFileInfo and should not be freed.
- * If you need to keep it, use fm_icon_ref() to obtain a 
+ * If you need to keep it, use g_object_ref() to obtain a 
  * reference.
  */
 FmIcon* fm_file_info_get_icon(FmFileInfo* fi)

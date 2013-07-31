@@ -92,7 +92,7 @@ static void fm_template_finalize(GObject *object)
     if(self->template_file)
         fm_path_unref(self->template_file);
     if(self->icon)
-        fm_icon_unref(self->icon);
+        g_object_unref(self->icon);
     g_free(self->command);
     g_free(self->prompt);
     g_free(self->label);
@@ -386,7 +386,7 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                 if(tmp)
                 {
                     if(templ->icon)
-                        fm_icon_unref(templ->icon);
+                        g_object_unref(templ->icon);
                     templ->icon = fm_icon_from_name(tmp);
                     g_free(tmp);
                 }
