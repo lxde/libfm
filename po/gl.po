@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-07-31 07:02+0000\n"
+"PO-Revision-Date: 2013-07-31 07:22+0000\n"
 "Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1375254155.0\n"
+"X-POOTLE-MTIME: 1375255346.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -615,12 +615,12 @@ msgstr "Pechouse o elemento «%s», mais o elemento aberto actualmente é «%s»
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr "Carácter incorrecto «%c» no comezo do valor do atributo "
+msgstr "Carácter incorrecto «%c» no comezo do valor do atributo"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr "Carácter incorrecto «%c» na fin do valor do atributo, agardábase «%c»  "
+msgstr "Carácter incorrecto «%c» na fin do valor do atributo, agardábase «%c»"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
@@ -718,11 +718,11 @@ msgstr[1] "bytes"
 
 #: ../src/gtk/fm-file-properties.c:569
 msgid "Please enter a valid user name or numeric id."
-msgstr "Escriba un nome de usuario ou unha ID. numérica válida."
+msgstr "Escriba un nome de usuario ou un ID numérico correcto."
 
 #: ../src/gtk/fm-file-properties.c:599
 msgid "Please enter a valid group name or numeric id."
-msgstr "Escriba un nome de grupo ou ID. numérica válida."
+msgstr "Escriba un nome de grupo ou un ID numérico correcto."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:797
@@ -894,7 +894,7 @@ msgstr "Este ficheiro «%s» é executábel. Desexa executalo?"
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:588
 msgid "No folders are specified."
-msgstr "Non especificou ningún cartafol"
+msgstr "Non especificou ningún cartafol."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:627
 msgid "Select a folder"
@@ -1194,8 +1194,8 @@ msgstr ""
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
-"A mistura de  ficheiros só pode conter a etiqueta de nivel superior <Menu>, "
-"ten <%s>"
+"A etiqueta <Not> só pode conter o fillo <And>, <Or>, <Filename> ou "
+"<Category>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
@@ -1277,7 +1277,7 @@ msgstr "Cambiar o estado agochado non é compatíbel co directorio do menú"
 #: ../src/modules/vfs-menu.c:2548
 #, c-format
 msgid "Setting attribute %s not supported"
-msgstr "Non se permite estabelecer o atributo %s "
+msgstr "Non se permite estabelecer o atributo %s"
 
 #: ../src/modules/vfs-menu.c:2558
 #, c-format
@@ -1297,7 +1297,7 @@ msgstr "O «%s» é un elemento de menú"
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr "O «%s» está quebrado."
+msgstr "O «%s» está quebrado"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
@@ -1397,7 +1397,7 @@ msgstr "_Usar notificación de inicio"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:389
 msgid "_Desktop entry"
-msgstr "Entrada de _escritorio:"
+msgstr "Entrada de _escritorio"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
