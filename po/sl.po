@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-01 08:50+0000\n"
+"PO-Revision-Date: 2013-08-01 08:53+0000\n"
 "Last-Translator: Klemen <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1375347050.0\n"
+"X-POOTLE-MTIME: 1375347235.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1190,7 +1190,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
-msgstr "Najdena je bila oznaka <%s>. Vrhnja oznaka datoteke je lahko le <Menu>"
+msgstr "Najdena je bila oznaka <%s>. Vrhnja oznaka datoteke je lahko le <Menu>."
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
