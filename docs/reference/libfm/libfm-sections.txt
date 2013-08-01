@@ -1024,12 +1024,14 @@ fm_file_ops_job_run_with_progress
 FmSidePane
 FmSidePaneClass
 FmSidePaneMode
+FmSidePaneUpdatePopup
 fm_side_pane_chdir
 fm_side_pane_get_cwd
 fm_side_pane_get_mode
 fm_side_pane_get_title_bar
 fm_side_pane_new
 fm_side_pane_set_mode
+fm_side_pane_set_popup_updater
 <SUBSECTION Standard>
 FM_IS_SIDE_PANE
 FM_IS_SIDE_PANE_CLASS

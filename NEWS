@@ -247,6 +247,14 @@ Changes on 1.2.0 since 1.1.0:
 * Added options 'SortIgnoreCase' and 'MingleDirs' into folder context
     menu.
 
+* The FmIcon class is implemented using GIcon instead, greatly reducing
+    number of APIs used for cached icons support.
+
+* Implemented extensions for context menu on Sidebar items, similar to
+    those that are done for FmFileMenu or FmFolderMenu. Application must
+    remember file on which menu was activated and use it in own callback
+    if it was activated.
+
 
 Changes on 1.1.0 since 1.0.1:
 

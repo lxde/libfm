@@ -38,6 +38,7 @@
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
 #include "fm-file-menu.h"
+#include "fm-gtk-marshal.h"
 #include "../gtk-compat.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -45,6 +46,7 @@
 enum
 {
     CHDIR,
+    ITEM_POPUP,
     N_SIGNALS
 };
 
@@ -148,6 +150,8 @@ static void fm_dir_tree_view_item_popup(GtkWidget *widget, GtkTreeModel *model,
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/Del");
     gtk_action_set_visible(act, FALSE);
+    /* send the signal so popup can be altered by application */
+    g_signal_emit(widget, signals[ITEM_POPUP], 0, ui, fm_file_menu_get_action_group(menu), file);
     gtk_menu_popup(fm_file_menu_get_menu(menu), NULL, NULL, NULL, NULL, 3, time);
 }
 
@@ -322,6 +326,28 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
+
+    /**
+     * FmDirTreeView::item-popup:
+     * @view: a view instance that emitted the signal
+     * @ui: the #GtkUIManager using to create the menu
+     * @act_grp: (#GtkActionGroup *) the menu actions group
+     * @fi: (#FmFileInfo *) the item where menu popup is activated
+     *
+     * The #FmDirTreeView::item-popup signal is emitted when context menu
+     * is created for any directory in the view. Handler can modify the
+     * menu by adding or removing elements.
+     *
+     * Since: 1.2.0
+     */
+    signals[ITEM_POPUP] =
+        g_signal_new("item-popup",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmDirTreeViewClass, item_popup),
+                     NULL, NULL,
+                     fm_marshal_VOID__OBJECT_OBJECT_POINTER,
+                     G_TYPE_NONE, 3, G_TYPE_OBJECT, G_TYPE_OBJECT, G_TYPE_POINTER);
 }
 
 /* note: cancel_pending_chdir() should be called before this! */

@@ -45,6 +45,7 @@
 #include "fm-cell-renderer-pixbuf.h"
 #include "fm-dnd-auto-scroll.h"
 #include "fm-places-model.h"
+#include "fm-gtk-marshal.h"
 
 #include <gdk/gdkkeysyms.h>
 #include "gtk-compat.h"
@@ -52,6 +53,7 @@
 enum
 {
     CHDIR,
+    ITEM_POPUP,
     N_SIGNALS
 };
 
@@ -86,7 +88,17 @@ static FmPlacesModel* model = NULL;
 
 static guint signals[N_SIGNALS];
 
+#define PLACES_MENU_XML \
+"<popup>" \
+  "<placeholder name='ph1'/>" \
+  "<separator/>" \
+  "<placeholder name='ph2'/>" \
+  "<separator/>" \
+  "<placeholder name='ph3'/>" \
+"</popup>"
+
 static const char vol_menu_xml[]=
+PLACES_MENU_XML
 "<popup>"
   "<placeholder name='ph3'>"
   "<menuitem action='Mount'/>"
@@ -97,6 +109,7 @@ static const char vol_menu_xml[]=
 "</popup>";
 
 static const char mount_menu_xml[]=
+PLACES_MENU_XML
 "<popup>"
   "<placeholder name='ph3'>"
   "<menuitem action='Unmount'/>"
@@ -112,6 +125,7 @@ static GtkActionEntry vol_menu_actions[]=
 };
 
 static const char bookmark_menu_xml[]=
+PLACES_MENU_XML
 "<popup>"
   "<placeholder name='ph3'>"
   "<menuitem action='RenameBm'/>"
@@ -130,6 +144,7 @@ static GtkActionEntry bm_menu_actions[]=
 };
 
 static const char trash_menu_xml[]=
+PLACES_MENU_XML
 "<popup>"
   "<placeholder name='ph3'>"
   "<menuitem action='EmptyTrash'/>"
@@ -694,7 +709,7 @@ static void place_item_menu_unref(gpointer ui, GObject *menu)
     g_object_unref(ui);
 }
 
-static GtkWidget* place_item_get_menu(FmPlacesItem* item)
+static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
 {
     GtkWidget* menu = NULL;
     GtkUIManager* ui = gtk_ui_manager_new();
@@ -804,6 +819,9 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
         goto _out;
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
 
+    /* send the signal so popup can be altered by application */
+    g_signal_emit(widget, signals[ITEM_POPUP], 0, ui, act_grp, fm_places_item_get_info(item));
+
     menu = gtk_ui_manager_get_widget(ui, "/popup");
     if(menu)
     {
@@ -871,7 +889,7 @@ static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 tim
         GtkTreePath* path;
         gint* indices;
         gtk_tree_model_get(GTK_TREE_MODEL(model), it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-        menu = GTK_MENU(place_item_get_menu(item));
+        menu = GTK_MENU(place_item_get_menu(item, widget));
         if(menu)
         {
             gtk_menu_attach_to_widget(menu, widget, NULL);
@@ -1137,6 +1155,28 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
+
+    /**
+     * FmPlacesView::item-popup:
+     * @view: a view instance that emitted the signal
+     * @ui: the #GtkUIManager using to create the menu
+     * @act_grp: (#GtkActionGroup *) the menu actions group
+     * @fi: (#FmFileInfo *) the item where menu popup is activated
+     *
+     * The #FmPlacesView::item-popup signal is emitted when context menu
+     * is created for any directory in the view. Handler can modify the
+     * menu by adding or removing elements.
+     *
+     * Since: 1.2.0
+     */
+    signals[ITEM_POPUP] =
+        g_signal_new("item-popup",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmPlacesViewClass, item_popup),
+                     NULL, NULL,
+                     fm_marshal_VOID__OBJECT_OBJECT_POINTER,
+                     G_TYPE_NONE, 3, G_TYPE_OBJECT, G_TYPE_OBJECT, G_TYPE_POINTER);
 
     tree_model_row_atom = gdk_atom_intern_static_string("GTK_TREE_MODEL_ROW");
 }

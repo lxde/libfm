@@ -57,11 +57,13 @@ struct _FmPlacesView
  * FmPlacesViewClass:
  * @parent_class: the parent class
  * @chdir: the class closure for the #FmPlacesView::chdir signal
+ * @item_popup: the class closure for the #FmPlacesView::item-popup signal
  */
 struct _FmPlacesViewClass
 {
     GtkTreeViewClass parent_class;
     void (*chdir)(FmPlacesView* view, guint button, FmPath* path);
+    void (*item_popup)(FmPlacesView* view, GtkUIManager* ui, GtkActionGroup* act_grp, FmFileInfo* file);
     /*< private >*/
     gpointer _reserved1;
 };

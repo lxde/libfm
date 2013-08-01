@@ -22,7 +22,7 @@
 #define __FM_SIDE_PANE_H__
 
 #include <gtk/gtk.h>
-#include "fm-path.h"
+#include "fm-file-info.h"
 
 G_BEGIN_DECLS
 
@@ -59,6 +59,21 @@ typedef enum
     FM_SP_REMOTE
 }FmSidePaneMode;
 
+/**
+ * FmSidePaneUpdatePopup:
+ * @sp: the side pane widget
+ * @ui: the object to add interface
+ * @act_grp: group of actions to add action
+ * @file: the file the popup menu was created for
+ * @user_data: pointer passed to fm_side_pane_set_popup_updater()
+ *
+ * The callback to update popup menu. It can disable items of menu, add
+ * some new, replace actions, etc. depending of the window and files.
+ */
+typedef void (*FmSidePaneUpdatePopup)(FmSidePane* sp, GtkUIManager* ui,
+                                      GtkActionGroup* act_grp,
+                                      FmFileInfo* file, gpointer user_data);
+
 struct _FmSidePane
 {
     /*< private >*/
@@ -72,6 +87,8 @@ struct _FmSidePane
     GtkWidget* view;
     FmSidePaneMode mode;
     GtkUIManager* ui;
+    FmSidePaneUpdatePopup update_popup;
+    gpointer popup_user_data;
     gpointer _reserved1;
     gpointer _reserved2;
 };
@@ -103,6 +120,11 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode);
 FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp);
 
 GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp);
+
+/* setup a popup menu extension for the window */
+void fm_side_pane_set_popup_updater(FmSidePane* sp,
+                                    FmSidePaneUpdatePopup update_popup,
+                                    gpointer user_data);
 
 G_END_DECLS
 

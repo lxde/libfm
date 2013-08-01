@@ -314,6 +314,13 @@ static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, Fm
     g_signal_emit(sp, signals[CHDIR], 0, button, path);
 }
 
+static void on_item_popup(GtkWidget* view, GtkUIManager* ui,
+                          GtkActionGroup* act_grp, FmFileInfo* file,
+                          FmSidePane* sp)
+{
+    sp->update_popup(sp, ui, act_grp, file, sp->popup_user_data);
+}
+
 static void fm_side_pane_dispose(GObject *object)
 {
     FmSidePane *sp;
@@ -344,9 +351,13 @@ static void fm_side_pane_dispose(GObject *object)
         switch(sp->mode)
         {
         case FM_SP_PLACES:
+            if (sp->update_popup)
+                g_signal_handlers_disconnect_by_func(sp->view, on_item_popup, sp);
             g_signal_handlers_disconnect_by_func(sp->view, on_places_chdir, sp);
             break;
         case FM_SP_DIR_TREE:
+            if (sp->update_popup)
+                g_signal_handlers_disconnect_by_func(sp->view, on_item_popup, sp);
             g_signal_handlers_disconnect_by_func(sp->view, on_dirtree_chdir, sp);
             break;
         default: ; /* other values are impossible, otherwise it's a bug */
@@ -401,10 +412,14 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
 {
     if(mode == sp->mode)
         return;
-    sp->mode = mode;
 
     if(sp->view)
+    {
+        if (sp->update_popup)
+            g_signal_handlers_disconnect_by_func(sp->view, on_item_popup, sp);
         gtk_widget_destroy(sp->view);
+    }
+    sp->mode = mode;
 
     switch(mode)
     {
@@ -435,6 +450,8 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
         /* not implemented */
         return;
     }
+    if (sp->update_popup)
+        g_signal_connect(sp->view, "item-popup", G_CALLBACK(on_item_popup), sp);
     gtk_widget_show(sp->view);
     gtk_container_add(GTK_CONTAINER(sp->scroll), sp->view);
 
@@ -473,4 +490,50 @@ FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp)
 GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp)
 {
     return sp->title_bar;
+}
+
+/**
+ * fm_side_pane_set_popup_updater
+ * @sp: a widget to set
+ * @update_popup: (allow-none): a callback to update popup
+ * @user_data: user data supplied for callback
+ *
+ * Sets up the callback to update context menu on any item in the sidebar
+ * widget.
+ *
+ * Since: 1.2.0
+ */
+void fm_side_pane_set_popup_updater(FmSidePane* sp,
+                                    FmSidePaneUpdatePopup update_popup,
+                                    gpointer user_data)
+{
+    gboolean was_set = (sp->update_popup != NULL);
+
+    sp->update_popup = update_popup;
+    sp->popup_user_data = user_data;
+    if (sp->view == NULL)
+        return; /*  nothing to do yet */
+    if (was_set)
+    {
+        switch (sp->mode)
+        {
+        case FM_SP_PLACES:
+        case FM_SP_DIR_TREE:
+            if (update_popup == NULL)
+                g_signal_handlers_disconnect_by_func(sp->view, on_item_popup, sp);
+            break;
+        default: ;
+        }
+    }
+    else if (update_popup)
+    {
+        switch (sp->mode)
+        {
+        case FM_SP_PLACES:
+        case FM_SP_DIR_TREE:
+            g_signal_connect(sp->view, "item-popup", G_CALLBACK(on_item_popup), sp);
+            break;
+        default: ;
+        }
+    }
 }

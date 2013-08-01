@@ -281,6 +281,21 @@ static void update_files_popup(FmFolderView* fv, GtkWindow* win,
                                FmFileInfoList* files)
 {
     gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), win);
+    g_object_set_qdata_full(G_OBJECT(act_grp), fm_qdata_id,
+                            fm_file_info_list_ref(files),
+                            (GDestroyNotify)fm_file_info_list_unref);
+    gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
+}
+
+static void update_sidebar_popup(FmSidePane* sp, GtkUIManager* ui,
+                                 GtkActionGroup* act_grp,
+                                 FmFileInfo* file, gpointer win)
+{
+    FmFileInfoList* files = fm_file_info_list_new();
+    fm_file_info_list_push_tail(files, file);
+    gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), win);
+    g_object_set_qdata_full(G_OBJECT(act_grp), fm_qdata_id, files,
+                            (GDestroyNotify)fm_file_info_list_unref);
     gtk_ui_manager_add_ui_from_string(ui, folder_menu_xml, -1, NULL);
 }
 
@@ -462,6 +477,7 @@ static void fm_main_win_init(FmMainWin *win)
     /* places left pane */
     win->left_pane = fm_side_pane_new();
     fm_side_pane_set_mode(win->left_pane, FM_SP_PLACES);
+    fm_side_pane_set_popup_updater(win->left_pane, update_sidebar_popup, win);
     gtk_paned_add1(GTK_PANED(win->hpaned), GTK_WIDGET(win->left_pane));
 
     /* folder view */
@@ -724,13 +740,17 @@ void on_close_win(GtkAction* act, FmMainWin* win)
 
 void on_open_in_new_win(GtkAction* act, FmMainWin* win)
 {
-    FmPathList* sels = fm_folder_view_dup_selected_file_paths(win->folder_view);
+    GObject* act_grp;
+    FmFileInfoList* sels;
+    g_object_get(act, "action-group", &act_grp, NULL);
+    sels = g_object_get_qdata(act_grp, fm_qdata_id);
+    g_object_unref(act_grp);
     GList* l;
-    for( l = fm_path_list_peek_head_link(sels); l; l=l->next )
+    for( l = fm_file_info_list_peek_head_link(sels); l; l=l->next )
     {
-        FmPath* path = (FmPath*)l->data;
+        FmFileInfo* fi = (FmFileInfo*)l->data;
         win = fm_main_win_new();
-        fm_main_win_chdir(win, path);
+        fm_main_win_chdir(win, fm_file_info_get_path(fi));
         gtk_window_present(GTK_WINDOW(win));
     }
 }
