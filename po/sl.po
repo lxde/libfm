@@ -1,24 +1,24 @@
 # Slovenian translation of libfm.
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright (C) 2011 - 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libfm package.
-# Klemen Košir <klemen.kosir@gmx.com>, 2011.
+# Klemen Košir <klemen913@gmail.com>, 2011 - 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libfm 1.2\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-07-29 12:16+0000\n"
+"PO-Revision-Date: 2013-08-01 08:50+0000\n"
 "Last-Translator: Klemen <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1375100185.0\n"
+"X-POOTLE-MTIME: 1375347050.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -50,7 +50,7 @@ msgstr "_Izvedi v terminalu"
 
 #: ../data/ui/app-chooser.glade.h:7
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Obdrži okno terminala po zagonu ukaza odprto"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -69,7 +69,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>Ime programa</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
@@ -122,18 +122,16 @@ msgid "Choose An Icon..."
 msgstr "Izberite ikono"
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
 msgid "System icon theme"
-msgstr "Sistemski programi"
+msgstr "Sistemske ikone"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
 msgstr "Slike"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "<b>Choose Icon From:</b>"
-msgstr "<b>_Pisanje:</b>"
+msgstr "<b>Izberite ikono:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -149,7 +147,7 @@ msgstr "Lastnosti datoteke"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Ikona datoteke v pogledu map"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -336,9 +334,8 @@ msgid "_Use regular expression"
 msgstr "_Uporabi logični izraz"
 
 #: ../data/ui/filesearch.glade.h:12
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Iskalna mesta</b>"
+msgstr "<b>_Mesta iskanja:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -357,9 +354,8 @@ msgid "<b>File Type</b>"
 msgstr "<b>Vrsta datoteke</b>"
 
 #: ../data/ui/filesearch.glade.h:17
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Najdi le naslednje vrste datotek"
+msgstr "Išči le naslednje vrste datotek:"
 
 #: ../data/ui/filesearch.glade.h:18
 msgid "Te_xt files"
@@ -515,7 +511,7 @@ msgstr "Za vrsto MIME %s ni nastavljenega privzetega programa"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "V nastavitvah ni nastavljenega terminala"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -553,7 +549,7 @@ msgstr "TiB"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Ročnik oznake <%s> že obstaja"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -561,7 +557,7 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"\"%s-.*s\" ni mogoče razčleniti, kar bi moralo biti številka znotraj sklica "
+"\"%-.*s\" ni mogoče razčleniti, kar bi moralo biti številka znotraj sklica "
 "znaka (na primer &#234;). Mogoče je številka prevelika."
 
 #: ../src/extra/fm-xml-file.c:310
@@ -603,35 +599,36 @@ msgstr ""
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "V končni oznaki presledek ni dovoljen"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "Element \"%s\" je bil zaprt, vendar ni bil odprt"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "Namesto elementa \"%2$s\" je bil zaprt element \"%1$s\""
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Začetek vrednosti atributa vsebuje neveljaven znak '%c'"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
+"Konec vrednosti atributa vsebuje neveljaven znak '%c' (pričakuje se '%c')."
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Dokument se je nepričakovano končal"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Dokument je prazen ali pa vsebuje le presledne znake"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
@@ -663,7 +660,7 @@ msgstr "Nalaganje ..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Pokaže drevo map v stranskem pladnju"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -866,9 +863,9 @@ msgid "New"
 msgstr "Nova"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Vnesite ime nove datoteke:"
+msgstr "Vnesite ime nove %s:"
 
 #: ../src/gtk/fm-folder-view.c:868
 #, c-format
@@ -877,7 +874,7 @@ msgstr "Ustvarjanje %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Zaženi privzeti program, ko se datoteka ustvari"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -949,9 +946,8 @@ msgid "Pa_ste and go"
 msgstr "Prilepi in po_jdi"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "Samo za _to mapo"
+msgstr "Pot do mape"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -995,7 +991,7 @@ msgstr "Izprazni _smeti"
 
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "Pokaže seznam mest, naprav in zaznamkov v stranskem pladnju"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1062,27 +1058,27 @@ msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:511
 msgid "Moving files"
-msgstr "<b>Premikanje datotek</b>"
+msgstr "Premikanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:514
 msgid "Copying files"
-msgstr "<b>Kopiranje datotek</b>"
+msgstr "Kopiranje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:517
 msgid "Trashing files"
-msgstr "<b>Premikanje datotek v smeti</b>"
+msgstr "Premikanje datotek v smeti"
 
 #: ../src/gtk/fm-progress-dlg.c:520
 msgid "Deleting files"
-msgstr "<b>Brisanje datotek</b>"
+msgstr "Brisanje datotek"
 
 #: ../src/gtk/fm-progress-dlg.c:523
 msgid "Creating symlinks"
-msgstr "<b>Ustvarjanje simbolnih povezav</b>"
+msgstr "Ustvarjanje simbolnih povezav"
 
 #: ../src/gtk/fm-progress-dlg.c:526
 msgid "Changing file attributes"
-msgstr "<b>Spreminjanje atributov datotek</b>"
+msgstr "Spreminjanje atributov datotek"
 
 #: ../src/gtk/fm-side-pane.c:61
 msgid "_Off"
@@ -1110,7 +1106,7 @@ msgstr "Drevo map"
 
 #: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
-msgstr ""
+msgstr "Pogled vsebine mape"
 
 #: ../src/gtk/fm-standard-view.c:776
 #, c-format
@@ -1132,17 +1128,17 @@ msgstr "Pokaži %s"
 
 #: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
-msgstr ""
+msgstr "Pozabi _širino"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Spremeni dejavni zavihek"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Navedena mapa ni veljavna."
+msgstr "Mapa \"%s\" ni veljavna"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
@@ -1150,7 +1146,7 @@ msgstr "Do ciljne datoteke ni mogoče dostopiti"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "Povezave na tujem datotečnem sistemu ni mogoče ustvariti"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1171,12 +1167,12 @@ msgstr "Cilj je podmapa izvorne mape."
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Prikazno ime lahko nastavite le za posamezno datoteko"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Cilj lahko nastavite le za posamezno datoteko"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "Empty <Name> tag"
@@ -1184,21 +1180,22 @@ msgstr "Oznaka <Name> je prazna"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "Tag <Not> should have exactly one child"
-msgstr ""
+msgstr "Oznaka <Not> ima lahko samo eno podrejeno oznako"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
+"Oznaka <Not> lahko vsebuje samo oznake <And>, <Or>, <Filename> ali <Category>"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
-msgstr ""
+msgstr "Najdena je bila oznaka <%s>. Vrhnja oznaka datoteke je lahko le <Menu>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "Failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "Oznake <%s> ni bilo mogoče vstaviti"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "Invalid <MergeFile> tag"
@@ -1211,11 +1208,11 @@ msgstr "Neveljavna oznaka <MergeDir>"
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "Napaka v datoteki %s (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "Datoteka XML ne vsebuje korena \"Applications\""
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
@@ -1224,7 +1221,7 @@ msgstr "Poti \"%s\" ni mogoče najti v določilih XML"
 
 #: ../src/modules/vfs-menu.c:923
 msgid "Category manipulation internal error"
-msgstr ""
+msgstr "Notranja napaka med obdelavo kategorije"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
@@ -1255,9 +1252,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Ime predmeta menija ne sme biti prazno"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Neveljavna mapa menija"
+msgstr "Neveljavna mapa menija: %s"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
 msgid "Invalid menu item"
@@ -1266,11 +1263,11 @@ msgstr "Neveljaven predmet menija"
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Predmet menija \"%s\" nima ustrezne vnosne datoteke"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Skrivanje mape menija ni podprto"
 
 #: ../src/modules/vfs-menu.c:2548
 #, c-format
@@ -1283,24 +1280,24 @@ msgid "Invalid value for attribute %s"
 msgstr "Neveljavna vrednost atributa %s"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "Neveljavna mapa menija"
+msgstr "\"%s\" je mapa menija"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "\"%s\" ni predmet menija"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "\"%s\" je pokvarjen"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "Predmeta menija \"%s\" ni mogoče ustvariti"
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1308,12 +1305,12 @@ msgstr "Ime mape menija se ne sme končati z \".desktop\""
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Neveljavno dejanje s korenom menija"
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "Neveljavno ime datoteke: %s"
+msgstr "Neveljaven predmet menija: %s"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
@@ -1355,14 +1352,13 @@ msgstr "Ukaz, ki naj se izvede, ko je kliknjena ikona programa"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
-msgstr "_Izvedi v terminalu"
+msgstr "_Zaženi v terminalu"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "_Obdrži okno terminala po zagonu programa odprto"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
 msgid "<b>D_escription:</b>"
@@ -1378,7 +1374,7 @@ msgstr "<b>_Delovna mapa:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Delovna mapa, v kateri bo zagnan program"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
 msgid "<b>_Tooltip:</b>"
@@ -1392,12 +1388,11 @@ msgstr "Orodni namig"
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "Uporabi obvestilo o _zagonu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:389
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Namizje"
+msgstr "_Namizje"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -1559,48 +1554,3 @@ msgstr "Prazen optični disk"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optični disk"
-
-#~ msgid "Blank File"
-#~ msgstr "Prazna datoteka"
-
-#~ msgid "Shortcut"
-#~ msgstr "Bližnjica"
-
-#~ msgid "Error, lxshortcut not installed"
-#~ msgstr "Prišlo je do napake. Program »lxshortcut« ni nameščen."
-
-#~ msgid "Failed to start lxshortcut"
-#~ msgstr "Programa »lxshortcut« ni mogoče zagnati."
-
-#~ msgid "<b>_Group:</b>"
-#~ msgstr "<b>_Skupina:</b>"
-
-#~ msgid "Rename"
-#~ msgstr "Preimenuj"
-
-#~ msgid "Trash"
-#~ msgstr "Smeti"
-
-#~ msgid "Make the file executable"
-#~ msgstr "Datoteka je izvedljiva"
-
-#~ msgid "Operations that all other users can do"
-#~ msgstr "Dejanja, ki jih lahko izvedejo vsi ostali uporabniki"
-
-#~ msgid "Operations that the owner of the file can do"
-#~ msgstr "Dejanja, ki jih lahko izvede lastnik datoteke"
-
-#~ msgid ""
-#~ "Operations that users in the same group as the owner of the file can do"
-#~ msgstr ""
-#~ "Dejanja, ki jih lahko izvedejo uporabniki iz iste skupine kot lastnik "
-#~ "datoteke"
-
-#~ msgid "Read and Write"
-#~ msgstr "Branje in pisanje"
-
-#~ msgid "Read only"
-#~ msgstr "Samo branje"
-
-#~ msgid "Write only"
-#~ msgstr "Samo pisanje"
