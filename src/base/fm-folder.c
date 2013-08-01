@@ -466,8 +466,12 @@ static gboolean on_idle(FmFolder* folder)
     {
         g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), folder);
         folder->pending_jobs = g_slist_prepend(folder->pending_jobs, job);
-        fm_job_run_async(FM_JOB(job));
-        /* FIXME: free job if error */
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            folder->pending_jobs = g_slist_remove(folder->pending_jobs, job);
+            g_object_unref(job);
+            g_critical("failed to start folder update job");
+        }
         /* the job will be freed automatically in on_file_info_job_finished() */
     }
 
@@ -1040,8 +1044,12 @@ void fm_folder_reload(FmFolder* folder)
         g_signal_connect(folder->dirlist_job, "files-found", G_CALLBACK(on_dirlist_job_files_found), folder);
     fm_dir_list_job_set_incremental(folder->dirlist_job, folder->wants_incremental);
     g_signal_connect(folder->dirlist_job, "error", G_CALLBACK(on_dirlist_job_error), folder);
-    fm_job_run_async(FM_JOB(folder->dirlist_job));
-    /* FIXME: free job if error */
+    if (!fm_job_run_async(FM_JOB(folder->dirlist_job)))
+    {
+        folder->dirlist_job = NULL;
+        g_object_unref(folder->dirlist_job);
+        g_critical("failed to start directory listing job for the folder");
+    }
 
     /* also reload filesystem info.
      * FIXME: is this needed? */

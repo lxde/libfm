@@ -1420,7 +1420,12 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     g_signal_connect(data->icon_eventbox, "key-press-event",
                      G_CALLBACK(_icon_press_event), data);
 
-    fm_job_run_async(FM_JOB(data->dc_job));
+    if (!fm_job_run_async(FM_JOB(data->dc_job)))
+    {
+        g_object_unref(data->dc_job);
+        data->dc_job = NULL;
+        g_critical("failed to run scanning job for file properties dialog");
+    }
 
     update_ui(data);
 

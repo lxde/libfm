@@ -28,6 +28,11 @@
 #include <gio/gio.h>
 #include <stdarg.h>
 
+/* If we're not using GNU C, elide __attribute__ */
+#ifndef __GNUC__
+# define __attribute__(x)
+#endif
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_JOB             (fm_job_get_type())
@@ -147,7 +152,7 @@ gboolean fm_job_is_running(FmJob* job);
  * The default implementation of FmJob::run_async() create a working
  * thread in thread pool, and calls FmJob::run() in it.
  */
-gboolean fm_job_run_async(FmJob* job);
+gboolean fm_job_run_async(FmJob* job) __attribute__((warn_unused_result));
 
 /* Run a job in current thread in a blocking fashion.
  * A job running synchronously with this function should be unrefed

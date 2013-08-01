@@ -258,7 +258,12 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
                 job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
                 model->jobs = g_slist_prepend(model->jobs, job);
                 g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
-                fm_job_run_async(FM_JOB(job));
+                if (!fm_job_run_async(FM_JOB(job)))
+                {
+                    model->jobs = g_slist_remove(model->jobs, job);
+                    g_object_unref(job);
+                    /* FIXME: error message */
+                }
             }
             fm_path_unref(path);
         }
@@ -601,7 +606,12 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 
     g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
     model->jobs = g_slist_prepend(model->jobs, job);
-    fm_job_run_async(FM_JOB(job));
+    if (!fm_job_run_async(FM_JOB(job)))
+    {
+        model->jobs = g_slist_remove(model->jobs, job);
+        g_object_unref(job);
+        /* FIXME: print error */
+    }
 }
 
 static gboolean update_trash_item(gpointer user_data)
@@ -730,7 +740,12 @@ static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
                       fm_path_get_basename(path), "user-home", job);
         g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
         self->jobs = g_slist_prepend(self->jobs, job);
-        fm_job_run_async(FM_JOB(job));
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            /* FIXME: error message */
+        }
     }
     else
     {
@@ -752,7 +767,12 @@ static void on_places_desktop_changed(FmConfig* cfg, gpointer user_data)
                       _("Desktop"), "user-desktop", job);
         g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
         self->jobs = g_slist_prepend(self->jobs, job);
-        fm_job_run_async(FM_JOB(job));
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            /* FIXME: print error */
+        }
     }
     else
     {
@@ -798,7 +818,12 @@ static void create_trash_item(FmPlacesModel* model)
                   FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", job);
     g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
     model->jobs = g_slist_prepend(model->jobs, job);
-    fm_job_run_async(FM_JOB(job));
+    if (!fm_job_run_async(FM_JOB(job)))
+    {
+        model->jobs = g_slist_remove(model->jobs, job);
+        g_object_unref(job);
+        /* FIXME: print error */
+    }
     trash_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);
@@ -923,7 +948,12 @@ static void fm_places_model_init(FmPlacesModel *self)
 
     g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
     self->jobs = g_slist_prepend(self->jobs, job);
-    fm_job_run_async(FM_JOB(job));
+    if (!fm_job_run_async(FM_JOB(job)))
+    {
+        self->jobs = g_slist_remove(self->jobs, job);
+        g_object_unref(job);
+        /* FIXME: print error */
+    }
 }
 
 /**

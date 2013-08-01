@@ -612,7 +612,11 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
-    fm_job_run_async(FM_JOB(job));
+    if (!fm_job_run_async(FM_JOB(job)))
+    {
+        fm_progress_display_destroy(data);
+        return NULL;
+    }
 
     return data;
 }
