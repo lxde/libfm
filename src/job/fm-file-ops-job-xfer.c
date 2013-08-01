@@ -30,6 +30,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "fm-monitor.h"
+#include "fm-utils.h"
 #include <glib/gi18n-lib.h>
 
 static const char query[]=
@@ -261,9 +262,11 @@ _retry_enum_children:
                                     /* both are native or both are virtual */
                                     tmp_basename = NULL;
                                 else if(g_file_is_native(src)) /* copy from native to virtual */
-                                    tmp_basename = NULL; /* gvfs escapes it itself */
+                                    tmp_basename = g_filename_to_utf8(g_file_info_get_name(inf),
+                                                                      -1, NULL, NULL, NULL);
+                                    /* gvfs escapes it itself */
                                 else /* copy from virtual to native */
-                                    tmp_basename = g_uri_unescape_string(g_file_info_get_name(inf), NULL);
+                                    tmp_basename = fm_uri_subpath_to_native_subpath(g_file_info_get_name(inf), NULL);
                                 sub_dest = g_file_get_child(dest,
                                         tmp_basename ? tmp_basename : g_file_info_get_name(inf));
                                 g_free(tmp_basename);
@@ -697,9 +700,11 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
             /* both are native or both are virtual */
             tmp_basename = NULL;
         else if(g_file_is_native(src)) /* copy from native to virtual */
-            tmp_basename = NULL; /* gvfs escapes it itself */
+            tmp_basename = g_filename_to_utf8(fm_path_get_basename(path),
+                                              -1, NULL, NULL, NULL);
+            /* gvfs escapes it itself */
         else /* copy from virtual to native */
-            tmp_basename = g_uri_unescape_string(fm_path_get_basename(path), NULL);
+            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
@@ -805,9 +810,11 @@ _retry_query_dest_info:
             /* both are native or both are virtual */
             tmp_basename = NULL;
         else if(g_file_is_native(src)) /* move from native to virtual */
-            tmp_basename = NULL; /* gvfs escapes it itself */
+            tmp_basename = g_filename_to_utf8(fm_path_get_basename(path),
+                                              -1, NULL, NULL, NULL);
+            /* gvfs escapes it itself */
         else /* move from virtual to native */
-            tmp_basename = g_uri_unescape_string(fm_path_get_basename(path), NULL);
+            tmp_basename = fm_uri_subpath_to_native_subpath(fm_path_get_basename(path), NULL);
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
