@@ -492,3 +492,33 @@ const char *fm_get_home_dir(void)
         homedir = g_get_home_dir();
     return homedir;
 }
+
+/**
+ * fm_uri_subpath_to_native_subpath
+ * @subpath: URI substring to convert
+ * @error: (out) (allow-none): location to set error
+ *
+ * Converts escaped URI subpath into file path in native encoding.
+ *
+ * Returns: (transfer full): transcoded path or %NULL in case of error.
+ *
+ * Since: 1.2.0
+ */
+char *fm_uri_subpath_to_native_subpath(const char *subpath, GError **error)
+{
+    char *unescaped, *native;
+
+    /* unescape path first */
+    unescaped = g_uri_unescape_string(subpath, "/");
+    if (unescaped == NULL)
+    {
+        g_set_error (error, G_CONVERT_ERROR, G_CONVERT_ERROR_BAD_URI,
+                     _("The URI subpath '%s' contains invalid escaped characters"),
+                     subpath);
+        return NULL;
+    }
+    /* FIXME: try to gently convert characters, not return NULL */
+    native = g_filename_from_utf8(unescaped, -1, NULL, NULL, error);
+    g_free(unescaped);
+    return native;
+}

@@ -75,6 +75,8 @@ gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data);
 
 const char *fm_get_home_dir(void);
 
+char *fm_uri_subpath_to_native_subpath(const char *subpath, GError **error);
+
 G_END_DECLS
 
 #endif
