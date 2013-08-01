@@ -58,6 +58,19 @@ void fm_icon_set_user_data_destroy(GDestroyNotify func);
 void fm_icon_unload_user_data_cache();
 #endif
 
+/**
+ * fm_icon_get_gicon:
+ * @icon: a #FmIcon
+ *
+ * The macro to access GIcon instead of old direct access.
+ * For older versions applications can define it as (icon->gicon)
+ *
+ * Returns: cached #GIcon object.
+ *
+ * Since: 1.2.0
+ */
+#define fm_icon_get_gicon(icon) G_ICON(icon)
+
 void fm_icon_reset_user_data_cache(GQuark quark);
 
 void fm_icon_unload_cache();

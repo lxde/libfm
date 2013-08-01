@@ -741,6 +741,7 @@ fm_yes_no
 FmIcon
 fm_icon_from_gicon
 fm_icon_from_name
+fm_icon_get_gicon
 fm_icon_get_user_data
 fm_icon_ref
 fm_icon_reset_user_data_cache
