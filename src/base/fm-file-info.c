@@ -544,7 +544,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
         uri = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
         if(uri)
         {
-            if(g_str_has_prefix(uri, "file:/"))
+            if(g_str_has_prefix(uri, "file:///"))
                 fi->target = g_filename_from_uri(uri, NULL, NULL);
             else
                 fi->target = g_strdup(uri);
@@ -572,7 +572,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
         uri = g_file_info_get_symlink_target(inf);
         if(uri)
         {
-            if(g_str_has_prefix(uri, "file:/"))
+            if(g_str_has_prefix(uri, "file:///"))
                 fi->target = g_filename_from_uri(uri, NULL, NULL);
             else
                 fi->target = g_strdup(uri);
