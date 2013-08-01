@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-17 18:52+0000\n"
-"Last-Translator: JSonic <juhaninumminen0@gmail.com>\n"
+"PO-Revision-Date: 2013-08-01 15:46+0000\n"
+"Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -17,16 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374087129.0\n"
+"X-POOTLE-MTIME: 1375371978.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
 msgstr "Oletussovellukset"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Suoritettava komentorivi:</b>"
+msgstr "<b>_Suoritettava komentorivi:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -52,9 +51,8 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
 msgid "C_ustom Command Line"
-msgstr "_Omavalintainen komentorivi"
+msgstr "_Oma komentorivi"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Choose An Application"
@@ -74,7 +72,7 @@ msgstr "_Asennettu sovellus"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Jätä pääteikkuna auki komennon suorittamisen jälkeen"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
@@ -119,24 +117,20 @@ msgid "with the following file?"
 msgstr "seuraavalla tiedostolla?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose Icon From:</b>"
-msgstr "<b>_Muuta sisältöä:</b>"
+msgstr "<b>Valitse kuvake</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Valitse sovellus"
+msgstr "Valitse kuvake…"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "_Kuvatiedostot"
+msgstr "Kuvatiedostot"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "System icon theme"
-msgstr "Järjestelmäsovellukset"
+msgstr "Järjestelmän kuvaketeema"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -195,9 +189,8 @@ msgid "<b>Special bits:</b>"
 msgstr "<b>Erityisbitit:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Kohde:</b>"
+msgstr "<b>Kohdetiedosto:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Total Size of Files:</b>"
@@ -208,9 +201,8 @@ msgid "<b>_Execute:</b>"
 msgstr "<b>_Suorita:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>_Omistaja:</b>"
+msgstr "<b>_Nimi:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>_View content:</b>"
@@ -226,7 +218,7 @@ msgstr "Tiedoston ominaisuudet"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Tiedoston kuvake kansionäkymässä"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Nobody"
@@ -306,7 +298,6 @@ msgid "*"
 msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:3
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>Tie_dosto sisältää:</b>"
 
@@ -319,7 +310,6 @@ msgid "<b>File Type</b>"
 msgstr "<b>Tiedostotyyppi</b>"
 
 #: ../data/ui/filesearch.glade.h:6
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Tiedostonimikuviot:</b>"
 
@@ -328,9 +318,8 @@ msgid "<b>Last Modified Time</b>"
 msgstr "<b>Viimeksi muokattu</b>"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Haettavat sijainnit</b>"
+msgstr "<b>_Haettavat sijainnit</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "Bytes"
@@ -377,9 +366,8 @@ msgid "Name/_Location"
 msgstr "Nimi/_Sijainti"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Hae vain seuraavan tyyppisiä tiedostoja"
+msgstr "Hae vain seuraavan tyyppisiä tiedostoja:"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "Search Files"
@@ -519,11 +507,11 @@ msgstr "Liitoskohta"
 #: ../src/base/fm-templates.c:1065
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "MIME-tyypille %s ei ole asetettu oletussovellusta"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Pääte-emulaattoria ei ole asetettu libfm:n asetuksissa"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -534,7 +522,7 @@ msgstr[1] "%u tavua"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kt"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -612,28 +600,29 @@ msgstr ""
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
+"Elementti ”%s” on suljettu, mutta tällä hetkellä on avoinna elementti ”%s”"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Epäkelpo merkki ”%c” attribuutin arvon alussa"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Epäkelpo merkki ”%c” attribuutin arvon lopussa, odotettiin ”%c”"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Asiakirja loppui odottamattomasti"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Asiakirja oli tyhjä tai sisälsi vain tyhjiä merkkejä"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML-tietovirhe"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -661,7 +650,7 @@ msgstr "Ladataan…"
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Näyttää kansiopuun sivupalkissa"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -676,9 +665,8 @@ msgid "Open _With..."
 msgstr "Avaa _sovelluksella…"
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "_Poista kirjanmerkeistä"
+msgstr "_Lisää kirjanmerkkeihin"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -743,9 +731,8 @@ msgid "Files of different types"
 msgstr "Erityyppiset tiedostot"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Tiedostotyyppi:</b>"
+msgstr "<b>Tiedosto:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -950,7 +937,7 @@ msgstr "Tyhjennetäänkö roskakori?"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "_Liitä ja siirry"
 
 #: ../src/gtk/fm-path-entry.c:657
 #, fuzzy
@@ -986,14 +973,12 @@ msgid "Re_move from Bookmark"
 msgstr "_Poista kirjanmerkeistä"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "_Poista kirjanmerkeistä"
+msgstr "Siirrä kirjanmerkkiä _ylös"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "_Poista kirjanmerkeistä"
+msgstr "Siirrä kirjanmerkkiä _alas"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -1001,7 +986,7 @@ msgstr "Tyhjennä _roskakori"
 
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "Näyttää yleiset sijainnit, laitteet ja kirjanmerkit sivupalkissa"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1116,20 +1101,20 @@ msgstr "Hakemistopuu"
 
 #: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
-msgstr ""
+msgstr "Näkymä kansion sisällöstä"
 
 #: ../src/gtk/fm-standard-view.c:764
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Piilota %s"
 
 #: ../src/gtk/fm-standard-view.c:772
 msgid "_Move left"
-msgstr ""
+msgstr "_Siirrä vasemmalle"
 
 #: ../src/gtk/fm-standard-view.c:778
 msgid "Move _right"
-msgstr ""
+msgstr "Siirrä _oikealle"
 
 #: ../src/gtk/fm-standard-view.c:801
 #, c-format
@@ -1190,16 +1175,20 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:129
 msgid "tag <Not> should have exactly one children"
-msgstr ""
+msgstr "<Not>-tagilla pitäisi olla tasan yksi lapsi"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
 msgstr ""
+"<Not>-tagi voi sisältää vain <And>-, <Or>-, <Filename>- tai "
+"<Category>-tageja"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"yhdistettävässä tiedostossa voi olla vain <Menu>-ylätagi, sen sijaan oli <%"
+"s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
