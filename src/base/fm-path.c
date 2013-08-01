@@ -587,7 +587,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
 {
     FmPath *path;
     GFile *file = NULL, *child;
-    char *path_copy, *c, *sep;
+    char *path_copy, *c, *sep, *q;
     char sep_char;
 
     if(!path_name || !*path_name || (path_name[0]=='/' && path_name[1] == '\0') )
@@ -609,7 +609,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         sep = strchr(c, '/');
         if (sep)
             *sep++ = '\0';
-        file = fm_file_new_for_uri(path_copy);
+        file = fm_file_new_for_uri(path_copy); /* URI root */
         c = sep;
         sep_char = '/'; /* separator for URI is always slash */
     }
@@ -620,9 +620,12 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         c = path_copy + 1;
         sep_char = G_DIR_SEPARATOR;
     }
+    q = strchr(c, '?'); /* question mark may be used in URIs such as search:// */
     for ( ; c; c = sep)
     {
         sep = strchr(c, sep_char);
+        if (sep && q && sep > q) /* don't go behind the question mark */
+            sep = NULL;
         if (sep)
             *sep++ = '\0'; /* separate one part of path */
         if (*c == '\0') /* duplicate '/' */
@@ -631,19 +634,17 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
             continue;
         if (strcmp(c, "..") == 0) /* go back one dir */
         {
-            if (file == NULL) /* invalid path */
-            {
-                /* FIXME: fail on this */
-                g_free(path_copy);
-                return fm_path_ref(root_path);
-            }
             child = g_file_get_parent(file);
+            if (child == NULL) /* attempt to go below root */
+                break;
         }
         else
+        {
             child = g_file_get_child_for_display_name(file, c, NULL);
-            /* FIXME: handle errors */
-        if (file)
-            g_object_unref(file);
+            if (child == NULL) /* unresolvable conversion, do fallback */
+                child = g_file_get_child(file, c);
+        }
+        g_object_unref(file);
         file = child;
     }
     g_free(path_copy);
