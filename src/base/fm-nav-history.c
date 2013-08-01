@@ -111,7 +111,7 @@ FmNavHistory *fm_nav_history_new(void)
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.0.2
+ * Deprecated: 1.0.2:
  */
 const GList* fm_nav_history_list(FmNavHistory* nh)
 {
@@ -148,7 +148,7 @@ const FmNavHistoryItem* fm_nav_history_get_cur(FmNavHistory* nh)
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.0.2
+ * Deprecated: 1.0.2:
  */
 const GList* fm_nav_history_get_cur_link(FmNavHistory* nh)
 {

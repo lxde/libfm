@@ -241,7 +241,7 @@ void fm_icon_set_user_data(FmIcon* icon, gpointer user_data)
  *
  * Since: 0.1.0
  *
- * Deprecated: 1.2.0
+ * Deprecated: 1.2.0:
  */
 static gboolean reload_user_data_cache(GIcon* key, FmIcon* icon, gpointer unused)
 {

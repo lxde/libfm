@@ -27,6 +27,13 @@
 
 G_BEGIN_DECLS
 
+/**
+ * FmIcon:
+ *
+ * Opaque structure used in Libfm icon cache. Before version 1.2.0 it had
+ * own data structure. Since 1.2.0 it is derived from GIcon therefore it
+ * can be used basicly the same way.
+ */
 typedef struct _FmIcon			FmIcon;
 
 /* must be called before using FmIcon */

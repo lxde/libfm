@@ -181,13 +181,10 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         while(host_end < uri_end && *host_end != '/') /* find the end of host name */
             ++host_end;
         host_len = (host_end - host);
-        /* FIXME: is this ever needed? VFS should handle it */
         if(scheme_len == 4 && g_ascii_strncasecmp(uri, "menu", 4) == 0)
         {
             if(host_len == 0) /* fallback to applications */
             {
-                host = "applications";
-                host_len = 12;
                 if(remaining)
                     *remaining = uri_end;
                 return fm_path_ref(apps_root_path);
@@ -240,7 +237,6 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     return path;
 
 on_error: /* this is not a valid URI */
-    /* FIXME: should we return root or NULL? */
     if(remaining)
         *remaining = uri + len;
     return fm_path_ref(root_path);
@@ -541,6 +537,9 @@ FmPath* fm_path_new_for_path(const char* path_name)
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
  *
+ * This function never fail but it may return root path if URI is local
+ * and contains illegal characters in path elements such as '/'.
+ *
  * Returns: (transfer full): a new #FmPath for the @uri.
  */
 FmPath* fm_path_new_for_uri(const char* uri)
@@ -555,9 +554,9 @@ FmPath* fm_path_new_for_uri(const char* uri)
     {
         if(root == root_path)
         {
-            /* handle file:// URIs */
+            /* handle file:/// URIs */
             char *filename = g_filename_from_uri(uri, NULL, NULL);
-            /* FIXME: handle inconvertable URIs - its translated into '/' now */
+            /* NOTE: g_filename_from_uri() will fail on unescaping '%2F' */
             path = fm_path_new_relative(root, filename);
             g_free(filename);
         }
@@ -675,7 +674,6 @@ FmPath* fm_path_new_for_str(const char* path_str)
         return fm_path_ref(root_path);
     if(path_str[0] == '/')
         return fm_path_new_for_path(path_str);
-    /* FIXME: add a support for relative path from FmPathEntry */
     /* UTF-8 should be allowed, I think. */
     escaped = g_uri_escape_string(path_str,
                                   G_URI_RESERVED_CHARS_GENERIC_DELIMITERS
@@ -873,7 +871,6 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
  *
  * Since: 0.1.0
  */
-/* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
     gchar *ret;
@@ -909,7 +906,7 @@ char* fm_path_to_uri(FmPath* path)
 /**
  * fm_path_display_name
  * @path: a path
- * @human_readable: ignored
+ * @human_readable: ignored since 1.2.0
  *
  * Creates string representation of @path as displayable UTF-8 string.
  * The conversion is the most probably unreversible so returned value
@@ -934,17 +931,17 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
 
     if(G_LIKELY(path->parent))
     {
-            char* disp_parent = fm_path_display_name(path->parent, TRUE);
-            char* disp_base = fm_path_display_basename(path);
-            if (fm_path_is_native(path))
-                disp = g_build_filename( disp_parent, disp_base, NULL);
-            else
-                disp = g_build_path("/", disp_parent, disp_base, NULL);
-            g_free(disp_parent);
-            g_free(disp_base);
+        char* disp_parent = fm_path_display_name(path->parent, TRUE);
+        char* disp_base = fm_path_display_basename(path);
+        if (fm_path_is_native(path))
+            disp = g_build_filename( disp_parent, disp_base, NULL);
+        else
+            disp = g_build_path("/", disp_parent, disp_base, NULL);
+        g_free(disp_parent);
+        g_free(disp_base);
     }
     else
-            disp = fm_path_display_basename(path);
+        disp = fm_path_display_basename(path);
     return disp;
 }
 
@@ -1128,20 +1125,20 @@ void _fm_path_init()
 
     /* build path object for home dir */
     name = home_dir + 1; /* skip leading / */
-    parent = root_path;
+    parent = fm_path_ref(root_path);
     while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)
         {
-            /* ref counting is not a problem here since this path component
-             * will exist till the termination of the program. So mem leak is ok. */
             tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+            fm_path_unref(parent);
             parent = tmp;
         }
         name = sep + 1;
     }
     home_path = _fm_path_new_internal(parent, name, strlen(name), FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+    fm_path_unref(parent);
 
     desktop_dir = g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
     desktop_len = strlen(desktop_dir);
@@ -1164,24 +1161,23 @@ void _fm_path_init()
     while (*name == '/') name++; /* skip extra / if any */
     if (*name == '\0')
         name = "Desktop"; /* fallback: never use home_path as desktop_path */
-    parent = home_path;
+    parent = fm_path_ref(home_path); /* preserve ref */
     /* } */
     while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)
         {
-            /* ref counting is not a problem here since this path component
-             * will exist till the termination of the program. So mem leak is ok. */
             tmp = _fm_path_new_internal(parent, name, len, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+            fm_path_unref(parent); /* parent is reffed by new child */
             parent = tmp;
         }
         name = sep + 1;
     }
     desktop_path = _fm_path_new_internal(parent, name, strlen(name), FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
+    fm_path_unref(parent); /* we used it already */
 
     /* build path object for trash can */
-    /* FIXME: currently there are problems with URIs. using trash:/ here will cause problems. */
     trash_root_path = _fm_path_new_internal(NULL, "trash:///", 9, FM_PATH_IS_TRASH|FM_PATH_IS_VIRTUAL|FM_PATH_IS_LOCAL);
     _fm_path_set_display_name(trash_root_path, _("Trash Can"));
     apps_root_path = _fm_path_new_internal(NULL, "menu://applications/", 20, FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);

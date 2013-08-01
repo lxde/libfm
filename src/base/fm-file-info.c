@@ -684,8 +684,10 @@ FmFileInfo* fm_file_info_new_from_g_file_data(GFile *gf, GFileInfo *inf, FmPath 
 
 /**
  * fm_file_info_set_from_menu_cache_item
+ * @fi: a file info to update
+ * @item: a menu cache item
  *
- * Deprecated: 1.2.0
+ * Deprecated: 1.2.0:
  */
 void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 {
@@ -730,8 +732,10 @@ void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item)
 
 /**
  * fm_file_info_new_from_menu_cache_item
+ * @path: a file path
+ * @item: a menu cache item
  *
- * Deprecated: 1.2.0
+ * Deprecated: 1.2.0:
  */
 FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, MenuCacheItem* item)
 {

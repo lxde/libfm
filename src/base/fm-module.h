@@ -82,7 +82,7 @@ static inline void fm_module_register_##_type_ (void) { \
 G_BEGIN_DECLS
 
 /* adds schedule */
-void fm_module_register_type(const char *type, int minver, int maxver, FmModuleInitCallback);
+void fm_module_register_type(const char *type, int minver, int maxver, FmModuleInitCallback cb);
 /* removes schedule */
 void fm_module_unregister_type(const char *type);
 /* forces schedules */
