@@ -617,12 +617,16 @@ static void on_drag_data_received(GtkWidget *w, GdkDragContext *drag_context,
  */
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 {
+    GtkWidget *other_widget = gtk_drag_get_source_widget(drag_context);
     guint i;
     for(i = 1; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
     {
         GdkAtom target = dest_target_atom[i];
         if(G_LIKELY(target != GDK_NONE)
-           && fm_drag_context_has_target(drag_context, target))
+           && fm_drag_context_has_target(drag_context, target)
+           /* accept FM_DND_DEST_TARGET_FM_LIST only from the same application */
+           && (i != FM_DND_DEST_TARGET_FM_LIST ||
+               gtk_drag_get_source_widget(drag_context)))
             return target;
     }
     return GDK_NONE;
