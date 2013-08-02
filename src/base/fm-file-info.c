@@ -1284,6 +1284,22 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi)
 }
 
 /**
+ * fm_file_info_is_backup
+ * @fi:  A FmFileInfo struct
+ *
+ * Checks if file is backup. Native files are considered backup if they
+ * have ~ suffix.
+ *
+ * Returns: %TRUE if the file is a backup file.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_is_backup(FmFileInfo* fi)
+{
+    return fi->backup;
+}
+
+/**
  * fm_file_info_get_can_thumbnail:
  * @fi:  A FmFileInfo struct
  *

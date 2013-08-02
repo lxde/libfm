@@ -478,8 +478,7 @@ static void _fm_template_insert_sorted(FmTemplate *templ, FmTemplateFile *file)
     {
         while(last_dir && last_dir != file->dir && last_dir != next->dir)
             last_dir = last_dir->next;
-        if(!last_dir) /* FIXME: it must be corruption, g_error() it */
-            break;
+        g_assert(last_dir != NULL); /* it must be corruption otherwise */
         if(last_dir == file->dir)
         {
             if(next->dir == last_dir && !file->is_desktop_entry)
@@ -540,7 +539,7 @@ static void on_job_finished(FmJob *job, FmTemplateDir *dir)
     for(l = file_infos; l; l = l->next)
     {
         fi = l->data;
-        if(fm_file_info_is_hidden(fi)) /* FIXME: fm_file_info_is_backup() */
+        if(fm_file_info_is_hidden(fi) || fm_file_info_is_backup(fi))
             continue;
         path = fm_file_info_get_path(fi);
         G_LOCK(templates);
