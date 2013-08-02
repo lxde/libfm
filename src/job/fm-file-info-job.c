@@ -171,6 +171,8 @@ static void _check_gfile_display_names(FmPath *path, GFile *child)
     if (path == NULL || _fm_path_get_display_name(path) != NULL)
         return; /* all done */
     gf = g_file_get_parent(child);
+    if (gf == NULL) /* file systems such as search:// don't support this */
+        return;
     inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
                             G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
     if (inf != NULL)
