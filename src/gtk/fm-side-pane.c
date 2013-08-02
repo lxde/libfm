@@ -1,6 +1,7 @@
 //      fm-side-pane.c
 //
 //      Copyright 2011 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -294,9 +295,6 @@ void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
 
 static void on_places_chdir(FmPlacesView* view, guint button, FmPath* path, FmSidePane* sp)
 {
-//    g_signal_handlers_block_by_func(win->dirtree_view, on_dirtree_chdir, win);
-//    fm_main_win_chdir(win, path);
-//    g_signal_handlers_unblock_by_func(win->dirtree_view, on_dirtree_chdir, win);
     if(sp->cwd)
         fm_path_unref(sp->cwd);
     sp->cwd = fm_path_ref(path);
@@ -305,9 +303,6 @@ static void on_places_chdir(FmPlacesView* view, guint button, FmPath* path, FmSi
 
 static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, FmSidePane* sp)
 {
-//    g_signal_handlers_block_by_func(win->places_view, on_places_chdir, win);
-//    fm_main_win_chdir(win, path);
-//    g_signal_handlers_unblock_by_func(win->places_view, on_places_chdir, win);
     if(sp->cwd)
         fm_path_unref(sp->cwd);
     sp->cwd = fm_path_ref(path);

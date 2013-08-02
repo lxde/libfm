@@ -2,6 +2,7 @@
  *      fm-folder.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -87,16 +88,12 @@ struct _FmFolder
     gboolean defer_content_test : 1;
 };
 
-static FmFolder* fm_folder_new_internal(FmPath* path, GFile* gf);
-static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf);
 static void fm_folder_dispose(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
-static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder);
+static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
-
-static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
 static guint signals[N_SIGNALS];
 static GHashTable* hash = NULL; /* FIXME: should this be guarded with a mutex? */
@@ -766,7 +763,6 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
     /* FIXME: should we provide a generic FmPath cache in fm-path.c
      * to associate all kinds of data structures with FmPaths? */
 
-    /* FIXME: should creation of the hash table be moved to fm_init()? */
     folder = (FmFolder*)g_hash_table_lookup(hash, path);
 
     if( G_UNLIKELY(!folder) )
@@ -790,7 +786,7 @@ static void free_dirlist_job(FmFolder* folder)
         g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_files_found, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_finished, folder);
     g_signal_handlers_disconnect_by_func(folder->dirlist_job, on_dirlist_job_error, folder);
-    fm_job_cancel(FM_JOB(folder->dirlist_job)); /* FIXME: is this ok? */
+    fm_job_cancel(FM_JOB(folder->dirlist_job));
     g_object_unref(folder->dirlist_job);
     folder->dirlist_job = NULL;
 }
@@ -854,8 +850,6 @@ static void fm_folder_dispose(GObject *object)
         }
         if(folder->files_to_del)
         {
-            // FIXME: is this needed?
-            /* g_slist_foreach(folder->files_to_del, (GFunc)g_free, NULL); */
             g_slist_free(folder->files_to_del);
             folder->files_to_del = NULL;
         }
@@ -936,8 +930,12 @@ FmFolder* fm_folder_from_gfile(GFile* gf)
  */
 FmFolder* fm_folder_from_path_name(const char* path)
 {
-    FmPath* fm_path = fm_path_new_for_str(path);
-    FmFolder* folder = fm_folder_get_internal(fm_path, NULL);
+    /* it is very likely the GFile will be required and since creation
+       of new GFile is much cheaper than fm_path_to_gfile() let make it */
+    GFile* gf = g_file_new_for_path(path);
+    FmPath* fm_path = fm_path_new_for_path(path);
+    FmFolder* folder = fm_folder_get_internal(fm_path, gf);
+    g_object_unref(gf);
     fm_path_unref(fm_path);
     return folder;
 }
@@ -956,12 +954,15 @@ FmFolder* fm_folder_from_path_name(const char* path)
  *
  * Since: 0.1.0
  */
-/* FIXME: should we use GFile here? */
 FmFolder*    fm_folder_from_uri    (const char* uri)
 {
+    /* it is very likely the GFile will be required and since creation
+       of new GFile is much cheaper than fm_path_to_gfile() let make it */
     GFile* gf = fm_file_new_for_uri(uri);
-    FmFolder* folder = fm_folder_from_gfile(gf);
+    FmPath* path = fm_path_new_for_uri(uri);
+    FmFolder* folder = fm_folder_get_internal(path, gf);
     g_object_unref(gf);
+    fm_path_unref(path);
     return folder;
 }
 
