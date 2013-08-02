@@ -1709,7 +1709,8 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
         if(target && !fm_file_info_is_symlink(fi))
         {
             /* symlinks also has fi->target, but we only handle shortcuts here. */
-            FmPath* real_path = fm_path_new_for_str(target);
+            /* bug #3614794: the shortcut target is a commandline argument */
+            FmPath* real_path = fm_path_new_for_commandline_arg(target);
             fm_launch_path_simple(win, NULL, real_path, open_folders, win);
             fm_path_unref(real_path);
         }
@@ -1870,10 +1871,10 @@ static gboolean fm_module_callback_gtk_menu_scheme(const char *name, gpointer in
     if (strcmp(name, "*") == 0)
         ext->scheme = NULL;
     else if (strcmp(name, "menu") == 0) /* special support */
-        ext->scheme = fm_path_new_for_str("menu://applications/");
+        ext->scheme = fm_path_new_for_uri("menu://applications/");
     else if (strchr(name, '/') != NULL)
     {
-        path = fm_path_new_for_str(name);
+        path = fm_path_new_for_uri(name);
         ext->scheme = fm_path_ref(fm_path_get_scheme_path(path));
         fm_path_unref(path);
     }

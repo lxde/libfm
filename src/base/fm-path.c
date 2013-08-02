@@ -603,7 +603,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         if (sep[1] != '/') /* something like mailto:xx@yy */
             return fm_path_new_for_uri(path_name);
         if (sep[2] != '/') /* malformed URI */
-            return fm_path_new_for_uri(path_name); /* FIXME: handle this? */
+            return fm_path_new_for_str(path_name); /* FIXME: handle this? */
         path_copy = g_strdup(path_name);
         c = path_copy + (sep + 3 - path_name); /* set after xx:// */
         sep = strchr(c, '/');

@@ -190,7 +190,7 @@ static FmMimeType *_fm_template_guess_mime_type(FmPath *path, FmMimeType *mime_t
         if(url)
         {
             if(G_UNLIKELY(url[0] == '/')) /* absolute path */
-                subpath = fm_path_new_for_str(url);
+                subpath = fm_path_new_for_path(url);
             else if(G_UNLIKELY(strchr(url, ':'))) /* URI (huh?) */
                 subpath = fm_path_new_for_uri(url);
             else /* path relative to directory containing file */
@@ -374,7 +374,7 @@ static void _fm_template_update_from_file(FmTemplate *templ, FmTemplateFile *fil
                     if(templ->template_file)
                         fm_path_unref(templ->template_file);
                     if(G_UNLIKELY(tmp[0] == '/')) /* absolute path */
-                        templ->template_file = fm_path_new_for_str(tmp);
+                        templ->template_file = fm_path_new_for_path(tmp);
                     else if(G_UNLIKELY(strchr(tmp, ':'))) /* URI (huh?) */
                         templ->template_file = fm_path_new_for_uri(tmp);
                     else /* path relative to directory containing file */
@@ -793,7 +793,7 @@ void _fm_templates_init(void)
     templates_dirs = dir;
     dir_name = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
     if(dir_name)
-        dir->path = fm_path_new_for_str(dir_name);
+        dir->path = fm_path_new_for_path(dir_name);
     else
         dir->path = fm_path_new_child(fm_path_get_home(), "Templates");
     dir->user_dir = TRUE;
