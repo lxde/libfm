@@ -617,7 +617,6 @@ static void on_drag_data_received(GtkWidget *w, GdkDragContext *drag_context,
  */
 GdkAtom fm_dnd_dest_find_target(FmDndDest* dd, GdkDragContext *drag_context)
 {
-    GtkWidget *other_widget = gtk_drag_get_source_widget(drag_context);
     guint i;
     for(i = 1; i < N_FM_DND_DEST_DEFAULT_TARGETS; i++)
     {
