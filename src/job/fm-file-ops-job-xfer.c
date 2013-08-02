@@ -271,10 +271,10 @@ _retry_enum_children:
                                         tmp_basename ? tmp_basename : g_file_info_get_name(inf));
                                 g_free(tmp_basename);
 
-                                if(g_file_is_native(dest))
+                                if(g_file_is_native(sub_dest))
                                     job->dest_folder_mon = NULL;
                                 else
-                                    job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest);
+                                    job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(sub_dest);
 
                                 ret2 = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
                                 g_object_unref(sub);
@@ -362,24 +362,20 @@ _retry_enum_children:
                     int r = mkfifo(dest_path, src_st.st_mode);
                     g_free(dest_path);
                     if( r == 0)
-                    {
                         ret = TRUE;
-                        break;
-                    }
-                    else
-                    {
-                        /* FIXME: error handling */
-                    }
                 }
                 /* FIXME: how about block device, char device, and socket? */
             }
-            else
-            {
-                /* FIXME: error handling */
-            }
+        }
+        if (!ret)
+        {
+            g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                        _("Cannot copy file '%s': not supported"),
+                        g_file_info_get_display_name(inf));
         }
         job->finished += size;
         fm_file_ops_job_emit_percent(job);
+        break;
 
     default:
         flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
@@ -655,7 +651,7 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
     GFile *dest_dir;
-    GFileMonitor *old_mon, *dest_mon;
+    GFileMonitor *old_mon;
     GList* l;
     FmJob* fmjob = FM_JOB(job);
     /* prepare the job, count total work needed with FmDeepCountJob */
@@ -675,17 +671,11 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
 
     dest_dir = fm_path_to_gfile(job->dest);
     /* get dummy file monitors for non-native filesystems */
+    old_mon = job->dest_folder_mon;
     if( g_file_is_native(dest_dir) )
-    {
-        old_mon = NULL; /* to satisfy compiler */
-        dest_mon = NULL;
-    }
+        job->dest_folder_mon = NULL;
     else
-    {
-        old_mon = job->dest_folder_mon;
-        dest_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
-        job->dest_folder_mon = dest_mon;
-    }
+        job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
 
     fm_file_ops_job_emit_prepared(job);
 
@@ -718,18 +708,16 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     fm_file_ops_job_emit_percent(job);
 
     g_object_unref(dest_dir);
-    if(dest_mon)
-    {
-        g_object_unref(dest_mon);
-        job->dest_folder_mon = old_mon;
-    }
+    if(job->dest_folder_mon)
+        g_object_unref(job->dest_folder_mon);
+    job->dest_folder_mon = old_mon;
     return ret;
 }
 
 gboolean _fm_file_ops_job_move_run(FmFileOpsJob* job)
 {
     GFile *dest_dir;
-    GFileMonitor *old_mon, *dest_mon, *old_src_mon;
+    GFileMonitor *old_mon, *old_src_mon;
     GFileInfo* inf;
     GList* l;
     GError* err = NULL;
@@ -784,17 +772,11 @@ _retry_query_dest_info:
             (long long unsigned int)job->total, job->dest_fs_id);
 
     /* get dummy file monitors for non-native filesystems */
+    old_mon = job->dest_folder_mon;
     if( g_file_is_native(dest_dir) )
-    {
-        old_mon = NULL; /* to satisfy compiler */
-        dest_mon = NULL;
-    }
+        job->dest_folder_mon = NULL;
     else
-    {
-        old_mon = job->dest_folder_mon;
-        dest_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
-        job->dest_folder_mon = dest_mon;
-    }
+        job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
 
     fm_file_ops_job_emit_prepared(job);
 
@@ -844,10 +826,8 @@ _retry_query_dest_info:
     job->src_folder_mon = old_src_mon;
 
     g_object_unref(dest_dir);
-    if(dest_mon)
-    {
-        g_object_unref(dest_mon);
-        job->dest_folder_mon = old_mon;
-    }
+    if(job->dest_folder_mon)
+        g_object_unref(job->dest_folder_mon);
+    job->dest_folder_mon = old_mon;
     return ret;
 }

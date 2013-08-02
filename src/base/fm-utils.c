@@ -326,7 +326,9 @@ char* fm_strdup_replace(char* str, char* old_str, char* new_str)
  * @user_data:  caller data to pass to callback
  *
  * This function parses line that contains some %&lt;char&gt; commands and does
- * substitutions on them using callbacks provided by caller.
+ * substitutions on them using callbacks provided by caller. Only options
+ * in @opts and %% will be expanded, all other %&lt;char&gt; sequences will
+ * be skipped.
  *
  * Returns: number of valid options found in @cmd.
  *
@@ -367,12 +369,10 @@ int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                         ins = opt->callback(*c, user_data);
                         if(ins && *ins)
                             g_string_append(buf, ins);
-                        /* FIXME: add support for uri and escaping */
                     }
                     break;
                 }
             }
-            /* FIXME: should invalid options be passed 'as is' or ignored? */
         }
     }
     if(c != ptr)
