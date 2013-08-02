@@ -20,11 +20,16 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-file-ops-job-delete.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-monitor.h"
 #include "fm-config.h"
 #include "fm-file.h"
+#include <glib/gi18n-lib.h>
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -36,7 +41,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
     FmFileOpsJob* fjob = FM_FILE_OPS_JOB(job);
-    gboolean is_dir, is_trash_root = FALSE;
+    gboolean is_dir, is_trash_root = FALSE, ok;
     GFileInfo* _inf = NULL;
     FmJobErrorAction act;
 
@@ -140,9 +145,11 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                     if(inf)
                     {
                         GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-                        _fm_file_ops_job_delete_file(job, sub, inf); /* FIXME: error handling? */
+                        ok = _fm_file_ops_job_delete_file(job, sub, inf);
                         g_object_unref(sub);
                         g_object_unref(inf);
+                        if (!ok)
+                            goto _failed;
                     }
                     else
                     {
@@ -151,6 +158,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                             fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
                             /* FM_JOB_RETRY is not supported here */
                             g_error_free(err);
+_failed:
                             g_object_unref(enu);
                             if(fjob->src_folder_mon)
                                 g_object_unref(fjob->src_folder_mon);
@@ -427,7 +435,19 @@ _retry_get_orig_path:
             }
             else
             {
-                /* FIXME: error handling. */
+                FmJobErrorAction act;
+
+                g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
+                            _("Cannot untrash file '%s': original path not known"),
+                            g_file_info_get_display_name(inf));
+                act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                g_clear_error(&err);
+                if(act == FM_JOB_ABORT)
+                {
+                    g_object_unref(inf);
+                    g_object_unref(gf);
+                    return FALSE;
+                }
             }
             g_object_unref(inf);
         }

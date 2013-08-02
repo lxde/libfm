@@ -372,6 +372,8 @@ _retry_enum_children:
             g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
                         _("Cannot copy file '%s': not supported"),
                         g_file_info_get_display_name(inf));
+            fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+            g_clear_error(&err);
         }
         job->finished += size;
         fm_file_ops_job_emit_percent(job);
