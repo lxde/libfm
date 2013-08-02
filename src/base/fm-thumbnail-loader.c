@@ -590,7 +590,7 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
 
     g_rec_mutex_lock(&queue_lock);
 
-    /* FIXME: find in the cache first to see if thumbnail is already cached */
+    /* find in the cache first to see if thumbnail is already cached */
     pix = find_thumbnail_in_hash(src_path, size);
     if(pix)
     {

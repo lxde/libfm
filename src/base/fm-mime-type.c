@@ -432,7 +432,6 @@ void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer
  *
  * Since: 0.1.0
  */
-/* Get human-readable description of mime type */
 const char* fm_mime_type_get_desc(FmMimeType* mime_type)
 {
     /* FIXME: is locking needed here or not? */

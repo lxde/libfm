@@ -376,8 +376,10 @@ void fm_modules_load(void)
     g_debug("starting modules initialization");
     dir = g_dir_open(PACKAGE_MODULES_DIR, 0, NULL);
     if (dir == NULL)
-        /* FIXME: report errors */
+    {
+        g_warning("modules directory is not accessible");
         return;
+    }
     str = g_string_sized_new(128);
     while ((file = g_dir_read_name(dir)) != NULL)
     {

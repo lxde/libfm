@@ -207,7 +207,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         fi->uid = st.st_uid;
         fi->gid = st.st_gid;
 
-        /* FIXME: handle symlinks */
+        /* handle symlinks: use target to retrieve its info */
         if(S_ISLNK(st.st_mode))
         {
             stat(path, &st);
@@ -243,28 +243,13 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         {
             GKeyFile* kf = g_key_file_new();
             FmIcon* icon = NULL;
+            char* icon_name;
+            char* type;
+
             if(g_key_file_load_from_file(kf, path, 0, NULL))
             {
-                char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
-                char* type = g_key_file_get_string(kf, "Desktop Entry", "Type", NULL);
-                if(icon_name)
-                {
-                    if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-                    {
-                        char* dot = strrchr(icon_name, '.');
-                        /* remove file extension */
-                        if(dot)
-                        {
-                            ++dot;
-                            if(strcmp(dot, "png") == 0 ||
-                               strcmp(dot, "svg") == 0 ||
-                               strcmp(dot, "xpm") == 0)
-                               *(dot-1) = '\0';
-                        }
-                    }
-                    icon = fm_icon_from_name(icon_name);
-                    g_free(icon_name);
-                }
+                /* check if type is correct and supported */
+                type = g_key_file_get_string(kf, "Desktop Entry", "Type", NULL);
                 if(type)
                 {
                     /* g_debug("got desktop entry with type %s", type); */
@@ -291,16 +276,49 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                             fi->shortcut = TRUE;
                             fi->target = uri;
                         }
-                        /* FIXME: otherwise it's error so reset mime type to unknown */
+                        else
+                        {
+                            /* otherwise it's error, Link should have URL */
+                            g_free(type);
+                            goto _not_desktop_entry;
+                        }
                     }
+                    /* FIXME: fail if Type isn't Application or Directory */
                     g_free(type);
                 }
-                /* FIXME: otherwise it's error so reset mime type to unknown */
+                else
+                    goto _not_desktop_entry;
+                icon_name = g_key_file_get_string(kf, "Desktop Entry", "Icon", NULL);
+                if(icon_name)
+                {
+                    if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
+                    {
+                        char* dot = strrchr(icon_name, '.');
+                        /* remove file extension */
+                        if(dot)
+                        {
+                            ++dot;
+                            if(strcmp(dot, "png") == 0 ||
+                               strcmp(dot, "svg") == 0 ||
+                               strcmp(dot, "xpm") == 0)
+                               *(dot-1) = '\0';
+                        }
+                    }
+                    icon = fm_icon_from_name(icon_name);
+                    g_free(icon_name);
+                }
                 /* Use title of the desktop entry for display */
                 dname = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
                 /* handle 'Hidden' key to set hidden attribute */
                 if (!fi->hidden)
                     fi->hidden = g_key_file_get_boolean(kf, "Desktop Entry", "Hidden", NULL);
+            }
+            else
+            {
+                /* otherwise it's error so treat the file as simple text */
+_not_desktop_entry:
+                fm_mime_type_unref(fi->mime_type);
+                fi->mime_type = fm_mime_type_from_name("text/plain");
             }
             if(icon)
                 fi->icon = icon;
