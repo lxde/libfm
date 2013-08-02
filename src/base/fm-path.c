@@ -1148,23 +1148,20 @@ void _fm_path_init()
         --desktop_len;
 
     /* build path object for desktop_path dir */
-    /* FIXME: can it be that desktop_dir is outside of home_dir ?
     if(G_UNLIKELY(strncmp(desktop_dir, home_dir, home_len)))
     {
+        /* can it be that desktop_dir is outside of home_dir ? */
         name = &desktop_dir[1];
-        parent = root_path;
-        while()
-        {
-        }
+        parent = fm_path_ref(root_path);
     }
     else
-    { */
-    name = desktop_dir + home_len + 1; /* skip home_path dir part / */
-    while (*name == '/') name++; /* skip extra / if any */
-    if (*name == '\0')
-        name = "Desktop"; /* fallback: never use home_path as desktop_path */
-    parent = fm_path_ref(home_path); /* preserve ref */
-    /* } */
+    {
+        name = desktop_dir + home_len + 1; /* skip home_path dir part / */
+        while (*name == '/') name++; /* skip extra / if any */
+        if (*name == '\0')
+            name = "Desktop"; /* fallback: never use home_path as desktop_path */
+        parent = fm_path_ref(home_path); /* preserve ref */
+    }
     while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
