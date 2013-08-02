@@ -76,8 +76,9 @@
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
 {
-    {"application/x-fmlist-ptr", GTK_TARGET_SAME_APP, FM_DND_SRC_TARGET_FM_LIST},
-    {"text/uri-list", 0, FM_DND_SRC_TARGET_URI_LIST}
+    /* bug #3614629: the "text/uri-list" should be primary target */
+    {"text/uri-list", 0, FM_DND_SRC_TARGET_URI_LIST},
+    {"application/x-fmlist-ptr", GTK_TARGET_SAME_APP, FM_DND_SRC_TARGET_FM_LIST}
 };
 
 #if 0
