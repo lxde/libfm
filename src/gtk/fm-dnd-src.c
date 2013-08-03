@@ -314,7 +314,8 @@ on_drag_data_get ( GtkWidget *src_widget,
                 uri = fm_path_to_uri(fm_file_info_get_path(file));
                 g_string_append( uri_list, uri );
                 g_free( uri );
-                g_string_append( uri_list, "\n" );
+                /* #3614629: text/uri-list should be ended with \r\n */
+                g_string_append( uri_list, "\r\n" );
             }
             if(info == FM_DND_SRC_TARGET_URI_LIST)
                 gtk_selection_data_set(sel_data, type, 8,
