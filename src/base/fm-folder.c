@@ -91,7 +91,7 @@ struct _FmFolder
 static void fm_folder_dispose(GObject *object);
 static void fm_folder_content_changed(FmFolder* folder);
 
-static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
+static GList* _fm_folder_get_file_by_path(FmFolder* folder, FmPath *path);
 
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
@@ -372,8 +372,7 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
         {
             FmFileInfo* fi = (FmFileInfo*)l->data;
             FmPath* path = fm_file_info_get_path(fi);
-            GList* l2 = _fm_folder_get_file_by_name(folder,
-                                                    fm_path_get_basename(path));
+            GList* l2 = _fm_folder_get_file_by_path(folder, path);
             if(l2) /* the file is already in the folder, update */
             {
                 FmFileInfo* fi2 = (FmFileInfo*)l2->data;
@@ -414,7 +413,6 @@ static gboolean on_idle(FmFolder* folder)
 {
     GSList* l;
     FmFileInfoJob* job = NULL;
-    FmPath* path;
 
     /* check if folder still exists */
     if(g_source_is_destroyed(g_main_current_source()))
@@ -430,11 +428,9 @@ static gboolean on_idle(FmFolder* folder)
     {
         for(l=folder->files_to_update; l; l = l->next)
         {
-            char* name = (char*)l->data;
-            path = fm_path_new_child(folder->dir_path, name);
+            FmPath *path = l->data;
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
-            g_free(name);
         }
         g_slist_free(folder->files_to_update);
         folder->files_to_update = NULL;
@@ -444,11 +440,9 @@ static gboolean on_idle(FmFolder* folder)
     {
         for(l=folder->files_to_add;l;l=l->next)
         {
-            char* name = (char*)l->data;
-            path = fm_path_new_child(folder->dir_path, name);
+            FmPath *path = l->data;
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
-            g_free(name);
         }
         g_slist_free(folder->files_to_add);
         folder->files_to_add = NULL;
@@ -511,7 +505,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
 {
     GList* l;
     GSList* sl;
-    char* name;
+    FmPath* path;
 
     /* const char* names[]={
         "G_FILE_MONITOR_EVENT_CHANGED",
@@ -573,7 +567,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         return;
     }
 
-    name = g_file_get_basename(gf);
+    path = fm_path_new_for_gfile(gf);
 
     /* NOTE: sometimes, for unknown reasons, GFileMonitor gives us the
      * same event of the same file for multiple times. So we need to 
@@ -583,18 +577,18 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     case G_FILE_MONITOR_EVENT_CREATED:
     {
         /* make sure that the file is not already queued for addition. */
-        if(!g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
+        if(!g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare))
         {
-            l = _fm_folder_get_file_by_name(folder, name);
+            l = _fm_folder_get_file_by_path(folder, path);
             if(!l) /* it's new file */
             {
                 /* add the file name to queue for addition. */
-                folder->files_to_add = g_slist_append(folder->files_to_add, name);
+                folder->files_to_add = g_slist_append(folder->files_to_add, path);
             }
-            else if(g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp))
+            else if(g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare))
             {
                 /* file already queued for update, don't duplicate */
-                g_free(name);
+                fm_path_unref(path);
             }
             /* if we already have the file in FmFolder, update the existing one instead. */
             else
@@ -603,11 +597,11 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
                    If it is queued for deletion then cancel that operation */
                 folder->files_to_del = g_slist_remove(folder->files_to_del, l);
                 /* update the existing item. */
-                folder->files_to_update = g_slist_append(folder->files_to_update, name);
+                folder->files_to_update = g_slist_append(folder->files_to_update, path);
             }
         }
         else
-            g_free(name);
+            fm_path_unref(path);
         break;
     }
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
@@ -615,38 +609,38 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     {
         /* make sure that the file is not already queued for changes or
          * it's already queued for addition. */
-        if(!g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp) &&
-            !g_slist_find_custom(folder->files_to_add, name, (GCompareFunc)strcmp))
+        if(!g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare) &&
+            !g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare))
         {
-            folder->files_to_update = g_slist_append(folder->files_to_update, name);
+            folder->files_to_update = g_slist_append(folder->files_to_update, path);
         }
         else
-            g_free(name);
+            fm_path_unref(path);
         break;
     }
     case G_FILE_MONITOR_EVENT_DELETED:
-        l = _fm_folder_get_file_by_name(folder, name);
+        l = _fm_folder_get_file_by_path(folder, path);
         if(l && !g_slist_find(folder->files_to_del, l) )
             folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
         /* if the file is already queued for addition or update, that operation
            will be just a waste, therefore cancel it right now */
-        sl = g_slist_find_custom(folder->files_to_update, name, (GCompareFunc)strcmp);
+        sl = g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare);
         if(sl)
         {
-            g_free(sl->data); /* free name */
+            fm_path_unref(sl->data); /* free name */
             folder->files_to_update = g_slist_delete_link(folder->files_to_update, sl);
         }
-        else if((sl = g_slist_find_custom(folder->files_to_add, name,
-                                          (GCompareFunc)strcmp)))
+        else if((sl = g_slist_find_custom(folder->files_to_add, path,
+                                          (GCompareFunc)fm_path_compare)))
         {
-            g_free(sl->data); /* free name */
+            fm_path_unref(sl->data); /* free name */
             folder->files_to_add = g_slist_delete_link(folder->files_to_add, sl);
         }
-        g_free(name);
+        fm_path_unref(path);
         break;
     default:
         /* g_debug("folder %p %s event: %s", folder, name, names[evt]); */
-        g_free(name);
+        fm_path_unref(path);
         return;
     }
     G_LOCK(query);
@@ -680,7 +674,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
                 /* we got only basic info on content, schedule update it now */
                 for (l = files; l; l = l->next)
                     folder->files_to_update = g_slist_prepend(folder->files_to_update,
-                                                g_strdup(fm_file_info_get_name(l->data)));
+                                                fm_path_ref(fm_file_info_get_path(l->data)));
             g_signal_emit(folder, signals[FILES_ADDED], 0, files);
             g_slist_free(files);
         }
@@ -695,15 +689,15 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
             GSList* l;
             for(l = folder->files_to_add; l;)
             {
-                char* name = (char*)l->data;
+                FmPath *path = l->data;
                 GSList* next = l->next;
-                if(_fm_folder_get_file_by_name(folder, name))
+                if(_fm_folder_get_file_by_path(folder, path))
                 {
                     /* we already have the file. remove it from files_to_add, 
                      * and put it in files_to_update instead.
                      * No strdup for name is needed here. We steal
                      * the string from files_to_add.*/
-                    folder->files_to_update = g_slist_prepend(folder->files_to_update, name);
+                    folder->files_to_update = g_slist_prepend(folder->files_to_update, path);
                     folder->files_to_add = g_slist_delete_link(folder->files_to_add, l);
                 }
                 l = next;
@@ -844,13 +838,13 @@ static void fm_folder_dispose(GObject *object)
         folder->idle_handler = 0;
         if(folder->files_to_add)
         {
-            g_slist_foreach(folder->files_to_add, (GFunc)g_free, NULL);
+            g_slist_foreach(folder->files_to_add, (GFunc)fm_path_unref, NULL);
             g_slist_free(folder->files_to_add);
             folder->files_to_add = NULL;
         }
         if(folder->files_to_update)
         {
-            g_slist_foreach(folder->files_to_update, (GFunc)g_free, NULL);
+            g_slist_foreach(folder->files_to_update, (GFunc)fm_path_unref, NULL);
             g_slist_free(folder->files_to_update);
             folder->files_to_update = NULL;
         }
@@ -1132,14 +1126,14 @@ FmPath* fm_folder_get_path(FmFolder* folder)
     return folder->dir_path;
 }
 
-static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
+static GList* _fm_folder_get_file_by_path(FmFolder* folder, FmPath *path)
 {
     GList* l = fm_file_info_list_peek_head_link(folder->files);
     for(;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        FmPath* path = fm_file_info_get_path(fi);
-        if(strcmp(fm_path_get_basename(path), name) == 0)
+        FmPath* lpath = fm_file_info_get_path(fi);
+        if(fm_path_equal(lpath, path))
             return l;
     }
     return NULL;
@@ -1159,7 +1153,9 @@ static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name)
  */
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name)
 {
-    GList* l = _fm_folder_get_file_by_name(folder, name);
+    FmPath *path = fm_path_new_child(folder->dir_path, name);
+    GList* l = _fm_folder_get_file_by_path(folder, path);
+    fm_path_unref(path);
     return l ? (FmFileInfo*)l->data : NULL;
 }
 
