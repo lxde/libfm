@@ -610,7 +610,8 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         /* make sure that the file is not already queued for changes or
          * it's already queued for addition. */
         if(!g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare) &&
-            !g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare))
+           !g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare) &&
+           _fm_folder_get_file_by_path(folder, path)) /* ensure it is our file */
         {
             folder->files_to_update = g_slist_append(folder->files_to_update, path);
         }
