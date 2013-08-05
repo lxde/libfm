@@ -462,7 +462,11 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     else
         gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(parent)));
 
-    if (items_num != 1 || !fm_file_info_can_set_name(fi))
+    if (items_num != 1 || !fm_file_info_can_set_name(fi) ||
+        /* unfortunately GIO doesn't support changing the .desktop files
+           but treats them as usual files, we can rename only file names,
+           not display names so we have no choice but disable this option */
+        fm_file_info_is_shortcut(fi) || fm_file_info_is_desktop_entry(fi))
     {
         act = gtk_ui_manager_get_action(ui, "/popup/Rename");
         gtk_action_set_visible(act, FALSE);

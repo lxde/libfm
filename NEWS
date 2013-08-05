@@ -255,6 +255,11 @@ Changes on 1.2.0 since 1.1.0:
     remember file on which menu was activated and use it in own callback
     if it was activated.
 
+* Disabled attempt to drop files into folders on read-only file system.
+
+* The item "Delete" in context menu now changes appearance between Trash
+    and Remove in dependency if Shift key is pressed.
+
 
 Changes on 1.1.0 since 1.0.1:
 
