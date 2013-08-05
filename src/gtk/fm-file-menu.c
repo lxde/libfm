@@ -713,7 +713,6 @@ static void on_rename(GtkAction* action, gpointer user_data)
     GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
     if(fi)
         fm_rename_file(window, fm_file_info_get_path(fi));
-    /* FIXME: is it ok to only rename the first selected file here? */
 }
 
 static void on_compress(GtkAction* action, gpointer user_data)

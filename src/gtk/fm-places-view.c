@@ -998,13 +998,25 @@ static void on_umount(GtkAction* act, gpointer user_data)
     }
 }
 
+static GtkWindow *_get_gtk_window_from_action(GtkAction* act)
+{
+    /* FIXME: This is very dirty, but it's inevitable. :-( */
+    GSList* proxies = gtk_action_get_proxies(act);
+    GtkWidget *menu, *view;
+    menu = gtk_widget_get_parent(proxies->data);
+    if (menu == NULL || !GTK_IS_MENU(menu))
+        return NULL;
+    view = gtk_menu_get_attach_widget((GtkMenu*)menu);
+    return view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL;
+}
+
 static void on_eject(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
     if(fm_places_item_get_type(item) == FM_PLACES_ITEM_VOLUME)
     {
-        /* FIXME: get the toplevel window here */
-        fm_eject_volume(NULL, fm_places_item_get_volume(item), TRUE);
+        fm_eject_volume(_get_gtk_window_from_action(act),
+                        fm_places_item_get_volume(item), TRUE);
     }
 }
 
@@ -1031,8 +1043,8 @@ static void on_remove_bm(GtkAction* act, gpointer user_data)
 static void on_rename_bm(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
-    /* FIXME: we need to set a proper parent window for the dialog */
-    char* new_name = fm_get_user_input(NULL, _("Rename Bookmark Item"),
+    char* new_name = fm_get_user_input(_get_gtk_window_from_action(act),
+                                       _("Rename Bookmark Item"),
                                        _("Enter a new name:"),
                                        fm_places_item_get_bookmark_item(item)->name);
     if(new_name)
@@ -1099,12 +1111,7 @@ _end:
 
 static void on_empty_trash(GtkAction* act, gpointer user_data)
 {
-    /* FIXME: This is very dirty, but it's inevitable. :-( */
-    GSList* proxies = gtk_action_get_proxies(act);
-    GtkWidget* menu_item = proxies->data ? GTK_WIDGET(proxies->data) : NULL;
-    GtkWidget* menu = gtk_widget_get_parent(menu_item);
-    GtkWidget* view = gtk_menu_get_attach_widget(GTK_MENU(menu));
-    fm_empty_trash(view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL);
+    fm_empty_trash(_get_gtk_window_from_action(act));
 }
 
 #if !GTK_CHECK_VERSION(3, 0, 0)

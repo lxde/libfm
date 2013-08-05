@@ -1030,12 +1030,9 @@ void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_
  */
 void fm_rename_file(GtkWindow* parent, FmPath* file)
 {
-    GFile *gf, *parent_gf, *dest;
-    GError* err = NULL;
     gchar *old_name, *new_name;
     FmPathList *files;
     FmFileOpsJob *job;
-    GFileMonitor* mon;
 
     /* NOTE: it's better to use fm_file_info_get_edit_name() to get a name
        but we cannot get it from FmPath */
