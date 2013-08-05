@@ -91,6 +91,7 @@ struct _FmFileMenu
     FmFileInfoList* file_infos;
     gboolean same_type : 1;
     //gboolean disable_archiving : 1;
+    gboolean shift_pressed : 1;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkMenu* menu;
@@ -213,6 +214,48 @@ FmFileMenu* fm_file_menu_new_for_file(GtkWindow* parent, FmFileInfo* fi, FmPath*
     menu = fm_file_menu_new_for_files(parent, files, cwd, auto_destroy);
     fm_file_info_list_unref(files);
     return menu;
+}
+
+static gboolean on_key_pressed(GtkWidget *widget, GdkEventKey *event, FmFileMenu *data)
+{
+    GtkAction *act;
+    GdkModifierType mask = 0;
+
+    gdk_window_get_device_position (gtk_widget_get_window(widget),
+                                    gtk_get_current_event_device(),
+                                    NULL, NULL, &mask);
+    if (mask & GDK_SHIFT_MASK)
+    {
+        if (!data->shift_pressed)
+        {
+            data->shift_pressed = TRUE;
+            act = gtk_ui_manager_get_action(data->ui, "/popup/Del");
+            gtk_action_set_label(act, NULL);
+            gtk_action_set_stock_id(act, GTK_STOCK_REMOVE);
+        }
+    }
+    return FALSE;
+}
+
+static gboolean on_key_released(GtkWidget *widget, GdkEventKey *event, FmFileMenu *data)
+{
+    GtkAction *act;
+    GdkModifierType mask = 0;
+
+    gdk_window_get_device_position (gtk_widget_get_window(widget),
+                                    gtk_get_current_event_device(),
+                                    NULL, NULL, &mask);
+    if (!(mask & GDK_SHIFT_MASK))
+    {
+        if (data->shift_pressed)
+        {
+            data->shift_pressed = FALSE;
+            act = gtk_ui_manager_get_action(data->ui, "/popup/Del");
+            gtk_action_set_label(act, _("_Trash"));
+            gtk_action_set_stock_id(act, GTK_STOCK_DELETE);
+        }
+    }
+    return FALSE;
 }
 
 /**
@@ -437,6 +480,15 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
                                  G_CALLBACK(fm_file_menu_destroy), data);
     }
 
+    if (fm_config->use_trash)
+    {
+        /* change menu item text&icon when Shift is pressed */
+        g_signal_connect(data->menu, "key-press-event", G_CALLBACK(on_key_pressed), data);
+        g_signal_connect(data->menu, "key-release-event", G_CALLBACK(on_key_released), data);
+        act = gtk_ui_manager_get_action(ui, "/popup/Del");
+        gtk_action_set_label(act, _("_Trash"));
+    }
+
     g_string_free(xml, TRUE);
     return data;
 }
@@ -613,7 +665,6 @@ static void on_delete(GtkAction* action, gpointer user_data)
     GdkModifierType mask = 0;
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     /* Fix for #3436283: accept Shift to delete instead of trash */
-    /* FIXME: change menu item text&icon when Shift is pressed */
     gdk_window_get_device_position (gtk_widget_get_window(GTK_WIDGET(data->menu)),
                                     gtk_get_current_event_device(),
                                     NULL, NULL, &mask);
