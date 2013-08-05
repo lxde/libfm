@@ -288,10 +288,6 @@ on_drag_data_get ( GtkWidget *src_widget,
     if(info == 0 || info >= N_FM_DND_SRC_DEFAULT_TARGETS)
         return;
 
-    /*  Don't call the default handler  */
-    /* FIXME: is this ever needed? */
-    /* g_signal_stop_emission_by_name( src_widget, "drag-data-get" ); */
-
     type = gtk_selection_data_get_target(sel_data);
     switch( info )
     {

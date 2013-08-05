@@ -337,6 +337,9 @@ static gboolean fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
         return TRUE;
     if(!fm_file_info_is_dir(dest_fi) || !fm_file_info_is_accessible(dest_fi))
         return FALSE;
+    /* check if target FS is R/O, we cannot drop anything into R/O place */
+    if (!fm_file_info_is_writable_directory(dest_fi))
+        return FALSE;
 
     /* check if we drop directory onto itself */
     if(!src || fm_path_equal(src, dest))
@@ -820,12 +823,10 @@ query_sources:
     else /* we have got drag source files */
     {
 #if 0
-        /* bug #3584798: DnD(copy/move) to remote host(SFTP://) does not work.
-           we should do some check if target FS is R/O instead of this */
+        /* bug #3584798: DnD(copy/move) to remote host(SFTP://) does not work. */
         else if(!fm_path_is_native(dest_path))
         {
             /* computer:/// and network:/// shouldn't received dropped files. */
-            /* FIXME: some special handling can be done with menu:// */
             action = 0;
         }
 #endif
@@ -886,8 +887,8 @@ query_sources:
                 /* compare the device/filesystem id against that of destination file */
                 else if(fm_path_is_native(dest_path))
                     same_fs = dd->src_dev && (dd->src_dev == fm_file_info_get_dev(dest));
-                else /* FIXME: can we use direct comparison here? */
-                    same_fs = dd->src_fs_id && (0 == g_strcmp0(dd->src_fs_id, fm_file_info_get_fs_id(dest)));
+                else /* fs_id is interned string */
+                    same_fs = dd->src_fs_id && (dd->src_fs_id == fm_file_info_get_fs_id(dest));
                 action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
             }
         }
