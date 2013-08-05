@@ -1103,8 +1103,10 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
 {
     GtkWidget *widget = GTK_WIDGET(user_data);
     GdkWindow *parent_window;
+    GdkScreen *screen;
     GtkAllocation a, ma;
-    gint x2, y2;
+    GdkRectangle mr;
+    gint x2, y2, mon;
     gboolean rtl = (gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL);
 
     /* realize menu so we get actual size of it */
@@ -1130,17 +1132,19 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     *x += a.x + x2;
     *y += a.y + y2;
     /* limit coordinates so menu will be not positioned outside of screen */
-    /* FIXME: honor monitor */
+    screen = gtk_widget_get_screen(widget);
+    mon = gdk_screen_get_monitor_at_point(screen, *x, *y);
+    gdk_screen_get_monitor_geometry(screen, mon, &mr);
     if(rtl) /* RTL */
     {
-        x2 = gdk_screen_width();
-        *x = CLAMP(*x, MIN(ma.width, x2), x2);
+        x2 = mr.x + mr.width;
+        *x = CLAMP(*x, MIN(mr.x + ma.width, x2), x2);
     }
     else /* LTR */
     {
-        *x = CLAMP(*x, 0, MAX(0, gdk_screen_width() - ma.width));
+        *x = CLAMP(*x, mr.x, MAX(mr.x, mr.x + mr.width - ma.width));
     }
-    *y = CLAMP(*y, 0, MAX(0, gdk_screen_height() - ma.height));
+    *y = CLAMP(*y, mr.y, MAX(mr.y, mr.y + mr.height - ma.height));
 }
 
 static void on_menu(GtkAction* act, FmFolderView* fv)

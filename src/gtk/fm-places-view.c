@@ -841,10 +841,11 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     GtkWidget *widget = gtk_menu_get_attach_widget(menu);
     GtkTreeView *view = GTK_TREE_VIEW(widget);
     GtkTreePath *path;
+    GdkScreen *screen;
     gint index = GPOINTER_TO_INT(user_data);
     GdkRectangle cell;
     GtkAllocation a, ma;
-    gint x2, y2;
+    gint x2, y2, mon;
     gboolean rtl = (gtk_widget_get_direction(widget) == GTK_TEXT_DIR_RTL);
 
     /* realize menu so we get actual size of it */
@@ -867,17 +868,20 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     *x += a.x + x2;
     *y += a.y + y2;
     /* limit coordinates so menu will be not positioned outside of screen */
-    /* FIXME: honor monitor */
+    screen = gtk_widget_get_screen(widget);
+    mon = gdk_screen_get_monitor_at_point(screen, *x, *y);
+    /* get monitor geometry into the rectangle */
+    gdk_screen_get_monitor_geometry(screen, mon, &cell);
     if(rtl) /* RTL */
     {
-        x2 = gdk_screen_width();
-        *x = CLAMP(*x, MIN(ma.width, x2), x2);
+        x2 = cell.x + cell.width;
+        *x = CLAMP(*x, MIN(cell.x + ma.width, x2), x2);
     }
     else /* LTR */
     {
-        *x = CLAMP(*x, 0, MAX(0, gdk_screen_width() - ma.width));
+        *x = CLAMP(*x, cell.x, MAX(cell.x, cell.x + cell.width - ma.width));
     }
-    *y = CLAMP(*y, 0, MAX(0, gdk_screen_height() - ma.height));
+    *y = CLAMP(*y, cell.y, MAX(cell.y, cell.y + cell.height - ma.height));
 }
 
 static void fm_places_item_popup(GtkWidget *widget, GtkTreeIter *it, guint32 time)
