@@ -289,6 +289,10 @@ on_drag_data_get ( GtkWidget *src_widget,
         return;
 
     type = gtk_selection_data_get_target(sel_data);
+    /* FIXME: set the icon to file icon? The question is how to set it?
+       Most of icons have fallbacks but gtk_drag_set_icon_name() doesn't
+       accept icon names with fallbacks */
+    // gtk_drag_set_icon_stock();
     switch( info )
     {
     case FM_DND_SRC_TARGET_FM_LIST:
@@ -333,9 +337,6 @@ on_drag_begin ( GtkWidget *src_widget,
     /* block default handler */
 
     gtk_drag_set_icon_default( drag_context );
-
-    /* FIXME: set the icon to file icon later */
-    // gtk_drag_set_icon_pixbuf();
 
     /* ask drag source to provide list of source files. */
     g_signal_emit(ds, signals[DATA_GET], 0);

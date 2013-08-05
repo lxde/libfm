@@ -1032,38 +1032,27 @@ void fm_rename_file(GtkWindow* parent, FmPath* file)
 {
     GFile *gf, *parent_gf, *dest;
     GError* err = NULL;
-    gchar* new_name;
+    gchar *old_name, *new_name;
+    FmPathList *files;
+    FmFileOpsJob *job;
     GFileMonitor* mon;
 
-    /* FIXME: use fm_file_info_get_edit_name() to get a name and then
-       use g_file_set_display_name() to change it */
+    /* NOTE: it's better to use fm_file_info_get_edit_name() to get a name
+       but we cannot get it from FmPath */
+    old_name = fm_path_display_basename(file);
     new_name = fm_get_user_input_rename(parent, _("Rename File"),
                                         _("Please enter a new name:"),
-                                        fm_path_get_basename(file));
+                                        old_name);
+    g_free(old_name);
     if( !new_name )
         return;
-    gf = fm_path_to_gfile(file);
-    parent_gf = g_file_get_parent(gf);
-    dest = g_file_get_child(G_FILE(parent_gf), new_name);
-    if(!g_file_move(gf, dest,
-                G_FILE_COPY_ALL_METADATA|
-                G_FILE_COPY_NO_FALLBACK_FOR_MOVE|
-                G_FILE_COPY_NOFOLLOW_SYMLINKS,
-                NULL, /* make this cancellable later. */
-                NULL, NULL, &err))
-    {
-        fm_show_error(parent, NULL, err->message);
-        g_error_free(err);
-    }
-    else if((mon = fm_monitor_lookup_dummy_monitor(parent_gf)) != NULL)
-    {
-        g_file_monitor_emit_event(mon, gf, NULL, G_FILE_MONITOR_EVENT_DELETED);
-        g_file_monitor_emit_event(mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
-        g_object_unref(mon);
-    }
-    g_object_unref(parent_gf);
-    g_object_unref(dest);
-    g_object_unref(gf);
+    files = fm_path_list_new();
+    fm_path_list_push_tail(files, file);
+    job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, files);
+    fm_file_ops_job_set_display_name(job, new_name);
+    g_free(new_name);
+    fm_path_list_unref(files);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 static void _fm_set_file_hidden(GtkWindow *parent, FmPath *file, gboolean hidden)
