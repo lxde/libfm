@@ -357,8 +357,6 @@ static void fm_folder_view_default_init(FmFolderViewInterface *iface)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE, 0);
-
-    /* FIXME: add "chdir" so main-win can connect to it and sync side-pane */
 }
 
 static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
@@ -532,7 +530,7 @@ void fm_folder_view_set_show_hidden(FmFolderView* fv, gboolean show)
         model = iface->get_model(fv);
         if(G_LIKELY(model))
             fm_folder_model_set_show_hidden(model, show);
-        /* FIXME: signal to update config */
+        /* "filter-changed" signal will be sent by model */
     }
 }
 

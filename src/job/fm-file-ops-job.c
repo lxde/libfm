@@ -489,9 +489,13 @@ static gpointer emit_ask_rename(FmJob* job, gpointer input_data)
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest)
 {
     struct AskRename data;
-    FmFileInfoJob* fijob = fm_file_info_job_new(NULL, 0);
+    FmFileInfoJob* fijob;
     FmFileInfo *src_fi = NULL, *dest_fi = NULL;
 
+    if (fm_job_is_cancelled(FM_JOB(job)))
+        return 0;
+
+    fijob = fm_file_info_job_new(NULL, 0);
     if( !src_inf )
         fm_file_info_job_add_gfile(fijob, src);
     else
@@ -501,7 +505,6 @@ FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileIn
     fm_job_set_cancellable(FM_JOB(fijob), fm_job_get_cancellable(FM_JOB(job)));
     fm_job_run_sync(FM_JOB(fijob));
 
-    /* FIXME, handle cancellation correctly */
     if( fm_job_is_cancelled(FM_JOB(fijob)) )
     {
         if(src_fi)
@@ -610,8 +613,6 @@ _link_error:
             }
             ret = FALSE;
           }
-//        else if(job->dest_folder_mon)
-//            g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
         }
         else /* create shortcut instead */
         {
@@ -634,14 +635,14 @@ _link_error:
             /* NOTE: it would be good to set icon too but FmPath has no icons */
             if (!g_output_stream_write_all(G_OUTPUT_STREAM(out), dname,
                                            strlen(dname), &out_len,
-                                           fm_job_get_cancellable(fmjob), &err))
+                                           fm_job_get_cancellable(fmjob), &err) ||
+                !g_output_stream_close(G_OUTPUT_STREAM(out),
+                                       fm_job_get_cancellable(fmjob), &err))
             {
                 g_object_unref(out);
                 g_free(dname);
                 goto _link_error;
             }
-            g_output_stream_close(G_OUTPUT_STREAM(out), /* FIXME: handle errors */
-                                  fm_job_get_cancellable(fmjob), NULL);
             g_object_unref(out);
             g_free(dname);
         }

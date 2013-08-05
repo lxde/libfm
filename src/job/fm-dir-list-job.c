@@ -358,7 +358,6 @@ _retry:
     /* check if FS is R/O and set attr. into inf */
     _fm_file_info_job_update_fs_readonly(gf, inf, NULL, NULL);
 
-    /* FIXME: should we use fm_file_info_new + fm_file_info_set_from_gfileinfo? */
     job->dir_fi = fm_file_info_new_from_g_file_data(gf, inf, job->dir_path);
     g_object_unref(inf);
 
@@ -423,7 +422,8 @@ _retry:
                     if(act == FM_JOB_ABORT)
                         fm_job_cancel(fmjob);
                 }
-                break; /* FIXME: error handling */
+                /* otherwise it's EOL */
+                break;
             }
             g_object_unref(inf);
         }
@@ -537,18 +537,6 @@ FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
     return fm_dir_list_job_get_files(job);
 }
 #endif /* FM_DISABLE_DEPRECATED */
-
-#if 0
-void fm_dir_list_job_set_emit_files_found(FmDirListJob* job, gboolean emit_files_found)
-{
-    job->emit_files_found = emit_files_found;
-}
-
-gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job)
-{
-    return job->emit_files_found;
-}
-#endif
 
 static gboolean emit_found_files(gpointer user_data)
 {

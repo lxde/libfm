@@ -253,10 +253,10 @@ _retry_enum_children:
             if(inf)
             {
                 GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-                ret = _fm_file_ops_job_change_attr_file(job, sub, inf); /* FIXME: error handling? */
+                ret = _fm_file_ops_job_change_attr_file(job, sub, inf);
                 g_object_unref(sub);
                 g_object_unref(inf);
-                if(!ret)
+                if(!ret) /* _fm_file_ops_job_change_attr_file() failed */
                     break;
             }
             else
@@ -276,7 +276,7 @@ _retry_enum_children:
 
         if(job->src_folder_mon)
         {
-            /* FIXME: we also need to fire a changed event on the monitor of the dir itself. */
+            /* we also need to fire a changed event on the monitor of the dir itself. */
             g_file_monitor_emit_event(job->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED);
             g_object_unref(job->src_folder_mon);
         }

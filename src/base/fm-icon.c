@@ -160,7 +160,7 @@ void fm_icon_unload_cache(void)
 
 static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer quark)
 {
-    g_object_set_qdata(G_OBJECT(icon), (guint32)quark, NULL);
+    g_object_set_qdata(G_OBJECT(icon), (guint32)(gulong)quark, NULL);
 }
 
 /**
@@ -177,7 +177,7 @@ static void unload_user_data_cache(GIcon* key, FmIcon* icon, gpointer quark)
 void fm_icon_unload_user_data_cache(void)
 {
     G_LOCK(hash);
-    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)fm_qdata_id);
+    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)(gulong)fm_qdata_id);
     G_UNLOCK(hash);
 }
 
@@ -192,7 +192,7 @@ void fm_icon_unload_user_data_cache(void)
 void fm_icon_reset_user_data_cache(GQuark quark)
 {
     G_LOCK(hash);
-    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)quark);
+    g_hash_table_foreach(hash, (GHFunc)unload_user_data_cache, (gpointer)(gulong)quark);
     G_UNLOCK(hash);
 }
 

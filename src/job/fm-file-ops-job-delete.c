@@ -36,7 +36,6 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
 
-/* FIXME: cancel the job on errors */
 gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
@@ -148,7 +147,7 @@ gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
                         ok = _fm_file_ops_job_delete_file(job, sub, inf);
                         g_object_unref(sub);
                         g_object_unref(inf);
-                        if (!ok)
+                        if (!ok) /* stop the job if error happened */
                             goto _failed;
                     }
                     else

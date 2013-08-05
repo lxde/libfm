@@ -80,7 +80,6 @@ static gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFil
 
 static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
-    /* FIXME: prevent copying to self or copying parent dir to child. */
     gboolean ret = FALSE;
     gboolean delete_src = FALSE;
     GError* err = NULL;
@@ -295,7 +294,6 @@ _retry_enum_children:
                         {
                             if(err)
                             {
-                                /* FIXME: error handling */
                                 fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                                 g_error_free(err);
                                 err = NULL;
@@ -469,7 +467,6 @@ _retry_copy:
 
 gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
 {
-    /* FIXME: prevent moving to self or moving parent dir to child. */
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
     const char* src_fs_id;
@@ -660,7 +657,6 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
     /* let the deep count job share the same cancellable object. */
     fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(fmjob));
-    /* FIXME: there is no way to cancel the deep count job here. */
     fm_job_run_sync(FM_JOB(dc));
     job->total = dc->total_size;
     if(fm_job_is_cancelled(fmjob))
