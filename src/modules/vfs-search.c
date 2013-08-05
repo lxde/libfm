@@ -999,18 +999,11 @@ static char *_fm_vfs_search_get_relative_path(GFile *parent, GFile *descendant)
 static GFile *_fm_vfs_search_resolve_relative_path(GFile *file, const char *relative_path)
 {
     FmSearchVFile *search = FM_SEARCH_VFILE(file);
-    FmSearchVFile *new_item;
-    char *container;
 
     /* g_debug("_fm_vfs_search_resolve_relative_path: '%s'/'%s'", search->path, relative_path); */
     g_return_val_if_fail(file != NULL && relative_path != NULL && search->current != NULL, NULL);
 
-    new_item = _fm_search_vfile_new();
-    container = g_file_get_uri(search->current);
-    new_item->path = g_strdup_printf("%s/%s", container, relative_path);
-    /* g_debug("_fm_vfs_search_resolve_relative_path: made '%s'", new_item->path); */
-    g_free(container);
-    return (GFile*)new_item;
+    return g_file_resolve_relative_path(search->current, relative_path);
 }
 
 static GFile *_fm_vfs_search_get_child_for_display_name(GFile *file,
