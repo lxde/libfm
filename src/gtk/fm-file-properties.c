@@ -805,7 +805,15 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             gboolean new_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->hidden));
             if(new_hidden != fm_file_info_is_hidden(fm_file_info_list_peek_head(data->files)))
             {
-                ; /* FIXME: change hidden attribute of file */
+                /* change hidden attribute of file */
+                if (job == NULL)
+                {
+                    FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
+
+                    job = fm_file_ops_job_new(FM_FILE_OP_CHANGE_ATTR, paths);
+                    fm_path_list_unref(paths);
+                }
+                fm_file_ops_job_set_hidden(job, new_hidden);
             }
         }
       } /* end of permissions update */
