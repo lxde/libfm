@@ -348,6 +348,113 @@ static gboolean fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
     return !fm_path_equal(fm_path_get_parent(src), dest);
 }
 
+/* Part of this code was taken from GTK sources for gtk_dialog_run() */
+typedef struct
+{
+    GtkMenu *menu;
+    GdkDragAction action;
+    GMainLoop *loop;
+    gboolean destroyed;
+} RunInfo;
+
+static void shutdown_loop(RunInfo *ri)
+{
+    if (g_main_loop_is_running(ri->loop))
+        g_main_loop_quit(ri->loop);
+}
+
+static void run_unmap_handler(GtkWidget *menu, RunInfo *ri)
+{
+    shutdown_loop (ri);
+}
+
+static void run_destroy_handler(GtkWidget *menu, RunInfo *ri)
+{
+  /* shutdown_loop will be called by run_unmap_handler */
+
+  ri->destroyed = TRUE;
+}
+
+static void on_cancel_sel(GtkAction *act, RunInfo *ri)
+{
+    /* nothing to select */
+}
+
+static void on_copy_sel(GtkAction *act, RunInfo *ri)
+{
+    ri->action = GDK_ACTION_COPY;
+}
+
+static void on_move_sel(GtkAction *act, RunInfo *ri)
+{
+    ri->action = GDK_ACTION_MOVE;
+}
+
+static void on_link_sel(GtkAction *act, RunInfo *ri)
+{
+    ri->action = GDK_ACTION_LINK;
+}
+
+static const char drop_menu_xml[]=
+"<popup>"
+  "<menuitem action='Copy'/>"
+  "<menuitem action='Move'/>"
+  "<menuitem action='Link'/>"
+  "<menuitem action='Cancel'/>"
+"</popup>";
+
+static GtkActionEntry drop_menu_actions[]=
+{
+    {"Cancel", NULL, N_("_Cancel"), NULL, NULL, G_CALLBACK(on_cancel_sel)},
+    {"Copy", NULL, N_("C_opy"), NULL, NULL, G_CALLBACK(on_copy_sel)},
+    {"Move", NULL, N_("_Move"), NULL, NULL, G_CALLBACK(on_move_sel)},
+    {"Link", NULL, N_("_Link"), NULL, NULL, G_CALLBACK(on_link_sel)}
+};
+
+static GdkDragAction _ask_action_on_drop(GtkWidget *widget)
+{
+    RunInfo ri = { NULL, GDK_ACTION_DEFAULT, NULL, FALSE };
+    gulong unmap_handler;
+    gulong destroy_handler;
+    GtkUIManager* ui = gtk_ui_manager_new();
+    GtkActionGroup* act_grp = gtk_action_group_new("Popup");
+
+    gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
+
+    gtk_action_group_add_actions(act_grp, drop_menu_actions, G_N_ELEMENTS(drop_menu_actions), &ri);
+    gtk_ui_manager_add_ui_from_string(ui, drop_menu_xml, -1, NULL);
+    gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+    ri.menu = g_object_ref(gtk_ui_manager_get_widget(ui, "/popup"));
+    g_signal_connect(ri.menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+    unmap_handler = g_signal_connect(ri.menu, "unmap",
+                                     G_CALLBACK(run_unmap_handler), &ri);
+    destroy_handler = g_signal_connect(ri.menu, "destroy",
+                                       G_CALLBACK(run_destroy_handler), &ri);
+    g_object_unref(act_grp);
+    g_object_unref(ui);
+    gtk_menu_attach_to_widget(ri.menu, widget, NULL);
+    gtk_menu_popup(ri.menu, NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+
+    ri.loop = g_main_loop_new(NULL, FALSE);
+
+    GDK_THREADS_LEAVE ();
+    g_main_loop_run(ri.loop);
+    GDK_THREADS_ENTER ();
+
+    g_main_loop_unref(ri.loop);
+
+    ri.loop = NULL;
+
+    if (!ri.destroyed)
+    {
+        g_signal_handler_disconnect(ri.menu, unmap_handler);
+        g_signal_handler_disconnect(ri.menu, destroy_handler);
+    }
+    g_object_unref(ri.menu);
+
+    return ri.action;
+}
+
 /* own handler for "files-dropped" signal */
 static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
                                           guint action, guint info_type,
@@ -373,6 +480,8 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
     }
 
     parent = gtk_widget_get_toplevel(dd->widget);
+    if (action == GDK_ACTION_ASK) /* special handling for ask */
+        action = _ask_action_on_drop(dd->widget);
     switch((GdkDragAction)action)
     {
     case GDK_ACTION_MOVE:
@@ -388,7 +497,6 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
         fm_link_files(GTK_WINDOW(parent), files, dest);
         break;
     case GDK_ACTION_ASK:
-        g_debug("TODO: GDK_ACTION_ASK");
     case GDK_ACTION_PRIVATE:
     default: /* invalid combination */
         return FALSE;
@@ -878,8 +986,7 @@ query_sources:
                 action = GDK_ACTION_COPY;
                 break;
             case FM_DND_DEST_DROP_ASK:
-                action = GDK_ACTION_ASK;
-                break;
+                return GDK_ACTION_ASK;
             default: /* FM_DND_DEST_DROP_AUTO or invalid values */
                 if(!dd->src_dev && !dd->src_fs_id)
                     /* we don't know on which device the dragged source files are. */

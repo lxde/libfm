@@ -874,7 +874,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                 GIcon *icon = g_icon_new_for_string(text, NULL);
                 if (icon)
                 {
-                    /* rename the file or set display name for it. */
+                    /* change icon property of the file. */
                     if (job == NULL)
                     {
                         FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
@@ -1154,11 +1154,8 @@ static void update_ui(FmFilePropData* data)
     if( data->single_type ) /* all files are of the same mime-type */
     {
         GIcon* icon = NULL;
-        /* FIXME: handle custom icons for some files */
         FmFilePropExt* ext;
 
-        /* FIXME: display special property pages for special files or
-         * some specified mime-types. */
         if( data->single_file ) /* only one file is selected. */
         {
             FmFileInfo* fi = fm_file_info_list_peek_head(data->files);
@@ -1198,7 +1195,6 @@ static void update_ui(FmFilePropData* data)
             gtk_label_set_text(data->target, text);
             if(strlen(text) > 16)
                 gtk_widget_set_tooltip_text(GTK_WIDGET(data->target), text);
-            // gtk_label_set_text(data->type, fm_mime_type_get_desc(data->mime_type));
         }
         else
         {
@@ -1251,7 +1247,6 @@ static void update_ui(FmFilePropData* data)
         /* FIXME: use fm_file_info_get_edit_name */
         text = fm_file_info_get_disp_name(data->fi);
         gtk_entry_set_text(data->name, text);
-        /* FIXME: check if text fits in line */
         if(strlen(text) > 16)
             gtk_widget_set_tooltip_text(GTK_WIDGET(data->name), text);
         if (g_strcmp0(text, fm_path_get_basename(path)) != 0)
@@ -1288,7 +1283,6 @@ static void update_ui(FmFilePropData* data)
         if(parent_str)
         {
             gtk_label_set_text(data->dir, parent_str);
-            /* FIXME: check if text fits in line */
             if(strlen(parent_str) > 16)
                 gtk_widget_set_tooltip_text(GTK_WIDGET(data->dir), parent_str);
             g_free(parent_str);
