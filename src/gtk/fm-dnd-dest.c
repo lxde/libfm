@@ -411,19 +411,40 @@ static GtkActionEntry drop_menu_actions[]=
     {"Link", NULL, N_("_Link"), NULL, NULL, G_CALLBACK(on_link_sel)}
 };
 
-static GdkDragAction _ask_action_on_drop(GtkWidget *widget)
+static GdkDragAction _ask_action_on_drop(GtkWidget *widget, GdkDragContext *drag_context)
 {
     RunInfo ri = { NULL, GDK_ACTION_DEFAULT, NULL, FALSE };
     gulong unmap_handler;
     gulong destroy_handler;
     GtkUIManager* ui = gtk_ui_manager_new();
     GtkActionGroup* act_grp = gtk_action_group_new("Popup");
+    GtkAction *act;
+    GdkDragAction actions;
 
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
 
     gtk_action_group_add_actions(act_grp, drop_menu_actions, G_N_ELEMENTS(drop_menu_actions), &ri);
     gtk_ui_manager_add_ui_from_string(ui, drop_menu_xml, -1, NULL);
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+    if (drag_context)
+    {
+        actions = gdk_drag_context_get_actions(drag_context);
+        if ((actions & GDK_ACTION_COPY) == 0)
+        {
+            act = gtk_ui_manager_get_action(ui, "/popup/Copy");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        if ((actions & GDK_ACTION_MOVE) == 0)
+        {
+            act = gtk_ui_manager_get_action(ui, "/popup/Move");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+        if ((actions & GDK_ACTION_LINK) == 0)
+        {
+            act = gtk_ui_manager_get_action(ui, "/popup/Link");
+            gtk_action_set_sensitive(act, FALSE);
+        }
+    }
     ri.menu = g_object_ref(gtk_ui_manager_get_widget(ui, "/popup"));
     g_signal_connect(ri.menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
     unmap_handler = g_signal_connect(ri.menu, "unmap",
@@ -481,7 +502,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 
     parent = gtk_widget_get_toplevel(dd->widget);
     if (action == GDK_ACTION_ASK) /* special handling for ask */
-        action = _ask_action_on_drop(dd->widget);
+        action = _ask_action_on_drop(dd->widget, dd->context);
     switch((GdkDragAction)action)
     {
     case GDK_ACTION_MOVE:
