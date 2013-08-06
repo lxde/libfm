@@ -527,13 +527,15 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
                 data->dir = fm_file_new_for_commandline_arg(priv->parent_dir);
 
             /* launch a new job to do dir listing */
-            data->cancellable = g_cancellable_new();
-            priv->cancellable = (GCancellable*)g_object_ref(data->cancellable);
+            if (G_LIKELY(priv->cancellable == NULL))
+                priv->cancellable = g_cancellable_new();
+            data->cancellable = (GCancellable*)g_object_ref(priv->cancellable);
 #if GLIB_CHECK_VERSION(2, 36, 0)
             task = g_task_new(editable, data->cancellable, on_dir_list_finished, data);
             g_task_set_task_data(task, data, list_sub_dir_names_free);
             g_task_set_priority(task, G_PRIORITY_LOW);
             g_task_run_in_thread(task, list_sub_dirs);
+            g_object_unref(task);
 #else
             g_io_scheduler_push_job(list_sub_dirs,
                                     data, list_sub_dir_names_free,
