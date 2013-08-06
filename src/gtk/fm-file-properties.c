@@ -206,8 +206,8 @@ struct _FmFilePropData
     guint timeout;
     FmDeepCountJob* dc_job;
 
-    FmFilePropExt* ext; // FIXME: make this stackable
-    gpointer extdata;
+    GSList *ext; /* elements: FmFilePropExt */
+    GSList *extdata;
 };
 
 
@@ -811,8 +811,15 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
       } /* end of permissions update */
 
         /* call the extension if it was set */
-        if(data->ext != NULL) // FIXME: make this stackable!
-            data->ext->cb.finish(data->extdata, FALSE);
+        if(data->ext != NULL)
+        {
+            GSList *l, *l2;
+            for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
+                ((FmFilePropExt*)l->data)->cb.finish(l2->data, FALSE);
+            g_slist_free(data->ext);
+            g_slist_free(data->extdata);
+            data->ext = NULL;
+        }
 
         /* change default application for the mime-type if needed */
         if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
@@ -880,8 +887,15 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                                                         /* it eats reference! */
     }
     /* call the extension if it was set */
-    else if(data->ext != NULL) // FIXME: make this stackable!
-        data->ext->cb.finish(data->extdata, TRUE);
+    else if(data->ext != NULL)
+    {
+        GSList *l, *l2;
+        for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
+            ((FmFilePropExt*)l->data)->cb.finish(l2->data, FALSE);
+        g_slist_free(data->ext);
+        g_slist_free(data->extdata);
+        data->ext = NULL;
+    }
     gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
@@ -1188,14 +1202,15 @@ static void update_ui(FmFilePropData* data)
         for(ext = extensions; ext; ext = ext->next)
             if(ext->type == data->mime_type)
             {
-                data->ext = ext;
-                break;
+                data->ext = g_slist_append(data->ext, ext);
+                data->extdata = g_slist_append(data->extdata, NULL);
             }
         if(!data->ext)
             for(ext = extensions; ext; ext = ext->next)
                 if(ext->type == NULL) /* fallback handler */
                 {
-                    data->ext = ext;
+                    data->ext = g_slist_append(data->ext, ext);
+                    data->extdata = g_slist_append(data->extdata, NULL);
                     break;
                 }
     }
@@ -1359,6 +1374,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     data->dc_job = fm_deep_count_job_new(paths, FM_DC_JOB_DEFAULT);
     fm_path_list_unref(paths);
     data->ext = NULL; /* no extension by default */
+    data->extdata = NULL;
 
     if(toplevel)
     {
@@ -1430,8 +1446,12 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     update_ui(data);
 
     /* if we got some extension then activate it updating dialog window */
-    if(data->ext) // FIXME: make this stackable!
-        data->extdata = data->ext->cb.init(builder, data, data->files);
+    if(data->ext != NULL)
+    {
+        GSList *l, *l2;
+        for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
+            l2->data = ((FmFilePropExt*)l->data)->cb.init(builder, data, data->files);
+    }
 
     g_object_unref(builder);
 
@@ -1520,6 +1540,15 @@ void _fm_file_properties_init(void)
 
 void _fm_file_properties_finalize(void)
 {
+    FmFilePropExt *ext;
+
     fm_module_unregister_type("gtk_file_prop");
-    /* FIXME: free all extensions! */
+    /* free all extensions */
+    while ((ext = extensions))
+    {
+        extensions = ext->next;
+        if (ext->type)
+            fm_mime_type_unref(ext->type);
+        g_slice_free(FmFilePropExt, ext);
+    }
 }
