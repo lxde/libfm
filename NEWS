@@ -260,6 +260,10 @@ Changes on 1.2.0 since 1.1.0:
 * The item "Delete" in context menu now changes appearance between Trash
     and Remove in dependency if Shift key is pressed.
 
+* Implemented little popup menu if option 'drop_default_action' is set to
+    'ask' - it shows 'Copy', 'Move', 'Link', and 'Cancel' choices when
+    some files are dropped onto widget controllable by libfm drag&drop.
+
 
 Changes on 1.1.0 since 1.0.1:
 
