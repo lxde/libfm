@@ -8,25 +8,24 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2012-10-12 01:05+0200\n"
-"Last-Translator: Necdet <necdetyucel@gmail.com>\n"
+"PO-Revision-Date: 2013-08-08 19:02+0000\n"
+"Last-Translator: vgezer <volkangezer@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
-"X-Poedit-Country: TURKEY\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1375988549.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
 msgstr "Tercih Edilen Uygulamalar"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Çalıştırılacak komut satırı:</b>"
+msgstr "<b>Ç_alıştırılacak komut satırı:</b>"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
@@ -49,10 +48,9 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>Uygulama _adı (isteğe bağlı)</b>"
 
 #: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
 msgid "C_ustom Command Line"
 msgstr "_Özel Komut Satırı"
 
@@ -74,7 +72,7 @@ msgstr "_Kurulu Uygulama"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "_Komut çalıştırmanın ardından terminal penceresini açık tut"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
@@ -119,24 +117,20 @@ msgid "with the following file?"
 msgstr "şu dosyayla?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose Icon From:</b>"
-msgstr "<b>İçeriği _değiştir:</b>"
+msgstr "<b>Simgeyi Seçin:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
 msgid "Choose An Icon..."
-msgstr "Bir Uygulama Seç"
+msgstr "Bir Simge Seç..."
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "_Resim dosyaları"
+msgstr "Resim dosyaları"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "System icon theme"
-msgstr "Sistem Uygulamaları"
+msgstr "Sistem simge teması"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -195,9 +189,8 @@ msgid "<b>Special bits:</b>"
 msgstr "<b>Özel bitler:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Hedef:</b>"
+msgstr "<b>Hedef dosya:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>Total Size of Files:</b>"
@@ -208,9 +201,8 @@ msgid "<b>_Execute:</b>"
 msgstr "<b>_Çalıştır:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-#, fuzzy
 msgid "<b>_Name:</b>"
-msgstr "<b>_Sahibi:</b>"
+msgstr "<b>_İsim:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>_View content:</b>"
@@ -226,7 +218,7 @@ msgstr "Dosya Özellikleri"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Dizin görünümünde dosyanın simgesi"
 
 #: ../data/ui/file-prop.glade.h:21
 msgid "Nobody"
@@ -306,9 +298,8 @@ msgid "*"
 msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:3
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Do_sya İçeriği</b>"
+msgstr "<b>Do_sya içeriği:</b>"
 
 #: ../data/ui/filesearch.glade.h:4
 msgid "<b>File Size</b>"
@@ -319,7 +310,6 @@ msgid "<b>File Type</b>"
 msgstr "<b>Dosya Türü:</b>"
 
 #: ../data/ui/filesearch.glade.h:6
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>Dosya Adı _Kalıpları:</b>"
 
@@ -328,9 +318,8 @@ msgid "<b>Last Modified Time</b>"
 msgstr "<b>Son Düzenlenme Zamanı:</b>"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Arama Alanları</b>"
+msgstr "<b>Arama Alanları:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "Bytes"
@@ -377,9 +366,8 @@ msgid "Name/_Location"
 msgstr "İsim/_Konum"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Sadece aşağıdaki dosya türleri için ara"
+msgstr "Sadece aşağıdaki dosya türleri için ara:"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "Search Files"
@@ -520,11 +508,11 @@ msgstr "Bağlama Noktası"
 #: ../src/base/fm-templates.c:1065
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "%s MIME türü için öntanımlı bir uygulama ayarlanmadı"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Libfm yapılandırmasında bir teminal öykünücüsü atanmamış"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -534,7 +522,7 @@ msgstr[0] "%u bayt"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -559,7 +547,7 @@ msgstr "TiB"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "<%s> etiketi için yinelenmiş çalıştırıcı"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -567,6 +555,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Karakter referansı içinde bir rakam olması gereken '%-.*s' ayrıştırılamadı "
+"(örneğin; &#234;) - rakam çok büyük olabilir"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -575,22 +565,26 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Karakter referansı noktalı virgül ile bitmemiş; büyük ihtimalle bir özvarlık "
+"başlatmak istemeksizin & karakteri kullandınız - & işaretini &amp; olarak "
+"kullanabilirsiniz"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Karakter referansı '%-.*s' izin verilen karakteri kodlamıyor"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Boş özvarlık '&;' görüldü; geçerli ögeler: &amp; &quot; &lt; &qt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Varlık adı '%-.*s' bilinmiyor"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -598,42 +592,45 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Özvarlık noktalı virgül ile bitmiyor; büyük ihtimalle bir özvarlık başlatmak "
+"istemeksizin & karakteri kullandınız - & işaretini &amp; olarak "
+"kullanabilirsiniz"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Kapatma etiketinde boşluğa izin verilmiyor"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "'%s' öğesi kapatıldı ama açık öğe yoktu"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "'%s' öğesi kapatılmış, fakat şu an açık öğe '%s'"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Değer niteliği başlangıcında geçersiz '%c' char değeri"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Nitelik değerinin sonunda geçersiz char '%c' değeri, '%c' beklendi"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Belge beklenmedik şekilde sonlandı"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Belge boş veya sadece boşluk karakteri içeriyor"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML veri hatası"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -661,7 +658,7 @@ msgstr "Yükleniyor..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Dizin ağacını kenar çubuğunda göster"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -676,9 +673,8 @@ msgid "Open _With..."
 msgstr "_Birlikte Aç..."
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "Yer İ_mlerinden Çıkar"
+msgstr "_Yer İmlerine Ekle"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -741,9 +737,8 @@ msgid "Files of different types"
 msgstr "Farklı türlerdeki dosyalar"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Dosya Türü:</b>"
+msgstr "<b>Dosya:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -787,9 +782,8 @@ msgid "Folder"
 msgstr "Dizin"
 
 #: ../src/gtk/fm-folder-view.c:174
-#, fuzzy
 msgid "Empty File"
-msgstr "Dosyayı Çalıştır"
+msgstr "Boş Dosya"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -800,14 +794,12 @@ msgid "_Sort Files"
 msgstr "_Dosyaları Sırala"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "Dosyayı Yeniden Adlandır"
+msgstr "_Klasörü Yeniden Adlandır"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Dosya Özellikleri"
+msgstr "Klasör _Özellikleri"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -851,35 +843,33 @@ msgstr "Yeni oluşturulan dizin için bir isim girin:"
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Yeni klasör oluşturma"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Yeni oluşturulan dosya için bir isim girin:"
+msgstr "Dosya için bir isim girin:"
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "Yeni Oluştur..."
+msgstr "Oluşturuluyor ..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
 msgstr "Yeni"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Yeni oluşturulan dosya için bir isim girin:"
+msgstr "Yeni %s için bir isim girin:"
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Bağlantı Oluşturuluyor"
+msgstr "%s oluşturuluyor"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "_Oluşturma işleminden sonra dosyayı öntanımlı uygulama ile çalıştır"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -948,12 +938,11 @@ msgstr "Çöp kutusunu gerçekten boşaltmak istiyor musunuz?"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "Ya_pıştır ve git"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "_Sadece bu dizin için"
+msgstr "Dizin yolu için girdi"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -984,14 +973,12 @@ msgid "Re_move from Bookmark"
 msgstr "Yer İ_mlerinden Çıkar"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Yer İ_mlerinden Çıkar"
+msgstr "_Yer İmini Yukarı Taşı"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Yer İ_mlerinden Çıkar"
+msgstr "Yer İmini _Aşağı Taşı"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -1000,6 +987,8 @@ msgstr "Çöp Kutusunu _Boşalt"
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
+"Kenar çubuğunda ortak yerlerin, aygıtların ve yer imlerinin bir listesini "
+"gösterir"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1114,47 +1103,47 @@ msgstr "Dizin Ağacı"
 
 #: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
-msgstr ""
+msgstr "Klasör içeriklerinin görünümü"
 
 #: ../src/gtk/fm-standard-view.c:764
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Gizle %s"
 
 #: ../src/gtk/fm-standard-view.c:772
 msgid "_Move left"
-msgstr ""
+msgstr "_Sola taşı"
 
 #: ../src/gtk/fm-standard-view.c:778
 msgid "Move _right"
-msgstr ""
+msgstr "S_ağa taşı"
 
 #: ../src/gtk/fm-standard-view.c:801
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "%1 Göster"
 
 #: ../src/gtk/fm-standard-view.c:813
 msgid "_Forget width"
-msgstr ""
+msgstr "_Genişliği unut"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Etkin sekmeyi değiştirir"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Belirtilen dizin geçerli bir dizin değil"
+msgstr "Belirtilen '%s' dizini geçersiz"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Hedef dosyaya erişilemiyor"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "tam uyumlu olmayan dosya sisteminde bir bağlantı oluşturulamaz"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1170,75 +1159,79 @@ msgstr "Dizin kendi alt-dizinine kopyalanamaz"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
-msgstr "Hedef kaynağa ait bir alt-dizin"
+msgstr "Hedef, kaynağın bir alt klasörü"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Görüntü adı belirlemek sadece tek bir dosya için yapılabilir"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Hedef belirlemek sadece tek bir dosya için yapılabilir"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "empty <Name> tag"
-msgstr ""
+msgstr "boş <Name> etiketi"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "tag <Not> should have exactly one children"
-msgstr ""
+msgstr "<Not> etiketi, tam olarak bir çocuğa sahip olmalı"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
 msgstr ""
+"<Not> etiketi sadece <And>, <Or>, <Filename> veya <Category> etiketi "
+"içerebilir"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"birleştirilen dosya sadece <Menu> üst seviye etiketine sahip olabilir, <%s> "
+"bulundu"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "birleştirilen dosyadan <%s> etiketi ekleme başarısız"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "invalid <MergeFile> tag"
-msgstr ""
+msgstr "geçersiz <MergeFile> etiketi"
 
 #: ../src/modules/vfs-menu.c:370
 msgid "invalid <MergeDir> tag"
-msgstr ""
+msgstr "geçersiz <MergeDir> etiketi"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "XML dosyası %s hatası (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML dosyası Applications kökü içermiyor"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
 msgid "cannot find path %s in XML definitions"
-msgstr ""
+msgstr "XML tanımlamalarında %s yolu bulunamıyor"
 
 #: ../src/modules/vfs-menu.c:923
 msgid "category manipulation internal error"
-msgstr ""
+msgstr "kategori değiştirme dahili hatası"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
 msgid "cannot create XML definition for '%s'"
-msgstr ""
+msgstr "'%s' için XML tanımlaması oluşturulamıyor"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
 msgid "menu path '%s' already exists"
-msgstr ""
+msgstr "'%s' menü yolu zaten mevcut"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1256,78 +1249,77 @@ msgstr "Geçersiz menü dizini"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Menu öge adı boş olamaz"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Geçersiz menü dizini"
+msgstr "Geçersiz menü dizini %s"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Geçersiz menü dizini"
+msgstr "Geçersiz menü ögesi"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "'%s' menü ögesi, uygun girdi dosyasına sahip değil"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Menü dizini için gizlilik durumunu değiştirmek desteklenmiyor"
 
 #: ../src/modules/vfs-menu.c:2548
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute %s not supported"
-msgstr "İşlem desteklenmiyor"
+msgstr "%s niteliği ayarlamak desteklenmiyor"
 
 #: ../src/modules/vfs-menu.c:2558
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute %s"
-msgstr "Geçersiz dosya adı %s"
+msgstr "%s niteliği için geçersiz değer"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "Geçersiz menü dizini"
+msgstr "\"%s\" bir menü dizini"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "\"%s\" bir menü ögesi değil"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "\"%s\" bozuk"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "\"%s\" menü ögesi oluşturulamıyor"
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "menu dizininin adı \".desktop\" ile bitmemeli"
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Kök menüsü ile geçersiz işlem"
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "Geçersiz dosya adı %s"
+msgstr "Geçersiz menü ögesi %s"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
-msgstr ""
+msgstr "Geçersiz hedef"
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: %s dizini menü önbelleğinde bulunamadı"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1335,79 +1327,70 @@ msgid "Search"
 msgstr "Ara"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "_Dosyaları Ara"
+msgstr "Arama sonuçları"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "Bir uygulama dosyası seçin"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "Dosyayı Çalıştır"
+msgstr "Uygulama dosyaları"
 
 # Not all languages belong to Indo-European language family.
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Şuraya:</b>"
+msgstr "<b>K_omut:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Tara"
+msgstr "_Gözat..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Uygulama simgesi etkinleştirildiğinde çalıştırılacak komut"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
-msgstr "_Uçbirimde çalıştır"
+msgstr "_Uçbirimde öykünücüsünde çalıştır"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "_Uçbirim penceresini çalıştırıldıktan sonra açık tut"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Konumu:</b>"
+msgstr "<b>_Tanım:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Uygulamanın genel adı"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Sahibi:</b>"
+msgstr "<b>_Çalışma dizini:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Programın çalıştırılacağı çalışma dizini"
 
 # Not all languages belong to Indo-European language family.
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Şuraya:</b>"
+msgstr "<b>_Araç ipucu:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Bir Uygulama Seç"
+msgstr "Uygulamada gösterilecek araç ipucu"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "_Başlangıç bildirimini kullan"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
