@@ -915,16 +915,16 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
                         rotate_degrees = 0;
                         break;
                     case 8:
-                        rotate_degrees = 270;
+                        rotate_degrees = 90;
                         break;
                     case 3:
                         rotate_degrees = 180;
                         break;
                     case 6:
-                        rotate_degrees = 90;
+                        rotate_degrees = 270;
                         break;
                     }
-                    /* g_print("orientation flag found, rotate: %d\n", rotate_degrees); */
+                    g_print("orientation flag found, rotate: %d\n", rotate_degrees);
                 }
                 if(exif_data->data) /* if an embedded thumbnail is available */
                 {
