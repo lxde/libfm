@@ -410,7 +410,7 @@ static time_t parse_date_str(const char* str)
  */
 static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
 {
-    const char scheme[] = "search:/"; /* NOTE: sizeof(scheme) includes '\0' */
+    const char scheme[] = "search://"; /* NOTE: sizeof(scheme) includes '\0' */
     if(g_ascii_strncasecmp(uri_str, scheme, sizeof(scheme)-1) == 0)
     {
         const char* p = uri_str + sizeof(scheme)-1; /* skip scheme part */

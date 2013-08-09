@@ -137,8 +137,8 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
 
     /* now there should be // following :, or no slashes at all, such as mailto:someone@somewhere.net */
     host = uri + scheme_len + 1;
-    while(*host == '/' && host < uri_end) /* skip the slashes */
-        ++host;
+    if(host + 2 < uri_end && host[0] == '/' && host[1] == '/')
+        host += 2;
 
     flags = 0;
     host_len = 0;

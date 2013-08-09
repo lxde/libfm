@@ -428,7 +428,7 @@ static gboolean launch_search(FileSearchUI* ui)
     gboolean ret;
 
     /* build the search:// URI to perform the search */
-    g_string_append(search_uri, "search:/");
+    g_string_append(search_uri, "search://");
 
     model = GTK_TREE_MODEL(ui->path_list_store);
     if(gtk_tree_model_get_iter_first(model, &it)) /* we need to have at least one dir path */
