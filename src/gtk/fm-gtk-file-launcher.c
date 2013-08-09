@@ -445,6 +445,7 @@ static gboolean launch_search(FileSearchUI* ui)
         GSList* mime_types = NULL;
         FmPath* search_path;
         GList* search_path_list;
+        char *escaped;
         FmFileLauncher launcher = {
             .get_app = choose_app,
             .open_folder = on_open_folder,
@@ -457,10 +458,15 @@ static gboolean launch_search(FileSearchUI* ui)
         /* add paths */
         for(;;)
         {
-            char* path_str;
+            char *path_str;
             gtk_tree_model_get(model, &it, 0, &path_str, -1);
 
-            /* FIXME: ':' in the paths should be escaped with backslash? */
+            /* escape possible '?' and ':' */
+            escaped = g_uri_escape_string(path_str, "!$&'()*+,;=/@", TRUE);
+            g_free(path_str);
+            /* normalizing path will kill duplicate slashes so they need escape */
+            path_str = fm_strdup_replace(escaped, "//", "/%2F");
+            g_free(escaped);
             g_string_append(search_uri, path_str);
 
             g_free(path_str);
@@ -475,19 +481,23 @@ static gboolean launch_search(FileSearchUI* ui)
         g_string_append_printf(search_uri, "&show_hidden=%c", show_hidden ? '1' : '0');
         if(name_patterns && *name_patterns)
         {
-            /* FIXME: escape ampersands in pattern with backslash */
-            g_string_append_printf(search_uri, "&name=%s", name_patterns);
+            /* escape ampersands in pattern */
+            escaped = g_uri_escape_string(name_patterns, ":/?#[]@!$'()*+,;", TRUE);
+            g_string_append_printf(search_uri, "&name=%s", escaped);
             if(name_ci)
                 g_string_append_printf(search_uri, "&name_ci=%c", name_ci ? '1' : '0');
+            g_free(escaped);
         }
 
         if(content_pattern && *content_pattern)
         {
-            /* FIXME: escape ampersands in pattern with backslash */
+            /* escape ampersands in pattern */
+            escaped = g_uri_escape_string(content_pattern, ":/?#[]@!$'()*+,;^<>{}", TRUE);
             if(content_regex)
-                g_string_append_printf(search_uri, "&content_regex=%s", content_pattern);
+                g_string_append_printf(search_uri, "&content_regex=%s", escaped);
             else
-                g_string_append_printf(search_uri, "&content=%s", content_pattern);
+                g_string_append_printf(search_uri, "&content=%s", escaped);
+            g_free(escaped);
             if(content_ci)
                 g_string_append_printf(search_uri, "&content_ci=%c", content_ci ? '1' : '0');
         }

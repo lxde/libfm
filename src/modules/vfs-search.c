@@ -414,38 +414,35 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
     if(g_ascii_strncasecmp(uri_str, scheme, sizeof(scheme)-1) == 0)
     {
         const char* p = uri_str + sizeof(scheme)-1; /* skip scheme part */
-        char* unescaped = g_uri_unescape_string(p, NULL);
-        char* params = strchr((p = unescaped), '?');
+        char* params = strchr(p, '?');
         char* name_regex = NULL;
         char* content_regex = NULL;
 
-        if(params)
-        {
-            *params = '\0';
-            ++params;
-            /* g_printf("params: %s\n", params); */
-        }
-
         /* add folder paths */
-        if(p) for(; *p; ++p)
+        while (p)
         {
             /* FIXME: can be ':' in the path escaped with backslash? */
             char* sep = strchr(p, ':'); /* use : to separate multiple paths */
-            if(sep)
-                *sep = '\0';
-            /* g_print("target folder path: %s\n", p); */
-            /* add the path to target folders */
-            priv->target_folders = g_slist_prepend(priv->target_folders,
-                                                   g_file_new_for_path(p));
+            char *path;
 
-            if(sep)
+            if (sep && (params == NULL || sep < params))
+                path = g_uri_unescape_segment(p, sep, NULL);
+            else if (params != NULL)
             {
-                p = sep;
-                if(params && p >= params)
-                    break;
+                path = g_uri_unescape_segment(p, params, NULL);
+                sep = NULL;
             }
             else
-                break;
+                path = g_uri_unescape_string(p, NULL);
+            /* g_debug("target folder path: %s", path); */
+            /* add the path to target folders */
+            priv->target_folders = g_slist_prepend(priv->target_folders,
+                                                   fm_file_new_for_commandline_arg(path));
+            g_free(path);
+
+            p = sep;
+            if (p) /* it's on ':' now */
+                p++;
         }
 
         /* priv->target_folders = g_slist_reverse(priv->target_folders); */
@@ -453,39 +450,29 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
         /* decode parameters */
         if(params)
         {
+            params++; /* skip '?' */
             while(*params)
             {
                 /* parameters are in name=value pairs */
-                char* name = params;
-                char* value = strchr(name, '=');
-                char* sep;
-                char *ptr1, *ptr2;
+                char *name;
+                char* value = strchr(params, '=');
+                char* sep = strchr(params, '&');
 
-                if(value)
+                if (value && (sep == NULL || value < sep))
                 {
-                    *value = '\0';
-                    ++value;
-                    params = value;
+                    name = g_strndup(params, value - params);
+                    if (sep)
+                        value = g_uri_unescape_segment(value+1, sep, NULL);
+                    else
+                        value = g_uri_unescape_string(value+1, NULL);
                 }
-                ptr1 = ptr2 = params;
-                while((sep = strchr(params, '&')) != NULL)
-                /* delimeter of parameters is & */
+                else if (sep)
                 {
-                    if(sep == params || sep[-1] != '\\')
-                    {
-                        *sep = '\0';
-                        break;
-                    }
-                    /* else it's escape sequence "\&" */
-                    else if(ptr1 != ptr2)
-                        memmove(ptr1, ptr2, (sep - 1 - ptr2));
-                    ptr1 += (sep - 1 - ptr2);
-                    *ptr1++ = '&';
-                    sep++;
-                    ptr2 = sep;
+                    name = g_strndup(params, sep - params);
+                    value = NULL;
                 }
-                if(ptr1 != ptr2)
-                    memmove(ptr1, ptr2, strlen(ptr2)+1); /* including '\0' */
+                else /* value == NULL && sep == NULL */
+                    name = g_strdup(params);
 
                 /* g_printf("parameter name/value: %s = %s\n", name, value); */
 
@@ -496,14 +483,25 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 else if(strcmp(name, "name") == 0)
                     priv->name_patterns = g_strsplit(value, ",", 0);
                 else if(strcmp(name, "name_regex") == 0)
+                {
+                    g_free(name_regex);
                     name_regex = value;
+                    value = NULL;
+                }
                 else if(strcmp(name, "name_ci") == 0)
                     priv->name_case_insensitive = (value[0] == '1') ? TRUE : FALSE;
                 else if(strcmp(name, "content") == 0)
-                    //priv->content_pattern = g_uri_unescape_string(value, NULL);
-                    priv->content_pattern = g_strdup(value);
+                {
+                    g_free(priv->content_pattern);
+                    priv->content_pattern = value;
+                    value = NULL;
+                }
                 else if(strcmp(name, "content_regex") == 0)
+                {
+                    g_free(content_regex);
                     content_regex = value;
+                    value = NULL;
+                }
                 else if(strcmp(name, "content_ci") == 0)
                     priv->content_case_insensitive = (value[0] == '1') ? TRUE : FALSE;
                 else if(strcmp(name, "mime_types") == 0)
@@ -548,6 +546,9 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 else if(strcmp(name, "max_mtime") == 0)
                     priv->max_mtime = (guint64)parse_date_str(value);
 
+                g_free(name);
+                g_free(value);
+
                 /* continue with the next param=value pair */
                 if(sep)
                     params = sep + 1;
@@ -561,6 +562,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 if(priv->name_case_insensitive)
                     flags |= G_REGEX_CASELESS;
                 priv->name_regex = g_regex_new(name_regex, flags, 0, NULL);
+                g_free(name_regex);
             }
 
             if(content_regex)
@@ -569,6 +571,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 if(priv->content_case_insensitive)
                     flags |= G_REGEX_CASELESS;
                 priv->content_regex = g_regex_new(content_regex, flags, 0, NULL);
+                g_free(content_regex);
             }
 
             if(priv->content_case_insensitive) /* case insensitive */
@@ -581,7 +584,6 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
                 }
             }
         }
-        g_free(unescaped);
     }
 }
 
