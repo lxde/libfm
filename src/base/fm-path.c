@@ -609,8 +609,15 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         c = path_copy + (sep + 3 - path_name); /* set after xx:// */
         sep = strchr(c, '/');
         if (sep)
-            *sep++ = '\0';
+        {
+            /* terminate root URI after third slash */
+            sep++;
+            sep_char = *sep;
+            *sep = '\0';
+        }
         file = fm_file_new_for_uri(path_copy); /* URI root */
+        if (sep)
+            *sep = sep_char;
         c = sep;
         sep_char = '/'; /* separator for URI is always slash */
     }
