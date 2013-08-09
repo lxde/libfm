@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2012-08-23 04:41+0200\n"
+"POT-Creation-Date: 2013-07-24 00:29+0200\n"
+"PO-Revision-Date: 2013-08-09 13:57+0000\n"
 "Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -16,22 +16,42 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1376056665.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "优先使用的应用程序"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>要执行的命令行：</b>"
+msgid "Choose An Application"
+msgstr "选择一个应用程序"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>要打开的文件类型：</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "已安装的应用程序(_I)"
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>要执行的命令行(_O)：</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "浏览(_B)"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "在终端模拟器中执行(_E)"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr "在命令执行后继续开着终端(_K)"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -46,40 +66,35 @@ msgstr ""
 "  <b>%u</b>：代表单个文件 URI\n"
 "  <b>%U</b>：代表多个 URI"
 
-#: ../data/ui/app-chooser.glade.h:9
-msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
-
-#: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
-msgid "C_ustom Command Line"
-msgstr "自定义命令行(_C)"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "选择一个应用程序"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "浏览(_B)"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "在终端模拟器中执行(_E)"
-
 #: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "已安装的应用程序(_I)"
+msgid "<b>_Application name (optional, set it to keep association)</b>"
+msgstr "<b>应用程序名称(可选，设置以保持关联)(_A)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgid "C_ustom Command Line"
+msgstr "自定义命令行(_U)"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "将选择的应用程序作为对这种文件类型的默认操作(_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "确认文件替换"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "跳过(_S)"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "重命名(_R)"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "覆盖(_O)"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -89,53 +104,33 @@ msgstr ""
 "\n"
 "您是否想替换现有的文件"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "确认文件替换"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "将该操作应用于所有存在的文件(_A)"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "文件名(_F)："
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "覆盖(_O)"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "重命名(_R)"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "跳过(_S)"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "针对以下文件？"
 
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "文件名(_F)："
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "将该操作应用于所有存在的文件(_A)"
+
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>更改内容(_H)：</b>"
+msgid "Choose An Icon..."
+msgstr "选择一个图标..."
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
-msgid "Choose An Icon..."
-msgstr "选择一个应用程序"
+msgid "System icon theme"
+msgstr "系统图标主题"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "图像文件(_I)"
+msgstr "图像文件"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
-msgid "System icon theme"
-msgstr "系统应用程序"
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>选择图标来源位置：</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -146,352 +141,346 @@ msgid "Execute in _Terminal"
 msgstr "在终端模拟器中执行(_T)"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>访问控制</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>更改内容(_H)：</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>文件类型：</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>组(_R)：</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>上次访问：</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>上次修改：</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>位置：</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>所有者(_W)：</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>打开方式(_W)：</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>磁盘上的大小：</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>特殊位：</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-#, fuzzy
-msgid "<b>Target file:</b>"
-msgstr "<b>目标：</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>文件总大小：</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>执行(_E)：</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-#, fuzzy
-msgid "<b>_Name:</b>"
-msgstr "<b>属于(_O)：</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>查看内容(_V)：</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "任何人"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "文件属性"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "文件夹视图中该文件的图标"
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "无人"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>名称(_N)</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "无"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>位置：</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "仅所有者"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>目标文件：</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "仅所有者和组"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>文件类型：</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>打开方式(_W)：</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "选择用于打开此类文件的应用程序 "
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
-msgstr "设置 GID"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>文件总大小：</b>"
 
-#: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
-msgstr "设置 UID"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>磁盘上的大小：</b>"
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
-msgstr "设置 UID 和 GID"
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>上次修改：</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "目录访问的特殊标志"
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>上次访问：</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "文件执行的特殊标志"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "粘住"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "粘住并设置 GID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "谁可以修改文件/目录的内容"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "谁可以执行文件或进入目录"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "谁可以查看文件/目录的内容"
-
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:13
 msgid "_General"
 msgstr "常规(_G)"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>所有者(_W)：</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>组(_R)：</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>查看内容(_V)：</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>更改内容(_H)：</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>执行(_E)：</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>特殊位：</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "谁可以查看文件/目录的内容"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "谁可以修改文件/目录的内容"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "谁可以执行文件或进入目录"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "文件执行的特殊标志"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "目录访问的特殊标志"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>访问控制</b>"
+
+#: ../data/ui/file-prop.glade.h:26
 msgid "_Permissions"
 msgstr "权限(_P)"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "无"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "粘住"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set GID"
+msgstr "设置 GID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "粘住并设置 GID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set UID"
+msgstr "设置 UID"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set UID & GID"
+msgstr "设置 UID 和 GID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner"
+msgstr "仅所有者"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Only owner and group"
+msgstr "仅所有者和组"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Anyone"
+msgstr "任何人"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Nobody"
+msgstr "无人"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "字节"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "选择一个日期"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "从以下日历中选择一个日期"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "搜索文件"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>文件名模式(_N)：</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "区分大小写(_V)"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "使用正则表达式(_U)"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>搜索位置(_E)：</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "在子目录中搜索(_S)"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "搜索隐藏文件(_H)"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "名称/位置(_L)"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>文件类型</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "只搜索以下类型的文件："
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "文本文件(_X)"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "图像文件(_I)"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "音频文件(_A)"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "视频文件(_V)"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "文档(_D)"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "文件类型(_T)"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>文件中包含(_S)：</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "内容(_O)"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>文件大小</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "小于(_S)："
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "大于(_B)："
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>上次修改时间</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "(无)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-#, fuzzy
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>文件中包含(_S)</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>文件大小</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>文件类型</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-#, fuzzy
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>文件名模式(_N)：</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>上次修改时间</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-#, fuzzy
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>搜索位置</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "字节"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "内容(_O)"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "区分大小写(_V)"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "选择一个日期"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "从以下日历中选择一个日期"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "文件类型(_T)"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "晚于(_A)："
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "名称/位置(_L)"
-
-#: ../data/ui/filesearch.glade.h:20
-#, fuzzy
-msgid "Only search for files of following types:"
-msgstr "只搜索以下类型的文件"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "搜索文件"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "搜索隐藏文件(_H)"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "文本文件(_X)"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "音频文件(_A)"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "大于(_B)："
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "文档(_D)"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "早于(_E)："
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "图像文件(_I)"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "晚于(_A)："
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "属性(_P)"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "在子目录中搜索(_S)"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "小于(_S)："
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "使用正则表达式(_U)"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "视频文件(_V)"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>邮件客户端</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>终端模拟器</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>网络浏览器</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "用于打开超链接的优先网络浏览器。"
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "命令行："
+msgid "<b>Mail client</b>"
+msgstr "<b>邮件客户端</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "文件关联"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "系统应用程序"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr "优先使用的邮件客户端将会用于您点击电子邮件地址时撰写邮件。"
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>终端模拟器</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "命令行："
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "系统应用程序"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "用于打开超链接的优先网络浏览器。"
+msgid "File Associations"
+msgstr "文件关联"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "正在准备..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>处理：</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>进度：</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>出现了一些错误：</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>剩余时间：</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>到：</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>进度：</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>剩余时间：</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "正在准备..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>出现了一些错误：</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -516,11 +505,11 @@ msgstr "挂载点"
 #: ../src/base/fm-templates.c:1065
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "没有设置对应于 MIME 类型 %s 的默认应用程序"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "libfm 配置中没有设置终端仿真器"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -530,7 +519,7 @@ msgstr[0] "%u 字节"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -555,14 +544,14 @@ msgstr "TB"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "标记 <%s> 的处理程序重复"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
 msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
-msgstr ""
+msgstr "解析“%-.*s”失败，它应该是字符引用中的数字(如 &#234;) - 可能该数字太大了"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -570,66 +559,66 @@ msgid ""
 "Character reference did not end with a semicolon; most likely you used an "
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
-msgstr ""
+msgstr "字符引用没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "字符引用“%-.*s”未编码一个被允许的字符"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr ""
+msgstr "发现空的实体“&;”；有效的实体为：&amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "未知的实体名“%-.*s”"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr ""
+msgstr "实体没有以分号结束；很可能您使用了 & 字符而又不是一个实体 - 将这个 & 变为 &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "闭合标记中不允许有空格"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "元素“%s”已结束但没有元素打开"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "元素“%s”已结束，但当前打开的元素是“%s”"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "属性值开头有无效字符“%c”"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "属性值末尾有无效字符“%c”，应为“%c”"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "文档意外终止"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "文档为空或仅含空白字符"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data：XML 数据错误"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -657,7 +646,7 @@ msgstr "正在加载..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "在侧栏中显示目录树"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -672,9 +661,8 @@ msgid "Open _With..."
 msgstr "打开方式(_W)..."
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "从书签中移除(_M)"
+msgstr "添加到书签(_A)"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -736,9 +724,8 @@ msgid "Files of different types"
 msgstr "不同类型的文件"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>文件类型：</b>"
+msgstr "<b>文件：</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -782,9 +769,8 @@ msgid "Folder"
 msgstr "文件夹"
 
 #: ../src/gtk/fm-folder-view.c:174
-#, fuzzy
 msgid "Empty File"
-msgstr "执行文件"
+msgstr "空文件"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -795,14 +781,12 @@ msgid "_Sort Files"
 msgstr "排序文件(_S)"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "重命名文件"
+msgstr "重命名文件夹(_R)"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "文件属性"
+msgstr "文件夹属性(_E)"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -846,35 +830,33 @@ msgstr "输入新创建文件夹的名称："
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "创建新文件夹"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "输入新创建文件的名称："
+msgstr "输入空文件的名称："
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "新建..."
+msgstr "正在创建..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
 msgstr "新建"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "输入新创建文件的名称："
+msgstr "输入新 %s 的名称："
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "正在创建符号链接"
+msgstr "正在创建 %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "创建后对文件运行默认应用程序(_R)"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -943,12 +925,11 @@ msgstr "您确定想清空回收站吗？"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "粘贴并执行(_S)"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "只对此文件夹(_O)"
+msgstr "目录路径项"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -979,14 +960,12 @@ msgid "Re_move from Bookmark"
 msgstr "从书签中移除(_M)"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "从书签中移除(_M)"
+msgstr "上移书签(_U)"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "从书签中移除(_M)"
+msgstr "下移书签(_D)"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -994,7 +973,7 @@ msgstr "清空回收站(_E)"
 
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr ""
+msgstr "在侧栏中显示常用位置、设备和书签列表"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1106,49 +1085,49 @@ msgstr "位置"
 msgid "Directory Tree"
 msgstr "目录树"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
-msgstr ""
+msgstr "文件夹内容视图"
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "隐藏 %s (_H)"
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
-msgstr ""
+msgstr "左移(_M)"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
-msgstr ""
-
-#: ../src/gtk/fm-standard-view.c:801
-#, c-format
-msgid "Show %s"
-msgstr ""
+msgstr "右移(_R)"
 
 #: ../src/gtk/fm-standard-view.c:813
+#, c-format
+msgid "Show %s"
+msgstr "显示 %s"
+
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
-msgstr ""
+msgstr "忘记宽度(_F)"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "更改活动标签"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "指定的目录无效"
+msgstr "指定的目录“%s”无效"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "无法访问目标文件"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "无法在非本地文件系统中创建链接"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1169,70 +1148,70 @@ msgstr "目标位置是源位置的子文件夹"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "只能对单个文件设置显示名"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "只能对单个文件设置目标"
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
-msgstr ""
+msgid "Empty <Name> tag"
+msgstr "空的 <Name> 标记"
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
-msgstr ""
+msgid "Tag <Not> should have exactly one child"
+msgstr "<Not> 标记只能有一个子元素"
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
-msgstr ""
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
+msgstr "<Not> 标记只能包含 <And>、<Or>、<Filename> 或 <Category> 子元素"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
-msgstr ""
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
+msgstr "合并文件只能包含 <Menu> 顶层标记，但收到 <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
-msgstr ""
+msgid "Failed to insert tag <%s> from merging file"
+msgstr "从合并文件插入标记 <%s> 失败"
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
-msgstr ""
+msgid "Invalid <MergeFile> tag"
+msgstr "无效的 <MergeFile> 标记"
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
-msgstr ""
+msgid "Invalid <MergeDir> tag"
+msgstr "无效的 <MergeDir> 标记"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "XML 文件 %s 错误 (%d:%d)："
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML 文件不包含 应用程序 根节点"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
-msgstr ""
+msgid "Cannot find path %s in XML definitions"
+msgstr "在 XML 定义中找不到路径 %s"
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
-msgstr ""
+msgid "Category manipulation internal error"
+msgstr "类别操作内部错误"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
-msgstr ""
+msgid "Cannot create XML definition for '%s'"
+msgstr "无法为“%s”创建 XML 定义"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
-msgstr ""
+msgid "Menu path '%s' already exists"
+msgstr "菜单路径“%s”已存在"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1250,78 +1229,77 @@ msgstr "无效的菜单目录"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "菜单项名称不能为空"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "无效的菜单目录"
+msgstr "无效的菜单目录 %s"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "无效的菜单目录"
+msgstr "无效的菜单项"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "菜单项“%s”不包含正确的项文件"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "不支持更改菜单目录的隐藏状态"
 
 #: ../src/modules/vfs-menu.c:2548
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute %s not supported"
-msgstr "不支持该操作"
+msgstr "不支持设置属性 %s"
 
 #: ../src/modules/vfs-menu.c:2558
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute %s"
-msgstr "无效的文件名 %s"
+msgstr "属性 %s 的值无效"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "无效的菜单目录"
+msgstr "“%s”是一个菜单目录"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "“%s”不是一个菜单项"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "“%s”损坏"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "无法创建菜单项“%s”"
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
-msgstr ""
+msgid "Name of menu directory should not end with \".desktop\""
+msgstr "菜单目录名不应以“.desktop”结尾"
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "对菜单根的操作无效"
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "无效的文件名 %s"
+msgstr "无效的菜单项 %s"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
-msgstr ""
+msgstr "无效的目标"
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor：在菜单缓存中未找到文件夹 %s"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1329,77 +1307,72 @@ msgid "Search"
 msgstr "搜索"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "搜索文件"
+msgstr "搜索结果"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "选择可执行文件"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "执行文件"
+msgstr "可执行文件"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>到：</b>"
+msgstr "<b>命令(_M)：</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "浏览(_B)"
+msgstr "浏览(_B)..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "在应用程序图标激活时执行的命令"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
-msgstr "在终端模拟器中执行(_E)"
+msgstr "在终端模拟器中运行(_R)"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "运行后继续开着终端窗口(_K)"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>位置：</b>"
+msgstr "<b>描述(_E)：</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
-msgstr ""
+msgstr "应用程序的常规名称"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>属于(_O)：</b>"
+msgstr "<b>工作目录(_W)：</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "运行程序的工作目录"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>到：</b>"
+msgstr "<b>工具提示(_T)：</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "选择一个应用程序"
+msgstr "在应用程序上显示的工具提示"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "使用启动通知(_U)"
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+msgid "_Desktop entry"
+msgstr "桌面项(_D)"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
