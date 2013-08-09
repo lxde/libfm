@@ -588,7 +588,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
 {
     FmPath *path;
     GFile *file = NULL, *child;
-    char *path_copy, *c, *sep, *q;
+    char *path_copy, *c, *sep, *q = NULL;
     char sep_char;
 
     if(!path_name || !*path_name || (path_name[0]=='/' && path_name[1] == '\0') )
@@ -621,7 +621,8 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         c = path_copy + 1;
         sep_char = G_DIR_SEPARATOR;
     }
-    q = strchr(c, '?'); /* question mark may be used in URIs such as search:// */
+    if (c)
+        q = strchr(c, '?'); /* question mark may be used in URIs such as search:// */
     for ( ; c; c = sep)
     {
         sep = strchr(c, sep_char);
