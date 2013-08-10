@@ -219,6 +219,7 @@ int main(int argc, char** argv)
             {
 //                g_key_file_set_string(kf, "Preferred Applications", "WebBrowser", g_app_info_get_id(app));
                 g_app_info_set_as_default_for_type(app, "x-scheme-handler/http", NULL);
+                g_app_info_set_as_default_for_type(app, "x-scheme-handler/https", NULL);
             }
             g_object_unref(app);
         }
