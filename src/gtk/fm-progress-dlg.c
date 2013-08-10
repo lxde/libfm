@@ -382,7 +382,7 @@ static gboolean on_update_dlg(gpointer user_data)
     gtk_progress_bar_set_text(data->progress, percent_text);
 
     elapsed = g_timer_elapsed(data->timer, NULL);
-    if(elapsed >= 0.5)
+    if(elapsed >= 0.5 && data->percent > 0)
     {
         gdouble remaining = elapsed * (100 - data->percent) / data->percent;
         if(data->remaining_time)
