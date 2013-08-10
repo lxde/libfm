@@ -88,6 +88,8 @@ struct _FmPlacesModel
     guint pane_icon_size_change_handler;
     guint places_home_change_handler;
     guint places_desktop_change_handler;
+    guint places_root_change_handler;
+    guint places_computer_change_handler;
     guint places_trash_change_handler;
     guint places_applications_change_handler;
     GdkPixbuf* eject_icon;
@@ -262,7 +264,7 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
                 {
                     model->jobs = g_slist_remove(model->jobs, job);
                     g_object_unref(job);
-                    /* FIXME: error message */
+                    g_critical("fm_job_run_async() failed on mount update");
                 }
             }
             fm_path_unref(path);
@@ -321,7 +323,7 @@ static FmPlacesItem* new_path_item(GtkListStore* model, GtkTreeIter* it,
         {
             *it = next_it;
             place_item_free(tst);
-            /* FIXME: print error? */
+            g_critical("duplicate places view item");
             goto _added;
         }
     } while(gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &next_it));
@@ -610,7 +612,7 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
     {
         model->jobs = g_slist_remove(model->jobs, job);
         g_object_unref(job);
-        /* FIXME: print error */
+        g_critical("fm_job_run_async() failed for bookmark update");
     }
 }
 
@@ -635,8 +637,7 @@ static gboolean update_trash_item(gpointer user_data)
             guint32 n = g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT);
 
             g_object_unref(inf);
-            if(!tp) /* FIXME: how can tp be invalid here? */
-                goto _end;
+            g_assert(tp != NULL); /* FIXME: how can tp be invalid here? */
             icon_name = n > 0 ? "user-trash-full" : "user-trash";
             icon = fm_icon_from_name(icon_name);
             gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp);
@@ -651,7 +652,6 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_path_free(tp);
         }
     }
-_end:
     GDK_THREADS_LEAVE();
     return FALSE;
 }
@@ -744,7 +744,7 @@ static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
         {
             self->jobs = g_slist_remove(self->jobs, job);
             g_object_unref(job);
-            /* FIXME: error message */
+            g_critical("fm_job_run_async() failed on home update");
         }
     }
     else
@@ -771,7 +771,7 @@ static void on_places_desktop_changed(FmConfig* cfg, gpointer user_data)
         {
             self->jobs = g_slist_remove(self->jobs, job);
             g_object_unref(job);
-            /* FIXME: print error */
+            g_critical("fm_job_run_async() failed on desktop folder update");
         }
     }
     else
@@ -793,6 +793,61 @@ static void on_places_applications_changed(FmConfig* cfg, gpointer user_data)
     else
     {
         remove_path_item(model, FM_PLACES_ID_APPLICATIONS);
+    }
+}
+
+static void on_places_root_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_root)
+    {
+        FmPath* path = fm_path_get_root();
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+
+        new_path_item(model, &it, path, FM_PLACES_ID_ROOT,
+                      _("File system"), "drive-harddisk", job);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            g_critical("fm_job_run_async() failed on root update");
+        }
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_ROOT);
+    }
+}
+
+static void on_places_computer_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_computer)
+    {
+        FmPath* path = fm_path_new_for_uri("computer:///");
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+
+        new_path_item(model, &it, path, FM_PLACES_ID_COMPUTER,
+                      _("Computer"), "computer", job);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            g_critical("fm_job_run_async() failed on computer place update");
+        }
+        fm_path_unref(path);
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_COMPUTER);
     }
 }
 
@@ -822,7 +877,7 @@ static void create_trash_item(FmPlacesModel* model)
     {
         model->jobs = g_slist_remove(model->jobs, job);
         g_object_unref(job);
-        /* FIXME: print error */
+        g_critical("fm_job_run_async() failed on trash update");
     }
     trash_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
@@ -855,6 +910,10 @@ static void fm_places_model_init(FmPlacesModel *self)
                                              G_CALLBACK(on_places_home_changed), self);
     self->places_desktop_change_handler = g_signal_connect(fm_config, "changed::places_desktop",
                                              G_CALLBACK(on_places_desktop_changed), self);
+    self->places_root_change_handler = g_signal_connect(fm_config, "changed::places_root",
+                                             G_CALLBACK(on_places_root_changed), self);
+    self->places_computer_change_handler = g_signal_connect(fm_config, "changed::places_computer",
+                                             G_CALLBACK(on_places_computer_changed), self);
     self->places_trash_change_handler = g_signal_connect(fm_config, "changed::places_trash",
                                              G_CALLBACK(on_use_trash_changed), self);
     self->places_applications_change_handler = g_signal_connect(fm_config, "changed::places_applications",
@@ -880,8 +939,20 @@ static void fm_places_model_init(FmPlacesModel *self)
         new_path_item(model, &it, fm_path_get_desktop(), FM_PLACES_ID_DESKTOP,
                       _("Desktop"), "user-desktop", job);
     }
-    /* FIXME: use fm_config->places_root */
-    /* FIXME: use fm_config->places_computer */
+
+    if(fm_config->places_root)
+    {
+        new_path_item(model, &it, fm_path_get_root(), FM_PLACES_ID_ROOT,
+                      _("File system"), "drive-harddisk", job);
+    }
+
+    if(fm_config->places_computer)
+    {
+        path = fm_path_new_for_uri("computer:///");
+        new_path_item(model, &it, path, FM_PLACES_ID_COMPUTER,
+                      _("Computer"), "computer", job);
+        fm_path_unref(path);
+    }
 
     if(fm_config->places_applications)
     {
@@ -1159,6 +1230,16 @@ static void fm_places_model_dispose(GObject *object)
     {
         g_signal_handler_disconnect(fm_config, self->places_desktop_change_handler);
         self->places_desktop_change_handler = 0;
+    }
+    if(self->places_root_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_root_change_handler);
+        self->places_root_change_handler = 0;
+    }
+    if(self->places_computer_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_computer_change_handler);
+        self->places_computer_change_handler = 0;
     }
     if(self->places_trash_change_handler)
     {

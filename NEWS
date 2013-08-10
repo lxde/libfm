@@ -23,6 +23,8 @@ Changes on 1.2.0 since 1.1.0:
     config file with an option for each standard item (Home, Desktop,
     Trash, and Applications).
 
+* Added two new Places View items: File system and Computer.
+
 * Context Menu on selected files now available by Shift+Menu keypress.
 
 * Implemented reordering bookmarks in Places View via context menu.

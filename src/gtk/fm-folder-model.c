@@ -1248,9 +1248,7 @@ void fm_folder_model_file_deleted(FmFolderModel* model, FmFileInfo* file)
         return;
     }
     seq_it = info2iter(model, file);
-    if(!seq_it)
-        /* FIXME: it is an error! */
-        return;
+    g_return_if_fail(seq_it != NULL);
     item = (FmFolderItem*)g_sequence_get(seq_it);
 
     path = gtk_tree_path_new_from_indices(g_sequence_iter_get_position(seq_it), -1);
@@ -1383,8 +1381,8 @@ void fm_folder_model_file_changed(FmFolderModel* model, FmFileInfo* file)
             }
             items_it = g_sequence_iter_next(items_it);
         }
-        /* FIXME: item found nowhere, show error or crash? */
-        return;
+        /* item found nowhere, shouldn't we crash? */
+        g_return_if_reached();
     }
 
     item = (FmFolderItem*)g_sequence_get(items_it);
@@ -1576,8 +1574,9 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
             item->thumbnail_failed = TRUE;
         }
         item->thumbnail_loading = FALSE;
+        return;
     }
-    /* FIXME: else should be error? */
+    g_return_if_reached();
 }
 
 /**
@@ -2213,6 +2212,15 @@ void _fm_folder_model_init(void)
 
 void _fm_folder_model_finalize(void)
 {
+    FmFolderModelCol i = column_infos_n;
     fm_module_unregister_type("gtk_folder_col");
-    /* FIXME: free all custom columns! */
+    column_infos_n = FM_FOLDER_MODEL_N_COLS;
+    /* free all custom columns! */
+    while (i > FM_FOLDER_MODEL_N_COLS)
+    {
+        i--;
+        g_free((char*)column_infos[i]->name);
+        g_free((char*)column_infos[i]->title);
+        g_free(column_infos[i]);
+    }
 }

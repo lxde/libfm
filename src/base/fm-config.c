@@ -436,8 +436,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
             g_string_append(str, "\n[places]\n");
                 _save_config_bool(str, cfg, places_home);
                 _save_config_bool(str, cfg, places_desktop);
-                //_save_config_bool(str, cfg, places_root);
-                //_save_config_bool(str, cfg, places_computer);
+                _save_config_bool(str, cfg, places_root);
+                _save_config_bool(str, cfg, places_computer);
                 _save_config_bool(str, cfg, places_trash);
                 _save_config_bool(str, cfg, places_applications);
                 //_save_config_bool(str, cfg, places_network);
