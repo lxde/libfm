@@ -197,19 +197,19 @@ int main(int argc, char** argv)
 
     if(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
-        GKeyFile* kf = g_key_file_new();
-        char* buf;
-        gsize len, i;
+//        GKeyFile* kf = g_key_file_new();
+//        char* buf;
+//        gsize len, i;
         gboolean is_changed;
         GAppInfo* app;
         const GList* custom_apps, *l;
         char* dir = g_build_filename(g_get_user_config_dir(), "libfm", NULL);
-        char* fname = g_build_filename(dir, "pref-apps.conf", NULL);
+//        char* fname = g_build_filename(dir, "pref-apps.conf", NULL);
 
         g_mkdir_with_parents(dir, 0700); /* ensure the user config dir */
         g_free(dir);
 
-        g_key_file_load_from_file(kf, fname, G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
+//        g_key_file_load_from_file(kf, fname, G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
 
         /* get currently selected web browser */
         app = fm_app_chooser_combo_box_dup_selected_app(browser, &is_changed);
@@ -226,16 +226,24 @@ int main(int argc, char** argv)
         custom_apps = fm_app_chooser_combo_box_get_custom_apps(browser);
         if(custom_apps)
         {
-            const char** sl;
-            len = g_list_length((GList*)custom_apps);
-            sl = (const char**)g_new0(char*, len);
-            for(i = 0, l=custom_apps;l;l=l->next, ++i)
+//            const char** sl;
+//            len = g_list_length((GList*)custom_apps);
+//            sl = (const char**)g_new0(char*, len);
+//            for(i = 0, l=custom_apps;l;l=l->next, ++i)
+            for(l=custom_apps;l;l=l->next)
             {
                 app = G_APP_INFO(l->data);
-                sl[i] = g_app_info_get_id(app);
+//                sl[i] = g_app_info_get_id(app);
+#if GLIB_CHECK_VERSION(2, 27, 6)
+                g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/http", NULL);
+                g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/https", NULL);
+#else
+                g_app_info_add_supports_type(app, "x-scheme-handler/http", NULL);
+                g_app_info_add_supports_type(app, "x-scheme-handler/https", NULL);
+#endif
             }
-            g_key_file_set_string_list(kf, "Preferred Applications", "CustomWebBrowsers", sl, len);
-            g_free(sl);
+//            g_key_file_set_string_list(kf, "Preferred Applications", "CustomWebBrowsers", sl, len);
+//            g_free(sl);
             /* custom_apps is owned by the combobox and shouldn't be freed. */
         }
 
@@ -253,19 +261,27 @@ int main(int argc, char** argv)
         custom_apps = fm_app_chooser_combo_box_get_custom_apps(mail_client);
         if(custom_apps)
         {
-            const char** sl;
-            len = g_list_length((GList*)custom_apps);
-            sl = (const char**)g_new0(char*, len);
-            for(i = 0, l=custom_apps;l;l=l->next, ++i)
+//            const char** sl;
+//            len = g_list_length((GList*)custom_apps);
+//            sl = (const char**)g_new0(char*, len);
+//            for(i = 0, l=custom_apps;l;l=l->next, ++i)
+            for(l=custom_apps;l;l=l->next)
             {
                 app = G_APP_INFO(l->data);
-                sl[i] = g_app_info_get_id(app);
+#if GLIB_CHECK_VERSION(2, 27, 6)
+                g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/mailto", NULL);
+#else
+                g_app_info_add_supports_type(app, "x-scheme-handler/mailto", NULL);
+#endif
+//                sl[i] = g_app_info_get_id(app);
             }
-            g_key_file_set_string_list(kf, "Preferred Applications", "CustomMailClients", sl, len);
-            g_free(sl);
+//            g_key_file_set_string_list(kf, "Preferred Applications", "CustomMailClients", sl, len);
+//            g_free(sl);
             /* custom_apps is owned by the combobox and shouldn't be freed. */
         }
 
+#if 0
+        /* XDG way with mimeapps.list do the thing, let not duplicate work */
         buf = g_key_file_to_data(kf, &len, NULL);
         if(buf)
         {
@@ -283,6 +299,7 @@ int main(int argc, char** argv)
         }
         g_key_file_free(kf);
         g_free(fname);
+#endif
     }
     gtk_widget_destroy((GtkWidget*)dlg);
 
