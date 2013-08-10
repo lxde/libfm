@@ -337,14 +337,27 @@ static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface)
     iface->has_default_sort_func = ( gboolean (*)(GtkTreeSortable *) )gtk_false;
 }
 
+static gboolean _drag_source_false(GtkTreeDragSource *drag_source, GtkTreePath *path)
+{ return FALSE; }
+static gboolean _drag_source_false2(GtkTreeDragSource *drag_source, GtkTreePath *path, GtkSelectionData *selection_data)
+{ return FALSE; }
+
 static void fm_folder_model_drag_source_init(GtkTreeDragSourceIface *iface)
 {
-    /* FIXME: Unused. Will this cause any problem? */
+    /* we don't support drag items even for extras - widgets will handle them */
+    iface->row_draggable = _drag_source_false;
+    iface->drag_data_get = _drag_source_false2;
+    iface->drag_data_delete = _drag_source_false;
 }
+
+static gboolean _drag_dest_false(GtkTreeDragDest *drag_dest, GtkTreePath *dest, GtkSelectionData *selection_data)
+{ return FALSE; }
 
 static void fm_folder_model_drag_dest_init(GtkTreeDragDestIface *iface)
 {
-    /* FIXME: Unused. Will this cause any problem? */
+    /* we don't support drag items even for extras - widgets will handle them */
+    iface->drag_data_received = _drag_dest_false;
+    iface->row_drop_possible = _drag_dest_false;
 }
 
 static void fm_folder_model_filter_item_free(FmFolderModelFilterItem* item)
