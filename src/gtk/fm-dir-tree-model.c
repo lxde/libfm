@@ -488,7 +488,6 @@ static gboolean fm_dir_tree_model_iter_has_child(GtkTreeModel *tree_model,
 {
     GList* item_l;
     FmDirTreeItem* item;
-    /* FIXME: is NULL iter allowed here? */
     g_return_val_if_fail( iter != NULL, FALSE );
     g_return_val_if_fail( iter->stamp == FM_DIR_TREE_MODEL(tree_model)->stamp, FALSE );
 
@@ -701,39 +700,37 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
     g_return_if_fail(item != NULL);
     tp = item_to_tree_path(model, item_l);
 
-        if(item->parent)
-        {
-            FmDirTreeItem* parent_item = item->parent->data;
+    if(item->parent)
+    {
+        FmDirTreeItem* parent_item = item->parent->data;
 
-            parent_item->children = g_list_delete_link(parent_item->children, item_l);
-            /* signal the view that we removed the item. */
-            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
-            /* If the item being removed is the last child item of parent_item,
-             * we need to insert a place holder item to keep it expandable. */
-            if(parent_item->children == NULL)
-            {
-                GList* parent_l = item->parent;
-                //int idx = gtk_tree_path_get_indices(tp)[gtk_tree_path_get_depth(tp) - 1];
-                gtk_tree_path_up(tp);
-                if(fm_config->no_child_non_expandable)
-                {
-                    GtkTreeIter it;
-                    item_to_tree_iter(model, parent_l, &it);
-                    /* signal the view to redraw row removing expander */
-                    gtk_tree_model_row_has_child_toggled(GTK_TREE_MODEL(model), tp, &it);
-                }
-                else
-                    add_place_holder_child_item(model, parent_l, tp, TRUE);
-                //gtk_tree_path_append_index(tp, 0);
-            }
-        }
-        else /* root item */
+        parent_item->children = g_list_delete_link(parent_item->children, item_l);
+        /* signal the view that we removed the item. */
+        gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
+        /* If the item being removed is the last child item of parent_item,
+         * we need to insert a place holder item to keep it expandable. */
+        if(parent_item->children == NULL)
         {
-            /* FIXME: this needs more testing. */
-            model->roots = g_list_delete_link(model->roots, item_l);
-            /* signal the view that we removed the item. */
-            gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
+            GList* parent_l = item->parent;
+            gtk_tree_path_up(tp);
+            if(fm_config->no_child_non_expandable)
+            {
+                GtkTreeIter it;
+                item_to_tree_iter(model, parent_l, &it);
+                /* signal the view to redraw row removing expander */
+                gtk_tree_model_row_has_child_toggled(GTK_TREE_MODEL(model), tp, &it);
+            }
+            else
+                add_place_holder_child_item(model, parent_l, tp, TRUE);
         }
+    }
+    else /* root item */
+    {
+        /* FIXME: this needs more testing. */
+        model->roots = g_list_delete_link(model->roots, item_l);
+        /* signal the view that we removed the item. */
+        gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
+    }
 
     fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
     gtk_tree_path_free(tp);
@@ -867,19 +864,10 @@ static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l
     for(l = files; l; l = l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
-        /* FIXME: should FmFolder generate "files-added" signal on
-         * its first-time loading? Isn't "loaded" signal enough? */
-        if(fm_file_info_is_dir(fi)) /* TODO: maybe adding files can be allowed later */
+        if(fm_file_info_is_dir(fi)) /* FIXME: maybe adding files can be allowed later */
         {
-            /* ensure that the file is not yet in our model
-            FmPath* path = fm_file_info_get_path(fi); */
-            /* 
-            * Ideally FmFolder should not emit files-added signals for files that
-            * already exists. So there is no need to check for duplication here.
-            GList* new_item_l = children_by_name(model, item->children, path->name, NULL);
-            if(!new_item_l)
-
-            GList* new_item_l = */
+            /* Ideally FmFolder should not emit files-added signals for files that
+             * already exists. So there is no need to check for duplication here. */
             insert_file_info(model, item_l, tp, fi);
         }
     }
@@ -908,7 +896,7 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     GSList* l;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
-    /* GtkTreePath* tp = item_to_tree_path(model, item_l); */
+    GtkTreePath* tp = item_to_tree_path(model, item_l);
 
     /* g_debug("files changed!!"); */
 
@@ -923,16 +911,21 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
         if(changed_item_l)
         {
             FmDirTreeItem* changed_item = (FmDirTreeItem*)changed_item_l->data;
+            GtkTreeIter it;
             if(changed_item->fi)
                 fm_file_info_unref(changed_item->fi);
             changed_item->fi = fm_file_info_ref(fi);
-            /* FIXME: inform gtk tree view about the change */
+            /* inform gtk tree view about the change */
+            item_to_tree_iter(model, changed_item_l, &it);
+            gtk_tree_path_append_index(tp, idx);
+            gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
+            gtk_tree_path_up(tp);
 
             /* FIXME and TODO: check if we have sub folder */
             /* item_queue_subdir_check(model, changed_item_l); */
         }
     }
-    /* gtk_tree_path_free(tp); */
+    gtk_tree_path_free(tp);
 }
 
 static inline void item_free_folder(FmFolder* folder, gpointer item_l)
