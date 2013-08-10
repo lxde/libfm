@@ -440,7 +440,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_bool(str, cfg, places_computer);
                 _save_config_bool(str, cfg, places_trash);
                 _save_config_bool(str, cfg, places_applications);
-                //_save_config_bool(str, cfg, places_network);
+                _save_config_bool(str, cfg, places_network);
                 //_save_config_bool(str, cfg, places_unmounted);
             fwrite(str->str, 1, str->len, f);
             fclose(f);

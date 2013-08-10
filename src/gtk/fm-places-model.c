@@ -92,6 +92,7 @@ struct _FmPlacesModel
     guint places_computer_change_handler;
     guint places_trash_change_handler;
     guint places_applications_change_handler;
+    guint places_network_change_handler;
     GdkPixbuf* eject_icon;
 
     GSList* jobs;
@@ -391,7 +392,6 @@ static void add_volume_or_mount(FmPlacesModel* model, GObject* volume_or_mount, 
 static FmPlacesItem* find_volume(FmPlacesModel* model, GVolume* volume, GtkTreeIter* _it)
 {
     GtkTreeIter it;
-    /* FIXME: don't need to find from the first iter */
     if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
     {
         do
@@ -413,7 +413,6 @@ static FmPlacesItem* find_volume(FmPlacesModel* model, GVolume* volume, GtkTreeI
 static FmPlacesItem* find_mount(FmPlacesModel* model, GMount* mount, GtkTreeIter* _it)
 {
     GtkTreeIter it;
-    /* FIXME: don't need to find from the first iter */
     if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &it))
     {
         do
@@ -851,6 +850,34 @@ static void on_places_computer_changed(FmConfig* cfg, gpointer user_data)
     }
 }
 
+static void on_places_network_changed(FmConfig* cfg, gpointer user_data)
+{
+    GtkListStore* model = GTK_LIST_STORE(user_data);
+    GtkTreeIter it;
+    if(cfg->places_network)
+    {
+        FmPath* path = fm_path_new_for_uri("network:///");
+        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+
+        new_path_item(model, &it, path, FM_PLACES_ID_NETWORK,
+                      _("Network Drives"), GTK_STOCK_NETWORK, job);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            g_critical("fm_job_run_async() failed on network place update");
+        }
+        fm_path_unref(path);
+    }
+    else
+    {
+        remove_path_item(model, FM_PLACES_ID_NETWORK);
+    }
+}
+
 static void on_pane_icon_size_changed(FmConfig* cfg, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
@@ -918,6 +945,8 @@ static void fm_places_model_init(FmPlacesModel *self)
                                              G_CALLBACK(on_use_trash_changed), self);
     self->places_applications_change_handler = g_signal_connect(fm_config, "changed::places_applications",
                                              G_CALLBACK(on_places_applications_changed), self);
+    self->places_network_change_handler = g_signal_connect(fm_config, "changed::places_network",
+                                             G_CALLBACK(on_places_network_changed), self);
 
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
@@ -959,9 +988,15 @@ static void fm_places_model_init(FmPlacesModel *self)
         new_path_item(model, &it, fm_path_get_apps_menu(),
                       FM_PLACES_ID_APPLICATIONS, _("Applications"),
                       "system-software-install", NULL);
-        /* fm_file_info_job_add(job, item->fi->path); */
     }
-    /* FIXME: use fm_config->places_network */
+
+    if(fm_config->places_network)
+    {
+        path = fm_path_new_for_uri("network:///");
+        new_path_item(model, &it, path, FM_PLACES_ID_NETWORK,
+                      _("Network Drives"), GTK_STOCK_NETWORK, job);
+        fm_path_unref(path);
+    }
 
     /* volumes */
     self->vol_mon = g_volume_monitor_get();
@@ -983,7 +1018,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     /* separator has all columns NULL */
 
     if(fm_config->use_trash && fm_config->places_trash)
-        create_trash_item(self); /* FIXME: how to handle trash can? */
+        create_trash_item(self);
 
     /* add volumes to side-pane */
     /* FIXME: respect fm_config->places_unmounted */
@@ -1023,7 +1058,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     {
         self->jobs = g_slist_remove(self->jobs, job);
         g_object_unref(job);
-        /* FIXME: print error */
+        g_critical("fm_job_run_async() failed on places view init");
     }
 }
 
@@ -1250,6 +1285,11 @@ static void fm_places_model_dispose(GObject *object)
     {
         g_signal_handler_disconnect(fm_config, self->places_applications_change_handler);
         self->places_applications_change_handler = 0;
+    }
+    if(self->places_network_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_network_change_handler);
+        self->places_network_change_handler = 0;
     }
     if(self->pane_icon_size_change_handler)
     {

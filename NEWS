@@ -23,7 +23,8 @@ Changes on 1.2.0 since 1.1.0:
     config file with an option for each standard item (Home, Desktop,
     Trash, and Applications).
 
-* Added two new Places View items: File system and Computer.
+* Added new Places View items: File system, Computer, and Network. All
+    new items are disabled by default.
 
 * Context Menu on selected files now available by Shift+Menu keypress.
 
