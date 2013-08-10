@@ -61,15 +61,13 @@ static void cancel_pending_chdir(GtkTreeModel* model, FmDirTreeView *view)
 {
     if(view->paths_to_expand)
     {
-        if(G_LIKELY(view->current_row)) /* FIXME: else data are corrupted */
-        {
-            g_signal_handlers_disconnect_by_func(model, on_row_loaded, view);
-            gtk_tree_row_reference_free(view->current_row);
-            view->current_row = NULL;
-        }
         g_slist_foreach(view->paths_to_expand, (GFunc)fm_path_unref, NULL);
         g_slist_free(view->paths_to_expand);
         view->paths_to_expand = NULL;
+        g_return_if_fail(view->current_row != NULL); /* else data are corrupted */
+        g_signal_handlers_disconnect_by_func(model, on_row_loaded, view);
+        gtk_tree_row_reference_free(view->current_row);
+        view->current_row = NULL;
     }
 }
 
@@ -531,7 +529,8 @@ static void expand_pending_path(FmDirTreeView* view, GtkTreeModel* model, GtkTre
             on_row_loaded(FM_DIR_TREE_MODEL(model), tp, view); /* recursion! */
         gtk_tree_path_free(tp);
     }
-    /* FIXME: otherwise it's a bug */
+    else
+        g_return_if_reached();
 }
 
 static void on_row_loaded(FmDirTreeModel* fm_model, GtkTreePath* tp, FmDirTreeView* view)

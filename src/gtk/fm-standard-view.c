@@ -942,9 +942,7 @@ static void _check_tree_columns_defaults(FmStandardView* fv)
         g_list_free(tree_columns);
         return;
     }
-    /* Set default columns to show in detailed list mode.
-     * FIXME: cols should be passed to fm_standard_view_new() as a parameter instead.
-     * This breaks API/ABI though. Let's do it later. */
+    /* Set default columns to show in detailed list mode. */
     for(i = 0; i < G_N_ELEMENTS(cols); i++)
         cols_list = g_slist_append(cols_list, (gpointer)&cols[i]);
     fm_folder_view_set_columns(FM_FOLDER_VIEW(fv), cols_list);
@@ -1163,8 +1161,6 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         }
         g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
         g_list_free(sels);
-
-        /* FIXME: maybe calling set_icon_size here is a good idea */
 
         fm_dnd_src_set_widget(fv->dnd_src, fv->view);
         fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);

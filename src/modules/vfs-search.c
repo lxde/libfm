@@ -421,7 +421,6 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
         /* add folder paths */
         while (p)
         {
-            /* FIXME: can be ':' in the path escaped with backslash? */
             char* sep = strchr(p, ':'); /* use : to separate multiple paths */
             char *path;
 
