@@ -26,6 +26,12 @@ Changes on 1.2.0 since 1.1.0:
 * Added new Places View items: File system, Computer, and Network. All
     new items are disabled by default.
 
+* The option 'places_unmounted' in config file defines whether volumes
+    from /etc/fstab that aren't mounted should be shown in Places View
+    sidebar or not. This option should be not present in the Preferences
+    dialog the same as 'advanced_mode' one. Defaulted to true therefore
+    default behavior is the same as before.
+
 * Context Menu on selected files now available by Shift+Menu keypress.
 
 * Implemented reordering bookmarks in Places View via context menu.

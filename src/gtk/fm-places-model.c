@@ -93,6 +93,7 @@ struct _FmPlacesModel
     guint places_trash_change_handler;
     guint places_applications_change_handler;
     guint places_network_change_handler;
+    guint places_unmounted_change_handler;
     GdkPixbuf* eject_icon;
 
     GSList* jobs;
@@ -436,6 +437,10 @@ static void on_volume_added(GVolumeMonitor* vm, GVolume* volume, gpointer user_d
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     FmPlacesItem* item;
     GtkTreeIter it;
+
+    /* nothing to do if we don't show unmounted volumes */
+    if (!fm_config->places_unmounted)
+        return;
     /* for some unknown reasons, sometimes we get repeated volume-added 
      * signals and added a device more than one. So, make a sanity check here. */
     item = find_volume(model, volume, &it);
@@ -914,6 +919,48 @@ static void create_trash_item(FmPlacesModel* model)
         model->trash_idle_handler = g_idle_add(update_trash_item, model);
 }
 
+static void on_places_unmounted_changed(FmConfig* cfg, gpointer user_data)
+{
+    FmPlacesModel *model = FM_PLACES_MODEL(user_data);
+    GVolume *vol;
+    FmPlacesItem *item;
+    GList *vols, *l;
+    FmFileInfoJob *job = NULL;
+    GtkTreeIter it;
+
+    if (cfg->places_unmounted)
+        job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
+    vols = g_volume_monitor_get_volumes(model->vol_mon);
+    for (l = vols; l; l = l->next)
+    {
+        vol = G_VOLUME(l->data);
+        item = find_volume(model, vol, &it);
+        if (item)
+        {
+            if (!cfg->places_unmounted) /* it is there but should be not */
+            {
+                gtk_list_store_remove(GTK_LIST_STORE(model), &it);
+                place_item_free(item);
+            }
+        }
+        else if (cfg->places_unmounted) /* not found but should be added */
+            add_volume_or_mount(model, G_OBJECT(vol), job);
+        g_object_unref(vol);
+    }
+    if (job)
+    {
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
+        model->jobs = g_slist_prepend(model->jobs, job);
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            model->jobs = g_slist_remove(model->jobs, job);
+            g_object_unref(job);
+            g_critical("fm_job_run_async() failed on volumes update");
+        }
+    }
+    g_list_free(vols);
+}
+
 static void fm_places_model_init(FmPlacesModel *self)
 {
     GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER};
@@ -947,6 +994,8 @@ static void fm_places_model_init(FmPlacesModel *self)
                                              G_CALLBACK(on_places_applications_changed), self);
     self->places_network_change_handler = g_signal_connect(fm_config, "changed::places_network",
                                              G_CALLBACK(on_places_network_changed), self);
+    self->places_unmounted_change_handler = g_signal_connect(fm_config, "changed::places_unmounted",
+                                             G_CALLBACK(on_places_unmounted_changed), self);
 
     self->pane_icon_size_change_handler = g_signal_connect(fm_config, "changed::pane_icon_size",
                                              G_CALLBACK(on_pane_icon_size_changed), self);
@@ -1021,15 +1070,18 @@ static void fm_places_model_init(FmPlacesModel *self)
         create_trash_item(self);
 
     /* add volumes to side-pane */
-    /* FIXME: respect fm_config->places_unmounted */
-    vols = g_volume_monitor_get_volumes(self->vol_mon);
-    for(l=vols;l;l=l->next)
+    /* respect fm_config->places_unmounted */
+    if (fm_config->places_unmounted)
     {
-        GVolume* vol = G_VOLUME(l->data);
-        add_volume_or_mount(self, G_OBJECT(vol), job);
-        g_object_unref(vol);
+        vols = g_volume_monitor_get_volumes(self->vol_mon);
+        for(l=vols;l;l=l->next)
+        {
+            GVolume* vol = G_VOLUME(l->data);
+            add_volume_or_mount(self, G_OBJECT(vol), job);
+            g_object_unref(vol);
+        }
+        g_list_free(vols);
     }
-    g_list_free(vols);
 
     /* add mounts to side-pane */
     vols = g_volume_monitor_get_mounts(self->vol_mon);
@@ -1290,6 +1342,11 @@ static void fm_places_model_dispose(GObject *object)
     {
         g_signal_handler_disconnect(fm_config, self->places_network_change_handler);
         self->places_network_change_handler = 0;
+    }
+    if(self->places_unmounted_change_handler)
+    {
+        g_signal_handler_disconnect(fm_config, self->places_unmounted_change_handler);
+        self->places_unmounted_change_handler = 0;
     }
     if(self->pane_icon_size_change_handler)
     {
