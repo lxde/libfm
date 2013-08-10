@@ -339,7 +339,7 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     {
         GString *str = g_string_new_len(basename, name_len);
         /* remote file names don't come escaped from gvfs; isn't that a bug of gvfs? */
-        char *escaped = g_uri_escape_string(str->str, "/", TRUE);
+        char *escaped = g_uri_escape_string(str->str, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
         /* g_debug("got child %s", escaped); */
         name_len = strlen(escaped);
         path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
