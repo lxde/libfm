@@ -69,6 +69,7 @@ struct _FmProgressDisplay
 
     char* cur_file;
     char* old_cur_file;
+    guint percent;
 
     guint delay_timeout;
     guint update_timeout;
@@ -80,51 +81,6 @@ struct _FmProgressDisplay
 
 static void ensure_dlg(FmProgressDisplay* data);
 static void fm_progress_display_destroy(FmProgressDisplay* data);
-
-static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data)
-{
-    if(data->dlg)
-    {
-        char percent_text[64];
-        g_snprintf(percent_text, 64, "%d %%", percent);
-        gtk_progress_bar_set_fraction(data->progress, (gdouble)percent/100);
-        gtk_progress_bar_set_text(data->progress, percent_text);
-
-        gdouble elapsed = g_timer_elapsed(data->timer, NULL);
-        if(elapsed >= 0.5)
-        {
-            gdouble remaining = elapsed * (100 - percent) / percent;
-            if(data->remaining_time)
-            {
-                char time_str[32];
-                guint secs = (guint)remaining;
-                guint mins = 0;
-                guint hrs = 0;
-                if(secs > 60)
-                {
-                    mins = secs / 60;
-                    secs %= 60;
-                    if(mins > 60)
-                    {
-                        hrs = mins / 60;
-                        mins %= 60;
-                    }
-                }
-                g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
-                gtk_label_set_text(data->remaining_time, time_str);
-            }
-        }
-    }
-}
-
-static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDisplay* data)
-{
-    /* FIXME: Displaying currently processed file will slow down the
-     * operation and waste CPU source due to showing the text with pango.
-     * Consider showing current file every 0.5 second. */
-    g_free(data->cur_file);
-    data->cur_file = g_strdup(cur_file);
-}
 
 static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSeverity severity, FmProgressDisplay* data)
 {
@@ -273,8 +229,8 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     tmp = g_filename_display_name(fm_path_get_basename(path));
     gtk_entry_set_text(filename, tmp);
     g_free(tmp);
-    tmp = (char*)fm_file_info_get_disp_name(dest); /* FIXME: cast const to char */
-    g_object_set_data(G_OBJECT(filename), "old_name", tmp);
+    tmp = g_strdup(fm_file_info_get_disp_name(dest));
+    g_object_set_data_full(G_OBJECT(filename), "old_name", tmp, g_free);
     g_signal_connect(filename, "changed", G_CALLBACK(on_filename_changed), gtk_builder_get_object(builder, "rename"));
 
     g_object_unref(builder);
@@ -405,18 +361,70 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 static gboolean on_update_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
+    char percent_text[64];
+    gdouble elapsed;
+
+    data->update_timeout = 0;
+    if (g_source_is_destroyed(g_main_current_source()) || data->dlg == NULL)
+        return FALSE;
     /* the g_strdup very probably returns the same pointer that was g_free'd
        so we cannot just compare data->old_cur_file with data->cur_file */
     GDK_THREADS_ENTER();
-    if(!g_source_is_destroyed(g_main_current_source()) && data->cur_file)
+    if(data->cur_file)
     {
         gtk_label_set_text(data->current, data->cur_file);
         g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
         data->cur_file = NULL;
     }
+    g_snprintf(percent_text, 64, "%d %%", data->percent);
+    gtk_progress_bar_set_fraction(data->progress, (gdouble)data->percent/100);
+    gtk_progress_bar_set_text(data->progress, percent_text);
+
+    elapsed = g_timer_elapsed(data->timer, NULL);
+    if(elapsed >= 0.5)
+    {
+        gdouble remaining = elapsed * (100 - data->percent) / data->percent;
+        if(data->remaining_time)
+        {
+            char time_str[32];
+            guint secs = (guint)remaining;
+            guint mins = 0;
+            guint hrs = 0;
+            if(secs > 60)
+            {
+                mins = secs / 60;
+                secs %= 60;
+                if(mins > 60)
+                {
+                    hrs = mins / 60;
+                    mins %= 60;
+                }
+            }
+            g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
+            gtk_label_set_text(data->remaining_time, time_str);
+        }
+    }
     GDK_THREADS_LEAVE();
-    return TRUE;
+    return FALSE;
+}
+
+static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDisplay* data)
+{
+    g_free(data->cur_file);
+    data->cur_file = g_strdup(cur_file);
+    /* NOTE: Displaying currently processed file will slow down the
+     * operation and waste CPU source due to showing the text with pango.
+     * Consider showing current file every 0.5 second. */
+    if(data->dlg && data->update_timeout == 0)
+        data->update_timeout = g_timeout_add(500, on_update_dlg, data);
+}
+
+static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data)
+{
+    data->percent = percent;
+    if(data->dlg && data->update_timeout == 0)
+        data->update_timeout = g_timeout_add(500, on_update_dlg, data);
 }
 
 static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
@@ -550,7 +558,6 @@ static gboolean on_show_dlg(gpointer user_data)
 
     gtk_window_set_transient_for(GTK_WINDOW(data->dlg), data->parent);
     gtk_window_present(GTK_WINDOW(data->dlg));
-    data->update_timeout = g_timeout_add(500, on_update_dlg, data);
 
     data->delay_timeout = 0;
 _end:
