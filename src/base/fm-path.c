@@ -143,7 +143,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     flags = 0;
     host_len = 0;
     if(scheme_len == 4 && g_ascii_strncasecmp(uri, "file", 4) == 0 &&
-       (host - uri) != 7) /* handle file:/ or file:///, file://host/ isn't our */
+       host[0] == '/') /* handle file:/ or file:///, file://host/ isn't our */
     {
         if(remaining)
             *remaining = host;
