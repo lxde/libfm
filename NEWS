@@ -273,6 +273,10 @@ Changes on 1.2.0 since 1.1.0:
     'ask' - it shows 'Copy', 'Move', 'Link', and 'Cancel' choices when
     some files are dropped onto widget controllable by libfm drag&drop.
 
+* Allowed dropping file into the same directory if 'drop_default_action'
+    is set to 'ask' - it shows 'Link' and 'Cancel' choices therefore it
+    is possible to create symbolic link onto the file by drag&drop.
+
 
 Changes on 1.1.0 since 1.0.1:
 

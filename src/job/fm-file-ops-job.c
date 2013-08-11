@@ -589,27 +589,51 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         fm_file_ops_job_emit_cur_file(job, dname);
         g_free(dname);
 
+_retry_link:
         if (fm_path_is_native(path))
         {
-          src = fm_path_to_str(path);
+          if (src == NULL)
+            src = fm_path_to_str(path);
           if(!g_file_make_symbolic_link(dest, src, fm_job_get_cancellable(fmjob), &err))
           {
-            FmJobErrorAction act;
 _link_error:
-            act = FM_JOB_CONTINUE;
             if(err)
             {
-                /* FIXME: ask user to choose another filename for creation */
-                act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
-                g_error_free(err);
-                err = NULL;
-            }
-            if(act == FM_JOB_ABORT)
-            {
-                g_free(src);
-                g_object_unref(dest);
-                g_object_unref(dest_dir);
-                return FALSE;
+                if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
+                {
+                    GFile *new_dest = NULL, *src_file;
+                    FmFileOpOption opt;
+
+                    src_file = fm_path_to_gfile(path);
+                    opt = fm_file_ops_job_ask_rename(job, src_file, NULL, dest, &new_dest);
+                    g_object_unref(src_file);
+
+                    g_error_free(err);
+                    err = NULL;
+
+                    switch(opt)
+                    {
+                    case FM_FILE_OP_RENAME:
+                        if (new_dest) /* we got new dest */
+                        {
+                            g_object_unref(dest);
+                            dest = new_dest;
+                            goto _retry_link;
+                        }
+                        break;
+                    case FM_FILE_OP_CANCEL:
+                        fm_job_cancel(fmjob);
+                        break;
+                    case FM_FILE_OP_OVERWRITE:
+                        /* FIXME: how to disable that option? */
+                        /* we do not support overwrite */
+                    case FM_FILE_OP_SKIP:
+                        break;
+                    case FM_FILE_OP_SKIP_ERROR: ; /* FIXME */
+                    }
+                    if (new_dest)
+                        g_object_unref(new_dest);
+                }
             }
             ret = FALSE;
           }
@@ -625,7 +649,8 @@ _link_error:
             char *name;
             if (out == NULL)
                 goto _link_error;
-            src = fm_path_to_uri(path);
+            if (src == NULL)
+                src = fm_path_to_uri(path);
             name = fm_path_display_basename(path);
             dname = g_strdup_printf("[Desktop Entry]\n"
                                     "Type=Link\n"
@@ -657,7 +682,6 @@ _link_error:
     }
 
     /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
-    fm_file_ops_job_emit_percent(job);
 
     g_object_unref(dest_dir);
     return ret;

@@ -324,28 +324,31 @@ void fm_dnd_dest_set_widget(FmDndDest* dd, GtkWidget* w)
     }
 }
 
-static gboolean fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
-                                             FmPath* src)
+/* returns -1 if we drop into the same dir, 0 of cannot dropm 1 if can */
+static int fm_dnd_dest_can_receive_drop(FmFileInfo* dest_fi, FmPath* dest,
+                                        FmPath* src)
 {
     /* g_debug("fm_dnd_dest_can_receive_drop: src %p(%s) dest %p(%s)", src,
             fm_path_get_basename(src), dest, fm_path_get_basename(dest)); */
     if(!dest)
-        return FALSE;
+        return 0;
 
     /* we can drop only onto directory or desktop entry */
     if(fm_file_info_is_desktop_entry(dest_fi))
-        return TRUE;
+        return 1;
     if(!fm_file_info_is_dir(dest_fi) || !fm_file_info_is_accessible(dest_fi))
-        return FALSE;
+        return 0;
     /* check if target FS is R/O, we cannot drop anything into R/O place */
     if (!fm_file_info_is_writable_directory(dest_fi))
-        return FALSE;
+        return 0;
 
     /* check if we drop directory onto itself */
     if(!src || fm_path_equal(src, dest))
-        return FALSE;
+        return 0;
     /* check if source and destination directories are the same */
-    return !fm_path_equal(fm_path_get_parent(src), dest);
+    if (fm_path_equal(fm_path_get_parent(src), dest))
+        return -1;
+    return 1;
 }
 
 /* Part of this code was taken from GTK sources for gtk_dialog_run() */
@@ -411,7 +414,9 @@ static GtkActionEntry drop_menu_actions[]=
     {"Link", NULL, N_("_Link"), NULL, NULL, G_CALLBACK(on_link_sel)}
 };
 
-static GdkDragAction _ask_action_on_drop(GtkWidget *widget, GdkDragContext *drag_context)
+static GdkDragAction _ask_action_on_drop(GtkWidget *widget,
+                                         GdkDragContext *drag_context,
+                                         gboolean link_only)
 {
     RunInfo ri = { NULL, GDK_ACTION_DEFAULT, NULL, FALSE };
     gulong unmap_handler;
@@ -426,6 +431,13 @@ static GdkDragAction _ask_action_on_drop(GtkWidget *widget, GdkDragContext *drag
     gtk_action_group_add_actions(act_grp, drop_menu_actions, G_N_ELEMENTS(drop_menu_actions), &ri);
     gtk_ui_manager_add_ui_from_string(ui, drop_menu_xml, -1, NULL);
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
+    if (link_only)
+    {
+        act = gtk_ui_manager_get_action(ui, "/popup/Copy");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/Move");
+        gtk_action_set_visible(act, FALSE);
+    }
     if (drag_context)
     {
         actions = gdk_drag_context_get_actions(drag_context);
@@ -483,12 +495,16 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 {
     FmPath* dest;
     GtkWidget* parent;
+    int can_drop;
 
     dest = fm_dnd_dest_get_dest_path(dd);
     g_debug("%d files-dropped!, info_type: %d", fm_path_list_get_length(files), info_type);
 
-    if(!fm_dnd_dest_can_receive_drop(dd->dest_file, dest,
-                                     fm_path_list_peek_head(files)))
+    can_drop = fm_dnd_dest_can_receive_drop(dd->dest_file, dest,
+                                            fm_path_list_peek_head(files));
+    if (can_drop == 0)
+        return FALSE;
+    if (action != GDK_ACTION_ASK && can_drop < 0) /* drop into itself only if ask */
         return FALSE;
 
     if(fm_file_info_is_desktop_entry(dd->dest_file))
@@ -502,7 +518,7 @@ static gboolean fm_dnd_dest_files_dropped(FmDndDest* dd, int x, int y,
 
     parent = gtk_widget_get_toplevel(dd->widget);
     if (action == GDK_ACTION_ASK) /* special handling for ask */
-        action = _ask_action_on_drop(dd->widget, dd->context);
+        action = _ask_action_on_drop(dd->widget, dd->context, can_drop < 0);
     switch((GdkDragAction)action)
     {
     case GDK_ACTION_MOVE:
@@ -914,6 +930,7 @@ GdkDragAction fm_dnd_dest_get_default_action(FmDndDest* dd,
     GdkDragAction action;
     FmFileInfo* dest = dd->dest_file;
     FmPath* dest_path;
+    int can_drop;
 
     if(!dest || !(dest_path = fm_file_info_get_path(dest)))
         /* query drag sources in any case */
@@ -960,8 +977,11 @@ query_sources:
         }
 #endif
         /* dest is an ordinary path, check if drop on it is supported */
-        if(!fm_dnd_dest_can_receive_drop(dest, dest_path,
-                                         fm_path_list_peek_head(dd->src_files)))
+        can_drop = fm_dnd_dest_can_receive_drop(dest, dest_path,
+                                                fm_path_list_peek_head(dd->src_files));
+        if (can_drop < 0 && fm_config->drop_default_action == FM_DND_DEST_DROP_ASK)
+            return GDK_ACTION_ASK;
+        else if (can_drop <= 0)
             action = 0;
         else
         {
