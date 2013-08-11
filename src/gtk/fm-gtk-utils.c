@@ -903,11 +903,30 @@ void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
  */
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_trash || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
+    FmFileOpsJob *job;
+    char *msg, *name;
+    int len;
+
+    if (fm_config->confirm_trash)
     {
-        FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-        fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
+        len = fm_path_list_get_length(files);
+        if (len == 1)
+        {
+            name = fm_path_display_basename(fm_path_list_peek_head(files));
+            msg = g_strdup_printf(_("Do you want to move the file '%s' to trash can?"), name);
+            g_free(name);
+        }
+        else
+            msg = g_strdup_printf(_("Do you want to move the %d selected files to trash can?"), len);
+        if (!fm_yes_no(parent, NULL, msg, TRUE))
+        {
+            g_free(msg);
+            return;
+        }
+        g_free(msg);
     }
+    job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 /**
@@ -947,8 +966,28 @@ static void fm_delete_files_internal(GtkWindow* parent, FmPathList* files)
  */
 void fm_delete_files(GtkWindow* parent, FmPathList* files)
 {
-    if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to delete the selected files?"), TRUE))
-        fm_delete_files_internal(parent, files);
+    char *msg, *name;
+    int len;
+
+    if (fm_config->confirm_del)
+    {
+        len = fm_path_list_get_length(files);
+        if (len == 1)
+        {
+            name = fm_path_display_basename(fm_path_list_peek_head(files));
+            msg = g_strdup_printf(_("Do you want to delete the file '%s'?"), name);
+            g_free(name);
+        }
+        else
+            msg = g_strdup_printf(_("Do you want to delete the %d selected files?"), len);
+        if (!fm_yes_no(parent, NULL, msg, TRUE))
+        {
+            g_free(msg);
+            return;
+        }
+        g_free(msg);
+    }
+    fm_delete_files_internal(parent, files);
 }
 
 /**
