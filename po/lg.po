@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-12 23:30+0000\n"
+"PO-Revision-Date: 2013-08-12 23:32+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1376350233.0\n"
+"X-POOTLE-MTIME: 1376350370.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -381,7 +381,7 @@ msgstr "_Biwandike"
 
 #: ../data/ui/filesearch.glade.h:23
 msgid "File _Type"
-msgstr " _Kika Kya Fayiro"
+msgstr "_Kika Kya Fayiro"
 
 #: ../data/ui/filesearch.glade.h:24
 msgid "<b>File Contain_s:</b>"
