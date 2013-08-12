@@ -49,7 +49,8 @@ struct _FmPath
     gint n_ref;
     FmPath* parent;
     char *disp_name;
-    GSList *children; /* children to reuse paths */
+    GSequenceIter *iter; /* iterator in parent, NULL for root path */
+    GSequence *children; /* children to reuse paths */
     guchar flags; /* FmPathFlags flags : 8; */
     char name[1]; /* basename: in local encoding if native, uri-escaped otherwise */
 };
@@ -87,6 +88,7 @@ static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
     path->parent = parent ? fm_path_ref(parent) : NULL;
     path->disp_name = NULL;
     path->children = NULL;
+    path->iter = NULL;
     return path;
 }
 
@@ -95,6 +97,15 @@ static inline FmPath* _fm_path_new_internal(FmPath* parent, const char* name, in
     FmPath* path = _fm_path_alloc(parent, name_len, flags);
     memcpy(path->name, name, name_len);
     path->name[name_len] = '\0';
+    if (parent)
+    {
+        G_LOCK(roots);
+        if (parent->children == NULL)
+            parent->children = g_sequence_new(NULL);
+        path->iter = g_sequence_insert_sorted(parent->children, path,
+                                              (GCompareDataFunc)fm_path_compare, NULL);
+        G_UNLOCK(roots);
+    }
     return path;
 }
 
@@ -260,7 +271,7 @@ on_error: /* this is not a valid URI */
  */
 static
 FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_len,
-                               gboolean dont_escape, gboolean make_child)
+                               gboolean dont_escape)
 {
     FmPath* path;
     gboolean append_slash = FALSE;
@@ -282,17 +293,12 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
             --name_len;
 
         /* special case for . and .. */
-        if(basename[0] == '.' && (name_len == 1 || (name_len == 2 && basename[1] == '.')))
+        if(basename[0] == '.')
         {
             if(name_len == 1) /* . */
-                return parent ? fm_path_ref(parent) : NULL;
-            else /* .. */
-            {
-                if(parent)
-                    return parent->parent ? fm_path_ref(parent->parent) : fm_path_ref(parent);
-                else
-                    return NULL;
-            }
+                return fm_path_ref(parent);
+            else if(name_len == 2 && basename[1] == '.') /* .. */
+                return parent->parent ? fm_path_ref(parent->parent) : fm_path_ref(parent);
         }
     }
     else /* this basename is root of the fs (no parent), it can be "/" or something like "ftp://user@host/" */
@@ -309,27 +315,9 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
         --name_len;
 
     if(name_len == 0)
-        return parent ? fm_path_ref(parent) : NULL;
+        return fm_path_ref(parent);
 
-    /* try to reuse existing path */
-    if (make_child)
-    {
-        GSList *l;
-
-        G_LOCK(roots);
-        for (l = parent->children; l; l = l->next)
-        {
-            path = l->data;
-            if (strncmp(path->name, basename, (size_t)name_len) == 0 &&
-                path->name[name_len] == '\0')
-            {
-                /* g_debug("found reusable path '%.*s'", name_len, basename); */
-                fm_path_ref(path);
-                G_UNLOCK(roots);
-                return path;
-            }
-        }
-    }
+    /* create path data first */
     if(dont_escape)
     {
         path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
@@ -354,19 +342,41 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     }
     else
         path->name[name_len] = '\0';
-    if (make_child)
+
+    G_LOCK(roots);
+    if (parent->children)
     {
-        parent->children = g_slist_prepend(parent->children, path);
-        G_UNLOCK(roots);
-        /* g_debug("new reusable fm_path: %s", path->name); */
+        GSequenceIter *iter;
+
+        /* try to reuse existing path */
+        iter = g_sequence_lookup(parent->children, path,
+                                 (GCompareDataFunc)fm_path_compare, NULL);
+        if (iter)
+        {
+                /* g_debug("found reusable path '%.*s'", name_len, basename); */
+            FmPath *np = fm_path_ref(g_sequence_get(iter));
+            G_UNLOCK(roots); /* we should not unref with lock up */
+            fm_path_unref(path); /* drop this path and reuse found one */
+            return np;
+        }
+        else
+            path->iter = g_sequence_insert_sorted(parent->children, path,
+                                                  (GCompareDataFunc)fm_path_compare,
+                                                  NULL);
     }
+    else
+    {
+        parent->children = g_sequence_new(NULL);
+        path->iter = g_sequence_append(parent->children, path);
+    }
+    G_UNLOCK(roots);
     return path;
 }
 
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     return _fm_path_new_child_len(parent, basename, name_len,
-                                  parent && fm_path_is_native(parent), FALSE);
+                                  parent && fm_path_is_native(parent));
 }
 
 /**
@@ -387,7 +397,7 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     {
         int baselen = strlen(basename);
         return _fm_path_new_child_len(parent, basename, baselen,
-                                      parent && fm_path_is_native(parent), FALSE);
+                                      parent && fm_path_is_native(parent));
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -456,13 +466,13 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             sep = strchr(rel, '/');
             if(sep)
             {
-                FmPath *new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE, TRUE);
+                FmPath *new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE);
                 path = fm_path_new_relative(new_parent, sep + 1);
                 fm_path_unref(new_parent);
             }
             else
             {
-                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE, FALSE);
+                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE);
             }
         }
     }
@@ -716,8 +726,10 @@ void fm_path_unref(FmPath* path)
         G_LOCK(roots);
         if(G_LIKELY(path->parent))
         {
-            path->parent->children = g_slist_remove(path->parent->children, path);
-            G_UNLOCK(roots);
+            if (G_LIKELY(path->iter))
+                g_sequence_remove(path->iter);
+                /* otherwise it's fresh abandoned one, see above */
+            G_UNLOCK(roots); /* we should not unref with lock up */
             fm_path_unref(path->parent);
         }
         else
@@ -727,7 +739,11 @@ void fm_path_unref(FmPath* path)
         }
         if (path->disp_name != BASENAME_AS_DISP_NAME)
             g_free(path->disp_name);
-        g_assert(path->children == NULL);
+        if (G_UNLIKELY(path->children))
+        {
+            g_assert(g_sequence_get_length(path->children) == 0);
+            g_sequence_free(path->children);
+        }
         g_free(path);
     }
 }
@@ -1252,15 +1268,7 @@ guint fm_path_hash(FmPath* path)
  * use this. */
 gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
-    if(p1 == p2)
-        return TRUE;
-    if(!p1) /* if p2 is also NULL then p1==p2 and that is handled above */
-        return FALSE;
-    if(!p2) /* case of p1==NULL handled above */
-        return FALSE;
-    if( strcmp(p1->name, p2->name) != 0 )
-        return FALSE;
-    return fm_path_equal( p1->parent, p2->parent);
+    return (p1 == p2);
 }
 
 /*

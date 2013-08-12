@@ -577,7 +577,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     case G_FILE_MONITOR_EVENT_CREATED:
     {
         /* make sure that the file is not already queued for addition. */
-        if(!g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare))
+        if(!g_slist_find(folder->files_to_add, path))
         {
             l = _fm_folder_get_file_by_path(folder, path);
             if(!l) /* it's new file */
@@ -585,7 +585,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
                 /* add the file name to queue for addition. */
                 folder->files_to_add = g_slist_append(folder->files_to_add, path);
             }
-            else if(g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare))
+            else if(g_slist_find(folder->files_to_update, path))
             {
                 /* file already queued for update, don't duplicate */
                 fm_path_unref(path);
@@ -609,8 +609,8 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     {
         /* make sure that the file is not already queued for changes or
          * it's already queued for addition. */
-        if(!g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare) &&
-           !g_slist_find_custom(folder->files_to_add, path, (GCompareFunc)fm_path_compare) &&
+        if(!g_slist_find(folder->files_to_update, path) &&
+           !g_slist_find(folder->files_to_add, path) &&
            _fm_folder_get_file_by_path(folder, path)) /* ensure it is our file */
         {
             folder->files_to_update = g_slist_append(folder->files_to_update, path);
@@ -625,14 +625,13 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
             folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
         /* if the file is already queued for addition or update, that operation
            will be just a waste, therefore cancel it right now */
-        sl = g_slist_find_custom(folder->files_to_update, path, (GCompareFunc)fm_path_compare);
+        sl = g_slist_find(folder->files_to_update, path);
         if(sl)
         {
             fm_path_unref(sl->data); /* free name */
             folder->files_to_update = g_slist_delete_link(folder->files_to_update, sl);
         }
-        else if((sl = g_slist_find_custom(folder->files_to_add, path,
-                                          (GCompareFunc)fm_path_compare)))
+        else if((sl = g_slist_find(folder->files_to_add, path)))
         {
             fm_path_unref(sl->data); /* free name */
             folder->files_to_add = g_slist_delete_link(folder->files_to_add, sl);
@@ -1134,7 +1133,7 @@ static GList* _fm_folder_get_file_by_path(FmFolder* folder, FmPath *path)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
         FmPath* lpath = fm_file_info_get_path(fi);
-        if(fm_path_equal(lpath, path))
+        if(lpath == path)
             return l;
     }
     return NULL;
@@ -1379,7 +1378,7 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
         g_hash_table_iter_init(&it, hash);
         while(g_hash_table_iter_next(&it, (gpointer*)&path, (gpointer*)&folder))
         {
-            if(fm_path_equal(path, mounted_path))
+            if(path == mounted_path)
                 queue_reload(folder);
             else if(fm_path_has_prefix(path, mounted_path))
             {
