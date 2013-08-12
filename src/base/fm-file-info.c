@@ -90,6 +90,7 @@ struct _FmFileInfo
     goffset size;
     time_t mtime;
     time_t atime;
+    time_t ctime;
 
     gulong blksize;
     goffset blocks;
@@ -202,6 +203,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
         fi->atime = st.st_atime;
+        fi->atime = st.st_ctime;
         fi->size = st.st_size;
         fi->dev = st.st_dev;
         fi->uid = st.st_uid;
@@ -632,6 +634,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
 
     fi->mtime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_MODIFIED);
     fi->atime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_ACCESS);
+    fi->ctime = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_TIME_CHANGED);
     fi->hidden = g_file_info_get_is_hidden(inf);
     fi->backup = g_file_info_get_is_backup(inf);
     fi->name_is_changeable = fi->icon_is_changeable = fi->hidden_is_changeable = FALSE;
@@ -881,6 +884,7 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
     fi->size = src->size;
     fi->mtime = src->mtime;
     fi->atime = src->atime;
+    fi->ctime = src->ctime;
 
     fi->blksize = src->blksize;
     fi->blocks = src->blocks;
@@ -1470,7 +1474,7 @@ time_t fm_file_info_get_mtime(FmFileInfo* fi)
 }
 
 /**
- * fm_file_info_get_mtime:
+ * fm_file_info_get_atime
  * @fi:  A FmFileInfo struct
  * 
  * Returns: file access time.
@@ -1478,6 +1482,21 @@ time_t fm_file_info_get_mtime(FmFileInfo* fi)
 time_t fm_file_info_get_atime(FmFileInfo* fi)
 {
     return fi->atime;
+}
+
+/**
+ * fm_file_info_get_ctime
+ * @fi: a file info to inspect
+ *
+ * Retrieves time when access right were changed last time for file @fi.
+ *
+ * Returns: file access change time.
+ *
+ * Since: 1.2.0
+ */
+time_t fm_file_info_get_ctime(FmFileInfo *fi)
+{
+    return fi->ctime;
 }
 
 /**

@@ -359,6 +359,7 @@ fm_file_info_get_atime
 fm_file_info_get_blocks
 fm_file_info_get_collate_key
 fm_file_info_get_collate_key_nocasefold
+fm_file_info_get_ctime
 fm_file_info_get_desc
 fm_file_info_get_dev
 fm_file_info_get_disp_mtime
