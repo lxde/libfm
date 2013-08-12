@@ -389,7 +389,14 @@ GAppInfo* fm_app_chooser_dlg_dup_selected_app(GtkDialog* dlg, gboolean* set_defa
                             for(l=all_apps;l;l=l->next)
                             {
                                 MenuCacheApp* ma = MENU_CACHE_APP(l->data);
-                                char* bin2 = get_binary(menu_cache_app_get_exec(ma), NULL);
+                                const char *exec = menu_cache_app_get_exec(ma);
+                                char* bin2;
+                                if (exec == NULL)
+                                {
+                                    g_warning("application %s has no Exec statement", menu_cache_item_get_id(MENU_CACHE_ITEM(ma)));
+                                    continue;
+                                }
+                                bin2 = get_binary(exec, NULL);
                                 if(g_strcmp0(bin1, bin2) == 0)
                                 {
                                     app = G_APP_INFO(g_desktop_app_info_new(menu_cache_item_get_id(MENU_CACHE_ITEM(ma))));
