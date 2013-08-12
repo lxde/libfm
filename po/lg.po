@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-12 23:32+0000\n"
+"PO-Revision-Date: 2013-08-12 23:41+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1376350370.0\n"
+"X-POOTLE-MTIME: 1376350863.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -667,9 +667,8 @@ msgid "Open _With..."
 msgstr "B_ikkuza..."
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "_Gyawo akakwatakifo"
+msgstr "_Kwata ekifo kino"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -733,9 +732,8 @@ msgid "Files of different types"
 msgstr "Fayiro ez'ebika ebyawufu"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Kika kya fayiro:</b>"
+msgstr "<b>Fayiro:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -779,9 +777,8 @@ msgid "Folder"
 msgstr "Tterekero"
 
 #: ../src/gtk/fm-folder-view.c:174
-#, fuzzy
 msgid "Empty File"
-msgstr "Tandika puloguramu eno"
+msgstr "Fayiro Njereere"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -792,14 +789,12 @@ msgid "_Sort Files"
 msgstr "_Sengeka fayiro"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "Fayiro gikyuse erinnya"
+msgstr "Fayiro _Gikyuse Erinnya"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Ebikwata ku fayiro"
+msgstr "E_bikwata ku Fayiro"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -843,26 +838,24 @@ msgstr "Wandikawo erinnya ly'etterekero erikoledwawo:"
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Nkolawo tterekero ppya"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Wandikawo erinnya erya fayiro ekoledwawo:"
+msgstr "Wandikawo erinnya erya fayiro njereere ekoledwawo:"
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "Kolawo..."
+msgstr "Nkolawo..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
 msgstr "Ntuma"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Wandikawo erinnya erya fayiro ekoledwawo:"
+msgstr "Wandikawo erinnya erya %s:"
 
 #: ../src/gtk/fm-folder-view.c:868
 #, fuzzy, c-format
