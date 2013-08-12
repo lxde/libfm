@@ -25,141 +25,18 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <gio/gdesktopappinfo.h>
 
-#include <menu-cache.h>
 #include "fm-gtk.h"
 #include "../glib-compat.h"
-
-/* support for libmenu-cache 0.4.x */
-#ifndef MENU_CACHE_CHECK_VERSION
-# ifdef HAVE_MENU_CACHE_DIR_LIST_CHILDREN
-#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) (_a == 0 && _b < 5) /* < 0.5.0 */
-# else
-#  define MENU_CACHE_CHECK_VERSION(_a,_b,_c) 0 /* not even 0.4.0 */
-# endif
-#endif
 
 static GtkDialog* dlg;
 static GtkComboBox* browser;
 static GtkComboBox* mail_client;
 
-static GList* browsers = NULL;
-static GList* mail_clients = NULL;
-
-/* examine desktop files under Internet and Office submenus to find out browsers and mail clients */
-static void init_apps(void)
-{
-    MenuCache* mc = menu_cache_lookup_sync("applications.menu");
-    MenuCacheDir* dir;
-    GKeyFile* kf;
-    char* fpath;
-    static const char* dir_paths[] = {"/Applications/Internet", "/Applications/Office"};
-    gsize i;
-    GDesktopAppInfo* app;
-
-    kf = g_key_file_new();
-    /* load additional custom apps from user config */
-    fpath = g_build_filename(g_get_user_config_dir(), "libfm/pref-apps.conf", NULL);
-    if(g_key_file_load_from_file(kf, fpath, 0, NULL))
-    {
-        char** desktop_ids;
-        gsize n;
-        desktop_ids = g_key_file_get_string_list(kf, "Preferred Applications", "CustomWebBrowsers", &n, NULL);
-        for(i=0; i<n; ++i)
-        {
-            app = g_desktop_app_info_new(desktop_ids[i]);
-            if(app)
-                browsers = g_list_prepend(browsers, app);
-        }
-        g_strfreev(desktop_ids);
-
-        desktop_ids = g_key_file_get_string_list(kf, "Preferred Applications", "CustomMailClients", &n, NULL);
-        for(i=0; i<n; ++i)
-        {
-            app = g_desktop_app_info_new(desktop_ids[i]);
-            if(app)
-                mail_clients = g_list_prepend(mail_clients, app);
-        }
-        g_strfreev(desktop_ids);
-    }
-    g_free(fpath);
-
-    if(!mc)
-        return;
-
-    for(i = 0; i < G_N_ELEMENTS(dir_paths); ++i)
-    {
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-        dir = (MenuCacheDir*)menu_cache_item_from_path(mc, dir_paths[i]);
-#else
-        dir = menu_cache_get_dir_from_path(mc, dir_paths[i]);
-#endif
-        if(dir)
-        {
-            GSList* l;
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-            GSList *list;
-            for(l = list = menu_cache_dir_list_children(dir);l;l=l->next)
-#else
-            for(l=menu_cache_dir_get_children(dir);l;l=l->next)
-#endif
-            {
-                MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
-                if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-                {
-                    /* workarounds for firefox since it doesn't have correct categories. */
-                    if((strcmp(menu_cache_item_get_id(item), "firefox.desktop") == 0) || (strcmp(menu_cache_item_get_id(item), "MozillaFirefox.desktop") == 0))
-                    {
-                        app = g_desktop_app_info_new(menu_cache_item_get_id(item));
-                        if(app)
-                            browsers = g_list_prepend(browsers, app);
-                        continue;
-                    }
-                    fpath = menu_cache_item_get_file_path(item);
-                    if(g_key_file_load_from_file(kf, fpath, 0, NULL))
-                    {
-                        gsize n;
-                        char** cats = g_key_file_get_string_list(kf, "Desktop Entry", "Categories", &n, NULL);
-                        if(cats)
-                        {
-                            char** cat;
-                            for(cat = cats; *cat; ++cat)
-                            {
-                                if(strcmp(*cat, "WebBrowser")==0)
-                                {
-                                    app = g_desktop_app_info_new(menu_cache_item_get_id(item));
-                                    if(app)
-                                        browsers = g_list_prepend(browsers, app);
-                                }
-                                else if(strcmp(*cat, "Email")==0)
-                                {
-                                    app = g_desktop_app_info_new(menu_cache_item_get_id(item));
-                                    if(app)
-                                        mail_clients = g_list_prepend(mail_clients, app);
-                                }
-                            }
-                            g_strfreev(cats);
-                        }
-                    }
-                    g_free(fpath);
-                }
-            }
-#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
-            g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
-            menu_cache_item_unref(MENU_CACHE_ITEM(dir));
-#endif
-        }
-    }
-    g_key_file_free(kf);
-
-    menu_cache_unref(mc);
-}
-
 int main(int argc, char** argv)
 {
     GtkBuilder* b;
-    GAppInfo* app;
+    FmMimeType *mt;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -179,37 +56,19 @@ int main(int argc, char** argv)
 
     /* make sure we're using menu from lxmenu-data */
     g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
-    init_apps();
 
-    app = g_app_info_get_default_for_uri_scheme("http");
-    fm_app_chooser_combo_box_setup_custom(browser, browsers, app);
-    g_list_foreach(browsers, (GFunc)g_object_unref, NULL);
-    g_list_free(browsers);
-    if(app)
-        g_object_unref(app);
-
-    app = g_app_info_get_default_for_uri_scheme("mailto");
-    fm_app_chooser_combo_box_setup_custom(mail_client, mail_clients, app);
-    g_list_foreach(mail_clients, (GFunc)g_object_unref, NULL);
-    g_list_free(mail_clients);
-    if(app)
-        g_object_unref(app);
+    mt = fm_mime_type_from_name("x-scheme-handler/http");
+    fm_app_chooser_combo_box_setup_for_mime_type(browser, mt);
+    fm_mime_type_unref(mt);
+    mt = fm_mime_type_from_name("x-scheme-handler/mailto");
+    fm_app_chooser_combo_box_setup_for_mime_type(mail_client, mt);
+    fm_mime_type_unref(mt);
 
     if(gtk_dialog_run(dlg) == GTK_RESPONSE_OK)
     {
-//        GKeyFile* kf = g_key_file_new();
-//        char* buf;
-//        gsize len, i;
         gboolean is_changed;
         GAppInfo* app;
         const GList* custom_apps, *l;
-        char* dir = g_build_filename(g_get_user_config_dir(), "libfm", NULL);
-//        char* fname = g_build_filename(dir, "pref-apps.conf", NULL);
-
-        g_mkdir_with_parents(dir, 0700); /* ensure the user config dir */
-        g_free(dir);
-
-//        g_key_file_load_from_file(kf, fname, G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
 
         /* get currently selected web browser */
         app = fm_app_chooser_combo_box_dup_selected_app(browser, &is_changed);
@@ -217,7 +76,6 @@ int main(int argc, char** argv)
         {
             if(is_changed)
             {
-//                g_key_file_set_string(kf, "Preferred Applications", "WebBrowser", g_app_info_get_id(app));
                 g_app_info_set_as_default_for_type(app, "x-scheme-handler/http", NULL);
                 g_app_info_set_as_default_for_type(app, "x-scheme-handler/https", NULL);
             }
@@ -226,24 +84,16 @@ int main(int argc, char** argv)
         custom_apps = fm_app_chooser_combo_box_get_custom_apps(browser);
         if(custom_apps)
         {
-//            const char** sl;
-//            len = g_list_length((GList*)custom_apps);
-//            sl = (const char**)g_new0(char*, len);
-//            for(i = 0, l=custom_apps;l;l=l->next, ++i)
             for(l=custom_apps;l;l=l->next)
             {
                 app = G_APP_INFO(l->data);
-//                sl[i] = g_app_info_get_id(app);
+                /* x-scheme-handler/http is set by chooser already */
 #if GLIB_CHECK_VERSION(2, 27, 6)
-                g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/http", NULL);
                 g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/https", NULL);
 #else
-                g_app_info_add_supports_type(app, "x-scheme-handler/http", NULL);
                 g_app_info_add_supports_type(app, "x-scheme-handler/https", NULL);
 #endif
             }
-//            g_key_file_set_string_list(kf, "Preferred Applications", "CustomWebBrowsers", sl, len);
-//            g_free(sl);
             /* custom_apps is owned by the combobox and shouldn't be freed. */
         }
 
@@ -252,54 +102,9 @@ int main(int argc, char** argv)
         if(app)
         {
             if(is_changed)
-            {
-                // g_key_file_set_string(kf, "Preferred Applications", "MailClient", g_app_info_get_id(app));
                 g_app_info_set_as_default_for_type(app, "x-scheme-handler/mailto", NULL);
-            }
             g_object_unref(app);
         }
-        custom_apps = fm_app_chooser_combo_box_get_custom_apps(mail_client);
-        if(custom_apps)
-        {
-//            const char** sl;
-//            len = g_list_length((GList*)custom_apps);
-//            sl = (const char**)g_new0(char*, len);
-//            for(i = 0, l=custom_apps;l;l=l->next, ++i)
-            for(l=custom_apps;l;l=l->next)
-            {
-                app = G_APP_INFO(l->data);
-#if GLIB_CHECK_VERSION(2, 27, 6)
-                g_app_info_set_as_last_used_for_type(app, "x-scheme-handler/mailto", NULL);
-#else
-                g_app_info_add_supports_type(app, "x-scheme-handler/mailto", NULL);
-#endif
-//                sl[i] = g_app_info_get_id(app);
-            }
-//            g_key_file_set_string_list(kf, "Preferred Applications", "CustomMailClients", sl, len);
-//            g_free(sl);
-            /* custom_apps is owned by the combobox and shouldn't be freed. */
-        }
-
-#if 0
-        /* XDG way with mimeapps.list do the thing, let not duplicate work */
-        buf = g_key_file_to_data(kf, &len, NULL);
-        if(buf)
-        {
-            char* pbuf;
-            /* remove leading '\n' */
-            if( buf[0] == '\n' )
-            {
-                pbuf = buf + 1;
-                --len;
-            }
-            else
-                pbuf = buf;
-            g_file_set_contents(fname, pbuf, len, NULL);
-            g_free(buf);
-        }
-        g_key_file_free(kf);
-        g_free(fname);
-#endif
     }
     gtk_widget_destroy((GtkWidget*)dlg);
 
