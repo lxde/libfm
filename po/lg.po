@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-09 21:44+0000\n"
+"POT-Creation-Date: 2013-07-24 00:29+0200\n"
+"PO-Revision-Date: 2013-08-12 23:30+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,22 +17,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1373406240.0\n"
+"X-POOTLE-MTIME: 1376350233.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Puloguramu ennondemu"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Kiragiro</b>"
+msgid "Choose An Application"
+msgstr "Londa puloguramu"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Kika kya fayiro ekinaabikkulibwa:</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "Puloguramu e_wangidwa ku kompyuta"
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>K_iragiro kya mu kiwandikiro:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "_Yandaaza"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "Omulimu gu_kolere okuva mu kiwandikiro"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr "_Ekiwandikiro kisagalewo nga ekiragiro kimaze okukolebwako"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -47,40 +66,37 @@ msgstr ""
 "  <b>%u</b>: We kaba waddawo ndagiriro ey'oku yintaneti emu\n"
 "  <b>%U</b>: We kabawaddawo ndagiriro ez'oku yintaneti ezisukkamu emu"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
-
-#: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
-msgid "C_ustom Command Line"
-msgstr "Wandika Eki_ragiriro Kyo"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Londa puloguramu"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "_Yandaaza"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "Omulimu gu_kolere okuva mu kiwandikiro"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "Puloguramu e_wangidwa ku kompyuta"
+"<b>_Linnya lya puloguramu (osobola okutegeka eno ebe nga bulijjo "
+"y'ekola)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgid "C_ustom Command Line"
+msgstr "W_andika Ekiragiriro Kya mu Kiwandikiro Ekikyo"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "Puloguramu erondedwa _y,eba ekola ku fayiro ez'ekika kino bulijjo"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Kakasa nti fayiro ezisangidwawo za kugyibwawo"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Buuka"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "_Kyusa erinnya"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Gyawo esangidwawo"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -90,53 +106,33 @@ msgstr ""
 "\n"
 "Fayiro eyo oyagala esooke egyibwewo"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Kakasa nti fayiro ezisangidwawo za kugyibwawo"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "Ekirondedwa ki_tegekebwe ne ku fayiro endala zonna eziriwo"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "Erinnya lya _fayiro:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Gyawo esangidwawo"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "_Kyusa erinnya"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Buuka"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "waddewo fayiro eno?"
 
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "Erinnya lya _fayiro:"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "Ekirondedwa ki_tegekebwe ne ku fayiro endala zonna eziriwo"
+
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>Ky_usamu ebirimu:</b>"
+msgid "Choose An Icon..."
+msgstr "Londa Kafaananyi..."
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
-msgid "Choose An Icon..."
-msgstr "Londa puloguramu"
+msgid "System icon theme"
+msgstr "Lubu lw'obufaananyi obuyunzi olukola ku sisitemu yonna"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "Fayiro ez'ebif_aananyi"
+msgstr "Fayiro z'ebifaananyi"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
-msgid "System icon theme"
-msgstr "Puloguramu eziteekateeka sisitemu"
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>Londa Kafaananyi Okuva mu:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -147,318 +143,300 @@ msgid "Execute in _Terminal"
 msgstr "Omulimu gukolere okuva mu _kiwandikiro"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Enteekateeka ya Ndukusa</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>Ky_usamu ebirimu:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Kika kya fayiro:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>_Guluupu:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Amabikkula agaasemba:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Amakyuka agaasemba:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>Obusangiro:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Nyini yo:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>B_ikkuza:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Ebbanga eritwalibwa ku disiki:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>Ebigambo ebiw'endukusa ez'enjawulo:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-#, fuzzy
-msgid "<b>Target file:</b>"
-msgstr "<b>Kigenderwa:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Obunene obw'endagiriro ya fayiro:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>_Tandika mulimu:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-#, fuzzy
-msgid "<b>_Name:</b>"
-msgstr "<b>_Nyini yo:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>_Laba ebirimu:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "Buli ayagala"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "Ebikwata ku fayiro"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "Bbule"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>_Linnya:</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "Bwereere"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Obusangiro:</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "Nyini fayiro yekka"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>Fayiro ey'ekigenderwa:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "Nyini fayiro n'aba mu guluupu ya yo bokka"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>Kika kya fayiro:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>B_ikkuza:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Londa puloguramu enaakozesebwanga okubikkula fayiro ez'ekika kino "
 
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Obunene obw'endagiriro ya fayiro:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Ebbanga eritwalibwa ku disiki:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Amakyuka agaasemba:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>Amabikkula agaasemba:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "_General"
+msgstr "_Ebitalibimu"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Nyini yo:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>_Guluupu:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>_Laba ebirimu:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>Ky_usamu ebirimu:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>_Tandika mulimu:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>Ebigambo ebiw'endukusa ez'enjawulo:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "Abakkirizibwa okulaba ebiri mu fayiro/tterekero"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "Abakkirizibwa okukyusa ebiri mu fayiro/tterekero"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "Abakkirizibwa okutandika omulimu guno oba okuyingira etterekero lino"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "Ebigambo ebifuula enkola y'omulimu ogukolebwa fayiro eno"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "Ebigambo ebifuga okuyingira mu tterekero lino"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>Enteekateeka ya Ndukusa</b>"
+
 #: ../data/ui/file-prop.glade.h:26
+msgid "_Permissions"
+msgstr "_Ndukusa"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "Bwereere"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "Olukusa olw'obwanannyini"
+
+#: ../data/ui/file-prop.glade.h:30
 msgid "Set GID"
 msgstr "Olukusa olwazika GID"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "Olukusa olw'obwanannyini n'olukusa oluyingiza mu guluupu"
+
+#: ../data/ui/file-prop.glade.h:32
 msgid "Set UID"
 msgstr "Olukusa olwazika UID"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:33
 msgid "Set UID & GID"
 msgstr ""
 "Olukusa olwazika obuyinza bwa nnyini fayiro n'olukusa oluyingiza mu guluupu"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "Ebigambo ebifuga okuyingira mu tterekero lino"
-
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "Ebigambo ebifuula enkola y'omulimu ogukolebwa fayiro eno"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "Olukusa olw'obwanannyini"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Olukusa olw'obwanannyini n'olukusa oluyingiza mu guluupu"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Abakkirizibwa okukyusa ebiri mu fayiro/tterekero"
-
 #: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Abakkirizibwa okutandika omulimu guno oba okuyingira etterekero lino"
+msgid "Only owner"
+msgstr "Nyini fayiro yekka"
 
 #: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "Abakkirizibwa okulaba ebiri mu fayiro/tterekero"
+msgid "Only owner and group"
+msgstr "Nyini fayiro n'aba mu guluupu ya yo bokka"
 
 #: ../data/ui/file-prop.glade.h:36
-msgid "_General"
-msgstr "_Ebitalibimu"
+msgid "Anyone"
+msgstr "Buli ayagala"
 
 #: ../data/ui/file-prop.glade.h:37
-msgid "_Permissions"
-msgstr "_Ndukusa"
+msgid "Nobody"
+msgstr "Bbule"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Bayiti"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Londa olunaku"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Londa olunaku okuva mu kalenda eno"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Noonyeza mu fayiro"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Ebisangibwa Mu _Manya Ga Fayiro:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "_Toyawula mu nnukuta nnene n'entono"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "_Noonyezesa emboozi ennoonya ebigifaanana"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>A_wanaanoonyezebwa:</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "_Noonyeza ne mu materekero agali munda mwa gannaago"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Kebera ne fayiro enk_ise"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Linnya/_Busangiro"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Kika Kya Fayiro</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Noonya fayiro ez'ebika bino byokka:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Fayiro ez'ebi_gambobugambo"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "Fayiro ez'ebif_aananyi"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "Fayiro ez'ebiw_ulirizibwa"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "Fayiro eza _vidiyo"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Biwandike"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr " _Kika Kya Fayiro"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>Ebi_sangibwa Mu Fayiro:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "Ebiri_mu"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Bunene Bwa Fayiro</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "_Ntono ku:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "Nn_ene ku:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Amakyuka Agaasemba</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "(Bbule)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-#, fuzzy
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>Ebi_sangibwa Mu Fayiro</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Bunene Bwa Fayiro</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Kika Kya Fayiro</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-#, fuzzy
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Ebisangibwa Mu _Manya Ga Fayiro:</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Amakyuka Agaasemba</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-#, fuzzy
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Awanaanoonyezebwa</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Bayiti"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "Ebiri_mu"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "_Toyawula mu nnukuta nnene n'entono"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Londa olunaku"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Londa olunaku okuva mu kalenda eno"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr " _Kika Kya Fayiro"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "Lu_vanyuma lwa:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Linnya/_Busangiro"
-
-#: ../data/ui/filesearch.glade.h:20
-#, fuzzy
-msgid "Only search for files of following types:"
-msgstr "Noonya fayiro ez'ebika bino byokka"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Noonyeza mu fayiro"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Kebera ne fayiro enk_ise"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Fayiro ez'ebi_gambobugambo"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "Fayiro ez'ebiw_ulirizibwa"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "Nn_ene ku:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "_Biwandike"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "_Dda okusinga:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "Fayiro ez'ebif_aananyi"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "Lu_vanyuma lwa:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "Ebi_kwata ku fayiro"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "_Noonyeza ne mu materekero agali munda mwa gannaago"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "_Ntono ku:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "_Noonyezesa emboozi ennoonya ebigifaanana"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "Fayiro eza _vidiyo"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>Puloguramu eya email</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Kika kya kiwandikiro</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Ekyandaaza</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Ekyandaaza ky'olonzemu kye kinaakozesebwanga okukebera ennyunzi."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Ekiragiro:"
+msgid "<b>Mail client</b>"
+msgstr "<b>Puloguramu eya email</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Ebika bya fayiro ne puloguramu ezibikolako"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Puloguramu eziteekateeka sisitemu"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
@@ -466,36 +444,48 @@ msgstr ""
 "Puloguramu ennondemu eya email y'enaatandikanga ng'okoonye ku ndagiriro eya "
 "email."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Kika kya kiwandikiro</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Ekiragiro:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Puloguramu eziteekateeka sisitemu"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Ekyandaaza ky'olonzemu kye kinaakozesebwanga okukebera ennyunzi."
+msgid "File Associations"
+msgstr "Ebika bya fayiro ne puloguramu ezibikolako"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Ntegeka..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Omulimu gubindabinda:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>We gutuuse:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Musangidwamu obuzibu buno:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Ebulayo:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Egende mu:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>We gutuuse:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Ebulayo:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Ntegeka..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Musangidwamu obuzibu buno:</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -524,7 +514,7 @@ msgstr ""
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Entegeka za libfm ebulamu ekika ky'ekiwandikiro"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -535,7 +525,7 @@ msgstr[1] "bayiti %u"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -1114,29 +1104,29 @@ msgstr "Ebifo"
 msgid "Directory Tree"
 msgstr "Enkwatagana y'amaterekero"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:801
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr ""
 
@@ -1185,33 +1175,33 @@ msgid "Setting target can be done only for single file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
+msgid "Empty <Name> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
+msgid "Tag <Not> should have exactly one child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
+msgid "Failed to insert tag <%s> from merging file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
+msgid "Invalid <MergeFile> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
+msgid "Invalid <MergeDir> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
@@ -1225,21 +1215,21 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
+msgid "Cannot find path %s in XML definitions"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
+msgid "Category manipulation internal error"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
+msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
+msgid "Menu path '%s' already exists"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
@@ -1310,7 +1300,7 @@ msgid "Cannot create menu item \"%s\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3226
@@ -1408,6 +1398,11 @@ msgstr "Londa puloguramu"
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
 msgstr ""
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+#, fuzzy
+msgid "_Desktop entry"
+msgstr "Awakolerwa"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
