@@ -77,6 +77,9 @@ static FmPath* network_root = NULL;*/
 static FmPath* apps_root_path = NULL;
 
 static GSList* roots = NULL;
+
+/* a lock for access to changeable data: roots list, and
+   members of FmPath struct: disp_name, iter, children */
 G_LOCK_DEFINE_STATIC(roots);
 
 static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
@@ -245,7 +248,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     buf[0] = '/'; /* the trailing / */
     buf[1] = '\0';
     if (disp_name)
-        path->disp_name = g_strdup(disp_name);
+        path->disp_name = g_strdup(disp_name); /* no lock required, it's new data */
     return path;
 
 on_error: /* this is not a valid URI */
@@ -737,6 +740,7 @@ void fm_path_unref(FmPath* path)
             roots = g_slist_remove(roots, path);
             G_UNLOCK(roots);
         }
+        /* no further lock required, it is removed from lists */
         if (path->disp_name != BASENAME_AS_DISP_NAME)
             g_free(path->disp_name);
         if (G_UNLIKELY(path->children))
@@ -994,10 +998,19 @@ char* fm_path_display_basename(FmPath* path)
 {
     if(G_UNLIKELY(!path->parent)) /* root_path element */
         return g_strdup(path->name);
-    if (path->disp_name == BASENAME_AS_DISP_NAME)
+    G_LOCK(roots);
+    if (G_LIKELY(path->disp_name == BASENAME_AS_DISP_NAME))
+    {
+        G_UNLOCK(roots);
         return g_strdup(path->name);
+    }
     if (path->disp_name)
-        return g_strdup(path->disp_name);
+    {
+        char *name = g_strdup(path->disp_name);
+        G_UNLOCK(roots);
+        return name;
+    }
+    G_UNLOCK(roots);
     if(!fm_path_is_native(path))
         return g_uri_unescape_string(path->name, NULL);
     return g_filename_display_name(path->name);
@@ -1016,11 +1029,15 @@ void _fm_path_set_display_name(FmPath *path, const char *disp_name)
         g_free(_name);
         return;
     }
+    G_LOCK(roots);
     if (path->disp_name != BASENAME_AS_DISP_NAME)
     {
         /* check if it is set already */
         if (g_strcmp0(disp_name, path->disp_name) == 0)
+        {
+            G_UNLOCK(roots);
             return;
+        }
         g_free(path->disp_name);
     }
     /* g_debug("set display name of %s to %s", path->name, disp_name); */
@@ -1032,13 +1049,28 @@ void _fm_path_set_display_name(FmPath *path, const char *disp_name)
         path->disp_name = BASENAME_AS_DISP_NAME;
     else
         path->disp_name = g_strdup(disp_name);
+    G_UNLOCK(roots);
 }
 
+/* use this to avoid change from another thread */
+static char *_display_name_static_keeper = NULL;
+
+/* this API is not thread capable! */
 const char *_fm_path_get_display_name(FmPath *path)
 {
+    G_LOCK(roots);
     if (path->disp_name == BASENAME_AS_DISP_NAME)
+    {
+        G_UNLOCK(roots);
         return path->name;
-    return path->disp_name;
+    }
+    g_free(_display_name_static_keeper);
+    /* use this to keep disp_name after returning from lock because another
+       thread may change it at that time, although _display_name_static_keeper
+       isn't protected by lock so should be protected by general glib lock */
+    _display_name_static_keeper = g_strdup(path->disp_name);
+    G_UNLOCK(roots);
+    return _display_name_static_keeper;
 }
 
 /**

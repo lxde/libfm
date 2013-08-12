@@ -869,6 +869,8 @@ void fm_file_info_unref(FmFileInfo* fi)
  * @fi:  A FmFileInfo struct
  * @src: another FmFileInfo struct
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Update the content of @fi by copying file info
  * stored in @src to @fi.
  */
@@ -930,6 +932,8 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
  *
  * Get the icon used to show the file in the file manager.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a FmIcon struct. The returned FmIcon struct is
  * owned by FmFileInfo and should not be freed.
  * If you need to keep it, use g_object_ref() to obtain a 
@@ -979,10 +983,11 @@ const char* fm_file_info_get_name(FmFileInfo* fi)
  * and may be different from the real file name on the 
  * filesystem.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const strin owned by FmFileInfo which should
  * not be freed.
  */
-/* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name(FmFileInfo* fi)
 {
     const char *disp_name = _fm_path_get_display_name(fi->path);
@@ -995,6 +1000,8 @@ const char* fm_file_info_get_disp_name(FmFileInfo* fi)
  * fm_file_info_set_path:
  * @fi:  A FmFileInfo struct
  * @path: a FmPath struct
+ *
+ * This API is not thread-safe and should be used only in default context.
  *
  * Change the path of the FmFileInfo.
  */
@@ -1056,6 +1063,8 @@ goffset fm_file_info_get_size(FmFileInfo* fi)
  * Get the size of the file as a human-readable string.
  * It's convinient for show the file size to the user.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed. (non-NULL)
  */
@@ -1090,6 +1099,8 @@ goffset fm_file_info_get_blocks(FmFileInfo* fi)
  * @fi:  A FmFileInfo struct
  *
  * Get the mime-type of the file.
+ *
+ * This API is not thread-safe and should be used only in default context.
  *
  * Returns: a FmMimeType struct owned by FmFileInfo which
  * should not be freed.
@@ -1193,6 +1204,8 @@ gboolean fm_file_info_is_mountable(FmFileInfo* fi)
  * fm_file_info_get_is_image:
  * @fi:  A FmFileInfo struct
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: TRUE if the file is a image file (*.jpg, *.png, ...).
  */
 gboolean fm_file_info_is_image(FmFileInfo* fi)
@@ -1206,6 +1219,8 @@ gboolean fm_file_info_is_image(FmFileInfo* fi)
 /**
  * fm_file_info_get_is_text:
  * @fi:  A FmFileInfo struct
+ *
+ * This API is not thread-safe and should be used only in default context.
  *
  * Returns: TRUE if the file is a plain text file.
  */
@@ -1231,6 +1246,8 @@ gboolean fm_file_info_is_desktop_entry(FmFileInfo* fi)
  * fm_file_info_get_is_unknown_type:
  * @fi:  A FmFileInfo struct
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: TRUE if the mime type of the file cannot be
  * recognized.
  */
@@ -1250,6 +1267,8 @@ gboolean fm_file_info_is_unknown_type(FmFileInfo* fi)
  * To check if a file is really executable by the current
  * user, you may need to call POSIX access() or euidaccess().
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: TRUE if the file is a kind of executable file,
  * such as shell script, python script, perl script, or 
  * binary executable file.
@@ -1330,6 +1349,8 @@ gboolean fm_file_info_is_backup(FmFileInfo* fi)
  * fm_file_info_get_can_thumbnail:
  * @fi:  A FmFileInfo struct
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: TRUE if the the file manager can try to 
  * generate a thumbnail for the file.
  */
@@ -1353,6 +1374,8 @@ gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)
  * filename sorting. The keys of different files 
  * can be compared with strcmp() directly.
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed.
  */
@@ -1394,6 +1417,8 @@ const char* fm_file_info_get_collate_key(FmFileInfo* fi)
  * with strcmp() directly. Returned data are owned by FmFileInfo and
  * should be not freed by caller.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * See also: fm_file_info_get_collate_key().
  *
  * Returns: collate string.
@@ -1433,6 +1458,8 @@ const char* fm_file_info_get_collate_key_nocasefold(FmFileInfo* fi)
  *
  * Get the target of a symlink or a shortcut.
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed. NULL if the file is not a symlink or
  * shortcut.
@@ -1448,6 +1475,8 @@ const char* fm_file_info_get_target(FmFileInfo* fi)
  * 
  * Get a human-readable description for the file.
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed.
  */
@@ -1464,6 +1493,8 @@ const char* fm_file_info_get_desc(FmFileInfo* fi)
  * Get a human-readable string for showing file modification
  * time in the UI.
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed.
  */
@@ -1553,6 +1584,8 @@ gid_t fm_file_info_get_gid(FmFileInfo* fi)
  * This is only applicable when the file is on a remote
  * filesystem. e.g. fm_file_info_is_native() returns FALSE.
  * 
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: a const string owned by FmFileInfo which should
  * not be freed.
  */
