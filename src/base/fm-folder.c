@@ -78,6 +78,7 @@ struct _FmFolder
     gboolean filesystem_info_pending;
     gboolean wants_incremental;
     guint idle_reload_handler;
+    gboolean stop_emission; /* don't set it 1 bit to not lock other bits */
 
     /* filesystem info - set in query thread, read in main */
     guint64 fs_total_size;
@@ -413,6 +414,7 @@ static gboolean on_idle(FmFolder* folder)
 {
     GSList* l;
     FmFileInfoJob* job = NULL;
+    gboolean stop_emission;
 
     /* check if folder still exists */
     if(g_source_is_destroyed(g_main_current_source()))
@@ -420,6 +422,15 @@ static gboolean on_idle(FmFolder* folder)
         return FALSE;
     }
     g_object_ref(folder);
+    folder->idle_handler = 0;
+    stop_emission = folder->stop_emission;
+    G_UNLOCK(query);
+
+    /* if we were asked to block updates let delay it for now */
+    if (stop_emission)
+        goto _finish;
+
+    /* g_debug("folder: on_idle() started"); */
 
     if(folder->files_to_update || folder->files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
@@ -487,7 +498,6 @@ static gboolean on_idle(FmFolder* folder)
     }
 
     G_LOCK(query);
-    folder->idle_handler = 0;
     if(folder->filesystem_info_pending)
     {
         folder->filesystem_info_pending = FALSE;
@@ -496,6 +506,8 @@ static gboolean on_idle(FmFolder* folder)
     }
     else
         G_UNLOCK(query);
+    /* g_debug("folder: on_idle() done"); */
+_finish:
     g_object_unref(folder);
 
     return FALSE;
@@ -1335,6 +1347,64 @@ void fm_folder_query_filesystem_info(FmFolder* folder)
                 g_object_ref(folder));
     }
     G_UNLOCK(query);
+}
+
+/**
+ * fm_folder_find_by_path
+ * @path: path descriptor
+ *
+ * Checks if folder by @path is already in use.
+ *
+ * Returns: (transfer full): found folder or %NULL.
+ *
+ * Since: 1.2.0
+ */
+FmFolder *fm_folder_find_by_path(FmPath *path)
+{
+    FmFolder *folder = (FmFolder*)g_hash_table_lookup(hash, path);
+
+    return folder ? g_object_ref(folder) : NULL;
+}
+
+/**
+ * fm_folder_block_updates
+ * @folder: folder to apply
+ *
+ * Blocks emitting signals for changes in folder, i.e. if some file was
+ * added, changed, or removed in folder after this API, no signal will be
+ * sent until next call to fm_folder_unblock_updates().
+ *
+ * Since: 1.2.0
+ */
+void fm_folder_block_updates(FmFolder *folder)
+{
+    /* g_debug("fm_folder_block_updates %p", folder); */
+    G_LOCK(query);
+    /* just set the flag */
+    folder->stop_emission = TRUE;
+    G_UNLOCK(query);
+}
+
+/**
+ * fm_folder_unblock_updates
+ * @folder: folder to apply
+ *
+ * Unblocks emitting signals for changes in folder. If some changes were
+ * in folder after previous call to fm_folder_block_updates() then these
+ * changes will be sent after this call.
+ *
+ * Since: 1.2.0
+ */
+void fm_folder_unblock_updates(FmFolder *folder)
+{
+    /* g_debug("fm_folder_unblock_updates %p", folder); */
+    G_LOCK(query);
+    folder->stop_emission = FALSE;
+    /* query update now */
+    if(!folder->idle_handler)
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    G_UNLOCK(query);
+    /* g_debug("fm_folder_unblock_updates OK"); */
 }
 
 static void fm_folder_content_changed(FmFolder* folder)

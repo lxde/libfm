@@ -522,6 +522,8 @@ fm_show_file_properties
 <TITLE>FmFolder</TITLE>
 FmFolder
 FmFolderClass
+fm_folder_block_updates
+fm_folder_find_by_path
 fm_folder_from_gfile
 fm_folder_from_path
 fm_folder_from_path_name
@@ -537,6 +539,7 @@ fm_folder_is_loaded
 fm_folder_is_valid
 fm_folder_query_filesystem_info
 fm_folder_reload
+fm_folder_unblock_updates
 <SUBSECTION Standard>
 FM_FOLDER
 FM_FOLDER_CLASS

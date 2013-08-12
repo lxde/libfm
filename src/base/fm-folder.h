@@ -2,6 +2,7 @@
  *      fm-folder.h
  *
  *      Copyright 2009-2012 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -88,6 +89,10 @@ FmFolder*   fm_folder_from_path(FmPath* path);
 FmFolder*   fm_folder_from_gfile(GFile* gf);
 FmFolder*   fm_folder_from_path_name(const char* path);
 FmFolder*   fm_folder_from_uri(const char* uri);
+
+FmFolder *fm_folder_find_by_path(FmPath *path);
+void fm_folder_block_updates(FmFolder *folder);
+void fm_folder_unblock_updates(FmFolder *folder);
 
 FmFileInfo* fm_folder_get_info(FmFolder* folder);
 FmPath* fm_folder_get_path(FmFolder* folder);

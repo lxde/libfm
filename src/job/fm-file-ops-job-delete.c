@@ -29,6 +29,7 @@
 #include "fm-monitor.h"
 #include "fm-config.h"
 #include "fm-file.h"
+#include "fm-folder.h"
 #include <glib/gi18n-lib.h>
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -217,6 +218,8 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
     FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_PREPARE_DELETE);
     FmJob* fmjob = FM_JOB(job);
     GFileMonitor* old_mon;
+    FmPath *path, *parent = NULL;
+    FmFolder *parent_folder = NULL;
 
     /* let the deep count job share the same cancellable */
     fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(fmjob));
@@ -238,8 +241,28 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
     l = fm_path_list_peek_head_link(job->srcs);
     for(; ! fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
-        GFile* src = fm_path_to_gfile(FM_PATH(l->data));
+        GFile* src;
 
+        path = FM_PATH(l->data);
+        if (fm_path_get_parent(path) != parent && fm_path_get_parent(path) != NULL)
+        {
+            FmFolder *pf = fm_folder_find_by_path(fm_path_get_parent(path));
+            if (pf != parent_folder)
+            {
+                if (parent_folder)
+                {
+                    fm_folder_unblock_updates(parent_folder);
+                    g_object_unref(parent_folder);
+                }
+                if (pf)
+                    fm_folder_block_updates(pf);
+                parent_folder = pf;
+            }
+            else if (pf)
+                g_object_unref(pf);
+        }
+        parent = fm_path_get_parent(path);
+        src = fm_path_to_gfile(path);
         job->src_folder_mon = NULL;
         if(!g_file_is_native(src))
         {
@@ -256,6 +279,11 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
 
         if(job->src_folder_mon)
             g_object_unref(job->src_folder_mon);
+    }
+    if (parent_folder)
+    {
+        fm_folder_unblock_updates(parent_folder);
+        g_object_unref(parent_folder);
     }
     job->src_folder_mon = old_mon;
     return ret;
