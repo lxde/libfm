@@ -284,6 +284,13 @@ Changes on 1.2.0 since 1.1.0:
 
 * Added API to suspend execution of running FmJob.
 
+* Added 'list_view_size_units' option into config file, unset by default,
+    if set then defines which units will be used in the Size column in
+    Detailed List View mode, similar to those used in 'du' Unix utility:
+    'h' for ISO units, 'H' for SI units, 'k' for KiB, 'm' for MiB, 'g'
+    for GiB, 'K' for kB, 'M' for MB, 'G' for GB. If not set then default
+    mode (by 'si_unit' config option) will be used.
+
 
 Changes on 1.1.0 since 1.0.1:
 

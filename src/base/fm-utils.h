@@ -63,6 +63,7 @@ int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                          char** ret, gpointer user_data);
 
 char* fm_file_size_to_str(char* buf, size_t buf_size, goffset size, gboolean si_prefix);
+char *fm_file_size_to_str2(char *buf, size_t buf_size, goffset size, char size_units);
 
 gboolean fm_key_file_get_int(GKeyFile* kf, const char* grp, const char* key, int* val);
 gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gboolean* val);

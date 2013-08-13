@@ -269,6 +269,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "places", "places_applications", &cfg->places_applications);
     fm_key_file_get_bool(kf, "places", "places_network", &cfg->places_network);
     fm_key_file_get_bool(kf, "places", "places_unmounted", &cfg->places_unmounted);
+    g_free(cfg->list_view_size_units);
+    cfg->list_view_size_units = g_key_file_get_string(kf, "ui", "list_view_size_units", NULL);
 }
 
 /**
@@ -448,6 +450,9 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_int(str, cfg, thumbnail_size);
                 _save_config_bool(str, cfg, show_thumbnail);
                 _save_config_bool(str, cfg, shadow_hidden);
+                if (cfg->list_view_size_units && cfg->list_view_size_units[0])
+                    cfg->list_view_size_units[1] = '\0'; /* leave only 1 char */
+                _save_config_string(str, cfg, list_view_size_units);
             g_string_append(str, "\n[places]\n");
                 _save_config_bool(str, cfg, places_home);
                 _save_config_bool(str, cfg, places_desktop);

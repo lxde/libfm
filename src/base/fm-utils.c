@@ -43,6 +43,7 @@
 #include <string.h>
 #include "fm-utils.h"
 #include "fm-file-info-job.h"
+#include "fm-config.h"
 
 #define BI_KiB  ((gdouble)1024.0)
 #define BI_MiB  ((gdouble)1024.0 * 1024.0)
@@ -69,31 +70,80 @@
  */
 char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si_prefix )
 {
+    return fm_file_size_to_str2(buf, buf_size, size, si_prefix ? 'H' : 'h');
+}
+
+/**
+ * fm_file_size_to_str2
+ * @buf: pointer to array to make a string
+ * @buf_size: size of @buf
+ * @size: number to convert
+ * @size_units: type of units to convert
+ *
+ * Converts @size into text representation of form "21.4 kiB" for example.
+ * The @size_units defines which unit will be selected to convert (similar
+ * to ones that 'du' utility uses):
+ * - b : bytes
+ * - k : KiB (1024 bytes)
+ * - m : MiB (1048576 bytes)
+ * - g : GiB (1073741824 bytes)
+ * - K : kB (1000 bytes)
+ * - M : MB (1000000 bytes)
+ * - G : GB (1000000000 bytes)
+ * - h : adaptive in IEC units
+ * - H : adaptive in SI units
+ *
+ * Returns: @buf.
+ *
+ * Since: 0.1.0
+ */
+char *fm_file_size_to_str2(char *buf, size_t buf_size, goffset size, char size_units)
+{
     const char * unit;
     gdouble val;
 
-    if( si_prefix ) /* 1000 based SI units */
+    switch (size_units)
     {
+    case 'b': case 'B':
+        goto _b;
+    case 'k':
+        val = (gdouble)size;
+        goto _kib;
+    case 'K':
+        val = (gdouble)size;
+        goto _kb;
+    case 'm':
+        val = (gdouble)size;
+        goto _mib;
+    case 'M':
+        val = (gdouble)size;
+        goto _mb;
+    case 'g':
+        val = (gdouble)size;
+        goto _gib;
+    case 'G':
+        val = (gdouble)size;
+        goto _gb;
+    case 'H': /* 1000 based SI units */
+_si:
         if(size < (goffset)SI_KB)
-        {
-            snprintf(buf, buf_size,
-                     dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
-                     (guint)size);
-            return buf;
-        }
+            goto _b;
         val = (gdouble)size;
         if(val < SI_MB)
         {
+_kb:
             val /= SI_KB;
             unit = _("kB");
         }
         else if(val < SI_GB)
         {
+_mb:
             val /= SI_MB;
             unit = _("MB");
         }
         else if(val < SI_TB)
         {
+_gb:
             val /= SI_GB;
             unit = _("GB");
         }
@@ -102,11 +152,14 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
             val /= SI_TB;
             unit = _("TB");
         }
-    }
-    else /* 1024-based binary prefix */
-    {
+        break;
+    default:
+        if(fm_config->si_unit)
+            goto _si;
+    case 'h': /* 1024-based binary prefix */
         if(size < (goffset)BI_KiB)
         {
+_b:
             snprintf(buf, buf_size,
                      dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
                      (guint)size);
@@ -115,16 +168,19 @@ char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si
         val = (gdouble)size;
         if(val < BI_MiB)
         {
+_kib:
             val /= BI_KiB;
             unit = _("KiB");
         }
         else if(val < BI_GiB)
         {
+_mib:
             val /= BI_MiB;
             unit = _("MiB");
         }
         else if(val < BI_TiB)
         {
+_gib:
             val /= BI_GiB;
             unit = _("GiB");
         }
