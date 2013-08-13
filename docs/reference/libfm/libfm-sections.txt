@@ -780,6 +780,8 @@ fm_job_get_cancellable
 fm_job_init_cancellable
 fm_job_is_cancelled
 fm_job_is_running
+fm_job_pause
+fm_job_resume
 fm_job_run_async
 fm_job_run_sync
 fm_job_run_sync_with_mainloop

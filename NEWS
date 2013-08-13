@@ -277,6 +277,13 @@ Changes on 1.2.0 since 1.1.0:
     is set to 'ask' - it shows 'Link' and 'Cancel' choices therefore it
     is possible to create symbolic link onto the file by drag&drop.
 
+* If last access right change time is available for file then it will be
+    shown in the file properties dialog.
+
+* Broken symlinks are shown with appropriate icon "dialog-warning".
+
+* Added API to suspend execution of running FmJob.
+
 
 Changes on 1.1.0 since 1.0.1:
 

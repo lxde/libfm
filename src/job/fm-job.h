@@ -90,6 +90,13 @@ struct _FmJob
 
     /* optional, should be created if the job uses gio */
     GCancellable* cancellable;
+    /* used for suspending the job */
+    gboolean suspended;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    GRecMutex stop;
+#else
+    GStaticRecMutex stop;
+#endif
 
     /*< private >*/
     gpointer _reserved1;
@@ -219,6 +226,9 @@ FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity s
 gint fm_job_ask(FmJob* job, const char* question, ...);
 gint fm_job_askv(FmJob* job, const char* question, gchar* const *options);
 gint fm_job_ask_valist(FmJob* job, const char* question, va_list options);
+
+gboolean fm_job_pause(FmJob *job);
+void fm_job_resume(FmJob *job);
 
 G_END_DECLS
 
