@@ -522,3 +522,31 @@ char *fm_uri_subpath_to_native_subpath(const char *subpath, GError **error)
     g_free(unescaped);
     return native;
 }
+
+/**
+ * fm_strcatv
+ * @strvp: pointer to strings list
+ * @astrv: (allow-none): list of strings to append
+ *
+ * Appends string list @astrv to @strvp replacing it.
+ *
+ * Since: 1.2.0
+ */
+void fm_strcatv(char ***strvp, char * const *astrv)
+{
+    guint i, len, len2;
+    char **new_strv;
+
+    if (astrv == NULL || *astrv == NULL) /* empty list */
+        return;
+    len = *strvp ? g_strv_length(*strvp) : 0;
+    len2 = g_strv_length((char **)astrv);
+    new_strv = g_new(char *, len + len2 + 1);
+    for (i = 0; i < len; i++)
+        new_strv[i] = (*strvp)[i];
+    for (i = 0; i < len2; i++)
+        new_strv[len+i] = g_strdup(astrv[i]);
+    new_strv[len+i] = NULL;
+    g_free(*strvp);
+    *strvp = new_strv;
+}

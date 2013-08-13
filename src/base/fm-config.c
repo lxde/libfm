@@ -50,6 +50,8 @@ enum
 /* global config object */
 FmConfig* fm_config = NULL;
 
+static guint _system_blacklist_length = 0;
+
 static guint signals[N_SIGNALS];
 
 static void fm_config_finalize              (GObject *object);
@@ -213,6 +215,8 @@ static void _parse_drop_default_action(GKeyFile *kf, gint *action)
  */
 void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 {
+    char **strv;
+
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_int(kf, "config", "auto_selection_delay", &cfg->auto_selection_delay);
@@ -238,10 +242,12 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
-    g_strfreev(cfg->modules_blacklist);
+    /* append blacklist */
+    strv = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
+    fm_strcatv(&cfg->modules_blacklist, strv);
+    g_strfreev(strv);
+    /* replace whitelist */
     g_strfreev(cfg->modules_whitelist);
-    /* FIXME: append lists instead */
-    cfg->modules_blacklist = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
     cfg->modules_whitelist = g_key_file_get_string_list(kf, "config", "modules_whitelist", NULL, NULL);
 
 #ifdef USE_UDISKS
@@ -287,6 +293,9 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     char *path;
     GKeyFile* kf = g_key_file_new();
 
+    _system_blacklist_length = 0;
+    g_strfreev(cfg->modules_blacklist);
+    cfg->modules_blacklist = NULL;
     if(G_LIKELY(!name))
         name = "libfm/libfm.conf";
     else
@@ -311,6 +320,8 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     if(g_key_file_load_from_file(kf, path, 0, NULL))
         fm_config_load_from_key_file(cfg, kf);
     g_free(path);
+    if (cfg->modules_blacklist)
+        _system_blacklist_length = g_strv_length(cfg->modules_blacklist);
     path = g_build_filename(g_get_user_config_dir(), name, NULL);
     if(g_key_file_load_from_file(kf, path, 0, NULL))
         fm_config_load_from_key_file(cfg, kf);
@@ -332,13 +343,17 @@ _out:
     if (_cfg_->_name_ != NULL) \
         g_string_append_printf(_str_, #_name_ "=%s\n", _cfg_->_name_)
 
-#define _save_config_strv(_str_,_cfg_,_name_) do {\
+#define _save_config_strv(_str_,_cfg_,_name_,_shift_) do {\
     if(_cfg_->_name_ != NULL && _cfg_->_name_[0] != NULL) \
     { \
         char **list, *c; \
+        guint idx = 0; \
         g_string_append(_str_, #_name_ "="); \
         for (list = _cfg_->_name_; (c = *list); list++) \
         { \
+            idx++; \
+            if (idx <= _shift_) \
+                continue; \
             while (*c) \
             { \
                 if (G_UNLIKELY(*c == '\\')) \
@@ -424,8 +439,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_string(str, cfg, archiver);
                 _save_config_bool(str, cfg, thumbnail_local);
                 _save_config_int(str, cfg, thumbnail_max);
-                _save_config_strv(str, cfg, modules_blacklist);
-                _save_config_strv(str, cfg, modules_whitelist);
+                _save_config_strv(str, cfg, modules_blacklist, _system_blacklist_length);
+                _save_config_strv(str, cfg, modules_whitelist, 0);
             g_string_append(str, "\n[ui]\n");
                 _save_config_int(str, cfg, big_icon_size);
                 _save_config_int(str, cfg, small_icon_size);
