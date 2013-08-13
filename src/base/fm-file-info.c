@@ -203,7 +203,7 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         fi->mode = st.st_mode;
         fi->mtime = st.st_mtime;
         fi->atime = st.st_atime;
-        fi->atime = st.st_ctime;
+        fi->ctime = st.st_ctime;
         fi->size = st.st_size;
         fi->dev = st.st_dev;
         fi->uid = st.st_uid;
