@@ -47,6 +47,7 @@
  * - GtkLabel (id size_on_disk) : label: "Size on Disk", id size_on_disk_label
  * - GtkLabel (id mtime)        : label: "Last Modification", id mtime_label
  * - GtkLabel (id atime)        : label: "Last Access", id atime_label
+ * - GtkLabel (id ctime)        : (hidden) label: "Last Permissions Change", id ctime_label
  *
  * Tab 2: id permissions_tab, contains items inside:
  * - GtkEntry (id owner)        : label: "Owner", id owner_label
@@ -171,6 +172,8 @@ struct _FmFilePropData
     GtkWidget* mtime_label;
     GtkLabel* atime;
     GtkWidget* atime_label;
+    GtkLabel* ctime;
+    GtkWidget* ctime_label;
 
     /* Permissions page */
     GtkWidget* permissions_tab;
@@ -1310,6 +1313,15 @@ static void update_ui(FmFilePropData* data)
             gtk_widget_destroy(data->atime_label);
             gtk_widget_destroy(GTK_WIDGET(data->atime));
         }
+        atime = fm_file_info_get_ctime(data->fi);
+        if(atime > 0 && data->ctime)
+        {
+            localtime_r(&atime, &tm);
+            strftime(buf, sizeof(buf), "%x %R", &tm);
+            gtk_label_set_text(data->ctime, buf);
+            gtk_widget_show(data->ctime_label);
+            gtk_widget_show(GTK_WIDGET(data->ctime));
+        }
         if (!fm_file_info_can_set_name(data->fi) ||
             fm_file_info_is_shortcut(data->fi))
         {
@@ -1412,6 +1424,8 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_WIDGET,mtime_label);
     GET_WIDGET(GTK_LABEL,atime);
     GET_WIDGET(GTK_WIDGET,atime_label);
+    GET_WIDGET(GTK_LABEL,ctime);
+    GET_WIDGET(GTK_WIDGET,ctime_label);
 
     GET_WIDGET(GTK_WIDGET,permissions_tab);
     GET_WIDGET(GTK_ENTRY,owner);
