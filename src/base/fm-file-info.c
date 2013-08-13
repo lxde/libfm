@@ -212,7 +212,13 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         /* handle symlinks: use target to retrieve its info */
         if(S_ISLNK(st.st_mode))
         {
-            stat(path, &st);
+            if (stat(path, &st) < 0)
+            {
+                /* g_debug("invalid symlink: %s", strerror(errno)); */
+                fi->icon = fm_icon_from_name("dialog-warning");
+                /* we cannot test broken symlink so skip all tests */
+                get_fast = TRUE;
+            }
             fi->target = g_file_read_link(path, NULL);
         }
 
