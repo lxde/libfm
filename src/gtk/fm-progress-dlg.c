@@ -163,6 +163,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     const char* disp_size;
     FmPath* path;
     FmIcon* icon;
+    FmFileOpOption options;
 
     /* return default operation if the user has set it */
     if(data->default_opt)
@@ -225,6 +226,23 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
     gtk_label_set_text(dest_fi, tmp);
     g_free(tmp);
+
+    options = fm_file_ops_job_get_options(job);
+    if (!(options & FM_FILE_OP_RENAME))
+    {
+        GtkWidget *widget = GTK_WIDGET(gtk_builder_get_object(builder, "rename"));
+        gtk_widget_destroy(widget);
+    }
+    if (!(options & FM_FILE_OP_OVERWRITE))
+    {
+        GtkWidget *widget = GTK_WIDGET(gtk_builder_get_object(builder, "overwrite"));
+        gtk_widget_destroy(widget);
+    }
+    if (!(options & FM_FILE_OP_SKIP))
+    {
+        GtkWidget *widget = GTK_WIDGET(gtk_builder_get_object(builder, "skip"));
+        gtk_widget_destroy(widget);
+    }
 
     tmp = g_filename_display_name(fm_path_get_basename(path));
     gtk_entry_set_text(filename, tmp);

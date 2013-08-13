@@ -469,6 +469,7 @@ fm_file_ops_job_emit_cur_file
 fm_file_ops_job_emit_percent
 fm_file_ops_job_emit_prepared
 fm_file_ops_job_get_dest
+fm_file_ops_job_get_options
 fm_file_ops_job_new
 fm_file_ops_job_set_chmod
 fm_file_ops_job_set_chown

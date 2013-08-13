@@ -185,6 +185,9 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
      * in the directory @dest. Signal handler should find a decision how
      * to resolve the situation. If there is more than one handler connected
      * to the signal then only one of them will receive it.
+     * Implementations are expected to inspect supported options for the
+     * decision calling fm_file_ops_job_get_options(). Behavior when
+     * handler returns unsupported option is undefined.
      *
      * Return value: a #FmFileOpOption decision.
      *
@@ -557,6 +560,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     GList* l;
     FmJob* fmjob = FM_JOB(job);
 
+    job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP;
     dest_dir = fm_path_to_gfile(job->dest);
 
     /* cannot create links on non-native filesystems */
@@ -625,7 +629,6 @@ _link_error:
                         fm_job_cancel(fmjob);
                         break;
                     case FM_FILE_OP_OVERWRITE:
-                        /* FIXME: how to disable that option? */
                         /* we do not support overwrite */
                     case FM_FILE_OP_SKIP:
                         break;
@@ -769,4 +772,21 @@ void fm_file_ops_job_set_target(FmFileOpsJob *job, const char *url)
     g_return_if_fail(FM_IS_FILE_OPS_JOB(job));
     g_free(job->target);
     job->target = g_strdup(url);
+}
+
+/**
+ * fm_file_ops_job_get_options
+ * @job: a job to set
+ *
+ * Retrieves bitmask set of options that are supported as return of the
+ * #FmFileOpsJob::ask-rename signal handler.
+ *
+ * Returns: list of options.
+ *
+ * Since: 1.2.0
+ */
+FmFileOpOption fm_file_ops_job_get_options(FmFileOpsJob* job)
+{
+    g_return_val_if_fail(FM_IS_FILE_OPS_JOB(job), 0);
+    return job->supported_options;
 }
