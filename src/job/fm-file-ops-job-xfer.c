@@ -94,6 +94,7 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileI
     /* FIXME: g_file_get_child() failed? generate error! */
     g_return_val_if_fail(dest != NULL, FALSE);
 
+    job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP | FM_FILE_OP_OVERWRITE;
     if( G_LIKELY(inf) )
         g_object_ref(inf);
     else
@@ -473,6 +474,7 @@ gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* in
     gboolean ret = TRUE;
     GFile* new_dest = NULL;
 
+    job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP | FM_FILE_OP_OVERWRITE;
     if( G_LIKELY(inf) )
         g_object_ref(inf);
     else

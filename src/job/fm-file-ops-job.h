@@ -127,6 +127,8 @@ struct _FmFileOpsJob
     char *target;
     gint8 set_hidden;
 
+    FmFileOpOption supported_options;
+
     /* dummy file monitors, used to simulate file event for remote file systems */
     GFileMonitor* src_folder_mon;
     GFileMonitor* dest_folder_mon;
@@ -170,6 +172,7 @@ void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);
 void fm_file_ops_job_emit_percent(FmFileOpsJob* job);
 FmFileOpOption fm_file_ops_job_ask_rename(FmFileOpsJob* job, GFile* src, GFileInfo* src_inf, GFile* dest, GFile** new_dest);
+FmFileOpOption fm_file_ops_job_get_options(FmFileOpsJob* job);
 
 G_END_DECLS
 
