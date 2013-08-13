@@ -110,6 +110,11 @@ static void fm_job_dispose(GObject *object)
         g_signal_handlers_disconnect_by_func(self->cancellable, on_cancellable_cancelled, self);
         g_object_unref(self->cancellable);
         self->cancellable = NULL;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+        g_rec_mutex_clear(&self->stop);
+#else
+        g_static_rec_mutex_free(&self->stop);
+#endif
     }
 
     G_OBJECT_CLASS(fm_job_parent_class)->dispose(object);
@@ -586,6 +591,11 @@ static gboolean on_idle_cleanup(gpointer unused)
  */
 void fm_job_init_cancellable(FmJob* job)
 {
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_rec_mutex_init(&job->stop);
+#else
+    g_static_rec_mutex_init(&job->stop);
+#endif
     job->cancellable = g_cancellable_new();
     g_signal_connect(job->cancellable, "cancelled", G_CALLBACK(on_cancellable_cancelled), job);
 }
@@ -725,6 +735,19 @@ gboolean fm_job_error_accumulator(GSignalInvocationHint *ihint, GValue *return_a
 }
 */
 
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+#define g_rec_mutex_lock g_static_rec_mutex_lock
+#define g_rec_mutex_unlock g_static_rec_mutex_unlock
+#endif
+
+/* lock the job but be sure lock is single */
+static void _ensure_job_locked(FmJob *job)
+{
+    g_rec_mutex_lock(&job->stop);
+    if (job->suspended)
+        g_rec_mutex_unlock(&job->stop); /* drop extra lock */
+}
+
 /**
  * fm_job_is_cancelled
  * @job: the job to inspect
@@ -737,6 +760,9 @@ gboolean fm_job_error_accumulator(GSignalInvocationHint *ihint, GValue *return_a
  */
 gboolean fm_job_is_cancelled(FmJob* job)
 {
+    g_rec_mutex_lock(&job->stop);
+    /* wait on lock */
+    g_rec_mutex_unlock(&job->stop);
     return job->cancel;
 }
 
@@ -753,4 +779,48 @@ gboolean fm_job_is_cancelled(FmJob* job)
 gboolean fm_job_is_running(FmJob* job)
 {
     return job->running;
+}
+
+/**
+ * fm_job_pause
+ * @job: a job to apply
+ *
+ * Locks execution of job until next call to fm_job_resume(). This call
+ * may be used from thread different from the thread where the job runs
+ * in. This call may be done again (but have no extra effect) from the
+ * same thread. Any other usage may lead to deadlock.
+ *
+ * Returns: %FALSE if job cannot be locked.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_job_pause(FmJob *job)
+{
+    g_return_val_if_fail(job != NULL && FM_IS_JOB(job), FALSE);
+    if (!job->cancellable)
+        return FALSE;
+    _ensure_job_locked(job); /* acquire lock */
+    job->suspended = TRUE; /* mark appropriately */
+    return TRUE;
+}
+
+/**
+ * fm_job_resume
+ * @job: a job to apply
+ *
+ * Unlocks execution of @job that was made by previous call to
+ * fm_job_pause(). This call may be used only from the same thread
+ * where previous fm_job_pause() was made. Any other usage may lead to
+ * deadlock.
+ *
+ * Since: 1.2.0
+ */
+void fm_job_resume(FmJob *job)
+{
+    g_return_if_fail(job != NULL && FM_IS_JOB(job));
+    if (!job->cancellable)
+        return;
+    _ensure_job_locked(job); /* acquire lock... */
+    job->suspended = FALSE;
+    g_rec_mutex_unlock(&job->stop); /* ...and drop it */
 }
