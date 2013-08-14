@@ -194,8 +194,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     if(disp_size)
     {
         tmp = g_strdup_printf(_("Type: %s\nSize: %s\nModified: %s"),
-                              fm_file_info_get_desc(src),
-                              disp_size,
+                              fm_file_info_get_desc(src), disp_size,
                               fm_file_info_get_disp_mtime(src));
     }
     else
@@ -213,8 +212,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     if(disp_size)
     {
         tmp = g_strdup_printf(_("Type: %s\nSize: %s\nModified: %s"),
-                              fm_file_info_get_desc(dest),
-                              fm_file_info_get_disp_size(dest),
+                              fm_file_info_get_desc(dest), disp_size,
                               fm_file_info_get_disp_mtime(dest));
     }
     else

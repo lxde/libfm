@@ -136,6 +136,7 @@ typedef enum
  * @defer_content_test: (since 1.2.0) defer test for content type on folder loading
  * @modules_blacklist: (since 1.2.0) list of modules (mask in form "type:name") to never load
  * @modules_whitelist: (since 1.2.0) list of excemptions from @modules_blacklist
+ * @list_view_size_units: (since 1.2.0) file size units in list view: h, k, M, G
  */
 struct _FmConfig
 {
@@ -186,6 +187,8 @@ struct _FmConfig
 
     gchar **modules_blacklist;
     gchar **modules_whitelist;
+
+    gchar *list_view_size_units;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;

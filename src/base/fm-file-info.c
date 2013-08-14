@@ -1058,7 +1058,8 @@ const char* fm_file_info_get_disp_size(FmFileInfo* fi)
         if(S_ISREG(fi->mode))
         {
             char buf[ 64 ];
-            fm_file_size_to_str(buf, sizeof(buf), fi->size, fm_config->si_unit);
+            fm_file_size_to_str2(buf, sizeof(buf), fi->size,
+                        fm_config->list_view_size_units ? fm_config->list_view_size_units[0] : 0);
             fi->disp_size = g_strdup(buf);
         }
     }
