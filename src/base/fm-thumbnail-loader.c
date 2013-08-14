@@ -377,7 +377,7 @@ static void load_thumbnails(ThumbnailTask* task)
     if( task->cancelled )
         goto _out;
 
-    DEBUG("loading: %s, %s", fm_file_info_get_name(task->fi), normal_path);
+    DEBUG("loading: %s, %s, %s", fm_file_info_get_name(task->fi), normal_path, large_path);
 
     if(task->flags & LOAD_NORMAL)
     {
@@ -1109,6 +1109,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
         const GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
         const GList* l;
         guint generated = 0;
+        /* g_debug("run thumbnailer: %s, %s, %s", fm_file_info_get_name(task->fi), task->normal_path, task->large_path); */
         for(l = thumbnailers; l; l = l->next)
         {
             FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
@@ -1125,7 +1126,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 if(run_thumbnailer(thumbnailer, task->uri, task->large_path, 256))
                 {
                     generated |= GENERATE_LARGE;
-                    large_pix = backend.read_image_from_file(task->normal_path);
+                    large_pix = backend.read_image_from_file(task->large_path);
                 }
             }
 
