@@ -190,21 +190,20 @@ static char* expand_terminal(char* cmd)
     char* ret;
     /* add terminal emulator command */
 
-    if(fm_config->terminal &&
-       fm_app_command_parse(fm_config->terminal, expand_terminal_options, &ret, cmd) > 0)
+    if(!fm_config->terminal)
+        /* bug #3457335: Crash on application start with Terminal=true. */
+        {
+            /* FIXME: we should not hard code xterm here. :-(
+             * It's better to prompt the user and let he or she set
+             * his preferred terminal emulator. */
+            return g_strdup_printf("xterm -e %s", cmd);
+        }
+    else if(fm_app_command_parse(fm_config->terminal, expand_terminal_options, &ret, cmd) > 0)
         return ret;
     else /* if %s is not found, fallback to -e */
     {
         const char* term = fm_config->terminal;
         char* ret2 = ret;
-        /* bug #3457335: Crash on application start with Terminal=true. */
-        if(!term) /* fallback to xterm if a terminal emulator is not found. */
-        {
-            /* FIXME: we should not hard code xterm here. :-(
-             * It's better to prompt the user and let he or she set
-             * his preferred terminal emulator. */
-            term = "xterm";
-        }
         ret = g_strdup_printf("%s -e %s", term, ret2);
         g_free(ret2);
     }
