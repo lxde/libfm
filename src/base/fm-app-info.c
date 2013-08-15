@@ -305,7 +305,24 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
     gboolean supported = FALSE, ret = FALSE;
     if(G_IS_DESKTOP_APP_INFO(appinfo))
     {
-        const char*id = g_app_info_get_id(appinfo);
+        const char *id;
+
+#if GLIB_CHECK_VERSION(2,24,0)
+        /* if GDesktopAppInfo knows the filename then let use it */
+        id = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
+        if(id) /* this is a desktop entry file */
+        {
+            /* load the desktop entry file to obtain more info */
+            GKeyFile* kf = g_key_file_new();
+            supported = g_key_file_load_from_file(kf, id, 0, NULL);
+            if(supported)
+                ret = do_launch(appinfo, id, kf, files, launch_context, error);
+            g_key_file_free(kf);
+            id = NULL;
+        }
+        else /* otherwise try application id */
+#endif
+            id = g_app_info_get_id(appinfo);
         if(id) /* this is an installed application */
         {
             /* load the desktop entry file to obtain more info */
@@ -323,19 +340,6 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
-#if GLIB_CHECK_VERSION(2,24,0)
-            const char* file = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
-            if(file) /* this is a desktop entry file */
-            {
-                /* load the desktop entry file to obtain more info */
-                GKeyFile* kf = g_key_file_new();
-                supported = g_key_file_load_from_file(kf, file, 0, NULL);
-                if(supported)
-                    ret = do_launch(appinfo, file, kf, files, launch_context, error);
-                g_key_file_free(kf);
-            }
-            else
-#endif
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))
