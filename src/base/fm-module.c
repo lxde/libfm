@@ -399,11 +399,17 @@ void fm_modules_load(void)
         for (mtype = modules_types; mtype; mtype = mtype->next)
         {
             /* test each file name - whitelist and blacklist */
-            if (fm_config->modules_blacklist)
+            if (fm_config->system_modules_blacklist || fm_config->modules_blacklist)
             {
-                for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
-                    if (_module_matches(mtype->type, name, *exp_list))
-                        break;
+                exp_list = fm_config->system_modules_blacklist;
+                if (exp_list)
+                    for ( ; *exp_list; exp_list++)
+                        if (_module_matches(mtype->type, name, *exp_list))
+                            break;
+                if (!exp_list || (!*exp_list && fm_config->modules_blacklist))
+                    for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
+                        if (_module_matches(mtype->type, name, *exp_list))
+                            break;
                 if (*exp_list) /* found in blacklist */
                 {
                     if (!fm_config->modules_whitelist) /* no whitelist */
