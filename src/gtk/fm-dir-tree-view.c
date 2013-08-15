@@ -37,6 +37,7 @@
 
 #include "fm-dir-tree-view.h"
 #include "fm-dir-tree-model.h"
+#include "fm-cell-renderer-pixbuf.h"
 #include "fm-file-menu.h"
 #include "fm-gtk-marshal.h"
 #include "../gtk-compat.h"
@@ -456,9 +457,11 @@ static void fm_dir_tree_view_init(FmDirTreeView *view)
     /* gtk_tree_view_set_enable_tree_lines(view, TRUE); */
 
     col = gtk_tree_view_column_new();
-    render = gtk_cell_renderer_pixbuf_new();
+    render = (GtkCellRenderer*)fm_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, render, FALSE);
-    gtk_tree_view_column_set_attributes(col, render, "pixbuf", FM_DIR_TREE_MODEL_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, render,
+                                        "pixbuf", FM_DIR_TREE_MODEL_COL_ICON,
+                                        "info", FM_DIR_TREE_MODEL_COL_INFO, NULL);
 
     render = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, render, TRUE);
