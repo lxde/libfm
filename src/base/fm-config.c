@@ -50,8 +50,6 @@ enum
 /* global config object */
 FmConfig* fm_config = NULL;
 
-static guint _system_blacklist_length = 0;
-
 static guint signals[N_SIGNALS];
 
 static void fm_config_finalize              (GObject *object);
@@ -99,8 +97,10 @@ static void fm_config_finalize(GObject *object)
         g_free(cfg->archiver);
     cfg->terminal = NULL;
     cfg->archiver = NULL;
+    g_strfreev(cfg->system_modules_blacklist);
     g_strfreev(cfg->modules_blacklist);
     g_strfreev(cfg->modules_whitelist);
+    cfg->system_modules_blacklist = NULL;
     cfg->modules_blacklist = NULL;
     cfg->modules_whitelist = NULL;
 
@@ -295,9 +295,10 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     char *path;
     GKeyFile* kf = g_key_file_new();
 
-    _system_blacklist_length = 0;
     g_strfreev(cfg->modules_blacklist);
+    g_strfreev(cfg->system_modules_blacklist);
     cfg->modules_blacklist = NULL;
+    cfg->system_modules_blacklist = NULL;
     if(G_LIKELY(!name))
         name = "libfm/libfm.conf";
     else
@@ -322,8 +323,9 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     if(g_key_file_load_from_file(kf, path, 0, NULL))
         fm_config_load_from_key_file(cfg, kf);
     g_free(path);
-    if (cfg->modules_blacklist)
-        _system_blacklist_length = g_strv_length(cfg->modules_blacklist);
+    /* we got all system blacklists, save them and get user's one */
+    cfg->system_modules_blacklist = cfg->modules_blacklist;
+    cfg->modules_blacklist = NULL;
     path = g_build_filename(g_get_user_config_dir(), name, NULL);
     if(g_key_file_load_from_file(kf, path, 0, NULL))
         fm_config_load_from_key_file(cfg, kf);
@@ -345,17 +347,13 @@ _out:
     if (_cfg_->_name_ != NULL) \
         g_string_append_printf(_str_, #_name_ "=%s\n", _cfg_->_name_)
 
-#define _save_config_strv(_str_,_cfg_,_name_,_shift_) do {\
+#define _save_config_strv(_str_,_cfg_,_name_) do {\
     if(_cfg_->_name_ != NULL && _cfg_->_name_[0] != NULL) \
     { \
         char **list, *c; \
-        guint idx = 0; \
         g_string_append(_str_, #_name_ "="); \
         for (list = _cfg_->_name_; (c = *list); list++) \
         { \
-            idx++; \
-            if (idx <= _shift_) \
-                continue; \
             while (*c) \
             { \
                 if (G_UNLIKELY(*c == '\\')) \
@@ -441,8 +439,8 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_string(str, cfg, archiver);
                 _save_config_bool(str, cfg, thumbnail_local);
                 _save_config_int(str, cfg, thumbnail_max);
-                _save_config_strv(str, cfg, modules_blacklist, _system_blacklist_length);
-                _save_config_strv(str, cfg, modules_whitelist, 0);
+                _save_config_strv(str, cfg, modules_blacklist);
+                _save_config_strv(str, cfg, modules_whitelist);
             g_string_append(str, "\n[ui]\n");
                 _save_config_int(str, cfg, big_icon_size);
                 _save_config_int(str, cfg, small_icon_size);

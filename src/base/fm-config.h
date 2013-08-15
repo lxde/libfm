@@ -187,6 +187,9 @@ struct _FmConfig
 
     gchar **modules_blacklist;
     gchar **modules_whitelist;
+    /*< private >*/
+    gchar **system_modules_blacklist; /* concatenated from system, don't save! */
+    /*< public >*/
 
     gchar *list_view_size_units;
     /*< private >*/
