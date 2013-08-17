@@ -1190,12 +1190,13 @@ static gboolean _remove_directory(const char *path, GCancellable *cancellable,
     /* g_debug("deleting menu folder '%s'", path); */
     /* FIXME: check if there is that path in the XML tree before doing anything */
     apps = _prepare_contents(&data, cancellable, error, &gf);
-    if (apps == NULL || (xml = fm_xml_file_item_get_children(apps)) == NULL)
+    if (apps == NULL)
     {
         /* either failed to load contents or cancelled */
         ok = FALSE;
     }
-    else if ((item = _find_in_children(xml, path)) != NULL)
+    else if ((xml = fm_xml_file_item_get_children(apps)) != NULL &&
+             (item = _find_in_children(xml, path)) != NULL)
     {
         /* if path is found and has <NotDeleted/> then replace it with <Deleted/> */
         g_list_free(xml);
@@ -1251,12 +1252,13 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
     /* g_debug("adding menu folder '%s'", path); */
     /* FIXME: fail if such Menu Name already not deleted in XML tree */
     apps = _prepare_contents(&data, cancellable, error, &gf);
-    if (apps == NULL || (xml = fm_xml_file_item_get_children(apps)) == NULL)
+    if (apps == NULL)
     {
         /* either failed to load contents or cancelled */
         ok = FALSE;
     }
-    else if ((item = _find_in_children(xml, path)) != NULL)
+    else if ((xml = fm_xml_file_item_get_children(apps)) != NULL &&
+             (item = _find_in_children(xml, path)) != NULL)
     {
         /* "undelete" the directory: */
         /* if path is found and has <Deleted/> then replace it with <NotDeleted/> */
@@ -2385,6 +2387,7 @@ static gboolean _fm_vfs_menu_set_attributes_from_info_real(gpointer data)
             else
                 no_error = _add_directory(unescaped, init->cancellable, init->error);
             g_free(unescaped);
+            ok = (no_error == TRUE);
 #else
             g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
                                 _("Change hidden status isn't supported for menu directory"));
