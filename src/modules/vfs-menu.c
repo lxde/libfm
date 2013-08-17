@@ -68,13 +68,8 @@ static FmXmlFileTag menuTag_Menu = 0; /* tags that are supported */
 static FmXmlFileTag menuTag_Include = 0;
 static FmXmlFileTag menuTag_Exclude = 0;
 static FmXmlFileTag menuTag_Filename = 0;
-static FmXmlFileTag menuTag_Or = 0;
-static FmXmlFileTag menuTag_And = 0;
-static FmXmlFileTag menuTag_Not = 0;
 static FmXmlFileTag menuTag_Category = 0;
 static FmXmlFileTag menuTag_MergeFile = 0;
-static FmXmlFileTag menuTag_MergeDir = 0;
-static FmXmlFileTag menuTag_DefaultMergeDirs = 0;
 static FmXmlFileTag menuTag_Directory = 0;
 static FmXmlFileTag menuTag_Name = 0;
 static FmXmlFileTag menuTag_Deleted = 0;
@@ -91,323 +86,6 @@ static gboolean _menu_xml_handler_pass(FmXmlFileItem *item, GList *children,
     return !g_cancellable_set_error_if_cancelled(data->cancellable, error);
 }
 
-/* checks the tag */
-static gboolean _menu_xml_handler_Name(FmXmlFileItem *item, GList *children,
-                                       char * const *attribute_names,
-                                       char * const *attribute_values,
-                                       guint n_attributes, gint line, gint pos,
-                                       GError **error, gpointer user_data)
-{
-    FmMenuMenuTree *data = user_data;
-
-    if (g_cancellable_set_error_if_cancelled(data->cancellable, error))
-        return FALSE;
-    item = fm_xml_file_item_find_child(item, FM_XML_FILE_TEXT);
-    if (item == NULL || fm_xml_file_item_get_data(item, NULL) == NULL) /* empty tag */
-    {
-        g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("Empty <Name> tag"));
-        return FALSE;
-    }
-    return TRUE;
-}
-
-static gboolean _menu_xml_handler_Not(FmXmlFileItem *item, GList *children,
-                                      char * const *attribute_names,
-                                      char * const *attribute_values,
-                                      guint n_attributes, gint line, gint pos,
-                                      GError **error, gpointer user_data)
-{
-    FmMenuMenuTree *data = user_data;
-    FmXmlFileTag tag;
-
-    if (g_cancellable_set_error_if_cancelled(data->cancellable, error))
-        return FALSE;
-    if (children == NULL || children->next != NULL)
-    {
-        g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("Tag <Not> should have exactly one child"));
-        g_list_free(children);
-        return FALSE;
-    }
-    tag = fm_xml_file_item_get_tag(children->data);
-    if (tag == menuTag_And || tag == menuTag_Or || tag == menuTag_Filename ||
-        tag == menuTag_Category)
-        return TRUE;
-    g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                        _("Tag <Not> may contain only <And>, <Or>, <Filename>"
-                          " or <Category> child"));
-    return FALSE;
-}
-
-static gboolean _merge_xml_file(FmMenuMenuTree *data, FmXmlFileItem *item,
-                                const char *path, GError **error)
-{
-    FmXmlFile *menu = NULL;
-    GList *xml = NULL, *it; /* loaded list */
-    GFile *gf;
-    GError *err = NULL;
-    char *save_path, *contents;
-    gsize len;
-    gboolean ok;
-
-    save_path = data->file_path;
-    if (path[0] == '/') /* absolute path */
-        data->file_path = g_strdup(path);
-    else
-    {
-        char *dir = g_path_get_dirname(save_path);
-        data->file_path = g_build_filename(dir, path, NULL);
-        g_free(dir);
-    }
-    g_debug("merging the XML file '%s'", data->file_path);
-    gf = g_file_new_for_path(data->file_path);
-    ok = g_file_load_contents(gf, data->cancellable, &contents, &len, NULL, error);
-    g_object_unref(gf);
-    if (!ok)
-    {
-        g_free(save_path); /* replace the path with failed one */
-        return FALSE;
-    }
-    menu = fm_xml_file_new(data->menu);
-    /* g_debug("merging FmXmlFile %p into %p", menu, data->menu); */
-    ok = fm_xml_file_parse_data(menu, contents, len, error, data);
-    g_free(contents);
-    if (ok)
-    {
-        xml = fm_xml_file_finish_parse(menu, &err);
-        if (err && err->domain == G_MARKUP_ERROR &&
-            err->code == G_MARKUP_ERROR_EMPTY)
-        {
-            /* NOTE: it should be legal case to have empty menu file.
-               it may be not generally this but let it be */
-            g_error_free(err);
-            g_free(data->file_path);
-            data->file_path = save_path;
-            g_object_unref(menu);
-            return TRUE;
-        }
-        if (err)
-            g_propagate_error(error, err);
-    }
-    if (xml == NULL) /* error is set by failed function */
-    {
-        /* g_debug("freeing FmXmlFile %p (failed)", menu); */
-        /* only this handler does recursion, therefore it is safe to set and
-           and do check of data->line here */
-        if (data->line == -1)
-            data->line = fm_xml_file_get_current_line(menu, &data->pos);
-        /* we do a little trick here - we don't restore previous fule but
-           leave data->file_path for diagnostics in _update_categories() */
-        g_free(save_path);
-        g_object_unref(menu);
-        return FALSE;
-    }
-    g_free(data->file_path);
-    data->file_path = save_path;
-    /* insert all children but Name before item */
-    for (it = xml; it; it = it->next)
-    {
-        GList *xml_sub, *it_sub;
-
-        if (fm_xml_file_item_get_tag(it->data) != menuTag_Menu)
-        {
-            g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                        _("Merging file may contain only <Menu> top level tag,"
-                          " got <%s>"), fm_xml_file_item_get_tag_name(it->data));
-            /* FIXME: it will show error not for merged file but current */
-            break;
-        }
-        xml_sub = fm_xml_file_item_get_children(it->data);
-        for (it_sub = xml_sub; it_sub; it_sub = it_sub->next)
-        {
-            /* g_debug("merge: trying to insert %p into %p", it_sub->data,
-                    fm_xml_file_item_get_parent(item)); */
-            if (fm_xml_file_item_get_tag(it_sub->data) != menuTag_Name &&
-                !fm_xml_file_insert_before(item, it_sub->data))
-            {
-                g_set_error(error, G_MARKUP_ERROR, G_MARKUP_ERROR_UNKNOWN_ELEMENT,
-                            _("Failed to insert tag <%s> from merging file"),
-                            fm_xml_file_item_get_tag_name(it_sub->data));
-                /* FIXME: it will show error not for merged file but current */
-                break;
-            }
-        }
-        g_list_free(xml_sub);
-        if (it_sub) /* failed above */
-            break;
-    }
-    g_list_free(xml);
-    ok = (it == NULL);
-    /* g_debug("freeing FmXmlFile %p (success=%d)", menu, (int)ok); */
-    g_object_unref(menu);
-    return ok;
-}
-
-static gboolean _merge_menu_directory(FmMenuMenuTree *data, FmXmlFileItem *item,
-                                      const char *path, GError **error,
-                                      gboolean ignore_not_exist)
-{
-    char *full_path, *child;
-    GFile *gf;
-    GFileEnumerator *fe;
-    GFileInfo *fi;
-    GError *err = NULL;
-    gboolean ok = TRUE;
-
-    if (path[0] == '/') /* absolute path */
-        full_path = g_strdup(path);
-    else
-    {
-        char *dir = g_path_get_dirname(data->file_path);
-        full_path = g_build_filename(dir, path, NULL);
-        g_free(dir);
-    }
-    g_debug("merging the XML directory '%s'", full_path);
-    gf = g_file_new_for_path(full_path);
-    fe = g_file_enumerate_children(gf, G_FILE_ATTRIBUTE_STANDARD_NAME,
-                                   G_FILE_QUERY_INFO_NONE, data->cancellable,
-                                   &err);
-    g_object_unref(gf);
-    if (fe)
-    {
-        while ((fi = g_file_enumerator_next_file(fe, data->cancellable, NULL)))
-        {
-            const char *name = g_file_info_get_name(fi);
-            if (strlen(name) <= 5 || !g_str_has_suffix(name, ".menu"))
-            {
-                /* skip files that aren't *.menu */
-                g_object_unref(fi);
-                continue;
-            }
-            child = g_build_filename(full_path, name, NULL);
-            g_object_unref(fi);
-            ok = _merge_xml_file(data, item, child, &err);
-            if (!ok)
-            {
-                /*
-                if (err->domain == G_IO_ERROR && err->code == G_IO_ERROR_PERMISSION_DENIED)
-                {
-                    g_warning("cannot merge XML file %s: no access", child);
-                    g_clear_error(&err);
-                    g_free(child);
-                    ok = TRUE;
-                    continue;
-                }
-                */
-                g_free(child);
-                g_propagate_error(error, err);
-                err = NULL;
-                break;
-            }
-            g_free(child);
-        }
-        /* FIXME: handle enumerator errors */
-        g_object_unref(fe);
-    }
-    else if (ignore_not_exist && err->domain == G_IO_ERROR &&
-             err->code == G_IO_ERROR_NOT_FOUND)
-        g_error_free(err);
-    else
-    {
-        g_propagate_error(error, err);
-        ok = FALSE;
-    }
-    g_free(full_path);
-    return ok;
-}
-
-/* adds .menu file contents next to current item */
-static gboolean _menu_xml_handler_MergeFile(FmXmlFileItem *item, GList *children,
-                                            char * const *attribute_names,
-                                            char * const *attribute_values,
-                                            guint n_attributes, gint line, gint pos,
-                                            GError **error, gpointer user_data)
-{
-    FmMenuMenuTree *data = user_data;
-    const char *path;
-    gboolean ok;
-
-    if (g_cancellable_set_error_if_cancelled(data->cancellable, error))
-        return FALSE;
-    /* find and load .menu */
-    if (children == NULL ||
-        fm_xml_file_item_get_tag(children->data) != FM_XML_FILE_TEXT ||
-        fm_xml_file_item_get_data(children->data, NULL) == NULL)
-    {
-        g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("Invalid <MergeFile> tag"));
-        return FALSE;
-    }
-    /* NOTE: this implementation ignores optional 'type' attribute */
-    path = fm_xml_file_item_get_data(children->data, NULL);
-    ok = _merge_xml_file(data, item, path, error);
-    if (ok) /* no errors */
-        /* destroy item -- we replaced it already */
-        fm_xml_file_item_destroy(item);
-    return ok;
-}
-
-/* adds all .menu files in directory */
-static gboolean _menu_xml_handler_MergeDir(FmXmlFileItem *item, GList *children,
-                                           char * const *attribute_names,
-                                           char * const *attribute_values,
-                                           guint n_attributes, gint line, gint pos,
-                                           GError **error, gpointer user_data)
-{
-    FmMenuMenuTree *data = user_data;
-    const char *path;
-    gboolean ok;
-
-    if (g_cancellable_set_error_if_cancelled(data->cancellable, error))
-        return FALSE;
-    /* get text from the tag */
-    if (children == NULL ||
-        fm_xml_file_item_get_tag(children->data) != FM_XML_FILE_TEXT ||
-        fm_xml_file_item_get_data(children->data, NULL) == NULL)
-    {
-        g_set_error_literal(error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                            _("Invalid <MergeDir> tag"));
-        return FALSE;
-    }
-    path = fm_xml_file_item_get_data(children->data, NULL);
-    ok = _merge_menu_directory(data, item, path, error, FALSE);
-    if (ok) /* no errors */
-        /* destroy item -- we replaced it already */
-        fm_xml_file_item_destroy(item);
-    return ok;
-}
-
-static gboolean _menu_xml_handler_DefaultMergeDirs(FmXmlFileItem *item, GList *children,
-                                                   char * const *attribute_names,
-                                                   char * const *attribute_values,
-                                                   guint n_attributes, gint line, gint pos,
-                                                   GError **error, gpointer user_data)
-{
-    FmMenuMenuTree *data = user_data;
-    const gchar * const *dirs = g_get_system_config_dirs();
-    char *path;
-    int i = g_strv_length((gchar**)dirs);
-    gboolean ok;
-
-    /* scan in reverse order - see XDG menu specification */
-    while (--i >= 0)
-    {
-        path = g_build_filename(dirs[i], "menus", "applications-merged", NULL);
-        ok = _merge_menu_directory(data, item, path, error, TRUE);
-        g_free(path);
-        if (!ok)
-            return FALSE; /* failed to merge */
-    }
-    path = g_build_filename(g_get_user_config_dir(), "menus", "applications-merged", NULL);
-    ok = _merge_menu_directory(data, item, path, error, TRUE);
-    g_free(path);
-    if (ok) /* no errors */
-        /* destroy item -- we replaced it already */
-        fm_xml_file_item_destroy(item);
-    return ok;
-}
-
 /* FIXME: handle <Move><Old>...</Old><New>...</New></Move> */
 
 static inline const char *_get_menu_name(FmXmlFileItem *item)
@@ -421,50 +99,6 @@ static inline const char *_get_menu_name(FmXmlFileItem *item)
     if (item == NULL) /* empty Name tag? */
         return NULL;
     return fm_xml_file_item_get_data(item, NULL);
-}
-
-/* merges subitems - consumes list */
-/* NOTE: it will not delete duplicate elements other than Menu or Name */
-static void _merge_tree(GList *first)
-{
-    while (first)
-    {
-        if (first->data) /* we might merge this one already */
-        {
-            if (first->next)
-            {
-                /* merge this item with identical ones */
-                const char *name = _get_menu_name(first->data);
-                GList *next;
-
-                if (name) /* not a menu tag */
-                {
-                    for (next = first->next; next; next = next->next)
-                    {
-                        if (next->data == NULL) /* already merged */
-                            continue;
-                        if (g_strcmp0(name, _get_menu_name(next->data)) == 0)
-                        {
-                            GList *children = fm_xml_file_item_get_children(next->data);
-                            GList *l;
-
-                            g_debug("found two identical Menu '%s', merge them", name);
-                            for (l = children; l; l = l->next) /* merge all but Name */
-                                if (fm_xml_file_item_get_tag(l->data) != menuTag_Name)
-                                    fm_xml_file_item_append_child(first->data, l->data);
-                            g_list_free(children);
-                            fm_xml_file_item_destroy(next->data);
-                            next->data = NULL; /* we merged it so no data */
-                        }
-                    }
-                }
-            }
-            /* merge children */
-            _merge_tree(fm_xml_file_item_get_children(first->data));
-        }
-        /* go to next item */
-        first = g_list_delete_link(first, first);
-    }
 }
 
 static FmXmlFileItem *_find_in_children(GList *list, const char *path)
@@ -507,480 +141,6 @@ static FmXmlFileItem *_find_in_children(GList *list, const char *path)
         return item;
     }
     return list ? list->data : NULL;
-}
-
-static inline GList *_find_by_text(GList *list, const char *name)
-{
-    while (list)
-        if (strcmp(list->data, name) == 0)
-            return list;
-        else
-            list = list->next;
-    return NULL;
-}
-
-/* returns TRUE if item categories add/del meet conditions in item */
-static gboolean _is_satisfying(FmXmlFileItem *item, GList *cur, GList *add, GList *del)
-{
-    FmXmlFileTag tag = fm_xml_file_item_get_tag(item);
-    GList *children = fm_xml_file_item_get_children(item), *l;
-    gboolean ok = FALSE;
-
-    if (tag == menuTag_Category)
-    {
-        const char *name;
-
-        item = fm_xml_file_item_find_child(item, FM_XML_FILE_TEXT);
-        if (item && (name = fm_xml_file_item_get_data(item, NULL)))
-        {
-            if (!_find_by_text(del, name) && /* is it in negative list? */
-                (_find_by_text(cur, name) || _find_by_text(add, name)))
-                ok = TRUE;
-        }
-        /* else no Category name, it's broken */
-    }
-    else if (tag == menuTag_Not)
-    {
-        ok = !_is_satisfying(children->data, cur, add, del);
-    }
-    else if (tag == menuTag_And)
-    {
-        for (l = children; l; l = l->next)
-            if (!_is_satisfying(l->data, cur, add, del))
-                break;
-        ok = (l == NULL);
-    }
-    else if (tag == menuTag_Or)
-    {
-        for (l = children; l; l = l->next)
-            if (_is_satisfying(l->data, cur, add, del))
-                break; /* condition satisfied */
-        ok = (l != NULL);
-    }
-    g_list_free(children);
-    return ok;
-}
-
-static gboolean _unsatisfy_item(FmXmlFileItem *item, GList *cur, GList **add, GList **del);
-
-/* tests if positive meets conditions in item, adds missing to positive
-   or to negative */
-static gboolean _satisfy_item(FmXmlFileItem *item, GList *cur, GList **add, GList **del)
-{
-    FmXmlFileTag tag = fm_xml_file_item_get_tag(item);
-    GList *children = fm_xml_file_item_get_children(item), *l;
-    gboolean ok = FALSE;
-
-    if (tag == menuTag_Category)
-    {
-        const char *name;
-
-        item = fm_xml_file_item_find_child(item, FM_XML_FILE_TEXT);
-        if (item && (name = fm_xml_file_item_get_data(item, NULL)))
-        {
-            if (!_find_by_text(*del, name)) /* it's not in negative list */
-            {
-                ok = TRUE;
-                g_debug("menu test: category required: %s", name);
-                if (!_find_by_text(cur, name) &&
-                    !_find_by_text(*add, name)) /* if not in list then add it */
-                    *add = g_list_prepend(*add, g_strdup(name));
-            }
-        }
-        /* else no Category name, it's broken */
-    }
-    else if (tag == menuTag_Not)
-    {
-        ok = _unsatisfy_item(children->data, cur, add, del);
-    }
-    else if (tag == menuTag_And)
-    {
-        GList *temp_p = *add, *temp_n = *del;
-
-        for (l = children; l; l = l->next)
-            if (!_satisfy_item(l->data, cur, add, del))
-            {
-                g_debug("menu test: could not satisfy <And> condition");
-                /* restore the list */
-                for (l = *add; l && l != temp_p; )
-                {
-                    g_free(l->data);
-                    l = g_list_delete_link(l, l);
-                }
-                *add = l;
-                for (l = *del; l && l != temp_n; )
-                {
-                    g_free(l->data);
-                    l = g_list_delete_link(l, l);
-                }
-                *del = l;
-                break;
-            }
-        ok = (l == NULL);
-    }
-    else if (tag == menuTag_Or)
-    {
-        /* test if it meet condition already */
-        for (l = children; l; l = l->next)
-            if (_is_satisfying(l->data, cur, *add, *del))
-                break; /* condition satisfied */
-        if (l == NULL) /* not satisfied yet */
-            for (l = children; l; l = l->next)
-                if (_satisfy_item(l->data, cur, add, del)) /* try to do */
-                    break;
-        else
-            g_debug("menu test: condition <Or> already satisfied");
-        ok = (l != NULL);
-    }
-    g_list_free(children);
-    return ok;
-}
-
-/* tests if positive not meets conditions in item, adds missing to positive
-   or to negative */
-static gboolean _unsatisfy_item(FmXmlFileItem *item, GList *cur, GList **add, GList **del)
-{
-    FmXmlFileTag tag = fm_xml_file_item_get_tag(item);
-    GList *children = fm_xml_file_item_get_children(item), *l;
-    gboolean ok = TRUE;
-
-    if (tag == menuTag_Category)
-    {
-        const char *name;
-
-        item = fm_xml_file_item_find_child(item, FM_XML_FILE_TEXT);
-        if (item && (name = fm_xml_file_item_get_data(item, NULL)))
-        {
-            g_debug("menu test: category unwanted: '%s'", name);
-            if (_find_by_text(*add, name)) /* ouch, it's in positive list */
-            {
-                g_debug("menu test: category disable failed: '%s' is marked to add", name);
-                ok = FALSE;
-            }
-            else if (!_find_by_text(*del, name)) /* if not in list then add it */
-                *del = g_list_prepend(*del, g_strdup(name));
-        }
-        /* else no Category name, it's broken */
-    }
-    else if (tag == menuTag_Not)
-    {
-        ok = _satisfy_item(children->data, cur, add, del);
-    }
-    else if (tag == menuTag_And)
-    {
-        for (l = children; l; l = l->next)
-            if (!_is_satisfying(l->data, cur, *add, *del))
-                break; /* condition satisfied */
-        if (l == NULL) /* not satisfied yet */
-            for (l = children; l; l = l->next)
-                if (_unsatisfy_item(l->data, cur, add, del)) /* try to do */
-                    break;
-        g_debug("menu test: condition <And> to disable, already satisfied");
-        ok = (l != NULL);
-    }
-    else if (tag == menuTag_Or)
-    {
-        GList *temp_p = *add, *temp_n = *del;
-
-        for (l = children; l; l = l->next)
-            if (!_unsatisfy_item(l->data, cur, add, del))
-            {
-                g_debug("menu test: could not satisfy negative <Or> condition");
-                /* restore the list */
-                for (l = *add; l && l != temp_p; )
-                {
-                    g_free(l->data);
-                    l = g_list_delete_link(l, l);
-                }
-                *add = l;
-                for (l = *del; l && l != temp_n; )
-                {
-                    g_free(l->data);
-                    l = g_list_delete_link(l, l);
-                }
-                *del = l;
-            }
-        ok = (l == NULL);
-    }
-    g_list_free(children);
-    return ok;
-}
-
-/* returns 0 if src_directory and dst_directory are equal
-   returns -1 in case of error and sets error
-   otherwise replaces categories with new list
-   src_directory may be NULL
-   may remove fileid from .menu XML file
-   may return errors G_MARKUP_ERROR, G_IO_ERROR, G_FILE_ERROR */
-static int _update_categories(gchar ***categories, const char *src_directory,
-                              const char *dst_directory, const char *fileid,
-                              GCancellable *cancellable, GError **error)
-{
-    const char *xdg_menu_prefix;
-    GList *lcats, *cats_to_add, *cats_to_del;
-    FmMenuMenuTree data;
-    GFile *gf;
-    char *contents;
-    gsize len;
-    GList *xml = NULL, *it, *l2, *it2;
-    FmXmlFileItem *item;
-    gchar **cats, **new_cats;
-    int n_cats = 0;
-    gboolean ok;
-
-    /* do it in compatibility with lxpanel */
-    xdg_menu_prefix = g_getenv("XDG_MENU_PREFIX");
-    contents = g_strdup_printf("%sapplications.menu",
-                               xdg_menu_prefix ? xdg_menu_prefix : "lxde-");
-    /* find first appliable file */
-    data.file_path = g_build_filename(g_get_user_config_dir(), "menus", contents, NULL);
-    gf = g_file_new_for_path(data.file_path);
-    if (!g_file_query_exists(gf, cancellable))
-    {
-        const gchar * const *dirs = g_get_system_config_dirs();
-        g_debug("user Menu file '%s' does not exist", data.file_path);
-        while (dirs && dirs[0])
-        {
-            g_free(data.file_path);
-            g_object_unref(gf);
-            data.file_path = g_build_filename(dirs[0], "menus", contents, NULL);
-            gf = g_file_new_for_path(data.file_path);
-            dirs++;
-            if (g_file_query_exists(gf, cancellable))
-                break;
-        }
-        g_debug("trying system Menu file: %s", data.file_path);
-    }
-    g_free(contents); /* we used it temporarily */
-    contents = NULL;
-    ok = g_file_load_contents(gf, cancellable, &contents, &len, NULL, error);
-    g_object_unref(gf);
-    if (!ok)
-    {
-        g_free(data.file_path);
-        return -1;
-    }
-    /* prepare structure */
-    G_LOCK(menuTree);
-    data.menu = fm_xml_file_new(NULL);
-    data.line = data.pos = -1;
-    /* g_debug("new FmXmlFile %p", data.menu); */
-    menuTag_Menu = fm_xml_file_set_handler(data.menu, "Menu",
-                                           &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_Include = fm_xml_file_set_handler(data.menu, "Include",
-                                              &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_Exclude = fm_xml_file_set_handler(data.menu, "Exclude",
-                                              &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_Filename = fm_xml_file_set_handler(data.menu, "Filename",
-                                               &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_Or = fm_xml_file_set_handler(data.menu, "Or",
-                                         &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_And = fm_xml_file_set_handler(data.menu, "And",
-                                          &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_Not = fm_xml_file_set_handler(data.menu, "Not",
-                                          &_menu_xml_handler_Not, FALSE, NULL);
-    menuTag_Category = fm_xml_file_set_handler(data.menu, "Category",
-                                               &_menu_xml_handler_pass, FALSE, NULL);
-    menuTag_MergeFile = fm_xml_file_set_handler(data.menu, "MergeFile",
-                                                &_menu_xml_handler_MergeFile, FALSE, NULL);
-    menuTag_MergeDir = fm_xml_file_set_handler(data.menu, "MergeDir",
-                                               &_menu_xml_handler_MergeDir, FALSE, NULL);
-    menuTag_DefaultMergeDirs = fm_xml_file_set_handler(data.menu, "DefaultMergeDirs",
-                                                       &_menu_xml_handler_DefaultMergeDirs,
-                                                       FALSE, NULL);
-    menuTag_Name = fm_xml_file_set_handler(data.menu, "Name",
-                                           &_menu_xml_handler_Name, FALSE, NULL);
-    data.cancellable = cancellable;
-    /* do parsing */
-    ok = fm_xml_file_parse_data(data.menu, contents, len, error, &data);
-    g_free(contents);
-    if (ok)
-        xml = fm_xml_file_finish_parse(data.menu, error);
-    if (xml == NULL) /* error is set by failed function */
-    {
-        if (data.line == -1)
-            data.line = fm_xml_file_get_current_line(data.menu, &data.pos);
-        g_prefix_error(error, _("XML file '%s' error (%d:%d): "), data.file_path,
-                       data.line, data.pos);
-        goto _return_error;
-    }
-    /* contents = fm_xml_file_to_data(data.menu, NULL, NULL);
-    g_debug("pre-merge: %s", contents);
-    g_free(contents); */
-    /* merge menus and get merged list again */
-    _merge_tree(xml); /* it will free the list */
-    /* contents = fm_xml_file_to_data(data.menu, NULL, NULL);
-    g_debug("post-merge: %s", contents);
-    g_free(contents); */
-    xml = fm_xml_file_finish_parse(data.menu, NULL);
-    /* descent into 'Applications' menu */
-    item = _find_in_children(xml, "Applications");
-    g_list_free(xml);
-    if (item == NULL) /* invalid .menu file! */
-    {
-        g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_NOENT,
-                            _("XML file doesn't contain Applications root"));
-        goto _return_error;
-    }
-    xml = fm_xml_file_item_get_children(item);
-    /* validate dst_directory first */
-    item = _find_in_children(xml, dst_directory);
-    if (item == NULL) /* no such menu path in XML! */
-    {
-        g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_NOENT,
-                    _("Cannot find path '%s' in XML definitions"), dst_directory);
-        g_list_free(xml);
-_return_error:
-        /* g_debug("destroying FmXmlFile %p", data.menu); */
-        g_object_unref(data.menu);
-        g_free(data.file_path);
-        G_UNLOCK(menuTree);
-        return -1;
-    }
-    g_debug("menu test: destination path '%s' is valid", dst_directory);
-    /* convert strv into list for convenience */
-    lcats = cats_to_del = cats_to_add = NULL;
-    if (*categories) for (cats = *categories; *cats; cats++)
-        lcats = g_list_prepend(lcats, *cats);
-    lcats = g_list_reverse(lcats);
-    /* prepare draft 'definitely add' list to work on it:
-       add first satisfying And or Category content from first Include */
-    {
-        GList *list = fm_xml_file_item_get_children(item);
-        for (it = list; it; it = it->next)
-            if (fm_xml_file_item_get_tag(it->data) == menuTag_Include)
-            {
-                l2 = fm_xml_file_item_get_children(it->data);
-                for (it2 = l2; it2; it2 = it2->next)
-                {
-                    FmXmlFileTag tag = fm_xml_file_item_get_tag(it2->data);
-                    if ((tag == menuTag_And || tag == menuTag_Category) &&
-                        _satisfy_item(it2->data, lcats, &cats_to_add, &cats_to_del))
-                        break; /* done */
-                }
-                g_list_free(l2);
-                if (it2 != NULL)
-                    break; /* done */
-            }
-        g_list_free(list);
-    }
-    /* compose categories add/del to remove from src_directory */
-    if (src_directory && (item = _find_in_children(xml, src_directory)))
-    {
-        GList *list = fm_xml_file_item_get_children(item);
-        g_debug("menu test: source path '%s' is valid", src_directory);
-        /* unsatisfy all Include tags */
-        for (it = list; it; it = it->next)
-            if (fm_xml_file_item_get_tag(it->data) == menuTag_Include)
-            {
-                l2 = fm_xml_file_item_get_children(it->data);
-                for (it2 = l2; it2; it2 = it2->next)
-                    if (!_unsatisfy_item(it2->data, lcats, &cats_to_add, &cats_to_del))
-                        break;
-                g_list_free(l2);
-                if (it2 != NULL)
-                    break;
-            }
-        /* FIXME: handle if file has Include somewhere - add Exclude to .menu */
-        g_list_free(list);
-        if (it != NULL)
-            goto _satisfy_failed;
-    }
-    /* compose categories to add/del to add into dst_directory */
-    item = _find_in_children(xml, dst_directory);
-    g_list_free(xml);
-    xml = fm_xml_file_item_get_children(item);
-    /* try to satisfy any Include we can find, stop on success */
-    for (it = xml; it; it = it->next)
-        if (fm_xml_file_item_get_tag(it->data) == menuTag_Include)
-        {
-            l2 = fm_xml_file_item_get_children(it->data);
-            for (it2 = l2; it2; it2 = it2->next)
-                if (_satisfy_item(it2->data, lcats, &cats_to_add, &cats_to_del))
-                    break; /* done */
-            g_list_free(l2);
-            if (it2 != NULL)
-                break; /* done */
-        }
-    if (it == NULL) /* could satisfy none of them! */
-        goto _satisfy_failed;
-    /* try to satisfy all Exclude now */
-    for (it = xml; it; it = it->next)
-        if (fm_xml_file_item_get_tag(it->data) == menuTag_Exclude)
-        {
-            l2 = fm_xml_file_item_get_children(it->data);
-            for (it2 = l2; it2; it2 = it2->next)
-                if (!_unsatisfy_item(it2->data, lcats, &cats_to_add, &cats_to_del))
-                    break; /* failed */
-            g_list_free(l2);
-            if (it2 != NULL)
-                break; /* failed */
-        }
-    if (it != NULL)
-    {
-_satisfy_failed:
-        g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-                            _("Category manipulation internal error"));
-        g_list_free(xml);
-        g_object_unref(data.menu);
-        g_free(data.file_path);
-        G_UNLOCK(menuTree);
-        goto _return_cancelled;
-    }
-    g_list_free(xml);
-    /* FIXME: investigate and handle special combinations later */
-    /* FIXME: handle if file has Exclude somewhere - add Include to .menu */
-    /* if we found fileid in .menu file then rewrite it */
-//    if (cancellable && g_cancellable_is_cancelled(cancellable)) ;
-//    else if (wants_exclude || wants_include)
-//    {
-//        g_object_unref(data.menu);
-//        data.menu = fm_xml_file_new(NULL);
-        /* we should support just few tags here - Exclude and Filename */
-//        .......
-//    }
-    g_object_unref(data.menu);
-    g_free(data.file_path);
-    G_UNLOCK(menuTree);
-    if (g_cancellable_set_error_if_cancelled(cancellable, error))
-    {
-_return_cancelled:
-        g_list_free_full(cats_to_add, g_free);
-        g_list_free_full(cats_to_del, g_free);
-        g_list_free(lcats);
-        return -1;
-    }
-    /* do add/delete */
-    for (it = lcats; it != NULL && cats_to_del != NULL; )
-    {
-        /* remove cats_to_del from lcats */
-        l2 = it->next;
-        for (it2 = cats_to_del; it2; it2 = it2->next)
-        {
-            if (strcmp(it->data, it2->data) == 0)
-            {
-                g_debug("deleting category %s", (char *)it->data);
-                g_free(it->data);
-                lcats = g_list_delete_link(lcats, it);
-                g_free(it2->data);
-                cats_to_del = g_list_delete_link(cats_to_del, it2);
-                break;
-            }
-        }
-        it = l2; /* go to next */
-    }
-    /* make new list from cats_to_add+lcats */
-    lcats = g_list_concat(cats_to_add, lcats);
-    n_cats = g_list_length(lcats);
-    new_cats = g_new(char *, n_cats + 1);
-    for (cats = new_cats, it = lcats; it != NULL; cats++, it = it->next)
-        *cats = it->data; /* move strings */
-    *cats = NULL; /* terminate the list */
-    g_free(*categories); /* members were freed above */
-    *categories = new_cats; /* replace the list */
-    g_list_free_full(cats_to_del, g_free); /* if there are any left */
-    g_list_free(lcats); /* members are used in new_cats */
-    return n_cats;
 }
 
 /* returns only <Menu> child */
@@ -1108,6 +268,10 @@ static FmXmlFileItem *_prepare_contents(FmMenuMenuTree *data, GCancellable *canc
                                                 &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Include = fm_xml_file_set_handler(data->menu, "Include",
                                               &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Exclude = fm_xml_file_set_handler(data->menu, "Exclude",
+                                              &_menu_xml_handler_pass, FALSE, NULL);
+    menuTag_Filename = fm_xml_file_set_handler(data->menu, "Filename",
+                                               &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_MergeFile = fm_xml_file_set_handler(data->menu, "MergeFile",
                                                 &_menu_xml_handler_pass, FALSE, NULL);
     menuTag_Category = fm_xml_file_set_handler(data->menu, "Category",
@@ -1352,23 +516,233 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
     return ok;
 }
 
-#if 0
-/* changes .menu XML file - should be called only if category missed for path */
-static gboolean _set_directory_category(const char *path)
+/* changes .menu XML file */
+static gboolean _add_application(const char *path, GCancellable *cancellable,
+                                 GError **error)
 {
-    //if file doesn't exist then it should be created with default contents
-    //if path is not found then create it
-    //add <Include><Category>X-...
+    const char *id;
+    char *dir;
+    GList *xml = NULL, *it;
+    GFile *gf;
+    FmXmlFileItem *apps, *item, *child;
+    FmMenuMenuTree data;
+    gboolean ok = TRUE;
+
+    id = strrchr(path, '/');
+    if (id == NULL)
+    {
+        dir = NULL;
+        id = path;
+    }
+    else
+    {
+        dir = g_strndup(path, id - path);
+        id++;
+    }
+    apps = _prepare_contents(&data, cancellable, error, &gf);
+    if (apps == NULL)
+    {
+        /* either failed to load contents or cancelled */
+        ok = FALSE;
+    }
+    else if (dir == NULL) /* adding to root, use apps as target */
+    {
+        item = apps;
+        goto _set;
+    }
+    else if ((xml = fm_xml_file_item_get_children(apps)) != NULL &&
+             (item = _find_in_children(xml, dir)) != NULL)
+    {
+        /* already found that path */
+        goto _set;
+    }
+    else
+    {
+        /* else create path and add content to it */
+        item = _create_path_in_tree(apps, dir);
+        if (item == NULL)
+        {
+            g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                        _("Cannot create XML definition for '%s'"), path);
+            ok = FALSE;
+        }
+        else
+        {
+_set:
+            g_list_free(xml);
+            xml = fm_xml_file_item_get_children(item);
+            ok = FALSE; /* check if Include is already there */
+            /* remove <Exclude><Filename>id</Filename></Exclude> */
+            for (it = xml; it; it = it->next)
+            {
+                FmXmlFileTag tag = fm_xml_file_item_get_tag(it->data);
+                if (tag == menuTag_Exclude)
+                {
+                    /* get Filename tag */
+                    child = fm_xml_file_item_find_child(it->data, menuTag_Filename);
+                    if (child == NULL)
+                        continue;
+                    /* get contents of the tag */
+                    child = fm_xml_file_item_find_child(child, FM_XML_FILE_TEXT);
+                    if (child == NULL)
+                        continue;
+                    if (strcmp(fm_xml_file_item_get_data(child, NULL), id) != 0)
+                        continue;
+                    fm_xml_file_item_destroy(it->data);
+                    /* it was excluded before so removing exclude will add it */
+                    ok = TRUE;
+                }
+                else if (!ok && tag == menuTag_Include)
+                {
+                    /* get Filename tag */
+                    child = fm_xml_file_item_find_child(it->data, menuTag_Filename);
+                    if (child == NULL)
+                        continue;
+                    /* get contents of the tag */
+                    child = fm_xml_file_item_find_child(child, FM_XML_FILE_TEXT);
+                    if (child == NULL)
+                        continue;
+                    if (strcmp(fm_xml_file_item_get_data(child, NULL), id) == 0)
+                        ok = TRUE; /* found! */
+                }
+            }
+            if (!ok)
+            {
+                /* add <Include><Filename>id</Filename></Include> */
+                child = fm_xml_file_item_new(menuTag_Include);
+                fm_xml_file_item_set_comment(child, "added by LibFM");
+                fm_xml_file_item_append_child(item, child);
+                item = fm_xml_file_item_new(menuTag_Filename);
+                fm_xml_file_item_append_text(item, id, -1, FALSE);
+                fm_xml_file_item_append_child(child, item);
+                ok = TRUE;
+            }
+        }
+    }
+    if (ok)
+        ok = _save_new_menu_file(gf, data.menu, cancellable, error);
+    G_UNLOCK(menuTree);
+    g_object_unref(gf);
+    g_object_unref(data.menu);
+    g_free(data.file_path);
+    g_list_free(xml);
+    g_free(dir);
+    return ok;
 }
 
-/* changes .menu XML file - should be called only if directory file is not set */
-static gboolean _set_directory_file(const char *path)
+/* changes .menu XML file */
+static gboolean _remove_application(const char *path, GCancellable *cancellable,
+                                    GError **error)
 {
-    //if file doesn't exist then it should be created with default contents
-    //if path is not found then create it
-    //add <Directory>/home/..../.local/share/desktop-directories/....directory</Directory>
+    const char *id;
+    char *dir;
+    GList *xml = NULL, *it;
+    GFile *gf;
+    FmXmlFileItem *apps, *item, *child;
+    FmMenuMenuTree data;
+    gboolean ok = TRUE;
+
+    id = strrchr(path, '/');
+    if (id == NULL)
+    {
+        dir = NULL;
+        id = path;
+    }
+    else
+    {
+        dir = g_strndup(path, id - path);
+        id++;
+    }
+    apps = _prepare_contents(&data, cancellable, error, &gf);
+    if (apps == NULL)
+    {
+        /* either failed to load contents or cancelled */
+        ok = FALSE;
+    }
+    else if (dir == NULL) /* removing from root, use apps as target */
+    {
+        item = apps;
+        goto _set;
+    }
+    else if ((xml = fm_xml_file_item_get_children(apps)) != NULL &&
+             (item = _find_in_children(xml, dir)) != NULL)
+    {
+        /* already found that path */
+        goto _set;
+    }
+    else
+    {
+        /* else create path and add content to it */
+        item = _create_path_in_tree(apps, dir);
+        if (item == NULL)
+        {
+            g_set_error(error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                        _("Cannot create XML definition for '%s'"), path);
+            ok = FALSE;
+        }
+        else
+        {
+_set:
+            g_list_free(xml);
+            xml = fm_xml_file_item_get_children(item);
+            ok = FALSE; /* check if Include is already there */
+            /* remove <Include><Filename>id</Filename></Include> */
+            for (it = xml; it; it = it->next)
+            {
+                FmXmlFileTag tag = fm_xml_file_item_get_tag(it->data);
+                if (tag == menuTag_Include)
+                {
+                    /* get Filename tag */
+                    child = fm_xml_file_item_find_child(it->data, menuTag_Filename);
+                    if (child == NULL)
+                        continue;
+                    /* get contents of the tag */
+                    child = fm_xml_file_item_find_child(child, FM_XML_FILE_TEXT);
+                    if (child == NULL)
+                        continue;
+                    if (strcmp(fm_xml_file_item_get_data(child, NULL), id) != 0)
+                        continue;
+                    fm_xml_file_item_destroy(it->data);
+                    /* it was included before so removing include will remove it */
+                    ok = TRUE;
+                }
+                else if (!ok && tag == menuTag_Exclude)
+                {
+                    /* get Filename tag */
+                    child = fm_xml_file_item_find_child(it->data, menuTag_Filename);
+                    if (child == NULL)
+                        continue;
+                    /* get contents of the tag */
+                    child = fm_xml_file_item_find_child(child, FM_XML_FILE_TEXT);
+                    if (child == NULL)
+                        continue;
+                    if (strcmp(fm_xml_file_item_get_data(child, NULL), id) == 0)
+                        ok = TRUE; /* found! */
+                }
+            }
+            if (!ok)
+            {
+                /* add <Exclude><Filename>id</Filename></Exclude> */
+                child = fm_xml_file_item_new(menuTag_Exclude);
+                fm_xml_file_item_set_comment(child, "deleted by LibFM");
+                fm_xml_file_item_append_child(item, child);
+                item = fm_xml_file_item_new(menuTag_Filename);
+                fm_xml_file_item_append_text(item, id, -1, FALSE);
+                fm_xml_file_item_append_child(child, item);
+                ok = TRUE;
+            }
+        }
+    }
+    if (ok)
+        ok = _save_new_menu_file(gf, data.menu, cancellable, error);
+    G_UNLOCK(menuTree);
+    g_object_unref(gf);
+    g_object_unref(data.menu);
+    g_free(data.file_path);
+    g_list_free(xml);
+    g_free(dir);
+    return ok;
 }
-#endif
 
 
 /* ---- FmMenuVFile class ---- */
@@ -2387,7 +1761,7 @@ static gboolean _fm_vfs_menu_set_attributes_from_info_real(gpointer data)
             else
                 no_error = _add_directory(unescaped, init->cancellable, init->error);
             g_free(unescaped);
-            ok = (no_error == TRUE);
+            ok = no_error;
 #else
             g_set_error_literal(init->error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
                                 _("Change hidden status isn't supported for menu directory"));
@@ -2721,11 +2095,8 @@ static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
 {
     FmMenuVFileOutputStream *stream = FM_MENU_VFILE_OUTPUT_STREAM(gos);
     GKeyFile *kf;
-    gchar **categories;
     gsize len = 0;
-    int i;
     gchar *content;
-    GError *err = NULL;
     gboolean ok;
 
     if (g_cancellable_set_error_if_cancelled(cancellable, error))
@@ -2750,43 +2121,18 @@ static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
                               G_KEY_FILE_DESKTOP_KEY_EXEC, "");
     g_key_file_set_string(kf, G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_TYPE,
                           G_KEY_FILE_DESKTOP_TYPE_APPLICATION);
-    categories = g_key_file_get_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                            G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
-                                            &len, NULL);
-    if (stream->path)
-        i = _update_categories(&categories, NULL, stream->path, NULL, cancellable, error);
-    else
-        i = 0;
-    if (i < 0) /* .menu file error */
-        ok = FALSE;
-    if (i > 0)
-        g_key_file_set_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                   G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
-                                   (const gchar* const*)categories, i);
-    g_strfreev(categories);
-    content = g_key_file_to_data(kf, &len, &err);
+    content = g_key_file_to_data(kf, &len, error);
     g_key_file_free(kf);
     if (!content)
-    {
-        if (!ok) /* _update_categories() failed, don't replace error message */
-            g_error_free(err);
-        else
-            g_propagate_error(error, err);
         return FALSE;
-    }
-    if (!g_output_stream_write_all(stream->real_stream, content, len, &len,
-                                   cancellable, &err))
-    {
-        if (!ok) /* _update_categories() failed, don't replace error message */
-            g_error_free(err);
-        else
-            g_propagate_error(error, err);
-        ok = FALSE;
-    }
+    ok = g_output_stream_write_all(stream->real_stream, content, len, &len,
+                                   cancellable, error);
     g_free(content);
     if (!ok || !g_output_stream_close(stream->real_stream, cancellable, error))
         return FALSE;
     stream->do_close = FALSE;
+    if (!_add_application(stream->path, cancellable, error))
+        return FALSE;
     return TRUE;
 }
 
@@ -2910,8 +2256,9 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         }
         id = strrchr(unescaped, '/');
         if (id)
-        {
             *id++ = '\0';
+        else
+            id = unescaped;
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
             item = menu_cache_find_item_by_id(mc, id);
             if (item)
@@ -2929,7 +2276,6 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
 #endif
             if(item == NULL)
                 is_invalid = FALSE;
-        }
         /* g_debug("create id %s, category %s", id, category); */
         menu_cache_unref(mc);
     }
@@ -3208,18 +2554,9 @@ static gboolean _fm_vfs_menu_move_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc = NULL;
-    MenuCacheItem *item = NULL;
+    MenuCacheItem *item = NULL, *item2;
     char *src_path, *dst_path;
     char *src_id, *dst_id;
-    const char *src_category, *dst_category;
-    char *file_path, *contents;
-    gchar **categories;
-    gsize len = 0;
-    int i;
-    GKeyFile *kf;
-    GFile *gf;
-    GOutputStream *out;
-    gsize length, tmp_len;
     gboolean result = FALSE;
 
     dst_path = init->destination->path;
@@ -3234,35 +2571,17 @@ static gboolean _fm_vfs_menu_move_real(gpointer data)
     dst_path = g_uri_unescape_string(dst_path, NULL);
     src_id = strrchr(src_path, '/');
     if (src_id)
-    {
-        *src_id++ = '\0';
-        src_category = src_path;
-    }
+        src_id++;
     else
-    {
         src_id = src_path;
-        src_category = NULL;
-    }
     dst_id = strrchr(dst_path, '/');
     if (dst_id)
-    {
-        *dst_id++ = '\0';
-        dst_category = dst_path;
-    }
+        dst_id++;
     else
-    {
         dst_id = dst_path;
-        dst_category = NULL;
-    }
     if (strcmp(src_id, dst_id))
     {
         /* ID change isn't supported now */
-        ERROR_UNSUPPORTED(init->error);
-        goto _failed;
-    }
-    if (src_category == NULL || dst_category == NULL)
-    {
-        /* we cannot move base categories now */
         ERROR_UNSUPPORTED(init->error);
         goto _failed;
     }
@@ -3282,66 +2601,29 @@ static gboolean _fm_vfs_menu_move_real(gpointer data)
     /* TODO: save updated desktop entry for old ID (if different) */
     if(item == NULL || menu_cache_item_get_type(item) != MENU_CACHE_TYPE_APP)
     {
+        /* FIXME: implement directories movement */
         g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                     _("The '%s' isn't a menu item"), init->path_str);
         goto _failed;
     }
-    file_path = menu_cache_item_get_file_path(item);
-    if (file_path == NULL)
+    item2 = _vfile_path_to_menu_cache_item(mc, init->destination->path);
+    if (item2)
     {
-        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                    _("Invalid menu item '%s'"), init->path_str);
+        g_set_error(init->error, G_IO_ERROR, G_IO_ERROR_EXISTS,
+                    _("Menu path '%s' already exists"), dst_path);
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        menu_cache_item_unref(item2);
+#endif
         goto _failed;
     }
-    kf = g_key_file_new();
-    if (!g_key_file_load_from_file(kf, file_path,
-                                   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
-                                   init->error))
+    /* do actual move */
+    if (_add_application(dst_path, init->cancellable, init->error))
     {
-        g_free(file_path);
-        g_key_file_free(kf);
-        goto _failed;
+        if (_remove_application(src_path, init->cancellable, init->error))
+            result = TRUE;
+        else /* failed, rollback */
+            _remove_application(dst_path, init->cancellable, NULL);
     }
-    g_free(file_path);
-    categories = g_key_file_get_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                            G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
-                                            &len, NULL);
-    /* remove old category from list */
-    i = _update_categories(&categories, src_category, dst_category, src_id,
-                           init->cancellable, init->error);
-    if (i < 0)
-    {
-        g_strfreev(categories);
-        g_key_file_free(kf);
-        goto _failed;
-    }
-    if (i > 0)
-        g_key_file_set_string_list(kf, G_KEY_FILE_DESKTOP_GROUP,
-                                   G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
-                                   (const gchar* const*)categories, i);
-    g_strfreev(categories);
-    contents = g_key_file_to_data(kf, &length, init->error);
-    g_key_file_free(kf);
-    if (contents == NULL)
-        goto _failed;
-    /* save updated desktop entry for the new ID */
-    gf = _g_file_new_for_id(menu_cache_item_get_id(item));
-    out = G_OUTPUT_STREAM(_vfile_menu_replace(gf, NULL, FALSE,
-                                              G_FILE_CREATE_REPLACE_DESTINATION,
-                                              init->cancellable, init->error,
-                                              NULL));
-    g_object_unref(gf);
-    if (out == NULL)
-    {
-        g_free(contents);
-        goto _failed;
-    }
-    result = g_output_stream_write_all(out, contents, length, &tmp_len,
-                                       init->cancellable, init->error);
-    g_free(contents);
-    if (result) /* else nothing to close */
-        g_output_stream_close(out, init->cancellable, init->error);
-    g_object_unref(out);
 
 _failed:
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
