@@ -704,6 +704,7 @@ FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity s
 {
     FmJobErrorAction ret;
     struct ErrData data;
+    g_return_val_if_fail(err, FM_JOB_ABORT);
     data.err = err;
     data.severity = severity;
     ret = GPOINTER_TO_UINT(fm_job_call_main_thread(job, error_in_main_thread, &data));
