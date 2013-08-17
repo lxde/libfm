@@ -2260,22 +2260,22 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         else
             id = unescaped;
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
-            item = menu_cache_find_item_by_id(mc, id);
-            if (item)
-                menu_cache_item_unref(item); /* use item simply as marker */
+        item = menu_cache_find_item_by_id(mc, id);
+        if (item)
+            menu_cache_item_unref(item); /* use item simply as marker */
 #else
-            list = menu_cache_list_all_apps(mc);
-            for (l = list; l; l = l->next)
-                if (strcmp(menu_cache_item_get_id(l->data), id) == 0)
-                    break;
-            if (l)
-                item = l->data;
-            else
-                item = NULL;
-            g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
+        list = menu_cache_list_all_apps(mc);
+        for (l = list; l; l = l->next)
+            if (strcmp(menu_cache_item_get_id(l->data), id) == 0)
+                break;
+        if (l)
+            item = l->data;
+        else
+            item = NULL;
+        g_slist_free_full(list, (GDestroyNotify)menu_cache_item_unref);
 #endif
-            if(item == NULL)
-                is_invalid = FALSE;
+        if(item == NULL)
+            is_invalid = FALSE;
         /* g_debug("create id %s, category %s", id, category); */
         menu_cache_unref(mc);
     }
