@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-12 23:41+0000\n"
+"PO-Revision-Date: 2013-08-18 20:45+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1376350863.0\n"
+"X-POOTLE-MTIME: 1376858743.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -148,7 +148,7 @@ msgstr "Ebikwata ku fayiro"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Kabonero ka fayiro eno mu ndabika ey'enkwatagana y'amaterekero"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -510,7 +510,7 @@ msgstr "Awawangirwa"
 #: ../src/base/fm-templates.c:1065
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "Data ey'ekika kya %s gilondere puloguramu enagikolangako"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
@@ -652,7 +652,7 @@ msgstr "Ntegeka..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Enkwatagana y'amaterekero erabikire mu kaddirisa ak'okubbali"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -933,12 +933,11 @@ msgstr "Okakasa nti oyagala okukunkumula ebisuulidwa?"
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "Pa_atiika otandikirewo okunoonya"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "Tterekero lino ly_okka"
+msgstr "Awagenda ekkubo erigguka ku tterekero"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -969,14 +968,12 @@ msgid "Re_move from Bookmark"
 msgstr "_Gyawo akakwatakifo"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "_Gyawo akakwatakifo"
+msgstr "Y_ambusa akakwatakifo"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "_Gyawo akakwatakifo"
+msgstr "S_sa akakwatakifo"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -985,6 +982,8 @@ msgstr "Kunkumu_la Ebisuulidwa"
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
+"Olukalala lw'ebifo, ebyuma n'obukwatakifo by'ojjumbira lulabikire mu "
+"kadirisa ak'okubbali"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1099,20 +1098,20 @@ msgstr "Enkwatagana y'amaterekero"
 
 #: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
-msgstr ""
+msgstr "Eddirisa lukome ku kulaga ebiri mu tterekero"
 
 #: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Kisa %s"
 
 #: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
-msgstr ""
+msgstr "_Sembeza ku kkono"
 
 #: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
-msgstr ""
+msgstr "Sembeza ku _ddyo"
 
 #: ../src/gtk/fm-standard-view.c:813
 #, c-format
@@ -1125,21 +1124,23 @@ msgstr ""
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Kyusa oludda"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Ky'olonze tekikkirizidwa"
+msgstr "Olonze '%s' ekitakkirizidwa ng'etterekero"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Sisobola kubikkula fayiro egenderwa"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
 msgstr ""
+"sisobola kukolawo nyunzi egguka ku sisitemu eya fayiro etali ya mu luse "
+"lw'ez'oku sisitemu eno"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1160,12 +1161,12 @@ msgstr "Gyoyagala okutwala wali munda mwalyo ate"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Eriinya ly'omulimu ogw'okwolesa gutekegebwa fayiro emu yokka"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Ekigenderwa kitegekebwa fayiro emu yokka"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "Empty <Name> tag"
@@ -1249,33 +1250,32 @@ msgid "Invalid menu directory %s"
 msgstr "Ssi tterekero erya menyu"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Ssi tterekero erya menyu"
+msgstr "Tekikkirizibwa mu menyu"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Eky'omu menyu '%s' kibulako fayiro entuufu ekigenderako"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Tosobola kukyusa okuboneka kw'etterekero erya menyu"
 
 #: ../src/modules/vfs-menu.c:2548
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute %s not supported"
-msgstr "Omukolo tegusoboka ku sisitemu eno"
+msgstr "Tosobola kutegeka atiributi eya %s"
 
 #: ../src/modules/vfs-menu.c:2558
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute %s"
-msgstr "%s tekikola nga linnya lya fayiro"
+msgstr "Ekitegekedwa ku atiributi %s tekikkirizibwa"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "Ssi tterekero erya menyu"
+msgstr "\"%s\" tterekero lya menyu"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
@@ -1301,18 +1301,18 @@ msgid "Invalid operation with menu root"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "%s tekikola nga linnya lya fayiro"
+msgstr "%s tekikola nga kya mu menyu"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
-msgstr ""
+msgstr "Ekitegekedwa ng'ekigenderwa tekikkirizibwa"
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: fayiro %s ebuzeyo mu ggwanika zzibizi erya menyu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1320,32 +1320,28 @@ msgid "Search"
 msgstr "Noonya"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "Noonyeza mu fayiro"
+msgstr "Ebizuulidwa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "Londa fayiro eya puloguramu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "Tandika puloguramu eno"
+msgstr "Fayiro eza puloguramu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Egende mu:</b>"
+msgstr "<b>Ki_ragiro:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Yandaaza"
+msgstr "_Yandaaza..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Ekiragiro ekiba kiyisibwa ng'onyize ku kafaananyi aka puloguramu"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
@@ -1382,9 +1378,8 @@ msgid "<b>_Tooltip:</b>"
 msgstr "<b>Egende mu:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Londa puloguramu"
+msgstr "Amagezi agaba galagibwa ku puloguramu"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
