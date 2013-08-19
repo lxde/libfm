@@ -203,9 +203,8 @@ static char* expand_terminal(char* cmd)
     else /* if %s is not found, fallback to -e */
     {
         const char* term = fm_config->terminal;
-        char* ret2 = ret;
-        ret = g_strdup_printf("%s -e %s", term, ret2);
-        g_free(ret2);
+        g_free(ret);
+        ret = g_strdup_printf("%s -e %s", term, cmd);
     }
     return ret;
 }
