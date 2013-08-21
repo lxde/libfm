@@ -72,8 +72,13 @@ static void test_uri_parsing()
         "/", "test", "path");
 
     /* The 'test' in this format is a host part of URI */
+#if 0
     TEST_PARSING(fm_path_new_for_uri, "file://test/path",
         "/", "path");
+#endif
+    /* it is changed since 1.2.0 and file://test/ is handled literally */
+    TEST_PARSING(fm_path_new_for_uri, "file://test/path",
+        "file://test/", "path");
 
     TEST_PARSING(fm_path_new_for_uri, "http://test/path/",
         "http://test/", "path");
@@ -82,10 +87,15 @@ static void test_uri_parsing()
         "http://test/");
 
     TEST_PARSING(fm_path_new_for_uri, "http:/test",
+#if 0
         "http://test/");
+#endif
+        "http:///", "test");
 
+#if 0
     TEST_PARSING(fm_path_new_for_uri, "http://////test",
         "http://test/");
+#endif
 
     TEST_PARSING(fm_path_new_for_uri, "http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81",
 #if 0
