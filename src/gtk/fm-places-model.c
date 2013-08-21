@@ -788,7 +788,10 @@ static void on_places_applications_changed(FmConfig* cfg, gpointer user_data)
 {
     GtkListStore* model = GTK_LIST_STORE(user_data);
     GtkTreeIter it;
-    if(cfg->places_applications)
+
+    if (!fm_module_is_in_use("vfs", "menu"))
+        ; /* not in use */
+    else if(cfg->places_applications)
     {
         new_path_item(model, &it, fm_path_get_apps_menu(),
                       FM_PLACES_ID_APPLICATIONS, _("Applications"),
@@ -1032,7 +1035,7 @@ static void fm_places_model_init(FmPlacesModel *self)
         fm_path_unref(path);
     }
 
-    if(fm_config->places_applications)
+    if(fm_config->places_applications && fm_module_is_in_use("vfs", "menu"))
     {
         new_path_item(model, &it, fm_path_get_apps_menu(),
                       FM_PLACES_ID_APPLICATIONS, _("Applications"),

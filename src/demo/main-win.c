@@ -542,6 +542,19 @@ static void fm_main_win_init(FmMainWin *win)
     gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
     g_string_free(xml, TRUE);
 
+    /* disable "Find Files" button if module isn't available */
+    if (!fm_module_is_in_use("vfs", "search"))
+    {
+        act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Search");
+        gtk_action_set_sensitive(act, FALSE);
+    }
+    /* disable "Applications" button if module isn't available */
+    if (!fm_module_is_in_use("vfs", "menu"))
+    {
+        act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Apps");
+        gtk_action_set_sensitive(act, FALSE);
+    }
+
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
 
     win->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
