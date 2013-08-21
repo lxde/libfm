@@ -2,7 +2,7 @@
  *      fm-gtk-bookmarks.c
  *
  *      Copyright 2009 PCMan <pcman@debian>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -45,8 +45,7 @@ enum
 static FmBookmarks* fm_bookmarks_new (void);
 
 static void fm_bookmarks_finalize           (GObject *object);
-static GList* load_bookmarks(const char* fpath);
-static char* get_bookmarks_file();
+static GList* load_bookmarks(GFile *file);
 
 G_DEFINE_TYPE(FmBookmarks, fm_bookmarks, G_TYPE_OBJECT);
 
@@ -101,29 +100,32 @@ static void fm_bookmarks_finalize(GObject *object)
     g_list_free(self->items);
 
     g_object_unref(self->mon);
+    g_object_unref(self->file);
 
     G_OBJECT_CLASS(fm_bookmarks_parent_class)->finalize(object);
 }
 
-static char* get_bookmarks_file()
+
+static inline char *get_legacy_bookmarks_file(void)
 {
     return g_build_filename(fm_get_home_dir(), ".gtk-bookmarks", NULL);
+}
+
+static inline char *get_new_bookmarks_file(void)
+{
+    return g_build_filename(g_get_user_config_dir(), "gtk-3.0", "bookmarks", NULL);
 }
 
 static void on_changed( GFileMonitor* mon, GFile* gf, GFile* other,
                     GFileMonitorEvent evt, FmBookmarks* bookmarks )
 {
-    char* fpath;
-
     G_LOCK(bookmarks);
     /* reload bookmarks */
     g_list_foreach(bookmarks->items, (GFunc)fm_bookmark_item_unref, NULL);
     g_list_free(bookmarks->items);
 
-    fpath = get_bookmarks_file();
-    bookmarks->items = load_bookmarks(fpath);
+    bookmarks->items = load_bookmarks(bookmarks->file);
     G_UNLOCK(bookmarks);
-    g_free(fpath);
     g_signal_emit(bookmarks, signals[CHANGED], 0);
 }
 
@@ -148,8 +150,9 @@ static FmBookmarkItem* new_item(char* line)
     return item;
 }
 
-static GList* load_bookmarks(const char* fpath)
+static GList* load_bookmarks(GFile *file)
 {
+    char *fpath = g_file_get_path(file);
     FILE* f;
     char buf[1024];
     FmBookmarkItem* item;
@@ -157,6 +160,7 @@ static GList* load_bookmarks(const char* fpath)
 
     /* load the file */
     f = fopen(fpath, "r");
+    g_free(fpath);
     if(f)
     {
         while(fgets(buf, 1024, f))
@@ -172,14 +176,23 @@ static GList* load_bookmarks(const char* fpath)
 
 static void fm_bookmarks_init(FmBookmarks *self)
 {
-    char* fpath = get_bookmarks_file();
-    GFile* gf = g_file_new_for_path(fpath);
-    self->mon = g_file_monitor_file(gf, 0, NULL, NULL);
-    g_object_unref(gf);
-    g_signal_connect(self->mon, "changed", G_CALLBACK(on_changed), self);
+    /* trying the XDG-3.0 first and use it if it exists */
+    char* fpath = get_new_bookmarks_file();
 
-    self->items = load_bookmarks(fpath);
+    self->file = g_file_new_for_path(fpath);
     g_free(fpath);
+    self->items = load_bookmarks(self->file);
+    if (!self->items) /* not found, use legacy file */
+    {
+        g_object_unref(self->file);
+        fpath = get_legacy_bookmarks_file();
+        self->file = g_file_new_for_path(fpath);
+        g_free(fpath);
+        self->items = load_bookmarks(self->file);
+    }
+    self->mon = g_file_monitor_file(self->file, 0, NULL, NULL);
+    if (self->mon)
+        g_signal_connect(self->mon, "changed", G_CALLBACK(on_changed), self);
 }
 
 static FmBookmarks *fm_bookmarks_new(void)
@@ -295,7 +308,7 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
     FmBookmarkItem* item;
     GList* l;
     GString* buf;
-    char* fpath;
+    GError *err = NULL;
 
     if(g_source_is_destroyed(g_main_current_source()))
         return FALSE;
@@ -316,9 +329,12 @@ static gboolean save_bookmarks(FmBookmarks* bookmarks)
     idle_handler = 0;
     G_UNLOCK(bookmarks);
 
-    fpath = get_bookmarks_file();
-    g_file_set_contents(fpath, buf->str, buf->len, NULL);
-    g_free(fpath);
+    if (!g_file_replace_contents(bookmarks->file, buf->str, buf->len, NULL,
+                                 FALSE, 0, NULL, NULL, &err))
+    {
+        g_critical("%s", err->message);
+        g_error_free(err);
+    }
 
     g_string_free(buf, TRUE);
     /* we changed bookmarks list, let inform who interested in that */

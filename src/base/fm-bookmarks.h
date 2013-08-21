@@ -61,6 +61,7 @@ struct _FmBookmarks
 {
     GObject parent;
     /*< private >*/
+    GFile *file;
     GFileMonitor* mon;
     GList* items;
     gpointer _reserved1;
