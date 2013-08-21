@@ -3,7 +3,7 @@
  *
  *      Copyright 2010-2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2010 Shae Smittle <starfall87@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -107,13 +107,22 @@ static int on_launch_ask(const char* msg, char* const* btn_labels, int default_b
 
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
-    GtkBuilder* b = gtk_builder_new();
+    GtkBuilder* b;
     GtkDialog* dlg;
     GtkLabel *msg;
     GtkImage *icon;
     char* msg_str;
     int res;
-    FmIcon* fi_icon = fm_file_info_get_icon(file);
+    FmIcon* fi_icon;
+
+    if (fm_config->quick_exec)
+    {
+        if (fm_file_info_is_text(file))
+            return FM_FILE_LAUNCHER_EXEC_IN_TERMINAL;
+        return FM_FILE_LAUNCHER_EXEC;
+    }
+    b = gtk_builder_new();
+    fi_icon = fm_file_info_get_icon(file);
     gtk_builder_set_translation_domain(b, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/exec-file.ui", NULL);
     dlg = GTK_DIALOG(gtk_builder_get_object(b, "dlg"));

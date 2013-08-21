@@ -65,6 +65,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE   FALSE
 #define     FM_CONFIG_DEFAULT_SHADOW_HIDDEN     FALSE
 #define     FM_CONFIG_DEFAULT_DEFER_CONTENT_TEST FALSE
+#define     FM_CONFIG_DEFAULT_QUICK_EXEC        FALSE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -134,6 +135,7 @@ typedef enum
  * @template_run_app: (since 1.2.0) run default application after creation from template
  * @template_type_once: (since 1.2.0) use only one template of each MIME type
  * @defer_content_test: (since 1.2.0) defer test for content type on folder loading
+ * @quick_exec: (since 1.2.0) don't ask user for action on executable launch
  * @modules_blacklist: (since 1.2.0) list of modules (mask in form "type:name") to never load
  * @modules_whitelist: (since 1.2.0) list of excemptions from @modules_blacklist
  * @list_view_size_units: (since 1.2.0) file size units in list view: h, k, M, G
@@ -184,6 +186,7 @@ struct _FmConfig
     gboolean template_run_app;
     gboolean template_type_once;
     gboolean defer_content_test;
+    gboolean quick_exec;
 
     gchar **modules_blacklist;
     gchar **modules_whitelist;

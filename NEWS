@@ -291,6 +291,11 @@ Changes on 1.2.0 since 1.1.0:
     for GiB, 'K' for kB, 'M' for MB, 'G' for GB. If not set then default
     mode (by 'si_unit' config option) will be used.
 
+* Added 'quick_exec' option into config file, false by default. If set to
+    true then libfm-gtk will not ask for options on launching executable
+    file but will do default action: run in terminal for any executable
+    script or run directly for other executable files.
+
 
 Changes on 1.1.0 since 1.0.1:
 

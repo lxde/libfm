@@ -242,6 +242,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_run_app", &cfg->template_run_app);
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
+    fm_key_file_get_bool(kf, "config", "quick_exec", &cfg->quick_exec);
     /* append blacklist */
     strv = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
     fm_strcatv(&cfg->modules_blacklist, strv);
@@ -432,6 +433,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_int(str, cfg, auto_selection_delay);
                 _save_drop_action(str, cfg, drop_default_action);
                 _save_config_bool(str, cfg, defer_content_test);
+                _save_config_bool(str, cfg, quick_exec);
 #ifdef USE_UDISKS
                 _save_config_bool(str, cfg, show_internal_volumes);
 #endif
