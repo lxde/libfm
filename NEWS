@@ -296,6 +296,9 @@ Changes on 1.2.0 since 1.1.0:
     file but will do default action: run in terminal for any executable
     script or run directly for other executable files.
 
+* Implemented hiding items in Places View (Applications, Trash Can, etc.)
+    if appropriate support is missing (no GVFS support or no module).
+
 
 Changes on 1.1.0 since 1.0.1:
 

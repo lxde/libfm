@@ -2,6 +2,7 @@
  *      fm-places-model.c
  *
  *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -897,9 +898,15 @@ static void create_trash_item(FmPlacesModel* model)
     GtkTreeIter it;
     GtkTreePath* trash_path;
     GFile* gf;
-    FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
+    FmFileInfoJob* job;
 
     gf = fm_file_new_for_uri("trash:///");
+    if (!g_file_query_exists(gf, NULL))
+    {
+        g_object_unref(gf);
+        return;
+    }
+    job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
     model->trash_monitor = fm_monitor_directory(gf, NULL);
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
