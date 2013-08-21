@@ -588,7 +588,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
 {
     FmPath *path;
     GFile *file = NULL, *child;
-    char *path_copy, *c, *sep, *q = NULL;
+    char *path_copy, *c, *sep;
     char sep_char;
 
     if(!path_name || !*path_name || (path_name[0]=='/' && path_name[1] == '\0') )
@@ -610,6 +610,12 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         sep = strchr(c, '/');
         if (sep)
         {
+            if (strchr(sep, '?') != NULL)
+            {
+                /* it is not URI path but rather URI query, pass it "as is" */
+                file = fm_file_new_for_uri(path_copy);
+                goto _finish;
+            }
             /* terminate root URI after third slash */
             sep++;
             sep_char = *sep;
@@ -628,13 +634,9 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         c = path_copy + 1;
         sep_char = G_DIR_SEPARATOR;
     }
-    if (c)
-        q = strchr(c, '?'); /* question mark may be used in URIs such as search:// */
     for ( ; c; c = sep)
     {
         sep = strchr(c, sep_char);
-        if (sep && q && sep > q) /* don't go behind the question mark */
-            sep = NULL;
         if (sep)
             *sep++ = '\0'; /* separate one part of path */
         if (*c == '\0') /* duplicate '/' */
@@ -656,6 +658,7 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         g_object_unref(file);
         file = child;
     }
+_finish:
     g_free(path_copy);
     path = fm_path_new_for_gfile(file);
     g_object_unref(file);
@@ -935,14 +938,38 @@ char* fm_path_to_uri(FmPath* path)
  * Since: 0.1.0
  */
 /* FIXME: maybe we can support different encoding for different mount points? */
-char* fm_path_display_name(FmPath* path, gboolean human_readable)
+static char *_fm_path_display_name(FmPath* path, gboolean *is_query)
 {
     char* disp;
 
     if(G_LIKELY(path->parent))
     {
-        char* disp_parent = fm_path_display_name(path->parent, TRUE);
-        char* disp_base = fm_path_display_basename(path);
+        char* disp_parent;
+        char* disp_base;
+        if (G_UNLIKELY(*is_query)) /* already detected query */
+            goto _is_query;
+        else if (fm_path_is_native(path))
+        {
+            disp_parent = _fm_path_display_name(path->parent, is_query);
+            disp_base = fm_path_display_basename(path);
+        }
+        else if (strchr(path->name, '?') == NULL)
+        {
+            /* URI query not detected yet, check parent beforehand */
+            disp_parent = _fm_path_display_name(path->parent, is_query);
+            if (G_UNLIKELY(*is_query)) /* parent found that it is a query URI */
+                disp_base = g_strdup(path->name);
+            else
+                disp_base = fm_path_display_basename(path);
+        }
+        else
+        {
+            /* it is not URI path but rather URI query, pass it "as is" */
+            *is_query = TRUE;
+_is_query:
+            disp_parent = _fm_path_display_name(path->parent, is_query);
+            disp_base = g_strdup(path->name);
+        }
         if (fm_path_is_native(path))
             disp = g_build_filename( disp_parent, disp_base, NULL);
         else
@@ -951,8 +978,14 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
         g_free(disp_base);
     }
     else
-        disp = fm_path_display_basename(path);
+        disp = g_strdup(path->name);
     return disp;
+}
+
+char* fm_path_display_name(FmPath* path, gboolean human_readable)
+{
+    gboolean is_query = FALSE;
+    return _fm_path_display_name(path, &is_query);
 }
 
 /**
