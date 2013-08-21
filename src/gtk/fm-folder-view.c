@@ -844,6 +844,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     gboolean new_folder = FALSE, run_app;
     gint n;
 
+    g_return_if_fail(ui != NULL);
     if(strncmp(name, "NewFolder", 9) == 0)
     {
         templ = NULL;
@@ -1161,6 +1162,7 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
     GtkSortType type = GTK_SORT_ASCENDING;
     FmFolderModelCol by;
 
+    g_return_if_fail(ui != NULL);
     /* update actions */
     model = iface->get_model(fv);
     if(fm_folder_model_get_sort(model, &by, &mode))
@@ -1440,9 +1442,13 @@ static void on_ui_destroy(gpointer ui_ptr)
     GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
     GSList *groups;
 
-    groups = gtk_accel_groups_from_object(G_OBJECT(win));
-    if(g_slist_find(groups, accel_grp) != NULL)
-        gtk_window_remove_accel_group(win, accel_grp);
+    if (win != NULL) /* it might be already destroyed */
+    {
+        g_object_weak_unref(G_OBJECT(win), (GWeakNotify)gtk_menu_detach, popup);
+        groups = gtk_accel_groups_from_object(G_OBJECT(win));
+        if(g_slist_find(groups, accel_grp) != NULL)
+            gtk_window_remove_accel_group(win, accel_grp);
+    }
     g_list_foreach(templates, (GFunc)g_object_unref, NULL);
     g_list_free(templates);
     g_object_set_qdata(G_OBJECT(ui), templates_quark, NULL);
@@ -1544,8 +1550,10 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(parent, accel_grp);
     gtk_menu_attach_to_widget(popup, GTK_WIDGET(parent), NULL);
+    g_object_weak_ref(G_OBJECT(parent), (GWeakNotify)gtk_menu_detach, popup);
     g_object_unref(act_grp);
     g_object_set_qdata_full(G_OBJECT(fv), ui_quark, ui, on_ui_destroy);
+    /* we bind popup to ui so don't handle qdata change here */
     g_object_set_qdata(G_OBJECT(fv), popup_quark, popup);
     /* special handling for 'Menu' key */
     g_signal_connect(G_OBJECT(fv), "key-press-event", G_CALLBACK(on_key_press), fv);

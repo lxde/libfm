@@ -180,6 +180,11 @@ static GList *extensions = NULL; /* elements are FmFileMenuMimeExt */
  */
 void fm_file_menu_destroy(FmFileMenu* menu)
 {
+    GObject *win = G_OBJECT(gtk_menu_get_attach_widget(menu->menu));
+
+    if (win)
+        g_object_weak_unref(win, (GWeakNotify)gtk_menu_detach, menu->menu);
+
     gtk_widget_destroy(GTK_WIDGET(menu->menu));
 
     if(menu->file_infos)
@@ -476,6 +481,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
     data->menu = GTK_MENU(gtk_ui_manager_get_widget(data->ui, "/popup"));
     gtk_menu_attach_to_widget(data->menu, GTK_WIDGET(parent), NULL);
+    g_object_weak_ref(G_OBJECT(parent), (GWeakNotify)gtk_menu_detach, data->menu);
     fm_widget_menu_fix_tooltips(data->menu);
 
     if(auto_destroy)
