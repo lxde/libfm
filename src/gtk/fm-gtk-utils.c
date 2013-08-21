@@ -917,7 +917,10 @@ void fm_trash_files(GtkWindow* parent, FmPathList* files)
             g_free(name);
         }
         else
-            msg = g_strdup_printf(_("Do you want to move the %d selected files to trash can?"), len);
+            msg = g_strdup_printf(dngettext(GETTEXT_PACKAGE,
+                                            "Do you want to move the %d selected file to trash can?",
+                                            "Do you want to move the %d selected files to trash can?",
+                                            (gulong)len), len);
         if (!fm_yes_no(parent, NULL, msg, TRUE))
         {
             g_free(msg);
@@ -979,7 +982,10 @@ void fm_delete_files(GtkWindow* parent, FmPathList* files)
             g_free(name);
         }
         else
-            msg = g_strdup_printf(_("Do you want to delete the %d selected files?"), len);
+            msg = g_strdup_printf(dngettext(GETTEXT_PACKAGE,
+                                            "Do you want to delete the %d selected file?",
+                                            "Do you want to delete the %d selected files?",
+                                            (gulong)len), len);
         if (!fm_yes_no(parent, NULL, msg, TRUE))
         {
             g_free(msg);
