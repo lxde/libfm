@@ -96,7 +96,7 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @get_sort: unused since 1.0.2, will be removed from ABI 5
  * @set_show_hidden: function to save show_hidden in the object structure
  * @get_show_hidden: function to retrieve show_hidden from the object structure
- * @get_folder: VTable func, see fm_folder_view_get_folder()
+ * @get_folder: unused since 1.2.0
  * @set_model: VTable func, see fm_folder_view_set_model()
  * @get_model: VTable func, see fm_folder_view_get_model()
  * @count_selected_files: VTable func, see fm_folder_view_get_n_selected_files()

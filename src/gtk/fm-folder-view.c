@@ -567,9 +567,12 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
  */
 FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
 {
+    FmFolderModel *model;
+
     g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), NULL);
 
-    return (*FM_FOLDER_VIEW_GET_IFACE(fv)->get_folder)(fv);
+    model = FM_FOLDER_VIEW_GET_IFACE(fv)->get_model(fv);
+    return model ? fm_folder_model_get_folder(model) : NULL;
 }
 
 /**
@@ -585,11 +588,8 @@ FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
  */
 FmPath* fm_folder_view_get_cwd(FmFolderView* fv)
 {
-    FmFolder* folder;
+    FmFolder* folder = fm_folder_view_get_folder(fv);
 
-    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), NULL);
-
-    folder = FM_FOLDER_VIEW_GET_IFACE(fv)->get_folder(fv);
     return folder ? fm_folder_get_path(folder) : NULL;
 }
 
@@ -606,11 +606,8 @@ FmPath* fm_folder_view_get_cwd(FmFolderView* fv)
  */
 FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
 {
-    FmFolder* folder;
+    FmFolder* folder = fm_folder_view_get_folder(fv);
 
-    g_return_val_if_fail(FM_IS_FOLDER_VIEW(fv), NULL);
-
-    folder = FM_FOLDER_VIEW_GET_IFACE(fv)->get_folder(fv);
     return folder ? fm_folder_get_info(folder) : NULL;
 }
 
