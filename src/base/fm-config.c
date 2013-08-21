@@ -91,6 +91,7 @@ static void fm_config_finalize(GObject *object)
     g_return_if_fail(FM_IS_CONFIG(object));
 
     cfg = (FmConfig*)object;
+    g_free(cfg->_cfg_name);
     if(cfg->terminal)
         g_free(cfg->terminal);
     if(cfg->archiver)
@@ -312,6 +313,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
         }
     }
 
+    cfg->_cfg_name = g_strdup(name);
     dirs = g_get_system_config_dirs();
     for(dir=dirs;*dir;++dir)
     {
@@ -471,3 +473,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
     g_free(path);
 }
 
+const char *_fm_config_get_name(FmConfig *cfg)
+{
+    return cfg->_cfg_name;
+}

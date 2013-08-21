@@ -144,6 +144,7 @@ struct _FmConfig
 {
     /*< private >*/
     GObject parent;
+    char *_cfg_name;
 
     /*< public >*/
     char* terminal;
@@ -230,6 +231,9 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf);
 void fm_config_save(FmConfig* cfg, const char* name);
 
 void fm_config_emit_changed(FmConfig* cfg, const char* changed_key);
+
+/* internal for libfm */
+const char *_fm_config_get_name(FmConfig *cfg);
 
 G_END_DECLS
 

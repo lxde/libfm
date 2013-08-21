@@ -167,7 +167,7 @@ void fm_finalize(void)
     _fm_udisks_finalize();
 #endif
 
-    fm_config_save(fm_config, NULL);
+    fm_config_save(fm_config, _fm_config_get_name(fm_config));
     g_object_unref(fm_config);
     fm_config = NULL;
 }
