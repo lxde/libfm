@@ -87,6 +87,8 @@ void fm_module_register_type(const char *type, int minver, int maxver, FmModuleI
 void fm_module_unregister_type(const char *type);
 /* forces schedules */
 void fm_modules_load(void);
+/* checks if in use */
+gboolean fm_module_is_in_use(const char *type, const char *name);
 /* the flag */
 extern volatile gint fm_modules_loaded;
 

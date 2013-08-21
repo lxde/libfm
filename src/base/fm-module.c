@@ -447,3 +447,38 @@ void fm_modules_load(void)
     g_dir_close(dir);
     g_debug("done with modules");
 }
+
+/**
+ * fm_module_is_in_use
+ * @type: module type
+ * @name: (allow-none): module key
+ *
+ * Checks if specified module is found and successfully loaded.
+ *
+ * Returns: %TRUE if module is in use.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_module_is_in_use(const char *type, const char *name)
+{
+    FmModuleType *mtype;
+    GSList *l;
+
+    if (type == NULL)
+        return FALSE;
+    CHECK_MODULES();
+    for (mtype = modules_types; mtype; mtype = mtype->next)
+        if (strcmp(mtype->type, type) == 0)
+            break;
+    if (!mtype)
+        return FALSE;
+    if (!name)
+        return TRUE;
+    for (l = mtype->modules; l; l = l->next)
+    {
+        FmModule *module = l->data;
+        if (g_strcmp0(name, dlsym(module->handle, "module_name")) == 0)
+            break;
+    }
+    return (l != NULL);
+}
