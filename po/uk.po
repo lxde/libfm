@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-22 02:35+0300\n"
-"PO-Revision-Date: 2013-08-22 02:39+0300\n"
+"PO-Revision-Date: 2013-08-22 03:25+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -172,7 +172,7 @@ msgstr "<b>Останнє оновлення:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Остання зміна доступу:</b>"
+msgstr "<b>Остання зміна дозволів:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
