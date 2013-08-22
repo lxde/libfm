@@ -631,6 +631,10 @@ static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                                 GtkWindow* toplevel = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
                                 GMount* mount;
                                 GVolume* volume;
+
+                                gtk_tree_path_free(view->clicked_row);
+                                view->clicked_row = NULL;
+                                gtk_tree_path_free(tp);
                                 switch(fm_places_item_get_type(item))
                                 {
                                 case FM_PLACES_ITEM_VOLUME:
@@ -656,10 +660,9 @@ static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
                                 default:
                                     break;
                                 }
-                                gtk_tree_path_free(tp);
-
-                                gtk_tree_path_free(view->clicked_row);
-                                view->clicked_row = NULL;
+                                /* bug #3614500: if we unmount volume, the main
+                                   window handlers will destroy the FmPlacesView
+                                   therefore we cannot touch it at this point */
                                 goto _out;
                             }
                         }
@@ -678,12 +681,22 @@ _out:
     return ret;
 }
 
+static void on_selection_done(GtkMenu *menu, gpointer unused)
+{
+    GtkWidget *widget = gtk_menu_get_attach_widget(menu);
+
+    /* g_debug("FmPlacesView:on_selection_done(): attached widget %p", widget); */
+    if (widget) /* it may be destroyed and detached already */
+        g_object_weak_unref(G_OBJECT(widget), (GWeakNotify)gtk_menu_detach, menu);
+    gtk_widget_destroy(GTK_WIDGET(menu));
+}
+
 static void place_item_menu_unref(gpointer ui, GObject *menu)
 {
     g_object_unref(ui);
 }
 
-static GtkWidget* place_item_get_menu(FmPlacesItem* item)
+static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget* widget)
 {
     GtkWidget* menu = NULL;
     GtkUIManager* ui = gtk_ui_manager_new();
@@ -756,8 +769,13 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item)
     menu = gtk_ui_manager_get_widget(ui, "/popup");
     if(menu)
     {
-        g_signal_connect(menu, "selection-done", G_CALLBACK(gtk_widget_destroy), NULL);
+        g_signal_connect(menu, "selection-done", G_CALLBACK(on_selection_done), NULL);
         g_object_weak_ref(G_OBJECT(menu), place_item_menu_unref, g_object_ref(ui));
+        gtk_menu_attach_to_widget(GTK_MENU(menu), widget, NULL);
+        /* bug #3614500: widget may be destroyed in selections such as
+           Unmount therefore we should detach menu to avoid crash
+           note that we should remove this ref when we destroy menu */
+        g_object_weak_ref(G_OBJECT(widget), (GWeakNotify)gtk_menu_detach, menu);
     }
 
 _out:
@@ -795,10 +813,9 @@ static gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
                     FmPlacesItem* item;
                     GtkMenu* menu;
                     gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
-                    menu = GTK_MENU(place_item_get_menu(item));
+                    menu = GTK_MENU(place_item_get_menu(item, widget));
                     if(menu)
                     {
-                        gtk_menu_attach_to_widget(menu, widget, NULL);
                         gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, evt->time);
                     }
                 }
