@@ -478,6 +478,7 @@ static GdkDragAction _ask_action_on_drop(GtkWidget *widget,
 
     ri.loop = NULL;
 
+    gtk_menu_detach(ri.menu);
     if (!ri.destroyed)
     {
         g_signal_handler_disconnect(ri.menu, unmap_handler);
