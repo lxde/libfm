@@ -628,6 +628,10 @@ void fm_places_view_chdir(FmPlacesView* pv, FmPath* path)
 static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
 {
     FmPlacesView* view = FM_PLACES_VIEW(widget);
+    gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
+
+    /* we should finish the event before we do our work, otherwise gtk may
+       activate already removed row in default handler */
     if(view->clicked_row)
     {
         if(evt->button == 1)
@@ -701,7 +705,7 @@ static gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         view->clicked_row = NULL;
     }
 _out:
-    return GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_release_event(widget, evt);
+    return ret;
 }
 
 static void place_item_menu_unref(gpointer ui, GObject *menu)
