@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 12:18+0300\n"
-"PO-Revision-Date: 2013-08-05 14:25+0300\n"
+"POT-Creation-Date: 2013-08-22 02:35+0300\n"
+"PO-Revision-Date: 2013-08-22 02:39+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -126,7 +126,7 @@ msgstr "<b>Вибрати значок з:</b>"
 msgid "Choose An Icon..."
 msgstr "Виберіть піктограму..."
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:366
+#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:369
 msgid "Image files"
 msgstr "Файлів зображень"
 
@@ -168,135 +168,139 @@ msgstr "<b>Останній доступ:</b>"
 
 #: ../data/ui/file-prop.glade.h:7
 msgid "<b>Last Modification:</b>"
-msgstr "<b>Остання зміна:</b>"
+msgstr "<b>Останнє оновлення:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
+msgid "<b>Last Permissions Change:</b>"
+msgstr "<b>Остання зміна доступу:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
 msgstr "<b>Місцезнаходження:</b>"
 
-#: ../data/ui/file-prop.glade.h:9
+#: ../data/ui/file-prop.glade.h:10
 msgid "<b>O_wner:</b>"
 msgstr "<b>_Власник:</b>"
 
-#: ../data/ui/file-prop.glade.h:10
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Open _with:</b>"
 msgstr "<b>_Відкривати з:</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Size on Disk:</b>"
 msgstr "<b>Розмір на диску:</b>"
 
 # "Опції" для співпадіння з підказками до цього.
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 msgid "<b>Special bits:</b>"
 msgstr "<b>Особливі опції:</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 msgid "<b>Target file:</b>"
 msgstr "<b>Посилається на:</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "<b>Total Size of Files:</b>"
 msgstr "<b>Загальний розмір файлів:</b>"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 msgid "<b>_Execute:</b>"
 msgstr "<b>В_иконувати:</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 msgid "<b>_Name:</b>"
 msgstr "<b>_Назва:</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>Дивитис_я вміст:</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "Anyone"
 msgstr "Будь-хто"
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "File Properties"
 msgstr "Властивості файлу"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
 msgid "Hidden file"
 msgstr "Схований файл"
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
 msgstr "Значок файлу, що буде показаний у теці"
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:23
 msgid "Nobody"
 msgstr "Ніхто"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:24
 msgid "None"
 msgstr "Немає"
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:25
 msgid "Only owner"
 msgstr "Лише власник"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:26
 msgid "Only owner and group"
 msgstr "Лише власник та група"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:27
 msgid "Select the application used to open files of this type "
 msgstr "Виберіть програму для відкриття файлів цього типу "
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
 msgstr "Встановити GID"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:29
 msgid "Set UID"
 msgstr "Встановити UID"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:30
 msgid "Set UID & GID"
 msgstr "Встановити UID та GID"
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:31
 msgid "Special flags for directory access"
 msgstr "Особливі опції доступу до теки"
 
-#: ../data/ui/file-prop.glade.h:31
+#: ../data/ui/file-prop.glade.h:32
 msgid "Special flags for file execution"
 msgstr "Особливі опції виконання файлу"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:33
 msgid "Sticky"
 msgstr "\"Липкий\""
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:34
 msgid "Sticky & set GID"
 msgstr "Приліпити та встановити GID"
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:35
 msgid "Who can change content of the file/directory"
 msgstr "Хто може змінювати вміст файлу чи теки"
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:36
 msgid "Who can execute the file or enter the directory"
 msgstr "Хто може виконувати файл чи заходити до теки"
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:37
 msgid "Who can read content of the file/directory"
 msgstr "Хто може читати вміст файлу чи теки"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:38
 msgid "_General"
 msgstr "_Загальне"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:39
 msgid "_Permissions"
 msgstr "_Дозволи"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
-#: ../src/gtk/fm-gtk-file-launcher.c:560
+#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:572
+#: ../src/gtk/fm-gtk-file-launcher.c:579
 msgid "(None)"
 msgstr "(Немає)"
 
@@ -352,7 +356,7 @@ msgstr "Виберіть дату у наступному календарі"
 msgid "File _Type"
 msgstr "_Тип файлу"
 
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
+#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
 msgid "GB"
 msgstr "ГБ"
 
@@ -364,7 +368,7 @@ msgstr "КБ"
 msgid "L_ater than:"
 msgstr "_Новіші ніж:"
 
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
+#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:142
 msgid "MB"
 msgstr "МБ"
 
@@ -525,7 +529,7 @@ msgstr "Мій Комп’ютер"
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/base/fm-path.c:1181 ../src/gtk/fm-places-model.c:818
+#: ../src/base/fm-path.c:1222 ../src/gtk/fm-places-model.c:915
 msgid "Trash Can"
 msgstr "Смітник"
 
@@ -541,7 +545,15 @@ msgstr "Точка монтування"
 msgid "No terminal emulator is set in libfm config"
 msgstr "Емулятор терміналу не обрано у конфігурації"
 
-#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:136
+msgid "kB"
+msgstr "кБ"
+
+#: ../src/base/fm-utils.c:153
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:164
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -549,31 +561,23 @@ msgstr[0] "%u байт"
 msgstr[1] "%u байти"
 msgstr[2] "%u байт"
 
-#: ../src/base/fm-utils.c:88
-msgid "kB"
-msgstr "кБ"
-
-#: ../src/base/fm-utils.c:103
-msgid "TB"
-msgstr "ТБ"
-
-#: ../src/base/fm-utils.c:119
+#: ../src/base/fm-utils.c:173
 msgid "KiB"
 msgstr "КіБ"
 
-#: ../src/base/fm-utils.c:124
+#: ../src/base/fm-utils.c:179
 msgid "MiB"
 msgstr "МіБ"
 
-#: ../src/base/fm-utils.c:129
+#: ../src/base/fm-utils.c:185
 msgid "GiB"
 msgstr "ГіБ"
 
-#: ../src/base/fm-utils.c:134
+#: ../src/base/fm-utils.c:190
 msgid "TiB"
 msgstr "ТіБ"
 
-#: ../src/base/fm-utils.c:516
+#: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
 msgstr "Фрагмент URI '%s' містить неприпустимі екрановані символи"
@@ -681,19 +685,35 @@ msgstr "Виконати власну команду для відкриття �
 msgid "Installed Applications"
 msgstr "Встановлені програми"
 
-#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1197
 msgid "<No Sub Folder>"
 msgstr "<Немає підтеки>"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1198
 msgid "Loading..."
 msgstr "Завантажую..."
 
-#: ../src/gtk/fm-dir-tree-view.c:478
+#: ../src/gtk/fm-dir-tree-view.c:479
 msgid "Shows tree of directories in sidebar"
 msgstr "Показує дерево тек у боковій панелі"
 
-#: ../src/gtk/fm-dnd-dest.c:723
+#: ../src/gtk/fm-dnd-dest.c:411
+msgid "_Cancel"
+msgstr "_Відмінити"
+
+#: ../src/gtk/fm-dnd-dest.c:412
+msgid "C_opy"
+msgstr "_Копіювати"
+
+#: ../src/gtk/fm-dnd-dest.c:413
+msgid "_Move"
+msgstr "_Перемістити"
+
+#: ../src/gtk/fm-dnd-dest.c:414
+msgid "_Link"
+msgstr "_Створити посилання"
+
+#: ../src/gtk/fm-dnd-dest.c:868
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -733,40 +753,40 @@ msgstr "Роз_пакувати до..."
 msgid "Prop_erties"
 msgstr "Властив_ості"
 
-#: ../src/gtk/fm-file-menu.c:254 ../src/gtk/fm-file-menu.c:489
+#: ../src/gtk/fm-file-menu.c:259 ../src/gtk/fm-file-menu.c:499
 msgid "_Trash"
 msgstr "До с_мітнику"
 
-#: ../src/gtk/fm-file-properties.c:498 ../src/gtk/fm-file-properties.c:507
+#: ../src/gtk/fm-file-properties.c:501 ../src/gtk/fm-file-properties.c:510
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 msgstr[1] "байти"
 msgstr[2] "байт"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:574
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введіть дійсну назву користувача або чисельне id."
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:604
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введіть дійсну назву групи або чисельне id."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:799
+#: ../src/gtk/fm-file-properties.c:802
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Бажаєте рекурсивно застосувати ці зміни до всіх файлів і підтек?"
 
-#: ../src/gtk/fm-file-properties.c:927
+#: ../src/gtk/fm-file-properties.c:952
 msgid "Hide or unhide the file"
 msgstr "Сховати чи відновити файл"
 
-#: ../src/gtk/fm-file-properties.c:932
+#: ../src/gtk/fm-file-properties.c:957
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Цей файл приховано, тому що його назва починається з крапки."
 
-#: ../src/gtk/fm-file-properties.c:936
+#: ../src/gtk/fm-file-properties.c:961
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -774,19 +794,19 @@ msgstr ""
 "Файли у цїй системі є прихованими, якщо їх назви починаються з крапки. "
 "Натисніть <Ctrl+H> для зміни стану показування прихованих файлів."
 
-#: ../src/gtk/fm-file-properties.c:1063
+#: ../src/gtk/fm-file-properties.c:1088
 msgid "<b>_Access content:</b>"
 msgstr "<b>Д_оступ до вмісту:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1207
+#: ../src/gtk/fm-file-properties.c:1229
 msgid "Files of different types"
 msgstr "Файли різних типів"
 
-#: ../src/gtk/fm-file-properties.c:1251
+#: ../src/gtk/fm-file-properties.c:1272
 msgid "<b>File:</b>"
 msgstr "<b>Файл:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1306
+#: ../src/gtk/fm-file-properties.c:1335
 msgid "Multiple Files"
 msgstr "Кілька файлів"
 
@@ -884,41 +904,41 @@ msgstr "За р_озміром"
 msgid "By File _Type"
 msgstr "За _типом файлу"
 
-#: ../src/gtk/fm-folder-view.c:850
+#: ../src/gtk/fm-folder-view.c:848
 msgid "Enter a name for the newly created folder:"
 msgstr "Введіть назву новоствореної теки:"
 
-#: ../src/gtk/fm-folder-view.c:851
+#: ../src/gtk/fm-folder-view.c:849
 msgid "Creating new folder"
 msgstr "Створення нової теки"
 
-#: ../src/gtk/fm-folder-view.c:864
+#: ../src/gtk/fm-folder-view.c:862
 msgid "Enter a name for empty file:"
 msgstr "Введіть назву новоствореного файлу:"
 
-#: ../src/gtk/fm-folder-view.c:865
+#: ../src/gtk/fm-folder-view.c:863
 msgid "Creating ..."
 msgstr "Створення ..."
 
-#: ../src/gtk/fm-folder-view.c:871
+#: ../src/gtk/fm-folder-view.c:869
 msgid "New"
 msgstr "Новий"
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Введіть назву нового файлу типу %s:"
 
-#: ../src/gtk/fm-folder-view.c:884
+#: ../src/gtk/fm-folder-view.c:882
 #, c-format
 msgid "Creating %s"
 msgstr "Створення %s"
 
-#: ../src/gtk/fm-folder-view.c:888
+#: ../src/gtk/fm-folder-view.c:886
 msgid "_Run default application on file after creation"
 msgstr "_Запустити типову програму для новоствореного файлу"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:129
+#: ../src/gtk/fm-gtk-file-launcher.c:138
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -927,17 +947,17 @@ msgstr ""
 "Цей текстовий файл '%s' схоже є скриптом запуску.\n"
 "Що Ви бажаєте зробити з ним?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:136
+#: ../src/gtk/fm-gtk-file-launcher.c:145
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Цей файл '%s' можна запустити. Ви бажаєте запустити його?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:588
+#: ../src/gtk/fm-gtk-file-launcher.c:607
 msgid "No folders are specified."
 msgstr "Жодної теки не вибрано."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:627
+#: ../src/gtk/fm-gtk-file-launcher.c:646
 msgid "Select a folder"
 msgstr "Будь ласка, виберіть теку"
 
@@ -961,43 +981,71 @@ msgstr "Будь ласка, виберіть теку"
 msgid "Only system administrators have the permission to do this."
 msgstr "Це може зробити тільки системний адміністратор."
 
-#: ../src/gtk/fm-gtk-utils.c:906
-msgid "Do you want to move the selected files to trash can?"
-msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
+#: ../src/gtk/fm-gtk-utils.c:916
+#, c-format
+msgid "Do you want to move the file '%s' to trash can?"
+msgstr "Ви бажаєте перемістити файл '%s' до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:950
-msgid "Do you want to delete the selected files?"
-msgstr "Ви бажаєте видалити вибрані файли?"
+#: ../src/gtk/fm-gtk-utils.c:921
+#, c-format
+msgid "Do you want to move the %d selected file to trash can?"
+msgid_plural "Do you want to move the %d selected files to trash can?"
+msgstr[0] "Ви бажаєте перемістити %d обраний файл до смітника?"
+msgstr[1] "Ви бажаєте перемістити %d обраних файли до смітника?"
+msgstr[2] "Ви бажаєте перемістити %d обраних файлів до смітника?"
 
-#. FIXME: use fm_file_info_get_edit_name() to get a name and then
-#. use g_file_set_display_name() to change it
-#: ../src/gtk/fm-gtk-utils.c:1040
+#: ../src/gtk/fm-gtk-utils.c:981
+#, c-format
+msgid "Do you want to delete the file '%s'?"
+msgstr "Ви бажаєте видалити файл '%s'?"
+
+#: ../src/gtk/fm-gtk-utils.c:986
+#, c-format
+msgid "Do you want to delete the %d selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Ви бажаєте видалити %d обраний файл?"
+msgstr[1] "Ви бажаєте видалити %d обраних файли?"
+msgstr[2] "Ви бажаєте видалити %d обраних файлів?"
+
+#: ../src/gtk/fm-gtk-utils.c:1085
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:1041
+#: ../src/gtk/fm-gtk-utils.c:1086
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:1122
+#: ../src/gtk/fm-gtk-utils.c:1153
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 
-#: ../src/gtk/fm-path-entry.c:599
+#: ../src/gtk/fm-path-entry.c:631
 msgid "Pa_ste and go"
 msgstr "В_ставити та активувати"
 
-#: ../src/gtk/fm-path-entry.c:658
+#: ../src/gtk/fm-path-entry.c:690
 msgid "Entry for folder path"
 msgstr "Місце вводу шляху теки"
 
-#: ../src/gtk/fm-places-model.c:767 ../src/gtk/fm-places-model.c:881
+#: ../src/gtk/fm-places-model.c:772 ../src/gtk/fm-places-model.c:1028
 msgid "Desktop"
 msgstr "Робочий стіл"
 
-#: ../src/gtk/fm-places-model.c:790 ../src/gtk/fm-places-model.c:889
+#: ../src/gtk/fm-places-model.c:798 ../src/gtk/fm-places-model.c:1048
 msgid "Applications"
 msgstr "Програми"
+
+#: ../src/gtk/fm-places-model.c:818 ../src/gtk/fm-places-model.c:1034
+msgid "File system"
+msgstr "Файлова система"
+
+#: ../src/gtk/fm-places-model.c:845 ../src/gtk/fm-places-model.c:1041
+msgid "Computer"
+msgstr "Комп’ютер"
+
+#: ../src/gtk/fm-places-model.c:873 ../src/gtk/fm-places-model.c:1056
+msgid "Network Drives"
+msgstr "Мережеві диски"
 
 #: ../src/gtk/fm-places-view.c:121
 msgid "_Mount Volume"
@@ -1040,20 +1088,19 @@ msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 "Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
 
-#. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:1031
+#: ../src/gtk/fm-places-view.c:1047
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
-#: ../src/gtk/fm-places-view.c:1032
+#: ../src/gtk/fm-places-view.c:1048
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-progress-dlg.c:165
+#: ../src/gtk/fm-progress-dlg.c:121
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
+#: ../src/gtk/fm-progress-dlg.c:196 ../src/gtk/fm-progress-dlg.c:214
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1064,7 +1111,7 @@ msgstr ""
 "Розмір: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:246 ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1073,23 +1120,23 @@ msgstr ""
 "Тип: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:338
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:340
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:344
+#: ../src/gtk/fm-progress-dlg.c:316
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:346
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:368
+#: ../src/gtk/fm-progress-dlg.c:340
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1099,31 +1146,31 @@ msgstr ""
 "підтримує цю операцію.\n"
 "Ви бажаєте замість цього видалити їх?"
 
-#: ../src/gtk/fm-progress-dlg.c:495
+#: ../src/gtk/fm-progress-dlg.c:519
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:511
+#: ../src/gtk/fm-progress-dlg.c:535
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:514
+#: ../src/gtk/fm-progress-dlg.c:538
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:517
+#: ../src/gtk/fm-progress-dlg.c:541
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:520
+#: ../src/gtk/fm-progress-dlg.c:544
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:523
+#: ../src/gtk/fm-progress-dlg.c:547
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:526
+#: ../src/gtk/fm-progress-dlg.c:550
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
@@ -1177,19 +1224,19 @@ msgstr "Показати %s"
 msgid "_Forget width"
 msgstr "_Не пам'ятати ширину"
 
-#: ../src/gtk/fm-standard-view.c:1771
+#: ../src/gtk/fm-standard-view.c:1767
 msgid "_Icon View"
 msgstr "_Вигляд значками"
 
-#: ../src/gtk/fm-standard-view.c:1772
+#: ../src/gtk/fm-standard-view.c:1768
 msgid "_Compact View"
 msgstr "_Компактний вигляд"
 
-#: ../src/gtk/fm-standard-view.c:1773
+#: ../src/gtk/fm-standard-view.c:1769
 msgid "_Thumbnail View"
 msgstr "Вигляд мініа_тюрами"
 
-#: ../src/gtk/fm-standard-view.c:1774
+#: ../src/gtk/fm-standard-view.c:1770
 msgid "Detailed _List View"
 msgstr "Детальний вигляд _списком"
 
@@ -1203,11 +1250,11 @@ msgstr "Змінює активну вкладку"
 msgid "The specified directory '%s' is not valid"
 msgstr "Вказана тека '%s' не є дійсна"
 
-#: ../src/job/fm-file-ops-job.c:523
+#: ../src/job/fm-file-ops-job.c:526
 msgid "Cannot access destination file"
 msgstr "Нема доступу до файлу призначення"
 
-#: ../src/job/fm-file-ops-job.c:566
+#: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Неможливо створювати посилання на віртуальних файлових системах"
 
@@ -1232,7 +1279,7 @@ msgstr "Не можна копіювати теку в її підтеку"
 msgid "Destination is a sub folder of source"
 msgstr "Тека призначення є підтекою вихідної теки"
 
-#: ../src/job/fm-file-ops-job-xfer.c:371
+#: ../src/job/fm-file-ops-job-xfer.c:372
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Неможливо зкопіювати файл '%s': не підтримується"
@@ -1247,158 +1294,115 @@ msgstr "Можна встановлювати ім'я лише для єдино
 msgid "Setting target can be done only for single file"
 msgstr "Можна встановлювати посилання лише для єдиного файлу"
 
-#: ../src/modules/vfs-menu.c:109
-msgid "Empty <Name> tag"
-msgstr "Порожній теґ <Name>"
-
-#: ../src/modules/vfs-menu.c:129
-msgid "Tag <Not> should have exactly one child"
-msgstr "Теґ <Not> має мати один вкладений теґ"
-
-#: ../src/modules/vfs-menu.c:138
-msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
-msgstr "Теґ <Not> може містити лише теґ <And>, <Or>, <Filename> або <Category>"
-
-#: ../src/modules/vfs-menu.c:216
-#, c-format
-msgid "Merging file may contain only <Menu> top level tag, got <%s>"
-msgstr "Файл, що додається, може мати лише теґ <Menu> верхнім, отримано <%s>"
-
-#: ../src/modules/vfs-menu.c:230
-#, c-format
-msgid "Failed to insert tag <%s> from merging file"
-msgstr "Не вдалося вставити теґ <%s> з файлу, що додається"
-
-#: ../src/modules/vfs-menu.c:339
-msgid "Invalid <MergeFile> tag"
-msgstr "Теґ <MergeFile> зіпсовано"
-
-#: ../src/modules/vfs-menu.c:370
-msgid "Invalid <MergeDir> tag"
-msgstr "Теґ <MergeDir> зіпсовано"
-
-#: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
+#: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
 msgstr "Помилка у XML файлі '%s' (%d:%d): "
 
-#: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
+#: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
 msgstr "XML файл не містить кореню програм"
 
-#: ../src/modules/vfs-menu.c:831
-#, c-format
-msgid "Cannot find path '%s' in XML definitions"
-msgstr "Шлях '%s' не знайдено у XML визначеннях"
-
-#: ../src/modules/vfs-menu.c:923
-msgid "Category manipulation internal error"
-msgstr "Внутрішня помилка зміни категорій"
-
-#: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
+#: ../src/modules/vfs-menu.c:383 ../src/modules/vfs-menu.c:463
+#: ../src/modules/vfs-menu.c:566 ../src/modules/vfs-menu.c:680
 #, c-format
 msgid "Cannot create XML definition for '%s'"
 msgstr "Не вдалося створити XML визначення для '%s'"
 
-#: ../src/modules/vfs-menu.c:1282
+#: ../src/modules/vfs-menu.c:448 ../src/modules/vfs-menu.c:2613
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr "Шлях меню '%s' вже існує"
 
-#: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
-#: ../src/modules/vfs-menu.c:2127
+#: ../src/modules/vfs-menu.c:1111 ../src/modules/vfs-menu.c:1416
+#: ../src/modules/vfs-menu.c:1503
 msgid "Menu cache error"
 msgstr "Помилка кешу меню"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1809 ../src/modules/vfs-search.c:918
+#: ../src/modules/vfs-menu.c:1185 ../src/modules/vfs-search.c:919
 msgid "Operation not supported"
 msgstr "Дія не підтримується"
 
-#: ../src/modules/vfs-menu.c:2000
+#: ../src/modules/vfs-menu.c:1376
 msgid "Invalid menu directory"
 msgstr "Невідома тека меню"
 
-#: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
+#: ../src/modules/vfs-menu.c:1440 ../src/modules/vfs-menu.c:1683
 msgid "Menu item name cannot be empty"
 msgstr "Назва пункту меню не може бути порожньою"
 
-#: ../src/modules/vfs-menu.c:2114
+#: ../src/modules/vfs-menu.c:1490
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Невідома тека меню '%s'"
 
-#: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
+#: ../src/modules/vfs-menu.c:1600 ../src/modules/vfs-menu.c:1741
 msgid "Invalid menu item"
 msgstr "Невідомий пункт меню"
 
-#: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
+#: ../src/modules/vfs-menu.c:1604 ../src/modules/vfs-menu.c:1745
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "Пункт меню '%s' не має відповідного файлу"
 
-#: ../src/modules/vfs-menu.c:2390
+#: ../src/modules/vfs-menu.c:1767
 msgid "Change hidden status isn't supported for menu directory"
 msgstr "Зміна статусу 'схований' не підтримується для теки меню"
 
-#: ../src/modules/vfs-menu.c:2548
+#: ../src/modules/vfs-menu.c:1925
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "Встановлення атрибуту '%s' не підтримується"
 
-#: ../src/modules/vfs-menu.c:2558
+#: ../src/modules/vfs-menu.c:1935
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "Погане значення для атрибуту '%s'"
 
-#: ../src/modules/vfs-menu.c:2595
+#: ../src/modules/vfs-menu.c:1972
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr "'%s' є текою меню"
 
-#: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
+#: ../src/modules/vfs-menu.c:1975 ../src/modules/vfs-menu.c:2606
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "'%s' не є пунктом меню"
 
-#: ../src/modules/vfs-menu.c:2622
+#: ../src/modules/vfs-menu.c:1999
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr "'%s' зіпсовано"
 
-#: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
+#: ../src/modules/vfs-menu.c:2285 ../src/modules/vfs-menu.c:2377
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Не вдається створити пункт меню '%s'"
 
-#: ../src/modules/vfs-menu.c:3172
+#: ../src/modules/vfs-menu.c:2521
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr "Назва теки меню не може закінчуватися на \".desktop\""
 
-#: ../src/modules/vfs-menu.c:3226
+#: ../src/modules/vfs-menu.c:2566
 msgid "Invalid operation with menu root"
 msgstr "Неприпустима операція з коренем меню"
 
-#: ../src/modules/vfs-menu.c:3290
-#, c-format
-msgid "Invalid menu item '%s'"
-msgstr "Недійсний пункт меню '%s'"
-
-#: ../src/modules/vfs-menu.c:3370
+#: ../src/modules/vfs-menu.c:2655
 msgid "Invalid destination"
 msgstr "Призначення недійсне"
 
-#: ../src/modules/vfs-menu.c:3639
+#: ../src/modules/vfs-menu.c:2924
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: теку '%s' не знайдено у кешу меню"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:981
+#: ../src/modules/vfs-search.c:982
 msgid "Search"
 msgstr "Пошук"
 
-#: ../src/modules/vfs-search.c:1048
+#: ../src/modules/vfs-search.c:1049
 msgid "Search results"
 msgstr "Результати пошуку"
 
@@ -1634,6 +1638,39 @@ msgstr "Чистий оптичний диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Оптичний диск"
+
+#~ msgid "Empty <Name> tag"
+#~ msgstr "Порожній теґ <Name>"
+
+#~ msgid "Tag <Not> should have exactly one child"
+#~ msgstr "Теґ <Not> має мати один вкладений теґ"
+
+#~ msgid ""
+#~ "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
+#~ msgstr ""
+#~ "Теґ <Not> може містити лише теґ <And>, <Or>, <Filename> або <Category>"
+
+#~ msgid "Merging file may contain only <Menu> top level tag, got <%s>"
+#~ msgstr ""
+#~ "Файл, що додається, може мати лише теґ <Menu> верхнім, отримано <%s>"
+
+#~ msgid "Failed to insert tag <%s> from merging file"
+#~ msgstr "Не вдалося вставити теґ <%s> з файлу, що додається"
+
+#~ msgid "Invalid <MergeFile> tag"
+#~ msgstr "Теґ <MergeFile> зіпсовано"
+
+#~ msgid "Invalid <MergeDir> tag"
+#~ msgstr "Теґ <MergeDir> зіпсовано"
+
+#~ msgid "Cannot find path '%s' in XML definitions"
+#~ msgstr "Шлях '%s' не знайдено у XML визначеннях"
+
+#~ msgid "Category manipulation internal error"
+#~ msgstr "Внутрішня помилка зміни категорій"
+
+#~ msgid "Invalid menu item '%s'"
+#~ msgstr "Недійсний пункт меню '%s'"
 
 #~ msgid "Create _Symlink"
 #~ msgstr "_Створити символьне посилання"
