@@ -25,6 +25,8 @@
 
 #include <gtk/gtk.h>
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_TAB_LABEL				(fm_tab_label_get_type())
@@ -44,8 +46,8 @@ struct _FmTabLabel
 {
     /*< private >*/
     GtkEventBox parent;
-    GtkLabel* label;
-    GtkButton* close_btn;
+    GtkLabel* FM_SEAL(label);
+    GtkButton* FM_SEAL(close_btn);
     gpointer _reserved1;
     gpointer _reserved2;
 };

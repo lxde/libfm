@@ -30,6 +30,12 @@
  * which adds small link picture if corresponding file is symbolic link.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#define FM_DISABLE_SEAL
+
 #include "fm-config.h"
 
 #include "fm-cell-renderer-pixbuf.h"

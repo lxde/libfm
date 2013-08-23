@@ -281,7 +281,8 @@ gboolean _fm_file_ops_job_trash_run(FmFileOpsJob* job)
         GFile* gf = fm_path_to_gfile(FM_PATH(l->data));
         GFileInfo* inf;
 _retry_trash:
-        inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, 0, fmjob->cancellable, &err);
+        inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, 0,
+                                fm_job_get_cancellable(fmjob), &err);
         if(inf)
         {
             /* currently processed file. */

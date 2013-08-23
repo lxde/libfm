@@ -33,6 +33,8 @@
 #include <config.h>
 #endif
 
+#define FM_DISABLE_SEAL
+
 #include "fm-dir-tree-model.h"
 #include "fm-folder.h"
 #include "fm-icon-pixbuf.h"

@@ -28,6 +28,8 @@
 #include <gio/gio.h>
 #include <stdarg.h>
 
+#include "fm-seal.h"
+
 /* If we're not using GNU C, elide __attribute__ */
 #ifndef __GNUC__
 # define __attribute__(x)
@@ -83,22 +85,22 @@ typedef enum {
 
 struct _FmJob
 {
+    /*< private >*/
     GObject parent;
     /* booleans but need unlocked access */
-    sig_atomic_t cancel;
-    sig_atomic_t running;
+    sig_atomic_t FM_SEAL(cancel);
+    sig_atomic_t FM_SEAL(running);
 
     /* optional, should be created if the job uses gio */
-    GCancellable* cancellable;
+    GCancellable* FM_SEAL(cancellable);
     /* used for suspending the job */
-    gboolean suspended;
+    gboolean FM_SEAL(suspended);
 #if GLIB_CHECK_VERSION(2, 32, 0)
-    GRecMutex stop;
+    GRecMutex FM_SEAL(stop);
 #else
-    GStaticRecMutex stop;
+    GStaticRecMutex FM_SEAL(stop);
 #endif
 
-    /*< private >*/
     gpointer _reserved1;
     gpointer _reserved2;
 };

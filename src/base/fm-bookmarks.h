@@ -27,6 +27,8 @@
 #include <gio/gio.h>
 #include "fm-path.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 #define FM_BOOKMARKS_TYPE               (fm_bookmarks_get_type())
@@ -54,16 +56,16 @@ struct _FmBookmarkItem
     FmPath* path;
     /*<private>*/
     gpointer _reserved1;
-    int n_ref;
+    int FM_SEAL(n_ref);
 };
 
 struct _FmBookmarks
 {
     GObject parent;
     /*< private >*/
-    GFile *file;
-    GFileMonitor* mon;
-    GList* items;
+    GFile *FM_SEAL(file);
+    GFileMonitor* FM_SEAL(mon);
+    GList* FM_SEAL(items);
     gpointer _reserved1;
 };
 

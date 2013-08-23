@@ -24,6 +24,8 @@
 #include <config.h>
 #endif
 
+#define FM_DISABLE_SEAL
+
 #include "fm-job.h"
 #include "fm-marshal.h"
 #include "glib-compat.h"

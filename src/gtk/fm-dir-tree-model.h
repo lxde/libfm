@@ -26,6 +26,8 @@
 #include <glib-object.h>
 #include "fm-file-info.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 
@@ -68,10 +70,10 @@ struct _FmDirTreeModel
 {
     GObject parent;
     /*<private>*/
-    GList* roots;
-    gint stamp;
-    guint icon_size;
-    gboolean show_hidden;
+    GList* FM_SEAL(roots);
+    gint FM_SEAL(stamp);
+    guint FM_SEAL(icon_size);
+    gboolean FM_SEAL(show_hidden);
     gpointer _reserved1;
     gpointer _reserved2;
 };

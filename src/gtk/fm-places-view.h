@@ -28,6 +28,8 @@
 #include "fm-path.h"
 #include "fm-dnd-dest.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 #define FM_PLACES_VIEW_TYPE             (fm_places_view_get_type())
@@ -47,9 +49,9 @@ struct _FmPlacesView
 {
     /*< private >*/
     GtkTreeView parent;
-    FmDndDest* dnd_dest;
-    GtkTreePath* clicked_row;
-    GtkCellRendererPixbuf* mount_indicator_renderer;
+    FmDndDest* FM_SEAL(dnd_dest);
+    GtkTreePath* FM_SEAL(clicked_row);
+    GtkCellRendererPixbuf* FM_SEAL(mount_indicator_renderer);
     gpointer _reserved1;
     gpointer _reserved2;
 };

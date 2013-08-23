@@ -26,6 +26,8 @@
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_CELL_RENDERER_PIXBUF				(fm_cell_renderer_pixbuf_get_type())
@@ -45,10 +47,10 @@ struct _FmCellRendererPixbuf
 {
     /*< private >*/
     GtkCellRendererPixbuf parent;
-    FmFileInfo* fi;
-    GdkPixbuf* icon;
-    gint fixed_w;
-    gint fixed_h;
+    FmFileInfo* FM_SEAL(fi);
+    GdkPixbuf* FM_SEAL(icon);
+    gint FM_SEAL(fixed_w);
+    gint FM_SEAL(fixed_h);
     gint _reserved1;
     gint _reserved2;
 };

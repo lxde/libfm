@@ -26,6 +26,8 @@
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_DND_SRC				(fm_dnd_src_get_type())
@@ -67,8 +69,8 @@ typedef struct _FmDndSrcClass		FmDndSrcClass;
 struct _FmDndSrc
 {
 	GObject parent;
-	GtkWidget* widget;
-	FmFileInfoList* files;
+	GtkWidget* FM_SEAL(widget);
+	FmFileInfoList* FM_SEAL(files);
 	/*< private >*/
 	gpointer _reserved1;
 };

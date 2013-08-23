@@ -25,6 +25,8 @@
 #include <gtk/gtk.h>
 #include "fm-path.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 
@@ -47,13 +49,13 @@ struct _FmPathBar
 {
     /*< private >*/
     GtkHBox parent;
-    GtkWidget* viewport; /* viewport to make hbox scrollable */
-    GtkWidget* btn_box; /* hbox containing path element buttons */
+    GtkWidget* FM_SEAL(viewport); /* viewport to make hbox scrollable */
+    GtkWidget* FM_SEAL(btn_box); /* hbox containing path element buttons */
 
-    GtkWidget* left_scroll;    /* left scroll button */
-    GtkWidget* right_scroll;   /* right scroll button */
-    FmPath* cur_path;   /* currently active path */
-    FmPath* full_path;  /* full path shown in the bar */
+    GtkWidget* FM_SEAL(left_scroll);    /* left scroll button */
+    GtkWidget* FM_SEAL(right_scroll);   /* right scroll button */
+    FmPath* FM_SEAL(cur_path);   /* currently active path */
+    FmPath* FM_SEAL(full_path);  /* full path shown in the bar */
     gpointer _reserved1;
     gpointer _reserved2;
 };

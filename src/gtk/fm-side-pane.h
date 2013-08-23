@@ -25,6 +25,8 @@
 #include <gtk/gtk.h>
 #include "fm-file-info.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 
@@ -79,17 +81,17 @@ struct _FmSidePane
 {
     /*< private >*/
     GtkVBox parent;
-    FmPath* cwd;
-    GtkWidget* title_bar;
-    GtkWidget* menu_btn;
-    GtkWidget* menu_label;
-    GtkWidget* menu;
-    GtkWidget* scroll;
-    GtkWidget* view;
-    FmSidePaneMode mode;
-    GtkUIManager* ui;
-    FmSidePaneUpdatePopup update_popup;
-    gpointer popup_user_data;
+    FmPath* FM_SEAL(cwd);
+    GtkWidget* FM_SEAL(title_bar);
+    GtkWidget* FM_SEAL(menu_btn);
+    GtkWidget* FM_SEAL(menu_label);
+    GtkWidget* FM_SEAL(menu);
+    GtkWidget* FM_SEAL(scroll);
+    GtkWidget* FM_SEAL(view);
+    FmSidePaneMode FM_SEAL(mode);
+    GtkUIManager* FM_SEAL(ui);
+    FmSidePaneUpdatePopup FM_SEAL(update_popup);
+    gpointer FM_SEAL(popup_user_data);
     gpointer _reserved1;
     gpointer _reserved2;
 };

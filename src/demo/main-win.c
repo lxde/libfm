@@ -357,10 +357,11 @@ static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
 
 static void create_bookmarks_menu(FmMainWin* win)
 {
-    GList* l;
+    GList *items, *l;
     int i = 0;
-    /* FIXME: direct access to data member is not allowed */
-    for(l=win->bookmarks->items;l;l=l->next)
+
+    items = fm_bookmarks_get_all(win->bookmarks);
+    for(l=items;l;l=l->next)
     {
         FmBookmarkItem* item = (FmBookmarkItem*)l->data;
         GtkWidget* mi = gtk_image_menu_item_new_with_label(item->name);
@@ -370,7 +371,9 @@ static void create_bookmarks_menu(FmMainWin* win)
         g_signal_connect(mi, "activate", G_CALLBACK(on_bookmark), win);
         gtk_menu_shell_insert(GTK_MENU_SHELL(win->bookmarks_menu), mi, i);
         ++i;
+        fm_bookmark_item_unref(item);
     }
+    g_list_free(items);
     if(i > 0)
         gtk_menu_shell_insert(GTK_MENU_SHELL(win->bookmarks_menu), gtk_separator_menu_item_new(), i);
 }

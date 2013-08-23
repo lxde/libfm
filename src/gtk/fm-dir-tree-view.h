@@ -26,6 +26,8 @@
 #include "fm-path.h"
 #include "fm-dnd-dest.h"
 
+#include "fm-seal.h"
+
 G_BEGIN_DECLS
 
 
@@ -47,15 +49,15 @@ typedef struct _FmDirTreeViewClass        FmDirTreeViewClass;
 struct _FmDirTreeView
 {
     GtkTreeView parent;
-    FmPath* cwd;
+    FmPath* FM_SEAL(cwd);
 
     /* <private> */
-    FmDndDest* dd;
+    FmDndDest* FM_SEAL(dd);
     gpointer _reserved1;
 
     /* used for chdir */
-    GSList* paths_to_expand;
-    GtkTreeRowReference* current_row;
+    GSList* FM_SEAL(paths_to_expand);
+    GtkTreeRowReference* FM_SEAL(current_row);
 };
 
 /**

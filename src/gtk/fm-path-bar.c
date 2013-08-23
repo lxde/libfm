@@ -30,6 +30,12 @@
  * possible to click buttons to change directory to parent or child.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#define FM_DISABLE_SEAL
+
 #include "fm-path-bar.h"
 #include <string.h>
 

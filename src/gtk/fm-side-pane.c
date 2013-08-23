@@ -29,7 +29,11 @@
  * places.
  */
 
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
+
+#define FM_DISABLE_SEAL
 
 #include "fm-side-pane.h"
 

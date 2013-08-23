@@ -302,6 +302,10 @@ Changes on 1.2.0 since 1.1.0:
 * Implemented advanced version of lxshortcut application as one more tool
     based on libfm-gtk.
 
+* Sealed all the private data in objects. Applications should exclude use
+    of sealed data and use accessor functions instead. For old code the
+    workaround may be used - define FM_DISABLE_SEAL in compiler options.
+
 
 Changes on 1.1.0 since 1.0.1:
 

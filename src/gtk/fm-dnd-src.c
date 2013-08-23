@@ -72,6 +72,12 @@
  * indices starting from N_FM_DND_SRC_DEFAULT_TARGETS.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#define FM_DISABLE_SEAL
+
 #include "fm-dnd-src.h"
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
