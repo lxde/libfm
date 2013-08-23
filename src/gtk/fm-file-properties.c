@@ -1525,15 +1525,6 @@ gboolean fm_file_properties_add_for_mime_type(const char *mime_type,
         type = NULL;
     else
         type = fm_mime_type_from_name(mime_type);
-    for(ext = extensions; ext; ext = ext->next)
-        if(ext->type == type)
-        {
-            g_warning("duplicate file properties handler for \"%s\" ignored",
-                      mime_type);
-            if(type)
-                fm_mime_type_unref(type);
-            return FALSE;
-        }
     ext = g_slice_new(FmFilePropExt);
     ext->type = type;
     ext->next = extensions;
