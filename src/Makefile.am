@@ -329,7 +329,7 @@ libfm_gtk_la_LDFLAGS = \
 	$(NULL)
 libfm_gtk3_la_LDFLAGS = $(libfm_gtk_la_LDFLAGS)
 
-EXTRA_PROGRAMS = libfm-pref-apps
+EXTRA_PROGRAMS = libfm-pref-apps lxshortcut
 
 if EXTRALIB_ONLY
 bin_PROGRAMS =
@@ -358,6 +358,28 @@ libfm_pref_apps_CFLAGS = \
 libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
+lxshortcut_SOURCES = \
+	tools/lxshortcut.c \
+	$(NULL)
+
+lxshortcut_DEPENDENCIES = \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
+lxshortcut_CFLAGS = \
+	-I$(srcdir)/gtk \
+	$(GTK_CFLAGS) \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	$(NULL)
+
+lxshortcut_LDADD = \
+	$(GTK_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	@LIBFM_GTK_LTLIBRARIES@ \

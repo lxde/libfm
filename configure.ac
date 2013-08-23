@@ -124,7 +124,7 @@ if test x"$ac_with_gtk" != xno; then
       ;;
   esac
   PKG_CHECK_MODULES(GTK, [$pkg_modules])
-  LIBFM_PREF_APPS="libfm-pref-apps"
+  LIBFM_PREF_APPS="libfm-pref-apps lxshortcut"
 else
   dnl automake uses GTK_CFLAGS for glib-compat.c compilation
   GTK_CFLAGS="${GIO_CFLAGS}"
