@@ -478,18 +478,13 @@ static gboolean _icon_press_event(GtkWidget *widget, GdkEventKey *event,
 
 
 /* ---- all other handlers ---- */
-static gboolean on_timeout(gpointer user_data)
+static gboolean _on_timeout(gpointer user_data)
 {
     FmFilePropData* data = (FmFilePropData*)user_data;
     char size_str[128];
     FmDeepCountJob* dc;
 
     GDK_THREADS_ENTER();
-    if(g_source_is_destroyed(g_main_current_source()))
-    {
-        GDK_THREADS_LEAVE();
-        return FALSE;
-    }
     dc = data->dc_job;
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
@@ -516,9 +511,16 @@ static gboolean on_timeout(gpointer user_data)
     return TRUE;
 }
 
+static gboolean on_timeout(gpointer user_data)
+{
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
+    return _on_timeout(user_data);
+}
+
 static void on_finished(FmDeepCountJob* job, FmFilePropData* data)
 {
-    on_timeout(data); /* update display */
+    _on_timeout(data); /* update display */
     if(data->timeout)
     {
         g_source_remove(data->timeout);
@@ -1338,7 +1340,7 @@ static void update_ui(FmFilePropData* data)
 
     update_permissions(data);
 
-    on_timeout(data);
+    _on_timeout(data);
 }
 
 static void init_application_list(FmFilePropData* data)
