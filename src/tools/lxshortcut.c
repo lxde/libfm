@@ -84,7 +84,7 @@ static FmFilePropertiesExtensionInit ext_table = {
 
 int main(int argc, char **argv)
 {
-    GError *err;
+    GError *err = NULL;
     FmConfig *config;
     GtkDialog *dlg;
     char *sfile = NULL, *tfile = NULL;
@@ -94,8 +94,8 @@ int main(int argc, char **argv)
     char *contents;
     gsize len;
     FmPath *path;
-    FmFileInfoJob *job;
     FmFileInfo *fi;
+    FmFileInfoList *files;
 
 #ifdef ENABLE_NLS
     bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -180,25 +180,26 @@ int main(int argc, char **argv)
     /* we have existing target file now with actual contents, let edit it */
     path = fm_path_new_for_path(tfile);
     /* get file info of it */
-    job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
-    fm_file_info_job_add(job, path);
+    fi = fm_file_info_new();
+    fm_file_info_set_path(fi, path);
     fm_path_unref(path);
-    fm_job_run_sync(FM_JOB(job));
-    fi = fm_file_info_list_peek_head(job->file_infos);
-    if (!fi || !fm_file_info_is_desktop_entry(fi))
+    fm_file_info_set_from_native_file(fi, tfile, &err);
+    if (!fm_file_info_is_desktop_entry(fi))
     {
         g_print("Error: file %s is not a desktop entry file\n", tfile);
         g_free(tfile);
-        g_object_unref(job);
+        fm_file_info_unref(fi);
         return 1;
     }
     g_free(tfile);
+    files = fm_file_info_list_new();
+    fm_file_info_list_push_tail_noref(files, fi);
 
     /* add own extension for it */
     fm_file_properties_add_for_mime_type("application/x-desktop", &ext_table);
 
-    dlg = fm_file_properties_widget_new(job->file_infos, TRUE);
-    g_object_unref(job);
+    dlg = fm_file_properties_widget_new(files, TRUE);
+    fm_file_info_list_unref(files);
 
     gtk_dialog_run(dlg);
 
