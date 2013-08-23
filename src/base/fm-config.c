@@ -307,6 +307,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
     {
         if(G_UNLIKELY(g_path_is_absolute(name)))
         {
+            cfg->_cfg_name = g_strdup(name);
             if(g_key_file_load_from_file(kf, name, 0, NULL))
                 fm_config_load_from_key_file(cfg, kf);
             goto _out;
