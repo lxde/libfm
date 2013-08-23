@@ -39,8 +39,8 @@ static char* ofile = NULL;
 static GOptionEntry opt_entries[] =
 {
     {"no-display", 'n', 0, G_OPTION_ARG_NONE, &no_display, NULL, NULL},
-    {"input", 'i', 0, G_OPTION_ARG_FILENAME, &ifile, N_("input file"), N_("file name or desktop id")},
-    {"output", 'o', 0, G_OPTION_ARG_FILENAME, &ofile, N_("file name"), NULL},
+    {"input", 'i', 0, G_OPTION_ARG_FILENAME, &ifile, N_("source file name or desktop id"), N_("SOURCE")},
+    {"output", 'o', 0, G_OPTION_ARG_FILENAME, &ofile, N_("result file name"), N_("RESULT")},
     { NULL }
 };
 
