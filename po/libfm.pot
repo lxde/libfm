@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-23 14:36+0300\n"
+"POT-Creation-Date: 2013-08-23 15:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1446,15 +1446,19 @@ msgid "Restore trashed files to original paths"
 msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
-msgid "input file"
+msgid "source file name or desktop id"
 msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
-msgid "file name or desktop id"
+msgid "SOURCE"
 msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
-msgid "file name"
+msgid "result file name"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:43
+msgid "RESULT"
 msgstr ""
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
