@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-22 21:55+0300\n"
+"POT-Creation-Date: 2013-08-23 14:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,14 @@ msgstr ""
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
+msgstr ""
+
+#: ../data/lxshortcut.desktop.in.h:1
+msgid "Create new or change existing desktop entry"
+msgstr ""
+
+#: ../data/lxshortcut.desktop.in.h:2
+msgid "Shortcut Editor"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:1
@@ -733,53 +741,53 @@ msgstr ""
 msgid "_Trash"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:501 ../src/gtk/fm-file-properties.c:510
+#: ../src/gtk/fm-file-properties.c:496 ../src/gtk/fm-file-properties.c:505
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gtk/fm-file-properties.c:574
+#: ../src/gtk/fm-file-properties.c:576
 msgid "Please enter a valid user name or numeric id."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:604
+#: ../src/gtk/fm-file-properties.c:606
 msgid "Please enter a valid group name or numeric id."
 msgstr ""
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:802
+#: ../src/gtk/fm-file-properties.c:804
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:954
 msgid "Hide or unhide the file"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:957
+#: ../src/gtk/fm-file-properties.c:959
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:961
+#: ../src/gtk/fm-file-properties.c:963
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1088
+#: ../src/gtk/fm-file-properties.c:1090
 msgid "<b>_Access content:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1229
+#: ../src/gtk/fm-file-properties.c:1231
 msgid "Files of different types"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1272
+#: ../src/gtk/fm-file-properties.c:1274
 msgid "<b>File:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1335
+#: ../src/gtk/fm-file-properties.c:1337
 msgid "Multiple Files"
 msgstr ""
 
@@ -1435,6 +1443,18 @@ msgstr ""
 
 #: ../src/modules/gtk-menu-trash.c:73
 msgid "Restore trashed files to original paths"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:42
+msgid "input file"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:42
+msgid "file name or desktop id"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:43
+msgid "file name"
 msgstr ""
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
