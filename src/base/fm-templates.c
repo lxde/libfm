@@ -677,7 +677,9 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
             g_debug("templates monitor: duplicate file %s", basename);
         g_free(basename);
         break;
+#if GLIB_CHECK_VERSION(2, 24, 0)
     case G_FILE_MONITOR_EVENT_MOVED:
+#endif
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
     case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
     case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
