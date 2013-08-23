@@ -341,6 +341,7 @@ static gboolean _save_new_menu_file(GFile *gf, FmXmlFile *file,
     return result;
 }
 
+#if MENU_CACHE_CHECK_VERSION(0, 5, 0)
 /* changes .menu XML file */
 static gboolean _remove_directory(const char *path, GCancellable *cancellable,
                                   GError **error)
@@ -515,6 +516,7 @@ static gboolean _add_directory(const char *path, GCancellable *cancellable,
     g_list_free(xml);
     return ok;
 }
+#endif
 
 /* changes .menu XML file */
 static gboolean _add_application(const char *path, GCancellable *cancellable,
@@ -1071,7 +1073,7 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
         id = strrchr(tmp, '/');
         *id++ = '\0';
         dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
-        child = menu_cache_dir_get_children(dir);
+        child = menu_cache_dir_get_children(MENU_CACHE_DIR(dir));
         dir = NULL;
         while (child)
         {
@@ -2767,7 +2769,11 @@ static FmMenuVFileMonitor *_fm_menu_vfile_monitor_new(void)
     return (FmMenuVFileMonitor*)g_object_new(FM_TYPE_MENU_VFILE_MONITOR, NULL);
 }
 
+#if MENU_CACHE_CHECK_VERSION(0, 4, 0)
 static void _reload_notify_handler(MenuCache* cache, gpointer user_data)
+#else
+static void _reload_notify_handler(gpointer cache, gpointer user_data)
+#endif
 {
     FmMenuVFileMonitor *mon = FM_MENU_VFILE_MONITOR(user_data);
     GSList *items, *new_items, *ol, *nl;
