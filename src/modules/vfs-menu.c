@@ -1057,15 +1057,31 @@ static MenuCacheItem *_vfile_path_to_menu_cache_item(MenuCache* mc, const char *
     if(dir)
     {
 #if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
-        const char *id;
+        char *id;
+#if !MENU_CACHE_CHECK_VERSION(0, 4, 0)
+        GSList *child;
+#endif
 #endif
         tmp = g_strconcat("/", menu_cache_item_get_id(dir), "/", unescaped, NULL);
 #if MENU_CACHE_CHECK_VERSION(0, 4, 0)
         menu_cache_item_unref(dir);
         dir = menu_cache_item_from_path(mc, tmp);
 #else
-        /* FIXME: how to access not dir? */
+        /* access not dir is a bit tricky */
+        id = strrchr(tmp, '/');
+        *id++ = '\0';
         dir = MENU_CACHE_ITEM(menu_cache_get_dir_from_path(mc, tmp));
+        child = menu_cache_dir_get_children(dir);
+        dir = NULL;
+        while (child)
+        {
+            if (strcmp(id, menu_cache_item_get_id(child->data)) == 0)
+            {
+                dir = child->data;
+                break;
+            }
+            child = child->next;
+        }
 #endif
 #if !MENU_CACHE_CHECK_VERSION(0, 5, 0)
         /* The menu-cache is buggy and returns parent for invalid path
