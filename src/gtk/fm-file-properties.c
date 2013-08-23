@@ -909,7 +909,6 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         g_slist_free(data->extdata);
         data->ext = NULL;
     }
-    gtk_widget_destroy(GTK_WIDGET(dlg));
 }
 
 /* FIXME: this is too dirty. Need some refactor later. */
@@ -1493,6 +1492,7 @@ gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
     if(parent)
         gtk_window_set_transient_for(GTK_WINDOW(dlg), parent);
     gtk_widget_show(GTK_WIDGET(dlg));
+    g_signal_connect_after(dlg, "response", G_CALLBACK(gtk_widget_destroy), NULL);
     return TRUE;
 }
 
