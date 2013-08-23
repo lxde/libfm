@@ -310,6 +310,7 @@ AC_CONFIG_FILES([
     src/fm-version.h
     data/Makefile
     data/libfm-pref-apps.1
+    data/lxshortcut.1
     data/ui/Makefile
     po/Makefile.in
     docs/Makefile

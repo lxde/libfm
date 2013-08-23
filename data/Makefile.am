@@ -2,7 +2,7 @@ NULL=
 
 SUBDIRS=ui
 
-man_MANS = libfm-pref-apps.1
+man_MANS = libfm-pref-apps.1 lxshortcut.1
 
 mimedir = $(datadir)/mime/packages
 mime_DATA = libfm.xml
