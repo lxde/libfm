@@ -1,4 +1,5 @@
 data/libfm-pref-apps.desktop.in
+data/lxshortcut.desktop.in
 data/ui/app-chooser.glade
 data/ui/ask-rename.glade
 [type: gettext/glade]data/ui/choose-icon.ui

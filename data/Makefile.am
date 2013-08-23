@@ -15,6 +15,7 @@ libfmconf_DATA = \
 desktopdir=$(datadir)/applications
 desktop_in_files= \
 	libfm-pref-apps.desktop.in \
+	lxshortcut.desktop.in \
 	$(NULL)
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@

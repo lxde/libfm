@@ -299,6 +299,9 @@ Changes on 1.2.0 since 1.1.0:
 * Implemented hiding items in Places View (Applications, Trash Can, etc.)
     if appropriate support is missing (no GVFS support or no module).
 
+* Implemented advanced version of lxshortcut application as one more tool
+    based on libfm-gtk.
+
 
 Changes on 1.1.0 since 1.0.1:
 
