@@ -77,8 +77,8 @@ base_SOURCES = \
 	base/fm-file.c \
 	base/fm-terminal.c \
 	base/fm-templates.c \
-	base/fm-marshal.c \
 	base/fm-module.c \
+	base/fm-marshal.c \
 	$(NULL)
 
 job_SOURCES = \
@@ -158,6 +158,7 @@ else
 libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
+	fm-seal.h \
 	base/fm-config.h \
 	base/fm-list.h \
 	base/fm-path.h \
