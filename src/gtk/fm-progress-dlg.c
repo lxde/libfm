@@ -361,16 +361,9 @@ static void on_cancelled(FmFileOpsJob* job, FmProgressDisplay* data)
 static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 {
     /* cancel the job */
-    if(id == GTK_RESPONSE_CANCEL || id == GTK_RESPONSE_DELETE_EVENT)
-    {
-        if(data->job)
-        {
-            fm_job_cancel(FM_JOB(data->job));
-            if(id != GTK_RESPONSE_CANCEL)
-                fm_progress_display_destroy(data);
-        }
-    }
-    else if(id == GTK_RESPONSE_CLOSE)
+    if(id == GTK_RESPONSE_CANCEL)
+        fm_job_cancel(FM_JOB(data->job));
+    else if(id == GTK_RESPONSE_CLOSE || id == GTK_RESPONSE_DELETE_EVENT)
         fm_progress_display_destroy(data);
 }
 
