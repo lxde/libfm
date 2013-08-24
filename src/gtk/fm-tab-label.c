@@ -34,8 +34,6 @@
 #include <config.h>
 #endif
 
-#define FM_DISABLE_SEAL
-
 #include <glib/gi18n-lib.h>
 
 #include "fm-tab-label.h"
