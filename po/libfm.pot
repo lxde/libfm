@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-23 15:26+0300\n"
+"POT-Creation-Date: 2013-08-24 22:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -509,7 +509,7 @@ msgstr ""
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1064
+#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
@@ -669,15 +669,15 @@ msgstr ""
 msgid "Installed Applications"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1197
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1198
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
 msgid "Loading..."
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-view.c:479
+#: ../src/gtk/fm-dir-tree-view.c:481
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
@@ -761,33 +761,33 @@ msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:954
+#: ../src/gtk/fm-file-properties.c:953
 msgid "Hide or unhide the file"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:959
+#: ../src/gtk/fm-file-properties.c:958
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:963
+#: ../src/gtk/fm-file-properties.c:962
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1090
+#: ../src/gtk/fm-file-properties.c:1089
 msgid "<b>_Access content:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1231
+#: ../src/gtk/fm-file-properties.c:1230
 msgid "Files of different types"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1274
+#: ../src/gtk/fm-file-properties.c:1273
 msgid "<b>File:</b>"
 msgstr ""
 
-#: ../src/gtk/fm-file-properties.c:1337
+#: ../src/gtk/fm-file-properties.c:1336
 msgid "Multiple Files"
 msgstr ""
 
@@ -1023,59 +1023,59 @@ msgstr ""
 msgid "Network Drives"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:121
+#: ../src/gtk/fm-places-view.c:123
 msgid "_Mount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:122
+#: ../src/gtk/fm-places-view.c:124
 msgid "_Unmount Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:123
+#: ../src/gtk/fm-places-view.c:125
 msgid "_Eject Removable Media"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:126
 msgid "_Format Volume"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:140
+#: ../src/gtk/fm-places-view.c:142
 msgid "_Rename Bookmark Item"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:141
+#: ../src/gtk/fm-places-view.c:143
 msgid "Re_move from Bookmark"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:142
+#: ../src/gtk/fm-places-view.c:144
 msgid "Move Bookmark _Up"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:145
 msgid "Move Bookmark _Down"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:156 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:158 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:523
+#: ../src/gtk/fm-places-view.c:525
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:1070
+#: ../src/gtk/fm-places-view.c:1072
 msgid "Rename Bookmark Item"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:1071
+#: ../src/gtk/fm-places-view.c:1073
 msgid "Enter a new name:"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:121
+#: ../src/gtk/fm-progress-dlg.c:123
 msgid ": "
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:196 ../src/gtk/fm-progress-dlg.c:214
+#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1083,85 +1083,93 @@ msgid ""
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
+#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:312
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:316
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:318
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:340
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:519
-msgid ", "
+#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:518
+msgid "_Pause"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:535
-msgid "Moving files"
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:538
-msgid "Copying files"
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:541
-msgid "Trashing files"
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:544
-msgid "Deleting files"
-msgstr ""
-
-#: ../src/gtk/fm-progress-dlg.c:547
-msgid "Creating symlinks"
+#: ../src/gtk/fm-progress-dlg.c:391
+msgid "_Resume"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:550
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:566
+msgid "Moving files"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:569
+msgid "Copying files"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:572
+msgid "Trashing files"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:575
+msgid "Deleting files"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:578
+msgid "Creating symlinks"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:581
 msgid "Changing file attributes"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:62
+#: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:63
+#: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:64
+#: ../src/gtk/fm-side-pane.c:68
 msgid "_Directory Tree"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:65
+#: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:422
+#: ../src/gtk/fm-side-pane.c:426
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:432
+#: ../src/gtk/fm-side-pane.c:436
 msgid "Directory Tree"
 msgstr ""
 
@@ -1225,7 +1233,7 @@ msgstr ""
 msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-delete.c:440
+#: ../src/job/fm-file-ops-job-delete.c:441
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
@@ -1270,96 +1278,96 @@ msgstr ""
 msgid "XML file doesn't contain Applications root"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:383 ../src/modules/vfs-menu.c:463
-#: ../src/modules/vfs-menu.c:566 ../src/modules/vfs-menu.c:680
+#: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
+#: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:448 ../src/modules/vfs-menu.c:2613
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2631
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1111 ../src/modules/vfs-menu.c:1416
-#: ../src/modules/vfs-menu.c:1503
+#: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
+#: ../src/modules/vfs-menu.c:1521
 msgid "Menu cache error"
 msgstr ""
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1185 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
 msgid "Operation not supported"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1376
+#: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1440 ../src/modules/vfs-menu.c:1683
+#: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1701
 msgid "Menu item name cannot be empty"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1490
+#: ../src/modules/vfs-menu.c:1508
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1600 ../src/modules/vfs-menu.c:1741
+#: ../src/modules/vfs-menu.c:1618 ../src/modules/vfs-menu.c:1759
 msgid "Invalid menu item"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1604 ../src/modules/vfs-menu.c:1745
+#: ../src/modules/vfs-menu.c:1622 ../src/modules/vfs-menu.c:1763
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1767
+#: ../src/modules/vfs-menu.c:1785
 msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1925
+#: ../src/modules/vfs-menu.c:1943
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1935
+#: ../src/modules/vfs-menu.c:1953
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1972
+#: ../src/modules/vfs-menu.c:1990
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1975 ../src/modules/vfs-menu.c:2606
+#: ../src/modules/vfs-menu.c:1993 ../src/modules/vfs-menu.c:2624
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1999
+#: ../src/modules/vfs-menu.c:2017
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2285 ../src/modules/vfs-menu.c:2377
+#: ../src/modules/vfs-menu.c:2303 ../src/modules/vfs-menu.c:2395
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2521
+#: ../src/modules/vfs-menu.c:2539
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2566
+#: ../src/modules/vfs-menu.c:2584
 msgid "Invalid operation with menu root"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2655
+#: ../src/modules/vfs-menu.c:2673
 msgid "Invalid destination"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2924
+#: ../src/modules/vfs-menu.c:2946
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
