@@ -2,7 +2,7 @@
  *      fm-cell-renderer-text.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -290,6 +290,8 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
             state = GTK_STATE_FLAG_SELECTED;
 
         gtk_style_context_get_background_color(style, state, &clr);
+        gdk_cairo_rectangle(cr, &rect);
+        gdk_cairo_set_source_rgba(cr, &clr);
 #else
         cairo_t *cr = gdk_cairo_create (window);
         GdkColor clr;
@@ -307,10 +309,10 @@ static void fm_cell_renderer_text_render(GtkCellRenderer *cell,
             gdk_cairo_rectangle(cr, expose_area);
             cairo_clip(cr);
         }
-#endif
         gdk_cairo_rectangle(cr, &rect);
 
         cairo_set_source_rgb(cr, clr.red / 65535., clr.green / 65535., clr.blue / 65535.);
+#endif
         cairo_fill (cr);
 
 #if !GTK_CHECK_VERSION(3, 0, 0)

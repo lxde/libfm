@@ -308,9 +308,6 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 {
     FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     FmFileInfo *info = NULL;
-    /* we don't need to follow state for prelit items */
-    if(flags & GTK_CELL_RENDERER_PRELIT)
-        flags &= ~GTK_CELL_RENDERER_PRELIT;
     if(fm_config->shadow_hidden)
     {
         g_object_get(render, "info", &info, NULL); // FIXME: is info certainly FmFileInfo?
@@ -319,6 +316,9 @@ static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell
 #if GTK_CHECK_VERSION(3, 0, 0)
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, cr, widget, background_area, cell_area, flags);
 #else
+    /* we don't need to follow state for prelit items */
+    if(flags & GTK_CELL_RENDERER_PRELIT)
+        flags &= ~GTK_CELL_RENDERER_PRELIT;
     GTK_CELL_RENDERER_CLASS(fm_cell_renderer_pixbuf_parent_class)->render(cell, window, widget, background_area, cell_area, expose_area, flags);
 #endif
 
