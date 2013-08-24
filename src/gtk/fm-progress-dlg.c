@@ -64,6 +64,7 @@ struct _FmProgressDisplay
     GtkTextView* error_msg;
     GtkTextBuffer* error_buf;
     GtkTextTag* bold_tag;
+    GtkButton *suspend;
 
     FmFileOpOption default_opt;
 
@@ -77,6 +78,7 @@ struct _FmProgressDisplay
     GTimer* timer;
 
     gboolean has_error : 1;
+    gboolean suspended : 1;
 };
 
 static void ensure_dlg(FmProgressDisplay* data);
@@ -362,9 +364,39 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 {
     /* cancel the job */
     if(id == GTK_RESPONSE_CANCEL)
+    {
         fm_job_cancel(FM_JOB(data->job));
+        if (data->suspended)
+        {
+            fm_job_resume(FM_JOB(data->job));
+            data->suspended = FALSE;
+        }
+    }
     else if(id == GTK_RESPONSE_CLOSE || id == GTK_RESPONSE_DELETE_EVENT)
         fm_progress_display_destroy(data);
+    else if (id == 1 && data->suspend)
+    {
+        if (data->suspended)
+        {
+            data->suspended = FALSE;
+            fm_job_resume(FM_JOB(data->job));
+            gtk_button_set_label(data->suspend, _("_Pause"));
+            gtk_button_set_image(data->suspend,
+                                 gtk_image_new_from_stock(GTK_STOCK_MEDIA_PAUSE,
+                                                          GTK_ICON_SIZE_BUTTON));
+        }
+        else if (fm_job_pause(FM_JOB(data->job)))
+        {
+            data->suspended = TRUE;
+            gtk_button_set_label(data->suspend, _("_Resume"));
+            gtk_button_set_image(data->suspend,
+                                 gtk_image_new_from_stock(GTK_STOCK_MEDIA_FORWARD,
+                                                          GTK_ICON_SIZE_BUTTON));
+
+        }
+        else
+            g_warning("FmJob failed to pause");
+    }
 }
 
 static gboolean on_update_dlg(gpointer user_data)
@@ -483,7 +515,13 @@ static gboolean on_show_dlg(gpointer user_data)
     data->error_pane = (GtkWidget*)gtk_builder_get_object(builder, "error_pane");
     data->error_msg = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "error_msg"));
     data->remaining_time = GTK_LABEL(gtk_builder_get_object(builder, "remaining_time"));
-
+    data->suspend = GTK_BUTTON(gtk_dialog_add_button(data->dlg, _("_Pause"), 1));
+    gtk_button_set_use_stock(data->suspend, FALSE);
+    gtk_button_set_use_underline(data->suspend, TRUE);
+    gtk_button_set_image(data->suspend,
+                         gtk_image_new_from_stock(GTK_STOCK_MEDIA_PAUSE,
+                                                  GTK_ICON_SIZE_BUTTON));
+    gtk_dialog_set_alternative_button_order(data->dlg, 1, GTK_RESPONSE_CANCEL, -1);
     data->bold_tag = gtk_text_tag_new("bold");
     g_object_set(data->bold_tag, "weight", PANGO_WEIGHT_BOLD, NULL);
     gtk_text_tag_table_add(tag_table, data->bold_tag);
@@ -642,6 +680,8 @@ static void fm_progress_display_destroy(FmProgressDisplay* data)
     g_signal_handlers_disconnect_by_func(data->job, on_cancelled, data);
 
     fm_job_cancel(FM_JOB(data->job));
+    if (data->suspended)
+        fm_job_resume(FM_JOB(data->job));
 
     g_signal_handlers_disconnect_by_func(data->job, on_ask, data);
     g_signal_handlers_disconnect_by_func(data->job, on_ask_rename, data);
