@@ -504,7 +504,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     GList *l;
     GtkCellRenderer* render;
     FmFolderModel* model = fv->model;
-    int icon_size = 0, item_width;
+    int icon_size = 0, item_width, font_height;
 
     fv->view = exo_icon_view_new();
 
@@ -538,6 +538,18 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
     {
         if(fv->show_full_names_handler == 0)
             fv->show_full_names_handler = g_signal_connect(fm_config, "changed::show_full_names", G_CALLBACK(on_show_full_names_changed), fv);
+        if (fm_config->show_full_names)
+            font_height = 0;
+        else
+        {
+            /* calculate text row size */
+            PangoContext *pc = gtk_widget_get_pango_context((GtkWidget*)fv);
+            PangoFontMetrics *metrics = pango_context_get_metrics(pc, NULL, NULL);
+
+            font_height = (pango_font_metrics_get_ascent(metrics)
+                           + pango_font_metrics_get_descent(metrics)) / PANGO_SCALE + 1;
+            pango_font_metrics_unref(metrics);
+        }
         if(fv->mode == FM_FV_ICON_VIEW)
         {
             fv->icon_size_changed_handler = g_signal_connect(fm_config, "changed::big_icon_size", G_CALLBACK(on_big_icon_size_changed), fv);
@@ -551,7 +563,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
                          "wrap-width", item_width,
-                         "max-height", fm_config->show_full_names ? 0 : 70,
+                         "max-height", font_height * 3,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
@@ -571,7 +583,7 @@ static inline void create_icon_view(FmStandardView* fv, GList* sels)
             g_object_set((GObject*)render,
                          "wrap-mode", PANGO_WRAP_WORD_CHAR,
                          "wrap-width", item_width,
-                         "max-height", fm_config->show_full_names ? 0 : 90,
+                         "max-height", font_height * 5,
                          "alignment", PANGO_ALIGN_CENTER,
                          "xalign", 0.5,
                          "yalign", 0.0,
