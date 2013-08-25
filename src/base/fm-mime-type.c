@@ -81,7 +81,7 @@ void _fm_mime_type_init()
 
     /* fake mime-type for shortcuts */
     shortcut_type = fm_mime_type_from_name("inode/x-shortcut");
-    shortcut_type->description = g_strdup(_("Shortcuts"));
+    shortcut_type->description = g_strdup(_("shortcut to URI"));
 }
 
 void _fm_mime_type_finalize()
