@@ -74,17 +74,14 @@ void _fm_mime_type_init()
     mime_hash = g_hash_table_new_full(g_str_hash, g_str_equal,
                                        NULL, fm_mime_type_unref);
 
-    /* since this one is frequently used, we store it to save hash table lookup. */
+    /* since those are frequently used, we store them to save hash table lookup. */
     directory_type = fm_mime_type_from_name("inode/directory");
+    mountable_type = fm_mime_type_from_name("inode/mount-point");
+    desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 
-    /* fake mime-types for mountable and shortcuts */
+    /* fake mime-type for shortcuts */
     shortcut_type = fm_mime_type_from_name("inode/x-shortcut");
     shortcut_type->description = g_strdup(_("Shortcuts"));
-
-    mountable_type = fm_mime_type_from_name("inode/x-mountable");
-    mountable_type->description = g_strdup(_("Mount Point"));
-
-    desktop_entry_type = fm_mime_type_from_name("application/x-desktop");
 }
 
 void _fm_mime_type_finalize()
@@ -286,7 +283,7 @@ FmMimeType* _fm_mime_type_get_inode_x_shortcut()
     return shortcut_type;
 }
 
-FmMimeType* _fm_mime_type_get_inode_x_mountable()
+FmMimeType* _fm_mime_type_get_inode_mount_point()
 {
     return mountable_type;
 }

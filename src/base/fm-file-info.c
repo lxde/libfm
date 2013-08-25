@@ -586,7 +586,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
             if(type == G_FILE_TYPE_SHORTCUT)
                 fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
             else
-                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_mountable());
+                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_mount_point());
         }
         break;
     case G_FILE_TYPE_DIRECTORY:
@@ -1172,7 +1172,7 @@ gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
 
 gboolean fm_file_info_is_mountable(FmFileInfo* fi)
 {
-    return fi->mime_type == _fm_mime_type_get_inode_x_mountable();
+    return fi->mime_type == _fm_mime_type_get_inode_mount_point();
 }
 
 /**

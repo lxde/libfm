@@ -1136,9 +1136,8 @@ static void fm_folder_model_do_sort(FmFolderModel* model)
     g_free(new_order);
 }
 
-static void _fm_folder_model_insert_item(FmFolder* dir,
-                                         FmFolderItem* new_item,
-                                         FmFolderModel* model)
+static void _fm_folder_model_insert_item(FmFolderModel* model,
+                                         FmFolderItem* new_item)
 {
     GtkTreeIter it;
     GtkTreePath* path;
@@ -1166,7 +1165,7 @@ static void _fm_folder_model_insert_item(FmFolder* dir,
 void fm_folder_model_file_created(FmFolderModel* model, FmFileInfo* file)
 {
     FmFolderItem* new_item = fm_folder_item_new(file);
-    _fm_folder_model_insert_item(model->folder, new_item, model);
+    _fm_folder_model_insert_item(model, new_item);
 }
 
 /**
@@ -1207,7 +1206,7 @@ gboolean fm_folder_model_extra_file_add(FmFolderModel* model, FmFileInfo* file,
     item = fm_folder_item_new(file);
     item->is_extra = TRUE;
     item->pos = where;
-    _fm_folder_model_insert_item(model->folder, item, model);
+    _fm_folder_model_insert_item(model, item);
     return TRUE;
 }
 

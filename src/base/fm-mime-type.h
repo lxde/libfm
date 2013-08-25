@@ -48,7 +48,7 @@ FmMimeType* fm_mime_type_from_name(const char* type);
 
 FmMimeType* _fm_mime_type_get_inode_directory();
 FmMimeType* _fm_mime_type_get_inode_x_shortcut();
-FmMimeType* _fm_mime_type_get_inode_x_mountable();
+FmMimeType* _fm_mime_type_get_inode_mount_point();
 FmMimeType* _fm_mime_type_get_application_x_desktop();
 
 FmMimeType* fm_mime_type_ref(FmMimeType* mime_type);
