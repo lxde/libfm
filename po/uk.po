@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-24 22:14+0300\n"
-"PO-Revision-Date: 2013-08-24 22:19+0300\n"
+"POT-Creation-Date: 2013-08-25 17:38+0300\n"
+"PO-Revision-Date: 2013-08-25 17:42+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -180,7 +180,7 @@ msgstr "<b>Останнє оновлення:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Остання зміна доступу:</b>"
+msgstr "<b>Остання зміна дозволів:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -541,13 +541,9 @@ msgstr "Мережа"
 msgid "Trash Can"
 msgstr "Смітник"
 
-#: ../src/base/fm-mime-type.c:82
-msgid "Shortcuts"
-msgstr "Ярлики"
-
-#: ../src/base/fm-mime-type.c:85
-msgid "Mount Point"
-msgstr "Точка монтування"
+#: ../src/base/fm-mime-type.c:84
+msgid "shortcut to URI"
+msgstr "посилання на URI"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
@@ -1389,7 +1385,7 @@ msgstr "'%s' не є пунктом меню"
 #: ../src/modules/vfs-menu.c:2017
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr "'%s' зіпсовано"
+msgstr "Файл відповідний до '%s' зіпсовано"
 
 #: ../src/modules/vfs-menu.c:2303 ../src/modules/vfs-menu.c:2395
 #, c-format
@@ -1670,6 +1666,12 @@ msgstr "Чистий оптичний диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Оптичний диск"
+
+#~ msgid "Shortcuts"
+#~ msgstr "Ярлики"
+
+#~ msgid "Mount Point"
+#~ msgstr "Точка монтування"
 
 #~ msgid "input file"
 #~ msgstr "вхідний файл"
