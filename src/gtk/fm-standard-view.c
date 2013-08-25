@@ -411,13 +411,27 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv)
 
 static void on_show_full_names_changed(FmConfig* cfg, FmStandardView* fv)
 {
+    gint font_height;
+
     g_return_if_fail(fv->renderer_text);
+
+    if (fm_config->show_full_names)
+        font_height = 0;
+    else
+    {
+        /* calculate text row size */
+        PangoContext *pc = gtk_widget_get_pango_context((GtkWidget*)fv);
+        PangoFontMetrics *metrics = pango_context_get_metrics(pc, NULL, NULL);
+
+        font_height = (pango_font_metrics_get_ascent(metrics)
+                       + pango_font_metrics_get_descent(metrics)) / PANGO_SCALE + 1;
+        pango_font_metrics_unref(metrics);
+    }
     if(fv->mode == FM_FV_ICON_VIEW)
-        g_object_set((GObject*)fv->renderer_text,
-                     "max-height", cfg->show_full_names ? 0 : 70, NULL);
+        font_height *= 3;
     else /* thumbnail view */
-        g_object_set((GObject*)fv->renderer_text,
-                     "max-height", cfg->show_full_names ? 0 : 90, NULL);
+        font_height *= 5;
+    g_object_set((GObject*)fv->renderer_text, "max-height", font_height, NULL);
     /* FIXME: does it require redraw request? */
 }
 
