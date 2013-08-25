@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2013-07-12 15:43+0000\n"
+"POT-Creation-Date: 2013-07-24 00:29+0200\n"
+"PO-Revision-Date: 2013-08-25 09:23+0000\n"
 "Last-Translator: sotrud_nik <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -17,22 +17,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1373643782.0\n"
+"X-POOTLE-MTIME: 1377422603.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Таңдамалы қолданбалар"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Орындалатын командалық жол:</b>"
+msgid "Choose An Application"
+msgstr "Қолданбаны таңдаңыз"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Ашылатын файл түрі:</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "Орнаты_лған қолданбалар"
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>_Орындалатын командалық жол:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "Қара_п шығу"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "Терминал эмуляторында ор_ындау"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr ""
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -47,40 +66,35 @@ msgstr ""
 "  <b>%u</b>: Файлдың бірлік URI-ін сипаттайды\n"
 "  <b>%U</b>: Бірнеше URI сипаттайды"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
+#: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
 msgstr "Таң_дауыңызша командалық жол"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Қолданбаны таңдаңыз"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "Қара_п шығу"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "Терминал эмуляторында ор_ындау"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "Орнаты_лған қолданбалар"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "Таңдалған қолданбаны файлдардың осы түрі үшін негізгі ретінде ор_нату"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Файлдарды алмастыруды растау"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "А_ттап кету"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "Атын ауысты_ру"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "Үстінен _жазу"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -90,53 +104,33 @@ msgstr ""
 "\n"
 "Бар болып тұрған файлды алмастыруды қалайсыз ба"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Файлдарды алмастыруды растау"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "Бұл опцияны барлық бар файлдарға іске а_сыру"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "_Файл аты:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "Үстінен _жазу"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "Атын ауысты_ру"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "А_ттап кету"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "келесі файлмен?"
 
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "_Файл аты:"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "Бұл опцияны барлық бар файлдарға іске а_сыру"
+
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>Құрамасын тү_зету:</b>"
+msgid "Choose An Icon..."
+msgstr "Таңбашаны таңдаңыз..."
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
-msgid "Choose An Icon..."
-msgstr "Қолданбаны таңдаңыз"
+msgid "System icon theme"
+msgstr "Жүйелік таңбашалар темасы"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "С_урет файлдары"
+msgstr "Сурет файлдары"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
-msgid "System icon theme"
-msgstr "Жүйелік қолданбалар"
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>Таңбашаны келесіден таңдау:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -147,317 +141,299 @@ msgid "Execute in _Terminal"
 msgstr "Тер_миналды орындау"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Рұқсаттарды басқару</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>Құрамасын тү_зету:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Файл түрі:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>То_бы:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Соңғы қатынау:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Соңғы өзгерту:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>Орналасуы:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Иесі:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>Кө_мегімен ашу:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Дисктегі өлшемі:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>Арнайы биттер:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-#, fuzzy
-msgid "<b>Target file:</b>"
-msgstr "<b>Мақсаты:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Файлдардың сомаланған өлшемі:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>О_рындау:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-#, fuzzy
-msgid "<b>_Name:</b>"
-msgstr "<b>И_есі:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>Құр_амасын қарау:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "Әркім"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "Файл қасиеттері"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "Ешкім"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>А_ты:</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "Ешнәрсе"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Орналасуы:</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "Тек иесі"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>Мақсат файлы:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "Тек иесі мен тобы"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>Файл түрі:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>Кө_мегімен ашу:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Бұл түрдегі файлдарды ашу үшін қолданбаны көрсетіңіз"
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
-msgstr "Set GID"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Файлдардың сомаланған өлшемі:</b>"
 
-#: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
-msgstr "Set UID"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Дисктегі өлшемі:</b>"
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
-msgstr "Set UID & GID"
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Соңғы өзгерту:</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "Бумаға қатынау үшін арнайы жалаушалар"
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>Соңғы қатынау:</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "Файл орындалуы үшін арнайы жалаушалар"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "Sticky"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Sticky & set GID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Файл/бума құрамасын кім өзгерте алады"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Файлды кім орындай алады не бумаға кім кіре алады"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "Файл/бума құрамасын кім оқи алады"
-
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:13
 msgid "_General"
 msgstr "Жал_пы"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Иесі:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>То_бы:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>Құр_амасын қарау:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>Құрамасын тү_зету:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>О_рындау:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>Арнайы биттер:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "Файл/бума құрамасын кім оқи алады"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "Файл/бума құрамасын кім өзгерте алады"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "Файлды кім орындай алады не бумаға кім кіре алады"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "Файл орындалуы үшін арнайы жалаушалар"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "Бумаға қатынау үшін арнайы жалаушалар"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>Рұқсаттарды басқару</b>"
+
+#: ../data/ui/file-prop.glade.h:26
 msgid "_Permissions"
 msgstr "_Рұқсаттар"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "Ешнәрсе"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set GID"
+msgstr "Set GID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "Sticky & set GID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set UID"
+msgstr "Set UID"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set UID & GID"
+msgstr "Set UID & GID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner"
+msgstr "Тек иесі"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Only owner and group"
+msgstr "Тек иесі мен тобы"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Anyone"
+msgstr "Әркім"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Nobody"
+msgstr "Ешкім"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Байт"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "КБ"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "МБ"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "ГБ"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Күнді таңдаңыз"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Күнтізбеден күнді таңдаңыз"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Файлдарды іздеу"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Файл а_таудың шаблондары:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "Регистрге тәу_елсіз"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "Тұрақты өрнектерді қо_лдану"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>І_здеу үшін орындар</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "Ішкі бумалардан і_здеу"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Жас_ырын файлдарды іздеу"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Аты/Орна_ласуы"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Файл түрі</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Тек келесі түрдегі файлдарды іздеу:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Мә_тіндік файлдар"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "С_урет файлдары"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Аудио файлдары"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Видео файлдары"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "Құ_жаттар"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "Файл _түрі"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>Файл құрам_ында бар</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "Құра_масы"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Файл өлшемі</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "Келесіден кі_шірек:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "Келесіден ү_лкенірек:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Соңғы өзгерту уақыты</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "(Ешнәрсе)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-#, fuzzy
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>Файл құрам_ында бар</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Файл өлшемі</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Файл түрі</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-#, fuzzy
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Файл а_таудың шаблондары:</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Соңғы өзгерту уақыты</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-#, fuzzy
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Іздеу үшін орындар</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Байт"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "Құра_масы"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "Регистрге тәу_елсіз"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Күнді таңдаңыз"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Күнтізбеден күнді таңдаңыз"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "Файл _түрі"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "ГБ"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "КБ"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "Келесіден ке_інірек:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "МБ"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Аты/Орна_ласуы"
-
-#: ../data/ui/filesearch.glade.h:20
-#, fuzzy
-msgid "Only search for files of following types:"
-msgstr "Тек келесі түрдегі файлдарды іздеу"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Файлдарды іздеу"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Жас_ырын файлдарды іздеу"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Мә_тіндік файлдар"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "_Аудио файлдары"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "Келесіден ү_лкенірек:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "Құ_жаттар"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "Келесіден ер_терек:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "С_урет файлдары"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "Келесіден ке_інірек:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "Қас_иеттері"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "Ішкі бумалардан і_здеу"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "Келесіден кі_шірек:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "Тұрақты өрнектерді қо_лдану"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "_Видео файлдары"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>Пошта қолданбасы:</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Терминал эмуляторы</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Веб браузері</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Веб сілтемелерін ашу үшін таңдамалы веб браузері."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Командалық жол:"
+msgid "<b>Mail client</b>"
+msgstr "<b>Пошта қолданбасы:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Файлдар сәйкестіктері"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Жүйелік қолданбалар"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
@@ -465,36 +441,48 @@ msgstr ""
 "Таңдамалы пошта қолданбасы сіз эл. пошта адресіне шерткен кезде эл. хатты "
 "жазу үшін қолданылады."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Терминал эмуляторы</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Командалық жол:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Жүйелік қолданбалар"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Веб сілтемелерін ашу үшін таңдамалы веб браузері."
+msgid "File Associations"
+msgstr "Файлдар сәйкестіктері"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Дайындау..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Өңделуде:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>Барысы:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Бірнеше қате орын алды:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Қалған уақыты:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Қайда:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Барысы:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Қалған уақыты:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Дайындау..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Бірнеше қате орын алды:</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -675,9 +663,8 @@ msgid "Open _With..."
 msgstr "Көме_гімен ашу..."
 
 #: ../src/gtk/fm-file-menu.c:160
-#, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "Бетбелгілерден ө_шіру"
+msgstr "Б_етбелгілерге қосу"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -741,9 +728,8 @@ msgid "Files of different types"
 msgstr "Әр түрлі түрдегі файлдар"
 
 #: ../src/gtk/fm-file-properties.c:1211
-#, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Файл түрі:</b>"
+msgstr "<b>Файл:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -787,9 +773,8 @@ msgid "Folder"
 msgstr "Бума"
 
 #: ../src/gtk/fm-folder-view.c:174
-#, fuzzy
 msgid "Empty File"
-msgstr "Файлды орындау"
+msgstr "Бос файл"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -800,14 +785,12 @@ msgid "_Sort Files"
 msgstr "Фа_йлдарды сұрыптау"
 
 #: ../src/gtk/fm-folder-view.c:188
-#, fuzzy
 msgid "_Rename Folder"
-msgstr "Файл атын ауыстыру"
+msgstr "Бума атын ау_ыстыру"
 
 #: ../src/gtk/fm-folder-view.c:189
-#, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Файл қасиеттері"
+msgstr "Файл қаси_еттері"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -854,28 +837,26 @@ msgid "Creating new folder"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Enter a name for empty file:"
-msgstr "Жаңадан жасалып жатқан файл атын енгізіңіз:"
+msgstr "Жаңа бос файл атын енгізіңіз:"
 
 #: ../src/gtk/fm-folder-view.c:849
-#, fuzzy
 msgid "Creating ..."
-msgstr "Жаңа жасау..."
+msgstr "Жасалуда ..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
 msgstr "Жаңа"
 
 #: ../src/gtk/fm-folder-view.c:865
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Жаңадан жасалып жатқан файл атын енгізіңіз:"
+msgstr "Жаңа %s үшін атын енгізіңіз:"
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Сілтемелерді жасау"
+msgstr "Жасалуда %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
@@ -948,12 +929,11 @@ msgstr "Қоқыс шелегін тазартуды шынымен қалайс
 
 #: ../src/gtk/fm-path-entry.c:598
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "Кірі_стіру және өту"
 
 #: ../src/gtk/fm-path-entry.c:657
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "Т_ек осы бума үшін"
+msgstr "Бума жолы"
 
 #: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
 msgid "Desktop"
@@ -984,14 +964,12 @@ msgid "Re_move from Bookmark"
 msgstr "Бетбелгілерден ө_шіру"
 
 #: ../src/gtk/fm-places-view.c:125
-#, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "Бетбелгілерден ө_шіру"
+msgstr "Бетбелгіні ж_оғары жылжыту"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "Бетбелгілерден ө_шіру"
+msgstr "Бетбелгіні тө_мен жылжыту"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -1000,6 +978,8 @@ msgstr "Қоқыс шелегін та_зарту"
 #: ../src/gtk/fm-places-view.c:505
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
+"Қалыпты орналасулар, құрылғылар және бетбелгілер тізімін бүйір панелінде "
+"көрсетеді"
 
 #. FIXME: we need to set a proper parent window for the dialog
 #: ../src/gtk/fm-places-view.c:984
@@ -1112,29 +1092,29 @@ msgstr "Орындар"
 msgid "Directory Tree"
 msgstr "Бумалар ағашы"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
-msgstr ""
+msgstr "Бума құрамасының көрінісі"
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "%s _жасыру"
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
-msgstr ""
+msgstr "Солға жы_лжыту"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
-msgstr ""
-
-#: ../src/gtk/fm-standard-view.c:801
-#, c-format
-msgid "Show %s"
-msgstr ""
+msgstr "_Оңға жылжыту"
 
 #: ../src/gtk/fm-standard-view.c:813
+#, c-format
+msgid "Show %s"
+msgstr "%s көрсету"
+
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr ""
 
@@ -1144,9 +1124,9 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Көрсетілген бума қате"
+msgstr "Көрсетілген '%s' бумасы жарамсыз"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
@@ -1183,61 +1163,61 @@ msgid "Setting target can be done only for single file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
+msgid "Empty <Name> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
+msgid "Tag <Not> should have exactly one child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
+msgid "Failed to insert tag <%s> from merging file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
-msgstr ""
+msgid "Invalid <MergeFile> tag"
+msgstr "<MergeFile> тегі қате"
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
-msgstr ""
+msgid "Invalid <MergeDir> tag"
+msgstr "<MergeDir> тегі қате"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "XML файлының %s қатесі (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML файлында Applications түбірі"
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
-msgstr ""
+msgid "Cannot find path %s in XML definitions"
+msgstr "XML анықтамаларында %s жолын табу мүмкін емес"
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
-msgstr ""
+msgid "Category manipulation internal error"
+msgstr "Санатпен әрекетінде ішкі қатесі"
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
+msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
+msgid "Menu path '%s' already exists"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
@@ -1259,14 +1239,13 @@ msgid "Menu item name cannot be empty"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Мәзір бумасы қате"
+msgstr "%s мәзірлер бумасы жарамсыз"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Мәзір бумасы қате"
+msgstr "Мәзір элементі қате"
 
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
@@ -1278,19 +1257,19 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2548
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute %s not supported"
-msgstr "Әрекетке қолдау жоқ"
+msgstr "%s атрибутын орнатуына қолдау жоқ"
 
 #: ../src/modules/vfs-menu.c:2558
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute %s"
-msgstr "Қате файл аты %s"
+msgstr "%s атрибуты үшін мәні қате"
 
 #: ../src/modules/vfs-menu.c:2595
-#, fuzzy, c-format
+#, c-format
 msgid "The \"%s\" is a menu directory"
-msgstr "Мәзір бумасы қате"
+msgstr "\"%s\" мәзір бумасы болып тұр"
 
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
@@ -1308,7 +1287,7 @@ msgid "Cannot create menu item \"%s\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3226
@@ -1316,9 +1295,9 @@ msgid "Invalid operation with menu root"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu item %s"
-msgstr "Қате файл аты %s"
+msgstr "%s мәзір элементі қате"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
@@ -1335,28 +1314,24 @@ msgid "Search"
 msgstr "Іздеу"
 
 #: ../src/modules/vfs-search.c:1050
-#, fuzzy
 msgid "Search results"
-msgstr "Файлдарды іздеу"
+msgstr "Іздеу нәтижелері"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
-#, fuzzy
 msgid "Executable files"
-msgstr "Файлды орындау"
+msgstr "Орындалатын файлдар"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:268
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Қайда:</b>"
+msgstr "<b>Ко_манда:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:276
-#, fuzzy
 msgid "_Browse..."
-msgstr "Қара_п шығу"
+msgstr "_Шолу..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
@@ -1364,7 +1339,6 @@ msgstr ""
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
 msgstr "Терминал эмуляторында ор_ындау"
 
@@ -1374,38 +1348,38 @@ msgid "_Keep terminal window open after run"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Орналасуы:</b>"
+msgstr "<b>Си_паттамасы:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>И_есі:</b>"
+msgstr "<b>Жұмы_с бумасы:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Қайда:</b>"
+msgstr "<b>Қалқ_ымалы кеңес:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Қолданбаны таңдаңыз"
+msgstr "Қолданба үшін көрсетілетін қалқымалы кеңес"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
 msgstr ""
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+msgid "_Desktop entry"
+msgstr "Жұ_мыс үстелі элементі"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
