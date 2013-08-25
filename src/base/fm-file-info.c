@@ -229,13 +229,10 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
         fi->backup = (!S_ISDIR(st.st_mode) && g_str_has_suffix(dname, "~"));
         dname = NULL;
 
-        if (get_fast) /* do rough estimation */
+        if (get_fast && S_ISREG(st.st_mode)) /* do rough estimation */
         {
-            if (S_ISDIR(st.st_mode)) /* directory */
-                fi->mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_directory());
-            else if (S_ISLNK(st.st_mode))
-                fi->mime_type = fm_mime_type_from_name("inode/symlink");
-            else if ((st.st_mode & S_IXUSR) == S_IXUSR) /* executable */
+            /* for non-regular files fm_mime_type_from_native_file() is fast */
+            if ((st.st_mode & S_IXUSR) == S_IXUSR) /* executable */
                 fi->mime_type = fm_mime_type_from_name("application/x-executable");
             else
                 fi->mime_type = fm_mime_type_from_file_name(fm_path_get_basename(fi->path));
