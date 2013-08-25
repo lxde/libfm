@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-24 22:14+0300\n"
+"POT-Creation-Date: 2013-08-25 17:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -526,12 +526,8 @@ msgstr ""
 msgid "Trash Can"
 msgstr ""
 
-#: ../src/base/fm-mime-type.c:82
-msgid "Shortcuts"
-msgstr ""
-
-#: ../src/base/fm-mime-type.c:85
-msgid "Mount Point"
+#: ../src/base/fm-mime-type.c:84
+msgid "shortcut to URI"
 msgstr ""
 
 #: ../src/base/fm-terminal.c:246
