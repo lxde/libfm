@@ -826,7 +826,9 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
     typed_basename = gtk_entry_get_text(GTK_ENTRY(entry)) + priv->parent_len;
     gtk_tree_model_get(model, iter, COL_BASENAME, &model_basename, -1);
 
-    if(model_basename[0] == '.' && typed_basename[0] != '.')
+    if (G_UNLIKELY(model_basename == NULL))
+        ret = FALSE; /* it is invalid if file name is empty but it's possible! */
+    else if(model_basename[0] == '.' && typed_basename[0] != '.')
         ret = FALSE; /* ignore hidden files when not requested. */
     else if(priv->long_list && /* don't create too long lists */
             (typed_basename[0] == '\0' /* "/xxx/" - no names here yet */
