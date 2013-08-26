@@ -9111,6 +9111,9 @@ exo_icon_view_item_accessible_idle_do_action (gpointer data)
   ExoIconView *icon_view;
   GtkTreePath *path;
 
+  if(g_source_is_destroyed(g_main_current_source()))
+    return FALSE;
+
   item = EXO_ICON_VIEW_ITEM_ACCESSIBLE (data);
   item->action_idle_handler = 0;
 

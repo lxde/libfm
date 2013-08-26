@@ -405,9 +405,9 @@ static gboolean on_update_dlg(gpointer user_data)
     char percent_text[64];
     gdouble elapsed;
 
-    data->update_timeout = 0;
     if (g_source_is_destroyed(g_main_current_source()) || data->dlg == NULL)
         return FALSE;
+    data->update_timeout = 0;
     /* the g_strdup very probably returns the same pointer that was g_free'd
        so we cannot just compare data->old_cur_file with data->cur_file */
     if(data->cur_file)

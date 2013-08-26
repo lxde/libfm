@@ -52,6 +52,9 @@ static gboolean on_auto_scroll(gpointer user_data)
     GtkWidget* widget = as->widget;
     GtkAllocation allocation;
 
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
+
     gdk_window_get_device_position (gtk_widget_get_window(widget),
                                     gtk_get_current_event_device(),
                                     &x, &y, NULL);
