@@ -1558,12 +1558,12 @@ static void on_thumbnail_loaded(FmThumbnailRequest* req, gpointer user_data)
             GtkTreePath* tp;
             it.stamp = model->stamp;
             it.user_data = seq_it;
+            GDK_THREADS_ENTER();
             tp = fm_folder_model_get_path(GTK_TREE_MODEL(model), &it);
             if(item->icon)
                 g_object_unref(item->icon);
             item->icon = g_object_ref(pix);
             item->is_thumbnail = TRUE;
-            GDK_THREADS_ENTER();
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
             gtk_tree_path_free(tp);
             GDK_THREADS_LEAVE();

@@ -2045,12 +2045,9 @@ rubberband_scroll_timeout (gpointer user_data)
   ExoIconView   *icon_view = EXO_ICON_VIEW (user_data);
   gdouble        value;
 
-  GDK_THREADS_ENTER ();
-
   /* ensure that source isn't removed yet */
   if(g_source_is_destroyed(g_main_current_source()))
     {
-      GDK_THREADS_LEAVE ();
       return FALSE;
     }
 
@@ -2067,8 +2064,6 @@ rubberband_scroll_timeout (gpointer user_data)
 
   /* update the rubberband */
   exo_icon_view_update_rubberband (icon_view);
-
-  GDK_THREADS_LEAVE ();
 
   return TRUE;
 }
@@ -2121,7 +2116,7 @@ exo_icon_view_motion_notify_event (GtkWidget      *widget,
           icon_view->priv->event_last_y = event->y;
 
           if (icon_view->priv->scroll_timeout_id == 0)
-            icon_view->priv->scroll_timeout_id = g_timeout_add (30, rubberband_scroll_timeout,
+            icon_view->priv->scroll_timeout_id = gdk_threads_add_timeout (30, rubberband_scroll_timeout,
                                                                 icon_view);
         }
       else
@@ -2168,7 +2163,7 @@ exo_icon_view_motion_notify_event (GtkWidget      *widget,
                   icon_view->priv->single_click_timeout_state = event->state;
 
                   /* schedule a new timeout */
-                  icon_view->priv->single_click_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, icon_view->priv->single_click_timeout,
+                  icon_view->priv->single_click_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, icon_view->priv->single_click_timeout,
                                                                                  exo_icon_view_single_click_timeout, icon_view,
                                                                                  exo_icon_view_single_click_timeout_destroy);
                 }
@@ -4143,10 +4138,8 @@ layout_callback (gpointer user_data)
 {
   ExoIconView *icon_view = EXO_ICON_VIEW (user_data);
 
-  GDK_THREADS_ENTER ();
   if(!g_source_is_destroyed(g_main_current_source()))
     exo_icon_view_layout (icon_view);
-  GDK_THREADS_LEAVE();
 
   return FALSE;
 }
@@ -4165,7 +4158,7 @@ static void
 exo_icon_view_queue_layout (ExoIconView *icon_view)
 {
   if (G_UNLIKELY (icon_view->priv->layout_idle_id == 0))
-    icon_view->priv->layout_idle_id = g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, layout_callback, icon_view, layout_destroy);
+    icon_view->priv->layout_idle_id = gdk_threads_add_idle_full (G_PRIORITY_DEFAULT_IDLE, layout_callback, icon_view, layout_destroy);
 }
 
 
@@ -7008,12 +7001,8 @@ drag_scroll_timeout (gpointer data)
 {
   ExoIconView *icon_view = EXO_ICON_VIEW (data);
 
-  GDK_THREADS_ENTER ();
-
   if(!g_source_is_destroyed(g_main_current_source()))
     exo_icon_view_autoscroll (icon_view);
-
-  GDK_THREADS_LEAVE ();
 
   return TRUE;
 }
@@ -7405,7 +7394,7 @@ exo_icon_view_drag_motion (GtkWidget      *widget,
   else
     {
       if (icon_view->priv->scroll_timeout_id == 0)
-        icon_view->priv->scroll_timeout_id = g_timeout_add (50, drag_scroll_timeout, icon_view);
+        icon_view->priv->scroll_timeout_id = gdk_threads_add_timeout (50, drag_scroll_timeout, icon_view);
 
       if (target == gdk_atom_intern ("GTK_TREE_MODEL_ROW", FALSE))
         {
@@ -8156,11 +8145,9 @@ exo_icon_view_single_click_timeout (gpointer user_data)
   gboolean         dirty = FALSE;
   ExoIconView     *icon_view = EXO_ICON_VIEW (user_data);
 
-  GDK_THREADS_ENTER ();
-
   /* ensure that source isn't removed yet */
   if(g_source_is_destroyed(g_main_current_source()))
-      goto _end;
+      return FALSE;
 
   /* verify that we are in single-click mode, have focus and a prelit item */
   if (gtk_widget_has_focus (GTK_WIDGET (icon_view)) && icon_view->priv->single_click && icon_view->priv->prelit_item != NULL)
@@ -8226,9 +8213,6 @@ exo_icon_view_single_click_timeout (gpointer user_data)
       /* emit "selection-changed" */
       g_signal_emit (G_OBJECT (icon_view), icon_view_signals[SELECTION_CHANGED], 0);
     }
-
-_end:
-  GDK_THREADS_LEAVE ();
 
   return FALSE;
 }
@@ -8596,7 +8580,7 @@ exo_icon_view_search_init (GtkWidget   *search_entry,
       g_source_remove (icon_view->priv->search_timeout_id);
 
       /* schedule a new timeout */
-      icon_view->priv->search_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
+      icon_view->priv->search_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
                                                                exo_icon_view_search_timeout, icon_view,
                                                                exo_icon_view_search_timeout_destroy);
     }
@@ -8740,7 +8724,7 @@ exo_icon_view_search_preedit_changed (GtkIMContext *im_context,
   if (G_LIKELY (icon_view->priv->search_timeout_id != 0))
     {
       g_source_remove (icon_view->priv->search_timeout_id);
-      icon_view->priv->search_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
+      icon_view->priv->search_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
                                                                exo_icon_view_search_timeout, icon_view,
                                                                exo_icon_view_search_timeout_destroy);
     }
@@ -8793,7 +8777,7 @@ exo_icon_view_search_start (ExoIconView *icon_view,
     }
 
   /* start the search timeout */
-  icon_view->priv->search_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
+  icon_view->priv->search_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
                                                            exo_icon_view_search_timeout, icon_view,
                                                            exo_icon_view_search_timeout_destroy);
 
@@ -9019,7 +9003,7 @@ exo_icon_view_search_key_press_event (GtkWidget   *widget,
       g_source_remove (icon_view->priv->search_timeout_id);
 
       /* schedule a new timeout */
-      icon_view->priv->search_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
+      icon_view->priv->search_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, EXO_ICON_VIEW_SEARCH_DIALOG_TIMEOUT,
                                                                exo_icon_view_search_timeout, icon_view,
                                                                exo_icon_view_search_timeout_destroy);
     }
@@ -9056,10 +9040,8 @@ exo_icon_view_search_timeout (gpointer user_data)
 {
   ExoIconView *icon_view = EXO_ICON_VIEW (user_data);
 
-  GDK_THREADS_ENTER ();
   if(!g_source_is_destroyed(g_main_current_source()))
     exo_icon_view_search_dialog_hide (icon_view->priv->search_window, icon_view);
-  GDK_THREADS_LEAVE ();
 
   return FALSE;
 }

@@ -619,7 +619,7 @@ exo_tree_view_motion_notify_event (GtkWidget      *widget,
                   tree_view->priv->single_click_timeout_state = event->state;
 
                   /* schedule a new single-click timeout */
-                  tree_view->priv->single_click_timeout_id = g_timeout_add_full (G_PRIORITY_LOW, tree_view->priv->single_click_timeout,
+                  tree_view->priv->single_click_timeout_id = gdk_threads_add_timeout_full (G_PRIORITY_LOW, tree_view->priv->single_click_timeout,
                                                                                  exo_tree_view_single_click_timeout, tree_view,
                                                                                  exo_tree_view_single_click_timeout_destroy);
                 }
@@ -725,8 +725,6 @@ exo_tree_view_single_click_timeout (gpointer user_data)
   GList             *rows;
   GList             *lp;
 
-  GDK_THREADS_ENTER ();
-
   /* ensure that source isn't removed yet */
   if(!g_source_is_destroyed(g_main_current_source()))
   /* verify that we are in single-click mode, have focus and a hover path */
@@ -818,8 +816,6 @@ exo_tree_view_single_click_timeout (gpointer user_data)
             gtk_tree_path_free (cursor_path);
         }
     }
-
-  GDK_THREADS_LEAVE ();
 
   return FALSE;
 }

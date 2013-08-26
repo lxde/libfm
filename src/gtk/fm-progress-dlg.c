@@ -410,7 +410,6 @@ static gboolean on_update_dlg(gpointer user_data)
         return FALSE;
     /* the g_strdup very probably returns the same pointer that was g_free'd
        so we cannot just compare data->old_cur_file with data->cur_file */
-    GDK_THREADS_ENTER();
     if(data->cur_file)
     {
         gtk_label_set_text(data->current, data->cur_file);
@@ -446,7 +445,6 @@ static gboolean on_update_dlg(gpointer user_data)
             gtk_label_set_text(data->remaining_time, time_str);
         }
     }
-    GDK_THREADS_LEAVE();
     return FALSE;
 }
 
@@ -458,14 +456,14 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
      * operation and waste CPU source due to showing the text with pango.
      * Consider showing current file every 0.5 second. */
     if(data->dlg && data->update_timeout == 0)
-        data->update_timeout = g_timeout_add(500, on_update_dlg, data);
+        data->update_timeout = gdk_threads_add_timeout(500, on_update_dlg, data);
 }
 
 static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data)
 {
     data->percent = percent;
     if(data->dlg && data->update_timeout == 0)
-        data->update_timeout = g_timeout_add(500, on_update_dlg, data);
+        data->update_timeout = gdk_threads_add_timeout(500, on_update_dlg, data);
 }
 
 static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
@@ -478,7 +476,7 @@ static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
     fm_progress_display_destroy(data);
 }
 
-static gboolean on_show_dlg(gpointer user_data)
+static gboolean _on_show_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
     GtkBuilder* builder;
@@ -487,10 +485,6 @@ static gboolean on_show_dlg(gpointer user_data)
     FmPath* dest;
     const char* title = NULL;
     GtkTextTagTable* tag_table;
-
-    GDK_THREADS_ENTER();
-    if(g_source_is_destroyed(g_main_current_source()))
-        goto _end;
 
     builder = gtk_builder_new();
     tag_table = gtk_text_tag_table_new();
@@ -607,9 +601,14 @@ static gboolean on_show_dlg(gpointer user_data)
     gtk_window_present(GTK_WINDOW(data->dlg));
 
     data->delay_timeout = 0;
-_end:
-    GDK_THREADS_LEAVE();
     return FALSE;
+}
+
+static gboolean on_show_dlg(gpointer user_data)
+{
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
+    return _on_show_dlg(user_data);
 }
 
 static void ensure_dlg(FmProgressDisplay* data)
@@ -619,8 +618,10 @@ static void ensure_dlg(FmProgressDisplay* data)
         g_source_remove(data->delay_timeout);
         data->delay_timeout = 0;
     }
+    GDK_THREADS_ENTER();
     if(!data->dlg)
-        on_show_dlg(data);
+        _on_show_dlg(data);
+    GDK_THREADS_LEAVE();
 }
 
 static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
@@ -655,7 +656,7 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOp
     data->job = job;
     if(parent)
         data->parent = g_object_ref(parent);
-    data->delay_timeout = g_timeout_add(SHOW_DLG_DELAY, on_show_dlg, data);
+    data->delay_timeout = gdk_threads_add_timeout(SHOW_DLG_DELAY, on_show_dlg, data);
 
     g_signal_connect(job, "ask", G_CALLBACK(on_ask), data);
     g_signal_connect(job, "ask-rename", G_CALLBACK(on_ask_rename), data);

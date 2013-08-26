@@ -303,21 +303,15 @@ static gpointer load_themed_icon(GtkIconTheme *theme, IconThreadData *data)
 
     GDK_THREADS_ENTER();
     pix = vfs_load_icon(theme, icon_name, 48);
-    GDK_THREADS_LEAVE();
-    g_thread_yield();
     if (pix)
     {
         GtkTreeIter it;
-        GDK_THREADS_ENTER();
         gtk_list_store_append(data->model, &it);
         gtk_list_store_set(data->model, &it, 0, pix, 1, icon_name, -1);
         g_object_unref(pix);
-        GDK_THREADS_LEAVE();
     }
-    g_thread_yield();
     if (g_async_queue_length(data->queue) == 0)
     {
-        GDK_THREADS_ENTER();
         if (gtk_icon_view_get_model(data->view) == NULL)
         {
             gtk_icon_view_set_model(data->view, GTK_TREE_MODEL(data->model));
@@ -329,8 +323,9 @@ static gpointer load_themed_icon(GtkIconTheme *theme, IconThreadData *data)
                 gdk_window_set_cursor(GTK_WIDGET(data->view)->window, NULL);
 #endif
         }
-        GDK_THREADS_LEAVE();
     }
+    GDK_THREADS_LEAVE();
+    g_thread_yield();
     /* g_debug("load: %s", icon_name); */
     g_free(icon_name);
     return NULL;
@@ -484,7 +479,6 @@ static gboolean _on_timeout(gpointer user_data)
     char size_str[128];
     FmDeepCountJob* dc;
 
-    GDK_THREADS_ENTER();
     dc = data->dc_job;
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
@@ -507,7 +501,6 @@ static gboolean _on_timeout(gpointer user_data)
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
     }
-    GDK_THREADS_LEAVE();
     return TRUE;
 }
 
@@ -520,12 +513,14 @@ static gboolean on_timeout(gpointer user_data)
 
 static void on_finished(FmDeepCountJob* job, FmFilePropData* data)
 {
+    GDK_THREADS_ENTER();
     _on_timeout(data); /* update display */
     if(data->timeout)
     {
         g_source_remove(data->timeout);
         data->timeout = 0;
     }
+    GDK_THREADS_LEAVE();
     g_object_unref(data->dc_job);
     data->dc_job = NULL;
 }
@@ -1443,7 +1438,7 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
 
     init_application_list(data);
 
-    data->timeout = g_timeout_add(600, on_timeout, data);
+    data->timeout = gdk_threads_add_timeout(600, on_timeout, data);
     g_signal_connect(dlg, "response", G_CALLBACK(on_response), data);
     g_signal_connect_swapped(dlg, "destroy", G_CALLBACK(fm_file_prop_data_free), data);
     g_signal_connect(data->dc_job, "finished", G_CALLBACK(on_finished), data);

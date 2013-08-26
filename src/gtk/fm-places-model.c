@@ -624,7 +624,6 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 static gboolean update_trash_item(gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    GDK_THREADS_ENTER();
     if(!g_source_is_destroyed(g_main_current_source()) &&
        fm_config->use_trash && model->trash)
     {
@@ -657,7 +656,6 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_path_free(tp);
         }
     }
-    GDK_THREADS_LEAVE();
     return FALSE;
 }
 
@@ -667,7 +665,7 @@ static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFi
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
     if(model->trash_idle_handler)
         g_source_remove(model->trash_idle_handler);
-    model->trash_idle_handler = g_idle_add(update_trash_item, model);
+    model->trash_idle_handler = gdk_threads_add_idle(update_trash_item, model);
 }
 
 static void update_icons(FmPlacesModel* model)
@@ -926,7 +924,7 @@ static void create_trash_item(FmPlacesModel* model)
     gtk_tree_path_free(trash_path);
 
     if(0 == model->trash_idle_handler)
-        model->trash_idle_handler = g_idle_add(update_trash_item, model);
+        model->trash_idle_handler = gdk_threads_add_idle(update_trash_item, model);
 }
 
 static void on_places_unmounted_changed(FmConfig* cfg, gpointer user_data)

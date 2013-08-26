@@ -1517,7 +1517,6 @@ static gboolean on_sel_changed_idle(gpointer user_data)
     FmStandardView* fv = (FmStandardView*)user_data;
     gboolean ret = FALSE;
 
-    GDK_THREADS_ENTER();
     /* check if fv is destroyed already */
     if(g_source_is_destroyed(g_main_current_source()))
         goto _end;
@@ -1525,7 +1524,6 @@ static gboolean on_sel_changed_idle(gpointer user_data)
         ret = on_sel_changed_real(fv);
     fv->sel_changed_idle = 0;
 _end:
-    GDK_THREADS_LEAVE();
     return ret;
 }
 
@@ -1533,8 +1531,9 @@ static void on_sel_changed(GObject* obj, FmStandardView* fv)
 {
     if(!fv->sel_changed_idle)
     {
-        fv->sel_changed_idle = g_timeout_add_full(G_PRIORITY_HIGH_IDLE, 200,
-                                                  on_sel_changed_idle, fv, NULL);
+        fv->sel_changed_idle = gdk_threads_add_timeout_full(G_PRIORITY_HIGH_IDLE, 200,
+                                                            on_sel_changed_idle,
+                                                            fv, NULL);
         on_sel_changed_real(fv);
     }
     else
