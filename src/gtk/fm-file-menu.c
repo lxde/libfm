@@ -302,7 +302,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         if (!fm_file_info_is_native(fi))
             all_native = FALSE;
         mime_type = fm_file_info_get_mime_type(fi);
-        if(mime_type == NULL || !fm_file_info_is_native(fi))
+        if(mime_type == NULL)
             continue;
         for(l2 = mime_types; l2; l2 = l2->next)
             if(l2->data == mime_type)
@@ -358,6 +358,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     if(apps) /* add specific menu items for those files */
     {
         gboolean use_sub = g_list_length(apps) > 5;
+        gboolean found_app = FALSE;
         if(use_sub)
             g_string_append(xml, "<menu action='OpenWithMenu'>");
 
@@ -372,11 +373,15 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
             gchar * program_path = g_find_program_in_path(g_app_info_get_executable(app));
             if (!program_path)
+                goto _next_app;
+            g_free(program_path);
+            if (!all_native && !g_app_info_supports_uris(app))
             {
+_next_app:
                 g_object_unref(app);
                 continue;
             }
-            g_free(program_path);
+            found_app = TRUE;
 
             act = gtk_action_new(g_app_info_get_id(app),
                                  g_app_info_get_name(app),
@@ -391,6 +396,8 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         }
 
         g_list_free(apps); /* don't unref GAppInfos now */
+        if (found_app)
+            goto _disable_open;
         if(use_sub)
         {
             g_string_append(xml, "<separator/>"
@@ -402,6 +409,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     }
     else
     {
+_disable_open:
         act = gtk_ui_manager_get_action(ui, "/popup/Open");
         gtk_action_set_visible(act, FALSE);
         g_string_append(xml, "<menuitem action='OpenWith'/>");
