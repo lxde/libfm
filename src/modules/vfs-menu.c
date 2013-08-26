@@ -1544,12 +1544,48 @@ static GFileInfo *_fm_vfs_menu_query_info(GFile *file,
 
     matcher = g_file_attribute_matcher_new(attributes);
 
-    if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TYPE) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_ICON) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) ||
-       g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
+    if(item->path == NULL) /* menu root */
+    {
+        info = g_file_info_new();
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_NAME))
+            g_file_info_set_name(info, "/");
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ID_FILESYSTEM))
+            g_file_info_set_attribute_string(info, G_FILE_ATTRIBUTE_ID_FILESYSTEM,
+                                             "menu-Applications");
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TYPE))
+            g_file_info_set_file_type(info, G_FILE_TYPE_DIRECTORY);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_ICON))
+        {
+            GIcon *icon = g_themed_icon_new("system-software-install");
+            g_file_info_set_icon(info, icon);
+            g_object_unref(icon);
+        }
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN))
+            g_file_info_set_is_hidden(info, FALSE);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
+            g_file_info_set_display_name(info, _("Applications"));
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_RENAME, FALSE);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH, FALSE);
+#if 0
+        /* FIXME: is this ever needed? */
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE, TRUE);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_READ))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ, TRUE);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE, FALSE);
+        if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE))
+            g_file_info_set_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE, FALSE);
+#endif
+    }
+    else if(g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TYPE) ||
+            g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_ICON) ||
+            g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI) ||
+            g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE) ||
+            g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN) ||
+            g_file_attribute_matcher_matches(matcher, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME))
     {
         /* retrieve matching attributes from menu-cache */
         enu.path_str = item->path;
