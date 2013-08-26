@@ -126,8 +126,8 @@ static void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeV
 static void fm_dir_tree_view_item_popup(GtkWidget *widget, GtkTreeModel *model,
                                         GtkTreeIter *it, guint32 time)
 {
-    FmFileInfo *file = fm_dir_tree_row_get_file_info(FM_DIR_TREE_MODEL(model), it);
-    FmFileInfoList *file_list = fm_file_info_list_new();
+    FmFileInfo *file;
+    FmFileInfoList *file_list;
     FmFileMenu *menu;
     GtkUIManager *ui;
     GtkAction *act;
