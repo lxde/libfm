@@ -8,6 +8,8 @@ fm_finalize
 fm_init
 fm_qdata_id
 fm_version
+<SUBSECTION Private>
+FM_SEAL
 </SECTION>
 
 <SECTION>

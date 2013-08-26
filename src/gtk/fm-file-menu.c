@@ -372,7 +372,10 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
 
             gchar * program_path = g_find_program_in_path(g_app_info_get_executable(app));
             if (!program_path)
+            {
+                g_object_unref(app);
                 continue;
+            }
             g_free(program_path);
 
             act = gtk_action_new(g_app_info_get_id(app),
