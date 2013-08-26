@@ -90,6 +90,7 @@ struct _FmFileMenu
 {
     FmFileInfoList* file_infos;
     gboolean same_type : 1;
+    gboolean can_trash : 1;
     //gboolean disable_archiving : 1;
     gboolean shift_pressed : 1;
     GtkUIManager* ui;
@@ -501,8 +502,9 @@ _disable_open:
                                  G_CALLBACK(fm_file_menu_destroy), data);
     }
 
-    if (fm_config->use_trash)
+    if (fm_config->use_trash && all_native)
     {
+        data->can_trash = TRUE;
         /* change menu item text&icon when Shift is pressed */
         g_signal_connect(data->menu, "key-press-event", G_CALLBACK(on_key_pressed), data);
         g_signal_connect(data->menu, "key-release-event", G_CALLBACK(on_key_released), data);
@@ -683,13 +685,10 @@ static void on_delete(GtkAction* action, gpointer user_data)
     FmFileMenu* data = (FmFileMenu*)user_data;
     FmPathList* files;
     GtkWindow *window = GTK_WINDOW(gtk_menu_get_attach_widget(data->menu));
-    GdkModifierType mask = 0;
+
     files = fm_path_list_new_from_file_info_list(data->file_infos);
     /* Fix for #3436283: accept Shift to delete instead of trash */
-    gdk_window_get_device_position (gtk_widget_get_window(GTK_WIDGET(data->menu)),
-                                    gtk_get_current_event_device(),
-                                    NULL, NULL, &mask);
-    if(mask & GDK_SHIFT_MASK)
+    if (!data->can_trash || data->shift_pressed)
         fm_delete_files(window, files);
     else
         fm_trash_or_delete_files(window, files);
