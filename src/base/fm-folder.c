@@ -715,6 +715,9 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
             }
         }
     }
+    else if(!folder->dir_fi && job->dir_fi)
+        /* we may need dir_fi for incremental folders too */
+        folder->dir_fi = fm_file_info_ref(job->dir_fi);
     g_object_unref(folder->dirlist_job);
     folder->dirlist_job = NULL;
 
@@ -732,6 +735,9 @@ static void on_dirlist_job_files_found(FmDirListJob* job, GSList* files, gpointe
         FmFileInfo* file = FM_FILE_INFO(l->data);
         fm_file_info_list_push_tail(folder->files, file);
     }
+    if (G_UNLIKELY(!folder->dir_fi && job->dir_fi))
+        /* we may want info while folder is still loading */
+        folder->dir_fi = fm_file_info_ref(job->dir_fi);
     g_signal_emit(folder, signals[FILES_ADDED], 0, files);
 }
 
