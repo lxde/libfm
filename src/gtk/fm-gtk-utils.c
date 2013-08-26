@@ -658,8 +658,11 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
     case EJECT_VOLUME:
         {
             GMount* mnt = g_volume_get_mount(G_VOLUME(obj));
-            prepare_unmount(mnt);
-            g_object_unref(mnt);
+            if (mnt) /* it might be unmounted already */
+            {
+                prepare_unmount(mnt);
+                g_object_unref(mnt);
+            }
             g_volume_eject_with_operation(G_VOLUME(obj), G_MOUNT_UNMOUNT_NONE, op, cancellable, on_mount_action_finished, data);
         }
         break;

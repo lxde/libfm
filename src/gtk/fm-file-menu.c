@@ -397,7 +397,7 @@ _next_app:
         }
 
         g_list_free(apps); /* don't unref GAppInfos now */
-        if (found_app)
+        if (!found_app)
             goto _disable_open;
         if(use_sub)
         {
