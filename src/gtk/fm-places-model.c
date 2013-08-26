@@ -261,6 +261,7 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
             else
             {
                 job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+                fm_file_info_job_add(job, path);
                 model->jobs = g_slist_prepend(model->jobs, job);
                 g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
                 if (!fm_job_run_async(FM_JOB(job)))
@@ -271,6 +272,11 @@ static void update_volume_or_mount(FmPlacesModel* model, FmPlacesItem* item, Gtk
                 }
             }
             fm_path_unref(path);
+        }
+        else /* we might get it just unmounted so just reset file info */
+        {
+            fm_file_info_unref(item->fi);
+            item->fi = fm_file_info_new();
         }
     }
 
@@ -487,15 +493,9 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
         if(item && item->type == FM_PLACES_ITEM_VOLUME && !fm_file_info_get_path(item->fi))
         {
             GtkTreePath* tp;
-            GFile* gf = g_mount_get_root(mount);
-            FmPath* path = fm_path_new_for_gfile(gf);
-            /* g_debug("mount path: %s", path->name); */
-            g_object_unref(gf);
-            fm_file_info_set_path(item->fi, path);
-            if(path)
-                fm_path_unref(path);
-            item->mounted = TRUE;
 
+            /* we need full update for it to get adequate context menu */
+            update_volume_or_mount(model, item, &it, NULL);
             /* inform the view to update mount indicator */
             tp = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);

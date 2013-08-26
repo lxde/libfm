@@ -72,6 +72,7 @@ typedef enum
  *
  * The callback to update popup menu. It can disable items of menu, add
  * some new, replace actions, etc. depending of the window and files.
+ * In some cases @file may be incomplete so callback should check that.
  */
 typedef void (*FmSidePaneUpdatePopup)(FmSidePane* sp, GtkUIManager* ui,
                                       GtkActionGroup* act_grp,
