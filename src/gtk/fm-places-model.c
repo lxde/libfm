@@ -347,6 +347,20 @@ _added:
     fm_file_info_set_path(item->fi, path);
     if(job)
         fm_file_info_job_add(job, path);
+    else
+    {
+        FmPlacesModel* self = FM_PLACES_MODEL(model);
+        job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
+        fm_file_info_job_add(job, path);
+        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
+        self->jobs = g_slist_prepend(self->jobs, job);
+        if (!fm_job_run_async(FM_JOB(job)))
+        {
+            self->jobs = g_slist_remove(self->jobs, job);
+            g_object_unref(job);
+            g_critical("fm_job_run_async() failed on update '%s'", label);
+        }
+    }
     return item;
 }
 
@@ -736,19 +750,9 @@ static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_home)
     {
         FmPath* path = fm_path_get_home();
-        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-        FmPlacesModel* self = FM_PLACES_MODEL(model);
 
         new_path_item(model, &it, path, FM_PLACES_ID_HOME,
-                      fm_path_get_basename(path), "user-home", job);
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
-        self->jobs = g_slist_prepend(self->jobs, job);
-        if (!fm_job_run_async(FM_JOB(job)))
-        {
-            self->jobs = g_slist_remove(self->jobs, job);
-            g_object_unref(job);
-            g_critical("fm_job_run_async() failed on home update");
-        }
+                      fm_path_get_basename(path), "user-home", NULL);
     }
     else
     {
@@ -763,19 +767,8 @@ static void on_places_desktop_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_desktop &&
        g_file_test(g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP), G_FILE_TEST_IS_DIR))
     {
-        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-        FmPlacesModel* self = FM_PLACES_MODEL(model);
-
         new_path_item(model, &it, fm_path_get_desktop(), FM_PLACES_ID_DESKTOP,
-                      _("Desktop"), "user-desktop", job);
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
-        self->jobs = g_slist_prepend(self->jobs, job);
-        if (!fm_job_run_async(FM_JOB(job)))
-        {
-            self->jobs = g_slist_remove(self->jobs, job);
-            g_object_unref(job);
-            g_critical("fm_job_run_async() failed on desktop folder update");
-        }
+                      _("Desktop"), "user-desktop", NULL);
     }
     else
     {
@@ -808,20 +801,8 @@ static void on_places_root_changed(FmConfig* cfg, gpointer user_data)
     GtkTreeIter it;
     if(cfg->places_root)
     {
-        FmPath* path = fm_path_get_root();
-        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-        FmPlacesModel* self = FM_PLACES_MODEL(model);
-
-        new_path_item(model, &it, path, FM_PLACES_ID_ROOT,
-                      _("File system"), "drive-harddisk", job);
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
-        self->jobs = g_slist_prepend(self->jobs, job);
-        if (!fm_job_run_async(FM_JOB(job)))
-        {
-            self->jobs = g_slist_remove(self->jobs, job);
-            g_object_unref(job);
-            g_critical("fm_job_run_async() failed on root update");
-        }
+        new_path_item(model, &it, fm_path_get_root(), FM_PLACES_ID_ROOT,
+                      _("File system"), "drive-harddisk", NULL);
     }
     else
     {
@@ -836,19 +817,9 @@ static void on_places_computer_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_computer)
     {
         FmPath* path = fm_path_new_for_uri("computer:///");
-        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-        FmPlacesModel* self = FM_PLACES_MODEL(model);
 
         new_path_item(model, &it, path, FM_PLACES_ID_COMPUTER,
-                      _("Computer"), "computer", job);
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
-        self->jobs = g_slist_prepend(self->jobs, job);
-        if (!fm_job_run_async(FM_JOB(job)))
-        {
-            self->jobs = g_slist_remove(self->jobs, job);
-            g_object_unref(job);
-            g_critical("fm_job_run_async() failed on computer place update");
-        }
+                      _("Computer"), "computer", NULL);
         fm_path_unref(path);
     }
     else
@@ -864,19 +835,9 @@ static void on_places_network_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_network)
     {
         FmPath* path = fm_path_new_for_uri("network:///");
-        FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_FOLLOW_SYMLINK);
-        FmPlacesModel* self = FM_PLACES_MODEL(model);
 
         new_path_item(model, &it, path, FM_PLACES_ID_NETWORK,
-                      _("Network Drives"), GTK_STOCK_NETWORK, job);
-        g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), self);
-        self->jobs = g_slist_prepend(self->jobs, job);
-        if (!fm_job_run_async(FM_JOB(job)))
-        {
-            self->jobs = g_slist_remove(self->jobs, job);
-            g_object_unref(job);
-            g_critical("fm_job_run_async() failed on network place update");
-        }
+                      _("Network Drives"), GTK_STOCK_NETWORK, NULL);
         fm_path_unref(path);
     }
     else
@@ -896,7 +857,6 @@ static void create_trash_item(FmPlacesModel* model)
     GtkTreeIter it;
     GtkTreePath* trash_path;
     GFile* gf;
-    FmFileInfoJob* job;
 
     gf = fm_file_new_for_uri("trash:///");
     if (!g_file_query_exists(gf, NULL))
@@ -904,21 +864,12 @@ static void create_trash_item(FmPlacesModel* model)
         g_object_unref(gf);
         return;
     }
-    job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
     model->trash_monitor = fm_monitor_directory(gf, NULL);
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
 
     new_path_item(GTK_LIST_STORE(model), &it, fm_path_get_trash(),
-                  FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", job);
-    g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
-    model->jobs = g_slist_prepend(model->jobs, job);
-    if (!fm_job_run_async(FM_JOB(job)))
-    {
-        model->jobs = g_slist_remove(model->jobs, job);
-        g_object_unref(job);
-        g_critical("fm_job_run_async() failed on trash update");
-    }
+                  FM_PLACES_ID_TRASH, _("Trash Can"), "user-trash", NULL);
     trash_path = gtk_tree_model_get_path(GTK_TREE_MODEL(model), &it);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);
@@ -1044,7 +995,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     {
         new_path_item(model, &it, fm_path_get_apps_menu(),
                       FM_PLACES_ID_APPLICATIONS, _("Applications"),
-                      "system-software-install", NULL);
+                      "system-software-install", job);
     }
 
     if(fm_config->places_network)
