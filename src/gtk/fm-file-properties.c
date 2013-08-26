@@ -1275,8 +1275,11 @@ static void update_ui(FmFilePropData* data)
         if (fm_path_get_parent(path))
         {
             GFile *parent_gf = g_file_get_parent(gfile);
-            parent_str = g_file_get_parse_name(parent_gf);
-            g_object_unref(parent_gf);
+            if (parent_gf) /* FmPath may think wrong query URI has parent */
+            {
+                parent_str = g_file_get_parse_name(parent_gf);
+                g_object_unref(parent_gf);
+            }
         }
         g_object_unref(gfile);
         if(parent_str)
