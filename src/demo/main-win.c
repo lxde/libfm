@@ -280,6 +280,13 @@ static void update_files_popup(FmFolderView* fv, GtkWindow* win,
                                GtkUIManager* ui, GtkActionGroup* act_grp,
                                FmFileInfoList* files)
 {
+    GList *file = fm_file_info_list_peek_head_link(files);
+    while (file)
+    {
+        if (!fm_file_info_is_dir(file->data))
+            return;
+        file = file->next;
+    }
     gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), win);
     g_object_set_qdata_full(G_OBJECT(act_grp), fm_qdata_id,
                             fm_file_info_list_ref(files),
@@ -291,7 +298,10 @@ static void update_sidebar_popup(FmSidePane* sp, GtkUIManager* ui,
                                  GtkActionGroup* act_grp,
                                  FmFileInfo* file, gpointer win)
 {
-    FmFileInfoList* files = fm_file_info_list_new();
+    FmFileInfoList* files;
+    if (!file || !fm_file_info_is_dir(file))
+        return;
+    files = fm_file_info_list_new();
     fm_file_info_list_push_tail(files, file);
     gtk_action_group_add_actions(act_grp, folder_menu_actions, G_N_ELEMENTS(folder_menu_actions), win);
     g_object_set_qdata_full(G_OBJECT(act_grp), fm_qdata_id, files,
