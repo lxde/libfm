@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-18 20:45+0000\n"
+"PO-Revision-Date: 2013-08-27 17:33+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1376858743.0\n"
+"X-POOTLE-MTIME: 1377624799.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -858,13 +858,15 @@ msgid "Enter a name for the new %s:"
 msgstr "Wandikawo erinnya erya %s:"
 
 #: ../src/gtk/fm-folder-view.c:868
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Nkolawo nyunzi"
+msgstr "Nkolawo %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
 msgstr ""
+"_Olumala kugikolawo fayiro gibikkuze puloguramu ekola ku z'ekika kyayo eya "
+"bulijjo"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -1116,11 +1118,11 @@ msgstr "Sembeza ku _ddyo"
 #: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "Show %s"
-msgstr ""
+msgstr "Laga %s"
 
 #: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
-msgstr ""
+msgstr "_Ereme okujjukiranga bugazi bweyaliko obwasemba"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1224,7 +1226,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Ekkubo '%s' erigguka ku menyu weriri"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1242,12 +1244,12 @@ msgstr "Ssi tterekero erya menyu"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Eky'omu menyu tekikkirizibwa butaba na linnya"
 
 #: ../src/modules/vfs-menu.c:2114
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory %s"
-msgstr "Ssi tterekero erya menyu"
+msgstr "%s ssi tterekero lya menyu"
 
 #: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
 msgid "Invalid menu item"
@@ -1280,7 +1282,7 @@ msgstr "\"%s\" tterekero lya menyu"
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "\"%s\" ssi kintu kya mu menyu"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
@@ -1290,11 +1292,11 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "Nnemedwa okukolawo eky'omu menyu \"%s\""
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Erinnya ly'etterekero erya menyu terikkirizibwa kusembyayo \".desktop\""
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
@@ -1345,37 +1347,33 @@ msgstr "Ekiragiro ekiba kiyisibwa ng'onyize ku kafaananyi aka puloguramu"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
-#, fuzzy
 msgid "_Run in terminal emulator"
-msgstr "Omulimu gu_kolere okuva mu kiwandikiro"
+msgstr "_Omulimu gukolere okuva mu kiwandikiro"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "O_mulimu bwe guggwa ekiwandikiro kisagalewo"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Obusangiro:</b>"
+msgstr "<b>O_kunnyonyola:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Erinnya ttwalirawamu erya puloguramu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Nyini yo:</b>"
+msgstr "<b>_Tterekero mwe gubumbujjira:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Tterekero puloguramu mw'en'etandikibwa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Egende mu:</b>"
+msgstr "<b>_Magezi:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:370
 msgid "Tooltip to show on application"
@@ -1385,12 +1383,11 @@ msgstr "Amagezi agaba galagibwa ku puloguramu"
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "_Wabengawo akabonero akalaga nti puloguramu etandika"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:389
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Awakolerwa"
+msgstr "_Ekisangibwa awakolerwa"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
