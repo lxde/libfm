@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
-"PO-Revision-Date: 2012-10-12 10:00+0200\n"
+"POT-Creation-Date: 2013-07-24 00:29+0200\n"
+"PO-Revision-Date: 2013-08-27 11:58+0000\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -16,22 +16,42 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1377604697.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Eelistatud rakendused"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
-msgid "<b>C_ommand line to execute:</b>"
-msgstr "<b>Käivitatav käsurida:</b>"
+msgid "Choose An Application"
+msgstr "Vali rakendus"
 
 #: ../data/ui/app-chooser.glade.h:2
 msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Avatav failitüüp:</b>"
 
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "_Paigaldatud rakendus"
+
 #: ../data/ui/app-chooser.glade.h:4
+msgid "<b>C_ommand line to execute:</b>"
+msgstr "<b>_Käivitatav käsurida:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "_Sirvi"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "_Execute in terminal emulator"
+msgstr "_Käivita terminalis"
+
+#: ../data/ui/app-chooser.glade.h:7
+msgid "_Keep terminal window open after command execution"
+msgstr "_Terminali aken jääb pärast käsu täitmist avatuks"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -46,40 +66,36 @@ msgstr ""
 "  <b>%u</b>: Väljendab ühte faili URI-i\n"
 "  <b>%U</b>: Väljendab mitut URI-i"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 
-#: ../data/ui/app-chooser.glade.h:10
+#: ../data/ui/app-chooser.glade.h:15
 #, fuzzy
 msgid "C_ustom Command Line"
 msgstr "_Kohandatud käsurida"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Vali rakendus"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "_Sirvi"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "_Käivita terminalis"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "_Paigaldatud rakendus"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "_Määra see rakendus vaikimisi tegevuseks selle failitüübi puhul"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Küsi failide asendamisel kinnitust"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Jäta vahele"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:161
+msgid "_Rename"
+msgstr "_Nimeta ümber"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Kirjuta üle"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -89,53 +105,37 @@ msgstr ""
 "\n"
 "Kas soovid olemasoleva faili üle kirjutada"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Küsi failide asendamisel kinnitust"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "_Selle toimingu rakendamine kõikidele failidele"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "_Failinimi:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Kirjuta üle"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
-msgid "_Rename"
-msgstr "_Nimeta ümber"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Jäta vahele"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "järgneva failiga?"
 
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File Name:"
+msgstr "_Failinimi:"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "_Selle toimingu rakendamine kõikidele failidele"
+
 #: ../data/ui/choose-icon.ui.h:1
 #, fuzzy
-msgid "<b>Choose Icon From:</b>"
-msgstr "<b>Sisu _muutmine:</b>"
+msgid "Choose An Icon..."
+msgstr "Ikooni valimine..."
 
 #: ../data/ui/choose-icon.ui.h:2
 #, fuzzy
-msgid "Choose An Icon..."
-msgstr "Vali rakendus"
+msgid "System icon theme"
+msgstr "Süsteemi ikooniteema"
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
 #, fuzzy
 msgid "Image files"
-msgstr "_Pildifailid"
+msgstr "Pildifailid"
 
 #: ../data/ui/choose-icon.ui.h:4
 #, fuzzy
-msgid "System icon theme"
-msgstr "Süsteemsed rakendused"
+msgid "<b>Choose Icon From:</b>"
+msgstr "<b>Ikooni valimine:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -146,317 +146,305 @@ msgid "Execute in _Terminal"
 msgstr "Käivita terminalis"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Juurdepääsu kontroll</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>Sisu _muutmine:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Failitüüp:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>_Grupp:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Viimati loetud:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Viimati muudetud:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Location:</b>"
-msgstr "<b>Asukoht:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Omanik:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Open _with:</b>"
-msgstr "<b>Ava _teise rakendusega:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Suurus kettal:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Special bits:</b>"
-msgstr "<b>Ekstra bitid:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-#, fuzzy
-msgid "<b>Target file:</b>"
-msgstr "<b>Sihtkoht:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Failide kogusuurus:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>_Execute:</b>"
-msgstr "<b>_Käivitamine:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-#, fuzzy
-msgid "<b>_Name:</b>"
-msgstr "<b>_Omanik:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>_Sisu vaatamine:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "Anyone"
-msgstr "Igaüks"
-
-#: ../data/ui/file-prop.glade.h:19
 msgid "File Properties"
 msgstr "Faili omadused"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Nobody"
-msgstr "Mitte keegi"
+#: ../data/ui/file-prop.glade.h:3
+#, fuzzy
+msgid "<b>_Name:</b>"
+msgstr "<b>_Nimi:</b>"
 
-#: ../data/ui/file-prop.glade.h:22
-msgid "None"
-msgstr "Ei midagi"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Asukoht:</b>"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Only owner"
-msgstr "Ainult omanik"
+#: ../data/ui/file-prop.glade.h:5
+#, fuzzy
+msgid "<b>Target file:</b>"
+msgstr "<b>Sihtfail:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "Only owner and group"
-msgstr "Ainult omanik ja grupp"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File Type:</b>"
+msgstr "<b>Failitüüp:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>Ava _teise rakendusega:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Vali selle failitüübi avamiseks kasutatav programm "
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Set GID"
-msgstr "GID määramine"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Failide kogusuurus:</b>"
 
-#: ../data/ui/file-prop.glade.h:27
-msgid "Set UID"
-msgstr "UID määramine"
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Suurus kettal:</b>"
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set UID & GID"
-msgstr "UID ja GID määramine"
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Viimati muudetud:</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Special flags for directory access"
-msgstr "Kataloog juurdepääsu ekstra lipud"
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last Access:</b>"
+msgstr "<b>Viimati loetud:</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for file execution"
-msgstr "Faili käivitamise ekstra lipud"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "Kleepuv"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Kleepuv ja määratud GID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Kes võivad muuta faili/kataloogi sisu"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Kes võivad käivitada faili/kataloogi sisu"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can read content of the file/directory"
-msgstr "Kes võivad lugeda faili/kataloogi sisu"
-
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:13
 msgid "_General"
 msgstr "_Üldine"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Omanik:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>G_roup:</b>"
+msgstr "<b>_Grupp:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_View content:</b>"
+msgstr "<b>_Sisu vaatamine:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>C_hange content:</b>"
+msgstr "<b>Sisu _muutmine:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_Execute:</b>"
+msgstr "<b>_Käivitamine:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>Special bits:</b>"
+msgstr "<b>Ekstra bitid:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can read content of the file/directory"
+msgstr "Kes võivad lugeda faili/kataloogi sisu"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can change content of the file/directory"
+msgstr "Kes võivad muuta faili/kataloogi sisu"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can execute the file or enter the directory"
+msgstr "Kes võivad käivitada faili/kataloogi sisu"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Special flags for file execution"
+msgstr "Faili käivitamise ekstra lipud"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for directory access"
+msgstr "Kataloog juurdepääsu ekstra lipud"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "<b>Access Control</b>"
+msgstr "<b>Juurdepääsu kontroll</b>"
+
+#: ../data/ui/file-prop.glade.h:26
 msgid "_Permissions"
 msgstr "Õi_gused"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
+#: ../data/ui/file-prop.glade.h:27
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "None"
+msgstr "Ei midagi"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky"
+msgstr "Kleepuv"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set GID"
+msgstr "GID määramine"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky & set GID"
+msgstr "Kleepuv ja määratud GID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set UID"
+msgstr "UID määramine"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set UID & GID"
+msgstr "UID ja GID määramine"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner"
+msgstr "Ainult omanik"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Only owner and group"
+msgstr "Ainult omanik ja grupp"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Anyone"
+msgstr "Igaüks"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Nobody"
+msgstr "Mitte keegi"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Baidid"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Vali kuupäev"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Vali kuupäev järgnevast kalendrist"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Otsi faile"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>_Failinime mustrid:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "_Tõstutundetu"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "Regulaaravaldise kasutamine"
+
+#: ../data/ui/filesearch.glade.h:12
+#, fuzzy
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>Otsingu asukohad:</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "_Alamkataloogidest otsimine"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Otsi _peidetud faile"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Nimi/_asukoht"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Failitüüp:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+#, fuzzy
+msgid "Only search for files of following types:"
+msgstr "Otsi ainult järgnevate failitüüpide hulgast:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Tekstifailid"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "_Pildifailid"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Helifailid"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Videofailid"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Dokumendid"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "Faili_tüüp"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>Failis _sisaldub:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "_Sisu"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Failisuurus</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "_Väiksem kui:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "_Suurem kui:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Viimati muudetud</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:553
 #: ../src/gtk/fm-gtk-file-launcher.c:560
 msgid "(None)"
 msgstr "(Ei midagi)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-#, fuzzy
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>Failis _sisaldub</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Failisuurus</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Failitüüp:</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-#, fuzzy
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>_Failinime mustrid</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Viimati muudetud</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-#, fuzzy
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Otsimise asukohad</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Baidid"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "_Sisu"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "_Tõstutundetu"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Vali kuupäev"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Vali kuupäev järgnevast kalendrist"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "Faili_tüüp"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "_Hilisem kui:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Nimi/_asukoht"
-
-#: ../data/ui/filesearch.glade.h:20
-#, fuzzy
-msgid "Only search for files of following types:"
-msgstr "Otsi ainult järgnevate failitüüpide hulgast"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Otsi faile"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Otsi _peidetud faile"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Tekstifailid"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "_Helifailid"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "_Suurem kui:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "_Dokumendid"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "_Varasem kui:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "_Pildifailid"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "_Hilisem kui:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "Faili _omadused"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "_Alamkataloogidest otsimine"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "_Väiksem kui:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "Regulaaravaldise kasutamine"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "_Videofailid"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>Meili programm</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Terminaliemulaator</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Veebilehitseja</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Eelistatud veebilehitsejat kasutatakse veebilinkide avamisel."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Käsurida:"
+msgid "<b>Mail client</b>"
+msgstr "<b>Meili programm</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Faili assotsiatsioon"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Süsteemsed rakendused"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
@@ -464,36 +452,48 @@ msgstr ""
 "Kui klõpsate e-maili aadressil, kasutatakse eelistatud meiliklienti kirja "
 "koostamiseks."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Terminaliemulaator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Käsurida:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Süsteemsed rakendused"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Eelistatud veebilehitsejat kasutatakse veebilinkide avamisel."
+msgid "File Associations"
+msgstr "Faili assotsiatsioon"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Valmistumine..."
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Töötlemine:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>Edenemine:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Tekkinud vead:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Järelejäänud aeg:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Kuhu:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Edenemine:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Järelejäänud aeg:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Valmistumine..."
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Tekkinud vead:</b>"
 
 #: ../src/base/fm-path.c:161
 msgid "My Computer"
@@ -522,7 +522,7 @@ msgstr ""
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "Libfm seadetes pole terminaliemulaatorit määratud"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -533,7 +533,7 @@ msgstr[1] "%u baiti"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -574,22 +574,25 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Märgiviide ei lõpe semikooloniga. Enamasti kasutatakse ampersand märki ilma "
+"kavatsuseta olemit alustada - märgi see kui &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Märgiviide '%-.*s' ei teisendu lubatud märgiks"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Avastati tühi olem '&'; lubatud olemid on: &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Olemi nimi '%-.*s' on tundmatu"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -597,6 +600,8 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Olem ei lõppenud semikooloniga; kõige tõenäolisemalt ei kavatsenud sa "
+"ampersandi kasutades olemit alustada - märgi see kui &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -610,7 +615,7 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "Element '%s' on suletud, kuid praegu avatud element on '%s'"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -660,7 +665,7 @@ msgstr "Laadimine..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Kataloogipuu näitamine külgribal"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -677,7 +682,7 @@ msgstr "Ava _rakendusega..."
 #: ../src/gtk/fm-file-menu.c:160
 #, fuzzy
 msgid "_Add to Bookmarks"
-msgstr "_Eemalda järjehoidja"
+msgstr "_Lisa järjehoidjatesse"
 
 #: ../src/gtk/fm-file-menu.c:162
 msgid "Create _Symlink"
@@ -743,7 +748,7 @@ msgstr "Erinevat tüüpi failid"
 #: ../src/gtk/fm-file-properties.c:1211
 #, fuzzy
 msgid "<b>File:</b>"
-msgstr "<b>Failitüüp:</b>"
+msgstr "<b>Fail:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1266
 msgid "Multiple Files"
@@ -789,7 +794,7 @@ msgstr "Kaust"
 #: ../src/gtk/fm-folder-view.c:174
 #, fuzzy
 msgid "Empty File"
-msgstr "Käivita fail"
+msgstr "Tühi fail"
 
 #: ../src/gtk/fm-folder-view.c:186
 msgid "_Invert Selection"
@@ -802,12 +807,12 @@ msgstr "_Sorteeri faile"
 #: ../src/gtk/fm-folder-view.c:188
 #, fuzzy
 msgid "_Rename Folder"
-msgstr "Nimeta fail ümber"
+msgstr "_Muuda kausta nime"
 
 #: ../src/gtk/fm-folder-view.c:189
 #, fuzzy
 msgid "Folder Prop_erties"
-msgstr "Faili omadused"
+msgstr "Kausta _omadused"
 
 #: ../src/gtk/fm-folder-view.c:198
 msgid "Show _Hidden"
@@ -853,7 +858,7 @@ msgstr "Sisesta loodava kausta nimi:"
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Loo uus kaust"
 
 #: ../src/gtk/fm-folder-view.c:848
 #, fuzzy
@@ -988,12 +993,11 @@ msgstr "_Eemalda järjehoidja"
 #: ../src/gtk/fm-places-view.c:125
 #, fuzzy
 msgid "Move Bookmark _Up"
-msgstr "_Eemalda järjehoidja"
+msgstr "Liiguta _järjehoidja üles"
 
 #: ../src/gtk/fm-places-view.c:126
-#, fuzzy
 msgid "Move Bookmark _Down"
-msgstr "_Eemalda järjehoidja"
+msgstr "Liiguta järjehoidja _alla"
 
 #: ../src/gtk/fm-places-view.c:138
 msgid "_Empty Trash Can"
@@ -1114,29 +1118,29 @@ msgstr "Asukohad"
 msgid "Directory Tree"
 msgstr "Kataloogipuu"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:776
 #, c-format
 msgid "_Hide %s"
-msgstr ""
+msgstr "_Peida %s"
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:784
 msgid "_Move left"
-msgstr ""
+msgstr "Liiguta _vasakule"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:790
 msgid "Move _right"
-msgstr ""
-
-#: ../src/gtk/fm-standard-view.c:801
-#, c-format
-msgid "Show %s"
-msgstr ""
+msgstr "Liiguta _paremale"
 
 #: ../src/gtk/fm-standard-view.c:813
+#, c-format
+msgid "Show %s"
+msgstr "Näita %s"
+
+#: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
 msgstr ""
 
@@ -1148,7 +1152,7 @@ msgstr ""
 #: ../src/job/fm-dir-list-job.c:348
 #, fuzzy, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "Määratud kataloog ei ole korrektne"
+msgstr "Määratud kataloog '%s' ei ole korrektne"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
@@ -1185,33 +1189,33 @@ msgid "Setting target can be done only for single file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
+msgid "Empty <Name> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
+msgid "Tag <Not> should have exactly one child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
+msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
+msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
-msgid "failed to insert tag <%s> from merging file"
+msgid "Failed to insert tag <%s> from merging file"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
+msgid "Invalid <MergeFile> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
+msgid "Invalid <MergeDir> tag"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
@@ -1225,21 +1229,21 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:831
 #, c-format
-msgid "cannot find path %s in XML definitions"
+msgid "Cannot find path %s in XML definitions"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
+msgid "Category manipulation internal error"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
-msgid "cannot create XML definition for '%s'"
+msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
-msgid "menu path '%s' already exists"
+msgid "Menu path '%s' already exists"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
@@ -1310,7 +1314,7 @@ msgid "Cannot create menu item \"%s\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
+msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:3226
@@ -1408,6 +1412,11 @@ msgstr "Vali rakendus"
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
 msgstr ""
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:389
+#, fuzzy
+msgid "_Desktop entry"
+msgstr "Töölaud"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
