@@ -694,6 +694,7 @@ fm_gtk_init
 
 <SECTION>
 <FILE>fm-gtk-file-launcher</FILE>
+fm_launch_command_simple
 fm_launch_desktop_entry_simple
 fm_launch_file_simple
 fm_launch_files_simple

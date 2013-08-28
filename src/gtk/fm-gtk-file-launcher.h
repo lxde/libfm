@@ -40,6 +40,7 @@ gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
 gboolean fm_launch_path_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmPath* path, FmLaunchFolderFunc func, gpointer user_data);
 
 gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ctx, FmFileInfo* entry, FmPathList* files);
+gboolean fm_launch_command_simple(GtkWindow *parent, GAppLaunchContext *ctx, GAppInfoCreateFlags flags, const char *cmd, FmPathList *files);
 
 gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx, const GList* paths, FmLaunchFolderFunc func, gpointer user_data);
 

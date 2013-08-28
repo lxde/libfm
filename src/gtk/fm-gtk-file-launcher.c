@@ -338,7 +338,7 @@ gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ct
         /* FIXME: how to handle gdk_app_launch_context_set_icon? */
         ctx = G_APP_LAUNCH_CONTEXT(_ctx);
     }
-    for(l = fm_path_list_peek_head_link(files); l; l = l->next)
+    if(files) for(l = fm_path_list_peek_head_link(files); l; l = l->next)
         uris = g_list_append(uris, fm_path_to_uri(FM_PATH(l->data)));
     entry_path = fm_path_to_str(path);
     ret = fm_launch_desktop_entry(ctx, entry_path, uris, &launcher, &data);
@@ -348,6 +348,51 @@ gboolean fm_launch_desktop_entry_simple(GtkWindow* parent, GAppLaunchContext* ct
     if(_ctx)
         g_object_unref(_ctx);
     return ret;
+}
+
+/**
+ * fm_launch_command_simple
+ * @parent: (allow-none): window to determine launch screen
+ * @ctx: (allow-none): launch context
+ * @flags: flags to launch command
+ * @cmd: command to launch
+ * @files: (allow-none): files to supply launch
+ *
+ * Launches command. @files will be supplied to launch if @cmd
+ * accepts arguments. If @ctx is %NULL then new context on the same
+ * screen as @parent will be created for launching the command.
+ *
+ * Returns: %TRUE if launch was succesful.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_launch_command_simple(GtkWindow *parent, GAppLaunchContext *ctx,
+                                  GAppInfoCreateFlags flags, const char *cmd,
+                                  FmPathList *files)
+{
+    GAppInfo *appinfo;
+    GError *error = NULL;
+    GList *l, *fl = NULL;
+    gboolean ok;
+
+    appinfo = fm_app_info_create_from_commandline(cmd, NULL, flags, &error);
+    if (appinfo == NULL)
+    {
+        fm_show_error(parent, NULL, error->message);
+        g_error_free(error);
+        return FALSE;
+    }
+    if (files) for (l = fm_path_list_peek_head_link(files); l; l = l->next)
+        fl = g_list_append(fl, fm_path_to_gfile(FM_PATH(l->data)));
+    ok = fm_app_info_launch(appinfo, fl, ctx, &error);
+    if (!ok)
+    {
+        fm_show_error(parent, NULL, error->message);
+        g_error_free(error);
+    }
+    g_list_free_full(fl, g_object_unref);
+    g_object_unref(appinfo);
+    return ok;
 }
 
 /*
