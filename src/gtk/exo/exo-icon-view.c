@@ -3733,6 +3733,19 @@ exo_icon_view_layout (ExoIconView *icon_view)
         {
           rows = exo_icon_view_layout_cols (icon_view, item_height, &x, &maximum_height, priv->rows);
         }
+      else if (x < allocation.width &&
+               gtk_widget_get_direction (GTK_WIDGET (icon_view)) == GTK_TEXT_DIR_RTL)
+        {
+          /* shift items to align right border */
+          gint shift = allocation.width - x, i;
+          for (icons = priv->items; icons != NULL; icons = icons->next)
+          {
+              item = icons->data;
+              item->area.x += shift;
+              for (i = 0; i < icon_view->priv->n_cells; i++)
+                  item->box[i].x += shift;
+          }
+        }
 
       priv->height = maximum_height;
       priv->width = x;
