@@ -47,6 +47,7 @@
 #include "fm-cell-renderer-pixbuf.h"
 #include "fm-dnd-auto-scroll.h"
 #include "fm-places-model.h"
+#include "fm-gtk-file-launcher.h"
 #include "fm-gtk-marshal.h"
 
 #include <gdk/gdkkeysyms.h>
@@ -792,10 +793,15 @@ static GtkWidget* place_item_get_menu(FmPlacesItem* item, GtkWidget *widget)
         }
         else /* not mounted */
         {
-            /* if (fm_config->format_cmd)
+            if (fm_config->format_cmd && fm_config->format_cmd[0])
                 unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
                                                     G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
-            g_free(unix_path); // use it to mark only */
+            if (unix_path && unix_path[0] != '/') /* we can format only local */
+            {
+                g_free(unix_path);
+                unix_path = NULL;
+            }
+            g_free(unix_path); /* use it to mark only */
             act = gtk_action_group_get_action(act_grp, "Unmount");
             gtk_action_set_visible(act, FALSE);
         }
@@ -1048,12 +1054,24 @@ static void on_eject(GtkAction* act, gpointer user_data)
 static void on_format(GtkAction* act, gpointer user_data)
 {
     FmPlacesItem* item = (FmPlacesItem*)user_data;
-    char *unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
-                                              G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    char *unix_path;
+
+    if (fm_config->format_cmd == NULL || fm_config->format_cmd[0] == 0)
+        return;
+    unix_path = g_volume_get_identifier(fm_places_item_get_volume(item),
+                                        G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
     if (unix_path)
     {
-        // FIXME: call fm_config->format_cmd for device
+        /* call fm_config->format_cmd for device */
+        g_debug("formatting %s ...", unix_path);
+        FmPath *path = fm_path_new_for_path(unix_path);
         g_free(unix_path);
+        FmPathList *paths = fm_path_list_new();
+        fm_path_list_push_tail(paths, path);
+        fm_path_unref(path);
+        fm_launch_command_simple(_get_gtk_window_from_action(act), NULL, 0,
+                                 fm_config->format_cmd, paths);
+        fm_path_list_unref(paths);
     }
 }
 

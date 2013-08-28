@@ -139,6 +139,7 @@ typedef enum
  * @modules_blacklist: (since 1.2.0) list of modules (mask in form "type:name") to never load
  * @modules_whitelist: (since 1.2.0) list of excemptions from @modules_blacklist
  * @list_view_size_units: (since 1.2.0) file size units in list view: h, k, M, G
+ * @format_cmd: (since 1.2.0) command to format the volume (device will be added)
  */
 struct _FmConfig
 {
@@ -196,6 +197,7 @@ struct _FmConfig
     /*< public >*/
 
     gchar *list_view_size_units;
+    gchar *format_cmd;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;

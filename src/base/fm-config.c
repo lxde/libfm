@@ -244,6 +244,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
     fm_key_file_get_bool(kf, "config", "quick_exec", &cfg->quick_exec);
+    g_free(cfg->format_cmd);
+    cfg->format_cmd = g_key_file_get_string(kf, "config", "format_cmd", NULL);
     /* append blacklist */
     strv = g_key_file_get_string_list(kf, "config", "modules_blacklist", NULL, NULL);
     fm_strcatv(&cfg->modules_blacklist, strv);
@@ -262,6 +264,8 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "thumbnail_size", &cfg->thumbnail_size);
     fm_key_file_get_bool(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
     fm_key_file_get_bool(kf, "ui", "shadow_hidden", &cfg->shadow_hidden);
+    g_free(cfg->list_view_size_units);
+    cfg->list_view_size_units = g_key_file_get_string(kf, "ui", "list_view_size_units", NULL);
 
     fm_key_file_get_bool(kf, "places", "places_home", &cfg->places_home);
     fm_key_file_get_bool(kf, "places", "places_desktop", &cfg->places_desktop);
@@ -271,8 +275,6 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "places", "places_applications", &cfg->places_applications);
     fm_key_file_get_bool(kf, "places", "places_network", &cfg->places_network);
     fm_key_file_get_bool(kf, "places", "places_unmounted", &cfg->places_unmounted);
-    g_free(cfg->list_view_size_units);
-    cfg->list_view_size_units = g_key_file_get_string(kf, "ui", "list_view_size_units", NULL);
 }
 
 /**
@@ -442,6 +444,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
 #endif
                 _save_config_string(str, cfg, terminal);
                 _save_config_string(str, cfg, archiver);
+                _save_config_string(str, cfg, format_cmd);
                 _save_config_bool(str, cfg, thumbnail_local);
                 _save_config_int(str, cfg, thumbnail_max);
                 _save_config_strv(str, cfg, modules_blacklist);

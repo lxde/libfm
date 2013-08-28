@@ -129,6 +129,8 @@ static void on_terminal_changed(FmConfig *cfg, gpointer unused)
     }
     else /* unknown terminal */
     {
+        g_warning("terminal %s isn't known, consider report it to LibFM developers",
+                  basename);
         term->program = name;
         term->open_arg = g_strdup("-e"); /* assume it is default */
     }

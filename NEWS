@@ -160,7 +160,9 @@ Changes on 1.2.0 since 1.1.0:
 
 * Added one more library: libfm-extra. It contains only FmXmlFile for
     now. The purpose for separated library is that it can be used where
-    libfm cannot be - for example in menu-cache utilities.
+    libfm cannot be - for example in menu-cache utilities. This library
+    can be compiled separatedly from other libraries, use the configure
+    script option --with-extra-only for that.
 
 * Implemented support for hidden menu applications and folders. Those are
     visible in folder view only when 'Show hidden' is on. This will work
@@ -170,9 +172,10 @@ Changes on 1.2.0 since 1.1.0:
     (symlink or shortcut) from now on.
 
 * Implemented creating shortcuts (desktop entries with Type=Link) so it
-    is possible now to drop a link from browser to desktop. The link will
-    be opened with default browser when you click on it. And you can edit
-    display name and icon of created shortcut to your preference.
+    is possible now to drop a link from browser to desktop, for example,
+    and that link will be opened with default browser when you click on
+    it. And you can edit display name and icon of created shortcut to
+    your preference.
 
 * Added basic support for detecting target type of shortcuts. If type of
     target content cannot be determined then content type of shortcut
@@ -307,6 +310,12 @@ Changes on 1.2.0 since 1.1.0:
 * Sealed all the private data in objects. Applications should exclude use
     of sealed data and use accessor functions instead. For old code the
     workaround may be used - define FM_DISABLE_SEAL in compiler options.
+
+* Added 'format_cmd' option into config file. If set then "Format volume"
+    option will appear on local non-mounted volumes which allows user to
+    reformat USB stick for example. The example of setting for the option
+    is "/usr/lib/gnome-disk-utility/gdu-format-tool -d", that will call
+    well known component of Gnome Disk Utility.
 
 * A whole lot of bugfixes.
 
