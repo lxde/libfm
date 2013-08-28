@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-25 09:23+0000\n"
+"PO-Revision-Date: 2013-08-28 04:34+0000\n"
 "Last-Translator: sotrud_nik <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377422603.0\n"
+"X-POOTLE-MTIME: 1377664492.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -49,7 +49,7 @@ msgstr "Терминал эмуляторында ор_ындау"
 
 #: ../data/ui/app-chooser.glade.h:7
 msgid "_Keep terminal window open after command execution"
-msgstr ""
+msgstr "Команда орындалғаннан кейін де терминалды а_шық қалдыру"
 
 #: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>Қо_лданба атауы (міндетті емес, шатаспау үшін)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
@@ -146,7 +146,7 @@ msgstr "Файл қасиеттері"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Бумалар көрінісінде файл таңбашасы"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -507,11 +507,11 @@ msgstr "Тіркелу нүктесі"
 #: ../src/base/fm-templates.c:1065
 #, c-format
 msgid "No default application is set for MIME type %s"
-msgstr ""
+msgstr "%s MIME түрі үшін үнсіз келісім бойынша қолданба табылмады"
 
 #: ../src/base/fm-terminal.c:246
 msgid "No terminal emulator is set in libfm config"
-msgstr ""
+msgstr "libfm баптауларында терминал эмуляторы көрсетілмеген"
 
 #: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
@@ -521,7 +521,7 @@ msgstr[0] "%u байт"
 
 #: ../src/base/fm-utils.c:88
 msgid "kB"
-msgstr ""
+msgstr "КБ"
 
 #: ../src/base/fm-utils.c:103
 msgid "TB"
@@ -546,7 +546,7 @@ msgstr "ТиБ"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "<%s> тегі үшін қайталанатын өндеуші"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -554,6 +554,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"«%-.*s» жолын талдау қатесі, ол таңбаға (мыс. &#234;) сілтеменің ішіндегі "
+"сан болуы тиіс — мүмкін, нөмір тым үлкен"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -562,22 +564,26 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Таңбаға сілтеме нүктелі үтірмен аяқталып тұрған жоқ; «&» таңбасы өрнектің "
+"басы ретінде емес қолданылған — оны «&amp;» ретінде көрсетіңіз"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "«%-.*s» таңбаға сілтемесі рұқсат етілген таңбаны анықтап тұрған жоқ"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"«&;» бос өрнегі табылды; рұқсат етілген өрнектер: &amp; &quot; &lt; &gt; "
+"&apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "«%-.*s» өрнегінің аты белгісіз"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -585,42 +591,44 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Таңбаға сілтеме нүктелі үтірмен аяқталып тұрған жоқ; «&» таңбасы өрнектің "
+"басы ретінде емес қолданылған — оны «&amp;» ретінде көрсетіңіз"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Жабылу тегінде бос аралыққа рұқсат етілмеген"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "«%s» элементі жабылды, бірақ бірде-бір элемент ашық болмаған"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
-msgstr ""
+msgstr "«%s» элементі жабылды, бірақ ағымдағы ашық элемент «%s» болып тұр"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Атрибут мәнінің басында қате «%c» таңбасы"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
-msgstr ""
+msgstr "Атрибут мәнінің аяғында қате «%c» таңбасы, күтілген «%c»"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Құжат күтпегенде аяқталды"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Құжат бос болды немесе оның құрамында тек бос аралықтар болды"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML деректер қатесі"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -648,7 +656,7 @@ msgstr "Жүктелуде..."
 
 #: ../src/gtk/fm-dir-tree-view.c:376
 msgid "Shows tree of directories in sidebar"
-msgstr ""
+msgstr "Бүйір панелінде бумалар ағашын көрсету"
 
 #: ../src/gtk/fm-dnd-dest.c:717
 msgid "XDirectSave failed."
@@ -834,7 +842,7 @@ msgstr "Жаңадан жасалып жатқан бума атын енгіз�
 
 #: ../src/gtk/fm-folder-view.c:835
 msgid "Creating new folder"
-msgstr ""
+msgstr "Жаңа буманы жасау"
 
 #: ../src/gtk/fm-folder-view.c:848
 msgid "Enter a name for empty file:"
@@ -860,7 +868,7 @@ msgstr "Жасалуда %s"
 
 #: ../src/gtk/fm-folder-view.c:872
 msgid "_Run default application on file after creation"
-msgstr ""
+msgstr "Файлды жасағаннан кейін үнсіз келісім бойынша қолданбаны жө_нелту"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:129
 #, c-format
@@ -1116,11 +1124,11 @@ msgstr "%s көрсету"
 
 #: ../src/gtk/fm-standard-view.c:825
 msgid "_Forget width"
-msgstr ""
+msgstr "Е_нін ұмыту"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Белсенді бетті өзгертеді"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
@@ -1130,11 +1138,11 @@ msgstr "Көрсетілген '%s' бумасы жарамсыз"
 
 #: ../src/job/fm-file-ops-job.c:520
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Мақсат файлына қатынау мүмкін емес"
 
 #: ../src/job/fm-file-ops-job.c:563
 msgid "cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "бөтен файлдық жүйесінде сілтемені жасау мүмкін емес"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
@@ -1155,34 +1163,36 @@ msgstr "Мақсат бумасы қайнар көздің ішкі бумас�
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Көрсетілетін атын орнату тек бірлік файл үшін орындауға болады"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Мақсат атын орнату тек бірлік файл үшін орындауға болады"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "Empty <Name> tag"
-msgstr ""
+msgstr "Бос <Name> тегі"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "Tag <Not> should have exactly one child"
-msgstr ""
+msgstr "<Not> тегінде тек бір ғана ұрпақ болуы тиіс"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
+"<Not> тегінде тек <And>, <Or>, <Filename> не <Category> ұрпақтары болуы тиіс"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"Біріктіру файлында тек <Menu> жоғары деңгейлі тегі болуы тиіс, <%s> алынды"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "Failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "<%s> тегін біріктіру файлынан кірістіру сәтсіз аяқталды"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "Invalid <MergeFile> tag"
@@ -1213,12 +1223,12 @@ msgstr "Санатпен әрекетінде ішкі қатесі"
 #: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "«%s» үшін XML анықтамасын жасау мүмкін емес"
 
 #: ../src/modules/vfs-menu.c:1282
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "«%s» мәзір жолы бар болып тұр"
 
 #: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
 #: ../src/modules/vfs-menu.c:2127
@@ -1236,7 +1246,7 @@ msgstr "Мәзір бумасы қате"
 
 #: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Мәзір элементінің аты бос болмауы тиіс"
 
 #: ../src/modules/vfs-menu.c:2114
 #, c-format
@@ -1250,11 +1260,11 @@ msgstr "Мәзір элементі қате"
 #: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "«%s» мәзір элементінде сәйкес келетін жазба файлы жоқ"
 
 #: ../src/modules/vfs-menu.c:2390
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Мәзір бумасы үшін жасырын жалаушасын ауыстыруға қолдау жоқ"
 
 #: ../src/modules/vfs-menu.c:2548
 #, c-format
@@ -1274,25 +1284,25 @@ msgstr "\"%s\" мәзір бумасы болып тұр"
 #: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
 #, c-format
 msgid "The \"%s\" isn't a menu item"
-msgstr ""
+msgstr "«%s» мәзір элементі емес"
 
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "«%s» жарамсыз"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
 msgid "Cannot create menu item \"%s\""
-msgstr ""
+msgstr "«%s» мәзір элементін жасау мүмкін емес"
 
 #: ../src/modules/vfs-menu.c:3172
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Мәзір бумасының атауы \".desktop\" аяқталмауы тиіс"
 
 #: ../src/modules/vfs-menu.c:3226
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Мәзір түбірімен қате әрекет"
 
 #: ../src/modules/vfs-menu.c:3290
 #, c-format
@@ -1301,12 +1311,12 @@ msgstr "%s мәзір элементі қате"
 
 #: ../src/modules/vfs-menu.c:3370
 msgid "Invalid destination"
-msgstr ""
+msgstr "Мақсат орналасуы қате"
 
 #: ../src/modules/vfs-menu.c:3639
 #, c-format
 msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
-msgstr ""
+msgstr "FmMenuVFileMonitor: %s бумасы мәзір кэшінен табылмады"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:981
@@ -1319,7 +1329,7 @@ msgstr "Іздеу нәтижелері"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:65
 msgid "Choose an executable file"
-msgstr ""
+msgstr "Орындалатын файлды таңдаңыз"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:71
 msgid "Executable files"
@@ -1335,7 +1345,7 @@ msgstr "_Шолу..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:289
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Қолданба таңбашасы белсендірілген кезде орындалатын команда"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:295
@@ -1345,7 +1355,7 @@ msgstr "Терминал эмуляторында ор_ындау"
 #. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:307
 msgid "_Keep terminal window open after run"
-msgstr ""
+msgstr "Команда орындалғаннан кейін де терминалды а_шық қалдыру"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:323
 msgid "<b>D_escription:</b>"
@@ -1353,7 +1363,7 @@ msgstr "<b>Си_паттамасы:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:333
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Қолданбаның жалпы аты"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:341
 msgid "<b>_Working directory:</b>"
@@ -1361,7 +1371,7 @@ msgstr "<b>Жұмы_с бумасы:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:352
 msgid "The working directory to run the program in"
-msgstr ""
+msgstr "Бағдарлама жөнелтілетін жұмыс бумасы"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:360
 msgid "<b>_Tooltip:</b>"
@@ -1375,7 +1385,7 @@ msgstr "Қолданба үшін көрсетілетін қалқымалы к
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:376
 msgid "_Use startup notification"
-msgstr ""
+msgstr "Іске қосылу хабарламасын қол_дану"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:389
 msgid "_Desktop entry"
