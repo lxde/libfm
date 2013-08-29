@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-29 22:15+0000\n"
+"PO-Revision-Date: 2013-08-29 22:32+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377814503.0\n"
+"X-POOTLE-MTIME: 1377815522.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -365,7 +365,7 @@ msgstr "Fayiro ez'ebi_gambobugambo"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr "_Fayiro ez'ebifaananyi"
+msgstr "Fayiro ez'ebif_aananyi"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
@@ -559,7 +559,7 @@ msgid ""
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "Nnemedwa okuyungulula makulu mu '%-.*s', eyandibadde digiti ey'omu bubonero "
-"obukongojja kannabwo (okugeza nga &#234; ) - oba oli awo digiti eyitiridde "
+"obukongojja kannabwo okugeza nga &#234; - oba oli awo digiti eyitiridde "
 "obunene"
 
 #: ../src/extra/fm-xml-file.c:310
@@ -569,8 +569,9 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
-"Waliwo ekiringa obubonero obukongojja kannabwo ekitafundikidwa ka ; Bwobanga "
-"ampasandi yokka gye wetaaga - zawo akagambo &amp; ke kajja okugireeta"
+"Waliwo ekiringa obubonero obukongojja kannabwo ekitafundikidwa ka "
+"semikoloni; bwobanga ampasandi yokka gye wetaaga - zawo akagambo &amp; ke "
+"kajja okugireeta"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -583,7 +584,7 @@ msgstr ""
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Ndabyemu ekikongozzi ekisobu '&;' Ebikongozzi ebikkirizibwa bye bino: &amp; "
+"Ndabyemu ekikongozzi ekisobu '&;' ebikongozzi ebikkirizibwa bye bino: &amp; "
 "&quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
