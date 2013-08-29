@@ -392,7 +392,6 @@ static void on_file_info_job_finished(FmFileInfoJob* job, FmFolder* folder)
             {
                 if(need_added)
                     files_to_add = g_slist_prepend(files_to_add, fi);
-                //fm_file_info_ref(fi);
                 fm_file_info_list_push_tail(folder->files, fi);
             }
         }

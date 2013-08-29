@@ -888,7 +888,6 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
     render = gtk_cell_renderer_text_new();
     gtk_tree_view_column_set_title(col, title);
     info = _sv_column_info_new(col_id);
-    /* TODO: update other data from set - width for example */
     info->width = set->width;
     g_object_set_qdata_full(G_OBJECT(col), fm_qdata_id, info, _sv_column_info_free);
 
@@ -1575,13 +1574,6 @@ static void fm_standard_view_get_custom_menu_callbacks(FmFolderView* ffv,
     *update_popup = fv->update_popup;
     *open_folders = fv->open_folders;
 }
-
-#if 0
-static gboolean fm_standard_view_is_loaded(FmStandardView* fv)
-{
-    return fv->folder && fm_folder_is_loaded(fv->folder);
-}
-#endif
 
 static FmFolderModel* fm_standard_view_get_model(FmFolderView* ffv)
 {

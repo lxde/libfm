@@ -31,7 +31,6 @@
 #include "fm-icon-pixbuf.h"
 #include "fm.h"
 
-//static gboolean init = FALSE;
 static guint changed_handler = 0;
 
 typedef struct _PixEntry
@@ -119,13 +118,6 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
         char* str = g_icon_to_string(G_ICON(icon));
         g_debug("unable to load icon %s", str);
         pix = NULL;
-#if 0
-        if(g_strcmp0(str, "folder-locked") == 0)
-            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "folder",
-                    size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
-            /* FIXME: create locked icon from "folder" one */
-        else
-#endif
         if(fallback)
             pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), fallback,
                     size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);

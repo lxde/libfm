@@ -135,13 +135,6 @@ static FmJobErrorAction on_folder_error(FmFolder* folder, GError* err, FmJobErro
             if(fm_mount_path(GTK_WINDOW(win), path, TRUE))
                 return FM_JOB_RETRY;
         }
-        #if 0
-        else if(err->code == G_IO_ERROR_NOT_DIRECTORY)
-        {
-            /* FIXME: when viewing an invalid dir which does not exist... */
-            //return FM_JOB_CONTINUE;
-        }
-        #endif
     }
     fm_show_error(GTK_WINDOW(win), NULL, err->message);
     return FM_JOB_CONTINUE;

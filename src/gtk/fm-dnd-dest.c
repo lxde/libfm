@@ -567,15 +567,6 @@ static void clear_src_cache(FmDndDest* dd)
     dd->waiting_data = FALSE;
 }
 
-#if 0
-/* the returned list can be either FmPathList or FmFileInfoList */
-/* check with fm_list_is_path_list() and fm_list_is_file_info_list(). */
-FmPathList* fm_dnd_dest_get_src_files(FmDndDest* dd)
-{
-    return dd->src_files;
-}
-#endif
-
 /**
  * fm_dnd_dest_get_dest_file
  * @dd: a drag destination descriptor
@@ -969,19 +960,11 @@ query_sources:
     }
     else /* we have got drag source files */
     {
-#if 0
-        /* bug #3584798: DnD(copy/move) to remote host(SFTP://) does not work. */
-        else if(!fm_path_is_native(dest_path))
-        {
-            /* computer:/// and network:/// shouldn't received dropped files. */
-            action = 0;
-        }
-#endif
         /* dest is an ordinary path, check if drop on it is supported */
         can_drop = fm_dnd_dest_can_receive_drop(dest, dest_path,
                                                 fm_path_list_peek_head(dd->src_files));
         if (can_drop < 0 && fm_config->drop_default_action == FM_DND_DEST_DROP_ASK)
-            return GDK_ACTION_ASK;
+            return GDK_ACTION_ASK; /* we are dropping into the same place */
         else if (can_drop <= 0)
             action = 0;
         else

@@ -87,10 +87,6 @@ GtkTargetEntry fm_default_dnd_src_targets[] =
     {"application/x-fmlist-ptr", GTK_TARGET_SAME_APP, FM_DND_SRC_TARGET_FM_LIST}
 };
 
-#if 0
-static GdkAtom src_target_atom[N_FM_DND_SRC_DEFAULT_TARGETS];
-#endif
-
 enum
 {
     DATA_GET,
@@ -148,14 +144,6 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
                        NULL, NULL,
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0 );
-
-#if 0
-    for(i = 0; i < N_FM_DND_SRC_DEFAULT_TARGETS; i++)
-        src_target_atom[i] = GDK_NONE;
-    for(i = 0; i < G_N_ELEMENTS(fm_default_dnd_src_targets); i++)
-        src_target_atom[fm_default_dnd_src_targets[i].info] =
-            gdk_atom_intern_static_string(fm_default_dnd_src_targets[i].target);
-#endif
 }
 
 

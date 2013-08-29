@@ -1746,31 +1746,6 @@ static void on_thumbnail_max_changed(FmConfig* cfg, gpointer user_data)
     guint thumbnail_max_bytes = fm_config->thumbnail_max << 10;
     goffset size;
 
-#if 0
-    /* disabled due to bug #3557764: pcmanfm-1.0 segfault in fm_file_info_is_image
-       access to FmThumbnailRequest is dangerous in this implementation
-       and thumbnail generator anyway respects cfg->thumbnail_max */
-    if(cfg->thumbnail_max)
-    {
-         /* remove files which are too big from thumbnail requests
-          * FIXME: should this part be put in fm-thumbnail.c instead? */
-        for(l = model->thumbnail_requests; l; )
-        {
-            GList* next = l->next;
-            req = (FmThumbnailRequest*)l->data;
-            fi = fm_thumbnail_request_get_file_info(req);
-            /* call fm_file_info_is_image() here to see if the thumbnail
-             * is generated with built-in GdkPixbuf thumbnailer.
-             * We don't limit file sizes for external thumbnailers */
-            if(fm_file_info_is_image(fi) && fm_file_info_get_size(fi) > (cfg->thumbnail_max << 10))
-            {
-                fm_thumbnail_request_cancel(req);
-                model->thumbnail_requests = g_list_delete_link(model->thumbnail_requests, l);
-            }
-            l = next;
-        }
-    }
-#endif
     seq_it = g_sequence_get_begin_iter(model->items);
     while( !g_sequence_iter_is_end(seq_it) )
     {

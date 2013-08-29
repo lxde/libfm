@@ -32,9 +32,6 @@
 
 static volatile gint gtk_initialized = 0;
 
-// temporary definition, until FmModule is implemented
-void _fm_dentry_properties_init(void);
-
 /**
  * fm_gtk_init
  * @config: configuration file data
