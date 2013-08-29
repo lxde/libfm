@@ -60,7 +60,7 @@ struct _FmMimeType
 /* FIXME: how can we handle reload of xdg mime? */
 
 static GHashTable *mime_hash = NULL;
-G_LOCK_DEFINE(mime_hash);
+G_LOCK_DEFINE_STATIC(mime_hash);
 
 static FmMimeType* directory_type = NULL;
 static FmMimeType* mountable_type = NULL;

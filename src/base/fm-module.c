@@ -150,7 +150,7 @@
 volatile gint fm_modules_loaded = 0;
 
 static guint idle_handler = 0;
-G_LOCK_DEFINE(idle_handler);
+G_LOCK_DEFINE_STATIC(idle_handler);
 
 static gboolean _fm_modules_on_idle(gpointer user_data)
 {

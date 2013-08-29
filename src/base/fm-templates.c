@@ -78,7 +78,7 @@ static void fm_template_class_init(FmTemplateClass *klass)
 }
 
 static GList *templates = NULL; /* in appearance reversed order */
-G_LOCK_DEFINE(templates);
+G_LOCK_DEFINE_STATIC(templates);
 
 static void fm_template_finalize(GObject *object)
 {

@@ -49,7 +49,7 @@ static GHashTable *schemes = NULL;
 #define FM_FILE_MODULE_MIN_VERSION 1
 #define FM_FILE_MODULE_MAX_VERSION 1
 
-G_LOCK_DEFINE(vfs);
+G_LOCK_DEFINE_STATIC(vfs);
 
 G_DEFINE_INTERFACE(FmFile, fm_file, G_TYPE_FILE)
 

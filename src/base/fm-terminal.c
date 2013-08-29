@@ -88,7 +88,7 @@ static FmTerminal* fm_terminal_new(void)
 
 static GSList *terminals = NULL;
 static FmTerminal *default_terminal = NULL;
-G_LOCK_DEFINE(terminal);
+G_LOCK_DEFINE_STATIC(terminal);
 
 static void on_terminal_changed(FmConfig *cfg, gpointer unused)
 {
