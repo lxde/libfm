@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-27 17:33+0000\n"
+"PO-Revision-Date: 2013-08-29 22:15+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377624799.0\n"
+"X-POOTLE-MTIME: 1377814503.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -33,7 +33,7 @@ msgstr "<b>Kika kya fayiro ekinaabikkulibwa:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
 msgid "_Installed Application"
-msgstr "Puloguramu e_wangidwa ku kompyuta"
+msgstr "_Puloguramu ewangidwa ku kompyuta"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -45,7 +45,7 @@ msgstr "_Yandaaza"
 
 #: ../data/ui/app-chooser.glade.h:6
 msgid "_Execute in terminal emulator"
-msgstr "Omulimu gu_kolere okuva mu kiwandikiro"
+msgstr "_Omulimu gukolere okuva mu kiwandikiro"
 
 #: ../data/ui/app-chooser.glade.h:7
 msgid "_Keep terminal window open after command execution"
@@ -112,7 +112,7 @@ msgstr "waddewo fayiro eno?"
 
 #: ../data/ui/ask-rename.glade.h:9
 msgid "_File Name:"
-msgstr "Erinnya lya _fayiro:"
+msgstr "_Erinnya lya fayiro:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
@@ -196,11 +196,11 @@ msgstr "_Ebitalibimu"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>O_wner:</b>"
-msgstr "<b>_Nyini yo:</b>"
+msgstr "<b>N_yini yo:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>G_roup:</b>"
-msgstr "<b>_Guluupu:</b>"
+msgstr "<b>G_uluupu:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 msgid "<b>_View content:</b>"
@@ -329,7 +329,7 @@ msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:10
 msgid "Case insensiti_ve"
-msgstr "_Toyawula mu nnukuta nnene n'entono"
+msgstr "Toyawula mu nnukuta nnene n'ento_no"
 
 #: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
@@ -365,7 +365,7 @@ msgstr "Fayiro ez'ebi_gambobugambo"
 
 #: ../data/ui/filesearch.glade.h:19
 msgid "_Image files"
-msgstr "Fayiro ez'ebif_aananyi"
+msgstr "_Fayiro ez'ebifaananyi"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
@@ -550,7 +550,7 @@ msgstr "TiB"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr ""
+msgstr "Ekikolera okulamba <%s> ku bisangidwa mu emirundi egisukka mu gumu"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -558,6 +558,9 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Nnemedwa okuyungulula makulu mu '%-.*s', eyandibadde digiti ey'omu bubonero "
+"obukongojja kannabwo (okugeza nga &#234; ) - oba oli awo digiti eyitiridde "
+"obunene"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -566,22 +569,27 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Waliwo ekiringa obubonero obukongojja kannabwo ekitafundikidwa ka ; Bwobanga "
+"ampasandi yokka gye wetaaga - zawo akagambo &amp; ke kajja okugireeta"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
 msgstr ""
+"Obubonero obukongojja kannabwo '%-.*s' tebukongojja kabonero akakkirizibwa"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Ndabyemu ekikongozzi ekisobu '&;' Ebikongozzi ebikkirizibwa bye bino: &amp; "
+"&quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
 msgid "Entity name '%-.*s' is not known"
-msgstr ""
+msgstr "Ekikongozzi '%-.*s' tekimanyidwa"
 
 #: ../src/extra/fm-xml-file.c:384
 #, c-format
@@ -589,42 +597,51 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Waliwo ekiringa ekikongozzi ekitafundikidwa ka ; Bwobanga ampasandi yokka "
+"gye wetaaga - zawo akagambo &amp; ke kajja okugireeta"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Tekikkirizibwa okufundikira okulamba n'akabangirizi"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
 msgstr ""
+"Ekitundu '%s' kiriko okulamba okulaga we kikoma naye tekirina kunnaakwo "
+"okulaga we kitandikira"
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
+"Waliwo okulamba okulaga ekitundu ekiyitibwa '%s' we kikoma nga kudda ku "
+"kulamba okulaga ekitundu ekiyitibwa '%s' we kitandikira"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
 msgstr ""
+"Waliwo ekikongojjedwa mu atiributi ekitandika n'akabonero '%c' atakkirizibwa"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
+"Waliwo ekikongojjedwa mu atiributi ekifundikidwa akabonero '%c' "
+"akatakkirizibwa, sso wandibaddewo '%c'"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Ekiwandiko kifundikidwa bubi"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Ekiwandiko kyereere oba kirimu bubangirizi bwokka"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: data ya XML erimu ensobi"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -846,7 +863,7 @@ msgstr "Wandikawo erinnya erya fayiro njereere ekoledwawo:"
 
 #: ../src/gtk/fm-folder-view.c:849
 msgid "Creating ..."
-msgstr "Nkolawo..."
+msgstr "Nkolawo ..."
 
 #: ../src/gtk/fm-folder-view.c:855
 msgid "New"
@@ -1172,15 +1189,18 @@ msgstr "Ekigenderwa kitegekebwa fayiro emu yokka"
 
 #: ../src/modules/vfs-menu.c:109
 msgid "Empty <Name> tag"
-msgstr ""
+msgstr "Waliwo okulamba kwa <Name> okutalimu kantu"
 
 #: ../src/modules/vfs-menu.c:129
 msgid "Tag <Not> should have exactly one child"
 msgstr ""
+"Ekitundu ekya <Not> kikkirizibwa okuzingiramu ekitundu ekirala kimu kyokka"
 
 #: ../src/modules/vfs-menu.c:138
 msgid "Tag <Not> may contain only <And>, <Or>, <Filename> or <Category> child"
 msgstr ""
+"Ekitundu ekya <Not> kinnaakyo kye kizingira mu kikkirizibwa okuba kimu ku "
+"<And>, <Or>, <Filename> oba <Category> byokka"
 
 #: ../src/modules/vfs-menu.c:216
 #, c-format
