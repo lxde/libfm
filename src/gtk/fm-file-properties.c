@@ -612,6 +612,17 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
     if( response == GTK_RESPONSE_OK )
     {
+        /* call the extension if it was set */
+        if(data->ext != NULL)
+        {
+            GSList *l, *l2;
+            for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
+                ((FmFilePropExt*)l->data)->cb.finish(l2->data, FALSE);
+            g_slist_free(data->ext);
+            g_slist_free(data->extdata);
+            data->ext = NULL;
+        }
+
       /* if permissions_tab is hidden then it has undefined data
          so don't ever try to check those data */
       if(gtk_widget_get_visible(data->permissions_tab))
@@ -806,6 +817,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             if(new_hidden != fm_file_info_is_hidden(fm_file_info_list_peek_head(data->files)))
             {
                 /* change hidden attribute of file */
+                g_debug("hidden changed to %d",new_hidden);
                 if (job == NULL)
                 {
                     FmPathList* paths = fm_path_list_new_from_file_info_list(data->files);
@@ -817,17 +829,6 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             }
         }
       } /* end of permissions update */
-
-        /* call the extension if it was set */
-        if(data->ext != NULL)
-        {
-            GSList *l, *l2;
-            for (l = data->ext, l2 = data->extdata; l; l = l->next, l2 = l2->next)
-                ((FmFilePropExt*)l->data)->cb.finish(l2->data, FALSE);
-            g_slist_free(data->ext);
-            g_slist_free(data->extdata);
-            data->ext = NULL;
-        }
 
         /* change default application for the mime-type if needed */
         if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
