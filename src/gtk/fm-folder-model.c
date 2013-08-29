@@ -736,6 +736,8 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
     FmFolderItem* item = (FmFolderItem*)g_sequence_get(item_it);
     FmFileInfo* info = item->inf;
     FmIcon* icon;
+    mode_t mode;
+    char buf[12];
 
     if(column >= FM_FOLDER_MODEL_N_COLS) /* extension */
     {
@@ -797,7 +799,39 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
         g_value_set_string( value, fm_file_info_get_desc(info) );
         break;
     case FM_FOLDER_MODEL_COL_PERM:
-//        g_value_set_string( value, fm_file_info_get_disp_perm(info) );
+        mode = fm_file_info_get_mode(info);
+        strcpy(buf, "---------");
+        if ((mode & S_IRUSR) != 0)
+            buf[0] = 'r';
+        if ((mode & S_IWUSR) != 0)
+            buf[1] = 'w';
+        if ((mode & (S_IXUSR | S_ISUID)) == (S_IXUSR | S_ISUID))
+            buf[2] = 's';
+        else if ((mode & S_IXUSR) != 0)
+            buf[2] = 'x';
+        else if ((mode & S_ISUID) != 0)
+            buf[2] = 'S';
+        if ((mode & S_IRGRP) != 0)
+            buf[3] = 'r';
+        if ((mode & S_IWGRP) != 0)
+            buf[4] = 'w';
+        if ((mode & (S_IXGRP | S_ISGID)) == (S_IXGRP | S_ISGID))
+            buf[5] = 's';
+        else if ((mode & S_IXGRP) != 0)
+            buf[5] = 'x';
+        else if ((mode & S_ISGID) != 0)
+            buf[5] = 'S';
+        if ((mode & S_IROTH) != 0)
+            buf[6] = 'r';
+        if ((mode & S_IWOTH) != 0)
+            buf[7] = 'w';
+        if ((mode & (S_IXOTH | S_ISVTX)) == (S_IXOTH | S_ISVTX))
+            buf[8] = 't';
+        else if ((mode & S_IXOTH) != 0)
+            buf[8] = 'x';
+        else if ((mode & S_ISVTX) != 0)
+            buf[8] = 'T';
+        g_value_set_string(value, buf);
         break;
     case FM_FOLDER_MODEL_COL_OWNER:
         g_value_set_string( value, fm_file_info_get_disp_owner(info) );
