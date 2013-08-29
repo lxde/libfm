@@ -103,6 +103,8 @@ struct _FmFileInfo
     char* collate_key_case; /* the same but case-sensitive */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
+    char* disp_owner;
+    char* disp_group;
     FmMimeType* mime_type;
     FmIcon* icon;
 
@@ -805,6 +807,11 @@ static void fm_file_info_clear(FmFileInfo* fi)
         fi->disp_mtime = NULL;
     }
 
+    g_free(fi->disp_owner);
+    fi->disp_owner = NULL;
+    g_free(fi->disp_group);
+    fi->disp_group = NULL;
+
     if(G_UNLIKELY(fi->target))
     {
         g_free(fi->target);
@@ -904,6 +911,8 @@ void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src)
         fi->collate_key_case = g_strdup(src->collate_key_case);
     fi->disp_size = g_strdup(src->disp_size);
     fi->disp_mtime = g_strdup(src->disp_mtime);
+    fi->disp_owner = g_strdup(src->disp_owner);
+    fi->disp_group = g_strdup(src->disp_group);
     fi->target = g_strdup(src->target);
     fi->accessible = src->accessible;
     fi->hidden = src->hidden;
@@ -1167,6 +1176,14 @@ gboolean fm_file_info_is_shortcut(FmFileInfo* fi)
     return fi->shortcut;
 }
 
+/**
+ * fm_file_info_is_mountable
+ * @fi: file info to inspect
+ *
+ * Checks if @fi is "inode/mount-point" type.
+ *
+ * Returns: %TRUE if @fi is mountable type.
+ */
 gboolean fm_file_info_is_mountable(FmFileInfo* fi)
 {
     return fi->mime_type == _fm_mime_type_get_inode_mount_point();
@@ -1560,6 +1577,137 @@ dev_t fm_file_info_get_dev(FmFileInfo* fi)
     return fi->dev;
 }
 
+/**
+ * fm_file_info_can_set_name
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports name change for @fi. Returned value
+ * %TRUE is just a potential possibility, name still may be unable to
+ * change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_name(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->name_is_changeable);
+}
+
+/**
+ * fm_file_info_can_set_icon
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports icon change for @fi. Returned value
+ * %TRUE is just a potential possibility, icon still may be unable to
+ * change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_icon(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->icon_is_changeable);
+}
+
+/**
+ * fm_file_info_can_set_hidden
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if file system supports "hidden" attribute change for @fi.
+ * Returned value %TRUE is just a potential possibility, the attribute
+ * still may be unable to change due to access reasons for example.
+ *
+ * Returns: %TRUE if change is supported for @fi.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_can_set_hidden(FmFileInfo *fi)
+{
+    return (fi != NULL && fi->hidden_is_changeable);
+}
+
+/**
+ * fm_file_info_is_writable_directory
+ * @fi: a #FmFileInfo to inspect
+ *
+ * Checks if directory @fi lies on writable file system. Returned value
+ * %TRUE is just a potential possibility, it may still not allow write
+ * due to access reasons for example.
+ *
+ * Returns: %TRUE if @fi may be writable.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_file_info_is_writable_directory(FmFileInfo* fi)
+{
+    return (!fi->fs_is_ro && fm_file_info_is_dir(fi));
+}
+
+/**
+ * fm_file_info_get_disp_owner
+ * @fi: file info to inspect
+ *
+ * Retrieves human-readable string value for owner of @fi. Returned value
+ * is either owner login name or numeric string if owner has no entry in
+ * /etc/passwd file. Returned value is owned by @fi and should be not
+ * altered by caller.
+ *
+ * Returns: (transfer none): string value for owner.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_file_info_get_disp_owner(FmFileInfo *fi)
+{
+    g_return_val_if_fail(fi, NULL);
+    if (!fi->disp_owner)
+    {
+        struct passwd* pw = NULL;
+        struct passwd pwb;
+        char unamebuf[1024];
+
+        getpwuid_r(fi->uid, &pwb, unamebuf, sizeof(unamebuf), &pw);
+        if (pw)
+            fi->disp_owner = g_strdup(pw->pw_name);
+        else
+            fi->disp_owner = g_strdup_printf("%u", (guint)fi->uid);
+    }
+    return fi->disp_owner;
+}
+
+/**
+ * fm_file_info_get_disp_group
+ * @fi: file info to inspect
+ *
+ * Retrieves human-readable string value for group of @fi. Returned value
+ * is either group name or numeric string if grop has no entry in the
+ * /etc/group file. Returned value is owned by @fi and should be not
+ * altered by caller.
+ *
+ * Returns: (transfer none): string value for file group.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_file_info_get_disp_group(FmFileInfo *fi)
+{
+    g_return_val_if_fail(fi, NULL);
+    if (!fi->disp_group)
+    {
+        struct group* grp = NULL;
+        struct group grpb;
+        char unamebuf[1024];
+
+        getgrgid_r(fi->gid, &grpb, unamebuf, sizeof(unamebuf), &grp);
+        if (grp)
+            fi->disp_group = g_strdup(grp->gr_name);
+        else
+            fi->disp_group = g_strdup_printf("%u", (guint)fi->gid);
+    }
+    return fi->disp_group;
+}
+
+
 static FmListFuncs fm_list_funcs =
 {
     .item_ref = (gpointer (*)(gpointer))&fm_file_info_ref,
@@ -1638,72 +1786,4 @@ gboolean fm_file_info_list_is_same_fs(FmFileInfoList* list)
         }
     }
     return TRUE;
-}
-
-/**
- * fm_file_info_can_set_name
- * @fi: a #FmFileInfo to inspect
- *
- * Checks if file system supports name change for @fi. Returned value
- * %TRUE is just a potential possibility, name still may be unable to
- * change due to access reasons for example.
- *
- * Returns: %TRUE if change is supported for @fi.
- *
- * Since: 1.2.0
- */
-gboolean fm_file_info_can_set_name(FmFileInfo *fi)
-{
-    return (fi != NULL && fi->name_is_changeable);
-}
-
-/**
- * fm_file_info_can_set_icon
- * @fi: a #FmFileInfo to inspect
- *
- * Checks if file system supports icon change for @fi. Returned value
- * %TRUE is just a potential possibility, icon still may be unable to
- * change due to access reasons for example.
- *
- * Returns: %TRUE if change is supported for @fi.
- *
- * Since: 1.2.0
- */
-gboolean fm_file_info_can_set_icon(FmFileInfo *fi)
-{
-    return (fi != NULL && fi->icon_is_changeable);
-}
-
-/**
- * fm_file_info_can_set_hidden
- * @fi: a #FmFileInfo to inspect
- *
- * Checks if file system supports "hidden" attribute change for @fi.
- * Returned value %TRUE is just a potential possibility, the attribute
- * still may be unable to change due to access reasons for example.
- *
- * Returns: %TRUE if change is supported for @fi.
- *
- * Since: 1.2.0
- */
-gboolean fm_file_info_can_set_hidden(FmFileInfo *fi)
-{
-    return (fi != NULL && fi->hidden_is_changeable);
-}
-
-/**
- * fm_file_info_is_writable_directory
- * @fi: a #FmFileInfo to inspect
- *
- * Checks if directory @fi lies on writable file system. Returned value
- * %TRUE is just a potential possibility, it may still not allow write
- * due to access reasons for example.
- *
- * Returns: %TRUE if @fi may be writable.
- *
- * Since: 1.2.0
- */
-gboolean fm_file_info_is_writable_directory(FmFileInfo* fi)
-{
-    return (!fi->fs_is_ro && fm_file_info_is_dir(fi));
 }

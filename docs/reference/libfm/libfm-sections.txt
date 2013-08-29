@@ -365,8 +365,10 @@ fm_file_info_get_collate_key_nocasefold
 fm_file_info_get_ctime
 fm_file_info_get_desc
 fm_file_info_get_dev
+fm_file_info_get_disp_group
 fm_file_info_get_disp_mtime
 fm_file_info_get_disp_name
+fm_file_info_get_disp_owner
 fm_file_info_get_disp_size
 fm_file_info_get_fs_id
 fm_file_info_get_gid

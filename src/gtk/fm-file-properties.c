@@ -912,7 +912,6 @@ static void update_permissions(FmFilePropData* data)
     FmFileInfo* fi = fm_file_info_list_peek_head(data->files);
     GList *l;
     int sel;
-    char* tmp;
     mode_t fi_mode = fm_file_info_get_mode(fi);
     mode_t read_perm = (fi_mode & (S_IRUSR|S_IRGRP|S_IROTH));
     mode_t write_perm = (fi_mode & (S_IWUSR|S_IWGRP|S_IWOTH));
@@ -922,11 +921,6 @@ static void update_permissions(FmFilePropData* data)
     gint32 gid = fm_file_info_get_gid(fi);
     gboolean mix_read = FALSE, mix_write = FALSE, mix_exec = FALSE;
     gboolean mix_flags = FALSE;
-    struct group* grp = NULL;
-    struct passwd* pw = NULL;
-    char unamebuf[1024];
-    struct group grpb;
-    struct passwd pwb;
 
     data->all_native = fm_path_is_native(fm_file_info_get_path(fi));
     data->has_dir = (S_ISDIR(fi_mode) != FALSE);
@@ -1002,31 +996,9 @@ static void update_permissions(FmFilePropData* data)
     if( data->all_native )
     {
         if(uid >= 0)
-        {
-            getpwuid_r(uid, &pwb, unamebuf, sizeof(unamebuf), &pw);
-            if(pw)
-                gtk_entry_set_text(data->owner, pw->pw_name);
-        }
+            gtk_entry_set_text(data->owner, fm_file_info_get_disp_owner(fi));
         if(gid >= 0)
-        {
-            getgrgid_r(gid, &grpb, unamebuf, sizeof(unamebuf), &grp);
-            if(grp)
-                gtk_entry_set_text(data->group, grp->gr_name);
-        }
-    }
-
-    if(uid >= 0 && !pw)
-    {
-        tmp = g_strdup_printf("%d", uid);
-        gtk_entry_set_text(data->owner, tmp);
-        g_free(tmp);
-    }
-
-    if(gid >= 0 && !grp)
-    {
-        tmp = g_strdup_printf("%d", gid);
-        gtk_entry_set_text(data->group, tmp);
-        g_free(tmp);
+            gtk_entry_set_text(data->group, fm_file_info_get_disp_group(fi));
     }
 
     data->orig_owner = g_strdup(gtk_entry_get_text(data->owner));

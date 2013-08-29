@@ -124,7 +124,9 @@ time_t fm_file_info_get_atime( FmFileInfo* fi );
 time_t fm_file_info_get_ctime(FmFileInfo *fi);
 FmIcon* fm_file_info_get_icon( FmFileInfo* fi );
 uid_t fm_file_info_get_uid( FmFileInfo* fi );
+const char *fm_file_info_get_disp_owner(FmFileInfo *fi);
 gid_t fm_file_info_get_gid( FmFileInfo* fi );
+const char *fm_file_info_get_disp_group(FmFileInfo *fi);
 const char* fm_file_info_get_fs_id( FmFileInfo* fi );
 dev_t fm_file_info_get_dev( FmFileInfo* fi );
 

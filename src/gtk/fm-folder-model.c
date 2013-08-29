@@ -800,7 +800,7 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
 //        g_value_set_string( value, fm_file_info_get_disp_perm(info) );
         break;
     case FM_FOLDER_MODEL_COL_OWNER:
-//        g_value_set_string( value, fm_file_info_get_disp_owner(info) );
+        g_value_set_string( value, fm_file_info_get_disp_owner(info) );
         break;
     case FM_FOLDER_MODEL_COL_MTIME:
         g_value_set_string( value, fm_file_info_get_disp_mtime(info) );
