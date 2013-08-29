@@ -49,6 +49,7 @@ static GHashTable *schemes = NULL;
 #define FM_FILE_MODULE_MIN_VERSION 1
 #define FM_FILE_MODULE_MAX_VERSION 1
 
+G_LOCK_DEFINE(vfs);
 
 G_DEFINE_INTERFACE(FmFile, fm_file, G_TYPE_FILE)
 
@@ -65,8 +66,12 @@ static void fm_file_default_init(FmFileInterface *iface)
 
 static inline FmFileInitTable *fm_find_scheme(const char *name)
 {
+    FmFileInitTable *t;
     CHECK_MODULES();
-    return (FmFileInitTable*)g_hash_table_lookup(schemes, name);
+    G_LOCK(vfs);
+    t = (FmFileInitTable*)g_hash_table_lookup(schemes, name);
+    G_UNLOCK(vfs);
+    return t;
 }
 
 /**
@@ -82,8 +87,10 @@ static inline FmFileInitTable *fm_find_scheme(const char *name)
  */
 void fm_file_add_vfs(const char *name, FmFileInitTable *init)
 {
-    if(fm_find_scheme(name) == NULL)
+    G_LOCK(vfs);
+    if(g_hash_table_lookup(schemes, name) == NULL)
         g_hash_table_insert(schemes, g_strdup(name), init);
+    G_UNLOCK(vfs);
 }
 
 /**
