@@ -130,6 +130,9 @@ void fm_side_pane_set_popup_updater(FmSidePane* sp,
                                     FmSidePaneUpdatePopup update_popup,
                                     gpointer user_data);
 
+const char *fm_side_pane_get_mode_name(FmSidePaneMode mode);
+FmSidePaneMode fm_side_pane_get_mode_by_name(const char *str);
+
 G_END_DECLS
 
 #endif /* __FM_SIDE_PANE_H__ */

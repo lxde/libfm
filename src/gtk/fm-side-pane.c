@@ -536,3 +536,50 @@ void fm_side_pane_set_popup_updater(FmSidePane* sp,
         }
     }
 }
+
+/**
+ * fm_side_pane_get_mode_name
+ * @mode: mode to convert
+ *
+ * Retrieves the name of the specified side pane @mode, or %NULL if @mode
+ * is invalid. The name of mode may be used for config save or another
+ * similar purpose. Returned data are owned by implementation and should
+ * be not freed by caller.
+ *
+ * Returns: the name associated with @mode.
+ *
+ * Since: 1.2.0
+ */
+const char *fm_side_pane_get_mode_name(FmSidePaneMode mode)
+{
+    switch (mode)
+    {
+        case FM_SP_PLACES:
+            return "places";
+        case FM_SP_DIR_TREE:
+            return "dirtree";
+        default:
+            return NULL;
+    }
+}
+
+/**
+ * fm_side_pane_get_mode_by_name
+ * @str: the name of mode
+ *
+ * Finds mode which have an associated name equal to @str.
+ *
+ * Returns: mode or FM_SP_NONE if @str specifies invalid mode.
+ *
+ * Since: 1.2.0
+ */
+FmSidePaneMode fm_side_pane_get_mode_by_name(const char *str)
+{
+    if (str == NULL)
+        return FM_SP_NONE;
+    if (strcmp(str, "places") == 0)
+        return FM_SP_PLACES;
+    if (strcmp(str, "dirtree") == 0)
+        return FM_SP_DIR_TREE;
+    return FM_SP_NONE;
+}
