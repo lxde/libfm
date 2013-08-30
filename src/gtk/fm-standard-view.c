@@ -616,6 +616,9 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
         gtk_tree_view_column_set_expand(col, TRUE);
         gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
         gtk_tree_view_column_set_fixed_width(col, 200);
+#if GTK_CHECK_VERSION(3, 0, 0)
+        gtk_tree_view_column_set_min_width(col, 50);
+#endif
     }
     else
     {
