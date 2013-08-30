@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-24 00:29+0200\n"
-"PO-Revision-Date: 2013-08-29 22:45+0000\n"
+"PO-Revision-Date: 2013-08-30 14:04+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377816313.0\n"
+"X-POOTLE-MTIME: 1377871492.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -1207,24 +1207,26 @@ msgstr ""
 #, c-format
 msgid "Merging file may contain only <Menu> top level tag, got <%s>"
 msgstr ""
+"Fayiro omugenda okuva ebipya okulamba kwa mu okubereberye kuteekwa okuba "
+"<Menu>, mu eno kuli <%s>"
 
 #: ../src/modules/vfs-menu.c:230
 #, c-format
 msgid "Failed to insert tag <%s> from merging file"
-msgstr ""
+msgstr "Nnemedwa okuleetamu okulamba kwa <%s> okuva mu fayiro omuva ebipya"
 
 #: ../src/modules/vfs-menu.c:339
 msgid "Invalid <MergeFile> tag"
-msgstr ""
+msgstr "Waliwo okulamba kwa <MergeFile> okutakkirizibwa"
 
 #: ../src/modules/vfs-menu.c:370
 msgid "Invalid <MergeDir> tag"
-msgstr ""
+msgstr "Waliwo okulamba kwa <MergeDir> okutakkirizibwa"
 
 #: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
 #, c-format
 msgid "XML file %s error (%d:%d): "
-msgstr ""
+msgstr "Fayiro eya XML eriko kiremya w'ekika kya %s (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
 msgid "XML file doesn't contain Applications root"
@@ -1308,7 +1310,7 @@ msgstr "\"%s\" ssi kintu kya mu menyu"
 #: ../src/modules/vfs-menu.c:2622
 #, c-format
 msgid "The \"%s\" is broken"
-msgstr ""
+msgstr "\"%s\" eriko kiremya"
 
 #: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
 #, c-format
