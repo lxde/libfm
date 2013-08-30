@@ -96,12 +96,14 @@ static GList* _fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 G_DEFINE_TYPE(FmFolder, fm_folder, G_TYPE_OBJECT);
 
 static guint signals[N_SIGNALS];
-static GHashTable* hash = NULL; /* FIXME: should this be guarded with a mutex? */
+static GHashTable* hash = NULL;
 
 static GVolumeMonitor* volume_monitor = NULL;
 
 /* used for on_query_filesystem_info_finished() to lock folder */
 G_LOCK_DEFINE_STATIC(query);
+/* protects hash access */
+G_LOCK_DEFINE_STATIC(hash);
 
 static void fm_folder_class_init(FmFolderClass *klass)
 {
@@ -335,14 +337,11 @@ static void fm_folder_init(FmFolder *folder)
 static gboolean on_idle_reload(FmFolder* folder)
 {
     /* check if folder still exists */
-    G_LOCK(query);
     if(g_source_is_destroyed(g_main_current_source()))
     {
-        G_UNLOCK(query);
         return FALSE;
     }
     g_object_ref(folder);
-    G_UNLOCK(query);
     fm_folder_reload(folder);
     G_LOCK(query);
     folder->idle_reload_handler = 0;
@@ -418,14 +417,11 @@ static gboolean on_idle(FmFolder* folder)
     FmPath* path;
 
     /* check if folder still exists */
-    G_LOCK(query);
     if(g_source_is_destroyed(g_main_current_source()))
     {
-        G_UNLOCK(query);
         return FALSE;
     }
     g_object_ref(folder);
-    G_UNLOCK(query);
 
     if(folder->files_to_update || folder->files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
@@ -768,20 +764,25 @@ static FmFolder* fm_folder_get_internal(FmPath* path, GFile* gf)
     /* FIXME: should we provide a generic FmPath cache in fm-path.c
      * to associate all kinds of data structures with FmPaths? */
 
+    G_LOCK(hash);
     folder = (FmFolder*)g_hash_table_lookup(hash, path);
 
     if( G_UNLIKELY(!folder) )
     {
         GFile* _gf = NULL;
+
+        G_UNLOCK(hash);
         if(!gf)
             _gf = gf = fm_path_to_gfile(path);
         folder = fm_folder_new_internal(path, gf);
         if(_gf)
             g_object_unref(_gf);
+        G_LOCK(hash);
         g_hash_table_insert(hash, folder->dir_path, folder);
     }
     else
-        return (FmFolder*)g_object_ref(folder);
+        g_object_ref(folder);
+    G_UNLOCK(hash);
     return folder;
 }
 
@@ -871,7 +872,9 @@ static void fm_folder_dispose(GObject *object)
     /* remove from hash table */
     if(folder->dir_path)
     {
+        G_LOCK(hash);
         g_hash_table_remove(hash, folder->dir_path);
+        G_UNLOCK(hash);
         fm_path_unref(folder->dir_path);
         folder->dir_path = NULL;
     }
@@ -1375,6 +1378,7 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
         FmPath* mounted_path = fm_path_new_for_gfile(gfile);
         g_object_unref(gfile);
 
+        G_LOCK(hash);
         g_hash_table_iter_init(&it, hash);
         while(g_hash_table_iter_next(&it, (gpointer*)&path, (gpointer*)&folder))
         {
@@ -1390,6 +1394,7 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
                 queue_reload(folder);
             }
         }
+        G_UNLOCK(hash);
         fm_path_unref(mounted_path);
     }
 }
@@ -1414,6 +1419,7 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
         FmPath* mounted_path = fm_path_new_for_gfile(gfile);
         g_object_unref(gfile);
 
+        G_LOCK(hash);
         g_hash_table_iter_init(&it, hash);
         while(g_hash_table_iter_next(&it, (gpointer*)&path, (gpointer*)&folder))
         {
@@ -1425,6 +1431,7 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
                     dummy_monitor_folders = g_slist_prepend(dummy_monitor_folders, folder);
             }
         }
+        G_UNLOCK(hash);
         fm_path_unref(mounted_path);
 
         for(l = dummy_monitor_folders; l; l = l->next)

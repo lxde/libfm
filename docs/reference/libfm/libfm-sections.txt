@@ -825,6 +825,7 @@ fm_mime_type_from_native_file
 fm_mime_type_get_desc
 fm_mime_type_get_icon
 fm_mime_type_get_thumbnailers
+fm_mime_type_get_thumbnailers_list
 fm_mime_type_ref
 fm_mime_type_remove_thumbnailer
 fm_mime_type_unref
@@ -1153,6 +1154,8 @@ fm_thumbnailer_free
 fm_thumbnailer_launch_for_uri
 fm_thumbnailer_launch_for_uri_async
 fm_thumbnailer_new_from_keyfile
+fm_thumbnailer_ref
+fm_thumbnailer_unref
 </SECTION>
 
 <SECTION>

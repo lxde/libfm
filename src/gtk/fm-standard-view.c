@@ -901,6 +901,10 @@ static GtkTreeViewColumn* create_list_view_column(FmStandardView* fv,
                                             "info", FM_FOLDER_MODEL_COL_INFO, NULL);
         g_object_set(render, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
         gtk_tree_view_column_set_expand(col, TRUE);
+#if GTK_CHECK_VERSION(3, 0, 0)
+        /* Workaround for column collapse issue when double-clicking separator */
+        gtk_tree_view_column_set_min_width(col, 50);
+#endif
         if(set->width <= 0)
             info->width = 200;
         break;

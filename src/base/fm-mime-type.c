@@ -45,13 +45,15 @@
 #include <sys/mman.h>
 #endif
 
+G_LOCK_DEFINE_STATIC(thumbnailers);
+
 struct _FmMimeType
 {
     char* type; /* mime type name */
     char* description;  /* description of the mime type */
     FmIcon* icon;
 
-    /* thumbnailers installed for the mime-type */
+    /* thumbnailers installed for the mime-type - locked here not there! */
     GList* thumbnailers; /* FmMimeType does "not" own the FmThumbnailer objects */
 
     int n_ref;
@@ -60,7 +62,7 @@ struct _FmMimeType
 /* FIXME: how can we handle reload of xdg mime? */
 
 static GHashTable *mime_hash = NULL;
-G_LOCK_DEFINE(mime_hash);
+G_LOCK_DEFINE_STATIC(mime_hash);
 
 static FmMimeType* directory_type = NULL;
 static FmMimeType* mountable_type = NULL;
@@ -326,14 +328,10 @@ void fm_mime_type_unref(gpointer mime_type_)
         g_free(mime_type->description);
         if (mime_type->icon)
             g_object_unref(mime_type->icon);
-        if(mime_type->thumbnailers)
-        {
+        g_assert(mime_type->thumbnailers == NULL);
             /* Note: we do not own references for FmThumbnailer here.
-             * Just free the list */
-            /* FIXME: this list should be free already or else it's failure
+               this list should be free already or else it's failure
                and fm-thumbnailer.c will try to unref this destroyed object */
-            g_list_free(mime_type->thumbnailers);
-        }
         g_slice_free(FmMimeType, mime_type);
     }
 }
@@ -379,12 +377,37 @@ const char* fm_mime_type_get_type(FmMimeType* mime_type)
  *
  * Returns: (element-type gpointer) (transfer none): the list.
  *
+ * Deprecated: 1.2.0: Use fm_mime_type_get_thumbnailers_list() instead.
+ *
  * Since: 1.0.0
  */
 const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
 {
     /* FIXME: need this be thread-safe? */
     return mime_type->thumbnailers;
+}
+
+/**
+ * fm_mime_type_get_thumbnailers_list
+ * @mime_type: a #FmMimeType descriptor
+ *
+ * Retrieves list of thumbnailers associated with @mime_type. Returned
+ * data should be freed after usage.
+ *
+ * Returns: (transfer full) (element-type FmThumbnailer): the list.
+ *
+ * Since: 1.2.0
+ */
+GList* fm_mime_type_get_thumbnailers_list(FmMimeType* mime_type)
+{
+    GList *list = NULL, *l;
+
+    G_LOCK(thumbnailers);
+    for (l = mime_type->thumbnailers; l; l = l->next)
+        list = g_list_prepend(list, fm_thumbnailer_ref(l->data));
+    list = g_list_reverse(list);
+    G_UNLOCK(thumbnailers);
+    return list;
 }
 
 /**
@@ -398,8 +421,9 @@ const GList* fm_mime_type_get_thumbnailers(FmMimeType* mime_type)
  */
 void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
 {
-    /* FIXME: need this be thread-safe? */
+    G_LOCK(thumbnailers);
     mime_type->thumbnailers = g_list_append(mime_type->thumbnailers, thumbnailer);
+    G_UNLOCK(thumbnailers);
 }
 
 /**
@@ -414,8 +438,9 @@ void fm_mime_type_add_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
  */
 void fm_mime_type_remove_thumbnailer(FmMimeType* mime_type, gpointer thumbnailer)
 {
-    /* FIXME: need this be thread-safe? */
+    G_LOCK(thumbnailers);
     mime_type->thumbnailers = g_list_remove(mime_type->thumbnailers, thumbnailer);
+    G_UNLOCK(thumbnailers);
 }
 
 /**

@@ -201,6 +201,8 @@ gboolean fm_archiver_extract_archives_to(FmArchiver* archiver, GAppLaunchContext
  *
  * Retrieves default GUI archiver used by libfm.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Returns: archiver descriptor.
  *
  * Since: 0.1.9
@@ -248,6 +250,8 @@ FmArchiver* fm_archiver_get_default(void)
  *
  * Sets default GUI archiver used by libfm.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Since: 0.1.9
  */
 void fm_archiver_set_default(FmArchiver* archiver)
@@ -260,6 +264,8 @@ void fm_archiver_set_default(FmArchiver* archiver)
  * fm_archiver_get_all
  *
  * Retrieves a list of #FmArchiver of all GUI archivers known to libfm.
+ *
+ * This API is not thread-safe and should be used only in default context.
  *
  * Returns: list of archivers.
  *

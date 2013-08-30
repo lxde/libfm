@@ -96,14 +96,11 @@ static void fm_config_finalize(GObject *object)
         g_free(cfg->terminal);
     if(cfg->archiver)
         g_free(cfg->archiver);
-    cfg->terminal = NULL;
-    cfg->archiver = NULL;
     g_strfreev(cfg->system_modules_blacklist);
     g_strfreev(cfg->modules_blacklist);
     g_strfreev(cfg->modules_whitelist);
-    cfg->system_modules_blacklist = NULL;
-    cfg->modules_blacklist = NULL;
-    cfg->modules_whitelist = NULL;
+    g_free(cfg->format_cmd);
+    g_free(cfg->list_view_size_units);
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
@@ -128,6 +125,8 @@ static void fm_config_init(FmConfig *self)
     /* terminal and archiver defaulted to NULL */
     /* drop_default_action defaulted to 0 */
     /* modules_blacklist and modules_whitelist defaulted to NULL */
+    /* format_cmd defaulted to NULL */
+    /* list_view_size_units defaulted to NULL */
     self->advanced_mode = FALSE;
     self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
     self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
@@ -138,6 +137,8 @@ static void fm_config_init(FmConfig *self)
     self->only_user_templates = FM_CONFIG_DEFAULT_ONLY_USER_TEMPLATES;
     self->template_run_app = FM_CONFIG_DEFAULT_TEMPLATE_RUN_APP;
     self->template_type_once = FM_CONFIG_DEFAULT_TEMPL_TYPE_ONCE;
+    self->defer_content_test = FM_CONFIG_DEFAULT_DEFER_CONTENT_TEST;
+    self->quick_exec = FM_CONFIG_DEFAULT_QUICK_EXEC;
     self->places_home = FM_CONFIG_DEFAULT_PLACES_HOME;
     self->places_desktop = FM_CONFIG_DEFAULT_PLACES_DESKTOP;
     self->places_root = FM_CONFIG_DEFAULT_PLACES_ROOT;
@@ -168,6 +169,8 @@ FmConfig *fm_config_new(void)
  * @changed_key: what was changed
  *
  * Causes the #FmConfig::changed signal to be emitted.
+ *
+ * This API is not thread-safe and should be used only in default context.
  *
  * Since: 0.1.0
  */

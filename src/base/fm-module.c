@@ -140,6 +140,7 @@
 
 #include "fm-module.h"
 #include "fm-config.h"
+#include "fm-utils.h"
 
 #include <string.h>
 #include <dlfcn.h>
@@ -149,7 +150,7 @@
 volatile gint fm_modules_loaded = 0;
 
 static guint idle_handler = 0;
-G_LOCK_DEFINE(idle_handler);
+G_LOCK_DEFINE_STATIC(idle_handler);
 
 static gboolean _fm_modules_on_idle(gpointer user_data)
 {
@@ -350,15 +351,7 @@ static gboolean _module_matches(const char *type, const char *name, const char *
     return _name_matches(type, mask, delimiter);
 }
 
-/**
- * fm_modules_load
- *
- * Forces scanning the libfm modules for existing modules. Any calls to
- * fm_module_register_type() after this will have no effect.
- *
- * Since: 1.2.0
- */
-void fm_modules_load(void)
+static gboolean _fm_modules_load(gpointer unused)
 {
     GDir *dir;
     const char *file;
@@ -371,14 +364,12 @@ void fm_modules_load(void)
     FmModule *module;
     FmModuleType *mtype;
 
-    if (!g_atomic_int_compare_and_exchange(&fm_modules_loaded, 0, 1))
-        return;
     g_debug("starting modules initialization");
     dir = g_dir_open(PACKAGE_MODULES_DIR, 0, NULL);
     if (dir == NULL)
     {
         g_warning("modules directory is not accessible");
-        return;
+        return FALSE;
     }
     str = g_string_sized_new(128);
     while ((file = g_dir_read_name(dir)) != NULL)
@@ -446,6 +437,22 @@ void fm_modules_load(void)
     g_string_free(str, TRUE);
     g_dir_close(dir);
     g_debug("done with modules");
+    return FALSE;
+}
+
+/**
+ * fm_modules_load
+ *
+ * Forces scanning the libfm modules for existing modules. Any calls to
+ * fm_module_register_type() after this will have no effect.
+ *
+ * Since: 1.2.0
+ */
+void fm_modules_load(void)
+{
+    if (!g_atomic_int_compare_and_exchange(&fm_modules_loaded, 0, 1))
+        return;
+    fm_run_in_default_main_context(_fm_modules_load, NULL);
 }
 
 /**

@@ -76,7 +76,7 @@ static FmPath* network_root = NULL;*/
 static FmPath* apps_root_path = NULL;
 
 static GSList* roots = NULL;
-G_LOCK_DEFINE(roots);
+G_LOCK_DEFINE_STATIC(roots);
 
 static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
 {

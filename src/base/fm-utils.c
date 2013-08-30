@@ -444,7 +444,7 @@ int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
 static GMutex main_loop_run_mutex;
 static GCond main_loop_run_cond;
 #else
-G_LOCK_DEFINE(main_loop_run_mutex);
+G_LOCK_DEFINE_STATIC(main_loop_run_mutex);
 static GMutex *main_loop_run_mutex = NULL;
 static GCond *main_loop_run_cond = NULL;
 #endif

@@ -63,7 +63,7 @@ struct _FmMenuMenuTree
     gint line, pos; /* we remember position in deepest file */
 };
 
-G_LOCK_DEFINE(menuTree); /* locks all .menu file access data below */
+G_LOCK_DEFINE_STATIC(menuTree); /* locks all .menu file access data below */
 static FmXmlFileTag menuTag_Menu = 0; /* tags that are supported */
 static FmXmlFileTag menuTag_Include = 0;
 static FmXmlFileTag menuTag_Exclude = 0;

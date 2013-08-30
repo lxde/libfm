@@ -38,6 +38,7 @@
 #endif
 
 #include "fm-thumbnail-loader.h"
+#include "glib-compat.h"
 
 #include "fm-config.h"
 #include "fm-utils.h"
@@ -1106,8 +1107,8 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
      * the thumbnailer process should be killed once a timeout is reached. */
     if(mime_type)
     {
-        const GList* thumbnailers = fm_mime_type_get_thumbnailers(mime_type);
-        const GList* l;
+        GList* thumbnailers = fm_mime_type_get_thumbnailers_list(mime_type);
+        GList* l;
         guint generated = 0;
         /* g_debug("run thumbnailer: %s, %s, %s", fm_file_info_get_name(task->fi), task->normal_path, task->large_path); */
         for(l = thumbnailers; l; l = l->next)
@@ -1134,6 +1135,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
             if(generated == task->flags)
                 break;
         }
+        g_list_free_full(thumbnailers, (GDestroyNotify)fm_thumbnailer_unref);
     }
     thumbnail_task_finish(task, normal_pix, large_pix);
 

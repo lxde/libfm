@@ -32,7 +32,6 @@ G_BEGIN_DECLS
 typedef struct _FmThumbnailer	FmThumbnailer;
 
 FmThumbnailer* fm_thumbnailer_new_from_keyfile(const char* id, GKeyFile* kf);
-void fm_thumbnailer_free(FmThumbnailer* thumbnailer);
 
 char* fm_thumbnailer_command_for_uri(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size);
 GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
@@ -42,7 +41,11 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
 
 #ifndef FM_DISABLE_DEPRECATED
 gboolean fm_thumbnailer_launch_for_uri(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size);
+void fm_thumbnailer_free(FmThumbnailer* thumbnailer);
 #endif
+
+FmThumbnailer* fm_thumbnailer_ref(FmThumbnailer* thumbnailer);
+void fm_thumbnailer_unref(FmThumbnailer* thumbnailer);
 
 /* reload the thumbnailers if needed */
 void fm_thumbnailer_check_update();

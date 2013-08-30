@@ -51,6 +51,7 @@ char module_name[] = #_name_;
  * This API is used to make callback from the modules loader to the
  * implementation which uses module so the implementation may do required
  * checks and add module to own list of supported data.
+ * This callback will be done in default main context.
  *
  * Returns: %TRUE if module was accepted by implementation.
  *
