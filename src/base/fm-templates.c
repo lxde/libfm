@@ -1013,7 +1013,7 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
     if(!FM_IS_TEMPLATE(templ) || !G_IS_FILE(path))
     {
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            "fm_template_create_file: invalid argument");
+                            _("fm_template_create_file: invalid argument"));
         return FALSE;
     }
     tfile = NULL;

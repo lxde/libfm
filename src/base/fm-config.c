@@ -170,6 +170,8 @@ FmConfig *fm_config_new(void)
  *
  * Causes the #FmConfig::changed signal to be emitted.
  *
+ * This API is not thread-safe and should be used only in default context.
+ *
  * Since: 0.1.0
  */
 void fm_config_emit_changed(FmConfig* cfg, const char* changed_key)
