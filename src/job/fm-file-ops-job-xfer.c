@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include "fm-monitor.h"
 #include "fm-utils.h"
+#include "fm-folder.h"
 #include <glib/gi18n-lib.h>
 
 static const char query[]=
@@ -657,6 +658,8 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     FmJob* fmjob = FM_JOB(job);
     /* prepare the job, count total work needed with FmDeepCountJob */
     FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_DEFAULT);
+    FmFolder *df;
+
     /* let the deep count job share the same cancellable object. */
     fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(fmjob));
     fm_job_run_sync(FM_JOB(dc));
@@ -670,6 +673,10 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     g_debug("total size to copy: %llu", (long long unsigned int)job->total);
 
     dest_dir = fm_path_to_gfile(job->dest);
+    /* suspend updates for destination */
+    df = fm_folder_find_by_path(job->dest);
+    if (df)
+        fm_folder_block_updates(df);
     /* get dummy file monitors for non-native filesystems */
     old_mon = job->dest_folder_mon;
     if( g_file_is_native(dest_dir) )
@@ -707,6 +714,12 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
     fm_file_ops_job_emit_percent(job);
 
+    /* restore updates for destination */
+    if (df)
+    {
+        fm_folder_unblock_updates(df);
+        g_object_unref(df);
+    }
     g_object_unref(dest_dir);
     if(job->dest_folder_mon)
         g_object_unref(job->dest_folder_mon);
@@ -725,6 +738,8 @@ gboolean _fm_file_ops_job_move_run(FmFileOpsJob* job)
     dev_t dest_dev = 0;
     gboolean ret = TRUE;
     FmDeepCountJob* dc;
+    FmPath *parent = NULL;
+    FmFolder *df, *sf = NULL;
 
     /* get information of destination folder */
     g_return_val_if_fail(job->dest, FALSE);
@@ -779,6 +794,10 @@ _retry_query_dest_info:
         job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
 
     fm_file_ops_job_emit_prepared(job);
+    /* suspend updates for destination */
+    df = fm_folder_find_by_path(job->dest);
+    if (df)
+        fm_folder_block_updates(df);
 
     old_src_mon = job->src_folder_mon;
     for(l = fm_path_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
@@ -788,6 +807,27 @@ _retry_query_dest_info:
         GFile* dest;
         char* tmp_basename;
 
+        /* do with updates for source */
+        if (fm_path_get_parent(path) != parent && fm_path_get_parent(path) != NULL)
+        {
+            FmFolder *pf;
+
+            pf = fm_folder_find_by_path(fm_path_get_parent(path));
+            if (pf != sf)
+            {
+                if (sf)
+                {
+                    fm_folder_unblock_updates(sf);
+                    g_object_unref(sf);
+                }
+                if (pf)
+                    fm_folder_block_updates(pf);
+                sf = pf;
+            }
+            else if (pf)
+                g_object_unref(pf);
+        }
+        parent = fm_path_get_parent(path);
         if(g_file_is_native(src) == g_file_is_native(dest_dir))
             /* both are native or both are virtual */
             tmp_basename = NULL;
@@ -822,6 +862,17 @@ _retry_query_dest_info:
 
         if(!ret)
             break;
+    }
+    /* restore updates for destination and source */
+    if (df)
+    {
+        fm_folder_unblock_updates(df);
+        g_object_unref(df);
+    }
+    if (sf)
+    {
+        fm_folder_unblock_updates(sf);
+        g_object_unref(sf);
     }
     job->src_folder_mon = old_src_mon;
 
