@@ -1712,16 +1712,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     if(open_folders) switch(type)
     {
     case FM_FV_ACTIVATED: /* file activated */
-        target = fm_file_info_get_target(fi);
-        if(target && !fm_file_info_is_symlink(fi))
-        {
-            /* symlinks also has fi->target, but we only handle shortcuts here. */
-            /* bug #3614794: the shortcut target is a commandline argument */
-            FmPath* real_path = fm_path_new_for_commandline_arg(target);
-            fm_launch_path_simple(win, NULL, real_path, open_folders, win);
-            fm_path_unref(real_path);
-        }
-        else
+        if(fi)
             fm_launch_file_simple(win, NULL, fi, open_folders, win);
         break;
     case FM_FV_CONTEXT_MENU:

@@ -33,6 +33,11 @@
 #include <config.h>
 #endif
 
+#include "fm-file-launcher.h"
+#include "fm-file-info-job.h"
+#include "fm-app-info.h"
+#include "glib-compat.h"
+
 #include <glib/gi18n-lib.h>
 #include <libintl.h>
 #include <gio/gdesktopappinfo.h>
@@ -40,9 +45,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "fm-file-launcher.h"
-#include "fm-file-info-job.h"
-#include "fm-app-info.h"
 
 /**
  * fm_launch_desktop_entry
@@ -98,6 +100,23 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
     return ret;
 }
 
+typedef struct
+{
+    GAppLaunchContext* ctx;
+    FmFileLauncher* launcher;
+    gpointer user_data;
+} QueryErrorData;
+
+static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, QueryErrorData* data)
+{
+    if(data->launcher->error
+       && !data->launcher->error(data->ctx, err,
+                                 fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)),
+                                 data->user_data))
+        return FM_JOB_RETRY;
+    return FM_JOB_CONTINUE;
+}
+
 /**
  * fm_launch_files
  * @ctx: (allow-none): a launch context
@@ -117,6 +136,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     GHashTable* hash = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, NULL);
     GList *folders = NULL;
     FmFileInfo* fi;
+    GList *targets = NULL;
     GError* err = NULL;
     GAppInfo* app;
     const char* type;
@@ -149,12 +169,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 /* special handling for shortcuts */
                 if (fm_file_info_is_shortcut(fi))
                 {
-                    if (g_file_test(fm_file_info_get_target(fi), G_FILE_TEST_IS_EXECUTABLE))
-                    {
-                        filename = g_strdup(fm_file_info_get_target(fi));
-                        goto _try_execute;
-                    }
-                    scheme = g_uri_parse_scheme(fm_file_info_get_target(fi));
+                    const char *target = fm_file_info_get_target(fi);
+                    FmFileInfoJob *job;
+                    QueryErrorData data;
+
+                    scheme = g_uri_parse_scheme(target);
                     if (scheme)
                     {
                         /* FIXME: this is rough! */
@@ -168,7 +187,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                             app = g_app_info_get_default_for_uri_scheme(scheme);
                             if (app)
                             {
-                                fis = g_list_prepend(NULL, fi);
+                                fis = g_list_prepend(NULL, (char *)target);
                                 fm_app_info_launch_uris(app, fis, ctx, &err);
                                 g_list_free(fis);
                                 g_object_unref(app);
@@ -187,26 +206,26 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                         }
                         g_free(scheme);
                     }
-                    /* guess mime type of target */
-                    mime_type = fm_mime_type_from_file_name(fm_file_info_get_target(fi));
-                    if (mime_type == _fm_mime_type_get_inode_directory())
-                        folders = g_list_prepend(folders, fi);
-                    else if ((type = fm_mime_type_get_type(mime_type)))
-                    {
-                        fis = g_hash_table_lookup(hash, type);
-                        fis = g_list_prepend(fis, fi);
-                        g_hash_table_insert(hash, (gpointer)type, fis);
-                    }
-                    else if (launcher->error)
-                    {
-                        g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                    _("Could not determine content type of '%s' to launch"),
-                                    fm_file_info_get_target(fi));
-                        launcher->error(ctx, err, NULL, user_data);
-                        g_clear_error(&err);
-                    }
-                    fm_mime_type_unref(mime_type);
-                    continue;
+                    /* retrieve file info for target otherwise and handle it */
+                    job = fm_file_info_job_new(NULL, 0);
+                    /* bug #3614794: the shortcut target is a commandline argument */
+                    path = fm_path_new_for_commandline_arg(target);
+                    fm_file_info_job_add(job, path);
+                    fm_path_unref(path);
+                    data.ctx = ctx;
+                    data.launcher = launcher;
+                    data.user_data = user_data;
+                    g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
+                    fi = NULL;
+                    if (fm_job_run_sync_with_mainloop(FM_JOB(job)))
+                        fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
+                    g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
+                    g_object_unref(job);
+                    if (fi == NULL)
+                        /* error was shown by job already */
+                        continue;
+                    targets = g_list_prepend(targets, fi);
+                    path = fm_file_info_get_path(fi);
                 }
                 if(fm_file_info_is_executable_type(fi))
                 {
@@ -216,7 +235,6 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
-_try_execute:
                         if(launcher->exec_file)
                         {
                             FmFileLauncherExecAction act = launcher->exec_file(fi, user_data);
@@ -370,24 +388,8 @@ _try_execute:
         }
         g_list_free(folders);
     }
+    g_list_free_full(targets, (GDestroyNotify)fm_file_info_unref);
     return TRUE;
-}
-
-typedef struct
-{
-    GAppLaunchContext* ctx;
-    FmFileLauncher* launcher;
-    gpointer user_data;
-} QueryErrorData;
-
-static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJobErrorSeverity severity, QueryErrorData* data)
-{
-    if(data->launcher->error
-       && !data->launcher->error(data->ctx, err,
-                                 fm_file_info_job_get_current(FM_FILE_INFO_JOB(job)),
-                                 data->user_data))
-        return FM_JOB_RETRY;
-    return FM_JOB_CONTINUE;
 }
 
 /**
