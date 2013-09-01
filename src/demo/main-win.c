@@ -232,8 +232,10 @@ static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gp
     l=l->next;
     for(; l; l=l->next)
     {
-        /*FmFileInfo* fi = (FmFileInfo*)l->data;
-        FIXME: open in new window */
+        FmFileInfo* fi = (FmFileInfo*)l->data;
+        win = fm_main_win_new();
+        fm_main_win_chdir(win, fm_file_info_get_path(fi));
+        gtk_window_present(GTK_WINDOW(win));
     }
     return TRUE;
 }
