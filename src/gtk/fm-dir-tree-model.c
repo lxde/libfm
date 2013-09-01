@@ -831,10 +831,16 @@ static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
     place_holder_l = item->children;
     /* don't leave expanders if not stated in config */
     /* if we have loaded sub dirs, remove the place holder */
-    if(fm_config->no_child_non_expandable || place_holder_l->next)
+    if(fm_config->no_child_non_expandable || !place_holder_l || place_holder_l->next)
     {
         /* remove the fake placeholder item showing "Loading..." */
-        remove_item(model, place_holder_l);
+        /* #3614965: crash after removing only child from existing directory:
+           after reload first item may be absent or may be not a placeholder,
+           if no_child_non_expandable is unset, place_holder_l cannot be NULL */
+        if (place_holder_l && ((FmDirTreeItem*)place_holder_l->data)->fi == NULL)
+            remove_item(model, place_holder_l);
+        /* in case if no_child_non_expandable was unset while reloading, it may
+           be still place_holder_l is NULL but let leave empty folder still */
     }
     else /* if we have no sub dirs, leave the place holder and let it show "Empty" */
     {
