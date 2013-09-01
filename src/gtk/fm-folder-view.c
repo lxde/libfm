@@ -928,6 +928,9 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     g_object_unref(gf);
 }
 
+#define FOCUS_IS_IN_FOLDER_VIEW(_focus_,_fv_) \
+	_focus_ == NULL || _focus_ == _fv_ || gtk_widget_is_ancestor(_focus_, _fv_)
+
 static void on_cut(GtkAction* act, FmFolderView* fv)
 {
     GtkMenu *popup = g_object_get_qdata(G_OBJECT(fv), popup_quark);
@@ -935,7 +938,7 @@ static void on_cut(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if we cut inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmPathList* files = fm_folder_view_dup_selected_file_paths(fv);
         if(files)
@@ -956,7 +959,7 @@ static void on_copy(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if we copy inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmPathList* files = fm_folder_view_dup_selected_file_paths(fv);
         if(files)
@@ -977,7 +980,7 @@ static void on_paste(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if we paste inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmPath* path = fm_folder_view_get_cwd(fv);
         fm_clipboard_paste_files(GTK_WIDGET(fv), path);
@@ -993,7 +996,7 @@ static void on_trash(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if user pressed 'Del' inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmPathList* files = fm_folder_view_dup_selected_file_paths(fv);
         if(files)
@@ -1021,7 +1024,7 @@ static void on_rm(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if user pressed 'Shift+Del' inside the view */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmPathList* files = fm_folder_view_dup_selected_file_paths(fv);
         if(files)
@@ -1042,7 +1045,7 @@ static void on_select_all(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if we are inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
         fm_folder_view_select_all(fv);
     else if(GTK_IS_EDITABLE(focus)) /* fallback for editables */
         gtk_editable_select_region((GtkEditable*)focus, 0, -1);
@@ -1085,7 +1088,7 @@ static void on_file_prop(GtkAction* act, FmFolderView* fv)
     GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
 
     /* check if it is inside the view; for desktop focus will be NULL */
-    if(focus == NULL || gtk_widget_is_ancestor(focus, GTK_WIDGET(fv)))
+    if(FOCUS_IS_IN_FOLDER_VIEW(focus, GTK_WIDGET(fv)))
     {
         FmFileInfoList* files = fm_folder_view_dup_selected_files(fv);
         if(files)
