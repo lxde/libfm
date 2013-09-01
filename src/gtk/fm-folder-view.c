@@ -1684,7 +1684,7 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     FmFolderViewInterface* iface;
     GtkTreeModel* model;
     FmFileInfo* fi;
-    const char* target;
+    FmFileInfoList *files;
     GtkMenu *popup;
     GtkWindow *win;
     FmFolderViewUpdatePopup update_popup;
@@ -1711,14 +1711,23 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
     /* if open_folders is NULL then it's old API call so don't handle */
     if(open_folders) switch(type)
     {
-    case FM_FV_ACTIVATED: /* file activated */
-        if(fi)
-            fm_launch_file_simple(win, NULL, fi, open_folders, win);
+    case FM_FV_ACTIVATED: /* file(s) activated */
+        files = iface->dup_selected_files(fv);
+        if (files == NULL)
+        {
+            if (fi == NULL) /* oops, nothing to activate */
+                goto send_signal;
+            files = fm_file_info_list_new();
+            fm_file_info_list_push_tail(files, fi);
+        }
+        fm_launch_files_simple(win, NULL, fm_file_info_list_peek_head_link(files),
+                               open_folders, win);
+        fm_file_info_list_unref(files);
         break;
     case FM_FV_CONTEXT_MENU:
         if(fi)
         {
-            FmFileInfoList* files = iface->dup_selected_files(fv);
+            files = iface->dup_selected_files(fv);
 
             /* workaround on ExoTreeView bug */
             if(files == NULL)

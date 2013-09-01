@@ -166,26 +166,14 @@ static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv)
         fv->set_single_click(fv->view, cfg->single_click);
 }
 
-static void _select_only_row_and_activate(FmStandardView* fv, GtkTreePath* path)
-{
-    GtkTreeIter it;
-    /* #3578780: activating item is ambiguos when there are more than one item
-       selected. Let do it the same way as other file managers do it, i.e.
-       unselect all other items first and then activate only current one */
-    fm_folder_view_unselect_all(FM_FOLDER_VIEW(fv));
-    gtk_tree_model_get_iter(GTK_TREE_MODEL(fv->model), &it, path);
-    fv->select_path(fv->model, fv->view, &it);
-    fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
-}
-
 static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmStandardView* fv)
 {
-    _select_only_row_and_activate(fv, path);
+    fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
 }
 
 static void on_tree_view_row_activated(GtkTreeView* tv, GtkTreePath* path, GtkTreeViewColumn* col, FmStandardView* fv)
 {
-    _select_only_row_and_activate(fv, path);
+    fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
 }
 
 static void fm_standard_view_init(FmStandardView *self)
