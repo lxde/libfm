@@ -227,9 +227,12 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
     if(use_terminal)
     {
         /* FIXME: is it right key to mark this option? */
-        gboolean keep_open = g_key_file_get_boolean(kf, "Desktop Entry",
-                                                    "X-KeepTerminal", NULL);
+        gboolean keep_open = FALSE;
         char* term_cmd = expand_terminal(cmd, keep_open, err);
+
+        if(G_LIKELY(kf))
+            keep_open = g_key_file_get_boolean(kf, "Desktop Entry",
+                                               "X-KeepTerminal", NULL);
         g_free(cmd);
         if(!term_cmd)
             return FALSE;
