@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-30 04:11+0300\n"
-"PO-Revision-Date: 2013-07-23 22:39+0000\n"
+"PO-Revision-Date: 2013-09-03 08:33+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1374619171.0\n"
+"X-POOTLE-MTIME: 1378197201.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Program"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Skapa nytt eller uppdatera ett skrivbordselement"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Genväg"
+msgstr "Genvägsredigerare"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -178,9 +177,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Senast ändrad:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Senast använd:</b>"
+msgstr "<b>Rättigheterna ändrades senast:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -231,9 +229,8 @@ msgid "File Properties"
 msgstr "Filegenskaper"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Videofiler"
+msgstr "Dold fil"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -505,24 +502,24 @@ msgid "Preparing..."
 msgstr "Förbereder..."
 
 #: ../src/base/fm-file-launcher.c:83
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Felaktigt meny-element %s"
+msgstr "Felaktig fil för skrivbords-element: \"%s\""
 
 #: ../src/base/fm-file-launcher.c:178
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Ingen standardapplikation satt för MIME-typ %s"
+msgstr "Ingen standardapplikation satt för att öppna URI-typ %s://"
 
 #: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
 #, c-format
 msgid "Could not determine content type of '%s' to launch"
-msgstr ""
+msgstr "\"%s\" kunde inte öppnas då innehållstypen inte känns igen."
 
 #: ../src/base/fm-file-launcher.c:254
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Kan inte ange \"%s\" som arbetskatalog: %s"
 
 #: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
 #, c-format
@@ -542,22 +539,20 @@ msgid "Trash Can"
 msgstr "Papperskorg"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Genväg"
+msgstr "genväg till URI"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: ogiltigt argument"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "Inställning för terminalemulator saknas i libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid thumbnailer description"
-msgstr "Ogiltigt mål"
+msgstr "Ogiltig beskrivning för tumnagelskapare"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -593,7 +588,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "Delmängden \"%s\" av URI:n innehåller ogiltigt kodade tecken"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -714,22 +709,20 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Visar katalogträdet i sidovyn"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Avbruten"
+msgstr "_Avbryt"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Kopiera"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Flytta åt _vänster"
+msgstr "_Flytta"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Link"
-msgstr ""
+msgstr "_Länk"
 
 #: ../src/gtk/fm-dnd-dest.c:860
 msgid "XDirectSave failed."
@@ -745,11 +738,11 @@ msgstr "_Öppna med..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "Dö_lj"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "V_isa"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -772,9 +765,8 @@ msgid "Prop_erties"
 msgstr "_Egenskaper"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Papperskorgen"
+msgstr "_Papperskorg"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
@@ -799,17 +791,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Göm eller visa filen"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Filen är gömd eftersom namnet börjar med en punkt (\".\")."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Filer på detta system är gömda när deras namn börjar med en punkt (\".\"). "
+"Använg <Ctrl+H> för att styra visningen av gömda filer."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -998,28 +992,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Endast en systemadministratör kan utföra detta."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Vill du flytta de markerade filerna till papperskorgen?"
+msgstr "Vill du flytta filen \"%s\" till papperskorgen?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Vill du flytta de markerade filerna till papperskorgen?"
-msgstr[1] "Vill du flytta de markerade filerna till papperskorgen?"
+msgstr[0] "Vill du flytta %d markerad fil till papperskorgen?"
+msgstr[1] "Vill du flytta de %d markerade filerna till papperskorgen?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Vill du radera de markerade filerna?"
+msgstr "Vill du radera filen \"%s\"?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Vill du radera de markerade filerna?"
-msgstr[1] "Vill du radera de markerade filerna?"
+msgstr[0] "Vill du radera %d markerad fil?"
+msgstr[1] "Vill du radera de %d markerade filerna?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1051,19 +1045,16 @@ msgid "Applications"
 msgstr "Program"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Fil_typ"
+msgstr "Filsystem"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Den här datorn"
+msgstr "Dator"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Nätverk"
+msgstr "Nätverksenheter"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1078,9 +1069,8 @@ msgid "_Eject Removable Media"
 msgstr "Mata _ut flyttbart medium"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "_Montera volym"
+msgstr "_Formatera volym"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1166,12 +1156,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Paus"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Återställ"
+msgstr "Åte_ruppta"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1253,19 +1242,19 @@ msgstr "_Glöm bredd"
 
 #: ../src/gtk/fm-standard-view.c:1784
 msgid "_Icon View"
-msgstr ""
+msgstr "_Ikonvy"
 
 #: ../src/gtk/fm-standard-view.c:1785
 msgid "_Compact View"
-msgstr ""
+msgstr "_Kompakt vy"
 
 #: ../src/gtk/fm-standard-view.c:1786
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Miniatyrbildsvy"
 
 #: ../src/gtk/fm-standard-view.c:1787
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Detaljerad _listvy"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1282,14 +1271,13 @@ msgid "Cannot access destination file"
 msgstr "Kan inte komma åt målfil"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "kan inte skapa länk på filsystem utanför systemet"
+msgstr "Kan inte skapa länk på filsystem utanför systemet"
 
 #: ../src/job/fm-file-ops-job-delete.c:441
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Återställer filer från papperskorgen till sin ursprungliga plats"
+msgstr "Kan inte återställa filen \"%s\": ursprunglig plats okänd"
 
 #: ../src/job/fm-file-ops-job-xfer.c:55
 msgid "Source and destination are the same."
@@ -1308,9 +1296,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Målet är en underkatalog till källkatalogen"
 
 #: ../src/job/fm-file-ops-job-xfer.c:372
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Kan inte kopiera en katalog till en av dess underkataloger"
+msgstr "Kan inte kopiera filen \"%s\": stöds inte"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1323,9 +1311,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Mål kan endast anges för en fil"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Fel vid XML-fil %s (%d:%d): "
+msgstr "Fel i XML-fil \"%s\" (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1361,13 +1349,13 @@ msgid "Menu item name cannot be empty"
 msgstr "Meny-elementet kan inte vara tomt"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Ogiltig menykatalog %s"
+msgstr "Ogiltig menykatalog \"%s\""
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
-msgstr "Ogiltigt menyelement"
+msgstr "Ogiltig menykatalog \"%s\""
 
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
@@ -1379,32 +1367,32 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Byta status för dold eller visning stöds inte för meny-katalog"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Stöd för att sätta attributet %s saknas"
+msgstr "Stöd för att sätta attributet \"%s\" saknas"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Ogiltigt värde för attributet %s"
+msgstr "Ogiltigt värde för attributet \"%s\""
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
 msgstr "\"%s\" är en meny-katalog"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "\"%s\" är inte ett meny-element"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
 msgstr "\"%s\" är trasig"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Kan inte skapa meny-elementet \"%s\""
 
@@ -1421,9 +1409,9 @@ msgid "Invalid destination"
 msgstr "Ogiltigt mål"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: katalogen %s kunde inte hittas i menu cache"
+msgstr "FmMenuVFileMonitor: katalogen \"%s\" kunde inte hittas i menu cache"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1508,19 +1496,19 @@ msgstr "Återställer filer från papperskorgen till sin ursprungliga plats"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "källfil eller id för skrivbord"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "KÄLLA"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "resultatfil"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "RESULTAT"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
