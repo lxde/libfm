@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-12 14:36+0200\n"
+"PO-Revision-Date: 2013-09-03 19:00+0200\n"
 "Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
@@ -25,12 +25,11 @@ msgstr "Pageidaujamos programos"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Sukurti naują ar keisti esamą darbastalio įrašą"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Nuorodos"
+msgstr "Nuorodų redaktorius"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -126,7 +125,6 @@ msgid "with the following file?"
 msgstr "šiuo failu?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Pasirinkti piktogramą iš:</b>"
 
@@ -136,15 +134,13 @@ msgstr "Pasirinkite piktogramą..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Paveikslėlių failai"
+msgstr "paveikslėlių failai"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Sistemos piktogramų tema"
+msgstr "sistemos piktogramų tema"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -183,9 +179,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Paskutinį kartą pakeista:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Paskutinį kartą naudota:</b>"
+msgstr "<b>Paskutinį kartą keistos teisės:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -524,9 +519,9 @@ msgid "Cannot set working directory to '%s': %s"
 msgstr "Nepavyko pakeisti darbinio aplanko „%s“ į „%s“"
 
 #: ../src/base/fm-file-launcher.c:318
-#, fuzzy, c-format
+#, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Nepacyko nustatyti „%s“ turinio tipo paleidimui"
+msgstr "Nepavyko nustatyti „%s“ turinio tipo paleidimui"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -547,20 +542,19 @@ msgstr "Šiukšlinė"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr ""
+msgstr "nuoroda į URI"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: netinkamas argumentas"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "Libfm konfigūracijoje nenustatytas terminalo emuliatorius"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Netinkama paskirtis"
+msgstr "Netinkamas miniatiūro programos aprašymas"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -716,23 +710,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Šoninėje juostoje rodo aplankų medį"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Atšaukta"
+msgstr "_Atsisakyti"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Kopijuoti"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Perkelti _kairėn"
+msgstr "_Perkelti"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Nuoroda"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -1009,30 +1001,30 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Šie veiksmai leidžiami tik sistemos administratoriams."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
+msgstr "Ar norite perkelti failą „%s“ į šiukšlinę?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Ar norite perkelti pasirinktus failus į šiukšlinę?"
-msgstr[1] "Ar norite perkelti pasirinktus failus į šiukšlinę?"
-msgstr[2] "Ar norite perkelti pasirinktus failus į šiukšlinę?"
+msgstr[0] "Ar norite perkelti %d pasirinktą failą į šiukšlinę?"
+msgstr[1] "Ar norite perkelti %d pasirinktus failus į šiukšlinę?"
+msgstr[2] "Ar norite perkelti %d pasirinktų failų į šiukšlinę?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Ar norite ištrinti pasirinktus failus?"
+msgstr "Ar norite ištrinti failą „%s“?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Ar norite ištrinti pasirinktus failus?"
-msgstr[1] "Ar norite ištrinti pasirinktus failus?"
-msgstr[2] "Ar norite ištrinti pasirinktus failus?"
+msgstr[0] "Ar norite ištrinti %d pasirinktą failą?"
+msgstr[1] "Ar norite ištrinti %d pasirinktus failus?"
+msgstr[2] "Ar norite ištrinti %d pasirinktų failų?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1064,19 +1056,16 @@ msgid "Applications"
 msgstr "Programos"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Failo _tipas"
+msgstr "Failų sistema"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Mano kompiuteris"
+msgstr "Kompiuteris"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Tinklas"
+msgstr "Tinklo įrenginys"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1178,12 +1167,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Sustabdyti"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Atstatyti"
+msgstr "_Pratęsti"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1519,19 +1507,19 @@ msgstr "Atstatyti išmestus failus į jų originalias vietas"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "šaltinio failas arba darbastalio id"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ŠALTINIS"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "rezultato failo vardas"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "REZULTATAS"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
