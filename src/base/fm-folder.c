@@ -422,6 +422,7 @@ static gboolean on_idle(FmFolder* folder)
         return FALSE;
     }
     g_object_ref(folder);
+    G_LOCK(query);
     folder->idle_handler = 0;
     stop_emission = folder->stop_emission;
     G_UNLOCK(query);
