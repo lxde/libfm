@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-30 14:49+0000\n"
+"PO-Revision-Date: 2013-09-03 12:51+0000\n"
 "Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377874144.0\n"
+"X-POOTLE-MTIME: 1378212663.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Oletussovellukset"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Luo uusi tai muuta olemassa olevaa työpöytäkäynnistintä"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Pikanäppäin"
+msgstr "Pikanäppäinten muokkaus"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -127,9 +126,8 @@ msgid "with the following file?"
 msgstr "seuraavalla tiedostolla?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Valitse kuvake</b>"
+msgstr "<b>Valitse kuvake:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
@@ -137,15 +135,13 @@ msgstr "Valitse kuvake…"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Kuvatiedostot"
+msgstr "kuvatiedostoista"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Järjestelmän kuvaketeema"
+msgstr "järjestelmän kuvaketeemasta"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -184,9 +180,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Viimeksi muokattu:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Viimeksi käytetty:</b>"
+msgstr "<b>Oikeuksia muutettu viimeksi:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -237,9 +232,8 @@ msgid "File Properties"
 msgstr "Tiedoston ominaisuudet"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Videotiedostot"
+msgstr "Piilotiedosto"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -510,24 +504,24 @@ msgid "Preparing..."
 msgstr "Valmistellaan…"
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Virheellinen valikkokohde %s"
+msgstr "Virheellinen työpöytäkäynnistin: ”%s”"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "MIME-tyypille %s ei ole asetettu oletussovellusta"
+msgstr "URI-tyypille %s:// ei ole asetettu oletussovellusta"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Työhakemistoksi ei voi asettaa ”%s”: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Tiedoston ”%s” tyyppiä ei voitu määrittää sen avaamiseksi"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -547,22 +541,20 @@ msgid "Trash Can"
 msgstr "Roskakori"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Pikanäppäin"
+msgstr "pikanäppäin URI:in"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: argumentti ei kelpaa"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "Pääte-emulaattoria ei ole asetettu libfm:n asetuksissa"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Virheellinen kohde"
+msgstr "Virheellinen esikatselukuvasovelluksen kuvaus"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -598,7 +590,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI:n ”%s” alipolku sisältää virheellisesti suojattuja merkkejä"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -717,23 +709,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Näyttää kansiopuun sivupalkissa"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Peruutettu"
+msgstr "_Peru"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Kopioi"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "_Siirrä vasemmalle"
+msgstr "_Siirrä"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Linkitä"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -749,11 +739,11 @@ msgstr "Avaa _sovelluksella…"
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "_Piilota"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "_Näytä"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -776,9 +766,8 @@ msgid "Prop_erties"
 msgstr "Tiedoston _ominaisuudet"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Roskakori"
+msgstr "_Roskakori"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -808,17 +797,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Piilota tai näytä tiedosto"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Tämä tiedosto on piilotettu, koska sen nimi alkaa pisteellä (”.”)."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Tämän tiedostojärjestelmän tiedostot ovat piilotettuja, jos niiden nimi "
+"alkaa pisteellä (”.”). Paina <Ctrl+H> näyttääksesi tai piilottaaksesi ne."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1007,28 +998,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Vain järjestelmän pääkäyttäjällä on oikeudet tehdä tämä."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Siirretäänkö valitut tiedostot roskakoriin?"
+msgstr "Siirretäänkö tiedosto ”%s” roskakoriin?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Siirretäänkö valitut tiedostot roskakoriin?"
-msgstr[1] "Siirretäänkö valitut tiedostot roskakoriin?"
+msgstr[0] "Siirretäänkö %d valittu tiedosto roskakoriin?"
+msgstr[1] "Siirretäänkö %d valittua tiedostoa roskakoriin?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Poistetaanko valitut tiedostot?"
+msgstr "Poistetaanko tiedosto ”%s”?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Poistetaanko valitut tiedostot?"
-msgstr[1] "Poistetaanko valitut tiedostot?"
+msgstr[0] "Poistetaanko %d valittu tiedosto?"
+msgstr[1] "Poistetaanko %d valittua tiedostoa?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1060,19 +1051,16 @@ msgid "Applications"
 msgstr "Sovellukset"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "<b>_Tiedostotyyppi:</b>"
+msgstr "Tiedostojärjestelmä"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Oma tietokone"
+msgstr "Tietokone"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Verkko"
+msgstr "Verkkoasemat"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1087,9 +1075,8 @@ msgid "_Eject Removable Media"
 msgstr "_Irrota poistettava laite"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "_Liitä taltio"
+msgstr "_Alusta taltio"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1175,12 +1162,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Tauko"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Palauta"
+msgstr "_Jatka"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1262,19 +1248,19 @@ msgstr "_Unohda leveys"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "Ku_vakenäkymä"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Tiivis näkymä"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Pienoiskuvanäkymä"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Yksityiskohtainen _listanäkymä"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1291,14 +1277,14 @@ msgid "Cannot access destination file"
 msgstr "Kohdetiedostoon ei päästä käsiksi"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "ei voida luoda linkkiä vieraalla tiedostojärjestelmällä"
+msgstr "Ei voida luoda linkkiä vieraalla tiedostojärjestelmällä"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Palauta roskakorin tiedostot alkuperäisiin sijainteihin"
+msgstr ""
+"Ei voida palauttaa tiedostoa ”%s”: alkuperäinen sijainti ei ole tiedossa"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1317,9 +1303,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Kohde on lähteen alikansio"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Kansiota ei voi kopioida sen omaan alikansioon"
+msgstr "Ei voida kopioida tiedostoa ”%s”: ei tuettu"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1332,9 +1318,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Kohteen voi asettaa vain yhdelle tiedostolle"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML-tiedoston %s virhe (%d:%d): "
+msgstr "XML-tiedoston ”%s” virhe (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1342,14 +1328,14 @@ msgstr "XML-tiedostossa ei ole Appliactions-juurta"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create XML definition for '%s'"
 msgstr "XML-määritelmää kohdetta ”%s” varten ei voida luoda"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
-#, fuzzy, c-format
+#, c-format
 msgid "Menu path '%s' already exists"
-msgstr "valikkopolku ”%s” on jo olemassa"
+msgstr "Valikkopolku ”%s” on jo olemassa"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1521
@@ -1370,9 +1356,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Valikon kohteen nimi ei voi olla tyhjä"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Virheellinen valikkokansio %s"
+msgstr "Virheellinen valikkokansio ”%s”"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1388,39 +1374,38 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Valikon kansion näkyvyysasetuksen muuttaminen ei ole tuettu"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Ominaisuuden %s asettaminen ei ole tuettu"
+msgstr "Ominaisuuden ”%s” asettaminen ei ole tuettu"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Virheellinen arvo määreelle %s"
+msgstr "Virheellinen arvo ominaisuudelle ”%s”"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
 msgstr "”%s” on valikkokansio"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "”%s” ei ole valikkokohde"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "”%s” on rikki"
+msgstr "Tiedosto ”%s” on rikki"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Ei voida luoda valikkokohdetta ”%s”"
 
 #: ../src/modules/vfs-menu.c:2575
-#, fuzzy
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "valikkokansion nimen ei pitäisi päättyä merkkijonoon ”.desktop”"
+msgstr "Valikkokansion nimen ei pitäisi päättyä merkkijonoon ”.desktop”"
 
 #: ../src/modules/vfs-menu.c:2620
 msgid "Invalid operation with menu root"
@@ -1431,9 +1416,9 @@ msgid "Invalid destination"
 msgstr "Virheellinen kohde"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: kansiota %s ei löytynyt valikkovälimuistista"
+msgstr "FmMenuVFileMonitor: kansiota ”%s” ei löytynyt valikkovälimuistista"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1505,9 +1490,8 @@ msgid "_Use startup notification"
 msgstr "Käytä _käynnistysilmaisinta"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Työpöytä"
+msgstr "_Työpöytäkäynnistin"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1519,19 +1503,19 @@ msgstr "Palauta roskakorin tiedostot alkuperäisiin sijainteihin"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "lähdetiedoston nimi tai työpöydän tunniste"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "LÄHDE"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "tulostiedoston nimi"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "TULOS"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
