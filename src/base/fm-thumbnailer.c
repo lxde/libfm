@@ -280,7 +280,7 @@ GPid fm_thumbnailer_launch_for_uri_async(FmThumbnailer* thumbnailer,
     }
     else
         g_set_error_literal(error, G_SHELL_ERROR, G_SHELL_ERROR_FAILED,
-                            _("Invalid thumbnailer description"));
+                            _("Invalid description of thumbnailer application"));
     return pid;
 }
 

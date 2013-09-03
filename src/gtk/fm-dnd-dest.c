@@ -411,6 +411,7 @@ static GtkActionEntry drop_menu_actions[]=
     {"Cancel", NULL, N_("_Cancel"), NULL, NULL, G_CALLBACK(on_cancel_sel)},
     {"Copy", NULL, N_("C_opy"), NULL, NULL, G_CALLBACK(on_copy_sel)},
     {"Move", NULL, N_("_Move"), NULL, NULL, G_CALLBACK(on_move_sel)},
+    /* Note to translators: Link in not noun but verb here */
     {"Link", NULL, N_("_Link"), NULL, NULL, G_CALLBACK(on_link_sel)}
 };
 

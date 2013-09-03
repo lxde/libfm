@@ -315,7 +315,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             else if (launcher->error)
             {
                 g_set_error(&err, G_IO_ERROR, G_IO_ERROR_FAILED,
-                            _("Could not determine content type of '%s' to launch"),
+                            _("Could not determine content type of file '%s' to launch it"),
                             fm_file_info_get_disp_name(fi));
                 launcher->error(ctx, err, NULL, user_data);
                 g_clear_error(&err);
