@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 20:32+0300\n"
+"POT-Creation-Date: 2013-08-30 04:11+0300\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -21,6 +21,15 @@ msgstr ""
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
 msgstr "Odporúčané aplikácie"
+
+#: ../data/lxshortcut.desktop.in.h:1
+msgid "Create new or change existing desktop entry"
+msgstr ""
+
+#: ../data/lxshortcut.desktop.in.h:2
+#, fuzzy
+msgid "Shortcut Editor"
+msgstr "Skratky"
 
 #: ../data/ui/app-chooser.glade.h:1
 #, fuzzy
@@ -111,7 +120,7 @@ msgstr "Názov súboru:"
 msgid "_Overwrite"
 msgstr "_Prepísať"
 
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:161
+#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:158
 msgid "_Rename"
 msgstr "P_remenovať"
 
@@ -184,135 +193,145 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Posledná zmena:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
+#, fuzzy
+msgid "<b>Last Permissions Change:</b>"
+msgstr "<b>Posledný prístup:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
 msgstr "<b>Umiestnenie:</b>"
 
-#: ../data/ui/file-prop.glade.h:9
+#: ../data/ui/file-prop.glade.h:10
 #, fuzzy
 msgid "<b>O_wner:</b>"
 msgstr "<b>Vlastník:</b>"
 
-#: ../data/ui/file-prop.glade.h:10
+#: ../data/ui/file-prop.glade.h:11
 msgid "<b>Open _with:</b>"
 msgstr "<b>Otvoriť čí_m:</b>"
 
-#: ../data/ui/file-prop.glade.h:11
+#: ../data/ui/file-prop.glade.h:12
 msgid "<b>Size on Disk:</b>"
 msgstr "<b>Veľkosť na disku:</b>"
 
-#: ../data/ui/file-prop.glade.h:12
+#: ../data/ui/file-prop.glade.h:13
 #, fuzzy
 msgid "<b>Special bits:</b>"
 msgstr "<b>Otvoriť čí_m:</b>"
 
-#: ../data/ui/file-prop.glade.h:13
+#: ../data/ui/file-prop.glade.h:14
 #, fuzzy
 msgid "<b>Target file:</b>"
 msgstr "<b>Cieľ:</b>"
 
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:15
 msgid "<b>Total Size of Files:</b>"
 msgstr "<b>Celková veľkosť súborov:</b>"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:16
 #, fuzzy
 msgid "<b>_Execute:</b>"
 msgstr "<b>Ostatní:</b>"
 
-#: ../data/ui/file-prop.glade.h:16
+#: ../data/ui/file-prop.glade.h:17
 #, fuzzy
 msgid "<b>_Name:</b>"
 msgstr "<b>_Vlastník:</b>"
 
-#: ../data/ui/file-prop.glade.h:17
+#: ../data/ui/file-prop.glade.h:18
 #, fuzzy
 msgid "<b>_View content:</b>"
 msgstr "<b>Obsah súboru</b>"
 
-#: ../data/ui/file-prop.glade.h:18
+#: ../data/ui/file-prop.glade.h:19
 msgid "Anyone"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:19
+#: ../data/ui/file-prop.glade.h:20
 msgid "File Properties"
 msgstr "Vlastnosti súboru"
 
-#: ../data/ui/file-prop.glade.h:20
+#: ../data/ui/file-prop.glade.h:21
+#, fuzzy
+msgid "Hidden file"
+msgstr "_Nájsť súbory"
+
+#: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:21
+#: ../data/ui/file-prop.glade.h:23
 msgid "Nobody"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:24
 msgid "None"
 msgstr "Žiadne"
 
-#: ../data/ui/file-prop.glade.h:23
+#: ../data/ui/file-prop.glade.h:25
 msgid "Only owner"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:24
+#: ../data/ui/file-prop.glade.h:26
 msgid "Only owner and group"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:25
+#: ../data/ui/file-prop.glade.h:27
 msgid "Select the application used to open files of this type "
 msgstr "Vyberte aplikáciu, ktorá sa použije na otvorenie súborov tohto typu"
 
-#: ../data/ui/file-prop.glade.h:26
+#: ../data/ui/file-prop.glade.h:28
 msgid "Set GID"
 msgstr "SETGID"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:29
 msgid "Set UID"
 msgstr "SETUID"
 
-#: ../data/ui/file-prop.glade.h:28
+#: ../data/ui/file-prop.glade.h:30
 #, fuzzy
 msgid "Set UID & GID"
 msgstr "SETUID"
 
-#: ../data/ui/file-prop.glade.h:29
+#: ../data/ui/file-prop.glade.h:31
 msgid "Special flags for directory access"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:30
+#: ../data/ui/file-prop.glade.h:32
 msgid "Special flags for file execution"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:31
+#: ../data/ui/file-prop.glade.h:33
 msgid "Sticky"
 msgstr "lepkavý"
 
-#: ../data/ui/file-prop.glade.h:32
+#: ../data/ui/file-prop.glade.h:34
 #, fuzzy
 msgid "Sticky & set GID"
 msgstr "SETGID"
 
-#: ../data/ui/file-prop.glade.h:33
+#: ../data/ui/file-prop.glade.h:35
 msgid "Who can change content of the file/directory"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:34
+#: ../data/ui/file-prop.glade.h:36
 msgid "Who can execute the file or enter the directory"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:35
+#: ../data/ui/file-prop.glade.h:37
 msgid "Who can read content of the file/directory"
 msgstr ""
 
-#: ../data/ui/file-prop.glade.h:36
+#: ../data/ui/file-prop.glade.h:38
 msgid "_General"
 msgstr "_Všeobecné"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:39
 msgid "_Permissions"
 msgstr "O_právnenia"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:553
-#: ../src/gtk/fm-gtk-file-launcher.c:560
+#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:617
+#: ../src/gtk/fm-gtk-file-launcher.c:624
 #, fuzzy
 msgid "(None)"
 msgstr "Žiadne"
@@ -378,7 +397,7 @@ msgstr ""
 msgid "File _Type"
 msgstr "Známe typy súborov:"
 
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:98
+#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
 msgid "GB"
 msgstr "GB"
 
@@ -391,7 +410,7 @@ msgstr "KB"
 msgid "L_ater than:"
 msgstr "Väčší ako:"
 
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:93
+#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:142
 msgid "MB"
 msgstr "MB"
 
@@ -531,36 +550,70 @@ msgstr "<b>Do:</b>"
 msgid "Preparing..."
 msgstr "Pripravuje sa..."
 
-#: ../src/base/fm-path.c:161
-msgid "My Computer"
-msgstr "Môj počítač"
+#: ../src/base/fm-file-launcher.c:83
+#, fuzzy, c-format
+msgid "Invalid desktop entry file: '%s'"
+msgstr "Domovský adresár"
 
-#: ../src/base/fm-path.c:167
-msgid "Network"
-msgstr "Sieť"
+#: ../src/base/fm-file-launcher.c:178
+#, c-format
+msgid "No default application is set to launch URIs %s://"
+msgstr ""
 
-#: ../src/base/fm-path.c:1185 ../src/gtk/fm-places-model.c:798
-msgid "Trash Can"
-msgstr "Kôš"
+#: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
+#, c-format
+msgid "Could not determine content type of '%s' to launch"
+msgstr ""
 
-#: ../src/base/fm-mime-type.c:82
-msgid "Shortcuts"
-msgstr "Skratky"
+#: ../src/base/fm-file-launcher.c:254
+#, c-format
+msgid "Cannot set working directory to '%s': %s"
+msgstr ""
 
-#: ../src/base/fm-mime-type.c:85
-msgid "Mount Point"
-msgstr "Bod pripojenia"
-
-#: ../src/base/fm-templates.c:1065
+#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
 
-#: ../src/base/fm-terminal.c:246
+#: ../src/base/fm-path.c:163
+msgid "My Computer"
+msgstr "Môj počítač"
+
+#: ../src/base/fm-path.c:169
+msgid "Network"
+msgstr "Sieť"
+
+#: ../src/base/fm-path.c:1191 ../src/gtk/fm-places-model.c:872
+msgid "Trash Can"
+msgstr "Kôš"
+
+#: ../src/base/fm-mime-type.c:86
+#, fuzzy
+msgid "shortcut to URI"
+msgstr "Skratky"
+
+#: ../src/base/fm-templates.c:1016
+msgid "fm_template_create_file: invalid argument"
+msgstr ""
+
+#: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr ""
 
-#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
+#: ../src/base/fm-thumbnailer.c:283
+#, fuzzy
+msgid "Invalid thumbnailer description"
+msgstr "Domovský adresár"
+
+#: ../src/base/fm-utils.c:136
+msgid "kB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:153
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:164
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -568,29 +621,26 @@ msgstr[0] "%u bajt"
 msgstr[1] "%u bajty"
 msgstr[2] "%u bajtov"
 
-#: ../src/base/fm-utils.c:88
-msgid "kB"
-msgstr ""
-
-#: ../src/base/fm-utils.c:103
-msgid "TB"
-msgstr "TB"
-
-#: ../src/base/fm-utils.c:119
+#: ../src/base/fm-utils.c:173
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:124
+#: ../src/base/fm-utils.c:179
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:129
+#: ../src/base/fm-utils.c:185
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:134
+#: ../src/base/fm-utils.c:190
 msgid "TiB"
 msgstr "TiB"
+
+#: ../src/base/fm-utils.c:572
+#, c-format
+msgid "The URI subpath '%s' contains invalid escaped characters"
+msgstr ""
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -687,277 +737,305 @@ msgstr "Definovať vlastný príkazový riadok na otvorenie súborov"
 msgid "Installed Applications"
 msgstr "Nainštalované aplikácie"
 
-#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
 #, fuzzy
 msgid "<No Sub Folder>"
 msgstr "Žiadny podadresár"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
 msgid "Loading..."
 msgstr "Načítava sa..."
 
-#: ../src/gtk/fm-dir-tree-view.c:376
+#: ../src/gtk/fm-dir-tree-view.c:481
 msgid "Shows tree of directories in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:717
+#: ../src/gtk/fm-dnd-dest.c:411
+#, fuzzy
+msgid "_Cancel"
+msgstr "Zrušené"
+
+#: ../src/gtk/fm-dnd-dest.c:412
+msgid "C_opy"
+msgstr ""
+
+#: ../src/gtk/fm-dnd-dest.c:413
+#, fuzzy
+msgid "_Move"
+msgstr "Presunúť:"
+
+#: ../src/gtk/fm-dnd-dest.c:414
+#, fuzzy
+msgid "_Link"
+msgstr "Odkaz:"
+
+#: ../src/gtk/fm-dnd-dest.c:860
 msgid "XDirectSave failed."
 msgstr "XDirectSave zlyhalo."
 
-#: ../src/gtk/fm-file-menu.c:153
+#: ../src/gtk/fm-file-menu.c:148
 msgid "_Open"
 msgstr "_Otvoriť"
 
-#: ../src/gtk/fm-file-menu.c:154 ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
 #, fuzzy
 msgid "Open _With..."
 msgstr "Otvoriť pomocou..."
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:155
+msgid "H_ide"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:156
+msgid "Unh_ide"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
 msgstr "Prid_ať medzi záložky"
 
-#: ../src/gtk/fm-file-menu.c:162
-#, fuzzy
-msgid "Create _Symlink"
-msgstr "Vytvoriť symbolický odkaz"
-
-#: ../src/gtk/fm-file-menu.c:163
-#, fuzzy
-msgid "Se_nd To"
-msgstr "Poslať do"
-
-#: ../src/gtk/fm-file-menu.c:164
+#: ../src/gtk/fm-file-menu.c:159
 #, fuzzy
 msgid "Co_mpress..."
 msgstr "Komprimovať..."
 
-#: ../src/gtk/fm-file-menu.c:165
+#: ../src/gtk/fm-file-menu.c:160
 #, fuzzy
 msgid "Extract _Here"
 msgstr "Rozbaliť sem"
 
-#: ../src/gtk/fm-file-menu.c:166
+#: ../src/gtk/fm-file-menu.c:161
 #, fuzzy
 msgid "E_xtract To..."
 msgstr "Rozbaliť do..."
 
-#: ../src/gtk/fm-file-menu.c:167 ../src/gtk/fm-folder-view.c:190
+#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:199
 #, fuzzy
 msgid "Prop_erties"
 msgstr "_Vlastnosti"
 
-#: ../src/gtk/fm-file-menu.c:523
-msgid "_Restore"
-msgstr "_Obnoviť"
+#: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
+#, fuzzy
+msgid "_Trash"
+msgstr "Kôš"
 
-#: ../src/gtk/fm-file-menu.c:524
-msgid "Restore trashed files to original paths"
-msgstr "Obnoviť súbory z Koša na pôvodné miesto"
-
-#: ../src/gtk/fm-file-properties.c:496 ../src/gtk/fm-file-properties.c:505
+#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bajt"
 msgstr[1] "%u bajty"
 msgstr[2] "%u bajtov"
 
-#: ../src/gtk/fm-file-properties.c:569
+#: ../src/gtk/fm-file-properties.c:571
 msgid "Please enter a valid user name or numeric id."
 msgstr "Prosím, zadajte platné meno používateľa alebo jeho číselný ID."
 
-#: ../src/gtk/fm-file-properties.c:599
+#: ../src/gtk/fm-file-properties.c:601
 msgid "Please enter a valid group name or numeric id."
 msgstr "Prosím, zadajte platné meno skupiny alebo jej číselný ID."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:797
+#: ../src/gtk/fm-file-properties.c:810
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Chcete tieto zmeny použiť rekurzívne na všetky súbory a podadresáre?"
 
-#: ../src/gtk/fm-file-properties.c:1024
+#: ../src/gtk/fm-file-properties.c:943
+msgid "Hide or unhide the file"
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:948
+msgid "This file is hidden because its name starts with a dot ('.')."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:952
+msgid ""
+"Files on this system are hidden if their name starts with a dot ('.'). Hit "
+"<Ctrl+H> to toggle displaying hidden files."
+msgstr ""
+
+#: ../src/gtk/fm-file-properties.c:1057
 #, fuzzy
 msgid "<b>_Access content:</b>"
 msgstr "<b>Riadenie prístupu</b>"
 
-#: ../src/gtk/fm-file-properties.c:1167
+#: ../src/gtk/fm-file-properties.c:1198
 msgid "Files of different types"
 msgstr "Súbory rozličných typov"
 
-#: ../src/gtk/fm-file-properties.c:1211
+#: ../src/gtk/fm-file-properties.c:1241
 #, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>Typ súboru:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1266
+#: ../src/gtk/fm-file-properties.c:1307
 msgid "Multiple Files"
 msgstr "Viacero súborov"
 
 #. columns visible to the users
-#: ../src/gtk/fm-folder-model.c:188
+#: ../src/gtk/fm-folder-model.c:190
 msgid "Name"
 msgstr "Názov"
 
-#: ../src/gtk/fm-folder-model.c:189
+#: ../src/gtk/fm-folder-model.c:191
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-model.c:190
+#: ../src/gtk/fm-folder-model.c:192
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/gtk/fm-folder-model.c:191
+#: ../src/gtk/fm-folder-model.c:193
 #, fuzzy
 msgid "Permissions"
 msgstr "O_právnenia"
 
-#: ../src/gtk/fm-folder-model.c:192
+#: ../src/gtk/fm-folder-model.c:194
 #, fuzzy
 msgid "Owner"
 msgstr "Vlastník:skupina"
 
-#: ../src/gtk/fm-folder-model.c:193
+#: ../src/gtk/fm-folder-model.c:195
 msgid "Modified"
 msgstr "Zmenené"
 
-#: ../src/gtk/fm-folder-model.c:194
+#: ../src/gtk/fm-folder-model.c:196
 #, fuzzy
 msgid "Location"
 msgstr "Panel s adres_ou"
 
-#: ../src/gtk/fm-folder-view.c:170
+#: ../src/gtk/fm-folder-view.c:179
 #, fuzzy
 msgid "Create _New..."
 msgstr "_Vytvoriť nové"
 
-#: ../src/gtk/fm-folder-view.c:171
+#: ../src/gtk/fm-folder-view.c:180
 msgid "Folder"
 msgstr "Priečinok"
 
-#: ../src/gtk/fm-folder-view.c:174
+#: ../src/gtk/fm-folder-view.c:183
 #, fuzzy
 msgid "Empty File"
 msgstr "Spustiť"
 
-#: ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:195
 msgid "_Invert Selection"
 msgstr "_Invertovať výber"
 
-#: ../src/gtk/fm-folder-view.c:187
+#: ../src/gtk/fm-folder-view.c:196
 #, fuzzy
 msgid "_Sort Files"
 msgstr "Rozbaliť súbory"
 
-#: ../src/gtk/fm-folder-view.c:188
+#: ../src/gtk/fm-folder-view.c:197
 #, fuzzy
 msgid "_Rename Folder"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-folder-view.c:189
+#: ../src/gtk/fm-folder-view.c:198
 #, fuzzy
 msgid "Folder Prop_erties"
 msgstr "Vlastnosti súboru"
 
-#: ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-folder-view.c:207
 #, fuzzy
 msgid "Show _Hidden"
 msgstr "Zobraziť _skryté súbory"
 
-#: ../src/gtk/fm-folder-view.c:199
+#: ../src/gtk/fm-folder-view.c:208
 #, fuzzy
 msgid "_Only for this folder"
 msgstr "Prejsť do priečinka"
 
-#: ../src/gtk/fm-folder-view.c:200
+#: ../src/gtk/fm-folder-view.c:209
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:201
+#: ../src/gtk/fm-folder-view.c:210
 #, fuzzy
 msgid "Mingle _files and folders"
 msgstr "Všetky súbory a adresáre"
 
-#: ../src/gtk/fm-folder-view.c:202
+#: ../src/gtk/fm-folder-view.c:211
 msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:213
+#: ../src/gtk/fm-folder-view.c:222
 #, fuzzy
 msgid "By _Name"
 msgstr "Zoradiť podľa _názvu"
 
-#: ../src/gtk/fm-folder-view.c:214
+#: ../src/gtk/fm-folder-view.c:223
 #, fuzzy
 msgid "By _Modification Time"
 msgstr "Zoradiť podľa času poslednej z_meny"
 
-#: ../src/gtk/fm-folder-view.c:215
+#: ../src/gtk/fm-folder-view.c:224
 #, fuzzy
 msgid "By _Size"
 msgstr "Zoradiť podľa veľko_sti"
 
-#: ../src/gtk/fm-folder-view.c:216
+#: ../src/gtk/fm-folder-view.c:225
 #, fuzzy
 msgid "By File _Type"
 msgstr "Známe typy súborov:"
 
-#: ../src/gtk/fm-folder-view.c:834
+#: ../src/gtk/fm-folder-view.c:848
 #, fuzzy
 msgid "Enter a name for the newly created folder:"
 msgstr "Zadajte názov pre nový priečinok:"
 
-#: ../src/gtk/fm-folder-view.c:835
+#: ../src/gtk/fm-folder-view.c:849
 msgid "Creating new folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:862
 #, fuzzy
 msgid "Enter a name for empty file:"
 msgstr "Zadajte názov pre nový súbor:"
 
-#: ../src/gtk/fm-folder-view.c:849
+#: ../src/gtk/fm-folder-view.c:863
 #, fuzzy
 msgid "Creating ..."
 msgstr "_Vytvoriť nové"
 
-#: ../src/gtk/fm-folder-view.c:855
+#: ../src/gtk/fm-folder-view.c:869
 #, fuzzy
 msgid "New"
 msgstr "Sieť"
 
-#: ../src/gtk/fm-folder-view.c:865
+#: ../src/gtk/fm-folder-view.c:879
 #, fuzzy, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Zadajte názov pre nový súbor:"
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:882
 #, fuzzy, c-format
 msgid "Creating %s"
 msgstr "Vytvárajú sa symbolické odkazy"
 
-#: ../src/gtk/fm-folder-view.c:872
+#: ../src/gtk/fm-folder-view.c:886
 msgid "_Run default application on file after creation"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:129
+#: ../src/gtk/fm-gtk-file-launcher.c:138
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:136
+#: ../src/gtk/fm-gtk-file-launcher.c:145
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr ""
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:588
+#: ../src/gtk/fm-gtk-file-launcher.c:652
 msgid "No folders are specified."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:627
+#: ../src/gtk/fm-gtk-file-launcher.c:691
 msgid "Select a folder"
 msgstr "Vyberte priečinok"
 
@@ -978,107 +1056,143 @@ msgstr "Popis"
 msgid "Please select a folder"
 msgstr "Prosím, vyberte priečinok"
 
-#: ../src/gtk/fm-gtk-utils.c:701
+#: ../src/gtk/fm-gtk-utils.c:704
 msgid "Only system administrators have the permission to do this."
 msgstr "Oprávenie vykonať túto operáciu majú iba správcovia systému."
 
-#: ../src/gtk/fm-gtk-utils.c:906
-msgid "Do you want to move the selected files to trash can?"
+#: ../src/gtk/fm-gtk-utils.c:919
+#, fuzzy, c-format
+msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Chcete presunúť vybrané súbory do Koša?"
 
-#: ../src/gtk/fm-gtk-utils.c:950
-msgid "Do you want to delete the selected files?"
+#: ../src/gtk/fm-gtk-utils.c:924
+#, fuzzy, c-format
+msgid "Do you want to move the %d selected file to trash can?"
+msgid_plural "Do you want to move the %d selected files to trash can?"
+msgstr[0] "Chcete presunúť vybrané súbory do Koša?"
+msgstr[1] "Chcete presunúť vybrané súbory do Koša?"
+msgstr[2] "Chcete presunúť vybrané súbory do Koša?"
+
+#: ../src/gtk/fm-gtk-utils.c:984
+#, fuzzy, c-format
+msgid "Do you want to delete the file '%s'?"
 msgstr "Chcete prepísať vybrané súbory?"
 
-#. FIXME: use fm_file_info_get_edit_name() to get a name and then
-#. use g_file_set_display_name() to change it
-#: ../src/gtk/fm-gtk-utils.c:1040
+#: ../src/gtk/fm-gtk-utils.c:989
+#, fuzzy, c-format
+msgid "Do you want to delete the %d selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Chcete prepísať vybrané súbory?"
+msgstr[1] "Chcete prepísať vybrané súbory?"
+msgstr[2] "Chcete prepísať vybrané súbory?"
+
+#: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-gtk-utils.c:1041
+#: ../src/gtk/fm-gtk-utils.c:1089
 msgid "Please enter a new name:"
 msgstr "Prosím, zadajte nový názov:"
 
-#: ../src/gtk/fm-gtk-utils.c:1081
+#: ../src/gtk/fm-gtk-utils.c:1156
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
 
-#: ../src/gtk/fm-path-entry.c:598
+#: ../src/gtk/fm-path-entry.c:631
 msgid "Pa_ste and go"
 msgstr ""
 
-#: ../src/gtk/fm-path-entry.c:657
+#: ../src/gtk/fm-path-entry.c:690
 #, fuzzy
 msgid "Entry for folder path"
 msgstr "Prejsť do priečinka"
 
-#: ../src/gtk/fm-places-model.c:752 ../src/gtk/fm-places-model.c:856
+#: ../src/gtk/fm-places-model.c:771 ../src/gtk/fm-places-model.c:977
 msgid "Desktop"
 msgstr "Plocha"
 
-#: ../src/gtk/fm-places-model.c:770 ../src/gtk/fm-places-model.c:864
+#: ../src/gtk/fm-places-model.c:789 ../src/gtk/fm-places-model.c:997
+#: ../src/modules/vfs-menu.c:1566
 msgid "Applications"
 msgstr "Aplikácie"
 
-#: ../src/gtk/fm-places-view.c:106
+#: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
+#, fuzzy
+msgid "File system"
+msgstr "Súborový systém"
+
+#: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
+#, fuzzy
+msgid "Computer"
+msgstr "Môj počítač"
+
+#: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
+#, fuzzy
+msgid "Network Drives"
+msgstr "Sieť"
+
+#: ../src/gtk/fm-places-view.c:124
 #, fuzzy
 msgid "_Mount Volume"
 msgstr "Pripojiť zväzok"
 
-#: ../src/gtk/fm-places-view.c:107
+#: ../src/gtk/fm-places-view.c:125
 #, fuzzy
 msgid "_Unmount Volume"
 msgstr "Odpojiť zväzok"
 
-#: ../src/gtk/fm-places-view.c:108
+#: ../src/gtk/fm-places-view.c:126
 #, fuzzy
 msgid "_Eject Removable Media"
 msgstr "Vysunúť prenosné médium"
 
-#: ../src/gtk/fm-places-view.c:123
+#: ../src/gtk/fm-places-view.c:127
+#, fuzzy
+msgid "_Format Volume"
+msgstr "Pripojiť zväzok"
+
+#: ../src/gtk/fm-places-view.c:143
 #, fuzzy
 msgid "_Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:144
 #, fuzzy
 msgid "Re_move from Bookmark"
 msgstr "Odstrániť zo záložiek"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:145
 #, fuzzy
 msgid "Move Bookmark _Up"
 msgstr "Presunúť _hore"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:146
 #, fuzzy
 msgid "Move Bookmark _Down"
 msgstr "Presunúť _dolu"
 
-#: ../src/gtk/fm-places-view.c:138
+#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
 #, fuzzy
 msgid "_Empty Trash Can"
 msgstr "Vyprázdniť Kôš"
 
-#: ../src/gtk/fm-places-view.c:505
+#: ../src/gtk/fm-places-view.c:526
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
-#. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:984
+#: ../src/gtk/fm-places-view.c:1090
 msgid "Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
-#: ../src/gtk/fm-places-view.c:985
+#: ../src/gtk/fm-places-view.c:1091
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
-#: ../src/gtk/fm-progress-dlg.c:165
+#: ../src/gtk/fm-progress-dlg.c:123
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:239 ../src/gtk/fm-progress-dlg.c:258
+#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1089,7 +1203,7 @@ msgstr ""
 "Veľkosť: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:246 ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1098,23 +1212,23 @@ msgstr ""
 "Typ: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:338
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Operácia so súborom je zrušená a vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:340
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Zrušené"
 
-#: ../src/gtk/fm-progress-dlg.c:344
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Operácia so súborom je dokončená, ale vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:346
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Dokončené"
 
-#: ../src/gtk/fm-progress-dlg.c:368
+#: ../src/gtk/fm-progress-dlg.c:342
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1124,87 +1238,115 @@ msgstr ""
 "ktorom ležia nepodporuje túto operáciu.\n"
 "Chcete ich namiesto toho zmazať?"
 
-#: ../src/gtk/fm-progress-dlg.c:495
+#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+msgid "_Pause"
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:391
+#, fuzzy
+msgid "_Resume"
+msgstr "_Obnoviť"
+
+#: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
 msgstr "c"
 
-#: ../src/gtk/fm-progress-dlg.c:511
+#: ../src/gtk/fm-progress-dlg.c:560
 msgid "Moving files"
 msgstr "Presúvajú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:514
+#: ../src/gtk/fm-progress-dlg.c:563
 msgid "Copying files"
 msgstr "Kopírujú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:517
+#: ../src/gtk/fm-progress-dlg.c:566
 msgid "Trashing files"
 msgstr "Presúvajú sa súbory do Koša"
 
-#: ../src/gtk/fm-progress-dlg.c:520
+#: ../src/gtk/fm-progress-dlg.c:569
 msgid "Deleting files"
 msgstr "Mažú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:523
+#: ../src/gtk/fm-progress-dlg.c:572
 msgid "Creating symlinks"
 msgstr "Vytvárajú sa symbolické odkazy"
 
-#: ../src/gtk/fm-progress-dlg.c:526
+#: ../src/gtk/fm-progress-dlg.c:575
 msgid "Changing file attributes"
 msgstr "Menia sa atribúty súborov"
 
-#: ../src/gtk/fm-side-pane.c:61
+#: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:62
+#: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:63
+#: ../src/gtk/fm-side-pane.c:68
 #, fuzzy
 msgid "_Directory Tree"
 msgstr "Strom adresárov"
 
-#: ../src/gtk/fm-side-pane.c:64
+#: ../src/gtk/fm-side-pane.c:69
 msgid "_Remote"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:412
+#: ../src/gtk/fm-side-pane.c:426
 msgid "Places"
 msgstr ""
 
-#: ../src/gtk/fm-side-pane.c:422
+#: ../src/gtk/fm-side-pane.c:436
 msgid "Directory Tree"
 msgstr "Strom adresárov"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:246
 #, fuzzy
 msgid "View of folder contents"
 msgstr "Skryť okraj obsahu priečinka"
 
-#: ../src/gtk/fm-standard-view.c:764
+#: ../src/gtk/fm-standard-view.c:802
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:772
+#: ../src/gtk/fm-standard-view.c:810
 #, fuzzy
 msgid "_Move left"
 msgstr "Presunúť:"
 
-#: ../src/gtk/fm-standard-view.c:778
+#: ../src/gtk/fm-standard-view.c:816
 #, fuzzy
 msgid "Move _right"
 msgstr "Presunúť _hore"
 
-#: ../src/gtk/fm-standard-view.c:801
+#: ../src/gtk/fm-standard-view.c:839
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:851
 msgid "_Forget width"
 msgstr ""
+
+#: ../src/gtk/fm-standard-view.c:1784
+#, fuzzy
+msgid "_Icon View"
+msgstr "Model zobrazenia ikon"
+
+#: ../src/gtk/fm-standard-view.c:1785
+#, fuzzy
+msgid "_Compact View"
+msgstr "Jednotka Compact Flash"
+
+#: ../src/gtk/fm-standard-view.c:1786
+msgid "_Thumbnail View"
+msgstr ""
+
+#: ../src/gtk/fm-standard-view.c:1787
+#, fuzzy
+msgid "Detailed _List View"
+msgstr "Zobraziť _podrobný zoznam"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1216,29 +1358,39 @@ msgstr ""
 msgid "The specified directory '%s' is not valid"
 msgstr "Uvedený adresár nie je platný"
 
-#: ../src/job/fm-file-ops-job.c:520
+#: ../src/job/fm-file-ops-job.c:526
 msgid "Cannot access destination file"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job.c:563
-msgid "cannot create a link on non-native filesystem"
+#: ../src/job/fm-file-ops-job.c:570
+msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:54
+#: ../src/job/fm-file-ops-job-delete.c:441
+#, fuzzy, c-format
+msgid "Cannot untrash file '%s': original path not known"
+msgstr "Obnoviť súbory z Koša na pôvodné miesto"
+
+#: ../src/job/fm-file-ops-job-xfer.c:55
 msgid "Source and destination are the same."
 msgstr "Zdroj a cieľ sa zhodujú."
 
-#: ../src/job/fm-file-ops-job-xfer.c:61
+#: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot move a folder into its sub folder"
 msgstr "Nie je možné presunúť priečinok do jeho podpriečinka"
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
+#: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Nie je možné skopírovať priečinok do jeho podpriečinka"
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
+#: ../src/job/fm-file-ops-job-xfer.c:66
 msgid "Destination is a sub folder of source"
 msgstr "Cieľ je podpriečinkom zdroja"
+
+#: ../src/job/fm-file-ops-job-xfer.c:372
+#, fuzzy, c-format
+msgid "Cannot copy file '%s': not supported"
+msgstr "Nie je možné skopírovať priečinok do jeho podpriečinka"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1250,236 +1402,222 @@ msgstr ""
 msgid "Setting target can be done only for single file"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:109
-msgid "empty <Name> tag"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:129
-msgid "tag <Not> should have exactly one children"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:138
-msgid "tag <Not> may contain only <And>, <Or>, <Filename> or <Category> tag"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:216
+#: ../src/modules/vfs-menu.c:299
 #, c-format
-msgid "merging file may contain only <Menu> top level tag, got <%s>"
+msgid "XML file '%s' error (%d:%d): "
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:230
-#, c-format
-msgid "failed to insert tag <%s> from merging file"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:339
-msgid "invalid <MergeFile> tag"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:370
-msgid "invalid <MergeDir> tag"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:803 ../src/modules/vfs-menu.c:1135
-#, c-format
-msgid "XML file %s error (%d:%d): "
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:822 ../src/modules/vfs-menu.c:1145
+#: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:831
+#: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
+#: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
-msgid "cannot find path %s in XML definitions"
+msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:923
-msgid "category manipulation internal error"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:1218 ../src/modules/vfs-menu.c:1297
-#, c-format
-msgid "cannot create XML definition for '%s'"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:1282
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
 #, fuzzy, c-format
-msgid "menu path '%s' already exists"
+msgid "Menu path '%s' already exists"
 msgstr ""
 "„%s“ už existuje.\n"
 "\n"
 "%s"
 
-#: ../src/modules/vfs-menu.c:1735 ../src/modules/vfs-menu.c:2040
-#: ../src/modules/vfs-menu.c:2127
+#: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
+#: ../src/modules/vfs-menu.c:1521
 msgid "Menu cache error"
 msgstr ""
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1809 ../src/modules/vfs-search.c:918
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
 msgid "Operation not supported"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2000
+#: ../src/modules/vfs-menu.c:1394
 #, fuzzy
 msgid "Invalid menu directory"
 msgstr "Domovský adresár"
 
-#: ../src/modules/vfs-menu.c:2064 ../src/modules/vfs-menu.c:2307
+#: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1737
 msgid "Menu item name cannot be empty"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2114
+#: ../src/modules/vfs-menu.c:1508
 #, fuzzy, c-format
-msgid "Invalid menu directory %s"
+msgid "Invalid menu directory '%s'"
 msgstr "Domovský adresár"
 
-#: ../src/modules/vfs-menu.c:2224 ../src/modules/vfs-menu.c:2365
+#: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 #, fuzzy
 msgid "Invalid menu item"
 msgstr "Domovský adresár"
 
-#: ../src/modules/vfs-menu.c:2228 ../src/modules/vfs-menu.c:2369
+#: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2390
+#: ../src/modules/vfs-menu.c:1821
 msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2548
+#: ../src/modules/vfs-menu.c:1979
 #, c-format
-msgid "Setting attribute %s not supported"
+msgid "Setting attribute '%s' not supported"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2558
-#, c-format
-msgid "Invalid value for attribute %s"
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:2595
+#: ../src/modules/vfs-menu.c:1989
 #, fuzzy, c-format
-msgid "The \"%s\" is a menu directory"
+msgid "Invalid value for attribute '%s'"
 msgstr "Domovský adresár"
 
-#: ../src/modules/vfs-menu.c:2598 ../src/modules/vfs-menu.c:3283
+#: ../src/modules/vfs-menu.c:2026
 #, fuzzy, c-format
-msgid "The \"%s\" isn't a menu item"
+msgid "The '%s' is a menu directory"
+msgstr "Domovský adresár"
+
+#: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
+#, fuzzy, c-format
+msgid "The '%s' isn't a menu item"
 msgstr "Zväzok „%s“ nie je pripojený"
 
-#: ../src/modules/vfs-menu.c:2622
+#: ../src/modules/vfs-menu.c:2053
 #, c-format
-msgid "The \"%s\" is broken"
+msgid "The '%s' entry file is broken"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2936 ../src/modules/vfs-menu.c:3028
-#, c-format
-msgid "Cannot create menu item \"%s\""
+#: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
+#, fuzzy, c-format
+msgid "Cannot create menu item '%s'"
+msgstr "Domovský adresár"
+
+#: ../src/modules/vfs-menu.c:2575
+msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:3172
-msgid "name of menu directory should not end with \".desktop\""
-msgstr ""
-
-#: ../src/modules/vfs-menu.c:3226
+#: ../src/modules/vfs-menu.c:2620
 msgid "Invalid operation with menu root"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:3290
-#, fuzzy, c-format
-msgid "Invalid menu item %s"
-msgstr "Domovský adresár"
-
-#: ../src/modules/vfs-menu.c:3370
+#: ../src/modules/vfs-menu.c:2709
 msgid "Invalid destination"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:3639
+#: ../src/modules/vfs-menu.c:2982
 #, c-format
-msgid "FmMenuVFileMonitor: folder %s not found in menu cache"
+msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:981
+#: ../src/modules/vfs-search.c:982
 #, fuzzy
 msgid "Search"
 msgstr "Hľadať znova"
 
-#: ../src/modules/vfs-search.c:1050
+#: ../src/modules/vfs-search.c:1049
 #, fuzzy
 msgid "Search results"
 msgstr "Hľadať skryté súbory"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:65
+#: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose an executable file"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:71
+#: ../src/modules/gtk-fileprop-x-desktop.c:72
 #, fuzzy
 msgid "Executable files"
 msgstr "Spustiť"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:268
+#: ../src/modules/gtk-fileprop-x-desktop.c:267
 #, fuzzy
 msgid "<b>Co_mmand:</b>"
 msgstr "<b>Do:</b>"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:276
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
 #, fuzzy
 msgid "_Browse..."
 msgstr "Prechádzať..."
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:289
+#: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr ""
 
 #. row 1: "Terminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:295
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
 #, fuzzy
 msgid "_Run in terminal emulator"
 msgstr "Spustiť v emulátore terminálu"
 
 #. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:307
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after run"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:323
+#: ../src/modules/gtk-fileprop-x-desktop.c:322
 #, fuzzy
 msgid "<b>D_escription:</b>"
 msgstr "<b>Umiestnenie:</b>"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:333
+#: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:341
+#: ../src/modules/gtk-fileprop-x-desktop.c:340
 #, fuzzy
 msgid "<b>_Working directory:</b>"
 msgstr "<b>_Vlastník:</b>"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:352
+#: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:360
+#: ../src/modules/gtk-fileprop-x-desktop.c:359
 #, fuzzy
 msgid "<b>_Tooltip:</b>"
 msgstr "<b>Do:</b>"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:370
+#: ../src/modules/gtk-fileprop-x-desktop.c:369
 #, fuzzy
 msgid "Tooltip to show on application"
 msgstr "Vyberte aplikáciu"
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:376
+#: ../src/modules/gtk-fileprop-x-desktop.c:375
 #, fuzzy
 msgid "_Use startup notification"
 msgstr "Posledná zmena"
+
+#: ../src/modules/gtk-fileprop-x-desktop.c:388
+#, fuzzy
+msgid "_Desktop entry"
+msgstr "Nastavenia _plochy"
+
+#: ../src/modules/gtk-menu-trash.c:72
+msgid "_Restore"
+msgstr "_Obnoviť"
+
+#: ../src/modules/gtk-menu-trash.c:73
+msgid "Restore trashed files to original paths"
+msgstr "Obnoviť súbory z Koša na pôvodné miesto"
+
+#: ../src/tools/lxshortcut.c:42
+msgid "source file name or desktop id"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:42
+msgid "SOURCE"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:43
+msgid "result file name"
+msgstr ""
+
+#: ../src/tools/lxshortcut.c:43
+msgid "RESULT"
+msgstr ""
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -1667,22 +1805,29 @@ msgstr "Prázdny disk CD-R"
 msgid "Optical Disc"
 msgstr ""
 
+#~ msgid "Shortcuts"
+#~ msgstr "Skratky"
+
+#~ msgid "Mount Point"
+#~ msgstr "Bod pripojenia"
+
+#, fuzzy
+#~ msgid "Create _Symlink"
+#~ msgstr "Vytvoriť symbolický odkaz"
+
+#, fuzzy
+#~ msgid "Se_nd To"
+#~ msgstr "Poslať do"
+
 #, fuzzy
 #~ msgid "Blank File"
 #~ msgstr "Textové súbory"
-
-#, fuzzy
-#~ msgid "Shortcut"
-#~ msgstr "Skratky"
 
 #~ msgid "<b>_Group:</b>"
 #~ msgstr "<b>_Skupina:</b>"
 
 #~ msgid "Rename"
 #~ msgstr "Premenovať"
-
-#~ msgid "Trash"
-#~ msgstr "Kôš"
 
 #~ msgid "Make the file executable"
 #~ msgstr "Označiť súbor ako spustiteľný"
@@ -1974,9 +2119,6 @@ msgstr ""
 #~ msgid "Model column used to retrieve the text if using Pango markup"
 #~ msgstr "Modelový stĺpec na získanie textu ak sa používa značkovanie Pango"
 
-#~ msgid "Icon View Model"
-#~ msgstr "Model zobrazenia ikon"
-
 #~ msgid "The model for the icon view"
 #~ msgstr "Model pre zobrazenie ikon"
 
@@ -2257,9 +2399,6 @@ msgstr ""
 #~ msgid "View as _Compact List"
 #~ msgstr "Zobraziť _kompaktný zoznam"
 
-#~ msgid "View as Detailed _List"
-#~ msgstr "Zobraziť _podrobný zoznam"
-
 #~ msgid "Open _Terminal"
 #~ msgstr "Otvoriť _terminál"
 
@@ -2380,9 +2519,6 @@ msgstr ""
 #~ msgid "Delete: "
 #~ msgstr "Zmazať:"
 
-#~ msgid "Link: "
-#~ msgstr "Odkaz:"
-
 #~ msgid "Change Properties: "
 #~ msgstr "Zmeniť vlastnosti:"
 
@@ -2450,9 +2586,6 @@ msgstr ""
 
 #~ msgid "Command:"
 #~ msgstr "Príkaz:"
-
-#~ msgid "File System"
-#~ msgstr "Súborový systém"
 
 #~ msgid "E_xtract"
 #~ msgstr "_Rozbaliť"
@@ -2554,9 +2687,6 @@ msgstr ""
 #~ msgid "Floppy Drive"
 #~ msgstr "Disketová jednotka"
 
-#~ msgid "Compact Flash Drive"
-#~ msgstr "Jednotka Compact Flash"
-
 #~ msgid "Memory Stick Drive"
 #~ msgstr "Jednotka Memory Stick"
 
@@ -2642,9 +2772,6 @@ msgstr ""
 
 #~ msgid "_Icons"
 #~ msgstr "_Ikony"
-
-#~ msgid "_Desktop Settings"
-#~ msgstr "Nastavenia _plochy"
 
 #~ msgid "Open Containing _Folder"
 #~ msgstr "Otvoriť nadradený _priečinok"
