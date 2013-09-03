@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-31 15:48+0300\n"
+"PO-Revision-Date: 2013-09-03 12:15+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -127,7 +127,6 @@ msgid "with the following file?"
 msgstr "наступним файлом?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Вибрати значок з:</b>"
 
@@ -137,15 +136,13 @@ msgstr "Виберіть піктограму..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Файлів зображень"
+msgstr "файлів зображень"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Системної теми значків"
+msgstr "системної теми значків"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -525,9 +522,9 @@ msgid "Cannot set working directory to '%s': %s"
 msgstr "Не вдалося змінити робочу теку до '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:318
-#, fuzzy, c-format
+#, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Не вдалося визначити тип вмісту '%s' для виконання"
+msgstr "Не вдалося визначити тип вмісту файлу '%s' для його виконання"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -559,7 +556,6 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "Емулятор терміналу не обрано у конфігурації"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
 msgstr "Опис створювача мініатюр недійсний"
 
@@ -778,7 +774,7 @@ msgstr "До с_мітнику"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
-msgstr "Файлів зображень"
+msgstr "Файли зображень"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
