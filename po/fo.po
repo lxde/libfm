@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 04:11+0300\n"
+"POT-Creation-Date: 2013-09-03 12:04+0300\n"
 "PO-Revision-Date: 2010-06-07 16:07+0200\n"
 "Last-Translator: Gunleif <gunleif@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,7 @@ msgstr "við hesari fílu?"
 
 #: ../data/ui/choose-icon.ui.h:1
 #, fuzzy
-msgid "<b>Choose Icon From:</b>"
+msgid "<b>Choose icon from:</b>"
 msgstr "<b>Mál:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
@@ -142,14 +142,16 @@ msgstr "<b>Mál:</b>"
 msgid "Choose An Icon..."
 msgstr "Vel eina nýtsluskipan"
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
-msgid "Image files"
-msgstr "Tveiti fílur út"
-
+#. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
 #, fuzzy
-msgid "System icon theme"
+msgid "image files"
+msgstr "Tveiti fílur út"
+
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:6
+#, fuzzy
+msgid "system icon theme"
 msgstr "Kervis-nýtsluskipanir"
 
 #: ../data/ui/exec-file.glade.h:1
@@ -534,40 +536,40 @@ msgstr "<b>Til:</b>"
 msgid "Preparing..."
 msgstr "Fyrireiki..."
 
-#: ../src/base/fm-file-launcher.c:83
+#: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:178
+#: ../src/base/fm-file-launcher.c:197
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
-#, c-format
-msgid "Could not determine content type of '%s' to launch"
-msgstr ""
-
-#: ../src/base/fm-file-launcher.c:254
+#: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:318
+#, c-format
+msgid "Could not determine content type of file '%s' to launch it"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
 
-#: ../src/base/fm-path.c:163
+#: ../src/base/fm-path.c:177
 msgid "My Computer"
 msgstr "Mín telda"
 
-#: ../src/base/fm-path.c:169
+#: ../src/base/fm-path.c:183
 msgid "Network"
 msgstr "Net"
 
-#: ../src/base/fm-path.c:1191 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
 msgid "Trash Can"
 msgstr "Ruskspann"
 
@@ -585,7 +587,7 @@ msgid "No terminal emulator is set in libfm config"
 msgstr ""
 
 #: ../src/base/fm-thumbnailer.c:283
-msgid "Invalid thumbnailer description"
+msgid "Invalid description of thumbnailer application"
 msgstr ""
 
 #: ../src/base/fm-utils.c:136
@@ -719,11 +721,11 @@ msgstr "Koyr tilgjørdu stýriboðsregluna til at lata upp fílur við"
 msgid "Installed Applications"
 msgstr "Innlagdar nýtsluskipanir"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "<No Sub Folder>"
 msgstr ""
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
 #, fuzzy
 msgid "Loading..."
 msgstr "Fyrireiki..."
@@ -745,11 +747,12 @@ msgstr ""
 msgid "_Move"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#. Note to translators: Link in not noun but verb here
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:860
+#: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
 msgstr "XDirectSave miseydnaðist."
 
@@ -799,6 +802,11 @@ msgstr "Fílueginleikar"
 #, fuzzy
 msgid "_Trash"
 msgstr "Ruskspann"
+
+#: ../src/gtk/fm-file-properties.c:364
+#, fuzzy
+msgid "Image files"
+msgstr "Tveiti fílur út"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
@@ -1273,45 +1281,45 @@ msgstr ""
 msgid "Directory Tree"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:246
+#: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:802
+#: ../src/gtk/fm-standard-view.c:790
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:810
+#: ../src/gtk/fm-standard-view.c:798
 msgid "_Move left"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:816
+#: ../src/gtk/fm-standard-view.c:804
 msgid "Move _right"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:827
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:851
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Forget width"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1784
+#: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1785
+#: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1786
+#: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1787
+#: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
 msgstr ""
 
@@ -1333,28 +1341,28 @@ msgstr ""
 msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-delete.c:441
+#: ../src/job/fm-file-ops-job-delete.c:469
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Endurstovna strikaðar fílur til teirra upprunaligu leið"
 
-#: ../src/job/fm-file-ops-job-xfer.c:55
+#: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
 msgstr "Kelda og mál eru tey somu"
 
-#: ../src/job/fm-file-ops-job-xfer.c:62
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
 msgstr "Kann ikki flyta ein faldara í sín egna undirfaldara"
 
-#: ../src/job/fm-file-ops-job-xfer.c:64
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Kann ikki avrita ein faldara til sín egna undirfaldara"
 
-#: ../src/job/fm-file-ops-job-xfer.c:66
+#: ../src/job/fm-file-ops-job-xfer.c:67
 msgid "Destination is a sub folder of source"
 msgstr "Máli er ein undirfaldar av kelduni"
 
-#: ../src/job/fm-file-ops-job-xfer.c:372
+#: ../src/job/fm-file-ops-job-xfer.c:373
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Kann ikki avrita ein faldara til sín egna undirfaldara"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 04:11+0300\n"
+"POT-Creation-Date: 2013-09-03 12:04+0300\n"
 "PO-Revision-Date: 2013-08-01 08:53+0000\n"
 "Last-Translator: Klemen <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -127,19 +127,24 @@ msgid "with the following file?"
 msgstr "z naslednjo datoteko?"
 
 #: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose Icon From:</b>"
+#, fuzzy
+msgid "<b>Choose icon from:</b>"
 msgstr "<b>Izberite ikono:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
 msgstr "Izberite ikono"
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-msgid "Image files"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:4
+#, fuzzy
+msgid "image files"
 msgstr "Slike"
 
-#: ../data/ui/choose-icon.ui.h:4
-msgid "System icon theme"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:6
+#, fuzzy
+msgid "system icon theme"
 msgstr "Sistemske ikone"
 
 #: ../data/ui/exec-file.glade.h:1
@@ -503,40 +508,40 @@ msgstr "<b>V:</b>"
 msgid "Preparing..."
 msgstr "Pripravljanje ..."
 
-#: ../src/base/fm-file-launcher.c:83
+#: ../src/base/fm-file-launcher.c:85
 #, fuzzy, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Neveljaven predmet menija: %s"
 
-#: ../src/base/fm-file-launcher.c:178
+#: ../src/base/fm-file-launcher.c:197
 #, fuzzy, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Za vrsto MIME %s ni nastavljenega privzetega programa"
 
-#: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
-#, c-format
-msgid "Could not determine content type of '%s' to launch"
-msgstr ""
-
-#: ../src/base/fm-file-launcher.c:254
+#: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:318
+#, c-format
+msgid "Could not determine content type of file '%s' to launch it"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "Za vrsto MIME %s ni nastavljenega privzetega programa"
 
-#: ../src/base/fm-path.c:163
+#: ../src/base/fm-path.c:177
 msgid "My Computer"
 msgstr "Moj računalnik"
 
-#: ../src/base/fm-path.c:169
+#: ../src/base/fm-path.c:183
 msgid "Network"
 msgstr "Omrežje"
 
-#: ../src/base/fm-path.c:1191 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
 msgid "Trash Can"
 msgstr "Smeti"
 
@@ -554,7 +559,7 @@ msgstr "V nastavitvah ni nastavljenega terminala"
 
 #: ../src/base/fm-thumbnailer.c:283
 #, fuzzy
-msgid "Invalid thumbnailer description"
+msgid "Invalid description of thumbnailer application"
 msgstr "Neveljaven cilj"
 
 #: ../src/base/fm-utils.c:136
@@ -699,11 +704,11 @@ msgstr "Za odpiranje datotek te vrste bo uporabljen ukaz po meri."
 msgid "Installed Applications"
 msgstr "Nameščeni programi"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "<No Sub Folder>"
 msgstr "<Ni podmap>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
 msgid "Loading..."
 msgstr "Nalaganje ..."
 
@@ -725,11 +730,12 @@ msgstr ""
 msgid "_Move"
 msgstr "Premakni _levo"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#. Note to translators: Link in not noun but verb here
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:860
+#: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
 msgstr "Opravilo XDirectSave ni uspelo."
 
@@ -773,6 +779,10 @@ msgstr "_Lastnosti"
 #, fuzzy
 msgid "_Trash"
 msgstr "Smeti"
+
+#: ../src/gtk/fm-file-properties.c:364
+msgid "Image files"
+msgstr "Slike"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
@@ -1229,45 +1239,45 @@ msgstr "Mesta"
 msgid "Directory Tree"
 msgstr "Drevo map"
 
-#: ../src/gtk/fm-standard-view.c:246
+#: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
 msgstr "Pogled vsebine mape"
 
-#: ../src/gtk/fm-standard-view.c:802
+#: ../src/gtk/fm-standard-view.c:790
 #, c-format
 msgid "_Hide %s"
 msgstr "_Skrij %s"
 
-#: ../src/gtk/fm-standard-view.c:810
+#: ../src/gtk/fm-standard-view.c:798
 msgid "_Move left"
 msgstr "Premakni _levo"
 
-#: ../src/gtk/fm-standard-view.c:816
+#: ../src/gtk/fm-standard-view.c:804
 msgid "Move _right"
 msgstr "Premakni _desno"
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:827
 #, c-format
 msgid "Show %s"
 msgstr "Pokaži %s"
 
-#: ../src/gtk/fm-standard-view.c:851
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Forget width"
 msgstr "Pozabi _širino"
 
-#: ../src/gtk/fm-standard-view.c:1784
+#: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1785
+#: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1786
+#: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1787
+#: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
 msgstr ""
 
@@ -1290,28 +1300,28 @@ msgstr "Do ciljne datoteke ni mogoče dostopiti"
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Povezave na tujem datotečnem sistemu ni mogoče ustvariti"
 
-#: ../src/job/fm-file-ops-job-delete.c:441
+#: ../src/job/fm-file-ops-job-delete.c:469
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Obnovi datoteke v smeteh na izvirno mesto"
 
-#: ../src/job/fm-file-ops-job-xfer.c:55
+#: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
 msgstr "Izvorna in ciljna mapa sta enaki."
 
-#: ../src/job/fm-file-ops-job-xfer.c:62
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
 msgstr "Mape ni mogoče premakniti v lastno podmapo."
 
-#: ../src/job/fm-file-ops-job-xfer.c:64
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Mape ni mogoče kopirati v lastno podmapo."
 
-#: ../src/job/fm-file-ops-job-xfer.c:66
+#: ../src/job/fm-file-ops-job-xfer.c:67
 msgid "Destination is a sub folder of source"
 msgstr "Cilj je podmapa izvorne mape."
 
-#: ../src/job/fm-file-ops-job-xfer.c:372
+#: ../src/job/fm-file-ops-job-xfer.c:373
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Mape ni mogoče kopirati v lastno podmapo."

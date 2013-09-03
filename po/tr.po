@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 04:11+0300\n"
+"POT-Creation-Date: 2013-09-03 12:04+0300\n"
 "PO-Revision-Date: 2013-08-08 19:02+0000\n"
 "Last-Translator: vgezer <volkangezer@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
@@ -126,19 +126,24 @@ msgid "with the following file?"
 msgstr "şu dosyayla?"
 
 #: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose Icon From:</b>"
+#, fuzzy
+msgid "<b>Choose icon from:</b>"
 msgstr "<b>Simgeyi Seçin:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
 msgstr "Bir Simge Seç..."
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-msgid "Image files"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:4
+#, fuzzy
+msgid "image files"
 msgstr "Resim dosyaları"
 
-#: ../data/ui/choose-icon.ui.h:4
-msgid "System icon theme"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:6
+#, fuzzy
+msgid "system icon theme"
 msgstr "Sistem simge teması"
 
 #: ../data/ui/exec-file.glade.h:1
@@ -504,40 +509,40 @@ msgstr "<b>Şuraya:</b>"
 msgid "Preparing..."
 msgstr "Hazırlanıyor..."
 
-#: ../src/base/fm-file-launcher.c:83
+#: ../src/base/fm-file-launcher.c:85
 #, fuzzy, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Geçersiz menü ögesi %s"
 
-#: ../src/base/fm-file-launcher.c:178
+#: ../src/base/fm-file-launcher.c:197
 #, fuzzy, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "%s MIME türü için öntanımlı bir uygulama ayarlanmadı"
 
-#: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
-#, c-format
-msgid "Could not determine content type of '%s' to launch"
-msgstr ""
-
-#: ../src/base/fm-file-launcher.c:254
+#: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:318
+#, c-format
+msgid "Could not determine content type of file '%s' to launch it"
+msgstr ""
+
+#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "%s MIME türü için öntanımlı bir uygulama ayarlanmadı"
 
-#: ../src/base/fm-path.c:163
+#: ../src/base/fm-path.c:177
 msgid "My Computer"
 msgstr "Bilgisayarım"
 
-#: ../src/base/fm-path.c:169
+#: ../src/base/fm-path.c:183
 msgid "Network"
 msgstr "Ağ"
 
-#: ../src/base/fm-path.c:1191 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
 msgid "Trash Can"
 msgstr "Çöp Kutusu"
 
@@ -556,7 +561,7 @@ msgstr "Libfm yapılandırmasında bir teminal öykünücüsü atanmamış"
 
 #: ../src/base/fm-thumbnailer.c:283
 #, fuzzy
-msgid "Invalid thumbnailer description"
+msgid "Invalid description of thumbnailer application"
 msgstr "Geçersiz hedef"
 
 #: ../src/base/fm-utils.c:136
@@ -698,11 +703,11 @@ msgstr "Dosyaları açmak için özel bir komut çalıştır"
 msgid "Installed Applications"
 msgstr "Kurulu Uygulamalar"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "<No Sub Folder>"
 msgstr "<Alt Dizin Yok>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
 msgid "Loading..."
 msgstr "Yükleniyor..."
 
@@ -724,11 +729,12 @@ msgstr ""
 msgid "_Move"
 msgstr "_Sola taşı"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#. Note to translators: Link in not noun but verb here
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:860
+#: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
 msgstr "XDirectSave başarısız."
 
@@ -772,6 +778,10 @@ msgstr "_Özellikler"
 #, fuzzy
 msgid "_Trash"
 msgstr "Çöp Kutusu"
+
+#: ../src/gtk/fm-file-properties.c:364
+msgid "Image files"
+msgstr "Resim dosyaları"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
@@ -1221,45 +1231,45 @@ msgstr "Yerler"
 msgid "Directory Tree"
 msgstr "Dizin Ağacı"
 
-#: ../src/gtk/fm-standard-view.c:246
+#: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
 msgstr "Klasör içeriklerinin görünümü"
 
-#: ../src/gtk/fm-standard-view.c:802
+#: ../src/gtk/fm-standard-view.c:790
 #, c-format
 msgid "_Hide %s"
 msgstr "_Gizle %s"
 
-#: ../src/gtk/fm-standard-view.c:810
+#: ../src/gtk/fm-standard-view.c:798
 msgid "_Move left"
 msgstr "_Sola taşı"
 
-#: ../src/gtk/fm-standard-view.c:816
+#: ../src/gtk/fm-standard-view.c:804
 msgid "Move _right"
 msgstr "S_ağa taşı"
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:827
 #, c-format
 msgid "Show %s"
 msgstr "%1 Göster"
 
-#: ../src/gtk/fm-standard-view.c:851
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Forget width"
 msgstr "_Genişliği unut"
 
-#: ../src/gtk/fm-standard-view.c:1784
+#: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1785
+#: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1786
+#: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1787
+#: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
 msgstr ""
 
@@ -1282,28 +1292,28 @@ msgstr "Hedef dosyaya erişilemiyor"
 msgid "Cannot create a link on non-native filesystem"
 msgstr "tam uyumlu olmayan dosya sisteminde bir bağlantı oluşturulamaz"
 
-#: ../src/job/fm-file-ops-job-delete.c:441
+#: ../src/job/fm-file-ops-job-delete.c:469
 #, fuzzy, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Çöpteki dosyaları yerlerine al"
 
-#: ../src/job/fm-file-ops-job-xfer.c:55
+#: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
 msgstr "Kaynak ve hedef dosyalar aynı."
 
-#: ../src/job/fm-file-ops-job-xfer.c:62
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
 msgstr "Dizin kendi alt-dizinine taşınamaz"
 
-#: ../src/job/fm-file-ops-job-xfer.c:64
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Dizin kendi alt-dizinine kopyalanamaz"
 
-#: ../src/job/fm-file-ops-job-xfer.c:66
+#: ../src/job/fm-file-ops-job-xfer.c:67
 msgid "Destination is a sub folder of source"
 msgstr "Hedef, kaynağın bir alt klasörü"
 
-#: ../src/job/fm-file-ops-job-xfer.c:372
+#: ../src/job/fm-file-ops-job-xfer.c:373
 #, fuzzy, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Dizin kendi alt-dizinine kopyalanamaz"

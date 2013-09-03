@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 04:11+0300\n"
+"POT-Creation-Date: 2013-09-03 12:04+0300\n"
 "PO-Revision-Date: 2013-08-31 15:48+0300\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -127,19 +127,24 @@ msgid "with the following file?"
 msgstr "наступним файлом?"
 
 #: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose Icon From:</b>"
+#, fuzzy
+msgid "<b>Choose icon from:</b>"
 msgstr "<b>Вибрати значок з:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
 msgstr "Виберіть піктограму..."
 
-#: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-msgid "Image files"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:4
+#, fuzzy
+msgid "image files"
 msgstr "Файлів зображень"
 
-#: ../data/ui/choose-icon.ui.h:4
-msgid "System icon theme"
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:6
+#, fuzzy
+msgid "system icon theme"
 msgstr "Системної теми значків"
 
 #: ../data/ui/exec-file.glade.h:1
@@ -504,40 +509,40 @@ msgstr "<b>До:</b>"
 msgid "Preparing..."
 msgstr "Підготовлюю..."
 
-#: ../src/base/fm-file-launcher.c:83
+#: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Зіпсований файл ярлику програми: '%s'"
 
-#: ../src/base/fm-file-launcher.c:178
+#: ../src/base/fm-file-launcher.c:197
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Типову програму для завантаження URI %s:// не обрано"
 
-#: ../src/base/fm-file-launcher.c:203 ../src/base/fm-file-launcher.c:300
-#, c-format
-msgid "Could not determine content type of '%s' to launch"
-msgstr "Не вдалося визначити тип вмісту '%s' для виконання"
-
-#: ../src/base/fm-file-launcher.c:254
+#: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "Не вдалося змінити робочу теку до '%s': %s"
 
-#: ../src/base/fm-file-launcher.c:345 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:318
+#, fuzzy, c-format
+msgid "Could not determine content type of file '%s' to launch it"
+msgstr "Не вдалося визначити тип вмісту '%s' для виконання"
+
+#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "Типову програму для типу MIME %s не обрано"
 
-#: ../src/base/fm-path.c:163
+#: ../src/base/fm-path.c:177
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:169
+#: ../src/base/fm-path.c:183
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/base/fm-path.c:1191 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
 msgid "Trash Can"
 msgstr "Смітник"
 
@@ -554,7 +559,8 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "Емулятор терміналу не обрано у конфігурації"
 
 #: ../src/base/fm-thumbnailer.c:283
-msgid "Invalid thumbnailer description"
+#, fuzzy
+msgid "Invalid description of thumbnailer application"
 msgstr "Опис створювача мініатюр недійсний"
 
 #: ../src/base/fm-utils.c:136
@@ -697,11 +703,11 @@ msgstr "Виконати власну команду для відкриття �
 msgid "Installed Applications"
 msgstr "Встановлені програми"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1199
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "<No Sub Folder>"
 msgstr "<Немає підтеки>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1200
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
 msgid "Loading..."
 msgstr "Завантажую..."
 
@@ -721,11 +727,12 @@ msgstr "_Копіювати"
 msgid "_Move"
 msgstr "_Перемістити"
 
-#: ../src/gtk/fm-dnd-dest.c:414
+#. Note to translators: Link in not noun but verb here
+#: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
 msgstr "_Створити посилання"
 
-#: ../src/gtk/fm-dnd-dest.c:860
+#: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -768,6 +775,10 @@ msgstr "Властив_ості"
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
 msgid "_Trash"
 msgstr "До с_мітнику"
+
+#: ../src/gtk/fm-file-properties.c:364
+msgid "Image files"
+msgstr "Файлів зображень"
 
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
@@ -1219,45 +1230,45 @@ msgstr "Місця"
 msgid "Directory Tree"
 msgstr "Дерево тек"
 
-#: ../src/gtk/fm-standard-view.c:246
+#: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
 msgstr "Показує вміст теки"
 
-#: ../src/gtk/fm-standard-view.c:802
+#: ../src/gtk/fm-standard-view.c:790
 #, c-format
 msgid "_Hide %s"
 msgstr "_Сховати %s"
 
-#: ../src/gtk/fm-standard-view.c:810
+#: ../src/gtk/fm-standard-view.c:798
 msgid "_Move left"
 msgstr "Пересунути _ліворуч"
 
-#: ../src/gtk/fm-standard-view.c:816
+#: ../src/gtk/fm-standard-view.c:804
 msgid "Move _right"
 msgstr "_Пересунути праворуч"
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:827
 #, c-format
 msgid "Show %s"
 msgstr "Показати %s"
 
-#: ../src/gtk/fm-standard-view.c:851
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Forget width"
 msgstr "_Не пам'ятати ширину"
 
-#: ../src/gtk/fm-standard-view.c:1784
+#: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
 msgstr "_Вигляд значками"
 
-#: ../src/gtk/fm-standard-view.c:1785
+#: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
 msgstr "_Компактний вигляд"
 
-#: ../src/gtk/fm-standard-view.c:1786
+#: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
 msgstr "Вигляд мініа_тюрами"
 
-#: ../src/gtk/fm-standard-view.c:1787
+#: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
 msgstr "Детальний вигляд _списком"
 
@@ -1279,28 +1290,28 @@ msgstr "Нема доступу до файлу призначення"
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Неможливо створювати посилання на віртуальних файлових системах"
 
-#: ../src/job/fm-file-ops-job-delete.c:441
+#: ../src/job/fm-file-ops-job-delete.c:469
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr "Неможливо відновити файл '%s': невідомий початковий шлях"
 
-#: ../src/job/fm-file-ops-job-xfer.c:55
+#: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
 msgstr "Вихідна тека і тека призначення однакові."
 
-#: ../src/job/fm-file-ops-job-xfer.c:62
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
 msgstr "Не можна переміщувати теку в її підтеку"
 
-#: ../src/job/fm-file-ops-job-xfer.c:64
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Не можна копіювати теку в її підтеку"
 
-#: ../src/job/fm-file-ops-job-xfer.c:66
+#: ../src/job/fm-file-ops-job-xfer.c:67
 msgid "Destination is a sub folder of source"
 msgstr "Тека призначення є підтекою вихідної теки"
 
-#: ../src/job/fm-file-ops-job-xfer.c:372
+#: ../src/job/fm-file-ops-job-xfer.c:373
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Неможливо зкопіювати файл '%s': не підтримується"
