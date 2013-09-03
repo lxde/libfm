@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-03 08:33+0000\n"
+"PO-Revision-Date: 2013-09-03 09:21+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378197201.0\n"
+"X-POOTLE-MTIME: 1378200100.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -125,7 +125,6 @@ msgid "with the following file?"
 msgstr "med följande fil?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Välj ikon från:</b>"
 
@@ -135,15 +134,13 @@ msgstr "Välj en ikon..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Bildfiler"
+msgstr "bildfiler"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Ikontema för systemet"
+msgstr "ikontema för systemet"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -522,7 +519,7 @@ msgid "Cannot set working directory to '%s': %s"
 msgstr "Kan inte ange \"%s\" som arbetskatalog: %s"
 
 #: ../src/base/fm-file-launcher.c:318
-#, fuzzy, c-format
+#, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "\"%s\" kunde inte öppnas då innehållstypen inte känns igen."
 
@@ -556,9 +553,8 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "Inställning för terminalemulator saknas i libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Ogiltig beskrivning för tumnagelskapare"
+msgstr "Ogiltig beskrivning av applikation för att skapa tumnagelbilder"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
