@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-07-31 09:26+0200\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"PO-Revision-Date: 2013-09-03 11:59+0000\n"
+"Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0\n"
-"X-Poedit-Language: Galician\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1378209550.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -24,12 +24,11 @@ msgstr "Aplicativos preferidos"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Crear ou cambiar unha entrada de escritorio existente"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Atallo"
+msgstr "Editor de atallos"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -128,7 +127,6 @@ msgid "with the following file?"
 msgstr "co seguinte ficheiro?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Escolla a icona de:</b>"
 
@@ -138,13 +136,11 @@ msgstr "Escolla unha icona..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
 msgstr "Ficheiros de imaxe"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
 msgstr "Icona do tema do sistema"
 
@@ -185,9 +181,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Última modificación:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Último acceso:</b>"
+msgstr "<b>Cambiar os últimos permisos:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -238,9 +233,8 @@ msgid "File Properties"
 msgstr "Propiedades do ficheiro"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "Ficheiros de _vídeo"
+msgstr "Ficheiro agochado"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -511,24 +505,26 @@ msgid "Preparing..."
 msgstr "Preparando..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Elemento de menú incorrecto %s"
+msgstr "Elemento de menú incorrecto: «%s»"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Non está estabelecido o aplicativo predeterminado para o tipo MIME %s"
+msgstr ""
+"Non está estabelecido o aplicativo predeterminado para iniciar as URI %s://"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Non é posíbel estabelecer o directorio de traballo a «%s»: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
+"Non foi posíbel determinar o tipo de contido do ficheiro «%s» para inicialo"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -548,13 +544,12 @@ msgid "Trash Can"
 msgstr "Cesto do lixo"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Atallo"
+msgstr "Atallo ao URI"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: argumento incorrecto"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
@@ -562,9 +557,8 @@ msgstr ""
 "Non foi estabelecido o emulador de terminal na configuración de «libfm»"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Destino incorrecto"
+msgstr "Descrición incorrecta do aplicativo de miniaturas"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -600,7 +594,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "A subruta do URI «%s» contén caracteres de escape incorrectos"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -719,23 +713,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Amosar a árbore de directorios na barra lateral"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Cancelado"
+msgstr "_Cancelar"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "C_opiar"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Mover cara á _esquerda"
+msgstr "_Mover"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Ligazón"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -751,11 +743,11 @@ msgstr "Abrir _con..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "A_gochar"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "A_mosar"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -778,9 +770,8 @@ msgid "Prop_erties"
 msgstr "Propi_edades"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Lixo"
+msgstr "_Lixo"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -810,17 +801,20 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Agochar ou amosar o ficheiro"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
+"Este ficheiro está agochado por por de comezar o seu nome cun punto («.»)"
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Os ficheiros neste sistema están agochados por por de comezar o seu nome cun "
+"punto («.»). Prema  <Ctrl+H> para amosar os ficheiros agochados."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1011,28 +1005,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Só o administrador ten o permiso para facer isto."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Desexa mover os ficheiros seleccionados ao cesto do lixo?"
+msgstr "Quere mover o ficheiro «%s» ao cesto do lixo?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Desexa mover os ficheiros seleccionados ao cesto do lixo?"
-msgstr[1] "Desexa mover os ficheiros seleccionados ao cesto do lixo?"
+msgstr[0] "Quere mover %d ficheiro seleccionado ao cesto do lixo?"
+msgstr[1] "Quere mover os %d ficheiros seleccionados ao cesto do lixo?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Desexa eliminar os ficheiros seleccionados?"
+msgstr "Quere eliminar o ficheiro «%s»?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Desexa eliminar os ficheiros seleccionados?"
-msgstr[1] "Desexa eliminar os ficheiros seleccionados?"
+msgstr[0] "Quere eliminar %d ficheiro seleccionado?"
+msgstr[1] "Quere eliminar os %d ficheiros seleccionados?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1064,19 +1058,16 @@ msgid "Applications"
 msgstr "Aplicativos"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "_Tipo de ficheiro"
+msgstr "Sistema de ficheiros"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "O meu computador"
+msgstr "Computador"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Rede"
+msgstr "Controladores de rede"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1091,9 +1082,8 @@ msgid "_Eject Removable Media"
 msgstr "_Expulsar medio extraíbel"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "_Montar volume"
+msgstr "_Formatar volume"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1180,12 +1170,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Pausa"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Restaurar"
+msgstr "_Retomar"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1267,19 +1256,19 @@ msgstr "_Esquecer o largo"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "Vista de _iconas"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "Vista _compacta"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "Vista de _miniaturas"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Vista de _lista detallada"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1296,14 +1285,13 @@ msgid "Cannot access destination file"
 msgstr "Non é posíbel acceder ao ficheiro de destino"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "non é posíbel crear unha ligazón nun sistema de ficheiros non nativo"
+msgstr "Non é posíbel crear unha ligazón nun sistema de ficheiros non nativo"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Restaura os ficheiros do cesto lixo cara a súa localización orixinal"
+msgstr "Non é posíbel restaurar o ficheiro «%s»: non se coñece a ruta orixinal"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1322,9 +1310,9 @@ msgid "Destination is a sub folder of source"
 msgstr "O destino é un subcartafol da orixe"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Nón é posíbel copiar un cartafol dentro dun seu subcartafol"
+msgstr "Non é posíbel copiar o ficheiro «%s»: non admitido"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1337,9 +1325,9 @@ msgid "Setting target can be done only for single file"
 msgstr "A asignación do destino pódese facer para só un único ficheiro"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Produciuse un erro no ficheiro XML %s (%d:%d): "
+msgstr "Produciuse un erro no ficheiro XML «%s» (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1375,9 +1363,9 @@ msgid "Menu item name cannot be empty"
 msgstr "O nome do elemento de menú non pode estar baleiro"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Directorio de menú %s incorrecto"
+msgstr "Directorio de menú «%s» incorrecto"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1393,34 +1381,34 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Cambiar o estado agochado non é compatíbel co directorio do menú"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Non se permite estabelecer o atributo %s"
+msgstr "Non se permite estabelecer o atributo «%s»"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Valor incorrecto para o atributo %s"
+msgstr "Valor incorrecto para o atributo «%s»"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
 msgstr "O «%s» é un directorio de menú"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "O «%s» é un elemento de menú"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "O «%s» está quebrado"
+msgstr "O ficheiro de entrada «%s» está estragado"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Non é posíbel crear o elemento de menú: %s"
+msgstr "Non é posíbel crear o elemento de menú «%s»"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1435,9 +1423,9 @@ msgid "Invalid destination"
 msgstr "Destino incorrecto"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: non se atopa o cartafol %s na caché do menú"
+msgstr "FmMenuVFileMonitor: non se atopa o cartafol «%s» na caché do menú"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1522,24 +1510,24 @@ msgstr "Restaura os ficheiros do cesto lixo cara a súa localización orixinal"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "nome do ficheiro orixe ou ID do escritorio"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ORIXE"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "nome do ficheiro resultante"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "RESULTANTE"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
 msgid "CD-ROM Disc"
-msgstr "Disco CD-ROM"
+msgstr "RESULTANTE"
 
 #: ../src/udisks/g-udisks-device.c:41
 msgid "Blank CD-ROM Disc"
