@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-30 04:11+0300\n"
-"PO-Revision-Date: 2013-09-03 07:32+0000\n"
+"PO-Revision-Date: 2013-09-03 07:54+0000\n"
 "Last-Translator: Andriy <andrej@rep.kiev.ua>\n"
 "Language-Team: gnome-cyr\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-POOTLE-MTIME: 1378193532.0\n"
+"X-POOTLE-MTIME: 1378194889.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -135,14 +135,12 @@ msgid "Choose An Icon..."
 msgstr "Выбор значка..."
 
 #: ../data/ui/choose-icon.ui.h:3 ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
-msgstr "Изображения"
+msgstr "Файлов с изображениями"
 
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "System icon theme"
-msgstr "Системные приложения"
+msgstr "Системной темы значков"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -206,9 +204,8 @@ msgid "<b>Special bits:</b>"
 msgstr "<b>Особые флаги:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Target file:</b>"
-msgstr "<b>Цель:</b>"
+msgstr "<b>Ссылка на:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 msgid "<b>Total Size of Files:</b>"
@@ -235,9 +232,8 @@ msgid "File Properties"
 msgstr "Свойства файла"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "Видеофайлы"
+msgstr "Скрытый файл"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -321,9 +317,8 @@ msgid "*"
 msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:3
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
-msgstr "<b>Файл содержит:</b>"
+msgstr "<b>_Файл содержит:</b>"
 
 #: ../data/ui/filesearch.glade.h:4
 msgid "<b>File Size</b>"
@@ -392,9 +387,8 @@ msgid "Name/_Location"
 msgstr "Имя/Расположение"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Искать файлы только следующих типов"
+msgstr "Искать файлы только следующих типов:"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "Search Files"
@@ -728,15 +722,15 @@ msgstr "О_тменить"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Копировать"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Move"
-msgstr ""
+msgstr "Пере_местить"
 
 #: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Link"
-msgstr ""
+msgstr "Создать сс_ылку"
 
 #: ../src/gtk/fm-dnd-dest.c:860
 msgid "XDirectSave failed."
@@ -752,7 +746,7 @@ msgstr "Открыть с помощью..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "С_крыть"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
@@ -1073,9 +1067,8 @@ msgid "Computer"
 msgstr "Мой компьютер"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Сеть"
+msgstr "Сетевые диски"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1090,9 +1083,8 @@ msgid "_Eject Removable Media"
 msgstr "Извлечь внешнее устройство"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Монтировать том"
+msgstr "_Форматировать том"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1179,12 +1171,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Приостановить"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Восстановить"
+msgstr "_Возобновить"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1266,19 +1257,19 @@ msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1784
 msgid "_Icon View"
-msgstr ""
+msgstr "_Просмотр в виде значков"
 
 #: ../src/gtk/fm-standard-view.c:1785
 msgid "_Compact View"
-msgstr ""
+msgstr "_Компактный вид"
 
 #: ../src/gtk/fm-standard-view.c:1786
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "В виде _миниатюр"
 
 #: ../src/gtk/fm-standard-view.c:1787
 msgid "Detailed _List View"
-msgstr ""
+msgstr "_В виде подробного списка"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1470,7 +1461,6 @@ msgstr ""
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
-#, fuzzy
 msgid "_Run in terminal emulator"
 msgstr "_Выполнить в эмуляторе терминала"
 
