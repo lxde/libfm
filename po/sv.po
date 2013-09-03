@@ -1355,7 +1355,7 @@ msgstr "Ogiltig menykatalog \"%s\""
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
-msgstr "Ogiltig menykatalog \"%s\""
+msgstr "Ogiltigt menyalternativ"
 
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
