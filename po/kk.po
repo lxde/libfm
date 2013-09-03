@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-28 04:34+0000\n"
+"PO-Revision-Date: 2013-09-03 10:13+0000\n"
 "Last-Translator: sotrud_nik <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377664492.0\n"
+"X-POOTLE-MTIME: 1378203219.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Таңдамалы қолданбалар"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Жаңа desktop элементін жасау немесе бар болып тұрғанды өзгерту"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Жарлық"
+msgstr "Жарлықтар түзетушісі"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -126,7 +125,6 @@ msgid "with the following file?"
 msgstr "келесі файлмен?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Таңбашаны келесіден таңдау:</b>"
 
@@ -136,15 +134,13 @@ msgstr "Таңбашаны таңдаңыз..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Сурет файлдары"
+msgstr "сурет файлдары"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Жүйелік таңбашалар темасы"
+msgstr "жүйелік таңбашалар темасы"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -183,9 +179,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Соңғы өзгерту:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Соңғы қатынау:</b>"
+msgstr "<b>Құқықтардың соңғы өзгерісі:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -236,9 +231,8 @@ msgid "File Properties"
 msgstr "Файл қасиеттері"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Видео файлдары"
+msgstr "Жасырын файл"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -509,24 +503,26 @@ msgid "Preparing..."
 msgstr "Дайындау..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "%s мәзір элементі қате"
+msgstr "Жұмыс үстел файлы қате: '%s'"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "%s MIME түрі үшін үнсіз келісім бойынша қолданба табылмады"
+msgstr ""
+"URI %s:// түріндегі сілтемелерді жөнелту үшін үнсіз келісім қолданбасы "
+"орнатылмады"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Жұмыс бумасын '%s' етіп орнату қатесі: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "'%s' файлын жөнелту үшін оның түрін анықтау мүмкін емес"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -546,22 +542,20 @@ msgid "Trash Can"
 msgstr "Қоқыс шелегі"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Жарлық"
+msgstr "URI үшін жарлық"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: қате аргумент"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "libfm баптауларында терминал эмуляторы көрсетілмеген"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Мақсат орналасуы қате"
+msgstr "Кіші көріністерді жасайтын қолданбаның анықтамасы қате"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -596,7 +590,7 @@ msgstr "ТиБ"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI ішкі '%s' жолында экрандалған таңбалар бар"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -714,23 +708,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Бүйір панелінде бумалар ағашын көрсету"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Бас тартылған"
+msgstr "Ба_с тарту"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Көшіру"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Солға жы_лжыту"
+msgstr "Жылж_ыту"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "Сі_лтемені жасау"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -746,11 +738,11 @@ msgstr "Көме_гімен ашу..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "Жа_сыру"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "Көр_сету"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -773,9 +765,8 @@ msgid "Prop_erties"
 msgstr "Қас_иеттері"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Қоқыс шелегі"
+msgstr "Қоқыс шелегіне тас_тау"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -804,17 +795,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Файлды жасыру немесе көрсету"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Бұл файл жасырын, өйткені оның аты нүктеден басталады ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Бұл жүйеде файлдар атауы нүктеден басталса ('.'), олар жасырын болады. "
+"Жасырын файлдарды көрсетуді іске қосу/сөндіру үшін <Ctrl+H> басыңыз."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1003,26 +996,26 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Бұны тек жүйелік әкімшілер жасай алады."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Ерекшеленген файлдарды қоқыс шелегіне тастауды шынымен қалайсыз ба?"
+msgstr "'%s' файлын қоқыс шелегіне тастауды қалайсыз ба?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Ерекшеленген файлдарды қоқыс шелегіне тастауды шынымен қалайсыз ба?"
+msgstr[0] "Ерекшеленген %d файлды қоқыс шелегіне тастауды қалайсыз ба?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Ерекшеленген файлдарды өшіруді шынымен қалайсыз ба?"
+msgstr "'%s' файлын өшіруді қалайсыз ба?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Ерекшеленген файлдарды өшіруді шынымен қалайсыз ба?"
+msgstr[0] "Ерекшеленген %d файлды өшіруді қалайсыз ба?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1054,19 +1047,16 @@ msgid "Applications"
 msgstr "Қолданбалар"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Файл _түрі"
+msgstr "Файлдық жүйе"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Менің компьютерім"
+msgstr "Компьютер"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Желі"
+msgstr "Желілік дискілер"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1081,9 +1071,8 @@ msgid "_Eject Removable Media"
 msgstr "Ауыстырмалы тасушыны _шығару"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Бө_лімді тіркеу"
+msgstr "Бөлімді пі_шімдеу"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1171,12 +1160,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Аялдату"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "Қал_пына келтіру"
+msgstr "Жа_лғастыру"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1258,19 +1246,19 @@ msgstr "Е_нін ұмыту"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "Таң_башалар көрінісі"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "Ық_шам көрінісі"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "Кіші көрініс_тер"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "То_лық тізім көрінісі"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1287,14 +1275,15 @@ msgid "Cannot access destination file"
 msgstr "Мақсат файлына қатынау мүмкін емес"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "бөтен файлдық жүйесінде сілтемені жасау мүмкін емес"
+msgstr "Бөтен файлдық жүйесінде сілтемені жасау мүмкін емес"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Қоқыс шелегіндегі файлдарды бастапқы орындарына қайтару"
+msgstr ""
+"'%s' файлын қоқыс шелегінен қалпына келтіру мүмкін емес: бастапқы орналасуы "
+"белгісіз"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1313,9 +1302,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Мақсат бумасы қайнар көздің ішкі бумасы болып тұр"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Буманы оның ішкі бумасына көшіру мүмкін емес"
+msgstr "'%s' файлын көшіру мүмкін емес: қолдауы жоқ"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1328,9 +1317,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Мақсат атын орнату тек бірлік файл үшін орындауға болады"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML файлының %s қатесі (%d:%d): "
+msgstr "XML файлының '%s' қатесі (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1366,9 +1355,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Мәзір элементінің аты бос болмауы тиіс"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "%s мәзірлер бумасы жарамсыз"
+msgstr "'%s' мәзірлер бумасы жарамсыз"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1384,34 +1373,34 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Мәзір бумасы үшін жасырын жалаушасын ауыстыруға қолдау жоқ"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "%s атрибутын орнатуына қолдау жоқ"
+msgstr "'%s' атрибутын орнатуына қолдау жоқ"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "%s атрибуты үшін мәні қате"
+msgstr "'%s' атрибуты үшін мәні қате"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "\"%s\" мәзір бумасы болып тұр"
+msgstr "'%s' мәзір бумасы болып тұр"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "«%s» мәзір элементі емес"
+msgstr "'%s' мәзір элементі емес"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "«%s» жарамсыз"
+msgstr "'%s' элемент файлы жарамсыз"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "«%s» мәзір элементін жасау мүмкін емес"
+msgstr "'%s' мәзір элементін жасау мүмкін емес"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1426,9 +1415,9 @@ msgid "Invalid destination"
 msgstr "Мақсат орналасуы қате"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: %s бумасы мәзір кэшінен табылмады"
+msgstr "FmMenuVFileMonitor: '%s' бумасы мәзір кэшінен табылмады"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1513,19 +1502,19 @@ msgstr "Қоқыс шелегіндегі файлдарды бастапқы о
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "қайнар көз файл атауы немесе desktop id"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ҚАЙНАР_КӨЗІ"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "мақсат файлдың атауы"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "НӘТИЖЕ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
