@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-27 13:12+0000\n"
+"PO-Revision-Date: 2013-09-04 10:23+0000\n"
 "Last-Translator: Piotr <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377609170.0\n"
+"X-POOTLE-MTIME: 1378290181.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -26,12 +26,11 @@ msgstr "Preferowane programy"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Utwórz nowy lub zmień istniejący element pulpitu"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Aktywator programu"
+msgstr "Edytor skrótu"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -123,9 +122,8 @@ msgid "with the following file?"
 msgstr "następującym plikiem?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Wybierz ikony z:</b>"
+msgstr "<b>Wybierz ikonę z:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
@@ -133,15 +131,13 @@ msgstr "Wybierz ikonę..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Pliki obrazów"
+msgstr "pliki obrazów"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Motyw ikon systemu"
+msgstr "motyw ikon systemu"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -180,9 +176,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Czas modyfikacji:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Czas ostatniego dostępu:</b>"
+msgstr "<b>Ostatnia zmiana uprawnień:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -233,9 +228,8 @@ msgid "File Properties"
 msgstr "Właściwości"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "Nagrania _wideo"
+msgstr "Plik ukryty"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -506,24 +500,24 @@ msgid "Preparing..."
 msgstr "Przygotowywanie..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Nieprawidłowy element menu %s"
+msgstr "Nieprawidłowy plik elementu pulpitu: '%s'"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Nie ma przypisanego domyślnego programu dla typu MIME %s"
+msgstr "Nie ma przypisanego domyślnego programu dla uruchomiania URI %s://"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Nie można zmienić katalogu roboczego na '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Nie można określić typu zawartości pliku '%s', by go uruchomić"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -543,22 +537,20 @@ msgid "Trash Can"
 msgstr "Kosz"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Aktywator programu"
+msgstr "skrót do URI"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: nieprawidłowy argument"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "Nie ustalono emulatora terminala w konfiguracji libfm"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Nieprawidłowe miejsce docelowe"
+msgstr "Nieprawidłowy opis programu tworzenia miniaturek"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -595,7 +587,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "Podścieżka URI '%s' zawiera nieprawidłowe znaki sterujące"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -718,23 +710,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Pokaż drzewo katalogów w panelu bocznym"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Anulowano"
+msgstr "_Anuluj"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "K_opiuj"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Przenieś w _lewo"
+msgstr "_Przenieś"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "O_dnośnik"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -750,11 +740,11 @@ msgstr "Otwórz za _pomocą..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "_Ukryj"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "Nie ukrywa_j"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -777,9 +767,8 @@ msgid "Prop_erties"
 msgstr "Właś_ciwości"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Kosz"
+msgstr "_Kosz"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -808,17 +797,19 @@ msgstr "Zatwierdzić zmiany rekursywnie dla wszystkich plików i podkatalogów?"
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Ukryj lub wyświetlaj plik"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Ten plik jest ukryty ponieważ jego nazwa zaczyna się od kropki ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Pliki w tym systemie są ukryte, jeśli ich nazwa zaczyna się od kropki ('.'). "
+"Naciśnij <Ctrl+H>, aby przełączać tryb wyświetlania ukrytych plików."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1010,9 +1001,9 @@ msgstr ""
 "czynności."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Przenieść zaznaczone pliki do kosza?"
+msgstr "Czy chcesz przenieść plik '%s' do kosza?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
 #, fuzzy, c-format
@@ -1180,7 +1171,7 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Wstrzymaj"
 
 #: ../src/gtk/fm-progress-dlg.c:391
 #, fuzzy
@@ -1267,19 +1258,19 @@ msgstr "Zapomnij _szerokość"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "Wyświetlanie _ikon"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "Wido_k kompaktowy"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "Widok _miniatur"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Widok ze szczegółową _listą"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1525,19 +1516,19 @@ msgstr "Przywraca pliki z kosza do ich pierwotnego położenia"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "nazwa pliku źródłowego lub identyfikator pulpitu"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ŹRÓDŁO"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "wynikowa nazwa pliku"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "WYNIK"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
