@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 18:02+0000\n"
+"PO-Revision-Date: 2013-09-04 18:17+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378317729.0\n"
+"X-POOTLE-MTIME: 1378318623.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -293,7 +293,7 @@ msgstr "Pode alterar o conteúdo do ficheiro ou diretório"
 
 #: ../data/ui/file-prop.glade.h:36
 msgid "Who can execute the file or enter the directory"
-msgstr "Pode executar ou ficheiro ou aceder ao diretório"
+msgstr "Pode executar o ficheiro ou aceder ao diretório"
 
 #: ../data/ui/file-prop.glade.h:37
 msgid "Who can read content of the file/directory"
@@ -438,7 +438,7 @@ msgstr "_Utilizar expressões regulares"
 
 #: ../data/ui/filesearch.glade.h:33
 msgid "_Video files"
-msgstr "Vídeos"
+msgstr "_Vídeos"
 
 #: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail client</b>"
@@ -595,7 +595,7 @@ msgstr "O caminho do URI %s contém caracteres inválidos"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr "Gestor duplicado para a a etiqueta <%s>"
+msgstr "Gestor duplicado para a etiqueta <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -728,7 +728,7 @@ msgstr "_Ligar"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
-msgstr "Falha XDirectSave."
+msgstr "Falha XDirectSave"
 
 #: ../src/gtk/fm-file-menu.c:148
 msgid "_Open"
@@ -812,7 +812,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
-msgstr "<b>Conteúdo de acesso:</b>"
+msgstr "<b>_Aceder ao conteúdo:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1198
 msgid "Files of different types"
@@ -857,7 +857,7 @@ msgstr "Localização"
 
 #: ../src/gtk/fm-folder-view.c:179
 msgid "Create _New..."
-msgstr "Criar _..."
+msgstr "Criar _novo(a)..."
 
 #: ../src/gtk/fm-folder-view.c:180
 msgid "Folder"
@@ -893,12 +893,11 @@ msgstr "Só para _esta pasta"
 
 #: ../src/gtk/fm-folder-view.c:209
 msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
-"Assinale para estipular a definição de pasta em vez da definição global"
+msgstr "Assinale para memorizar a definição de pasta em vez da definição global"
 
 #: ../src/gtk/fm-folder-view.c:210
 msgid "Mingle _files and folders"
-msgstr "Pastas pre_cedem ficheiros"
+msgstr "Misturar _ficheiros e pastas"
 
 #: ../src/gtk/fm-folder-view.c:211
 msgid "_Ignore name case"
@@ -938,7 +937,7 @@ msgstr "Criação..."
 
 #: ../src/gtk/fm-folder-view.c:869
 msgid "New"
-msgstr "Novo"
+msgstr "Novo(a)"
 
 #: ../src/gtk/fm-folder-view.c:879
 #, c-format
@@ -1198,7 +1197,7 @@ msgstr "Modificar atributos do ficheiro"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
-msgstr "_Desligar"
+msgstr "De_sativar"
 
 #: ../src/gtk/fm-side-pane.c:67
 msgid "_Places"
