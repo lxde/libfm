@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-03 14:01-0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2013-09-04 18:02+0000\n"
+"Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
-"X-POOTLE-MTIME: 1374795685.0\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1378317729.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -516,7 +516,7 @@ msgstr "Não há uma aplicação definida para abrir URIs %s://"
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Não foi possível definir o diretório de trabalho %s: %s"
+msgstr "Não foi possível definir o diretório de trabalho para %s: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
@@ -595,7 +595,7 @@ msgstr "O caminho do URI %s contém caracteres inválidos"
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
 msgid "Duplicate handler for tag <%s>"
-msgstr "Gestor da etiqueta <%s> duplicado"
+msgstr "Gestor duplicado para a a etiqueta <%s>"
 
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
@@ -603,8 +603,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Falha ao analisar %-.*s, que devia ser um dígito desntro de uma sequência de "
-"caracteres (&#234; por exemplo). É possível que o dígio seja muito grande"
+"Falha ao analisar %-.*s, que devia ser um dígito dentro de uma sequência de "
+"caracteres (&#234; por exemplo). É possível que o dígito seja muito grande"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -620,7 +620,7 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "A referência de caracteres %-.*s não codifica um carácter permmitido"
+msgstr "A referência de caracteres %-.*s não codifica um carácter permitido"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
@@ -960,13 +960,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Parece que o ficheiro \"%s\" é um script executável.\n"
+"Parece que o ficheiro %s é um script executável.\n"
 "O que pretende fazer com o ficheiro?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:145
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "O ficheiro \"%s\" é um executável. Executar?"
+msgstr "O ficheiro %s é um executável. Executar?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:652
@@ -1264,13 +1264,13 @@ msgstr "Vista deta_lhada"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
-msgstr ""
+msgstr "Muda para o separador ativo"
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
 #, c-format
 msgid "The specified directory '%s' is not valid"
-msgstr "O diretório especificado \"%s\" não é válido"
+msgstr "O diretório %s não é válido"
 
 #: ../src/job/fm-file-ops-job.c:526
 msgid "Cannot access destination file"
@@ -1335,7 +1335,7 @@ msgstr "Não foi possível criar a definição XML de %s"
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr "O caminho de menu \"%s\" já existe"
+msgstr "O caminho de menu %s já existe"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1521
@@ -1367,7 +1367,7 @@ msgstr "Item de menu inválido"
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr "O item de menu \"%s\" não possui uma entrada válida"
+msgstr "O item de menu %s não possui uma entrada válida"
 
 #: ../src/modules/vfs-menu.c:1821
 msgid "Change hidden status isn't supported for menu directory"
