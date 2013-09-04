@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 12:03+0000\n"
+"PO-Revision-Date: 2013-09-04 21:31+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378296239.0\n"
+"X-POOTLE-MTIME: 1378330274.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -738,7 +738,7 @@ msgstr "_Jjulula"
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Kolawo nyunzi"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -754,11 +754,11 @@ msgstr "B_ikkuza..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "K_isa"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "Labi_sa"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -781,9 +781,8 @@ msgid "Prop_erties"
 msgstr "Ebi_kwata ku fayiro"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Bisuulidwa"
+msgstr "_Bisuulidwa"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -812,17 +811,21 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Kisa oba labisa fayiro"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
+"Fayiro eno ekisidwa kubanga erinnya lya yo litandika n'akatonyeze ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Ku sisitemu eya fayiro eno fayiro ezirina amannya agatandika n'akatonnyeze "
+"('.') zikisibwa. Okuyusa fayiro wakati w'okulabika n'okukisibwa nyiga "
+"amapeesa aga <Ctrl+H>."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1013,9 +1016,9 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Kino kiyinzibwa bateesiteesi ba sisitemu bokka."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Fayiro z'olonze nzitwale mu bisuulidwa?"
+msgstr "Fayiro '%s' ngitwale mu bisuulidwa?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
 #, fuzzy, c-format
@@ -1025,9 +1028,9 @@ msgstr[0] "Fayiro z'olonze nzitwale mu bisuulidwa?"
 msgstr[1] "Fayiro z'olonze nzitwale mu bisuulidwa?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Fayiro z'olonze nzigyewo?"
+msgstr "Fayiro '%s' ngigyewo?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
 #, fuzzy, c-format
@@ -1265,19 +1268,19 @@ msgstr "_Ereme okujjukiranga bugazi bweyaliko obwasemba"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "_Kozesa Bufaananyi Okulaga Ebiri Wano"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Ebiri Wano Birage Mu Bufunze"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Laga Obulozako Bw'ebiri Wano"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Ebiri Wano _Birage Mu Bujjuvu"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1294,16 +1297,17 @@ msgid "Cannot access destination file"
 msgstr "Sisobola kubikkula fayiro egenderwa"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
 msgstr ""
-"sisobola kukolawo nyunzi egguka ku sisitemu eya fayiro etali ya mu luse "
+"Sisobola kukolawo nyunzi egguka ku sisitemu eya fayiro etali ya mu luse "
 "lw'ez'oku sisitemu eno"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Fayiro eziri mu bisuulidwa zizewo gyezagyibwa"
+msgstr ""
+"Fayiro %s' eri mu bisuulidwa ennemye okuzzawo: Ekkubo erigguka gye yali "
+"sirimanyi"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1322,9 +1326,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Gyoyagala okutwala wali munda mwalyo ate"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Tekisoboka okuteeka kopi y'etterekero munda mw'eririri munda ate"
+msgstr "Nnemedwa okugya koppi mu fayiro '%s': Ekika kya yo tewali bikikolako"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1420,9 +1424,9 @@ msgid "The '%s' entry file is broken"
 msgstr "\"%s\" eriko kiremya"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Nnemedwa okukolawo eky'omu menyu \"%s\""
+msgstr "Nnemedwa okukolawo eky'omu menyu '%s'"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1440,9 +1444,10 @@ msgid "Invalid destination"
 msgstr "Ekitegekedwa ng'ekigenderwa tekikkirizibwa"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: fayiro %s ebuzeyo mu ggwanika zzibizi erya menyu"
+msgstr ""
+"FmMenuVFileMonitor: tterekero '%s' libuzeyo mu ggwanika zzibizi erya menyu"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1527,7 +1532,7 @@ msgstr "Fayiro eziri mu bisuulidwa zizewo gyezagyibwa"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "Linnya lya fayiro ey'ennono oba ery'awakolerwa"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
