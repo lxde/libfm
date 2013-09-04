@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 21:31+0000\n"
+"PO-Revision-Date: 2013-09-04 21:37+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378330274.0\n"
+"X-POOTLE-MTIME: 1378330673.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1341,9 +1341,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Ekigenderwa kitegekebwa fayiro emu yokka"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Fayiro eya XML eriko kiremya w'ekika kya %s (%d:%d): "
+msgstr "Fayiro eya XML eriko kiremya w'ekika kya '%s' (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1381,9 +1381,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Eky'omu menyu tekikkirizibwa butaba na linnya"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "%s ssi tterekero lya menyu"
+msgstr "'%s' ssi tterekero lya menyu"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1399,29 +1399,29 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Tosobola kukyusa okuboneka kw'etterekero erya menyu"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Tosobola kutegeka atiributi eya %s"
+msgstr "Tosobola kutegeka atiributi '%s' kubanga sisitemu eno tegimanyi"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Ekitegekedwa ku atiributi %s tekikkirizibwa"
+msgstr "Ekitegekedwa ku atiributi '%s' tekikkirizibwa"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "\"%s\" tterekero lya menyu"
+msgstr "'%s' tterekero lya menyu"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "\"%s\" ssi kintu kya mu menyu"
+msgstr "'%s' ssi kintu kya mu menyu"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "\"%s\" eriko kiremya"
+msgstr "'%s' eriko kiremya"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
 #, c-format
@@ -1536,7 +1536,7 @@ msgstr "Linnya lya fayiro ey'ennono oba ery'awakolerwa"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "NNONO"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
