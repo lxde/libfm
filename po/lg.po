@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 21:37+0000\n"
+"PO-Revision-Date: 2013-09-04 21:41+0000\n"
 "Last-Translator: kizito <kbirabwa@yahoo.co.uk>\n"
 "Language-Team: lg <kbirabwa@yahoo.co.uk>\n"
 "Language: lg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378330673.0\n"
+"X-POOTLE-MTIME: 1378330872.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1021,11 +1021,11 @@ msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Fayiro '%s' ngitwale mu bisuulidwa?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Fayiro z'olonze nzitwale mu bisuulidwa?"
-msgstr[1] "Fayiro z'olonze nzitwale mu bisuulidwa?"
+msgstr[0] "Fayiro %d gy'olonze ngitwale mu bisuulidwa?"
+msgstr[1] "Fayiro %d z'olonze nzitwale mu bisuulidwa?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
 #, c-format
@@ -1033,11 +1033,11 @@ msgid "Do you want to delete the file '%s'?"
 msgstr "Fayiro '%s' ngigyewo?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Fayiro z'olonze nzigyewo?"
-msgstr[1] "Fayiro z'olonze nzigyewo?"
+msgstr[0] "Fayiro %d gy'olonze ngigyewo?"
+msgstr[1] "Fayiro %d z'olonze nzigyewo?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1540,11 +1540,11 @@ msgstr "NNONO"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "linnya lya fayiro ekolebwawo"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "KIGENDERWA"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
