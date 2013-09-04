@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 18:17+0000\n"
+"PO-Revision-Date: 2013-09-04 20:48+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378318623.0\n"
+"X-POOTLE-MTIME: 1378327716.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1277,17 +1277,16 @@ msgstr "Não foi possível aceder ao ficheiro de destino"
 
 #: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
-"Não é possível criar uma ligação para sistemas de ficheiros não nativos"
+msgstr "Não é possível criar uma ligação em sistemas de ficheiros não nativos"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Não foi possível restaurar %s. O caminho original não é conhecido."
+msgstr "Não foi possível restaurar %s: o caminho original não é conhecido"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
-msgstr "A origem e destino são os mesmos."
+msgstr "A origem e destino são iguais."
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
@@ -1472,7 +1471,7 @@ msgstr "<b>Diretório de _trabalho:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
-msgstr "O diretório de trabalho de execução do programa"
+msgstr "O diretório de trabalho para execução do programa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
 msgid "<b>_Tooltip:</b>"
