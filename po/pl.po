@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-04 10:23+0000\n"
+"PO-Revision-Date: 2013-09-04 10:37+0000\n"
 "Last-Translator: Piotr <strebski@o2.pl>\n"
 "Language-Team: polski <>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378290181.0\n"
+"X-POOTLE-MTIME: 1378291033.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1006,25 +1006,25 @@ msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Czy chcesz przenieść plik '%s' do kosza?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Przenieść zaznaczone pliki do kosza?"
-msgstr[1] "Przenieść zaznaczone pliki do kosza?"
-msgstr[2] "Przenieść zaznaczone pliki do kosza?"
+msgstr[0] "Czy chcesz przenieść zaznaczony %d plik do kosza?"
+msgstr[1] "Czy chcesz przenieść zaznaczone %d pliki do kosza?"
+msgstr[2] "Czy chcesz przenieść zaznaczonych %d plików do kosza?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Usunąć zaznaczone pliki?"
+msgstr "Czy chcesz usunąć plik '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Usunąć zaznaczone pliki?"
-msgstr[1] "Usunąć zaznaczone pliki?"
-msgstr[2] "Usunąć zaznaczone pliki?"
+msgstr[0] "Czy chcesz usunąć zaznaczony %d plik?"
+msgstr[1] "Czy chcesz usunąć zaznaczone %d pliki?"
+msgstr[2] "Czy chcesz usunąć zaznaczonych %d plików?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1056,19 +1056,16 @@ msgid "Applications"
 msgstr "Programy"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "_Typ pliku"
+msgstr "System plików"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
 msgstr "Komputer"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Sieć"
+msgstr "Dyski sieciowe"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1083,9 +1080,8 @@ msgid "_Eject Removable Media"
 msgstr "Wysuń nośnik wymi_enny"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Za_montuj wolumen"
+msgstr "_Formatuj wolumen"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1174,9 +1170,8 @@ msgid "_Pause"
 msgstr "_Wstrzymaj"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Przywróć"
+msgstr "_Wznów"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1287,14 +1282,13 @@ msgid "Cannot access destination file"
 msgstr "Nie można uzyskać dostępu do pliku docelowego"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "nie można utworzyć dowiązania do nienatywnego systemu plików"
+msgstr "Nie można utworzyć dowiązania do nienatywnego systemu plików"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Przywraca pliki z kosza do ich pierwotnego położenia"
+msgstr "Nie można przywrócić pliku '%s' z kosza: nieznana pierwotna ścieżka"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1313,9 +1307,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Położenie docelowe jest katalogiem podrzędnym położenia źródłowego"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Nie można skopiować katalogu do jego położenia podrzędnego"
+msgstr "Nie można skopiować pliku '%s': nieobsługiwane"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1329,9 +1323,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Ustawienie celu może być dokonane tylko dla pojedynczego pliku"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Błąd pliku XML %s (%d:%d): "
+msgstr "Błąd pliku XML '%s' (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1367,9 +1361,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Nazwa elementu menu nie może być pusta"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Nieprawidłowy katalog menu %s"
+msgstr "Nieprawidłowy katalog menu '%s'"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1385,34 +1379,34 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Zmiana stanu widoczności nie jest wspierana dla katalogów menu"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Ustawianie atrybutu %s nie jest obsługiwane"
+msgstr "Ustawianie atrybutu '%s' nie jest obsługiwane"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Niepoprawna wartość dla atrybutu %s"
+msgstr "Niepoprawna wartość dla atrybutu '%s'"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "\"%s\" jest katalogiem menu"
+msgstr "Element '%s' jest katalogiem menu"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "\"%s\" nie jest elementem menu"
+msgstr "Element '%s' nie jest elementem menu"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "\"%s\" jest uszkodzone"
+msgstr "Plik wpisu '%s' jest uszkodzony"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Nie można utworzyć elementu menu \"%s\""
+msgstr "Nie można utworzyć elementu menu '%s'"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1427,10 +1421,10 @@ msgid "Invalid destination"
 msgstr "Nieprawidłowe miejsce docelowe"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
-"FmMenuVFileMonitor: katalog %s nie został znaleziony w pamięci podręcznej "
+"FmMenuVFileMonitor: katalog '%s' nie został odnaleziony w pamięci podręcznej "
 "menu"
 
 #. FIXME: need name to be converted to UTF-8?
