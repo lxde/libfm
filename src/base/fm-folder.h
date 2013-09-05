@@ -110,6 +110,10 @@ void fm_folder_reload(FmFolder* folder);
 gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size);
 void fm_folder_query_filesystem_info(FmFolder* folder);
 
+/* internal event handling to workaroung GIO inotify delay */
+gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path);
+void _fm_folder_event_file_deleted(FmFolder *folder, FmPath *path);
+
 void _fm_folder_init();
 void _fm_folder_finalize();
 
