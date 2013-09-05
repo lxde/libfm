@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-01 08:53+0000\n"
+"PO-Revision-Date: 2013-09-05 18:30+0000\n"
 "Last-Translator: Klemen <klemen913@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1375347235.0\n"
+"X-POOTLE-MTIME: 1378405815.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -26,12 +26,11 @@ msgstr "Prednostni programi"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Ustvarite novo ali spremenite obstoječo vnosno datoteko"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Bližnjice"
+msgstr "Urejevalnik bližnjic"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -127,7 +126,6 @@ msgid "with the following file?"
 msgstr "z naslednjo datoteko?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Izberite ikono:</b>"
 
@@ -137,15 +135,13 @@ msgstr "Izberite ikono"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Slike"
+msgstr "slike"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Sistemske ikone"
+msgstr "sistemske ikone"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -184,9 +180,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Zadnja sprememba:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Zadnji dostop:</b>"
+msgstr "<b>Zadnja sprememba dovoljenj:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -237,9 +232,8 @@ msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Video datoteke"
+msgstr "Skrita datoteka"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -509,24 +503,24 @@ msgid "Preparing..."
 msgstr "Pripravljanje ..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Neveljaven predmet menija: %s"
+msgstr "Neveljavna vnosna datoteka: \"%s\""
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "Za vrsto MIME %s ni nastavljenega privzetega programa"
+msgstr "Za URI %s:// ni nastavljenega privzetega programa"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Delovne mape ni mogoče spremeniti v \"%s\": %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Vrste vsebine datoteke \"%s\" za zagon ni mogoče določiti"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -547,20 +541,19 @@ msgstr "Smeti"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr ""
+msgstr "bližnjica do URI-ja"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: neveljaven argument"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "V nastavitvah ni nastavljenega terminala"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Neveljaven cilj"
+msgstr "Neveljaven opis programa za ustvaritev predoglednih sličic"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -598,7 +591,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "Podpot \"%s\" naslova URI vsebuje neveljavne ubežne znake"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -717,23 +710,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Pokaže drevo map v stranskem pladnju"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Preklicano"
+msgstr "_Prekliči"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "_Kopiraj"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Premakni _levo"
+msgstr "Pre_makni"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Povezava"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -749,11 +740,11 @@ msgstr "Odpri _z ..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "_Skrij"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "P_okaži"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -776,9 +767,8 @@ msgid "Prop_erties"
 msgstr "_Lastnosti"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Smeti"
+msgstr "Sme_ti"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -809,17 +799,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Skrij ali pokaži datoteko"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Ta datoteka je skrita, ker se njeno ime začne s piko ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Če se ime datoteke začne s piko ('.'), je datoteka skrita. Pritisnite "
+"<Ctrl+H>, če želite videti skrite datoteke."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1008,32 +1000,32 @@ msgid "Only system administrators have the permission to do this."
 msgstr "To dejanje lahko izvedejo le skrbniki sistema."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Ali želite premakniti izbrane datoteke v smeti?"
+msgstr "Ali želite premakniti datoteko \"%s\" v smeti?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Ali želite premakniti izbrane datoteke v smeti?"
-msgstr[1] "Ali želite premakniti izbrane datoteke v smeti?"
-msgstr[2] "Ali želite premakniti izbrane datoteke v smeti?"
-msgstr[3] "Ali želite premakniti izbrane datoteke v smeti?"
+msgstr[0] "Ali želite premakniti %d izbranih datotek v smeti?"
+msgstr[1] "Ali želite premakniti %d izbrano datoteko v smeti?"
+msgstr[2] "Ali želite premakniti %d izbrani datoteki v smeti?"
+msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Ali želite izbrisati izbrane datoteke?"
+msgstr "Ali želite izbrisati datoteko \"%s\"?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Ali želite izbrisati izbrane datoteke?"
-msgstr[1] "Ali želite izbrisati izbrane datoteke?"
-msgstr[2] "Ali želite izbrisati izbrane datoteke?"
-msgstr[3] "Ali želite izbrisati izbrane datoteke?"
+msgstr[0] "Ali želite izbrisati %d izbranih datotek?"
+msgstr[1] "Ali želite izbrisati %d izbrano datoteko?"
+msgstr[2] "Ali želite izbrisati %d izbrani datoteki?"
+msgstr[3] "Ali želite izbrisati %d izbrane datoteke?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1065,19 +1057,16 @@ msgid "Applications"
 msgstr "Programi"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "_Vrsta datoteke"
+msgstr "Datotečni sistem"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Moj računalnik"
+msgstr "Računalnik"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Omrežje"
+msgstr "Omrežni diski"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1092,9 +1081,8 @@ msgid "_Eject Removable Media"
 msgstr "_Izvrzi odstranljiv nosilec"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "_Priklopi nosilec"
+msgstr "_Formatiraj nosilec"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1180,12 +1168,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Ustavi"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Obnovi"
+msgstr "_Nadaljuj"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1267,19 +1254,19 @@ msgstr "Pozabi _širino"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "_Ikone"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Strnjen seznam"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Predogledne sličice"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Po_droben seznam"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1296,14 +1283,13 @@ msgid "Cannot access destination file"
 msgstr "Do ciljne datoteke ni mogoče dostopiti"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Povezave na tujem datotečnem sistemu ni mogoče ustvariti"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Obnovi datoteke v smeteh na izvirno mesto"
+msgstr "Datoteke \"%s\" ni mogoče obnoviti: izvirna pot je neznana"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1322,9 +1308,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Cilj je podmapa izvorne mape."
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Mape ni mogoče kopirati v lastno podmapo."
+msgstr "Datoteke \"%s\" ni mogoče kopirati: dejanje ni podprto"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1337,9 +1323,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Cilj lahko nastavite le za posamezno datoteko"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Napaka v datoteki %s (%d:%d): "
+msgstr "Napaka v datoteki XML \"%s\" (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1375,9 +1361,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Ime predmeta menija ne sme biti prazno"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Neveljavna mapa menija: %s"
+msgstr "Neveljavna mapa menija: \"%s\""
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1393,32 +1379,32 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Skrivanje mape menija ni podprto"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Nastavljanje atributa %s ni podprto"
+msgstr "Nastavljanje atributa \"%s\" ni podprto"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Neveljavna vrednost atributa %s"
+msgstr "Neveljavna vrednost atributa \"%s\""
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
 msgstr "\"%s\" je mapa menija"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "\"%s\" ni predmet menija"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "\"%s\" je pokvarjen"
+msgstr "Vnosna datoteka \"%s\" je pokvarjena"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Predmeta menija \"%s\" ni mogoče ustvariti"
 
@@ -1435,9 +1421,9 @@ msgid "Invalid destination"
 msgstr "Neveljaven cilj"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: mape %s ni mogoče najti v predpomnilniku menija"
+msgstr "FmMenuVFileMonitor: mape \"%s\" ni mogoče najti v predpomnilniku menija"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1510,7 +1496,7 @@ msgstr "Uporabi obvestilo o _zagonu"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
 msgid "_Desktop entry"
-msgstr "_Namizje"
+msgstr "_Vnosna datoteka"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1522,19 +1508,19 @@ msgstr "Obnovi datoteke v smeteh na izvirno mesto"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "ime datoteke vira ali ID namizja"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "VIR"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "ime izhodne datoteke"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "REZULTAT"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
