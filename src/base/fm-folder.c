@@ -105,6 +105,8 @@ static GVolumeMonitor* volume_monitor = NULL;
 G_LOCK_DEFINE_STATIC(query);
 /* protects hash access */
 G_LOCK_DEFINE_STATIC(hash);
+/* protects access to files_to_add, files_to_update and files_to_del */
+G_LOCK_DEFINE_STATIC(lists);
 
 static void fm_folder_class_init(FmFolderClass *klass)
 {
@@ -414,6 +416,7 @@ static gboolean on_idle(FmFolder* folder)
 {
     GSList* l;
     FmFileInfoJob* job = NULL;
+    GSList *files_to_add, *files_to_del, *files_to_update;
     gboolean stop_emission;
 
     /* check if folder still exists */
@@ -422,10 +425,19 @@ static gboolean on_idle(FmFolder* folder)
         return FALSE;
     }
     g_object_ref(folder);
-    G_LOCK(query);
+    G_LOCK(lists);
     folder->idle_handler = 0;
     stop_emission = folder->stop_emission;
-    G_UNLOCK(query);
+    if (!stop_emission)
+    {
+        files_to_add = folder->files_to_add;
+        folder->files_to_add = NULL;
+        files_to_del = folder->files_to_del;
+        folder->files_to_del = NULL;
+        files_to_update = folder->files_to_update;
+        folder->files_to_update = NULL;
+    }
+    G_UNLOCK(lists);
 
     /* if we were asked to block updates let delay it for now */
     if (stop_emission)
@@ -433,31 +445,29 @@ static gboolean on_idle(FmFolder* folder)
 
     /* g_debug("folder: on_idle() started"); */
 
-    if(folder->files_to_update || folder->files_to_add)
+    if(files_to_update || files_to_add)
         job = (FmFileInfoJob*)fm_file_info_job_new(NULL, 0);
 
-    if(folder->files_to_update)
+    if(files_to_update)
     {
-        for(l=folder->files_to_update; l; l = l->next)
+        for(l=files_to_update; l; l = l->next)
         {
             FmPath *path = l->data;
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
         }
-        g_slist_free(folder->files_to_update);
-        folder->files_to_update = NULL;
+        g_slist_free(files_to_update);
     }
 
-    if(folder->files_to_add)
+    if(files_to_add)
     {
-        for(l=folder->files_to_add;l;l=l->next)
+        for(l=files_to_add;l;l=l->next)
         {
             FmPath *path = l->data;
             fm_file_info_job_add(job, path);
             fm_path_unref(path);
         }
-        g_slist_free(folder->files_to_add);
-        folder->files_to_add = NULL;
+        g_slist_free(files_to_add);
     }
 
     if(job)
@@ -473,19 +483,18 @@ static gboolean on_idle(FmFolder* folder)
         /* the job will be freed automatically in on_file_info_job_finished() */
     }
 
-    if(folder->files_to_del)
+    if(files_to_del)
     {
         GSList* ll;
-        for(ll=folder->files_to_del;ll;ll=ll->next)
+        for(ll=files_to_del;ll;ll=ll->next)
         {
             GList* l= (GList*)ll->data;
             ll->data = l->data;
-            fm_file_info_list_delete_link_nounref(folder->files , l);
+            fm_file_info_list_delete_link_nounref(folder->files, l);
         }
-        g_signal_emit(folder, signals[FILES_REMOVED], 0, folder->files_to_del);
-        g_slist_foreach(folder->files_to_del, (GFunc)fm_file_info_unref, NULL);
-        g_slist_free(folder->files_to_del);
-        folder->files_to_del = NULL;
+        g_signal_emit(folder, signals[FILES_REMOVED], 0, files_to_del);
+        g_slist_foreach(files_to_del, (GFunc)fm_file_info_unref, NULL);
+        g_slist_free(files_to_del);
 
         g_signal_emit(folder, signals[CONTENT_CHANGED], 0);
     }
@@ -514,10 +523,73 @@ _finish:
     return FALSE;
 }
 
+/* returns TRUE if reference was taken from path */
+gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path)
+{
+    gboolean added = TRUE;
+
+    G_LOCK(lists);
+    /* make sure that the file is not already queued for addition. */
+    if(!g_slist_find(folder->files_to_add, path))
+    {
+        GList *l = _fm_folder_get_file_by_path(folder, path);
+        if(!l) /* it's new file */
+        {
+            /* add the file name to queue for addition. */
+            folder->files_to_add = g_slist_append(folder->files_to_add, path);
+        }
+        else if(g_slist_find(folder->files_to_update, path))
+        {
+            /* file already queued for update, don't duplicate */
+            added = FALSE;
+        }
+        /* if we already have the file in FmFolder, update the existing one instead. */
+        else
+        {
+            /* bug #3591771: 'ln -fns . test' leave no file visible in folder.
+               If it is queued for deletion then cancel that operation */
+            folder->files_to_del = g_slist_remove(folder->files_to_del, l);
+            /* update the existing item. */
+            folder->files_to_update = g_slist_append(folder->files_to_update, path);
+        }
+    }
+    if(!folder->idle_handler)
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    G_UNLOCK(lists);
+    return added;
+}
+
+void _fm_folder_event_file_deleted(FmFolder *folder, FmPath *path)
+{
+    GList *l;
+    GSList *sl;
+
+    G_LOCK(lists);
+    l = _fm_folder_get_file_by_path(folder, path);
+    if(l && !g_slist_find(folder->files_to_del, l) )
+        folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
+    /* if the file is already queued for addition or update, that operation
+       will be just a waste, therefore cancel it right now */
+    sl = g_slist_find(folder->files_to_update, path);
+    if(sl)
+    {
+        folder->files_to_update = g_slist_delete_link(folder->files_to_update, sl);
+    }
+    else if((sl = g_slist_find(folder->files_to_add, path)))
+    {
+        folder->files_to_add = g_slist_delete_link(folder->files_to_add, sl);
+    }
+    else
+        path = NULL;
+    if(!folder->idle_handler)
+        folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    G_UNLOCK(lists);
+    if (path != NULL)
+        fm_path_unref(path); /* link was freed above so we should unref it */
+}
+
 static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileMonitorEvent evt, FmFolder* folder)
 {
-    GList* l;
-    GSList* sl;
     FmPath* path;
 
     /* const char* names[]={
@@ -531,7 +603,7 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     }; */
     
     /*
-    name = g_file_get_basename(gf);
+    char *name = g_file_get_basename(gf);
     g_debug("folder: %p, file %s event: %s", folder, name, names[evt]);
     g_free(name);
     */
@@ -564,10 +636,10 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
         case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
             folder->pending_change_notify = TRUE;
-            G_LOCK(query);
+            G_LOCK(lists);
             if(!folder->idle_handler)
                 folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
-            G_UNLOCK(query);
+            G_UNLOCK(lists);
             /* g_debug("folder is changed"); */
             break;
 #if GLIB_CHECK_VERSION(2,24,0)
@@ -588,67 +660,29 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
     switch(evt)
     {
     case G_FILE_MONITOR_EVENT_CREATED:
-    {
-        /* make sure that the file is not already queued for addition. */
-        if(!g_slist_find(folder->files_to_add, path))
-        {
-            l = _fm_folder_get_file_by_path(folder, path);
-            if(!l) /* it's new file */
-            {
-                /* add the file name to queue for addition. */
-                folder->files_to_add = g_slist_append(folder->files_to_add, path);
-            }
-            else if(g_slist_find(folder->files_to_update, path))
-            {
-                /* file already queued for update, don't duplicate */
-                fm_path_unref(path);
-            }
-            /* if we already have the file in FmFolder, update the existing one instead. */
-            else
-            {
-                /* bug #3591771: 'ln -fns . test' leave no file visible in folder.
-                   If it is queued for deletion then cancel that operation */
-                folder->files_to_del = g_slist_remove(folder->files_to_del, l);
-                /* update the existing item. */
-                folder->files_to_update = g_slist_append(folder->files_to_update, path);
-            }
-        }
-        else
+        if (!_fm_folder_event_file_added(folder, path))
             fm_path_unref(path);
         break;
-    }
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
     case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-    {
         /* make sure that the file is not already queued for changes or
          * it's already queued for addition. */
+        G_LOCK(lists);
         if(!g_slist_find(folder->files_to_update, path) &&
            !g_slist_find(folder->files_to_add, path) &&
            _fm_folder_get_file_by_path(folder, path)) /* ensure it is our file */
         {
             folder->files_to_update = g_slist_append(folder->files_to_update, path);
+            G_UNLOCK(lists);
         }
         else
+        {
+            G_UNLOCK(lists);
             fm_path_unref(path);
+        }
         break;
-    }
     case G_FILE_MONITOR_EVENT_DELETED:
-        l = _fm_folder_get_file_by_path(folder, path);
-        if(l && !g_slist_find(folder->files_to_del, l) )
-            folder->files_to_del = g_slist_prepend(folder->files_to_del, l);
-        /* if the file is already queued for addition or update, that operation
-           will be just a waste, therefore cancel it right now */
-        sl = g_slist_find(folder->files_to_update, path);
-        if(sl)
-        {
-            fm_path_unref(sl->data); /* free name */
-            folder->files_to_update = g_slist_delete_link(folder->files_to_update, sl);
-        }
-        else if((sl = g_slist_find(folder->files_to_add, path)))
-        {
-            fm_path_unref(sl->data); /* free name */
-            folder->files_to_add = g_slist_delete_link(folder->files_to_add, sl);
-        }
+        _fm_folder_event_file_deleted(folder, path);
         fm_path_unref(path);
         break;
     default:
@@ -656,10 +690,10 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         fm_path_unref(path);
         return;
     }
-    G_LOCK(query);
+    G_LOCK(lists);
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
-    G_UNLOCK(query);
+    G_UNLOCK(lists);
 }
 
 static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
@@ -683,11 +717,13 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
         {
             GSList *l;
 
+            G_LOCK(lists);
             if (folder->defer_content_test && fm_path_is_native(folder->dir_path))
                 /* we got only basic info on content, schedule update it now */
                 for (l = files; l; l = l->next)
                     folder->files_to_update = g_slist_prepend(folder->files_to_update,
                                                 fm_path_ref(fm_file_info_get_path(l->data)));
+            G_UNLOCK(lists);
             g_signal_emit(folder, signals[FILES_ADDED], 0, files);
             g_slist_free(files);
         }
@@ -696,6 +732,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
             folder->dir_fi = fm_file_info_ref(job->dir_fi);
 
         /* Some new files are created while FmDirListJob is loading the folder. */
+        G_LOCK(lists);
         if(G_UNLIKELY(folder->files_to_add))
         {
             /* This should be a very rare case. Could this happen? */
@@ -716,6 +753,7 @@ static void on_dirlist_job_finished(FmDirListJob* job, FmFolder* folder)
                 l = next;
             }
         }
+        G_UNLOCK(lists);
     }
     else if(!folder->dir_fi && job->dir_fi)
         /* we may need dir_fi for incremental folders too */
@@ -1318,10 +1356,12 @@ _out:
     }
 
     folder->filesystem_info_pending = TRUE;
+    G_UNLOCK(query);
     /* we have a reference borrowed by async query still */
+    G_LOCK(lists);
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
-    G_UNLOCK(query);
+    G_UNLOCK(lists);
     g_object_unref(folder);
 }
 
@@ -1399,12 +1439,12 @@ void fm_folder_block_updates(FmFolder *folder)
 void fm_folder_unblock_updates(FmFolder *folder)
 {
     /* g_debug("fm_folder_unblock_updates %p", folder); */
-    G_LOCK(query);
+    G_LOCK(lists);
     folder->stop_emission = FALSE;
     /* query update now */
     if(!folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
-    G_UNLOCK(query);
+    G_UNLOCK(lists);
     /* g_debug("fm_folder_unblock_updates OK"); */
 }
 

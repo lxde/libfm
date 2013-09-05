@@ -207,6 +207,7 @@ static GtkToggleActionEntry folder_toggle_actions[]=
     {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE},
     {"SortPerFolder", NULL, N_("_Only for this folder"), NULL,
                 N_("Check to remember sort as folder setting rather than global one"), NULL, FALSE},
+    /* Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please! */
     {"MingleDirs", NULL, N_("Mingle _files and folders"), NULL, NULL, G_CALLBACK(on_mingle_dirs), FALSE},
     {"SortIgnoreCase", NULL, N_("_Ignore name case"), NULL, NULL, G_CALLBACK(on_ignore_case), TRUE}
 };
@@ -864,7 +865,7 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     }
     else /* invalid action name, is it possible? */
         return;
-    if(templ == NULL) /* new folder */
+    if(templ == NULL) /* new folder or empty file */
     {
         name_template = _("New");
         n = -1;
@@ -909,17 +910,10 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
         g_error_free(error);
         return;
     }
-    if(templ)
-        fm_template_create_file(templ, gf, &error, run_app);
-    else if(new_folder)
+    if(new_folder)
         g_file_make_directory(gf, NULL, &error);
-    /* specail option 'NewBlank' */
     else
-    {
-        GFileOutputStream *f = g_file_create(gf, G_FILE_CREATE_NONE, NULL, &error);
-        if(f)
-            g_object_unref(f);
-    }
+        fm_template_create_file(templ, gf, &error, run_app);
     if(error)
     {
         fm_show_error(GTK_WINDOW(win), NULL, error->message);

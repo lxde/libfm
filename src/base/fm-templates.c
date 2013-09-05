@@ -43,6 +43,7 @@
 #include "fm-monitor.h"
 #include "fm-dir-list-job.h"
 #include "fm-config.h"
+#include "fm-folder.h"
 
 typedef struct _FmTemplateFile  FmTemplateFile;
 typedef struct _FmTemplateDir   FmTemplateDir;
@@ -989,7 +990,7 @@ gboolean fm_template_is_directory(FmTemplate *templ)
 
 /**
  * fm_template_create_file
- * @templ: a template descriptor
+ * @templ: (allow-none): a template descriptor
  * @path: path to file to create
  * @error: (allow-none): location to retrieve error
  * @run_default: %TRUE to run default application on new file
@@ -1008,15 +1009,19 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
     GFile *tfile;
     GList *list;
     GFileOutputStream *f;
+    FmPath *fm_path;
+    FmFolder *fm_folder;
     gboolean ret;
 
-    if(!FM_IS_TEMPLATE(templ) || !G_IS_FILE(path))
+    if((templ && !FM_IS_TEMPLATE(templ)) || !G_IS_FILE(path))
     {
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_FAILED,
                             _("fm_template_create_file: invalid argument"));
         return FALSE;
     }
     tfile = NULL;
+    if(!templ)
+        goto _create_empty_file;
     if(templ->template_file)
     {
         command = fm_path_to_str(templ->template_file);
@@ -1042,15 +1047,24 @@ gboolean fm_template_create_file(FmTemplate *templ, GFile *path, GError **error,
         /* template file not found, it's normal */
         g_clear_error(error);
         /* create empty file instead */
+_create_empty_file:
         f = g_file_create(path, G_FILE_CREATE_NONE, NULL, error);
         if(!f)
         {
-            g_object_unref(tfile);
+            if(tfile)
+                g_object_unref(tfile);
             return FALSE;
         }
         g_object_unref(f);
     }
-    g_object_unref(tfile);
+    if(tfile)
+        g_object_unref(tfile);
+    fm_path = fm_path_new_for_gfile(path);
+    fm_folder = fm_folder_find_by_path(fm_path_get_parent(fm_path));
+    if (!fm_folder || !_fm_folder_event_file_added(fm_folder, fm_path))
+        fm_path_unref(fm_path);
+    if (fm_folder)
+        g_object_unref(fm_folder);
     if(!run_default)
         return TRUE;
     if(templ->command)
