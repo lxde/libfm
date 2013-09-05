@@ -257,6 +257,7 @@ static gboolean on_key_released(GtkWidget *widget, GdkEventKey *event, FmFileMen
         {
             data->shift_pressed = FALSE;
             act = gtk_ui_manager_get_action(data->ui, "/popup/Del");
+            /* Note to translators: Trash in not noun but verb here */
             gtk_action_set_label(act, _("_Trash"));
             gtk_action_set_stock_id(act, GTK_STOCK_DELETE);
         }
