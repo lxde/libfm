@@ -537,6 +537,7 @@ fm_folder_is_empty
 fm_folder_is_incremental
 fm_folder_is_loaded
 fm_folder_is_valid
+fm_folder_make_directory
 fm_folder_query_filesystem_info
 fm_folder_reload
 fm_folder_unblock_updates

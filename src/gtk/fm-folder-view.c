@@ -900,26 +900,25 @@ static void on_create_new(GtkAction* act, FmFolderView* fv)
     }
     if(!basename)
         return;
-    dir = fm_path_to_gfile(fm_folder_view_get_cwd(fv));
-    gf = g_file_get_child_for_display_name(dir, basename, &error);
-    g_object_unref(dir);
-    g_free(basename);
-    if(gf == NULL)
-    {
-        fm_show_error(GTK_WINDOW(win), NULL, error->message);
-        g_error_free(error);
-        return;
-    }
-    if(new_folder)
-        g_file_make_directory(gf, NULL, &error);
+    if (new_folder)
+        fm_folder_make_directory(fm_folder_view_get_folder(fv), basename, &error);
     else
-        fm_template_create_file(templ, gf, &error, run_app);
+    {
+        dir = fm_path_to_gfile(fm_folder_view_get_cwd(fv));
+        gf = g_file_get_child_for_display_name(dir, basename, &error);
+        g_object_unref(dir);
+        if (gf)
+        {
+            fm_template_create_file(templ, gf, &error, run_app);
+            g_object_unref(gf);
+        }
+    }
+    g_free(basename);
     if(error)
     {
         fm_show_error(GTK_WINDOW(win), NULL, error->message);
         g_error_free(error);
     }
-    g_object_unref(gf);
 }
 
 #define FOCUS_IS_IN_FOLDER_VIEW(_focus_,_fv_) \

@@ -1459,6 +1459,40 @@ void fm_folder_unblock_updates(FmFolder *folder)
     /* g_debug("fm_folder_unblock_updates OK"); */
 }
 
+/**
+ * fm_folder_make_directory
+ * @folder: folder to apply
+ * @name: display name for new directory
+ * @error: (allow-none) (out): location to save error
+ *
+ * Creates new directory in given @folder.
+ *
+ * Returns: %TRUE in case of success.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_folder_make_directory(FmFolder *folder, const char *name, GError **error)
+{
+    GFile *dir, *gf;
+    FmPath *path;
+    gboolean ok;
+
+    dir = fm_path_to_gfile(folder->dir_path);
+    gf = g_file_get_child_for_display_name(dir, name, error);
+    g_object_unref(dir);
+    if (gf == NULL)
+        return FALSE;
+    ok = g_file_make_directory(gf, NULL, error);
+    if (ok)
+    {
+        path = fm_path_new_for_gfile(gf);
+        if (!_fm_folder_event_file_added(folder, path))
+            fm_path_unref(path);
+    }
+    g_object_unref(gf);
+    return ok;
+}
+
 static void fm_folder_content_changed(FmFolder* folder)
 {
     if(folder->has_fs_info && !folder->fs_info_not_avail)

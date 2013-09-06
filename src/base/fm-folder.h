@@ -115,6 +115,8 @@ gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path);
 gboolean _fm_folder_event_file_changed(FmFolder *folder, FmPath *path);
 void _fm_folder_event_file_deleted(FmFolder *folder, FmPath *path);
 
+gboolean fm_folder_make_directory(FmFolder *folder, const char *name, GError **error);
+
 void _fm_folder_init();
 void _fm_folder_finalize();
 
