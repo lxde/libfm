@@ -207,15 +207,8 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
 
 static void fm_file_ops_job_finalize(GObject *object)
 {
-    FmFileOpsJob *self;
-
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_FILE_OPS_JOB(object));
-
-    self = (FmFileOpsJob*)object;
-
-    g_assert(self->src_folder_mon == NULL);
-    g_assert(self->dest_folder_mon == NULL);
 
     G_OBJECT_CLASS(fm_file_ops_job_parent_class)->finalize(object);
 }
@@ -559,6 +552,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     GFile *dest_dir;
     GList* l;
     FmJob* fmjob = FM_JOB(job);
+    FmFolder *dest_folder;
 
     job->supported_options = FM_FILE_OP_RENAME | FM_FILE_OP_SKIP;
     dest_dir = fm_path_to_gfile(job->dest);
@@ -579,6 +573,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
 
     fm_file_ops_job_emit_prepared(job);
 
+    dest_folder = fm_folder_find_by_path(job->dest);
     for(l = fm_path_list_peek_head_link(job->srcs);
         !fm_job_is_cancelled(fmjob) && l; l=l->next)
     {
@@ -679,6 +674,12 @@ _link_error:
 
         /* update progress */
         fm_file_ops_job_emit_percent(job);
+        if (ret && dest_folder)
+        {
+            FmPath *dest_path = fm_path_new_for_gfile(dest);
+            if (!_fm_folder_event_file_added(dest_folder, dest_path))
+                fm_path_unref(dest_path);
+        }
 
         g_free(src);
         g_object_unref(dest);
@@ -687,6 +688,8 @@ _link_error:
     /* g_debug("finished: %llu, total: %llu", job->finished, job->total); */
 
     g_object_unref(dest_dir);
+    if (dest_folder)
+        g_object_unref(dest_folder);
     return ret;
 }
 

@@ -27,7 +27,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "fm-file-ops-job-change-attr.h"
-#include "fm-monitor.h"
+#include "fm-folder.h"
 
 static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -36,11 +36,13 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                G_FILE_ATTRIBUTE_UNIX_MODE","
                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME;
 
-static gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf, GFileInfo* inf)
+static gboolean _fm_file_ops_job_change_attr_file(FmFileOpsJob* job, GFile* gf,
+                                                  GFileInfo* inf, FmFolder *folder)
 {
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
     GCancellable* cancellable = fm_job_get_cancellable(fmjob);
+    FmPath *path;
     GFileType type;
     gboolean ret = TRUE;
     gboolean changed = FALSE;
@@ -222,13 +224,11 @@ _retry_change_target:
     ++job->finished;
     fm_file_ops_job_emit_percent(job);
 
-    if(changed && job->src_folder_mon)
-        g_file_monitor_emit_event(job->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED);
-
+    path = fm_path_new_for_gfile(gf);
     if( !fm_job_is_cancelled(fmjob) && job->recursive && type == G_FILE_TYPE_DIRECTORY)
     {
-        GFileMonitor* old_mon = job->src_folder_mon;
         GFileEnumerator* enu;
+        FmFolder *sub_folder;
 _retry_enum_children:
         enu = g_file_enumerate_children(gf, query,
                                     G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
@@ -240,20 +240,18 @@ _retry_enum_children:
             err = NULL;
             if(act == FM_JOB_RETRY)
                 goto _retry_enum_children;
+            fm_path_unref(path);
             return FALSE;
         }
 
-        job->src_folder_mon = NULL;
-        if(! g_file_is_native(gf))
-            job->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
-
+        sub_folder = fm_folder_find_by_path(path);
         while( ! fm_job_is_cancelled(fmjob) )
         {
             inf = g_file_enumerator_next_file(enu, cancellable, &err);
             if(inf)
             {
                 GFile* sub = g_file_get_child(gf, g_file_info_get_name(inf));
-                ret = _fm_file_ops_job_change_attr_file(job, sub, inf);
+                ret = _fm_file_ops_job_change_attr_file(job, sub, inf, sub_folder);
                 g_object_unref(sub);
                 g_object_unref(inf);
                 if(!ret) /* _fm_file_ops_job_change_attr_file() failed */
@@ -273,22 +271,19 @@ _retry_enum_children:
             }
         }
         g_object_unref(enu);
-
-        if(job->src_folder_mon)
-        {
-            /* we also need to fire a changed event on the monitor of the dir itself. */
-            g_file_monitor_emit_event(job->src_folder_mon, gf, NULL, G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED);
-            g_object_unref(job->src_folder_mon);
-        }
-        job->src_folder_mon = old_mon;
+        if (sub_folder)
+            g_object_unref(sub_folder);
+        if(!folder || !_fm_folder_event_file_changed(folder, path))
+            fm_path_unref(path);
     }
+    else if (!changed || !folder || !_fm_folder_event_file_changed(folder, path))
+        fm_path_unref(path);
     return ret;
 }
 
 gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 {
     GList* l;
-    GFileMonitor* old_mon;
 
     /* prepare the job, count total work needed with FmDeepCountJob */
     if(job->recursive)
@@ -305,7 +300,6 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
 
     fm_file_ops_job_emit_prepared(job);
 
-    old_mon = job->src_folder_mon;
     l = fm_path_list_peek_head_link(job->srcs);
     /* check if we trying to set display name for more than one file and fail */
     if (!fm_job_is_cancelled(FM_JOB(job)) && l->next &&
@@ -327,23 +321,12 @@ gboolean _fm_file_ops_job_change_attr_run(FmFileOpsJob* job)
     {
         gboolean ret;
         GFile* src = fm_path_to_gfile(FM_PATH(l->data));
-        job->src_folder_mon = NULL;
-        if(!g_file_is_native(src))
-        {
-            GFile* src_dir = g_file_get_parent(src);
-            if(src_dir)
-            {
-                job->src_folder_mon = fm_monitor_lookup_dummy_monitor(src_dir);
-                g_object_unref(src_dir);
-            }
-        }
+        FmFolder *folder = fm_folder_find_by_path(l->data);
 
-        ret = _fm_file_ops_job_change_attr_file(job, src, NULL);
+        ret = _fm_file_ops_job_change_attr_file(job, src, NULL, folder);
         g_object_unref(src);
-
-        if(job->src_folder_mon)
-            g_object_unref(job->src_folder_mon);
-        job->src_folder_mon = old_mon;
+        if (folder)
+            g_object_unref(folder);
 
         if(!ret) /* error! */
             return FALSE;

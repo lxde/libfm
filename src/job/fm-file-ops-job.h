@@ -129,9 +129,9 @@ struct _FmFileOpsJob
 
     FmFileOpOption supported_options;
 
-    /* dummy file monitors, used to simulate file event for remote file systems */
-    GFileMonitor* src_folder_mon;
-    GFileMonitor* dest_folder_mon;
+    /*< private >*/
+    gpointer _reserved1;
+    gpointer _reserved2;
 };
 
 /**

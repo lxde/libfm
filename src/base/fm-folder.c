@@ -559,6 +559,30 @@ gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path)
     return added;
 }
 
+gboolean _fm_folder_event_file_changed(FmFolder *folder, FmPath *path)
+{
+    gboolean added;
+
+    G_LOCK(lists);
+    /* make sure that the file is not already queued for changes or
+     * it's already queued for addition. */
+    if(!g_slist_find(folder->files_to_update, path) &&
+       !g_slist_find(folder->files_to_add, path) &&
+       _fm_folder_get_file_by_path(folder, path)) /* ensure it is our file */
+    {
+        folder->files_to_update = g_slist_append(folder->files_to_update, path);
+        added = TRUE;
+        if(!folder->idle_handler)
+            folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
+    }
+    else
+    {
+        added = FALSE;
+    }
+    G_UNLOCK(lists);
+    return added;
+}
+
 void _fm_folder_event_file_deleted(FmFolder *folder, FmPath *path)
 {
     GList *l;
@@ -665,21 +689,8 @@ static void on_folder_changed(GFileMonitor* mon, GFile* gf, GFile* other, GFileM
         break;
     case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
     case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-        /* make sure that the file is not already queued for changes or
-         * it's already queued for addition. */
-        G_LOCK(lists);
-        if(!g_slist_find(folder->files_to_update, path) &&
-           !g_slist_find(folder->files_to_add, path) &&
-           _fm_folder_get_file_by_path(folder, path)) /* ensure it is our file */
-        {
-            folder->files_to_update = g_slist_append(folder->files_to_update, path);
-            G_UNLOCK(lists);
-        }
-        else
-        {
-            G_UNLOCK(lists);
+        if (!_fm_folder_event_file_changed(folder, path))
             fm_path_unref(path);
-        }
         break;
     case G_FILE_MONITOR_EVENT_DELETED:
         _fm_folder_event_file_deleted(folder, path);

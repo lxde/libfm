@@ -25,13 +25,14 @@
 #include <glib.h>
 #include <gio/gio.h>
 #include "fm-file-ops-job.h"
+#include "fm-folder.h"
 
 G_BEGIN_DECLS
 
 /* gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest); */
 gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job);
 
-gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest);
+gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest, FmPath *src_path, FmFolder *src_folder, FmFolder *dst_folder);
 gboolean _fm_file_ops_job_move_run(FmFileOpsJob* job);
 
 G_END_DECLS

@@ -29,9 +29,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "fm-monitor.h"
 #include "fm-utils.h"
-#include "fm-folder.h"
 #include <glib/gi18n-lib.h>
 
 static const char query[]=
@@ -79,7 +77,10 @@ static gboolean _fm_file_ops_job_check_paths(FmFileOpsJob* job, GFile* src, GFil
     return (err == NULL);
 }
 
-static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
+static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src,
+                                           GFileInfo* inf, GFile* dest,
+                                           FmFolder *src_folder, /* if move */
+                                           FmFolder *dest_folder)
 {
     gboolean ret = FALSE;
     gboolean delete_src = FALSE;
@@ -89,6 +90,7 @@ static gboolean _fm_file_ops_job_copy_file(FmFileOpsJob* job, GFile* src, GFileI
     GFile* new_dest = NULL;
     GFileCopyFlags flags;
     FmJob* fmjob = FM_JOB(job);
+    FmPath *fm_dest;
     guint32 mode;
     gboolean skip_dir_content = FALSE;
 
@@ -215,9 +217,6 @@ _retry_chmod_for_dir:
                 }
                 job->finished += size;
                 fm_file_ops_job_emit_percent(job);
-
-                if(job->dest_folder_mon)
-                    g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
             }
 
             if(!dir_created) /* if target dir is not created, don't copy dir content */
@@ -230,6 +229,20 @@ _retry_chmod_for_dir:
             /* FIXME: handle the case when the dir cannot be created. */
             else if(!fm_job_is_cancelled(fmjob))
             {
+                FmFolder *sub_folder;
+                FmFolder *sub_src = NULL;
+
+                if (delete_src)
+                {
+                    FmPath *src_path = fm_path_new_for_gfile(src);
+                    sub_src = fm_folder_find_by_path(src_path);
+                    fm_path_unref(src_path);
+                }
+                fm_dest = fm_path_new_for_gfile(dest);
+                sub_folder = fm_folder_find_by_path(fm_dest);
+                /* inform folder we created directory */
+                if (!dest_folder || !_fm_folder_event_file_added(dest_folder, fm_dest))
+                    fm_path_unref(fm_dest);
 _retry_enum_children:
                 enu = g_file_enumerate_children(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                             fm_job_get_cancellable(fmjob), &err);
@@ -254,7 +267,6 @@ _retry_enum_children:
                             else
                             {
                                 gboolean ret2;
-                                GFileMonitor* old_dest_mon = job->dest_folder_mon;
                                 GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
                                 GFile* sub_dest;
                                 char* tmp_basename;
@@ -272,18 +284,9 @@ _retry_enum_children:
                                         tmp_basename ? tmp_basename : g_file_info_get_name(inf));
                                 g_free(tmp_basename);
 
-                                if(g_file_is_native(sub_dest))
-                                    job->dest_folder_mon = NULL;
-                                else
-                                    job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(sub_dest);
-
-                                ret2 = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
+                                ret2 = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest, sub_src, sub_folder);
                                 g_object_unref(sub);
                                 g_object_unref(sub_dest);
-
-                                if(job->dest_folder_mon)
-                                    g_object_unref(job->dest_folder_mon);
-                                job->dest_folder_mon = old_dest_mon;
 
                                 if(ret2)
                                     ++n_copied;
@@ -336,6 +339,10 @@ _retry_enum_children:
                     if(act == FM_JOB_RETRY)
                         goto _retry_enum_children;
                 }
+                if (sub_src)
+                    g_object_unref(sub_src);
+                if (sub_folder)
+                    g_object_unref(sub_folder);
             }
             if(job->skip_dir_content)
                 delete_src = FALSE;
@@ -375,9 +382,7 @@ _retry_enum_children:
             fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
             g_clear_error(&err);
         }
-        job->finished += size;
-        fm_file_ops_job_emit_percent(job);
-        break;
+        goto _file_copied;
 
     default:
         flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
@@ -443,13 +448,15 @@ _retry_copy:
         else
             ret = TRUE;
 
+_file_copied:
         job->finished += size;
         job->current_file_finished = 0;
 
-        if( ret && type != G_FILE_TYPE_DIRECTORY )
+        if(ret && dest_folder)
         {
-            if(job->dest_folder_mon)
-                g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+            fm_dest = fm_path_new_for_gfile(dest);
+            if(!_fm_folder_event_file_added(dest_folder, fm_dest))
+                fm_path_unref(fm_dest);
         }
 
         /* update progress */
@@ -459,7 +466,7 @@ _retry_copy:
     /* if this is a cross-device move operation, delete source files. */
     /* ret == TRUE means the copy is successful. */
     if( !fm_job_is_cancelled(fmjob) && ret && delete_src )
-        ret = _fm_file_ops_job_delete_file(fmjob, src, inf); /* delete the source file. */
+        ret = _fm_file_ops_job_delete_file(fmjob, src, inf, src_folder); /* delete the source file. */
 
     if(new_dest)
         g_object_unref(new_dest);
@@ -467,7 +474,9 @@ _retry_copy:
     return ret;
 }
 
-gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src, GFileInfo* inf, GFile* dest)
+gboolean _fm_file_ops_job_move_file(FmFileOpsJob* job, GFile* src,
+                                    GFileInfo* inf, GFile* dest, FmPath *src_path,
+                                    FmFolder *src_folder, FmFolder *dest_folder)
 {
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
@@ -505,7 +514,9 @@ _retry_query_src_info:
     {
         guint64 size;
         GFileCopyFlags flags = G_FILE_COPY_ALL_METADATA|G_FILE_COPY_NOFOLLOW_SYMLINKS;
+        FmPath *fm_dest;
 
+        fm_dest = fm_path_new_for_gfile(dest);
         /* showing currently processed file. */
         fm_file_ops_job_emit_cur_file(job, g_file_info_get_display_name(inf));
 _retry_move:
@@ -542,6 +553,8 @@ _retry_move:
                         if(enu)
                         {
                             GFileInfo* child_inf;
+                            FmFolder *sub_src_folder = fm_folder_find_by_path(src_path);
+                            FmFolder *sub_dest_folder = fm_folder_find_by_path(fm_dest);
                             while(!fm_job_is_cancelled(fmjob))
                             {
                                 child_inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
@@ -549,10 +562,12 @@ _retry_move:
                                 {
                                     GFile* child = g_file_get_child(src, g_file_info_get_name(child_inf));
                                     GFile* child_dest = g_file_get_child(dest, g_file_info_get_name(child_inf));
-                                    _fm_file_ops_job_move_file(job, child, child_inf, child_dest);
+                                    FmPath *child_path = fm_path_new_for_gfile(child);
+                                    _fm_file_ops_job_move_file(job, child, child_inf, child_dest, child_path, sub_src_folder, sub_dest_folder);
                                     g_object_unref(child);
                                     g_object_unref(child_dest);
                                     g_object_unref(child_inf);
+                                    fm_path_unref(child_path);
                                 }
                                 else
                                 {
@@ -568,6 +583,10 @@ _retry_move:
                                     }
                                 }
                             }
+                            if (sub_src_folder)
+                                g_object_unref(sub_src_folder);
+                            if (sub_dest_folder)
+                                g_object_unref(sub_dest_folder);
                             g_object_unref(enu);
                         }
                         else
@@ -610,13 +629,14 @@ _retry_move:
                 if(act == FM_JOB_RETRY)
                     goto _retry_move;
             }
+            fm_path_unref(fm_dest);
         }
         else
         {
-            if(job->src_folder_mon)
-                g_file_monitor_emit_event(job->src_folder_mon, src, NULL, G_FILE_MONITOR_EVENT_DELETED);
-            if(job->dest_folder_mon)
-                g_file_monitor_emit_event(job->dest_folder_mon, dest, NULL, G_FILE_MONITOR_EVENT_CREATED);
+            if (src_folder)
+                _fm_folder_event_file_deleted(src_folder, src_path);
+            if (!dest_folder || !_fm_folder_event_file_added(dest_folder, fm_dest))
+                fm_path_unref(fm_dest);
         }
 /*
         size = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
@@ -631,7 +651,7 @@ _retry_move:
     {
         /* use copy & delete */
         /* source file will be deleted in _fm_file_ops_job_copy_file() */
-        ret = _fm_file_ops_job_copy_file(job, src, inf, dest);
+        ret = _fm_file_ops_job_copy_file(job, src, inf, dest, src_folder, dest_folder);
     }
 
     if(new_dest)
@@ -653,7 +673,6 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
 {
     gboolean ret = TRUE;
     GFile *dest_dir;
-    GFileMonitor *old_mon;
     GList* l;
     FmJob* fmjob = FM_JOB(job);
     /* prepare the job, count total work needed with FmDeepCountJob */
@@ -677,12 +696,6 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
     df = fm_folder_find_by_path(job->dest);
     if (df)
         fm_folder_block_updates(df);
-    /* get dummy file monitors for non-native filesystems */
-    old_mon = job->dest_folder_mon;
-    if( g_file_is_native(dest_dir) )
-        job->dest_folder_mon = NULL;
-    else
-        job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
 
     fm_file_ops_job_emit_prepared(job);
 
@@ -705,7 +718,7 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
-        if(!_fm_file_ops_job_copy_file(job, src, NULL, dest))
+        if(!_fm_file_ops_job_copy_file(job, src, NULL, dest, NULL, df))
             ret = FALSE;
         g_object_unref(src);
         g_object_unref(dest);
@@ -721,16 +734,12 @@ gboolean _fm_file_ops_job_copy_run(FmFileOpsJob* job)
         g_object_unref(df);
     }
     g_object_unref(dest_dir);
-    if(job->dest_folder_mon)
-        g_object_unref(job->dest_folder_mon);
-    job->dest_folder_mon = old_mon;
     return ret;
 }
 
 gboolean _fm_file_ops_job_move_run(FmFileOpsJob* job)
 {
     GFile *dest_dir;
-    GFileMonitor *old_mon, *old_src_mon;
     GFileInfo* inf;
     GList* l;
     GError* err = NULL;
@@ -786,20 +795,12 @@ _retry_query_dest_info:
     g_debug("total size to move: %llu, dest_fs: %s",
             (long long unsigned int)job->total, job->dest_fs_id);
 
-    /* get dummy file monitors for non-native filesystems */
-    old_mon = job->dest_folder_mon;
-    if( g_file_is_native(dest_dir) )
-        job->dest_folder_mon = NULL;
-    else
-        job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest_dir);
-
     fm_file_ops_job_emit_prepared(job);
     /* suspend updates for destination */
     df = fm_folder_find_by_path(job->dest);
     if (df)
         fm_folder_block_updates(df);
 
-    old_src_mon = job->src_folder_mon;
     for(l = fm_path_list_peek_head_link(job->srcs); !fm_job_is_cancelled(fmjob) && l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);
@@ -840,25 +841,11 @@ _retry_query_dest_info:
         dest = g_file_get_child(dest_dir,
                         tmp_basename ? tmp_basename : fm_path_get_basename(path));
         g_free(tmp_basename);
-        /* get dummy file monitors for non-native filesystems */
-        job->src_folder_mon = NULL;
-        if(!g_file_is_native(src))
-        {
-            GFile* src_dir = g_file_get_parent(src);
-            if(src_dir)
-            {
-                job->src_folder_mon = fm_monitor_lookup_dummy_monitor(src_dir);
-                g_object_unref(src_dir);
-            }
-        }
 
-        if(!_fm_file_ops_job_move_file(job, src, NULL, dest))
+        if(!_fm_file_ops_job_move_file(job, src, NULL, dest, path, sf, df))
             ret = FALSE;
         g_object_unref(src);
         g_object_unref(dest);
-
-        if(job->src_folder_mon)
-            g_object_unref(job->src_folder_mon);
 
         if(!ret)
             break;
@@ -874,11 +861,7 @@ _retry_query_dest_info:
         fm_folder_unblock_updates(sf);
         g_object_unref(sf);
     }
-    job->src_folder_mon = old_src_mon;
 
     g_object_unref(dest_dir);
-    if(job->dest_folder_mon)
-        g_object_unref(job->dest_folder_mon);
-    job->dest_folder_mon = old_mon;
     return ret;
 }

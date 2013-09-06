@@ -317,6 +317,9 @@ Changes on 1.2.0 since 1.1.0:
     is "/usr/lib/gnome-disk-utility/gdu-format-tool -d", that will call
     well known component of Gnome Disk Utility.
 
+* Implemented internal workaround for GIO inotify delay - operations with
+    files are reflected in view instantly now, without delay of 1 second.
+
 * A whole lot of bugfixes.
 
 

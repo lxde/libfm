@@ -1065,7 +1065,7 @@ _create_empty_file:
         fm_path_unref(fm_path);
     if (fm_folder)
         g_object_unref(fm_folder);
-    if(!run_default)
+    if(!run_default || !templ)
         return TRUE;
     if(templ->command)
     {

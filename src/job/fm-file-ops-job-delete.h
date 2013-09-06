@@ -25,10 +25,11 @@
 #include <glib.h>
 #include <gio/gio.h>
 #include "fm-file-ops-job.h"
+#include "fm-folder.h"
 
 G_BEGIN_DECLS
 
-gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf);
+gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf, FmFolder *folder);
 gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job);
 
 /* gboolean _fm_file_ops_job_trash_file(FmJob* job, GFile* gf, GFileInfo* inf); */
