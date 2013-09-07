@@ -163,7 +163,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         else
         {
             FmPath* path = fm_file_info_get_path(fi);
-            FmMimeType* mime_type;
+            FmMimeType* mime_type = NULL;
             if(fm_path_is_native(path))
             {
                 /* special handling for shortcuts */
@@ -173,9 +173,12 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     FmFileInfoJob *job;
                     QueryErrorData data;
 
-                    scheme = g_uri_parse_scheme(target);
-                    if (scheme)
+                    if (fm_file_info_get_mime_type(fi) == _fm_mime_type_get_inode_x_shortcut())
+                    /* if we already know MIME type then use it instead */
                     {
+                      scheme = g_uri_parse_scheme(target);
+                      if (scheme)
+                      {
                         /* FIXME: this is rough! */
                         if (strcmp(scheme, "file") != 0 &&
                             strcmp(scheme, "trash") != 0 &&
@@ -205,7 +208,10 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                             continue;
                         }
                         g_free(scheme);
+                      }
                     }
+                    else
+                        mime_type = fm_file_info_get_mime_type(fi);
                     /* retrieve file info for target otherwise and handle it */
                     job = fm_file_info_job_new(NULL, 0);
                     /* bug #3614794: the shortcut target is a commandline argument */
@@ -305,7 +311,8 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     g_free(filename);
                 }
             }
-            mime_type = fm_file_info_get_mime_type(fi);
+            if (mime_type == NULL)
+                mime_type = fm_file_info_get_mime_type(fi);
             if(mime_type && (type = fm_mime_type_get_type(mime_type)))
             {
                 fis = g_hash_table_lookup(hash, type);
