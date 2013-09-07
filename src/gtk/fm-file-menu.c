@@ -303,6 +303,14 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
         fi = l->data;
         if (!fm_file_info_is_native(fi))
             all_native = FALSE;
+        else if (all_native && fm_file_info_is_shortcut(fi))
+        {
+            /* this takes some time but it's inevitable */
+            FmPath *tp = fm_path_new_for_str(fm_file_info_get_target(fi));
+            if (!fm_path_is_native(tp))
+                all_native = FALSE;
+            fm_path_unref(tp);
+        }
         mime_type = fm_file_info_get_mime_type(fi);
         if(mime_type == NULL)
             continue;
@@ -599,8 +607,16 @@ static void open_with_app(FmFileMenu* data, GAppInfo* app)
     for(i=0; l; ++i, l=l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
-        FmPath* path = fm_file_info_get_path(fi);
-        char* uri = fm_path_to_uri(path);
+        FmPath *path;
+        char *uri;
+        /* handle shortcuts here */
+        if (fm_file_info_is_shortcut(fi))
+            uri = g_strdup(fm_file_info_get_target(fi));
+        else
+        {
+            path = fm_file_info_get_path(fi);
+            uri = fm_path_to_uri(path);
+        }
         uris = g_list_prepend(uris, uri);
     }
     uris = g_list_reverse(uris);
