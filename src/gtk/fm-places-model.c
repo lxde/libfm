@@ -496,7 +496,11 @@ static void on_volume_changed(GVolumeMonitor* vm, GVolume* volume, gpointer user
 static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    GVolume* vol = g_mount_get_volume(mount);
+    GVolume* vol;
+
+    if (g_mount_is_shadowed(mount))
+        return;
+    vol = g_mount_get_volume(mount);
     if(vol)
     {
         /* mount-added is also emitted when a volume is newly mounted. */
@@ -515,6 +519,9 @@ static void on_mount_added(GVolumeMonitor* vm, GMount* mount, gpointer user_data
             gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
             gtk_tree_path_free(tp);
         }
+        else if (!item)
+            /* we might not get volume for it yet or ignored it before */
+            add_volume_or_mount(model, G_OBJECT(mount), NULL);
         g_object_unref(vol);
     }
     else /* network mounts and others */
