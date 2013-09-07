@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-06 19:44+0000\n"
+"PO-Revision-Date: 2013-09-07 12:38+0000\n"
 "Last-Translator: Asier <asier.iturralde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378496665.0\n"
+"X-POOTLE-MTIME: 1378557529.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Hobetsitako aplikazioak"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Sortu edo aldatu mahaigaineko sarrera"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Lasterbidea"
+msgstr "Lasterbide-editorea"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -239,7 +238,7 @@ msgstr "Ezkutuko fitxategia"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Fitxategiaren ikonoa karpeta ikuspegian"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Nobody"
@@ -388,9 +387,8 @@ msgid "Name/_Location"
 msgstr "Izena/_Kokalekua"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "Only search for files of following types:"
-msgstr "Bilatu ondorengo fitxategi-motetako fitxategiak soilik"
+msgstr "Bilatu ondorengo fitxategi-motetako fitxategiak soilik:"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "Search Files"
@@ -508,9 +506,9 @@ msgid "Preparing..."
 msgstr "Prestatzen..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Fitxategi-izen baliogabea: %s"
+msgstr "Mahaigaineko sarrera fitxategi baliogabea: '%s'"
 
 #: ../src/base/fm-file-launcher.c:197
 #, c-format
@@ -596,7 +594,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "'%s' URI azpi-bideak ihes-karaktere baliogabeak ditu"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -609,6 +607,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Ezin izan da '%-.*s' analizatu, digitu bat izan behar luke karaktere-"
+"erreferentzia baten barruan (&#234; adibidez); agian digitua handiegia da"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
