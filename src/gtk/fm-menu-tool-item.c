@@ -42,8 +42,6 @@
 
 #include "fm-menu-tool-item.h"
 
-#include <glib/gi18n-lib.h>
-
 #define FM_MENU_TOOL_ITEM_GET_PRIVATE(object) \
     (G_TYPE_INSTANCE_GET_PRIVATE((object), FM_TYPE_MENU_TOOL_ITEM, FmMenuToolItemPrivate))
 
@@ -311,7 +309,6 @@ static void fm_menu_tool_item_init(FmMenuToolItem *button)
 {
     GtkWidget *arrow;
     GtkWidget *arrow_button;
-    AtkObject *obj;
 
     button->priv = FM_MENU_TOOL_ITEM_GET_PRIVATE (button);
 
@@ -335,10 +332,6 @@ static void fm_menu_tool_item_init(FmMenuToolItem *button)
                       G_CALLBACK (arrow_button_toggled_cb), button);
     g_signal_connect (arrow_button, "button-press-event",
                       G_CALLBACK (arrow_button_button_press_event_cb), button);
-
-    obj = gtk_widget_get_accessible(GTK_WIDGET(button));
-    if (obj)
-        atk_object_set_description(obj, _("Shows location browse history"));
 }
 
 static void fm_menu_tool_item_destroy (GtkObject *object)
