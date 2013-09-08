@@ -320,6 +320,9 @@ Changes on 1.2.0 since 1.1.0:
 * Implemented internal workaround for GIO inotify delay - operations with
     files are reflected in view instantly now, without delay of 1 second.
 
+* Added new class FmMenuToolItem - simplified GtkMenuToolButton with only
+    menu button arrow without button that it is bound to.
+
 * A whole lot of bugfixes.
 
 

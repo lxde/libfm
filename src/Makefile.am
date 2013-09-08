@@ -57,40 +57,40 @@ udisks_SOURCES=
 endif
 
 base_SOURCES = \
-	base/fm-config.c \
-	base/fm-list.c \
-	base/fm-path.c \
-	base/fm-folder.c \
-	base/fm-file-info.c \
-	base/fm-mime-type.c \
-	base/fm-utils.c \
-	base/fm-file-launcher.c \
-	base/fm-icon.c \
-	base/fm-bookmarks.c \
-	base/fm-nav-history.c \
-	base/fm-monitor.c \
-	base/fm-dummy-monitor.c \
-	base/fm-archiver.c \
 	base/fm-app-info.c \
-	base/fm-thumbnailer.c \
-	base/fm-thumbnail-loader.c \
+	base/fm-archiver.c \
+	base/fm-bookmarks.c \
+	base/fm-config.c \
+	base/fm-dummy-monitor.c \
 	base/fm-file.c \
-	base/fm-terminal.c \
-	base/fm-templates.c \
-	base/fm-module.c \
+	base/fm-file-info.c \
+	base/fm-file-launcher.c \
+	base/fm-folder.c \
+	base/fm-icon.c \
+	base/fm-list.c \
 	base/fm-marshal.c \
+	base/fm-mime-type.c \
+	base/fm-module.c \
+	base/fm-monitor.c \
+	base/fm-nav-history.c \
+	base/fm-path.c \
+	base/fm-templates.c \
+	base/fm-terminal.c \
+	base/fm-thumbnail-loader.c \
+	base/fm-thumbnailer.c \
+	base/fm-utils.c \
 	$(NULL)
 
 job_SOURCES = \
+	job/fm-deep-count-job.c  \
+	job/fm-dir-list-job.c \
+	job/fm-file-info-job.c \
+	job/fm-file-ops-job.c \
+	job/fm-file-ops-job-change-attr.c \
+	job/fm-file-ops-job-delete.c \
+	job/fm-file-ops-job-xfer.c \
 	job/fm-job.c \
 	job/fm-simple-job.c \
-	job/fm-dir-list-job.c \
-	job/fm-deep-count-job.c  \
-	job/fm-file-ops-job.c \
-	job/fm-file-info-job.c \
-	job/fm-file-ops-job-xfer.c \
-	job/fm-file-ops-job-delete.c \
-	job/fm-file-ops-job-change-attr.c \
 	$(NULL)
 
 libfm_SOURCES = \
@@ -122,35 +122,35 @@ libfm_gtk_SOURCES = \
 	fm-gtk.c \
 	$(gtk_compat_SOURCES) \
 	$(exo_SOURCES) \
-	gtk/fm-folder-view.c \
-	gtk/fm-standard-view.c \
-	gtk/fm-folder-model.c \
-	gtk/fm-places-view.c \
-	gtk/fm-places-model.c \
-	gtk/fm-dir-tree-view.c \
-	gtk/fm-dir-tree-model.c \
-	gtk/fm-side-pane.c \
-	gtk/fm-app-menu-view.c \
-	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-app-chooser-combo-box.c \
-	gtk/fm-path-entry.c \
+	gtk/fm-app-chooser-dlg.c \
+	gtk/fm-app-menu-view.c \
+	gtk/fm-cell-renderer-pixbuf.c \
+	gtk/fm-cell-renderer-text.c \
+	gtk/fm-clipboard.c \
+	gtk/fm-dir-tree-model.c \
+	gtk/fm-dir-tree-view.c \
+	gtk/fm-dnd-auto-scroll.c \
+	gtk/fm-dnd-dest.c \
+	gtk/fm-dnd-src.c \
 	gtk/fm-file-menu.c \
 	gtk/fm-file-properties.c \
-	gtk/fm-clipboard.c \
-	gtk/fm-progress-dlg.c \
-	gtk/fm-icon-pixbuf.c \
-	gtk/fm-cell-renderer-text.c \
-	gtk/fm-cell-renderer-pixbuf.c \
-	gtk/fm-dnd-src.c \
-	gtk/fm-dnd-dest.c \
-	gtk/fm-dnd-auto-scroll.c \
-	gtk/fm-gtk-utils.c \
+	gtk/fm-folder-model.c \
+	gtk/fm-folder-view.c \
 	gtk/fm-gtk-file-launcher.c \
-	gtk/fm-thumbnail.c \
-	gtk/fm-tab-label.c \
-	gtk/fm-path-bar.c \
-	gtk/fm-menu-tool-item.c \
+	gtk/fm-gtk-utils.c \
 	gtk/fm-gtk-marshal.c \
+	gtk/fm-icon-pixbuf.c \
+	gtk/fm-menu-tool-item.c \
+	gtk/fm-path-bar.c \
+	gtk/fm-path-entry.c \
+	gtk/fm-places-model.c \
+	gtk/fm-places-view.c \
+	gtk/fm-progress-dlg.c \
+	gtk/fm-side-pane.c \
+	gtk/fm-standard-view.c \
+	gtk/fm-tab-label.c \
+	gtk/fm-thumbnail.c \
 	$(NULL)
 
 if EXTRALIB_ONLY
@@ -160,72 +160,72 @@ libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
 	fm-seal.h \
-	base/fm-config.h \
-	base/fm-list.h \
-	base/fm-path.h \
-	base/fm-folder.h \
-	base/fm-file-info.h \
-	base/fm-mime-type.h \
-	base/fm-utils.h \
-	base/fm-file-launcher.h \
-	base/fm-icon.h \
-	base/fm-bookmarks.h \
-	base/fm-nav-history.h \
-	base/fm-monitor.h \
-	base/fm-dummy-monitor.h \
-	base/fm-archiver.h \
 	base/fm-app-info.h \
-	base/fm-thumbnailer.h \
+	base/fm-archiver.h \
+	base/fm-bookmarks.h \
+	base/fm-config.h \
+	base/fm-dummy-monitor.h \
 	base/fm-file.h \
+	base/fm-file-info.h \
+	base/fm-file-launcher.h \
+	base/fm-folder.h \
+	base/fm-icon.h \
+	base/fm-list.h \
+	base/fm-marshal.h \
+	base/fm-mime-type.h \
+	base/fm-module.h \
+	base/fm-monitor.h \
+	base/fm-nav-history.h \
+	base/fm-path.h \
 	base/fm-terminal.h \
 	base/fm-templates.h \
 	base/fm-thumbnail-loader.h \
-	base/fm-module.h \
-	base/fm-marshal.h \
+	base/fm-thumbnailer.h \
+	base/fm-utils.h \
+	job/fm-deep-count-job.h \
+	job/fm-dir-list-job.h \
+	job/fm-file-info-job.h \
+	job/fm-file-ops-job.h \
+	job/fm-file-ops-job-change-attr.h \
+	job/fm-file-ops-job-delete.h \
+	job/fm-file-ops-job-xfer.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
-	job/fm-dir-list-job.h \
-	job/fm-deep-count-job.h \
-	job/fm-file-ops-job.h \
-	job/fm-file-info-job.h \
-	job/fm-file-ops-job-xfer.h \
-	job/fm-file-ops-job-delete.h \
-	job/fm-file-ops-job-change-attr.h \
 	$(NULL)
 
 libfmgtkincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfmgtkinclude_HEADERS = \
 	fm-gtk.h \
-	gtk/fm-folder-view.h \
-	gtk/fm-standard-view.h \
-	gtk/fm-folder-model.h \
-	gtk/fm-places-view.h \
-	gtk/fm-places-model.h \
-	gtk/fm-dir-tree-view.h \
-	gtk/fm-dir-tree-model.h \
-	gtk/fm-side-pane.h \
-	gtk/fm-app-menu-view.h \
-	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-app-chooser-combo-box.h \
-	gtk/fm-path-entry.h \
+	gtk/fm-app-chooser-dlg.h \
+	gtk/fm-app-menu-view.h \
+	gtk/fm-cell-renderer-pixbuf.h \
+	gtk/fm-cell-renderer-text.h \
+	gtk/fm-clipboard.h \
+	gtk/fm-dir-tree-model.h \
+	gtk/fm-dir-tree-view.h \
+	gtk/fm-dnd-auto-scroll.h \
+	gtk/fm-dnd-dest.h \
+	gtk/fm-dnd-src.h \
 	gtk/fm-file-menu.h \
 	gtk/fm-file-properties.h \
-	gtk/fm-clipboard.h \
-	gtk/fm-progress-dlg.h \
-	gtk/fm-icon-pixbuf.h \
-	gtk/fm-cell-renderer-text.h \
-	gtk/fm-cell-renderer-pixbuf.h \
-	gtk/fm-dnd-src.h \
-	gtk/fm-dnd-dest.h \
-	gtk/fm-dnd-auto-scroll.h \
-	gtk/fm-gtk-utils.h \
+	gtk/fm-folder-model.h \
+	gtk/fm-folder-view.h \
 	gtk/fm-gtk-file-launcher.h \
-	gtk/fm-thumbnail.h \
-	gtk/fm-tab-label.h \
-	gtk/fm-path-bar.h \
-	gtk/fm-sortable.h \
-	gtk/fm-menu-tool-item.h \
 	gtk/fm-gtk-marshal.h \
+	gtk/fm-gtk-utils.h \
+	gtk/fm-icon-pixbuf.h \
+	gtk/fm-menu-tool-item.h \
+	gtk/fm-path-bar.h \
+	gtk/fm-path-entry.h \
+	gtk/fm-places-model.h \
+	gtk/fm-places-view.h \
+	gtk/fm-progress-dlg.h \
+	gtk/fm-side-pane.h \
+	gtk/fm-sortable.h \
+	gtk/fm-standard-view.h \
+	gtk/fm-tab-label.h \
+	gtk/fm-thumbnail.h \
 	$(NULL)
 
 pkginclude_HEADERS = \
