@@ -2108,7 +2108,7 @@ struct _FmMenuVFileOutputStream
 {
     GFileOutputStream parent;
     GOutputStream *real_stream;
-    gchar *path; /* base directory in menu */
+    gchar *path; /* "Dir/App.desktop" */
     GString *content;
     gboolean do_close;
 };
@@ -2207,13 +2207,13 @@ static void fm_vfs_menu_file_output_stream_init(FmMenuVFileOutputStream *stream)
     stream->do_close = TRUE;
 }
 
-static FmMenuVFileOutputStream *_fm_vfs_menu_file_output_stream_new(const gchar *directory)
+static FmMenuVFileOutputStream *_fm_vfs_menu_file_output_stream_new(const gchar *path)
 {
     FmMenuVFileOutputStream *stream;
 
     stream = g_object_new(FM_TYPE_MENU_VFILE_OUTPUT_STREAM, NULL);
-    if (directory)
-        stream->path = g_strdup(directory);
+    if (path)
+        stream->path = g_strdup(path);
     return stream;
 }
 
@@ -2221,7 +2221,7 @@ static GFileOutputStream *_vfile_menu_create(GFile *file,
                                              GFileCreateFlags flags,
                                              GCancellable *cancellable,
                                              GError **error,
-                                             const gchar *directory)
+                                             const gchar *path)
 {
     FmMenuVFileOutputStream *stream;
     GFileOutputStream *ostream;
@@ -2253,7 +2253,7 @@ static GFileOutputStream *_vfile_menu_create(GFile *file,
         if (ostream == NULL)
             return ostream;
     }
-    stream = _fm_vfs_menu_file_output_stream_new(directory);
+    stream = _fm_vfs_menu_file_output_stream_new(path);
     stream->real_stream = G_OUTPUT_STREAM(ostream);
     return (GFileOutputStream*)stream;
 }
@@ -2264,14 +2264,14 @@ static GFileOutputStream *_vfile_menu_replace(GFile *file,
                                               GFileCreateFlags flags,
                                               GCancellable *cancellable,
                                               GError **error,
-                                              const gchar *directory)
+                                              const gchar *path)
 {
     FmMenuVFileOutputStream *stream;
     GFileOutputStream *ostream;
 
     if (g_cancellable_set_error_if_cancelled(cancellable, error))
         return NULL;
-    stream = _fm_vfs_menu_file_output_stream_new(directory);
+    stream = _fm_vfs_menu_file_output_stream_new(path);
     ostream = g_file_replace(file, etag, make_backup, flags, cancellable, error);
     if (ostream == NULL)
     {
@@ -2310,7 +2310,7 @@ static gboolean _fm_vfs_menu_create_real(gpointer data)
         }
         id = strrchr(unescaped, '/');
         if (id)
-            *id++ = '\0';
+            id++;
         else
             id = unescaped;
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
@@ -2377,7 +2377,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
 {
     FmVfsMenuMainThreadData *init = data;
     MenuCache *mc;
-    char *unescaped = NULL, *id, *directory = "";
+    char *unescaped = NULL, *id;
     gboolean is_invalid = TRUE;
 
     init->result = NULL;
@@ -2392,16 +2392,15 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
         unescaped = g_uri_unescape_string(init->path_str, NULL);
         id = strrchr(unescaped, '/');
         if (id != NULL)
-        {
-            *id++ = '\0';
-            directory = unescaped;
-        }
+            id++;
+        else
+            id = unescaped;
         /* get existing item */
         item = _vfile_path_to_menu_cache_item(mc, init->path_str);
         /* if not found then check item by id to exclude conflicts */
         if (item != NULL) /* item is there, OK, we'll replace it then */
             is_invalid = FALSE;
-        else if (id != NULL)
+        else
         {
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
             item2 = menu_cache_find_item_by_id(mc, id);
@@ -2421,8 +2420,6 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             else /* item was found in another category */
                 menu_cache_item_unref(item2);
         }
-        /* if id is NULL then we trying to create item in root, i.e.
-           outside of categories and that should be prohibited */
         menu_cache_unref(mc);
     }
 
@@ -2440,7 +2437,7 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             init->result = _vfile_menu_replace(gf, NULL, FALSE,
                                                G_FILE_CREATE_REPLACE_DESTINATION,
                                                init->cancellable, init->error,
-                                               directory);
+                                               unescaped);
             g_object_unref(gf);
         }
     }
