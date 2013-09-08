@@ -882,7 +882,8 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     gtk_widget_realize(GTK_WIDGET(menu));
     /* get all the relative coordinates */
     gtk_widget_get_allocation(widget, &a);
-    gtk_widget_get_pointer(widget, &x2, &y2);
+    gdk_window_get_device_position(gtk_widget_get_window(widget),
+                                   gtk_get_current_event_device(), &x2, &y2, NULL);
     gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
     path = gtk_tree_path_new_from_indices(index, -1);
     gtk_tree_view_get_cell_area(view, path, gtk_tree_view_get_column(view, 0), &cell);
