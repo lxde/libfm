@@ -35,6 +35,7 @@
 #include "fm-gtk-utils.h"
 #include "fm-gtk-file-launcher.h"
 #include "fm-side-pane.h"
+#include "fm-menu-tool-item.h"
 
 static void fm_main_win_finalize              (GObject *object);
 static void fm_main_win_dispose              (GObject *object);
@@ -419,9 +420,9 @@ static void on_history_item(GtkMenuItem* mi, FmMainWin* win)
     fm_main_win_chdir_without_history(win, path);
 }
 
-static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
+static void on_show_history_menu(FmMenuToolItem* btn, FmMainWin* win)
 {
-    GtkMenuShell* menu = (GtkMenuShell*)gtk_menu_tool_button_get_menu(btn);
+    GtkMenuShell* menu = (GtkMenuShell*)fm_menu_tool_item_get_menu(btn);
     FmPath* path;
     guint n, cur = fm_nav_history_get_cur_index(win->nav_history);
 
@@ -570,17 +571,15 @@ static void fm_main_win_init(FmMainWin *win)
     gtk_toolbar_set_icon_size(GTK_TOOLBAR(win->toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_toolbar_set_style(GTK_TOOLBAR(win->toolbar), GTK_TOOLBAR_ICONS);
 
-    /* create 'Next' button manually and add a popup menu to it */
-    toolitem = g_object_new(GTK_TYPE_MENU_TOOL_BUTTON, NULL);
+    /* create history button manually and add a popup menu to it */
+    toolitem = fm_menu_tool_item_new();
     gtk_toolbar_insert(GTK_TOOLBAR(win->toolbar), toolitem, 2);
     gtk_widget_show(GTK_WIDGET(toolitem));
-    act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Next");
-    gtk_activatable_set_related_action(GTK_ACTIVATABLE(toolitem), act);
 
     /* set up history menu */
     win->nav_history = fm_nav_history_new();
     win->history_menu = gtk_menu_new();
-    gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(toolitem), win->history_menu);
+    fm_menu_tool_item_set_menu(FM_MENU_TOOL_ITEM(toolitem), win->history_menu);
     g_signal_connect(toolitem, "show-menu", G_CALLBACK(on_show_history_menu), win);
 
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );

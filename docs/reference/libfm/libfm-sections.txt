@@ -820,6 +820,24 @@ fm_list_unref
 </SECTION>
 
 <SECTION>
+<FILE>fm-menu-tool-item</FILE>
+<TITLE>FmMenuToolItem</TITLE>
+FmMenuToolItem
+FmMenuToolItemClass
+fm_menu_tool_item_get_menu
+fm_menu_tool_item_new
+fm_menu_tool_item_set_menu
+<SUBSECTION Standard>
+FM_IS_MENU_TOOL_ITEM
+FM_IS_MENU_TOOL_ITEM_CLASS
+FM_MENU_TOOL_ITEM
+FM_MENU_TOOL_ITEM_CLASS
+FM_TYPE_MENU_TOOL_ITEM
+FmMenuToolItemPrivate
+fm_menu_tool_item_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-mime-type</FILE>
 FmMimeType
 fm_mime_type_add_thumbnailer

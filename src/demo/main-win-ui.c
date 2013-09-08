@@ -81,6 +81,7 @@ static const char main_menu_xml[] =
 "<toolbar>"
     "<toolitem action='New'/>"
     "<toolitem action='Prev'/>"
+    "<toolitem action='Next'/>"
     "<toolitem action='Up'/>"
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
