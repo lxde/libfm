@@ -52,7 +52,11 @@ struct _FmMenuToolItemPrivate
     GtkMenu   *menu;
 };
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_menu_tool_item_destroy(GtkWidget *object);
+#else
 static void fm_menu_tool_item_destroy(GtkObject *object);
+#endif
 static int menu_deactivate_cb(GtkMenuShell *menu_shell, FmMenuToolItem *button);
 
 enum
@@ -100,7 +104,7 @@ static void fm_menu_tool_item_state_changed(GtkWidget *widget,
     FmMenuToolItem *button = FM_MENU_TOOL_ITEM (widget);
     FmMenuToolItemPrivate *priv = button->priv;
 
-    if (!GTK_WIDGET_IS_SENSITIVE (widget) && priv->menu)
+    if (!gtk_widget_is_sensitive(widget) && priv->menu)
     {
         gtk_menu_shell_deactivate (GTK_MENU_SHELL (priv->menu));
     }
@@ -144,7 +148,9 @@ static void fm_menu_tool_item_get_property(GObject *object, guint prop_id,
 static void fm_menu_tool_item_class_init (FmMenuToolItemClass *klass)
 {
     GObjectClass *object_class;
+#if !GTK_CHECK_VERSION(3, 0, 0)
     GtkObjectClass *gtk_object_class;
+#endif
     GtkWidgetClass *widget_class;
     GtkToolItemClass *toolitem_class;
 
@@ -155,7 +161,11 @@ static void fm_menu_tool_item_class_init (FmMenuToolItemClass *klass)
 
     object_class->set_property = fm_menu_tool_item_set_property;
     object_class->get_property = fm_menu_tool_item_get_property;
+#if GTK_CHECK_VERSION(3, 0, 0)
+    widget_class->destroy = fm_menu_tool_item_destroy;
+#else
     gtk_object_class->destroy = fm_menu_tool_item_destroy;
+#endif
     widget_class->state_changed = fm_menu_tool_item_state_changed;
     toolitem_class->toolbar_reconfigured = fm_menu_tool_item_toolbar_reconfigured;
 
@@ -197,6 +207,7 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y,
 {
     FmMenuToolItemPrivate *priv = button->priv;
     GtkWidget *widget = GTK_WIDGET (button);
+    GtkAllocation arrow_allocation;
     GtkRequisition req;
     GtkRequisition menu_req;
     GtkOrientation orientation;
@@ -204,51 +215,72 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y,
     GdkRectangle monitor;
     gint monitor_num;
     GdkScreen *screen;
+    GdkWindow *window;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_widget_get_preferred_size (GTK_WIDGET (priv->menu), &menu_req, NULL);
+#else
     gtk_widget_size_request (GTK_WIDGET (priv->menu), &menu_req);
+#endif
 
     orientation = gtk_tool_item_get_orientation (GTK_TOOL_ITEM (button));
     direction = gtk_widget_get_direction (widget);
+    window = gtk_widget_get_window (widget);
 
     screen = gtk_widget_get_screen (GTK_WIDGET (menu));
-    monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
+    monitor_num = gdk_screen_get_monitor_at_window (screen, window);
     if (monitor_num < 0)
         monitor_num = 0;
     gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
     {
-        gdk_window_get_origin (widget->window, x, y);
-        *x += widget->allocation.x;
-        *y += widget->allocation.y;
+        GtkAllocation allocation;
+
+        gtk_widget_get_allocation (widget, &allocation);
+        gtk_widget_get_allocation (priv->arrow_button, &arrow_allocation);
+
+        gdk_window_get_origin (window, x, y);
+        *x += allocation.x;
+        *y += allocation.y;
 
         if (direction == GTK_TEXT_DIR_LTR)
-            *x += MAX (widget->allocation.width - menu_req.width, 0);
-        else if (menu_req.width > widget->allocation.width)
-            *x -= menu_req.width - widget->allocation.width;
+            *x += MAX (allocation.width - menu_req.width, 0);
+        else if (menu_req.width > allocation.width)
+            *x -= menu_req.width - allocation.width;
 
-        if ((*y + priv->arrow_button->allocation.height + menu_req.height) <= monitor.y + monitor.height)
-            *y += priv->arrow_button->allocation.height;
+        if ((*y + arrow_allocation.height + menu_req.height) <= monitor.y + monitor.height)
+            *y += arrow_allocation.height;
         else if ((*y - menu_req.height) >= monitor.y)
             *y -= menu_req.height;
-        else if (monitor.y + monitor.height - (*y + priv->arrow_button->allocation.height) > *y)
-            *y += priv->arrow_button->allocation.height;
+        else if (monitor.y + monitor.height - (*y + arrow_allocation.height) > *y)
+            *y += arrow_allocation.height;
         else
             *y -= menu_req.height;
     }
     else
     {
+#if GTK_CHECK_VERSION(2, 22, 0)
+        gdk_window_get_origin (gtk_button_get_event_window (GTK_BUTTON (priv->arrow_button)), x, y);
+#else
         gdk_window_get_origin (GTK_BUTTON (priv->arrow_button)->event_window, x, y);
+#endif
+#if GTK_CHECK_VERSION(3, 0, 0)
+        gtk_widget_get_preferred_size (priv->arrow_button, &req, NULL);
+#else
         gtk_widget_size_request (priv->arrow_button, &req);
+#endif
+
+        gtk_widget_get_allocation (priv->arrow_button, &arrow_allocation);
 
         if (direction == GTK_TEXT_DIR_LTR)
-            *x += priv->arrow_button->allocation.width;
+            *x += arrow_allocation.width;
         else
             *x -= menu_req.width;
 
         if (*y + menu_req.height > monitor.y + monitor.height &&
-            *y + priv->arrow_button->allocation.height - monitor.y > monitor.y + monitor.height - *y)
-            *y += priv->arrow_button->allocation.height - menu_req.height;
+            *y + arrow_allocation.height - monitor.y > monitor.y + monitor.height - *y)
+            *y += arrow_allocation.height - menu_req.height;
     }
 
     *push_in = FALSE;
@@ -279,7 +311,7 @@ static void arrow_button_toggled_cb(GtkToggleButton *togglebutton,
         return;
 
     if (gtk_toggle_button_get_active (togglebutton) &&
-        !GTK_WIDGET_VISIBLE (priv->menu))
+        !gtk_widget_get_visible(GTK_WIDGET(priv->menu)))
     {
         /* we get here only when the menu is activated by a key
          * press, so that we can select the first menu item */
@@ -334,7 +366,11 @@ static void fm_menu_tool_item_init(FmMenuToolItem *button)
                       G_CALLBACK (arrow_button_button_press_event_cb), button);
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void fm_menu_tool_item_destroy(GtkWidget *object)
+#else
 static void fm_menu_tool_item_destroy (GtkObject *object)
+#endif
 {
     FmMenuToolItem *button;
 
@@ -355,7 +391,11 @@ static void fm_menu_tool_item_destroy (GtkObject *object)
                                               button);
     }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    GTK_WIDGET_CLASS (fm_menu_tool_item_parent_class)->destroy (object);
+#else
     GTK_OBJECT_CLASS (fm_menu_tool_item_parent_class)->destroy (object);
+#endif
 }
 
 /**
