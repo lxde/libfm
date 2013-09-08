@@ -208,7 +208,6 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y,
     FmMenuToolItemPrivate *priv = button->priv;
     GtkWidget *widget = GTK_WIDGET (button);
     GtkAllocation arrow_allocation;
-    GtkRequisition req;
     GtkRequisition menu_req;
     GtkOrientation orientation;
     GtkTextDirection direction;
@@ -264,11 +263,6 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y,
         gdk_window_get_origin (gtk_button_get_event_window (GTK_BUTTON (priv->arrow_button)), x, y);
 #else
         gdk_window_get_origin (GTK_BUTTON (priv->arrow_button)->event_window, x, y);
-#endif
-#if GTK_CHECK_VERSION(3, 0, 0)
-        gtk_widget_get_preferred_size (priv->arrow_button, &req, NULL);
-#else
-        gtk_widget_size_request (priv->arrow_button, &req);
 #endif
 
         gtk_widget_get_allocation (priv->arrow_button, &arrow_allocation);
