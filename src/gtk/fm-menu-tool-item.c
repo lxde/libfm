@@ -155,7 +155,9 @@ static void fm_menu_tool_item_class_init (FmMenuToolItemClass *klass)
     GtkToolItemClass *toolitem_class;
 
     object_class = (GObjectClass *)klass;
+#if !GTK_CHECK_VERSION(3, 0, 0)
     gtk_object_class = (GtkObjectClass *)klass;
+#endif
     widget_class = (GtkWidgetClass *)klass;
     toolitem_class = (GtkToolItemClass *)klass;
 
@@ -449,7 +451,7 @@ void fm_menu_tool_item_set_menu(FmMenuToolItem *button, GtkWidget *menu)
 
     if (priv->menu != GTK_MENU (menu))
     {
-        if (priv->menu && GTK_WIDGET_VISIBLE (priv->menu))
+        if (priv->menu && gtk_widget_get_visible(GTK_WIDGET(priv->menu)))
         gtk_menu_shell_deactivate (GTK_MENU_SHELL (priv->menu));
 
         if (priv->menu)
