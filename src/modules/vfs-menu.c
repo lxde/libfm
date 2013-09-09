@@ -2185,7 +2185,7 @@ static gboolean fm_vfs_menu_file_output_stream_close(GOutputStream *gos,
     if (!ok || !g_output_stream_close(stream->real_stream, cancellable, error))
         return FALSE;
     stream->do_close = FALSE;
-    if (!_add_application(stream->path, cancellable, error))
+    if (stream->path && !_add_application(stream->path, cancellable, error))
         return FALSE;
     return TRUE;
 }
@@ -2397,9 +2397,9 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             id = unescaped;
         /* get existing item */
         item = _vfile_path_to_menu_cache_item(mc, init->path_str);
-        /* if not found then check item by id to exclude conflicts */
         if (item != NULL) /* item is there, OK, we'll replace it then */
             is_invalid = FALSE;
+        /* if not found then check item by id to exclude conflicts */
         else
         {
 #if MENU_CACHE_CHECK_VERSION(0, 5, 0)
@@ -2437,7 +2437,8 @@ static gboolean _fm_vfs_menu_replace_real(gpointer data)
             init->result = _vfile_menu_replace(gf, NULL, FALSE,
                                                G_FILE_CREATE_REPLACE_DESTINATION,
                                                init->cancellable, init->error,
-                                               unescaped);
+                                               /* don't insert it into XML */
+                                               NULL);
             g_object_unref(gf);
         }
     }
