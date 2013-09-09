@@ -151,6 +151,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
             folders = g_list_prepend(folders, fi);
         else if (fm_file_info_is_desktop_entry(fi))
         {
+_launch_desktop_entry:
             /* special handling for shortcuts */
             if (fm_file_info_is_shortcut(fi))
                 filename = g_strdup(fm_file_info_get_target(fi));
@@ -232,6 +233,9 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                         continue;
                     targets = g_list_prepend(targets, fi);
                     path = fm_file_info_get_path(fi);
+                    /* special handling for desktop entries */
+                    if (fm_file_info_is_desktop_entry(fi))
+                        goto _launch_desktop_entry;
                 }
                 if(fm_file_info_is_executable_type(fi))
                 {

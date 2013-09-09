@@ -273,10 +273,12 @@ gboolean _fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path,
                             FmMimeType *new_mime_type = fm_mime_type_from_file_name(uri);
 
                             /* g_debug("got type %s for URL %s", fm_mime_type_get_type(new_mime_type), uri); */
-                            if (strcmp(fm_mime_type_get_type(new_mime_type),
+                            if (new_mime_type == _fm_mime_type_get_application_x_desktop() ||
+                                strcmp(fm_mime_type_get_type(new_mime_type),
                                        "application/octet-stream") == 0)
                             {
-                                /* failed to determine, set to inode/x-shortcut */
+                                /* either link to desktop entry or failed
+                                   to determine, set to inode/x-shortcut */
                                 fm_mime_type_unref(new_mime_type);
                                 new_mime_type = fm_mime_type_ref(_fm_mime_type_get_inode_x_shortcut());
                             }
