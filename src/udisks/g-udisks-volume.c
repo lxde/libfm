@@ -157,7 +157,8 @@ static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFl
         data->vol = g_object_ref(vol);
         data->callback = callback;
         data->user_data = user_data;
-        g_drive_eject(G_DRIVE(vol->drive), flags, cancellable, on_drive_ejected, data);
+        g_drive_eject_with_operation(G_DRIVE(vol->drive), flags, mount_operation,
+                                     cancellable, on_drive_ejected, data);
     }
 }
 

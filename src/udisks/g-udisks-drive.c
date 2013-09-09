@@ -175,7 +175,7 @@ static void on_unmounted(GObject* mnt, GAsyncResult* res, gpointer input_data)
     GError* err = NULL;
     /* FIXME: with this approach, we could have racing condition.
      * Someone may mount other volumes before we finishing unmounting them all. */
-    gboolean success = g_mount_unmount_finish(G_MOUNT(mnt), res, &err);
+    gboolean success = g_mount_unmount_with_operation_finish(G_MOUNT(mnt), res, &err);
     if(success)
     {
         if(data->mounts) /* we still have some volumes on this drive mounted */

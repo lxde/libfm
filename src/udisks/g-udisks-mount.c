@@ -118,7 +118,8 @@ static void g_udisks_mount_eject_with_operation (GMount* base, GMountUnmountFlag
         data->mnt = g_object_ref(mnt);
         data->callback = callback;
         data->user_data = user_data;
-        g_drive_eject(drv, flags, cancellable, on_drive_ejected, data);
+        g_drive_eject_with_operation(drv, flags, mount_operation, cancellable,
+                                     on_drive_ejected, data);
         g_object_unref(drv);
     }
 }
