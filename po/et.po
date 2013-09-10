@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-27 11:58+0000\n"
+"PO-Revision-Date: 2013-09-10 18:20+0000\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377604697.0\n"
+"X-POOTLE-MTIME: 1378837227.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Eelistatud rakendused"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Loo uus või muuta olemasolevat töölaua kannet"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Otsetee"
+msgstr "Otsetee redaktor"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -60,7 +59,6 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
 msgid "C_ustom Command Line"
 msgstr "_Kohandatud käsurida"
 
@@ -127,26 +125,23 @@ msgid "with the following file?"
 msgstr "järgneva failiga?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Ikooni valimine:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
-#, fuzzy
 msgid "Choose An Icon..."
 msgstr "Ikooni valimine..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Pildifailid"
+msgstr "pildifailid"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
 #, fuzzy
 msgid "system icon theme"
-msgstr "Süsteemi ikooniteema"
+msgstr "süsteemi ikooniteema"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -185,9 +180,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Viimati muudetud:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Viimati loetud:</b>"
+msgstr "<b>Viimane õiguste muutmine:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -210,7 +204,6 @@ msgid "<b>Special bits:</b>"
 msgstr "<b>Ekstra bitid:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-#, fuzzy
 msgid "<b>Target file:</b>"
 msgstr "<b>Sihtfail:</b>"
 
@@ -223,7 +216,6 @@ msgid "<b>_Execute:</b>"
 msgstr "<b>_Käivitamine:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-#, fuzzy
 msgid "<b>_Name:</b>"
 msgstr "<b>_Nimi:</b>"
 
@@ -240,9 +232,8 @@ msgid "File Properties"
 msgstr "Faili omadused"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Videofailid"
+msgstr "Varjatud fail"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -326,7 +317,6 @@ msgid "*"
 msgstr "*"
 
 #: ../data/ui/filesearch.glade.h:3
-#, fuzzy
 msgid "<b>File Contain_s:</b>"
 msgstr "<b>Failis _sisaldub:</b>"
 
@@ -339,7 +329,6 @@ msgid "<b>File Type</b>"
 msgstr "<b>Failitüüp:</b>"
 
 #: ../data/ui/filesearch.glade.h:6
-#, fuzzy
 msgid "<b>File _Name Patterns:</b>"
 msgstr "<b>_Failinime mustrid:</b>"
 
@@ -348,7 +337,6 @@ msgid "<b>Last Modified Time</b>"
 msgstr "<b>Viimati muudetud</b>"
 
 #: ../data/ui/filesearch.glade.h:8
-#, fuzzy
 msgid "<b>Plac_es to Search:</b>"
 msgstr "<b>Otsingu asukohad:</b>"
 
@@ -397,7 +385,6 @@ msgid "Name/_Location"
 msgstr "Nimi/_asukoht"
 
 #: ../data/ui/filesearch.glade.h:20
-#, fuzzy
 msgid "Only search for files of following types:"
 msgstr "Otsi ainult järgnevate failitüüpide hulgast:"
 
@@ -517,9 +504,9 @@ msgid "Preparing..."
 msgstr "Valmistumine..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Vigane failinimi %s"
+msgstr "Vigane töölauakanne: '%s'"
 
 #: ../src/base/fm-file-launcher.c:197
 #, c-format
@@ -554,9 +541,8 @@ msgid "Trash Can"
 msgstr "Prügikast"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Otsetee"
+msgstr "URI-i otsetee"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
@@ -567,9 +553,8 @@ msgid "No terminal emulator is set in libfm config"
 msgstr "Libfm seadetes pole terminaliemulaatorit määratud"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Vigane menüükaust"
+msgstr ""
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -603,9 +588,9 @@ msgid "TiB"
 msgstr "TiB"
 
 #: ../src/base/fm-utils.c:572
-#, c-format
+#, c-format, fuzzy
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI '%s' sisaldab vigaseid paomärke"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -618,6 +603,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Viga '%-.*s' analüüsimisel. See võiks olla märgiviites olev number (näiteks "
+"&#234;) - võib-olla on number liiga suur"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -639,7 +626,7 @@ msgstr "Märgiviide '%-.*s' ei teisendu lubatud märgiks"
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
-"Avastati tühi olem '&'; lubatud olemid on: &amp; &quot; &lt; &gt; &apos;"
+"Avastati tühi olem '&;' lubatud olemid on: &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -720,23 +707,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Kataloogipuu näitamine külgribal"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Tühistatud"
+msgstr "_Tühista"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "K_opeeri"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Liiguta _vasakule"
+msgstr "_Liiguta"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Link"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -752,14 +737,13 @@ msgstr "Ava _rakendusega..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "_Peida"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "Tee _nähtavaks"
 
 #: ../src/gtk/fm-file-menu.c:157
-#, fuzzy
 msgid "_Add to Bookmarks"
 msgstr "_Lisa järjehoidjatesse"
 
@@ -780,12 +764,10 @@ msgid "Prop_erties"
 msgstr "_Omadused"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Prügikast"
+msgstr "_Prügikast"
 
 #: ../src/gtk/fm-file-properties.c:364
-#, fuzzy
 msgid "Image files"
 msgstr "Pildifailid"
 
@@ -812,7 +794,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Peida või too fail nähtavale"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
@@ -833,7 +815,6 @@ msgid "Files of different types"
 msgstr "Erinevat tüüpi failid"
 
 #: ../src/gtk/fm-file-properties.c:1241
-#, fuzzy
 msgid "<b>File:</b>"
 msgstr "<b>Fail:</b>"
 
@@ -879,7 +860,6 @@ msgid "Folder"
 msgstr "Kaust"
 
 #: ../src/gtk/fm-folder-view.c:183
-#, fuzzy
 msgid "Empty File"
 msgstr "Tühi fail"
 
@@ -892,12 +872,10 @@ msgid "_Sort Files"
 msgstr "_Sorteeri faile"
 
 #: ../src/gtk/fm-folder-view.c:197
-#, fuzzy
 msgid "_Rename Folder"
 msgstr "_Muuda kausta nime"
 
 #: ../src/gtk/fm-folder-view.c:198
-#, fuzzy
 msgid "Folder Prop_erties"
 msgstr "Kausta _omadused"
 
@@ -948,28 +926,26 @@ msgid "Creating new folder"
 msgstr "Loo uus kaust"
 
 #: ../src/gtk/fm-folder-view.c:862
-#, fuzzy
 msgid "Enter a name for empty file:"
 msgstr "Sisesta loodava faili nimi:"
 
 #: ../src/gtk/fm-folder-view.c:863
-#, fuzzy
 msgid "Creating ..."
-msgstr "Loo uus..."
+msgstr "Loomine ..."
 
 #: ../src/gtk/fm-folder-view.c:869
 msgid "New"
 msgstr "Uus"
 
 #: ../src/gtk/fm-folder-view.c:879
-#, fuzzy, c-format
+#, c-format
 msgid "Enter a name for the new %s:"
-msgstr "Sisesta loodava faili nimi:"
+msgstr "Sisesta uue %s nimi:"
 
 #: ../src/gtk/fm-folder-view.c:882
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "Nimeviitade loomine"
+msgstr "\"%s\" loomine"
 
 #: ../src/gtk/fm-folder-view.c:886
 msgid "_Run default application on file after creation"
@@ -1019,28 +995,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Vajab süsteemihaldaja kasutusõigusi."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Kas tõsta valitud failid prügikasti?"
+msgstr "Kas tahad tõsta faili '%s' prügikasti?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Kas tõsta valitud failid prügikasti?"
-msgstr[1] "Kas tõsta valitud failid prügikasti?"
+msgstr[0] "Kas tahad tõsta %d valitud faili prügikasti?"
+msgstr[1] "Kas tahad tõsta %d valitud faili prügikasti?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Kas soovid valitud failid lõplikult kustutada?"
+msgstr "Kas soovid faili '%s' kustutada?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Kas soovid valitud failid lõplikult kustutada?"
-msgstr[1] "Kas soovid valitud failid lõplikult kustutada?"
+msgstr[0] "Kas soovid valitud %d faili lõplikult kustutada?"
+msgstr[1] "Kas soovid valitud %d faili lõplikult kustutada?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1056,12 +1032,11 @@ msgstr "Kas kindlasti soovid prügikasti tühjendada?"
 
 #: ../src/gtk/fm-path-entry.c:631
 msgid "Pa_ste and go"
-msgstr ""
+msgstr "_Aseta ja mine"
 
 #: ../src/gtk/fm-path-entry.c:690
-#, fuzzy
 msgid "Entry for folder path"
-msgstr "Ainult selle _kausta jaoks"
+msgstr "Kaustatee kanne"
 
 #: ../src/gtk/fm-places-model.c:771 ../src/gtk/fm-places-model.c:977
 msgid "Desktop"
@@ -1073,19 +1048,16 @@ msgid "Applications"
 msgstr "Rakendused"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Faili_tüüp"
+msgstr "Failisüsteem"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Minu arvuti"
+msgstr "Arvuti"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Võrk"
+msgstr "Võrgukettad"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1100,9 +1072,8 @@ msgid "_Eject Removable Media"
 msgstr "Eemaldatava andmekandja _väljastamine"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "_Andmekandja haakimine"
+msgstr "_Köite vormindamine"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1113,7 +1084,6 @@ msgid "Re_move from Bookmark"
 msgstr "_Eemalda järjehoidja"
 
 #: ../src/gtk/fm-places-view.c:145
-#, fuzzy
 msgid "Move Bookmark _Up"
 msgstr "Liiguta _järjehoidja üles"
 
@@ -1189,12 +1159,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Paus"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Taasta"
+msgstr "_Jätka"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1250,7 +1219,7 @@ msgstr "Kataloogipuu"
 
 #: ../src/gtk/fm-standard-view.c:234
 msgid "View of folder contents"
-msgstr ""
+msgstr "Vaata kausta sisu"
 
 #: ../src/gtk/fm-standard-view.c:790
 #, c-format
@@ -1272,19 +1241,19 @@ msgstr "Näita %s"
 
 #: ../src/gtk/fm-standard-view.c:839
 msgid "_Forget width"
-msgstr ""
+msgstr "_Laiuse unustamine"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "_Ikoonivaade"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Kompaktne vaade"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Pisipildivaade"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
@@ -1309,9 +1278,9 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Liiguta fail prügikastist selle algsesse asukohta"
+msgstr "Ei saa taastada faili '%s': algne asukoht pole teada"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1330,9 +1299,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Sihtkoht on lähtekataloogi alamkaust"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Kataloogi ei saa kopeerida tema enda alamkausta"
+msgstr "Ei saa kopeerida faili '%s': pole toetatud"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1362,7 +1331,7 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Menüü '%s' on juba olemas"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1521
@@ -1380,17 +1349,16 @@ msgstr "Vigane menüükaust"
 
 #: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1737
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Menüül peab olema nimi"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Vigane menüükaust"
+msgstr "Vigane menüükaust '%s'"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Vigane menüükaust"
+msgstr "Vigane menüüelement"
 
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
@@ -1402,24 +1370,24 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Toimingut ei toetata"
+msgstr "Omaduse '%s' seadmine pole toetatud"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Vigane failinimi %s"
+msgstr "Vigane failinimi '%s'"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Vigane menüükaust"
+msgstr "'%s' on menüü kataloog"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "Vigane menüükaust"
+msgstr "\"%s\" pole menüüelement"
 
 #: ../src/modules/vfs-menu.c:2053
 #, c-format
@@ -1427,9 +1395,9 @@ msgid "The '%s' entry file is broken"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Vigane failinimi %s"
+msgstr "Menüü osa '%s' pole võimalik luua"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1441,7 +1409,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2709
 msgid "Invalid destination"
-msgstr ""
+msgstr "Vigane sihtkoht"
 
 #: ../src/modules/vfs-menu.c:2982
 #, c-format
@@ -1454,36 +1422,31 @@ msgid "Search"
 msgstr "Otsing"
 
 #: ../src/modules/vfs-search.c:1049
-#, fuzzy
 msgid "Search results"
-msgstr "Otsi faile"
+msgstr "Otsingutulemused"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
 msgid "Choose an executable file"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
-#, fuzzy
 msgid "Executable files"
-msgstr "Käivita fail"
+msgstr "Käivitatavad failid"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
-#, fuzzy
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>Kuhu:</b>"
+msgstr "<b>_Käsk:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
-#, fuzzy
 msgid "_Browse..."
-msgstr "_Sirvi"
+msgstr "_Sirvi..."
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
+msgstr "Rakenduse ikooni aktiveerimisel käivitatav käsk"
 
 #. row 1: "Terminal" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:294
-#, fuzzy
 msgid "_Run in terminal emulator"
 msgstr "_Käivita terminalis"
 
@@ -1493,43 +1456,38 @@ msgid "_Keep terminal window open after run"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
-#, fuzzy
 msgid "<b>D_escription:</b>"
-msgstr "<b>Asukoht:</b>"
+msgstr "<b>_Kirjeldus:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
-#, fuzzy
 msgid "<b>_Working directory:</b>"
-msgstr "<b>_Omanik:</b>"
+msgstr "<b>_Töökaust:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:351
 msgid "The working directory to run the program in"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:359
-#, fuzzy
 msgid "<b>_Tooltip:</b>"
-msgstr "<b>Kuhu:</b>"
+msgstr "<b>Kohtspikker:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:369
-#, fuzzy
 msgid "Tooltip to show on application"
-msgstr "Vali rakendus"
+msgstr ""
 
 #. TODO: handle "TryExec" field ?
 #. row 7: "StartupNotify" GtkCheckButton
 #: ../src/modules/gtk-fileprop-x-desktop.c:375
 msgid "_Use startup notification"
-msgstr ""
+msgstr "Ka_suta töölemineku märguannet"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Töölaud"
+msgstr "_Töölaua kanne"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1545,15 +1503,15 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "ALLIKAS"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "tulemuseks faili nimi"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "TULEMUS"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
