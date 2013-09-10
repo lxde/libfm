@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-10 18:20+0000\n"
+"PO-Revision-Date: 2013-09-10 18:24+0000\n"
 "Last-Translator: Anari <anari.jalakas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: et\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378837227.0\n"
+"X-POOTLE-MTIME: 1378837451.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -139,7 +139,6 @@ msgstr "pildifailid"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
 msgstr "süsteemi ikooniteema"
 
@@ -588,9 +587,9 @@ msgid "TiB"
 msgstr "TiB"
 
 #: ../src/base/fm-utils.c:572
-#, c-format, fuzzy
+#, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "URI '%s' sisaldab vigaseid paomärke"
+msgstr "URI alamtee '%s' sisaldab vigaseid paomärke"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -1265,7 +1264,7 @@ msgstr ""
 
 #: ../src/job/fm-dir-list-job.c:237 ../src/job/fm-dir-list-job.c:250
 #: ../src/job/fm-dir-list-job.c:348
-#, fuzzy, c-format
+#, c-format
 msgid "The specified directory '%s' is not valid"
 msgstr "Määratud kataloog '%s' ei ole korrektne"
 
