@@ -237,12 +237,16 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
                                       GParamSpec *psec )
 {
     FmCellRendererPixbuf* renderer = FM_CELL_RENDERER_PIXBUF(object);
+    FmFileInfo *fi;
     switch ( param_id )
     {
     case PROP_INFO:
         if( renderer->fi )
             fm_file_info_unref(renderer->fi);
-        renderer->fi = fm_file_info_ref(FM_FILE_INFO(g_value_get_pointer(value)));
+        fi = FM_FILE_INFO(g_value_get_pointer(value));
+        if (fi)
+            fm_file_info_ref(fi);
+        renderer->fi = fi;
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID ( object, param_id, psec );

@@ -1443,7 +1443,6 @@ _mc_failed:
     return FALSE;
 }
 
-/* this is taken from GLocalFile implementation */
 static GFile *_fm_vfs_menu_get_child_for_display_name(GFile *file,
                                                       const char *display_name,
                                                       GError **error)

@@ -739,6 +739,9 @@ static void on_column_auto_adjust(GtkMenuItem* menu_item, GtkTreeViewColumn* col
     fm_folder_view_columns_changed(FM_FOLDER_VIEW(gtk_widget_get_parent(gtk_tree_view_column_get_tree_view(col))));
 }
 
+/* FIXME: add support for 'list_view_size_units' config setting:
+   - on FM_FOLDER_MODEL_COL_SIZE add submenu with list of available values
+   - on click that submenu item change the setting, emit signal, queue reload */
 static gboolean on_column_button_press_event(GtkWidget *button,
                                              GdkEventButton *event,
                                              GtkTreeViewColumn* col)
