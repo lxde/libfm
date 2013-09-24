@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-08 19:02+0000\n"
+"PO-Revision-Date: 2013-09-24 15:44+0000\n"
 "Last-Translator: vgezer <volkangezer@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1375988549.0\n"
+"X-POOTLE-MTIME: 1380037440.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Tercih Edilen Uygulamalar"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Yeni bir masaüstü girdisi oluştur veya mevcutu değiştir"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Kısayol"
+msgstr "Kısayol Düzenleyici"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -126,9 +125,8 @@ msgid "with the following file?"
 msgstr "şu dosyayla?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
-msgstr "<b>Simgeyi Seçin:</b>"
+msgstr "<b>Şuradan bir simge seç:</b>"
 
 #: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
@@ -136,15 +134,13 @@ msgstr "Bir Simge Seç..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
-msgstr "Resim dosyaları"
+msgstr "resim dosyaları"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
-msgstr "Sistem simge teması"
+msgstr "sistem simge teması"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -183,9 +179,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Son Değişiklik:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Son Erişim:</b>"
+msgstr "<b>Son İzin Değişikliği:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -236,9 +231,8 @@ msgid "File Properties"
 msgstr "Dosya Özellikleri"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Video dosyaları"
+msgstr "Gizli dosya"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -510,24 +504,24 @@ msgid "Preparing..."
 msgstr "Hazırlanıyor..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Geçersiz menü ögesi %s"
+msgstr "Geçersiz masaüstü girdi dosyası: '%s'"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "%s MIME türü için öntanımlı bir uygulama ayarlanmadı"
+msgstr "%s:// URI'lerini çalıştırmak için öntanımlı bir uygulama ayarlanmamış"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Çalışma dizini '%s' olarak ayarlanamıyor: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "Çalıştırmak üzere '%s' dosyası içerik türü tespit edilemedi"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -547,22 +541,20 @@ msgid "Trash Can"
 msgstr "Çöp Kutusu"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Kısayol"
+msgstr "URI için kısayol"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file: geçersiz argüman"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "Libfm yapılandırmasında bir teminal öykünücüsü atanmamış"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "Geçersiz hedef"
+msgstr "Küçük resim uygulamasının geçersiz açıklaması"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -597,7 +589,7 @@ msgstr "TiB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI alt yolu '%s' geçersiz olarak çıkış yapılmış karakterler içeriyor"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -716,23 +708,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Dizin ağacını kenar çubuğunda göster"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "İptal edildi"
+msgstr "_İptal"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "K_opyala"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "_Sola taşı"
+msgstr "_Taşı"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Bağlantı"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -748,11 +738,11 @@ msgstr "_Birlikte Aç..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "G_izle"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "Gös_ter"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -775,9 +765,8 @@ msgid "Prop_erties"
 msgstr "_Özellikler"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Çöp Kutusu"
+msgstr "Çö_p"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -805,17 +794,19 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Dosyayı gizle veya göster"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Bu dosya ismi bir nokta ('.') ile başladığından gizli."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Bu sistemdeki dosyalar, isimleri nokta ('.') ile başlarsa gizlidirler. Gizli "
+"dosyaların görünürlüğünü değiştirmek için <Ctrl+H> tuşlarına basın."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1004,26 +995,26 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Bunu sadece sistem yöneticisinin yapmaya yetkisi var."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Seçilen dosyaları çöp kutusuna göndermek istiyor musunuz?"
+msgstr "'%s' dosyasını çöp kutusuna göndermek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Seçilen dosyaları çöp kutusuna göndermek istiyor musunuz?"
+msgstr[0] "Seçilen %d dosyayı çöp kutusuna göndermek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Seçilen dosyaları silmek istiyor musunuz?"
+msgstr "Seçilen '%s' dosyasını silmek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Seçilen dosyaları silmek istiyor musunuz?"
+msgstr[0] "Seçilen %d dosyayı silmek istiyor musunuz?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1055,19 +1046,16 @@ msgid "Applications"
 msgstr "Uygulamalar"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Dosya _Türü"
+msgstr "Dosya sistemi"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Bilgisayarım"
+msgstr "Bilgisayar"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Ağ"
+msgstr "Ağ Sürücüleri"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1082,9 +1070,8 @@ msgid "_Eject Removable Media"
 msgstr "_Çıkarılabilir Aygıtı Çıkar"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Hac_mi Bağla"
+msgstr "Birimi B_içimlendir"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1172,12 +1159,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Duraklat"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Geri al"
+msgstr "_Devam et"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1259,19 +1245,19 @@ msgstr "_Genişliği unut"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "_Simge Görünümü"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Sıkı Görünüm"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Küçük Resim Görünümü"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "Ayrıntılı _Liste Görünümü"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1288,14 +1274,13 @@ msgid "Cannot access destination file"
 msgstr "Hedef dosyaya erişilemiyor"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
-msgstr "tam uyumlu olmayan dosya sisteminde bir bağlantı oluşturulamaz"
+msgstr "Tam uyumlu olmayan dosya sisteminde bir bağlantı oluşturulamaz"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Çöpteki dosyaları yerlerine al"
+msgstr "Çöpteki '%s' dosyası geri alınamadı: özgün yol bilinmiyor"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1314,9 +1299,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Hedef, kaynağın bir alt klasörü"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Dizin kendi alt-dizinine kopyalanamaz"
+msgstr "Dosya kopyalanamıyor '%s': desteklenmiyor"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1329,9 +1314,9 @@ msgid "Setting target can be done only for single file"
 msgstr "Hedef belirlemek sadece tek bir dosya için yapılabilir"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML dosyası %s hatası (%d:%d): "
+msgstr "XML dosyası '%s' hatası (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1339,12 +1324,12 @@ msgstr "XML dosyası Applications kökü içermiyor"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr "'%s' için XML tanımlaması oluşturulamıyor"
+msgstr "%s için XML tanımlaması oluşturulamıyor"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
-#, fuzzy, c-format
+#, c-format
 msgid "Menu path '%s' already exists"
 msgstr "'%s' menü yolu zaten mevcut"
 
@@ -1367,9 +1352,9 @@ msgid "Menu item name cannot be empty"
 msgstr "Menu öge adı boş olamaz"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Geçersiz menü dizini %s"
+msgstr "Geçersiz menü dizini '%s'"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1385,39 +1370,38 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "Menü dizini için gizlilik durumunu değiştirmek desteklenmiyor"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "%s niteliği ayarlamak desteklenmiyor"
+msgstr "'%s' niteliğini ayarlamak desteklenmiyor"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "%s niteliği için geçersiz değer"
+msgstr "'%s' niteliği için geçersiz değer"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "\"%s\" bir menü dizini"
+msgstr "'%s' bir menü dizini"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "\"%s\" bir menü ögesi değil"
+msgstr "'%s' bir menü ögesi değil"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "\"%s\" bozuk"
+msgstr "'%s' girdi dosyası bozuk"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "\"%s\" menü ögesi oluşturulamıyor"
+msgstr "'%s' menü ögesi oluşturulamıyor"
 
 #: ../src/modules/vfs-menu.c:2575
-#, fuzzy
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr "menu dizininin adı \".desktop\" ile bitmemeli"
+msgstr "Menu dizininin adı \".desktop\" ile bitmemeli"
 
 #: ../src/modules/vfs-menu.c:2620
 msgid "Invalid operation with menu root"
@@ -1428,9 +1412,9 @@ msgid "Invalid destination"
 msgstr "Geçersiz hedef"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: %s dizini menü önbelleğinde bulunamadı"
+msgstr "FmMenuVFileMonitor: '%s' dizini menü önbelleğinde bulunamadı"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1504,9 +1488,8 @@ msgid "_Use startup notification"
 msgstr "_Başlangıç bildirimini kullan"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Masaüstü"
+msgstr "_Masaüstü girdisi"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
@@ -1518,19 +1501,19 @@ msgstr "Çöpteki dosyaları yerlerine al"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "kaynak dosya adı veya masaüstü no"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "KAYNAK"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "sonuç dosya adı"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "SONUÇ"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
