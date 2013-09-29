@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-29 12:07+0000\n"
+"PO-Revision-Date: 2013-09-29 12:11+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1380456427.0\n"
+"X-POOTLE-MTIME: 1380456690.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -126,7 +126,6 @@ msgid "with the following file?"
 msgstr "durch folgende Datei ersetzen?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Symbol auswählen aus:</b>"
 
@@ -703,23 +702,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "Zeigt den Verzeichnisbaum in der Seitenleiste"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Abgebrochen"
+msgstr "_Abbrechen"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "Nach _links bewegen"
+msgstr "_Bewegen"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Verknüpfen"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
