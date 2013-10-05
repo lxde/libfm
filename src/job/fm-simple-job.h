@@ -23,7 +23,7 @@
 #ifndef __FM_SIMPLE_JOB_H__
 #define __FM_SIMPLE_JOB_H__
 
-#include <fm-job.h>
+#include "fm-job.h"
 
 G_BEGIN_DECLS
 
