@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-09 13:57+0000\n"
+"PO-Revision-Date: 2013-10-06 05:07+0000\n"
 "Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1376056665.0\n"
+"X-POOTLE-MTIME: 1381036063.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "优先使用的应用程序"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "新建或修改现有的桌面项"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "快捷方式"
+msgstr "快捷方式编辑器"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -126,7 +125,6 @@ msgid "with the following file?"
 msgstr "针对以下文件？"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>选择图标来源位置：</b>"
 
@@ -136,13 +134,11 @@ msgstr "选择一个图标..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
 msgstr "图像文件"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-#, fuzzy
 msgid "system icon theme"
 msgstr "系统图标主题"
 
@@ -183,9 +179,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>上次修改：</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>上次访问：</b>"
+msgstr "<b>上次权限更改：</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -236,9 +231,8 @@ msgid "File Properties"
 msgstr "文件属性"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "视频文件(_V)"
+msgstr "隐藏文件"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -507,24 +501,24 @@ msgid "Preparing..."
 msgstr "正在准备..."
 
 #: ../src/base/fm-file-launcher.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "无效的菜单项 %s"
+msgstr "无效的桌面项文件：“ %s”"
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "没有设置对应于 MIME 类型 %s 的默认应用程序"
+msgstr "没有设置用于启动 URI %s:// 的默认应用程序"
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "无法设置工作目录到 '%s'：%s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr ""
+msgstr "无法确定文件“%s”的内容类型，无法启动它"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -544,22 +538,20 @@ msgid "Trash Can"
 msgstr "回收站"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "快捷方式"
+msgstr "指向 URI 的快捷方式"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
-msgstr ""
+msgstr "fm_template_create_file：参数无效"
 
 #: ../src/base/fm-terminal.c:248
 msgid "No terminal emulator is set in libfm config"
 msgstr "libfm 配置中没有设置终端仿真器"
 
 #: ../src/base/fm-thumbnailer.c:283
-#, fuzzy
 msgid "Invalid description of thumbnailer application"
-msgstr "无效的目标"
+msgstr "缩略图应用程序的描述无效"
 
 #: ../src/base/fm-utils.c:136
 msgid "kB"
@@ -594,7 +586,7 @@ msgstr "TB"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr ""
+msgstr "URI 子路径“%s”中包含无效的转义字符"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -709,23 +701,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr "在侧栏中显示目录树"
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "取消"
+msgstr "取消(_C)"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "复制(_O)"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "左移(_M)"
+msgstr "移动(_M)"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "链接(_L)"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -741,11 +731,11 @@ msgstr "打开方式(_W)..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "隐藏(_I)"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "取消隐藏(_I)"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -768,9 +758,8 @@ msgid "Prop_erties"
 msgstr "文件属性(_E)"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "回收站"
+msgstr "回收站(_T)"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -797,17 +786,17 @@ msgstr "您想递归地将这些操作应用于所有的文件及子文件夹吗
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "隐藏或显示文件"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "该文件是隐藏的，因为它的名字以点(“.”)开头。"
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr ""
+msgstr "系统中名字以点(“.”)开头的文件会隐藏。按<Ctrl+H>切换显示隐藏文件。"
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -996,26 +985,26 @@ msgid "Only system administrators have the permission to do this."
 msgstr "只有系统管理员有权执行此操作。"
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "您想将选择的文件移到回收站吗？"
+msgstr "您想将文件“%s”移到回收站吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "您想将选择的文件移到回收站吗？"
+msgstr[0] "您想将选择的 %d 个文件移到回收站吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "您想删除选择的文件吗？"
+msgstr "您想删除文件“%s”吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "您想删除选择的文件吗？"
+msgstr[0] "您想删除选择的 %d 个文件吗？"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1047,19 +1036,16 @@ msgid "Applications"
 msgstr "应用程序"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "文件类型(_T)"
+msgstr "文件系统"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "我的电脑"
+msgstr "计算机"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "网络"
+msgstr "网络驱动器"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1074,9 +1060,8 @@ msgid "_Eject Removable Media"
 msgstr "弹出可移动媒质(_E)"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "挂载卷(_M)"
+msgstr "格式化卷(_F)"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1161,12 +1146,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "暂停(_P)"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "还原(_R)"
+msgstr "继续(_R)"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1248,19 +1232,19 @@ msgstr "忘记宽度(_F)"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "图标视图(_I)"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "紧缩视图(_C)"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "缩略视图(_T)"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "详细列表视图(_L)"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1277,14 +1261,13 @@ msgid "Cannot access destination file"
 msgstr "无法访问目标文件"
 
 #: ../src/job/fm-file-ops-job.c:570
-#, fuzzy
 msgid "Cannot create a link on non-native filesystem"
 msgstr "无法在非本地文件系统中创建链接"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "将移到回收站的文件还原到原位置"
+msgstr "无法还原文件“%s”：原路径未知"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1303,9 +1286,9 @@ msgid "Destination is a sub folder of source"
 msgstr "目标位置是源位置的子文件夹"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "无法将文件夹复制到其子文件夹中"
+msgstr "无法复制文件“%s”：不支持"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1318,9 +1301,9 @@ msgid "Setting target can be done only for single file"
 msgstr "只能对单个文件设置目标"
 
 #: ../src/modules/vfs-menu.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "XML 文件 %s 错误 (%d:%d)："
+msgstr "XML 文件“%s”错误 (%d:%d)："
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1356,9 +1339,9 @@ msgid "Menu item name cannot be empty"
 msgstr "菜单项名称不能为空"
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "无效的菜单目录 %s"
+msgstr "无效的菜单目录“%s”"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
 msgid "Invalid menu item"
@@ -1374,32 +1357,32 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr "不支持更改菜单目录的隐藏状态"
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "不支持设置属性 %s"
+msgstr "不支持设置属性“%s”"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "属性 %s 的值无效"
+msgstr "属性“%s”的值无效"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
 msgstr "“%s”是一个菜单目录"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "“%s”不是一个菜单项"
 
 #: ../src/modules/vfs-menu.c:2053
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' entry file is broken"
-msgstr "“%s”损坏"
+msgstr "“%s”项文件损坏"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "无法创建菜单项“%s”"
 
@@ -1416,9 +1399,9 @@ msgid "Invalid destination"
 msgstr "无效的目标"
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor：在菜单缓存中未找到文件夹 %s"
+msgstr "FmMenuVFileMonitor：在菜单缓存中未找到文件夹“%s”"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1503,19 +1486,19 @@ msgstr "将移到回收站的文件还原到原位置"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "源文件名或桌面标识"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "源"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "结果文件名"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "结果"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
