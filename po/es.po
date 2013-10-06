@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-09 10:16+0000\n"
+"PO-Revision-Date: 2013-10-06 22:19+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378721764.0\n"
+"X-POOTLE-MTIME: 1381097986.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,7 +25,7 @@ msgstr "Aplicaciones preferidas"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Crear o modificar una entrada .desktop"
 
 #: ../data/lxshortcut.desktop.in.h:2
 msgid "Shortcut Editor"
@@ -61,7 +61,6 @@ msgstr ""
 "asociación)</b>"
 
 #: ../data/ui/app-chooser.glade.h:10
-#, fuzzy
 msgid "C_ustom Command Line"
 msgstr "Línea de órdenes personali_zada"
 
@@ -88,8 +87,8 @@ msgstr "_Mantener la ventana del terminal después de ejecutar la orden"
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr ""
-"Establecer _la aplicación seleccionada como predeterminada para abrir los "
-"archivos de este tipo"
+"_Definir aplicación seleccionada como predeterminada para abrir archivos de "
+"este tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -609,6 +608,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"No se pudo analizar «%-.*s», que debería tener un dígito en una referencia "
+"de carácter (p.ej.: &#234;), quizás el dígito es demasiado grande"
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -617,6 +618,9 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"La referencia al carácter no finalizó con punto y coma. Probablemente "
+"utilizó un carácter «&» sin pretender iniciar una entidad; escape este "
+"símbolo escribiendo &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
@@ -1319,12 +1323,12 @@ msgstr "No se puede copiar el archivo «%s»: no compatible"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Solo se puede definir el nombre para mostrar en un solo archivo"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Solo se puede definir el destino en un solo archivo"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
@@ -1448,7 +1452,7 @@ msgstr "Archivos ejecutables"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:267
 msgid "<b>Co_mmand:</b>"
-msgstr "<b>O_rden:<b>"
+msgstr "<b>O_rden:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:275
 msgid "_Browse..."
