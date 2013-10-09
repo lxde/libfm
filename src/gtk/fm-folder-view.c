@@ -1112,10 +1112,10 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
     gtk_widget_get_allocation(GTK_WIDGET(menu), &ma);
     /* position menu inside widget */
     if(rtl) /* RTL */
-        x2 = CLAMP(x2, 1, ma.width + a.width - 1);
+        x2 = CLAMP(x2, a.x + 1, a.x + ma.width + a.width - 1);
     else /* LTR */
-        x2 = CLAMP(x2, 1 - ma.width, a.width - 1);
-    y2 = CLAMP(y2, 1 - ma.height, a.height - 1);
+        x2 = CLAMP(x2, a.x + 1 - ma.width, a.x + a.width - 1);
+    y2 = CLAMP(y2, a.y + 1 - ma.height, a.y + a.height - 1);
     /* get absolute coordinate of parent window - we got coords relative to it */
     parent_window = gtk_widget_get_parent_window(widget);
     if(parent_window)
@@ -1124,8 +1124,8 @@ static void popup_position_func(GtkMenu *menu, gint *x, gint *y,
         /* desktop has no parent window so parent coords will be 0;0 */
         *x = *y = 0;
     /* calculate desired position for menu */
-    *x += a.x + x2;
-    *y += a.y + y2;
+    *x += x2;
+    *y += y2;
     /* limit coordinates so menu will be not positioned outside of screen */
     screen = gtk_widget_get_screen(widget);
     mon = gdk_screen_get_monitor_at_point(screen, *x, *y);
