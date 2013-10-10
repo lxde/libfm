@@ -85,6 +85,7 @@ struct _FmStandardView
 
     /* internal switches */
     void (*set_single_click)(GtkWidget* view, gboolean single_click);
+    void (*set_auto_selection_delay)(GtkWidget* view, gint auto_selection_delay);
     GtkTreePath* (*get_drop_path)(FmStandardView* fv, gint x, gint y);
     void (*select_all)(GtkWidget* view);
     void (*unselect_all)(GtkWidget* view);
@@ -121,6 +122,7 @@ static void on_sel_changed(GObject* obj, FmStandardView* fv);
 static void on_dnd_src_data_get(FmDndSrc* ds, FmStandardView* fv);
 
 static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv);
+static void on_auto_selection_delay_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_big_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_small_icon_size_changed(FmConfig* cfg, FmStandardView* fv);
 static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv);
@@ -166,6 +168,12 @@ static void on_single_click_changed(FmConfig* cfg, FmStandardView* fv)
         fv->set_single_click(fv->view, cfg->single_click);
 }
 
+static void on_auto_selection_delay_changed(FmConfig* cfg, FmStandardView* fv)
+{
+    if(fv->set_auto_selection_delay)
+        fv->set_auto_selection_delay(fv->view, cfg->auto_selection_delay);
+}
+
 static void on_icon_view_item_activated(ExoIconView* iv, GtkTreePath* path, FmStandardView* fv)
 {
     fm_folder_view_item_clicked(FM_FOLDER_VIEW(fv), path, FM_FV_ACTIVATED);
@@ -184,6 +192,7 @@ static void fm_standard_view_init(FmStandardView *self)
 
     /* config change notifications */
     g_signal_connect(fm_config, "changed::single_click", G_CALLBACK(on_single_click_changed), self);
+    g_signal_connect(fm_config, "changed::auto_selection_delay", G_CALLBACK(on_auto_selection_delay_changed), self);
 
     /* dnd support */
     self->dnd_src = fm_dnd_src_new(NULL);
@@ -335,6 +344,7 @@ static void fm_standard_view_dispose(GObject *object)
     }
 
     g_signal_handlers_disconnect_by_func(fm_config, on_single_click_changed, object);
+    g_signal_handlers_disconnect_by_func(fm_config, on_auto_selection_delay_changed, object);
 
     if(self->sel_changed_idle)
     {
@@ -1164,6 +1174,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         case FM_FV_THUMBNAIL_VIEW:
             create_icon_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_single_click;
+            fv->set_auto_selection_delay = (void(*)(GtkWidget*,gint))exo_icon_view_set_single_click_timeout;
             fv->get_drop_path = get_drop_path_icon_view;
             fv->select_all = (void(*)(GtkWidget*))exo_icon_view_select_all;
             fv->unselect_all = (void(*)(GtkWidget*))exo_icon_view_unselect_all;
@@ -1173,6 +1184,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
         case FM_FV_LIST_VIEW: /* detailed list view */
             create_list_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_single_click;
+            fv->set_auto_selection_delay = (void(*)(GtkWidget*,gint))exo_tree_view_set_single_click_timeout;
             fv->get_drop_path = get_drop_path_list_view;
             fv->select_all = select_all_list_view;
             fv->unselect_all = unselect_all_list_view;
