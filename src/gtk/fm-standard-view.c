@@ -88,6 +88,7 @@ struct _FmStandardView
     /* internal switches */
     void (*set_single_click)(GtkWidget* view, gboolean single_click);
     GtkTreePath* (*get_drop_path)(FmStandardView* fv, gint x, gint y);
+    void (*set_drag_dest)(FmStandardView* fv, GtkTreePath* tp);
     void (*select_all)(GtkWidget* view);
     void (*unselect_all)(GtkWidget* view);
     void (*select_invert)(FmFolderModel* model, GtkWidget* view);
@@ -387,6 +388,17 @@ static void on_thumbnail_size_changed(FmConfig* cfg, FmStandardView* fv)
     set_icon_size(fv, cfg->thumbnail_size);
 }
 
+static void set_drag_dest_list_item(FmStandardView* fv, GtkTreePath* tp)
+{
+    gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(fv->view), tp,
+                                    GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
+}
+
+static void set_drag_dest_icon_item(FmStandardView* fv, GtkTreePath* tp)
+{
+    exo_icon_view_set_drag_dest_item(EXO_ICON_VIEW(fv->view), tp, EXO_ICON_VIEW_DROP_INTO);
+}
+
 static GtkTreePath* get_drop_path_list_view(FmStandardView* fv, gint x, gint y)
 {
     GtkTreePath* tp = NULL;
@@ -401,9 +413,6 @@ static GtkTreePath* get_drop_path_list_view(FmStandardView* fv, gint x, gint y)
             tp = NULL;
         }
     }
-    if(tp)
-        gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(fv->view), tp,
-                                        GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
     return tp;
 }
 
@@ -412,7 +421,6 @@ static GtkTreePath* get_drop_path_icon_view(FmStandardView* fv, gint x, gint y)
     GtkTreePath* tp;
 
     tp = exo_icon_view_get_path_at_pos(EXO_ICON_VIEW(fv->view), x, y);
-    exo_icon_view_set_drag_dest_item(EXO_ICON_VIEW(fv->view), tp, EXO_ICON_VIEW_DROP_INTO);
     return tp;
 }
 
@@ -444,7 +452,6 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
                 gtk_tree_model_get(GTK_TREE_MODEL(fv->model), &it, FM_FOLDER_MODEL_COL_INFO, &fi, -1);
                 fm_dnd_dest_set_dest_file(fv->dnd_dest, fi);
             }
-            gtk_tree_path_free(tp);
         }
         else
         {
@@ -459,6 +466,9 @@ static gboolean on_drag_motion(GtkWidget *dest_widget,
         }
         action = fm_dnd_dest_get_default_action(fv->dnd_dest, drag_context, target);
         ret = action != 0;
+        fv->set_drag_dest(fv, ret ? tp : NULL);
+        if (tp)
+            gtk_tree_path_free(tp);
     }
     gdk_drag_status(drag_context, action, time);
 
@@ -855,6 +865,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             create_icon_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_icon_view_set_single_click;
             fv->get_drop_path = get_drop_path_icon_view;
+            fv->set_drag_dest = set_drag_dest_icon_item;
             fv->select_all = (void(*)(GtkWidget*))exo_icon_view_select_all;
             fv->unselect_all = (void(*)(GtkWidget*))exo_icon_view_unselect_all;
             fv->select_invert = select_invert_icon_view;
@@ -864,6 +875,7 @@ void fm_standard_view_set_mode(FmStandardView* fv, FmStandardViewMode mode)
             create_list_view(fv, sels);
             fv->set_single_click = (void(*)(GtkWidget*,gboolean))exo_tree_view_set_single_click;
             fv->get_drop_path = get_drop_path_list_view;
+            fv->set_drag_dest = set_drag_dest_list_item;
             fv->select_all = select_all_list_view;
             fv->unselect_all = unselect_all_list_view;
             fv->select_invert = select_invert_list_view;
