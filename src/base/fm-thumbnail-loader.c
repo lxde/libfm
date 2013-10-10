@@ -149,7 +149,7 @@ static guint thumbnailer_timeout_id = 0;
 static gpointer load_thumbnail_thread(gpointer user_data);
 static void load_thumbnails(ThumbnailTask* task);
 static void generate_thumbnails(ThumbnailTask* task);
-static void generate_thumbnails_with_builtin(ThumbnailTask* task);
+static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task);
 static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task);
 static GObject* scale_pix(GObject* ori_pix, int size);
 static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char* path);
@@ -788,18 +788,14 @@ void _fm_thumbnail_loader_finalize(void)
 /* in thread */
 static void generate_thumbnails(ThumbnailTask* task)
 {
-    if(fm_file_info_is_image(task->fi))
-    {
-        /* FIXME: if the built-in thumbnail generation fails
-         * still call external thumbnailer to handle it.
-         *
-         * We should only handle those mime-types supported
-         * by GObject listed by gdk_pixbuf_get_formats(). */
+    if (fm_file_info_is_image(task->fi) &&
         /* if the image file is too large, don't generate thumbnail for it. */
-        if(fm_config->thumbnail_max == 0 || (fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10)))
-            generate_thumbnails_with_builtin(task);
-        /* FIXME: should requestor be informed we not loaded thumbnail? */
-    }
+        (fm_config->thumbnail_max == 0 ||
+         (fm_file_info_get_size(task->fi) <= (fm_config->thumbnail_max << 10))) &&
+            generate_thumbnails_with_builtin(task))
+        ;
+        /* if image is too large or the built-in thumbnail generation fails
+         * still call external thumbnailer to handle it. */
     else
         generate_thumbnails_with_thumbnailers(task);
 
@@ -867,7 +863,7 @@ static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char
 }
 
 /* in thread */
-static void generate_thumbnails_with_builtin(ThumbnailTask* task)
+static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
 {
     /* FIXME: only formats supported by GObject should be handled this way. */
     GFile* gf = fm_path_to_gfile(fm_file_info_get_path(task->fi));
@@ -1021,6 +1017,12 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
             }
             g_object_unref(ori_pix);
         }
+        else
+        {
+            g_object_unref(gf);
+            /* g_debug("failed to generate thumbnail internally, revert to external"); */
+            return FALSE;
+        }
     }
 
     thumbnail_task_finish(task, normal_pix, large_pix);
@@ -1031,6 +1033,7 @@ static void generate_thumbnails_with_builtin(ThumbnailTask* task)
         g_object_unref(large_pix);
 
     g_object_unref(gf);
+    return TRUE;
 }
 
 /* call from main thread */
