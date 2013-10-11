@@ -78,8 +78,7 @@ struct _ThumbnailTask
 {
     FmFileInfo* fi;         /* never changed between creation and destroying */
     ThumbnailTaskFlags flags; /* used internally */
-    sig_atomic_t cancelled; /* no lock required for this type */
-    sig_atomic_t locked;    /* no lock required for this type */
+    GCancellable *cancellable; /* NULL until work is started */
     char* uri;              /* used internally */
     char* normal_path;      /* used internally */
     char* large_path;       /* used internally */
@@ -118,20 +117,20 @@ struct _ThumbnailCache
 
 /* Lock for loader, generator, and ready queues */
 #if GLIB_CHECK_VERSION(2, 32, 0)
-static GRecMutex queue_lock;
+static GMutex queue_lock;
+#define lock_ptr &queue_lock
+static GCond queue_cond;
+#define cond_ptr &queue_cond
 #else
-static GStaticRecMutex queue_lock = G_STATIC_REC_MUTEX_INIT;
-#define g_rec_mutex_lock g_static_rec_mutex_lock
-#define g_rec_mutex_unlock g_static_rec_mutex_unlock
+static GMutex *queue_lock;
+#define lock_ptr queue_lock
+static GCond *queue_cond;
+#define cond_ptr queue_cond
 #endif
 
 /* load generated thumbnails */
 static GQueue loader_queue = G_QUEUE_INIT; /* consists of ThumbnailTask */
-static GThread* loader_thread_id = NULL;
-static ThumbnailTask* cur_loading = NULL;
-
-/* generate thumbnails for files */
-static GCancellable* generator_cancellable = NULL;
+static gboolean loader_thread_running = FALSE;
 
 /* already loaded thumbnails */
 static GQueue ready_queue = G_QUEUE_INIT; /* consists of FmThumbnailLoader */
@@ -143,7 +142,6 @@ static GHashTable* hash = NULL;
 
 static char* thumb_dir = NULL;
 
-static GPid thumbnailer_pid = -1; /* for cur_loading task */
 static guint thumbnailer_timeout_id = 0;
 
 static gpointer load_thumbnail_thread(gpointer user_data);
@@ -168,19 +166,19 @@ static gboolean on_ready_idle(gpointer user_data)
 {
     FmThumbnailLoader* req;
     int n = 200; /* max 200 thumbnails in a row */
-    g_rec_mutex_lock(&queue_lock);
+    g_mutex_lock(lock_ptr);
     while((req = (FmThumbnailLoader*)g_queue_pop_head(&ready_queue)) != NULL)
     {
-        g_rec_mutex_unlock(&queue_lock);
+        g_mutex_unlock(lock_ptr);
         if(!req->cancelled)
             req->callback(req, req->user_data);
         fm_thumbnail_loader_free(req);
         if(--n == 0)
             return TRUE; /* continue on next idle */
-        g_rec_mutex_lock(&queue_lock);
+        g_mutex_lock(lock_ptr);
     }
     ready_idle_handler = 0;
-    g_rec_mutex_unlock(&queue_lock);
+    g_mutex_unlock(lock_ptr);
     return FALSE;
 }
 
@@ -203,6 +201,8 @@ inline static void thumbnail_task_free(ThumbnailTask* task)
     if(task->requests)
         g_list_free(task->requests);
     fm_file_info_unref(task->fi);
+    if (task->cancellable)
+        g_object_unref(task->cancellable);
     g_slice_free(ThumbnailTask, task);
 }
 
@@ -219,7 +219,7 @@ static void on_pixbuf_destroy(gpointer data, GObject* obj_ptr)
     GSList* l;
     /* remove it from cache */
     DEBUG("remove from cache!");
-    g_rec_mutex_lock(&queue_lock);
+    g_mutex_lock(lock_ptr);
     for(l=cache->items;l;l=l->next)
     {
         ThumbnailCacheItem* item = (ThumbnailCacheItem*)l->data;
@@ -237,7 +237,7 @@ static void on_pixbuf_destroy(gpointer data, GObject* obj_ptr)
             break;
         }
     }
-    g_rec_mutex_unlock(&queue_lock);
+    g_mutex_unlock(lock_ptr);
 }
 
 /* called with queue lock held */
@@ -281,7 +281,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GObject* normal_pix, GObj
     GList* l;
 
     /* sort the requests by requested size to utilize cached scaled pixbuf */
-    g_rec_mutex_lock(&queue_lock);
+    g_mutex_lock(lock_ptr);
     task->requests = g_list_sort(task->requests, comp_request);
     for(l=task->requests; l; l=l->next)
     {
@@ -299,7 +299,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GObject* normal_pix, GObj
             goto push_it;
         }
 
-        g_rec_mutex_unlock(&queue_lock);
+        g_mutex_unlock(lock_ptr);
         if(G_LIKELY(req->size <= 128)) /* normal */
         {
             if(normal_pix)
@@ -320,7 +320,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GObject* normal_pix, GObj
         cached_pix = req->pix ? g_object_ref(req->pix) : NULL;
         cached_size = req->size;
 
-        g_rec_mutex_lock(&queue_lock);
+        g_mutex_lock(lock_ptr);
         /* cache this in hash table */
         if(cached_pix)
             cache_thumbnail_in_hash(fm_file_info_get_path(req->fi), cached_pix, cached_size);
@@ -330,7 +330,7 @@ static void thumbnail_task_finish(ThumbnailTask* task, GObject* normal_pix, GObj
 push_it:
         req->done = TRUE;
     }
-    g_rec_mutex_unlock(&queue_lock);
+    g_mutex_unlock(lock_ptr);
     if(cached_pix)
         g_object_unref(cached_pix);
 }
@@ -376,7 +376,7 @@ static void load_thumbnails(ThumbnailTask* task)
     const char* normal_path = task->normal_path;
     const char* large_path = task->large_path;
 
-    if( task->cancelled )
+    if( g_cancellable_is_cancelled(task->cancellable) )
         goto _out;
 
     DEBUG("loading: %s, %s, %s", fm_file_info_get_name(task->fi), normal_path, large_path);
@@ -398,7 +398,7 @@ static void load_thumbnails(ThumbnailTask* task)
         }
     }
 
-    if( task->cancelled )
+    if( g_cancellable_is_cancelled(task->cancellable) )
         goto _out;
 
     if(task->flags & LOAD_LARGE)
@@ -413,11 +413,11 @@ static void load_thumbnails(ThumbnailTask* task)
         }
     }
 
-_out:
     /* thumbnails which don't require re-generation should all be loaded at this point. */
-    if(!task->cancelled && task->requests)
+    if(!g_cancellable_is_cancelled(task->cancellable) && task->requests)
         thumbnail_task_finish(task, normal_pix, large_pix);
 
+_out:
     if(normal_pix)
         g_object_unref(normal_pix);
     if(large_pix)
@@ -442,16 +442,22 @@ static gpointer load_thumbnail_thread(gpointer user_data)
 
     for(;;)
     {
-        g_rec_mutex_lock(&queue_lock);
+        g_mutex_lock(lock_ptr);
         task = g_queue_pop_head(&loader_queue);
-        cur_loading = task;
         if(G_LIKELY(task))
         {
             char* uri;
             const char* md5;
+            GList *reql;
 
-            task->locked = TRUE;
-            g_rec_mutex_unlock(&queue_lock);
+            for (reql = task->requests; reql; reql = reql->next)
+                if (!((FmThumbnailLoader*)reql->data)->cancelled)
+                    break;
+            if (reql == NULL) /* all requests were cancelled already */
+                goto _free_task;
+            if (!task->cancellable)
+                task->cancellable = g_cancellable_new();
+            g_mutex_unlock(lock_ptr);
             uri = fm_path_to_uri(fm_file_info_get_path(task->fi));
 
             /* generate filename for the thumbnail */
@@ -482,33 +488,27 @@ static gpointer load_thumbnail_thread(gpointer user_data)
             task->large_path = NULL;
             g_free(uri);
 
-            g_rec_mutex_lock(&queue_lock);
-            cur_loading = NULL;
+            g_mutex_lock(lock_ptr);
 
-            if(g_cancellable_is_cancelled(generator_cancellable))
-            {
-                DEBUG("generation of thumbnail is cancelled!");
-                g_cancellable_reset(generator_cancellable);
-            }
-
-            if(task->cancelled /* task is done */
+            if(g_cancellable_is_cancelled(task->cancellable) /* task is done */
                || (task->flags & (GENERATE_NORMAL|GENERATE_LARGE)) == 0)
+_free_task:
                 thumbnail_task_free(task);
             else
                 g_queue_push_tail(&loader_queue, task); /* return it to regen */
 
-            g_rec_mutex_unlock(&queue_lock);
+            g_mutex_unlock(lock_ptr);
         }
         else /* no task is left in the loader_queue */
         {
+            loader_thread_running = FALSE;
+            g_mutex_unlock(lock_ptr);
             g_free(normal_path);
             g_free(large_path);
             g_checksum_free(sum);
 #if GLIB_CHECK_VERSION(2, 32, 0)
-            g_thread_unref(loader_thread_id);
+            g_thread_unref(g_thread_self());
 #endif
-            loader_thread_id = NULL;
-            g_rec_mutex_unlock(&queue_lock);
             return NULL;
         }
     }
@@ -540,8 +540,8 @@ static ThumbnailTask* find_queued_task(GQueue* queue, FmFileInfo* fi)
     for( l = queue->head; l; l=l->next )
     {
         ThumbnailTask* task = (ThumbnailTask*)l->data;
-        /* if it's cancelled or processing then it's too late to add */
-        if(task->cancelled || task->locked)
+        /* if it's processing then it's too late to add */
+        if(task->cancellable)
             continue;
         if(G_UNLIKELY(task->fi == fi || fm_path_equal(fm_file_info_get_path(task->fi), fm_file_info_get_path(fi))))
             return task;
@@ -575,6 +575,7 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
     ThumbnailTask* task;
     GObject* pix;
     FmPath* src_path = fm_file_info_get_path(src_file);
+    gboolean thread_running;
 
     g_return_val_if_fail(hash != NULL, NULL);
     g_assert(callback != NULL);
@@ -590,7 +591,7 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
 
     DEBUG("request thumbnail: %s", fm_path_get_basename(src_path));
 
-    g_rec_mutex_lock(&queue_lock);
+    g_mutex_lock(lock_ptr);
 
     /* find in the cache first to see if thumbnail is already cached */
     pix = find_thumbnail_in_hash(src_path, size);
@@ -602,7 +603,7 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
         g_queue_push_tail(&ready_queue, req);
         if( 0 == ready_idle_handler ) /* schedule an idle handler if there isn't one. */
             ready_idle_handler = g_idle_add_full(G_PRIORITY_LOW, on_ready_idle, NULL, NULL);
-        g_rec_mutex_unlock(&queue_lock);
+        g_mutex_unlock(lock_ptr);
         return req;
     }
 
@@ -628,17 +629,20 @@ FmThumbnailLoader* fm_thumbnail_loader_load(FmFileInfo* src_file,
 
     task->requests = g_list_append(task->requests, req);
 
-    if(!loader_thread_id)
+    thread_running = loader_thread_running;
+    loader_thread_running = TRUE;
+    g_mutex_unlock(lock_ptr);
+
+    if(!thread_running)
 #if GLIB_CHECK_VERSION(2, 32, 0)
-        loader_thread_id = g_thread_new("loader", load_thumbnail_thread, NULL);
+        g_thread_new("loader", load_thumbnail_thread, NULL);
         /* we don't use loader_thread_id but Glib 2.32 crashes if we unref
            GThread while it's in creation progress. It is a bug of GLib
            certainly but as workaround we'll unref it in the thread itself */
 #else
-        loader_thread_id = g_thread_create( load_thumbnail_thread, NULL, FALSE, NULL);
+        g_thread_create( load_thumbnail_thread, NULL, FALSE, NULL);
 #endif
 
-    g_rec_mutex_unlock(&queue_lock);
     return req;
 }
 
@@ -659,8 +663,8 @@ void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
 
     g_return_if_fail(req != NULL);
 
+    g_mutex_lock(lock_ptr);
     req->cancelled = TRUE;
-    g_rec_mutex_lock(&queue_lock);
 
     if(req->task == NULL)
         goto done;
@@ -671,25 +675,15 @@ void fm_thumbnail_loader_cancel(FmThumbnailLoader* req)
         if(!req->cancelled)
             break;
     }
-    if(l == NULL)
+    if(l == NULL && req->task->cancellable != NULL)
     {
-        req->task->cancelled = TRUE;
-        if(req->task == cur_loading && generator_cancellable)
-        {
-            g_cancellable_cancel(generator_cancellable);
-            if(thumbnailer_pid > 0)
-                kill(thumbnailer_pid, SIGTERM);
-            thumbnailer_pid = -1;
-            if(thumbnailer_timeout_id)
-            {
-                g_source_remove(thumbnailer_timeout_id);
-                thumbnailer_timeout_id = 0;
-            }
-        }
+        g_cancellable_cancel(req->task->cancellable);
+        DEBUG("cancelling the task");
     }
 
 done:
-    g_rec_mutex_unlock(&queue_lock);
+    g_mutex_unlock(lock_ptr);
+    g_cond_broadcast(cond_ptr); /* if it is loading right now then let it die */
 }
 
 /**
@@ -747,15 +741,16 @@ void _fm_thumbnail_loader_init()
 {
     thumb_dir = g_build_filename(fm_get_home_dir(), ".thumbnails", NULL);
     hash = g_hash_table_new((GHashFunc)fm_path_hash, (GEqualFunc)fm_path_equal);
-    generator_cancellable = g_cancellable_new();
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+    lock_ptr = g_mutex_new();
+    cond_ptr = g_cond_new();
+#endif
 }
 
 static gboolean fm_thumbnail_loader_cleanup(gpointer unused)
 {
     FmThumbnailLoader* req;
 
-    if(loader_thread_id)
-        return TRUE;
     /* loader_queue is empty and cur_loading is finished */
     while((req = g_queue_pop_head(&ready_queue)))
         fm_thumbnail_loader_free(req);
@@ -763,8 +758,6 @@ static gboolean fm_thumbnail_loader_cleanup(gpointer unused)
     hash = NULL;
     g_free(thumb_dir);
     thumb_dir = NULL;
-    g_object_unref(generator_cancellable);
-    generator_cancellable = NULL;
     return FALSE;
 }
 
@@ -772,18 +765,33 @@ static gboolean fm_thumbnail_loader_cleanup(gpointer unused)
 void _fm_thumbnail_loader_finalize(void)
 {
     ThumbnailTask* task;
+    GList *qlist, *rlist;
 
-    g_rec_mutex_lock(&queue_lock);
+    g_mutex_lock(lock_ptr);
     /* cancel all pending requests before destroying hash */
-    if(cur_loading)
-        cur_loading->cancelled = TRUE;
-    if(generator_cancellable)
-        g_cancellable_cancel(generator_cancellable);
+    for (qlist = g_queue_peek_head_link(&loader_queue); qlist; qlist = qlist->next)
+    {
+        task = qlist->data;
+        if (task->cancellable)
+            g_cancellable_cancel(task->cancellable);
+        for (rlist = task->requests; rlist; rlist = rlist->next)
+            //g_assert(!((FmThumbnailLoader*)rlist->data)->cancelled);
+            ((FmThumbnailLoader*)rlist->data)->cancelled = TRUE;
+    }
+    g_mutex_unlock(lock_ptr);
+    /* if thread was alive it will die after that */
+    g_cond_broadcast(cond_ptr);
+    g_mutex_lock(lock_ptr);
+    while (loader_thread_running)
+        g_cond_wait(cond_ptr, lock_ptr);
+    g_mutex_unlock(lock_ptr);
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_free(lock_ptr);
+    g_cond_free(cond_ptr);
+#endif
     while((task = g_queue_pop_head(&loader_queue)))
         thumbnail_task_free(task);
-    /* if thread was alive it will die after that */
-    g_rec_mutex_unlock(&queue_lock);
-    g_timeout_add(10, fm_thumbnail_loader_cleanup, NULL);
+    fm_thumbnail_loader_cleanup(NULL);
 }
 
 /* in thread */
@@ -801,7 +809,7 @@ static void generate_thumbnails(ThumbnailTask* task)
         generate_thumbnails_with_thumbnailers(task);
 
     /* mark it as fully done, see thread loop */
-    task->cancelled = TRUE;
+    g_cancellable_cancel(task->cancellable);
 }
 
 /* in thread */
@@ -871,10 +879,11 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
     GFileInputStream* ins;
     GObject* normal_pix = NULL;
     GObject* large_pix = NULL;
+    GCancellable *cancellable = task->cancellable;
 
     DEBUG("generate thumbnail for %s", fm_file_info_get_name(task->fi));
 
-    ins = g_file_read(gf, generator_cancellable, NULL);
+    ins = g_file_read(gf, cancellable, NULL);
     if(ins)
     {
         GObject* ori_pix = NULL;
@@ -887,9 +896,9 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
             /* try to extract thumbnails embedded in jpeg files */
             ExifLoader *exif_loader = exif_loader_new();
             ExifData *exif_data;
-            while(!g_cancellable_is_cancelled(generator_cancellable)) {
+            while(!g_cancellable_is_cancelled(cancellable)) {
                 unsigned char buf[4096];
-                gssize read_size = g_input_stream_read((GInputStream*)ins, buf, 4096, generator_cancellable, NULL);
+                gssize read_size = g_input_stream_read((GInputStream*)ins, buf, 4096, cancellable, NULL);
                 if(read_size == 0) /* EOF */
                     break;
                 if(exif_loader_write(exif_loader, buf, read_size) == 0)
@@ -928,7 +937,7 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
                 {
                     /* load the embedded jpeg thumbnail */
                     GInputStream* mem_stream = g_memory_input_stream_new_from_data(exif_data->data, exif_data->size, NULL);
-                    ori_pix = backend.read_image_from_stream(mem_stream, exif_data->size, generator_cancellable);
+                    ori_pix = backend.read_image_from_stream(mem_stream, exif_data->size, cancellable);
                     g_object_unref(mem_stream);
                 }
                 exif_data_unref(exif_data);
@@ -946,19 +955,19 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
             {
                 /* an EXIF thumbnail is not found, lets rewind the file pointer to beginning of
                  * the file and load the image with gdkpixbuf instead. */
-                g_seekable_seek(seekable, 0, G_SEEK_SET, generator_cancellable, NULL);
+                g_seekable_seek(seekable, 0, G_SEEK_SET, cancellable, NULL);
             }
             else
             {
                 /* if the stream is not seekable, close it and open it again. */
                 g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
                 g_object_unref(ins);
-                ins = g_file_read(gf, generator_cancellable, NULL);
+                ins = g_file_read(gf, cancellable, NULL);
             }
-            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), generator_cancellable);
+            ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), cancellable);
         }
 #else
-        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), generator_cancellable);
+        ori_pix = backend.read_image_from_stream(G_INPUT_STREAM(ins), fm_file_info_get_size(task->fi), cancellable);
 #endif
         g_input_stream_close(G_INPUT_STREAM(ins), NULL, NULL);
         g_object_unref(ins);
@@ -1040,63 +1049,77 @@ static gboolean generate_thumbnails_with_builtin(ThumbnailTask* task)
 /* call from main thread */
 static gboolean on_thumbnailer_timeout(gpointer user_data)
 {
+    gboolean *timed_out;
+
     /* check if it is destroyed already */
     if(g_source_is_destroyed(g_main_current_source()))
         return FALSE;
+    timed_out = user_data;
     /* g_print("thumbnail timeout!\n"); */
-    g_rec_mutex_lock(&queue_lock);
-    if(thumbnailer_pid > 0)
-    {
-        kill(thumbnailer_pid, SIGTERM);
-        thumbnailer_pid = -1;
-    }
+    g_mutex_lock(lock_ptr);
+    *timed_out = TRUE;
     thumbnailer_timeout_id = 0;
-    g_rec_mutex_unlock(&queue_lock);
+    g_mutex_unlock(lock_ptr);
+    g_cond_broadcast(cond_ptr);
     return FALSE;
 }
 
+typedef struct
+{
+    gboolean finished;
+    int status;
+} ThumbnailerStatus;
+
+/* this is in main loop due to g_child_watch_add() */
+static void _pid_watcher(GPid pid, gint status, gpointer user_data)
+{
+    ThumbnailerStatus *st = user_data;
+
+    DEBUG("pid %d terminated", (int)pid);
+    st->status = status;
+    st->finished = TRUE;
+    g_cond_broadcast(cond_ptr);
+}
+
 /* call from the thumbnail thread */
-static gboolean run_thumbnailer(FmThumbnailer* thumbnailer, const char* uri, const char* output_file, guint size)
+static gboolean run_thumbnailer(FmThumbnailer* thumbnailer, ThumbnailTask* task,
+                                const char* output_file, guint size)
 {
     /* g_print("run_thumbnailer: uri: %s\n", uri); */
-    int status;
-    GPid _pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, uri,
+    ThumbnailerStatus status = { FALSE, 0 };
+    gboolean timed_out = FALSE;
+    GPid _pid = fm_thumbnailer_launch_for_uri_async(thumbnailer, task->uri,
                                                     output_file, size, NULL);
     if(_pid <= 0) /* failed to launch */
         /* FIXME: print error message from failed thumbnailer */
         return FALSE;
-    g_rec_mutex_lock(&queue_lock);
-    if(thumbnailer_pid != -1)
+    g_mutex_lock(lock_ptr);
+    if(thumbnailer_timeout_id)
     {
-        g_rec_mutex_unlock(&queue_lock);
+        g_mutex_unlock(lock_ptr);
         g_critical("libfm: run_thumbnailer() concurrent process attempt");
         kill(_pid, SIGTERM);
         return FALSE;
     }
-    thumbnailer_pid = _pid;
     thumbnailer_timeout_id = g_timeout_add_seconds(THUMBNAILER_TIMEOUT_SEC,
-                                                   on_thumbnailer_timeout, NULL);
+                                                   on_thumbnailer_timeout, &timed_out);
+    g_child_watch_add(_pid, _pid_watcher, &status);
     /* g_print("pid: %d\n", thumbnailer_pid); */
-    g_rec_mutex_unlock(&queue_lock);
-
+    while (!timed_out && !status.finished &&
+           !g_cancellable_is_cancelled(task->cancellable))
+        g_cond_wait(cond_ptr, lock_ptr);
+    if (thumbnailer_timeout_id)
+        g_source_remove(thumbnailer_timeout_id);
+    thumbnailer_timeout_id = 0;
+    if (!status.finished)
+        kill(_pid, SIGTERM);
     /* wait for the thumbnailer process to terminate */
-    waitpid(_pid, &status, 0);
+    while (!status.finished)
+        g_cond_wait(cond_ptr, lock_ptr);
+    g_mutex_unlock(lock_ptr);
+
     /* the process is terminated */
-    g_rec_mutex_lock(&queue_lock);
-    /* thumbnailer_pid can be only this one or -1 if terminated */
-    if(thumbnailer_pid == _pid)
-    {
-        thumbnailer_pid = -1;
-        if(thumbnailer_timeout_id)
-        {
-            g_source_remove(thumbnailer_timeout_id);
-            thumbnailer_timeout_id = 0;
-        }
-    }
-    else if(thumbnailer_pid != -1) /* it's error otherwise */
-        g_critical("libfm: run_thumbnailer() concurrent process");
-    g_rec_mutex_unlock(&queue_lock);
-    return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+    return (WIFEXITED(status.status) && WEXITSTATUS(status.status) == 0);
 }
 
 /* in thread */
@@ -1120,7 +1143,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
             FmThumbnailer* thumbnailer = FM_THUMBNAILER(l->data);
             if((task->flags & GENERATE_NORMAL) && !(generated & GENERATE_NORMAL))
             {
-                if(run_thumbnailer(thumbnailer, task->uri, task->normal_path, 128))
+                if(run_thumbnailer(thumbnailer, task, task->normal_path, 128))
                 {
                     generated |= GENERATE_NORMAL;
                     normal_pix = backend.read_image_from_file(task->normal_path);
@@ -1130,7 +1153,7 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
             {
-                if(run_thumbnailer(thumbnailer, task->uri, task->large_path, 256))
+                if(run_thumbnailer(thumbnailer, task, task->large_path, 256))
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->large_path);
