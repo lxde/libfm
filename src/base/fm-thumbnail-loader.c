@@ -340,6 +340,7 @@ static gboolean is_thumbnail_outdated(GObject* thumb_pix, const char* thumbnail_
 {
     char* thumb_mtime = backend.get_image_text(thumb_pix, "tEXt::Thumb::MTime");
     gboolean outdated = FALSE;
+    /* FIXME: compare thumbnail URI with value from tEXt::Thumb::URI */
     if(thumb_mtime)
     {
         if(atol(thumb_mtime) != mtime)
@@ -1123,6 +1124,8 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_NORMAL;
                     normal_pix = backend.read_image_from_file(task->normal_path);
+                    if (normal_pix)
+                        save_thumbnail_to_disk(task, normal_pix, task->normal_path);
                 }
             }
             if((task->flags & GENERATE_LARGE) && !(generated & GENERATE_LARGE))
@@ -1131,6 +1134,8 @@ static void generate_thumbnails_with_thumbnailers(ThumbnailTask* task)
                 {
                     generated |= GENERATE_LARGE;
                     large_pix = backend.read_image_from_file(task->large_path);
+                    if (large_pix)
+                        save_thumbnail_to_disk(task, large_pix, task->large_path);
                 }
             }
 
