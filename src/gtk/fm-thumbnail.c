@@ -139,11 +139,40 @@ static GObject* read_image_from_stream(GInputStream* stream, guint64 len, GCance
     return (GObject*)gdk_pixbuf_new_from_stream(stream, cancellable, NULL);
 }
 
-static gboolean write_image(GObject* image, const char* filename, const char* uri, const char* mtime)
+static gboolean write_image(GObject* image, const char* filename)
 {
-    return gdk_pixbuf_save(GDK_PIXBUF(image), filename, "png", NULL,
-                     "tEXt::Thumb::URI", uri,
-                     "tEXt::Thumb::MTime", mtime, NULL );
+    char *keys[11]; /* enough for known keys + 1 */
+    char *vals[11];
+    GdkPixbuf *pix = GDK_PIXBUF(image);
+    char *known_keys[] = { "tEXt::Thumb::URI", "tEXt::Thumb::MTime",
+                           "tEXt::Thumb::Size", "tEXt::Thumb::Mimetype",
+                           "tEXt::Description", "tEXt::Software",
+                           "tEXt::Thumb::Image::Width", "tEXt::Thumb::Image::Height",
+                           "tEXt::Thumb::Document::Pages", "tEXt::Thumb::Movie::Length" };
+    guint i, x;
+
+    /* unfortunately GdkPixbuf APIs does not contain API to get
+       list of options that are set, neither there is API to save
+       the file with all options, so all we can do now is to scan
+       options for known ones and save them into target file */
+    for (i = 0, x = 0; i < G_N_ELEMENTS(known_keys); i++)
+    {
+        const char *val = gdk_pixbuf_get_option(pix, known_keys[i]);
+        if (val)
+        {
+            keys[x] = known_keys[i];
+            vals[x] = (char*)val;
+            x++;
+        }
+    }
+    keys[x] = NULL;
+    vals[x] = NULL;
+    return gdk_pixbuf_savev(pix, filename, "png", keys, vals, NULL);
+}
+
+static gboolean set_image_text(GObject* image, const char* key, const char* val)
+{
+    return gdk_pixbuf_set_option(GDK_PIXBUF(image), key, val);
 }
 
 static GObject* scale_image(GObject* ori_pix, int new_width, int new_height)
@@ -179,7 +208,8 @@ static FmThumbnailLoaderBackend gtk_backend = {
     rotate_image,
     get_image_width,
     get_image_height,
-    get_image_text
+    get_image_text,
+    set_image_text
 };
 
 /* in main loop */

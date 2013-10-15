@@ -863,7 +863,9 @@ static void save_thumbnail_to_disk(ThumbnailTask* task, GObject* pix, const char
         char mtime_str[100];
         g_snprintf( mtime_str, 100, "%lu", fm_file_info_get_mtime(task->fi));
         chmod( tmpfile, 0600 );  /* only the owner can read it. */
-        backend.write_image(pix, tmpfile, task->uri, mtime_str);
+        backend.set_image_text(pix, "tEXt::Thumb::URI", task->uri);
+        backend.set_image_text(pix, "tEXt::Thumb::MTime", mtime_str);
+        backend.write_image(pix, tmpfile);
         close(fd);
         g_rename(tmpfile, path);
         g_free(tmpfile);

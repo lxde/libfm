@@ -82,18 +82,20 @@ typedef struct _FmThumbnailLoaderBackend FmThumbnailLoaderBackend;
  * @get_image_width: callback to retrieve width from image
  * @get_image_height: callback to retrieve height from image
  * @get_image_text: callback to retrieve custom attributes text from image
+ * @set_image_text: callback to set custom attributes text into image
  *
  * Abstract backend callbacks list.
  */
 struct _FmThumbnailLoaderBackend {
     GObject* (*read_image_from_file)(const char* filename);
     GObject* (*read_image_from_stream)(GInputStream* stream, guint64 len, GCancellable* cancellable);
-    gboolean (*write_image)(GObject* image, const char* filename, const char* uri, const char* mtime);
+    gboolean (*write_image)(GObject* image, const char* filename);
     GObject* (*scale_image)(GObject* ori_pix, int new_width, int new_height);
     GObject* (*rotate_image)(GObject* image, int degree);
     int (*get_image_width)(GObject* image);
     int (*get_image_height)(GObject* image);
     char* (*get_image_text)(GObject* image, const char* key);
+    gboolean (*set_image_text)(GObject* image, const char* key, const char* val);
     // const char* (*get_image_orientation)(GObject* image);
     // GObject* (*apply_orientation)(GObject* image);
 };
