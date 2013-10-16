@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-10-10 20:41+0000\n"
+"PO-Revision-Date: 2013-10-16 16:20+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1381437704.0\n"
+"X-POOTLE-MTIME: 1381940413.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -603,6 +603,9 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
+"Analysieren von '%-.*s' fehlgeschlagen, was eine Zahl innerhalb der "
+"Zeichenreferenz hätte sein sollen (z.B.: &#234;) - möglicherweise ist die "
+"Zahl zu lang."
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -611,17 +614,22 @@ msgid ""
 "ampersand character without intending to start an entity - escape ampersand "
 "as &amp;"
 msgstr ""
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
+"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
 #, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr ""
+msgstr "Zeichenreferenz '%-.*s' codiert keine erlaubten Zeichen."
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid ""
 "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
 msgstr ""
+"Ungültige Zeichenreferenz '&;' erkannt; gültige Einträge sind: &amp; &quot; "
+"&lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -634,42 +642,47 @@ msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
 msgstr ""
+"Zeichenreferenz endete nicht mit einem Semikolon; wahrscheinlich wurde ein "
+"&-Zeichen verwendet ohne die Absicht einen Datensatz zu starten - &-Zeichen "
+"umschreibt man mit der Zeichenfolge &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr ""
+msgstr "Leerzeichen sind nicht erlaubt im Close Tag"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
 msgid "Element '%s' was closed but no element was opened"
-msgstr ""
+msgstr "Element '%s' wurde geschlossen, aber kein Element war geöffnet."
 
 #: ../src/extra/fm-xml-file.c:619
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
+"Element '%s' wurde geschlossen, aber das aktuell offene Element ist '%s'"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
 msgid "Invalid char '%c' at start of attribute value"
-msgstr ""
+msgstr "Ungültiges Zeichen '%c' zu Beginn des Attributwert"
 
 #: ../src/extra/fm-xml-file.c:686
 #, c-format
 msgid "Invalid char '%c' at end of attribute value, expected '%c'"
 msgstr ""
+"Ungültiges Zeichen '%c' am Ende des Attributwerts, erwartetes Zeichen '%c'"
 
 #: ../src/extra/fm-xml-file.c:834
 msgid "Document ended unexpectedly"
-msgstr ""
+msgstr "Dokument endete unerwartet"
 
 #: ../src/extra/fm-xml-file.c:842
 msgid "Document was empty or contained only whitespace"
-msgstr ""
+msgstr "Dokument war leer oder beinhaltete nur Leerraum-Zeichen"
 
 #: ../src/extra/fm-xml-file.c:1258
 msgid "fm_xml_file_to_data: XML data error"
-msgstr ""
+msgstr "fm_xml_file_to_data: XML Datenfehler"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
@@ -705,7 +718,7 @@ msgstr "_Abbrechen"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "K_opieren"
 
 #: ../src/gtk/fm-dnd-dest.c:413
 msgid "_Move"
@@ -730,11 +743,11 @@ msgstr "Öffnen _mit…"
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "_Ausblenden"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
-msgstr ""
+msgstr "_Einblenden"
 
 #: ../src/gtk/fm-file-menu.c:157
 msgid "_Add to Bookmarks"
@@ -757,9 +770,8 @@ msgid "Prop_erties"
 msgstr "_Dateieigenschaften"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Papierkorb"
+msgstr "_Papierkorb"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -790,7 +802,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:943
 msgid "Hide or unhide the file"
-msgstr ""
+msgstr "Aus- oder einblenden der Datei"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
@@ -1072,9 +1084,8 @@ msgid "_Eject Removable Media"
 msgstr "_Wechseldatenträger auswerfen"
 
 #: ../src/gtk/fm-places-view.c:127
-#, fuzzy
 msgid "_Format Volume"
-msgstr "Dateisystem _einhängen"
+msgstr "Volume _formatieren"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1097,11 +1108,10 @@ msgid "_Empty Trash Can"
 msgstr "_Papierkorb leeren"
 
 #: ../src/gtk/fm-places-view.c:526
-#, fuzzy
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
-"Liste an gemeinsamen Orten, Geräten und Lesezeichen in der Seitenleiste "
-"anzeigen"
+"Liste von häufig verwendeten Orten, Geräten und Lesezeichen in der "
+"Seitenleiste anzeigen"
 
 #: ../src/gtk/fm-places-view.c:1090
 msgid "Rename Bookmark Item"
@@ -1163,10 +1173,9 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Pause"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
 msgstr "Wiede_rherstellen"
 
@@ -1251,19 +1260,19 @@ msgstr "Breite _vergessen"
 
 #: ../src/gtk/fm-standard-view.c:1776
 msgid "_Icon View"
-msgstr ""
+msgstr "Symbolans_icht"
 
 #: ../src/gtk/fm-standard-view.c:1777
 msgid "_Compact View"
-msgstr ""
+msgstr "_Listenansicht"
 
 #: ../src/gtk/fm-standard-view.c:1778
 msgid "_Thumbnail View"
-msgstr ""
+msgstr "_Miniatur-Vorschaubilder"
 
 #: ../src/gtk/fm-standard-view.c:1779
 msgid "Detailed _List View"
-msgstr ""
+msgstr "_Detailansicht"
 
 #: ../src/gtk/fm-tab-label.c:159
 msgid "Changes active tab"
@@ -1277,7 +1286,7 @@ msgstr "Das angegebene Verzeichnis »%s« ist ungültig"
 
 #: ../src/job/fm-file-ops-job.c:526
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Zugriff auf Zieldatei nicht möglich"
 
 #: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
@@ -1358,14 +1367,13 @@ msgid "Menu item name cannot be empty"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1508
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid menu directory '%s'"
-msgstr "Ungültiger Menüordner"
+msgstr "Ungültiger Menüordner '%s'"
 
 #: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
-#, fuzzy
 msgid "Invalid menu item"
-msgstr "Ungültiger Menüordner"
+msgstr "Ungültiger Menüeintrag"
 
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
