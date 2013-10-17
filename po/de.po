@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-10-16 16:20+0000\n"
+"PO-Revision-Date: 2013-10-17 15:41+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1381940413.0\n"
+"X-POOTLE-MTIME: 1382024493.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -807,12 +807,15 @@ msgstr "Aus- oder einblenden der Datei"
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr ""
+"Die Datei ist ausgeblendet, weil deren Name mit einem Punkt beginnt ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
+"Dateien auf diesem System sind ausgeblendet, wenn deren Name mit einem Punkt "
+"beginnt('.'). Umschalten auf ausgeblendete Dateien anzeigen mit <Ctrl+H> "
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1004,28 +1007,28 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Nur Systemverwalter haben die Erlaubnis dies zu tun."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
+msgstr "Soll die gewählte Datei '%s' in den Papierkorb verschoben werden?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
-msgstr[1] "Sollen die gewählten Dateien in den Papierkorb verschoben werden?"
+msgstr[0] "Soll die gewählte Datei %d in den Papierkorb verschoben werden?"
+msgstr[1] "Sollen die gewählten Dateien %d in den Papierkorb verschoben werden?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Gewählte Dateien löschen?"
+msgstr "Gewählte Datei '%s' löschen?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Gewählte Dateien löschen?"
-msgstr[1] "Gewählte Dateien löschen?"
+msgstr[0] "Gewählte Datei %d löschen?"
+msgstr[1] "Gewählte Dateien %d löschen?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1057,19 +1060,16 @@ msgid "Applications"
 msgstr "Anwendungen"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "_Dateityp"
+msgstr "Dateisystem"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Mein Computer"
+msgstr "Computer"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Netzwerk"
+msgstr "Netzlaufwerke"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
