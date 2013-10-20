@@ -980,6 +980,9 @@ static void on_paste(GtkAction* act, FmFolderView* fv)
     }
     else if(GTK_IS_EDITABLE(focus)) /* fallback for editables */
         gtk_editable_paste_clipboard((GtkEditable*)focus);
+    else
+        g_debug("paste on %s isn't supported by FmFolderView widget",
+                G_OBJECT_TYPE_NAME(focus));
 }
 
 static void on_trash(GtkAction* act, FmFolderView* fv)
@@ -1602,7 +1605,13 @@ void fm_folder_view_bounce_action(GtkAction* act, FmFolderView* fv)
     name = gtk_action_get_name(act);
     act = gtk_action_group_get_action((GtkActionGroup*)groups->data, name);
     if(act)
+    {
+        /* if we get here it means menu isn't shown but some action
+           might be set insensitive by previous invocation of menu
+           therefore we forcing its visibility to allow activation */
+        gtk_action_set_sensitive(act, TRUE);
         gtk_action_activate(act);
+    }
     else
         g_debug("requested action %s wasn't found in popup", name);
 }
