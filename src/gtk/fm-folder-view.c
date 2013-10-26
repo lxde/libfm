@@ -154,8 +154,7 @@ static const char folder_popup_xml[] =
 "<accelerator action='Del2'/>"
 "<accelerator action='Remove2'/>"
 "<accelerator action='FileProp2'/>"
-"<accelerator action='FileProp3'/>"
-"<accelerator action='FileMenu'/>";
+"<accelerator action='FileProp3'/>";
 
 static void on_create_new(GtkAction* act, FmFolderView* fv);
 static void on_cut(GtkAction* act, FmFolderView* fv);
@@ -198,8 +197,7 @@ static const GtkActionEntry folder_popup_actions[]=
     {"Prop", GTK_STOCK_PROPERTIES, N_("Folder Prop_erties"), "", NULL, G_CALLBACK(on_prop)},
     {"FileProp", GTK_STOCK_PROPERTIES, N_("Prop_erties"), "<Alt>Return", NULL, G_CALLBACK(on_file_prop)},
     {"FileProp2", NULL, NULL, "<Alt>KP_Enter", NULL, G_CALLBACK(on_file_prop)},
-    {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)},
-    {"FileMenu", NULL, NULL, "<Shift>Menu", NULL, G_CALLBACK(on_file_menu)}
+    {"FileProp3", NULL, NULL, "<Alt>ISO_Enter", NULL, G_CALLBACK(on_file_prop)}
 };
 
 static GtkToggleActionEntry folder_toggle_actions[]=
@@ -1263,6 +1261,11 @@ static gboolean on_key_press(GtkWidget *widget, GdkEventKey *evt, FmFolderView* 
     int modifier = (evt->state & gtk_accelerator_get_default_mod_mask());
     if((evt->keyval == GDK_KEY_Menu && !modifier) ||
        (evt->keyval == GDK_KEY_F10 && modifier == GDK_SHIFT_MASK))
+    {
+        on_file_menu(NULL, fv);
+        return TRUE;
+    }
+    else if(evt->keyval == GDK_KEY_Menu && modifier == GDK_CONTROL_MASK)
     {
         on_menu(NULL, fv);
         return TRUE;
