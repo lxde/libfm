@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-03 12:04+0300\n"
+"POT-Creation-Date: 2013-10-27 01:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,10 +61,13 @@ msgid "Choose An Application"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
+msgid "_Browse..."
 msgstr ""
 
+#. row 1: "Terminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:13
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
 msgid "_Execute in terminal emulator"
 msgstr ""
 
@@ -72,7 +75,9 @@ msgstr ""
 msgid "_Installed Application"
 msgstr ""
 
+#. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:15
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
 msgid "_Keep terminal window open after command execution"
 msgstr ""
 
@@ -496,35 +501,36 @@ msgstr ""
 msgid "Invalid desktop entry file: '%s'"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:197
+#: ../src/base/fm-file-launcher.c:201
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:272
+#: ../src/base/fm-file-launcher.c:282
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:318
+#: ../src/base/fm-file-launcher.c:329
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 
-#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr ""
 
-#: ../src/base/fm-path.c:177
-msgid "My Computer"
+#: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
+#: ../src/gtk/fm-places-model.c:997
+msgid "Computer"
 msgstr ""
 
 #: ../src/base/fm-path.c:183
 msgid "Network"
 msgstr ""
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr ""
 
@@ -532,7 +538,7 @@ msgstr ""
 msgid "shortcut to URI"
 msgstr ""
 
-#: ../src/base/fm-templates.c:1016
+#: ../src/base/fm-templates.c:1019
 msgid "fm_template_create_file: invalid argument"
 msgstr ""
 
@@ -740,11 +746,12 @@ msgstr ""
 msgid "E_xtract To..."
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:199
+#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
+#. Note to translators: Trash in not noun but verb here
+#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
 msgid "_Trash"
 msgstr ""
 
@@ -831,101 +838,102 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:179
+#: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:180
+#: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:183
+#: ../src/gtk/fm-folder-view.c:182
 msgid "Empty File"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:195
+#: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:196
+#: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:197
+#: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:207
+#: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:208
+#: ../src/gtk/fm-folder-view.c:206
 msgid "_Only for this folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:209
+#: ../src/gtk/fm-folder-view.c:207
 msgid "Check to remember sort as folder setting rather than global one"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:210
+#. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
+#: ../src/gtk/fm-folder-view.c:209
 msgid "Mingle _files and folders"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:211
+#: ../src/gtk/fm-folder-view.c:210
 msgid "_Ignore name case"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Name"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By _Modification Time"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:223
 msgid "By _Size"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:225
+#: ../src/gtk/fm-folder-view.c:224
 msgid "By File _Type"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:847
 msgid "Enter a name for the newly created folder:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:849
+#: ../src/gtk/fm-folder-view.c:848
 msgid "Creating new folder"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:861
 msgid "Enter a name for empty file:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:863
+#: ../src/gtk/fm-folder-view.c:862
 msgid "Creating ..."
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:869
+#: ../src/gtk/fm-folder-view.c:868
 msgid "New"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:879
+#: ../src/gtk/fm-folder-view.c:878
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:882
+#: ../src/gtk/fm-folder-view.c:881
 #, c-format
 msgid "Creating %s"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:886
+#: ../src/gtk/fm-folder-view.c:885
 msgid "_Run default application on file after creation"
 msgstr ""
 
@@ -1014,24 +1022,20 @@ msgstr ""
 msgid "Entry for folder path"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:771 ../src/gtk/fm-places-model.c:977
+#: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:789 ../src/gtk/fm-places-model.c:997
-#: ../src/modules/vfs-menu.c:1566
+#: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
+#: ../src/modules/vfs-menu.c:1565
 msgid "Applications"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
+#: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 msgid "File system"
 msgstr ""
 
-#: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-msgid "Computer"
-msgstr ""
-
-#: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
+#: ../src/gtk/fm-places-model.c:847 ../src/gtk/fm-places-model.c:1012
 msgid "Network Drives"
 msgstr ""
 
@@ -1075,11 +1079,11 @@ msgstr ""
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:1090
+#: ../src/gtk/fm-places-view.c:1091
 msgid "Rename Bookmark Item"
 msgstr ""
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1092
 msgid "Enter a new name:"
 msgstr ""
 
@@ -1185,45 +1189,45 @@ msgstr ""
 msgid "Directory Tree"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:244
 msgid "View of folder contents"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:790
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "_Hide %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:798
+#: ../src/gtk/fm-standard-view.c:821
 msgid "_Move left"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:804
+#: ../src/gtk/fm-standard-view.c:827
 msgid "Move _right"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:850
 #, c-format
 msgid "Show %s"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:839
+#: ../src/gtk/fm-standard-view.c:862
 msgid "_Forget width"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1776
+#: ../src/gtk/fm-standard-view.c:1803
 msgid "_Icon View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1777
+#: ../src/gtk/fm-standard-view.c:1804
 msgid "_Compact View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1778
+#: ../src/gtk/fm-standard-view.c:1805
 msgid "_Thumbnail View"
 msgstr ""
 
-#: ../src/gtk/fm-standard-view.c:1779
+#: ../src/gtk/fm-standard-view.c:1806
 msgid "Detailed _List View"
 msgstr ""
 
@@ -1237,46 +1241,46 @@ msgstr ""
 msgid "The specified directory '%s' is not valid"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job.c:526
+#: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job.c:570
+#: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-delete.c:469
+#: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:56
+#: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
+#: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:67
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-xfer.c:373
+#: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-change-attr.c:318
+#: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
 msgstr ""
 
-#: ../src/job/fm-file-ops-job-change-attr.c:321
+#: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
 msgstr ""
@@ -1296,13 +1300,13 @@ msgstr ""
 msgid "Cannot create XML definition for '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
-#: ../src/modules/vfs-menu.c:1521
+#: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
 msgstr ""
 
@@ -1315,71 +1319,71 @@ msgstr ""
 msgid "Invalid menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1737
+#: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1508
+#: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
+#: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
+#: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1821
+#: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1979
+#: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:1989
+#: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2026
+#: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
+#: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2053
+#: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
+#: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2575
+#: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2620
+#: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2709
+#: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
 msgstr ""
 
-#: ../src/modules/vfs-menu.c:2982
+#: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr ""
@@ -1405,22 +1409,8 @@ msgstr ""
 msgid "<b>Co_mmand:</b>"
 msgstr ""
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
-msgid "_Browse..."
-msgstr ""
-
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
-msgstr ""
-
-#. row 1: "Terminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
-msgid "_Run in terminal emulator"
-msgstr ""
-
-#. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
-msgid "_Keep terminal window open after run"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322

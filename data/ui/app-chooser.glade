@@ -140,7 +140,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="browse_btn">
-                                <property name="label" translatable="yes">_Browse</property>
+                                <property name="label" translatable="yes">_Browse...</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>

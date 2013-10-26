@@ -291,7 +291,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_table_attach(table, GTK_WIDGET(widget), 1, 2, 0, 1, GTK_FILL|GTK_EXPAND, 0, 0, 0);
     gtk_label_set_mnemonic_widget(label, new_widget);
     /* row 1: "Terminal" GtkCheckButton */
-    new_widget = gtk_check_button_new_with_mnemonic(_("_Run in terminal emulator"));
+    new_widget = gtk_check_button_new_with_mnemonic(_("_Execute in terminal emulator"));
     data->terminal = GTK_TOGGLE_BUTTON(new_widget);
     tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "Terminal", &err);
     if (err) /* no such key present */
@@ -303,7 +303,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     g_signal_connect(new_widget, "toggled", G_CALLBACK(_dentry_terminal_toggled), data);
     gtk_table_attach(table, new_widget, 0, 2, 1, 2, GTK_FILL, 0, 18, 0);
     /* row 2: "X-KeepTerminal" GtkCheckButton */
-    new_widget = gtk_check_button_new_with_mnemonic(_("_Keep terminal window open after run"));
+    new_widget = gtk_check_button_new_with_mnemonic(_("_Keep terminal window open after command execution"));
     data->keep_open = GTK_TOGGLE_BUTTON(new_widget);
     gtk_widget_set_sensitive(new_widget, tmp_bool); /* disable if not in terminal */
     tmp_bool = g_key_file_get_boolean(data->kf, GRP_NAME, "X-KeepTerminal", &err);
