@@ -1734,17 +1734,10 @@ void fm_folder_view_item_clicked(FmFolderView* fv, GtkTreePath* path,
         fm_file_info_list_unref(files);
         break;
     case FM_FV_CONTEXT_MENU:
-        if(fi)
+        if(fi && iface->count_selected_files(fv) > 0)
+                 /* workaround on ExoTreeView bug */
         {
             files = iface->dup_selected_files(fv);
-
-            /* workaround on ExoTreeView bug */
-            if(files == NULL)
-            {
-                on_menu(NULL, fv);
-                goto send_signal;
-            }
-
             popup = _make_file_menu(fv, win, update_popup, open_folders, files);
             fm_file_info_list_unref(files);
             gtk_menu_popup(popup, NULL, NULL, NULL, NULL, 3, gtk_get_current_event_time());

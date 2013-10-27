@@ -283,7 +283,7 @@ FmFileMenu* fm_file_menu_new_for_files(GtkWindow* parent, FmFileInfoList* files,
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkAction* act;
-    FmFileInfo* fi = fm_file_info_list_peek_head(files);
+    FmFileInfo* fi;
     FmFileMenu* data = g_slice_new0(FmFileMenu);
     GString* xml;
     GList* mime_types = NULL;
