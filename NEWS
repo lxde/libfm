@@ -32,7 +32,8 @@ Changes on 1.2.0 since 1.1.0:
     dialog the same as 'advanced_mode' one. Defaulted to true therefore
     default behavior is the same as before.
 
-* Context Menu on selected files now available by Shift+Menu keypress.
+* Context Menu on folder now available by Ctrl+Menu keypress while the
+    selection context menu is available by Menu (or Shift+F10) keypress.
 
 * Implemented reordering bookmarks in Places View via context menu.
 
@@ -92,7 +93,7 @@ Changes on 1.2.0 since 1.1.0:
 
 * Added menu item "Empty File" back into folder context menu.
 
-* The 'no_usb_trash' option now has default to 1.
+* The 'no_usb_trash' option now has default to 1 (true).
 
 * Added support to remember columns width for FmFolverView. The columns
     widths are changeable only in Detailed List View though. Any change
@@ -142,7 +143,7 @@ Changes on 1.2.0 since 1.1.0:
     - change some application properties (contents of desktop entry);
     - delete some application from menu;
     - move the application from some menu folder to another one;
-    - create new folder in the menu (invisible though);
+    - create new folder in the menu (it is hidden initially);
     - delete some folder from the menu.
     Folder creation and deletion operations are disabled if used with
     libmenu-cache older than 0.5.0 because you cannot see hidden folders
