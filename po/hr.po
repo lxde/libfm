@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-08-27 11:46+0000\n"
+"PO-Revision-Date: 2013-11-02 09:45+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1377603996.0\n"
+"X-POOTLE-MTIME: 1383385550.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -25,12 +25,11 @@ msgstr "Željeni programi"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Create new or change existing desktop entry"
-msgstr ""
+msgstr "Napravite novi ili promjenite postojeći unos radne površine"
 
 #: ../data/lxshortcut.desktop.in.h:2
-#, fuzzy
 msgid "Shortcut Editor"
-msgstr "Prečac"
+msgstr "Uređivač prečaca"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>C_ommand line to execute:</b>"
@@ -126,7 +125,6 @@ msgid "with the following file?"
 msgstr "sa slijedećom datotekom?"
 
 #: ../data/ui/choose-icon.ui.h:1
-#, fuzzy
 msgid "<b>Choose icon from:</b>"
 msgstr "<b>Odaberi ikonu iz:</b>"
 
@@ -136,7 +134,6 @@ msgstr "Odaberite ikonu..."
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
-#, fuzzy
 msgid "image files"
 msgstr "Slikovne datoteke"
 
@@ -182,9 +179,8 @@ msgid "<b>Last Modification:</b>"
 msgstr "<b>Zadnja promjena:</b>"
 
 #: ../data/ui/file-prop.glade.h:8
-#, fuzzy
 msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Zadnji pristup:</b>"
+msgstr "<b>Zadnja promjena dozvola:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
@@ -235,9 +231,8 @@ msgid "File Properties"
 msgstr "Svojstva datoteke"
 
 #: ../data/ui/file-prop.glade.h:21
-#, fuzzy
 msgid "Hidden file"
-msgstr "_Video datoteke"
+msgstr "Skrivena datoteka"
 
 #: ../data/ui/file-prop.glade.h:22
 msgid "Icon of the file in folder view"
@@ -513,9 +508,9 @@ msgid "Invalid desktop entry file: '%s'"
 msgstr ""
 
 #: ../src/base/fm-file-launcher.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr "NIje postavljen zadani program za MIME tip %s"
+msgstr ""
 
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
@@ -545,9 +540,8 @@ msgid "Trash Can"
 msgstr "Smeće"
 
 #: ../src/base/fm-mime-type.c:86
-#, fuzzy
 msgid "shortcut to URI"
-msgstr "Prečac"
+msgstr "prečac za URI"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
@@ -706,23 +700,21 @@ msgid "Shows tree of directories in sidebar"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:411
-#, fuzzy
 msgid "_Cancel"
-msgstr "Otkazano"
+msgstr "_Otkaži"
 
 #: ../src/gtk/fm-dnd-dest.c:412
 msgid "C_opy"
-msgstr ""
+msgstr "K_opiraj"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move"
-msgstr "_Pomakni lijevo"
+msgstr "_Pomakni"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
 msgid "_Link"
-msgstr ""
+msgstr "_Poveznica"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -738,7 +730,7 @@ msgstr "Otvori _pomoću..."
 
 #: ../src/gtk/fm-file-menu.c:155
 msgid "H_ide"
-msgstr ""
+msgstr "S_akrij"
 
 #: ../src/gtk/fm-file-menu.c:156
 msgid "Unh_ide"
@@ -765,9 +757,8 @@ msgid "Prop_erties"
 msgstr "Svoj_stva"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-#, fuzzy
 msgid "_Trash"
-msgstr "Smeće"
+msgstr "_Smeće"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -801,7 +792,7 @@ msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr ""
+msgstr "Datoteka je skrivena jer joj ime započinje sa točkom ('.')."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
@@ -996,30 +987,30 @@ msgid "Only system administrators have the permission to do this."
 msgstr "Samo administrator sustava ima dozvole ovo učiniti."
 
 #: ../src/gtk/fm-gtk-utils.c:919
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Želite li maknuti odabrane datoteke u smeće?"
+msgstr "Želite li maknuti datoteku '%s u smeće?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Želite li maknuti odabrane datoteke u smeće?"
-msgstr[1] "Želite li maknuti odabrane datoteke u smeće?"
-msgstr[2] "Želite li maknuti odabrane datoteke u smeće?"
+msgstr[0] "Želite li maknuti odabranu %d datoteku u smeće?"
+msgstr[1] "Želite li maknuti odabrane %d datoteke u smeće?"
+msgstr[2] "Želite li maknuti odabranih %d datoteka u smeće?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the file '%s'?"
-msgstr "Želite li izbrisati odabrane datoteke?"
+msgstr "Želite li izbrisati datoteku  '%s'?"
 
 #: ../src/gtk/fm-gtk-utils.c:989
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Želite li izbrisati odabrane datoteke?"
-msgstr[1] "Želite li izbrisati odabrane datoteke?"
-msgstr[2] "Želite li izbrisati odabrane datoteke?"
+msgstr[0] "Želite li izbrisati odabranu %d datoteku?"
+msgstr[1] "Želite li izbrisati odabrane %d datoteke?"
+msgstr[2] "Želite li izbrisati odabranih %d datoteka?"
 
 #: ../src/gtk/fm-gtk-utils.c:1088
 msgid "Rename File"
@@ -1051,27 +1042,24 @@ msgid "Applications"
 msgstr "Programi"
 
 #: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-#, fuzzy
 msgid "File system"
-msgstr "Vrsta _datoteke"
+msgstr "Datotečni sustav"
 
 #: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Computer"
-msgstr "Moje računalo"
+msgstr "Računalo"
 
 #: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-#, fuzzy
 msgid "Network Drives"
-msgstr "Mreža"
+msgstr "Mrežni pogoni"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
-msgstr ""
+msgstr "_Montiraj disk"
 
 #: ../src/gtk/fm-places-view.c:125
 msgid "_Unmount Volume"
-msgstr ""
+msgstr "_Odmontiraj disk"
 
 #: ../src/gtk/fm-places-view.c:126
 msgid "_Eject Removable Media"
@@ -1079,7 +1067,7 @@ msgstr "_Izbaci uklonjivi medij"
 
 #: ../src/gtk/fm-places-view.c:127
 msgid "_Format Volume"
-msgstr ""
+msgstr "_Formatiraj disk"
 
 #: ../src/gtk/fm-places-view.c:143
 msgid "_Rename Bookmark Item"
@@ -1165,12 +1153,11 @@ msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
-msgstr ""
+msgstr "_Pauza"
 
 #: ../src/gtk/fm-progress-dlg.c:391
-#, fuzzy
 msgid "_Resume"
-msgstr "_Obnovi"
+msgstr "_Nastavi"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
@@ -1278,7 +1265,7 @@ msgstr "Određeni direktorij '%s' nije valjan"
 
 #: ../src/job/fm-file-ops-job.c:526
 msgid "Cannot access destination file"
-msgstr ""
+msgstr "Ne mogu pristupiti odredišnoj datoteci"
 
 #: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
@@ -1306,9 +1293,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Odredište je podmapa izvora"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Ne mogu kopirati mapu u njenu podmapu"
+msgstr "Ne mogu kopirati datoteku  '%s': nije podržano"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1333,12 +1320,12 @@ msgstr ""
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "Ne mogu napraviti XML definiciju za  '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Putanja izbornika '%s' već postoji"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1521
@@ -1348,7 +1335,7 @@ msgstr ""
 #. ---- GFile implementation ----
 #: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
 msgid "Operation not supported"
-msgstr ""
+msgstr "Operacija nije podržana"
 
 #: ../src/modules/vfs-menu.c:1394
 msgid "Invalid menu directory"
@@ -1416,7 +1403,7 @@ msgstr ""
 
 #: ../src/modules/vfs-menu.c:2709
 msgid "Invalid destination"
-msgstr ""
+msgstr "Neispravno odredište"
 
 #: ../src/modules/vfs-menu.c:2982
 #, c-format
@@ -1468,7 +1455,7 @@ msgstr "<b>O_pis:</b>"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:332
 msgid "Generic name of the application"
-msgstr ""
+msgstr "Generičko ime programa"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:340
 msgid "<b>_Working directory:</b>"
@@ -1510,7 +1497,7 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "IZVOR"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
@@ -1518,7 +1505,7 @@ msgstr ""
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "REZULTAT"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
