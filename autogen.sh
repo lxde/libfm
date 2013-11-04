@@ -1,6 +1,12 @@
 #! /bin/sh
 AC_VERSION=
 
+test -n "$SRC_DIR" || SRC_DIR=$(dirname "$0")
+test -n "$SRC_DIR" || SRC_DIR=.
+
+OLD_DIR=$(pwd)
+cd "$SRC_DIR"
+
 AUTOMAKE=${AUTOMAKE:-automake}
 AM_INSTALLED_VERSION=$($AUTOMAKE --version | sed -e '2,$ d' -e 's/.* \([0-9]*\.[0-9]*\).*/\1/')
 
@@ -41,3 +47,4 @@ $AUTOMAKE --add-missing --copy --include-deps
 ${AUTOCONF:-autoconf$AC_VERSION}
 
 rm -rf autom4te.cache
+cd "$OLD_DIR"
