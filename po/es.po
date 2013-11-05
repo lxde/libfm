@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-10-06 22:19+0000\n"
+"PO-Revision-Date: 2013-11-04 00:09+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1381097986.0\n"
+"X-POOTLE-MTIME: 1383523782.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -478,7 +478,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "El navegador web preferido se utilizará para abrir los hipervínculos."
+msgstr "El navegador web preferido se utilizará para abrir los hiperenlaces."
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
@@ -1305,7 +1305,7 @@ msgstr "El origen y el destino son iguales."
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
-msgstr "Imposible mover una carpeta hacia su subcarpeta"
+msgstr "No se puede mover una carpeta a su subcarpeta"
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
