@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-10-17 15:41+0000\n"
+"PO-Revision-Date: 2013-11-06 23:08+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1382024493.0\n"
+"X-POOTLE-MTIME: 1383779298.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1293,9 +1293,9 @@ msgid "Cannot create a link on non-native filesystem"
 msgstr ""
 
 #: ../src/job/fm-file-ops-job-delete.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr "Dateien an ihrem ursprünglichen Ort wiederherstellen"
+msgstr "Wiederherstellen der Datei '%s' fehlgeschlagen: Originalpfad unbekannt"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1314,9 +1314,9 @@ msgid "Destination is a sub folder of source"
 msgstr "Das Ziel ist ein Unterordner der Quelle"
 
 #: ../src/job/fm-file-ops-job-xfer.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot copy file '%s': not supported"
-msgstr "Ein Ordner kann nicht in seinen Unterordner kopiert werden"
+msgstr "Kopieren von Datei '%s' fehlgeschlagen: nicht unterstützt"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
@@ -1385,24 +1385,24 @@ msgid "Change hidden status isn't supported for menu directory"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:1979
-#, fuzzy, c-format
+#, c-format
 msgid "Setting attribute '%s' not supported"
-msgstr "Aktion wird nicht unterstützt"
+msgstr "Attribut '%s' nicht unterstützt"
 
 #: ../src/modules/vfs-menu.c:1989
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value for attribute '%s'"
-msgstr "Ungültiger Dateiname %s"
+msgstr "Ungültiger Wert für Attribut '%s'"
 
 #: ../src/modules/vfs-menu.c:2026
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' is a menu directory"
-msgstr "Ungültiger Menüordner"
+msgstr "'%s' ist ein Menü Ordner"
 
 #: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
-#, fuzzy, c-format
+#, c-format
 msgid "The '%s' isn't a menu item"
-msgstr "Ungültiger Menüordner"
+msgstr "'%s' ist kein Menüeintrag"
 
 #: ../src/modules/vfs-menu.c:2053
 #, c-format
@@ -1410,9 +1410,9 @@ msgid "The '%s' entry file is broken"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create menu item '%s'"
-msgstr "Ungültiger Dateiname %s"
+msgstr "Menüeintrag '%s' kann nicht erstellt werden"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
@@ -1427,9 +1427,9 @@ msgid "Invalid destination"
 msgstr ""
 
 #: ../src/modules/vfs-menu.c:2982
-#, fuzzy, c-format
+#, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr "FmMenuVFileMonitor: Ordner %s nicht im Menücache gefunden"
+msgstr "FmMenuVFileMonitor: Ordner '%s' nicht im Menücache gefunden"
 
 #. FIXME: need name to be converted to UTF-8?
 #: ../src/modules/vfs-search.c:982
@@ -1501,9 +1501,8 @@ msgid "_Use startup notification"
 msgstr "Vis_uelle Rückmeldung über Programmstart geben"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop entry"
-msgstr "Desktop"
+msgstr "_Desktop-Datei"
 
 #: ../src/modules/gtk-menu-trash.c:72
 msgid "_Restore"
