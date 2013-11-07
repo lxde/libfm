@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-11-06 23:08+0000\n"
+"PO-Revision-Date: 2013-11-07 21:47+0000\n"
 "Last-Translator: Dar_Kuntu <ZAck13@gmx.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1383779298.0\n"
+"X-POOTLE-MTIME: 1383860850.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -1290,7 +1290,7 @@ msgstr "Zugriff auf Zieldatei nicht möglich"
 
 #: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
+msgstr "Verknüpfung auf fremdem Dateisystem kann nicht erstellt werden"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
 #, c-format
@@ -1321,32 +1321,32 @@ msgstr "Kopieren von Datei '%s' fehlgeschlagen: nicht unterstützt"
 #: ../src/job/fm-file-ops-job-change-attr.c:318
 #, c-format
 msgid "Setting display name can be done only for single file"
-msgstr ""
+msgstr "Anzeigenamen definieren nur für eine einzelne Datei möglich"
 
 #: ../src/job/fm-file-ops-job-change-attr.c:321
 #, c-format
 msgid "Setting target can be done only for single file"
-msgstr ""
+msgstr "Zieladresse definieren nur für eine einzelne Datei möglich"
 
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr ""
+msgstr "XML Datei '%s' Fehler (%d:%d):"
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
-msgstr ""
+msgstr "XML Datei beinhaltet nicht das Programm Stammverzeichnis"
 
 #: ../src/modules/vfs-menu.c:384 ../src/modules/vfs-menu.c:464
 #: ../src/modules/vfs-menu.c:568 ../src/modules/vfs-menu.c:682
 #, c-format
 msgid "Cannot create XML definition for '%s'"
-msgstr ""
+msgstr "XML Definition kann nicht erstellt werden für '%s'"
 
 #: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
 #, c-format
 msgid "Menu path '%s' already exists"
-msgstr ""
+msgstr "Menüpfad '%s' existiert bereits"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
 #: ../src/modules/vfs-menu.c:1521
@@ -1364,7 +1364,7 @@ msgstr "Ungültiger Menüordner"
 
 #: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1737
 msgid "Menu item name cannot be empty"
-msgstr ""
+msgstr "Menüobjekt-Name kann nicht leer sein"
 
 #: ../src/modules/vfs-menu.c:1508
 #, c-format
@@ -1378,11 +1378,11 @@ msgstr "Ungültiger Menüeintrag"
 #: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
-msgstr ""
+msgstr "Das Menüobjekt '%s' hat keine enstrpechende Desktop-Datei"
 
 #: ../src/modules/vfs-menu.c:1821
 msgid "Change hidden status isn't supported for menu directory"
-msgstr ""
+msgstr "Anzeigestatus ändern wird für Menüverzeichnisse nicht unterstützt"
 
 #: ../src/modules/vfs-menu.c:1979
 #, c-format
@@ -1407,7 +1407,7 @@ msgstr "'%s' ist kein Menüeintrag"
 #: ../src/modules/vfs-menu.c:2053
 #, c-format
 msgid "The '%s' entry file is broken"
-msgstr ""
+msgstr "Die Desktop-Datei '%s' ist korrupt"
 
 #: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
 #, c-format
@@ -1416,15 +1416,15 @@ msgstr "Menüeintrag '%s' kann nicht erstellt werden"
 
 #: ../src/modules/vfs-menu.c:2575
 msgid "Name of menu directory should not end with \".desktop\""
-msgstr ""
+msgstr "Der Name des Menüverzeichnis sollte nicht auf \".desktop\" enden"
 
 #: ../src/modules/vfs-menu.c:2620
 msgid "Invalid operation with menu root"
-msgstr ""
+msgstr "Ungültige Aktion für Menüstammverzeichnis"
 
 #: ../src/modules/vfs-menu.c:2709
 msgid "Invalid destination"
-msgstr ""
+msgstr "Ungültige Zieladresse"
 
 #: ../src/modules/vfs-menu.c:2982
 #, c-format
@@ -1514,19 +1514,19 @@ msgstr "Dateien an ihrem ursprünglichen Ort wiederherstellen"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr ""
+msgstr "Quelldateiname oder Desktop ID"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
-msgstr ""
+msgstr "QUELLE"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "result file name"
-msgstr ""
+msgstr "Dateiname"
 
 #: ../src/tools/lxshortcut.c:43
 msgid "RESULT"
-msgstr ""
+msgstr "Ergebnis"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
