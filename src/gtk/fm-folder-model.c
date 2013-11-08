@@ -281,8 +281,6 @@ static void fm_folder_model_class_init(FmFolderModelClass *klass)
 
 static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
 {
-    guint i;
-
     iface->get_flags = fm_folder_model_get_flags;
     iface->get_n_columns = fm_folder_model_get_n_columns;
     iface->get_column_type = fm_folder_model_get_column_type;
@@ -295,36 +293,6 @@ static void fm_folder_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_n_children = fm_folder_model_iter_n_children;
     iface->iter_nth_child = fm_folder_model_iter_nth_child;
     iface->iter_parent = fm_folder_model_iter_parent;
-
-    /* prepare column_infos table */
-    column_infos_n = FM_FOLDER_MODEL_N_COLS;
-    column_infos = g_new0(FmFolderModelInfo*, FM_FOLDER_MODEL_N_COLS);
-    for(i = 0; i < G_N_ELEMENTS(column_infos_raw); i++)
-    {
-        FmFolderModelCol id = column_infos_raw[i].id;
-        column_infos[id] = &column_infos_raw[i];
-    }
-
-     /* GType value is actually generated at runtime by
-      * calling _get_type() functions for every type.
-      * So they should not be filled at compile-time.
-      * Though G_TYPE_STRING and other fundimental type ids
-      * are known at compile-time, this behavior is not 
-      * guaranteed to be true in newer glib. */
-
-    /* visible columns in the view */
-    column_infos[FM_FOLDER_MODEL_COL_NAME]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_DESC]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_SIZE]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_PERM]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_OWNER]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_MTIME]->type= G_TYPE_STRING;
-    column_infos[FM_FOLDER_MODEL_COL_DIRNAME]->type= G_TYPE_STRING;
-
-    /* columns used internally */
-    column_infos[FM_FOLDER_MODEL_COL_INFO]->type= G_TYPE_POINTER;
-    column_infos[FM_FOLDER_MODEL_COL_ICON]->type= GDK_TYPE_PIXBUF;
-    column_infos[FM_FOLDER_MODEL_COL_GICON]->type= G_TYPE_ICON;
 }
 
 static void fm_folder_model_tree_sortable_init(GtkTreeSortableIface *iface)
@@ -2215,6 +2183,38 @@ static gboolean fm_module_callback_gtk_folder_col(const char *name, gpointer ini
 
 void _fm_folder_model_init(void)
 {
+    guint i;
+
+    /* prepare column_infos table */
+    column_infos_n = FM_FOLDER_MODEL_N_COLS;
+    column_infos = g_new0(FmFolderModelInfo*, FM_FOLDER_MODEL_N_COLS);
+    for(i = 0; i < G_N_ELEMENTS(column_infos_raw); i++)
+    {
+        FmFolderModelCol id = column_infos_raw[i].id;
+        column_infos[id] = &column_infos_raw[i];
+    }
+
+     /* GType value is actually generated at runtime by
+      * calling _get_type() functions for every type.
+      * So they should not be filled at compile-time.
+      * Though G_TYPE_STRING and other fundimental type ids
+      * are known at compile-time, this behavior is not 
+      * guaranteed to be true in newer glib. */
+
+    /* visible columns in the view */
+    column_infos[FM_FOLDER_MODEL_COL_NAME]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_DESC]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_SIZE]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_PERM]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_OWNER]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_MTIME]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_DIRNAME]->type= G_TYPE_STRING;
+
+    /* columns used internally */
+    column_infos[FM_FOLDER_MODEL_COL_INFO]->type= G_TYPE_POINTER;
+    column_infos[FM_FOLDER_MODEL_COL_ICON]->type= GDK_TYPE_PIXBUF;
+    column_infos[FM_FOLDER_MODEL_COL_GICON]->type= G_TYPE_ICON;
+
     fm_module_register_gtk_folder_col();
 }
 
@@ -2222,7 +2222,7 @@ void _fm_folder_model_finalize(void)
 {
     FmFolderModelCol i = column_infos_n;
     fm_module_unregister_type("gtk_folder_col");
-    column_infos_n = FM_FOLDER_MODEL_N_COLS;
+    column_infos_n = 0;
     /* free all custom columns! */
     while (i > FM_FOLDER_MODEL_N_COLS)
     {
@@ -2231,4 +2231,5 @@ void _fm_folder_model_finalize(void)
         g_free((char*)column_infos[i]->title);
         g_free(column_infos[i]);
     }
+    g_free(column_infos);
 }
