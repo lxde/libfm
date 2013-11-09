@@ -809,7 +809,7 @@ static void on_places_root_changed(FmConfig* cfg, gpointer user_data)
     if(cfg->places_root)
     {
         new_path_item(model, &it, fm_path_get_root(), FM_PLACES_ID_ROOT,
-                      _("File system"), "drive-harddisk", NULL);
+                      _("Filesystem Root"), "drive-harddisk", NULL);
     }
     else
     {
@@ -987,7 +987,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     if(fm_config->places_root)
     {
         new_path_item(model, &it, fm_path_get_root(), FM_PLACES_ID_ROOT,
-                      _("File system"), "drive-harddisk", job);
+                      _("Filesystem Root"), "drive-harddisk", job);
     }
 
     if(fm_config->places_computer)
