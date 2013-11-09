@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-10 00:36+0200\n"
+"POT-Creation-Date: 2013-11-10 01:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1008,7 +1008,7 @@ msgid "Pa_ste and Go"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:690
-msgid "Entry for folder path"
+msgid "Folder location bar"
 msgstr ""
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976

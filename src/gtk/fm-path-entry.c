@@ -687,7 +687,7 @@ fm_path_entry_init(FmPathEntry *entry)
     g_signal_connect(entry, "populate-popup", G_CALLBACK(fm_path_entry_populate_popup), NULL);
 
     obj = gtk_widget_get_accessible(GTK_WIDGET(entry));
-    atk_object_set_description(obj, _("Entry for folder path"));
+    atk_object_set_description(obj, _("Folder location bar"));
 }
 
 static void fm_path_entry_completion_render_func(GtkCellLayout *cell_layout,
