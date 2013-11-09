@@ -30,7 +30,7 @@
   <object class="GtkDialog" id="date_dlg">
     <property name="can_focus">False</property>
     <property name="border_width">12</property>
-    <property name="title" translatable="yes">Choose a date</property>
+    <property name="title" translatable="yes">Choose Date</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">dlg</property>
     <child internal-child="vbox">

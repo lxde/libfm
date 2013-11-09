@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-10 01:02+0200\n"
+"POT-Creation-Date: 2013-11-10 01:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgid "<b>C_ommand line to execute:</b>"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File Type To be Opened:</b>"
+msgid "<b>File type to be opened:</b>"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -57,7 +57,7 @@ msgid "C_ustom Command Line"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
+msgid "Choose Application"
 msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:12
@@ -93,7 +93,7 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
+msgid "Confirm File Replacing"
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:5
@@ -101,7 +101,7 @@ msgid "_Apply this option to all existing files"
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
+msgid "_File name:"
 msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:7
@@ -159,7 +159,7 @@ msgid "<b>C_hange content:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
+msgid "<b>File type:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:5
@@ -167,15 +167,15 @@ msgid "<b>G_roup:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
+msgid "<b>Last access:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
+msgid "<b>Last modification:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:8
-msgid "<b>Last Permissions Change:</b>"
+msgid "<b>Last permissions change:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:9
@@ -191,7 +191,7 @@ msgid "<b>Open _with:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>Size on Disk:</b>"
+msgid "<b>Size on disk:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:13
@@ -203,7 +203,7 @@ msgid "<b>Target file:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Total Size of Files:</b>"
+msgid "<b>Total size of files:</b>"
 msgstr ""
 
 #: ../data/ui/file-prop.glade.h:16
@@ -348,7 +348,7 @@ msgid "Case insensiti_ve"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
+msgid "Choose Date"
 msgstr ""
 
 #: ../data/ui/filesearch.glade.h:13
@@ -436,7 +436,7 @@ msgid "_Video files"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
+msgid "<b>Mail Client</b>"
 msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:2
@@ -461,7 +461,7 @@ msgstr ""
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
+"The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
 

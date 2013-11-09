@@ -242,7 +242,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;File Type:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;File type:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -310,7 +310,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Total Size of Files:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Total size of files:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -343,7 +343,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Size on Disk:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Size on disk:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -375,7 +375,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Last Modification:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Last modification:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -407,7 +407,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Last Access:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Last access:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -437,7 +437,7 @@
                       <object class="GtkLabel" id="ctime_label">
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Last Permissions Change:&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Last permissions change:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
                       </object>

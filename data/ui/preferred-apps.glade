@@ -92,7 +92,7 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Mail client&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Mail Client&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                       <packing>
@@ -114,7 +114,7 @@
                                 <property name="width_request">360</property>
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">The preferred Mail Client will be used to compose emails when you click on E-mail addresses.</property>
+                                <property name="label" translatable="yes">The preferred Mail Client will be used to compose emails when you click on e-mail addresses.</property>
                                 <property name="wrap">True</property>
                                 <property name="width_chars">60</property>
                               </object>

@@ -10,7 +10,7 @@
   <object class="GtkDialog" id="dlg">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Choose An Application</property>
+    <property name="title" translatable="yes">Choose Application</property>
     <property name="default_width">400</property>
     <property name="default_height">380</property>
     <property name="type_hint">dialog</property>
@@ -30,7 +30,7 @@
                 <property name="can_focus">False</property>
                 <property name="xpad">2</property>
                 <property name="ypad">2</property>
-                <property name="label" translatable="yes">&lt;b&gt;File Type To be Opened:&lt;/b&gt;</property>
+                <property name="label" translatable="yes">&lt;b&gt;File type to be opened:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
