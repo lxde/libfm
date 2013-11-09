@@ -117,7 +117,7 @@ static GtkActionEntry main_win_actions[]=
         {"Up", GTK_STOCK_GO_UP, N_("Parent Folder"), "<Alt>Up", N_("Go to parent Folder"), G_CALLBACK(on_go_up)},
         {"Home", "user-home", N_("Home Folder"), "<Alt>Home", N_("Home Folder"), G_CALLBACK(on_go_home)},
         {"Desktop", "user-desktop", N_("Desktop"), NULL, N_("Desktop Folder"), G_CALLBACK(on_go_desktop)},
-        {"Computer", "computer", N_("My Computer"), NULL, NULL, G_CALLBACK(on_go_computer)},
+        {"Computer", "computer", N_("Devices"), NULL, NULL, G_CALLBACK(on_go_computer)},
         {"Trash", "user-trash", N_("Trash Can"), NULL, NULL, G_CALLBACK(on_go_trash)},
         {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, G_CALLBACK(on_go_network)},
         {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), G_CALLBACK(on_go_apps)},

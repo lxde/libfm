@@ -826,7 +826,7 @@ static void on_places_computer_changed(FmConfig* cfg, gpointer user_data)
         FmPath* path = fm_path_new_for_uri("computer:///");
 
         new_path_item(model, &it, path, FM_PLACES_ID_COMPUTER,
-                      _("Computer"), "computer", NULL);
+                      _("Devices"), "computer", NULL);
         fm_path_unref(path);
     }
     else
@@ -994,7 +994,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     {
         path = fm_path_new_for_uri("computer:///");
         new_path_item(model, &it, path, FM_PLACES_ID_COMPUTER,
-                      _("Computer"), "computer", job);
+                      _("Devices"), "computer", job);
         fm_path_unref(path);
     }
 

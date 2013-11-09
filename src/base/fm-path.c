@@ -174,7 +174,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     {
         flags |= FM_PATH_IS_VIRTUAL; /* FIXME: deprecated */
         host_end = host;
-        disp_name = _("Computer");
+        disp_name = _("Devices");
     }
     else if(scheme_len == 7 && g_ascii_strncasecmp(uri, "network", 7) == 0)
     {
