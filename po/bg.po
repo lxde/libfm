@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-11-09 00:01+0000\n"
+"PO-Revision-Date: 2013-11-09 13:32+0000\n"
 "Last-Translator: Радослав <reckku@gmail.com>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-POOTLE-MTIME: 1383955316.0\n"
+"X-POOTLE-MTIME: 1384003932.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -47,7 +47,8 @@ msgid ""
 "  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
-msgstr "<b>Специални кодове могат да бъдат използвани в командния ред:</b>"
+msgstr ""
+"<b>Специални кодове могат да бъдат използвани в командния ред:</b>\n"
 "  <b>%f</b>: Представлява име на файл\n"
 "  <b>%F</b>: Представлява няколко имена на фалове\n"
 "  <b>%u</b>: Представлява един адрес до файл\n"
@@ -467,14 +468,12 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
-"Предпочитаният Mail клиент ще се използва за обработка и изпращане\n"
-"на съобщения до електронните пощи, когато кликнете върху E-mail адрес. "
+"Предпочитаният Пощенски клиент ще се използва за обработка и изпращане на "
+"съобщения, когато кликате върху имейл адреси."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Предпочитаният Браузър ще се използва\n"
-"за отварянае на скрити връзки."
+msgstr "Предпочитаният Браузър ще се използва за отваряне на скрити връзки."
 
 #. Processing: <Name of currently proccesed file>
 #: ../data/ui/progress.glade.h:2
@@ -506,7 +505,7 @@ msgstr "Подготвяне..."
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr "Невалиден файл за работен плот: \"%s\""
+msgstr "Невалиден файл за работен плот: „%s“"
 
 #: ../src/base/fm-file-launcher.c:197
 #, c-format
@@ -516,12 +515,12 @@ msgstr "Няма зададена стандартна програма за о�
 #: ../src/base/fm-file-launcher.c:272
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr "Директорията \"%s\" не може да бъде зададена: %s"
+msgstr "Директорията „%s“ не може да бъде зададена: %s"
 
 #: ../src/base/fm-file-launcher.c:318
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
-msgstr "Не може да се определи вида на файла \"%s\", за да бъде стартиран"
+msgstr "Не може да се определи вида на файла „%s“, за да бъде стартиран"
 
 #: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
 #, c-format
@@ -538,7 +537,7 @@ msgstr "Мрежа"
 
 #: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
 msgid "Trash Can"
-msgstr "Кошче"
+msgstr "Кош"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
@@ -590,7 +589,7 @@ msgstr "ТиБ"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "Пътят \"%s\" в адреса съдържа неправилни изходни знаци"
+msgstr "Пътят „%s“ в адреса съдържа неправилни условни знаци"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -603,8 +602,8 @@ msgid ""
 "Failed to parse '%-.*s', which should have been a digit inside a character "
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
-"Грешка при анализ на „%-.*s“, което трябва да е число в указател на знак "
-"(напр. „&#234;“). Вероятно числото е твърде голямо."
+"Грешка при анализ на „%-.*s“, което трябва да е число в указател (напр. "
+"„&#234;“) - вероятно числото е твърде голямо."
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -688,15 +687,11 @@ msgstr "Промени"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:161
 msgid "Use selected application to open files"
-msgstr ""
-"Използвайте маркираните програми,\n"
-"за да отваряте файлове"
+msgstr "Използвайте избраното приложение за отваряне на файлове"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:168
 msgid "Execute custom command line to open files"
-msgstr ""
-"Изпълни потребителска команда\n"
-"за отваряне на файловете"
+msgstr "Изпълни потребителска команда за отваряне на файлове"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -773,7 +768,7 @@ msgstr "Свой_ства"
 
 #: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
 msgid "_Trash"
-msgstr "_Кошче"
+msgstr "_Кош"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -782,20 +777,16 @@ msgstr "Изображения"
 #: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
 msgid "byte"
 msgid_plural "bytes"
-msgstr[0] "%u бит"
-msgstr[1] "%u бита"
+msgstr[0] "байт"
+msgstr[1] "байтове"
 
 #: ../src/gtk/fm-file-properties.c:571
 msgid "Please enter a valid user name or numeric id."
-msgstr ""
-"Моля, въведете съществуващо потребителско име\n"
-"или цифрово ID."
+msgstr "Моля, въведете съществуващо потребителско име или цифров индикатор."
 
 #: ../src/gtk/fm-file-properties.c:601
 msgid "Please enter a valid group name or numeric id."
-msgstr ""
-"Моля, въведете съществуващо име на група\n"
-"или цифрово ID."
+msgstr "Моля, въведете съществуващо име на група или цифров индикатор."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:810
@@ -968,13 +959,13 @@ msgid ""
 "This text file '%s' seems to be an executable script.\n"
 "What do you want to do with it?"
 msgstr ""
-"Изглежда този файл \"'%s'\" е изпълним скрипт.\n"
+"Изглежда този файл „%s“ е изпълним скрипт.\n"
 "Какво желаете да направите?"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:145
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
-msgstr "Този файл: \"'%s'\" е изпълним. Желаете ли да го стартирате?"
+msgstr "Този файл: „%s“ е изпълним. Желаете ли да го стартирате?"
 
 #. show error if no paths are added
 #: ../src/gtk/fm-gtk-file-launcher.c:652
@@ -1008,14 +999,14 @@ msgstr "Само администратора има привилегии да �
 #: ../src/gtk/fm-gtk-utils.c:919
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
-msgstr "Искате ли да преместите файла „%s“ в кошчето?"
+msgstr "Искате ли да преместите файла „%s“ в коша?"
 
 #: ../src/gtk/fm-gtk-utils.c:924
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
-msgstr[0] "Искате ли да преместите избраният файл %d в кошчето?"
-msgstr[1] "Искате ли да преместите избраните файлове %d в кошчето?"
+msgstr[0] "Искате ли да преместите избрания файл %d в коша?"
+msgstr[1] "Искате ли да преместите избраните файлове %d в коша?"
 
 #: ../src/gtk/fm-gtk-utils.c:984
 #, c-format
@@ -1039,7 +1030,7 @@ msgstr "Моля, въведете ново име:"
 
 #: ../src/gtk/fm-gtk-utils.c:1156
 msgid "Are you sure you want to empty the trash can?"
-msgstr "Наистина ли искате да изпразните кошчето?"
+msgstr "Наистина ли искате да изпразните коша?"
 
 #: ../src/gtk/fm-path-entry.c:631
 msgid "Pa_ste and go"
@@ -1104,7 +1095,7 @@ msgstr "Преместване на отметката _надолу"
 
 #: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
-msgstr "Изпра_зни Кошчето"
+msgstr "Изпра_зни Коша"
 
 #: ../src/gtk/fm-places-view.c:526
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
@@ -1122,7 +1113,7 @@ msgstr "Въведете ново име:"
 
 #: ../src/gtk/fm-progress-dlg.c:123
 msgid ": "
-msgstr ":"
+msgstr ": "
 
 #: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
 #, c-format
@@ -1141,7 +1132,7 @@ msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
-"Вин: %s\n"
+"Вид: %s\n"
 "Променен: %s"
 
 #: ../src/gtk/fm-progress-dlg.c:312
@@ -1167,8 +1158,8 @@ msgid ""
 "Do you want to delete them instead?"
 msgstr ""
 "Някои файлове не могат да бъдат изхвърлени в коша, защото основните файлови "
-"системи не поддържат\n"
-"тази операция. Желаете ли да ги изтриете въпреки това?"
+"системи не поддържат тази операция.\n"
+"Желаете ли да ги изтриете въпреки това?"
 
 #: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
 msgid "_Pause"
@@ -1176,11 +1167,11 @@ msgstr "_Пауза"
 
 #: ../src/gtk/fm-progress-dlg.c:391
 msgid "_Resume"
-msgstr "_Възобновяване"
+msgstr "_Продължаване"
 
 #: ../src/gtk/fm-progress-dlg.c:544
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:560
 msgid "Moving files"
@@ -1192,7 +1183,7 @@ msgstr "Копиране на файлове"
 
 #: ../src/gtk/fm-progress-dlg.c:566
 msgid "Trashing files"
-msgstr "Изхвърляне в кошчето"
+msgstr "Изхвърляне в коша"
 
 #: ../src/gtk/fm-progress-dlg.c:569
 msgid "Deleting files"
@@ -1288,15 +1279,12 @@ msgstr "Не може да се домогне до мястото на файл
 
 #: ../src/job/fm-file-ops-job.c:570
 msgid "Cannot create a link on non-native filesystem"
-msgstr ""
-"Не може да се създаде връзка върху файлова система, която не е стандартна"
+msgstr "Не може да се създаде връзка върху файлова система, която не е стандартна"
 
 #: ../src/job/fm-file-ops-job-delete.c:469
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
-msgstr ""
-"Не може да се възстанови файлът „%s“ от кошчето: оригиналният път не е "
-"известен"
+msgstr "Не може да се възстанови файлът „%s“ от коша: оригиналният път не е известен"
 
 #: ../src/job/fm-file-ops-job-xfer.c:56
 msgid "Source and destination are the same."
@@ -1304,15 +1292,11 @@ msgstr "Мястото и източника са същите."
 
 #: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot move a folder into its sub folder"
-msgstr ""
-"Папката не може да бъде преместена\n"
-"в нейна дъщерна."
+msgstr "Папка не може да бъде премествана в нейна дъщерна."
 
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Cannot copy a folder into its sub folder"
-msgstr ""
-"Папката не може да бъде копирана\n"
-"в нейна дъщерна."
+msgstr "Папка не може да бъде копирана в нейна дъщерна."
 
 #: ../src/job/fm-file-ops-job-xfer.c:67
 msgid "Destination is a sub folder of source"
