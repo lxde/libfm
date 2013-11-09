@@ -759,7 +759,7 @@ static void on_places_home_changed(FmConfig* cfg, gpointer user_data)
         FmPath* path = fm_path_get_home();
 
         new_path_item(model, &it, path, FM_PLACES_ID_HOME,
-                      fm_path_get_basename(path), "user-home", NULL);
+                      _("Home Folder"), "user-home", NULL);
     }
     else
     {
@@ -973,7 +973,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     {
         path = fm_path_get_home();
         new_path_item(model, &it, path, FM_PLACES_ID_HOME,
-                      fm_path_get_basename(path), "user-home", job);
+                      _("Home Folder"), "user-home", job);
     }
 
     /* Only show desktop in side pane when the user has a desktop dir. */
