@@ -47,7 +47,11 @@ msgid ""
 "  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
-msgstr "<b>_Име на приложението (по избор, задайте го, за да се подсещате)</b>"
+msgstr "<b>Специални кодове могат да бъдат използвани в командния ред:</b>"
+"  <b>%f</b>: Представлява име на файл\n"
+"  <b>%F</b>: Представлява няколко имена на фалове\n"
+"  <b>%u</b>: Представлява един адрес до файл\n"
+"  <b>%U</b>: Представлява няколко адреса"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "<b>_Application name (optional, set it to keep association)</b>"
@@ -356,7 +360,7 @@ msgstr "Изберете дата от следния календар"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "File _Type"
-msgstr "<b>Вид фай_л:</b>"
+msgstr "Вид фай_л:"
 
 #: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
 msgid "GB"
@@ -564,8 +568,8 @@ msgstr "ТБ"
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
-msgstr[0] "%u бит"
-msgstr[1] "%u бита"
+msgstr[0] "%u байт"
+msgstr[1] "%u байта"
 
 #: ../src/base/fm-utils.c:173
 msgid "KiB"
