@@ -1,7 +1,7 @@
 # Serbian translation for Libfm package
 # Copyright (C) 2010 the LXDE team
 # This file is distributed under the same license as the Libfm package.
-# Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010.
+# Jay A. Fleming <tito.nehru.naser@gmail.com>, 2010-2013.
 #
 #
 msgid ""
@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-09-06 00:32+0100\n"
-"Last-Translator: Jay A.Fleming <tito.nehru.naser@gmail.com>\n"
+"PO-Revision-Date: 2013-11-09 10:43+0100\n"
+"Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -245,7 +245,7 @@ msgstr "Нико"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "None"
-msgstr "Ниједан"
+msgstr "Ништа"
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Only owner"
@@ -592,7 +592,7 @@ msgstr "ТиБ"
 #: ../src/base/fm-utils.c:572
 #, c-format
 msgid "The URI subpath '%s' contains invalid escaped characters"
-msgstr "У путањи до локације „%s“ налазе се неважећи-недозвољени знакови"
+msgstr "У путањи до локације „%s“ налазе се неважећи, недозвољени знакови"
 
 #: ../src/extra/fm-xml-file.c:205
 #, c-format
@@ -602,22 +602,22 @@ msgstr ""
 #: ../src/extra/fm-xml-file.c:299
 #, c-format
 msgid "Failed to parse '%-.*s', which should have been a digit inside a character reference (&#234; for example) - perhaps the digit is too large"
-msgstr ""
+msgstr "Нисам успео да рашчланим „%-.*s“, што је требало да представља цифру унутар знаковне референце (нпр. &#234;) — можда је цифра превелика"
 
 #: ../src/extra/fm-xml-file.c:310
-#, fuzzy, c-format
+#, c-format
 msgid "Character reference did not end with a semicolon; most likely you used an ampersand character without intending to start an entity - escape ampersand as &amp;"
-msgstr "Ознака знака се не завршава тачком и зарезом; највероватније сте користили амперсанд знак без намере да започнете ентитет — избегните амперсанд користећи „&amp;“"
+msgstr "Знаковна референца се не завршава тачка-запетом; највероватније сте користили амперсанд без намере да започнете ентитет — назначите амперсанд са &amp;"
 
 #: ../src/extra/fm-xml-file.c:336
-#, fuzzy, c-format
+#, c-format
 msgid "Character reference '%-.*s' does not encode a permitted character"
-msgstr "Ознака знака „%-.*s“ није кодирала дозвољени знак"
+msgstr "Знаковна референца „%-.*s“ не представља дозвољени знак"
 
 #: ../src/extra/fm-xml-file.c:373
 #, c-format
 msgid "Empty entity '&;' seen; valid entities are: &amp; &quot; &lt; &gt; &apos;"
-msgstr "Празан ентитет „&;“ је препознат; важећи ентитети су: &amp; &quot; &lt; &gt; &apos;"
+msgstr "Уочен празан ентитет „&;“; прихватљиви ентитети су &amp; &quot; &lt; &gt; &apos;"
 
 #: ../src/extra/fm-xml-file.c:380
 #, c-format
@@ -625,13 +625,13 @@ msgid "Entity name '%-.*s' is not known"
 msgstr "Назив ентитета „%-.*s“ није познат"
 
 #: ../src/extra/fm-xml-file.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Entity did not end with a semicolon; most likely you used an ampersand character without intending to start an entity - escape ampersand as &amp;"
-msgstr "Ентитет се не завршава тачком и зарезом; највероватније сте користили амперсанд знак без намере да започнете ентитет — избегните амперсанд користећи „&amp;“"
+msgstr "Ентитет се не завршава тачка-запетом; највероватније сте користили амперсанд без намере да започнете ентитет — назначите амперсанд са &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
-msgstr "У завршном тагу нису дозвољене празнине"
+msgstr "У завршној ознаци нису дозвољене празнине"
 
 #: ../src/extra/fm-xml-file.c:603
 #, c-format
@@ -773,11 +773,11 @@ msgstr[2] "%u бајта"
 
 #: ../src/gtk/fm-file-properties.c:571
 msgid "Please enter a valid user name or numeric id."
-msgstr "Унесите исправно корисничко име или ИД број."
+msgstr "Унесите исправно корисничко име или ИБ."
 
 #: ../src/gtk/fm-file-properties.c:601
 msgid "Please enter a valid group name or numeric id."
-msgstr "Унесите исправно име групе или ИД број."
+msgstr "Унесите исправно име групе или ИБ."
 
 #. FIXME: may special bits and exec flags still be messed up?
 #: ../src/gtk/fm-file-properties.c:810
@@ -936,9 +936,8 @@ msgid "Creating %s"
 msgstr "Стварање %s"
 
 #: ../src/gtk/fm-folder-view.c:886
-#, fuzzy
 msgid "_Run default application on file after creation"
-msgstr "Пок_рени подразумевани програм на датотеци после стварања"
+msgstr "Пок_рени подразумевани програм за датотеку после њ. стварања"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:138
 #, c-format
@@ -1509,7 +1508,7 @@ msgstr "Врати датотеке из Непотребно на оригин�
 
 #: ../src/tools/lxshortcut.c:42
 msgid "source file name or desktop id"
-msgstr "назив изворне датотеке или ИД радне површи"
+msgstr "назив изворне датотеке или ИБ радне површи"
 
 #: ../src/tools/lxshortcut.c:42
 msgid "SOURCE"
