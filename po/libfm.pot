@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 01:49+0300\n"
+"POT-Creation-Date: 2013-11-10 00:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -523,10 +523,11 @@ msgstr ""
 
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
-msgid "Computer"
+msgid "Devices"
 msgstr ""
 
-#: ../src/base/fm-path.c:183
+#: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
+#: ../src/gtk/fm-places-model.c:1012
 msgid "Network"
 msgstr ""
 
@@ -682,7 +683,7 @@ msgid "Installed Applications"
 msgstr ""
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
-msgid "<No Sub Folder>"
+msgid "<No subfolders>"
 msgstr ""
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
@@ -698,16 +699,16 @@ msgid "_Cancel"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:412
-msgid "C_opy"
+msgid "C_opy Here"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:413
-msgid "_Move"
+msgid "_Move Here"
 msgstr ""
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-msgid "_Link"
+msgid "_Link Here"
 msgstr ""
 
 #: ../src/gtk/fm-dnd-dest.c:861
@@ -752,7 +753,7 @@ msgstr ""
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
-msgid "_Trash"
+msgid "Move to _Trash"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:364
@@ -806,7 +807,7 @@ msgid "<b>File:</b>"
 msgstr ""
 
 #: ../src/gtk/fm-file-properties.c:1307
-msgid "Multiple Files"
+msgid "Multiple files"
 msgstr ""
 
 #. columns visible to the users
@@ -870,21 +871,13 @@ msgstr ""
 msgid "Show _Hidden"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:206
-msgid "_Only for this folder"
-msgstr ""
-
-#: ../src/gtk/fm-folder-view.c:207
-msgid "Check to remember sort as folder setting rather than global one"
-msgstr ""
-
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
-#: ../src/gtk/fm-folder-view.c:209
-msgid "Mingle _files and folders"
+#: ../src/gtk/fm-folder-view.c:207
+msgid "Mingle _Files and Folders"
 msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:210
-msgid "_Ignore name case"
+#: ../src/gtk/fm-folder-view.c:208
+msgid "_Ignore Name Case"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:221
@@ -908,7 +901,7 @@ msgid "Enter a name for the newly created folder:"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:848
-msgid "Creating new folder"
+msgid "Creating New Folder"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:861
@@ -954,8 +947,8 @@ msgstr ""
 msgid "No folders are specified."
 msgstr ""
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691
-msgid "Select a folder"
+#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+msgid "Select Folder"
 msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:70
@@ -968,10 +961,6 @@ msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:184
 msgid "Question"
-msgstr ""
-
-#: ../src/gtk/fm-gtk-utils.c:554
-msgid "Please select a folder"
 msgstr ""
 
 #: ../src/gtk/fm-gtk-utils.c:704
@@ -1015,11 +1004,15 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:631
-msgid "Pa_ste and go"
+msgid "Pa_ste and Go"
 msgstr ""
 
 #: ../src/gtk/fm-path-entry.c:690
 msgid "Entry for folder path"
+msgstr ""
+
+#: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+msgid "Home Folder"
 msgstr ""
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
@@ -1032,11 +1025,7 @@ msgid "Applications"
 msgstr ""
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-msgid "File system"
-msgstr ""
-
-#: ../src/gtk/fm-places-model.c:847 ../src/gtk/fm-places-model.c:1012
-msgid "Network Drives"
+msgid "Filesystem Root"
 msgstr ""
 
 #: ../src/gtk/fm-places-view.c:124
@@ -1142,27 +1131,27 @@ msgid ", "
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving files"
+msgid "Moving Files"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying files"
+msgid "Copying Files"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing files"
+msgid "Trashing Files"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting files"
+msgid "Deleting Files"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating symlinks"
+msgid "Creating Symlinks"
 msgstr ""
 
 #: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing file attributes"
+msgid "Changing File Attributes"
 msgstr ""
 
 #: ../src/gtk/fm-side-pane.c:66
@@ -1199,11 +1188,11 @@ msgid "_Hide %s"
 msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:821
-msgid "_Move left"
+msgid "_Move Left"
 msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:827
-msgid "Move _right"
+msgid "Move _Right"
 msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:850
@@ -1212,7 +1201,7 @@ msgid "Show %s"
 msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:862
-msgid "_Forget width"
+msgid "_Forget Width"
 msgstr ""
 
 #: ../src/gtk/fm-standard-view.c:1803
@@ -1394,11 +1383,11 @@ msgid "Search"
 msgstr ""
 
 #: ../src/modules/vfs-search.c:1049
-msgid "Search results"
+msgid "Search Results"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-msgid "Choose an executable file"
+msgid "Choose Executable File"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
@@ -1444,7 +1433,7 @@ msgid "_Use startup notification"
 msgstr ""
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-msgid "_Desktop entry"
+msgid "_Desktop Entry"
 msgstr ""
 
 #: ../src/modules/gtk-menu-trash.c:72
