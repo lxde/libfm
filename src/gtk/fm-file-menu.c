@@ -258,7 +258,7 @@ static gboolean on_key_released(GtkWidget *widget, GdkEventKey *event, FmFileMen
             data->shift_pressed = FALSE;
             act = gtk_ui_manager_get_action(data->ui, "/popup/Del");
             /* Note to translators: Trash in not noun but verb here */
-            gtk_action_set_label(act, _("_Trash"));
+            gtk_action_set_label(act, _("Move to _Trash"));
             gtk_action_set_stock_id(act, GTK_STOCK_DELETE);
         }
     }
@@ -518,7 +518,7 @@ _disable_open:
         g_signal_connect(data->menu, "key-press-event", G_CALLBACK(on_key_pressed), data);
         g_signal_connect(data->menu, "key-release-event", G_CALLBACK(on_key_released), data);
         act = gtk_ui_manager_get_action(ui, "/popup/Del");
-        gtk_action_set_label(act, _("_Trash"));
+        gtk_action_set_label(act, _("Move to _Trash"));
     }
 
     g_string_free(xml, TRUE);

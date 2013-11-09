@@ -557,22 +557,22 @@ static gboolean _on_show_dlg(gpointer user_data)
     switch(data->job->type)
     {
     case FM_FILE_OP_MOVE:
-        title = _("Moving files");
+        title = _("Moving Files");
         break;
     case FM_FILE_OP_COPY:
-        title = _("Copying files");
+        title = _("Copying Files");
         break;
     case FM_FILE_OP_TRASH:
-        title = _("Trashing files");
+        title = _("Trashing Files");
         break;
     case FM_FILE_OP_DELETE:
-        title = _("Deleting files");
+        title = _("Deleting Files");
         break;
     case FM_FILE_OP_LINK:
-        title = _("Creating symlinks");
+        title = _("Creating Symlinks");
         break;
     case FM_FILE_OP_CHANGE_ATTR:
-        title = _("Changing file attributes");
+        title = _("Changing File Attributes");
         break;
     case FM_FILE_OP_UNTRASH:
         break;

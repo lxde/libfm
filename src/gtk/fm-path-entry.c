@@ -628,7 +628,7 @@ static void fm_path_entry_populate_popup(GtkEntry *entry, GtkMenu *menu, gpointe
     GtkClipboard* clipboard = gtk_clipboard_get_for_display(
         gtk_widget_get_display(GTK_WIDGET(entry)), GDK_SELECTION_CLIPBOARD);
 
-    menuitem = gtk_menu_item_new_with_mnemonic(_("Pa_ste and go"));
+    menuitem = gtk_menu_item_new_with_mnemonic(_("Pa_ste and Go"));
     gtk_widget_show(menuitem);
 
     /* Insert menu item after default Paste menu item */

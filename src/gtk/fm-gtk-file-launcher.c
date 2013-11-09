@@ -688,7 +688,7 @@ static void on_add_path_button_clicked(GtkButton * btn, gpointer user_data)
 {
     FileSearchUI * ui = (FileSearchUI *)user_data;
     GtkWidget* dlg = gtk_file_chooser_dialog_new(
-                          _("Select a folder"), GTK_WINDOW(ui->dlg),
+                          _("Select Folder"), GTK_WINDOW(ui->dlg),
                           GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                           GTK_STOCK_OPEN, GTK_RESPONSE_OK,

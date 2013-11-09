@@ -1304,7 +1304,7 @@ static void update_ui(FmFilePropData* data)
     }
     else
     {
-        gtk_entry_set_text(data->name, _("Multiple Files"));
+        gtk_entry_set_text(data->name, _("Multiple files"));
         gtk_widget_set_sensitive(GTK_WIDGET(data->name), FALSE);
     }
 

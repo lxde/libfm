@@ -551,7 +551,7 @@ FmPath* fm_select_folder(GtkWindow* parent, const char* title)
     FmPath* path;
     GtkFileChooser* chooser;
     chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
-                                        title ? title : _("Please select a folder"),
+                                        title ? title : _("Select Folder"),
                                         parent, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,

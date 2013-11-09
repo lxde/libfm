@@ -63,7 +63,7 @@ static void _dentry_browse_exec_event(GtkButton *button, FmFilePropertiesDEntryD
     GtkWidget *chooser;
     GtkFileFilter *filter;
 
-    chooser = gtk_file_chooser_dialog_new(_("Choose an executable file"),
+    chooser = gtk_file_chooser_dialog_new(_("Choose Executable File"),
                                           NULL, GTK_FILE_CHOOSER_ACTION_OPEN,
                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                           GTK_STOCK_OPEN, GTK_RESPONSE_OK, NULL);
@@ -385,7 +385,7 @@ static gpointer _dentry_ui_init(GtkBuilder *ui, gpointer uidata, FmFileInfoList 
     gtk_table_attach(table, new_widget, 0, 2, 7, 8, GTK_FILL, 0, 0, 0);
     /* put the table into third tab and enable it */
     widget = gtk_builder_get_object(ui, "extra_tab_label");
-    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget), _("_Desktop entry"));
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget), _("_Desktop Entry"));
     widget = gtk_builder_get_object(ui, "extra_tab");
     gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(table));
     gtk_widget_show_all(GTK_WIDGET(widget));

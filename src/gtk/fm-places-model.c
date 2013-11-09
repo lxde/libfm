@@ -844,7 +844,7 @@ static void on_places_network_changed(FmConfig* cfg, gpointer user_data)
         FmPath* path = fm_path_new_for_uri("network:///");
 
         new_path_item(model, &it, path, FM_PLACES_ID_NETWORK,
-                      _("Network Drives"), GTK_STOCK_NETWORK, NULL);
+                      _("Network"), GTK_STOCK_NETWORK, NULL);
         fm_path_unref(path);
     }
     else
@@ -1009,7 +1009,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     {
         path = fm_path_new_for_uri("network:///");
         new_path_item(model, &it, path, FM_PLACES_ID_NETWORK,
-                      _("Network Drives"), GTK_STOCK_NETWORK, job);
+                      _("Network"), GTK_STOCK_NETWORK, job);
         fm_path_unref(path);
     }
 

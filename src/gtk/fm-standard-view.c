@@ -818,13 +818,13 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         if(info->col_id == FM_FOLDER_MODEL_COL_NAME) /* Name is immutable */
             gtk_widget_set_sensitive(menu_item, FALSE);
 
-        menu_item = gtk_menu_item_new_with_mnemonic(_("_Move left"));
+        menu_item = gtk_menu_item_new_with_mnemonic(_("_Move Left"));
         gtk_menu_shell_append(menu, menu_item);
         g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_left), col);
         if(NULL == l->prev) /* the left most column */
             gtk_widget_set_sensitive(menu_item, FALSE);
 
-        menu_item = gtk_menu_item_new_with_mnemonic(_("Move _right"));
+        menu_item = gtk_menu_item_new_with_mnemonic(_("Move _Right"));
         gtk_menu_shell_append(menu, menu_item);
         g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_move_right), col);
         if(NULL == l->next) /* the right most column */
@@ -859,7 +859,7 @@ static gboolean on_column_button_released_event(GtkWidget *button, GdkEventButto
         if(info->width > 0 && info->col_id != FM_FOLDER_MODEL_COL_NAME)
         {
             gtk_menu_shell_append(menu, gtk_separator_menu_item_new());
-            menu_item = gtk_menu_item_new_with_mnemonic(_("_Forget width"));
+            menu_item = gtk_menu_item_new_with_mnemonic(_("_Forget Width"));
             gtk_menu_shell_append(menu, menu_item);
             g_signal_connect(menu_item, "activate", G_CALLBACK(on_column_auto_adjust), col);
         }

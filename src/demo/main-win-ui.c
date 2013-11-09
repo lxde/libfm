@@ -119,7 +119,7 @@ static GtkActionEntry main_win_actions[]=
         {"Desktop", "user-desktop", N_("Desktop"), NULL, N_("Desktop Folder"), G_CALLBACK(on_go_desktop)},
         {"Computer", "computer", N_("Devices"), NULL, NULL, G_CALLBACK(on_go_computer)},
         {"Trash", "user-trash", N_("Trash Can"), NULL, NULL, G_CALLBACK(on_go_trash)},
-        {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, G_CALLBACK(on_go_network)},
+        {"Network", GTK_STOCK_NETWORK, N_("Network"), NULL, NULL, G_CALLBACK(on_go_network)},
         {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), G_CALLBACK(on_go_apps)},
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, G_CALLBACK(on_go)},
         {"Search", GTK_STOCK_FIND, N_("Find Files"), "", NULL, G_CALLBACK(on_search)},

@@ -417,7 +417,7 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
             /* parent is always non NULL. otherwise it's a bug. */
             FmDirTreeItem* parent = (FmDirTreeItem*)item->parent->data;
             if(parent->folder && fm_folder_is_loaded(parent->folder))
-                g_value_set_string( value, _("<No Sub Folder>"));
+                g_value_set_string( value, _("<No subfolders>"));
             else
                 g_value_set_string( value, _("Loading..."));
         }
@@ -1202,7 +1202,7 @@ const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* it
     /* parent is always non NULL. otherwise it's a bug. */
     parent = (FmDirTreeItem*)item->parent->data;
     if(parent->folder && fm_folder_is_loaded(parent->folder))
-        return _("<No Sub Folder>");
+        return _("<No subfolders>");
     return _("Loading...");
 }
 
