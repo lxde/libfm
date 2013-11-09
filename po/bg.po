@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-03 12:04+0300\n"
-"PO-Revision-Date: 2013-11-09 13:32+0000\n"
+"PO-Revision-Date: 2013-11-09 13:37+0000\n"
 "Last-Translator: Радослав <reckku@gmail.com>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-POOTLE-MTIME: 1384003932.0\n"
+"X-POOTLE-MTIME: 1384004233.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
@@ -135,12 +135,12 @@ msgstr "Избор на икона..."
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:4
 msgid "image files"
-msgstr "Изображения"
+msgstr "изображения"
 
 #. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
 msgid "system icon theme"
-msgstr "Тема със системни икони"
+msgstr "тема със системни икони"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -361,7 +361,7 @@ msgstr "Изберете дата от следния календар"
 
 #: ../data/ui/filesearch.glade.h:14
 msgid "File _Type"
-msgstr "Вид фай_л:"
+msgstr "Вид фай_л"
 
 #: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
 msgid "GB"
@@ -541,7 +541,7 @@ msgstr "Кош"
 
 #: ../src/base/fm-mime-type.c:86
 msgid "shortcut to URI"
-msgstr "Пряка връзка до адрес"
+msgstr "пряка връзка до адрес"
 
 #: ../src/base/fm-templates.c:1016
 msgid "fm_template_create_file: invalid argument"
@@ -933,7 +933,7 @@ msgstr "Въведете име на новосъздадения файл:"
 
 #: ../src/gtk/fm-folder-view.c:863
 msgid "Creating ..."
-msgstr "Създаване..."
+msgstr "Създаване ..."
 
 #: ../src/gtk/fm-folder-view.c:869
 msgid "New"
@@ -1322,7 +1322,7 @@ msgstr "Задаването на цел може да бъде направен
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Грешка в XML файла „%s (%d:%d):"
+msgstr "Грешка в XML файла „%s (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
@@ -1587,7 +1587,7 @@ msgstr "Празен диск: DVD+RW"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "DVD+R DL Disc"
-msgstr "Двуслоен диск: DVD+R "
+msgstr "Двуслоен диск: DVD+R"
 
 #: ../src/udisks/g-udisks-device.c:50
 msgid "Blank DVD+R DL Disc"
