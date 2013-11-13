@@ -837,8 +837,8 @@ msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
 msgstr ""
-"Datoteke ovog sistema su skrivene ukoliko njihovi nazivi počinju tačkom. Da "
-"bi ste ih videli ili sakrili pritisnite <Ctrl+H>."
+"Datoteke ovog sistema su skrivene ukoliko njihovi nazivi počinju tačkom. Da bi "
+"ste ih videli ili sakrili pritisnite <Ctrl+H>."
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -1318,8 +1318,7 @@ msgstr "Ne mogu da stvorim vezu na stranom sistemu datoteka"
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
-"Ne mogu da vratim datoteku „%s“ iz Nepotrebno: nije poznata originalna "
-"putanja"
+"Ne mogu da vratim datoteku „%s“ iz Nepotrebno: nije poznata originalna putanja"
 
 #: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
