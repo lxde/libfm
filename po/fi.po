@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-03 12:04+0300\n"
+"POT-Creation-Date: 2013-11-13 22:15+0100\n"
 "PO-Revision-Date: 2013-09-03 12:59+0000\n"
 "Last-Translator: Juhani <juhaninumminen0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,54 @@ msgstr ""
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1378213187.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Oletussovellukset"
 
 #: ../data/lxshortcut.desktop.in.h:1
-msgid "Create new or change existing desktop entry"
-msgstr "Luo uusi tai muuta olemassa olevaa työpöytäkäynnistintä"
-
-#: ../data/lxshortcut.desktop.in.h:2
 msgid "Shortcut Editor"
 msgstr "Pikanäppäinten muokkaus"
 
+#: ../data/lxshortcut.desktop.in.h:2
+msgid "Create new or change existing desktop entry"
+msgstr "Luo uusi tai muuta olemassa olevaa työpöytäkäynnistintä"
+
 #: ../data/ui/app-chooser.glade.h:1
+#, fuzzy
+msgid "Choose Application"
+msgstr "Valitse sovellus"
+
+#: ../data/ui/app-chooser.glade.h:2
+#, fuzzy
+msgid "<b>File type to be opened:</b>"
+msgstr "<b>Avattava tiedostotyyppi:</b>"
+
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Application"
+msgstr "_Asennettu sovellus"
+
+#: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>_Suoritettava komentorivi:</b>"
 
-#: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File Type To be Opened:</b>"
-msgstr "<b>Avattava tiedostotyyppi:</b>"
+#: ../data/ui/app-chooser.glade.h:5
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
+msgid "_Browse..."
+msgstr "_Selaa…"
 
-#: ../data/ui/app-chooser.glade.h:4
+#. row 1: "Terminal" GtkCheckButton
+#: ../data/ui/app-chooser.glade.h:6
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
+msgid "_Execute in terminal emulator"
+msgstr "_Suorita päätteessä"
+
+#. row 2: "X-KeepTerminal" GtkCheckButton
+#: ../data/ui/app-chooser.glade.h:7
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
+msgid "_Keep terminal window open after command execution"
+msgstr "_Jätä pääteikkuna auki komennon suorittamisen jälkeen"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -54,40 +81,37 @@ msgstr ""
 "  <b>%u</b>: Tarkoittaa yhden tiedoston URI:a\n"
 "  <b>%U</b>: Tarkoittaa useampaa URI:a"
 
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr ""
 "<b>_Sovelluksen nimi (valinnainen, aseta assosiaation säilyttämiseksi)</b>"
 
-#: ../data/ui/app-chooser.glade.h:10
+#: ../data/ui/app-chooser.glade.h:15
 msgid "C_ustom Command Line"
 msgstr "_Oma komentorivi"
-
-#: ../data/ui/app-chooser.glade.h:11
-msgid "Choose An Application"
-msgstr "Valitse sovellus"
-
-#: ../data/ui/app-chooser.glade.h:12
-msgid "_Browse"
-msgstr "_Selaa"
-
-#: ../data/ui/app-chooser.glade.h:13
-msgid "_Execute in terminal emulator"
-msgstr "_Suorita päätteessä"
-
-#: ../data/ui/app-chooser.glade.h:14
-msgid "_Installed Application"
-msgstr "_Asennettu sovellus"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Keep terminal window open after command execution"
-msgstr "_Jätä pääteikkuna auki komennon suorittamisen jälkeen"
 
 #: ../data/ui/app-chooser.glade.h:16
 msgid "_Set selected application as default action of this file type"
 msgstr "Aseta valittu sovellus _oletustoiminnoksi tälle tiedostotyypille"
 
 #: ../data/ui/ask-rename.glade.h:1
+#, fuzzy
+msgid "Confirm File Replacing"
+msgstr "Aseta valittu sovellus _oletustoiminnoksi tälle tiedostotyypille"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Ohita"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+msgid "_Rename"
+msgstr "_Nimeä uudelleen"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Korvaa"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -97,51 +121,36 @@ msgstr ""
 "\n"
 "Haluatko korvata tiedoston"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm to replace files"
-msgstr "Aseta valittu sovellus _oletustoiminnoksi tälle tiedostotyypille"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "_Käytä tätä asetusta kaikille tiedostoille"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File Name:"
-msgstr "_Tiedoston nimi:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Korvaa"
-
-#: ../data/ui/ask-rename.glade.h:8 ../src/gtk/fm-file-menu.c:158
-msgid "_Rename"
-msgstr "_Nimeä uudelleen"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "_Ohita"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "seuraavalla tiedostolla?"
 
-#: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose icon from:</b>"
-msgstr "<b>Valitse kuvake:</b>"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File name:"
+msgstr "_Tiedoston nimi:"
 
-#: ../data/ui/choose-icon.ui.h:2
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "_Käytä tätä asetusta kaikille tiedostoille"
+
+#: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
 msgstr "Valitse kuvake…"
 
 #. genitive case is here: Choose icon from: ...
-#: ../data/ui/choose-icon.ui.h:4
+#: ../data/ui/choose-icon.ui.h:3
+msgid "system icon theme"
+msgstr "järjestelmän kuvaketeemasta"
+
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:5
 msgid "image files"
 msgstr "kuvatiedostoista"
 
-#. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-msgid "system icon theme"
-msgstr "järjestelmän kuvaketeemasta"
+msgid "<b>Choose icon from:</b>"
+msgstr "<b>Valitse kuvake:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -152,391 +161,402 @@ msgid "Execute in _Terminal"
 msgstr "Suorita _päätteessä"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Käyttöoikeudet</b>"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>_Muuta sisältöä:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>File Type:</b>"
-msgstr "<b>Tiedostotyyppi:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>_Ryhmä:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last Access:</b>"
-msgstr "<b>Viimeksi käytetty:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last Modification:</b>"
-msgstr "<b>Viimeksi muokattu:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Last Permissions Change:</b>"
-msgstr "<b>Oikeuksia muutettu viimeksi:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>Location:</b>"
-msgstr "<b>Sijainti:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Omistaja:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Open _with:</b>"
-msgstr "<b>Avaa _sovelluksella:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Size on Disk:</b>"
-msgstr "<b>Koko levyllä:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-msgid "<b>Special bits:</b>"
-msgstr "<b>Erityisbitit:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "<b>Target file:</b>"
-msgstr "<b>Kohdetiedosto:</b>"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Tiedostojen yhteiskoko:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-msgid "<b>_Execute:</b>"
-msgstr "<b>_Suorita:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_Name:</b>"
-msgstr "<b>_Nimi:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "<b>_View content:</b>"
-msgstr "<b>_Näytä sisältö:</b>"
-
-#: ../data/ui/file-prop.glade.h:19
-msgid "Anyone"
-msgstr "Kuka tahansa"
-
-#: ../data/ui/file-prop.glade.h:20
 msgid "File Properties"
 msgstr "Tiedoston ominaisuudet"
 
-#: ../data/ui/file-prop.glade.h:21
-msgid "Hidden file"
-msgstr "Piilotiedosto"
-
-#: ../data/ui/file-prop.glade.h:22
+#: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
 msgstr "Tiedoston kuvake kansionäkymässä"
 
-#: ../data/ui/file-prop.glade.h:23
-msgid "Nobody"
-msgstr "Ei kukaan"
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>_Name:</b>"
+msgstr "<b>_Nimi:</b>"
 
-#: ../data/ui/file-prop.glade.h:24
-msgid "None"
-msgstr "Ei mitään"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Location:</b>"
+msgstr "<b>Sijainti:</b>"
 
-#: ../data/ui/file-prop.glade.h:25
-msgid "Only owner"
-msgstr "Vain omistaja"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Target file:</b>"
+msgstr "<b>Kohdetiedosto:</b>"
 
-#: ../data/ui/file-prop.glade.h:26
-msgid "Only owner and group"
-msgstr "Vain omistaja ja ryhmä"
+#: ../data/ui/file-prop.glade.h:6
+#, fuzzy
+msgid "<b>File type:</b>"
+msgstr "<b>Tiedostotyyppi:</b>"
 
-#: ../data/ui/file-prop.glade.h:27
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>Avaa _sovelluksella:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
 msgid "Select the application used to open files of this type "
 msgstr "Valitse tämän tyyppisten tiedostojen avaamiseen käytetty sovellus "
 
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set GID"
-msgstr "Aseta GID"
+#: ../data/ui/file-prop.glade.h:9
+#, fuzzy
+msgid "<b>Total size of files:</b>"
+msgstr "<b>Tiedostojen yhteiskoko:</b>"
 
-#: ../data/ui/file-prop.glade.h:29
-msgid "Set UID"
-msgstr "Aseta UID"
+#: ../data/ui/file-prop.glade.h:10
+#, fuzzy
+msgid "<b>Size on disk:</b>"
+msgstr "<b>Koko levyllä:</b>"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "Set UID & GID"
-msgstr "Aseta UID ja GID"
+#: ../data/ui/file-prop.glade.h:11
+#, fuzzy
+msgid "<b>Last modification:</b>"
+msgstr "<b>Viimeksi muokattu:</b>"
 
-#: ../data/ui/file-prop.glade.h:31
-msgid "Special flags for directory access"
-msgstr "Kansion käyttöoikeuksien erityisliput"
+#: ../data/ui/file-prop.glade.h:12
+#, fuzzy
+msgid "<b>Last access:</b>"
+msgstr "<b>Viimeksi käytetty:</b>"
 
-#: ../data/ui/file-prop.glade.h:32
-msgid "Special flags for file execution"
-msgstr "Tiedoston suorituksen erityisliput"
+#: ../data/ui/file-prop.glade.h:13
+#, fuzzy
+msgid "<b>Last permissions change:</b>"
+msgstr "<b>Oikeuksia muutettu viimeksi:</b>"
 
-#: ../data/ui/file-prop.glade.h:33
-msgid "Sticky"
-msgstr "Tahmea"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Sticky & set GID"
-msgstr "Tahmea ja aseta GID"
-
-#: ../data/ui/file-prop.glade.h:35
-msgid "Who can change content of the file/directory"
-msgstr "Kuka voi muokata tiedoston/kansion sisältöä"
-
-#: ../data/ui/file-prop.glade.h:36
-msgid "Who can execute the file or enter the directory"
-msgstr "Kuka voi suorittaa tiedoston tai katsoa kansion sisältöä"
-
-#: ../data/ui/file-prop.glade.h:37
-msgid "Who can read content of the file/directory"
-msgstr "Kuka voi lukea tiedoston/kansion sisällön"
-
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:14
 msgid "_General"
 msgstr "_Yleiset"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Omistaja:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>G_roup:</b>"
+msgstr "<b>_Ryhmä:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>_View content:</b>"
+msgstr "<b>_Näytä sisältö:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>C_hange content:</b>"
+msgstr "<b>_Muuta sisältöä:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "<b>_Execute:</b>"
+msgstr "<b>_Suorita:</b>"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "<b>Special bits:</b>"
+msgstr "<b>Erityisbitit:</b>"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Who can read content of the file/directory"
+msgstr "Kuka voi lukea tiedoston/kansion sisällön"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Who can change content of the file/directory"
+msgstr "Kuka voi muokata tiedoston/kansion sisältöä"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Who can execute the file or enter the directory"
+msgstr "Kuka voi suorittaa tiedoston tai katsoa kansion sisältöä"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Special flags for file execution"
+msgstr "Tiedoston suorituksen erityisliput"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Special flags for directory access"
+msgstr "Kansion käyttöoikeuksien erityisliput"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "<b>Access Control</b>"
+msgstr "<b>Käyttöoikeudet</b>"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "Hidden file"
+msgstr "Piilotiedosto"
+
+#: ../data/ui/file-prop.glade.h:28
 msgid "_Permissions"
 msgstr "_Oikeudet"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:617
+#: ../data/ui/file-prop.glade.h:29
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "None"
+msgstr "Ei mitään"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Sticky"
+msgstr "Tahmea"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Set GID"
+msgstr "Aseta GID"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Sticky & set GID"
+msgstr "Tahmea ja aseta GID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Set UID"
+msgstr "Aseta UID"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Set UID & GID"
+msgstr "Aseta UID ja GID"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Only owner"
+msgstr "Vain omistaja"
+
+#: ../data/ui/file-prop.glade.h:37
+msgid "Only owner and group"
+msgstr "Vain omistaja ja ryhmä"
+
+#: ../data/ui/file-prop.glade.h:38
+msgid "Anyone"
+msgstr "Kuka tahansa"
+
+#: ../data/ui/file-prop.glade.h:39
+msgid "Nobody"
+msgstr "Ei kukaan"
+
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Tavua"
+
+#: ../data/ui/filesearch.glade.h:2
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+#, fuzzy
+msgid "Choose Date"
+msgstr "Valitse päiväys"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Valitse päiväys kalenterista"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "Etsi tiedostoja"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Tiedostonimikuviot:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "_Merkkikoolla ei väliä"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "Kä_ytä säännöllistä lauseketta"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>_Haettavat sijainnit</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "Hae alihakemistoista"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Hae piilotettuja tiedostoja"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Nimi/_Sijainti"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Tiedostotyyppi</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Hae vain seuraavan tyyppisiä tiedostoja:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "_Tekstitiedostot"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "_Kuvatiedostot"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Äänitiedostot"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Videotiedostot"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Asiakirjat"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "_Tiedostotyyppi:"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>Tie_dosto sisältää:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "Sisältö"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Tiedoston koko</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "Pienempi kuin:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "Suurempi kuin:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Viimeksi muokattu</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
 #: ../src/gtk/fm-gtk-file-launcher.c:624
 msgid "(None)"
 msgstr "(Ei mitään)"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>Tie_dosto sisältää:</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Tiedoston koko</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Tiedostotyyppi</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Tiedostonimikuviot:</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Viimeksi muokattu</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>_Haettavat sijainnit</b>"
-
-#: ../data/ui/filesearch.glade.h:9
-msgid "Bytes"
-msgstr "Tavua"
-
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "Sisältö"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "_Merkkikoolla ei väliä"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose a date"
-msgstr "Valitse päiväys"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Valitse päiväys kalenterista"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "_Tiedostotyyppi:"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
-msgid "GB"
-msgstr "GB"
-
-#: ../data/ui/filesearch.glade.h:16
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "Myöhemmin kuin:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:142
-msgid "MB"
-msgstr "MB"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Nimi/_Sijainti"
-
-#: ../data/ui/filesearch.glade.h:20
-msgid "Only search for files of following types:"
-msgstr "Hae vain seuraavan tyyppisiä tiedostoja:"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "Search Files"
-msgstr "Etsi tiedostoja"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Hae piilotettuja tiedostoja"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "_Tekstitiedostot"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "_Äänitiedostot"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "Suurempi kuin:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "_Asiakirjat"
-
-#: ../data/ui/filesearch.glade.h:27
+#: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
 msgstr "Aiemmin kuin:"
 
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "_Kuvatiedostot"
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "Myöhemmin kuin:"
 
-#: ../data/ui/filesearch.glade.h:29
+#: ../data/ui/filesearch.glade.h:33
 msgid "_Properties"
 msgstr "O_minaisuudet"
 
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "Hae alihakemistoista"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "Pienempi kuin:"
-
-#: ../data/ui/filesearch.glade.h:32
-msgid "_Use regular expression"
-msgstr "Kä_ytä säännöllistä lauseketta"
-
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "_Videotiedostot"
-
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail client</b>"
-msgstr "<b>Sähköpostisovellus</b>"
-
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Pääte</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>WWW-selain</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Oletus-WWW-selainta käytetään hyperlinkkien avaamiseen."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Komentorivi:"
+#, fuzzy
+msgid "<b>Mail Client</b>"
+msgstr "<b>Sähköpostisovellus</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Tiedostosidokset"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Järjestelmäsovellukset"
-
-#: ../data/ui/preferred-apps.glade.h:8
+#, fuzzy
 msgid ""
-"The preferred Mail Client will be used to compose emails when you click on E-"
+"The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
 "Oletussähköpostisovellusta käytetään sähköpostien luomiseen, kun napsautat "
 "sähköpostiosoitetta."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Pääte</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Komentorivi:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Järjestelmäsovellukset"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Oletus-WWW-selainta käytetään hyperlinkkien avaamiseen."
+msgid "File Associations"
+msgstr "Tiedostosidokset"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Valmistellaan…"
 
 #. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:2
+#: ../data/ui/progress.glade.h:4
 msgid "<b>Processing:</b>"
 msgstr "<b>Käsitellään:</b>"
 
-#: ../data/ui/progress.glade.h:3
-msgid "<b>Progress:</b>"
-msgstr "<b>Edistyminen:</b>"
-
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Joitain virheitä ilmaantui:</b>"
-
-#: ../data/ui/progress.glade.h:5
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Jäljellä oleva aika:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:7
+#: ../data/ui/progress.glade.h:6
 msgid "<b>To:</b>"
 msgstr "<b>Kohde:</b>"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Edistyminen:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Jäljellä oleva aika:</b>"
+
 #: ../data/ui/progress.glade.h:9
-msgid "Preparing..."
-msgstr "Valmistellaan…"
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Joitain virheitä ilmaantui:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Virheellinen työpöytäkäynnistin: ”%s”"
 
-#: ../src/base/fm-file-launcher.c:197
+#: ../src/base/fm-file-launcher.c:201
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "URI:lle%s:// ei ole asetettu oletussovellusta"
 
-#: ../src/base/fm-file-launcher.c:272
+#: ../src/base/fm-file-launcher.c:282
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "Työhakemistoksi ei voi asettaa ”%s”: %s"
 
-#: ../src/base/fm-file-launcher.c:318
+#: ../src/base/fm-file-launcher.c:329
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "Tiedoston ”%s” tyyppiä ei voitu määrittää sen avaamiseksi"
 
-#: ../src/base/fm-file-launcher.c:363 ../src/base/fm-templates.c:1066
+#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "MIME-tyypille %s ei ole asetettu oletussovellusta"
 
-#: ../src/base/fm-path.c:177
-msgid "My Computer"
-msgstr "Oma tietokone"
+#: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
+#: ../src/gtk/fm-places-model.c:997
+msgid "Devices"
+msgstr ""
 
-#: ../src/base/fm-path.c:183
+#: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
+#: ../src/gtk/fm-places-model.c:1012
 msgid "Network"
 msgstr "Verkko"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:872
+#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Roskakori"
 
@@ -544,7 +564,7 @@ msgstr "Roskakori"
 msgid "shortcut to URI"
 msgstr "pikanäppäin URI:in"
 
-#: ../src/base/fm-templates.c:1016
+#: ../src/base/fm-templates.c:1019
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: argumentti ei kelpaa"
 
@@ -697,7 +717,8 @@ msgid "Installed Applications"
 msgstr "Asennetut sovellukset"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
-msgid "<No Sub Folder>"
+#, fuzzy
+msgid "<No subfolders>"
 msgstr "<Ei alikansiota>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
@@ -713,16 +734,19 @@ msgid "_Cancel"
 msgstr "_Peru"
 
 #: ../src/gtk/fm-dnd-dest.c:412
-msgid "C_opy"
+#, fuzzy
+msgid "C_opy Here"
 msgstr "_Kopioi"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-msgid "_Move"
-msgstr "_Siirrä"
+#, fuzzy
+msgid "_Move Here"
+msgstr "_Siirrä vasemmalle"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-msgid "_Link"
+#, fuzzy
+msgid "_Link Here"
 msgstr "_Linkitä"
 
 #: ../src/gtk/fm-dnd-dest.c:861
@@ -761,13 +785,15 @@ msgstr "Pura _tänne"
 msgid "E_xtract To..."
 msgstr "P_ura kansioon…"
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:199
+#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "Tiedoston _ominaisuudet"
 
-#: ../src/gtk/fm-file-menu.c:260 ../src/gtk/fm-file-menu.c:512
-msgid "_Trash"
-msgstr "_Roskakori"
+#. Note to translators: Trash in not noun but verb here
+#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#, fuzzy
+msgid "Move to _Trash"
+msgstr "Siirrä _oikealle"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -824,7 +850,8 @@ msgid "<b>File:</b>"
 msgstr "<b>Tiedosto:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1307
-msgid "Multiple Files"
+#, fuzzy
+msgid "Multiple files"
 msgstr "Useita tiedostoja"
 
 #. columns visible to the users
@@ -856,101 +883,97 @@ msgstr "Muokattu"
 msgid "Location"
 msgstr "Sijainti"
 
-#: ../src/gtk/fm-folder-view.c:179
+#: ../src/gtk/fm-folder-view.c:178
 msgid "Create _New..."
 msgstr "Luo _uusi…"
 
-#: ../src/gtk/fm-folder-view.c:180
+#: ../src/gtk/fm-folder-view.c:179
 msgid "Folder"
 msgstr "Hakemisto"
 
-#: ../src/gtk/fm-folder-view.c:183
+#: ../src/gtk/fm-folder-view.c:182
 msgid "Empty File"
 msgstr "Tyhjä tiedosto"
 
-#: ../src/gtk/fm-folder-view.c:195
+#: ../src/gtk/fm-folder-view.c:194
 msgid "_Invert Selection"
 msgstr "_Käännä valinta"
 
-#: ../src/gtk/fm-folder-view.c:196
+#: ../src/gtk/fm-folder-view.c:195
 msgid "_Sort Files"
 msgstr "_Järjestä tiedostot"
 
-#: ../src/gtk/fm-folder-view.c:197
+#: ../src/gtk/fm-folder-view.c:196
 msgid "_Rename Folder"
 msgstr "_Nimeä kansio uudestaan"
 
-#: ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
 msgstr "_Kansion ominaisuudet"
 
-#: ../src/gtk/fm-folder-view.c:207
+#: ../src/gtk/fm-folder-view.c:205
 msgid "Show _Hidden"
 msgstr "Näytä p_iilotetut"
 
-#: ../src/gtk/fm-folder-view.c:208
-msgid "_Only for this folder"
-msgstr "_Vain tälle hakemistolle"
-
-#: ../src/gtk/fm-folder-view.c:209
-msgid "Check to remember sort as folder setting rather than global one"
-msgstr "Muista lajittelu joka kansiolle erikseen yhteisen lajittelun sijaan"
-
-#: ../src/gtk/fm-folder-view.c:210
-msgid "Mingle _files and folders"
+#. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
+#: ../src/gtk/fm-folder-view.c:207
+#, fuzzy
+msgid "Mingle _Files and Folders"
 msgstr "_Sekoita tiedostot ja kansiot"
 
-#: ../src/gtk/fm-folder-view.c:211
-msgid "_Ignore name case"
+#: ../src/gtk/fm-folder-view.c:208
+#, fuzzy
+msgid "_Ignore Name Case"
 msgstr "_Älä huomioi nimen kirjainkokoa"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Name"
 msgstr "_Nimi"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By _Modification Time"
 msgstr "_Muokkausajankohta"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:223
 msgid "By _Size"
 msgstr "_Koko"
 
-#: ../src/gtk/fm-folder-view.c:225
+#: ../src/gtk/fm-folder-view.c:224
 msgid "By File _Type"
 msgstr "Ti_edostotyyppi"
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:847
 msgid "Enter a name for the newly created folder:"
 msgstr "Anna nimi luodulle hakemistolle:"
 
-#: ../src/gtk/fm-folder-view.c:849
-msgid "Creating new folder"
+#: ../src/gtk/fm-folder-view.c:848
+#, fuzzy
+msgid "Creating New Folder"
 msgstr "Luodaan uusi kansio"
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:861
 msgid "Enter a name for empty file:"
 msgstr "Anna tyhjän tiedoston nimi:"
 
-#: ../src/gtk/fm-folder-view.c:863
+#: ../src/gtk/fm-folder-view.c:862
 msgid "Creating ..."
 msgstr "Luodaan…"
 
-#: ../src/gtk/fm-folder-view.c:869
+#: ../src/gtk/fm-folder-view.c:868
 msgid "New"
 msgstr "Uusi"
 
-#: ../src/gtk/fm-folder-view.c:879
+#: ../src/gtk/fm-folder-view.c:878
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Anna nimi uudelle %s:lle:"
 
-#: ../src/gtk/fm-folder-view.c:882
+#: ../src/gtk/fm-folder-view.c:881
 #, c-format
 msgid "Creating %s"
 msgstr "Luodaan %s"
 
-#: ../src/gtk/fm-folder-view.c:886
+#: ../src/gtk/fm-folder-view.c:885
 msgid "_Run default application on file after creation"
 msgstr "_Suorita oletusohjelma tiedoston luonnin jälkeen"
 
@@ -973,8 +996,9 @@ msgstr "Tämä tiedosto \"%s\" on suoritettava. Tahdotko suorittaa sen?"
 msgid "No folders are specified."
 msgstr "Kansioita ei ole määritelty."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691
-msgid "Select a folder"
+#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#, fuzzy
+msgid "Select Folder"
 msgstr "Valitse kansio"
 
 #: ../src/gtk/fm-gtk-utils.c:70
@@ -988,10 +1012,6 @@ msgstr "Vahvista"
 #: ../src/gtk/fm-gtk-utils.c:184
 msgid "Question"
 msgstr "Kysymys"
-
-#: ../src/gtk/fm-gtk-utils.c:554
-msgid "Please select a folder"
-msgstr "Valitse kansio"
 
 #: ../src/gtk/fm-gtk-utils.c:704
 msgid "Only system administrators have the permission to do this."
@@ -1034,33 +1054,33 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "Tyhjennetäänkö roskakori?"
 
 #: ../src/gtk/fm-path-entry.c:631
-msgid "Pa_ste and go"
+#, fuzzy
+msgid "Pa_ste and Go"
 msgstr "_Liitä ja siirry"
 
 #: ../src/gtk/fm-path-entry.c:690
-msgid "Entry for folder path"
-msgstr "Tekstikenttä kansiopolkua varten"
+#, fuzzy
+msgid "Folder location bar"
+msgstr "Tiedostosidokset"
 
-#: ../src/gtk/fm-places-model.c:771 ../src/gtk/fm-places-model.c:977
+#: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
+#, fuzzy
+msgid "Home Folder"
+msgstr "_Nimeä kansio uudestaan"
+
+#: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
 msgstr "Työpöytä"
 
-#: ../src/gtk/fm-places-model.c:789 ../src/gtk/fm-places-model.c:997
-#: ../src/modules/vfs-menu.c:1566
+#: ../src/gtk/fm-places-model.c:796 ../src/gtk/fm-places-model.c:1004
+#: ../src/modules/vfs-menu.c:1565
 msgid "Applications"
 msgstr "Sovellukset"
 
-#: ../src/gtk/fm-places-model.c:805 ../src/gtk/fm-places-model.c:983
-msgid "File system"
+#: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
+#, fuzzy
+msgid "Filesystem Root"
 msgstr "Tiedostojärjestelmä"
-
-#: ../src/gtk/fm-places-model.c:822 ../src/gtk/fm-places-model.c:990
-msgid "Computer"
-msgstr "Tietokone"
-
-#: ../src/gtk/fm-places-model.c:840 ../src/gtk/fm-places-model.c:1005
-msgid "Network Drives"
-msgstr "Verkkoasemat"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1102,11 +1122,11 @@ msgstr "Tyhjennä _roskakori"
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "Näyttää yleiset sijainnit, laitteet ja kirjanmerkit sivupalkissa"
 
-#: ../src/gtk/fm-places-view.c:1090
+#: ../src/gtk/fm-places-view.c:1091
 msgid "Rename Bookmark Item"
 msgstr "Nimeä kirjanmerkki uudelleen"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1092
 msgid "Enter a new name:"
 msgstr "Anna uusi nimi:"
 
@@ -1173,27 +1193,33 @@ msgid ", "
 msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving files"
+#, fuzzy
+msgid "Moving Files"
 msgstr "Siirretään tiedostoja"
 
 #: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying files"
+#, fuzzy
+msgid "Copying Files"
 msgstr "Kopioidaan tiedostoja"
 
 #: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing files"
+#, fuzzy
+msgid "Trashing Files"
 msgstr "Siirretään tiedostoja roskakoriin"
 
 #: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting files"
+#, fuzzy
+msgid "Deleting Files"
 msgstr "Poistetaan tiedostoja"
 
 #: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating symlinks"
+#, fuzzy
+msgid "Creating Symlinks"
 msgstr "Luodaan symbolisia linkkejä"
 
 #: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing file attributes"
+#, fuzzy
+msgid "Changing File Attributes"
 msgstr "Muutetaan tiedoston ominaisuuksia"
 
 #: ../src/gtk/fm-side-pane.c:66
@@ -1220,45 +1246,48 @@ msgstr "Kirjanmerkit"
 msgid "Directory Tree"
 msgstr "Hakemistopuu"
 
-#: ../src/gtk/fm-standard-view.c:234
+#: ../src/gtk/fm-standard-view.c:244
 msgid "View of folder contents"
 msgstr "Näkymä kansion sisällöstä"
 
-#: ../src/gtk/fm-standard-view.c:790
+#: ../src/gtk/fm-standard-view.c:813
 #, c-format
 msgid "_Hide %s"
 msgstr "_Piilota %s"
 
-#: ../src/gtk/fm-standard-view.c:798
-msgid "_Move left"
+#: ../src/gtk/fm-standard-view.c:821
+#, fuzzy
+msgid "_Move Left"
 msgstr "_Siirrä vasemmalle"
 
-#: ../src/gtk/fm-standard-view.c:804
-msgid "Move _right"
+#: ../src/gtk/fm-standard-view.c:827
+#, fuzzy
+msgid "Move _Right"
 msgstr "Siirrä _oikealle"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:850
 #, c-format
 msgid "Show %s"
 msgstr "Näytä %s"
 
-#: ../src/gtk/fm-standard-view.c:839
-msgid "_Forget width"
+#: ../src/gtk/fm-standard-view.c:862
+#, fuzzy
+msgid "_Forget Width"
 msgstr "_Unohda leveys"
 
-#: ../src/gtk/fm-standard-view.c:1776
+#: ../src/gtk/fm-standard-view.c:1803
 msgid "_Icon View"
 msgstr "Ku_vakenäkymä"
 
-#: ../src/gtk/fm-standard-view.c:1777
+#: ../src/gtk/fm-standard-view.c:1804
 msgid "_Compact View"
 msgstr "_Tiivis näkymä"
 
-#: ../src/gtk/fm-standard-view.c:1778
+#: ../src/gtk/fm-standard-view.c:1805
 msgid "_Thumbnail View"
 msgstr "_Pienoiskuvanäkymä"
 
-#: ../src/gtk/fm-standard-view.c:1779
+#: ../src/gtk/fm-standard-view.c:1806
 msgid "Detailed _List View"
 msgstr "Yksityiskohtainen _listanäkymä"
 
@@ -1272,47 +1301,47 @@ msgstr "Vaihtaa aktiivista välilehteä"
 msgid "The specified directory '%s' is not valid"
 msgstr "Annettu hakemisto ”%s” ei ole kelvollinen"
 
-#: ../src/job/fm-file-ops-job.c:526
+#: ../src/job/fm-file-ops-job.c:519
 msgid "Cannot access destination file"
 msgstr "Kohdetiedostoon ei päästä käsiksi"
 
-#: ../src/job/fm-file-ops-job.c:570
+#: ../src/job/fm-file-ops-job.c:564
 msgid "Cannot create a link on non-native filesystem"
 msgstr "Ei voida luoda linkkiä vieraalla tiedostojärjestelmällä"
 
-#: ../src/job/fm-file-ops-job-delete.c:469
+#: ../src/job/fm-file-ops-job-delete.c:489
 #, c-format
 msgid "Cannot untrash file '%s': original path not known"
 msgstr ""
 "Ei voida palauttaa tiedostoa ”%s”: alkuperäinen sijainti ei ole tiedossa"
 
-#: ../src/job/fm-file-ops-job-xfer.c:56
+#: ../src/job/fm-file-ops-job-xfer.c:54
 msgid "Source and destination are the same."
 msgstr "Lähde ja kohde ovat samat."
 
-#: ../src/job/fm-file-ops-job-xfer.c:63
+#: ../src/job/fm-file-ops-job-xfer.c:61
 msgid "Cannot move a folder into its sub folder"
 msgstr "Kansiota ei voi siirtää sen omaan alikansioon"
 
-#: ../src/job/fm-file-ops-job-xfer.c:65
+#: ../src/job/fm-file-ops-job-xfer.c:63
 msgid "Cannot copy a folder into its sub folder"
 msgstr "Kansiota ei voi kopioida sen omaan alikansioon"
 
-#: ../src/job/fm-file-ops-job-xfer.c:67
+#: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "Kohde on lähteen alikansio"
 
-#: ../src/job/fm-file-ops-job-xfer.c:373
+#: ../src/job/fm-file-ops-job-xfer.c:380
 #, c-format
 msgid "Cannot copy file '%s': not supported"
 msgstr "Ei voida kopioida tiedostoa ”%s”: ei tuettu"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:318
+#: ../src/job/fm-file-ops-job-change-attr.c:312
 #, c-format
 msgid "Setting display name can be done only for single file"
 msgstr "Näyttönimen voi asettaa vain yhdelle tiedostolle"
 
-#: ../src/job/fm-file-ops-job-change-attr.c:321
+#: ../src/job/fm-file-ops-job-change-attr.c:315
 #, c-format
 msgid "Setting target can be done only for single file"
 msgstr "Kohteen voi asettaa vain yhdelle tiedostolle"
@@ -1332,13 +1361,13 @@ msgstr "XML-tiedostossa ei ole Appliactions-juurta"
 msgid "Cannot create XML definition for '%s'"
 msgstr "XML-määritelmää kohdetta ”%s” varten ei voida luoda"
 
-#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2667
+#: ../src/modules/vfs-menu.c:449 ../src/modules/vfs-menu.c:2664
 #, c-format
 msgid "Menu path '%s' already exists"
 msgstr "Valikkopolku ”%s” on jo olemassa"
 
 #: ../src/modules/vfs-menu.c:1129 ../src/modules/vfs-menu.c:1434
-#: ../src/modules/vfs-menu.c:1521
+#: ../src/modules/vfs-menu.c:1520
 msgid "Menu cache error"
 msgstr "Valikon välimuistin virhe"
 
@@ -1351,71 +1380,71 @@ msgstr "Toiminto ei ole tuettu"
 msgid "Invalid menu directory"
 msgstr "Virheellinen valikkokansio"
 
-#: ../src/modules/vfs-menu.c:1458 ../src/modules/vfs-menu.c:1737
+#: ../src/modules/vfs-menu.c:1457 ../src/modules/vfs-menu.c:1736
 msgid "Menu item name cannot be empty"
 msgstr "Valikon kohteen nimi ei voi olla tyhjä"
 
-#: ../src/modules/vfs-menu.c:1508
+#: ../src/modules/vfs-menu.c:1507
 #, c-format
 msgid "Invalid menu directory '%s'"
 msgstr "Virheellinen valikkokansio ”%s”"
 
-#: ../src/modules/vfs-menu.c:1654 ../src/modules/vfs-menu.c:1795
+#: ../src/modules/vfs-menu.c:1653 ../src/modules/vfs-menu.c:1794
 msgid "Invalid menu item"
 msgstr "Virheellinen valikon kohde"
 
-#: ../src/modules/vfs-menu.c:1658 ../src/modules/vfs-menu.c:1799
+#: ../src/modules/vfs-menu.c:1657 ../src/modules/vfs-menu.c:1798
 #, c-format
 msgid "The menu item '%s' doesn't have appropriate entry file"
 msgstr "Valikon kohteella ”%s” ei ole kirjaustiedostoa"
 
-#: ../src/modules/vfs-menu.c:1821
+#: ../src/modules/vfs-menu.c:1820
 msgid "Change hidden status isn't supported for menu directory"
 msgstr "Valikon kansion näkyvyysasetuksen muuttaminen ei ole tuettu"
 
-#: ../src/modules/vfs-menu.c:1979
+#: ../src/modules/vfs-menu.c:1978
 #, c-format
 msgid "Setting attribute '%s' not supported"
 msgstr "Ominaisuuden ”%s” asettaminen ei ole tuettu"
 
-#: ../src/modules/vfs-menu.c:1989
+#: ../src/modules/vfs-menu.c:1988
 #, c-format
 msgid "Invalid value for attribute '%s'"
 msgstr "Virheellinen arvo ominaisuudelle ”%s”"
 
-#: ../src/modules/vfs-menu.c:2026
+#: ../src/modules/vfs-menu.c:2025
 #, c-format
 msgid "The '%s' is a menu directory"
 msgstr "”%s” on valikkokansio"
 
-#: ../src/modules/vfs-menu.c:2029 ../src/modules/vfs-menu.c:2660
+#: ../src/modules/vfs-menu.c:2028 ../src/modules/vfs-menu.c:2657
 #, c-format
 msgid "The '%s' isn't a menu item"
 msgstr "”%s” ei ole valikkokohde"
 
-#: ../src/modules/vfs-menu.c:2053
+#: ../src/modules/vfs-menu.c:2052
 #, c-format
 msgid "The '%s' entry file is broken"
 msgstr "Tiedosto ”%s” on rikki"
 
-#: ../src/modules/vfs-menu.c:2339 ../src/modules/vfs-menu.c:2431
+#: ../src/modules/vfs-menu.c:2338 ../src/modules/vfs-menu.c:2427
 #, c-format
 msgid "Cannot create menu item '%s'"
 msgstr "Ei voida luoda valikkokohdetta ”%s”"
 
-#: ../src/modules/vfs-menu.c:2575
+#: ../src/modules/vfs-menu.c:2572
 msgid "Name of menu directory should not end with \".desktop\""
 msgstr "Valikkokansion nimen ei pitäisi päättyä merkkijonoon ”.desktop”"
 
-#: ../src/modules/vfs-menu.c:2620
+#: ../src/modules/vfs-menu.c:2617
 msgid "Invalid operation with menu root"
 msgstr "Virheellinen valikon juuren operaatio"
 
-#: ../src/modules/vfs-menu.c:2709
+#: ../src/modules/vfs-menu.c:2706
 msgid "Invalid destination"
 msgstr "Virheellinen kohde"
 
-#: ../src/modules/vfs-menu.c:2982
+#: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: kansiota ”%s” ei löytynyt valikkovälimuistista"
@@ -1426,11 +1455,13 @@ msgid "Search"
 msgstr "Etsi"
 
 #: ../src/modules/vfs-search.c:1049
-msgid "Search results"
+#, fuzzy
+msgid "Search Results"
 msgstr "Hakutulokset"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-msgid "Choose an executable file"
+#, fuzzy
+msgid "Choose Executable File"
 msgstr "Valitse suoritettava tiedosto"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:72
@@ -1441,23 +1472,9 @@ msgstr "Suoritettavat tiedostot"
 msgid "<b>Co_mmand:</b>"
 msgstr "<b>_Komento:</b>"
 
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
-msgid "_Browse..."
-msgstr "_Selaa…"
-
 #: ../src/modules/gtk-fileprop-x-desktop.c:288
 msgid "Command to execute when the application icon is activated"
 msgstr "Sovelluksen kuvaketta napsautettaessa suoritettava komento"
-
-#. row 1: "Terminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
-msgid "_Run in terminal emulator"
-msgstr "_Suorita päätteessä"
-
-#. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
-msgid "_Keep terminal window open after run"
-msgstr "_Jätä pääteikkuna auki suorittamisen jälkeen"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:322
 msgid "<b>D_escription:</b>"
@@ -1490,7 +1507,8 @@ msgid "_Use startup notification"
 msgstr "Käytä _käynnistysilmaisinta"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-msgid "_Desktop entry"
+#, fuzzy
+msgid "_Desktop Entry"
 msgstr "_Työpöytäkäynnistin"
 
 #: ../src/modules/gtk-menu-trash.c:72
@@ -1677,6 +1695,42 @@ msgstr "Tyhjä optinen levy"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Optinen levy"
+
+#~ msgid "_Browse"
+#~ msgstr "_Selaa"
+
+#~ msgid "My Computer"
+#~ msgstr "Oma tietokone"
+
+#~ msgid "_Move"
+#~ msgstr "_Siirrä"
+
+#~ msgid "_Trash"
+#~ msgstr "_Roskakori"
+
+#~ msgid "_Only for this folder"
+#~ msgstr "_Vain tälle hakemistolle"
+
+#~ msgid "Check to remember sort as folder setting rather than global one"
+#~ msgstr "Muista lajittelu joka kansiolle erikseen yhteisen lajittelun sijaan"
+
+#~ msgid "Please select a folder"
+#~ msgstr "Valitse kansio"
+
+#~ msgid "Entry for folder path"
+#~ msgstr "Tekstikenttä kansiopolkua varten"
+
+#~ msgid "Computer"
+#~ msgstr "Tietokone"
+
+#~ msgid "Network Drives"
+#~ msgstr "Verkkoasemat"
+
+#~ msgid "_Run in terminal emulator"
+#~ msgstr "_Suorita päätteessä"
+
+#~ msgid "_Keep terminal window open after run"
+#~ msgstr "_Jätä pääteikkuna auki suorittamisen jälkeen"
 
 #~ msgid "Shortcuts"
 #~ msgstr "Pikanäppäimet"
