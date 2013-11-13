@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-09-03 09:21+0000\n"
+"PO-Revision-Date: 2013-11-13 21:33+0000\n"
 "Last-Translator: Martin <brother@bsnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1378200100.0\n"
+"X-POOTLE-MTIME: 1384378436.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -32,12 +32,10 @@ msgid "Create new or change existing desktop entry"
 msgstr "Skapa nytt eller uppdatera ett skrivbordselement"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Välj ett program"
+msgstr "Välj program"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File type to be opened:</b>"
 msgstr "<b>Filtyp att öppna:</b>"
 
@@ -94,7 +92,6 @@ msgid "_Set selected application as default action of this file type"
 msgstr "Ange valt program som _standardåtgärd för denna filtyp"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Bekräfta ersättning av filer"
 
@@ -125,7 +122,6 @@ msgid "with the following file?"
 msgstr "med följande fil?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
 msgstr "_Filnamn:"
 
@@ -180,7 +176,6 @@ msgid "<b>Target file:</b>"
 msgstr "<b>Måfill:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Filtyp:</b>"
 
@@ -193,27 +188,22 @@ msgid "Select the application used to open files of this type "
 msgstr "Ange program för att öppna filer av denna typ "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Total storlek på filer:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Storlek på disk:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Senast ändrad:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Senast använd:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Rättigheterna ändrades senast:</b>"
 
@@ -338,7 +328,6 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "Välj datum"
 
@@ -465,18 +454,16 @@ msgstr ""
 "Den föreslagna webbläsaren kommer att användas för att öppna hyperlänkar."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>E-post-klient</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"Den föreslagna e-post-klienten kommer att användas när du klickar på en e-"
-"post-adress."
+"Den föreslagna e-post-klienten kommer att användas för att skicka ett "
+"meddelande när du klickar på en e-post-adress."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -549,7 +536,7 @@ msgstr "Ingen standardapplikation satt för MIME-typ %s"
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Enheter"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -719,7 +706,6 @@ msgid "Installed Applications"
 msgstr "Installerade program"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
-#, fuzzy
 msgid "<No subfolders>"
 msgstr "<Ingen underkatalog>"
 
@@ -736,20 +722,17 @@ msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "C_opy Here"
-msgstr "_Kopiera"
+msgstr "_Kopiera hit"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move Here"
-msgstr "Flytta åt _vänster"
+msgstr "_Flytta hit"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-#, fuzzy
 msgid "_Link Here"
-msgstr "_Länk"
+msgstr "_Länka hit"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -793,9 +776,8 @@ msgstr "_Egenskaper"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Flytta åt _höger"
+msgstr "Flytta till _Papperskorgen"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -851,7 +833,6 @@ msgid "<b>File:</b>"
 msgstr "<b>Fil:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1307
-#, fuzzy
 msgid "Multiple files"
 msgstr "Flera filer"
 
@@ -918,12 +899,10 @@ msgstr "Visa _dolda"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
 msgstr "Låt _filer och kataloger blandas"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
 msgstr "_Ignorera variation med stor och liten bokstav för namn"
 
@@ -948,7 +927,6 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Ange namn för katalogen som just skapades:"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Creating New Folder"
 msgstr "Skapar ny katalog"
 
@@ -998,9 +976,8 @@ msgid "No folders are specified."
 msgstr "Inga kataloger angavs."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
-msgstr "Ange en katalog"
+msgstr "Välj katalog"
 
 #: ../src/gtk/fm-gtk-utils.c:70
 msgid "Error"
@@ -1055,19 +1032,16 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "Är du säker på att du vill tömma papperskorgen?"
 
 #: ../src/gtk/fm-path-entry.c:631
-#, fuzzy
 msgid "Pa_ste and Go"
 msgstr "Klistra in och kör"
 
 #: ../src/gtk/fm-path-entry.c:690
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Filassociation"
+msgstr "Fält för katalogplats"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "_Byt namn på katalog"
+msgstr "Hemkatalog"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1079,9 +1053,8 @@ msgid "Applications"
 msgstr "Program"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "Filsystem"
+msgstr "Filsystemsrot"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1194,32 +1167,26 @@ msgid ", "
 msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:560
-#, fuzzy
 msgid "Moving Files"
 msgstr "Flyttar filer"
 
 #: ../src/gtk/fm-progress-dlg.c:563
-#, fuzzy
 msgid "Copying Files"
 msgstr "Kopierar filer"
 
 #: ../src/gtk/fm-progress-dlg.c:566
-#, fuzzy
 msgid "Trashing Files"
 msgstr "Kastar filer"
 
 #: ../src/gtk/fm-progress-dlg.c:569
-#, fuzzy
 msgid "Deleting Files"
 msgstr "Raderar filer"
 
 #: ../src/gtk/fm-progress-dlg.c:572
-#, fuzzy
 msgid "Creating Symlinks"
-msgstr "Skapar symlänkar"
+msgstr "Skapar symboliska länkar"
 
 #: ../src/gtk/fm-progress-dlg.c:575
-#, fuzzy
 msgid "Changing File Attributes"
 msgstr "Byter filegenskaper"
 
@@ -1257,12 +1224,10 @@ msgid "_Hide %s"
 msgstr "_Göm %s"
 
 #: ../src/gtk/fm-standard-view.c:821
-#, fuzzy
 msgid "_Move Left"
 msgstr "Flytta åt _vänster"
 
 #: ../src/gtk/fm-standard-view.c:827
-#, fuzzy
 msgid "Move _Right"
 msgstr "Flytta åt _höger"
 
@@ -1272,7 +1237,6 @@ msgid "Show %s"
 msgstr "Visa %s"
 
 #: ../src/gtk/fm-standard-view.c:862
-#, fuzzy
 msgid "_Forget Width"
 msgstr "_Glöm bredd"
 
@@ -1455,12 +1419,10 @@ msgid "Search"
 msgstr "Sök"
 
 #: ../src/modules/vfs-search.c:1049
-#, fuzzy
 msgid "Search Results"
 msgstr "Sökresultat"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
 msgstr "Välj en körbar fil"
 
@@ -1507,7 +1469,6 @@ msgid "_Use startup notification"
 msgstr "_Använd uppstartsnotifiering"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
 msgstr "_Skrivbordselement"
 
