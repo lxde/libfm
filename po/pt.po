@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-14 18:31+0000\n"
+"PO-Revision-Date: 2013-11-14 18:40+0000\n"
 "Last-Translator: Sérgio <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1384453912.0\n"
+"X-POOTLE-MTIME: 1384454459.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -73,7 +73,7 @@ msgid ""
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
-"<b>Estes códigos podem ser usados na linha de comandos:</b>\n"
+"<b>Pode utilizar os códigos abaixo na linha de comandos:</b>\n"
 "<b>%f</b>: representa o nome do ficheiro\n"
 "<b>%F</b>: representa o nome de vários ficheiros\n"
 "<b>%u</b>: representa o URI do ficheiro\n"
@@ -431,7 +431,7 @@ msgstr "<b>Data da última modificação</b>"
 #: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
 #: ../src/gtk/fm-gtk-file-launcher.c:624
 msgid "(None)"
-msgstr "Nenhum"
+msgstr "(Nenhum)"
 
 #: ../data/ui/filesearch.glade.h:31
 msgid "_Earlier than:"
@@ -611,7 +611,7 @@ msgid ""
 "reference (&#234; for example) - perhaps the digit is too large"
 msgstr ""
 "Falha ao analisar %-.*s, que devia ser um dígito dentro de uma sequência de "
-"caracteres (&#234; por exemplo). É possível que o dígito seja muito grande"
+"caracteres (&#234; por exemplo). É possível que o dígito seja muito grande."
 
 #: ../src/extra/fm-xml-file.c:310
 #, c-format
@@ -735,7 +735,7 @@ msgstr "_Ligar aqui"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
-msgstr "Falha XDirectSave"
+msgstr "Falha XDirectSave."
 
 #: ../src/gtk/fm-file-menu.c:148
 msgid "_Open"
@@ -808,7 +808,7 @@ msgstr "Ocultar ou mostrar o ficheiro"
 
 #: ../src/gtk/fm-file-properties.c:948
 msgid "This file is hidden because its name starts with a dot ('.')."
-msgstr "Este ficheiro está oculto porque o seu nome começa com um ponto (.)"
+msgstr "Este ficheiro está oculto porque o seu nome começa com um ponto (.)."
 
 #: ../src/gtk/fm-file-properties.c:952
 msgid ""
@@ -952,7 +952,7 @@ msgstr "A criar %s"
 
 #: ../src/gtk/fm-folder-view.c:885
 msgid "_Run default application on file after creation"
-msgstr "Executa_r aplicação pré-definida depois de criar"
+msgstr "Abri_r aplicação pré-definida depois de criar"
 
 #: ../src/gtk/fm-gtk-file-launcher.c:138
 #, c-format
@@ -1311,7 +1311,7 @@ msgstr "Só pode definir o destino para um ficheiro"
 #: ../src/modules/vfs-menu.c:299
 #, c-format
 msgid "XML file '%s' error (%d:%d): "
-msgstr "Erro no ficheiro XML %s (%d:%d):"
+msgstr "Erro no ficheiro XML %s (%d:%d): "
 
 #: ../src/modules/vfs-menu.c:309
 msgid "XML file doesn't contain Applications root"
