@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-04 00:09+0000\n"
+"PO-Revision-Date: 2013-11-14 07:38+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1383523782.0\n"
+"X-POOTLE-MTIME: 1384414698.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -32,12 +32,10 @@ msgid "Create new or change existing desktop entry"
 msgstr "Crear o modificar una entrada .desktop"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
-msgstr "Seleccione una aplicación"
+msgstr "Elija una aplicación"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
 msgid "<b>File type to be opened:</b>"
 msgstr "<b>Tipo de archivo a abrir:</b>"
 
@@ -98,7 +96,6 @@ msgstr ""
 "este tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Confirmar el reemplazo de archivos"
 
@@ -129,9 +126,8 @@ msgid "with the following file?"
 msgstr "con el siguiente archivo?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
-msgstr "_Nombre del archivo:"
+msgstr "_Nombre de archivo:"
 
 #: ../data/ui/ask-rename.glade.h:10
 msgid "_Apply this option to all existing files"
@@ -184,7 +180,6 @@ msgid "<b>Target file:</b>"
 msgstr "<b>Archivo de destino:</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Tipo de archivo:</b>"
 
@@ -198,27 +193,22 @@ msgstr ""
 "Seleccione la aplicación utilizada para abrir los archivos de este tipo "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Tamaño total de los archivos:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Size on disk:</b>"
-msgstr "<b>Tamaño en disco:</b>"
+msgstr "<b>Tamaño en el disco:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Última modificación:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Último acceso:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Última modificación de permisos:</b>"
 
@@ -244,7 +234,7 @@ msgstr "<b>Ca_mbiar contenido:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "<b>_Execute:</b>"
-msgstr "<b>E_jecutar:</b>"
+msgstr "<b>_Ejecutar:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "<b>Special bits:</b>"
@@ -343,7 +333,6 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "Elija una fecha"
 
@@ -405,7 +394,7 @@ msgstr "Archivos de _imagen"
 
 #: ../data/ui/filesearch.glade.h:20
 msgid "_Audio files"
-msgstr "Archivos de _audio"
+msgstr "_Archivos de sonido"
 
 #: ../data/ui/filesearch.glade.h:21
 msgid "_Video files"
@@ -469,18 +458,16 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "El navegador web preferido se utilizará para abrir los hiperenlaces."
 
 #: ../data/ui/preferred-apps.glade.h:4
-#, fuzzy
 msgid "<b>Mail Client</b>"
 msgstr "<b>Cliente de correo</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-#, fuzzy
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
 msgstr ""
-"El cliente de correo preferido se utilizará para redactar los mensajes "
-"cuando haga clic en las direcciones de correo."
+"El cliente de correo preferido se utilizará para redactar mensajes cuando "
+"pulse en las direcciones de correo."
 
 #: ../data/ui/preferred-apps.glade.h:6
 msgid "<b>Terminal Emulator</b>"
@@ -554,7 +541,7 @@ msgstr "No se definió la aplicación predeterminada para el tipo MIME %s"
 #: ../src/base/fm-path.c:177 ../src/gtk/fm-places-model.c:829
 #: ../src/gtk/fm-places-model.c:997
 msgid "Devices"
-msgstr ""
+msgstr "Dispositivos"
 
 #: ../src/base/fm-path.c:183 ../src/gtk/fm-places-model.c:847
 #: ../src/gtk/fm-places-model.c:1012
@@ -725,9 +712,8 @@ msgid "Installed Applications"
 msgstr "Aplicaciones instaladas"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
-#, fuzzy
 msgid "<No subfolders>"
-msgstr "<Sin subcarpetas>"
+msgstr "<No hay subcarpetas>"
 
 #: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
 msgid "Loading..."
@@ -742,20 +728,17 @@ msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "C_opy Here"
-msgstr "C_opiar"
+msgstr "C_opiar aquí"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move Here"
-msgstr "_Mover hacia la izquierda"
+msgstr "_Mover aquí"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-#, fuzzy
 msgid "_Link Here"
-msgstr "_Enlazar"
+msgstr "En_lazar aquí"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -799,9 +782,8 @@ msgstr "Propi_edades"
 
 #. Note to translators: Trash in not noun but verb here
 #: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Mover hacia la _derecha"
+msgstr "Mover a la _papelera"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -858,9 +840,8 @@ msgid "<b>File:</b>"
 msgstr "<b>Archivo:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1307
-#, fuzzy
 msgid "Multiple files"
-msgstr "Múltiples archivos"
+msgstr "Archivos múltiples"
 
 #. columns visible to the users
 #: ../src/gtk/fm-folder-model.c:190
@@ -925,14 +906,12 @@ msgstr "Mostrar ocultos"
 
 #. Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please!
 #: ../src/gtk/fm-folder-view.c:207
-#, fuzzy
 msgid "Mingle _Files and Folders"
-msgstr "Mezclar _archivos y carpetas"
+msgstr "Me_zclar archivos y carpetas"
 
 #: ../src/gtk/fm-folder-view.c:208
-#, fuzzy
 msgid "_Ignore Name Case"
-msgstr "_Ignorar may/min en los nombres"
+msgstr "_Ignorar mayús./minús. en los nombres"
 
 #: ../src/gtk/fm-folder-view.c:221
 msgid "By _Name"
@@ -955,9 +934,8 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Introduzca un nombre para la carpeta recién creada:"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Creating New Folder"
-msgstr "Creando una carpeta nueva"
+msgstr "Crear una carpeta nueva"
 
 #: ../src/gtk/fm-folder-view.c:861
 msgid "Enter a name for empty file:"
@@ -1005,7 +983,6 @@ msgid "No folders are specified."
 msgstr "No se especificó ninguna carpeta."
 
 #: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
-#, fuzzy
 msgid "Select Folder"
 msgstr "Seleccione una carpeta"
 
@@ -1062,19 +1039,16 @@ msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro de que quiere vaciar la papelera?"
 
 #: ../src/gtk/fm-path-entry.c:631
-#, fuzzy
 msgid "Pa_ste and Go"
 msgstr "Pegar e _ir"
 
 #: ../src/gtk/fm-path-entry.c:690
-#, fuzzy
 msgid "Folder location bar"
-msgstr "Asociaciones de archivos"
+msgstr "Barra de ubicación de carpeta"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
-#, fuzzy
 msgid "Home Folder"
-msgstr "_Renombrar la carpeta"
+msgstr "Carpeta personal"
 
 #: ../src/gtk/fm-places-model.c:778 ../src/gtk/fm-places-model.c:984
 msgid "Desktop"
@@ -1086,9 +1060,8 @@ msgid "Applications"
 msgstr "Aplicaciones"
 
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
-#, fuzzy
 msgid "Filesystem Root"
-msgstr "Sistema de archivos"
+msgstr "Raíz del sistema de archivos"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1203,34 +1176,28 @@ msgid ", "
 msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:560
-#, fuzzy
 msgid "Moving Files"
 msgstr "Moviendo los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:563
-#, fuzzy
 msgid "Copying Files"
 msgstr "Copiando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:566
-#, fuzzy
 msgid "Trashing Files"
 msgstr "Enviando los archivos a la papelera"
 
 #: ../src/gtk/fm-progress-dlg.c:569
-#, fuzzy
 msgid "Deleting Files"
 msgstr "Eliminando los archivos"
 
 #: ../src/gtk/fm-progress-dlg.c:572
-#, fuzzy
 msgid "Creating Symlinks"
 msgstr "Creando enlaces simbólicos"
 
 #: ../src/gtk/fm-progress-dlg.c:575
-#, fuzzy
 msgid "Changing File Attributes"
-msgstr "Cambiando atributos de archivo"
+msgstr "Cambiando los atributos de archivo"
 
 # Necesito más contexto con esta cadena
 #: ../src/gtk/fm-side-pane.c:66
@@ -1267,14 +1234,12 @@ msgid "_Hide %s"
 msgstr "_Ocultar %s"
 
 #: ../src/gtk/fm-standard-view.c:821
-#, fuzzy
 msgid "_Move Left"
-msgstr "_Mover hacia la izquierda"
+msgstr "_Mover a la izquierda"
 
 #: ../src/gtk/fm-standard-view.c:827
-#, fuzzy
 msgid "Move _Right"
-msgstr "Mover hacia la _derecha"
+msgstr "Mo_ver a la derecha"
 
 #: ../src/gtk/fm-standard-view.c:850
 #, c-format
@@ -1282,7 +1247,6 @@ msgid "Show %s"
 msgstr "Mostrar %s"
 
 #: ../src/gtk/fm-standard-view.c:862
-#, fuzzy
 msgid "_Forget Width"
 msgstr "_Olvidar la anchura"
 
@@ -1467,12 +1431,10 @@ msgid "Search"
 msgstr "Buscar"
 
 #: ../src/modules/vfs-search.c:1049
-#, fuzzy
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:66
-#, fuzzy
 msgid "Choose Executable File"
 msgstr "Elija un archivo ejecutable"
 
@@ -1519,7 +1481,6 @@ msgid "_Use startup notification"
 msgstr "_Usar notificación de arranque"
 
 #: ../src/modules/gtk-fileprop-x-desktop.c:388
-#, fuzzy
 msgid "_Desktop Entry"
 msgstr "Entrada de _escritorio"
 
