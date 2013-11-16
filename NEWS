@@ -324,6 +324,9 @@ Changes on 1.2.0 since 1.1.0:
 * Added new class FmMenuToolItem - simplified GtkMenuToolButton with only
     menu button arrow without button that it is bound to.
 
+* Applied common human interface guidelines to capitalization of strings.
+    Changed some names that might be ambiguous: 'Computer' to 'Devices'.
+
 * A whole lot of bugfixes.
 
 
