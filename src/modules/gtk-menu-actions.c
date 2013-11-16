@@ -30,13 +30,13 @@
 
 #include "fm-actions.h"
 
-static void on_custom_action(GtkAction* act, FmFileMenu* data)
+static void on_custom_action_file(GtkAction* act, gpointer menu)
 {
     FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
     GdkAppLaunchContext* ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
-    GList* files = fm_file_info_list_peek_head_link(fm_file_menu_get_file_info_list(data));
+    GList* files = fm_file_info_list_peek_head_link(fm_file_menu_get_file_info_list(menu));
     char* output = NULL;
-    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(fm_file_menu_get_menu(data))));
+    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(GTK_WIDGET(fm_file_menu_get_menu(menu))));
     gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
 
     /* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
@@ -50,8 +50,30 @@ static void on_custom_action(GtkAction* act, FmFileMenu* data)
     g_object_unref(ctx);
 }
 
-static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionItem* item,
-                                    GtkActionGroup* act_grp)
+static void on_custom_action_folder(GtkAction* act, gpointer folder_view)
+{
+    FmFileActionItem* item = FM_FILE_ACTION_ITEM(g_object_get_qdata(G_OBJECT(act), fm_qdata_id));
+    GdkAppLaunchContext* ctx = gdk_display_get_app_launch_context(gdk_display_get_default());
+    GList* files = g_list_prepend(NULL, fm_folder_view_get_cwd_info(folder_view));
+    char* output = NULL;
+    gdk_app_launch_context_set_screen(ctx, gtk_widget_get_screen(folder_view));
+    gdk_app_launch_context_set_timestamp(ctx, gtk_get_current_event_time());
+
+    /* g_debug("item: %s is activated, id:%s", fm_file_action_item_get_name(item),
+        fm_file_action_item_get_id(item)); */
+    fm_file_action_item_launch(item, G_APP_LAUNCH_CONTEXT(ctx), files, &output);
+    if(output)
+    {
+        fm_show_error(NULL, "output", output);
+        g_free(output);
+    }
+    g_object_unref(ctx);
+    g_list_free(files);
+}
+
+static void add_custom_action_item(GString* xml, FmFileActionItem* item,
+                                   GtkActionGroup* act_grp,
+                                   GCallback cb, gpointer cb_data)
 {
     GtkAction* act;
     if(!item) /* separator */
@@ -72,7 +94,7 @@ static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionI
                          NULL);
 
     if(fm_file_action_item_is_action(item))
-        g_signal_connect(act, "activate", G_CALLBACK(on_custom_action), data);
+        g_signal_connect(act, "activate", cb, cb_data);
 
     gtk_action_set_icon_name(act, fm_file_action_item_get_icon(item));
     gtk_action_group_add_action(act_grp, act);
@@ -89,7 +111,7 @@ static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionI
         for(l=subitems; l; l=l->next)
         {
             FmFileActionItem* subitem = FM_FILE_ACTION_ITEM(l->data);
-            add_custom_action_item(data, xml, subitem, act_grp);
+            add_custom_action_item(xml, subitem, act_grp, cb, cb_data);
         }
         g_string_append(xml, "</menu>");
     }
@@ -100,12 +122,16 @@ static void add_custom_action_item(FmFileMenu* data, GString* xml, FmFileActionI
     }
 }
 
-static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml,
-                                            FmFileInfoList* files, GtkActionGroup* act_grp)
+static void
+_fm_actions_update_file_menu_for_scheme(GtkWindow* window, GtkUIManager* ui,
+                                        GString* xml, GtkActionGroup* act_grp,
+                                        FmFileMenu* menu, FmFileInfoList* files,
+                                        gboolean single_file)
 {
     GList* files_list = fm_file_info_list_peek_head_link(files);
     GList* items = fm_get_actions_for_files(files_list);
 
+    /* add custom file actions */
     if(items)
     {
         g_string_append(xml, "<popup><placeholder name='ph3'>");
@@ -113,7 +139,8 @@ static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml,
         for(l=items; l; l=l->next)
         {
             FmFileActionItem* item = FM_FILE_ACTION_ITEM(l->data);
-            add_custom_action_item(data, xml, item, act_grp);
+            add_custom_action_item(xml, item, act_grp,
+                                   G_CALLBACK(on_custom_action_file), menu);
         }
         g_string_append(xml, "</placeholder></popup>");
     }
@@ -122,20 +149,31 @@ static void fm_file_menu_add_custom_actions(FmFileMenu* data, GString* xml,
 }
 
 static void
-_fm_actions_update_file_menu_for_scheme(GtkWindow* window, GtkUIManager* ui,
-                                        GString* xml, GtkActionGroup* act_grp,
-                                        FmFileMenu* menu, FmFileInfoList* files,
-                                        gboolean single_file)
-{
-    /* add custom file actions */
-    fm_file_menu_add_custom_actions(menu, xml, files, act_grp);
-}
-
-static void
 _fm_actions_update_folder_menu_for_scheme(FmFolderView* fv, GtkWindow* window,
-                                        GtkUIManager* ui, GtkActionGroup* act_grp,
-                                        FmFileInfoList* files)
+                                          GtkUIManager* ui, GtkActionGroup* act_grp,
+                                          FmFileInfoList* files)
 {
+    GList* files_list = g_list_prepend(NULL, fm_folder_view_get_cwd_info(fv));
+    GList* items = fm_get_actions_for_files(files_list);
+
+    if(items)
+    {
+        GString *xml = g_string_new("<popup><placeholder name='CustomCommonOps'>");
+        GList* l;
+
+        for(l=items; l; l=l->next)
+        {
+            FmFileActionItem* item = FM_FILE_ACTION_ITEM(l->data);
+            add_custom_action_item(xml, item, act_grp,
+                                   G_CALLBACK(on_custom_action_folder), fv);
+        }
+        g_string_append(xml, "</placeholder></popup>");
+        gtk_ui_manager_add_ui_from_string(ui, xml->str, xml->len, NULL);
+        g_string_free(xml, TRUE);
+    }
+    g_list_foreach(items, (GFunc)fm_file_action_item_unref, NULL);
+    g_list_free(items);
+    g_list_free(files_list);
 }
 
 /* we catch all schemes to be available on every one */
