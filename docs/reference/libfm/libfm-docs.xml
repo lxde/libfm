@@ -36,6 +36,7 @@ used to develop other file manager-related tools as well.
       <xi:include href="xml/fm-file-info.xml"/>
       <xi:include href="xml/fm-file-launcher.xml"/>
       <xi:include href="xml/fm-folder.xml"/>
+      <xi:include href="xml/fm-folder-config.xml"/>
       <xi:include href="xml/fm-icon.xml"/>
       <xi:include href="xml/fm-list.xml"/>
       <xi:include href="xml/fm-mime-type.xml"/>

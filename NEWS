@@ -327,6 +327,9 @@ Changes on 1.2.0 since 1.1.0:
 * Applied common human interface guidelines to capitalization of strings.
     Changed some names that might be ambiguous: 'Computer' to 'Devices'.
 
+* Added new object FmFolderConfig for abstract access for folder-specific
+    configuration values as key/value pairs (similarly to GKeyFile).
+
 * A whole lot of bugfixes.
 
 

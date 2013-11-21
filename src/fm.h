@@ -33,6 +33,7 @@
 #include "fm-file-info.h"
 #include "fm-file-launcher.h"
 #include "fm-folder.h"
+#include "fm-folder-config.h"
 #include "fm-icon.h"
 #include "fm-list.h"
 #include "fm-marshal.h"

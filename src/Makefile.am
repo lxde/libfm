@@ -66,6 +66,7 @@ base_SOURCES = \
 	base/fm-file-info.c \
 	base/fm-file-launcher.c \
 	base/fm-folder.c \
+	base/fm-folder-config.c \
 	base/fm-icon.c \
 	base/fm-list.c \
 	base/fm-marshal.c \
@@ -169,6 +170,7 @@ libfminclude_HEADERS = \
 	base/fm-file-info.h \
 	base/fm-file-launcher.h \
 	base/fm-folder.h \
+	base/fm-folder-config.h \
 	base/fm-icon.h \
 	base/fm-list.h \
 	base/fm-marshal.h \
@@ -177,8 +179,8 @@ libfminclude_HEADERS = \
 	base/fm-monitor.h \
 	base/fm-nav-history.h \
 	base/fm-path.h \
-	base/fm-terminal.h \
 	base/fm-templates.h \
+	base/fm-terminal.h \
 	base/fm-thumbnail-loader.h \
 	base/fm-thumbnailer.h \
 	base/fm-utils.h \
