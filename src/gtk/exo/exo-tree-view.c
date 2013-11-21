@@ -424,6 +424,11 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
   /* call the parent's button press handler */
   result = (*GTK_WIDGET_CLASS (exo_tree_view_parent_class)->button_press_event) (widget, event);
 
+  /* button press could start a widget destroy so refresh selection and test it */
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
+  if (G_UNLIKELY(selection == NULL))
+    goto _out;
+
   if( treat_as_blank )
     gtk_tree_selection_unselect_all( selection );
 
@@ -449,6 +454,7 @@ exo_tree_view_button_press_event (GtkWidget      *widget,
       gtk_tree_selection_set_select_function (selection, (GtkTreeSelectionFunc) gtk_true, NULL, NULL);
     }
 
+_out:
   /* release the path (if any) */
   if (G_LIKELY (path != NULL))
     gtk_tree_path_free (path);

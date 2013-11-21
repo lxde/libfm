@@ -55,7 +55,7 @@ int main(int argc, char** argv)
     g_object_unref(b);
 
     /* Set icon name for main (dlg) window so it displays in the panel. LP #737274 */
-    gtk_window_set_icon_name(dlg, "preferences-desktop");
+    gtk_window_set_icon_name(GTK_WINDOW(dlg), "preferences-desktop");
 
     /* make sure we're using menu from lxmenu-data */
     g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
