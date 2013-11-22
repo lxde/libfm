@@ -2437,6 +2437,9 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
   if (event->window != icon_view->priv->bin_window)
     return FALSE;
 
+  /* the widget can be destroyed by click so let keep reference on it */
+  g_object_ref(widget);
+
   /* stop any pending "single-click-timeout" */
   if (G_UNLIKELY (icon_view->priv->single_click_timeout_id != 0))
     g_source_remove (icon_view->priv->single_click_timeout_id);
@@ -2557,7 +2560,8 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
               exo_icon_view_item_activated (icon_view, path);
               gtk_tree_path_free (path);
               /* bug #3615031: don't start DnD by double click */
-              if (icon_view->priv->selection_mode == GTK_SELECTION_MULTIPLE)
+              if (icon_view->priv->selection_mode == GTK_SELECTION_MULTIPLE &&
+                  gtk_widget_get_realized(widget))
                 exo_icon_view_start_rubberbanding (icon_view, event->x, event->y);
             }
         }
@@ -2577,6 +2581,9 @@ exo_icon_view_button_press_event (GtkWidget      *widget,
   if (dirty)
     g_signal_emit (icon_view, icon_view_signals[SELECTION_CHANGED], 0);
 
+  /* release reference that was taken above */
+  g_object_unref(widget);
+
   return event->button == 1;
 }
 
@@ -2589,6 +2596,9 @@ exo_icon_view_button_release_event (GtkWidget      *widget,
   ExoIconViewItem *item;
   ExoIconView     *icon_view = EXO_ICON_VIEW (widget);
   GtkTreePath     *path;
+
+  /* the widget can be destroyed by click so let keep reference on it */
+  g_object_ref(widget);
 
   if (icon_view->priv->pressed_button == (gint) event->button)
     {
@@ -2616,6 +2626,9 @@ exo_icon_view_button_release_event (GtkWidget      *widget,
   exo_icon_view_stop_rubberbanding (icon_view);
 
   remove_scroll_timeout (icon_view);
+
+  /* release reference that was taken above */
+  g_object_unref(widget);
 
   return TRUE;
 }
