@@ -153,9 +153,13 @@ _fm_actions_update_folder_menu_for_scheme(FmFolderView* fv, GtkWindow* window,
                                           GtkUIManager* ui, GtkActionGroup* act_grp,
                                           FmFileInfoList* files)
 {
-    GList* files_list = g_list_prepend(NULL, fm_folder_view_get_cwd_info(fv));
-    GList* items = fm_get_actions_for_files(files_list);
+    FmFileInfo *fi = fm_folder_view_get_cwd_info(fv);
+    GList *files_list, *items;
 
+    if (fi == NULL) /* incremental folder - no info yet - ignore it */
+        return;
+    files_list = g_list_prepend(NULL, fm_folder_view_get_cwd_info(fv));
+    items = fm_get_actions_for_files(files_list);
     if(items)
     {
         GString *xml = g_string_new("<popup><placeholder name='CustomCommonOps'>");
