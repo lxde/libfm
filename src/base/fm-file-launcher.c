@@ -117,6 +117,33 @@ static FmJobErrorAction on_query_target_info_error(FmJob* job, GError* err, FmJo
     return FM_JOB_CONTINUE;
 }
 
+static FmFileInfo *_fetch_file_info_for_shortcut(const char *target,
+                                                 GAppLaunchContext* ctx,
+                                                 FmFileLauncher* launcher,
+                                                 gpointer user_data)
+{
+    FmFileInfoJob *job;
+    QueryErrorData data;
+    FmFileInfo *fi;
+    FmPath *path;
+
+    job = fm_file_info_job_new(NULL, 0);
+    /* bug #3614794: the shortcut target is a commandline argument */
+    path = fm_path_new_for_commandline_arg(target);
+    fm_file_info_job_add(job, path);
+    fm_path_unref(path);
+    data.ctx = ctx;
+    data.launcher = launcher;
+    data.user_data = user_data;
+    g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
+    fi = NULL;
+    if (fm_job_run_sync_with_mainloop(FM_JOB(job)))
+        fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
+    g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
+    g_object_unref(job);
+    return fi;
+}
+
 /**
  * fm_launch_files
  * @ctx: (allow-none): a launch context
@@ -145,20 +172,36 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     {
         GList* fis;
         char *filename, *scheme;
+        const char *target = NULL;
 
         fi = (FmFileInfo*)l->data;
+        /* special handling for shortcuts */
+        if (!fm_file_info_is_symlink(fi))
+            /* symlinks also has fi->target, but we only handle shortcuts here. */
+            target = fm_file_info_get_target(fi);
         if (launcher->open_folder && fm_file_info_is_dir(fi))
+        {
+            /* special handling for shortcuts */
+            if(target)
+            {
+                fi = _fetch_file_info_for_shortcut(fm_file_info_get_target(fi),
+                                                   ctx, launcher, user_data);
+                if (fi == NULL)
+                    /* error was shown by job already */
+                    continue;
+                targets = g_list_prepend(targets, fi);
+            }
             folders = g_list_prepend(folders, fi);
+        }
         else if (fm_file_info_is_desktop_entry(fi))
         {
 _launch_desktop_entry:
-            /* special handling for shortcuts */
-            if (fm_file_info_is_shortcut(fi))
-                filename = g_strdup(fm_file_info_get_target(fi));
-            else
+            if (!target)
                 filename = fm_path_to_str(fm_file_info_get_path(fi));
-            fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
-            g_free(filename);
+            fm_launch_desktop_entry(ctx, target ? target : filename, NULL,
+                                    launcher, user_data);
+            if (!target)
+                g_free(filename);
             continue;
         }
         else
@@ -168,12 +211,8 @@ _launch_desktop_entry:
             if(fm_path_is_native(path))
             {
                 /* special handling for shortcuts */
-                if (fm_file_info_is_shortcut(fi))
+                if (target)
                 {
-                    const char *target = fm_file_info_get_target(fi);
-                    FmFileInfoJob *job;
-                    QueryErrorData data;
-
                     if (fm_file_info_get_mime_type(fi) == _fm_mime_type_get_inode_x_shortcut())
                     /* if we already know MIME type then use it instead */
                     {
@@ -214,20 +253,7 @@ _launch_desktop_entry:
                     else
                         mime_type = fm_file_info_get_mime_type(fi);
                     /* retrieve file info for target otherwise and handle it */
-                    job = fm_file_info_job_new(NULL, 0);
-                    /* bug #3614794: the shortcut target is a commandline argument */
-                    path = fm_path_new_for_commandline_arg(target);
-                    fm_file_info_job_add(job, path);
-                    fm_path_unref(path);
-                    data.ctx = ctx;
-                    data.launcher = launcher;
-                    data.user_data = user_data;
-                    g_signal_connect(job, "error", G_CALLBACK(on_query_target_info_error), &data);
-                    fi = NULL;
-                    if (fm_job_run_sync_with_mainloop(FM_JOB(job)))
-                        fi = fm_file_info_ref(fm_file_info_list_peek_head(job->file_infos));
-                    g_signal_handlers_disconnect_by_func(job, on_query_target_info_error, &data);
-                    g_object_unref(job);
+                    fi = _fetch_file_info_for_shortcut(target, ctx, launcher, user_data);
                     if (fi == NULL)
                         /* error was shown by job already */
                         continue;
