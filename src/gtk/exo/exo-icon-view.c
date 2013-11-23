@@ -192,6 +192,14 @@ static void                 exo_icon_view_set_property                   (GObjec
 static void                 exo_icon_view_realize                        (GtkWidget              *widget);
 static void                 exo_icon_view_unrealize                      (GtkWidget              *widget);
 #if GTK_CHECK_VERSION(3, 0, 0)
+static void                 exo_icon_view_state_flags_changed            (GtkWidget *widget,
+                                                                          GtkStateFlags previous_state);
+#else
+static void                 exo_icon_view_state_changed                  (GtkWidget *widget,
+                                                                          GtkStateType previous_state);
+#endif
+
+#if GTK_CHECK_VERSION(3, 0, 0)
 static void                 exo_icon_view_get_preferred_width            (GtkWidget              *widget,
                                                                           gint                   *minimal_width,
                                                                           gint                   *natural_width);
@@ -682,9 +690,11 @@ exo_icon_view_class_init (ExoIconViewClass *klass)
   gtkwidget_class->unrealize = exo_icon_view_unrealize;
   gtkwidget_class->get_accessible = exo_icon_view_get_accessible;
 #if GTK_CHECK_VERSION(3, 0, 0)
+  gtkwidget_class->state_flags_changed = exo_icon_view_state_flags_changed;
   gtkwidget_class->get_preferred_width = exo_icon_view_get_preferred_width;
   gtkwidget_class->get_preferred_height = exo_icon_view_get_preferred_height;
 #else
+  gtkwidget_class->state_changed = exo_icon_view_state_changed;
   gtkwidget_class->size_request = exo_icon_view_size_request;
 #endif
   gtkwidget_class->size_allocate = exo_icon_view_size_allocate;
@@ -1633,6 +1643,40 @@ exo_icon_view_unrealize (GtkWidget *widget)
     (*GTK_WIDGET_CLASS (exo_icon_view_parent_class)->unrealize) (widget);
 }
 
+
+#if GTK_CHECK_VERSION(3, 0, 0)
+static void                 exo_icon_view_state_flags_changed            (GtkWidget *widget,
+                                                                          GtkStateFlags previous_state)
+#else
+static void                 exo_icon_view_state_changed                  (GtkWidget *widget,
+                                                                          GtkStateType previous_state)
+#endif
+{
+  ExoIconViewPrivate *priv = EXO_ICON_VIEW (widget)->priv;
+  GdkWindow *window = gtk_widget_get_window (widget);
+
+#if GTK_CHECK_VERSION(2, 20, 0)
+  if (gtk_widget_get_realized (widget))
+#else
+  if (GTK_WIDGET_REALIZED (widget))
+#endif
+    {
+#if GTK_CHECK_VERSION(3, 0, 0)
+      GtkStyleContext *style = gtk_widget_get_style_context (widget);
+      gtk_style_context_save (context);
+      gtk_style_context_add_class (context, GTK_STYLE_CLASS_VIEW);
+      gtk_style_context_set_background (style, priv->bin_window);
+      gtk_style_context_set_background (style, window);
+      gtk_style_context_restore (context);
+#else
+      GtkStyle *style = gtk_widget_get_style (widget);
+      gdk_window_set_background (priv->bin_window, &style->base[gtk_widget_get_state(widget)]);
+      gdk_window_set_background (window, &style->base[gtk_widget_get_state(widget)]);
+#endif
+    }
+
+  gtk_widget_queue_draw (widget);
+}
 
 
 static void
