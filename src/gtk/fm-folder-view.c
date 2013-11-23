@@ -69,8 +69,8 @@
  * ------------------------
  * Prop
  * ]|
- * In created menu items 'Cut', 'Copy', 'Del', 'Remove', and 'FileProp'
- * are hidden.
+ * In created menu items 'Cut', 'Copy', 'Del', 'Remove', 'FileProp', and
+ * 'Rename' are hidden.
  *
  * Widget can modity the menu replacing placeholders and hiding or
  * enabling existing items in it. Widget can do that in callback which
@@ -1526,6 +1526,8 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     act = gtk_ui_manager_get_action(ui, "/popup/Remove");
     gtk_action_set_visible(act, FALSE);
     act = gtk_ui_manager_get_action(ui, "/popup/FileProp");
+    gtk_action_set_visible(act, FALSE);
+    act = gtk_ui_manager_get_action(ui, "/popup/Rename");
     gtk_action_set_visible(act, FALSE);
     if(update_popup)
         update_popup(fv, parent, ui, act_grp, NULL);
