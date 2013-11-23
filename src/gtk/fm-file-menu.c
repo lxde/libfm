@@ -730,11 +730,22 @@ static void on_add_bookmark(GtkAction* action, FmFileMenu* menu)
 {
     FmFileInfo* fi = fm_file_info_list_peek_head(menu->file_infos);
     FmBookmarks* bookmarks;
+    FmPath *path;
+    GList *all, *l;
     if(fi)
     {
         bookmarks = fm_bookmarks_dup();
-        fm_bookmarks_append(bookmarks, fm_file_info_get_path(fi),
-                            fm_file_info_get_disp_name(fi));
+        path = fm_file_info_get_path(fi);
+        all = fm_bookmarks_get_all(bookmarks);
+        for (l = all; l; l = l->next)
+            if (path == ((FmBookmarkItem*)l->data)->path)
+                break;
+        g_list_free_full(all, (GDestroyNotify)fm_bookmark_item_unref);
+        if (l == NULL)
+            fm_bookmarks_append(bookmarks, path, fm_file_info_get_disp_name(fi));
+        else
+            fm_show_error(GTK_WINDOW(gtk_menu_get_attach_widget(menu->menu)), NULL,
+                          _("Your bookmarks already have a bookmark for this folder."));
         g_object_unref(bookmarks);
     }
 }
