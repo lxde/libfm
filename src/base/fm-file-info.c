@@ -1152,7 +1152,7 @@ gboolean fm_file_info_is_native(FmFileInfo* fi)
 gboolean fm_file_info_is_dir(FmFileInfo* fi)
 {
     return (S_ISDIR(fi->mode) ||
-        (S_ISLNK(fi->mode) && fi->mime_type == _fm_mime_type_get_inode_directory()));
+            (fi->mime_type == _fm_mime_type_get_inode_directory()));
 }
 
 /**
