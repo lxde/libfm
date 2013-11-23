@@ -1663,11 +1663,11 @@ static void                 exo_icon_view_state_changed                  (GtkWid
     {
 #if GTK_CHECK_VERSION(3, 0, 0)
       GtkStyleContext *style = gtk_widget_get_style_context (widget);
-      gtk_style_context_save (context);
-      gtk_style_context_add_class (context, GTK_STYLE_CLASS_VIEW);
+      gtk_style_context_save (style);
+      gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
       gtk_style_context_set_background (style, priv->bin_window);
       gtk_style_context_set_background (style, window);
-      gtk_style_context_restore (context);
+      gtk_style_context_restore (style);
 #else
       GtkStyle *style = gtk_widget_get_style (widget);
       gdk_window_set_background (priv->bin_window, &style->base[gtk_widget_get_state(widget)]);
