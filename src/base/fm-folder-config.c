@@ -31,7 +31,7 @@
  * This API represents access to folder-specific configuration settings.
  * Each setting is a key/value pair. To use it the descriptor should be
  * opened first, then required operations performed, then closed. Each
- * opened descriptors holds a lock on the cache so it is not adviced to
+ * opened descriptor holds a lock on the cache so it is not adviced to
  * keep it somewhere.
  */
 
@@ -42,6 +42,8 @@
 #include "fm-folder-config.h"
 
 #include "fm-utils.h"
+
+#include <errno.h>
 
 struct _FmFolderConfig
 {
@@ -349,9 +351,9 @@ void fm_folder_config_set_boolean(FmFolderConfig *fc, const char *key,
  * fm_folder_config_set_string
  * @fc: a configuration descriptor
  * @key: a key to search
- * @val: data to set
+ * @string: data to set
  *
- * Associates string @val with @key for given folder configuration. This
+ * Associates @string with @key for given folder configuration. This
  * function handles characters that need escaping, such as newlines.
  *
  * Since: 1.2.0
@@ -421,6 +423,7 @@ void fm_folder_config_save_cache(void)
 {
     char *out;
     char *path, *path2, *path3;
+    GError *error = NULL;
     gsize len;
 
     G_LOCK(cache);
@@ -433,7 +436,7 @@ void fm_folder_config_save_cache(void)
         path2 = g_build_filename(g_get_user_config_dir(), "libfm/dir-settings.tmp", NULL);
         path3 = g_build_filename(g_get_user_config_dir(), "libfm/dir-settings.backup", NULL);
         /* do safe replace now, the file is important enough to be lost */
-        if (g_file_set_contents(path2, out, len, NULL))
+        if (g_file_set_contents(path2, out, len, &error))
         {
             /* backup old cache file */
             g_unlink(path3);
@@ -449,13 +452,18 @@ void fm_folder_config_save_cache(void)
                     fc_cache_changed = FALSE;
                 }
                 else
-                    g_warning("cannot rename %s to %s", path2, path);
+                    g_warning("cannot rename %s to %s: %s", path2, path,
+                              g_strerror(errno));
             }
             else
-                g_warning("cannot rename %s to %s", path, path3);
+                g_warning("cannot rename %s to %s: %s", path, path3,
+                          g_strerror(errno));
         }
         else
-            g_warning("cannot save %s", path2);
+        {
+            g_warning("cannot save %s: %s", path2, error->message);
+            g_error_free(error);
+        }
         g_free(path);
         g_free(path2);
         g_free(path3);
@@ -466,6 +474,7 @@ void fm_folder_config_save_cache(void)
 
 void _fm_folder_config_finalize(void)
 {
+    fm_folder_config_save_cache();
     g_key_file_free(fc_cache);
     fc_cache = NULL;
 }
