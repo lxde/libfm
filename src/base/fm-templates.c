@@ -623,7 +623,7 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
         {
             if(file == dir->files)
                 dir->files = file->next_in_dir;
-            else
+            else if(file->prev_in_dir)
                 file->prev_in_dir->next_in_dir = file->next_in_dir;
             if(file->next_in_dir)
                 file->next_in_dir->prev_in_dir = file->prev_in_dir;
@@ -659,7 +659,8 @@ static void on_dir_changed(GFileMonitor *mon, GFile *gf, GFile *other,
                 file->dir = dir;
                 file->next_in_dir = dir->files;
                 file->prev_in_dir = NULL;
-                dir->files->prev_in_dir = file;
+                if (dir->files)
+                    dir->files->prev_in_dir = file;
                 dir->files = file;
                 _fm_template_insert_sorted(templ, file);
                 _fm_template_update(templ);
