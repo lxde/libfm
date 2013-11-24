@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-24 17:53+0000\n"
+"PO-Revision-Date: 2013-11-24 17:56+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1385315602.0\n"
+"X-POOTLE-MTIME: 1385315774.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -92,7 +92,6 @@ msgid "_Set selected application as default action of this file type"
 msgstr "_Postavi odabrani program kao zadanu akciju za ovaj tip datoteka"
 
 #: ../data/ui/ask-rename.glade.h:1
-#, fuzzy
 msgid "Confirm File Replacing"
 msgstr "Potvrdi zamjenu datoteka"
 
@@ -123,7 +122,6 @@ msgid "with the following file?"
 msgstr "sa slijedećom datotekom?"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
 msgstr "_Ime datoteke:"
 
@@ -178,7 +176,6 @@ msgid "<b>Target file:</b>"
 msgstr "<b>Ciljana datoteka</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>Tip datoteke:</b>"
 
@@ -191,27 +188,22 @@ msgid "Select the application used to open files of this type "
 msgstr "Izaberi program koji je otvarao datoteke ovog tipa "
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Ukupna veličina datoteka:</b>"
 
 #: ../data/ui/file-prop.glade.h:10
-#, fuzzy
 msgid "<b>Size on disk:</b>"
 msgstr "<b>Veličina na disku:</b>"
 
 #: ../data/ui/file-prop.glade.h:11
-#, fuzzy
 msgid "<b>Last modification:</b>"
 msgstr "<b>Zadnja promjena:</b>"
 
 #: ../data/ui/file-prop.glade.h:12
-#, fuzzy
 msgid "<b>Last access:</b>"
 msgstr "<b>Zadnji pristup:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-#, fuzzy
 msgid "<b>Last permissions change:</b>"
 msgstr "<b>Zadnja promjena dozvola:</b>"
 
@@ -703,7 +695,6 @@ msgid "Installed Applications"
 msgstr "Instalirani programi"
 
 #: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
-#, fuzzy
 msgid "<No subfolders>"
 msgstr "<Nema podmape>"
 
@@ -729,9 +720,8 @@ msgstr "_Pomakni ovdje"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-#, fuzzy
 msgid "_Link Here"
-msgstr "_Poveznica"
+msgstr "_Poveži ovdje"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
@@ -831,7 +821,6 @@ msgid "<b>File:</b>"
 msgstr "<b>Tip datoteke:</b>"
 
 #: ../src/gtk/fm-file-properties.c:1307
-#, fuzzy
 msgid "Multiple files"
 msgstr "Višestruke datoteke"
 
@@ -926,7 +915,6 @@ msgid "Enter a name for the newly created folder:"
 msgstr "Unesite ime za novostvorenu mapu:"
 
 #: ../src/gtk/fm-folder-view.c:848
-#, fuzzy
 msgid "Creating New Folder"
 msgstr "Stvaram novu mapu"
 
@@ -1169,17 +1157,14 @@ msgid ", "
 msgstr ", "
 
 #: ../src/gtk/fm-progress-dlg.c:560
-#, fuzzy
 msgid "Moving Files"
 msgstr "Pomicanje datoteka"
 
 #: ../src/gtk/fm-progress-dlg.c:563
-#, fuzzy
 msgid "Copying Files"
 msgstr "Kopiranje datoteka"
 
 #: ../src/gtk/fm-progress-dlg.c:566
-#, fuzzy
 msgid "Trashing Files"
 msgstr "Bacanje datoteka u smeće"
 
