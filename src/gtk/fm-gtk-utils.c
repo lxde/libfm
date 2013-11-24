@@ -633,7 +633,11 @@ static gboolean fm_do_mount(GtkWindow* parent, GObject* obj, MountAction action,
 {
     gboolean ret;
     struct MountData* data = g_new0(struct MountData, 1);
-    GMountOperation* op = interactive ? gtk_mount_operation_new(parent) : NULL;
+    /* bug #3615234: it seems GtkMountOperations is buggy and sometimes leaves
+       parent window reference intact while destroys itself so it leads to
+       severe memory corruption, therefore we pass here NULL as parent window
+       to gtk_mount_operation_new() to not bind it to anything as a workaround */
+    GMountOperation* op = interactive ? gtk_mount_operation_new(NULL) : NULL;
     GCancellable* cancellable = g_cancellable_new();
 
     data->loop = g_main_loop_new (NULL, TRUE);
