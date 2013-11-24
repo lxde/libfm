@@ -603,7 +603,10 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
             sep_char = *sep;
             *sep = '\0';
         }
-        file = fm_file_new_for_uri(path_copy); /* URI root */
+        /* use c for escaped copy */
+        c = g_uri_escape_string(path_copy, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
+        file = fm_file_new_for_uri(c); /* URI root */
+        g_free(c);
         if (sep)
             *sep = sep_char;
         c = sep;
@@ -967,7 +970,7 @@ _is_query:
         g_free(disp_base);
     }
     else
-        disp = g_strdup(path->name);
+        disp = g_uri_unescape_string(path->name, NULL);
     return disp;
 }
 
