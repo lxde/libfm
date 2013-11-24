@@ -264,6 +264,14 @@ static void fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
     else
         priv->path = fm_path_new_for_display_name(full_path);
 
+#if G_ENABLE_DEBUG
+    {
+        char *real_path = fm_path_to_str(priv->path);
+        g_debug("FmPathEntry activated: '%s' => '%s'", full_path, real_path);
+        g_free(real_path);
+    }
+#endif
+
     _set_entry_text_from_path(entry, priv);
 
     gtk_editable_set_position(GTK_EDITABLE(entry), -1);
