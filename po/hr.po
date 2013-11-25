@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-24 17:56+0000\n"
+"PO-Revision-Date: 2013-11-25 08:21+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1385315774.0\n"
+"X-POOTLE-MTIME: 1385367706.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -357,7 +357,7 @@ msgstr ""
 
 #: ../data/ui/filesearch.glade.h:12
 msgid "<b>Plac_es to Search:</b>"
-msgstr ""
+msgstr "<b>Mje_sta za traženje:</b>"
 
 #: ../data/ui/filesearch.glade.h:13
 msgid "_Search in sub directories"
@@ -510,17 +510,17 @@ msgstr "<b>Došlo je do greške:</b>"
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
 msgid "Invalid desktop entry file: '%s'"
-msgstr ""
+msgstr "Neispravna datoteka unosa radne površine: '%s'"
 
 #: ../src/base/fm-file-launcher.c:201
 #, c-format
 msgid "No default application is set to launch URIs %s://"
-msgstr ""
+msgstr "Nijedan zadani program nije postavljen da pokrene  URIs %s://"
 
 #: ../src/base/fm-file-launcher.c:282
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
-msgstr ""
+msgstr "Ne mogu postaviti radni direktorij na '%s': %s"
 
 #: ../src/base/fm-file-launcher.c:329
 #, c-format
