@@ -1655,11 +1655,7 @@ static void                 exo_icon_view_state_changed                  (GtkWid
   ExoIconViewPrivate *priv = EXO_ICON_VIEW (widget)->priv;
   GdkWindow *window = gtk_widget_get_window (widget);
 
-#if GTK_CHECK_VERSION(2, 20, 0)
   if (gtk_widget_get_realized (widget))
-#else
-  if (GTK_WIDGET_REALIZED (widget))
-#endif
     {
 #if GTK_CHECK_VERSION(3, 0, 0)
       GtkStyleContext *style = gtk_widget_get_style_context (widget);

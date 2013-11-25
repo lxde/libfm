@@ -552,6 +552,39 @@ FmPath* fm_path_new_for_uri(const char* uri)
     return path;
 }
 
+/* looks for known display_name, returns referenced child */
+static FmPath *_lookup_in_children(FmPath *path, const char *display_name)
+{
+    G_LOCK(roots);
+    if (path->children == NULL)
+        path = NULL;
+    else
+    {
+        GSequenceIter *iter = g_sequence_get_begin_iter(path->children);
+        const char *name;
+
+        while (!g_sequence_iter_is_end(iter))
+        {
+            path = (FmPath*)g_sequence_get(iter);
+            name = path->disp_name;
+            if (name)
+            {
+                if (name == BASENAME_AS_DISP_NAME)
+                    name = path->name;
+                if (strcmp(display_name, name) == 0)
+                {
+                    fm_path_ref(path);
+                    break;
+                }
+            }
+            iter = g_sequence_iter_next(iter);
+            path = NULL;
+        }
+    }
+    G_UNLOCK(roots);
+    return path;
+}
+
 /**
  * fm_path_new_for_display_name
  * @path_name: an UTF-8 encoded display path name
@@ -569,6 +602,7 @@ FmPath* fm_path_new_for_uri(const char* uri)
 FmPath* fm_path_new_for_display_name(const char* path_name)
 {
     FmPath *path;
+    FmPath *cpath;
     GFile *file = NULL, *child;
     char *path_copy, *c, *sep;
     char sep_char;
@@ -595,27 +629,42 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
             if (strchr(sep, '?') != NULL)
             {
                 /* it is not URI path but rather URI query, pass it "as is" */
+#if 0
                 file = fm_file_new_for_uri(path_copy);
+#else
+                path = fm_path_new_for_uri(path_copy);
+#endif
                 goto _finish;
             }
             /* terminate root URI after third slash */
             sep++;
+#if 0
             sep_char = *sep;
             *sep = '\0';
+#endif
         }
         /* use c for escaped copy */
         c = g_uri_escape_string(path_copy, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
+#if 0
         file = fm_file_new_for_uri(c); /* URI root */
-        g_free(c);
         if (sep)
             *sep = sep_char;
+#else
+        path = _fm_path_new_uri_root(c, strlen(c), NULL);
+        /* g_debug("** display URI root: %s",path->name); */
+#endif
+        g_free(c);
         c = sep;
         sep_char = '/'; /* separator for URI is always slash */
     }
     else
     {
         path_copy = g_strdup(path_name);
+#if 0
         file = g_file_new_for_path("/");
+#else
+        path = fm_path_ref(root_path);
+#endif
         c = path_copy + 1;
         sep_char = G_DIR_SEPARATOR;
     }
@@ -624,10 +673,12 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         sep = strchr(c, sep_char);
         if (sep)
             *sep++ = '\0'; /* separate one part of path */
+        /* g_debug("** next subpath: %s",c); */
         if (*c == '\0') /* duplicate '/' */
             continue;
         if (strcmp(c, ".") == 0) /* skip "." */
             continue;
+#if 0
         if (strcmp(c, "..") == 0) /* go back one dir */
         {
             child = g_file_get_parent(file);
@@ -642,11 +693,50 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
         }
         g_object_unref(file);
         file = child;
+#else
+        /* check if we have it already cached */
+        cpath = _lookup_in_children(path, c);
+        if (cpath)
+        {
+            /* g_debug("** found child: %s => %s",c,cpath->name); */
+        }
+        else if (strcmp(c, "..") == 0) /* go back one dir */
+        {
+            if (path->parent == NULL) /* attempt to go below root */
+                break;
+            cpath = fm_path_ref(path->parent);
+        }
+        else
+        {
+            file = fm_path_to_gfile(path);
+            child = g_file_get_child_for_display_name(file, c, NULL);
+            g_object_unref(file);
+            if (child) /* successfull conversion, use name we got */
+            {
+                /* char *cc = g_file_get_uri(child);
+                g_debug("** resolved display name: %s => %s",c,cc);
+                g_free(cc); */
+                c = g_file_get_basename(child);
+            }
+            /* otherwise use basename as fallback */
+            cpath = fm_path_new_child(path, c);
+            /* g_debug("** adding child: %s",cpath->name); */
+            if (child)
+            {
+                g_free(c);
+                g_object_unref(child);
+            }
+        }
+        fm_path_unref(path);
+        path = cpath;
+#endif
     }
 _finish:
     g_free(path_copy);
+#if 0
     path = fm_path_new_for_gfile(file);
     g_object_unref(file);
+#endif
     return path;
 }
 
