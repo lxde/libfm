@@ -635,8 +635,12 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
             *sep = '\0';
 #endif
         }
-        /* use c for escaped copy */
-        c = g_uri_escape_string(path_copy, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
+        /* use c for escaped copy of root path temporarily
+           we use another set of allowed chars, see bug #3599638 */
+        c = g_uri_escape_string(path_copy,
+                                G_URI_RESERVED_CHARS_GENERIC_DELIMITERS
+                                G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS,
+                                FALSE);
 #if 0
         file = fm_file_new_for_uri(c); /* URI root */
         if (sep)
