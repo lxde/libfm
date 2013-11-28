@@ -277,7 +277,6 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
                                gboolean dont_escape)
 {
     FmPath* path;
-    gboolean append_slash = FALSE;
     int flags;
 
     /* skip empty basename */
@@ -323,7 +322,7 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     /* create path data first */
     if(dont_escape)
     {
-        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        path = _fm_path_alloc(parent, name_len, flags);
         memcpy(path->name, basename, name_len);
     }
     else
@@ -333,18 +332,12 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
         char *escaped = g_uri_escape_string(str->str, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
         /* g_debug("got child %s", escaped); */
         name_len = strlen(escaped);
-        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        path = _fm_path_alloc(parent, name_len, flags);
         memcpy(path->name, escaped, name_len);
         g_free(escaped);
         g_string_free(str, TRUE);
     }
-    if(G_UNLIKELY(append_slash))
-    {
-        path->name[name_len] = '/';
-        path->name[name_len + 1] = '\0';
-    }
-    else
-        path->name[name_len] = '\0';
+    path->name[name_len] = '\0';
 
     G_LOCK(roots);
     if (parent->children)

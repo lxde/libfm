@@ -553,7 +553,10 @@ gboolean _fm_folder_event_file_added(FmFolder *folder, FmPath *path)
             folder->files_to_update = g_slist_append(folder->files_to_update, path);
         }
     }
-    if(!folder->idle_handler)
+    else
+        /* file already queued for adding, don't duplicate */
+        added = FALSE;
+    if(added && !folder->idle_handler)
         folder->idle_handler = g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)on_idle, folder, NULL);
     G_UNLOCK(lists);
     return added;
