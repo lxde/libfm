@@ -548,10 +548,10 @@ FmPath* fm_path_new_for_uri(const char* uri)
 /* looks for known display_name, returns referenced child */
 static FmPath *_lookup_in_children(FmPath *path, const char *display_name)
 {
+    FmPath *subpath = NULL;
+
     G_LOCK(roots);
-    if (path->children == NULL)
-        path = NULL;
-    else
+    if (path->children != NULL)
     {
         GSequenceIter *iter = g_sequence_get_begin_iter(path->children);
         const char *name;
@@ -566,16 +566,15 @@ static FmPath *_lookup_in_children(FmPath *path, const char *display_name)
                     name = path->name;
                 if (strcmp(display_name, name) == 0)
                 {
-                    fm_path_ref(path);
+                    subpath = fm_path_ref(path);
                     break;
                 }
             }
             iter = g_sequence_iter_next(iter);
-            path = NULL;
         }
     }
     G_UNLOCK(roots);
-    return path;
+    return subpath;
 }
 
 /**
