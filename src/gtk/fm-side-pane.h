@@ -133,6 +133,8 @@ void fm_side_pane_set_popup_updater(FmSidePane* sp,
 const char *fm_side_pane_get_mode_name(FmSidePaneMode mode);
 FmSidePaneMode fm_side_pane_get_mode_by_name(const char *str);
 
+gboolean fm_side_pane_set_show_hidden(FmSidePane *sp, gboolean show_hidden);
+
 G_END_DECLS
 
 #endif /* __FM_SIDE_PANE_H__ */

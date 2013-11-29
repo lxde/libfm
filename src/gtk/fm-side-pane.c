@@ -583,3 +583,29 @@ FmSidePaneMode fm_side_pane_get_mode_by_name(const char *str)
         return FM_SP_DIR_TREE;
     return FM_SP_NONE;
 }
+
+/**
+ * fm_side_pane_set_show_hidden
+ * @sp: a widget to apply
+ * @show_hidden: %TRUE to show hidden files in side pane
+ *
+ * Changes visibility of hidden files in side pane @sp.
+ *
+ * Returns: %TRUE if current side pane mode accepts this change.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_side_pane_set_show_hidden(FmSidePane *sp, gboolean show_hidden)
+{
+    GObjectClass *klass;
+    GParamSpec *spec;
+
+    if (sp->view == NULL)
+        return FALSE;
+    klass = G_OBJECT_GET_CLASS(sp->view);
+    spec = g_object_class_find_property(klass, "show-hidden");
+    if (spec == NULL || spec->value_type != G_TYPE_BOOLEAN)
+        return FALSE; /* isn't supported by view */
+    g_object_set(sp->view, "show-hidden", show_hidden, NULL);
+    return TRUE;
+}

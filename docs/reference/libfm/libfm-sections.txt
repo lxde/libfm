@@ -1093,6 +1093,7 @@ fm_side_pane_get_title_bar
 fm_side_pane_new
 fm_side_pane_set_mode
 fm_side_pane_set_popup_updater
+fm_side_pane_set_show_hidden
 <SUBSECTION Standard>
 FM_IS_SIDE_PANE
 FM_IS_SIDE_PANE_CLASS
