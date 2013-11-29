@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
 _Name=Preferred Applications
+_Comment=Select applications called on click on Web page or e-mail address
 Icon=preferences-desktop
 Exec=libfm-pref-apps
 StartupNotify=true
