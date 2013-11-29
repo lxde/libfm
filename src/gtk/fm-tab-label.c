@@ -188,3 +188,50 @@ void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text)
 {
     gtk_widget_set_tooltip_text(GTK_WIDGET(label->label), text);
 }
+
+/**
+ * fm_tab_label_set_icon
+ * @label: a tab label widget
+ * @icon: (allow-none): an icon to show before text or %NULL
+ *
+ * Sets an optional @icon to be shown before text in the @label.
+ *
+ * Since: 1.2.0
+ */
+void fm_tab_label_set_icon(FmTabLabel *label, FmIcon *icon)
+{
+    g_return_if_fail(FM_IS_TAB_LABEL(label));
+    if (icon)
+    {
+        gint height, width;
+        GdkPixbuf *pixbuf;
+
+        if (!gtk_icon_size_lookup(GTK_ICON_SIZE_BUTTON, &width, &height))
+            height = 20; /* fallback size, is that ever needed? */
+        pixbuf = fm_pixbuf_from_icon(icon, height);
+        if (pixbuf == NULL)
+            goto _no_image;
+        if (label->image)
+        {
+            gtk_image_set_from_pixbuf((GtkImage*)label->image, pixbuf);
+            gtk_widget_queue_draw(GTK_WIDGET(label));
+        }
+        else
+        {
+            /* hbox is only child of the label */
+            GtkWidget *hbox = gtk_bin_get_child(GTK_BIN(label));
+
+            label->image = gtk_image_new_from_pixbuf(pixbuf);
+            gtk_box_pack_start(GTK_BOX(hbox), label->image, FALSE, FALSE, 0);
+            gtk_widget_show(label->image);
+        }
+        g_object_unref(pixbuf);
+        return;
+    }
+_no_image:
+    if (label->image)
+    {
+        gtk_widget_destroy(label->image);
+        label->image = NULL;
+    }
+}

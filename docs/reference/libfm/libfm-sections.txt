@@ -1125,6 +1125,7 @@ FmSortMode
 FmTabLabel
 FmTabLabelClass
 fm_tab_label_new
+fm_tab_label_set_icon
 fm_tab_label_set_text
 fm_tab_label_set_tooltip_text
 <SUBSECTION Standard>

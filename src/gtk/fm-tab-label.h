@@ -25,6 +25,8 @@
 
 #include <gtk/gtk.h>
 
+#include "fm-icon-pixbuf.h"
+
 G_BEGIN_DECLS
 
 #define FM_TYPE_TAB_LABEL				(fm_tab_label_get_type())
@@ -46,8 +48,8 @@ struct _FmTabLabel
     GtkLabel* label;
     GtkButton* close_btn;
     /*< private >*/
+    GtkWidget *image;
     gpointer _reserved1;
-    gpointer _reserved2;
 };
 
 struct _FmTabLabelClass
@@ -62,6 +64,8 @@ FmTabLabel* fm_tab_label_new(const char* text);
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text);
 void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text);
+
+void fm_tab_label_set_icon(FmTabLabel *label, FmIcon *icon);
 
 G_END_DECLS
 
