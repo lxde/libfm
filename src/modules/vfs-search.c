@@ -251,7 +251,7 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
         }
 
         file_info = g_file_enumerator_next_file(iter->enu, cancellable, &err);
-        if(file_info)
+        if(file_info && g_file_info_get_name(file_info))
         {
             /* check if directory itself matches criteria */
             if(fm_search_job_match_file(enu, file_info, iter->folder_path,
