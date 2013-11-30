@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-29 02:25+0200\n"
+"POT-Creation-Date: 2013-11-30 02:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -725,6 +725,10 @@ msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
 msgid "Open _With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:155

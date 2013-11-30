@@ -43,6 +43,7 @@
  * Copy
  * Paste
  * Del
+ * CopyPath
  * &lt;placeholder name='MoveCategory'/&gt;
  * ------------------------
  * Rename
@@ -110,6 +111,7 @@ static void on_cut(GtkAction* action, gpointer user_data);
 static void on_copy(GtkAction* action, gpointer user_data);
 static void on_paste(GtkAction* action, gpointer user_data);
 static void on_delete(GtkAction* action, gpointer user_data);
+static void on_copy_path(GtkAction* action, gpointer user_data);
 static void on_hide(GtkAction* action, FmFileMenu* menu);
 static void on_unhide(GtkAction* action, FmFileMenu* menu);
 static void on_add_bookmark(GtkAction* action, FmFileMenu* menu);
@@ -133,6 +135,7 @@ const char base_menu_xml[]=
   "<menuitem action='Copy'/>"
   "<menuitem action='Paste'/>"
   "<menuitem action='Del'/>"
+  "<menuitem action='CopyPath'/>"
   "<placeholder name='MoveCategory'/>"
   "<separator/>"
   "<menuitem action='Rename'/>"
@@ -152,6 +155,7 @@ GtkActionEntry base_menu_actions[]=
     {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
     {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_delete)},
+    {"CopyPath", NULL, N_("Copy Pa_th(s)"), NULL, NULL, G_CALLBACK(on_copy_path)},
     {"Hide", NULL, N_("H_ide"), NULL, NULL, G_CALLBACK(on_hide)},
     {"Unhide", NULL, N_("Unh_ide"), NULL, NULL, G_CALLBACK(on_unhide)},
     {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
@@ -710,6 +714,27 @@ static void on_delete(GtkAction* action, gpointer user_data)
     else
         fm_trash_or_delete_files(window, files);
     fm_path_list_unref(files);
+}
+
+static void on_copy_path(GtkAction* action, gpointer user_data)
+{
+    FmFileMenu* data = (FmFileMenu*)user_data;
+    GList *fl;
+    GtkWidget *widget = gtk_menu_get_attach_widget(data->menu);
+    GdkDisplay* dpy = widget ? gtk_widget_get_display(widget) : gdk_display_get_default();
+    GtkClipboard* clipboard = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
+    GString *str = g_string_sized_new(128);
+
+    for (fl = fm_file_info_list_peek_head_link(data->file_infos); fl; fl = fl->next)
+    {
+        char *path = fm_path_to_str(fm_file_info_get_path(fl->data));
+        if (str->len > 0)
+            g_string_append_c(str, '\n');
+        g_string_append(str, path);
+        g_free(path);
+    }
+    gtk_clipboard_set_text(clipboard, str->str, str->len);
+    g_string_free(str, TRUE);
 }
 
 static void on_hide(GtkAction* action, FmFileMenu* menu)
