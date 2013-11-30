@@ -330,6 +330,15 @@ Changes on 1.2.0 since 1.1.0:
 * Added new object FmFolderConfig for abstract access for folder-specific
     configuration values as key/value pairs (similarly to GKeyFile).
 
+* Added support for adding an optional icon in FmTabLabel before the text
+    in the label.
+
+* New API fm_side_pane_set_show_hidden() for future usage.
+
+* Added option 'Copy Path(s)' into selection context menu to allow user
+    copy text representation of path(s) as simple text list delimited by
+    newline into the clipboard.
+
 * A whole lot of bugfixes.
 
 

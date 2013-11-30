@@ -565,6 +565,14 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
         /* assume it's accessible */
         fi->accessible = TRUE;
 
+    /* special handling for symlinks */
+    if (g_file_info_get_is_symlink(inf))
+    {
+        fi->mode &= ~S_IFMT; /* reset type */
+        fi->mode |= S_IFLNK; /* set type to symlink */
+        goto _file_is_symlink;
+    }
+
     switch(type)
     {
     case G_FILE_TYPE_SHORTCUT:
@@ -598,6 +606,7 @@ void fm_file_info_set_from_g_file_data(FmFileInfo *fi, GFile *gf, GFileInfo *inf
             fi->fs_is_ro = g_file_info_get_attribute_boolean(inf, G_FILE_ATTRIBUTE_FILESYSTEM_READONLY);
         break;
     case G_FILE_TYPE_SYMBOLIC_LINK:
+_file_is_symlink:
         uri = g_file_info_get_symlink_target(inf);
         if(uri)
         {
