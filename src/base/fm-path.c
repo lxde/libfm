@@ -274,7 +274,7 @@ on_error: /* this is not a valid URI */
  */
 static
 FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_len,
-                               gboolean dont_escape)
+                               gboolean dont_escape, gboolean is_query)
 {
     FmPath* path;
     int flags;
@@ -286,12 +286,12 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     if(G_LIKELY(parent)) /* remove slashes if needed. */
     {
         flags = parent->flags; /* inherit flags of parent */
-        while(basename[0] == '/')
+        if (!is_query) while(basename[0] == '/')
         {
             ++basename;
             --name_len;
         }
-        while(name_len > 0 && basename[name_len-1] == '/')
+        if (!is_query) while(name_len > 0 && basename[name_len-1] == '/')
             --name_len;
 
         /* special case for . and .. */
@@ -313,7 +313,7 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
     }
 
     /* remove tailing slashes */
-    while(name_len > 0 && basename[name_len-1] == '/')
+    if (!is_query) while(name_len > 0 && basename[name_len-1] == '/')
         --name_len;
 
     if(name_len == 0)
@@ -372,7 +372,7 @@ FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_le
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
 {
     return _fm_path_new_child_len(parent, basename, name_len,
-                                  parent && fm_path_is_native(parent));
+                                  parent && fm_path_is_native(parent), FALSE);
 }
 
 /**
@@ -393,7 +393,7 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     {
         int baselen = strlen(basename);
         return _fm_path_new_child_len(parent, basename, baselen,
-                                      parent && fm_path_is_native(parent));
+                                      parent && fm_path_is_native(parent), FALSE);
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -462,13 +462,13 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             sep = strchr(rel, '/');
             if(sep)
             {
-                FmPath *new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE);
+                FmPath *new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE, FALSE);
                 path = fm_path_new_relative(new_parent, sep + 1);
                 fm_path_unref(new_parent);
             }
             else
             {
-                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE);
+                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE, FALSE);
             }
         }
     }
@@ -536,6 +536,9 @@ FmPath* fm_path_new_for_uri(const char* uri)
             path = fm_path_new_relative(root, filename);
             g_free(filename);
         }
+        else if (strchr(rel_path, '?') != NULL) /* it's query not regular URI */
+            path = _fm_path_new_child_len(root, rel_path+1, strlen(rel_path)-1,
+                                          TRUE, TRUE);
         else
             path = fm_path_new_relative(root, rel_path);
         fm_path_unref(root);
@@ -997,7 +1000,7 @@ static char *_fm_path_display_name(FmPath* path, gboolean *is_query)
             /* URI query not detected yet, check parent beforehand */
             disp_parent = _fm_path_display_name(path->parent, is_query);
             if (G_UNLIKELY(*is_query)) /* parent found that it is a query URI */
-                disp_base = g_strdup(path->name);
+                goto _is_query2;
             else
                 disp_base = fm_path_display_basename(path);
         }
@@ -1007,7 +1010,10 @@ static char *_fm_path_display_name(FmPath* path, gboolean *is_query)
             *is_query = TRUE;
 _is_query:
             disp_parent = _fm_path_display_name(path->parent, is_query);
-            disp_base = g_strdup(path->name);
+_is_query2:
+            disp = g_strjoin(NULL, disp_parent, path->name, NULL);
+            g_free(disp_parent);
+            return disp;
         }
         if (fm_path_is_native(path))
             disp = g_build_filename( disp_parent, disp_base, NULL);

@@ -518,12 +518,8 @@ static gboolean launch_search(FileSearchUI* ui)
             /* escape possible '?' and ':' */
             escaped = g_uri_escape_string(path_str, "!$&'()*+,;=/@", TRUE);
             g_free(path_str);
-            /* normalizing path will kill duplicate slashes so they need escape */
-            path_str = fm_strdup_replace(escaped, "//", "/%2F");
+            g_string_append(search_uri, escaped);
             g_free(escaped);
-            g_string_append(search_uri, path_str);
-
-            g_free(path_str);
 
             if(!gtk_tree_model_iter_next(model, &it)) /* no more items */
                 break;
