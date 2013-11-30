@@ -65,6 +65,7 @@ struct _FmVfsSearchEnumerator
 
     FmSearchIntIter* iter;
     char* attributes;
+    GFileQueryInfoFlags flags;
     GSList* target_folders; /* GFile */
     char** name_patterns;
     GRegex* name_regex;
@@ -126,6 +127,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str);
 /* caller should g_object_ref(folder_path) if success */
 static inline FmSearchIntIter *_search_iter_new(FmSearchIntIter *parent,
                                                 const char *attributes,
+                                                GFileQueryInfoFlags flags,
                                                 GFile *folder_path,
                                                 GCancellable *cancellable,
                                                 GError **error)
@@ -133,8 +135,7 @@ static inline FmSearchIntIter *_search_iter_new(FmSearchIntIter *parent,
     GFileEnumerator *enu;
     FmSearchIntIter *iter;
 
-    enu = g_file_enumerate_children(folder_path, attributes,
-                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+    enu = g_file_enumerate_children(folder_path, attributes, flags,
                                     cancellable, error);
     if(enu == NULL)
         return NULL;
@@ -234,7 +235,7 @@ static GFileInfo *_fm_vfs_search_enumerator_next_file(GFileEnumerator *enumerato
         {
             if(enu->target_folders == NULL)
                 break;
-            iter = _search_iter_new(NULL, enu->attributes,
+            iter = _search_iter_new(NULL, enu->attributes, enu->flags,
                                     enu->target_folders->data,
                                     cancellable, error);
             if(iter == NULL)
@@ -347,6 +348,7 @@ static GFileEnumerator *_fm_vfs_search_enumerator_new(GFile *file,
     enumerator = g_object_new(FM_TYPE_VFS_SEACRH_ENUMERATOR, "container", file, NULL);
 
     enumerator->attributes = g_strdup(attributes);
+    enumerator->flags = flags;
     parse_search_uri(enumerator, path_str);
     /* FIXME: don't ignore flags */
 
@@ -596,7 +598,7 @@ static void fm_search_job_match_folder(FmVfsSearchEnumerator * priv,
     FmSearchVFile *container;
 
     /* FIXME: make error if NULL */
-    iter = _search_iter_new(priv->iter, priv->attributes, folder_path,
+    iter = _search_iter_new(priv->iter, priv->attributes, priv->flags, folder_path,
                             cancellable, error);
     if(iter == NULL) /* error */
         return;
