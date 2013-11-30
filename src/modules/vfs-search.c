@@ -386,7 +386,7 @@ static time_t parse_date_str(const char* str)
  * 
  * Format of a search URI is similar to that of an http URI:
  * 
- * search://<folder1>:<folder2>:<folder...>?<parameter1=value1>&<parameter2=value2>&...
+ * search://<folder1>,<folder2>,<folder...>?<parameter1=value1>&<parameter2=value2>&...
  * The optional parameter key/value pairs are:
  * show_hidden=<0 or 1>: whether to search for hidden files
  * recursive=<0 or 1>: whether to search sub folders recursively
@@ -405,7 +405,7 @@ static time_t parse_date_str(const char* str)
  * An example to search all *.desktop files in /usr/share and /usr/local/share
  * can be written like this:
  * 
- * search://usr/share:/usr/local/share?recursive=1&show_hidden=0&name=*.desktop&name_ci=0
+ * search:///usr/share,/usr/local/share?recursive=1&show_hidden=0&name=*.desktop&name_ci=0
  * 
  * If the folder paths and parameters contain invalid characters for a
  * URI, they should be escaped.
@@ -424,7 +424,7 @@ static void parse_search_uri(FmVfsSearchEnumerator* priv, const char* uri_str)
         /* add folder paths */
         while (p)
         {
-            char* sep = strchr(p, ':'); /* use : to separate multiple paths */
+            char* sep = strchr(p, ','); /* use , to separate multiple paths */
             char *path;
 
             if (sep && (params == NULL || sep < params))

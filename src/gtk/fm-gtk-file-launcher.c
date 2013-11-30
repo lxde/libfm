@@ -515,15 +515,15 @@ static gboolean launch_search(FileSearchUI* ui)
             char *path_str;
             gtk_tree_model_get(model, &it, 0, &path_str, -1);
 
-            /* escape possible '?' and ':' */
-            escaped = g_uri_escape_string(path_str, "!$&'()*+,;=/@", TRUE);
+            /* escape possible '?' and ',' */
+            escaped = g_uri_escape_string(path_str, "!$&'()*+:;=/@", TRUE);
             g_free(path_str);
             g_string_append(search_uri, escaped);
             g_free(escaped);
 
             if(!gtk_tree_model_iter_next(model, &it)) /* no more items */
                 break;
-            g_string_append_c(search_uri, ':'); /* separator for paths */
+            g_string_append_c(search_uri, ','); /* separator for paths */
         }
 
         g_string_append_c(search_uri, '?');
