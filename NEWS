@@ -1,3 +1,38 @@
+Changes on 1.1.3 since 1.1.2.2:
+
+* Fixed column collapse issue when double-clicking separator.
+
+* Fix crash on removing last item from expanded node in dir tree model.
+
+* Fixed incorrect mark drag dest icon if it is not valid drop dest.
+
+* Fixed bug of GtkMountOperation which lead to crash in some cases.
+
+* Removed confusing item 'Rename' from folder context menu. It leads to
+    unusable folder and that cannot be worked around.
+
+
+Changes on 1.1.2.2 since 1.1.2:
+
+* Fixed crash with no terminal defined in config file.
+
+* Fixed launching applications with new GLib (Ubuntu Saucy).
+
+* Fixed incorrect view widget operations on unmounts.
+
+
+Changes on 1.1.2 since 1.1.1:
+
+* Fixed incorrect terminal config statement parsing.
+
+* Fixed separator for text/uri-list in DnD.
+
+
+Changes on 1.1.1 since 1.1.0:
+
+* Numerous bugfixes.
+
+
 Changes on 1.0.2 since 1.0.1:
 
 * Added 'no_usb_trash' option into config file, defaulted to 0, which
