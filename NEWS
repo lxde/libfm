@@ -339,6 +339,10 @@ Changes on 1.2.0 since 1.1.0:
     copy text representation of path(s) as simple text list delimited by
     newline into the clipboard.
 
+* Changed search:// paths delimiter to be ',' instead of ':'.
+
+* Corrected strings in the application chooser dialog.
+
 * A whole lot of bugfixes.
 
 

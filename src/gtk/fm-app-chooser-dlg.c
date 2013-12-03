@@ -63,7 +63,6 @@ struct _AppChooserData
     GtkTreeView* apps_view;
     GtkEntry* cmdline;
     GtkToggleButton* set_default;
-    GtkLabel* status;
     GtkToggleButton* use_terminal;
     GtkToggleButton* keep_open;
     GtkEntry* app_name;
@@ -158,14 +157,12 @@ static void on_switch_page(GtkNotebook* nb, GtkWidget* page, gint num, AppChoose
 {
     if(num == 0) /* list of installed apps */
     {
-        gtk_label_set_text(data->status, _("Use selected application to open files"));
         gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK,
                         fm_app_menu_view_is_app_selected(data->apps_view));
     }
     else /* custom app */
     {
         const char* cmd = gtk_entry_get_text(data->cmdline);
-        gtk_label_set_text(data->status, _("Execute custom command line to open files"));
         gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_OK, (cmd && cmd[0]));
     }
 }
@@ -235,7 +232,7 @@ static void on_use_terminal_changed(GtkToggleButton* btn, AppChooserData* data)
 GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_default)
 {
     GtkContainer* scroll;
-    GtkLabel* file_type;
+    GtkLabel *file_type, *file_type_header;
     GtkTreeSelection* tree_sel;
     GtkBuilder* builder = gtk_builder_new();
     AppChooserData* data = g_slice_new0(AppChooserData);
@@ -246,11 +243,11 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     data->notebook = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook"));
     scroll = GTK_CONTAINER(gtk_builder_get_object(builder, "apps_scroll"));
     file_type = GTK_LABEL(gtk_builder_get_object(builder, "file_type"));
+    file_type_header = GTK_LABEL(gtk_builder_get_object(builder, "file_type_header"));
     data->cmdline = GTK_ENTRY(gtk_builder_get_object(builder, "cmdline"));
     data->set_default = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "set_default"));
     data->use_terminal = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "use_terminal"));
     data->keep_open = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "keep_open"));
-    data->status = GTK_LABEL(gtk_builder_get_object(builder, "status"));
     data->browse_btn = GTK_WIDGET(gtk_builder_get_object(builder, "browse_btn"));
     data->app_name = GTK_ENTRY(gtk_builder_get_object(builder, "app_name"));
     /* FIXME: shouldn't verify if app-chooser.ui was correct? */
@@ -263,7 +260,17 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
         gtk_widget_hide(GTK_WIDGET(data->set_default));
 
     if(mime_type && fm_mime_type_get_desc(mime_type))
-        gtk_label_set_text(file_type, fm_mime_type_get_desc(mime_type));
+    {
+        if (file_type_header)
+        {
+            char *text = g_strdup_printf("<b>Select an application to open \"%s\" files</b>",
+                                         fm_mime_type_get_desc(mime_type));
+            gtk_label_set_markup(file_type_header, text);
+            g_free(text);
+        }
+        else
+            gtk_label_set_text(file_type, fm_mime_type_get_desc(mime_type));
+    }
     else
     {
         GtkWidget* hbox = GTK_WIDGET(gtk_builder_get_object(builder, "file_type_hbox"));
