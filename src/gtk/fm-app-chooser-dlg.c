@@ -263,7 +263,7 @@ GtkDialog *fm_app_chooser_dlg_new(FmMimeType* mime_type, gboolean can_set_defaul
     {
         if (file_type_header)
         {
-            char *text = g_strdup_printf("<b>Select an application to open \"%s\" files</b>",
+            char *text = g_strdup_printf(_("<b>Select an application to open \"%s\" files</b>"),
                                          fm_mime_type_get_desc(mime_type));
             gtk_label_set_markup(file_type_header, text);
             g_free(text);
