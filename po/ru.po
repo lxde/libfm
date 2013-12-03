@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-10 20:54+0200\n"
+"POT-Creation-Date: 2013-12-03 14:00+0200\n"
+"PO-Revision-Date: 2013-12-03 14:09+0200\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: gnome-cyr\n"
 "Language: ru\n"
@@ -24,6 +24,11 @@ msgstr ""
 msgid "Preferred Applications"
 msgstr "Предпочтительные приложения"
 
+#: ../data/libfm-pref-apps.desktop.in.h:2
+msgid "Select applications called on click on Web link or e-mail address"
+msgstr ""
+"Выбрать приложения, открываемые при клике на Web-ссылку или адрес почты"
+
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
 msgstr "Редактор ярлыков"
@@ -37,12 +42,12 @@ msgid "Choose Application"
 msgstr "Выбрать приложение"
 
 #: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File type to be opened:</b>"
-msgstr "<b>Тип открываемого файла:</b>"
+msgid "Use selected application to open files"
+msgstr "Использовать выбранное приложение для открытия файлов"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Application"
-msgstr "_Установленное приложение"
+msgid "_Installed Applications"
+msgstr "_Установленные приложения"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -85,11 +90,15 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>_Имя приложения (опционально, установите для ассоциации)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+msgid "Execute custom command line to open files"
+msgstr "Выполнить пользовательскую команду для открытия файлов"
+
+#: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
 msgstr "_Пользовательская команда"
 
-#: ../data/ui/app-chooser.glade.h:16
-msgid "_Set selected application as default action of this file type"
+#: ../data/ui/app-chooser.glade.h:17
+msgid "_Set selected application as default action for this file type"
 msgstr "У_становить выбранное приложение по умолчанию для данного типа файла"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -100,7 +109,7 @@ msgstr "Подтверждение замещения файлов"
 msgid "_Skip"
 msgstr "Пр_опустить"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:162
 msgid "_Rename"
 msgstr "_Переименовать"
 
@@ -428,8 +437,8 @@ msgstr "Больше, чем:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Время последнего изменения:</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
-#: ../src/gtk/fm-gtk-file-launcher.c:624
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
+#: ../src/gtk/fm-gtk-file-launcher.c:620
 msgid "(None)"
 msgstr "(Нет)"
 
@@ -513,22 +522,22 @@ msgstr "<b>Возникли ошибки:</b>"
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Неверное имя файла ярлыка: '%s'"
 
-#: ../src/base/fm-file-launcher.c:201
+#: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Приложение для запуска URI %s:// не назначено"
 
-#: ../src/base/fm-file-launcher.c:282
+#: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "Нельзя перейти в каталог '%s': %s"
 
-#: ../src/base/fm-file-launcher.c:329
+#: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "Не удалось определить тип содержимого файла '%s' для его запуска"
 
-#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
+#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "Приложение по умолчанию для MIME-типа %s не назначено"
@@ -543,7 +552,7 @@ msgstr "Устройства"
 msgid "Network"
 msgstr "Сеть"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Корзина"
 
@@ -551,7 +560,7 @@ msgstr "Корзина"
 msgid "shortcut to URI"
 msgstr "ярлык URI"
 
-#: ../src/base/fm-templates.c:1019
+#: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: неверный параметр"
 
@@ -694,13 +703,10 @@ msgstr "fm_xml_file_to_data: ошибка данных XML"
 msgid "Customize"
 msgstr "Настроить"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:161
-msgid "Use selected application to open files"
-msgstr "Использовать выбранное приложение для открытия файлов"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:168
-msgid "Execute custom command line to open files"
-msgstr "Выполнить пользовательскую команду для открытия файлов"
+#: ../src/gtk/fm-app-chooser-dlg.c:266
+#, c-format
+msgid "<b>Select an application to open \"%s\" files</b>"
+msgstr "<b>Выберите приложение для открытия файлов \"%s\"</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -714,7 +720,7 @@ msgstr "<Нет поддиректорий>"
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: ../src/gtk/fm-dir-tree-view.c:481
+#: ../src/gtk/fm-dir-tree-view.c:482
 msgid "Shows tree of directories in sidebar"
 msgstr "Отображает дерево каталогов в боковой панели"
 
@@ -739,46 +745,54 @@ msgstr "_Создать ссылку"
 msgid "XDirectSave failed."
 msgstr "Ошибка XDirectSave."
 
-#: ../src/gtk/fm-file-menu.c:148
+#: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
 msgstr "Открыть"
 
-#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
+#: ../src/gtk/fm-file-menu.c:152 ../src/gtk/fm-file-menu.c:153
 msgid "Open _With..."
 msgstr "Открыть с помощью..."
 
-#: ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
+msgstr "Копироват_ь путь файл(ов)"
+
+#: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
 msgstr "С_крыть"
 
-#: ../src/gtk/fm-file-menu.c:156
+#: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
 msgstr "Сд_елать видимым"
 
-#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "Добавить в _закладки"
 
-#: ../src/gtk/fm-file-menu.c:159
+#: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
 msgstr "Добавить в архив..."
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
 msgstr "Извлечь в текущую папку"
 
-#: ../src/gtk/fm-file-menu.c:161
+#: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
 msgstr "Извлечь в..."
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "Свойства файла"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
 msgstr "_Отправить в корзину"
+
+#: ../src/gtk/fm-file-menu.c:773
+msgid "Your bookmarks already have a bookmark for this folder."
+msgstr "В закладках уже есть эта папка."
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -972,11 +986,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Файл «%s» является исполняемым. Хотите его запустить?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:648
 msgid "No folders are specified."
 msgstr "Нет заданных каталогов"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Выберите каталог"
 
@@ -992,16 +1006,16 @@ msgstr "Подтвердить"
 msgid "Question"
 msgstr "Вопрос"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "Для выполнения этого действия требуются права администратора."
 
-#: ../src/gtk/fm-gtk-utils.c:919
+#: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Хотите переместить файл '%s' в корзину?"
 
-#: ../src/gtk/fm-gtk-utils.c:924
+#: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
@@ -1009,12 +1023,12 @@ msgstr[0] "Хотите переместить %d выбранный файл в
 msgstr[1] "Хотите переместить %d выбранных файла в корзину?"
 msgstr[2] "Хотите переместить %d выбранных файлов в корзину?"
 
-#: ../src/gtk/fm-gtk-utils.c:984
+#: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "Хотите удалить файл '%s'?"
 
-#: ../src/gtk/fm-gtk-utils.c:989
+#: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1022,23 +1036,23 @@ msgstr[0] "Хотите удалить %d выбранный файл?"
 msgstr[1] "Хотите удалить %d выбранных файла?"
 msgstr[2] "Хотите удалить %d выбранных файлов?"
 
-#: ../src/gtk/fm-gtk-utils.c:1088
+#: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
 msgstr "Переименовать файл"
 
-#: ../src/gtk/fm-gtk-utils.c:1089
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
 msgstr "Введите новое имя:"
 
-#: ../src/gtk/fm-gtk-utils.c:1156
+#: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Хотите очистить корзину?"
 
-#: ../src/gtk/fm-path-entry.c:631
+#: ../src/gtk/fm-path-entry.c:639
 msgid "Pa_ste and Go"
 msgstr "Вставить и вперед"
 
-#: ../src/gtk/fm-path-entry.c:690
+#: ../src/gtk/fm-path-entry.c:698
 msgid "Folder location bar"
 msgstr "Панель ввода пути папки"
 
@@ -1339,7 +1353,7 @@ msgid "Menu cache error"
 msgstr "Ошибка кэша меню"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
 msgstr "Операция не поддерживается"
 
@@ -1417,11 +1431,11 @@ msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: папка '%s' не найдена в кэше меню"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:982
+#: ../src/modules/vfs-search.c:985
 msgid "Search"
 msgstr "Поиск"
 
-#: ../src/modules/vfs-search.c:1049
+#: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
 msgstr "Результаты поиска"
 
@@ -1659,6 +1673,9 @@ msgstr "пустой оптический диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "оптический диск"
+
+#~ msgid "<b>File type to be opened:</b>"
+#~ msgstr "<b>Тип открываемого файла:</b>"
 
 #~ msgid "_Browse"
 #~ msgstr "Выбр_ать"
