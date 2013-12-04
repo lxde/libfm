@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-03 14:00+0200\n"
+"POT-Creation-Date: 2013-12-05 01:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "_Skip"
 msgstr ""
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:162
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr ""
 
@@ -724,8 +724,12 @@ msgstr ""
 msgid "_Open"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:152 ../src/gtk/fm-file-menu.c:153
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:153
+msgid "Open _With"
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:158
@@ -742,6 +746,10 @@ msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:162
+msgid "_Rename..."
 msgstr ""
 
 #: ../src/gtk/fm-file-menu.c:163
@@ -873,7 +881,7 @@ msgid "_Sort Files"
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
+msgid "_Rename Folder..."
 msgstr ""
 
 #: ../src/gtk/fm-folder-view.c:197
