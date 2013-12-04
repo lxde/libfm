@@ -150,7 +150,7 @@ GtkActionEntry base_menu_actions[]=
 {
     {"Open", GTK_STOCK_OPEN, N_("_Open"), NULL, NULL, G_CALLBACK(on_open)},
     {"OpenWith", NULL, N_("Open _With..."), NULL, NULL, G_CALLBACK(on_open_with)},
-    {"OpenWithMenu", NULL, N_("Open _With..."), NULL, NULL, NULL},
+    {"OpenWithMenu", NULL, N_("Open _With"), NULL, NULL, NULL},
     {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(on_cut)},
     {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
     {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
@@ -159,7 +159,7 @@ GtkActionEntry base_menu_actions[]=
     {"Hide", NULL, N_("H_ide"), NULL, NULL, G_CALLBACK(on_hide)},
     {"Unhide", NULL, N_("Unh_ide"), NULL, NULL, G_CALLBACK(on_unhide)},
     {"AddBookmark", GTK_STOCK_ADD, N_("_Add to Bookmarks"), NULL, NULL, G_CALLBACK(on_add_bookmark)},
-    {"Rename", NULL, N_("_Rename"), NULL, NULL, G_CALLBACK(on_rename)},
+    {"Rename", NULL, N_("_Rename..."), NULL, NULL, G_CALLBACK(on_rename)},
     {"Compress", NULL, N_("Co_mpress..."), NULL, NULL, G_CALLBACK(on_compress)},
     {"Extract", NULL, N_("Extract _Here"), NULL, NULL, G_CALLBACK(on_extract_here)},
     {"ExtractTo", NULL, N_("E_xtract To..."), NULL, NULL, G_CALLBACK(on_extract_to)},
