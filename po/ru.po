@@ -6,19 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-03 14:00+0200\n"
-"PO-Revision-Date: 2013-12-03 14:09+0200\n"
-"Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
+"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"PO-Revision-Date: 2013-12-04 23:30+0000\n"
+"Last-Translator: Andriy <andrej@rep.kiev.ua>\n"
 "Language-Team: gnome-cyr\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-POOTLE-MTIME: 1378200305.0\n"
+"X-POOTLE-MTIME: 1386199831.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -26,8 +26,7 @@ msgstr "Предпочтительные приложения"
 
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
-msgstr ""
-"Выбрать приложения, открываемые при клике на Web-ссылку или адрес почты"
+msgstr "Выбрать приложения, открываемые при клике на Web-ссылку или адрес почты"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -109,7 +108,7 @@ msgstr "Подтверждение замещения файлов"
 msgid "_Skip"
 msgstr "Пр_опустить"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:162
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr "_Переименовать"
 
@@ -675,7 +674,8 @@ msgstr "Элемент '%s' был закрыт, но открытых элем�
 #, c-format
 msgid "Element '%s' was closed but the currently open element is '%s'"
 msgstr ""
-"Элемент «%s» был закрыт, но открытым в настоящий момент является элемент «%s»"
+"Элемент «%s» был закрыт, но открытым в настоящий момент является элемент «%"
+"s»"
 
 #: ../src/extra/fm-xml-file.c:675
 #, c-format
@@ -749,9 +749,13 @@ msgstr "Ошибка XDirectSave."
 msgid "_Open"
 msgstr "Открыть"
 
-#: ../src/gtk/fm-file-menu.c:152 ../src/gtk/fm-file-menu.c:153
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
 msgstr "Открыть с помощью..."
+
+#: ../src/gtk/fm-file-menu.c:153
+msgid "Open _With"
+msgstr "Открыть с помощью"
 
 #: ../src/gtk/fm-file-menu.c:158
 msgid "Copy Pa_th(s)"
@@ -768,6 +772,10 @@ msgstr "Сд_елать видимым"
 #: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "Добавить в _закладки"
+
+#: ../src/gtk/fm-file-menu.c:162
+msgid "_Rename..."
+msgstr "_Переименовать…"
 
 #: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
@@ -901,8 +909,8 @@ msgid "_Sort Files"
 msgstr "_Сортировать файлы"
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
-msgstr "П_ереименовать папку"
+msgid "_Rename Folder..."
+msgstr "П_ереименовать папку..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -1673,6 +1681,9 @@ msgstr "пустой оптический диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "оптический диск"
+
+#~ msgid "_Rename Folder"
+#~ msgstr "П_ереименовать папку"
 
 #~ msgid "<b>File type to be opened:</b>"
 #~ msgstr "<b>Тип открываемого файла:</b>"
