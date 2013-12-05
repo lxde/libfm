@@ -1189,13 +1189,17 @@ static void on_ui_destroy(gpointer ui_ptr)
 {
     GtkUIManager* ui = (GtkUIManager*)ui_ptr;
     GtkMenu* popup = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
-    GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
+    GtkWidget* win = gtk_menu_get_attach_widget(popup);
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
     GSList *groups;
 
-    groups = gtk_accel_groups_from_object(G_OBJECT(win));
-    if(g_slist_find(groups, accel_grp) != NULL)
-        gtk_window_remove_accel_group(win, accel_grp);
+    if (win) /* it may be destroyed and detached already */
+    {
+        groups = gtk_accel_groups_from_object(G_OBJECT(win));
+        if(g_slist_find(groups, accel_grp) != NULL)
+            gtk_window_remove_accel_group(GTK_WINDOW(win), accel_grp);
+        g_object_weak_unref(G_OBJECT(win), (GWeakNotify)gtk_menu_detach, popup);
+    }
     gtk_widget_destroy(GTK_WIDGET(popup));
     g_object_unref(ui);
 }
@@ -1271,6 +1275,10 @@ GtkMenu* fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
     accel_grp = gtk_ui_manager_get_accel_group(ui);
     gtk_window_add_accel_group(parent, accel_grp);
     gtk_menu_attach_to_widget(popup, GTK_WIDGET(parent), NULL);
+    /* bug #3615254: parent window may be destroyed before the
+       folder view therefore we should detach menu to avoid crash
+       note that we should remove this ref when we destroy menu */
+    g_object_weak_ref(G_OBJECT(parent), (GWeakNotify)gtk_menu_detach, popup);
     g_object_unref(act_grp);
     g_object_set_qdata_full(G_OBJECT(fv), ui_quark, ui, on_ui_destroy);
     g_object_set_qdata(G_OBJECT(fv), popup_quark, popup);
