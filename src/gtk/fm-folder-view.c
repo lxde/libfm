@@ -1437,7 +1437,7 @@ static void on_ui_destroy(gpointer ui_ptr)
 {
     GtkUIManager* ui = (GtkUIManager*)ui_ptr;
     GtkMenu* popup = GTK_MENU(gtk_ui_manager_get_widget(ui, "/popup"));
-    GtkWindow* win = GTK_WINDOW(gtk_menu_get_attach_widget(popup));
+    GtkWidget* win = gtk_menu_get_attach_widget(popup);
     GtkAccelGroup* accel_grp = gtk_ui_manager_get_accel_group(ui);
     GList *templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
     GSList *groups;
@@ -1447,7 +1447,7 @@ static void on_ui_destroy(gpointer ui_ptr)
         g_object_weak_unref(G_OBJECT(win), (GWeakNotify)gtk_menu_detach, popup);
         groups = gtk_accel_groups_from_object(G_OBJECT(win));
         if(g_slist_find(groups, accel_grp) != NULL)
-            gtk_window_remove_accel_group(win, accel_grp);
+            gtk_window_remove_accel_group(GTK_WINDOW(win), accel_grp);
     }
     g_list_foreach(templates, (GFunc)g_object_unref, NULL);
     g_list_free(templates);
