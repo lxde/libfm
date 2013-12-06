@@ -2,13 +2,12 @@
 # Copyright (C) 2012 the LXDE team
 # This file is distributed under the same license as the libfm package.
 # Hugo Florentino <hugo@acdam.cu>, 2013.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-14 07:38+0000\n"
+"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"PO-Revision-Date: 2013-12-06 05:10+0000\n"
 "Last-Translator: Adolfo <fitoschido@ubuntu.com>\n"
 "Language-Team: Spanish (Castilian) <translation@mailinglist.lxde.org>\n"
 "Language: es\n"
@@ -17,11 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1384414698.0\n"
+"X-POOTLE-MTIME: 1386306614.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Aplicaciones preferidas"
+
+#: ../data/libfm-pref-apps.desktop.in.h:2
+msgid "Select applications called on click on Web link or e-mail address"
+msgstr ""
+"Elija las aplicaciones a abrir al pulsar en enlaces web o direcciones de "
+"correo"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -36,12 +41,12 @@ msgid "Choose Application"
 msgstr "Elija una aplicación"
 
 #: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File type to be opened:</b>"
-msgstr "<b>Tipo de archivo a abrir:</b>"
+msgid "Use selected application to open files"
+msgstr "Utilizar la aplicación seleccionada para abrir los archivos"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Application"
-msgstr "Aplicación _instalada"
+msgid "_Installed Applications"
+msgstr "Aplicaciones _instaladas"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -86,13 +91,17 @@ msgstr ""
 "asociación)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+msgid "Execute custom command line to open files"
+msgstr "Ejecutar una línea de órdenes personalizada para abrir los archivos"
+
+#: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
 msgstr "Línea de órdenes personali_zada"
 
-#: ../data/ui/app-chooser.glade.h:16
-msgid "_Set selected application as default action of this file type"
+#: ../data/ui/app-chooser.glade.h:17
+msgid "_Set selected application as default action for this file type"
 msgstr ""
-"_Definir aplicación seleccionada como predeterminada para abrir archivos de "
+"_Definir aplicación seleccionada como acción predeterminada para archivos de "
 "este tipo"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -103,7 +112,7 @@ msgstr "Confirmar el reemplazo de archivos"
 msgid "_Skip"
 msgstr "_Omitir"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr "_Renombrar"
 
@@ -432,8 +441,8 @@ msgstr "Ma_yor que:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Última modificación:</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
-#: ../src/gtk/fm-gtk-file-launcher.c:624
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
+#: ../src/gtk/fm-gtk-file-launcher.c:620
 msgid "(None)"
 msgstr "(Ninguna)"
 
@@ -517,23 +526,23 @@ msgstr "<b>Ocurrieron algunos errores:</b>"
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Archivo de entrada de escritorio no válido: «%s»"
 
-#: ../src/base/fm-file-launcher.c:201
+#: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "No se definió la aplicación predeterminada para abrir los URI %s://"
 
-#: ../src/base/fm-file-launcher.c:282
+#: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "No se puede cambiar el directorio de trabajo a «%s»: %s"
 
-#: ../src/base/fm-file-launcher.c:329
+#: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr ""
 "No se pudo determinar el tipo de contenido del archivo «%s» para abrirlo"
 
-#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
+#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "No se definió la aplicación predeterminada para el tipo MIME %s"
@@ -548,7 +557,7 @@ msgstr "Dispositivos"
 msgid "Network"
 msgstr "Red"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Papelera"
 
@@ -556,7 +565,7 @@ msgstr "Papelera"
 msgid "shortcut to URI"
 msgstr "atajo al URI"
 
-#: ../src/base/fm-templates.c:1019
+#: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: argumento no válido"
 
@@ -699,13 +708,10 @@ msgstr "fm_xml_file_to_data: error de datos XML"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:161
-msgid "Use selected application to open files"
-msgstr "Utilizar la aplicación seleccionada para abrir los archivos"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:168
-msgid "Execute custom command line to open files"
-msgstr "Ejecutar una línea de órdenes personalizada para abrir los archivos"
+#: ../src/gtk/fm-app-chooser-dlg.c:266
+#, c-format
+msgid "<b>Select an application to open \"%s\" files</b>"
+msgstr "<b>Elija una aplicación para abrir archivos «%s»</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -719,7 +725,7 @@ msgstr "<No hay subcarpetas>"
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../src/gtk/fm-dir-tree-view.c:481
+#: ../src/gtk/fm-dir-tree-view.c:482
 msgid "Shows tree of directories in sidebar"
 msgstr "Muestra el árbol de carpetas en la barra lateral"
 
@@ -744,46 +750,62 @@ msgstr "En_lazar aquí"
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
 
-#: ../src/gtk/fm-file-menu.c:148
+#: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
 msgstr "Abrir c_on…"
 
-#: ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:153
+msgid "Open _With"
+msgstr "A_brir con"
+
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
+msgstr "Copiar ru_ta(s)"
+
+#: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
 msgstr "_Ocultar"
 
-#: ../src/gtk/fm-file-menu.c:156
+#: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
 msgstr "_Revelar"
 
-#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "_Añadir a los marcadores"
 
-#: ../src/gtk/fm-file-menu.c:159
+#: ../src/gtk/fm-file-menu.c:162
+msgid "_Rename..."
+msgstr "_Renombrar…"
+
+#: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
 msgstr "Co_mprimir…"
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
 msgstr "E_xtraer aquí"
 
-#: ../src/gtk/fm-file-menu.c:161
+#: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
 msgstr "E_xtraer en…"
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "Propi_edades"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
 msgstr "Mover a la _papelera"
+
+#: ../src/gtk/fm-file-menu.c:773
+msgid "Your bookmarks already have a bookmark for this folder."
+msgstr "Esta carpeta ya está incluida en los marcadores."
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -893,8 +915,8 @@ msgid "_Sort Files"
 msgstr "_Ordenar archivos"
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
-msgstr "_Renombrar la carpeta"
+msgid "_Rename Folder..."
+msgstr "_Renombrar la carpeta…"
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -978,11 +1000,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "El archivo «%s» es ejecutable. ¿Quiere ejecutarlo?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:648
 msgid "No folders are specified."
 msgstr "No se especificó ninguna carpeta."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Seleccione una carpeta"
 
@@ -998,51 +1020,51 @@ msgstr "Confirmar"
 msgid "Question"
 msgstr "Pregunta"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "Solo el administrador del sistema tiene permisos para hacer esto."
 
-#: ../src/gtk/fm-gtk-utils.c:919
+#: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "¿Quiere mover el archivo «%s» a la papelera?"
 
-#: ../src/gtk/fm-gtk-utils.c:924
+#: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "¿Quiere mover %d archivo seleccionado a la papelera?"
 msgstr[1] "¿Quiere mover los %d archivos seleccionados a la papelera?"
 
-#: ../src/gtk/fm-gtk-utils.c:984
+#: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "¿Quiere eliminar el archivo «%s»?"
 
-#: ../src/gtk/fm-gtk-utils.c:989
+#: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "¿Quiere eliminar %d archivo seleccionado?"
 msgstr[1] "¿Quiere eliminar los %d archivos seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:1088
+#: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: ../src/gtk/fm-gtk-utils.c:1089
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
 msgstr "Escriba un nombre nuevo:"
 
-#: ../src/gtk/fm-gtk-utils.c:1156
+#: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro de que quiere vaciar la papelera?"
 
-#: ../src/gtk/fm-path-entry.c:631
+#: ../src/gtk/fm-path-entry.c:639
 msgid "Pa_ste and Go"
 msgstr "Pegar e _ir"
 
-#: ../src/gtk/fm-path-entry.c:690
+#: ../src/gtk/fm-path-entry.c:698
 msgid "Folder location bar"
 msgstr "Barra de ubicación de carpeta"
 
@@ -1347,7 +1369,7 @@ msgid "Menu cache error"
 msgstr "Error de cache en menú"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
 msgstr "Operación no admitida"
 
@@ -1422,15 +1444,14 @@ msgstr "El destino no es válido"
 #: ../src/modules/vfs-menu.c:2979
 #, c-format
 msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
-msgstr ""
-"FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
+msgstr "FmMenuVFileMonitor: la carpeta «%s» no se encontró en la caché del menú"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:982
+#: ../src/modules/vfs-search.c:985
 msgid "Search"
 msgstr "Buscar"
 
-#: ../src/modules/vfs-search.c:1049
+#: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
@@ -1668,6 +1689,20 @@ msgstr "Disco óptico en blanco"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
+
+#~ msgid "_Rename Folder"
+#~ msgstr "_Renombrar la carpeta"
+
+#~ msgid "<b>File type to be opened:</b>"
+#~ msgstr "<b>Tipo de archivo a abrir:</b>"
+
+#~ msgid "_Installed Application"
+#~ msgstr "Aplicación _instalada"
+
+#~ msgid "_Set selected application as default action of this file type"
+#~ msgstr ""
+#~ "_Definir aplicación seleccionada como predeterminada para abrir archivos de "
+#~ "este tipo"
 
 #~ msgid "_Browse"
 #~ msgstr "_Examinar"
