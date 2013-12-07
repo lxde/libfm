@@ -141,7 +141,7 @@ PLACES_MENU_XML
 static GtkActionEntry bm_menu_actions[]=
 {
     {"RenameBm", GTK_STOCK_EDIT, N_("_Rename Bookmark Item"), NULL, NULL, G_CALLBACK(on_rename_bm)},
-    {"RemoveBm", GTK_STOCK_REMOVE, N_("Re_move from Bookmark"), NULL, NULL, G_CALLBACK(on_remove_bm)},
+    {"RemoveBm", GTK_STOCK_REMOVE, N_("Re_move from Bookmarks"), NULL, NULL, G_CALLBACK(on_remove_bm)},
     {"MoveBmUp", GTK_STOCK_GO_UP, N_("Move Bookmark _Up"), NULL, NULL, G_CALLBACK(on_move_bm_up)},
     {"MoveBmDown", GTK_STOCK_GO_DOWN, N_("Move Bookmark _Down"), NULL, NULL, G_CALLBACK(on_move_bm_down)}
 };
