@@ -1,13 +1,12 @@
 # Lithuanian translations for libfm package.
 # Julius <zadintuvas@gmail.com>, 2012.
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-11-14 06:33+0200\n"
+"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"PO-Revision-Date: 2013-12-08 08:08+0200\n"
 "Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
 "Language-Team: Lietuvių <>\n"
 "Language: lt\n"
@@ -23,6 +22,12 @@ msgstr ""
 msgid "Preferred Applications"
 msgstr "Pageidaujamos programos"
 
+#: ../data/libfm-pref-apps.desktop.in.h:2
+msgid "Select applications called on click on Web link or e-mail address"
+msgstr ""
+"Pasirinkite programą kuri bus paleista paspaudus ant interneto nuorodos ar "
+"el. pašto adreso"
+
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
 msgstr "Nuorodų redaktorius"
@@ -36,12 +41,12 @@ msgid "Choose Application"
 msgstr "Pasirinkite programą"
 
 #: ../data/ui/app-chooser.glade.h:2
-msgid "<b>File type to be opened:</b>"
-msgstr "<b>Atveriamo failo tipas:</b>"
+msgid "Use selected application to open files"
+msgstr "Failus atverti naudojant pasirinktą programą"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Application"
-msgstr "Įdiegtos _programos"
+msgid "_Installed Applications"
+msgstr "Į_diegtos programos"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
@@ -84,12 +89,16 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>_Programos pavadinimas (nebūtina, reikalingas tik asociacijai)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+msgid "Execute custom command line to open files"
+msgstr "Failų atvėrimui naudoti pasirinktinę komandą"
+
+#: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
 msgstr "_Pasirinktinė komandinė eilutė"
 
-#: ../data/ui/app-chooser.glade.h:16
-msgid "_Set selected application as default action of this file type"
-msgstr "_Pasirinkite programą su kuria bus atveriami šio tipo failai"
+#: ../data/ui/app-chooser.glade.h:17
+msgid "_Set selected application as default action for this file type"
+msgstr "Pasirinkite programą"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm File Replacing"
@@ -99,7 +108,7 @@ msgstr "Patvirtintikite failų pakeitimą"
 msgid "_Skip"
 msgstr "P_raleisti"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr "P_ervadinti"
 
@@ -427,8 +436,8 @@ msgstr "_Didesnis nei:"
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>Paskutinį kartą pakeistas</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
-#: ../src/gtk/fm-gtk-file-launcher.c:624
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
+#: ../src/gtk/fm-gtk-file-launcher.c:620
 msgid "(None)"
 msgstr "(Joks)"
 
@@ -513,22 +522,22 @@ msgstr "<b>Įvyko kelios klaidos:</b>"
 msgid "Invalid desktop entry file: '%s'"
 msgstr "Netinkamas darbastalio įrašo failas: „%s“"
 
-#: ../src/base/fm-file-launcher.c:201
+#: ../src/base/fm-file-launcher.c:240
 #, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "Nėra numatytosios programos URI  „%s://“ paleidimui"
 
-#: ../src/base/fm-file-launcher.c:282
+#: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "Nepavyko pakeisti darbinio aplanko „%s“ į „%s“"
 
-#: ../src/base/fm-file-launcher.c:329
+#: ../src/base/fm-file-launcher.c:355
 #, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "Nepavyko nustatyti „%s“ turinio tipo paleidimui"
 
-#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
+#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "Nėra numatytosios programos MIME tipui „%s“"
@@ -543,7 +552,7 @@ msgstr "Įrenginiai"
 msgid "Network"
 msgstr "Tinklas"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "Šiukšlinė"
 
@@ -551,7 +560,7 @@ msgstr "Šiukšlinė"
 msgid "shortcut to URI"
 msgstr "nuoroda į URI"
 
-#: ../src/base/fm-templates.c:1019
+#: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file: netinkamas argumentas"
 
@@ -692,13 +701,10 @@ msgstr "fm_xml_file_to_data: XML duomenų klaida"
 msgid "Customize"
 msgstr "Derinti"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:161
-msgid "Use selected application to open files"
-msgstr "Failus atverti naudojant pasirinktą programą"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:168
-msgid "Execute custom command line to open files"
-msgstr "Failų atvėrimui naudoti pasirinktinę komandą"
+#: ../src/gtk/fm-app-chooser-dlg.c:266
+#, c-format
+msgid "<b>Select an application to open \"%s\" files</b>"
+msgstr "<b>Pasirinkite programą su kuria bus atveriami „%s“ failai</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -712,7 +718,7 @@ msgstr "<Jokių poaplankių>"
 msgid "Loading..."
 msgstr "Įkeliama..."
 
-#: ../src/gtk/fm-dir-tree-view.c:481
+#: ../src/gtk/fm-dir-tree-view.c:482
 msgid "Shows tree of directories in sidebar"
 msgstr "Šoninėje juostoje rodo aplankų medį"
 
@@ -737,46 +743,62 @@ msgstr "_Kurti nuorodą čia"
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
-#: ../src/gtk/fm-file-menu.c:148
+#: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
 msgstr "At_verti"
 
-#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
 msgstr "Atverti _su..."
 
-#: ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:153
+msgid "Open _With"
+msgstr "Atverti _su"
+
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
+msgstr "Kopijuoti _kelią(-ius)"
+
+#: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
 msgstr "S_lėpti"
 
-#: ../src/gtk/fm-file-menu.c:156
+#: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
 msgstr "Nebe_slėpti"
 
-#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "Į_dėti į žymeles"
 
-#: ../src/gtk/fm-file-menu.c:159
+#: ../src/gtk/fm-file-menu.c:162
+msgid "_Rename..."
+msgstr "Pe_rvadinti..."
+
+#: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
 msgstr "_Archyvuoti..."
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
 msgstr "_Išskleisti čia"
 
-#: ../src/gtk/fm-file-menu.c:161
+#: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
 msgstr "_Išskleisti į..."
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "_Savybės"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 msgid "Move to _Trash"
 msgstr "Perkelti _šiukšlinėn"
+
+#: ../src/gtk/fm-file-menu.c:773
+msgid "Your bookmarks already have a bookmark for this folder."
+msgstr "Jūsų nuorodose jau yra šio aplanko nuoroda."
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -887,8 +909,8 @@ msgid "_Sort Files"
 msgstr "_Rūšiuoti failus"
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
-msgstr "_Pervadinti aplanką"
+msgid "_Rename Folder..."
+msgstr "_Pervadinti aplanką..."
 
 #: ../src/gtk/fm-folder-view.c:197
 msgid "Folder Prop_erties"
@@ -972,11 +994,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "„%s“ yra vykdomasis failas. Ar norite jį įvykdyti?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:648
 msgid "No folders are specified."
 msgstr "Nenurodyta aplankų."
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Pasirinkite aplanką"
 
@@ -992,16 +1014,16 @@ msgstr "Patvirtinti"
 msgid "Question"
 msgstr "Klausimas"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "Šie veiksmai leidžiami tik sistemos administratoriams."
 
-#: ../src/gtk/fm-gtk-utils.c:919
+#: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "Ar norite perkelti failą „%s“ į šiukšlinę?"
 
-#: ../src/gtk/fm-gtk-utils.c:924
+#: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
@@ -1009,12 +1031,12 @@ msgstr[0] "Ar norite perkelti %d pasirinktą failą į šiukšlinę?"
 msgstr[1] "Ar norite perkelti %d pasirinktus failus į šiukšlinę?"
 msgstr[2] "Ar norite perkelti %d pasirinktų failų į šiukšlinę?"
 
-#: ../src/gtk/fm-gtk-utils.c:984
+#: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "Ar norite ištrinti failą „%s“?"
 
-#: ../src/gtk/fm-gtk-utils.c:989
+#: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1022,23 +1044,23 @@ msgstr[0] "Ar norite ištrinti %d pasirinktą failą?"
 msgstr[1] "Ar norite ištrinti %d pasirinktus failus?"
 msgstr[2] "Ar norite ištrinti %d pasirinktų failų?"
 
-#: ../src/gtk/fm-gtk-utils.c:1088
+#: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
 msgstr "Pervadinti failą"
 
-#: ../src/gtk/fm-gtk-utils.c:1089
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-gtk-utils.c:1156
+#: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 
-#: ../src/gtk/fm-path-entry.c:631
+#: ../src/gtk/fm-path-entry.c:639
 msgid "Pa_ste and Go"
 msgstr "Į_klijuoti ir pirmyn"
 
-#: ../src/gtk/fm-path-entry.c:690
+#: ../src/gtk/fm-path-entry.c:698
 msgid "Folder location bar"
 msgstr "Aplanko vietos juosta"
 
@@ -1339,7 +1361,7 @@ msgid "Menu cache error"
 msgstr "Meniu podėlio klaida"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
 msgstr "Operacija nepalaikoma"
 
@@ -1417,11 +1439,11 @@ msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor: aplankas %s nerastas meniu podėlyje"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:982
+#: ../src/modules/vfs-search.c:985
 msgid "Search"
 msgstr "Ieškoti"
 
-#: ../src/modules/vfs-search.c:1049
+#: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
 msgstr "Paieškos rezultatai"
 
@@ -1660,11 +1682,20 @@ msgstr "Tuščias optinis diskas"
 msgid "Optical Disc"
 msgstr "Optinis diskas"
 
-#~ msgid "_Browse"
-#~ msgstr "_Naršyti"
+#~ msgid "_Rename Folder"
+#~ msgstr "_Pervadinti aplanką"
 
-#~ msgid "My Computer"
-#~ msgstr "Mano kompiuteris"
+#~ msgid "<b>File type to be opened:</b>"
+#~ msgstr "<b>Atveriamo failo tipas:</b>"
+
+#~ msgid "_Installed Application"
+#~ msgstr "Įdiegtos _programos"
+
+#~ msgid "_Set selected application as default action of this file type"
+#~ msgstr "_Pasirinkite programą su kuria bus atveriami šio tipo failai"
+
+#~ msgid "Computer"
+#~ msgstr "Kompiuteris"
 
 #~ msgid "_Move"
 #~ msgstr "_Perkelti"
@@ -1686,11 +1717,14 @@ msgstr "Optinis diskas"
 #~ msgid "Entry for folder path"
 #~ msgstr "Aplanko kelio įvestis"
 
-#~ msgid "Computer"
-#~ msgstr "Kompiuteris"
-
 #~ msgid "Network Drives"
 #~ msgstr "Tinklo įrenginys"
+
+#~ msgid "_Browse"
+#~ msgstr "_Naršyti"
+
+#~ msgid "My Computer"
+#~ msgstr "Mano kompiuteris"
 
 #~ msgid "_Run in terminal emulator"
 #~ msgstr "_Vykdyti terminale"
