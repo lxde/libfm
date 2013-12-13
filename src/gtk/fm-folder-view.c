@@ -1682,7 +1682,8 @@ void fm_folder_view_set_active(FmFolderView* fv, gboolean set)
  *
  * If open_folders callback from interface function get_custom_menu_callbacks
  * is %NULL then assume it was old API call so click will be not handled
- * by this function and signal handler will handle it instead.
+ * by this function and signal handler will handle it instead. Otherwise
+ * the user_data for it will be #GtkWindow the menu is attached to.
  *
  * This API is internal for #FmFolderView and should be used only in
  * class implementations.

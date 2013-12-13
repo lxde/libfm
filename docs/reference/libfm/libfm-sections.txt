@@ -409,6 +409,7 @@ fm_file_info_set_from_g_file_data
 fm_file_info_set_from_gfileinfo
 fm_file_info_set_from_menu_cache_item
 fm_file_info_set_from_native_file
+fm_file_info_set_icon
 fm_file_info_set_path
 fm_file_info_unref
 fm_file_info_update

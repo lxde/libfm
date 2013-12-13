@@ -1057,6 +1057,24 @@ void fm_file_info_set_disp_name(FmFileInfo* fi, const char* name)
 }
 
 /**
+ * fm_file_info_set_icon
+ * @fi: a #FmFileInfo
+ * @icon: an icon to update
+ *
+ * Updates the icon used to show the file in the file manager UI.
+ *
+ * Since: 1.2.0
+ */
+void fm_file_info_set_icon(FmFileInfo *fi, GIcon *icon)
+{
+    FmIcon *fm_icon = fm_icon_from_gicon(icon);
+
+    if (fi->icon)
+        g_object_unref(fi->icon);
+    fi->icon = fm_icon;
+}
+
+/**
  * fm_file_info_get_size:
  * @fi:  A FmFileInfo struct
  *
