@@ -524,7 +524,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
             uris = gtk_selection_data_get_uris( sel_data );
             files = fm_path_list_new_from_uris(uris);
             g_free(uris);
-            if(files)
+            if(files && !fm_path_list_is_empty(files))
             {
                 GFileInfo* inf;
                 FmPath* path = fm_path_list_peek_head(files);
