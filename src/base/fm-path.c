@@ -1492,10 +1492,16 @@ FmPathList* fm_path_list_new_from_uris(char* const* uris)
             FmPath* path;
             if(puri[0] == '/')
                 path = fm_path_new_for_path(puri);
-            else if(strstr(puri, "://"))
+            else
+            {
                 path = fm_path_new_for_uri(puri);
-            else /* it's not a valid path or URI */
-                continue;
+                if (path == root_path)
+                {
+                    /* it's not a valid path or URI */
+                    fm_path_unref(path);
+                    continue;
+                }
+            }
             fm_list_push_tail_noref((FmList*)pl, path);
         }
     }
