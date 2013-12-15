@@ -644,18 +644,52 @@ _link_error:
             GFileOutputStream *out = g_file_create(dest, G_FILE_CREATE_NONE,
                                                    fm_job_get_cancellable(fmjob),
                                                    &err);
-            char *name;
+            GFile *src_file;
+            GFileInfo *inf;
+            char *name, *iname = NULL;
             if (out == NULL)
                 goto _link_error;
+            src_file = fm_path_to_gfile(path);
+            inf = g_file_query_info(src_file, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI","
+                                              G_FILE_ATTRIBUTE_STANDARD_ICON,
+                                    G_FILE_QUERY_INFO_NONE,
+                                    fm_job_get_cancellable(fmjob), NULL);
+            g_object_unref(src_file);
+            if (inf)
+            {
+                GIcon *icon = g_file_info_get_icon(inf);
+
+                /* set target icon if available */
+                if (icon)
+                {
+                    iname = g_icon_to_string(icon);
+                    if (iname && strncmp(iname, ". GThemedIcon ", 14) == 0)
+                    {
+                        char *tmp = strchr(&iname[14], ' ');
+                        /* it is a themed icon, guess "right" name from it */
+                        if (tmp)
+                            *tmp = '\0';
+                        tmp = g_strdup(&iname[14]);
+                        g_free(iname);
+                        iname = tmp;
+                    }
+                }
+                /* FIXME: guess the icon if not available */
+                src = g_strdup(g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI));
+                g_object_unref(inf);
+            }
             if (src == NULL)
                 src = fm_path_to_uri(path);
             name = fm_path_display_basename(path);
             dname = g_strdup_printf("[Desktop Entry]\n"
                                     "Type=Link\n"
-                                    "Name=%s\n"
-                                    "URL=%s", name, src);
+                                    "Name=%s"
+                                    "%s%s\n"
+                                    "URL=%s", name,
+                                    iname ? "\nIcon=" : "", iname ? iname : "",
+                                    src);
             g_free(name);
-            /* NOTE: it would be good to set icon too but FmPath has no icons */
+            g_free(iname);
             if (!g_output_stream_write_all(G_OUTPUT_STREAM(out), dname,
                                            strlen(dname), &out_len,
                                            fm_job_get_cancellable(fmjob), &err) ||
