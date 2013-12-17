@@ -2,13 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 22:15+0100\n"
-"PO-Revision-Date: 2013-10-16 05:56+0000\n"
+"POT-Creation-Date: 2013-12-05 01:18+0200\n"
+"PO-Revision-Date: 2013-12-17 14:22+0000\n"
 "Last-Translator: wwycheuk <wwycheuk@gmail.com>\n"
 "Language-Team: zh_TW <zh_TW@li.org>\n"
 "Language: zh_TW\n"
@@ -17,11 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1381902979.0\n"
+"X-POOTLE-MTIME: 1387290142.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "偏好的應用程式"
+
+#: ../data/libfm-pref-apps.desktop.in.h:2
+msgid "Select applications called on click on Web link or e-mail address"
+msgstr ""
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -32,17 +35,15 @@ msgid "Create new or change existing desktop entry"
 msgstr "建立新的或變更現有的桌面項目"
 
 #: ../data/ui/app-chooser.glade.h:1
-#, fuzzy
 msgid "Choose Application"
 msgstr "選擇應用程式"
 
 #: ../data/ui/app-chooser.glade.h:2
-#, fuzzy
-msgid "<b>File type to be opened:</b>"
-msgstr "<b>要開啟的檔案類型：</b>"
+msgid "Use selected application to open files"
+msgstr "以選取的應用程式來開啟檔案"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Application"
+msgid "_Installed Applications"
 msgstr "已安裝應用程式(_I)"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -86,11 +87,16 @@ msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>應用程式名稱(_A) (可有可無，設定來保持關聯)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
+msgid "Execute custom command line to open files"
+msgstr "執行特定的命令列來開啟檔案"
+
+#: ../data/ui/app-chooser.glade.h:16
 msgid "C_ustom Command Line"
 msgstr "自訂指令列(_U)"
 
-#: ../data/ui/app-chooser.glade.h:16
-msgid "_Set selected application as default action of this file type"
+#: ../data/ui/app-chooser.glade.h:17
+#, fuzzy
+msgid "_Set selected application as default action for this file type"
 msgstr "將選取的應用程式設定為這類型檔案的預設處理程式(_S)"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -102,7 +108,7 @@ msgstr "確認取代檔案"
 msgid "_Skip"
 msgstr "略過(_S)"
 
-#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:158
+#: ../data/ui/ask-rename.glade.h:3
 msgid "_Rename"
 msgstr "重新命名(_R)"
 
@@ -125,7 +131,6 @@ msgid "with the following file?"
 msgstr "以下列檔案？"
 
 #: ../data/ui/ask-rename.glade.h:9
-#, fuzzy
 msgid "_File name:"
 msgstr "檔案名稱(_F)："
 
@@ -180,7 +185,6 @@ msgid "<b>Target file:</b>"
 msgstr "<b>目標檔案：</b>"
 
 #: ../data/ui/file-prop.glade.h:6
-#, fuzzy
 msgid "<b>File type:</b>"
 msgstr "<b>檔案類型：</b>"
 
@@ -193,7 +197,6 @@ msgid "Select the application used to open files of this type "
 msgstr "選取用來開啟這類型檔案的應用程式"
 
 #: ../data/ui/file-prop.glade.h:9
-#, fuzzy
 msgid "<b>Total size of files:</b>"
 msgstr "<b>檔案大小總計：</b>"
 
@@ -338,7 +341,6 @@ msgid "GB"
 msgstr "GB"
 
 #: ../data/ui/filesearch.glade.h:5
-#, fuzzy
 msgid "Choose Date"
 msgstr "選擇日期"
 
@@ -439,8 +441,8 @@ msgstr "大於(_B)："
 msgid "<b>Last Modified Time</b>"
 msgstr "<b>最後修改時間</b>"
 
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:617
-#: ../src/gtk/fm-gtk-file-launcher.c:624
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
+#: ../src/gtk/fm-gtk-file-launcher.c:620
 msgid "(None)"
 msgstr "(無)"
 
@@ -524,22 +526,24 @@ msgstr "<b>有錯誤發生：</b>"
 msgid "Invalid desktop entry file: '%s'"
 msgstr "桌面項目檔案：「%s」無效"
 
-#: ../src/base/fm-file-launcher.c:201
+#: ../src/base/fm-file-launcher.c:240
+#, c-format
 #, fuzzy, c-format
 msgid "No default application is set to launch URIs %s://"
 msgstr "未有設定用來開啟 URI %s:// 的應用程式"
 
-#: ../src/base/fm-file-launcher.c:282
+#: ../src/base/fm-file-launcher.c:308
 #, c-format
 msgid "Cannot set working directory to '%s': %s"
 msgstr "不能將工作目錄切換至「%s」：%s"
 
-#: ../src/base/fm-file-launcher.c:329
+#: ../src/base/fm-file-launcher.c:355
+#, c-format
 #, fuzzy, c-format
 msgid "Could not determine content type of file '%s' to launch it"
 msgstr "無法判斷「%s」檔案的內容類型，故無法開啟"
 
-#: ../src/base/fm-file-launcher.c:374 ../src/base/fm-templates.c:1080
+#: ../src/base/fm-file-launcher.c:400 ../src/base/fm-templates.c:1081
 #, c-format
 msgid "No default application is set for MIME type %s"
 msgstr "未有為 MIME 類型 %s 設定預設應用程式"
@@ -554,7 +558,7 @@ msgstr ""
 msgid "Network"
 msgstr "網路"
 
-#: ../src/base/fm-path.c:1239 ../src/gtk/fm-places-model.c:879
+#: ../src/base/fm-path.c:1295 ../src/gtk/fm-places-model.c:879
 msgid "Trash Can"
 msgstr "垃圾桶"
 
@@ -563,7 +567,7 @@ msgstr "垃圾桶"
 msgid "shortcut to URI"
 msgstr "至 URI 的捷徑"
 
-#: ../src/base/fm-templates.c:1019
+#: ../src/base/fm-templates.c:1020
 msgid "fm_template_create_file: invalid argument"
 msgstr "fm_template_create_file：引數無效"
 
@@ -652,9 +656,7 @@ msgstr ""
 msgid ""
 "Entity did not end with a semicolon; most likely you used an ampersand "
 "character without intending to start an entity - escape ampersand as &amp;"
-msgstr ""
-"實體並非以分號結尾；很可能您想使用 & 字符但未將它變為實體 ─ 請將 & 轉換為 "
-"&amp;"
+msgstr "實體並非以分號結尾；很可能您想使用 & 字符但未將它變為實體 ─ 請將 & 轉換為 &amp;"
 
 #: ../src/extra/fm-xml-file.c:594
 msgid "Space isn't allowed in the close tag"
@@ -696,13 +698,10 @@ msgstr "fm_xml_file_to_data：XML 資料出錯"
 msgid "Customize"
 msgstr "自訂"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:161
-msgid "Use selected application to open files"
-msgstr "以選取的應用程式來開啟檔案"
-
-#: ../src/gtk/fm-app-chooser-dlg.c:168
-msgid "Execute custom command line to open files"
-msgstr "執行特定的命令列來開啟檔案"
+#: ../src/gtk/fm-app-chooser-dlg.c:266
+#, c-format
+msgid "<b>Select an application to open \"%s\" files</b>"
+msgstr "<b>選取用來開啟「%s」檔案的應用程式</b>"
 
 #: ../src/gtk/fm-app-menu-view.c:224
 msgid "Installed Applications"
@@ -717,7 +716,7 @@ msgstr "<沒有子資料夾>"
 msgid "Loading..."
 msgstr "載入中..."
 
-#: ../src/gtk/fm-dir-tree-view.c:481
+#: ../src/gtk/fm-dir-tree-view.c:482
 msgid "Shows tree of directories in sidebar"
 msgstr "在側欄顯示目錄樹"
 
@@ -726,66 +725,81 @@ msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: ../src/gtk/fm-dnd-dest.c:412
-#, fuzzy
 msgid "C_opy Here"
-msgstr "複製(_O)"
+msgstr "複製到這裡(_O)"
 
 #: ../src/gtk/fm-dnd-dest.c:413
-#, fuzzy
 msgid "_Move Here"
-msgstr "左移(_M)"
+msgstr "移到這裡(_M)"
 
 #. Note to translators: Link in not noun but verb here
 #: ../src/gtk/fm-dnd-dest.c:415
-#, fuzzy
 msgid "_Link Here"
-msgstr "連結(_L)"
+msgstr "連結到這裡(_L)"
 
 #: ../src/gtk/fm-dnd-dest.c:861
 msgid "XDirectSave failed."
 msgstr "XDirectSave 失敗"
 
-#: ../src/gtk/fm-file-menu.c:148
+#: ../src/gtk/fm-file-menu.c:151
 msgid "_Open"
 msgstr "開啟(_O)"
 
-#: ../src/gtk/fm-file-menu.c:149 ../src/gtk/fm-file-menu.c:150
+#: ../src/gtk/fm-file-menu.c:152
 msgid "Open _With..."
 msgstr "以其他程式開啟(_W)..."
 
-#: ../src/gtk/fm-file-menu.c:155
+#: ../src/gtk/fm-file-menu.c:153
+#, fuzzy
+msgid "Open _With"
+msgstr "以其他程式開啟(_W)..."
+
+#: ../src/gtk/fm-file-menu.c:158
+msgid "Copy Pa_th(s)"
+msgstr "複製路徑(_T)"
+
+#: ../src/gtk/fm-file-menu.c:159
 msgid "H_ide"
 msgstr "隱藏(_I)"
 
-#: ../src/gtk/fm-file-menu.c:156
+#: ../src/gtk/fm-file-menu.c:160
 msgid "Unh_ide"
 msgstr "取消隱藏(_I)"
 
-#: ../src/gtk/fm-file-menu.c:157
+#: ../src/gtk/fm-file-menu.c:161
 msgid "_Add to Bookmarks"
 msgstr "新增到書籤(_A)"
 
-#: ../src/gtk/fm-file-menu.c:159
+#: ../src/gtk/fm-file-menu.c:162
+#, fuzzy
+msgid "_Rename..."
+msgstr "重新命名(_R)..."
+
+#: ../src/gtk/fm-file-menu.c:163
 msgid "Co_mpress..."
 msgstr "壓縮(_M)..."
 
-#: ../src/gtk/fm-file-menu.c:160
+#: ../src/gtk/fm-file-menu.c:164
 msgid "Extract _Here"
 msgstr "解壓縮到此處(_H)"
 
-#: ../src/gtk/fm-file-menu.c:161
+#: ../src/gtk/fm-file-menu.c:165
 msgid "E_xtract To..."
 msgstr "解壓縮到(_X)..."
 
-#: ../src/gtk/fm-file-menu.c:162 ../src/gtk/fm-folder-view.c:198
+#: ../src/gtk/fm-file-menu.c:166 ../src/gtk/fm-folder-view.c:198
 msgid "Prop_erties"
 msgstr "特性(_E)"
 
 #. Note to translators: Trash in not noun but verb here
-#: ../src/gtk/fm-file-menu.c:261 ../src/gtk/fm-file-menu.c:521
+#: ../src/gtk/fm-file-menu.c:265 ../src/gtk/fm-file-menu.c:525
 #, fuzzy
 msgid "Move to _Trash"
-msgstr "右移(_R)"
+msgstr "移至回收筒(_T)"
+
+#: ../src/gtk/fm-file-menu.c:773
+msgid "Your bookmarks already have a bookmark for this folder."
+msgstr "您已有此資料夾的書籤。"
 
 #: ../src/gtk/fm-file-properties.c:364
 msgid "Image files"
@@ -822,9 +836,7 @@ msgstr "此為隱藏檔，因為其名稱以「點號」(.) 開首。"
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
-msgstr ""
-"本系統的檔案若其名稱以「點號」(.) 就表示其為隱藏檔。按 <Ctrl+H> 切換是否顯示"
-"隱藏檔。"
+msgstr "本系統的檔案若其名稱以「點號」(.) 就表示其為隱藏檔。按 <Ctrl+H> 切換是否顯示隱藏檔。"
 
 #: ../src/gtk/fm-file-properties.c:1057
 msgid "<b>_Access content:</b>"
@@ -893,7 +905,8 @@ msgid "_Sort Files"
 msgstr "排序檔案(_S)"
 
 #: ../src/gtk/fm-folder-view.c:196
-msgid "_Rename Folder"
+#, fuzzy
+msgid "_Rename Folder..."
 msgstr "重新命名資料來(_R)"
 
 #: ../src/gtk/fm-folder-view.c:197
@@ -981,11 +994,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "這個檔案 '%s' 是可執行檔，是否想要執行？"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:652
+#: ../src/gtk/fm-gtk-file-launcher.c:648
 msgid "No folders are specified."
 msgstr "未指定資料夾。"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:691 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
 #, fuzzy
 msgid "Select Folder"
 msgstr "選取資料夾"
@@ -1002,53 +1015,52 @@ msgstr "確認"
 msgid "Question"
 msgstr "問題"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:708
 msgid "Only system administrators have the permission to do this."
 msgstr "只有系統管理員有權限進行這項操作。"
 
-#: ../src/gtk/fm-gtk-utils.c:919
+#: ../src/gtk/fm-gtk-utils.c:923
 #, c-format
 msgid "Do you want to move the file '%s' to trash can?"
 msgstr "要將「%s」檔案移到垃圾桶嗎？"
 
-#: ../src/gtk/fm-gtk-utils.c:924
+#: ../src/gtk/fm-gtk-utils.c:928
 #, c-format
 msgid "Do you want to move the %d selected file to trash can?"
 msgid_plural "Do you want to move the %d selected files to trash can?"
 msgstr[0] "要將選取的 %d 個檔案移到垃圾桶嗎？"
 
-#: ../src/gtk/fm-gtk-utils.c:984
+#: ../src/gtk/fm-gtk-utils.c:988
 #, c-format
 msgid "Do you want to delete the file '%s'?"
 msgstr "真的要刪除已選的「%s」檔案？"
 
-#: ../src/gtk/fm-gtk-utils.c:989
+#: ../src/gtk/fm-gtk-utils.c:993
 #, c-format
 msgid "Do you want to delete the %d selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "真的要刪除已選的 %d 個檔案？"
 
-#: ../src/gtk/fm-gtk-utils.c:1088
+#: ../src/gtk/fm-gtk-utils.c:1092
 msgid "Rename File"
 msgstr "重新命名檔案"
 
-#: ../src/gtk/fm-gtk-utils.c:1089
+#: ../src/gtk/fm-gtk-utils.c:1093
 msgid "Please enter a new name:"
 msgstr "請輸入新名稱："
 
-#: ../src/gtk/fm-gtk-utils.c:1156
+#: ../src/gtk/fm-gtk-utils.c:1160
 msgid "Are you sure you want to empty the trash can?"
 msgstr "是否確定要清空垃圾桶？"
 
-#: ../src/gtk/fm-path-entry.c:631
+#: ../src/gtk/fm-path-entry.c:639
 #, fuzzy
 msgid "Pa_ste and Go"
 msgstr "貼上並前往(_S)"
 
-#: ../src/gtk/fm-path-entry.c:690
-#, fuzzy
+#: ../src/gtk/fm-path-entry.c:698
 msgid "Folder location bar"
-msgstr "檔案關聯"
+msgstr "資料夾位置列"
 
 #: ../src/gtk/fm-places-model.c:762 ../src/gtk/fm-places-model.c:976
 msgid "Home Folder"
@@ -1066,7 +1078,7 @@ msgstr "應用程式"
 #: ../src/gtk/fm-places-model.c:812 ../src/gtk/fm-places-model.c:990
 #, fuzzy
 msgid "Filesystem Root"
-msgstr "檔案系統"
+msgstr "檔案系統根目錄"
 
 #: ../src/gtk/fm-places-view.c:124
 msgid "_Mount Volume"
@@ -1356,7 +1368,7 @@ msgid "Menu cache error"
 msgstr "選單快取出錯"
 
 #. ---- GFile implementation ----
-#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:919
+#: ../src/modules/vfs-menu.c:1203 ../src/modules/vfs-search.c:922
 msgid "Operation not supported"
 msgstr "不支援此作業"
 
@@ -1434,12 +1446,11 @@ msgid "FmMenuVFileMonitor: folder '%s' not found in menu cache"
 msgstr "FmMenuVFileMonitor：選單快取中找不到「%s」資料夾"
 
 #. FIXME: need name to be converted to UTF-8?
-#: ../src/modules/vfs-search.c:982
+#: ../src/modules/vfs-search.c:985
 msgid "Search"
 msgstr "搜尋"
 
-#: ../src/modules/vfs-search.c:1049
-#, fuzzy
+#: ../src/modules/vfs-search.c:1052
 msgid "Search Results"
 msgstr "搜尋結果"
 
@@ -1681,6 +1692,19 @@ msgstr "空白光碟"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "光碟"
+
+#~ msgid "_Rename Folder"
+#~ msgstr "重新命名資料來(_R)"
+
+#, fuzzy
+#~ msgid "<b>File type to be opened:</b>"
+#~ msgstr "<b>要開啟的檔案類型：</b>"
+
+#~ msgid "_Installed Application"
+#~ msgstr "已安裝應用程式(_I)"
+
+#~ msgid "_Set selected application as default action of this file type"
+#~ msgstr "將選取的應用程式設定為這類型檔案的預設處理程式(_S)"
 
 #~ msgid "_Browse"
 #~ msgstr "瀏覽(_B)"
