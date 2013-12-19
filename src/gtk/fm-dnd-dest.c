@@ -981,9 +981,10 @@ query_sources:
     }
     else /* we have got drag source files */
     {
+        FmPath *src_path = fm_path_list_peek_head(dd->src_files);
+
         /* dest is an ordinary path, check if drop on it is supported */
-        can_drop = fm_dnd_dest_can_receive_drop(dest, dest_path,
-                                                fm_path_list_peek_head(dd->src_files));
+        can_drop = fm_dnd_dest_can_receive_drop(dest, dest_path, src_path);
         if (can_drop < 0 && fm_config->drop_default_action == FM_DND_DEST_DROP_ASK)
             return GDK_ACTION_ASK; /* we are dropping into the same place */
         else if (can_drop <= 0)
@@ -1006,6 +1007,14 @@ query_sources:
                     /* we can only move files to trash can */
                     action = GDK_ACTION_MOVE;
                 else /* files inside trash are read only */
+                    action = 0;
+            }
+            else if (fm_path_is_trash(src_path))
+            {
+                if ((mask & ~GDK_SHIFT_MASK) == 0) /* no modifiers or shift */
+                    /* bug #3615258: only do move files from trash can */
+                    action = GDK_ACTION_MOVE;
+                else /* we should not do anything else */
                     action = 0;
             }
             /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
