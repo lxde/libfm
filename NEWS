@@ -176,6 +176,9 @@ Changes on 1.2.0 since 1.1.0:
     This "smart link" behavior is applied only if 'drop_default_action'
     option is set to 'auto'.
 
+* Added 'smart_desktop_autodrop' option into config file to enable or not
+    abovementioned "smart link" behavior.
+
 * Implemented creating shortcuts (desktop entries with Type=Link) so it
     is possible now to drop a link from browser to desktop, for example,
     and that link will be opened with default browser when you click on

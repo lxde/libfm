@@ -147,6 +147,7 @@ static void fm_config_init(FmConfig *self)
     self->places_applications = FM_CONFIG_DEFAULT_PLACES_APPLICATIONS;
     self->places_network = FM_CONFIG_DEFAULT_PLACES_NETWORK;
     self->places_unmounted = FM_CONFIG_DEFAULT_PLACES_UNMOUNTED;
+    self->smart_desktop_autodrop = FM_CONFIG_DEFAULT_SMART_DESKTOP_AUTODROP;
 }
 
 /**
@@ -247,6 +248,7 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_bool(kf, "config", "template_type_once", &cfg->template_type_once);
     fm_key_file_get_bool(kf, "config", "defer_content_test", &cfg->defer_content_test);
     fm_key_file_get_bool(kf, "config", "quick_exec", &cfg->quick_exec);
+    fm_key_file_get_bool(kf, "config", "smart_desktop_autodrop", &cfg->smart_desktop_autodrop);
     g_free(cfg->format_cmd);
     cfg->format_cmd = g_key_file_get_string(kf, "config", "format_cmd", NULL);
     /* append blacklist */
@@ -452,6 +454,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
                 _save_config_int(str, cfg, thumbnail_max);
                 _save_config_strv(str, cfg, modules_blacklist);
                 _save_config_strv(str, cfg, modules_whitelist);
+                _save_config_bool(str, cfg, smart_desktop_autodrop);
             g_string_append(str, "\n[ui]\n");
                 _save_config_int(str, cfg, big_icon_size);
                 _save_config_int(str, cfg, small_icon_size);

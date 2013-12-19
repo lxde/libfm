@@ -1038,7 +1038,8 @@ query_sources:
                 else /* fs_id is interned string */
                     same_fs = dd->src_fs_id && (dd->src_fs_id == fm_file_info_get_fs_id(dest));
                 /* prefer to make shortcuts on Desktop instead of copy/move files */
-                if (fm_path_equal(dest_path, fm_path_get_desktop()))
+                if (fm_config->smart_desktop_autodrop &&
+                    fm_path_equal(dest_path, fm_path_get_desktop()))
                 {
                     if (dd->is_ext_mount) /* drop from USB device */
                         action = GDK_ACTION_COPY;

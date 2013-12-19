@@ -66,6 +66,7 @@ typedef struct _FmConfigClass       FmConfigClass;
 #define     FM_CONFIG_DEFAULT_SHADOW_HIDDEN     FALSE
 #define     FM_CONFIG_DEFAULT_DEFER_CONTENT_TEST FALSE
 #define     FM_CONFIG_DEFAULT_QUICK_EXEC        FALSE
+#define     FM_CONFIG_DEFAULT_SMART_DESKTOP_AUTODROP TRUE
 
 #define     FM_CONFIG_DEFAULT_PLACES_HOME       TRUE
 #define     FM_CONFIG_DEFAULT_PLACES_DESKTOP    TRUE
@@ -140,6 +141,7 @@ typedef enum
  * @modules_whitelist: (since 1.2.0) list of excemptions from @modules_blacklist
  * @list_view_size_units: (since 1.2.0) file size units in list view: h, k, M, G
  * @format_cmd: (since 1.2.0) command to format the volume (device will be added)
+ * @smart_desktop_autodrop: (since 1.2.0) enable "smart shortcut" auto-action for ~/Desktop
  */
 struct _FmConfig
 {
@@ -198,6 +200,8 @@ struct _FmConfig
 
     gchar *list_view_size_units;
     gchar *format_cmd;
+
+    gboolean smart_desktop_autodrop;
     /*< private >*/
     gpointer _reserved1; /* reserved space for updates until next ABI */
     gpointer _reserved2;
