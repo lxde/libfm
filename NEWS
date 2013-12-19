@@ -169,8 +169,12 @@ Changes on 1.2.0 since 1.1.0:
     visible in folder view only when 'Show hidden' is on. This will work
     only with libmenu-cache 0.5.0 or newer.
 
-* Default behavior of drag and drop files on desktop is to create a link
-    (symlink or shortcut) from now on.
+* Default behavior of drag and drop files on desktop is changed: if file
+    dropped to desktop is some remote URI (a web link for example) then
+    shortcut will be created; if file is a file on internal filesystem
+    then a symlink will be created; otherwise the file will be copied.
+    This "smart link" behavior is applied only if 'drop_default_action'
+    option is set to 'auto'.
 
 * Implemented creating shortcuts (desktop entries with Type=Link) so it
     is possible now to drop a link from browser to desktop, for example,

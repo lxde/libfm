@@ -117,6 +117,7 @@ struct _FmDndDest
 
     gboolean waiting_data;
     gboolean has_handlers;
+    gboolean is_ext_mount;
 };
 
 enum
@@ -649,6 +650,7 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
     data = (const gchar*)gtk_selection_data_get_data_with_length(sel_data, &length);
     format = gtk_selection_data_get_format(sel_data);
 
+    dd->is_ext_mount = FALSE;
     if(info == FM_DND_DEST_TARGET_FM_LIST)
     {
         if((length == sizeof(gpointer)) && (format==8))
@@ -662,7 +664,18 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
                 if(fi == NULL) ;
                 /* get the device of the first dragged source file */
                 else if(fm_path_is_native(fm_file_info_get_path(fi)))
+                {
+                    GFile* gf = fm_path_to_gfile(fm_file_info_get_path(fi));
+                    GMount *mnt = g_file_find_enclosing_mount(gf, NULL, NULL);
+                    if(mnt)
+                    {
+                        dd->is_ext_mount = g_mount_can_unmount(mnt);
+                                /* TRUE if it's removable media */
+                        g_object_unref(mnt);
+                    }
+                    g_object_unref(gf);
                     dd->src_dev = fm_file_info_get_dev(fi);
+                }
                 else
                     dd->src_fs_id = fm_file_info_get_fs_id(fi);
                 files = fm_path_list_new_from_file_info_list(file_infos);
@@ -684,6 +697,13 @@ gboolean _on_drag_data_received(FmDndDest* dd, GdkDragContext *drag_context,
                 FmPath* path = fm_path_list_peek_head(files);
                 GFile* gf = fm_path_to_gfile(path);
                 const char* attr = fm_path_is_native(path) ? G_FILE_ATTRIBUTE_UNIX_DEVICE : G_FILE_ATTRIBUTE_ID_FILESYSTEM;
+                GMount *mnt = g_file_find_enclosing_mount(gf, NULL, NULL);
+                if(mnt)
+                {
+                    dd->is_ext_mount = g_mount_can_unmount(mnt);
+                            /* TRUE if it's removable media */
+                    g_object_unref(mnt);
+                }
                 inf = g_file_query_info(gf, attr, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
                 g_object_unref(gf);
 
@@ -997,11 +1017,6 @@ query_sources:
                 action = GDK_ACTION_COPY;
             else if(mask != 0) /* another modifier key was pressed */
                 action = 0;
-            /* prefer to make shortcuts on Desktop instead of copy/move files */
-            else if(fm_path_equal(dest_path, fm_path_get_desktop()))
-                /* FIXME: if sources are shortcuts then it's better to
-                   copy them instead but how to detect the fact though? */
-                action = GDK_ACTION_LINK;
             /* make decision based on config: Auto / Copy / Move / Ask */
             else switch((FmDndDestDropAction)fm_config->drop_default_action)
             {
@@ -1022,7 +1037,18 @@ query_sources:
                     same_fs = dd->src_dev && (dd->src_dev == fm_file_info_get_dev(dest));
                 else /* fs_id is interned string */
                     same_fs = dd->src_fs_id && (dd->src_fs_id == fm_file_info_get_fs_id(dest));
-                action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
+                /* prefer to make shortcuts on Desktop instead of copy/move files */
+                if (fm_path_equal(dest_path, fm_path_get_desktop()))
+                {
+                    if (dd->is_ext_mount) /* drop from USB device */
+                        action = GDK_ACTION_COPY;
+                    else if (dd->src_dev) /* native drop: make a symlink */
+                        action = GDK_ACTION_LINK;
+                    else /* some URI drop: make a shortcut */
+                        action = GDK_ACTION_LINK;
+                }
+                else
+                    action = same_fs ? GDK_ACTION_MOVE : GDK_ACTION_COPY;
             }
         }
     }
