@@ -112,7 +112,7 @@ static void test_uri_parsing()
 
     // FIXME: is this ok?
     TEST_PARSING(fm_path_new_for_uri, "http://test/path/to/file?test_arg=xx",
-        "http://test/", "path", "to", "file?test_arg=xx");
+        "http://test/", "path/to/file?test_arg=xx");
 
     // test user name, password, and port
     TEST_PARSING(fm_path_new_for_uri, "ftp://user@host",

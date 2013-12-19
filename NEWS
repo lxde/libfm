@@ -350,6 +350,13 @@ Changes on 1.2.0 since 1.1.0:
 
 * Corrected strings in the application chooser dialog.
 
+* Config file isn't enforced to be rewritten anymore when fm_finalize()
+    is called. The application should control that process instead. This
+    will speed up application termination because when config is changed
+    then the application will save config. Doing it on exit is a plain
+    waste of resources: we rewrite what is already written but spend both
+    CPU and disk I/O on it.
+
 * A whole lot of bugfixes.
 
 
