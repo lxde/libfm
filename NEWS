@@ -178,7 +178,9 @@ Changes on 1.2.0 since 1.1.0:
     'drop_default_action' is set to 'auto'.
 
 * Added 'smart_desktop_autodrop' option into config file to enable or not
-    abovementioned "smart link" behavior.
+    abovementioned "smart link" behavior. Its default is true to protect
+    inexperienced users, the old behavior can be returned by setting this
+    option to false.
 
 * Implemented creating shortcuts (desktop entries with Type=Link) so it
     is possible now to drop a link from browser to desktop, for example,
@@ -284,6 +286,9 @@ Changes on 1.2.0 since 1.1.0:
 * Implemented little popup menu if option 'drop_default_action' is set to
     'ask' - it shows 'Copy', 'Move', 'Link', and 'Cancel' choices when
     some files are dropped onto widget controllable by libfm drag&drop.
+
+* Added support for <Alt> + drop: it will show the abovementioned menu
+    with choices.
 
 * Allowed dropping file into the same directory if 'drop_default_action'
     is set to 'ask' - it shows 'Link' and 'Cancel' choices therefore it

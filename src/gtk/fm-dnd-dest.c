@@ -1007,13 +1007,15 @@ query_sources:
                 else /* we should not do anything else */
                     action = 0;
             }
-            /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link */
+            /* use Shift for Move, Ctrl for Copy, Ctrl+Shift for Link, Alt for Ask */
             else if(mask == (GDK_SHIFT_MASK | GDK_CONTROL_MASK))
                 action = GDK_ACTION_LINK;
             else if(mask == GDK_SHIFT_MASK)
                 action = GDK_ACTION_MOVE;
             else if(mask == GDK_CONTROL_MASK)
                 action = GDK_ACTION_COPY;
+            else if(mask == GDK_MOD1_MASK)
+                action = GDK_ACTION_ASK;
             else if(mask != 0) /* another modifier key was pressed */
                 action = 0;
             /* make decision based on config: Auto / Copy / Move / Ask */

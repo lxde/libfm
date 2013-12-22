@@ -225,7 +225,7 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
         GtkTargetList *targets;
         gtk_drag_source_set(w, GDK_BUTTON1_MASK, fm_default_dnd_src_targets,
                             G_N_ELEMENTS(fm_default_dnd_src_targets),
-                            GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK);
+                            GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_LINK | GDK_ACTION_ASK);
         targets = gtk_drag_source_get_target_list(w);
         gtk_target_list_add_text_targets(targets, FM_DND_SRC_TARGET_TEXT);
         g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&ds->widget);
