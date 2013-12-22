@@ -171,10 +171,11 @@ Changes on 1.2.0 since 1.1.0:
 
 * Default behavior of drag and drop files on desktop is changed: if file
     dropped to desktop is some remote URI (a web link for example) then
-    shortcut will be created; if file is a file on internal filesystem
-    then a symlink will be created; otherwise the file will be copied.
-    This "smart link" behavior is applied only if 'drop_default_action'
-    option is set to 'auto'.
+    shortcut will be created; if file is a file under home directory (so
+    it is most likely some special directory and should be never moved)
+    then a symlink will be created; otherwise the file will be copied or
+    moved as usual. This "smart link" behavior is applied only if option
+    'drop_default_action' is set to 'auto'.
 
 * Added 'smart_desktop_autodrop' option into config file to enable or not
     abovementioned "smart link" behavior.
