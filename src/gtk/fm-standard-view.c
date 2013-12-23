@@ -140,6 +140,15 @@ static void _sv_column_info_free(gpointer info)
     g_slice_free(FmFolderViewColumnInfo, info);
 }
 
+/* override for GtkScrolledWindow bug - it ignores modifiers totally */
+static gboolean on_standard_view_scroll_event(GtkWidget* w, GdkEventScroll* evt)
+{
+    if ((evt->state & gtk_accelerator_get_default_mod_mask()) == 0 &&
+        GTK_WIDGET_CLASS(fm_standard_view_parent_class)->scroll_event)
+        return GTK_WIDGET_CLASS(fm_standard_view_parent_class)->scroll_event(w, evt);
+    return FALSE;
+}
+
 static void fm_standard_view_class_init(FmStandardViewClass *klass)
 {
     GObjectClass *g_object_class;
@@ -148,6 +157,7 @@ static void fm_standard_view_class_init(FmStandardViewClass *klass)
     g_object_class->dispose = fm_standard_view_dispose;
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->focus_in_event = on_standard_view_focus_in;
+    widget_class->scroll_event = on_standard_view_scroll_event;
 
     fm_standard_view_parent_class = (GtkScrolledWindowClass*)g_type_class_peek(GTK_TYPE_SCROLLED_WINDOW);
 }

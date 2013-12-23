@@ -2696,6 +2696,10 @@ exo_icon_view_scroll_event (GtkWidget      *widget,
   if (event->direction != GDK_SCROLL_UP && event->direction != GDK_SCROLL_DOWN)
     return FALSE;
 
+  /* we also don't care for scroll events with Shift/Ctrl/Alt pressed */
+  if ((event->state & gtk_accelerator_get_default_mod_mask()) != 0)
+    return FALSE;
+
   /* determine the horizontal adjustment */
   adjustment = icon_view->priv->hadjustment;
 
