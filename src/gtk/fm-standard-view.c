@@ -441,7 +441,12 @@ static void on_show_full_names_changed(FmConfig* cfg, FmStandardView* fv)
     else /* thumbnail view */
         font_height *= 5;
     g_object_set((GObject*)fv->renderer_text, "max-height", font_height, NULL);
-    /* FIXME: does it require redraw request? */
+    /* we cannot use gtk_widget_queue_resize() since ExoIconView does not
+       recalculate sizes on that, therefore we do a little trick here:
+       we reset all attributes we set before enforcing it to relayout */
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fv->view),
+                                   GTK_CELL_RENDERER(fv->renderer_text),
+                                   "text", FM_FOLDER_MODEL_COL_NAME, NULL);
 }
 
 static void set_drag_dest_list_item(FmStandardView* fv, GtkTreePath* tp)
