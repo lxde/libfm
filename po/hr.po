@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-05 01:18+0200\n"
-"PO-Revision-Date: 2013-12-09 19:54+0000\n"
+"PO-Revision-Date: 2013-12-24 05:38+0000\n"
 "Last-Translator: Ivica <ikoli@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1386618857.0\n"
+"X-POOTLE-MTIME: 1387863534.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -26,6 +26,7 @@ msgstr "Željeni programi"
 #: ../data/libfm-pref-apps.desktop.in.h:2
 msgid "Select applications called on click on Web link or e-mail address"
 msgstr ""
+"Odabrite programe koji će biti pozvani klikom na poveznicu ili e-mail adresu"
 
 #: ../data/lxshortcut.desktop.in.h:1
 msgid "Shortcut Editor"
@@ -85,7 +86,7 @@ msgstr ""
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
-msgstr ""
+msgstr "<b>_Ime programa(neobavezno, postavi da zadrži asocijaciju)</b>"
 
 #: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
@@ -169,7 +170,7 @@ msgstr "Svojstva datoteke"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "Icon of the file in folder view"
-msgstr ""
+msgstr "Ikona datoteke u pogledu mapa"
 
 #: ../data/ui/file-prop.glade.h:3
 msgid "<b>_Name:</b>"
@@ -349,7 +350,7 @@ msgstr "Traži datoteke"
 
 #: ../data/ui/filesearch.glade.h:8
 msgid "<b>File _Name Patterns:</b>"
-msgstr ""
+msgstr "<b>Uzorci_datotečnih imena:</b>"
 
 #: ../data/ui/filesearch.glade.h:9
 msgid "*"
