@@ -435,8 +435,7 @@ static GdkDragAction _ask_action_on_drop(GtkWidget *widget,
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
     if (link_only)
     {
-        act = gtk_ui_manager_get_action(ui, "/popup/Copy");
-        gtk_action_set_visible(act, FALSE);
+        /* we cannot move file but can link or copy */
         act = gtk_ui_manager_get_action(ui, "/popup/Move");
         gtk_action_set_visible(act, FALSE);
     }
