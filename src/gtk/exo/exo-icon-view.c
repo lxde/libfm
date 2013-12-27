@@ -8588,8 +8588,7 @@ exo_icon_view_search_ensure_directory (ExoIconView *icon_view)
   icon_view->priv->search_window = gtk_window_new (GTK_WINDOW_POPUP);
   if ((group = gtk_window_get_group (GTK_WINDOW (toplevel))) != NULL)
     gtk_window_group_add_window (group, GTK_WINDOW (icon_view->priv->search_window));
-  /* bug #3588702 - setting search window modal makes inconveniences
-  gtk_window_set_modal (GTK_WINDOW (icon_view->priv->search_window), TRUE); */
+  gtk_window_set_modal (GTK_WINDOW (icon_view->priv->search_window), TRUE);
   gtk_window_set_screen (GTK_WINDOW (icon_view->priv->search_window), gtk_widget_get_screen (GTK_WIDGET (icon_view)));
 
   /* connect signal handlers */
