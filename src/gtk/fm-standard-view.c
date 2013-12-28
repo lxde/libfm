@@ -281,6 +281,9 @@ static void on_row_deleted(GtkTreeModel *tree_model, GtkTreePath  *path,
 {
     if(fv->mode == FM_FV_LIST_VIEW)
         _reset_columns_widths(GTK_TREE_VIEW(fv->view));
+    /* reset tooltip - it may stick if mouse-over item was deleted,
+       see how FmCellRendererText works on that regard */
+    g_object_set(G_OBJECT(fv->view), "tooltip-text", NULL, NULL);
 }
 
 static void on_row_inserted(GtkTreeModel *tree_model, GtkTreePath *path,
