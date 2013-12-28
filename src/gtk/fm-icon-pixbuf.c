@@ -87,7 +87,7 @@ GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
 GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char *fallback)
 {
     GtkIconInfo* ii;
-    GdkPixbuf* pix;
+    GdkPixbuf* pix = NULL;
     GSList *pixs, *l;
     PixEntry* ent;
 
@@ -113,11 +113,10 @@ GdkPixbuf* fm_pixbuf_from_icon_with_fallback(FmIcon* icon, int size, const char 
         if(pix)
             g_object_ref(pix);
     }
-    else
+    if (pix == NULL)
     {
         char* str = g_icon_to_string(G_ICON(icon));
         g_debug("unable to load icon %s", str);
-        pix = NULL;
         if(fallback)
             pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), fallback,
                     size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);

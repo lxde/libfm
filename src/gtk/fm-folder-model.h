@@ -44,8 +44,8 @@ G_BEGIN_DECLS
 
 /**
  * FmFolderModelCol:
- * @FM_FOLDER_MODEL_COL_GICON: (#GIcon *) icon image
- * @FM_FOLDER_MODEL_COL_ICON: (#FmIcon *) icon descriptor
+ * @FM_FOLDER_MODEL_COL_GICON: (#GIcon *) icon descriptor
+ * @FM_FOLDER_MODEL_COL_ICON: (#GdkPixbuf *) icon image
  * @FM_FOLDER_MODEL_COL_NAME: (#gchar *) file display name
  * @FM_FOLDER_MODEL_COL_SIZE: (#gchar *) file size text
  * @FM_FOLDER_MODEL_COL_DESC: (#gchar *) file MIME description
