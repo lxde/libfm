@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 01:18+0200\n"
-"PO-Revision-Date: 2013-12-04 23:25+0000\n"
-"Last-Translator: Andriy <andrej@rep.kiev.ua>\n"
+"POT-Creation-Date: 2013-12-29 22:51+0200\n"
+"PO-Revision-Date: 2013-12-29 23:07+0200\n"
+"Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.0\n"
 "X-POOTLE-MTIME: 1386199555.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
 msgid "Preferred Applications"
 msgstr "Улюблені програми"
 
@@ -31,47 +31,18 @@ msgstr ""
 "адресу"
 
 #: ../data/lxshortcut.desktop.in.h:1
-msgid "Shortcut Editor"
-msgstr "Редактор ярликів"
-
-#: ../data/lxshortcut.desktop.in.h:2
 msgid "Create new or change existing desktop entry"
 msgstr "Створення або редагування ярлику програми"
 
+#: ../data/lxshortcut.desktop.in.h:2
+msgid "Shortcut Editor"
+msgstr "Редактор ярликів"
+
 #: ../data/ui/app-chooser.glade.h:1
-msgid "Choose Application"
-msgstr "Вибрати програму"
-
-#: ../data/ui/app-chooser.glade.h:2
-msgid "Use selected application to open files"
-msgstr "Використати вибрану програму для відкриття файлів цього типу"
-
-#: ../data/ui/app-chooser.glade.h:3
-msgid "_Installed Applications"
-msgstr "_Встановлені програми"
-
-#: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>_Командна стрічка для виконання:</b>"
 
-#: ../data/ui/app-chooser.glade.h:5
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
-msgid "_Browse..."
-msgstr "Ви_брати..."
-
-#. row 1: "Terminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:6
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
-msgid "_Execute in terminal emulator"
-msgstr "Виконати в _емуляторі терміналу"
-
-#. row 2: "X-KeepTerminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:7
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
-msgid "_Keep terminal window open after command execution"
-msgstr "_Залишити вікно терміналу після завершення виконання"
-
-#: ../data/ui/app-chooser.glade.h:9
+#: ../data/ui/app-chooser.glade.h:3
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -86,39 +57,52 @@ msgstr ""
 "  <b>%u</b>: означає URI файлу\n"
 "  <b>%U</b>: означає багато URI"
 
-#: ../data/ui/app-chooser.glade.h:14
+#: ../data/ui/app-chooser.glade.h:8
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>_Назва програми (для збереження асоціації з файлами цього типу)</b>"
 
-#: ../data/ui/app-chooser.glade.h:15
+#: ../data/ui/app-chooser.glade.h:9
+msgid "C_ustom Command Line"
+msgstr "_Інша командна стрічка"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Choose Application"
+msgstr "Вибрати програму"
+
+#: ../data/ui/app-chooser.glade.h:11
 msgid "Execute custom command line to open files"
 msgstr "Виконати власну команду для відкриття файлів"
 
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Use selected application to open files"
+msgstr "Використати вибрану програму для відкриття файлів цього типу"
+
+#: ../data/ui/app-chooser.glade.h:13
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
+msgid "_Browse..."
+msgstr "Ви_брати..."
+
+#. row 1: "Terminal" GtkCheckButton
+#: ../data/ui/app-chooser.glade.h:14
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
+msgid "_Execute in terminal emulator"
+msgstr "Виконати в _емуляторі терміналу"
+
+#: ../data/ui/app-chooser.glade.h:15
+msgid "_Installed Applications"
+msgstr "_Встановлені програми"
+
+#. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:16
-msgid "C_ustom Command Line"
-msgstr "_Інша командна стрічка"
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
+msgid "_Keep terminal window open after command execution"
+msgstr "_Залишити вікно терміналу після завершення виконання"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr "Встановити вибрану програму _як типову дію для файлів цього типу"
 
 #: ../data/ui/ask-rename.glade.h:1
-msgid "Confirm File Replacing"
-msgstr "Підтвердити заміщення файлів"
-
-#: ../data/ui/ask-rename.glade.h:2
-msgid "_Skip"
-msgstr "Пр_опустити"
-
-#: ../data/ui/ask-rename.glade.h:3
-msgid "_Rename"
-msgstr "Пере_йменувати"
-
-#: ../data/ui/ask-rename.glade.h:4
-msgid "_Overwrite"
-msgstr "_Перезаписати"
-
-#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -128,35 +112,51 @@ msgstr ""
 "\n"
 "Ви бажаєте замінити існуючий файл"
 
-#: ../data/ui/ask-rename.glade.h:8
-msgid "with the following file?"
-msgstr "наступним файлом?"
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Confirm File Replacing"
+msgstr "Підтвердити заміщення файлів"
 
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_File name:"
-msgstr "_Назва файлу:"
-
-#: ../data/ui/ask-rename.glade.h:10
+#: ../data/ui/ask-rename.glade.h:5
 msgid "_Apply this option to all existing files"
 msgstr "_Застосувати цю опцію до всіх існуючих файлів"
 
+#: ../data/ui/ask-rename.glade.h:6
+msgid "_File name:"
+msgstr "_Назва файлу:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Перезаписати"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "Пере_йменувати"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "Пр_опустити"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "наступним файлом?"
+
 #: ../data/ui/choose-icon.ui.h:1
+msgid "<b>Choose icon from:</b>"
+msgstr "<b>Вибрати значок з:</b>"
+
+#: ../data/ui/choose-icon.ui.h:2
 msgid "Choose An Icon..."
 msgstr "Виберіть піктограму..."
 
 #. genitive case is here: Choose icon from: ...
-#: ../data/ui/choose-icon.ui.h:3
-msgid "system icon theme"
-msgstr "системної теми значків"
-
-#. genitive case is here: Choose icon from: ...
-#: ../data/ui/choose-icon.ui.h:5
+#: ../data/ui/choose-icon.ui.h:4
 msgid "image files"
 msgstr "файлів зображень"
 
+#. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-msgid "<b>Choose icon from:</b>"
-msgstr "<b>Вибрати значок з:</b>"
+msgid "system icon theme"
+msgstr "системної теми значків"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -167,309 +167,325 @@ msgid "Execute in _Terminal"
 msgstr "Виконати в _емуляторі терміналу"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "File Properties"
-msgstr "Властивості файлу"
-
-#: ../data/ui/file-prop.glade.h:2
-msgid "Icon of the file in folder view"
-msgstr "Значок файлу, що буде показаний у теці"
-
-#: ../data/ui/file-prop.glade.h:3
-msgid "<b>_Name:</b>"
-msgstr "<b>_Назва:</b>"
-
-#: ../data/ui/file-prop.glade.h:4
-msgid "<b>Location:</b>"
-msgstr "<b>Місцезнаходження:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>Target file:</b>"
-msgstr "<b>Посилається на:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>File type:</b>"
-msgstr "<b>Тип файлу:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Open _with:</b>"
-msgstr "<b>_Відкривати з:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "Select the application used to open files of this type "
-msgstr "Виберіть програму для відкриття файлів цього типу "
-
-#: ../data/ui/file-prop.glade.h:9
-msgid "<b>Total size of files:</b>"
-msgstr "<b>Загальний розмір файлів:</b>"
-
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>Size on disk:</b>"
-msgstr "<b>Розмір на диску:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Last modification:</b>"
-msgstr "<b>Останнє оновлення:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Last access:</b>"
-msgstr "<b>Останній доступ:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-msgid "<b>Last permissions change:</b>"
-msgstr "<b>Остання зміна дозволів:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
-msgid "_General"
-msgstr "_Загальне"
-
-#: ../data/ui/file-prop.glade.h:15
-msgid "<b>O_wner:</b>"
-msgstr "<b>_Власник:</b>"
-
-#: ../data/ui/file-prop.glade.h:16
-msgid "<b>G_roup:</b>"
-msgstr "<b>Гру_па:</b>"
-
-#: ../data/ui/file-prop.glade.h:17
-msgid "<b>_View content:</b>"
-msgstr "<b>Дивитис_я вміст:</b>"
-
-#: ../data/ui/file-prop.glade.h:18
-msgid "<b>C_hange content:</b>"
-msgstr "<b>З_мінювати вміст:</b>"
-
-#: ../data/ui/file-prop.glade.h:19
-msgid "<b>_Execute:</b>"
-msgstr "<b>В_иконувати:</b>"
-
-# "Опції" для співпадіння з підказками до цього.
-#: ../data/ui/file-prop.glade.h:20
-msgid "<b>Special bits:</b>"
-msgstr "<b>Особливі опції:</b>"
-
-#: ../data/ui/file-prop.glade.h:21
-msgid "Who can read content of the file/directory"
-msgstr "Хто може читати вміст файлу чи теки"
-
-#: ../data/ui/file-prop.glade.h:22
-msgid "Who can change content of the file/directory"
-msgstr "Хто може змінювати вміст файлу чи теки"
-
-#: ../data/ui/file-prop.glade.h:23
-msgid "Who can execute the file or enter the directory"
-msgstr "Хто може виконувати файл чи заходити до теки"
-
-#: ../data/ui/file-prop.glade.h:24
-msgid "Special flags for file execution"
-msgstr "Особливі опції виконання файлу"
-
-#: ../data/ui/file-prop.glade.h:25
-msgid "Special flags for directory access"
-msgstr "Особливі опції доступу до теки"
-
-#: ../data/ui/file-prop.glade.h:26
-msgid "<b>Access Control</b>"
-msgstr "<b>Контроль доступу</b>"
-
-#: ../data/ui/file-prop.glade.h:27
-msgid "Hidden file"
-msgstr "Схований файл"
-
-#: ../data/ui/file-prop.glade.h:28
-msgid "_Permissions"
-msgstr "_Дозволи"
-
-#: ../data/ui/file-prop.glade.h:29
 msgid "---"
 msgstr "---"
 
-#: ../data/ui/file-prop.glade.h:30
-msgid "None"
-msgstr "Немає"
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Контроль доступу</b>"
 
-#: ../data/ui/file-prop.glade.h:31
-msgid "Sticky"
-msgstr "\"Липкий\""
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>C_hange content:</b>"
+msgstr "<b>З_мінювати вміст:</b>"
 
-#: ../data/ui/file-prop.glade.h:32
-msgid "Set GID"
-msgstr "Встановити GID"
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>File type:</b>"
+msgstr "<b>Тип файлу:</b>"
 
-#: ../data/ui/file-prop.glade.h:33
-msgid "Sticky & set GID"
-msgstr "Приліпити та встановити GID"
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>G_roup:</b>"
+msgstr "<b>Гру_па:</b>"
 
-#: ../data/ui/file-prop.glade.h:34
-msgid "Set UID"
-msgstr "Встановити UID"
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last access:</b>"
+msgstr "<b>Останній доступ:</b>"
 
-#: ../data/ui/file-prop.glade.h:35
-msgid "Set UID & GID"
-msgstr "Встановити UID та GID"
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Last modification:</b>"
+msgstr "<b>Останнє оновлення:</b>"
 
-#: ../data/ui/file-prop.glade.h:36
-msgid "Only owner"
-msgstr "Лише власник"
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Last permissions change:</b>"
+msgstr "<b>Остання зміна дозволів:</b>"
 
-#: ../data/ui/file-prop.glade.h:37
-msgid "Only owner and group"
-msgstr "Лише власник та група"
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Location:</b>"
+msgstr "<b>Місцезнаходження:</b>"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>O_wner:</b>"
+msgstr "<b>_Власник:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Open _with:</b>"
+msgstr "<b>_Відкривати з:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Size on disk:</b>"
+msgstr "<b>Розмір на диску:</b>"
+
+# "Опції" для співпадіння з підказками до цього.
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Special bits:</b>"
+msgstr "<b>Особливі опції:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>Target file:</b>"
+msgstr "<b>Посилається на:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>Total size of files:</b>"
+msgstr "<b>Загальний розмір файлів:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>_Execute:</b>"
+msgstr "<b>В_иконувати:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>_Name:</b>"
+msgstr "<b>_Назва:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "<b>_View content:</b>"
+msgstr "<b>Дивитис_я вміст:</b>"
+
+#: ../data/ui/file-prop.glade.h:19
 msgid "Anyone"
 msgstr "Будь-хто"
 
-#: ../data/ui/file-prop.glade.h:39
+#: ../data/ui/file-prop.glade.h:20
+msgid "File Properties"
+msgstr "Властивості файлу"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Hidden file"
+msgstr "Схований файл"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Icon of the file in folder view"
+msgstr "Значок файлу, що буде показаний у теці"
+
+#: ../data/ui/file-prop.glade.h:23
+msgctxt "It is a directory access bit - "
+msgid "Sticky"
+msgstr "Стійкий біт"
+
+#: ../data/ui/file-prop.glade.h:24
 msgid "Nobody"
 msgstr "Ніхто"
 
-#: ../data/ui/filesearch.glade.h:1
-msgid "Bytes"
-msgstr "Байт"
+#: ../data/ui/file-prop.glade.h:25
+msgid "None"
+msgstr "Немає"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "KB"
-msgstr "КБ"
+#: ../data/ui/file-prop.glade.h:26
+msgid "Only owner and group"
+msgstr "Лише власник та група"
 
-#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
-msgid "MB"
-msgstr "МБ"
+#: ../data/ui/file-prop.glade.h:27
+msgid "Select the application used to open files of this type "
+msgstr "Виберіть програму для відкриття файлів цього типу "
 
-#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
-msgid "GB"
-msgstr "ГБ"
+#: ../data/ui/file-prop.glade.h:28
+msgid "Set GID"
+msgstr "Встановити GID"
 
-#: ../data/ui/filesearch.glade.h:5
-msgid "Choose Date"
-msgstr "Виберіть дату"
+#: ../data/ui/file-prop.glade.h:29
+msgid "Set UID & GID"
+msgstr "Встановити UID та GID"
 
-#: ../data/ui/filesearch.glade.h:6
-msgid "Choose a date from the following calendar"
-msgstr "Виберіть дату у наступному календарі"
+#: ../data/ui/file-prop.glade.h:30
+msgid "Special flags for directory access"
+msgstr "Особливі опції доступу до теки"
 
-#: ../data/ui/filesearch.glade.h:7
-msgid "Search Files"
-msgstr "Пошук файлів"
+#: ../data/ui/file-prop.glade.h:31
+msgid "Special flags for file execution"
+msgstr "Особливі опції виконання файлу"
 
-#: ../data/ui/filesearch.glade.h:8
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>Шаблон _назви файлу:</b>"
+#: ../data/ui/file-prop.glade.h:32
+msgid "Sticky & set GID"
+msgstr "Стійкий та встановити GID"
 
-#: ../data/ui/filesearch.glade.h:9
-msgid "*"
-msgstr "*"
+#: ../data/ui/file-prop.glade.h:33
+msgid "Who can change content of the file/directory"
+msgstr "Хто може змінювати вміст файлу чи теки"
 
-#: ../data/ui/filesearch.glade.h:10
-msgid "Case insensiti_ve"
-msgstr "_Ігнорувати регістр"
+#: ../data/ui/file-prop.glade.h:34
+msgid "Who can execute the file or enter the directory"
+msgstr "Хто може виконувати файл чи заходити до теки"
 
-#: ../data/ui/filesearch.glade.h:11
-msgid "_Use regular expression"
-msgstr "Ви_користовувати регулярний вираз"
+#: ../data/ui/file-prop.glade.h:35
+msgid "Who can read content of the file/directory"
+msgstr "Хто може читати вміст файлу чи теки"
 
-#: ../data/ui/filesearch.glade.h:12
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>Де шукати:</b>"
+#: ../data/ui/file-prop.glade.h:36
+msgid "_General"
+msgstr "_Загальне"
 
-#: ../data/ui/filesearch.glade.h:13
-msgid "_Search in sub directories"
-msgstr "Шукати у _підтеках"
+#: ../data/ui/file-prop.glade.h:37
+msgid "_Permissions"
+msgstr "_Дозволи"
 
-#: ../data/ui/filesearch.glade.h:14
-msgid "Search _hidden files"
-msgstr "Шукати с_ховані файли"
+#: ../data/ui/file-prop.glade.h:38
+msgctxt ""
+"this is a file access mode - only owner can access the file, for others "
+"access is denied"
+msgid "Only owner"
+msgstr "Лише власник"
 
-#: ../data/ui/filesearch.glade.h:15
-msgid "Name/_Location"
-msgstr "_Шлях пошуку"
+#: ../data/ui/file-prop.glade.h:39
+msgctxt "this is a file access mode bit, also known as "
+msgid "Set UID"
+msgstr "Встановити UID"
 
-#: ../data/ui/filesearch.glade.h:16
-msgid "<b>File Type</b>"
-msgstr "<b>Тип файлу</b>"
-
-#: ../data/ui/filesearch.glade.h:17
-msgid "Only search for files of following types:"
-msgstr "Шукати лише файли наступних типів:"
-
-#: ../data/ui/filesearch.glade.h:18
-msgid "Te_xt files"
-msgstr "Т_екстові файли"
-
-#: ../data/ui/filesearch.glade.h:19
-msgid "_Image files"
-msgstr "Файли зобра_жень"
-
-#: ../data/ui/filesearch.glade.h:20
-msgid "_Audio files"
-msgstr "_Звукові файли"
-
-#: ../data/ui/filesearch.glade.h:21
-msgid "_Video files"
-msgstr "Віде_о файли"
-
-#: ../data/ui/filesearch.glade.h:22
-msgid "_Documents"
-msgstr "_Документи"
-
-#: ../data/ui/filesearch.glade.h:23
-msgid "File _Type"
-msgstr "_Тип файлу"
-
-#: ../data/ui/filesearch.glade.h:24
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>_Файл містить:</b>"
-
-#: ../data/ui/filesearch.glade.h:25
-msgid "C_ontent"
-msgstr "_Вміст"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "<b>File Size</b>"
-msgstr "<b>Розмір файлу</b>"
-
-#: ../data/ui/filesearch.glade.h:27
-msgid "_Smaller than:"
-msgstr "_Менші ніж:"
-
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Bigger than:"
-msgstr "_Більші ніж:"
-
-#: ../data/ui/filesearch.glade.h:29
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Час останньої зміни</b>"
-
-#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:613
+#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:613
 #: ../src/gtk/fm-gtk-file-launcher.c:620
 msgid "(None)"
 msgstr "(Немає)"
 
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Earlier than:"
-msgstr "Д_авніші ніж:"
+#: ../data/ui/filesearch.glade.h:2
+msgid "*"
+msgstr "*"
 
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:3
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>_Файл містить:</b>"
+
+#: ../data/ui/filesearch.glade.h:4
+msgid "<b>File Size</b>"
+msgstr "<b>Розмір файлу</b>"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "<b>File Type</b>"
+msgstr "<b>Тип файлу</b>"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>Шаблон _назви файлу:</b>"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Час останньої зміни</b>"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>Де шукати:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "Bytes"
+msgstr "Байт"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "C_ontent"
+msgstr "_Вміст"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "Case insensiti_ve"
+msgstr "_Ігнорувати регістр"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "Choose Date"
+msgstr "Виберіть дату"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "Choose a date from the following calendar"
+msgstr "Виберіть дату у наступному календарі"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "File _Type"
+msgstr "_Тип файлу"
+
+#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
+msgid "GB"
+msgstr "ГБ"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "KB"
+msgstr "КБ"
+
+#: ../data/ui/filesearch.glade.h:17
 msgid "L_ater than:"
 msgstr "_Новіші ніж:"
 
-#: ../data/ui/filesearch.glade.h:33
+#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:142
+msgid "MB"
+msgstr "МБ"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "Name/_Location"
+msgstr "_Шлях пошуку"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "Only search for files of following types:"
+msgstr "Шукати лише файли наступних типів:"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "Search Files"
+msgstr "Пошук файлів"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "Search _hidden files"
+msgstr "Шукати с_ховані файли"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "Te_xt files"
+msgstr "Т_екстові файли"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "_Audio files"
+msgstr "_Звукові файли"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "_Bigger than:"
+msgstr "_Більші ніж:"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "_Documents"
+msgstr "_Документи"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Earlier than:"
+msgstr "Д_авніші ніж:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Image files"
+msgstr "Файли зобра_жень"
+
+#: ../data/ui/filesearch.glade.h:29
 msgid "_Properties"
 msgstr "В_ластивості"
 
-#: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Web Browser</b>"
-msgstr "<b>Веб-переглядач</b>"
+#: ../data/ui/filesearch.glade.h:30
+msgid "_Search in sub directories"
+msgstr "Шукати у _підтеках"
 
-#: ../data/ui/preferred-apps.glade.h:3
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
-"Улюблений веб-переглядач, що буде використаний для відкриття гіперпосилань."
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Smaller than:"
+msgstr "_Менші ніж:"
 
-#: ../data/ui/preferred-apps.glade.h:4
+#: ../data/ui/filesearch.glade.h:32
+msgid "_Use regular expression"
+msgstr "Ви_користовувати регулярний вираз"
+
+#: ../data/ui/filesearch.glade.h:33
+msgid "_Video files"
+msgstr "Віде_о файли"
+
+#: ../data/ui/preferred-apps.glade.h:1
 msgid "<b>Mail Client</b>"
 msgstr "<b>Поштовий клієнт</b>"
 
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Емулятор терміналу</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Веб-переглядач</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Командна стрічка:"
+
 #: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Асоціації файлів"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "Системні програми"
+
+#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -477,48 +493,28 @@ msgstr ""
 "Улюблений поштовий клієнт, що буде використаний для створення електронного "
 "листа при клацанні на e-mail адрес."
 
-#: ../data/ui/preferred-apps.glade.h:6
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Емулятор терміналу</b>"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "Command line:"
-msgstr "Командна стрічка:"
-
-#: ../data/ui/preferred-apps.glade.h:8
-msgid "System Applications"
-msgstr "Системні програми"
-
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "File Associations"
-msgstr "Асоціації файлів"
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+"Улюблений веб-переглядач, що буде використаний для відкриття гіперпосилань."
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:1
+msgid "<b>Errors occurred:</b>"
+msgstr "<b>Сталися такі помилки:</b>"
+
 #: ../data/ui/progress.glade.h:2
-msgid "Preparing..."
-msgstr "Підготовлюю..."
-
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Processing:</b>"
-msgstr "<b>Обробляю:</b>"
-
-#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:6
-msgid "<b>To:</b>"
-msgstr "<b>До:</b>"
-
-#: ../data/ui/progress.glade.h:7
-msgid "<b>Progress:</b>"
-msgstr "<b>Поступ:</b>"
-
-#: ../data/ui/progress.glade.h:8
 msgid "<b>Time remaining:</b>"
 msgstr "<b>Залишилось часу:</b>"
 
-#: ../data/ui/progress.glade.h:9
-msgid "<b>Some errors occurred:</b>"
-msgstr "<b>Сталися такі помилки:</b>"
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:4
+msgid "<b>To:</b>"
+msgstr "<b>До:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:6
+msgid "Preparing..."
+msgstr "Підготовлюю..."
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -724,24 +720,24 @@ msgstr "Завантажую..."
 msgid "Shows tree of directories in sidebar"
 msgstr "Показує дерево тек у боковій панелі"
 
-#: ../src/gtk/fm-dnd-dest.c:411
+#: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
 msgstr "_Відмінити"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
 msgstr "_Копіювати сюди"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
 msgstr "_Перемістити сюди"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:415
+#: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
 msgstr "_Створити посилання"
 
-#: ../src/gtk/fm-dnd-dest.c:861
+#: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -1056,11 +1052,11 @@ msgstr "Вкажіть нову назву:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
 
-#: ../src/gtk/fm-path-entry.c:639
+#: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
 msgstr "В_ставити та активувати"
 
-#: ../src/gtk/fm-path-entry.c:698
+#: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
 msgstr "Панель шляху теки"
 
@@ -1102,8 +1098,8 @@ msgid "_Rename Bookmark Item"
 msgstr "_Перейменувати елемент закладки"
 
 #: ../src/gtk/fm-places-view.c:144
-msgid "Re_move from Bookmark"
-msgstr "_Видалити з закладки"
+msgid "Re_move from Bookmarks"
+msgstr "_Видалити з закладок"
 
 #: ../src/gtk/fm-places-view.c:145
 msgid "Move Bookmark _Up"
@@ -1119,7 +1115,8 @@ msgstr "_Очистити смітник"
 
 #: ../src/gtk/fm-places-view.c:526
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
-msgstr "Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
+msgstr ""
+"Показує перелік загальних місць, пристроїв та закладок у боковій панелі"
 
 #: ../src/gtk/fm-places-view.c:1091
 msgid "Rename Bookmark Item"
@@ -1129,11 +1126,11 @@ msgstr "Перейменувати елемент закладки"
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-progress-dlg.c:123
+#: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1144,7 +1141,7 @@ msgstr ""
 "Розмір: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1153,23 +1150,23 @@ msgstr ""
 "Тип: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
-msgid "The file operation is cancelled and there are some errors."
-msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
+#: ../src/gtk/fm-progress-dlg.c:326
+msgid "<b>Errors occured before file operation was stopped.</b>"
+msgstr "<b>Доки операцію не було припинено, сталися помилки.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:318
-msgid "The file operation is finished, but there are some errors."
-msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
+#: ../src/gtk/fm-progress-dlg.c:332
+msgid "<b>The file operation was completed with errors.</b>"
+msgstr "<b>Операцію завершено, але сталися помилки.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1179,41 +1176,74 @@ msgstr ""
 "підтримує цю операцію.\n"
 "Ви бажаєте замість цього видалити їх?"
 
-#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
 msgstr "_Призупинити"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
 msgstr "_Продовжити"
 
-#: ../src/gtk/fm-progress-dlg.c:544
+#: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving Files"
-msgstr "Переміщення файлів"
+#. translators: it is part of "Moving files:" or "Moving xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:579
+msgid "Moving"
+msgstr "Переміщення"
 
-#: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying Files"
-msgstr "Копіювання файлів"
+#. translators: it is part of "Copying files:" or "Copying xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:583
+msgid "Copying"
+msgstr "Копіювання"
 
-#: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing Files"
-msgstr "Переміщення файлів в смітник"
+#. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:587
+msgid "Trashing"
+msgstr "Переміщення у смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting Files"
-msgstr "Видалення файлів"
+#. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:591
+msgid "Deleting"
+msgstr "Видалення"
 
-#: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating Symlinks"
-msgstr "Створення символьних посилань"
+#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:595
+msgid "Symlinking"
+msgstr "Створення посилання до"
 
-#: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing File Attributes"
+#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:602
+msgid "Changing attributes of"
 msgstr "Зміна атрибутів"
+
+#. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:606
+msgid "Restoring"
+msgstr "Відновлення"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:613
+#, c-format
+msgid "%s files"
+msgstr "%s файлів"
+
+#: ../src/gtk/fm-progress-dlg.c:615
+msgid "<b>File operation is in progress...</b>"
+msgstr "<b>Виконання файлової операції...</b>"
+
+#. note to translators: resulting string is such as "Deleting file"
+#: ../src/gtk/fm-progress-dlg.c:619
+#, c-format
+msgid "<b>%s file:</b>"
+msgstr "<b>%s файлу:</b>"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:622
+#, c-format
+msgid "<b>%s files:</b>"
+msgstr "<b>%s файлів:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1239,45 +1269,45 @@ msgstr "Місця"
 msgid "Directory Tree"
 msgstr "Дерево тек"
 
-#: ../src/gtk/fm-standard-view.c:244
+#: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
 msgstr "Показує вміст теки"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
 msgstr "_Сховати %s"
 
-#: ../src/gtk/fm-standard-view.c:821
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
 msgstr "Пересунути _ліворуч"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
 msgstr "_Пересунути праворуч"
 
-#: ../src/gtk/fm-standard-view.c:850
+#: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
 msgstr "Показати %s"
 
-#: ../src/gtk/fm-standard-view.c:862
+#: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
 msgstr "_Не пам'ятати ширину"
 
-#: ../src/gtk/fm-standard-view.c:1803
+#: ../src/gtk/fm-standard-view.c:1821
 msgid "_Icon View"
 msgstr "_Вигляд значками"
 
-#: ../src/gtk/fm-standard-view.c:1804
+#: ../src/gtk/fm-standard-view.c:1822
 msgid "_Compact View"
 msgstr "_Компактний вигляд"
 
-#: ../src/gtk/fm-standard-view.c:1805
+#: ../src/gtk/fm-standard-view.c:1823
 msgid "_Thumbnail View"
 msgstr "Вигляд мініа_тюрами"
 
-#: ../src/gtk/fm-standard-view.c:1806
+#: ../src/gtk/fm-standard-view.c:1824
 msgid "Detailed _List View"
 msgstr "Детальний вигляд _списком"
 
@@ -1681,6 +1711,19 @@ msgstr "Чистий оптичний диск"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Оптичний диск"
+
+#~ msgid "<b>Processing:</b>"
+#~ msgstr "<b>Обробляю:</b>"
+
+#~ msgid "<b>Progress:</b>"
+#~ msgstr "<b>Поступ:</b>"
+
+#~ msgid "The file operation is finished, but there are some errors."
+#~ msgstr ""
+#~ "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
+
+#~ msgid "Creating Symlinks"
+#~ msgstr "Створення символьних посилань"
 
 #~ msgid "_Rename Folder"
 #~ msgstr "_Перейменувати теку"
