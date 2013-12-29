@@ -60,14 +60,18 @@ struct _FmProgressDisplay
     GtkLabel* current;
     GtkProgressBar* progress;
     GtkLabel* remaining_time;
+    GtkLabel *remaining_time_label;
     GtkWidget* error_pane;
     GtkTextView* error_msg;
     GtkTextBuffer* error_buf;
     GtkTextTag* bold_tag;
     GtkButton *suspend;
+    GtkButton *cancel;
 
     FmFileOpOption default_opt;
 
+    GString *str;
+    const char *op_text;
     char* cur_file;
     char* old_cur_file;
     guint percent;
@@ -299,23 +303,33 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
         /* errors happened */
         if(data->has_error)
         {
-            gtk_label_set_text(data->current, "");
-            gtk_label_set_text(data->remaining_time, "00:00:00");
-            gtk_dialog_set_response_sensitive(data->dlg, GTK_RESPONSE_CANCEL, FALSE);
+            gtk_widget_destroy(GTK_WIDGET(data->current));
+            data->current = NULL;
+            if (data->remaining_time_label)
+            {
+                gtk_widget_destroy(GTK_WIDGET(data->remaining_time_label));
+                gtk_widget_destroy(GTK_WIDGET(data->remaining_time));
+                data->remaining_time = NULL;
+            }
+            else
+                gtk_label_set_text(data->remaining_time, "00:00:00");
+            gtk_widget_hide(GTK_WIDGET(data->suspend));
+            gtk_widget_hide(GTK_WIDGET(data->cancel));
             gtk_dialog_add_button(data->dlg, GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
 
             gtk_image_set_from_stock(data->icon, GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
 
+            gtk_widget_show(GTK_WIDGET(data->icon));
             gtk_widget_show(GTK_WIDGET(data->msg));
             if(fm_job_is_cancelled(FM_JOB(job)))
             {
-                gtk_label_set_text(data->msg, _("The file operation is cancelled and there are some errors."));
+                gtk_label_set_markup(data->msg, _("<b>Errors occured before file operation was stopped.</b>"));
                 gtk_window_set_title(GTK_WINDOW(data->dlg),
                                      _("Cancelled"));
             }
             else
             {
-                gtk_label_set_text(data->msg, _("The file operation is finished, but there are some errors."));
+                gtk_label_set_markup(data->msg, _("<b>The file operation was completed with errors.</b>"));
                 gtk_window_set_title(GTK_WINDOW(data->dlg),
                                      _("Finished"));
             }
@@ -402,7 +416,6 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 static gboolean on_update_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    char percent_text[64];
     gdouble elapsed;
 
     if (g_source_is_destroyed(g_main_current_source()) || data->dlg == NULL)
@@ -410,16 +423,17 @@ static gboolean on_update_dlg(gpointer user_data)
     data->update_timeout = 0;
     /* the g_strdup very probably returns the same pointer that was g_free'd
        so we cannot just compare data->old_cur_file with data->cur_file */
-    if(data->cur_file)
+    if(data->cur_file && data->current)
     {
-        gtk_label_set_text(data->current, data->cur_file);
+        g_string_printf(data->str, "<i>%s %s</i>", data->op_text, data->cur_file);
+        gtk_label_set_markup(data->current, data->str->str);
         g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
         data->cur_file = NULL;
     }
-    g_snprintf(percent_text, 64, "%d %%", data->percent);
+    g_string_printf(data->str, "%d %%", data->percent);
     gtk_progress_bar_set_fraction(data->progress, (gdouble)data->percent/100);
-    gtk_progress_bar_set_text(data->progress, percent_text);
+    gtk_progress_bar_set_text(data->progress, data->str->str);
 
     elapsed = g_timer_elapsed(data->timer, NULL);
     if(elapsed >= 0.5 && data->percent > 0)
@@ -509,6 +523,8 @@ static gboolean _on_show_dlg(gpointer user_data)
     data->error_pane = (GtkWidget*)gtk_builder_get_object(builder, "error_pane");
     data->error_msg = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "error_msg"));
     data->remaining_time = GTK_LABEL(gtk_builder_get_object(builder, "remaining_time"));
+    data->remaining_time_label = GTK_LABEL(gtk_builder_get_object(builder, "remaining_time_label"));
+    data->cancel = GTK_BUTTON(gtk_builder_get_object(builder, "cancel"));
     data->suspend = GTK_BUTTON(gtk_dialog_add_button(data->dlg, _("_Pause"), 1));
     gtk_button_set_use_stock(data->suspend, FALSE);
     gtk_button_set_use_underline(data->suspend, TRUE);
@@ -522,6 +538,8 @@ static gboolean _on_show_dlg(gpointer user_data)
     data->error_buf = gtk_text_buffer_new(tag_table);
     g_object_unref(tag_table);
     gtk_text_view_set_buffer(data->error_msg, data->error_buf);
+
+    gtk_widget_hide(GTK_WIDGET(data->icon));
 
     g_object_unref(builder);
 
@@ -557,32 +575,52 @@ static gboolean _on_show_dlg(gpointer user_data)
     switch(data->job->type)
     {
     case FM_FILE_OP_MOVE:
-        title = _("Moving Files");
+        /* translators: it is part of "Moving files:" or "Moving xxx.txt" */
+        title = _("Moving");
         break;
     case FM_FILE_OP_COPY:
-        title = _("Copying Files");
+        /* translators: it is part of "Copying files:" or "Copying xxx.txt" */
+        title = _("Copying");
         break;
     case FM_FILE_OP_TRASH:
-        title = _("Trashing Files");
+        /* translators: it is part of "Trashing files:" or "Trashing xxx.txt" */
+        title = _("Trashing");
         break;
     case FM_FILE_OP_DELETE:
-        title = _("Deleting Files");
+        /* translators: it is part of "Deleting files:" or "Deleting xxx.txt" */
+        title = _("Deleting");
         break;
     case FM_FILE_OP_LINK:
-        title = _("Creating Symlinks");
+        /* translators: it is part of "Symlinking files:" or "Symlinking xxx.txt" */
+        title = _("Symlinking");
+        /* NOTE: it creates shortcuts if source is non-native but
+           in most of cases such operation will not create progress
+           dialog window therefore the "Symlinking" is still OK */
         break;
     case FM_FILE_OP_CHANGE_ATTR:
-        title = _("Changing File Attributes");
+        /* translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt" */
+        title = _("Changing attributes of");
         break;
     case FM_FILE_OP_UNTRASH:
+        /* translators: it is part of "Restoring files:" or "Restoring xxx.txt" */
+        title = _("Restoring");
         break;
     case FM_FILE_OP_NONE: ;
     }
-    if(title)
-    {
-        gtk_window_set_title(GTK_WINDOW(data->dlg), title);
-        gtk_label_set_text(data->act, title);
-    }
+    data->op_text = title;
+    data->str = g_string_sized_new(64);
+    /* note to translators: resulting string is such as "Deleting files" */
+    g_string_printf(data->str, _("%s files"), title);
+    gtk_window_set_title(GTK_WINDOW(data->dlg), data->str->str);
+    gtk_label_set_markup(data->msg, _("<b>File operation is in progress...</b>"));
+    gtk_widget_show(GTK_WIDGET(data->msg));
+    if (fm_path_list_get_length(data->job->srcs) == 1)
+        /* note to translators: resulting string is such as "Deleting file" */
+        g_string_printf(data->str, _("<b>%s file:</b>"), title);
+    else
+        /* note to translators: resulting string is such as "Deleting files" */
+        g_string_printf(data->str, _("<b>%s files:</b>"), title);
+    gtk_label_set_markup(data->act, data->str->str);
 
     dest = fm_file_ops_job_get_dest(data->job);
     if(dest)
@@ -716,6 +754,9 @@ static void fm_progress_display_destroy(FmProgressDisplay* data)
         g_object_unref(data->bold_tag);
         gtk_widget_destroy(GTK_WIDGET(data->dlg));
     }
+
+    if (data->str)
+        g_string_free(data->str, TRUE);
 
     g_slice_free(FmProgressDisplay, data);
 }

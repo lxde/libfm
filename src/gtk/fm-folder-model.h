@@ -122,6 +122,17 @@ struct _FmFolderModelClass
     gpointer _reserved2;
 };
 
+/**
+ * FmFolderModelFilterFunc:
+ * @file: the file to check filtering
+ * @user_data: data supplied to fm_folder_model_add_filter()
+ *
+ * A callback used by #FmFolderModel to filter visible items in the model.
+ *
+ * Returns: %TRUE if @file should be visible.
+ *
+ * Since: 1.0.2
+ */
 typedef gboolean (*FmFolderModelFilterFunc)(FmFileInfo* file, gpointer user_data);
 
 GType fm_folder_model_get_type (void);
