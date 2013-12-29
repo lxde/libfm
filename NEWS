@@ -363,6 +363,9 @@ Changes on 1.2.0 since 1.1.0:
     waste of resources: we rewrite what is already written but spend both
     CPU and disk I/O on it.
 
+* Press <Tab> in FmPathEntry in case if completion ended in single match
+    will append a slash to the completed directory name.
+
 * A whole lot of bugfixes.
 
 
