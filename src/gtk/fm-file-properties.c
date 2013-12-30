@@ -1118,6 +1118,16 @@ static void update_permissions(FmFilePropData* data)
     data->flags_set_sel = sel;
 }
 
+static gboolean on_icon_enter_notify(GtkWidget *widget, GdkEvent *event,
+                                     FmFilePropData *data)
+{
+    GdkWindow *window = gtk_widget_get_window(data->icon_eventbox);
+
+    if (window && gdk_window_get_cursor(window) == NULL)
+        gdk_window_set_cursor(window, gdk_cursor_new(GDK_HAND1));
+    return FALSE;
+}
+
 static void update_ui(FmFilePropData* data)
 {
     GtkImage* img = data->icon;
@@ -1138,6 +1148,9 @@ static void update_ui(FmFilePropData* data)
             {
                 /* enable icon change if file allows that */
                 gtk_widget_set_can_focus(data->icon_eventbox, TRUE);
+                /* the dialog isn't released yet so set cursor in callback */
+                g_signal_connect(data->icon_eventbox, "enter-notify-event",
+                                 G_CALLBACK(on_icon_enter_notify), data);
             }
         }
 
