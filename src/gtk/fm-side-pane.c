@@ -630,7 +630,7 @@ gboolean fm_side_pane_set_home_dir(FmSidePane *sp, const char *home_dir)
     if (sp->view == NULL)
         return FALSE;
     klass = G_OBJECT_GET_CLASS(sp->view);
-    spec = g_object_class_find_property(klass, "show-hidden");
+    spec = g_object_class_find_property(klass, "home-dir-path");
     if (spec == NULL || spec->value_type != G_TYPE_STRING)
         return FALSE; /* isn't supported by view */
     g_object_set(sp->view, "home-dir-path", home_dir, NULL);
