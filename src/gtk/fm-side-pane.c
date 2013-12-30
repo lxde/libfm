@@ -609,3 +609,30 @@ gboolean fm_side_pane_set_show_hidden(FmSidePane *sp, gboolean show_hidden)
     g_object_set(sp->view, "show-hidden", show_hidden, NULL);
     return TRUE;
 }
+
+/**
+ * fm_side_pane_set_home_dir
+ * @sp: a widget to apply
+ * @home_dir: a new path to set
+ *
+ * Changes path used by side pane view for "Home" items if view mode has
+ * any such items.
+ *
+ * Returns: %TRUE if current side pane mode accepts this change.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_side_pane_set_home_dir(FmSidePane *sp, const char *home_dir)
+{
+    GObjectClass *klass;
+    GParamSpec *spec;
+
+    if (sp->view == NULL)
+        return FALSE;
+    klass = G_OBJECT_GET_CLASS(sp->view);
+    spec = g_object_class_find_property(klass, "show-hidden");
+    if (spec == NULL || spec->value_type != G_TYPE_STRING)
+        return FALSE; /* isn't supported by view */
+    g_object_set(sp->view, "home-dir-path", home_dir, NULL);
+    return TRUE;
+}

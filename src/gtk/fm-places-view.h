@@ -52,6 +52,7 @@ struct _FmPlacesView
     FmDndDest* FM_SEAL(dnd_dest);
     GtkTreePath* FM_SEAL(clicked_row);
     GtkCellRendererPixbuf* FM_SEAL(mount_indicator_renderer);
+    char* FM_SEAL(home_dir);
     gpointer _reserved1;
     gpointer _reserved2;
 };

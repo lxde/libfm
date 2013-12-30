@@ -41,6 +41,7 @@
 #include <glib/gi18n-lib.h>
 #include "fm-places-view.h"
 #include "fm-config.h"
+#include "fm-utils.h"
 #include "fm-gtk-utils.h"
 #include "fm-bookmarks.h"
 #include "fm-file-menu.h"
@@ -52,6 +53,12 @@
 
 #include <gdk/gdkkeysyms.h>
 #include "gtk-compat.h"
+
+enum
+{
+    PROP_0,
+    PROP_HOME_DIR
+};
 
 enum
 {
@@ -557,7 +564,11 @@ static void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_pat
         {
         case FM_PLACES_ITEM_PATH:
         case FM_PLACES_ITEM_MOUNT:
-            path = fm_path_ref(fm_places_item_get_path(item));
+            path = fm_places_item_get_path(item);
+            if (path == fm_path_get_home() && view->home_dir)
+                path = fm_path_new_for_str(view->home_dir);
+            else
+                fm_path_ref(path);
             break;
         case FM_PLACES_ITEM_VOLUME:
         {
@@ -1167,6 +1178,51 @@ static void on_set_scroll_adjustments(GtkTreeView* view, GtkAdjustment* hadj, Gt
 }
 #endif
 
+static void fm_places_view_set_property(GObject *object,
+                                        guint prop_id,
+                                        const GValue *value,
+                                        GParamSpec *pspec)
+{
+    FmPlacesView *view = FM_PLACES_VIEW(object);
+    const char *home_dir;
+
+    switch( prop_id )
+    {
+    case PROP_HOME_DIR:
+        home_dir = g_value_get_string(value);
+        if (home_dir && !*home_dir)
+            home_dir = NULL;
+        if (strcmp(home_dir, fm_get_home_dir()) == 0)
+            home_dir = NULL;
+        g_free(view->home_dir);
+        view->home_dir = g_strdup(home_dir);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
+
+static void fm_places_view_get_property(GObject *object,
+                                        guint prop_id,
+                                        GValue *value,
+                                        GParamSpec *pspec)
+{
+    FmPlacesView *view = FM_PLACES_VIEW(object);
+
+    switch( prop_id ) {
+    case PROP_HOME_DIR:
+        if (view->home_dir)
+            g_value_set_string(value, view->home_dir);
+        else
+            g_value_set_string(value, fm_get_home_dir());
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
+
 static void fm_places_view_class_init(FmPlacesViewClass *klass)
 {
     GObjectClass *g_object_class;
@@ -1190,6 +1246,26 @@ static void fm_places_view_class_init(FmPlacesViewClass *klass)
 #if !GTK_CHECK_VERSION(3, 0, 0)
     tv_class->set_scroll_adjustments = on_set_scroll_adjustments;
 #endif
+
+    g_object_class->get_property = fm_places_view_get_property;
+    g_object_class->set_property = fm_places_view_set_property;
+
+    /**
+     * FmPlacesView:home-dir-path:
+     *
+     * The #FmPlacesView:home-dir-path property defines which path will
+     * be used on Home item activation. Value of %NULL resets it to the
+     * default.
+     *
+     * Since: 1.2.0
+     */
+    g_object_class_install_property(g_object_class,
+                                    PROP_HOME_DIR,
+                                    g_param_spec_string("home-dir-path",
+                                                        "Home item directory",
+                                                        "What directory path will be used for Home item",
+                                                        fm_get_home_dir(),
+                                                        G_PARAM_READWRITE));
 
     /**
      * FmPlacesView::chdir:

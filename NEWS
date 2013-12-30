@@ -366,6 +366,9 @@ Changes on 1.2.0 since 1.1.0:
 * Press <Tab> in FmPathEntry in case if completion ended in single match
     will append a slash to the completed directory name.
 
+* New API fm_side_pane_set_home_dir() for change the directory path which
+    will be used on activating 'Home' item in side pane.
+
 * A whole lot of bugfixes.
 
 
