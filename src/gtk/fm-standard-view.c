@@ -1785,24 +1785,32 @@ static GSList* _fm_standard_view_get_columns(FmFolderView* fv)
     return list;
 }
 
-static void _fm_standard_view_scroll_to(FmFolderView* fv, GtkTreePath *path)
+static void _fm_standard_view_scroll_to(FmFolderView* fv, FmPath *path)
 {
     FmStandardView *view;
+    GtkTreeIter it;
+    GtkTreePath *tp;
 
     if (!FM_IS_STANDARD_VIEW(fv))
         return;
     view = (FmStandardView*)fv;
+    fm_folder_model_find_iter_by_filename(view->model, &it,
+                                          fm_path_get_basename(path));
+    tp = gtk_tree_model_get_path(GTK_TREE_MODEL(view->model), &it);
+    if (tp == NULL) /* invalid child */
+        return;
     switch(view->mode)
     {
     case FM_FV_LIST_VIEW:
-        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view->view), path, NULL, TRUE, 0.5, 0.0);
+        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view->view), tp, NULL, TRUE, 0.5, 0.0);
         break;
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
     case FM_FV_THUMBNAIL_VIEW:
-        exo_icon_view_scroll_to_path(EXO_ICON_VIEW(view->view), path, TRUE, 0.5, 0.5);
+        exo_icon_view_scroll_to_path(EXO_ICON_VIEW(view->view), tp, TRUE, 0.5, 0.5);
         break;
     }
+    gtk_tree_path_free(tp);
 }
 
 static void fm_standard_view_view_init(FmFolderViewInterface* iface)

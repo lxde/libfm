@@ -1940,7 +1940,7 @@ void _fm_folder_view_finalize(void)
  *
  * Since: 1.2.0
  */
-void fm_folder_view_scroll_to_path(FmFolderView* fv, GtkTreePath *path)
+void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path)
 {
     FmFolderViewInterface* iface;
 

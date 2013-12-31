@@ -156,11 +156,11 @@ struct _FmFolderViewInterface
     gboolean (*set_columns)(FmFolderView* fv, const GSList* cols);
     GSList* (*get_columns)(FmFolderView* fv);
 
-    void (*scroll_to)(FmFolderView* fv, GtkTreePath *path);
-
     /* for implementation internal usage */
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,
                                       FmLaunchFolderFunc*);
+
+    void (*scroll_to)(FmFolderView* fv, FmPath *path);
     /*< private >*/
     gpointer _reserved3;
     gpointer _reserved4;
@@ -194,7 +194,7 @@ void            fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path);
 void            fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
 void            fm_folder_view_unselect_all(FmFolderView* fv);
 
-void            fm_folder_view_scroll_to_path(FmFolderView* fv, GtkTreePath *path);
+void            fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path);
 
 /* generate a popup menu for the window */
 GtkMenu*        fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
