@@ -1148,7 +1148,7 @@ static void update_ui(FmFilePropData* data)
             {
                 /* enable icon change if file allows that */
                 gtk_widget_set_can_focus(data->icon_eventbox, TRUE);
-                /* the dialog isn't released yet so set cursor in callback */
+                /* the dialog isn't realized yet so set cursor in callback */
                 g_signal_connect(data->icon_eventbox, "enter-notify-event",
                                  G_CALLBACK(on_icon_enter_notify), data);
             }

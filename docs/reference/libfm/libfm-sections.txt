@@ -694,6 +694,7 @@ fm_folder_view_get_sort_by
 fm_folder_view_get_sort_type
 fm_folder_view_item_clicked
 fm_folder_view_new
+fm_folder_view_scroll_to_path
 fm_folder_view_sel_changed
 fm_folder_view_select_all
 fm_folder_view_select_custom

@@ -1929,3 +1929,25 @@ void _fm_folder_view_finalize(void)
     }
     g_list_free(list);
 }
+
+/**
+ * fm_folder_view_scroll_to_path
+ * @fv: the folder view widget to query
+ * @path: the item to scroll
+ *
+ * Scrolls the view to get item defined by @path close to center of
+ * view window.
+ *
+ * Since: 1.2.0
+ */
+void fm_folder_view_scroll_to_path(FmFolderView* fv, GtkTreePath *path)
+{
+    FmFolderViewInterface* iface;
+
+    g_return_if_fail(FM_IS_FOLDER_VIEW(fv) && path != NULL);
+
+    iface = FM_FOLDER_VIEW_GET_IFACE(fv);
+
+    if (iface->scroll_to)
+        iface->scroll_to(fv, path);
+}
