@@ -1934,13 +1934,15 @@ void _fm_folder_view_finalize(void)
  * fm_folder_view_scroll_to_path
  * @fv: the folder view widget to query
  * @path: the item to scroll
+ * @select: %TRUE to set cursor and select the item
  *
- * Scrolls the view to get item defined by @path close to center of
- * view window.
+ * Scrolls the view to get item defined by @path closely to center of the
+ * view window. If @select is %TRUE then @path also will be selected and
+ * keyboard focus will be set to it.
  *
  * Since: 1.2.0
  */
-void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path)
+void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean select)
 {
     FmFolderViewInterface* iface;
 
@@ -1948,6 +1950,6 @@ void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path)
 
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
 
-    if (iface->scroll_to)
-        iface->scroll_to(fv, path);
+    if (iface->scroll_to_path)
+        iface->scroll_to_path(fv, path, select);
 }

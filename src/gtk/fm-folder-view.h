@@ -108,7 +108,7 @@ typedef void (*FmFolderViewUpdatePopup)(FmFolderView* fv, GtkWindow* window,
  * @select_file_path: VTable func, see fm_folder_view_select_file_path()
  * @set_columns: (since 1.2.0) VTable func, see fm_folder_view_set_columns()
  * @get_columns: (since 1.2.0) VTable func, see fm_folder_view_get_columns()
- * @scroll_to: (since 1.2.0) VTable func, see fm_folder_view_scroll_to_path()
+ * @scroll_to_path: (since 1.2.0) VTable func, see fm_folder_view_scroll_to_path()
  * @get_custom_menu_callbacks: function to retrieve callbacks for popup menu setup
  */
 struct _FmFolderViewInterface
@@ -160,7 +160,7 @@ struct _FmFolderViewInterface
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,
                                       FmLaunchFolderFunc*);
 
-    void (*scroll_to)(FmFolderView* fv, FmPath *path);
+    void (*scroll_to_path)(FmFolderView* fv, FmPath *path, gboolean cursor);
     /*< private >*/
     gpointer _reserved3;
     gpointer _reserved4;
@@ -194,7 +194,7 @@ void            fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path);
 void            fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
 void            fm_folder_view_unselect_all(FmFolderView* fv);
 
-void            fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path);
+void            fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean select);
 
 /* generate a popup menu for the window */
 GtkMenu*        fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,
