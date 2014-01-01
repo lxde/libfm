@@ -43,6 +43,7 @@
  * - GtkLabel (id target)       : label: "Target", id target_label
  * - GtkLabel (id type)         : label: "File type"
  * - GtkComboBox (id open_with) : label: "Open with", id open_with_label
+ * - GtkLabel (id total_files)   : (hidden) label: "Total files count", id total_files_label
  * - GtkLabel (id total_size)   : label: "Total Size of Files", id total_size_label
  * - GtkLabel (id size_on_disk) : label: "Size on Disk", id size_on_disk_label
  * - GtkLabel (id mtime)        : label: "Last Modification", id mtime_label
@@ -166,6 +167,8 @@ struct _FmFilePropData
     GtkLabel* type;
     GtkWidget* open_with_label;
     GtkComboBox* open_with;
+    GtkLabel* total_files;
+    GtkWidget* total_files_label;
     GtkLabel* total_size;
     GtkLabel* size_on_disk;
     GtkLabel* mtime;
@@ -500,6 +503,13 @@ static gboolean _on_timeout(gpointer user_data)
                                        (gulong)dc->total_ondisk_size));
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
+
+        if (data->total_files)
+        {
+            str = g_strdup_printf(_("scanning... %d"), dc->count);
+            gtk_label_set_text(data->total_files, str);
+            g_free(str);
+        }
     }
     return TRUE;
 }
@@ -519,6 +529,12 @@ static void on_finished(FmDeepCountJob* job, FmFilePropData* data)
     {
         g_source_remove(data->timeout);
         data->timeout = 0;
+    }
+    if (data->total_files)
+    {
+        char *tt = g_strdup_printf("%d", job->count);
+        gtk_label_set_text(data->total_files, tt);
+        g_free(tt);
     }
     GDK_THREADS_LEAVE();
     g_object_unref(data->dc_job);
@@ -1002,6 +1018,20 @@ static void update_permissions(FmFilePropData* data)
             gtk_entry_set_text(data->group, fm_file_info_get_disp_group(fi));
     }
 
+    if (data->has_dir && data->total_files)
+    {
+        gtk_widget_show(data->total_files_label);
+        gtk_widget_show(GTK_WIDGET(data->total_files));
+        gtk_label_set_text(data->total_files, _("scanning..."));
+    }
+    else if (data->total_files)
+    {
+        gtk_widget_destroy(data->total_files_label);
+        gtk_widget_destroy(GTK_WIDGET(data->total_files));
+        gtk_table_set_row_spacing(data->general_table, 6, 0);
+        data->total_files = NULL;
+    }
+
     data->orig_owner = g_strdup(gtk_entry_get_text(data->owner));
     data->orig_group = g_strdup(gtk_entry_get_text(data->group));
 
@@ -1215,6 +1245,7 @@ static void update_ui(FmFilePropData* data)
 
         gtk_widget_destroy(data->open_with_label);
         gtk_widget_destroy(GTK_WIDGET(data->open_with));
+        gtk_table_set_row_spacing(data->general_table, 5, 0);
         data->open_with = NULL;
         data->open_with_label = NULL;
     }
@@ -1336,6 +1367,7 @@ static void init_application_list(FmFilePropData* data)
         {
             gtk_widget_destroy(data->open_with_label);
             gtk_widget_destroy(GTK_WIDGET(data->open_with));
+            gtk_table_set_row_spacing(data->general_table, 5, 0);
             data->open_with = NULL;
             data->open_with_label = NULL;
         }
@@ -1403,6 +1435,8 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     GET_WIDGET(GTK_LABEL,type);
     GET_WIDGET(GTK_WIDGET,open_with_label);
     GET_WIDGET(GTK_COMBO_BOX,open_with);
+    GET_WIDGET(GTK_LABEL,total_files);
+    GET_WIDGET(GTK_WIDGET,total_files_label);
     GET_WIDGET(GTK_LABEL,total_size);
     GET_WIDGET(GTK_LABEL,size_on_disk);
     GET_WIDGET(GTK_LABEL,mtime);
