@@ -178,6 +178,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Location:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">dir</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -211,6 +212,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Target file:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">target</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -245,6 +247,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;File type:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">type</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -293,7 +296,7 @@
                     <child>
                       <object class="GtkComboBox" id="open_with">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Select the application used to open files of this type </property>
                       </object>
                       <packing>
@@ -312,6 +315,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Total count of files:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">total_files</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -323,7 +327,7 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="total_files">
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                         <property name="selectable">True</property>
                       </object>
@@ -343,6 +347,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Total size of files:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">total_size</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -376,6 +381,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Size on disk:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">size_on_disk</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -388,7 +394,7 @@
                     <child>
                       <object class="GtkLabel" id="size_on_disk">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
@@ -408,6 +414,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Last modification:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">mtime</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -420,7 +427,7 @@
                     <child>
                       <object class="GtkLabel" id="mtime">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
@@ -440,6 +447,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Last access:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">atime</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -452,7 +460,7 @@
                     <child>
                       <object class="GtkLabel" id="atime">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
@@ -470,6 +478,7 @@
                         <property name="label" translatable="yes">&lt;b&gt;Last permissions change:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">ctime</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -481,7 +490,7 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="ctime">
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>

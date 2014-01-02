@@ -100,6 +100,8 @@
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">src</property>
                   </object>
                   <packing>
                     <property name="x_options">GTK_FILL</property>
@@ -109,7 +111,7 @@
                 <child>
                   <object class="GtkLabel" id="src">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="xalign">0</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -126,6 +128,8 @@
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes" comments="To: &lt;Destination folder&gt; ex. Copy file to..., Move file to...etc.">&lt;b&gt;To:&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">dest</property>
                   </object>
                   <packing>
                     <property name="top_attach">1</property>
@@ -137,7 +141,7 @@
                 <child>
                   <object class="GtkLabel" id="dest">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="xalign">0</property>
                     <property name="ellipsize">middle</property>
                   </object>
@@ -165,7 +169,7 @@
                 <child>
                   <object class="GtkLabel" id="current">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes" comments="Preparing to do some file operation (Copy, Move, Delete...) ">Preparing...</property>
                     <property name="ellipsize">middle</property>
@@ -184,6 +188,8 @@
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">&lt;b&gt;Time remaining:&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">remaining_time</property>
                   </object>
                   <packing>
                     <property name="top_attach">4</property>
@@ -195,7 +201,7 @@
                 <child>
                   <object class="GtkLabel" id="remaining_time">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="xalign">0</property>
                   </object>
                   <packing>
@@ -224,6 +230,8 @@
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">&lt;b&gt;Errors occurred:&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">error_msg</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
