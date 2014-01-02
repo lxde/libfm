@@ -2,7 +2,7 @@
  *      fm-standard-view.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1785,7 +1785,7 @@ static GSList* _fm_standard_view_get_columns(FmFolderView* fv)
     return list;
 }
 
-static void _fm_standard_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean select)
+static void _fm_standard_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean focus)
 {
     FmStandardView *view;
     GtkTreeIter it;
@@ -1803,14 +1803,14 @@ static void _fm_standard_view_scroll_to_path(FmFolderView* fv, FmPath *path, gbo
     {
     case FM_FV_LIST_VIEW:
         gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(view->view), tp, NULL, TRUE, 0.5, 0.0);
-        if (select)
+        if (focus)
             gtk_tree_view_set_cursor(GTK_TREE_VIEW(view->view), tp, NULL, FALSE);
         break;
     case FM_FV_ICON_VIEW:
     case FM_FV_COMPACT_VIEW:
     case FM_FV_THUMBNAIL_VIEW:
         exo_icon_view_scroll_to_path(EXO_ICON_VIEW(view->view), tp, TRUE, 0.5, 0.5);
-        if (select)
+        if (focus)
             exo_icon_view_set_cursor(EXO_ICON_VIEW(view->view), tp, NULL, FALSE);
         break;
     }

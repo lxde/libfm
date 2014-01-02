@@ -1,7 +1,7 @@
 /*
  *      fm-folder-view.h
  *
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -160,7 +160,7 @@ struct _FmFolderViewInterface
     void (*get_custom_menu_callbacks)(FmFolderView* fv, FmFolderViewUpdatePopup*,
                                       FmLaunchFolderFunc*);
 
-    void (*scroll_to_path)(FmFolderView* fv, FmPath *path, gboolean cursor);
+    void (*scroll_to_path)(FmFolderView* fv, FmPath *path, gboolean focus);
     /*< private >*/
     gpointer _reserved3;
     gpointer _reserved4;
@@ -194,7 +194,7 @@ void            fm_folder_view_select_file_path(FmFolderView* fv, FmPath* path);
 void            fm_folder_view_select_file_paths(FmFolderView* fv, FmPathList* paths);
 void            fm_folder_view_unselect_all(FmFolderView* fv);
 
-void            fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean select);
+void            fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean focus);
 
 /* generate a popup menu for the window */
 GtkMenu*        fm_folder_view_add_popup(FmFolderView* fv, GtkWindow* parent,

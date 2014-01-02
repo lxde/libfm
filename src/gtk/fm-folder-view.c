@@ -1,7 +1,7 @@
 /*
  *      fm-folder-view.c
  *
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1186,6 +1186,18 @@ static void on_menu(GtkAction* act, FmFolderView* fv)
         gtk_action_set_sensitive(act, fm_clipboard_have_files(GTK_WIDGET(fv)));
     else
         gtk_action_set_visible(act, FALSE);
+    if(fi == NULL)
+    {
+        /* hide folder-oriented actions if there is no folder */
+        act = gtk_ui_manager_get_action(ui, "/popup/SelAll");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/InvSel");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/Sort");
+        gtk_action_set_visible(act, FALSE);
+        act = gtk_ui_manager_get_action(ui, "/popup/Prop");
+        gtk_action_set_visible(act, FALSE);
+    }
     /* prepare templates list */
     templates = g_object_get_qdata(G_OBJECT(ui), templates_quark);
     /* FIXME: updating context menu is not lightweight here - we should
@@ -1934,15 +1946,15 @@ void _fm_folder_view_finalize(void)
  * fm_folder_view_scroll_to_path
  * @fv: the folder view widget to query
  * @path: the item to scroll
- * @select: %TRUE to set cursor and select the item
+ * @focus: %TRUE to set cursor focus on item
  *
  * Scrolls the view to get item defined by @path closely to center of the
- * view window. If @select is %TRUE then @path also will be selected and
- * keyboard focus will be set to it.
+ * view window. If @focus is %TRUE then also keyboard focus will be set
+ * to the @path.
  *
  * Since: 1.2.0
  */
-void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean select)
+void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean focus)
 {
     FmFolderViewInterface* iface;
 
@@ -1951,5 +1963,5 @@ void fm_folder_view_scroll_to_path(FmFolderView* fv, FmPath *path, gboolean sele
     iface = FM_FOLDER_VIEW_GET_IFACE(fv);
 
     if (iface->scroll_to_path)
-        iface->scroll_to_path(fv, path, select);
+        iface->scroll_to_path(fv, path, focus);
 }

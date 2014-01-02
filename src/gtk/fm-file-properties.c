@@ -2,7 +2,7 @@
  *      fm-file-properties.c
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
  * - GtkLabel (id target)       : label: "Target", id target_label
  * - GtkLabel (id type)         : label: "File type"
  * - GtkComboBox (id open_with) : label: "Open with", id open_with_label
- * - GtkLabel (id total_files)   : (hidden) label: "Total files count", id total_files_label
+ * - GtkLabel (id total_files)   : (hidden) label: "Total count of files", id total_files_label
  * - GtkLabel (id total_size)   : label: "Total Size of Files", id total_size_label
  * - GtkLabel (id size_on_disk) : label: "Size on Disk", id size_on_disk_label
  * - GtkLabel (id mtime)        : label: "Last Modification", id mtime_label

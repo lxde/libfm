@@ -370,7 +370,7 @@ Changes on 1.2.0 since 1.1.0:
     will be used on activating 'Home' item in side pane.
 
 * New API fm_folder_view_scroll_to_path() to scroll folder view to some
-    path and optionally select it.
+    path and optionally focus it.
 
 * If files that file properties dialog is open for contain a directory
     then file properties dialog will show file counting progress with
