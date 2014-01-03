@@ -104,6 +104,29 @@ static void on_entry_activate(GtkEntry* entry, FmMainWin* win)
 {
     FmPath* path = fm_path_entry_get_path(FM_PATH_ENTRY(entry));
     fm_main_win_chdir(win, path);
+    if (win->pathbar_active)
+    {
+        gtk_widget_set_visible(win->location, FALSE);
+        gtk_widget_set_visible(gtk_ui_manager_get_widget(win->ui, "/toolbar/Go"), FALSE);
+        gtk_widget_set_visible(win->pathbar, TRUE);
+    }
+}
+
+static void on_pathbar_chdir(FmPathBar *bar, FmPath *path, FmMainWin *win)
+{
+    fm_main_win_chdir(win, path);
+}
+
+static void on_path_mode(GtkRadioAction *act, GtkRadioAction *cur, FmMainWin *win)
+{
+    int mode = gtk_radio_action_get_current_value(cur);
+
+    if (mode == win->pathbar_active)
+        return;
+    win->pathbar_active = mode;
+    gtk_widget_set_visible(win->location, mode == 0);
+    gtk_widget_set_visible(gtk_ui_manager_get_widget(win->ui, "/toolbar/Go"), mode == 0);
+    gtk_widget_set_visible(win->pathbar, mode);
 }
 
 static void update_statusbar(FmMainWin* win)
@@ -185,6 +208,7 @@ static void on_folder_finish_loading(FmFolder* folder, FmMainWin* win)
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
 
     fm_path_entry_set_path(entry, path);
+    fm_path_bar_set_path(FM_PATH_BAR(win->pathbar), path);
 
     if(fm_folder_view_get_model(fv) == NULL)
     {
@@ -463,6 +487,7 @@ static void on_side_pane_chdir(FmSidePane* sp, guint button, FmPath* path, FmMai
 static void fm_main_win_init(FmMainWin *win)
 {
     GtkWidget *vbox, *menubar;
+    GtkBox *pathbox;
     GtkToolItem *toolitem;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
@@ -508,6 +533,7 @@ static void fm_main_win_init(FmMainWin *win)
     gtk_action_group_add_toggle_actions(act_grp, main_win_toggle_actions, G_N_ELEMENTS(main_win_toggle_actions), win);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, G_CALLBACK(on_sort_type), win);
     gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, G_CALLBACK(on_sort_by), win);
+    gtk_action_group_add_radio_actions(act_grp, main_win_pathbar_actions, G_N_ELEMENTS(main_win_pathbar_actions), 0, G_CALLBACK(on_path_mode), win);
 
     /* implement gtk_action_group_add_radio_actions() for dynamic list */
     radio_group = NULL;
@@ -591,9 +617,15 @@ static void fm_main_win_init(FmMainWin *win)
     /* the location bar */
     win->location = (GtkWidget*)fm_path_entry_new();
     g_signal_connect(win->location, "activate", G_CALLBACK(on_entry_activate), win);
+    win->pathbar = (GtkWidget*)fm_path_bar_new();
+    g_signal_connect(win->pathbar, "chdir", G_CALLBACK(on_pathbar_chdir), win);
+    pathbox = (GtkBox*)gtk_hbox_new(FALSE, 0);
+    gtk_box_pack_start(pathbox, win->location, TRUE, TRUE, 0);
+    gtk_box_pack_start(pathbox, win->pathbar, TRUE, TRUE, 0);
+    win->pathbar_active = FALSE;
 
     toolitem = gtk_tool_item_new();
-    gtk_container_add( GTK_CONTAINER(toolitem), win->location );
+    gtk_container_add( GTK_CONTAINER(toolitem), GTK_WIDGET(pathbox) );
     gtk_tool_item_set_expand(GTK_TOOL_ITEM(toolitem), TRUE);
     gtk_toolbar_insert((GtkToolbar*)win->toolbar, toolitem, gtk_toolbar_get_n_items(GTK_TOOLBAR(win->toolbar)) - 1 );
 
@@ -618,6 +650,7 @@ static void fm_main_win_init(FmMainWin *win)
 
     gtk_container_add( (GtkContainer*)win, vbox );
     gtk_widget_show_all(vbox);
+    gtk_widget_hide(win->pathbar);
 
     gtk_window_set_default_size(GTK_WINDOW(win), 640, 480);
     gtk_widget_realize(GTK_WIDGET(win));
@@ -960,4 +993,10 @@ static void bounce_action(GtkAction* act, FmMainWin* win)
 void on_location(GtkAction* act, FmMainWin* win)
 {
     gtk_widget_grab_focus(win->location);
+    if (win->pathbar_active)
+    {
+        gtk_widget_set_visible(win->location, TRUE);
+        gtk_widget_set_visible(gtk_ui_manager_get_widget(win->ui, "/toolbar/Go"), TRUE);
+        gtk_widget_set_visible(win->pathbar, FALSE);
+    }
 }

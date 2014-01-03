@@ -66,6 +66,11 @@ static const char main_menu_xml[] =
     "<separator/>"
     "<placeholder name='ph1'/>"
     "<separator/>"
+    "<menu action='PathMode'>"
+      "<menuitem action='PathEntry'/>"
+      "<menuitem action='PathBar'/>"
+    "</menu>"
+    "<separator/>"
     "<menu action='Sort'>"
       "<menuitem action='Desc'/>"
       "<menuitem action='Asc'/>"
@@ -108,6 +113,7 @@ static GtkActionEntry main_win_actions[]=
         {"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
     {"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
         {"Reload", NULL, N_("Reload"), "F5", NULL, G_CALLBACK(on_reload)},
+        {"PathMode", NULL, N_("_Path Bar"), NULL, NULL, NULL},
         {"Sort", NULL, N_("_Sort Files"), NULL, NULL, NULL},
     {"HelpMenu", NULL, N_("_Help"), NULL, NULL, NULL},
         {"About", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK(on_about)},
@@ -145,6 +151,12 @@ static GtkRadioActionEntry main_win_sort_by_actions[]=
 {
     {"ByName", NULL, N_("By _Name"), NULL, NULL, FM_FOLDER_MODEL_COL_NAME},
     {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, FM_FOLDER_MODEL_COL_MTIME}
+};
+
+static GtkRadioActionEntry main_win_pathbar_actions[]=
+{
+    {"PathEntry", NULL, N_("_Location"), NULL, NULL, 0},
+    {"PathBar", NULL, N_("_Buttons"), NULL, NULL, 1}
 };
 
 

@@ -48,6 +48,7 @@ struct _FmMainWin
     GtkUIManager* ui;
     GtkWidget* toolbar;
     GtkWidget* location;
+    GtkWidget* pathbar;
     GtkWidget* hpaned;
     FmSidePane* left_pane;
     FmFolderView* folder_view;
@@ -62,6 +63,7 @@ struct _FmMainWin
     guint statusbar_ctx2;
     FmBookmarks* bookmarks;
     guint update_scroll_id;
+    gboolean pathbar_active;
 };
 
 struct _FmMainWinClass
