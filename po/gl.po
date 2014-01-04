@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 01:18+0200\n"
-"PO-Revision-Date: 2013-12-05 09:21+0000\n"
+"POT-Creation-Date: 2013-12-29 22:23+0200\n"
+"PO-Revision-Date: 2014-01-04 08:30+0000\n"
 "Last-Translator: Miguel Anxo <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.0\n"
-"X-POOTLE-MTIME: 1386235272.0\n"
+"X-POOTLE-MTIME: 1388824253.0\n"
 
 #: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
@@ -288,6 +288,7 @@ msgid "None"
 msgstr "Ningunha"
 
 #: ../data/ui/file-prop.glade.h:31
+msgctxt "It is a directory access bit - "
 msgid "Sticky"
 msgstr "Persistente"
 
@@ -300,6 +301,7 @@ msgid "Sticky & set GID"
 msgstr "Persistente e Estabelecer o GID"
 
 #: ../data/ui/file-prop.glade.h:34
+msgctxt "this is a file access mode bit, also known as "
 msgid "Set UID"
 msgstr "Estabelecer o UID"
 
@@ -308,6 +310,9 @@ msgid "Set UID & GID"
 msgstr "Estabelecer o UID e o GID"
 
 #: ../data/ui/file-prop.glade.h:36
+msgctxt ""
+"this is a file access mode - only owner can access the file, for others "
+"access is denied"
 msgid "Only owner"
 msgstr "Só o propietario"
 
@@ -492,31 +497,22 @@ msgstr "Aplicativos do sistema"
 msgid "File Associations"
 msgstr "Asociacións de ficheiros"
 
-#. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:2
-msgid "Preparing..."
-msgstr "Preparando..."
-
-#. Processing: <Name of currently proccesed file>
-#: ../data/ui/progress.glade.h:4
-msgid "<b>Processing:</b>"
-msgstr "<b>Procesando:</b>"
-
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
 msgstr "<b>Para:</b>"
 
-#: ../data/ui/progress.glade.h:7
-msgid "<b>Progress:</b>"
-msgstr "<b>Progreso:</b>"
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:4
+msgid "Preparing..."
+msgstr "Preparando..."
 
-#: ../data/ui/progress.glade.h:8
+#: ../data/ui/progress.glade.h:5
 msgid "<b>Time remaining:</b>"
 msgstr "<b>Tempo restante:</b>"
 
-#: ../data/ui/progress.glade.h:9
-msgid "<b>Some errors occurred:</b>"
+#: ../data/ui/progress.glade.h:6
+msgid "<b>Errors occurred:</b>"
 msgstr "<b>Producíronse algúns erros:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
@@ -725,24 +721,24 @@ msgstr "Cargando..."
 msgid "Shows tree of directories in sidebar"
 msgstr "Amosar a árbore de directorios na barra lateral"
 
-#: ../src/gtk/fm-dnd-dest.c:411
+#: ../src/gtk/fm-dnd-dest.c:412
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../src/gtk/fm-dnd-dest.c:412
+#: ../src/gtk/fm-dnd-dest.c:413
 msgid "C_opy Here"
 msgstr "C_opiar aquí"
 
-#: ../src/gtk/fm-dnd-dest.c:413
+#: ../src/gtk/fm-dnd-dest.c:414
 msgid "_Move Here"
 msgstr "_Mover para aquí"
 
 #. Note to translators: Link in not noun but verb here
-#: ../src/gtk/fm-dnd-dest.c:415
+#: ../src/gtk/fm-dnd-dest.c:416
 msgid "_Link Here"
 msgstr "_Ligar para aquí"
 
-#: ../src/gtk/fm-dnd-dest.c:861
+#: ../src/gtk/fm-dnd-dest.c:870
 msgid "XDirectSave failed."
 msgstr "Produciuse un fallo en XDirectSave."
 
@@ -1058,11 +1054,11 @@ msgstr "Introduza un nome novo:"
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Está seguro que desexa baleirar o cesto do lixo?"
 
-#: ../src/gtk/fm-path-entry.c:639
+#: ../src/gtk/fm-path-entry.c:668
 msgid "Pa_ste and Go"
 msgstr "Pe_gar e ir"
 
-#: ../src/gtk/fm-path-entry.c:698
+#: ../src/gtk/fm-path-entry.c:727
 msgid "Folder location bar"
 msgstr "Barra de localización do cartafol"
 
@@ -1104,8 +1100,8 @@ msgid "_Rename Bookmark Item"
 msgstr "_Renomear elemento marcador"
 
 #: ../src/gtk/fm-places-view.c:144
-msgid "Re_move from Bookmark"
-msgstr "_Re_irar dos marcadores"
+msgid "Re_move from Bookmarks"
+msgstr "Retirar dos _marcadores"
 
 #: ../src/gtk/fm-places-view.c:145
 msgid "Move Bookmark _Up"
@@ -1132,11 +1128,11 @@ msgstr "Renomear elemento marcador"
 msgid "Enter a new name:"
 msgstr "Escriba un nome novo:"
 
-#: ../src/gtk/fm-progress-dlg.c:123
+#: ../src/gtk/fm-progress-dlg.c:127
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:198 ../src/gtk/fm-progress-dlg.c:216
+#: ../src/gtk/fm-progress-dlg.c:202 ../src/gtk/fm-progress-dlg.c:220
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1147,7 +1143,7 @@ msgstr ""
 "Tamaño: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:204 ../src/gtk/fm-progress-dlg.c:222
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:226
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -1156,23 +1152,25 @@ msgstr ""
 "Tipo: %s\n"
 "Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:312
-msgid "The file operation is cancelled and there are some errors."
-msgstr "A operación de ficheiro foi cancelada e producíronse algúns erros."
+#: ../src/gtk/fm-progress-dlg.c:326
+msgid "<b>Errors occured before file operation was stopped.</b>"
+msgstr ""
+"<b>Producíronse algúns erros antes de que se detivera a operación do "
+"ficheiro.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:314
+#: ../src/gtk/fm-progress-dlg.c:328
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: ../src/gtk/fm-progress-dlg.c:318
-msgid "The file operation is finished, but there are some errors."
-msgstr "A operación de ficheiro rematou, mais hai algúns erros."
+#: ../src/gtk/fm-progress-dlg.c:332
+msgid "<b>The file operation was completed with errors.</b>"
+msgstr "<b>A operación do ficheiro completouse sen erros.</b>"
 
-#: ../src/gtk/fm-progress-dlg.c:320
+#: ../src/gtk/fm-progress-dlg.c:334
 msgid "Finished"
 msgstr "Finalizado"
 
-#: ../src/gtk/fm-progress-dlg.c:342
+#: ../src/gtk/fm-progress-dlg.c:356
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -1182,41 +1180,74 @@ msgstr ""
 "ficheiros non permite esta operación.\n"
 "Desexa eliminalos no seu canto?"
 
-#: ../src/gtk/fm-progress-dlg.c:383 ../src/gtk/fm-progress-dlg.c:512
+#: ../src/gtk/fm-progress-dlg.c:397 ../src/gtk/fm-progress-dlg.c:528
 msgid "_Pause"
 msgstr "_Pausa"
 
-#: ../src/gtk/fm-progress-dlg.c:391
+#: ../src/gtk/fm-progress-dlg.c:405
 msgid "_Resume"
 msgstr "_Retomar"
 
-#: ../src/gtk/fm-progress-dlg.c:544
+#: ../src/gtk/fm-progress-dlg.c:562
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:560
-msgid "Moving Files"
-msgstr "Movendo ficheiros"
+#. translators: it is part of "Moving files:" or "Moving xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:579
+msgid "Moving"
+msgstr "Movendo"
 
-#: ../src/gtk/fm-progress-dlg.c:563
-msgid "Copying Files"
-msgstr "Copiando ficheiros"
+#. translators: it is part of "Copying files:" or "Copying xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:583
+msgid "Copying"
+msgstr "Copiando"
 
-#: ../src/gtk/fm-progress-dlg.c:566
-msgid "Trashing Files"
-msgstr "Movendo os ficheiros ao lixo"
+#. translators: it is part of "Trashing files:" or "Trashing xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:587
+msgid "Trashing"
+msgstr "Enviando ao lixo"
 
-#: ../src/gtk/fm-progress-dlg.c:569
-msgid "Deleting Files"
-msgstr "Eliminando ficheiros"
+#. translators: it is part of "Deleting files:" or "Deleting xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:591
+msgid "Deleting"
+msgstr "Eliminando"
 
-#: ../src/gtk/fm-progress-dlg.c:572
-msgid "Creating Symlinks"
-msgstr "Creando ligazóns simbólicas"
+#. translators: it is part of "Symlinking files:" or "Symlinking xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:595
+msgid "Symlinking"
+msgstr "Facendo a ligazón simbólica"
 
-#: ../src/gtk/fm-progress-dlg.c:575
-msgid "Changing File Attributes"
-msgstr "Cambiando os atributos do ficheiro"
+#. translators: it is part of "Changing attributes of files:" or "Changing attributes of xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:602
+msgid "Changing attributes of"
+msgstr "Cambiando os atributos de"
+
+#. translators: it is part of "Restoring files:" or "Restoring xxx.txt"
+#: ../src/gtk/fm-progress-dlg.c:606
+msgid "Restoring"
+msgstr "Restaurando"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:613
+#, c-format
+msgid "%s files"
+msgstr "%s ficheiros"
+
+#: ../src/gtk/fm-progress-dlg.c:615
+msgid "<b>File operation is in progress...</b>"
+msgstr "<b>Operación do ficheiro en proceso...</b>"
+
+#. note to translators: resulting string is such as "Deleting file"
+#: ../src/gtk/fm-progress-dlg.c:619
+#, c-format
+msgid "<b>%s file:</b>"
+msgstr "<b>%s ficheiro:</b>"
+
+#. note to translators: resulting string is such as "Deleting files"
+#: ../src/gtk/fm-progress-dlg.c:622
+#, c-format
+msgid "<b>%s files:</b>"
+msgstr "<b>%s ficheiros:</b>"
 
 #: ../src/gtk/fm-side-pane.c:66
 msgid "_Off"
@@ -1242,45 +1273,45 @@ msgstr "Lugares"
 msgid "Directory Tree"
 msgstr "Árbore de _directorios"
 
-#: ../src/gtk/fm-standard-view.c:244
+#: ../src/gtk/fm-standard-view.c:254
 msgid "View of folder contents"
 msgstr "Ver o contido do cartafol"
 
-#: ../src/gtk/fm-standard-view.c:813
+#: ../src/gtk/fm-standard-view.c:831
 #, c-format
 msgid "_Hide %s"
 msgstr "_Agochar %s"
 
-#: ../src/gtk/fm-standard-view.c:821
+#: ../src/gtk/fm-standard-view.c:839
 msgid "_Move Left"
 msgstr "Mover á esquerda"
 
-#: ../src/gtk/fm-standard-view.c:827
+#: ../src/gtk/fm-standard-view.c:845
 msgid "Move _Right"
 msgstr "Mover á dereita"
 
-#: ../src/gtk/fm-standard-view.c:850
+#: ../src/gtk/fm-standard-view.c:868
 #, c-format
 msgid "Show %s"
 msgstr "Amosar %s"
 
-#: ../src/gtk/fm-standard-view.c:862
+#: ../src/gtk/fm-standard-view.c:880
 msgid "_Forget Width"
 msgstr "_Esquecer o largo"
 
-#: ../src/gtk/fm-standard-view.c:1803
+#: ../src/gtk/fm-standard-view.c:1821
 msgid "_Icon View"
 msgstr "Vista de _iconas"
 
-#: ../src/gtk/fm-standard-view.c:1804
+#: ../src/gtk/fm-standard-view.c:1822
 msgid "_Compact View"
 msgstr "Vista _compacta"
 
-#: ../src/gtk/fm-standard-view.c:1805
+#: ../src/gtk/fm-standard-view.c:1823
 msgid "_Thumbnail View"
 msgstr "Vista de _miniaturas"
 
-#: ../src/gtk/fm-standard-view.c:1806
+#: ../src/gtk/fm-standard-view.c:1824
 msgid "Detailed _List View"
 msgstr "Vista de _lista detallada"
 
@@ -1684,6 +1715,51 @@ msgstr "Disco óptico baleiro"
 #: ../src/udisks/g-udisks-device.c:301
 msgid "Optical Disc"
 msgstr "Disco óptico"
+
+#~ msgid "Sticky"
+#~ msgstr "Persistente"
+
+#~ msgid "Set UID"
+#~ msgstr "Estabelecer o UID"
+
+#~ msgid "Only owner"
+#~ msgstr "Só o propietario"
+
+#~ msgid "<b>Processing:</b>"
+#~ msgstr "<b>Procesando:</b>"
+
+#~ msgid "<b>Progress:</b>"
+#~ msgstr "<b>Progreso:</b>"
+
+#~ msgid "<b>Some errors occurred:</b>"
+#~ msgstr "<b>Producíronse algúns erros:</b>"
+
+#~ msgid "Re_move from Bookmark"
+#~ msgstr "_Re_irar dos marcadores"
+
+#~ msgid "The file operation is cancelled and there are some errors."
+#~ msgstr "A operación de ficheiro foi cancelada e producíronse algúns erros."
+
+#~ msgid "The file operation is finished, but there are some errors."
+#~ msgstr "A operación de ficheiro rematou, mais hai algúns erros."
+
+#~ msgid "Moving Files"
+#~ msgstr "Movendo ficheiros"
+
+#~ msgid "Copying Files"
+#~ msgstr "Copiando ficheiros"
+
+#~ msgid "Trashing Files"
+#~ msgstr "Movendo os ficheiros ao lixo"
+
+#~ msgid "Deleting Files"
+#~ msgstr "Eliminando ficheiros"
+
+#~ msgid "Creating Symlinks"
+#~ msgstr "Creando ligazóns simbólicas"
+
+#~ msgid "Changing File Attributes"
+#~ msgstr "Cambiando os atributos do ficheiro"
 
 #~ msgid "_Rename Folder"
 #~ msgstr "_Renomear o cartafol"
