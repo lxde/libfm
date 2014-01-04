@@ -202,12 +202,10 @@ static const GtkActionEntry folder_popup_actions[]=
 
 static GtkToggleActionEntry folder_toggle_actions[]=
 {
-    {"ShowHidden", NULL, N_("Show _Hidden"), "<Ctrl>H", NULL, G_CALLBACK(on_show_hidden), FALSE},
+    {"ShowHidden", NULL, N_("Show _Hidden"), NULL, NULL, G_CALLBACK(on_show_hidden), FALSE},
     /* Note to translators: "Mingle..." means "Do not put folders before files" but make the translation as short as possible, please! */
     {"MingleDirs", NULL, N_("Mingle _Files and Folders"), NULL, NULL, G_CALLBACK(on_mingle_dirs), FALSE},
     {"SortIgnoreCase", NULL, N_("_Ignore Name Case"), NULL, NULL, G_CALLBACK(on_ignore_case), TRUE}
-    /* {"SortPerFolder", NULL, N_("_Only for this folder"), NULL,
-                N_("Check to remember sort as folder setting rather than global one"), NULL, FALSE}, */
 };
 
 static const GtkRadioActionEntry folder_sort_type_actions[]=
