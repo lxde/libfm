@@ -741,6 +741,7 @@ void on_show_hidden(GtkToggleAction* act, FmMainWin* win)
 {
     gboolean active = gtk_toggle_action_get_active(act);
     fm_folder_view_set_show_hidden(win->folder_view, active);
+    fm_side_pane_set_show_hidden(win->left_pane, active);
     update_statusbar(win);
 }
 

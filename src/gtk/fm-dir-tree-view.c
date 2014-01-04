@@ -1,7 +1,7 @@
 //      fm-dir-tree-view.c
 //
 //      Copyright 2011 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+//      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -48,6 +48,12 @@
 
 enum
 {
+    PROP_0,
+    PROP_SHOW_HIDDEN
+};
+
+enum
+{
     CHDIR,
     ITEM_POPUP,
     N_SIGNALS
@@ -59,6 +65,51 @@ static void fm_dir_tree_view_dispose            (GObject *object);
 static void on_row_loaded(FmDirTreeModel*, GtkTreePath*, FmDirTreeView*);
 
 G_DEFINE_TYPE(FmDirTreeView, fm_dir_tree_view, GTK_TYPE_TREE_VIEW)
+
+static void fm_dir_tree_view_set_property(GObject *object,
+                                          guint prop_id,
+                                          const GValue *value,
+                                          GParamSpec *pspec)
+{
+    GtkTreeView *tree_view;
+    FmDirTreeModel *model;
+    gboolean show_hidden;
+
+    switch( prop_id )
+    {
+    case PROP_SHOW_HIDDEN:
+        tree_view = GTK_TREE_VIEW(object);
+        model = FM_DIR_TREE_MODEL(gtk_tree_view_get_model(tree_view));
+        show_hidden = g_value_get_boolean(value);
+        if (show_hidden != fm_dir_tree_model_get_show_hidden(model))
+            fm_dir_tree_model_set_show_hidden(model, show_hidden);
+            /* FIXME: queue scroll to selection after the change */
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
+
+static void fm_dir_tree_view_get_property(GObject *object,
+                                          guint prop_id,
+                                          GValue *value,
+                                          GParamSpec *pspec)
+{
+    GtkTreeView *tree_view;
+    FmDirTreeModel *model;
+
+    switch( prop_id ) {
+    case PROP_SHOW_HIDDEN:
+        tree_view = GTK_TREE_VIEW(object);
+        model = FM_DIR_TREE_MODEL(gtk_tree_view_get_model(tree_view));
+        g_value_set_boolean(value, fm_dir_tree_model_get_show_hidden(model));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
 
 static void cancel_pending_chdir(GtkTreeModel* model, FmDirTreeView *view)
 {
@@ -298,6 +349,8 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
 
     g_object_class->dispose = fm_dir_tree_view_dispose;
     /* use finalize from parent class */
+    g_object_class->get_property = fm_dir_tree_view_get_property;
+    g_object_class->set_property = fm_dir_tree_view_set_property;
 
     widget_class->key_press_event = on_key_press_event;
     widget_class->button_press_event = on_button_press_event;
@@ -308,6 +361,21 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
     tree_view_class->row_collapsed = on_row_collapsed;
     /* tree_view_class->row_expanded = on_row_expanded; */
     tree_view_class->row_activated = on_row_activated;
+
+    /**
+     * FmDirTreeView:show-hidden:
+     *
+     * The #FmDirTreeView:show-hidden property defines whether any hidden
+     * files be shown in the tree or not
+     *
+     * Since: 1.2.0
+     */
+    g_object_class_install_property(g_object_class,
+                                    PROP_SHOW_HIDDEN,
+                                    g_param_spec_boolean("show-hidden",
+                                                         "Show hidden",
+                                                         "Should hidden files be shown or not",
+                                                         FALSE, G_PARAM_READWRITE));
 
     /**
      * FmDirTreeView::chdir:

@@ -1,7 +1,7 @@
 //      fm-dir-tree-model.c
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
-//      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+//      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -681,10 +681,8 @@ static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePa
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     FmDirTreeItem* item = fm_dir_tree_item_new(model, parent_l);
     item->fi = fm_file_info_ref(fi);
-    FmPath* path = fm_file_info_get_path(fi);
 
-    /* fm_file_info_is_hidden() is slower here*/
-    if(!model->show_hidden && fm_path_get_basename(path)[0] == '.') /* hidden folder */
+    if(!model->show_hidden && fm_file_info_is_hidden(fi)) /* hidden folder */
     {
         parent_item->hidden_children = g_list_prepend(parent_item->hidden_children, item);
         item_l = parent_item->hidden_children;
@@ -694,7 +692,8 @@ static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePa
     return item_l;
 }
 
-static void remove_item(FmDirTreeModel* model, GList* item_l)
+/* deletes item from lists but not frees data */
+static void remove_item_l(FmDirTreeModel* model, GList* item_l)
 {
     GtkTreePath* tp;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
@@ -734,8 +733,15 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
         gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
     }
 
-    fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
     gtk_tree_path_free(tp);
+}
+
+/* deletes and frees item with data */
+static void remove_item(FmDirTreeModel* model, GList* item_l)
+{
+    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
+    remove_item_l(model, item_l);
+    fm_dir_tree_item_free(item, item_l); /* item_l is freed already */
 }
 
 /* find child item by filename, and retrive its index if idx is not NULL. */
@@ -1232,41 +1238,85 @@ gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter)
     return item->loaded;
 }
 
-#if 0
-static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboolean show_hidden)
+static void item_hide_hidden_children(FmDirTreeModel *model, GList *item_l)
 {
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    GList* child_l;
-    /* TODO: show hidden items */
-    if(show_hidden)
-    {
-        while(item->hidden_children)
-        {
+    FmDirTreeItem *item = (FmDirTreeItem*)item_l->data;
+    FmDirTreeItem *child;
+    GList *child_l, *next;
 
-        }
-    }
-    else
+    if (item) for (child_l = item->children; child_l; child_l = next)
     {
-        while(item->children)
+        next = child_l->next;
+        child = child_l->data;
+        if (G_UNLIKELY(child->fi == NULL)) /* placeholder */
+            continue;
+        if (fm_file_info_is_hidden(child->fi))
         {
-
+            /* remove from visibility in model */
+            remove_item_l(model, child_l);
+            /* do cleanup on item data */
+            if (child->folder)
+                item_free_folder(child->folder, child_l);
+            child->folder = NULL;
+            child->expanded = FALSE;
+            child->loaded = FALSE;
+            if(child->children)
+            {
+                _g_list_foreach_l(child->children, (GFunc)fm_dir_tree_item_free_l, NULL);
+                g_list_free(child->children);
+                child->children = NULL;
+            }
+            if(child->hidden_children)
+            {
+                _g_list_foreach_l(child->hidden_children, (GFunc)fm_dir_tree_item_free_l, NULL);
+                g_list_free(child->hidden_children);
+                child->hidden_children = NULL;
+            }
+            /* item is clean so can be added to hidden children */
+            item->hidden_children = g_list_prepend(item->hidden_children, child);
         }
+        else
+            item_hide_hidden_children(model, child_l); /* do recursion */
     }
+}
+
+static void item_show_hidden_children(FmDirTreeModel *model, GList *item_l)
+{
+    FmDirTreeItem *item = (FmDirTreeItem*)item_l->data;
+    FmDirTreeItem *child;
+    GtkTreePath *tp;
+    GList *child_l;
+
+    tp = item_to_tree_path(model, item_l);
+    for (child_l = item->children; child_l; child_l = child_l->next)
+        item_show_hidden_children(model, child_l); /* do recursion */
+    while (item->hidden_children)
+    {
+        /* isolate child */
+        child = item->hidden_children->data;
+        item->hidden_children = g_list_delete_link(item->hidden_children,
+                                                   item->hidden_children);
+        /* insert it into visible list */
+        insert_item(model, item_l, tp, child);
+    }
+    gtk_tree_path_free(tp);
 }
 
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden)
 {
+    GList *l;
+
     if(show_hidden != model->show_hidden)
     {
         /* filter the model to hide hidden folders */
         if(model->show_hidden)
-        {
-
-        }
+            for (l = model->roots; l; l = l->next)
+                item_hide_hidden_children(model, l);
+        /* filter the model to show hidden folders */
         else
-        {
-
-        }
+            for (l = model->roots; l; l = l->next)
+                item_show_hidden_children(model, l);
+        model->show_hidden = show_hidden;
     }
 }
 
@@ -1275,6 +1325,7 @@ gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model)
     return model->show_hidden;
 }
 
+#if 0
 /* TODO: */ void fm_dir_tree_model_reload(FmDirTreeModel* model)
 {
 }

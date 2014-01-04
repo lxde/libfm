@@ -109,11 +109,10 @@ FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* it
 FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter);
 const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter);
 
-/* TODO:
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden);
 gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model);
 
-void fm_dir_tree_model_reload(FmDirTreeModel* model); */
+/* void fm_dir_tree_model_reload(FmDirTreeModel* model); */
 
 G_END_DECLS
 
