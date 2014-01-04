@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LibFM 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-29 22:51+0200\n"
-"PO-Revision-Date: 2013-12-29 23:22+0200\n"
+"POT-Creation-Date: 2014-01-04 23:48+0200\n"
+"PO-Revision-Date: 2014-01-05 00:19+0200\n"
 "Last-Translator: LStranger <andrej@rep.kiev.ua>\n"
 "Language-Team: gnome-cyr\n"
 "Language: ru\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-POOTLE-MTIME: 1386199831.0\n"
 
-#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:6
+#: ../data/libfm-pref-apps.desktop.in.h:1 ../data/ui/preferred-apps.glade.h:1
 msgid "Preferred Applications"
 msgstr "Предпочтительные приложения"
 
@@ -30,18 +30,47 @@ msgstr ""
 "Выбрать приложения, открываемые при клике на Web-ссылку или адрес почты"
 
 #: ../data/lxshortcut.desktop.in.h:1
-msgid "Create new or change existing desktop entry"
-msgstr "Создавать или редактировать ярлык программы"
-
-#: ../data/lxshortcut.desktop.in.h:2
 msgid "Shortcut Editor"
 msgstr "Редактор ярлыков"
 
+#: ../data/lxshortcut.desktop.in.h:2
+msgid "Create new or change existing desktop entry"
+msgstr "Создавать или редактировать ярлык программы"
+
 #: ../data/ui/app-chooser.glade.h:1
+msgid "Choose Application"
+msgstr "Выбрать приложение"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "Use selected application to open files"
+msgstr "Использовать выбранное приложение для открытия файлов"
+
+#: ../data/ui/app-chooser.glade.h:3
+msgid "_Installed Applications"
+msgstr "_Установленные приложения"
+
+#: ../data/ui/app-chooser.glade.h:4
 msgid "<b>C_ommand line to execute:</b>"
 msgstr "<b>_Выполнить в командной строке:</b>"
 
-#: ../data/ui/app-chooser.glade.h:3
+#: ../data/ui/app-chooser.glade.h:5
+#: ../src/modules/gtk-fileprop-x-desktop.c:275
+msgid "_Browse..."
+msgstr "_Просмотреть…"
+
+#. row 1: "Terminal" GtkCheckButton
+#: ../data/ui/app-chooser.glade.h:6
+#: ../src/modules/gtk-fileprop-x-desktop.c:294
+msgid "_Execute in terminal emulator"
+msgstr "В_ыполнить в эмуляторе терминала"
+
+#. row 2: "X-KeepTerminal" GtkCheckButton
+#: ../data/ui/app-chooser.glade.h:7
+#: ../src/modules/gtk-fileprop-x-desktop.c:306
+msgid "_Keep terminal window open after command execution"
+msgstr "Оставить окно терминала открытым после _завершения"
+
+#: ../data/ui/app-chooser.glade.h:9
 #, no-c-format
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
@@ -56,52 +85,39 @@ msgstr ""
 "  <b>%u</b>: Представляет путь одиночного файла\n"
 "  <b>%U</b>: Представляет пути нескольких файлов"
 
-#: ../data/ui/app-chooser.glade.h:8
+#: ../data/ui/app-chooser.glade.h:14
 msgid "<b>_Application name (optional, set it to keep association)</b>"
 msgstr "<b>_Имя приложения (опционально, установите для ассоциации)</b>"
 
-#: ../data/ui/app-chooser.glade.h:9
-msgid "C_ustom Command Line"
-msgstr "_Пользовательская команда"
-
-#: ../data/ui/app-chooser.glade.h:10
-msgid "Choose Application"
-msgstr "Выбрать приложение"
-
-#: ../data/ui/app-chooser.glade.h:11
+#: ../data/ui/app-chooser.glade.h:15
 msgid "Execute custom command line to open files"
 msgstr "Выполнить пользовательскую команду для открытия файлов"
 
-#: ../data/ui/app-chooser.glade.h:12
-msgid "Use selected application to open files"
-msgstr "Использовать выбранное приложение для открытия файлов"
-
-#: ../data/ui/app-chooser.glade.h:13
-#: ../src/modules/gtk-fileprop-x-desktop.c:275
-msgid "_Browse..."
-msgstr "_Просмотреть…"
-
-#. row 1: "Terminal" GtkCheckButton
-#: ../data/ui/app-chooser.glade.h:14
-#: ../src/modules/gtk-fileprop-x-desktop.c:294
-msgid "_Execute in terminal emulator"
-msgstr "В_ыполнить в эмуляторе терминала"
-
-#: ../data/ui/app-chooser.glade.h:15
-msgid "_Installed Applications"
-msgstr "_Установленные приложения"
-
-#. row 2: "X-KeepTerminal" GtkCheckButton
 #: ../data/ui/app-chooser.glade.h:16
-#: ../src/modules/gtk-fileprop-x-desktop.c:306
-msgid "_Keep terminal window open after command execution"
-msgstr "Оставить окно терминала открытым после _завершения"
+msgid "C_ustom Command Line"
+msgstr "_Пользовательская команда"
 
 #: ../data/ui/app-chooser.glade.h:17
 msgid "_Set selected application as default action for this file type"
 msgstr "У_становить выбранное приложение по умолчанию для данного типа файла"
 
 #: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm File Replacing"
+msgstr "Подтверждение замещения файлов"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "Пр_опустить"
+
+#: ../data/ui/ask-rename.glade.h:3
+msgid "_Rename"
+msgstr "_Переименовать"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Заменить"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -111,51 +127,35 @@ msgstr ""
 "\n"
 "Заменить существующий файл?"
 
-#: ../data/ui/ask-rename.glade.h:4
-msgid "Confirm File Replacing"
-msgstr "Подтверждение замещения файлов"
-
-#: ../data/ui/ask-rename.glade.h:5
-msgid "_Apply this option to all existing files"
-msgstr "Применить параметр ко _всем файлам"
-
-#: ../data/ui/ask-rename.glade.h:6
-msgid "_File name:"
-msgstr "_Имя файла:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "_Overwrite"
-msgstr "_Заменить"
-
 #: ../data/ui/ask-rename.glade.h:8
-msgid "_Rename"
-msgstr "_Переименовать"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Skip"
-msgstr "Пр_опустить"
-
-#: ../data/ui/ask-rename.glade.h:10
 msgid "with the following file?"
 msgstr "этим файлом?"
 
-#: ../data/ui/choose-icon.ui.h:1
-msgid "<b>Choose icon from:</b>"
-msgstr "<b>Выбрать значок из:</b>"
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_File name:"
+msgstr "_Имя файла:"
 
-#: ../data/ui/choose-icon.ui.h:2
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Apply this option to all existing files"
+msgstr "Применить параметр ко _всем файлам"
+
+#: ../data/ui/choose-icon.ui.h:1
 msgid "Choose An Icon..."
 msgstr "Выбор значка..."
 
 #. genitive case is here: Choose icon from: ...
-#: ../data/ui/choose-icon.ui.h:4
+#: ../data/ui/choose-icon.ui.h:3
+msgid "system icon theme"
+msgstr "системной темы значков"
+
+#. genitive case is here: Choose icon from: ...
+#: ../data/ui/choose-icon.ui.h:5
 msgid "image files"
 msgstr "файлов с изображениями"
 
-#. genitive case is here: Choose icon from: ...
 #: ../data/ui/choose-icon.ui.h:6
-msgid "system icon theme"
-msgstr "системной темы значков"
+msgid "<b>Choose icon from:</b>"
+msgstr "<b>Выбрать значок из:</b>"
 
 #: ../data/ui/exec-file.glade.h:1
 msgid "Execute File"
@@ -166,324 +166,326 @@ msgid "Execute in _Terminal"
 msgstr "Запустить файл в _терминале"
 
 #: ../data/ui/file-prop.glade.h:1
-msgid "---"
-msgstr "---"
+msgid "File Properties"
+msgstr "Свойства файла"
 
 #: ../data/ui/file-prop.glade.h:2
-msgid "<b>Access Control</b>"
-msgstr "<b>Управление доступом</b>"
+msgid "Icon of the file in folder view"
+msgstr "Значок файла в просмотре папок"
 
 #: ../data/ui/file-prop.glade.h:3
-msgid "<b>C_hange content:</b>"
-msgstr "<b>Изменение:</b>"
+msgid "<b>_Name:</b>"
+msgstr "<b>_Имя:</b>"
 
 #: ../data/ui/file-prop.glade.h:4
-msgid "<b>File type:</b>"
-msgstr "<b>Тип файла:</b>"
-
-#: ../data/ui/file-prop.glade.h:5
-msgid "<b>G_roup:</b>"
-msgstr "<b>Группа:</b>"
-
-#: ../data/ui/file-prop.glade.h:6
-msgid "<b>Last access:</b>"
-msgstr "<b>Время последнего доступа:</b>"
-
-#: ../data/ui/file-prop.glade.h:7
-msgid "<b>Last modification:</b>"
-msgstr "<b>Последнее изменение:</b>"
-
-#: ../data/ui/file-prop.glade.h:8
-msgid "<b>Last permissions change:</b>"
-msgstr "<b>Последнее изменение прав:</b>"
-
-#: ../data/ui/file-prop.glade.h:9
 msgid "<b>Location:</b>"
 msgstr "<b>Расположение:</b>"
 
-#: ../data/ui/file-prop.glade.h:10
-msgid "<b>O_wner:</b>"
-msgstr "<b>Владелец:</b>"
-
-#: ../data/ui/file-prop.glade.h:11
-msgid "<b>Open _with:</b>"
-msgstr "<b>Открыть _с помощью:</b>"
-
-#: ../data/ui/file-prop.glade.h:12
-msgid "<b>Size on disk:</b>"
-msgstr "<b>Размер на диске:</b>"
-
-#: ../data/ui/file-prop.glade.h:13
-msgid "<b>Special bits:</b>"
-msgstr "<b>Особые флаги:</b>"
-
-#: ../data/ui/file-prop.glade.h:14
+#: ../data/ui/file-prop.glade.h:5
 msgid "<b>Target file:</b>"
 msgstr "<b>Ссылка на:</b>"
 
-#: ../data/ui/file-prop.glade.h:15
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>File type:</b>"
+msgstr "<b>Тип файла:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Open _with:</b>"
+msgstr "<b>Открыть _с помощью:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "Select the application used to open files of this type "
+msgstr "Выберите приложение для запуска файла "
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Total count of files:</b>"
+msgstr "<b>Всего файлов:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
 msgid "<b>Total size of files:</b>"
 msgstr "<b>Общий размер файлов:</b>"
 
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on disk:</b>"
+msgstr "<b>Размер на диске:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Last modification:</b>"
+msgstr "<b>Последнее изменение:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Last access:</b>"
+msgstr "<b>Время последнего доступа:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>Last permissions change:</b>"
+msgstr "<b>Последнее изменение прав:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "_General"
+msgstr "_Общее"
+
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>_Execute:</b>"
-msgstr "<b>Запуск:</b>"
+msgid "<b>O_wner:</b>"
+msgstr "<b>Владелец:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
-msgid "<b>_Name:</b>"
-msgstr "<b>_Имя:</b>"
+msgid "<b>G_roup:</b>"
+msgstr "<b>Группа:</b>"
 
 #: ../data/ui/file-prop.glade.h:18
 msgid "<b>_View content:</b>"
 msgstr "<b>Просмотр:</b>"
 
 #: ../data/ui/file-prop.glade.h:19
-msgid "Anyone"
-msgstr "Все"
+msgid "<b>C_hange content:</b>"
+msgstr "<b>Изменение:</b>"
 
 #: ../data/ui/file-prop.glade.h:20
-msgid "File Properties"
-msgstr "Свойства файла"
+msgid "<b>_Execute:</b>"
+msgstr "<b>Запуск:</b>"
 
 #: ../data/ui/file-prop.glade.h:21
-msgid "Hidden file"
-msgstr "Скрытый файл"
+msgid "<b>Special bits:</b>"
+msgstr "<b>Особые флаги:</b>"
 
 #: ../data/ui/file-prop.glade.h:22
-msgid "Icon of the file in folder view"
-msgstr "Значок файла в просмотре папок"
-
-#: ../data/ui/file-prop.glade.h:23
-msgctxt "It is a directory access bit - "
-msgid "Sticky"
-msgstr "Бит привязки"
-
-#: ../data/ui/file-prop.glade.h:24
-msgid "Nobody"
-msgstr "Никто"
-
-#: ../data/ui/file-prop.glade.h:25
-msgid "None"
-msgstr "Нет"
-
-#: ../data/ui/file-prop.glade.h:26
-msgid "Only owner and group"
-msgstr "Только владелец и группа"
-
-#: ../data/ui/file-prop.glade.h:27
-msgid "Select the application used to open files of this type "
-msgstr "Выберите приложение для запуска файла "
-
-#: ../data/ui/file-prop.glade.h:28
-msgid "Set GID"
-msgstr "Установить GID"
-
-#: ../data/ui/file-prop.glade.h:29
-msgid "Set UID & GID"
-msgstr "Установить UID и GID"
-
-#: ../data/ui/file-prop.glade.h:30
-msgid "Special flags for directory access"
-msgstr "Особые флаги доступа к каталогу"
-
-#: ../data/ui/file-prop.glade.h:31
-msgid "Special flags for file execution"
-msgstr "Особые флаги запуска файла на выполнение"
-
-#: ../data/ui/file-prop.glade.h:32
-msgid "Sticky & set GID"
-msgstr "Бит привязки и установить GID"
-
-#: ../data/ui/file-prop.glade.h:33
-msgid "Who can change content of the file/directory"
-msgstr "Кто может изменять содержимое файла или каталога"
-
-#: ../data/ui/file-prop.glade.h:34
-msgid "Who can execute the file or enter the directory"
-msgstr "Кто может запускать файл или входить в каталог"
-
-#: ../data/ui/file-prop.glade.h:35
 msgid "Who can read content of the file/directory"
 msgstr "Кто может читать содержимое файла или каталога"
 
-#: ../data/ui/file-prop.glade.h:36
-msgid "_General"
-msgstr "_Общее"
+#: ../data/ui/file-prop.glade.h:23
+msgid "Who can change content of the file/directory"
+msgstr "Кто может изменять содержимое файла или каталога"
 
-#: ../data/ui/file-prop.glade.h:37
+#: ../data/ui/file-prop.glade.h:24
+msgid "Who can execute the file or enter the directory"
+msgstr "Кто может запускать файл или входить в каталог"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Special flags for file execution"
+msgstr "Особые флаги запуска файла на выполнение"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "Special flags for directory access"
+msgstr "Особые флаги доступа к каталогу"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "<b>Access Control</b>"
+msgstr "<b>Управление доступом</b>"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "Hidden file"
+msgstr "Скрытый файл"
+
+#: ../data/ui/file-prop.glade.h:29
 msgid "_Permissions"
 msgstr "Права _доступа"
 
-#: ../data/ui/file-prop.glade.h:38
+#: ../data/ui/file-prop.glade.h:30
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "None"
+msgstr "Нет"
+
+#: ../data/ui/file-prop.glade.h:32
+msgctxt ""
+"It is a directory access bit - 'sticky' - where only owner can delete a file "
+"from it"
+msgid "Sticky"
+msgstr "Бит привязки"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Set GID"
+msgstr "Установить GID"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Sticky & set GID"
+msgstr "Бит привязки и установить GID"
+
+#: ../data/ui/file-prop.glade.h:35
+msgctxt "this is a file access mode bit, also known as 'suid'"
+msgid "Set UID"
+msgstr "Установить UID"
+
+#: ../data/ui/file-prop.glade.h:36
+msgid "Set UID & GID"
+msgstr "Установить UID и GID"
+
+#: ../data/ui/file-prop.glade.h:37
 msgctxt ""
 "this is a file access mode - only owner can access the file, for others "
 "access is denied"
 msgid "Only owner"
 msgstr "Только владелец"
 
+#: ../data/ui/file-prop.glade.h:38
+msgid "Only owner and group"
+msgstr "Только владелец и группа"
+
 #: ../data/ui/file-prop.glade.h:39
-msgctxt "this is a file access mode bit, also known as "
-msgid "Set UID"
-msgstr "Установить UID"
+msgid "Anyone"
+msgstr "Все"
 
-#: ../data/ui/filesearch.glade.h:1 ../src/gtk/fm-gtk-file-launcher.c:613
-#: ../src/gtk/fm-gtk-file-launcher.c:620
-msgid "(None)"
-msgstr "(Нет)"
+#: ../data/ui/file-prop.glade.h:40
+msgid "Nobody"
+msgstr "Никто"
 
-#: ../data/ui/filesearch.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../data/ui/filesearch.glade.h:3
-msgid "<b>File Contain_s:</b>"
-msgstr "<b>_Файл содержит:</b>"
-
-#: ../data/ui/filesearch.glade.h:4
-msgid "<b>File Size</b>"
-msgstr "<b>Размер файла:</b>"
-
-#: ../data/ui/filesearch.glade.h:5
-msgid "<b>File Type</b>"
-msgstr "<b>Тип файла:</b>"
-
-#: ../data/ui/filesearch.glade.h:6
-msgid "<b>File _Name Patterns:</b>"
-msgstr "<b>_Шаблон имени файла:</b>"
-
-#: ../data/ui/filesearch.glade.h:7
-msgid "<b>Last Modified Time</b>"
-msgstr "<b>Время последнего изменения:</b>"
-
-#: ../data/ui/filesearch.glade.h:8
-msgid "<b>Plac_es to Search:</b>"
-msgstr "<b>_Места поиска:</b>"
-
-#: ../data/ui/filesearch.glade.h:9
+#: ../data/ui/filesearch.glade.h:1
 msgid "Bytes"
 msgstr "Байт"
 
-#: ../data/ui/filesearch.glade.h:10
-msgid "C_ontent"
-msgstr "Содержимое"
-
-#: ../data/ui/filesearch.glade.h:11
-msgid "Case insensiti_ve"
-msgstr "Учитывать регистр"
-
-#: ../data/ui/filesearch.glade.h:12
-msgid "Choose Date"
-msgstr "Выбор даты"
-
-#: ../data/ui/filesearch.glade.h:13
-msgid "Choose a date from the following calendar"
-msgstr "Выбрать дату из календаря"
-
-#: ../data/ui/filesearch.glade.h:14
-msgid "File _Type"
-msgstr "Тип файла"
-
-#: ../data/ui/filesearch.glade.h:15 ../src/base/fm-utils.c:148
-msgid "GB"
-msgstr "ГБ"
-
-#: ../data/ui/filesearch.glade.h:16
+#: ../data/ui/filesearch.glade.h:2
 msgid "KB"
 msgstr "КБ"
 
-#: ../data/ui/filesearch.glade.h:17
-msgid "L_ater than:"
-msgstr "Позже, чем:"
-
-#: ../data/ui/filesearch.glade.h:18 ../src/base/fm-utils.c:142
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:142
 msgid "MB"
 msgstr "МБ"
 
-#: ../data/ui/filesearch.glade.h:19
-msgid "Name/_Location"
-msgstr "Имя/Расположение"
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:148
+msgid "GB"
+msgstr "ГБ"
 
-#: ../data/ui/filesearch.glade.h:20
-msgid "Only search for files of following types:"
-msgstr "Искать файлы только следующих типов:"
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose Date"
+msgstr "Выбор даты"
 
-#: ../data/ui/filesearch.glade.h:21
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Выбрать дату из календаря"
+
+#: ../data/ui/filesearch.glade.h:7
 msgid "Search Files"
 msgstr "Поиск файлов"
 
-#: ../data/ui/filesearch.glade.h:22
-msgid "Search _hidden files"
-msgstr "Искать скрытые файлы"
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns:</b>"
+msgstr "<b>_Шаблон имени файла:</b>"
 
-#: ../data/ui/filesearch.glade.h:23
-msgid "Te_xt files"
-msgstr "Текстовые файлы"
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
 
-#: ../data/ui/filesearch.glade.h:24
-msgid "_Audio files"
-msgstr "Звуковые файлы"
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "Учитывать регистр"
 
-#: ../data/ui/filesearch.glade.h:25
-msgid "_Bigger than:"
-msgstr "Больше, чем:"
-
-#: ../data/ui/filesearch.glade.h:26
-msgid "_Documents"
-msgstr "Документы"
-
-#: ../data/ui/filesearch.glade.h:27
-msgid "_Earlier than:"
-msgstr "Ранее, чем:"
-
-#: ../data/ui/filesearch.glade.h:28
-msgid "_Image files"
-msgstr "_Изображения"
-
-#: ../data/ui/filesearch.glade.h:29
-msgid "_Properties"
-msgstr "Параметры"
-
-#: ../data/ui/filesearch.glade.h:30
-msgid "_Search in sub directories"
-msgstr "Искать в поддиректориях"
-
-#: ../data/ui/filesearch.glade.h:31
-msgid "_Smaller than:"
-msgstr "Меньше, чем:"
-
-#: ../data/ui/filesearch.glade.h:32
+#: ../data/ui/filesearch.glade.h:11
 msgid "_Use regular expression"
 msgstr "Использовать регулярные выражения"
 
-#: ../data/ui/filesearch.glade.h:33
-msgid "_Video files"
-msgstr "Видеофайлы"
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Plac_es to Search:</b>"
+msgstr "<b>_Места поиска:</b>"
 
-#: ../data/ui/preferred-apps.glade.h:1
-msgid "<b>Mail Client</b>"
-msgstr "<b>Почтовый клиент</b>"
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "Искать в поддиректориях"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "Искать скрытые файлы"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "Имя/_Расположение"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Тип файла:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types:"
+msgstr "Искать файлы только следующих типов:"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "Текстов_ые файлы"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "_Изображения"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Звуковые файлы"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Видеофайлы"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Документы"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "Folde_rs"
+msgstr "Пап_ки"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "Ot_her:"
+msgstr "Дру_гое:"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "File _Type"
+msgstr "_Тип файла"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Contain_s:</b>"
+msgstr "<b>_Файл содержит:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "C_ontent"
+msgstr "_Содержимое"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "<b>File Size</b>"
+msgstr "<b>Размер файла:</b>"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "_Smaller than:"
+msgstr "Меньше, чем:"
+
+#: ../data/ui/filesearch.glade.h:30
+msgid "_Bigger than:"
+msgstr "Больше, чем:"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Время последнего изменения:</b>"
+
+#: ../data/ui/filesearch.glade.h:32 ../src/gtk/fm-gtk-file-launcher.c:626
+#: ../src/gtk/fm-gtk-file-launcher.c:633
+msgid "(None)"
+msgstr "(Нет)"
+
+#: ../data/ui/filesearch.glade.h:33
+msgid "_Earlier than:"
+msgstr "Ранее, чем:"
+
+#: ../data/ui/filesearch.glade.h:34
+msgid "L_ater than:"
+msgstr "Позже, чем:"
+
+#: ../data/ui/filesearch.glade.h:35
+msgid "_Properties"
+msgstr "_Параметры"
 
 #: ../data/ui/preferred-apps.glade.h:2
-msgid "<b>Terminal Emulator</b>"
-msgstr "<b>Эмулятор терминала</b>"
-
-#: ../data/ui/preferred-apps.glade.h:3
 msgid "<b>Web Browser</b>"
 msgstr "<b>Веб-браузер</b>"
 
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Для открытия ссылок будет использоваться предпочительный веб-браузер."
+
 #: ../data/ui/preferred-apps.glade.h:4
-msgid "Command line:"
-msgstr "Командная строка:"
+msgid "<b>Mail Client</b>"
+msgstr "<b>Почтовый клиент</b>"
 
 #: ../data/ui/preferred-apps.glade.h:5
-msgid "File Associations"
-msgstr "Файловые ассоциации"
-
-#: ../data/ui/preferred-apps.glade.h:7
-msgid "System Applications"
-msgstr "Системные приложения"
-
-#: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on e-"
 "mail addresses."
@@ -491,27 +493,39 @@ msgstr ""
 "Для написания писем при клике на адресе электронной почты будет "
 "использоваться предпочтительный почтовый клиент."
 
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Эмулятор терминала</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Командная строка:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Системные приложения"
+
 #: ../data/ui/preferred-apps.glade.h:9
-msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr "Для открытия ссылок будет использоваться предпочительный веб-браузер."
-
-#: ../data/ui/progress.glade.h:1
-msgid "<b>Errors occurred:</b>"
-msgstr "<b>Возникли ошибки:</b>"
-
-#: ../data/ui/progress.glade.h:2
-msgid "<b>Time remaining:</b>"
-msgstr "<b>Осталось:</b>"
+msgid "File Associations"
+msgstr "Файловые ассоциации"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
-#: ../data/ui/progress.glade.h:4
+#: ../data/ui/progress.glade.h:2
 msgid "<b>To:</b>"
 msgstr "<b>В:</b>"
 
 #. Preparing to do some file operation (Copy, Move, Delete...)
-#: ../data/ui/progress.glade.h:6
+#: ../data/ui/progress.glade.h:4
 msgid "Preparing..."
 msgstr "Подготовка..."
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Осталось:</b>"
+
+#: ../data/ui/progress.glade.h:6
+msgid "<b>Errors occurred:</b>"
+msgstr "<b>Возникли ошибки:</b>"
 
 #: ../src/base/fm-file-launcher.c:85
 #, c-format
@@ -708,15 +722,15 @@ msgstr "<b>Выберите приложение для открытия фай�
 msgid "Installed Applications"
 msgstr "Прочие приложения"
 
-#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1211
 msgid "<No subfolders>"
 msgstr "<Нет поддиректорий>"
 
-#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1206
+#: ../src/gtk/fm-dir-tree-model.c:422 ../src/gtk/fm-dir-tree-model.c:1212
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: ../src/gtk/fm-dir-tree-view.c:482
+#: ../src/gtk/fm-dir-tree-view.c:550
 msgid "Shows tree of directories in sidebar"
 msgstr "Отображает дерево каталогов в боковой панели"
 
@@ -798,40 +812,45 @@ msgstr "_Отправить в корзину"
 msgid "Your bookmarks already have a bookmark for this folder."
 msgstr "В закладках уже есть эта папка."
 
-#: ../src/gtk/fm-file-properties.c:364
+#: ../src/gtk/fm-file-properties.c:367
 msgid "Image files"
 msgstr "Файлы с изображениями"
 
-#: ../src/gtk/fm-file-properties.c:490 ../src/gtk/fm-file-properties.c:499
+#: ../src/gtk/fm-file-properties.c:493 ../src/gtk/fm-file-properties.c:502
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 msgstr[1] "байта"
 msgstr[2] "байтов"
 
-#: ../src/gtk/fm-file-properties.c:571
+#: ../src/gtk/fm-file-properties.c:509
+#, c-format
+msgid "scanning... %d"
+msgstr "сканирование... %d"
+
+#: ../src/gtk/fm-file-properties.c:587
 msgid "Please enter a valid user name or numeric id."
 msgstr "Введите правильное имя пользователя или цифровой идентификатор."
 
-#: ../src/gtk/fm-file-properties.c:601
+#: ../src/gtk/fm-file-properties.c:617
 msgid "Please enter a valid group name or numeric id."
 msgstr "Введите правильное имя группы или цифровой идентификатор."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:810
+#: ../src/gtk/fm-file-properties.c:826
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Применить ко всем вложенным файлам и каталогам?"
 
-#: ../src/gtk/fm-file-properties.c:943
+#: ../src/gtk/fm-file-properties.c:959
 msgid "Hide or unhide the file"
 msgstr "Скрыть или открыть файл"
 
-#: ../src/gtk/fm-file-properties.c:948
+#: ../src/gtk/fm-file-properties.c:964
 msgid "This file is hidden because its name starts with a dot ('.')."
 msgstr "Этот файл скрыт, потому что его имя начинается с точки ('.')."
 
-#: ../src/gtk/fm-file-properties.c:952
+#: ../src/gtk/fm-file-properties.c:968
 msgid ""
 "Files on this system are hidden if their name starts with a dot ('.'). Hit "
 "<Ctrl+H> to toggle displaying hidden files."
@@ -839,19 +858,23 @@ msgstr ""
 "Файлы на этой системе скрыты, если их имя начинается с точки ('.').Нажмите "
 "<Ctrl+H>, чтобы разрешить или запретить их отображение."
 
-#: ../src/gtk/fm-file-properties.c:1057
+#: ../src/gtk/fm-file-properties.c:1025
+msgid "scanning..."
+msgstr "сканирование..."
+
+#: ../src/gtk/fm-file-properties.c:1087
 msgid "<b>_Access content:</b>"
 msgstr "<b>Доступ к содержимому:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1198
+#: ../src/gtk/fm-file-properties.c:1241
 msgid "Files of different types"
 msgstr "Файлы разных типов"
 
-#: ../src/gtk/fm-file-properties.c:1241
+#: ../src/gtk/fm-file-properties.c:1285
 msgid "<b>File:</b>"
 msgstr "<b>Файл:</b>"
 
-#: ../src/gtk/fm-file-properties.c:1307
+#: ../src/gtk/fm-file-properties.c:1351
 msgid "Multiple files"
 msgstr "Несколько файлов"
 
@@ -925,53 +948,53 @@ msgstr "Показывать папки и файлы вперемешку"
 msgid "_Ignore Name Case"
 msgstr "Игнорировать регистр в имени"
 
-#: ../src/gtk/fm-folder-view.c:221
+#: ../src/gtk/fm-folder-view.c:219
 msgid "By _Name"
 msgstr "По _имени"
 
-#: ../src/gtk/fm-folder-view.c:222
+#: ../src/gtk/fm-folder-view.c:220
 msgid "By _Modification Time"
 msgstr "По _времени изменения"
 
-#: ../src/gtk/fm-folder-view.c:223
+#: ../src/gtk/fm-folder-view.c:221
 msgid "By _Size"
 msgstr "По _размеру"
 
-#: ../src/gtk/fm-folder-view.c:224
+#: ../src/gtk/fm-folder-view.c:222
 msgid "By File _Type"
 msgstr "По _типу файла"
 
-#: ../src/gtk/fm-folder-view.c:847
+#: ../src/gtk/fm-folder-view.c:845
 msgid "Enter a name for the newly created folder:"
 msgstr "Введите имя создаваемой папки:"
 
-#: ../src/gtk/fm-folder-view.c:848
+#: ../src/gtk/fm-folder-view.c:846
 msgid "Creating New Folder"
 msgstr "Создание новой папки"
 
-#: ../src/gtk/fm-folder-view.c:861
+#: ../src/gtk/fm-folder-view.c:859
 msgid "Enter a name for empty file:"
 msgstr "Введите имя создаваемого файла:"
 
-#: ../src/gtk/fm-folder-view.c:862
+#: ../src/gtk/fm-folder-view.c:860
 msgid "Creating ..."
 msgstr "Создается ..."
 
-#: ../src/gtk/fm-folder-view.c:868
+#: ../src/gtk/fm-folder-view.c:866
 msgid "New"
 msgstr "Новый"
 
-#: ../src/gtk/fm-folder-view.c:878
+#: ../src/gtk/fm-folder-view.c:876
 #, c-format
 msgid "Enter a name for the new %s:"
 msgstr "Введите имя нового файла типа '%s':"
 
-#: ../src/gtk/fm-folder-view.c:881
+#: ../src/gtk/fm-folder-view.c:879
 #, c-format
 msgid "Creating %s"
 msgstr "Создание %s"
 
-#: ../src/gtk/fm-folder-view.c:885
+#: ../src/gtk/fm-folder-view.c:883
 msgid "_Run default application on file after creation"
 msgstr "Запустить приложение по умолчанию после создания файла"
 
@@ -990,11 +1013,11 @@ msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "Файл «%s» является исполняемым. Хотите его запустить?"
 
 #. show error if no paths are added
-#: ../src/gtk/fm-gtk-file-launcher.c:648
+#: ../src/gtk/fm-gtk-file-launcher.c:661
 msgid "No folders are specified."
 msgstr "Нет заданных каталогов"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:687 ../src/gtk/fm-gtk-utils.c:554
+#: ../src/gtk/fm-gtk-file-launcher.c:700 ../src/gtk/fm-gtk-utils.c:554
 msgid "Select Folder"
 msgstr "Выберите каталог"
 
@@ -1077,51 +1100,51 @@ msgstr "Приложения"
 msgid "Filesystem Root"
 msgstr "Корень файловой системы"
 
-#: ../src/gtk/fm-places-view.c:124
+#: ../src/gtk/fm-places-view.c:131
 msgid "_Mount Volume"
 msgstr "Монтировать том"
 
-#: ../src/gtk/fm-places-view.c:125
+#: ../src/gtk/fm-places-view.c:132
 msgid "_Unmount Volume"
 msgstr "Размонтировать том"
 
-#: ../src/gtk/fm-places-view.c:126
+#: ../src/gtk/fm-places-view.c:133
 msgid "_Eject Removable Media"
 msgstr "Извлечь внешнее устройство"
 
-#: ../src/gtk/fm-places-view.c:127
+#: ../src/gtk/fm-places-view.c:134
 msgid "_Format Volume"
 msgstr "_Форматировать том"
 
-#: ../src/gtk/fm-places-view.c:143
+#: ../src/gtk/fm-places-view.c:150
 msgid "_Rename Bookmark Item"
 msgstr "_Переименовать закладку"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:151
 msgid "Re_move from Bookmarks"
 msgstr "_Удалить из закладок"
 
-#: ../src/gtk/fm-places-view.c:145
+#: ../src/gtk/fm-places-view.c:152
 msgid "Move Bookmark _Up"
 msgstr "Переместить _закладку выше"
 
-#: ../src/gtk/fm-places-view.c:146
+#: ../src/gtk/fm-places-view.c:153
 msgid "Move Bookmark _Down"
 msgstr "Переместить закладку _ниже"
 
-#: ../src/gtk/fm-places-view.c:159 ../src/modules/gtk-menu-trash.c:100
+#: ../src/gtk/fm-places-view.c:166 ../src/modules/gtk-menu-trash.c:100
 msgid "_Empty Trash Can"
 msgstr "_Очистить корзину"
 
-#: ../src/gtk/fm-places-view.c:526
+#: ../src/gtk/fm-places-view.c:533
 msgid "Shows list of common places, devices, and bookmarks in sidebar"
 msgstr "Отображает список общих мест, устройств и закладок в боковой панели"
 
-#: ../src/gtk/fm-places-view.c:1091
+#: ../src/gtk/fm-places-view.c:1102
 msgid "Rename Bookmark Item"
 msgstr "Переименовать закладку"
 
-#: ../src/gtk/fm-places-view.c:1092
+#: ../src/gtk/fm-places-view.c:1103
 msgid "Enter a new name:"
 msgstr "Введите новое имя:"
 
@@ -1294,19 +1317,19 @@ msgstr "Показать %s"
 msgid "_Forget Width"
 msgstr "С_бросить ширину"
 
-#: ../src/gtk/fm-standard-view.c:1821
+#: ../src/gtk/fm-standard-view.c:1854
 msgid "_Icon View"
 msgstr "_Просмотр в виде значков"
 
-#: ../src/gtk/fm-standard-view.c:1822
+#: ../src/gtk/fm-standard-view.c:1855
 msgid "_Compact View"
 msgstr "_Компактный вид"
 
-#: ../src/gtk/fm-standard-view.c:1823
+#: ../src/gtk/fm-standard-view.c:1856
 msgid "_Thumbnail View"
 msgstr "В виде _миниатюр"
 
-#: ../src/gtk/fm-standard-view.c:1824
+#: ../src/gtk/fm-standard-view.c:1857
 msgid "Detailed _List View"
 msgstr "_В виде подробного списка"
 
