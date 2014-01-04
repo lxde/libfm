@@ -3,7 +3,7 @@
  *
  *      Copyright 2010-2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      Copyright 2010 Shae Smittle <starfall87@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -417,6 +417,9 @@ typedef struct
     GtkCheckButton* audio_file_checkbutton;
     GtkCheckButton* video_file_checkbutton;
     GtkCheckButton* doc_file_checkbutton;
+    GtkCheckButton* dir_file_checkbutton;
+    GtkCheckButton* other_file_checkbutton;
+    GtkEntry* other_file_entry;
 
     GtkEntry* content_entry;
     GtkCheckButton* content_case_insensitive_checkbutton;
@@ -572,6 +575,16 @@ static gboolean launch_search(FileSearchUI* ui)
                 "application/msexcel;application/vnd.ms-excel"
             );
         }
+        if (ui->dir_file_checkbutton &&
+            gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->dir_file_checkbutton)))
+            mime_types = g_slist_prepend(mime_types, (gpointer)"inode/directory");
+        if (ui->other_file_checkbutton &&
+            gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ui->other_file_checkbutton)))
+        {
+            const char *txt = gtk_entry_get_text(ui->other_file_entry);
+            if (txt && txt[0] && strchr(txt, '&') == NULL) /* & is invalid here */
+                mime_types = g_slist_prepend(mime_types, (gpointer)txt);
+        }
 
         if(mime_types)
         {
@@ -717,6 +730,13 @@ static void on_remove_path_button_clicked(GtkButton * btn, gpointer user_data)
         gtk_list_store_remove( ui->path_list_store, &it );
 }
 
+static void on_other_file_checkbutton_toggled(GtkToggleButton *btn, FileSearchUI *ui)
+{
+    gboolean enabled = gtk_toggle_button_get_active(btn);
+
+    gtk_widget_set_sensitive(GTK_WIDGET(ui->other_file_entry), enabled);
+}
+
 static void file_search_ui_free(gpointer ui)
 {
     g_slice_free(FileSearchUI, ui);
@@ -770,6 +790,18 @@ gboolean fm_launch_search_simple(GtkWindow* parent, GAppLaunchContext* ctx,
     ui->audio_file_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "audio_file_checkbutton"));
     ui->video_file_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "video_file_checkbutton"));
     ui->doc_file_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "doc_file_checkbutton"));
+    ui->dir_file_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "dir_file_checkbutton"));
+    ui->other_file_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "other_file_checkbutton"));
+    ui->other_file_entry = GTK_ENTRY(gtk_builder_get_object(builder, "other_file_entry"));
+    if (ui->other_file_checkbutton)
+    {
+        gtk_widget_show(GTK_WIDGET(ui->other_file_checkbutton));
+        gtk_widget_show(GTK_WIDGET(ui->dir_file_checkbutton));
+        gtk_widget_show(GTK_WIDGET(ui->other_file_entry));
+        gtk_widget_set_sensitive(GTK_WIDGET(ui->other_file_entry), FALSE);
+        g_signal_connect(ui->other_file_checkbutton, "toggled",
+                         G_CALLBACK(on_other_file_checkbutton_toggled), ui);
+    }
 
     ui->content_entry = GTK_ENTRY(gtk_builder_get_object(builder, "content_entry"));
     ui->content_case_insensitive_checkbutton = GTK_CHECK_BUTTON(gtk_builder_get_object(builder, "content_case_insensitive_checkbutton"));
