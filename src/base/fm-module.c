@@ -3,7 +3,7 @@
  *
  *      This file is a part of the Libfm project.
  *
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -151,6 +151,8 @@ volatile gint fm_modules_loaded = 0;
 
 static guint idle_handler = 0;
 G_LOCK_DEFINE_STATIC(idle_handler);
+
+static GSList *m_dirs = NULL;
 
 static gboolean _fm_modules_on_idle(gpointer user_data)
 {
@@ -363,79 +365,96 @@ static gboolean _fm_modules_load(gpointer unused)
     void *ptr;
     FmModule *module;
     FmModuleType *mtype;
+    const char *dir_name;
+    GSList *dir_l;
 
     g_debug("starting modules initialization");
-    dir = g_dir_open(PACKAGE_MODULES_DIR, 0, NULL);
-    if (dir == NULL)
-    {
-        g_warning("modules directory is not accessible");
-        return FALSE;
-    }
+    G_LOCK(idle_handler);
+    dir_name = PACKAGE_MODULES_DIR;
+    dir_l = m_dirs;
     str = g_string_sized_new(128);
-    while ((file = g_dir_read_name(dir)) != NULL)
+    do
     {
-        if (!g_str_has_suffix(file, ".so")) /* ignore other files */
-            continue;
-        g_debug("found module file: %s", file);
-        g_string_printf(str, PACKAGE_MODULES_DIR"/%s", file);
-        handle = dlopen(str->str, RTLD_NOW);
-        if (handle == NULL) /* broken file */
-            continue;
-        name = dlsym(handle, "module_name");
-        if (name == NULL) /* no name found */
-            continue;
-        module = fm_module_new();
-        module->handle = handle;
-        G_LOCK(idle_handler);
-        for (mtype = modules_types; mtype; mtype = mtype->next)
+        dir = g_dir_open(dir_name, 0, NULL);
+        if (dir == NULL)
         {
-            /* test each file name - whitelist and blacklist */
-            if (fm_config->system_modules_blacklist || fm_config->modules_blacklist)
-            {
-                exp_list = fm_config->system_modules_blacklist;
-                if (exp_list)
-                    for ( ; *exp_list; exp_list++)
-                        if (_module_matches(mtype->type, name, *exp_list))
-                            break;
-                if (!exp_list || (!*exp_list && fm_config->modules_blacklist))
-                    for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
-                        if (_module_matches(mtype->type, name, *exp_list))
-                            break;
-                if (*exp_list) /* found in blacklist */
-                {
-                    if (!fm_config->modules_whitelist) /* no whitelist */
-                        continue;
-                    for (exp_list = fm_config->modules_whitelist; *exp_list; exp_list++)
-                        if (_module_matches(mtype->type, name, *exp_list))
-                            break;
-                    if (*exp_list == NULL) /* not matches whitelist */
-                        continue;
-                }
-            }
-            /* test version */
-            g_string_printf(str, "module_%s_version", mtype->type);
-            ptr = dlsym(handle, str->str);
-            if (ptr == NULL)
-                continue;
-            version = *(int *)ptr;
-            if (version < mtype->minver || version > mtype->maxver)
-                /* version mismatched */
-                continue;
-            /* test interface */
-            g_string_printf(str, "fm_module_init_%s", mtype->type);
-            ptr = dlsym(handle, str->str);
-            if (ptr == NULL) /* no interface found */
-                continue;
-            g_debug("found handler %s:%s", mtype->type, name);
-            /* if everything is ok then add to list */
-            if (mtype->cb(name, ptr, version))
-                mtype->modules = g_slist_prepend(mtype->modules, g_object_ref(module));
+            g_warning("modules directory is not accessible");
+            goto _next_dir;
         }
-        G_UNLOCK(idle_handler);
-        g_object_unref(module);
-    }
+        g_debug("scanning modules directory %s", dir_name);
+        while ((file = g_dir_read_name(dir)) != NULL)
+        {
+            if (!g_str_has_suffix(file, ".so")) /* ignore other files */
+                continue;
+            g_debug("found module file: %s", file);
+            g_string_printf(str, "%s/%s", dir_name, file);
+            handle = dlopen(str->str, RTLD_NOW);
+            if (handle == NULL) /* broken file */
+                continue;
+            name = dlsym(handle, "module_name");
+            if (name == NULL) /* no name found */
+                continue;
+            module = fm_module_new();
+            module->handle = handle;
+            for (mtype = modules_types; mtype; mtype = mtype->next)
+            {
+                /* test each file name - whitelist and blacklist */
+                if (fm_config->system_modules_blacklist || fm_config->modules_blacklist)
+                {
+                    exp_list = fm_config->system_modules_blacklist;
+                    if (exp_list)
+                        for ( ; *exp_list; exp_list++)
+                            if (_module_matches(mtype->type, name, *exp_list))
+                                break;
+                    if (!exp_list || (!*exp_list && fm_config->modules_blacklist))
+                        for (exp_list = fm_config->modules_blacklist; *exp_list; exp_list++)
+                            if (_module_matches(mtype->type, name, *exp_list))
+                                break;
+                    if (*exp_list) /* found in blacklist */
+                    {
+                        if (!fm_config->modules_whitelist) /* no whitelist */
+                            continue;
+                        for (exp_list = fm_config->modules_whitelist; *exp_list; exp_list++)
+                            if (_module_matches(mtype->type, name, *exp_list))
+                                break;
+                        if (*exp_list == NULL) /* not matches whitelist */
+                            continue;
+                    }
+                }
+                /* test version */
+                g_string_printf(str, "module_%s_version", mtype->type);
+                ptr = dlsym(handle, str->str);
+                if (ptr == NULL)
+                    continue;
+                version = *(int *)ptr;
+                if (version < mtype->minver || version > mtype->maxver)
+                    /* version mismatched */
+                    continue;
+                /* test interface */
+                g_string_printf(str, "fm_module_init_%s", mtype->type);
+                ptr = dlsym(handle, str->str);
+                if (ptr == NULL) /* no interface found */
+                    continue;
+                g_debug("found handler %s:%s", mtype->type, name);
+                /* if everything is ok then add to list */
+                if (mtype->cb(name, ptr, version))
+                    mtype->modules = g_slist_prepend(mtype->modules, g_object_ref(module));
+            }
+            g_object_unref(module);
+        }
+        g_dir_close(dir);
+_next_dir:
+        if (dir_l)
+        {
+            dir_name = dir_l->data;
+            dir_l = dir_l->next;
+            continue;
+        }
+    } while(0);
+    g_slist_free_full(m_dirs, g_free);
+    m_dirs = NULL;
+    G_UNLOCK(idle_handler);
     g_string_free(str, TRUE);
-    g_dir_close(dir);
     g_debug("done with modules");
     return FALSE;
 }
@@ -488,4 +507,30 @@ gboolean fm_module_is_in_use(const char *type, const char *name)
             break;
     }
     return (l != NULL);
+}
+
+/**
+ * fm_modules_add_directory
+ * @path: absolute path to modules directory
+ *
+ * Adds an application-specific directory @path to be used later for
+ * scanning for modules. The @path should be absolute UNIX path.
+ *
+ * Returns: %TRUE if @path was added successfully.
+ *
+ * Since: 1.2.0
+ */
+gboolean fm_modules_add_directory(const char *path)
+{
+    gboolean res = FALSE;
+
+    g_return_val_if_fail(path != NULL || path[0] != '/', FALSE);
+    G_LOCK(idle_handler);
+    if (fm_modules_loaded) /* it's too late... */
+        goto _finish;
+    m_dirs = g_slist_append(m_dirs, g_strdup(path));
+    res = TRUE;
+_finish:
+    G_UNLOCK(idle_handler);
+    return res;
 }

@@ -3,7 +3,7 @@
  *
  *      This file is a part of the Libfm project.
  *
- *      Copyright 2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2013-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -90,6 +90,8 @@ void fm_module_unregister_type(const char *type);
 void fm_modules_load(void);
 /* checks if in use */
 gboolean fm_module_is_in_use(const char *type, const char *name);
+/* add application-dependent path for modules */
+gboolean fm_modules_add_directory(const char *path);
 /* the flag */
 extern volatile gint fm_modules_loaded;
 

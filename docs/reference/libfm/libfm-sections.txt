@@ -893,6 +893,7 @@ FmModuleInitCallback
 fm_module_is_in_use
 fm_module_register_type
 fm_module_unregister_type
+fm_modules_add_directory
 fm_modules_load
 </SECTION>
 
