@@ -2,7 +2,7 @@
  *      fm-folder-model.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -49,11 +49,12 @@ G_BEGIN_DECLS
  * @FM_FOLDER_MODEL_COL_NAME: (#gchar *) file display name
  * @FM_FOLDER_MODEL_COL_SIZE: (#gchar *) file size text
  * @FM_FOLDER_MODEL_COL_DESC: (#gchar *) file MIME description
- * @FM_FOLDER_MODEL_COL_PERM: (#gchar *) reserved, not implemented
- * @FM_FOLDER_MODEL_COL_OWNER: (#gchar *) reserved, not implemented
+ * @FM_FOLDER_MODEL_COL_PERM: (#gchar *) file permissions like "rw-r--r--"
+ * @FM_FOLDER_MODEL_COL_OWNER: (#gchar *) file owner username
  * @FM_FOLDER_MODEL_COL_MTIME: (#gchar *) modification time text
  * @FM_FOLDER_MODEL_COL_INFO: (#FmFileInfo *) file info
  * @FM_FOLDER_MODEL_COL_DIRNAME: (#gchar *) path of dir containing the file
+ * @FM_FOLDER_MODEL_COL_EXT: (#gchar *) (since 1.2.0) last suffix of file name
  *
  * Columns of folder view
  */
@@ -68,6 +69,7 @@ typedef enum {
     FM_FOLDER_MODEL_COL_MTIME,
     FM_FOLDER_MODEL_COL_INFO,
     FM_FOLDER_MODEL_COL_DIRNAME,
+    FM_FOLDER_MODEL_COL_EXT,
     /*< private >*/
     FM_FOLDER_MODEL_N_COLS
 } FmFolderModelCol;

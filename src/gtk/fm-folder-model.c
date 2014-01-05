@@ -2,7 +2,7 @@
  *      fm-folder-model.c
  *
  *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- *      Copyright 2012-2013 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
+ *      Copyright 2012-2014 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -194,6 +194,7 @@ static FmFolderModelInfo column_infos_raw[] = {
     { FM_FOLDER_MODEL_COL_OWNER, 0, "owner", N_("Owner"), FALSE },
     { FM_FOLDER_MODEL_COL_MTIME, 0, "mtime", N_("Modified"), TRUE },
     { FM_FOLDER_MODEL_COL_DIRNAME, 0, "dirname", N_("Location"), TRUE },
+    { FM_FOLDER_MODEL_COL_EXT, 0, "ext", N_("Extension"), TRUE },
     /* columns used internally */
     { FM_FOLDER_MODEL_COL_INFO, 0, "info", NULL, TRUE },
     { FM_FOLDER_MODEL_COL_ICON, 0, "icon", NULL, FALSE },
@@ -823,6 +824,14 @@ static void fm_folder_model_get_value(GtkTreeModel *tree_model,
             }
             break;
         }
+    case FM_FOLDER_MODEL_COL_EXT:
+        {
+            const char *str = strrchr(fm_file_info_get_disp_name(info), '.');
+            if (str)
+                str++;
+            g_value_set_string(value, str);
+        }
+        break;
     case FM_FOLDER_MODEL_N_COLS: ; /* unused here */
     }
 }
@@ -1070,6 +1079,13 @@ _main_sort:
             /* FIXME: should we compare display names instead? */
             ret = fm_path_compare(dirpath1, dirpath2);
         }
+        break;
+    case FM_FOLDER_MODEL_COL_EXT:
+        key1 = strrchr(fm_file_info_get_disp_name(file1), '.');
+        key2 = strrchr(fm_file_info_get_disp_name(file2), '.');
+        ret = g_strcmp0(key1, key2);
+        if (ret == 0)
+            goto _sort_by_name;
         break;
     default:
 _sort_by_name:
@@ -2209,6 +2225,7 @@ void _fm_folder_model_init(void)
     column_infos[FM_FOLDER_MODEL_COL_OWNER]->type= G_TYPE_STRING;
     column_infos[FM_FOLDER_MODEL_COL_MTIME]->type= G_TYPE_STRING;
     column_infos[FM_FOLDER_MODEL_COL_DIRNAME]->type= G_TYPE_STRING;
+    column_infos[FM_FOLDER_MODEL_COL_EXT]->type= G_TYPE_STRING;
 
     /* columns used internally */
     column_infos[FM_FOLDER_MODEL_COL_INFO]->type= G_TYPE_POINTER;
