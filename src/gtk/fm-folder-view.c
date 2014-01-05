@@ -1925,7 +1925,6 @@ void _fm_folder_view_finalize(void)
     GList *list, *l;
     FmContextMenuSchemeExt *ext;
 
-    fm_module_unregister_type("gtk_menu_scheme");
     list = extensions;
     extensions = NULL;
     for (l = list; l; l = l->next)
@@ -1938,6 +1937,7 @@ void _fm_folder_view_finalize(void)
         g_slice_free(FmContextMenuSchemeExt, ext);
     }
     g_list_free(list);
+    fm_module_unregister_type("gtk_menu_scheme");
 }
 
 /**

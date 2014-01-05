@@ -895,7 +895,6 @@ void _fm_file_menu_finalize(void)
     GList *list, *l;
     FmFileMenuMimeExt *ext;
 
-    fm_module_unregister_type("gtk_menu_mime");
     list = extensions;
     extensions = NULL;
     for (l = list; l; l = l->next)
@@ -908,4 +907,5 @@ void _fm_file_menu_finalize(void)
         g_slice_free(FmFileMenuMimeExt, ext);
     }
     g_list_free(list);
+    fm_module_unregister_type("gtk_menu_mime");
 }
